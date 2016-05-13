@@ -111,9 +111,15 @@ namespace IceBlink2
 
         public void Draw()
         {
-            IbRect src = new IbRect(0, 0, gv.cc.GetFromBitmapList(backgroundImageFilename).PixelSize.Width, gv.cc.GetFromBitmapList(backgroundImageFilename).PixelSize.Height);
-            IbRect dst = new IbRect((int)(currentLocX * gv.screenDensity), (int)(currentLocY * gv.screenDensity), (int)(Width * gv.screenDensity), (int)(Height * gv.screenDensity));
-            gv.DrawBitmap(gv.cc.GetFromBitmapList(backgroundImageFilename), src, dst, 0, false, 0.75f);
+            if (!gv.mod.useMinimalisticUI)
+            {
+                IbRect src = new IbRect(0, 0, gv.cc.GetFromBitmapList(backgroundImageFilename).PixelSize.Width, gv.cc.GetFromBitmapList(backgroundImageFilename).PixelSize.Height);
+                IbRect dst = new IbRect((int)(currentLocX * gv.screenDensity), (int)(currentLocY * gv.screenDensity), (int)(Width * gv.screenDensity), (int)(Height * gv.screenDensity));
+                gv.DrawBitmap(gv.cc.GetFromBitmapList(backgroundImageFilename), src, dst, 0, false, 0.75f);
+            }
+            //IbRect src = new IbRect(0, 0, gv.cc.GetFromBitmapList(backgroundImageFilename).PixelSize.Width, gv.cc.GetFromBitmapList(backgroundImageFilename).PixelSize.Height);
+            //IbRect dst = new IbRect((int)(currentLocX * gv.screenDensity), (int)(currentLocY * gv.screenDensity), (int)(Width * gv.screenDensity), (int)(Height * gv.screenDensity));
+            //gv.DrawBitmap(gv.cc.GetFromBitmapList(backgroundImageFilename), src, dst, 0, false, 0.75f);
 
             //iterate over all controls and draw
             foreach (IB2Button btn in buttonList)
@@ -128,10 +134,56 @@ namespace IceBlink2
             {
                 btn.Draw(this);
             }
+
+            if (!gv.mod.useMinimalisticUI)
+            {
+                foreach (IB2HtmlLogBox log in logList)
+                {
+                    log.onDrawLogBox(this);
+                }
+            }
+        }
+
+        public void DrawLogBackground()
+        {
+            //hurgh11
+            IbRect src = new IbRect(0, 0, gv.cc.GetFromBitmapList("black_tile3").PixelSize.Width, gv.cc.GetFromBitmapList("black_tile2").PixelSize.Height);
+            IbRect dst = new IbRect((int)(currentLocX * gv.screenDensity), (int)(currentLocY * gv.screenDensity - 3*gv.pS), (int)(Width * gv.screenDensity + 2*gv.pS), (int)(Height * gv.screenDensity - gv.squareSize + 7*gv.pS));
+            gv.DrawBitmap(gv.cc.GetFromBitmapList("black_tile3"), src, dst, 0, false, 0.625f * gv.mod.logOpacity);
+
             foreach (IB2HtmlLogBox log in logList)
             {
                 log.onDrawLogBox(this);
             }
+
+            //foreach (IB2ToggleButton btn in toggleList)
+            //{
+                //btn.Draw(this);
+            //}
+            /*
+            src = new IbRect(0, 0, gv.cc.GetFromBitmapList(backgroundImageFilename).PixelSize.Width, gv.cc.GetFromBitmapList(backgroundImageFilename).PixelSize.Height);
+            dst = new IbRect(gv.pS, (int)((gv.playerOffsetY*2+1 -2) * gv.squareSize + 2*gv.pS), (int)(5 * gv.squareSize), (int)(1 * gv.squareSize - 2*gv.pS ));
+            gv.DrawBitmap(gv.cc.GetFromBitmapList(backgroundImageFilename), src, dst, 0, false, 0.75f);
+            */
+
+            /*
+            //iterate over all controls and draw
+            foreach (IB2Button btn in buttonList)
+            {
+                btn.Draw(this);
+            }
+            foreach (IB2ToggleButton btn in toggleList)
+            {
+                btn.Draw(this);
+            }
+            foreach (IB2Portrait btn in portraitList)
+            {
+                btn.Draw(this);
+            }
+            */
+
+            
+            
         }
 
         public void Update(int elapsed)

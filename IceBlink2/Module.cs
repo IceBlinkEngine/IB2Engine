@@ -39,6 +39,10 @@ namespace IceBlink2
         public bool isSnowing = false;
         public bool isLightning = false;
         public bool isSandstorm = false;
+        public float logOpacity = 1f;
+        public int logFadeCounter = 180;
+        public bool useMinimalisticUI = false;
+        public bool useManualCombatCam = false;
 
         public float pixDistanceToBorderWest = 0;
         public float pixDistanceToBorderEast = 0;
@@ -50,7 +54,7 @@ namespace IceBlink2
         public float sandStormDirectionX = 1f;
         public float sandStormDirectionY = 1f;
         public string sandStormBlowingTo = "";
-        public bool useManualCombatCam = true;
+      
         public string moduleName = "none";
         public string moduleLabelName = "none";
         public int moduleVersion = 1;

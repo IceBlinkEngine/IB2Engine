@@ -57,9 +57,27 @@ namespace IceBlink2
         public void Draw()
         {
             //iterate over all controls and draw
-            foreach (IB2Panel pnl in panelList)
+            if (gv.mod.useMinimalisticUI)
             {
-                pnl.Draw();
+                foreach (IB2Panel pnl in panelList)
+                {
+
+                    if (pnl.tag.Equals("logPanel"))
+                    {
+                        pnl.DrawLogBackground();
+                    }
+                    else
+                    {
+                        pnl.Draw();
+                    }
+                }
+            }
+            else
+            {
+                foreach (IB2Panel pnl in panelList)
+                {
+                        pnl.Draw();
+                }
             }
         }
 

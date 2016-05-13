@@ -6814,7 +6814,16 @@ namespace IceBlink2
                         float wordWidth = gv.textLayout.Metrics.WidthIncludingTrailingWhitespace;
                         if (height > lineHeight) { lineHeight = (int)height; }
                         //int wordWidth = (int)(frm.gCanvas.MeasureString(newWord.word, font)).Width;
-                        if (xLoc + wordWidth > width) //word wrap
+                        float modifiedWidth = 0;
+                        if (gv.mod.useMinimalisticUI)
+                        {
+                            modifiedWidth = width + gv.pS;
+                        }
+                        else
+                        {
+                            modifiedWidth = width;
+                        }
+                        if (xLoc + wordWidth > modifiedWidth) //word wrap
                         {
                             //end last line and add it to the log
                             newLine.lineHeight = lineHeight;
@@ -6822,11 +6831,15 @@ namespace IceBlink2
                             //start a new line and add this word
                             newLine = new FormattedLine();
                             newLine.wordsList.Add(newWord);
+                            gv.mod.logFadeCounter = 180;
+                            gv.mod.logOpacity = 1f;
                             xLoc = 0;
                         }
                         else //no word wrap, just add word
                         {
                             newLine.wordsList.Add(newWord);
+                            gv.mod.logFadeCounter = 180;
+                            gv.mod.logOpacity = 1f;
                         }
                         //instead of drawing, just add to line list 
                         //DrawString(g, word, font, brush, xLoc, yLoc);
@@ -6930,11 +6943,15 @@ namespace IceBlink2
                             //start a new line and add this word
                             newLine = new FormattedLine();
                             newLine.wordsList.Add(newWord);
+                            gv.mod.logFadeCounter = 180;
+                            gv.mod.logOpacity = 1f;
                             xLoc = 0;
                         }
                         else //no word wrap, just add word
                         {
                             newLine.wordsList.Add(newWord);
+                            gv.mod.logFadeCounter = 180;
+                            gv.mod.logOpacity = 1f;
                         }
                         //instead of drawing, just add to line list 
                         //DrawString(g, word, font, brush, xLoc, yLoc);

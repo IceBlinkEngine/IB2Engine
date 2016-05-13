@@ -118,7 +118,16 @@ namespace IceBlink2
                         gv.cc.addLogText("fuchsia", "You can scroll this message log box, use mouse wheel");
                         gv.cc.addLogText("yellow", "'x' will hide/show all UI panels");
                     }
-                }
+
+                    if (gv.mod.useMinimalisticUI)
+                    {
+                        if (pnl.tag.Equals("arrowPanel"))
+                        {
+                            pnl.hiding = true;
+                            pnl.showing = false;
+                        }
+                    }
+                    }
             }
             catch (Exception ex)
             {
@@ -894,6 +903,18 @@ namespace IceBlink2
             //finalBlackenOffMapScreen();
             drawUiLayout();
             drawMiniMap();
+            if (gv.mod.useMinimalisticUI)
+            {
+                if (gv.mod.logFadeCounter > 0)
+                {
+                    gv.mod.logFadeCounter--;
+                }
+
+                if ((gv.mod.logFadeCounter <= 0) && (gv.mod.logOpacity >= 0.00425))
+                {
+                    gv.mod.logOpacity -= 0.00425f;
+                }
+            }
         }
         
         //not used anymore (With extended playerOffsetY)
@@ -25809,14 +25830,29 @@ namespace IceBlink2
 
             int txtH = (int)gv.drawFontRegHeight;
 
-            for (int x = -2; x <= 2; x++)
+            if (gv.mod.useMinimalisticUI)
             {
-                for (int y = -2; y <= 2; y++)
+                for (int x = -2; x <= 2; x++)
                 {
-                    gv.DrawText(hour + ":" + sMinute, new IbRect(gv.oXshift + x + (gv.playerOffsetY-1) * gv.squareSize, gv.playerOffsetX * gv.squareSize - txtH + y - gv.pS, 100, 100), 1.0f, Color.Black);
+                    for (int y = -2; y <= 2; y++)
+                    {
+                        gv.DrawText(hour + ":" + sMinute, new IbRect(gv.oXshift + x + (gv.playerOffsetY - 5) * gv.squareSize, gv.playerOffsetX * gv.squareSize - txtH + y - gv.pS, 100, 100), 1.0f, Color.Black);
+                    }
                 }
+                gv.DrawText(hour + ":" + sMinute, new IbRect(gv.oXshift + (gv.playerOffsetY - 5) * gv.squareSize, gv.playerOffsetX * gv.squareSize - txtH - gv.pS, 100, 100), 1.0f, Color.White);
             }
-            gv.DrawText(hour + ":" + sMinute, new IbRect(gv.oXshift + (gv.playerOffsetY-1) * gv.squareSize, gv.playerOffsetX * gv.squareSize - txtH - gv.pS, 100, 100), 1.0f, Color.White);
+            else
+            {
+                for (int x = -2; x <= 2; x++)
+                {
+                    for (int y = -2; y <= 2; y++)
+                    {
+                        gv.DrawText(hour + ":" + sMinute, new IbRect(gv.oXshift + x + (gv.playerOffsetY - 1) * gv.squareSize, gv.playerOffsetX * gv.squareSize - txtH + y - gv.pS, 100, 100), 1.0f, Color.Black);
+                    }
+                }
+                gv.DrawText(hour + ":" + sMinute, new IbRect(gv.oXshift + (gv.playerOffsetY - 1) * gv.squareSize, gv.playerOffsetX * gv.squareSize - txtH - gv.pS, 100, 100), 1.0f, Color.White);
+
+            }
 
         }
         public void drawFogOfWar()

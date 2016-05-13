@@ -59,15 +59,31 @@ namespace IceBlink2
             if (show)
             {
                 IbRect src = new IbRect(0, 0, gv.cc.GetFromBitmapList(ImgOnFilename).PixelSize.Width, gv.cc.GetFromBitmapList(ImgOnFilename).PixelSize.Height);
-                IbRect dst = new IbRect((int)((parentPanel.currentLocX + this.X) * gv.screenDensity), (int)((parentPanel.currentLocY + this.Y) * gv.screenDensity), (int)((float)Width * gv.screenDensity), (int)((float)Height * gv.screenDensity));
-
-                if (toggleOn)
+                IbRect dst = new IbRect(0, 0, 0, 0);
+                if (gv.mod.useMinimalisticUI)
                 {
-                    gv.DrawBitmap(gv.cc.GetFromBitmapList(ImgOnFilename), src, dst);
+                    dst = new IbRect((int)((parentPanel.currentLocX + this.X - 3 * gv.pS) * gv.screenDensity), (int)((parentPanel.currentLocY + this.Y) * gv.screenDensity), (int)((float)Width * gv.screenDensity), (int)((float)Height * gv.screenDensity));
                 }
                 else
                 {
-                    gv.DrawBitmap(gv.cc.GetFromBitmapList(ImgOffFilename), src, dst);
+                    dst = new IbRect((int)((parentPanel.currentLocX + this.X) * gv.screenDensity), (int)((parentPanel.currentLocY + this.Y) * gv.screenDensity), (int)((float)Width * gv.screenDensity), (int)((float)Height * gv.screenDensity));
+                }
+
+                if (toggleOn)
+                {
+                    if (gv.mod.useMinimalisticUI)
+                    {
+                        gv.DrawBitmap(gv.cc.GetFromBitmapList("black_tile2"), src, dst, 0, false, 0.75f);
+                    }
+                    gv.DrawBitmap(gv.cc.GetFromBitmapList(ImgOnFilename), src, dst, 0, false, 1f);
+                }
+                else
+                {
+                    if (gv.mod.useMinimalisticUI)
+                    {
+                        gv.DrawBitmap(gv.cc.GetFromBitmapList("black_tile2"), src, dst, 0, false, 0.75f);
+                    }
+                    gv.DrawBitmap(gv.cc.GetFromBitmapList(ImgOffFilename), src, dst, 0, false, 1f);
                 }
             }
         }

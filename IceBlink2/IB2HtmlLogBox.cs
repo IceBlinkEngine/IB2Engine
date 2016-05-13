@@ -87,7 +87,15 @@ namespace IceBlink2
             //only draw lines needed to fill textbox
             float xLoc = 0;
             float yLoc = 3.0f;
-            int maxLines = currentTopLineIndex + numberOfLinesToShow;
+            int maxLines = 0;
+            if (gv.mod.useMinimalisticUI)
+            {
+                maxLines = currentTopLineIndex + numberOfLinesToShow - 2;
+            }
+            else
+            {
+                maxLines = currentTopLineIndex + numberOfLinesToShow;
+            }
             if (maxLines > logLinesList.Count) { maxLines = logLinesList.Count; }
             for (int i = currentTopLineIndex; i < maxLines; i++)
             {
@@ -114,8 +122,11 @@ namespace IceBlink2
                     }
                     int xLoc2 = (int)((parentPanel.currentLocX * gv.screenDensity + xLoc));
                     int yLoc2 = (int)((parentPanel.currentLocY * gv.screenDensity + yLoc + difYheight));
+                    int logOpac = (int)(255f * gv.mod.logOpacity);
+                    word.color.A = (byte)(logOpac);
                     DrawString(word.text + " ", xLoc2, yLoc2, word.fontWeight, word.fontStyle, word.color, word.fontSize, word.underlined);
                     xLoc += gv.textLayout.Metrics.WidthIncludingTrailingWhitespace;
+                    
                 }
                 xLoc = 0;
                 yLoc += logLinesList[i].lineHeight;
