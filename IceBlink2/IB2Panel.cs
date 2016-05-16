@@ -147,9 +147,9 @@ namespace IceBlink2
         public void DrawLogBackground()
         {
             //hurgh11
-            IbRect src = new IbRect(0, 0, gv.cc.GetFromBitmapList("black_tile3").PixelSize.Width, gv.cc.GetFromBitmapList("black_tile2").PixelSize.Height);
+            IbRect src = new IbRect(0, 0, gv.cc.GetFromBitmapList(backgroundImageFilename).PixelSize.Width, gv.cc.GetFromBitmapList(backgroundImageFilename).PixelSize.Height);
             IbRect dst = new IbRect((int)(currentLocX * gv.screenDensity), (int)(currentLocY * gv.screenDensity - 3*gv.pS), (int)(Width * gv.screenDensity + 2*gv.pS), (int)(Height * gv.screenDensity - gv.squareSize + 7*gv.pS));
-            gv.DrawBitmap(gv.cc.GetFromBitmapList("black_tile3"), src, dst, 0, false, 0.625f * gv.mod.logOpacity);
+            gv.DrawBitmap(gv.cc.GetFromBitmapList(backgroundImageFilename), src, dst, 0, false, 0.625f * gv.mod.logOpacity);
 
             foreach (IB2HtmlLogBox log in logList)
             {

@@ -62,7 +62,7 @@ namespace IceBlink2
                 IbRect dst = new IbRect(0, 0, 0, 0);
                 if (gv.mod.useMinimalisticUI)
                 {
-                    dst = new IbRect((int)((parentPanel.currentLocX + this.X - 3 * gv.pS) * gv.screenDensity), (int)((parentPanel.currentLocY + this.Y) * gv.screenDensity), (int)((float)Width * gv.screenDensity), (int)((float)Height * gv.screenDensity));
+                    dst = new IbRect((int)((parentPanel.currentLocX + this.X - 2 * gv.pS) * gv.screenDensity), (int)((parentPanel.currentLocY + this.Y) * gv.screenDensity), (int)((float)Width * gv.screenDensity), (int)((float)Height * gv.screenDensity));
                 }
                 else
                 {

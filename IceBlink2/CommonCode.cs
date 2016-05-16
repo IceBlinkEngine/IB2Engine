@@ -6831,14 +6831,14 @@ namespace IceBlink2
                             //start a new line and add this word
                             newLine = new FormattedLine();
                             newLine.wordsList.Add(newWord);
-                            gv.mod.logFadeCounter = 180;
+                            gv.mod.logFadeCounter = 120;
                             gv.mod.logOpacity = 1f;
                             xLoc = 0;
                         }
                         else //no word wrap, just add word
                         {
                             newLine.wordsList.Add(newWord);
-                            gv.mod.logFadeCounter = 180;
+                            gv.mod.logFadeCounter = 120;
                             gv.mod.logOpacity = 1f;
                         }
                         //instead of drawing, just add to line list 
@@ -6943,14 +6943,14 @@ namespace IceBlink2
                             //start a new line and add this word
                             newLine = new FormattedLine();
                             newLine.wordsList.Add(newWord);
-                            gv.mod.logFadeCounter = 180;
+                            gv.mod.logFadeCounter = 120;
                             gv.mod.logOpacity = 1f;
                             xLoc = 0;
                         }
                         else //no word wrap, just add word
                         {
                             newLine.wordsList.Add(newWord);
-                            gv.mod.logFadeCounter = 180;
+                            gv.mod.logFadeCounter = 120;
                             gv.mod.logOpacity = 1f;
                         }
                         //instead of drawing, just add to line list 

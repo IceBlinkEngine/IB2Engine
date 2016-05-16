@@ -125,6 +125,7 @@ namespace IceBlink2
                         {
                             pnl.hiding = true;
                             pnl.showing = false;
+                            showArrows = false;
                         }
                     }
                     }
@@ -910,9 +911,9 @@ namespace IceBlink2
                     gv.mod.logFadeCounter--;
                 }
 
-                if ((gv.mod.logFadeCounter <= 0) && (gv.mod.logOpacity >= 0.00425))
+                if ((gv.mod.logFadeCounter <= 0) && (gv.mod.logOpacity >= 0.00525))
                 {
-                    gv.mod.logOpacity -= 0.00425f;
+                    gv.mod.logOpacity -= 0.00525f;
                 }
             }
         }
