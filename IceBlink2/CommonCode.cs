@@ -2200,7 +2200,8 @@ namespace IceBlink2
             //do weather sounds
             if (gv.mod.currentArea.areaWeatherName != "")
             {
-                doWeatherSound();
+                //disabled while adjusting to new system
+                //doWeatherSound();
             }
             //move any props that are active and only if they are not on the party location
             doPropMoves();
@@ -2492,68 +2493,19 @@ namespace IceBlink2
             //requires a switch on module levelset to true as well as the ingame toggle for music&sound on
             if ((gv.mod.useWeatherSound) && (gv.mod.playMusic))
             {
-                if (gv.mod.debugMode)
-                {
-                    gv.log.AddHtmlTextToLog(gv.mod.currentWeatherName.ToString());
-                }
+                //if (gv.mod.debugMode)
+                //{
+                    //gv.log.AddHtmlTextToLog(gv.mod.currentWeatherName.ToString());
+                //}
                 //weather effects, defined by layer names on each channel, are read in freshl on each update call
                 gv.mod.weatherSoundList.Clear();
 
                 //only read in usable and at the same time active channles (i.e. their layer name)
                 //this should allow to also catch showers and lightings correctly who are usable all the time, but only active at rndom intervals
-                if ((gv.mod.currentArea.useFullScreenEffectLayer5 == true) && (gv.mod.currentArea.fullScreenEffectLayerName5 != "") && (gv.mod.currentArea.fullScreenEffectLayerIsActive5 == true))
+                if (gv.mod.currentArea.areaWeatherName != "") 
                 {
                     //store all availabe names in a list
-                    gv.mod.weatherSoundList.Add(gv.mod.currentArea.fullScreenEffectLayerName5);
-                    if (gv.mod.debugMode)
-                    {
-                        gv.log.AddHtmlTextToLog("Layer5 name is:" + gv.mod.currentArea.fullScreenEffectLayerName5.ToString());
-                    }
-                }
-
-                if ((gv.mod.currentArea.useFullScreenEffectLayer6 == true) && (gv.mod.currentArea.fullScreenEffectLayerName6 != "") && (gv.mod.currentArea.fullScreenEffectLayerIsActive6 == true))
-                {
-                    gv.mod.weatherSoundList.Add(gv.mod.currentArea.fullScreenEffectLayerName6);
-                    if (gv.mod.debugMode)
-                    {
-                        gv.log.AddHtmlTextToLog("Layer6 name is:" + gv.mod.currentArea.fullScreenEffectLayerName6.ToString());
-                    }
-                }
-
-                if ((gv.mod.currentArea.useFullScreenEffectLayer7 == true) && (gv.mod.currentArea.fullScreenEffectLayerName7 != "") && (gv.mod.currentArea.fullScreenEffectLayerIsActive7 == true))
-                {
-                    gv.mod.weatherSoundList.Add(gv.mod.currentArea.fullScreenEffectLayerName7);
-                    if (gv.mod.debugMode)
-                    {
-                        gv.log.AddHtmlTextToLog("Layer7 name is:" + gv.mod.currentArea.fullScreenEffectLayerName7.ToString());
-                    }
-                }
-
-                if ((gv.mod.currentArea.useFullScreenEffectLayer8 == true) && (gv.mod.currentArea.fullScreenEffectLayerName8 != "") && (gv.mod.currentArea.fullScreenEffectLayerIsActive8 == true))
-                {
-                    gv.mod.weatherSoundList.Add(gv.mod.currentArea.fullScreenEffectLayerName8);
-                    if (gv.mod.debugMode)
-                    {
-                        gv.log.AddHtmlTextToLog("Layer8 name is:" + gv.mod.currentArea.fullScreenEffectLayerName8.ToString());
-                    }
-                }
-
-                if ((gv.mod.currentArea.useFullScreenEffectLayer9 == true) && (gv.mod.currentArea.fullScreenEffectLayerName9 != "") && (gv.mod.currentArea.fullScreenEffectLayerIsActive9 == true))
-                {
-                    gv.mod.weatherSoundList.Add(gv.mod.currentArea.fullScreenEffectLayerName9);
-                    if (gv.mod.debugMode)
-                    {
-                        gv.log.AddHtmlTextToLog("Layer9 name is:" + gv.mod.currentArea.fullScreenEffectLayerName9.ToString());
-                    }
-                }
-
-                if ((gv.mod.currentArea.useFullScreenEffectLayer10 == true) && (gv.mod.currentArea.fullScreenEffectLayerName10 != "") && (gv.mod.currentArea.fullScreenEffectLayerIsActive10 == true))
-                {
-                    gv.mod.weatherSoundList.Add(gv.mod.currentArea.fullScreenEffectLayerName10);
-                    if (gv.mod.debugMode)
-                    {
-                        gv.log.AddHtmlTextToLog("Layer10 name is:" + gv.mod.currentArea.fullScreenEffectLayerName10.ToString());
-                    }
+                    gv.mod.weatherSoundList.Add(gv.mod.currentArea.areaWeatherName);
                 }
 
                 //soundName is used to store the relevant name on the different checks for wind, sandStorm, rain and lightning
@@ -2570,12 +2522,12 @@ namespace IceBlink2
                     //the idea is that the mp3 files have same name as the defining part of the weather layers name
                     //e.g. the channelname/.png heavyRainLayerA(.png) correponds with heavyRain(.mp3)
                     //check for heavyRain
-                    if (weatherComponentName.Contains("heavyRain"))
+                    if ((weatherComponentName.Contains("heavyRain")) || (weatherComponentName.Contains("HeavyRain")))
                     {
                         //store that rain is still running and that the sound channel for rain, ie sound channel1, shall not be stopped 
                         isRaining = true;
                         gv.weatherSounds1.settings.volume = (int)(23 * weatherSoundMultiplier);
-                        if (gv.mod.weatherSoundsName1 != "heavyRain")
+                        if ((gv.mod.weatherSoundsName1 != "heavyRain") && (gv.mod.weatherSoundsName1 != "HeavyRain"))
                         {
                             gv.mod.weatherSoundsName1 = "heavyRain";
                             soundName = gv.mod.weatherSoundsName1;
@@ -2609,11 +2561,11 @@ namespace IceBlink2
                     }
 
                     //check for lightRain
-                    if (weatherComponentName.Contains("lightRain"))
+                    if ((weatherComponentName.Contains("lightRain")) || (weatherComponentName.Contains("LightRain")))
                     {
                         isRaining = true;
                         gv.weatherSounds1.settings.volume = (int)(45 * weatherSoundMultiplier);
-                        if (gv.mod.weatherSoundsName1 != "lightRain")
+                        if ((gv.mod.weatherSoundsName1 != "lightRain") && (gv.mod.weatherSoundsName1 != "lightRain"))
                         {
                             gv.mod.weatherSoundsName1 = "lightRain";
                             soundName = gv.mod.weatherSoundsName1;
@@ -2647,11 +2599,11 @@ namespace IceBlink2
                     }
 
                     //check for "normal" rain
-                    if (weatherComponentName.Contains("rain"))
+                    if ((weatherComponentName.Contains("rain")) || (weatherComponentName.Contains("Rain")))
                     {
                         isRaining = true;
                         gv.weatherSounds1.settings.volume = (int)(55 * weatherSoundMultiplier);
-                        if (gv.mod.weatherSoundsName1 != "rain")
+                        if ((gv.mod.weatherSoundsName1 != "rain") && (gv.mod.weatherSoundsName1 != "Rain"))
                         {
                             gv.mod.weatherSoundsName1 = "rain";
                             soundName = gv.mod.weatherSoundsName1;
@@ -2689,11 +2641,11 @@ namespace IceBlink2
                 //set up heavy wind
                 foreach (string weatherComponentName in gv.mod.weatherSoundList)
                 {
-                    if (weatherComponentName.Contains("heavyCloud"))
+                    if ((weatherComponentName.Contains("heavyCloud")) || (weatherComponentName.Contains("HeavyCloud")))
                     {
                         isWindy = true;
                         gv.weatherSounds2.settings.volume = (int)(55 * weatherSoundMultiplier);
-                        if ((gv.mod.weatherSoundsName2 != "heavyCloud") || (gv.mod.resetWeatherSound))
+                        if (((gv.mod.weatherSoundsName2 != "heavyCloud") && (gv.mod.weatherSoundsName2 != "HeavyCloud")) || (gv.mod.resetWeatherSound))
                         {
                             if (gv.mod.resetWeatherSound)
                             {
