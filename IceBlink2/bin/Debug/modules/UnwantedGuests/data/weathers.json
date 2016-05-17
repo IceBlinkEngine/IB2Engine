@@ -8,7 +8,7 @@
             "tag": "newWeatherTypeListItemTag_9461",
             "name": "clear",
             "combinedInfo": "clear (10%) (50 ticks)",
-            "chance": 10,
+            "chance": 0,
             "duration": 50
           },
           {
@@ -16,7 +16,7 @@
             "tag": "newWeatherTypeListItemTag_9463",
             "name": "lightCloudsA",
             "combinedInfo": "lightCloudsA (5%) (50 ticks)",
-            "chance": 5,
+            "chance": 0,
             "duration": 50
           },
           {
@@ -24,7 +24,7 @@
             "tag": "newWeatherTypeListItemTag_9465",
             "name": "lightCloudsB",
             "combinedInfo": "lightCloudsB (5%) (50 ticks)",
-            "chance": 5,
+            "chance": 0,
             "duration": 50
           },
           {
@@ -32,7 +32,7 @@
             "tag": "newWeatherTypeListItemTag_9466",
             "name": "lightCloudsC",
             "combinedInfo": "lightCloudsC (5%) (50 ticks)",
-            "chance": 5,
+            "chance": 0,
             "duration": 50
           },
           {
@@ -40,7 +40,7 @@
             "tag": "newWeatherTypeListItemTag_9468",
             "name": "cloudsA",
             "combinedInfo": "cloudsA (10%) (50 ticks)",
-            "chance": 10,
+            "chance": 0,
             "duration": 50
           },
           {
@@ -48,7 +48,7 @@
             "tag": "newWeatherTypeListItemTag_9469",
             "name": "cloudsB",
             "combinedInfo": "cloudsB (10%) (50 ticks)",
-            "chance": 10,
+            "chance": 0,
             "duration": 50
           },
           {
@@ -56,7 +56,7 @@
             "tag": "newWeatherTypeListItemTag_9470",
             "name": "cloudsC",
             "combinedInfo": "cloudsC (10%) (50 ticks)",
-            "chance": 10,
+            "chance": 0,
             "duration": 50
           },
           {
@@ -64,7 +64,7 @@
             "tag": "newWeatherTypeListItemTag_9471",
             "name": "lightRainWithCloudsAShowers",
             "combinedInfo": "lightRainWithCloudsAShowers (5%) (100 ticks)",
-            "chance": 5,
+            "chance": 0,
             "duration": 100
           },
           {
@@ -72,7 +72,7 @@
             "tag": "newWeatherTypeListItemTag_9472",
             "name": "lightRainWithCloudsBShowers",
             "combinedInfo": "lightRainWithCloudsBShowers (5%) (100 ticks)",
-            "chance": 5,
+            "chance": 0,
             "duration": 100
           },
           {
@@ -80,7 +80,7 @@
             "tag": "newWeatherTypeListItemTag_9473",
             "name": "lightRainWithCloudsCShowers",
             "combinedInfo": "lightRainWithCloudsCShowers (5%) (100 ticks)",
-            "chance": 5,
+            "chance": 0,
             "duration": 100
           },
           {
@@ -88,7 +88,7 @@
             "tag": "newWeatherTypeListItemTag_9474",
             "name": "rainWithCloudsAShowers",
             "combinedInfo": "rainWithCloudsAShowers (10%) (100 ticks)",
-            "chance": 10,
+            "chance": 0,
             "duration": 100
           },
           {
@@ -96,7 +96,7 @@
             "tag": "newWeatherTypeListItemTag_9475",
             "name": "rainWithCloudsBShowers",
             "combinedInfo": "rainWithCloudsBShowers (10%) (50 ticks)",
-            "chance": 10,
+            "chance": 0,
             "duration": 50
           },
           {
@@ -104,7 +104,7 @@
             "tag": "newWeatherTypeListItemTag_9476",
             "name": "rainWithCloudsCShowers",
             "combinedInfo": "rainWithCloudsCShowers (10%) (50 ticks)",
-            "chance": 10,
+            "chance": 0,
             "duration": 50
           },
           {
@@ -136,8 +136,8 @@
             "tag": "newWeatherTypeListItemTag_9482",
             "name": "heavyRainWithHeavyCloudsAAndLightning",
             "combinedInfo": "heavyRainWithHeavyCloudsAAndLightning (0%) (50 ticks)",
-            "chance": 0,
-            "duration": 50
+            "chance": 100,
+            "duration": 500
           },
           {
             "weatherEffectName": "heavyRainWithHeavyCloudsBAndLightning",
@@ -166,15 +166,23 @@
             "tag": "newWeatherTypeListItemTag_9463",
             "name": "lightCloudsA",
             "combinedInfo": "lightCloudsA (15%) (50 ticks)",
-            "chance": 15,
+            "chance": 0,
             "duration": 50
+          },
+          {
+            "weatherEffectName": "heavyRainWithHeavyCloudsAAndLightning",
+            "tag": "newWeatherTypeListItemTag_9482",
+            "name": "heavyRainWithHeavyCloudsAAndLightning",
+            "combinedInfo": "heavyRainWithHeavyCloudsAAndLightning (0%) (50 ticks)",
+            "chance": 100,
+            "duration": 500
           },
           {
             "weatherEffectName": "lightCloudsB",
             "tag": "newWeatherTypeListItemTag_9465",
             "name": "lightCloudsB",
             "combinedInfo": "lightCloudsB (15%) (50 ticks)",
-            "chance": 15,
+            "chance": 0,
             "duration": 50
           },
           {
@@ -182,7 +190,7 @@
             "tag": "newWeatherTypeListItemTag_9466",
             "name": "lightCloudsC",
             "combinedInfo": "lightCloudsC (15%) (50 ticks)",
-            "chance": 15,
+            "chance": 0,
             "duration": 50
           },
           {
@@ -190,7 +198,7 @@
             "tag": "newWeatherTypeListItemTag_9468",
             "name": "cloudsA",
             "combinedInfo": "cloudsA (18%) (50 ticks)",
-            "chance": 18,
+            "chance": 0,
             "duration": 50
           },
           {
@@ -198,7 +206,7 @@
             "tag": "newWeatherTypeListItemTag_9469",
             "name": "cloudsB",
             "combinedInfo": "cloudsB (19%) (50 ticks)",
-            "chance": 19,
+            "chance": 0,
             "duration": 50
           },
           {
@@ -206,7 +214,7 @@
             "tag": "newWeatherTypeListItemTag_9470",
             "name": "cloudsC",
             "combinedInfo": "cloudsC (18%) (50 ticks)",
-            "chance": 18,
+            "chance": 0,
             "duration": 50
           }
         ],

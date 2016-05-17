@@ -41,7 +41,7 @@ namespace IceBlink2
         public bool isSandstorm = false;
         public float logOpacity = 1f;
         public int logFadeCounter = 120;
-        public bool useMinimalisticUI = true;
+        public bool useMinimalisticUI = false;
         public bool useManualCombatCam = false;
 
         public float pixDistanceToBorderWest = 0;

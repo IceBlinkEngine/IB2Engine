@@ -22,6 +22,7 @@ namespace IceBlink2
         //this class is handled differently than Android version
         public GameView gv;
 
+        public float weatherSoundMultiplier = 2.7f;
         public List<FloatyText> floatyTextList = new List<FloatyText>();
         public int floatyTextCounter = 0;
         public bool floatyTextOn = false;
@@ -2484,7 +2485,7 @@ namespace IceBlink2
         public void doWeatherSound()
         {
             #region weatherSounds
-            float weatherSoundMultiplier = 2.7f;
+            //float weatherSoundMultiplier = 2.7f;
             //Note that in doTransitionBasedOnAreaLocation() method another weather code part is located
             //the whole system uses three sound channels, ie three instances of mediaplayer (defined in gameview, set to loop there):
             //sound channel 1 (weatherSounds1 media player) is for different degreees of rain effects
@@ -2516,7 +2517,8 @@ namespace IceBlink2
                 {
                     //store that rain is still running and that the sound channel for rain, ie sound channel1, shall not be stopped 
                     isRaining = true;
-                    gv.weatherSounds1.settings.volume = (int)(23 * weatherSoundMultiplier);
+                    //gv.weatherSounds1.settings.volume = (int)(23 * weatherSoundMultiplier);
+                    gv.weatherSounds1.settings.volume = (int)(18 * weatherSoundMultiplier);
                     if ((gv.mod.weatherSoundsName1 != "heavyRain") && (gv.mod.weatherSoundsName1 != "HeavyRain"))
                     {
                         gv.mod.weatherSoundsName1 = "heavyRain";
@@ -2554,7 +2556,8 @@ namespace IceBlink2
                 else if ((gv.mod.currentWeatherName.Contains("lightRain")) || (gv.mod.currentWeatherName.Contains("LightRain")))
                 {
                     isRaining = true;
-                    gv.weatherSounds1.settings.volume = (int)(45 * weatherSoundMultiplier);
+                    //gv.weatherSounds1.settings.volume = (int)(45 * weatherSoundMultiplier);
+                    gv.weatherSounds1.settings.volume = (int)(35 * weatherSoundMultiplier);
                     if ((gv.mod.weatherSoundsName1 != "lightRain") && (gv.mod.weatherSoundsName1 != "lightRain"))
                     {
                         gv.mod.weatherSoundsName1 = "lightRain";
@@ -2592,7 +2595,8 @@ namespace IceBlink2
                 else if ((gv.mod.currentWeatherName.Contains("rain")) || (gv.mod.currentWeatherName.Contains("Rain")))
                 {
                     isRaining = true;
-                    gv.weatherSounds1.settings.volume = (int)(55 * weatherSoundMultiplier);
+                    //gv.weatherSounds1.settings.volume = (int)(55 * weatherSoundMultiplier);
+                    gv.weatherSounds1.settings.volume = (int)(45 * weatherSoundMultiplier);
                     if ((gv.mod.weatherSoundsName1 != "rain") && (gv.mod.weatherSoundsName1 != "Rain"))
                     {
                         gv.mod.weatherSoundsName1 = "rain";
@@ -2875,6 +2879,7 @@ namespace IceBlink2
                     }
                 }
 
+                /*
                 //set up lightning
                 if ((gv.mod.currentWeatherName.Contains("lightning")) || (gv.mod.currentWeatherName.Contains("Lightning")))
                 {
@@ -2911,7 +2916,7 @@ namespace IceBlink2
                         }
                     }
                 }
-
+                */
 
                 //mute the not used channels
                 if (isRaining == false)
@@ -2943,6 +2948,7 @@ namespace IceBlink2
                     gv.weatherSounds2.controls.play();
                     //}
                 }
+                /*
                 if (isLightning == false)
                 {
                     //if ((gv.weatherSounds3.URL != "") && (gv.weatherSounds3 != null))
@@ -2957,7 +2963,7 @@ namespace IceBlink2
                     gv.weatherSounds3.controls.play();
                     //}
                 }
-
+                */
 
                 if (!gv.mod.playMusic)
                 {
@@ -6295,9 +6301,47 @@ namespace IceBlink2
 
         public void createLightning(string lightningType, float posX, float posY, float scaleMod)
         {
+            //hurgh14
             Sprite spr = new Sprite(gv, lightningType, posX, posY, 0, 0, 0, 0, 5.0f * scaleMod, 4000, false, 45, 1.0f, 0, "lightning", false, 8);
             gv.screenMainMap.spriteList.Add(spr);
-        }
+
+            //XXXXXXXXXXXXXXXXXXX
+            if ((gv.mod.useWeatherSound) && (gv.mod.playMusic))
+            {
+                gv.weatherSounds3.settings.volume = (int)(50 * weatherSoundMultiplier);
+                gv.mod.weatherSoundsName3 = "lightning";
+                string soundName = gv.mod.weatherSoundsName3;
+
+                if (File.Exists(gv.mainDirectory + "\\modules\\" + gv.mod.moduleName + "\\music\\" + soundName))
+                {
+                    gv.weatherSounds3.URL = gv.mainDirectory + "\\modules\\" + gv.mod.moduleName + "\\music\\" + soundName;
+                }
+                else if (File.Exists(gv.mainDirectory + "\\modules\\" + gv.mod.moduleName + "\\music\\" + soundName + ".mp3"))
+                {
+                    gv.weatherSounds3.URL = gv.mainDirectory + "\\modules\\" + gv.mod.moduleName + "\\music\\" + soundName + ".mp3";
+                }
+                else if (File.Exists(gv.mainDirectory + "\\default\\NewModule\\music\\" + soundName))
+                {
+                    gv.weatherSounds3.URL = gv.mainDirectory + "\\default\\NewModule\\music\\" + soundName;
+                }
+                else if (File.Exists(gv.mainDirectory + "\\default\\NewModule\\music\\" + soundName + ".mp3"))
+                {
+                    gv.weatherSounds3.URL = gv.mainDirectory + "\\default\\NewModule\\music\\" + soundName + ".mp3";
+                }
+                else
+                {
+                    gv.weatherSounds3.URL = "";
+                }
+                if ((gv.weatherSounds3.URL != "") && (gv.weatherSounds3 != null))
+                {
+                    gv.weatherSounds3.controls.stop();
+                    gv.weatherSounds3.controls.play();
+                }
+
+            }
+                //XXXXXXXXXXXXXXXXXXX
+
+            }
 
         //MISC FUNCTIONS
         public int getDistance(Coordinate start, Coordinate end)

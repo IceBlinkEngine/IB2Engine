@@ -911,9 +911,9 @@ namespace IceBlink2
                     gv.mod.logFadeCounter--;
                 }
 
-                if ((gv.mod.logFadeCounter <= 0) && (gv.mod.logOpacity >= 0.00525))
+                if ((gv.mod.logFadeCounter <= 0) && (gv.mod.logOpacity >= 0.006))
                 {
-                    gv.mod.logOpacity -= 0.00525f;
+                    gv.mod.logOpacity -= 0.006f;
                 }
             }
         }
