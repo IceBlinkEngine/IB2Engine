@@ -41,7 +41,7 @@ namespace IceBlink2
         public bool isSandstorm = false;
         public float logOpacity = 1f;
         public int logFadeCounter = 120;
-        public bool useMinimalisticUI = true;
+        public bool useMinimalisticUI = false;
         public bool useManualCombatCam = false;
 
         public float pixDistanceToBorderWest = 0;
@@ -216,7 +216,6 @@ namespace IceBlink2
         public float howLongWeatherHasRun = 0;
         public float fullScreenEffectOpacityWeather = 1;
 
-        public List<string> weatherSoundList = new List<string>();
         public string weatherSoundsName1 = "";
         public string weatherSoundsName2 = "";
         public string weatherSoundsName3 = "";

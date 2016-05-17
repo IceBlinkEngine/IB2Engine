@@ -2201,7 +2201,6 @@ namespace IceBlink2
             //do weather sounds
             if (gv.mod.currentArea.areaWeatherName != "")
             {
-                //disabled while adjusting to new system
                 doWeatherSound();
             }
             //move any props that are active and only if they are not on the party location
@@ -2485,7 +2484,6 @@ namespace IceBlink2
         public void doWeatherSound()
         {
             #region weatherSounds
-            //float weatherSoundMultiplier = 2.7f;
             //Note that in doTransitionBasedOnAreaLocation() method another weather code part is located
             //the whole system uses three sound channels, ie three instances of mediaplayer (defined in gameview, set to loop there):
             //sound channel 1 (weatherSounds1 media player) is for different degreees of rain effects
@@ -2494,20 +2492,12 @@ namespace IceBlink2
             //requires a switch on module levelset to true as well as the ingame toggle for music&sound on
             if ((gv.mod.useWeatherSound) && (gv.mod.playMusic))
             {
-                //if (gv.mod.debugMode)
-                //{
-                //gv.log.AddHtmlTextToLog(gv.mod.currentWeatherName.ToString());
-                //}
-                //weather effects, defined by layer names on each channel, are read in freshl on each update call
-                gv.mod.weatherSoundList.Clear();
-
                 //soundName is used to store the relevant name on the different checks for wind, sandStorm, rain and lightning
                 string soundName = "";
 
                 //flags for noticing wether a weather soune effect is supposed to stop (corresponds with turn off code at the end of this weather region)
                 bool isRaining = false;
                 bool isWindy = false;
-                bool isLightning = false;
 
                 //set up rain sound
                 //the idea is that the mp3 files have same name as the defining part of the weather layers name
@@ -6227,8 +6217,6 @@ namespace IceBlink2
         {
                 float veloX = 0;
                 float veloY = 0;
-                //float randX = gv.sf.RandInt(100);
-                //float randY = gv.sf.RandInt(100);
 
             if (gv.mod.windDirection.Contains("North"))
                 {
@@ -6271,9 +6259,6 @@ namespace IceBlink2
                 veloY = -1f / 50f;
             }
 
-            //veloX = veloX * (95 + randX/10)/100 * 1.1f;
-            //veloY = veloY * (95 + randY/10)/100 * 1.1f;
-
             Sprite spr = new Sprite(gv, cloudType, gv.screenWidth/2 - gv.screenHeight/2 + positionModifierX, gv.screenHeight/2 - gv.screenHeight/2 + positionModifierY, veloX * speedMultiplier, veloY * speedMultiplier, 0, 0, 10f, gv.sf.RandInt(80000) + 48000, false, 100,gv.mod.fullScreenEffectOpacityWeather,0,"clouds",true,0);
             gv.screenMainMap.spriteList.Add(spr);   
         }
@@ -6301,11 +6286,9 @@ namespace IceBlink2
 
         public void createLightning(string lightningType, float posX, float posY, float scaleMod)
         {
-            //hurgh14
             Sprite spr = new Sprite(gv, lightningType, posX, posY, 0, 0, 0, 0, 5.0f * scaleMod, 4000, false, 45, 1.0f, 0, "lightning", false, 8);
             gv.screenMainMap.spriteList.Add(spr);
 
-            //XXXXXXXXXXXXXXXXXXX
             if ((gv.mod.useWeatherSound) && (gv.mod.playMusic))
             {
                 gv.weatherSounds3.settings.volume = (int)(50 * weatherSoundMultiplier);
@@ -6339,8 +6322,6 @@ namespace IceBlink2
                 }
 
             }
-                //XXXXXXXXXXXXXXXXXXX
-
             }
 
         //MISC FUNCTIONS
