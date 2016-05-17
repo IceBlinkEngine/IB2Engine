@@ -2201,7 +2201,7 @@ namespace IceBlink2
             if (gv.mod.currentArea.areaWeatherName != "")
             {
                 //disabled while adjusting to new system
-                //doWeatherSound();
+                doWeatherSound();
             }
             //move any props that are active and only if they are not on the party location
             doPropMoves();
@@ -2495,18 +2495,10 @@ namespace IceBlink2
             {
                 //if (gv.mod.debugMode)
                 //{
-                    //gv.log.AddHtmlTextToLog(gv.mod.currentWeatherName.ToString());
+                //gv.log.AddHtmlTextToLog(gv.mod.currentWeatherName.ToString());
                 //}
                 //weather effects, defined by layer names on each channel, are read in freshl on each update call
                 gv.mod.weatherSoundList.Clear();
-
-                //only read in usable and at the same time active channles (i.e. their layer name)
-                //this should allow to also catch showers and lightings correctly who are usable all the time, but only active at rndom intervals
-                if (gv.mod.currentArea.areaWeatherName != "") 
-                {
-                    //store all availabe names in a list
-                    gv.mod.weatherSoundList.Add(gv.mod.currentArea.areaWeatherName);
-                }
 
                 //soundName is used to store the relevant name on the different checks for wind, sandStorm, rain and lightning
                 string soundName = "";
@@ -2517,426 +2509,423 @@ namespace IceBlink2
                 bool isLightning = false;
 
                 //set up rain sound
-                foreach (string weatherComponentName in gv.mod.weatherSoundList)
+                //the idea is that the mp3 files have same name as the defining part of the weather layers name
+                //e.g. the channelname/.png heavyRainLayerA(.png) correponds with heavyRain(.mp3)
+                //check for heavyRain
+                if ((gv.mod.currentWeatherName.Contains("heavyRain")) || (gv.mod.currentWeatherName.Contains("HeavyRain")))
                 {
-                    //the idea is that the mp3 files have same name as the defining part of the weather layers name
-                    //e.g. the channelname/.png heavyRainLayerA(.png) correponds with heavyRain(.mp3)
-                    //check for heavyRain
-                    if ((weatherComponentName.Contains("heavyRain")) || (weatherComponentName.Contains("HeavyRain")))
+                    //store that rain is still running and that the sound channel for rain, ie sound channel1, shall not be stopped 
+                    isRaining = true;
+                    gv.weatherSounds1.settings.volume = (int)(23 * weatherSoundMultiplier);
+                    if ((gv.mod.weatherSoundsName1 != "heavyRain") && (gv.mod.weatherSoundsName1 != "HeavyRain"))
                     {
-                        //store that rain is still running and that the sound channel for rain, ie sound channel1, shall not be stopped 
-                        isRaining = true;
-                        gv.weatherSounds1.settings.volume = (int)(23 * weatherSoundMultiplier);
-                        if ((gv.mod.weatherSoundsName1 != "heavyRain") && (gv.mod.weatherSoundsName1 != "HeavyRain"))
-                        {
-                            gv.mod.weatherSoundsName1 = "heavyRain";
-                            soundName = gv.mod.weatherSoundsName1;
+                        gv.mod.weatherSoundsName1 = "heavyRain";
+                        soundName = gv.mod.weatherSoundsName1;
 
-                            if (File.Exists(gv.mainDirectory + "\\modules\\" + gv.mod.moduleName + "\\music\\" + soundName))
-                            {
-                                gv.weatherSounds1.URL = gv.mainDirectory + "\\modules\\" + gv.mod.moduleName + "\\music\\" + soundName;
-                            }
-                            else if (File.Exists(gv.mainDirectory + "\\modules\\" + gv.mod.moduleName + "\\music\\" + soundName + ".mp3"))
-                            {
-                                gv.weatherSounds1.URL = gv.mainDirectory + "\\modules\\" + gv.mod.moduleName + "\\music\\" + soundName + ".mp3";
-                            }
-                            else if (File.Exists(gv.mainDirectory + "\\default\\NewModule\\music\\" + soundName))
-                            {
-                                gv.weatherSounds1.URL = gv.mainDirectory + "\\default\\NewModule\\music\\" + soundName;
-                            }
-                            else if (File.Exists(gv.mainDirectory + "\\default\\NewModule\\music\\" + soundName + ".mp3"))
-                            {
-                                gv.weatherSounds1.URL = gv.mainDirectory + "\\default\\NewModule\\music\\" + soundName + ".mp3";
-                            }
-                            else
-                            {
-                                gv.weatherSounds1.URL = "";
-                            }
-                            if ((gv.weatherSounds1.URL != "") && (gv.weatherSounds1 != null))
-                            {
-                                gv.weatherSounds1.controls.play();
-                            }
+                        if (File.Exists(gv.mainDirectory + "\\modules\\" + gv.mod.moduleName + "\\music\\" + soundName))
+                        {
+                            gv.weatherSounds1.URL = gv.mainDirectory + "\\modules\\" + gv.mod.moduleName + "\\music\\" + soundName;
                         }
-                        break;
+                        else if (File.Exists(gv.mainDirectory + "\\modules\\" + gv.mod.moduleName + "\\music\\" + soundName + ".mp3"))
+                        {
+                            gv.weatherSounds1.URL = gv.mainDirectory + "\\modules\\" + gv.mod.moduleName + "\\music\\" + soundName + ".mp3";
+                        }
+                        else if (File.Exists(gv.mainDirectory + "\\default\\NewModule\\music\\" + soundName))
+                        {
+                            gv.weatherSounds1.URL = gv.mainDirectory + "\\default\\NewModule\\music\\" + soundName;
+                        }
+                        else if (File.Exists(gv.mainDirectory + "\\default\\NewModule\\music\\" + soundName + ".mp3"))
+                        {
+                            gv.weatherSounds1.URL = gv.mainDirectory + "\\default\\NewModule\\music\\" + soundName + ".mp3";
+                        }
+                        else
+                        {
+                            gv.weatherSounds1.URL = "";
+                        }
+                        if ((gv.weatherSounds1.URL != "") && (gv.weatherSounds1 != null))
+                        {
+                            gv.weatherSounds1.controls.play();
+                        }
                     }
 
-                    //check for lightRain
-                    if ((weatherComponentName.Contains("lightRain")) || (weatherComponentName.Contains("LightRain")))
-                    {
-                        isRaining = true;
-                        gv.weatherSounds1.settings.volume = (int)(45 * weatherSoundMultiplier);
-                        if ((gv.mod.weatherSoundsName1 != "lightRain") && (gv.mod.weatherSoundsName1 != "lightRain"))
-                        {
-                            gv.mod.weatherSoundsName1 = "lightRain";
-                            soundName = gv.mod.weatherSoundsName1;
+                }
 
-                            if (File.Exists(gv.mainDirectory + "\\modules\\" + gv.mod.moduleName + "\\music\\" + soundName))
-                            {
-                                gv.weatherSounds1.URL = gv.mainDirectory + "\\modules\\" + gv.mod.moduleName + "\\music\\" + soundName;
-                            }
-                            else if (File.Exists(gv.mainDirectory + "\\modules\\" + gv.mod.moduleName + "\\music\\" + soundName + ".mp3"))
-                            {
-                                gv.weatherSounds1.URL = gv.mainDirectory + "\\modules\\" + gv.mod.moduleName + "\\music\\" + soundName + ".mp3";
-                            }
-                            else if (File.Exists(gv.mainDirectory + "\\default\\NewModule\\music\\" + soundName))
-                            {
-                                gv.weatherSounds1.URL = gv.mainDirectory + "\\default\\NewModule\\music\\" + soundName;
-                            }
-                            else if (File.Exists(gv.mainDirectory + "\\default\\NewModule\\music\\" + soundName + ".mp3"))
-                            {
-                                gv.weatherSounds1.URL = gv.mainDirectory + "\\default\\NewModule\\music\\" + soundName + ".mp3";
-                            }
-                            else
-                            {
-                                gv.weatherSounds1.URL = "";
-                            }
-                            if ((gv.weatherSounds1.URL != "") && (gv.weatherSounds1 != null))
-                            {
-                                gv.weatherSounds1.controls.play();
-                            }
+                //check for lightRain
+                else if ((gv.mod.currentWeatherName.Contains("lightRain")) || (gv.mod.currentWeatherName.Contains("LightRain")))
+                {
+                    isRaining = true;
+                    gv.weatherSounds1.settings.volume = (int)(45 * weatherSoundMultiplier);
+                    if ((gv.mod.weatherSoundsName1 != "lightRain") && (gv.mod.weatherSoundsName1 != "lightRain"))
+                    {
+                        gv.mod.weatherSoundsName1 = "lightRain";
+                        soundName = gv.mod.weatherSoundsName1;
+
+                        if (File.Exists(gv.mainDirectory + "\\modules\\" + gv.mod.moduleName + "\\music\\" + soundName))
+                        {
+                            gv.weatherSounds1.URL = gv.mainDirectory + "\\modules\\" + gv.mod.moduleName + "\\music\\" + soundName;
                         }
-                        break;
+                        else if (File.Exists(gv.mainDirectory + "\\modules\\" + gv.mod.moduleName + "\\music\\" + soundName + ".mp3"))
+                        {
+                            gv.weatherSounds1.URL = gv.mainDirectory + "\\modules\\" + gv.mod.moduleName + "\\music\\" + soundName + ".mp3";
+                        }
+                        else if (File.Exists(gv.mainDirectory + "\\default\\NewModule\\music\\" + soundName))
+                        {
+                            gv.weatherSounds1.URL = gv.mainDirectory + "\\default\\NewModule\\music\\" + soundName;
+                        }
+                        else if (File.Exists(gv.mainDirectory + "\\default\\NewModule\\music\\" + soundName + ".mp3"))
+                        {
+                            gv.weatherSounds1.URL = gv.mainDirectory + "\\default\\NewModule\\music\\" + soundName + ".mp3";
+                        }
+                        else
+                        {
+                            gv.weatherSounds1.URL = "";
+                        }
+                        if ((gv.weatherSounds1.URL != "") && (gv.weatherSounds1 != null))
+                        {
+                            gv.weatherSounds1.controls.play();
+                        }
                     }
 
-                    //check for "normal" rain
-                    if ((weatherComponentName.Contains("rain")) || (weatherComponentName.Contains("Rain")))
-                    {
-                        isRaining = true;
-                        gv.weatherSounds1.settings.volume = (int)(55 * weatherSoundMultiplier);
-                        if ((gv.mod.weatherSoundsName1 != "rain") && (gv.mod.weatherSoundsName1 != "Rain"))
-                        {
-                            gv.mod.weatherSoundsName1 = "rain";
-                            soundName = gv.mod.weatherSoundsName1;
+                }
 
-                            if (File.Exists(gv.mainDirectory + "\\modules\\" + gv.mod.moduleName + "\\music\\" + soundName))
-                            {
-                                gv.weatherSounds1.URL = gv.mainDirectory + "\\modules\\" + gv.mod.moduleName + "\\music\\" + soundName;
-                            }
-                            else if (File.Exists(gv.mainDirectory + "\\modules\\" + gv.mod.moduleName + "\\music\\" + soundName + ".mp3"))
-                            {
-                                gv.weatherSounds1.URL = gv.mainDirectory + "\\modules\\" + gv.mod.moduleName + "\\music\\" + soundName + ".mp3";
-                            }
-                            else if (File.Exists(gv.mainDirectory + "\\default\\NewModule\\music\\" + soundName))
-                            {
-                                gv.weatherSounds1.URL = gv.mainDirectory + "\\default\\NewModule\\music\\" + soundName;
-                            }
-                            else if (File.Exists(gv.mainDirectory + "\\default\\NewModule\\music\\" + soundName + ".mp3"))
-                            {
-                                gv.weatherSounds1.URL = gv.mainDirectory + "\\default\\NewModule\\music\\" + soundName + ".mp3";
-                            }
-                            else
-                            {
-                                gv.weatherSounds1.URL = "";
-                            }
-                            if ((gv.weatherSounds1.URL != "") && (gv.weatherSounds1 != null))
-                            {
-                                gv.weatherSounds1.controls.play();
-                            }
+                //check for "normal" rain
+                else if ((gv.mod.currentWeatherName.Contains("rain")) || (gv.mod.currentWeatherName.Contains("Rain")))
+                {
+                    isRaining = true;
+                    gv.weatherSounds1.settings.volume = (int)(55 * weatherSoundMultiplier);
+                    if ((gv.mod.weatherSoundsName1 != "rain") && (gv.mod.weatherSoundsName1 != "Rain"))
+                    {
+                        gv.mod.weatherSoundsName1 = "rain";
+                        soundName = gv.mod.weatherSoundsName1;
+
+                        if (File.Exists(gv.mainDirectory + "\\modules\\" + gv.mod.moduleName + "\\music\\" + soundName))
+                        {
+                            gv.weatherSounds1.URL = gv.mainDirectory + "\\modules\\" + gv.mod.moduleName + "\\music\\" + soundName;
                         }
-                        break;
+                        else if (File.Exists(gv.mainDirectory + "\\modules\\" + gv.mod.moduleName + "\\music\\" + soundName + ".mp3"))
+                        {
+                            gv.weatherSounds1.URL = gv.mainDirectory + "\\modules\\" + gv.mod.moduleName + "\\music\\" + soundName + ".mp3";
+                        }
+                        else if (File.Exists(gv.mainDirectory + "\\default\\NewModule\\music\\" + soundName))
+                        {
+                            gv.weatherSounds1.URL = gv.mainDirectory + "\\default\\NewModule\\music\\" + soundName;
+                        }
+                        else if (File.Exists(gv.mainDirectory + "\\default\\NewModule\\music\\" + soundName + ".mp3"))
+                        {
+                            gv.weatherSounds1.URL = gv.mainDirectory + "\\default\\NewModule\\music\\" + soundName + ".mp3";
+                        }
+                        else
+                        {
+                            gv.weatherSounds1.URL = "";
+                        }
+                        if ((gv.weatherSounds1.URL != "") && (gv.weatherSounds1 != null))
+                        {
+                            gv.weatherSounds1.controls.play();
+                        }
                     }
+
                 }
 
                 //set up wind sound
                 //set up heavy wind
-                foreach (string weatherComponentName in gv.mod.weatherSoundList)
+
+                if ((gv.mod.currentWeatherName.Contains("heavyCloud")) || (gv.mod.currentWeatherName.Contains("HeavyCloud")))
                 {
-                    if ((weatherComponentName.Contains("heavyCloud")) || (weatherComponentName.Contains("HeavyCloud")))
+                    isWindy = true;
+                    gv.weatherSounds2.settings.volume = (int)(55 * weatherSoundMultiplier);
+                    if (((gv.mod.weatherSoundsName2 != "heavyCloud") && (gv.mod.weatherSoundsName2 != "HeavyCloud")) || (gv.mod.resetWeatherSound))
                     {
-                        isWindy = true;
-                        gv.weatherSounds2.settings.volume = (int)(55 * weatherSoundMultiplier);
-                        if (((gv.mod.weatherSoundsName2 != "heavyCloud") && (gv.mod.weatherSoundsName2 != "HeavyCloud")) || (gv.mod.resetWeatherSound))
+                        /*
+                        if (gv.mod.resetWeatherSound)
                         {
-                            if (gv.mod.resetWeatherSound)
-                            {
-                                gv.mod.resetWeatherSound = false;
-                            }
-                            gv.mod.weatherSoundsName2 = "heavyCloud";
-                            soundName = gv.mod.weatherSoundsName2;
-
-                            if (File.Exists(gv.mainDirectory + "\\modules\\" + gv.mod.moduleName + "\\music\\" + soundName))
-                            {
-                                gv.weatherSounds2.URL = gv.mainDirectory + "\\modules\\" + gv.mod.moduleName + "\\music\\" + soundName;
-                            }
-                            else if (File.Exists(gv.mainDirectory + "\\modules\\" + gv.mod.moduleName + "\\music\\" + soundName + ".mp3"))
-                            {
-                                gv.weatherSounds2.URL = gv.mainDirectory + "\\modules\\" + gv.mod.moduleName + "\\music\\" + soundName + ".mp3";
-                            }
-                            else if (File.Exists(gv.mainDirectory + "\\default\\NewModule\\music\\" + soundName))
-                            {
-                                gv.weatherSounds2.URL = gv.mainDirectory + "\\default\\NewModule\\music\\" + soundName;
-                            }
-                            else if (File.Exists(gv.mainDirectory + "\\default\\NewModule\\music\\" + soundName + ".mp3"))
-                            {
-                                gv.weatherSounds2.URL = gv.mainDirectory + "\\default\\NewModule\\music\\" + soundName + ".mp3";
-                            }
-                            else
-                            {
-                                gv.weatherSounds2.URL = "";
-                            }
-                            if ((gv.weatherSounds2.URL != "") && (gv.weatherSounds2 != null))
-                            {
-                                gv.weatherSounds2.controls.play();
-                            }
+                            gv.mod.resetWeatherSound = false;
                         }
-                        break;
+                        */
+                        gv.mod.weatherSoundsName2 = "heavyCloud";
+                        soundName = gv.mod.weatherSoundsName2;
+
+                        if (File.Exists(gv.mainDirectory + "\\modules\\" + gv.mod.moduleName + "\\music\\" + soundName))
+                        {
+                            gv.weatherSounds2.URL = gv.mainDirectory + "\\modules\\" + gv.mod.moduleName + "\\music\\" + soundName;
+                        }
+                        else if (File.Exists(gv.mainDirectory + "\\modules\\" + gv.mod.moduleName + "\\music\\" + soundName + ".mp3"))
+                        {
+                            gv.weatherSounds2.URL = gv.mainDirectory + "\\modules\\" + gv.mod.moduleName + "\\music\\" + soundName + ".mp3";
+                        }
+                        else if (File.Exists(gv.mainDirectory + "\\default\\NewModule\\music\\" + soundName))
+                        {
+                            gv.weatherSounds2.URL = gv.mainDirectory + "\\default\\NewModule\\music\\" + soundName;
+                        }
+                        else if (File.Exists(gv.mainDirectory + "\\default\\NewModule\\music\\" + soundName + ".mp3"))
+                        {
+                            gv.weatherSounds2.URL = gv.mainDirectory + "\\default\\NewModule\\music\\" + soundName + ".mp3";
+                        }
+                        else
+                        {
+                            gv.weatherSounds2.URL = "";
+                        }
+                        if ((gv.weatherSounds2.URL != "") && (gv.weatherSounds2 != null))
+                        {
+                            gv.weatherSounds2.controls.play();
+                        }
                     }
 
-                    //set up light winds
-                    if (weatherComponentName.Contains("lightCloud"))
+                }
+
+                //set up light winds
+                else if ((gv.mod.currentWeatherName.Contains("lightCloud")) || (gv.mod.currentWeatherName.Contains("LightCloud")))
+                {
+                    isWindy = true;
+                    gv.weatherSounds2.settings.volume = (int)(23 * weatherSoundMultiplier);
+                    if (((gv.mod.weatherSoundsName2 != "lightCloud") && (gv.mod.weatherSoundsName2 != "LightCloud")) || (gv.mod.resetWeatherSound))
                     {
-                        isWindy = true;
-                        gv.weatherSounds2.settings.volume = (int)(23 * weatherSoundMultiplier);
-                        if ((gv.mod.weatherSoundsName2 != "lightCloud") || (gv.mod.resetWeatherSound))
+                        /*
+                        if (gv.mod.resetWeatherSound)
                         {
-                            if (gv.mod.resetWeatherSound)
-                            {
-                                gv.mod.resetWeatherSound = false;
-                            }
-
-                            gv.mod.weatherSoundsName2 = "lightCloud";
-                            soundName = gv.mod.weatherSoundsName2;
-
-                            if (File.Exists(gv.mainDirectory + "\\modules\\" + gv.mod.moduleName + "\\music\\" + soundName))
-                            {
-                                gv.weatherSounds2.URL = gv.mainDirectory + "\\modules\\" + gv.mod.moduleName + "\\music\\" + soundName;
-                            }
-                            else if (File.Exists(gv.mainDirectory + "\\modules\\" + gv.mod.moduleName + "\\music\\" + soundName + ".mp3"))
-                            {
-                                gv.weatherSounds2.URL = gv.mainDirectory + "\\modules\\" + gv.mod.moduleName + "\\music\\" + soundName + ".mp3";
-                            }
-                            else if (File.Exists(gv.mainDirectory + "\\default\\NewModule\\music\\" + soundName))
-                            {
-                                gv.weatherSounds2.URL = gv.mainDirectory + "\\default\\NewModule\\music\\" + soundName;
-                            }
-                            else if (File.Exists(gv.mainDirectory + "\\default\\NewModule\\music\\" + soundName + ".mp3"))
-                            {
-                                gv.weatherSounds2.URL = gv.mainDirectory + "\\default\\NewModule\\music\\" + soundName + ".mp3";
-                            }
-                            else
-                            {
-                                gv.weatherSounds2.URL = "";
-                            }
-                            if ((gv.weatherSounds2.URL != "") && (gv.weatherSounds2 != null))
-                            {
-                                gv.weatherSounds2.controls.play();
-                            }
+                            gv.mod.resetWeatherSound = false;
                         }
-                        break;
+                        */
+
+                        gv.mod.weatherSoundsName2 = "lightCloud";
+                        soundName = gv.mod.weatherSoundsName2;
+
+                        if (File.Exists(gv.mainDirectory + "\\modules\\" + gv.mod.moduleName + "\\music\\" + soundName))
+                        {
+                            gv.weatherSounds2.URL = gv.mainDirectory + "\\modules\\" + gv.mod.moduleName + "\\music\\" + soundName;
+                        }
+                        else if (File.Exists(gv.mainDirectory + "\\modules\\" + gv.mod.moduleName + "\\music\\" + soundName + ".mp3"))
+                        {
+                            gv.weatherSounds2.URL = gv.mainDirectory + "\\modules\\" + gv.mod.moduleName + "\\music\\" + soundName + ".mp3";
+                        }
+                        else if (File.Exists(gv.mainDirectory + "\\default\\NewModule\\music\\" + soundName))
+                        {
+                            gv.weatherSounds2.URL = gv.mainDirectory + "\\default\\NewModule\\music\\" + soundName;
+                        }
+                        else if (File.Exists(gv.mainDirectory + "\\default\\NewModule\\music\\" + soundName + ".mp3"))
+                        {
+                            gv.weatherSounds2.URL = gv.mainDirectory + "\\default\\NewModule\\music\\" + soundName + ".mp3";
+                        }
+                        else
+                        {
+                            gv.weatherSounds2.URL = "";
+                        }
+                        if ((gv.weatherSounds2.URL != "") && (gv.weatherSounds2 != null))
+                        {
+                            gv.weatherSounds2.controls.play();
+                        }
                     }
 
-                    //set up "normal" winds
-                    if (weatherComponentName.Contains("cloud"))
-                    {
-                        isWindy = true;
-                        gv.weatherSounds2.settings.volume = (int)(30 * weatherSoundMultiplier);
-                        if ((gv.mod.weatherSoundsName2 != "cloud") || (gv.mod.resetWeatherSound))
-                        {
-                            if (gv.mod.resetWeatherSound)
-                            {
-                                gv.mod.resetWeatherSound = false;
-                            }
-                            gv.mod.weatherSoundsName2 = "cloud";
-                            soundName = gv.mod.weatherSoundsName2;
+                }
 
-                            if (File.Exists(gv.mainDirectory + "\\modules\\" + gv.mod.moduleName + "\\music\\" + soundName))
-                            {
-                                gv.weatherSounds2.URL = gv.mainDirectory + "\\modules\\" + gv.mod.moduleName + "\\music\\" + soundName;
-                            }
-                            else if (File.Exists(gv.mainDirectory + "\\modules\\" + gv.mod.moduleName + "\\music\\" + soundName + ".mp3"))
-                            {
-                                gv.weatherSounds2.URL = gv.mainDirectory + "\\modules\\" + gv.mod.moduleName + "\\music\\" + soundName + ".mp3";
-                            }
-                            else if (File.Exists(gv.mainDirectory + "\\default\\NewModule\\music\\" + soundName))
-                            {
-                                gv.weatherSounds2.URL = gv.mainDirectory + "\\default\\NewModule\\music\\" + soundName;
-                            }
-                            else if (File.Exists(gv.mainDirectory + "\\default\\NewModule\\music\\" + soundName + ".mp3"))
-                            {
-                                gv.weatherSounds2.URL = gv.mainDirectory + "\\default\\NewModule\\music\\" + soundName + ".mp3";
-                            }
-                            else
-                            {
-                                gv.weatherSounds2.URL = "";
-                            }
-                            if ((gv.weatherSounds2.URL != "") && (gv.weatherSounds2 != null))
-                            {
-                                gv.weatherSounds2.controls.play();
-                            }
+                //set up "normal" winds
+                else if ((gv.mod.currentWeatherName.Contains("cloud")) || (gv.mod.currentWeatherName.Contains("Cloud")))
+                {
+                    isWindy = true;
+                    gv.weatherSounds2.settings.volume = (int)(30 * weatherSoundMultiplier);
+                    if (((gv.mod.weatherSoundsName2 != "cloud") && (gv.mod.weatherSoundsName2 != "Cloud")) || (gv.mod.resetWeatherSound))
+                    {
+                        /*
+                        if (gv.mod.resetWeatherSound)
+                        {
+                            gv.mod.resetWeatherSound = false;
                         }
-                        break;
+                        */
+
+                        gv.mod.weatherSoundsName2 = "cloud";
+                        soundName = gv.mod.weatherSoundsName2;
+
+                        if (File.Exists(gv.mainDirectory + "\\modules\\" + gv.mod.moduleName + "\\music\\" + soundName))
+                        {
+                            gv.weatherSounds2.URL = gv.mainDirectory + "\\modules\\" + gv.mod.moduleName + "\\music\\" + soundName;
+                        }
+                        else if (File.Exists(gv.mainDirectory + "\\modules\\" + gv.mod.moduleName + "\\music\\" + soundName + ".mp3"))
+                        {
+                            gv.weatherSounds2.URL = gv.mainDirectory + "\\modules\\" + gv.mod.moduleName + "\\music\\" + soundName + ".mp3";
+                        }
+                        else if (File.Exists(gv.mainDirectory + "\\default\\NewModule\\music\\" + soundName))
+                        {
+                            gv.weatherSounds2.URL = gv.mainDirectory + "\\default\\NewModule\\music\\" + soundName;
+                        }
+                        else if (File.Exists(gv.mainDirectory + "\\default\\NewModule\\music\\" + soundName + ".mp3"))
+                        {
+                            gv.weatherSounds2.URL = gv.mainDirectory + "\\default\\NewModule\\music\\" + soundName + ".mp3";
+                        }
+                        else
+                        {
+                            gv.weatherSounds2.URL = "";
+                        }
+                        if ((gv.weatherSounds2.URL != "") && (gv.weatherSounds2 != null))
+                        {
+                            gv.weatherSounds2.controls.play();
+                        }
+                    }
+                }
+
+                //set up light sandstorm
+                //hurgh13
+                else if ((gv.mod.currentWeatherName.Contains("lightSandStorm")) || (gv.mod.currentWeatherName.Contains("LightSandStorm")))
+                {
+                    isWindy = true;
+                    gv.weatherSounds2.settings.volume = (int)(25 * weatherSoundMultiplier);
+                    if (gv.mod.weatherSoundsName2 != "lightSandstorm")
+                    {
+                        gv.mod.weatherSoundsName2 = "lightSandstorm";
+                        soundName = gv.mod.weatherSoundsName2;
+
+                        if (File.Exists(gv.mainDirectory + "\\modules\\" + gv.mod.moduleName + "\\music\\" + soundName))
+                        {
+                            gv.weatherSounds2.URL = gv.mainDirectory + "\\modules\\" + gv.mod.moduleName + "\\music\\" + soundName;
+                        }
+                        else if (File.Exists(gv.mainDirectory + "\\modules\\" + gv.mod.moduleName + "\\music\\" + soundName + ".mp3"))
+                        {
+                            gv.weatherSounds2.URL = gv.mainDirectory + "\\modules\\" + gv.mod.moduleName + "\\music\\" + soundName + ".mp3";
+                        }
+                        else if (File.Exists(gv.mainDirectory + "\\default\\NewModule\\music\\" + soundName))
+                        {
+                            gv.weatherSounds2.URL = gv.mainDirectory + "\\default\\NewModule\\music\\" + soundName;
+                        }
+                        else if (File.Exists(gv.mainDirectory + "\\default\\NewModule\\music\\" + soundName + ".mp3"))
+                        {
+                            gv.weatherSounds2.URL = gv.mainDirectory + "\\default\\NewModule\\music\\" + soundName + ".mp3";
+                        }
+                        else
+                        {
+                            gv.weatherSounds2.URL = "";
+                        }
+                        if ((gv.weatherSounds2.URL != "") && (gv.weatherSounds2 != null))
+                        {
+                            gv.weatherSounds2.controls.play();
+                        }
                     }
 
-                    //set up light sandstorm
-                    if (weatherComponentName.Contains("lightSandstorm"))
-                    {
-                        isWindy = true;
-                        gv.weatherSounds2.settings.volume = (int)(25 * weatherSoundMultiplier);
-                        if (gv.mod.weatherSoundsName2 != "lightSandstorm")
-                        {
-                            gv.mod.weatherSoundsName2 = "lightSandstorm";
-                            soundName = gv.mod.weatherSoundsName2;
+                }
 
-                            if (File.Exists(gv.mainDirectory + "\\modules\\" + gv.mod.moduleName + "\\music\\" + soundName))
-                            {
-                                gv.weatherSounds2.URL = gv.mainDirectory + "\\modules\\" + gv.mod.moduleName + "\\music\\" + soundName;
-                            }
-                            else if (File.Exists(gv.mainDirectory + "\\modules\\" + gv.mod.moduleName + "\\music\\" + soundName + ".mp3"))
-                            {
-                                gv.weatherSounds2.URL = gv.mainDirectory + "\\modules\\" + gv.mod.moduleName + "\\music\\" + soundName + ".mp3";
-                            }
-                            else if (File.Exists(gv.mainDirectory + "\\default\\NewModule\\music\\" + soundName))
-                            {
-                                gv.weatherSounds2.URL = gv.mainDirectory + "\\default\\NewModule\\music\\" + soundName;
-                            }
-                            else if (File.Exists(gv.mainDirectory + "\\default\\NewModule\\music\\" + soundName + ".mp3"))
-                            {
-                                gv.weatherSounds2.URL = gv.mainDirectory + "\\default\\NewModule\\music\\" + soundName + ".mp3";
-                            }
-                            else
-                            {
-                                gv.weatherSounds2.URL = "";
-                            }
-                            if ((gv.weatherSounds2.URL != "") && (gv.weatherSounds2 != null))
-                            {
-                                gv.weatherSounds2.controls.play();
-                            }
+                //set up heavy sandstorm
+                else if ((gv.mod.currentWeatherName.Contains("heavySandStorm")) || (gv.mod.currentWeatherName.Contains("HeavySandStorm")))
+                {
+                    isWindy = true;
+                    gv.weatherSounds2.settings.volume = (int)(70 * weatherSoundMultiplier);
+                    if (gv.mod.weatherSoundsName2 != "heavySandstorm")
+                    {
+                        gv.mod.weatherSoundsName2 = "heavySandstorm";
+                        soundName = gv.mod.weatherSoundsName2;
+
+                        if (File.Exists(gv.mainDirectory + "\\modules\\" + gv.mod.moduleName + "\\music\\" + soundName))
+                        {
+                            gv.weatherSounds2.URL = gv.mainDirectory + "\\modules\\" + gv.mod.moduleName + "\\music\\" + soundName;
                         }
-                        break;
+                        else if (File.Exists(gv.mainDirectory + "\\modules\\" + gv.mod.moduleName + "\\music\\" + soundName + ".mp3"))
+                        {
+                            gv.weatherSounds2.URL = gv.mainDirectory + "\\modules\\" + gv.mod.moduleName + "\\music\\" + soundName + ".mp3";
+                        }
+                        else if (File.Exists(gv.mainDirectory + "\\default\\NewModule\\music\\" + soundName))
+                        {
+                            gv.weatherSounds2.URL = gv.mainDirectory + "\\default\\NewModule\\music\\" + soundName;
+                        }
+                        else if (File.Exists(gv.mainDirectory + "\\default\\NewModule\\music\\" + soundName + ".mp3"))
+                        {
+                            gv.weatherSounds2.URL = gv.mainDirectory + "\\default\\NewModule\\music\\" + soundName + ".mp3";
+                        }
+                        else
+                        {
+                            gv.weatherSounds2.URL = "";
+                        }
+                        if ((gv.weatherSounds2.URL != "") && (gv.weatherSounds2 != null))
+                        {
+                            gv.weatherSounds2.controls.play();
+                        }
                     }
+                }
 
-                    //set up heavy sandstorm
-                    if (weatherComponentName.Contains("heavySandstorm"))
+                //set up "normal" sandstorm
+                else if ((gv.mod.currentWeatherName.Contains("sandStorm")) || (gv.mod.currentWeatherName.Contains("SandStorm")))
+                {
+                    isWindy = true;
+                    gv.weatherSounds2.settings.volume = (int)(35 * weatherSoundMultiplier);
+                    if (gv.mod.weatherSoundsName2 != "sandstorm")
                     {
-                        isWindy = true;
-                        gv.weatherSounds2.settings.volume = (int)(70 * weatherSoundMultiplier);
-                        if (gv.mod.weatherSoundsName2 != "heavySandstorm")
+                        gv.mod.weatherSoundsName2 = "sandstorm";
+                        soundName = gv.mod.weatherSoundsName2;
+                        //gv.weatherSounds1.controls.stop();
+
+                        if (File.Exists(gv.mainDirectory + "\\modules\\" + gv.mod.moduleName + "\\music\\" + soundName))
                         {
-                            gv.mod.weatherSoundsName2 = "heavySandstorm";
-                            soundName = gv.mod.weatherSoundsName2;
-
-                            if (File.Exists(gv.mainDirectory + "\\modules\\" + gv.mod.moduleName + "\\music\\" + soundName))
-                            {
-                                gv.weatherSounds2.URL = gv.mainDirectory + "\\modules\\" + gv.mod.moduleName + "\\music\\" + soundName;
-                            }
-                            else if (File.Exists(gv.mainDirectory + "\\modules\\" + gv.mod.moduleName + "\\music\\" + soundName + ".mp3"))
-                            {
-                                gv.weatherSounds2.URL = gv.mainDirectory + "\\modules\\" + gv.mod.moduleName + "\\music\\" + soundName + ".mp3";
-                            }
-                            else if (File.Exists(gv.mainDirectory + "\\default\\NewModule\\music\\" + soundName))
-                            {
-                                gv.weatherSounds2.URL = gv.mainDirectory + "\\default\\NewModule\\music\\" + soundName;
-                            }
-                            else if (File.Exists(gv.mainDirectory + "\\default\\NewModule\\music\\" + soundName + ".mp3"))
-                            {
-                                gv.weatherSounds2.URL = gv.mainDirectory + "\\default\\NewModule\\music\\" + soundName + ".mp3";
-                            }
-                            else
-                            {
-                                gv.weatherSounds2.URL = "";
-                            }
-                            if ((gv.weatherSounds2.URL != "") && (gv.weatherSounds2 != null))
-                            {
-                                gv.weatherSounds2.controls.play();
-                            }
+                            gv.weatherSounds2.URL = gv.mainDirectory + "\\modules\\" + gv.mod.moduleName + "\\music\\" + soundName;
                         }
-                        break;
-                    }
-
-                    //set up "normal" sandstorm
-                    if (weatherComponentName.Contains("sandstorm"))
-                    {
-                        isWindy = true;
-                        gv.weatherSounds2.settings.volume = (int)(35 * weatherSoundMultiplier);
-                        if (gv.mod.weatherSoundsName2 != "sandstorm")
+                        else if (File.Exists(gv.mainDirectory + "\\modules\\" + gv.mod.moduleName + "\\music\\" + soundName + ".mp3"))
                         {
-                            gv.mod.weatherSoundsName2 = "sandstorm";
-                            soundName = gv.mod.weatherSoundsName2;
-                            //gv.weatherSounds1.controls.stop();
-
-                            if (File.Exists(gv.mainDirectory + "\\modules\\" + gv.mod.moduleName + "\\music\\" + soundName))
-                            {
-                                gv.weatherSounds2.URL = gv.mainDirectory + "\\modules\\" + gv.mod.moduleName + "\\music\\" + soundName;
-                            }
-                            else if (File.Exists(gv.mainDirectory + "\\modules\\" + gv.mod.moduleName + "\\music\\" + soundName + ".mp3"))
-                            {
-                                gv.weatherSounds2.URL = gv.mainDirectory + "\\modules\\" + gv.mod.moduleName + "\\music\\" + soundName + ".mp3";
-                            }
-                            else if (File.Exists(gv.mainDirectory + "\\default\\NewModule\\music\\" + soundName))
-                            {
-                                gv.weatherSounds2.URL = gv.mainDirectory + "\\default\\NewModule\\music\\" + soundName;
-                            }
-                            else if (File.Exists(gv.mainDirectory + "\\default\\NewModule\\music\\" + soundName + ".mp3"))
-                            {
-                                gv.weatherSounds2.URL = gv.mainDirectory + "\\default\\NewModule\\music\\" + soundName + ".mp3";
-                            }
-                            else
-                            {
-                                gv.weatherSounds2.URL = "";
-                            }
-                            if ((gv.weatherSounds2.URL != "") && (gv.weatherSounds2 != null))
-                            {
-                                gv.weatherSounds2.controls.play();
-                            }
+                            gv.weatherSounds2.URL = gv.mainDirectory + "\\modules\\" + gv.mod.moduleName + "\\music\\" + soundName + ".mp3";
                         }
-                        break;
+                        else if (File.Exists(gv.mainDirectory + "\\default\\NewModule\\music\\" + soundName))
+                        {
+                            gv.weatherSounds2.URL = gv.mainDirectory + "\\default\\NewModule\\music\\" + soundName;
+                        }
+                        else if (File.Exists(gv.mainDirectory + "\\default\\NewModule\\music\\" + soundName + ".mp3"))
+                        {
+                            gv.weatherSounds2.URL = gv.mainDirectory + "\\default\\NewModule\\music\\" + soundName + ".mp3";
+                        }
+                        else
+                        {
+                            gv.weatherSounds2.URL = "";
+                        }
+                        if ((gv.weatherSounds2.URL != "") && (gv.weatherSounds2 != null))
+                        {
+                            gv.weatherSounds2.controls.play();
+                        }
                     }
                 }
 
                 //set up lightning
-                foreach (string weatherComponentName in gv.mod.weatherSoundList)
+                if ((gv.mod.currentWeatherName.Contains("lightning")) || (gv.mod.currentWeatherName.Contains("Lightning")))
                 {
-                    if (weatherComponentName.Contains("lightning"))
+                    isLightning = true;
+                    gv.weatherSounds3.settings.volume = (int)(50 * weatherSoundMultiplier);
+                    if (gv.mod.weatherSoundsName3 != "lightning")
                     {
-                        isLightning = true;
-                        gv.weatherSounds3.settings.volume = (int)(50 * weatherSoundMultiplier);
-                        if (gv.mod.weatherSoundsName3 != "lightning")
-                        {
-                            gv.mod.weatherSoundsName3 = "lightning";
-                            soundName = gv.mod.weatherSoundsName3;
+                        gv.mod.weatherSoundsName3 = "lightning";
+                        soundName = gv.mod.weatherSoundsName3;
 
-                            if (File.Exists(gv.mainDirectory + "\\modules\\" + gv.mod.moduleName + "\\music\\" + soundName))
-                            {
-                                gv.weatherSounds3.URL = gv.mainDirectory + "\\modules\\" + gv.mod.moduleName + "\\music\\" + soundName;
-                            }
-                            else if (File.Exists(gv.mainDirectory + "\\modules\\" + gv.mod.moduleName + "\\music\\" + soundName + ".mp3"))
-                            {
-                                gv.weatherSounds3.URL = gv.mainDirectory + "\\modules\\" + gv.mod.moduleName + "\\music\\" + soundName + ".mp3";
-                            }
-                            else if (File.Exists(gv.mainDirectory + "\\default\\NewModule\\music\\" + soundName))
-                            {
-                                gv.weatherSounds3.URL = gv.mainDirectory + "\\default\\NewModule\\music\\" + soundName;
-                            }
-                            else if (File.Exists(gv.mainDirectory + "\\default\\NewModule\\music\\" + soundName + ".mp3"))
-                            {
-                                gv.weatherSounds3.URL = gv.mainDirectory + "\\default\\NewModule\\music\\" + soundName + ".mp3";
-                            }
-                            else
-                            {
-                                gv.weatherSounds3.URL = "";
-                            }
-                            if ((gv.weatherSounds3.URL != "") && (gv.weatherSounds3 != null))
-                            {
-                                gv.weatherSounds3.controls.play();
-                            }
+                        if (File.Exists(gv.mainDirectory + "\\modules\\" + gv.mod.moduleName + "\\music\\" + soundName))
+                        {
+                            gv.weatherSounds3.URL = gv.mainDirectory + "\\modules\\" + gv.mod.moduleName + "\\music\\" + soundName;
                         }
-                        break;
+                        else if (File.Exists(gv.mainDirectory + "\\modules\\" + gv.mod.moduleName + "\\music\\" + soundName + ".mp3"))
+                        {
+                            gv.weatherSounds3.URL = gv.mainDirectory + "\\modules\\" + gv.mod.moduleName + "\\music\\" + soundName + ".mp3";
+                        }
+                        else if (File.Exists(gv.mainDirectory + "\\default\\NewModule\\music\\" + soundName))
+                        {
+                            gv.weatherSounds3.URL = gv.mainDirectory + "\\default\\NewModule\\music\\" + soundName;
+                        }
+                        else if (File.Exists(gv.mainDirectory + "\\default\\NewModule\\music\\" + soundName + ".mp3"))
+                        {
+                            gv.weatherSounds3.URL = gv.mainDirectory + "\\default\\NewModule\\music\\" + soundName + ".mp3";
+                        }
+                        else
+                        {
+                            gv.weatherSounds3.URL = "";
+                        }
+                        if ((gv.weatherSounds3.URL != "") && (gv.weatherSounds3 != null))
+                        {
+                            gv.weatherSounds3.controls.play();
+                        }
                     }
                 }
+
 
                 //mute the not used channels
                 if (isRaining == false)
                 {
                     //if ((gv.weatherSounds1.URL != "") && (gv.weatherSounds1 != null))
                     //{
-                        gv.weatherSounds1.controls.stop();
+                    gv.weatherSounds1.controls.stop();
                     //}
                 }
                 else
                 {
                     //if ((gv.weatherSounds1.URL != "") && (gv.weatherSounds1 != null))
                     //{
-                        gv.weatherSounds1.controls.play();
+                    gv.weatherSounds1.controls.play();
                     //}
                 }
 
@@ -2944,42 +2933,41 @@ namespace IceBlink2
                 {
                     //if ((gv.weatherSounds2.URL != "") && (gv.weatherSounds2 != null))
                     //{
-                        gv.weatherSounds2.controls.stop();
+                    gv.weatherSounds2.controls.stop();
                     //}
                 }
                 else
                 {
                     //if ((gv.weatherSounds2.URL != "") && (gv.weatherSounds2 != null))
                     //{
-                        gv.weatherSounds2.controls.play();
+                    gv.weatherSounds2.controls.play();
                     //}
                 }
                 if (isLightning == false)
                 {
                     //if ((gv.weatherSounds3.URL != "") && (gv.weatherSounds3 != null))
                     //{
-                        gv.weatherSounds3.controls.stop();
+                    gv.weatherSounds3.controls.stop();
                     //}
                 }
                 else
                 {
                     //if ((gv.weatherSounds3.URL != "") && (gv.weatherSounds3 != null))
                     //{
-                        gv.weatherSounds3.controls.play();
+                    gv.weatherSounds3.controls.play();
                     //}
                 }
-                
-            }
 
-            if (!gv.mod.playMusic)
-            {
-                gv.weatherSounds1.controls.stop();
-                gv.weatherSounds2.controls.stop();
-                gv.weatherSounds3.controls.stop();
+
+                if (!gv.mod.playMusic)
+                {
+                    gv.weatherSounds1.controls.stop();
+                    gv.weatherSounds2.controls.stop();
+                    gv.weatherSounds3.controls.stop();
+                }
+                #endregion
             }
-            #endregion
         }
-
         public void doPropHeartBeat()
         {
             foreach (Prop prp in gv.mod.currentArea.Props)
