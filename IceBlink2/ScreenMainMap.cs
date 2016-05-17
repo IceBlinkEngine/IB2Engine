@@ -559,7 +559,7 @@ namespace IceBlink2
                 float posX = 0;
                 float posY = 0;
                 float scaleMod = 0;
-                int lightningChance = 60;
+                int lightningChance = 200;
                 if (gv.sf.RandInt(lightningChance) == 1)
                 {
                     gv.cc.setToBorderPixDistancesMainMap();
