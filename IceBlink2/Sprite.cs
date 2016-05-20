@@ -14,7 +14,8 @@ namespace IceBlink2
         public Vector2 velocity = new Vector2(0, 0);  // The speed of the sprite at the current instance
         public float angle = 0;                       // The current angle of rotation of the sprite
         public float angularVelocity = 0;             // The speed that the angle is changing
-        public float scale = 1.0f;                    // The scale of the sprite
+        public float scaleX = 1.0f;                    // The X-scale of the sprite
+        public float scaleY = 1.0f;                    // The Y-scale of the sprite
         public int timeToLiveInMilliseconds = 1000;   // The 'time to live' of the sprite in milliseconds after the startTimeInMilliseconds
         public int millisecondsPerFrame = 100;        // The amount of time (ms) before switching to next frame  
         public bool permanent = false;
@@ -44,14 +45,15 @@ namespace IceBlink2
         public int totalElapsedTime = 0;
 
         //overloaded constructor: complexSprite 
-        public Sprite(GameView gv, string bitmap, float positionX, float positionY, float velocityX, float velocityY, float angle, float angularVelocity, float scale, int timeToLiveInMilliseconds, bool permanent, int msPerFrame, float opacity, float mass, string movementMethod, bool movesIndependentlyFromPlayerPosition, int numberOFFramesForAnimationsMadeFromSeveralBitmaps)
+        public Sprite(GameView gv, string bitmap, float positionX, float positionY, float velocityX, float velocityY, float angle, float angularVelocity, float scaleX, float scaleY, int timeToLiveInMilliseconds, bool permanent, int msPerFrame, float opacity, float mass, string movementMethod, bool movesIndependentlyFromPlayerPosition, int numberOFFramesForAnimationsMadeFromSeveralBitmaps)
         {
             this.bitmap = bitmap;
             this.position = new Vector2(positionX, positionY);
             this.velocity = new Vector2(velocityX, velocityY);
             this.angle = angle;
             this.angularVelocity = angularVelocity;
-            this.scale = scale;
+            this.scaleX = scaleX;
+            this.scaleY = scaleY;
             this.timeToLiveInMilliseconds = timeToLiveInMilliseconds;
             this.millisecondsPerFrame = msPerFrame;
             this.permanent = permanent;
@@ -79,7 +81,8 @@ namespace IceBlink2
             this.velocity = new Vector2(velocityX, velocityY);
             this.angle = angle;
             this.angularVelocity = angularVelocity;
-            this.scale = scale;
+            this.scaleX = scale;
+            this.scaleY = scale;
             this.timeToLiveInMilliseconds = timeToLiveInMilliseconds;
             this.millisecondsPerFrame = msPerFrame;
             this.permanent = permanent;
@@ -101,7 +104,7 @@ namespace IceBlink2
             }
             else if (movementMethod == "clouds")
             {
-                position += velocity * elapsed;
+                position += velocity * elapsed * 0.9f;
                 gv.cc.transformSpritePixelPositionOnContactWithVisibleMainMapBorders(this, 1, true, false, 0);
                 opacity = gv.mod.fullScreenEffectOpacityWeather;
 
@@ -115,12 +118,12 @@ namespace IceBlink2
             }
             else if (movementMethod == "rain")
             {
-                position += velocity * elapsed;
+                position += velocity * elapsed * 1.275f;
                 opacity = gv.mod.fullScreenEffectOpacityWeather;
             }
             else if (movementMethod == "snow")
             {
-                position += velocity * elapsed;
+                position += velocity * elapsed * 1.1f;
                 float shiftAdder = gv.sf.RandInt(300);
                 float limitAdder = gv.sf.RandInt(300);
 
@@ -148,7 +151,7 @@ namespace IceBlink2
             }
             else if (movementMethod == "sandstorm")
             {
-                position += velocity * elapsed;
+                position += velocity * elapsed * 1.4f;
                 opacity = gv.mod.fullScreenEffectOpacityWeather;
             }
 
@@ -184,7 +187,7 @@ namespace IceBlink2
                 src = new IbRect(0, 0, 150, 150);
             }
 
-            IbRect dst = new IbRect((int)this.position.X, (int)this.position.Y, (int)(gv.squareSize * this.scale), (int)(gv.squareSize*this.scale));
+            IbRect dst = new IbRect((int)this.position.X, (int)this.position.Y, (int)(gv.squareSize * this.scaleX), (int)(gv.squareSize*this.scaleY));
 
             if (numberOFFramesForAnimationsMadeFromSeveralBitmaps == 0)
             {

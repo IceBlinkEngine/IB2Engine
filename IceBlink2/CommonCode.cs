@@ -2303,7 +2303,17 @@ namespace IceBlink2
         {
             setToBorderPixDistancesMainMap();
 
-            float scaledSpriteDimension = spr.frameHeight * spr.scale;
+            float scaler = 0;
+            if (spr.scaleX >= spr.scaleY)
+            {
+                scaler = spr.scaleX;
+            }
+            else
+            {
+                scaler = spr.scaleY;
+            }
+
+            float scaledSpriteDimension = spr.frameHeight * scaler;
             //if (!spr.movementMethod.Contains("fog"))
             //{
                 float capSize = 0;
@@ -6016,7 +6026,7 @@ namespace IceBlink2
                     storedIncrement += increment;
                     if (gv.sf.RandInt(100) < rainChance)
                     {
-                        Sprite spr = new Sprite(gv, "rainDrop", storedIncrement - (gv.squareSize/2), -(float)(gv.sf.RandInt(10)), (float)(gv.sf.RandInt(5) + 35) / 650f, (float)(gv.sf.RandInt(80) + 170) / 650f, 0, 0, 0.525f, gv.sf.RandInt(10000) + 6000, false, 100, gv.mod.fullScreenEffectOpacityWeather, 0, "rain", false, 0);
+                        Sprite spr = new Sprite(gv, "rainDrop", storedIncrement - (gv.squareSize/2), -(float)(gv.sf.RandInt(10)), (float)(gv.sf.RandInt(5) + 35) / 650f, (float)(gv.sf.RandInt(80) + 170) / 650f, 0, 0, 0.18f* 0.75f, 0.335f * 0.75f, gv.sf.RandInt(10000) + 6000, false, 100, gv.mod.fullScreenEffectOpacityWeather, 0, "rain", false, 0);
                         gv.screenMainMap.spriteList.Add(spr);
                     }
                 }
@@ -6049,7 +6059,7 @@ namespace IceBlink2
                     if (gv.sf.RandInt(100) < snowChance)
                     {
                         int scaleMulti = gv.sf.RandInt(50) + 75;
-                        Sprite spr = new Sprite(gv, "snowFlake", storedIncrement - (gv.squareSize / 2), -(float)(gv.sf.RandInt(10)), 0, (float)(gv.sf.RandInt(80) + 170) / 6000f, 0, 0, 0.425f * scaleMulti/100f, gv.sf.RandInt(10000) + 15000, false, 100, gv.mod.fullScreenEffectOpacityWeather, 0, "snow", false, 0);
+                        Sprite spr = new Sprite(gv, "snowFlake", storedIncrement - (gv.squareSize / 2), -(float)(gv.sf.RandInt(10)), 0, (float)(gv.sf.RandInt(80) + 170) / 6000f, 0, 0, 0.425f * scaleMulti/100f, 0.425f * scaleMulti/100f, gv.sf.RandInt(10000) + 15000, false, 100, gv.mod.fullScreenEffectOpacityWeather, 0, "snow", false, 0);
                         gv.screenMainMap.spriteList.Add(spr);
                     }
                 }
@@ -6086,7 +6096,7 @@ namespace IceBlink2
                             int scaleMulti = gv.sf.RandInt(50) + 75;
                             float thisParticleSpeed = (75f + gv.sf.RandInt(50)) / 100f;
                             //(float)(gv.sf.RandInt(80) + 170) / 600f
-                            Sprite spr = new Sprite(gv, "sandGrain", -(float)(gv.sf.RandInt(10)), storedIncrement - (gv.squareSize / 2), thisParticleSpeed * gv.mod.sandStormDirectionX, thisParticleSpeed * gv.mod.sandStormDirectionY, 0, 0, 0.235f * scaleMulti / 100f, 4000, false, 100, gv.mod.fullScreenEffectOpacityWeather, 0, "sandstorm", false, 0);
+                            Sprite spr = new Sprite(gv, "sandGrain", -(float)(gv.sf.RandInt(10)), storedIncrement - (gv.squareSize / 2), thisParticleSpeed * gv.mod.sandStormDirectionX, thisParticleSpeed * gv.mod.sandStormDirectionY, 0, 0, 0.235f * scaleMulti / 100f, 0.235f * scaleMulti/100f, 4000, false, 100, gv.mod.fullScreenEffectOpacityWeather, 0, "sandstorm", false, 0);
                             gv.screenMainMap.spriteList.Add(spr);
                         }
                     }
@@ -6102,7 +6112,7 @@ namespace IceBlink2
                             int scaleMulti = gv.sf.RandInt(50) + 75;
                             float thisParticleSpeed = (75f + gv.sf.RandInt(50)) / 100f;
                             //(float)(gv.sf.RandInt(80) + 170) / 600f
-                            Sprite spr = new Sprite(gv, "sandGrain", storedIncrement - (gv.squareSize / 2), gv.screenHeight + (float)(gv.sf.RandInt(10)), thisParticleSpeed * gv.mod.sandStormDirectionX, thisParticleSpeed * gv.mod.sandStormDirectionY, 0, 0, 0.235f * scaleMulti / 100f, 4000, false, 100, gv.mod.fullScreenEffectOpacityWeather, 0, "sandstorm", false, 0);
+                            Sprite spr = new Sprite(gv, "sandGrain", storedIncrement - (gv.squareSize / 2), gv.screenHeight + (float)(gv.sf.RandInt(10)), thisParticleSpeed * gv.mod.sandStormDirectionX, thisParticleSpeed * gv.mod.sandStormDirectionY, 0, 0, 0.235f * scaleMulti / 100f, 0.235f * scaleMulti/100f, 4000, false, 100, gv.mod.fullScreenEffectOpacityWeather, 0, "sandstorm", false, 0);
                             gv.screenMainMap.spriteList.Add(spr);
                         }
                     }
@@ -6119,7 +6129,7 @@ namespace IceBlink2
                             int scaleMulti = gv.sf.RandInt(50) + 75;
                             float thisParticleSpeed = (75f + gv.sf.RandInt(50)) / 100f;
                             //(float)(gv.sf.RandInt(80) + 170) / 600f
-                            Sprite spr = new Sprite(gv, "sandGrain", gv.screenWidth + (float)(gv.sf.RandInt(10)), storedIncrement - (gv.squareSize / 2), thisParticleSpeed * gv.mod.sandStormDirectionX, thisParticleSpeed * gv.mod.sandStormDirectionY, 0, 0, 0.235f * scaleMulti / 100f, 4000, false, 100, gv.mod.fullScreenEffectOpacityWeather, 0, "sandstorm", false, 0);
+                            Sprite spr = new Sprite(gv, "sandGrain", gv.screenWidth + (float)(gv.sf.RandInt(10)), storedIncrement - (gv.squareSize / 2), thisParticleSpeed * gv.mod.sandStormDirectionX, thisParticleSpeed * gv.mod.sandStormDirectionY, 0, 0, 0.235f * scaleMulti / 100f, 0.235f * scaleMulti/100f, 4000, false, 100, gv.mod.fullScreenEffectOpacityWeather, 0, "sandstorm", false, 0);
                             gv.screenMainMap.spriteList.Add(spr);
                         }
                     }
@@ -6135,7 +6145,7 @@ namespace IceBlink2
                             int scaleMulti = gv.sf.RandInt(50) + 75;
                             float thisParticleSpeed = (75f + gv.sf.RandInt(50)) / 100f;
                             //(float)(gv.sf.RandInt(80) + 170) / 600f
-                            Sprite spr = new Sprite(gv, "sandGrain", storedIncrement - (gv.squareSize / 2), gv.screenHeight + (float)(gv.sf.RandInt(10)), thisParticleSpeed * gv.mod.sandStormDirectionX, thisParticleSpeed * gv.mod.sandStormDirectionY, 0, 0, 0.235f * scaleMulti / 100f, 4000, false, 100, gv.mod.fullScreenEffectOpacityWeather, 0, "sandstorm", false, 0);
+                            Sprite spr = new Sprite(gv, "sandGrain", storedIncrement - (gv.squareSize / 2), gv.screenHeight + (float)(gv.sf.RandInt(10)), thisParticleSpeed * gv.mod.sandStormDirectionX, thisParticleSpeed * gv.mod.sandStormDirectionY, 0, 0, 0.235f * scaleMulti / 100f, 0.235f * scaleMulti/100f, 4000, false, 100, gv.mod.fullScreenEffectOpacityWeather, 0, "sandstorm", false, 0);
                             gv.screenMainMap.spriteList.Add(spr);
                         }
                     }
@@ -6153,7 +6163,7 @@ namespace IceBlink2
                             int scaleMulti = gv.sf.RandInt(50) + 75;
                             float thisParticleSpeed = (75f + gv.sf.RandInt(50)) / 100f;
                             //(float)(gv.sf.RandInt(80) + 170) / 600f
-                            Sprite spr = new Sprite(gv, "sandGrain", gv.screenWidth + (float)(gv.sf.RandInt(10)), storedIncrement - (gv.squareSize / 2), thisParticleSpeed * gv.mod.sandStormDirectionX, thisParticleSpeed * gv.mod.sandStormDirectionY, 0, 0, 0.235f * scaleMulti / 100f, 4000, false, 100, gv.mod.fullScreenEffectOpacityWeather, 0, "sandstorm", false, 0);
+                            Sprite spr = new Sprite(gv, "sandGrain", gv.screenWidth + (float)(gv.sf.RandInt(10)), storedIncrement - (gv.squareSize / 2), thisParticleSpeed * gv.mod.sandStormDirectionX, thisParticleSpeed * gv.mod.sandStormDirectionY, 0, 0, 0.235f * scaleMulti / 100f, 0.235f * scaleMulti/100f, 4000, false, 100, gv.mod.fullScreenEffectOpacityWeather, 0, "sandstorm", false, 0);
                             gv.screenMainMap.spriteList.Add(spr);
                         }
                     }
@@ -6169,7 +6179,7 @@ namespace IceBlink2
                             int scaleMulti = gv.sf.RandInt(50) + 75;
                             float thisParticleSpeed = (75f + gv.sf.RandInt(50)) / 100f;
                             //(float)(gv.sf.RandInt(80) + 170) / 600f
-                            Sprite spr = new Sprite(gv, "sandGrain", storedIncrement - (gv.squareSize / 2), -(float)(gv.sf.RandInt(10)), thisParticleSpeed * gv.mod.sandStormDirectionX, thisParticleSpeed * gv.mod.sandStormDirectionY, 0, 0, 0.235f * scaleMulti / 100f, 4000, false, 100, gv.mod.fullScreenEffectOpacityWeather, 0, "sandstorm", false, 0);
+                            Sprite spr = new Sprite(gv, "sandGrain", storedIncrement - (gv.squareSize / 2), -(float)(gv.sf.RandInt(10)), thisParticleSpeed * gv.mod.sandStormDirectionX, thisParticleSpeed * gv.mod.sandStormDirectionY, 0, 0, 0.235f * scaleMulti / 100f, 0.235f * scaleMulti/100f, 4000, false, 100, gv.mod.fullScreenEffectOpacityWeather, 0, "sandstorm", false, 0);
                             gv.screenMainMap.spriteList.Add(spr);
                         }
                     }
@@ -6186,7 +6196,7 @@ namespace IceBlink2
                             int scaleMulti = gv.sf.RandInt(50) + 75;
                             float thisParticleSpeed = (75f + gv.sf.RandInt(50)) / 100f;
                             //(float)(gv.sf.RandInt(80) + 170) / 600f
-                            Sprite spr = new Sprite(gv, "sandGrain", -(float)(gv.sf.RandInt(10)), storedIncrement - (gv.squareSize / 2), thisParticleSpeed * gv.mod.sandStormDirectionX, thisParticleSpeed * gv.mod.sandStormDirectionY, 0, 0, 0.235f * scaleMulti / 100f, 4000, false, 100, gv.mod.fullScreenEffectOpacityWeather, 0, "sandstorm", false, 0);
+                            Sprite spr = new Sprite(gv, "sandGrain", -(float)(gv.sf.RandInt(10)), storedIncrement - (gv.squareSize / 2), thisParticleSpeed * gv.mod.sandStormDirectionX, thisParticleSpeed * gv.mod.sandStormDirectionY, 0, 0, 0.235f * scaleMulti / 100f, 0.235f * scaleMulti/100f, 4000, false, 100, gv.mod.fullScreenEffectOpacityWeather, 0, "sandstorm", false, 0);
                             gv.screenMainMap.spriteList.Add(spr);
                         }
                     }
@@ -6202,7 +6212,7 @@ namespace IceBlink2
                             int scaleMulti = gv.sf.RandInt(50) + 75;
                             float thisParticleSpeed = (75f + gv.sf.RandInt(50)) / 100f;
                             //(float)(gv.sf.RandInt(80) + 170) / 600f
-                            Sprite spr = new Sprite(gv, "sandGrain", storedIncrement - (gv.squareSize / 2), -(float)(gv.sf.RandInt(10)), thisParticleSpeed * gv.mod.sandStormDirectionX, thisParticleSpeed * gv.mod.sandStormDirectionY, 0, 0, 0.235f * scaleMulti / 100f, 4000, false, 100, gv.mod.fullScreenEffectOpacityWeather, 0, "sandstorm", false, 0);
+                            Sprite spr = new Sprite(gv, "sandGrain", storedIncrement - (gv.squareSize / 2), -(float)(gv.sf.RandInt(10)), thisParticleSpeed * gv.mod.sandStormDirectionX, thisParticleSpeed * gv.mod.sandStormDirectionY, 0, 0, 0.235f * scaleMulti / 100f, 0.235f * scaleMulti/100f, 4000, false, 100, gv.mod.fullScreenEffectOpacityWeather, 0, "sandstorm", false, 0);
                             gv.screenMainMap.spriteList.Add(spr);
                         }
                     }
@@ -6259,7 +6269,7 @@ namespace IceBlink2
                 veloY = -1f / 50f;
             }
 
-            Sprite spr = new Sprite(gv, cloudType, gv.screenWidth/2 - gv.screenHeight/2 + positionModifierX, gv.screenHeight/2 - gv.screenHeight/2 + positionModifierY, veloX * speedMultiplier, veloY * speedMultiplier, 0, 0, 10f, gv.sf.RandInt(80000) + 48000, false, 100,gv.mod.fullScreenEffectOpacityWeather,0,"clouds",true,0);
+            Sprite spr = new Sprite(gv, cloudType, gv.screenWidth/2 - gv.screenHeight/2 + positionModifierX, gv.screenHeight/2 - gv.screenHeight/2 + positionModifierY, veloX * speedMultiplier, veloY * speedMultiplier, 0, 0, gv.sf.RandInt(60)/10f + 7.5f, gv.sf.RandInt(60)/10f + 7.5f, gv.sf.RandInt(80000) + 48000, false, 100,gv.mod.fullScreenEffectOpacityWeather,0,"clouds",true,0);
             gv.screenMainMap.spriteList.Add(spr);   
         }
 
@@ -6280,13 +6290,13 @@ namespace IceBlink2
                 veloY = veloY * -1;
             }
 
-            Sprite spr = new Sprite(gv, fogType, gv.screenWidth / 2 - gv.screenHeight / 2 + positionModifierX, gv.screenHeight / 2 - gv.screenHeight / 2 + positionModifierY, veloX * speedMultiplier, veloY * speedMultiplier, 0, 0, 10f, gv.sf.RandInt(80000) + 48000, false, 100, gv.mod.fullScreenEffectOpacityWeather, 0, "fog", false, 0);
+            Sprite spr = new Sprite(gv, fogType, gv.screenWidth / 2 - gv.screenHeight / 2 + positionModifierX, gv.screenHeight / 2 - gv.screenHeight / 2 + positionModifierY, veloX * speedMultiplier, veloY * speedMultiplier, 0, 0, 10f,10f, gv.sf.RandInt(80000) + 48000, false, 100, gv.mod.fullScreenEffectOpacityWeather, 0, "fog", false, 0);
             gv.screenMainMap.spriteList.Add(spr);
         }
 
         public void createLightning(string lightningType, float posX, float posY, float scaleMod)
         {
-            Sprite spr = new Sprite(gv, lightningType, posX, posY, 0, 0, 0, 0, 5.0f * scaleMod, 4000, false, 45, 1.0f, 0, "lightning", false, 8);
+            Sprite spr = new Sprite(gv, lightningType, posX, posY, 0, 0, 0, 0, 5.0f * scaleMod, 5.0f * scaleMod, 4000, false, 45, 1.0f, 0, "lightning", false, 8);
             gv.screenMainMap.spriteList.Add(spr);
 
             if ((gv.mod.useWeatherSound) && (gv.mod.playMusic))
