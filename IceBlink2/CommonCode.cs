@@ -2196,7 +2196,7 @@ namespace IceBlink2
             {
                 doWeather();
             }
-            //script hook for full screen effects on channels 1 to 4 
+            //script hook for full screen effects on channels 1 to 4 (also called in doTransitionBasedOnAreaLocation)
             doChannelScripts();
             //do weather sounds
             if (gv.mod.currentArea.areaWeatherName != "")
@@ -2446,7 +2446,7 @@ namespace IceBlink2
                 }
 
                 //like fog
-                if (spr.movementMethod.Contains("fog"))
+                if (movesAsBumper)
                 {
                     spr.velocity.X = -spr.velocity.X;
                     spr.velocity.Y = -spr.velocity.Y;
@@ -6026,7 +6026,7 @@ namespace IceBlink2
                     storedIncrement += increment;
                     if (gv.sf.RandInt(100) < rainChance)
                     {
-                        Sprite spr = new Sprite(gv, "rainDrop", storedIncrement - (gv.squareSize/2), -(float)(gv.sf.RandInt(10)), (float)(gv.sf.RandInt(5) + 35) / 650f, (float)(gv.sf.RandInt(80) + 170) / 650f, 0, 0, 0.18f* 0.75f, 0.335f * 0.75f, gv.sf.RandInt(10000) + 6000, false, 100, gv.mod.fullScreenEffectOpacityWeather, 0, "rain", false, 0);
+                        Sprite spr = new Sprite(gv, "rainDrop", storedIncrement - (gv.squareSize/2), -(float)(gv.sf.RandInt(10)), (float)(gv.sf.RandInt(5) + 35) / 650f, (float)(gv.sf.RandInt(80) + 170) / 500f, 0, 0, 0.18f* 0.65f, 0.335f * 0.73f, gv.sf.RandInt(10000) + 6000, false, 100, gv.mod.fullScreenEffectOpacityWeather, 0, "rain", false, 0);
                         gv.screenMainMap.spriteList.Add(spr);
                     }
                 }
@@ -6275,8 +6275,8 @@ namespace IceBlink2
 
         public void createFog(string fogType, float speedMultiplier, float positionModifierX, float positionModifierY)
         {
-            float veloX = 0.01f + gv.sf.RandInt(40)/40000f;
-            float veloY = 0.01f + gv.sf.RandInt(40)/40000f;
+            float veloX = 0.012f + gv.sf.RandInt(20)/40000f;
+            float veloY = 0.012f + gv.sf.RandInt(20)/40000f;
 
             int decider = gv.sf.RandInt(2);
             if (decider == 1)
@@ -6290,7 +6290,7 @@ namespace IceBlink2
                 veloY = veloY * -1;
             }
 
-            Sprite spr = new Sprite(gv, fogType, gv.screenWidth / 2 - gv.screenHeight / 2 + positionModifierX, gv.screenHeight / 2 - gv.screenHeight / 2 + positionModifierY, veloX * speedMultiplier, veloY * speedMultiplier, 0, 0, 10f,10f, gv.sf.RandInt(80000) + 48000, false, 100, gv.mod.fullScreenEffectOpacityWeather, 0, "fog", false, 0);
+            Sprite spr = new Sprite(gv, fogType, gv.screenWidth / 2 - gv.screenHeight / 2 + positionModifierX, gv.screenHeight / 2 - gv.screenHeight / 2 + positionModifierY, veloX * speedMultiplier * 0.7f, veloY * speedMultiplier * 0.7f, 0, 0, 14.5f,14.5f, gv.sf.RandInt(80000) + 48000, false, 100, gv.mod.fullScreenEffectOpacityWeather, 0, "fog", false, 0);
             gv.screenMainMap.spriteList.Add(spr);
         }
 

@@ -23,7 +23,7 @@
   "drawWithLessVisibleSeamsButMorePixelated": false,
   "use100pixSquares": false,
   "areaDark": false,
-  "UseDayNightCycle": false,
+  "UseDayNightCycle": true,
   "TimePerSquare": 6,
   "ImageFileName": "none",
   "MapSizeX": 16,

@@ -466,24 +466,28 @@ namespace IceBlink2
                 int iLimit = 0;
                 if (gv.fogType.Contains("lightFog") || gv.fogType.Contains("LightFog"))
                 {
-                    iLimit = 4;
+                    iLimit = 6;
                 }
                 else if (gv.fogType.Contains("heavyFog") || gv.fogType.Contains("HeavyFog"))
                 {
-                    iLimit = 8;
+                    iLimit = 10;
                 }
                 else if (gv.fogType.Contains("fog") || gv.fogType.Contains("Fog"))
                 {
-                    iLimit = 6;
+                    iLimit = 8;
                 }
 
                 for (int i = 0; i < iLimit; i++)
                 {
+
+                    positionModifierX = 0;
+                    positionModifierY = 0;
+
                     if (i == 0)
                     {
                         layerType = "fog1";
                         decider = gv.sf.RandInt(20);
-                        speedMultiplier = 0.55f + (decider / 100f);
+                        speedMultiplier = 0.50f + (decider / 100f);
                         positionModifierX = (-4) * gv.squareSize;
                     }
                         
@@ -491,7 +495,7 @@ namespace IceBlink2
                     {
                         layerType = "fog2";
                         decider = gv.sf.RandInt(50);
-                        speedMultiplier += 0.05f;
+                        speedMultiplier += 0.04f;
                         positionModifierX = (4) * gv.squareSize;
                     }
 
@@ -499,7 +503,7 @@ namespace IceBlink2
                     {
                         layerType = "fog3";
                         decider = gv.sf.RandInt(50);
-                        speedMultiplier += 0.05f;
+                        speedMultiplier += 0.04f;
                         positionModifierX = (2) * gv.squareSize;
                         positionModifierY = (2) * gv.squareSize;
                     }
@@ -508,7 +512,7 @@ namespace IceBlink2
                     {
                         layerType = "fog4";
                         decider = gv.sf.RandInt(50);
-                        speedMultiplier += 0.05f;
+                        speedMultiplier += 0.04f;
                         positionModifierX = (-2) * gv.squareSize;
                         positionModifierY = (-2) * gv.squareSize;
                     }
@@ -517,7 +521,7 @@ namespace IceBlink2
                     {
                         layerType = "fog5";
                         decider = gv.sf.RandInt(50);
-                        speedMultiplier += 0.05f;
+                        speedMultiplier += 0.04f;
                         positionModifierX = (-6) * gv.squareSize;
                        
                     }
@@ -526,15 +530,15 @@ namespace IceBlink2
                     {
                         layerType = "fog6";
                         decider = gv.sf.RandInt(50);
-                        speedMultiplier += 0.05f;
+                        speedMultiplier += 0.04f;
                         positionModifierX = 6 * gv.squareSize;
 
                     }
                     if (i == 6)
                     {
-                        layerType = "fog5";
+                        layerType = "fog7";
                         decider = gv.sf.RandInt(50);
-                        speedMultiplier += 0.05f;
+                        speedMultiplier += 0.04f;
                         positionModifierX = (-1) * gv.squareSize;
                         positionModifierY = (-1) * gv.squareSize;
 
@@ -542,14 +546,32 @@ namespace IceBlink2
 
                     if (i == 7)
                     {
-                        layerType = "fog6";
+                        layerType = "fog8";
                         decider = gv.sf.RandInt(50);
-                        speedMultiplier += 0.05f;
-                        positionModifierX = gv.squareSize;
-                        positionModifierY = gv.squareSize;
+                        speedMultiplier += 0.04f;
+                        positionModifierX = (-3) * gv.squareSize;
+                        positionModifierY = (-3) * gv.squareSize;
                     }
 
-                    gv.cc.createFog(layerType, speedMultiplier, positionModifierX, positionModifierY);
+                    if (i == 8)
+                    {
+                        layerType = "fog1";
+                        decider = gv.sf.RandInt(50);
+                        speedMultiplier += 0.04f;
+                        positionModifierX = (3) * gv.squareSize;
+                        positionModifierY = (3) * gv.squareSize;
+                    }
+
+                    if (i == 9)
+                    {
+                        layerType = "fog2";
+                        decider = gv.sf.RandInt(50);
+                        speedMultiplier += 0.04f;
+                        positionModifierX = (-5) * gv.squareSize;
+                       
+                    }
+
+                    gv.cc.createFog(layerType, speedMultiplier, positionModifierX - 1.8f * gv.squareSize, positionModifierY);
                     }
                 }
 
@@ -877,9 +899,14 @@ namespace IceBlink2
                 drawFloatyTextByPixelPool();
             }
 
+            //drawSprites();
+            //drawTopFullScreenEffects();
 
             if (!mod.currentArea.areaDark)
             {
+                drawFogOfWar();
+                drawSprites();
+                drawTopFullScreenEffects();
                 bool hideOverlayNeeded = false;
                 if (mod.currentArea.UseDayNightCycle)
                 {
@@ -892,10 +919,11 @@ namespace IceBlink2
                     drawBlackTilesOverTints();
                     hideOverlayNeeded = false;
                 }
-                drawFogOfWar();
-            }            
-            drawSprites();
-            drawTopFullScreenEffects();
+                //drawFogOfWar();
+            } 
+           
+            //drawSprites();
+            //drawTopFullScreenEffects();
             
             if ((showClock) && (!hideClock))
             {
@@ -25765,7 +25793,7 @@ namespace IceBlink2
 
             foreach (Sprite spr in spriteList)
             {
-                if (!spr.movementMethod.Contains("rain") && !spr.movementMethod.Contains("snow"))
+                if (!spr.movementMethod.Contains("rain") && !spr.movementMethod.Contains("snow") && !spr.movementMethod.Contains("sandStorm"))
                 {
                     spr.Draw(gv);
                 }

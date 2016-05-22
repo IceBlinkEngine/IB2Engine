@@ -1,6 +1,6 @@
 //when changing effect channels script from heartbeat script make sure to set fullScreenEffectLayerIsActive1 to true
 %CurrentArea.useFullScreenEffectLayer1 = "True"		
-%CurrentArea.fullScreenEffectLayerName1  = "sea"	
+%CurrentArea.fullScreenEffectLayerName1  = "oceanBottom"	
  			//setting up the (override) movement pattern, speeds and delay
         		//a value of -100 ("" in case of overrideIsNoScrollSource1) means that the default, ie predefined, setting of the override animation pattern for this parameter shall be used
         		//so far existing directional overrides:
@@ -30,7 +30,7 @@
         		//float, the counter for this is increased by 1_ each render call, when the limit is reached, the frame is changed to the next one
 %CurrentArea.changeLimit1  = 15
 			//float, the number of different frames existing for the shape changing animation
-%CurrentArea.changeNumberOfFrames1  = 0  
+%CurrentArea.changeNumberOfFrames1  = 6  
      
 			//XXXXX Settings for animation that happen only randomly/frequently XXXXX 
 			//int, this out of 100 chance is rolled for on each call of the doupdate() method, ie och each step (or realTimeInterval if used)         

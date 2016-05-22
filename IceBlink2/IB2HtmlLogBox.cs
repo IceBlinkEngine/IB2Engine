@@ -88,14 +88,9 @@ namespace IceBlink2
             float xLoc = 0;
             float yLoc = 3.0f;
             int maxLines = 0;
-            if (gv.mod.useMinimalisticUI)
-            {
-                maxLines = currentTopLineIndex + numberOfLinesToShow - 2;
-            }
-            else
-            {
-                maxLines = currentTopLineIndex + numberOfLinesToShow;
-            }
+            
+            maxLines = currentTopLineIndex + numberOfLinesToShow;
+            
             if (maxLines > logLinesList.Count) { maxLines = logLinesList.Count; }
             for (int i = currentTopLineIndex; i < maxLines; i++)
             {
