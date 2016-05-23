@@ -58,7 +58,7 @@ namespace IceBlink2
         {
             mod = m;
             gv = g;
-            mapStartLocXinPixels = 0 * gv.squareSize;
+            mapStartLocXinPixels = 0 * gv.squareSize + gv.oXshift;
             loadMainUILayout();
             //setControlsStart();
             //setToggleButtonsStart();            
@@ -466,15 +466,15 @@ namespace IceBlink2
                 int iLimit = 0;
                 if (gv.fogType.Contains("lightFog") || gv.fogType.Contains("LightFog"))
                 {
-                    iLimit = 6;
+                    iLimit = 4;
                 }
                 else if (gv.fogType.Contains("heavyFog") || gv.fogType.Contains("HeavyFog"))
                 {
-                    iLimit = 10;
+                    iLimit = 8;
                 }
                 else if (gv.fogType.Contains("fog") || gv.fogType.Contains("Fog"))
                 {
-                    iLimit = 8;
+                    iLimit = 6;
                 }
 
                 for (int i = 0; i < iLimit; i++)
@@ -974,7 +974,7 @@ namespace IceBlink2
                 gv.mod.seamlessModififierMaxY = 0;
 
                 #region neighbours
-                if ((gv.mod.currentArea.northernNeighbourArea != "") && (gv.mod.PlayerLocationY < gv.playerOffsetY))
+                if ((gv.mod.currentArea.northernNeighbourArea != "") && (gv.mod.PlayerLocationY <= gv.playerOffsetY))
                 {
                     gv.mod.seamlessModififierMinY = gv.playerOffsetY - gv.mod.PlayerLocationY;
                     for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
@@ -1002,7 +1002,7 @@ namespace IceBlink2
 
                     if (gv.mod.moduleAreasObjects[gv.mod.indexOfNorthernNeighbour].westernNeighbourArea != "")
                     {
-                        if (gv.mod.PlayerLocationX < gv.playerOffsetX) 
+                        if (gv.mod.PlayerLocationX <= gv.playerOffsetX) 
                         {
                         gv.mod.seamlessModififierMinX = gv.playerOffsetX - gv.mod.PlayerLocationX;
                         }
@@ -1046,7 +1046,7 @@ namespace IceBlink2
 
                     if (gv.mod.moduleAreasObjects[gv.mod.indexOfSouthernNeighbour].westernNeighbourArea != "")
                     {
-                        if (gv.mod.PlayerLocationX < gv.playerOffsetX)
+                        if (gv.mod.PlayerLocationX <= gv.playerOffsetX)
                         {
                             gv.mod.seamlessModififierMinX = gv.playerOffsetX - gv.mod.PlayerLocationX;
                         }
@@ -1060,7 +1060,7 @@ namespace IceBlink2
                     }
                 }
 
-                if ((gv.mod.currentArea.westernNeighbourArea != "") && (gv.mod.PlayerLocationX < gv.playerOffsetX))
+                if ((gv.mod.currentArea.westernNeighbourArea != "") && (gv.mod.PlayerLocationX <= gv.playerOffsetX))
                 {
                     gv.mod.seamlessModififierMinX = gv.playerOffsetX - gv.mod.PlayerLocationX;
                     for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
@@ -1074,7 +1074,7 @@ namespace IceBlink2
                     if (gv.mod.moduleAreasObjects[gv.mod.indexOfWesternNeighbour].northernNeighbourArea != "")
                     {
                         
-                        if (gv.mod.PlayerLocationY < gv.playerOffsetY)
+                        if (gv.mod.PlayerLocationY <= gv.playerOffsetY)
                         {
                             gv.mod.seamlessModififierMinY = gv.playerOffsetY - gv.mod.PlayerLocationY;
                         }
@@ -1119,7 +1119,7 @@ namespace IceBlink2
 
                     if (gv.mod.moduleAreasObjects[gv.mod.indexOfEasternNeighbour].northernNeighbourArea != "")
                     {
-                        if (gv.mod.PlayerLocationY < gv.playerOffsetY)
+                        if (gv.mod.PlayerLocationY <= gv.playerOffsetY)
                         {
                             gv.mod.seamlessModififierMinY = gv.playerOffsetY - gv.mod.PlayerLocationY;
                         }
@@ -1151,14 +1151,14 @@ namespace IceBlink2
                 #endregion
                 //foreach (Area a in gv.mod.moduleAreasObjects)
 
-                int minX = mod.PlayerLocationX - gv.playerOffsetX - 2; //using -2 in case a large tile (3x3) needs to start off the visible map space to be seen
-                if (minX < -gv.mod.seamlessModififierMinX) { minX = -gv.mod.seamlessModififierMinX; }
-                int minY = mod.PlayerLocationY - gv.playerOffsetY - 2; //using -2 in case a large tile (3x3) needs to start off the visible map space to be seen
-                if (minY < -gv.mod.seamlessModififierMinY) { minY = -gv.mod.seamlessModififierMinY; }
+                int minX = mod.PlayerLocationX - gv.playerOffsetX - 3; //using -2 in case a large tile (3x3) needs to start off the visible map space to be seen
+                if (minX < -gv.mod.seamlessModififierMinX -1) { minX = -gv.mod.seamlessModififierMinX - 1; }
+                int minY = mod.PlayerLocationY - gv.playerOffsetY - 3; //using -2 in case a large tile (3x3) needs to start off the visible map space to be seen
+                if (minY < -gv.mod.seamlessModififierMinY - 1) { minY = -gv.mod.seamlessModififierMinY - 1; }
 
                 int maxX = mod.PlayerLocationX + gv.playerOffsetX + 1;
                 if (maxX > this.mod.currentArea.MapSizeX + gv.mod.seamlessModififierMaxX) { maxX = this.mod.currentArea.MapSizeX + gv.mod.seamlessModififierMaxX; }
-                int maxY = mod.PlayerLocationY + gv.playerOffsetY + 1;
+                int maxY = mod.PlayerLocationY + gv.playerOffsetY +1;
                 if (maxY > this.mod.currentArea.MapSizeY + gv.mod.seamlessModififierMaxY) { maxY = this.mod.currentArea.MapSizeY + gv.mod.seamlessModififierMaxY; }
 
                 if (gv.mod.currentArea.sourceBitmapName != "")
@@ -2462,6 +2462,7 @@ namespace IceBlink2
                 #endregion
 
                 #region Draw Black Squares
+                //drawColumnOfBlack(gv.playerOffsetX*2+2);
                 //MAY NOT NEED THIS WITH NEW FULL SCREEN MODE
                 //draw black squares to make sure and hide any large tiles that have over drawn outside the visible map area
                 /*int mapStartLocationInSquares = 6;
@@ -24314,6 +24315,11 @@ namespace IceBlink2
             drawRowOfBlack(-1);
             drawColumnOfBlack(gv.playerOffsetX * 2 + 1);
             drawColumnOfBlack(gv.playerOffsetX * 2 + 2);
+            //hurgh16
+            //drawColumnOfBlack(gv.playerOffsetX * 2 + 3);
+            //drawColumnOfBlack(gv.playerOffsetX * 2 + 4);
+            //drawColumnOfBlack(gv.playerOffsetX * 2 + 5);
+            //drawColumnOfBlack(gv.playerOffsetX * 2 + 6);
             drawRowOfBlack(gv.playerOffsetY * 2 + 2);
         }
 
@@ -25747,7 +25753,9 @@ namespace IceBlink2
         public void drawOverlayTints()
         {
             IbRect src = new IbRect(0, 0, gv.cc.tint_sunset.PixelSize.Width, gv.cc.tint_sunset.PixelSize.Height);
-            IbRect dst = new IbRect(gv.oXshift + mapStartLocXinPixels, 0, (gv.squareSize * (gv.playerOffsetX * 2 + 1)), (gv.squareSize * (gv.playerOffsetY * 2 + 2)));
+            //IbRect dst = new IbRect(gv.oXshift + mapStartLocXinPixels, 0, (gv.squareSize * (gv.playerOffsetX * 2 + 1)), (gv.squareSize * (gv.playerOffsetY * 2 + 2)));
+            IbRect dst = new IbRect(mapStartLocXinPixels-gv.oXshift, -gv.oYshift, (gv.squareSize * (gv.playerOffsetX * 2 + 1))+ 2*gv.oXshift + gv.pS, (gv.squareSize * (gv.playerOffsetY * 2 + 2)) + gv.pS);
+
             int dawn = 5 * 60;
             int sunrise = 6 * 60;
             int day = 7 * 60;
@@ -25910,7 +25918,7 @@ namespace IceBlink2
                 //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
                 #region neighbours
-                if ((gv.mod.currentArea.northernNeighbourArea != "") && (gv.mod.PlayerLocationY < gv.playerOffsetY))
+                if ((gv.mod.currentArea.northernNeighbourArea != "") && (gv.mod.PlayerLocationY <= gv.playerOffsetY))
                 {
                     gv.mod.seamlessModififierMinY = gv.playerOffsetY - gv.mod.PlayerLocationY;
                     for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
@@ -25938,7 +25946,7 @@ namespace IceBlink2
 
                     if (gv.mod.moduleAreasObjects[gv.mod.indexOfNorthernNeighbour].westernNeighbourArea != "")
                     {
-                        if (gv.mod.PlayerLocationX < gv.playerOffsetX)
+                        if (gv.mod.PlayerLocationX <= gv.playerOffsetX)
                         {
                             gv.mod.seamlessModififierMinX = gv.playerOffsetX - gv.mod.PlayerLocationX;
                         }
@@ -25982,7 +25990,7 @@ namespace IceBlink2
 
                     if (gv.mod.moduleAreasObjects[gv.mod.indexOfSouthernNeighbour].westernNeighbourArea != "")
                     {
-                        if (gv.mod.PlayerLocationX < gv.playerOffsetX)
+                        if (gv.mod.PlayerLocationX <= gv.playerOffsetX)
                         {
                             gv.mod.seamlessModififierMinX = gv.playerOffsetX - gv.mod.PlayerLocationX;
                         }
@@ -25996,7 +26004,7 @@ namespace IceBlink2
                     }
                 }
 
-                if ((gv.mod.currentArea.westernNeighbourArea != "") && (gv.mod.PlayerLocationX < gv.playerOffsetX))
+                if ((gv.mod.currentArea.westernNeighbourArea != "") && (gv.mod.PlayerLocationX <= gv.playerOffsetX))
                 {
                     gv.mod.seamlessModififierMinX = gv.playerOffsetX - gv.mod.PlayerLocationX;
                     for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
@@ -26010,7 +26018,7 @@ namespace IceBlink2
                     if (gv.mod.moduleAreasObjects[gv.mod.indexOfWesternNeighbour].northernNeighbourArea != "")
                     {
 
-                        if (gv.mod.PlayerLocationY < gv.playerOffsetY)
+                        if (gv.mod.PlayerLocationY <= gv.playerOffsetY)
                         {
                             gv.mod.seamlessModififierMinY = gv.playerOffsetY - gv.mod.PlayerLocationY;
                         }
@@ -26055,7 +26063,7 @@ namespace IceBlink2
 
                     if (gv.mod.moduleAreasObjects[gv.mod.indexOfEasternNeighbour].northernNeighbourArea != "")
                     {
-                        if (gv.mod.PlayerLocationY < gv.playerOffsetY)
+                        if (gv.mod.PlayerLocationY <= gv.playerOffsetY)
                         {
                             gv.mod.seamlessModififierMinY = gv.playerOffsetY - gv.mod.PlayerLocationY;
                         }
@@ -26086,10 +26094,10 @@ namespace IceBlink2
                 }
                 #endregion
 
-                int minX = mod.PlayerLocationX - gv.playerOffsetX - 2; //using -2 in case a large tile (3x3) needs to start off the visible map space to be seen
-                if (minX < -gv.mod.seamlessModififierMinX) { minX = -gv.mod.seamlessModififierMinX; }
-                int minY = mod.PlayerLocationY - gv.playerOffsetY - 2; //using -2 in case a large tile (3x3) needs to start off the visible map space to be seen
-                if (minY < -gv.mod.seamlessModififierMinY) { minY = -gv.mod.seamlessModififierMinY; }
+                int minX = mod.PlayerLocationX - gv.playerOffsetX - 3; //using -2 in case a large tile (3x3) needs to start off the visible map space to be seen
+                if (minX < -gv.mod.seamlessModififierMinX - 1) { minX = -gv.mod.seamlessModififierMinX - 1; }
+                int minY = mod.PlayerLocationY - gv.playerOffsetY - 3; //using -2 in case a large tile (3x3) needs to start off the visible map space to be seen
+                if (minY < -gv.mod.seamlessModififierMinY - 1) { minY = -gv.mod.seamlessModififierMinY - 1; }
 
                 int maxX = mod.PlayerLocationX + gv.playerOffsetX + 1;
                 if (maxX > this.mod.currentArea.MapSizeX + gv.mod.seamlessModififierMaxX) { maxX = this.mod.currentArea.MapSizeX + gv.mod.seamlessModififierMaxX; }
@@ -26368,7 +26376,7 @@ namespace IceBlink2
                 //if (mod.currentArea.westernNeighbourArea == "")
                 //{
                     //at left edge
-                    for (int i = 0; i < gv.playerOffsetX - mod.PlayerLocationX + 1; i++)
+                    for (int i = -1; i < gv.playerOffsetX - mod.PlayerLocationX + 1; i++)
                     {
                          drawColumnOfBlack(i);
                     }
@@ -26377,7 +26385,7 @@ namespace IceBlink2
                 //if (mod.currentArea.northernNeighbourArea == "")
                 //{
                     //at top edge
-                    for (int i = 0; i < gv.playerOffsetY - mod.PlayerLocationY; i++)
+                    for (int i = -1; i < gv.playerOffsetY - mod.PlayerLocationY; i++)
                     {
                         drawRowOfBlack(i);
                     }
@@ -26596,6 +26604,16 @@ namespace IceBlink2
                     int brY = gv.squareSize;
                     IbRect src = new IbRect(0, 0, gv.cc.black_tile.PixelSize.Width, gv.cc.black_tile.PixelSize.Height);
                     IbRect dst = new IbRect(tlX + mapStartLocXinPixels - (int)(brX * 1.0f), tlY - (int)(brY * 1.1f), (int)(brX * 1.2f), (int)(brY * 1.1));
+                    /*
+                    if (col >= (gv.playerOffsetX * 2 + 2))
+                    {
+                        dst = new IbRect(tlX + mapStartLocXinPixels - (int)(brX * 1.0f), tlY - (int)(brY * 1.1f), (int)(brX * 1.4f), (int)(brY * 1.1));
+                    }
+                    else
+                    {
+                        dst = new IbRect(tlX + mapStartLocXinPixels - (int)(brX * 1.0f), tlY - (int)(brY * 1.1f), (int)(brX * 1.2f), (int)(brY * 1.1));
+                    }
+                    */
 
                     bool skipDraw = false;
 

@@ -44,7 +44,7 @@
             this.pnlTop.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlTop.Location = new System.Drawing.Point(0, 0);
             this.pnlTop.Name = "pnlTop";
-            this.pnlTop.Size = new System.Drawing.Size(359, 34);
+            this.pnlTop.Size = new System.Drawing.Size(359, 24);
             this.pnlTop.TabIndex = 2;
             // 
             // pnlTitle

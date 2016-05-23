@@ -1556,5 +1556,10 @@ namespace IceBlink2
                 writer.WriteLine(text);
             }
         }
+
+        private void GameView_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
