@@ -3,6 +3,7 @@
   "backgroundImageStartLocY": 0,
   "sourceBitmapName": "swamp",
   "Filename": "swamp",
+  "AreaVisibleDistance": 3,
   "UseMiniMapFogOfWar": false,
   "inGameAreaName": "newArea",
   "areaWeatherName": "swamp",

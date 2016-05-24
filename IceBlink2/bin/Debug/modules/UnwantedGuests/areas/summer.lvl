@@ -5,7 +5,7 @@
   "isJPGMap": false,
   "isPNGMap": true,
   "Filename": "summer",
-  "AreaVisibleDistance": 2,
+  "AreaVisibleDistance": 3,
   "RestingAllowed": false,
   "UseMiniMapFogOfWar": false,
   "inGameAreaName": "newArea",

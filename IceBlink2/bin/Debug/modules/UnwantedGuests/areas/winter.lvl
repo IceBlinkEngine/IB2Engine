@@ -3,6 +3,7 @@
   "backgroundImageStartLocY": 0,
   "sourceBitmapName": "winter",
   "Filename": "winter",
+  "AreaVisibleDistance": 3,
   "UseMiniMapFogOfWar": false,
   "inGameAreaName": "newArea",
   "areaWeatherName": "winter",

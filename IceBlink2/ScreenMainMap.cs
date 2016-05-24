@@ -443,7 +443,7 @@ namespace IceBlink2
                     {
                         layerType = "LayerC";
                     }
-                    speedMultiplier = 0.5f + (i*0.09f);
+                    speedMultiplier = 0.39f + (i*0.1f);
                     decider = gv.sf.RandInt(15);
                     positionModifierX = (-7 + decider) * gv.squareSize;
                     decider = gv.sf.RandInt(9);
@@ -466,7 +466,7 @@ namespace IceBlink2
                 int iLimit = 0;
                 if (gv.fogType.Contains("lightFog") || gv.fogType.Contains("LightFog"))
                 {
-                    iLimit = 4;
+                    iLimit = 6;
                 }
                 else if (gv.fogType.Contains("heavyFog") || gv.fogType.Contains("HeavyFog"))
                 {
@@ -474,7 +474,7 @@ namespace IceBlink2
                 }
                 else if (gv.fogType.Contains("fog") || gv.fogType.Contains("Fog"))
                 {
-                    iLimit = 6;
+                    iLimit = 7;
                 }
 
                 for (int i = 0; i < iLimit; i++)

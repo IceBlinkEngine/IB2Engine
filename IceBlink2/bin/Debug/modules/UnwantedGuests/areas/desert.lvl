@@ -4,6 +4,7 @@
   "sourceBitmapName": "desert",
   "minimap": null,
   "Filename": "desert",
+   "AreaVisibleDistance": 3,
   "UseMiniMapFogOfWar": false,
   "inGameAreaName": "newArea",
   "areaWeatherName": "desert",

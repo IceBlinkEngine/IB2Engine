@@ -3,6 +3,7 @@
   "backgroundImageStartLocY": 0,
   "sourceBitmapName": "iceland",
   "Filename": "iceland",
+  "AreaVisibleDistance": 3,
   "UseMiniMapFogOfWar": false,
   "inGameAreaName": "newArea",
   "areaWeatherName": "iceland",

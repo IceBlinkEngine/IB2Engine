@@ -3,6 +3,7 @@
   "backgroundImageStartLocY": 0,
   "sourceBitmapName": "autumn",
   "Filename": "autumn",
+  "AreaVisibleDistance": 3,
   "UseMiniMapFogOfWar": false,
   "inGameAreaName": "newArea",
   "areaWeatherName": "autumn",
