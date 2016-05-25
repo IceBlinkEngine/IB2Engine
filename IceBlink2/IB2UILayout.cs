@@ -76,7 +76,7 @@ namespace IceBlink2
             {
                 foreach (IB2Panel pnl in panelList)
                 {
-                        pnl.Draw();
+                    pnl.Draw();
                 }
             }
         }

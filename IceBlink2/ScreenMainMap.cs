@@ -26336,14 +26336,14 @@ namespace IceBlink2
             #region old system
             else //old system using single image background and no load tile images on demand
             {
-                int minX = mod.PlayerLocationX - gv.playerOffsetX;
+                int minX = mod.PlayerLocationX - gv.playerOffsetX-1;
                 if (minX < 0) { minX = 0; }
-                int minY = mod.PlayerLocationY - gv.playerOffsetY;
+                int minY = mod.PlayerLocationY - gv.playerOffsetY-1;
                 if (minY < 0) { minY = 0; }
 
-                int maxX = mod.PlayerLocationX + gv.playerOffsetX + 1;
+                int maxX = mod.PlayerLocationX + gv.playerOffsetX + 2;
                 if (maxX > this.mod.currentArea.MapSizeX) { maxX = this.mod.currentArea.MapSizeX; }
-                int maxY = mod.PlayerLocationY + gv.playerOffsetY + 2;
+                int maxY = mod.PlayerLocationY + gv.playerOffsetY + 3;
                 if (maxY > this.mod.currentArea.MapSizeY) { maxY = this.mod.currentArea.MapSizeY; }
 
                 for (int x = minX; x < maxX; x++)
@@ -26415,19 +26415,19 @@ namespace IceBlink2
                 int height = gv.playerOffsetY * 2 + 1;
 
                 //at left edge
-                for (int i = 0; i < gv.playerOffsetX - mod.PlayerLocationX + 1; i++)
+                for (int i = -2; i < gv.playerOffsetX - mod.PlayerLocationX; i++)
                 {
                     drawColumnOfBlack(i);                    
                 }
 
                 //at top edge
-                for (int i = 0; i < gv.playerOffsetY - mod.PlayerLocationY; i++)
+                for (int i = -2; i < gv.playerOffsetY - mod.PlayerLocationY; i++)
                 {
                     drawRowOfBlack(i);
                 }
 
                 //at right edge
-                for (int i = 0; i <= gv.playerOffsetX + mod.PlayerLocationX - mod.currentArea.MapSizeX; i++)
+                for (int i = -1; i <= gv.playerOffsetX + mod.PlayerLocationX - mod.currentArea.MapSizeX + 1; i++)
                 {
                     drawColumnOfBlack(width - i);                    
                 }
@@ -26669,7 +26669,7 @@ namespace IceBlink2
                     int brX = gv.squareSize;
                     int brY = gv.squareSize;
                     IbRect src = new IbRect(0, 0, gv.cc.black_tile.PixelSize.Width, gv.cc.black_tile.PixelSize.Height);
-                    IbRect dst = new IbRect(tlX + mapStartLocXinPixels, tlY, brX, brY);
+                    IbRect dst = new IbRect(tlX + mapStartLocXinPixels + gv.oXshift, tlY, brX, brY);
 
                     gv.DrawBitmap(gv.cc.black_tile, src, dst);
                 }
@@ -26785,7 +26785,8 @@ namespace IceBlink2
                 }
             }
         }
-                
+         
+               
         public void drawUiLayout()
         {
             //SET PORTRAITS

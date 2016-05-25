@@ -138,6 +138,16 @@ namespace IceBlink2
                             }
                         }
                     }
+
+                    if (gv.mod.useMinimalisticUI)
+                    {
+                        if (pnlC.tag.Equals("arrowPanel"))
+                        {
+                            pnlC.hiding = true;
+                            pnlC.showing = false;
+                            showArrows = false;
+                        }
+                    }
                 }
             }
             catch (Exception ex)
@@ -2570,11 +2580,27 @@ namespace IceBlink2
                 //col = x
                 if (mod.currentEncounter.UseMapImage)
                 {
+                    /*
                     int sqrsizeW = mapBitmap.PixelSize.Width / this.mod.currentEncounter.MapSizeX;
                     int sqrsizeH = mapBitmap.PixelSize.Height / this.mod.currentEncounter.MapSizeY;
                     IbRect src = new IbRect(UpperLeftSquare.X * sqrsizeW, UpperLeftSquare.Y * sqrsizeH, sqrsizeW * 9, sqrsizeH * 9);
                     IbRect dst = new IbRect(0 + gv.oXshift + mapStartLocXinPixels, 0, gv.squareSize * 9, gv.squareSize * 9);
                     gv.DrawBitmap(mapBitmap, src, dst);
+                    */
+                    int bmpWidth = mapBitmap.PixelSize.Width;
+                    int bmpHeight = mapBitmap.PixelSize.Height;
+                    int sqrsizeW = mapBitmap.PixelSize.Width / this.mod.currentEncounter.MapSizeX;
+                    int sqrsizeH = mapBitmap.PixelSize.Height / this.mod.currentEncounter.MapSizeY;
+                    int dstX = -(UpperLeftSquare.X * gv.squareSize);
+                    int dstY = -(UpperLeftSquare.Y * gv.squareSize);
+                    int dstWidth = (int)(bmpWidth * 2 * gv.screenDensity); //assumes squares are 50x50 in this image
+                    int dstHeight = (int)(bmpHeight * 2 * gv.screenDensity); //assumes squares are 50x50 in this image
+
+                    IbRect src = new IbRect(0, 0, bmpWidth, bmpHeight);
+                    //IbRect dst = new IbRect(dstX + gv.oXshift + mapStartLocXinPixels, dstY, dstWidth, dstHeight);
+                    IbRect dst = new IbRect(dstX + gv.oXshift + mapStartLocXinPixels, dstY, dstWidth, dstHeight);
+                    gv.DrawBitmap(mapBitmap, src, dst);
+
                     //draw grid
                     if (mod.com_showGrid)
                     {
@@ -2921,6 +2947,12 @@ namespace IceBlink2
                     }
                     #endregion
                 }
+
+                if (gv.mod.useManualCombatCam)
+                {
+                    drawColumnOfBlack();
+                    drawRowOfBlack();
+                }
             }
             else //old system using single image background and no load tile images on demand
             {
@@ -2942,11 +2974,6 @@ namespace IceBlink2
                     IbRect dst = new IbRect(dstX + gv.oXshift + mapStartLocXinPixels, dstY, dstWidth, dstHeight);
                     gv.DrawBitmap(mapBitmap, src, dst);
 
-                    gv.screenMainMap.drawColumnOfBlack(-1);
-                    gv.screenMainMap.drawRowOfBlack(-1);
-                    gv.screenMainMap.drawColumnOfBlack(gv.playerOffsetX * 2 + 1);
-                    gv.screenMainMap.drawRowOfBlack(gv.playerOffsetY * 2 + 2);
-
                     //int sqrsizeW = mapBitmap.PixelSize.Width / this.mod.currentEncounter.MapSizeX;
                     //int sqrsizeH = mapBitmap.PixelSize.Height / this.mod.currentEncounter.MapSizeY;
                     //IbRect src = new IbRect(UpperLeftSquare.X * sqrsizeW, UpperLeftSquare.Y * sqrsizeH, sqrsizeW * (gv.playerOffsetX + gv.playerOffsetX + 1), sqrsizeH * (gv.playerOffsetY + gv.playerOffsetY + 1));
@@ -2954,7 +2981,7 @@ namespace IceBlink2
                     //gv.DrawBitmap(mapBitmap, src, dst);                    
                     #endregion
                 }
-                
+
                 int minX = UpperLeftSquare.X - (gv.playerOffsetX + 1);
                 if (minX < 0) { minX = 0; }
                 int minY = UpperLeftSquare.Y - (gv.playerOffsetY + 1);
@@ -3108,8 +3135,96 @@ namespace IceBlink2
                     }
                 }
                 #endregion
+
+                if (gv.mod.useManualCombatCam)
+                {
+                    drawColumnOfBlack();
+                    drawRowOfBlack();
+                }
             }
         }
+
+        //XXXX
+        public void drawColumnOfBlack()
+        {
+            if ((UpperLeftSquare.X <= 0) || (UpperLeftSquare.X >= (this.mod.currentEncounter.MapSizeX - 1 - (gv.playerOffsetX*2 + 1))))
+            {
+                int offset = 0;
+                if (UpperLeftSquare.X <= 0)
+                {
+                    offset = UpperLeftSquare.X +1;
+                    for (int y = -1; y < gv.playerOffsetY * 2 + 3; y++)
+                    {
+                        int tlX = -offset * gv.squareSize;
+                        int tlY = y * gv.squareSize;
+                        int brX = gv.squareSize;
+                        int brY = gv.squareSize;
+                        IbRect src = new IbRect(0, 0, gv.cc.black_tile.PixelSize.Width, gv.cc.black_tile.PixelSize.Height);
+                        IbRect dst = new IbRect(tlX + mapStartLocXinPixels - (int)(brX * 0.1f), tlY - (int)(brY * 0.1f), (int)(brX * 1.4f), (int)(brY * 1.3f));
+                        gv.DrawBitmap(gv.cc.black_tile2, src, dst);
+                    }
+                }
+
+                if (UpperLeftSquare.X >= (this.mod.currentEncounter.MapSizeX - 1 - (gv.playerOffsetX * 2 + 1)))
+                {
+                    offset = ((this.mod.currentEncounter.MapSizeX - 1) - UpperLeftSquare.X +1)*-1;
+                    //offset = gv.playerOffsetX * 2 + 1 + offset -1;
+                    for (int y = -1; y < gv.playerOffsetY * 2 + 3; y++)
+                    {
+                        int tlX = -offset * gv.squareSize;
+                        int tlY = y * gv.squareSize;
+                        int brX = gv.squareSize;
+                        int brY = gv.squareSize;
+                        IbRect src = new IbRect(0, 0, gv.cc.black_tile.PixelSize.Width, gv.cc.black_tile.PixelSize.Height);
+                        IbRect dst = new IbRect(tlX + mapStartLocXinPixels - (int)(brX * 0.1f), tlY - (int)(brY * 0.1f), (int)(brX * 1.4f), (int)(brY * 1.3f));
+                        gv.DrawBitmap(gv.cc.black_tile2, src, dst);
+                    }
+                }
+            }
+        }
+
+        public void drawRowOfBlack()
+        {
+            if ((UpperLeftSquare.Y <= 0) || (UpperLeftSquare.Y >= (this.mod.currentEncounter.MapSizeY - 1 - (gv.playerOffsetY*2+1))))
+            {
+                int offset = 0;
+                if (UpperLeftSquare.Y <= 0)
+                {
+                    offset = UpperLeftSquare.Y + 1;
+                    for (int x = -1; x < gv.playerOffsetX * 2 + 3; x++)
+                    {
+                        int tlX = x * gv.squareSize;
+                        int tlY = -offset * gv.squareSize;
+                        int brX = gv.squareSize;
+                        int brY = gv.squareSize;
+                        IbRect src = new IbRect(0, 0, gv.cc.black_tile.PixelSize.Width, gv.cc.black_tile.PixelSize.Height);
+                        IbRect dst = new IbRect(tlX + mapStartLocXinPixels - (int)(brX * 0.1f), tlY - (int)(brY * 0.1f), (int)(brX * 1.4f), (int)(brY * 1.3f));
+
+                        gv.DrawBitmap(gv.cc.black_tile2, src, dst);
+                    }
+                }
+                
+                if (UpperLeftSquare.Y >= (this.mod.currentEncounter.MapSizeY - 1 - (gv.playerOffsetY * 2 + 1)))
+                {
+                    offset = ((this.mod.currentEncounter.MapSizeY - 1) - UpperLeftSquare.Y + 1)*-1;
+                    //offset = gv.playerOffsetY * 2 + 1 + offset - 1;
+                    for (int x = -1; x < gv.playerOffsetX * 2 + 3; x++)
+                    {
+                        int tlX = x * gv.squareSize;
+                        int tlY = -offset * gv.squareSize;
+                        int brX = gv.squareSize;
+                        int brY = gv.squareSize;
+                        IbRect src = new IbRect(0, 0, gv.cc.black_tile.PixelSize.Width, gv.cc.black_tile.PixelSize.Height);
+                        IbRect dst = new IbRect(tlX + mapStartLocXinPixels - (int)(brX * 0.1f), tlY - (int)(brY * 0.1f), (int)(brX * 1.4f), (int)(brY * 1.3f));
+
+                        gv.DrawBitmap(gv.cc.black_tile2, src, dst);
+                    }
+                }
+            }
+        }
+
+
+        //XXXX
         public IbRect getSourceIbRect(int xSqr, int ySqr, int UpperLeftXsqr, int UpperLeftYsqr, int tileWinPixels, int tileHinPixels)
         {
             IbRect src = new IbRect(0, 0, tileWinPixels, tileHinPixels);
@@ -3754,35 +3869,79 @@ namespace IceBlink2
             #region Move Map
             if (keyData == Keys.Up)
             {
-                if (UpperLeftSquare.Y > 0)
+                if (gv.mod.useManualCombatCam)
                 {
-                    UpperLeftSquare.Y--;
+                    if (UpperLeftSquare.Y > -gv.playerOffsetY)
+                    {
+                        UpperLeftSquare.Y--;
+                    }
+                    return;
                 }
-                return;
+                else
+                {
+                    if (UpperLeftSquare.Y > 0)
+                    {
+                        UpperLeftSquare.Y--;
+                    }
+                    return;
+                }
             }
             else if (keyData == Keys.Left)
             {
-                if (UpperLeftSquare.X > 0)
+                if (gv.mod.useManualCombatCam)
                 {
-                    UpperLeftSquare.X--;
+                    if (UpperLeftSquare.X > -gv.playerOffsetX)
+                    {
+                        UpperLeftSquare.X--;
+                    }
+                    return;
                 }
-                return;
+                else
+                {
+                    if (UpperLeftSquare.X > 0)
+                    {
+                        UpperLeftSquare.X--;
+                    }
+                    return;
+                }
             }
             else if (keyData == Keys.Down)
             {
-                if (UpperLeftSquare.Y < mod.currentEncounter.MapSizeY - gv.playerOffsetY - gv.playerOffsetY - 1)
+                if (gv.mod.useManualCombatCam)
                 {
-                    UpperLeftSquare.Y++;
+                    if (UpperLeftSquare.Y < mod.currentEncounter.MapSizeY - gv.playerOffsetX - 1)
+                    {
+                        UpperLeftSquare.Y++;
+                    }
+                    return;
                 }
-                return;
+                else
+                {
+                    if (UpperLeftSquare.Y < mod.currentEncounter.MapSizeY - gv.playerOffsetY - gv.playerOffsetY - 1)
+                    {
+                        UpperLeftSquare.Y++;
+                    }
+                    return;
+                }
             }
             else if (keyData == Keys.Right)
             {
-                if (UpperLeftSquare.X < mod.currentEncounter.MapSizeX - gv.playerOffsetX - gv.playerOffsetX - 1)
+                if (gv.mod.useManualCombatCam)
                 {
-                    UpperLeftSquare.X++;
+                    if (UpperLeftSquare.X < mod.currentEncounter.MapSizeX - gv.playerOffsetX - 1)
+                    {
+                        UpperLeftSquare.X++;
+                    }
+                    return;
                 }
-                return;
+                else
+                {
+                    if (UpperLeftSquare.X < mod.currentEncounter.MapSizeX - gv.playerOffsetX - gv.playerOffsetX - 1)
+                    {
+                        UpperLeftSquare.X++;
+                    }
+                    return;
+                }
             }
             #endregion
             #region Move PC mode
@@ -6002,8 +6161,20 @@ namespace IceBlink2
             {
                 return false;
             }
+
+            if ((sqrX < 0) || (sqrY < 0))
+            {
+                return false;
+            }
+
             if ((sqrX >= UpperLeftSquare.X + gv.playerOffsetX + gv.playerOffsetX + 1)
                 || (sqrY >= UpperLeftSquare.Y + gv.playerOffsetY + gv.playerOffsetY + 2))
+            {
+                return false;
+            }
+
+            if ((sqrX >= gv.mod.currentEncounter.MapSizeX)
+                || (sqrY >= gv.mod.currentEncounter.MapSizeY))
             {
                 return false;
             }
