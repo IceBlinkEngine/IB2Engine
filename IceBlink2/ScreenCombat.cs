@@ -2427,7 +2427,203 @@ namespace IceBlink2
             drawHPText();
             drawSPText();
             drawFloatyTextList();
+            //started work on iniative bar for creatures and pc
+            //drawInitiativeBar();
             drawUiLayout();
+        }
+
+        public void drawInitiativeBar()
+        {
+            //XXXXXXXXXXXXXX
+            /*
+            foreach (MoveOrder m in moveOrderList)
+            {
+                if (m.PcOrCreature is Player)
+                {
+                    Player pc = (Player)m.PcOrCreature;
+                    pc.moveOrder = cnt;
+                }
+                else
+                {
+                    Creature crt = (Creature)m.PcOrCreature;
+                    crt.moveOrder = cnt;
+                }
+                cnt++;
+
+            
+                    if (showMoveOrder)
+                    {
+                        int mo = pc.moveOrder + 1;
+                        drawText(getPixelLocX(pc.combatLocX), getPixelLocY(pc.combatLocY) - (int)gv.drawFontRegHeight, mo.ToString(), Color.White);
+                    }
+            */
+            //XXXXXXXXXXXXX
+            float numberOfBackgroundTiles = 0;
+            foreach (MoveOrder m in moveOrderList)
+            {
+                if (m.PcOrCreature is Player)
+                {
+                    Player crt = (Player)m.PcOrCreature;
+                    if (crt.hp <= 0)
+                    {
+                        continue;
+                    }
+                    if (crt.token.PixelSize.Width > 100)
+                    {
+                        numberOfBackgroundTiles++;
+                    }
+                    else
+                    {
+                        numberOfBackgroundTiles += 0.5f;
+                    }
+                }
+
+                if (m.PcOrCreature is Creature)
+                {
+                    Creature crt = (Creature)m.PcOrCreature;
+                    if (crt.hp <= 0)
+                    {
+                        continue;
+                    }
+                    if (crt.token.PixelSize.Width > 100)
+                    {
+                        numberOfBackgroundTiles++;
+                    }
+                    else
+                    {
+                        numberOfBackgroundTiles += 0.5f;
+                    }
+                }
+
+            }
+
+
+            for (int i = 0; i < numberOfBackgroundTiles; i++)
+            {
+                int startBarX = (7 * gv.squareSize) + gv.oXshift + mapStartLocXinPixels;
+                int startBarY = 8* gv.squareSize;
+                int targetSizeX = gv.squareSize;
+                int targetSizeY = gv.squareSize;
+                IbRect src = new IbRect(0, 0, 100, 100);
+                IbRect dst = new IbRect(startBarX + i * gv.squareSize - (int)(targetSizeX * 0.1), startBarY - (int)(targetSizeY * 0.1), (int)(targetSizeX*1.2f), (int)(targetSizeY*1.2f));
+                gv.DrawBitmap(gv.cc.offScreen, src, dst, false);
+            }
+
+            int creatureCounter = 0;
+            //foreach (Creature crt in mod.currentEncounter.encounterCreatureList)
+            foreach (MoveOrder m in moveOrderList)
+            {
+                if (m.PcOrCreature is Player)
+                {
+                    Player crt = (Player)m.PcOrCreature;
+
+                    if (crt.hp <= 0)
+                    {
+                        continue;
+                    }
+                    IbRect src = new IbRect(0, 0, crt.token.PixelSize.Width, crt.token.PixelSize.Width);
+                    int startBarX = (7 * gv.squareSize) + gv.oXshift + mapStartLocXinPixels;
+                    int startBarY = 8 * gv.squareSize;
+                    int targetSizeX = gv.squareSize / 2;
+                    int targetSizeY = gv.squareSize / 2;
+                    int marchingLineHeight = gv.squareSize / 2;
+                    if (crt.token.PixelSize.Width > 100)
+                    {
+                        targetSizeX = gv.squareSize;
+                        targetSizeY = gv.squareSize;
+                        marchingLineHeight = 0;
+                    }
+                    IbRect dst = new IbRect(startBarX + creatureCounter * gv.squareSize / 2, startBarY + marchingLineHeight, targetSizeX, targetSizeY);
+                    if (crt.moveOrder+1 == currentMoveOrderIndex)
+                    {
+                        gv.DrawBitmap(gv.cc.turn_marker, src, dst, false);
+                    }
+
+                    gv.DrawBitmap(crt.token, src, dst, false);
+                    int mo = crt.moveOrder + 1;
+                    if (crt.token.PixelSize.Width <= 100)
+                    {
+                        drawMiniText(dst.Left, dst.Top, mo.ToString(), Color.White);
+                    }
+                    else
+                    {
+                        drawMiniText(dst.Left, dst.Top + gv.squareSize / 2, mo.ToString(), Color.White);
+                    }
+                    creatureCounter++;
+                    if (crt.token.PixelSize.Width > 100)
+                    {
+                        creatureCounter++;
+                    }
+                }
+
+                else
+                {
+                    Creature crt = (Creature)m.PcOrCreature;
+                    if (crt.hp <= 0)
+                    {
+                        continue;
+                    }
+                    IbRect src = new IbRect(0, 0, crt.token.PixelSize.Width, crt.token.PixelSize.Width);
+                    int startBarX = (7 * gv.squareSize) + gv.oXshift + mapStartLocXinPixels;
+                    int startBarY = 8 * gv.squareSize;
+                    int targetSizeX = gv.squareSize / 2;
+                    int targetSizeY = gv.squareSize / 2;
+                    int marchingLineHeight = gv.squareSize / 2; ;
+                    if (crt.token.PixelSize.Width > 100)
+                    {
+                        targetSizeX = gv.squareSize;
+                        targetSizeY = gv.squareSize;
+                        marchingLineHeight = 0;
+                    }
+                    IbRect dst = new IbRect(startBarX + creatureCounter * gv.squareSize / 2, startBarY + marchingLineHeight, targetSizeX, targetSizeY);
+                    if (crt.moveOrder+1 == currentMoveOrderIndex)
+                    {
+                        gv.DrawBitmap(gv.cc.turn_marker, src, dst, false);
+                    }
+                    gv.DrawBitmap(crt.token, src, dst, false);
+                    int mo = crt.moveOrder + 1;
+                    if (crt.token.PixelSize.Width <= 100)
+                    {
+                        drawMiniText(dst.Left, dst.Top, mo.ToString(), Color.White);
+                    }
+                    else
+                    {
+                        drawMiniText(dst.Left, dst.Top + gv.squareSize / 2, mo.ToString(), Color.White);
+                    }
+                    creatureCounter++;
+                    if (crt.token.PixelSize.Width > 100)
+                    {
+                        creatureCounter++;
+                    }
+                }  
+            }
+            /*
+                foreach (Effect ef in crt.cr_effectsList)
+                {
+                    Bitmap fx = gv.cc.LoadBitmap(ef.spriteFilename);
+                    src = new IbRect(0, 0, fx.PixelSize.Width, fx.PixelSize.Width);
+                    gv.DrawBitmap(fx, src, dst);
+                    gv.cc.DisposeOfBitmap(ref fx);
+                }
+                //CREATURE FACING
+                src = new IbRect(0, 0, gv.cc.facing1.PixelSize.Width, gv.cc.facing1.PixelSize.Height);
+                if (crt.combatFacing == 8) { gv.DrawBitmap(gv.cc.facing8, src, dst); }
+                else if (crt.combatFacing == 9) { gv.DrawBitmap(gv.cc.facing9, src, dst); }
+                else if (crt.combatFacing == 6) { gv.DrawBitmap(gv.cc.facing6, src, dst); }
+                else if (crt.combatFacing == 3) { gv.DrawBitmap(gv.cc.facing3, src, dst); }
+                else if (crt.combatFacing == 2) { gv.DrawBitmap(gv.cc.facing2, src, dst); }
+                else if (crt.combatFacing == 1) { gv.DrawBitmap(gv.cc.facing1, src, dst); }
+                else if (crt.combatFacing == 4) { gv.DrawBitmap(gv.cc.facing4, src, dst); }
+                else if (crt.combatFacing == 7) { gv.DrawBitmap(gv.cc.facing7, src, dst); }
+                else { } //didn't find one
+
+                if (showMoveOrder)
+                {
+                    int mo = crt.moveOrder + 1;
+                    drawText(getPixelLocX(crt.combatLocX), getPixelLocY(crt.combatLocY) - (int)gv.drawFontRegHeight, mo.ToString(), Color.White);
+                }
+            }
+            */
         }
         public void drawUiLayout()
         {
@@ -3657,7 +3853,20 @@ namespace IceBlink2
 		    }		
 		    gv.DrawText(text, xLoc, yLoc + txtH, 1.0f, colr);
 	    }
-	    public void drawFloatyTextList()
+        public void drawMiniText(int xLoc, int yLoc, string text, Color colr)
+        {
+            int txtH = (int)gv.drawFontRegHeight;
+
+            for (int x = -2; x <= 2; x++)
+            {
+                for (int y = -2; y <= 2; y++)
+                {
+                    gv.DrawText(text, xLoc + x, yLoc + txtH + y, 0.5f, Color.Black);
+                }
+            }
+            gv.DrawText(text, xLoc, yLoc + txtH, 0.5f, colr);
+        }
+        public void drawFloatyTextList()
 	    {
 		    if (floatyTextOn)
 		    {
@@ -3909,7 +4118,7 @@ namespace IceBlink2
             {
                 if (gv.mod.useManualCombatCam)
                 {
-                    if (UpperLeftSquare.Y < mod.currentEncounter.MapSizeY - gv.playerOffsetX - 1)
+                    if (UpperLeftSquare.Y < mod.currentEncounter.MapSizeY - gv.playerOffsetY - 1)
                     {
                         UpperLeftSquare.Y++;
                     }
@@ -5429,6 +5638,32 @@ namespace IceBlink2
                     {
                         gv.screenType = "combatInventory";
                         gv.screenInventory.resetInventory();
+                    }
+                    else if (rtn.Equals("btnIni1"))
+                    {
+                        if (moveOrderList.Count > 0)
+                        {
+                            MoveOrder m = moveOrderList[0];
+                            if (m.PcOrCreature is Player)
+                            {
+                                Player crt = (Player)m.PcOrCreature;
+                                if (crt.hp > 0)
+                                {
+                                    UpperLeftSquare.X = crt.combatLocX + gv.playerOffsetX;
+                                    UpperLeftSquare.Y = crt.combatLocY + gv.playerOffsetY;
+                                }
+                            }
+                            if (m.PcOrCreature is Creature)
+                            {
+                                Creature crt = (Creature)m.PcOrCreature;
+                                if (crt.hp > 0)
+                                {
+                                    UpperLeftSquare.X = crt.combatLocX + gv.playerOffsetX;
+                                    UpperLeftSquare.Y = crt.combatLocY + gv.playerOffsetY;
+                                }
+                            }
+                        }
+
                     }
                     else if (rtn.Equals("btnAttack"))
                     {
