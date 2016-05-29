@@ -45,7 +45,15 @@ namespace IceBlink2
         {
             if ((y > -2) && (y <= (int)(tbHeight * gv.screenDensity) - fontHeight))
             {
-                gv.DrawText(text, x + (int)(tbXloc * gv.screenDensity) + gv.pS, y, fw, fs, 1.0f, fontColor, isUnderlined);
+                //hurgh21
+                if (gv.mod.useMinimalisticUI)
+                {
+                    gv.DrawText(text, x + (int)(tbXloc * gv.screenDensity) + 2 * gv.pS, y, fw, fs, 1.0f, fontColor, isUnderlined);
+                }
+                else 
+                {
+                    gv.DrawText(text, x + (int)(tbXloc * gv.screenDensity) + gv.pS, y, fw, fs, 1.0f, fontColor, isUnderlined);
+                }
             }
         }
 
@@ -85,7 +93,7 @@ namespace IceBlink2
                 SetCurrentTopLineAbsoluteIndex(lineMove);
             }
             //only draw lines needed to fill textbox
-            float xLoc = 0;
+            float xLoc = 0.0f;
             float yLoc = 3.0f;
             int maxLines = 0;
             

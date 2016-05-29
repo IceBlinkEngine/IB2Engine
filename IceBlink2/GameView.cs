@@ -286,6 +286,8 @@ namespace IceBlink2
 	    }
         public void LoadStandardImages()
         {
+            cc.btnIni = cc.LoadBitmap("btn_ini");
+            cc.btnIniGlow = cc.LoadBitmap("btn_ini_glow");
             cc.walkPass = cc.LoadBitmap("walk_pass");
             cc.walkBlocked = cc.LoadBitmap("walk_block");
             cc.losBlocked = cc.LoadBitmap("los_block");

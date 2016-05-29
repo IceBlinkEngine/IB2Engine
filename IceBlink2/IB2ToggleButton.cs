@@ -62,7 +62,7 @@ namespace IceBlink2
                 IbRect dst = new IbRect(0, 0, 0, 0);
                 if (gv.mod.useMinimalisticUI)
                 {
-                    dst = new IbRect((int)((parentPanel.currentLocX + this.X - 2 * gv.pS) * gv.screenDensity), (int)((parentPanel.currentLocY + this.Y) * gv.screenDensity), (int)((float)Width * gv.screenDensity), (int)((float)Height * gv.screenDensity));
+                    dst = new IbRect((int)((parentPanel.currentLocX + this.X - 2 * gv.pS) * gv.screenDensity + gv.pS), (int)((parentPanel.currentLocY + this.Y) * gv.screenDensity + gv.pS), (int)((float)Width * gv.screenDensity) - 2*gv.pS, (int)((float)Height * gv.screenDensity) - 2*gv.pS);
                 }
                 else
                 {
@@ -73,7 +73,9 @@ namespace IceBlink2
                 {
                     if (gv.mod.useMinimalisticUI)
                     {
-                        gv.DrawBitmap(gv.cc.GetFromBitmapList("black_tile2"), src, dst, 0, false, 0.75f);
+                        IbRect src2 = new IbRect(0,0,100,100);
+                        IbRect dst2 = new IbRect((int)((parentPanel.currentLocX + this.X - 2 * gv.pS) * gv.screenDensity), (int)((parentPanel.currentLocY + this.Y) * gv.screenDensity), (int)((float)Width * gv.screenDensity), (int)((float)Height * gv.screenDensity));
+                        gv.DrawBitmap(gv.cc.GetFromBitmapList("item_slot2"), src2, dst2, 0, false, 0.75f);
                     }
                     gv.DrawBitmap(gv.cc.GetFromBitmapList(ImgOnFilename), src, dst, 0, false, 1f);
                 }
@@ -81,7 +83,9 @@ namespace IceBlink2
                 {
                     if (gv.mod.useMinimalisticUI)
                     {
-                        gv.DrawBitmap(gv.cc.GetFromBitmapList("black_tile2"), src, dst, 0, false, 0.75f);
+                        IbRect src2 = new IbRect(0, 0, 100, 100);
+                        IbRect dst2 = new IbRect((int)((parentPanel.currentLocX + this.X - 2 * gv.pS) * gv.screenDensity), (int)((parentPanel.currentLocY + this.Y) * gv.screenDensity), (int)((float)Width * gv.screenDensity), (int)((float)Height * gv.screenDensity));
+                        gv.DrawBitmap(gv.cc.GetFromBitmapList("item_slot2"), src2, dst2, 0, false, 0.75f);
                     }
                     gv.DrawBitmap(gv.cc.GetFromBitmapList(ImgOffFilename), src, dst, 0, false, 1f);
                 }

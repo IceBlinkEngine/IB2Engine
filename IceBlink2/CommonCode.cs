@@ -65,6 +65,8 @@ namespace IceBlink2
         public Bitmap title;
         public Bitmap bmpMap;
         public Bitmap walkPass;
+        public Bitmap btnIni;
+        public Bitmap btnIniGlow;
         public Bitmap walkBlocked;
         public Bitmap losBlocked;
         public Bitmap hitSymbol;

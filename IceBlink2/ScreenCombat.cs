@@ -2428,7 +2428,10 @@ namespace IceBlink2
             drawSPText();
             drawFloatyTextList();
             //started work on iniative bar for creatures and pc
-            //drawInitiativeBar();
+            if (gv.mod.useMinimalisticUI)
+            {
+                drawInitiativeBar();
+            }
             drawUiLayout();
         }
 
@@ -2497,17 +2500,37 @@ namespace IceBlink2
 
             }
 
+            int numberOfIniButtonsToActivate = (int)(numberOfBackgroundTiles * 2);
 
-            for (int i = 0; i < numberOfBackgroundTiles; i++)
+            for (int i = 0; i < numberOfIniButtonsToActivate; i++)
             {
-                int startBarX = (7 * gv.squareSize) + gv.oXshift + mapStartLocXinPixels;
-                int startBarY = 8* gv.squareSize;
-                int targetSizeX = gv.squareSize;
-                int targetSizeY = gv.squareSize;
-                IbRect src = new IbRect(0, 0, 100, 100);
-                IbRect dst = new IbRect(startBarX + i * gv.squareSize - (int)(targetSizeX * 0.1), startBarY - (int)(targetSizeY * 0.1), (int)(targetSizeX*1.2f), (int)(targetSizeY*1.2f));
-                gv.DrawBitmap(gv.cc.offScreen, src, dst, false);
+                //hurgh20
+                //foreach (IB2Panel pnl in combatUiLayout.panelList)
+                for (int j = 0; j < combatUiLayout.panelList.Count; j++)
+                {
+                    if (combatUiLayout.panelList[j].tag.Equals("InitiativePanel"))
+                    {
+                        combatUiLayout.panelList[j].buttonList[i].show = true;
+                        //for (int k = 0; k < combatUiLayout.panelList[j].buttonList.Count; k++)
+                        //{
+
+                        //}
+                    }
+               }
+                      
             }
+
+
+                for (int i = 0; i < numberOfBackgroundTiles; i++)
+                {
+                    int startBarX = (0 * gv.squareSize) + gv.oXshift + mapStartLocXinPixels + 2*gv.pS;
+                    int startBarY = 0 * gv.squareSize + 2*gv.pS;
+                    int targetSizeX = gv.squareSize;
+                    int targetSizeY = gv.squareSize;
+                    IbRect src = new IbRect(0, 0, 100, 100);
+                    IbRect dst = new IbRect(startBarX + i * gv.squareSize - (int)(targetSizeX * 0.1), startBarY - (int)(targetSizeY * 0.1), (int)(targetSizeX * 1.2f), (int)(targetSizeY * 1.2f));
+                    gv.DrawBitmap(gv.cc.offScreen, src, dst, false);
+                }
 
             int creatureCounter = 0;
             //foreach (Creature crt in mod.currentEncounter.encounterCreatureList)
@@ -2522,8 +2545,8 @@ namespace IceBlink2
                         continue;
                     }
                     IbRect src = new IbRect(0, 0, crt.token.PixelSize.Width, crt.token.PixelSize.Width);
-                    int startBarX = (7 * gv.squareSize) + gv.oXshift + mapStartLocXinPixels;
-                    int startBarY = 8 * gv.squareSize;
+                    int startBarX = (0 * gv.squareSize) + gv.oXshift + mapStartLocXinPixels + 2*gv.pS;
+                    int startBarY = 0 * gv.squareSize + 2*gv.pS;
                     int targetSizeX = gv.squareSize / 2;
                     int targetSizeY = gv.squareSize / 2;
                     int marchingLineHeight = gv.squareSize / 2;
@@ -2564,8 +2587,8 @@ namespace IceBlink2
                         continue;
                     }
                     IbRect src = new IbRect(0, 0, crt.token.PixelSize.Width, crt.token.PixelSize.Width);
-                    int startBarX = (7 * gv.squareSize) + gv.oXshift + mapStartLocXinPixels;
-                    int startBarY = 8 * gv.squareSize;
+                    int startBarX = (0 * gv.squareSize) + gv.oXshift + mapStartLocXinPixels + 2*gv.pS;
+                    int startBarY = 0 * gv.squareSize + 2*gv.pS;
                     int targetSizeX = gv.squareSize / 2;
                     int targetSizeY = gv.squareSize / 2;
                     int marchingLineHeight = gv.squareSize / 2; ;
@@ -5639,18 +5662,59 @@ namespace IceBlink2
                         gv.screenType = "combatInventory";
                         gv.screenInventory.resetInventory();
                     }
+
                     else if (rtn.Equals("btnIni1"))
                     {
-                        if (moveOrderList.Count > 0)
+                        int buttonThreshold = 1;
+                        int buttonCounter = 0;
+                        int index1 = 0;
+
+                        for (int i = 0; i < moveOrderList.Count; i++)
                         {
-                            MoveOrder m = moveOrderList[0];
+                            if (moveOrderList[i].PcOrCreature is Player)
+                            {
+                                Player crt = (Player)moveOrderList[i].PcOrCreature;
+                                if (crt.hp > 0)
+                                {
+                                    buttonCounter++;
+                                    if (crt.token.PixelSize.Width > 100)
+                                    {
+                                        buttonCounter++;
+                                    }
+                                    if (buttonCounter >= buttonThreshold)
+                                    {
+                                        index1 = i;
+                                        break;
+                                    }
+                                }
+                            }
+                            if (moveOrderList[i].PcOrCreature is Creature)
+                            {
+                                Creature crt = (Creature)moveOrderList[i].PcOrCreature;
+                                if (crt.hp > 0)
+                                {
+                                    buttonCounter++;
+                                    if (crt.token.PixelSize.Width > 100)
+                                    {
+                                        buttonCounter++;
+                                    }
+                                    if (buttonCounter >= buttonThreshold)
+                                    {
+                                        index1 = i;
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                        
+                            MoveOrder m = moveOrderList[index1];
                             if (m.PcOrCreature is Player)
                             {
                                 Player crt = (Player)m.PcOrCreature;
                                 if (crt.hp > 0)
                                 {
-                                    UpperLeftSquare.X = crt.combatLocX + gv.playerOffsetX;
-                                    UpperLeftSquare.Y = crt.combatLocY + gv.playerOffsetY;
+                                    UpperLeftSquare.X = crt.combatLocX - gv.playerOffsetX;
+                                    UpperLeftSquare.Y = crt.combatLocY - gv.playerOffsetY;
                                 }
                             }
                             if (m.PcOrCreature is Creature)
@@ -5658,13 +5722,2316 @@ namespace IceBlink2
                                 Creature crt = (Creature)m.PcOrCreature;
                                 if (crt.hp > 0)
                                 {
-                                    UpperLeftSquare.X = crt.combatLocX + gv.playerOffsetX;
-                                    UpperLeftSquare.Y = crt.combatLocY + gv.playerOffsetY;
+                                    UpperLeftSquare.X = crt.combatLocX - gv.playerOffsetX;
+                                    UpperLeftSquare.Y = crt.combatLocY - gv.playerOffsetY;
                                 }
                             }
                         }
 
+                    else if (rtn.Equals("btnIni2"))
+                    {
+                        int buttonThreshold = 2;
+                        int buttonCounter = 0;
+                        int index1 = 0;
+
+                        for (int i = 0; i < moveOrderList.Count; i++)
+                        {
+                            if (moveOrderList[i].PcOrCreature is Player)
+                            {
+                                Player crt = (Player)moveOrderList[i].PcOrCreature;
+                                if (crt.hp > 0)
+                                {
+                                    buttonCounter++;
+                                    if (crt.token.PixelSize.Width > 100)
+                                    {
+                                        buttonCounter++;
+                                    }
+                                    if (buttonCounter >= buttonThreshold)
+                                    {
+                                        index1 = i;
+                                        break;
+                                    }
+                                }
+                            }
+                            if (moveOrderList[i].PcOrCreature is Creature)
+                            {
+                                Creature crt = (Creature)moveOrderList[i].PcOrCreature;
+                                if (crt.hp > 0)
+                                {
+                                    buttonCounter++;
+                                    if (crt.token.PixelSize.Width > 100)
+                                    {
+                                        buttonCounter++;
+                                    }
+                                    if (buttonCounter >= buttonThreshold)
+                                    {
+                                        index1 = i;
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+
+                        MoveOrder m = moveOrderList[index1];
+                        if (m.PcOrCreature is Player)
+                        {
+                            Player crt = (Player)m.PcOrCreature;
+                            if (crt.hp > 0)
+                            {
+                                UpperLeftSquare.X = crt.combatLocX - gv.playerOffsetX;
+                                UpperLeftSquare.Y = crt.combatLocY - gv.playerOffsetY;
+                            }
+                        }
+                        if (m.PcOrCreature is Creature)
+                        {
+                            Creature crt = (Creature)m.PcOrCreature;
+                            if (crt.hp > 0)
+                            {
+                                UpperLeftSquare.X = crt.combatLocX - gv.playerOffsetX;
+                                UpperLeftSquare.Y = crt.combatLocY - gv.playerOffsetY;
+                            }
+                        }
                     }
+
+                    else if (rtn.Equals("btnIni3"))
+                    {
+                        int buttonThreshold = 3;
+                        int buttonCounter = 0;
+                        int index1 = 0;
+
+                        for (int i = 0; i < moveOrderList.Count; i++)
+                        {
+                            if (moveOrderList[i].PcOrCreature is Player)
+                            {
+                                Player crt = (Player)moveOrderList[i].PcOrCreature;
+                                if (crt.hp > 0)
+                                {
+                                    buttonCounter++;
+                                    if (crt.token.PixelSize.Width > 100)
+                                    {
+                                        buttonCounter++;
+                                    }
+                                    if (buttonCounter >= buttonThreshold)
+                                    {
+                                        index1 = i;
+                                        break;
+                                    }
+                                }
+                            }
+                            if (moveOrderList[i].PcOrCreature is Creature)
+                            {
+                                Creature crt = (Creature)moveOrderList[i].PcOrCreature;
+                                if (crt.hp > 0)
+                                {
+                                    buttonCounter++;
+                                    if (crt.token.PixelSize.Width > 100)
+                                    {
+                                        buttonCounter++;
+                                    }
+                                    if (buttonCounter >= buttonThreshold)
+                                    {
+                                        index1 = i;
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+
+                        MoveOrder m = moveOrderList[index1];
+                        if (m.PcOrCreature is Player)
+                        {
+                            Player crt = (Player)m.PcOrCreature;
+                            if (crt.hp > 0)
+                            {
+                                UpperLeftSquare.X = crt.combatLocX - gv.playerOffsetX;
+                                UpperLeftSquare.Y = crt.combatLocY - gv.playerOffsetY;
+                            }
+                        }
+                        if (m.PcOrCreature is Creature)
+                        {
+                            Creature crt = (Creature)m.PcOrCreature;
+                            if (crt.hp > 0)
+                            {
+                                UpperLeftSquare.X = crt.combatLocX - gv.playerOffsetX;
+                                UpperLeftSquare.Y = crt.combatLocY - gv.playerOffsetY;
+                            }
+                        }
+                    }
+
+                    else if (rtn.Equals("btnIni4"))
+                    {
+                        int buttonThreshold = 4;
+                        int buttonCounter = 0;
+                        int index1 = 0;
+
+                        for (int i = 0; i < moveOrderList.Count; i++)
+                        {
+                            if (moveOrderList[i].PcOrCreature is Player)
+                            {
+                                Player crt = (Player)moveOrderList[i].PcOrCreature;
+                                if (crt.hp > 0)
+                                {
+                                    buttonCounter++;
+                                    if (crt.token.PixelSize.Width > 100)
+                                    {
+                                        buttonCounter++;
+                                    }
+                                    if (buttonCounter >= buttonThreshold)
+                                    {
+                                        index1 = i;
+                                        break;
+                                    }
+                                }
+                            }
+                            if (moveOrderList[i].PcOrCreature is Creature)
+                            {
+                                Creature crt = (Creature)moveOrderList[i].PcOrCreature;
+                                if (crt.hp > 0)
+                                {
+                                    buttonCounter++;
+                                    if (crt.token.PixelSize.Width > 100)
+                                    {
+                                        buttonCounter++;
+                                    }
+                                    if (buttonCounter >= buttonThreshold)
+                                    {
+                                        index1 = i;
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+
+                        MoveOrder m = moveOrderList[index1];
+                        if (m.PcOrCreature is Player)
+                        {
+                            Player crt = (Player)m.PcOrCreature;
+                            if (crt.hp > 0)
+                            {
+                                UpperLeftSquare.X = crt.combatLocX - gv.playerOffsetX;
+                                UpperLeftSquare.Y = crt.combatLocY - gv.playerOffsetY;
+                            }
+                        }
+                        if (m.PcOrCreature is Creature)
+                        {
+                            Creature crt = (Creature)m.PcOrCreature;
+                            if (crt.hp > 0)
+                            {
+                                UpperLeftSquare.X = crt.combatLocX - gv.playerOffsetX;
+                                UpperLeftSquare.Y = crt.combatLocY - gv.playerOffsetY;
+                            }
+                        }
+                    }
+
+                    else if (rtn.Equals("btnIni5"))
+                    {
+                        int buttonThreshold = 5;
+                        int buttonCounter = 0;
+                        int index1 = 0;
+
+                        for (int i = 0; i < moveOrderList.Count; i++)
+                        {
+                            if (moveOrderList[i].PcOrCreature is Player)
+                            {
+                                Player crt = (Player)moveOrderList[i].PcOrCreature;
+                                if (crt.hp > 0)
+                                {
+                                    buttonCounter++;
+                                    if (crt.token.PixelSize.Width > 100)
+                                    {
+                                        buttonCounter++;
+                                    }
+                                    if (buttonCounter >= buttonThreshold)
+                                    {
+                                        index1 = i;
+                                        break;
+                                    }
+                                }
+                            }
+                            if (moveOrderList[i].PcOrCreature is Creature)
+                            {
+                                Creature crt = (Creature)moveOrderList[i].PcOrCreature;
+                                if (crt.hp > 0)
+                                {
+                                    buttonCounter++;
+                                    if (crt.token.PixelSize.Width > 100)
+                                    {
+                                        buttonCounter++;
+                                    }
+                                    if (buttonCounter >= buttonThreshold)
+                                    {
+                                        index1 = i;
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+
+                        MoveOrder m = moveOrderList[index1];
+                        if (m.PcOrCreature is Player)
+                        {
+                            Player crt = (Player)m.PcOrCreature;
+                            if (crt.hp > 0)
+                            {
+                                UpperLeftSquare.X = crt.combatLocX - gv.playerOffsetX;
+                                UpperLeftSquare.Y = crt.combatLocY - gv.playerOffsetY;
+                            }
+                        }
+                        if (m.PcOrCreature is Creature)
+                        {
+                            Creature crt = (Creature)m.PcOrCreature;
+                            if (crt.hp > 0)
+                            {
+                                UpperLeftSquare.X = crt.combatLocX - gv.playerOffsetX;
+                                UpperLeftSquare.Y = crt.combatLocY - gv.playerOffsetY;
+                            }
+                        }
+                    }
+
+                    else if (rtn.Equals("btnIni6"))
+                    {
+                        int buttonThreshold = 6;
+                        int buttonCounter = 0;
+                        int index1 = 0;
+
+                        for (int i = 0; i < moveOrderList.Count; i++)
+                        {
+                            if (moveOrderList[i].PcOrCreature is Player)
+                            {
+                                Player crt = (Player)moveOrderList[i].PcOrCreature;
+                                if (crt.hp > 0)
+                                {
+                                    buttonCounter++;
+                                    if (crt.token.PixelSize.Width > 100)
+                                    {
+                                        buttonCounter++;
+                                    }
+                                    if (buttonCounter >= buttonThreshold)
+                                    {
+                                        index1 = i;
+                                        break;
+                                    }
+                                }
+                            }
+                            if (moveOrderList[i].PcOrCreature is Creature)
+                            {
+                                Creature crt = (Creature)moveOrderList[i].PcOrCreature;
+                                if (crt.hp > 0)
+                                {
+                                    buttonCounter++;
+                                    if (crt.token.PixelSize.Width > 100)
+                                    {
+                                        buttonCounter++;
+                                    }
+                                    if (buttonCounter >= buttonThreshold)
+                                    {
+                                        index1 = i;
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+
+                        MoveOrder m = moveOrderList[index1];
+                        if (m.PcOrCreature is Player)
+                        {
+                            Player crt = (Player)m.PcOrCreature;
+                            if (crt.hp > 0)
+                            {
+                                UpperLeftSquare.X = crt.combatLocX - gv.playerOffsetX;
+                                UpperLeftSquare.Y = crt.combatLocY - gv.playerOffsetY;
+                            }
+                        }
+                        if (m.PcOrCreature is Creature)
+                        {
+                            Creature crt = (Creature)m.PcOrCreature;
+                            if (crt.hp > 0)
+                            {
+                                UpperLeftSquare.X = crt.combatLocX - gv.playerOffsetX;
+                                UpperLeftSquare.Y = crt.combatLocY - gv.playerOffsetY;
+                            }
+                        }
+                    }
+
+                    else if (rtn.Equals("btnIni7"))
+                    {
+                        int buttonThreshold = 7;
+                        int buttonCounter = 0;
+                        int index1 = 0;
+
+                        for (int i = 0; i < moveOrderList.Count; i++)
+                        {
+                            if (moveOrderList[i].PcOrCreature is Player)
+                            {
+                                Player crt = (Player)moveOrderList[i].PcOrCreature;
+                                if (crt.hp > 0)
+                                {
+                                    buttonCounter++;
+                                    if (crt.token.PixelSize.Width > 100)
+                                    {
+                                        buttonCounter++;
+                                    }
+                                    if (buttonCounter >= buttonThreshold)
+                                    {
+                                        index1 = i;
+                                        break;
+                                    }
+                                }
+                            }
+                            if (moveOrderList[i].PcOrCreature is Creature)
+                            {
+                                Creature crt = (Creature)moveOrderList[i].PcOrCreature;
+                                if (crt.hp > 0)
+                                {
+                                    buttonCounter++;
+                                    if (crt.token.PixelSize.Width > 100)
+                                    {
+                                        buttonCounter++;
+                                    }
+                                    if (buttonCounter >= buttonThreshold)
+                                    {
+                                        index1 = i;
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+
+                        MoveOrder m = moveOrderList[index1];
+                        if (m.PcOrCreature is Player)
+                        {
+                            Player crt = (Player)m.PcOrCreature;
+                            if (crt.hp > 0)
+                            {
+                                UpperLeftSquare.X = crt.combatLocX - gv.playerOffsetX;
+                                UpperLeftSquare.Y = crt.combatLocY - gv.playerOffsetY;
+                            }
+                        }
+                        if (m.PcOrCreature is Creature)
+                        {
+                            Creature crt = (Creature)m.PcOrCreature;
+                            if (crt.hp > 0)
+                            {
+                                UpperLeftSquare.X = crt.combatLocX - gv.playerOffsetX;
+                                UpperLeftSquare.Y = crt.combatLocY - gv.playerOffsetY;
+                            }
+                        }
+                    }
+
+
+                    else if (rtn.Equals("btnIni8"))
+                    {
+                        int buttonThreshold = 8;
+                        int buttonCounter = 0;
+                        int index1 = 0;
+
+                        for (int i = 0; i < moveOrderList.Count; i++)
+                        {
+                            if (moveOrderList[i].PcOrCreature is Player)
+                            {
+                                Player crt = (Player)moveOrderList[i].PcOrCreature;
+                                if (crt.hp > 0)
+                                {
+                                    buttonCounter++;
+                                    if (crt.token.PixelSize.Width > 100)
+                                    {
+                                        buttonCounter++;
+                                    }
+                                    if (buttonCounter >= buttonThreshold)
+                                    {
+                                        index1 = i;
+                                        break;
+                                    }
+                                }
+                            }
+                            if (moveOrderList[i].PcOrCreature is Creature)
+                            {
+                                Creature crt = (Creature)moveOrderList[i].PcOrCreature;
+                                if (crt.hp > 0)
+                                {
+                                    buttonCounter++;
+                                    if (crt.token.PixelSize.Width > 100)
+                                    {
+                                        buttonCounter++;
+                                    }
+                                    if (buttonCounter >= buttonThreshold)
+                                    {
+                                        index1 = i;
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+
+                        MoveOrder m = moveOrderList[index1];
+                        if (m.PcOrCreature is Player)
+                        {
+                            Player crt = (Player)m.PcOrCreature;
+                            if (crt.hp > 0)
+                            {
+                                UpperLeftSquare.X = crt.combatLocX - gv.playerOffsetX;
+                                UpperLeftSquare.Y = crt.combatLocY - gv.playerOffsetY;
+                            }
+                        }
+                        if (m.PcOrCreature is Creature)
+                        {
+                            Creature crt = (Creature)m.PcOrCreature;
+                            if (crt.hp > 0)
+                            {
+                                UpperLeftSquare.X = crt.combatLocX - gv.playerOffsetX;
+                                UpperLeftSquare.Y = crt.combatLocY - gv.playerOffsetY;
+                            }
+                        }
+                    }
+
+
+                    else if (rtn.Equals("btnIni9"))
+                    {
+                        int buttonThreshold = 9;
+                        int buttonCounter = 0;
+                        int index1 = 0;
+
+                        for (int i = 0; i < moveOrderList.Count; i++)
+                        {
+                            if (moveOrderList[i].PcOrCreature is Player)
+                            {
+                                Player crt = (Player)moveOrderList[i].PcOrCreature;
+                                if (crt.hp > 0)
+                                {
+                                    buttonCounter++;
+                                    if (crt.token.PixelSize.Width > 100)
+                                    {
+                                        buttonCounter++;
+                                    }
+                                    if (buttonCounter >= buttonThreshold)
+                                    {
+                                        index1 = i;
+                                        break;
+                                    }
+                                }
+                            }
+                            if (moveOrderList[i].PcOrCreature is Creature)
+                            {
+                                Creature crt = (Creature)moveOrderList[i].PcOrCreature;
+                                if (crt.hp > 0)
+                                {
+                                    buttonCounter++;
+                                    if (crt.token.PixelSize.Width > 100)
+                                    {
+                                        buttonCounter++;
+                                    }
+                                    if (buttonCounter >= buttonThreshold)
+                                    {
+                                        index1 = i;
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+
+                        MoveOrder m = moveOrderList[index1];
+                        if (m.PcOrCreature is Player)
+                        {
+                            Player crt = (Player)m.PcOrCreature;
+                            if (crt.hp > 0)
+                            {
+                                UpperLeftSquare.X = crt.combatLocX - gv.playerOffsetX;
+                                UpperLeftSquare.Y = crt.combatLocY - gv.playerOffsetY;
+                            }
+                        }
+                        if (m.PcOrCreature is Creature)
+                        {
+                            Creature crt = (Creature)m.PcOrCreature;
+                            if (crt.hp > 0)
+                            {
+                                UpperLeftSquare.X = crt.combatLocX - gv.playerOffsetX;
+                                UpperLeftSquare.Y = crt.combatLocY - gv.playerOffsetY;
+                            }
+                        }
+                    }
+
+
+                    else if (rtn.Equals("btnIni10"))
+                    {
+                        int buttonThreshold = 10;
+                        int buttonCounter = 0;
+                        int index1 = 0;
+
+                        for (int i = 0; i < moveOrderList.Count; i++)
+                        {
+                            if (moveOrderList[i].PcOrCreature is Player)
+                            {
+                                Player crt = (Player)moveOrderList[i].PcOrCreature;
+                                if (crt.hp > 0)
+                                {
+                                    buttonCounter++;
+                                    if (crt.token.PixelSize.Width > 100)
+                                    {
+                                        buttonCounter++;
+                                    }
+                                    if (buttonCounter >= buttonThreshold)
+                                    {
+                                        index1 = i;
+                                        break;
+                                    }
+                                }
+                            }
+                            if (moveOrderList[i].PcOrCreature is Creature)
+                            {
+                                Creature crt = (Creature)moveOrderList[i].PcOrCreature;
+                                if (crt.hp > 0)
+                                {
+                                    buttonCounter++;
+                                    if (crt.token.PixelSize.Width > 100)
+                                    {
+                                        buttonCounter++;
+                                    }
+                                    if (buttonCounter >= buttonThreshold)
+                                    {
+                                        index1 = i;
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+
+                        MoveOrder m = moveOrderList[index1];
+                        if (m.PcOrCreature is Player)
+                        {
+                            Player crt = (Player)m.PcOrCreature;
+                            if (crt.hp > 0)
+                            {
+                                UpperLeftSquare.X = crt.combatLocX - gv.playerOffsetX;
+                                UpperLeftSquare.Y = crt.combatLocY - gv.playerOffsetY;
+                            }
+                        }
+                        if (m.PcOrCreature is Creature)
+                        {
+                            Creature crt = (Creature)m.PcOrCreature;
+                            if (crt.hp > 0)
+                            {
+                                UpperLeftSquare.X = crt.combatLocX - gv.playerOffsetX;
+                                UpperLeftSquare.Y = crt.combatLocY - gv.playerOffsetY;
+                            }
+                        }
+                    }
+
+
+                    else if (rtn.Equals("btnIni11"))
+                    {
+                        int buttonThreshold = 11;
+                        int buttonCounter = 0;
+                        int index1 = 0;
+
+                        for (int i = 0; i < moveOrderList.Count; i++)
+                        {
+                            if (moveOrderList[i].PcOrCreature is Player)
+                            {
+                                Player crt = (Player)moveOrderList[i].PcOrCreature;
+                                if (crt.hp > 0)
+                                {
+                                    buttonCounter++;
+                                    if (crt.token.PixelSize.Width > 100)
+                                    {
+                                        buttonCounter++;
+                                    }
+                                    if (buttonCounter >= buttonThreshold)
+                                    {
+                                        index1 = i;
+                                        break;
+                                    }
+                                }
+                            }
+                            if (moveOrderList[i].PcOrCreature is Creature)
+                            {
+                                Creature crt = (Creature)moveOrderList[i].PcOrCreature;
+                                if (crt.hp > 0)
+                                {
+                                    buttonCounter++;
+                                    if (crt.token.PixelSize.Width > 100)
+                                    {
+                                        buttonCounter++;
+                                    }
+                                    if (buttonCounter >= buttonThreshold)
+                                    {
+                                        index1 = i;
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+
+                        MoveOrder m = moveOrderList[index1];
+                        if (m.PcOrCreature is Player)
+                        {
+                            Player crt = (Player)m.PcOrCreature;
+                            if (crt.hp > 0)
+                            {
+                                UpperLeftSquare.X = crt.combatLocX - gv.playerOffsetX;
+                                UpperLeftSquare.Y = crt.combatLocY - gv.playerOffsetY;
+                            }
+                        }
+                        if (m.PcOrCreature is Creature)
+                        {
+                            Creature crt = (Creature)m.PcOrCreature;
+                            if (crt.hp > 0)
+                            {
+                                UpperLeftSquare.X = crt.combatLocX - gv.playerOffsetX;
+                                UpperLeftSquare.Y = crt.combatLocY - gv.playerOffsetY;
+                            }
+                        }
+                    }
+
+
+                    else if (rtn.Equals("btnIni12"))
+                    {
+                        int buttonThreshold = 12;
+                        int buttonCounter = 0;
+                        int index1 = 0;
+
+                        for (int i = 0; i < moveOrderList.Count; i++)
+                        {
+                            if (moveOrderList[i].PcOrCreature is Player)
+                            {
+                                Player crt = (Player)moveOrderList[i].PcOrCreature;
+                                if (crt.hp > 0)
+                                {
+                                    buttonCounter++;
+                                    if (crt.token.PixelSize.Width > 100)
+                                    {
+                                        buttonCounter++;
+                                    }
+                                    if (buttonCounter >= buttonThreshold)
+                                    {
+                                        index1 = i;
+                                        break;
+                                    }
+                                }
+                            }
+                            if (moveOrderList[i].PcOrCreature is Creature)
+                            {
+                                Creature crt = (Creature)moveOrderList[i].PcOrCreature;
+                                if (crt.hp > 0)
+                                {
+                                    buttonCounter++;
+                                    if (crt.token.PixelSize.Width > 100)
+                                    {
+                                        buttonCounter++;
+                                    }
+                                    if (buttonCounter >= buttonThreshold)
+                                    {
+                                        index1 = i;
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+
+                        MoveOrder m = moveOrderList[index1];
+                        if (m.PcOrCreature is Player)
+                        {
+                            Player crt = (Player)m.PcOrCreature;
+                            if (crt.hp > 0)
+                            {
+                                UpperLeftSquare.X = crt.combatLocX - gv.playerOffsetX;
+                                UpperLeftSquare.Y = crt.combatLocY - gv.playerOffsetY;
+                            }
+                        }
+                        if (m.PcOrCreature is Creature)
+                        {
+                            Creature crt = (Creature)m.PcOrCreature;
+                            if (crt.hp > 0)
+                            {
+                                UpperLeftSquare.X = crt.combatLocX - gv.playerOffsetX;
+                                UpperLeftSquare.Y = crt.combatLocY - gv.playerOffsetY;
+                            }
+                        }
+                    }
+
+
+                    else if (rtn.Equals("btnIni13"))
+                    {
+                        int buttonThreshold = 13;
+                        int buttonCounter = 0;
+                        int index1 = 0;
+
+                        for (int i = 0; i < moveOrderList.Count; i++)
+                        {
+                            if (moveOrderList[i].PcOrCreature is Player)
+                            {
+                                Player crt = (Player)moveOrderList[i].PcOrCreature;
+                                if (crt.hp > 0)
+                                {
+                                    buttonCounter++;
+                                    if (crt.token.PixelSize.Width > 100)
+                                    {
+                                        buttonCounter++;
+                                    }
+                                    if (buttonCounter >= buttonThreshold)
+                                    {
+                                        index1 = i;
+                                        break;
+                                    }
+                                }
+                            }
+                            if (moveOrderList[i].PcOrCreature is Creature)
+                            {
+                                Creature crt = (Creature)moveOrderList[i].PcOrCreature;
+                                if (crt.hp > 0)
+                                {
+                                    buttonCounter++;
+                                    if (crt.token.PixelSize.Width > 100)
+                                    {
+                                        buttonCounter++;
+                                    }
+                                    if (buttonCounter >= buttonThreshold)
+                                    {
+                                        index1 = i;
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+
+                        MoveOrder m = moveOrderList[index1];
+                        if (m.PcOrCreature is Player)
+                        {
+                            Player crt = (Player)m.PcOrCreature;
+                            if (crt.hp > 0)
+                            {
+                                UpperLeftSquare.X = crt.combatLocX - gv.playerOffsetX;
+                                UpperLeftSquare.Y = crt.combatLocY - gv.playerOffsetY;
+                            }
+                        }
+                        if (m.PcOrCreature is Creature)
+                        {
+                            Creature crt = (Creature)m.PcOrCreature;
+                            if (crt.hp > 0)
+                            {
+                                UpperLeftSquare.X = crt.combatLocX - gv.playerOffsetX;
+                                UpperLeftSquare.Y = crt.combatLocY - gv.playerOffsetY;
+                            }
+                        }
+                    }
+
+
+                    else if (rtn.Equals("btnIni14"))
+                    {
+                        int buttonThreshold = 14;
+                        int buttonCounter = 0;
+                        int index1 = 0;
+
+                        for (int i = 0; i < moveOrderList.Count; i++)
+                        {
+                            if (moveOrderList[i].PcOrCreature is Player)
+                            {
+                                Player crt = (Player)moveOrderList[i].PcOrCreature;
+                                if (crt.hp > 0)
+                                {
+                                    buttonCounter++;
+                                    if (crt.token.PixelSize.Width > 100)
+                                    {
+                                        buttonCounter++;
+                                    }
+                                    if (buttonCounter >= buttonThreshold)
+                                    {
+                                        index1 = i;
+                                        break;
+                                    }
+                                }
+                            }
+                            if (moveOrderList[i].PcOrCreature is Creature)
+                            {
+                                Creature crt = (Creature)moveOrderList[i].PcOrCreature;
+                                if (crt.hp > 0)
+                                {
+                                    buttonCounter++;
+                                    if (crt.token.PixelSize.Width > 100)
+                                    {
+                                        buttonCounter++;
+                                    }
+                                    if (buttonCounter >= buttonThreshold)
+                                    {
+                                        index1 = i;
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+
+                        MoveOrder m = moveOrderList[index1];
+                        if (m.PcOrCreature is Player)
+                        {
+                            Player crt = (Player)m.PcOrCreature;
+                            if (crt.hp > 0)
+                            {
+                                UpperLeftSquare.X = crt.combatLocX - gv.playerOffsetX;
+                                UpperLeftSquare.Y = crt.combatLocY - gv.playerOffsetY;
+                            }
+                        }
+                        if (m.PcOrCreature is Creature)
+                        {
+                            Creature crt = (Creature)m.PcOrCreature;
+                            if (crt.hp > 0)
+                            {
+                                UpperLeftSquare.X = crt.combatLocX - gv.playerOffsetX;
+                                UpperLeftSquare.Y = crt.combatLocY - gv.playerOffsetY;
+                            }
+                        }
+                    }
+
+
+                    else if (rtn.Equals("btnIni15"))
+                    {
+                        int buttonThreshold = 15;
+                        int buttonCounter = 0;
+                        int index1 = 0;
+
+                        for (int i = 0; i < moveOrderList.Count; i++)
+                        {
+                            if (moveOrderList[i].PcOrCreature is Player)
+                            {
+                                Player crt = (Player)moveOrderList[i].PcOrCreature;
+                                if (crt.hp > 0)
+                                {
+                                    buttonCounter++;
+                                    if (crt.token.PixelSize.Width > 100)
+                                    {
+                                        buttonCounter++;
+                                    }
+                                    if (buttonCounter >= buttonThreshold)
+                                    {
+                                        index1 = i;
+                                        break;
+                                    }
+                                }
+                            }
+                            if (moveOrderList[i].PcOrCreature is Creature)
+                            {
+                                Creature crt = (Creature)moveOrderList[i].PcOrCreature;
+                                if (crt.hp > 0)
+                                {
+                                    buttonCounter++;
+                                    if (crt.token.PixelSize.Width > 100)
+                                    {
+                                        buttonCounter++;
+                                    }
+                                    if (buttonCounter >= buttonThreshold)
+                                    {
+                                        index1 = i;
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+
+                        MoveOrder m = moveOrderList[index1];
+                        if (m.PcOrCreature is Player)
+                        {
+                            Player crt = (Player)m.PcOrCreature;
+                            if (crt.hp > 0)
+                            {
+                                UpperLeftSquare.X = crt.combatLocX - gv.playerOffsetX;
+                                UpperLeftSquare.Y = crt.combatLocY - gv.playerOffsetY;
+                            }
+                        }
+                        if (m.PcOrCreature is Creature)
+                        {
+                            Creature crt = (Creature)m.PcOrCreature;
+                            if (crt.hp > 0)
+                            {
+                                UpperLeftSquare.X = crt.combatLocX - gv.playerOffsetX;
+                                UpperLeftSquare.Y = crt.combatLocY - gv.playerOffsetY;
+                            }
+                        }
+                    }
+
+
+                    else if (rtn.Equals("btnIni16"))
+                    {
+                        int buttonThreshold = 16;
+                        int buttonCounter = 0;
+                        int index1 = 0;
+
+                        for (int i = 0; i < moveOrderList.Count; i++)
+                        {
+                            if (moveOrderList[i].PcOrCreature is Player)
+                            {
+                                Player crt = (Player)moveOrderList[i].PcOrCreature;
+                                if (crt.hp > 0)
+                                {
+                                    buttonCounter++;
+                                    if (crt.token.PixelSize.Width > 100)
+                                    {
+                                        buttonCounter++;
+                                    }
+                                    if (buttonCounter >= buttonThreshold)
+                                    {
+                                        index1 = i;
+                                        break;
+                                    }
+                                }
+                            }
+                            if (moveOrderList[i].PcOrCreature is Creature)
+                            {
+                                Creature crt = (Creature)moveOrderList[i].PcOrCreature;
+                                if (crt.hp > 0)
+                                {
+                                    buttonCounter++;
+                                    if (crt.token.PixelSize.Width > 100)
+                                    {
+                                        buttonCounter++;
+                                    }
+                                    if (buttonCounter >= buttonThreshold)
+                                    {
+                                        index1 = i;
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+
+                        MoveOrder m = moveOrderList[index1];
+                        if (m.PcOrCreature is Player)
+                        {
+                            Player crt = (Player)m.PcOrCreature;
+                            if (crt.hp > 0)
+                            {
+                                UpperLeftSquare.X = crt.combatLocX - gv.playerOffsetX;
+                                UpperLeftSquare.Y = crt.combatLocY - gv.playerOffsetY;
+                            }
+                        }
+                        if (m.PcOrCreature is Creature)
+                        {
+                            Creature crt = (Creature)m.PcOrCreature;
+                            if (crt.hp > 0)
+                            {
+                                UpperLeftSquare.X = crt.combatLocX - gv.playerOffsetX;
+                                UpperLeftSquare.Y = crt.combatLocY - gv.playerOffsetY;
+                            }
+                        }
+                    }
+
+
+                    else if (rtn.Equals("btnIni17"))
+                    {
+                        int buttonThreshold = 17;
+                        int buttonCounter = 0;
+                        int index1 = 0;
+
+                        for (int i = 0; i < moveOrderList.Count; i++)
+                        {
+                            if (moveOrderList[i].PcOrCreature is Player)
+                            {
+                                Player crt = (Player)moveOrderList[i].PcOrCreature;
+                                if (crt.hp > 0)
+                                {
+                                    buttonCounter++;
+                                    if (crt.token.PixelSize.Width > 100)
+                                    {
+                                        buttonCounter++;
+                                    }
+                                    if (buttonCounter >= buttonThreshold)
+                                    {
+                                        index1 = i;
+                                        break;
+                                    }
+                                }
+                            }
+                            if (moveOrderList[i].PcOrCreature is Creature)
+                            {
+                                Creature crt = (Creature)moveOrderList[i].PcOrCreature;
+                                if (crt.hp > 0)
+                                {
+                                    buttonCounter++;
+                                    if (crt.token.PixelSize.Width > 100)
+                                    {
+                                        buttonCounter++;
+                                    }
+                                    if (buttonCounter >= buttonThreshold)
+                                    {
+                                        index1 = i;
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+
+                        MoveOrder m = moveOrderList[index1];
+                        if (m.PcOrCreature is Player)
+                        {
+                            Player crt = (Player)m.PcOrCreature;
+                            if (crt.hp > 0)
+                            {
+                                UpperLeftSquare.X = crt.combatLocX - gv.playerOffsetX;
+                                UpperLeftSquare.Y = crt.combatLocY - gv.playerOffsetY;
+                            }
+                        }
+                        if (m.PcOrCreature is Creature)
+                        {
+                            Creature crt = (Creature)m.PcOrCreature;
+                            if (crt.hp > 0)
+                            {
+                                UpperLeftSquare.X = crt.combatLocX - gv.playerOffsetX;
+                                UpperLeftSquare.Y = crt.combatLocY - gv.playerOffsetY;
+                            }
+                        }
+                    }
+
+
+                    else if (rtn.Equals("btnIni18"))
+                    {
+                        int buttonThreshold = 18;
+                        int buttonCounter = 0;
+                        int index1 = 0;
+
+                        for (int i = 0; i < moveOrderList.Count; i++)
+                        {
+                            if (moveOrderList[i].PcOrCreature is Player)
+                            {
+                                Player crt = (Player)moveOrderList[i].PcOrCreature;
+                                if (crt.hp > 0)
+                                {
+                                    buttonCounter++;
+                                    if (crt.token.PixelSize.Width > 100)
+                                    {
+                                        buttonCounter++;
+                                    }
+                                    if (buttonCounter >= buttonThreshold)
+                                    {
+                                        index1 = i;
+                                        break;
+                                    }
+                                }
+                            }
+                            if (moveOrderList[i].PcOrCreature is Creature)
+                            {
+                                Creature crt = (Creature)moveOrderList[i].PcOrCreature;
+                                if (crt.hp > 0)
+                                {
+                                    buttonCounter++;
+                                    if (crt.token.PixelSize.Width > 100)
+                                    {
+                                        buttonCounter++;
+                                    }
+                                    if (buttonCounter >= buttonThreshold)
+                                    {
+                                        index1 = i;
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+
+                        MoveOrder m = moveOrderList[index1];
+                        if (m.PcOrCreature is Player)
+                        {
+                            Player crt = (Player)m.PcOrCreature;
+                            if (crt.hp > 0)
+                            {
+                                UpperLeftSquare.X = crt.combatLocX - gv.playerOffsetX;
+                                UpperLeftSquare.Y = crt.combatLocY - gv.playerOffsetY;
+                            }
+                        }
+                        if (m.PcOrCreature is Creature)
+                        {
+                            Creature crt = (Creature)m.PcOrCreature;
+                            if (crt.hp > 0)
+                            {
+                                UpperLeftSquare.X = crt.combatLocX - gv.playerOffsetX;
+                                UpperLeftSquare.Y = crt.combatLocY - gv.playerOffsetY;
+                            }
+                        }
+                    }
+
+
+                    else if (rtn.Equals("btnIni19"))
+                    {
+                        int buttonThreshold = 19;
+                        int buttonCounter = 0;
+                        int index1 = 0;
+
+                        for (int i = 0; i < moveOrderList.Count; i++)
+                        {
+                            if (moveOrderList[i].PcOrCreature is Player)
+                            {
+                                Player crt = (Player)moveOrderList[i].PcOrCreature;
+                                if (crt.hp > 0)
+                                {
+                                    buttonCounter++;
+                                    if (crt.token.PixelSize.Width > 100)
+                                    {
+                                        buttonCounter++;
+                                    }
+                                    if (buttonCounter >= buttonThreshold)
+                                    {
+                                        index1 = i;
+                                        break;
+                                    }
+                                }
+                            }
+                            if (moveOrderList[i].PcOrCreature is Creature)
+                            {
+                                Creature crt = (Creature)moveOrderList[i].PcOrCreature;
+                                if (crt.hp > 0)
+                                {
+                                    buttonCounter++;
+                                    if (crt.token.PixelSize.Width > 100)
+                                    {
+                                        buttonCounter++;
+                                    }
+                                    if (buttonCounter >= buttonThreshold)
+                                    {
+                                        index1 = i;
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+
+                        MoveOrder m = moveOrderList[index1];
+                        if (m.PcOrCreature is Player)
+                        {
+                            Player crt = (Player)m.PcOrCreature;
+                            if (crt.hp > 0)
+                            {
+                                UpperLeftSquare.X = crt.combatLocX - gv.playerOffsetX;
+                                UpperLeftSquare.Y = crt.combatLocY - gv.playerOffsetY;
+                            }
+                        }
+                        if (m.PcOrCreature is Creature)
+                        {
+                            Creature crt = (Creature)m.PcOrCreature;
+                            if (crt.hp > 0)
+                            {
+                                UpperLeftSquare.X = crt.combatLocX - gv.playerOffsetX;
+                                UpperLeftSquare.Y = crt.combatLocY - gv.playerOffsetY;
+                            }
+                        }
+                    }
+
+
+                    else if (rtn.Equals("btnIni20"))
+                    {
+                        int buttonThreshold = 20;
+                        int buttonCounter = 0;
+                        int index1 = 0;
+
+                        for (int i = 0; i < moveOrderList.Count; i++)
+                        {
+                            if (moveOrderList[i].PcOrCreature is Player)
+                            {
+                                Player crt = (Player)moveOrderList[i].PcOrCreature;
+                                if (crt.hp > 0)
+                                {
+                                    buttonCounter++;
+                                    if (crt.token.PixelSize.Width > 100)
+                                    {
+                                        buttonCounter++;
+                                    }
+                                    if (buttonCounter >= buttonThreshold)
+                                    {
+                                        index1 = i;
+                                        break;
+                                    }
+                                }
+                            }
+                            if (moveOrderList[i].PcOrCreature is Creature)
+                            {
+                                Creature crt = (Creature)moveOrderList[i].PcOrCreature;
+                                if (crt.hp > 0)
+                                {
+                                    buttonCounter++;
+                                    if (crt.token.PixelSize.Width > 100)
+                                    {
+                                        buttonCounter++;
+                                    }
+                                    if (buttonCounter >= buttonThreshold)
+                                    {
+                                        index1 = i;
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+
+                        MoveOrder m = moveOrderList[index1];
+                        if (m.PcOrCreature is Player)
+                        {
+                            Player crt = (Player)m.PcOrCreature;
+                            if (crt.hp > 0)
+                            {
+                                UpperLeftSquare.X = crt.combatLocX - gv.playerOffsetX;
+                                UpperLeftSquare.Y = crt.combatLocY - gv.playerOffsetY;
+                            }
+                        }
+                        if (m.PcOrCreature is Creature)
+                        {
+                            Creature crt = (Creature)m.PcOrCreature;
+                            if (crt.hp > 0)
+                            {
+                                UpperLeftSquare.X = crt.combatLocX - gv.playerOffsetX;
+                                UpperLeftSquare.Y = crt.combatLocY - gv.playerOffsetY;
+                            }
+                        }
+                    }
+
+
+                    else if (rtn.Equals("btnIni21"))
+                    {
+                        int buttonThreshold = 21;
+                        int buttonCounter = 0;
+                        int index1 = 0;
+
+                        for (int i = 0; i < moveOrderList.Count; i++)
+                        {
+                            if (moveOrderList[i].PcOrCreature is Player)
+                            {
+                                Player crt = (Player)moveOrderList[i].PcOrCreature;
+                                if (crt.hp > 0)
+                                {
+                                    buttonCounter++;
+                                    if (crt.token.PixelSize.Width > 100)
+                                    {
+                                        buttonCounter++;
+                                    }
+                                    if (buttonCounter >= buttonThreshold)
+                                    {
+                                        index1 = i;
+                                        break;
+                                    }
+                                }
+                            }
+                            if (moveOrderList[i].PcOrCreature is Creature)
+                            {
+                                Creature crt = (Creature)moveOrderList[i].PcOrCreature;
+                                if (crt.hp > 0)
+                                {
+                                    buttonCounter++;
+                                    if (crt.token.PixelSize.Width > 100)
+                                    {
+                                        buttonCounter++;
+                                    }
+                                    if (buttonCounter >= buttonThreshold)
+                                    {
+                                        index1 = i;
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+
+                        MoveOrder m = moveOrderList[index1];
+                        if (m.PcOrCreature is Player)
+                        {
+                            Player crt = (Player)m.PcOrCreature;
+                            if (crt.hp > 0)
+                            {
+                                UpperLeftSquare.X = crt.combatLocX - gv.playerOffsetX;
+                                UpperLeftSquare.Y = crt.combatLocY - gv.playerOffsetY;
+                            }
+                        }
+                        if (m.PcOrCreature is Creature)
+                        {
+                            Creature crt = (Creature)m.PcOrCreature;
+                            if (crt.hp > 0)
+                            {
+                                UpperLeftSquare.X = crt.combatLocX - gv.playerOffsetX;
+                                UpperLeftSquare.Y = crt.combatLocY - gv.playerOffsetY;
+                            }
+                        }
+                    }
+
+
+                    else if (rtn.Equals("btnIni22"))
+                    {
+                        int buttonThreshold = 22;
+                        int buttonCounter = 0;
+                        int index1 = 0;
+
+                        for (int i = 0; i < moveOrderList.Count; i++)
+                        {
+                            if (moveOrderList[i].PcOrCreature is Player)
+                            {
+                                Player crt = (Player)moveOrderList[i].PcOrCreature;
+                                if (crt.hp > 0)
+                                {
+                                    buttonCounter++;
+                                    if (crt.token.PixelSize.Width > 100)
+                                    {
+                                        buttonCounter++;
+                                    }
+                                    if (buttonCounter >= buttonThreshold)
+                                    {
+                                        index1 = i;
+                                        break;
+                                    }
+                                }
+                            }
+                            if (moveOrderList[i].PcOrCreature is Creature)
+                            {
+                                Creature crt = (Creature)moveOrderList[i].PcOrCreature;
+                                if (crt.hp > 0)
+                                {
+                                    buttonCounter++;
+                                    if (crt.token.PixelSize.Width > 100)
+                                    {
+                                        buttonCounter++;
+                                    }
+                                    if (buttonCounter >= buttonThreshold)
+                                    {
+                                        index1 = i;
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+
+                        MoveOrder m = moveOrderList[index1];
+                        if (m.PcOrCreature is Player)
+                        {
+                            Player crt = (Player)m.PcOrCreature;
+                            if (crt.hp > 0)
+                            {
+                                UpperLeftSquare.X = crt.combatLocX - gv.playerOffsetX;
+                                UpperLeftSquare.Y = crt.combatLocY - gv.playerOffsetY;
+                            }
+                        }
+                        if (m.PcOrCreature is Creature)
+                        {
+                            Creature crt = (Creature)m.PcOrCreature;
+                            if (crt.hp > 0)
+                            {
+                                UpperLeftSquare.X = crt.combatLocX - gv.playerOffsetX;
+                                UpperLeftSquare.Y = crt.combatLocY - gv.playerOffsetY;
+                            }
+                        }
+                    }
+
+
+                    else if (rtn.Equals("btnIni23"))
+                    {
+                        int buttonThreshold = 23;
+                        int buttonCounter = 0;
+                        int index1 = 0;
+
+                        for (int i = 0; i < moveOrderList.Count; i++)
+                        {
+                            if (moveOrderList[i].PcOrCreature is Player)
+                            {
+                                Player crt = (Player)moveOrderList[i].PcOrCreature;
+                                if (crt.hp > 0)
+                                {
+                                    buttonCounter++;
+                                    if (crt.token.PixelSize.Width > 100)
+                                    {
+                                        buttonCounter++;
+                                    }
+                                    if (buttonCounter >= buttonThreshold)
+                                    {
+                                        index1 = i;
+                                        break;
+                                    }
+                                }
+                            }
+                            if (moveOrderList[i].PcOrCreature is Creature)
+                            {
+                                Creature crt = (Creature)moveOrderList[i].PcOrCreature;
+                                if (crt.hp > 0)
+                                {
+                                    buttonCounter++;
+                                    if (crt.token.PixelSize.Width > 100)
+                                    {
+                                        buttonCounter++;
+                                    }
+                                    if (buttonCounter >= buttonThreshold)
+                                    {
+                                        index1 = i;
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+
+                        MoveOrder m = moveOrderList[index1];
+                        if (m.PcOrCreature is Player)
+                        {
+                            Player crt = (Player)m.PcOrCreature;
+                            if (crt.hp > 0)
+                            {
+                                UpperLeftSquare.X = crt.combatLocX - gv.playerOffsetX;
+                                UpperLeftSquare.Y = crt.combatLocY - gv.playerOffsetY;
+                            }
+                        }
+                        if (m.PcOrCreature is Creature)
+                        {
+                            Creature crt = (Creature)m.PcOrCreature;
+                            if (crt.hp > 0)
+                            {
+                                UpperLeftSquare.X = crt.combatLocX - gv.playerOffsetX;
+                                UpperLeftSquare.Y = crt.combatLocY - gv.playerOffsetY;
+                            }
+                        }
+                    }
+
+
+                    else if (rtn.Equals("btnIni24"))
+                    {
+                        int buttonThreshold = 24;
+                        int buttonCounter = 0;
+                        int index1 = 0;
+
+                        for (int i = 0; i < moveOrderList.Count; i++)
+                        {
+                            if (moveOrderList[i].PcOrCreature is Player)
+                            {
+                                Player crt = (Player)moveOrderList[i].PcOrCreature;
+                                if (crt.hp > 0)
+                                {
+                                    buttonCounter++;
+                                    if (crt.token.PixelSize.Width > 100)
+                                    {
+                                        buttonCounter++;
+                                    }
+                                    if (buttonCounter >= buttonThreshold)
+                                    {
+                                        index1 = i;
+                                        break;
+                                    }
+                                }
+                            }
+                            if (moveOrderList[i].PcOrCreature is Creature)
+                            {
+                                Creature crt = (Creature)moveOrderList[i].PcOrCreature;
+                                if (crt.hp > 0)
+                                {
+                                    buttonCounter++;
+                                    if (crt.token.PixelSize.Width > 100)
+                                    {
+                                        buttonCounter++;
+                                    }
+                                    if (buttonCounter >= buttonThreshold)
+                                    {
+                                        index1 = i;
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+
+                        MoveOrder m = moveOrderList[index1];
+                        if (m.PcOrCreature is Player)
+                        {
+                            Player crt = (Player)m.PcOrCreature;
+                            if (crt.hp > 0)
+                            {
+                                UpperLeftSquare.X = crt.combatLocX - gv.playerOffsetX;
+                                UpperLeftSquare.Y = crt.combatLocY - gv.playerOffsetY;
+                            }
+                        }
+                        if (m.PcOrCreature is Creature)
+                        {
+                            Creature crt = (Creature)m.PcOrCreature;
+                            if (crt.hp > 0)
+                            {
+                                UpperLeftSquare.X = crt.combatLocX - gv.playerOffsetX;
+                                UpperLeftSquare.Y = crt.combatLocY - gv.playerOffsetY;
+                            }
+                        }
+                    }
+
+
+                    else if (rtn.Equals("btnIni25"))
+                    {
+                        int buttonThreshold = 25;
+                        int buttonCounter = 0;
+                        int index1 = 0;
+
+                        for (int i = 0; i < moveOrderList.Count; i++)
+                        {
+                            if (moveOrderList[i].PcOrCreature is Player)
+                            {
+                                Player crt = (Player)moveOrderList[i].PcOrCreature;
+                                if (crt.hp > 0)
+                                {
+                                    buttonCounter++;
+                                    if (crt.token.PixelSize.Width > 100)
+                                    {
+                                        buttonCounter++;
+                                    }
+                                    if (buttonCounter >= buttonThreshold)
+                                    {
+                                        index1 = i;
+                                        break;
+                                    }
+                                }
+                            }
+                            if (moveOrderList[i].PcOrCreature is Creature)
+                            {
+                                Creature crt = (Creature)moveOrderList[i].PcOrCreature;
+                                if (crt.hp > 0)
+                                {
+                                    buttonCounter++;
+                                    if (crt.token.PixelSize.Width > 100)
+                                    {
+                                        buttonCounter++;
+                                    }
+                                    if (buttonCounter >= buttonThreshold)
+                                    {
+                                        index1 = i;
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+
+                        MoveOrder m = moveOrderList[index1];
+                        if (m.PcOrCreature is Player)
+                        {
+                            Player crt = (Player)m.PcOrCreature;
+                            if (crt.hp > 0)
+                            {
+                                UpperLeftSquare.X = crt.combatLocX - gv.playerOffsetX;
+                                UpperLeftSquare.Y = crt.combatLocY - gv.playerOffsetY;
+                            }
+                        }
+                        if (m.PcOrCreature is Creature)
+                        {
+                            Creature crt = (Creature)m.PcOrCreature;
+                            if (crt.hp > 0)
+                            {
+                                UpperLeftSquare.X = crt.combatLocX - gv.playerOffsetX;
+                                UpperLeftSquare.Y = crt.combatLocY - gv.playerOffsetY;
+                            }
+                        }
+                    }
+
+
+                    else if (rtn.Equals("btnIni26"))
+                    {
+                        int buttonThreshold = 26;
+                        int buttonCounter = 0;
+                        int index1 = 0;
+
+                        for (int i = 0; i < moveOrderList.Count; i++)
+                        {
+                            if (moveOrderList[i].PcOrCreature is Player)
+                            {
+                                Player crt = (Player)moveOrderList[i].PcOrCreature;
+                                if (crt.hp > 0)
+                                {
+                                    buttonCounter++;
+                                    if (crt.token.PixelSize.Width > 100)
+                                    {
+                                        buttonCounter++;
+                                    }
+                                    if (buttonCounter >= buttonThreshold)
+                                    {
+                                        index1 = i;
+                                        break;
+                                    }
+                                }
+                            }
+                            if (moveOrderList[i].PcOrCreature is Creature)
+                            {
+                                Creature crt = (Creature)moveOrderList[i].PcOrCreature;
+                                if (crt.hp > 0)
+                                {
+                                    buttonCounter++;
+                                    if (crt.token.PixelSize.Width > 100)
+                                    {
+                                        buttonCounter++;
+                                    }
+                                    if (buttonCounter >= buttonThreshold)
+                                    {
+                                        index1 = i;
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+
+                        MoveOrder m = moveOrderList[index1];
+                        if (m.PcOrCreature is Player)
+                        {
+                            Player crt = (Player)m.PcOrCreature;
+                            if (crt.hp > 0)
+                            {
+                                UpperLeftSquare.X = crt.combatLocX - gv.playerOffsetX;
+                                UpperLeftSquare.Y = crt.combatLocY - gv.playerOffsetY;
+                            }
+                        }
+                        if (m.PcOrCreature is Creature)
+                        {
+                            Creature crt = (Creature)m.PcOrCreature;
+                            if (crt.hp > 0)
+                            {
+                                UpperLeftSquare.X = crt.combatLocX - gv.playerOffsetX;
+                                UpperLeftSquare.Y = crt.combatLocY - gv.playerOffsetY;
+                            }
+                        }
+                    }
+
+
+                    else if (rtn.Equals("btnIni27"))
+                    {
+                        int buttonThreshold = 27;
+                        int buttonCounter = 0;
+                        int index1 = 0;
+
+                        for (int i = 0; i < moveOrderList.Count; i++)
+                        {
+                            if (moveOrderList[i].PcOrCreature is Player)
+                            {
+                                Player crt = (Player)moveOrderList[i].PcOrCreature;
+                                if (crt.hp > 0)
+                                {
+                                    buttonCounter++;
+                                    if (crt.token.PixelSize.Width > 100)
+                                    {
+                                        buttonCounter++;
+                                    }
+                                    if (buttonCounter >= buttonThreshold)
+                                    {
+                                        index1 = i;
+                                        break;
+                                    }
+                                }
+                            }
+                            if (moveOrderList[i].PcOrCreature is Creature)
+                            {
+                                Creature crt = (Creature)moveOrderList[i].PcOrCreature;
+                                if (crt.hp > 0)
+                                {
+                                    buttonCounter++;
+                                    if (crt.token.PixelSize.Width > 100)
+                                    {
+                                        buttonCounter++;
+                                    }
+                                    if (buttonCounter >= buttonThreshold)
+                                    {
+                                        index1 = i;
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+
+                        MoveOrder m = moveOrderList[index1];
+                        if (m.PcOrCreature is Player)
+                        {
+                            Player crt = (Player)m.PcOrCreature;
+                            if (crt.hp > 0)
+                            {
+                                UpperLeftSquare.X = crt.combatLocX - gv.playerOffsetX;
+                                UpperLeftSquare.Y = crt.combatLocY - gv.playerOffsetY;
+                            }
+                        }
+                        if (m.PcOrCreature is Creature)
+                        {
+                            Creature crt = (Creature)m.PcOrCreature;
+                            if (crt.hp > 0)
+                            {
+                                UpperLeftSquare.X = crt.combatLocX - gv.playerOffsetX;
+                                UpperLeftSquare.Y = crt.combatLocY - gv.playerOffsetY;
+                            }
+                        }
+                    }
+
+
+                    else if (rtn.Equals("btnIni28"))
+                    {
+                        int buttonThreshold = 28;
+                        int buttonCounter = 0;
+                        int index1 = 0;
+
+                        for (int i = 0; i < moveOrderList.Count; i++)
+                        {
+                            if (moveOrderList[i].PcOrCreature is Player)
+                            {
+                                Player crt = (Player)moveOrderList[i].PcOrCreature;
+                                if (crt.hp > 0)
+                                {
+                                    buttonCounter++;
+                                    if (crt.token.PixelSize.Width > 100)
+                                    {
+                                        buttonCounter++;
+                                    }
+                                    if (buttonCounter >= buttonThreshold)
+                                    {
+                                        index1 = i;
+                                        break;
+                                    }
+                                }
+                            }
+                            if (moveOrderList[i].PcOrCreature is Creature)
+                            {
+                                Creature crt = (Creature)moveOrderList[i].PcOrCreature;
+                                if (crt.hp > 0)
+                                {
+                                    buttonCounter++;
+                                    if (crt.token.PixelSize.Width > 100)
+                                    {
+                                        buttonCounter++;
+                                    }
+                                    if (buttonCounter >= buttonThreshold)
+                                    {
+                                        index1 = i;
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+
+                        MoveOrder m = moveOrderList[index1];
+                        if (m.PcOrCreature is Player)
+                        {
+                            Player crt = (Player)m.PcOrCreature;
+                            if (crt.hp > 0)
+                            {
+                                UpperLeftSquare.X = crt.combatLocX - gv.playerOffsetX;
+                                UpperLeftSquare.Y = crt.combatLocY - gv.playerOffsetY;
+                            }
+                        }
+                        if (m.PcOrCreature is Creature)
+                        {
+                            Creature crt = (Creature)m.PcOrCreature;
+                            if (crt.hp > 0)
+                            {
+                                UpperLeftSquare.X = crt.combatLocX - gv.playerOffsetX;
+                                UpperLeftSquare.Y = crt.combatLocY - gv.playerOffsetY;
+                            }
+                        }
+                    }
+
+
+                    else if (rtn.Equals("btnIni29"))
+                    {
+                        int buttonThreshold = 29;
+                        int buttonCounter = 0;
+                        int index1 = 0;
+
+                        for (int i = 0; i < moveOrderList.Count; i++)
+                        {
+                            if (moveOrderList[i].PcOrCreature is Player)
+                            {
+                                Player crt = (Player)moveOrderList[i].PcOrCreature;
+                                if (crt.hp > 0)
+                                {
+                                    buttonCounter++;
+                                    if (crt.token.PixelSize.Width > 100)
+                                    {
+                                        buttonCounter++;
+                                    }
+                                    if (buttonCounter >= buttonThreshold)
+                                    {
+                                        index1 = i;
+                                        break;
+                                    }
+                                }
+                            }
+                            if (moveOrderList[i].PcOrCreature is Creature)
+                            {
+                                Creature crt = (Creature)moveOrderList[i].PcOrCreature;
+                                if (crt.hp > 0)
+                                {
+                                    buttonCounter++;
+                                    if (crt.token.PixelSize.Width > 100)
+                                    {
+                                        buttonCounter++;
+                                    }
+                                    if (buttonCounter >= buttonThreshold)
+                                    {
+                                        index1 = i;
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+
+                        MoveOrder m = moveOrderList[index1];
+                        if (m.PcOrCreature is Player)
+                        {
+                            Player crt = (Player)m.PcOrCreature;
+                            if (crt.hp > 0)
+                            {
+                                UpperLeftSquare.X = crt.combatLocX - gv.playerOffsetX;
+                                UpperLeftSquare.Y = crt.combatLocY - gv.playerOffsetY;
+                            }
+                        }
+                        if (m.PcOrCreature is Creature)
+                        {
+                            Creature crt = (Creature)m.PcOrCreature;
+                            if (crt.hp > 0)
+                            {
+                                UpperLeftSquare.X = crt.combatLocX - gv.playerOffsetX;
+                                UpperLeftSquare.Y = crt.combatLocY - gv.playerOffsetY;
+                            }
+                        }
+                    }
+
+
+                    else if (rtn.Equals("btnIni30"))
+                    {
+                        int buttonThreshold = 30;
+                        int buttonCounter = 0;
+                        int index1 = 0;
+
+                        for (int i = 0; i < moveOrderList.Count; i++)
+                        {
+                            if (moveOrderList[i].PcOrCreature is Player)
+                            {
+                                Player crt = (Player)moveOrderList[i].PcOrCreature;
+                                if (crt.hp > 0)
+                                {
+                                    buttonCounter++;
+                                    if (crt.token.PixelSize.Width > 100)
+                                    {
+                                        buttonCounter++;
+                                    }
+                                    if (buttonCounter >= buttonThreshold)
+                                    {
+                                        index1 = i;
+                                        break;
+                                    }
+                                }
+                            }
+                            if (moveOrderList[i].PcOrCreature is Creature)
+                            {
+                                Creature crt = (Creature)moveOrderList[i].PcOrCreature;
+                                if (crt.hp > 0)
+                                {
+                                    buttonCounter++;
+                                    if (crt.token.PixelSize.Width > 100)
+                                    {
+                                        buttonCounter++;
+                                    }
+                                    if (buttonCounter >= buttonThreshold)
+                                    {
+                                        index1 = i;
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+
+                        MoveOrder m = moveOrderList[index1];
+                        if (m.PcOrCreature is Player)
+                        {
+                            Player crt = (Player)m.PcOrCreature;
+                            if (crt.hp > 0)
+                            {
+                                UpperLeftSquare.X = crt.combatLocX - gv.playerOffsetX;
+                                UpperLeftSquare.Y = crt.combatLocY - gv.playerOffsetY;
+                            }
+                        }
+                        if (m.PcOrCreature is Creature)
+                        {
+                            Creature crt = (Creature)m.PcOrCreature;
+                            if (crt.hp > 0)
+                            {
+                                UpperLeftSquare.X = crt.combatLocX - gv.playerOffsetX;
+                                UpperLeftSquare.Y = crt.combatLocY - gv.playerOffsetY;
+                            }
+                        }
+                    }
+
+
+                    else if (rtn.Equals("btnIni31"))
+                    {
+                        int buttonThreshold = 31;
+                        int buttonCounter = 0;
+                        int index1 = 0;
+
+                        for (int i = 0; i < moveOrderList.Count; i++)
+                        {
+                            if (moveOrderList[i].PcOrCreature is Player)
+                            {
+                                Player crt = (Player)moveOrderList[i].PcOrCreature;
+                                if (crt.hp > 0)
+                                {
+                                    buttonCounter++;
+                                    if (crt.token.PixelSize.Width > 100)
+                                    {
+                                        buttonCounter++;
+                                    }
+                                    if (buttonCounter >= buttonThreshold)
+                                    {
+                                        index1 = i;
+                                        break;
+                                    }
+                                }
+                            }
+                            if (moveOrderList[i].PcOrCreature is Creature)
+                            {
+                                Creature crt = (Creature)moveOrderList[i].PcOrCreature;
+                                if (crt.hp > 0)
+                                {
+                                    buttonCounter++;
+                                    if (crt.token.PixelSize.Width > 100)
+                                    {
+                                        buttonCounter++;
+                                    }
+                                    if (buttonCounter >= buttonThreshold)
+                                    {
+                                        index1 = i;
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+
+                        MoveOrder m = moveOrderList[index1];
+                        if (m.PcOrCreature is Player)
+                        {
+                            Player crt = (Player)m.PcOrCreature;
+                            if (crt.hp > 0)
+                            {
+                                UpperLeftSquare.X = crt.combatLocX - gv.playerOffsetX;
+                                UpperLeftSquare.Y = crt.combatLocY - gv.playerOffsetY;
+                            }
+                        }
+                        if (m.PcOrCreature is Creature)
+                        {
+                            Creature crt = (Creature)m.PcOrCreature;
+                            if (crt.hp > 0)
+                            {
+                                UpperLeftSquare.X = crt.combatLocX - gv.playerOffsetX;
+                                UpperLeftSquare.Y = crt.combatLocY - gv.playerOffsetY;
+                            }
+                        }
+                    }
+
+
+                    else if (rtn.Equals("btnIni32"))
+                    {
+                        int buttonThreshold = 32;
+                        int buttonCounter = 0;
+                        int index1 = 0;
+
+                        for (int i = 0; i < moveOrderList.Count; i++)
+                        {
+                            if (moveOrderList[i].PcOrCreature is Player)
+                            {
+                                Player crt = (Player)moveOrderList[i].PcOrCreature;
+                                if (crt.hp > 0)
+                                {
+                                    buttonCounter++;
+                                    if (crt.token.PixelSize.Width > 100)
+                                    {
+                                        buttonCounter++;
+                                    }
+                                    if (buttonCounter >= buttonThreshold)
+                                    {
+                                        index1 = i;
+                                        break;
+                                    }
+                                }
+                            }
+                            if (moveOrderList[i].PcOrCreature is Creature)
+                            {
+                                Creature crt = (Creature)moveOrderList[i].PcOrCreature;
+                                if (crt.hp > 0)
+                                {
+                                    buttonCounter++;
+                                    if (crt.token.PixelSize.Width > 100)
+                                    {
+                                        buttonCounter++;
+                                    }
+                                    if (buttonCounter >= buttonThreshold)
+                                    {
+                                        index1 = i;
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+
+                        MoveOrder m = moveOrderList[index1];
+                        if (m.PcOrCreature is Player)
+                        {
+                            Player crt = (Player)m.PcOrCreature;
+                            if (crt.hp > 0)
+                            {
+                                UpperLeftSquare.X = crt.combatLocX - gv.playerOffsetX;
+                                UpperLeftSquare.Y = crt.combatLocY - gv.playerOffsetY;
+                            }
+                        }
+                        if (m.PcOrCreature is Creature)
+                        {
+                            Creature crt = (Creature)m.PcOrCreature;
+                            if (crt.hp > 0)
+                            {
+                                UpperLeftSquare.X = crt.combatLocX - gv.playerOffsetX;
+                                UpperLeftSquare.Y = crt.combatLocY - gv.playerOffsetY;
+                            }
+                        }
+                    }
+
+
+                    else if (rtn.Equals("btnIni33"))
+                    {
+                        int buttonThreshold = 33;
+                        int buttonCounter = 0;
+                        int index1 = 0;
+
+                        for (int i = 0; i < moveOrderList.Count; i++)
+                        {
+                            if (moveOrderList[i].PcOrCreature is Player)
+                            {
+                                Player crt = (Player)moveOrderList[i].PcOrCreature;
+                                if (crt.hp > 0)
+                                {
+                                    buttonCounter++;
+                                    if (crt.token.PixelSize.Width > 100)
+                                    {
+                                        buttonCounter++;
+                                    }
+                                    if (buttonCounter >= buttonThreshold)
+                                    {
+                                        index1 = i;
+                                        break;
+                                    }
+                                }
+                            }
+                            if (moveOrderList[i].PcOrCreature is Creature)
+                            {
+                                Creature crt = (Creature)moveOrderList[i].PcOrCreature;
+                                if (crt.hp > 0)
+                                {
+                                    buttonCounter++;
+                                    if (crt.token.PixelSize.Width > 100)
+                                    {
+                                        buttonCounter++;
+                                    }
+                                    if (buttonCounter >= buttonThreshold)
+                                    {
+                                        index1 = i;
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+
+                        MoveOrder m = moveOrderList[index1];
+                        if (m.PcOrCreature is Player)
+                        {
+                            Player crt = (Player)m.PcOrCreature;
+                            if (crt.hp > 0)
+                            {
+                                UpperLeftSquare.X = crt.combatLocX - gv.playerOffsetX;
+                                UpperLeftSquare.Y = crt.combatLocY - gv.playerOffsetY;
+                            }
+                        }
+                        if (m.PcOrCreature is Creature)
+                        {
+                            Creature crt = (Creature)m.PcOrCreature;
+                            if (crt.hp > 0)
+                            {
+                                UpperLeftSquare.X = crt.combatLocX - gv.playerOffsetX;
+                                UpperLeftSquare.Y = crt.combatLocY - gv.playerOffsetY;
+                            }
+                        }
+                    }
+
+
+                    else if (rtn.Equals("btnIni34"))
+                    {
+                        int buttonThreshold = 34;
+                        int buttonCounter = 0;
+                        int index1 = 0;
+
+                        for (int i = 0; i < moveOrderList.Count; i++)
+                        {
+                            if (moveOrderList[i].PcOrCreature is Player)
+                            {
+                                Player crt = (Player)moveOrderList[i].PcOrCreature;
+                                if (crt.hp > 0)
+                                {
+                                    buttonCounter++;
+                                    if (crt.token.PixelSize.Width > 100)
+                                    {
+                                        buttonCounter++;
+                                    }
+                                    if (buttonCounter >= buttonThreshold)
+                                    {
+                                        index1 = i;
+                                        break;
+                                    }
+                                }
+                            }
+                            if (moveOrderList[i].PcOrCreature is Creature)
+                            {
+                                Creature crt = (Creature)moveOrderList[i].PcOrCreature;
+                                if (crt.hp > 0)
+                                {
+                                    buttonCounter++;
+                                    if (crt.token.PixelSize.Width > 100)
+                                    {
+                                        buttonCounter++;
+                                    }
+                                    if (buttonCounter >= buttonThreshold)
+                                    {
+                                        index1 = i;
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+
+                        MoveOrder m = moveOrderList[index1];
+                        if (m.PcOrCreature is Player)
+                        {
+                            Player crt = (Player)m.PcOrCreature;
+                            if (crt.hp > 0)
+                            {
+                                UpperLeftSquare.X = crt.combatLocX - gv.playerOffsetX;
+                                UpperLeftSquare.Y = crt.combatLocY - gv.playerOffsetY;
+                            }
+                        }
+                        if (m.PcOrCreature is Creature)
+                        {
+                            Creature crt = (Creature)m.PcOrCreature;
+                            if (crt.hp > 0)
+                            {
+                                UpperLeftSquare.X = crt.combatLocX - gv.playerOffsetX;
+                                UpperLeftSquare.Y = crt.combatLocY - gv.playerOffsetY;
+                            }
+                        }
+                    }
+
+
+                    else if (rtn.Equals("btnIni35"))
+                    {
+                        int buttonThreshold = 35;
+                        int buttonCounter = 0;
+                        int index1 = 0;
+
+                        for (int i = 0; i < moveOrderList.Count; i++)
+                        {
+                            if (moveOrderList[i].PcOrCreature is Player)
+                            {
+                                Player crt = (Player)moveOrderList[i].PcOrCreature;
+                                if (crt.hp > 0)
+                                {
+                                    buttonCounter++;
+                                    if (crt.token.PixelSize.Width > 100)
+                                    {
+                                        buttonCounter++;
+                                    }
+                                    if (buttonCounter >= buttonThreshold)
+                                    {
+                                        index1 = i;
+                                        break;
+                                    }
+                                }
+                            }
+                            if (moveOrderList[i].PcOrCreature is Creature)
+                            {
+                                Creature crt = (Creature)moveOrderList[i].PcOrCreature;
+                                if (crt.hp > 0)
+                                {
+                                    buttonCounter++;
+                                    if (crt.token.PixelSize.Width > 100)
+                                    {
+                                        buttonCounter++;
+                                    }
+                                    if (buttonCounter >= buttonThreshold)
+                                    {
+                                        index1 = i;
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+
+                        MoveOrder m = moveOrderList[index1];
+                        if (m.PcOrCreature is Player)
+                        {
+                            Player crt = (Player)m.PcOrCreature;
+                            if (crt.hp > 0)
+                            {
+                                UpperLeftSquare.X = crt.combatLocX - gv.playerOffsetX;
+                                UpperLeftSquare.Y = crt.combatLocY - gv.playerOffsetY;
+                            }
+                        }
+                        if (m.PcOrCreature is Creature)
+                        {
+                            Creature crt = (Creature)m.PcOrCreature;
+                            if (crt.hp > 0)
+                            {
+                                UpperLeftSquare.X = crt.combatLocX - gv.playerOffsetX;
+                                UpperLeftSquare.Y = crt.combatLocY - gv.playerOffsetY;
+                            }
+                        }
+                    }
+
+
+                    else if (rtn.Equals("btnIni36"))
+                    {
+                        int buttonThreshold = 36;
+                        int buttonCounter = 0;
+                        int index1 = 0;
+
+                        for (int i = 0; i < moveOrderList.Count; i++)
+                        {
+                            if (moveOrderList[i].PcOrCreature is Player)
+                            {
+                                Player crt = (Player)moveOrderList[i].PcOrCreature;
+                                if (crt.hp > 0)
+                                {
+                                    buttonCounter++;
+                                    if (crt.token.PixelSize.Width > 100)
+                                    {
+                                        buttonCounter++;
+                                    }
+                                    if (buttonCounter >= buttonThreshold)
+                                    {
+                                        index1 = i;
+                                        break;
+                                    }
+                                }
+                            }
+                            if (moveOrderList[i].PcOrCreature is Creature)
+                            {
+                                Creature crt = (Creature)moveOrderList[i].PcOrCreature;
+                                if (crt.hp > 0)
+                                {
+                                    buttonCounter++;
+                                    if (crt.token.PixelSize.Width > 100)
+                                    {
+                                        buttonCounter++;
+                                    }
+                                    if (buttonCounter >= buttonThreshold)
+                                    {
+                                        index1 = i;
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+
+                        MoveOrder m = moveOrderList[index1];
+                        if (m.PcOrCreature is Player)
+                        {
+                            Player crt = (Player)m.PcOrCreature;
+                            if (crt.hp > 0)
+                            {
+                                UpperLeftSquare.X = crt.combatLocX - gv.playerOffsetX;
+                                UpperLeftSquare.Y = crt.combatLocY - gv.playerOffsetY;
+                            }
+                        }
+                        if (m.PcOrCreature is Creature)
+                        {
+                            Creature crt = (Creature)m.PcOrCreature;
+                            if (crt.hp > 0)
+                            {
+                                UpperLeftSquare.X = crt.combatLocX - gv.playerOffsetX;
+                                UpperLeftSquare.Y = crt.combatLocY - gv.playerOffsetY;
+                            }
+                        }
+                    }
+
                     else if (rtn.Equals("btnAttack"))
                     {
                         if (currentCombatMode.Equals("attack"))
