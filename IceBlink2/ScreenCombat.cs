@@ -2579,10 +2579,12 @@ namespace IceBlink2
                     if (crt.token.PixelSize.Width <= 100)
                     {
                         drawMiniText(dst.Left, dst.Top, mo.ToString(), Color.White);
+                        drawMiniText(dst.Left + gv.pS, dst.Top - 5*gv.pS, crt.hp.ToString(), Color.Lime);
                     }
                     else
                     {
                         drawMiniText(dst.Left, dst.Top + gv.squareSize / 2, mo.ToString(), Color.White);
+                        drawMiniText(dst.Left + 3*gv.pS, dst.Top - 3 * gv.pS, crt.hp.ToString(), Color.Lime);
                     }
                     creatureCounter++;
                     if (crt.token.PixelSize.Width > 100)
@@ -2620,10 +2622,12 @@ namespace IceBlink2
                     if (crt.token.PixelSize.Width <= 100)
                     {
                         drawMiniText(dst.Left, dst.Top, mo.ToString(), Color.White);
+                        drawMiniText(dst.Left + gv.pS, dst.Top - 5 * gv.pS, crt.hp.ToString(), Color.Red);
                     }
                     else
                     {
                         drawMiniText(dst.Left, dst.Top + gv.squareSize / 2, mo.ToString(), Color.White);
+                        drawMiniText(dst.Left + 3 * gv.pS, dst.Top - 3 * gv.pS, crt.hp.ToString(), Color.Red);
                     }
                     creatureCounter++;
                     if (crt.token.PixelSize.Width > 100)

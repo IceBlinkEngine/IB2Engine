@@ -96,6 +96,11 @@ namespace IceBlink2
             float xLoc = 0.0f;
             float yLoc = 3.0f;
             int maxLines = 0;
+
+            if (gv.screenType.Equals("combat") && (gv.mod.useMinimalisticUI))
+            {
+                numberOfLinesToShow = 20;
+            }
             
             maxLines = currentTopLineIndex + numberOfLinesToShow;
             

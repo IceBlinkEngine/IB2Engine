@@ -146,18 +146,18 @@ namespace IceBlink2
 
         public void DrawLogBackground()
         {
-            if (gv.screenType.Equals("main"))
-            {
-                IbRect src = new IbRect(0, 0, gv.cc.GetFromBitmapList(backgroundImageFilename).PixelSize.Width, gv.cc.GetFromBitmapList(backgroundImageFilename).PixelSize.Height);
-                IbRect dst = new IbRect((int)(currentLocX * gv.screenDensity), (int)(currentLocY * gv.screenDensity - 3 * gv.pS), (int)(Width * gv.screenDensity + 2 * gv.pS), (int)(Height * gv.screenDensity - gv.squareSize + 7 * gv.pS));
-                gv.DrawBitmap(gv.cc.GetFromBitmapList(backgroundImageFilename), src, dst, 0, false, 0.8f * gv.mod.logOpacity);
-            }
-            else
-            {
+            //if (gv.screenType.Equals("main") )
+            //{
+                //IbRect src = new IbRect(0, 0, gv.cc.GetFromBitmapList(backgroundImageFilename).PixelSize.Width, gv.cc.GetFromBitmapList(backgroundImageFilename).PixelSize.Height);
+                //IbRect dst = new IbRect((int)(currentLocX * gv.screenDensity), (int)(currentLocY * gv.screenDensity - 3 * gv.pS), (int)(Width * gv.screenDensity + 2 * gv.pS), (int)(Height * gv.screenDensity - gv.squareSize + 7 * gv.pS));
+                //gv.DrawBitmap(gv.cc.GetFromBitmapList(backgroundImageFilename), src, dst, 0, false, 0.8f * gv.mod.logOpacity);
+            //}
+            //else
+            //{
                 IbRect src = new IbRect(0, 0, gv.cc.GetFromBitmapList(backgroundImageFilename).PixelSize.Width, gv.cc.GetFromBitmapList(backgroundImageFilename).PixelSize.Height);
                 IbRect dst = new IbRect((int)(currentLocX * gv.screenDensity + gv.oXshift - 2.5 * gv.pS), (int)(currentLocY * gv.screenDensity) - 4 * gv.pS, (int)(Width * gv.screenDensity + 6.5 * gv.pS), (int)(Height * gv.screenDensity - gv.squareSize + 18 * gv.pS));
-                gv.DrawBitmap(gv.cc.GetFromBitmapList(backgroundImageFilename), src, dst, 0, false, 0.8f * gv.mod.logOpacity);
-            }
+                gv.DrawBitmap(gv.cc.GetFromBitmapList(backgroundImageFilename), src, dst, 0, false, 0.575f * gv.mod.logOpacity);
+            //}
 
             foreach (IB2HtmlLogBox log in logList)
             {

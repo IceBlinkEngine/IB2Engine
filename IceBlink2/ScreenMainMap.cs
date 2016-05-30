@@ -25873,10 +25873,10 @@ namespace IceBlink2
                 {
                     for (int y = -2; y <= 2; y++)
                     {
-                        gv.DrawText(hour + ":" + sMinute, new IbRect(gv.oXshift + x + (gv.playerOffsetY - 5) * gv.squareSize, gv.playerOffsetX * gv.squareSize - txtH + y - gv.pS, 100, 100), 1.0f, Color.Black);
+                        gv.DrawText(hour + ":" + sMinute, new IbRect(gv.oXshift + x + (gv.playerOffsetY - 5) * gv.squareSize + 2*gv.pS, gv.playerOffsetX * gv.squareSize - txtH + y - gv.pS, 100, 100), 1.0f, Color.Black);
                     }
                 }
-                gv.DrawText(hour + ":" + sMinute, new IbRect(gv.oXshift + (gv.playerOffsetY - 5) * gv.squareSize, gv.playerOffsetX * gv.squareSize - txtH - gv.pS, 100, 100), 1.0f, Color.White);
+                gv.DrawText(hour + ":" + sMinute, new IbRect(gv.oXshift + (gv.playerOffsetY - 5) * gv.squareSize + 2*gv.pS, gv.playerOffsetX * gv.squareSize - txtH - gv.pS, 100, 100), 1.0f, Color.White);
             }
             else
             {
