@@ -2430,7 +2430,16 @@ namespace IceBlink2
             //started work on iniative bar for creatures and pc
             if (gv.mod.useMinimalisticUI)
             {
-                drawInitiativeBar();
+                for (int j = 0; j < combatUiLayout.panelList.Count; j++)
+                {
+                    if (combatUiLayout.panelList[j].tag.Equals("InitiativePanel"))
+                    {
+                        if ((combatUiLayout.panelList[j].currentLocX) > (combatUiLayout.panelList[j].hiddenLocX))
+                        {
+                            drawInitiativeBar();
+                        }
+                    }
+                }
             }
             drawUiLayout();
         }
@@ -2510,7 +2519,10 @@ namespace IceBlink2
                 {
                     if (combatUiLayout.panelList[j].tag.Equals("InitiativePanel"))
                     {
-                        combatUiLayout.panelList[j].buttonList[i].show = true;
+                        if (!combatUiLayout.panelList[j].hiding)
+                        {
+                            combatUiLayout.panelList[j].buttonList[i].show = true;
+                        }
                         //for (int k = 0; k < combatUiLayout.panelList[j].buttonList.Count; k++)
                         //{
 
