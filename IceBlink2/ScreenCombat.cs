@@ -2446,31 +2446,7 @@ namespace IceBlink2
 
         public void drawInitiativeBar()
         {
-            //XXXXXXXXXXXXXX
-            /*
-            foreach (MoveOrder m in moveOrderList)
-            {
-                if (m.PcOrCreature is Player)
-                {
-                    Player pc = (Player)m.PcOrCreature;
-                    pc.moveOrder = cnt;
-                }
-                else
-                {
-                    Creature crt = (Creature)m.PcOrCreature;
-                    crt.moveOrder = cnt;
-                }
-                cnt++;
-
-            
-                    if (showMoveOrder)
-                    {
-                        int mo = pc.moveOrder + 1;
-                        drawText(getPixelLocX(pc.combatLocX), getPixelLocY(pc.combatLocY) - (int)gv.drawFontRegHeight, mo.ToString(), Color.White);
-                    }
-            */
-            //XXXXXXXXXXXXX
-            float numberOfBackgroundTiles = 0;
+            float numberOfBackgroundTiles = -gv.mod.creatureCounterSubstractor;
             foreach (MoveOrder m in moveOrderList)
             {
                 if (m.PcOrCreature is Player)
@@ -2513,8 +2489,6 @@ namespace IceBlink2
 
             for (int i = 0; i < numberOfIniButtonsToActivate; i++)
             {
-                //hurgh20
-                //foreach (IB2Panel pnl in combatUiLayout.panelList)
                 for (int j = 0; j < combatUiLayout.panelList.Count; j++)
                 {
                     if (combatUiLayout.panelList[j].tag.Equals("InitiativePanel"))
@@ -2523,16 +2497,9 @@ namespace IceBlink2
                         {
                             combatUiLayout.panelList[j].buttonList[i].show = true;
                         }
-                        //for (int k = 0; k < combatUiLayout.panelList[j].buttonList.Count; k++)
-                        //{
-
-                        //}
                     }
                }
-                      
             }
-
-
                 for (int i = 0; i < numberOfBackgroundTiles; i++)
                 {
                     int startBarX = (0 * gv.squareSize) + gv.oXshift + mapStartLocXinPixels + 2*gv.pS;
@@ -2543,11 +2510,37 @@ namespace IceBlink2
                     IbRect dst = new IbRect(startBarX + i * gv.squareSize - (int)(targetSizeX * 0.1), startBarY - (int)(targetSizeY * 0.1), (int)(targetSizeX * 1.2f), (int)(targetSizeY * 1.2f));
                     gv.DrawBitmap(gv.cc.offScreen, src, dst, false);
                 }
-
+            
             int creatureCounter = 0;
-            //foreach (Creature crt in mod.currentEncounter.encounterCreatureList)
+            int creatureCounter2 = 0;
+    
             foreach (MoveOrder m in moveOrderList)
             {
+                if (creatureCounter2 < 36)
+                {
+                    gv.mod.creatureCounterSubstractor = 0;
+                }
+                else if ((creatureCounter2 > 36) && (creatureCounter2 <= 72))
+                {
+                    gv.mod.creatureCounterSubstractor = -36;
+                }
+                else if ((creatureCounter2 > 72) && (creatureCounter2 <= 108))
+                {
+                    gv.mod.creatureCounterSubstractor = -72;
+                }
+                else if ((creatureCounter2 > 108) && (creatureCounter2 <= 144))
+                {
+                    gv.mod.creatureCounterSubstractor = -108;
+                }
+                else if ((creatureCounter2 > 144) && (creatureCounter2 <= 180))
+                {
+                    gv.mod.creatureCounterSubstractor = -144;
+                }
+                else if ((creatureCounter2 > 180) && (creatureCounter2 <= 216))
+                {
+                    gv.mod.creatureCounterSubstractor = -180;
+                }
+
                 if (m.PcOrCreature is Player)
                 {
                     Player crt = (Player)m.PcOrCreature;
@@ -2568,7 +2561,7 @@ namespace IceBlink2
                         targetSizeY = gv.squareSize;
                         marchingLineHeight = 0;
                     }
-                    IbRect dst = new IbRect(startBarX + creatureCounter * gv.squareSize / 2, startBarY + marchingLineHeight, targetSizeX, targetSizeY);
+                    IbRect dst = new IbRect(startBarX + (creatureCounter + gv.mod.creatureCounterSubstractor) * gv.squareSize / 2, startBarY + marchingLineHeight, targetSizeX, targetSizeY);
                     if (crt.moveOrder+1 == currentMoveOrderIndex)
                     {
                         gv.DrawBitmap(gv.cc.turn_marker, src, dst, false);
@@ -2578,18 +2571,26 @@ namespace IceBlink2
                     int mo = crt.moveOrder + 1;
                     if (crt.token.PixelSize.Width <= 100)
                     {
-                        drawMiniText(dst.Left, dst.Top, mo.ToString(), Color.White);
+                        drawMiniText(dst.Left, dst.Top + 1 * gv.pS, mo.ToString(), Color.White);
                         drawMiniText(dst.Left + gv.pS, dst.Top - 5*gv.pS, crt.hp.ToString(), Color.Lime);
                     }
                     else
                     {
-                        drawMiniText(dst.Left, dst.Top + gv.squareSize / 2, mo.ToString(), Color.White);
+                        drawMiniText(dst.Left, dst.Top + gv.squareSize / 2 + 1 * gv.pS, mo.ToString(), Color.White);
                         drawMiniText(dst.Left + 3*gv.pS, dst.Top - 3 * gv.pS, crt.hp.ToString(), Color.Lime);
                     }
                     creatureCounter++;
-                    if (crt.token.PixelSize.Width > 100)
+                    if (crt.moveOrder + 1 <= currentMoveOrderIndex)
+                    {
+                        creatureCounter2++;
+                    }
+                        if (crt.token.PixelSize.Width > 100)
                     {
                         creatureCounter++;
+                        if (crt.moveOrder + 1 <= currentMoveOrderIndex)
+                        {
+                            creatureCounter2++;
+                        }
                     }
                 }
 
@@ -2612,7 +2613,7 @@ namespace IceBlink2
                         targetSizeY = gv.squareSize;
                         marchingLineHeight = 0;
                     }
-                    IbRect dst = new IbRect(startBarX + creatureCounter * gv.squareSize / 2, startBarY + marchingLineHeight, targetSizeX, targetSizeY);
+                    IbRect dst = new IbRect(startBarX + (creatureCounter + gv.mod.creatureCounterSubstractor) * gv.squareSize / 2, startBarY + marchingLineHeight, targetSizeX, targetSizeY);
                     if (crt.moveOrder+1 == currentMoveOrderIndex)
                     {
                         gv.DrawBitmap(gv.cc.turn_marker, src, dst, false);
@@ -2621,48 +2622,29 @@ namespace IceBlink2
                     int mo = crt.moveOrder + 1;
                     if (crt.token.PixelSize.Width <= 100)
                     {
-                        drawMiniText(dst.Left, dst.Top, mo.ToString(), Color.White);
+                        drawMiniText(dst.Left, dst.Top + 1 * gv.pS, mo.ToString(), Color.White);
                         drawMiniText(dst.Left + gv.pS, dst.Top - 5 * gv.pS, crt.hp.ToString(), Color.Red);
                     }
                     else
                     {
-                        drawMiniText(dst.Left, dst.Top + gv.squareSize / 2, mo.ToString(), Color.White);
+                        drawMiniText(dst.Left, dst.Top + gv.squareSize / 2 + 1 * gv.pS, mo.ToString(), Color.White);
                         drawMiniText(dst.Left + 3 * gv.pS, dst.Top - 3 * gv.pS, crt.hp.ToString(), Color.Red);
                     }
                     creatureCounter++;
+                    if (crt.moveOrder + 1 <= currentMoveOrderIndex)
+                    {
+                        creatureCounter2++;
+                    }
                     if (crt.token.PixelSize.Width > 100)
                     {
                         creatureCounter++;
+                        if (crt.moveOrder + 1 <= currentMoveOrderIndex)
+                        {
+                            creatureCounter2++;
+                        }
                     }
                 }  
             }
-            /*
-                foreach (Effect ef in crt.cr_effectsList)
-                {
-                    Bitmap fx = gv.cc.LoadBitmap(ef.spriteFilename);
-                    src = new IbRect(0, 0, fx.PixelSize.Width, fx.PixelSize.Width);
-                    gv.DrawBitmap(fx, src, dst);
-                    gv.cc.DisposeOfBitmap(ref fx);
-                }
-                //CREATURE FACING
-                src = new IbRect(0, 0, gv.cc.facing1.PixelSize.Width, gv.cc.facing1.PixelSize.Height);
-                if (crt.combatFacing == 8) { gv.DrawBitmap(gv.cc.facing8, src, dst); }
-                else if (crt.combatFacing == 9) { gv.DrawBitmap(gv.cc.facing9, src, dst); }
-                else if (crt.combatFacing == 6) { gv.DrawBitmap(gv.cc.facing6, src, dst); }
-                else if (crt.combatFacing == 3) { gv.DrawBitmap(gv.cc.facing3, src, dst); }
-                else if (crt.combatFacing == 2) { gv.DrawBitmap(gv.cc.facing2, src, dst); }
-                else if (crt.combatFacing == 1) { gv.DrawBitmap(gv.cc.facing1, src, dst); }
-                else if (crt.combatFacing == 4) { gv.DrawBitmap(gv.cc.facing4, src, dst); }
-                else if (crt.combatFacing == 7) { gv.DrawBitmap(gv.cc.facing7, src, dst); }
-                else { } //didn't find one
-
-                if (showMoveOrder)
-                {
-                    int mo = crt.moveOrder + 1;
-                    drawText(getPixelLocX(crt.combatLocX), getPixelLocY(crt.combatLocY) - (int)gv.drawFontRegHeight, mo.ToString(), Color.White);
-                }
-            }
-            */
         }
         public void drawUiLayout()
         {
@@ -3585,7 +3567,7 @@ namespace IceBlink2
                 }
 		    }
 	    }
-	    public void drawCombatCreatures()
+	    public void drawMovingCombatCreatures()
 	    {
 		    if (mod.currentEncounter.encounterCreatureList.Count > 0)
 		    {
@@ -3594,38 +3576,130 @@ namespace IceBlink2
                     Creature cr = mod.currentEncounter.encounterCreatureList[creatureIndex];
                     if (IsInVisibleCombatWindow(cr.combatLocX, cr.combatLocY))
                     {
-                        IbRect src = new IbRect(0, 0, gv.cc.turn_marker.PixelSize.Width, gv.cc.turn_marker.PixelSize.Height);
-                        IbRect dst = new IbRect(getPixelLocX(cr.combatLocX), getPixelLocY(cr.combatLocY), gv.squareSize, gv.squareSize);
+                        IbRectF src = new IbRectF(0, 0, gv.cc.turn_marker.PixelSize.Width, gv.cc.turn_marker.PixelSize.Height);
+                        IbRectF dst = new IbRectF(getPixelLocX(cr.combatLocX), getPixelLocY(cr.combatLocY), gv.squareSize, gv.squareSize);
                         gv.DrawBitmap(gv.cc.turn_marker, src, dst);
                     }
                 }
 		    }
 		    foreach (Creature crt in mod.currentEncounter.encounterCreatureList)
 		    {
+
+                //XXXXXXXXXXXXXXXXXXXXXXXX
+
+
+                int randXInt = 0;
+                int randYInt = 0;
+                float randX = 0;
+                float randY = 0;
+                int decider = 0;
+                int moveChance = 70;
+
+                decider = gv.sf.RandInt(160);
+                if ((decider == 1) && (crt.inactiveTimer == 0))
+                {
+                    crt.inactiveTimer += gv.sf.RandInt(2);
+                }
+
+                if (crt.inactiveTimer != 0)
+                {
+                    crt.inactiveTimer += gv.sf.RandInt(2);
+                }
+
+                if (crt.inactiveTimer > 150)
+                {
+                    crt.inactiveTimer = 0;
+                }
+
+                if ((gv.sf.RandInt(100) <= moveChance) && (crt.inactiveTimer == 0))
+                {
+                    randXInt = gv.sf.RandInt(100);
+                    randX = (randXInt+75) / 300f;
+                    if (!crt.goRight)
+                    {
+                        crt.straightLineDistanceX += randX;
+                        randX = -1 * randX;
+                        if (crt.straightLineDistanceX >= 2*gv.pS)
+                        {
+                            crt.goRight = true;
+                            crt.straightLineDistanceX = 0;
+                        }
+
+                    }
+                    else if (crt.goRight)
+                    {
+                        crt.straightLineDistanceX += randX;
+                        randX = randX;
+                        if (crt.straightLineDistanceX >= 2*gv.pS)
+                        {
+                            crt.goRight = false;
+                            crt.straightLineDistanceX = 0;
+                        }
+                    }
+
+                    randYInt = gv.sf.RandInt(100);
+                    randY = (randYInt+75) / 300f;
+                    if (!crt.goDown)
+                    {
+                        crt.straightLineDistanceY += randY;
+                        randY = -1 * randY;
+                        if (crt.straightLineDistanceY >= 2*gv.pS)
+                        {
+                            crt.goDown = true;
+                            crt.straightLineDistanceY = 0;
+                        }
+                            
+                    }
+                    else if (crt.goDown)
+                    {
+                        crt.straightLineDistanceY += randY;
+                        randY = randY;
+                        if (crt.straightLineDistanceY >= 2*gv.pS)
+                        {
+                            crt.goDown = false;
+                            crt.straightLineDistanceY = 0;
+                        }
+                    }
+                    else
+                    {
+                        //decider = gv.sf.RandInt(2);
+                        //if (decider == 1)
+                        //{
+                            //randY = -1 * randY;
+                        //}
+                    }
+
+                    crt.roamDistanceX += randX;
+                    crt.roamDistanceY += randY;
+                }
+               //IbRect dst = new IbRect((int)this.position.X, (int)(this.position.Y + randY), (int)((gv.squareSize * this.scaleX) + randX), (int)(gv.squareSize * this.scaleY));
+           
+         
+                //XXXXXXXXXXXXXXXXXXXXXXXX
                 if (!IsInVisibleCombatWindow(crt.combatLocX, crt.combatLocY))
                 {
                     continue;
                 }
-			    IbRect src = new IbRect(0, 0, crt.token.PixelSize.Width, crt.token.PixelSize.Width);
+			    IbRectF src = new IbRectF(0, 0, crt.token.PixelSize.Width, crt.token.PixelSize.Width);
 			    if ((creatureToAnimate != null) && (creatureToAnimate == crt))
 			    {
-                    src = new IbRect(0, crt.token.PixelSize.Width, crt.token.PixelSize.Width, crt.token.PixelSize.Width);
+                    src = new IbRectF(0, crt.token.PixelSize.Width, crt.token.PixelSize.Width, crt.token.PixelSize.Width);
 			    }
-                IbRect dst = new IbRect(getPixelLocX(crt.combatLocX), getPixelLocY(crt.combatLocY), gv.squareSize, gv.squareSize);
+                IbRectF dst = new IbRectF(getPixelLocX(crt.combatLocX) + crt.roamDistanceX, getPixelLocY(crt.combatLocY) + crt.roamDistanceY, gv.squareSize, gv.squareSize);
                 if (crt.token.PixelSize.Width > 100)
 			    {
-                    dst = new IbRect(getPixelLocX(crt.combatLocX) - (gv.squareSize / 2), getPixelLocY(crt.combatLocY) - (gv.squareSize / 2), gv.squareSize * 2, gv.squareSize * 2);
+                    dst = new IbRectF(getPixelLocX(crt.combatLocX) - (gv.squareSize / 2) + crt.roamDistanceX, getPixelLocY(crt.combatLocY) - (gv.squareSize / 2) + crt.roamDistanceY, gv.squareSize * 2, gv.squareSize * 2);
 			    }
 			    gv.DrawBitmap(crt.token, src, dst, !crt.combatFacingLeft);
 			    foreach (Effect ef in crt.cr_effectsList)
 			    {
 				    Bitmap fx = gv.cc.LoadBitmap(ef.spriteFilename);
-                    src = new IbRect(0, 0, fx.PixelSize.Width, fx.PixelSize.Width);
+                    src = new IbRectF(0, 0, fx.PixelSize.Width, fx.PixelSize.Width);
 				    gv.DrawBitmap(fx, src, dst);
                     gv.cc.DisposeOfBitmap(ref fx);
                 }
                 //CREATURE FACING
-                src = new IbRect(0, 0, gv.cc.facing1.PixelSize.Width, gv.cc.facing1.PixelSize.Height);
+                src = new IbRectF(0, 0, gv.cc.facing1.PixelSize.Width, gv.cc.facing1.PixelSize.Height);
                 if (crt.combatFacing == 8) { gv.DrawBitmap(gv.cc.facing8, src, dst); }
                 else if (crt.combatFacing == 9) { gv.DrawBitmap(gv.cc.facing9, src, dst); }
                 else if (crt.combatFacing == 6) { gv.DrawBitmap(gv.cc.facing6, src, dst); }
@@ -3643,7 +3717,7 @@ namespace IceBlink2
                 }
 		    }
 	    }
-        public void drawMovingCombatCreatures()
+        public void drawCombatCreatures()
         {
             if (mod.currentEncounter.encounterCreatureList.Count > 0)
             {
@@ -5681,7 +5755,7 @@ namespace IceBlink2
 
                     else if (rtn.Equals("btnIni1"))
                     {
-                        int buttonThreshold = 1;
+                        int buttonThreshold = 1 - gv.mod.creatureCounterSubstractor;
                         int buttonCounter = 0;
                         int index1 = 0;
 
@@ -5746,7 +5820,7 @@ namespace IceBlink2
 
                     else if (rtn.Equals("btnIni2"))
                     {
-                        int buttonThreshold = 2;
+                        int buttonThreshold = 2 - gv.mod.creatureCounterSubstractor;
                         int buttonCounter = 0;
                         int index1 = 0;
 
@@ -5811,7 +5885,7 @@ namespace IceBlink2
 
                     else if (rtn.Equals("btnIni3"))
                     {
-                        int buttonThreshold = 3;
+                        int buttonThreshold = 3 - gv.mod.creatureCounterSubstractor;
                         int buttonCounter = 0;
                         int index1 = 0;
 
@@ -5876,7 +5950,7 @@ namespace IceBlink2
 
                     else if (rtn.Equals("btnIni4"))
                     {
-                        int buttonThreshold = 4;
+                        int buttonThreshold = 4 - gv.mod.creatureCounterSubstractor;
                         int buttonCounter = 0;
                         int index1 = 0;
 
@@ -5941,7 +6015,7 @@ namespace IceBlink2
 
                     else if (rtn.Equals("btnIni5"))
                     {
-                        int buttonThreshold = 5;
+                        int buttonThreshold = 5 - gv.mod.creatureCounterSubstractor;
                         int buttonCounter = 0;
                         int index1 = 0;
 
@@ -6006,7 +6080,7 @@ namespace IceBlink2
 
                     else if (rtn.Equals("btnIni6"))
                     {
-                        int buttonThreshold = 6;
+                        int buttonThreshold = 6 - gv.mod.creatureCounterSubstractor;
                         int buttonCounter = 0;
                         int index1 = 0;
 
@@ -6071,7 +6145,7 @@ namespace IceBlink2
 
                     else if (rtn.Equals("btnIni7"))
                     {
-                        int buttonThreshold = 7;
+                        int buttonThreshold = 7 - gv.mod.creatureCounterSubstractor;
                         int buttonCounter = 0;
                         int index1 = 0;
 
@@ -6137,7 +6211,7 @@ namespace IceBlink2
 
                     else if (rtn.Equals("btnIni8"))
                     {
-                        int buttonThreshold = 8;
+                        int buttonThreshold = 8 - gv.mod.creatureCounterSubstractor;
                         int buttonCounter = 0;
                         int index1 = 0;
 
@@ -6203,7 +6277,7 @@ namespace IceBlink2
 
                     else if (rtn.Equals("btnIni9"))
                     {
-                        int buttonThreshold = 9;
+                        int buttonThreshold = 9 - gv.mod.creatureCounterSubstractor;
                         int buttonCounter = 0;
                         int index1 = 0;
 
@@ -6269,7 +6343,7 @@ namespace IceBlink2
 
                     else if (rtn.Equals("btnIni10"))
                     {
-                        int buttonThreshold = 10;
+                        int buttonThreshold = 10 - gv.mod.creatureCounterSubstractor;
                         int buttonCounter = 0;
                         int index1 = 0;
 
@@ -6335,7 +6409,7 @@ namespace IceBlink2
 
                     else if (rtn.Equals("btnIni11"))
                     {
-                        int buttonThreshold = 11;
+                        int buttonThreshold = 11 - gv.mod.creatureCounterSubstractor;
                         int buttonCounter = 0;
                         int index1 = 0;
 
@@ -6401,7 +6475,7 @@ namespace IceBlink2
 
                     else if (rtn.Equals("btnIni12"))
                     {
-                        int buttonThreshold = 12;
+                        int buttonThreshold = 12 - gv.mod.creatureCounterSubstractor;
                         int buttonCounter = 0;
                         int index1 = 0;
 
@@ -6467,7 +6541,7 @@ namespace IceBlink2
 
                     else if (rtn.Equals("btnIni13"))
                     {
-                        int buttonThreshold = 13;
+                        int buttonThreshold = 13 - gv.mod.creatureCounterSubstractor;
                         int buttonCounter = 0;
                         int index1 = 0;
 
@@ -6533,7 +6607,7 @@ namespace IceBlink2
 
                     else if (rtn.Equals("btnIni14"))
                     {
-                        int buttonThreshold = 14;
+                        int buttonThreshold = 14 - gv.mod.creatureCounterSubstractor;
                         int buttonCounter = 0;
                         int index1 = 0;
 
@@ -6599,7 +6673,7 @@ namespace IceBlink2
 
                     else if (rtn.Equals("btnIni15"))
                     {
-                        int buttonThreshold = 15;
+                        int buttonThreshold = 15 - gv.mod.creatureCounterSubstractor;
                         int buttonCounter = 0;
                         int index1 = 0;
 
@@ -6665,7 +6739,7 @@ namespace IceBlink2
 
                     else if (rtn.Equals("btnIni16"))
                     {
-                        int buttonThreshold = 16;
+                        int buttonThreshold = 16 - gv.mod.creatureCounterSubstractor;
                         int buttonCounter = 0;
                         int index1 = 0;
 
@@ -6731,7 +6805,7 @@ namespace IceBlink2
 
                     else if (rtn.Equals("btnIni17"))
                     {
-                        int buttonThreshold = 17;
+                        int buttonThreshold = 17 - gv.mod.creatureCounterSubstractor;
                         int buttonCounter = 0;
                         int index1 = 0;
 
@@ -6797,7 +6871,7 @@ namespace IceBlink2
 
                     else if (rtn.Equals("btnIni18"))
                     {
-                        int buttonThreshold = 18;
+                        int buttonThreshold = 18 - gv.mod.creatureCounterSubstractor;
                         int buttonCounter = 0;
                         int index1 = 0;
 
@@ -6863,7 +6937,7 @@ namespace IceBlink2
 
                     else if (rtn.Equals("btnIni19"))
                     {
-                        int buttonThreshold = 19;
+                        int buttonThreshold = 19 - gv.mod.creatureCounterSubstractor;
                         int buttonCounter = 0;
                         int index1 = 0;
 
@@ -6929,7 +7003,7 @@ namespace IceBlink2
 
                     else if (rtn.Equals("btnIni20"))
                     {
-                        int buttonThreshold = 20;
+                        int buttonThreshold = 20 - gv.mod.creatureCounterSubstractor;
                         int buttonCounter = 0;
                         int index1 = 0;
 
@@ -6995,7 +7069,7 @@ namespace IceBlink2
 
                     else if (rtn.Equals("btnIni21"))
                     {
-                        int buttonThreshold = 21;
+                        int buttonThreshold = 21 - gv.mod.creatureCounterSubstractor;
                         int buttonCounter = 0;
                         int index1 = 0;
 
@@ -7061,7 +7135,7 @@ namespace IceBlink2
 
                     else if (rtn.Equals("btnIni22"))
                     {
-                        int buttonThreshold = 22;
+                        int buttonThreshold = 22 - gv.mod.creatureCounterSubstractor;
                         int buttonCounter = 0;
                         int index1 = 0;
 
@@ -7127,7 +7201,7 @@ namespace IceBlink2
 
                     else if (rtn.Equals("btnIni23"))
                     {
-                        int buttonThreshold = 23;
+                        int buttonThreshold = 23 - gv.mod.creatureCounterSubstractor;
                         int buttonCounter = 0;
                         int index1 = 0;
 
@@ -7193,7 +7267,7 @@ namespace IceBlink2
 
                     else if (rtn.Equals("btnIni24"))
                     {
-                        int buttonThreshold = 24;
+                        int buttonThreshold = 24 - gv.mod.creatureCounterSubstractor;
                         int buttonCounter = 0;
                         int index1 = 0;
 
@@ -7259,7 +7333,7 @@ namespace IceBlink2
 
                     else if (rtn.Equals("btnIni25"))
                     {
-                        int buttonThreshold = 25;
+                        int buttonThreshold = 25 - gv.mod.creatureCounterSubstractor;
                         int buttonCounter = 0;
                         int index1 = 0;
 
@@ -7325,7 +7399,7 @@ namespace IceBlink2
 
                     else if (rtn.Equals("btnIni26"))
                     {
-                        int buttonThreshold = 26;
+                        int buttonThreshold = 26 - gv.mod.creatureCounterSubstractor;
                         int buttonCounter = 0;
                         int index1 = 0;
 
@@ -7391,7 +7465,7 @@ namespace IceBlink2
 
                     else if (rtn.Equals("btnIni27"))
                     {
-                        int buttonThreshold = 27;
+                        int buttonThreshold = 27 - gv.mod.creatureCounterSubstractor;
                         int buttonCounter = 0;
                         int index1 = 0;
 
@@ -7457,7 +7531,7 @@ namespace IceBlink2
 
                     else if (rtn.Equals("btnIni28"))
                     {
-                        int buttonThreshold = 28;
+                        int buttonThreshold = 28 - gv.mod.creatureCounterSubstractor;
                         int buttonCounter = 0;
                         int index1 = 0;
 
@@ -7523,7 +7597,7 @@ namespace IceBlink2
 
                     else if (rtn.Equals("btnIni29"))
                     {
-                        int buttonThreshold = 29;
+                        int buttonThreshold = 29 - gv.mod.creatureCounterSubstractor;
                         int buttonCounter = 0;
                         int index1 = 0;
 
@@ -7589,7 +7663,7 @@ namespace IceBlink2
 
                     else if (rtn.Equals("btnIni30"))
                     {
-                        int buttonThreshold = 30;
+                        int buttonThreshold = 30 - gv.mod.creatureCounterSubstractor;
                         int buttonCounter = 0;
                         int index1 = 0;
 
@@ -7655,7 +7729,7 @@ namespace IceBlink2
 
                     else if (rtn.Equals("btnIni31"))
                     {
-                        int buttonThreshold = 31;
+                        int buttonThreshold = 31 - gv.mod.creatureCounterSubstractor;
                         int buttonCounter = 0;
                         int index1 = 0;
 
@@ -7721,7 +7795,7 @@ namespace IceBlink2
 
                     else if (rtn.Equals("btnIni32"))
                     {
-                        int buttonThreshold = 32;
+                        int buttonThreshold = 32 - gv.mod.creatureCounterSubstractor;
                         int buttonCounter = 0;
                         int index1 = 0;
 
@@ -7787,7 +7861,7 @@ namespace IceBlink2
 
                     else if (rtn.Equals("btnIni33"))
                     {
-                        int buttonThreshold = 33;
+                        int buttonThreshold = 33 - gv.mod.creatureCounterSubstractor;
                         int buttonCounter = 0;
                         int index1 = 0;
 
@@ -7853,7 +7927,7 @@ namespace IceBlink2
 
                     else if (rtn.Equals("btnIni34"))
                     {
-                        int buttonThreshold = 34;
+                        int buttonThreshold = 34 - gv.mod.creatureCounterSubstractor;
                         int buttonCounter = 0;
                         int index1 = 0;
 
@@ -7919,7 +7993,7 @@ namespace IceBlink2
 
                     else if (rtn.Equals("btnIni35"))
                     {
-                        int buttonThreshold = 35;
+                        int buttonThreshold = 35 - gv.mod.creatureCounterSubstractor;
                         int buttonCounter = 0;
                         int index1 = 0;
 
@@ -7985,7 +8059,7 @@ namespace IceBlink2
 
                     else if (rtn.Equals("btnIni36"))
                     {
-                        int buttonThreshold = 36;
+                        int buttonThreshold = 36 - gv.mod.creatureCounterSubstractor;
                         int buttonCounter = 0;
                         int index1 = 0;
 

@@ -178,16 +178,40 @@ namespace IceBlink2
         }
 
         public void Draw(GameView gv)
-        {  
+        {
             IbRect src = new IbRect(currentFrameIndex * frameHeight, 0, frameHeight, frameHeight);
-
+            IbRect dst = new IbRect(0, 0, 0, 0);
             //assumes frames of equal proportions
             if (numberOFFramesForAnimationsMadeFromSeveralBitmaps != 0)
             {
                 src = new IbRect(0, 0, 150, 150);
             }
+            /*
+            if (gv.screenType.Equals("combat"))
+            {
+                int randXInt = gv.sf.RandInt(500);
+                float randX = randXInt / 10000f;
+                int decider = gv.sf.RandInt(2);
+                if (decider == 1)
+                {
+                    randX = -1 * randX;
+                }
 
-            IbRect dst = new IbRect((int)this.position.X, (int)this.position.Y, (int)(gv.squareSize * this.scaleX), (int)(gv.squareSize*this.scaleY));
+                int randYInt = gv.sf.RandInt(500);
+                float randY = randXInt / 10000f;
+                decider = gv.sf.RandInt(2);
+                if (decider == 1)
+                {
+                    randY = -1 * randY;
+                }
+
+                dst = new IbRect((int)this.position.X, (int)(this.position.Y + randY), (int)((gv.squareSize * this.scaleX) + randX), (int)(gv.squareSize * this.scaleY));
+            }
+            else
+            {
+            */
+                dst = new IbRect((int)this.position.X, (int)this.position.Y, (int)(gv.squareSize * this.scaleX), (int)(gv.squareSize * this.scaleY));
+            //}
 
             if (numberOFFramesForAnimationsMadeFromSeveralBitmaps == 0)
             {

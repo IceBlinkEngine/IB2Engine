@@ -13,8 +13,11 @@ namespace IceBlink2
 {
     public class Module
     {
+        public bool useMinimalisticUI = true;
+        public bool useManualCombatCam = true;
+        public bool useCombatSmoothMovement = true;
 
-        
+        public int creatureCounterSubstractor = 0;
         public int indexOfNorthernNeighbour = -1;
         public int indexOfSouthernNeighbour = -1;
         public int indexOfEasternNeighbour = -1;
@@ -41,8 +44,7 @@ namespace IceBlink2
         public bool isSandstorm = false;
         public float logOpacity = 1f;
         public int logFadeCounter = 120;
-        public bool useMinimalisticUI = false;
-        public bool useManualCombatCam = false;
+        
 
         public float pixDistanceToBorderWest = 0;
         public float pixDistanceToBorderEast = 0;
@@ -167,7 +169,6 @@ namespace IceBlink2
         public bool avoidInteraction = false;
         public bool useRealTimeTimer = false;
         public bool useSmoothMovement = false;
-        public bool useCombatSmoothMovement = false;
         public bool useAllTileSystem = false;
         public int realTimeTimerLengthInMilliSeconds = 1500;
         public int attackFromBehindToHitModifier = 2;

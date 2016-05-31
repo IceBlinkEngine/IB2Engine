@@ -18,7 +18,15 @@ namespace IceBlink2
 	    public string cr_tokenFilename = "blank.png";
         [JsonIgnore]
 	    public Bitmap token;
-	    public bool combatFacingLeft = true;
+        public float roamDistanceX = 0;
+        public float roamDistanceY = 0;
+        public float straightLineDistanceX = 0;
+        public float straightLineDistanceY = 0;
+        public bool goDown = false;
+        public bool goRight = false;
+        public float inactiveTimer = 0;
+
+        public bool combatFacingLeft = true;
         public int combatFacing = 4; //numpad directions (7,8,9,4,6,1,2,3)
 	    public int combatLocX = 0;
 	    public int combatLocY = 0;
@@ -82,7 +90,14 @@ namespace IceBlink2
 	    public Creature DeepCopy()
 	    {
 		    Creature copy = new Creature();
-		    copy.cr_tokenFilename = this.cr_tokenFilename;
+            copy.roamDistanceX = this.roamDistanceX;
+            copy.roamDistanceY = this.roamDistanceY;
+            copy.straightLineDistanceX = this.straightLineDistanceX;
+            copy.straightLineDistanceY = this.straightLineDistanceY;
+            copy.goDown = this.goDown;
+            copy.goRight = this.goRight;
+            copy.inactiveTimer = this.inactiveTimer; ;
+            copy.cr_tokenFilename = this.cr_tokenFilename;
 		    copy.combatFacingLeft = this.combatFacingLeft;
             copy.combatFacing = this.combatFacing;
 		    copy.combatLocX = this.combatLocX;
