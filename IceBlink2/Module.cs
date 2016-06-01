@@ -18,6 +18,8 @@ namespace IceBlink2
         public bool useCombatSmoothMovement = true;
 
         public int creatureCounterSubstractor = 0;
+        public int moveOrderOfCreatureThatIsBeforeBandChange = 0;
+        public bool enteredFirstTime = false;
         public int indexOfNorthernNeighbour = -1;
         public int indexOfSouthernNeighbour = -1;
         public int indexOfEasternNeighbour = -1;

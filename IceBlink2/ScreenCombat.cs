@@ -715,6 +715,7 @@ namespace IceBlink2
                     
                     currentCombatMode = "info";
                     currentMoveOrderIndex++;
+                    gv.mod.enteredFirstTime = false;
                     gv.Render();
                     //go to start PlayerTurn or start CreatureTurn
                     if ((pc.isHeld()) || (pc.isDead()))
@@ -2527,7 +2528,51 @@ namespace IceBlink2
 
         public void drawInitiativeBar()
         {
-            float numberOfBackgroundTiles = (gv.mod.creatureCounterSubstractor/2f);
+
+            if ((gv.mod.creatureCounterSubstractor / 2f == -16) && (!gv.mod.enteredFirstTime))
+            {
+                gv.mod.enteredFirstTime = true;
+                gv.mod.moveOrderOfCreatureThatIsBeforeBandChange = currentMoveOrderIndex;
+            }
+
+            if ((gv.mod.creatureCounterSubstractor / 2f == -32) && (!gv.mod.enteredFirstTime))
+            {
+                gv.mod.enteredFirstTime = true;
+                gv.mod.moveOrderOfCreatureThatIsBeforeBandChange = currentMoveOrderIndex;
+            }
+
+            if ((gv.mod.creatureCounterSubstractor / 2f == -48) && (!gv.mod.enteredFirstTime))
+            {
+                gv.mod.enteredFirstTime = true;
+                gv.mod.moveOrderOfCreatureThatIsBeforeBandChange = currentMoveOrderIndex;
+            }
+
+            if ((gv.mod.creatureCounterSubstractor / 2f == -64) && (!gv.mod.enteredFirstTime))
+            {
+                gv.mod.enteredFirstTime = true;
+                gv.mod.moveOrderOfCreatureThatIsBeforeBandChange = currentMoveOrderIndex;
+            }
+
+            if ((gv.mod.creatureCounterSubstractor / 2f == -80) && (!gv.mod.enteredFirstTime))
+            {
+                gv.mod.enteredFirstTime = true;
+                gv.mod.moveOrderOfCreatureThatIsBeforeBandChange = currentMoveOrderIndex;
+            }
+
+            if ((gv.mod.creatureCounterSubstractor / 2f == -96) && (!gv.mod.enteredFirstTime))
+            {
+                gv.mod.enteredFirstTime = true;
+                gv.mod.moveOrderOfCreatureThatIsBeforeBandChange = currentMoveOrderIndex;
+            }
+            //if (currentMoveOrderIndex > gv.mod.moveOrderOfCreatureThatIsBeforeBandChange)
+            //{
+            float numberOfBackgroundTiles = 0;
+            if ((currentMoveOrderIndex > gv.mod.moveOrderOfCreatureThatIsBeforeBandChange) || (currentMoveOrderIndex == 0))
+            {
+                numberOfBackgroundTiles = (gv.mod.creatureCounterSubstractor / 2f);
+            }
+             
+            //}
             foreach (MoveOrder m in moveOrderList)
             {
                 if (m.PcOrCreature is Player)
@@ -2616,6 +2661,13 @@ namespace IceBlink2
             int creatureCounter = 0;
             int creatureCounter2 = 0;
             int adderForTheFallen = 0;
+            int largeCreaturesInBand = 0;
+            bool enteredBand2ForFirstTime = true;
+            bool enteredBand3ForFirstTime = true;
+            bool enteredBand4ForFirstTime = true;
+            bool enteredBand5ForFirstTime = true;
+            bool enteredBand6ForFirstTime = true;
+            int largeCreaturesInBandBeforeThisOne = 0;
 
             foreach (MoveOrder m in moveOrderList)
             {
@@ -2659,38 +2711,68 @@ namespace IceBlink2
                         gv.mod.creatureCounterSubstractor = 0;
                     }
                 }
-                else if ((creatureCounter2 > 32) && (creatureCounter2 <= 64))
+                else if ((creatureCounter2 >= 32) && (creatureCounter2 <= 64))
                 {
                     if ((currentMoveOrderIndex - adderForTheFallen) <= 64)
                     {
+                        if (enteredBand2ForFirstTime)
+                        {
+                            enteredBand2ForFirstTime = false;
+                            largeCreaturesInBandBeforeThisOne = largeCreaturesInBand;
+                            largeCreaturesInBand = 0;
+                        }
                         gv.mod.creatureCounterSubstractor = -32;
                     }
                 }
-                else if ((creatureCounter2 > 64) && (creatureCounter2 <= 96))
+                else if ((creatureCounter2 >= 64) && (creatureCounter2 <= 96))
                 {
                     if ((currentMoveOrderIndex - adderForTheFallen) <= 96)
                     {
+                        if (enteredBand3ForFirstTime)
+                        {
+                            enteredBand3ForFirstTime = false;
+                            largeCreaturesInBandBeforeThisOne = largeCreaturesInBand;
+                            largeCreaturesInBand = 0;
+                        }
                         gv.mod.creatureCounterSubstractor = -64;
                     }
                 }
-                else if ((creatureCounter2 > 96) && (creatureCounter2 <= 128))
+                else if ((creatureCounter2 >= 96) && (creatureCounter2 <= 128))
                 {
                     if ((currentMoveOrderIndex - adderForTheFallen) <= 128)
                     {
+                        if (enteredBand4ForFirstTime)
+                        {
+                            enteredBand4ForFirstTime = false;
+                            largeCreaturesInBandBeforeThisOne = largeCreaturesInBand;
+                            largeCreaturesInBand = 0;
+                        }
                         gv.mod.creatureCounterSubstractor = -96;
                     }
                 }
-                else if ((creatureCounter2 > 128) && (creatureCounter2 <= 160))
+                else if ((creatureCounter2 >= 128) && (creatureCounter2 <= 160))
                 {
                     if ((currentMoveOrderIndex - adderForTheFallen) <= 160)
                     {
+                        if (enteredBand5ForFirstTime)
+                        {
+                            enteredBand5ForFirstTime = false;
+                            largeCreaturesInBandBeforeThisOne = largeCreaturesInBand;
+                            largeCreaturesInBand = 0;
+                        }
                         gv.mod.creatureCounterSubstractor = -128;
                     }
                 }
-                else if ((creatureCounter2 > 160) && (creatureCounter2 <= 192))
+                else if ((creatureCounter2 >= 160) && (creatureCounter2 <= 192))
                 {
                     if ((currentMoveOrderIndex - adderForTheFallen) <= 192)
                     {
+                        if (enteredBand6ForFirstTime)
+                        {
+                            enteredBand6ForFirstTime = false;
+                            largeCreaturesInBandBeforeThisOne = largeCreaturesInBand;
+                            largeCreaturesInBand = 0;
+                        }
                         gv.mod.creatureCounterSubstractor = -160;
                     }
                 }
@@ -2721,7 +2803,7 @@ namespace IceBlink2
                         gv.DrawBitmap(gv.cc.turn_marker, src, dst, false);
                     }
 
-                    if ((crt.moveOrder + 2 + adderForTheFallen > -gv.mod.creatureCounterSubstractor) && (crt.moveOrder + 1 - adderForTheFallen < (-gv.mod.creatureCounterSubstractor + 32)))
+                    if ((crt.moveOrder + 1 + largeCreaturesInBandBeforeThisOne + adderForTheFallen > -gv.mod.creatureCounterSubstractor) && (crt.moveOrder + largeCreaturesInBand - adderForTheFallen < (-gv.mod.creatureCounterSubstractor + 32)))
                     {
                         gv.DrawBitmap(crt.token, src, dst, false);
                         int mo = crt.moveOrder + 1;
@@ -2747,6 +2829,7 @@ namespace IceBlink2
                         creatureCounter++;
                         if (crt.moveOrder + 1 <= currentMoveOrderIndex)
                         {
+                            largeCreaturesInBand++;
                             creatureCounter2++;
                         }
                     }
@@ -2777,7 +2860,7 @@ namespace IceBlink2
                         gv.DrawBitmap(gv.cc.turn_marker, src, dst, false);
                     }
 
-                    if ((crt.moveOrder + 2 + adderForTheFallen > -gv.mod.creatureCounterSubstractor) && (crt.moveOrder + 1 - adderForTheFallen < (-gv.mod.creatureCounterSubstractor+32)))
+                    if ((crt.moveOrder + 1 + largeCreaturesInBandBeforeThisOne + adderForTheFallen > -gv.mod.creatureCounterSubstractor) && (crt.moveOrder + largeCreaturesInBand - adderForTheFallen < (-gv.mod.creatureCounterSubstractor + 32)))
                     {
                         gv.DrawBitmap(crt.token, src, dst, false);
                         int mo = crt.moveOrder + 1;
@@ -2799,6 +2882,7 @@ namespace IceBlink2
                     }
                     if (crt.token.PixelSize.Width > 100)
                     {
+                        largeCreaturesInBand++;
                         creatureCounter++;
                         if (crt.moveOrder + 1 <= currentMoveOrderIndex)
                         {
@@ -3757,7 +3841,7 @@ namespace IceBlink2
                 int decider = 0;
                 int moveChance = 80;
 
-                decider = gv.sf.RandInt(120);
+                decider = gv.sf.RandInt(90);
                 if ((decider == 1) && (crt.inactiveTimer == 0))
                 {
                     crt.inactiveTimer += gv.sf.RandInt(2);
@@ -3776,7 +3860,7 @@ namespace IceBlink2
                 if ((gv.sf.RandInt(100) <= moveChance) && (crt.inactiveTimer == 0))
                 {
                     randXInt = gv.sf.RandInt(100);
-                    randX = (randXInt+75) / 300f;
+                    randX = (randXInt+75) / 250f;
                     if (!crt.goRight)
                     {
                         crt.straightLineDistanceX += randX;
@@ -3800,7 +3884,7 @@ namespace IceBlink2
                     }
 
                     randYInt = gv.sf.RandInt(100);
-                    randY = (randYInt+75) / 300f;
+                    randY = (randYInt+75) / 250f;
                     if (!crt.goDown)
                     {
                         crt.straightLineDistanceY += randY;
