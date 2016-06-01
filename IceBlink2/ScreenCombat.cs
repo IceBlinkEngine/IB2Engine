@@ -20,6 +20,7 @@ namespace IceBlink2
         public bool showSP = false;
         public bool showMoveOrder = false;
         public bool showArrows = true;
+        //public int creatureCounter2 = 0;
 
         //COMBAT STUFF
         public bool adjustCamToRangedCreature = false;
@@ -503,6 +504,30 @@ namespace IceBlink2
                     }
                 }
             }
+
+            foreach (Creature crt in mod.currentEncounter.encounterCreatureList)
+            {
+                int decider = gv.sf.RandInt(2);
+                if (decider == 1)
+                {
+                    crt.goDown = false;
+                }
+                else
+                {
+                    crt.goDown = true;
+                }
+
+                decider = gv.sf.RandInt(2);
+                if (decider == 1)
+                {
+                    crt.goRight = false;
+                }
+                else
+                {
+                    crt.goRight = true;
+                }
+            }
+
             //Place all PCs
             for (int index = 0; index < mod.playerList.Count; index++)
             {
@@ -538,23 +563,29 @@ namespace IceBlink2
         public void calcualteMoveOrder()
         {
             moveOrderList.Clear();
+            //creatureCounter2 = 0;
             //go through each PC and creature and make initiative roll
             foreach (Player pc in mod.playerList)
             {
-                int roll = gv.sf.RandInt(100) + (((pc.dexterity - 10) / 2) * 5);
-                MoveOrder newMO = new MoveOrder();
-                newMO.PcOrCreature = pc;
-                newMO.rank = roll;
-                moveOrderList.Add(newMO);
+               
+                    int roll = gv.sf.RandInt(100) + (((pc.dexterity - 10) / 2) * 5);
+                    MoveOrder newMO = new MoveOrder();
+                    newMO.PcOrCreature = pc;
+                    newMO.rank = roll;
+                    moveOrderList.Add(newMO);
+                
 
             }
             foreach (Creature crt in mod.currentEncounter.encounterCreatureList)
             {
-                int roll = gv.sf.RandInt(100) + (crt.initiativeBonus * 5);
-                MoveOrder newMO = new MoveOrder();
-                newMO.PcOrCreature = crt;
-                newMO.rank = roll;
-                moveOrderList.Add(newMO);
+                
+                
+                    int roll = gv.sf.RandInt(100) + (crt.initiativeBonus * 5);
+                    MoveOrder newMO = new MoveOrder();
+                    newMO.PcOrCreature = crt;
+                    newMO.rank = roll;
+                    moveOrderList.Add(newMO);
+               
             }
             initialMoveOrderListSize = moveOrderList.Count;
             //sort PCs and creatures based on results
@@ -576,6 +607,56 @@ namespace IceBlink2
                 cnt++;
             }
         }
+        /*
+        public void recalcualteMoveOrder()
+        {
+            moveOrderList.Clear();
+            //creatureCounter2 = 0;
+            //go through each PC and creature and make initiative roll
+            foreach (Player pc in mod.playerList)
+            {
+                if (pc.hp > 0)
+                {
+                    int roll = gv.sf.RandInt(100) + (((pc.dexterity - 10) / 2) * 5);
+                    MoveOrder newMO = new MoveOrder();
+                    newMO.PcOrCreature = pc;
+                    newMO.rank = roll;
+                    moveOrderList.Add(newMO);
+                }
+
+            }
+            foreach (Creature crt in mod.currentEncounter.encounterCreatureList)
+            {
+                if (crt.hp > 0)
+                {
+                    int roll = gv.sf.RandInt(100) + (crt.initiativeBonus * 5);
+                    MoveOrder newMO = new MoveOrder();
+                    newMO.PcOrCreature = crt;
+                    newMO.rank = roll;
+                    moveOrderList.Add(newMO);
+                }
+            }
+            initialMoveOrderListSize = moveOrderList.Count;
+            //sort PCs and creatures based on results
+            moveOrderList = moveOrderList.OrderByDescending(x => x.rank).ToList();
+            //assign moveOrder to PC and Creature property
+            int cnt = 0;
+            foreach (MoveOrder m in moveOrderList)
+            {
+                if (m.PcOrCreature is Player)
+                {
+                    Player pc = (Player)m.PcOrCreature;
+                    pc.moveOrder = cnt;
+                }
+                else
+                {
+                    Creature crt = (Creature)m.PcOrCreature;
+                    crt.moveOrder = cnt;
+                }
+                cnt++;
+            }
+        }
+        */
         public void turnController()
         {
             //redraw screen
@@ -2446,7 +2527,7 @@ namespace IceBlink2
 
         public void drawInitiativeBar()
         {
-            float numberOfBackgroundTiles = -gv.mod.creatureCounterSubstractor;
+            float numberOfBackgroundTiles = (gv.mod.creatureCounterSubstractor/2f);
             foreach (MoveOrder m in moveOrderList)
             {
                 if (m.PcOrCreature is Player)
@@ -2485,6 +2566,11 @@ namespace IceBlink2
 
             }
 
+            if (numberOfBackgroundTiles > 16)
+            {
+                numberOfBackgroundTiles = 16;
+            }
+
             int numberOfIniButtonsToActivate = (int)(numberOfBackgroundTiles * 2);
 
             for (int i = 0; i < numberOfIniButtonsToActivate; i++)
@@ -2500,7 +2586,23 @@ namespace IceBlink2
                     }
                }
             }
-                for (int i = 0; i < numberOfBackgroundTiles; i++)
+
+            for (int i = 35; i > numberOfIniButtonsToActivate; i--)
+            {
+                for (int j = 0; j < combatUiLayout.panelList.Count; j++)
+                {
+                    if (combatUiLayout.panelList[j].tag.Equals("InitiativePanel"))
+                    {
+                        if (!combatUiLayout.panelList[j].hiding)
+                        {
+                            combatUiLayout.panelList[j].buttonList[i].show = false;
+                        }
+                    }
+                }
+            }
+
+
+            for (int i = 0; i < numberOfBackgroundTiles; i++)
                 {
                     int startBarX = (0 * gv.squareSize) + gv.oXshift + mapStartLocXinPixels + 2*gv.pS;
                     int startBarY = 0 * gv.squareSize + 2*gv.pS;
@@ -2513,32 +2615,84 @@ namespace IceBlink2
             
             int creatureCounter = 0;
             int creatureCounter2 = 0;
-    
+            int adderForTheFallen = 0;
+
             foreach (MoveOrder m in moveOrderList)
             {
-                if (creatureCounter2 < 36)
+                if (m.PcOrCreature is Player)
                 {
-                    gv.mod.creatureCounterSubstractor = 0;
+                    Player crt = (Player)m.PcOrCreature;
+
+                    if (crt.hp <= 0)
+                    {
+                        adderForTheFallen++;
+                        if (crt.token.PixelSize.Width > 100)
+                        {
+                            adderForTheFallen++;
+                        }
+                    }
                 }
-                else if ((creatureCounter2 > 36) && (creatureCounter2 <= 72))
+
+                if (m.PcOrCreature is Creature)
                 {
-                    gv.mod.creatureCounterSubstractor = -36;
+                    Creature crt = (Creature)m.PcOrCreature;
+
+                    if (crt.hp <= 0)
+                    {
+                        adderForTheFallen++;
+                        if (crt.token.PixelSize.Width > 100)
+                        {
+                            adderForTheFallen++;
+                        }
+                    }
                 }
-                else if ((creatureCounter2 > 72) && (creatureCounter2 <= 108))
+
+            }
+
+
+                foreach (MoveOrder m in moveOrderList)
+            {
+                if (creatureCounter2 < 32)
                 {
-                    gv.mod.creatureCounterSubstractor = -72;
+                    if ((currentMoveOrderIndex - adderForTheFallen) < 32)
+                    {
+                        gv.mod.creatureCounterSubstractor = 0;
+                    }
                 }
-                else if ((creatureCounter2 > 108) && (creatureCounter2 <= 144))
+                else if ((creatureCounter2 > 32) && (creatureCounter2 <= 64))
                 {
-                    gv.mod.creatureCounterSubstractor = -108;
+                    if ((currentMoveOrderIndex - adderForTheFallen) <= 64)
+                    {
+                        gv.mod.creatureCounterSubstractor = -32;
+                    }
                 }
-                else if ((creatureCounter2 > 144) && (creatureCounter2 <= 180))
+                else if ((creatureCounter2 > 64) && (creatureCounter2 <= 96))
                 {
-                    gv.mod.creatureCounterSubstractor = -144;
+                    if ((currentMoveOrderIndex - adderForTheFallen) <= 96)
+                    {
+                        gv.mod.creatureCounterSubstractor = -64;
+                    }
                 }
-                else if ((creatureCounter2 > 180) && (creatureCounter2 <= 216))
+                else if ((creatureCounter2 > 96) && (creatureCounter2 <= 128))
                 {
-                    gv.mod.creatureCounterSubstractor = -180;
+                    if ((currentMoveOrderIndex - adderForTheFallen) <= 128)
+                    {
+                        gv.mod.creatureCounterSubstractor = -96;
+                    }
+                }
+                else if ((creatureCounter2 > 128) && (creatureCounter2 <= 160))
+                {
+                    if ((currentMoveOrderIndex - adderForTheFallen) <= 160)
+                    {
+                        gv.mod.creatureCounterSubstractor = -128;
+                    }
+                }
+                else if ((creatureCounter2 > 160) && (creatureCounter2 <= 192))
+                {
+                    if ((currentMoveOrderIndex - adderForTheFallen) <= 192)
+                    {
+                        gv.mod.creatureCounterSubstractor = -160;
+                    }
                 }
 
                 if (m.PcOrCreature is Player)
@@ -2567,18 +2721,22 @@ namespace IceBlink2
                         gv.DrawBitmap(gv.cc.turn_marker, src, dst, false);
                     }
 
-                    gv.DrawBitmap(crt.token, src, dst, false);
-                    int mo = crt.moveOrder + 1;
-                    if (crt.token.PixelSize.Width <= 100)
+                    if ((crt.moveOrder + 2 + adderForTheFallen > -gv.mod.creatureCounterSubstractor) && (crt.moveOrder + 1 - adderForTheFallen < (-gv.mod.creatureCounterSubstractor + 32)))
                     {
-                        drawMiniText(dst.Left, dst.Top + 1 * gv.pS, mo.ToString(), Color.White);
-                        drawMiniText(dst.Left + gv.pS, dst.Top - 5*gv.pS, crt.hp.ToString(), Color.Lime);
+                        gv.DrawBitmap(crt.token, src, dst, false);
+                        int mo = crt.moveOrder + 1;
+                        if (crt.token.PixelSize.Width <= 100)
+                        {
+                            drawMiniText(dst.Left, dst.Top + 1 * gv.pS, mo.ToString(), Color.White);
+                            drawMiniText(dst.Left + gv.pS, dst.Top - 5 * gv.pS, crt.hp.ToString(), Color.Lime);
+                        }
+                        else
+                        {
+                            drawMiniText(dst.Left, dst.Top + gv.squareSize / 2 + 1 * gv.pS, mo.ToString(), Color.White);
+                            drawMiniText(dst.Left + 3 * gv.pS, dst.Top - 3 * gv.pS, crt.hp.ToString(), Color.Lime);
+                        }
                     }
-                    else
-                    {
-                        drawMiniText(dst.Left, dst.Top + gv.squareSize / 2 + 1 * gv.pS, mo.ToString(), Color.White);
-                        drawMiniText(dst.Left + 3*gv.pS, dst.Top - 3 * gv.pS, crt.hp.ToString(), Color.Lime);
-                    }
+
                     creatureCounter++;
                     if (crt.moveOrder + 1 <= currentMoveOrderIndex)
                     {
@@ -2618,17 +2776,21 @@ namespace IceBlink2
                     {
                         gv.DrawBitmap(gv.cc.turn_marker, src, dst, false);
                     }
-                    gv.DrawBitmap(crt.token, src, dst, false);
-                    int mo = crt.moveOrder + 1;
-                    if (crt.token.PixelSize.Width <= 100)
+
+                    if ((crt.moveOrder + 2 + adderForTheFallen > -gv.mod.creatureCounterSubstractor) && (crt.moveOrder + 1 - adderForTheFallen < (-gv.mod.creatureCounterSubstractor+32)))
                     {
-                        drawMiniText(dst.Left, dst.Top + 1 * gv.pS, mo.ToString(), Color.White);
-                        drawMiniText(dst.Left + gv.pS, dst.Top - 5 * gv.pS, crt.hp.ToString(), Color.Red);
-                    }
-                    else
-                    {
-                        drawMiniText(dst.Left, dst.Top + gv.squareSize / 2 + 1 * gv.pS, mo.ToString(), Color.White);
-                        drawMiniText(dst.Left + 3 * gv.pS, dst.Top - 3 * gv.pS, crt.hp.ToString(), Color.Red);
+                        gv.DrawBitmap(crt.token, src, dst, false);
+                        int mo = crt.moveOrder + 1;
+                        if (crt.token.PixelSize.Width <= 100)
+                        {
+                            drawMiniText(dst.Left, dst.Top + 1 * gv.pS, mo.ToString(), Color.White);
+                            drawMiniText(dst.Left + gv.pS, dst.Top - 5 * gv.pS, crt.hp.ToString(), Color.Red);
+                        }
+                        else
+                        {
+                            drawMiniText(dst.Left, dst.Top + gv.squareSize / 2 + 1 * gv.pS, mo.ToString(), Color.White);
+                            drawMiniText(dst.Left + 3 * gv.pS, dst.Top - 3 * gv.pS, crt.hp.ToString(), Color.Red);
+                        }
                     }
                     creatureCounter++;
                     if (crt.moveOrder + 1 <= currentMoveOrderIndex)
@@ -3593,9 +3755,9 @@ namespace IceBlink2
                 float randX = 0;
                 float randY = 0;
                 int decider = 0;
-                int moveChance = 70;
+                int moveChance = 80;
 
-                decider = gv.sf.RandInt(160);
+                decider = gv.sf.RandInt(120);
                 if ((decider == 1) && (crt.inactiveTimer == 0))
                 {
                     crt.inactiveTimer += gv.sf.RandInt(2);
@@ -3606,7 +3768,7 @@ namespace IceBlink2
                     crt.inactiveTimer += gv.sf.RandInt(2);
                 }
 
-                if (crt.inactiveTimer > 150)
+                if (crt.inactiveTimer > 100)
                 {
                     crt.inactiveTimer = 0;
                 }
@@ -3619,7 +3781,7 @@ namespace IceBlink2
                     {
                         crt.straightLineDistanceX += randX;
                         randX = -1 * randX;
-                        if (crt.straightLineDistanceX >= 2*gv.pS)
+                        if (crt.straightLineDistanceX >= 1.5f*gv.pS)
                         {
                             crt.goRight = true;
                             crt.straightLineDistanceX = 0;
@@ -3630,7 +3792,7 @@ namespace IceBlink2
                     {
                         crt.straightLineDistanceX += randX;
                         randX = randX;
-                        if (crt.straightLineDistanceX >= 2*gv.pS)
+                        if (crt.straightLineDistanceX >= 1.5f*gv.pS)
                         {
                             crt.goRight = false;
                             crt.straightLineDistanceX = 0;
@@ -3643,7 +3805,7 @@ namespace IceBlink2
                     {
                         crt.straightLineDistanceY += randY;
                         randY = -1 * randY;
-                        if (crt.straightLineDistanceY >= 2*gv.pS)
+                        if (crt.straightLineDistanceY >= 1.5*gv.pS)
                         {
                             crt.goDown = true;
                             crt.straightLineDistanceY = 0;
@@ -3654,7 +3816,7 @@ namespace IceBlink2
                     {
                         crt.straightLineDistanceY += randY;
                         randY = randY;
-                        if (crt.straightLineDistanceY >= 2*gv.pS)
+                        if (crt.straightLineDistanceY >= 1.5*gv.pS)
                         {
                             crt.goDown = false;
                             crt.straightLineDistanceY = 0;

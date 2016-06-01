@@ -9102,6 +9102,192 @@
         "creatureTag": "wolf_9947",
         "creatureStartLocationX": 2,
         "creatureStartLocationY": 2
+      },
+      {
+        "creatureResRef": "forestgnoll",
+        "creatureTag": "forestgnoll_9951",
+        "creatureStartLocationX": 0,
+        "creatureStartLocationY": 4
+      },
+      {
+        "creatureResRef": "forestgnoll",
+        "creatureTag": "forestgnoll_9952",
+        "creatureStartLocationX": 0,
+        "creatureStartLocationY": 5
+      },
+      {
+        "creatureResRef": "forestgnoll",
+        "creatureTag": "forestgnoll_9953",
+        "creatureStartLocationX": 3,
+        "creatureStartLocationY": 2
+      },
+      {
+        "creatureResRef": "orc",
+        "creatureTag": "orc_9954",
+        "creatureStartLocationX": 5,
+        "creatureStartLocationY": 0
+      },
+      {
+        "creatureResRef": "forestgnoll",
+        "creatureTag": "forestgnoll_9955",
+        "creatureStartLocationX": 3,
+        "creatureStartLocationY": 3
+      },
+      {
+        "creatureResRef": "forestgnoll",
+        "creatureTag": "forestgnoll_9956",
+        "creatureStartLocationX": 3,
+        "creatureStartLocationY": 3
+      },
+      {
+        "creatureResRef": "forestgnoll",
+        "creatureTag": "forestgnoll_9957",
+        "creatureStartLocationX": 4,
+        "creatureStartLocationY": 4
+      },
+      {
+        "creatureResRef": "forestgnoll",
+        "creatureTag": "forestgnoll_9958",
+        "creatureStartLocationX": 4,
+        "creatureStartLocationY": 7
+      },
+      {
+        "creatureResRef": "forestgnoll",
+        "creatureTag": "forestgnoll_9959",
+        "creatureStartLocationX": 3,
+        "creatureStartLocationY": 6
+      },
+      {
+        "creatureResRef": "forestgnoll",
+        "creatureTag": "forestgnoll_9960",
+        "creatureStartLocationX": 3,
+        "creatureStartLocationY": 8
+      },
+      {
+        "creatureResRef": "forestgnoll",
+        "creatureTag": "forestgnoll_9961",
+        "creatureStartLocationX": 0,
+        "creatureStartLocationY": 1
+      },
+      {
+        "creatureResRef": "forestgnoll",
+        "creatureTag": "forestgnoll_9962",
+        "creatureStartLocationX": 7,
+        "creatureStartLocationY": 8
+      },
+      {
+        "creatureResRef": "forestgnoll",
+        "creatureTag": "forestgnoll_9963",
+        "creatureStartLocationX": 7,
+        "creatureStartLocationY": 5
+      },
+      {
+        "creatureResRef": "forestgnoll",
+        "creatureTag": "forestgnoll_9964",
+        "creatureStartLocationX": 6,
+        "creatureStartLocationY": 1
+      },
+      {
+        "creatureResRef": "forestgnoll",
+        "creatureTag": "forestgnoll_9965",
+        "creatureStartLocationX": 6,
+        "creatureStartLocationY": 1
+      },
+      {
+        "creatureResRef": "forestgnoll",
+        "creatureTag": "forestgnoll_9966",
+        "creatureStartLocationX": 5,
+        "creatureStartLocationY": 4
+      },
+      {
+        "creatureResRef": "forestgnoll",
+        "creatureTag": "forestgnoll_9967",
+        "creatureStartLocationX": 5,
+        "creatureStartLocationY": 7
+      },
+      {
+        "creatureResRef": "forestgnoll",
+        "creatureTag": "forestgnoll_9968",
+        "creatureStartLocationX": 5,
+        "creatureStartLocationY": 9
+      },
+      {
+        "creatureResRef": "forestgnoll",
+        "creatureTag": "forestgnoll_9969",
+        "creatureStartLocationX": 5,
+        "creatureStartLocationY": 9
+      },
+      {
+        "creatureResRef": "forestgnoll",
+        "creatureTag": "forestgnoll_9970",
+        "creatureStartLocationX": 7,
+        "creatureStartLocationY": 0
+      },
+      {
+        "creatureResRef": "forestgnoll",
+        "creatureTag": "forestgnoll_9971",
+        "creatureStartLocationX": 8,
+        "creatureStartLocationY": 1
+      },
+      {
+        "creatureResRef": "forestgnoll",
+        "creatureTag": "forestgnoll_9972",
+        "creatureStartLocationX": 8,
+        "creatureStartLocationY": 3
+      },
+      {
+        "creatureResRef": "forestgnoll",
+        "creatureTag": "forestgnoll_9973",
+        "creatureStartLocationX": 6,
+        "creatureStartLocationY": 5
+      },
+      {
+        "creatureResRef": "forestgnoll",
+        "creatureTag": "forestgnoll_9974",
+        "creatureStartLocationX": 8,
+        "creatureStartLocationY": 7
+      },
+      {
+        "creatureResRef": "forestgnoll",
+        "creatureTag": "forestgnoll_9975",
+        "creatureStartLocationX": 9,
+        "creatureStartLocationY": 4
+      },
+      {
+        "creatureResRef": "forestgnoll",
+        "creatureTag": "forestgnoll_9976",
+        "creatureStartLocationX": 9,
+        "creatureStartLocationY": 0
+      },
+      {
+        "creatureResRef": "forestgnoll",
+        "creatureTag": "forestgnoll_9977",
+        "creatureStartLocationX": 10,
+        "creatureStartLocationY": 1
+      },
+      {
+        "creatureResRef": "forestgnoll",
+        "creatureTag": "forestgnoll_9978",
+        "creatureStartLocationX": 1,
+        "creatureStartLocationY": 9
+      },
+      {
+        "creatureResRef": "forestgnoll",
+        "creatureTag": "forestgnoll_9979",
+        "creatureStartLocationX": 4,
+        "creatureStartLocationY": 6
+      },
+      {
+        "creatureResRef": "forestgnoll",
+        "creatureTag": "forestgnoll_9980",
+        "creatureStartLocationX": 7,
+        "creatureStartLocationY": 9
+      },
+      {
+        "creatureResRef": "forestgnoll",
+        "creatureTag": "forestgnoll_9981",
+        "creatureStartLocationX": 7,
+        "creatureStartLocationY": 3
       }
     ],
     "encounterCreatureList": [],
