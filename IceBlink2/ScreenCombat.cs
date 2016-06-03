@@ -22,6 +22,52 @@ namespace IceBlink2
         public bool showArrows = true;
         //public int creatureCounter2 = 0;
 
+        //INITIATIVE BAR STUFF
+        //each bar holds 34 buttons deactivated at start
+        //a bar can contain up to 17 living large or 34 living normal creatures or any mix of these
+        //only as many buttons are activated as creatures are contained in current bar, large certaures counted double for this purpose (have 2 buttons)
+        //only as many backgroundTiles are drawn as creatures are contained in current bar, normal cretaures counted half for this pupose (have 0.5 background tiles)
+
+        public int numberOfCurrentlyShownBar = 1;
+
+        public List<int> ListOfCreaturesDisplayedInBar1 = new List<int>();
+        public List<int> ListOfCreaturesDisplayedInBar2 = new List<int>();
+        public List<int> ListOfCreaturesDisplayedInBar3 = new List<int>();
+        public List<int> ListOfCreaturesDisplayedInBar4 = new List<int>();
+        public List<int> ListOfCreaturesDisplayedInBar5 = new List<int>();
+        public List<int> ListOfCreaturesDisplayedInBar6 = new List<int>();
+
+        public List<int >ListOfSizesOfCreaturesInBar1 = new List<int>();
+        public List<int> ListOfSizesOfCreaturesInBar2 = new List<int>();
+        public List<int> ListOfSizesOfCreaturesInBar3 = new List<int>();
+        public List<int> ListOfSizesOfCreaturesInBar4 = new List<int>();
+        public List<int> ListOfSizesOfCreaturesInBar5 = new List<int>();
+        public List<int> ListOfSizesOfCreaturesInBar6 = new List<int>();
+
+        public List<int> ListOfCreaturesDisplayedInCurrentBar = new List<int>();
+        public List<int> ListOfSizesOfCreaturesInCurrentBar = new List<int>();
+
+        public int NumberOfButtonsDisplayedInBar1 = 0;
+        public int NumberOfButtonsDisplayedInBar2 = 0;
+        public int NumberOfButtonsDisplayedInBar3 = 0;
+        public int NumberOfButtonsDisplayedInBar4 = 0;
+        public int NumberOfButtonsDisplayedInBar5 = 0;
+        public int NumberOfButtonsDisplayedInBar6 = 0;
+
+        public int NumberOfBackgroundTilesDisplayedInBar1 = 0;
+        public int NumberOfBackgroundTilesDisplayedInBar2 = 0;
+        public int NumberOfBackgroundTilesDisplayedInBar3 = 0;
+        public int NumberOfBackgroundTilesDisplayedInBar4 = 0;
+        public int NumberOfBackgroundTilesDisplayedInBar5 = 0;
+        public int NumberOfBackgroundTilesDisplayedInBar6 = 0;
+
+        public List<int> moverOrdersOfAllLivingCreatures = new List<int>();
+        public List<int> moverOrdersOfAllFallenCreatures = new List<int>();
+        public List<int> moverOrdersOfLargeLivingCreatures = new List<int>();
+        public List<int> moverOrdersOfLargeFallenCreatures = new List<int>();
+        public List<int> moverOrdersOfNormalLivingCreatures = new List<int>();
+        public List<int> moverOrdersOfNormalFallenCreatures = new List<int>();
+
         //COMBAT STUFF
         public bool adjustCamToRangedCreature = false;
 	    private bool isPlayerTurn = true;
@@ -558,6 +604,7 @@ namespace IceBlink2
             //determine initiative
             calcualteMoveOrder();
             //do turn controller
+            recalculateCreaturesShownInInitiativeBar();
             turnController();
         }
         public void calcualteMoveOrder()
@@ -659,6 +706,7 @@ namespace IceBlink2
         */
         public void turnController()
         {
+            recalculateCreaturesShownInInitiativeBar();
             //redraw screen
             gv.Render();
             if (currentMoveOrderIndex >= initialMoveOrderListSize)
@@ -2518,7 +2566,10 @@ namespace IceBlink2
                     {
                         if ((combatUiLayout.panelList[j].currentLocX) > (combatUiLayout.panelList[j].hiddenLocX))
                         {
-                            drawInitiativeBar();
+                            if (ListOfCreaturesDisplayedInCurrentBar.Count > 0)
+                            {
+                                drawInitiativeBar();
+                            }
                         }
                     }
                 }
@@ -2526,10 +2577,574 @@ namespace IceBlink2
             drawUiLayout();
         }
 
+        public void recalculateCreaturesShownInInitiativeBar()
+        {
+            numberOfCurrentlyShownBar = 1;
+
+            ListOfCreaturesDisplayedInCurrentBar.Clear();
+            ListOfSizesOfCreaturesInCurrentBar.Clear();
+
+            ListOfCreaturesDisplayedInBar1.Clear();
+            ListOfCreaturesDisplayedInBar2.Clear();
+            ListOfCreaturesDisplayedInBar3.Clear();
+            ListOfCreaturesDisplayedInBar4.Clear();
+            ListOfCreaturesDisplayedInBar5.Clear();
+            ListOfCreaturesDisplayedInBar6.Clear();
+
+            ListOfSizesOfCreaturesInBar1.Clear();
+            ListOfSizesOfCreaturesInBar2.Clear();
+            ListOfSizesOfCreaturesInBar3.Clear();
+            ListOfSizesOfCreaturesInBar4.Clear();
+            ListOfSizesOfCreaturesInBar5.Clear();
+            ListOfSizesOfCreaturesInBar6.Clear();
+
+            NumberOfButtonsDisplayedInBar1 = 0;
+            NumberOfButtonsDisplayedInBar2 = 0;
+            NumberOfButtonsDisplayedInBar3 = 0;
+            NumberOfButtonsDisplayedInBar4 = 0;
+            NumberOfButtonsDisplayedInBar5 = 0;
+            NumberOfButtonsDisplayedInBar6 = 0;
+
+            NumberOfBackgroundTilesDisplayedInBar1 = 0;
+            NumberOfBackgroundTilesDisplayedInBar2 = 0;
+            NumberOfBackgroundTilesDisplayedInBar3 = 0;
+            NumberOfBackgroundTilesDisplayedInBar4 = 0;
+            NumberOfBackgroundTilesDisplayedInBar5 = 0;
+            NumberOfBackgroundTilesDisplayedInBar6 = 0;
+
+            moverOrdersOfAllLivingCreatures.Clear();
+            moverOrdersOfAllFallenCreatures.Clear();
+            moverOrdersOfLargeLivingCreatures.Clear();
+            moverOrdersOfLargeFallenCreatures.Clear();
+            moverOrdersOfNormalLivingCreatures.Clear();
+            moverOrdersOfNormalFallenCreatures.Clear();
+
+            foreach (MoveOrder m in moveOrderList)
+            {
+                if (m.PcOrCreature is Player)
+                {
+                    Player crt = (Player)m.PcOrCreature;
+                    if (crt.hp <= 0)
+                    {
+                        if (crt.token.PixelSize.Width > 100)
+                        {
+                            moverOrdersOfLargeFallenCreatures.Add(crt.moveOrder);
+                        }
+                        else
+                        {
+                            moverOrdersOfNormalFallenCreatures.Add(crt.moveOrder);
+                        }
+                    }
+                    else
+                    {
+                        moverOrdersOfAllLivingCreatures.Add(crt.moveOrder);
+                        if (crt.token.PixelSize.Width > 100)
+                        {
+                            moverOrdersOfLargeLivingCreatures.Add(crt.moveOrder);
+                        }
+                        else
+                        {
+                            moverOrdersOfNormalLivingCreatures.Add(crt.moveOrder);
+                        }
+                    }
+                }
+                else
+                {
+                    Creature crt = (Creature)m.PcOrCreature;
+                    if (crt.hp <= 0)
+                    {
+                        if (crt.token.PixelSize.Width > 100)
+                        {
+                            moverOrdersOfLargeFallenCreatures.Add(crt.moveOrder);
+                        }
+                        else
+                        {
+                            moverOrdersOfNormalFallenCreatures.Add(crt.moveOrder);
+                        }
+                    }
+                    else
+                    {
+                        moverOrdersOfAllLivingCreatures.Add(crt.moveOrder);
+                        if (crt.token.PixelSize.Width > 100)
+                        {
+                            moverOrdersOfLargeLivingCreatures.Add(crt.moveOrder);
+                        }
+                        else
+                        {
+                            moverOrdersOfNormalLivingCreatures.Add(crt.moveOrder);
+                        }
+                    }
+                }
+            }
+
+            //calculate buttons/i needed
+            int buttonsNeededOverall = 0;
+
+            buttonsNeededOverall = (moverOrdersOfLargeLivingCreatures.Count) * 2;
+            buttonsNeededOverall += moverOrdersOfNormalLivingCreatures.Count;
+
+            //determine number of inibars needed
+            int numberOfIniBarsNeeded = 1;
+
+            //not certain of rounding rules, too lazy to look up ;-)
+            for (int i = 1; i <= buttonsNeededOverall; i++)
+            {
+                if (i == 35)
+                {
+                    numberOfIniBarsNeeded++;
+                }
+
+                if (i == 69)
+                {
+                    numberOfIniBarsNeeded++;
+                }
+
+                if (i == 103)
+                {
+                    numberOfIniBarsNeeded++;
+                }
+
+                if (i == 137)
+                {
+                    numberOfIniBarsNeeded++;
+                }
+
+                if (i == 171)
+                {
+                    numberOfIniBarsNeeded++;
+                }  
+            }
+
+            int indexIAdderForDrawnLargeCreatures = 0;
+            for (int barNumber = 1; barNumber <= numberOfIniBarsNeeded; barNumber++)
+            {
+                int nextBarMoveOrderAdder = (barNumber - 1) * 34;
+
+                for (int i = 0 + nextBarMoveOrderAdder; i < 34 + nextBarMoveOrderAdder; i++)
+                {
+                    if (barNumber == 1)
+                    {
+                        if ((i - indexIAdderForDrawnLargeCreatures) <= moverOrdersOfAllLivingCreatures.Count - 1)
+                        {
+                            ListOfCreaturesDisplayedInBar1.Add(moverOrdersOfAllLivingCreatures[i - indexIAdderForDrawnLargeCreatures]);
+                            bool foundLargeCreature = false;
+                            foreach (int moveOrder in moverOrdersOfLargeLivingCreatures)
+                            {
+                                if (moveOrder == moverOrdersOfAllLivingCreatures[i - indexIAdderForDrawnLargeCreatures])
+                                {
+                                    foundLargeCreature = true;
+                                    ListOfSizesOfCreaturesInBar1.Add(2);
+                                    indexIAdderForDrawnLargeCreatures++;
+                                    i++;
+                                    break;
+                                }
+                            }
+
+                            if (!foundLargeCreature)
+                            {
+                                ListOfSizesOfCreaturesInBar1.Add(1);
+                            }
+                        }
+                    }
+
+                    if (barNumber == 2)
+                    {
+                        if ((i - indexIAdderForDrawnLargeCreatures) <= moverOrdersOfAllLivingCreatures.Count - 1)
+                        {
+                            ListOfCreaturesDisplayedInBar2.Add(moverOrdersOfAllLivingCreatures[i - indexIAdderForDrawnLargeCreatures]);
+                            bool foundLargeCreature = false;
+                            foreach (int moveOrder in moverOrdersOfLargeLivingCreatures)
+                            {
+                                if (moveOrder == moverOrdersOfAllLivingCreatures[i - indexIAdderForDrawnLargeCreatures])
+                                {
+                                    foundLargeCreature = true;
+                                    ListOfSizesOfCreaturesInBar2.Add(2);
+                                    indexIAdderForDrawnLargeCreatures++;
+                                    i++;
+                                    break;
+                                }
+                            }
+
+                            if (!foundLargeCreature)
+                            {
+                                ListOfSizesOfCreaturesInBar2.Add(1);
+                            }
+                        }
+                    }
+
+                    if (barNumber == 3)
+                    {
+                        if ((i - indexIAdderForDrawnLargeCreatures) <= moverOrdersOfAllLivingCreatures.Count - 1)
+                        {
+                            ListOfCreaturesDisplayedInBar3.Add(moverOrdersOfAllLivingCreatures[i - indexIAdderForDrawnLargeCreatures]);
+                            bool foundLargeCreature = false;
+                            foreach (int moveOrder in moverOrdersOfLargeLivingCreatures)
+                            {
+                                if (moveOrder == moverOrdersOfAllLivingCreatures[i - indexIAdderForDrawnLargeCreatures])
+                                {
+                                    foundLargeCreature = true;
+                                    ListOfSizesOfCreaturesInBar3.Add(2);
+                                    indexIAdderForDrawnLargeCreatures++;
+                                    i++;
+                                    break;
+                                }
+                            }
+
+                            if (!foundLargeCreature)
+                            {
+                                ListOfSizesOfCreaturesInBar3.Add(1);
+                            }
+                        }
+                    }
+
+                    if (barNumber == 4)
+                    {
+                        if ((i - indexIAdderForDrawnLargeCreatures) <= moverOrdersOfAllLivingCreatures.Count - 1)
+                        {
+                            ListOfCreaturesDisplayedInBar4.Add(moverOrdersOfAllLivingCreatures[i - indexIAdderForDrawnLargeCreatures]);
+                            bool foundLargeCreature = false;
+                            foreach (int moveOrder in moverOrdersOfLargeLivingCreatures)
+                            {
+                                if (moveOrder == moverOrdersOfAllLivingCreatures[i - indexIAdderForDrawnLargeCreatures])
+                                {
+                                    foundLargeCreature = true;
+                                    ListOfSizesOfCreaturesInBar4.Add(2);
+                                    indexIAdderForDrawnLargeCreatures++;
+                                    i++;
+                                    break;
+                                }
+                            }
+
+                            if (!foundLargeCreature)
+                            {
+                                ListOfSizesOfCreaturesInBar4.Add(1);
+                            }
+                        }
+                    }
+
+                    if (barNumber == 5)
+                    {
+                        if ((i - indexIAdderForDrawnLargeCreatures) <= moverOrdersOfAllLivingCreatures.Count - 1)
+                        {
+                            ListOfCreaturesDisplayedInBar5.Add(moverOrdersOfAllLivingCreatures[i - indexIAdderForDrawnLargeCreatures]);
+                            bool foundLargeCreature = false;
+                            foreach (int moveOrder in moverOrdersOfLargeLivingCreatures)
+                            {
+                                if (moveOrder == moverOrdersOfAllLivingCreatures[i - indexIAdderForDrawnLargeCreatures])
+                                {
+                                    foundLargeCreature = true;
+                                    ListOfSizesOfCreaturesInBar5.Add(2);
+                                    indexIAdderForDrawnLargeCreatures++;
+                                    i++;
+                                    break;
+                                }
+                            }
+
+                            if (!foundLargeCreature)
+                            {
+                                ListOfSizesOfCreaturesInBar5.Add(1);
+                            }
+                        }
+                    }
+
+                    if (barNumber == 6)
+                    {
+                        if ((i - indexIAdderForDrawnLargeCreatures) <= moverOrdersOfAllLivingCreatures.Count - 1)
+                        {
+                            ListOfCreaturesDisplayedInBar6.Add(moverOrdersOfAllLivingCreatures[i - indexIAdderForDrawnLargeCreatures]);
+                            bool foundLargeCreature = false;
+                            foreach (int moveOrder in moverOrdersOfLargeLivingCreatures)
+                            {
+                                if (moveOrder == moverOrdersOfAllLivingCreatures[i - indexIAdderForDrawnLargeCreatures])
+                                {
+                                    foundLargeCreature = true;
+                                    ListOfSizesOfCreaturesInBar6.Add(2);
+                                    indexIAdderForDrawnLargeCreatures++;
+                                    i++;
+                                    break;
+                                }
+                            }
+
+                            if (!foundLargeCreature)
+                            {
+                                ListOfSizesOfCreaturesInBar6.Add(1);
+                            }
+
+                        }
+
+                    }
+                }
+            }
+
+            //determine current bar
+            bool foundCurrentBar = false;
+
+            foreach (int moveOrder in ListOfCreaturesDisplayedInBar1)
+            {
+                if (moveOrder == (currentMoveOrderIndex))
+                {
+                    ListOfCreaturesDisplayedInCurrentBar = ListOfCreaturesDisplayedInBar1;
+                    ListOfSizesOfCreaturesInCurrentBar= ListOfSizesOfCreaturesInBar1;
+                    foundCurrentBar = true;
+                    gv.mod.creatureCounterSubstractor = 0;
+                }
+            }
+
+            if (!foundCurrentBar)
+            {
+                foreach (int moveOrder in ListOfCreaturesDisplayedInBar2)
+                {
+                    if (moveOrder == (currentMoveOrderIndex))
+                    {
+                        ListOfCreaturesDisplayedInCurrentBar = ListOfCreaturesDisplayedInBar2;
+                        ListOfSizesOfCreaturesInCurrentBar = ListOfSizesOfCreaturesInBar2;
+                        foundCurrentBar = true;
+                        gv.mod.creatureCounterSubstractor = -34;
+                    }
+                }
+            }
+
+            if (!foundCurrentBar)
+            {
+                foreach (int moveOrder in ListOfCreaturesDisplayedInBar3)
+                {
+                    if (moveOrder == (currentMoveOrderIndex))
+                    {
+                        ListOfCreaturesDisplayedInCurrentBar = ListOfCreaturesDisplayedInBar3;
+                        ListOfSizesOfCreaturesInCurrentBar = ListOfSizesOfCreaturesInBar3;
+                        foundCurrentBar = true;
+                        gv.mod.creatureCounterSubstractor = -68;
+                    }
+                }
+            }
+
+            if (!foundCurrentBar)
+            {
+                foreach (int moveOrder in ListOfCreaturesDisplayedInBar4)
+                {
+                    if (moveOrder == (currentMoveOrderIndex))
+                    {
+                        ListOfCreaturesDisplayedInCurrentBar = ListOfCreaturesDisplayedInBar4;
+                        ListOfSizesOfCreaturesInCurrentBar = ListOfSizesOfCreaturesInBar4;
+                        foundCurrentBar = true;
+                        gv.mod.creatureCounterSubstractor = -102;
+                    }
+                }
+            }
+
+            if (!foundCurrentBar)
+            {
+                foreach (int moveOrder in ListOfCreaturesDisplayedInBar5)
+                {
+                    if (moveOrder == (currentMoveOrderIndex))
+                    {
+                        ListOfCreaturesDisplayedInCurrentBar = ListOfCreaturesDisplayedInBar5;
+                        ListOfSizesOfCreaturesInCurrentBar = ListOfSizesOfCreaturesInBar5;
+                        foundCurrentBar = true;
+                        gv.mod.creatureCounterSubstractor = -136;
+                    }
+                }
+            }
+
+            if (!foundCurrentBar)
+            {
+                foreach (int moveOrder in ListOfCreaturesDisplayedInBar6)
+                {
+                    if (moveOrder == (currentMoveOrderIndex - 1))
+                    {
+                        ListOfCreaturesDisplayedInCurrentBar = ListOfCreaturesDisplayedInBar6;
+                        ListOfSizesOfCreaturesInCurrentBar = ListOfSizesOfCreaturesInBar6;
+                        foundCurrentBar = true;
+                        gv.mod.creatureCounterSubstractor = -170;
+                    }
+                }
+            }
+
+            //actiavte the right number of buttons
+            int numberOfIniButtonsToActivate = 0;
+            foreach (int creatureSize in ListOfSizesOfCreaturesInCurrentBar)
+            {
+                numberOfIniButtonsToActivate += creatureSize;
+            }
+
+            for (int i = 0; i < numberOfIniButtonsToActivate; i++)
+            {
+                for (int j = 0; j < combatUiLayout.panelList.Count; j++)
+                {
+                    if (combatUiLayout.panelList[j].tag.Equals("InitiativePanel"))
+                    {
+                        if (!combatUiLayout.panelList[j].hiding)
+                        {
+                            combatUiLayout.panelList[j].buttonList[i].show = true;
+                        }
+                    }
+                }
+            }
+
+            for (int i = 35; i > numberOfIniButtonsToActivate; i--)
+            {
+                for (int j = 0; j < combatUiLayout.panelList.Count; j++)
+                {
+                    if (combatUiLayout.panelList[j].tag.Equals("InitiativePanel"))
+                    {
+                        if (!combatUiLayout.panelList[j].hiding)
+                        {
+                            combatUiLayout.panelList[j].buttonList[i].show = false;
+                        }
+                    }
+                }
+            }
+        }
+
         public void drawInitiativeBar()
         {
 
-            if ((gv.mod.creatureCounterSubstractor / 2f == -16) && (!gv.mod.enteredFirstTime))
+            //draw background as tiles needed
+            int numberOfBackgroundTilesToDraw = 0;
+            int creatureSpacesUsed = 0;
+            foreach (int creatureSize in ListOfSizesOfCreaturesInCurrentBar)
+            {
+                numberOfBackgroundTilesToDraw += creatureSize;
+            }
+
+            if (ListOfSizesOfCreaturesInCurrentBar[ListOfSizesOfCreaturesInCurrentBar.Count - 1] == 2)
+            {
+                if (numberOfBackgroundTilesToDraw % 2 != 0)
+                {
+                    numberOfBackgroundTilesToDraw += 1;
+                }
+            }
+
+            if (numberOfBackgroundTilesToDraw % 2 != 0)
+            {
+                numberOfBackgroundTilesToDraw += 1;
+            }
+
+            numberOfBackgroundTilesToDraw = numberOfBackgroundTilesToDraw / 2;
+
+            for (int i = 0; i < numberOfBackgroundTilesToDraw; i++)
+            {
+                int startBarX = (0 * gv.squareSize) + gv.oXshift + mapStartLocXinPixels + 2 * gv.pS;
+                int startBarY = 0 * gv.squareSize + 2 * gv.pS;
+                int targetSizeX = gv.squareSize;
+                int targetSizeY = gv.squareSize;
+                IbRect src = new IbRect(0, 0, 100, 100);
+                IbRect dst = new IbRect(startBarX + i * gv.squareSize - (int)(targetSizeX * 0.1), startBarY - (int)(targetSizeY * 0.1), (int)(targetSizeX * 1.2f), (int)(targetSizeY * 1.2f));
+                gv.DrawBitmap(gv.cc.offScreen, src, dst, false);
+            }
+
+            //draw creature in current bar
+            foreach (MoveOrder m in moveOrderList)
+            {
+                int moveOrderNumberOfCheckedCreatureFromAllCreatures = 0;
+                bool isCreature = true;
+                Player ply = new Player();
+                Creature crt = new Creature();
+
+                if (m.PcOrCreature is Player)
+                {
+                    isCreature = false;
+                    ply = (Player)m.PcOrCreature;
+                    moveOrderNumberOfCheckedCreatureFromAllCreatures = ply.moveOrder;
+                }
+                if (m.PcOrCreature is Creature)
+                {
+                    isCreature = true;
+                    crt = (Creature)m.PcOrCreature;
+                    moveOrderNumberOfCheckedCreatureFromAllCreatures = crt.moveOrder;
+                }
+
+                foreach (int m2 in ListOfCreaturesDisplayedInCurrentBar)
+                {
+                    if (m2 == moveOrderNumberOfCheckedCreatureFromAllCreatures)
+                    {
+                        if (isCreature)
+                        {
+                            IbRect src = new IbRect(0, 0, crt.token.PixelSize.Width, crt.token.PixelSize.Width);
+                            int startBarX = (0 * gv.squareSize) + gv.oXshift + mapStartLocXinPixels + 2 * gv.pS;
+                            int startBarY = 0 * gv.squareSize + 2 * gv.pS;
+                            int targetSizeX = gv.squareSize / 2;
+                            int targetSizeY = gv.squareSize / 2;
+                            int marchingLineHeight = gv.squareSize / 2;
+                            if (crt.token.PixelSize.Width > 100)
+                            {
+                                targetSizeX = gv.squareSize;
+                                targetSizeY = gv.squareSize;
+                                marchingLineHeight = 0;
+                            }
+                            IbRect dst = new IbRect(startBarX + creatureSpacesUsed * gv.squareSize / 2, startBarY + marchingLineHeight, targetSizeX, targetSizeY);
+                            if (crt.moveOrder + 1 == currentMoveOrderIndex)
+                            {
+                                gv.DrawBitmap(gv.cc.turn_marker, src, dst, false);
+                            }
+
+                                gv.DrawBitmap(crt.token, src, dst, false);
+                                int mo = crt.moveOrder + 1;
+                                if (crt.token.PixelSize.Width <= 100)
+                                {
+                                    creatureSpacesUsed++;
+                                    drawMiniText(dst.Left, dst.Top + 1 * gv.pS, mo.ToString(), Color.White);
+                                    drawMiniText(dst.Left + gv.pS, dst.Top - 5 * gv.pS, crt.hp.ToString(), Color.Red);
+                                }
+                                else
+                                {
+                                    creatureSpacesUsed++;
+                                    creatureSpacesUsed++;
+                                    drawMiniText(dst.Left, dst.Top + gv.squareSize / 2 + 1 * gv.pS, mo.ToString(), Color.White);
+                                    drawMiniText(dst.Left + 3 * gv.pS, dst.Top - 3 * gv.pS, crt.hp.ToString(), Color.Red);
+                                }
+                        }
+                        else
+                        {
+                            IbRect src = new IbRect(0, 0, ply.token.PixelSize.Width, ply.token.PixelSize.Width);
+                            int startBarX = (0 * gv.squareSize) + gv.oXshift + mapStartLocXinPixels + 2 * gv.pS;
+                            int startBarY = 0 * gv.squareSize + 2 * gv.pS;
+                            int targetSizeX = gv.squareSize / 2;
+                            int targetSizeY = gv.squareSize / 2;
+                            int marchingLineHeight = gv.squareSize / 2;
+                            if (ply.token.PixelSize.Width > 100)
+                            {
+                                targetSizeX = gv.squareSize;
+                                targetSizeY = gv.squareSize;
+                                marchingLineHeight = 0;
+                            }
+                            IbRect dst = new IbRect(startBarX + creatureSpacesUsed * gv.squareSize / 2, startBarY + marchingLineHeight, targetSizeX, targetSizeY);
+                            if (ply.moveOrder + 1 == currentMoveOrderIndex)
+                            {
+                                gv.DrawBitmap(gv.cc.turn_marker, src, dst, false);
+                            }
+
+                            gv.DrawBitmap(ply.token, src, dst, false);
+                            int mo = ply.moveOrder + 1;
+                            if (ply.token.PixelSize.Width <= 100)
+                            {
+                                creatureSpacesUsed++;
+                                drawMiniText(dst.Left, dst.Top + 1 * gv.pS, mo.ToString(), Color.White);
+                                drawMiniText(dst.Left + gv.pS, dst.Top - 5 * gv.pS, ply.hp.ToString(), Color.Lime);
+                            }
+                            else
+                            {
+                                creatureSpacesUsed++;
+                                creatureSpacesUsed++;
+                                drawMiniText(dst.Left, dst.Top + gv.squareSize / 2 + 1 * gv.pS, mo.ToString(), Color.White);
+                                drawMiniText(dst.Left + 3 * gv.pS, dst.Top - 3 * gv.pS, ply.hp.ToString(), Color.Lime);
+                            }
+                        }
+
+                    }
+                }
+            }
+                   /*
+                //draw turn marker
+                //if (crt.moveOrder + 1 == currentMoveOrderIndex)
+                //{
+                //gv.DrawBitmap(gv.cc.turn_marker, src, dst, false);
+                //}
+
+
+                //XXXXXXXXXXXXXXXXXXXXXXXXXX
+
+                if ((gv.mod.creatureCounterSubstractor / 2f == -16) && (!gv.mod.enteredFirstTime))
             {
                 gv.mod.enteredFirstTime = true;
                 gv.mod.moveOrderOfCreatureThatIsBeforeBandChange = currentMoveOrderIndex;
@@ -2570,6 +3185,7 @@ namespace IceBlink2
             if ((currentMoveOrderIndex > gv.mod.moveOrderOfCreatureThatIsBeforeBandChange) || (currentMoveOrderIndex == 0))
             {
                 numberOfBackgroundTiles = (gv.mod.creatureCounterSubstractor / 2f);
+                gv.mod.moveOrderOfCreatureThatIsBeforeBandChange = 0;
             }
              
             //}
@@ -2891,6 +3507,7 @@ namespace IceBlink2
                     }
                 }  
             }
+           */
         }
         public void drawUiLayout()
         {
