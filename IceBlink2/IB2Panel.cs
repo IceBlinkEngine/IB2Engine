@@ -115,7 +115,10 @@ namespace IceBlink2
             {
                 IbRect src = new IbRect(0, 0, gv.cc.GetFromBitmapList(backgroundImageFilename).PixelSize.Width, gv.cc.GetFromBitmapList(backgroundImageFilename).PixelSize.Height);
                 IbRect dst = new IbRect((int)(currentLocX * gv.screenDensity), (int)(currentLocY * gv.screenDensity), (int)(Width * gv.screenDensity), (int)(Height * gv.screenDensity));
-                gv.DrawBitmap(gv.cc.GetFromBitmapList(backgroundImageFilename), src, dst, 0, false, 0.75f);
+                if (this.tag != "InitiativePanel")
+                {
+                    gv.DrawBitmap(gv.cc.GetFromBitmapList(backgroundImageFilename), src, dst, 0, false, 0.75f);
+                }
             }
             //IbRect src = new IbRect(0, 0, gv.cc.GetFromBitmapList(backgroundImageFilename).PixelSize.Width, gv.cc.GetFromBitmapList(backgroundImageFilename).PixelSize.Height);
             //IbRect dst = new IbRect((int)(currentLocX * gv.screenDensity), (int)(currentLocY * gv.screenDensity), (int)(Width * gv.screenDensity), (int)(Height * gv.screenDensity));

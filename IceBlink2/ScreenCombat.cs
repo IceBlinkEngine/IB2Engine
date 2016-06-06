@@ -19,6 +19,7 @@ namespace IceBlink2
         public bool showHP = false;
         public bool showSP = false;
         public bool showMoveOrder = false;
+        public bool showIniBar = true;
         public bool showArrows = true;
         //public int creatureCounter2 = 0;
 
@@ -2558,7 +2559,7 @@ namespace IceBlink2
             drawSPText();
             drawFloatyTextList();
             //started work on iniative bar for creatures and pc
-            if (gv.mod.useMinimalisticUI)
+            if (showIniBar)
             {
                 for (int j = 0; j < combatUiLayout.panelList.Count; j++)
                 {
@@ -6363,6 +6364,13 @@ namespace IceBlink2
                         if (tgl == null) { return; }
                         tgl.toggleOn = !tgl.toggleOn;
                         showMoveOrder = !showMoveOrder;
+                    }
+                    if (rtn.Equals("tglIniBar"))
+                    {
+                        IB2ToggleButton tgl = combatUiLayout.GetToggleByTag(rtn);
+                        if (tgl == null) { return; }
+                        tgl.toggleOn = !tgl.toggleOn;
+                        showIniBar = !showIniBar;
                     }
                     if (rtn.Equals("tglSpeed"))
                     {

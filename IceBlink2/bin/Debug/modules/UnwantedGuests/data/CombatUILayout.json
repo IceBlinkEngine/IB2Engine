@@ -405,11 +405,22 @@
 											"ImgOnFilename": "tgl_kill_on",
 											"ImgOffFilename": "tgl_kill_on",
 											"toggleOn": false,
-											"X": 505,
+											"X": 565,
 											"Y": 25,
 											"Width": 50,
 											"Height": 50,
 											"show": false
+        },
+        {
+											"tag": "tglIniBar",
+											"ImgOnFilename": "tgl_mo_on",
+											"ImgOffFilename": "tgl_mo_off",
+											"toggleOn": false,
+											"X": 505,
+											"Y": 25,
+											"Width": 50,
+											"Height": 50,
+											"show": true
         }
       ],
       "portraitList": [],

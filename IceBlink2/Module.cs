@@ -13,7 +13,7 @@ namespace IceBlink2
 {
     public class Module
     {
-        public bool useMinimalisticUI = true;
+        public bool useMinimalisticUI = false;
         public bool useManualCombatCam = true;
         public bool useCombatSmoothMovement = true;
 
