@@ -4945,51 +4945,69 @@ namespace IceBlink2
             {
                 if (canMove)
                 {
-                    currentCombatMode = "move";
-                    gv.screenType = "combat";
+                    if (isPlayerTurn)
+                    {
+                        currentCombatMode = "move";
+                        gv.screenType = "combat";
+                    }
                 }
             }
             else if (keyData == Keys.A)
             {
-                Player pc = mod.playerList[currentPlayerIndex];
-                currentCombatMode = "attack";
-                gv.screenType = "combat";
-                setTargetHighlightStartLocation(pc);
+                if (isPlayerTurn)
+                {
+                    Player pc = mod.playerList[currentPlayerIndex];
+                    currentCombatMode = "attack";
+                    gv.screenType = "combat";
+                    setTargetHighlightStartLocation(pc);
+                }
             }
             else if (keyData == Keys.P)
             {
-                if (currentPlayerIndex > mod.playerList.Count - 1)
+                if (isPlayerTurn)
                 {
-                    return;
+                    if (currentPlayerIndex > mod.playerList.Count - 1)
+                    {
+                        return;
+                    }
+                    gv.cc.partyScreenPcIndex = currentPlayerIndex;
+                    gv.screenParty.resetPartyScreen();
+                    gv.screenType = "combatParty";
                 }
-                gv.cc.partyScreenPcIndex = currentPlayerIndex;
-                gv.screenParty.resetPartyScreen();
-                gv.screenType = "combatParty";
             }
             else if (keyData == Keys.I)
             {
-                gv.screenType = "combatInventory";
-                gv.screenInventory.resetInventory();
+                if (isPlayerTurn)
+                {
+                    gv.screenType = "combatInventory";
+                    gv.screenInventory.resetInventory();
+                }
             }
             else if (keyData == Keys.S)
             {
-                gv.screenType = "combat";
-                endPcTurn(false);
+                if (isPlayerTurn)
+                {
+                    gv.screenType = "combat";
+                    endPcTurn(false);
+                }
             }
             else if (keyData == Keys.C)
             {
-                Player pc = mod.playerList[currentPlayerIndex];
-                if (pc.knownSpellsTags.Count > 0)
+                if (isPlayerTurn)
                 {
-                    currentCombatMode = "castSelector";
-                    gv.screenType = "combatCast";
-                    gv.screenCastSelector.castingPlayerIndex = currentPlayerIndex;
-                    spellSelectorIndex = 0;
-                    setTargetHighlightStartLocation(pc);
-                }
-                else
-                {
-                    //TODO Toast.makeText(gv.gameContext, "PC has no Spells", Toast.LENGTH_SHORT).show();
+                    Player pc = mod.playerList[currentPlayerIndex];
+                    if (pc.knownSpellsTags.Count > 0)
+                    {
+                        currentCombatMode = "castSelector";
+                        gv.screenType = "combatCast";
+                        gv.screenCastSelector.castingPlayerIndex = currentPlayerIndex;
+                        spellSelectorIndex = 0;
+                        setTargetHighlightStartLocation(pc);
+                    }
+                    else
+                    {
+                        //TODO Toast.makeText(gv.gameContext, "PC has no Spells", Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
             else if (keyData == Keys.X)
@@ -6475,125 +6493,152 @@ namespace IceBlink2
                     #region BUTTONS
                     if ((rtn.Equals("ctrlUpArrow")) || ((tappedSqrX + UpperLeftSquare.X == pc.combatLocX) && (tappedSqrY + UpperLeftSquare.Y == pc.combatLocY - 1)))
                     {
-                        if (currentCombatMode.Equals("move"))
+                        if (isPlayerTurn)
                         {
-                            MoveUp(pc);
-                        }
-                        else if ((currentCombatMode.Equals("attack")) || (currentCombatMode.Equals("cast")))
-                        {
-                            if (rtn.Equals("ctrlUpArrow")) //if clicked on square, don't move the highlight...only move for arrow button
+                            if (currentCombatMode.Equals("move"))
                             {
-                                MoveTargetHighlight(8);
-                            }                            
+                                MoveUp(pc);
+                            }
+                            else if ((currentCombatMode.Equals("attack")) || (currentCombatMode.Equals("cast")))
+                            {
+                                if (rtn.Equals("ctrlUpArrow")) //if clicked on square, don't move the highlight...only move for arrow button
+                                {
+                                    MoveTargetHighlight(8);
+                                }
+                            }
                         }                            
                     }
                     else if ((rtn.Equals("ctrlDownArrow")) || ((tappedSqrX + UpperLeftSquare.X == pc.combatLocX) && (tappedSqrY + UpperLeftSquare.Y == pc.combatLocY + 1)))
-                    {                       
-                        if (currentCombatMode.Equals("move"))
+                    {
+                        if (isPlayerTurn)
                         {
-                            MoveDown(pc);
-                        }
-                        else if ((currentCombatMode.Equals("attack")) || (currentCombatMode.Equals("cast")))
-                        {
-                            if (rtn.Equals("ctrlDownArrow")) //if clicked on square, don't move the highlight...only move for arrow button
+                            if (currentCombatMode.Equals("move"))
                             {
-                                MoveTargetHighlight(2);
+                                MoveDown(pc);
+                            }
+                            else if ((currentCombatMode.Equals("attack")) || (currentCombatMode.Equals("cast")))
+                            {
+                                if (rtn.Equals("ctrlDownArrow")) //if clicked on square, don't move the highlight...only move for arrow button
+                                {
+                                    MoveTargetHighlight(2);
+                                }
                             }
                         }
                     }
                     else if ((rtn.Equals("ctrlLeftArrow")) || ((tappedSqrX + UpperLeftSquare.X == pc.combatLocX - 1) && (tappedSqrY + UpperLeftSquare.Y == pc.combatLocY)))
-                    {                        
-                        if (currentCombatMode.Equals("move"))
+                    {
+                        if (isPlayerTurn)
                         {
-                            MoveLeft(pc);
-                        }
-                        else if ((currentCombatMode.Equals("attack")) || (currentCombatMode.Equals("cast")))
-                        {
-                            if (rtn.Equals("ctrlLeftArrow")) //if clicked on square, don't move the highlight...only move for arrow button
+                            if (currentCombatMode.Equals("move"))
                             {
-                                MoveTargetHighlight(4);
+                                MoveLeft(pc);
+                            }
+                            else if ((currentCombatMode.Equals("attack")) || (currentCombatMode.Equals("cast")))
+                            {
+                                if (rtn.Equals("ctrlLeftArrow")) //if clicked on square, don't move the highlight...only move for arrow button
+                                {
+                                    MoveTargetHighlight(4);
+                                }
                             }
                         }
                     }
                     else if ((rtn.Equals("ctrlRightArrow")) || ((tappedSqrX + UpperLeftSquare.X == pc.combatLocX + 1) && (tappedSqrY + UpperLeftSquare.Y == pc.combatLocY)))
-                    {                        
-                        if (currentCombatMode.Equals("move"))
+                    {
+                        if (isPlayerTurn)
                         {
-                            MoveRight(pc);
-                        }
-                        else if ((currentCombatMode.Equals("attack")) || (currentCombatMode.Equals("cast")))
-                        {
-                            if (rtn.Equals("ctrlRightArrow")) //if clicked on square, don't move the highlight...only move for arrow button
+                            if (currentCombatMode.Equals("move"))
                             {
-                                MoveTargetHighlight(6);
+                                MoveRight(pc);
+                            }
+                            else if ((currentCombatMode.Equals("attack")) || (currentCombatMode.Equals("cast")))
+                            {
+                                if (rtn.Equals("ctrlRightArrow")) //if clicked on square, don't move the highlight...only move for arrow button
+                                {
+                                    MoveTargetHighlight(6);
+                                }
                             }
                         }
                     }
                     else if ((rtn.Equals("ctrlUpRightArrow")) || ((tappedSqrX + UpperLeftSquare.X == pc.combatLocX + 1) && (tappedSqrY + UpperLeftSquare.Y == pc.combatLocY - 1)))
-                    {                        
-                        if (currentCombatMode.Equals("move"))
+                    {
+                        if (isPlayerTurn)
                         {
-                            MoveUpRight(pc);
-                        }
-                        else if ((currentCombatMode.Equals("attack")) || (currentCombatMode.Equals("cast")))
-                        {
-                            if (rtn.Equals("ctrlUpRightArrow")) //if clicked on square, don't move the highlight...only move for arrow button
+                            if (currentCombatMode.Equals("move"))
                             {
-                                MoveTargetHighlight(9);
+                                MoveUpRight(pc);
+                            }
+                            else if ((currentCombatMode.Equals("attack")) || (currentCombatMode.Equals("cast")))
+                            {
+                                if (rtn.Equals("ctrlUpRightArrow")) //if clicked on square, don't move the highlight...only move for arrow button
+                                {
+                                    MoveTargetHighlight(9);
+                                }
                             }
                         }
                     }
                     else if ((rtn.Equals("ctrlDownRightArrow")) || ((tappedSqrX + UpperLeftSquare.X == pc.combatLocX + 1) && (tappedSqrY + UpperLeftSquare.Y == pc.combatLocY + 1)))
-                    {                        
-                        if (currentCombatMode.Equals("move"))
+                    {
+                        if (isPlayerTurn)
                         {
-                            MoveDownRight(pc);
-                        }
-                        else if ((currentCombatMode.Equals("attack")) || (currentCombatMode.Equals("cast")))
-                        {
-                            if (rtn.Equals("ctrlDownRightArrow")) //if clicked on square, don't move the highlight...only move for arrow button
+                            if (currentCombatMode.Equals("move"))
                             {
-                                MoveTargetHighlight(3);
+                                MoveDownRight(pc);
+                            }
+                            else if ((currentCombatMode.Equals("attack")) || (currentCombatMode.Equals("cast")))
+                            {
+                                if (rtn.Equals("ctrlDownRightArrow")) //if clicked on square, don't move the highlight...only move for arrow button
+                                {
+                                    MoveTargetHighlight(3);
+                                }
                             }
                         }
                     }
                     else if ((rtn.Equals("ctrlUpLeftArrow")) || ((tappedSqrX + UpperLeftSquare.X == pc.combatLocX - 1) && (tappedSqrY + UpperLeftSquare.Y == pc.combatLocY - 1)))
-                    {                        
-                        if (currentCombatMode.Equals("move"))
+                    {
+                        if (isPlayerTurn)
                         {
-                            MoveUpLeft(pc);
-                        }
-                        else if ((currentCombatMode.Equals("attack")) || (currentCombatMode.Equals("cast")))
-                        {
-                            if (rtn.Equals("ctrlUpLeftArrow")) //if clicked on square, don't move the highlight...only move for arrow button
+                            if (currentCombatMode.Equals("move"))
                             {
-                                MoveTargetHighlight(7);
+                                MoveUpLeft(pc);
+                            }
+                            else if ((currentCombatMode.Equals("attack")) || (currentCombatMode.Equals("cast")))
+                            {
+                                if (rtn.Equals("ctrlUpLeftArrow")) //if clicked on square, don't move the highlight...only move for arrow button
+                                {
+                                    MoveTargetHighlight(7);
+                                }
                             }
                         }
                     }
                     else if ((rtn.Equals("ctrlDownLeftArrow")) || ((tappedSqrX + UpperLeftSquare.X == pc.combatLocX - 1) && (tappedSqrY + UpperLeftSquare.Y == pc.combatLocY + 1)))
-                    {                        
-                        if (currentCombatMode.Equals("move"))
+                    {
+                        if (isPlayerTurn)
                         {
-                            MoveDownLeft(pc);
-                        }
-                        else if ((currentCombatMode.Equals("attack")) || (currentCombatMode.Equals("cast")))
-                        {
-                            if (rtn.Equals("ctrlDownLeftArrow")) //if clicked on square, don't move the highlight...only move for arrow button
+                            if (currentCombatMode.Equals("move"))
                             {
-                                MoveTargetHighlight(1);
+                                MoveDownLeft(pc);
+                            }
+                            else if ((currentCombatMode.Equals("attack")) || (currentCombatMode.Equals("cast")))
+                            {
+                                if (rtn.Equals("ctrlDownLeftArrow")) //if clicked on square, don't move the highlight...only move for arrow button
+                                {
+                                    MoveTargetHighlight(1);
+                                }
                             }
                         }
                     }
                     else if (rtn.Equals("btnSwitchWeapon"))
                     {
-                        if (currentPlayerIndex > mod.playerList.Count - 1)
+                        if (isPlayerTurn)
                         {
-                            return;
+                            if (currentPlayerIndex > mod.playerList.Count - 1)
+                            {
+                                return;
+                            }
+                            gv.cc.partyScreenPcIndex = currentPlayerIndex;
+                            gv.screenParty.resetPartyScreen();
+                            gv.screenType = "combatParty";
                         }
-                        gv.cc.partyScreenPcIndex = currentPlayerIndex;
-                        gv.screenParty.resetPartyScreen();
-                        gv.screenType = "combatParty";
                     }
                     else if (rtn.Equals("btnMove"))
                     {
@@ -6605,15 +6650,21 @@ namespace IceBlink2
                             }
                             else
                             {
-                                currentCombatMode = "move";
+                                if (isPlayerTurn)
+                                {
+                                    currentCombatMode = "move";
+                                }
                             }                            
                             gv.screenType = "combat";
                         }
                     }
                     else if (rtn.Equals("btnInventory"))
                     {
-                        gv.screenType = "combatInventory";
-                        gv.screenInventory.resetInventory();
+                        if (isPlayerTurn)
+                        {
+                            gv.screenType = "combatInventory";
+                            gv.screenInventory.resetInventory();
+                        }
                     }
 
                     else if (rtn.Equals("btnIni1"))
@@ -8987,26 +9038,32 @@ namespace IceBlink2
 
                     else if (rtn.Equals("btnAttack"))
                     {
-                        if (currentCombatMode.Equals("attack"))
+                        if (isPlayerTurn)
                         {
-                            currentCombatMode = "info";
+                            if (currentCombatMode.Equals("attack"))
+                            {
+                                currentCombatMode = "info";
+                            }
+                            else
+                            {
+                                currentCombatMode = "attack";
+                            }
+                            gv.screenType = "combat";
+                            setTargetHighlightStartLocation(pc);
                         }
-                        else
-                        {
-                            currentCombatMode = "attack";
-                        }                            
-                        gv.screenType = "combat";
-                        setTargetHighlightStartLocation(pc);
                     }
                     else if (rtn.Equals("btnCast"))
                     {
-                        if (pc.knownSpellsTags.Count > 0)
+                        if (isPlayerTurn)
                         {
-                            currentCombatMode = "castSelector";
-                            gv.screenType = "combatCast";
-                            gv.screenCastSelector.castingPlayerIndex = currentPlayerIndex;
-                            spellSelectorIndex = 0;
-                            setTargetHighlightStartLocation(pc);
+                            if (pc.knownSpellsTags.Count > 0)
+                            {
+                                currentCombatMode = "castSelector";
+                                gv.screenType = "combatCast";
+                                gv.screenCastSelector.castingPlayerIndex = currentPlayerIndex;
+                                spellSelectorIndex = 0;
+                                setTargetHighlightStartLocation(pc);
+                            }
                         }
                         else
                         {
@@ -9015,18 +9072,24 @@ namespace IceBlink2
                     }
                     else if (rtn.Equals("btnSkipTurn"))
                     {
-                        gv.screenType = "combat";
-                        endPcTurn(false);
+                        if (isPlayerTurn)
+                        {
+                            gv.screenType = "combat";
+                            endPcTurn(false);
+                        }
                     }
                     else if (rtn.Equals("btnSelect"))
                     {
-                        if (currentCombatMode.Equals("attack"))
+                        if (isPlayerTurn)
                         {
-                            TargetAttackPressed(pc);
-                        }
-                        else if (currentCombatMode.Equals("cast"))
-                        {
-                            TargetCastPressed(pc);
+                            if (currentCombatMode.Equals("attack"))
+                            {
+                                TargetAttackPressed(pc);
+                            }
+                            else if (currentCombatMode.Equals("cast"))
+                            {
+                                TargetCastPressed(pc);
+                            }
                         }
                     }
                     else if (rtn.Equals("btnToggleArrows"))
