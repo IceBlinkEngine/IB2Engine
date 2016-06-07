@@ -101,7 +101,17 @@ namespace IceBlink2
             {
                 numberOfLinesToShow = 20;
             }
-            
+
+            if (gv.screenType.Equals("combat") && (gv.screenCombat.showIniBar) && (!gv.mod.useMinimalisticUI))
+            {
+                numberOfLinesToShow = 22;
+            }
+
+            if (gv.screenType.Equals("combat") && (!gv.screenCombat.showIniBar) && (!gv.mod.useMinimalisticUI))
+            {
+                numberOfLinesToShow = 26;
+            }
+
             maxLines = currentTopLineIndex + numberOfLinesToShow;
             
             if (maxLines > logLinesList.Count) { maxLines = logLinesList.Count; }
@@ -132,9 +142,14 @@ namespace IceBlink2
                     int yLoc2 = (int)((parentPanel.currentLocY * gv.screenDensity + yLoc + difYheight));
                     int logOpac = (int)(255f * gv.mod.logOpacity);
                     word.color.A = (byte)(logOpac);
-                    DrawString(word.text + " ", xLoc2, yLoc2, word.fontWeight, word.fontStyle, word.color, word.fontSize, word.underlined);
+                    int yPositionModifier = 0;
+                    if (gv.screenType.Equals("combat") && (!gv.mod.useMinimalisticUI) && (gv.screenCombat.showIniBar))
+                    {
+                        yPositionModifier = gv.squareSize + 4 * gv.pS;
+                    }
+                   
+                    DrawString(word.text + " ", xLoc2, yLoc2 + yPositionModifier, word.fontWeight, word.fontStyle, word.color, word.fontSize, word.underlined);
                     xLoc += gv.textLayout.Metrics.WidthIncludingTrailingWhitespace;
-                    
                 }
                 xLoc = 0;
                 yLoc += logLinesList[i].lineHeight;

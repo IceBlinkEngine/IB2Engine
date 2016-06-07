@@ -115,10 +115,27 @@ namespace IceBlink2
             {
                 IbRect src = new IbRect(0, 0, gv.cc.GetFromBitmapList(backgroundImageFilename).PixelSize.Width, gv.cc.GetFromBitmapList(backgroundImageFilename).PixelSize.Height);
                 IbRect dst = new IbRect((int)(currentLocX * gv.screenDensity), (int)(currentLocY * gv.screenDensity), (int)(Width * gv.screenDensity), (int)(Height * gv.screenDensity));
-                if (this.tag != "InitiativePanel")
+                if ((this.tag != "InitiativePanel") && (this.tag != "logPanel"))
                 {
                     gv.DrawBitmap(gv.cc.GetFromBitmapList(backgroundImageFilename), src, dst, 0, false, 0.75f);
                 }
+                
+                    if ((this.tag.Contains("logPanel")) && (gv.screenCombat.showIniBar) && (gv.screenType.Equals("combat")))
+                    {
+                        dst = new IbRect((int)(currentLocX * gv.screenDensity) + gv.pS, (int)(currentLocY * gv.screenDensity) + gv.squareSize + 4*gv.pS, (int)(Width * gv.screenDensity), (int)(Height * gv.screenDensity - gv.squareSize - 4*gv.pS));
+                        gv.DrawBitmap(gv.cc.GetFromBitmapList(backgroundImageFilename), src, dst, 0, false, 0.75f);
+                    }
+                    else if (this.tag.Contains("logPanel") && (gv.screenType.Equals("combat")))
+                    {
+                        dst = new IbRect((int)(currentLocX * gv.screenDensity) + gv.pS, (int)(currentLocY * gv.screenDensity), (int)(Width * gv.screenDensity), (int)(Height * gv.screenDensity));
+                        gv.DrawBitmap(gv.cc.GetFromBitmapList(backgroundImageFilename), src, dst, 0, false, 0.75f);
+                    }
+                    else if (this.tag.Contains("logPanel"))
+                    {
+                        dst = new IbRect((int)(currentLocX * gv.screenDensity), (int)(currentLocY * gv.screenDensity), (int)(Width * gv.screenDensity), (int)(Height * gv.screenDensity));
+                        gv.DrawBitmap(gv.cc.GetFromBitmapList(backgroundImageFilename), src, dst, 0, false, 0.75f);
+                    }
+
             }
             //IbRect src = new IbRect(0, 0, gv.cc.GetFromBitmapList(backgroundImageFilename).PixelSize.Width, gv.cc.GetFromBitmapList(backgroundImageFilename).PixelSize.Height);
             //IbRect dst = new IbRect((int)(currentLocX * gv.screenDensity), (int)(currentLocY * gv.screenDensity), (int)(Width * gv.screenDensity), (int)(Height * gv.screenDensity));
