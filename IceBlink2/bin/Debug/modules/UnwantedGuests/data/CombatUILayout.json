@@ -413,9 +413,9 @@
         },
         {
 											"tag": "tglIniBar",
-											"ImgOnFilename": "tgl_mo_on",
-											"ImgOffFilename": "tgl_mo_off",
-											"toggleOn": false,
+											"ImgOnFilename": "tgl_ini_on",
+											"ImgOffFilename": "tgl_ini_off",
+											"toggleOn": true,
 											"X": 505,
 											"Y": 25,
 											"Width": 50,

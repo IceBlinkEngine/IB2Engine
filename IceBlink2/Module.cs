@@ -13,9 +13,9 @@ namespace IceBlink2
 {
     public class Module
     {
-        public bool useMinimalisticUI = false;
-        public bool useManualCombatCam = false;
-        public bool useCombatSmoothMovement = false;
+        public bool useMinimalisticUI = true;
+        public bool useManualCombatCam = true;
+        public bool useCombatSmoothMovement = true;
 
         public int creatureCounterSubstractor = 0;
         public int moveOrderOfCreatureThatIsBeforeBandChange = 0;

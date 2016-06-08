@@ -75,7 +75,7 @@ namespace IceBlink2
                     {
                         IbRect src2 = new IbRect(0,0,100,100);
                         IbRect dst2 = new IbRect((int)((parentPanel.currentLocX + this.X - 2 * gv.pS) * gv.screenDensity), (int)((parentPanel.currentLocY + this.Y) * gv.screenDensity), (int)((float)Width * gv.screenDensity), (int)((float)Height * gv.screenDensity));
-                        gv.DrawBitmap(gv.cc.GetFromBitmapList("item_slot2"), src2, dst2, 0, false, 0.75f);
+                        gv.DrawBitmap(gv.cc.GetFromBitmapList("tgl_bg"), src2, dst2, 0, false, 0.75f);
                     }
                     gv.DrawBitmap(gv.cc.GetFromBitmapList(ImgOnFilename), src, dst, 0, false, 1f);
                 }
@@ -85,7 +85,7 @@ namespace IceBlink2
                     {
                         IbRect src2 = new IbRect(0, 0, 100, 100);
                         IbRect dst2 = new IbRect((int)((parentPanel.currentLocX + this.X - 2 * gv.pS) * gv.screenDensity), (int)((parentPanel.currentLocY + this.Y) * gv.screenDensity), (int)((float)Width * gv.screenDensity), (int)((float)Height * gv.screenDensity));
-                        gv.DrawBitmap(gv.cc.GetFromBitmapList("item_slot2"), src2, dst2, 0, false, 0.75f);
+                        gv.DrawBitmap(gv.cc.GetFromBitmapList("tgl_bg"), src2, dst2, 0, false, 0.75f);
                     }
                     gv.DrawBitmap(gv.cc.GetFromBitmapList(ImgOffFilename), src, dst, 0, false, 1f);
                 }
