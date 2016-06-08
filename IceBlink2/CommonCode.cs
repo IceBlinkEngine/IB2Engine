@@ -6788,7 +6788,7 @@ namespace IceBlink2
                         gv.textLayout = new SharpDX.DirectWrite.TextLayout(gv.factoryDWrite, newWord.text + " ", gv.textFormat, gv.Width, gv.Height);
                         //font = new Font(gv.family, newWord.fontSize, newWord.fontStyle);
                         float height = gv.textLayout.Metrics.Height;
-                        float wordWidth = gv.textLayout.Metrics.WidthIncludingTrailingWhitespace;
+                        float wordWidth = gv.textLayout.Metrics.WidthIncludingTrailingWhitespace * 1.2f;
                         if (height > lineHeight) { lineHeight = (int)height; }
                         //int wordWidth = (int)(frm.gCanvas.MeasureString(newWord.word, font)).Width;
                         float modifiedWidth = 0;
