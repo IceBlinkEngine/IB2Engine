@@ -21,6 +21,10 @@ namespace IceBlink2
         public bool showMoveOrder = false;
         public bool showIniBar = true;
         public bool showArrows = true;
+        public string nameOfPcTheCreatureMovesTowards = "NoPcTargetChosenYet";
+        public Coordinate coordinatesOfPcTheCreatureMovesTowards = new Coordinate(-1, -1);
+        public List<Coordinate> storedPathOfCurrentCreature = new List<Coordinate>();
+
         //public int creatureCounter2 = 0;
 
         //INITIATIVE BAR STUFF
@@ -784,7 +788,9 @@ namespace IceBlink2
             {
                 if (crt.moveOrder == currentMoveOrderIndex)
                 {
-
+                    coordinatesOfPcTheCreatureMovesTowards.X = -1;
+                    coordinatesOfPcTheCreatureMovesTowards.Y = -1;
+                    storedPathOfCurrentCreature.Clear();
                     gv.cc.addLogText("<font color='blue'>It's the turn of " + crt.cr_name + ". </font><BR>");
                     //change creatureIndex or currentPlayerIndex
                     creatureIndex = idx;
@@ -1411,11 +1417,13 @@ namespace IceBlink2
                 {
                     if (((crt.combatLocX + 1) <= (UpperLeftSquare.X + (gv.playerOffset * 2))) && ((crt.combatLocX - 1) >= (UpperLeftSquare.X)) && ((crt.combatLocY + 1) <= (UpperLeftSquare.Y + (gv.playerOffset * 2))) && ((crt.combatLocY - 1) >= (UpperLeftSquare.Y)))
                     {
-                        gv.postDelayed("doAnimation", (int)(1.65f * mod.combatAnimationSpeed)); ;
+                        //gv.postDelayed("doAnimation", (int)(1.65f * mod.combatAnimationSpeed)); ;
+                        doCreatureTurnAfterDelay();
                     }
                     else
                     {
-                        gv.postDelayed("doAnimation", 1);
+                        //gv.postDelayed("doAnimation", 1);
+                        doCreatureTurnAfterDelay();
                     }
                 }
 
@@ -1476,11 +1484,31 @@ namespace IceBlink2
             if (creatureMoves + 0.5f < crt.moveDistance)
 		    {
 			    Player pc = targetClosestPC(crt);
-			    //run pathFinder to get new location
-			    if (pc != null)
+                Coordinate newCoor = new Coordinate(-1,-1);
+                if (pc != null)
+                {
+                    if ((pc.combatLocX != coordinatesOfPcTheCreatureMovesTowards.X) || (pc.combatLocY != coordinatesOfPcTheCreatureMovesTowards.Y))
+                    {
+                        coordinatesOfPcTheCreatureMovesTowards.X = pc.combatLocX;
+                        coordinatesOfPcTheCreatureMovesTowards.Y = pc.combatLocY;
+                        //run pathFinder to get new location
+                        //hurgh200
+                        pf.resetGrid();
+                        storedPathOfCurrentCreature.Clear();
+                        storedPathOfCurrentCreature = pf.findNewPoint(crt, new Coordinate(coordinatesOfPcTheCreatureMovesTowards.X, coordinatesOfPcTheCreatureMovesTowards.Y));
+                    }
+                }
+                if (storedPathOfCurrentCreature.Count > 1)
+                {
+                    newCoor = storedPathOfCurrentCreature[storedPathOfCurrentCreature.Count - 2];
+                }
+                //remove one from list upon move... to do
+
+                //hurgh100
+                if (pc != null)
 			    {
-				    pf.resetGrid();
-				    Coordinate newCoor = pf.findNewPoint(crt, new Coordinate(pc.combatLocX, pc.combatLocY));
+				    //pf.resetGrid();
+				    //newCoor = pf.findNewPoint(crt, new Coordinate(pc.combatLocX, pc.combatLocY));
 				    if ((newCoor.X == -1) && (newCoor.Y == -1))
 				    {
 					    //didn't find a path, don't move
@@ -1508,20 +1536,32 @@ namespace IceBlink2
                             moveCost = mod.diagonalMoveCost;
                             crt.combatLocX = newCoor.X;
                             crt.combatLocY = newCoor.Y;
+                            if (storedPathOfCurrentCreature.Count > 1)
+                            {
+                                storedPathOfCurrentCreature.RemoveAt(storedPathOfCurrentCreature.Count - 2);
+                            }
                             canMove = false;
                             animationState = AnimationState.CreatureMove;
-                            gv.postDelayed("doAnimation", (int)(1f * mod.combatAnimationSpeed));
+                            //hurgh20!
+                            if (gv.mod.useManualCombatCam)
+                            {
+                                gv.postDelayed("doAnimation", 1);
+                            }
+                            else
+                            {
+                                gv.postDelayed("doAnimation", (int)(1f * mod.combatAnimationSpeed));
+                            }
 
                         }
                         
                         //try to move horizontally or vertically instead if most points are not enough for diagonal move
                         else if ((crt.moveDistance - creatureMoves) >= 1)
                         {
-                            pf.resetGrid();
+                            //pf.resetGrid();
                             //block the originial diagonal target square and calculate again
                             mod.nonAllowedDiagonalSquareX = newCoor.X;
                             mod.nonAllowedDiagonalSquareY = newCoor.Y;
-                            newCoor = pf.findNewPoint(crt, new Coordinate(pc.combatLocX, pc.combatLocY));
+                            //newCoor = pf.findNewPoint(crt, new Coordinate(pc.combatLocX, pc.combatLocY));
                             if ((newCoor.X == -1) && (newCoor.Y == -1))
                             {
                                 //didn't find a path, don't move
@@ -1542,9 +1582,21 @@ namespace IceBlink2
                             moveCost = 1;
                             crt.combatLocX = newCoor.X;
                             crt.combatLocY = newCoor.Y;
+                            if (storedPathOfCurrentCreature.Count > 1)
+                            {
+                                storedPathOfCurrentCreature.RemoveAt(storedPathOfCurrentCreature.Count - 2);
+                            }
                             canMove = false;
                             animationState = AnimationState.CreatureMove;
-                            gv.postDelayed("doAnimation", (int)(1f * mod.combatAnimationSpeed));
+
+                            if (gv.mod.useManualCombatCam)
+                            {
+                                gv.postDelayed("doAnimation", 1);
+                            }
+                            else
+                            {
+                                gv.postDelayed("doAnimation", (int)(1f * mod.combatAnimationSpeed));
+                            }
 
                         }
                         //less than one move point, no move
@@ -1552,7 +1604,14 @@ namespace IceBlink2
                         {
                             canMove = false;
                             animationState = AnimationState.CreatureMove;
-                            gv.postDelayed("doAnimation", (int)(1f * mod.combatAnimationSpeed));
+                            if (gv.mod.useManualCombatCam)
+                            {
+                                gv.postDelayed("doAnimation", 1);
+                            }
+                            else
+                            {
+                                gv.postDelayed("doAnimation", (int)(1f * mod.combatAnimationSpeed));
+                            }
 
                         }
                     }
@@ -1571,9 +1630,20 @@ namespace IceBlink2
                         doCreatureCombatFacing(crt, newCoor.X, newCoor.Y);
                         crt.combatLocX = newCoor.X;
                         crt.combatLocY = newCoor.Y;
+                        if (storedPathOfCurrentCreature.Count > 1)
+                        {
+                            storedPathOfCurrentCreature.RemoveAt(storedPathOfCurrentCreature.Count - 2);
+                        }
                         canMove = false;
                         animationState = AnimationState.CreatureMove;
-                        gv.postDelayed("doAnimation", (int)(1f * mod.combatAnimationSpeed));
+                        if (gv.mod.useManualCombatCam)
+                        {
+                            gv.postDelayed("doAnimation", 1);
+                        }
+                        else
+                        {
+                            gv.postDelayed("doAnimation", (int)(1f * mod.combatAnimationSpeed));
+                        }
 
                     }
 			    }
@@ -1874,7 +1944,15 @@ namespace IceBlink2
         {
             Player pc = targetClosestPC(crt);
             gv.sf.CombatTarget = pc;
-            gv.sf.ActionToTake = "Attack";
+            int dist = CalcDistance(crt.combatLocX, crt.combatLocY, pc.combatLocX, pc.combatLocY);
+            if (dist <= crt.cr_attRange)
+            {
+                gv.sf.ActionToTake = "Attack";
+            }
+            else
+            {
+                gv.sf.ActionToTake = "Move";
+            }
         }
         public void GeneralCaster(Creature crt)
         {
@@ -1961,6 +2039,8 @@ namespace IceBlink2
             canMove = true;
             gv.sf.ActionToTake = null;
             gv.sf.SpellToCast = null;
+            //coordinatesOfPcTheCreatureMovesTowards.X = -1;
+            //coordinatesOfPcTheCreatureMovesTowards.Y = -1;
             if (checkEndEncounter())
             {
                 return;

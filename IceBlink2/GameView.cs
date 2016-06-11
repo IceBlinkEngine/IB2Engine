@@ -814,6 +814,7 @@ namespace IceBlink2
             {
                 animationTimer.Enabled = true;
                 animationTimer.Interval = delay;
+                //animationTimer.Interval = 1;
                 animationTimer.Start();
             }
         }

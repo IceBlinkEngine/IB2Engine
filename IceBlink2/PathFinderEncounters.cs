@@ -19,7 +19,7 @@ namespace IceBlink2
         }
 
         //called from outside to get next move location
-        public Coordinate findNewPoint(Creature crt, Coordinate end)
+        public List<Coordinate> findNewPoint(Creature crt, Coordinate end)
         {
             pathNodes.Clear();
             foundEnd = false;
@@ -77,9 +77,9 @@ namespace IceBlink2
                     }
                 }
                 //build list of path points
-                newPoint = pathNodes[pathNodes.Count - 2];
+                //newPoint = pathNodes[pathNodes.Count - 2];
             }
-            return newPoint;
+            return pathNodes;
         }
         //called from outside to reset grid
         public void resetGrid()
