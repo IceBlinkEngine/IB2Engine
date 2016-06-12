@@ -1761,6 +1761,11 @@ namespace IceBlink2
 	                {
 	            	    creatureToAnimate = crt;
 	    	            playerToAnimate = null;
+
+                        attackAnimationTimeElapsed = 0;
+                        attackAnimationLengthInMilliseconds = (int)(5f * mod.combatAnimationSpeed);
+
+
                         //do melee attack stuff and animations  
                         AnimationSequence newSeq = new AnimationSequence();
                         animationSeqStack.Add(newSeq);
