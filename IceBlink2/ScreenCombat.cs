@@ -715,7 +715,8 @@ namespace IceBlink2
             recalculateCreaturesShownInInitiativeBar();
             attackAnimationFrameCounter = 0;
             //redraw screen
-            gv.Render();
+            //KArl
+            //gv.Render();
             if (currentMoveOrderIndex >= initialMoveOrderListSize)
             {
                 //hit the end so start the next round
@@ -771,7 +772,8 @@ namespace IceBlink2
                     currentCombatMode = "info";
                     currentMoveOrderIndex++;
                     gv.mod.enteredFirstTime = false;
-                    gv.Render();
+                    //Karl
+                    //gv.Render();
                     //go to start PlayerTurn or start CreatureTurn
                     if ((pc.isHeld()) || (pc.isDead()))
                     {
@@ -806,7 +808,8 @@ namespace IceBlink2
 
                     currentCombatMode = "info";
                     currentMoveOrderIndex++;
-                    gv.Render();
+                    //Karl
+                    //gv.Render();
                     //go to start PlayerTurn or start CreatureTurn
                     if ((crt.hp > 0) && (!crt.isHeld()))
                     {
@@ -1102,7 +1105,8 @@ namespace IceBlink2
         public void startPcTurn()
         {
             CalculateUpperLeft();
-            gv.Render();
+            //karl
+            //gv.Render();
             isPlayerTurn = true;
             gv.touchEnabled = true;
             currentCombatMode = "move";
@@ -1321,7 +1325,8 @@ namespace IceBlink2
         }        
         public void endPcTurn(bool endStealthMode)
         {
-            gv.Render();
+            //KArl
+            //gv.Render();
             //remove stealth if endStealthMode = true		
             Player pc = mod.playerList[currentPlayerIndex];
             if (endStealthMode)
@@ -1409,7 +1414,8 @@ namespace IceBlink2
             {
                 creatureToAnimate = null;
                 playerToAnimate = null;
-                gv.Render();
+                //Karl
+                //gv.Render();
                 animationState = AnimationState.CreatureThink;
                 if (!gv.mod.useManualCombatCam)
                 {
@@ -1514,7 +1520,8 @@ namespace IceBlink2
 				    if ((newCoor.X == -1) && (newCoor.Y == -1))
 				    {
 					    //didn't find a path, don't move
-                        gv.Render();
+                        //KArl
+                        //gv.Render();
 			    	    endCreatureTurn();
 					    return;
 				    }
@@ -1567,7 +1574,8 @@ namespace IceBlink2
                             if ((newCoor.X == -1) && (newCoor.Y == -1))
                             {
                                 //didn't find a path, don't move
-                                gv.Render();
+                                //KARL
+                                //gv.Render();
                                 endCreatureTurn();
                                 return;
                             }
@@ -1651,7 +1659,8 @@ namespace IceBlink2
 			    }
 			    else //no target found
 			    {
-                    gv.Render();
+                    //KArl
+                    //gv.Render();
 		    	    endCreatureTurn();
 				    return;
 			    }
@@ -2042,7 +2051,9 @@ namespace IceBlink2
         }
         public void endCreatureTurn()
         {
-            gv.Render();
+            //KArl
+            //gv.Render();
+
             canMove = true;
             gv.sf.ActionToTake = null;
             gv.sf.SpellToCast = null;
