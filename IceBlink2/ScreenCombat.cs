@@ -24,6 +24,7 @@ namespace IceBlink2
         public string nameOfPcTheCreatureMovesTowards = "NoPcTargetChosenYet";
         public Coordinate coordinatesOfPcTheCreatureMovesTowards = new Coordinate(-1, -1);
         public List<Coordinate> storedPathOfCurrentCreature = new List<Coordinate>();
+        public int attackAnimationFrameCounter = 0;
 
         //public int creatureCounter2 = 0;
 
@@ -712,6 +713,7 @@ namespace IceBlink2
         public void turnController()
         {
             recalculateCreaturesShownInInitiativeBar();
+            attackAnimationFrameCounter = 0;
             //redraw screen
             gv.Render();
             if (currentMoveOrderIndex >= initialMoveOrderListSize)
@@ -4632,7 +4634,13 @@ namespace IceBlink2
 			    IbRectF src = new IbRectF(0, 0, crt.token.PixelSize.Width, crt.token.PixelSize.Width);
 			    if ((creatureToAnimate != null) && (creatureToAnimate == crt))
 			    {
-                    src = new IbRectF(0, crt.token.PixelSize.Width, crt.token.PixelSize.Width, crt.token.PixelSize.Width);
+                    attackAnimationFrameCounter++;
+                    int maxUsableCounterValue = (int)(crt.token.PixelSize.Height / 100f - 1);
+                    if (attackAnimationFrameCounter > maxUsableCounterValue)
+                    {
+                        attackAnimationFrameCounter = maxUsableCounterValue;
+                    }
+                    src = new IbRectF(0, crt.token.PixelSize.Width * attackAnimationFrameCounter, crt.token.PixelSize.Width, crt.token.PixelSize.Width);
 			    }
                 IbRectF dst = new IbRectF(getPixelLocX(crt.combatLocX) + crt.roamDistanceX, getPixelLocY(crt.combatLocY) + crt.roamDistanceY, gv.squareSize, gv.squareSize);
                 if (crt.token.PixelSize.Width > 100)
@@ -4690,8 +4698,15 @@ namespace IceBlink2
                 IbRect src = new IbRect(0, 0, crt.token.PixelSize.Width, crt.token.PixelSize.Width);
                 if ((creatureToAnimate != null) && (creatureToAnimate == crt))
                 {
-                    src = new IbRect(0, crt.token.PixelSize.Width, crt.token.PixelSize.Width, crt.token.PixelSize.Width);
-                }
+                    attackAnimationFrameCounter++;
+                    int maxUsableCounterValue = (int)(crt.token.PixelSize.Height / 100f - 1);
+                    if (attackAnimationFrameCounter > maxUsableCounterValue)
+                    {
+                        attackAnimationFrameCounter = maxUsableCounterValue;
+                    }
+                    src = new IbRect(0, crt.token.PixelSize.Width * attackAnimationFrameCounter, crt.token.PixelSize.Width, crt.token.PixelSize.Width);
+			    }
+
                 IbRect dst = new IbRect(getPixelLocX(crt.combatLocX), getPixelLocY(crt.combatLocY), gv.squareSize, gv.squareSize);
                 if (crt.token.PixelSize.Width > 100)
                 {
