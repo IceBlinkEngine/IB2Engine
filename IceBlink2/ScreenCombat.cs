@@ -1423,10 +1423,10 @@ namespace IceBlink2
                 }
                 else
                 {
-                    if (((crt.combatLocX + 1) <= (UpperLeftSquare.X + (gv.playerOffset * 2))) && ((crt.combatLocX - 1) >= (UpperLeftSquare.X)) && ((crt.combatLocY + 1) <= (UpperLeftSquare.Y + (gv.playerOffset * 2))) && ((crt.combatLocY - 1) >= (UpperLeftSquare.Y)))
+                    if (((crt.combatLocX + 1) <= (UpperLeftSquare.X + (gv.playerOffsetX * 2))) && ((crt.combatLocX - 1) >= (UpperLeftSquare.X)) && ((crt.combatLocY + 1) <= (UpperLeftSquare.Y + (gv.playerOffsetY * 2))) && ((crt.combatLocY - 1) >= (UpperLeftSquare.Y)))
                     {
-                        //gv.postDelayed("doAnimation", (int)(1.65f * mod.combatAnimationSpeed)); ;
-                        doCreatureTurnAfterDelay();
+                        gv.postDelayed("doAnimation", (int)(2.5f * mod.combatAnimationSpeed));
+                        //doCreatureTurnAfterDelay();
                     }
                     else
                     {
@@ -1554,7 +1554,15 @@ namespace IceBlink2
                             //hurgh20!
                             if (gv.mod.useManualCombatCam)
                             {
-                                gv.postDelayed("doAnimation", 1);
+                                if (((crt.combatLocX + 1) <= (UpperLeftSquare.X + (gv.playerOffsetX * 2))) && ((crt.combatLocX - 1) >= (UpperLeftSquare.X)) && ((crt.combatLocY + 1) <= (UpperLeftSquare.Y + (gv.playerOffsetY * 2))) && ((crt.combatLocY - 1) >= (UpperLeftSquare.Y)))
+                                {
+                                    gv.postDelayed("doAnimation", (int)(1f * mod.combatAnimationSpeed));
+                                }
+                                else
+                                {
+                                    gv.postDelayed("doAnimation", 1);
+                                }
+                                
                             }
                             else
                             {
@@ -1601,7 +1609,14 @@ namespace IceBlink2
 
                             if (gv.mod.useManualCombatCam)
                             {
-                                gv.postDelayed("doAnimation", 1);
+                                if (((crt.combatLocX + 1) <= (UpperLeftSquare.X + (gv.playerOffsetX * 2))) && ((crt.combatLocX - 1) >= (UpperLeftSquare.X)) && ((crt.combatLocY + 1) <= (UpperLeftSquare.Y + (gv.playerOffsetY * 2))) && ((crt.combatLocY - 1) >= (UpperLeftSquare.Y)))
+                                {
+                                    gv.postDelayed("doAnimation", (int)(1f * mod.combatAnimationSpeed));
+                                }
+                                else
+                                {
+                                    gv.postDelayed("doAnimation", 1);
+                                }
                             }
                             else
                             {
@@ -1616,7 +1631,14 @@ namespace IceBlink2
                             animationState = AnimationState.CreatureMove;
                             if (gv.mod.useManualCombatCam)
                             {
-                                gv.postDelayed("doAnimation", 1);
+                                if (((crt.combatLocX + 1) <= (UpperLeftSquare.X + (gv.playerOffsetX * 2))) && ((crt.combatLocX - 1) >= (UpperLeftSquare.X)) && ((crt.combatLocY + 1) <= (UpperLeftSquare.Y + (gv.playerOffsetY * 2))) && ((crt.combatLocY - 1) >= (UpperLeftSquare.Y)))
+                                {
+                                    gv.postDelayed("doAnimation", (int)(1f * mod.combatAnimationSpeed));
+                                }
+                                else
+                                {
+                                    gv.postDelayed("doAnimation", 1);
+                                }
                             }
                             else
                             {
@@ -1648,7 +1670,15 @@ namespace IceBlink2
                         animationState = AnimationState.CreatureMove;
                         if (gv.mod.useManualCombatCam)
                         {
-                            gv.postDelayed("doAnimation", 1);
+                            if (((crt.combatLocX + 1) <= (UpperLeftSquare.X + (gv.playerOffsetX * 2))) && ((crt.combatLocX - 1) >= (UpperLeftSquare.X)) && ((crt.combatLocY + 1) <= (UpperLeftSquare.Y + (gv.playerOffsetY * 2))) && ((crt.combatLocY - 1) >= (UpperLeftSquare.Y)))
+                            {
+                                gv.postDelayed("doAnimation", (int)(1f * mod.combatAnimationSpeed));
+                            }
+                            else 
+                            {
+                                gv.postDelayed("doAnimation", 1);
+                            }
+                            
                         }
                         else
                         {
