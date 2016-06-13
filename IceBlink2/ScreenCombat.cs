@@ -25,6 +25,12 @@ namespace IceBlink2
         public Coordinate coordinatesOfPcTheCreatureMovesTowards = new Coordinate(-1, -1);
         public List<Coordinate> storedPathOfCurrentCreature = new List<Coordinate>();
         public int attackAnimationFrameCounter = 0;
+        //public float glidedDistanceAcrossThisSquare = 0;
+        public float currentPixelLocX = 0;
+        public float currentPixelLocY = 0;
+        public float destinationPixelLocX = 0;
+        public float destinationPixelLocY = 0;
+        public string moveDirection = ""; //available: N,NE,E,SE,S,SW,W,NW
 
         //public int creatureCounter2 = 0;
 
@@ -1543,6 +1549,27 @@ namespace IceBlink2
                             //CHANGE FACING BASED ON MOVE
                             doCreatureCombatFacing(crt, newCoor.X, newCoor.Y);
                             moveCost = mod.diagonalMoveCost;
+                            
+                            /*
+                            //set the currentPixel position of the props
+                            int xOffSetInSquares = gv.mod.currentArea.Props[i].LocationX - gv.mod.PlayerLocationX;
+                            int yOffSetInSquares = gv.mod.currentArea.Props[i].LocationY - gv.mod.PlayerLocationY;
+                            int playerPositionXInPix = gv.oXshift + gv.screenMainMap.mapStartLocXinPixels + (gv.playerOffsetX * gv.squareSize);
+                            int playerPositionYInPix = gv.playerOffsetY * gv.squareSize;
+
+                            gv.mod.currentArea.Props[i].currentPixelPositionX = playerPositionXInPix + (xOffSetInSquares * gv.squareSize);
+                            gv.mod.currentArea.Props[i].currentPixelPositionY = playerPositionYInPix + (yOffSetInSquares * gv.squareSize);
+                            */
+
+                            //hurgh7777
+                            /*
+                            if (((newCoor.X + 1) <= (UpperLeftSquare.X + (gv.playerOffsetX * 2))) && ((crt.combatLocX - 1) >= (UpperLeftSquare.X)) && ((crt.combatLocY + 1) <= (UpperLeftSquare.Y + (gv.playerOffsetY * 2))) && ((crt.combatLocY - 1) >= (UpperLeftSquare.Y)))
+                            {
+                                destinationPixelLocX = newCoor.X * gv.squareSize;
+                                destinationPixelLocY = newCoor.Y * gv.squareSize;
+                            }
+                             * */
+
                             crt.combatLocX = newCoor.X;
                             crt.combatLocY = newCoor.Y;
                             if (storedPathOfCurrentCreature.Count > 1)
@@ -1556,7 +1583,7 @@ namespace IceBlink2
                             {
                                 if (((crt.combatLocX + 1) <= (UpperLeftSquare.X + (gv.playerOffsetX * 2))) && ((crt.combatLocX - 1) >= (UpperLeftSquare.X)) && ((crt.combatLocY + 1) <= (UpperLeftSquare.Y + (gv.playerOffsetY * 2))) && ((crt.combatLocY - 1) >= (UpperLeftSquare.Y)))
                                 {
-                                    gv.postDelayed("doAnimation", (int)(1f * mod.combatAnimationSpeed));
+                                    gv.postDelayed("doAnimation", (int)(0.025f * mod.combatAnimationSpeed));
                                 }
                                 else
                                 {
@@ -1611,7 +1638,7 @@ namespace IceBlink2
                             {
                                 if (((crt.combatLocX + 1) <= (UpperLeftSquare.X + (gv.playerOffsetX * 2))) && ((crt.combatLocX - 1) >= (UpperLeftSquare.X)) && ((crt.combatLocY + 1) <= (UpperLeftSquare.Y + (gv.playerOffsetY * 2))) && ((crt.combatLocY - 1) >= (UpperLeftSquare.Y)))
                                 {
-                                    gv.postDelayed("doAnimation", (int)(1f * mod.combatAnimationSpeed));
+                                    gv.postDelayed("doAnimation", (int)(0.025f * mod.combatAnimationSpeed));
                                 }
                                 else
                                 {
@@ -1633,7 +1660,7 @@ namespace IceBlink2
                             {
                                 if (((crt.combatLocX + 1) <= (UpperLeftSquare.X + (gv.playerOffsetX * 2))) && ((crt.combatLocX - 1) >= (UpperLeftSquare.X)) && ((crt.combatLocY + 1) <= (UpperLeftSquare.Y + (gv.playerOffsetY * 2))) && ((crt.combatLocY - 1) >= (UpperLeftSquare.Y)))
                                 {
-                                    gv.postDelayed("doAnimation", (int)(1f * mod.combatAnimationSpeed));
+                                    gv.postDelayed("doAnimation", (int)(0.025f * mod.combatAnimationSpeed));
                                 }
                                 else
                                 {
@@ -1672,7 +1699,7 @@ namespace IceBlink2
                         {
                             if (((crt.combatLocX + 1) <= (UpperLeftSquare.X + (gv.playerOffsetX * 2))) && ((crt.combatLocX - 1) >= (UpperLeftSquare.X)) && ((crt.combatLocY + 1) <= (UpperLeftSquare.Y + (gv.playerOffsetY * 2))) && ((crt.combatLocY - 1) >= (UpperLeftSquare.Y)))
                             {
-                                gv.postDelayed("doAnimation", (int)(1f * mod.combatAnimationSpeed));
+                                gv.postDelayed("doAnimation", (int)(0.025f * mod.combatAnimationSpeed));
                             }
                             else 
                             {
@@ -4561,7 +4588,10 @@ namespace IceBlink2
 	    }
 	    public void drawMovingCombatCreatures()
 	    {
-		    if (mod.currentEncounter.encounterCreatureList.Count > 0)
+		    //must store the old loc, too 
+            //hurgh7777
+            
+            if (mod.currentEncounter.encounterCreatureList.Count > 0)
 		    {
                 if (!isPlayerTurn)
                 {
@@ -4578,7 +4608,10 @@ namespace IceBlink2
 		    {
 
                 //XXXXXXXXXXXXXXXXXXXXXXXX
+                if (crt == mod.currentEncounter.encounterCreatureList[creatureIndex])
+                {
 
+                }
 
                 int randXInt = 0;
                 int randYInt = 0;

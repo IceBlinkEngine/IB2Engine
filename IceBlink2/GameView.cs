@@ -813,6 +813,10 @@ namespace IceBlink2
             if (type.Equals("doAnimation"))
             {
                 animationTimer.Enabled = true;
+                if (delay < 1)
+                {
+                    delay = 1;
+                }
                 animationTimer.Interval = delay;
                 //animationTimer.Interval = 1;
                 animationTimer.Start();
