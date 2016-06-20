@@ -81,8 +81,11 @@ namespace IceBlink2
         public float currentPixelPositionX = 0;
         public float currentPixelPositionY = 0;
         public int pixelMoveSpeed = 1;
-	    
-	    public Creature()
+        public Coordinate newCoor = new Coordinate(-1,-1);
+        public float glideAdderX = 0;
+        public float glideAdderY = 0;
+
+        public Creature()
 	    {
 		
 	    }
@@ -143,8 +146,11 @@ namespace IceBlink2
             copy.onDeathIBScript = this.onDeathIBScript;
             copy.onDeathIBScriptParms = this.onDeathIBScriptParms;
 		    copy.cr_effectsList = new List<Effect>();
-		
-		    copy.knownSpellsTags = new List<string>();
+            copy.newCoor = this.newCoor;
+            copy.glideAdderX = this.glideAdderX;
+            copy.glideAdderY = this.glideAdderY;
+
+            copy.knownSpellsTags = new List<string>();
             foreach (string s in this.knownSpellsTags)
             {
                 copy.knownSpellsTags.Add(s);

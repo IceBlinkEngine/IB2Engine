@@ -15,6 +15,7 @@ namespace IceBlink2
     {
 	    public Module mod;
 	    public GameView gv;
+        public bool blockAnimationBridge = false;
         public IB2UILayout combatUiLayout = null;
         public bool showHP = false;
         public bool showSP = false;
@@ -31,6 +32,7 @@ namespace IceBlink2
         public float destinationPixelLocX = 0;
         public float destinationPixelLocY = 0;
         public string moveDirection = ""; //available: N,NE,E,SE,S,SW,W,NW
+        
 
         //public int creatureCounter2 = 0;
 
@@ -1513,14 +1515,14 @@ namespace IceBlink2
                 }
                 if (storedPathOfCurrentCreature.Count > 1)
                 {
-                    newCoor = storedPathOfCurrentCreature[storedPathOfCurrentCreature.Count - 2];
+                    crt.newCoor = storedPathOfCurrentCreature[storedPathOfCurrentCreature.Count - 2];
                 }
 
                 if (pc != null)
 			    {
 				    //pf.resetGrid();
 				    //newCoor = pf.findNewPoint(crt, new Coordinate(pc.combatLocX, pc.combatLocY));
-				    if ((newCoor.X == -1) && (newCoor.Y == -1))
+				    if ((crt.newCoor.X == -1) && (crt.newCoor.Y == -1))
 				    {
 					    //didn't find a path, don't move
                         //KArl
@@ -1530,23 +1532,23 @@ namespace IceBlink2
 				    }
 				   
                     //it's a diagonal move
-                    if ((crt.combatLocX != newCoor.X) && (crt.combatLocY != newCoor.Y))
+                    if ((crt.combatLocX != crt.newCoor.X) && (crt.combatLocY != crt.newCoor.Y))
                     {
                         //enough  move points availbale to do the diagonal move
                         if ((crt.moveDistance - creatureMoves) >= mod.diagonalMoveCost)
                         {
-                            if ((newCoor.X < crt.combatLocX) && (!crt.combatFacingLeft)) //move left
+                            if ((crt.newCoor.X < crt.combatLocX) && (!crt.combatFacingLeft)) //move left
                             {
                                 crt.combatFacingLeft = true;
                             }
-                            else if ((newCoor.X > crt.combatLocX) && (crt.combatFacingLeft)) //move right
+                            else if ((crt.newCoor.X > crt.combatLocX) && (crt.combatFacingLeft)) //move right
                             {
                                 crt.combatFacingLeft = false;
                             }
                             //CHANGE FACING BASED ON MOVE
-                            doCreatureCombatFacing(crt, newCoor.X, newCoor.Y);
+                            doCreatureCombatFacing(crt, crt.newCoor.X, crt.newCoor.Y);
                             moveCost = mod.diagonalMoveCost;
-                            
+
                             /*
                             //set the currentPixel position of the props
                             int xOffSetInSquares = gv.mod.currentArea.Props[i].LocationX - gv.mod.PlayerLocationX;
@@ -1560,15 +1562,23 @@ namespace IceBlink2
 
                             //hurgh7777
                             /*
-                            if (((newCoor.X + 1) <= (UpperLeftSquare.X + (gv.playerOffsetX * 2))) && ((crt.combatLocX - 1) >= (UpperLeftSquare.X)) && ((crt.combatLocY + 1) <= (UpperLeftSquare.Y + (gv.playerOffsetY * 2))) && ((crt.combatLocY - 1) >= (UpperLeftSquare.Y)))
+                            if (((crt.newCoor.X + 1) <= (UpperLeftSquare.X + (gv.playerOffsetX * 2))) && ((crt.combatLocX - 1) >= (UpperLeftSquare.X)) && ((crt.combatLocY + 1) <= (UpperLeftSquare.Y + (gv.playerOffsetY * 2))) && ((crt.combatLocY - 1) >= (UpperLeftSquare.Y)))
                             {
-                                destinationPixelLocX = newCoor.X * gv.squareSize;
-                                destinationPixelLocY = newCoor.Y * gv.squareSize;
+                                destinationPixelLocX = crt.newCoor.X * gv.squareSize;
+                                destinationPixelLocY = crt.newCoor.Y * gv.squareSize;
                             }
                              * */
-
-                            crt.combatLocX = newCoor.X;
-                            crt.combatLocY = newCoor.Y;
+                            if ( (IsInVisibleCombatWindow(crt.combatLocX, crt.combatLocY)) && (crt == mod.currentEncounter.encounterCreatureList[creatureIndex]) )
+                            {
+                                blockAnimationBridge = true;
+                            }
+                            else
+                            {
+                                blockAnimationBridge = false;
+                                crt.combatLocX = crt.newCoor.X;
+                                crt.combatLocY = crt.newCoor.Y;
+                            }
+                                   
                             if (storedPathOfCurrentCreature.Count > 1)
                             {
                                 storedPathOfCurrentCreature.RemoveAt(storedPathOfCurrentCreature.Count - 2);
@@ -1600,10 +1610,10 @@ namespace IceBlink2
                         {
                             //pf.resetGrid();
                             //block the originial diagonal target square and calculate again
-                            mod.nonAllowedDiagonalSquareX = newCoor.X;
-                            mod.nonAllowedDiagonalSquareY = newCoor.Y;
+                            mod.nonAllowedDiagonalSquareX = crt.newCoor.X;
+                            mod.nonAllowedDiagonalSquareY = crt.newCoor.Y;
                             //newCoor = pf.findNewPoint(crt, new Coordinate(pc.combatLocX, pc.combatLocY));
-                            if ((newCoor.X == -1) && (newCoor.Y == -1))
+                            if ((crt.newCoor.X == -1) && (crt.newCoor.Y == -1))
                             {
                                 //didn't find a path, don't move
                                 //KARL
@@ -1611,19 +1621,28 @@ namespace IceBlink2
                                 endCreatureTurn();
                                 return;
                             }
-                            if ((newCoor.X < crt.combatLocX) && (!crt.combatFacingLeft)) //move left
+                            if ((crt.newCoor.X < crt.combatLocX) && (!crt.combatFacingLeft)) //move left
                             {
                                 crt.combatFacingLeft = true;
                             }
-                            else if ((newCoor.X > crt.combatLocX) && (crt.combatFacingLeft)) //move right
+                            else if ((crt.newCoor.X > crt.combatLocX) && (crt.combatFacingLeft)) //move right
                             {
                                 crt.combatFacingLeft = false;
                             }
                             //CHANGE FACING BASED ON MOVE
-                            doCreatureCombatFacing(crt, newCoor.X, newCoor.Y);
+                            doCreatureCombatFacing(crt, crt.newCoor.X, crt.newCoor.Y);
                             moveCost = 1;
-                            crt.combatLocX = newCoor.X;
-                            crt.combatLocY = newCoor.Y;
+                            if ((IsInVisibleCombatWindow(crt.combatLocX, crt.combatLocY)) && (crt == mod.currentEncounter.encounterCreatureList[creatureIndex]))
+                            {
+                                blockAnimationBridge = true;
+                            }
+                            else
+                            {
+                                blockAnimationBridge = false;
+                                crt.combatLocX = crt.newCoor.X;
+                                crt.combatLocY = crt.newCoor.Y;
+                            }
+
                             if (storedPathOfCurrentCreature.Count > 1)
                             {
                                 storedPathOfCurrentCreature.RemoveAt(storedPathOfCurrentCreature.Count - 2);
@@ -1674,18 +1693,28 @@ namespace IceBlink2
                    //it's a horizontal or vertical move
                     else
                     {
-                        if ((newCoor.X < crt.combatLocX) && (!crt.combatFacingLeft)) //move left
+                        if ((crt.newCoor.X < crt.combatLocX) && (!crt.combatFacingLeft)) //move left
                         {
                             crt.combatFacingLeft = true;
                         }
-                        else if ((newCoor.X > crt.combatLocX) && (crt.combatFacingLeft)) //move right
+                        else if ((crt.newCoor.X > crt.combatLocX) && (crt.combatFacingLeft)) //move right
                         {
                             crt.combatFacingLeft = false;
                         }
                         //CHANGE FACING BASED ON MOVE
-                        doCreatureCombatFacing(crt, newCoor.X, newCoor.Y);
-                        crt.combatLocX = newCoor.X;
-                        crt.combatLocY = newCoor.Y;
+                        doCreatureCombatFacing(crt, crt.newCoor.X, crt.newCoor.Y);
+
+                        if ((IsInVisibleCombatWindow(crt.combatLocX, crt.combatLocY)) && (crt == mod.currentEncounter.encounterCreatureList[creatureIndex]))
+                        {
+                            blockAnimationBridge = true;
+                        }
+                        else
+                        {
+                            blockAnimationBridge = false;
+                            crt.combatLocX = crt.newCoor.X;
+                            crt.combatLocY = crt.newCoor.Y;
+                        }
+
                         if (storedPathOfCurrentCreature.Count > 1)
                         {
                             storedPathOfCurrentCreature.RemoveAt(storedPathOfCurrentCreature.Count - 2);
@@ -4587,7 +4616,7 @@ namespace IceBlink2
 	    {
 		    //must store the old loc, too 
             //hurgh7777
-            
+            /*
             if (mod.currentEncounter.encounterCreatureList.Count > 0)
 		    {
                 if (!isPlayerTurn)
@@ -4601,13 +4630,153 @@ namespace IceBlink2
                     }
                 }
 		    }
+            */
+            float glideSpeed = 3f * (100f/gv.mod.combatAnimationSpeed) * (1f + mod.currentEncounter.encounterCreatureList.Count * 0.125f); 
+
 		    foreach (Creature crt in mod.currentEncounter.encounterCreatureList)
 		    {
-
-                //XXXXXXXXXXXXXXXXXXXXXXXX
-                if (crt == mod.currentEncounter.encounterCreatureList[creatureIndex])
+                if (!IsInVisibleCombatWindow(crt.combatLocX, crt.combatLocY))
                 {
+                    if ((crt == mod.currentEncounter.encounterCreatureList[creatureIndex]) && (!isPlayerTurn))
+                    {
+                        if ((crt.newCoor.X != -1) && (crt.newCoor.Y != -1))
+                        {
+                            crt.combatLocX = crt.newCoor.X;
+                            crt.combatLocY = crt.newCoor.Y;
+                        }
 
+                        blockAnimationBridge = false;
+                    }
+                    continue;
+                }
+
+                if ((crt == mod.currentEncounter.encounterCreatureList[creatureIndex]) && (!isPlayerTurn))
+                {
+                    if ((crt.combatLocX != crt.newCoor.X) || (crt.combatLocY != crt.newCoor.Y))
+                    {
+                        if ((crt.newCoor.X != -1) && (crt.newCoor.Y != -1))
+                        {
+                            //glide east
+                            if ((crt.combatLocX < crt.newCoor.X) && (crt.combatLocY == crt.newCoor.Y))
+                            {
+                                crt.glideAdderX += 0.5f * glideSpeed;
+                                if (getPixelLocX(crt.combatLocX) + crt.glideAdderX >= getPixelLocX(crt.newCoor.X))
+                                {
+                                    crt.combatLocX = crt.newCoor.X;
+                                    crt.combatLocY = crt.newCoor.Y;
+                                    crt.glideAdderX = 0;
+                                    crt.glideAdderY = 0;
+                                    blockAnimationBridge = false;
+                                }
+                            }
+
+                            //glide west
+                            if ((crt.combatLocX > crt.newCoor.X) && (crt.combatLocY == crt.newCoor.Y))
+                            {
+                                crt.glideAdderX -= 0.5f * glideSpeed;
+                                if (getPixelLocX(crt.combatLocX) + crt.glideAdderX <= getPixelLocX(crt.newCoor.X))
+                                {
+                                    crt.combatLocX = crt.newCoor.X;
+                                    crt.combatLocY = crt.newCoor.Y;
+                                    crt.glideAdderX = 0;
+                                    crt.glideAdderY = 0;
+                                    blockAnimationBridge = false;
+                                }
+                            }
+
+                            //glide north
+                            if ((crt.combatLocX == crt.newCoor.X) && (crt.combatLocY > crt.newCoor.Y))
+                            {
+                                crt.glideAdderY -= 0.5f * glideSpeed;
+                                if (getPixelLocY(crt.combatLocY) + crt.glideAdderY <= getPixelLocY(crt.newCoor.Y))
+                                {
+                                    crt.combatLocX = crt.newCoor.X;
+                                    crt.combatLocY = crt.newCoor.Y;
+                                    crt.glideAdderX = 0;
+                                    crt.glideAdderY = 0;
+                                    blockAnimationBridge = false;
+                                }
+                            }
+
+                            //glide south
+                            if ((crt.combatLocX == crt.newCoor.X) && (crt.combatLocY < crt.newCoor.Y))
+                            {
+                                crt.glideAdderY += 0.5f * glideSpeed;
+                                if (getPixelLocY(crt.combatLocY) + crt.glideAdderY >= getPixelLocY(crt.newCoor.Y))
+                                {
+                                    crt.combatLocX = crt.newCoor.X;
+                                    crt.combatLocY = crt.newCoor.Y;
+                                    crt.glideAdderX = 0;
+                                    crt.glideAdderY = 0;
+                                    blockAnimationBridge = false;
+                                }
+                            }
+
+                            //glide southeast
+                            if ((crt.combatLocX < crt.newCoor.X) && (crt.combatLocY < crt.newCoor.Y))
+                            {
+                                crt.glideAdderX += 0.5f * glideSpeed;
+                                crt.glideAdderY += 0.5f * glideSpeed;
+
+                                if ((getPixelLocX(crt.combatLocX) + crt.glideAdderX >= getPixelLocX(crt.newCoor.X)) && (getPixelLocY(crt.combatLocY) + crt.glideAdderY >= getPixelLocY(crt.newCoor.Y)))
+                                {
+                                    crt.combatLocX = crt.newCoor.X;
+                                    crt.combatLocY = crt.newCoor.Y;
+                                    crt.glideAdderX = 0;
+                                    crt.glideAdderY = 0;
+                                    blockAnimationBridge = false;
+                                }
+                            }
+
+                            //glide southwest
+                            if ((crt.combatLocX > crt.newCoor.X) && (crt.combatLocY < crt.newCoor.Y))
+                            {
+                                crt.glideAdderX -= 0.5f * glideSpeed;
+                                crt.glideAdderY += 0.5f * glideSpeed;
+
+                                if ((getPixelLocX(crt.combatLocX) + crt.glideAdderX <= getPixelLocX(crt.newCoor.X)) && (getPixelLocY(crt.combatLocY) + crt.glideAdderY >= getPixelLocY(crt.newCoor.Y)))
+                                {
+                                    crt.combatLocX = crt.newCoor.X;
+                                    crt.combatLocY = crt.newCoor.Y;
+                                    crt.glideAdderX = 0;
+                                    crt.glideAdderY = 0;
+                                    blockAnimationBridge = false;
+                                }
+                            }
+
+                            //glide northwest
+                            if ((crt.combatLocX > crt.newCoor.X) && (crt.combatLocY > crt.newCoor.Y))
+                            {
+                                crt.glideAdderX -= 0.5f * glideSpeed;
+                                crt.glideAdderY -= 0.5f * glideSpeed;
+
+                                if ((getPixelLocX(crt.combatLocX) + crt.glideAdderX <= getPixelLocX(crt.newCoor.X)) && (getPixelLocY(crt.combatLocY) + crt.glideAdderY <= getPixelLocY(crt.newCoor.Y)))
+                                {
+                                    crt.combatLocX = crt.newCoor.X;
+                                    crt.combatLocY = crt.newCoor.Y;
+                                    crt.glideAdderX = 0;
+                                    crt.glideAdderY = 0;
+                                    blockAnimationBridge = false;
+                                }
+                            }
+
+                            //glide northeast
+                            if ((crt.combatLocX < crt.newCoor.X) && (crt.combatLocY > crt.newCoor.Y))
+                            {
+                                crt.glideAdderX += 0.5f * glideSpeed;
+                                crt.glideAdderY -= 0.5f * glideSpeed;
+
+                                if ((getPixelLocX(crt.combatLocX) + crt.glideAdderX >= getPixelLocX(crt.newCoor.X)) && (getPixelLocY(crt.combatLocY) + crt.glideAdderY <= getPixelLocY(crt.newCoor.Y)))
+                                {
+                                    crt.combatLocX = crt.newCoor.X;
+                                    crt.combatLocY = crt.newCoor.Y;
+                                    crt.glideAdderX = 0;
+                                    crt.glideAdderY = 0;
+                                    blockAnimationBridge = false;
+                                }
+                            }
+                        }
+                    }
                 }
 
                 int randXInt = 0;
@@ -4696,15 +4865,20 @@ namespace IceBlink2
                 }
                //IbRect dst = new IbRect((int)this.position.X, (int)(this.position.Y + randY), (int)((gv.squareSize * this.scaleX) + randX), (int)(gv.squareSize * this.scaleY));
            
-         
-                //XXXXXXXXXXXXXXXXXXXXXXXX
-                if (!IsInVisibleCombatWindow(crt.combatLocX, crt.combatLocY))
-                {
-                    continue;
-                }
-			    IbRectF src = new IbRectF(0, 0, crt.token.PixelSize.Width, crt.token.PixelSize.Width);
-			    if ((creatureToAnimate != null) && (creatureToAnimate == crt))
+                IbRectF dst = new IbRectF(getPixelLocX(crt.combatLocX) + crt.roamDistanceX + crt.glideAdderX, getPixelLocY(crt.combatLocY) + crt.roamDistanceY + crt.glideAdderY, gv.squareSize, gv.squareSize);
+                if (crt.token.PixelSize.Width > 100)
 			    {
+                    dst = new IbRectF(getPixelLocX(crt.combatLocX) - (gv.squareSize / 2) + crt.roamDistanceX + crt.glideAdderX, getPixelLocY(crt.combatLocY) - (gv.squareSize / 2) + crt.roamDistanceY + crt.glideAdderY, gv.squareSize * 2, gv.squareSize * 2);
+			    }
+                
+                IbRectF src = new IbRectF(0, 0, gv.cc.turn_marker.PixelSize.Width, gv.cc.turn_marker.PixelSize.Height);
+                if ((crt == mod.currentEncounter.encounterCreatureList[creatureIndex]) && (!isPlayerTurn))
+                {
+                    gv.DrawBitmap(gv.cc.turn_marker, src, dst);
+                }
+                src = new IbRectF(0, 0, crt.token.PixelSize.Width, crt.token.PixelSize.Width);
+                if ((creatureToAnimate != null) && (creatureToAnimate == crt))
+                {
                     attackAnimationFrameCounter++;
                     int maxUsableCounterValue = (int)(crt.token.PixelSize.Height / 100f - 1);
                     if (attackAnimationFrameCounter > maxUsableCounterValue)
@@ -4712,13 +4886,9 @@ namespace IceBlink2
                         attackAnimationFrameCounter = maxUsableCounterValue;
                     }
                     src = new IbRectF(0, crt.token.PixelSize.Width * attackAnimationFrameCounter, crt.token.PixelSize.Width, crt.token.PixelSize.Width);
-			    }
-                IbRectF dst = new IbRectF(getPixelLocX(crt.combatLocX) + crt.roamDistanceX, getPixelLocY(crt.combatLocY) + crt.roamDistanceY, gv.squareSize, gv.squareSize);
-                if (crt.token.PixelSize.Width > 100)
-			    {
-                    dst = new IbRectF(getPixelLocX(crt.combatLocX) - (gv.squareSize / 2) + crt.roamDistanceX, getPixelLocY(crt.combatLocY) - (gv.squareSize / 2) + crt.roamDistanceY, gv.squareSize * 2, gv.squareSize * 2);
-			    }
-			    gv.DrawBitmap(crt.token, src, dst, !crt.combatFacingLeft);
+                }
+                gv.DrawBitmap(crt.token, src, dst, !crt.combatFacingLeft);
+
 			    foreach (Effect ef in crt.cr_effectsList)
 			    {
 				    Bitmap fx = gv.cc.LoadBitmap(ef.spriteFilename);

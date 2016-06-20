@@ -824,9 +824,12 @@ namespace IceBlink2
         }
         private void AnimationTimer_Tick(object sender, EventArgs e)
         {
-            animationTimer.Enabled = false;
-            animationTimer.Stop();
-            screenCombat.doAnimationController();
+            if (!screenCombat.blockAnimationBridge)
+            {
+                animationTimer.Enabled = false;
+                animationTimer.Stop();
+                screenCombat.doAnimationController();
+            }
         }
         
         private void gameTimer_Tick(object sender, EventArgs e)

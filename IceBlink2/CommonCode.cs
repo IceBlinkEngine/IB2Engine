@@ -2205,19 +2205,22 @@ namespace IceBlink2
             {
                 doWeatherSound();
             }
-          
+            
+            //move any props that are active and only if they are not on the party location
+            doPropMoves();
+
             //do Conversation and/or Encounter if on Prop (check before props move)
             gv.triggerPropIndex = 0;
             gv.triggerIndex = 0;            
             doPropTriggers();
 
             //move any props that are active and only if they are not on the party location
-            doPropMoves();
+            //doPropMoves();
 
             //do Conversation and/or Encounter if on Prop (check after props move)
-            gv.triggerPropIndex = 0;
-            gv.triggerIndex = 0;
-            doPropTriggers();
+            //gv.triggerPropIndex = 0;
+            //gv.triggerIndex = 0;
+            //doPropTriggers();
 
             //check for levelup available and switch button image
             checkLevelUpAvailable(); //move this to on update and use a plus overlay in top left
@@ -4420,14 +4423,14 @@ namespace IceBlink2
                 Random rnd2 = new Random();
                 for (int i = 0; i < moveDistance; i++)
                 {
-                    if (i != 0)
-                    {
+                    //if (i != 0)
+                    //{
                         //attempt to catch situations where a creature would otherwise move "over" the party without triggering convo/encounter
-                        if (gv.triggerIndex == 0 && gv.triggerPropIndex == 0)
-                        {
-                            doPropTriggers();
-                        }
-                    }
+                        //if (gv.triggerIndex == 0 && gv.triggerPropIndex == 0)
+                        //{
+                            //doPropTriggers();
+                        //}
+                    //}
                     gv.pfa.resetGrid();
                     Coordinate newCoor = gv.pfa.findNewPoint(new Coordinate(prp.LocationX, prp.LocationY), new Coordinate(targetX, targetY), prp);
                     if ((newCoor.X == -1) && (newCoor.Y == -1))
