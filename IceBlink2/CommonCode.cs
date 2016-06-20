@@ -2205,13 +2205,20 @@ namespace IceBlink2
             {
                 doWeatherSound();
             }
-            //move any props that are active and only if they are not on the party location
-            doPropMoves();
-            //do Conversation and/or Encounter if on Prop
+          
+            //do Conversation and/or Encounter if on Prop (check before props move)
             gv.triggerPropIndex = 0;
             gv.triggerIndex = 0;            
             doPropTriggers();
-            
+
+            //move any props that are active and only if they are not on the party location
+            doPropMoves();
+
+            //do Conversation and/or Encounter if on Prop (check after props move)
+            gv.triggerPropIndex = 0;
+            gv.triggerIndex = 0;
+            doPropTriggers();
+
             //check for levelup available and switch button image
             checkLevelUpAvailable(); //move this to on update and use a plus overlay in top left
             adjustSpriteMainMapPositionToMakeItMoveIdependentlyFromPlayer();
@@ -4413,6 +4420,14 @@ namespace IceBlink2
                 Random rnd2 = new Random();
                 for (int i = 0; i < moveDistance; i++)
                 {
+                    if (i != 0)
+                    {
+                        //attempt to catch situations where a creature would otherwise move "over" the party without triggering convo/encounter
+                        if (gv.triggerIndex == 0 && gv.triggerPropIndex == 0)
+                        {
+                            doPropTriggers();
+                        }
+                    }
                     gv.pfa.resetGrid();
                     Coordinate newCoor = gv.pfa.findNewPoint(new Coordinate(prp.LocationX, prp.LocationY), new Coordinate(targetX, targetY), prp);
                     if ((newCoor.X == -1) && (newCoor.Y == -1))
@@ -4977,12 +4992,11 @@ namespace IceBlink2
                             {
                                 calledConvoFromProp = true;
                                 gv.sf.ThisProp = prp;
-                                //delay trigger handling and draw the rest of move frames, so that the player sees the collision of party and prop
                                 if ((gv.mod.useSmoothMovement) && (prp.isMover))
                                 {
-                                    for (int i = 0; i < 50; i++)
+                                    for (int i = 0; i < 30; i++)
                                     {
-                                                                                gv.Render();
+                                        gv.Render();
                                     }
                                 }
                                 doConversationBasedOnTag(prp.ConversationWhenOnPartySquare);
@@ -4992,13 +5006,15 @@ namespace IceBlink2
                             {
                                 calledConvoFromProp = true;
                                 gv.sf.ThisProp = prp;
+                                
                                 if ((gv.mod.useSmoothMovement) && (prp.isMover))
                                 {
-                                    for (int i = 0; i < 50; i++)
+                                    for (int i = 0; i < 30; i++)
                                     {
                                                                                 gv.Render();
                                     }
                                 }
+                                
                                 doConversationBasedOnTag(prp.ConversationWhenOnPartySquare);
                                 break;
                             }
@@ -5013,14 +5029,15 @@ namespace IceBlink2
                         {
                             calledEncounterFromProp = true;
                             gv.sf.ThisProp = prp;
+                            
                             if ((gv.mod.useSmoothMovement) && (prp.isMover))
                             {
-                                for (int i = 0; i < 50; i++)
+                                for (int i = 0; i < 30; i++)
                                 {
                                                                         gv.Render();
                                 }
                             }
-
+                           
                             doEncounterBasedOnTag(prp.EncounterWhenOnPartySquare);
                             break;
                         }

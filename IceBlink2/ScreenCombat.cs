@@ -1506,7 +1506,6 @@ namespace IceBlink2
                         coordinatesOfPcTheCreatureMovesTowards.X = pc.combatLocX;
                         coordinatesOfPcTheCreatureMovesTowards.Y = pc.combatLocY;
                         //run pathFinder to get new location
-                        //hurgh200
                         pf.resetGrid();
                         storedPathOfCurrentCreature.Clear();
                         storedPathOfCurrentCreature = pf.findNewPoint(crt, new Coordinate(coordinatesOfPcTheCreatureMovesTowards.X, coordinatesOfPcTheCreatureMovesTowards.Y));
@@ -1516,9 +1515,7 @@ namespace IceBlink2
                 {
                     newCoor = storedPathOfCurrentCreature[storedPathOfCurrentCreature.Count - 2];
                 }
-                //remove one from list upon move... to do
 
-                //hurgh100
                 if (pc != null)
 			    {
 				    //pf.resetGrid();
