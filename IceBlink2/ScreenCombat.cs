@@ -5125,7 +5125,7 @@ namespace IceBlink2
 			    {
                     if (IsInVisibleCombatWindow(crt.combatLocX, crt.combatLocY))
                     {
-                        drawText(getPixelLocX(crt.combatLocX), getPixelLocY(crt.combatLocY), crt.hp + "/" + crt.hpMax, Color.Red);
+                        drawText(getPixelLocX(crt.combatLocX) + (int)crt.roamDistanceX + (int)crt.glideAdderX, getPixelLocY(crt.combatLocY) + (int)crt.roamDistanceY + (int)crt.glideAdderY, crt.hp + "/" + crt.hpMax, Color.Red);
                     }
 			    }
 			    foreach (Player pc in mod.playerList)
@@ -5146,7 +5146,7 @@ namespace IceBlink2
 			    {
                     if (IsInVisibleCombatWindow(crt.combatLocX, crt.combatLocY))
                     {
-                        drawText(getPixelLocX(crt.combatLocX), getPixelLocY(crt.combatLocY) + txtH, "sp: " + crt.sp, Color.Yellow);
+                        drawText(getPixelLocX(crt.combatLocX) + (int)crt.roamDistanceX + (int)crt.glideAdderX, getPixelLocY(crt.combatLocY) + txtH + (int)crt.roamDistanceY + (int)crt.glideAdderY, "sp: " + crt.sp, Color.Yellow);
                     }
 			    }
 			    foreach (Player pc in mod.playerList)
