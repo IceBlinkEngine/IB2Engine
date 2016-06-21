@@ -1568,7 +1568,7 @@ namespace IceBlink2
                                 destinationPixelLocY = crt.newCoor.Y * gv.squareSize;
                             }
                              * */
-                            if ( (IsInVisibleCombatWindow(crt.combatLocX, crt.combatLocY)) && (crt == mod.currentEncounter.encounterCreatureList[creatureIndex]) )
+                            if ( (IsInVisibleCombatWindow(crt.combatLocX, crt.combatLocY)) && (crt == mod.currentEncounter.encounterCreatureList[creatureIndex]) && (gv.mod.useCombatSmoothMovement))
                             {
                                 blockAnimationBridge = true;
                             }
@@ -1632,7 +1632,7 @@ namespace IceBlink2
                             //CHANGE FACING BASED ON MOVE
                             doCreatureCombatFacing(crt, crt.newCoor.X, crt.newCoor.Y);
                             moveCost = 1;
-                            if ((IsInVisibleCombatWindow(crt.combatLocX, crt.combatLocY)) && (crt == mod.currentEncounter.encounterCreatureList[creatureIndex]))
+                            if ((IsInVisibleCombatWindow(crt.combatLocX, crt.combatLocY)) && (crt == mod.currentEncounter.encounterCreatureList[creatureIndex]) && (gv.mod.useCombatSmoothMovement))
                             {
                                 blockAnimationBridge = true;
                             }
@@ -1704,7 +1704,7 @@ namespace IceBlink2
                         //CHANGE FACING BASED ON MOVE
                         doCreatureCombatFacing(crt, crt.newCoor.X, crt.newCoor.Y);
 
-                        if ((IsInVisibleCombatWindow(crt.combatLocX, crt.combatLocY)) && (crt == mod.currentEncounter.encounterCreatureList[creatureIndex]))
+                        if ((IsInVisibleCombatWindow(crt.combatLocX, crt.combatLocY)) && (crt == mod.currentEncounter.encounterCreatureList[creatureIndex]) && (gv.mod.useCombatSmoothMovement))
                         {
                             blockAnimationBridge = true;
                         }
@@ -4635,9 +4635,9 @@ namespace IceBlink2
 
 		    foreach (Creature crt in mod.currentEncounter.encounterCreatureList)
 		    {
-                if (!IsInVisibleCombatWindow(crt.combatLocX, crt.combatLocY))
+                if ((!IsInVisibleCombatWindow(crt.combatLocX, crt.combatLocY)) || (!gv.mod.useCombatSmoothMovement))
                 {
-                    if ((crt == mod.currentEncounter.encounterCreatureList[creatureIndex]) && (!isPlayerTurn))
+                    if (((crt == mod.currentEncounter.encounterCreatureList[creatureIndex]) && (!isPlayerTurn)) || (!gv.mod.useCombatSmoothMovement))
                     {
                         if ((crt.newCoor.X != -1) && (crt.newCoor.Y != -1))
                         {
@@ -4650,7 +4650,7 @@ namespace IceBlink2
                     continue;
                 }
 
-                if ((crt == mod.currentEncounter.encounterCreatureList[creatureIndex]) && (!isPlayerTurn))
+                if ((crt == mod.currentEncounter.encounterCreatureList[creatureIndex]) && (!isPlayerTurn) && (gv.mod.useCombatSmoothMovement))
                 {
                     if ((crt.combatLocX != crt.newCoor.X) || (crt.combatLocY != crt.newCoor.Y))
                     {
@@ -4911,7 +4911,7 @@ namespace IceBlink2
                 if (showMoveOrder)
                 {
                     int mo = crt.moveOrder + 1;
-                    drawText(getPixelLocX(crt.combatLocX), getPixelLocY(crt.combatLocY) - (int)gv.drawFontRegHeight, mo.ToString(), Color.White);
+                    drawText(getPixelLocX(crt.combatLocX) + (int)crt.roamDistanceX + (int)crt.glideAdderX, getPixelLocY(crt.combatLocY) - (int)gv.drawFontRegHeight + (int)crt.roamDistanceY + (int)crt.glideAdderY, mo.ToString(), Color.White);
                 }
 		    }
 	    }

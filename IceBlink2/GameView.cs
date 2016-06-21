@@ -824,7 +824,7 @@ namespace IceBlink2
         }
         private void AnimationTimer_Tick(object sender, EventArgs e)
         {
-            if (!screenCombat.blockAnimationBridge)
+            if ((!screenCombat.blockAnimationBridge) || (!mod.useCombatSmoothMovement))
             {
                 animationTimer.Enabled = false;
                 animationTimer.Stop();
