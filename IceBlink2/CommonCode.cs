@@ -23,6 +23,7 @@ namespace IceBlink2
         public GameView gv;
 
         public float weatherSoundMultiplier = 2.7f;
+        public bool blockSecondPropTriggersCall = false;
         public List<FloatyText> floatyTextList = new List<FloatyText>();
         public int floatyTextCounter = 0;
         public bool floatyTextOn = false;
@@ -2205,22 +2206,26 @@ namespace IceBlink2
             {
                 doWeatherSound();
             }
-            
-            //move any props that are active and only if they are not on the party location
-            doPropMoves();
 
+            blockSecondPropTriggersCall = false;
             //do Conversation and/or Encounter if on Prop (check before props move)
             gv.triggerPropIndex = 0;
-            gv.triggerIndex = 0;            
+            gv.triggerIndex = 0;
             doPropTriggers();
 
             //move any props that are active and only if they are not on the party location
-            //doPropMoves();
+            doPropMoves();
 
             //do Conversation and/or Encounter if on Prop (check after props move)
-            //gv.triggerPropIndex = 0;
-            //gv.triggerIndex = 0;
-            //doPropTriggers();
+            if (!blockSecondPropTriggersCall)
+            {
+                gv.triggerPropIndex = 0;
+                gv.triggerIndex = 0;
+                doPropTriggers();
+            }
+
+            //move any props that are active and only if they are not on the party location
+            //doPropMoves();
 
             //check for levelup available and switch button image
             checkLevelUpAvailable(); //move this to on update and use a plus overlay in top left
@@ -4987,6 +4992,7 @@ namespace IceBlink2
                     {
                         //prp.wasTriggeredLastUpdate = true;
                         foundOne = true;
+                        blockSecondPropTriggersCall = true;
                         gv.triggerPropIndex++;
                         if ((gv.triggerPropIndex == 1) && (!prp.ConversationWhenOnPartySquare.Equals("none")))
                         {
@@ -5090,6 +5096,7 @@ namespace IceBlink2
                     Trigger trig = gv.mod.currentArea.getTriggerByLocation(gv.mod.PlayerLocationX, gv.mod.PlayerLocationY);
                     if ((trig != null) && (trig.Enabled))
                     {
+                        blockSecondPropTriggersCall = true;
                         //iterate through each event                  
                         //#region Event1 stuff
                         //check to see if enabled and parm not "none"
