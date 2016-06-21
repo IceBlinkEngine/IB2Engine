@@ -724,6 +724,15 @@ namespace IceBlink2
                             floatyTextByPixelPool.RemoveAt(i);
                         }
                     }
+
+                    //remove if too many floats are in pool
+                    for (int i = floatyTextByPixelPool.Count - 1; i >= 0; i--)
+                    {
+                        if (((floatyTextByPixelPool.Count - 1 - i) > 15))
+                        {
+                            floatyTextByPixelPool.RemoveAt(i);
+                        }
+                    }
                 }
             }
             if (floatyTextPool.Count > 0)
@@ -734,6 +743,7 @@ namespace IceBlink2
                     ft.z += shiftUp;
                     ft.timeToLive -= (int)(elapsed);
                 }
+
                 //remove expired floaty text
                 for (int i = floatyTextPool.Count - 1; i >= 0; i--)
                 {
@@ -742,6 +752,16 @@ namespace IceBlink2
                         floatyTextPool.RemoveAt(i);
                     }
                 }
+
+                //remove if too many floats are in pool
+                for (int i = floatyTextPool.Count - 1; i >= 0; i--)
+                {
+                    if (((floatyTextPool.Count - 1 - i) > 15))
+                    {
+                        floatyTextPool.RemoveAt(i);
+                    }
+                }
+
             }            
             #endregion
         }
@@ -26496,10 +26516,9 @@ namespace IceBlink2
             if (floatyTextByPixelPool.Count > 0)
             {
                 int txtH = (int)gv.drawFontRegHeight;
-
+                
                 foreach (FloatyTextByPixel ft in floatyTextByPixelPool)
                 {
-
                     int playerPositionXInPix = gv.oXshift + gv.screenMainMap.mapStartLocXinPixels + (gv.playerOffsetX * gv.squareSize);
                     int playerPositionYInPix = gv.playerOffsetY * gv.squareSize + gv.oYshift;
 
@@ -26517,6 +26536,8 @@ namespace IceBlink2
                     {
                         continue; //out of range from view so skip drawing floaty message
                     }
+
+                   
 
                     //location.X should be the the props actual map location in squares (not screen location)
                     int xLoc = (int)(ft.floatyCarrier2.currentPixelPositionX);
