@@ -1804,7 +1804,7 @@ namespace IceBlink2
                         creatureTargetLocation = new Coordinate(pc.combatLocX, pc.combatLocY);
                         //set attack animation and do a delay
                         attackAnimationTimeElapsed = 0;
-                        attackAnimationLengthInMilliseconds = (int)(5f * mod.combatAnimationSpeed);
+                        attackAnimationLengthInMilliseconds = (int)(5f * mod.attackAnimationSpeed);
                         //add projectile animation
                         startX = getPixelLocX(crt.combatLocX);
                         startY = getPixelLocY(crt.combatLocY);
@@ -1857,7 +1857,7 @@ namespace IceBlink2
 	    	            playerToAnimate = null;
 
                         attackAnimationTimeElapsed = 0;
-                        attackAnimationLengthInMilliseconds = (int)(5f * mod.combatAnimationSpeed);
+                        attackAnimationLengthInMilliseconds = (int)(5f * mod.attackAnimationSpeed);
 
 
                         //do melee attack stuff and animations  
@@ -1952,7 +1952,7 @@ namespace IceBlink2
 
                 //set attack animation and do a delay
                 attackAnimationTimeElapsed = 0;
-                attackAnimationLengthInMilliseconds = (int)(5f * mod.combatAnimationSpeed);
+                attackAnimationLengthInMilliseconds = (int)(5f * mod.attackAnimationSpeed);
                 AnimationSequence newSeq = new AnimationSequence();
                 animationSeqStack.Add(newSeq);
                 //add projectile animation
@@ -9829,7 +9829,7 @@ namespace IceBlink2
                 playerToAnimate = pc;
                 //set attack animation and do a delay
                 attackAnimationTimeElapsed = 0;
-                attackAnimationLengthInMilliseconds = (int)(5f * mod.combatAnimationSpeed);
+                attackAnimationLengthInMilliseconds = (int)(5f * mod.attackAnimationSpeed);
                 if ((mod.getItemByResRefForInfo(pc.MainHandRefs.resref).category.Equals("Melee"))
                         || (mod.getItemByResRefForInfo(pc.MainHandRefs.resref).name.Equals("none"))
                         || (mod.getItemByResRefForInfo(pc.AmmoRefs.resref).name.Equals("none")))
@@ -9912,7 +9912,7 @@ namespace IceBlink2
                 playerToAnimate = pc;
                 //set attack animation and do a delay
                 attackAnimationTimeElapsed = 0;
-                attackAnimationLengthInMilliseconds = (int)(5f * mod.combatAnimationSpeed);
+                attackAnimationLengthInMilliseconds = (int)(5f * mod.attackAnimationSpeed);
                 AnimationSequence newSeq = new AnimationSequence();
                 animationSeqStack.Add(newSeq);
                 //add projectile animation

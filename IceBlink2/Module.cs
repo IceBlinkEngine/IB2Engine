@@ -164,6 +164,7 @@ namespace IceBlink2
         public bool showAutosaveMessage = true;
         public bool allowAutosave = true;
         public int combatAnimationSpeed = 100;
+        public int attackAnimationSpeed = 100;
         public float soundVolume = 1.0f;
         public string OnHeartBeatIBScript = "none";
         public string OnHeartBeatIBScriptParms = "";
