@@ -4658,37 +4658,32 @@ namespace IceBlink2
 	    public void drawMovingCombatCreatures()
 	    {
             
-            if ((gv.mod.attackAnimationSpeed < 100) && (!isPlayerTurn))
+            if ((gv.mod.fastMode) && (!isPlayerTurn))
             {
                     framesInFastForwardCounter++;
                     UpperLeftSquare.X = 0;
                     UpperLeftSquare.Y = gv.mod.currentEncounter.MapSizeY;
-                    if (framesInFastForwardCounter <= 5)
-                    {
-                        drawText(gv.screenWidth / 2 - 2 * gv.squareSize, gv.screenHeight / 2 - gv.squareSize, "Manouevres in the Dark", Color.White);
-                    }
-                    else if (framesInFastForwardCounter <= 10)
-                    {
-                        drawText(gv.screenWidth / 2 - 2 * gv.squareSize, gv.screenHeight / 2 - gv.squareSize, "Manouevres in the Dark.", Color.White);
-                    }
-                    else if (framesInFastForwardCounter <= 15)
-                    {
-                        drawText(gv.screenWidth / 2 - 2 * gv.squareSize, gv.screenHeight / 2 - gv.squareSize, "Manouevres in the Dark..", Color.White);
-                    }
-                    else if (framesInFastForwardCounter <= 20)
-                    {
-                        drawText(gv.screenWidth / 2 - 2 * gv.squareSize, gv.screenHeight / 2 - gv.squareSize, "Manouevres in the Dark...", Color.White);
-                    }
-                    else if (framesInFastForwardCounter > 20)
-                    {
+                if (framesInFastForwardCounter <= 5)
+                {
+                    drawText(gv.screenWidth / 2 - 2 * gv.squareSize, gv.screenHeight / 2 - gv.squareSize, "Manoeuvres in the Dark", Color.White);
+                }
+                else if (framesInFastForwardCounter <= 10)
+                {
+                    drawText(gv.screenWidth / 2 - 2 * gv.squareSize, gv.screenHeight / 2 - gv.squareSize, "Manoeuvres in the Dark.", Color.White);
+                }
+                else if (framesInFastForwardCounter <= 15)
+                {
+                    drawText(gv.screenWidth / 2 - 2 * gv.squareSize, gv.screenHeight / 2 - gv.squareSize, "Manoeuvres in the Dark..", Color.White);
+                }
+                else if (framesInFastForwardCounter <= 20)
+                {
+                    drawText(gv.screenWidth / 2 - 2 * gv.squareSize, gv.screenHeight / 2 - gv.squareSize, "Manoeuvres in the Dark...", Color.White);
+                }
+                else if (framesInFastForwardCounter > 20)
+                {
                     framesInFastForwardCounter = 0;
-                    drawText(gv.screenWidth / 2 - 2 * gv.squareSize, gv.screenHeight / 2 - gv.squareSize, "Manouevres in the Dark", Color.White);
-                    }
-
-
-                //IbRectF dst = new IbRectF(getPixelLocX(crt.combatLocX) + crt.roamDistanceX + crt.glideAdderX, getPixelLocY(crt.combatLocY) + crt.roamDistanceY + crt.glideAdderY, gv.squareSize, gv.squareSize);
-                //IbRectF src = new IbRectF(0, 0, gv.cc.turn_marker.PixelSize.Width, gv.cc.turn_marker.PixelSize.Height);
-
+                    drawText(gv.screenWidth / 2 - 2 * gv.squareSize, gv.screenHeight / 2 - gv.squareSize, "Manoeuvres in the Dark", Color.White);
+                }
             }
 
             float glideSpeed = 3f * (100f/gv.mod.combatAnimationSpeed) * (1f + mod.currentEncounter.encounterCreatureList.Count * 0.125f); 
@@ -6766,6 +6761,14 @@ namespace IceBlink2
                         tgl.toggleOn = !tgl.toggleOn;
                         showIniBar = !showIniBar;
                     }
+                    if (rtn.Equals("tglFastMode"))
+                    {
+                        IB2ToggleButton tgl = combatUiLayout.GetToggleByTag(rtn);
+                        if (tgl == null) { return; }
+                        tgl.toggleOn = !tgl.toggleOn;
+                        mod.fastMode = !mod.fastMode;
+                    }
+
                     if (rtn.Equals("tglSpeed"))
                     {
                         IB2ToggleButton tgl = combatUiLayout.GetToggleByTag(rtn);
@@ -10147,7 +10150,7 @@ namespace IceBlink2
 
             else
             {
-                if ((gv.mod.useManualCombatCam) && gv.mod.attackAnimationSpeed >= 100)
+                if ((gv.mod.useManualCombatCam) && !gv.mod.fastMode)
                 {
                     //Melee or AoO situation
                     foreach (Player p in mod.playerList)
@@ -10186,7 +10189,7 @@ namespace IceBlink2
 
                     //return;
                 }
-                else if (gv.mod.attackAnimationSpeed >= 100)
+                else if (!gv.mod.fastMode)
                 {
                     UpperLeftSquare.X = minX;
                     UpperLeftSquare.Y = minY;
