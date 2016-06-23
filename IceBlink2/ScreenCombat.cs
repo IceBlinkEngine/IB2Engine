@@ -18,7 +18,8 @@ namespace IceBlink2
         public int upperLeftInFastForwardX = -100;
         public int upperLeftInFastForwardY = -100;
         public int slowDownFastForwardCounter = 0;
-        int framesInFastForwardCounter = 0;
+        public int framesInFastForwardCounter = 0;
+        public int attackAnimationDelayCounter = 0;
         public bool blockAnimationBridge = false;
         public IB2UILayout combatUiLayout = null;
         public bool showHP = false;
@@ -726,6 +727,7 @@ namespace IceBlink2
         {
             recalculateCreaturesShownInInitiativeBar();
             attackAnimationFrameCounter = 0;
+            attackAnimationDelayCounter = 0;
             //redraw screen
             //KArl
             //gv.Render();
@@ -1838,6 +1840,7 @@ namespace IceBlink2
                         creatureTargetLocation = new Coordinate(pc.combatLocX, pc.combatLocY);
                         //set attack animation and do a delay
                         attackAnimationTimeElapsed = 0;
+                        //attackAnimationLengthInMilliseconds = (int) ( (5f * mod.attackAnimationSpeed) * (-1 + (int)crt.token.PixelSize.Height / 100f) );
                         attackAnimationLengthInMilliseconds = (int)(5f * mod.attackAnimationSpeed);
                         //add projectile animation
                         startX = getPixelLocX(crt.combatLocX);
@@ -4922,16 +4925,23 @@ namespace IceBlink2
                 IbRectF src = new IbRectF(0, 0, gv.cc.turn_marker.PixelSize.Width, gv.cc.turn_marker.PixelSize.Height);
                 if ((crt == mod.currentEncounter.encounterCreatureList[creatureIndex]) && (!isPlayerTurn))
                 {
-                    gv.DrawBitmap(gv.cc.turn_marker, src, dst);
+                    //gv.DrawBitmap(gv.cc.turn_marker, src, dst);
                 }
                 src = new IbRectF(0, 0, crt.token.PixelSize.Width, crt.token.PixelSize.Width);
                 if ((creatureToAnimate != null) && (creatureToAnimate == crt))
                 {
-                    attackAnimationFrameCounter++;
+                    //blockAnimationBridge = true;
+                    attackAnimationDelayCounter++;
+                    if (attackAnimationDelayCounter >= (int)(crt.token.PixelSize.Height / 100f - 1))
+                    {
+                        attackAnimationFrameCounter++;
+                        attackAnimationDelayCounter = 0;
+                    }
                     int maxUsableCounterValue = (int)(crt.token.PixelSize.Height / 100f - 1);
                     if (attackAnimationFrameCounter > maxUsableCounterValue)
                     {
                         attackAnimationFrameCounter = maxUsableCounterValue;
+                        blockAnimationBridge = false;
                     }
                     src = new IbRectF(0, crt.token.PixelSize.Width * attackAnimationFrameCounter, crt.token.PixelSize.Width, crt.token.PixelSize.Width);
                 }
@@ -4987,11 +4997,18 @@ namespace IceBlink2
                 IbRect src = new IbRect(0, 0, crt.token.PixelSize.Width, crt.token.PixelSize.Width);
                 if ((creatureToAnimate != null) && (creatureToAnimate == crt))
                 {
-                    attackAnimationFrameCounter++;
+                    //blockAnimationBridge = true;
+                    attackAnimationDelayCounter++;
+                    if (attackAnimationDelayCounter >= (int)(crt.token.PixelSize.Height / 100f - 1))
+                    {
+                        attackAnimationFrameCounter++;
+                        attackAnimationDelayCounter = 0;
+                    }
                     int maxUsableCounterValue = (int)(crt.token.PixelSize.Height / 100f - 1);
                     if (attackAnimationFrameCounter > maxUsableCounterValue)
                     {
                         attackAnimationFrameCounter = maxUsableCounterValue;
+                        blockAnimationBridge = false;
                     }
                     src = new IbRect(0, crt.token.PixelSize.Width * attackAnimationFrameCounter, crt.token.PixelSize.Width, crt.token.PixelSize.Width);
 			    }

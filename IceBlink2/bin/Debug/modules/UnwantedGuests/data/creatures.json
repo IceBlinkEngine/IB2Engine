@@ -1339,7 +1339,7 @@
     "combatLocY": 0,
     "cr_status": "Alive",
     "cr_effectsList": [],
-    "cr_tokenFilename": "tkn_orc",
+    "cr_tokenFilename": "tkn_axewielder",
     "cr_name": "Grack",
     "cr_tag": "grack",
     "cr_resref": "grack",
