@@ -359,8 +359,8 @@
         {
 
                                                                                         "tag": "tglAttackSpeed",
-											"ImgOnFilename": "tgl_speed_1",
-											"ImgOffFilename": "tgl_speed_1",
+											"ImgOnFilename": "tgl_attackSpeed_1",
+											"ImgOffFilename": "tgl_attackSpeed_1",
 											"toggleOn": false,
 											"X": 565,
 											"Y": 25,
@@ -436,9 +436,9 @@
         },
         {
 											"tag": "tglFastMode",
-											"ImgOnFilename": "tgl_ini_on",
-											"ImgOffFilename": "tgl_ini_off",
-											"toggleOn": true,
+											"ImgOnFilename": "tgl_fastMode_on",
+											"ImgOffFilename": "tgl_fastMode_off",
+											"toggleOn": false,
 											"X": 625,
 											"Y": 25,
 											"Width": 50,

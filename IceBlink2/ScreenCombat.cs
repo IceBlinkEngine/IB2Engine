@@ -6766,6 +6766,11 @@ namespace IceBlink2
                         IB2ToggleButton tgl = combatUiLayout.GetToggleByTag(rtn);
                         if (tgl == null) { return; }
                         tgl.toggleOn = !tgl.toggleOn;
+                        if (mod.fastMode)
+                        {
+                            UpperLeftSquare.X = mod.currentEncounter.encounterCreatureList[creatureIndex].combatLocX - gv.playerOffsetX;
+                            UpperLeftSquare.Y = mod.currentEncounter.encounterCreatureList[creatureIndex].combatLocY - gv.playerOffsetY;
+                        }
                         mod.fastMode = !mod.fastMode;
                     }
 
@@ -6778,25 +6783,25 @@ namespace IceBlink2
                         {
                             mod.combatAnimationSpeed = 50;
                             tgl.ImgOffFilename = "tgl_speed_2";
-                            gv.cc.addLogText("lime", "combat speed: 2x");                            
+                            gv.cc.addLogText("lime", "move speed: 2x");                            
                         }
                         else if (mod.combatAnimationSpeed == 50)
                         {
                             mod.combatAnimationSpeed = 25;
                             tgl.ImgOffFilename = "tgl_speed_4";
-                            gv.cc.addLogText("lime", "combat speed: 4x");                            
+                            gv.cc.addLogText("lime", "move speed: 4x");                            
                         }
                         else if (mod.combatAnimationSpeed == 25)
                         {
                             mod.combatAnimationSpeed = 10;
                             tgl.ImgOffFilename = "tgl_speed_10";
-                            gv.cc.addLogText("lime", "combat speed: 10x");
+                            gv.cc.addLogText("lime", "move speed: 10x");
                         }
                         else if (mod.combatAnimationSpeed == 10)
                         {
                             mod.combatAnimationSpeed = 100;
                             tgl.ImgOffFilename = "tgl_speed_1";
-                            gv.cc.addLogText("lime", "combat speed: 1x");
+                            gv.cc.addLogText("lime", "move speed: 1x");
                         }
                     }
                     if (rtn.Equals("tglAttackSpeed"))
@@ -6807,26 +6812,26 @@ namespace IceBlink2
                         if (mod.attackAnimationSpeed == 100)
                         {
                             mod.attackAnimationSpeed = 50;
-                            tgl.ImgOffFilename = "tgl_speed_2";
-                            gv.cc.addLogText("lime", "attack speed: 2x");
+                            tgl.ImgOffFilename = "tgl_attackSpeed_2";
+                            gv.cc.addLogText("lime", "attack and cast speed: 2x");
                         }
                         else if (mod.attackAnimationSpeed == 50)
                         {
                             mod.attackAnimationSpeed = 25;
-                            tgl.ImgOffFilename = "tgl_speed_4";
-                            gv.cc.addLogText("lime", "attack speed: 4x");
+                            tgl.ImgOffFilename = "tgl_attackSpeed_4";
+                            gv.cc.addLogText("lime", "attack and cast speed: 4x");
                         }
                         else if (mod.attackAnimationSpeed == 25)
                         {
                             mod.attackAnimationSpeed = 10;
-                            tgl.ImgOffFilename = "tgl_speed_10";
-                            gv.cc.addLogText("lime", "attack speed: 10x");
+                            tgl.ImgOffFilename = "tgl_attackSpeed_10";
+                            gv.cc.addLogText("lime", "attack and cast speed: 10x");
                         }
                         else if (mod.attackAnimationSpeed == 10)
                         {
                             mod.attackAnimationSpeed = 100;
-                            tgl.ImgOffFilename = "tgl_speed_1";
-                            gv.cc.addLogText("lime", "attack speed: 1x");
+                            tgl.ImgOffFilename = "tgl_attackSpeed_1";
+                            gv.cc.addLogText("lime", "attack and cast speed: 1x");
                         }
                     }
                     if (rtn.Equals("tglSound"))
