@@ -357,6 +357,18 @@
 											"show": true
         },
         {
+
+                                                                                        "tag": "tglAttackSpeed",
+											"ImgOnFilename": "tgl_speed_1",
+											"ImgOffFilename": "tgl_speed_1",
+											"toggleOn": false,
+											"X": 625,
+											"Y": 25,
+											"Width": 50,
+											"Height": 50,
+											"show": true
+        },
+        {
 											"tag": "tglSound",
 											"ImgOnFilename": "tgl_music_on",
 											"ImgOffFilename": "tgl_music_off",

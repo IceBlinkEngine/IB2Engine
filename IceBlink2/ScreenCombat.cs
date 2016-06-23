@@ -15,6 +15,10 @@ namespace IceBlink2
     {
 	    public Module mod;
 	    public GameView gv;
+        public int upperLeftInFastForwardX = -100;
+        public int upperLeftInFastForwardY = -100;
+        public int slowDownFastForwardCounter = 0;
+        int framesInFastForwardCounter = 0;
         public bool blockAnimationBridge = false;
         public IB2UILayout combatUiLayout = null;
         public bool showHP = false;
@@ -821,6 +825,8 @@ namespace IceBlink2
                     //go to start PlayerTurn or start CreatureTurn
                     if ((crt.hp > 0) && (!crt.isHeld()))
                     {
+                        //upperLeftInFastForwardX = -100;
+                        //upperLeftInFastForwardY = -100;
                         doCreatureTurn();
                     }
                     else
@@ -1517,6 +1523,15 @@ namespace IceBlink2
                 {
                     crt.newCoor = storedPathOfCurrentCreature[storedPathOfCurrentCreature.Count - 2];
                 }
+                else
+                {
+                    //didn't find a path, don't move
+                    //KArl
+                    //gv.Render();
+                    blockAnimationBridge = false;
+                    endCreatureTurn();
+                    return;
+                }
 
                 if (pc != null)
 			    {
@@ -1524,10 +1539,11 @@ namespace IceBlink2
 				    //newCoor = pf.findNewPoint(crt, new Coordinate(pc.combatLocX, pc.combatLocY));
 				    if ((crt.newCoor.X == -1) && (crt.newCoor.Y == -1))
 				    {
-					    //didn't find a path, don't move
+                        //didn't find a path, don't move
                         //KArl
                         //gv.Render();
-			    	    endCreatureTurn();
+                        blockAnimationBridge = false;
+                        endCreatureTurn();
 					    return;
 				    }
 				   
@@ -1608,16 +1624,32 @@ namespace IceBlink2
                         //try to move horizontally or vertically instead if most points are not enough for diagonal move
                         else if ((crt.moveDistance - creatureMoves) >= 1)
                         {
-                            //pf.resetGrid();
+                            pf.resetGrid();
                             //block the originial diagonal target square and calculate again
                             mod.nonAllowedDiagonalSquareX = crt.newCoor.X;
                             mod.nonAllowedDiagonalSquareY = crt.newCoor.Y;
-                            //newCoor = pf.findNewPoint(crt, new Coordinate(pc.combatLocX, pc.combatLocY));
+                            storedPathOfCurrentCreature = pf.findNewPoint(crt, new Coordinate(pc.combatLocX, pc.combatLocY));
+
+                            if (storedPathOfCurrentCreature.Count > 1)
+                            {
+                                crt.newCoor = storedPathOfCurrentCreature[storedPathOfCurrentCreature.Count - 2];
+                            }
+                            else
+                            {
+                                //didn't find a path, don't move
+                                //KArl
+                                //gv.Render();
+                                blockAnimationBridge = false;
+                                endCreatureTurn();
+                                return;
+                            }
+
                             if ((crt.newCoor.X == -1) && (crt.newCoor.Y == -1))
                             {
                                 //didn't find a path, don't move
                                 //KARL
                                 //gv.Render();
+                                blockAnimationBridge = false;
                                 endCreatureTurn();
                                 return;
                             }
@@ -1744,15 +1776,17 @@ namespace IceBlink2
 			    {
                     //KArl
                     //gv.Render();
-		    	    endCreatureTurn();
+                    blockAnimationBridge = false;
+                    endCreatureTurn();
 				    return;
 			    }
 		    }
             //less than a move point left, no move
 		    else
 		    {
-                gv.Render();
-	    	    endCreatureTurn();
+                //gv.Render();
+                blockAnimationBridge = false;
+                endCreatureTurn();
 			    return;
 		    }
 	    }
@@ -1901,15 +1935,21 @@ namespace IceBlink2
             {
                 Player pc = (Player)gv.sf.CombatTarget;
                 pnt = new Coordinate(pc.combatLocX, pc.combatLocY);
+                upperLeftInFastForwardX = pc.combatLocX - gv.playerOffsetX;
+                upperLeftInFastForwardY = pc.combatLocY - gv.playerOffsetY;
             }
             else if (gv.sf.CombatTarget is Creature)
             {
                 Creature crtTarget = (Creature)gv.sf.CombatTarget;
                 pnt = new Coordinate(crtTarget.combatLocX, crtTarget.combatLocY);
+                upperLeftInFastForwardX = crtTarget.combatLocX - gv.playerOffsetX;
+                upperLeftInFastForwardY = crtTarget.combatLocY - gv.playerOffsetY;
             }
             else if (gv.sf.CombatTarget is Coordinate)
             {
                 pnt = (Coordinate)gv.sf.CombatTarget;
+                upperLeftInFastForwardX = pnt.X - gv.playerOffsetX;
+                upperLeftInFastForwardY = pnt.Y - gv.playerOffsetY;
             }
             else //do not understand, what is the target
             {
@@ -2152,6 +2192,9 @@ namespace IceBlink2
         {
             Creature crt = mod.currentEncounter.encounterCreatureList[creatureIndex];
             Player pc = (Player)gv.sf.CombatTarget;
+
+            upperLeftInFastForwardX = pc.combatLocX - gv.playerOffsetX;
+            upperLeftInFastForwardY = pc.combatLocY - gv.playerOffsetY;
 
             bool hit = false;
             for (int i = 0; i < crt.cr_numberOfAttacks; i++)
@@ -2682,7 +2725,7 @@ namespace IceBlink2
             if (floatyTextOn)
             {
                 //move up 50pxl per second (50px/1000ms)*elapsed
-                float multiplier = 100.0f / gv.mod.combatAnimationSpeed;
+                float multiplier = 100.0f / gv.mod.attackAnimationSpeed;
                 int shiftUp = (int)(0.05f * elapsed * multiplier);
                 foreach (FloatyText ft in gv.cc.floatyTextList)
                 {
@@ -4614,23 +4657,40 @@ namespace IceBlink2
 	    }
 	    public void drawMovingCombatCreatures()
 	    {
-		    //must store the old loc, too 
-            //hurgh7777
-            /*
-            if (mod.currentEncounter.encounterCreatureList.Count > 0)
-		    {
-                if (!isPlayerTurn)
-                {
-                    Creature cr = mod.currentEncounter.encounterCreatureList[creatureIndex];
-                    if (IsInVisibleCombatWindow(cr.combatLocX, cr.combatLocY))
+            
+            if ((gv.mod.attackAnimationSpeed < 100) && (!isPlayerTurn))
+            {
+                    framesInFastForwardCounter++;
+                    UpperLeftSquare.X = 0;
+                    UpperLeftSquare.Y = gv.mod.currentEncounter.MapSizeY;
+                    if (framesInFastForwardCounter <= 5)
                     {
-                        IbRectF src = new IbRectF(0, 0, gv.cc.turn_marker.PixelSize.Width, gv.cc.turn_marker.PixelSize.Height);
-                        IbRectF dst = new IbRectF(getPixelLocX(cr.combatLocX), getPixelLocY(cr.combatLocY), gv.squareSize, gv.squareSize);
-                        gv.DrawBitmap(gv.cc.turn_marker, src, dst);
+                        drawText(gv.screenWidth / 2 - 2 * gv.squareSize, gv.screenHeight / 2 - gv.squareSize, "Manouevres in the Dark", Color.White);
                     }
-                }
-		    }
-            */
+                    else if (framesInFastForwardCounter <= 10)
+                    {
+                        drawText(gv.screenWidth / 2 - 2 * gv.squareSize, gv.screenHeight / 2 - gv.squareSize, "Manouevres in the Dark.", Color.White);
+                    }
+                    else if (framesInFastForwardCounter <= 15)
+                    {
+                        drawText(gv.screenWidth / 2 - 2 * gv.squareSize, gv.screenHeight / 2 - gv.squareSize, "Manouevres in the Dark..", Color.White);
+                    }
+                    else if (framesInFastForwardCounter <= 20)
+                    {
+                        drawText(gv.screenWidth / 2 - 2 * gv.squareSize, gv.screenHeight / 2 - gv.squareSize, "Manouevres in the Dark...", Color.White);
+                    }
+                    else if (framesInFastForwardCounter > 20)
+                    {
+                    framesInFastForwardCounter = 0;
+                    drawText(gv.screenWidth / 2 - 2 * gv.squareSize, gv.screenHeight / 2 - gv.squareSize, "Manouevres in the Dark", Color.White);
+                    }
+
+
+                //IbRectF dst = new IbRectF(getPixelLocX(crt.combatLocX) + crt.roamDistanceX + crt.glideAdderX, getPixelLocY(crt.combatLocY) + crt.roamDistanceY + crt.glideAdderY, gv.squareSize, gv.squareSize);
+                //IbRectF src = new IbRectF(0, 0, gv.cc.turn_marker.PixelSize.Width, gv.cc.turn_marker.PixelSize.Height);
+
+            }
+
             float glideSpeed = 3f * (100f/gv.mod.combatAnimationSpeed) * (1f + mod.currentEncounter.encounterCreatureList.Count * 0.125f); 
 
 		    foreach (Creature crt in mod.currentEncounter.encounterCreatureList)
@@ -4652,6 +4712,7 @@ namespace IceBlink2
 
                 if ((crt == mod.currentEncounter.encounterCreatureList[creatureIndex]) && (!isPlayerTurn) && (gv.mod.useCombatSmoothMovement))
                 {
+                    
                     if ((crt.combatLocX != crt.newCoor.X) || (crt.combatLocY != crt.newCoor.Y))
                     {
                         if ((crt.newCoor.X != -1) && (crt.newCoor.Y != -1))
@@ -4851,15 +4912,7 @@ namespace IceBlink2
                             crt.straightLineDistanceY = 0;
                         }
                     }
-                    else
-                    {
-                        //decider = gv.sf.RandInt(2);
-                        //if (decider == 1)
-                        //{
-                            //randY = -1 * randY;
-                        //}
-                    }
-
+                    
                     crt.roamDistanceX += randX;
                     crt.roamDistanceY += randY;
                 }
@@ -4888,16 +4941,16 @@ namespace IceBlink2
                     src = new IbRectF(0, crt.token.PixelSize.Width * attackAnimationFrameCounter, crt.token.PixelSize.Width, crt.token.PixelSize.Width);
                 }
                 gv.DrawBitmap(crt.token, src, dst, !crt.combatFacingLeft);
-
 			    foreach (Effect ef in crt.cr_effectsList)
 			    {
 				    Bitmap fx = gv.cc.LoadBitmap(ef.spriteFilename);
                     src = new IbRectF(0, 0, fx.PixelSize.Width, fx.PixelSize.Width);
-				    gv.DrawBitmap(fx, src, dst);
+                        gv.DrawBitmap(fx, src, dst);
                     gv.cc.DisposeOfBitmap(ref fx);
                 }
                 //CREATURE FACING
                 src = new IbRectF(0, 0, gv.cc.facing1.PixelSize.Width, gv.cc.facing1.PixelSize.Height);
+
                 if (crt.combatFacing == 8) { gv.DrawBitmap(gv.cc.facing8, src, dst); }
                 else if (crt.combatFacing == 9) { gv.DrawBitmap(gv.cc.facing9, src, dst); }
                 else if (crt.combatFacing == 6) { gv.DrawBitmap(gv.cc.facing6, src, dst); }
@@ -6741,6 +6794,36 @@ namespace IceBlink2
                             mod.combatAnimationSpeed = 100;
                             tgl.ImgOffFilename = "tgl_speed_1";
                             gv.cc.addLogText("lime", "combat speed: 1x");
+                        }
+                    }
+                    if (rtn.Equals("tglAttackSpeed"))
+                    {
+                        IB2ToggleButton tgl = combatUiLayout.GetToggleByTag(rtn);
+                        if (tgl == null) { return; }
+
+                        if (mod.attackAnimationSpeed == 100)
+                        {
+                            mod.attackAnimationSpeed = 50;
+                            tgl.ImgOffFilename = "tgl_speed_2";
+                            gv.cc.addLogText("lime", "attack speed: 2x");
+                        }
+                        else if (mod.attackAnimationSpeed == 50)
+                        {
+                            mod.attackAnimationSpeed = 25;
+                            tgl.ImgOffFilename = "tgl_speed_4";
+                            gv.cc.addLogText("lime", "attack speed: 4x");
+                        }
+                        else if (mod.attackAnimationSpeed == 25)
+                        {
+                            mod.attackAnimationSpeed = 10;
+                            tgl.ImgOffFilename = "tgl_speed_10";
+                            gv.cc.addLogText("lime", "attack speed: 10x");
+                        }
+                        else if (mod.attackAnimationSpeed == 10)
+                        {
+                            mod.attackAnimationSpeed = 100;
+                            tgl.ImgOffFilename = "tgl_speed_1";
+                            gv.cc.addLogText("lime", "attack speed: 1x");
                         }
                     }
                     if (rtn.Equals("tglSound"))
@@ -9982,7 +10065,7 @@ namespace IceBlink2
             {
                 gv.touchEnabled = false;
             }
-            int ttl = 8 * mod.combatAnimationSpeed;
+            int ttl = 8 * mod.attackAnimationSpeed;
             Sprite spr = new Sprite(gv, "hit_symbol", hitAnimationLocation.X, hitAnimationLocation.Y, 0, 0, 0, 0, 1.0f, ttl, false, ttl / 4);
             group.turnFloatyTextOn = true;
             group.SpriteGroup.Add(spr);
@@ -9993,7 +10076,7 @@ namespace IceBlink2
             {
                 gv.touchEnabled = false;
             }
-            int ttl = 8 * mod.combatAnimationSpeed;
+            int ttl = 8 * mod.attackAnimationSpeed;
             Sprite spr = new Sprite(gv, "miss_symbol", hitAnimationLocation.X, hitAnimationLocation.Y, 0, 0, 0, 0, 1.0f, ttl, false, ttl / 4);
             group.SpriteGroup.Add(spr);
         }
@@ -10003,7 +10086,7 @@ namespace IceBlink2
             {
                 gv.touchEnabled = false;
             }
-            int ttl = 16 * mod.combatAnimationSpeed;
+            int ttl = 16 * mod.attackAnimationSpeed;
             Sprite spr = new Sprite(gv, "death_fx", Loc.X, Loc.Y, 0, 0, 0, 0, 1.0f, ttl, false, ttl / 4);
             group.SpriteGroup.Add(spr);
         }
@@ -10014,10 +10097,10 @@ namespace IceBlink2
                 gv.touchEnabled = false;
             }
 
-            int ttl = 16 * mod.combatAnimationSpeed;
+            int ttl = 16 * mod.attackAnimationSpeed;
             if (gv.mod.useManualCombatCam)
             {
-                ttl = 8 * mod.combatAnimationSpeed;
+                ttl = 8 * mod.attackAnimationSpeed;
             }
             
             Sprite spr = new Sprite(gv, filename, Loc.X, Loc.Y, 0, 0, 0, 0, 1.0f, ttl, false, ttl / 4);
@@ -10064,7 +10147,7 @@ namespace IceBlink2
 
             else
             {
-                if (gv.mod.useManualCombatCam)
+                if ((gv.mod.useManualCombatCam) && gv.mod.attackAnimationSpeed >= 100)
                 {
                     //Melee or AoO situation
                     foreach (Player p in mod.playerList)
@@ -10103,7 +10186,7 @@ namespace IceBlink2
 
                     //return;
                 }
-                else
+                else if (gv.mod.attackAnimationSpeed >= 100)
                 {
                     UpperLeftSquare.X = minX;
                     UpperLeftSquare.Y = minY;
