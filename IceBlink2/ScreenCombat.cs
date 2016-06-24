@@ -2623,8 +2623,10 @@ namespace IceBlink2
             {
                 attackAnimationTimeElapsed += elapsed;
                 //hurgh1000
-                if ((attackAnimationTimeElapsed >= attackAnimationLengthInMilliseconds) && (attackAnimationFrameCounter >= maxUsableCounterValue))
-                {
+                //if ((attackAnimationTimeElapsed >= attackAnimationLengthInMilliseconds) && ((attackAnimationFrameCounter >= maxUsableCounterValue) || (isPlayerTurn)))
+                if ((attackAnimationTimeElapsed >= attackAnimationLengthInMilliseconds) && (attackAnimationFrameCounter >= maxUsableCounterValue) )
+                    //if ((attackAnimationTimeElapsed >= attackAnimationLengthInMilliseconds))
+                    {
                     //time is up, reset attack animations to null
                     creatureToAnimate = null;
                     playerToAnimate = null;
@@ -4595,7 +4597,19 @@ namespace IceBlink2
                     //check if drawing animation of player
                     if ((playerToAnimate != null) && (playerToAnimate == pc))
                     {
-                        src = new IbRect(0, pc.token.PixelSize.Width, pc.token.PixelSize.Width, pc.token.PixelSize.Width);
+                        attackAnimationDelayCounter++;
+                        if (attackAnimationDelayCounter >= (int)(pc.token.PixelSize.Height / 100f - 1))
+                        {
+                            attackAnimationFrameCounter++;
+                            attackAnimationDelayCounter = 0;
+                        }
+                        maxUsableCounterValue = (int)(pc.token.PixelSize.Height / 100f - 1);
+                        if (attackAnimationFrameCounter >= maxUsableCounterValue)
+                        {
+                            attackAnimationFrameCounter = maxUsableCounterValue;
+                            blockAnimationBridge = false;
+                        }
+                        src = new IbRect(0, pc.token.PixelSize.Width * attackAnimationFrameCounter, pc.token.PixelSize.Width, pc.token.PixelSize.Width);
                     }
                     IbRect dst = new IbRect(getPixelLocX(pc.combatLocX), getPixelLocY(pc.combatLocY), gv.squareSize, gv.squareSize);
                     gv.DrawBitmap(pc.token, src, dst, !pc.combatFacingLeft);
