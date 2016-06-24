@@ -17,6 +17,7 @@ namespace IceBlink2
 	    public GameView gv;
         public int upperLeftInFastForwardX = -100;
         public int upperLeftInFastForwardY = -100;
+        public int maxUsableCounterValue = 0;
         public int slowDownFastForwardCounter = 0;
         public int framesInFastForwardCounter = 0;
         public int attackAnimationDelayCounter = 0;
@@ -1842,6 +1843,8 @@ namespace IceBlink2
                         attackAnimationTimeElapsed = 0;
                         //attackAnimationLengthInMilliseconds = (int) ( (5f * mod.attackAnimationSpeed) * (-1 + (int)crt.token.PixelSize.Height / 100f) );
                         attackAnimationLengthInMilliseconds = (int)(5f * mod.attackAnimationSpeed);
+                        //attackAnimationLengthInMilliseconds = (int)((5f * mod.attackAnimationSpeed) + (-1 + (int)crt.token.PixelSize.Height / 100f) * 100);
+
                         //add projectile animation
                         startX = getPixelLocX(crt.combatLocX);
                         startY = getPixelLocY(crt.combatLocY);
@@ -1895,7 +1898,8 @@ namespace IceBlink2
 
                         attackAnimationTimeElapsed = 0;
                         attackAnimationLengthInMilliseconds = (int)(5f * mod.attackAnimationSpeed);
-
+                        //attackAnimationLengthInMilliseconds = (int)((5f * mod.attackAnimationSpeed) * (-1 + (int)crt.token.PixelSize.Height / 100f));
+                        //attackAnimationLengthInMilliseconds = (int)((5f * mod.attackAnimationSpeed) + (-1 + (int)crt.token.PixelSize.Height / 100f) * 100);
 
                         //do melee attack stuff and animations  
                         AnimationSequence newSeq = new AnimationSequence();
@@ -1996,6 +2000,8 @@ namespace IceBlink2
                 //set attack animation and do a delay
                 attackAnimationTimeElapsed = 0;
                 attackAnimationLengthInMilliseconds = (int)(5f * mod.attackAnimationSpeed);
+                //attackAnimationLengthInMilliseconds = (int)((5f * mod.attackAnimationSpeed) * (-1 + (int)crt.token.PixelSize.Height / 100f));
+                //attackAnimationLengthInMilliseconds = (int)((5f * mod.attackAnimationSpeed) + (-1 + (int)crt.token.PixelSize.Height / 100f) * 100);
                 AnimationSequence newSeq = new AnimationSequence();
                 animationSeqStack.Add(newSeq);
                 //add projectile animation
@@ -2616,7 +2622,8 @@ namespace IceBlink2
             if (animationsOn)
             {
                 attackAnimationTimeElapsed += elapsed;
-                if (attackAnimationTimeElapsed >= attackAnimationLengthInMilliseconds)
+                //hurgh1000
+                if ((attackAnimationTimeElapsed >= attackAnimationLengthInMilliseconds) && (attackAnimationFrameCounter >= maxUsableCounterValue))
                 {
                     //time is up, reset attack animations to null
                     creatureToAnimate = null;
@@ -4937,13 +4944,17 @@ namespace IceBlink2
                         attackAnimationFrameCounter++;
                         attackAnimationDelayCounter = 0;
                     }
-                    int maxUsableCounterValue = (int)(crt.token.PixelSize.Height / 100f - 1);
-                    if (attackAnimationFrameCounter > maxUsableCounterValue)
+                    maxUsableCounterValue = (int)(crt.token.PixelSize.Height / 100f - 1);
+                    if (attackAnimationFrameCounter >= maxUsableCounterValue)
                     {
                         attackAnimationFrameCounter = maxUsableCounterValue;
                         blockAnimationBridge = false;
                     }
                     src = new IbRectF(0, crt.token.PixelSize.Width * attackAnimationFrameCounter, crt.token.PixelSize.Width, crt.token.PixelSize.Width);
+                }
+                if (attackAnimationFrameCounter > 2)
+                {
+                    gv.cc.addLogText("lime", "attack animation frame counter is:" + attackAnimationFrameCounter.ToString());
                 }
                 gv.DrawBitmap(crt.token, src, dst, !crt.combatFacingLeft);
 			    foreach (Effect ef in crt.cr_effectsList)
@@ -9938,6 +9949,8 @@ namespace IceBlink2
                 //set attack animation and do a delay
                 attackAnimationTimeElapsed = 0;
                 attackAnimationLengthInMilliseconds = (int)(5f * mod.attackAnimationSpeed);
+                //attackAnimationLengthInMilliseconds = (int)((5f * mod.attackAnimationSpeed) * (-1 + (int)pc.token.PixelSize.Height / 100f));
+                //attackAnimationLengthInMilliseconds = (int)((5f * mod.attackAnimationSpeed) + (-1 + (int)pc.token.PixelSize.Height / 100f) * 100);
                 if ((mod.getItemByResRefForInfo(pc.MainHandRefs.resref).category.Equals("Melee"))
                         || (mod.getItemByResRefForInfo(pc.MainHandRefs.resref).name.Equals("none"))
                         || (mod.getItemByResRefForInfo(pc.AmmoRefs.resref).name.Equals("none")))
@@ -10021,6 +10034,8 @@ namespace IceBlink2
                 //set attack animation and do a delay
                 attackAnimationTimeElapsed = 0;
                 attackAnimationLengthInMilliseconds = (int)(5f * mod.attackAnimationSpeed);
+                //attackAnimationLengthInMilliseconds = (int)((5f * mod.attackAnimationSpeed) + (-1 + (int)pc.token.PixelSize.Height / 100f) * 2* mod.attackAnimationSpeed);
+                //attackAnimationLengthInMilliseconds = (int)((5f * mod.attackAnimationSpeed) + (-1 + (int)pc.token.PixelSize.Height / 100f) * 100);
                 AnimationSequence newSeq = new AnimationSequence();
                 animationSeqStack.Add(newSeq);
                 //add projectile animation
