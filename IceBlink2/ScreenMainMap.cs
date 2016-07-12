@@ -22,6 +22,12 @@ namespace IceBlink2
         public bool showFullParty = false;
         public bool showArrows = true;
         public bool hideClock = false;
+        int shifter = 0;
+        int shifterY = 0;
+        public float shifterDelayCounter = 0;
+        public bool shifterRise = true;
+        public float shifterYDelayCounter = 0;
+        public bool shifterYRise = true;
         public float flicker = 0;
         public float flickerDelayCounter = 0;
         public bool flickerRise = true;
@@ -26657,6 +26663,160 @@ namespace IceBlink2
 
                     flickerDelayCounter = 0;
                 }
+
+
+                shifterDelayCounter += elapsed / 1000f * 30f;
+                //dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels - (tile.lightRadius * gv.squareSize), tlY - (tile.lightRadius * gv.squareSize), brX * (1 + tile.lightRadius * 2), brY * (1 + tile.lightRadius * 2));
+                //dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels, tlY, brX, brY);
+
+                //tile.flicker = 0;
+                if (shifterDelayCounter > 1.15f)
+                {
+                    if (shifterRise)
+                    {
+
+                        //int decider = gv.sf.RandInt(1);
+                        //if (decider == 1)
+                        //{
+                        int decider = gv.sf.RandInt(2);
+                        if (decider == 1)
+                        {
+                            shifter++;
+                        }
+                        //tile.affectedByFlickerAlready = true;
+                        /*
+                        int decider = gv.sf.RandInt(1);
+                        if (decider == 1)
+                        {
+                            flicker++;
+                        }
+                        else if (decider == 2)
+                        {
+                            flicker++;
+                            flicker++;
+                        }
+                        else
+                        {
+                            flicker++;
+                            flicker++;
+                            flicker++;
+                        }
+                        */
+                    }
+                    else
+                    {
+                        //tile.affectedByFlickerAlready = true;
+                        int decider = gv.sf.RandInt(2);
+                        if (decider == 1)
+                        {
+                            shifter--;
+                        }
+                        /*
+                        int decider = gv.sf.RandInt(1);
+                        if (decider == 1)
+                        {
+                            flicker--;
+                        }
+                        else if (decider == 2)
+                        {
+                            flicker--;
+                            flicker--;
+                        }
+                        else
+                        {
+                            flicker--;
+                            flicker--;
+                            flicker--;
+                        }
+                        */
+                    }
+                    if (shifter >= 5)
+                    {
+                        shifterRise = false;
+                    }
+                    if (shifter <= 0)
+                    {
+                        shifterRise = true;
+                    }
+
+                    shifterDelayCounter = 0;
+                }
+
+                shifterYDelayCounter += elapsed / 1000f * 30f;
+                //dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels - (tile.lightRadius * gv.squareSize), tlY - (tile.lightRadius * gv.squareSize), brX * (1 + tile.lightRadius * 2), brY * (1 + tile.lightRadius * 2));
+                //dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels, tlY, brX, brY);
+
+                //tile.flicker = 0;
+                if (shifterYDelayCounter > 1.15f)
+                {
+                    if (shifterYRise)
+                    {
+
+                        int decider = gv.sf.RandInt(2);
+                        if (decider == 1)
+                        {
+                            shifterY++;
+                        }
+                        //tile.affectedByFlickerAlready = true;
+                        /*
+                        int decider = gv.sf.RandInt(1);
+                        if (decider == 1)
+                        {
+                            flicker++;
+                        }
+                        else if (decider == 2)
+                        {
+                            flicker++;
+                            flicker++;
+                        }
+                        else
+                        {
+                            flicker++;
+                            flicker++;
+                            flicker++;
+                        }
+                        */
+                    }
+                    else
+                    {
+                        //tile.affectedByFlickerAlready = true;
+                        int decider = gv.sf.RandInt(2);
+                        if (decider == 1)
+                        {
+                            shifterY--;
+                        }
+                        /*
+                        int decider = gv.sf.RandInt(1);
+                        if (decider == 1)
+                        {
+                            flicker--;
+                        }
+                        else if (decider == 2)
+                        {
+                            flicker--;
+                            flicker--;
+                        }
+                        else
+                        {
+                            flicker--;
+                            flicker--;
+                            flicker--;
+                        }
+                        */
+                    }
+                    if (shifterY >= 5)
+                    {
+                        shifterYRise = false;
+                    }
+                    if (shifterY <= 0)
+                    {
+                        shifterYRise = true;
+                    }
+
+                    shifterYDelayCounter = 0;
+                }
+
+                /*
                 int shifter = 0;
                 int shifterY = 0;
                 
@@ -26667,8 +26827,18 @@ namespace IceBlink2
                     shifter = gv.sf.RandInt(1);
                     if (decider3 == 1)
                     {
+                        //shifter++;
                         shifter = shifter * -1;
                     }
+                    //else
+                    //{
+                        //shifter--;
+                    //}
+
+                    //if (shifter > 10)
+                    //{
+                        //shifter
+                    //}
                 }
 
                 decider2 = gv.sf.RandInt(100);
@@ -26681,7 +26851,7 @@ namespace IceBlink2
                         shifterY = shifterY * -1;
                     }
                 }
-                
+                */
 
                 #region go through tiles
                 for (int x = minX; x < maxX; x++)
