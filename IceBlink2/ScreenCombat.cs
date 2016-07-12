@@ -5343,7 +5343,7 @@ namespace IceBlink2
             }
             else if ((time >= night) || (time < dawn))
             {
-                gv.DrawBitmap(gv.cc.tint_night, src, dst);
+                gv.DrawBitmap(gv.cc.tint_night, src, dst, false, 0.75f);
             }
 
         }

@@ -509,7 +509,7 @@ namespace IceBlink2
                 {
                     SetCurrentTopLineIndex(-numberOfTextLinesToMove);
                     //gv.Invalidate();
-                    gv.Render();
+                    gv.Render(0);
                 }
             }
         }
@@ -580,7 +580,7 @@ namespace IceBlink2
                     //if (currentTopLineIndex < 0) { currentTopLineIndex = 0; }
                     //if (currentTopLineIndex > logLinesList.Count - 1) { currentTopLineIndex = logLinesList.Count - 1; }
                     //gv.Invalidate();
-                    gv.Render();
+                    gv.Render(0);
                 }
                 else if (e.Y > tbYloc + tbHeight - btn_down.PixelSize.Height)
                 {
@@ -589,7 +589,7 @@ namespace IceBlink2
                     //if (currentTopLineIndex < 0) { currentTopLineIndex = 0; }
                     //if (currentTopLineIndex > logLinesList.Count - 1) { currentTopLineIndex = logLinesList.Count - 1; }
                     //gv.Invalidate();
-                    gv.Render();
+                    gv.Render(0);
                 }
             }
             else if (isMouseWithinTextBox(e))

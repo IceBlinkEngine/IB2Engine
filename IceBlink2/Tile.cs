@@ -75,6 +75,14 @@ namespace IceBlink2
         public Bitmap tileBitmap4;
         [JsonIgnore]
         public Bitmap tileBitmap5;
+        public bool isCentreOfLightCircle = false;
+        public bool isOtherPartOfLightCircle = false;
+        public bool isFocalPoint = false;
+        public int lightRadius = 0;
+        public float flickerDelayCounter = 0;
+        public float flicker = 0;
+        public bool flickerRise = true;
+        public bool affectedByFlickerAlready = false;
 
         public Tile()
         {

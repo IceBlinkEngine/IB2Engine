@@ -22,6 +22,9 @@ namespace IceBlink2
         public bool showFullParty = false;
         public bool showArrows = true;
         public bool hideClock = false;
+        public float flicker = 0;
+        public float flickerDelayCounter = 0;
+        public bool flickerRise = true;
 
         /*private IbbButton btnParty = null;
         private IbbButton btnJournal = null;
@@ -879,7 +882,7 @@ namespace IceBlink2
                 }
             }
         }        
-        public void redrawMain()
+        public void redrawMain(float elapsed)
         {
 
             if (gv.mod.currentArea.areaWeatherName == "")
@@ -907,7 +910,10 @@ namespace IceBlink2
                     drawGrid();
                 }
             }
-            drawPlayer();
+            if (mod.currentArea.areaDark)
+            {
+                drawPlayer();
+            }
             if (!mod.currentArea.areaDark)
             {
                 drawMovingProps();
@@ -924,13 +930,19 @@ namespace IceBlink2
 
             if (!mod.currentArea.areaDark)
             {
+                if (gv.mod.useAllTileSystem)
+                {
+                    drawLightAndDarkness(elapsed);
+                }
+                drawPlayer();
                 drawFogOfWar();
+                //drawLightAndDarkness(elapsed);
                 drawSprites();
                 drawTopFullScreenEffects();
                 bool hideOverlayNeeded = false;
                 if (mod.currentArea.UseDayNightCycle)
                 {
-                    drawOverlayTints();
+                    //drawOverlayTints();
                     hideOverlayNeeded = true;
                 }
 
@@ -940,11 +952,13 @@ namespace IceBlink2
                     hideOverlayNeeded = false;
                 }
                 //drawFogOfWar();
-            } 
-           
+            }
+
+            //drawLightAndDarkness(elapsed);
+
             //drawSprites();
             //drawTopFullScreenEffects();
-            
+
             if ((showClock) && (!hideClock))
             {
                 drawMainMapClockText();
@@ -25805,7 +25819,7 @@ namespace IceBlink2
             }
             else if ((time >= night) || (time < dawn))
             {
-                gv.DrawBitmap(gv.cc.tint_night, src, dst);
+                gv.DrawBitmap(gv.cc.tint_night, src, dst, false, 0.75f);
             }
 
         }
@@ -26279,16 +26293,16 @@ namespace IceBlink2
                                 //float scalerX = tile.tileBitmap0.PixelSize.Width / 100;
                                 //float scalerY = tile.tileBitmap0.PixelSize.Height / 100;
                                 //the tiles0 arrive as 50x50px but we want to have them 100% square size, therefore scaler to 1, ie 100%
-                                float scalerX = 1;
-                                float scalerY = 1;
+                                float scalerX = 1.0f;
+                                float scalerY = 1.0f;
                                 int brX = (int)(gv.squareSize * scalerX);
                                 int brY = (int)(gv.squareSize * scalerY);
                                 IbRect src = new IbRect(0, 0, 100, 100);
-                                IbRect dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels - (int)(brX * 0.05f), tlY - (int)(brY * 0.05f), (int)(brX*1.1f), (int)(brY*1.1f));
+                                IbRect dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels - (int)(brX * 0.1f), tlY - (int)(brY * 0.1f), (int)(brX*1.2f), (int)(brY*1.2f));
 
                                 if (tile.Visible == false)
                                 {
-                                    gv.DrawBitmap(gv.cc.offScreen, src, dst,0,false,0.9f);
+                                    gv.DrawBitmap(gv.cc.offScreen, src, dst,0,false,1.0f);
                                 }
 
                                 else if ((tile.Visible == true) && ( (tile.opacity > 0) ) )
@@ -26359,6 +26373,756 @@ namespace IceBlink2
                 int minX = mod.PlayerLocationX - gv.playerOffsetX-1;
                 if (minX < 0) { minX = 0; }
                 int minY = mod.PlayerLocationY - gv.playerOffsetY-1;
+                if (minY < 0) { minY = 0; }
+
+                int maxX = mod.PlayerLocationX + gv.playerOffsetX + 2;
+                if (maxX > this.mod.currentArea.MapSizeX) { maxX = this.mod.currentArea.MapSizeX; }
+                int maxY = mod.PlayerLocationY + gv.playerOffsetY + 3;
+                if (maxY > this.mod.currentArea.MapSizeY) { maxY = this.mod.currentArea.MapSizeY; }
+
+                for (int x = minX; x < maxX; x++)
+                {
+                    for (int y = minY; y < maxY; y++)
+                    {
+                        int tlX = (x - mod.PlayerLocationX + gv.playerOffsetX) * gv.squareSize;
+                        int tlY = (y - mod.PlayerLocationY + gv.playerOffsetY) * gv.squareSize;
+                        int brX = gv.squareSize;
+                        int brY = gv.squareSize;
+                        IbRect src = new IbRect(0, 0, gv.cc.black_tile.PixelSize.Width, gv.cc.black_tile.PixelSize.Height);
+                        IbRect dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels, tlY, brX, brY);
+                        if (!mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x].Visible)
+                        {
+                            gv.DrawBitmap(gv.cc.black_tile, src, dst);
+                        }
+                    }
+                }
+            }
+            #endregion
+        }
+
+        public void drawLightAndDarkness(float elapsed)
+        {
+            #region new system
+            if (mod.useAllTileSystem)
+            {
+                #region neighbours
+                if ((gv.mod.currentArea.northernNeighbourArea != "") && (gv.mod.PlayerLocationY <= gv.playerOffsetY))
+                {
+                    gv.mod.seamlessModififierMinY = gv.playerOffsetY - gv.mod.PlayerLocationY;
+                    for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
+                    {
+                        if (gv.mod.moduleAreasObjects[i].Filename == gv.mod.currentArea.northernNeighbourArea)
+                        {
+                            gv.mod.indexOfNorthernNeighbour = i;
+                        }
+                    }
+
+                    if (gv.mod.moduleAreasObjects[gv.mod.indexOfNorthernNeighbour].easternNeighbourArea != "")
+                    {
+                        if (gv.mod.PlayerLocationX > (gv.mod.currentArea.MapSizeX - gv.playerOffsetX - 1))
+                        {
+                            gv.mod.seamlessModififierMaxX = gv.mod.PlayerLocationX - (gv.mod.currentArea.MapSizeX - gv.playerOffsetX - 1);
+                        }
+                        for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
+                        {
+                            if (gv.mod.moduleAreasObjects[i].Filename == gv.mod.moduleAreasObjects[gv.mod.indexOfNorthernNeighbour].easternNeighbourArea)
+                            {
+                                gv.mod.indexOfNorthEasternNeighbour = i;
+                            }
+                        }
+                    }
+
+                    if (gv.mod.moduleAreasObjects[gv.mod.indexOfNorthernNeighbour].westernNeighbourArea != "")
+                    {
+                        if (gv.mod.PlayerLocationX <= gv.playerOffsetX)
+                        {
+                            gv.mod.seamlessModififierMinX = gv.playerOffsetX - gv.mod.PlayerLocationX;
+                        }
+
+                        for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
+                        {
+                            if (gv.mod.moduleAreasObjects[i].Filename == gv.mod.moduleAreasObjects[gv.mod.indexOfNorthernNeighbour].westernNeighbourArea)
+                            {
+                                gv.mod.indexOfNorthWesternNeighbour = i;
+                            }
+                        }
+                    }
+                }
+
+                if ((gv.mod.currentArea.southernNeighbourArea != "") && (gv.mod.PlayerLocationY > (gv.mod.currentArea.MapSizeY - gv.playerOffsetY - 1)))
+                {
+
+                    gv.mod.seamlessModififierMaxY = gv.mod.PlayerLocationY - (gv.mod.currentArea.MapSizeY - gv.playerOffsetY - 1);
+                    for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
+                    {
+                        if (gv.mod.moduleAreasObjects[i].Filename == gv.mod.currentArea.southernNeighbourArea)
+                        {
+                            gv.mod.indexOfSouthernNeighbour = i;
+                        }
+                    }
+
+                    if (gv.mod.moduleAreasObjects[gv.mod.indexOfSouthernNeighbour].easternNeighbourArea != "")
+                    {
+                        if (gv.mod.PlayerLocationX > (gv.mod.currentArea.MapSizeX - gv.playerOffsetX - 1))
+                        {
+                            gv.mod.seamlessModififierMaxX = gv.mod.PlayerLocationX - (gv.mod.currentArea.MapSizeX - gv.playerOffsetX - 1);
+                        }
+                        for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
+                        {
+                            if (gv.mod.moduleAreasObjects[i].Filename == gv.mod.moduleAreasObjects[gv.mod.indexOfSouthernNeighbour].easternNeighbourArea)
+                            {
+                                gv.mod.indexOfSouthEasternNeighbour = i;
+                            }
+                        }
+                    }
+
+                    if (gv.mod.moduleAreasObjects[gv.mod.indexOfSouthernNeighbour].westernNeighbourArea != "")
+                    {
+                        if (gv.mod.PlayerLocationX <= gv.playerOffsetX)
+                        {
+                            gv.mod.seamlessModififierMinX = gv.playerOffsetX - gv.mod.PlayerLocationX;
+                        }
+                        for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
+                        {
+                            if (gv.mod.moduleAreasObjects[i].Filename == gv.mod.moduleAreasObjects[gv.mod.indexOfSouthernNeighbour].westernNeighbourArea)
+                            {
+                                gv.mod.indexOfSouthWesternNeighbour = i;
+                            }
+                        }
+                    }
+                }
+
+                if ((gv.mod.currentArea.westernNeighbourArea != "") && (gv.mod.PlayerLocationX <= gv.playerOffsetX))
+                {
+                    gv.mod.seamlessModififierMinX = gv.playerOffsetX - gv.mod.PlayerLocationX;
+                    for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
+                    {
+                        if (gv.mod.moduleAreasObjects[i].Filename == gv.mod.currentArea.westernNeighbourArea)
+                        {
+                            gv.mod.indexOfWesternNeighbour = i;
+                        }
+                    }
+
+                    if (gv.mod.moduleAreasObjects[gv.mod.indexOfWesternNeighbour].northernNeighbourArea != "")
+                    {
+
+                        if (gv.mod.PlayerLocationY <= gv.playerOffsetY)
+                        {
+                            gv.mod.seamlessModififierMinY = gv.playerOffsetY - gv.mod.PlayerLocationY;
+                        }
+
+                        for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
+                        {
+                            if (gv.mod.moduleAreasObjects[i].Filename == gv.mod.moduleAreasObjects[gv.mod.indexOfWesternNeighbour].northernNeighbourArea)
+                            {
+                                gv.mod.indexOfNorthWesternNeighbour = i;
+                            }
+                        }
+                    }
+
+                    if (gv.mod.moduleAreasObjects[gv.mod.indexOfWesternNeighbour].southernNeighbourArea != "")
+                    {
+
+                        if (gv.mod.PlayerLocationY > (gv.mod.currentArea.MapSizeY - gv.playerOffsetY - 1))
+                        {
+                            gv.mod.seamlessModififierMaxY = gv.mod.PlayerLocationY - (gv.mod.currentArea.MapSizeY - gv.playerOffsetY - 1);
+                        }
+
+                        for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
+                        {
+                            if (gv.mod.moduleAreasObjects[i].Filename == gv.mod.moduleAreasObjects[gv.mod.indexOfWesternNeighbour].southernNeighbourArea)
+                            {
+                                gv.mod.indexOfSouthWesternNeighbour = i;
+                            }
+                        }
+                    }
+                }
+
+                if ((gv.mod.currentArea.easternNeighbourArea != "") && (gv.mod.PlayerLocationX > (gv.mod.currentArea.MapSizeX - gv.playerOffsetX - 1)))
+                {
+                    gv.mod.seamlessModififierMaxX = gv.mod.PlayerLocationX - (gv.mod.currentArea.MapSizeX - gv.playerOffsetX - 1);
+                    for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
+                    {
+                        if (gv.mod.moduleAreasObjects[i].Filename == gv.mod.currentArea.easternNeighbourArea)
+                        {
+                            gv.mod.indexOfEasternNeighbour = i;
+                        }
+                    }
+
+                    if (gv.mod.moduleAreasObjects[gv.mod.indexOfEasternNeighbour].northernNeighbourArea != "")
+                    {
+                        if (gv.mod.PlayerLocationY <= gv.playerOffsetY)
+                        {
+                            gv.mod.seamlessModififierMinY = gv.playerOffsetY - gv.mod.PlayerLocationY;
+                        }
+
+                        for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
+                        {
+                            if (gv.mod.moduleAreasObjects[i].Filename == gv.mod.moduleAreasObjects[gv.mod.indexOfEasternNeighbour].northernNeighbourArea)
+                            {
+                                gv.mod.indexOfNorthEasternNeighbour = i;
+                            }
+                        }
+                    }
+
+                    if (gv.mod.moduleAreasObjects[gv.mod.indexOfEasternNeighbour].southernNeighbourArea != "")
+                    {
+                        if (gv.mod.PlayerLocationY > (gv.mod.currentArea.MapSizeY - gv.playerOffsetY - 1))
+                        {
+                            gv.mod.seamlessModififierMaxY = gv.mod.PlayerLocationY - (gv.mod.currentArea.MapSizeY - gv.playerOffsetY - 1);
+                        }
+                        for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
+                        {
+                            if (gv.mod.moduleAreasObjects[i].Filename == gv.mod.moduleAreasObjects[gv.mod.indexOfEasternNeighbour].southernNeighbourArea)
+                            {
+                                gv.mod.indexOfSouthEasternNeighbour = i;
+                            }
+                        }
+                    }
+                }
+                #endregion
+
+                int minX = mod.PlayerLocationX - gv.playerOffsetX - 3; //using -2 in case a large tile (3x3) needs to start off the visible map space to be seen
+                if (minX < -gv.mod.seamlessModififierMinX - 1) { minX = -gv.mod.seamlessModififierMinX - 1; }
+                int minY = mod.PlayerLocationY - gv.playerOffsetY - 3; //using -2 in case a large tile (3x3) needs to start off the visible map space to be seen
+                if (minY < -gv.mod.seamlessModififierMinY - 1) { minY = -gv.mod.seamlessModififierMinY - 1; }
+
+                int maxX = mod.PlayerLocationX + gv.playerOffsetX + 1;
+                if (maxX > this.mod.currentArea.MapSizeX + gv.mod.seamlessModififierMaxX) { maxX = this.mod.currentArea.MapSizeX + gv.mod.seamlessModififierMaxX; }
+                int maxY = mod.PlayerLocationY + gv.playerOffsetY + 1;
+                if (maxY > this.mod.currentArea.MapSizeY + gv.mod.seamlessModififierMaxY) { maxY = this.mod.currentArea.MapSizeY + gv.mod.seamlessModififierMaxY; }
+
+                flickerDelayCounter += elapsed / 1000f * 30f;
+                //dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels - (tile.lightRadius * gv.squareSize), tlY - (tile.lightRadius * gv.squareSize), brX * (1 + tile.lightRadius * 2), brY * (1 + tile.lightRadius * 2));
+                //dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels, tlY, brX, brY);
+
+                //tile.flicker = 0;
+                if (flickerDelayCounter > 1.15f)
+                {
+                    if (flickerRise)
+                    {
+                        flicker++;
+                        //tile.affectedByFlickerAlready = true;
+                        /*
+                        int decider = gv.sf.RandInt(1);
+                        if (decider == 1)
+                        {
+                            flicker++;
+                        }
+                        else if (decider == 2)
+                        {
+                            flicker++;
+                            flicker++;
+                        }
+                        else
+                        {
+                            flicker++;
+                            flicker++;
+                            flicker++;
+                        }
+                        */
+                    }
+                    else
+                    {
+                        //tile.affectedByFlickerAlready = true;
+                        flicker--;
+
+                        /*
+                        int decider = gv.sf.RandInt(1);
+                        if (decider == 1)
+                        {
+                            flicker--;
+                        }
+                        else if (decider == 2)
+                        {
+                            flicker--;
+                            flicker--;
+                        }
+                        else
+                        {
+                            flicker--;
+                            flicker--;
+                            flicker--;
+                        }
+                        */
+                    }
+                    if (flicker >= 45)
+                    {
+                        flickerRise = false;
+                    }
+                    if (flicker <= 0)
+                    {
+                        flickerRise = true;
+                    }
+
+                    flickerDelayCounter = 0;
+                }
+                int shifter = 0;
+                int shifterY = 0;
+                
+                int decider2 = gv.sf.RandInt(100);
+                int decider3 = gv.sf.RandInt(2);
+                if (decider2 <= 3)
+                {
+                    shifter = gv.sf.RandInt(1);
+                    if (decider3 == 1)
+                    {
+                        shifter = shifter * -1;
+                    }
+                }
+
+                decider2 = gv.sf.RandInt(100);
+                decider3 = gv.sf.RandInt(2);
+                if (decider2 <= 3)
+                {
+                    shifterY = gv.sf.RandInt(1);
+                    if (decider3 == 1)
+                    {
+                        shifterY = shifterY * -1;
+                    }
+                }
+                
+
+                #region go through tiles
+                for (int x = minX; x < maxX; x++)
+                {
+                    for (int y = minY; y < maxY; y++)
+                    {
+
+                        bool situationFound = false;
+                        bool drawTile = true;
+                        int index = -1;
+                        Tile tile = new Tile();
+
+                        //nine situations where a tile can be:
+                        //tile on north-western map (diagonal situation)
+                        if ((x < 0) && (y < 0) && (!situationFound))
+                        {
+                            situationFound = true;
+                            if (gv.mod.indexOfNorthWesternNeighbour != -1)
+                            {
+                                int transformedX = mod.moduleAreasObjects[gv.mod.indexOfNorthWesternNeighbour].MapSizeX + x;
+                                int transformedY = mod.moduleAreasObjects[gv.mod.indexOfNorthWesternNeighbour].MapSizeY + y;
+                                tile = mod.moduleAreasObjects[gv.mod.indexOfNorthWesternNeighbour].Tiles[transformedY * mod.moduleAreasObjects[gv.mod.indexOfNorthWesternNeighbour].MapSizeX + transformedX];
+                                index = gv.mod.indexOfNorthWesternNeighbour;
+                            }
+                            else
+                            {
+                                drawTile = false;
+                            }
+                        }
+                        //tile on south-westernmap (diagonal situation)
+                        if ((x < 0) && (y > (gv.mod.currentArea.MapSizeY - 1)) && (!situationFound))
+                        {
+                            situationFound = true;
+                            if (gv.mod.indexOfSouthWesternNeighbour != -1)
+                            {
+                                int transformedX = mod.moduleAreasObjects[gv.mod.indexOfSouthWesternNeighbour].MapSizeX + x;
+                                int transformedY = y - gv.mod.currentArea.MapSizeY;
+                                tile = mod.moduleAreasObjects[gv.mod.indexOfSouthWesternNeighbour].Tiles[transformedY * mod.moduleAreasObjects[gv.mod.indexOfSouthWesternNeighbour].MapSizeX + transformedX];
+                                index = gv.mod.indexOfSouthWesternNeighbour;
+                            }
+                            else
+                            {
+                                drawTile = false;
+                            }
+                        }
+                        //tile on south-easternmap (diagonal situation)
+                        if ((x > (gv.mod.currentArea.MapSizeX - 1)) && (y > (gv.mod.currentArea.MapSizeY - 1)) && (!situationFound))
+                        {
+                            situationFound = true;
+                            if (gv.mod.indexOfSouthEasternNeighbour != -1)
+                            {
+                                int transformedX = x - gv.mod.currentArea.MapSizeX;
+                                int transformedY = y - gv.mod.currentArea.MapSizeY;
+                                tile = mod.moduleAreasObjects[gv.mod.indexOfSouthEasternNeighbour].Tiles[transformedY * mod.moduleAreasObjects[gv.mod.indexOfSouthEasternNeighbour].MapSizeX + transformedX];
+                                index = gv.mod.indexOfSouthEasternNeighbour;
+                            }
+                            else
+                            {
+                                drawTile = false;
+                            }
+                        }
+                        //tile on north-easternmap (diagonal situation)
+                        if ((x > (gv.mod.currentArea.MapSizeX - 1)) && (y < 0) && (!situationFound))
+                        {
+                            situationFound = true;
+                            if (gv.mod.indexOfNorthEasternNeighbour != -1)
+                            {
+                                int transformedX = x - gv.mod.currentArea.MapSizeX;
+                                int transformedY = mod.moduleAreasObjects[gv.mod.indexOfNorthEasternNeighbour].MapSizeY + y;
+                                tile = mod.moduleAreasObjects[gv.mod.indexOfNorthEasternNeighbour].Tiles[transformedY * mod.moduleAreasObjects[gv.mod.indexOfNorthEasternNeighbour].MapSizeX + transformedX];
+                                index = gv.mod.indexOfNorthEasternNeighbour;
+                            }
+                            else
+                            {
+                                drawTile = false;
+                            }
+                        }
+                        //tile on western map
+                        if ((x < 0) && (!situationFound))
+                        {
+                            situationFound = true;
+                            if (gv.mod.indexOfWesternNeighbour != -1)
+                            {
+                                int transformedX = mod.moduleAreasObjects[gv.mod.indexOfWesternNeighbour].MapSizeX + x;
+                                int transformedY = y;
+                                tile = mod.moduleAreasObjects[gv.mod.indexOfWesternNeighbour].Tiles[transformedY * mod.moduleAreasObjects[gv.mod.indexOfWesternNeighbour].MapSizeX + transformedX];
+                                index = gv.mod.indexOfWesternNeighbour;
+                            }
+                            else
+                            {
+                                drawTile = false;
+                            }
+                        }
+                        //tile on southern map
+                        if ((y > (gv.mod.currentArea.MapSizeY - 1)) && (!situationFound))
+                        {
+                            situationFound = true;
+                            if (gv.mod.indexOfSouthernNeighbour != -1)
+                            {
+                                int transformedX = x;
+                                int transformedY = y - gv.mod.currentArea.MapSizeY;
+                                tile = mod.moduleAreasObjects[gv.mod.indexOfSouthernNeighbour].Tiles[transformedY * mod.moduleAreasObjects[gv.mod.indexOfSouthernNeighbour].MapSizeX + transformedX];
+                                index = gv.mod.indexOfSouthernNeighbour;
+                            }
+                            else
+                            {
+                                drawTile = false;
+                            }
+                        }
+                        //tile on eastern map
+                        if ((x > (gv.mod.currentArea.MapSizeX - 1)) && (!situationFound))
+                        {
+                            situationFound = true;
+                            if (gv.mod.indexOfEasternNeighbour != -1)
+                            {
+                                int transformedX = x - gv.mod.currentArea.MapSizeX;
+                                int transformedY = y;
+                                tile = mod.moduleAreasObjects[gv.mod.indexOfEasternNeighbour].Tiles[transformedY * mod.moduleAreasObjects[gv.mod.indexOfEasternNeighbour].MapSizeX + transformedX];
+                                index = gv.mod.indexOfEasternNeighbour;
+                            }
+                            else
+                            {
+                                drawTile = false;
+                            }
+                        }
+                        //tile on northern map
+                        if ((y < 0) && (!situationFound))
+                        {
+                            situationFound = true;
+                            if (gv.mod.indexOfNorthernNeighbour != -1)
+                            {
+                                int transformedX = x;
+                                int transformedY = mod.moduleAreasObjects[gv.mod.indexOfNorthernNeighbour].MapSizeY + y;
+                                tile = mod.moduleAreasObjects[gv.mod.indexOfNorthernNeighbour].Tiles[transformedY * mod.moduleAreasObjects[gv.mod.indexOfNorthernNeighbour].MapSizeX + transformedX];
+                                index = gv.mod.indexOfNorthernNeighbour;
+                            }
+                            else
+                            {
+                                drawTile = false;
+                            }
+                        }
+                        //tile is on current map
+                        if (!situationFound)
+                        {
+                            tile = mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x];
+                        }
+
+                        if (drawTile)
+                        {
+                            try
+                            {
+                                int tlX = (x - mod.PlayerLocationX + gv.playerOffsetX) * gv.squareSize;
+                                int tlY = (y - mod.PlayerLocationY + gv.playerOffsetY) * gv.squareSize;
+                                //float scalerX = tile.tileBitmap0.PixelSize.Width / 100;
+                                //float scalerY = tile.tileBitmap0.PixelSize.Height / 100;
+                                //the tiles0 arrive as 50x50px but we want to have them 100% square size, therefore scaler to 1, ie 100%
+                                float scalerX = 1;
+                                float scalerY = 1;
+                                int brX = (int)(gv.squareSize * scalerX);
+                                int brY = (int)(gv.squareSize * scalerY);
+                                float scaler = gv.sf.RandInt(30);
+                                //int shifter = gv.sf.RandInt(5);
+                                //scaler = 1 + (scaler / 100f);
+                                scaler = 1f;
+                                //shifter = 0;
+                                if (gv.mod.currentArea.UseDayNightCycle)
+                                {
+                                    //shifter = 0;
+                                    //shifterY = 0;
+                                }
+                                IbRect src = new IbRect(0, 0, 100, 100);
+                                IbRect dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler-1)*brX * 0.5f), tlY + shifterY - (int)((scaler - 1) * brY * 0.5f), (int)(brX * scaler), (int)(brY * scaler));
+
+                                float flickerReduction = 1;
+                                if (gv.mod.currentArea.UseDayNightCycle)
+                                {
+                                    flickerReduction = 1.5f;
+                                }
+
+                                if (tile.isFocalPoint)
+                                {
+                                    //color of light source
+                                    //if (!gv.mod.currentArea.UseDayNightCycle)
+                                    //{
+                                        gv.DrawBitmap(gv.cc.light_torch, src, dst, 0, false, 0.9f*(0.225f - flicker/400f));
+                                    //}
+
+                                    //flicker the area light (black darkness or time of day ususally)
+                                    if (gv.mod.currentArea.UseDayNightCycle)
+                                    {
+                                        int dawn = 5 * 60;
+                                        int sunrise = 6 * 60;
+                                        int day = 7 * 60;
+                                        int sunset = 17 * 60;
+                                        int dusk = 18 * 60;
+                                        int night = 20 * 60;
+                                        int time = gv.mod.WorldTime % 1440;
+                                        if ((time >= dawn) && (time < sunrise))
+                                        {
+                                            gv.DrawBitmap(gv.cc.tint_dawn, src, dst, 0, false, 1.0f / flickerReduction * flicker / 100f);
+                                        }
+                                        else if ((time >= sunrise) && (time < day))
+                                        {
+                                            gv.DrawBitmap(gv.cc.tint_sunrise, src, dst, 0, false, 1.0f / flickerReduction * flicker / 100f);
+                                        }
+                                        else if ((time >= day) && (time < sunset))
+                                        {
+                                            //no tint for day
+                                        }
+                                        else if ((time >= sunset) && (time < dusk))
+                                        {
+                                            gv.DrawBitmap(gv.cc.tint_sunset, src, dst, 0, false, 1.0f / flickerReduction * flicker / 100f);
+                                        }
+                                        else if ((time >= dusk) && (time < night))
+                                        {
+                                            gv.DrawBitmap(gv.cc.tint_dusk, src, dst, 0, false, 1.0f / flickerReduction * flicker / 100f);
+                                        }
+                                        else if ((time >= night) || (time < dawn))
+                                        {
+                                            gv.DrawBitmap(gv.cc.tint_night, src, dst, 0, false, 0.75f / flickerReduction * 1.0f * flicker / 100f);
+                                        }
+                                    }
+                                    //dark area
+                                    //connect to area is dark?
+                                    else
+                                    {
+                                        gv.DrawBitmap(gv.cc.black_tile, src, dst, 0, false, 0.075f * flicker / 100f);
+                                    }
+
+                                    if (!tile.Visible)
+                                    {
+                                        //dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels, tlY, (int)(brX * scaler), (int)(brY * scaler));
+                                        gv.DrawBitmap(gv.cc.offScreen, src, dst, 0, false, 1.0f);
+                                    }
+                                }
+
+                                else if (tile.isCentreOfLightCircle)
+                                {
+
+                                    //if (!gv.mod.currentArea.UseDayNightCycle)
+                                    //{
+                                        gv.DrawBitmap(gv.cc.light_torch, src, dst, 0, false, 0.9f * (0.125f - flicker/400f));
+                                    //}
+                                    if (gv.mod.currentArea.UseDayNightCycle)
+                                    {
+                                        int dawn = 5 * 60;
+                                        int sunrise = 6 * 60;
+                                        int day = 7 * 60;
+                                        int sunset = 17 * 60;
+                                        int dusk = 18 * 60;
+                                        int night = 20 * 60;
+                                        int time = gv.mod.WorldTime % 1440;
+                                        if ((time >= dawn) && (time < sunrise))
+                                        {
+                                            gv.DrawBitmap(gv.cc.tint_dawn, src, dst, 0, false, 2.75f / flickerReduction * flicker / 100f);
+                                        }
+                                        else if ((time >= sunrise) && (time < day))
+                                        {
+                                            gv.DrawBitmap(gv.cc.tint_sunrise, src, dst, 0, false, 2.75f / flickerReduction * flicker / 100f);
+                                        }
+                                        else if ((time >= day) && (time < sunset))
+                                        {
+                                            //no tint for day
+                                        }
+                                        else if ((time >= sunset) && (time < dusk))
+                                        {
+                                            gv.DrawBitmap(gv.cc.tint_sunset, src, dst, 0, false, 2.75f / flickerReduction * flicker / 100f);
+                                        }
+                                        else if ((time >= dusk) && (time < night))
+                                        {
+                                            gv.DrawBitmap(gv.cc.tint_dusk, src, dst, 0, false, 2.75f / flickerReduction * flicker / 100f);
+                                        }
+                                        else if ((time >= night) || (time < dawn))
+                                        {
+                                            gv.DrawBitmap(gv.cc.tint_night, src, dst, 0, false, 1.00f / flickerReduction * 1.5f * flicker / 100f);
+                                        }
+                                    }
+                                    //dark area
+                                    //connect to area is dark?
+                                    else
+                                    {
+                                        gv.DrawBitmap(gv.cc.black_tile, src, dst, 0, false, 0.75f * flicker / 100f);
+                                    }
+                                    //gv.DrawBitmap(gv.cc.black_tile, src, dst, 0, false, 0.55f * flicker / 100f);
+                                    if (!tile.Visible)
+                                    {
+                                        //dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels, tlY, (int)(brX * scaler), (int)(brY * scaler));
+                                        gv.DrawBitmap(gv.cc.offScreen, src, dst, 0, false, 1.0f);
+                                    }
+                                }
+
+                                else if (tile.isOtherPartOfLightCircle)
+                                {
+                                    //do nothing,the overlapping and scaled light circle graphic does t already
+                                    //if (!gv.mod.currentArea.UseDayNightCycle)
+                                    //{
+                                        gv.DrawBitmap(gv.cc.light_torch, src, dst, 0, false, 0.9f * (0.125f - flicker/400f));
+                                    //}
+
+                                    if (gv.mod.currentArea.UseDayNightCycle)
+                                    {
+                                        int dawn = 5 * 60;
+                                        int sunrise = 6 * 60;
+                                        int day = 7 * 60;
+                                        int sunset = 17 * 60;
+                                        int dusk = 18 * 60;
+                                        int night = 20 * 60;
+                                        int time = gv.mod.WorldTime % 1440;
+                                        if ((time >= dawn) && (time < sunrise))
+                                        {
+                                            gv.DrawBitmap(gv.cc.tint_dawn, src, dst, 0, false, 3.75f / flickerReduction * flicker / 100f);
+                                        }
+                                        else if ((time >= sunrise) && (time < day))
+                                        {
+                                            gv.DrawBitmap(gv.cc.tint_sunrise, src, dst, 0, false, 3.75f / flickerReduction * flicker / 100f);
+                                        }
+                                        else if ((time >= day) && (time < sunset))
+                                        {
+                                            //no tint for day
+                                        }
+                                        else if ((time >= sunset) && (time < dusk))
+                                        {
+                                            gv.DrawBitmap(gv.cc.tint_sunset, src, dst, 0, false, 3.75f / flickerReduction * flicker / 100f);
+                                        }
+                                        else if ((time >= dusk) && (time < night))
+                                        {
+                                            gv.DrawBitmap(gv.cc.tint_dusk, src, dst, 0, false, 3.75f / flickerReduction * flicker / 100f);
+                                        }
+                                        else if ((time >= night) || (time < dawn))
+                                        {
+                                            gv.DrawBitmap(gv.cc.black_tile, src, dst, 0, false, flicker/100f * 1.2f);
+                                            gv.DrawBitmap(gv.cc.tint_night, src, dst, 0, false, 1.7f * 1.5f / flickerReduction * flicker / 100f);
+                                        }
+                                    }
+                                    //dark area
+                                    //connect to area is dark?
+                                    else
+                                    {
+                                        gv.DrawBitmap(gv.cc.black_tile, src, dst, 0, false, 2.5f * flicker / 100f);
+                                    }
+                                    //gv.DrawBitmap(gv.cc.black_tile, src, dst, 0, false, 1.20f * flicker/100f);
+                                    if (!tile.Visible)
+                                    {
+                                        //dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels, tlY, brX, brY);
+                                        gv.DrawBitmap(gv.cc.offScreen, src, dst, 0, false, 1.0f);
+                                    }
+                                }
+                                else if ((tile.Visible)) 
+                                {
+                                    int flickerExtensionX = 0;
+                                    int flickerExtensionY = 0;
+                                    int flickerEarlyStartX = 0;
+                                    int flickerEarlyStartY = 0;
+
+                                    if (!gv.mod.currentArea.UseDayNightCycle)
+                                    {
+                                        //flickerExtensionX = 4;
+                                        //flickerExtensionY = 4;
+                                        //flickerEarlyStartX = -2;
+                                        //flickerEarlyStartY = -2;
+                                    }
+                                    /*
+                                    if (x == (maxX - 1))
+                                    {
+                                        flickerExtensionX = 10;
+                                    }
+                                    if (y == (maxY - 1))
+                                    {
+                                        flickerExtensionY = 10;
+                                    }
+                                    if (x == (minX))
+                                    {
+                                        flickerExtensionX = 20;
+                                        flickerEarlyStartX = -20;
+                                    }
+                                    if (y == (minY))
+                                    {
+                                        flickerExtensionY = 20;
+                                        flickerEarlyStartY = -20;
+                                    }
+                                    */
+                                    dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f) + flickerEarlyStartX, tlY + shifterY - (int)((scaler - 1) * brY * 0.5f) + flickerEarlyStartY, (int)(brX * scaler)+ flickerExtensionX, (int)(brY * scaler) + flickerExtensionY);
+
+                                    //draw black tile
+                                    //dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels, tlY, (int)(brX * scaler), (int)(brY * scaler));
+                                    if (!gv.mod.currentArea.UseDayNightCycle)
+                                    {
+                                        gv.DrawBitmap(gv.cc.black_tile, src, dst, 0, false, 1.0f);
+                                    }
+                                    else
+                                    {
+                                        //do daytime tinting here
+                                        int dawn = 5 * 60;
+                                        int sunrise = 6 * 60;
+                                        int day = 7 * 60;
+                                        int sunset = 17 * 60;
+                                        int dusk = 18 * 60;
+                                        int night = 20 * 60;
+                                        int time = gv.mod.WorldTime % 1440;
+                                        if ((time >= dawn) && (time < sunrise))
+                                        {
+                                            gv.DrawBitmap(gv.cc.tint_dawn, src, dst, 0, false, 1f);
+                                        }
+                                        else if ((time >= sunrise) && (time < day))
+                                        {
+                                            gv.DrawBitmap(gv.cc.tint_sunrise, src, dst, 0, false, 1f);
+                                        }
+                                        else if ((time >= day) && (time < sunset))
+                                        {
+                                            //no tint for day
+                                        }
+                                        else if ((time >= sunset) && (time < dusk))
+                                        {
+                                            gv.DrawBitmap(gv.cc.tint_sunset, src, dst, 0, false, 1f);
+                                        }
+                                        else if ((time >= dusk) && (time < night))
+                                        {
+                                            gv.DrawBitmap(gv.cc.tint_dusk, src, dst, 0, false, 1f);
+                                        }
+                                        else if ((time >= night) || (time < dawn))
+                                        {
+                                            gv.DrawBitmap(gv.cc.black_tile, src, dst, 0, false, 0.55f);
+                                            gv.DrawBitmap(gv.cc.tint_night, src, dst, 0, false, 0.75f);
+                                        }
+                                    }
+                                } 
+                            }
+                            catch { }
+                        }
+                    }
+                }
+                #endregion
+
+            }
+            #endregion
+            #region old system
+            else //old system using single image background and no load tile images on demand
+            {
+                int minX = mod.PlayerLocationX - gv.playerOffsetX - 1;
+                if (minX < 0) { minX = 0; }
+                int minY = mod.PlayerLocationY - gv.playerOffsetY - 1;
                 if (minY < 0) { minY = 0; }
 
                 int maxX = mod.PlayerLocationX + gv.playerOffsetX + 2;
@@ -29012,6 +29776,9 @@ namespace IceBlink2
                         if (drawTile)
                         {
                             tile.Visible = true;
+                            //tile.lightRadius = 0;
+                            //tile.isCentreOfLightCircle = false;
+                            //tile.isOtherPartOfLightCircle = false;
                         }
 
                         //YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY

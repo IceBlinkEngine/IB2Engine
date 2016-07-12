@@ -19,6 +19,7 @@ namespace IceBlink2
         public int lastLocationX = 0;
         public int lastLocationY = 0;
 	    public string ImageFileName = "blank";
+        public bool isLight = false;
         //[JsonIgnore]
 	    public bool PropFacingLeft = true;
 	    public string MouseOverText = "none";
@@ -89,6 +90,7 @@ namespace IceBlink2
         public Prop DeepCopy()
         {
     	    Prop copy = new Prop();
+            copy.isLight = this.isLight;
 		    copy.LocationX = this.LocationX;
 		    copy.LocationY = this.LocationY;
             copy.blockTrigger = this.blockTrigger;

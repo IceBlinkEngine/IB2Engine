@@ -31,6 +31,7 @@ namespace IceBlink2
     public partial class GameView : IBForm
     {
         //this class is handled differently than Android version
+        public int elapsed = 0;
         public float screenDensity;
         public int screenWidth;
         public int screenHeight;
@@ -311,6 +312,7 @@ namespace IceBlink2
             cc.tint_sunset = cc.LoadBitmap("tint_sunset");
             cc.tint_dusk = cc.LoadBitmap("tint_dusk");
             cc.tint_night = cc.LoadBitmap("tint_night");
+            cc.light_torch = cc.LoadBitmap("light_torch");
             //off for now
             //cc.tint_rain = cc.LoadBitmap("tint_rain");
             cc.ui_portrait_frame = cc.LoadBitmap("ui_portrait_frame");
@@ -838,9 +840,9 @@ namespace IceBlink2
             {
                 stillProcessingGameLoop = true; //starting the game loop so do not allow another tick call to run until finished with this tick call.
                 long current = gameTimerStopwatch.ElapsedMilliseconds; //get the current total amount of ms since the game launched
-                int elapsed = (int)(current - previousTime); //calculate the total ms elapsed since the last time through the game loop
+                elapsed = (int)(current - previousTime); //calculate the total ms elapsed since the last time through the game loop
                 Update(elapsed); //runs AI and physics
-                Render(); //draw the screen frame
+                Render(elapsed); //draw the screen frame
                 if (reportFPScount >= 10)
                 {
                     reportFPScount = 0;
@@ -1150,7 +1152,7 @@ namespace IceBlink2
             renderTarget2D.EndDraw();
             _swapChain.Present(1, PresentFlags.None);
         }
-        public void Render()
+        public void Render(float elapsed)
         {
             BeginDraw(); //uncomment this for DIRECT2D ADDITIONS  
           
@@ -1190,7 +1192,7 @@ namespace IceBlink2
             }
             else if (screenType.Equals("main"))
             {
-                screenMainMap.redrawMain();
+                screenMainMap.redrawMain(elapsed);
             }
             else if (screenType.Equals("party"))
             {
@@ -1273,7 +1275,7 @@ namespace IceBlink2
         }
         private void RenderCallback()
         {
-            Render();
+            Render(0);
         }
         public void drawUIBackground()
         {

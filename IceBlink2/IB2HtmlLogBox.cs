@@ -206,7 +206,7 @@ namespace IceBlink2
                 {
                     SetCurrentTopLineIndex(-numberOfTextLinesToMove);
                     //gv.Invalidate();
-                    gv.Render();
+                    gv.Render(0);
                 }
             }
         }        
