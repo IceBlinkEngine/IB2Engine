@@ -83,6 +83,8 @@ namespace IceBlink2
         public Bitmap offScreen5;
         public Bitmap offScreen6;
         public Bitmap offScreen7;
+        public Bitmap black_tile4;
+        public Bitmap black_tile5;
         public Bitmap offScreenTrans;
         public Bitmap death_fx;
         public Bitmap tint_dawn;

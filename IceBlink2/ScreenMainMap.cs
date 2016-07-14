@@ -22,8 +22,8 @@ namespace IceBlink2
         public bool showFullParty = false;
         public bool showArrows = true;
         public bool hideClock = false;
-        int shifter = 0;
-        int shifterY = 0;
+        public int shifter = 0;
+        public int shifterY = 0;
         public float shifterDelayCounter = 0;
         public bool shifterRise = true;
         public float shifterYDelayCounter = 0;
@@ -26294,32 +26294,38 @@ namespace IceBlink2
                         {
                             try
                             {
-                                int tlX = (x - mod.PlayerLocationX + gv.playerOffsetX) * gv.squareSize;
-                                int tlY = (y - mod.PlayerLocationY + gv.playerOffsetY) * gv.squareSize;
+                                int tlX = (x - mod.PlayerLocationX + gv.playerOffsetX) * (int)gv.squareSize;
+                                int tlY = (y - mod.PlayerLocationY + gv.playerOffsetY) * (int)gv.squareSize;
                                 //float scalerX = tile.tileBitmap0.PixelSize.Width / 100;
                                 //float scalerY = tile.tileBitmap0.PixelSize.Height / 100;
                                 //the tiles0 arrive as 50x50px but we want to have them 100% square size, therefore scaler to 1, ie 100%
                                 float scalerX = 1.0f;
                                 float scalerY = 1.0f;
-                                int brX = (int)(gv.squareSize * scalerX);
-                                int brY = (int)(gv.squareSize * scalerY);
+                                int brX = gv.squareSize;
+                                int brY = gv.squareSize;
                                 IbRect src = new IbRect(0, 0, 100, 100);
                                 IbRect dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels - (int)(brX * 0.1f), tlY - (int)(brY * 0.1f), (int)(brX*1.2f), (int)(brY*1.2f));
+                                //IbRect dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels, tlY, (int)(brX * 1.09f), (int)(brY * 1.1f));
+                                //IbRect dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels, tlY, gv.squareSize, gv.squareSize);
+                                //IbRect dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels, tlY, brX + gv.ox, brY + 3);
+
+
 
                                 if (tile.Visible == false)
                                 {
-                                    gv.DrawBitmap(gv.cc.offScreen, src, dst,0,false,1.0f);
+                                    gv.DrawBitmap(gv.cc.offScreen, src, dst,false,1.0f, false);
                                 }
 
                                 else if ((tile.Visible == true) && ( (tile.opacity > 0) ) )
                                 {
+                                    //dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + (int)(brX * 0.05f), tlY + (int)(brY * 0.05f), brX - (int)(brX * 0.05f), brY - (int)(brY * 0.05f));
 
                                     if (tile.fadeMode == 0)
                                     {
                                         tile.fadeMode = gv.sf.RandInt(3);
                                     }
 
-                                    int chance = gv.sf.RandInt(100);
+                                    int chance = gv.sf.RandInt(75);
                                     if (tile.fadeMode == 1)
                                     {
                                         if (chance > 50)
@@ -26332,10 +26338,14 @@ namespace IceBlink2
                                         }
                                         gv.DrawBitmap(gv.cc.offScreen5, src, dst, 0, false, 1.0f * tile.opacity5);
                                         gv.DrawBitmap(gv.cc.offScreen6, src, dst, 0, false, 0.5f * tile.opacity6);
+                                        //gv.DrawBitmap(gv.cc.black_tile4, src, dst, false, 1.0f * tile.opacity5, false);
+                                        //gv.DrawBitmap(gv.cc.black_tile5, src, dst, false, 0.5f * tile.opacity6, false);
+
+                                        //gv.DrawBitmap(tile.tileBitmap0, src, dst, false, 1f, true);
                                     }
                                     if (tile.fadeMode == 2)
                                     {
-                                        chance = gv.sf.RandInt(100);
+                                        chance = gv.sf.RandInt(75);
                                         if (chance > 50)
                                         {
                                             tile.opacity6 = tile.opacity6 - 0.14f;
@@ -26346,11 +26356,13 @@ namespace IceBlink2
                                         }
                                         gv.DrawBitmap(gv.cc.offScreen6, src, dst, 0, false, 1.0f * tile.opacity6);
                                         gv.DrawBitmap(gv.cc.offScreen7, src, dst, 0, false, 0.5f * tile.opacity7);
+                                        //gv.DrawBitmap(gv.cc.black_tile5, src, dst, false, 1.0f * tile.opacity6, false);
+                                        //gv.DrawBitmap(gv.cc.black_tile4, src, dst, false, 0.5f * tile.opacity7, false);
                                     }
 
                                     if (tile.fadeMode == 3)
                                     {
-                                        chance = gv.sf.RandInt(100);
+                                        chance = gv.sf.RandInt(75);
                                         if (chance > 50)
                                         {
                                             tile.opacity7 = tile.opacity7 - 0.14f;
@@ -26361,9 +26373,15 @@ namespace IceBlink2
                                         }
                                         gv.DrawBitmap(gv.cc.offScreen7, src, dst, 0, false, 1.0f * tile.opacity7);
                                         gv.DrawBitmap(gv.cc.offScreen5, src, dst, 0, false, 0.5f * tile.opacity5);
+                                        //gv.DrawBitmap(gv.cc.black_tile4, src, dst, false, 1.0f * tile.opacity7, false);
+                                        //gv.DrawBitmap(gv.cc.black_tile5, src, dst, false, 0.5f * tile.opacity5, false);
                                     }
                                     tile.opacity = tile.opacity - 0.07f;
                                 }
+                                //else if (tile.Visible == false)
+                                //{
+                                    //gv.DrawBitmap(gv.cc.black_tile2, src, dst, false, 1.0f, false);
+                                //}
                             }
                             catch { }
                         }
@@ -26664,6 +26682,7 @@ namespace IceBlink2
                     flickerDelayCounter = 0;
                 }
 
+                //flicker = 0;
 
                 shifterDelayCounter += elapsed / 1000f * 30f;
                 //dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels - (tile.lightRadius * gv.squareSize), tlY - (tile.lightRadius * gv.squareSize), brX * (1 + tile.lightRadius * 2), brY * (1 + tile.lightRadius * 2));
@@ -26730,7 +26749,7 @@ namespace IceBlink2
                         }
                         */
                     }
-                    if (shifter >= 5)
+                    if (shifter >= (gv.squareSize/16f))
                     {
                         shifterRise = false;
                     }
@@ -26804,7 +26823,7 @@ namespace IceBlink2
                         }
                         */
                     }
-                    if (shifterY >= 5)
+                    if (shifterY >= (gv.squareSize/16f))
                     {
                         shifterYRise = false;
                     }
@@ -27106,11 +27125,11 @@ namespace IceBlink2
                                         int time = gv.mod.WorldTime % 1440;
                                         if ((time >= dawn) && (time < sunrise))
                                         {
-                                            gv.DrawBitmap(gv.cc.tint_dawn, src, dst, 0, false, 2.75f / flickerReduction * flicker / 100f);
+                                            gv.DrawBitmap(gv.cc.tint_dawn, src, dst, 0, false, 0.85f * 2.75f / flickerReduction * flicker / 100f);
                                         }
                                         else if ((time >= sunrise) && (time < day))
                                         {
-                                            gv.DrawBitmap(gv.cc.tint_sunrise, src, dst, 0, false, 2.75f / flickerReduction * flicker / 100f);
+                                            gv.DrawBitmap(gv.cc.tint_sunrise, src, dst, 0, false, 0.85f * 2.75f / flickerReduction * flicker / 100f);
                                         }
                                         else if ((time >= day) && (time < sunset))
                                         {
@@ -27118,15 +27137,15 @@ namespace IceBlink2
                                         }
                                         else if ((time >= sunset) && (time < dusk))
                                         {
-                                            gv.DrawBitmap(gv.cc.tint_sunset, src, dst, 0, false, 2.75f / flickerReduction * flicker / 100f);
+                                            gv.DrawBitmap(gv.cc.tint_sunset, src, dst, 0, false, 0.85f * 2.75f / flickerReduction * flicker / 100f);
                                         }
                                         else if ((time >= dusk) && (time < night))
                                         {
-                                            gv.DrawBitmap(gv.cc.tint_dusk, src, dst, 0, false, 2.75f / flickerReduction * flicker / 100f);
+                                            gv.DrawBitmap(gv.cc.tint_dusk, src, dst, 0, false, 0.85f * 2.75f / flickerReduction * flicker / 100f);
                                         }
                                         else if ((time >= night) || (time < dawn))
                                         {
-                                            gv.DrawBitmap(gv.cc.tint_night, src, dst, 0, false, 1.00f / flickerReduction * 1.5f * flicker / 100f);
+                                            gv.DrawBitmap(gv.cc.tint_night, src, dst, 0, false, 0.85f * 1.00f / flickerReduction * 1.5f * flicker / 100f);
                                         }
                                     }
                                     //dark area
@@ -27162,11 +27181,11 @@ namespace IceBlink2
                                         int time = gv.mod.WorldTime % 1440;
                                         if ((time >= dawn) && (time < sunrise))
                                         {
-                                            gv.DrawBitmap(gv.cc.tint_dawn, src, dst, 0, false, 3.75f / flickerReduction * flicker / 100f);
+                                            gv.DrawBitmap(gv.cc.tint_dawn, src, dst, 0, false, 0.65f * 3.75f / flickerReduction * flicker / 100f);
                                         }
                                         else if ((time >= sunrise) && (time < day))
                                         {
-                                            gv.DrawBitmap(gv.cc.tint_sunrise, src, dst, 0, false, 3.75f / flickerReduction * flicker / 100f);
+                                            gv.DrawBitmap(gv.cc.tint_sunrise, src, dst, 0, false, 0.65f * 3.75f / flickerReduction * flicker / 100f);
                                         }
                                         else if ((time >= day) && (time < sunset))
                                         {
@@ -27174,23 +27193,23 @@ namespace IceBlink2
                                         }
                                         else if ((time >= sunset) && (time < dusk))
                                         {
-                                            gv.DrawBitmap(gv.cc.tint_sunset, src, dst, 0, false, 3.75f / flickerReduction * flicker / 100f);
+                                            gv.DrawBitmap(gv.cc.tint_sunset, src, dst, 0, false, 0.65f * 3.75f / flickerReduction * flicker / 100f);
                                         }
                                         else if ((time >= dusk) && (time < night))
                                         {
-                                            gv.DrawBitmap(gv.cc.tint_dusk, src, dst, 0, false, 3.75f / flickerReduction * flicker / 100f);
+                                            gv.DrawBitmap(gv.cc.tint_dusk, src, dst, 0, false, 0.65f * 3.75f / flickerReduction * flicker / 100f);
                                         }
                                         else if ((time >= night) || (time < dawn))
                                         {
-                                            gv.DrawBitmap(gv.cc.black_tile, src, dst, 0, false, flicker/100f * 1.2f);
-                                            gv.DrawBitmap(gv.cc.tint_night, src, dst, 0, false, 1.7f * 1.5f / flickerReduction * flicker / 100f);
+                                            gv.DrawBitmap(gv.cc.black_tile, src, dst, 0, false, 0.65f * flicker/100f * 1.2f);
+                                            gv.DrawBitmap(gv.cc.tint_night, src, dst, 0, false, 0.65f * 1.7f * 1.5f / flickerReduction * flicker / 100f);
                                         }
                                     }
                                     //dark area
                                     //connect to area is dark?
                                     else
                                     {
-                                        gv.DrawBitmap(gv.cc.black_tile, src, dst, 0, false, 2.5f * flicker / 100f);
+                                        gv.DrawBitmap(gv.cc.black_tile, src, dst, 0, false, 0.675f * 2.5f * flicker / 100f);
                                     }
                                     //gv.DrawBitmap(gv.cc.black_tile, src, dst, 0, false, 1.20f * flicker/100f);
                                     if (!tile.Visible)
@@ -27558,7 +27577,7 @@ namespace IceBlink2
                     int brX = gv.squareSize;
                     int brY = gv.squareSize;
                     IbRect src = new IbRect(0, 0, gv.cc.black_tile.PixelSize.Width, gv.cc.black_tile.PixelSize.Height);
-                    IbRect dst = new IbRect(tlX + mapStartLocXinPixels - (int)(brX * 1.0f), tlY - (int)(brY * 1.1f), (int)(brX * 1.2f), (int)(brY * 1.1));
+                    IbRect dst = new IbRect(tlX + mapStartLocXinPixels - (int)(brX * 1.0f), tlY - (int)(brY * 1.1f), (int)(brX * 1.3f), (int)(brY * 1.25f));
                     /*
                     if (col >= (gv.playerOffsetX * 2 + 2))
                     {
@@ -27679,7 +27698,7 @@ namespace IceBlink2
                     int brX = gv.squareSize;
                     int brY = gv.squareSize;
                     IbRect src = new IbRect(0, 0, gv.cc.black_tile.PixelSize.Width, gv.cc.black_tile.PixelSize.Height);
-                    IbRect dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels - (int)(brX * 0.1f), tlY - (int)(brY * 0.1f), (int)(brX * 1.2f), (int)(brY * 1.2f));
+                    IbRect dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels - (int)(brX * 0.1f), tlY - (int)(brY * 0.1f), (int)(brX * 1.2f), (int)(brY * 1.25f));
                     bool skipDraw = false;
 
                     float pixDistanceToBorderOfThisAreaWest = gv.mod.PlayerLocationX;
