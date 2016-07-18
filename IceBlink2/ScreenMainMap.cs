@@ -25831,17 +25831,32 @@ namespace IceBlink2
         }
         public void drawSprites()
         {
+           if (gv.mod.currentArea.areaWeatherName != "" && gv.mod.currentArea.areaWeatherName != "none")
+           {
+           //hurgh1000
+           //gv.cc.addLogText("lime", gv.mod.currentArea.areaWeatherName.ToString());
+
             foreach (Sprite spr in spriteList)
-            {
-                if (spr.movementMethod.Contains("rain") || spr.movementMethod.Contains("snow") || spr.movementMethod.Contains("sandStorm"))
                 {
-                    spr.Draw(gv);
+                    if (spr.movementMethod.Contains("rain") || spr.movementMethod.Contains("snow") || spr.movementMethod.Contains("sandStorm"))
+                    {
+                        spr.Draw(gv);
+                    }
+                }
+
+
+                foreach (Sprite spr in spriteList)
+                {
+                    if (spr.movementMethod.Contains("lightning") || spr.movementMethod.Contains("fog") || spr.movementMethod.Contains("clouds"))
+                    {
+                        spr.Draw(gv);
+                    }
                 }
             }
 
             foreach (Sprite spr in spriteList)
             {
-                if (!spr.movementMethod.Contains("rain") && !spr.movementMethod.Contains("snow") && !spr.movementMethod.Contains("sandStorm"))
+                if (!spr.movementMethod.Contains("lightning") && !spr.movementMethod.Contains("fog") && !spr.movementMethod.Contains("clouds") &&!spr.movementMethod.Contains("rain") && !spr.movementMethod.Contains("snow") && !spr.movementMethod.Contains("sandStorm"))
                 {
                     spr.Draw(gv);
                 }
@@ -27020,6 +27035,16 @@ namespace IceBlink2
 
                         if (drawTile)
                         {
+                            bool lightOn = false;
+                            foreach (bool light in tile.isLit)
+                            {
+                                if (light)
+                                {
+                                    lightOn = true;
+                                    break;
+                                }
+                            }
+
                             try
                             {
                                 int tlX = (x - mod.PlayerLocationX + gv.playerOffsetX) * gv.squareSize;
@@ -27050,12 +27075,15 @@ namespace IceBlink2
                                     flickerReduction = 1.5f;
                                 }
 
-                                if (tile.isFocalPoint)
+                                if ((tile.isFocalPoint)  && (lightOn))
                                 {
                                     //color of light source
                                     //if (!gv.mod.currentArea.UseDayNightCycle)
                                     //{
-                                        gv.DrawBitmap(gv.cc.light_torch, src, dst, 0, false, 0.9f*(0.225f - flicker/400f));
+                                    //if (lightOn)
+                                    //{
+                                        gv.DrawBitmap(gv.cc.light_torch, src, dst, 0, false, 0.9f * (0.225f - flicker / 400f));
+                                    //}
                                     //}
 
                                     //flicker the area light (black darkness or time of day ususally)
@@ -27107,7 +27135,7 @@ namespace IceBlink2
                                     }
                                 }
 
-                                else if (tile.isCentreOfLightCircle)
+                                else if ((tile.isCentreOfLightCircle)  && (lightOn))
                                 {
 
                                     //if (!gv.mod.currentArea.UseDayNightCycle)
@@ -27162,7 +27190,7 @@ namespace IceBlink2
                                     }
                                 }
 
-                                else if (tile.isOtherPartOfLightCircle)
+                                else if ((tile.isOtherPartOfLightCircle) && (lightOn))
                                 {
                                     //do nothing,the overlapping and scaled light circle graphic does t already
                                     //if (!gv.mod.currentArea.UseDayNightCycle)
@@ -27258,7 +27286,7 @@ namespace IceBlink2
                                     //dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels, tlY, (int)(brX * scaler), (int)(brY * scaler));
                                     if (!gv.mod.currentArea.UseDayNightCycle)
                                     {
-                                        gv.DrawBitmap(gv.cc.black_tile, src, dst, 0, false, 1.0f);
+                                        gv.DrawBitmap(gv.cc.black_tile, src, dst, 0, false, 0.975f);
                                     }
                                     else
                                     {
@@ -28039,8 +28067,8 @@ namespace IceBlink2
                         {
                             tgl.toggleOn = false;
                             mod.showInteractionState = false;
-                            gv.cc.addLogText("yellow", "Hide info about interaction state of NPC and creatures (encounter = red, mandatory conversation = orange and optional conversation = green");
-                        }
+                            gv.cc.addLogText("lime", "Show info about interaction state of NPC and creatures turned OFF");
+                    }     
                         else
                         {
                             tgl.toggleOn = true;

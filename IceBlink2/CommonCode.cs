@@ -25,6 +25,7 @@ namespace IceBlink2
         public float weatherSoundMultiplier = 2.7f;
         public bool blockSecondPropTriggersCall = false;
         public List<FloatyText> floatyTextList = new List<FloatyText>();
+        public List<Tile> tilesOfThisLightSource = new List<Tile>();
         public int floatyTextCounter = 0;
         public bool floatyTextOn = false;
 
@@ -2590,6 +2591,9 @@ namespace IceBlink2
                         tile.isCentreOfLightCircle = false;
                         tile.isOtherPartOfLightCircle = false;
                         tile.isFocalPoint = false;
+                        tile.tilePositionInLitArea.Clear();
+                        tile.tileLightSourceTag.Clear();
+                        tile.isLit.Clear();
                     }
 
                     //YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY
@@ -2628,8 +2632,10 @@ namespace IceBlink2
             int seamlessModififierMinY = 0;
             int seamlessModififierMaxY = 0;
 
-            //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+            
 
+            //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+            
             for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
             {
                 if (gv.mod.moduleAreasObjects[i].Filename == gv.mod.currentArea.Filename)
@@ -2838,6 +2844,7 @@ namespace IceBlink2
                 relevantIndices.Add(indexOfEasternNeighbour);
             }
 
+            /*
             for (int i = 0; i < relevantIndices.Count; i++)
             {//2
 
@@ -2866,6 +2873,7 @@ namespace IceBlink2
                             if (p.LocationY + 1 <= (gv.mod.moduleAreasObjects[relevantIndices[i]].MapSizeY - 1))
                             {
                                 gv.mod.moduleAreasObjects[relevantIndices[i]].Tiles[(p.LocationY + 1) * gv.mod.moduleAreasObjects[relevantIndices[i]].MapSizeX + p.LocationX].isCentreOfLightCircle = true;
+                                gv.mod.moduleAreasObjects[relevantIndices[i]].Tiles[(p.LocationY + 1) * gv.mod.moduleAreasObjects[relevantIndices[i]].MapSizeX + p.LocationX].tilePositionInLitArea = "";
                             }
                             if (p.LocationY + 1 <= (gv.mod.moduleAreasObjects[relevantIndices[i]].MapSizeY - 1) && (p.LocationX - 1 >= 0))
                             {
@@ -3252,23 +3260,902 @@ namespace IceBlink2
                     catch
                     { }
 
-                    */
+                    
+                }
+            }
+    */
+            //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+            //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+            //illuminate around props, new
+
+            for (int h = 0; h < relevantIndices.Count; h++)
+            {//2
+
+                int indexOfNorthernNeighbour2 = -1;
+                int indexOfSouthernNeighbour2 = -1;
+                int indexOfEasternNeighbour2 = -1;
+                int indexOfWesternNeighbour2 = -1;
+                int indexOfNorthEasternNeighbour2 = -1;
+                int indexOfNorthWesternNeighbour2 = -1;
+                int indexOfSouthEasternNeighbour2 = -1;
+                int indexOfSouthWesternNeighbour2 = -1;
+                int indexOfCurrentArea2 = -1;
+
+                //get neighbours of the check map
+                for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
+                {
+                    if (gv.mod.moduleAreasObjects[i].Filename == gv.mod.moduleAreasObjects[relevantIndices[h]].Filename)
+                    {
+                        indexOfCurrentArea2 = i;
+                    }
+                }
+
+
+                if ((gv.mod.moduleAreasObjects[relevantIndices[h]].northernNeighbourArea != ""))
+                {
+                    for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
+                    {
+                        if (gv.mod.moduleAreasObjects[i].Filename == gv.mod.moduleAreasObjects[relevantIndices[h]].northernNeighbourArea)
+                        {
+                            indexOfNorthernNeighbour2 = i;
+                        }
+                    }
+
+                    if (gv.mod.moduleAreasObjects[indexOfNorthernNeighbour2].easternNeighbourArea != "")
+                    {
+                        for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
+                        {
+                            if (gv.mod.moduleAreasObjects[i].Filename == gv.mod.moduleAreasObjects[indexOfNorthernNeighbour2].easternNeighbourArea)
+                            {
+                                indexOfNorthEasternNeighbour2 = i;
+                            }
+                        }
+                    }
+
+                    if (gv.mod.moduleAreasObjects[indexOfNorthernNeighbour2].westernNeighbourArea != "")
+                    {
+                        for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
+                        {
+                            if (gv.mod.moduleAreasObjects[i].Filename == gv.mod.moduleAreasObjects[indexOfNorthernNeighbour2].westernNeighbourArea)
+                            {
+                                indexOfNorthWesternNeighbour2 = i;
+                            }
+                        }
+                    }
+                }
+
+                if ((gv.mod.moduleAreasObjects[relevantIndices[h]].southernNeighbourArea != ""))
+                {
+                    for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
+                    {
+                        if (gv.mod.moduleAreasObjects[i].Filename == gv.mod.moduleAreasObjects[relevantIndices[h]].southernNeighbourArea)
+                        {
+                            indexOfSouthernNeighbour2 = i;
+                        }
+                    }
+
+                    if (gv.mod.moduleAreasObjects[indexOfSouthernNeighbour2].easternNeighbourArea != "")
+                    {
+                        for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
+                        {
+                            if (gv.mod.moduleAreasObjects[i].Filename == gv.mod.moduleAreasObjects[indexOfSouthernNeighbour2].easternNeighbourArea)
+                            {
+                                indexOfSouthEasternNeighbour2 = i;
+                            }
+                        }
+                    }
+
+                    if (gv.mod.moduleAreasObjects[indexOfSouthernNeighbour2].westernNeighbourArea != "")
+                    {
+                        for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
+                        {
+                            if (gv.mod.moduleAreasObjects[i].Filename == gv.mod.moduleAreasObjects[indexOfSouthernNeighbour2].westernNeighbourArea)
+                            {
+                                indexOfSouthWesternNeighbour2 = i;
+                            }
+                        }
+                    }
+                }
+
+                if ((gv.mod.moduleAreasObjects[relevantIndices[h]].westernNeighbourArea != ""))
+                {
+                    for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
+                    {
+                        if (gv.mod.moduleAreasObjects[i].Filename == gv.mod.moduleAreasObjects[relevantIndices[h]].westernNeighbourArea)
+                        {
+                            indexOfWesternNeighbour2 = i;
+                        }
+                    }
+
+                    if (gv.mod.moduleAreasObjects[indexOfWesternNeighbour2].northernNeighbourArea != "")
+                    {
+                        for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
+                        {
+                            if (gv.mod.moduleAreasObjects[i].Filename == gv.mod.moduleAreasObjects[indexOfWesternNeighbour2].northernNeighbourArea)
+                            {
+                                indexOfNorthWesternNeighbour2 = i;
+                            }
+                        }
+                    }
+
+                    if (gv.mod.moduleAreasObjects[indexOfWesternNeighbour2].southernNeighbourArea != "")
+                    {
+                        for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
+                        {
+                            if (gv.mod.moduleAreasObjects[i].Filename == gv.mod.moduleAreasObjects[indexOfWesternNeighbour2].southernNeighbourArea)
+                            {
+                                indexOfSouthWesternNeighbour2 = i;
+                            }
+                        }
+                    }
+                }
+
+                if ((gv.mod.moduleAreasObjects[relevantIndices[h]].easternNeighbourArea != ""))
+                {
+                    for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
+                    {
+                        if (gv.mod.moduleAreasObjects[i].Filename == gv.mod.moduleAreasObjects[relevantIndices[h]].easternNeighbourArea)
+                        {
+                            indexOfEasternNeighbour2 = i;
+                        }
+                    }
+
+                    if (gv.mod.moduleAreasObjects[indexOfEasternNeighbour2].northernNeighbourArea != "")
+                    {
+                        for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
+                        {
+                            if (gv.mod.moduleAreasObjects[i].Filename == gv.mod.moduleAreasObjects[indexOfEasternNeighbour2].northernNeighbourArea)
+                            {
+                                indexOfNorthEasternNeighbour2 = i;
+                            }
+                        }
+                    }
+
+                    if (gv.mod.moduleAreasObjects[indexOfEasternNeighbour2].southernNeighbourArea != "")
+                    {
+                        for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
+                        {
+                            if (gv.mod.moduleAreasObjects[i].Filename == gv.mod.moduleAreasObjects[indexOfEasternNeighbour2].southernNeighbourArea)
+                            {
+                                indexOfSouthEasternNeighbour2 = i;
+                            }
+                        }
+                    }
+                }
+
+                int backupLocationX = -1;
+                int backupLocationY = -1;
+
+                foreach (Prop p in gv.mod.moduleAreasObjects[relevantIndices[h]].Props)
+                {//3
+
+                    //hurgh27
+                    //List<Tile> tilesOfThisLightSource = new List<Tile>();
+                    tilesOfThisLightSource.Clear();
+                    int minX2 = p.LocationX - 2;
+                    //if (minX2 < -seamlessModififierMinX) { minX2 = -seamlessModififierMinX; }
+                    int minY2 = p.LocationY - 2;
+                    //if (minY2 < -seamlessModififierMinY) { minY2 = -seamlessModififierMinY; }
+
+                    int maxX2 = p.LocationX + 2;
+                    //if (maxX2 > this.gv.mod.currentArea.MapSizeX - 1 + seamlessModififierMaxX) { maxX2 = this.gv.mod.currentArea.MapSizeX - 1 + seamlessModififierMaxX; }
+                    int maxY2 = p.LocationY + 2;
+                    //if (maxY2 > this.gv.mod.currentArea.MapSizeY - 1 + seamlessModififierMaxY) { maxY2 = this.gv.mod.currentArea.MapSizeY - 1 + seamlessModififierMaxY; }
+
+                    //these 25 squares are added in a list, column per column, starting from 2 sqaures left of center
+                    //1 | 6 | 11 | 16 | 21
+                    //2 | 7 | 12 | 17 | 22
+                    //3 | 8 | 13 | 18 | 23
+                    //4 | 9 | 14 | 19 | 24
+                    //5 | 10 | 15 | 20 | 25
+                    for (int xx = minX2; xx <= maxX2; xx++)
+                    {
+                        for (int yy = minY2; yy <= maxY2; yy++)
+                        {
+                            //YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY
+                            bool situationFound = false;
+                            bool drawTile = true;
+                            int index = -1;
+                            Tile tile = new Tile();
+                            bool addedTileToListAlready = false;
+
+                            //nine plus sixteen situations where a tile can be:
+                            //tile on north-western map (diagonal situation)
+                            if ((xx == -1) && (yy == -1) && (!situationFound))
+                            {
+                                situationFound = true;
+                                if (indexOfNorthWesternNeighbour2 != -1)
+                                {
+                                    int transformedX = gv.mod.moduleAreasObjects[indexOfNorthWesternNeighbour2].MapSizeX + xx;
+                                    int transformedY = gv.mod.moduleAreasObjects[indexOfNorthWesternNeighbour2].MapSizeY + yy;
+                                    gv.mod.moduleAreasObjects[indexOfNorthWesternNeighbour2].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfNorthWesternNeighbour2].MapSizeX + transformedX].isCentreOfLightCircle = true;
+                                    tilesOfThisLightSource.Add(gv.mod.moduleAreasObjects[indexOfNorthWesternNeighbour2].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfNorthWesternNeighbour2].MapSizeX + transformedX]);
+                                    gv.mod.moduleAreasObjects[indexOfNorthWesternNeighbour2].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfNorthWesternNeighbour2].MapSizeX + transformedX].tileLightSourceTag.Add(p.PropTag);
+                                    addedTileToListAlready = true;
+                                }
+                            }
+
+                            //tile on north-western map (diagonal situation), level 2
+                            else if ((xx <= -1) && (yy <= -1) && (!situationFound))
+                            {
+                                situationFound = true;
+                                if (indexOfNorthWesternNeighbour2 != -1)
+                                {
+                                    int transformedX = gv.mod.moduleAreasObjects[indexOfNorthWesternNeighbour2].MapSizeX + xx;
+                                    int transformedY = gv.mod.moduleAreasObjects[indexOfNorthWesternNeighbour2].MapSizeY + yy;
+                                    gv.mod.moduleAreasObjects[indexOfNorthWesternNeighbour2].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfNorthWesternNeighbour2].MapSizeX + transformedX].isOtherPartOfLightCircle = true;
+                                    tilesOfThisLightSource.Add(gv.mod.moduleAreasObjects[indexOfNorthWesternNeighbour2].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfNorthWesternNeighbour2].MapSizeX + transformedX]);
+                                    gv.mod.moduleAreasObjects[indexOfNorthWesternNeighbour2].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfNorthWesternNeighbour2].MapSizeX + transformedX].tileLightSourceTag.Add(p.PropTag);
+                                    addedTileToListAlready = true;
+                                }
+                            }
+
+                            //tile on south-westernmap (diagonal situation)
+                            if ((xx == -1) && (yy == (gv.mod.currentArea.MapSizeY - 1) + 1) && (!situationFound))
+                            {
+                                situationFound = true;
+                                if (indexOfSouthWesternNeighbour2 != -1)
+                                {
+                                    int transformedX = gv.mod.moduleAreasObjects[indexOfSouthWesternNeighbour2].MapSizeX + xx;
+                                    int transformedY = yy - gv.mod.currentArea.MapSizeY;
+                                    gv.mod.moduleAreasObjects[indexOfSouthWesternNeighbour2].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfSouthWesternNeighbour2].MapSizeX + transformedX].isCentreOfLightCircle = true;
+                                    tilesOfThisLightSource.Add(gv.mod.moduleAreasObjects[indexOfSouthWesternNeighbour2].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfSouthWesternNeighbour2].MapSizeX + transformedX]);
+                                    gv.mod.moduleAreasObjects[indexOfSouthWesternNeighbour2].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfSouthWesternNeighbour2].MapSizeX + transformedX].tileLightSourceTag.Add(p.PropTag);
+                                    addedTileToListAlready = true;
+                                }
+                            }
+
+                            //tile on south-westernmap (diagonal situation), level 2
+                            else if ((xx <= -1) && (yy >= (gv.mod.currentArea.MapSizeY - 1) + 1) && (!situationFound))
+                            {
+                                situationFound = true;
+                                if (indexOfSouthWesternNeighbour2 != -1)
+                                {
+                                    int transformedX = gv.mod.moduleAreasObjects[indexOfSouthWesternNeighbour2].MapSizeX + xx;
+                                    int transformedY = yy - gv.mod.currentArea.MapSizeY;
+                                    gv.mod.moduleAreasObjects[indexOfSouthWesternNeighbour2].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfSouthWesternNeighbour2].MapSizeX + transformedX].isOtherPartOfLightCircle = true;
+                                    tilesOfThisLightSource.Add(gv.mod.moduleAreasObjects[indexOfSouthWesternNeighbour2].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfSouthWesternNeighbour2].MapSizeX + transformedX]);
+                                    gv.mod.moduleAreasObjects[indexOfSouthWesternNeighbour2].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfSouthWesternNeighbour2].MapSizeX + transformedX].tileLightSourceTag.Add(p.PropTag);
+                                    addedTileToListAlready = true;
+                                }
+                            }
+
+                            //tile on south-easternmap (diagonal situation)
+                            if ((xx == (gv.mod.currentArea.MapSizeX - 1) + 1) && (yy == (gv.mod.currentArea.MapSizeY - 1) + 1) && (!situationFound))
+                            {
+                                situationFound = true;
+                                if (indexOfSouthEasternNeighbour2 != -1)
+                                {
+                                    int transformedX = xx - gv.mod.currentArea.MapSizeX;
+                                    int transformedY = yy - gv.mod.currentArea.MapSizeY;
+                                    gv.mod.moduleAreasObjects[indexOfSouthEasternNeighbour2].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfSouthEasternNeighbour2].MapSizeX + transformedX].isCentreOfLightCircle = true;
+                                    tilesOfThisLightSource.Add(gv.mod.moduleAreasObjects[indexOfSouthEasternNeighbour2].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfSouthEasternNeighbour2].MapSizeX + transformedX]);
+                                    gv.mod.moduleAreasObjects[indexOfSouthEasternNeighbour2].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfSouthEasternNeighbour2].MapSizeX + transformedX].tileLightSourceTag.Add(p.PropTag);
+                                    addedTileToListAlready = true;
+                                }
+                            }
+
+                            //tile on south-easternmap (diagonal situation). level 2
+                            else if ((xx >= (gv.mod.currentArea.MapSizeX - 1) + 1) && (yy >= (gv.mod.currentArea.MapSizeY - 1) + 1) && (!situationFound))
+                            {
+                                situationFound = true;
+                                if (indexOfSouthEasternNeighbour2 != -1)
+                                {
+                                    int transformedX = xx - gv.mod.currentArea.MapSizeX;
+                                    int transformedY = yy - gv.mod.currentArea.MapSizeY;
+                                    gv.mod.moduleAreasObjects[indexOfSouthEasternNeighbour2].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfSouthEasternNeighbour2].MapSizeX + transformedX].isOtherPartOfLightCircle = true;
+                                    tilesOfThisLightSource.Add(gv.mod.moduleAreasObjects[indexOfSouthEasternNeighbour2].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfSouthEasternNeighbour2].MapSizeX + transformedX]);
+                                    gv.mod.moduleAreasObjects[indexOfSouthEasternNeighbour2].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfSouthEasternNeighbour2].MapSizeX + transformedX].tileLightSourceTag.Add(p.PropTag);
+                                    addedTileToListAlready = true;
+                                }
+                            }
+
+                            //tile on north-easternmap (diagonal situation)
+                            if ((xx == (gv.mod.currentArea.MapSizeX - 1) + 1) && (yy == -1) && (!situationFound))
+                            {
+                                situationFound = true;
+                                if (indexOfNorthEasternNeighbour2 != -1)
+                                {
+                                    int transformedX = xx - gv.mod.currentArea.MapSizeX;
+                                    int transformedY = gv.mod.moduleAreasObjects[indexOfNorthEasternNeighbour2].MapSizeY + yy;
+                                    gv.mod.moduleAreasObjects[indexOfNorthEasternNeighbour2].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfNorthEasternNeighbour2].MapSizeX + transformedX].isCentreOfLightCircle = true;
+                                    tilesOfThisLightSource.Add(gv.mod.moduleAreasObjects[indexOfNorthEasternNeighbour2].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfNorthEasternNeighbour2].MapSizeX + transformedX]);
+                                    gv.mod.moduleAreasObjects[indexOfNorthEasternNeighbour2].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfNorthEasternNeighbour2].MapSizeX + transformedX].tileLightSourceTag.Add(p.PropTag);
+                                    addedTileToListAlready = true;
+                                }
+                            }
+
+                            //tile on north-easternmap (diagonal situation), level 2
+                            else if ((xx >= (gv.mod.currentArea.MapSizeX - 1) + 1) && (yy <= -1) && (!situationFound))
+                            {
+                                situationFound = true;
+                                if (indexOfNorthEasternNeighbour2 != -1)
+                                {
+                                    int transformedX = xx - gv.mod.currentArea.MapSizeX;
+                                    int transformedY = gv.mod.moduleAreasObjects[indexOfNorthEasternNeighbour2].MapSizeY + yy;
+                                    gv.mod.moduleAreasObjects[indexOfNorthEasternNeighbour2].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfNorthEasternNeighbour2].MapSizeX + transformedX].isOtherPartOfLightCircle = true;
+                                    tilesOfThisLightSource.Add(gv.mod.moduleAreasObjects[indexOfNorthEasternNeighbour2].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfNorthEasternNeighbour2].MapSizeX + transformedX]);
+                                    gv.mod.moduleAreasObjects[indexOfNorthEasternNeighbour2].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfNorthEasternNeighbour2].MapSizeX + transformedX].tileLightSourceTag.Add(p.PropTag);
+                                    addedTileToListAlready = true;
+                                }
+                            }
+
+                            //tile on western map
+                            if ((xx == -1) && (!situationFound))
+                            {
+                                situationFound = true;
+                                if (indexOfWesternNeighbour2 != -1)
+                                {
+                                    int transformedX = gv.mod.moduleAreasObjects[indexOfWesternNeighbour2].MapSizeX + xx;
+                                    int transformedY = yy;
+                                    if (yy < 0)
+                                    {
+                                        //check
+                                        transformedY = p.LocationY + yy;
+                                    }
+                                    if (yy > (gv.mod.currentArea.MapSizeY - 1))
+                                    {
+                                        //check
+                                        transformedY = yy - p.LocationY;
+                                    }
+                                    if ((p.LocationX == 0) && (yy != p.LocationY + 2) && (yy != p.LocationY - 2))
+                                    {
+                                        gv.mod.moduleAreasObjects[indexOfWesternNeighbour2].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfWesternNeighbour2].MapSizeX + transformedX].isCentreOfLightCircle = true;
+                                    }
+                                    else
+                                    {
+                                        gv.mod.moduleAreasObjects[indexOfWesternNeighbour2].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfWesternNeighbour2].MapSizeX + transformedX].isOtherPartOfLightCircle = true;
+                                    }
+                                    tilesOfThisLightSource.Add(gv.mod.moduleAreasObjects[indexOfWesternNeighbour2].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfWesternNeighbour2].MapSizeX + transformedX]);
+                                    gv.mod.moduleAreasObjects[indexOfWesternNeighbour2].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfWesternNeighbour2].MapSizeX + transformedX].tileLightSourceTag.Add(p.PropTag);
+                                    addedTileToListAlready = true;
+                                }
+                            }
+
+                            //tile on western map, level 2
+                            else if ((xx < -1) && (!situationFound))
+                            {
+                                situationFound = true;
+                                if (indexOfWesternNeighbour2 != -1)
+                                {
+                                    int transformedX = gv.mod.moduleAreasObjects[indexOfWesternNeighbour2].MapSizeX + xx;
+                                    int transformedY = yy;
+                                    if (yy < 0)
+                                    {
+                                        //check
+                                        transformedY = p.LocationY + yy;
+                                    }
+                                    if (yy > (gv.mod.currentArea.MapSizeY - 1))
+                                    {
+                                        //check
+                                        transformedY = yy - p.LocationY;
+                                    }
+
+                                    gv.mod.moduleAreasObjects[indexOfWesternNeighbour2].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfWesternNeighbour2].MapSizeX + transformedX].isOtherPartOfLightCircle = true;
+                                    tilesOfThisLightSource.Add(gv.mod.moduleAreasObjects[indexOfWesternNeighbour2].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfWesternNeighbour2].MapSizeX + transformedX]);
+                                    gv.mod.moduleAreasObjects[indexOfWesternNeighbour2].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfWesternNeighbour2].MapSizeX + transformedX].tileLightSourceTag.Add(p.PropTag);
+                                    addedTileToListAlready = true;
+                                }
+                            }
+
+
+
+                            //tile on southern map
+                            if ((yy == (gv.mod.currentArea.MapSizeY - 1) + 1) && (!situationFound))
+                            {
+                                situationFound = true;
+                                if (indexOfSouthernNeighbour2 != -1)
+                                {
+                                    int transformedX = xx;
+                                    if (xx < 0)
+                                    {
+                                        //check
+                                        transformedX = p.LocationX + xx;
+                                    }
+                                    if (xx > (gv.mod.currentArea.MapSizeX - 1))
+                                    {
+                                        //check
+                                        transformedX = xx - p.LocationX;
+                                    }
+                                    int transformedY = yy - gv.mod.currentArea.MapSizeY;
+                                    if ((p.LocationY == (gv.mod.currentArea.MapSizeY - 1)) && (xx != p.LocationX + 2) && (xx != p.LocationX - 2))
+                                    {
+                                        gv.mod.moduleAreasObjects[indexOfSouthernNeighbour2].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfSouthernNeighbour2].MapSizeX + transformedX].isCentreOfLightCircle = true;
+                                    }
+                                    else
+                                    {
+                                        gv.mod.moduleAreasObjects[indexOfSouthernNeighbour2].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfSouthernNeighbour2].MapSizeX + transformedX].isOtherPartOfLightCircle = true;
+                                    }
+                                    tilesOfThisLightSource.Add(gv.mod.moduleAreasObjects[indexOfSouthernNeighbour2].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfSouthernNeighbour2].MapSizeX + transformedX]);
+                                    gv.mod.moduleAreasObjects[indexOfSouthernNeighbour2].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfSouthernNeighbour2].MapSizeX + transformedX].tileLightSourceTag.Add(p.PropTag);
+                                    addedTileToListAlready = true;
+                                }
+                            }
+
+                            //tile on southern map, level 2
+                            else if ((yy > (gv.mod.currentArea.MapSizeY - 1) + 1) && (!situationFound))
+                            {
+                                situationFound = true;
+                                if (indexOfSouthernNeighbour2 != -1)
+                                {
+                                    int transformedX = xx;
+                                    if (xx < 0)
+                                    {
+                                        //check
+                                        transformedX = p.LocationX + xx;
+                                    }
+                                    if (xx > (gv.mod.currentArea.MapSizeX - 1))
+                                    {
+                                        //check
+                                        transformedX = xx - p.LocationX;
+                                    }
+                                    int transformedY = yy - gv.mod.currentArea.MapSizeY;
+                                    gv.mod.moduleAreasObjects[indexOfSouthernNeighbour2].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfSouthernNeighbour2].MapSizeX + transformedX].isOtherPartOfLightCircle = true;
+                                    tilesOfThisLightSource.Add(gv.mod.moduleAreasObjects[indexOfSouthernNeighbour2].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfSouthernNeighbour2].MapSizeX + transformedX]);
+                                    gv.mod.moduleAreasObjects[indexOfSouthernNeighbour2].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfSouthernNeighbour2].MapSizeX + transformedX].tileLightSourceTag.Add(p.PropTag);
+                                    addedTileToListAlready = true;
+                                }
+                            }
+
+
+
+                            //tile on eastern map
+                            if ((xx == (gv.mod.currentArea.MapSizeX - 1) + 1) && (!situationFound))
+                            {
+                                situationFound = true;
+                                if (indexOfEasternNeighbour2 != -1)
+                                {
+                                    int transformedX = xx - gv.mod.currentArea.MapSizeX;
+                                    int transformedY = yy;
+                                    if (yy < 0)
+                                    {
+                                        //check
+                                        transformedY = p.LocationY + yy;
+                                    }
+                                    if (yy > (gv.mod.currentArea.MapSizeY - 1))
+                                    {
+                                        //check
+                                        transformedY = yy - p.LocationY;
+                                    }
+                                    if ((p.LocationX == (gv.mod.currentArea.MapSizeX - 1)) && (yy != p.LocationY + 2) && (yy != p.LocationY - 2))
+                                    {
+                                        gv.mod.moduleAreasObjects[indexOfEasternNeighbour2].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfEasternNeighbour2].MapSizeX + transformedX].isCentreOfLightCircle = true;
+                                    }
+                                    else
+                                    {
+                                        gv.mod.moduleAreasObjects[indexOfEasternNeighbour2].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfEasternNeighbour2].MapSizeX + transformedX].isOtherPartOfLightCircle = true;
+                                    }
+                                    tilesOfThisLightSource.Add(gv.mod.moduleAreasObjects[indexOfEasternNeighbour2].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfEasternNeighbour2].MapSizeX + transformedX]);
+                                    gv.mod.moduleAreasObjects[indexOfEasternNeighbour2].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfEasternNeighbour2].MapSizeX + transformedX].tileLightSourceTag.Add(p.PropTag);
+                                    addedTileToListAlready = true;
+                                }
+                            }
+
+                            //tile on eastern map, level 2
+                            else if ((xx > (gv.mod.currentArea.MapSizeX - 1) + 1) && (!situationFound))
+                            {
+                                situationFound = true;
+                                if (indexOfEasternNeighbour2 != -1)
+                                {
+                                    int transformedX = xx - gv.mod.currentArea.MapSizeX;
+                                    int transformedY = yy;
+                                    if (yy < 0)
+                                    {
+                                        //check
+                                        transformedY = p.LocationY + yy;
+                                    }
+                                    if (yy > (gv.mod.currentArea.MapSizeY - 1))
+                                    {
+                                        //check
+                                        transformedY = yy - p.LocationY;
+                                    }
+                                    gv.mod.moduleAreasObjects[indexOfEasternNeighbour2].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfEasternNeighbour2].MapSizeX + transformedX].isOtherPartOfLightCircle = true;
+                                    tilesOfThisLightSource.Add(gv.mod.moduleAreasObjects[indexOfEasternNeighbour2].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfEasternNeighbour2].MapSizeX + transformedX]);
+                                    gv.mod.moduleAreasObjects[indexOfEasternNeighbour2].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfEasternNeighbour2].MapSizeX + transformedX].tileLightSourceTag.Add(p.PropTag);
+                                    addedTileToListAlready = true;
+                                }
+                            }
+
+                            //tile on northern map
+                            if ((yy == -1) && (!situationFound))
+                            {
+                                situationFound = true;
+                                if (indexOfNorthernNeighbour2 != -1)
+                                {
+                                    int transformedX = xx;
+                                    if (xx < 0)
+                                    {
+                                        //check
+                                        transformedX = p.LocationX + xx;
+                                    }
+                                    if (xx > (gv.mod.currentArea.MapSizeX - 1))
+                                    {
+                                        //check
+                                        transformedX = xx - p.LocationX;
+                                    }
+                                    int transformedY = gv.mod.moduleAreasObjects[indexOfNorthernNeighbour2].MapSizeY + yy;
+                                    if ((p.LocationY == 0) && (xx != p.LocationX + 2) && (xx != p.LocationX - 2))
+                                    {
+                                        gv.mod.moduleAreasObjects[indexOfNorthernNeighbour2].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfNorthernNeighbour2].MapSizeX + transformedX].isCentreOfLightCircle = true;
+                                    }
+                                    else
+                                    {
+                                        gv.mod.moduleAreasObjects[indexOfNorthernNeighbour2].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfNorthernNeighbour2].MapSizeX + transformedX].isOtherPartOfLightCircle = true;
+                                    }
+                                    tilesOfThisLightSource.Add(gv.mod.moduleAreasObjects[indexOfNorthernNeighbour2].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfNorthernNeighbour2].MapSizeX + transformedX]);
+                                    gv.mod.moduleAreasObjects[indexOfNorthernNeighbour2].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfNorthernNeighbour2].MapSizeX + transformedX].tileLightSourceTag.Add(p.PropTag);
+                                    addedTileToListAlready = true;
+                                }
+                            }
+
+                            //tile on northern map, level 2
+                            else if ((yy < -1) && (!situationFound))
+                            {
+                                situationFound = true;
+                                if (indexOfNorthernNeighbour2 != -1)
+                                {
+                                    int transformedX = xx;
+                                    if (xx < 0)
+                                    {
+                                        //check
+                                        transformedX = p.LocationX + xx;
+                                    }
+                                    if (xx > (gv.mod.currentArea.MapSizeX - 1))
+                                    {
+                                        //check
+                                        transformedX = xx - p.LocationX;
+                                    }
+                                    int transformedY = gv.mod.moduleAreasObjects[indexOfNorthernNeighbour2].MapSizeY + yy;
+                                    gv.mod.moduleAreasObjects[indexOfNorthernNeighbour2].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfNorthernNeighbour2].MapSizeX + transformedX].isOtherPartOfLightCircle = true;
+                                    tilesOfThisLightSource.Add(gv.mod.moduleAreasObjects[indexOfNorthernNeighbour2].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfNorthernNeighbour2].MapSizeX + transformedX]);
+                                    gv.mod.moduleAreasObjects[indexOfNorthernNeighbour2].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfNorthernNeighbour2].MapSizeX + transformedX].tileLightSourceTag.Add(p.PropTag);
+                                    addedTileToListAlready = true;
+                                }
+                            }
+                            //tile is on current map
+                            //adjust for relevant index map of prop as well as prop square instead of party square
+                            if (!situationFound)
+                            {
+                                Coordinate illuSquare = new Coordinate(xx, yy);
+                                Coordinate propSquare = new Coordinate(p.LocationX, p.LocationY);
+                                if ((xx >= 0) && (yy >= 0) && (xx <= gv.mod.moduleAreasObjects[relevantIndices[h]].MapSizeX - 1) && (yy <= gv.mod.moduleAreasObjects[relevantIndices[h]].MapSizeY - 1))
+                                {
+                                    addedTileToListAlready = true;
+                                    tilesOfThisLightSource.Add(gv.mod.moduleAreasObjects[relevantIndices[h]].Tiles[yy * gv.mod.moduleAreasObjects[relevantIndices[h]].MapSizeX + xx]);
+                                    gv.mod.moduleAreasObjects[relevantIndices[h]].Tiles[yy * gv.mod.moduleAreasObjects[relevantIndices[h]].MapSizeX + xx].tileLightSourceTag.Add(p.PropTag);
+                                    //note: this also added the focal point
+
+                                    if (getDistance(illuSquare, propSquare) <= 1)
+                                    {
+                                        gv.mod.moduleAreasObjects[relevantIndices[h]].Tiles[yy * gv.mod.moduleAreasObjects[relevantIndices[h]].MapSizeX + xx].isCentreOfLightCircle = true;
+                                        //mod.currentArea.Tiles[yy * mod.currentArea.MapSizeX + xx].Visible = true;
+                                    }
+                                    else
+                                    {
+                                        gv.mod.moduleAreasObjects[relevantIndices[h]].Tiles[yy * gv.mod.moduleAreasObjects[relevantIndices[h]].MapSizeX + xx].isOtherPartOfLightCircle = true;
+                                    }
+                                }
+                            }
+
+                            if (!addedTileToListAlready)
+                            {
+                                //add placebo entry into list as this tile cannot be addresed without error
+                                //addign keeps the supposed order of th tiles in the lighting scheme intact
+                                Tile placeboTile = new Tile();
+                                tilesOfThisLightSource.Add(placeboTile);
+                            }
+                        }
+                    }
+ 
+                    //current prop position is centre of light
+                    gv.mod.moduleAreasObjects[relevantIndices[h]].Tiles[p.LocationY * gv.mod.currentArea.MapSizeX + p.LocationX].isOtherPartOfLightCircle = false;
+                    gv.mod.moduleAreasObjects[relevantIndices[h]].Tiles[p.LocationY * gv.mod.currentArea.MapSizeX + p.LocationX].isCentreOfLightCircle = false;
+                    gv.mod.moduleAreasObjects[relevantIndices[h]].Tiles[p.LocationY * gv.mod.currentArea.MapSizeX + p.LocationX].isFocalPoint = true;
+                    //gv.mod.moduleAreasObjects[relevantIndices[h]].Tiles[p.LocationY * gv.mod.currentArea.MapSizeX + p.LocationX].lightRadius = 1;
+
+                    //all tiles around the currnt prop are in list now, go through list to set up LoS effect (to use for draw routine later)
+                    //TODOXXX
+                    //TODO rset isLit values and props they belogn to for tile son clearillumination call of doupdate, done
+                    //these 25 squares are added in a list, column per column, starting from 2 sqaures left of center
+                    //0 | 5 | 10 | 15 | 20
+                    //1 | 6 | 11 | 16 | 21
+                    //2 | 7 | 12 | 17 | 22
+                    //3 | 8 | 13 | 18 | 23
+                    //4 | 9 | 14 | 19 | 24
+                    for (int tCount = 0; tCount <= 24; tCount++)
+                    {
+                        if (tCount == 0)
+                        {
+                            tilesOfThisLightSource[tCount].tilePositionInLitArea.Add("N0");
+                            if (!tilesOfThisLightSource[6].LoSBlocked)
+                            {
+                                tilesOfThisLightSource[tCount].isLit.Add(true);
+                            }
+                            else
+                            {
+                                tilesOfThisLightSource[tCount].isLit.Add(false);
+                            }
+                            continue;
+                        }
+                        else if (tCount == 5)
+                        {
+                             tilesOfThisLightSource[tCount].tilePositionInLitArea.Add("N1");
+                             if ((!tilesOfThisLightSource[6].LoSBlocked) && (!tilesOfThisLightSource[11].LoSBlocked))
+                             {
+                                 tilesOfThisLightSource[tCount].isLit.Add(true);
+                             }
+                            else
+                            {
+                                tilesOfThisLightSource[tCount].isLit.Add(false);
+                            }
+                            continue;
+                        }
+                        else if (tCount == 10)
+                        {
+                            tilesOfThisLightSource[tCount].tilePositionInLitArea.Add("N2");
+                            if ((!tilesOfThisLightSource[11].LoSBlocked) && (!tilesOfThisLightSource[11].LoSBlocked))
+                            {
+                                tilesOfThisLightSource[tCount].isLit.Add(true);
+                            }
+                            else
+                            {
+                                tilesOfThisLightSource[tCount].isLit.Add(false);
+                            }
+                            continue;
+                        }
+                        else if (tCount == 15)
+                        {
+                            tilesOfThisLightSource[tCount].tilePositionInLitArea.Add("N3");
+                            if ((!tilesOfThisLightSource[11].LoSBlocked) && (!tilesOfThisLightSource[16].LoSBlocked))
+                            {
+                                tilesOfThisLightSource[tCount].isLit.Add(true);
+                            }
+                            else
+                            {
+                                tilesOfThisLightSource[tCount].isLit.Add(false);
+                            }
+                            continue;
+                        }
+                        else if (tCount == 20)
+                        {
+                            tilesOfThisLightSource[tCount].tilePositionInLitArea.Add("N4");
+                            if ((!tilesOfThisLightSource[16].LoSBlocked) && (!tilesOfThisLightSource[16].LoSBlocked))
+                            {
+                                tilesOfThisLightSource[tCount].isLit.Add(true);
+                            }
+                            else
+                            {
+                                tilesOfThisLightSource[tCount].isLit.Add(false);
+                            }
+                            continue;
+                        }
+                        else if (tCount == 21)
+                        {
+                            tilesOfThisLightSource[tCount].tilePositionInLitArea.Add("E1");
+                            if ((!tilesOfThisLightSource[16].LoSBlocked) && (!tilesOfThisLightSource[17].LoSBlocked))
+                            {
+                                tilesOfThisLightSource[tCount].isLit.Add(true);
+                            }
+                            else
+                            {
+                                tilesOfThisLightSource[tCount].isLit.Add(false);
+                            }
+                            continue;
+                        }
+                        else if (tCount == 22)
+                        {
+                            tilesOfThisLightSource[tCount].tilePositionInLitArea.Add("E2");
+                            if ((!tilesOfThisLightSource[17].LoSBlocked) && (!tilesOfThisLightSource[17].LoSBlocked))
+                            {
+                                tilesOfThisLightSource[tCount].isLit.Add(true);
+                            }
+                            else
+                            {
+                                tilesOfThisLightSource[tCount].isLit.Add(false);
+                            }
+                            continue;
+                        }
+                        else if (tCount == 23)
+                        {
+                            tilesOfThisLightSource[tCount].tilePositionInLitArea.Add("E3");
+                            if ((!tilesOfThisLightSource[17].LoSBlocked) && (!tilesOfThisLightSource[18].LoSBlocked))
+                            {
+                                tilesOfThisLightSource[tCount].isLit.Add(true);
+                            }
+                            else
+                            {
+                                tilesOfThisLightSource[tCount].isLit.Add(false);
+                            }
+                            continue;
+                        }
+                        else if (tCount == 24)
+                        {
+                            tilesOfThisLightSource[tCount].tilePositionInLitArea.Add("S4");
+                            if ((!tilesOfThisLightSource[18].LoSBlocked) && (!tilesOfThisLightSource[18].LoSBlocked))
+                            {
+                                tilesOfThisLightSource[tCount].isLit.Add(true);
+                            }
+                            else
+                            {
+                                tilesOfThisLightSource[tCount].isLit.Add(false);
+                            }
+                            continue;
+                        }
+                        else if (tCount == 19)
+                        {
+                            tilesOfThisLightSource[tCount].tilePositionInLitArea.Add("S3");
+                            if ((!tilesOfThisLightSource[13].LoSBlocked) && (!tilesOfThisLightSource[18].LoSBlocked))
+                            {
+                                tilesOfThisLightSource[tCount].isLit.Add(true);
+                            }
+                            else
+                            {
+                                tilesOfThisLightSource[tCount].isLit.Add(false);
+                            }
+                            continue;
+                        }
+                        else if (tCount == 14)
+                        {
+                            tilesOfThisLightSource[tCount].tilePositionInLitArea.Add("S2");
+                            if ((!tilesOfThisLightSource[13].LoSBlocked) && (!tilesOfThisLightSource[13].LoSBlocked))
+                            {
+                                tilesOfThisLightSource[tCount].isLit.Add(true);
+                            }
+                            else
+                            {
+                                tilesOfThisLightSource[tCount].isLit.Add(false);
+                            }
+                            continue;
+                        }
+                        else if (tCount == 9)
+                        {
+                            tilesOfThisLightSource[tCount].tilePositionInLitArea.Add("S1");
+                            if ((!tilesOfThisLightSource[8].LoSBlocked) && (!tilesOfThisLightSource[13].LoSBlocked))
+                            {
+                                tilesOfThisLightSource[tCount].isLit.Add(true);
+                            }
+                            else
+                            {
+                                tilesOfThisLightSource[tCount].isLit.Add(false);
+                            }
+                            continue;
+                        }
+                        else if (tCount == 4)
+                        {
+                            tilesOfThisLightSource[tCount].tilePositionInLitArea.Add("S0");
+                            if ((!tilesOfThisLightSource[8].LoSBlocked) && (!tilesOfThisLightSource[8].LoSBlocked))
+                            {
+                                tilesOfThisLightSource[tCount].isLit.Add(true);
+                            }
+                            else
+                            {
+                                tilesOfThisLightSource[tCount].isLit.Add(false);
+                            }
+                            continue;
+                        }
+                        else if (tCount == 3)
+                        {
+                            tilesOfThisLightSource[tCount].tilePositionInLitArea.Add("W3");
+                            if ((!tilesOfThisLightSource[7].LoSBlocked) && (!tilesOfThisLightSource[8].LoSBlocked))
+                            {
+                                tilesOfThisLightSource[tCount].isLit.Add(true);
+                            }
+                            else
+                            {
+                                tilesOfThisLightSource[tCount].isLit.Add(false);
+                            }
+                            continue;
+                        }
+                        else if (tCount == 2)
+                        {
+                            tilesOfThisLightSource[tCount].tilePositionInLitArea.Add("W2");
+                            if ((!tilesOfThisLightSource[7].LoSBlocked) && (!tilesOfThisLightSource[7].LoSBlocked))
+                            {
+                                tilesOfThisLightSource[tCount].isLit.Add(true);
+                            }
+                            else
+                            {
+                                tilesOfThisLightSource[tCount].isLit.Add(false);
+                            }
+                            continue;
+                        }
+                        else if (tCount == 1)
+                        {
+                            tilesOfThisLightSource[tCount].tilePositionInLitArea.Add("W1");
+                            if ((!tilesOfThisLightSource[6].LoSBlocked) && (!tilesOfThisLightSource[7].LoSBlocked))
+                            {
+                                tilesOfThisLightSource[tCount].isLit.Add(true);
+                            }
+                            else
+                            {
+                                tilesOfThisLightSource[tCount].isLit.Add(false);
+                            }
+                            continue;
+                        }
+                        else if (tCount == 6)
+                        {
+                            tilesOfThisLightSource[tCount].tilePositionInLitArea.Add("NW");
+                            tilesOfThisLightSource[tCount].isLit.Add(true);
+                            continue;
+                        }
+                        else if (tCount == 11)
+                        {
+                            tilesOfThisLightSource[tCount].tilePositionInLitArea.Add("N");
+                            tilesOfThisLightSource[tCount].isLit.Add(true);
+                            continue;
+                        }
+                        else if (tCount == 16)
+                        {
+                            tilesOfThisLightSource[tCount].tilePositionInLitArea.Add("NE");
+                            tilesOfThisLightSource[tCount].isLit.Add(true);
+                            continue;
+                        }
+                        else if (tCount == 17)
+                        {
+                            tilesOfThisLightSource[tCount].tilePositionInLitArea.Add("E");
+                            tilesOfThisLightSource[tCount].isLit.Add(true);
+                            continue;
+                        }
+                        else if (tCount == 18)
+                        {
+                            tilesOfThisLightSource[tCount].tilePositionInLitArea.Add("SE");
+                            tilesOfThisLightSource[tCount].isLit.Add(true);
+                            continue;
+                        }
+                        else if (tCount == 13)
+                        {
+                            tilesOfThisLightSource[tCount].tilePositionInLitArea.Add("S");
+                            tilesOfThisLightSource[tCount].isLit.Add(true);
+                            continue;
+                        }
+                        else if (tCount == 8)
+                        {
+                            tilesOfThisLightSource[tCount].tilePositionInLitArea.Add("SW");
+                            tilesOfThisLightSource[tCount].isLit.Add(true);
+                            continue;
+                        }
+                        else if (tCount == 7)
+                        {
+                            tilesOfThisLightSource[tCount].tilePositionInLitArea.Add("W");
+                            tilesOfThisLightSource[tCount].isLit.Add(true);
+                            continue;
+                        }
+                        else if (tCount == 12)
+                        {
+                            tilesOfThisLightSource[tCount].tilePositionInLitArea.Add("Center");
+                            tilesOfThisLightSource[tCount].isLit.Add(true);
+                            continue;
+                        }
+                    }
                 }
             }
 
-                    //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-                    //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+            //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+            //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
             //illuminate around the party
+            tilesOfThisLightSource.Clear();
             int minX = gv.mod.PlayerLocationX - 2;
-            if (minX < -seamlessModififierMinX) { minX = -seamlessModififierMinX; }
+            //if (minX < -seamlessModififierMinX) { minX = -seamlessModififierMinX; }
             int minY = gv.mod.PlayerLocationY - 2;
-            if (minY < -seamlessModififierMinY) { minY = -seamlessModififierMinY; }
+            //if (minY < -seamlessModififierMinY) { minY = -seamlessModififierMinY; }
 
             int maxX = gv.mod.PlayerLocationX + 2;
-            if (maxX > this.gv.mod.currentArea.MapSizeX - 1 + seamlessModififierMaxX) { maxX = this.gv.mod.currentArea.MapSizeX - 1 + seamlessModififierMaxX; }
+            //if (maxX > this.gv.mod.currentArea.MapSizeX - 1 + seamlessModififierMaxX) { maxX = this.gv.mod.currentArea.MapSizeX - 1 + seamlessModififierMaxX; }
             int maxY = gv.mod.PlayerLocationY + 2;
-            if (maxY > this.gv.mod.currentArea.MapSizeY - 1 + seamlessModififierMaxY) { maxY = this.gv.mod.currentArea.MapSizeY - 1 + seamlessModififierMaxY; }
+            //if (maxY > this.gv.mod.currentArea.MapSizeY - 1 + seamlessModififierMaxY) { maxY = this.gv.mod.currentArea.MapSizeY - 1 + seamlessModififierMaxY; }
+
+            /*
+            int indexOfNorthernNeighbour2 = -1;
+            int indexOfSouthernNeighbour2 = -1;
+            int indexOfEasternNeighbour2 = -1;
+            int indexOfWesternNeighbour2 = -1;
+            int indexOfNorthEasternNeighbour2 = -1;
+            int indexOfNorthWesternNeighbour2 = -1;
+            int indexOfSouthEasternNeighbour2 = -1;
+            int indexOfSouthWesternNeighbour2 = -1;
+            int indexOfCurrentArea2 = -1;
+            */
 
             for (int xx = minX; xx <= maxX; xx++)
             {
@@ -3276,6 +4163,7 @@ namespace IceBlink2
                 {
                     //YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY
                     bool situationFound = false;
+                    bool addedTileToListAlready = false;
                     bool drawTile = true;
                     int index = -1;
                     Tile tile = new Tile();
@@ -3290,7 +4178,9 @@ namespace IceBlink2
                             int transformedX = gv.mod.moduleAreasObjects[indexOfNorthWesternNeighbour].MapSizeX + xx;
                             int transformedY = gv.mod.moduleAreasObjects[indexOfNorthWesternNeighbour].MapSizeY + yy;
                             gv.mod.moduleAreasObjects[indexOfNorthWesternNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfNorthWesternNeighbour].MapSizeX + transformedX].isCentreOfLightCircle = true;
-                            
+                            tilesOfThisLightSource.Add(gv.mod.moduleAreasObjects[indexOfNorthWesternNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfNorthWesternNeighbour].MapSizeX + transformedX]);
+                            gv.mod.moduleAreasObjects[indexOfNorthWesternNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfNorthWesternNeighbour].MapSizeX + transformedX].tileLightSourceTag.Add("party");
+                            addedTileToListAlready = true;
                         }
                     }
 
@@ -3303,7 +4193,9 @@ namespace IceBlink2
                             int transformedX = gv.mod.moduleAreasObjects[indexOfNorthWesternNeighbour].MapSizeX + xx;
                             int transformedY = gv.mod.moduleAreasObjects[indexOfNorthWesternNeighbour].MapSizeY + yy;
                             gv.mod.moduleAreasObjects[indexOfNorthWesternNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfNorthWesternNeighbour].MapSizeX + transformedX].isOtherPartOfLightCircle = true;
-
+                            tilesOfThisLightSource.Add(gv.mod.moduleAreasObjects[indexOfNorthWesternNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfNorthWesternNeighbour].MapSizeX + transformedX]);
+                            gv.mod.moduleAreasObjects[indexOfNorthWesternNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfNorthWesternNeighbour].MapSizeX + transformedX].tileLightSourceTag.Add("party");
+                            addedTileToListAlready = true;
                         }
                     }
 
@@ -3316,6 +4208,9 @@ namespace IceBlink2
                             int transformedX = gv.mod.moduleAreasObjects[indexOfSouthWesternNeighbour].MapSizeX + xx;
                             int transformedY = yy - gv.mod.currentArea.MapSizeY;
                             gv.mod.moduleAreasObjects[indexOfSouthWesternNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfSouthWesternNeighbour].MapSizeX + transformedX].isCentreOfLightCircle = true;
+                            tilesOfThisLightSource.Add(gv.mod.moduleAreasObjects[indexOfSouthWesternNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfSouthWesternNeighbour].MapSizeX + transformedX]);
+                            gv.mod.moduleAreasObjects[indexOfSouthWesternNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfSouthWesternNeighbour].MapSizeX + transformedX].tileLightSourceTag.Add("party");
+                            addedTileToListAlready = true;
                         }
                     }
 
@@ -3328,6 +4223,9 @@ namespace IceBlink2
                             int transformedX = gv.mod.moduleAreasObjects[indexOfSouthWesternNeighbour].MapSizeX + xx;
                             int transformedY = yy - gv.mod.currentArea.MapSizeY;
                             gv.mod.moduleAreasObjects[indexOfSouthWesternNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfSouthWesternNeighbour].MapSizeX + transformedX].isOtherPartOfLightCircle = true;
+                            tilesOfThisLightSource.Add(gv.mod.moduleAreasObjects[indexOfSouthWesternNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfSouthWesternNeighbour].MapSizeX + transformedX]);
+                            gv.mod.moduleAreasObjects[indexOfSouthWesternNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfSouthWesternNeighbour].MapSizeX + transformedX].tileLightSourceTag.Add("party");
+                            addedTileToListAlready = true;
                         }
                     }
 
@@ -3340,6 +4238,9 @@ namespace IceBlink2
                             int transformedX = xx - gv.mod.currentArea.MapSizeX;
                             int transformedY = yy - gv.mod.currentArea.MapSizeY;
                             gv.mod.moduleAreasObjects[indexOfSouthEasternNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfSouthEasternNeighbour].MapSizeX + transformedX].isCentreOfLightCircle = true;
+                            tilesOfThisLightSource.Add(gv.mod.moduleAreasObjects[indexOfSouthEasternNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfSouthEasternNeighbour].MapSizeX + transformedX]);
+                            gv.mod.moduleAreasObjects[indexOfSouthEasternNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfSouthEasternNeighbour].MapSizeX + transformedX].tileLightSourceTag.Add("party");
+                            addedTileToListAlready = true;
                         }
                     }
 
@@ -3352,6 +4253,9 @@ namespace IceBlink2
                             int transformedX = xx - gv.mod.currentArea.MapSizeX;
                             int transformedY = yy - gv.mod.currentArea.MapSizeY;
                             gv.mod.moduleAreasObjects[indexOfSouthEasternNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfSouthEasternNeighbour].MapSizeX + transformedX].isOtherPartOfLightCircle = true;
+                            tilesOfThisLightSource.Add(gv.mod.moduleAreasObjects[indexOfSouthEasternNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfSouthEasternNeighbour].MapSizeX + transformedX]);
+                            gv.mod.moduleAreasObjects[indexOfSouthEasternNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfSouthEasternNeighbour].MapSizeX + transformedX].tileLightSourceTag.Add("party");
+                            addedTileToListAlready = true;
                         }
                     }
 
@@ -3364,6 +4268,9 @@ namespace IceBlink2
                             int transformedX = xx - gv.mod.currentArea.MapSizeX;
                             int transformedY = gv.mod.moduleAreasObjects[indexOfNorthEasternNeighbour].MapSizeY + yy;
                             gv.mod.moduleAreasObjects[indexOfNorthEasternNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfNorthEasternNeighbour].MapSizeX + transformedX].isCentreOfLightCircle = true;
+                            tilesOfThisLightSource.Add(gv.mod.moduleAreasObjects[indexOfNorthEasternNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfNorthEasternNeighbour].MapSizeX + transformedX]);
+                            gv.mod.moduleAreasObjects[indexOfNorthEasternNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfNorthEasternNeighbour].MapSizeX + transformedX].tileLightSourceTag.Add("party");
+                            addedTileToListAlready = true;
                         }
                     }
 
@@ -3376,6 +4283,9 @@ namespace IceBlink2
                             int transformedX = xx - gv.mod.currentArea.MapSizeX;
                             int transformedY = gv.mod.moduleAreasObjects[indexOfNorthEasternNeighbour].MapSizeY + yy;
                             gv.mod.moduleAreasObjects[indexOfNorthEasternNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfNorthEasternNeighbour].MapSizeX + transformedX].isOtherPartOfLightCircle = true;
+                            tilesOfThisLightSource.Add(gv.mod.moduleAreasObjects[indexOfNorthEasternNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfNorthEasternNeighbour].MapSizeX + transformedX]);
+                            gv.mod.moduleAreasObjects[indexOfNorthEasternNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfNorthEasternNeighbour].MapSizeX + transformedX].tileLightSourceTag.Add("party");
+                            addedTileToListAlready = true;
                         }
                     }
 
@@ -3405,6 +4315,9 @@ namespace IceBlink2
                             {
                                 gv.mod.moduleAreasObjects[indexOfWesternNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfWesternNeighbour].MapSizeX + transformedX].isOtherPartOfLightCircle = true;
                             }
+                            tilesOfThisLightSource.Add(gv.mod.moduleAreasObjects[indexOfWesternNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfWesternNeighbour].MapSizeX + transformedX]);
+                            gv.mod.moduleAreasObjects[indexOfWesternNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfWesternNeighbour].MapSizeX + transformedX].tileLightSourceTag.Add("party");
+                            addedTileToListAlready = true;
                         }
                     }
 
@@ -3428,6 +4341,9 @@ namespace IceBlink2
                             }
 
                             gv.mod.moduleAreasObjects[indexOfWesternNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfWesternNeighbour].MapSizeX + transformedX].isOtherPartOfLightCircle = true;
+                            tilesOfThisLightSource.Add(gv.mod.moduleAreasObjects[indexOfWesternNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfWesternNeighbour].MapSizeX + transformedX]);
+                            gv.mod.moduleAreasObjects[indexOfWesternNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfWesternNeighbour].MapSizeX + transformedX].tileLightSourceTag.Add("party");
+                            addedTileToListAlready = true;
                         }
                     }
 
@@ -3459,6 +4375,9 @@ namespace IceBlink2
                             {
                                 gv.mod.moduleAreasObjects[indexOfSouthernNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfSouthernNeighbour].MapSizeX + transformedX].isOtherPartOfLightCircle = true;
                             }
+                            tilesOfThisLightSource.Add(gv.mod.moduleAreasObjects[indexOfSouthernNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfSouthernNeighbour].MapSizeX + transformedX]);
+                            gv.mod.moduleAreasObjects[indexOfSouthernNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfSouthernNeighbour].MapSizeX + transformedX].tileLightSourceTag.Add("party");
+                            addedTileToListAlready = true;
                         }
                     }
 
@@ -3481,6 +4400,9 @@ namespace IceBlink2
                             }
                             int transformedY = yy - gv.mod.currentArea.MapSizeY;
                             gv.mod.moduleAreasObjects[indexOfSouthernNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfSouthernNeighbour].MapSizeX + transformedX].isOtherPartOfLightCircle = true;
+                            tilesOfThisLightSource.Add(gv.mod.moduleAreasObjects[indexOfSouthernNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfSouthernNeighbour].MapSizeX + transformedX]);
+                            gv.mod.moduleAreasObjects[indexOfSouthernNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfSouthernNeighbour].MapSizeX + transformedX].tileLightSourceTag.Add("party");
+                            addedTileToListAlready = true;
                         }
                     }
 
@@ -3512,6 +4434,9 @@ namespace IceBlink2
                             {
                                 gv.mod.moduleAreasObjects[indexOfEasternNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfEasternNeighbour].MapSizeX + transformedX].isOtherPartOfLightCircle = true;
                             }
+                            tilesOfThisLightSource.Add(gv.mod.moduleAreasObjects[indexOfEasternNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfEasternNeighbour].MapSizeX + transformedX]);
+                            gv.mod.moduleAreasObjects[indexOfEasternNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfEasternNeighbour].MapSizeX + transformedX].tileLightSourceTag.Add("party");
+                            addedTileToListAlready = true;
                         }
                     }
 
@@ -3534,6 +4459,9 @@ namespace IceBlink2
                                 transformedY = yy - gv.mod.PlayerLocationY;
                             }
                             gv.mod.moduleAreasObjects[indexOfEasternNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfEasternNeighbour].MapSizeX + transformedX].isOtherPartOfLightCircle = true;
+                            tilesOfThisLightSource.Add(gv.mod.moduleAreasObjects[indexOfEasternNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfEasternNeighbour].MapSizeX + transformedX]);
+                            gv.mod.moduleAreasObjects[indexOfEasternNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfEasternNeighbour].MapSizeX + transformedX].tileLightSourceTag.Add("party");
+                            addedTileToListAlready = true;
                         }
                     }
 
@@ -3563,6 +4491,9 @@ namespace IceBlink2
                             {
                                 gv.mod.moduleAreasObjects[indexOfNorthernNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfNorthernNeighbour].MapSizeX + transformedX].isOtherPartOfLightCircle = true;
                             }
+                            tilesOfThisLightSource.Add(gv.mod.moduleAreasObjects[indexOfNorthernNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfNorthernNeighbour].MapSizeX + transformedX]);
+                            gv.mod.moduleAreasObjects[indexOfNorthernNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfNorthernNeighbour].MapSizeX + transformedX].tileLightSourceTag.Add("party");
+                            addedTileToListAlready = true;
                         }
                     }
 
@@ -3585,6 +4516,9 @@ namespace IceBlink2
                             }
                             int transformedY = gv.mod.moduleAreasObjects[indexOfNorthernNeighbour].MapSizeY + yy;
                             gv.mod.moduleAreasObjects[indexOfNorthernNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfNorthernNeighbour].MapSizeX + transformedX].isOtherPartOfLightCircle = true;
+                            tilesOfThisLightSource.Add(gv.mod.moduleAreasObjects[indexOfNorthernNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfNorthernNeighbour].MapSizeX + transformedX]);
+                            gv.mod.moduleAreasObjects[indexOfNorthernNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfNorthernNeighbour].MapSizeX + transformedX].tileLightSourceTag.Add("party");
+                            addedTileToListAlready = true;
                         }
                     }
                     //tile is on current map
@@ -3602,6 +4536,18 @@ namespace IceBlink2
                         {
                             gv.mod.currentArea.Tiles[yy * gv.mod.currentArea.MapSizeX + xx].isOtherPartOfLightCircle = true;
                         }
+                        tilesOfThisLightSource.Add(gv.mod.currentArea.Tiles[yy * gv.mod.currentArea.MapSizeX + xx]);
+                        gv.mod.currentArea.Tiles[yy * gv.mod.currentArea.MapSizeX + xx].tileLightSourceTag.Add("party");
+                        addedTileToListAlready = true;
+                    }
+
+                    //placebo catch
+                    if (!addedTileToListAlready)
+                    {
+                        //add placebo entry into list as this tile cannot be addresed without error
+                        //addign keeps the supposed order of th tiles in the lighting scheme intact
+                        Tile placeboTile = new Tile();
+                        tilesOfThisLightSource.Add(placeboTile);
                     }
                 }
             }
@@ -3612,15 +4558,292 @@ namespace IceBlink2
             gv.mod.currentArea.Tiles[gv.mod.PlayerLocationY * gv.mod.currentArea.MapSizeX + gv.mod.PlayerLocationX].isCentreOfLightCircle = false;
             gv.mod.currentArea.Tiles[gv.mod.PlayerLocationY * gv.mod.currentArea.MapSizeX + gv.mod.PlayerLocationX].isFocalPoint = true;
             gv.mod.currentArea.Tiles[gv.mod.PlayerLocationY * gv.mod.currentArea.MapSizeX + gv.mod.PlayerLocationX].lightRadius = 1;
+            tilesOfThisLightSource.Add(gv.mod.currentArea.Tiles[gv.mod.PlayerLocationY * gv.mod.currentArea.MapSizeX + gv.mod.PlayerLocationX]);
+            gv.mod.currentArea.Tiles[gv.mod.PlayerLocationY * gv.mod.currentArea.MapSizeX + gv.mod.PlayerLocationX].tileLightSourceTag.Add("party");
 
-            /*
-            if (gv.mod.justTransitioned)
+
+            //0 | 5 | 10 | 15 | 20
+            //1 | 6 | 11 | 16 | 21
+            //2 | 7 | 12 | 17 | 22
+            //3 | 8 | 13 | 18 | 23
+            //4 | 9 | 14 | 19 | 24
+            //tilesOfThisLightSource.Clear();
+            for (int tCount = 0; tCount <= 24; tCount++)
             {
-                gv.mod.PlayerLocationX = backupPlayerLocationX;
-                gv.mod.PlayerLocationY = backupPlayerLocationY;
+                if (tCount == 0)
+                {
+                    tilesOfThisLightSource[tCount].tilePositionInLitArea.Add("N0");
+                    if (!tilesOfThisLightSource[6].LoSBlocked)
+                    {
+                        tilesOfThisLightSource[tCount].isLit.Add(true);
+                    }
+                    else
+                    {
+                        tilesOfThisLightSource[tCount].isLit.Add(false);
+                    }
+                    continue;
+                }
+                else if (tCount == 5)
+                {
+                    tilesOfThisLightSource[tCount].tilePositionInLitArea.Add("N1");
+                    if ((!tilesOfThisLightSource[6].LoSBlocked) && (!tilesOfThisLightSource[11].LoSBlocked))
+                    {
+                        tilesOfThisLightSource[tCount].isLit.Add(true);
+                    }
+                    else
+                    {
+                        tilesOfThisLightSource[tCount].isLit.Add(false);
+                    }
+                    continue;
+                }
+                else if (tCount == 10)
+                {
+                    tilesOfThisLightSource[tCount].tilePositionInLitArea.Add("N2");
+                    if ((!tilesOfThisLightSource[11].LoSBlocked) && (!tilesOfThisLightSource[11].LoSBlocked))
+                    {
+                        tilesOfThisLightSource[tCount].isLit.Add(true);
+                    }
+                    else
+                    {
+                        tilesOfThisLightSource[tCount].isLit.Add(false);
+                    }
+                    continue;
+                }
+                else if (tCount == 15)
+                {
+                    tilesOfThisLightSource[tCount].tilePositionInLitArea.Add("N3");
+                    if ((!tilesOfThisLightSource[11].LoSBlocked) && (!tilesOfThisLightSource[16].LoSBlocked))
+                    {
+                        tilesOfThisLightSource[tCount].isLit.Add(true);
+                    }
+                    else
+                    {
+                        tilesOfThisLightSource[tCount].isLit.Add(false);
+                    }
+                    continue;
+                }
+                else if (tCount == 20)
+                {
+                    tilesOfThisLightSource[tCount].tilePositionInLitArea.Add("N4");
+                    if ((!tilesOfThisLightSource[16].LoSBlocked) && (!tilesOfThisLightSource[16].LoSBlocked))
+                    {
+                        tilesOfThisLightSource[tCount].isLit.Add(true);
+                    }
+                    else
+                    {
+                        tilesOfThisLightSource[tCount].isLit.Add(false);
+                    }
+                    continue;
+                }
+                else if (tCount == 21)
+                {
+                    tilesOfThisLightSource[tCount].tilePositionInLitArea.Add("E1");
+                    if ((!tilesOfThisLightSource[16].LoSBlocked) && (!tilesOfThisLightSource[17].LoSBlocked))
+                    {
+                        tilesOfThisLightSource[tCount].isLit.Add(true);
+                    }
+                    else
+                    {
+                        tilesOfThisLightSource[tCount].isLit.Add(false);
+                    }
+                    continue;
+                }
+                else if (tCount == 22)
+                {
+                    tilesOfThisLightSource[tCount].tilePositionInLitArea.Add("E2");
+                    if ((!tilesOfThisLightSource[17].LoSBlocked) && (!tilesOfThisLightSource[17].LoSBlocked))
+                    {
+                        tilesOfThisLightSource[tCount].isLit.Add(true);
+                    }
+                    else
+                    {
+                        tilesOfThisLightSource[tCount].isLit.Add(false);
+                    }
+                    continue;
+                }
+                else if (tCount == 23)
+                {
+                    tilesOfThisLightSource[tCount].tilePositionInLitArea.Add("E3");
+                    if ((!tilesOfThisLightSource[17].LoSBlocked) && (!tilesOfThisLightSource[18].LoSBlocked))
+                    {
+                        tilesOfThisLightSource[tCount].isLit.Add(true);
+                    }
+                    else
+                    {
+                        tilesOfThisLightSource[tCount].isLit.Add(false);
+                    }
+                    continue;
+                }
+                else if (tCount == 24)
+                {
+                    tilesOfThisLightSource[tCount].tilePositionInLitArea.Add("S4");
+                    if ((!tilesOfThisLightSource[18].LoSBlocked) && (!tilesOfThisLightSource[18].LoSBlocked))
+                    {
+                        tilesOfThisLightSource[tCount].isLit.Add(true);
+                    }
+                    else
+                    {
+                        tilesOfThisLightSource[tCount].isLit.Add(false);
+                    }
+                    continue;
+                }
+                else if (tCount == 19)
+                {
+                    tilesOfThisLightSource[tCount].tilePositionInLitArea.Add("S3");
+                    if ((!tilesOfThisLightSource[13].LoSBlocked) && (!tilesOfThisLightSource[18].LoSBlocked))
+                    {
+                        tilesOfThisLightSource[tCount].isLit.Add(true);
+                    }
+                    else
+                    {
+                        tilesOfThisLightSource[tCount].isLit.Add(false);
+                    }
+                    continue;
+                }
+                else if (tCount == 14)
+                {
+                    tilesOfThisLightSource[tCount].tilePositionInLitArea.Add("S2");
+                    if ((!tilesOfThisLightSource[13].LoSBlocked) && (!tilesOfThisLightSource[13].LoSBlocked))
+                    {
+                        tilesOfThisLightSource[tCount].isLit.Add(true);
+                    }
+                    else
+                    {
+                        tilesOfThisLightSource[tCount].isLit.Add(false);
+                    }
+                    continue;
+                }
+                else if (tCount == 9)
+                {
+                    tilesOfThisLightSource[tCount].tilePositionInLitArea.Add("S1");
+                    if ((!tilesOfThisLightSource[8].LoSBlocked) && (!tilesOfThisLightSource[13].LoSBlocked))
+                    {
+                        tilesOfThisLightSource[tCount].isLit.Add(true);
+                    }
+                    else
+                    {
+                        tilesOfThisLightSource[tCount].isLit.Add(false);
+                    }
+                    continue;
+                }
+                else if (tCount == 4)
+                {
+                    tilesOfThisLightSource[tCount].tilePositionInLitArea.Add("S0");
+                    if ((!tilesOfThisLightSource[8].LoSBlocked) && (!tilesOfThisLightSource[8].LoSBlocked))
+                    {
+                        tilesOfThisLightSource[tCount].isLit.Add(true);
+                    }
+                    else
+                    {
+                        tilesOfThisLightSource[tCount].isLit.Add(false);
+                    }
+                    continue;
+                }
+                else if (tCount == 3)
+                {
+                    tilesOfThisLightSource[tCount].tilePositionInLitArea.Add("W3");
+                    if ((!tilesOfThisLightSource[7].LoSBlocked) && (!tilesOfThisLightSource[8].LoSBlocked))
+                    {
+                        tilesOfThisLightSource[tCount].isLit.Add(true);
+                    }
+                    else
+                    {
+                        tilesOfThisLightSource[tCount].isLit.Add(false);
+                    }
+                    continue;
+                }
+                else if (tCount == 2)
+                {
+                    tilesOfThisLightSource[tCount].tilePositionInLitArea.Add("W2");
+                    if ((!tilesOfThisLightSource[7].LoSBlocked) && (!tilesOfThisLightSource[7].LoSBlocked))
+                    {
+                        tilesOfThisLightSource[tCount].isLit.Add(true);
+                    }
+                    else
+                    {
+                        tilesOfThisLightSource[tCount].isLit.Add(false);
+                    }
+                    continue;
+                }
+                else if (tCount == 1)
+                {
+                    tilesOfThisLightSource[tCount].tilePositionInLitArea.Add("W1");
+                    if ((!tilesOfThisLightSource[6].LoSBlocked) && (!tilesOfThisLightSource[7].LoSBlocked))
+                    {
+                        tilesOfThisLightSource[tCount].isLit.Add(true);
+                    }
+                    else
+                    {
+                        tilesOfThisLightSource[tCount].isLit.Add(false);
+                    }
+                    continue;
+                }
+                else if (tCount == 6)
+                {
+                    tilesOfThisLightSource[tCount].tilePositionInLitArea.Add("NW");
+                    tilesOfThisLightSource[tCount].isLit.Add(true);
+                    continue;
+                }
+                else if (tCount == 11)
+                {
+                    tilesOfThisLightSource[tCount].tilePositionInLitArea.Add("N");
+                    tilesOfThisLightSource[tCount].isLit.Add(true);
+                    continue;
+                }
+                else if (tCount == 16)
+                {
+                    tilesOfThisLightSource[tCount].tilePositionInLitArea.Add("NE");
+                    tilesOfThisLightSource[tCount].isLit.Add(true);
+                    continue;
+                }
+                else if (tCount == 17)
+                {
+                    tilesOfThisLightSource[tCount].tilePositionInLitArea.Add("E");
+                    tilesOfThisLightSource[tCount].isLit.Add(true);
+                    continue;
+                }
+                else if (tCount == 18)
+                {
+                    tilesOfThisLightSource[tCount].tilePositionInLitArea.Add("SE");
+                    tilesOfThisLightSource[tCount].isLit.Add(true);
+                    continue;
+                }
+                else if (tCount == 13)
+                {
+                    tilesOfThisLightSource[tCount].tilePositionInLitArea.Add("S");
+                    tilesOfThisLightSource[tCount].isLit.Add(true);
+                    continue;
+                }
+                else if (tCount == 8)
+                {
+                    tilesOfThisLightSource[tCount].tilePositionInLitArea.Add("SW");
+                    tilesOfThisLightSource[tCount].isLit.Add(true);
+                    continue;
+                }
+                else if (tCount == 7)
+                {
+                    tilesOfThisLightSource[tCount].tilePositionInLitArea.Add("W");
+                    tilesOfThisLightSource[tCount].isLit.Add(true);
+                    continue;
+                }
+                else if (tCount == 12)
+                {
+                    tilesOfThisLightSource[tCount].tilePositionInLitArea.Add("Center");
+                    tilesOfThisLightSource[tCount].isLit.Add(true);
+                    continue;
+                }
             }
-            */
-        }
+        
+    //addedTileToListAlready = true;
+
+    /*
+    if (gv.mod.justTransitioned)
+    {
+        gv.mod.PlayerLocationX = backupPlayerLocationX;
+        gv.mod.PlayerLocationY = backupPlayerLocationY;
+    }
+    */
+}
 
 
         public void doIlluminationOld()
@@ -4413,8 +5636,8 @@ namespace IceBlink2
                     //}
                 }
                 */
-
-                if (!gv.mod.playMusic)
+                
+                if (!gv.mod.playMusic || gv.mod.currentArea.areaWeatherName == "" || gv.mod.currentArea.areaWeatherName == "none")
                 {
                     gv.weatherSounds1.controls.stop();
                     gv.weatherSounds2.controls.stop();
@@ -4453,8 +5676,10 @@ namespace IceBlink2
             gv.mod.listOfExitWeatherChances.Clear();
             gv.mod.listOfExitWeatherDurations.Clear();
 
-            //fill the weather lists again with fresh data from the long lists
-            //note: this is done on each update call, mostly overwriting samey data
+            //if ((gv.mod.currentArea.areaWeatherName != "") && (gv.mod.currentArea.areaWeatherName != "none"))
+            //{
+                //fill the weather lists again with fresh data from the long lists
+                //note: this is done on each update call, mostly overwriting samey data
                 //iterate through the module's list of weather objects
                 for (int i = 0; i < gv.mod.moduleWeathersList.Count; i++)
                 {
@@ -4476,152 +5701,152 @@ namespace IceBlink2
                     }
                 }
 
-            #region check if current weather exists in this area
-            //check whether the current weather is still in the entry list of current area (which should contain all weathers possible in an area)
-            bool doesCurrentWeatherExistHere = false;
-            foreach (string weatherName in gv.mod.listOfEntryWeatherNames)
-            {
-                if (weatherName == gv.mod.currentWeatherName)
+                #region check if current weather exists in this area
+                //check whether the current weather is still in the entry list of current area (which should contain all weathers possible in an area)
+                bool doesCurrentWeatherExistHere = false;
+                foreach (string weatherName in gv.mod.listOfEntryWeatherNames)
                 {
-                    doesCurrentWeatherExistHere = true;
-                    break;
-                }
-            }
-
-            //there is a current weather, the area allows weather and the particular current weather does not exist in this area anyhow
-            if ((gv.mod.currentWeatherName != "") && (gv.mod.currentArea.areaWeatherName != "") && (!doesCurrentWeatherExistHere))
-            {
-                //maintain weather from previous map for a few update calls (if new area allos weather at all)
-                //otherwise area borders will become weather borders which is bad for the seamlessness illusion 
-                if (gv.mod.justTransitioned2 == true)
-                {
-                    gv.mod.oldWeatherName = gv.mod.currentWeatherName;
-                    if (gv.mod.useRealTimeTimer == true)
+                    if (weatherName == gv.mod.currentWeatherName)
                     {
-                        gv.mod.maintainWeatherFromLastAreaTimer = gv.sf.RandInt(30) + 30;
-                    }
-                    else
-                    {
-                        gv.mod.maintainWeatherFromLastAreaTimer = gv.sf.RandInt(15) + 15;
-                    }
-                    gv.mod.justTransitioned2 = false;
-
-                    //make sure the run out time is not longer than the anyhow remaining time of the old weather
-                    if ((gv.mod.currentWeatherDuration > gv.mod.maintainWeatherFromLastAreaTimer))
-                    {
-                        gv.mod.currentWeatherDuration = (int)gv.mod.maintainWeatherFromLastAreaTimer;
-                    }
-                }
-            }
-            #endregion
-
-            //if (gv.mod.currentArea.areaWeatherName == "")
-            //{
-                //gv.mod.currentWeatherDuration = 0;
-            //}
- 
-            //initialize a fresh weather
-            //hurgh9             
-            if ((gv.mod.currentWeatherName == "") && (gv.mod.oldWeatherName == "") && (gv.mod.currentArea.areaWeatherName != ""))
-            {   
-                //determine random number between 1 and 100 for choosing entry weather type
-                int rollRandom = gv.sf.RandInt(100);
-                int addedChances = 0;
-
-                for (int i = 0; i < gv.mod.listOfEntryWeatherChances.Count; i++)
-                {
-                    addedChances += gv.mod.listOfEntryWeatherChances[i];
-                    if (rollRandom <= addedChances)
-                    {
-                        gv.mod.currentWeatherName = gv.mod.listOfEntryWeatherNames[i];
-                        if (gv.mod.currentWeatherName.Contains("Sandstorm") || gv.mod.currentWeatherName.Contains("sandStorm") || gv.mod.currentWeatherName.Contains("sandstorm") || gv.mod.currentWeatherName.Contains("SandStorm"))
-                        {
-                            gv.mod.sandStormDirectionX = (float)(gv.sf.RandInt(100) + 150) / 500f;
-                            gv.mod.sandStormDirectionY = (float)(gv.sf.RandInt(100) + 150) / 500f;
-                            int deciderX = gv.sf.RandInt(2);
-                            if (deciderX == 1)
-                            {
-                                gv.mod.sandStormDirectionX = gv.mod.sandStormDirectionX * -1;
-                            }
-                            int deciderY = gv.sf.RandInt(2);
-                            if (deciderY == 1)
-                            {
-                                gv.mod.sandStormDirectionY = gv.mod.sandStormDirectionY * -1;
-                            }
-
-                            if ((deciderX == 1) && (deciderY == 1))
-                            {
-                                gv.mod.sandStormBlowingTo = "NW";
-                            }
-                            if ((deciderX == 1) && (deciderY == 2))
-                            {
-                                gv.mod.sandStormBlowingTo = "SW";
-                            }
-                            if ((deciderX == 2) && (deciderY == 1))
-                            {
-                                gv.mod.sandStormBlowingTo = "NE";
-                            }
-                            if ((deciderX == 2) && (deciderY == 2))
-                            {
-                                gv.mod.sandStormBlowingTo = "SE";
-                            }
-                        }
-
-                        gv.mod.currentWeatherDuration = gv.mod.listOfEntryWeatherDurations[i];
-                        float rollRandom2 = gv.sf.RandInt(100);
-                        if (gv.mod.useRealTimeTimer == true)
-                        {
-                            gv.mod.currentWeatherDuration = (int)(gv.mod.currentWeatherDuration * ((200f + rollRandom2) / 100f));
-                        }
-                        else
-                        {
-                            gv.mod.currentWeatherDuration = (int)(gv.mod.currentWeatherDuration * ((100f + rollRandom2) / 100f));
-                        }
-
                         doesCurrentWeatherExistHere = true;
-                        gv.mod.howLongWeatherHasRun = 0;
-                        gv.mod.fullScreenEffectOpacityWeather = 0;
-                        //gv.mod.currentArea.rememberedWeatherName = gv.mod.currentWeatherName;
-                        //gv.mod.currentArea.rememberedWeatherDuration = gv.mod.currentWeatherDuration;
                         break;
                     }
                 }
-            }
 
-            //reduce duration by 1, more for areas that consume more time per step, also for fade out
-            gv.mod.currentWeatherDuration -= (1 * gv.mod.currentArea.weatherDurationMultiplierForScale);
+                //there is a current weather, the area allows weather and the particular current weather does not exist in this area anyhow
+                if ((gv.mod.currentWeatherName != "") && (gv.mod.currentArea.areaWeatherName != "") && (!doesCurrentWeatherExistHere))
+                {
+                    //maintain weather from previous map for a few update calls (if new area allos weather at all)
+                    //otherwise area borders will become weather borders which is bad for the seamlessness illusion 
+                    if (gv.mod.justTransitioned2 == true)
+                    {
+                        gv.mod.oldWeatherName = gv.mod.currentWeatherName;
+                        if (gv.mod.useRealTimeTimer == true)
+                        {
+                            gv.mod.maintainWeatherFromLastAreaTimer = gv.sf.RandInt(30) + 30;
+                        }
+                        else
+                        {
+                            gv.mod.maintainWeatherFromLastAreaTimer = gv.sf.RandInt(15) + 15;
+                        }
+                        gv.mod.justTransitioned2 = false;
 
-            //fade in counter
-            gv.mod.howLongWeatherHasRun += (1 * gv.mod.currentArea.weatherDurationMultiplierForScale);
+                        //make sure the run out time is not longer than the anyhow remaining time of the old weather
+                        if ((gv.mod.currentWeatherDuration > gv.mod.maintainWeatherFromLastAreaTimer))
+                        {
+                            gv.mod.currentWeatherDuration = (int)gv.mod.maintainWeatherFromLastAreaTimer;
+                        }
+                    }
+                }
+                #endregion
 
-            float changeThreshold = (5 * gv.mod.currentArea.weatherDurationMultiplierForScale);
-                 
-            //Fade in
-            if (gv.mod.howLongWeatherHasRun <= changeThreshold)
-            {
-                gv.mod.fullScreenEffectOpacityWeather = 1f * (gv.mod.howLongWeatherHasRun / changeThreshold);
-            }
+                //if (gv.mod.currentArea.areaWeatherName == "")
+                //{
+                //gv.mod.currentWeatherDuration = 0;
+                //}
 
-            //Fade out
-            if (gv.mod.currentWeatherDuration <= changeThreshold)
-            {
-                gv.mod.fullScreenEffectOpacityWeather = 1f * (gv.mod.currentWeatherDuration / changeThreshold);
-            }
+                //initialize a fresh weather
+                //hurgh9             
+                if ((gv.mod.currentWeatherName == "") && (gv.mod.oldWeatherName == "") && (gv.mod.currentArea.areaWeatherName != ""))
+                {
+                    //determine random number between 1 and 100 for choosing entry weather type
+                    int rollRandom = gv.sf.RandInt(100);
+                    int addedChances = 0;
 
-            #region weather duration has ended, setup new weather
-            //weather duration has ended 
-            if (gv.mod.currentWeatherDuration <= 0)
-            {
-                gv.mod.oldWeatherName = "";
-                gv.mod.currentWeatherName = "";
+                    for (int i = 0; i < gv.mod.listOfEntryWeatherChances.Count; i++)
+                    {
+                        addedChances += gv.mod.listOfEntryWeatherChances[i];
+                        if (rollRandom <= addedChances)
+                        {
+                            gv.mod.currentWeatherName = gv.mod.listOfEntryWeatherNames[i];
+                            if (gv.mod.currentWeatherName.Contains("Sandstorm") || gv.mod.currentWeatherName.Contains("sandStorm") || gv.mod.currentWeatherName.Contains("sandstorm") || gv.mod.currentWeatherName.Contains("SandStorm"))
+                            {
+                                gv.mod.sandStormDirectionX = (float)(gv.sf.RandInt(100) + 150) / 500f;
+                                gv.mod.sandStormDirectionY = (float)(gv.sf.RandInt(100) + 150) / 500f;
+                                int deciderX = gv.sf.RandInt(2);
+                                if (deciderX == 1)
+                                {
+                                    gv.mod.sandStormDirectionX = gv.mod.sandStormDirectionX * -1;
+                                }
+                                int deciderY = gv.sf.RandInt(2);
+                                if (deciderY == 1)
+                                {
+                                    gv.mod.sandStormDirectionY = gv.mod.sandStormDirectionY * -1;
+                                }
 
-                gv.weatherSounds1.controls.stop();
-                gv.weatherSounds2.controls.stop();
-                gv.weatherSounds3.controls.stop();
+                                if ((deciderX == 1) && (deciderY == 1))
+                                {
+                                    gv.mod.sandStormBlowingTo = "NW";
+                                }
+                                if ((deciderX == 1) && (deciderY == 2))
+                                {
+                                    gv.mod.sandStormBlowingTo = "SW";
+                                }
+                                if ((deciderX == 2) && (deciderY == 1))
+                                {
+                                    gv.mod.sandStormBlowingTo = "NE";
+                                }
+                                if ((deciderX == 2) && (deciderY == 2))
+                                {
+                                    gv.mod.sandStormBlowingTo = "SE";
+                                }
+                            }
 
-                gv.mod.howLongWeatherHasRun = 0;
-                gv.mod.fullScreenEffectOpacityWeather = 0;
-               
+                            gv.mod.currentWeatherDuration = gv.mod.listOfEntryWeatherDurations[i];
+                            float rollRandom2 = gv.sf.RandInt(100);
+                            if (gv.mod.useRealTimeTimer == true)
+                            {
+                                gv.mod.currentWeatherDuration = (int)(gv.mod.currentWeatherDuration * ((200f + rollRandom2) / 100f));
+                            }
+                            else
+                            {
+                                gv.mod.currentWeatherDuration = (int)(gv.mod.currentWeatherDuration * ((100f + rollRandom2) / 100f));
+                            }
+
+                            doesCurrentWeatherExistHere = true;
+                            gv.mod.howLongWeatherHasRun = 0;
+                            gv.mod.fullScreenEffectOpacityWeather = 0;
+                            //gv.mod.currentArea.rememberedWeatherName = gv.mod.currentWeatherName;
+                            //gv.mod.currentArea.rememberedWeatherDuration = gv.mod.currentWeatherDuration;
+                            break;
+                        }
+                    }
+                }
+
+                //reduce duration by 1, more for areas that consume more time per step, also for fade out
+                gv.mod.currentWeatherDuration -= (1 * gv.mod.currentArea.weatherDurationMultiplierForScale);
+
+                //fade in counter
+                gv.mod.howLongWeatherHasRun += (1 * gv.mod.currentArea.weatherDurationMultiplierForScale);
+
+                float changeThreshold = (5 * gv.mod.currentArea.weatherDurationMultiplierForScale);
+
+                //Fade in
+                if (gv.mod.howLongWeatherHasRun <= changeThreshold)
+                {
+                    gv.mod.fullScreenEffectOpacityWeather = 1f * (gv.mod.howLongWeatherHasRun / changeThreshold);
+                }
+
+                //Fade out
+                if (gv.mod.currentWeatherDuration <= changeThreshold)
+                {
+                    gv.mod.fullScreenEffectOpacityWeather = 1f * (gv.mod.currentWeatherDuration / changeThreshold);
+                }
+
+                #region weather duration has ended, setup new weather
+                //weather duration has ended 
+                if (gv.mod.currentWeatherDuration <= 0)
+                {
+                    gv.mod.oldWeatherName = "";
+                    gv.mod.currentWeatherName = "";
+
+                    gv.weatherSounds1.controls.stop();
+                    gv.weatherSounds2.controls.stop();
+                    gv.weatherSounds3.controls.stop();
+
+                    gv.mod.howLongWeatherHasRun = 0;
+                    gv.mod.fullScreenEffectOpacityWeather = 0;
+
                     //iterate through the module's list of weather objects
                     for (int i = 0; i < gv.mod.moduleWeathersList.Count; i++)
                     {
@@ -4642,181 +5867,182 @@ namespace IceBlink2
                             }
                         }
                     }
-                
-                //determine random number between 1 and 100 for choosing entry weather type
-                int rollRandom = gv.sf.RandInt(100);
-                int addedChances = 0;
-                bool foundWeather = false;
 
-                for (int i = 0; i < gv.mod.listOfExitWeatherChances.Count; i++)
-                {
-                    addedChances += gv.mod.listOfExitWeatherChances[i];
-                    if (rollRandom <= addedChances)
+                    //determine random number between 1 and 100 for choosing entry weather type
+                    int rollRandom = gv.sf.RandInt(100);
+                    int addedChances = 0;
+                    bool foundWeather = false;
+
+                    for (int i = 0; i < gv.mod.listOfExitWeatherChances.Count; i++)
                     {
-                        gv.mod.currentWeatherName = gv.mod.listOfExitWeatherNames[i];
-                        if (gv.mod.currentWeatherName.Contains("Sandstorm") || gv.mod.currentWeatherName.Contains("sandStorm") || gv.mod.currentWeatherName.Contains("sandstorm") || gv.mod.currentWeatherName.Contains("SandStorm"))
+                        addedChances += gv.mod.listOfExitWeatherChances[i];
+                        if (rollRandom <= addedChances)
                         {
-                            gv.mod.sandStormDirectionX = (float)(gv.sf.RandInt(100) + 150) / 500f;
-                            gv.mod.sandStormDirectionY = (float)(gv.sf.RandInt(100) + 150) / 500f;
-                            int deciderX = gv.sf.RandInt(2);
-                            if (deciderX == 1)
+                            gv.mod.currentWeatherName = gv.mod.listOfExitWeatherNames[i];
+                            if (gv.mod.currentWeatherName.Contains("Sandstorm") || gv.mod.currentWeatherName.Contains("sandStorm") || gv.mod.currentWeatherName.Contains("sandstorm") || gv.mod.currentWeatherName.Contains("SandStorm"))
                             {
-                                gv.mod.sandStormDirectionX = gv.mod.sandStormDirectionX * -1;
-                            }
-                            int deciderY = gv.sf.RandInt(2);
-                            if (deciderY == 1)
-                            {
-                                gv.mod.sandStormDirectionY = gv.mod.sandStormDirectionY * -1;
-                            }
+                                gv.mod.sandStormDirectionX = (float)(gv.sf.RandInt(100) + 150) / 500f;
+                                gv.mod.sandStormDirectionY = (float)(gv.sf.RandInt(100) + 150) / 500f;
+                                int deciderX = gv.sf.RandInt(2);
+                                if (deciderX == 1)
+                                {
+                                    gv.mod.sandStormDirectionX = gv.mod.sandStormDirectionX * -1;
+                                }
+                                int deciderY = gv.sf.RandInt(2);
+                                if (deciderY == 1)
+                                {
+                                    gv.mod.sandStormDirectionY = gv.mod.sandStormDirectionY * -1;
+                                }
 
-                            if ((deciderX == 1) && (deciderY == 1))
-                            {
-                                gv.mod.sandStormBlowingTo = "NW";
-                            }
-                            if ((deciderX == 1) && (deciderY == 2))
-                            {
-                                gv.mod.sandStormBlowingTo = "SW";
-                            }
-                            if ((deciderX == 2) && (deciderY == 1))
-                            {
-                                gv.mod.sandStormBlowingTo = "NE";
-                            }
-                            if ((deciderX == 2) && (deciderY == 2))
-                            {
-                                gv.mod.sandStormBlowingTo = "SE";
-                            }
+                                if ((deciderX == 1) && (deciderY == 1))
+                                {
+                                    gv.mod.sandStormBlowingTo = "NW";
+                                }
+                                if ((deciderX == 1) && (deciderY == 2))
+                                {
+                                    gv.mod.sandStormBlowingTo = "SW";
+                                }
+                                if ((deciderX == 2) && (deciderY == 1))
+                                {
+                                    gv.mod.sandStormBlowingTo = "NE";
+                                }
+                                if ((deciderX == 2) && (deciderY == 2))
+                                {
+                                    gv.mod.sandStormBlowingTo = "SE";
+                                }
 
 
+                            }
+                            gv.mod.currentWeatherDuration = gv.mod.listOfExitWeatherDurations[i];
+                            float rollRandom2 = gv.sf.RandInt(100);
+                            gv.mod.currentWeatherDuration = (int)(gv.mod.currentWeatherDuration * ((50f + rollRandom2) / 100f));
+                            doesCurrentWeatherExistHere = true;
+                            foundWeather = true;
+                            break;
                         }
-                        gv.mod.currentWeatherDuration = gv.mod.listOfExitWeatherDurations[i];
+                    }
+
+                    //fail safe catch, take first weather from the respective exit list
+                    if ((foundWeather == false) && (gv.mod.listOfExitWeatherChances.Count > 0))
+                    {
+                        gv.mod.currentWeatherName = gv.mod.listOfExitWeatherNames[0];
+                        gv.mod.currentWeatherDuration = gv.mod.listOfExitWeatherDurations[0];
                         float rollRandom2 = gv.sf.RandInt(100);
                         gv.mod.currentWeatherDuration = (int)(gv.mod.currentWeatherDuration * ((50f + rollRandom2) / 100f));
                         doesCurrentWeatherExistHere = true;
                         foundWeather = true;
-                        break;
+                    }
+
+                }
+                #endregion
+
+                gv.mod.isRaining = false;
+                gv.mod.isCloudy = false;
+                gv.mod.isFoggy = false;
+                gv.mod.isSnowing = false;
+                gv.mod.isLightning = false;
+                gv.mod.isSandstorm = false;
+
+
+                if (gv.mod.currentArea.areaWeatherName != "")
+                {
+                    if (gv.mod.currentWeatherName.Contains("lightRain") || gv.mod.currentWeatherName.Contains("LightRain"))
+                    {
+                        gv.mod.isRaining = true;
+                        gv.rainType = "lightRain";
+                    }
+                    else if (gv.mod.currentWeatherName.Contains("heavyRain") || gv.mod.currentWeatherName.Contains("HeavyRain"))
+                    {
+                        gv.mod.isRaining = true;
+                        gv.rainType = "heavyRain";
+                    }
+                    else if (gv.mod.currentWeatherName.Contains("rain") || gv.mod.currentWeatherName.Contains("Rain"))
+                    {
+                        gv.mod.isRaining = true;
+                        gv.rainType = "rain";
+                    }
+
+                    if (gv.mod.currentWeatherName.Contains("lightSnow") || gv.mod.currentWeatherName.Contains("LightSnow"))
+                    {
+                        gv.mod.isSnowing = true;
+                        gv.snowType = "lightSnow";
+                    }
+                    else if (gv.mod.currentWeatherName.Contains("heavySnow") || gv.mod.currentWeatherName.Contains("HeavySnow"))
+                    {
+                        gv.mod.isSnowing = true;
+                        gv.snowType = "heavySnow";
+                    }
+                    else if (gv.mod.currentWeatherName.Contains("snow") || gv.mod.currentWeatherName.Contains("Snow"))
+                    {
+                        gv.mod.isSnowing = true;
+                        gv.snowType = "snow";
+                    }
+
+
+                    if (gv.mod.currentWeatherName.Contains("lightSandStorm") || gv.mod.currentWeatherName.Contains("LightSandStorm"))
+                    {
+                        gv.mod.isSandstorm = true;
+                        gv.sandstormType = "lightSandStorm";
+                    }
+                    else if (gv.mod.currentWeatherName.Contains("heavySandStorm") || gv.mod.currentWeatherName.Contains("HeavySandStorm"))
+                    {
+                        gv.mod.isSandstorm = true;
+                        gv.sandstormType = "heavySandStorm";
+                    }
+                    else if (gv.mod.currentWeatherName.Contains("sandStorm") || gv.mod.currentWeatherName.Contains("SandStorm"))
+                    {
+                        gv.mod.isSandstorm = true;
+                        gv.sandstormType = "sandStorm";
+                    }
+
+                    if (gv.mod.currentWeatherName.Contains("heavyClouds") || gv.mod.currentWeatherName.Contains("HeavyClouds"))
+                    {
+                        gv.mod.isCloudy = true;
+                        gv.cloudType = "heavyCloud";
+                    }
+                    else if (gv.mod.currentWeatherName.Contains("lightClouds") || gv.mod.currentWeatherName.Contains("LightClouds"))
+                    {
+                        gv.mod.isCloudy = true;
+                        gv.cloudType = "lightCloud";
+                    }
+                    else if (gv.mod.currentWeatherName.Contains("clouds") || gv.mod.currentWeatherName.Contains("Clouds"))
+                    {
+                        gv.mod.isCloudy = true;
+                        gv.cloudType = "cloud";
+                    }
+
+                    if (gv.mod.currentWeatherName.Contains("heavyFog") || gv.mod.currentWeatherName.Contains("HeavyFog"))
+                    {
+                        gv.mod.isFoggy = true;
+                        gv.fogType = "heavyFog";
+                    }
+                    else if (gv.mod.currentWeatherName.Contains("lightFog") || gv.mod.currentWeatherName.Contains("LightFog"))
+                    {
+                        gv.mod.isFoggy = true;
+                        gv.fogType = "lightFog";
+                    }
+                    else if (gv.mod.currentWeatherName.Contains("fog") || gv.mod.currentWeatherName.Contains("Fog"))
+                    {
+                        gv.mod.isFoggy = true;
+                        gv.fogType = "fog";
+                    }
+
+                    if (gv.mod.currentWeatherName.Contains("lightning") || gv.mod.currentWeatherName.Contains("Lightning"))
+                    {
+                        gv.mod.isLightning = true;
                     }
                 }
 
-                //fail safe catch, take first weather from the respective exit list
-                if ((foundWeather == false) && (gv.mod.listOfExitWeatherChances.Count > 0))
+                if (gv.mod.debugMode)
                 {
-                    gv.mod.currentWeatherName = gv.mod.listOfExitWeatherNames[0];
-                    gv.mod.currentWeatherDuration = gv.mod.listOfExitWeatherDurations[0];
-                    float rollRandom2 = gv.sf.RandInt(100);
-                    gv.mod.currentWeatherDuration = (int)(gv.mod.currentWeatherDuration * ((50f + rollRandom2) / 100f));
-                    doesCurrentWeatherExistHere = true;
-                    foundWeather = true;
+                    gv.cc.addLogText("lime", gv.mod.currentWeatherName);
                 }
-                
+
+                //hurgh7
+                //gv.mod.currentWeatherName = "sandStorm";
+                //gv.mod.isSandstorm = true;
             }
-            #endregion
-
-            gv.mod.isRaining = false;
-            gv.mod.isCloudy = false;
-            gv.mod.isFoggy = false;
-            gv.mod.isSnowing = false;
-            gv.mod.isLightning = false;
-            gv.mod.isSandstorm = false;
-
-
-            if (gv.mod.currentArea.areaWeatherName != "")
-            {
-                if (gv.mod.currentWeatherName.Contains("lightRain") || gv.mod.currentWeatherName.Contains("LightRain"))
-                {
-                    gv.mod.isRaining = true;
-                    gv.rainType = "lightRain";
-                }
-                else if (gv.mod.currentWeatherName.Contains("heavyRain") || gv.mod.currentWeatherName.Contains("HeavyRain"))
-                {
-                    gv.mod.isRaining = true;
-                    gv.rainType = "heavyRain";
-                }
-                else if (gv.mod.currentWeatherName.Contains("rain") || gv.mod.currentWeatherName.Contains("Rain"))
-                {
-                    gv.mod.isRaining = true;
-                    gv.rainType = "rain";
-                }
-
-                if (gv.mod.currentWeatherName.Contains("lightSnow") || gv.mod.currentWeatherName.Contains("LightSnow"))
-                {
-                    gv.mod.isSnowing = true;
-                    gv.snowType = "lightSnow";
-                }
-                else if (gv.mod.currentWeatherName.Contains("heavySnow") || gv.mod.currentWeatherName.Contains("HeavySnow"))
-                {
-                    gv.mod.isSnowing = true;
-                    gv.snowType = "heavySnow";
-                }
-                else if (gv.mod.currentWeatherName.Contains("snow") || gv.mod.currentWeatherName.Contains("Snow"))
-                {
-                    gv.mod.isSnowing = true;
-                    gv.snowType = "snow";
-                }
-
-
-                if (gv.mod.currentWeatherName.Contains("lightSandStorm") || gv.mod.currentWeatherName.Contains("LightSandStorm"))
-                {
-                    gv.mod.isSandstorm = true;
-                    gv.sandstormType = "lightSandStorm";
-                }
-                else if (gv.mod.currentWeatherName.Contains("heavySandStorm") || gv.mod.currentWeatherName.Contains("HeavySandStorm"))
-                {
-                    gv.mod.isSandstorm = true;
-                    gv.sandstormType = "heavySandStorm";
-                }
-                else if (gv.mod.currentWeatherName.Contains("sandStorm") || gv.mod.currentWeatherName.Contains("SandStorm"))
-                {
-                    gv.mod.isSandstorm = true;
-                    gv.sandstormType = "sandStorm";
-                }
-
-                if (gv.mod.currentWeatherName.Contains("heavyClouds") || gv.mod.currentWeatherName.Contains("HeavyClouds"))
-                {
-                    gv.mod.isCloudy = true;
-                    gv.cloudType = "heavyCloud";
-                }
-                else if (gv.mod.currentWeatherName.Contains("lightClouds") || gv.mod.currentWeatherName.Contains("LightClouds"))
-                {
-                    gv.mod.isCloudy = true;
-                    gv.cloudType = "lightCloud";
-                }
-                else if (gv.mod.currentWeatherName.Contains("clouds") || gv.mod.currentWeatherName.Contains("Clouds"))
-                {
-                    gv.mod.isCloudy = true;
-                    gv.cloudType = "cloud";
-                }
-
-                if (gv.mod.currentWeatherName.Contains("heavyFog") || gv.mod.currentWeatherName.Contains("HeavyFog"))
-                {
-                    gv.mod.isFoggy = true;
-                    gv.fogType = "heavyFog";
-                }
-                else if (gv.mod.currentWeatherName.Contains("lightFog") || gv.mod.currentWeatherName.Contains("LightFog"))
-                {
-                    gv.mod.isFoggy = true;
-                    gv.fogType = "lightFog";
-                }
-                else if (gv.mod.currentWeatherName.Contains("fog") || gv.mod.currentWeatherName.Contains("Fog"))
-                {
-                    gv.mod.isFoggy = true;
-                    gv.fogType = "fog";
-                }
-
-                if (gv.mod.currentWeatherName.Contains("lightning") || gv.mod.currentWeatherName.Contains("Lightning"))
-                {
-                    gv.mod.isLightning = true;
-                }
-            }
-
-            if (gv.mod.debugMode)
-            {
-                gv.cc.addLogText("lime", gv.mod.currentWeatherName);
-            }
-
-            //hurgh7
-            //gv.mod.currentWeatherName = "sandStorm";
-            //gv.mod.isSandstorm = true;
-        }
+        //}
                
         public void SetUpEntryLists(string str)
         {

@@ -84,6 +84,12 @@ namespace IceBlink2
         public bool flickerRise = true;
         public bool affectedByFlickerAlready = false;
 
+        //these must be turned into lists in order work with tiles lit by multiple sources
+        public List<string> tilePositionInLitArea = new List<string>();
+        //public List<Tile> tilesOfThisLightSource = new List<Tile>();
+        public List<string> tileLightSourceTag = new List<string>();
+        public List <bool> isLit = new List<bool>();
+
         public Tile()
         {
         }
