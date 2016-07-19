@@ -27069,6 +27069,17 @@ namespace IceBlink2
                                 IbRect src = new IbRect(0, 0, 100, 100);
                                 IbRect dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler-1)*brX * 0.5f), tlY + shifterY - (int)((scaler - 1) * brY * 0.5f), (int)(brX * scaler), (int)(brY * scaler));
 
+                                int indexOfRelevantLightSource = 0;
+                                int sorter = 0;
+                                for (int p = 0; p < tile.priority.Count; p++)
+                                {
+                                    if (tile.priority[p] >= sorter)
+                                    {
+                                        sorter = tile.priority[p];
+                                        indexOfRelevantLightSource = p;
+                                    }
+                                }
+
                                 float flickerReduction = 1;
                                 if (gv.mod.currentArea.UseDayNightCycle)
                                 {
@@ -27142,6 +27153,13 @@ namespace IceBlink2
                                     //{
                                         gv.DrawBitmap(gv.cc.light_torch, src, dst, 0, false, 0.9f * (0.125f - flicker/400f));
                                     //}
+                                    float extraDarkness = 1;
+                                   
+                                        if ((tile.tilePositionInLitArea[indexOfRelevantLightSource] == "NE") || (tile.tilePositionInLitArea[indexOfRelevantLightSource] == "NW") || (tile.tilePositionInLitArea[indexOfRelevantLightSource] == "SE") || (tile.tilePositionInLitArea[indexOfRelevantLightSource] == "SW"))
+                                        {
+                                            extraDarkness = 1.25f;
+                                        }
+                                        //to DO XXX
                                     if (gv.mod.currentArea.UseDayNightCycle)
                                     {
                                         int dawn = 5 * 60;
@@ -27153,11 +27171,11 @@ namespace IceBlink2
                                         int time = gv.mod.WorldTime % 1440;
                                         if ((time >= dawn) && (time < sunrise))
                                         {
-                                            gv.DrawBitmap(gv.cc.tint_dawn, src, dst, 0, false, 0.85f * 2.75f / flickerReduction * flicker / 100f);
+                                            gv.DrawBitmap(gv.cc.tint_dawn, src, dst, 0, false, extraDarkness * 0.85f * 2.75f / flickerReduction * flicker / 100f);
                                         }
                                         else if ((time >= sunrise) && (time < day))
                                         {
-                                            gv.DrawBitmap(gv.cc.tint_sunrise, src, dst, 0, false, 0.85f * 2.75f / flickerReduction * flicker / 100f);
+                                            gv.DrawBitmap(gv.cc.tint_sunrise, src, dst, 0, false, extraDarkness * 0.85f * 2.75f / flickerReduction * flicker / 100f);
                                         }
                                         else if ((time >= day) && (time < sunset))
                                         {
@@ -27165,22 +27183,24 @@ namespace IceBlink2
                                         }
                                         else if ((time >= sunset) && (time < dusk))
                                         {
-                                            gv.DrawBitmap(gv.cc.tint_sunset, src, dst, 0, false, 0.85f * 2.75f / flickerReduction * flicker / 100f);
+                                            gv.DrawBitmap(gv.cc.tint_sunset, src, dst, 0, false, extraDarkness * 0.85f * 2.75f / flickerReduction * flicker / 100f);
                                         }
                                         else if ((time >= dusk) && (time < night))
                                         {
-                                            gv.DrawBitmap(gv.cc.tint_dusk, src, dst, 0, false, 0.85f * 2.75f / flickerReduction * flicker / 100f);
+                                            gv.DrawBitmap(gv.cc.tint_dusk, src, dst, 0, false, extraDarkness * 0.85f * 2.75f / flickerReduction * flicker / 100f);
                                         }
                                         else if ((time >= night) || (time < dawn))
                                         {
-                                            gv.DrawBitmap(gv.cc.tint_night, src, dst, 0, false, 0.85f * 1.00f / flickerReduction * 1.5f * flicker / 100f);
+                                            gv.DrawBitmap(gv.cc.tint_night, src, dst, 0, false, extraDarkness * 0.85f * 1.00f / flickerReduction * 1.5f * flicker / 100f);
                                         }
                                     }
                                     //dark area
                                     //connect to area is dark?
                                     else
                                     {
-                                        gv.DrawBitmap(gv.cc.black_tile, src, dst, 0, false, 0.75f * flicker / 100f);
+                                       
+                                            gv.DrawBitmap(gv.cc.black_tile, src, dst, 0, false, extraDarkness * 0.75f * flicker / 100f);
+                                        
                                     }
                                     //gv.DrawBitmap(gv.cc.black_tile, src, dst, 0, false, 0.55f * flicker / 100f);
                                     if (!tile.Visible)
@@ -27197,7 +27217,18 @@ namespace IceBlink2
                                     //{
                                         gv.DrawBitmap(gv.cc.light_torch, src, dst, 0, false, 0.9f * (0.125f - flicker/400f));
                                     //}
-
+                                    float extraDarkness = 1;
+                                    foreach (string position in tile.tilePositionInLitArea)
+                                    {
+                                        if  ((tile.tilePositionInLitArea[indexOfRelevantLightSource] == "N0") || (tile.tilePositionInLitArea[indexOfRelevantLightSource] == "N4") || (tile.tilePositionInLitArea[indexOfRelevantLightSource] == "S0") || (tile.tilePositionInLitArea[indexOfRelevantLightSource] == "S4"))
+                                        {
+                                            extraDarkness = 1.5f;
+                                        }
+                                        if ((tile.tilePositionInLitArea[indexOfRelevantLightSource] == "N1") || (tile.tilePositionInLitArea[indexOfRelevantLightSource] == "N3") || (tile.tilePositionInLitArea[indexOfRelevantLightSource] == "S1") || (tile.tilePositionInLitArea[indexOfRelevantLightSource] == "S3") || (tile.tilePositionInLitArea[indexOfRelevantLightSource] == "E1") || (tile.tilePositionInLitArea[indexOfRelevantLightSource] == "E3") || (tile.tilePositionInLitArea[indexOfRelevantLightSource] == "W1") || (tile.tilePositionInLitArea[indexOfRelevantLightSource] == "W3"))
+                                        {
+                                            extraDarkness = 1.25f;
+                                        }
+                                    }
                                     if (gv.mod.currentArea.UseDayNightCycle)
                                     {
                                         int dawn = 5 * 60;
@@ -27209,11 +27240,11 @@ namespace IceBlink2
                                         int time = gv.mod.WorldTime % 1440;
                                         if ((time >= dawn) && (time < sunrise))
                                         {
-                                            gv.DrawBitmap(gv.cc.tint_dawn, src, dst, 0, false, 0.65f * 3.75f / flickerReduction * flicker / 100f);
+                                            gv.DrawBitmap(gv.cc.tint_dawn, src, dst, 0, false, extraDarkness * 0.65f * 3.75f / flickerReduction * flicker / 100f);
                                         }
                                         else if ((time >= sunrise) && (time < day))
                                         {
-                                            gv.DrawBitmap(gv.cc.tint_sunrise, src, dst, 0, false, 0.65f * 3.75f / flickerReduction * flicker / 100f);
+                                            gv.DrawBitmap(gv.cc.tint_sunrise, src, dst, 0, false, extraDarkness * 0.65f * 3.75f / flickerReduction * flicker / 100f);
                                         }
                                         else if ((time >= day) && (time < sunset))
                                         {
@@ -27221,23 +27252,36 @@ namespace IceBlink2
                                         }
                                         else if ((time >= sunset) && (time < dusk))
                                         {
-                                            gv.DrawBitmap(gv.cc.tint_sunset, src, dst, 0, false, 0.65f * 3.75f / flickerReduction * flicker / 100f);
+                                            gv.DrawBitmap(gv.cc.tint_sunset, src, dst, 0, false, extraDarkness * 0.65f * 3.75f / flickerReduction * flicker / 100f);
                                         }
                                         else if ((time >= dusk) && (time < night))
                                         {
-                                            gv.DrawBitmap(gv.cc.tint_dusk, src, dst, 0, false, 0.65f * 3.75f / flickerReduction * flicker / 100f);
+                                            gv.DrawBitmap(gv.cc.tint_dusk, src, dst, 0, false, extraDarkness * 0.65f * 3.75f / flickerReduction * flicker / 100f);
                                         }
                                         else if ((time >= night) || (time < dawn))
                                         {
-                                            gv.DrawBitmap(gv.cc.black_tile, src, dst, 0, false, 0.65f * flicker/100f * 1.2f);
-                                            gv.DrawBitmap(gv.cc.tint_night, src, dst, 0, false, 0.65f * 1.7f * 1.5f / flickerReduction * flicker / 100f);
+                                            gv.DrawBitmap(gv.cc.black_tile, src, dst, 0, false, extraDarkness * 0.65f * flicker/100f * 1.2f);
+                                            gv.DrawBitmap(gv.cc.tint_night, src, dst, 0, false, extraDarkness * 0.65f * 1.7f * 1.5f / flickerReduction * flicker / 100f);
                                         }
                                     }
                                     //dark area
                                     //connect to area is dark?
                                     else
                                     {
-                                        gv.DrawBitmap(gv.cc.black_tile, src, dst, 0, false, 0.675f * 2.5f * flicker / 100f);
+                                        /*
+                                        if (position == "NE")
+                                        {
+                                            dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f), tlY + shifterY - (int)((scaler - 1) * brY * 0.5f), (int)(brX * scaler), (int)(brY * scaler));
+                                            gv.DrawBitmap(gv.cc.black_tile, src, dst, 0, false, extraDarkness * 0.75f * flicker / 100f);
+
+                                            gv.DrawBitmap(gv.cc.black_tile, src, dst, 0, false, extraDarkness * 0.75f * flicker / 100f);
+
+                                            gv.DrawBitmap(gv.cc.black_tile, src, dst, 0, false, extraDarkness * 0.75f * flicker / 100f);
+
+                                        }
+                                        */
+                                        
+                                            gv.DrawBitmap(gv.cc.black_tile, src, dst, 0, false, extraDarkness * 0.675f * 2.5f * flicker / 100f);
                                     }
                                     //gv.DrawBitmap(gv.cc.black_tile, src, dst, 0, false, 1.20f * flicker/100f);
                                     if (!tile.Visible)

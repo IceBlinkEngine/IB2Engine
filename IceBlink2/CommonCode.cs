@@ -2594,6 +2594,7 @@ namespace IceBlink2
                         tile.tilePositionInLitArea.Clear();
                         tile.tileLightSourceTag.Clear();
                         tile.isLit.Clear();
+                        tile.priority.Clear();
                     }
 
                     //YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY
@@ -3862,6 +3863,16 @@ namespace IceBlink2
                     //2 | 7 | 12 | 17 | 22
                     //3 | 8 | 13 | 18 | 23
                     //4 | 9 | 14 | 19 | 24
+
+                    //priority number:
+                    //0: not lit (ie hidden by LoS)
+                    //1: N0, N4, S0, S4
+                    //2: N1,N3,S1,S3,E1,E3,W1,W3
+                    //3: N2,S2,E2,W2
+                    //4: NE,NW,SE,SW
+                    //5: N,S,E,W
+                    //6: center
+
                     for (int tCount = 0; tCount <= 24; tCount++)
                     {
                         if (tCount == 0)
@@ -3870,23 +3881,27 @@ namespace IceBlink2
                             if (!tilesOfThisLightSource[6].LoSBlocked)
                             {
                                 tilesOfThisLightSource[tCount].isLit.Add(true);
+                                tilesOfThisLightSource[tCount].priority.Add(1);
                             }
                             else
                             {
                                 tilesOfThisLightSource[tCount].isLit.Add(false);
+                                tilesOfThisLightSource[tCount].priority.Add(0);
                             }
                             continue;
                         }
                         else if (tCount == 5)
                         {
-                             tilesOfThisLightSource[tCount].tilePositionInLitArea.Add("N1");
-                             if ((!tilesOfThisLightSource[6].LoSBlocked) && (!tilesOfThisLightSource[11].LoSBlocked))
+                            tilesOfThisLightSource[tCount].tilePositionInLitArea.Add("N1");
+                            if ((!tilesOfThisLightSource[6].LoSBlocked) && (!tilesOfThisLightSource[11].LoSBlocked))
                              {
-                                 tilesOfThisLightSource[tCount].isLit.Add(true);
-                             }
+                                tilesOfThisLightSource[tCount].isLit.Add(true);
+                                tilesOfThisLightSource[tCount].priority.Add(2);
+                            }
                             else
                             {
                                 tilesOfThisLightSource[tCount].isLit.Add(false);
+                                tilesOfThisLightSource[tCount].priority.Add(0);
                             }
                             continue;
                         }
@@ -3896,10 +3911,12 @@ namespace IceBlink2
                             if ((!tilesOfThisLightSource[11].LoSBlocked) && (!tilesOfThisLightSource[11].LoSBlocked))
                             {
                                 tilesOfThisLightSource[tCount].isLit.Add(true);
+                                tilesOfThisLightSource[tCount].priority.Add(3);
                             }
                             else
                             {
                                 tilesOfThisLightSource[tCount].isLit.Add(false);
+                                tilesOfThisLightSource[tCount].priority.Add(0);
                             }
                             continue;
                         }
@@ -3909,10 +3926,12 @@ namespace IceBlink2
                             if ((!tilesOfThisLightSource[11].LoSBlocked) && (!tilesOfThisLightSource[16].LoSBlocked))
                             {
                                 tilesOfThisLightSource[tCount].isLit.Add(true);
+                                tilesOfThisLightSource[tCount].priority.Add(2);
                             }
                             else
                             {
                                 tilesOfThisLightSource[tCount].isLit.Add(false);
+                                tilesOfThisLightSource[tCount].priority.Add(0);
                             }
                             continue;
                         }
@@ -3922,10 +3941,12 @@ namespace IceBlink2
                             if ((!tilesOfThisLightSource[16].LoSBlocked) && (!tilesOfThisLightSource[16].LoSBlocked))
                             {
                                 tilesOfThisLightSource[tCount].isLit.Add(true);
+                                tilesOfThisLightSource[tCount].priority.Add(1);
                             }
                             else
                             {
                                 tilesOfThisLightSource[tCount].isLit.Add(false);
+                                tilesOfThisLightSource[tCount].priority.Add(0);
                             }
                             continue;
                         }
@@ -3935,10 +3956,12 @@ namespace IceBlink2
                             if ((!tilesOfThisLightSource[16].LoSBlocked) && (!tilesOfThisLightSource[17].LoSBlocked))
                             {
                                 tilesOfThisLightSource[tCount].isLit.Add(true);
+                                tilesOfThisLightSource[tCount].priority.Add(2);
                             }
                             else
                             {
                                 tilesOfThisLightSource[tCount].isLit.Add(false);
+                                tilesOfThisLightSource[tCount].priority.Add(0);
                             }
                             continue;
                         }
@@ -3948,24 +3971,28 @@ namespace IceBlink2
                             if ((!tilesOfThisLightSource[17].LoSBlocked) && (!tilesOfThisLightSource[17].LoSBlocked))
                             {
                                 tilesOfThisLightSource[tCount].isLit.Add(true);
+                                tilesOfThisLightSource[tCount].priority.Add(3);
                             }
                             else
                             {
                                 tilesOfThisLightSource[tCount].isLit.Add(false);
+                                tilesOfThisLightSource[tCount].priority.Add(0);
+                                continue;
                             }
-                            continue;
                         }
                         else if (tCount == 23)
                         {
                             tilesOfThisLightSource[tCount].tilePositionInLitArea.Add("E3");
                             if ((!tilesOfThisLightSource[17].LoSBlocked) && (!tilesOfThisLightSource[18].LoSBlocked))
                             {
-                                tilesOfThisLightSource[tCount].isLit.Add(true);
-                            }
-                            else
-                            {
-                                tilesOfThisLightSource[tCount].isLit.Add(false);
-                            }
+                                    tilesOfThisLightSource[tCount].isLit.Add(true);
+                                    tilesOfThisLightSource[tCount].priority.Add(2);
+                                }
+                                else
+                                {
+                                    tilesOfThisLightSource[tCount].isLit.Add(false);
+                                    tilesOfThisLightSource[tCount].priority.Add(0);
+                                }
                             continue;
                         }
                         else if (tCount == 24)
@@ -3973,12 +4000,14 @@ namespace IceBlink2
                             tilesOfThisLightSource[tCount].tilePositionInLitArea.Add("S4");
                             if ((!tilesOfThisLightSource[18].LoSBlocked) && (!tilesOfThisLightSource[18].LoSBlocked))
                             {
-                                tilesOfThisLightSource[tCount].isLit.Add(true);
-                            }
-                            else
-                            {
-                                tilesOfThisLightSource[tCount].isLit.Add(false);
-                            }
+                                    tilesOfThisLightSource[tCount].isLit.Add(true);
+                                    tilesOfThisLightSource[tCount].priority.Add(1);
+                                }
+                                else
+                                {
+                                    tilesOfThisLightSource[tCount].isLit.Add(false);
+                                    tilesOfThisLightSource[tCount].priority.Add(0);
+                                }
                             continue;
                         }
                         else if (tCount == 19)
@@ -3986,12 +4015,14 @@ namespace IceBlink2
                             tilesOfThisLightSource[tCount].tilePositionInLitArea.Add("S3");
                             if ((!tilesOfThisLightSource[13].LoSBlocked) && (!tilesOfThisLightSource[18].LoSBlocked))
                             {
-                                tilesOfThisLightSource[tCount].isLit.Add(true);
-                            }
-                            else
-                            {
-                                tilesOfThisLightSource[tCount].isLit.Add(false);
-                            }
+                                    tilesOfThisLightSource[tCount].isLit.Add(true);
+                                    tilesOfThisLightSource[tCount].priority.Add(2);
+                                }
+                                else
+                                {
+                                    tilesOfThisLightSource[tCount].isLit.Add(false);
+                                    tilesOfThisLightSource[tCount].priority.Add(0);
+                                }
                             continue;
                         }
                         else if (tCount == 14)
@@ -3999,12 +4030,14 @@ namespace IceBlink2
                             tilesOfThisLightSource[tCount].tilePositionInLitArea.Add("S2");
                             if ((!tilesOfThisLightSource[13].LoSBlocked) && (!tilesOfThisLightSource[13].LoSBlocked))
                             {
-                                tilesOfThisLightSource[tCount].isLit.Add(true);
-                            }
-                            else
-                            {
-                                tilesOfThisLightSource[tCount].isLit.Add(false);
-                            }
+                                    tilesOfThisLightSource[tCount].isLit.Add(true);
+                                    tilesOfThisLightSource[tCount].priority.Add(3);
+                                }
+                                else
+                                {
+                                    tilesOfThisLightSource[tCount].isLit.Add(false);
+                                    tilesOfThisLightSource[tCount].priority.Add(0);
+                                }
                             continue;
                         }
                         else if (tCount == 9)
@@ -4012,12 +4045,14 @@ namespace IceBlink2
                             tilesOfThisLightSource[tCount].tilePositionInLitArea.Add("S1");
                             if ((!tilesOfThisLightSource[8].LoSBlocked) && (!tilesOfThisLightSource[13].LoSBlocked))
                             {
-                                tilesOfThisLightSource[tCount].isLit.Add(true);
-                            }
-                            else
-                            {
-                                tilesOfThisLightSource[tCount].isLit.Add(false);
-                            }
+                                    tilesOfThisLightSource[tCount].isLit.Add(true);
+                                    tilesOfThisLightSource[tCount].priority.Add(1);
+                                }
+                                else
+                                {
+                                    tilesOfThisLightSource[tCount].isLit.Add(false);
+                                    tilesOfThisLightSource[tCount].priority.Add(0);
+                                }
                             continue;
                         }
                         else if (tCount == 4)
@@ -4025,12 +4060,14 @@ namespace IceBlink2
                             tilesOfThisLightSource[tCount].tilePositionInLitArea.Add("S0");
                             if ((!tilesOfThisLightSource[8].LoSBlocked) && (!tilesOfThisLightSource[8].LoSBlocked))
                             {
-                                tilesOfThisLightSource[tCount].isLit.Add(true);
-                            }
-                            else
-                            {
-                                tilesOfThisLightSource[tCount].isLit.Add(false);
-                            }
+                                    tilesOfThisLightSource[tCount].isLit.Add(true);
+                                    tilesOfThisLightSource[tCount].priority.Add(1);
+                                }
+                                else
+                                {
+                                    tilesOfThisLightSource[tCount].isLit.Add(false);
+                                    tilesOfThisLightSource[tCount].priority.Add(0);
+                                }
                             continue;
                         }
                         else if (tCount == 3)
@@ -4038,12 +4075,14 @@ namespace IceBlink2
                             tilesOfThisLightSource[tCount].tilePositionInLitArea.Add("W3");
                             if ((!tilesOfThisLightSource[7].LoSBlocked) && (!tilesOfThisLightSource[8].LoSBlocked))
                             {
-                                tilesOfThisLightSource[tCount].isLit.Add(true);
-                            }
-                            else
-                            {
-                                tilesOfThisLightSource[tCount].isLit.Add(false);
-                            }
+                                    tilesOfThisLightSource[tCount].isLit.Add(true);
+                                    tilesOfThisLightSource[tCount].priority.Add(2);
+                                }
+                                else
+                                {
+                                    tilesOfThisLightSource[tCount].isLit.Add(false);
+                                    tilesOfThisLightSource[tCount].priority.Add(0);
+                                }
                             continue;
                         }
                         else if (tCount == 2)
@@ -4051,12 +4090,14 @@ namespace IceBlink2
                             tilesOfThisLightSource[tCount].tilePositionInLitArea.Add("W2");
                             if ((!tilesOfThisLightSource[7].LoSBlocked) && (!tilesOfThisLightSource[7].LoSBlocked))
                             {
-                                tilesOfThisLightSource[tCount].isLit.Add(true);
-                            }
-                            else
-                            {
-                                tilesOfThisLightSource[tCount].isLit.Add(false);
-                            }
+                                    tilesOfThisLightSource[tCount].isLit.Add(true);
+                                    tilesOfThisLightSource[tCount].priority.Add(3);
+                                }
+                                else
+                                {
+                                    tilesOfThisLightSource[tCount].isLit.Add(false);
+                                    tilesOfThisLightSource[tCount].priority.Add(0);
+                                }
                             continue;
                         }
                         else if (tCount == 1)
@@ -4064,67 +4105,78 @@ namespace IceBlink2
                             tilesOfThisLightSource[tCount].tilePositionInLitArea.Add("W1");
                             if ((!tilesOfThisLightSource[6].LoSBlocked) && (!tilesOfThisLightSource[7].LoSBlocked))
                             {
-                                tilesOfThisLightSource[tCount].isLit.Add(true);
-                            }
-                            else
-                            {
-                                tilesOfThisLightSource[tCount].isLit.Add(false);
-                            }
+                                    tilesOfThisLightSource[tCount].isLit.Add(true);
+                                    tilesOfThisLightSource[tCount].priority.Add(2);
+                                }
+                                else
+                                {
+                                    tilesOfThisLightSource[tCount].isLit.Add(false);
+                                    tilesOfThisLightSource[tCount].priority.Add(0);
+                                }
                             continue;
                         }
                         else if (tCount == 6)
                         {
                             tilesOfThisLightSource[tCount].tilePositionInLitArea.Add("NW");
                             tilesOfThisLightSource[tCount].isLit.Add(true);
+                            tilesOfThisLightSource[tCount].priority.Add(4);
                             continue;
                         }
                         else if (tCount == 11)
                         {
                             tilesOfThisLightSource[tCount].tilePositionInLitArea.Add("N");
                             tilesOfThisLightSource[tCount].isLit.Add(true);
-                            continue;
+                                tilesOfThisLightSource[tCount].priority.Add(5);
+                                continue;
                         }
                         else if (tCount == 16)
                         {
                             tilesOfThisLightSource[tCount].tilePositionInLitArea.Add("NE");
                             tilesOfThisLightSource[tCount].isLit.Add(true);
-                            continue;
+                                tilesOfThisLightSource[tCount].priority.Add(4);
+                                continue;
                         }
                         else if (tCount == 17)
                         {
                             tilesOfThisLightSource[tCount].tilePositionInLitArea.Add("E");
                             tilesOfThisLightSource[tCount].isLit.Add(true);
-                            continue;
+                                tilesOfThisLightSource[tCount].priority.Add(5);
+                                continue;
                         }
                         else if (tCount == 18)
                         {
                             tilesOfThisLightSource[tCount].tilePositionInLitArea.Add("SE");
                             tilesOfThisLightSource[tCount].isLit.Add(true);
-                            continue;
+                                tilesOfThisLightSource[tCount].priority.Add(4);
+                                continue;
                         }
                         else if (tCount == 13)
                         {
                             tilesOfThisLightSource[tCount].tilePositionInLitArea.Add("S");
                             tilesOfThisLightSource[tCount].isLit.Add(true);
-                            continue;
+                                tilesOfThisLightSource[tCount].priority.Add(5);
+                                continue;
                         }
                         else if (tCount == 8)
                         {
                             tilesOfThisLightSource[tCount].tilePositionInLitArea.Add("SW");
                             tilesOfThisLightSource[tCount].isLit.Add(true);
-                            continue;
+                                tilesOfThisLightSource[tCount].priority.Add(4);
+                                continue;
                         }
                         else if (tCount == 7)
                         {
                             tilesOfThisLightSource[tCount].tilePositionInLitArea.Add("W");
                             tilesOfThisLightSource[tCount].isLit.Add(true);
-                            continue;
+                                tilesOfThisLightSource[tCount].priority.Add(5);
+                                continue;
                         }
                         else if (tCount == 12)
                         {
                             tilesOfThisLightSource[tCount].tilePositionInLitArea.Add("Center");
                             tilesOfThisLightSource[tCount].isLit.Add(true);
-                            continue;
+                                tilesOfThisLightSource[tCount].priority.Add(6);
+                                continue;
                         }
                     }
                 }
@@ -4568,271 +4620,322 @@ namespace IceBlink2
             //3 | 8 | 13 | 18 | 23
             //4 | 9 | 14 | 19 | 24
             //tilesOfThisLightSource.Clear();
+
+            //priority number:
+            //0: not lit (ie hidden by LoS)
+            //1: N0, N4, S0, S4
+            //2: N1,N3,S1,S3,E1,E3,W1,W3
+            //3: N2,S2,E2,W2
+            //4: NE,NW,SE,SW
+            //5: N,S,E,W
+            //6: center
+
             for (int tCount = 0; tCount <= 24; tCount++)
             {
-                if (tCount == 0)
-                {
-                    tilesOfThisLightSource[tCount].tilePositionInLitArea.Add("N0");
-                    if (!tilesOfThisLightSource[6].LoSBlocked)
+                    if (tCount == 0)
                     {
-                        tilesOfThisLightSource[tCount].isLit.Add(true);
+                        tilesOfThisLightSource[tCount].tilePositionInLitArea.Add("N0");
+                        if (!tilesOfThisLightSource[6].LoSBlocked)
+                        {
+                            tilesOfThisLightSource[tCount].isLit.Add(true);
+                            tilesOfThisLightSource[tCount].priority.Add(1);
+                        }
+                        else
+                        {
+                            tilesOfThisLightSource[tCount].isLit.Add(false);
+                            tilesOfThisLightSource[tCount].priority.Add(0);
+                        }
+                        continue;
                     }
-                    else
+                    else if (tCount == 5)
                     {
-                        tilesOfThisLightSource[tCount].isLit.Add(false);
+                        tilesOfThisLightSource[tCount].tilePositionInLitArea.Add("N1");
+                        if ((!tilesOfThisLightSource[6].LoSBlocked) && (!tilesOfThisLightSource[11].LoSBlocked))
+                        {
+                            tilesOfThisLightSource[tCount].isLit.Add(true);
+                            tilesOfThisLightSource[tCount].priority.Add(2);
+                        }
+                        else
+                        {
+                            tilesOfThisLightSource[tCount].isLit.Add(false);
+                            tilesOfThisLightSource[tCount].priority.Add(0);
+                        }
+                        continue;
                     }
-                    continue;
-                }
-                else if (tCount == 5)
-                {
-                    tilesOfThisLightSource[tCount].tilePositionInLitArea.Add("N1");
-                    if ((!tilesOfThisLightSource[6].LoSBlocked) && (!tilesOfThisLightSource[11].LoSBlocked))
+                    else if (tCount == 10)
                     {
-                        tilesOfThisLightSource[tCount].isLit.Add(true);
+                        tilesOfThisLightSource[tCount].tilePositionInLitArea.Add("N2");
+                        if ((!tilesOfThisLightSource[11].LoSBlocked) && (!tilesOfThisLightSource[11].LoSBlocked))
+                        {
+                            tilesOfThisLightSource[tCount].isLit.Add(true);
+                            tilesOfThisLightSource[tCount].priority.Add(3);
+                        }
+                        else
+                        {
+                            tilesOfThisLightSource[tCount].isLit.Add(false);
+                            tilesOfThisLightSource[tCount].priority.Add(0);
+                        }
+                        continue;
                     }
-                    else
+                    else if (tCount == 15)
                     {
-                        tilesOfThisLightSource[tCount].isLit.Add(false);
+                        tilesOfThisLightSource[tCount].tilePositionInLitArea.Add("N3");
+                        if ((!tilesOfThisLightSource[11].LoSBlocked) && (!tilesOfThisLightSource[16].LoSBlocked))
+                        {
+                            tilesOfThisLightSource[tCount].isLit.Add(true);
+                            tilesOfThisLightSource[tCount].priority.Add(2);
+                        }
+                        else
+                        {
+                            tilesOfThisLightSource[tCount].isLit.Add(false);
+                            tilesOfThisLightSource[tCount].priority.Add(0);
+                        }
+                        continue;
                     }
-                    continue;
-                }
-                else if (tCount == 10)
-                {
-                    tilesOfThisLightSource[tCount].tilePositionInLitArea.Add("N2");
-                    if ((!tilesOfThisLightSource[11].LoSBlocked) && (!tilesOfThisLightSource[11].LoSBlocked))
+                    else if (tCount == 20)
                     {
-                        tilesOfThisLightSource[tCount].isLit.Add(true);
+                        tilesOfThisLightSource[tCount].tilePositionInLitArea.Add("N4");
+                        if ((!tilesOfThisLightSource[16].LoSBlocked) && (!tilesOfThisLightSource[16].LoSBlocked))
+                        {
+                            tilesOfThisLightSource[tCount].isLit.Add(true);
+                            tilesOfThisLightSource[tCount].priority.Add(1);
+                        }
+                        else
+                        {
+                            tilesOfThisLightSource[tCount].isLit.Add(false);
+                            tilesOfThisLightSource[tCount].priority.Add(0);
+                        }
+                        continue;
                     }
-                    else
+                    else if (tCount == 21)
                     {
-                        tilesOfThisLightSource[tCount].isLit.Add(false);
+                        tilesOfThisLightSource[tCount].tilePositionInLitArea.Add("E1");
+                        if ((!tilesOfThisLightSource[16].LoSBlocked) && (!tilesOfThisLightSource[17].LoSBlocked))
+                        {
+                            tilesOfThisLightSource[tCount].isLit.Add(true);
+                            tilesOfThisLightSource[tCount].priority.Add(2);
+                        }
+                        else
+                        {
+                            tilesOfThisLightSource[tCount].isLit.Add(false);
+                            tilesOfThisLightSource[tCount].priority.Add(0);
+                        }
+                        continue;
                     }
-                    continue;
-                }
-                else if (tCount == 15)
-                {
-                    tilesOfThisLightSource[tCount].tilePositionInLitArea.Add("N3");
-                    if ((!tilesOfThisLightSource[11].LoSBlocked) && (!tilesOfThisLightSource[16].LoSBlocked))
+                    else if (tCount == 22)
                     {
-                        tilesOfThisLightSource[tCount].isLit.Add(true);
-                    }
-                    else
-                    {
-                        tilesOfThisLightSource[tCount].isLit.Add(false);
-                    }
-                    continue;
-                }
-                else if (tCount == 20)
-                {
-                    tilesOfThisLightSource[tCount].tilePositionInLitArea.Add("N4");
-                    if ((!tilesOfThisLightSource[16].LoSBlocked) && (!tilesOfThisLightSource[16].LoSBlocked))
-                    {
-                        tilesOfThisLightSource[tCount].isLit.Add(true);
-                    }
-                    else
-                    {
-                        tilesOfThisLightSource[tCount].isLit.Add(false);
-                    }
-                    continue;
-                }
-                else if (tCount == 21)
-                {
-                    tilesOfThisLightSource[tCount].tilePositionInLitArea.Add("E1");
-                    if ((!tilesOfThisLightSource[16].LoSBlocked) && (!tilesOfThisLightSource[17].LoSBlocked))
-                    {
-                        tilesOfThisLightSource[tCount].isLit.Add(true);
-                    }
-                    else
-                    {
-                        tilesOfThisLightSource[tCount].isLit.Add(false);
-                    }
-                    continue;
-                }
-                else if (tCount == 22)
-                {
-                    tilesOfThisLightSource[tCount].tilePositionInLitArea.Add("E2");
+                        tilesOfThisLightSource[tCount].tilePositionInLitArea.Add("E2");
                     if ((!tilesOfThisLightSource[17].LoSBlocked) && (!tilesOfThisLightSource[17].LoSBlocked))
                     {
                         tilesOfThisLightSource[tCount].isLit.Add(true);
+                        tilesOfThisLightSource[tCount].priority.Add(3);
                     }
                     else
                     {
                         tilesOfThisLightSource[tCount].isLit.Add(false);
+                        tilesOfThisLightSource[tCount].priority.Add(0);
+                        continue;
                     }
-                    continue;
-                }
-                else if (tCount == 23)
-                {
-                    tilesOfThisLightSource[tCount].tilePositionInLitArea.Add("E3");
-                    if ((!tilesOfThisLightSource[17].LoSBlocked) && (!tilesOfThisLightSource[18].LoSBlocked))
-                    {
-                        tilesOfThisLightSource[tCount].isLit.Add(true);
+                        }
+                        else if (tCount == 23)
+                        {
+                            tilesOfThisLightSource[tCount].tilePositionInLitArea.Add("E3");
+                            if ((!tilesOfThisLightSource[17].LoSBlocked) && (!tilesOfThisLightSource[18].LoSBlocked))
+                            {
+                                tilesOfThisLightSource[tCount].isLit.Add(true);
+                                tilesOfThisLightSource[tCount].priority.Add(2);
+                            }
+                            else
+                            {
+                                tilesOfThisLightSource[tCount].isLit.Add(false);
+                                tilesOfThisLightSource[tCount].priority.Add(0);
+                            }
+                            continue;
+                        }
+                        else if (tCount == 24)
+                        {
+                            tilesOfThisLightSource[tCount].tilePositionInLitArea.Add("S4");
+                            if ((!tilesOfThisLightSource[18].LoSBlocked) && (!tilesOfThisLightSource[18].LoSBlocked))
+                            {
+                                tilesOfThisLightSource[tCount].isLit.Add(true);
+                                tilesOfThisLightSource[tCount].priority.Add(1);
+                            }
+                            else
+                            {
+                                tilesOfThisLightSource[tCount].isLit.Add(false);
+                                tilesOfThisLightSource[tCount].priority.Add(0);
+                            }
+                            continue;
+                        }
+                        else if (tCount == 19)
+                        {
+                            tilesOfThisLightSource[tCount].tilePositionInLitArea.Add("S3");
+                            if ((!tilesOfThisLightSource[13].LoSBlocked) && (!tilesOfThisLightSource[18].LoSBlocked))
+                            {
+                                tilesOfThisLightSource[tCount].isLit.Add(true);
+                                tilesOfThisLightSource[tCount].priority.Add(2);
+                            }
+                            else
+                            {
+                                tilesOfThisLightSource[tCount].isLit.Add(false);
+                                tilesOfThisLightSource[tCount].priority.Add(0);
+                            }
+                            continue;
+                        }
+                        else if (tCount == 14)
+                        {
+                            tilesOfThisLightSource[tCount].tilePositionInLitArea.Add("S2");
+                            if ((!tilesOfThisLightSource[13].LoSBlocked) && (!tilesOfThisLightSource[13].LoSBlocked))
+                            {
+                                tilesOfThisLightSource[tCount].isLit.Add(true);
+                                tilesOfThisLightSource[tCount].priority.Add(3);
+                            }
+                            else
+                            {
+                                tilesOfThisLightSource[tCount].isLit.Add(false);
+                                tilesOfThisLightSource[tCount].priority.Add(0);
+                            }
+                            continue;
+                        }
+                        else if (tCount == 9)
+                        {
+                            tilesOfThisLightSource[tCount].tilePositionInLitArea.Add("S1");
+                            if ((!tilesOfThisLightSource[8].LoSBlocked) && (!tilesOfThisLightSource[13].LoSBlocked))
+                            {
+                                tilesOfThisLightSource[tCount].isLit.Add(true);
+                                tilesOfThisLightSource[tCount].priority.Add(1);
+                            }
+                            else
+                            {
+                                tilesOfThisLightSource[tCount].isLit.Add(false);
+                                tilesOfThisLightSource[tCount].priority.Add(0);
+                            }
+                            continue;
+                        }
+                        else if (tCount == 4)
+                        {
+                            tilesOfThisLightSource[tCount].tilePositionInLitArea.Add("S0");
+                            if ((!tilesOfThisLightSource[8].LoSBlocked) && (!tilesOfThisLightSource[8].LoSBlocked))
+                            {
+                                tilesOfThisLightSource[tCount].isLit.Add(true);
+                                tilesOfThisLightSource[tCount].priority.Add(1);
+                            }
+                            else
+                            {
+                                tilesOfThisLightSource[tCount].isLit.Add(false);
+                                tilesOfThisLightSource[tCount].priority.Add(0);
+                            }
+                            continue;
+                        }
+                        else if (tCount == 3)
+                        {
+                            tilesOfThisLightSource[tCount].tilePositionInLitArea.Add("W3");
+                            if ((!tilesOfThisLightSource[7].LoSBlocked) && (!tilesOfThisLightSource[8].LoSBlocked))
+                            {
+                                tilesOfThisLightSource[tCount].isLit.Add(true);
+                                tilesOfThisLightSource[tCount].priority.Add(2);
+                            }
+                            else
+                            {
+                                tilesOfThisLightSource[tCount].isLit.Add(false);
+                                tilesOfThisLightSource[tCount].priority.Add(0);
+                            }
+                            continue;
+                        }
+                        else if (tCount == 2)
+                        {
+                            tilesOfThisLightSource[tCount].tilePositionInLitArea.Add("W2");
+                            if ((!tilesOfThisLightSource[7].LoSBlocked) && (!tilesOfThisLightSource[7].LoSBlocked))
+                            {
+                                tilesOfThisLightSource[tCount].isLit.Add(true);
+                                tilesOfThisLightSource[tCount].priority.Add(3);
+                            }
+                            else
+                            {
+                                tilesOfThisLightSource[tCount].isLit.Add(false);
+                                tilesOfThisLightSource[tCount].priority.Add(0);
+                            }
+                            continue;
+                        }
+                        else if (tCount == 1)
+                        {
+                            tilesOfThisLightSource[tCount].tilePositionInLitArea.Add("W1");
+                            if ((!tilesOfThisLightSource[6].LoSBlocked) && (!tilesOfThisLightSource[7].LoSBlocked))
+                            {
+                                tilesOfThisLightSource[tCount].isLit.Add(true);
+                                tilesOfThisLightSource[tCount].priority.Add(2);
+                            }
+                            else
+                            {
+                                tilesOfThisLightSource[tCount].isLit.Add(false);
+                                tilesOfThisLightSource[tCount].priority.Add(0);
+                            }
+                            continue;
+                        }
+                        else if (tCount == 6)
+                        {
+                            tilesOfThisLightSource[tCount].tilePositionInLitArea.Add("NW");
+                            tilesOfThisLightSource[tCount].isLit.Add(true);
+                            tilesOfThisLightSource[tCount].priority.Add(4);
+                            continue;
+                        }
+                        else if (tCount == 11)
+                        {
+                            tilesOfThisLightSource[tCount].tilePositionInLitArea.Add("N");
+                            tilesOfThisLightSource[tCount].isLit.Add(true);
+                            tilesOfThisLightSource[tCount].priority.Add(5);
+                            continue;
+                        }
+                        else if (tCount == 16)
+                        {
+                            tilesOfThisLightSource[tCount].tilePositionInLitArea.Add("NE");
+                            tilesOfThisLightSource[tCount].isLit.Add(true);
+                            tilesOfThisLightSource[tCount].priority.Add(4);
+                            continue;
+                        }
+                        else if (tCount == 17)
+                        {
+                            tilesOfThisLightSource[tCount].tilePositionInLitArea.Add("E");
+                            tilesOfThisLightSource[tCount].isLit.Add(true);
+                            tilesOfThisLightSource[tCount].priority.Add(5);
+                            continue;
+                        }
+                        else if (tCount == 18)
+                        {
+                            tilesOfThisLightSource[tCount].tilePositionInLitArea.Add("SE");
+                            tilesOfThisLightSource[tCount].isLit.Add(true);
+                            tilesOfThisLightSource[tCount].priority.Add(4);
+                            continue;
+                        }
+                        else if (tCount == 13)
+                        {
+                            tilesOfThisLightSource[tCount].tilePositionInLitArea.Add("S");
+                            tilesOfThisLightSource[tCount].isLit.Add(true);
+                            tilesOfThisLightSource[tCount].priority.Add(5);
+                            continue;
+                        }
+                        else if (tCount == 8)
+                        {
+                            tilesOfThisLightSource[tCount].tilePositionInLitArea.Add("SW");
+                            tilesOfThisLightSource[tCount].isLit.Add(true);
+                            tilesOfThisLightSource[tCount].priority.Add(4);
+                            continue;
+                        }
+                        else if (tCount == 7)
+                        {
+                            tilesOfThisLightSource[tCount].tilePositionInLitArea.Add("W");
+                            tilesOfThisLightSource[tCount].isLit.Add(true);
+                            tilesOfThisLightSource[tCount].priority.Add(5);
+                            continue;
+                        }
+                        else if (tCount == 12)
+                        {
+                            tilesOfThisLightSource[tCount].tilePositionInLitArea.Add("Center");
+                            tilesOfThisLightSource[tCount].isLit.Add(true);
+                            tilesOfThisLightSource[tCount].priority.Add(6);
+                            continue;
+                        }
                     }
-                    else
-                    {
-                        tilesOfThisLightSource[tCount].isLit.Add(false);
-                    }
-                    continue;
-                }
-                else if (tCount == 24)
-                {
-                    tilesOfThisLightSource[tCount].tilePositionInLitArea.Add("S4");
-                    if ((!tilesOfThisLightSource[18].LoSBlocked) && (!tilesOfThisLightSource[18].LoSBlocked))
-                    {
-                        tilesOfThisLightSource[tCount].isLit.Add(true);
-                    }
-                    else
-                    {
-                        tilesOfThisLightSource[tCount].isLit.Add(false);
-                    }
-                    continue;
-                }
-                else if (tCount == 19)
-                {
-                    tilesOfThisLightSource[tCount].tilePositionInLitArea.Add("S3");
-                    if ((!tilesOfThisLightSource[13].LoSBlocked) && (!tilesOfThisLightSource[18].LoSBlocked))
-                    {
-                        tilesOfThisLightSource[tCount].isLit.Add(true);
-                    }
-                    else
-                    {
-                        tilesOfThisLightSource[tCount].isLit.Add(false);
-                    }
-                    continue;
-                }
-                else if (tCount == 14)
-                {
-                    tilesOfThisLightSource[tCount].tilePositionInLitArea.Add("S2");
-                    if ((!tilesOfThisLightSource[13].LoSBlocked) && (!tilesOfThisLightSource[13].LoSBlocked))
-                    {
-                        tilesOfThisLightSource[tCount].isLit.Add(true);
-                    }
-                    else
-                    {
-                        tilesOfThisLightSource[tCount].isLit.Add(false);
-                    }
-                    continue;
-                }
-                else if (tCount == 9)
-                {
-                    tilesOfThisLightSource[tCount].tilePositionInLitArea.Add("S1");
-                    if ((!tilesOfThisLightSource[8].LoSBlocked) && (!tilesOfThisLightSource[13].LoSBlocked))
-                    {
-                        tilesOfThisLightSource[tCount].isLit.Add(true);
-                    }
-                    else
-                    {
-                        tilesOfThisLightSource[tCount].isLit.Add(false);
-                    }
-                    continue;
-                }
-                else if (tCount == 4)
-                {
-                    tilesOfThisLightSource[tCount].tilePositionInLitArea.Add("S0");
-                    if ((!tilesOfThisLightSource[8].LoSBlocked) && (!tilesOfThisLightSource[8].LoSBlocked))
-                    {
-                        tilesOfThisLightSource[tCount].isLit.Add(true);
-                    }
-                    else
-                    {
-                        tilesOfThisLightSource[tCount].isLit.Add(false);
-                    }
-                    continue;
-                }
-                else if (tCount == 3)
-                {
-                    tilesOfThisLightSource[tCount].tilePositionInLitArea.Add("W3");
-                    if ((!tilesOfThisLightSource[7].LoSBlocked) && (!tilesOfThisLightSource[8].LoSBlocked))
-                    {
-                        tilesOfThisLightSource[tCount].isLit.Add(true);
-                    }
-                    else
-                    {
-                        tilesOfThisLightSource[tCount].isLit.Add(false);
-                    }
-                    continue;
-                }
-                else if (tCount == 2)
-                {
-                    tilesOfThisLightSource[tCount].tilePositionInLitArea.Add("W2");
-                    if ((!tilesOfThisLightSource[7].LoSBlocked) && (!tilesOfThisLightSource[7].LoSBlocked))
-                    {
-                        tilesOfThisLightSource[tCount].isLit.Add(true);
-                    }
-                    else
-                    {
-                        tilesOfThisLightSource[tCount].isLit.Add(false);
-                    }
-                    continue;
-                }
-                else if (tCount == 1)
-                {
-                    tilesOfThisLightSource[tCount].tilePositionInLitArea.Add("W1");
-                    if ((!tilesOfThisLightSource[6].LoSBlocked) && (!tilesOfThisLightSource[7].LoSBlocked))
-                    {
-                        tilesOfThisLightSource[tCount].isLit.Add(true);
-                    }
-                    else
-                    {
-                        tilesOfThisLightSource[tCount].isLit.Add(false);
-                    }
-                    continue;
-                }
-                else if (tCount == 6)
-                {
-                    tilesOfThisLightSource[tCount].tilePositionInLitArea.Add("NW");
-                    tilesOfThisLightSource[tCount].isLit.Add(true);
-                    continue;
-                }
-                else if (tCount == 11)
-                {
-                    tilesOfThisLightSource[tCount].tilePositionInLitArea.Add("N");
-                    tilesOfThisLightSource[tCount].isLit.Add(true);
-                    continue;
-                }
-                else if (tCount == 16)
-                {
-                    tilesOfThisLightSource[tCount].tilePositionInLitArea.Add("NE");
-                    tilesOfThisLightSource[tCount].isLit.Add(true);
-                    continue;
-                }
-                else if (tCount == 17)
-                {
-                    tilesOfThisLightSource[tCount].tilePositionInLitArea.Add("E");
-                    tilesOfThisLightSource[tCount].isLit.Add(true);
-                    continue;
-                }
-                else if (tCount == 18)
-                {
-                    tilesOfThisLightSource[tCount].tilePositionInLitArea.Add("SE");
-                    tilesOfThisLightSource[tCount].isLit.Add(true);
-                    continue;
-                }
-                else if (tCount == 13)
-                {
-                    tilesOfThisLightSource[tCount].tilePositionInLitArea.Add("S");
-                    tilesOfThisLightSource[tCount].isLit.Add(true);
-                    continue;
-                }
-                else if (tCount == 8)
-                {
-                    tilesOfThisLightSource[tCount].tilePositionInLitArea.Add("SW");
-                    tilesOfThisLightSource[tCount].isLit.Add(true);
-                    continue;
-                }
-                else if (tCount == 7)
-                {
-                    tilesOfThisLightSource[tCount].tilePositionInLitArea.Add("W");
-                    tilesOfThisLightSource[tCount].isLit.Add(true);
-                    continue;
-                }
-                else if (tCount == 12)
-                {
-                    tilesOfThisLightSource[tCount].tilePositionInLitArea.Add("Center");
-                    tilesOfThisLightSource[tCount].isLit.Add(true);
-                    continue;
-                }
-            }
         
     //addedTileToListAlready = true;
 

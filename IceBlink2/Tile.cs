@@ -89,6 +89,9 @@ namespace IceBlink2
         //public List<Tile> tilesOfThisLightSource = new List<Tile>();
         public List<string> tileLightSourceTag = new List<string>();
         public List <bool> isLit = new List<bool>();
+        //each tilePosiitionInLitArea get a priority number assigned, only the position data for highest priority number
+        //is used during draw call
+        public List<int> priority = new List<int>();
 
         public Tile()
         {
