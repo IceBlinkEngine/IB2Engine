@@ -211,6 +211,9 @@ namespace IceBlink2
             {
                 squareSize = 100;
             }
+            //makes it a straight number in any case
+            //better for working with half fractions of it (two half ints always form a complete whole)
+            //squareSize = 2 * (int)(squareSize / 2f);
             screenDensity = (float)squareSize / (float)squareSizeInPixels;
             oXshift = (screenWidth - (squareSize * squaresInWidth)) / 2;
 
@@ -293,6 +296,10 @@ namespace IceBlink2
             cc.walkBlocked = cc.LoadBitmap("walk_block");
             cc.losBlocked = cc.LoadBitmap("los_block");
             cc.black_tile = cc.LoadBitmap("black_tile");
+            cc.black_tile_NE = cc.LoadBitmap("black_tile_NE");
+            cc.black_tile_NW = cc.LoadBitmap("black_tile_NW");
+            cc.black_tile_SE = cc.LoadBitmap("black_tile_SW");
+            cc.black_tile_SW = cc.LoadBitmap("black_tile_SE");
             cc.black_tile2 = cc.LoadBitmap("black_tile2");
             cc.turn_marker = cc.LoadBitmap("turn_marker");
             cc.pc_dead = cc.LoadBitmap("pc_dead");

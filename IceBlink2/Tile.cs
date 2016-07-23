@@ -92,6 +92,7 @@ namespace IceBlink2
         //each tilePosiitionInLitArea get a priority number assigned, only the position data for highest priority number
         //is used during draw call
         public List<int> priority = new List<int>();
+        public List <Coordinate> lightSourceCoordinate = new List<Coordinate>();
 
         public Tile()
         {

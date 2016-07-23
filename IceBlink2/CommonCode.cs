@@ -76,6 +76,11 @@ namespace IceBlink2
         public Bitmap highlight_green;
         public Bitmap highlight_red;
         public Bitmap black_tile;
+        public Bitmap black_tile_NE;
+        public Bitmap black_tile_NW;
+        public Bitmap black_tile_SE;
+        public Bitmap black_tile_SW;
+
         public Bitmap black_tile2;
         public Bitmap turn_marker;
         public Bitmap pc_dead;
@@ -3443,6 +3448,10 @@ namespace IceBlink2
                     int maxY2 = p.LocationY + 2;
                     //if (maxY2 > this.gv.mod.currentArea.MapSizeY - 1 + seamlessModififierMaxY) { maxY2 = this.gv.mod.currentArea.MapSizeY - 1 + seamlessModififierMaxY; }
 
+                    Coordinate propCoord = new Coordinate();
+                    propCoord.X = p.LocationX;
+                    propCoord.Y = p.LocationY;
+
                     //these 25 squares are added in a list, column per column, starting from 2 sqaures left of center
                     //1 | 6 | 11 | 16 | 21
                     //2 | 7 | 12 | 17 | 22
@@ -3472,6 +3481,7 @@ namespace IceBlink2
                                     gv.mod.moduleAreasObjects[indexOfNorthWesternNeighbour2].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfNorthWesternNeighbour2].MapSizeX + transformedX].isCentreOfLightCircle = true;
                                     tilesOfThisLightSource.Add(gv.mod.moduleAreasObjects[indexOfNorthWesternNeighbour2].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfNorthWesternNeighbour2].MapSizeX + transformedX]);
                                     gv.mod.moduleAreasObjects[indexOfNorthWesternNeighbour2].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfNorthWesternNeighbour2].MapSizeX + transformedX].tileLightSourceTag.Add(p.PropTag);
+                                    gv.mod.moduleAreasObjects[indexOfNorthWesternNeighbour2].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfNorthWesternNeighbour2].MapSizeX + transformedX].lightSourceCoordinate.Add(propCoord);
                                     addedTileToListAlready = true;
                                 }
                             }
@@ -3487,6 +3497,7 @@ namespace IceBlink2
                                     gv.mod.moduleAreasObjects[indexOfNorthWesternNeighbour2].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfNorthWesternNeighbour2].MapSizeX + transformedX].isOtherPartOfLightCircle = true;
                                     tilesOfThisLightSource.Add(gv.mod.moduleAreasObjects[indexOfNorthWesternNeighbour2].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfNorthWesternNeighbour2].MapSizeX + transformedX]);
                                     gv.mod.moduleAreasObjects[indexOfNorthWesternNeighbour2].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfNorthWesternNeighbour2].MapSizeX + transformedX].tileLightSourceTag.Add(p.PropTag);
+                                    gv.mod.moduleAreasObjects[indexOfNorthWesternNeighbour2].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfNorthWesternNeighbour2].MapSizeX + transformedX].lightSourceCoordinate.Add(propCoord);
                                     addedTileToListAlready = true;
                                 }
                             }
@@ -3502,6 +3513,8 @@ namespace IceBlink2
                                     gv.mod.moduleAreasObjects[indexOfSouthWesternNeighbour2].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfSouthWesternNeighbour2].MapSizeX + transformedX].isCentreOfLightCircle = true;
                                     tilesOfThisLightSource.Add(gv.mod.moduleAreasObjects[indexOfSouthWesternNeighbour2].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfSouthWesternNeighbour2].MapSizeX + transformedX]);
                                     gv.mod.moduleAreasObjects[indexOfSouthWesternNeighbour2].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfSouthWesternNeighbour2].MapSizeX + transformedX].tileLightSourceTag.Add(p.PropTag);
+                                    gv.mod.moduleAreasObjects[indexOfSouthWesternNeighbour2].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfSouthWesternNeighbour2].MapSizeX + transformedX].lightSourceCoordinate.Add(propCoord);
+
                                     addedTileToListAlready = true;
                                 }
                             }
@@ -3517,6 +3530,9 @@ namespace IceBlink2
                                     gv.mod.moduleAreasObjects[indexOfSouthWesternNeighbour2].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfSouthWesternNeighbour2].MapSizeX + transformedX].isOtherPartOfLightCircle = true;
                                     tilesOfThisLightSource.Add(gv.mod.moduleAreasObjects[indexOfSouthWesternNeighbour2].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfSouthWesternNeighbour2].MapSizeX + transformedX]);
                                     gv.mod.moduleAreasObjects[indexOfSouthWesternNeighbour2].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfSouthWesternNeighbour2].MapSizeX + transformedX].tileLightSourceTag.Add(p.PropTag);
+                                    gv.mod.moduleAreasObjects[indexOfSouthWesternNeighbour2].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfSouthWesternNeighbour2].MapSizeX + transformedX].lightSourceCoordinate.Add(propCoord);
+                                    //hurgh10000
+
                                     addedTileToListAlready = true;
                                 }
                             }
@@ -4046,7 +4062,7 @@ namespace IceBlink2
                             if ((!tilesOfThisLightSource[8].LoSBlocked) && (!tilesOfThisLightSource[13].LoSBlocked))
                             {
                                     tilesOfThisLightSource[tCount].isLit.Add(true);
-                                    tilesOfThisLightSource[tCount].priority.Add(1);
+                                    tilesOfThisLightSource[tCount].priority.Add(2);
                                 }
                                 else
                                 {
@@ -4803,7 +4819,7 @@ namespace IceBlink2
                             if ((!tilesOfThisLightSource[8].LoSBlocked) && (!tilesOfThisLightSource[13].LoSBlocked))
                             {
                                 tilesOfThisLightSource[tCount].isLit.Add(true);
-                                tilesOfThisLightSource[tCount].priority.Add(1);
+                                tilesOfThisLightSource[tCount].priority.Add(2);
                             }
                             else
                             {
