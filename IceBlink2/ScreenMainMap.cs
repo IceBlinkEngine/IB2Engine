@@ -29,8 +29,10 @@ namespace IceBlink2
         public float shifterYDelayCounter = 0;
         public bool shifterYRise = true;
         public float flicker = 0;
+        public float flicker2 = 0;
         public float flickerDelayCounter = 0;
         public bool flickerRise = true;
+        public bool shifterPause = false;
 
         /*private IbbButton btnParty = null;
         private IbbButton btnJournal = null;
@@ -26632,15 +26634,16 @@ namespace IceBlink2
                 if (maxY > this.mod.currentArea.MapSizeY + gv.mod.seamlessModififierMaxY) { maxY = this.mod.currentArea.MapSizeY + gv.mod.seamlessModififierMaxY; }
 
                 flickerDelayCounter += elapsed / 1000f * 30f;
+              
                 //dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels - (tile.lightRadius * gv.squareSize), tlY - (tile.lightRadius * gv.squareSize), brX * (1 + tile.lightRadius * 2), brY * (1 + tile.lightRadius * 2));
                 //dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels, tlY, brX, brY);
 
                 //tile.flicker = 0;
-                if (flickerDelayCounter > 1.15f)
+                if (flickerDelayCounter > 1.55f)
                 {
                     if (flickerRise)
                     {
-                        flicker++;
+                        flicker2++;
                         //tile.affectedByFlickerAlready = true;
                         /*
                         int decider = gv.sf.RandInt(1);
@@ -26664,7 +26667,7 @@ namespace IceBlink2
                     else
                     {
                         //tile.affectedByFlickerAlready = true;
-                        flicker--;
+                        flicker2--;
 
                         /*
                         int decider = gv.sf.RandInt(1);
@@ -26685,11 +26688,11 @@ namespace IceBlink2
                         }
                         */
                     }
-                    if (flicker >= 45)
+                    if (flicker2 >= 45)
                     {
                         flickerRise = false;
                     }
-                    if (flicker <= 0)
+                    if (flicker2 <= 0)
                     {
                         flickerRise = true;
                     }
@@ -26697,157 +26700,181 @@ namespace IceBlink2
                     flickerDelayCounter = 0;
                 }
 
-                //flicker = 0;
+                //flicker = 9 + (flicker2/2.75f);
+                //flicker = 15 + (flicker2*2f/3f);
 
-                shifterDelayCounter += elapsed / 1000f * 30f;
-                //dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels - (tile.lightRadius * gv.squareSize), tlY - (tile.lightRadius * gv.squareSize), brX * (1 + tile.lightRadius * 2), brY * (1 + tile.lightRadius * 2));
-                //dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels, tlY, brX, brY);
-
-                //tile.flicker = 0;
-                if (shifterDelayCounter > 1.15f)
+                flicker = flicker2;
+                /*
+                int decider3 = gv.sf.RandInt(30);
+                if (decider3 == 1)
                 {
-                    if (shifterRise)
-                    {
-
-                        //int decider = gv.sf.RandInt(1);
-                        //if (decider == 1)
-                        //{
-                        int decider = gv.sf.RandInt(2);
-                        if (decider == 1)
-                        {
-                            shifter++;
-                        }
-                        //tile.affectedByFlickerAlready = true;
-                        /*
-                        int decider = gv.sf.RandInt(1);
-                        if (decider == 1)
-                        {
-                            flicker++;
-                        }
-                        else if (decider == 2)
-                        {
-                            flicker++;
-                            flicker++;
-                        }
-                        else
-                        {
-                            flicker++;
-                            flicker++;
-                            flicker++;
-                        }
-                        */
-                    }
-                    else
-                    {
-                        //tile.affectedByFlickerAlready = true;
-                        int decider = gv.sf.RandInt(2);
-                        if (decider == 1)
-                        {
-                            shifter--;
-                        }
-                        /*
-                        int decider = gv.sf.RandInt(1);
-                        if (decider == 1)
-                        {
-                            flicker--;
-                        }
-                        else if (decider == 2)
-                        {
-                            flicker--;
-                            flicker--;
-                        }
-                        else
-                        {
-                            flicker--;
-                            flicker--;
-                            flicker--;
-                        }
-                        */
-                    }
-                    if (shifter >= (gv.squareSize/16f))
-                    {
-                        shifterRise = false;
-                    }
-                    if (shifter <= 0)
-                    {
-                        shifterRise = true;
-                    }
-
-                    shifterDelayCounter = 0;
+                    shifterPause = true;
                 }
 
-                shifterYDelayCounter += elapsed / 1000f * 30f;
-                //dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels - (tile.lightRadius * gv.squareSize), tlY - (tile.lightRadius * gv.squareSize), brX * (1 + tile.lightRadius * 2), brY * (1 + tile.lightRadius * 2));
-                //dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels, tlY, brX, brY);
-
-                //tile.flicker = 0;
-                if (shifterYDelayCounter > 1.15f)
+                if (shifterPause == true)
                 {
-                    if (shifterYRise)
-                    {
+                     int decider4 = gv.sf.RandInt(15);
+                     if (decider4 == 1)
+                     {
+                         shifterPause = false;
+                     }
+                }
+                 */
+                //shifterPause = true;
 
-                        int decider = gv.sf.RandInt(2);
-                        if (decider == 1)
+                if (shifterPause == false)
+                {
+                    shifterDelayCounter += elapsed / 1000f * 30f;
+                    //dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels - (tile.lightRadius * gv.squareSize), tlY - (tile.lightRadius * gv.squareSize), brX * (1 + tile.lightRadius * 2), brY * (1 + tile.lightRadius * 2));
+                    //dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels, tlY, brX, brY);
+
+                    //tile.flicker = 0;
+                    //1.15
+                    if (shifterDelayCounter > 1.75f)
+                    {
+                        if (shifterRise)
                         {
-                            shifterY++;
-                        }
-                        //tile.affectedByFlickerAlready = true;
-                        /*
-                        int decider = gv.sf.RandInt(1);
-                        if (decider == 1)
-                        {
-                            flicker++;
-                        }
-                        else if (decider == 2)
-                        {
-                            flicker++;
-                            flicker++;
+
+                            //int decider = gv.sf.RandInt(1);
+                            //if (decider == 1)
+                            //{
+                            int decider = gv.sf.RandInt(2);
+                            if (decider == 1)
+                            {
+                                shifter++;
+                            }
+                            //tile.affectedByFlickerAlready = true;
+                            /*
+                            int decider = gv.sf.RandInt(1);
+                            if (decider == 1)
+                            {
+                                flicker++;
+                            }
+                            else if (decider == 2)
+                            {
+                                flicker++;
+                                flicker++;
+                            }
+                            else
+                            {
+                                flicker++;
+                                flicker++;
+                                flicker++;
+                            }
+                            */
                         }
                         else
                         {
-                            flicker++;
-                            flicker++;
-                            flicker++;
+                            //tile.affectedByFlickerAlready = true;
+                            int decider = gv.sf.RandInt(2);
+                            if (decider == 1)
+                            {
+                                shifter--;
+                            }
+                            /*
+                            int decider = gv.sf.RandInt(1);
+                            if (decider == 1)
+                            {
+                                flicker--;
+                            }
+                            else if (decider == 2)
+                            {
+                                flicker--;
+                                flicker--;
+                            }
+                            else
+                            {
+                                flicker--;
+                                flicker--;
+                                flicker--;
+                            }
+                            */
                         }
-                        */
+                        if (shifter >= 2)
+                        {
+                            shifterRise = false;
+                        }
+                        if (shifter <= -2)
+                        {
+                            shifterRise = true;
+                        }
+
+                        shifterDelayCounter = 0;
                     }
-                    else
+
+                    shifterYDelayCounter += elapsed / 1000f * 30f;
+                    //dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels - (tile.lightRadius * gv.squareSize), tlY - (tile.lightRadius * gv.squareSize), brX * (1 + tile.lightRadius * 2), brY * (1 + tile.lightRadius * 2));
+                    //dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels, tlY, brX, brY);
+
+                    //tile.flicker = 0;
+                    if (shifterYDelayCounter > 1.75f)
                     {
-                        //tile.affectedByFlickerAlready = true;
-                        int decider = gv.sf.RandInt(2);
-                        if (decider == 1)
+                        if (shifterYRise)
                         {
-                            shifterY--;
-                        }
-                        /*
-                        int decider = gv.sf.RandInt(1);
-                        if (decider == 1)
-                        {
-                            flicker--;
-                        }
-                        else if (decider == 2)
-                        {
-                            flicker--;
-                            flicker--;
+
+                            int decider = gv.sf.RandInt(2);
+                            if (decider == 1)
+                            {
+                                shifterY++;
+                            }
+                            //tile.affectedByFlickerAlready = true;
+                            /*
+                            int decider = gv.sf.RandInt(1);
+                            if (decider == 1)
+                            {
+                                flicker++;
+                            }
+                            else if (decider == 2)
+                            {
+                                flicker++;
+                                flicker++;
+                            }
+                            else
+                            {
+                                flicker++;
+                                flicker++;
+                                flicker++;
+                            }
+                            */
                         }
                         else
                         {
-                            flicker--;
-                            flicker--;
-                            flicker--;
+                            //tile.affectedByFlickerAlready = true;
+                            int decider = gv.sf.RandInt(2);
+                            if (decider == 1)
+                            {
+                                shifterY--;
+                            }
+                            /*
+                            int decider = gv.sf.RandInt(1);
+                            if (decider == 1)
+                            {
+                                flicker--;
+                            }
+                            else if (decider == 2)
+                            {
+                                flicker--;
+                                flicker--;
+                            }
+                            else
+                            {
+                                flicker--;
+                                flicker--;
+                                flicker--;
+                            }
+                            */
                         }
-                        */
-                    }
-                    if (shifterY >= (gv.squareSize/16f))
-                    {
-                        shifterYRise = false;
-                    }
-                    if (shifterY <= 0)
-                    {
-                        shifterYRise = true;
-                    }
+                        if (shifterY >= 2)
+                        {
+                            shifterYRise = false;
+                        }
+                        if (shifterY <= -2)
+                        {
+                            shifterYRise = true;
+                        }
 
-                    shifterYDelayCounter = 0;
+                        shifterYDelayCounter = 0;
+                    }
                 }
 
                 /*
@@ -27476,13 +27503,13 @@ namespace IceBlink2
                                         else if ((tile.tilePositionInLitArea[indexOfRelevantLightSource] == "N0"))
                                         {
                                             gv.DrawBitmap(gv.cc.black_tile_NW, src, dst, 0, false, extraDarkness * 0.675f * 2.5f * flicker / 100f);
-                                            dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f), tlY + shifterY - (int)((scaler - 1) * brY * 0.5f), (int)(brX * scaler) + 2, (int)(brY * scaler) + 2);
+                                            dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f), tlY + shifterY - (int)((scaler - 1) * brY * 0.5f), (int)(brX * scaler) + 2, (int)(brY * scaler) + 4);
                                             gv.DrawBitmap(gv.cc.black_tile_SE, src, dst, 0, false, 0.975f);
                                         }
                                         else if ((tile.tilePositionInLitArea[indexOfRelevantLightSource] == "N4"))
                                         {
                                             gv.DrawBitmap(gv.cc.black_tile_NE, src, dst, 0, false, extraDarkness * 0.675f * 2.5f * flicker / 100f);
-                                            dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f) - 4, tlY + shifterY - (int)((scaler - 1) * brY * 0.5f) - 2, (int)(brX * scaler) + 4, (int)(brY * scaler) + 3);
+                                            dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f) - 4, tlY + shifterY - (int)((scaler - 1) * brY * 0.5f), (int)(brX * scaler) + 4, (int)(brY * scaler) + 4);
                                             gv.DrawBitmap(gv.cc.black_tile_SW, src, dst, 0, false, 0.975f);
                                         }
                                         else if ((tile.tilePositionInLitArea[indexOfRelevantLightSource] == "S0"))
@@ -27494,7 +27521,7 @@ namespace IceBlink2
                                         else if ((tile.tilePositionInLitArea[indexOfRelevantLightSource] == "S4"))
                                         {
                                             gv.DrawBitmap(gv.cc.black_tile_SE, src, dst, 0, false, extraDarkness * 0.675f * 2.5f * flicker / 100f);
-                                            dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f) - 2, tlY + shifterY - (int)((scaler - 1) * brY * 0.5f) - 2, (int)(brX * scaler) + 3, (int)(brY * scaler) + 2);
+                                            dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f) - 2, tlY + shifterY - (int)((scaler - 1) * brY * 0.5f)-3, (int)(brX * scaler) + 3, (int)(brY * scaler) + 3);
                                             gv.DrawBitmap(gv.cc.black_tile_NW, src, dst, 0, false, 0.975f);
                                         }
                                         else if ((tile.tilePositionInLitArea[indexOfRelevantLightSource] == "cornerOverlay"))
