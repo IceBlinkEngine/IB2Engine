@@ -98,7 +98,13 @@ namespace IceBlink2
         public Bitmap tint_sunset;
         public Bitmap tint_dusk;
         public Bitmap tint_night;
+        public Bitmap night_tile_NW;
+        public Bitmap night_tile_NE;
+        public Bitmap night_tile_SW;
+        public Bitmap night_tile_SE;
+
         public Bitmap light_torch;
+        public Bitmap light_torchOLD;
         public Bitmap ui_bg_fullscreen;
         public Bitmap ui_portrait_frame;
         public Bitmap facing1;
