@@ -27360,13 +27360,24 @@ namespace IceBlink2
                                         //dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f) - extension + 5, tlY + shifterY - (int)((scaler - 1) * brY * 0.5f) - extension + 5, (int)(brX * scaler) + 2 * extension - 10, (int)(brY * scaler) + 2 * extension - 10);
                                         //gv.DrawBitmap(gv.cc.light_torch, src, dst, 0, false, 2f * 0.75f * (0.425f - flicker / 200f));
                                         //dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f), tlY + shifterY - (int)((scaler - 1) * brY * 0.5f), (int)(brX * scaler), (int)(brY * scaler));
-
-                                        int extension = 6 - (int)(flicker / 7f);
-                                        int extension2 = 13 - (int)(flicker / 3f);
-                                        dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f) - extension + 5 - 2*gv.squareSize, tlY + shifterY - (int)((scaler - 1) * brY * 0.5f) - extension + 5 - 2*gv.squareSize, (int)(brX * scaler) + 2 * extension - 10 + 4 * gv.squareSize, (int)(brY * scaler) + 2 * extension - 10 + 4 * gv.squareSize);
-                                        gv.DrawBitmap(gv.cc.light_torch, src, dst, 0, false, 0.45f * 0.75f * (0.425f - flicker / 200f));
-                                        dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f) - extension2, tlY + shifterY - (int)((scaler - 1) * brY * 0.5f) - extension2, (int)(brX * scaler) + 2 * extension2, (int)(brY * scaler) + 2 * extension2);
-                                        gv.DrawBitmap(gv.cc.light_torch, src, dst, 0, false, 0.25f + 2.25f * 0.75f * (0.425f - flicker / 200f));
+                                        if ((x == gv.mod.PlayerLocationX) && (y == gv.mod.PlayerLocationY))
+                                        {
+                                            int extension = 6 - (int)(flicker / 7f);
+                                            int extension2 = 13 - (int)(flicker / 3f);
+                                            dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f) - extension + 5 - 2 * gv.squareSize, tlY + shifterY - (int)((scaler - 1) * brY * 0.5f) - extension + 5 - 2 * gv.squareSize, (int)(brX * scaler) + 2 * extension - 10 + 4 * gv.squareSize, (int)(brY * scaler) + 2 * extension - 10 + 4 * gv.squareSize);
+                                            gv.DrawBitmap(gv.cc.light_torch, src, dst, 0, false, 0.45f * 0.75f * (0.425f - flicker / 200f));
+                                            dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f) - extension2, tlY + shifterY - (int)((scaler - 1) * brY * 0.5f) - extension2, (int)(brX * scaler) + 2 * extension2, (int)(brY * scaler) + 2 * extension2);
+                                            gv.DrawBitmap(gv.cc.light_torch, src, dst, 0, false, 0.25f + 2.25f * 0.75f * (0.425f - flicker / 200f));
+                                        }
+                                        else 
+                                        {
+                                            int extension = 6 - (int)(flicker / 7f);
+                                            int extension2 = 7 - (int)(flicker / 6f);
+                                            dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f) - extension + 5 - 2 * gv.squareSize, tlY + shifterY - (int)((scaler - 1) * brY * 0.5f) - extension + 5 - 2 * gv.squareSize, (int)(brX * scaler) + 2 * extension - 10 + 4 * gv.squareSize, (int)(brY * scaler) + 2 * extension - 10 + 4 * gv.squareSize);
+                                            gv.DrawBitmap(gv.cc.light_torch, src, dst, 0, false, 0.7f * 0.45f * 0.75f * (0.425f - flicker / 200f));
+                                            dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f) - extension2, tlY + shifterY - (int)((scaler - 1) * brY * 0.5f) - extension2, (int)(brX * scaler) + 2 * extension2, (int)(brY * scaler) + 2 * extension2);
+                                            gv.DrawBitmap(gv.cc.light_torch, src, dst, 0, false, 0.10f + 2.25f * 0.45f * (0.425f - flicker / 200f));
+                                        }
                                     }
                                 }//close focal light
                             }//close try
