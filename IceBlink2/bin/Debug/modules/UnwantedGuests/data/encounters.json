@@ -25940,12 +25940,6 @@
         "creatureTag": "graySpider_8750",
         "creatureStartLocationX": 11,
         "creatureStartLocationY": 8
-      },
-      {
-        "creatureResRef": "grack",
-        "creatureTag": "grack_9870",
-        "creatureStartLocationX": 4,
-        "creatureStartLocationY": 8
       }
     ],
     "encounterCreatureList": [],

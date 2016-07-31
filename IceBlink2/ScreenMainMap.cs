@@ -17,6 +17,7 @@ namespace IceBlink2
         public GameView gv;
 
         public IB2UILayout mainUiLayout = null;
+        public bool isMoving = false;
         public bool showMiniMap = false;
         public bool showClock = false;
         public bool showFullParty = false;
@@ -346,6 +347,144 @@ namespace IceBlink2
         //MAIN SCREEN UPDATE
         public void Update(int elapsed)
         {
+            if (gv.moveTimerRuns)
+            {
+                int x = gv.mousePositionX - (int)(gv.squareSize * 15f / 100f);
+                int y = gv.mousePositionY - (int)(gv.squareSize * 55f / 100f);
+
+                int xDistanceFromCenter = x - (int)(gv.screenWidth/2f);
+                if (xDistanceFromCenter < 0)
+                {
+                    xDistanceFromCenter = xDistanceFromCenter * -1;
+                }
+
+                int yDistanceFromCenter = y - (int)(gv.screenHeight/2f);
+                if (yDistanceFromCenter < 0)
+                {
+                    yDistanceFromCenter = yDistanceFromCenter * -1;
+                }
+
+                int moveSpeed = 0;
+                if (yDistanceFromCenter >= xDistanceFromCenter)
+                {
+                    moveSpeed = (int)(yDistanceFromCenter*0.8f);
+                }
+                else
+                {
+                    moveSpeed = (int)(xDistanceFromCenter*0.8f);
+                }
+
+                if (moveSpeed > 2.5f*gv.squareSize)
+                {
+                    moveSpeed = (int)(2.5f * gv.squareSize);
+                }
+
+                gv.moveTimerCounter += (elapsed * moveSpeed / gv.squareSize);
+
+                if (gv.moveTimerCounter >= 150)
+                {
+                    isMoving = true;
+                }
+
+                if (gv.moveTimerCounter >= 300)
+                {
+                    gv.moveTimerCounter = 0;
+                    //int x = gv.mousePositionX - (int)(gv.squareSize * 4f / 10f);
+                    //int y = gv.mousePositionY - (int)(gv.squareSize * 55f / 100f);
+                    int gridX = x / gv.squareSize;
+                    int gridY = y / gv.squareSize;
+                    int actualx = mod.PlayerLocationX + (gridX - gv.playerOffsetX);
+                    int actualy = mod.PlayerLocationY + (gridY - gv.playerOffsetY);
+
+                    if (mod.PlayerLocationX == actualx && mod.PlayerLocationY - 1 >= actualy)
+                    {
+                        bool isTransition = gv.cc.goNorth();
+                        if (!isTransition)
+                        {
+                            if (mod.PlayerLocationY > 0)
+                            {
+                                if (mod.currentArea.GetBlocked(mod.PlayerLocationX, mod.PlayerLocationY - 1) == false)
+                                {
+                                    mod.PlayerLastLocationX = mod.PlayerLocationX;
+                                    mod.PlayerLastLocationY = mod.PlayerLocationY;
+                                    mod.PlayerLocationY--;
+                                    gv.cc.doUpdate();
+                                }
+                            }
+                        }
+                    }
+                    else if (mod.PlayerLocationX == actualx && mod.PlayerLocationY + 1 <= actualy)
+                    {
+
+                        bool isTransition = gv.cc.goSouth();
+                        if (!isTransition)
+                        {
+                            int mapheight = mod.currentArea.MapSizeY;
+                            if (mod.PlayerLocationY < (mapheight - 1))
+                            {
+                                if (mod.currentArea.GetBlocked(mod.PlayerLocationX, mod.PlayerLocationY + 1) == false)
+                                {
+                                    mod.PlayerLastLocationX = mod.PlayerLocationX;
+                                    mod.PlayerLastLocationY = mod.PlayerLocationY;
+                                    mod.PlayerLocationY++;
+                                    gv.cc.doUpdate();
+                                }
+                            }
+                        }
+                    }
+                    else if (mod.PlayerLocationX - 1 >= actualx && mod.PlayerLocationY == actualy)
+                    {
+                        bool isTransition = gv.cc.goWest();
+                        if (!isTransition)
+                        {
+                            if (mod.PlayerLocationX > 0)
+                            {
+                                if (mod.currentArea.GetBlocked(mod.PlayerLocationX - 1, mod.PlayerLocationY) == false)
+                                {
+                                    mod.PlayerLastLocationX = mod.PlayerLocationX;
+                                    mod.PlayerLastLocationY = mod.PlayerLocationY;
+                                    mod.PlayerLocationX--;
+                                    foreach (Player pc in mod.playerList)
+                                    {
+                                        if (!pc.combatFacingLeft)
+                                        {
+                                            pc.combatFacingLeft = true;
+                                        }
+                                    }
+                                    gv.cc.doUpdate();
+                                }
+                            }
+                        }
+                    }
+                    else if (mod.PlayerLocationX + 1 <= actualx && mod.PlayerLocationY == actualy)
+                    {
+                        bool isTransition = gv.cc.goEast();
+                        if (!isTransition)
+                        {
+                            int mapwidth = mod.currentArea.MapSizeX;
+                            if (mod.PlayerLocationX < (mapwidth - 1))
+                            {
+                                if (mod.currentArea.GetBlocked(mod.PlayerLocationX + 1, mod.PlayerLocationY) == false)
+                                {
+                                    mod.PlayerLastLocationX = mod.PlayerLocationX;
+                                    mod.PlayerLastLocationY = mod.PlayerLocationY;
+                                    mod.PlayerLocationX++;
+                                    foreach (Player pc in mod.playerList)
+                                    {
+                                        if (pc.combatFacingLeft)
+                                        {
+                                            pc.combatFacingLeft = false;
+                                        }
+                                    }
+                                    gv.cc.doUpdate();
+                                }
+                            }
+                        }
+                    }
+
+                }
+            }
+
             mainUiLayout.Update(elapsed);
 
             //handle RealTime Timer events if module uses this system
@@ -912,7 +1051,7 @@ namespace IceBlink2
                
                 //CommonCode.addLogText("red", "Failed to setup Music Player...Audio will be disabled. Most likely due to not having Windows Media Player installed or having an incompatible version.");
 
-                drawProps();
+                //drawProps();
                 if (mod.map_showGrid)
                 {
                     drawGrid();
@@ -920,30 +1059,48 @@ namespace IceBlink2
             }
             if (mod.currentArea.areaDark)
             {
+                drawProps();
                 drawPlayer();
             }
             if (!mod.currentArea.areaDark)
             {
-                drawMovingProps();
+                //drawMovingProps();
             }
-            drawMainMapFloatyText();
-            drawFloatyTextPool();
-            if (gv.mod.useSmoothMovement)
-            {
-                drawFloatyTextByPixelPool();
-            }
+            //drawMainMapFloatyText();
+            //drawFloatyTextPool();
+            //if (gv.mod.useSmoothMovement)
+            //{
+                //drawFloatyTextByPixelPool();
+            //}
 
             //drawSprites();
             //drawTopFullScreenEffects();
 
             if (!mod.currentArea.areaDark)
             {
+                drawProps();
+                drawMovingProps();
+                if(!gv.mod.currentArea.useLightSystem)
+                {
+                    drawPlayer();
+                }
                 if (gv.mod.useAllTileSystem)
                 {
                     drawLightAndDarkness(elapsed);
                 }
-                drawPlayer();
+                //drawProps();
+                //drawMovingProps();
+                if (gv.mod.currentArea.useLightSystem)
+                {
+                    drawPlayer();
+                }
                 drawFogOfWar();
+                drawMainMapFloatyText();
+                drawFloatyTextPool();
+                if (gv.mod.useSmoothMovement)
+                {
+                    drawFloatyTextByPixelPool();
+                }
                 //drawLightAndDarkness(elapsed);
                 drawSprites();
                 drawTopFullScreenEffects();
@@ -26975,6 +27132,256 @@ namespace IceBlink2
                 }
                 */
 
+                #region halo pass: go throigh tiles only for halos
+                for (int x = minX; x < maxX + 1; x++)
+                {
+                    for (int y = minY; y < maxY; y++)
+                    {
+
+                        bool situationFound = false;
+                        bool drawTile = true;
+                        int index = -1;
+                        Tile tile = new Tile();
+
+                        //nine situations where a tile can be:
+                        //tile on north-western map (diagonal situation)
+                        if ((x < 0) && (y < 0) && (!situationFound))
+                        {
+                            situationFound = true;
+                            if (gv.mod.indexOfNorthWesternNeighbour != -1)
+                            {
+                                int transformedX = mod.moduleAreasObjects[gv.mod.indexOfNorthWesternNeighbour].MapSizeX + x;
+                                int transformedY = mod.moduleAreasObjects[gv.mod.indexOfNorthWesternNeighbour].MapSizeY + y;
+                                tile = mod.moduleAreasObjects[gv.mod.indexOfNorthWesternNeighbour].Tiles[transformedY * mod.moduleAreasObjects[gv.mod.indexOfNorthWesternNeighbour].MapSizeX + transformedX];
+                                index = gv.mod.indexOfNorthWesternNeighbour;
+                            }
+                            else
+                            {
+                                drawTile = false;
+                            }
+                        }
+                        //tile on south-westernmap (diagonal situation)
+                        if ((x < 0) && (y > (gv.mod.currentArea.MapSizeY - 1)) && (!situationFound))
+                        {
+                            situationFound = true;
+                            if (gv.mod.indexOfSouthWesternNeighbour != -1)
+                            {
+                                int transformedX = mod.moduleAreasObjects[gv.mod.indexOfSouthWesternNeighbour].MapSizeX + x;
+                                int transformedY = y - gv.mod.currentArea.MapSizeY;
+                                tile = mod.moduleAreasObjects[gv.mod.indexOfSouthWesternNeighbour].Tiles[transformedY * mod.moduleAreasObjects[gv.mod.indexOfSouthWesternNeighbour].MapSizeX + transformedX];
+                                index = gv.mod.indexOfSouthWesternNeighbour;
+                            }
+                            else
+                            {
+                                drawTile = false;
+                            }
+                        }
+                        //tile on south-easternmap (diagonal situation)
+                        if ((x > (gv.mod.currentArea.MapSizeX - 1)) && (y > (gv.mod.currentArea.MapSizeY - 1)) && (!situationFound))
+                        {
+                            situationFound = true;
+                            if (gv.mod.indexOfSouthEasternNeighbour != -1)
+                            {
+                                int transformedX = x - gv.mod.currentArea.MapSizeX;
+                                int transformedY = y - gv.mod.currentArea.MapSizeY;
+                                tile = mod.moduleAreasObjects[gv.mod.indexOfSouthEasternNeighbour].Tiles[transformedY * mod.moduleAreasObjects[gv.mod.indexOfSouthEasternNeighbour].MapSizeX + transformedX];
+                                index = gv.mod.indexOfSouthEasternNeighbour;
+                            }
+                            else
+                            {
+                                drawTile = false;
+                            }
+                        }
+                        //tile on north-easternmap (diagonal situation)
+                        if ((x > (gv.mod.currentArea.MapSizeX - 1)) && (y < 0) && (!situationFound))
+                        {
+                            situationFound = true;
+                            if (gv.mod.indexOfNorthEasternNeighbour != -1)
+                            {
+                                int transformedX = x - gv.mod.currentArea.MapSizeX;
+                                int transformedY = mod.moduleAreasObjects[gv.mod.indexOfNorthEasternNeighbour].MapSizeY + y;
+                                tile = mod.moduleAreasObjects[gv.mod.indexOfNorthEasternNeighbour].Tiles[transformedY * mod.moduleAreasObjects[gv.mod.indexOfNorthEasternNeighbour].MapSizeX + transformedX];
+                                index = gv.mod.indexOfNorthEasternNeighbour;
+                            }
+                            else
+                            {
+                                drawTile = false;
+                            }
+                        }
+                        //tile on western map
+                        if ((x < 0) && (!situationFound))
+                        {
+                            situationFound = true;
+                            if (gv.mod.indexOfWesternNeighbour != -1)
+                            {
+                                int transformedX = mod.moduleAreasObjects[gv.mod.indexOfWesternNeighbour].MapSizeX + x;
+                                int transformedY = y;
+                                tile = mod.moduleAreasObjects[gv.mod.indexOfWesternNeighbour].Tiles[transformedY * mod.moduleAreasObjects[gv.mod.indexOfWesternNeighbour].MapSizeX + transformedX];
+                                index = gv.mod.indexOfWesternNeighbour;
+                            }
+                            else
+                            {
+                                drawTile = false;
+                            }
+                        }
+                        //tile on southern map
+                        if ((y > (gv.mod.currentArea.MapSizeY - 1)) && (!situationFound))
+                        {
+                            situationFound = true;
+                            if (gv.mod.indexOfSouthernNeighbour != -1)
+                            {
+                                int transformedX = x;
+                                int transformedY = y - gv.mod.currentArea.MapSizeY;
+                                tile = mod.moduleAreasObjects[gv.mod.indexOfSouthernNeighbour].Tiles[transformedY * mod.moduleAreasObjects[gv.mod.indexOfSouthernNeighbour].MapSizeX + transformedX];
+                                index = gv.mod.indexOfSouthernNeighbour;
+                            }
+                            else
+                            {
+                                drawTile = false;
+                            }
+                        }
+                        //tile on eastern map
+                        if ((x > (gv.mod.currentArea.MapSizeX - 1)) && (!situationFound))
+                        {
+                            situationFound = true;
+                            if (gv.mod.indexOfEasternNeighbour != -1)
+                            {
+                                int transformedX = x - gv.mod.currentArea.MapSizeX;
+                                int transformedY = y;
+                                tile = mod.moduleAreasObjects[gv.mod.indexOfEasternNeighbour].Tiles[transformedY * mod.moduleAreasObjects[gv.mod.indexOfEasternNeighbour].MapSizeX + transformedX];
+                                index = gv.mod.indexOfEasternNeighbour;
+                            }
+                            else
+                            {
+                                drawTile = false;
+                            }
+                        }
+                        //tile on northern map
+                        if ((y < 0) && (!situationFound))
+                        {
+                            situationFound = true;
+                            if (gv.mod.indexOfNorthernNeighbour != -1)
+                            {
+                                int transformedX = x;
+                                int transformedY = mod.moduleAreasObjects[gv.mod.indexOfNorthernNeighbour].MapSizeY + y;
+                                tile = mod.moduleAreasObjects[gv.mod.indexOfNorthernNeighbour].Tiles[transformedY * mod.moduleAreasObjects[gv.mod.indexOfNorthernNeighbour].MapSizeX + transformedX];
+                                index = gv.mod.indexOfNorthernNeighbour;
+                            }
+                            else
+                            {
+                                drawTile = false;
+                            }
+                        }
+                        //tile is on current map
+                        if (!situationFound)
+                        {
+                            tile = mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x];
+                        }
+
+                        if (drawTile)
+                        {
+                            bool lightOn = false;
+                            foreach (bool light in tile.isLit)
+                            {
+                                if (light)
+                                {
+                                    lightOn = true;
+                                    break;
+                                }
+                            }
+
+                            try
+                            {
+                                int tlX = (x - mod.PlayerLocationX + gv.playerOffsetX) * (gv.squareSize);
+                                int tlY = (y - mod.PlayerLocationY + gv.playerOffsetY) * (gv.squareSize);
+                                //float scalerX = tile.tileBitmap0.PixelSize.Width / 100;
+                                //float scalerY = tile.tileBitmap0.PixelSize.Height / 100;
+                                //the tiles0 arrive as 50x50px but we want to have them 100% square size, therefore scaler to 1, ie 100%
+                                float scalerX = 1;
+                                float scalerY = 1;
+                                int brX = (int)(gv.squareSize * scalerX);
+                                int brY = (int)(gv.squareSize * scalerY);
+                                float scaler = gv.sf.RandInt(30);
+                                //int shifter = gv.sf.RandInt(5);
+                                //scaler = 1 + (scaler / 100f);
+                                scaler = 1f;
+                                //shifter = 0;
+                                if (gv.mod.currentArea.UseDayNightCycle)
+                                {
+                                    //shifter = 0;
+                                    //shifterY = 0;
+                                }
+                                IbRect src = new IbRect(0, 0, 100, 100);
+                                IbRect dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f), tlY + shifterY - (int)((scaler - 1) * brY * 0.5f), (int)(brX * scaler), (int)(brY * scaler));
+
+                                float flickerReduction = 1;
+                                if (gv.mod.currentArea.UseDayNightCycle)
+                                {
+                                    flickerReduction = 1.5f;
+                                }
+
+                                if ((tile.isFocalPoint) && (lightOn))
+                                {
+                                    //color of light source
+                                    //if (!gv.mod.currentArea.UseDayNightCycle)
+                                    //{
+                                    //if (lightOn)
+                                    //{
+                                    //dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f) - (int)(0.125f * gv.squareSize), tlY + shifterY - (int)((scaler - 1) * brY * 0.5f) - (int)(0.125f * gv.squareSize), (int)(brX * scaler) + (int)(0.25f * gv.squareSize), (int)(brY * scaler) + (int)(0.25f * gv.squareSize));
+
+                                    bool drawLightHalo = false;
+                                    if (gv.mod.currentArea.UseDayNightCycle)
+                                    {
+                                        int dawn = 5 * 60;
+                                        int sunrise = 6 * 60;
+                                        int day = 7 * 60;
+                                        int sunset = 17 * 60;
+                                        int dusk = 18 * 60;
+                                        int night = 20 * 60;
+                                        int time = gv.mod.WorldTime % 1440;
+                                        if ((time >= night) || (time < dawn))
+                                        {
+                                            drawLightHalo = true;
+                                        }
+                                    }
+                                    else
+                                    {
+                                        drawLightHalo = true;
+                                    }
+
+                                    if (!gv.mod.currentArea.useLightSystem)
+                                    {
+                                        drawLightHalo = false;
+                                    }
+
+                                    if (drawLightHalo)
+                                    {
+                                        //int extension = 6 - (int)(flicker / 7f);
+                                        //dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f) - extension + 5, tlY + shifterY - (int)((scaler - 1) * brY * 0.5f) - extension + 5, (int)(brX * scaler) + 2 * extension - 10, (int)(brY * scaler) + 2 * extension - 10);
+                                        //gv.DrawBitmap(gv.cc.light_torch, src, dst, 0, false, 2f * 0.75f * (0.425f - flicker / 200f));
+                                        //dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f), tlY + shifterY - (int)((scaler - 1) * brY * 0.5f), (int)(brX * scaler), (int)(brY * scaler));
+
+                                        int extension = 6 - (int)(flicker / 7f);
+                                        int extension2 = 13 - (int)(flicker / 3f);
+                                        dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f) - extension + 5 - 2*gv.squareSize, tlY + shifterY - (int)((scaler - 1) * brY * 0.5f) - extension + 5 - 2*gv.squareSize, (int)(brX * scaler) + 2 * extension - 10 + 4 * gv.squareSize, (int)(brY * scaler) + 2 * extension - 10 + 4 * gv.squareSize);
+                                        gv.DrawBitmap(gv.cc.light_torch, src, dst, 0, false, 0.45f * 0.75f * (0.425f - flicker / 200f));
+                                        dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f) - extension2, tlY + shifterY - (int)((scaler - 1) * brY * 0.5f) - extension2, (int)(brX * scaler) + 2 * extension2, (int)(brY * scaler) + 2 * extension2);
+                                        gv.DrawBitmap(gv.cc.light_torch, src, dst, 0, false, 0.25f + 2.25f * 0.75f * (0.425f - flicker / 200f));
+                                    }
+                                }//close focal light
+                            }//close try
+                            catch
+                            { }
+                        }//close draw tile condition
+                    }//close inner tile loop
+                }//clsoe outer tile loop
+
+                                    #endregion
+                                    //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                                    //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                                    //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+
+
                 #region go through tiles
                 for (int x = minX; x < maxX+1; x++)
                 {
@@ -27235,10 +27642,40 @@ namespace IceBlink2
                                     //if (lightOn)
                                     //{
                                     //dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f) - (int)(0.125f * gv.squareSize), tlY + shifterY - (int)((scaler - 1) * brY * 0.5f) - (int)(0.125f * gv.squareSize), (int)(brX * scaler) + (int)(0.25f * gv.squareSize), (int)(brY * scaler) + (int)(0.25f * gv.squareSize));
-                                    int extension = 5 - (int)(flicker / 10f);
-                                    dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f)- extension + 5, tlY + shifterY - (int)((scaler - 1) * brY * 0.5f) - extension + 5, (int)(brX * scaler) + 2*extension - 10, (int)(brY * scaler) + 2*extension -10);
-                                    gv.DrawBitmap(gv.cc.light_torch, src, dst, 0, false, 0.75f * (0.425f - flicker / 200f));
-                                    dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f), tlY + shifterY - (int)((scaler - 1) * brY * 0.5f), (int)(brX * scaler), (int)(brY * scaler));
+                                    /*
+                                    bool drawLightHalo = false;
+                                    if (gv.mod.currentArea.UseDayNightCycle)
+                                    {
+                                        int dawn = 5 * 60;
+                                        int sunrise = 6 * 60;
+                                        int day = 7 * 60;
+                                        int sunset = 17 * 60;
+                                        int dusk = 18 * 60;
+                                        int night = 20 * 60;
+                                        int time = gv.mod.WorldTime % 1440;
+                                        if ((time >= night) || (time < dawn))
+                                        {
+                                            drawLightHalo = true;
+                                        }
+                                    }
+                                    else
+                                    {
+                                        drawLightHalo = true;
+                                    }
+
+                                    if (drawLightHalo)
+                                    {
+                                        //int extension = 6 - (int)(flicker / 7f);
+                                        //dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f) - extension + 5, tlY + shifterY - (int)((scaler - 1) * brY * 0.5f) - extension + 5, (int)(brX * scaler) + 2 * extension - 10, (int)(brY * scaler) + 2 * extension - 10);
+                                        //gv.DrawBitmap(gv.cc.light_torch, src, dst, 0, false, 2f * 0.75f * (0.425f - flicker / 200f));
+                                        //dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f), tlY + shifterY - (int)((scaler - 1) * brY * 0.5f), (int)(brX * scaler), (int)(brY * scaler));
+
+                                        int extension = 6 - (int)(flicker / 7f);
+                                        dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f) - extension + 5 - gv.squareSize, tlY + shifterY - (int)((scaler - 1) * brY * 0.5f) - extension + 5 - gv.squareSize, (int)(brX * scaler) + 2 * extension - 10 + 2*gv.squareSize, (int)(brY * scaler) + 2 * extension - 10 + 2*gv.squareSize);
+                                        gv.DrawBitmap(gv.cc.light_torch, src, dst, 0, false, 2f * 0.75f * (0.425f - flicker / 200f));
+                                        dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f), tlY + shifterY - (int)((scaler - 1) * brY * 0.5f), (int)(brX * scaler), (int)(brY * scaler));
+                                }
+                                */
 
                                     //gv.DrawBitmap(gv.cc.light_torchOLD, src, dst, 0, false,0.75f *0.75f * (0.225f - flicker / 400f));
                                     //dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f), tlY + shifterY - (int)((scaler - 1) * brY * 0.5f), (int)(brX * scaler), (int)(brY * scaler));
@@ -27258,11 +27695,12 @@ namespace IceBlink2
                                         int time = gv.mod.WorldTime % 1440;
                                         if ((time >= dawn) && (time < sunrise))
                                         {
-                                            gv.DrawBitmap(gv.cc.tint_dawn, src, dst, 0, false, 1.0f / flickerReduction * flicker / 100f);
+                                            //gv.DrawBitmap(gv.cc.tint_dawn, src, dst, 0, false, 1.0f / flickerReduction * flicker / 100f);
+                                            gv.DrawBitmap(gv.cc.tint_dawn, src, dst, 0, false, 1.0f);
                                         }
                                         else if ((time >= sunrise) && (time < day))
                                         {
-                                            gv.DrawBitmap(gv.cc.tint_sunrise, src, dst, 0, false, 1.0f / flickerReduction * flicker / 100f);
+                                            gv.DrawBitmap(gv.cc.tint_sunrise, src, dst, 0, false, 1.0f);
                                         }
                                         else if ((time >= day) && (time < sunset))
                                         {
@@ -27270,16 +27708,23 @@ namespace IceBlink2
                                         }
                                         else if ((time >= sunset) && (time < dusk))
                                         {
-                                            gv.DrawBitmap(gv.cc.tint_sunset, src, dst, 0, false, 1.0f / flickerReduction * flicker / 100f);
+                                            gv.DrawBitmap(gv.cc.tint_sunset, src, dst, 0, false, 1.0f);
                                         }
                                         else if ((time >= dusk) && (time < night))
                                         {
-                                            gv.DrawBitmap(gv.cc.tint_dusk, src, dst, 0, false, 1.0f / flickerReduction * flicker / 100f);
+                                            gv.DrawBitmap(gv.cc.tint_dusk, src, dst, 0, false, 1.0f);
                                         }
                                         else if ((time >= night) || (time < dawn))
                                         {
                                             //gv.DrawBitmap(gv.cc.tint_night, src, dst, 0, false, 0.75f / flickerReduction * 1.0f * flicker / 100f);
-                                            gv.DrawBitmap(gv.cc.tint_night, src, dst, 0, false, 0.5f * 1.5f * 0.65f * 1.7f * 1.5f / flickerReduction * flicker / 100f);
+                                            if (gv.mod.currentArea.useLightSystem)
+                                            {
+                                                gv.DrawBitmap(gv.cc.tint_night, src, dst, 0, false, 0.25f * 1.5f * 0.65f * 1.7f * 1.5f / flickerReduction * flicker / 100f);
+                                            }
+                                            else
+                                            {
+                                                gv.DrawBitmap(gv.cc.tint_night, src, dst, 0, false, 0.8f);
+                                            }
 
                                         }
                                     }
@@ -27287,9 +27732,12 @@ namespace IceBlink2
                                     //connect to area is dark?
                                     else
                                     {
-                                        //gv.DrawBitmap(gv.cc.black_tile, src, dst, 0, false, 0.075f * flicker / 100f);
-                                        gv.DrawBitmap(gv.cc.black_tile, src, dst, 0, false, 0.75f * flicker / 100f);
-                                        //gv.DrawBitmap(gv.cc.tint_night, src, dst, 0, false, 0.5f * 1.5f * 0.65f * 1.7f * 1.5f / flickerReduction * flicker / 100f);
+                                        if (gv.mod.currentArea.useLightSystem)
+                                        {
+                                            //gv.DrawBitmap(gv.cc.black_tile, src, dst, 0, false, 0.075f * flicker / 100f);
+                                            gv.DrawBitmap(gv.cc.black_tile, src, dst, 0, false, 0.75f * flicker / 100f);
+                                            //gv.DrawBitmap(gv.cc.tint_night, src, dst, 0, false, 0.5f * 1.5f * 0.65f * 1.7f * 1.5f / flickerReduction * flicker / 100f);
+                                        }
 
 
                                     }
@@ -27326,11 +27774,12 @@ namespace IceBlink2
                                         int time = gv.mod.WorldTime % 1440;
                                         if ((time >= dawn) && (time < sunrise))
                                         {
-                                            gv.DrawBitmap(gv.cc.tint_dawn, src, dst, 0, false, extraDarkness * 0.85f * 2.75f / flickerReduction * flicker / 100f);
+                                            //gv.DrawBitmap(gv.cc.tint_dawn, src, dst, 0, false, extraDarkness * 0.85f * 2.75f / flickerReduction * flicker / 100f);
+                                            gv.DrawBitmap(gv.cc.tint_dawn, src, dst, 0, false, 1.0f);
                                         }
                                         else if ((time >= sunrise) && (time < day))
                                         {
-                                            gv.DrawBitmap(gv.cc.tint_sunrise, src, dst, 0, false, extraDarkness * 0.85f * 2.75f / flickerReduction * flicker / 100f);
+                                            gv.DrawBitmap(gv.cc.tint_sunrise, src, dst, 0, false, 1.0f);
                                         }
                                         else if ((time >= day) && (time < sunset))
                                         {
@@ -27338,46 +27787,54 @@ namespace IceBlink2
                                         }
                                         else if ((time >= sunset) && (time < dusk))
                                         {
-                                            gv.DrawBitmap(gv.cc.tint_sunset, src, dst, 0, false, extraDarkness * 0.85f * 2.75f / flickerReduction * flicker / 100f);
+                                            gv.DrawBitmap(gv.cc.tint_sunset, src, dst, 0, false, 1.0f);
                                         }
                                         else if ((time >= dusk) && (time < night))
                                         {
-                                            gv.DrawBitmap(gv.cc.tint_dusk, src, dst, 0, false, extraDarkness * 0.85f * 2.75f / flickerReduction * flicker / 100f);
+                                            gv.DrawBitmap(gv.cc.tint_dusk, src, dst, 0, false, 1.0f);
                                         }
                                         else if ((time >= night) || (time < dawn))
                                         {
-                                            if ((tile.tilePositionInLitArea[indexOfRelevantLightSource] == "NW"))
+                                            //hurgh10000
+                                            if (gv.mod.currentArea.useLightSystem)
                                             {
-                                                gv.DrawBitmap(gv.cc.night_tile_NW, src, dst, 0, false, 0.5f * 1.5f * 0.65f * 1.7f * 1.5f / flickerReduction * flicker / 100f);
-                                                dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f), tlY + shifterY - (int)((scaler - 1) * brY * 0.5f), (int)(brX * scaler), (int)(brY * scaler));
-                                                gv.DrawBitmap(gv.cc.night_tile_SE, src, dst, 0, false, 1.5f * 0.5f * 1.5f * 0.65f * 1.7f * 1.5f / flickerReduction * flicker / 100f);
-                                            }
-                                            else if ((tile.tilePositionInLitArea[indexOfRelevantLightSource] == "NE"))
-                                            {
-                                                gv.DrawBitmap(gv.cc.night_tile_NE, src, dst, 0, false, 0.5f * 1.5f * 0.65f * 1.7f * 1.5f / flickerReduction * flicker / 100f);
-                                                dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f), tlY + shifterY - (int)((scaler - 1) * brY * 0.5f), (int)(brX * scaler), (int)(brY * scaler));
-                                                gv.DrawBitmap(gv.cc.night_tile_SW, src, dst, 0, false, 1.5f * 0.5f * 1.5f * 0.65f * 1.7f * 1.5f / flickerReduction * flicker / 100f);
-                                            }
-                                            else if ((tile.tilePositionInLitArea[indexOfRelevantLightSource] == "SW"))
-                                            {
-                                                gv.DrawBitmap(gv.cc.night_tile_SW, src, dst, 0, false, 0.5f * 1.5f * 0.65f * 1.7f * 1.5f / flickerReduction * flicker / 100f);
-                                                dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f), tlY + shifterY - (int)((scaler - 1) * brY * 0.5f), (int)(brX * scaler), (int)(brY * scaler));
-                                                gv.DrawBitmap(gv.cc.night_tile_NE, src, dst, 0, false, 1.5f * 0.5f * 1.5f * 0.65f * 1.7f * 1.5f / flickerReduction * flicker / 100f);
-                                            }
-                                            else if ((tile.tilePositionInLitArea[indexOfRelevantLightSource] == "SE"))
-                                            {
-                                                gv.DrawBitmap(gv.cc.night_tile_SE, src, dst, 0, false, 0.5f * 1.5f * 0.65f * 1.7f * 1.5f / flickerReduction * flicker / 100f);
-                                                dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f), tlY + shifterY - (int)((scaler - 1) * brY * 0.5f), (int)(brX * scaler), (int)(brY * scaler));
-                                                gv.DrawBitmap(gv.cc.night_tile_NW, src, dst, 0, false, 1.5f * 0.5f * 1.5f * 0.65f * 1.7f * 1.5f / flickerReduction * flicker / 100f);
+                                                if ((tile.tilePositionInLitArea[indexOfRelevantLightSource] == "NW"))
+                                                {
+                                                    gv.DrawBitmap(gv.cc.night_tile_NW, src, dst, 0, false, 0.25f * 1.5f * 0.65f * 1.7f * 1.5f / flickerReduction * flicker / 100f);
+                                                    dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f), tlY + shifterY - (int)((scaler - 1) * brY * 0.5f), (int)(brX * scaler), (int)(brY * scaler));
+                                                    gv.DrawBitmap(gv.cc.night_tile_SE, src, dst, 0, false, 1.5f * 0.5f * 1.5f * 0.65f * 1.7f * 1.5f / flickerReduction * flicker / 100f);
+                                                }
+                                                else if ((tile.tilePositionInLitArea[indexOfRelevantLightSource] == "NE"))
+                                                {
+                                                    gv.DrawBitmap(gv.cc.night_tile_NE, src, dst, 0, false, 0.25f * 1.5f * 0.65f * 1.7f * 1.5f / flickerReduction * flicker / 100f);
+                                                    dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f), tlY + shifterY - (int)((scaler - 1) * brY * 0.5f), (int)(brX * scaler), (int)(brY * scaler));
+                                                    gv.DrawBitmap(gv.cc.night_tile_SW, src, dst, 0, false, 1.5f * 0.5f * 1.5f * 0.65f * 1.7f * 1.5f / flickerReduction * flicker / 100f);
+                                                }
+                                                else if ((tile.tilePositionInLitArea[indexOfRelevantLightSource] == "SW"))
+                                                {
+                                                    gv.DrawBitmap(gv.cc.night_tile_SW, src, dst, 0, false, 0.25f * 1.5f * 0.65f * 1.7f * 1.5f / flickerReduction * flicker / 100f);
+                                                    dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f), tlY + shifterY - (int)((scaler - 1) * brY * 0.5f), (int)(brX * scaler), (int)(brY * scaler));
+                                                    gv.DrawBitmap(gv.cc.night_tile_NE, src, dst, 0, false, 1.5f * 0.5f * 1.5f * 0.65f * 1.7f * 1.5f / flickerReduction * flicker / 100f);
+                                                }
+                                                else if ((tile.tilePositionInLitArea[indexOfRelevantLightSource] == "SE"))
+                                                {
+                                                    gv.DrawBitmap(gv.cc.night_tile_SE, src, dst, 0, false, 0.25f * 1.5f * 0.65f * 1.7f * 1.5f / flickerReduction * flicker / 100f);
+                                                    dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f), tlY + shifterY - (int)((scaler - 1) * brY * 0.5f), (int)(brX * scaler), (int)(brY * scaler));
+                                                    gv.DrawBitmap(gv.cc.night_tile_NW, src, dst, 0, false, 1.5f * 0.5f * 1.5f * 0.65f * 1.7f * 1.5f / flickerReduction * flicker / 100f);
 
+                                                }
+                                                else
+                                                {
+                                                    gv.DrawBitmap(gv.cc.tint_night, src, dst, 0, false, 0.25f * 1.5f * 0.65f * 1.7f * 1.5f / flickerReduction * flicker / 100f);
+
+                                                }
                                             }
                                             else
                                             {
-                                                gv.DrawBitmap(gv.cc.tint_night, src, dst, 0, false, 0.5f * 1.5f * 0.65f * 1.7f * 1.5f / flickerReduction * flicker / 100f);
-
+                                                gv.DrawBitmap(gv.cc.tint_night, src, dst, 0, false, 0.8f);
                                             }
 
-                                      }//night closing closing
+                                            }//night closing closing
 
                                     }//use time of day closing 
 
@@ -27385,34 +27842,39 @@ namespace IceBlink2
                                     //connect to area is dark?
                                     else
                                     {
-                                        if ((tile.tilePositionInLitArea[indexOfRelevantLightSource] == "NW"))
+                                        if (gv.mod.currentArea.useLightSystem)
                                         {
-                                            gv.DrawBitmap(gv.cc.black_tile_NW, src, dst, 0, false, 0.75f * flicker / 100f);
-                                            dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f), tlY + shifterY - (int)((scaler - 1) * brY * 0.5f), (int)(brX * scaler) + 1, (int)(brY * scaler));
-                                            gv.DrawBitmap(gv.cc.black_tile_SE, src, dst, 0, false, 0.675f * 2.5f * flicker / 100f);
-                                        }
-                                        else if ((tile.tilePositionInLitArea[indexOfRelevantLightSource] == "NE"))
-                                        {
-                                            gv.DrawBitmap(gv.cc.black_tile_NE, src, dst, 0, false, 0.75f * flicker / 100f);
-                                            dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f) - 1, tlY + shifterY - (int)((scaler - 1) * brY * 0.5f), (int)(brX * scaler) + 1, (int)(brY * scaler));
-                                            gv.DrawBitmap(gv.cc.black_tile_SW, src, dst, 0, false, 0.675f * 2.5f * flicker / 100f);
-                                        }
-                                        else if ((tile.tilePositionInLitArea[indexOfRelevantLightSource] == "SW"))
-                                        {
-                                            gv.DrawBitmap(gv.cc.black_tile_SW, src, dst, 0, false, 0.75f * flicker / 100f);
-                                            dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f), tlY + shifterY - (int)((scaler - 1) * brY * 0.5f) - 2, (int)(brX * scaler) + 2, (int)(brY * scaler) + 2);
-                                            gv.DrawBitmap(gv.cc.black_tile_NE, src, dst, 0, false, 0.675f * 2.5f * flicker / 100f);
-                                        }
-                                        else if ((tile.tilePositionInLitArea[indexOfRelevantLightSource] == "SE"))
-                                        {
-                                            gv.DrawBitmap(gv.cc.black_tile_SE, src, dst, 0, false, 0.75f * flicker / 100f);
-                                            dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f) - 1, tlY + shifterY - (int)((scaler - 1) * brY * 0.5f) - 2, (int)(brX * scaler) + 1, (int)(brY * scaler) + 2);
-                                            gv.DrawBitmap(gv.cc.black_tile_NW, src, dst, 0, false, 0.675f * 2.5f * flicker / 100f);
 
-                                        }
-                                        else
-                                        {
-                                            gv.DrawBitmap(gv.cc.black_tile, src, dst, 0, false, extraDarkness * 0.75f * flicker / 100f);
+                                            if ((tile.tilePositionInLitArea[indexOfRelevantLightSource] == "NW"))
+                                            {
+                                                gv.DrawBitmap(gv.cc.black_tile_NW, src, dst, 0, false, 0.75f * flicker / 100f);
+                                                dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f), tlY + shifterY - (int)((scaler - 1) * brY * 0.5f), (int)(brX * scaler) + 1, (int)(brY * scaler));
+                                                gv.DrawBitmap(gv.cc.black_tile_SE, src, dst, 0, false, 0.675f * 2.5f * flicker / 100f);
+                                            }
+                                            else if ((tile.tilePositionInLitArea[indexOfRelevantLightSource] == "NE"))
+                                            {
+                                                gv.DrawBitmap(gv.cc.black_tile_NE, src, dst, 0, false, 0.75f * flicker / 100f);
+                                                dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f) - 1, tlY + shifterY - (int)((scaler - 1) * brY * 0.5f), (int)(brX * scaler) + 1, (int)(brY * scaler));
+                                                gv.DrawBitmap(gv.cc.black_tile_SW, src, dst, 0, false, 0.675f * 2.5f * flicker / 100f);
+                                            }
+                                            else if ((tile.tilePositionInLitArea[indexOfRelevantLightSource] == "SW"))
+                                            {
+                                                gv.DrawBitmap(gv.cc.black_tile_SW, src, dst, 0, false, 0.75f * flicker / 100f);
+                                                dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f), tlY + shifterY - (int)((scaler - 1) * brY * 0.5f) - 2, (int)(brX * scaler) + 2, (int)(brY * scaler) + 2);
+                                                gv.DrawBitmap(gv.cc.black_tile_NE, src, dst, 0, false, 0.675f * 2.5f * flicker / 100f);
+                                            }
+                                            else if ((tile.tilePositionInLitArea[indexOfRelevantLightSource] == "SE"))
+                                            {
+                                                gv.DrawBitmap(gv.cc.black_tile_SE, src, dst, 0, false, 0.75f * flicker / 100f);
+                                                dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f) - 1, tlY + shifterY - (int)((scaler - 1) * brY * 0.5f) - 2, (int)(brX * scaler) + 1, (int)(brY * scaler) + 2);
+                                                gv.DrawBitmap(gv.cc.black_tile_NW, src, dst, 0, false, 0.675f * 2.5f * flicker / 100f);
+
+
+                                            }
+                                            else
+                                            {
+                                                gv.DrawBitmap(gv.cc.black_tile, src, dst, 0, false, extraDarkness * 0.75f * flicker / 100f);
+                                            }
                                         }
 
                                         //gv.DrawBitmap(gv.cc.black_tile, src, dst, 0, false, extraDarkness * 0.75f * flicker / 100f);
@@ -27457,11 +27919,12 @@ namespace IceBlink2
                                         int time = gv.mod.WorldTime % 1440;
                                         if ((time >= dawn) && (time < sunrise))
                                         {
-                                            gv.DrawBitmap(gv.cc.tint_dawn, src, dst, 0, false, extraDarkness * 0.65f * 3.75f / flickerReduction * flicker / 100f);
+                                            //gv.DrawBitmap(gv.cc.tint_dawn, src, dst, 0, false, extraDarkness * 0.65f * 3.75f / flickerReduction * flicker / 100f);
+                                            gv.DrawBitmap(gv.cc.tint_dawn, src, dst, 0, false, 1.0f);
                                         }
                                         else if ((time >= sunrise) && (time < day))
                                         {
-                                            gv.DrawBitmap(gv.cc.tint_sunrise, src, dst, 0, false, extraDarkness * 0.65f * 3.75f / flickerReduction * flicker / 100f);
+                                            gv.DrawBitmap(gv.cc.tint_sunrise, src, dst, 0, false, 1.0f);
                                         }
                                         else if ((time >= day) && (time < sunset))
                                         {
@@ -27469,143 +27932,154 @@ namespace IceBlink2
                                         }
                                         else if ((time >= sunset) && (time < dusk))
                                         {
-                                            gv.DrawBitmap(gv.cc.tint_sunset, src, dst, 0, false, extraDarkness * 0.65f * 3.75f / flickerReduction * flicker / 100f);
+                                            gv.DrawBitmap(gv.cc.tint_sunset, src, dst, 0, false, 1.0f);
                                         }
                                         else if ((time >= dusk) && (time < night))
                                         {
-                                            gv.DrawBitmap(gv.cc.tint_dusk, src, dst, 0, false, extraDarkness * 0.65f * 3.75f / flickerReduction * flicker / 100f);
+                                            gv.DrawBitmap(gv.cc.tint_dusk, src, dst, 0, false, 1.0f);
                                         }
                                         else if ((time >= night) || (time < dawn))
                                         {
+                                            if (gv.mod.currentArea.useLightSystem)
+                                            {
+                                                if ((tile.tilePositionInLitArea[indexOfRelevantLightSource] == "N1"))
+                                                {
 
-                                            if ((tile.tilePositionInLitArea[indexOfRelevantLightSource] == "N1"))
-                                            {
-
-                                                //dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f), tlY + shifterY - (int)((scaler - 1) * brY * 0.5f), (int)(brX * scaler) + 1, (int)(brY * scaler));
-                                                //gv.DrawBitmap(gv.cc.black_tile_SE, src, dst, 0, false, 1.0f * 0.65f * flicker / 100f * 1.2f);
-                                                //dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f), tlY + shifterY - (int)((scaler - 1) * brY * 0.5f), (int)(brX * scaler), (int)(brY * scaler));
-                                                //gv.DrawBitmap(gv.cc.tint_night, src, dst, 0, false, 0.5f * 1.5f * 0.65f * 1.7f * 1.5f / flickerReduction * flicker / 100f);
+                                                    //dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f), tlY + shifterY - (int)((scaler - 1) * brY * 0.5f), (int)(brX * scaler) + 1, (int)(brY * scaler));
+                                                    //gv.DrawBitmap(gv.cc.black_tile_SE, src, dst, 0, false, 1.0f * 0.65f * flicker / 100f * 1.2f);
+                                                    //dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f), tlY + shifterY - (int)((scaler - 1) * brY * 0.5f), (int)(brX * scaler), (int)(brY * scaler));
+                                                    //gv.DrawBitmap(gv.cc.tint_night, src, dst, 0, false, 0.5f * 1.5f * 0.65f * 1.7f * 1.5f / flickerReduction * flicker / 100f);
 
 
-                                                //gv.DrawBitmap(gv.cc.black_tile, src, dst, 0, false, extraDarkness * 0.675f * 2.5f * flicker / 100f);
-                                                gv.DrawBitmap(gv.cc.night_tile_NW, src, dst, 0, false, 1.5f * 0.5f * 1.5f * 0.65f * 1.7f * 1.5f / flickerReduction * flicker / 100f);
-                                                dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f), tlY + shifterY - (int)((scaler - 1) * brY * 0.5f), (int)(brX * scaler), (int)(brY * scaler));
-                                                gv.DrawBitmap(gv.cc.night_tile_SE, src, dst, 0, false, 1.75f * flicker / 100f);
-                                            }
+                                                    //gv.DrawBitmap(gv.cc.black_tile, src, dst, 0, false, extraDarkness * 0.675f * 2.5f * flicker / 100f);
+                                                    gv.DrawBitmap(gv.cc.night_tile_NW, src, dst, 0, false, 1.5f * 0.5f * 1.5f * 0.65f * 1.7f * 1.5f / flickerReduction * flicker / 100f);
+                                                    dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f), tlY + shifterY - (int)((scaler - 1) * brY * 0.5f), (int)(brX * scaler), (int)(brY * scaler));
+                                                    gv.DrawBitmap(gv.cc.night_tile_SE, src, dst, 0, false, 0.15f + 0.8f * 1.75f * flicker / 100f);
+                                                }
 
-                                            else if ((tile.tilePositionInLitArea[indexOfRelevantLightSource] == "W1"))
-                                            {
-                                                //gv.DrawBitmap(gv.cc.black_tile, src, dst, 0, false, extraDarkness * 0.675f * 2.5f * flicker / 100f);
-                                                //gv.DrawBitmap(gv.cc.black_tile_NW, src, dst, 0, false, 0.675f * 2.5f * flicker / 100f);
-                                                //dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f), tlY + shifterY - (int)((scaler - 1) * brY * 0.5f), (int)(brX * scaler) + 1, (int)(brY * scaler) + 2);
-                                                //gv.DrawBitmap(gv.cc.black_tile_SE, src, dst, 0, false, extraDarkness * 0.675f * 2.5f * flicker / 100f);
+                                                else if ((tile.tilePositionInLitArea[indexOfRelevantLightSource] == "W1"))
+                                                {
+                                                    //gv.DrawBitmap(gv.cc.black_tile, src, dst, 0, false, extraDarkness * 0.675f * 2.5f * flicker / 100f);
+                                                    //gv.DrawBitmap(gv.cc.black_tile_NW, src, dst, 0, false, 0.675f * 2.5f * flicker / 100f);
+                                                    //dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f), tlY + shifterY - (int)((scaler - 1) * brY * 0.5f), (int)(brX * scaler) + 1, (int)(brY * scaler) + 2);
+                                                    //gv.DrawBitmap(gv.cc.black_tile_SE, src, dst, 0, false, extraDarkness * 0.675f * 2.5f * flicker / 100f);
 
-                                                gv.DrawBitmap(gv.cc.night_tile_NW, src, dst, 0, false, 1.5f * 0.5f * 1.5f * 0.65f * 1.7f * 1.5f / flickerReduction * flicker / 100f);
-                                                dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f), tlY + shifterY - (int)((scaler - 1) * brY * 0.5f), (int)(brX * scaler), (int)(brY * scaler));
-                                                gv.DrawBitmap(gv.cc.night_tile_SE, src, dst, 0, false, 1.75f * flicker / 100f);
-                                            }
+                                                    gv.DrawBitmap(gv.cc.night_tile_NW, src, dst, 0, false, 1.5f * 0.5f * 1.5f * 0.65f * 1.7f * 1.5f / flickerReduction * flicker / 100f);
+                                                    dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f), tlY + shifterY - (int)((scaler - 1) * brY * 0.5f), (int)(brX * scaler), (int)(brY * scaler));
+                                                    gv.DrawBitmap(gv.cc.night_tile_SE, src, dst, 0, false, 0.15f + 0.8f * 1.75f * flicker / 100f);
+                                                }
 
-                                            else if ((tile.tilePositionInLitArea[indexOfRelevantLightSource] == "N3"))
-                                            {
-                                                //gv.DrawBitmap(gv.cc.black_tile, src, dst, 0, false, extraDarkness * 0.675f * 2.5f * flicker / 100f);
-                                                //gv.DrawBitmap(gv.cc.black_tile_NE, src, dst, 0, false, 0.675f * 2.5f * flicker / 100f);
-                                                //dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f) - 2, tlY + shifterY - (int)((scaler - 1) * brY * 0.5f), (int)(brX * scaler) + 2, (int)(brY * scaler) + 1);
-                                                //gv.DrawBitmap(gv.cc.black_tile_SW, src, dst, 0, false, extraDarkness * 0.675f * 2.5f * flicker / 100f);
-                                                gv.DrawBitmap(gv.cc.night_tile_NE, src, dst, 0, false, 1.5f * 0.5f * 1.5f * 0.65f * 1.7f * 1.5f / flickerReduction * flicker / 100f);
-                                                dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f), tlY + shifterY - (int)((scaler - 1) * brY * 0.5f), (int)(brX * scaler), (int)(brY * scaler));
-                                                gv.DrawBitmap(gv.cc.night_tile_SW, src, dst, 0, false, 1.75f * flicker / 100f);
-                                            }
+                                                else if ((tile.tilePositionInLitArea[indexOfRelevantLightSource] == "N3"))
+                                                {
+                                                    //gv.DrawBitmap(gv.cc.black_tile, src, dst, 0, false, extraDarkness * 0.675f * 2.5f * flicker / 100f);
+                                                    //gv.DrawBitmap(gv.cc.black_tile_NE, src, dst, 0, false, 0.675f * 2.5f * flicker / 100f);
+                                                    //dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f) - 2, tlY + shifterY - (int)((scaler - 1) * brY * 0.5f), (int)(brX * scaler) + 2, (int)(brY * scaler) + 1);
+                                                    //gv.DrawBitmap(gv.cc.black_tile_SW, src, dst, 0, false, extraDarkness * 0.675f * 2.5f * flicker / 100f);
+                                                    gv.DrawBitmap(gv.cc.night_tile_NE, src, dst, 0, false, 1.5f * 0.5f * 1.5f * 0.65f * 1.7f * 1.5f / flickerReduction * flicker / 100f);
+                                                    dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f), tlY + shifterY - (int)((scaler - 1) * brY * 0.5f), (int)(brX * scaler), (int)(brY * scaler));
+                                                    gv.DrawBitmap(gv.cc.night_tile_SW, src, dst, 0, false, 0.15f + 0.8f * 1.75f * flicker / 100f);
+                                                }
 
-                                            else if ((tile.tilePositionInLitArea[indexOfRelevantLightSource] == "E1"))
-                                            {
-                                                //gv.DrawBitmap(gv.cc.black_tile, src, dst, 0, false, extraDarkness * 0.675f * 2.5f * flicker / 100f);
-                                                gv.DrawBitmap(gv.cc.night_tile_NE, src, dst, 0, false, 1.5f * 0.5f * 1.5f * 0.65f * 1.7f * 1.5f / flickerReduction * flicker / 100f);
-                                                dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f), tlY + shifterY - (int)((scaler - 1) * brY * 0.5f), (int)(brX * scaler), (int)(brY * scaler));
-                                                gv.DrawBitmap(gv.cc.night_tile_SW, src, dst, 0, false, 1.75f * flicker / 100f);
-                                            }
-                                            else if ((tile.tilePositionInLitArea[indexOfRelevantLightSource] == "S1"))
-                                            {
-                                                //gv.DrawBitmap(gv.cc.black_tile, src, dst, 0, false, extraDarkness * 0.675f * 2.5f * flicker / 100f);
-                                                //gv.DrawBitmap(gv.cc.black_tile_SW, src, dst, 0, false, 0.675f * 2.5f * flicker / 100f);
-                                                //dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f), tlY + shifterY - (int)((scaler - 1) * brY * 0.5f) - 1, (int)(brX * scaler) + 2, (int)(brY * scaler) + 1);
-                                                //gv.DrawBitmap(gv.cc.black_tile_NE, src, dst, 0, false, extraDarkness * 0.675f * 2.5f * flicker / 100f);
+                                                else if ((tile.tilePositionInLitArea[indexOfRelevantLightSource] == "E1"))
+                                                {
+                                                    //gv.DrawBitmap(gv.cc.black_tile, src, dst, 0, false, extraDarkness * 0.675f * 2.5f * flicker / 100f);
+                                                    gv.DrawBitmap(gv.cc.night_tile_NE, src, dst, 0, false, 1.5f * 0.5f * 1.5f * 0.65f * 1.7f * 1.5f / flickerReduction * flicker / 100f);
+                                                    dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f), tlY + shifterY - (int)((scaler - 1) * brY * 0.5f), (int)(brX * scaler), (int)(brY * scaler));
+                                                    gv.DrawBitmap(gv.cc.night_tile_SW, src, dst, 0, false, 0.15f + 0.8f * 1.75f * flicker / 100f);
+                                                }
+                                                else if ((tile.tilePositionInLitArea[indexOfRelevantLightSource] == "S1"))
+                                                {
+                                                    //gv.DrawBitmap(gv.cc.black_tile, src, dst, 0, false, extraDarkness * 0.675f * 2.5f * flicker / 100f);
+                                                    //gv.DrawBitmap(gv.cc.black_tile_SW, src, dst, 0, false, 0.675f * 2.5f * flicker / 100f);
+                                                    //dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f), tlY + shifterY - (int)((scaler - 1) * brY * 0.5f) - 1, (int)(brX * scaler) + 2, (int)(brY * scaler) + 1);
+                                                    //gv.DrawBitmap(gv.cc.black_tile_NE, src, dst, 0, false, extraDarkness * 0.675f * 2.5f * flicker / 100f);
 
-                                                gv.DrawBitmap(gv.cc.night_tile_SW, src, dst, 0, false, 1.5f * 0.5f * 1.5f * 0.65f * 1.7f * 1.5f / flickerReduction * flicker / 100f);
-                                                dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f), tlY + shifterY - (int)((scaler - 1) * brY * 0.5f), (int)(brX * scaler), (int)(brY * scaler));
-                                                gv.DrawBitmap(gv.cc.night_tile_NE, src, dst, 0, false, 1.75f * flicker / 100f);
-                                            }
-                                            else if ((tile.tilePositionInLitArea[indexOfRelevantLightSource] == "W3"))
-                                            {
-                                                //gv.DrawBitmap(gv.cc.black_tile, src, dst, 0, false, extraDarkness * 0.675f * 2.5f * flicker / 100f);
-                                                //gv.DrawBitmap(gv.cc.black_tile_SW, src, dst, 0, false, 0.675f * 2.5f * flicker / 100f);
-                                                //dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f) - 1, tlY + shifterY - (int)((scaler - 1) * brY * 0.5f) - 2, (int)(brX * scaler) + 2, (int)(brY * scaler) + 2);
-                                                //gv.DrawBitmap(gv.cc.black_tile_NE, src, dst, 0, false, extraDarkness * 0.675f * 2.5f * flicker / 100f);
+                                                    gv.DrawBitmap(gv.cc.night_tile_SW, src, dst, 0, false, 1.5f * 0.5f * 1.5f * 0.65f * 1.7f * 1.5f / flickerReduction * flicker / 100f);
+                                                    dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f), tlY + shifterY - (int)((scaler - 1) * brY * 0.5f), (int)(brX * scaler), (int)(brY * scaler));
+                                                    gv.DrawBitmap(gv.cc.night_tile_NE, src, dst, 0, false, 0.15f + 0.8f * 1.75f * flicker / 100f);
+                                                }
+                                                else if ((tile.tilePositionInLitArea[indexOfRelevantLightSource] == "W3"))
+                                                {
+                                                    //gv.DrawBitmap(gv.cc.black_tile, src, dst, 0, false, extraDarkness * 0.675f * 2.5f * flicker / 100f);
+                                                    //gv.DrawBitmap(gv.cc.black_tile_SW, src, dst, 0, false, 0.675f * 2.5f * flicker / 100f);
+                                                    //dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f) - 1, tlY + shifterY - (int)((scaler - 1) * brY * 0.5f) - 2, (int)(brX * scaler) + 2, (int)(brY * scaler) + 2);
+                                                    //gv.DrawBitmap(gv.cc.black_tile_NE, src, dst, 0, false, extraDarkness * 0.675f * 2.5f * flicker / 100f);
 
-                                                gv.DrawBitmap(gv.cc.night_tile_SW, src, dst, 0, false, 1.5f * 0.5f * 1.5f * 0.65f * 1.7f * 1.5f / flickerReduction * flicker / 100f);
-                                                dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f), tlY + shifterY - (int)((scaler - 1) * brY * 0.5f), (int)(brX * scaler), (int)(brY * scaler));
-                                                gv.DrawBitmap(gv.cc.night_tile_NE, src, dst, 0, false, 1.75f * flicker / 100f);
-                                            }
-                                        
-                                            else if ((tile.tilePositionInLitArea[indexOfRelevantLightSource] == "S3"))
-                                            {
-                                                //gv.DrawBitmap(gv.cc.black_tile, src, dst, 0, false, extraDarkness * 0.675f * 2.5f * flicker / 100f);
-                                                gv.DrawBitmap(gv.cc.night_tile_SE, src, dst, 0, false, 1.5f * 0.5f * 1.5f * 0.65f * 1.7f * 1.5f / flickerReduction * flicker / 100f);
-                                                dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f), tlY + shifterY - (int)((scaler - 1) * brY * 0.5f), (int)(brX * scaler), (int)(brY * scaler));
-                                                gv.DrawBitmap(gv.cc.night_tile_NW, src, dst, 0, false, 1.75f * flicker / 100f);
-                                            }
+                                                    gv.DrawBitmap(gv.cc.night_tile_SW, src, dst, 0, false, 1.5f * 0.5f * 1.5f * 0.65f * 1.7f * 1.5f / flickerReduction * flicker / 100f);
+                                                    dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f), tlY + shifterY - (int)((scaler - 1) * brY * 0.5f), (int)(brX * scaler), (int)(brY * scaler));
+                                                    gv.DrawBitmap(gv.cc.night_tile_NE, src, dst, 0, false, 0.15f + 0.8f * 1.75f * flicker / 100f);
+                                                }
 
-                                            else if ((tile.tilePositionInLitArea[indexOfRelevantLightSource] == "E3"))
-                                            {
-                                                //gv.DrawBitmap(gv.cc.black_tile, src, dst, 0, false, extraDarkness * 0.675f * 2.5f * flicker / 100f);
-                                                gv.DrawBitmap(gv.cc.night_tile_SE, src, dst, 0, false, 1.5f * 0.5f * 1.5f * 0.65f * 1.7f * 1.5f / flickerReduction * flicker / 100f);
-                                                dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f), tlY + shifterY - (int)((scaler - 1) * brY * 0.5f), (int)(brX * scaler), (int)(brY * scaler));
-                                                gv.DrawBitmap(gv.cc.night_tile_NW, src, dst, 0, false, 1.75f * flicker / 100f);
-                                            }
+                                                else if ((tile.tilePositionInLitArea[indexOfRelevantLightSource] == "S3"))
+                                                {
+                                                    //gv.DrawBitmap(gv.cc.black_tile, src, dst, 0, false, extraDarkness * 0.675f * 2.5f * flicker / 100f);
+                                                    gv.DrawBitmap(gv.cc.night_tile_SE, src, dst, 0, false, 1.5f * 0.5f * 1.5f * 0.65f * 1.7f * 1.5f / flickerReduction * flicker / 100f);
+                                                    dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f), tlY + shifterY - (int)((scaler - 1) * brY * 0.5f), (int)(brX * scaler), (int)(brY * scaler));
+                                                    gv.DrawBitmap(gv.cc.night_tile_NW, src, dst, 0, false, 0.15f + 0.8f * 1.75f * flicker / 100f);
+                                                }
 
-                                            else if ((tile.tilePositionInLitArea[indexOfRelevantLightSource] == "N0"))
-                                            {
-                                                gv.DrawBitmap(gv.cc.night_tile_NW, src, dst, 0, false, 1.75f * flicker / 100f);
-                                                dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f), tlY + shifterY - (int)((scaler - 1) * brY * 0.5f), (int)(brX * scaler), (int)(brY * scaler));
-                                                gv.DrawBitmap(gv.cc.night_tile_SE, src, dst, 0, false, 0.8f);
-                                            }
-                                            else if ((tile.tilePositionInLitArea[indexOfRelevantLightSource] == "N4"))
-                                            {
-                                                gv.DrawBitmap(gv.cc.black_tile_NE, src, dst, 0, false, extraDarkness * 0.675f * 2.5f * flicker / 100f);
-                                                dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f) - 4, tlY + shifterY - (int)((scaler - 1) * brY * 0.5f), (int)(brX * scaler) + 4, (int)(brY * scaler) + 4);
-                                                gv.DrawBitmap(gv.cc.black_tile_SW, src, dst, 0, false, 0.975f);
-                                            }
-                                            else if ((tile.tilePositionInLitArea[indexOfRelevantLightSource] == "S0"))
-                                            {
-                                                gv.DrawBitmap(gv.cc.black_tile_SW, src, dst, 0, false, extraDarkness * 0.675f * 2.5f * flicker / 100f);
-                                                dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f), tlY + shifterY - (int)((scaler - 1) * brY * 0.5f) - 2, (int)(brX * scaler) + 2, (int)(brY * scaler) + 2);
-                                                gv.DrawBitmap(gv.cc.black_tile_NE, src, dst, 0, false, 0.975f);
-                                            }
-                                            else if ((tile.tilePositionInLitArea[indexOfRelevantLightSource] == "S4"))
-                                            {
-                                                gv.DrawBitmap(gv.cc.black_tile_SE, src, dst, 0, false, extraDarkness * 0.675f * 2.5f * flicker / 100f);
-                                                dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f) - 2, tlY + shifterY - (int)((scaler - 1) * brY * 0.5f) - 3, (int)(brX * scaler) + 3, (int)(brY * scaler) + 3);
-                                                gv.DrawBitmap(gv.cc.black_tile_NW, src, dst, 0, false, 0.975f);
-                                            }
-                                            else if ((tile.tilePositionInLitArea[indexOfRelevantLightSource] == "cornerOverlay"))
-                                            {
-                                                gv.DrawBitmap(gv.cc.black_tile, src, dst, 0, false, extraDarkness * 0.675f * 2.5f * flicker / 100f);
-                                                //dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f), tlY + shifterY - (int)((scaler - 1) * brY * 0.5f), (int)(brX * scaler) + 2, (int)(brY * scaler) + 2);
-                                                //gv.DrawBitmap(gv.cc.black_tile_SE, src, dst, 0, false, 0.975f);
-                                            }
-                                            else if ((tile.tilePositionInLitArea[indexOfRelevantLightSource] == "cornerOverlayBright"))
-                                            {
-                                                gv.DrawBitmap(gv.cc.black_tile, src, dst, 0, false, extraDarkness * 0.675f * 2.5f * flicker / 100f);
-                                                //dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f), tlY + shifterY - (int)((scaler - 1) * brY * 0.5f), (int)(brX * scaler) + 2, (int)(brY * scaler) + 2);
-                                                //gv.DrawBitmap(gv.cc.black_tile_SE, src, dst, 0, false, 0.975f);
-                                            }
+                                                else if ((tile.tilePositionInLitArea[indexOfRelevantLightSource] == "E3"))
+                                                {
+                                                    //gv.DrawBitmap(gv.cc.black_tile, src, dst, 0, false, extraDarkness * 0.675f * 2.5f * flicker / 100f);
+                                                    gv.DrawBitmap(gv.cc.night_tile_SE, src, dst, 0, false, 1.5f * 0.5f * 1.5f * 0.65f * 1.7f * 1.5f / flickerReduction * flicker / 100f);
+                                                    dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f), tlY + shifterY - (int)((scaler - 1) * brY * 0.5f), (int)(brX * scaler), (int)(brY * scaler));
+                                                    gv.DrawBitmap(gv.cc.night_tile_NW, src, dst, 0, false, 0.15f + 0.8f * 1.75f * flicker / 100f);
+                                                }
 
-                                            //normal tile
+                                                else if ((tile.tilePositionInLitArea[indexOfRelevantLightSource] == "N0"))
+                                                {
+                                                    gv.DrawBitmap(gv.cc.night_tile_NW, src, dst, 0, false, 0.15f + 0.8f * 1.75f * flicker / 100f);
+                                                    dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f), tlY + shifterY - (int)((scaler - 1) * brY * 0.5f), (int)(brX * scaler), (int)(brY * scaler));
+                                                    gv.DrawBitmap(gv.cc.night_tile_SE, src, dst, 0, false, 0.8f);
+                                                }
+                                                else if ((tile.tilePositionInLitArea[indexOfRelevantLightSource] == "N4"))
+                                                {
+                                                    gv.DrawBitmap(gv.cc.night_tile_NE, src, dst, 0, false, 0.15f + 0.8f * 1.75f * flicker / 100f);
+                                                    dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f), tlY + shifterY - (int)((scaler - 1) * brY * 0.5f), (int)(brX * scaler), (int)(brY * scaler));
+                                                    gv.DrawBitmap(gv.cc.night_tile_SW, src, dst, 0, false, 0.8f);
+                                                }
+                                                else if ((tile.tilePositionInLitArea[indexOfRelevantLightSource] == "S0"))
+                                                {
+                                                    gv.DrawBitmap(gv.cc.night_tile_SW, src, dst, 0, false, 0.15f + 0.8f * 1.75f * flicker / 100f);
+                                                    dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f), tlY + shifterY - (int)((scaler - 1) * brY * 0.5f), (int)(brX * scaler), (int)(brY * scaler));
+                                                    gv.DrawBitmap(gv.cc.night_tile_NE, src, dst, 0, false, 0.8f);
+                                                }
+                                                else if ((tile.tilePositionInLitArea[indexOfRelevantLightSource] == "S4"))
+                                                {
+                                                    gv.DrawBitmap(gv.cc.night_tile_SE, src, dst, 0, false, 0.15f + 0.8f * 1.75f * flicker / 100f);
+                                                    dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f), tlY + shifterY - (int)((scaler - 1) * brY * 0.5f), (int)(brX * scaler), (int)(brY * scaler));
+                                                    gv.DrawBitmap(gv.cc.night_tile_NW, src, dst, 0, false, 0.8f);
+                                                }
+                                                else if ((tile.tilePositionInLitArea[indexOfRelevantLightSource] == "cornerOverlay"))
+                                                {
+                                                    gv.DrawBitmap(gv.cc.tint_night, src, dst, 0, false, 0.15f + 0.8f * 1.75f * flicker / 100f);
+                                                    //gv.DrawBitmap(gv.cc.tint_night, src, dst, 0, false, 1.5f * 0.5f * 1.5f * 0.65f * 1.7f * 1.5f / flickerReduction * flicker / 100f);
+                                                    //gv.DrawBitmap(gv.cc.tint_night, src, dst, 0, false, 1.75f * flicker / 100f);
+                                                    //dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f), tlY + shifterY - (int)((scaler - 1) * brY * 0.5f), (int)(brX * scaler) + 2, (int)(brY * scaler) + 2);
+                                                    //gv.DrawBitmap(gv.cc.black_tile_SE, src, dst, 0, false, 0.975f);
+                                                }
+                                                else if ((tile.tilePositionInLitArea[indexOfRelevantLightSource] == "cornerOverlayBright"))
+                                                {
+                                                    gv.DrawBitmap(gv.cc.tint_night, src, dst, 0, false, 1.5f * 0.5f * 1.5f * 0.65f * 1.7f * 1.5f / flickerReduction * flicker / 100f);
+                                                    //gv.DrawBitmap(gv.cc.tint_night, src, dst, 0, false, 1.75f * flicker / 100f);
+                                                    //gv.DrawBitmap(gv.cc.tint_night, src, dst, 0, false, 0.8f * flicker / 100f);
+                                                    //dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f), tlY + shifterY - (int)((scaler - 1) * brY * 0.5f), (int)(brX * scaler) + 2, (int)(brY * scaler) + 2);
+                                                    //gv.DrawBitmap(gv.cc.black_tile_SE, src, dst, 0, false, 0.975f);
+                                                }
+
+                                                //normal tile
+                                                else
+                                                {
+                                                    gv.DrawBitmap(gv.cc.tint_night, src, dst, 0, false, 1.5f * 0.5f * 1.5f * 0.65f * 1.7f * 1.5f / flickerReduction * flicker / 100f);
+                                                    //gv.DrawBitmap(gv.cc.black_tile, src, dst, 0, false, extraDarkness * 0.65f * flicker / 100f * 1.2f);
+                                                    //gv.DrawBitmap(gv.cc.tint_night, src, dst, 0, false, extraDarkness * 0.65f * 1.7f * 1.5f / flickerReduction * flicker / 100f);
+                                                }
+                                            }
                                             else
                                             {
-                                                gv.DrawBitmap(gv.cc.black_tile, src, dst, 0, false, extraDarkness * 0.65f * flicker / 100f * 1.2f);
-                                                gv.DrawBitmap(gv.cc.tint_night, src, dst, 0, false, extraDarkness * 0.65f * 1.7f * 1.5f / flickerReduction * flicker / 100f);
+                                                //hurgh54
+                                                gv.DrawBitmap(gv.cc.tint_night, src, dst, 0, false, 0.8f);
                                             }
-
                                         }//night time closing
 
                                     }//use time of day closing
@@ -27627,124 +28101,130 @@ namespace IceBlink2
 
                                         }
                                         */
-                                        if ((tile.tilePositionInLitArea[indexOfRelevantLightSource] == "N1"))
+                                        if (gv.mod.currentArea.useLightSystem)
                                         {
-                                            //gv.DrawBitmap(gv.cc.black_tile, src, dst, 0, false, extraDarkness * 0.675f * 2.5f * flicker / 100f);
-                                            gv.DrawBitmap(gv.cc.black_tile_NW, src, dst, 0, false, 0.675f * 2.5f * flicker / 100f);
-                                            dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f), tlY + shifterY - (int)((scaler - 1) * brY * 0.5f), (int)(brX * scaler) + 2, (int)(brY * scaler) + 1);
-                                            gv.DrawBitmap(gv.cc.black_tile_SE, src, dst, 0, false, 1.5f * 0.675f * 2.5f * flicker / 100f);
-                                        }
-                                        
-                                        else if ((tile.tilePositionInLitArea[indexOfRelevantLightSource] == "W1"))
-                                        {
-                                            //gv.DrawBitmap(gv.cc.black_tile, src, dst, 0, false, extraDarkness * 0.675f * 2.5f * flicker / 100f);
-                                            gv.DrawBitmap(gv.cc.black_tile_NW, src, dst, 0, false, 0.675f * 2.5f * flicker / 100f);
-                                            dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f), tlY + shifterY - (int)((scaler - 1) * brY * 0.5f), (int)(brX * scaler) + 1, (int)(brY * scaler) + 2);
-                                            gv.DrawBitmap(gv.cc.black_tile_SE, src, dst, 0, false, 1.5f * 0.675f * 2.5f * flicker / 100f);
-                                        }
+                                            float darknessWeighter = 0.15f + 1.05f * 0.675f * 2.5f * flicker / 100f;
+                                            if ((tile.tilePositionInLitArea[indexOfRelevantLightSource] == "N1"))
+                                            {
+                                                //gv.DrawBitmap(gv.cc.black_tile, src, dst, 0, false, extraDarkness * 0.675f * 2.5f * flicker / 100f);
+                                                gv.DrawBitmap(gv.cc.black_tile_NW, src, dst, 0, false, 0.675f * 2.5f * flicker / 100f);
+                                                dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f), tlY + shifterY - (int)((scaler - 1) * brY * 0.5f), (int)(brX * scaler) + 2, (int)(brY * scaler) + 1);
+                                                gv.DrawBitmap(gv.cc.black_tile_SE, src, dst, 0, false, darknessWeighter);
+                                            }
 
-                                        else if ((tile.tilePositionInLitArea[indexOfRelevantLightSource] == "N3"))
-                                        {
-                                            //gv.DrawBitmap(gv.cc.black_tile, src, dst, 0, false, extraDarkness * 0.675f * 2.5f * flicker / 100f);
-                                            gv.DrawBitmap(gv.cc.black_tile_NE, src, dst, 0, false, 0.675f * 2.5f * flicker / 100f);
-                                            dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f) - 2, tlY + shifterY - (int)((scaler - 1) * brY * 0.5f), (int)(brX * scaler) + 2, (int)(brY * scaler) + 1);
-                                            gv.DrawBitmap(gv.cc.black_tile_SW, src, dst, 0, false, 1.5f * 0.675f * 2.5f * flicker / 100f);
-                                        }
+                                            else if ((tile.tilePositionInLitArea[indexOfRelevantLightSource] == "W1"))
+                                            {
+                                                //gv.DrawBitmap(gv.cc.black_tile, src, dst, 0, false, extraDarkness * 0.675f * 2.5f * flicker / 100f);
+                                                gv.DrawBitmap(gv.cc.black_tile_NW, src, dst, 0, false, 0.675f * 2.5f * flicker / 100f);
+                                                dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f), tlY + shifterY - (int)((scaler - 1) * brY * 0.5f), (int)(brX * scaler) + 1, (int)(brY * scaler) + 2);
+                                                gv.DrawBitmap(gv.cc.black_tile_SE, src, dst, 0, false, darknessWeighter);
+                                            }
 
-                                        else if ((tile.tilePositionInLitArea[indexOfRelevantLightSource] == "E1"))
-                                        {
-                                            //gv.DrawBitmap(gv.cc.black_tile, src, dst, 0, false, extraDarkness * 0.675f * 2.5f * flicker / 100f);
-                                            gv.DrawBitmap(gv.cc.black_tile_NE, src, dst, 0, false, 0.675f * 2.5f * flicker / 100f);
-                                            dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f) - 1, tlY + shifterY - (int)((scaler - 1) * brY * 0.5f), (int)(brX * scaler) + 1, (int)(brY * scaler) + 2);
-                                            gv.DrawBitmap(gv.cc.black_tile_SW, src, dst, 0, false, 1.5f * 0.675f * 2.5f * flicker / 100f);
-                                        }
-                                        else if ((tile.tilePositionInLitArea[indexOfRelevantLightSource] == "S1"))
-                                        {
-                                            //gv.DrawBitmap(gv.cc.black_tile, src, dst, 0, false, extraDarkness * 0.675f * 2.5f * flicker / 100f);
-                                            gv.DrawBitmap(gv.cc.black_tile_SW, src, dst, 0, false, 0.675f * 2.5f * flicker / 100f);
-                                            dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f), tlY + shifterY - (int)((scaler - 1) * brY * 0.5f) - 1, (int)(brX * scaler) + 2, (int)(brY * scaler)+1);
-                                            gv.DrawBitmap(gv.cc.black_tile_NE, src, dst, 0, false, 1.5f * 0.675f * 2.5f * flicker / 100f);
-                                        }
+                                            else if ((tile.tilePositionInLitArea[indexOfRelevantLightSource] == "N3"))
+                                            {
+                                                //gv.DrawBitmap(gv.cc.black_tile, src, dst, 0, false, extraDarkness * 0.675f * 2.5f * flicker / 100f);
+                                                gv.DrawBitmap(gv.cc.black_tile_NE, src, dst, 0, false, 0.675f * 2.5f * flicker / 100f);
+                                                dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f) - 2, tlY + shifterY - (int)((scaler - 1) * brY * 0.5f), (int)(brX * scaler) + 2, (int)(brY * scaler) + 1);
+                                                gv.DrawBitmap(gv.cc.black_tile_SW, src, dst, 0, false, darknessWeighter);
+                                            }
 
-                                        else if ((tile.tilePositionInLitArea[indexOfRelevantLightSource] == "W3"))
-                                        {
-                                            //gv.DrawBitmap(gv.cc.black_tile, src, dst, 0, false, extraDarkness * 0.675f * 2.5f * flicker / 100f);
-                                            gv.DrawBitmap(gv.cc.black_tile_SW, src, dst, 0, false, 0.675f * 2.5f * flicker / 100f);
-                                            dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f) - 1, tlY + shifterY - (int)((scaler - 1) * brY * 0.5f) - 2, (int)(brX * scaler) + 2, (int)(brY * scaler) + 2);
-                                            gv.DrawBitmap(gv.cc.black_tile_NE, src, dst, 0, false, 1.5f * 0.675f * 2.5f * flicker / 100f);
-                                        }
+                                            else if ((tile.tilePositionInLitArea[indexOfRelevantLightSource] == "E1"))
+                                            {
+                                                //gv.DrawBitmap(gv.cc.black_tile, src, dst, 0, false, extraDarkness * 0.675f * 2.5f * flicker / 100f);
+                                                gv.DrawBitmap(gv.cc.black_tile_NE, src, dst, 0, false, 0.675f * 2.5f * flicker / 100f);
+                                                dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f) - 1, tlY + shifterY - (int)((scaler - 1) * brY * 0.5f), (int)(brX * scaler) + 1, (int)(brY * scaler) + 2);
+                                                gv.DrawBitmap(gv.cc.black_tile_SW, src, dst, 0, false, darknessWeighter);
+                                            }
+                                            else if ((tile.tilePositionInLitArea[indexOfRelevantLightSource] == "S1"))
+                                            {
+                                                //gv.DrawBitmap(gv.cc.black_tile, src, dst, 0, false, extraDarkness * 0.675f * 2.5f * flicker / 100f);
+                                                gv.DrawBitmap(gv.cc.black_tile_SW, src, dst, 0, false, 0.675f * 2.5f * flicker / 100f);
+                                                dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f), tlY + shifterY - (int)((scaler - 1) * brY * 0.5f) - 1, (int)(brX * scaler) + 2, (int)(brY * scaler) + 1);
+                                                gv.DrawBitmap(gv.cc.black_tile_NE, src, dst, 0, false, darknessWeighter);
+                                            }
 
-                                        else if ((tile.tilePositionInLitArea[indexOfRelevantLightSource] == "S3"))
-                                        {
-                                            //gv.DrawBitmap(gv.cc.black_tile, src, dst, 0, false, extraDarkness * 0.675f * 2.5f * flicker / 100f);
-                                            gv.DrawBitmap(gv.cc.black_tile_SE, src, dst, 0, false, 0.675f * 2.5f * flicker / 100f);
-                                            dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f) - 2, tlY + shifterY - (int)((scaler - 1) * brY * 0.5f) - 1, (int)(brX * scaler) + 2, (int)(brY * scaler) +1);
-                                            gv.DrawBitmap(gv.cc.black_tile_NW, src, dst, 0, false, 1.5f * 0.675f * 2.5f * flicker / 100f);
-                                        }
+                                            else if ((tile.tilePositionInLitArea[indexOfRelevantLightSource] == "W3"))
+                                            {
+                                                //gv.DrawBitmap(gv.cc.black_tile, src, dst, 0, false, extraDarkness * 0.675f * 2.5f * flicker / 100f);
+                                                gv.DrawBitmap(gv.cc.black_tile_SW, src, dst, 0, false, 0.675f * 2.5f * flicker / 100f);
+                                                dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f) - 1, tlY + shifterY - (int)((scaler - 1) * brY * 0.5f) - 2, (int)(brX * scaler) + 2, (int)(brY * scaler) + 2);
+                                                gv.DrawBitmap(gv.cc.black_tile_NE, src, dst, 0, false, darknessWeighter);
+                                            }
 
-                                        else if ((tile.tilePositionInLitArea[indexOfRelevantLightSource] == "E3"))
-                                        {
-                                            //gv.DrawBitmap(gv.cc.black_tile, src, dst, 0, false, extraDarkness * 0.675f * 2.5f * flicker / 100f);
-                                            gv.DrawBitmap(gv.cc.black_tile_SE, src, dst, 0, false, 0.675f * 2.5f * flicker / 100f);
-                                            dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f) - 1, tlY + shifterY - (int)((scaler - 1) * brY * 0.5f) - 2, (int)(brX * scaler) + 1, (int)(brY * scaler) + 2);
-                                            gv.DrawBitmap(gv.cc.black_tile_NW, src, dst, 0, false, 1.5f * 0.675f * 2.5f * flicker / 100f);
-                                        }
-                                        /*
-                                        else if ((tile.tilePositionInLitArea[indexOfRelevantLightSource] == "N1"))
-                                        {
-                                            //gv.DrawBitmap(gv.cc.black_tile, src, dst, 0, false, extraDarkness * 0.675f * 2.5f * flicker / 100f);
-                                            gv.DrawBitmap(gv.cc.black_tile_NW, src, dst, 0, false, 0.675f * 2.5f * flicker / 100f);
-                                            dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f), tlY + shifterY - (int)((scaler - 1) * brY * 0.5f) - 1, (int)(brX * scaler) + 2, (int)(brY * scaler) + 2);
-                                            gv.DrawBitmap(gv.cc.black_tile_SE, src, dst, 0, false, extraDarkness * 0.675f * 2.5f * flicker / 100f);
-                                        }
-                                        else if ((tile.tilePositionInLitArea[indexOfRelevantLightSource] == "N1"))
-                                        {
-                                            //gv.DrawBitmap(gv.cc.black_tile, src, dst, 0, false, extraDarkness * 0.675f * 2.5f * flicker / 100f);
-                                            gv.DrawBitmap(gv.cc.black_tile_NW, src, dst, 0, false, 0.675f * 2.5f * flicker / 100f);
-                                            dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f), tlY + shifterY - (int)((scaler - 1) * brY * 0.5f) - 1, (int)(brX * scaler) + 2, (int)(brY * scaler) + 2);
-                                            gv.DrawBitmap(gv.cc.black_tile_SE, src, dst, 0, false, extraDarkness * 0.675f * 2.5f * flicker / 100f);
-                                        }
-                                        */
+                                            else if ((tile.tilePositionInLitArea[indexOfRelevantLightSource] == "S3"))
+                                            {
+                                                //gv.DrawBitmap(gv.cc.black_tile, src, dst, 0, false, extraDarkness * 0.675f * 2.5f * flicker / 100f);
+                                                gv.DrawBitmap(gv.cc.black_tile_SE, src, dst, 0, false, 0.675f * 2.5f * flicker / 100f);
+                                                dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f) - 2, tlY + shifterY - (int)((scaler - 1) * brY * 0.5f) - 1, (int)(brX * scaler) + 2, (int)(brY * scaler) + 1);
+                                                gv.DrawBitmap(gv.cc.black_tile_NW, src, dst, 0, false, darknessWeighter);
+                                            }
 
-                                        else if ((tile.tilePositionInLitArea[indexOfRelevantLightSource] == "N0"))
-                                        {
-                                            gv.DrawBitmap(gv.cc.black_tile_NW, src, dst, 0, false, 1.5f * 0.675f * 2.5f * flicker / 100f);
-                                            dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f), tlY + shifterY - (int)((scaler - 1) * brY * 0.5f), (int)(brX * scaler) + 2, (int)(brY * scaler) + 4);
-                                            gv.DrawBitmap(gv.cc.black_tile_SE, src, dst, 0, false, 0.975f);
-                                        }
-                                        else if ((tile.tilePositionInLitArea[indexOfRelevantLightSource] == "N4"))
-                                        {
-                                            gv.DrawBitmap(gv.cc.black_tile_NE, src, dst, 0, false, 1.5f * 0.675f * 2.5f * flicker / 100f);
-                                            dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f) - 4, tlY + shifterY - (int)((scaler - 1) * brY * 0.5f), (int)(brX * scaler) + 4, (int)(brY * scaler) + 4);
-                                            gv.DrawBitmap(gv.cc.black_tile_SW, src, dst, 0, false, 0.975f);
-                                        }
-                                        else if ((tile.tilePositionInLitArea[indexOfRelevantLightSource] == "S0"))
-                                        {
-                                            gv.DrawBitmap(gv.cc.black_tile_SW, src, dst, 0, false, 1.5f * 0.675f * 2.5f * flicker / 100f);
-                                            dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f), tlY + shifterY - (int)((scaler - 1) * brY * 0.5f) - 2, (int)(brX * scaler) + 2, (int)(brY * scaler) + 2);
-                                            gv.DrawBitmap(gv.cc.black_tile_NE, src, dst, 0, false, 0.975f);
-                                        }
-                                        else if ((tile.tilePositionInLitArea[indexOfRelevantLightSource] == "S4"))
-                                        {
-                                            gv.DrawBitmap(gv.cc.black_tile_SE, src, dst, 0, false, 1.5f * 0.675f * 2.5f * flicker / 100f);
-                                            dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f) - 2, tlY + shifterY - (int)((scaler - 1) * brY * 0.5f)-3, (int)(brX * scaler) + 3, (int)(brY * scaler) + 3);
-                                            gv.DrawBitmap(gv.cc.black_tile_NW, src, dst, 0, false, 0.975f);
-                                        }
-                                        else if ((tile.tilePositionInLitArea[indexOfRelevantLightSource] == "cornerOverlay"))
-                                        {
-                                            gv.DrawBitmap(gv.cc.black_tile, src, dst, 0, false, 1.5f * 0.675f * 2.5f * flicker / 100f);
-                                            //dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f), tlY + shifterY - (int)((scaler - 1) * brY * 0.5f), (int)(brX * scaler) + 2, (int)(brY * scaler) + 2);
-                                            //gv.DrawBitmap(gv.cc.black_tile_SE, src, dst, 0, false, 0.975f);
-                                        }
-                                        else if ((tile.tilePositionInLitArea[indexOfRelevantLightSource] == "cornerOverlayBright"))
-                                        {
-                                            gv.DrawBitmap(gv.cc.black_tile, src, dst, 0, false, extraDarkness * 0.675f * 2.5f * flicker / 100f);
-                                            //dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f), tlY + shifterY - (int)((scaler - 1) * brY * 0.5f), (int)(brX * scaler) + 2, (int)(brY * scaler) + 2);
-                                            //gv.DrawBitmap(gv.cc.black_tile_SE, src, dst, 0, false, 0.975f);
-                                        }
-                                        else
-                                        {
-                                            gv.DrawBitmap(gv.cc.black_tile, src, dst, 0, false, extraDarkness * 0.675f * 2.5f * flicker / 100f);
+                                            else if ((tile.tilePositionInLitArea[indexOfRelevantLightSource] == "E3"))
+                                            {
+                                                //gv.DrawBitmap(gv.cc.black_tile, src, dst, 0, false, extraDarkness * 0.675f * 2.5f * flicker / 100f);
+                                                gv.DrawBitmap(gv.cc.black_tile_SE, src, dst, 0, false, 0.675f * 2.5f * flicker / 100f);
+                                                dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f) - 1, tlY + shifterY - (int)((scaler - 1) * brY * 0.5f) - 2, (int)(brX * scaler) + 1, (int)(brY * scaler) + 2);
+                                                gv.DrawBitmap(gv.cc.black_tile_NW, src, dst, 0, false, darknessWeighter);
+                                            }
+                                            /*
+                                            else if ((tile.tilePositionInLitArea[indexOfRelevantLightSource] == "N1"))
+                                            {
+                                                //gv.DrawBitmap(gv.cc.black_tile, src, dst, 0, false, extraDarkness * 0.675f * 2.5f * flicker / 100f);
+                                                gv.DrawBitmap(gv.cc.black_tile_NW, src, dst, 0, false, 0.675f * 2.5f * flicker / 100f);
+                                                dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f), tlY + shifterY - (int)((scaler - 1) * brY * 0.5f) - 1, (int)(brX * scaler) + 2, (int)(brY * scaler) + 2);
+                                                gv.DrawBitmap(gv.cc.black_tile_SE, src, dst, 0, false, extraDarkness * 0.675f * 2.5f * flicker / 100f);
+                                            }
+                                            else if ((tile.tilePositionInLitArea[indexOfRelevantLightSource] == "N1"))
+                                            {
+                                                //gv.DrawBitmap(gv.cc.black_tile, src, dst, 0, false, extraDarkness * 0.675f * 2.5f * flicker / 100f);
+                                                gv.DrawBitmap(gv.cc.black_tile_NW, src, dst, 0, false, 0.675f * 2.5f * flicker / 100f);
+                                                dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f), tlY + shifterY - (int)((scaler - 1) * brY * 0.5f) - 1, (int)(brX * scaler) + 2, (int)(brY * scaler) + 2);
+                                                gv.DrawBitmap(gv.cc.black_tile_SE, src, dst, 0, false, extraDarkness * 0.675f * 2.5f * flicker / 100f);
+                                            }
+                                            */
+
+
+                                            else if ((tile.tilePositionInLitArea[indexOfRelevantLightSource] == "N0"))
+                                            {
+                                                gv.DrawBitmap(gv.cc.black_tile_NW, src, dst, 0, false, darknessWeighter);
+                                                dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f), tlY + shifterY - (int)((scaler - 1) * brY * 0.5f), (int)(brX * scaler) + 2, (int)(brY * scaler) + 4);
+                                                gv.DrawBitmap(gv.cc.black_tile_SE, src, dst, 0, false, 0.975f);
+                                            }
+                                            else if ((tile.tilePositionInLitArea[indexOfRelevantLightSource] == "N4"))
+                                            {
+                                                gv.DrawBitmap(gv.cc.black_tile_NE, src, dst, 0, false, darknessWeighter);
+                                                dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f) - 4, tlY + shifterY - (int)((scaler - 1) * brY * 0.5f), (int)(brX * scaler) + 4, (int)(brY * scaler) + 4);
+                                                gv.DrawBitmap(gv.cc.black_tile_SW, src, dst, 0, false, 0.975f);
+                                            }
+                                            else if ((tile.tilePositionInLitArea[indexOfRelevantLightSource] == "S0"))
+                                            {
+                                                gv.DrawBitmap(gv.cc.black_tile_SW, src, dst, 0, false, darknessWeighter);
+                                                dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f), tlY + shifterY - (int)((scaler - 1) * brY * 0.5f) - 2, (int)(brX * scaler) + 2, (int)(brY * scaler) + 2);
+                                                gv.DrawBitmap(gv.cc.black_tile_NE, src, dst, 0, false, 0.975f);
+                                            }
+                                            else if ((tile.tilePositionInLitArea[indexOfRelevantLightSource] == "S4"))
+                                            {
+                                                gv.DrawBitmap(gv.cc.black_tile_SE, src, dst, 0, false, darknessWeighter);
+                                                dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f) - 2, tlY + shifterY - (int)((scaler - 1) * brY * 0.5f) - 3, (int)(brX * scaler) + 3, (int)(brY * scaler) + 3);
+                                                gv.DrawBitmap(gv.cc.black_tile_NW, src, dst, 0, false, 0.975f);
+                                            }
+                                            else if ((tile.tilePositionInLitArea[indexOfRelevantLightSource] == "cornerOverlay"))
+                                            {
+                                                gv.DrawBitmap(gv.cc.black_tile, src, dst, 0, false, darknessWeighter);
+                                                //dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f), tlY + shifterY - (int)((scaler - 1) * brY * 0.5f), (int)(brX * scaler) + 2, (int)(brY * scaler) + 2);
+                                                //gv.DrawBitmap(gv.cc.black_tile_SE, src, dst, 0, false, 0.975f);
+                                            }
+                                            else if ((tile.tilePositionInLitArea[indexOfRelevantLightSource] == "cornerOverlayBright"))
+                                            {
+                                                gv.DrawBitmap(gv.cc.black_tile, src, dst, 0, false, extraDarkness * 0.675f * 2.5f * flicker / 100f);
+                                                //gv.DrawBitmap(gv.cc.black_tile, src, dst, 0, false, darknessWeighter * 2f / 3f);
+                                                //dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f), tlY + shifterY - (int)((scaler - 1) * brY * 0.5f), (int)(brX * scaler) + 2, (int)(brY * scaler) + 2);
+                                                //gv.DrawBitmap(gv.cc.black_tile_SE, src, dst, 0, false, 0.975f);
+                                            }
+                                            else
+                                            {
+                                                gv.DrawBitmap(gv.cc.black_tile, src, dst, 0, false, extraDarkness * 0.675f * 2.5f * flicker / 100f);
+                                            }
                                         }
                                     }
                                     //gv.DrawBitmap(gv.cc.black_tile, src, dst, 0, false, 1.20f * flicker/100f);
@@ -27794,7 +28274,10 @@ namespace IceBlink2
                                     //dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels, tlY, (int)(brX * scaler), (int)(brY * scaler));
                                     if (!gv.mod.currentArea.UseDayNightCycle)
                                     {
-                                        gv.DrawBitmap(gv.cc.black_tile, src, dst, 0, false, 0.975f);
+                                        if (gv.mod.currentArea.useLightSystem)
+                                        {
+                                            gv.DrawBitmap(gv.cc.black_tile, src, dst, 0, false, 0.975f);
+                                        }
                                     }
                                     else
                                     {
@@ -28498,12 +28981,17 @@ namespace IceBlink2
             switch (eventType)
             {
                 case MouseEventType.EventType.MouseDown:
+                    gv.moveTimerRuns = true;
+                    //isMoving = true;
+                    break;
+
                 case MouseEventType.EventType.MouseMove:
                     int x = (int)e.X;
                     int y = (int)e.Y;
 
                     //NEW SYSTEM
                     mainUiLayout.setHover(x, y);
+                    
 
                     //Draw Floaty Text On Mouse Over Prop
                     int gridx = (int)e.X / gv.squareSize;
@@ -28528,12 +29016,27 @@ namespace IceBlink2
                     break;
 
                 case MouseEventType.EventType.MouseUp:
+                    gv.moveTimerRuns = false;
+                    gv.moveTimerCounter = 0;
+                    int actualx = -1000;
+                    int actualy = -1000;
+                    if (!isMoving)
+                    {
+                        x = gv.mousePositionX - (int)(gv.squareSize * 15f / 100f);
+                        y = gv.mousePositionY - (int)(gv.squareSize * 55f / 100f);
+
+                        //hurgh5555
+
+                        int gridX = x / gv.squareSize;
+                        int gridY = y / gv.squareSize;
+                        actualx = mod.PlayerLocationX + (gridX - gv.playerOffsetX);
+                        actualy = mod.PlayerLocationY + (gridY - gv.playerOffsetY);
+                    }
+
+                    isMoving = false;
                     x = (int)e.X;
                     y = (int)e.Y;
-                    int gridX = (int)e.X / gv.squareSize;
-                    int gridY = (int)e.Y / gv.squareSize;
-                    int actualx = mod.PlayerLocationX + (gridX - gv.playerOffsetX);
-                    int actualy = mod.PlayerLocationY + (gridY - gv.playerOffsetY);
+
 
                     //NEW SYSTEM
                     string rtn = mainUiLayout.getImpact(x, y);
@@ -28668,87 +29171,106 @@ namespace IceBlink2
                             gv.cc.addLogText("lime", "Show Mini Map");
                         }
                     }
-                    if ((rtn.Equals("ctrlUpArrow")) || ((mod.PlayerLocationX == actualx) && ((mod.PlayerLocationY - 1) == actualy)))
-                    {
-                        bool isTransition = gv.cc.goNorth();
-                        if (!isTransition)
-                        {
-                            if (mod.PlayerLocationY > 0)
-                            {
-                                if (mod.currentArea.GetBlocked(mod.PlayerLocationX, mod.PlayerLocationY - 1) == false)
-                                {
-                                    mod.PlayerLastLocationX = mod.PlayerLocationX;
-                                    mod.PlayerLastLocationY = mod.PlayerLocationY;
-                                    mod.PlayerLocationY--;
-                                    gv.cc.doUpdate();
-                                }
-                            }
-                        }
-                    }
-                    else if ((rtn.Equals("ctrlDownArrow")) || ((mod.PlayerLocationX == actualx) && ((mod.PlayerLocationY + 1) == actualy)))
-                    {
+                    if ((rtn.Equals("ctrlUpArrow")) || ((mod.PlayerLocationX == actualx) && ((mod.PlayerLocationY - 1) >= actualy)))
+                    //if (rtn.Equals("ctrlUpArrow"))
 
-                        bool isTransition = gv.cc.goSouth();
-                        if (!isTransition)
                         {
-                            int mapheight = mod.currentArea.MapSizeY;
-                            if (mod.PlayerLocationY < (mapheight - 1))
+                        if (!gv.moveTimerRuns)
+                        {
+                            bool isTransition = gv.cc.goNorth();
+                            if (!isTransition)
                             {
-                                if (mod.currentArea.GetBlocked(mod.PlayerLocationX, mod.PlayerLocationY + 1) == false)
+                                if (mod.PlayerLocationY > 0)
                                 {
-                                    mod.PlayerLastLocationX = mod.PlayerLocationX;
-                                    mod.PlayerLastLocationY = mod.PlayerLocationY;
-                                    mod.PlayerLocationY++;
-                                    gv.cc.doUpdate();
+                                    if (mod.currentArea.GetBlocked(mod.PlayerLocationX, mod.PlayerLocationY - 1) == false)
+                                    {
+                                        mod.PlayerLastLocationX = mod.PlayerLocationX;
+                                        mod.PlayerLastLocationY = mod.PlayerLocationY;
+                                        mod.PlayerLocationY--;
+                                        gv.cc.doUpdate();
+                                    }
                                 }
                             }
                         }
                     }
-                    else if ((rtn.Equals("ctrlLeftArrow")) || (((mod.PlayerLocationX - 1) == actualx) && (mod.PlayerLocationY == actualy)))
+                    else if ((rtn.Equals("ctrlDownArrow")) || ((mod.PlayerLocationX == actualx) && ((mod.PlayerLocationY + 1) <= actualy)))
+                    //else if (rtn.Equals("ctrlDownArrow"))
+
                     {
-                        bool isTransition = gv.cc.goWest();
-                        if (!isTransition)
+                        if (!gv.moveTimerRuns)
                         {
-                            if (mod.PlayerLocationX > 0)
+                            bool isTransition = gv.cc.goSouth();
+                            if (!isTransition)
                             {
-                                if (mod.currentArea.GetBlocked(mod.PlayerLocationX - 1, mod.PlayerLocationY) == false)
+                                int mapheight = mod.currentArea.MapSizeY;
+                                if (mod.PlayerLocationY < (mapheight - 1))
                                 {
-                                    mod.PlayerLastLocationX = mod.PlayerLocationX;
-                                    mod.PlayerLastLocationY = mod.PlayerLocationY;
-                                    mod.PlayerLocationX--;
-                                    foreach (Player pc in mod.playerList)
+                                    if (mod.currentArea.GetBlocked(mod.PlayerLocationX, mod.PlayerLocationY + 1) == false)
                                     {
-                                        if (!pc.combatFacingLeft)
-                                        {
-                                            pc.combatFacingLeft = true;
-                                        }
+                                        mod.PlayerLastLocationX = mod.PlayerLocationX;
+                                        mod.PlayerLastLocationY = mod.PlayerLocationY;
+                                        mod.PlayerLocationY++;
+                                        gv.cc.doUpdate();
                                     }
-                                    gv.cc.doUpdate();
                                 }
                             }
                         }
                     }
-                    else if ((rtn.Equals("ctrlRightArrow")) || (((mod.PlayerLocationX + 1) == actualx) && (mod.PlayerLocationY == actualy)))
+                    else if ((rtn.Equals("ctrlLeftArrow")) || (((mod.PlayerLocationX - 1) >= actualx) && (mod.PlayerLocationY == actualy)))
+                    //else if (rtn.Equals("ctrlLeftArrow"))
+
                     {
-                        bool isTransition = gv.cc.goEast();
-                        if (!isTransition)
+                        if (!gv.moveTimerRuns)
                         {
-                            int mapwidth = mod.currentArea.MapSizeX;
-                            if (mod.PlayerLocationX < (mapwidth - 1))
+                            bool isTransition = gv.cc.goWest();
+                            if (!isTransition)
                             {
-                                if (mod.currentArea.GetBlocked(mod.PlayerLocationX + 1, mod.PlayerLocationY) == false)
+                                if (mod.PlayerLocationX > 0)
                                 {
-                                    mod.PlayerLastLocationX = mod.PlayerLocationX;
-                                    mod.PlayerLastLocationY = mod.PlayerLocationY;
-                                    mod.PlayerLocationX++;
-                                    foreach (Player pc in mod.playerList)
+                                    if (mod.currentArea.GetBlocked(mod.PlayerLocationX - 1, mod.PlayerLocationY) == false)
                                     {
-                                        if (pc.combatFacingLeft)
+                                        mod.PlayerLastLocationX = mod.PlayerLocationX;
+                                        mod.PlayerLastLocationY = mod.PlayerLocationY;
+                                        mod.PlayerLocationX--;
+                                        foreach (Player pc in mod.playerList)
                                         {
-                                            pc.combatFacingLeft = false;
+                                            if (!pc.combatFacingLeft)
+                                            {
+                                                pc.combatFacingLeft = true;
+                                            }
                                         }
+                                        gv.cc.doUpdate();
                                     }
-                                    gv.cc.doUpdate();
+                                }
+                            }
+                        }
+                    }
+                    else if ((rtn.Equals("ctrlRightArrow")) || (((mod.PlayerLocationX + 1) <= actualx) && (mod.PlayerLocationY == actualy)))
+                    //else if (rtn.Equals("ctrlRightArrow"))
+
+                    {
+                        if (!gv.moveTimerRuns)
+                        {
+                            bool isTransition = gv.cc.goEast();
+                            if (!isTransition)
+                            {
+                                int mapwidth = mod.currentArea.MapSizeX;
+                                if (mod.PlayerLocationX < (mapwidth - 1))
+                                {
+                                    if (mod.currentArea.GetBlocked(mod.PlayerLocationX + 1, mod.PlayerLocationY) == false)
+                                    {
+                                        mod.PlayerLastLocationX = mod.PlayerLocationX;
+                                        mod.PlayerLastLocationY = mod.PlayerLocationY;
+                                        mod.PlayerLocationX++;
+                                        foreach (Player pc in mod.playerList)
+                                        {
+                                            if (pc.combatFacingLeft)
+                                            {
+                                                pc.combatFacingLeft = false;
+                                            }
+                                        }
+                                        gv.cc.doUpdate();
+                                    }
                                 }
                             }
                         }

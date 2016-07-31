@@ -7,18 +7,21 @@
         "EntryTitle": "Remove Spiders",
         "EntryText": "Melina has asked you to remove the spiders from upstairs.",
         "Tag": "spiders1",
+        "EntryId": 0,
         "EndPoint": false
       },
       {
         "EntryTitle": "Killed Spiders",
         "EntryText": "You have removed the spiders. You should let Melina know.",
         "Tag": "spiders2",
+        "EntryId": 0,
         "EndPoint": false
       },
       {
         "EntryTitle": "Melina Thanks You",
         "EntryText": "You let Melina know about the spider removal and she thanked you for helping her.",
         "Tag": "spiders3",
+        "EntryId": 0,
         "EndPoint": false
       }
     ]

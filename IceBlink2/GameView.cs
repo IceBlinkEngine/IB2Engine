@@ -53,6 +53,11 @@ namespace IceBlink2
         public int oYshift = 35;
         public string mainDirectory;
         public bool showHotKeys = false;
+        public int mousePositionX = 0;
+        public int mousePositionY = 0;
+        public bool moveTimerRuns = false;
+        public float moveTimerCounter = 0;
+
 
         public Graphics gCanvas;
 
@@ -129,6 +134,7 @@ namespace IceBlink2
 
         //timers
         public Timer gameTimer = new Timer();
+        //public Timer moveTimer = new Timer();
         public Stopwatch gameTimerStopwatch = new Stopwatch();
         public long previousTime = 0;
         public bool stillProcessingGameLoop = false;
@@ -262,6 +268,16 @@ namespace IceBlink2
             gameTimerStopwatch.Start();
             previousTime = gameTimerStopwatch.ElapsedMilliseconds;
             gameTimer.Start();
+
+            //moveTimer.Interval = 375;
+            //moveTimer.Enabled = false;
+            //moveTimer.Tick += new System.EventHandler(this.moveTimer_Tick);
+            //moveTimer.Tick += new System.EventHandler(this.gameTimer_Tick);
+            //moveTimerStopwatch.Start();
+            //previousTime = gameTimerStopwatch.ElapsedMilliseconds;
+            //moveTimer.Start();
+
+
         }
 
         public void createScreens()
@@ -847,6 +863,104 @@ namespace IceBlink2
                 screenCombat.doAnimationController();
             }
         }
+        /*
+        private void moveTimer_Tick(object sender, EventArgs e)
+        {
+            int x = mousePositionX - (int)(squareSize*4f/10f);
+            int y = mousePositionY - (int)(squareSize*55f/100f);
+            int gridX = x / squareSize;
+            int gridY = y / squareSize;
+            int actualx = mod.PlayerLocationX + (gridX - playerOffsetX);
+            int actualy = mod.PlayerLocationY + (gridY - playerOffsetY);
+
+            if (mod.PlayerLocationX == actualx && mod.PlayerLocationY - 1 == actualy)
+            {
+                bool isTransition = cc.goNorth();
+                if (!isTransition)
+                {
+                    if (mod.PlayerLocationY > 0)
+                    {
+                        if (mod.currentArea.GetBlocked(mod.PlayerLocationX, mod.PlayerLocationY - 1) == false)
+                        {
+                            mod.PlayerLastLocationX = mod.PlayerLocationX;
+                            mod.PlayerLastLocationY = mod.PlayerLocationY;
+                            mod.PlayerLocationY--;
+                            cc.doUpdate();
+                        }
+                    }
+                }
+            }
+            else if (mod.PlayerLocationX == actualx && mod.PlayerLocationY + 1 == actualy)
+            {
+
+                bool isTransition = cc.goSouth();
+                if (!isTransition)
+                {
+                    int mapheight = mod.currentArea.MapSizeY;
+                    if (mod.PlayerLocationY < (mapheight - 1))
+                    {
+                        if (mod.currentArea.GetBlocked(mod.PlayerLocationX, mod.PlayerLocationY + 1) == false)
+                        {
+                            mod.PlayerLastLocationX = mod.PlayerLocationX;
+                            mod.PlayerLastLocationY = mod.PlayerLocationY;
+                            mod.PlayerLocationY++;
+                            cc.doUpdate();
+                        }
+                    }
+                }
+            }
+            else if (mod.PlayerLocationX - 1 == actualx && mod.PlayerLocationY == actualy)
+            {
+                bool isTransition = cc.goWest();
+                if (!isTransition)
+                {
+                    if (mod.PlayerLocationX > 0)
+                    {
+                        if (mod.currentArea.GetBlocked(mod.PlayerLocationX - 1, mod.PlayerLocationY) == false)
+                        {
+                            mod.PlayerLastLocationX = mod.PlayerLocationX;
+                            mod.PlayerLastLocationY = mod.PlayerLocationY;
+                            mod.PlayerLocationX--;
+                            foreach (Player pc in mod.playerList)
+                            {
+                                if (!pc.combatFacingLeft)
+                                {
+                                    pc.combatFacingLeft = true;
+                                }
+                            }
+                            cc.doUpdate();
+                        }
+                    }
+                }
+            }
+            else if (mod.PlayerLocationX + 1 == actualx && mod.PlayerLocationY == actualy)
+            {
+                bool isTransition = cc.goEast();
+                if (!isTransition)
+                {
+                    int mapwidth = mod.currentArea.MapSizeX;
+                    if (mod.PlayerLocationX < (mapwidth - 1))
+                    {
+                        if (mod.currentArea.GetBlocked(mod.PlayerLocationX + 1, mod.PlayerLocationY) == false)
+                        {
+                            mod.PlayerLastLocationX = mod.PlayerLocationX;
+                            mod.PlayerLastLocationY = mod.PlayerLocationY;
+                            mod.PlayerLocationX++;
+                            foreach (Player pc in mod.playerList)
+                            {
+                                if (pc.combatFacingLeft)
+                                {
+                                    pc.combatFacingLeft = false;
+                                }
+                            }
+                            cc.doUpdate();
+                        }
+                    }
+                }
+            }
+
+        }
+        */
         
         private void gameTimer_Tick(object sender, EventArgs e)
         {
@@ -1409,6 +1523,9 @@ namespace IceBlink2
         {
             if ((screenType.Equals("main")) || (screenType.Equals("combat")))
             {
+                mousePositionX = e.X;
+                mousePositionY = e.Y;
+
                 //TODO log.onMouseMove(sender, e);
             }
             onMouseEvent(sender, e, MouseEventType.EventType.MouseMove);

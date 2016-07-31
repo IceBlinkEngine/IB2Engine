@@ -4949,26 +4949,51 @@ namespace IceBlink2
                     //gv.DrawBitmap(gv.cc.turn_marker, src, dst);
                 }
                 src = new IbRectF(0, 0, crt.token.PixelSize.Width, crt.token.PixelSize.Width);
-                if ((creatureToAnimate != null) && (creatureToAnimate == crt))
+                //for 100x100px per frame creatures
+                if (crt.token.PixelSize.Width <= 100)
                 {
-                    //blockAnimationBridge = true;
-                    attackAnimationDelayCounter++;
-                    if (attackAnimationDelayCounter >= (int)(crt.token.PixelSize.Height / 100f - 1))
+                    if ((creatureToAnimate != null) && (creatureToAnimate == crt))
                     {
-                        attackAnimationFrameCounter++;
-                        attackAnimationDelayCounter = 0;
+                        //blockAnimationBridge = true;
+                        attackAnimationDelayCounter++;
+                        if (attackAnimationDelayCounter >= (int)(crt.token.PixelSize.Height / 100f - 1))
+                        {
+                            attackAnimationFrameCounter++;
+                            attackAnimationDelayCounter = 0;
+                        }
+                        maxUsableCounterValue = (int)(crt.token.PixelSize.Height / 100f - 1);
+                        if (attackAnimationFrameCounter >= maxUsableCounterValue)
+                        {
+                            attackAnimationFrameCounter = maxUsableCounterValue;
+                            blockAnimationBridge = false;
+                        }
+                        src = new IbRectF(0, crt.token.PixelSize.Width * attackAnimationFrameCounter, crt.token.PixelSize.Width, crt.token.PixelSize.Width);
                     }
-                    maxUsableCounterValue = (int)(crt.token.PixelSize.Height / 100f - 1);
-                    if (attackAnimationFrameCounter >= maxUsableCounterValue)
+                }
+                //for 200x200 per frame creatures
+                else
+                {
+                    if ((creatureToAnimate != null) && (creatureToAnimate == crt))
                     {
-                        attackAnimationFrameCounter = maxUsableCounterValue;
-                        blockAnimationBridge = false;
+                        //blockAnimationBridge = true;
+                        attackAnimationDelayCounter++;
+                        if (attackAnimationDelayCounter >= (int)(crt.token.PixelSize.Height / 200f - 1))
+                        {
+                            attackAnimationFrameCounter++;
+                            attackAnimationDelayCounter = 0;
+                        }
+                        maxUsableCounterValue = (int)(crt.token.PixelSize.Height / 200f - 1);
+                        if (attackAnimationFrameCounter >= maxUsableCounterValue)
+                        {
+                            attackAnimationFrameCounter = maxUsableCounterValue;
+                            blockAnimationBridge = false;
+                        }
+                        src = new IbRectF(0, crt.token.PixelSize.Width * attackAnimationFrameCounter, crt.token.PixelSize.Width, crt.token.PixelSize.Width);
                     }
-                    src = new IbRectF(0, crt.token.PixelSize.Width * attackAnimationFrameCounter, crt.token.PixelSize.Width, crt.token.PixelSize.Width);
                 }
                 if (attackAnimationFrameCounter > 2)
                 {
-                    gv.cc.addLogText("lime", "attack animation frame counter is:" + attackAnimationFrameCounter.ToString());
+                    //gv.cc.addLogText("lime", "attack animation frame counter is:" + attackAnimationFrameCounter.ToString());
                 }
                 gv.DrawBitmap(crt.token, src, dst, !crt.combatFacingLeft);
 			    foreach (Effect ef in crt.cr_effectsList)
