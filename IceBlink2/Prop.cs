@@ -76,6 +76,7 @@ namespace IceBlink2
         //public bool startingOnVisibleSquare = true;
         public bool wasTriggeredLastUpdate = false;
         public bool blockTrigger = false;
+        public bool hasHalo = false;
     
         public Prop()
         {
@@ -91,7 +92,8 @@ namespace IceBlink2
         {
     	    Prop copy = new Prop();
             copy.isLight = this.isLight;
-		    copy.LocationX = this.LocationX;
+            copy.hasHalo = this.hasHalo;
+            copy.LocationX = this.LocationX;
 		    copy.LocationY = this.LocationY;
             copy.blockTrigger = this.blockTrigger;
             copy.wasTriggeredLastUpdate = this.wasTriggeredLastUpdate;

@@ -366,7 +366,7 @@
 											"Y": 25,
 											"Width": 50,
 											"Height": 50,
-											"show": true
+											"show": false
         }
       ],
       "portraitList": [],

@@ -83,6 +83,7 @@ namespace IceBlink2
         public float flicker = 0;
         public bool flickerRise = true;
         public bool affectedByFlickerAlready = false;
+        public bool hasHalo = false;
 
         //these must be turned into lists in order work with tiles lit by multiple sources
         public List<string> tilePositionInLitArea = new List<string>();

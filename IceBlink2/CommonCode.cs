@@ -2601,6 +2601,7 @@ namespace IceBlink2
                         tile.lightRadius = 0;
                         tile.isCentreOfLightCircle = false;
                         tile.isOtherPartOfLightCircle = false;
+                        tile.hasHalo = false;
                         tile.isFocalPoint = false;
                         tile.tilePositionInLitArea.Clear();
                         tile.tileLightSourceTag.Clear();
@@ -3884,6 +3885,7 @@ namespace IceBlink2
                         gv.mod.moduleAreasObjects[relevantIndices[h]].Tiles[p.LocationY * gv.mod.currentArea.MapSizeX + p.LocationX].isOtherPartOfLightCircle = false;
                         gv.mod.moduleAreasObjects[relevantIndices[h]].Tiles[p.LocationY * gv.mod.currentArea.MapSizeX + p.LocationX].isCentreOfLightCircle = false;
                         gv.mod.moduleAreasObjects[relevantIndices[h]].Tiles[p.LocationY * gv.mod.currentArea.MapSizeX + p.LocationX].isFocalPoint = true;
+                        gv.mod.moduleAreasObjects[relevantIndices[h]].Tiles[p.LocationY * gv.mod.currentArea.MapSizeX + p.LocationX].hasHalo = p.hasHalo;
                         //gv.mod.moduleAreasObjects[relevantIndices[h]].Tiles[p.LocationY * gv.mod.currentArea.MapSizeX + p.LocationX].lightRadius = 1;
 
                         //all tiles around the currnt prop are in list now, go through list to set up LoS effect (to use for draw routine later)
@@ -4642,6 +4644,7 @@ namespace IceBlink2
             gv.mod.currentArea.Tiles[gv.mod.PlayerLocationY * gv.mod.currentArea.MapSizeX + gv.mod.PlayerLocationX].isOtherPartOfLightCircle = false;
             gv.mod.currentArea.Tiles[gv.mod.PlayerLocationY * gv.mod.currentArea.MapSizeX + gv.mod.PlayerLocationX].isCentreOfLightCircle = false;
             gv.mod.currentArea.Tiles[gv.mod.PlayerLocationY * gv.mod.currentArea.MapSizeX + gv.mod.PlayerLocationX].isFocalPoint = true;
+            gv.mod.currentArea.Tiles[gv.mod.PlayerLocationY * gv.mod.currentArea.MapSizeX + gv.mod.PlayerLocationX].hasHalo = true;
             gv.mod.currentArea.Tiles[gv.mod.PlayerLocationY * gv.mod.currentArea.MapSizeX + gv.mod.PlayerLocationX].lightRadius = 1;
             tilesOfThisLightSource.Add(gv.mod.currentArea.Tiles[gv.mod.PlayerLocationY * gv.mod.currentArea.MapSizeX + gv.mod.PlayerLocationX]);
             gv.mod.currentArea.Tiles[gv.mod.PlayerLocationY * gv.mod.currentArea.MapSizeX + gv.mod.PlayerLocationX].tileLightSourceTag.Add("party");

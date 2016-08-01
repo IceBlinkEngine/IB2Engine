@@ -97,11 +97,13 @@ namespace IceBlink2
                         mainUiLayout.setupIB2UILayout(gv);
                     }
                 }
-                IB2ToggleButton tgl = mainUiLayout.GetToggleByTag("tglMiniMap");
-                if (tgl != null)
-                {
-                    showMiniMap = tgl.toggleOn;
-                }
+                
+                    IB2ToggleButton tgl = mainUiLayout.GetToggleByTag("tglMiniMap");
+                    if (tgl != null)
+                    {
+                        showMiniMap = tgl.toggleOn;
+                    }
+                
                 IB2ToggleButton tgl2 = mainUiLayout.GetToggleByTag("tglClock");
                 if (tgl2 != null)
                 {
@@ -27349,7 +27351,7 @@ namespace IceBlink2
                                         drawLightHalo = true;
                                     }
 
-                                    if (!gv.mod.currentArea.useLightSystem)
+                                    if ((!gv.mod.currentArea.useLightSystem) || (!tile.hasHalo))
                                     {
                                         drawLightHalo = false;
                                     }
