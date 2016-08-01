@@ -27375,8 +27375,8 @@ namespace IceBlink2
                                             int extension2 = 7 - (int)(flicker / 6f);
                                             dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f) - extension + 5 - 2 * gv.squareSize, tlY + shifterY - (int)((scaler - 1) * brY * 0.5f) - extension + 5 - 2 * gv.squareSize, (int)(brX * scaler) + 2 * extension - 10 + 4 * gv.squareSize, (int)(brY * scaler) + 2 * extension - 10 + 4 * gv.squareSize);
                                             gv.DrawBitmap(gv.cc.light_torch, src, dst, 0, false, 0.7f * 0.45f * 0.75f * (0.425f - flicker / 200f));
-                                            dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f) - extension2, tlY + shifterY - (int)((scaler - 1) * brY * 0.5f) - extension2, (int)(brX * scaler) + 2 * extension2, (int)(brY * scaler) + 2 * extension2);
-                                            gv.DrawBitmap(gv.cc.light_torch, src, dst, 0, false, 0.10f + 2.25f * 0.45f * (0.425f - flicker / 200f));
+                                            dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f), tlY + shifterY - (int)((scaler - 1) * brY * 0.5f), (int)(brX * scaler), (int)(brY * scaler));
+                                            gv.DrawBitmap(gv.cc.light_torch, src, dst, 0, false, 0.10f + 2.25f * 0.3f * (0.425f - flicker / 200f));
                                         }
                                     }
                                 }//close focal light
@@ -27578,6 +27578,7 @@ namespace IceBlink2
                                 int indexOfRelevantLightSource = 0;
                                 int sorter = -1;
                                 string oldTilePosition = "none";
+                                string comparePosition = "";
                                 for (int p = 0; p < tile.priority.Count; p++)
                                 {
                                     if (tile.priority[p] == sorter)
@@ -27585,13 +27586,21 @@ namespace IceBlink2
                                         //treat as special cornerOverlay tile (like an N2 tile but going up to full dark, like brigher part of N4)
                                         if (sorter == 1)
                                         {
-                                            oldTilePosition = tile.tilePositionInLitArea[p];
-                                            tile.tilePositionInLitArea[indexOfRelevantLightSource] = "cornerOverlay";
+                                           
+                                            if (comparePosition != tile.tilePositionInLitArea[p])
+                                            {
+                                                
+                                                oldTilePosition = tile.tilePositionInLitArea[p];
+                                                tile.tilePositionInLitArea[indexOfRelevantLightSource] = "cornerOverlay";
+                                            }
                                         }
                                         else if (sorter == 2)
                                         {
-                                            oldTilePosition = tile.tilePositionInLitArea[p];
-                                            tile.tilePositionInLitArea[indexOfRelevantLightSource] = "cornerOverlayBright";
+                                            if (comparePosition != tile.tilePositionInLitArea[p])
+                                            {
+                                                oldTilePosition = tile.tilePositionInLitArea[p];
+                                                tile.tilePositionInLitArea[indexOfRelevantLightSource] = "cornerOverlayBright";
+                                            }
                                             /*
                                             /*
                                                                                         if (tile.tilePositionInLitArea[p] == "S4")
@@ -27615,15 +27624,23 @@ namespace IceBlink2
                                         //treat as N2 tile
                                         else if (sorter == 3)
                                         {
-                                            oldTilePosition = tile.tilePositionInLitArea[p];
-                                            tile.tilePositionInLitArea[indexOfRelevantLightSource] = "N2";
+
+                                            if (comparePosition != tile.tilePositionInLitArea[p])
+                                            {
+                                                oldTilePosition = tile.tilePositionInLitArea[p];
+                                                tile.tilePositionInLitArea[indexOfRelevantLightSource] = "N2";
+                                            }
                                         }
                                         
                                         //treat as N tile
                                         else
                                         {
-                                            oldTilePosition = tile.tilePositionInLitArea[p];
-                                            tile.tilePositionInLitArea[indexOfRelevantLightSource] = "N";
+
+                                            if (comparePosition != tile.tilePositionInLitArea[p])
+                                            {
+                                                oldTilePosition = tile.tilePositionInLitArea[p];
+                                                tile.tilePositionInLitArea[indexOfRelevantLightSource] = "N";
+                                            }
                                         }
                                     }
 
@@ -27631,11 +27648,12 @@ namespace IceBlink2
                                     {
                                         sorter = tile.priority[p];
                                         indexOfRelevantLightSource = p;
+                                        comparePosition = tile.tilePositionInLitArea[indexOfRelevantLightSource];
                                         //tagOFLightSource = tile.tileLightSourceTag;
                                         //if (oldTilePosition != "none")
                                         //{
-                                            //tile.tilePositionInLitArea[indexOfRelevantLightSource] = oldTilePosition;
-                                       // }
+                                        //tile.tilePositionInLitArea[indexOfRelevantLightSource] = oldTilePosition;
+                                        // }
                                     }
                                 }
 
