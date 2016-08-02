@@ -342,6 +342,10 @@ namespace IceBlink2
             cc.night_tile_SE = cc.LoadBitmap("night_tile_SW");
             cc.night_tile_SW = cc.LoadBitmap("night_tile_SE");
             cc.light_torch = cc.LoadBitmap("light_torch");
+            cc.prp_lightYellow = cc.LoadBitmap("prp_lightYellow");
+            cc.prp_lightRed = cc.LoadBitmap("prp_lightRed");
+            cc.prp_lightGreen = cc.LoadBitmap("prp_lightGreen");
+
             cc.light_torchOLD = cc.LoadBitmap("light_torchOLD");
             //off for now
             //cc.tint_rain = cc.LoadBitmap("tint_rain");

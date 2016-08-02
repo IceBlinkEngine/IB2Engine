@@ -104,6 +104,9 @@ namespace IceBlink2
         public Bitmap night_tile_SE;
 
         public Bitmap light_torch;
+        public Bitmap prp_lightYellow;
+        public Bitmap prp_lightGreen;
+        public Bitmap prp_lightRed;
         public Bitmap light_torchOLD;
         public Bitmap ui_bg_fullscreen;
         public Bitmap ui_portrait_frame;
