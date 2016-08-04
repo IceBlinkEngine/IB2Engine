@@ -77,7 +77,10 @@ namespace IceBlink2
         public bool wasTriggeredLastUpdate = false;
         public bool blockTrigger = false;
         public bool hasHalo = false;
-    
+        public float focalIntensity = 1f;
+        public float ringIntensity = 1f;
+
+
         public Prop()
         {
     	
@@ -93,6 +96,8 @@ namespace IceBlink2
     	    Prop copy = new Prop();
             copy.isLight = this.isLight;
             copy.hasHalo = this.hasHalo;
+            copy.focalIntensity = this.focalIntensity;
+            copy.ringIntensity = this.ringIntensity;
             copy.LocationX = this.LocationX;
 		    copy.LocationY = this.LocationY;
             copy.blockTrigger = this.blockTrigger;

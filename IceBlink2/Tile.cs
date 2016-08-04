@@ -85,6 +85,8 @@ namespace IceBlink2
         public bool affectedByFlickerAlready = false;
         public bool hasHalo = false;
 
+
+
         //these must be turned into lists in order work with tiles lit by multiple sources
         public List<string> tilePositionInLitArea = new List<string>();
         //public List<Tile> tilesOfThisLightSource = new List<Tile>();
@@ -94,6 +96,10 @@ namespace IceBlink2
         //is used during draw call
         public List<int> priority = new List<int>();
         public List <Coordinate> lightSourceCoordinate = new List<Coordinate>();
+
+        public List<float> lightSourceFocalHaloIntensity = new List<float>();
+        public List<float> lightSourceRingHaloIntensity = new List<float>();
+        //public float partyFocalHaloIntensity = 1f;
 
         public Tile()
         {

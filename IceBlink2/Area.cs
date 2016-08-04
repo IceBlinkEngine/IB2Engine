@@ -65,8 +65,16 @@ namespace IceBlink2
         public string easternNeighbourArea = "";
         public string northernNeighbourArea = "";
         public string southernNeighbourArea = "";
+
         public bool useLightSystem = false;
-                                            
+        public float flickerSlowDownFactor = 1f;
+        public float shifterSlowDownFactor = 1f;
+        public bool noFlicker = false;
+        public bool noPositionShift = false;
+        public float minimumDarkness = 12;
+        public float maxLightMultiplier = 1;
+
+
         public string sourceBitmapName = "";
 
         //TODO use the inGameAreaName on main map

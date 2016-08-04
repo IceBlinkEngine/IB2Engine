@@ -107,6 +107,9 @@ namespace IceBlink2
         public Bitmap prp_lightYellow;
         public Bitmap prp_lightGreen;
         public Bitmap prp_lightRed;
+        public Bitmap prp_lightBlue;
+        public Bitmap prp_lightPurple;
+        public Bitmap prp_lightOrange;
         public Bitmap light_torchOLD;
         public Bitmap ui_bg_fullscreen;
         public Bitmap ui_portrait_frame;
@@ -2611,6 +2614,8 @@ namespace IceBlink2
                         tile.isLit.Clear();
                         tile.priority.Clear();
                         tile.lightSourceCoordinate.Clear();
+                        tile.lightSourceFocalHaloIntensity.Clear();
+                        tile.lightSourceRingHaloIntensity.Clear();
                     }
 
                     //YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY
@@ -3493,7 +3498,8 @@ namespace IceBlink2
                                         gv.mod.moduleAreasObjects[indexOfNorthWesternNeighbour2].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfNorthWesternNeighbour2].MapSizeX + transformedX].isCentreOfLightCircle = true;
                                         tilesOfThisLightSource.Add(gv.mod.moduleAreasObjects[indexOfNorthWesternNeighbour2].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfNorthWesternNeighbour2].MapSizeX + transformedX]);
                                         gv.mod.moduleAreasObjects[indexOfNorthWesternNeighbour2].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfNorthWesternNeighbour2].MapSizeX + transformedX].tileLightSourceTag.Add(p.PropTag);
-                                        gv.mod.moduleAreasObjects[indexOfNorthWesternNeighbour2].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfNorthWesternNeighbour2].MapSizeX + transformedX].lightSourceCoordinate.Add(propCoord);
+                                        gv.mod.moduleAreasObjects[indexOfNorthWesternNeighbour2].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfNorthWesternNeighbour2].MapSizeX + transformedX].lightSourceFocalHaloIntensity.Add(p.focalIntensity);
+                                        gv.mod.moduleAreasObjects[indexOfNorthWesternNeighbour2].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfNorthWesternNeighbour2].MapSizeX + transformedX].lightSourceRingHaloIntensity.Add(p.ringIntensity);
                                         addedTileToListAlready = true;
                                     }
                                 }
@@ -3509,7 +3515,8 @@ namespace IceBlink2
                                         gv.mod.moduleAreasObjects[indexOfNorthWesternNeighbour2].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfNorthWesternNeighbour2].MapSizeX + transformedX].isOtherPartOfLightCircle = true;
                                         tilesOfThisLightSource.Add(gv.mod.moduleAreasObjects[indexOfNorthWesternNeighbour2].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfNorthWesternNeighbour2].MapSizeX + transformedX]);
                                         gv.mod.moduleAreasObjects[indexOfNorthWesternNeighbour2].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfNorthWesternNeighbour2].MapSizeX + transformedX].tileLightSourceTag.Add(p.PropTag);
-                                        gv.mod.moduleAreasObjects[indexOfNorthWesternNeighbour2].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfNorthWesternNeighbour2].MapSizeX + transformedX].lightSourceCoordinate.Add(propCoord);
+                                        gv.mod.moduleAreasObjects[indexOfNorthWesternNeighbour2].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfNorthWesternNeighbour2].MapSizeX + transformedX].lightSourceFocalHaloIntensity.Add(p.focalIntensity);
+                                        gv.mod.moduleAreasObjects[indexOfNorthWesternNeighbour2].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfNorthWesternNeighbour2].MapSizeX + transformedX].lightSourceRingHaloIntensity.Add(p.ringIntensity);
                                         addedTileToListAlready = true;
                                     }
                                 }
@@ -3525,7 +3532,8 @@ namespace IceBlink2
                                         gv.mod.moduleAreasObjects[indexOfSouthWesternNeighbour2].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfSouthWesternNeighbour2].MapSizeX + transformedX].isCentreOfLightCircle = true;
                                         tilesOfThisLightSource.Add(gv.mod.moduleAreasObjects[indexOfSouthWesternNeighbour2].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfSouthWesternNeighbour2].MapSizeX + transformedX]);
                                         gv.mod.moduleAreasObjects[indexOfSouthWesternNeighbour2].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfSouthWesternNeighbour2].MapSizeX + transformedX].tileLightSourceTag.Add(p.PropTag);
-                                        gv.mod.moduleAreasObjects[indexOfSouthWesternNeighbour2].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfSouthWesternNeighbour2].MapSizeX + transformedX].lightSourceCoordinate.Add(propCoord);
+                                        gv.mod.moduleAreasObjects[indexOfSouthWesternNeighbour2].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfSouthWesternNeighbour2].MapSizeX + transformedX].lightSourceFocalHaloIntensity.Add(p.focalIntensity);
+                                        gv.mod.moduleAreasObjects[indexOfSouthWesternNeighbour2].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfSouthWesternNeighbour2].MapSizeX + transformedX].lightSourceRingHaloIntensity.Add(p.ringIntensity);
                                         addedTileToListAlready = true;
                                     }
                                 }
@@ -3541,7 +3549,8 @@ namespace IceBlink2
                                         gv.mod.moduleAreasObjects[indexOfSouthWesternNeighbour2].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfSouthWesternNeighbour2].MapSizeX + transformedX].isOtherPartOfLightCircle = true;
                                         tilesOfThisLightSource.Add(gv.mod.moduleAreasObjects[indexOfSouthWesternNeighbour2].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfSouthWesternNeighbour2].MapSizeX + transformedX]);
                                         gv.mod.moduleAreasObjects[indexOfSouthWesternNeighbour2].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfSouthWesternNeighbour2].MapSizeX + transformedX].tileLightSourceTag.Add(p.PropTag);
-                                        gv.mod.moduleAreasObjects[indexOfSouthWesternNeighbour2].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfSouthWesternNeighbour2].MapSizeX + transformedX].lightSourceCoordinate.Add(propCoord);
+                                        gv.mod.moduleAreasObjects[indexOfSouthWesternNeighbour2].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfSouthWesternNeighbour2].MapSizeX + transformedX].lightSourceFocalHaloIntensity.Add(p.focalIntensity);
+                                        gv.mod.moduleAreasObjects[indexOfSouthWesternNeighbour2].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfSouthWesternNeighbour2].MapSizeX + transformedX].lightSourceRingHaloIntensity.Add(p.ringIntensity);
                                         addedTileToListAlready = true;
                                     }
                                 }
@@ -3557,7 +3566,8 @@ namespace IceBlink2
                                         gv.mod.moduleAreasObjects[indexOfSouthEasternNeighbour2].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfSouthEasternNeighbour2].MapSizeX + transformedX].isCentreOfLightCircle = true;
                                         tilesOfThisLightSource.Add(gv.mod.moduleAreasObjects[indexOfSouthEasternNeighbour2].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfSouthEasternNeighbour2].MapSizeX + transformedX]);
                                         gv.mod.moduleAreasObjects[indexOfSouthEasternNeighbour2].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfSouthEasternNeighbour2].MapSizeX + transformedX].tileLightSourceTag.Add(p.PropTag);
-                                        gv.mod.moduleAreasObjects[indexOfSouthEasternNeighbour2].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfSouthEasternNeighbour2].MapSizeX + transformedX].lightSourceCoordinate.Add(propCoord);
+                                        gv.mod.moduleAreasObjects[indexOfSouthEasternNeighbour2].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfSouthEasternNeighbour2].MapSizeX + transformedX].lightSourceFocalHaloIntensity.Add(p.focalIntensity);
+                                        gv.mod.moduleAreasObjects[indexOfSouthEasternNeighbour2].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfSouthEasternNeighbour2].MapSizeX + transformedX].lightSourceRingHaloIntensity.Add(p.ringIntensity);
                                         addedTileToListAlready = true;
                                     }
                                 }
@@ -3573,7 +3583,8 @@ namespace IceBlink2
                                         gv.mod.moduleAreasObjects[indexOfSouthEasternNeighbour2].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfSouthEasternNeighbour2].MapSizeX + transformedX].isOtherPartOfLightCircle = true;
                                         tilesOfThisLightSource.Add(gv.mod.moduleAreasObjects[indexOfSouthEasternNeighbour2].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfSouthEasternNeighbour2].MapSizeX + transformedX]);
                                         gv.mod.moduleAreasObjects[indexOfSouthEasternNeighbour2].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfSouthEasternNeighbour2].MapSizeX + transformedX].tileLightSourceTag.Add(p.PropTag);
-                                        gv.mod.moduleAreasObjects[indexOfSouthEasternNeighbour2].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfSouthEasternNeighbour2].MapSizeX + transformedX].lightSourceCoordinate.Add(propCoord);
+                                        gv.mod.moduleAreasObjects[indexOfSouthEasternNeighbour2].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfSouthEasternNeighbour2].MapSizeX + transformedX].lightSourceFocalHaloIntensity.Add(p.focalIntensity);
+                                        gv.mod.moduleAreasObjects[indexOfSouthEasternNeighbour2].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfSouthEasternNeighbour2].MapSizeX + transformedX].lightSourceRingHaloIntensity.Add(p.ringIntensity);
                                         addedTileToListAlready = true;
                                     }
                                 }
@@ -3589,7 +3600,8 @@ namespace IceBlink2
                                         gv.mod.moduleAreasObjects[indexOfNorthEasternNeighbour2].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfNorthEasternNeighbour2].MapSizeX + transformedX].isCentreOfLightCircle = true;
                                         tilesOfThisLightSource.Add(gv.mod.moduleAreasObjects[indexOfNorthEasternNeighbour2].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfNorthEasternNeighbour2].MapSizeX + transformedX]);
                                         gv.mod.moduleAreasObjects[indexOfNorthEasternNeighbour2].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfNorthEasternNeighbour2].MapSizeX + transformedX].tileLightSourceTag.Add(p.PropTag);
-                                        gv.mod.moduleAreasObjects[indexOfNorthEasternNeighbour2].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfNorthEasternNeighbour2].MapSizeX + transformedX].lightSourceCoordinate.Add(propCoord);
+                                        gv.mod.moduleAreasObjects[indexOfNorthEasternNeighbour2].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfNorthEasternNeighbour2].MapSizeX + transformedX].lightSourceFocalHaloIntensity.Add(p.focalIntensity);
+                                        gv.mod.moduleAreasObjects[indexOfNorthEasternNeighbour2].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfNorthEasternNeighbour2].MapSizeX + transformedX].lightSourceRingHaloIntensity.Add(p.ringIntensity);
                                         addedTileToListAlready = true;
                                     }
                                 }
@@ -3605,7 +3617,8 @@ namespace IceBlink2
                                         gv.mod.moduleAreasObjects[indexOfNorthEasternNeighbour2].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfNorthEasternNeighbour2].MapSizeX + transformedX].isOtherPartOfLightCircle = true;
                                         tilesOfThisLightSource.Add(gv.mod.moduleAreasObjects[indexOfNorthEasternNeighbour2].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfNorthEasternNeighbour2].MapSizeX + transformedX]);
                                         gv.mod.moduleAreasObjects[indexOfNorthEasternNeighbour2].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfNorthEasternNeighbour2].MapSizeX + transformedX].tileLightSourceTag.Add(p.PropTag);
-                                        gv.mod.moduleAreasObjects[indexOfNorthEasternNeighbour2].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfNorthEasternNeighbour2].MapSizeX + transformedX].lightSourceCoordinate.Add(propCoord);
+                                        gv.mod.moduleAreasObjects[indexOfNorthEasternNeighbour2].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfNorthEasternNeighbour2].MapSizeX + transformedX].lightSourceFocalHaloIntensity.Add(p.focalIntensity);
+                                        gv.mod.moduleAreasObjects[indexOfNorthEasternNeighbour2].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfNorthEasternNeighbour2].MapSizeX + transformedX].lightSourceRingHaloIntensity.Add(p.ringIntensity);
                                         addedTileToListAlready = true;
                                     }
                                 }
@@ -3638,7 +3651,8 @@ namespace IceBlink2
                                         }
                                         tilesOfThisLightSource.Add(gv.mod.moduleAreasObjects[indexOfWesternNeighbour2].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfWesternNeighbour2].MapSizeX + transformedX]);
                                         gv.mod.moduleAreasObjects[indexOfWesternNeighbour2].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfWesternNeighbour2].MapSizeX + transformedX].tileLightSourceTag.Add(p.PropTag);
-                                        gv.mod.moduleAreasObjects[indexOfWesternNeighbour2].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfWesternNeighbour2].MapSizeX + transformedX].lightSourceCoordinate.Add(propCoord);
+                                        gv.mod.moduleAreasObjects[indexOfWesternNeighbour2].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfWesternNeighbour2].MapSizeX + transformedX].lightSourceFocalHaloIntensity.Add(p.focalIntensity);
+                                        gv.mod.moduleAreasObjects[indexOfWesternNeighbour2].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfWesternNeighbour2].MapSizeX + transformedX].lightSourceRingHaloIntensity.Add(p.ringIntensity);
                                         addedTileToListAlready = true;
                                     }
                                 }
@@ -3665,7 +3679,8 @@ namespace IceBlink2
                                         gv.mod.moduleAreasObjects[indexOfWesternNeighbour2].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfWesternNeighbour2].MapSizeX + transformedX].isOtherPartOfLightCircle = true;
                                         tilesOfThisLightSource.Add(gv.mod.moduleAreasObjects[indexOfWesternNeighbour2].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfWesternNeighbour2].MapSizeX + transformedX]);
                                         gv.mod.moduleAreasObjects[indexOfWesternNeighbour2].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfWesternNeighbour2].MapSizeX + transformedX].tileLightSourceTag.Add(p.PropTag);
-                                        gv.mod.moduleAreasObjects[indexOfWesternNeighbour2].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfWesternNeighbour2].MapSizeX + transformedX].lightSourceCoordinate.Add(propCoord);
+                                        gv.mod.moduleAreasObjects[indexOfWesternNeighbour2].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfWesternNeighbour2].MapSizeX + transformedX].lightSourceFocalHaloIntensity.Add(p.focalIntensity);
+                                        gv.mod.moduleAreasObjects[indexOfWesternNeighbour2].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfWesternNeighbour2].MapSizeX + transformedX].lightSourceRingHaloIntensity.Add(p.ringIntensity);
                                         addedTileToListAlready = true;
                                     }
                                 }
@@ -3700,7 +3715,8 @@ namespace IceBlink2
                                         }
                                         tilesOfThisLightSource.Add(gv.mod.moduleAreasObjects[indexOfSouthernNeighbour2].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfSouthernNeighbour2].MapSizeX + transformedX]);
                                         gv.mod.moduleAreasObjects[indexOfSouthernNeighbour2].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfSouthernNeighbour2].MapSizeX + transformedX].tileLightSourceTag.Add(p.PropTag);
-                                        gv.mod.moduleAreasObjects[indexOfSouthernNeighbour2].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfSouthernNeighbour2].MapSizeX + transformedX].lightSourceCoordinate.Add(propCoord);
+                                        gv.mod.moduleAreasObjects[indexOfSouthernNeighbour2].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfSouthernNeighbour2].MapSizeX + transformedX].lightSourceFocalHaloIntensity.Add(p.focalIntensity);
+                                        gv.mod.moduleAreasObjects[indexOfSouthernNeighbour2].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfSouthernNeighbour2].MapSizeX + transformedX].lightSourceRingHaloIntensity.Add(p.ringIntensity);
                                         addedTileToListAlready = true;
                                     }
                                 }
@@ -3726,7 +3742,8 @@ namespace IceBlink2
                                         gv.mod.moduleAreasObjects[indexOfSouthernNeighbour2].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfSouthernNeighbour2].MapSizeX + transformedX].isOtherPartOfLightCircle = true;
                                         tilesOfThisLightSource.Add(gv.mod.moduleAreasObjects[indexOfSouthernNeighbour2].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfSouthernNeighbour2].MapSizeX + transformedX]);
                                         gv.mod.moduleAreasObjects[indexOfSouthernNeighbour2].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfSouthernNeighbour2].MapSizeX + transformedX].tileLightSourceTag.Add(p.PropTag);
-                                        gv.mod.moduleAreasObjects[indexOfSouthernNeighbour2].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfSouthernNeighbour2].MapSizeX + transformedX].lightSourceCoordinate.Add(propCoord);
+                                        gv.mod.moduleAreasObjects[indexOfSouthernNeighbour2].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfSouthernNeighbour2].MapSizeX + transformedX].lightSourceFocalHaloIntensity.Add(p.focalIntensity);
+                                        gv.mod.moduleAreasObjects[indexOfSouthernNeighbour2].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfSouthernNeighbour2].MapSizeX + transformedX].lightSourceRingHaloIntensity.Add(p.ringIntensity);
                                         addedTileToListAlready = true;
                                     }
                                 }
@@ -3759,7 +3776,8 @@ namespace IceBlink2
                                         }
                                         tilesOfThisLightSource.Add(gv.mod.moduleAreasObjects[indexOfEasternNeighbour2].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfEasternNeighbour2].MapSizeX + transformedX]);
                                         gv.mod.moduleAreasObjects[indexOfEasternNeighbour2].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfEasternNeighbour2].MapSizeX + transformedX].tileLightSourceTag.Add(p.PropTag);
-                                        gv.mod.moduleAreasObjects[indexOfEasternNeighbour2].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfEasternNeighbour2].MapSizeX + transformedX].lightSourceCoordinate.Add(propCoord);
+                                        gv.mod.moduleAreasObjects[indexOfEasternNeighbour2].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfEasternNeighbour2].MapSizeX + transformedX].lightSourceFocalHaloIntensity.Add(p.focalIntensity);
+                                        gv.mod.moduleAreasObjects[indexOfEasternNeighbour2].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfEasternNeighbour2].MapSizeX + transformedX].lightSourceRingHaloIntensity.Add(p.ringIntensity);
                                         addedTileToListAlready = true;
                                     }
                                 }
@@ -3785,7 +3803,8 @@ namespace IceBlink2
                                         gv.mod.moduleAreasObjects[indexOfEasternNeighbour2].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfEasternNeighbour2].MapSizeX + transformedX].isOtherPartOfLightCircle = true;
                                         tilesOfThisLightSource.Add(gv.mod.moduleAreasObjects[indexOfEasternNeighbour2].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfEasternNeighbour2].MapSizeX + transformedX]);
                                         gv.mod.moduleAreasObjects[indexOfEasternNeighbour2].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfEasternNeighbour2].MapSizeX + transformedX].tileLightSourceTag.Add(p.PropTag);
-                                        gv.mod.moduleAreasObjects[indexOfEasternNeighbour2].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfEasternNeighbour2].MapSizeX + transformedX].lightSourceCoordinate.Add(propCoord);
+                                        gv.mod.moduleAreasObjects[indexOfEasternNeighbour2].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfEasternNeighbour2].MapSizeX + transformedX].lightSourceFocalHaloIntensity.Add(p.focalIntensity);
+                                        gv.mod.moduleAreasObjects[indexOfEasternNeighbour2].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfEasternNeighbour2].MapSizeX + transformedX].lightSourceRingHaloIntensity.Add(p.ringIntensity);
                                         addedTileToListAlready = true;
                                     }
                                 }
@@ -3818,7 +3837,8 @@ namespace IceBlink2
                                         }
                                         tilesOfThisLightSource.Add(gv.mod.moduleAreasObjects[indexOfNorthernNeighbour2].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfNorthernNeighbour2].MapSizeX + transformedX]);
                                         gv.mod.moduleAreasObjects[indexOfNorthernNeighbour2].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfNorthernNeighbour2].MapSizeX + transformedX].tileLightSourceTag.Add(p.PropTag);
-                                        gv.mod.moduleAreasObjects[indexOfNorthernNeighbour2].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfNorthernNeighbour2].MapSizeX + transformedX].lightSourceCoordinate.Add(propCoord);
+                                        gv.mod.moduleAreasObjects[indexOfNorthernNeighbour2].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfNorthernNeighbour2].MapSizeX + transformedX].lightSourceFocalHaloIntensity.Add(p.focalIntensity);
+                                        gv.mod.moduleAreasObjects[indexOfNorthernNeighbour2].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfNorthernNeighbour2].MapSizeX + transformedX].lightSourceRingHaloIntensity.Add(p.ringIntensity);
                                         addedTileToListAlready = true;
                                     }
                                 }
@@ -3844,7 +3864,8 @@ namespace IceBlink2
                                         gv.mod.moduleAreasObjects[indexOfNorthernNeighbour2].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfNorthernNeighbour2].MapSizeX + transformedX].isOtherPartOfLightCircle = true;
                                         tilesOfThisLightSource.Add(gv.mod.moduleAreasObjects[indexOfNorthernNeighbour2].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfNorthernNeighbour2].MapSizeX + transformedX]);
                                         gv.mod.moduleAreasObjects[indexOfNorthernNeighbour2].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfNorthernNeighbour2].MapSizeX + transformedX].tileLightSourceTag.Add(p.PropTag);
-                                        gv.mod.moduleAreasObjects[indexOfNorthernNeighbour2].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfNorthernNeighbour2].MapSizeX + transformedX].lightSourceCoordinate.Add(propCoord);
+                                        gv.mod.moduleAreasObjects[indexOfNorthernNeighbour2].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfNorthernNeighbour2].MapSizeX + transformedX].lightSourceFocalHaloIntensity.Add(p.focalIntensity);
+                                        gv.mod.moduleAreasObjects[indexOfNorthernNeighbour2].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfNorthernNeighbour2].MapSizeX + transformedX].lightSourceRingHaloIntensity.Add(p.ringIntensity);
                                         addedTileToListAlready = true;
                                     }
                                 }
@@ -3859,7 +3880,9 @@ namespace IceBlink2
                                         addedTileToListAlready = true;
                                         tilesOfThisLightSource.Add(gv.mod.moduleAreasObjects[relevantIndices[h]].Tiles[yy * gv.mod.moduleAreasObjects[relevantIndices[h]].MapSizeX + xx]);
                                         gv.mod.moduleAreasObjects[relevantIndices[h]].Tiles[yy * gv.mod.moduleAreasObjects[relevantIndices[h]].MapSizeX + xx].tileLightSourceTag.Add(p.PropTag);
-                                        gv.mod.moduleAreasObjects[relevantIndices[h]].Tiles[yy * gv.mod.moduleAreasObjects[relevantIndices[h]].MapSizeX + xx].lightSourceCoordinate.Add(propCoord);
+                                        gv.mod.moduleAreasObjects[relevantIndices[h]].Tiles[yy * gv.mod.moduleAreasObjects[relevantIndices[h]].MapSizeX + xx].lightSourceFocalHaloIntensity.Add(p.focalIntensity);
+                                        gv.mod.moduleAreasObjects[relevantIndices[h]].Tiles[yy * gv.mod.moduleAreasObjects[relevantIndices[h]].MapSizeX + xx].lightSourceRingHaloIntensity.Add(p.ringIntensity);
+
                                         //note: this also added the focal point
 
                                         if (getDistance(illuSquare, propSquare) <= 1)
@@ -3889,8 +3912,9 @@ namespace IceBlink2
                         gv.mod.moduleAreasObjects[relevantIndices[h]].Tiles[p.LocationY * gv.mod.currentArea.MapSizeX + p.LocationX].isCentreOfLightCircle = false;
                         gv.mod.moduleAreasObjects[relevantIndices[h]].Tiles[p.LocationY * gv.mod.currentArea.MapSizeX + p.LocationX].isFocalPoint = true;
                         gv.mod.moduleAreasObjects[relevantIndices[h]].Tiles[p.LocationY * gv.mod.currentArea.MapSizeX + p.LocationX].hasHalo = p.hasHalo;
+                        //gv.mod.moduleAreasObjects[relevantIndices[h]].Tiles[p.LocationY * gv.mod.currentArea.MapSizeX + p.LocationX].lightSourceFocalHaloIntensity.Add(p.focalIntensity);
+                        //gv.mod.moduleAreasObjects[relevantIndices[h]].Tiles[p.LocationY * gv.mod.currentArea.MapSizeX + p.LocationX].lightSourceRingHaloIntensity.Add(p.ringIntensity);
                         //gv.mod.moduleAreasObjects[relevantIndices[h]].Tiles[p.LocationY * gv.mod.currentArea.MapSizeX + p.LocationX].lightRadius = 1;
-
                         //all tiles around the currnt prop are in list now, go through list to set up LoS effect (to use for draw routine later)
                         //TODOXXX
                         //TODO rset isLit values and props they belogn to for tile son clearillumination call of doupdate, done

@@ -345,6 +345,9 @@ namespace IceBlink2
             cc.prp_lightYellow = cc.LoadBitmap("prp_lightYellow");
             cc.prp_lightRed = cc.LoadBitmap("prp_lightRed");
             cc.prp_lightGreen = cc.LoadBitmap("prp_lightGreen");
+            cc.prp_lightBlue = cc.LoadBitmap("prp_lightBlue");
+            cc.prp_lightPurple = cc.LoadBitmap("prp_lightPurple");
+            cc.prp_lightOrange = cc.LoadBitmap("prp_lightOrange");
 
             cc.light_torchOLD = cc.LoadBitmap("light_torchOLD");
             //off for now
