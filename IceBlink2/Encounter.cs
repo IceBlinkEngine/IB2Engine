@@ -37,6 +37,7 @@ namespace IceBlink2
         public string OnStartCombatTurnIBScriptParms = "";
         public string OnEndCombatIBScript = "none";
         public string OnEndCombatIBScriptParms = "";
+        public bool isOver = false;
     
 	    public Encounter()
 	    {

@@ -30,7 +30,7 @@ namespace IceBlink2
 	    public string PropCategoryName = "newCategory";
 	    public string ConversationWhenOnPartySquare = "none";
 	    public string EncounterWhenOnPartySquare = "none";
-	    public bool DeletePropWhenThisEncounterIsWon = false;
+	    public bool DeletePropWhenThisEncounterIsWon = true;
         [JsonIgnore]
 	    public Bitmap token;
 	    public List<LocalInt> PropLocalInts = new List<LocalInt>();

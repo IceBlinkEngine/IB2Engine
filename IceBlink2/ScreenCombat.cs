@@ -2514,6 +2514,7 @@ namespace IceBlink2
             }
             if ((foundOneCrtr == 0) && (gv.screenType.Equals("combat")))
             {
+                mod.currentEncounter.isOver = true;
                 gv.touchEnabled = true;
                 // give gold drop
                 if (mod.currentEncounter.goldDrop > 0)

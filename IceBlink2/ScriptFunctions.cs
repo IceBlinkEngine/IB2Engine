@@ -304,6 +304,49 @@ namespace IceBlink2
                         int parm1 = Convert.ToInt32(p1);
                         DamageWithoutItem(parm1, p2);
                     }
+                    else if (filename.Equals("gaDoPartyLight.cs"))
+                    {
+                        //p1: light name
+                        //p2: light color
+                        //p3: focal halo intesity multiplier
+                        //p4: ring halo intensity multiplier
+
+                        if (gv.mod.partyLightName == p1)
+                        {
+                            if (gv.mod.partyLightOn)
+                            {
+                                gv.mod.partyLightOn = false;
+                                gv.mod.partyLightColor = "";
+                            }
+                            else
+                            {
+                                gv.mod.partyLightOn = true;
+                                if (p2 != "" && p2 != "none")
+                                {
+                                    gv.mod.partyLightColor = p2;
+                                }
+                            }
+                        }
+                        else
+                        {
+                            gv.mod.partyLightName = p1;
+                            gv.mod.partyLightOn = true;
+                            if (p2 != "" && p2 != "none")
+                            {
+                                gv.mod.partyLightColor = p2;
+                            }
+                        }
+
+                        
+
+                        float parm3 = (float)Convert.ToDouble(p3);
+                        float parm4 = (float)Convert.ToDouble(p4);
+
+                        gv.mod.partyFocalHaloIntensity = parm3;
+                        gv.mod.partyRingHaloIntensity = parm4;
+                        gv.cc.doUpdate();
+                        gv.screenType = ("main");
+                    }
                     else if (filename.Equals("gaRemovePropByTag.cs"))
                     {
                         RemovePropByTag(p1);

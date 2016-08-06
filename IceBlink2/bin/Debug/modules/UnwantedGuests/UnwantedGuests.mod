@@ -127,7 +127,7 @@
   "moduleVersion": 3,
   "defaultPlayerFilename": "drin.json",
   "mustUsePreMadePC": false,
-  "useRealTimeTimer": true,
+  "useRealTimeTimer": false,
   "useSmoothMovement": true,
   "useAllTileSystem": true,
   "useOrbitronFont": false,
@@ -158,7 +158,7 @@
   "useMinimalisticUI": true,
   "useManualCombatCam": true,
   "useCombatSmoothMovement": true,
-  "partyLightColor": "blue",
+  "partyLightColor": "yellow",
   "partyRingHaloIntensity": 1.0,
   "partyFocalHaloIntensity": 1.0
 }

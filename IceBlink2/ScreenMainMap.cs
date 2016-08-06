@@ -1082,7 +1082,7 @@ namespace IceBlink2
             {
                 drawProps();
                 drawMovingProps();
-                if(!gv.mod.currentArea.useLightSystem)
+                if((!gv.mod.currentArea.useLightSystem)|| (!gv.mod.partyLightOn))
                 {
                     drawPlayer();
                 }
@@ -1092,7 +1092,7 @@ namespace IceBlink2
                 }
                 //drawProps();
                 //drawMovingProps();
-                if (gv.mod.currentArea.useLightSystem)
+                if ((gv.mod.currentArea.useLightSystem) && (gv.mod.partyLightOn))
                 {
                     drawPlayer();
                 }
@@ -26089,10 +26089,25 @@ namespace IceBlink2
                 {
                     for (int y = -2; y <= 2; y++)
                     {
-                        gv.DrawText(hour + ":" + sMinute, new IbRect(gv.oXshift + x + (gv.playerOffsetY - 5) * gv.squareSize + 2*gv.pS, gv.playerOffsetX * gv.squareSize - txtH + y - gv.pS, 100, 100), 1.0f, Color.Black);
+                        if (gv.mod.partyLightOn)
+                        {
+                            gv.DrawText(hour + ":" + sMinute + ", " + gv.mod.partyLightName, new IbRect(gv.oXshift + x + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH + y - gv.pS, 200, 200), 1.0f, Color.Black);
+                        }
+                        else
+                        {
+                            gv.DrawText(hour + ":" + sMinute, new IbRect(gv.oXshift + x + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH + y - gv.pS, 200, 200), 1.0f, Color.Black);
+                        }
                     }
                 }
-                gv.DrawText(hour + ":" + sMinute, new IbRect(gv.oXshift + (gv.playerOffsetY - 5) * gv.squareSize + 2*gv.pS, gv.playerOffsetX * gv.squareSize - txtH - gv.pS, 100, 100), 1.0f, Color.White);
+                if (gv.mod.partyLightOn)
+                {
+                    gv.DrawText(hour + ":" + sMinute + ", " + gv.mod.partyLightName, new IbRect(gv.oXshift + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH - gv.pS, 200, 200), 1.0f, Color.White);
+                }
+                else
+                {
+                    gv.DrawText(hour + ":" + sMinute, new IbRect(gv.oXshift + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH - gv.pS, 200, 200), 1.0f, Color.White);
+
+                }
             }
             else
             {
@@ -29121,7 +29136,12 @@ namespace IceBlink2
             switch (eventType)
             {
                 case MouseEventType.EventType.MouseDown:
-                    gv.moveTimerRuns = true;
+                    int x2 = (int)e.X;
+                    int y2 = (int)e.Y;
+                    if (y2 < (gv.screenHeight - 2 * gv.squareSize) && x2 < (gv.screenWidth - 2 * gv.squareSize))
+                    {
+                        gv.moveTimerRuns = true;
+                    }
                     //isMoving = true;
                     break;
 
@@ -29311,110 +29331,12 @@ namespace IceBlink2
                             gv.cc.addLogText("lime", "Show Mini Map");
                         }
                     }
-                    if ((rtn.Equals("ctrlUpArrow")) || ((mod.PlayerLocationX == actualx) && ((mod.PlayerLocationY - 1) >= actualy)))
-                    //if (rtn.Equals("ctrlUpArrow"))
 
-                        {
-                        if (!gv.moveTimerRuns)
-                        {
-                            bool isTransition = gv.cc.goNorth();
-                            if (!isTransition)
-                            {
-                                if (mod.PlayerLocationY > 0)
-                                {
-                                    if (mod.currentArea.GetBlocked(mod.PlayerLocationX, mod.PlayerLocationY - 1) == false)
-                                    {
-                                        mod.PlayerLastLocationX = mod.PlayerLocationX;
-                                        mod.PlayerLastLocationY = mod.PlayerLocationY;
-                                        mod.PlayerLocationY--;
-                                        gv.cc.doUpdate();
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    else if ((rtn.Equals("ctrlDownArrow")) || ((mod.PlayerLocationX == actualx) && ((mod.PlayerLocationY + 1) <= actualy)))
-                    //else if (rtn.Equals("ctrlDownArrow"))
-
+                    if (rtn.Equals("btnJournal"))
                     {
-                        if (!gv.moveTimerRuns)
-                        {
-                            bool isTransition = gv.cc.goSouth();
-                            if (!isTransition)
-                            {
-                                int mapheight = mod.currentArea.MapSizeY;
-                                if (mod.PlayerLocationY < (mapheight - 1))
-                                {
-                                    if (mod.currentArea.GetBlocked(mod.PlayerLocationX, mod.PlayerLocationY + 1) == false)
-                                    {
-                                        mod.PlayerLastLocationX = mod.PlayerLocationX;
-                                        mod.PlayerLastLocationY = mod.PlayerLocationY;
-                                        mod.PlayerLocationY++;
-                                        gv.cc.doUpdate();
-                                    }
-                                }
-                            }
-                        }
+                        gv.screenType = "journal";
                     }
-                    else if ((rtn.Equals("ctrlLeftArrow")) || (((mod.PlayerLocationX - 1) >= actualx) && (mod.PlayerLocationY == actualy)))
-                    //else if (rtn.Equals("ctrlLeftArrow"))
-
-                    {
-                        if (!gv.moveTimerRuns)
-                        {
-                            bool isTransition = gv.cc.goWest();
-                            if (!isTransition)
-                            {
-                                if (mod.PlayerLocationX > 0)
-                                {
-                                    if (mod.currentArea.GetBlocked(mod.PlayerLocationX - 1, mod.PlayerLocationY) == false)
-                                    {
-                                        mod.PlayerLastLocationX = mod.PlayerLocationX;
-                                        mod.PlayerLastLocationY = mod.PlayerLocationY;
-                                        mod.PlayerLocationX--;
-                                        foreach (Player pc in mod.playerList)
-                                        {
-                                            if (!pc.combatFacingLeft)
-                                            {
-                                                pc.combatFacingLeft = true;
-                                            }
-                                        }
-                                        gv.cc.doUpdate();
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    else if ((rtn.Equals("ctrlRightArrow")) || (((mod.PlayerLocationX + 1) <= actualx) && (mod.PlayerLocationY == actualy)))
-                    //else if (rtn.Equals("ctrlRightArrow"))
-
-                    {
-                        if (!gv.moveTimerRuns)
-                        {
-                            bool isTransition = gv.cc.goEast();
-                            if (!isTransition)
-                            {
-                                int mapwidth = mod.currentArea.MapSizeX;
-                                if (mod.PlayerLocationX < (mapwidth - 1))
-                                {
-                                    if (mod.currentArea.GetBlocked(mod.PlayerLocationX + 1, mod.PlayerLocationY) == false)
-                                    {
-                                        mod.PlayerLastLocationX = mod.PlayerLocationX;
-                                        mod.PlayerLastLocationY = mod.PlayerLocationY;
-                                        mod.PlayerLocationX++;
-                                        foreach (Player pc in mod.playerList)
-                                        {
-                                            if (pc.combatFacingLeft)
-                                            {
-                                                pc.combatFacingLeft = false;
-                                            }
-                                        }
-                                        gv.cc.doUpdate();
-                                    }
-                                }
-                            }
-                        }
-                    }
+                    
                     else if (rtn.Equals("btnParty"))
                     {
                         gv.screenParty.resetPartyScreen();
@@ -29523,10 +29445,6 @@ namespace IceBlink2
                         gv.screenInventory.resetInventory();
                         gv.cc.tutorialMessageInventory(false);
                     }
-                    else if (rtn.Equals("btnJournal"))
-                    {
-                        gv.screenType = "journal";
-                    }
                     else if (rtn.Equals("btnSettings"))
                     {
                         gv.cc.doSettingsDialogs();
@@ -29542,6 +29460,7 @@ namespace IceBlink2
                     {
                         gv.cc.doUpdate();
                     }
+
                     else if (rtn.Equals("btnCastOnMainMap"))
                     {
 
@@ -29622,7 +29541,111 @@ namespace IceBlink2
                                 }
                             }                            
                         }
-                    }                    
+                    }
+                    else if ((rtn.Equals("ctrlUpArrow")) || ((mod.PlayerLocationX == actualx) && ((mod.PlayerLocationY - 1) >= actualy)))
+                    //if (rtn.Equals("ctrlUpArrow"))
+
+                    {
+                        if (!gv.moveTimerRuns)
+                        {
+                            bool isTransition = gv.cc.goNorth();
+                            if (!isTransition)
+                            {
+                                if (mod.PlayerLocationY > 0)
+                                {
+                                    if (mod.currentArea.GetBlocked(mod.PlayerLocationX, mod.PlayerLocationY - 1) == false)
+                                    {
+                                        mod.PlayerLastLocationX = mod.PlayerLocationX;
+                                        mod.PlayerLastLocationY = mod.PlayerLocationY;
+                                        mod.PlayerLocationY--;
+                                        gv.cc.doUpdate();
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    else if ((rtn.Equals("ctrlDownArrow")) || ((mod.PlayerLocationX == actualx) && ((mod.PlayerLocationY + 1) <= actualy - 1)))
+                    //else if (rtn.Equals("ctrlDownArrow"))
+
+                    {
+                        if (!gv.moveTimerRuns)
+                        {
+                            bool isTransition = gv.cc.goSouth();
+                            if (!isTransition)
+                            {
+                                int mapheight = mod.currentArea.MapSizeY;
+                                if (mod.PlayerLocationY < (mapheight - 1))
+                                {
+                                    if (mod.currentArea.GetBlocked(mod.PlayerLocationX, mod.PlayerLocationY + 1) == false)
+                                    {
+                                        mod.PlayerLastLocationX = mod.PlayerLocationX;
+                                        mod.PlayerLastLocationY = mod.PlayerLocationY;
+                                        mod.PlayerLocationY++;
+                                        gv.cc.doUpdate();
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    else if ((rtn.Equals("ctrlLeftArrow")) || (((mod.PlayerLocationX - 1) >= actualx) && (mod.PlayerLocationY == actualy)))
+                    //else if (rtn.Equals("ctrlLeftArrow"))
+
+                    {
+                        if (!gv.moveTimerRuns)
+                        {
+                            bool isTransition = gv.cc.goWest();
+                            if (!isTransition)
+                            {
+                                if (mod.PlayerLocationX > 0)
+                                {
+                                    if (mod.currentArea.GetBlocked(mod.PlayerLocationX - 1, mod.PlayerLocationY) == false)
+                                    {
+                                        mod.PlayerLastLocationX = mod.PlayerLocationX;
+                                        mod.PlayerLastLocationY = mod.PlayerLocationY;
+                                        mod.PlayerLocationX--;
+                                        foreach (Player pc in mod.playerList)
+                                        {
+                                            if (!pc.combatFacingLeft)
+                                            {
+                                                pc.combatFacingLeft = true;
+                                            }
+                                        }
+                                        gv.cc.doUpdate();
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    else if ((rtn.Equals("ctrlRightArrow")) || (((mod.PlayerLocationX + 1) <= actualx) && (mod.PlayerLocationY == actualy)))
+                    //else if (rtn.Equals("ctrlRightArrow"))
+
+                    {
+                        if (!gv.moveTimerRuns)
+                        {
+                            bool isTransition = gv.cc.goEast();
+                            if (!isTransition)
+                            {
+                                int mapwidth = mod.currentArea.MapSizeX;
+                                if (mod.PlayerLocationX < (mapwidth - 1))
+                                {
+                                    if (mod.currentArea.GetBlocked(mod.PlayerLocationX + 1, mod.PlayerLocationY) == false)
+                                    {
+                                        mod.PlayerLastLocationX = mod.PlayerLocationX;
+                                        mod.PlayerLastLocationY = mod.PlayerLocationY;
+                                        mod.PlayerLocationX++;
+                                        foreach (Player pc in mod.playerList)
+                                        {
+                                            if (pc.combatFacingLeft)
+                                            {
+                                                pc.combatFacingLeft = false;
+                                            }
+                                        }
+                                        gv.cc.doUpdate();
+                                    }
+                                }
+                            }
+                        }
+                    }
                     break;
             }
         }

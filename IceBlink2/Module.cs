@@ -239,6 +239,8 @@ namespace IceBlink2
         public string partyLightColor = "yellow";
         public float partyRingHaloIntensity = 1f;
         public float partyFocalHaloIntensity = 1f;
+        public bool partyLightOn = false;
+        public string partyLightName = "";
 
         public float overrideDelayCounter1 = 0;
         public float cycleCounter1 = 0;

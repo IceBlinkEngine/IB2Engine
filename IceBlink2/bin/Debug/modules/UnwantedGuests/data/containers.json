@@ -161,6 +161,13 @@
         "name": "Corrosive Sword",
         "canNotBeUnequipped": false,
         "quantity": 1
+      },
+      {
+        "resref": "torch",
+        "tag": "newTag_9931_9944",
+        "name": "Torch",
+        "canNotBeUnequipped": false,
+        "quantity": 1
       }
     ]
   }

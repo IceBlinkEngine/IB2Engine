@@ -4247,454 +4247,456 @@ namespace IceBlink2
             //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
             //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
-            //illuminate around the party
-            tilesOfThisLightSource.Clear();
-            int minX = gv.mod.PlayerLocationX - 2;
-            //if (minX < -seamlessModififierMinX) { minX = -seamlessModififierMinX; }
-            int minY = gv.mod.PlayerLocationY - 2;
-            //if (minY < -seamlessModififierMinY) { minY = -seamlessModififierMinY; }
-
-            int maxX = gv.mod.PlayerLocationX + 2;
-            //if (maxX > this.gv.mod.currentArea.MapSizeX - 1 + seamlessModififierMaxX) { maxX = this.gv.mod.currentArea.MapSizeX - 1 + seamlessModififierMaxX; }
-            int maxY = gv.mod.PlayerLocationY + 2;
-            //if (maxY > this.gv.mod.currentArea.MapSizeY - 1 + seamlessModififierMaxY) { maxY = this.gv.mod.currentArea.MapSizeY - 1 + seamlessModififierMaxY; }
-
-            /*
-            int indexOfNorthernNeighbour2 = -1;
-            int indexOfSouthernNeighbour2 = -1;
-            int indexOfEasternNeighbour2 = -1;
-            int indexOfWesternNeighbour2 = -1;
-            int indexOfNorthEasternNeighbour2 = -1;
-            int indexOfNorthWesternNeighbour2 = -1;
-            int indexOfSouthEasternNeighbour2 = -1;
-            int indexOfSouthWesternNeighbour2 = -1;
-            int indexOfCurrentArea2 = -1;
-            */
-
-            for (int xx = minX; xx <= maxX; xx++)
+            if (gv.mod.partyLightOn)
             {
-                for (int yy = minY; yy <= maxY; yy++)
+                //illuminate around the party
+                tilesOfThisLightSource.Clear();
+                int minX = gv.mod.PlayerLocationX - 2;
+                //if (minX < -seamlessModififierMinX) { minX = -seamlessModififierMinX; }
+                int minY = gv.mod.PlayerLocationY - 2;
+                //if (minY < -seamlessModififierMinY) { minY = -seamlessModififierMinY; }
+
+                int maxX = gv.mod.PlayerLocationX + 2;
+                //if (maxX > this.gv.mod.currentArea.MapSizeX - 1 + seamlessModififierMaxX) { maxX = this.gv.mod.currentArea.MapSizeX - 1 + seamlessModififierMaxX; }
+                int maxY = gv.mod.PlayerLocationY + 2;
+                //if (maxY > this.gv.mod.currentArea.MapSizeY - 1 + seamlessModififierMaxY) { maxY = this.gv.mod.currentArea.MapSizeY - 1 + seamlessModififierMaxY; }
+
+                /*
+                int indexOfNorthernNeighbour2 = -1;
+                int indexOfSouthernNeighbour2 = -1;
+                int indexOfEasternNeighbour2 = -1;
+                int indexOfWesternNeighbour2 = -1;
+                int indexOfNorthEasternNeighbour2 = -1;
+                int indexOfNorthWesternNeighbour2 = -1;
+                int indexOfSouthEasternNeighbour2 = -1;
+                int indexOfSouthWesternNeighbour2 = -1;
+                int indexOfCurrentArea2 = -1;
+                */
+
+                for (int xx = minX; xx <= maxX; xx++)
                 {
-                    //YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY
-                    bool situationFound = false;
-                    bool addedTileToListAlready = false;
-                    bool drawTile = true;
-                    int index = -1;
-                    Tile tile = new Tile();
-
-                    //nine plus sixteen situations where a tile can be:
-                    //tile on north-western map (diagonal situation)
-                    if ((xx == -1) && (yy == -1) && (!situationFound))
+                    for (int yy = minY; yy <= maxY; yy++)
                     {
-                        situationFound = true;
-                        if (indexOfNorthWesternNeighbour != -1)
-                        {
-                            int transformedX = gv.mod.moduleAreasObjects[indexOfNorthWesternNeighbour].MapSizeX + xx;
-                            int transformedY = gv.mod.moduleAreasObjects[indexOfNorthWesternNeighbour].MapSizeY + yy;
-                            gv.mod.moduleAreasObjects[indexOfNorthWesternNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfNorthWesternNeighbour].MapSizeX + transformedX].isCentreOfLightCircle = true;
-                            tilesOfThisLightSource.Add(gv.mod.moduleAreasObjects[indexOfNorthWesternNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfNorthWesternNeighbour].MapSizeX + transformedX]);
-                            gv.mod.moduleAreasObjects[indexOfNorthWesternNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfNorthWesternNeighbour].MapSizeX + transformedX].tileLightSourceTag.Add("party");
-                            addedTileToListAlready = true;
-                        }
-                    }
+                        //YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY
+                        bool situationFound = false;
+                        bool addedTileToListAlready = false;
+                        bool drawTile = true;
+                        int index = -1;
+                        Tile tile = new Tile();
 
-                    //tile on north-western map (diagonal situation), level 2
-                    else if ((xx <= -1) && (yy <= -1) && (!situationFound))
-                    {
-                        situationFound = true;
-                        if (indexOfNorthWesternNeighbour != -1)
+                        //nine plus sixteen situations where a tile can be:
+                        //tile on north-western map (diagonal situation)
+                        if ((xx == -1) && (yy == -1) && (!situationFound))
                         {
-                            int transformedX = gv.mod.moduleAreasObjects[indexOfNorthWesternNeighbour].MapSizeX + xx;
-                            int transformedY = gv.mod.moduleAreasObjects[indexOfNorthWesternNeighbour].MapSizeY + yy;
-                            gv.mod.moduleAreasObjects[indexOfNorthWesternNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfNorthWesternNeighbour].MapSizeX + transformedX].isOtherPartOfLightCircle = true;
-                            tilesOfThisLightSource.Add(gv.mod.moduleAreasObjects[indexOfNorthWesternNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfNorthWesternNeighbour].MapSizeX + transformedX]);
-                            gv.mod.moduleAreasObjects[indexOfNorthWesternNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfNorthWesternNeighbour].MapSizeX + transformedX].tileLightSourceTag.Add("party");
-                            addedTileToListAlready = true;
-                        }
-                    }
-
-                    //tile on south-westernmap (diagonal situation)
-                    if ((xx == -1) && (yy == (gv.mod.currentArea.MapSizeY - 1) + 1) && (!situationFound))
-                    {
-                        situationFound = true;
-                        if (indexOfSouthWesternNeighbour != -1)
-                        {
-                            int transformedX = gv.mod.moduleAreasObjects[indexOfSouthWesternNeighbour].MapSizeX + xx;
-                            int transformedY = yy - gv.mod.currentArea.MapSizeY;
-                            gv.mod.moduleAreasObjects[indexOfSouthWesternNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfSouthWesternNeighbour].MapSizeX + transformedX].isCentreOfLightCircle = true;
-                            tilesOfThisLightSource.Add(gv.mod.moduleAreasObjects[indexOfSouthWesternNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfSouthWesternNeighbour].MapSizeX + transformedX]);
-                            gv.mod.moduleAreasObjects[indexOfSouthWesternNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfSouthWesternNeighbour].MapSizeX + transformedX].tileLightSourceTag.Add("party");
-                            addedTileToListAlready = true;
-                        }
-                    }
-
-                    //tile on south-westernmap (diagonal situation), level 2
-                    else if ((xx <= -1) && (yy >= (gv.mod.currentArea.MapSizeY - 1) + 1) && (!situationFound))
-                    {
-                        situationFound = true;
-                        if (indexOfSouthWesternNeighbour != -1)
-                        {
-                            int transformedX = gv.mod.moduleAreasObjects[indexOfSouthWesternNeighbour].MapSizeX + xx;
-                            int transformedY = yy - gv.mod.currentArea.MapSizeY;
-                            gv.mod.moduleAreasObjects[indexOfSouthWesternNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfSouthWesternNeighbour].MapSizeX + transformedX].isOtherPartOfLightCircle = true;
-                            tilesOfThisLightSource.Add(gv.mod.moduleAreasObjects[indexOfSouthWesternNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfSouthWesternNeighbour].MapSizeX + transformedX]);
-                            gv.mod.moduleAreasObjects[indexOfSouthWesternNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfSouthWesternNeighbour].MapSizeX + transformedX].tileLightSourceTag.Add("party");
-                            addedTileToListAlready = true;
-                        }
-                    }
-
-                    //tile on south-easternmap (diagonal situation)
-                    if ((xx == (gv.mod.currentArea.MapSizeX - 1) + 1) && (yy == (gv.mod.currentArea.MapSizeY - 1) + 1) && (!situationFound))
-                    {
-                        situationFound = true;
-                        if (indexOfSouthEasternNeighbour != -1)
-                        {
-                            int transformedX = xx - gv.mod.currentArea.MapSizeX;
-                            int transformedY = yy - gv.mod.currentArea.MapSizeY;
-                            gv.mod.moduleAreasObjects[indexOfSouthEasternNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfSouthEasternNeighbour].MapSizeX + transformedX].isCentreOfLightCircle = true;
-                            tilesOfThisLightSource.Add(gv.mod.moduleAreasObjects[indexOfSouthEasternNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfSouthEasternNeighbour].MapSizeX + transformedX]);
-                            gv.mod.moduleAreasObjects[indexOfSouthEasternNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfSouthEasternNeighbour].MapSizeX + transformedX].tileLightSourceTag.Add("party");
-                            addedTileToListAlready = true;
-                        }
-                    }
-
-                    //tile on south-easternmap (diagonal situation). level 2
-                    else if ((xx >= (gv.mod.currentArea.MapSizeX - 1) + 1) && (yy >= (gv.mod.currentArea.MapSizeY - 1) + 1) && (!situationFound))
-                    {
-                        situationFound = true;
-                        if (indexOfSouthEasternNeighbour != -1)
-                        {
-                            int transformedX = xx - gv.mod.currentArea.MapSizeX;
-                            int transformedY = yy - gv.mod.currentArea.MapSizeY;
-                            gv.mod.moduleAreasObjects[indexOfSouthEasternNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfSouthEasternNeighbour].MapSizeX + transformedX].isOtherPartOfLightCircle = true;
-                            tilesOfThisLightSource.Add(gv.mod.moduleAreasObjects[indexOfSouthEasternNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfSouthEasternNeighbour].MapSizeX + transformedX]);
-                            gv.mod.moduleAreasObjects[indexOfSouthEasternNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfSouthEasternNeighbour].MapSizeX + transformedX].tileLightSourceTag.Add("party");
-                            addedTileToListAlready = true;
-                        }
-                    }
-
-                    //tile on north-easternmap (diagonal situation)
-                    if ((xx == (gv.mod.currentArea.MapSizeX - 1) + 1) && (yy == -1) && (!situationFound))
-                    {
-                        situationFound = true;
-                        if (indexOfNorthEasternNeighbour != -1)
-                        {
-                            int transformedX = xx - gv.mod.currentArea.MapSizeX;
-                            int transformedY = gv.mod.moduleAreasObjects[indexOfNorthEasternNeighbour].MapSizeY + yy;
-                            gv.mod.moduleAreasObjects[indexOfNorthEasternNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfNorthEasternNeighbour].MapSizeX + transformedX].isCentreOfLightCircle = true;
-                            tilesOfThisLightSource.Add(gv.mod.moduleAreasObjects[indexOfNorthEasternNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfNorthEasternNeighbour].MapSizeX + transformedX]);
-                            gv.mod.moduleAreasObjects[indexOfNorthEasternNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfNorthEasternNeighbour].MapSizeX + transformedX].tileLightSourceTag.Add("party");
-                            addedTileToListAlready = true;
-                        }
-                    }
-
-                    //tile on north-easternmap (diagonal situation), level 2
-                    else if ((xx >= (gv.mod.currentArea.MapSizeX - 1) + 1) && (yy <= -1) && (!situationFound))
-                    {
-                        situationFound = true;
-                        if (indexOfNorthEasternNeighbour != -1)
-                        {
-                            int transformedX = xx - gv.mod.currentArea.MapSizeX;
-                            int transformedY = gv.mod.moduleAreasObjects[indexOfNorthEasternNeighbour].MapSizeY + yy;
-                            gv.mod.moduleAreasObjects[indexOfNorthEasternNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfNorthEasternNeighbour].MapSizeX + transformedX].isOtherPartOfLightCircle = true;
-                            tilesOfThisLightSource.Add(gv.mod.moduleAreasObjects[indexOfNorthEasternNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfNorthEasternNeighbour].MapSizeX + transformedX]);
-                            gv.mod.moduleAreasObjects[indexOfNorthEasternNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfNorthEasternNeighbour].MapSizeX + transformedX].tileLightSourceTag.Add("party");
-                            addedTileToListAlready = true;
-                        }
-                    }
-
-                    //tile on western map
-                    if ((xx == -1) && (!situationFound))
-                    {
-                        situationFound = true;
-                        if (indexOfWesternNeighbour != -1)
-                        {
-                            int transformedX = gv.mod.moduleAreasObjects[indexOfWesternNeighbour].MapSizeX + xx;
-                            int transformedY = yy;
-                            if (yy < 0)
+                            situationFound = true;
+                            if (indexOfNorthWesternNeighbour != -1)
                             {
-                                //check
-                                transformedY = gv.mod.PlayerLocationY + yy;
+                                int transformedX = gv.mod.moduleAreasObjects[indexOfNorthWesternNeighbour].MapSizeX + xx;
+                                int transformedY = gv.mod.moduleAreasObjects[indexOfNorthWesternNeighbour].MapSizeY + yy;
+                                gv.mod.moduleAreasObjects[indexOfNorthWesternNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfNorthWesternNeighbour].MapSizeX + transformedX].isCentreOfLightCircle = true;
+                                tilesOfThisLightSource.Add(gv.mod.moduleAreasObjects[indexOfNorthWesternNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfNorthWesternNeighbour].MapSizeX + transformedX]);
+                                gv.mod.moduleAreasObjects[indexOfNorthWesternNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfNorthWesternNeighbour].MapSizeX + transformedX].tileLightSourceTag.Add("party");
+                                addedTileToListAlready = true;
                             }
-                            if (yy > (gv.mod.currentArea.MapSizeY - 1))
+                        }
+
+                        //tile on north-western map (diagonal situation), level 2
+                        else if ((xx <= -1) && (yy <= -1) && (!situationFound))
+                        {
+                            situationFound = true;
+                            if (indexOfNorthWesternNeighbour != -1)
                             {
-                                //check
-                                transformedY = yy - gv.mod.PlayerLocationY;
+                                int transformedX = gv.mod.moduleAreasObjects[indexOfNorthWesternNeighbour].MapSizeX + xx;
+                                int transformedY = gv.mod.moduleAreasObjects[indexOfNorthWesternNeighbour].MapSizeY + yy;
+                                gv.mod.moduleAreasObjects[indexOfNorthWesternNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfNorthWesternNeighbour].MapSizeX + transformedX].isOtherPartOfLightCircle = true;
+                                tilesOfThisLightSource.Add(gv.mod.moduleAreasObjects[indexOfNorthWesternNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfNorthWesternNeighbour].MapSizeX + transformedX]);
+                                gv.mod.moduleAreasObjects[indexOfNorthWesternNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfNorthWesternNeighbour].MapSizeX + transformedX].tileLightSourceTag.Add("party");
+                                addedTileToListAlready = true;
                             }
-                            if ( (gv.mod.PlayerLocationX == 0) && (yy != gv.mod.PlayerLocationY + 2) && (yy != gv.mod.PlayerLocationY - 2))
+                        }
+
+                        //tile on south-westernmap (diagonal situation)
+                        if ((xx == -1) && (yy == (gv.mod.currentArea.MapSizeY - 1) + 1) && (!situationFound))
+                        {
+                            situationFound = true;
+                            if (indexOfSouthWesternNeighbour != -1)
                             {
-                                gv.mod.moduleAreasObjects[indexOfWesternNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfWesternNeighbour].MapSizeX + transformedX].isCentreOfLightCircle = true;
+                                int transformedX = gv.mod.moduleAreasObjects[indexOfSouthWesternNeighbour].MapSizeX + xx;
+                                int transformedY = yy - gv.mod.currentArea.MapSizeY;
+                                gv.mod.moduleAreasObjects[indexOfSouthWesternNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfSouthWesternNeighbour].MapSizeX + transformedX].isCentreOfLightCircle = true;
+                                tilesOfThisLightSource.Add(gv.mod.moduleAreasObjects[indexOfSouthWesternNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfSouthWesternNeighbour].MapSizeX + transformedX]);
+                                gv.mod.moduleAreasObjects[indexOfSouthWesternNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfSouthWesternNeighbour].MapSizeX + transformedX].tileLightSourceTag.Add("party");
+                                addedTileToListAlready = true;
                             }
-                            else
+                        }
+
+                        //tile on south-westernmap (diagonal situation), level 2
+                        else if ((xx <= -1) && (yy >= (gv.mod.currentArea.MapSizeY - 1) + 1) && (!situationFound))
+                        {
+                            situationFound = true;
+                            if (indexOfSouthWesternNeighbour != -1)
                             {
+                                int transformedX = gv.mod.moduleAreasObjects[indexOfSouthWesternNeighbour].MapSizeX + xx;
+                                int transformedY = yy - gv.mod.currentArea.MapSizeY;
+                                gv.mod.moduleAreasObjects[indexOfSouthWesternNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfSouthWesternNeighbour].MapSizeX + transformedX].isOtherPartOfLightCircle = true;
+                                tilesOfThisLightSource.Add(gv.mod.moduleAreasObjects[indexOfSouthWesternNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfSouthWesternNeighbour].MapSizeX + transformedX]);
+                                gv.mod.moduleAreasObjects[indexOfSouthWesternNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfSouthWesternNeighbour].MapSizeX + transformedX].tileLightSourceTag.Add("party");
+                                addedTileToListAlready = true;
+                            }
+                        }
+
+                        //tile on south-easternmap (diagonal situation)
+                        if ((xx == (gv.mod.currentArea.MapSizeX - 1) + 1) && (yy == (gv.mod.currentArea.MapSizeY - 1) + 1) && (!situationFound))
+                        {
+                            situationFound = true;
+                            if (indexOfSouthEasternNeighbour != -1)
+                            {
+                                int transformedX = xx - gv.mod.currentArea.MapSizeX;
+                                int transformedY = yy - gv.mod.currentArea.MapSizeY;
+                                gv.mod.moduleAreasObjects[indexOfSouthEasternNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfSouthEasternNeighbour].MapSizeX + transformedX].isCentreOfLightCircle = true;
+                                tilesOfThisLightSource.Add(gv.mod.moduleAreasObjects[indexOfSouthEasternNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfSouthEasternNeighbour].MapSizeX + transformedX]);
+                                gv.mod.moduleAreasObjects[indexOfSouthEasternNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfSouthEasternNeighbour].MapSizeX + transformedX].tileLightSourceTag.Add("party");
+                                addedTileToListAlready = true;
+                            }
+                        }
+
+                        //tile on south-easternmap (diagonal situation). level 2
+                        else if ((xx >= (gv.mod.currentArea.MapSizeX - 1) + 1) && (yy >= (gv.mod.currentArea.MapSizeY - 1) + 1) && (!situationFound))
+                        {
+                            situationFound = true;
+                            if (indexOfSouthEasternNeighbour != -1)
+                            {
+                                int transformedX = xx - gv.mod.currentArea.MapSizeX;
+                                int transformedY = yy - gv.mod.currentArea.MapSizeY;
+                                gv.mod.moduleAreasObjects[indexOfSouthEasternNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfSouthEasternNeighbour].MapSizeX + transformedX].isOtherPartOfLightCircle = true;
+                                tilesOfThisLightSource.Add(gv.mod.moduleAreasObjects[indexOfSouthEasternNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfSouthEasternNeighbour].MapSizeX + transformedX]);
+                                gv.mod.moduleAreasObjects[indexOfSouthEasternNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfSouthEasternNeighbour].MapSizeX + transformedX].tileLightSourceTag.Add("party");
+                                addedTileToListAlready = true;
+                            }
+                        }
+
+                        //tile on north-easternmap (diagonal situation)
+                        if ((xx == (gv.mod.currentArea.MapSizeX - 1) + 1) && (yy == -1) && (!situationFound))
+                        {
+                            situationFound = true;
+                            if (indexOfNorthEasternNeighbour != -1)
+                            {
+                                int transformedX = xx - gv.mod.currentArea.MapSizeX;
+                                int transformedY = gv.mod.moduleAreasObjects[indexOfNorthEasternNeighbour].MapSizeY + yy;
+                                gv.mod.moduleAreasObjects[indexOfNorthEasternNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfNorthEasternNeighbour].MapSizeX + transformedX].isCentreOfLightCircle = true;
+                                tilesOfThisLightSource.Add(gv.mod.moduleAreasObjects[indexOfNorthEasternNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfNorthEasternNeighbour].MapSizeX + transformedX]);
+                                gv.mod.moduleAreasObjects[indexOfNorthEasternNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfNorthEasternNeighbour].MapSizeX + transformedX].tileLightSourceTag.Add("party");
+                                addedTileToListAlready = true;
+                            }
+                        }
+
+                        //tile on north-easternmap (diagonal situation), level 2
+                        else if ((xx >= (gv.mod.currentArea.MapSizeX - 1) + 1) && (yy <= -1) && (!situationFound))
+                        {
+                            situationFound = true;
+                            if (indexOfNorthEasternNeighbour != -1)
+                            {
+                                int transformedX = xx - gv.mod.currentArea.MapSizeX;
+                                int transformedY = gv.mod.moduleAreasObjects[indexOfNorthEasternNeighbour].MapSizeY + yy;
+                                gv.mod.moduleAreasObjects[indexOfNorthEasternNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfNorthEasternNeighbour].MapSizeX + transformedX].isOtherPartOfLightCircle = true;
+                                tilesOfThisLightSource.Add(gv.mod.moduleAreasObjects[indexOfNorthEasternNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfNorthEasternNeighbour].MapSizeX + transformedX]);
+                                gv.mod.moduleAreasObjects[indexOfNorthEasternNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfNorthEasternNeighbour].MapSizeX + transformedX].tileLightSourceTag.Add("party");
+                                addedTileToListAlready = true;
+                            }
+                        }
+
+                        //tile on western map
+                        if ((xx == -1) && (!situationFound))
+                        {
+                            situationFound = true;
+                            if (indexOfWesternNeighbour != -1)
+                            {
+                                int transformedX = gv.mod.moduleAreasObjects[indexOfWesternNeighbour].MapSizeX + xx;
+                                int transformedY = yy;
+                                if (yy < 0)
+                                {
+                                    //check
+                                    transformedY = gv.mod.PlayerLocationY + yy;
+                                }
+                                if (yy > (gv.mod.currentArea.MapSizeY - 1))
+                                {
+                                    //check
+                                    transformedY = yy - gv.mod.PlayerLocationY;
+                                }
+                                if ((gv.mod.PlayerLocationX == 0) && (yy != gv.mod.PlayerLocationY + 2) && (yy != gv.mod.PlayerLocationY - 2))
+                                {
+                                    gv.mod.moduleAreasObjects[indexOfWesternNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfWesternNeighbour].MapSizeX + transformedX].isCentreOfLightCircle = true;
+                                }
+                                else
+                                {
+                                    gv.mod.moduleAreasObjects[indexOfWesternNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfWesternNeighbour].MapSizeX + transformedX].isOtherPartOfLightCircle = true;
+                                }
+                                tilesOfThisLightSource.Add(gv.mod.moduleAreasObjects[indexOfWesternNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfWesternNeighbour].MapSizeX + transformedX]);
+                                gv.mod.moduleAreasObjects[indexOfWesternNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfWesternNeighbour].MapSizeX + transformedX].tileLightSourceTag.Add("party");
+                                addedTileToListAlready = true;
+                            }
+                        }
+
+                        //tile on western map, level 2
+                        else if ((xx < -1) && (!situationFound))
+                        {
+                            situationFound = true;
+                            if (indexOfWesternNeighbour != -1)
+                            {
+                                int transformedX = gv.mod.moduleAreasObjects[indexOfWesternNeighbour].MapSizeX + xx;
+                                int transformedY = yy;
+                                if (yy < 0)
+                                {
+                                    //check
+                                    transformedY = gv.mod.PlayerLocationY + yy;
+                                }
+                                if (yy > (gv.mod.currentArea.MapSizeY - 1))
+                                {
+                                    //check
+                                    transformedY = yy - gv.mod.PlayerLocationY;
+                                }
+
                                 gv.mod.moduleAreasObjects[indexOfWesternNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfWesternNeighbour].MapSizeX + transformedX].isOtherPartOfLightCircle = true;
+                                tilesOfThisLightSource.Add(gv.mod.moduleAreasObjects[indexOfWesternNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfWesternNeighbour].MapSizeX + transformedX]);
+                                gv.mod.moduleAreasObjects[indexOfWesternNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfWesternNeighbour].MapSizeX + transformedX].tileLightSourceTag.Add("party");
+                                addedTileToListAlready = true;
                             }
-                            tilesOfThisLightSource.Add(gv.mod.moduleAreasObjects[indexOfWesternNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfWesternNeighbour].MapSizeX + transformedX]);
-                            gv.mod.moduleAreasObjects[indexOfWesternNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfWesternNeighbour].MapSizeX + transformedX].tileLightSourceTag.Add("party");
-                            addedTileToListAlready = true;
                         }
-                    }
 
-                    //tile on western map, level 2
-                    else if ((xx < -1) && (!situationFound))
-                    {
-                        situationFound = true;
-                        if (indexOfWesternNeighbour != -1)
+
+
+                        //tile on southern map
+                        if ((yy == (gv.mod.currentArea.MapSizeY - 1) + 1) && (!situationFound))
                         {
-                            int transformedX = gv.mod.moduleAreasObjects[indexOfWesternNeighbour].MapSizeX + xx;
-                            int transformedY = yy;
-                            if (yy < 0)
+                            situationFound = true;
+                            if (indexOfSouthernNeighbour != -1)
                             {
-                                //check
-                                transformedY = gv.mod.PlayerLocationY + yy;
+                                int transformedX = xx;
+                                if (xx < 0)
+                                {
+                                    //check
+                                    transformedX = gv.mod.PlayerLocationX + xx;
+                                }
+                                if (xx > (gv.mod.currentArea.MapSizeX - 1))
+                                {
+                                    //check
+                                    transformedX = xx - gv.mod.PlayerLocationX;
+                                }
+                                int transformedY = yy - gv.mod.currentArea.MapSizeY;
+                                if ((gv.mod.PlayerLocationY == (gv.mod.currentArea.MapSizeY - 1)) && (xx != gv.mod.PlayerLocationX + 2) && (xx != gv.mod.PlayerLocationX - 2))
+                                {
+                                    gv.mod.moduleAreasObjects[indexOfSouthernNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfSouthernNeighbour].MapSizeX + transformedX].isCentreOfLightCircle = true;
+                                }
+                                else
+                                {
+                                    gv.mod.moduleAreasObjects[indexOfSouthernNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfSouthernNeighbour].MapSizeX + transformedX].isOtherPartOfLightCircle = true;
+                                }
+                                tilesOfThisLightSource.Add(gv.mod.moduleAreasObjects[indexOfSouthernNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfSouthernNeighbour].MapSizeX + transformedX]);
+                                gv.mod.moduleAreasObjects[indexOfSouthernNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfSouthernNeighbour].MapSizeX + transformedX].tileLightSourceTag.Add("party");
+                                addedTileToListAlready = true;
                             }
-                            if (yy > (gv.mod.currentArea.MapSizeY-1))
-                            {
-                                //check
-                                transformedY = yy - gv.mod.PlayerLocationY;
-                            }
-
-                            gv.mod.moduleAreasObjects[indexOfWesternNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfWesternNeighbour].MapSizeX + transformedX].isOtherPartOfLightCircle = true;
-                            tilesOfThisLightSource.Add(gv.mod.moduleAreasObjects[indexOfWesternNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfWesternNeighbour].MapSizeX + transformedX]);
-                            gv.mod.moduleAreasObjects[indexOfWesternNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfWesternNeighbour].MapSizeX + transformedX].tileLightSourceTag.Add("party");
-                            addedTileToListAlready = true;
                         }
-                    }
 
-
-
-                    //tile on southern map
-                    if ((yy == (gv.mod.currentArea.MapSizeY - 1) + 1) && (!situationFound))
-                    {
-                        situationFound = true;
-                        if (indexOfSouthernNeighbour != -1)
+                        //tile on southern map, level 2
+                        else if ((yy > (gv.mod.currentArea.MapSizeY - 1) + 1) && (!situationFound))
                         {
-                            int transformedX = xx;
-                            if (xx < 0)
+                            situationFound = true;
+                            if (indexOfSouthernNeighbour != -1)
                             {
-                                //check
-                                transformedX = gv.mod.PlayerLocationX + xx;
-                            }
-                            if (xx > (gv.mod.currentArea.MapSizeX - 1))
-                            {
-                                //check
-                                transformedX = xx - gv.mod.PlayerLocationX;
-                            }
-                            int transformedY = yy - gv.mod.currentArea.MapSizeY;
-                            if ((gv.mod.PlayerLocationY == (gv.mod.currentArea.MapSizeY - 1)) && (xx != gv.mod.PlayerLocationX + 2) && (xx != gv.mod.PlayerLocationX - 2))
-                            {
-                                gv.mod.moduleAreasObjects[indexOfSouthernNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfSouthernNeighbour].MapSizeX + transformedX].isCentreOfLightCircle = true;
-                            }
-                            else
-                            {
+                                int transformedX = xx;
+                                if (xx < 0)
+                                {
+                                    //check
+                                    transformedX = gv.mod.PlayerLocationX + xx;
+                                }
+                                if (xx > (gv.mod.currentArea.MapSizeX - 1))
+                                {
+                                    //check
+                                    transformedX = xx - gv.mod.PlayerLocationX;
+                                }
+                                int transformedY = yy - gv.mod.currentArea.MapSizeY;
                                 gv.mod.moduleAreasObjects[indexOfSouthernNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfSouthernNeighbour].MapSizeX + transformedX].isOtherPartOfLightCircle = true;
+                                tilesOfThisLightSource.Add(gv.mod.moduleAreasObjects[indexOfSouthernNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfSouthernNeighbour].MapSizeX + transformedX]);
+                                gv.mod.moduleAreasObjects[indexOfSouthernNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfSouthernNeighbour].MapSizeX + transformedX].tileLightSourceTag.Add("party");
+                                addedTileToListAlready = true;
                             }
-                            tilesOfThisLightSource.Add(gv.mod.moduleAreasObjects[indexOfSouthernNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfSouthernNeighbour].MapSizeX + transformedX]);
-                            gv.mod.moduleAreasObjects[indexOfSouthernNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfSouthernNeighbour].MapSizeX + transformedX].tileLightSourceTag.Add("party");
-                            addedTileToListAlready = true;
                         }
-                    }
 
-                    //tile on southern map, level 2
-                    else if ((yy > (gv.mod.currentArea.MapSizeY - 1) + 1) && (!situationFound))
-                    {
-                        situationFound = true;
-                        if (indexOfSouthernNeighbour != -1)
+
+
+                        //tile on eastern map
+                        if ((xx == (gv.mod.currentArea.MapSizeX - 1) + 1) && (!situationFound))
                         {
-                            int transformedX = xx;
-                            if (xx < 0)
+                            situationFound = true;
+                            if (indexOfEasternNeighbour != -1)
                             {
-                                //check
-                                transformedX = gv.mod.PlayerLocationX + xx;
+                                int transformedX = xx - gv.mod.currentArea.MapSizeX;
+                                int transformedY = yy;
+                                if (yy < 0)
+                                {
+                                    //check
+                                    transformedY = gv.mod.PlayerLocationY + yy;
+                                }
+                                if (yy > (gv.mod.currentArea.MapSizeY - 1))
+                                {
+                                    //check
+                                    transformedY = yy - gv.mod.PlayerLocationY;
+                                }
+                                if ((gv.mod.PlayerLocationX == (gv.mod.currentArea.MapSizeX - 1)) && (yy != gv.mod.PlayerLocationY + 2) && (yy != gv.mod.PlayerLocationY - 2))
+                                {
+                                    gv.mod.moduleAreasObjects[indexOfEasternNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfEasternNeighbour].MapSizeX + transformedX].isCentreOfLightCircle = true;
+                                }
+                                else
+                                {
+                                    gv.mod.moduleAreasObjects[indexOfEasternNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfEasternNeighbour].MapSizeX + transformedX].isOtherPartOfLightCircle = true;
+                                }
+                                tilesOfThisLightSource.Add(gv.mod.moduleAreasObjects[indexOfEasternNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfEasternNeighbour].MapSizeX + transformedX]);
+                                gv.mod.moduleAreasObjects[indexOfEasternNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfEasternNeighbour].MapSizeX + transformedX].tileLightSourceTag.Add("party");
+                                addedTileToListAlready = true;
                             }
-                            if (xx > (gv.mod.currentArea.MapSizeX - 1))
-                            {
-                                //check
-                                transformedX = xx - gv.mod.PlayerLocationX;
-                            }
-                            int transformedY = yy - gv.mod.currentArea.MapSizeY;
-                            gv.mod.moduleAreasObjects[indexOfSouthernNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfSouthernNeighbour].MapSizeX + transformedX].isOtherPartOfLightCircle = true;
-                            tilesOfThisLightSource.Add(gv.mod.moduleAreasObjects[indexOfSouthernNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfSouthernNeighbour].MapSizeX + transformedX]);
-                            gv.mod.moduleAreasObjects[indexOfSouthernNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfSouthernNeighbour].MapSizeX + transformedX].tileLightSourceTag.Add("party");
-                            addedTileToListAlready = true;
                         }
-                    }
 
-
-
-                    //tile on eastern map
-                    if ((xx == (gv.mod.currentArea.MapSizeX - 1) + 1) && (!situationFound))
-                    {
-                        situationFound = true;
-                        if (indexOfEasternNeighbour != -1)
+                        //tile on eastern map, level 2
+                        else if ((xx > (gv.mod.currentArea.MapSizeX - 1) + 1) && (!situationFound))
                         {
-                            int transformedX = xx - gv.mod.currentArea.MapSizeX;
-                            int transformedY = yy;
-                            if (yy < 0)
+                            situationFound = true;
+                            if (indexOfEasternNeighbour != -1)
                             {
-                                //check
-                                transformedY = gv.mod.PlayerLocationY + yy;
-                            }
-                            if (yy > (gv.mod.currentArea.MapSizeY - 1))
-                            {
-                                //check
-                                transformedY = yy - gv.mod.PlayerLocationY;
-                            }
-                            if ((gv.mod.PlayerLocationX == (gv.mod.currentArea.MapSizeX-1)) && (yy != gv.mod.PlayerLocationY + 2) && (yy != gv.mod.PlayerLocationY - 2))
-                            {
-                                gv.mod.moduleAreasObjects[indexOfEasternNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfEasternNeighbour].MapSizeX + transformedX].isCentreOfLightCircle = true;
-                            }
-                            else
-                            {
+                                int transformedX = xx - gv.mod.currentArea.MapSizeX;
+                                int transformedY = yy;
+                                if (yy < 0)
+                                {
+                                    //check
+                                    transformedY = gv.mod.PlayerLocationY + yy;
+                                }
+                                if (yy > (gv.mod.currentArea.MapSizeY - 1))
+                                {
+                                    //check
+                                    transformedY = yy - gv.mod.PlayerLocationY;
+                                }
                                 gv.mod.moduleAreasObjects[indexOfEasternNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfEasternNeighbour].MapSizeX + transformedX].isOtherPartOfLightCircle = true;
+                                tilesOfThisLightSource.Add(gv.mod.moduleAreasObjects[indexOfEasternNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfEasternNeighbour].MapSizeX + transformedX]);
+                                gv.mod.moduleAreasObjects[indexOfEasternNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfEasternNeighbour].MapSizeX + transformedX].tileLightSourceTag.Add("party");
+                                addedTileToListAlready = true;
                             }
-                            tilesOfThisLightSource.Add(gv.mod.moduleAreasObjects[indexOfEasternNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfEasternNeighbour].MapSizeX + transformedX]);
-                            gv.mod.moduleAreasObjects[indexOfEasternNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfEasternNeighbour].MapSizeX + transformedX].tileLightSourceTag.Add("party");
-                            addedTileToListAlready = true;
                         }
-                    }
 
-                    //tile on eastern map, level 2
-                    else if ((xx > (gv.mod.currentArea.MapSizeX - 1) + 1) && (!situationFound))
-                    {
-                        situationFound = true;
-                        if (indexOfEasternNeighbour != -1)
+                        //tile on northern map
+                        if ((yy == -1) && (!situationFound))
                         {
-                            int transformedX = xx - gv.mod.currentArea.MapSizeX;
-                            int transformedY = yy;
-                            if (yy < 0)
+                            situationFound = true;
+                            if (indexOfNorthernNeighbour != -1)
                             {
-                                //check
-                                transformedY = gv.mod.PlayerLocationY + yy;
+                                int transformedX = xx;
+                                if (xx < 0)
+                                {
+                                    //check
+                                    transformedX = gv.mod.PlayerLocationX + xx;
+                                }
+                                if (xx > (gv.mod.currentArea.MapSizeX - 1))
+                                {
+                                    //check
+                                    transformedX = xx - gv.mod.PlayerLocationX;
+                                }
+                                int transformedY = gv.mod.moduleAreasObjects[indexOfNorthernNeighbour].MapSizeY + yy;
+                                if ((gv.mod.PlayerLocationY == 0) && (xx != gv.mod.PlayerLocationX + 2) && (xx != gv.mod.PlayerLocationX - 2))
+                                {
+                                    gv.mod.moduleAreasObjects[indexOfNorthernNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfNorthernNeighbour].MapSizeX + transformedX].isCentreOfLightCircle = true;
+                                }
+                                else
+                                {
+                                    gv.mod.moduleAreasObjects[indexOfNorthernNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfNorthernNeighbour].MapSizeX + transformedX].isOtherPartOfLightCircle = true;
+                                }
+                                tilesOfThisLightSource.Add(gv.mod.moduleAreasObjects[indexOfNorthernNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfNorthernNeighbour].MapSizeX + transformedX]);
+                                gv.mod.moduleAreasObjects[indexOfNorthernNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfNorthernNeighbour].MapSizeX + transformedX].tileLightSourceTag.Add("party");
+                                addedTileToListAlready = true;
                             }
-                            if (yy > (gv.mod.currentArea.MapSizeY - 1))
-                            {
-                                //check
-                                transformedY = yy - gv.mod.PlayerLocationY;
-                            }
-                            gv.mod.moduleAreasObjects[indexOfEasternNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfEasternNeighbour].MapSizeX + transformedX].isOtherPartOfLightCircle = true;
-                            tilesOfThisLightSource.Add(gv.mod.moduleAreasObjects[indexOfEasternNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfEasternNeighbour].MapSizeX + transformedX]);
-                            gv.mod.moduleAreasObjects[indexOfEasternNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfEasternNeighbour].MapSizeX + transformedX].tileLightSourceTag.Add("party");
-                            addedTileToListAlready = true;
                         }
-                    }
 
-                    //tile on northern map
-                    if ((yy == -1) && (!situationFound))
-                    {
-                        situationFound = true;
-                        if (indexOfNorthernNeighbour != -1)
+                        //tile on northern map, level 2
+                        else if ((yy < -1) && (!situationFound))
                         {
-                            int transformedX = xx;
-                            if (xx < 0)
+                            situationFound = true;
+                            if (indexOfNorthernNeighbour != -1)
                             {
-                                //check
-                                transformedX = gv.mod.PlayerLocationX + xx;
+                                int transformedX = xx;
+                                if (xx < 0)
+                                {
+                                    //check
+                                    transformedX = gv.mod.PlayerLocationX + xx;
+                                }
+                                if (xx > (gv.mod.currentArea.MapSizeX - 1))
+                                {
+                                    //check
+                                    transformedX = xx - gv.mod.PlayerLocationX;
+                                }
+                                int transformedY = gv.mod.moduleAreasObjects[indexOfNorthernNeighbour].MapSizeY + yy;
+                                gv.mod.moduleAreasObjects[indexOfNorthernNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfNorthernNeighbour].MapSizeX + transformedX].isOtherPartOfLightCircle = true;
+                                tilesOfThisLightSource.Add(gv.mod.moduleAreasObjects[indexOfNorthernNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfNorthernNeighbour].MapSizeX + transformedX]);
+                                gv.mod.moduleAreasObjects[indexOfNorthernNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfNorthernNeighbour].MapSizeX + transformedX].tileLightSourceTag.Add("party");
+                                addedTileToListAlready = true;
                             }
-                            if (xx > (gv.mod.currentArea.MapSizeX - 1))
+                        }
+                        //tile is on current map
+                        if (!situationFound)
+                        {
+                            Coordinate illuSquare = new Coordinate(xx, yy);
+                            Coordinate partySquare = new Coordinate(gv.mod.PlayerLocationX, gv.mod.PlayerLocationY);
+
+                            if (getDistance(illuSquare, partySquare) <= 1)
                             {
-                                //check
-                                transformedX = xx - gv.mod.PlayerLocationX;
-                            }
-                            int transformedY = gv.mod.moduleAreasObjects[indexOfNorthernNeighbour].MapSizeY + yy;
-                            if ( (gv.mod.PlayerLocationY == 0) && (xx != gv.mod.PlayerLocationX + 2) && (xx != gv.mod.PlayerLocationX - 2) )
-                            {
-                                gv.mod.moduleAreasObjects[indexOfNorthernNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfNorthernNeighbour].MapSizeX + transformedX].isCentreOfLightCircle = true;
+                                gv.mod.currentArea.Tiles[yy * gv.mod.currentArea.MapSizeX + xx].isCentreOfLightCircle = true;
+                                //mod.currentArea.Tiles[yy * mod.currentArea.MapSizeX + xx].Visible = true;
                             }
                             else
                             {
-                                gv.mod.moduleAreasObjects[indexOfNorthernNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfNorthernNeighbour].MapSizeX + transformedX].isOtherPartOfLightCircle = true;
+                                gv.mod.currentArea.Tiles[yy * gv.mod.currentArea.MapSizeX + xx].isOtherPartOfLightCircle = true;
                             }
-                            tilesOfThisLightSource.Add(gv.mod.moduleAreasObjects[indexOfNorthernNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfNorthernNeighbour].MapSizeX + transformedX]);
-                            gv.mod.moduleAreasObjects[indexOfNorthernNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfNorthernNeighbour].MapSizeX + transformedX].tileLightSourceTag.Add("party");
+                            tilesOfThisLightSource.Add(gv.mod.currentArea.Tiles[yy * gv.mod.currentArea.MapSizeX + xx]);
+                            gv.mod.currentArea.Tiles[yy * gv.mod.currentArea.MapSizeX + xx].tileLightSourceTag.Add("party");
                             addedTileToListAlready = true;
                         }
-                    }
 
-                    //tile on northern map, level 2
-                    else if ((yy < -1) && (!situationFound))
-                    {
-                        situationFound = true;
-                        if (indexOfNorthernNeighbour != -1)
+                        //placebo catch
+                        if (!addedTileToListAlready)
                         {
-                            int transformedX = xx;
-                            if (xx < 0)
-                            {
-                                //check
-                                transformedX = gv.mod.PlayerLocationX + xx;
-                            }
-                            if (xx > (gv.mod.currentArea.MapSizeX - 1))
-                            {
-                                //check
-                                transformedX = xx - gv.mod.PlayerLocationX;
-                            }
-                            int transformedY = gv.mod.moduleAreasObjects[indexOfNorthernNeighbour].MapSizeY + yy;
-                            gv.mod.moduleAreasObjects[indexOfNorthernNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfNorthernNeighbour].MapSizeX + transformedX].isOtherPartOfLightCircle = true;
-                            tilesOfThisLightSource.Add(gv.mod.moduleAreasObjects[indexOfNorthernNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfNorthernNeighbour].MapSizeX + transformedX]);
-                            gv.mod.moduleAreasObjects[indexOfNorthernNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfNorthernNeighbour].MapSizeX + transformedX].tileLightSourceTag.Add("party");
-                            addedTileToListAlready = true;
+                            //add placebo entry into list as this tile cannot be addresed without error
+                            //addign keeps the supposed order of th tiles in the lighting scheme intact
+                            Tile placeboTile = new Tile();
+                            tilesOfThisLightSource.Add(placeboTile);
                         }
-                    }
-                    //tile is on current map
-                    if (!situationFound)
-                    {
-                        Coordinate illuSquare = new Coordinate(xx,yy);
-                        Coordinate partySquare = new Coordinate(gv.mod.PlayerLocationX, gv.mod.PlayerLocationY);
-
-                        if (getDistance(illuSquare, partySquare) <= 1)
-                        {
-                            gv.mod.currentArea.Tiles[yy * gv.mod.currentArea.MapSizeX + xx].isCentreOfLightCircle = true;
-                            //mod.currentArea.Tiles[yy * mod.currentArea.MapSizeX + xx].Visible = true;
-                        }
-                        else
-                        {
-                            gv.mod.currentArea.Tiles[yy * gv.mod.currentArea.MapSizeX + xx].isOtherPartOfLightCircle = true;
-                        }
-                        tilesOfThisLightSource.Add(gv.mod.currentArea.Tiles[yy * gv.mod.currentArea.MapSizeX + xx]);
-                        gv.mod.currentArea.Tiles[yy * gv.mod.currentArea.MapSizeX + xx].tileLightSourceTag.Add("party");
-                        addedTileToListAlready = true;
-                    }
-
-                    //placebo catch
-                    if (!addedTileToListAlready)
-                    {
-                        //add placebo entry into list as this tile cannot be addresed without error
-                        //addign keeps the supposed order of th tiles in the lighting scheme intact
-                        Tile placeboTile = new Tile();
-                        tilesOfThisLightSource.Add(placeboTile);
                     }
                 }
-            }
-
-             
-        //current player position is centre of light
-            gv.mod.currentArea.Tiles[gv.mod.PlayerLocationY * gv.mod.currentArea.MapSizeX + gv.mod.PlayerLocationX].isOtherPartOfLightCircle = false;
-            gv.mod.currentArea.Tiles[gv.mod.PlayerLocationY * gv.mod.currentArea.MapSizeX + gv.mod.PlayerLocationX].isCentreOfLightCircle = false;
-            gv.mod.currentArea.Tiles[gv.mod.PlayerLocationY * gv.mod.currentArea.MapSizeX + gv.mod.PlayerLocationX].isFocalPoint = true;
-            gv.mod.currentArea.Tiles[gv.mod.PlayerLocationY * gv.mod.currentArea.MapSizeX + gv.mod.PlayerLocationX].hasHalo = true;
-            gv.mod.currentArea.Tiles[gv.mod.PlayerLocationY * gv.mod.currentArea.MapSizeX + gv.mod.PlayerLocationX].lightRadius = 1;
-            tilesOfThisLightSource.Add(gv.mod.currentArea.Tiles[gv.mod.PlayerLocationY * gv.mod.currentArea.MapSizeX + gv.mod.PlayerLocationX]);
-            gv.mod.currentArea.Tiles[gv.mod.PlayerLocationY * gv.mod.currentArea.MapSizeX + gv.mod.PlayerLocationX].tileLightSourceTag.Add("party");
 
 
-            //0 | 5 | 10 | 15 | 20
-            //1 | 6 | 11 | 16 | 21
-            //2 | 7 | 12 | 17 | 22
-            //3 | 8 | 13 | 18 | 23
-            //4 | 9 | 14 | 19 | 24
-            //tilesOfThisLightSource.Clear();
+                //current player position is centre of light
+                gv.mod.currentArea.Tiles[gv.mod.PlayerLocationY * gv.mod.currentArea.MapSizeX + gv.mod.PlayerLocationX].isOtherPartOfLightCircle = false;
+                gv.mod.currentArea.Tiles[gv.mod.PlayerLocationY * gv.mod.currentArea.MapSizeX + gv.mod.PlayerLocationX].isCentreOfLightCircle = false;
+                gv.mod.currentArea.Tiles[gv.mod.PlayerLocationY * gv.mod.currentArea.MapSizeX + gv.mod.PlayerLocationX].isFocalPoint = true;
+                gv.mod.currentArea.Tiles[gv.mod.PlayerLocationY * gv.mod.currentArea.MapSizeX + gv.mod.PlayerLocationX].hasHalo = true;
+                gv.mod.currentArea.Tiles[gv.mod.PlayerLocationY * gv.mod.currentArea.MapSizeX + gv.mod.PlayerLocationX].lightRadius = 1;
+                tilesOfThisLightSource.Add(gv.mod.currentArea.Tiles[gv.mod.PlayerLocationY * gv.mod.currentArea.MapSizeX + gv.mod.PlayerLocationX]);
+                gv.mod.currentArea.Tiles[gv.mod.PlayerLocationY * gv.mod.currentArea.MapSizeX + gv.mod.PlayerLocationX].tileLightSourceTag.Add("party");
 
-            //priority number:
-            //0: not lit (ie hidden by LoS)
-            //1: N0, N4, S0, S4
-            //2: N1,N3,S1,S3,E1,E3,W1,W3
-            //3: N2,S2,E2,W2
-            //4: NE,NW,SE,SW
-            //5: N,S,E,W
-            //6: center
 
-            for (int tCount = 0; tCount <= 24; tCount++)
-            {
+                //0 | 5 | 10 | 15 | 20
+                //1 | 6 | 11 | 16 | 21
+                //2 | 7 | 12 | 17 | 22
+                //3 | 8 | 13 | 18 | 23
+                //4 | 9 | 14 | 19 | 24
+                //tilesOfThisLightSource.Clear();
+
+                //priority number:
+                //0: not lit (ie hidden by LoS)
+                //1: N0, N4, S0, S4
+                //2: N1,N3,S1,S3,E1,E3,W1,W3
+                //3: N2,S2,E2,W2
+                //4: NE,NW,SE,SW
+                //5: N,S,E,W
+                //6: center
+
+                for (int tCount = 0; tCount <= 24; tCount++)
+                {
                     if (tCount == 0)
                     {
                         tilesOfThisLightSource[tCount].tilePositionInLitArea.Add("N0");
@@ -4788,217 +4790,218 @@ namespace IceBlink2
                     else if (tCount == 22)
                     {
                         tilesOfThisLightSource[tCount].tilePositionInLitArea.Add("E2");
-                    if ((!tilesOfThisLightSource[17].LoSBlocked) && (!tilesOfThisLightSource[17].LoSBlocked))
-                    {
-                        tilesOfThisLightSource[tCount].isLit.Add(true);
-                        tilesOfThisLightSource[tCount].priority.Add(3);
+                        if ((!tilesOfThisLightSource[17].LoSBlocked) && (!tilesOfThisLightSource[17].LoSBlocked))
+                        {
+                            tilesOfThisLightSource[tCount].isLit.Add(true);
+                            tilesOfThisLightSource[tCount].priority.Add(3);
+                        }
+                        else
+                        {
+                            tilesOfThisLightSource[tCount].isLit.Add(false);
+                            tilesOfThisLightSource[tCount].priority.Add(0);
+                            continue;
+                        }
                     }
-                    else
+                    else if (tCount == 23)
                     {
-                        tilesOfThisLightSource[tCount].isLit.Add(false);
-                        tilesOfThisLightSource[tCount].priority.Add(0);
+                        tilesOfThisLightSource[tCount].tilePositionInLitArea.Add("E3");
+                        if ((!tilesOfThisLightSource[17].LoSBlocked) && (!tilesOfThisLightSource[18].LoSBlocked))
+                        {
+                            tilesOfThisLightSource[tCount].isLit.Add(true);
+                            tilesOfThisLightSource[tCount].priority.Add(2);
+                        }
+                        else
+                        {
+                            tilesOfThisLightSource[tCount].isLit.Add(false);
+                            tilesOfThisLightSource[tCount].priority.Add(0);
+                        }
                         continue;
                     }
-                        }
-                        else if (tCount == 23)
+                    else if (tCount == 24)
+                    {
+                        tilesOfThisLightSource[tCount].tilePositionInLitArea.Add("S4");
+                        if ((!tilesOfThisLightSource[18].LoSBlocked) && (!tilesOfThisLightSource[18].LoSBlocked))
                         {
-                            tilesOfThisLightSource[tCount].tilePositionInLitArea.Add("E3");
-                            if ((!tilesOfThisLightSource[17].LoSBlocked) && (!tilesOfThisLightSource[18].LoSBlocked))
-                            {
-                                tilesOfThisLightSource[tCount].isLit.Add(true);
-                                tilesOfThisLightSource[tCount].priority.Add(2);
-                            }
-                            else
-                            {
-                                tilesOfThisLightSource[tCount].isLit.Add(false);
-                                tilesOfThisLightSource[tCount].priority.Add(0);
-                            }
-                            continue;
-                        }
-                        else if (tCount == 24)
-                        {
-                            tilesOfThisLightSource[tCount].tilePositionInLitArea.Add("S4");
-                            if ((!tilesOfThisLightSource[18].LoSBlocked) && (!tilesOfThisLightSource[18].LoSBlocked))
-                            {
-                                tilesOfThisLightSource[tCount].isLit.Add(true);
-                                tilesOfThisLightSource[tCount].priority.Add(1);
-                            }
-                            else
-                            {
-                                tilesOfThisLightSource[tCount].isLit.Add(false);
-                                tilesOfThisLightSource[tCount].priority.Add(0);
-                            }
-                            continue;
-                        }
-                        else if (tCount == 19)
-                        {
-                            tilesOfThisLightSource[tCount].tilePositionInLitArea.Add("S3");
-                            if ((!tilesOfThisLightSource[13].LoSBlocked) && (!tilesOfThisLightSource[18].LoSBlocked))
-                            {
-                                tilesOfThisLightSource[tCount].isLit.Add(true);
-                                tilesOfThisLightSource[tCount].priority.Add(2);
-                            }
-                            else
-                            {
-                                tilesOfThisLightSource[tCount].isLit.Add(false);
-                                tilesOfThisLightSource[tCount].priority.Add(0);
-                            }
-                            continue;
-                        }
-                        else if (tCount == 14)
-                        {
-                            tilesOfThisLightSource[tCount].tilePositionInLitArea.Add("S2");
-                            if ((!tilesOfThisLightSource[13].LoSBlocked) && (!tilesOfThisLightSource[13].LoSBlocked))
-                            {
-                                tilesOfThisLightSource[tCount].isLit.Add(true);
-                                tilesOfThisLightSource[tCount].priority.Add(3);
-                            }
-                            else
-                            {
-                                tilesOfThisLightSource[tCount].isLit.Add(false);
-                                tilesOfThisLightSource[tCount].priority.Add(0);
-                            }
-                            continue;
-                        }
-                        else if (tCount == 9)
-                        {
-                            tilesOfThisLightSource[tCount].tilePositionInLitArea.Add("S1");
-                            if ((!tilesOfThisLightSource[8].LoSBlocked) && (!tilesOfThisLightSource[13].LoSBlocked))
-                            {
-                                tilesOfThisLightSource[tCount].isLit.Add(true);
-                                tilesOfThisLightSource[tCount].priority.Add(2);
-                            }
-                            else
-                            {
-                                tilesOfThisLightSource[tCount].isLit.Add(false);
-                                tilesOfThisLightSource[tCount].priority.Add(0);
-                            }
-                            continue;
-                        }
-                        else if (tCount == 4)
-                        {
-                            tilesOfThisLightSource[tCount].tilePositionInLitArea.Add("S0");
-                            if ((!tilesOfThisLightSource[8].LoSBlocked) && (!tilesOfThisLightSource[8].LoSBlocked))
-                            {
-                                tilesOfThisLightSource[tCount].isLit.Add(true);
-                                tilesOfThisLightSource[tCount].priority.Add(1);
-                            }
-                            else
-                            {
-                                tilesOfThisLightSource[tCount].isLit.Add(false);
-                                tilesOfThisLightSource[tCount].priority.Add(0);
-                            }
-                            continue;
-                        }
-                        else if (tCount == 3)
-                        {
-                            tilesOfThisLightSource[tCount].tilePositionInLitArea.Add("W3");
-                            if ((!tilesOfThisLightSource[7].LoSBlocked) && (!tilesOfThisLightSource[8].LoSBlocked))
-                            {
-                                tilesOfThisLightSource[tCount].isLit.Add(true);
-                                tilesOfThisLightSource[tCount].priority.Add(2);
-                            }
-                            else
-                            {
-                                tilesOfThisLightSource[tCount].isLit.Add(false);
-                                tilesOfThisLightSource[tCount].priority.Add(0);
-                            }
-                            continue;
-                        }
-                        else if (tCount == 2)
-                        {
-                            tilesOfThisLightSource[tCount].tilePositionInLitArea.Add("W2");
-                            if ((!tilesOfThisLightSource[7].LoSBlocked) && (!tilesOfThisLightSource[7].LoSBlocked))
-                            {
-                                tilesOfThisLightSource[tCount].isLit.Add(true);
-                                tilesOfThisLightSource[tCount].priority.Add(3);
-                            }
-                            else
-                            {
-                                tilesOfThisLightSource[tCount].isLit.Add(false);
-                                tilesOfThisLightSource[tCount].priority.Add(0);
-                            }
-                            continue;
-                        }
-                        else if (tCount == 1)
-                        {
-                            tilesOfThisLightSource[tCount].tilePositionInLitArea.Add("W1");
-                            if ((!tilesOfThisLightSource[6].LoSBlocked) && (!tilesOfThisLightSource[7].LoSBlocked))
-                            {
-                                tilesOfThisLightSource[tCount].isLit.Add(true);
-                                tilesOfThisLightSource[tCount].priority.Add(2);
-                            }
-                            else
-                            {
-                                tilesOfThisLightSource[tCount].isLit.Add(false);
-                                tilesOfThisLightSource[tCount].priority.Add(0);
-                            }
-                            continue;
-                        }
-                        else if (tCount == 6)
-                        {
-                            tilesOfThisLightSource[tCount].tilePositionInLitArea.Add("NW");
                             tilesOfThisLightSource[tCount].isLit.Add(true);
-                            tilesOfThisLightSource[tCount].priority.Add(4);
-                            continue;
+                            tilesOfThisLightSource[tCount].priority.Add(1);
                         }
-                        else if (tCount == 11)
+                        else
                         {
-                            tilesOfThisLightSource[tCount].tilePositionInLitArea.Add("N");
-                            tilesOfThisLightSource[tCount].isLit.Add(true);
-                            tilesOfThisLightSource[tCount].priority.Add(5);
-                            continue;
+                            tilesOfThisLightSource[tCount].isLit.Add(false);
+                            tilesOfThisLightSource[tCount].priority.Add(0);
                         }
-                        else if (tCount == 16)
-                        {
-                            tilesOfThisLightSource[tCount].tilePositionInLitArea.Add("NE");
-                            tilesOfThisLightSource[tCount].isLit.Add(true);
-                            tilesOfThisLightSource[tCount].priority.Add(4);
-                            continue;
-                        }
-                        else if (tCount == 17)
-                        {
-                            tilesOfThisLightSource[tCount].tilePositionInLitArea.Add("E");
-                            tilesOfThisLightSource[tCount].isLit.Add(true);
-                            tilesOfThisLightSource[tCount].priority.Add(5);
-                            continue;
-                        }
-                        else if (tCount == 18)
-                        {
-                            tilesOfThisLightSource[tCount].tilePositionInLitArea.Add("SE");
-                            tilesOfThisLightSource[tCount].isLit.Add(true);
-                            tilesOfThisLightSource[tCount].priority.Add(4);
-                            continue;
-                        }
-                        else if (tCount == 13)
-                        {
-                            tilesOfThisLightSource[tCount].tilePositionInLitArea.Add("S");
-                            tilesOfThisLightSource[tCount].isLit.Add(true);
-                            tilesOfThisLightSource[tCount].priority.Add(5);
-                            continue;
-                        }
-                        else if (tCount == 8)
-                        {
-                            tilesOfThisLightSource[tCount].tilePositionInLitArea.Add("SW");
-                            tilesOfThisLightSource[tCount].isLit.Add(true);
-                            tilesOfThisLightSource[tCount].priority.Add(4);
-                            continue;
-                        }
-                        else if (tCount == 7)
-                        {
-                            tilesOfThisLightSource[tCount].tilePositionInLitArea.Add("W");
-                            tilesOfThisLightSource[tCount].isLit.Add(true);
-                            tilesOfThisLightSource[tCount].priority.Add(5);
-                            continue;
-                        }
-                        else if (tCount == 12)
-                        {
-                            tilesOfThisLightSource[tCount].tilePositionInLitArea.Add("Center");
-                            tilesOfThisLightSource[tCount].isLit.Add(true);
-                            tilesOfThisLightSource[tCount].priority.Add(6);
-                            continue;
-                        }
+                        continue;
                     }
+                    else if (tCount == 19)
+                    {
+                        tilesOfThisLightSource[tCount].tilePositionInLitArea.Add("S3");
+                        if ((!tilesOfThisLightSource[13].LoSBlocked) && (!tilesOfThisLightSource[18].LoSBlocked))
+                        {
+                            tilesOfThisLightSource[tCount].isLit.Add(true);
+                            tilesOfThisLightSource[tCount].priority.Add(2);
+                        }
+                        else
+                        {
+                            tilesOfThisLightSource[tCount].isLit.Add(false);
+                            tilesOfThisLightSource[tCount].priority.Add(0);
+                        }
+                        continue;
+                    }
+                    else if (tCount == 14)
+                    {
+                        tilesOfThisLightSource[tCount].tilePositionInLitArea.Add("S2");
+                        if ((!tilesOfThisLightSource[13].LoSBlocked) && (!tilesOfThisLightSource[13].LoSBlocked))
+                        {
+                            tilesOfThisLightSource[tCount].isLit.Add(true);
+                            tilesOfThisLightSource[tCount].priority.Add(3);
+                        }
+                        else
+                        {
+                            tilesOfThisLightSource[tCount].isLit.Add(false);
+                            tilesOfThisLightSource[tCount].priority.Add(0);
+                        }
+                        continue;
+                    }
+                    else if (tCount == 9)
+                    {
+                        tilesOfThisLightSource[tCount].tilePositionInLitArea.Add("S1");
+                        if ((!tilesOfThisLightSource[8].LoSBlocked) && (!tilesOfThisLightSource[13].LoSBlocked))
+                        {
+                            tilesOfThisLightSource[tCount].isLit.Add(true);
+                            tilesOfThisLightSource[tCount].priority.Add(2);
+                        }
+                        else
+                        {
+                            tilesOfThisLightSource[tCount].isLit.Add(false);
+                            tilesOfThisLightSource[tCount].priority.Add(0);
+                        }
+                        continue;
+                    }
+                    else if (tCount == 4)
+                    {
+                        tilesOfThisLightSource[tCount].tilePositionInLitArea.Add("S0");
+                        if ((!tilesOfThisLightSource[8].LoSBlocked) && (!tilesOfThisLightSource[8].LoSBlocked))
+                        {
+                            tilesOfThisLightSource[tCount].isLit.Add(true);
+                            tilesOfThisLightSource[tCount].priority.Add(1);
+                        }
+                        else
+                        {
+                            tilesOfThisLightSource[tCount].isLit.Add(false);
+                            tilesOfThisLightSource[tCount].priority.Add(0);
+                        }
+                        continue;
+                    }
+                    else if (tCount == 3)
+                    {
+                        tilesOfThisLightSource[tCount].tilePositionInLitArea.Add("W3");
+                        if ((!tilesOfThisLightSource[7].LoSBlocked) && (!tilesOfThisLightSource[8].LoSBlocked))
+                        {
+                            tilesOfThisLightSource[tCount].isLit.Add(true);
+                            tilesOfThisLightSource[tCount].priority.Add(2);
+                        }
+                        else
+                        {
+                            tilesOfThisLightSource[tCount].isLit.Add(false);
+                            tilesOfThisLightSource[tCount].priority.Add(0);
+                        }
+                        continue;
+                    }
+                    else if (tCount == 2)
+                    {
+                        tilesOfThisLightSource[tCount].tilePositionInLitArea.Add("W2");
+                        if ((!tilesOfThisLightSource[7].LoSBlocked) && (!tilesOfThisLightSource[7].LoSBlocked))
+                        {
+                            tilesOfThisLightSource[tCount].isLit.Add(true);
+                            tilesOfThisLightSource[tCount].priority.Add(3);
+                        }
+                        else
+                        {
+                            tilesOfThisLightSource[tCount].isLit.Add(false);
+                            tilesOfThisLightSource[tCount].priority.Add(0);
+                        }
+                        continue;
+                    }
+                    else if (tCount == 1)
+                    {
+                        tilesOfThisLightSource[tCount].tilePositionInLitArea.Add("W1");
+                        if ((!tilesOfThisLightSource[6].LoSBlocked) && (!tilesOfThisLightSource[7].LoSBlocked))
+                        {
+                            tilesOfThisLightSource[tCount].isLit.Add(true);
+                            tilesOfThisLightSource[tCount].priority.Add(2);
+                        }
+                        else
+                        {
+                            tilesOfThisLightSource[tCount].isLit.Add(false);
+                            tilesOfThisLightSource[tCount].priority.Add(0);
+                        }
+                        continue;
+                    }
+                    else if (tCount == 6)
+                    {
+                        tilesOfThisLightSource[tCount].tilePositionInLitArea.Add("NW");
+                        tilesOfThisLightSource[tCount].isLit.Add(true);
+                        tilesOfThisLightSource[tCount].priority.Add(4);
+                        continue;
+                    }
+                    else if (tCount == 11)
+                    {
+                        tilesOfThisLightSource[tCount].tilePositionInLitArea.Add("N");
+                        tilesOfThisLightSource[tCount].isLit.Add(true);
+                        tilesOfThisLightSource[tCount].priority.Add(5);
+                        continue;
+                    }
+                    else if (tCount == 16)
+                    {
+                        tilesOfThisLightSource[tCount].tilePositionInLitArea.Add("NE");
+                        tilesOfThisLightSource[tCount].isLit.Add(true);
+                        tilesOfThisLightSource[tCount].priority.Add(4);
+                        continue;
+                    }
+                    else if (tCount == 17)
+                    {
+                        tilesOfThisLightSource[tCount].tilePositionInLitArea.Add("E");
+                        tilesOfThisLightSource[tCount].isLit.Add(true);
+                        tilesOfThisLightSource[tCount].priority.Add(5);
+                        continue;
+                    }
+                    else if (tCount == 18)
+                    {
+                        tilesOfThisLightSource[tCount].tilePositionInLitArea.Add("SE");
+                        tilesOfThisLightSource[tCount].isLit.Add(true);
+                        tilesOfThisLightSource[tCount].priority.Add(4);
+                        continue;
+                    }
+                    else if (tCount == 13)
+                    {
+                        tilesOfThisLightSource[tCount].tilePositionInLitArea.Add("S");
+                        tilesOfThisLightSource[tCount].isLit.Add(true);
+                        tilesOfThisLightSource[tCount].priority.Add(5);
+                        continue;
+                    }
+                    else if (tCount == 8)
+                    {
+                        tilesOfThisLightSource[tCount].tilePositionInLitArea.Add("SW");
+                        tilesOfThisLightSource[tCount].isLit.Add(true);
+                        tilesOfThisLightSource[tCount].priority.Add(4);
+                        continue;
+                    }
+                    else if (tCount == 7)
+                    {
+                        tilesOfThisLightSource[tCount].tilePositionInLitArea.Add("W");
+                        tilesOfThisLightSource[tCount].isLit.Add(true);
+                        tilesOfThisLightSource[tCount].priority.Add(5);
+                        continue;
+                    }
+                    else if (tCount == 12)
+                    {
+                        tilesOfThisLightSource[tCount].tilePositionInLitArea.Add("Center");
+                        tilesOfThisLightSource[tCount].isLit.Add(true);
+                        tilesOfThisLightSource[tCount].priority.Add(6);
+                        continue;
+                    }
+                }
+            }
         
     //addedTileToListAlready = true;
 
@@ -7241,6 +7244,13 @@ namespace IceBlink2
             //store last location
             //prp.lastLocationX = prp.LocationX;
             //prp.lastLocationX = prp.LocationX;
+            if (prp.LocationX == gv.mod.PlayerLocationX && prp.LocationY == gv.mod.PlayerLocationY)
+            {
+                if (prp.EncounterWhenOnPartySquare != "" && prp.EncounterWhenOnPartySquare != "none")
+                {
+                    doEncounterBasedOnTag(prp.EncounterWhenOnPartySquare);
+                }
+            }
 
             if (gv.mod.useSmoothMovement)
             {
@@ -7803,6 +7813,30 @@ namespace IceBlink2
                 bool foundOne = false;
                 foreach (Prop prp in gv.mod.currentArea.Props)
                 {
+                    bool delProp = false;
+                    if (prp.EncounterWhenOnPartySquare != "" && prp.EncounterWhenOnPartySquare != "none")
+                    {
+                        //delProp = true;
+                        foreach (Encounter e in gv.mod.moduleEncountersList)
+                        {
+                            if (e.encounterName == prp.EncounterWhenOnPartySquare)
+                            {
+                                    if (e.isOver)
+                                    {
+                                        delProp = true;
+                                        break;
+                                    }
+                                
+                            }
+                        }
+                    }
+
+                    if (delProp)
+                    {
+                        gv.mod.currentArea.Props.Remove(prp);
+                        continue;
+                    }
+
                     bool doNotTriggerProp = false;
                     if ((prp.isMover == false) || ((prp.MoverType == "Post") && (prp.isChaser == false)))
                     {
@@ -7827,12 +7861,13 @@ namespace IceBlink2
                                 gv.sf.ThisProp = prp;
                                 if ((gv.mod.useSmoothMovement) && (prp.isMover))
                                 {
-                                    for (int i = 0; i < 30; i++)
-                                    {
-                                        gv.Render(0);
-                                    }
+                                    //for (int i = 0; i < 30; i++)
+                                    //{
+                                        //gv.Render(0);
+                                    //}
                                 }
                                 doConversationBasedOnTag(prp.ConversationWhenOnPartySquare);
+                                //continue;
                                 break;
                             }
                             else if (gv.mod.avoidInteraction == false)
@@ -7842,18 +7877,20 @@ namespace IceBlink2
                                 
                                 if ((gv.mod.useSmoothMovement) && (prp.isMover))
                                 {
-                                    for (int i = 0; i < 30; i++)
-                                    {
-                                                                                gv.Render(0);
-                                    }
+                                    //for (int i = 0; i < 30; i++)
+                                    //{
+                                                                                //gv.Render(0);
+                                    //}
                                 }
                                 
                                 doConversationBasedOnTag(prp.ConversationWhenOnPartySquare);
+                                //continue;
                                 break;
                             }
                             else
                             {
                                 foundOne = false;
+                                //continue;
                                 break;
                             }
 
@@ -7865,13 +7902,14 @@ namespace IceBlink2
                             
                             if ((gv.mod.useSmoothMovement) && (prp.isMover))
                             {
-                                for (int i = 0; i < 30; i++)
-                                {
-                                                                        gv.Render(0);
-                                }
+                                //for (int i = 0; i < 30; i++)
+                                //{
+                                                                        //gv.Render(0);
+                                //}
                             }
                            
                             doEncounterBasedOnTag(prp.EncounterWhenOnPartySquare);
+                            //continue;
                             break;
                         }
                         else if (gv.triggerPropIndex < 3)
@@ -7879,6 +7917,7 @@ namespace IceBlink2
                             gv.mod.isRecursiveCall = true;
                             doPropTriggers();
                             gv.mod.isRecursiveCall = false;
+                            //continue;
                             break;
                         }
                         if (gv.triggerPropIndex > 2)
@@ -7893,6 +7932,7 @@ namespace IceBlink2
                             {
                                 gv.mod.currentArea.Props.Remove(prp);
                             }
+                            //continue;
                             break;
                         }
                     }
