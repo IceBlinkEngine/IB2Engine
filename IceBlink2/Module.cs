@@ -236,11 +236,15 @@ namespace IceBlink2
         [JsonIgnore]
         public List<System.Drawing.Bitmap> loadedMinimapTileBitmaps = new List<System.Drawing.Bitmap>();
         public List<String> loadedMinimapTileBitmapsNames = new List<String>();
+        
         public string partyLightColor = "yellow";
         public float partyRingHaloIntensity = 1f;
         public float partyFocalHaloIntensity = 1f;
         public bool partyLightOn = false;
         public string partyLightName = "";
+        public List<String> partyLightEnergyName = new List<String>();
+        public List<int> partyLightEnergyUnitsLeft = new List<int>();
+        public int currentLightUnitsLeft = 0;
 
         public float overrideDelayCounter1 = 0;
         public float cycleCounter1 = 0;

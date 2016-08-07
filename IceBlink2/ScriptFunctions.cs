@@ -331,6 +331,23 @@ namespace IceBlink2
                         {
                             gv.mod.partyLightName = p1;
                             gv.mod.partyLightOn = true;
+
+                            bool newLight = true;
+                            for (int i = 0; i < gv.mod.partyLightEnergyName.Count; i++)
+                            {
+                                if (gv.mod.partyLightName == gv.mod.partyLightEnergyName[i])
+                                {
+                                    newLight = false;
+                                    break;
+                                }
+                            }
+
+                            if (newLight)
+                            {
+                                gv.mod.partyLightEnergyName.Add(gv.mod.partyLightName);
+                                gv.mod.partyLightEnergyUnitsLeft.Add(250);
+                                gv.mod.currentLightUnitsLeft = 250; 
+                            }
                             if (p2 != "" && p2 != "none")
                             {
                                 gv.mod.partyLightColor = p2;

@@ -2627,6 +2627,83 @@ namespace IceBlink2
 
         public void doIllumination()
         {
+            
+            
+            int dawn = 5 * 60;
+            int sunrise = 6 * 60;
+            int day = 7 * 60;
+            int sunset = 17 * 60;
+            int dusk = 18 * 60;
+            int night = 20 * 60;
+            int time = gv.mod.WorldTime % 1440;
+
+            bool consumeLightEnergy = false;
+            if ((time >= dawn) && (time < sunrise))
+                                        {
+                                            //gv.DrawBitmap(gv.cc.tint_dawn, src, dst, 0, false, 1.0f / flickerReduction * flicker / 100f);
+                                            //gv.DrawBitmap(gv.cc.tint_dawn, src, dst, 0, false, 1.0f);
+                                        }
+                                        else if ((time >= sunrise) && (time < day))
+                                        {
+                                            //gv.DrawBitmap(gv.cc.tint_sunrise, src, dst, 0, false, 1.0f);
+                                        }
+                                        else if ((time >= day) && (time < sunset))
+                                        {
+                                            //no tint for day
+                                        }
+                                        else if ((time >= sunset) && (time < dusk))
+                                        {
+                                            //gv.DrawBitmap(gv.cc.tint_sunset, src, dst, 0, false, 1.0f);
+                                        }
+                                        else if ((time >= dusk) && (time < night))
+                                        {
+                                            //gv.DrawBitmap(gv.cc.tint_dusk, src, dst, 0, false, 1.0f);
+                                        }
+            else if ((time >= night) || (time < dawn))
+            {
+                consumeLightEnergy = true;
+            }
+
+            if (!gv.mod.currentArea.UseDayNightCycle)
+            {
+                consumeLightEnergy = true;
+            }
+
+            if (consumeLightEnergy && gv.mod.partyLightEnergyName.Count >= 1 && gv.mod.partyLightOn)
+            {
+                for (int i = gv.mod.partyLightEnergyName.Count - 1; i >= 0; i--)
+                {
+                    if (gv.mod.partyLightEnergyName[i] == gv.mod.partyLightName)
+                    {
+                        if (gv.mod.partyLightEnergyUnitsLeft[i] > 0)
+                        {
+                            gv.mod.partyLightEnergyUnitsLeft[i]--;
+                            gv.mod.currentLightUnitsLeft = gv.mod.partyLightEnergyUnitsLeft[i]; 
+                        }
+                        else 
+                        {
+                            foreach(ItemRefs it in gv.mod.partyInventoryRefsList)
+                            {
+                                if (it.name == gv.mod.partyLightName)
+                                {
+                                    gv.mod.partyInventoryRefsList.Remove(it);
+                                    break;
+                                }
+                            }
+                            
+                            gv.mod.partyLightEnergyName.RemoveAt(i);
+                            gv.mod.partyLightEnergyUnitsLeft.RemoveAt(i);
+                            gv.mod.partyLightOn = false;
+                            gv.mod.partyLightColor = "";
+                            gv.mod.partyLightName = "";
+                        }
+                    }
+                }
+                //gv.mod.partyLightEnergyName.Add(gv.mod.partyLightName);
+                //gv.mod.partyLightEnergyUnitsLeft.Add(250);
+            }
+            
+            
             /*
             int backupPlayerLocationX = gv.mod.PlayerLocationX;
             int backupPlayerLocationY = gv.mod.PlayerLocationY;
