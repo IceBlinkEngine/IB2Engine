@@ -85,6 +85,7 @@ namespace IceBlink2
         public Bitmap turn_marker;
         public Bitmap pc_dead;
         public Bitmap pc_stealth;
+        public Bitmap offScreenBlack;
         public Bitmap offScreen;
         public Bitmap offScreen5;
         public Bitmap offScreen6;

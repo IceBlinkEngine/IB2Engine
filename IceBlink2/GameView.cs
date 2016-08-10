@@ -321,6 +321,7 @@ namespace IceBlink2
             cc.pc_dead = cc.LoadBitmap("pc_dead");
             cc.pc_stealth = cc.LoadBitmap("pc_stealth");
             cc.offScreen = cc.LoadBitmap("offScreen");
+            cc.offScreenBlack = cc.LoadBitmap("offScreenBlack");
             cc.offScreen5 = cc.LoadBitmap("offScreen5");
             cc.black_tile4 = cc.LoadBitmap("black_tile4");
             cc.black_tile5 = cc.LoadBitmap("black_tile5");

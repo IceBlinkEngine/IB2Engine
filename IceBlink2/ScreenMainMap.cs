@@ -1084,6 +1084,8 @@ namespace IceBlink2
                 drawMovingProps();
                 if((!gv.mod.currentArea.useLightSystem)|| (!gv.mod.partyLightOn))
                 {
+                    //drawProps();
+                    //drawMovingProps();
                     drawPlayer();
                 }
                 if (gv.mod.useAllTileSystem)
@@ -1094,6 +1096,8 @@ namespace IceBlink2
                 //drawMovingProps();
                 if ((gv.mod.currentArea.useLightSystem) && (gv.mod.partyLightOn))
                 {
+                    //drawProps();
+                    //drawMovingProps();
                     drawPlayer();
                 }
                 drawFogOfWar();
@@ -26495,7 +26499,8 @@ namespace IceBlink2
                                 int brX = gv.squareSize;
                                 int brY = gv.squareSize;
                                 IbRect src = new IbRect(0, 0, 100, 100);
-                                IbRect dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels - (int)(brX * 0.1f), tlY - (int)(brY * 0.1f), (int)(brX*1.2f), (int)(brY*1.2f));
+                                //IbRect dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels, tlY, brX, brY);
+                                IbRect dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels - (int)(brX * 0.1f), tlY - (int)(brY * 0.1f), (int)(brX * 1.2f), (int)(brY * 1.2f));
                                 //IbRect dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels, tlY, (int)(brX * 1.09f), (int)(brY * 1.1f));
                                 //IbRect dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels, tlY, gv.squareSize, gv.squareSize);
                                 //IbRect dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels, tlY, brX + gv.ox, brY + 3);
@@ -26504,12 +26509,22 @@ namespace IceBlink2
 
                                 if (tile.Visible == false)
                                 {
-                                    gv.DrawBitmap(gv.cc.offScreen, src, dst,false,1.0f, false);
+                                    if (gv.mod.useMathGridFade)
+                                    {
+                                        gv.DrawBitmap(gv.cc.offScreen, src, dst, false, 1.0f, false);
+                                    }
+                                    else
+                                    {
+                                        gv.DrawBitmap(gv.cc.offScreenBlack, src, dst, false, 1.0f, false);
+                                    }
                                 }
 
-                                else if ((tile.Visible == true) && ( (tile.opacity > 0) ) )
+                                //code for math grid fade, ie diferent fade speeds for fading tiles
+                                else if ((tile.Visible == true) && ( (tile.opacity > 0) ) && (gv.mod.useMathGridFade) )
                                 {
                                     //dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + (int)(brX * 0.05f), tlY + (int)(brY * 0.05f), brX - (int)(brX * 0.05f), brY - (int)(brY * 0.05f));
+                                   
+                                    //dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels, tlY, brX, brY);
 
                                     if (tile.fadeMode == 0)
                                     {
@@ -26569,9 +26584,77 @@ namespace IceBlink2
                                     }
                                     tile.opacity = tile.opacity - 0.07f;
                                 }
+
+                                //code for black tile fade, fade with same speed
+                                //to do
+                                else if ((tile.Visible == true) && ((tile.opacity > 0)) && (!gv.mod.useMathGridFade))
+                                {
+                                    //dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + (int)(brX * 0.05f), tlY + (int)(brY * 0.05f), brX - (int)(brX * 0.05f), brY - (int)(brY * 0.05f));
+
+                                    dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels, tlY, brX, brY);
+
+                                    if (tile.fadeMode == 0)
+                                    {
+                                        tile.fadeMode = gv.sf.RandInt(3);
+                                    }
+
+                                    int chance = gv.sf.RandInt(75);
+                                    if (tile.fadeMode == 1)
+                                    {
+                                        if (chance > 50)
+                                        {
+                                            tile.opacity5 = tile.opacity5 - 0.14f;
+                                        }
+                                        if (chance > 30)
+                                        {
+                                            tile.opacity6 = tile.opacity6 - 0.1f;
+                                        }
+                                        gv.DrawBitmap(gv.cc.offScreenBlack, src, dst, 0, false, 1.0f * tile.opacity5);
+                                        gv.DrawBitmap(gv.cc.offScreenBlack, src, dst, 0, false, 0.5f * tile.opacity6);
+                                        //gv.DrawBitmap(gv.cc.black_tile4, src, dst, false, 1.0f * tile.opacity5, false);
+                                        //gv.DrawBitmap(gv.cc.black_tile5, src, dst, false, 0.5f * tile.opacity6, false);
+
+                                        //gv.DrawBitmap(tile.tileBitmap0, src, dst, false, 1f, true);
+                                    }
+                                    if (tile.fadeMode == 2)
+                                    {
+                                        chance = gv.sf.RandInt(75);
+                                        if (chance > 50)
+                                        {
+                                            tile.opacity6 = tile.opacity6 - 0.14f;
+                                        }
+                                        if (chance > 30)
+                                        {
+                                            tile.opacity7 = tile.opacity7 - 0.1f;
+                                        }
+                                        gv.DrawBitmap(gv.cc.offScreenBlack, src, dst, 0, false, 1.0f * tile.opacity6);
+                                        gv.DrawBitmap(gv.cc.offScreenBlack, src, dst, 0, false, 0.5f * tile.opacity7);
+                                        //gv.DrawBitmap(gv.cc.black_tile5, src, dst, false, 1.0f * tile.opacity6, false);
+                                        //gv.DrawBitmap(gv.cc.black_tile4, src, dst, false, 0.5f * tile.opacity7, false);
+                                    }
+
+                                    if (tile.fadeMode == 3)
+                                    {
+                                        chance = gv.sf.RandInt(75);
+                                        if (chance > 50)
+                                        {
+                                            tile.opacity7 = tile.opacity7 - 0.14f;
+                                        }
+                                        if (chance > 30)
+                                        {
+                                            tile.opacity5 = tile.opacity5 - 0.1f;
+                                        }
+                                        gv.DrawBitmap(gv.cc.offScreenBlack, src, dst, 0, false, 1.0f * tile.opacity7);
+                                        gv.DrawBitmap(gv.cc.offScreenBlack, src, dst, 0, false, 0.5f * tile.opacity5);
+                                        //gv.DrawBitmap(gv.cc.black_tile4, src, dst, false, 1.0f * tile.opacity7, false);
+                                        //gv.DrawBitmap(gv.cc.black_tile5, src, dst, false, 0.5f * tile.opacity5, false);
+                                    }
+                                    tile.opacity = tile.opacity - 0.07f;
+                                }
+
                                 //else if (tile.Visible == false)
                                 //{
-                                    //gv.DrawBitmap(gv.cc.black_tile2, src, dst, false, 1.0f, false);
+                                //gv.DrawBitmap(gv.cc.black_tile2, src, dst, false, 1.0f, false);
                                 //}
                             }
                             catch { }
@@ -27386,7 +27469,7 @@ namespace IceBlink2
                                         //dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f) - extension + 5, tlY + shifterY - (int)((scaler - 1) * brY * 0.5f) - extension + 5, (int)(brX * scaler) + 2 * extension - 10, (int)(brY * scaler) + 2 * extension - 10);
                                         //gv.DrawBitmap(gv.cc.light_torch, src, dst, 0, false, 2f * 0.75f * (0.425f - flicker / 200f));
                                         //dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f), tlY + shifterY - (int)((scaler - 1) * brY * 0.5f), (int)(brX * scaler), (int)(brY * scaler));
-                                        if ((x == gv.mod.PlayerLocationX) && (y == gv.mod.PlayerLocationY))
+                                        if ((x == gv.mod.PlayerLocationX) && (y == gv.mod.PlayerLocationY) && gv.mod.partyLightOn)
                                         {
                                             int extension = 6 - (int)(flicker / 7f);
                                             int extension2 = 13 - (int)(flicker / 3f);
@@ -28431,7 +28514,7 @@ namespace IceBlink2
                                     {
                                         if (gv.mod.currentArea.useLightSystem)
                                         {
-                                            gv.DrawBitmap(gv.cc.black_tile, src, dst, 0, false, 0.975f);
+                                            gv.DrawBitmap(gv.cc.black_tile, src, dst, 0, false, 1.0f);
                                         }
                                     }
                                     else

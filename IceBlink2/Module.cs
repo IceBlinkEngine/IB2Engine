@@ -246,6 +246,8 @@ namespace IceBlink2
         public List<int> partyLightEnergyUnitsLeft = new List<int>();
         public int currentLightUnitsLeft = 0;
 
+        public bool useMathGridFade = false;
+
         public float overrideDelayCounter1 = 0;
         public float cycleCounter1 = 0;
         public float fullScreenAnimationFrameCounter1 = 0;
