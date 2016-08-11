@@ -3209,7 +3209,7 @@
     "onUseItemLogicTreeParms": "",
     "destroyItemAfterOnUseItemLogicTree": false,
     "onUseItemIBScript": "doPartyLight",
-    "onUseItemIBScriptParms": "torch,yellow,1,1",
+    "onUseItemIBScriptParms": "Torch,yellow,1,1",
     "destroyItemAfterOnUseItemIBScript": false,
     "onUseItem": "none",
     "onWhileEquipped": "none",

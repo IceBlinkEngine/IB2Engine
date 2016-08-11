@@ -345,16 +345,14 @@ namespace IceBlink2
                             if (newLight)
                             {
                                 gv.mod.partyLightEnergyName.Add(gv.mod.partyLightName);
-                                gv.mod.partyLightEnergyUnitsLeft.Add(250);
-                                gv.mod.currentLightUnitsLeft = 250; 
+                                gv.mod.partyLightEnergyUnitsLeft.Add(gv.mod.durationInStepsOfPartyLightItems);
+                                gv.mod.currentLightUnitsLeft = gv.mod.durationInStepsOfPartyLightItems; 
                             }
                             if (p2 != "" && p2 != "none")
                             {
                                 gv.mod.partyLightColor = p2;
                             }
                         }
-
-                        
 
                         float parm3 = (float)Convert.ToDouble(p3);
                         float parm4 = (float)Convert.ToDouble(p4);

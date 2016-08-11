@@ -29647,7 +29647,7 @@ namespace IceBlink2
                             }
                         }
                     }
-                    else if ((rtn.Equals("ctrlDownArrow")) || ((mod.PlayerLocationX == actualx) && ((mod.PlayerLocationY + 1) <= actualy - 1)))
+                    else if ((rtn.Equals("ctrlDownArrow")) || ((mod.PlayerLocationX == actualx) && ((mod.PlayerLocationY + 1) <= actualy)))
                     //else if (rtn.Equals("ctrlDownArrow"))
 
                     {

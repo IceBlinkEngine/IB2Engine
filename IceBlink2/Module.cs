@@ -245,6 +245,7 @@ namespace IceBlink2
         public List<String> partyLightEnergyName = new List<String>();
         public List<int> partyLightEnergyUnitsLeft = new List<int>();
         public int currentLightUnitsLeft = 0;
+        public int durationInStepsOfPartyLightItems = 250;
 
         public bool useMathGridFade = false;
 
