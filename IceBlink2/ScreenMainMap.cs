@@ -1081,7 +1081,7 @@ namespace IceBlink2
             if (!mod.currentArea.areaDark)
             {
                 drawProps();
-                drawMovingProps();
+                drawMovingProps(elapsed);
                 if((!gv.mod.currentArea.useLightSystem)|| (!gv.mod.partyLightOn))
                 {
                     //drawProps();
@@ -25138,7 +25138,7 @@ namespace IceBlink2
                 #endregion
             }
         }
-        public void drawMovingProps()
+        public void drawMovingProps(float elapsed)
         {
             if (mod.useSmoothMovement == true)
             {
@@ -25258,15 +25258,106 @@ namespace IceBlink2
                                 int dstH = (int)(((float)p.token.PixelSize.Height / (float)gv.squareSizeInPixels) * (float)gv.squareSize);
                                 int dstXshift = (dstW - gv.squareSize) / 2;
                                 int dstYshift = (dstH - gv.squareSize) / 2;
-                                IbRect dst = new IbRect((int)p.currentPixelPositionX - dstXshift, (int)p.currentPixelPositionY - dstYshift, dstW, dstH);
+
+
+                                //set up idle move code
+
+                                int randXInt = 0;
+                                int randYInt = 0;
+                                float randX = 0;
+                                float randY = 0;
+                                int decider = 0;
+                                int moveChance = 100;
+
+                                //the lower the number, the sooner and more often it stops
+                                int stopIdleChance = (int)(30f * (30f / elapsed));
+
+                                decider = gv.sf.RandInt(stopIdleChance);
+                                if ((decider == 1) && (p.inactiveTimer == 0))
+                                {
+                                    p.inactiveTimer += gv.sf.RandInt(2);
+                                }
+
+                                if (p.inactiveTimer != 0)
+                                {
+                                    int decider2 = gv.sf.RandInt(100);
+                                    int waitPeriodIncreaseChance = (int)(50f * (elapsed / 30f));
+
+                                    if (decider2 < waitPeriodIncreaseChance)
+                                    {
+                                        p.inactiveTimer += gv.sf.RandInt(4);
+                                    }
+                                }
+
+                                if (p.inactiveTimer > 240)
+                                {
+                                    p.inactiveTimer = 0;
+                                }
+
+                                if ((gv.sf.RandInt(100) <= moveChance) && (p.inactiveTimer == 0))
+                                {
+                                    randXInt = gv.sf.RandInt(100);
+                                    randX = ((randXInt + 75) / 250f * (elapsed/30f));
+                                    if (!p.goRight)
+                                    {
+                                        p.straightLineDistanceX += randX;
+                                        randX = -1 * randX;
+                                        if (p.straightLineDistanceX >= 1.5f * gv.pS)
+                                        {
+                                            p.goRight = true;
+                                            p.straightLineDistanceX = 0;
+                                        }
+
+                                    }
+                                    else if (p.goRight)
+                                    {
+                                        p.straightLineDistanceX += randX;
+                                        randX = randX;
+                                        if (p.straightLineDistanceX >= 1.5f * gv.pS)
+                                        {
+                                            p.goRight = false;
+                                            p.straightLineDistanceX = 0;
+                                        }
+                                    }
+
+                                    randYInt = gv.sf.RandInt(100);
+                                    randY = ((randYInt + 75) / 250f * (elapsed / 30f));
+                                    if (!p.goDown)
+                                    {
+                                        p.straightLineDistanceY += randY;
+                                        randY = -1 * randY;
+                                        if (p.straightLineDistanceY >= 1.5 * gv.pS)
+                                        {
+                                            p.goDown = true;
+                                            p.straightLineDistanceY = 0;
+                                        }
+
+                                    }
+                                    else if (p.goDown)
+                                    {
+                                        p.straightLineDistanceY += randY;
+                                        randY = randY;
+                                        if (p.straightLineDistanceY >= 1.5 * gv.pS)
+                                        {
+                                            p.goDown = false;
+                                            p.straightLineDistanceY = 0;
+                                        }
+                                    }
+
+                                    p.roamDistanceX += (randX*7f/10f);
+                                    p.roamDistanceY += (randY*7f/10f);
+                                }
+
+
+                                IbRect dst = new IbRect((int)p.currentPixelPositionX - dstXshift + (int)p.roamDistanceX, (int)p.currentPixelPositionY - dstYshift + (int)p.roamDistanceY, dstW, dstH);
 
                                 if (gv.mod.currentArea.useSuperTinyProps)
                                 {
-                                    dst = new IbRect((int)p.currentPixelPositionX + (int)(gv.squareSize * 3 /8) - dstXshift, (int)p.currentPixelPositionY + (int)(gv.squareSize * 3 / 8) - dstYshift, (int)(dstW / 4), (int)(dstH / 4));
+                                    dst = new IbRect((int)p.currentPixelPositionX + (int)(gv.squareSize * 3 /8) - dstXshift +(int)p.roamDistanceX, (int)p.currentPixelPositionY + (int)(gv.squareSize * 3 / 8) - dstYshift + +(int)p.roamDistanceY, (int)(dstW / 4), (int)(dstH / 4));
                                 }
                                 else if (gv.mod.currentArea.useMiniProps)
                                 {
-                                    dst = new IbRect((int)p.currentPixelPositionX + (int)(gv.squareSize / 4) - dstXshift, (int)p.currentPixelPositionY + (int)(gv.squareSize / 4) - dstYshift, (int)(dstW / 2), (int)(dstH / 2));
+                                    dst = new IbRect((int)p.currentPixelPositionX + (int)(gv.squareSize / 4) - dstXshift + (int)p.roamDistanceX, (int)p.currentPixelPositionY + (int)(gv.squareSize / 4) - dstYshift + (int)p.roamDistanceY, (int)(dstW / 2), (int)(dstH / 2));
                                 }
 
                                 gv.DrawBitmap(p.token, src, dst);

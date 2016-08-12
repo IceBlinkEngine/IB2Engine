@@ -80,6 +80,14 @@ namespace IceBlink2
         public float focalIntensity = 1f;
         public float ringIntensity = 1f;
 
+        public float roamDistanceX = 0;
+        public float roamDistanceY = 0;
+        public float straightLineDistanceX = 0;
+        public float straightLineDistanceY = 0;
+        public bool goDown = false;
+        public bool goRight = false;
+        public float inactiveTimer = 0;
+
 
         public Prop()
         {
@@ -173,6 +181,15 @@ namespace IceBlink2
             //copy.drawAnchorX = this.drawAnchorX;
             //copy.drawAnchorY = this.drawAnchorY;
             //copy.startingOnVisibleSquare = this.startingOnVisibleSquare;
+
+            copy.roamDistanceX = this.roamDistanceX;
+            copy.roamDistanceY = this.roamDistanceY;
+            copy.straightLineDistanceX = this.straightLineDistanceX;
+            copy.straightLineDistanceY = this.straightLineDistanceY;
+            copy.goDown = this.goDown;
+            copy.goRight = this.goRight;
+            copy.inactiveTimer = this.inactiveTimer;
+
 		    return copy;
         }
     }
