@@ -177,6 +177,7 @@ namespace IceBlink2
         public int realTimeTimerLengthInMilliSeconds = 1500;
         public int attackFromBehindToHitModifier = 2;
         public int attackFromBehindDamageModifier = 0;
+        public bool EncounterOfTurnDone = false;
         public bool useOrbitronFont = false;
         public bool justTransitioned = false;
         public bool justTransitioned2 = false;

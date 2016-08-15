@@ -1826,9 +1826,9 @@ namespace IceBlink2
 
                         if (gv.mod.useManualCombatCam)
                         {
-                            adjustCamToRangedCreature = true;
+                            //adjustCamToRangedCreature = true;
                             CalculateUpperLeftCreature();
-                            adjustCamToRangedCreature = false;
+                            //adjustCamToRangedCreature = false;
 
                             if (IsInVisibleCombatWindow(crt.combatLocX, crt.combatLocY))
                             {
@@ -1893,7 +1893,20 @@ namespace IceBlink2
                     doCreatureCombatFacing(crt, pc.combatLocX, pc.combatLocY);
 	                if (crt.hp > 0)
 	                {
-	            	    creatureToAnimate = crt;
+
+                        if (gv.mod.useManualCombatCam)
+                        {
+                            //adjustCamToRangedCreature = true;
+                            CalculateUpperLeftCreature();
+                            //adjustCamToRangedCreature = false;
+
+                            if (IsInVisibleCombatWindow(crt.combatLocX, crt.combatLocY))
+                            {
+                                gv.touchEnabled = false;
+                            }
+                        }
+
+                        creatureToAnimate = crt;
 	    	            playerToAnimate = null;
 
                         attackAnimationTimeElapsed = 0;
@@ -2557,11 +2570,13 @@ namespace IceBlink2
                 {
                     //gv.mod.isRecursiveDoTriggerCallMovingProp = true;
                     //gv.mod.isRecursiveCall = true;
+                    gv.mod.EncounterOfTurnDone = false;
                     gv.cc.doPropTriggers();
                     //gv.mod.isRecursiveCall = false;
                 }
                 else
                 {
+                    gv.mod.EncounterOfTurnDone = false;
                     gv.cc.doTrigger();
                 }
                 return true;
@@ -9738,6 +9753,11 @@ namespace IceBlink2
         }
         public void MoveUp(Player pc)
         {
+            if (isPlayerTurn)
+            {
+                CenterScreenOnPC();
+            }
+
             if (pc.combatLocY > 0)
             {
                 //check is walkable (blocked square or PC)
@@ -9765,6 +9785,11 @@ namespace IceBlink2
         }
         public void MoveUpRight(Player pc)
         {
+            if (isPlayerTurn)
+            {
+                CenterScreenOnPC();
+            }
+
             if ((pc.combatLocX < mod.currentEncounter.MapSizeX - 1) && (pc.combatLocY > 0))
             {
                 if (isWalkable(pc.combatLocX + 1, pc.combatLocY - 1))
@@ -9796,6 +9821,11 @@ namespace IceBlink2
         }
         public void MoveUpLeft(Player pc)
         {
+            if (isPlayerTurn)
+            {
+                CenterScreenOnPC();
+            }
+
             if ((pc.combatLocX > 0) && (pc.combatLocY > 0))
             {
                 if (isWalkable(pc.combatLocX - 1, pc.combatLocY - 1))
@@ -9827,6 +9857,11 @@ namespace IceBlink2
         }
         public void MoveDown(Player pc)
         {
+            if (isPlayerTurn)
+            {
+                CenterScreenOnPC();
+            }
+
             if (pc.combatLocY < mod.currentEncounter.MapSizeY - 1)
             {
                 if (isWalkable(pc.combatLocX, pc.combatLocY + 1))
@@ -9852,6 +9887,11 @@ namespace IceBlink2
         }
         public void MoveDownRight(Player pc)
         {
+            if (isPlayerTurn)
+            {
+                CenterScreenOnPC();
+            }
+
             if ((pc.combatLocX < mod.currentEncounter.MapSizeX - 1) && (pc.combatLocY < mod.currentEncounter.MapSizeY - 1))
             {
                 if (isWalkable(pc.combatLocX + 1, pc.combatLocY + 1))
@@ -9883,6 +9923,11 @@ namespace IceBlink2
         }
         public void MoveDownLeft(Player pc)
         {
+            if (isPlayerTurn)
+            {
+                CenterScreenOnPC();
+            }
+
             if ((pc.combatLocX > 0) && (pc.combatLocY < mod.currentEncounter.MapSizeY - 1))
             {
                 if (isWalkable(pc.combatLocX - 1, pc.combatLocY + 1))
@@ -9914,6 +9959,11 @@ namespace IceBlink2
         }
         public void MoveRight(Player pc)
         {
+            if (isPlayerTurn)
+            {
+                CenterScreenOnPC();
+            }
+
             if (pc.combatLocX < mod.currentEncounter.MapSizeX - 1)
             {
                 if (isWalkable(pc.combatLocX + 1, pc.combatLocY))
@@ -9943,6 +9993,11 @@ namespace IceBlink2
         }
         public void MoveLeft(Player pc)
         {
+            if (isPlayerTurn)
+            {
+                CenterScreenOnPC();
+            }
+
             if (pc.combatLocX > 0)
             {
                 if (isWalkable(pc.combatLocX - 1, pc.combatLocY))
@@ -9972,6 +10027,11 @@ namespace IceBlink2
         }
         public void TargetAttackPressed(Player pc)
         {
+            //if (isPlayerTurn)
+            //{
+                //CenterScreenOnPC();
+            //}
+
             if (isValidAttackTarget(pc))
             {
                 if ((targetHighlightCenterLocation.X < pc.combatLocX) && (!pc.combatFacingLeft)) //attack left
@@ -10051,6 +10111,11 @@ namespace IceBlink2
         }
         public void TargetCastPressed(Player pc)
         {
+            //if (isPlayerTurn)
+            //{
+                //CenterScreenOnPC();
+            //}
+
             //Uses Map Pixel Locations
             int endX = targetHighlightCenterLocation.X * gv.squareSize + (gv.squareSize / 2);
             int endY = targetHighlightCenterLocation.Y * gv.squareSize + (gv.squareSize / 2);
@@ -10195,29 +10260,52 @@ namespace IceBlink2
         //Helper Methods
         public void CalculateUpperLeft()
         {
-            Player pc = mod.playerList[currentPlayerIndex];
-            int minX = pc.combatLocX - gv.playerOffsetX;
-            if (minX < 0) { minX = 0; }
-            int minY = pc.combatLocY - gv.playerOffsetY;
-            if (minY < 0) { minY = 0; }
-                        
-            if ((pc.combatLocX <= (UpperLeftSquare.X + 7)) && (pc.combatLocX >= UpperLeftSquare.X + 2) && (pc.combatLocY <= (UpperLeftSquare.Y + 7)) && (pc.combatLocY >= UpperLeftSquare.Y + 2))
-            { 
-                return; 
+            if (gv.mod.useManualCombatCam)
+            {
+                CenterScreenOnPC();
             }
             else
-            { 
-                UpperLeftSquare.X = minX; 
-                UpperLeftSquare.Y = minY; 
+            {
+                Player pc = mod.playerList[currentPlayerIndex];
+                int minX = pc.combatLocX - gv.playerOffsetX;
+                if (minX < 0) { minX = 0; }
+                int minY = pc.combatLocY - gv.playerOffsetY;
+                if (minY < 0) { minY = 0; }
+
+                if ((pc.combatLocX <= (UpperLeftSquare.X + 7)) && (pc.combatLocX >= UpperLeftSquare.X + 2) && (pc.combatLocY <= (UpperLeftSquare.Y + 7)) && (pc.combatLocY >= UpperLeftSquare.Y + 2))
+                {
+                    return;
+                }
+                else
+                {
+                    UpperLeftSquare.X = minX;
+                    UpperLeftSquare.Y = minY;
+                }
             }
         }
         public void CalculateUpperLeftCreature()
         {
             Creature crt = mod.currentEncounter.encounterCreatureList[creatureIndex];
             int minX = crt.combatLocX - gv.playerOffsetX;
-            if (minX < 0) { minX = 0; }
+            if (!gv.mod.useManualCombatCam)
+            {
+                if (minX < 0) { minX = 0; }
+            }
+            else
+            {
+                if (minX < -gv.playerOffsetX) { minX = -gv.playerOffsetX; }
+            }
+            //if (minX < 0) { minX = 0; }
             int minY = crt.combatLocY - gv.playerOffsetY;
-            if (minY < 0) { minY = 0; }
+            if (!gv.mod.useManualCombatCam)
+            {
+                if (minY < 0) { minY = 0; }
+            }
+            else
+            {
+                if (minY < -gv.playerOffsetY) { minY = -gv.playerOffsetY; }
+            }
+            //if (minY < 0) { minY = 0; }
 
             //do not adjust view port if creature is on screen already and ends move at least one square away from border
             if (((crt.combatLocX + 2) <= (UpperLeftSquare.X + (gv.playerOffsetX * 2))) && ((crt.combatLocX - 2) >= (UpperLeftSquare.X)) && ((crt.combatLocY + 2) <= (UpperLeftSquare.Y + (gv.playerOffsetY * 2))) && ((crt.combatLocY - 2) >= (UpperLeftSquare.Y)))
@@ -10277,9 +10365,24 @@ namespace IceBlink2
         {
             Player pc = mod.playerList[currentPlayerIndex];
             int minX = pc.combatLocX - gv.playerOffsetX;
-            if (minX < 0) { minX = 0; }
+            if (!gv.mod.useManualCombatCam)
+            {
+                if (minX < 0) { minX = 0; }
+            }
+            else
+            {
+                if (minX < -gv.playerOffsetX) { minX = -gv.playerOffsetX; }
+            }
             int minY = pc.combatLocY - gv.playerOffsetY;
-            if (minY < 0) { minY = 0; }
+
+            if (!gv.mod.useManualCombatCam)
+            {
+                if (minY < 0) { minY = 0; }
+            }
+            else
+            {
+                if (minY < -gv.playerOffsetY) { minY = -gv.playerOffsetY; }
+            }
 
             UpperLeftSquare.X = minX;
             UpperLeftSquare.Y = minY; 
@@ -10292,9 +10395,12 @@ namespace IceBlink2
                 return false;
             }
 
-            if ((sqrX < 0) || (sqrY < 0))
+            if (!gv.mod.useManualCombatCam)
             {
-                return false;
+                if ((sqrX < 0) || (sqrY < 0))
+                {
+                    return false;
+                }
             }
 
             if ((sqrX >= UpperLeftSquare.X + gv.playerOffsetX + gv.playerOffsetX + 1)
@@ -10303,11 +10409,15 @@ namespace IceBlink2
                 return false;
             }
 
-            if ((sqrX >= gv.mod.currentEncounter.MapSizeX)
-                || (sqrY >= gv.mod.currentEncounter.MapSizeY))
+            if (!gv.mod.useManualCombatCam)
             {
-                return false;
+                if ((sqrX >= gv.mod.currentEncounter.MapSizeX)
+                || (sqrY >= gv.mod.currentEncounter.MapSizeY))
+                {
+                    return false;
+                }
             }
+
             return true;
         }
         public bool IsInVisibleCombatWindow(int sqrX, int sqrY, int tileW, int tileH)

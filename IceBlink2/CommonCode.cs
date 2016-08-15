@@ -1619,6 +1619,7 @@ namespace IceBlink2
 
         public void doUpdate()
         {
+            gv.mod.EncounterOfTurnDone = false;
             setToBorderPixDistancesMainMap();
             if (gv.mod.useAllTileSystem)
             {
@@ -7326,7 +7327,13 @@ namespace IceBlink2
             {
                 if (prp.EncounterWhenOnPartySquare != "" && prp.EncounterWhenOnPartySquare != "none")
                 {
-                    doEncounterBasedOnTag(prp.EncounterWhenOnPartySquare);
+                    if (!gv.mod.EncounterOfTurnDone)
+                    {
+                        gv.mod.EncounterOfTurnDone = true;
+                        doEncounterBasedOnTag(prp.EncounterWhenOnPartySquare);
+                        //gv.mod.EncounterOfTurnDone = true;
+                    }
+                    //doEncounterBasedOnTag(prp.EncounterWhenOnPartySquare);
                 }
             }
 
@@ -7485,6 +7492,20 @@ namespace IceBlink2
                                     prp.LocationX = newCoor.X;
                                     prp.LocationY = newCoor.Y;
 
+                                    if (prp.LocationX == gv.mod.PlayerLocationX && prp.LocationY == gv.mod.PlayerLocationY)
+                                    {
+                                        if (prp.EncounterWhenOnPartySquare != "" && prp.EncounterWhenOnPartySquare != "none")
+                                        {
+                                            if (!gv.mod.EncounterOfTurnDone)
+                                            {
+                                                gv.mod.EncounterOfTurnDone = true;
+                                                doEncounterBasedOnTag(prp.EncounterWhenOnPartySquare);
+                                                //gv.mod.EncounterOfTurnDone = true;
+                                            }
+                                            //doEncounterBasedOnTag(prp.EncounterWhenOnPartySquare);
+                                        }
+                                    }
+
                                     int xOffSetInSquares = 0;
                                     int yOffSetInSquares = 0;
                                     if (gv.mod.PlayerLocationX >= prp.LocationX)
@@ -7542,6 +7563,20 @@ namespace IceBlink2
 
                         prp.LocationX = newCoor.X;
                         prp.LocationY = newCoor.Y;
+
+                        if (prp.LocationX == gv.mod.PlayerLocationX && prp.LocationY == gv.mod.PlayerLocationY)
+                        {
+                            if (prp.EncounterWhenOnPartySquare != "" && prp.EncounterWhenOnPartySquare != "none")
+                            {
+                                if (!gv.mod.EncounterOfTurnDone)
+                                {
+                                    gv.mod.EncounterOfTurnDone = true;
+                                    doEncounterBasedOnTag(prp.EncounterWhenOnPartySquare);
+                                    //gv.mod.EncounterOfTurnDone = true;
+                                }
+                                //doEncounterBasedOnTag(prp.EncounterWhenOnPartySquare);
+                            }
+                        }
 
                         int xOffSetInSquares = 0;
                         int yOffSetInSquares = 0;
@@ -7746,6 +7781,20 @@ namespace IceBlink2
 
                                     prp.LocationX = tileLocX;
                                     prp.LocationY = tileLocY;
+
+                                    if (prp.LocationX == gv.mod.PlayerLocationX && prp.LocationY == gv.mod.PlayerLocationY)
+                                    {
+                                        if (prp.EncounterWhenOnPartySquare != "" && prp.EncounterWhenOnPartySquare != "none")
+                                        {
+                                            if (!gv.mod.EncounterOfTurnDone)
+                                            {
+                                                gv.mod.EncounterOfTurnDone = true;
+                                                doEncounterBasedOnTag(prp.EncounterWhenOnPartySquare);
+                                                //gv.mod.EncounterOfTurnDone = true;
+                                            }
+                                            //doEncounterBasedOnTag(prp.EncounterWhenOnPartySquare);
+                                        }
+                                    }
                                 }
                             }
                         }
@@ -7772,6 +7821,20 @@ namespace IceBlink2
                                 //careful, watch for infinite loop, recursive calling here
                                 prp.LocationX = newCoor.X;
                                 prp.LocationY = newCoor.Y;
+                                if (prp.LocationX == gv.mod.PlayerLocationX && prp.LocationY == gv.mod.PlayerLocationY)
+                                {
+                                    if (prp.EncounterWhenOnPartySquare != "" && prp.EncounterWhenOnPartySquare != "none")
+                                    {
+                                        if (!gv.mod.EncounterOfTurnDone)
+                                        {
+                                            gv.mod.EncounterOfTurnDone = true;
+                                            doEncounterBasedOnTag(prp.EncounterWhenOnPartySquare);
+                                            //gv.mod.EncounterOfTurnDone = true;
+                                        }
+                                        //doEncounterBasedOnTag(prp.EncounterWhenOnPartySquare);
+                                    }
+                                }
+
                                 moveToTarget(targetX, targetY, prp, 1);
                                 return;
                             }
@@ -7816,6 +7879,20 @@ namespace IceBlink2
                         }
                         prp.LocationX = newCoor.X;
                         prp.LocationY = newCoor.Y;
+
+                        if (prp.LocationX == gv.mod.PlayerLocationX && prp.LocationY == gv.mod.PlayerLocationY)
+                        {
+                            if (prp.EncounterWhenOnPartySquare != "" && prp.EncounterWhenOnPartySquare != "none")
+                            {
+                                if (!gv.mod.EncounterOfTurnDone)
+                                {
+                                    gv.mod.EncounterOfTurnDone = true;
+                                    doEncounterBasedOnTag(prp.EncounterWhenOnPartySquare);
+                                    //gv.mod.EncounterOfTurnDone = true;
+                                }
+                                //doEncounterBasedOnTag(prp.EncounterWhenOnPartySquare);
+                            }
+                        }
 
                     }
                 }
@@ -7985,8 +8062,12 @@ namespace IceBlink2
                                                                         //gv.Render(0);
                                 //}
                             }
-                           
-                            doEncounterBasedOnTag(prp.EncounterWhenOnPartySquare);
+                            if (!gv.mod.EncounterOfTurnDone)
+                            {
+                                gv.mod.EncounterOfTurnDone = true;
+                                doEncounterBasedOnTag(prp.EncounterWhenOnPartySquare);
+                                //gv.mod.EncounterOfTurnDone = true;
+                            }
                             //continue;
                             break;
                         }
@@ -8073,7 +8154,13 @@ namespace IceBlink2
                             }
                             else if (trig.Event1Type.Equals("encounter"))
                             {
-                                doEncounterBasedOnTag(trig.Event1FilenameOrTag);
+                                if (!gv.mod.EncounterOfTurnDone)
+                                {
+                                    gv.mod.EncounterOfTurnDone = true;
+                                    doEncounterBasedOnTag(trig.Event1FilenameOrTag);
+                                    //gv.mod.EncounterOfTurnDone = true;
+                                }
+                                //doEncounterBasedOnTag(trig.Event1FilenameOrTag);
                             }
                             else if (trig.Event1Type.Equals("script"))
                             {
@@ -8119,7 +8206,13 @@ namespace IceBlink2
                             }
                             else if (trig.Event2Type.Equals("encounter"))
                             {
-                                doEncounterBasedOnTag(trig.Event2FilenameOrTag);
+                                if (!gv.mod.EncounterOfTurnDone)
+                                {
+                                    gv.mod.EncounterOfTurnDone = true;
+                                    doEncounterBasedOnTag(trig.Event1FilenameOrTag);
+                                    //gv.mod.EncounterOfTurnDone = true;
+                                }
+                                //doEncounterBasedOnTag(trig.Event2FilenameOrTag);
                             }
                             else if (trig.Event2Type.Equals("script"))
                             {
@@ -8165,7 +8258,14 @@ namespace IceBlink2
                             }
                             else if (trig.Event3Type.Equals("encounter"))
                             {
-                                doEncounterBasedOnTag(trig.Event3FilenameOrTag);
+
+                                if (!gv.mod.EncounterOfTurnDone)
+                                {
+                                    gv.mod.EncounterOfTurnDone = true;
+                                    doEncounterBasedOnTag(trig.Event1FilenameOrTag);
+                                    //gv.mod.EncounterOfTurnDone = true;
+                                }
+                                //doEncounterBasedOnTag(trig.Event3FilenameOrTag);
                             }
                             else if (trig.Event3Type.Equals("script"))
                             {
