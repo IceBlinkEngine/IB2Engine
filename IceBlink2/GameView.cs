@@ -993,8 +993,6 @@ namespace IceBlink2
         private void Update(int elapsed)
         {
             
-
-
             //iterate through spriteList and handle any sprite location and animation frame calculations
             if (screenType.Equals("main"))
             {

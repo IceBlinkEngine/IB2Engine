@@ -2221,7 +2221,7 @@ namespace IceBlink2
             applyEffects();
             //do Prop heartbeat
             doPropHeartBeat();
-            //script hook for the weather script (channels 5 to 10)
+            //script hook for the weather script (channels 5 to 10) 
             if (gv.mod.currentArea.areaWeatherName != "")
             {
                 doWeather();
@@ -2261,7 +2261,10 @@ namespace IceBlink2
 
             //check for levelup available and switch button image
             checkLevelUpAvailable(); //move this to on update and use a plus overlay in top left
-            adjustSpriteMainMapPositionToMakeItMoveIdependentlyFromPlayer();
+            if (!gv.mod.calledByRealTimeTimer)
+            {
+                adjustSpriteMainMapPositionToMakeItMoveIdependentlyFromPlayer();
+            }
         }
 
         public void resetLightAndDarkness()

@@ -91,6 +91,7 @@ namespace IceBlink2
         public int nonAllowedDiagonalSquareX = -1;
         public int nonAllowedDiagonalSquareY = -1;
         public bool ArmorClassAscending = true;
+        public bool calledByRealTimeTimer = false;
         [JsonIgnore]
         public List<Item> moduleItemsList = new List<Item>();
         public List<Encounter> moduleEncountersList = new List<Encounter>();

@@ -495,7 +495,9 @@ namespace IceBlink2
                 gv.realTimeTimerMilliSecondsEllapsed += elapsed;
                 if (gv.realTimeTimerMilliSecondsEllapsed >= mod.realTimeTimerLengthInMilliSeconds)
                 {
+                    gv.mod.calledByRealTimeTimer = true;
                     gv.cc.doUpdate();
+                    gv.mod.calledByRealTimeTimer = false;
                     gv.realTimeTimerMilliSecondsEllapsed = 0;
                 }
             }
@@ -26186,21 +26188,21 @@ namespace IceBlink2
                     {
                         if (gv.mod.partyLightOn)
                         {
-                            gv.DrawText(hour + ":" + sMinute + ", " + gv.mod.partyLightName + "(" + gv.mod.currentLightUnitsLeft.ToString() + ")", new IbRect(gv.oXshift + x + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH + y - gv.pS, 200, 200), 1.0f, Color.Black);
+                            gv.DrawText(hour + ":" + sMinute + ", " + gv.mod.partyLightName + "(" + gv.mod.currentLightUnitsLeft.ToString() + ")", new IbRect(gv.oXshift + x + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH + y - gv.pS, 400, 100), 1.0f, Color.Black);
                         }
                         else
                         {
-                            gv.DrawText(hour + ":" + sMinute, new IbRect(gv.oXshift + x + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH + y - gv.pS, 200, 200), 1.0f, Color.Black);
+                            gv.DrawText(hour + ":" + sMinute, new IbRect(gv.oXshift + x + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH + y - gv.pS, 400, 100), 1.0f, Color.Black);
                         }
                     }
                 }
                 if (gv.mod.partyLightOn)
                 {
-                    gv.DrawText(hour + ":" + sMinute + ", " + gv.mod.partyLightName + "(" + gv.mod.currentLightUnitsLeft.ToString() + ")", new IbRect(gv.oXshift + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH - gv.pS, 200, 200), 1.0f, Color.White);
+                    gv.DrawText(hour + ":" + sMinute + ", " + gv.mod.partyLightName + "(" + gv.mod.currentLightUnitsLeft.ToString() + ")", new IbRect(gv.oXshift + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH - gv.pS, 400, 100), 1.0f, Color.White);
                 }
                 else
                 {
-                    gv.DrawText(hour + ":" + sMinute, new IbRect(gv.oXshift + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH - gv.pS, 200, 200), 1.0f, Color.White);
+                    gv.DrawText(hour + ":" + sMinute, new IbRect(gv.oXshift + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH - gv.pS, 400, 100), 1.0f, Color.White);
 
                 }
             }
