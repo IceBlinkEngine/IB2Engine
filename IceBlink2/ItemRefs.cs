@@ -12,6 +12,7 @@ namespace IceBlink2
 	    public string name = "none";
 	    public bool canNotBeUnequipped = false;
 	    public int quantity = 1; //useful for stacking and ammo
+        public bool isRation = false;
     
         public ItemRefs()
         {
@@ -20,6 +21,7 @@ namespace IceBlink2
         public ItemRefs DeepCopy()
 	    {
 		    ItemRefs copy = new ItemRefs();
+            copy.isRation = this.isRation;
 		    copy.tag = this.tag;
 		    copy.name = this.name;
 		    copy.resref = this.resref;

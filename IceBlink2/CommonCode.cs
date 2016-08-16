@@ -1619,6 +1619,7 @@ namespace IceBlink2
 
         public void doUpdate()
         {
+            handleRations();
             gv.mod.EncounterOfTurnDone = false;
             setToBorderPixDistancesMainMap();
             if (gv.mod.useAllTileSystem)
@@ -2265,6 +2266,58 @@ namespace IceBlink2
             {
                 adjustSpriteMainMapPositionToMakeItMoveIdependentlyFromPlayer();
             }
+        }
+
+
+        public void handleRations()
+        {
+            if (gv.mod.minutesSinceLastRationConsumed < 1440)
+            {
+                gv.mod.minutesSinceLastRationConsumed += gv.mod.currentArea.TimePerSquare;
+            }
+            else
+            {
+                gv.mod.minutesSinceLastRationConsumed = 0;
+                bool foundRation = false;
+                foreach (ItemRefs it in gv.mod.partyInventoryRefsList)
+                {
+                    if (it.isRation)
+                    {
+                        gv.mod.partyInventoryRefsList.Remove(it);
+                        foundRation = true;
+                        break;
+                    }
+                }
+                if (!foundRation)
+                {
+                    foreach (Player p in gv.mod.playerList)
+                    {
+                        int healthReduction = (int)(p.hpMax / 5f);
+                        if (healthReduction < 1)
+                        {
+                            healthReduction = 1;
+                        }
+                        if (p.hp > -20)
+                        {
+                            p.hp -= healthReduction;
+                        }
+                        
+                        int spReduction = (int)(p.spMax / 5f);
+                        if (spReduction < 1)
+                        {
+                            spReduction = 1;
+                        }
+                        if (p.sp >= spReduction)
+                        {
+                            p.sp -= spReduction;
+                        }
+
+                    }
+                }
+
+            }
+            //hurgh 6666
+            //int time = gv.mod.WorldTime % 1440;
         }
 
         public void resetLightAndDarkness()
