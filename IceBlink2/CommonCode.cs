@@ -2284,12 +2284,14 @@ namespace IceBlink2
                     if (it.isRation)
                     {
                         gv.mod.partyInventoryRefsList.Remove(it);
+                        gv.screenMainMap.addFloatyText(gv.mod.PlayerLocationX, gv.mod.PlayerLastLocationY, "Ration consumed", "white", 4000);
                         foundRation = true;
                         break;
                     }
                 }
                 if (!foundRation)
                 {
+                    gv.screenMainMap.addFloatyText(gv.mod.PlayerLocationX, gv.mod.PlayerLastLocationY, "Hungry and thirsty... HP & SP lost", "red", 4000);
                     foreach (Player p in gv.mod.playerList)
                     {
                         int healthReduction = (int)(p.hpMax / 5f);
@@ -2301,7 +2303,7 @@ namespace IceBlink2
                         {
                             p.hp -= healthReduction;
                         }
-                        
+
                         int spReduction = (int)(p.spMax / 5f);
                         if (spReduction < 1)
                         {
@@ -2316,8 +2318,15 @@ namespace IceBlink2
                 }
 
             }
-            //hurgh 6666
-            //int time = gv.mod.WorldTime % 1440;
+
+            gv.mod.numberOfRationsRemaining = 0;
+            foreach (ItemRefs it in gv.mod.partyInventoryRefsList)
+            {
+                if (it.isRation)
+                {
+                    gv.mod.numberOfRationsRemaining++;
+                }
+            }
         }
 
         public void resetLightAndDarkness()

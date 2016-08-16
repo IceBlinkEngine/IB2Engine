@@ -92,7 +92,7 @@ namespace IceBlink2
         public int nonAllowedDiagonalSquareY = -1;
         public bool ArmorClassAscending = true;
         public bool calledByRealTimeTimer = false;
-        public int numberOfRationsRemaining = 7;
+        public int numberOfRationsRemaining = 0;
         public int minutesSinceLastRationConsumed = 0;
         [JsonIgnore]
         public List<Item> moduleItemsList = new List<Item>();
