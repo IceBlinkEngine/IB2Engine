@@ -169,6 +169,7 @@ namespace IceBlink2
         public bool showAutosaveMessage = true;
         public bool allowAutosave = true;
         public int combatAnimationSpeed = 100;
+        public bool useRationSystem = false;
         public bool fastMode = false;
         public int attackAnimationSpeed = 100;
         public float soundVolume = 1.0f;

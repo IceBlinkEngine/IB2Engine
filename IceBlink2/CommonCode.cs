@@ -2312,53 +2312,77 @@ namespace IceBlink2
             }
 
             //ration consumption and damage code
-            if (gv.mod.minutesSinceLastRationConsumed < 1440)
+            if (gv.mod.useRationSystem)
             {
-                gv.mod.minutesSinceLastRationConsumed += gv.mod.currentArea.TimePerSquare;
-            }
-            else
-            {
-                gv.mod.minutesSinceLastRationConsumed = 0;
-                bool foundRation = false;
-                foreach (ItemRefs it in gv.mod.partyInventoryRefsList)
+                if (gv.mod.minutesSinceLastRationConsumed < 1440)
                 {
-                    if (it.isRation)
-                    {
-                        gv.mod.partyInventoryRefsList.Remove(it);
-                        gv.screenMainMap.addFloatyText(gv.mod.PlayerLocationX, gv.mod.PlayerLocationY, "Ration consumed", "white", 4000);
-                        foundRation = true;
-                        //gv.mod.onLastRation = false;
-                        break;
-                    }
+                    gv.mod.minutesSinceLastRationConsumed += gv.mod.currentArea.TimePerSquare;
                 }
-                if (!foundRation)
+                else
                 {
-                    gv.screenMainMap.addFloatyText(gv.mod.PlayerLocationX, gv.mod.PlayerLocationY, "Very deprived by lack of supplies... HP & SP lost", "red", 4000);
-                    foreach (Player p in gv.mod.playerList)
+                    gv.mod.minutesSinceLastRationConsumed = 0;
+                    bool foundRation = false;
+                    foreach (ItemRefs it in gv.mod.partyInventoryRefsList)
                     {
-                        int healthReduction = (int)(p.hpMax / 5f);
-                        if (healthReduction < 1)
+                        if (it.isRation)
                         {
-                            healthReduction = 1;
+                            gv.mod.partyInventoryRefsList.Remove(it);
+                            gv.screenMainMap.addFloatyText(gv.mod.PlayerLocationX, gv.mod.PlayerLocationY, "Ration consumed", "white", 4000);
+                            foundRation = true;
+                            //gv.mod.onLastRation = false;
+                            break;
                         }
-                        if (p.hp > -20)
-                        {
-                            p.hp -= healthReduction;
-                        }
-
-                        int spReduction = (int)(p.spMax / 5f);
-                        if (spReduction < 1)
-                        {
-                            spReduction = 1;
-                        }
-                        if (p.sp >= spReduction)
-                        {
-                            p.sp -= spReduction;
-                        }
-
                     }
+                    if (!foundRation)
+                    {
+                        gv.screenMainMap.addFloatyText(gv.mod.PlayerLocationX, gv.mod.PlayerLocationY, "Very deprived by lack of supplies... HP & SP lost", "red", 4000);
+                        foreach (Player p in gv.mod.playerList)
+                        {
+                            int healthReduction = (int)(p.hpMax / 5f);
+                            if (healthReduction < 1)
+                            {
+                                healthReduction = 1;
+                            }
+                            if (p.hp > -20)
+                            {
+                                p.hp -= healthReduction;
+                            }
+
+                            int spReduction = (int)(p.spMax / 5f);
+                            if (spReduction < 1)
+                            {
+                                spReduction = 1;
+                            }
+                            if (p.sp >= spReduction)
+                            {
+                                p.sp -= spReduction;
+                            }
+
+                        }
+                    }
+                    //prepare final warning
+                    gv.mod.numberOfRationsRemaining = 0;
+                    foreach (ItemRefs it in gv.mod.partyInventoryRefsList)
+                    {
+                        if (it.isRation)
+                        {
+                            gv.mod.numberOfRationsRemaining++;
+                        }
+                    }
+
+                    if (gv.mod.numberOfRationsRemaining == 1)
+                    {
+                        gv.screenMainMap.addFloatyText(gv.mod.PlayerLocationX, gv.mod.PlayerLocationY, "On your last ration... 48h left to resupply", "red", 4000);
+                    }
+
+                    if ((gv.mod.numberOfRationsRemaining == 0) && (foundRation))
+                    {
+                        gv.screenMainMap.addFloatyText(gv.mod.PlayerLocationX, gv.mod.PlayerLocationY, "No rations... you are in dire need to resupply", "red", 4000);
+                    }
+
                 }
-                //prepare final warning
+
+                //always have correct ration count
                 gv.mod.numberOfRationsRemaining = 0;
                 foreach (ItemRefs it in gv.mod.partyInventoryRefsList)
                 {
@@ -2366,27 +2390,6 @@ namespace IceBlink2
                     {
                         gv.mod.numberOfRationsRemaining++;
                     }
-                }
-
-                if (gv.mod.numberOfRationsRemaining == 1)
-                {
-                    gv.screenMainMap.addFloatyText(gv.mod.PlayerLocationX, gv.mod.PlayerLocationY, "On your last ration... 48h left to resupply", "red", 4000);
-                }
-
-                if ((gv.mod.numberOfRationsRemaining == 0) && (foundRation))
-                {
-                    gv.screenMainMap.addFloatyText(gv.mod.PlayerLocationX, gv.mod.PlayerLocationY, "No rations... you are in dire need to resupply", "red", 4000);
-                }
-
-            }
-
-            //always have correct ration count
-            gv.mod.numberOfRationsRemaining = 0;
-            foreach (ItemRefs it in gv.mod.partyInventoryRefsList)
-            {
-                if (it.isRation)
-                {
-                    gv.mod.numberOfRationsRemaining++;
                 }
             }
         }
