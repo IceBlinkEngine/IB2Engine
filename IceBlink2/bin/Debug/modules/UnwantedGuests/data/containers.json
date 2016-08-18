@@ -168,6 +168,13 @@
         "name": "Torch",
         "canNotBeUnequipped": false,
         "quantity": 1
+      },
+      {
+        "resref": "ration",
+        "tag": "newTag_9963_9966",
+        "name": "Ration",
+        "canNotBeUnequipped": false,
+        "quantity": 1
       }
     ]
   }
