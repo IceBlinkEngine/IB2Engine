@@ -26180,6 +26180,18 @@ namespace IceBlink2
 
             int txtH = (int)gv.drawFontRegHeight;
 
+            //assuming 28 days in 12 Months, ie 336 days a year
+            //notation example: 13:17, Tuesday, 9th of March 1213
+
+            /*
+            public string weekDayNameToDisplay = "";
+            public string monthDayCounterNumberToDisplay = "";
+            public string monthDayCounterAddendumToDisplay = "";
+            public string monthNameToDisplay = "";
+            */
+
+
+
             if (gv.mod.useMinimalisticUI)
             {
                 for (int x = -2; x <= 2; x++)
@@ -26188,27 +26200,27 @@ namespace IceBlink2
                     {
                         if (gv.mod.partyLightOn)
                         {
-                            gv.DrawText(hour + ":" + sMinute, new IbRect(gv.oXshift + x + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH + y - gv.pS, 400, 100), 1.0f, Color.Black);
-                            gv.DrawText("Rations(" + gv.mod.numberOfRationsRemaining.ToString() + "), " + gv.mod.partyLightName + "(" + gv.mod.currentLightUnitsLeft.ToString() + ")", new IbRect(gv.oXshift + x + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH + y + 2 * gv.pS, 400, 100), 1.0f, Color.Black);
+                            gv.DrawText(hour + ":" + sMinute +", " + gv.mod.weekDayNameToDisplay + ", " + gv.mod.monthDayCounterNumberToDisplay + gv.mod.monthDayCounterAddendumToDisplay + " of " + gv.mod.monthNameToDisplay + " " + gv.mod.currentYear.ToString(), new IbRect(gv.oXshift + x + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH + y - gv.pS, 400, 100), 1.0f, Color.Black);
+                            gv.DrawText("Rations(" + gv.mod.numberOfRationsRemaining.ToString() + "), " + gv.mod.partyLightName + "(" + gv.mod.currentLightUnitsLeft.ToString() + ")", new IbRect(gv.oXshift + x + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH + y + (int)(2.5 * gv.pS), 400, 100), 1.0f, Color.Black);
                             //gv.DrawText(hour + ":" + sMinute + ", " + gv.mod.partyLightName + "(" + gv.mod.currentLightUnitsLeft.ToString() + ")", new IbRect(gv.oXshift + x + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH + y - gv.pS, 400, 100), 1.0f, Color.Black);
                         }
                         else
                         {
-                            gv.DrawText(hour + ":" + sMinute, new IbRect(gv.oXshift + x + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH + y - gv.pS, 400, 100), 1.0f, Color.Black);
-                            gv.DrawText("Rations(" + gv.mod.numberOfRationsRemaining.ToString() + ")", new IbRect(gv.oXshift + x + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH + y + 2*gv.pS, 400, 100), 1.0f, Color.Black);
+                            gv.DrawText(hour + ":" + sMinute + ", " + gv.mod.weekDayNameToDisplay + ", " + gv.mod.monthDayCounterNumberToDisplay + gv.mod.monthDayCounterAddendumToDisplay + " of " + gv.mod.monthNameToDisplay + " " + gv.mod.currentYear.ToString(), new IbRect(gv.oXshift + x + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH + y - gv.pS, 400, 100), 1.0f, Color.Black);
+                            gv.DrawText("Rations(" + gv.mod.numberOfRationsRemaining.ToString() + ")", new IbRect(gv.oXshift + x + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH + y + (int)(2.5*gv.pS), 400, 100), 1.0f, Color.Black);
                         }
                     }
                 }
                 if (gv.mod.partyLightOn)
                 {
-                    gv.DrawText(hour + ":" + sMinute, new IbRect(gv.oXshift + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH - gv.pS, 400, 100), 1.0f, Color.White);
-                    gv.DrawText("Rations(" + gv.mod.numberOfRationsRemaining.ToString() + "), " + gv.mod.partyLightName + "(" + gv.mod.currentLightUnitsLeft.ToString() + ")", new IbRect(gv.oXshift + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH + 2*gv.pS, 400, 100), 1.0f, Color.White);
+                    gv.DrawText(hour + ":" + sMinute + ", " + gv.mod.weekDayNameToDisplay + ", " + gv.mod.monthDayCounterNumberToDisplay + gv.mod.monthDayCounterAddendumToDisplay + " of " + gv.mod.monthNameToDisplay + " " + gv.mod.currentYear.ToString(), new IbRect(gv.oXshift + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH - gv.pS, 400, 100), 1.0f, Color.White);
+                    gv.DrawText("Rations(" + gv.mod.numberOfRationsRemaining.ToString() + "), " + gv.mod.partyLightName + "(" + gv.mod.currentLightUnitsLeft.ToString() + ")", new IbRect(gv.oXshift + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH + (int)(2.5*gv.pS), 400, 100), 1.0f, Color.White);
                     //gv.DrawText(hour + ":" + sMinute + ", " + gv.mod.partyLightName + "(" + gv.mod.currentLightUnitsLeft.ToString() + ")", new IbRect(gv.oXshift + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH - gv.pS, 400, 100), 1.0f, Color.White);
                 }
                 else
                 {
-                    gv.DrawText(hour + ":" + sMinute, new IbRect(gv.oXshift + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH - gv.pS, 400, 100), 1.0f, Color.White);
-                    gv.DrawText("Rations(" + gv.mod.numberOfRationsRemaining.ToString() + ")", new IbRect(gv.oXshift + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH + 2 * gv.pS, 400, 100), 1.0f, Color.White);
+                    gv.DrawText(hour + ":" + sMinute + ", " + gv.mod.weekDayNameToDisplay + ", " + gv.mod.monthDayCounterNumberToDisplay + gv.mod.monthDayCounterAddendumToDisplay + " of " + gv.mod.monthNameToDisplay + " " + gv.mod.currentYear.ToString(), new IbRect(gv.oXshift + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH - gv.pS, 400, 100), 1.0f, Color.White);
+                    gv.DrawText("Rations(" + gv.mod.numberOfRationsRemaining.ToString() + ")", new IbRect(gv.oXshift + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH + (int)(2.5f * gv.pS), 400, 100), 1.0f, Color.White);
                     //gv.DrawText(hour + ":" + sMinute, new IbRect(gv.oXshift + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH - gv.pS, 400, 100), 1.0f, Color.White);
 
                 }
@@ -26219,10 +26231,10 @@ namespace IceBlink2
                 {
                     for (int y = -2; y <= 2; y++)
                     {
-                        gv.DrawText(hour + ":" + sMinute, new IbRect(gv.oXshift + x + (gv.playerOffsetY - 1) * gv.squareSize, gv.playerOffsetX * gv.squareSize - txtH + y - gv.pS, 100, 100), 1.0f, Color.Black);
+                        gv.DrawText(hour + ":" + sMinute + ", " + gv.mod.weekDayNameToDisplay + ", " + gv.mod.monthDayCounterNumberToDisplay + gv.mod.monthDayCounterAddendumToDisplay + " of " + gv.mod.monthNameToDisplay + " " + gv.mod.currentYear.ToString(), new IbRect(gv.oXshift + x + (gv.playerOffsetY - 1) * gv.squareSize, gv.playerOffsetX * gv.squareSize - txtH + y - gv.pS, 100, 100), 1.0f, Color.Black);
                     }
                 }
-                gv.DrawText(hour + ":" + sMinute, new IbRect(gv.oXshift + (gv.playerOffsetY - 1) * gv.squareSize, gv.playerOffsetX * gv.squareSize - txtH - gv.pS, 100, 100), 1.0f, Color.White);
+                gv.DrawText(hour + ":" + sMinute + ", " + gv.mod.weekDayNameToDisplay + ", " + gv.mod.monthDayCounterNumberToDisplay + gv.mod.monthDayCounterAddendumToDisplay + " of " + gv.mod.monthNameToDisplay + " " + gv.mod.currentYear.ToString(), new IbRect(gv.oXshift + (gv.playerOffsetY - 1) * gv.squareSize, gv.playerOffsetX * gv.squareSize - txtH - gv.pS, 100, 100), 1.0f, Color.White);
 
             }
 
@@ -26250,10 +26262,10 @@ namespace IceBlink2
 
 
 
-                //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+            //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
-                #region neighbours
-                if ((gv.mod.currentArea.northernNeighbourArea != "") && (gv.mod.PlayerLocationY <= gv.playerOffsetY))
+            #region neighbours
+            if ((gv.mod.currentArea.northernNeighbourArea != "") && (gv.mod.PlayerLocationY <= gv.playerOffsetY))
                 {
                     gv.mod.seamlessModififierMinY = gv.playerOffsetY - gv.mod.PlayerLocationY;
                     for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)

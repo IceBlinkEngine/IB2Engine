@@ -93,6 +93,8 @@ namespace IceBlink2
         public bool ArmorClassAscending = true;
         public bool calledByRealTimeTimer = false;
         public int numberOfRationsRemaining = 0;
+        public int maxNumberOfRationsAllowed = 7;
+        public int maxNumberOfLightSourcesAllowed = 7;
         public int minutesSinceLastRationConsumed = 0;
         [JsonIgnore]
         public List<Item> moduleItemsList = new List<Item>();
@@ -228,6 +230,47 @@ namespace IceBlink2
         public string weatherSoundsName1 = "";
         public string weatherSoundsName2 = "";
         public string weatherSoundsName3 = "";
+
+        //assuming 28 days in 12 Months, ie 336 days a year
+        //notation example: 13:17, Tuesday, 9th of March 1213
+
+        public string weekDayNameToDisplay = "";
+        public string monthDayCounterNumberToDisplay = "";
+        public string monthDayCounterAddendumToDisplay = "";
+        public string monthNameToDisplay = "";
+
+        public string nameOfFirstDayOfTheWeek = "Monday";
+        public string nameOfSecondDayOfTheWeek = "Tuesday";
+        public string nameOfThirdDayOfTheWeek = "Wednesday";
+        public string nameOfFourthDayOfTheWeek = "Thursday";
+        public string nameOfFifthDayOfTheWeek = "Friday";
+        public string nameOfSixthDayOfTheWeek = "Saturday";
+        public string nameOfSeventhDayOfTheWeek = "Sunday";
+
+        public string nameOfFirstMonth = "January";
+        public string nameOfSecondMonth = "February";
+        public string nameOfThirdMonth = "March";
+        public string nameOfFourthMonth = "April";
+        public string nameOfFifthMonth = "May";
+        public string nameOfSixthMonth = "June";
+        public string nameOfSeventhMonth = "July";
+        public string nameOfEighthMonth = "August";
+        public string nameOfNinthMonth = "September";
+        public string nameOfTenthMonth = "October";
+        public string nameOfEleventhMonth = "November";
+        public string nameOfTwelfthMonth = "December";
+
+        public int timeInThisYear = 0;
+
+        public int currentYear = 0;
+        //from 1 to 12
+        public int currentMonth = 1;
+        //from 1 to 336
+        public int currentDay = 1;
+        public int currentWeekDay = 1;
+        public int currentMonthDay = 1; 
+
+
 
         public bool useWeatherSound = true;
         public bool resetWeatherSound = false;

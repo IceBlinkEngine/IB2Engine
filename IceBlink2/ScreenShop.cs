@@ -603,7 +603,7 @@ namespace IceBlink2
 	    {
 		    if ((shopSlotIndex + (shopPageIndex * 10)) < currentShop.shopItemRefs.Count)
 		    {
-                //check to see if have enough gold
+                //check to see if have enough gold and whether number of light sources and rations do not exceed carry limits
 	            Item it = mod.getItemByResRef(currentShop.shopItemRefs[shopSlotIndex + (shopPageIndex * 10)].resref);
                 if (it != null)
                 {
@@ -612,6 +612,44 @@ namespace IceBlink2
                         gv.sf.MessageBoxHtml("Your party does not have enough gold to purchase this item.");
                         return;
                     }
+
+                    if ((it.isRation) && (gv.mod.numberOfRationsRemaining >= gv.mod.maxNumberOfRationsAllowed))
+                    {
+                        gv.sf.MessageBoxHtml("Too much encumbrance by rations - your party can carry only " + gv.mod.maxNumberOfRationsAllowed.ToString() + ".");
+                        return;
+                    }
+
+                    int lightSourceCounter = 0;
+                    if (it.isLightSource)
+                    {
+                        foreach (ItemRefs itRef in gv.mod.partyInventoryRefsList)
+                        {
+                            lightSourceCounter++;
+                        }
+
+                        if (lightSourceCounter >= gv.mod.maxNumberOfLightSourcesAllowed)
+                        {
+                            gv.sf.MessageBoxHtml("Too much encumbrance by light sources - your party can carry only " + gv.mod.maxNumberOfLightSourcesAllowed.ToString() + ".");
+                            return;
+                        }
+                    }
+
+                    /*
+                    int lightSourceCounter = 0;
+                    if (it.onUseItemIBScript.Equals("doPartyLight"))
+                    {
+                        foreach (ItemRefs itRef in gv.mod.partyInventoryRefsList)
+                        {
+                            lightSourceCounter++;
+                        }
+
+                        if (lightSourceCounter >= gv.mod.maxNumberOfLightSourcesAllowed)
+                        {
+                            gv.sf.MessageBoxHtml("Too much encumbrance by light sources - your party can carry only " + gv.mod.maxNumberOfLightSourcesAllowed.ToString() + ".");
+                            return;
+                        }
+                    }
+                    */
                 }
                 DialogResult dlg = IBMessageBox.Show(gv, "Do you wish to buy this item?", enumMessageButton.YesNo);
                 if (dlg == DialogResult.Yes)

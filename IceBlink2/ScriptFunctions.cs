@@ -4998,6 +4998,169 @@ namespace IceBlink2
         //DEFAULT SCRIPTS
         public void dsWorldTime()
         {
+            gv.mod.timeInThisYear = (gv.mod.WorldTime * 60) % 29030400;
+           
+            //note: our ranges strat at 0 here, while our usual displayed counting starts at 1
+            gv.mod.currentYear = (gv.mod.WorldTime * 60) / 29030400;
+            decimal.Round(gv.mod.currentYear, 0);
+            gv.mod.currentMonth = ((gv.mod.timeInThisYear) / 2419200);
+            decimal.Round(gv.mod.currentMonth, 0);
+            gv.mod.currentDay = ((gv.mod.timeInThisYear) / 86400);
+            decimal.Round(gv.mod.currentDay, 0);
+            gv.mod.currentWeekDay = (gv.mod.currentDay % 7);
+            gv.mod.currentMonthDay = (gv.mod.currentDay % 28);
+
+            //XXX
+            if (gv.mod.currentMonth == 0)
+            {
+                gv.mod.monthNameToDisplay = gv.mod.nameOfFirstMonth;
+            }
+            else if (gv.mod.currentMonth == 1)
+            {
+                gv.mod.monthNameToDisplay = gv.mod.nameOfSecondMonth;
+            }
+            else if (gv.mod.currentMonth == 2)
+            {
+                gv.mod.monthNameToDisplay = gv.mod.nameOfThirdMonth;
+            }
+            else if (gv.mod.currentMonth == 3)
+            {
+                gv.mod.monthNameToDisplay = gv.mod.nameOfFourthMonth;
+            }
+            else if (gv.mod.currentMonth == 4)
+            {
+                gv.mod.monthNameToDisplay = gv.mod.nameOfFifthMonth;
+            }
+            else if (gv.mod.currentMonth == 5)
+            {
+                gv.mod.monthNameToDisplay = gv.mod.nameOfSixthMonth;
+            }
+            else if (gv.mod.currentMonth == 6)
+            {
+                gv.mod.monthNameToDisplay = gv.mod.nameOfSeventhMonth;
+            }
+            else if (gv.mod.currentMonth == 7)
+            {
+                gv.mod.monthNameToDisplay = gv.mod.nameOfEighthMonth;
+            }
+            else if (gv.mod.currentMonth == 8)
+            {
+                gv.mod.monthNameToDisplay = gv.mod.nameOfNinthMonth;
+            }
+            else if (gv.mod.currentMonth == 9)
+            {
+                gv.mod.monthNameToDisplay = gv.mod.nameOfTenthMonth;
+            }
+            else if (gv.mod.currentMonth == 10)
+            {
+                gv.mod.monthNameToDisplay = gv.mod.nameOfEleventhMonth;
+            }
+            else if (gv.mod.currentMonth == 11)
+            {
+                gv.mod.monthNameToDisplay = gv.mod.nameOfTwelfthMonth;
+            }
+
+            gv.mod.monthDayCounterNumberToDisplay = (gv.mod.currentMonthDay + 1).ToString();
+            if (gv.mod.currentMonthDay == 0)
+            {
+                gv.mod.monthDayCounterAddendumToDisplay = "st";
+            }
+            else if (gv.mod.currentMonthDay == 1)
+            {
+                gv.mod.monthDayCounterAddendumToDisplay = "nd";
+            }
+            else if (gv.mod.currentMonthDay == 2)
+            {
+                gv.mod.monthDayCounterAddendumToDisplay = "rd";
+            }
+            else if (gv.mod.currentMonthDay == 20)
+            {
+                gv.mod.monthDayCounterAddendumToDisplay = "st";
+            }
+            else if (gv.mod.currentMonthDay == 21)
+            {
+                gv.mod.monthDayCounterAddendumToDisplay = "nd";
+            }
+            else if (gv.mod.currentMonthDay == 22)
+            {
+                gv.mod.monthDayCounterAddendumToDisplay = "rd";
+            }
+            else
+            {
+                gv.mod.monthDayCounterAddendumToDisplay = "th";
+            }
+
+            if (gv.mod.currentWeekDay == 0)
+            {
+                gv.mod.weekDayNameToDisplay = gv.mod.nameOfFirstDayOfTheWeek;
+            }
+            else if (gv.mod.currentWeekDay == 1)
+            {
+                gv.mod.weekDayNameToDisplay = gv.mod.nameOfSecondDayOfTheWeek;
+            }
+            else if (gv.mod.currentWeekDay == 2)
+            {
+                gv.mod.weekDayNameToDisplay = gv.mod.nameOfThirdDayOfTheWeek;
+            }
+            else if (gv.mod.currentWeekDay == 3)
+            {
+                gv.mod.weekDayNameToDisplay = gv.mod.nameOfFourthDayOfTheWeek;
+            }
+            else if (gv.mod.currentWeekDay == 4)
+            {
+                gv.mod.weekDayNameToDisplay = gv.mod.nameOfFifthDayOfTheWeek;
+            }
+            else if (gv.mod.currentWeekDay == 5)
+            {
+                gv.mod.weekDayNameToDisplay = gv.mod.nameOfSixthDayOfTheWeek;
+            }
+            else if (gv.mod.currentWeekDay == 6)
+            {
+                gv.mod.weekDayNameToDisplay = gv.mod.nameOfSeventhDayOfTheWeek;
+            }
+
+            //XXX
+
+            //assuming 28 days in 12 Months, ie 336 days a year
+            //notation example: 13:17, Tuesday, 9th of March 1213
+
+            /*
+            public string weekDayNameToDisplay = "";
+            public string monthDayCounterNumberToDisplay = "";
+            public string monthDayCounterAddendumToDisplay = "";
+            public string monthNameToDisplay = "";
+
+            public string nameOfFirstDayOfTheWeek = "Monday";
+            public string nameOfSecondDayOfTheWeek = "Tuesday";
+            public string nameOfThirdDayOfTheWeek = "Wednesday";
+            public string nameOfFourthDayOfTheWeek = "Thursday";
+            public string nameOfFifthDayOfTheWeek = "Friday";
+            public string nameOfSixthDayOfTheWeek = "Saturday";
+            public string nameOfSeventhDayOfTheWeek = "Sunday";
+
+            public string nameOfFirstMonth = "";
+            public string nameOfSecondMonth = "";
+            public string nameOfThirdMonth = "";
+            public string nameOfFourthMonth = "";
+            public string nameOfFifthMonth = "";
+            public string nameOfSixthMonth = "";
+            public string nameOfSeventhMonth = "";
+            public string nameOfEighthMonth = "";
+            public string nameOfNinthMonth = "";
+            public string nameOfTenthMonth = "";
+            public string nameOfElventhMonth = "";
+            public string nameOfTwelfthMonth = "";
+
+            public int currentYear = 0;
+            //from 1 to 12
+            public int currentMonth = 1;
+            //from 1 to 336
+            public int currentDay = 1;
+            public int currentWeekDay = 1;
+            public int currentMonthDay = 1;
+            */
+
+            //XXX
             mod.WorldTime += mod.currentArea.TimePerSquare;
             //Code: Bleed to death at -20 hp
             spCnt++;

@@ -20,6 +20,7 @@ namespace IceBlink2
     {
 	    public string name = "none"; //item name  
         public bool isRation = false;
+        public bool isLightSource = false;
         public string itemImage = "blank";
         [JsonIgnore]
 	    public Bitmap token;
@@ -99,6 +100,7 @@ namespace IceBlink2
 		    Item copy = new Item();
 		    copy.name = this.name;
             copy.isRation = this.isRation;
+            copy.isLightSource = this.isLightSource;
             copy.ArmorWeightType = this.ArmorWeightType;
 		    copy.itemImage = this.itemImage;
 		    copy.tag = this.tag;

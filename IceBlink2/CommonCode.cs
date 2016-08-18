@@ -1619,7 +1619,8 @@ namespace IceBlink2
 
         public void doUpdate()
         {
-            handleRations();
+            gv.realTimeTimerMilliSecondsEllapsed = 0;
+            handleRationsAndLightSources();
             gv.mod.EncounterOfTurnDone = false;
             setToBorderPixDistancesMainMap();
             if (gv.mod.useAllTileSystem)
@@ -2269,8 +2270,48 @@ namespace IceBlink2
         }
 
 
-        public void handleRations()
+        public void handleRationsAndLightSources()
         {
+            //code for discardign surplus resource items
+            bool discardedRations = false;
+            bool discardedLightSources = false;
+            foreach (ItemRefs itRef in gv.mod.partyInventoryRefsList)
+            {
+                //code for capping number of rations and light sources
+                if ((itRef.isRation) && (gv.mod.numberOfRationsRemaining >= gv.mod.maxNumberOfRationsAllowed))
+                {
+                    gv.mod.numberOfRationsRemaining--;
+                    gv.mod.partyInventoryRefsList.Remove(itRef);
+                    discardedRations = true;
+                }
+
+                if (itRef.isLightSource)
+                {
+                    int lightSourceCounter = 0;
+                    foreach (ItemRefs itRef2 in gv.mod.partyInventoryRefsList)
+                    {
+                        lightSourceCounter++;
+                    }
+
+                    if (lightSourceCounter >= gv.mod.maxNumberOfLightSourcesAllowed)
+                    {
+                        gv.mod.partyInventoryRefsList.Remove(itRef);
+                        discardedLightSources = true;
+                    }
+                }
+            }
+
+            if (discardedRations)
+            {
+                gv.screenMainMap.addFloatyText(gv.mod.PlayerLocationX, gv.mod.PlayerLocationY, "Discarding excess ration, too heavy", "white", 4000);
+            }
+
+            if (discardedLightSources)
+            {
+                gv.screenMainMap.addFloatyText(gv.mod.PlayerLocationX, gv.mod.PlayerLocationY, "Discarding excess light source items, too heavy", "white", 4000);
+            }
+
+            //ration consumption and damage code
             if (gv.mod.minutesSinceLastRationConsumed < 1440)
             {
                 gv.mod.minutesSinceLastRationConsumed += gv.mod.currentArea.TimePerSquare;
@@ -2284,14 +2325,15 @@ namespace IceBlink2
                     if (it.isRation)
                     {
                         gv.mod.partyInventoryRefsList.Remove(it);
-                        gv.screenMainMap.addFloatyText(gv.mod.PlayerLocationX, gv.mod.PlayerLastLocationY, "Ration consumed", "white", 4000);
+                        gv.screenMainMap.addFloatyText(gv.mod.PlayerLocationX, gv.mod.PlayerLocationY, "Ration consumed", "white", 4000);
                         foundRation = true;
+                        //gv.mod.onLastRation = false;
                         break;
                     }
                 }
                 if (!foundRation)
                 {
-                    gv.screenMainMap.addFloatyText(gv.mod.PlayerLocationX, gv.mod.PlayerLastLocationY, "Hungry and thirsty... HP & SP lost", "red", 4000);
+                    gv.screenMainMap.addFloatyText(gv.mod.PlayerLocationX, gv.mod.PlayerLocationY, "Very deprived by lack of supplies... HP & SP lost", "red", 4000);
                     foreach (Player p in gv.mod.playerList)
                     {
                         int healthReduction = (int)(p.hpMax / 5f);
@@ -2316,9 +2358,29 @@ namespace IceBlink2
 
                     }
                 }
+                //prepare final warning
+                gv.mod.numberOfRationsRemaining = 0;
+                foreach (ItemRefs it in gv.mod.partyInventoryRefsList)
+                {
+                    if (it.isRation)
+                    {
+                        gv.mod.numberOfRationsRemaining++;
+                    }
+                }
+
+                if (gv.mod.numberOfRationsRemaining == 1)
+                {
+                    gv.screenMainMap.addFloatyText(gv.mod.PlayerLocationX, gv.mod.PlayerLocationY, "On your last ration... 48h left to resupply", "red", 4000);
+                }
+
+                if ((gv.mod.numberOfRationsRemaining == 0) && (foundRation))
+                {
+                    gv.screenMainMap.addFloatyText(gv.mod.PlayerLocationX, gv.mod.PlayerLocationY, "No rations... you are in dire need to resupply", "red", 4000);
+                }
 
             }
 
+            //always have correct ration count
             gv.mod.numberOfRationsRemaining = 0;
             foreach (ItemRefs it in gv.mod.partyInventoryRefsList)
             {
