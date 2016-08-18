@@ -26201,26 +26201,56 @@ namespace IceBlink2
                         if (gv.mod.partyLightOn)
                         {
                             gv.DrawText(hour + ":" + sMinute +", " + gv.mod.weekDayNameToDisplay + ", " + gv.mod.monthDayCounterNumberToDisplay + gv.mod.monthDayCounterAddendumToDisplay + " of " + gv.mod.monthNameToDisplay + " " + gv.mod.currentYear.ToString(), new IbRect(gv.oXshift + x + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH + y - gv.pS, 400, 100), 1.0f, Color.Black);
-                            gv.DrawText("Rations(" + gv.mod.numberOfRationsRemaining.ToString() + "), " + gv.mod.partyLightName + "(" + gv.mod.currentLightUnitsLeft.ToString() + ")", new IbRect(gv.oXshift + x + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH + y + (int)(2.5 * gv.pS), 400, 100), 1.0f, Color.Black);
+                            if ((gv.mod.currentArea.inGameAreaName != "") && (gv.mod.currentArea.inGameAreaName != "newArea"))
+                            {
+                                gv.DrawText(gv.mod.currentArea.inGameAreaName + ", " + "Rations(" + gv.mod.numberOfRationsRemaining.ToString() + "), " + gv.mod.partyLightName + "(" + gv.mod.currentLightUnitsLeft.ToString() + ")", new IbRect(gv.oXshift + x + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH + y + (int)(2.5 * gv.pS), 400, 100), 1.0f, Color.Black);
+                            }
+                            else
+                            {
+                                gv.DrawText("Rations(" + gv.mod.numberOfRationsRemaining.ToString() + "), " + gv.mod.partyLightName + "(" + gv.mod.currentLightUnitsLeft.ToString() + ")", new IbRect(gv.oXshift + x + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH + y + (int)(2.5 * gv.pS), 400, 100), 1.0f, Color.Black);
+                            }
                             //gv.DrawText(hour + ":" + sMinute + ", " + gv.mod.partyLightName + "(" + gv.mod.currentLightUnitsLeft.ToString() + ")", new IbRect(gv.oXshift + x + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH + y - gv.pS, 400, 100), 1.0f, Color.Black);
                         }
                         else
                         {
                             gv.DrawText(hour + ":" + sMinute + ", " + gv.mod.weekDayNameToDisplay + ", " + gv.mod.monthDayCounterNumberToDisplay + gv.mod.monthDayCounterAddendumToDisplay + " of " + gv.mod.monthNameToDisplay + " " + gv.mod.currentYear.ToString(), new IbRect(gv.oXshift + x + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH + y - gv.pS, 400, 100), 1.0f, Color.Black);
-                            gv.DrawText("Rations(" + gv.mod.numberOfRationsRemaining.ToString() + ")", new IbRect(gv.oXshift + x + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH + y + (int)(2.5*gv.pS), 400, 100), 1.0f, Color.Black);
+                            if ((gv.mod.currentArea.inGameAreaName != "") && (gv.mod.currentArea.inGameAreaName != "newArea"))
+                            {
+                                gv.DrawText(gv.mod.currentArea.inGameAreaName + ", " + "Rations(" + gv.mod.numberOfRationsRemaining.ToString() + ")", new IbRect(gv.oXshift + x + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH + y + (int)(2.5 * gv.pS), 400, 100), 1.0f, Color.Black);
+                            }
+                            else
+                            {
+                                gv.DrawText("Rations(" + gv.mod.numberOfRationsRemaining.ToString() + ")", new IbRect(gv.oXshift + x + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH + y + (int)(2.5 * gv.pS), 400, 100), 1.0f, Color.Black);
+                            }
                         }
                     }
                 }
                 if (gv.mod.partyLightOn)
                 {
                     gv.DrawText(hour + ":" + sMinute + ", " + gv.mod.weekDayNameToDisplay + ", " + gv.mod.monthDayCounterNumberToDisplay + gv.mod.monthDayCounterAddendumToDisplay + " of " + gv.mod.monthNameToDisplay + " " + gv.mod.currentYear.ToString(), new IbRect(gv.oXshift + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH - gv.pS, 400, 100), 1.0f, Color.White);
-                    gv.DrawText("Rations(" + gv.mod.numberOfRationsRemaining.ToString() + "), " + gv.mod.partyLightName + "(" + gv.mod.currentLightUnitsLeft.ToString() + ")", new IbRect(gv.oXshift + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH + (int)(2.5*gv.pS), 400, 100), 1.0f, Color.White);
+                    if ((gv.mod.currentArea.inGameAreaName != "") && (gv.mod.currentArea.inGameAreaName != "newArea"))
+                    {
+                        gv.DrawText(gv.mod.currentArea.inGameAreaName + ", " + "Rations(" + gv.mod.numberOfRationsRemaining.ToString() + "), " + gv.mod.partyLightName + "(" + gv.mod.currentLightUnitsLeft.ToString() + ")", new IbRect(gv.oXshift + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH + (int)(2.5 * gv.pS), 400, 100), 1.0f, Color.White);
+
+                    }
+                    else
+                    {
+                        gv.DrawText("Rations(" + gv.mod.numberOfRationsRemaining.ToString() + "), " + gv.mod.partyLightName + "(" + gv.mod.currentLightUnitsLeft.ToString() + ")", new IbRect(gv.oXshift + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH + (int)(2.5 * gv.pS), 400, 100), 1.0f, Color.White);
+                    }
                     //gv.DrawText(hour + ":" + sMinute + ", " + gv.mod.partyLightName + "(" + gv.mod.currentLightUnitsLeft.ToString() + ")", new IbRect(gv.oXshift + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH - gv.pS, 400, 100), 1.0f, Color.White);
                 }
                 else
                 {
                     gv.DrawText(hour + ":" + sMinute + ", " + gv.mod.weekDayNameToDisplay + ", " + gv.mod.monthDayCounterNumberToDisplay + gv.mod.monthDayCounterAddendumToDisplay + " of " + gv.mod.monthNameToDisplay + " " + gv.mod.currentYear.ToString(), new IbRect(gv.oXshift + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH - gv.pS, 400, 100), 1.0f, Color.White);
-                    gv.DrawText("Rations(" + gv.mod.numberOfRationsRemaining.ToString() + ")", new IbRect(gv.oXshift + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH + (int)(2.5f * gv.pS), 400, 100), 1.0f, Color.White);
+                    if ((gv.mod.currentArea.inGameAreaName != "") && (gv.mod.currentArea.inGameAreaName != "newArea"))
+                    {
+                        gv.DrawText(gv.mod.currentArea.inGameAreaName + ", " + "Rations(" + gv.mod.numberOfRationsRemaining.ToString() + ")", new IbRect(gv.oXshift + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH + (int)(2.5f * gv.pS), 400, 100), 1.0f, Color.White);
+                    }
+                    else
+                    {
+                        gv.DrawText("Rations(" + gv.mod.numberOfRationsRemaining.ToString() + ")", new IbRect(gv.oXshift + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH + (int)(2.5f * gv.pS), 400, 100), 1.0f, Color.White);
+
+                    }
                     //gv.DrawText(hour + ":" + sMinute, new IbRect(gv.oXshift + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH - gv.pS, 400, 100), 1.0f, Color.White);
 
                 }

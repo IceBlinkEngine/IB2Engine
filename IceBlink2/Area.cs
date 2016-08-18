@@ -47,7 +47,7 @@ namespace IceBlink2
         public string OnHeartBeatIBScriptParms = "";
 	    public List<LocalInt> AreaLocalInts = new List<LocalInt>();
 	    public List<LocalString> AreaLocalStrings = new List<LocalString>();
-        public string inGameAreaName = "newArea";
+        public string inGameAreaName = "";
         public string areaWeatherScript = "";
         public string areaWeatherScriptParms = "";
         public string effectChannelScript1 = "";
