@@ -180,7 +180,7 @@
   "OnHeartBeatIBScriptParms": "",
   "useMinimalisticUI": true,
   "useManualCombatCam": true,
-  "useCombatSmoothMovement": false,
+  "useCombatSmoothMovement": true,
   "useMathGridFade": false,
   "partyLightColor": "blue",
   "durationInStepsOfPartyLightItems": 250,
