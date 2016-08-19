@@ -7,6 +7,8 @@
         "tag": "dagger01_1565",
         "name": "Dagger",
         "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
         "quantity": 1
       },
       {
@@ -14,6 +16,8 @@
         "tag": "healingPotion_1566",
         "name": "Healing Potion",
         "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
         "quantity": 1
       }
     ]
@@ -26,6 +30,8 @@
         "tag": "maceofstunning_8194",
         "name": "Mace of Stunning",
         "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
         "quantity": 1
       },
       {
@@ -33,6 +39,8 @@
         "tag": "stonefire_8671",
         "name": "Stone of Fire",
         "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
         "quantity": 20
       }
     ]
@@ -45,6 +53,8 @@
         "tag": "thsworddefender_8668",
         "name": "Two Handed Sword of the Defender",
         "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
         "quantity": 1
       },
       {
@@ -52,6 +62,8 @@
         "tag": "stone_8672",
         "name": "Stone",
         "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
         "quantity": 20
       }
     ]
@@ -64,6 +76,8 @@
         "tag": "lilyringofpower_8196",
         "name": "Ring of Power",
         "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
         "quantity": 1
       }
     ]
@@ -76,6 +90,8 @@
         "tag": "poisonDagger_9047",
         "name": "Poison Dagger",
         "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
         "quantity": 1
       },
       {
@@ -83,6 +99,8 @@
         "tag": "poisonDagger_9048",
         "name": "Poison Dagger",
         "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
         "quantity": 1
       },
       {
@@ -90,6 +108,8 @@
         "tag": "firebomb_9049",
         "name": "Bomb of Fire",
         "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
         "quantity": 20
       },
       {
@@ -97,6 +117,8 @@
         "tag": "firebomb_9050",
         "name": "Bomb of Fire",
         "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
         "quantity": 20
       },
       {
@@ -104,6 +126,8 @@
         "tag": "firebomb_9051",
         "name": "Bomb of Fire",
         "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
         "quantity": 20
       },
       {
@@ -111,6 +135,8 @@
         "tag": "minorhealpotion_9052",
         "name": "Minor Healing Potion",
         "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
         "quantity": 1
       },
       {
@@ -118,6 +144,8 @@
         "tag": "minorhealpotion_9053",
         "name": "Minor Healing Potion",
         "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
         "quantity": 1
       },
       {
@@ -125,6 +153,8 @@
         "tag": "minorhealpotion_9054",
         "name": "Minor Healing Potion",
         "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
         "quantity": 1
       },
       {
@@ -132,6 +162,8 @@
         "tag": "antidote_9151",
         "name": "Antidote Potion",
         "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
         "quantity": 1
       },
       {
@@ -139,6 +171,8 @@
         "tag": "antidote_9152",
         "name": "Antidote Potion",
         "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
         "quantity": 1
       },
       {
@@ -146,6 +180,8 @@
         "tag": "antidote_9153",
         "name": "Antidote Potion",
         "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
         "quantity": 1
       },
       {
@@ -153,6 +189,8 @@
         "tag": "newTag_9360_9372",
         "name": "Flaming Axe",
         "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
         "quantity": 1
       },
       {
@@ -160,20 +198,26 @@
         "tag": "newTag_9362_9373",
         "name": "Corrosive Sword",
         "canNotBeUnequipped": false,
-        "quantity": 1
-      },
-      {
-        "resref": "torch",
-        "tag": "newTag_9931_9948",
-        "name": "Torch",
-        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
         "quantity": 1
       },
       {
         "resref": "ration",
-        "tag": "newTag_9963_9966",
+        "tag": "newTag_9963_9969",
         "name": "Ration",
         "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": true,
+        "quantity": 1
+      },
+      {
+        "resref": "torch",
+        "tag": "newTag_9931_9970",
+        "name": "Torch",
+        "canNotBeUnequipped": false,
+        "isLightSource": true,
+        "isRation": false,
         "quantity": 1
       }
     ]
