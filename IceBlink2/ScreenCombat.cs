@@ -4238,6 +4238,26 @@ namespace IceBlink2
                                     continue;
                                 }
 
+                                if (x > gv.mod.currentEncounter.MapSizeX-1)
+                                {
+                                    continue;
+                                }
+
+                                if (y > gv.mod.currentEncounter.MapSizeY - 1)
+                                {
+                                    continue;
+                                }
+
+                                if (x < 0)
+                                {
+                                    continue;
+                                }
+
+                                if (y < 0)
+                                {
+                                    continue;
+                                }
+
                                 TileEnc tile = mod.currentEncounter.encounterTiles[y * mod.currentEncounter.MapSizeX + x];
 
                                 int tlX = ((x - UpperLeftSquare.X) * gv.squareSize) + gv.oXshift + mapStartLocXinPixels;
@@ -4697,7 +4717,14 @@ namespace IceBlink2
 	    }
 	    public void drawMovingCombatCreatures()
 	    {
-            
+            //foreach (Creature c in mod.currentEncounter.encounterCreatureList)
+            //{
+
+            //}
+                 
+                    
+           //if ((crt == mod.currentEncounter.encounterCreatureList[creatureIndex])
+
             if ((gv.mod.fastMode) && (!isPlayerTurn))
             {
                     framesInFastForwardCounter++;
@@ -4745,130 +4772,133 @@ namespace IceBlink2
                     continue;
                 }
 
-                if ((crt == mod.currentEncounter.encounterCreatureList[creatureIndex]) && (!isPlayerTurn) && (gv.mod.useCombatSmoothMovement))
+                if (creatureIndex < mod.currentEncounter.encounterCreatureList.Count)
                 {
-                    
-                    if ((crt.combatLocX != crt.newCoor.X) || (crt.combatLocY != crt.newCoor.Y))
+                    if ((crt == mod.currentEncounter.encounterCreatureList[creatureIndex]) && (!isPlayerTurn) && (gv.mod.useCombatSmoothMovement))
                     {
-                        if ((crt.newCoor.X != -1) && (crt.newCoor.Y != -1))
+
+                        if ((crt.combatLocX != crt.newCoor.X) || (crt.combatLocY != crt.newCoor.Y))
                         {
-                            //glide east
-                            if ((crt.combatLocX < crt.newCoor.X) && (crt.combatLocY == crt.newCoor.Y))
+                            if ((crt.newCoor.X != -1) && (crt.newCoor.Y != -1))
                             {
-                                crt.glideAdderX += 0.5f * glideSpeed;
-                                if (getPixelLocX(crt.combatLocX) + crt.glideAdderX >= getPixelLocX(crt.newCoor.X))
+                                //glide east
+                                if ((crt.combatLocX < crt.newCoor.X) && (crt.combatLocY == crt.newCoor.Y))
                                 {
-                                    crt.combatLocX = crt.newCoor.X;
-                                    crt.combatLocY = crt.newCoor.Y;
-                                    crt.glideAdderX = 0;
-                                    crt.glideAdderY = 0;
-                                    blockAnimationBridge = false;
+                                    crt.glideAdderX += 0.5f * glideSpeed;
+                                    if (getPixelLocX(crt.combatLocX) + crt.glideAdderX >= getPixelLocX(crt.newCoor.X))
+                                    {
+                                        crt.combatLocX = crt.newCoor.X;
+                                        crt.combatLocY = crt.newCoor.Y;
+                                        crt.glideAdderX = 0;
+                                        crt.glideAdderY = 0;
+                                        blockAnimationBridge = false;
+                                    }
                                 }
-                            }
 
-                            //glide west
-                            if ((crt.combatLocX > crt.newCoor.X) && (crt.combatLocY == crt.newCoor.Y))
-                            {
-                                crt.glideAdderX -= 0.5f * glideSpeed;
-                                if (getPixelLocX(crt.combatLocX) + crt.glideAdderX <= getPixelLocX(crt.newCoor.X))
+                                //glide west
+                                if ((crt.combatLocX > crt.newCoor.X) && (crt.combatLocY == crt.newCoor.Y))
                                 {
-                                    crt.combatLocX = crt.newCoor.X;
-                                    crt.combatLocY = crt.newCoor.Y;
-                                    crt.glideAdderX = 0;
-                                    crt.glideAdderY = 0;
-                                    blockAnimationBridge = false;
+                                    crt.glideAdderX -= 0.5f * glideSpeed;
+                                    if (getPixelLocX(crt.combatLocX) + crt.glideAdderX <= getPixelLocX(crt.newCoor.X))
+                                    {
+                                        crt.combatLocX = crt.newCoor.X;
+                                        crt.combatLocY = crt.newCoor.Y;
+                                        crt.glideAdderX = 0;
+                                        crt.glideAdderY = 0;
+                                        blockAnimationBridge = false;
+                                    }
                                 }
-                            }
 
-                            //glide north
-                            if ((crt.combatLocX == crt.newCoor.X) && (crt.combatLocY > crt.newCoor.Y))
-                            {
-                                crt.glideAdderY -= 0.5f * glideSpeed;
-                                if (getPixelLocY(crt.combatLocY) + crt.glideAdderY <= getPixelLocY(crt.newCoor.Y))
+                                //glide north
+                                if ((crt.combatLocX == crt.newCoor.X) && (crt.combatLocY > crt.newCoor.Y))
                                 {
-                                    crt.combatLocX = crt.newCoor.X;
-                                    crt.combatLocY = crt.newCoor.Y;
-                                    crt.glideAdderX = 0;
-                                    crt.glideAdderY = 0;
-                                    blockAnimationBridge = false;
+                                    crt.glideAdderY -= 0.5f * glideSpeed;
+                                    if (getPixelLocY(crt.combatLocY) + crt.glideAdderY <= getPixelLocY(crt.newCoor.Y))
+                                    {
+                                        crt.combatLocX = crt.newCoor.X;
+                                        crt.combatLocY = crt.newCoor.Y;
+                                        crt.glideAdderX = 0;
+                                        crt.glideAdderY = 0;
+                                        blockAnimationBridge = false;
+                                    }
                                 }
-                            }
 
-                            //glide south
-                            if ((crt.combatLocX == crt.newCoor.X) && (crt.combatLocY < crt.newCoor.Y))
-                            {
-                                crt.glideAdderY += 0.5f * glideSpeed;
-                                if (getPixelLocY(crt.combatLocY) + crt.glideAdderY >= getPixelLocY(crt.newCoor.Y))
+                                //glide south
+                                if ((crt.combatLocX == crt.newCoor.X) && (crt.combatLocY < crt.newCoor.Y))
                                 {
-                                    crt.combatLocX = crt.newCoor.X;
-                                    crt.combatLocY = crt.newCoor.Y;
-                                    crt.glideAdderX = 0;
-                                    crt.glideAdderY = 0;
-                                    blockAnimationBridge = false;
+                                    crt.glideAdderY += 0.5f * glideSpeed;
+                                    if (getPixelLocY(crt.combatLocY) + crt.glideAdderY >= getPixelLocY(crt.newCoor.Y))
+                                    {
+                                        crt.combatLocX = crt.newCoor.X;
+                                        crt.combatLocY = crt.newCoor.Y;
+                                        crt.glideAdderX = 0;
+                                        crt.glideAdderY = 0;
+                                        blockAnimationBridge = false;
+                                    }
                                 }
-                            }
 
-                            //glide southeast
-                            if ((crt.combatLocX < crt.newCoor.X) && (crt.combatLocY < crt.newCoor.Y))
-                            {
-                                crt.glideAdderX += 0.5f * glideSpeed;
-                                crt.glideAdderY += 0.5f * glideSpeed;
-
-                                if ((getPixelLocX(crt.combatLocX) + crt.glideAdderX >= getPixelLocX(crt.newCoor.X)) && (getPixelLocY(crt.combatLocY) + crt.glideAdderY >= getPixelLocY(crt.newCoor.Y)))
+                                //glide southeast
+                                if ((crt.combatLocX < crt.newCoor.X) && (crt.combatLocY < crt.newCoor.Y))
                                 {
-                                    crt.combatLocX = crt.newCoor.X;
-                                    crt.combatLocY = crt.newCoor.Y;
-                                    crt.glideAdderX = 0;
-                                    crt.glideAdderY = 0;
-                                    blockAnimationBridge = false;
+                                    crt.glideAdderX += 0.5f * glideSpeed;
+                                    crt.glideAdderY += 0.5f * glideSpeed;
+
+                                    if ((getPixelLocX(crt.combatLocX) + crt.glideAdderX >= getPixelLocX(crt.newCoor.X)) && (getPixelLocY(crt.combatLocY) + crt.glideAdderY >= getPixelLocY(crt.newCoor.Y)))
+                                    {
+                                        crt.combatLocX = crt.newCoor.X;
+                                        crt.combatLocY = crt.newCoor.Y;
+                                        crt.glideAdderX = 0;
+                                        crt.glideAdderY = 0;
+                                        blockAnimationBridge = false;
+                                    }
                                 }
-                            }
 
-                            //glide southwest
-                            if ((crt.combatLocX > crt.newCoor.X) && (crt.combatLocY < crt.newCoor.Y))
-                            {
-                                crt.glideAdderX -= 0.5f * glideSpeed;
-                                crt.glideAdderY += 0.5f * glideSpeed;
-
-                                if ((getPixelLocX(crt.combatLocX) + crt.glideAdderX <= getPixelLocX(crt.newCoor.X)) && (getPixelLocY(crt.combatLocY) + crt.glideAdderY >= getPixelLocY(crt.newCoor.Y)))
+                                //glide southwest
+                                if ((crt.combatLocX > crt.newCoor.X) && (crt.combatLocY < crt.newCoor.Y))
                                 {
-                                    crt.combatLocX = crt.newCoor.X;
-                                    crt.combatLocY = crt.newCoor.Y;
-                                    crt.glideAdderX = 0;
-                                    crt.glideAdderY = 0;
-                                    blockAnimationBridge = false;
+                                    crt.glideAdderX -= 0.5f * glideSpeed;
+                                    crt.glideAdderY += 0.5f * glideSpeed;
+
+                                    if ((getPixelLocX(crt.combatLocX) + crt.glideAdderX <= getPixelLocX(crt.newCoor.X)) && (getPixelLocY(crt.combatLocY) + crt.glideAdderY >= getPixelLocY(crt.newCoor.Y)))
+                                    {
+                                        crt.combatLocX = crt.newCoor.X;
+                                        crt.combatLocY = crt.newCoor.Y;
+                                        crt.glideAdderX = 0;
+                                        crt.glideAdderY = 0;
+                                        blockAnimationBridge = false;
+                                    }
                                 }
-                            }
 
-                            //glide northwest
-                            if ((crt.combatLocX > crt.newCoor.X) && (crt.combatLocY > crt.newCoor.Y))
-                            {
-                                crt.glideAdderX -= 0.5f * glideSpeed;
-                                crt.glideAdderY -= 0.5f * glideSpeed;
-
-                                if ((getPixelLocX(crt.combatLocX) + crt.glideAdderX <= getPixelLocX(crt.newCoor.X)) && (getPixelLocY(crt.combatLocY) + crt.glideAdderY <= getPixelLocY(crt.newCoor.Y)))
+                                //glide northwest
+                                if ((crt.combatLocX > crt.newCoor.X) && (crt.combatLocY > crt.newCoor.Y))
                                 {
-                                    crt.combatLocX = crt.newCoor.X;
-                                    crt.combatLocY = crt.newCoor.Y;
-                                    crt.glideAdderX = 0;
-                                    crt.glideAdderY = 0;
-                                    blockAnimationBridge = false;
+                                    crt.glideAdderX -= 0.5f * glideSpeed;
+                                    crt.glideAdderY -= 0.5f * glideSpeed;
+
+                                    if ((getPixelLocX(crt.combatLocX) + crt.glideAdderX <= getPixelLocX(crt.newCoor.X)) && (getPixelLocY(crt.combatLocY) + crt.glideAdderY <= getPixelLocY(crt.newCoor.Y)))
+                                    {
+                                        crt.combatLocX = crt.newCoor.X;
+                                        crt.combatLocY = crt.newCoor.Y;
+                                        crt.glideAdderX = 0;
+                                        crt.glideAdderY = 0;
+                                        blockAnimationBridge = false;
+                                    }
                                 }
-                            }
 
-                            //glide northeast
-                            if ((crt.combatLocX < crt.newCoor.X) && (crt.combatLocY > crt.newCoor.Y))
-                            {
-                                crt.glideAdderX += 0.5f * glideSpeed;
-                                crt.glideAdderY -= 0.5f * glideSpeed;
-
-                                if ((getPixelLocX(crt.combatLocX) + crt.glideAdderX >= getPixelLocX(crt.newCoor.X)) && (getPixelLocY(crt.combatLocY) + crt.glideAdderY <= getPixelLocY(crt.newCoor.Y)))
+                                //glide northeast
+                                if ((crt.combatLocX < crt.newCoor.X) && (crt.combatLocY > crt.newCoor.Y))
                                 {
-                                    crt.combatLocX = crt.newCoor.X;
-                                    crt.combatLocY = crt.newCoor.Y;
-                                    crt.glideAdderX = 0;
-                                    crt.glideAdderY = 0;
-                                    blockAnimationBridge = false;
+                                    crt.glideAdderX += 0.5f * glideSpeed;
+                                    crt.glideAdderY -= 0.5f * glideSpeed;
+
+                                    if ((getPixelLocX(crt.combatLocX) + crt.glideAdderX >= getPixelLocX(crt.newCoor.X)) && (getPixelLocY(crt.combatLocY) + crt.glideAdderY <= getPixelLocY(crt.newCoor.Y)))
+                                    {
+                                        crt.combatLocX = crt.newCoor.X;
+                                        crt.combatLocY = crt.newCoor.Y;
+                                        crt.glideAdderX = 0;
+                                        crt.glideAdderY = 0;
+                                        blockAnimationBridge = false;
+                                    }
                                 }
                             }
                         }
@@ -4960,10 +4990,10 @@ namespace IceBlink2
 			    }
                 
                 IbRectF src = new IbRectF(0, 0, gv.cc.turn_marker.PixelSize.Width, gv.cc.turn_marker.PixelSize.Height);
-                if ((crt == mod.currentEncounter.encounterCreatureList[creatureIndex]) && (!isPlayerTurn))
-                {
+                //if ((crt == mod.currentEncounter.encounterCreatureList[creatureIndex]) && (!isPlayerTurn))
+                //{
                     //gv.DrawBitmap(gv.cc.turn_marker, src, dst);
-                }
+                //}
                 src = new IbRectF(0, 0, crt.token.PixelSize.Width, crt.token.PixelSize.Width);
                 //for 100x100px per frame creatures
                 if (crt.token.PixelSize.Width <= 100)

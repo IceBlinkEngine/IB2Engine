@@ -8342,7 +8342,7 @@ namespace IceBlink2
                                 if (!gv.mod.EncounterOfTurnDone)
                                 {
                                     gv.mod.EncounterOfTurnDone = true;
-                                    doEncounterBasedOnTag(trig.Event1FilenameOrTag);
+                                    doEncounterBasedOnTag(trig.Event2FilenameOrTag);
                                     //gv.mod.EncounterOfTurnDone = true;
                                 }
                                 //doEncounterBasedOnTag(trig.Event2FilenameOrTag);
@@ -8395,7 +8395,7 @@ namespace IceBlink2
                                 if (!gv.mod.EncounterOfTurnDone)
                                 {
                                     gv.mod.EncounterOfTurnDone = true;
-                                    doEncounterBasedOnTag(trig.Event1FilenameOrTag);
+                                    doEncounterBasedOnTag(trig.Event3FilenameOrTag);
                                     //gv.mod.EncounterOfTurnDone = true;
                                 }
                                 //doEncounterBasedOnTag(trig.Event3FilenameOrTag);
