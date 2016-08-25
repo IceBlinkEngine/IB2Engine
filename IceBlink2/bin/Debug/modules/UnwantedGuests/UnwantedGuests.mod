@@ -170,7 +170,7 @@
   "nextIdNumber": 9968,
   "realTimeTimerLengthInMilliSeconds": 7000,
   "borderAreaSize": 0,
-  "WorldTime": 0,
+  "WorldTime": 14400000,
   "startingArea": "brinsby",
   "startingPlayerPositionX": 6,
   "startingPlayerPositionY": 14,
