@@ -12,9 +12,12 @@
     "costSP": 5,
     "spellTargetType": "Enemy",
     "spellEffectType": "Damage",
+    "aoeShape": "Circle",
     "aoeRadius": 0,
     "range": 3,
-    "spellScript": "spMageBolt"
+    "spellScript": "spMageBolt",
+    "spellEffectTag": "none",
+    "removeEffectTagList": []
   },
   {
     "name": "Mage Armor",
@@ -29,9 +32,12 @@
     "costSP": 7,
     "spellTargetType": "Self",
     "spellEffectType": "Buff",
+    "aoeShape": "Circle",
     "aoeRadius": 0,
     "range": 0,
-    "spellScript": "spMageArmor"
+    "spellScript": "spMageArmor",
+    "spellEffectTag": "none",
+    "removeEffectTagList": []
   },
   {
     "name": "Sleep",
@@ -46,9 +52,12 @@
     "costSP": 10,
     "spellTargetType": "PointLocation",
     "spellEffectType": "DeBuff",
+    "aoeShape": "Circle",
     "aoeRadius": 1,
     "range": 3,
-    "spellScript": "spSleep"
+    "spellScript": "spSleep",
+    "spellEffectTag": "none",
+    "removeEffectTagList": []
   },
   {
     "name": "Web",
@@ -63,9 +72,12 @@
     "costSP": 15,
     "spellTargetType": "PointLocation",
     "spellEffectType": "DeBuff",
+    "aoeShape": "Circle",
     "aoeRadius": 1,
     "range": 4,
-    "spellScript": "spWeb"
+    "spellScript": "spWeb",
+    "spellEffectTag": "none",
+    "removeEffectTagList": []
   },
   {
     "name": "Minor Regeneration",
@@ -80,9 +92,12 @@
     "costSP": 5,
     "spellTargetType": "Friend",
     "spellEffectType": "Heal",
+    "aoeShape": "Circle",
     "aoeRadius": 0,
     "range": 3,
-    "spellScript": "spMinorRegen"
+    "spellScript": "spMinorRegen",
+    "spellEffectTag": "none",
+    "removeEffectTagList": []
   },
   {
     "name": "Ice Storm",
@@ -97,9 +112,12 @@
     "costSP": 10,
     "spellTargetType": "PointLocation",
     "spellEffectType": "Damage",
+    "aoeShape": "Circle",
     "aoeRadius": 1,
     "range": 3,
-    "spellScript": "spIceStorm"
+    "spellScript": "spIceStorm",
+    "spellEffectTag": "none",
+    "removeEffectTagList": []
   },
   {
     "name": "Fireball",
@@ -114,9 +132,12 @@
     "costSP": 20,
     "spellTargetType": "PointLocation",
     "spellEffectType": "Damage",
+    "aoeShape": "Circle",
     "aoeRadius": 1,
     "range": 3,
-    "spellScript": "spFireball"
+    "spellScript": "spFireball",
+    "spellEffectTag": "none",
+    "removeEffectTagList": []
   },
   {
     "name": "Minor Healing",
@@ -131,9 +152,12 @@
     "costSP": 7,
     "spellTargetType": "Friend",
     "spellEffectType": "Heal",
+    "aoeShape": "Circle",
     "aoeRadius": 0,
     "range": 3,
-    "spellScript": "spHeal"
+    "spellScript": "spHeal",
+    "spellEffectTag": "none",
+    "removeEffectTagList": []
   },
   {
     "name": "Bless",
@@ -148,9 +172,12 @@
     "costSP": 7,
     "spellTargetType": "Friend",
     "spellEffectType": "Buff",
+    "aoeShape": "Circle",
     "aoeRadius": 0,
     "range": 3,
-    "spellScript": "spBless"
+    "spellScript": "spBless",
+    "spellEffectTag": "none",
+    "removeEffectTagList": []
   },
   {
     "name": "Magic Stone",
@@ -165,9 +192,12 @@
     "costSP": 7,
     "spellTargetType": "Enemy",
     "spellEffectType": "Damage",
+    "aoeShape": "Circle",
     "aoeRadius": 0,
     "range": 3,
-    "spellScript": "spMagicStone"
+    "spellScript": "spMagicStone",
+    "spellEffectTag": "none",
+    "removeEffectTagList": []
   },
   {
     "name": "Moderate Healing",
@@ -182,9 +212,12 @@
     "costSP": 15,
     "spellTargetType": "Friend",
     "spellEffectType": "Heal",
+    "aoeShape": "Circle",
     "aoeRadius": 0,
     "range": 3,
-    "spellScript": "spHeal"
+    "spellScript": "spHeal",
+    "spellEffectTag": "none",
+    "removeEffectTagList": []
   },
   {
     "name": "Blast of Light",
@@ -199,9 +232,12 @@
     "costSP": 15,
     "spellTargetType": "PointLocation",
     "spellEffectType": "Damage",
+    "aoeShape": "Circle",
     "aoeRadius": 1,
     "range": 3,
-    "spellScript": "spBlastOfLight"
+    "spellScript": "spBlastOfLight",
+    "spellEffectTag": "none",
+    "removeEffectTagList": []
   },
   {
     "name": "Hold",
@@ -216,9 +252,12 @@
     "costSP": 10,
     "spellTargetType": "Enemy",
     "spellEffectType": "Debuff",
+    "aoeShape": "Circle",
     "aoeRadius": 0,
     "range": 3,
-    "spellScript": "spHold"
+    "spellScript": "spHold",
+    "spellEffectTag": "none",
+    "removeEffectTagList": []
   },
   {
     "name": "Mass Minor Healing",
@@ -233,8 +272,11 @@
     "costSP": 20,
     "spellTargetType": "Friend",
     "spellEffectType": "Heal",
+    "aoeShape": "Circle",
     "aoeRadius": 0,
     "range": 3,
-    "spellScript": "spMassHeal"
+    "spellScript": "spMassHeal",
+    "spellEffectTag": "none",
+    "removeEffectTagList": []
   }
 ]

@@ -2272,16 +2272,58 @@ namespace IceBlink2
 
         public void handleRationsAndLightSources()
         {
+
+            //ItemRefs itr = gv.mod.getItemRefsInInventoryByResRef(pc.AmmoRefs.resref);
+            /*
+            if ((mod.getItemByResRefForInfo(pc.MainHandRefs.resref).category.Equals("Ranged"))
+                    && (!mod.getItemByResRefForInfo(pc.AmmoRefs.resref).name.Equals("none")))
+            {
+                ItemRefs itr = mod.getItemRefsInInventoryByResRef(pc.AmmoRefs.resref);
+                if (itr != null)
+                {
+                    //decrement by one
+                    itr.quantity--;
+                    if (gv.sf.hasTrait(pc, "rapidshot"))
+                    {
+                        itr.quantity--;
+                    }
+                    if (gv.sf.hasTrait(pc, "rapidshot2"))
+                    {
+                        itr.quantity--;
+                    }
+                    //if equal to zero, remove from party inventory and from all PCs ammo slot
+                    if (itr.quantity < 1)
+                    {
+                        foreach (Player p in mod.playerList)
+                        {
+                            if (p.AmmoRefs.resref.Equals(itr.resref))
+                            {
+                                p.AmmoRefs = new ItemRefs();
+                            }
+                        }
+                        mod.partyInventoryRefsList.Remove(itr);
+                    }
+                }
+            }
+
+
+            */
+
+
             //code for discardign surplus resource items
             bool discardedRations = false;
             bool discardedLightSources = false;
             foreach (ItemRefs itRef in gv.mod.partyInventoryRefsList)
             {
                 //code for capping number of rations and light sources
-                if ((itRef.isRation) && (gv.mod.numberOfRationsRemaining >= gv.mod.maxNumberOfRationsAllowed))
+                if ((itRef.isRation) && (gv.mod.numberOfRationsRemaining > gv.mod.maxNumberOfRationsAllowed))
                 {
-                    gv.mod.numberOfRationsRemaining--;
-                    gv.mod.partyInventoryRefsList.Remove(itRef);
+                    gv.mod.numberOfRationsRemaining = gv.mod.maxNumberOfRationsAllowed;
+                    itRef.quantity = gv.mod.maxNumberOfRationsAllowed;
+                    //if (itRef.quantity < 1)
+                    //{
+                        //gv.mod.partyInventoryRefsList.Remove(itRef);
+                    //}
                     discardedRations = true;
                 }
 
@@ -2292,13 +2334,15 @@ namespace IceBlink2
                     {
                         if (itRef2.isLightSource)
                         {
-                            lightSourceCounter++;
+                            lightSourceCounter += itRef2.quantity;
                         }
                     }
 
-                    if (lightSourceCounter >= gv.mod.maxNumberOfLightSourcesAllowed)
+                    if (lightSourceCounter > gv.mod.maxNumberOfLightSourcesAllowed)
                     {
-                        gv.mod.partyInventoryRefsList.Remove(itRef);
+
+                        itRef.quantity = gv.mod.maxNumberOfLightSourcesAllowed;
+                        //gv.mod.partyInventoryRefsList.Remove(itRef);
                         discardedLightSources = true;
                     }
                 }
@@ -2329,7 +2373,12 @@ namespace IceBlink2
                     {
                         if (it.isRation)
                         {
-                            gv.mod.partyInventoryRefsList.Remove(it);
+                            it.quantity--;
+                            gv.mod.numberOfRationsRemaining--;
+                            if (it.quantity < 1)
+                            {
+                                gv.mod.partyInventoryRefsList.Remove(it);
+                            }
                             gv.screenMainMap.addFloatyText(gv.mod.PlayerLocationX, gv.mod.PlayerLocationY, "Ration consumed", "white", 4000);
                             foundRation = true;
                             //gv.mod.onLastRation = false;
@@ -2369,7 +2418,7 @@ namespace IceBlink2
                     {
                         if (it.isRation)
                         {
-                            gv.mod.numberOfRationsRemaining++;
+                            gv.mod.numberOfRationsRemaining = it.quantity;
                         }
                     }
 
@@ -2384,17 +2433,17 @@ namespace IceBlink2
                     }
 
                 }
-
+            }
                 //always have correct ration count
                 gv.mod.numberOfRationsRemaining = 0;
                 foreach (ItemRefs it in gv.mod.partyInventoryRefsList)
                 {
                     if (it.isRation)
                     {
-                        gv.mod.numberOfRationsRemaining++;
+                    //gv.mod.numberOfRationsRemaining = it.quantity;
+                    gv.mod.numberOfRationsRemaining++;
                     }
                 }
-            }
         }
 
         public void resetLightAndDarkness()

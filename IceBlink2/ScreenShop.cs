@@ -624,7 +624,7 @@ namespace IceBlink2
                     {
                         foreach (ItemRefs itRef in gv.mod.partyInventoryRefsList)
                         {
-                            lightSourceCounter++;
+                            lightSourceCounter += itRef.quantity;
                         }
 
                         if (lightSourceCounter >= gv.mod.maxNumberOfLightSourcesAllowed)

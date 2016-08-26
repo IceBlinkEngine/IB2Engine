@@ -212,16 +212,21 @@ namespace IceBlink2
             */
                 dst = new IbRect((int)this.position.X, (int)this.position.Y, (int)(gv.squareSize * this.scaleX), (int)(gv.squareSize * this.scaleY));
             //}
-
-            if (numberOFFramesForAnimationsMadeFromSeveralBitmaps == 0)
+            float opacityMulti = 1;
+            if (this.movementMethod.Contains("fog") || this.movementMethod.Contains("clouds"))
             {
-                gv.DrawBitmap(gv.cc.GetFromBitmapList(bitmap), src, dst, angle, false, this.opacity);
+                opacityMulti = 0.64f;
+            }
+
+                if (numberOFFramesForAnimationsMadeFromSeveralBitmaps == 0)
+            {
+                gv.DrawBitmap(gv.cc.GetFromBitmapList(bitmap), src, dst, angle, false, this.opacity * opacityMulti);
             }
             else
             {
                 //gv.cc.addLogText("red", currentFrameIndex.ToString());
 
-                gv.DrawBitmap(gv.cc.GetFromBitmapList(bitmap + currentFrameIndex.ToString()), src, dst, angle, false, this.opacity);
+                gv.DrawBitmap(gv.cc.GetFromBitmapList(bitmap + currentFrameIndex.ToString()), src, dst, angle, false, this.opacity * opacityMulti);
 
             }   
         }

@@ -378,7 +378,10 @@ namespace IceBlink2
                                         int lightSourceCounter = 0;
                                         foreach (ItemRefs itRef2 in gv.mod.partyInventoryRefsList)
                                         {
-                                            lightSourceCounter++;
+                                            if (itRef2.isLightSource)
+                                            {
+                                                lightSourceCounter += itRef2.quantity;
+                                            }
                                         }
 
                                         if (lightSourceCounter >= gv.mod.maxNumberOfLightSourcesAllowed)
@@ -392,6 +395,10 @@ namespace IceBlink2
                                     if (allowAdding)
                                     {
                                         gv.mod.partyInventoryRefsList.Add(itRef.DeepCopy());
+                                        if (itRef.isRation)
+                                        {
+                                            gv.mod.numberOfRationsRemaining++;
+                                        }
                                         thisItemRefs.Remove(itRef);
                                     }
                             }
@@ -444,10 +451,25 @@ namespace IceBlink2
                     {
                             //TO DO: Adjust for rtion and light source limits
                             bool allowAdding = true;
+                            int numberOfRationsInChest = 0;
+                            int numberOfLightSourceItemsInChest = 0;
+                            foreach (ItemRefs itRef in thisItemRefs)
+                            {
+                                if (itRef.isRation)
+                                {
+                                    numberOfRationsInChest++;
+                                }
+
+                                if (itRef.isLightSource)
+                                {
+                                    numberOfLightSourceItemsInChest++;
+                                }
+                            }
+                                //to do
                             foreach (ItemRefs itRef in thisItemRefs)
                             {
                                 //code for capping number of rations and light sources
-                                if ((itRef.isRation) && (gv.mod.numberOfRationsRemaining >= gv.mod.maxNumberOfRationsAllowed))
+                                if ((itRef.isRation) && (gv.mod.numberOfRationsRemaining + numberOfRationsInChest > gv.mod.maxNumberOfRationsAllowed))
                                 {
                                     gv.sf.MessageBoxHtml("Too much encumbrance by rations - your party can carry only " + gv.mod.maxNumberOfRationsAllowed.ToString() + ".");
                                     allowAdding = false;
@@ -459,10 +481,13 @@ namespace IceBlink2
                                     int lightSourceCounter = 0;
                                     foreach (ItemRefs itRef2 in gv.mod.partyInventoryRefsList)
                                     {
-                                        lightSourceCounter++;
+                                        if (itRef2.isLightSource)
+                                        {
+                                            lightSourceCounter += itRef2.quantity;
+                                        }
                                     }
 
-                                    if (lightSourceCounter >= gv.mod.maxNumberOfLightSourcesAllowed)
+                                    if (lightSourceCounter + numberOfLightSourceItemsInChest > gv.mod.maxNumberOfLightSourcesAllowed)
                                     {
                                         gv.sf.MessageBoxHtml("Too much encumbrance by light sources - your party can carry only " + gv.mod.maxNumberOfLightSourcesAllowed.ToString() + ".");
                                         allowAdding = false;
@@ -520,9 +545,49 @@ namespace IceBlink2
                 {
                     if (itemSelectorType.Equals("container"))
                     {
-                        ItemRefs itRef = GetCurrentlySelectedItemRefs();
-                        gv.mod.partyInventoryRefsList.Add(itRef.DeepCopy());
-                        thisItemRefs.Remove(itRef);
+
+                            ItemRefs itRef = GetCurrentlySelectedItemRefs();
+                                         bool allowAdding = true;
+                                         //code for capping number of rations and light sources
+                                         if ((itRef.isRation) && (gv.mod.numberOfRationsRemaining >= gv.mod.maxNumberOfRationsAllowed))
+                                         {
+                                             gv.sf.MessageBoxHtml("Too much encumbrance by rations - your party can carry only " + gv.mod.maxNumberOfRationsAllowed.ToString() + ".");
+                                             allowAdding = false;
+                                             //return;
+                                         }
+
+                                         if (itRef.isLightSource)
+                                         {
+                                             int lightSourceCounter = 0;
+                                             foreach (ItemRefs itRef2 in gv.mod.partyInventoryRefsList)
+                                             {
+                                                if (itRef2.isLightSource)
+                                                {
+                                                    lightSourceCounter += itRef2.quantity;
+                                                }
+                                             }
+
+                                             if (lightSourceCounter >= gv.mod.maxNumberOfLightSourcesAllowed)
+                                             {
+                                                 gv.sf.MessageBoxHtml("Too much encumbrance by light sources - your party can carry only " + gv.mod.maxNumberOfLightSourcesAllowed.ToString() + ".");
+                                                 allowAdding = false;
+                                                 //return;
+                                             }
+                                         }
+
+                                         if (allowAdding)
+                                         {
+                                             gv.mod.partyInventoryRefsList.Add(itRef.DeepCopy());
+                                             if (itRef.isRation)
+                                             {
+                                                 gv.mod.numberOfRationsRemaining++;
+                                             }
+                                             thisItemRefs.Remove(itRef);
+                                         }
+
+                        //ItemRefs itRef = GetCurrentlySelectedItemRefs();
+                        //gv.mod.partyInventoryRefsList.Add(itRef.DeepCopy());
+                        //thisItemRefs.Remove(itRef);
                     }
                     else if (itemSelectorType.Equals("equip"))
                     {

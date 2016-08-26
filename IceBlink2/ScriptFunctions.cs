@@ -5353,7 +5353,11 @@ namespace IceBlink2
                     {
                         if (ir.isRation)
                         {
-                            gv.mod.partyInventoryRefsList.Remove(ir);
+                            ir.quantity--;
+                            if (ir.quantity < 1)
+                            {
+                                gv.mod.partyInventoryRefsList.Remove(ir);
+                            }
                             break;
                         }
                     }

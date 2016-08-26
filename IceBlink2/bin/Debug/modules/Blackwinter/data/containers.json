@@ -1,0 +1,257 @@
+[
+  {
+    "containerTag": "Graveyard Thieves",
+    "containerItemRefs": [
+      {
+        "resref": "chainmail",
+        "tag": "chainmail_707",
+        "name": "Chainmail Armor",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      },
+      {
+        "resref": "healingPotion",
+        "tag": "healingPotion_708",
+        "name": "Healing Potion",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      },
+      {
+        "resref": "healingPotion",
+        "tag": "healingPotion_709",
+        "name": "Healing Potion",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      },
+      {
+        "resref": "C1Key",
+        "tag": "Crypt1Key_1614",
+        "name": "Harvellen Crypt Key",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      }
+    ]
+  },
+  {
+    "containerTag": "DorianFloor1",
+    "containerItemRefs": [
+      {
+        "resref": "battleaxe",
+        "tag": "battleaxe_2377",
+        "name": "Battle Axe",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      },
+      {
+        "resref": "ssword01",
+        "tag": "ssword01_2378",
+        "name": "Short Sword",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      },
+      {
+        "resref": "lbow1",
+        "tag": "lbow1_2379",
+        "name": "Long Bow",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      },
+      {
+        "resref": "healingPotion",
+        "tag": "healingPotion_2380",
+        "name": "Healing Potion",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      },
+      {
+        "resref": "healingPotion",
+        "tag": "healingPotion_2381",
+        "name": "Healing Potion",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      },
+      {
+        "resref": "healingPotion",
+        "tag": "healingPotion_2382",
+        "name": "Healing Potion",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      },
+      {
+        "resref": "spPotion",
+        "tag": "spPotion_3861",
+        "name": "Spell Points Potion",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      },
+      {
+        "resref": "spPotion",
+        "tag": "spPotion_3862",
+        "name": "Spell Points Potion",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      }
+    ]
+  },
+  {
+    "containerTag": "Cellar1",
+    "containerItemRefs": [
+      {
+        "resref": "sling",
+        "tag": "sling_2459",
+        "name": "Sling",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      },
+      {
+        "resref": "healingPotion",
+        "tag": "healingPotion_2460",
+        "name": "Healing Potion",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      },
+      {
+        "resref": "spPotion",
+        "tag": "spPotion_3860",
+        "name": "Spell Points Potion",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      }
+    ]
+  },
+  {
+    "containerTag": "Cellar2",
+    "containerItemRefs": [
+      {
+        "resref": "healingPotion",
+        "tag": "healingPotion_2468",
+        "name": "Healing Potion",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      },
+      {
+        "resref": "chainmail",
+        "tag": "chainmail_2471",
+        "name": "Chainmail Armor",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      }
+    ]
+  },
+  {
+    "containerTag": "Dead Guards",
+    "containerItemRefs": [
+      {
+        "resref": "mace",
+        "tag": "mace_2511",
+        "name": "Mace",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      },
+      {
+        "resref": "sling",
+        "tag": "sling_2512",
+        "name": "Sling",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      },
+      {
+        "resref": "dagger01",
+        "tag": "dagger01_2513",
+        "name": "Dagger",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      },
+      {
+        "resref": "healingPotion",
+        "tag": "healingPotion_3857",
+        "name": "Healing Potion",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      },
+      {
+        "resref": "spPotion",
+        "tag": "spPotion_3858",
+        "name": "Spell Points Potion",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      },
+      {
+        "resref": "torch",
+        "tag": "newTag_9931_3892",
+        "name": "Torch",
+        "canNotBeUnequipped": false,
+        "isLightSource": true,
+        "isRation": false,
+        "quantity": 1
+      },
+      {
+        "resref": "ration",
+        "tag": "newTag_9963_3893",
+        "name": "Ration",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": true,
+        "quantity": 1
+      }
+    ]
+  },
+  {
+    "containerTag": "HiddenChest",
+    "containerItemRefs": [
+      {
+        "resref": "LongSword1",
+        "tag": "LSword1_2722",
+        "name": "Long Sword +1",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      }
+    ]
+  }
+]
