@@ -624,7 +624,8 @@ namespace IceBlink2
                     {
                         foreach (ItemRefs itRef in gv.mod.partyInventoryRefsList)
                         {
-                            lightSourceCounter += itRef.quantity;
+
+                            lightSourceCounter++;
                         }
 
                         if (lightSourceCounter >= gv.mod.maxNumberOfLightSourcesAllowed)
@@ -659,6 +660,10 @@ namespace IceBlink2
                     it = mod.getItemByResRef(itr.resref);
                     if (it != null)
                     {
+                        if (it.isRation)
+                        {
+                            gv.mod.numberOfRationsRemaining++;
+                        }
                         if (itr.quantity < it.groupSizeForSellingStackableItems)
                         {
                             //less than the stack size for selling

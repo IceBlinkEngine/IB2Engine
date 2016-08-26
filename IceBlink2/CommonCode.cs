@@ -2441,7 +2441,14 @@ namespace IceBlink2
                     if (it.isRation)
                     {
                     //gv.mod.numberOfRationsRemaining = it.quantity;
-                    gv.mod.numberOfRationsRemaining++;
+                    if (it.quantity <= 1)
+                    {
+                        gv.mod.numberOfRationsRemaining++;
+                    }
+                    else
+                    {
+                        gv.mod.numberOfRationsRemaining += it.quantity;
+                    }
                     }
                 }
         }
