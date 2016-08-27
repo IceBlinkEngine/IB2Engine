@@ -397,7 +397,19 @@ namespace IceBlink2
                                         gv.mod.partyInventoryRefsList.Add(itRef.DeepCopy());
                                         if (itRef.isRation)
                                         {
-                                            gv.mod.numberOfRationsRemaining++;
+                                            
+                                                //gv.mod.numberOfRationsRemaining = it.quantity;
+                                                if (itRef.quantity <= 1)
+                                                {
+                                                    gv.mod.numberOfRationsRemaining++;
+                                                }
+                                                else
+                                                {
+                                                    gv.mod.numberOfRationsRemaining += itRef.quantity;
+                                                }
+                                            
+
+                                            //gv.mod.numberOfRationsRemaining++;
                                         }
                                         thisItemRefs.Remove(itRef);
                                     }
@@ -578,11 +590,19 @@ namespace IceBlink2
                                          if (allowAdding)
                                          {
                                              gv.mod.partyInventoryRefsList.Add(itRef.DeepCopy());
-                                             if (itRef.isRation)
-                                             {
-                                                 gv.mod.numberOfRationsRemaining++;
-                                             }
-                                             thisItemRefs.Remove(itRef);
+                                if (itRef.isRation)
+                                {
+                                    //gv.mod.numberOfRationsRemaining = it.quantity;
+                                    if (itRef.quantity <= 1)
+                                    {
+                                        gv.mod.numberOfRationsRemaining++;
+                                    }
+                                    else
+                                    {
+                                        gv.mod.numberOfRationsRemaining += itRef.quantity;
+                                    }
+                                }
+                                thisItemRefs.Remove(itRef);
                                          }
 
                         //ItemRefs itRef = GetCurrentlySelectedItemRefs();

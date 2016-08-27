@@ -2318,12 +2318,16 @@ namespace IceBlink2
                 //code for capping number of rations and light sources
                 if ((itRef.isRation) && (gv.mod.numberOfRationsRemaining > gv.mod.maxNumberOfRationsAllowed))
                 {
-                    gv.mod.numberOfRationsRemaining = gv.mod.maxNumberOfRationsAllowed;
-                    itRef.quantity = gv.mod.maxNumberOfRationsAllowed;
-                    //if (itRef.quantity < 1)
-                    //{
-                        //gv.mod.partyInventoryRefsList.Remove(itRef);
-                    //}
+                    gv.mod.numberOfRationsRemaining--;
+                    //itRef.quantity = gv.mod.maxNumberOfRationsAllowed;
+                    if (itRef.quantity < 1)
+                    {
+                        gv.mod.partyInventoryRefsList.Remove(itRef);
+                    }
+                    else
+                    {
+                        itRef.quantity--;
+                    }
                     discardedRations = true;
                 }
 
@@ -2334,15 +2338,36 @@ namespace IceBlink2
                     {
                         if (itRef2.isLightSource)
                         {
-                            lightSourceCounter += itRef2.quantity;
+                            if( itRef2.quantity > 0)
+                            {
+
+                                lightSourceCounter += itRef2.quantity;
+                            }
+                            else
+                            {
+                                lightSourceCounter++;
+                            }
                         }
                     }
 
                     if (lightSourceCounter > gv.mod.maxNumberOfLightSourcesAllowed)
                     {
 
+                        //gv.mod.numberOfRationsRemaining--;
+                        //itRef.quantity = gv.mod.maxNumberOfRationsAllowed;
+                        if (itRef.quantity < 1)
+                        {
+                            gv.mod.partyInventoryRefsList.Remove(itRef);
+                        }
+                        else
+                        {
+                            itRef.quantity--;
+                        }
+                        //discardedRations = true;
+                        /*
                         itRef.quantity = gv.mod.maxNumberOfLightSourcesAllowed;
                         //gv.mod.partyInventoryRefsList.Remove(itRef);
+                        */
                         discardedLightSources = true;
                     }
                 }
@@ -2877,7 +2902,14 @@ namespace IceBlink2
                             {
                                 if (it.name == gv.mod.partyLightName)
                                 {
-                                    gv.mod.partyInventoryRefsList.Remove(it);
+                                    if (it.quantity > 1)
+                                    {
+                                        it.quantity--;
+                                    }
+                                    else
+                                    {
+                                        gv.mod.partyInventoryRefsList.Remove(it);
+                                    }
                                     break;
                                 }
                             }

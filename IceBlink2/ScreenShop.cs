@@ -662,7 +662,15 @@ namespace IceBlink2
                     {
                         if (it.isRation)
                         {
-                            gv.mod.numberOfRationsRemaining++;
+                            //gv.mod.numberOfRationsRemaining = it.quantity;
+                            if (it.quantity <= 1)
+                            {
+                                gv.mod.numberOfRationsRemaining++;
+                            }
+                            else
+                            {
+                                gv.mod.numberOfRationsRemaining += it.quantity;
+                            }
                         }
                         if (itr.quantity < it.groupSizeForSellingStackableItems)
                         {
