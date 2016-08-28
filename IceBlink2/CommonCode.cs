@@ -2885,6 +2885,11 @@ namespace IceBlink2
                 consumeLightEnergy = true;
             }
 
+            if (!gv.mod.currentArea.useLightSystem)
+            {
+                consumeLightEnergy = false;
+            }
+
             if (consumeLightEnergy && gv.mod.partyLightEnergyName.Count >= 1 && gv.mod.partyLightOn)
             {
                 for (int i = gv.mod.partyLightEnergyName.Count - 1; i >= 0; i--)
