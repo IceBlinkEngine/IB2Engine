@@ -373,7 +373,7 @@
     "UsableByPlayer": true,
     "description": "A capable combatant with divine magic as well.",
     "startingHP": 8,
-    "startingSP": 10,
+    "startingSP": 100,
     "hpPerLevelUp": 8,
     "spPerLevelUp": 10,
     "hpRegenTimeNeeded": 0,
@@ -646,6 +646,13 @@
       {
         "name": "Bless",
         "tag": "bless",
+        "atWhatLevelIsAvailable": 1,
+        "automaticallyLearned": false,
+        "allow": true
+      },
+{
+        "name": "Web",
+        "tag": "web",
         "atWhatLevelIsAvailable": 1,
         "automaticallyLearned": false,
         "allow": true
