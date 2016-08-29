@@ -78,7 +78,7 @@ namespace IceBlink2
         public bool useLuck = false;
         public bool hideRoster = false;
         public bool use3d6 = false;
-        public bool useUIBackground = false;
+        public bool useUIBackground = true;
         public string fontName = "Metamorphous";
         public string fontFilename = "Metamorphous-Regular.ttf";
         public float fontD2DScaleMultiplier = 1.0f;
@@ -169,7 +169,7 @@ namespace IceBlink2
         public bool showAutosaveMessage = true;
         public bool allowAutosave = true;
         public int combatAnimationSpeed = 100;
-        public bool useRationSystem = false;
+        public bool useRationSystem = true;
         public bool fastMode = false;
         public int attackAnimationSpeed = 100;
         public float soundVolume = 1.0f;
@@ -178,9 +178,9 @@ namespace IceBlink2
         public bool showInteractionState = false;
         public bool avoidInteraction = false;
         public bool useRealTimeTimer = false;
-        public bool useSmoothMovement = false;
-        public bool useAllTileSystem = false;
-        public int realTimeTimerLengthInMilliSeconds = 1500;
+        public bool useSmoothMovement = true;
+        public bool useAllTileSystem = true;
+        public int realTimeTimerLengthInMilliSeconds = 7000;
         public int attackFromBehindToHitModifier = 2;
         public int attackFromBehindDamageModifier = 0;
         public bool EncounterOfTurnDone = false;
