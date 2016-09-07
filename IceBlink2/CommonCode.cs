@@ -6675,11 +6675,19 @@ namespace IceBlink2
 
         public void doPropMoves()
         {
-            //foreach (Prop propObject in gv.mod.currentArea.Props)
-            //{
-                //propObject.lastLocationX = propObject.LocationX;
-                //propObject.lastLocationY = propObject.LocationY;
-            //}
+            //using this for pathfinding now, especially bridge situation
+            foreach (Prop propObject in gv.mod.currentArea.Props)
+            {
+                if ((propObject.lastLocationX != propObject.LocationX) || (propObject.lastLocationY != propObject.LocationY))
+                {
+                    propObject.lastLocationX = propObject.LocationX;
+                    propObject.lastLocationY = propObject.LocationY;
+                    propObject.lastLocationZ = propObject.LocationZ;
+                }
+
+                //updating props heightLevel
+                propObject.LocationZ = gv.mod.currentArea.Tiles[propObject.LocationY * gv.mod.currentArea.MapSizeX + propObject.LocationX].heightLevel;
+            }
             
             #region Synchronization: update the position of time driven movers (either when the party switches area or when a time driven mover enters the current area)
 
@@ -7064,6 +7072,7 @@ namespace IceBlink2
                                     gv.screenMainMap.addFloatyText(gv.mod.currentArea.Props[i], "Chasing...", "red", 1500);
                                     if (gv.mod.debugMode)
                                     {
+                                        
                                         //gv.screenMainMap.addFloatyText(gv.mod.currentArea.Props[i].LocationX, gv.mod.currentArea.Props[i].LocationY, "following you", "red", 4000);
                                         gv.cc.addLogText("<font color='yellow'>" + gv.mod.currentArea.Props[i].PropTag + " start chasing " + gv.mod.currentArea.Props[i].ChaserChaseDuration + " seconds</font><BR>");
                                     }

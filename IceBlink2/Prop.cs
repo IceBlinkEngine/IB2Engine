@@ -16,9 +16,11 @@ namespace IceBlink2
     {
 	    public int LocationX = 0;
 	    public int LocationY = 0;
+        public int LocationZ = 0;
         public int lastLocationX = 0;
         public int lastLocationY = 0;
-	    public string ImageFileName = "blank";
+        public int lastLocationZ = 0;
+        public string ImageFileName = "blank";
         public bool isLight = false;
         //[JsonIgnore]
 	    public bool PropFacingLeft = true;
@@ -108,10 +110,12 @@ namespace IceBlink2
             copy.ringIntensity = this.ringIntensity;
             copy.LocationX = this.LocationX;
 		    copy.LocationY = this.LocationY;
+            copy.LocationZ = this.LocationZ;
             copy.blockTrigger = this.blockTrigger;
             copy.wasTriggeredLastUpdate = this.wasTriggeredLastUpdate;
             copy.lastLocationX = this.lastLocationX;
             copy.lastLocationY = this.lastLocationY;
+            copy.lastLocationZ = this.lastLocationZ;
             copy.ImageFileName = this.ImageFileName;
 		    copy.PropFacingLeft = this.PropFacingLeft;
 		    copy.MouseOverText = this.MouseOverText;
