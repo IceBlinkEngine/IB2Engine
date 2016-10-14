@@ -581,6 +581,7 @@
   "ConvoFileName": "OldCrone",
   "Narration": false,
   "PartyChat": true,
+  "SpeakToMainPcOnly": false,
   "NpcPortraitBitmap": "ptr_oldcrone3.png",
   "DefaultNpcName": "Charlotte",
   "NextIdNum": 33

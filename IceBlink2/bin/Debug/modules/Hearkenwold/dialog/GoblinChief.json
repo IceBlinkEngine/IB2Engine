@@ -185,6 +185,7 @@
   "ConvoFileName": "GoblinChief",
   "Narration": false,
   "PartyChat": true,
+  "SpeakToMainPcOnly": false,
   "NpcPortraitBitmap": "ptr_aznek.png",
   "DefaultNpcName": "",
   "NextIdNum": 8

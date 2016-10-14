@@ -674,6 +674,7 @@
   "ConvoFileName": "Odysserime",
   "Narration": false,
   "PartyChat": true,
+  "SpeakToMainPcOnly": false,
   "NpcPortraitBitmap": "ptr_greywind.png",
   "DefaultNpcName": "Odysserime",
   "NextIdNum": 28

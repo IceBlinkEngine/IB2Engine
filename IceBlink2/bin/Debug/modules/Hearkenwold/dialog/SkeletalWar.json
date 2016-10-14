@@ -1,0 +1,146 @@
+{
+  "subNodes": [
+    {
+      "idNum": 0,
+      "orderNum": 0,
+      "pcNode": true,
+      "linkTo": 0,
+      "ShowOnlyOnce": false,
+      "NodeIsActive": true,
+      "NodePortraitBitmap": "",
+      "NodeNpcName": "",
+      "NodeSound": "none",
+      "conversationText": "root",
+      "IsExpanded": true,
+      "subNodes": [
+        {
+          "idNum": 1,
+          "orderNum": 0,
+          "pcNode": false,
+          "linkTo": 0,
+          "ShowOnlyOnce": false,
+          "NodeIsActive": true,
+          "NodePortraitBitmap": "",
+          "NodeNpcName": "",
+          "NodeSound": "none",
+          "conversationText": "<font color='yellow'>A troop of skeletal warriors shamble down this path. Prints on the ground suggest they have tread these steps over and over again.</font>",
+          "IsExpanded": true,
+          "subNodes": [
+            {
+              "idNum": 2,
+              "orderNum": 0,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "What is the meaning of this macabre parade?",
+              "IsExpanded": true,
+              "subNodes": [
+                {
+                  "idNum": 4,
+                  "orderNum": 0,
+                  "pcNode": false,
+                  "linkTo": 0,
+                  "ShowOnlyOnce": false,
+                  "NodeIsActive": true,
+                  "NodePortraitBitmap": "",
+                  "NodeNpcName": "",
+                  "NodeSound": "none",
+                  "conversationText": "<font color='yellow'>The skeletons react to your presence and attack.</font>",
+                  "IsExpanded": true,
+                  "subNodes": [
+                    {
+                      "idNum": 5,
+                      "orderNum": 0,
+                      "pcNode": true,
+                      "linkTo": 0,
+                      "ShowOnlyOnce": false,
+                      "NodeIsActive": true,
+                      "NodePortraitBitmap": "",
+                      "NodeNpcName": "",
+                      "NodeSound": "none",
+                      "conversationText": "Defend yourselves!",
+                      "IsExpanded": true,
+                      "subNodes": [],
+                      "actions": [],
+                      "conditions": [],
+                      "isLink": false
+                    }
+                  ],
+                  "actions": [],
+                  "conditions": [],
+                  "isLink": false
+                }
+              ],
+              "actions": [],
+              "conditions": [],
+              "isLink": false
+            },
+            {
+              "idNum": 3,
+              "orderNum": 1,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "Perhaps these are the bones of those who did once patrol this wood.",
+              "IsExpanded": true,
+              "subNodes": [
+                {
+                  "idNum": 6,
+                  "orderNum": 0,
+                  "pcNode": true,
+                  "linkTo": 4,
+                  "ShowOnlyOnce": false,
+                  "NodeIsActive": true,
+                  "NodePortraitBitmap": "",
+                  "NodeNpcName": "",
+                  "NodeSound": "none",
+                  "conversationText": "<font color='yellow'>The skeletons react to your presence and attack.</font>",
+                  "IsExpanded": true,
+                  "subNodes": [],
+                  "actions": [],
+                  "conditions": [],
+                  "isLink": true
+                }
+              ],
+              "actions": [],
+              "conditions": [
+                {
+                  "c_script": "gcCheckAttribute.cs",
+                  "c_btnAndOr": "and",
+                  "c_and": true,
+                  "c_not": false,
+                  "c_parameter_1": "-1",
+                  "c_parameter_2": "wis",
+                  "c_parameter_3": ">",
+                  "c_parameter_4": "15"
+                }
+              ],
+              "isLink": false
+            }
+          ],
+          "actions": [],
+          "conditions": [],
+          "isLink": false
+        }
+      ],
+      "actions": [],
+      "conditions": [],
+      "isLink": false
+    }
+  ],
+  "ConvoFileName": "SkeletalWar",
+  "Narration": false,
+  "PartyChat": true,
+  "SpeakToMainPcOnly": false,
+  "NpcPortraitBitmap": "SkeletonWarrior.png",
+  "DefaultNpcName": "",
+  "NextIdNum": 6
+}

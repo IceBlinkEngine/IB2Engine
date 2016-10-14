@@ -23,7 +23,7 @@
           "NodePortraitBitmap": "",
           "NodeNpcName": "",
           "NodeSound": "none",
-          "conversationText": "A pile of heavy rocks would make a convenient place to stash something in a pinch. Will you search?",
+          "conversationText": "<font color='yellow'>A pile of heavy rocks would make a convenient place to stash something in a pinch. Will you search?</font>",
           "IsExpanded": true,
           "subNodes": [
             {
@@ -49,7 +49,7 @@
                   "NodePortraitBitmap": "",
                   "NodeNpcName": "",
                   "NodeSound": "none",
-                  "conversationText": "Indeed there is little in the way of treasure to be found. However, some of the smaller stones and a strap of leather could be fashioned into a serviceable sling, useable by anyone.",
+                  "conversationText": "<font color='yellow'>Indeed there is little in the way of treasure to be found. However, some of the smaller stones and a strap of leather could be fashioned into a serviceable sling, useable by anyone.</font>",
                   "IsExpanded": true,
                   "subNodes": [
                     {

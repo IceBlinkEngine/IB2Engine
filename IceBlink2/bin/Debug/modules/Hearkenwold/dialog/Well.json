@@ -23,7 +23,7 @@
           "NodePortraitBitmap": "",
           "NodeNpcName": "",
           "NodeSound": "none",
-          "conversationText": "An old covered well has been dug in the middle of the village, providing a source of water for both man and beast. It would take a nimble character to descend the depths of the well and secure the way for others. ",
+          "conversationText": "<font color='yellow'>An old covered well has been dug in the middle of the village, providing a source of water for both man and beast. It would take a nimble character to descend the depths of the well and secure the way for others.</font> ",
           "IsExpanded": true,
           "subNodes": [
             {
@@ -74,7 +74,7 @@
                   "NodePortraitBitmap": "",
                   "NodeNpcName": "",
                   "NodeSound": "none",
-                  "conversationText": "As you begin to vault over the circular stone wall, the rope slips from your grasp. Inside the shaft of the well, the stones are slick. You lose your footing and plunge to the bottom, taking some superficial damage.",
+                  "conversationText": "<font color='yellow'>As you begin to vault over the circular stone wall, the rope slips from your grasp. Inside the shaft of the well, the stones are slick. You lose your footing and plunge to the bottom, taking some superficial damage.</font>",
                   "IsExpanded": true,
                   "subNodes": [
                     {
@@ -169,6 +169,7 @@
   "ConvoFileName": "Well",
   "Narration": false,
   "PartyChat": true,
+  "SpeakToMainPcOnly": false,
   "NpcPortraitBitmap": "ptr_wellnar.png",
   "DefaultNpcName": "",
   "NextIdNum": 6

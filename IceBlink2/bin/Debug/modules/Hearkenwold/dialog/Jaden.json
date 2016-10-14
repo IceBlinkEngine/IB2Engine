@@ -57,6 +57,7 @@
   "ConvoFileName": "Jaden",
   "Narration": false,
   "PartyChat": false,
+  "SpeakToMainPcOnly": false,
   "NpcPortraitBitmap": "prp_jaden.png",
   "DefaultNpcName": "Jaden",
   "NextIdNum": 2

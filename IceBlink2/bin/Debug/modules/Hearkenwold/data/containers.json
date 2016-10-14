@@ -7,6 +7,8 @@
         "tag": "healingPotion_6629",
         "name": "Healing Potion",
         "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
         "quantity": 1
       },
       {
@@ -14,6 +16,8 @@
         "tag": "spPotion_6630",
         "name": "Spell Points Potion",
         "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
         "quantity": 1
       }
     ]
@@ -26,6 +30,8 @@
         "tag": "ssword01_6665",
         "name": "Short Sword",
         "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
         "quantity": 1
       },
       {
@@ -33,6 +39,8 @@
         "tag": "ssword01_6666",
         "name": "Short Sword",
         "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
         "quantity": 1
       },
       {
@@ -40,6 +48,8 @@
         "tag": "ssword01_6667",
         "name": "Short Sword",
         "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
         "quantity": 1
       },
       {
@@ -47,6 +57,8 @@
         "tag": "ssword01_6668",
         "name": "Short Sword",
         "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
         "quantity": 1
       },
       {
@@ -54,6 +66,8 @@
         "tag": "ssword01_6669",
         "name": "Short Sword",
         "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
         "quantity": 1
       },
       {
@@ -61,6 +75,8 @@
         "tag": "ssword01_6670",
         "name": "Short Sword",
         "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
         "quantity": 1
       },
       {
@@ -68,6 +84,8 @@
         "tag": "larmor1_6671",
         "name": "Leather Armor",
         "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
         "quantity": 1
       },
       {
@@ -75,6 +93,8 @@
         "tag": "larmor1_6672",
         "name": "Leather Armor",
         "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
         "quantity": 1
       },
       {
@@ -82,6 +102,8 @@
         "tag": "larmor1_6673",
         "name": "Leather Armor",
         "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
         "quantity": 1
       },
       {
@@ -89,6 +111,8 @@
         "tag": "larmor1_6674",
         "name": "Leather Armor",
         "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
         "quantity": 1
       },
       {
@@ -96,6 +120,8 @@
         "tag": "larmor1_6675",
         "name": "Leather Armor",
         "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
         "quantity": 1
       },
       {
@@ -103,6 +129,8 @@
         "tag": "larmor1_6676",
         "name": "Leather Armor",
         "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
         "quantity": 1
       },
       {
@@ -110,6 +138,8 @@
         "tag": "lbow1_6677",
         "name": "Long Bow",
         "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
         "quantity": 1
       },
       {
@@ -117,6 +147,8 @@
         "tag": "mace_6678",
         "name": "Mace",
         "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
         "quantity": 1
       },
       {
@@ -124,6 +156,8 @@
         "tag": "arrow_6893",
         "name": "Arrow",
         "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
         "quantity": 20
       },
       {
@@ -131,20 +165,8 @@
         "tag": "arrow_6931",
         "name": "Arrow",
         "canNotBeUnequipped": false,
-        "quantity": 20
-      },
-      {
-        "resref": "stone",
-        "tag": "stone_6932",
-        "name": "Stone",
-        "canNotBeUnequipped": false,
-        "quantity": 20
-      },
-      {
-        "resref": "arrow",
-        "tag": "arrow_8132",
-        "name": "Arrow",
-        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
         "quantity": 20
       }
     ]
@@ -157,6 +179,17 @@
         "tag": "p_sly_7651",
         "name": "Parchment",
         "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      },
+      {
+        "resref": "robes",
+        "tag": "robes_21493",
+        "name": "Robes",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
         "quantity": 1
       }
     ]
@@ -169,6 +202,8 @@
         "tag": "gjournal01_6798",
         "name": "Goblin Journal",
         "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
         "quantity": 1
       },
       {
@@ -176,6 +211,8 @@
         "tag": "chainmail_6799",
         "name": "Chainmail Armor",
         "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
         "quantity": 1
       },
       {
@@ -183,6 +220,8 @@
         "tag": "ishield01_6800",
         "name": "Iron Shield",
         "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
         "quantity": 1
       },
       {
@@ -190,6 +229,8 @@
         "tag": "arrow_8133",
         "name": "Arrow",
         "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
         "quantity": 20
       },
       {
@@ -197,6 +238,8 @@
         "tag": "bolt_8134",
         "name": "Bolt",
         "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
         "quantity": 20
       },
       {
@@ -204,6 +247,8 @@
         "tag": "stone_8135",
         "name": "Stone",
         "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
         "quantity": 20
       }
     ]
@@ -216,6 +261,8 @@
         "tag": "Spade01_7275",
         "name": "Common Shovel",
         "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
         "quantity": 1
       },
       {
@@ -223,6 +270,8 @@
         "tag": "stone_8136",
         "name": "Stone",
         "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
         "quantity": 20
       }
     ]
@@ -235,6 +284,8 @@
         "tag": "TrollHammer_7317",
         "name": "Troll Hammer",
         "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
         "quantity": 1
       }
     ]
@@ -247,6 +298,8 @@
         "tag": "s_chainm_8659",
         "name": "Silver Chainmail",
         "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
         "quantity": 1
       }
     ]
@@ -259,6 +312,8 @@
         "tag": "watch_01_9462",
         "name": "The Watchman's Torch",
         "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
         "quantity": 1
       }
     ]
@@ -271,6 +326,234 @@
         "tag": "BootsM_9463",
         "name": "Boots of Might",
         "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      },
+      {
+        "resref": "arrow",
+        "tag": "arrow_23328",
+        "name": "Arrow",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 20
+      }
+    ]
+  },
+  {
+    "containerTag": "KoboldStash",
+    "containerItemRefs": [
+      {
+        "resref": "spPotion",
+        "tag": "spPotion_16639",
+        "name": "Spell Points Potion",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      }
+    ]
+  },
+  {
+    "containerTag": "SecretTowerTable",
+    "containerItemRefs": [
+      {
+        "resref": "Sapph_01",
+        "tag": "Sapph_01_17113",
+        "name": "Sapphire",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      },
+      {
+        "resref": "AMap_01",
+        "tag": "AMap_01_17114",
+        "name": "Ancient Map",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      },
+      {
+        "resref": "RitualScroll_01",
+        "tag": "RitualScroll_01_17115",
+        "name": "Scroll",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      },
+      {
+        "resref": "mirror_01",
+        "tag": "mirror_01_17116",
+        "name": "Ornate Mirror",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      }
+    ]
+  },
+  {
+    "containerTag": "IronWorks1",
+    "containerItemRefs": [
+      {
+        "resref": "AcSw_01",
+        "tag": "AcSw_01_17687",
+        "name": "Acidic Sword",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      }
+    ]
+  },
+  {
+    "containerTag": "IronWorks2",
+    "containerItemRefs": [
+      {
+        "resref": "BlHm_01",
+        "tag": "BlHm_01_17688",
+        "name": "Blessed Hammer",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      }
+    ]
+  },
+  {
+    "containerTag": "KeltonRubble",
+    "containerItemRefs": [
+      {
+        "resref": "SHelm_01",
+        "tag": "SHelm_01_18735",
+        "name": "Silver Helm",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      }
+    ]
+  },
+  {
+    "containerTag": "Lich Cabinet",
+    "containerItemRefs": [
+      {
+        "resref": "Boot_Sp",
+        "tag": "Boot_Sp_18798",
+        "name": "Boots of Speed",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      },
+      {
+        "resref": "phylactery_01",
+        "tag": "phylactery_01_18799",
+        "name": "Phylactery",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      }
+    ]
+  },
+  {
+    "containerTag": "SecretTowerTable3",
+    "containerItemRefs": [
+      {
+        "resref": "Alchem_01",
+        "tag": "Alchem_01_18805",
+        "name": "Alchemical Equipment",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      }
+    ]
+  },
+  {
+    "containerTag": "Orc Closet",
+    "containerItemRefs": [
+      {
+        "resref": "arrow",
+        "tag": "arrow_23327",
+        "name": "Arrow",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 20
+      },
+      {
+        "resref": "fireLongSword",
+        "tag": "fireLongSword_23337",
+        "name": "Flaming Long Sword",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      },
+      {
+        "resref": "cloak_str01",
+        "tag": "newTag_19968_24159",
+        "name": "Mantle of Strength",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      }
+    ]
+  },
+  {
+    "containerTag": "BugbearCloset",
+    "containerItemRefs": [
+      {
+        "resref": "cloak_prot01",
+        "tag": "newTag_20290_20610",
+        "name": "Cloak of Protection",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      }
+    ]
+  },
+  {
+    "containerTag": "BugbearLordChest",
+    "containerItemRefs": [
+      {
+        "resref": "platemail",
+        "tag": "platemail_21110",
+        "name": "Platemail Armor",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      },
+      {
+        "resref": "arrow",
+        "tag": "arrow_23326",
+        "name": "Arrow",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 20
+      }
+    ]
+  },
+  {
+    "containerTag": "KoboldSkullStash",
+    "containerItemRefs": [
+      {
+        "resref": "fireDagger",
+        "tag": "fireDagger_21509",
+        "name": "Fire Dagger",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
         "quantity": 1
       }
     ]

@@ -24,7 +24,7 @@
           "NodeNpcName": "",
           "NodeSound": "none",
           "conversationText": "Leaving so soon?",
-          "IsExpanded": false,
+          "IsExpanded": true,
           "subNodes": [
             {
               "idNum": 10,
@@ -288,7 +288,7 @@
                           "c_and": true,
                           "c_not": false,
                           "c_parameter_1": "-1",
-                          "c_parameter_2": "cleric",
+                          "c_parameter_2": "paladin",
                           "c_parameter_3": "1",
                           "c_parameter_4": null
                         }
@@ -393,7 +393,7 @@
           "NodeNpcName": "",
           "NodeSound": "none",
           "conversationText": "Leaving so soon?",
-          "IsExpanded": true,
+          "IsExpanded": false,
           "subNodes": [
             {
               "idNum": 15,
@@ -427,7 +427,7 @@
           "NodePortraitBitmap": "",
           "NodeNpcName": "",
           "NodeSound": "none",
-          "conversationText": "As you step into the dusky tavern, the common room is filled with smoke from a central hearth, and the acrid aroma of burning torches. A larger, rough looking goblin greets you with beady eyes. ",
+          "conversationText": "<font color='yellow'>As you step into the dusky tavern, the common room is filled with smoke from a central hearth, and the acrid aroma of burning torches. A larger, rough looking goblin greets you with beady eyes.</font>",
           "IsExpanded": false,
           "subNodes": [
             {

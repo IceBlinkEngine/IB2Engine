@@ -23,7 +23,7 @@
           "NodePortraitBitmap": "",
           "NodeNpcName": "",
           "NodeSound": "none",
-          "conversationText": "This underground stream flows through an opening in the wall to the west. Certainly it is too tight a fit for any large creatures who dwell down here. But human-sized or smaller,one  might be able to squeeze through. Will you search the other side?",
+          "conversationText": "<font color='yellow'>This underground stream flows through an opening in the wall to the west. Certainly it is too tight a fit for any large creatures who dwell down here. But human-sized or smaller,one  might be able to squeeze through. Will you search the other side?</font>",
           "IsExpanded": true,
           "subNodes": [
             {

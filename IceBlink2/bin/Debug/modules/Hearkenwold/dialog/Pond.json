@@ -23,7 +23,7 @@
           "NodePortraitBitmap": "",
           "NodeNpcName": "",
           "NodeSound": "none",
-          "conversationText": "You stand upon the shore of a quiet pond. Do you wish to search deeper?",
+          "conversationText": "<font color='yellow'>You stand upon the shore of a quiet pond. Do you wish to search deeper?</font>",
           "IsExpanded": true,
           "subNodes": [
             {
@@ -49,7 +49,7 @@
                   "NodePortraitBitmap": "ptr_brekkek.png",
                   "NodeNpcName": "",
                   "NodeSound": "none",
-                  "conversationText": "Suddenly, a massive amphibious creature bubbles up from the water!",
+                  "conversationText": "<font color='yellow'>Suddenly, a massive amphibious creature bubbles up from the water!</font>",
                   "IsExpanded": true,
                   "subNodes": [
                     {
@@ -126,6 +126,7 @@
   "ConvoFileName": "Pond",
   "Narration": false,
   "PartyChat": false,
+  "SpeakToMainPcOnly": false,
   "NpcPortraitBitmap": "ptr_pond2.png",
   "DefaultNpcName": "",
   "NextIdNum": 5

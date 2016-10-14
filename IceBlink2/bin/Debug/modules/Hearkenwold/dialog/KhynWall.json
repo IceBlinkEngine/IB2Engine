@@ -23,7 +23,7 @@
           "NodePortraitBitmap": "",
           "NodeNpcName": "",
           "NodeSound": "none",
-          "conversationText": "You stand beneath the walled circumference of Khyn, First City of Astaria. Further to the south the blessed River Astar winds a course from east to west. Beyond the shadow of evenly cut crenellations and soaring minarets, one structure dominates the landscape. That is the central monastery.",
+          "conversationText": "<font color='yellow'>You stand beneath the walled circumference of Khyn, First City of Astaria. Further to the south the blessed River Astar winds a course from east to west. Beyond the shadow of evenly cut crenellations and soaring minarets, one structure dominates the landscape. That is the central monastery.</font>",
           "IsExpanded": true,
           "subNodes": [
             {

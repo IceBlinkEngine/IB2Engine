@@ -23,7 +23,7 @@
           "NodePortraitBitmap": "",
           "NodeNpcName": "",
           "NodeSound": "none",
-          "conversationText": "This man is absorbed in his work and ignores you.",
+          "conversationText": "<font color='yellow'>This man is absorbed in his work and ignores you.</font>",
           "IsExpanded": true,
           "subNodes": [
             {
@@ -111,6 +111,7 @@
   "ConvoFileName": "Rubani",
   "Narration": false,
   "PartyChat": false,
+  "SpeakToMainPcOnly": false,
   "NpcPortraitBitmap": "ptr_rubaniport.png",
   "DefaultNpcName": "",
   "NextIdNum": 4

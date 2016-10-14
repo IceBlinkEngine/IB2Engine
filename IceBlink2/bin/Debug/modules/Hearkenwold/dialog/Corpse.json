@@ -23,7 +23,7 @@
           "NodePortraitBitmap": "",
           "NodeNpcName": "",
           "NodeSound": "none",
-          "conversationText": "A fresh corpse lies on the ground here. The villager looks to have been stricken less than a day ago. Will you give the man a proper burial?",
+          "conversationText": "<font color='yellow'>A fresh corpse lies on the ground here. The villager looks to have been stricken less than a day ago. Will you give the man a proper burial?</font>",
           "IsExpanded": true,
           "subNodes": [
             {
@@ -49,7 +49,7 @@
                   "NodePortraitBitmap": "",
                   "NodeNpcName": "",
                   "NodeSound": "none",
-                  "conversationText": "You will need a suitable tool in order to dig the grave.",
+                  "conversationText": "<font color='yellow'>You will need a suitable tool in order to dig the grave.</font>",
                   "IsExpanded": true,
                   "subNodes": [
                     {
@@ -119,7 +119,7 @@
                   "NodePortraitBitmap": "",
                   "NodeNpcName": "",
                   "NodeSound": "none",
-                  "conversationText": "You will need a suitable tool in order to dig the grave.",
+                  "conversationText": "<font color='yellow'>You will need a suitable tool in order to dig the grave.</font>",
                   "IsExpanded": true,
                   "subNodes": [],
                   "actions": [],
@@ -185,7 +185,7 @@
           "NodePortraitBitmap": "",
           "NodeNpcName": "",
           "NodeSound": "none",
-          "conversationText": "A fresh corpse lies on the ground here. The villager looks to have been stricken less than a day ago. Will you give the man a proper burial?",
+          "conversationText": "<font color='yellow'>A fresh corpse lies on the ground here. The villager looks to have been stricken less than a day ago. Will you give the man a proper burial?</font>",
           "IsExpanded": true,
           "subNodes": [
             {
@@ -228,7 +228,7 @@
                   "NodePortraitBitmap": "ptr_p_trees1.png",
                   "NodeNpcName": "",
                   "NodeSound": "none",
-                  "conversationText": "Using the shovel, you dig a hole near a quiet stand of trees. With some effort, you manage to move the body into the ditch, and cover it up with soil, creating an earthen mound. A few stones can mark the site of this lonely grave in remembrance.",
+                  "conversationText": "<font color='yellow'>Using the shovel, you dig a hole near a quiet stand of trees. With some effort, you manage to move the body into the ditch, and cover it up with soil, creating an earthen mound. A few stones can mark the site of this lonely grave in remembrance.</font>",
                   "IsExpanded": true,
                   "subNodes": [
                     {
@@ -312,6 +312,7 @@
   "ConvoFileName": "Corpse",
   "Narration": false,
   "PartyChat": true,
+  "SpeakToMainPcOnly": false,
   "NpcPortraitBitmap": "ptr_deadvillager.png",
   "DefaultNpcName": "",
   "NextIdNum": 14

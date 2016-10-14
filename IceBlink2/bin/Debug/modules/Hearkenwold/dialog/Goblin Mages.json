@@ -57,6 +57,7 @@
   "ConvoFileName": "Goblin Mages",
   "Narration": false,
   "PartyChat": true,
+  "SpeakToMainPcOnly": false,
   "NpcPortraitBitmap": "ptr_goblinmagepic.png",
   "DefaultNpcName": "Goblin Magician",
   "NextIdNum": 2

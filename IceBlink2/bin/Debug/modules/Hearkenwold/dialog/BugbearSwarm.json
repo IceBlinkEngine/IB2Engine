@@ -23,7 +23,7 @@
           "NodePortraitBitmap": "",
           "NodeNpcName": "",
           "NodeSound": "none",
-          "conversationText": "In this passage, you are swarmed by a gang of bugbear warriors, backed up by their priestess counterparts.",
+          "conversationText": "<font color='yellow'>In this passage, you are swarmed by a gang of bugbear warriors, backed up by their priestess counterparts.</font>",
           "IsExpanded": true,
           "subNodes": [
             {

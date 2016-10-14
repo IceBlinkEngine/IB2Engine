@@ -515,6 +515,7 @@
   "ConvoFileName": "Imp",
   "Narration": false,
   "PartyChat": true,
+  "SpeakToMainPcOnly": false,
   "NpcPortraitBitmap": "ptr_imppic.png",
   "DefaultNpcName": "Ignatious",
   "NextIdNum": 25

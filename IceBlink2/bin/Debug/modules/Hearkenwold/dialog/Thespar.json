@@ -102,7 +102,7 @@
           "NodePortraitBitmap": "",
           "NodeNpcName": "",
           "NodeSound": "none",
-          "conversationText": "This man mutters to himself and ignores you.",
+          "conversationText": "<font color='yellow'>This man mutters to himself and ignores you.</font>",
           "IsExpanded": true,
           "subNodes": [
             {
@@ -380,8 +380,8 @@
                   "c_and": true,
                   "c_not": false,
                   "c_parameter_1": "RandolphKarter",
-                  "c_parameter_2": "=",
-                  "c_parameter_3": "1",
+                  "c_parameter_2": "<",
+                  "c_parameter_3": "2",
                   "c_parameter_4": null
                 }
               ],
@@ -413,7 +413,7 @@
           "NodePortraitBitmap": "",
           "NodeNpcName": "",
           "NodeSound": "none",
-          "conversationText": "This man mutters to himself and ignores you.",
+          "conversationText": "<font color='yellow'>This man mutters to himself and ignores you.</font>",
           "IsExpanded": true,
           "subNodes": [
             {
@@ -860,8 +860,8 @@
                   "c_and": true,
                   "c_not": false,
                   "c_parameter_1": "RandolphKarter",
-                  "c_parameter_2": "=",
-                  "c_parameter_3": "1",
+                  "c_parameter_2": "<",
+                  "c_parameter_3": "2",
                   "c_parameter_4": null
                 }
               ],
@@ -892,6 +892,7 @@
   "ConvoFileName": "Thespar",
   "Narration": false,
   "PartyChat": true,
+  "SpeakToMainPcOnly": false,
   "NpcPortraitBitmap": "ptr_thesparw.png",
   "DefaultNpcName": "Thespar Wordsmith",
   "NextIdNum": 46

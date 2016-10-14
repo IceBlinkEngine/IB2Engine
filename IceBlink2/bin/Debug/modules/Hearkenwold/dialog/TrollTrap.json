@@ -62,7 +62,7 @@
                       "NodePortraitBitmap": "",
                       "NodeNpcName": "",
                       "NodeSound": "none",
-                      "conversationText": "If we survie this, I am going to personally pluck out your wings... look out!",
+                      "conversationText": "If we survive this, I am going to personally pluck out your wings... look out!",
                       "IsExpanded": true,
                       "subNodes": [],
                       "actions": [],
@@ -149,6 +149,7 @@
   "ConvoFileName": "TrollTrap",
   "Narration": false,
   "PartyChat": true,
+  "SpeakToMainPcOnly": false,
   "NpcPortraitBitmap": "ptr_trollpic.png",
   "DefaultNpcName": "Ambush",
   "NextIdNum": 6

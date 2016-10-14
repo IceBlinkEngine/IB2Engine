@@ -85,6 +85,7 @@
   "ConvoFileName": "Goblin Lawgiver",
   "Narration": false,
   "PartyChat": true,
+  "SpeakToMainPcOnly": false,
   "NpcPortraitBitmap": "ptr_lawgiver.png",
   "DefaultNpcName": "",
   "NextIdNum": 3

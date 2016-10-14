@@ -223,7 +223,7 @@
                   "NodePortraitBitmap": "",
                   "NodeNpcName": "",
                   "NodeSound": "none",
-                  "conversationText": "<FirstName> tastes the sample from the bottle, while the man watches on with pale features. His fingers twitch nervously, and the merchant begins to sweat.",
+                  "conversationText": "<font color='yellow'><FirstName> tastes the sample from the bottle, while the man watches on with pale features. His fingers twitch nervously, and the merchant begins to sweat.</font>",
                   "IsExpanded": true,
                   "subNodes": [
                     {

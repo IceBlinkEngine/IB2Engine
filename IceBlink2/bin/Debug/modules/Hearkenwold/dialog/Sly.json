@@ -138,7 +138,7 @@
                           "NodePortraitBitmap": "",
                           "NodeNpcName": "",
                           "NodeSound": "none",
-                          "conversationText": "One such organization deals in missions of stealth, using methods more silent. They are called the Midnight Shadows. Should there come a day that you are interested in joining, give them my name, Sly Silverfingers, as a sponser.",
+                          "conversationText": "One such organization deals in missions of stealth, using methods more silent. They are called the Midnight Shadows. Should there come a day that you are interested in joining, give them my name, Sly Silverfingers, as a sponsor.",
                           "IsExpanded": true,
                           "subNodes": [
                             {
@@ -211,6 +211,7 @@
   "ConvoFileName": "Sly",
   "Narration": false,
   "PartyChat": false,
+  "SpeakToMainPcOnly": false,
   "NpcPortraitBitmap": "ptr_sly.png",
   "DefaultNpcName": "Sly Silverfingers",
   "NextIdNum": 12

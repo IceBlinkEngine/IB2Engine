@@ -23,7 +23,7 @@
           "NodePortraitBitmap": "",
           "NodeNpcName": "",
           "NodeSound": "none",
-          "conversationText": "The entrance of a cave opens here, with signs of a tunnel leading deeper underground. Do you wish to explore further?",
+          "conversationText": "<font color='yellow'>The entrance of a cave opens here, with signs of a tunnel leading deeper underground. Do you wish to explore further?</font>",
           "IsExpanded": true,
           "subNodes": [
             {

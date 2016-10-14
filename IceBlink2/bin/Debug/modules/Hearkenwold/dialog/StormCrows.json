@@ -23,7 +23,7 @@
           "NodePortraitBitmap": "",
           "NodeNpcName": "",
           "NodeSound": "none",
-          "conversationText": "As you walk through the fence of corn stalks, you suddenly hear a piercing screech from above. The air seems to cackle with electricity.",
+          "conversationText": "<font color='yellow'>As you walk through the fence of corn stalks, you suddenly hear a piercing screech from above. The air seems to cackle with electricity. What will you do?</font>",
           "IsExpanded": true,
           "subNodes": [
             {
@@ -39,15 +39,7 @@
               "conversationText": "Stand and fight the oncoming birds.",
               "IsExpanded": true,
               "subNodes": [],
-              "actions": [
-                {
-                  "a_script": "gaEnableDisableTriggerEvent.cs",
-                  "a_parameter_1": "StormCrows",
-                  "a_parameter_2": "1",
-                  "a_parameter_3": "false",
-                  "a_parameter_4": null
-                }
-              ],
+              "actions": [],
               "conditions": [],
               "isLink": false
             },
@@ -90,6 +82,7 @@
   "ConvoFileName": "StormCrows",
   "Narration": false,
   "PartyChat": true,
+  "SpeakToMainPcOnly": false,
   "NpcPortraitBitmap": "ptr_stormcrowpic.png",
   "DefaultNpcName": "",
   "NextIdNum": 3

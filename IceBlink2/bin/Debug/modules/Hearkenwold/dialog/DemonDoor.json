@@ -23,7 +23,7 @@
           "NodePortraitBitmap": "",
           "NodeNpcName": "",
           "NodeSound": "none",
-          "conversationText": "This door requires a key.",
+          "conversationText": "<font color='yellow'>This strange-looking door has a forboding visage. Hollow sockets and a grinning skull are surrounded by the smoky darkness. Closer inspection shows some sort of mechanism has been worked into the black slots.</font>",
           "IsExpanded": true,
           "subNodes": [
             {

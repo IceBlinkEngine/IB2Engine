@@ -23,7 +23,7 @@
           "NodePortraitBitmap": "",
           "NodeNpcName": "",
           "NodeSound": "none",
-          "conversationText": "Loose tiles and fading brickwork frame the door to this building, along with some garish purple paint used around the trim. You also notice a smear of red above the doorway, with characters etched in the common language announcing the tavern as The Slaughtered Lamb.",
+          "conversationText": "<font color='yellow'>Loose tiles and fading brickwork frame the door to this building, along with some garish purple paint used around the trim. You also notice a smear of red above the doorway, with characters etched in the common language announcing the tavern as The Slaughtered Lamb.</font>",
           "IsExpanded": true,
           "subNodes": [
             {
@@ -57,6 +57,7 @@
   "ConvoFileName": "TavernDoor",
   "Narration": false,
   "PartyChat": true,
+  "SpeakToMainPcOnly": false,
   "NpcPortraitBitmap": "ptr_taverndoor.png",
   "DefaultNpcName": "",
   "NextIdNum": 2

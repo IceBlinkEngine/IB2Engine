@@ -23,7 +23,7 @@
           "NodePortraitBitmap": "",
           "NodeNpcName": "",
           "NodeSound": "none",
-          "conversationText": "This establishment has a reputation for guests with the finest of tastes.",
+          "conversationText": "<font color='yellow'>This establishment has a reputation for guests with the finest of tastes.</font>",
           "IsExpanded": true,
           "subNodes": [
             {

@@ -23,7 +23,7 @@
           "NodePortraitBitmap": "",
           "NodeNpcName": "",
           "NodeSound": "none",
-          "conversationText": "As you prepare to exit the cave, the strange lamp you are carrying begins to grow very hot. It suddenly produces a steam as that of a kettle, until the vapor issuing forth from the spout takes an impressive form. The Genie speaks in a booming voice.",
+          "conversationText": "<font color='yellow'>As you prepare to exit the cave, the strange lamp you are carrying begins to grow very hot. It suddenly produces a steam as that of a kettle, until the vapor issuing forth from the spout takes an impressive form. The Genie speaks in a booming voice.</font>",
           "IsExpanded": true,
           "subNodes": [
             {

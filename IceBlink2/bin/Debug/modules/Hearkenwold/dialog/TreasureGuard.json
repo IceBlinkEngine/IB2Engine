@@ -111,6 +111,7 @@
   "ConvoFileName": "TreasureGuard",
   "Narration": false,
   "PartyChat": true,
+  "SpeakToMainPcOnly": false,
   "NpcPortraitBitmap": "ptr_castleguard.png",
   "DefaultNpcName": "",
   "NextIdNum": 4

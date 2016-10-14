@@ -14,88 +14,8 @@
       "IsExpanded": true,
       "subNodes": [
         {
-          "idNum": 103,
-          "orderNum": 0,
-          "pcNode": false,
-          "linkTo": 0,
-          "ShowOnlyOnce": false,
-          "NodeIsActive": true,
-          "NodePortraitBitmap": "",
-          "NodeNpcName": "",
-          "NodeSound": "none",
-          "conversationText": "My patience with you champions will only extend so far.",
-          "IsExpanded": true,
-          "subNodes": [
-            {
-              "idNum": 104,
-              "orderNum": 0,
-              "pcNode": true,
-              "linkTo": 0,
-              "ShowOnlyOnce": false,
-              "NodeIsActive": true,
-              "NodePortraitBitmap": "",
-              "NodeNpcName": "",
-              "NodeSound": "none",
-              "conversationText": "Calm down. When we have something, we will bring gifts and tidings back to you.",
-              "IsExpanded": true,
-              "subNodes": [],
-              "actions": [],
-              "conditions": [],
-              "isLink": false
-            },
-            {
-              "idNum": 105,
-              "orderNum": 1,
-              "pcNode": true,
-              "linkTo": 0,
-              "ShowOnlyOnce": false,
-              "NodeIsActive": true,
-              "NodePortraitBitmap": "",
-              "NodeNpcName": "",
-              "NodeSound": "none",
-              "conversationText": "Likewise, Lady Minstrel.",
-              "IsExpanded": true,
-              "subNodes": [],
-              "actions": [],
-              "conditions": [],
-              "isLink": false
-            },
-            {
-              "idNum": 111,
-              "orderNum": 2,
-              "pcNode": true,
-              "linkTo": 106,
-              "ShowOnlyOnce": false,
-              "NodeIsActive": true,
-              "NodePortraitBitmap": "",
-              "NodeNpcName": "",
-              "NodeSound": "none",
-              "conversationText": "A woman from Hearkenwold asked us to deliver this poem, for your consideration as a new song.",
-              "IsExpanded": true,
-              "subNodes": [],
-              "actions": [],
-              "conditions": [],
-              "isLink": true
-            }
-          ],
-          "actions": [],
-          "conditions": [
-            {
-              "c_script": "gcCheckGlobalInt.cs",
-              "c_btnAndOr": "and",
-              "c_and": true,
-              "c_not": false,
-              "c_parameter_1": "Madrigal",
-              "c_parameter_2": "=",
-              "c_parameter_3": "4",
-              "c_parameter_4": null
-            }
-          ],
-          "isLink": false
-        },
-        {
           "idNum": 88,
-          "orderNum": 1,
+          "orderNum": 0,
           "pcNode": false,
           "linkTo": 0,
           "ShowOnlyOnce": false,
@@ -186,6 +106,13 @@
                           "a_parameter_2": "4",
                           "a_parameter_3": null,
                           "a_parameter_4": null
+                        },
+                        {
+                          "a_script": "gaEnableDisableTrigger.cs",
+                          "a_parameter_1": "Rorn",
+                          "a_parameter_2": "false",
+                          "a_parameter_3": null,
+                          "a_parameter_4": null
                         }
                       ],
                       "conditions": [],
@@ -209,6 +136,13 @@
                           "a_script": "gaSetGlobalInt.cs",
                           "a_parameter_1": "Madrigal",
                           "a_parameter_2": "4",
+                          "a_parameter_3": null,
+                          "a_parameter_4": null
+                        },
+                        {
+                          "a_script": "gaEnableDisableTrigger.cs",
+                          "a_parameter_1": "Rorn",
+                          "a_parameter_2": "false",
                           "a_parameter_3": null,
                           "a_parameter_4": null
                         }
@@ -432,17 +366,17 @@
                                                                   "a_parameter_4": null
                                                                 },
                                                                 {
-                                                                  "a_script": "gaEnableDisableTrigger.cs",
-                                                                  "a_parameter_1": "Madrigal",
-                                                                  "a_parameter_2": "false",
-                                                                  "a_parameter_3": null,
-                                                                  "a_parameter_4": null
-                                                                },
-                                                                {
                                                                   "a_script": "gaRemovePropByTag.cs",
                                                                   "a_parameter_1": "madrigal",
                                                                   "a_parameter_2": null,
                                                                   "a_parameter_3": null,
+                                                                  "a_parameter_4": null
+                                                                },
+                                                                {
+                                                                  "a_script": "gaEnableDisableTriggerEvent.cs",
+                                                                  "a_parameter_1": "Madrigal",
+                                                                  "a_parameter_2": "1",
+                                                                  "a_parameter_3": "false",
                                                                   "a_parameter_4": null
                                                                 }
                                                               ],
@@ -583,6 +517,103 @@
           "isLink": false
         },
         {
+          "idNum": 103,
+          "orderNum": 1,
+          "pcNode": false,
+          "linkTo": 0,
+          "ShowOnlyOnce": false,
+          "NodeIsActive": true,
+          "NodePortraitBitmap": "",
+          "NodeNpcName": "",
+          "NodeSound": "none",
+          "conversationText": "My patience with you champions will only extend so far.",
+          "IsExpanded": false,
+          "subNodes": [
+            {
+              "idNum": 104,
+              "orderNum": 0,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "Calm down. When we have something, we will bring gifts and tidings back to you.",
+              "IsExpanded": true,
+              "subNodes": [],
+              "actions": [],
+              "conditions": [],
+              "isLink": false
+            },
+            {
+              "idNum": 105,
+              "orderNum": 1,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "Likewise, Lady Minstrel.",
+              "IsExpanded": true,
+              "subNodes": [],
+              "actions": [],
+              "conditions": [],
+              "isLink": false
+            },
+            {
+              "idNum": 111,
+              "orderNum": 2,
+              "pcNode": true,
+              "linkTo": 106,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "A woman from Hearkenwold asked us to deliver this poem, for your consideration as a new song.",
+              "IsExpanded": true,
+              "subNodes": [],
+              "actions": [],
+              "conditions": [],
+              "isLink": true
+            },
+            {
+              "idNum": 127,
+              "orderNum": 3,
+              "pcNode": true,
+              "linkTo": 73,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "Here are your instruments. Use them in good health.",
+              "IsExpanded": true,
+              "subNodes": [],
+              "actions": [],
+              "conditions": [],
+              "isLink": true
+            }
+          ],
+          "actions": [],
+          "conditions": [
+            {
+              "c_script": "gcCheckGlobalInt.cs",
+              "c_btnAndOr": "and",
+              "c_and": true,
+              "c_not": false,
+              "c_parameter_1": "Madrigal",
+              "c_parameter_2": "=",
+              "c_parameter_3": "4",
+              "c_parameter_4": null
+            }
+          ],
+          "isLink": false
+        },
+        {
           "idNum": 42,
           "orderNum": 2,
           "pcNode": false,
@@ -593,7 +624,7 @@
           "NodeNpcName": "",
           "NodeSound": "none",
           "conversationText": "I greet you again, wanderers from the Castle.",
-          "IsExpanded": true,
+          "IsExpanded": false,
           "subNodes": [
             {
               "idNum": 43,
@@ -649,7 +680,7 @@
                       "NodeNpcName": "",
                       "NodeSound": "none",
                       "conversationText": "We do not have the instruments with us.",
-                      "IsExpanded": true,
+                      "IsExpanded": false,
                       "subNodes": [
                         {
                           "idNum": 49,
@@ -1616,7 +1647,7 @@
           "NodeNpcName": "",
           "NodeSound": "none",
           "conversationText": "I greet you again, wanderers from the Castle.",
-          "IsExpanded": true,
+          "IsExpanded": false,
           "subNodes": [
             {
               "idNum": 41,
@@ -1771,7 +1802,7 @@
               "NodeNpcName": "",
               "NodeSound": "none",
               "conversationText": "As if that is even your real name.",
-              "IsExpanded": true,
+              "IsExpanded": false,
               "subNodes": [
                 {
                   "idNum": 5,
@@ -2194,7 +2225,7 @@
               "NodeNpcName": "",
               "NodeSound": "none",
               "conversationText": "It seems unsafe to be wandering beyond the reach of the Castle.",
-              "IsExpanded": true,
+              "IsExpanded": false,
               "subNodes": [
                 {
                   "idNum": 10,
@@ -2372,7 +2403,7 @@
               "NodeNpcName": "",
               "NodeSound": "none",
               "conversationText": "Sure, a song would be perfect to brighten our mood.",
-              "IsExpanded": true,
+              "IsExpanded": false,
               "subNodes": [
                 {
                   "idNum": 18,
@@ -2446,7 +2477,8 @@
   "ConvoFileName": "Madrigal",
   "Narration": false,
   "PartyChat": true,
+  "SpeakToMainPcOnly": false,
   "NpcPortraitBitmap": "ptr_madrigal.png",
   "DefaultNpcName": "Lady Madrigal",
-  "NextIdNum": 126
+  "NextIdNum": 127
 }

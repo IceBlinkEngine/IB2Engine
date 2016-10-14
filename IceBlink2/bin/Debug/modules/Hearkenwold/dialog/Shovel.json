@@ -23,7 +23,7 @@
           "NodePortraitBitmap": "",
           "NodeNpcName": "",
           "NodeSound": "none",
-          "conversationText": "Between these barrels and along the back wall of the barn, you find a spare shovel among other well-worn tools and farming equipment.",
+          "conversationText": "<font color='yellow'>Between these barrels and along the back wall of the barn, you find a spare shovel among other well-worn tools and farming equipment.</font>",
           "IsExpanded": true,
           "subNodes": [
             {
@@ -85,6 +85,7 @@
   "ConvoFileName": "Shovel",
   "Narration": false,
   "PartyChat": true,
+  "SpeakToMainPcOnly": false,
   "NpcPortraitBitmap": "ptr_backofbarn.png",
   "DefaultNpcName": "",
   "NextIdNum": 3

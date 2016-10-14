@@ -23,7 +23,7 @@
           "NodePortraitBitmap": "",
           "NodeNpcName": "",
           "NodeSound": "none",
-          "conversationText": "As you climb the rocks here, you find a dark-haired lad standing behind a couple of sheep from his flock. He wears a fierce but troubled expression, as one trying to maintain the facade of bravery. The way the lambs bleat defiantly in your direction, it is almost as if the flock protects the young shepherd.",
+          "conversationText": "<font color='yellow'>As you climb the rocks here, you find a dark-haired lad standing behind a couple of sheep from his flock. He wears a fierce but troubled expression, as one trying to maintain the facade of bravery. The way the lambs bleat defiantly in your direction, it is almost as if the flock protects the young shepherd.</font>",
           "IsExpanded": true,
           "subNodes": [
             {
@@ -49,7 +49,7 @@
                   "NodePortraitBitmap": "ptr_wolf.png",
                   "NodeNpcName": "",
                   "NodeSound": "none",
-                  "conversationText": "Then, out from among the cluttered stones, six shapes emerge. The threat of wolves appears with fangs bared and red tongues slathering drool in anticipation. Outnumbering the boy and his sheep, it seems this pack has concluded a vote to decide what to eat for lunch.",
+                  "conversationText": "<font color='yellow'>Then, out from among the cluttered stones, six shapes emerge. The threat of wolves appears with fangs bared and red tongues slathering drool in anticipation. Outnumbering the boy and his sheep, it seems this pack has concluded a vote to decide what to eat for lunch.</font>",
                   "IsExpanded": true,
                   "subNodes": [
                     {
@@ -101,6 +101,7 @@
   "ConvoFileName": "IniWolf",
   "Narration": false,
   "PartyChat": true,
+  "SpeakToMainPcOnly": false,
   "NpcPortraitBitmap": "ptr_inivopic.png",
   "DefaultNpcName": "",
   "NextIdNum": 4

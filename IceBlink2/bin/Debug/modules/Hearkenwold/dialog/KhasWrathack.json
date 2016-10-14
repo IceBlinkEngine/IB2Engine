@@ -325,6 +325,7 @@
   "ConvoFileName": "KhasWrathack",
   "Narration": false,
   "PartyChat": true,
+  "SpeakToMainPcOnly": false,
   "NpcPortraitBitmap": "ptr_corwin.png",
   "DefaultNpcName": "",
   "NextIdNum": 14

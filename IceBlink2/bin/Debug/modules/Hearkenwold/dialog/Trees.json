@@ -23,7 +23,7 @@
           "NodePortraitBitmap": "",
           "NodeNpcName": "",
           "NodeSound": "none",
-          "conversationText": "Among this stand of trees is a strong sapling with silver bark. It looks like the wood is sturdy but malleable enough that it could be fashioned into a fine long bow. If there was an archer in the party. Will you attempt to craft the weapon?",
+          "conversationText": "<font color='yellow'>Among this stand of trees is a strong sapling with silver bark. It looks like the wood is sturdy but malleable enough that it could be fashioned into a fine long bow. If there was an archer in the party. Will you attempt to craft the weapon?</font>",
           "IsExpanded": true,
           "subNodes": [
             {
@@ -49,7 +49,7 @@
                   "NodePortraitBitmap": "",
                   "NodeNpcName": "",
                   "NodeSound": "none",
-                  "conversationText": "Using sharpened blades as tools, your archer companion works to sever a long branch from the tree. After much bending and testing and shaping, you are able to achieve the proper tension. A thread is run taught between the two ends. The bow is yours!",
+                  "conversationText": "<font color='yellow'>Using sharpened blades as tools, your archer companion works to sever a long branch from the tree. After much bending and testing and shaping, you are able to achieve the proper tension. A thread is run taught between the two ends. The bow is yours!</font>",
                   "IsExpanded": true,
                   "subNodes": [
                     {
@@ -136,6 +136,7 @@
   "ConvoFileName": "Trees",
   "Narration": false,
   "PartyChat": false,
+  "SpeakToMainPcOnly": false,
   "NpcPortraitBitmap": "ptr_p_trees1.png",
   "DefaultNpcName": "",
   "NextIdNum": 5

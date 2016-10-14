@@ -23,7 +23,7 @@
           "NodePortraitBitmap": "",
           "NodeNpcName": "",
           "NodeSound": "none",
-          "conversationText": "This mercenary offers his honor and loyalty to whoever pays the most gold. His eyes follow your movements with a dark glare.",
+          "conversationText": "<font color='yellow'>This mercenary offers his honor and loyalty to whoever pays the most gold. His eyes follow your movements with a dark glare.</font>",
           "IsExpanded": true,
           "subNodes": [
             {
@@ -57,6 +57,7 @@
   "ConvoFileName": "Mercenary2",
   "Narration": false,
   "PartyChat": true,
+  "SpeakToMainPcOnly": false,
   "NpcPortraitBitmap": "ptr_mercenarypic.png",
   "DefaultNpcName": "Mercenary",
   "NextIdNum": 4

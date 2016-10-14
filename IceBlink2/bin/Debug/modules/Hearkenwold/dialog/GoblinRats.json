@@ -23,7 +23,7 @@
           "NodePortraitBitmap": "",
           "NodeNpcName": "",
           "NodeSound": "none",
-          "conversationText": "A squad of goblins appear to be training a couple of giant rats.",
+          "conversationText": "<font color='yellow'>A squad of goblins appear to be training a couple of giant rats.</font>",
           "IsExpanded": true,
           "subNodes": [
             {
@@ -57,6 +57,7 @@
   "ConvoFileName": "GoblinRats",
   "Narration": false,
   "PartyChat": true,
+  "SpeakToMainPcOnly": false,
   "NpcPortraitBitmap": "ptr_rat.png",
   "DefaultNpcName": "",
   "NextIdNum": 2

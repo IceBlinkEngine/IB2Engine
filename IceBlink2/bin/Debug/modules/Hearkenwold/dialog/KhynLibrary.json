@@ -23,7 +23,7 @@
           "NodePortraitBitmap": "ptr_library.png",
           "NodeNpcName": "",
           "NodeSound": "none",
-          "conversationText": "You have reached the esteemed Lyceum of Khyn. A storehouse of tomes, scrolls, and copious volumes of manuscripts, this area also serves as the academic grounds for the city.",
+          "conversationText": "<font color='yellow'>You have reached the esteemed Lyceum of Khyn. A storehouse of tomes, scrolls, and copious volumes of manuscripts, this area also serves as the academic grounds for the city.</font>",
           "IsExpanded": true,
           "subNodes": [
             {
@@ -49,7 +49,7 @@
                   "NodePortraitBitmap": "",
                   "NodeNpcName": "",
                   "NodeSound": "none",
-                  "conversationText": "In the back of the entry hall, a man sits behind a desk  fastidiously etching across leaves of parchment. He does not raise his head in greeting, nor stop the flow of his quill from side to side, but speaks at your approach.",
+                  "conversationText": "<font color='yellow'>In the back of the entry hall, a man sits behind a desk  fastidiously etching across leaves of parchment. He does not raise his head in greeting, nor stop the flow of his quill from side to side, but speaks at your approach.</font>",
                   "IsExpanded": true,
                   "subNodes": [
                     {

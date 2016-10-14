@@ -23,7 +23,7 @@
           "NodePortraitBitmap": "",
           "NodeNpcName": "",
           "NodeSound": "none",
-          "conversationText": "A fearsome looking scarecrow is strung up here, with tattered rags for clothes and straw, like molting feathers, from beneath the brim of its hat. An eerily glowing light as if produced from twin candles is set within its skeletal head. ",
+          "conversationText": "<font color='yellow'>A fearsome looking scarecrow is strung up here, with tattered rags for clothes and straw, like molting feathers, from beneath the brim of its hat. An eerily glowing light as if produced from twin candles is set within its skeletal head.</font> ",
           "IsExpanded": true,
           "subNodes": [
             {
@@ -66,7 +66,7 @@
                   "NodePortraitBitmap": "ptr_stormcrowpic.png",
                   "NodeNpcName": "",
                   "NodeSound": "none",
-                  "conversationText": "Taking the plumage from the black birds of prey that you managed to kill, you stuff them into the hanging scarecrow. At that moment, you hear a screech from above. More of the crows are wheeling in the sky. But then their raptor gazes sweep over the newly decorated scarecrow, and the flock flies off in terror.",
+                  "conversationText": "<font color='yellow'>Taking the plumage from the black birds of prey that you managed to kill, you stuff them into the hanging scarecrow. At that moment, you hear a screech from above. More of the crows are wheeling in the sky. But then their raptor gazes sweep over the newly decorated scarecrow, and the flock flies off in terror.</font>",
                   "IsExpanded": true,
                   "subNodes": [
                     {
@@ -150,6 +150,7 @@
   "ConvoFileName": "Scarecrow",
   "Narration": false,
   "PartyChat": true,
+  "SpeakToMainPcOnly": false,
   "NpcPortraitBitmap": "ptr_scarecrow.png",
   "DefaultNpcName": "Scarecrow",
   "NextIdNum": 5

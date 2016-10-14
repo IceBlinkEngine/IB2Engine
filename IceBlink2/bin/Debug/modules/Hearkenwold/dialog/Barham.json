@@ -23,7 +23,7 @@
           "NodePortraitBitmap": "",
           "NodeNpcName": "",
           "NodeSound": "none",
-          "conversationText": "Entering this smokey blacksmith's workshop, a hot orange glow illuminates the figure of a man pounding away at the anvil. Between blows of the hammer, he looks up and addresses <FirstName> in a gruff voice.",
+          "conversationText": "<font color='yellow'>Entering this smokey blacksmith's workshop, a hot orange glow illuminates the figure of a man pounding away at the anvil. Between blows of the hammer, he looks up and addresses <FirstName> in a gruff voice.</font>",
           "IsExpanded": true,
           "subNodes": [
             {

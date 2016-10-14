@@ -24,7 +24,7 @@
           "NodeNpcName": "",
           "NodeSound": "none",
           "conversationText": "I do not recognize these faces as a citizens of Khyn. Know that I am Delphos Hesara, Captain of the Guard. I have a mind like a steel trap. State your name and understand that we are a law-abiding town. Everyone must be accounted for. Mischief-makers will be shown the city gates.",
-          "IsExpanded": true,
+          "IsExpanded": false,
           "subNodes": [
             {
               "idNum": 2,
@@ -600,7 +600,7 @@
           "NodeNpcName": "",
           "NodeSound": "none",
           "conversationText": "Yes, can I help you?",
-          "IsExpanded": true,
+          "IsExpanded": false,
           "subNodes": [
             {
               "idNum": 45,

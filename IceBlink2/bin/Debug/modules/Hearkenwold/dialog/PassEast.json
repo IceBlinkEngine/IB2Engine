@@ -23,7 +23,7 @@
           "NodePortraitBitmap": "",
           "NodeNpcName": "",
           "NodeSound": "none",
-          "conversationText": "A cliff-like wall of rough stone looms before you, with evidence of passage beyond. The way is blocked.",
+          "conversationText": "<font color='yellow'>A cliff-like wall of rough stone looms before you, with evidence of passage beyond. The way is blocked.</font>",
           "IsExpanded": true,
           "subNodes": [
             {
@@ -81,7 +81,7 @@
                   "NodePortraitBitmap": "",
                   "NodeNpcName": "",
                   "NodeSound": "none",
-                  "conversationText": "Having a dwarf in your party will definitely make it easier to negotiate the rugged slope. Will you try?",
+                  "conversationText": "<font color='yellow'>Having a dwarf in your party will definitely make it easier to negotiate the rugged slope. Will you try?</font>",
                   "IsExpanded": true,
                   "subNodes": [
                     {
@@ -264,6 +264,7 @@
   "ConvoFileName": "PassEast",
   "Narration": false,
   "PartyChat": true,
+  "SpeakToMainPcOnly": false,
   "NpcPortraitBitmap": "ptr_cliffface.png",
   "DefaultNpcName": "",
   "NextIdNum": 10

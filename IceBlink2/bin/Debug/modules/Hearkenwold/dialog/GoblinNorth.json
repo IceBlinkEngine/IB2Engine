@@ -23,7 +23,7 @@
           "NodePortraitBitmap": "",
           "NodeNpcName": "",
           "NodeSound": "none",
-          "conversationText": "Beyond the door in the north wall, you hear a din of voices. One rises louder above the others. ",
+          "conversationText": "<font color='yellow'>Beyond the door in the north wall, you hear a din of voices. One rises louder above the others.</font> ",
           "IsExpanded": true,
           "subNodes": [
             {
@@ -46,10 +46,10 @@
                   "linkTo": 0,
                   "ShowOnlyOnce": false,
                   "NodeIsActive": true,
-                  "NodePortraitBitmap": "",
+                  "NodePortraitBitmap": "ptr_aznek.png",
                   "NodeNpcName": "",
                   "NodeSound": "none",
-                  "conversationText": "We have visitors. Prepare yourselves.",
+                  "conversationText": "Enough! Let them come.",
                   "IsExpanded": true,
                   "subNodes": [
                     {
@@ -93,6 +93,7 @@
   "ConvoFileName": "GoblinNorth",
   "Narration": false,
   "PartyChat": true,
+  "SpeakToMainPcOnly": false,
   "NpcPortraitBitmap": "ptr_cavewall.png",
   "DefaultNpcName": "",
   "NextIdNum": 7

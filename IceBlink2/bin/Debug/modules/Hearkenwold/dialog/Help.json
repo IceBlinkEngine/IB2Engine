@@ -130,6 +130,7 @@
   "ConvoFileName": "Help",
   "Narration": false,
   "PartyChat": true,
+  "SpeakToMainPcOnly": false,
   "NpcPortraitBitmap": "ptr_inivopic.png",
   "DefaultNpcName": "Inivo",
   "NextIdNum": 5

@@ -23,7 +23,7 @@
           "NodePortraitBitmap": "",
           "NodeNpcName": "",
           "NodeSound": "none",
-          "conversationText": "The streets are filled with sweet perfume, as a young woman passes holding a basket filled with flowers.",
+          "conversationText": "<font color='yellow'>The streets are filled with sweet perfume, as a young woman passes holding a basket filled with flowers.</font>",
           "IsExpanded": true,
           "subNodes": [
             {

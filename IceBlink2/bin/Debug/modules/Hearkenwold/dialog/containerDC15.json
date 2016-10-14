@@ -11,7 +11,7 @@
       "NodeNpcName": "",
       "NodeSound": "none",
       "conversationText": "root",
-      "IsExpanded": true,
+      "IsExpanded": false,
       "subNodes": [
         {
           "idNum": 1,
@@ -373,6 +373,7 @@
   "ConvoFileName": "containerDC15",
   "Narration": false,
   "PartyChat": true,
+  "SpeakToMainPcOnly": false,
   "NpcPortraitBitmap": "prp_treasure.png",
   "DefaultNpcName": "Door",
   "NextIdNum": 21

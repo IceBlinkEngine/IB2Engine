@@ -8,6 +8,8 @@
         "tag": "Brew01_7399",
         "name": "Mystic Brew",
         "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
         "quantity": 1
       },
       {
@@ -15,6 +17,8 @@
         "tag": "Brew01_7400",
         "name": "Mystic Brew",
         "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
         "quantity": 1
       },
       {
@@ -22,6 +26,8 @@
         "tag": "Brew01_7401",
         "name": "Mystic Brew",
         "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
         "quantity": 1
       },
       {
@@ -29,6 +35,8 @@
         "tag": "Beer01_7402",
         "name": "Goblin Beer",
         "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
         "quantity": 1
       },
       {
@@ -36,6 +44,8 @@
         "tag": "Beer01_7403",
         "name": "Goblin Beer",
         "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
         "quantity": 1
       },
       {
@@ -43,7 +53,108 @@
         "tag": "Beer01_7404",
         "name": "Goblin Beer",
         "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
         "quantity": 1
+      },
+      {
+        "resref": "arrow",
+        "tag": "arrow_14987",
+        "name": "Arrow",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 20
+      },
+      {
+        "resref": "bolt",
+        "tag": "bolt_14988",
+        "name": "Bolt",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 20
+      },
+      {
+        "resref": "stone",
+        "tag": "stone_14989",
+        "name": "Stone",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 20
+      },
+      {
+        "resref": "lxbow01",
+        "tag": "lxbow01_14990",
+        "name": "Light Crossbow",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      },
+      {
+        "resref": "arrow",
+        "tag": "arrow_16890",
+        "name": "Arrow",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 20
+      },
+      {
+        "resref": "bolt",
+        "tag": "bolt_16891",
+        "name": "Bolt",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 20
+      },
+      {
+        "resref": "stone",
+        "tag": "stone_16892",
+        "name": "Stone",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 20
+      },
+      {
+        "resref": "arrow",
+        "tag": "arrow_23291",
+        "name": "Arrow",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 20
+      },
+      {
+        "resref": "arrow",
+        "tag": "arrow_23292",
+        "name": "Arrow",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 20
+      },
+      {
+        "resref": "arrow",
+        "tag": "arrow_23293",
+        "name": "Arrow",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 20
+      },
+      {
+        "resref": "arrow",
+        "tag": "arrow_23294",
+        "name": "Arrow",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 20
       }
     ]
   },
@@ -56,6 +167,8 @@
         "tag": "lbowF_9418",
         "name": "Fine Longbow",
         "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
         "quantity": 1
       },
       {
@@ -63,6 +176,8 @@
         "tag": "arrow_9419",
         "name": "Arrow",
         "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
         "quantity": 20
       },
       {
@@ -70,6 +185,80 @@
         "tag": "arrow_9420",
         "name": "Arrow",
         "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 20
+      },
+      {
+        "resref": "bolt",
+        "tag": "bolt_16886",
+        "name": "Bolt",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 20
+      },
+      {
+        "resref": "stone",
+        "tag": "stone_16887",
+        "name": "Stone",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 20
+      },
+      {
+        "resref": "stone",
+        "tag": "stone_16888",
+        "name": "Stone",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 20
+      },
+      {
+        "resref": "bolt",
+        "tag": "bolt_16889",
+        "name": "Bolt",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 20
+      },
+      {
+        "resref": "arrow",
+        "tag": "arrow_23287",
+        "name": "Arrow",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 20
+      },
+      {
+        "resref": "arrow",
+        "tag": "arrow_23288",
+        "name": "Arrow",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 20
+      },
+      {
+        "resref": "arrow",
+        "tag": "arrow_23289",
+        "name": "Arrow",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 20
+      },
+      {
+        "resref": "bolt",
+        "tag": "bolt_23290",
+        "name": "Bolt",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
         "quantity": 20
       }
     ]
@@ -83,6 +272,8 @@
         "tag": "torch01_9424",
         "name": "Torch",
         "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
         "quantity": 1
       },
       {
@@ -90,6 +281,8 @@
         "tag": "rope01_9425",
         "name": "Coiled Rope",
         "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
         "quantity": 1
       },
       {
@@ -97,6 +290,8 @@
         "tag": "hook01_9426",
         "name": "Grappling Hook",
         "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
         "quantity": 1
       }
     ]
@@ -110,6 +305,8 @@
         "tag": "wheel_01_9427",
         "name": "Wagon Wheel",
         "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
         "quantity": 1
       }
     ]
@@ -123,6 +320,8 @@
         "tag": "dsteak_9428",
         "name": "Dragon Steak Tartar",
         "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
         "quantity": 1
       },
       {
@@ -130,6 +329,8 @@
         "tag": "ssoup_9429",
         "name": "Sizzling Swine Soup",
         "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
         "quantity": 1
       }
     ]

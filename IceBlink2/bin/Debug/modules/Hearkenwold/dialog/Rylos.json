@@ -24,7 +24,7 @@
           "NodeNpcName": "",
           "NodeSound": "none",
           "conversationText": "I have watched and appraised you from afar, climbing through rocks, field and fountain. So then, have you traversed this steep path just to find me? I wonder if you seek some hilltop wisdom, or merely wish to keep an old man company. Perhaps you would like to hear a tale?",
-          "IsExpanded": true,
+          "IsExpanded": false,
           "subNodes": [
             {
               "idNum": 2,
@@ -75,7 +75,7 @@
                           "NodePortraitBitmap": "",
                           "NodeNpcName": "",
                           "NodeSound": "none",
-                          "conversationText": "Can you? There is not much to be done. I wonder, though, if you have heard of the Cave of Venture. You see, I had a precious artifact stolen from me, it is the only momento I have of her. An alabaster statue, carved in her image. I believe it has been hidden in that dreaded Cave.",
+                          "conversationText": "Can you? There is not much to be done. I wonder, though, if you have heard of the Cave of Venture. You see, I had a precious artifact stolen from me, it is the only memento I have of her. An alabaster statue, carved in her image. I believe it has been hidden in that dreaded Cave.",
                           "IsExpanded": true,
                           "subNodes": [
                             {
@@ -274,7 +274,7 @@
                   "NodePortraitBitmap": "",
                   "NodeNpcName": "",
                   "NodeSound": "none",
-                  "conversationText": "Thank you, little halfling. It is small, but cozy. I'm sure you can appreciate that. However, my home has grown more cold and lonely, since I lost my daughter. And the only momento I had, an alabaster statue carved in her image, has been stolen from me. I believe it has been hidden in the Cave of Venture.",
+                  "conversationText": "Thank you, little halfling. It is small, but cozy. I'm sure you can appreciate that. However, my home has grown more cold and lonely, since I lost my daughter. And the only memento I had, an alabaster statue carved in her image, has been stolen from me. I believe it has been hidden in the Cave of Venture.",
                   "IsExpanded": true,
                   "subNodes": [
                     {
@@ -338,7 +338,7 @@
                   "NodePortraitBitmap": "",
                   "NodeNpcName": "",
                   "NodeSound": "none",
-                  "conversationText": "Have you heard of the Cave of Venture? You see, I had a precious artifact stoeln from me, it is the only momento I have of my daughter. An alabaster statue, carved in her image. I lost her a long time ago. But I believe it has been hidden in that dreaded Cave. You may seek treasure or glory, or a chance to bring a small joy back to an old man.",
+                  "conversationText": "Have you heard of the Cave of Venture? You see, I had a precious artifact stolen from me, it is the only memento I have of my daughter. An alabaster statue, carved in her image. I lost her a long time ago. But I believe it has been hidden in that dreaded Cave. You may seek treasure or glory, or a chance to bring a small joy back to an old man.",
                   "IsExpanded": true,
                   "subNodes": [
                     {
@@ -402,7 +402,7 @@
                   "NodePortraitBitmap": "",
                   "NodeNpcName": "",
                   "NodeSound": "none",
-                  "conversationText": "You are most kind. Tell me, have you heard of the Cave of Venture? You see, I had a precious artifact stoeln from me, it is the only momento I have of my daughter. An alabaster statue, carved in her image. I lost her a long time ago. But I believe it has been hidden in that dreaded Cave.",
+                  "conversationText": "You are most kind. Tell me, have you heard of the Cave of Venture? You see, I had a precious artifact stolen from me, it is the only memento I have of my daughter. An alabaster statue, carved in her image. I lost her a long time ago. But I believe it has been hidden in that dreaded Cave.",
                   "IsExpanded": true,
                   "subNodes": [
                     {
@@ -466,7 +466,7 @@
                   "NodePortraitBitmap": "",
                   "NodeNpcName": "",
                   "NodeSound": "none",
-                  "conversationText": "One of the Fair Folk, on my very doorstep! The perhaps you will appreciate this song of sadness. Have you heard of the Cave of Venture? You see, I had a precious artifact stoeln from me, it is the only momento I have of my daughter. An alabaster statue, carved in her image. I lost her a long time ago. But I believe it has been hidden in that dreaded Cave.",
+                  "conversationText": "One of the Fair Folk, on my very doorstep! The perhaps you will appreciate this song of sadness. Have you heard of the Cave of Venture? You see, I had a precious artifact stolen from me, it is the only memento I have of my daughter. An alabaster statue, carved in her image. I lost her a long time ago. But I believe it has been hidden in that dreaded Cave.",
                   "IsExpanded": true,
                   "subNodes": [
                     {
@@ -513,17 +513,179 @@
           "isLink": false
         },
         {
-          "idNum": 45,
+          "idNum": 103,
           "orderNum": 1,
           "pcNode": false,
           "linkTo": 0,
-          "ShowOnlyOnce": false,
+          "ShowOnlyOnce": true,
+          "NodeIsActive": true,
+          "NodePortraitBitmap": "",
+          "NodeNpcName": "",
+          "NodeSound": "none",
+          "conversationText": "Hello again, my wayward friends, orphans of Hearkenwold.",
+          "IsExpanded": false,
+          "subNodes": [
+            {
+              "idNum": 104,
+              "orderNum": 0,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "Rylos, we confronted Lord Basil at Kelton Manor. The lich is destroyed.",
+              "IsExpanded": true,
+              "subNodes": [
+                {
+                  "idNum": 105,
+                  "orderNum": 0,
+                  "pcNode": false,
+                  "linkTo": 0,
+                  "ShowOnlyOnce": false,
+                  "NodeIsActive": true,
+                  "NodePortraitBitmap": "",
+                  "NodeNpcName": "",
+                  "NodeSound": "none",
+                  "conversationText": "Indeed, Alexandros was here and told me of his rescue from the lich's captivity. I had a feeling it was you who set him free. So after all these years, Basil is no more. This is a tremendous thing you have done.",
+                  "IsExpanded": true,
+                  "subNodes": [
+                    {
+                      "idNum": 106,
+                      "orderNum": 0,
+                      "pcNode": true,
+                      "linkTo": 0,
+                      "ShowOnlyOnce": false,
+                      "NodeIsActive": true,
+                      "NodePortraitBitmap": "",
+                      "NodeNpcName": "",
+                      "NodeSound": "none",
+                      "conversationText": "Continue",
+                      "IsExpanded": true,
+                      "subNodes": [
+                        {
+                          "idNum": 107,
+                          "orderNum": 0,
+                          "pcNode": false,
+                          "linkTo": 0,
+                          "ShowOnlyOnce": false,
+                          "NodeIsActive": true,
+                          "NodePortraitBitmap": "",
+                          "NodeNpcName": "",
+                          "NodeSound": "none",
+                          "conversationText": "And this perilous quest took you all the way back to Kelton Manor, eh? I can well imagine the horrors that awaited you, more than the lich, the painful memories. But remember this: yesterday is a closing door. Kelton Manor? You don't live there any more. Leave it behind.",
+                          "IsExpanded": true,
+                          "subNodes": [
+                            {
+                              "idNum": 108,
+                              "orderNum": 0,
+                              "pcNode": true,
+                              "linkTo": 0,
+                              "ShowOnlyOnce": false,
+                              "NodeIsActive": true,
+                              "NodePortraitBitmap": "",
+                              "NodeNpcName": "",
+                              "NodeSound": "none",
+                              "conversationText": "We appreciate your wise words. Fare well.",
+                              "IsExpanded": true,
+                              "subNodes": [],
+                              "actions": [
+                                {
+                                  "a_script": "gaSetGlobalInt.cs",
+                                  "a_parameter_1": "Rylos",
+                                  "a_parameter_2": "2",
+                                  "a_parameter_3": null,
+                                  "a_parameter_4": null
+                                }
+                              ],
+                              "conditions": [],
+                              "isLink": false
+                            },
+                            {
+                              "idNum": 109,
+                              "orderNum": 1,
+                              "pcNode": true,
+                              "linkTo": 0,
+                              "ShowOnlyOnce": false,
+                              "NodeIsActive": true,
+                              "NodePortraitBitmap": "",
+                              "NodeNpcName": "",
+                              "NodeSound": "none",
+                              "conversationText": "I don't wish to lose my pain. It reminds me who I am.",
+                              "IsExpanded": true,
+                              "subNodes": [],
+                              "actions": [
+                                {
+                                  "a_script": "gaSetGlobalInt.cs",
+                                  "a_parameter_1": "Rylos",
+                                  "a_parameter_2": "2",
+                                  "a_parameter_3": null,
+                                  "a_parameter_4": null
+                                }
+                              ],
+                              "conditions": [
+                                {
+                                  "c_script": "gcCheckAttribute.cs",
+                                  "c_btnAndOr": "and",
+                                  "c_and": true,
+                                  "c_not": false,
+                                  "c_parameter_1": "-1",
+                                  "c_parameter_2": "con",
+                                  "c_parameter_3": ">",
+                                  "c_parameter_4": "16"
+                                }
+                              ],
+                              "isLink": false
+                            }
+                          ],
+                          "actions": [],
+                          "conditions": [],
+                          "isLink": false
+                        }
+                      ],
+                      "actions": [],
+                      "conditions": [],
+                      "isLink": false
+                    }
+                  ],
+                  "actions": [],
+                  "conditions": [],
+                  "isLink": false
+                }
+              ],
+              "actions": [],
+              "conditions": [],
+              "isLink": false
+            }
+          ],
+          "actions": [],
+          "conditions": [
+            {
+              "c_script": "gcCheckGlobalInt.cs",
+              "c_btnAndOr": "and",
+              "c_and": true,
+              "c_not": false,
+              "c_parameter_1": "Basil",
+              "c_parameter_2": "=",
+              "c_parameter_3": "3",
+              "c_parameter_4": null
+            }
+          ],
+          "isLink": false
+        },
+        {
+          "idNum": 45,
+          "orderNum": 2,
+          "pcNode": false,
+          "linkTo": 0,
+          "ShowOnlyOnce": true,
           "NodeIsActive": true,
           "NodePortraitBitmap": "",
           "NodeNpcName": "",
           "NodeSound": "none",
           "conversationText": "Find Alexandros and consult with him about this issue. He may remember better than I, the last whereabouts of the lich, and the arcane rituals involved. This is a dangerous mission, but you have already proved yourselves in braving the Caves of Venture.",
-          "IsExpanded": true,
+          "IsExpanded": false,
           "subNodes": [
             {
               "idNum": 46,
@@ -621,7 +783,7 @@
         },
         {
           "idNum": 26,
-          "orderNum": 2,
+          "orderNum": 3,
           "pcNode": false,
           "linkTo": 0,
           "ShowOnlyOnce": false,
@@ -630,7 +792,7 @@
           "NodeNpcName": "",
           "NodeSound": "none",
           "conversationText": "Hello again, my wayward friends, orphans of Hearkenwold.",
-          "IsExpanded": true,
+          "IsExpanded": false,
           "subNodes": [
             {
               "idNum": 27,
@@ -811,7 +973,7 @@
                                           "NodePortraitBitmap": "ptr_statuebig.png",
                                           "NodeNpcName": "",
                                           "NodeSound": "none",
-                                          "conversationText": "In reply, the old sage begins to mutter cryptic words, and weave gestures with his hands around the alabaster statue placed on the ground. In a shimmering flash of light, the statue cracks and breaks... and standing there, is a young woman with dark hair. ",
+                                          "conversationText": "<font color='yellow'>In reply, the old sage begins to mutter cryptic words, and weave gestures with his hands around the alabaster statue placed on the ground. In a shimmering flash of light, the statue cracks and breaks... and standing there, is a young woman with dark hair.</font>",
                                           "IsExpanded": true,
                                           "subNodes": [
                                             {
@@ -1067,5 +1229,5 @@
   "SpeakToMainPcOnly": false,
   "NpcPortraitBitmap": "ptr_rylos.png",
   "DefaultNpcName": "Rylos",
-  "NextIdNum": 102
+  "NextIdNum": 109
 }

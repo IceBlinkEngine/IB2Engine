@@ -914,7 +914,7 @@
           "NodePortraitBitmap": "MarbleWallDoorPic.png",
           "NodeNpcName": "Empty House",
           "NodeSound": "none",
-          "conversationText": "When you walk through this open door, there is no sign of any residents. In fact, further exploration through the rooms shows evidence of a ransacking. Furniture is knocked over, desks and cabinets thoroughly searched. Documents litter the floor.",
+          "conversationText": "<font color='yellow'>When you walk through this open door, there is no sign of any residents. In fact, further exploration through the rooms shows evidence of a ransacking. Furniture is knocked over, desks and cabinets thoroughly searched. Documents litter the floor.</font>",
           "IsExpanded": true,
           "subNodes": [
             {

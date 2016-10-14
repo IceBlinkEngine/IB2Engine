@@ -23,8 +23,8 @@
           "NodePortraitBitmap": "",
           "NodeNpcName": "",
           "NodeSound": "none",
-          "conversationText": "Stepping through the doorway, you are confronted by two massive bugbears, larger than any you have seen. They growl and call out in the common tongue.",
-          "IsExpanded": true,
+          "conversationText": "<font color='yellow'>Stepping through the doorway, you are confronted by two massive bugbears, larger than any you have seen. They growl and call out in the common tongue.</font>",
+          "IsExpanded": false,
           "subNodes": [
             {
               "idNum": 24,
@@ -130,6 +130,13 @@
                                           "a_parameter_1": "BugbearLord",
                                           "a_parameter_2": "1",
                                           "a_parameter_3": "false",
+                                          "a_parameter_4": null
+                                        },
+                                        {
+                                          "a_script": "gaSetGlobalInt.cs",
+                                          "a_parameter_1": "Crown",
+                                          "a_parameter_2": "1",
+                                          "a_parameter_3": null,
                                           "a_parameter_4": null
                                         }
                                       ],
@@ -237,7 +244,15 @@
                                                       "conversationText": "Nothing... we better be going now. Good day!",
                                                       "IsExpanded": true,
                                                       "subNodes": [],
-                                                      "actions": [],
+                                                      "actions": [
+                                                        {
+                                                          "a_script": "gaSetGlobalInt.cs",
+                                                          "a_parameter_1": "Crown",
+                                                          "a_parameter_2": "1",
+                                                          "a_parameter_3": null,
+                                                          "a_parameter_4": null
+                                                        }
+                                                      ],
                                                       "conditions": [],
                                                       "isLink": false
                                                     }
@@ -299,6 +314,13 @@
                                           "a_parameter_1": "BugbearLord",
                                           "a_parameter_2": "2",
                                           "a_parameter_3": "false",
+                                          "a_parameter_4": null
+                                        },
+                                        {
+                                          "a_script": "gaSetGlobalInt.cs",
+                                          "a_parameter_1": "Crown",
+                                          "a_parameter_2": "1",
+                                          "a_parameter_3": null,
                                           "a_parameter_4": null
                                         }
                                       ],
@@ -368,6 +390,13 @@
                                                   "a_parameter_1": "BugbearLord",
                                                   "a_parameter_2": "1",
                                                   "a_parameter_3": "false",
+                                                  "a_parameter_4": null
+                                                },
+                                                {
+                                                  "a_script": "gaSetGlobalInt.cs",
+                                                  "a_parameter_1": "Crown",
+                                                  "a_parameter_2": "1",
+                                                  "a_parameter_3": null,
                                                   "a_parameter_4": null
                                                 }
                                               ],
@@ -479,7 +508,7 @@
                   "a_parameter_4": null
                 },
                 {
-                  "a_script": "gaEnableDisableTrigger.cs",
+                  "a_script": "gaEnableDisableTriggerEvent.cs",
                   "a_parameter_1": "BugbearLord",
                   "a_parameter_2": "1",
                   "a_parameter_3": "false",

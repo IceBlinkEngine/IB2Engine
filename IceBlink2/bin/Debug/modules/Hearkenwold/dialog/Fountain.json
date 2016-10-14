@@ -23,7 +23,7 @@
           "NodePortraitBitmap": "",
           "NodeNpcName": "",
           "NodeSound": "none",
-          "conversationText": "An azure fountain plays here, the echoes of its splashing water resonating in the castle hall. There is a sense of tranquility that seems oblivious to the turmoil of the outside world.",
+          "conversationText": "<font color='yellow'>An azure fountain plays here, the echoes of its splashing water resonating in the castle hall. There is a sense of tranquility that seems oblivious to the turmoil of the outside world.</font>",
           "IsExpanded": true,
           "subNodes": [
             {
@@ -74,6 +74,7 @@
   "ConvoFileName": "Fountain",
   "Narration": false,
   "PartyChat": false,
+  "SpeakToMainPcOnly": false,
   "NpcPortraitBitmap": "ptr_fountain.png",
   "DefaultNpcName": "",
   "NextIdNum": 3

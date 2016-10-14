@@ -23,7 +23,7 @@
           "NodePortraitBitmap": "",
           "NodeNpcName": "",
           "NodeSound": "none",
-          "conversationText": "A cold thunderstorm approaches from the north, illuminating the sky with flashes of lightning. The clouds appear threatening, with lashing rain on the horizon.",
+          "conversationText": "<font color='yellow'>A cold thunderstorm approaches from the north, illuminating the sky with flashes of lightning. The clouds appear threatening, with lashing rain on the horizon.</font>",
           "IsExpanded": true,
           "subNodes": [
             {
@@ -49,7 +49,7 @@
                   "NodePortraitBitmap": "ptr_campsite.png",
                   "NodeNpcName": "",
                   "NodeSound": "none",
-                  "conversationText": "With the guidance and help of your elven companion, you are able to uses the boughs of trees to fashion some makeshift protection. Riding out the storm, you are even able to manage a few hours of recuperative rest. ",
+                  "conversationText": "<font color='yellow'>With the guidance and help of your elven companion, you are able to uses the boughs of trees to fashion some makeshift protection. Riding out the storm, you are even able to manage a few hours of recuperative rest.</font>",
                   "IsExpanded": true,
                   "subNodes": [
                     {
@@ -121,7 +121,7 @@
                   "NodePortraitBitmap": "",
                   "NodeNpcName": "",
                   "NodeSound": "none",
-                  "conversationText": "In mere moments, your clothes are soaked through and hail rains down upon your collective heads. While managing to avoid a fatal lightning strike, you do suffer the effects of incelment weather conditions. ",
+                  "conversationText": "<font color='yellow'>In mere moments, your clothes are soaked through and hail rains down upon your collective heads. While managing to avoid a fatal lightning strike, you do suffer the effects of incelment weather conditions.</font> ",
                   "IsExpanded": true,
                   "subNodes": [
                     {
@@ -173,6 +173,7 @@
   "ConvoFileName": "Storm",
   "Narration": false,
   "PartyChat": true,
+  "SpeakToMainPcOnly": false,
   "NpcPortraitBitmap": "ptr_storm.png",
   "DefaultNpcName": "",
   "NextIdNum": 7

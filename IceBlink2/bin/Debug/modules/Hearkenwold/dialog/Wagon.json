@@ -23,7 +23,7 @@
           "NodePortraitBitmap": "",
           "NodeNpcName": "",
           "NodeSound": "none",
-          "conversationText": "As you approach the bend in this road, <FirstName> hears voices calling out, and then sees some men waving their arms in distress, near a broken down wagon.",
+          "conversationText": "<font color='yellow'>As you approach the bend in this road, <FirstName> hears voices calling out, and then sees some men waving their arms in distress, near a broken down wagon.</font>",
           "IsExpanded": true,
           "subNodes": [
             {
@@ -75,7 +75,7 @@
                           "NodePortraitBitmap": "ptr_p_trees1.png",
                           "NodeNpcName": "",
                           "NodeSound": "none",
-                          "conversationText": "Turning from the stranded merchants, you prepare to continue your journey. There is a distinct rustling sound coming from beyond the forest.",
+                          "conversationText": "<font color='yellow'>Turning from the stranded merchants, you prepare to continue your journey. There is a distinct rustling sound coming from beyond the forest.</font>",
                           "IsExpanded": true,
                           "subNodes": [
                             {
@@ -133,7 +133,7 @@
                                   "NodePortraitBitmap": "ptr_assassinpic.png",
                                   "NodeNpcName": "",
                                   "NodeSound": "none",
-                                  "conversationText": "Returning to the broken-down wagon, dark figures emerge from out of the shadows of the trees. Guttural laughter is followed by words croaked out in the common tongue.",
+                                  "conversationText": "<font color='yellow'>Returning to the broken-down wagon, dark figures emerge from out of the shadows of the trees. Guttural laughter is followed by words croaked out in the common tongue.</font>",
                                   "IsExpanded": true,
                                   "subNodes": [
                                     {
@@ -273,7 +273,7 @@
                                   "NodePortraitBitmap": "ptr_p_trees1.png",
                                   "NodeNpcName": "",
                                   "NodeSound": "none",
-                                  "conversationText": "The merchants turn to leave and follow the road to Khyn on foot. After some time has passed, you hear a distinct sound of rustling, movement, coming from beyond the forest. Dark figures emerge from out of the shadows of the trees, accompanied by guttural laughter.",
+                                  "conversationText": "<font color='yellow'>The merchants turn to leave and follow the road to Khyn on foot. After some time has passed, you hear a distinct sound of rustling, movement, coming from beyond the forest. Dark figures emerge from out of the shadows of the trees, accompanied by guttural laughter.</font>",
                                   "IsExpanded": true,
                                   "subNodes": [
                                     {
@@ -413,7 +413,7 @@
                                   "NodePortraitBitmap": "ptr_p_trees1.png",
                                   "NodeNpcName": "",
                                   "NodeSound": "none",
-                                  "conversationText": "Turning from the stranded merchants, you prepare to continue your journey. There is a distinct rustling sound coming from beyond the forest.",
+                                  "conversationText": "<font color='yellow'>Turning from the stranded merchants, you prepare to continue your journey. There is a distinct rustling sound coming from beyond the forest.</font>",
                                   "IsExpanded": true,
                                   "subNodes": [
                                     {
@@ -471,7 +471,7 @@
                                           "NodePortraitBitmap": "ptr_assassinpic.png",
                                           "NodeNpcName": "",
                                           "NodeSound": "none",
-                                          "conversationText": "Returning to the broken-down wagon, dark figures emerge from out of the shadows of the trees. Guttural laughter is followed by words croaked out in the common tongue.",
+                                          "conversationText": "<font color='yellow'>Returning to the broken-down wagon, dark figures emerge from out of the shadows of the trees. Guttural laughter is followed by words croaked out in the common tongue.</font>",
                                           "IsExpanded": true,
                                           "subNodes": [
                                             {
@@ -901,7 +901,7 @@
           "NodePortraitBitmap": "ptr_merchantfound.png",
           "NodeNpcName": "",
           "NodeSound": "none",
-          "conversationText": "Some more time has passed. After half a day goes by, you hear the sound of the merchants returning up the road. As they approach, the man in front is rolling along a new wheel. He greets you with a broad smile.",
+          "conversationText": "<font color='yellow'>Some more time has passed. After half a day goes by, you hear the sound of the merchants returning up the road. As they approach, the man in front is rolling along a new wheel. He greets you with a broad smile.</font>",
           "IsExpanded": true,
           "subNodes": [
             {
@@ -1005,7 +1005,7 @@
           "NodePortraitBitmap": "ptr_p_trees1.png",
           "NodeNpcName": "",
           "NodeSound": "none",
-          "conversationText": "In this spot, you find shattered wood and bent scraps of iron. A whistle of wind passes forlornly through the treerops.This is all that is left of a wagon that has been destroyed. There is no sign of the cargo, however, and as for the merchants, it is as if they have disappeared without a trace.",
+          "conversationText": "<font color='yellow'>In this spot, you find shattered wood and bent scraps of iron. A whistle of wind passes forlornly through the treerops.This is all that is left of a wagon that has been destroyed. There is no sign of the cargo, however, and as for the merchants, it is as if they have disappeared without a trace.</font>",
           "IsExpanded": true,
           "subNodes": [
             {

@@ -23,7 +23,7 @@
           "NodePortraitBitmap": "",
           "NodeNpcName": "",
           "NodeSound": "none",
-          "conversationText": "A pile of skulls and bones, grisly remains are found here.",
+          "conversationText": "<font color='yellow'>A pile of skulls and bones, grisly remains are found here.</font>",
           "IsExpanded": true,
           "subNodes": [
             {
@@ -69,7 +69,7 @@
           "NodePortraitBitmap": "",
           "NodeNpcName": "",
           "NodeSound": "none",
-          "conversationText": "A pile of skulls and bones, grisly remains are found here. Will you search?",
+          "conversationText": "<font color='yellow'>A pile of skulls and bones, grisly remains are found here. Will you search?</font>",
           "IsExpanded": true,
           "subNodes": [
             {
@@ -95,7 +95,7 @@
                   "NodePortraitBitmap": "",
                   "NodeNpcName": "",
                   "NodeSound": "none",
-                  "conversationText": "You find two bottles stashed here.",
+                  "conversationText": "<font color='yellow'>You find two bottles stashed here.</font>",
                   "IsExpanded": true,
                   "subNodes": [
                     {

@@ -23,8 +23,8 @@
           "NodePortraitBitmap": "",
           "NodeNpcName": "",
           "NodeSound": "none",
-          "conversationText": "Upon walking through the swinging doors of this tavern, you find a richly furnished stone interior with all the promise of comfort and epicurean delights. A golden-haired woman greets <FirstName>.",
-          "IsExpanded": true,
+          "conversationText": "<font color='yellow'>Upon walking through the swinging doors of this tavern, you find a richly furnished stone interior with all the promise of comfort and epicurean delights. A golden-haired woman greets <FirstName>.</font>",
+          "IsExpanded": false,
           "subNodes": [
             {
               "idNum": 10,
@@ -75,7 +75,7 @@
                           "NodePortraitBitmap": "",
                           "NodeNpcName": "",
                           "NodeSound": "none",
-                          "conversationText": "And then, your eyes and ears are drawn away to one swarthy, rough-looking person, as if in startling contrast. Amidst a room full of humans,  this one stands out from the crowd, seated at a corner table. It appears he is joined by a ring of rowdy goblins.",
+                          "conversationText": "<font color='yellow>And then, your eyes and ears are drawn away to one swarthy, rough-looking person, as if in startling contrast. Amidst a room full of humans,  this one stands out from the crowd, seated at a corner table. It appears he is joined by a ring of rowdy goblins.</font>",
                           "IsExpanded": true,
                           "subNodes": [
                             {
@@ -197,6 +197,13 @@
                                                               "subNodes": [],
                                                               "actions": [
                                                                 {
+                                                                  "a_script": "gaEnableDisableTrigger.cs",
+                                                                  "a_parameter_1": "RornFight",
+                                                                  "a_parameter_2": "true",
+                                                                  "a_parameter_3": null,
+                                                                  "a_parameter_4": null
+                                                                },
+                                                                {
                                                                   "a_script": "gaMovePartyToLastLocation.cs",
                                                                   "a_parameter_1": null,
                                                                   "a_parameter_2": null,
@@ -221,6 +228,13 @@
                                                               "IsExpanded": true,
                                                               "subNodes": [],
                                                               "actions": [
+                                                                {
+                                                                  "a_script": "gaEnableDisableTrigger.cs",
+                                                                  "a_parameter_1": "RornFight",
+                                                                  "a_parameter_2": "true",
+                                                                  "a_parameter_3": null,
+                                                                  "a_parameter_4": null
+                                                                },
                                                                 {
                                                                   "a_script": "gaMovePartyToLastLocation.cs",
                                                                   "a_parameter_1": null,
@@ -533,8 +547,8 @@
           "NodePortraitBitmap": "",
           "NodeNpcName": "",
           "NodeSound": "none",
-          "conversationText": "Upon walking through the swinging doors of this tavern, you find a richly furnished stone interior with all the promise of comfort and epicurean delights. A golden-haired woman greets <FirstName>.",
-          "IsExpanded": true,
+          "conversationText": "<font color='yellow'>Upon walking through the swinging doors of this tavern, you find a richly furnished stone interior with all the promise of comfort and epicurean delights. A golden-haired woman greets <FirstName>.</font>",
+          "IsExpanded": false,
           "subNodes": [
             {
               "idNum": 2,

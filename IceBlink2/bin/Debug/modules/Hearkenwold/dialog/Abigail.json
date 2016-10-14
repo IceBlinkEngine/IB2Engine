@@ -447,6 +447,7 @@
   "ConvoFileName": "Abigail",
   "Narration": false,
   "PartyChat": true,
+  "SpeakToMainPcOnly": false,
   "NpcPortraitBitmap": "ptr_abigail.png",
   "DefaultNpcName": "Abigail",
   "NextIdNum": 23

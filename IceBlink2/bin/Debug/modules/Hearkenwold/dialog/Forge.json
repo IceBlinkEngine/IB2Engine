@@ -23,7 +23,7 @@
           "NodePortraitBitmap": "",
           "NodeNpcName": "",
           "NodeSound": "none",
-          "conversationText": "Ruddy light and a haze of smoke suggest this room appears to be used as the Castle forge. However, there is no one around. If you could locate the blacksmith, he might be able to help you with arms and armor.",
+          "conversationText": "<font color='yellow'>Ruddy light and a haze of smoke suggest this room appears to be used as the Castle forge. However, there is no one around. If you could locate the blacksmith, he might be able to help you with arms and armor.</font>",
           "IsExpanded": true,
           "subNodes": [
             {
@@ -65,6 +65,7 @@
   "ConvoFileName": "Forge",
   "Narration": true,
   "PartyChat": false,
+  "SpeakToMainPcOnly": false,
   "NpcPortraitBitmap": "nar_forgen.png",
   "DefaultNpcName": "",
   "NextIdNum": 2

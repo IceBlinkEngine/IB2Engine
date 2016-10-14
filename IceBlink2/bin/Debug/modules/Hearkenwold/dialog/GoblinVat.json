@@ -23,7 +23,7 @@
           "NodePortraitBitmap": "",
           "NodeNpcName": "",
           "NodeSound": "none",
-          "conversationText": "Entering this room, you find the cavern walls bare and a dirt brown floor. A small chamber with no remarkable features, save a solitary vat of liquid that is being argued over by a pair of goblins. And what is that horrible smell? They shift their attention toward you at your approach, and then howl in alarm.",
+          "conversationText": "<font color='yellow'>Entering this room, you find the cavern walls bare and a dirt brown floor. A small chamber with no remarkable features, save a solitary vat of liquid that is being argued over by a pair of goblins. And what is that horrible smell? They shift their attention toward you at your approach, and then howl in alarm.</font>",
           "IsExpanded": true,
           "subNodes": [
             {
@@ -57,6 +57,7 @@
   "ConvoFileName": "GoblinVat",
   "Narration": false,
   "PartyChat": true,
+  "SpeakToMainPcOnly": false,
   "NpcPortraitBitmap": "ptr_goblins.png",
   "DefaultNpcName": "",
   "NextIdNum": 2

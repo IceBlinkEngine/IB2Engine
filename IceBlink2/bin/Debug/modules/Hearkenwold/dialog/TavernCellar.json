@@ -23,7 +23,7 @@
           "NodePortraitBitmap": "",
           "NodeNpcName": "",
           "NodeSound": "none",
-          "conversationText": "This cellar might make a good place to rest. It is unlikely anyone would care to disturb you here.",
+          "conversationText": "<font color='yellow'>This cellar might make a good place to rest. It is unlikely anyone would care to disturb you here.</font>",
           "IsExpanded": true,
           "subNodes": [
             {
@@ -82,6 +82,7 @@
   "ConvoFileName": "TavernCellar",
   "Narration": false,
   "PartyChat": false,
+  "SpeakToMainPcOnly": false,
   "NpcPortraitBitmap": "ptr_cellarpic.png",
   "DefaultNpcName": "",
   "NextIdNum": 3
