@@ -301,6 +301,7 @@ namespace IceBlink2
                 btnClass.Y = 3 * gv.squareSize + gv.squareSize / 2;
                 btnClass.Height = (int)(gv.ibbheight * gv.screenDensity);
                 btnClass.Width = (int)(gv.ibbwidthL * gv.screenDensity);
+                
             }
             if (btnPlayerGuideOnPcCreation == null)
             {
@@ -515,6 +516,10 @@ namespace IceBlink2
             gv.cc.btnHelp.glowOn = false;
             btnPlayerGuideOnPcCreation.glowOn = false;
             btnBeginnerGuideOnPcCreation.glowOn = false;
+            btnClass.glowOn = false;
+            btnRace.glowOn = false;
+            btnGender.glowOn = false;
+            btnName.glowOn = false;
 
             switch (eventType)
             {
@@ -546,6 +551,22 @@ namespace IceBlink2
                     {
                         btnBeginnerGuideOnPcCreation.glowOn = true;
                     }
+                    else if (btnClass.getImpact(x, y))
+                    {
+                        btnClass.glowOn = true;
+                    }
+                    else if (btnGender.getImpact(x, y))
+                    {
+                        btnGender.glowOn = true;
+                    }
+                    else if (btnName.getImpact(x, y))
+                    {
+                        btnName.glowOn = true;
+                    }
+                    else if (btnRace.getImpact(x, y))
+                    {
+                        btnRace.glowOn = true;
+                    }
                     break;
 
                 case MouseEventType.EventType.MouseUp:
@@ -558,6 +579,10 @@ namespace IceBlink2
                     gv.cc.btnHelp.glowOn = false;
                     btnPlayerGuideOnPcCreation.glowOn = false;
                     btnBeginnerGuideOnPcCreation.glowOn = false;
+                    btnClass.glowOn = false;
+                    btnRace.glowOn = false;
+                    btnGender.glowOn = false;
+                    btnName.glowOn = false;
 
                     if (btnName.getImpact(x, y))
                     {

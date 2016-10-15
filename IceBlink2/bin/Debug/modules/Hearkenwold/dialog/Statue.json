@@ -23,7 +23,7 @@
           "NodePortraitBitmap": "",
           "NodeNpcName": "",
           "NodeSound": "none",
-          "conversationText": "The graven image of a warrior bearing sword and shield stands here. On the base of the pedestal is inscribed the name:\n\nRAVENCROWN",
+          "conversationText": "<font color='yellow'>The graven image of a warrior bearing sword and shield stands here. On the base of the pedestal is inscribed the name:\n\n</font>RAVENCROWN",
           "IsExpanded": true,
           "subNodes": [
             {
@@ -69,7 +69,7 @@
           "NodePortraitBitmap": "",
           "NodeNpcName": "",
           "NodeSound": "none",
-          "conversationText": "The graven image of a warrior bearing sword and shield stands here. On the base of the pedestal is inscribed the name:\n\nRAVENCROWN",
+          "conversationText": "<font color='yellow'>The graven image of a warrior bearing sword and shield stands here. On the base of the pedestal is inscribed the name:\n\n</font>RAVENCROWN",
           "IsExpanded": true,
           "subNodes": [
             {
@@ -95,7 +95,7 @@
                   "NodePortraitBitmap": "",
                   "NodeNpcName": "",
                   "NodeSound": "none",
-                  "conversationText": "For a fleeting moment, you feel an overwhelming relief of security as you observe this carved image of a Protector. The warrior’s shield is held forward, his primary intent as defender. Yet the other arm is raised with weapon, a warning and promise that just retribution will visit upon any who might harm the ones he loves. ",
+                  "conversationText": "<font color='yellow'>For a fleeting moment, you feel an overwhelming relief of security as you observe this carved image of a Protector. The warrior’s shield is held forward, his primary intent as defender. Yet the other arm is raised with weapon, a warning and promise that just retribution will visit upon any who might harm the ones he loves.</font> ",
                   "IsExpanded": true,
                   "subNodes": [
                     {
@@ -121,7 +121,7 @@
                           "NodePortraitBitmap": "",
                           "NodeNpcName": "",
                           "NodeSound": "none",
-                          "conversationText": "And you wonder, as your gaze takes in the statue whole, if one day the eyes of others will fall upon your own deeds in remembrance.",
+                          "conversationText": "<font color='yellow'>And you wonder, as your gaze takes in the statue whole, if one day the eyes of others will fall upon your own deeds in remembrance.</font>",
                           "IsExpanded": true,
                           "subNodes": [
                             {
@@ -183,6 +183,7 @@
   "ConvoFileName": "Statue",
   "Narration": false,
   "PartyChat": false,
+  "SpeakToMainPcOnly": false,
   "NpcPortraitBitmap": "ptr_statue.png",
   "DefaultNpcName": "",
   "NextIdNum": 12

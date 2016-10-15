@@ -23,7 +23,7 @@
           "NodePortraitBitmap": "",
           "NodeNpcName": "",
           "NodeSound": "none",
-          "conversationText": "Lying upon this chest, you find what almost looks like a ledger or journal of accounts. Hastily flipping through smudged and torn pages, you pause to read one suspicious entry.",
+          "conversationText": "<font color='yellow'>Lying upon this chest, you find what almost looks like a ledger or journal of accounts. Hastily flipping through smudged and torn pages, you pause to read one suspicious entry.</font>",
           "IsExpanded": true,
           "subNodes": [
             {
@@ -49,7 +49,7 @@
                   "NodePortraitBitmap": "",
                   "NodeNpcName": "",
                   "NodeSound": "none",
-                  "conversationText": "\"Wrathack, payment for your services was agreed at 5,000 pieces of gold. You received 2,500 in advance. For the balance of what you are owed, meet me at the ruins of the manor.\"",
+                  "conversationText": "<font color='yellow'>\"Wrathack, payment for your services was agreed at 5,000 pieces of gold. You received 2,500 in advance. For the balance of what you are owed, meet me at the ruins of the manor.\"</font>",
                   "IsExpanded": true,
                   "subNodes": [
                     {

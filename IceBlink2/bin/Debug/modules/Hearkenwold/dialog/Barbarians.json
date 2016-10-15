@@ -193,6 +193,7 @@
   "ConvoFileName": "Barbarians",
   "Narration": false,
   "PartyChat": true,
+  "SpeakToMainPcOnly": false,
   "NpcPortraitBitmap": "ptr_ragerpic.png",
   "DefaultNpcName": "Barbarian",
   "NextIdNum": 9

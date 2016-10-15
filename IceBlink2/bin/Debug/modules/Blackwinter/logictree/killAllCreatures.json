@@ -16,9 +16,9 @@
           "subNodes": [],
           "actions": [
             {
-              "a_script": "gaCheckForItemToggleLights.cs",
-              "a_parameter_1": "torch01",
-              "a_parameter_2": "1",
+              "a_script": "gaKillAllCreatures.cs",
+              "a_parameter_1": null,
+              "a_parameter_2": null,
               "a_parameter_3": null,
               "a_parameter_4": null
             }
@@ -32,6 +32,6 @@
       "isLink": false
     }
   ],
-  "Filename": "darkCaveHeartBeat",
+  "Filename": "killAllCreatures",
   "NextIdNum": 1
 }

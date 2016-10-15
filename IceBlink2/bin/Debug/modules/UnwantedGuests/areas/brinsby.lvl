@@ -70,7 +70,17 @@
       "Layer5Yscale": 0,
       "Walkable": false,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby1",
@@ -111,7 +121,17 @@
       "Layer5Yscale": 0,
       "Walkable": false,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby2",
@@ -152,7 +172,17 @@
       "Layer5Yscale": 0,
       "Walkable": false,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby3",
@@ -193,7 +223,17 @@
       "Layer5Yscale": 0,
       "Walkable": false,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby4",
@@ -234,7 +274,17 @@
       "Layer5Yscale": 0,
       "Walkable": false,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby5",
@@ -275,7 +325,17 @@
       "Layer5Yscale": 0,
       "Walkable": false,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby6",
@@ -316,7 +376,17 @@
       "Layer5Yscale": 0,
       "Walkable": false,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby7",
@@ -357,7 +427,17 @@
       "Layer5Yscale": 0,
       "Walkable": false,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby8",
@@ -398,7 +478,17 @@
       "Layer5Yscale": 0,
       "Walkable": false,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby9",
@@ -439,7 +529,17 @@
       "Layer5Yscale": 0,
       "Walkable": false,
       "LoSBlocked": true,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby10",
@@ -480,7 +580,17 @@
       "Layer5Yscale": 0,
       "Walkable": false,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby11",
@@ -521,7 +631,17 @@
       "Layer5Yscale": 0,
       "Walkable": false,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby12",
@@ -562,7 +682,17 @@
       "Layer5Yscale": 0,
       "Walkable": false,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby13",
@@ -603,7 +733,17 @@
       "Layer5Yscale": 0,
       "Walkable": false,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby14",
@@ -644,7 +784,17 @@
       "Layer5Yscale": 0,
       "Walkable": false,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby15",
@@ -685,7 +835,17 @@
       "Layer5Yscale": 0,
       "Walkable": false,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby16",
@@ -726,7 +886,17 @@
       "Layer5Yscale": 0,
       "Walkable": false,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby17",
@@ -767,7 +937,17 @@
       "Layer5Yscale": 0,
       "Walkable": false,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby18",
@@ -808,7 +988,17 @@
       "Layer5Yscale": 0,
       "Walkable": false,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby19",
@@ -849,7 +1039,17 @@
       "Layer5Yscale": 0,
       "Walkable": false,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby20",
@@ -890,7 +1090,17 @@
       "Layer5Yscale": 0,
       "Walkable": false,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby21",
@@ -931,7 +1141,17 @@
       "Layer5Yscale": 0,
       "Walkable": false,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby22",
@@ -972,7 +1192,17 @@
       "Layer5Yscale": 0,
       "Walkable": false,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby23",
@@ -1013,7 +1243,17 @@
       "Layer5Yscale": 0,
       "Walkable": false,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby24",
@@ -1054,7 +1294,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby25",
@@ -1095,7 +1345,17 @@
       "Layer5Yscale": 0,
       "Walkable": false,
       "LoSBlocked": true,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby26",
@@ -1136,7 +1396,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby27",
@@ -1177,7 +1447,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby28",
@@ -1218,7 +1498,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby29",
@@ -1259,7 +1549,17 @@
       "Layer5Yscale": 0,
       "Walkable": false,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby30",
@@ -1300,7 +1600,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby31",
@@ -1341,7 +1651,17 @@
       "Layer5Yscale": 0,
       "Walkable": false,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby32",
@@ -1382,7 +1702,17 @@
       "Layer5Yscale": 0,
       "Walkable": false,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby33",
@@ -1423,7 +1753,17 @@
       "Layer5Yscale": 0,
       "Walkable": false,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby34",
@@ -1464,7 +1804,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby35",
@@ -1505,7 +1855,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby36",
@@ -1546,7 +1906,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby37",
@@ -1587,7 +1957,17 @@
       "Layer5Yscale": 0,
       "Walkable": false,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby38",
@@ -1628,7 +2008,17 @@
       "Layer5Yscale": 0,
       "Walkable": false,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby39",
@@ -1669,7 +2059,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby40",
@@ -1710,7 +2110,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby41",
@@ -1751,7 +2161,17 @@
       "Layer5Yscale": 0,
       "Walkable": false,
       "LoSBlocked": true,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby42",
@@ -1792,7 +2212,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby43",
@@ -1833,7 +2263,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby44",
@@ -1874,7 +2314,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby45",
@@ -1915,7 +2365,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby46",
@@ -1956,7 +2416,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby47",
@@ -1997,7 +2467,17 @@
       "Layer5Yscale": 0,
       "Walkable": false,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby48",
@@ -2038,7 +2518,17 @@
       "Layer5Yscale": 0,
       "Walkable": false,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby49",
@@ -2079,7 +2569,17 @@
       "Layer5Yscale": 0,
       "Walkable": false,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby50",
@@ -2120,7 +2620,17 @@
       "Layer5Yscale": 0,
       "Walkable": false,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby51",
@@ -2161,7 +2671,17 @@
       "Layer5Yscale": 0,
       "Walkable": false,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby52",
@@ -2202,7 +2722,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby53",
@@ -2243,7 +2773,17 @@
       "Layer5Yscale": 0,
       "Walkable": false,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby54",
@@ -2284,7 +2824,17 @@
       "Layer5Yscale": 0,
       "Walkable": false,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby55",
@@ -2325,7 +2875,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby56",
@@ -2366,7 +2926,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby57",
@@ -2407,7 +2977,17 @@
       "Layer5Yscale": 0,
       "Walkable": false,
       "LoSBlocked": true,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby58",
@@ -2448,7 +3028,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby59",
@@ -2489,7 +3079,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby60",
@@ -2530,7 +3130,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby61",
@@ -2571,7 +3181,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby62",
@@ -2612,7 +3232,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby63",
@@ -2653,7 +3283,17 @@
       "Layer5Yscale": 0,
       "Walkable": false,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby64",
@@ -2694,7 +3334,17 @@
       "Layer5Yscale": 0,
       "Walkable": false,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby65",
@@ -2735,7 +3385,17 @@
       "Layer5Yscale": 0,
       "Walkable": false,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby66",
@@ -2776,7 +3436,17 @@
       "Layer5Yscale": 0,
       "Walkable": false,
       "LoSBlocked": true,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby67",
@@ -2817,7 +3487,17 @@
       "Layer5Yscale": 0,
       "Walkable": false,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby68",
@@ -2858,7 +3538,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby69",
@@ -2899,7 +3589,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby70",
@@ -2940,7 +3640,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby71",
@@ -2981,7 +3691,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby72",
@@ -3022,7 +3742,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby73",
@@ -3063,7 +3793,17 @@
       "Layer5Yscale": 0,
       "Walkable": false,
       "LoSBlocked": true,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby74",
@@ -3104,7 +3844,17 @@
       "Layer5Yscale": 0,
       "Walkable": false,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby75",
@@ -3145,7 +3895,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby76",
@@ -3186,7 +3946,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby77",
@@ -3227,7 +3997,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby78",
@@ -3268,7 +4048,17 @@
       "Layer5Yscale": 0,
       "Walkable": false,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby79",
@@ -3309,7 +4099,17 @@
       "Layer5Yscale": 0,
       "Walkable": false,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby80",
@@ -3350,7 +4150,17 @@
       "Layer5Yscale": 0,
       "Walkable": false,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby81",
@@ -3391,7 +4201,17 @@
       "Layer5Yscale": 0,
       "Walkable": false,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby82",
@@ -3432,7 +4252,17 @@
       "Layer5Yscale": 0,
       "Walkable": false,
       "LoSBlocked": true,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby83",
@@ -3473,7 +4303,17 @@
       "Layer5Yscale": 0,
       "Walkable": false,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby84",
@@ -3514,7 +4354,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby85",
@@ -3555,7 +4405,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby86",
@@ -3596,7 +4456,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby87",
@@ -3637,7 +4507,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby88",
@@ -3678,7 +4558,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby89",
@@ -3719,7 +4609,17 @@
       "Layer5Yscale": 0,
       "Walkable": false,
       "LoSBlocked": true,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby90",
@@ -3760,7 +4660,17 @@
       "Layer5Yscale": 0,
       "Walkable": false,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby91",
@@ -3801,7 +4711,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby92",
@@ -3842,7 +4762,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby93",
@@ -3883,7 +4813,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby94",
@@ -3924,7 +4864,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby95",
@@ -3965,7 +4915,17 @@
       "Layer5Yscale": 0,
       "Walkable": false,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby96",
@@ -4006,7 +4966,17 @@
       "Layer5Yscale": 0,
       "Walkable": false,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby97",
@@ -4047,7 +5017,17 @@
       "Layer5Yscale": 0,
       "Walkable": false,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby98",
@@ -4088,7 +5068,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby99",
@@ -4129,7 +5119,17 @@
       "Layer5Yscale": 0,
       "Walkable": false,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby100",
@@ -4170,7 +5170,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby101",
@@ -4211,7 +5221,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby102",
@@ -4252,7 +5272,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby103",
@@ -4293,12 +5323,22 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby104",
       "Layer1Filename": "t_blank",
-      "Layer2Filename": "t_blank",
+      "Layer2Filename": "t_a-tea4",
       "Layer3Filename": "t_blank",
       "Layer4Filename": "t_blank",
       "Layer5Filename": "t_blank",
@@ -4334,12 +5374,22 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 1,
+      "isRamp": true,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": true,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 1,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby105",
       "Layer1Filename": "t_blank",
-      "Layer2Filename": "t_blank",
+      "Layer2Filename": "t_asian4",
       "Layer3Filename": "t_blank",
       "Layer4Filename": "t_blank",
       "Layer5Filename": "t_blank",
@@ -4375,12 +5425,22 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 1,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 1,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby106",
       "Layer1Filename": "t_blank",
-      "Layer2Filename": "t_blank",
+      "Layer2Filename": "t_asian4",
       "Layer3Filename": "t_blank",
       "Layer4Filename": "t_blank",
       "Layer5Filename": "t_blank",
@@ -4416,12 +5476,22 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 1,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 1,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby107",
       "Layer1Filename": "t_blank",
-      "Layer2Filename": "t_blank",
+      "Layer2Filename": "t_asian4",
       "Layer3Filename": "t_blank",
       "Layer4Filename": "t_blank",
       "Layer5Filename": "t_blank",
@@ -4457,12 +5527,22 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 1,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 1,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby108",
       "Layer1Filename": "t_blank",
-      "Layer2Filename": "t_blank",
+      "Layer2Filename": "t_asian4",
       "Layer3Filename": "t_blank",
       "Layer4Filename": "t_blank",
       "Layer5Filename": "t_blank",
@@ -4498,12 +5578,22 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 1,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 1,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby109",
       "Layer1Filename": "t_blank",
-      "Layer2Filename": "t_blank",
+      "Layer2Filename": "t_asian4",
       "Layer3Filename": "t_blank",
       "Layer4Filename": "t_blank",
       "Layer5Filename": "t_blank",
@@ -4539,12 +5629,22 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 1,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 1,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby110",
       "Layer1Filename": "t_blank",
-      "Layer2Filename": "t_blank",
+      "Layer2Filename": "t_b-tea3",
       "Layer3Filename": "t_blank",
       "Layer4Filename": "t_blank",
       "Layer5Filename": "t_blank",
@@ -4580,7 +5680,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 1,
+      "isRamp": true,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": true,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 1,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby111",
@@ -4621,7 +5731,17 @@
       "Layer5Yscale": 0,
       "Walkable": false,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby112",
@@ -4662,7 +5782,17 @@
       "Layer5Yscale": 0,
       "Walkable": false,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby113",
@@ -4703,7 +5833,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby114",
@@ -4744,7 +5884,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby115",
@@ -4785,7 +5935,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby116",
@@ -4826,7 +5986,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby117",
@@ -4867,7 +6037,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby118",
@@ -4908,7 +6088,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby119",
@@ -4949,12 +6139,22 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby120",
       "Layer1Filename": "t_blank",
-      "Layer2Filename": "t_blank",
+      "Layer2Filename": "t_asian4",
       "Layer3Filename": "t_blank",
       "Layer4Filename": "t_blank",
       "Layer5Filename": "t_blank",
@@ -4990,12 +6190,22 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 1,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 1,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby121",
       "Layer1Filename": "t_blank",
-      "Layer2Filename": "t_blank",
+      "Layer2Filename": "t_asian4",
       "Layer3Filename": "t_blank",
       "Layer4Filename": "t_blank",
       "Layer5Filename": "t_blank",
@@ -5031,7 +6241,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 1,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 1,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby122",
@@ -5072,7 +6292,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby123",
@@ -5113,7 +6343,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby124",
@@ -5154,7 +6394,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby125",
@@ -5195,7 +6445,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby126",
@@ -5236,7 +6496,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby127",
@@ -5277,7 +6547,17 @@
       "Layer5Yscale": 0,
       "Walkable": false,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby128",
@@ -5318,7 +6598,17 @@
       "Layer5Yscale": 0,
       "Walkable": false,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby129",
@@ -5359,7 +6649,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby130",
@@ -5400,7 +6700,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby131",
@@ -5441,7 +6751,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby132",
@@ -5482,7 +6802,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby133",
@@ -5523,7 +6853,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby134",
@@ -5564,7 +6904,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby135",
@@ -5605,12 +6955,22 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby136",
       "Layer1Filename": "t_blank",
-      "Layer2Filename": "t_blank",
+      "Layer2Filename": "t_asian4",
       "Layer3Filename": "t_blank",
       "Layer4Filename": "t_blank",
       "Layer5Filename": "t_blank",
@@ -5646,7 +7006,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 1,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 1,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby137",
@@ -5687,7 +7057,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby138",
@@ -5728,7 +7108,17 @@
       "Layer5Yscale": 0,
       "Walkable": false,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby139",
@@ -5769,7 +7159,17 @@
       "Layer5Yscale": 0,
       "Walkable": false,
       "LoSBlocked": true,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby140",
@@ -5810,7 +7210,17 @@
       "Layer5Yscale": 0,
       "Walkable": false,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby141",
@@ -5851,7 +7261,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby142",
@@ -5892,7 +7312,17 @@
       "Layer5Yscale": 0,
       "Walkable": false,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby143",
@@ -5933,7 +7363,17 @@
       "Layer5Yscale": 0,
       "Walkable": false,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby144",
@@ -5974,7 +7414,17 @@
       "Layer5Yscale": 0,
       "Walkable": false,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby145",
@@ -6015,7 +7465,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby146",
@@ -6056,7 +7516,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby147",
@@ -6097,7 +7567,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby148",
@@ -6138,7 +7618,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby149",
@@ -6179,7 +7669,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby150",
@@ -6220,12 +7720,22 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby151",
       "Layer1Filename": "t_blank",
-      "Layer2Filename": "t_blank",
+      "Layer2Filename": "t_asian4",
       "Layer3Filename": "t_blank",
       "Layer4Filename": "t_blank",
       "Layer5Filename": "t_blank",
@@ -6261,12 +7771,22 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 1,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 1,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby152",
       "Layer1Filename": "t_blank",
-      "Layer2Filename": "t_blank",
+      "Layer2Filename": "t_asian4",
       "Layer3Filename": "t_blank",
       "Layer4Filename": "t_blank",
       "Layer5Filename": "t_blank",
@@ -6302,7 +7822,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 1,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 1,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby153",
@@ -6343,7 +7873,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby154",
@@ -6384,7 +7924,17 @@
       "Layer5Yscale": 0,
       "Walkable": false,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby155",
@@ -6425,7 +7975,17 @@
       "Layer5Yscale": 0,
       "Walkable": false,
       "LoSBlocked": true,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby156",
@@ -6466,7 +8026,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby157",
@@ -6507,7 +8077,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby158",
@@ -6548,7 +8128,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby159",
@@ -6589,7 +8179,17 @@
       "Layer5Yscale": 0,
       "Walkable": false,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby160",
@@ -6630,7 +8230,17 @@
       "Layer5Yscale": 0,
       "Walkable": false,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby161",
@@ -6671,7 +8281,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby162",
@@ -6712,7 +8332,17 @@
       "Layer5Yscale": 0,
       "Walkable": false,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby163",
@@ -6753,7 +8383,17 @@
       "Layer5Yscale": 0,
       "Walkable": false,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby164",
@@ -6794,7 +8434,17 @@
       "Layer5Yscale": 0,
       "Walkable": false,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby165",
@@ -6835,7 +8485,17 @@
       "Layer5Yscale": 0,
       "Walkable": false,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby166",
@@ -6876,12 +8536,22 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby167",
       "Layer1Filename": "t_blank",
-      "Layer2Filename": "t_blank",
+      "Layer2Filename": "t_a-tea4",
       "Layer3Filename": "t_blank",
       "Layer4Filename": "t_blank",
       "Layer5Filename": "t_blank",
@@ -6917,7 +8587,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 1,
+      "isRamp": true,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": true,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 1,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby168",
@@ -6958,7 +8638,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby169",
@@ -6999,7 +8689,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby170",
@@ -7040,7 +8740,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby171",
@@ -7081,7 +8791,17 @@
       "Layer5Yscale": 0,
       "Walkable": false,
       "LoSBlocked": true,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby172",
@@ -7122,7 +8842,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby173",
@@ -7163,7 +8893,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby174",
@@ -7204,7 +8944,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby175",
@@ -7245,7 +8995,17 @@
       "Layer5Yscale": 0,
       "Walkable": false,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby176",
@@ -7286,7 +9046,17 @@
       "Layer5Yscale": 0,
       "Walkable": false,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby177",
@@ -7327,7 +9097,17 @@
       "Layer5Yscale": 0,
       "Walkable": false,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby178",
@@ -7368,7 +9148,17 @@
       "Layer5Yscale": 0,
       "Walkable": false,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby179",
@@ -7409,7 +9199,17 @@
       "Layer5Yscale": 0,
       "Walkable": false,
       "LoSBlocked": true,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby180",
@@ -7450,7 +9250,17 @@
       "Layer5Yscale": 0,
       "Walkable": false,
       "LoSBlocked": true,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby181",
@@ -7491,7 +9301,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby182",
@@ -7532,7 +9352,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby183",
@@ -7573,7 +9403,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby184",
@@ -7614,7 +9454,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby185",
@@ -7655,7 +9505,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby186",
@@ -7696,7 +9556,17 @@
       "Layer5Yscale": 0,
       "Walkable": false,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby187",
@@ -7737,7 +9607,17 @@
       "Layer5Yscale": 0,
       "Walkable": false,
       "LoSBlocked": true,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby188",
@@ -7778,7 +9658,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby189",
@@ -7819,7 +9709,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby190",
@@ -7860,7 +9760,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby191",
@@ -7901,7 +9811,17 @@
       "Layer5Yscale": 0,
       "Walkable": false,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby192",
@@ -7942,7 +9862,17 @@
       "Layer5Yscale": 0,
       "Walkable": false,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby193",
@@ -7983,7 +9913,17 @@
       "Layer5Yscale": 0,
       "Walkable": false,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby194",
@@ -8024,7 +9964,17 @@
       "Layer5Yscale": 0,
       "Walkable": false,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby195",
@@ -8065,7 +10015,17 @@
       "Layer5Yscale": 0,
       "Walkable": false,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby196",
@@ -8106,7 +10066,17 @@
       "Layer5Yscale": 0,
       "Walkable": false,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby197",
@@ -8147,7 +10117,17 @@
       "Layer5Yscale": 0,
       "Walkable": false,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby198",
@@ -8188,7 +10168,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby199",
@@ -8229,7 +10219,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby200",
@@ -8270,7 +10270,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby201",
@@ -8311,7 +10321,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby202",
@@ -8352,7 +10372,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby203",
@@ -8393,7 +10423,17 @@
       "Layer5Yscale": 0,
       "Walkable": false,
       "LoSBlocked": true,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby204",
@@ -8434,7 +10474,17 @@
       "Layer5Yscale": 0,
       "Walkable": false,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby205",
@@ -8475,7 +10525,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby206",
@@ -8516,7 +10576,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby207",
@@ -8557,7 +10627,17 @@
       "Layer5Yscale": 0,
       "Walkable": false,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby208",
@@ -8598,7 +10678,17 @@
       "Layer5Yscale": 0,
       "Walkable": false,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby209",
@@ -8639,7 +10729,17 @@
       "Layer5Yscale": 0,
       "Walkable": false,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby210",
@@ -8680,7 +10780,17 @@
       "Layer5Yscale": 0,
       "Walkable": false,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby211",
@@ -8721,7 +10831,17 @@
       "Layer5Yscale": 0,
       "Walkable": false,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby212",
@@ -8762,7 +10882,17 @@
       "Layer5Yscale": 0,
       "Walkable": false,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby213",
@@ -8803,7 +10933,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby214",
@@ -8844,7 +10984,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby215",
@@ -8885,7 +11035,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby216",
@@ -8926,7 +11086,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby217",
@@ -8967,7 +11137,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby218",
@@ -9008,7 +11188,17 @@
       "Layer5Yscale": 0,
       "Walkable": false,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby219",
@@ -9049,7 +11239,17 @@
       "Layer5Yscale": 0,
       "Walkable": false,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby220",
@@ -9090,7 +11290,17 @@
       "Layer5Yscale": 0,
       "Walkable": false,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby221",
@@ -9131,7 +11341,17 @@
       "Layer5Yscale": 0,
       "Walkable": false,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby222",
@@ -9172,7 +11392,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby223",
@@ -9213,7 +11443,17 @@
       "Layer5Yscale": 0,
       "Walkable": false,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby224",
@@ -9254,7 +11494,17 @@
       "Layer5Yscale": 0,
       "Walkable": false,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby225",
@@ -9295,7 +11545,17 @@
       "Layer5Yscale": 0,
       "Walkable": false,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby226",
@@ -9336,7 +11596,17 @@
       "Layer5Yscale": 0,
       "Walkable": false,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby227",
@@ -9377,7 +11647,17 @@
       "Layer5Yscale": 0,
       "Walkable": false,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby228",
@@ -9418,7 +11698,17 @@
       "Layer5Yscale": 0,
       "Walkable": false,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby229",
@@ -9459,7 +11749,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby230",
@@ -9500,7 +11800,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby231",
@@ -9541,7 +11851,17 @@
       "Layer5Yscale": 0,
       "Walkable": false,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby232",
@@ -9582,7 +11902,17 @@
       "Layer5Yscale": 0,
       "Walkable": false,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby233",
@@ -9623,7 +11953,17 @@
       "Layer5Yscale": 0,
       "Walkable": false,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby234",
@@ -9664,7 +12004,17 @@
       "Layer5Yscale": 0,
       "Walkable": false,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby235",
@@ -9705,7 +12055,17 @@
       "Layer5Yscale": 0,
       "Walkable": false,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby236",
@@ -9746,7 +12106,17 @@
       "Layer5Yscale": 0,
       "Walkable": false,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby237",
@@ -9787,7 +12157,17 @@
       "Layer5Yscale": 0,
       "Walkable": false,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby238",
@@ -9828,7 +12208,17 @@
       "Layer5Yscale": 0,
       "Walkable": false,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby239",
@@ -9869,7 +12259,17 @@
       "Layer5Yscale": 0,
       "Walkable": false,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby240",
@@ -9910,7 +12310,17 @@
       "Layer5Yscale": 0,
       "Walkable": false,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby241",
@@ -9951,7 +12361,17 @@
       "Layer5Yscale": 0,
       "Walkable": false,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby242",
@@ -9992,7 +12412,17 @@
       "Layer5Yscale": 0,
       "Walkable": false,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby243",
@@ -10033,7 +12463,17 @@
       "Layer5Yscale": 0,
       "Walkable": false,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby244",
@@ -10074,7 +12514,17 @@
       "Layer5Yscale": 0,
       "Walkable": false,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby245",
@@ -10115,7 +12565,17 @@
       "Layer5Yscale": 0,
       "Walkable": false,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby246",
@@ -10156,7 +12616,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby247",
@@ -10197,7 +12667,17 @@
       "Layer5Yscale": 0,
       "Walkable": false,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby248",
@@ -10238,7 +12718,17 @@
       "Layer5Yscale": 0,
       "Walkable": false,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby249",
@@ -10279,7 +12769,17 @@
       "Layer5Yscale": 0,
       "Walkable": false,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby250",
@@ -10320,7 +12820,17 @@
       "Layer5Yscale": 0,
       "Walkable": false,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby251",
@@ -10361,7 +12871,17 @@
       "Layer5Yscale": 0,
       "Walkable": false,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby252",
@@ -10402,7 +12922,17 @@
       "Layer5Yscale": 0,
       "Walkable": false,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby253",
@@ -10443,7 +12973,17 @@
       "Layer5Yscale": 0,
       "Walkable": false,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby254",
@@ -10484,7 +13024,17 @@
       "Layer5Yscale": 0,
       "Walkable": false,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "brinsby255",
@@ -10525,13 +13075,24 @@
       "Layer5Yscale": 0,
       "Walkable": false,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     }
   ],
   "Props": [
     {
       "LocationX": 14,
       "LocationY": 5,
+      "LocationZ": 0,
       "ImageFileName": "blank",
       "HasCollision": false,
       "PropFacingLeft": true,
@@ -10572,6 +13133,7 @@
     {
       "LocationX": 2,
       "LocationY": 6,
+      "LocationZ": 0,
       "ImageFileName": "blank",
       "HasCollision": false,
       "PropFacingLeft": true,
@@ -10612,6 +13174,7 @@
     {
       "LocationX": 5,
       "LocationY": 11,
+      "LocationZ": 0,
       "ImageFileName": "blank",
       "HasCollision": false,
       "PropFacingLeft": true,
@@ -10652,6 +13215,7 @@
     {
       "LocationX": 8,
       "LocationY": 10,
+      "LocationZ": 0,
       "ImageFileName": "prp_andy",
       "HasCollision": false,
       "PropFacingLeft": true,
@@ -10733,6 +13297,7 @@
     {
       "LocationX": 3,
       "LocationY": 8,
+      "LocationZ": 0,
       "ImageFileName": "prp_kitten",
       "HasCollision": false,
       "PropFacingLeft": true,
@@ -10809,6 +13374,7 @@
     {
       "LocationX": 7,
       "LocationY": 5,
+      "LocationZ": 0,
       "ImageFileName": "prp_spider",
       "HasCollision": false,
       "PropFacingLeft": true,
@@ -10849,6 +13415,7 @@
     {
       "LocationX": 13,
       "LocationY": 10,
+      "LocationZ": 0,
       "ImageFileName": "prp_pileofrocks",
       "HasCollision": true,
       "PropFacingLeft": true,
@@ -10889,6 +13456,7 @@
     {
       "LocationX": 7,
       "LocationY": 7,
+      "LocationZ": 0,
       "ImageFileName": "prp_pileofrocks",
       "HasCollision": true,
       "PropFacingLeft": true,
@@ -10929,6 +13497,7 @@
     {
       "LocationX": 5,
       "LocationY": 6,
+      "LocationZ": 0,
       "ImageFileName": "prp_pileofrocks",
       "HasCollision": true,
       "PropFacingLeft": true,
@@ -10969,6 +13538,7 @@
     {
       "LocationX": 6,
       "LocationY": 9,
+      "LocationZ": 0,
       "ImageFileName": "prp_pileofrocks",
       "HasCollision": true,
       "PropFacingLeft": true,
@@ -11009,6 +13579,7 @@
     {
       "LocationX": 9,
       "LocationY": 9,
+      "LocationZ": 0,
       "ImageFileName": "prp_pileofrocks",
       "HasCollision": true,
       "PropFacingLeft": true,
@@ -11049,6 +13620,7 @@
     {
       "LocationX": 8,
       "LocationY": 11,
+      "LocationZ": 0,
       "ImageFileName": "prp_pileofrocks",
       "HasCollision": true,
       "PropFacingLeft": true,
@@ -11089,6 +13661,7 @@
     {
       "LocationX": 2,
       "LocationY": 9,
+      "LocationZ": 0,
       "ImageFileName": "prp_pileofrocks",
       "HasCollision": true,
       "PropFacingLeft": true,
@@ -11129,6 +13702,7 @@
     {
       "LocationX": 10,
       "LocationY": 7,
+      "LocationZ": 0,
       "ImageFileName": "prp_pileofrocks",
       "HasCollision": true,
       "PropFacingLeft": true,
@@ -11169,6 +13743,7 @@
     {
       "LocationX": 12,
       "LocationY": 4,
+      "LocationZ": 0,
       "ImageFileName": "prp_campfireoff",
       "HasCollision": true,
       "PropFacingLeft": true,
@@ -11209,6 +13784,7 @@
     {
       "LocationX": 10,
       "LocationY": 12,
+      "LocationZ": 0,
       "ImageFileName": "prp_badger",
       "HasCollision": false,
       "PropFacingLeft": true,
@@ -11286,6 +13862,7 @@
     {
       "LocationX": 7,
       "LocationY": 12,
+      "LocationZ": 0,
       "ImageFileName": "prp_giant",
       "HasCollision": false,
       "PropFacingLeft": true,
@@ -11372,6 +13949,7 @@
     {
       "LocationX": 7,
       "LocationY": 8,
+      "LocationZ": 0,
       "ImageFileName": "prp_gnollleader",
       "HasCollision": false,
       "PropFacingLeft": true,
@@ -11431,6 +14009,7 @@
     {
       "LocationX": 5,
       "LocationY": 14,
+      "LocationZ": 0,
       "ImageFileName": "prp_wmtrans",
       "HasCollision": false,
       "PropFacingLeft": true,
@@ -11471,6 +14050,7 @@
     {
       "LocationX": 6,
       "LocationY": 15,
+      "LocationZ": 0,
       "ImageFileName": "prp_wmtrans",
       "HasCollision": false,
       "PropFacingLeft": true,
@@ -11511,6 +14091,7 @@
     {
       "LocationX": 7,
       "LocationY": 13,
+      "LocationZ": 0,
       "ImageFileName": "prp_treasure",
       "HasCollision": false,
       "PropFacingLeft": true,
@@ -11551,6 +14132,7 @@
     {
       "LocationX": 7,
       "LocationY": 11,
+      "LocationZ": 0,
       "ImageFileName": "prp_wmtrans",
       "HasCollision": false,
       "PropFacingLeft": true,
@@ -12900,7 +15482,7 @@
   "AreaSounds": "forest",
   "AreaSoundsDelay": 0,
   "AreaSoundsDelayRandomAdder": 0,
-  "NextIdNumber": 309,
+  "NextIdNumber": 312,
   "OnHeartBeatIBScript": "none",
   "OnHeartBeatIBScriptParms": "",
   "AreaLocalInts": [],

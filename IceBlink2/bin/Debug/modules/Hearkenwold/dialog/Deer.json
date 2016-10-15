@@ -23,7 +23,7 @@
           "NodePortraitBitmap": "",
           "NodeNpcName": "",
           "NodeSound": "none",
-          "conversationText": "Through the green of this forested area, you spot golden brown fur and a rack of antlers. Will you hunt the deer for food?",
+          "conversationText": "<font color='yellow'>Through the green of this forested area, you spot golden brown fur and a rack of antlers. Will you hunt the deer for food?</font>",
           "IsExpanded": true,
           "subNodes": [
             {
@@ -104,6 +104,7 @@
   "ConvoFileName": "Deer",
   "Narration": false,
   "PartyChat": false,
+  "SpeakToMainPcOnly": false,
   "NpcPortraitBitmap": "ptr_deer.png",
   "DefaultNpcName": "",
   "NextIdNum": 3

@@ -23,7 +23,7 @@
           "NodePortraitBitmap": "",
           "NodeNpcName": "",
           "NodeSound": "none",
-          "conversationText": "When you turn over the fallen tree trunk, you make a frightening discovery. You have unearthed a nest of wood spiders.",
+          "conversationText": "<font color='yellow'>When you turn over the fallen tree trunk, you make a frightening discovery. You have unearthed a nest of wood spiders.</font>",
           "IsExpanded": true,
           "subNodes": [
             {
@@ -57,6 +57,7 @@
   "ConvoFileName": "WoodSpider",
   "Narration": false,
   "PartyChat": true,
+  "SpeakToMainPcOnly": false,
   "NpcPortraitBitmap": "ptr_wspider.png",
   "DefaultNpcName": "",
   "NextIdNum": 2

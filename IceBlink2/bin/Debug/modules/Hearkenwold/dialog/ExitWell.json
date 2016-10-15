@@ -23,7 +23,7 @@
           "NodePortraitBitmap": "",
           "NodeNpcName": "",
           "NodeSound": "none",
-          "conversationText": "Two knotted ropes dangle here, making it possible to safely climb out the shaft of the well.",
+          "conversationText": "<font color='yellow'>Two knotted ropes dangle here, making it possible to safely climb out the shaft of the well.</font>",
           "IsExpanded": true,
           "subNodes": [
             {
@@ -90,6 +90,7 @@
   "ConvoFileName": "ExitWell",
   "Narration": true,
   "PartyChat": false,
+  "SpeakToMainPcOnly": false,
   "NpcPortraitBitmap": "nar_wellshaftn.png",
   "DefaultNpcName": "",
   "NextIdNum": 3

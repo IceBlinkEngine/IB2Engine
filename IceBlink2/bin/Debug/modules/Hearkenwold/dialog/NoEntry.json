@@ -23,7 +23,7 @@
           "NodePortraitBitmap": "",
           "NodeNpcName": "",
           "NodeSound": "none",
-          "conversationText": "This door is locked, with no way to enter the building.",
+          "conversationText": "<font color='yellow'>This door is locked, with no way to enter the building.</font>",
           "IsExpanded": true,
           "subNodes": [
             {

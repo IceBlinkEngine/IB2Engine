@@ -23,7 +23,7 @@
           "NodePortraitBitmap": "",
           "NodeNpcName": "",
           "NodeSound": "none",
-          "conversationText": "In the corner of this cave, it feels like there is something beneath a lump of packed earth. As if someone has buried an object here.",
+          "conversationText": "<font color='yellow'>In the corner of this cave, it feels like there is something beneath a lump of packed earth. As if someone has buried an object here.</font>",
           "IsExpanded": true,
           "subNodes": [
             {

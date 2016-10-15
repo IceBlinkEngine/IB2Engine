@@ -57,6 +57,7 @@
   "ConvoFileName": "DrunkGoblins",
   "Narration": false,
   "PartyChat": true,
+  "SpeakToMainPcOnly": false,
   "NpcPortraitBitmap": "ptr_knifethrowerpic.png",
   "DefaultNpcName": "Drunk Goblin",
   "NextIdNum": 2

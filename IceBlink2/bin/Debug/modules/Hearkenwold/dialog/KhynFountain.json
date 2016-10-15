@@ -23,7 +23,7 @@
           "NodePortraitBitmap": "",
           "NodeNpcName": "",
           "NodeSound": "none",
-          "conversationText": "The water that spouts from this fountain glitters like radiant diamonds, flowing out of sculpted visages down cleverly crafted conduits so that multiple streams will surely find the wide basin. And in the mirror of the surface, when the sun passes overhead, the sky is reflected in blazing liquid fire.",
+          "conversationText": "<font color='yellow'>The water that spouts from this fountain glitters like radiant diamonds, flowing out of sculpted visages down cleverly crafted conduits so that multiple streams will surely find the wide basin. And in the mirror of the surface, when the sun passes overhead, the sky is reflected in blazing liquid fire.</font>",
           "IsExpanded": true,
           "subNodes": [
             {

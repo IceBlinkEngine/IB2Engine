@@ -21,6 +21,7 @@
   "ConvoFileName": "door02",
   "Narration": false,
   "PartyChat": false,
+  "SpeakToMainPcOnly": false,
   "NpcPortraitBitmap": "",
   "DefaultNpcName": "",
   "NextIdNum": 0

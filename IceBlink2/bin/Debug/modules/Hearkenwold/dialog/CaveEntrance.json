@@ -23,7 +23,7 @@
           "NodePortraitBitmap": "",
           "NodeNpcName": "",
           "NodeSound": "none",
-          "conversationText": "The gaping maw of a cave opens before you, an ominous path leading to subterranean tunnels. Will you descend into the darkness?",
+          "conversationText": "<font color='yellow'>The gaping maw of a cave opens before you, an ominous path leading to subterranean tunnels. Will you descend into the darkness?</font>",
           "IsExpanded": true,
           "subNodes": [
             {

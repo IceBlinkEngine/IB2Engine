@@ -23,7 +23,7 @@
           "NodePortraitBitmap": "",
           "NodeNpcName": "",
           "NodeSound": "none",
-          "conversationText": "As you step into the dusky tavern, the common room is filled with smoke from a central hearth, and the acrid aroma of burning torches. A larger, rough looking goblin greets you with beady eyes. ",
+          "conversationText": "<font color='yellow'>As you step into the dusky tavern, the common room is filled with smoke from a central hearth, and the acrid aroma of burning torches. A larger, rough looking goblin greets you with beady eyes.</font>",
           "IsExpanded": true,
           "subNodes": [
             {

@@ -91,7 +91,15 @@
                               "conversationText": "Farewell.",
                               "IsExpanded": true,
                               "subNodes": [],
-                              "actions": [],
+                              "actions": [
+                                {
+                                  "a_script": "gaSetGlobalInt.cs",
+                                  "a_parameter_1": "Crushwater",
+                                  "a_parameter_2": "1",
+                                  "a_parameter_3": null,
+                                  "a_parameter_4": null
+                                }
+                              ],
                               "conditions": [],
                               "isLink": false
                             }
@@ -164,6 +172,7 @@
   "ConvoFileName": "Crushwater",
   "Narration": false,
   "PartyChat": true,
+  "SpeakToMainPcOnly": false,
   "NpcPortraitBitmap": "ptr_lizardpic.png",
   "DefaultNpcName": "Crushwater",
   "NextIdNum": 8

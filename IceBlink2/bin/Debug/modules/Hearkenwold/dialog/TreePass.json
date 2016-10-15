@@ -23,7 +23,7 @@
           "NodePortraitBitmap": "",
           "NodeNpcName": "",
           "NodeSound": "none",
-          "conversationText": "In some areas of the wood, the trees will grow more densely, and seem nigh impassable. Such times will require further exploration in order to traverse.",
+          "conversationText": "<font color='yellow'>In some areas of the wood, the trees will grow more densely, and seem nigh impassable. Such times will require further exploration in order to traverse.</font>",
           "IsExpanded": true,
           "subNodes": [
             {
@@ -57,6 +57,7 @@
   "ConvoFileName": "TreePass",
   "Narration": false,
   "PartyChat": false,
+  "SpeakToMainPcOnly": false,
   "NpcPortraitBitmap": "ptr_p_trees1.png",
   "DefaultNpcName": "",
   "NextIdNum": 2

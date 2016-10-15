@@ -23,7 +23,7 @@
           "NodePortraitBitmap": "",
           "NodeNpcName": "",
           "NodeSound": "none",
-          "conversationText": "A man here sells musical instruments. He plucks at the strings of a harp, wearing a pensive expression. As you enter the shop and approach, he turns to <FirstName>.",
+          "conversationText": "<font color='yellow'>A man here sells musical instruments. He plucks at the strings of a harp, wearing a pensive expression. As you enter the shop and approach, he turns to <FirstName>.</font>",
           "IsExpanded": true,
           "subNodes": [
             {

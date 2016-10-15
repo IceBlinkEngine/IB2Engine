@@ -23,7 +23,7 @@
           "NodePortraitBitmap": "",
           "NodeNpcName": "",
           "NodeSound": "none",
-          "conversationText": "The door to this house is locked. What will you do?",
+          "conversationText": "<font color='yellow'>The door to this house is locked. What will you do?</font>",
           "IsExpanded": true,
           "subNodes": [
             {
@@ -45,6 +45,13 @@
                   "a_parameter_1": null,
                   "a_parameter_2": null,
                   "a_parameter_3": null,
+                  "a_parameter_4": null
+                },
+                {
+                  "a_script": "gaEnableDisableTriggerEvent.cs",
+                  "a_parameter_1": "SlaveDoor",
+                  "a_parameter_2": "2",
+                  "a_parameter_3": "false",
                   "a_parameter_4": null
                 }
               ],
@@ -74,7 +81,7 @@
                   "NodePortraitBitmap": "ptr_xanderpic.png",
                   "NodeNpcName": "",
                   "NodeSound": "none",
-                  "conversationText": "As you batter down the wood and break through the opening, you find a gathering of cloaked and hooded figures on the other side. One speaks with a thick, heavy accent.",
+                  "conversationText": "<font color='yellow'>As you batter down the wood and break through the opening, you find a gathering of cloaked and hooded figures on the other side. One speaks with a thick, heavy accent.</font>",
                   "IsExpanded": true,
                   "subNodes": [
                     {
@@ -174,6 +181,20 @@
                                                   "a_parameter_1": "KhynWindow",
                                                   "a_parameter_2": "false",
                                                   "a_parameter_3": null,
+                                                  "a_parameter_4": null
+                                                },
+                                                {
+                                                  "a_script": "gaEnableDisableTrigger.cs",
+                                                  "a_parameter_1": "Eyepatch1",
+                                                  "a_parameter_2": "true",
+                                                  "a_parameter_3": null,
+                                                  "a_parameter_4": null
+                                                },
+                                                {
+                                                  "a_script": "gaEnableDisableTriggerEvent.cs",
+                                                  "a_parameter_1": "SlaveDoor",
+                                                  "a_parameter_2": "2",
+                                                  "a_parameter_3": "true",
                                                   "a_parameter_4": null
                                                 },
                                                 {
@@ -378,7 +399,7 @@
                   "NodePortraitBitmap": "",
                   "NodeNpcName": "",
                   "NodeSound": "none",
-                  "conversationText": "As stealthy as a fox, the party's thief manipulates the bolt and tumblers. There is a click, and the handle turns quietly, the door easing open on its hinges. In the room, by the orange light from the fireplace on the back wall, a gathering of cloaked and hooded figures note your entrance.",
+                  "conversationText": "<font color='yellow'>As stealthy as a fox, the party's thief manipulates the bolt and tumblers. There is a click, and the handle turns quietly, the door easing open on its hinges. In the room, by the orange light from the fireplace on the back wall, a gathering of cloaked and hooded figures note your entrance.</font>",
                   "IsExpanded": true,
                   "subNodes": [
                     {

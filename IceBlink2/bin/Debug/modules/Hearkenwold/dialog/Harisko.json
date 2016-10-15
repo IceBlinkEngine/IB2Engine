@@ -1135,6 +1135,7 @@
   "ConvoFileName": "Harisko",
   "Narration": false,
   "PartyChat": true,
+  "SpeakToMainPcOnly": false,
   "NpcPortraitBitmap": "ptr_hariskoport.png",
   "DefaultNpcName": "Harisko",
   "NextIdNum": 55

@@ -23,7 +23,7 @@
           "NodePortraitBitmap": "",
           "NodeNpcName": "",
           "NodeSound": "none",
-          "conversationText": "As you stroll past the window of this building, you happen to catch the sound of muffled voices from inside. It is difficult to make out what they are saying, unless one was skilled in listening or had keen hearing.",
+          "conversationText": "<font color='yellow'>As you stroll past the window of this building, you happen to catch the sound of muffled voices from inside. It is difficult to make out what they are saying, unless one was skilled in listening or had keen hearing.</font>",
           "IsExpanded": true,
           "subNodes": [
             {

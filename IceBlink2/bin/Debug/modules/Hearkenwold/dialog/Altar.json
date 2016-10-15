@@ -23,7 +23,7 @@
           "NodePortraitBitmap": "",
           "NodeNpcName": "",
           "NodeSound": "none",
-          "conversationText": "A cerulean altar rests against the east wall of the chapel. Momentarily struck by the beauty of such clarity in the stonework, this might be an appropriate place to leave a donation, or even pray, if one is so inclined.",
+          "conversationText": "<font color='yellow'>A cerulean altar rests against the east wall of the chapel. Momentarily struck by the beauty of such clarity in the stonework, this might be an appropriate place to leave a donation, or even pray, if one is so inclined.</font>",
           "IsExpanded": true,
           "subNodes": [
             {
@@ -93,6 +93,7 @@
   "ConvoFileName": "Altar",
   "Narration": false,
   "PartyChat": true,
+  "SpeakToMainPcOnly": false,
   "NpcPortraitBitmap": "ptr_chapel.png",
   "DefaultNpcName": "",
   "NextIdNum": 4

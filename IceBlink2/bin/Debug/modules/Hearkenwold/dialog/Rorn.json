@@ -20,10 +20,10 @@
           "linkTo": 0,
           "ShowOnlyOnce": false,
           "NodeIsActive": true,
-          "NodePortraitBitmap": "Campsite.png",
+          "NodePortraitBitmap": "ptr_campsite.png",
           "NodeNpcName": "",
           "NodeSound": "none",
-          "conversationText": "There is nothing left but a deserted campsite, the embers of a fire still burning low. It appears the band of goblins have now vanished, with no other trace.",
+          "conversationText": "<font color='yellow'>There is nothing left but a deserted campsite, the embers of a fire still burning low. It appears the band of goblins have now vanished, with no other trace.</font>",
           "IsExpanded": true,
           "subNodes": [
             {
@@ -33,7 +33,7 @@
               "linkTo": 0,
               "ShowOnlyOnce": false,
               "NodeIsActive": true,
-              "NodePortraitBitmap": "Campsite.png",
+              "NodePortraitBitmap": "",
               "NodeNpcName": "",
               "NodeSound": "none",
               "conversationText": "Well what do you know, they buggered off.",
@@ -67,6 +67,13 @@
                   "a_parameter_2": "2",
                   "a_parameter_3": "false",
                   "a_parameter_4": null
+                },
+                {
+                  "a_script": "gaEnableDisableTrigger.cs",
+                  "a_parameter_1": "Rorn",
+                  "a_parameter_2": "false",
+                  "a_parameter_3": null,
+                  "a_parameter_4": null
                 }
               ],
               "conditions": [],
@@ -98,8 +105,8 @@
           "NodePortraitBitmap": "",
           "NodeNpcName": "",
           "NodeSound": "none",
-          "conversationText": "You find a band of goblins here busying themselves in the construction of a make-shift camp. One larger than the others goes about giving orders. They are content to ignore you, but consistently defer to their leader who they call Rorn the Black.",
-          "IsExpanded": true,
+          "conversationText": "<font color='yellow'>You find a band of goblins here busying themselves in the construction of a make-shift camp. One larger than the others goes about giving orders. They are content to ignore you, but consistently defer to their leader who they call Rorn the Black.</font>",
+          "IsExpanded": false,
           "subNodes": [
             {
               "idNum": 41,
@@ -195,13 +202,13 @@
           "orderNum": 2,
           "pcNode": false,
           "linkTo": 0,
-          "ShowOnlyOnce": false,
+          "ShowOnlyOnce": true,
           "NodeIsActive": true,
           "NodePortraitBitmap": "",
           "NodeNpcName": "",
           "NodeSound": "none",
-          "conversationText": "Crashing through the forest path, a brutish goblinoid creature with a sloped brow leads a band of others in its wake. An open mouth filled with crooked teeth snarls a bellicose challenge.",
-          "IsExpanded": true,
+          "conversationText": "<font color='yellow'>Crashing through the forest path, a brutish goblinoid creature with a sloped brow leads a band of others in its wake. An open mouth filled with crooked teeth snarls a bellicose challenge.</font>",
+          "IsExpanded": false,
           "subNodes": [
             {
               "idNum": 2,

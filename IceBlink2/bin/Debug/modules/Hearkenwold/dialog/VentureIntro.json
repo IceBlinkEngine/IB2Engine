@@ -23,7 +23,7 @@
           "NodePortraitBitmap": "",
           "NodeNpcName": "",
           "NodeSound": "none",
-          "conversationText": "Ahead of you opens a mist-shrouded cave entrance, ensconced in the corner of these hills. An unearthly sensation seeps out of the depths, almost like a chill from beyond the grave. Will you descend underground?",
+          "conversationText": "<font color='yellow'>Ahead of you opens a mist-shrouded cave entrance, ensconced in the corner of these hills. An unearthly sensation seeps out of the depths, almost like a chill from beyond the grave. Will you descend underground?</font>",
           "IsExpanded": true,
           "subNodes": [
             {

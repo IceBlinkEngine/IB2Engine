@@ -23,7 +23,7 @@
           "NodePortraitBitmap": "",
           "NodeNpcName": "",
           "NodeSound": "none",
-          "conversationText": "A solitary carnivore has wandered down from the north. Will you hunt the bear for food?",
+          "conversationText": "<font color='yellow'>A solitary carnivore has wandered down from the north. Will you hunt the bear for food?</font>",
           "IsExpanded": true,
           "subNodes": [
             {
@@ -104,6 +104,7 @@
   "ConvoFileName": "Bear",
   "Narration": false,
   "PartyChat": false,
+  "SpeakToMainPcOnly": false,
   "NpcPortraitBitmap": "ptr_bearwoods.png",
   "DefaultNpcName": "",
   "NextIdNum": 3

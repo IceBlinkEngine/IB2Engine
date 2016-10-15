@@ -94,7 +94,7 @@
           "NodePortraitBitmap": "",
           "NodeNpcName": "",
           "NodeSound": "none",
-          "conversationText": "The Minister does not wish to speak to you at this time.",
+          "conversationText": "<font color='yellow'>The Minister does not wish to speak to you at this time.</font>",
           "IsExpanded": true,
           "subNodes": [
             {
@@ -128,6 +128,7 @@
   "ConvoFileName": "Ragnar",
   "Narration": false,
   "PartyChat": true,
+  "SpeakToMainPcOnly": false,
   "NpcPortraitBitmap": "ptr_ragdar.png",
   "DefaultNpcName": "",
   "NextIdNum": 5

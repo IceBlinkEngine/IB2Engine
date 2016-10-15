@@ -8,6 +8,8 @@
         "tag": "chainmail_1602",
         "name": "Chainmail Armor",
         "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
         "quantity": 1
       },
       {
@@ -15,6 +17,8 @@
         "tag": "largeshield_1603",
         "name": "Large Shield",
         "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
         "quantity": 1
       },
       {
@@ -22,6 +26,8 @@
         "tag": "larmor1_1604",
         "name": "Leather Armor",
         "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
         "quantity": 1
       },
       {
@@ -29,6 +35,8 @@
         "tag": "studdedLeather_1605",
         "name": "Studded Leather Armor",
         "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
         "quantity": 1
       },
       {
@@ -36,6 +44,8 @@
         "tag": "robes_1606",
         "name": "Robes",
         "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
         "quantity": 1
       },
       {
@@ -43,6 +53,8 @@
         "tag": "campingKit_1607",
         "name": "Camping Kit",
         "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
         "quantity": 1
       },
       {
@@ -50,6 +62,8 @@
         "tag": "healingPotion_1608",
         "name": "Healing Potion",
         "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
         "quantity": 1
       },
       {
@@ -57,6 +71,8 @@
         "tag": "healingPotion_1609",
         "name": "Healing Potion",
         "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
         "quantity": 1
       },
       {
@@ -64,6 +80,8 @@
         "tag": "spPotion_1610",
         "name": "Spell Points Potion",
         "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
         "quantity": 1
       },
       {
@@ -71,6 +89,8 @@
         "tag": "spPotion_1611",
         "name": "Spell Points Potion",
         "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
         "quantity": 1
       },
       {
@@ -78,6 +98,8 @@
         "tag": "battleaxe_1612",
         "name": "Battle Axe",
         "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
         "quantity": 1
       },
       {
@@ -85,6 +107,8 @@
         "tag": "crossbow_1613",
         "name": "Crossbow",
         "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
         "quantity": 1
       },
       {
@@ -92,6 +116,8 @@
         "tag": "dagger01_1614",
         "name": "Dagger",
         "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
         "quantity": 1
       },
       {
@@ -99,6 +125,8 @@
         "tag": "fireDagger_1615",
         "name": "Fire Dagger",
         "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
         "quantity": 1
       },
       {
@@ -106,6 +134,8 @@
         "tag": "handaxe_1616",
         "name": "Hand Axe",
         "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
         "quantity": 1
       },
       {
@@ -113,6 +143,8 @@
         "tag": "lsword01_1617",
         "name": "Long Sword",
         "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
         "quantity": 1
       },
       {
@@ -120,6 +152,8 @@
         "tag": "mace_1618",
         "name": "Mace",
         "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
         "quantity": 1
       },
       {
@@ -127,6 +161,8 @@
         "tag": "shortBow_1619",
         "name": "Short Bow",
         "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
         "quantity": 1
       },
       {
@@ -134,6 +170,8 @@
         "tag": "ssword01_1620",
         "name": "Short Sword",
         "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
         "quantity": 1
       },
       {
@@ -141,6 +179,8 @@
         "tag": "lbow1_1621",
         "name": "Long Bow",
         "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
         "quantity": 1
       },
       {
@@ -148,6 +188,8 @@
         "tag": "sling_1622",
         "name": "Sling",
         "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
         "quantity": 1
       },
       {
@@ -155,6 +197,8 @@
         "tag": "spear_1623",
         "name": "Spear",
         "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
         "quantity": 1
       },
       {
@@ -162,6 +206,8 @@
         "tag": "arrow_5331",
         "name": "Arrow",
         "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
         "quantity": 20
       },
       {
@@ -169,6 +215,8 @@
         "tag": "arrow_5332",
         "name": "Arrow",
         "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
         "quantity": 20
       },
       {
@@ -176,6 +224,8 @@
         "tag": "stone_5333",
         "name": "Stone",
         "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
         "quantity": 20
       },
       {
@@ -183,6 +233,8 @@
         "tag": "stone_5334",
         "name": "Stone",
         "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
         "quantity": 20
       },
       {
@@ -190,6 +242,8 @@
         "tag": "bolt_6076",
         "name": "Bolt",
         "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
         "quantity": 20
       },
       {
@@ -197,6 +251,8 @@
         "tag": "bolt_6078",
         "name": "Bolt",
         "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
         "quantity": 20
       },
       {
@@ -204,6 +260,8 @@
         "tag": "poisonDagger_14934",
         "name": "Poison Dagger",
         "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
         "quantity": 1
       },
       {
@@ -211,6 +269,8 @@
         "tag": "firebomb_14935",
         "name": "Fire Flask Bomb",
         "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
         "quantity": 1
       },
       {
@@ -218,6 +278,8 @@
         "tag": "firebomb_14936",
         "name": "Fire Flask Bomb",
         "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
         "quantity": 1
       },
       {
@@ -225,6 +287,8 @@
         "tag": "firebomb_14937",
         "name": "Fire Flask Bomb",
         "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
         "quantity": 1
       },
       {
@@ -232,6 +296,8 @@
         "tag": "antidote_14938",
         "name": "Antidote Potion",
         "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
         "quantity": 1
       },
       {
@@ -239,6 +305,8 @@
         "tag": "antidote_14939",
         "name": "Antidote Potion",
         "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
         "quantity": 1
       },
       {
@@ -246,6 +314,8 @@
         "tag": "antidote_14940",
         "name": "Antidote Potion",
         "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
         "quantity": 1
       },
       {
@@ -253,6 +323,8 @@
         "tag": "firehorn_15185",
         "name": "Fire Horn",
         "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
         "quantity": 1
       },
       {
@@ -260,6 +332,8 @@
         "tag": "firehorncharge_15186",
         "name": "Fire Horn Charge",
         "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
         "quantity": 20
       },
       {
@@ -267,6 +341,8 @@
         "tag": "firehorncharge_15187",
         "name": "Fire Horn Charge",
         "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
         "quantity": 20
       },
       {
@@ -274,6 +350,8 @@
         "tag": "firehorncharge_15188",
         "name": "Fire Horn Charge",
         "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
         "quantity": 20
       }
     ]
@@ -287,6 +365,8 @@
         "tag": "chainmail_8254",
         "name": "Chainmail Armor",
         "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
         "quantity": 1
       },
       {
@@ -294,6 +374,8 @@
         "tag": "largeshield_8255",
         "name": "Large Shield",
         "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
         "quantity": 1
       },
       {
@@ -301,6 +383,8 @@
         "tag": "larmor1_8256",
         "name": "Leather Armor",
         "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
         "quantity": 1
       },
       {
@@ -308,6 +392,8 @@
         "tag": "studdedLeather_8257",
         "name": "Studded Leather Armor",
         "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
         "quantity": 1
       },
       {
@@ -315,6 +401,8 @@
         "tag": "platemail_8258",
         "name": "Platemail Armor",
         "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
         "quantity": 1
       },
       {
@@ -322,6 +410,8 @@
         "tag": "robes_8259",
         "name": "Robes",
         "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
         "quantity": 1
       },
       {
@@ -329,6 +419,8 @@
         "tag": "campingKit_8260",
         "name": "Camping Kit",
         "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
         "quantity": 1
       },
       {
@@ -336,6 +428,8 @@
         "tag": "ringOfProtection_8261",
         "name": "Ring of Protection",
         "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
         "quantity": 1
       },
       {
@@ -343,6 +437,8 @@
         "tag": "ringOfFireResist_8262",
         "name": "Ring of Fire Resistance",
         "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
         "quantity": 1
       },
       {
@@ -350,6 +446,8 @@
         "tag": "healingPotion_8263",
         "name": "Healing Potion",
         "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
         "quantity": 1
       },
       {
@@ -357,6 +455,8 @@
         "tag": "healingPotion_8264",
         "name": "Healing Potion",
         "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
         "quantity": 1
       },
       {
@@ -364,6 +464,8 @@
         "tag": "healingPotionExtra_8265",
         "name": "Extra Healing Potion",
         "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
         "quantity": 1
       },
       {
@@ -371,6 +473,8 @@
         "tag": "spPotion_8266",
         "name": "Spell Points Potion",
         "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
         "quantity": 1
       },
       {
@@ -378,6 +482,8 @@
         "tag": "spPotion_8267",
         "name": "Spell Points Potion",
         "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
         "quantity": 1
       },
       {
@@ -385,6 +491,8 @@
         "tag": "battleaxe_8268",
         "name": "Battle Axe",
         "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
         "quantity": 1
       },
       {
@@ -392,6 +500,8 @@
         "tag": "crossbow_8269",
         "name": "Crossbow",
         "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
         "quantity": 1
       },
       {
@@ -399,6 +509,8 @@
         "tag": "dagger01_8270",
         "name": "Dagger",
         "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
         "quantity": 1
       },
       {
@@ -406,6 +518,8 @@
         "tag": "fireDagger_8271",
         "name": "Fire Dagger",
         "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
         "quantity": 1
       },
       {
@@ -413,6 +527,8 @@
         "tag": "fireLongSword_8272",
         "name": "Flaming Long Sword",
         "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
         "quantity": 1
       },
       {
@@ -420,6 +536,8 @@
         "tag": "lsword01_8273",
         "name": "Long Sword",
         "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
         "quantity": 1
       },
       {
@@ -427,6 +545,8 @@
         "tag": "lbow1_8274",
         "name": "Long Bow",
         "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
         "quantity": 1
       },
       {
@@ -434,6 +554,8 @@
         "tag": "sling_8275",
         "name": "Sling",
         "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
         "quantity": 1
       },
       {
@@ -441,6 +563,8 @@
         "tag": "ssword01_8276",
         "name": "Short Sword",
         "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
         "quantity": 1
       },
       {
@@ -448,6 +572,8 @@
         "tag": "stonefire_8277",
         "name": "Stone of Fire",
         "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
         "quantity": 20
       },
       {
@@ -455,6 +581,8 @@
         "tag": "arrow_8278",
         "name": "Arrow",
         "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
         "quantity": 20
       },
       {
@@ -462,6 +590,8 @@
         "tag": "stone_8279",
         "name": "Stone",
         "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
         "quantity": 20
       },
       {
@@ -469,6 +599,8 @@
         "tag": "bolt_8280",
         "name": "Bolt",
         "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
         "quantity": 20
       },
       {
@@ -476,6 +608,8 @@
         "tag": "arrow_8281",
         "name": "Arrow",
         "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
         "quantity": 20
       },
       {
@@ -483,6 +617,8 @@
         "tag": "poisonDagger_14941",
         "name": "Poison Dagger",
         "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
         "quantity": 1
       },
       {
@@ -490,6 +626,8 @@
         "tag": "firebomb_14942",
         "name": "Fire Flask Bomb",
         "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
         "quantity": 1
       },
       {
@@ -497,6 +635,8 @@
         "tag": "firebomb_14943",
         "name": "Fire Flask Bomb",
         "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
         "quantity": 1
       },
       {
@@ -504,6 +644,8 @@
         "tag": "firebomb_14944",
         "name": "Fire Flask Bomb",
         "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
         "quantity": 1
       },
       {
@@ -511,6 +653,8 @@
         "tag": "firebomb_14945",
         "name": "Fire Flask Bomb",
         "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
         "quantity": 1
       },
       {
@@ -518,6 +662,8 @@
         "tag": "firebomb_14946",
         "name": "Fire Flask Bomb",
         "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
         "quantity": 1
       },
       {
@@ -525,6 +671,8 @@
         "tag": "antidote_14947",
         "name": "Antidote Potion",
         "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
         "quantity": 1
       },
       {
@@ -532,6 +680,8 @@
         "tag": "antidote_14948",
         "name": "Antidote Potion",
         "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
         "quantity": 1
       },
       {
@@ -539,6 +689,8 @@
         "tag": "antidote_14949",
         "name": "Antidote Potion",
         "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
         "quantity": 1
       }
     ]

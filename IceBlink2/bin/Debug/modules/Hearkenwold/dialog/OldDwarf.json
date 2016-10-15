@@ -23,7 +23,7 @@
           "NodePortraitBitmap": "",
           "NodeNpcName": "",
           "NodeSound": "none",
-          "conversationText": "An aged dwarf sits here, as you walk through the open door. He does not appear to notice you at first, but murmurs to himself.",
+          "conversationText": "<font color='yellow'>An aged dwarf sits here, as you walk through the open door. He does not appear to notice you at first, but murmurs to himself.</font>",
           "IsExpanded": true,
           "subNodes": [
             {
@@ -401,7 +401,7 @@
           "NodePortraitBitmap": "ptr_dwarvesmourn.png",
           "NodeNpcName": "",
           "NodeSound": "none",
-          "conversationText": "A gathering of dwarves mill about here. The mood is one of somber grieving, and some have hoods cast over their heads. No one pays you any mind.",
+          "conversationText": "<font color='yellow'>A gathering of dwarves mill about here. The mood is one of somber grieving, and some have hoods cast over their heads. No one pays you any mind.</font>",
           "IsExpanded": true,
           "subNodes": [
             {
@@ -455,7 +455,7 @@
           "NodePortraitBitmap": "ptr_elworfriend.png",
           "NodeNpcName": "Servant",
           "NodeSound": "none",
-          "conversationText": "When you enter this house, another dwarf greets you.",
+          "conversationText": "<font color='yellow'>When you enter this house, another dwarf greets you.</font>",
           "IsExpanded": true,
           "subNodes": [
             {

@@ -23,7 +23,7 @@
           "NodePortraitBitmap": "",
           "NodeNpcName": "",
           "NodeSound": "none",
-          "conversationText": "Two sentinels wielding bladed pole-arms secure the gates here. At your approach, you are given the impression of calculating scrutiny under the watchful gaze of one guard, while the other begins to question your intentions.",
+          "conversationText": "<font color='yellow'>Two sentinels wielding bladed pole-arms secure the gates here. At your approach, you are given the impression of calculating scrutiny under the watchful gaze of one guard, while the other begins to question your intentions.</font>",
           "IsExpanded": true,
           "subNodes": [
             {

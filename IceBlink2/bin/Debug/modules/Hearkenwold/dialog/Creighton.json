@@ -784,6 +784,7 @@
   "ConvoFileName": "Creighton",
   "Narration": false,
   "PartyChat": true,
+  "SpeakToMainPcOnly": false,
   "NpcPortraitBitmap": "ptr_flintfingerpic.png",
   "DefaultNpcName": "Creighton",
   "NextIdNum": 39

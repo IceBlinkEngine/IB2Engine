@@ -245,6 +245,7 @@
   "ConvoFileName": "Mercenary",
   "Narration": false,
   "PartyChat": true,
+  "SpeakToMainPcOnly": false,
   "NpcPortraitBitmap": "ptr_mercenarypic.png",
   "DefaultNpcName": "Mercenary",
   "NextIdNum": 13

@@ -23,7 +23,7 @@
           "NodePortraitBitmap": "",
           "NodeNpcName": "",
           "NodeSound": "none",
-          "conversationText": "These caves appear exceedingly dark, as black as pitch. How will you proceed?",
+          "conversationText": "<font color='yellow'>These caves appear exceedingly dark, as black as pitch. How will you proceed?</font>",
           "IsExpanded": true,
           "subNodes": [
             {

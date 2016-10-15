@@ -23,7 +23,7 @@
           "NodePortraitBitmap": "",
           "NodeNpcName": "",
           "NodeSound": "none",
-          "conversationText": "This set of stairs leads to the next level of the Castle. Do you wish to proceed?",
+          "conversationText": "<font color='yellow'>This set of stairs leads to the next level of the Castle. Do you wish to proceed?</font>",
           "IsExpanded": true,
           "subNodes": [
             {
@@ -90,6 +90,7 @@
   "ConvoFileName": "StairsSE",
   "Narration": false,
   "PartyChat": false,
+  "SpeakToMainPcOnly": false,
   "NpcPortraitBitmap": "ptr_stairsdown.png",
   "DefaultNpcName": "",
   "NextIdNum": 7

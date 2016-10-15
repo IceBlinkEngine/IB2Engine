@@ -23,7 +23,7 @@
           "NodePortraitBitmap": "",
           "NodeNpcName": "",
           "NodeSound": "none",
-          "conversationText": "<FirstName> detects a foul stench down this corridor, as that of a rotting corpse.",
+          "conversationText": "<font color='yellow'><FirstName> detects a foul stench down this corridor, as that of a rotting corpse.</font>",
           "IsExpanded": true,
           "subNodes": [
             {
@@ -49,7 +49,7 @@
                   "NodePortraitBitmap": "ptr_ccrawlerpic.png",
                   "NodeNpcName": "",
                   "NodeSound": "none",
-                  "conversationText": "Out of the tunnel emerges an abomination, with writhing tentacles.",
+                  "conversationText": "<font color='yellow'>Out of the tunnel emerges an abomination, with writhing tentacles.</font>",
                   "IsExpanded": true,
                   "subNodes": [
                     {

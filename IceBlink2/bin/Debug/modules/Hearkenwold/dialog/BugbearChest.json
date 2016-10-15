@@ -23,7 +23,7 @@
           "NodePortraitBitmap": "",
           "NodeNpcName": "",
           "NodeSound": "none",
-          "conversationText": "A wooden trunk tightly bound sits on the ground. Who will open the lock?",
+          "conversationText": "<font color='yellow'>A wooden trunk tightly bound sits on the ground. Who will open the lock?</font>",
           "IsExpanded": true,
           "subNodes": [
             {

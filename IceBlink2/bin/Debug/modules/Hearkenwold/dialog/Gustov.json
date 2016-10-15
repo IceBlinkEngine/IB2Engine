@@ -825,6 +825,7 @@
   "ConvoFileName": "Gustov",
   "Narration": false,
   "PartyChat": true,
+  "SpeakToMainPcOnly": false,
   "NpcPortraitBitmap": "ptr_gustovpic.png",
   "DefaultNpcName": "Gustov",
   "NextIdNum": 40

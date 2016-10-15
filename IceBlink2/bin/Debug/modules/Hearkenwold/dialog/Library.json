@@ -23,7 +23,7 @@
           "NodePortraitBitmap": "",
           "NodeNpcName": "",
           "NodeSound": "none",
-          "conversationText": "As you walk through the door, you find two torches burning between the shelves that line the walls stacked with books. In the center of this study used for research is a desk covered in papers and manuscripts. Along the north wall, a plaque is posted that reads:\n\nKNOWLEDGE IS HALF THE BATTLE",
+          "conversationText": "<font color='yellow'>As you walk through the door, you find two torches burning between the shelves that line the walls stacked with books. In the center of this study used for research is a desk covered in papers and manuscripts. Along the north wall, a plaque is posted that reads:\n\n</font>KNOWLEDGE IS HALF THE BATTLE",
           "IsExpanded": true,
           "subNodes": [
             {
@@ -57,6 +57,7 @@
   "ConvoFileName": "Library",
   "Narration": false,
   "PartyChat": false,
+  "SpeakToMainPcOnly": false,
   "NpcPortraitBitmap": "ptr_library.png",
   "DefaultNpcName": "",
   "NextIdNum": 2

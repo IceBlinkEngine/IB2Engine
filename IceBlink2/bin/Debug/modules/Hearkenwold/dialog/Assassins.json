@@ -85,6 +85,7 @@
   "ConvoFileName": "Assassins",
   "Narration": false,
   "PartyChat": true,
+  "SpeakToMainPcOnly": false,
   "NpcPortraitBitmap": "ptr_assassinpic.png",
   "DefaultNpcName": "Assassins",
   "NextIdNum": 3

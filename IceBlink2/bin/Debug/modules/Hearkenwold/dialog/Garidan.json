@@ -24,7 +24,7 @@
           "NodeNpcName": "",
           "NodeSound": "none",
           "conversationText": "I am Garidan the Farmer. My work was to till the fields and harvest the crops around Kelton Manor. But now there are no fields to till, the crops have been burned.",
-          "IsExpanded": true,
+          "IsExpanded": false,
           "subNodes": [
             {
               "idNum": 2,
@@ -278,7 +278,7 @@
           "NodePortraitBitmap": "",
           "NodeNpcName": "",
           "NodeSound": "none",
-          "conversationText": "This broken down man is quiet and has a pensive expression in his eyes.",
+          "conversationText": "<font color='yellow'>This broken down man is quiet and has a pensive expression in his eyes.</font>",
           "IsExpanded": true,
           "subNodes": [
             {
@@ -488,6 +488,7 @@
   "ConvoFileName": "Garidan",
   "Narration": false,
   "PartyChat": true,
+  "SpeakToMainPcOnly": false,
   "NpcPortraitBitmap": "ptr_garidan.png",
   "DefaultNpcName": "Garidan",
   "NextIdNum": 21

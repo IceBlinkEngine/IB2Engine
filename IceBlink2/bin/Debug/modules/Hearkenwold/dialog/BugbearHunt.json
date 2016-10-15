@@ -23,7 +23,7 @@
           "NodePortraitBitmap": "",
           "NodeNpcName": "",
           "NodeSound": "none",
-          "conversationText": "You cross paths with a bugbear hunting and scavenger party. They seem frustrated as the monsters growl and mention something about treasure.",
+          "conversationText": "<font color='yellow'>You cross paths with a bugbear hunting and scavenger party. They seem frustrated as the monsters growl and mention something about treasure.</font>",
           "IsExpanded": true,
           "subNodes": [
             {

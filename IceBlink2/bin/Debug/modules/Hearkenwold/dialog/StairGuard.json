@@ -156,6 +156,7 @@
   "ConvoFileName": "StairGuard",
   "Narration": false,
   "PartyChat": true,
+  "SpeakToMainPcOnly": false,
   "NpcPortraitBitmap": "ptr_castleguard.png",
   "DefaultNpcName": "Castle Guard",
   "NextIdNum": 7

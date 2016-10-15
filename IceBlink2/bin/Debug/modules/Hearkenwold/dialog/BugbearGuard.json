@@ -23,7 +23,7 @@
           "NodePortraitBitmap": "",
           "NodeNpcName": "",
           "NodeSound": "none",
-          "conversationText": "An imperious looking bugbear stands before you and blocks your path.",
+          "conversationText": "<font color='yellow'>An imperious looking bugbear stands before you and blocks your path.</font>",
           "IsExpanded": true,
           "subNodes": [
             {

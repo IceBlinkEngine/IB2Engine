@@ -23,7 +23,7 @@
           "NodePortraitBitmap": "",
           "NodeNpcName": "",
           "NodeSound": "none",
-          "conversationText": "The grey walls of Castle Hearkenwold soar into view through a chill mist that has yet to burn away. Towering stonework, which seems more mountain than fortress, climbs in a natural, rocky state, reaching for the crenellated battlements. When Kelton Manor was razed to the ground, its refugees fled to this citadel bearing a fierce look of being unassailable.",
+          "conversationText": "<font color='yellow'>The grey walls of Castle Hearkenwold soar into view through a chill mist that has yet to burn away. Towering stonework, which seems more mountain than fortress, climbs in a natural, rocky state, reaching for the crenellated battlements. When Kelton Manor was razed to the ground, its refugees fled to this citadel bearing a fierce look of being unassailable.</font>",
           "IsExpanded": true,
           "subNodes": [
             {
@@ -49,7 +49,7 @@
                   "NodePortraitBitmap": "",
                   "NodeNpcName": "",
                   "NodeSound": "none",
-                  "conversationText": "After a nightmarish ordeal of running for days, you find sanctuary at last in a soft bed and even a plate of warm food…",
+                  "conversationText": "<font color='yellow'>After a nightmarish ordeal of running for days, you find sanctuary at last in a soft bed and even a plate of warm food…</font>",
                   "IsExpanded": true,
                   "subNodes": [
                     {
@@ -93,6 +93,7 @@
   "ConvoFileName": "Introduction",
   "Narration": true,
   "PartyChat": false,
+  "SpeakToMainPcOnly": false,
   "NpcPortraitBitmap": "nar_hearkenwoldni.png",
   "DefaultNpcName": "",
   "NextIdNum": 4

@@ -23,7 +23,7 @@
           "NodePortraitBitmap": "",
           "NodeNpcName": "",
           "NodeSound": "none",
-          "conversationText": "A frightful apparition haunts these halls!",
+          "conversationText": "<font color='yellow'>A frightful apparition haunts these halls!</font>",
           "IsExpanded": true,
           "subNodes": [
             {
@@ -49,7 +49,7 @@
                   "NodePortraitBitmap": "",
                   "NodeNpcName": "",
                   "NodeSound": "none",
-                  "conversationText": "The ghost casts you to another part of the map!",
+                  "conversationText": "<font color='yellow'>The ghost casts you to another part of the map!</font>",
                   "IsExpanded": true,
                   "subNodes": [
                     {

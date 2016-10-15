@@ -23,7 +23,7 @@
           "NodePortraitBitmap": "",
           "NodeNpcName": "",
           "NodeSound": "none",
-          "conversationText": "A sign posted on the side of the road has the following words etched into wooden directional arrows:\n\nNORTH - CASTLE HEARKENWOLD\n\nSOUTH - FORTRESS RELMFUR",
+          "conversationText": "<font color='yellow'>A sign posted on the side of the road has the following words etched into wooden directional arrows:\n\nNORTH - CASTLE HEARKENWOLD\n\nSOUTH - KHYN</font>",
           "IsExpanded": true,
           "subNodes": [
             {
@@ -57,6 +57,7 @@
   "ConvoFileName": "SignPost",
   "Narration": false,
   "PartyChat": true,
+  "SpeakToMainPcOnly": false,
   "NpcPortraitBitmap": "ptr_signpost.png",
   "DefaultNpcName": "",
   "NextIdNum": 2

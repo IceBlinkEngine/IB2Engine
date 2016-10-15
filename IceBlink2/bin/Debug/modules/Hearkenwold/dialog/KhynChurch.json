@@ -23,7 +23,7 @@
           "NodePortraitBitmap": "",
           "NodeNpcName": "",
           "NodeSound": "none",
-          "conversationText": "When you enter this building through the faded gold-plated doors, you find the interior in a dilapidated state. A man in a green hood greets you with a harrowed stare.",
+          "conversationText": "<font color='yellow'>When you enter this building through the faded gold-plated doors, you find the interior in a dilapidated state. A man in a green hood greets you with a harrowed stare.</font>",
           "IsExpanded": true,
           "subNodes": [
             {

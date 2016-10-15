@@ -264,6 +264,7 @@
   "ConvoFileName": "Clarefield",
   "Narration": false,
   "PartyChat": true,
+  "SpeakToMainPcOnly": false,
   "NpcPortraitBitmap": "ptr_clarefield.png",
   "DefaultNpcName": "Clarefield",
   "NextIdNum": 10

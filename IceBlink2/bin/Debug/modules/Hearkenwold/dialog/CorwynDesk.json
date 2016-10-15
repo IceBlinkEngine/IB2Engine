@@ -23,7 +23,7 @@
           "NodePortraitBitmap": "",
           "NodeNpcName": "",
           "NodeSound": "none",
-          "conversationText": "This desk is strewn with parchments and quills and leaves an impression of disorder. Most unusual, there is also a collection of random talismans and trinkets, which would not seem to hold much worth.",
+          "conversationText": "<font color='yellow'>This desk is strewn with parchments and quills and leaves an impression of disorder. Most unusual, there is also a collection of random talismans and trinkets, which would not seem to hold much worth.</font>",
           "IsExpanded": true,
           "subNodes": [
             {
@@ -69,7 +69,7 @@
           "NodePortraitBitmap": "",
           "NodeNpcName": "",
           "NodeSound": "none",
-          "conversationText": "This desk is strewn with parchments and quills and leaves an impression of disorder. Most unusual, there is also a collection of random talismans and trinkets, which would not seem to hold much worth.",
+          "conversationText": "<font color='yellow'>This desk is strewn with parchments and quills and leaves an impression of disorder. Most unusual, there is also a collection of random talismans and trinkets, which would not seem to hold much worth.</font>",
           "IsExpanded": true,
           "subNodes": [
             {
@@ -115,7 +115,7 @@
           "NodePortraitBitmap": "",
           "NodeNpcName": "",
           "NodeSound": "none",
-          "conversationText": "This desk is strewn with parchments and quills and leaves an impression of disorder. Most unusual, there is also a collection of random talismans and trinkets, which would not seem to hold much worth.",
+          "conversationText": "<font color='yellow'>This desk is strewn with parchments and quills and leaves an impression of disorder. Most unusual, there is also a collection of random talismans and trinkets, which would not seem to hold much worth.</font>",
           "IsExpanded": true,
           "subNodes": [
             {
@@ -141,7 +141,7 @@
                   "NodePortraitBitmap": "",
                   "NodeNpcName": "",
                   "NodeSound": "none",
-                  "conversationText": "Will you add a rabbit's foot to the Commander's collection? ",
+                  "conversationText": "<font color='yellow'>Will you add a rabbit's foot to the Commander's collection?</font>",
                   "IsExpanded": true,
                   "subNodes": [
                     {
@@ -272,7 +272,7 @@
           "NodePortraitBitmap": "",
           "NodeNpcName": "",
           "NodeSound": "none",
-          "conversationText": "This desk is strewn with parchments and quills and leaves an impression of disorder. Most unusual, there is also a collection of random talismans and trinkets, which would not seem to hold much worth.",
+          "conversationText": "<font color='yellow'>This desk is strewn with parchments and quills and leaves an impression of disorder. Most unusual, there is also a collection of random talismans and trinkets, which would not seem to hold much worth.</font>",
           "IsExpanded": true,
           "subNodes": [
             {
@@ -318,7 +318,7 @@
           "NodePortraitBitmap": "",
           "NodeNpcName": "",
           "NodeSound": "none",
-          "conversationText": "This desk is strewn with parchments and quills and leaves an impression of disorder. Most unusual, there is also a collection of random talismans and trinkets, which would not seem to hold much worth.",
+          "conversationText": "<font color='yellow'>This desk is strewn with parchments and quills and leaves an impression of disorder. Most unusual, there is also a collection of random talismans and trinkets, which would not seem to hold much worth.</font>",
           "IsExpanded": true,
           "subNodes": [
             {
@@ -468,6 +468,7 @@
   "ConvoFileName": "CorwynDesk",
   "Narration": false,
   "PartyChat": false,
+  "SpeakToMainPcOnly": false,
   "NpcPortraitBitmap": "ptr_corwyndesk.png",
   "DefaultNpcName": "Commander's Desk",
   "NextIdNum": 25

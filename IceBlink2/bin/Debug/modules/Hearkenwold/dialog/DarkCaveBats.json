@@ -23,7 +23,7 @@
           "NodePortraitBitmap": "",
           "NodeNpcName": "",
           "NodeSound": "none",
-          "conversationText": "By the sound of schreeching and fluttering wings, it appears you have disturbed a nest of cave bats.",
+          "conversationText": "<font color='yellow'>By the sound of schreeching and fluttering wings, it appears you have disturbed a nest of cave bats.</font>",
           "IsExpanded": true,
           "subNodes": [
             {

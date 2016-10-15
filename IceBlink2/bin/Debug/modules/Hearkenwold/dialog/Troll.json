@@ -57,6 +57,7 @@
   "ConvoFileName": "Troll",
   "Narration": false,
   "PartyChat": true,
+  "SpeakToMainPcOnly": false,
   "NpcPortraitBitmap": "ptr_trollpic.png",
   "DefaultNpcName": "",
   "NextIdNum": 2

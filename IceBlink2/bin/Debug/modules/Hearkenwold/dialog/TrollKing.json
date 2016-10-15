@@ -23,7 +23,7 @@
           "NodePortraitBitmap": "",
           "NodeNpcName": "",
           "NodeSound": "none",
-          "conversationText": "Upon entering this enormous cavern, you are greeted by a troll with a rare golden hue. Other monsters gather at its side, giving the impression of some kind of decadent court. The central troll wields a massive halberd, which it points in your direction.",
+          "conversationText": "<font color='yellow'>Upon entering this enormous cavern, you are greeted by a troll with a rare golden hue. Other monsters gather at its side, giving the impression of some kind of decadent court. The central troll wields a massive halberd, which it points in your direction.</font>",
           "IsExpanded": true,
           "subNodes": [
             {
@@ -49,7 +49,7 @@
                   "NodePortraitBitmap": "",
                   "NodeNpcName": "",
                   "NodeSound": "none",
-                  "conversationText": "Bow down to the King! Wanderers, I see, delivered before my throne. Perhaps you seek a Quest, to prove yourselves before this court? Very well, this amuses me. There are two fugitive trolls in the mountain wilderness. Hurly and Burly, they are called. I want you to apprehend them, and bring them back to these caves!",
+                  "conversationText": "Bow down to the King! Wanderers, I see, delivered before my throne. Perhaps you seek a Quest, to prove yourselves before this court? Very well, this amuses me. There are two fugitive trolls in the mountain wilderness. Hurly and Burly, they are called. I want you to apprehend them, and be bringing them back to these caves!",
                   "IsExpanded": true,
                   "subNodes": [
                     {
@@ -65,8 +65,95 @@
                       "conversationText": "We had best play along, for now.",
                       "IsExpanded": true,
                       "subNodes": [],
-                      "actions": [],
+                      "actions": [
+                        {
+                          "a_script": "gaSetGlobalInt.cs",
+                          "a_parameter_1": "HurlyBurly",
+                          "a_parameter_2": "1",
+                          "a_parameter_3": null,
+                          "a_parameter_4": null
+                        }
+                      ],
                       "conditions": [],
+                      "isLink": false
+                    },
+                    {
+                      "idNum": 7,
+                      "orderNum": 1,
+                      "pcNode": true,
+                      "linkTo": 0,
+                      "ShowOnlyOnce": false,
+                      "NodeIsActive": true,
+                      "NodePortraitBitmap": "",
+                      "NodeNpcName": "",
+                      "NodeSound": "none",
+                      "conversationText": "A large bugbear wants your crown.",
+                      "IsExpanded": true,
+                      "subNodes": [
+                        {
+                          "idNum": 8,
+                          "orderNum": 0,
+                          "pcNode": false,
+                          "linkTo": 0,
+                          "ShowOnlyOnce": false,
+                          "NodeIsActive": true,
+                          "NodePortraitBitmap": "",
+                          "NodeNpcName": "",
+                          "NodeSound": "none",
+                          "conversationText": "You must jest!  Yes, perhaps you are seeking the position as my court jester. Never you mind about the chunky monkey bugbears, they are not being strong enough to challenge us. Now be off with your royal assignment.",
+                          "IsExpanded": true,
+                          "subNodes": [
+                            {
+                              "idNum": 9,
+                              "orderNum": 0,
+                              "pcNode": true,
+                              "linkTo": 0,
+                              "ShowOnlyOnce": false,
+                              "NodeIsActive": true,
+                              "NodePortraitBitmap": "",
+                              "NodeNpcName": "",
+                              "NodeSound": "none",
+                              "conversationText": "As you wish.",
+                              "IsExpanded": true,
+                              "subNodes": [],
+                              "actions": [
+                                {
+                                  "a_script": "gaSetGlobalInt.cs",
+                                  "a_parameter_1": "Crown",
+                                  "a_parameter_2": "2",
+                                  "a_parameter_3": null,
+                                  "a_parameter_4": null
+                                },
+                                {
+                                  "a_script": "gaSetGlobalInt.cs",
+                                  "a_parameter_1": "HurlyBurly",
+                                  "a_parameter_2": "1",
+                                  "a_parameter_3": null,
+                                  "a_parameter_4": null
+                                }
+                              ],
+                              "conditions": [],
+                              "isLink": false
+                            }
+                          ],
+                          "actions": [],
+                          "conditions": [],
+                          "isLink": false
+                        }
+                      ],
+                      "actions": [],
+                      "conditions": [
+                        {
+                          "c_script": "gcCheckGlobalInt.cs",
+                          "c_btnAndOr": "and",
+                          "c_and": true,
+                          "c_not": false,
+                          "c_parameter_1": "Crown",
+                          "c_parameter_2": "=",
+                          "c_parameter_3": "1",
+                          "c_parameter_4": null
+                        }
+                      ],
                       "isLink": false
                     }
                   ],
@@ -113,6 +200,78 @@
               "actions": [],
               "conditions": [],
               "isLink": false
+            },
+            {
+              "idNum": 10,
+              "orderNum": 1,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "A large bugbear wants your crown.",
+              "IsExpanded": true,
+              "subNodes": [
+                {
+                  "idNum": 11,
+                  "orderNum": 0,
+                  "pcNode": false,
+                  "linkTo": 0,
+                  "ShowOnlyOnce": false,
+                  "NodeIsActive": true,
+                  "NodePortraitBitmap": "",
+                  "NodeNpcName": "",
+                  "NodeSound": "none",
+                  "conversationText": "You must jest!  Yes, perhaps you are seeking the position as my court jester. Never you mind about the chunky monkey bugbears, they are not being strong enough to challenge us. Now be off with your royal assignment.",
+                  "IsExpanded": true,
+                  "subNodes": [
+                    {
+                      "idNum": 12,
+                      "orderNum": 0,
+                      "pcNode": true,
+                      "linkTo": 0,
+                      "ShowOnlyOnce": false,
+                      "NodeIsActive": true,
+                      "NodePortraitBitmap": "",
+                      "NodeNpcName": "",
+                      "NodeSound": "none",
+                      "conversationText": "As you wish.",
+                      "IsExpanded": true,
+                      "subNodes": [],
+                      "actions": [
+                        {
+                          "a_script": "gaSetGlobalInt.cs",
+                          "a_parameter_1": "Crown",
+                          "a_parameter_2": "2",
+                          "a_parameter_3": null,
+                          "a_parameter_4": null
+                        }
+                      ],
+                      "conditions": [],
+                      "isLink": false
+                    }
+                  ],
+                  "actions": [],
+                  "conditions": [],
+                  "isLink": false
+                }
+              ],
+              "actions": [],
+              "conditions": [
+                {
+                  "c_script": "gcCheckGlobalInt.cs",
+                  "c_btnAndOr": "and",
+                  "c_and": true,
+                  "c_not": false,
+                  "c_parameter_1": "Crown",
+                  "c_parameter_2": "=",
+                  "c_parameter_3": "1",
+                  "c_parameter_4": null
+                }
+              ],
+              "isLink": false
             }
           ],
           "actions": [],
@@ -131,5 +290,5 @@
   "SpeakToMainPcOnly": false,
   "NpcPortraitBitmap": "ptr_trollkingpic.png",
   "DefaultNpcName": "Troll King",
-  "NextIdNum": 6
+  "NextIdNum": 12
 }

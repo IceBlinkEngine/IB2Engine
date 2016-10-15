@@ -1824,11 +1824,12 @@ namespace IceBlink2
                     if (crt.hp > 0)
 	                {
 
+                        //bali1
                         if (gv.mod.useManualCombatCam)
                         {
-                            //adjustCamToRangedCreature = true;
+                            adjustCamToRangedCreature = true;
                             CalculateUpperLeftCreature();
-                            //adjustCamToRangedCreature = false;
+                            adjustCamToRangedCreature = false;
 
                             if (IsInVisibleCombatWindow(crt.combatLocX, crt.combatLocY))
                             {
@@ -4443,6 +4444,17 @@ namespace IceBlink2
                         for (int y = UpperLeftSquare.Y; y < this.mod.currentEncounter.MapSizeY; y++)
                         {
                             if (!IsInVisibleCombatWindow(x, y))
+                            {
+                                continue;
+                            }
+
+                            if ((x < 0) || (y < 0))
+                            {
+                                continue;
+                            }
+
+                            if ((x >= gv.mod.currentEncounter.MapSizeX)
+               || (y >= gv.mod.currentEncounter.MapSizeY))
                             {
                                 continue;
                             }
@@ -10347,17 +10359,31 @@ namespace IceBlink2
             {
                 if ((gv.mod.useManualCombatCam) && !gv.mod.fastMode)
                 {
+                    //bali2
+                    int relevantRange = 1;
+                    if (crt.cr_category.Equals("Melee"))
+                    {
+                        relevantRange = crt.cr_attRange;
+                    }
                     //Melee or AoO situation
                     foreach (Player p in mod.playerList)
                     {
-                        if (getDistance(new Coordinate(p.combatLocX, p.combatLocY), new Coordinate(crt.combatLocX, crt.combatLocY)) <= 1)
+                        if (getDistance(new Coordinate(p.combatLocX, p.combatLocY), new Coordinate(crt.combatLocX, crt.combatLocY)) <= relevantRange)
                         {
                             UpperLeftSquare.X = minX;
                             UpperLeftSquare.Y = minY;
                             break;
                         }
+
+                        //ranged situation
+                        //bali1
                         if (adjustCamToRangedCreature)
                         {
+                            UpperLeftSquare.X = minX;
+                            UpperLeftSquare.Y = minY;
+                            break;
+                            //cut out fo bugfixing
+                            /*
                             if (getDistance(new Coordinate(p.combatLocX, p.combatLocY), new Coordinate(crt.combatLocX, crt.combatLocY)) < 9)
                             {
                                 if (p.combatLocX < crt.combatLocX)
@@ -10379,7 +10405,8 @@ namespace IceBlink2
                                 }
                                 break;
                             }
-                         }
+                            */
+                        }
                     }
 
                     //return;

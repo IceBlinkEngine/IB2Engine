@@ -35,7 +35,7 @@ namespace IceBlink2
             }
             grid[start.X, start.Y] = 2; //2 marks the start point in the grid
             grid[end.X, end.Y] = 3; //3 marks the end point in the grid
-            buildPath(start);
+            buildPath(start, callingProp);
 
             if (!foundEnd)
             {
@@ -46,7 +46,7 @@ namespace IceBlink2
                 pathNodes.Add(new Coordinate(end.X, end.Y));
                 for (int i = 0; i < values[end.X, end.Y]; i++)
                 {
-                    pathNodes.Add(getLowestNeighbor(pathNodes[pathNodes.Count - 1]));
+                    pathNodes.Add(getLowestNeighbor(pathNodes[pathNodes.Count - 1], callingProp));
                 }
                 //build list of path points
                 newPoint = pathNodes[pathNodes.Count - 2];
@@ -76,7 +76,7 @@ namespace IceBlink2
             }
             grid[start.X, start.Y] = 2; //2 marks the start point in the grid
             grid[end.X, end.Y] = 3; //3 marks the end point in the grid
-            buildPath(start, centerPointX, centerPointY, radius);
+            buildPath(start, centerPointX, centerPointY, radius, callingProp);
 
             if (!foundEnd)
             {
@@ -87,7 +87,7 @@ namespace IceBlink2
                 pathNodes.Add(new Coordinate(end.X, end.Y));
                 for (int i = 0; i < values[end.X, end.Y]; i++)
                 {
-                    pathNodes.Add(getLowestNeighbor(pathNodes[pathNodes.Count - 1]));
+                    pathNodes.Add(getLowestNeighbor(pathNodes[pathNodes.Count - 1], callingProp));
                 }
                 //build list of path points
                 newPoint = pathNodes[pathNodes.Count - 2];
@@ -117,7 +117,7 @@ namespace IceBlink2
             }
             grid[start.X, start.Y] = 2; //2 marks the start point in the grid
             grid[end.X, end.Y] = 3; //3 marks the end point in the grid
-            buildPath(start, centerPointX, centerPointY, radius);
+            buildPath(start, centerPointX, centerPointY, radius, callingProp);
 
             if (!foundEnd)
             {
@@ -166,7 +166,7 @@ namespace IceBlink2
 
                     }
 
-                    pathNodes.Add(getLowestNeighbor(pathNodes[pathNodes.Count - 1]));
+                    pathNodes.Add(getLowestNeighbor(pathNodes[pathNodes.Count - 1], callingProp));
                     //Note to self: might be that the order is reverse here, check when debugging
 
                     int shiftXDifference = pathNodes[pathNodes.Count - 1].Y - pathNodes[pathNodes.Count - 2].Y;
@@ -214,7 +214,7 @@ namespace IceBlink2
 
 
         //build path for limited area
-        public void buildPath(Coordinate start, int centerPointX, int centerPointY, int radius)
+        public void buildPath(Coordinate start, int centerPointX, int centerPointY, int radius, Prop callingProp)
         {
             int minX = centerPointX - radius;
             if (minX < 0) { minX = 0; };
@@ -237,22 +237,22 @@ namespace IceBlink2
                     {
                         if (values[x, y] == next)
                         {
-                            if ((x + 1 < maxX) && (evaluateValue(x + 1, y, next)))
+                            if ((x + 1 < maxX) && (evaluateValue(x + 1, y, next, callingProp, x, y)))
                             {
                                 foundEnd = true;
                                 return;
                             }
-                            if ((x - 1 >= minX) && (evaluateValue(x - 1, y, next)))
+                            if ((x - 1 >= minX) && (evaluateValue(x - 1, y, next, callingProp, x, y)))
                             {
                                 foundEnd = true;
                                 return;
                             }
-                            if ((y + 1 < maxY) && (evaluateValue(x, y + 1, next)))
+                            if ((y + 1 < maxY) && (evaluateValue(x, y + 1, next, callingProp, x, y)))
                             {
                                 foundEnd = true;
                                 return;
                             }
-                            if ((y - 1 >= minY) && (evaluateValue(x, y - 1, next)))
+                            if ((y - 1 >= minY) && (evaluateValue(x, y - 1, next, callingProp,x ,y)))
                             {
                                 foundEnd = true;
                                 return;
@@ -329,7 +329,7 @@ namespace IceBlink2
         }
 
         //helper functions
-        public void buildPath(Coordinate start)
+        public void buildPath(Coordinate start, Prop callingProp)
         {
             int minX = 0;
             int minY = 0;
@@ -348,22 +348,22 @@ namespace IceBlink2
                     {
                         if (values[x,y] == next)
                         {
-                            if ((x + 1 < maxX) && (evaluateValue(x + 1, y, next)))
+                            if ((x + 1 < maxX) && (evaluateValue(x + 1, y, next, callingProp, x, y)))
                             {
                                 foundEnd = true;
                                 return;
                             }
-                            if ((x - 1 >= minX) && (evaluateValue(x - 1, y, next)))
+                            if ((x - 1 >= minX) && (evaluateValue(x - 1, y, next, callingProp, x, y)))
                             {
                                 foundEnd = true;
                                 return;
                             }
-                            if ((y + 1 < maxY) && (evaluateValue(x, y + 1, next)))
+                            if ((y + 1 < maxY) && (evaluateValue(x, y + 1, next, callingProp, x, y)))
                             {
                                 foundEnd = true;
                                 return;
                             }
-                            if ((y - 1 >= minY) && (evaluateValue(x, y - 1, next)))
+                            if ((y - 1 >= minY) && (evaluateValue(x, y - 1, next, callingProp, x, y)))
                             {
                                 foundEnd = true;
                                 return;
@@ -374,50 +374,417 @@ namespace IceBlink2
                 next++;
             }
         }
-        public bool evaluateValue(int x, int y, int next)
+        public bool evaluateValue(int x, int y, int next, Prop callingProp, int originX, int originY)
         {
-            //evaluate each surrounding node and replace if greater than next number + 1
-            //check for end            
-            if (grid[x,y] == 3)
-            {
-                values[x,y] = next + 1;
-                return true; //found end
-            }
-            //check if open and replace if lower
-            if (grid[x,y] == 0)
-            {
-                if (values[x,y] > next + 1)
+
+            //this will be set to true if currently checked square (next+1) can be reached
+            //we will not need to care for walkable as this was handled already beforehand (setting grid[x,y] to 1, ie closed)
+            //whether one can enter depends on the squares eligible as squares beforehand in path (next - 1, tricky, can be several), the current square (originX, originY, ie next) and the target square (x,y, ie next+1)
+            //all of these can be normal squares, bridges or ramps and all can have different height levels
+
+            /*
+
+            I. EW bridges - No assginement unless
+1. if value(x,y)next-1 square is east or west of bridge, value(x,y)next+1 can be assigned to the opposite squre (east or west) IF that square isWalkable && ((isRamp and has +1 height level)|| (has same height level))
+2. if value(x,y)next-1 square is north or south of bridge, value(x,y)next+1 can be assigned to the the opposite square (north or south) IF that square isWalkable && ((isRamp and has same height level)|| (has same height level -1))
+
+I. NS bridges - No assignment unless
+1. if value(x,y)next-1 square is north or south of bridge, value(x,y)next+1 can be assigned to the the opposite square (north or south) IF that square isWalkable && ((isRamp and has +1 height level)|| (has same height level))
+2. if value(x,y)next-1 square is east or west of bridge, value(x,y)next+1 can be assigned to the opposite square (east or west) IF that square isWalkable && ((isRamp and has same height level)|| (has same height level -1))
+
+Defien when bridge squares can enetred. same height or 1 lower; if ramp also 1 higher
+
+Bridges broader than 1 sqaure?
+
+RULES:
+1. Bridges squares dont neighbour each other (ie length is only one and no bridge next to bridge)
+2. They have same height squares at their end points and no same height squares at their sides
+3. Ramps can be netered from all sides
+
+
+            */
+
+            //if (mod.currentArea.Tiles)
+            //mod.currentArea.Tiles[yy * mod.currentArea.MapSizeX + xx];
+
+
+            //get the next -1 squares
+            //List<Tile> formerTiles = new List<Tile>();
+            Tile easternTile =  new Tile();
+            Tile westernTile = new Tile();
+            Tile southernTile = new Tile();
+            Tile northernTile = new Tile();
+            bool easternTileIsPriorTile = false;
+            bool westernTileIsPriorTile = false;
+            bool northernTileIsPriorTile = false;
+            bool southernTileIsPriorTile = false;
+
+            bool allowAssignment = false;
+            
+            
+                //former to east
+                if (originX + 1 <= mod.currentArea.MapSizeX - 1)
                 {
-                    values[x,y] = next + 1;
+                    if (values[originX + 1, originY] == next - 1)
+                    {
+                        easternTile = mod.currentArea.Tiles[originY * mod.currentArea.MapSizeX + originX + 1];
+                        easternTileIsPriorTile = true;
+                    }
                 }
-            }
-            return false; //didn't find end
+
+                //former to west
+                if (originX - 1 >= 0)
+                {
+                    if (values[originX - 1, originY] == next - 1)
+                    {
+                        westernTile = mod.currentArea.Tiles[originY * mod.currentArea.MapSizeX + originX - 1];
+                        westernTileIsPriorTile = true;
+                    }
+                }
+
+                //former to south
+                if (originY + 1 <= mod.currentArea.MapSizeY - 1)
+                {
+                    if (values[originX, originY + 1] == next - 1)
+                    {
+                        southernTile = mod.currentArea.Tiles[(originY + 1) * mod.currentArea.MapSizeX + originX];
+                        southernTileIsPriorTile = true;
+                    }
+                }
+
+                //former to north
+                if (originY - 1 >= 0)
+                {
+                    if (values[originX, originY - 1] == next - 1)
+                    {
+                        northernTile = mod.currentArea.Tiles[(originY - 1) * mod.currentArea.MapSizeX + originX];
+                        northernTileIsPriorTile = true;
+                    }
+                }
+
+                //Which square are we on? Branch from here.
+
+                //1. Current tile (next, orifinX, originY) is normal tile
+                if (!mod.currentArea.Tiles[(originY) * mod.currentArea.MapSizeX + originX].isRamp && !mod.currentArea.Tiles[(originY) * mod.currentArea.MapSizeX + originX].isEWBridge && !mod.currentArea.Tiles[(originY) * mod.currentArea.MapSizeX + originX].isNSBridge)
+                {
+                    //has same height level as target square?
+                    if (mod.currentArea.Tiles[originY * mod.currentArea.MapSizeX + originX].heightLevel == mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x].heightLevel)
+                    {
+                        allowAssignment = true;
+                    }
+
+                    //target is ramp, then additionally entering from one height level lower (climb up ramp) works
+                    else if ((mod.currentArea.Tiles[originY * mod.currentArea.MapSizeX + originX].heightLevel + 1 == mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x].heightLevel) && mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x].isRamp)
+                    {
+                        allowAssignment = true;
+                    }
+
+                    //target is EW-Bridge and origin square is north or south of bridge , then additionally entering from one height level lower (climb up ramp) works
+                    else if ((mod.currentArea.Tiles[originY * mod.currentArea.MapSizeX + originX].heightLevel + 1 == mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x].heightLevel) && mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x].isEWBridge)
+                    {
+                        //checking northern or southern square as target
+                        if ((originY > y) || (originY < y))
+                        {
+                            allowAssignment = true;
+                        }
+                    }
+
+                    //target is NS-Bridge and origin square is east or west of bridge , then additionally entering from one height level lower (climb up ramp) works
+                    else if ((mod.currentArea.Tiles[originY * mod.currentArea.MapSizeX + originX].heightLevel + 1 == mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x].heightLevel) && mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x].isNSBridge)
+                    {
+                        //checking eastern or western square as target
+                        if ((originX > x) || (originX < x))
+                        {
+                            allowAssignment = true;
+                        }
+                    }
+                }
+
+                //2.Current tile is ramp
+                else if (mod.currentArea.Tiles[(originY) * mod.currentArea.MapSizeX + originX].isRamp)
+                {
+                    //target is normal tile, entering from same or one height level higher is possible
+                    //same height (plain)
+                    if (mod.currentArea.Tiles[originY * mod.currentArea.MapSizeX + originX].heightLevel == mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x].heightLevel)
+                    {
+                        allowAssignment = true;
+                    }
+                    //target lower (walk down)
+                    else if (mod.currentArea.Tiles[originY * mod.currentArea.MapSizeX + originX].heightLevel + 1 == mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x].heightLevel)
+                    {
+                        allowAssignment = true;
+                    }
+
+                    //target is EW-Bridge and origin square is north or south of bridge , then additionally entering from one height level lower (climb up ramp) works
+                    else if ((mod.currentArea.Tiles[originY * mod.currentArea.MapSizeX + originX].heightLevel + 1 == mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x].heightLevel) && mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x].isEWBridge)
+                    {
+                        //checking northern or southern square as target
+                        if ((originY > y) || (originY < y))
+                        {
+                            allowAssignment = true;
+                        }
+                    }
+
+                    //target is NS-Bridge and origin square is east or west of bridge , then additionally entering from one height level lower (climb up ramp) works
+                    else if ((mod.currentArea.Tiles[originY * mod.currentArea.MapSizeX + originX].heightLevel + 1 == mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x].heightLevel) && mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x].isNSBridge)
+                    {
+                        //checking eastern or western square as target
+                        if ((originX > x) || (originX < x))
+                        {
+                            allowAssignment = true;
+                        }
+                    }
+                }
+
+                //3. Current tile is EW-bridge
+                else if (mod.currentArea.Tiles[(originY) * mod.currentArea.MapSizeX + originX].isEWBridge)
+                {
+                    //a. check west or east
+                    if ((originX > x) || (originX < x))
+                    {
+                        //must move OVER bridge in western or eastern direction
+                        if ((easternTileIsPriorTile) || (westernTileIsPriorTile))
+                        {
+                            //has same height level as target square?
+                            if (mod.currentArea.Tiles[originY * mod.currentArea.MapSizeX + originX].heightLevel == mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x].heightLevel)
+                            {
+                                allowAssignment = true;
+                            }
+                        }
+                    }
+
+                    //b. check north or south
+                    if ((originY > y) || (originY < y))
+                    {
+                        //must move UNDER bridge in northern or southern direction
+                        if ((southernTileIsPriorTile) || (northernTileIsPriorTile))
+                        {
+                            //has height level of target square - 1?
+                            if (mod.currentArea.Tiles[originY * mod.currentArea.MapSizeX + originX].heightLevel - 1 == mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x].heightLevel)
+                            {
+                                allowAssignment = true;
+                            }
+                        }
+                    }
+                }
+
+                //4. Current tile is NS-bridge, 
+                else if (mod.currentArea.Tiles[(originY) * mod.currentArea.MapSizeX + originX].isNSBridge)
+                {
+                    //a. check north or south
+                    if ((originY > y) || (originY < y))
+                    {
+                        //must move OVER bridge in northern or southern direction
+                        if ((northernTileIsPriorTile) || (southernTileIsPriorTile))
+                        {
+                            //has same height level as target square?
+                            if (mod.currentArea.Tiles[originY * mod.currentArea.MapSizeX + originX].heightLevel == mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x].heightLevel)
+                            {
+                                allowAssignment = true;
+                            }
+                        }
+                    }
+
+                    //b. check east or west
+                    if ((originX > x) || (originX < x))
+                    {
+                        //must move UNDER bridge in northern or southern direction
+                        if ((easternTileIsPriorTile) || (westernTileIsPriorTile))
+                        {
+                            //has height level of target square - 1?
+                            if (mod.currentArea.Tiles[originY * mod.currentArea.MapSizeX + originX].heightLevel - 1 == mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x].heightLevel)
+                            {
+                                allowAssignment = true;
+                            }
+                        }
+                    }
+                }
+
+
+                if (allowAssignment)
+                {
+                    //evaluate each surrounding node and replace if greater than next number + 1
+                    //check for end           
+                    if (grid[x, y] == 3)
+                    {
+                        values[x, y] = next + 1;
+                        return true; //found end
+                    }
+                    //check if open and replace if lower
+                    //this is our walkable check
+                    if (grid[x, y] == 0)
+                    {
+                        if (values[x, y] > next + 1)
+                        {
+                            values[x, y] = next + 1;
+                        }
+                    }
+
+                    return false; //didn't find end
+                }
+                else
+                {
+                    return false;
+                }
         }
-        public Coordinate getLowestNeighbor(Coordinate p)
+        public Coordinate getLowestNeighbor(Coordinate p, Prop callingProp)
         {
+            //work with last location of calling prop
+            
+
+
             int maxX = mod.currentArea.MapSizeX;
             int maxY = mod.currentArea.MapSizeY;
             Coordinate lowest = new Coordinate();
             int val = 1000;
+
+            //checking towards east
             if ((p.X + 1 < maxX) && (values[p.X + 1,p.Y] < val))
             {
-                val = values[p.X + 1,p.Y];
-                lowest = new Coordinate(p.X + 1, p.Y);
+                bool allowAssignment = false;
+                
+                //same hieght level target always works
+                if (callingProp.LocationZ == mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X + 1].heightLevel)
+                {
+                    allowAssignment = true;
+                }
+                
+                //if under bridge currently, also one height level lower also works
+                //determine via lastlocationZ of prop
+                //this assumes bridges of length one with -1 height squares on sides and same height squares on end
+                if (mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X].isEWBridge || mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X].isNSBridge)
+                {
+                    if ((callingProp.lastLocationZ + 1 == callingProp.LocationZ) && (callingProp.LocationZ - 1 == mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X + 1].heightLevel))
+                    {
+                        allowAssignment = true;
+                    }
+                }
+
+                //if on ramp currently, one level lower also works
+                if (mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X].isRamp)
+                {
+                    if (callingProp.LocationZ - 1 == mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X + 1].heightLevel)
+                    {
+                        allowAssignment = true;
+                    }
+                }
+
+                if (allowAssignment)
+                {
+                    val = values[p.X + 1, p.Y];
+                    lowest = new Coordinate(p.X + 1, p.Y);
+                }
             }
+            //checking towards west
             if ((p.X - 1 >= 0) && (values[p.X - 1,p.Y] < val))
             {
-                val = values[p.X - 1,p.Y];
-                lowest = new Coordinate(p.X - 1, p.Y);
+                bool allowAssignment = false;
+
+                //same height level target always works
+                if (callingProp.LocationZ == mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X - 1].heightLevel)
+                {
+                    allowAssignment = true;
+                }
+
+                //if under bridge currently, also one height level lower also works
+                //determine via lastlocationZ of prop
+                //this assumes bridges of length one with -1 height squares on sides and same height squares on end
+                if (mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X].isEWBridge || mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X].isNSBridge)
+                {
+                    if ((callingProp.lastLocationZ + 1 == callingProp.LocationZ) && (callingProp.LocationZ - 1 == mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X - 1].heightLevel))
+                    {
+                        allowAssignment = true;
+                    }
+                }
+
+                //if on ramp currently, one level lower also works
+                if (mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X].isRamp)
+                {
+                    if (callingProp.LocationZ - 1 == mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X - 1].heightLevel)
+                    {
+                        allowAssignment = true;
+                    }
+                }
+
+                if (allowAssignment)
+                {
+                    val = values[p.X - 1, p.Y];
+                    lowest = new Coordinate(p.X - 1, p.Y);
+                }
             }
+            //checking towards south
             if ((p.Y + 1 < maxY) && (values[p.X,p.Y + 1] < val))
             {
-                val = values[p.X,p.Y + 1];
-                lowest = new Coordinate(p.X, p.Y + 1);
+                bool allowAssignment = false;
+
+                //same hieght level target always works
+                if (callingProp.LocationZ == mod.currentArea.Tiles[(p.Y + 1) * mod.currentArea.MapSizeX + p.X].heightLevel)
+                {
+                    allowAssignment = true;
+                }
+
+                //if under bridge currently, also one height level lower also works
+                //determine via lastlocationZ of prop
+                //this assumes bridges of length one with -1 height squares on sides and same height squares on end
+                if (mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X].isEWBridge || mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X].isNSBridge)
+                {
+                    if ((callingProp.lastLocationZ + 1 == callingProp.LocationZ) && (callingProp.LocationZ - 1 == mod.currentArea.Tiles[(p.Y + 1) * mod.currentArea.MapSizeX + p.X].heightLevel))
+                    {
+                        allowAssignment = true;
+                    }
+                }
+
+                //if on ramp currently, one level lower also works
+                if (mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X].isRamp)
+                {
+                    if (callingProp.LocationZ - 1 == mod.currentArea.Tiles[(p.Y + 1) * mod.currentArea.MapSizeX + p.X].heightLevel)
+                    {
+                        allowAssignment = true;
+                    }
+                }
+
+                if (allowAssignment)
+                {
+                    val = values[p.X, p.Y + 1];
+                    lowest = new Coordinate(p.X, p.Y + 1);
+                }
             }
+            //checking towards north
             if ((p.Y - 1 >= 0) && (values[p.X,p.Y - 1] < val))
             {
-                val = values[p.X,p.Y - 1];
-                lowest = new Coordinate(p.X, p.Y - 1);
+                bool allowAssignment = false;
+
+                //same hieght level target always works
+                if (callingProp.LocationZ == mod.currentArea.Tiles[(p.Y - 1) * mod.currentArea.MapSizeX + p.X].heightLevel)
+                {
+                    allowAssignment = true;
+                }
+
+                //if under bridge currently, also one height level lower also works
+                //determine via lastlocationZ of prop
+                //this assumes bridges of length one with -1 height squares on sides and same height squares on end
+                if (mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X].isEWBridge || mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X].isNSBridge)
+                {
+                    if ((callingProp.lastLocationZ + 1 == callingProp.LocationZ) && (callingProp.LocationZ - 1 == mod.currentArea.Tiles[(p.Y - 1) * mod.currentArea.MapSizeX + p.X].heightLevel))
+                    {
+                        allowAssignment = true;
+                    }
+                }
+
+                //if on ramp currently, one level lower also works
+                if (mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X].isRamp)
+                {
+                    if (callingProp.LocationZ - 1 == mod.currentArea.Tiles[(p.Y - 1) * mod.currentArea.MapSizeX + p.X].heightLevel)
+                    {
+                        allowAssignment = true;
+                    }
+                }
+
+                if (allowAssignment)
+                {
+                    val = values[p.X, p.Y - 1];
+                    lowest = new Coordinate(p.X, p.Y - 1);
+                }
             }
             return lowest;
         }

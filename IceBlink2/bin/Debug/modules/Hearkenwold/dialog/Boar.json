@@ -23,7 +23,7 @@
           "NodePortraitBitmap": "",
           "NodeNpcName": "",
           "NodeSound": "none",
-          "conversationText": "As you inspect this shrubbery closer, a large animal suddenly bounds in front of the party, a menace of sharp tusks and hooves. Apparently taking offense at the competition for rare wild berries, the boar attacks!",
+          "conversationText": "<font color='yellow'>As you inspect this shrubbery closer, a large animal suddenly bounds in front of the party, a menace of sharp tusks and hooves. Apparently taking offense at the competition for rare wild berries, the boar attacks!</font>",
           "IsExpanded": true,
           "subNodes": [
             {
@@ -57,6 +57,7 @@
   "ConvoFileName": "Boar",
   "Narration": false,
   "PartyChat": false,
+  "SpeakToMainPcOnly": false,
   "NpcPortraitBitmap": "ptr_wboar.png",
   "DefaultNpcName": "",
   "NextIdNum": 2

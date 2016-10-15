@@ -23,7 +23,7 @@
           "NodePortraitBitmap": "",
           "NodeNpcName": "",
           "NodeSound": "none",
-          "conversationText": "As you approach the cave, monsters rush out to greet the party with savage fury.",
+          "conversationText": "<font color='yellow'>As you approach the cave, monsters rush out to greet the party with savage fury.</font>",
           "IsExpanded": true,
           "subNodes": [
             {
@@ -57,6 +57,7 @@
   "ConvoFileName": "Goblins2",
   "Narration": false,
   "PartyChat": true,
+  "SpeakToMainPcOnly": false,
   "NpcPortraitBitmap": "ptr_goblins.png",
   "DefaultNpcName": "",
   "NextIdNum": 2

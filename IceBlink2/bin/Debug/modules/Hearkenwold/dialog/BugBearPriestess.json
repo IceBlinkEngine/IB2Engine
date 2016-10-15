@@ -23,7 +23,7 @@
           "NodePortraitBitmap": "",
           "NodeNpcName": "",
           "NodeSound": "none",
-          "conversationText": "In this room, you encounter a group of bugbear priestesses performing a ritual.",
+          "conversationText": "<font color='yellow'>In this room, you encounter a group of bugbear priestesses performing a ritual. The females of this tribe are heavily into the occult.</font>",
           "IsExpanded": true,
           "subNodes": [
             {
@@ -39,7 +39,15 @@
               "conversationText": "Bugbears attack!",
               "IsExpanded": true,
               "subNodes": [],
-              "actions": [],
+              "actions": [
+                {
+                  "a_script": "gaSetGlobalInt.cs",
+                  "a_parameter_1": "BugbearCult",
+                  "a_parameter_2": "1",
+                  "a_parameter_3": null,
+                  "a_parameter_4": null
+                }
+              ],
               "conditions": [],
               "isLink": false
             }

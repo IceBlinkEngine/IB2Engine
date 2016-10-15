@@ -101,6 +101,12 @@ namespace IceBlink2
         public List<float> lightSourceRingHaloIntensity = new List<float>();
         //public float partyFocalHaloIntensity = 1f;
 
+        public bool isRamp = false;
+        public bool isEWBridge = false;
+        public bool isNSBridge = false;
+        public int heightLevel = 0;
+        public bool isShadowCaster = true;
+
         public Tile()
         {
         }
