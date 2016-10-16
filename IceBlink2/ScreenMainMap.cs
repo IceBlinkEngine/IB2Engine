@@ -25595,17 +25595,27 @@ namespace IceBlink2
                     if (mod.playerList[0].combatFacingLeft == true)
                     {
                         gv.oXshift = gv.oXshift + shift / 2;
+                        shift = shift / 4 * 3;
                     }
                     else
                     {
-                        gv.oXshift = gv.oXshift - shift / 2;
+                        shift = shift / 4 * 3;
                     }
                     int reducedSquareSize = gv.squareSize * 2 / 3;
                     for (int i = mod.playerList.Count - 1; i >= 0; i--)
                     {
                         if ((i == 0) && (i != mod.selectedPartyLeader))
                         {
-                            dst = new IbRect(x + gv.oXshift + shift + mapStartLocXinPixels, y + reducedSquareSize * 47 / 100, reducedSquareSize, reducedSquareSize);
+
+                            if (mod.playerList[0].combatFacingLeft == false)
+                            {
+                                dst = new IbRect(x + gv.oXshift + (5 * shift / 2) + mapStartLocXinPixels, y + reducedSquareSize * 47 / 100, reducedSquareSize, reducedSquareSize);
+                            }
+                            else
+                            {
+                                dst = new IbRect(x + gv.oXshift + (shift) + mapStartLocXinPixels, y + reducedSquareSize * 47 / 100, reducedSquareSize, reducedSquareSize);
+                            }
+                            //dst = new IbRect(x + gv.oXshift + shift + mapStartLocXinPixels, y + reducedSquareSize * 47 / 100, reducedSquareSize, reducedSquareSize);
 
                             if (mod.currentArea.useMiniProps)
                             {
@@ -25616,7 +25626,8 @@ namespace IceBlink2
                                 }
                                 else
                                 {
-                                    dst.Left -= (int)(gv.squareSize / 4);
+                                    dst.Left -= (int)(gv.squareSize / 4 * 100 / 100);
+                                    dst.Left += gv.squareSize * 2 / 4;
                                 }
                                 dst.Height -= (int)(dst.Height / 2);
                                 dst.Width -= (int)(dst.Width / 2);
@@ -25630,7 +25641,8 @@ namespace IceBlink2
                                 }
                                 else
                                 {
-                                    dst.Left -= (int)(gv.squareSize * 3 / 8);
+                                    dst.Left -= (int)(gv.squareSize * 3 / 8 * 100 / 100);
+                                    dst.Left += gv.squareSize * 3 / 4;
                                 }
                                 dst.Height -= (int)(dst.Height * 3 / 4);
                                 dst.Width -= (int)(dst.Width * 3 / 4);
@@ -25651,7 +25663,8 @@ namespace IceBlink2
                                 }
                                 else
                                 {
-                                    dst.Left -= (int)(gv.squareSize / 4);
+                                    dst.Left -= (int)(gv.squareSize / 4 * 100 / 100);
+                                    dst.Left += gv.squareSize * 2 / 4;
                                 }
                                 dst.Height -= (int)(dst.Height / 2);
                                 dst.Width -= (int)(dst.Width / 2);
@@ -25666,7 +25679,8 @@ namespace IceBlink2
                                 }
                                 else
                                 {
-                                    dst.Left -= (int)(gv.squareSize * 3 / 8);
+                                    dst.Left -= (int)(gv.squareSize * 3 / 8 * 100 / 100);
+                                    dst.Left += gv.squareSize * 3 / 4;
                                 }
                                 dst.Height -= (int)(dst.Height * 3 / 4);
                                 dst.Width -= (int)(dst.Width * 3 / 4);
@@ -25678,7 +25692,14 @@ namespace IceBlink2
                         {
                             if (mod.selectedPartyLeader == 0)
                             {
-                                dst = new IbRect(x + gv.oXshift + (shift) + mapStartLocXinPixels, y + reducedSquareSize * 47 / 100, reducedSquareSize, reducedSquareSize);
+                                if (mod.playerList[0].combatFacingLeft == false)
+                                {
+                                    dst = new IbRect(x + gv.oXshift + (5 * shift / 2) + mapStartLocXinPixels, y + reducedSquareSize * 47 / 100, reducedSquareSize, reducedSquareSize);
+                                }
+                                else
+                                {
+                                    dst = new IbRect(x + gv.oXshift + (shift) + mapStartLocXinPixels, y + reducedSquareSize * 47 / 100, reducedSquareSize, reducedSquareSize);
+                                }
                             }
                             else if (mod.selectedPartyLeader == 1)
                             {
@@ -25698,8 +25719,9 @@ namespace IceBlink2
                                     }
                                     else
                                     {
-                                        dst.Left -= (int)(gv.squareSize / 4);
-                                    }
+                                        dst.Left -= (int)(gv.squareSize / 4 * 100 / 100);
+                                        dst.Left += gv.squareSize * 2 / 4;
+                                }
                                     dst.Height -= (int)(dst.Height / 2);
                                     dst.Width -= (int)(dst.Width / 2);
                                 }
@@ -25712,7 +25734,8 @@ namespace IceBlink2
                                 }
                                 else
                                 {
-                                    dst.Left -= (int)(gv.squareSize * 3 / 8);
+                                    dst.Left -= (int)(gv.squareSize * 3 / 8 * 100 / 100);
+                                    dst.Left += gv.squareSize * 3 / 4;
                                 }
                                 dst.Height -= (int)(dst.Height * 3 / 4);
                                 dst.Width -= (int)(dst.Width * 3 / 4);
@@ -25737,7 +25760,7 @@ namespace IceBlink2
                             }
                             else
                             {
-                                dst = new IbRect(x + gv.oXshift - (shift * 175 / 100) + mapStartLocXinPixels, y + reducedSquareSize * 47 / 100, reducedSquareSize, reducedSquareSize);
+                                dst = new IbRect(x + gv.oXshift - (shift * 125 / 100) + mapStartLocXinPixels, y + reducedSquareSize * 47 / 100, reducedSquareSize, reducedSquareSize);
                             }
 
                             if (mod.currentArea.useMiniProps)
@@ -25749,8 +25772,9 @@ namespace IceBlink2
                                     }
                                     else
                                     {
-                                        dst.Left -= (int)(gv.squareSize / 4);
-                                    }
+                                        dst.Left -= (int)(gv.squareSize / 4 * 100 / 100);
+                                    dst.Left += gv.squareSize * 2 / 4;
+                                }
                                     dst.Height -= (int)(dst.Height / 2);
                                     dst.Width -= (int)(dst.Width / 2);
                                 }
@@ -25763,7 +25787,8 @@ namespace IceBlink2
                                 }
                                 else
                                 {
-                                    dst.Left -= (int)(gv.squareSize * 3 / 8);
+                                    dst.Left -= (int)(gv.squareSize * 3 / 8 * 100 / 100);
+                                    dst.Left += gv.squareSize * 3 / 4;
                                 }
                                 dst.Height -= (int)(dst.Height * 3 / 4);
                                 dst.Width -= (int)(dst.Width * 3 / 4);
@@ -25791,7 +25816,7 @@ namespace IceBlink2
                             }
                             else
                             {
-                                dst = new IbRect(x + gv.oXshift + (shift * 250 / 100) + mapStartLocXinPixels, y + reducedSquareSize * 47 / 100, reducedSquareSize, reducedSquareSize);
+                                dst = new IbRect(x + gv.oXshift - (shift * 50 / 100) + mapStartLocXinPixels, y + reducedSquareSize * 47 / 100, reducedSquareSize, reducedSquareSize);
                             }
 
                             if (mod.currentArea.useMiniProps)
@@ -25803,8 +25828,9 @@ namespace IceBlink2
                                     }
                                     else
                                     {
-                                        dst.Left -= (int)(gv.squareSize / 4);
-                                    }
+                                        dst.Left -= (int)(gv.squareSize / 4 * 100 / 100);
+                                        dst.Left += gv.squareSize * 2 / 4;
+                                }
                                     dst.Height -= (int)(dst.Height / 2);
                                     dst.Width -= (int)(dst.Width / 2);
                                 }
@@ -25817,7 +25843,8 @@ namespace IceBlink2
                                 }
                                 else
                                 {
-                                    dst.Left -= (int)(gv.squareSize * 3 / 8);
+                                    dst.Left -= (int)(gv.squareSize * 3 / 8 * 100 / 100);
+                                    dst.Left += gv.squareSize * 3 / 4;
                                 }
                                 dst.Height -= (int)(dst.Height * 3 / 4);
                                 dst.Width -= (int)(dst.Width * 3 / 4);
@@ -25834,23 +25861,23 @@ namespace IceBlink2
                             }
                             else if (mod.selectedPartyLeader == 1)
                             {
-                                dst = new IbRect(x + gv.oXshift + (shift * 250 / 100) + mapStartLocXinPixels, y + reducedSquareSize * 47 / 100, reducedSquareSize, reducedSquareSize);
+                                dst = new IbRect(x + gv.oXshift + (shift * 50 / 100) + mapStartLocXinPixels, y + reducedSquareSize * 47 / 100, reducedSquareSize, reducedSquareSize);
                             }
                             else if (mod.selectedPartyLeader == 2)
                             {
-                                dst = new IbRect(x + gv.oXshift + (shift * 250 / 100) + mapStartLocXinPixels, y + reducedSquareSize * 47 / 100, reducedSquareSize, reducedSquareSize);
+                                dst = new IbRect(x + gv.oXshift + (shift * 50 / 100) + mapStartLocXinPixels, y + reducedSquareSize * 47 / 100, reducedSquareSize, reducedSquareSize);
                             }
                             else if (mod.selectedPartyLeader == 3)
                             {
-                                dst = new IbRect(x + gv.oXshift + (shift * 250 / 100) + mapStartLocXinPixels, y + reducedSquareSize * 47 / 100, reducedSquareSize, reducedSquareSize);
+                                dst = new IbRect(x + gv.oXshift + (shift * 50 / 100) + mapStartLocXinPixels, y + reducedSquareSize * 47 / 100, reducedSquareSize, reducedSquareSize);
                             }
                             else if (mod.selectedPartyLeader == 4)
                             {
-                                dst = new IbRect(x + gv.oXshift + (shift * 250 / 100) + mapStartLocXinPixels, y + reducedSquareSize * 47 / 100, reducedSquareSize, reducedSquareSize);
+                                dst = new IbRect(x + gv.oXshift + (shift * 50 / 100) + mapStartLocXinPixels, y + reducedSquareSize * 47 / 100, reducedSquareSize, reducedSquareSize);
                             }
                             else
                             {
-                                dst = new IbRect(x + gv.oXshift - (shift * 250 / 100) + mapStartLocXinPixels, y + reducedSquareSize * 47 / 100, reducedSquareSize, reducedSquareSize);
+                                dst = new IbRect(x + gv.oXshift - (shift * 50 / 100) + mapStartLocXinPixels, y + reducedSquareSize * 47 / 100, reducedSquareSize, reducedSquareSize);
                             }
 
                             if (mod.currentArea.useMiniProps)
@@ -25862,8 +25889,9 @@ namespace IceBlink2
                                     }
                                     else
                                     {
-                                        dst.Left -= (int)(gv.squareSize / 4);
-                                    }
+                                        dst.Left -= (int)(gv.squareSize / 4 * 100 / 100);
+                                        dst.Left += gv.squareSize * 2 / 4;
+                                }
                                     dst.Height -= (int)(dst.Height / 2);
                                     dst.Width -= (int)(dst.Width / 2);
                                 }
@@ -25876,7 +25904,8 @@ namespace IceBlink2
                                 }
                                 else
                                 {
-                                    dst.Left -= (int)(gv.squareSize * 3 / 8);
+                                    dst.Left -= (int)(gv.squareSize * 3 / 8 * 100 / 100);
+                                    dst.Left += gv.squareSize * 3 / 4;
                                 }
                                 dst.Height -= (int)(dst.Height * 3 / 4);
                                 dst.Width -= (int)(dst.Width * 3 / 4);
@@ -25888,11 +25917,20 @@ namespace IceBlink2
                     
                     if (mod.playerList[0].combatFacingLeft == true)
                     {
+                        shift = gv.squareSize / 3;
+                        if (mod.currentArea.useMiniProps)
+                        {
+                            shift = (int)shift / 2;
+                        }
+                        else if (mod.currentArea.useSuperTinyProps)
+                        {
+                            shift = (int)shift / 4;
+                        }
                         gv.oXshift = gv.oXshift - shift / 2;
                     }
                     else
                     {
-                        gv.oXshift = gv.oXshift + shift / 2;
+                        //gv.oXshift = gv.oXshift + shift / 2;
                     }
                 }
                 //always draw party leader on top
@@ -25974,7 +26012,8 @@ namespace IceBlink2
                     }
                     else
                     {
-                        dst.Left -= (int)(gv.squareSize / 4);
+                        dst.Left -= (int)(gv.squareSize / 4 * 100 / 100);
+                        dst.Left += gv.squareSize * 2 / 4;
                     }
                     dst.Height -= (int)(dst.Height / 2);
                     dst.Width -= (int)(dst.Width / 2);
@@ -25988,7 +26027,8 @@ namespace IceBlink2
                     }
                     else
                     {
-                        dst.Left -= (int)(gv.squareSize * 3 / 8);
+                        dst.Left -= (int)(gv.squareSize * 3 / 8 * 100 / 100);
+                        dst.Left += gv.squareSize * 3 / 4;
                     }
                     dst.Height -= (int)(dst.Height * 3 / 4);
                     dst.Width -= (int)(dst.Width * 3 / 4);

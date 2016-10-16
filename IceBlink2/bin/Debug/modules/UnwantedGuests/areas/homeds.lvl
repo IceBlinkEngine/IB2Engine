@@ -13,7 +13,7 @@
   "westernNeighbourArea": "",
   "northernNeighbourArea": "",
   "southernNeighbourArea": "",
-  "useMiniProps": false,
+  "useMiniProps": true,
   "useSuperTinyProps": false,
   "drawWithLessVisibleSeamsButMorePixelated": false,
   "use100pixSquares": false,
