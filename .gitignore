@@ -185,3 +185,17 @@ FakesAssemblies/
 GeneratedArtifacts/
 _Pvt_Extensions/
 ModelManifest.xml
+/IceBlink2/bin/Debug/modules/Blackwinter
+/IceBlink2/bin/Debug/saves
+/IceBlink2/bin/Debug/SharpDX.xml
+/IceBlink2/bin/Debug/SharpDX.DXGI.xml
+/IceBlink2/bin/Debug/SharpDX.DXGI.dll
+/IceBlink2/bin/Debug/SharpDX.dll
+/IceBlink2/bin/Debug/SharpDX.Direct3D11.xml
+/IceBlink2/bin/Debug/SharpDX.Direct3D11.dll
+/IceBlink2/bin/Debug/SharpDX.Direct2D1.xml
+/IceBlink2/bin/Debug/SharpDX.Direct2D1.dll
+/IceBlink2/bin/Debug/IceBlink2.vshost.exe.manifest
+/IceBlink2/bin/Debug/IceBlink2.vshost.exe.config
+/IceBlink2/bin/Debug/IceBlink2.exe.config
+/IceBlink2/bin/Debug/IB2ErrorLog.txt
