@@ -716,6 +716,8 @@ namespace IceBlink2
                     {
                         gv.PlaySound("btn_click");
                         gv.cc.tutorialPcCreation();
+
+                        //gv.sf.MessageBoxHtml(this.stringMessageMainMap);
                     }
                     else if (btnPlayerGuideOnPcCreation.getImpact(x, y))
                     {

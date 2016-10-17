@@ -48,14 +48,17 @@ namespace IceBlink2
             this.IceBlinkButtonClose.Visible = false;
             this.IceBlinkButtonResize.Visible = false;
             this.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.form_MouseWheel);
-            //InitializeHtmlLogBox(10, 30,580 * (int)(100f/gv.squareSize), 800 * (int)(100f/gv.squareSize));
+            this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.form_MouseMove);
+            //InitializeHtmlLogBox(10, 30,580 * (int)(100f/gv.squareSize), 400 * (int)(100f/gv.squareSize));
+            InitializeHtmlLogBox(10, 30, 780 * (int)(100f / gv.squareSize), 540 * (int)(100f / gv.squareSize));
+
             //tried to adjust the size of the HtmlLogBox for my laptop resolution, tried to do in a dynamic wa
             //this one is still used when calling the info/tutorial ingame texts
             //InitializeHtmlLogBox(10, 30, (int)(580*(1920f/gv.Width) - (gv.squareSize/2)), (int)(400*(100f/gv.squareSize)));
             //InitializeHtmlLogBox(10, 30, (int)(580 * (1920f / gv.Width)), (int)(400 * (100f / gv.squareSize)));                                                                                                                            
-            InitializeHtmlLogBox(10, 30, (int)(580 * (100f / gv.squareSize)), (int)(400 * (100f / gv.squareSize)));  
+            //InitializeHtmlLogBox(10, 30, (int)(580 * 100 /150 * (100f / gv.squareSize)), (int)(400 * 100 / 150 * (100f / gv.squareSize)));  
             AddHtmlTextToLog(htmlstring);
-            numberOfLinesToShow = 10;
+            numberOfLinesToShow = 17;
             AddHtmlTextToLog("");
             currentTopLineIndex = 0;
         }
@@ -69,6 +72,10 @@ namespace IceBlink2
         private void form_MouseWheel(object sender, MouseEventArgs e)
         {
             onMouseWheel(sender, e);
+        }
+        private void form_MouseMove(object sender, MouseEventArgs e)
+        {
+            onMouseMove(sender, e);
         }
         private void Form1_MouseUp(object sender, MouseEventArgs e)
         {
@@ -93,6 +100,8 @@ namespace IceBlink2
             }
             tbHeight = this.Height - tbXloc - 100;
             numberOfLinesToShow = (tbHeight / font.Height) - 7;
+            //numberOfLinesToShow = (int)(1080f / gv.screenHeight);
+
         }
 
         //From IbbHtmlLogBox
@@ -165,7 +174,7 @@ namespace IceBlink2
                         font = new Font(fontfamily, newWord.fontSize, newWord.fontStyle);
                         int wordWidth = (int)((font.Size / fontHeightToWidthRatio) * (float)newWord.text.Length);
                         if (font.Height > lineHeight) { lineHeight = font.Height; }
-                        if (xLoc + wordWidth > width) //word wrap
+                        if (xLoc + wordWidth > (width * (1920f / gv.screenWidth))) //word wrap
                         {
                             //end last line and add it to the log
                             newLine.lineHeight = lineHeight;
@@ -251,7 +260,7 @@ namespace IceBlink2
                         int wordWidth = (int)((font.Size / fontHeightToWidthRatio) * (float)newWord.text.Length * (1920f/gv.Width));
 
                         if (font.Height > lineHeight) { lineHeight = font.Height; }
-                        if (xLoc + wordWidth > width) //word wrap
+                        if (xLoc + wordWidth > (width * (1920f / gv.screenWidth))) //word wrap
                         {
                             //end last line and add it to the log
                             newLine.lineHeight = lineHeight;
@@ -282,10 +291,12 @@ namespace IceBlink2
         {
             //ratio of #lines to #pixels
             float ratio = (float)(logLinesList.Count) / (float)(tbHeight - btn_down.Height - btn_up.Height - btn_scroll.Height);
+            //float ratio = (float)(logLinesList.Count) / (float)(tbHeight);
             if (ratio < 1.0f) { ratio = 1.0f; }
             if (moveDeltaY != 0)
             {
                 int lineMove = (startY + moveDeltaY) * (int)ratio;
+                lineMove = (int)(lineMove * 37f / 100f);
                 SetCurrentTopLineAbsoluteIndex(lineMove);
             }
             //only draw lines needed to fill textbox
@@ -311,7 +322,13 @@ namespace IceBlink2
             }
 
             //determine the scrollbutton location            
-            scrollButtonYLoc = (currentTopLineIndex / (int)ratio);
+            //scrollButtonYLoc = (currentTopLineIndex / (int)ratio);
+            //bali
+            float rhelp1 = currentTopLineIndex;
+            float rhelp2 = logLinesList.Count;
+            float ratio2 = rhelp1/rhelp2;
+            ratio2 *= 100;
+            scrollButtonYLoc = (int)((ratio2 * (tbHeight - btn_down.Height - btn_scroll.Height))/100f);
             if (scrollButtonYLoc > tbHeight - btn_down.Height - btn_scroll.Height)
             {
                 scrollButtonYLoc = tbHeight - btn_down.Height - btn_scroll.Height;
@@ -341,9 +358,10 @@ namespace IceBlink2
         public void SetCurrentTopLineIndex(int changeValue)
         {
             currentTopLineIndex += changeValue;
-            if (currentTopLineIndex > logLinesList.Count - numberOfLinesToShow)
+            if (currentTopLineIndex > logLinesList.Count - 12)
             {
-                currentTopLineIndex = logLinesList.Count - numberOfLinesToShow;
+                //currentTopLineIndex = logLinesList.Count - numberOfLinesToShow;
+                currentTopLineIndex = logLinesList.Count - 12;
             }
             if (currentTopLineIndex < 0)
             {
@@ -357,9 +375,10 @@ namespace IceBlink2
             {
                 currentTopLineIndex = 0;
             }
-            if (currentTopLineIndex > logLinesList.Count - numberOfLinesToShow)
+            if (currentTopLineIndex > logLinesList.Count - 12)
             {
-                currentTopLineIndex = logLinesList.Count - numberOfLinesToShow;
+                //currentTopLineIndex = logLinesList.Count - numberOfLinesToShow;
+                currentTopLineIndex = logLinesList.Count - 12;
             }
         }
         
@@ -463,7 +482,7 @@ namespace IceBlink2
         }
         private bool isMouseWithinScrollBar(MouseEventArgs e)
         {
-            if ((e.X > tbWidth + tbXloc - btn_up.Width) && (e.X < tbWidth + tbXloc) && (e.Y > tbYloc) && (e.Y < tbHeight + tbYloc))
+            if ((e.X > tbWidth + tbXloc - btn_up.Width) && (e.X < tbWidth + tbXloc) && (e.Y > (tbYloc -100)) && (e.Y < tbHeight + tbYloc))
             {
                 return true;
             }
@@ -486,7 +505,11 @@ namespace IceBlink2
         }
         public void onMouseDown(object sender, MouseEventArgs e)
         {
-            moveDeltaY = 0;
+            //if (!isMouseWithinScrollBar(e))
+            //{
+                moveDeltaY = 0;
+            //}
+
             if (isMouseWithinScrollBar(e))
             {
                 if (e.Y - tbYloc < scrollButtonYLoc)
@@ -521,6 +544,7 @@ namespace IceBlink2
                     moveEY = e.Y;
                     xLoc = 0;
                     moveDeltaY = e.Y - moveScrollingStartY;
+                    this.Invalidate();
                 }
             }
             else if (isMouseWithinTextBox(e))
@@ -533,19 +557,22 @@ namespace IceBlink2
         }
         public void onMouseUp(object sender, MouseEventArgs e)
         {
-            moveDeltaY = 0;
+            //if (!isMouseWithinScrollBar(e))
+            //{
+                moveDeltaY = 0;
+            //}
             moveScrollingStartY = 0;
             if (isMouseWithinScrollBar(e))
             {
                 //if click on top button, move 5 lines up
                 if (e.Y < tbYloc + btn_up.Height)
                 {
-                    SetCurrentTopLineIndex(-5);
+                    SetCurrentTopLineIndex(-12);
                     this.Invalidate();
                 }
                 else if (e.Y > tbYloc + tbHeight - btn_down.Height)
                 {
-                    SetCurrentTopLineIndex(5);
+                    SetCurrentTopLineIndex(12);
                     this.Invalidate();
                 }
             }
