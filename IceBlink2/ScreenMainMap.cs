@@ -30612,210 +30612,210 @@ namespace IceBlink2
                         
                         //temporara end
                         */
-/*
-                        gv.screenParty.resetPartyScreen();
-                        gv.screenType = "party";
-                        gv.cc.tutorialMessageParty(false);
-                    }
-                    else if ((gv.cc.ptrPc0.getImpact(x, y)) && (mod.playerList.Count > 0))
-                    {
-                        if (e.Button == MouseButtons.Left)
-                        {
-                            mod.selectedPartyLeader = 0;
-                            gv.cc.partyScreenPcIndex = 0;
-                            gv.screenParty.resetPartyScreen();
-                            gv.screenType = "party";
-                            gv.cc.tutorialMessageParty(false);
-                        }
-                        else if (e.Button == MouseButtons.Right)
-                        {
-                            mod.selectedPartyLeader = 0;
-                            gv.cc.partyScreenPcIndex = 0;
-                        }
-                    }
-                    else if ((gv.cc.ptrPc1.getImpact(x, y)) && (mod.playerList.Count > 1))
-                    {
-                        if (e.Button == MouseButtons.Left)
-                        {
-                            mod.selectedPartyLeader = 1;
-                            gv.cc.partyScreenPcIndex = 1;
-                            gv.screenParty.resetPartyScreen();
-                            gv.screenType = "party";
-                            gv.cc.tutorialMessageParty(false);
-                        }
-                        else if (e.Button == MouseButtons.Right)
-                        {
-                            mod.selectedPartyLeader = 1;
-                            gv.cc.partyScreenPcIndex = 1;
-                        }
-                    }
-                    else if ((gv.cc.ptrPc2.getImpact(x, y)) && (mod.playerList.Count > 2))
-                    {
-                        if (e.Button == MouseButtons.Left)
-                        {
-                            mod.selectedPartyLeader = 2;
-                            gv.cc.partyScreenPcIndex = 2;
-                            gv.screenParty.resetPartyScreen();
-                            gv.screenType = "party";
-                            gv.cc.tutorialMessageParty(false);
-                        }
-                        else if (e.Button == MouseButtons.Right)
-                        {
-                            mod.selectedPartyLeader = 2;
-                            gv.cc.partyScreenPcIndex = 2;
-                        }
-                    }
-                    else if ((gv.cc.ptrPc3.getImpact(x, y)) && (mod.playerList.Count > 3))
-                    {
-                        if (e.Button == MouseButtons.Left)
-                        {
-                            mod.selectedPartyLeader = 3;
-                            gv.cc.partyScreenPcIndex = 3;
-                            gv.screenParty.resetPartyScreen();
-                            gv.screenType = "party";
-                            gv.cc.tutorialMessageParty(false);
-                        }
-                        else if (e.Button == MouseButtons.Right)
-                        {
-                            mod.selectedPartyLeader = 3;
-                            gv.cc.partyScreenPcIndex = 3;
-                        }
-                    }
-                    else if ((gv.cc.ptrPc4.getImpact(x, y)) && (mod.playerList.Count > 4))
-                    {
-                        if (e.Button == MouseButtons.Left)
-                        {
-                            mod.selectedPartyLeader = 4;
-                            gv.cc.partyScreenPcIndex = 4;
-                            gv.screenParty.resetPartyScreen();
-                            gv.screenType = "party";
-                            gv.cc.tutorialMessageParty(false);
-                        }
-                        else if (e.Button == MouseButtons.Right)
-                        {
-                            mod.selectedPartyLeader = 4;
-                            gv.cc.partyScreenPcIndex = 4;
-                        }
-                    }
-                    else if ((gv.cc.ptrPc5.getImpact(x, y)) && (mod.playerList.Count > 5))
-                    {
-                        if (e.Button == MouseButtons.Left)
-                        {
-                            mod.selectedPartyLeader = 5;
-                            gv.cc.partyScreenPcIndex = 5;
-                            gv.screenParty.resetPartyScreen();
-                            gv.screenType = "party";
-                            gv.cc.tutorialMessageParty(false);
-                        }
-                        else if (e.Button == MouseButtons.Right)
-                        {
-                            mod.selectedPartyLeader = 5;
-                            gv.cc.partyScreenPcIndex = 5;
-                        }
-                    }
-                    else if (gv.cc.btnInventory.getImpact(x, y))
-                    {
-                        //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-                        //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
-                        gv.screenType = "inventory";
-                        gv.screenInventory.resetInventory();
-                        gv.cc.tutorialMessageInventory(false);
-                    }
-                    else if (btnJournal.getImpact(x, y))
-                    {
-                        //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-                        //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
-                        gv.screenType = "journal";
-                    }
-                    else if (btnSettings.getImpact(x, y))
-                    {
-                        //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-                        //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
-                        gv.cc.doSettingsDialogs();
-                    }
-                    else if (btnSave.getImpact(x, y))
-                    {
-                        //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-                        //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
-                        if (mod.allowSave)
-                        {
-                            gv.cc.doSavesDialog();
-                        }
-                    }
-                    else if (btnWait.getImpact(x, y))
-                    {
-                        //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-                        //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
-                        gv.cc.doUpdate();
-                    }
-                    else if (btnCastOnMainMap.getImpact(x, y))
-                    {
-
-                        //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-                        //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
-
-                        List<string> pcNames = new List<string>();
-                        List<int> pcIndex = new List<int>();
-                        pcNames.Add("cancel");
-
-                        int cnt = 0;
-                        foreach (Player p in mod.playerList)
-                        {
-                            if (hasMainMapTypeSpell(p))
-                            {
-                                pcNames.Add(p.name);
-                                pcIndex.Add(cnt);
+        /*
+                                gv.screenParty.resetPartyScreen();
+                                gv.screenType = "party";
+                                gv.cc.tutorialMessageParty(false);
                             }
-                            cnt++;
-                        }
-
-                        //If only one PC, do not show select PC dialog...just go to cast selector
-                        if (pcIndex.Count == 1)
-                        {
-                            try
+                            else if ((gv.cc.ptrPc0.getImpact(x, y)) && (mod.playerList.Count > 0))
                             {
-                                gv.screenCastSelector.castingPlayerIndex = pcIndex[0];
-                                gv.screenCombat.spellSelectorIndex = 0;
-                                gv.screenType = "mainMapCast";
-                                return;
-                            }
-                            catch (Exception ex)
-                            {
-                                //print error
-                                IBMessageBox.Show(gv, "error with Pc Selector screen: " + ex.ToString());
-                                gv.errorLog(ex.ToString());
-                                return;
-                            }
-                        }
-
-                        using (ItemListSelector pcSel = new ItemListSelector(gv, pcNames, "Select Caster"))
-                        {
-                            pcSel.ShowDialog();
-
-                            if (pcSel.selectedIndex > 0)
-                            {
-                                try
+                                if (e.Button == MouseButtons.Left)
                                 {
-                                    gv.screenCastSelector.castingPlayerIndex = pcIndex[pcSel.selectedIndex - 1]; // pcIndex.get(item - 1);
-                                    gv.screenCombat.spellSelectorIndex = 0;
-                                    gv.screenType = "mainMapCast";
+                                    mod.selectedPartyLeader = 0;
+                                    gv.cc.partyScreenPcIndex = 0;
+                                    gv.screenParty.resetPartyScreen();
+                                    gv.screenType = "party";
+                                    gv.cc.tutorialMessageParty(false);
                                 }
-                                catch (Exception ex)
+                                else if (e.Button == MouseButtons.Right)
                                 {
-                                    IBMessageBox.Show(gv, "error with Pc Selector screen: " + ex.ToString());
-                                    gv.errorLog(ex.ToString());
-                                    //print error
+                                    mod.selectedPartyLeader = 0;
+                                    gv.cc.partyScreenPcIndex = 0;
                                 }
                             }
-                            else if (pcSel.selectedIndex == 0) // selected "cancel"
+                            else if ((gv.cc.ptrPc1.getImpact(x, y)) && (mod.playerList.Count > 1))
                             {
-                                //do nothing
+                                if (e.Button == MouseButtons.Left)
+                                {
+                                    mod.selectedPartyLeader = 1;
+                                    gv.cc.partyScreenPcIndex = 1;
+                                    gv.screenParty.resetPartyScreen();
+                                    gv.screenType = "party";
+                                    gv.cc.tutorialMessageParty(false);
+                                }
+                                else if (e.Button == MouseButtons.Right)
+                                {
+                                    mod.selectedPartyLeader = 1;
+                                    gv.cc.partyScreenPcIndex = 1;
+                                }
                             }
-                        }
+                            else if ((gv.cc.ptrPc2.getImpact(x, y)) && (mod.playerList.Count > 2))
+                            {
+                                if (e.Button == MouseButtons.Left)
+                                {
+                                    mod.selectedPartyLeader = 2;
+                                    gv.cc.partyScreenPcIndex = 2;
+                                    gv.screenParty.resetPartyScreen();
+                                    gv.screenType = "party";
+                                    gv.cc.tutorialMessageParty(false);
+                                }
+                                else if (e.Button == MouseButtons.Right)
+                                {
+                                    mod.selectedPartyLeader = 2;
+                                    gv.cc.partyScreenPcIndex = 2;
+                                }
+                            }
+                            else if ((gv.cc.ptrPc3.getImpact(x, y)) && (mod.playerList.Count > 3))
+                            {
+                                if (e.Button == MouseButtons.Left)
+                                {
+                                    mod.selectedPartyLeader = 3;
+                                    gv.cc.partyScreenPcIndex = 3;
+                                    gv.screenParty.resetPartyScreen();
+                                    gv.screenType = "party";
+                                    gv.cc.tutorialMessageParty(false);
+                                }
+                                else if (e.Button == MouseButtons.Right)
+                                {
+                                    mod.selectedPartyLeader = 3;
+                                    gv.cc.partyScreenPcIndex = 3;
+                                }
+                            }
+                            else if ((gv.cc.ptrPc4.getImpact(x, y)) && (mod.playerList.Count > 4))
+                            {
+                                if (e.Button == MouseButtons.Left)
+                                {
+                                    mod.selectedPartyLeader = 4;
+                                    gv.cc.partyScreenPcIndex = 4;
+                                    gv.screenParty.resetPartyScreen();
+                                    gv.screenType = "party";
+                                    gv.cc.tutorialMessageParty(false);
+                                }
+                                else if (e.Button == MouseButtons.Right)
+                                {
+                                    mod.selectedPartyLeader = 4;
+                                    gv.cc.partyScreenPcIndex = 4;
+                                }
+                            }
+                            else if ((gv.cc.ptrPc5.getImpact(x, y)) && (mod.playerList.Count > 5))
+                            {
+                                if (e.Button == MouseButtons.Left)
+                                {
+                                    mod.selectedPartyLeader = 5;
+                                    gv.cc.partyScreenPcIndex = 5;
+                                    gv.screenParty.resetPartyScreen();
+                                    gv.screenType = "party";
+                                    gv.cc.tutorialMessageParty(false);
+                                }
+                                else if (e.Button == MouseButtons.Right)
+                                {
+                                    mod.selectedPartyLeader = 5;
+                                    gv.cc.partyScreenPcIndex = 5;
+                                }
+                            }
+                            else if (gv.cc.btnInventory.getImpact(x, y))
+                            {
+                                //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
+                                //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
+                                gv.screenType = "inventory";
+                                gv.screenInventory.resetInventory();
+                                gv.cc.tutorialMessageInventory(false);
+                            }
+                            else if (btnJournal.getImpact(x, y))
+                            {
+                                //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
+                                //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
+                                gv.screenType = "journal";
+                            }
+                            else if (btnSettings.getImpact(x, y))
+                            {
+                                //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
+                                //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
+                                gv.cc.doSettingsDialogs();
+                            }
+                            else if (btnSave.getImpact(x, y))
+                            {
+                                //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
+                                //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
+                                if (mod.allowSave)
+                                {
+                                    gv.cc.doSavesDialog();
+                                }
+                            }
+                            else if (btnWait.getImpact(x, y))
+                            {
+                                //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
+                                //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
+                                gv.cc.doUpdate();
+                            }
+                            else if (btnCastOnMainMap.getImpact(x, y))
+                            {
+
+                                //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
+                                //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
+
+                                List<string> pcNames = new List<string>();
+                                List<int> pcIndex = new List<int>();
+                                pcNames.Add("cancel");
+
+                                int cnt = 0;
+                                foreach (Player p in mod.playerList)
+                                {
+                                    if (hasMainMapTypeSpell(p))
+                                    {
+                                        pcNames.Add(p.name);
+                                        pcIndex.Add(cnt);
+                                    }
+                                    cnt++;
+                                }
+
+                                //If only one PC, do not show select PC dialog...just go to cast selector
+                                if (pcIndex.Count == 1)
+                                {
+                                    try
+                                    {
+                                        gv.screenCastSelector.castingPlayerIndex = pcIndex[0];
+                                        gv.screenCombat.spellSelectorIndex = 0;
+                                        gv.screenType = "mainMapCast";
+                                        return;
+                                    }
+                                    catch (Exception ex)
+                                    {
+                                        //print error
+                                        IBMessageBox.Show(gv, "error with Pc Selector screen: " + ex.ToString());
+                                        gv.errorLog(ex.ToString());
+                                        return;
+                                    }
+                                }
+
+                                using (ItemListSelector pcSel = new ItemListSelector(gv, pcNames, "Select Caster"))
+                                {
+                                    pcSel.ShowDialog();
+
+                                    if (pcSel.selectedIndex > 0)
+                                    {
+                                        try
+                                        {
+                                            gv.screenCastSelector.castingPlayerIndex = pcIndex[pcSel.selectedIndex - 1]; // pcIndex.get(item - 1);
+                                            gv.screenCombat.spellSelectorIndex = 0;
+                                            gv.screenType = "mainMapCast";
+                                        }
+                                        catch (Exception ex)
+                                        {
+                                            IBMessageBox.Show(gv, "error with Pc Selector screen: " + ex.ToString());
+                                            gv.errorLog(ex.ToString());
+                                            //print error
+                                        }
+                                    }
+                                    else if (pcSel.selectedIndex == 0) // selected "cancel"
+                                    {
+                                        //do nothing
+                                    }
+                                }
+                            }
+                            break;
                     }
-                    break;
-            }
-        }*/
+                }*/
         public void onKeyUp(Keys keyData)
         {
             if ((moveDelay()) && (finishedMove))

@@ -43,12 +43,14 @@ namespace IceBlink2
             gv = g;
             button1.Text = "RETURN";
             button1.Font = gv.drawFontReg;
+            this.KeyPreview = true;
             this.IceBlinkButtonClose.Enabled = false;
             this.IceBlinkButtonResize.Enabled = false;
             this.IceBlinkButtonClose.Visible = false;
             this.IceBlinkButtonResize.Visible = false;
             this.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.form_MouseWheel);
             this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.form_MouseMove);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.form_onKeyDown);
             //InitializeHtmlLogBox(10, 30,580 * (int)(100f/gv.squareSize), 400 * (int)(100f/gv.squareSize));
             InitializeHtmlLogBox(10, 30, 780 * (int)(100f / gv.squareSize), 540 * (int)(100f / gv.squareSize));
 
@@ -77,6 +79,30 @@ namespace IceBlink2
         {
             onMouseMove(sender, e);
         }
+
+        private void form_onKeyDown(object sender, KeyEventArgs e)
+        {
+            onKeyDown(sender, e);
+        }
+
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            if ((keyData == Keys.Up) || (keyData == Keys.NumPad8))
+            {
+                SetCurrentTopLineIndex(-17);
+                this.Invalidate();
+                return true;
+            }
+
+            if ((keyData == Keys.Down)|| (keyData == Keys.NumPad2))
+            {
+                SetCurrentTopLineIndex(17);
+                this.Invalidate();
+                return true;
+            }
+            return base.ProcessCmdKey(ref msg, keyData);
+        }
+
         private void Form1_MouseUp(object sender, MouseEventArgs e)
         {
             onMouseUp(sender, e);
@@ -298,6 +324,7 @@ namespace IceBlink2
                 int lineMove = (startY + moveDeltaY) * (int)ratio;
                 lineMove = (int)(lineMove * 37f / 100f);
                 SetCurrentTopLineAbsoluteIndex(lineMove);
+                //SetCurrentTopLineIndex(lineMove);
             }
             //only draw lines needed to fill textbox
             int xLoc = 0;
@@ -510,50 +537,51 @@ namespace IceBlink2
                 moveDeltaY = 0;
             //}
 
-            if (isMouseWithinScrollBar(e))
-            {
-                if (e.Y - tbYloc < scrollButtonYLoc)
-                {
+            //if (isMouseWithinScrollBar(e))
+            //{
+
+                //if (e.Y - tbYloc < scrollButtonYLoc)
+                //{
                     //if mouse is above scroll button, move up a bit
-                    xLoc = 0;
-                }
-                else if (e.Y - tbYloc > scrollButtonYLoc + btn_scroll.Height)
-                {
+                    //xLoc = 0;
+                //}
+                //else if (e.Y - tbYloc > scrollButtonYLoc + btn_scroll.Height)
+                //{
                     //if mouse is below scroll button, move down a bit
-                    xLoc = 0;
-                }
-                else
-                {
+                    //xLoc = 0;
+                //}
+                //else
+                //{
                     //if mouse is on scroll button, set moveScrollingStartY = e.Y
                     moveScrollingStartY = e.Y;
                     startY = scrollButtonYLoc;
-                }
-            }
-            else if (isMouseWithinTextBox(e))
-            {
+                //}
+            //}
+            //else if (isMouseWithinTextBox(e))
+            //{
                 //moveScrollingStartY = e.Y;
-            }
+            //}
         }
         public void onMouseMove(object sender, MouseEventArgs e)
         {
-            if (isMouseWithinScrollBar(e))
-            {
+            //if (isMouseWithinScrollBar(e))
+            //{
                 //if button is down and was on scroll button then move button and scroll text accordingly
                 if (e.Button == System.Windows.Forms.MouseButtons.Left)
                 {
                     moveEY = e.Y;
                     xLoc = 0;
-                    moveDeltaY = e.Y - moveScrollingStartY;
+                    moveDeltaY = (int)((gv.screenHeight/1080f) * (e.Y - moveScrollingStartY));
                     this.Invalidate();
                 }
-            }
-            else if (isMouseWithinTextBox(e))
-            {
-                if (e.Button == System.Windows.Forms.MouseButtons.Left)
-                {
+            //}
+            //else if (isMouseWithinTextBox(e))
+            //{
+                //if (e.Button == System.Windows.Forms.MouseButtons.Left)
+                //{
                     //this.Invalidate();
-                }
-            }
+                //}
+            //}
         }
         public void onMouseUp(object sender, MouseEventArgs e)
         {
@@ -564,15 +592,15 @@ namespace IceBlink2
             moveScrollingStartY = 0;
             if (isMouseWithinScrollBar(e))
             {
-                //if click on top button, move 5 lines up
+                //if click on top button, move 17 lines up
                 if (e.Y < tbYloc + btn_up.Height)
                 {
-                    SetCurrentTopLineIndex(-12);
+                    SetCurrentTopLineIndex(-17);
                     this.Invalidate();
                 }
                 else if (e.Y > tbYloc + tbHeight - btn_down.Height)
                 {
-                    SetCurrentTopLineIndex(12);
+                    SetCurrentTopLineIndex(17);
                     this.Invalidate();
                 }
             }
@@ -580,6 +608,28 @@ namespace IceBlink2
             {
                 //this.Invalidate();
             }
+        }
+
+        public void onKeyboardEvent(Keys keyData)
+        {
+            //onKeyUp(keyData);
+        }
+
+        //not used actually, see the protected override override
+        public void onKeyDown(Object sender, KeyEventArgs e)
+        {
+                if (e.KeyCode == Keys.Up)
+                {
+                SetCurrentTopLineIndex(-12);
+                this.Invalidate();
+            }
+
+            if (e.KeyCode == Keys.Down)
+            {
+                SetCurrentTopLineIndex(12);
+                this.Invalidate();
+            }
+
         }
     }
 }

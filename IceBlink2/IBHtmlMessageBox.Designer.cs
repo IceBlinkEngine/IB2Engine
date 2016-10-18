@@ -40,7 +40,6 @@
             this.button1.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Silver;
             this.button1.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Gray;
             this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            //this.button1.Location = new System.Drawing.Point(149, 441);
             this.button1.Location = new System.Drawing.Point(242, 595);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(299, 47);
@@ -54,11 +53,9 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
-            //this.ClientSize = new System.Drawing.Size(600, 500);
             this.ClientSize = new System.Drawing.Size(800, 666);
             this.Controls.Add(this.button1);
-            //this.MaximumSize = new System.Drawing.Size(600, 500);
-            //this.MinimumSize = new System.Drawing.Size(600, 500);
+            this.KeyPreview = true;
             this.MaximumSize = new System.Drawing.Size(800, 666);
             this.MinimumSize = new System.Drawing.Size(800, 666);
             this.Name = "IBHtmlMessageBox";
