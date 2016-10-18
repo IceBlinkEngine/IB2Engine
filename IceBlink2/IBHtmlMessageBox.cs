@@ -89,14 +89,24 @@ namespace IceBlink2
         {
             if ((keyData == Keys.Up) || (keyData == Keys.NumPad8))
             {
-                SetCurrentTopLineIndex(-17);
+                int pageLength = 13 * (int)(1080f / gv.screenHeight);
+                if (gv.mod.fontName != "Metamorphous" && gv.mod.fontName != "Orbitron")
+                {
+                    pageLength -= (int)(1 * (int)(1080f / gv.screenHeight));
+                }
+                SetCurrentTopLineIndex(-pageLength);
                 this.Invalidate();
                 return true;
             }
 
             if ((keyData == Keys.Down)|| (keyData == Keys.NumPad2))
             {
-                SetCurrentTopLineIndex(17);
+                int pageLength = 13 * (int)(1080f / gv.screenHeight);
+                if (gv.mod.fontName != "Metamorphous" && gv.mod.fontName != "Orbitron")
+                {
+                    pageLength -= (int)(1 * (int)(1080f / gv.screenHeight));
+                }
+                SetCurrentTopLineIndex(pageLength);
                 this.Invalidate();
                 return true;
             }
@@ -595,12 +605,22 @@ namespace IceBlink2
                 //if click on top button, move 17 lines up
                 if (e.Y < tbYloc + btn_up.Height)
                 {
-                    SetCurrentTopLineIndex(-17);
+                    int pageLength = 13 * (int)(1080f / gv.screenHeight);
+                    if (gv.mod.fontName != "Metamorphous" && gv.mod.fontName != "Orbitron")
+                    {
+                         pageLength -= (int)(1 * (int)(1080f / gv.screenHeight));
+                    }
+                    SetCurrentTopLineIndex(-pageLength);
                     this.Invalidate();
                 }
                 else if (e.Y > tbYloc + tbHeight - btn_down.Height)
                 {
-                    SetCurrentTopLineIndex(17);
+                    int pageLength = 13 * (int)(1080f / gv.screenHeight);
+                    if (gv.mod.fontName != "Metamorphous" && gv.mod.fontName != "Orbitron")
+                    {
+                        pageLength -= (int)(1 * (int)(1080f / gv.screenHeight));
+                    }
+                    SetCurrentTopLineIndex(pageLength);
                     this.Invalidate();
                 }
             }
