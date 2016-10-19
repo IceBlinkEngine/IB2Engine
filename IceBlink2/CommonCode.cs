@@ -8980,16 +8980,36 @@ namespace IceBlink2
                     //gv.mod.currentArea.Filename = areaFilename;
                     
                     //hmmm, is double (see below, must verify later)
-                    if (gv.mod.playMusic)
-                    {
-                        gv.stopMusic();
-                        gv.stopAmbient();
-                        //gv.mod.resetWeatherSound = true;
-                        //check later why this was needed, likely remove
-                        //gv.weatherSounds2.controls.stop();
-                    }
+                    //if (gv.mod.playMusic)
+                    //{
+                        //gv.stopMusic();
+                        //gv.stopAmbient();
+
+                        
+                    //}
+
+                    //if (gv.mod.playMusic)
+                    //{
+                        //gv.startMusic();
+                        //gv.startAmbient();
+                    //}
+
+                    //areaMusic.controls.pause();
 
                     gv.mod.setCurrentArea(areaFilename, gv);
+                    if (gv.mod.playMusic)
+                    {
+                        gv.startMusic();
+                        gv.startAmbient();
+                    }
+
+                    if (gv.mod.currentArea.areaWeatherName == "")
+                    {
+                        gv.weatherSounds1.controls.pause();
+                        gv.weatherSounds2.controls.pause();
+                        gv.weatherSounds3.controls.pause();
+                    }
+
                     resetLightAndDarkness();
                     doIllumination();
 
