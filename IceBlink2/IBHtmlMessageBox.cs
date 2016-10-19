@@ -89,24 +89,26 @@ namespace IceBlink2
         {
             if ((keyData == Keys.Up) || (keyData == Keys.NumPad8))
             {
-                int pageLength = 13 * (int)(1080f / gv.screenHeight);
+                float pageLength = 12f * (1080f / gv.screenHeight) + 1;
                 if (gv.mod.fontName != "Metamorphous" && gv.mod.fontName != "Orbitron")
                 {
-                    pageLength -= (int)(1 * (int)(1080f / gv.screenHeight));
+                    float mod = (gv.screenHeight / 1080);
+                    pageLength -= (int)mod;
                 }
-                SetCurrentTopLineIndex(-pageLength);
+                SetCurrentTopLineIndex(-(int)pageLength);
                 this.Invalidate();
                 return true;
             }
 
             if ((keyData == Keys.Down)|| (keyData == Keys.NumPad2))
             {
-                int pageLength = 13 * (int)(1080f / gv.screenHeight);
+                float pageLength = 12f * (1080f / gv.screenHeight) + 1;
                 if (gv.mod.fontName != "Metamorphous" && gv.mod.fontName != "Orbitron")
                 {
-                    pageLength -= (int)(1 * (int)(1080f / gv.screenHeight));
+                    float mod = (gv.screenHeight / 1080);
+                    pageLength -= (int)mod;
                 }
-                SetCurrentTopLineIndex(pageLength);
+                SetCurrentTopLineIndex((int)pageLength);
                 this.Invalidate();
                 return true;
             }
@@ -605,22 +607,24 @@ namespace IceBlink2
                 //if click on top button, move 17 lines up
                 if (e.Y < tbYloc + btn_up.Height)
                 {
-                    int pageLength = 13 * (int)(1080f / gv.screenHeight);
+                    float pageLength = 12f * (1080f / gv.screenHeight) + 1;
                     if (gv.mod.fontName != "Metamorphous" && gv.mod.fontName != "Orbitron")
                     {
-                         pageLength -= (int)(1 * (int)(1080f / gv.screenHeight));
+                        float mod = (gv.screenHeight/1080);
+                        pageLength -= (int)mod;
                     }
-                    SetCurrentTopLineIndex(-pageLength);
+                    SetCurrentTopLineIndex(-(int)pageLength);
                     this.Invalidate();
                 }
                 else if (e.Y > tbYloc + tbHeight - btn_down.Height)
                 {
-                    int pageLength = 13 * (int)(1080f / gv.screenHeight);
+                    float pageLength = 12f * (1080f / gv.screenHeight) + 1;
                     if (gv.mod.fontName != "Metamorphous" && gv.mod.fontName != "Orbitron")
                     {
-                        pageLength -= (int)(1 * (int)(1080f / gv.screenHeight));
+                        float mod = (gv.screenHeight / 1080);
+                        pageLength -= (int)mod;
                     }
-                    SetCurrentTopLineIndex(pageLength);
+                    SetCurrentTopLineIndex((int)pageLength);
                     this.Invalidate();
                 }
             }
