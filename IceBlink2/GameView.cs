@@ -511,11 +511,13 @@ namespace IceBlink2
                 areaMusic = new WMPLib.WindowsMediaPlayer();
                 areaMusic.PlayStateChange += new WMPLib._WMPOCXEvents_PlayStateChangeEventHandler(AreaMusic_PlayStateChange);
                 areaMusic.MediaError += new WMPLib._WMPOCXEvents_MediaErrorEventHandler(Player_MediaError);
+                areaMusic.settings.setMode("Loop", true);
                 areaMusic.settings.volume = 50;
 
                 areaSounds = new WMPLib.WindowsMediaPlayer();
                 areaSounds.PlayStateChange += new WMPLib._WMPOCXEvents_PlayStateChangeEventHandler(AreaSounds_PlayStateChange);
                 areaSounds.MediaError += new WMPLib._WMPOCXEvents_MediaErrorEventHandler(Player_MediaError);
+                areaSounds.settings.setMode("Loop", true);
 
                 //for winds
                 weatherSounds1 = new WMPLib.WindowsMediaPlayer();
