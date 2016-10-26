@@ -32,8 +32,8 @@ namespace IceBlink2
 	    public string effectScript = "none";
         public string saveCheckType = "none"; //none, reflex, will, fortitude
         public int saveCheckDC = 10;
-        public List<string> affectOnlyList = new List<string>();
-        public List<string> affectNeverList = new List<string>();
+        public List<LocalImmunityString> affectOnlyList = new List<LocalImmunityString>();
+        public List<LocalImmunityString> affectNeverList = new List<LocalImmunityString>();
 
         //* = marks properties that only work on PCs, not Creatures
         //The below modifiers will be cumulative over each round of the Effects duration if usedForUpdateStats = false
@@ -171,14 +171,14 @@ namespace IceBlink2
             copy.modifyNumberOfMeleeAttacks = this.modifyNumberOfMeleeAttacks;
             copy.modifyNumberOfRangedAttacks = this.modifyNumberOfRangedAttacks;
 
-            copy.affectOnlyList = new List<string>();
-            foreach (string s in this.affectOnlyList)
+            copy.affectOnlyList = new List<LocalImmunityString>();
+            foreach (LocalImmunityString s in this.affectOnlyList)
             {
                 copy.affectOnlyList.Add(s);
             }
 
-            copy.affectNeverList = new List<string>();
-            foreach (string s in this.affectNeverList)
+            copy.affectNeverList = new List<LocalImmunityString>();
+            foreach (LocalImmunityString s in this.affectNeverList)
             {
                 copy.affectNeverList.Add(s);
             }

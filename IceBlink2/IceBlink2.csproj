@@ -112,6 +112,7 @@
     <Compile Include="IB2Portrait.cs" />
     <Compile Include="IB2ToggleButton.cs" />
     <Compile Include="IB2UILayout.cs" />
+    <Compile Include="LocalImmunityString.cs" />
     <Compile Include="WeatherTypeListItem.cs" />
     <Compile Include="WeatherTypeList.cs" />
     <Compile Include="WeatherEffect.cs" />

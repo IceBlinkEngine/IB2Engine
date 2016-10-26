@@ -6318,11 +6318,11 @@ namespace IceBlink2
                         //go through creature local vars and compare with this spellEffect's affectOnly and affectNever lists
 
                         //when finding a matching apply never, skip
-                        foreach (string s in thisSpellEffect.affectNeverList)
+                        foreach (LocalImmunityString s in thisSpellEffect.affectNeverList)
                         {
                             foreach (LocalString ls in crt.CreatureLocalStrings)
                             {
-                                if (s.Equals(ls))
+                                if (s.Value.Equals(ls.Value))
                                 {
                                     skip = true;
                                     break;
@@ -6342,11 +6342,11 @@ namespace IceBlink2
                             {
                                 skip = true;
 
-                                foreach (string s in thisSpellEffect.affectOnlyList)
+                                foreach (LocalImmunityString s in thisSpellEffect.affectOnlyList)
                                 {
                                     foreach (LocalString ls in crt.CreatureLocalStrings)
                                     {
-                                        if (s.Equals(ls))
+                                        if (s.Value.Equals(ls.Value))
                                         {
                                             skip = false;
                                             break;
@@ -6626,11 +6626,11 @@ namespace IceBlink2
                         //go through creature local vars and compare with this spellEffect's affectOnly and affectNever lists
 
                         //when finding a matching apply never, skip
-                        foreach (string s in thisSpellEffect.affectNeverList)
+                        foreach (LocalImmunityString s in thisSpellEffect.affectNeverList)
                         {
                             foreach (string ls in pc.knownTraitsTags)
                             {
-                                if (s.Equals(ls))
+                                if (s.Value.Equals(ls))
                                 {
                                     skip = true;
                                     break;
@@ -6650,11 +6650,11 @@ namespace IceBlink2
                             {
                                 skip = true;
 
-                                foreach (string s in thisSpellEffect.affectOnlyList)
+                                foreach (LocalImmunityString s in thisSpellEffect.affectOnlyList)
                                 {
                                     foreach (string ls in pc.knownTraitsTags)
                                     {
-                                        if (s.Equals(ls))
+                                        if (s.Value.Equals(ls))
                                         {
                                             skip = false;
                                             break;
@@ -7030,11 +7030,11 @@ namespace IceBlink2
                     //go through creature local vars and compare with this spellEffect's affectOnly and affectNever lists
 
                     //when finding a matching apply never, skip
-                    foreach (string s in thisSpellEffect.affectNeverList)
+                    foreach (LocalImmunityString s in thisSpellEffect.affectNeverList)
                     {
                         foreach (LocalString ls in crt.CreatureLocalStrings)
                         {
-                            if (s.Equals(ls))
+                            if (s.Value.Equals(ls.Value))
                             {
                                 skip = true;
                                 break;
@@ -7054,11 +7054,11 @@ namespace IceBlink2
                         {
                             skip = true;
 
-                            foreach (string s in thisSpellEffect.affectOnlyList)
+                            foreach (LocalImmunityString s in thisSpellEffect.affectOnlyList)
                             {
                                 foreach (LocalString ls in crt.CreatureLocalStrings)
                                 {
-                                    if (s.Equals(ls))
+                                    if (s.Value.Equals(ls.Value))
                                     {
                                         skip = false;
                                         break;
@@ -7334,17 +7334,38 @@ namespace IceBlink2
                     Player pc = (Player)target;
                     bool skip = false;
 
+                    //go through creature local vars and compare with this spellEffect's affectOnly and affectNever lists
+
+                    //when finding a matching apply never, skip
+                    foreach (LocalImmunityString s in thisSpellEffect.affectNeverList)
+                    {
+                        foreach (string ls in pc.knownTraitsTags)
+                        {
+                            if (s.Value.Equals(ls))
+                            {
+                                skip = true;
+                                break;
+                            }
+                        }
+
+                        if (skip)
+                        {
+                            break;
+                        }
+                    }
+
+                    //when finding an entry in affectOnlyList, skip unless it matches
                     if (!skip)
                     {
                         if (thisSpellEffect.affectOnlyList.Count > 0)
                         {
                             skip = true;
 
-                            foreach (string s in thisSpellEffect.affectOnlyList)
+                            foreach (LocalImmunityString s in thisSpellEffect.affectOnlyList)
                             {
                                 foreach (string ls in pc.knownTraitsTags)
                                 {
-                                    if (s.Equals(ls))
+                                    if (s.Value.Equals(ls))
                                     {
                                         skip = false;
                                         break;
