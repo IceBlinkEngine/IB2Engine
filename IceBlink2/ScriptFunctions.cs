@@ -6155,8 +6155,9 @@ namespace IceBlink2
             }
             #endregion
         }
-        public void CreateAoeTargetsList(object src, object trg)
+        public void CreateAoeTargetsList(object src, object trg, Spell thisSpell)
         {
+            //europa4
             AoeTargetsList.Clear();
 
             int startX2 = 0;
@@ -6205,7 +6206,22 @@ namespace IceBlink2
                         //if in range of radius of x and radius of y
                         if ((crt.combatLocX == coor.X) && (crt.combatLocY == coor.Y))
                         {
-                            AoeTargetsList.Add(crt);
+                            //player casts on creature
+                            if ((src is Player) || (src is Item))
+                            {
+                                if ((thisSpell.spellTargetType.Equals("Enemy")) || (thisSpell.spellTargetType.Equals("PointLocation")) )
+                                {
+                                    AoeTargetsList.Add(crt);
+                                }
+                            }
+                            //creature casts on creature
+                            else if (src is Creature)
+                            {
+                                if ((thisSpell.spellTargetType.Equals("Friend")) || (thisSpell.spellTargetType.Equals("PointLocation")))
+                                {
+                                    AoeTargetsList.Add(crt);
+                                }
+                            }
                         }
                     }
                     foreach (Player pc in mod.playerList)
@@ -6213,7 +6229,22 @@ namespace IceBlink2
                         //if in range of radius of x and radius of y
                         if ((pc.combatLocX == coor.X) && (pc.combatLocY == coor.Y))
                         {
-                            AoeTargetsList.Add(pc);
+                            //player casts on player
+                            if ((src is Player) || (src is Item))
+                            {
+                                if ((thisSpell.spellTargetType.Equals("Friend")) || (thisSpell.spellTargetType.Equals("PointLocation")))
+                                {
+                                    AoeTargetsList.Add(pc);
+                                }
+                            }
+                            //creature casts on player
+                            else if (src is Creature)
+                            {
+                                if ((thisSpell.spellTargetType.Equals("Enemy")) || (thisSpell.spellTargetType.Equals("PointLocation")))
+                                {
+                                    AoeTargetsList.Add(pc);
+                                }
+                            }
                         }
                     }
                 }
@@ -6226,7 +6257,7 @@ namespace IceBlink2
             CreateAoeSquaresList(src, trg, thisSpell.aoeShape, thisSpell.aoeRadius);
 
             //set target list
-            CreateAoeTargetsList(src, trg);
+            CreateAoeTargetsList(src, trg, thisSpell);
 
             //Effect thisSpellEffect = gv.mod.getEffectByTag(thisSpell.spellEffectTag);
 
@@ -6837,7 +6868,7 @@ namespace IceBlink2
             CreateAoeSquaresList(src, trg, thisSpell.aoeShape, thisSpell.aoeRadius);
 
             //set target list
-            CreateAoeTargetsList(src, trg);
+            CreateAoeTargetsList(src, trg, thisSpell);
 
             //Effect thisSpellEffect = gv.mod.getEffectByTag(thisSpell.spellEffectTag);
 
@@ -7449,7 +7480,7 @@ namespace IceBlink2
             CreateAoeSquaresList(src, trg, thisSpell.aoeShape, thisSpell.aoeRadius);
             
             //set target list
-            CreateAoeTargetsList(src, trg);
+            CreateAoeTargetsList(src, trg, thisSpell);
             
             //get casting source information
             int classLevel = 0;
@@ -7694,7 +7725,7 @@ namespace IceBlink2
             CreateAoeSquaresList(src, trg, thisSpell.aoeShape, thisSpell.aoeRadius);
 
             //set target list
-            CreateAoeTargetsList(src, trg);
+            CreateAoeTargetsList(src, trg, thisSpell);
 
             //get casting source information
             int classLevel = 0;
@@ -7847,7 +7878,7 @@ namespace IceBlink2
             CreateAoeSquaresList(src, trg, thisSpell.aoeShape, thisSpell.aoeRadius);
 
             //set target list
-            CreateAoeTargetsList(src, trg);
+            CreateAoeTargetsList(src, trg, thisSpell);
 
             //get casting source information
             int classLevel = 0;
@@ -7923,7 +7954,7 @@ namespace IceBlink2
             CreateAoeSquaresList(src, trg, thisSpell.aoeShape, thisSpell.aoeRadius);
 
             //set target list
-            CreateAoeTargetsList(src, trg);
+            CreateAoeTargetsList(src, trg, thisSpell);
 
             //get casting source information
             int classLevel = 0;
@@ -8059,7 +8090,7 @@ namespace IceBlink2
             CreateAoeSquaresList(src, trg, thisSpell.aoeShape, thisSpell.aoeRadius);
 
             //set target list
-            CreateAoeTargetsList(src, trg);
+            CreateAoeTargetsList(src, trg, thisSpell);
 
             //get casting source information
             int classLevel = 0;
@@ -8195,7 +8226,7 @@ namespace IceBlink2
             CreateAoeSquaresList(src, trg, thisSpell.aoeShape, thisSpell.aoeRadius);
 
             //set target list
-            CreateAoeTargetsList(src, trg);
+            CreateAoeTargetsList(src, trg, thisSpell);
 
             //get casting source information
             int classLevel = 0;
@@ -8642,7 +8673,7 @@ namespace IceBlink2
             CreateAoeSquaresList(src, trg, thisSpell.aoeShape, thisSpell.aoeRadius);
 
             //set target list
-            CreateAoeTargetsList(src, trg);
+            CreateAoeTargetsList(src, trg, thisSpell);
 
             //get casting source information
             int classLevel = 0;

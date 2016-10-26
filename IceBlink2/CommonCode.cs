@@ -8598,6 +8598,7 @@ namespace IceBlink2
 
             gv.sf.AoeTargetsList.Clear();
 
+            //this sorts the three possible effect sources in the order: tag list for generic, single tag for generic (compatibility with old spells) and finally specific script
             if (spell.spellEffectTagList.Count > 0)
             {
                 gv.sf.spGeneric(spell, source, target);

@@ -637,7 +637,7 @@
     "spellStartSound": "buffer",
     "spellEndSound": "buffer",
     "costSP": 15,
-    "spellTargetType": "PointLocation",
+    "spellTargetType": "Enemy",
     "spellEffectType": "DeBuff",
     "aoeShape": "Circle",
     "aoeRadius": 2,
