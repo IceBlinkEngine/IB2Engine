@@ -8583,11 +8583,28 @@ namespace IceBlink2
         }
         public void doSpellBasedOnScriptOrEffectTag(Spell spell, object source, object target)
         {
+            if (source is Creature)
+            {
+                Creature src = (Creature)source;
+
+                gv.cc.addLogText("<font color='yellow'>" + src.cr_name + " creates " + spell.name + "</font><BR>");
+            }
+            else
+            {
+                Player src = (Player)source;
+
+                gv.cc.addLogText("<font color='yellow'>" + src.name + " creates " + spell.name + "</font><BR>");
+            }
+
             gv.sf.AoeTargetsList.Clear();
 
-            if (!spell.spellEffectTag.Equals("none"))
+            if (spell.spellEffectTagList.Count > 0)
             {
                 gv.sf.spGeneric(spell, source, target);
+            }
+            else if (!spell.spellEffectTag.Equals("none"))
+            {
+                gv.sf.spGenericUsingOldSingleEffectTag(spell, source, target);
             }
 
             //WIZARD SPELLS

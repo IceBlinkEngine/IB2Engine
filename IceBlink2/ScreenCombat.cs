@@ -744,6 +744,7 @@ namespace IceBlink2
             {
                 if (pc.moveOrder == currentMoveOrderIndex)
                 {
+                    
                     //highlight the portrait of the pc whose current turn it is
                     gv.cc.ptrPc0.glowOn = false;
                     gv.cc.ptrPc1.glowOn = false;
@@ -779,6 +780,8 @@ namespace IceBlink2
                     //write the pc's name to log whsoe turn it is
                     gv.cc.addLogText("<font color='blue'>It's the turn of " + pc.name + ". </font><BR>");
 
+                    //switching to a system where effects last from turn they are applied to start of the target creature's next turn (multiplied with duration of effect)
+                    applyEffectsCombat(pc);
                     //change creatureIndex or currentPlayerIndex
                     currentPlayerIndex = idx;
                     //set isPlayerTurn 
@@ -807,10 +810,13 @@ namespace IceBlink2
             {
                 if (crt.moveOrder == currentMoveOrderIndex)
                 {
+                    
                     coordinatesOfPcTheCreatureMovesTowards.X = -1;
                     coordinatesOfPcTheCreatureMovesTowards.Y = -1;
                     storedPathOfCurrentCreature.Clear();
                     gv.cc.addLogText("<font color='blue'>It's the turn of " + crt.cr_name + ". </font><BR>");
+                    //switching to a system where effects last from turn they are applied to start of the target creature's next turn (multiplied with duration of effect)
+                    applyEffectsCombat(crt);
                     //change creatureIndex or currentPlayerIndex
                     creatureIndex = idx;
                     //set isPlayerTurn
@@ -854,7 +860,7 @@ namespace IceBlink2
             {
                 RunAllItemCombatRegenerations(pc);
             }
-            applyEffectsCombat();
+            //applyEffectsCombat();
             //IBScript Start Combat Round Hook
             gv.cc.doIBScriptBasedOnFilename(gv.mod.currentEncounter.OnStartCombatRoundIBScript, gv.mod.currentEncounter.OnStartCombatRoundIBScriptParms);
             turnController();
@@ -1075,6 +1081,77 @@ namespace IceBlink2
                         }
                     }
                 }
+            }
+            catch (Exception ex)
+            {
+                IBMessageBox.Show(gv, ex.ToString());
+                gv.errorLog(ex.ToString());
+            }
+            checkEndEncounter();
+        }
+
+        public void applyEffectsCombat(Creature crtr)
+        {
+            try
+            {
+                //if remaining duration <= 0, remove from list
+                for (int i = crtr.cr_effectsList.Count; i > 0; i--)
+                {
+                    if (crtr.cr_effectsList[i - 1].durationInUnits <= 0)
+                    {
+                        gv.cc.addLogText("<font color='yellow'>" + "The " + crtr.cr_effectsList[i - 1].name + " effect on " + crtr.cr_name + " has just ended." + " </font><BR>");
+                        crtr.cr_effectsList.RemoveAt(i - 1);
+                    }
+                }
+
+                //maybe reorder all based on their order property            
+                foreach (Effect ef in crtr.cr_effectsList)
+                    {
+                        //increment duration of all
+                        //ef.durationInUnits -= gv.mod.TimePerRound;
+                        if (!ef.usedForUpdateStats) //not used for stat updates
+                        {
+                            //do script for each effect
+                            gv.cc.doEffectScript(crtr, ef);
+                        }
+                        ef.durationInUnits -= gv.mod.TimePerRound;
+                }
+                
+            }
+            catch (Exception ex)
+            {
+                IBMessageBox.Show(gv, ex.ToString());
+                gv.errorLog(ex.ToString());
+            }
+            checkEndEncounter();
+        }
+
+        public void applyEffectsCombat(Player pc)
+        {
+            try
+            {
+                //europa3
+                for (int i = pc.effectsList.Count; i > 0; i--)
+                {
+                    if (pc.effectsList[i - 1].durationInUnits <= 0)
+                    {
+                        gv.cc.addLogText("<font color='yellow'>" + "The " + pc.effectsList[i - 1].name + " effect on " + pc.name + " has just ended."  + " </font><BR>");
+                        pc.effectsList.RemoveAt(i - 1);
+                    }
+                }
+
+                //maybe reorder all based on their order property            
+                foreach (Effect ef in pc.effectsList)
+                    {
+                        //decrement duration of all
+                        //ef.durationInUnits -= gv.mod.TimePerRound;
+                        if (!ef.usedForUpdateStats) //not used for stat updates
+                        {
+                            gv.cc.doEffectScript(pc, ef);
+                        }
+                    ef.durationInUnits -= gv.mod.TimePerRound;
+                }
+      
             }
             catch (Exception ex)
             {
@@ -1951,6 +2028,9 @@ namespace IceBlink2
         }
         public void CreatureCastsSpell(Creature crt)
         {
+            //write casting action and spell name to log
+            //gv.cc.addLogText("<font color='yellow'>" + crt.cr_name +  "creates" + gv.sf.SpellToCast + "</font><BR>");
+
             Coordinate pnt = new Coordinate();
             if (gv.sf.CombatTarget is Player)
             {
@@ -2788,6 +2868,7 @@ namespace IceBlink2
         public void redrawCombat()
         {
             drawCombatMap();
+            drawCombatPlayers();
             if (gv.mod.useCombatSmoothMovement == false)
             {
                 drawCombatCreatures();
@@ -2796,7 +2877,7 @@ namespace IceBlink2
             {
                 drawMovingCombatCreatures();
             }
-            drawCombatPlayers();
+            //drawCombatPlayers();
             drawSprites();
             if (mod.currentEncounter.UseDayNightCycle)
             {
@@ -11352,7 +11433,7 @@ namespace IceBlink2
             int farDist = 99;
             foreach (Player p in mod.playerList)
             {
-                if ((!p.isDead()) && (p.hp >= 0) && (!p.steathModeOn))
+                if ((!p.isDead()) && (p.hp > 0) && (!p.steathModeOn))
                 {
                     int dist = CalcDistance(crt.combatLocX, crt.combatLocY, p.combatLocX, p.combatLocY);
                     if (dist == farDist)

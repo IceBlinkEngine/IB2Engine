@@ -30,6 +30,7 @@ namespace IceBlink2
 	    public int range = 2;	
 	    public string spellScript = "none";
         public string spellEffectTag = "none";
+        public List<EffectTagForDropDownList> spellEffectTagList = new List<EffectTagForDropDownList>();
         public List<EffectTagForDropDownList> removeEffectTagList = new List<EffectTagForDropDownList>();
     
 	    public Spell()
@@ -57,6 +58,13 @@ namespace IceBlink2
 		    copy.range = this.range;
 		    copy.spellScript = this.spellScript;
             copy.spellEffectTag = this.spellEffectTag;
+
+            //copy.spellEffectTagList = this.spellEffectTagList;
+            copy.spellEffectTagList = new List<EffectTagForDropDownList>();
+            foreach (EffectTagForDropDownList s in this.spellEffectTagList)
+            {
+                copy.spellEffectTagList.Add(s);
+            }
 
             copy.removeEffectTagList = new List<EffectTagForDropDownList>();
             foreach (EffectTagForDropDownList s in this.removeEffectTagList)
