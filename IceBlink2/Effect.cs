@@ -32,13 +32,15 @@ namespace IceBlink2
 	    public string effectScript = "none";
         public string saveCheckType = "none"; //none, reflex, will, fortitude
         public int saveCheckDC = 10;
-        
+        public List<string> affectOnlyList = new List<string>();
+        public List<string> affectNeverList = new List<string>();
+
         //* = marks properties that only work on PCs, not Creatures
         //The below modifiers will be cumulative over each round of the Effects duration if usedForUpdateStats = false
-        
+
         //if you want the effect to be cumulative such as damage per round due to poison, set usedForUpdateStats = false
         //if you want the effect to NOT be cumulative such as AC bonus, set usedForUpdateStats = true
-                
+
         //DAMAGE (hp)
         public bool doDamage = false;
         public string damType = "Normal"; //Normal,Acid,Cold,Electricity,Fire,Magic,Poison
@@ -168,7 +170,20 @@ namespace IceBlink2
             copy.modifyDamageTypeResistancePoison = this.modifyDamageTypeResistancePoison;
             copy.modifyNumberOfMeleeAttacks = this.modifyNumberOfMeleeAttacks;
             copy.modifyNumberOfRangedAttacks = this.modifyNumberOfRangedAttacks;
-		    return copy;
+
+            copy.affectOnlyList = new List<string>();
+            foreach (string s in this.affectOnlyList)
+            {
+                copy.affectOnlyList.Add(s);
+            }
+
+            copy.affectNeverList = new List<string>();
+            foreach (string s in this.affectNeverList)
+            {
+                copy.affectNeverList.Add(s);
+            }
+
+            return copy;
 	    }
     }
 }

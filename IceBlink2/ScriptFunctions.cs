@@ -6313,57 +6313,236 @@ namespace IceBlink2
                     if (target is Creature)
                     {
                         Creature crt = (Creature)target;
-                        if ((thisSpellEffect.doDamage) && (thisSpellEffect.durationInUnits == 0))
+                        bool skip = false;
+
+                        //go through creature local vars and compare with this spellEffect's affectOnly and affectNever lists
+
+                        //when finding a matching apply never, skip
+                        foreach (string s in thisSpellEffect.affectNeverList)
                         {
-                            #region Do Damage
-                            #region Get Resistances
-                            float resist = 0;
-                            if (thisSpellEffect.damType.Equals("Normal")) { resist = (float)(1f - ((float)crt.damageTypeResistanceValueNormal / 100f)); }
-                            else if (thisSpellEffect.damType.Equals("Acid")) { resist = (float)(1f - ((float)crt.damageTypeResistanceValueAcid / 100f)); }
-                            else if (thisSpellEffect.damType.Equals("Cold")) { resist = (float)(1f - ((float)crt.damageTypeResistanceValueCold / 100f)); }
-                            else if (thisSpellEffect.damType.Equals("Electricity")) { resist = (float)(1f - ((float)crt.damageTypeResistanceValueElectricity / 100f)); }
-                            else if (thisSpellEffect.damType.Equals("Fire")) { resist = (float)(1f - ((float)crt.damageTypeResistanceValueFire / 100f)); }
-                            else if (thisSpellEffect.damType.Equals("Magic")) { resist = (float)(1f - ((float)crt.damageTypeResistanceValueMagic / 100f)); }
-                            else if (thisSpellEffect.damType.Equals("Poison")) { resist = (float)(1f - ((float)crt.damageTypeResistanceValuePoison / 100f)); }
-                            #endregion
-                            int damageTotal = 0;
-                            #region Calculate Number of Attacks
-                            //(for reference) NumOfAttacks: A of these attacks for every B levels after level C up to D attacks total                    
-                            int numberOfAttacks = 0;
-                            if (thisSpellEffect.damNumberOfAttacksForEveryNLevels == 0) //this effect is using a fixed amount of attacks
+                            foreach (LocalString ls in crt.CreatureLocalStrings)
                             {
-                                numberOfAttacks = thisSpellEffect.damNumberOfAttacks;
-                            }
-                            else //this effect is using a variable amount of attacks
-                            {
-                                //numberOfAttacks = (((classLevel - C) / B) + 1) * A;
-                                numberOfAttacks = (((classLevel - thisSpellEffect.damNumberOfAttacksAfterLevelN) / thisSpellEffect.damNumberOfAttacksForEveryNLevels) + 1) * thisSpellEffect.damNumberOfAttacks; //ex: 1 bolt for every 2 levels after level 1
-                                if (numberOfAttacks > thisSpellEffect.damNumberOfAttacksUpToNAttacksTotal) { numberOfAttacks = thisSpellEffect.damNumberOfAttacksUpToNAttacksTotal; } //can't have more than a max amount of attacks
+                                if (s.Equals(ls))
+                                {
+                                    skip = true;
+                                    break;
+                                }
                             }
 
-                            #endregion
-                            //loop over number of attacks
-                            for (int i = 0; i < numberOfAttacks; i++)
+                            if (skip)
                             {
-                                #region Calculate Damage
-                                //(for reference) Attack: AdB+C for every D levels after level E up to F levels total
-                                // damage += RandDieRoll(A,B) + C
-                                //int damage = (int)((1 * RandInt(4) + 1) * resist);
-                                int damage = 0;
-                                if (thisSpellEffect.damAttacksEveryNLevels == 0) //this damage is not level based
+                                break;
+                            }
+                        }
+
+                        //when finding an entry in affectOnlyList, skip unless it matches
+                        if (!skip)
+                        {
+                            if (thisSpellEffect.affectOnlyList.Count > 0)
+                            {
+                                skip = true;
+
+                                foreach (string s in thisSpellEffect.affectOnlyList)
                                 {
-                                    damage = RandDiceRoll(thisSpellEffect.damNumOfDice, thisSpellEffect.damDie) + thisSpellEffect.damAdder;
-                                }
-                                else //this damage is level based
-                                {
-                                    int numberOfDamAttacks = ((classLevel - thisSpellEffect.damAttacksAfterLevelN) / thisSpellEffect.damAttacksEveryNLevels) + 1; //ex: 1 bolt for every 2 levels after level 1
-                                    if (numberOfDamAttacks > thisSpellEffect.damAttacksUpToNLevelsTotal) { numberOfDamAttacks = thisSpellEffect.damAttacksUpToNLevelsTotal; } //can't have more than a max amount of attacks
-                                    for (int j = 0; j < numberOfDamAttacks; j++)
+                                    foreach (LocalString ls in crt.CreatureLocalStrings)
                                     {
-                                        damage += RandDiceRoll(thisSpellEffect.damNumOfDice, thisSpellEffect.damDie) + thisSpellEffect.damAdder;
+                                        if (s.Equals(ls))
+                                        {
+                                            skip = false;
+                                            break;
+                                        }
+                                    }
+                                    if (skip)
+                                    {
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+
+                        if (!skip)
+                        {
+                            if ((thisSpellEffect.doDamage) && (thisSpellEffect.durationInUnits == 0))
+                            {
+                                #region Do Damage
+                                #region Get Resistances
+                                float resist = 0;
+                                if (thisSpellEffect.damType.Equals("Normal")) { resist = (float)(1f - ((float)crt.damageTypeResistanceValueNormal / 100f)); }
+                                else if (thisSpellEffect.damType.Equals("Acid")) { resist = (float)(1f - ((float)crt.damageTypeResistanceValueAcid / 100f)); }
+                                else if (thisSpellEffect.damType.Equals("Cold")) { resist = (float)(1f - ((float)crt.damageTypeResistanceValueCold / 100f)); }
+                                else if (thisSpellEffect.damType.Equals("Electricity")) { resist = (float)(1f - ((float)crt.damageTypeResistanceValueElectricity / 100f)); }
+                                else if (thisSpellEffect.damType.Equals("Fire")) { resist = (float)(1f - ((float)crt.damageTypeResistanceValueFire / 100f)); }
+                                else if (thisSpellEffect.damType.Equals("Magic")) { resist = (float)(1f - ((float)crt.damageTypeResistanceValueMagic / 100f)); }
+                                else if (thisSpellEffect.damType.Equals("Poison")) { resist = (float)(1f - ((float)crt.damageTypeResistanceValuePoison / 100f)); }
+                                #endregion
+                                int damageTotal = 0;
+                                #region Calculate Number of Attacks
+                                //(for reference) NumOfAttacks: A of these attacks for every B levels after level C up to D attacks total                    
+                                int numberOfAttacks = 0;
+                                if (thisSpellEffect.damNumberOfAttacksForEveryNLevels == 0) //this effect is using a fixed amount of attacks
+                                {
+                                    numberOfAttacks = thisSpellEffect.damNumberOfAttacks;
+                                }
+                                else //this effect is using a variable amount of attacks
+                                {
+                                    //numberOfAttacks = (((classLevel - C) / B) + 1) * A;
+                                    numberOfAttacks = (((classLevel - thisSpellEffect.damNumberOfAttacksAfterLevelN) / thisSpellEffect.damNumberOfAttacksForEveryNLevels) + 1) * thisSpellEffect.damNumberOfAttacks; //ex: 1 bolt for every 2 levels after level 1
+                                    if (numberOfAttacks > thisSpellEffect.damNumberOfAttacksUpToNAttacksTotal) { numberOfAttacks = thisSpellEffect.damNumberOfAttacksUpToNAttacksTotal; } //can't have more than a max amount of attacks
+                                }
+
+                                #endregion
+                                //loop over number of attacks
+                                for (int i = 0; i < numberOfAttacks; i++)
+                                {
+                                    #region Calculate Damage
+                                    //(for reference) Attack: AdB+C for every D levels after level E up to F levels total
+                                    // damage += RandDieRoll(A,B) + C
+                                    //int damage = (int)((1 * RandInt(4) + 1) * resist);
+                                    int damage = 0;
+                                    if (thisSpellEffect.damAttacksEveryNLevels == 0) //this damage is not level based
+                                    {
+                                        damage = RandDiceRoll(thisSpellEffect.damNumOfDice, thisSpellEffect.damDie) + thisSpellEffect.damAdder;
+                                    }
+                                    else //this damage is level based
+                                    {
+                                        int numberOfDamAttacks = ((classLevel - thisSpellEffect.damAttacksAfterLevelN) / thisSpellEffect.damAttacksEveryNLevels) + 1; //ex: 1 bolt for every 2 levels after level 1
+                                        if (numberOfDamAttacks > thisSpellEffect.damAttacksUpToNLevelsTotal) { numberOfDamAttacks = thisSpellEffect.damAttacksUpToNLevelsTotal; } //can't have more than a max amount of attacks
+                                        for (int j = 0; j < numberOfDamAttacks; j++)
+                                        {
+                                            damage += RandDiceRoll(thisSpellEffect.damNumOfDice, thisSpellEffect.damDie) + thisSpellEffect.damAdder;
+                                        }
+                                    }
+                                    #endregion
+                                    #region Do Calc Save and DC
+                                    int saveChkRoll = RandInt(20);
+                                    int saveChk = 0;
+                                    int DC = 0;
+                                    int saveChkAdder = 0;
+                                    if (thisSpellEffect.saveCheckType.Equals("will"))
+                                    {
+                                        saveChkAdder = crt.will;
+                                    }
+                                    else if (thisSpellEffect.saveCheckType.Equals("reflex"))
+                                    {
+                                        saveChkAdder = crt.reflex;
+                                    }
+                                    else if (thisSpellEffect.saveCheckType.Equals("fortitude"))
+                                    {
+                                        saveChkAdder = crt.fortitude;
+                                    }
+                                    else
+                                    {
+                                        saveChkAdder = -99;
+                                    }
+                                    saveChk = saveChkRoll + saveChkAdder;
+                                    DC = thisSpellEffect.saveCheckDC;
+                                    #endregion
+                                    //europa
+                                    if (saveChk >= DC) //passed save check (do half or avoid all?)
+                                    {
+                                        gv.cc.addLogText("<font color='yellow'>" + crt.cr_name + " makes successful " + thisSpellEffect.saveCheckType + " saving roll (" + saveChkRoll.ToString() + "+" + saveChkAdder + ">=" + DC.ToString() + ")" + "</font><BR>");
+                                        damage = damage / 2;
+                                        gv.cc.addLogText("<font color='yellow'>" + crt.cr_name + " takes only half damage from " + thisSpellEffect.name + "</font><BR>");
+                                    }
+                                    else //failed save check or no save check allowed
+                                    {
+                                        //failed save roll
+                                        if (saveChkAdder > -99)
+                                        {
+                                            gv.cc.addLogText("<font color='yellow'>" + crt.cr_name + " failed " + thisSpellEffect.saveCheckType + " saving roll (" + saveChkRoll.ToString() + "+" + saveChkAdder + " < " + DC.ToString() + ")" + "</font><BR>");
+                                        }
+                                        else//no save roll allowed
+                                        {
+                                            gv.cc.addLogText("<font color='yellow'>" + "No saving roll allowed" + "</font><BR>");
+                                        }
+                                    }
+
+                                    if (mod.debugMode) { gv.cc.addLogText("<font color='yellow'>" + saveChkRoll + " + " + saveChkAdder + " >= " + DC + "</font><BR>"); }
+                                    if (mod.debugMode) { gv.cc.addLogText("<font color='yellow'>" + "resist = " + resist + " damage = " + damage + "</font><BR>"); }
+
+                                    int damageAndResist = (int)((float)damage * resist);
+                                    damageTotal += damageAndResist;
+                                    //resistance exists
+                                    if (resist < 1)
+                                    {
+                                        gv.cc.addLogText("<font color='aqua'>" + sourceName + "</font>" + "<font color='white'>" + " damages " + "</font>" + "<font color='silver'>"
+                                                        + crt.cr_name + "</font>" + "<font color='white'>" + "with " + thisSpellEffect.name + " (" + "</font>" + "<font color='lime'>"
+                                                        + damageAndResist + "</font>" + "<font color='white'>" + " damage)" + "(-" + ((1 - resist) * 100f) + "% resistance)" + "</font><BR>");
+                                    }
+                                    //vulnerability exists
+                                    else if (resist > 1)
+                                    {
+                                        gv.cc.addLogText("<font color='aqua'>" + sourceName + "</font>" + "<font color='white'>" + " damages " + "</font>" + "<font color='silver'>"
+                                                        + crt.cr_name + "</font>" + "<font color='white'>" + "with " + thisSpellEffect.name + " (" + "</font>" + "<font color='lime'>"
+                                                        + damageAndResist + "</font>" + "<font color='white'>" + " damage)" + "(+" + ((resist - 1) * 100f) + "% vulnerability)" + "</font><BR>");
+                                    }
+                                    //neither resistance nor vulnerability
+                                    else
+                                    {
+                                        gv.cc.addLogText("<font color='aqua'>" + sourceName + "</font>" + "<font color='white'>" + " damages " + "</font>" + "<font color='silver'>"
+                                                        + crt.cr_name + "</font>" + "<font color='white'>" + "with " + thisSpellEffect.name + " (" + "</font>" + "<font color='lime'>"
+                                                        + damageAndResist + "</font>" + "<font color='white'>" + " damage)" + "</font><BR>");
+                                    }
+                                }
+                                crt.hp -= damageTotal;
+                                if (crt.hp <= 0)
+                                {
+                                    gv.screenCombat.deathAnimationLocations.Add(new Coordinate(crt.combatLocX, crt.combatLocY));
+                                    gv.cc.addLogText("<font color='lime'>" + "You killed the " + crt.cr_name + "</font><BR>");
+                                }
+                                //Do floaty text damage
+                                //gv.screenCombat.floatyTextOn = true;
+                                gv.cc.addFloatyText(new Coordinate(crt.combatLocX, crt.combatLocY), damageTotal + "");
+                                #endregion
+                            }
+                            if ((thisSpellEffect.doHeal) && (thisSpellEffect.durationInUnits == 0))
+                            {
+                                #region Do Heal
+                                #region Calculate Heal
+                                //(for reference) Heal: AdB+C for every D levels after level E up to F levels total
+                                // heal += RandDieRoll(A,B) + C
+                                int heal = 0;
+                                if (thisSpellEffect.healActionsEveryNLevels == 0) //this heal is not level based
+                                {
+                                    heal = RandDiceRoll(thisSpellEffect.healNumOfDice, thisSpellEffect.healDie) + thisSpellEffect.healAdder;
+                                }
+                                else //this heal is level based
+                                {
+                                    int numberOfHealActions = ((classLevel - thisSpellEffect.healActionsAfterLevelN) / thisSpellEffect.healActionsEveryNLevels) + 1; //ex: 1 bolt for every 2 levels after level 1
+                                    if (numberOfHealActions > thisSpellEffect.healActionsUpToNLevelsTotal) { numberOfHealActions = thisSpellEffect.healActionsUpToNLevelsTotal; } //can't have more than a max amount of actions
+                                    for (int j = 0; j < numberOfHealActions; j++)
+                                    {
+                                        heal += RandDiceRoll(thisSpellEffect.healNumOfDice, thisSpellEffect.healDie) + thisSpellEffect.healAdder;
                                     }
                                 }
                                 #endregion
+                                crt.hp += heal;
+                                if (crt.hp > crt.hpMax)
+                                {
+                                    crt.hp = crt.hpMax;
+                                }
+                                gv.cc.addLogText("<font color='lime'>" + crt.cr_name + " gains " + heal + " HPs" + "</font><BR>");
+                                //Do floaty text heal
+                                //gv.screenCombat.floatyTextOn = true;
+                                gv.cc.addFloatyText(new Coordinate(crt.combatLocX, crt.combatLocY), heal + "", "green");
+                                #endregion
+                            }
+
+                            /*
+                            if (thisSpellEffect.doBuff)
+                            {
+                                #region Do Buff
+                                int numberOfRounds = thisSpellEffect.durationInUnits / gv.mod.TimePerRound;
+                                gv.cc.addLogText("<font color='lime'>" + thisSpellEffect.name + " is applied on " + crt.cr_name + " for " + numberOfRounds + " round(s)</font><BR>");
+                                crt.AddEffectByObject(thisSpellEffect, classLevel);
+                                #endregion
+                            }
+                            */
+
+                            ///trying to keep old spells compatible, in the long run likely just rely on duration > 0
+                            if ((thisSpellEffect.doDeBuff) || (thisSpellEffect.doDeBuff) || (thisSpellEffect.durationInUnits > 0))
+                            {
+                                #region (Try to) add to effect list of target
                                 #region Do Calc Save and DC
                                 int saveChkRoll = RandInt(20);
                                 int saveChk = 0;
@@ -6389,241 +6568,307 @@ namespace IceBlink2
                                 DC = thisSpellEffect.saveCheckDC;
                                 #endregion
                                 //europa
-                                if (saveChk >= DC) //passed save check (do half or avoid all?)
+                                if (saveChk >= DC) //passed save check
                                 {
-                                    gv.cc.addLogText("<font color='yellow'>" + crt.cr_name + " makes successful " + thisSpellEffect.saveCheckType + " saving roll (" + saveChkRoll.ToString() + "+" + saveChkAdder + ">=" + DC.ToString() + ")" + "</font><BR>");
-                                    damage = damage / 2;
-                                    gv.cc.addLogText("<font color='yellow'>" + crt.cr_name + " takes only half damage from " + thisSpellEffect.name + "</font><BR>");
+                                    gv.cc.addLogText("<font color='yellow'>" + crt.cr_name + " makes successful " + thisSpellEffect.saveCheckType + " saving roll (" + saveChkRoll.ToString() + "+" + saveChkAdder + ">=" + DC.ToString() + ")" + " and avoids " + thisSpellEffect.name + " </font><BR>");
+                                    //gv.cc.addLogText("<font color='yellow'>" + "(" + thisSpellEffect.saveCheckType + " saving roll (" + saveChkRoll.ToString() + "+" + saveChkAdder + ">=" + DC.ToString() + ")" + " and avoids the longer lasting effect of" + thisSpellEffect.name + " </font><BR>");
+                                    gv.cc.addLogText("<font color='yellow'>" + "(" + saveChkRoll.ToString() + "+" + saveChkAdder + " < " + DC.ToString() + ")" + "</font><BR>");
+                                    //gv.cc.addLogText("<font color='yellow'>" + crt.cr_name + " avoids the " + thisSpellEffect.name + " effect.</font><BR>");
                                 }
-                                else //failed save check or no save check allowed
+                                else//failed save roll or no roll allowed
                                 {
                                     //failed save roll
                                     if (saveChkAdder > -99)
                                     {
-                                        gv.cc.addLogText("<font color='yellow'>" + crt.cr_name + " failed " + thisSpellEffect.saveCheckType + " saving roll (" + saveChkRoll.ToString() + "+" + saveChkAdder + " < " + DC.ToString() + ")" + "</font><BR>");
+                                        gv.cc.addLogText("<font color='yellow'>" + crt.cr_name + " failed " + thisSpellEffect.saveCheckType + " saving roll for " + thisSpellEffect.name + "(" + saveChkRoll.ToString() + "+" + saveChkAdder + " < " + DC.ToString() + ")" + "</font><BR>");
                                     }
-                                    else//no save roll allowed
+                                    //else//no save roll allowed
+                                    //{
+                                    //gv.cc.addLogText("<font color='yellow'>" + "No save roll against longer lasting effect of " + thisSpellEffect.name + " allowed" + "</font><BR>");
+                                    //}
+                                    int numberOfRounds = thisSpellEffect.durationInUnits / gv.mod.TimePerRound;
+                                    gv.cc.addLogText("<font color='lime'>" + thisSpellEffect.name + " is applied on " + crt.cr_name + " for " + numberOfRounds + " round(s)</font><BR>");
+                                    crt.AddEffectByObject(thisSpellEffect, classLevel);
+                                }
+                                #endregion
+                            }
+                            if (thisSpell.removeEffectTagList.Count > 0)
+                            {
+                                #region remove effects  
+                                foreach (EffectTagForDropDownList efTag in thisSpell.removeEffectTagList)
+                                {
+                                    for (int x = crt.cr_effectsList.Count - 1; x >= 0; x--)
                                     {
-                                        gv.cc.addLogText("<font color='yellow'>" + "No saving roll allowed" + "</font><BR>");
-                                    }
-                                }
-
-                                if (mod.debugMode) { gv.cc.addLogText("<font color='yellow'>" + saveChkRoll + " + " + saveChkAdder + " >= " + DC + "</font><BR>"); }
-                                if (mod.debugMode) { gv.cc.addLogText("<font color='yellow'>" + "resist = " + resist + " damage = " + damage + "</font><BR>"); }
-
-                                int damageAndResist = (int)((float)damage * resist);
-                                damageTotal += damageAndResist;
-                                //resistance exists
-                                if (resist < 1)
-                                {
-                                    gv.cc.addLogText("<font color='aqua'>" + sourceName + "</font>" + "<font color='white'>" + " damages " + "</font>" + "<font color='silver'>"
-                                                    + crt.cr_name + "</font>" + "<font color='white'>" + "with " + thisSpellEffect.name + " (" + "</font>" + "<font color='lime'>"
-                                                    + damageAndResist + "</font>" + "<font color='white'>" + " damage)" + "(-" + ((1 - resist) * 100f) + "% resistance)" + "</font><BR>");
-                                }
-                                //vulnerability exists
-                                else if (resist > 1)
-                                {
-                                    gv.cc.addLogText("<font color='aqua'>" + sourceName + "</font>" + "<font color='white'>" + " damages " + "</font>" + "<font color='silver'>"
-                                                    + crt.cr_name + "</font>" + "<font color='white'>" + "with " + thisSpellEffect.name + " (" + "</font>" + "<font color='lime'>"
-                                                    + damageAndResist + "</font>" + "<font color='white'>" + " damage)" + "(+" + ((resist - 1) * 100f) + "% vulnerability)" + "</font><BR>");
-                                }
-                                //neither resistance nor vulnerability
-                                else
-                                {
-                                    gv.cc.addLogText("<font color='aqua'>" + sourceName + "</font>" + "<font color='white'>" + " damages " + "</font>" + "<font color='silver'>"
-                                                    + crt.cr_name + "</font>" + "<font color='white'>" + "with " + thisSpellEffect.name + " (" + "</font>" + "<font color='lime'>"
-                                                    + damageAndResist + "</font>" + "<font color='white'>" + " damage)" + "</font><BR>");
-                                }
-                            }
-                            crt.hp -= damageTotal;
-                            if (crt.hp <= 0)
-                            {
-                                gv.screenCombat.deathAnimationLocations.Add(new Coordinate(crt.combatLocX, crt.combatLocY));
-                                gv.cc.addLogText("<font color='lime'>" + "You killed the " + crt.cr_name + "</font><BR>");
-                            }
-                            //Do floaty text damage
-                            //gv.screenCombat.floatyTextOn = true;
-                            gv.cc.addFloatyText(new Coordinate(crt.combatLocX, crt.combatLocY), damageTotal + "");
-                            #endregion
-                        }
-                        if ((thisSpellEffect.doHeal) && (thisSpellEffect.durationInUnits == 0))
-                        {
-                            #region Do Heal
-                            #region Calculate Heal
-                            //(for reference) Heal: AdB+C for every D levels after level E up to F levels total
-                            // heal += RandDieRoll(A,B) + C
-                            int heal = 0;
-                            if (thisSpellEffect.healActionsEveryNLevels == 0) //this heal is not level based
-                            {
-                                heal = RandDiceRoll(thisSpellEffect.healNumOfDice, thisSpellEffect.healDie) + thisSpellEffect.healAdder;
-                            }
-                            else //this heal is level based
-                            {
-                                int numberOfHealActions = ((classLevel - thisSpellEffect.healActionsAfterLevelN) / thisSpellEffect.healActionsEveryNLevels) + 1; //ex: 1 bolt for every 2 levels after level 1
-                                if (numberOfHealActions > thisSpellEffect.healActionsUpToNLevelsTotal) { numberOfHealActions = thisSpellEffect.healActionsUpToNLevelsTotal; } //can't have more than a max amount of actions
-                                for (int j = 0; j < numberOfHealActions; j++)
-                                {
-                                    heal += RandDiceRoll(thisSpellEffect.healNumOfDice, thisSpellEffect.healDie) + thisSpellEffect.healAdder;
-                                }
-                            }
-                            #endregion
-                            crt.hp += heal;
-                            if (crt.hp > crt.hpMax)
-                            {
-                                crt.hp = crt.hpMax;
-                            }
-                            gv.cc.addLogText("<font color='lime'>" + crt.cr_name + " gains " + heal + " HPs" + "</font><BR>");
-                            //Do floaty text heal
-                            //gv.screenCombat.floatyTextOn = true;
-                            gv.cc.addFloatyText(new Coordinate(crt.combatLocX, crt.combatLocY), heal + "", "green");
-                            #endregion
-                        }
-
-                        /*
-                        if (thisSpellEffect.doBuff)
-                        {
-                            #region Do Buff
-                            int numberOfRounds = thisSpellEffect.durationInUnits / gv.mod.TimePerRound;
-                            gv.cc.addLogText("<font color='lime'>" + thisSpellEffect.name + " is applied on " + crt.cr_name + " for " + numberOfRounds + " round(s)</font><BR>");
-                            crt.AddEffectByObject(thisSpellEffect, classLevel);
-                            #endregion
-                        }
-                        */
-
-                        ///trying to keep old spells compatible, in the long run likely just rely on duration > 0
-                        if ((thisSpellEffect.doDeBuff) || (thisSpellEffect.doDeBuff) || (thisSpellEffect.durationInUnits > 0))
-                        {
-                            #region (Try to) add to effect list of target
-                            #region Do Calc Save and DC
-                            int saveChkRoll = RandInt(20);
-                            int saveChk = 0;
-                            int DC = 0;
-                            int saveChkAdder = 0;
-                            if (thisSpellEffect.saveCheckType.Equals("will"))
-                            {
-                                saveChkAdder = crt.will;
-                            }
-                            else if (thisSpellEffect.saveCheckType.Equals("reflex"))
-                            {
-                                saveChkAdder = crt.reflex;
-                            }
-                            else if (thisSpellEffect.saveCheckType.Equals("fortitude"))
-                            {
-                                saveChkAdder = crt.fortitude;
-                            }
-                            else
-                            {
-                                saveChkAdder = -99;
-                            }
-                            saveChk = saveChkRoll + saveChkAdder;
-                            DC = thisSpellEffect.saveCheckDC;
-                            #endregion
-                            //europa
-                            if (saveChk >= DC) //passed save check
-                            {
-                                gv.cc.addLogText("<font color='yellow'>" + crt.cr_name + " makes successful " + thisSpellEffect.saveCheckType + " saving roll (" + saveChkRoll.ToString() + "+" + saveChkAdder + ">=" + DC.ToString() + ")" + " and avoids " + thisSpellEffect.name + " </font><BR>");
-                                //gv.cc.addLogText("<font color='yellow'>" + "(" + thisSpellEffect.saveCheckType + " saving roll (" + saveChkRoll.ToString() + "+" + saveChkAdder + ">=" + DC.ToString() + ")" + " and avoids the longer lasting effect of" + thisSpellEffect.name + " </font><BR>");
-                                gv.cc.addLogText("<font color='yellow'>" + "(" + saveChkRoll.ToString() + "+" + saveChkAdder + " < " + DC.ToString() + ")" + "</font><BR>");
-                                //gv.cc.addLogText("<font color='yellow'>" + crt.cr_name + " avoids the " + thisSpellEffect.name + " effect.</font><BR>");
-                            }
-                            else//failed save roll or no roll allowed
-                            {
-                                //failed save roll
-                                if (saveChkAdder > -99)
-                                {
-                                    gv.cc.addLogText("<font color='yellow'>" + crt.cr_name + " failed " + thisSpellEffect.saveCheckType + " saving roll for " + thisSpellEffect.name + "(" + saveChkRoll.ToString() + "+" + saveChkAdder + " < " + DC.ToString() + ")" + "</font><BR>");
-                                }
-                                //else//no save roll allowed
-                                //{
-                                //gv.cc.addLogText("<font color='yellow'>" + "No save roll against longer lasting effect of " + thisSpellEffect.name + " allowed" + "</font><BR>");
-                                //}
-                                int numberOfRounds = thisSpellEffect.durationInUnits / gv.mod.TimePerRound;
-                                gv.cc.addLogText("<font color='lime'>" + thisSpellEffect.name + " is applied on " + crt.cr_name + " for " + numberOfRounds + " round(s)</font><BR>");
-                                crt.AddEffectByObject(thisSpellEffect, classLevel);
-                            }
-                            #endregion
-                        }
-                        if (thisSpell.removeEffectTagList.Count > 0)
-                        {
-                            #region remove effects  
-                            foreach (EffectTagForDropDownList efTag in thisSpell.removeEffectTagList)
-                            {
-                                for (int x = crt.cr_effectsList.Count - 1; x >= 0; x--)
-                                {
-                                    if (crt.cr_effectsList[x].tag.Equals(efTag.tag))
-                                    {
-                                        try
+                                        if (crt.cr_effectsList[x].tag.Equals(efTag.tag))
                                         {
-                                            crt.cr_effectsList.RemoveAt(x);
-                                        }
-                                        catch (Exception ex)
-                                        {
-                                            gv.errorLog(ex.ToString());
+                                            try
+                                            {
+                                                crt.cr_effectsList.RemoveAt(x);
+                                            }
+                                            catch (Exception ex)
+                                            {
+                                                gv.errorLog(ex.ToString());
+                                            }
                                         }
                                     }
                                 }
+                                #endregion
                             }
-                            #endregion
                         }
                     }
                     else //target is Player
                     {
                         //europa
                         Player pc = (Player)target;
-                        if ((thisSpellEffect.doDamage) && (thisSpellEffect.durationInUnits == 0))
+
+                        bool skip = false;
+
+                        //go through creature local vars and compare with this spellEffect's affectOnly and affectNever lists
+
+                        //when finding a matching apply never, skip
+                        foreach (string s in thisSpellEffect.affectNeverList)
                         {
-                            #region Do Damage
-                            #region Get Resistances
-                            float resistPc = 0;
-                            if (thisSpellEffect.damType.Equals("Normal")) { resistPc = (float)(1f - ((float)pc.damageTypeResistanceTotalNormal / 100f)); }
-                            else if (thisSpellEffect.damType.Equals("Acid")) { resistPc = (float)(1f - ((float)pc.damageTypeResistanceTotalAcid / 100f)); }
-                            else if (thisSpellEffect.damType.Equals("Cold")) { resistPc = (float)(1f - ((float)pc.damageTypeResistanceTotalCold / 100f)); }
-                            else if (thisSpellEffect.damType.Equals("Electricity")) { resistPc = (float)(1f - ((float)pc.damageTypeResistanceTotalElectricity / 100f)); }
-                            else if (thisSpellEffect.damType.Equals("Fire")) { resistPc = (float)(1f - ((float)pc.damageTypeResistanceTotalFire / 100f)); }
-                            else if (thisSpellEffect.damType.Equals("Magic")) { resistPc = (float)(1f - ((float)pc.damageTypeResistanceTotalMagic / 100f)); }
-                            else if (thisSpellEffect.damType.Equals("Poison")) { resistPc = (float)(1f - ((float)pc.damageTypeResistanceTotalPoison / 100f)); }
-                            #endregion
-                            int damageTotal = 0;
-                            #region Calculate Number of Attacks
-                            //(for reference) NumOfAttacks: A of these attacks for every B levels after level C up to D attacks total                    
-                            int numberOfAttacks = 0;
-                            if (thisSpellEffect.damNumberOfAttacksForEveryNLevels == 0) //this effect is using a fixed amount of attacks
+                            foreach (string ls in pc.knownTraitsTags)
                             {
-                                numberOfAttacks = thisSpellEffect.damNumberOfAttacks;
-                            }
-                            else //this effect is using a variable amount of attacks
-                            {
-                                //numberOfAttacks = (((classLevel - C) / B) + 1) * A;
-                                numberOfAttacks = (((classLevel - thisSpellEffect.damNumberOfAttacksAfterLevelN) / thisSpellEffect.damNumberOfAttacksForEveryNLevels) + 1) * thisSpellEffect.damNumberOfAttacks; //ex: 1 bolt for every 2 levels after level 1
-                            }
-                            if (numberOfAttacks > thisSpellEffect.damNumberOfAttacksUpToNAttacksTotal) { numberOfAttacks = thisSpellEffect.damNumberOfAttacksUpToNAttacksTotal; } //can't have more than a max amount of attacks
-                            #endregion
-                            //loop over number of attacks
-                            for (int i = 0; i < numberOfAttacks; i++)
-                            {
-                                #region Calculate Damage
-                                //(for reference) Attack: AdB+C for every D levels after level E up to F levels total
-                                // damage += RandDieRoll(A,B) + C
-                                //int damage = (int)((1 * RandInt(4) + 1) * resist);
-                                int damagePc = 0;
-                                if (thisSpellEffect.damAttacksEveryNLevels == 0) //this damage is not level based
+                                if (s.Equals(ls))
                                 {
-                                    damagePc = RandDiceRoll(thisSpellEffect.damNumOfDice, thisSpellEffect.damDie) + thisSpellEffect.damAdder;
+                                    skip = true;
+                                    break;
                                 }
-                                else //this damage is level based
+                            }
+
+                            if (skip)
+                            {
+                                break;
+                            }
+                        }
+
+                        //when finding an entry in affectOnlyList, skip unless it matches
+                        if (!skip)
+                        {
+                            if (thisSpellEffect.affectOnlyList.Count > 0)
+                            {
+                                skip = true;
+
+                                foreach (string s in thisSpellEffect.affectOnlyList)
                                 {
-                                    int numberOfDamAttacks = ((classLevel - thisSpellEffect.damAttacksAfterLevelN) / thisSpellEffect.damAttacksEveryNLevels) + 1; //ex: 1 bolt for every 2 levels after level 1
-                                    if (numberOfDamAttacks > thisSpellEffect.damAttacksUpToNLevelsTotal) { numberOfDamAttacks = thisSpellEffect.damAttacksUpToNLevelsTotal; } //can't have more than a max amount of attacks
-                                    for (int j = 0; j < numberOfDamAttacks; j++)
+                                    foreach (string ls in pc.knownTraitsTags)
                                     {
-                                        damagePc += RandDiceRoll(thisSpellEffect.damNumOfDice, thisSpellEffect.damDie) + thisSpellEffect.damAdder;
+                                        if (s.Equals(ls))
+                                        {
+                                            skip = false;
+                                            break;
+                                        }
+                                    }
+                                    if (skip)
+                                    {
+                                        break;
                                     }
                                 }
+                            }
+                        }
+
+                        if (!skip)
+                        {
+                            if ((thisSpellEffect.doDamage) && (thisSpellEffect.durationInUnits == 0))
+                            {
+                                #region Do Damage
+                                #region Get Resistances
+                                float resistPc = 0;
+                                if (thisSpellEffect.damType.Equals("Normal")) { resistPc = (float)(1f - ((float)pc.damageTypeResistanceTotalNormal / 100f)); }
+                                else if (thisSpellEffect.damType.Equals("Acid")) { resistPc = (float)(1f - ((float)pc.damageTypeResistanceTotalAcid / 100f)); }
+                                else if (thisSpellEffect.damType.Equals("Cold")) { resistPc = (float)(1f - ((float)pc.damageTypeResistanceTotalCold / 100f)); }
+                                else if (thisSpellEffect.damType.Equals("Electricity")) { resistPc = (float)(1f - ((float)pc.damageTypeResistanceTotalElectricity / 100f)); }
+                                else if (thisSpellEffect.damType.Equals("Fire")) { resistPc = (float)(1f - ((float)pc.damageTypeResistanceTotalFire / 100f)); }
+                                else if (thisSpellEffect.damType.Equals("Magic")) { resistPc = (float)(1f - ((float)pc.damageTypeResistanceTotalMagic / 100f)); }
+                                else if (thisSpellEffect.damType.Equals("Poison")) { resistPc = (float)(1f - ((float)pc.damageTypeResistanceTotalPoison / 100f)); }
                                 #endregion
+                                int damageTotal = 0;
+                                #region Calculate Number of Attacks
+                                //(for reference) NumOfAttacks: A of these attacks for every B levels after level C up to D attacks total                    
+                                int numberOfAttacks = 0;
+                                if (thisSpellEffect.damNumberOfAttacksForEveryNLevels == 0) //this effect is using a fixed amount of attacks
+                                {
+                                    numberOfAttacks = thisSpellEffect.damNumberOfAttacks;
+                                }
+                                else //this effect is using a variable amount of attacks
+                                {
+                                    //numberOfAttacks = (((classLevel - C) / B) + 1) * A;
+                                    numberOfAttacks = (((classLevel - thisSpellEffect.damNumberOfAttacksAfterLevelN) / thisSpellEffect.damNumberOfAttacksForEveryNLevels) + 1) * thisSpellEffect.damNumberOfAttacks; //ex: 1 bolt for every 2 levels after level 1
+                                }
+                                if (numberOfAttacks > thisSpellEffect.damNumberOfAttacksUpToNAttacksTotal) { numberOfAttacks = thisSpellEffect.damNumberOfAttacksUpToNAttacksTotal; } //can't have more than a max amount of attacks
+                                #endregion
+                                //loop over number of attacks
+                                for (int i = 0; i < numberOfAttacks; i++)
+                                {
+                                    #region Calculate Damage
+                                    //(for reference) Attack: AdB+C for every D levels after level E up to F levels total
+                                    // damage += RandDieRoll(A,B) + C
+                                    //int damage = (int)((1 * RandInt(4) + 1) * resist);
+                                    int damagePc = 0;
+                                    if (thisSpellEffect.damAttacksEveryNLevels == 0) //this damage is not level based
+                                    {
+                                        damagePc = RandDiceRoll(thisSpellEffect.damNumOfDice, thisSpellEffect.damDie) + thisSpellEffect.damAdder;
+                                    }
+                                    else //this damage is level based
+                                    {
+                                        int numberOfDamAttacks = ((classLevel - thisSpellEffect.damAttacksAfterLevelN) / thisSpellEffect.damAttacksEveryNLevels) + 1; //ex: 1 bolt for every 2 levels after level 1
+                                        if (numberOfDamAttacks > thisSpellEffect.damAttacksUpToNLevelsTotal) { numberOfDamAttacks = thisSpellEffect.damAttacksUpToNLevelsTotal; } //can't have more than a max amount of attacks
+                                        for (int j = 0; j < numberOfDamAttacks; j++)
+                                        {
+                                            damagePc += RandDiceRoll(thisSpellEffect.damNumOfDice, thisSpellEffect.damDie) + thisSpellEffect.damAdder;
+                                        }
+                                    }
+                                    #endregion
+                                    #region Do Calc Save and DC
+                                    int saveChkRollPc = RandInt(20);
+                                    int saveChkPc = 0;
+                                    int DCPc = 0;
+                                    int saveChkAdder = 0;
+                                    if (thisSpellEffect.saveCheckType.Equals("will"))
+                                    {
+                                        saveChkAdder = pc.will;
+                                    }
+                                    else if (thisSpellEffect.saveCheckType.Equals("reflex"))
+                                    {
+                                        saveChkAdder = pc.reflex;
+                                    }
+                                    else if (thisSpellEffect.saveCheckType.Equals("fortitude"))
+                                    {
+                                        saveChkAdder = pc.fortitude;
+                                    }
+                                    else
+                                    {
+                                        saveChkAdder = -99;
+                                    }
+                                    saveChkPc = saveChkRollPc + saveChkAdder;
+                                    DCPc = thisSpellEffect.saveCheckDC;
+                                    #endregion
+
+                                    if (saveChkPc >= DCPc) //passed save check (do half or avoid all?)
+                                    {
+                                        gv.cc.addLogText("<font color='yellow'>" + pc.name + " makes successful " + thisSpellEffect.saveCheckType + " saving roll (" + saveChkRollPc.ToString() + "+" + saveChkAdder + ">=" + DCPc.ToString() + ")" + "</font><BR>");
+                                        damagePc = damagePc / 2;
+                                        gv.cc.addLogText("<font color='yellow'>" + pc.name + " takes only half damage from " + thisSpellEffect.name + "</font><BR>");
+                                    }
+                                    else //failed save check or no save check allowed
+                                    {
+                                        //failed save roll
+                                        if (saveChkAdder > -99)
+                                        {
+                                            gv.cc.addLogText("<font color='yellow'>" + pc.name + " failed " + thisSpellEffect.saveCheckType + " saving roll (" + saveChkRollPc.ToString() + "+" + saveChkAdder + " < " + DCPc.ToString() + ")" + "</font><BR>");
+                                        }
+                                        else//no save roll allowed
+                                        {
+                                            gv.cc.addLogText("<font color='yellow'>" + "No saving roll allowed" + "</font><BR>");
+                                        }
+                                    }
+
+                                    if (mod.debugMode) { gv.cc.addLogText("<font color='yellow'>" + saveChkRollPc + " + " + saveChkAdder + " >= " + DCPc + "</font><BR>"); }
+                                    if (mod.debugMode) { gv.cc.addLogText("<font color='yellow'>" + "resist = " + resistPc + " damage = " + damagePc + "</font><BR>"); }
+
+                                    int damageAndResist = (int)((float)damagePc * resistPc);
+                                    damageTotal += damageAndResist;
+                                    //europa
+                                    //resistance exists
+                                    if (resistPc < 1)
+                                    {
+                                        gv.cc.addLogText("<font color='aqua'>" + sourceName + "</font>" + "<font color='white'>" + " damages " + "</font>" + "<font color='silver'>"
+                                                        + pc.name + "</font>" + "<font color='white'>" + "with " + thisSpellEffect.name + " (" + "</font>" + "<font color='lime'>"
+                                                        + damageAndResist + "</font>" + "<font color='white'>" + " damage)" + "(-" + ((1 - resistPc) * 100f) + "% resistance)" + "</font><BR>");
+                                    }
+                                    //vulnerability exists
+                                    else if (resistPc > 1)
+                                    {
+                                        gv.cc.addLogText("<font color='aqua'>" + sourceName + "</font>" + "<font color='white'>" + " damages " + "</font>" + "<font color='silver'>"
+                                                        + pc.name + "</font>" + "<font color='white'>" + "with " + thisSpellEffect.name + " (" + "</font>" + "<font color='lime'>"
+                                                        + damageAndResist + "</font>" + "<font color='white'>" + " damage)" + "(+" + ((resistPc - 1) * 100f) + "% vulnerability)" + "</font><BR>");
+                                    }
+                                    //neither resistance nor vulnerability
+                                    else
+                                    {
+                                        gv.cc.addLogText("<font color='aqua'>" + sourceName + "</font>" + "<font color='white'>" + " damages " + "</font>" + "<font color='silver'>"
+                                                        + pc.name + "</font>" + "<font color='white'>" + "with " + thisSpellEffect.name + " (" + "</font>" + "<font color='lime'>"
+                                                        + damageAndResist + "</font>" + "<font color='white'>" + " damage)" + "</font><BR>");
+                                    }
+                                }
+
+                                pc.hp -= damageTotal;
+                                if (pc.hp <= 0)
+                                {
+                                    gv.screenCombat.deathAnimationLocations.Add(new Coordinate(pc.combatLocX, pc.combatLocY));
+                                    gv.cc.addLogText("<font color='red'>" + pc.name + " drops unconcious!" + "</font><BR>");
+                                    pc.charStatus = "Dead";
+                                }
+                                //Do floaty text damage
+                                //gv.screenCombat.floatyTextOn = true;
+                                gv.cc.addFloatyText(new Coordinate(pc.combatLocX, pc.combatLocY), damageTotal + "");
+                                #endregion
+                            }
+                            if ((thisSpellEffect.doHeal) && (thisSpellEffect.durationInUnits == 0))
+                            {
+                                #region Do Heal
+                                if (pc.hp <= -20)
+                                {
+                                    //MessageBox("Can't heal a dead character!");
+                                    gv.cc.addLogText("<font color='red'>" + "Can't heal a dead character!" + "</font><BR>");
+                                }
+                                else
+                                {
+                                    #region Calculate Heal
+                                    //(for reference) Heal: AdB+C for every D levels after level E up to F levels total
+                                    // heal += RandDieRoll(A,B) + C
+                                    int heal = 0;
+                                    if (thisSpellEffect.healActionsEveryNLevels == 0) //this heal is not level based
+                                    {
+                                        heal = RandDiceRoll(thisSpellEffect.healNumOfDice, thisSpellEffect.healDie) + thisSpellEffect.healAdder;
+                                    }
+                                    else //this heal is level based
+                                    {
+                                        int numberOfHealActions = ((classLevel - thisSpellEffect.healActionsAfterLevelN) / thisSpellEffect.healActionsEveryNLevels) + 1; //ex: 1 bolt for every 2 levels after level 1
+                                        if (numberOfHealActions > thisSpellEffect.healActionsUpToNLevelsTotal) { numberOfHealActions = thisSpellEffect.healActionsUpToNLevelsTotal; } //can't have more than a max amount of actions
+                                        for (int j = 0; j < numberOfHealActions; j++)
+                                        {
+                                            heal += RandDiceRoll(thisSpellEffect.healNumOfDice, thisSpellEffect.healDie) + thisSpellEffect.healAdder;
+                                        }
+                                    }
+                                    #endregion
+                                    pc.hp += heal;
+                                    if (pc.hp > pc.hpMax)
+                                    {
+                                        pc.hp = pc.hpMax;
+                                    }
+                                    if (pc.hp > 0)
+                                    {
+                                        pc.charStatus = "Alive";
+                                    }
+                                    gv.cc.addLogText("<font color='lime'>" + pc.name + " gains " + heal + " HPs" + "</font><BR>");
+                                    //Do floaty text heal
+                                    //gv.screenCombat.floatyTextOn = true;
+                                    gv.cc.addFloatyText(new Coordinate(pc.combatLocX, pc.combatLocY), heal + "", "green");
+                                }
+                                #endregion
+                            }
+                            /*
+                            if (thisSpellEffect.doBuff)
+                            {
+                                #region Do Buff
+                                int numberOfRounds = thisSpellEffect.durationInUnits / gv.mod.TimePerRound;
+                                gv.cc.addLogText("<font color='lime'>" + thisSpellEffect.name + " is applied on " + pc.name + " for " + numberOfRounds + " round(s)</font><BR>");
+                                pc.AddEffectByObject(thisSpellEffect, classLevel);
+                                #endregion
+                            }
+                            */
+
+                            //europa2
+                            //trying to keep this compatible with old spells, in the long run only duration units should be relevant? 
+                            if ((thisSpellEffect.doDeBuff) || (thisSpellEffect.doBuff) || (thisSpellEffect.durationInUnits > 0))
+                            {
+                                #region (Try to) add to target's effect list
                                 #region Do Calc Save and DC
-                                int saveChkRollPc = RandInt(20);
-                                int saveChkPc = 0;
-                                int DCPc = 0;
+                                int saveChkRoll = RandInt(20);
+                                int saveChk = 0;
+                                int DC = 0;
                                 int saveChkAdder = 0;
                                 if (thisSpellEffect.saveCheckType.Equals("will"))
                                 {
@@ -6641,198 +6886,54 @@ namespace IceBlink2
                                 {
                                     saveChkAdder = -99;
                                 }
-                                saveChkPc = saveChkRollPc + saveChkAdder;
-                                DCPc = thisSpellEffect.saveCheckDC;
+                                saveChk = saveChkRoll + saveChkAdder;
+                                DC = thisSpellEffect.saveCheckDC;
                                 #endregion
-
-                                if (saveChkPc >= DCPc) //passed save check (do half or avoid all?)
+                                if (saveChk >= DC) //passed save check
                                 {
-                                    gv.cc.addLogText("<font color='yellow'>" + pc.name + " makes successful " + thisSpellEffect.saveCheckType + " saving roll (" + saveChkRollPc.ToString() + "+" + saveChkAdder + ">=" + DCPc.ToString() + ")" + "</font><BR>");
-                                    damagePc = damagePc / 2;
-                                    gv.cc.addLogText("<font color='yellow'>" + pc.name + " takes only half damage from " + thisSpellEffect.name + "</font><BR>");
+                                    gv.cc.addLogText("<font color='yellow'>" + pc.name + " makes successful " + thisSpellEffect.saveCheckType + " saving roll (" + saveChkRoll.ToString() + "+" + saveChkAdder + ">=" + DC.ToString() + ")" + " and avoids " + thisSpellEffect.name + " </font><BR>");
                                 }
-                                else //failed save check or no save check allowed
+                                else//failed save roll or no roll allowed
                                 {
                                     //failed save roll
                                     if (saveChkAdder > -99)
                                     {
-                                        gv.cc.addLogText("<font color='yellow'>" + pc.name + " failed " + thisSpellEffect.saveCheckType + " saving roll (" + saveChkRollPc.ToString() + "+" + saveChkAdder + " < " + DCPc.ToString() + ")" + "</font><BR>");
+                                        gv.cc.addLogText("<font color='yellow'>" + pc.name + " failed " + thisSpellEffect.saveCheckType + " saving roll for " + thisSpellEffect.name + "(" + saveChkRoll.ToString() + "+" + saveChkAdder + " < " + DC.ToString() + ")" + "</font><BR>");
+                                        //gv.cc.addLogText("<font color='yellow'>" + pc.name + " failed " + thisSpellEffect.saveCheckType + " saving roll against " + thisSpellEffect.name + "</font><BR>");
+                                        //gv.cc.addLogText("<font color='yellow'>" + "(" + saveChkRoll.ToString() + "+" + saveChkAdder.ToString() + "<" + DC.ToString() + ")" + "</font><BR>");
                                     }
                                     else//no save roll allowed
                                     {
-                                        gv.cc.addLogText("<font color='yellow'>" + "No saving roll allowed" + "</font><BR>");
+                                        //gv.cc.addLogText("<font color='yellow'>" + "No saving roll allowed against longer lasting effect of " + thisSpellEffect.name + "</font><BR>");
                                     }
+                                    int numberOfRounds = thisSpellEffect.durationInUnits / gv.mod.TimePerRound;
+                                    gv.cc.addLogText("<font color='lime'>" + thisSpellEffect.name + " is applied on " + pc.name + " for " + numberOfRounds + " round(s)</font><BR>");
+                                    pc.AddEffectByObject(thisSpellEffect, classLevel);
                                 }
-
-                                if (mod.debugMode) { gv.cc.addLogText("<font color='yellow'>" + saveChkRollPc + " + " + saveChkAdder + " >= " + DCPc + "</font><BR>"); }
-                                if (mod.debugMode) { gv.cc.addLogText("<font color='yellow'>" + "resist = " + resistPc + " damage = " + damagePc + "</font><BR>"); }
-
-                                int damageAndResist = (int)((float)damagePc * resistPc);
-                                damageTotal += damageAndResist;
-                                //europa
-                                //resistance exists
-                                if (resistPc < 1)
-                                {
-                                    gv.cc.addLogText("<font color='aqua'>" + sourceName + "</font>" + "<font color='white'>" + " damages " + "</font>" + "<font color='silver'>"
-                                                    + pc.name + "</font>" + "<font color='white'>" + "with " + thisSpellEffect.name + " (" + "</font>" + "<font color='lime'>"
-                                                    + damageAndResist + "</font>" + "<font color='white'>" + " damage)" + "(-" + ((1 - resistPc) * 100f) + "% resistance)" + "</font><BR>");
-                                }
-                                //vulnerability exists
-                                else if (resistPc > 1)
-                                {
-                                    gv.cc.addLogText("<font color='aqua'>" + sourceName + "</font>" + "<font color='white'>" + " damages " + "</font>" + "<font color='silver'>"
-                                                    + pc.name + "</font>" + "<font color='white'>" + "with " + thisSpellEffect.name + " (" + "</font>" + "<font color='lime'>"
-                                                    + damageAndResist + "</font>" + "<font color='white'>" + " damage)" + "(+" + ((resistPc - 1) * 100f) + "% vulnerability)" + "</font><BR>");
-                                }
-                                //neither resistance nor vulnerability
-                                else
-                                {
-                                    gv.cc.addLogText("<font color='aqua'>" + sourceName + "</font>" + "<font color='white'>" + " damages " + "</font>" + "<font color='silver'>"
-                                                    + pc.name + "</font>" + "<font color='white'>" + "with " + thisSpellEffect.name + " (" + "</font>" + "<font color='lime'>"
-                                                    + damageAndResist + "</font>" + "<font color='white'>" + " damage)" + "</font><BR>");
-                                }
+                                #endregion
                             }
-
-                            pc.hp -= damageTotal;
-                            if (pc.hp <= 0)
+                            if (thisSpell.removeEffectTagList.Count > 0)
                             {
-                                gv.screenCombat.deathAnimationLocations.Add(new Coordinate(pc.combatLocX, pc.combatLocY));
-                                gv.cc.addLogText("<font color='red'>" + pc.name + " drops unconcious!" + "</font><BR>");
-                                pc.charStatus = "Dead";
-                            }
-                            //Do floaty text damage
-                            //gv.screenCombat.floatyTextOn = true;
-                            gv.cc.addFloatyText(new Coordinate(pc.combatLocX, pc.combatLocY), damageTotal + "");
-                            #endregion
-                        }
-                        if ((thisSpellEffect.doHeal) && (thisSpellEffect.durationInUnits == 0))
-                        {
-                            #region Do Heal
-                            if (pc.hp <= -20)
-                            {
-                                //MessageBox("Can't heal a dead character!");
-                                gv.cc.addLogText("<font color='red'>" + "Can't heal a dead character!" + "</font><BR>");
-                            }
-                            else
-                            {
-                                #region Calculate Heal
-                                //(for reference) Heal: AdB+C for every D levels after level E up to F levels total
-                                // heal += RandDieRoll(A,B) + C
-                                int heal = 0;
-                                if (thisSpellEffect.healActionsEveryNLevels == 0) //this heal is not level based
+                                #region remove effects  
+                                foreach (EffectTagForDropDownList efTag in thisSpell.removeEffectTagList)
                                 {
-                                    heal = RandDiceRoll(thisSpellEffect.healNumOfDice, thisSpellEffect.healDie) + thisSpellEffect.healAdder;
-                                }
-                                else //this heal is level based
-                                {
-                                    int numberOfHealActions = ((classLevel - thisSpellEffect.healActionsAfterLevelN) / thisSpellEffect.healActionsEveryNLevels) + 1; //ex: 1 bolt for every 2 levels after level 1
-                                    if (numberOfHealActions > thisSpellEffect.healActionsUpToNLevelsTotal) { numberOfHealActions = thisSpellEffect.healActionsUpToNLevelsTotal; } //can't have more than a max amount of actions
-                                    for (int j = 0; j < numberOfHealActions; j++)
+                                    for (int x = pc.effectsList.Count - 1; x >= 0; x--)
                                     {
-                                        heal += RandDiceRoll(thisSpellEffect.healNumOfDice, thisSpellEffect.healDie) + thisSpellEffect.healAdder;
+                                        if (pc.effectsList[x].tag.Equals(efTag.tag))
+                                        {
+                                            try
+                                            {
+                                                pc.effectsList.RemoveAt(x);
+                                            }
+                                            catch (Exception ex)
+                                            {
+                                                gv.errorLog(ex.ToString());
+                                            }
+                                        }
                                     }
                                 }
                                 #endregion
-                                pc.hp += heal;
-                                if (pc.hp > pc.hpMax)
-                                {
-                                    pc.hp = pc.hpMax;
-                                }
-                                if (pc.hp > 0)
-                                {
-                                    pc.charStatus = "Alive";
-                                }
-                                gv.cc.addLogText("<font color='lime'>" + pc.name + " gains " + heal + " HPs" + "</font><BR>");
-                                //Do floaty text heal
-                                //gv.screenCombat.floatyTextOn = true;
-                                gv.cc.addFloatyText(new Coordinate(pc.combatLocX, pc.combatLocY), heal + "", "green");
                             }
-                            #endregion
-                        }
-                        /*
-                        if (thisSpellEffect.doBuff)
-                        {
-                            #region Do Buff
-                            int numberOfRounds = thisSpellEffect.durationInUnits / gv.mod.TimePerRound;
-                            gv.cc.addLogText("<font color='lime'>" + thisSpellEffect.name + " is applied on " + pc.name + " for " + numberOfRounds + " round(s)</font><BR>");
-                            pc.AddEffectByObject(thisSpellEffect, classLevel);
-                            #endregion
-                        }
-                        */
-
-                        //europa2
-                        //trying to keep this compatible with old spells, in the long run only duration units should be relevant? 
-                        if ((thisSpellEffect.doDeBuff) || (thisSpellEffect.doBuff) || (thisSpellEffect.durationInUnits > 0))
-                        {
-                            #region (Try to) add to target's effect list
-                            #region Do Calc Save and DC
-                            int saveChkRoll = RandInt(20);
-                            int saveChk = 0;
-                            int DC = 0;
-                            int saveChkAdder = 0;
-                            if (thisSpellEffect.saveCheckType.Equals("will"))
-                            {
-                                saveChkAdder = pc.will;
-                            }
-                            else if (thisSpellEffect.saveCheckType.Equals("reflex"))
-                            {
-                                saveChkAdder = pc.reflex;
-                            }
-                            else if (thisSpellEffect.saveCheckType.Equals("fortitude"))
-                            {
-                                saveChkAdder = pc.fortitude;
-                            }
-                            else
-                            {
-                                saveChkAdder = -99;
-                            }
-                            saveChk = saveChkRoll + saveChkAdder;
-                            DC = thisSpellEffect.saveCheckDC;
-                            #endregion
-                            if (saveChk >= DC) //passed save check
-                            {
-                                gv.cc.addLogText("<font color='yellow'>" + pc.name + " makes successful " + thisSpellEffect.saveCheckType + " saving roll (" + saveChkRoll.ToString() + "+" + saveChkAdder + ">=" + DC.ToString() + ")" + " and avoids " + thisSpellEffect.name + " </font><BR>");
-                            }
-                            else//failed save roll or no roll allowed
-                            {
-                                //failed save roll
-                                if (saveChkAdder > -99)
-                                {
-                                    gv.cc.addLogText("<font color='yellow'>" + pc.name + " failed " + thisSpellEffect.saveCheckType + " saving roll for " + thisSpellEffect.name + "(" + saveChkRoll.ToString() + "+" + saveChkAdder + " < " + DC.ToString() + ")" + "</font><BR>");
-                                    //gv.cc.addLogText("<font color='yellow'>" + pc.name + " failed " + thisSpellEffect.saveCheckType + " saving roll against " + thisSpellEffect.name + "</font><BR>");
-                                    //gv.cc.addLogText("<font color='yellow'>" + "(" + saveChkRoll.ToString() + "+" + saveChkAdder.ToString() + "<" + DC.ToString() + ")" + "</font><BR>");
-                                }
-                                else//no save roll allowed
-                                {
-                                    //gv.cc.addLogText("<font color='yellow'>" + "No saving roll allowed against longer lasting effect of " + thisSpellEffect.name + "</font><BR>");
-                                }
-                                int numberOfRounds = thisSpellEffect.durationInUnits / gv.mod.TimePerRound;
-                                gv.cc.addLogText("<font color='lime'>" + thisSpellEffect.name + " is applied on " + pc.name + " for " + numberOfRounds + " round(s)</font><BR>");
-                                pc.AddEffectByObject(thisSpellEffect, classLevel);
-                            }
-                            #endregion
-                        }
-                        if (thisSpell.removeEffectTagList.Count > 0)
-                        {
-                            #region remove effects  
-                            foreach (EffectTagForDropDownList efTag in thisSpell.removeEffectTagList)
-                            {
-                                for (int x = pc.effectsList.Count - 1; x >= 0; x--)
-                                {
-                                    if (pc.effectsList[x].tag.Equals(efTag.tag))
-                                    {
-                                        try
-                                        {
-                                            pc.effectsList.RemoveAt(x);
-                                        }
-                                        catch (Exception ex)
-                                        {
-                                            gv.errorLog(ex.ToString());
-                                        }
-                                    }
-                                }
-                            }
-                            #endregion
                         }
                     }
                 }
