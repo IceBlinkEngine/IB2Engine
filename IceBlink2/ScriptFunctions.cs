@@ -5666,7 +5666,10 @@ namespace IceBlink2
                     pc.hp -= damageTotal;
                     if (pc.hp <= 0)
                     {
-                        gv.screenCombat.deathAnimationLocations.Add(new Coordinate(pc.combatLocX, pc.combatLocY));
+                        if (pc.hp <= -20)
+                        {
+                            gv.screenCombat.deathAnimationLocations.Add(new Coordinate(pc.combatLocX, pc.combatLocY));
+                        }
                         gv.cc.addLogText("<font color='red'>" + pc.name + " drops unconcious!" + "</font><BR>");
                         pc.charStatus = "Dead";
                     }
@@ -6325,6 +6328,7 @@ namespace IceBlink2
                                 if (s.Value.Equals(ls.Value))
                                 {
                                     skip = true;
+                                    gv.cc.addLogText("<font color='yellow'>" + crt.cr_name + " is immune to " + thisSpellEffect.name + "</font><BR>");
                                     break;
                                 }
                             }
@@ -6633,6 +6637,7 @@ namespace IceBlink2
                                 if (s.Value.Equals(ls))
                                 {
                                     skip = true;
+                                    gv.cc.addLogText("<font color='yellow'>" + pc.name + " is immune to " + thisSpellEffect.name + "</font><BR>");
                                     break;
                                 }
                             }
@@ -6796,7 +6801,10 @@ namespace IceBlink2
                                 pc.hp -= damageTotal;
                                 if (pc.hp <= 0)
                                 {
-                                    gv.screenCombat.deathAnimationLocations.Add(new Coordinate(pc.combatLocX, pc.combatLocY));
+                                    if (pc.hp <= -20)
+                                    {
+                                        gv.screenCombat.deathAnimationLocations.Add(new Coordinate(pc.combatLocX, pc.combatLocY));
+                                    }
                                     gv.cc.addLogText("<font color='red'>" + pc.name + " drops unconcious!" + "</font><BR>");
                                     pc.charStatus = "Dead";
                                 }
@@ -7037,6 +7045,7 @@ namespace IceBlink2
                             if (s.Value.Equals(ls.Value))
                             {
                                 skip = true;
+                                gv.cc.addLogText("<font color='yellow'>" + crt.cr_name + " is immune to " + thisSpellEffect.name + "</font><BR>");
                                 break;
                             }
                         }
@@ -7344,6 +7353,7 @@ namespace IceBlink2
                             if (s.Value.Equals(ls))
                             {
                                 skip = true;
+                                gv.cc.addLogText("<font color='yellow'>" + pc.name + " is immune to " + thisSpellEffect.name + "</font><BR>");
                                 break;
                             }
                         }
@@ -7507,7 +7517,10 @@ namespace IceBlink2
                             pc.hp -= damageTotal;
                             if (pc.hp <= 0)
                             {
-                                gv.screenCombat.deathAnimationLocations.Add(new Coordinate(pc.combatLocX, pc.combatLocY));
+                                if (pc.hp <= -20)
+                                {
+                                    gv.screenCombat.deathAnimationLocations.Add(new Coordinate(pc.combatLocX, pc.combatLocY));
+                                }
                                 gv.cc.addLogText("<font color='red'>" + pc.name + " drops unconcious!" + "</font><BR>");
                                 pc.charStatus = "Dead";
                             }
@@ -7779,7 +7792,10 @@ namespace IceBlink2
                     pc.hp -= fireDam;
                     if (pc.hp <= 0)
                     {
-                        gv.screenCombat.deathAnimationLocations.Add(new Coordinate(pc.combatLocX, pc.combatLocY));
+                        if (pc.hp <= -20)
+                        {
+                            gv.screenCombat.deathAnimationLocations.Add(new Coordinate(pc.combatLocX, pc.combatLocY));
+                        }
                         gv.cc.addLogText("<font color='red'>" + pc.name + " drops unconcious!" + "</font><BR>");
                         pc.charStatus = "Dead";
                     }
@@ -7898,7 +7914,10 @@ namespace IceBlink2
                             "<BR>");
                     if (target.hp <= 0)
                     {
-                        gv.screenCombat.deathAnimationLocations.Add(new Coordinate(target.combatLocX, target.combatLocY));
+                        if (target.hp <= -20)
+                        {
+                            gv.screenCombat.deathAnimationLocations.Add(new Coordinate(target.combatLocX, target.combatLocY));
+                        }
                         gv.cc.addLogText("<font color='red'>" + target.name + " drops unconcious!" + "</font><BR>");
                         target.charStatus = "Dead";
                     }
@@ -8255,7 +8274,10 @@ namespace IceBlink2
                     pc.hp -= iceDam;
                     if (pc.hp <= 0)
                     {
-                        gv.screenCombat.deathAnimationLocations.Add(new Coordinate(pc.combatLocX, pc.combatLocY));
+                        if (pc.hp <= -20)
+                        {
+                            gv.screenCombat.deathAnimationLocations.Add(new Coordinate(pc.combatLocX, pc.combatLocY));
+                        }
                         gv.cc.addLogText("<font color='red'>" + pc.name + " drops unconcious!" + "</font><BR>");
                         pc.charStatus = "Dead";
                     }
@@ -8391,7 +8413,10 @@ namespace IceBlink2
                     pc.hp -= fireDam;
                     if (pc.hp <= 0)
                     {
-                        gv.screenCombat.deathAnimationLocations.Add(new Coordinate(pc.combatLocX, pc.combatLocY));
+                        if (pc.hp <= -20)
+                        {
+                            gv.screenCombat.deathAnimationLocations.Add(new Coordinate(pc.combatLocX, pc.combatLocY));
+                        }
                         gv.cc.addLogText("<font color='red'>" + pc.name + " drops unconcious!" + "</font><BR>");
                         pc.charStatus = "Dead";
                     }
@@ -8527,7 +8552,10 @@ namespace IceBlink2
                     pc.hp -= elecDam;
                     if (pc.hp <= 0)
                     {
-                        gv.screenCombat.deathAnimationLocations.Add(new Coordinate(pc.combatLocX, pc.combatLocY));
+                        if (pc.hp <= -20)
+                        {
+                            gv.screenCombat.deathAnimationLocations.Add(new Coordinate(pc.combatLocX, pc.combatLocY));
+                        }
                         gv.cc.addLogText("<font color='red'>" + pc.name + " drops unconcious!" + "</font><BR>");
                         pc.charStatus = "Dead";
                     }
@@ -8846,7 +8874,10 @@ namespace IceBlink2
                             "<BR>");
                     if (target.hp <= 0)
                     {
-                        gv.screenCombat.deathAnimationLocations.Add(new Coordinate(target.combatLocX, target.combatLocY));
+                        if (target.hp <= -20)
+                        {
+                            gv.screenCombat.deathAnimationLocations.Add(new Coordinate(target.combatLocX, target.combatLocY));
+                        }
                         gv.cc.addLogText("<font color='red'>" + target.name + " drops unconcious!" + "</font><BR>");
                         target.charStatus = "Dead";
                     }
@@ -8974,7 +9005,10 @@ namespace IceBlink2
                     pc.hp -= fireDam;
                     if (pc.hp <= 0)
                     {
-                        gv.screenCombat.deathAnimationLocations.Add(new Coordinate(pc.combatLocX, pc.combatLocY));
+                        if (pc.hp <= -20)
+                        {
+                            gv.screenCombat.deathAnimationLocations.Add(new Coordinate(pc.combatLocX, pc.combatLocY));
+                        }
                         gv.cc.addLogText("<font color='red'>" + pc.name + " drops unconcious!" + "</font><BR>");
                         pc.charStatus = "Dead";
                     }

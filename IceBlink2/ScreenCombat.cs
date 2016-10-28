@@ -744,7 +744,19 @@ namespace IceBlink2
             {
                 if (pc.moveOrder == currentMoveOrderIndex)
                 {
-                    
+                    if ((pc.hp <= 0) && (pc.hp > -20))
+                    {
+                        pc.hp -= 1;
+                        gv.cc.addLogText("<font color='red'>" + pc.name + " bleeds 1 HP, dead at -20 HP!" + "</font><BR>");
+                        pc.charStatus = "Dead";
+                        if (pc.hp <= -20)
+                        {
+                            gv.cc.addLogText("<font color='red'>" + pc.name + " has DIED!" + "</font><BR>");
+                        }
+                    }
+
+                    spriteList.Clear();
+                    gv.cc.floatyTextList.Clear();
                     //highlight the portrait of the pc whose current turn it is
                     gv.cc.ptrPc0.glowOn = false;
                     gv.cc.ptrPc1.glowOn = false;
@@ -810,7 +822,8 @@ namespace IceBlink2
             {
                 if (crt.moveOrder == currentMoveOrderIndex)
                 {
-                    
+                    spriteList.Clear();
+                    gv.cc.floatyTextList.Clear();
                     coordinatesOfPcTheCreatureMovesTowards.X = -1;
                     coordinatesOfPcTheCreatureMovesTowards.Y = -1;
                     storedPathOfCurrentCreature.Clear();
@@ -853,7 +866,7 @@ namespace IceBlink2
         public void startNextRoundStuff()
         {
             currentMoveOrderIndex = 0;
-            gv.sf.dsWorldTime();
+            //gv.sf.dsWorldTime();
             doHardToKillTrait();
             doBattleRegenTrait();
             foreach (Player pc in mod.playerList)
@@ -1474,7 +1487,7 @@ namespace IceBlink2
             else
             {
                 pc.steathModeOn = false;
-                gv.cc.addLogText("<font color='lime'> stealth OFF: " + roll + "+" + attMod + "+" + skillMod + "<" + DC + "</font><BR>");
+                gv.cc.addLogText("<font color='lime'> stealth OFF: " + roll + "+" + attMod + "+" + skillMod + " < " + DC + "</font><BR>");
             }
         }
         public void doPlayerCombatFacing(Player pc, int tarX, int tarY)
@@ -2185,15 +2198,22 @@ namespace IceBlink2
 	    public void BasicAttacker(Creature crt)
         {
             Player pc = targetClosestPC(crt);
-            gv.sf.CombatTarget = pc;
-            int dist = CalcDistance(crt.combatLocX, crt.combatLocY, pc.combatLocX, pc.combatLocY);
-            if (dist <= crt.cr_attRange)
+            if (pc == null)
             {
-                gv.sf.ActionToTake = "Attack";
+                endCreatureTurn();
             }
             else
             {
-                gv.sf.ActionToTake = "Move";
+                gv.sf.CombatTarget = pc;
+                int dist = CalcDistance(crt.combatLocX, crt.combatLocY, pc.combatLocX, pc.combatLocY);
+                if (dist <= crt.cr_attRange)
+                {
+                    gv.sf.ActionToTake = "Attack";
+                }
+                else
+                {
+                    gv.sf.ActionToTake = "Move";
+                }
             }
         }
         public void GeneralCaster(Creature crt)
@@ -2214,9 +2234,16 @@ namespace IceBlink2
                         if (gv.sf.SpellToCast.spellTargetType.Equals("Enemy"))
                         {
                             Player pc = targetClosestPC(crt);
-                            gv.sf.CombatTarget = pc;
-                            gv.sf.ActionToTake = "Cast";
-                            break;
+                            if (pc != null)
+                            {
+                                gv.sf.CombatTarget = pc;
+                                gv.sf.ActionToTake = "Cast";
+                                break;
+                            }
+                            else
+                            {
+                                endCreatureTurn();
+                            }
                         }
                         else if (gv.sf.SpellToCast.spellTargetType.Equals("PointLocation"))
                         {
@@ -2225,7 +2252,14 @@ namespace IceBlink2
                     	    {
                     		    //didn't find a target so use closest PC
                     		    Player pc = targetClosestPC(crt);
-                        	    gv.sf.CombatTarget = new Coordinate(pc.combatLocX, pc.combatLocY);
+                                if (pc != null)
+                                {
+                                    gv.sf.CombatTarget = new Coordinate(pc.combatLocX, pc.combatLocY);
+                                }
+                                else
+                                {
+                                    endCreatureTurn();
+                                }
                     	    }
                     	    else
                     	    {
@@ -2268,11 +2302,19 @@ namespace IceBlink2
                     }
                 }
             }
+
             if (gv.sf.SpellToCast == null) //didn't find a spell that matched the criteria so use attack instead
             {
         	    Player pc = targetClosestPC(crt);
-        	    gv.sf.CombatTarget = pc;
-        	    gv.sf.ActionToTake = "Attack";
+                if (pc == null)
+                {
+                    endCreatureTurn();
+                }
+                else
+                {
+                    gv.sf.CombatTarget = pc;
+                    gv.sf.ActionToTake = "Attack";
+                }
             }
         }
         public void endCreatureTurn()
@@ -4762,15 +4804,18 @@ namespace IceBlink2
                     }
                     //PLAYER FACING
                     src = new IbRect(0, 0, gv.cc.facing1.PixelSize.Width, gv.cc.facing1.PixelSize.Height);
-                    if (pc.combatFacing == 8) { gv.DrawBitmap(gv.cc.facing8, src, dst); }
-                    else if (pc.combatFacing == 9) { gv.DrawBitmap(gv.cc.facing9, src, dst); }
-                    else if (pc.combatFacing == 6) { gv.DrawBitmap(gv.cc.facing6, src, dst); }
-                    else if (pc.combatFacing == 3) { gv.DrawBitmap(gv.cc.facing3, src, dst); }
-                    else if (pc.combatFacing == 2) { gv.DrawBitmap(gv.cc.facing2, src, dst); }
-                    else if (pc.combatFacing == 1) { gv.DrawBitmap(gv.cc.facing1, src, dst); }
-                    else if (pc.combatFacing == 4) { gv.DrawBitmap(gv.cc.facing4, src, dst); }
-                    else if (pc.combatFacing == 7) { gv.DrawBitmap(gv.cc.facing7, src, dst); }
-                    else { } //didn't find one
+                    if (pc.hp > 0)
+                    {
+                        if (pc.combatFacing == 8) { gv.DrawBitmap(gv.cc.facing8, src, dst); }
+                        else if (pc.combatFacing == 9) { gv.DrawBitmap(gv.cc.facing9, src, dst); }
+                        else if (pc.combatFacing == 6) { gv.DrawBitmap(gv.cc.facing6, src, dst); }
+                        else if (pc.combatFacing == 3) { gv.DrawBitmap(gv.cc.facing3, src, dst); }
+                        else if (pc.combatFacing == 2) { gv.DrawBitmap(gv.cc.facing2, src, dst); }
+                        else if (pc.combatFacing == 1) { gv.DrawBitmap(gv.cc.facing1, src, dst); }
+                        else if (pc.combatFacing == 4) { gv.DrawBitmap(gv.cc.facing4, src, dst); }
+                        else if (pc.combatFacing == 7) { gv.DrawBitmap(gv.cc.facing7, src, dst); }
+                        else { } //didn't find one
+                    }
 
 
                     if (showMoveOrder)
@@ -4852,15 +4897,18 @@ namespace IceBlink2
 		    {
                 if ((!IsInVisibleCombatWindow(crt.combatLocX, crt.combatLocY)) || (!gv.mod.useCombatSmoothMovement))
                 {
-                    if (((crt == mod.currentEncounter.encounterCreatureList[creatureIndex]) && (!isPlayerTurn)) || (!gv.mod.useCombatSmoothMovement))
+                    if (creatureIndex <= (mod.currentEncounter.encounterCreatureList.Count - 1))
                     {
-                        if ((crt.newCoor.X != -1) && (crt.newCoor.Y != -1))
+                        if (((crt == mod.currentEncounter.encounterCreatureList[creatureIndex]) && (!isPlayerTurn)) || (!gv.mod.useCombatSmoothMovement))
                         {
-                            crt.combatLocX = crt.newCoor.X;
-                            crt.combatLocY = crt.newCoor.Y;
-                        }
+                            if ((crt.newCoor.X != -1) && (crt.newCoor.Y != -1))
+                            {
+                                crt.combatLocX = crt.newCoor.X;
+                                crt.combatLocY = crt.newCoor.Y;
+                            }
 
-                        blockAnimationBridge = false;
+                            blockAnimationBridge = false;
+                        }
                     }
                     continue;
                 }
@@ -11143,6 +11191,7 @@ namespace IceBlink2
 	    public int CalcPcAttackModifier(Player pc, Creature crt)
         {
             int modifier = 0;
+            int situationalModifier = 0;
             if ((mod.getItemByResRefForInfo(pc.MainHandRefs.resref).category.Equals("Melee")) 
         		    || (mod.getItemByResRefForInfo(pc.MainHandRefs.resref).name.Equals("none"))
         		    || (mod.getItemByResRefForInfo(pc.AmmoRefs.resref).name.Equals("none")))
@@ -11165,22 +11214,32 @@ namespace IceBlink2
     	        	    //+1 for every 2 levels after level 1
     	        	    int adding = ((pc.classLevel - 1) / 2) + 1;
     	        	    modifier += adding;
-    	        	    gv.cc.addLogText("<font color='lime'> sneak attack: +" + adding + " to hit</font><BR>");
+                        situationalModifier += adding;
+                        gv.cc.addLogText("<font color='lime'> sneak attack: +" + adding + " to hit</font><BR>");
     			    }		        
                 }
                 //all attacks of the PC from behind get a +2 bonus to hit            
                 if (IsAttackFromBehind(pc, crt))
                 {
                     modifier += mod.attackFromBehindToHitModifier;
+                    situationalModifier += mod.attackFromBehindToHitModifier;
                     if (mod.attackFromBehindToHitModifier > 0)
                     {
                         gv.cc.addLogText("<font color='lime'> Attack from behind: +" + mod.attackFromBehindToHitModifier.ToString() + " to hit." + "</font><BR>");
                     }
                 }
+                //attacks on truely held creatures get +4 bonus to hit
+                if (crt.isHeld())
+                {
+                    modifier += 4;
+                    situationalModifier += 4;
+                    gv.cc.addLogText("<font color='yellow'>" + pc.name + " attacks held creature: +4 att</font><BR>");
+                }
             }
             else //ranged weapon used
             {
                 modifier = (pc.dexterity - 10) / 2;
+                situationalModifier = 0;
                 //factor in penalty for adjacent enemies when using ranged weapon
                 if (isAdjacentEnemy(pc))
                 {
@@ -11191,9 +11250,10 @@ namespace IceBlink2
             	    else
             	    {
 	            	    modifier -= 4;
+                        situationalModifier -= 4;
 	            	    gv.cc.addLogText("<font color='yellow'>" + "-4 ranged attack penalty" + "</font><BR>");
 	            	    gv.cc.addLogText("<font color='yellow'>" + "with enemies in melee range" + "</font><BR>");
-	            	    gv.cc.addFloatyText(new Coordinate(pc.combatLocX, pc.combatLocY), "-4 att", "yellow");
+	            	    //gv.cc.addFloatyText(new Coordinate(pc.combatLocX, pc.combatLocY), "-4 att", "yellow");
             	    }
                 }
                 if (gv.sf.hasTrait(pc, "preciseshot2"))
@@ -11207,12 +11267,19 @@ namespace IceBlink2
             	    gv.cc.addLogText("<font color='lime'> PreciseShotL1: +1 to hit</font><BR>");
         	    }
             }
+
             if (gv.sf.hasTrait(pc, "hardtokill"))
             {
                 modifier -= 2;
                 gv.cc.addLogText("<font color='yellow'>" + "blinded by rage" + "</font><BR>");
                 gv.cc.addLogText("<font color='yellow'>" + "-2 attack penalty" + "</font><BR>");
             }
+
+            if (situationalModifier != 0)
+            {
+                gv.cc.addFloatyText(new Coordinate(pc.combatLocX, pc.combatLocY), "+" + situationalModifier + " att", "yellow");
+            }
+
             int attackMod = modifier + pc.baseAttBonus + mod.getItemByResRefForInfo(pc.MainHandRefs.resref).attackBonus;        
             Item it = mod.getItemByResRefForInfo(pc.AmmoRefs.resref);
             if (it != null)
@@ -11224,11 +11291,15 @@ namespace IceBlink2
 	    public int CalcCreatureDefense(Player pc, Creature crt)
         {
             int defense = crt.AC;
+            
+            /*
             if (crt.isHeld())
             {
         	    defense -= 4;
         	    gv.cc.addFloatyText(new Coordinate(crt.combatLocX, crt.combatLocY), "+4 att", "green");
-            }            
+            } 
+            */
+                       
             return defense;
         }
 	    public int CalcPcDamageToCreature(Player pc, Creature crt)
@@ -11260,8 +11331,6 @@ namespace IceBlink2
                         gv.cc.addLogText("<font color='lime'> Attack from behind: +" + mod.attackFromBehindDamageModifier.ToString() +  " damage." + "</font><BR>");
                     }
                 }
-
-
             }
             else //ranged weapon used
             {
@@ -11347,35 +11416,52 @@ namespace IceBlink2
         }
 	    public int CalcCreatureAttackModifier(Creature crt, Player pc)
         {
-            if ((crt.cr_category.Equals("Ranged")) && (isAdjacentPc(crt)))
+            int modifier = 0;
+            int situationalModifier = 0;
+
+            //ranged weapon
+            if (crt.cr_category.Equals("Ranged")) 
 		    {
-			    gv.cc.addLogText("<font color='yellow'>" + "-4 ranged attack penalty" + "</font>" +
-        			    "<BR>");
-        	    gv.cc.addLogText("<font color='yellow'>" + "with enemies in melee range" + "</font>" +
-        			    "<BR>");
-        	    gv.cc.addFloatyText(new Coordinate(crt.combatLocX, crt.combatLocY), "-4 att", "yellow");
-        	    return crt.cr_att - 4; 
+                if (isAdjacentPc(crt))
+                {
+                    gv.cc.addLogText("<font color='yellow'>" + "-4 ranged attack penalty" + "</font>" +
+                            "<BR>");
+                    gv.cc.addLogText("<font color='yellow'>" + "with enemies in melee range" + "</font>" +
+                            "<BR>");
+                    gv.cc.addFloatyText(new Coordinate(crt.combatLocX, crt.combatLocY), "-4 att", "yellow");
+                    return crt.cr_att - 4;
+                }
+                else
+                {
+                    return crt.cr_att;
+                }
             }
             else //melee weapon used
             {
-                int modifier = 0;
+                //modifier = 0;
                 //all attacks of the Creature from behind get a +2 bonus to hit            
                 if (IsCreatureAttackFromBehind(pc, crt))
                 {
-                    modifier += 2;
-                    gv.cc.addLogText("<font color='yellow'>" + crt.cr_name + " attacks from behind: +2 att</font><BR>");
+                    modifier += mod.attackFromBehindToHitModifier;
+                    situationalModifier += mod.attackFromBehindToHitModifier;
+                    gv.cc.addLogText("<font color='yellow'>" + crt.cr_name + " attacks from behind: +" + mod.attackFromBehindToHitModifier  + " att</font><BR>");
                 }
-        	    return crt.cr_att + modifier;            
+                if (pc.isHeld())
+                {
+                    modifier += 4;
+                    situationalModifier += 4;
+                    gv.cc.addLogText("<font color='yellow'>" + crt.cr_name + " attacks held player character: +4 att</font><BR>");
+                }
+                if (situationalModifier != 0)
+                {
+                    gv.cc.addFloatyText(new Coordinate(crt.combatLocX, crt.combatLocY), "+" + situationalModifier + " att", "yellow");
+                }
+                return crt.cr_att + modifier;            
             }
         }
 	    public int CalcPcDefense(Player pc, Creature crt)
         {
             int defense = pc.AC;
-            if (pc.isHeld())
-            {
-        	    defense -= 4;
-        	    gv.cc.addFloatyText(new Coordinate(pc.combatLocX, pc.combatLocY), "+4 att", "yellow");
-            }
             return defense;
         }
         public int CalcCreatureDamageToPc(Player pc, Creature crt)
@@ -11431,6 +11517,26 @@ namespace IceBlink2
         {
             Player pc = null;
             int farDist = 99;
+            bool doDeStealth = true;
+
+            foreach (Player p in mod.playerList)
+            {
+                if ((p.hp > 0) && (!p.steathModeOn))
+                {
+                    doDeStealth = false;
+                    break;
+                }
+            }
+
+            if (doDeStealth)
+            {
+                foreach (Player p in mod.playerList)
+                {
+                    p.steathModeOn = false;
+                }
+                gv.cc.addLogText("<font color='red'> All stealthers are discovered </font><BR>");
+            }
+
             foreach (Player p in mod.playerList)
             {
                 if ((!p.isDead()) && (p.hp > 0) && (!p.steathModeOn))
