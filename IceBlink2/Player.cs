@@ -91,6 +91,7 @@ namespace IceBlink2
 	    public int damageTypeResistanceTotalFire = 0;
 	    public int damageTypeResistanceTotalMagic = 0;
 	    public int damageTypeResistanceTotalPoison = 0;
+        public int hpLastTurn = -1;
 	
 	    public Player()
 	    {
@@ -163,6 +164,7 @@ namespace IceBlink2
 		      copy.damageTypeResistanceTotalFire = this.damageTypeResistanceTotalFire;
 		      copy.damageTypeResistanceTotalMagic = this.damageTypeResistanceTotalMagic;
 		      copy.damageTypeResistanceTotalPoison = this.damageTypeResistanceTotalPoison;
+              copy.hpLastTurn = this.hpLastTurn;
 		  
 		      copy.knownSpellsTags = new List<string>();
 		      foreach (string s in this.knownSpellsTags)

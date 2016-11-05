@@ -34,6 +34,7 @@ namespace IceBlink2
         public int saveCheckDC = 10;
         public List<LocalImmunityString> affectOnlyList = new List<LocalImmunityString>();
         public List<LocalImmunityString> affectNeverList = new List<LocalImmunityString>();
+        public bool endEffectWhenCarrierTakesDamage = false;
 
         //* = marks properties that only work on PCs, not Creatures
         //The below modifiers will be cumulative over each round of the Effects duration if usedForUpdateStats = false
@@ -170,6 +171,7 @@ namespace IceBlink2
             copy.modifyDamageTypeResistancePoison = this.modifyDamageTypeResistancePoison;
             copy.modifyNumberOfMeleeAttacks = this.modifyNumberOfMeleeAttacks;
             copy.modifyNumberOfRangedAttacks = this.modifyNumberOfRangedAttacks;
+            copy.endEffectWhenCarrierTakesDamage = this.endEffectWhenCarrierTakesDamage;
 
             copy.affectOnlyList = new List<LocalImmunityString>();
             foreach (LocalImmunityString s in this.affectOnlyList)

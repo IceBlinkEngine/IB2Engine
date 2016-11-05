@@ -47,6 +47,21 @@ namespace IceBlink2
             gv = g;
             currentLocX = shownLocX;
             currentLocY = shownLocY;
+
+            //try to do aspect ratio adjustemnets here
+            //to do
+            //default is 16:9 (=1,77777777...)
+            //16:10 would be 1.6, ie increase y coordinate (move panels down)
+            //4:3 would be 1.3333333333,ie increase y coordinate (move panels down)
+
+            float yAdjustmentFactor = 0;
+            float width = gv.screenWidth;
+            float height = gv.screenHeight;
+            float currentAspectRatio = width / height;
+            yAdjustmentFactor = (1920f / 1080f) / currentAspectRatio;
+
+            currentLocY = (int)(currentLocY * yAdjustmentFactor);
+
             foreach (IB2Button btn in buttonList)
             {
                 btn.setupIB2Button(gv);

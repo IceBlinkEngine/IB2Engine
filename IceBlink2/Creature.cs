@@ -84,6 +84,7 @@ namespace IceBlink2
         public Coordinate newCoor = new Coordinate(-1,-1);
         public float glideAdderX = 0;
         public float glideAdderY = 0;
+        public int hpLastTurn = -1;
 
         public Creature()
 	    {
@@ -149,6 +150,7 @@ namespace IceBlink2
             copy.newCoor = this.newCoor;
             copy.glideAdderX = this.glideAdderX;
             copy.glideAdderY = this.glideAdderY;
+            copy.hpLastTurn = this.hpLastTurn;
 
             copy.knownSpellsTags = new List<string>();
             foreach (string s in this.knownSpellsTags)

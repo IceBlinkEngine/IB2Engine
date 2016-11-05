@@ -38,7 +38,7 @@ namespace IceBlink2
         public float destinationPixelLocX = 0;
         public float destinationPixelLocY = 0;
         public string moveDirection = ""; //available: N,NE,E,SE,S,SW,W,NW
-        
+        public int idx = 0;
 
         //public int creatureCounter2 = 0;
 
@@ -739,7 +739,7 @@ namespace IceBlink2
                 return;
             }
             //get the next PC or Creature based on currentMoveOrderIndex and moveOrder property
-            int idx = 0;
+            idx = 0;
             foreach (Player pc in mod.playerList)
             {
                 if (pc.moveOrder == currentMoveOrderIndex)
@@ -853,7 +853,7 @@ namespace IceBlink2
                     }
                     else
                     {
-                        endCreatureTurn();
+                        endCreatureTurn(crt);
                     }                    
                     return;
                 }
@@ -1105,6 +1105,19 @@ namespace IceBlink2
 
         public void applyEffectsCombat(Creature crtr)
         {
+
+            if (crtr.hp < crtr.hpLastTurn)
+            {
+                foreach (Effect ef in crtr.cr_effectsList)
+                {
+                    if (ef.endEffectWhenCarrierTakesDamage)
+                    {
+                        gv.cc.addLogText("<font color='yellow'>" + crtr.cr_name + "took damage and is freed from" + ef.name + "</font><BR>");
+                        crtr.cr_effectsList.Remove(ef);
+                    }
+                }
+            }
+
             try
             {
                 //if remaining duration <= 0, remove from list
@@ -1141,6 +1154,18 @@ namespace IceBlink2
 
         public void applyEffectsCombat(Player pc)
         {
+            if (pc.hp < pc.hpLastTurn)
+            {
+                foreach (Effect ef in pc.effectsList)
+                {
+                    if (ef.endEffectWhenCarrierTakesDamage)
+                    {
+                        gv.cc.addLogText("<font color='yellow'>" + pc.name + "took damage and is freed from" + ef.name + "</font><BR>");
+                        pc.effectsList.Remove(ef);
+                    }
+                }
+            }
+
             try
             {
                 //europa3
@@ -1432,10 +1457,12 @@ namespace IceBlink2
         }        
         public void endPcTurn(bool endStealthMode)
         {
-            //KArl
-            //gv.Render();
             //remove stealth if endStealthMode = true		
             Player pc = mod.playerList[currentPlayerIndex];
+            if (pc.hp >= 0)
+            {
+                pc.hpLastTurn = pc.hp;
+            }
             if (endStealthMode)
             {
                 pc.steathModeOn = false;
@@ -1506,9 +1533,10 @@ namespace IceBlink2
         #region Creature Combat Stuff
 	    public void doCreatureTurn()
 	    {
-		    canMove = true;
-		    Creature crt = mod.currentEncounter.encounterCreatureList[creatureIndex];            
-		    //do onStartTurn IBScript
+            canMove = true;
+		    Creature crt = mod.currentEncounter.encounterCreatureList[creatureIndex];
+            
+            //do onStartTurn IBScript
             gv.cc.doIBScriptBasedOnFilename(gv.mod.currentEncounter.OnStartCombatTurnIBScript, gv.mod.currentEncounter.OnStartCombatTurnIBScriptParms);
             creatureMoves = 0;
             doCreatureNextAction();
@@ -1545,7 +1573,7 @@ namespace IceBlink2
             }
             else
             { 
-                endCreatureTurn();
+                endCreatureTurn(crt);
             }
         }
 	    public void doCreatureTurnAfterDelay()
@@ -1566,7 +1594,7 @@ namespace IceBlink2
             //do the action (melee/ranged, cast spell, use trait, etc.)
             if (gv.sf.ActionToTake == null)
             {
-        	    endCreatureTurn();
+        	    endCreatureTurn(crt);
             }
             if (gv.sf.ActionToTake.Equals("Attack"))
             {
@@ -1582,7 +1610,7 @@ namespace IceBlink2
                 }
                 else
                 {
-                    endCreatureTurn();
+                    endCreatureTurn(crt);
                 }
             }
             else if (gv.sf.ActionToTake.Equals("Cast"))
@@ -1622,7 +1650,7 @@ namespace IceBlink2
                     //KArl
                     //gv.Render();
                     blockAnimationBridge = false;
-                    endCreatureTurn();
+                    endCreatureTurn(crt);
                     return;
                 }
 
@@ -1636,7 +1664,7 @@ namespace IceBlink2
                         //KArl
                         //gv.Render();
                         blockAnimationBridge = false;
-                        endCreatureTurn();
+                        endCreatureTurn(crt);
 					    return;
 				    }
 				   
@@ -1733,7 +1761,7 @@ namespace IceBlink2
                                 //KArl
                                 //gv.Render();
                                 blockAnimationBridge = false;
-                                endCreatureTurn();
+                                endCreatureTurn(crt);
                                 return;
                             }
 
@@ -1743,7 +1771,7 @@ namespace IceBlink2
                                 //KARL
                                 //gv.Render();
                                 blockAnimationBridge = false;
-                                endCreatureTurn();
+                                endCreatureTurn(crt);
                                 return;
                             }
                             if ((crt.newCoor.X < crt.combatLocX) && (!crt.combatFacingLeft)) //move left
@@ -1870,7 +1898,7 @@ namespace IceBlink2
                     //KArl
                     //gv.Render();
                     blockAnimationBridge = false;
-                    endCreatureTurn();
+                    endCreatureTurn(crt);
 				    return;
 			    }
 		    }
@@ -1879,7 +1907,7 @@ namespace IceBlink2
 		    {
                 //gv.Render();
                 blockAnimationBridge = false;
-                endCreatureTurn();
+                endCreatureTurn(crt);
 			    return;
 		    }
 	    }
@@ -2200,7 +2228,7 @@ namespace IceBlink2
             Player pc = targetClosestPC(crt);
             if (pc == null)
             {
-                endCreatureTurn();
+                endCreatureTurn(crt);
             }
             else
             {
@@ -2242,7 +2270,7 @@ namespace IceBlink2
                             }
                             else
                             {
-                                endCreatureTurn();
+                                endCreatureTurn(crt);
                             }
                         }
                         else if (gv.sf.SpellToCast.spellTargetType.Equals("PointLocation"))
@@ -2258,7 +2286,7 @@ namespace IceBlink2
                                 }
                                 else
                                 {
-                                    endCreatureTurn();
+                                    endCreatureTurn(crt);
                                 }
                     	    }
                     	    else
@@ -2308,7 +2336,7 @@ namespace IceBlink2
         	    Player pc = targetClosestPC(crt);
                 if (pc == null)
                 {
-                    endCreatureTurn();
+                    endCreatureTurn(crt);
                 }
                 else
                 {
@@ -2317,10 +2345,14 @@ namespace IceBlink2
                 }
             }
         }
-        public void endCreatureTurn()
+        public void endCreatureTurn(Creature crt)
         {
-            //KArl
-            //gv.Render();
+            //store current hp of cretaure, use it at start of creature next turn to see whether damage occured in the meantime
+            //if it ccured, effet prone too breaking on damage are removed from the creature
+            if (crt.hp >= 0)
+            {
+                crt.hpLastTurn = crt.hp;
+            }
 
             canMove = true;
             gv.sf.ActionToTake = null;
@@ -2859,7 +2891,7 @@ namespace IceBlink2
                         else
                         {
                             animationState = AnimationState.None;
-                            endCreatureTurn();
+                            endCreatureTurn(gv.mod.currentEncounter.encounterCreatureList[idx]);
                         }
   
                     }

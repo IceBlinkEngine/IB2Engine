@@ -516,6 +516,8 @@ namespace IceBlink2
             newIR.resref = it.resref;
             newIR.canNotBeUnequipped = it.canNotBeUnequipped;
             newIR.quantity = it.quantity;
+            newIR.isRation = it.isRation;
+            newIR.isLightSource = it.isLightSource;
             return newIR;
         }
         public Container getContainerByTag(string tag)

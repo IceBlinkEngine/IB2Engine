@@ -2180,10 +2180,14 @@ namespace IceBlink2
         }
         public void TakeFunds(int amount)
         {
-            mod.partyGold -= amount;
-            if (mod.partyGold < 0)
+            if (mod.partyGold < amount)
             {
+                amount = mod.partyGold;
                 mod.partyGold = 0;
+            }
+            else
+            {
+                mod.partyGold -= amount;
             }
             gv.cc.addLogText("<font color='yellow'>" + "The party loses " + amount + " Gold" + "</font>" + "<BR>");
         }
@@ -2195,7 +2199,7 @@ namespace IceBlink2
                 ItemRefs ir = mod.createItemRefsFromItem(newItem);
                 mod.partyInventoryRefsList.Add(ir);
             }
-            gv.cc.addLogText("<font color='yellow'>" + "The party gains " + quantity + " " + newItem.name + "</font><BR>");
+            gv.cc.addLogText("<font color='yellow'>" + "The party gains " + quantity + " " + newItem.name + "(s)" + "</font><BR>");
         }
         public void RemoveItemFromInventory(ItemRefs itRef, int quantity)
         {
