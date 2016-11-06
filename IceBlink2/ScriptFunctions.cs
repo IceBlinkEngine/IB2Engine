@@ -4280,40 +4280,134 @@ namespace IceBlink2
         {
             //used at level up, doPcTurn, open inventory, etc.
             ReCalcSavingThrowBases(pc); //SD_20131029
-            pc.fortitude = pc.baseFortitude + CalcSavingThrowModifiersFortitude(pc) + (pc.constitution - 10) / 2; //SD_20131127
-            pc.will = pc.baseWill + CalcSavingThrowModifiersWill(pc) + (pc.intelligence - 10) / 2; //SD_20131127
-            pc.reflex = pc.baseReflex + CalcSavingThrowModifiersReflex(pc) + (pc.dexterity - 10) / 2; //SD_20131127
-            pc.strength = pc.baseStr + pc.race.strMod + CalcAttributeModifierStr(pc); //SD_20131127
-            pc.dexterity = pc.baseDex + pc.race.dexMod + CalcAttributeModifierDex(pc); //SD_20131127
-            pc.intelligence = pc.baseInt + pc.race.intMod + CalcAttributeModifierInt(pc); //SD_20131127
-            pc.charisma = pc.baseCha + pc.race.chaMod + CalcAttributeModifierCha(pc); //SD_20131127
-            pc.wisdom = pc.baseWis + pc.race.wisMod + CalcAttributeModifierWis(pc); //SD_20131127
-            pc.constitution = pc.baseCon + pc.race.conMod + CalcAttributeModifierCon(pc); //SD_20131127
-            pc.luck = pc.baseLuck + pc.race.luckMod + CalcAttributeModifierLuk(pc);
-            pc.damageTypeResistanceTotalAcid = pc.race.damageTypeResistanceValueAcid + CalcAcidModifiers(pc);
-            if (pc.damageTypeResistanceTotalAcid > 100) { pc.damageTypeResistanceTotalAcid = 100; }
-            pc.damageTypeResistanceTotalNormal = pc.race.damageTypeResistanceValueNormal + CalcNormalModifiers(pc);
-            if (pc.damageTypeResistanceTotalNormal > 100) { pc.damageTypeResistanceTotalNormal = 100; }
-            pc.damageTypeResistanceTotalCold = pc.race.damageTypeResistanceValueCold + CalcColdModifiers(pc);
-            if (pc.damageTypeResistanceTotalCold > 100) { pc.damageTypeResistanceTotalCold = 100; }
-            pc.damageTypeResistanceTotalElectricity = pc.race.damageTypeResistanceValueElectricity + CalcElectricityModifiers(pc);
-            if (pc.damageTypeResistanceTotalElectricity > 100) { pc.damageTypeResistanceTotalElectricity = 100; }
-            pc.damageTypeResistanceTotalFire = pc.race.damageTypeResistanceValueFire + CalcFireModifiers(pc);
-            if (pc.damageTypeResistanceTotalFire > 100) { pc.damageTypeResistanceTotalFire = 100; }
-            pc.damageTypeResistanceTotalMagic = pc.race.damageTypeResistanceValueMagic + CalcMagicModifiers(pc);
-            if (pc.damageTypeResistanceTotalMagic > 100) { pc.damageTypeResistanceTotalMagic = 100; }
-            pc.damageTypeResistanceTotalPoison = pc.race.damageTypeResistanceValuePoison + CalcPoisonModifiers(pc);
-            if (pc.damageTypeResistanceTotalPoison > 100) { pc.damageTypeResistanceTotalPoison = 100; }
+
+            //preparing modifiers from permanent effects, liek e.g. from traits
+                int acModifier = 0;
+                int babModifier = 0;
+                int modifyCha = 0;
+                int modifyCon = 0;
+                int modifyDamageTypeResistanceAcid = 0;
+                int modifyDamageTypeResistanceCold = 0;
+                int modifyDamageTypeResistanceElectricity = 0;
+                int modifyDamageTypeResistanceFire = 0;
+                int modifyDamageTypeResistanceMagic = 0;
+                int modifyDamageTypeResistanceNormal = 0;
+                int modifyDamageTypeResistancePoison = 0;
+                int modifyDex = 0;
+                int modifyFortitude = 0;
+                int modifyHpMax = 0;
+                int modifyInt = 0;
+                int modifyLuk = 0;
+                int modifyMoveDistance = 0;
+                int modifyNumberOfMeleeAttacks = 0;
+                int modifyNumberOfRangedAttacks = 0;
+                int modifyReflex = 0;
+                int modifySpMax = 0;
+                int modifyStr = 0;
+                int modifyWill = 0;
+                int modifyWis = 0;
+            
+            foreach (Effect ef in pc.effectsList)
+            {
+                if (ef.isPermanent)
+                {
+                    babModifier += ef.babModifier;
+                    acModifier += ef.acModifier;
+                    modifyCha += ef.modifyCha;
+                    modifyCon += ef.modifyCon;
+                    modifyDamageTypeResistanceAcid += ef.modifyDamageTypeResistanceAcid;
+                    modifyDamageTypeResistanceCold += ef.modifyDamageTypeResistanceCold;
+                    modifyDamageTypeResistanceElectricity += ef.modifyDamageTypeResistanceElectricity;
+                    modifyDamageTypeResistanceFire += ef.modifyDamageTypeResistanceFire;
+                    modifyDamageTypeResistanceMagic += ef.modifyDamageTypeResistanceMagic;
+                    modifyDamageTypeResistanceNormal += ef.modifyDamageTypeResistanceNormal;
+                    modifyDamageTypeResistancePoison += ef.modifyDamageTypeResistancePoison;
+                    modifyDex += ef.modifyDex;
+                    modifyFortitude += ef.modifyFortitude;
+                    modifyHpMax += ef.modifyHpMax;
+                    modifyInt += ef.modifyInt;
+                    modifyLuk += ef.modifyLuk;
+                    modifyMoveDistance += ef.modifyMoveDistance;
+                    modifyNumberOfMeleeAttacks += ef.modifyNumberOfMeleeAttacks;
+                    modifyNumberOfRangedAttacks += ef.modifyNumberOfRangedAttacks;
+                    modifyReflex += ef.modifyReflex;
+                    modifySpMax += ef.modifySpMax;
+                    modifyStr += ef.modifyStr;
+                    modifyWill += ef.modifyWill;
+                    modifyWis += ef.modifyWis;
+                }
+            }
+            pc.fortitude = pc.baseFortitude + CalcSavingThrowModifiersFortitude(pc) + (pc.constitution - 10) / 2 + modifyFortitude; //SD_20131127
+            pc.will = pc.baseWill + CalcSavingThrowModifiersWill(pc) + (pc.intelligence - 10) / 2 + modifyWill; //SD_20131127
+            pc.reflex = pc.baseReflex + CalcSavingThrowModifiersReflex(pc) + (pc.dexterity - 10) / 2 + modifyReflex; //SD_20131127
+            pc.strength = pc.baseStr + pc.race.strMod + CalcAttributeModifierStr(pc) + modifyStr; //SD_20131127
+            pc.dexterity = pc.baseDex + pc.race.dexMod + CalcAttributeModifierDex(pc) + modifyDex; //SD_20131127
+            pc.intelligence = pc.baseInt + pc.race.intMod + CalcAttributeModifierInt(pc) + modifyInt; //SD_20131127
+            pc.charisma = pc.baseCha + pc.race.chaMod + CalcAttributeModifierCha(pc) + modifyCha; //SD_20131127
+            pc.wisdom = pc.baseWis + pc.race.wisMod + CalcAttributeModifierWis(pc) + modifyWis; //SD_20131127
+            pc.constitution = pc.baseCon + pc.race.conMod + CalcAttributeModifierCon(pc) + modifyCon; //SD_20131127
+            pc.luck = pc.baseLuck + pc.race.luckMod + CalcAttributeModifierLuk(pc) + modifyLuk;
+            pc.damageTypeResistanceTotalAcid = pc.race.damageTypeResistanceValueAcid + CalcAcidModifiers(pc) + modifyDamageTypeResistanceAcid;
+            if (pc.damageTypeResistanceTotalAcid > gv.mod.resistanceMaxValue) { pc.damageTypeResistanceTotalAcid = gv.mod.resistanceMaxValue; }
+            pc.damageTypeResistanceTotalNormal = pc.race.damageTypeResistanceValueNormal + CalcNormalModifiers(pc) + modifyDamageTypeResistanceNormal;
+            if (pc.damageTypeResistanceTotalNormal > gv.mod.resistanceMaxValue) { pc.damageTypeResistanceTotalNormal = gv.mod.resistanceMaxValue; }
+            pc.damageTypeResistanceTotalCold = pc.race.damageTypeResistanceValueCold + CalcColdModifiers(pc) + modifyDamageTypeResistanceCold;
+            if (pc.damageTypeResistanceTotalCold > gv.mod.resistanceMaxValue) { pc.damageTypeResistanceTotalCold = gv.mod.resistanceMaxValue; }
+            pc.damageTypeResistanceTotalElectricity = pc.race.damageTypeResistanceValueElectricity + CalcElectricityModifiers(pc) + modifyDamageTypeResistanceElectricity;
+            if (pc.damageTypeResistanceTotalElectricity > gv.mod.resistanceMaxValue) { pc.damageTypeResistanceTotalElectricity = gv.mod.resistanceMaxValue; }
+            pc.damageTypeResistanceTotalFire = pc.race.damageTypeResistanceValueFire + CalcFireModifiers(pc) + modifyDamageTypeResistanceFire;
+            if (pc.damageTypeResistanceTotalFire > gv.mod.resistanceMaxValue) { pc.damageTypeResistanceTotalFire = gv.mod.resistanceMaxValue; }
+            pc.damageTypeResistanceTotalMagic = pc.race.damageTypeResistanceValueMagic + CalcMagicModifiers(pc) + modifyDamageTypeResistanceMagic;
+            if (pc.damageTypeResistanceTotalMagic > gv.mod.resistanceMaxValue) { pc.damageTypeResistanceTotalMagic = gv.mod.resistanceMaxValue; }
+            pc.damageTypeResistanceTotalPoison = pc.race.damageTypeResistanceValuePoison + CalcPoisonModifiers(pc) + modifyDamageTypeResistancePoison;
+            if (pc.damageTypeResistanceTotalPoison > gv.mod.resistanceMaxValue) { pc.damageTypeResistanceTotalPoison = gv.mod.resistanceMaxValue; }
             
             if (pc.playerClass.babTable.Length > 0)//SD_20131115
             {
-                pc.baseAttBonus = pc.playerClass.babTable[pc.classLevel] + CalcBABAdders(pc); //SD_20131115
+                pc.baseAttBonus = pc.playerClass.babTable[pc.classLevel] + CalcBABAdders(pc) + babModifier; //SD_20131115
+            }
+
+            int modifierFromSPRelevantAttribute = 0;
+            foreach (PlayerClass pClass in gv.mod.modulePlayerClassList)
+            {
+                if (pc.classTag == pClass.tag)
+                {
+                    if (pClass.modifierFromSPRelevantAttribute.Contains("intelligence"))
+                    {
+                        modifierFromSPRelevantAttribute = (pc.intelligence -10) / 2;
+                    }
+                    if (pClass.modifierFromSPRelevantAttribute.Contains("wisdom"))
+                    {
+                        modifierFromSPRelevantAttribute = (pc.wisdom - 10) / 2;
+                    }
+                    if (pClass.modifierFromSPRelevantAttribute.Contains("charisma"))
+                    {
+                        modifierFromSPRelevantAttribute = (pc.charisma - 10) / 2;
+                    }
+                    if (pClass.modifierFromSPRelevantAttribute.Contains("constitution"))
+                    {
+                        modifierFromSPRelevantAttribute = (pc.constitution - 10) / 2;
+                    }
+                    if (pClass.modifierFromSPRelevantAttribute.Contains("strength"))
+                    {
+                        modifierFromSPRelevantAttribute = (pc.strength - 10) / 2;
+                    }
+                    if (pClass.modifierFromSPRelevantAttribute.Contains("dexterity"))
+                    {
+                        modifierFromSPRelevantAttribute = (pc.dexterity - 10) / 2;
+                    }
+                    if (pClass.modifierFromSPRelevantAttribute.Contains("luck"))
+                    {
+                        modifierFromSPRelevantAttribute = (pc.luck - 10) / 2;
+                    }
+                    break;
+                }
             }
 
             int cMod = (pc.constitution - 10) / 2;
-            int iMod = (pc.intelligence - 10) / 2;
-            pc.spMax = pc.playerClass.startingSP + iMod + ((pc.classLevel - 1) * (pc.playerClass.spPerLevelUp + iMod));
-            pc.hpMax = pc.playerClass.startingHP + cMod + ((pc.classLevel - 1) * (pc.playerClass.hpPerLevelUp + cMod));
+            int iMod = modifierFromSPRelevantAttribute;
+            pc.spMax = pc.playerClass.startingSP + iMod + ((pc.classLevel - 1) * (pc.playerClass.spPerLevelUp + iMod)) + modifyHpMax;
+            pc.hpMax = pc.playerClass.startingHP + cMod + ((pc.classLevel - 1) * (pc.playerClass.hpPerLevelUp + cMod)) + modifySpMax;
 
             pc.XPNeeded = pc.playerClass.xpTable[pc.classLevel];
 
@@ -4324,14 +4418,14 @@ namespace IceBlink2
             int acMods = 0;
             armBonus = CalcArmorBonuses(pc);
             acMods = CalcACModifiers(pc);
-            pc.AC = pc.ACBase + dMod + armBonus + acMods;
+            pc.AC = pc.ACBase + dMod + armBonus + acMods + acModifier;
             if (mod.getItemByResRefForInfo(pc.BodyRefs.resref).ArmorWeightType.Equals("Light"))
             {
-                pc.moveDistance = pc.race.MoveDistanceLightArmor + CalcMovementBonuses(pc);
+                pc.moveDistance = pc.race.MoveDistanceLightArmor + CalcMovementBonuses(pc) + modifyMoveDistance;
             }
             else //medium or heavy SD_20131116
             {
-                pc.moveDistance = pc.race.MoveDistanceMediumHeavyArmor + CalcMovementBonuses(pc);
+                pc.moveDistance = pc.race.MoveDistanceMediumHeavyArmor + CalcMovementBonuses(pc) + modifyMoveDistance;
             }
             RunAllItemWhileEquippedScripts(pc);
             if (pc.hp > pc.hpMax) { pc.hp = pc.hpMax; } //SD_20131201

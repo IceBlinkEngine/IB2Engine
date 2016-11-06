@@ -35,6 +35,7 @@ namespace IceBlink2
         public List<LocalImmunityString> affectOnlyList = new List<LocalImmunityString>();
         public List<LocalImmunityString> affectNeverList = new List<LocalImmunityString>();
         public bool endEffectWhenCarrierTakesDamage = false;
+        public bool isPermanent = false;
 
         //* = marks properties that only work on PCs, not Creatures
         //The below modifiers will be cumulative over each round of the Effects duration if usedForUpdateStats = false

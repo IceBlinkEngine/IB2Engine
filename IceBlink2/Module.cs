@@ -34,6 +34,7 @@ namespace IceBlink2
         public int seamlessModififierMinY = 0;
         public int seamlessModififierMaxY = 0;
 
+        public int resistanceMaxValue = 85;
 
         //public float fullScreenEffectOpacityWeatherOld = 0;
         public string oldWeatherName = "";

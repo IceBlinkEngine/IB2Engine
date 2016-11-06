@@ -20,7 +20,8 @@ namespace IceBlink2
 	    public string description = "";
 	    public int startingHP = 10;
 	    public int startingSP = 20;
-	    public int hpPerLevelUp = 10;
+        public string modifierFromSPRelevantAttribute = "intelligence";
+        public int hpPerLevelUp = 10;
 	    public int spPerLevelUp = 20;
 	    public int hpRegenTimeNeeded = 0;
 	    public int spRegenTimeNeeded = 0;
@@ -87,6 +88,8 @@ namespace IceBlink2
 		    copy.babTable = (int[])this.babTable.Clone();	
 		    copy.xpTable = (int[])this.xpTable.Clone();
             copy.itemsAllowed = new List<ItemRefs>();
+            copy.modifierFromSPRelevantAttribute = this.modifierFromSPRelevantAttribute;
+
             foreach (ItemRefs s in this.itemsAllowed)
             {
                 copy.itemsAllowed.Add(s.DeepCopy());

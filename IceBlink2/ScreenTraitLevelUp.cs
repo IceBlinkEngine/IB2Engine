@@ -348,9 +348,37 @@ namespace IceBlink2
 			    {
 				    //add trait
 				    pc.knownTraitsTags.Add(tr.tag);
-				
-				    //else if in creation go back to partybuild				
-				    if (inPcCreation)
+
+                    //add permanent effects of trait to effect list of this pc
+                    foreach (EffectTagForDropDownList efTag in tr.traitEffectTagList)
+                    {
+                        foreach (Effect ef in gv.mod.moduleEffectsList)
+                        {
+                            if (ef.tag == efTag.tag)
+                            {
+                                if (ef.isPermanent)
+                                {
+                                    bool doesNotExistAlfready = true;
+                                    foreach (Effect ef2 in pc.effectsList)
+                                    {
+                                        if (ef2.tag == ef.tag)
+                                        {
+                                            doesNotExistAlfready = false;
+                                            break;
+                                        }
+                                    }
+
+                                    if (doesNotExistAlfready)
+                                    {
+                                        pc.effectsList.Add(ef);
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    //else if in creation go back to partybuild				
+                    if (inPcCreation)
 				    {
 					    //if there are spells to learn go to spell screen
 					    List<string> spellTagsList = new List<string>();

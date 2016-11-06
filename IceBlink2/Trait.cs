@@ -29,8 +29,9 @@ namespace IceBlink2
 	    public int aoeRadius = 1;
 	    public int range = 2;	
 	    public string traitScript = "none";
-    
-	    public Trait()
+        public List<EffectTagForDropDownList> traitEffectTagList = new List<EffectTagForDropDownList>();
+
+        public Trait()
 	    {
 		
 	    }
@@ -53,8 +54,15 @@ namespace IceBlink2
 		    copy.traitEffectType = this.traitEffectType;
 		    copy.aoeRadius = this.aoeRadius;
 		    copy.range = this.range;
-		    copy.traitScript = this.traitScript;		
-		    return copy;
+		    copy.traitScript = this.traitScript;
+
+            copy.traitEffectTagList = new List<EffectTagForDropDownList>();
+            foreach (EffectTagForDropDownList s in this.traitEffectTagList)
+            {
+                copy.traitEffectTagList.Add(s);
+            }
+
+            return copy;
 	    }
     }
 }
