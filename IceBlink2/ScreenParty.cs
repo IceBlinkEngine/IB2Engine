@@ -768,8 +768,11 @@ namespace IceBlink2
                         string allEffects = "";
                         foreach (Effect ef in pc.effectsList)
                         {
-                            int left = ef.durationInUnits;
-                            allEffects += ef.name + " (" + left + ")" + "<br>";
+                            if (!ef.isPermanent)
+                            {
+                                int left = ef.durationInUnits;
+                                allEffects += ef.name + " (" + left + ")" + "<br>";
+                            }
                         }
                         gv.sf.MessageBoxHtml("<big><b>CURRENT EFFECTS</b></big><br><b><small>(#) denotes effect time left</small></b><br><br>" + allEffects);
                     }

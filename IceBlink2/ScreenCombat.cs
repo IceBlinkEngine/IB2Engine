@@ -1053,8 +1053,11 @@ namespace IceBlink2
                     foreach (Effect ef in pc.effectsList)
                     {
                         //decrement duration of all
-                        ef.durationInUnits -= gv.mod.TimePerRound;
-                        if (!ef.usedForUpdateStats) //not used for stat updates
+                        if (!ef.isPermanent)
+                        {
+                            ef.durationInUnits -= gv.mod.TimePerRound;
+                        }
+                        if ((!ef.usedForUpdateStats) && (!ef.isPermanent)) //not used for stat updates nor permanent effect of trait 
                         {
                             gv.cc.doEffectScript(pc, ef);
                         }
@@ -1065,8 +1068,11 @@ namespace IceBlink2
                     foreach (Effect ef in crtr.cr_effectsList)
                     {
                         //increment duration of all
-                        ef.durationInUnits -= gv.mod.TimePerRound;
-                        if (!ef.usedForUpdateStats) //not used for stat updates
+                        if (!ef.isPermanent)
+                        {
+                            ef.durationInUnits -= gv.mod.TimePerRound;
+                        }
+                        if ((!ef.usedForUpdateStats) && (!ef.isPermanent)) //not used for stat updates
                         {
                             //do script for each effect
                             gv.cc.doEffectScript(crtr, ef);
@@ -1074,13 +1080,17 @@ namespace IceBlink2
                     }
                 }
                 //if remaining duration <= 0, remove from list
+                //returnkarl
                 foreach (Player pc in mod.playerList)
                 {
                     for (int i = pc.effectsList.Count; i > 0; i--)
                     {
                         if (pc.effectsList[i - 1].durationInUnits <= 0)
                         {
-                            pc.effectsList.RemoveAt(i - 1);
+                            if (!pc.effectsList[i - 1].isPermanent)
+                            {
+                                pc.effectsList.RemoveAt(i - 1);
+                            }
                         }
                     }
                 }
@@ -1090,7 +1100,10 @@ namespace IceBlink2
                     {
                         if (crtr.cr_effectsList[i - 1].durationInUnits <= 0)
                         {
-                            crtr.cr_effectsList.RemoveAt(i - 1);
+                            if (!crtr.cr_effectsList[i - 1].isPermanent)
+                            {
+                                crtr.cr_effectsList.RemoveAt(i - 1);
+                            }
                         }
                     }
                 }
@@ -1125,8 +1138,11 @@ namespace IceBlink2
                 {
                     if (crtr.cr_effectsList[i - 1].durationInUnits <= 0)
                     {
-                        gv.cc.addLogText("<font color='yellow'>" + "The " + crtr.cr_effectsList[i - 1].name + " effect on " + crtr.cr_name + " has just ended." + " </font><BR>");
-                        crtr.cr_effectsList.RemoveAt(i - 1);
+                        if (!crtr.cr_effectsList[i - 1].isPermanent)
+                        {
+                            gv.cc.addLogText("<font color='yellow'>" + "The " + crtr.cr_effectsList[i - 1].name + " effect on " + crtr.cr_name + " has just ended." + " </font><BR>");
+                            crtr.cr_effectsList.RemoveAt(i - 1);
+                        }
                     }
                 }
 
@@ -1135,12 +1151,16 @@ namespace IceBlink2
                     {
                         //increment duration of all
                         //ef.durationInUnits -= gv.mod.TimePerRound;
-                        if (!ef.usedForUpdateStats) //not used for stat updates
+                        if ((!ef.usedForUpdateStats) && (!ef.isPermanent)) //not used for stat updates
                         {
                             //do script for each effect
                             gv.cc.doEffectScript(crtr, ef);
                         }
+
+                    if (!ef.isPermanent)
+                    {
                         ef.durationInUnits -= gv.mod.TimePerRound;
+                    }
                 }
                 
             }
@@ -1173,8 +1193,11 @@ namespace IceBlink2
                 {
                     if (pc.effectsList[i - 1].durationInUnits <= 0)
                     {
-                        gv.cc.addLogText("<font color='yellow'>" + "The " + pc.effectsList[i - 1].name + " effect on " + pc.name + " has just ended."  + " </font><BR>");
-                        pc.effectsList.RemoveAt(i - 1);
+                        if (!pc.effectsList[i - 1].isPermanent)
+                        {
+                            gv.cc.addLogText("<font color='yellow'>" + "The " + pc.effectsList[i - 1].name + " effect on " + pc.name + " has just ended." + " </font><BR>");
+                            pc.effectsList.RemoveAt(i - 1);
+                        }
                     }
                 }
 
@@ -1183,11 +1206,15 @@ namespace IceBlink2
                     {
                         //decrement duration of all
                         //ef.durationInUnits -= gv.mod.TimePerRound;
-                        if (!ef.usedForUpdateStats) //not used for stat updates
+                        if ((!ef.usedForUpdateStats) && (!ef.isPermanent)) //not used for stat updates
                         {
                             gv.cc.doEffectScript(pc, ef);
                         }
-                    ef.durationInUnits -= gv.mod.TimePerRound;
+
+                    if (!ef.isPermanent)
+                    {
+                        ef.durationInUnits -= gv.mod.TimePerRound;
+                    }
                 }
       
             }

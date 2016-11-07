@@ -246,53 +246,62 @@ namespace IceBlink2
         {
             this.cr_effectsList.Add(ef);
         }
-	    public void AddEffectByObject(Effect effect, int classLevel)
+        public void AddEffectByObject(Effect effect, int classLevel)
         {
-            Effect ef = effect.DeepCopy();
-            ef.classLevelOfSender = classLevel;
-            //ef.startingTimeInUnits = startTime; //mod.WorldTime;
-            //stackable effect and duration (just add effect to list)
-            if (ef.isStackableEffect)
+            if (!effect.isPermanent)
             {
-                //add to the list
-                AddEffect(ef);
-            }
-            //stackable duration (add to list if not there, if there add to duration)
-            else if ((!ef.isStackableEffect) && (ef.isStackableDuration))
-            {
-                if (!IsInEffectList(ef.tag)) //Not in list so add to list
+                Effect ef = effect.DeepCopy();
+                ef.classLevelOfSender = classLevel;
+                //ef.startingTimeInUnits = startTime; //mod.WorldTime;
+                //stackable effect and duration (just add effect to list)
+                if (ef.isStackableEffect)
                 {
+                    //add to the list
                     AddEffect(ef);
                 }
-                else //is in list so add durations together
+                //stackable duration (add to list if not there, if there add to duration)
+                else if ((!ef.isStackableEffect) && (ef.isStackableDuration))
                 {
-                    Effect e = this.getEffectByTag(ef.tag);
-                    e.durationInUnits += ef.durationInUnits;
-                    if (classLevel > e.classLevelOfSender)
+                    if (!IsInEffectList(ef.tag)) //Not in list so add to list
                     {
-                        e.classLevelOfSender = classLevel;
+                        AddEffect(ef);
+                    }
+                    else //is in list so add durations together
+                    {
+                        Effect e = this.getEffectByTag(ef.tag);
+                        if (!e.isPermanent)
+                        {
+                            e.durationInUnits += ef.durationInUnits;
+                            if (classLevel > e.classLevelOfSender)
+                            {
+                                e.classLevelOfSender = classLevel;
+                            }
+                        }
+                    }
+                }
+                //none stackable (add to list if not there)
+                else if ((!ef.isStackableEffect) && (!ef.isStackableDuration))
+                {
+                    if (!IsInEffectList(ef.tag)) //Not in list so add to list
+                    {
+                        AddEffect(ef);
+                    }
+                    else //is in list so reset duration
+                    {
+                        Effect e = this.getEffectByTag(ef.tag);
+                        if (!e.isPermanent)
+                        {
+                            e.durationInUnits = ef.durationInUnits;
+                            if (classLevel > e.classLevelOfSender)
+                            {
+                                e.classLevelOfSender = classLevel;
+                            }
+                        }
+                        //e.startingTimeInUnits = startTime;
+                        //e.currentDurationInUnits = 0;
                     }
                 }
             }
-            //none stackable (add to list if not there)
-            else if ((!ef.isStackableEffect) && (!ef.isStackableDuration))
-            {
-                if (!IsInEffectList(ef.tag)) //Not in list so add to list
-                {
-                    AddEffect(ef);
-                }
-                else //is in list so reset duration
-                {
-            	    Effect e = this.getEffectByTag(ef.tag);
-                    e.durationInUnits = ef.durationInUnits;
-                    if (classLevel > e.classLevelOfSender)
-                    {
-                        e.classLevelOfSender = classLevel;
-                    }
-                    //e.startingTimeInUnits = startTime;
-                    //e.currentDurationInUnits = 0;
-                }
-            }
-        }	
+        }
     }  
 }

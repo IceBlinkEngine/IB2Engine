@@ -4545,15 +4545,18 @@ namespace IceBlink2
             int highestNonStackable = -99;
             foreach (Effect ef in pc.effectsList)
             {
-                if (ef.isStackableEffect)
+                if (!ef.isPermanent)
                 {
-                    attBonuses += ef.modifyStr;
-                }
-                else
-                {
-                    if ((ef.modifyStr != 0) && (ef.modifyStr > highestNonStackable))
+                    if (ef.isStackableEffect)
                     {
-                        highestNonStackable = ef.modifyStr;
+                        attBonuses += ef.modifyStr;
+                    }
+                    else
+                    {
+                        if ((ef.modifyStr != 0) && (ef.modifyStr > highestNonStackable))
+                        {
+                            highestNonStackable = ef.modifyStr;
+                        }
                     }
                 }
             }
@@ -4574,15 +4577,18 @@ namespace IceBlink2
             int highestNonStackable = -99;
             foreach (Effect ef in pc.effectsList)
             {
-                if (ef.isStackableEffect)
+                if (!ef.isPermanent)
                 {
-                    attBonuses += ef.modifyDex;
-                }
-                else
-                {
-                    if ((ef.modifyDex != 0) && (ef.modifyDex > highestNonStackable))
+                    if (ef.isStackableEffect)
                     {
-                        highestNonStackable = ef.modifyDex;
+                        attBonuses += ef.modifyDex;
+                    }
+                    else
+                    {
+                        if ((ef.modifyDex != 0) && (ef.modifyDex > highestNonStackable))
+                        {
+                            highestNonStackable = ef.modifyDex;
+                        }
                     }
                 }
             }
@@ -4603,15 +4609,18 @@ namespace IceBlink2
             int highestNonStackable = -99;
             foreach (Effect ef in pc.effectsList)
             {
-                if (ef.isStackableEffect)
+                if (!ef.isPermanent)
                 {
-                    attBonuses += ef.modifyInt;
-                }
-                else
-                {
-                    if ((ef.modifyInt != 0) && (ef.modifyInt > highestNonStackable))
+                    if (ef.isStackableEffect)
                     {
-                        highestNonStackable = ef.modifyInt;
+                        attBonuses += ef.modifyInt;
+                    }
+                    else
+                    {
+                        if ((ef.modifyInt != 0) && (ef.modifyInt > highestNonStackable))
+                        {
+                            highestNonStackable = ef.modifyInt;
+                        }
                     }
                 }
             }
@@ -4632,15 +4641,18 @@ namespace IceBlink2
             int highestNonStackable = -99;
             foreach (Effect ef in pc.effectsList)
             {
-                if (ef.isStackableEffect)
+                if (!ef.isPermanent)
                 {
-                    attBonuses += ef.modifyCha;
-                }
-                else
-                {
-                    if ((ef.modifyCha != 0) && (ef.modifyCha > highestNonStackable))
+                    if (ef.isStackableEffect)
                     {
-                        highestNonStackable = ef.modifyCha;
+                        attBonuses += ef.modifyCha;
+                    }
+                    else
+                    {
+                        if ((ef.modifyCha != 0) && (ef.modifyCha > highestNonStackable))
+                        {
+                            highestNonStackable = ef.modifyCha;
+                        }
                     }
                 }
             }
@@ -4661,15 +4673,18 @@ namespace IceBlink2
             int highestNonStackable = -99;
             foreach (Effect ef in pc.effectsList)
             {
-                if (ef.isStackableEffect)
+                if (!ef.isPermanent)
                 {
-                    attBonuses += ef.modifyCon;
-                }
-                else
-                {
-                    if ((ef.modifyCon != 0) && (ef.modifyCon > highestNonStackable))
+                    if (ef.isStackableEffect)
                     {
-                        highestNonStackable = ef.modifyCon;
+                        attBonuses += ef.modifyCon;
+                    }
+                    else
+                    {
+                        if ((ef.modifyCon != 0) && (ef.modifyCon > highestNonStackable))
+                        {
+                            highestNonStackable = ef.modifyCon;
+                        }
                     }
                 }
             }
@@ -4690,15 +4705,18 @@ namespace IceBlink2
             int highestNonStackable = -99;
             foreach (Effect ef in pc.effectsList)
             {
-                if (ef.isStackableEffect)
+                if (!ef.isPermanent)
                 {
-                    attBonuses += ef.modifyWis;
-                }
-                else
-                {
-                    if ((ef.modifyWis != 0) && (ef.modifyWis > highestNonStackable))
+                    if (ef.isStackableEffect)
                     {
-                        highestNonStackable = ef.modifyWis;
+                        attBonuses += ef.modifyWis;
+                    }
+                    else
+                    {
+                        if ((ef.modifyWis != 0) && (ef.modifyWis > highestNonStackable))
+                        {
+                            highestNonStackable = ef.modifyWis;
+                        }
                     }
                 }
             }
@@ -4719,15 +4737,18 @@ namespace IceBlink2
             int highestNonStackable = -99;
             foreach (Effect ef in pc.effectsList)
             {
-                if (ef.isStackableEffect)
+                if (!ef.isPermanent)
                 {
-                    attBonuses += ef.modifyLuk;
-                }
-                else
-                {
-                    if ((ef.modifyLuk != 0) && (ef.modifyLuk > highestNonStackable))
+                    if (ef.isStackableEffect)
                     {
-                        highestNonStackable = ef.modifyLuk;
+                        attBonuses += ef.modifyLuk;
+                    }
+                    else
+                    {
+                        if ((ef.modifyLuk != 0) && (ef.modifyLuk > highestNonStackable))
+                        {
+                            highestNonStackable = ef.modifyLuk;
+                        }
                     }
                 }
             }
@@ -4748,15 +4769,18 @@ namespace IceBlink2
             int highestNonStackable = -99;
             foreach (Effect ef in pc.effectsList)
             {
-                if (ef.isStackableEffect)
+                if (!ef.isPermanent)
                 {
-                    md += ef.modifyDamageTypeResistanceAcid;
-                }
-                else
-                {
-                    if ((ef.modifyDamageTypeResistanceAcid != 0) && (ef.modifyDamageTypeResistanceAcid > highestNonStackable))
+                    if (ef.isStackableEffect)
                     {
-                        highestNonStackable = ef.modifyDamageTypeResistanceAcid;
+                        md += ef.modifyDamageTypeResistanceAcid;
+                    }
+                    else
+                    {
+                        if ((ef.modifyDamageTypeResistanceAcid != 0) && (ef.modifyDamageTypeResistanceAcid > highestNonStackable))
+                        {
+                            highestNonStackable = ef.modifyDamageTypeResistanceAcid;
+                        }
                     }
                 }
             }
@@ -4777,15 +4801,18 @@ namespace IceBlink2
             int highestNonStackable = -99;
             foreach (Effect ef in pc.effectsList)
             {
-                if (ef.isStackableEffect)
+                if (!ef.isPermanent)
                 {
-                    md += ef.modifyDamageTypeResistanceNormal;
-                }
-                else
-                {
-                    if ((ef.modifyDamageTypeResistanceNormal != 0) && (ef.modifyDamageTypeResistanceNormal > highestNonStackable))
+                    if (ef.isStackableEffect)
                     {
-                        highestNonStackable = ef.modifyDamageTypeResistanceNormal;
+                        md += ef.modifyDamageTypeResistanceNormal;
+                    }
+                    else
+                    {
+                        if ((ef.modifyDamageTypeResistanceNormal != 0) && (ef.modifyDamageTypeResistanceNormal > highestNonStackable))
+                        {
+                            highestNonStackable = ef.modifyDamageTypeResistanceNormal;
+                        }
                     }
                 }
             }
@@ -4806,15 +4833,18 @@ namespace IceBlink2
             int highestNonStackable = -99;
             foreach (Effect ef in pc.effectsList)
             {
-                if (ef.isStackableEffect)
+                if (!ef.isPermanent)
                 {
-                    md += ef.modifyDamageTypeResistanceCold;
-                }
-                else
-                {
-                    if ((ef.modifyDamageTypeResistanceCold != 0) && (ef.modifyDamageTypeResistanceCold > highestNonStackable))
+                    if (ef.isStackableEffect)
                     {
-                        highestNonStackable = ef.modifyDamageTypeResistanceCold;
+                        md += ef.modifyDamageTypeResistanceCold;
+                    }
+                    else
+                    {
+                        if ((ef.modifyDamageTypeResistanceCold != 0) && (ef.modifyDamageTypeResistanceCold > highestNonStackable))
+                        {
+                            highestNonStackable = ef.modifyDamageTypeResistanceCold;
+                        }
                     }
                 }
             }
@@ -4835,15 +4865,18 @@ namespace IceBlink2
             int highestNonStackable = -99;
             foreach (Effect ef in pc.effectsList)
             {
-                if (ef.isStackableEffect)
+                if (!ef.isPermanent)
                 {
-                    md += ef.modifyDamageTypeResistanceElectricity;
-                }
-                else
-                {
-                    if ((ef.modifyDamageTypeResistanceElectricity != 0) && (ef.modifyDamageTypeResistanceElectricity > highestNonStackable))
+                    if (ef.isStackableEffect)
                     {
-                        highestNonStackable = ef.modifyDamageTypeResistanceElectricity;
+                        md += ef.modifyDamageTypeResistanceElectricity;
+                    }
+                    else
+                    {
+                        if ((ef.modifyDamageTypeResistanceElectricity != 0) && (ef.modifyDamageTypeResistanceElectricity > highestNonStackable))
+                        {
+                            highestNonStackable = ef.modifyDamageTypeResistanceElectricity;
+                        }
                     }
                 }
             }
@@ -4864,15 +4897,18 @@ namespace IceBlink2
             int highestNonStackable = -99;
             foreach (Effect ef in pc.effectsList)
             {
-                if (ef.isStackableEffect)
+                if (!ef.isPermanent)
                 {
-                    md += ef.modifyDamageTypeResistanceFire;
-                }
-                else
-                {
-                    if ((ef.modifyDamageTypeResistanceFire != 0) && (ef.modifyDamageTypeResistanceFire > highestNonStackable))
+                    if (ef.isStackableEffect)
                     {
-                        highestNonStackable = ef.modifyDamageTypeResistanceFire;
+                        md += ef.modifyDamageTypeResistanceFire;
+                    }
+                    else
+                    {
+                        if ((ef.modifyDamageTypeResistanceFire != 0) && (ef.modifyDamageTypeResistanceFire > highestNonStackable))
+                        {
+                            highestNonStackable = ef.modifyDamageTypeResistanceFire;
+                        }
                     }
                 }
             }
@@ -4893,15 +4929,18 @@ namespace IceBlink2
             int highestNonStackable = -99;
             foreach (Effect ef in pc.effectsList)
             {
-                if (ef.isStackableEffect)
+                if (!ef.isPermanent)
                 {
-                    md += ef.modifyDamageTypeResistanceMagic;
-                }
-                else
-                {
-                    if ((ef.modifyDamageTypeResistanceMagic != 0) && (ef.modifyDamageTypeResistanceMagic > highestNonStackable))
+                    if (ef.isStackableEffect)
                     {
-                        highestNonStackable = ef.modifyDamageTypeResistanceMagic;
+                        md += ef.modifyDamageTypeResistanceMagic;
+                    }
+                    else
+                    {
+                        if ((ef.modifyDamageTypeResistanceMagic != 0) && (ef.modifyDamageTypeResistanceMagic > highestNonStackable))
+                        {
+                            highestNonStackable = ef.modifyDamageTypeResistanceMagic;
+                        }
                     }
                 }
             }
@@ -4922,15 +4961,18 @@ namespace IceBlink2
             int highestNonStackable = -99;
             foreach (Effect ef in pc.effectsList)
             {
-                if (ef.isStackableEffect)
+                if (!ef.isPermanent)
                 {
-                    md += ef.modifyDamageTypeResistancePoison;
-                }
-                else
-                {
-                    if ((ef.modifyDamageTypeResistancePoison != 0) && (ef.modifyDamageTypeResistancePoison > highestNonStackable))
+                    if (ef.isStackableEffect)
                     {
-                        highestNonStackable = ef.modifyDamageTypeResistancePoison;
+                        md += ef.modifyDamageTypeResistancePoison;
+                    }
+                    else
+                    {
+                        if ((ef.modifyDamageTypeResistancePoison != 0) && (ef.modifyDamageTypeResistancePoison > highestNonStackable))
+                        {
+                            highestNonStackable = ef.modifyDamageTypeResistancePoison;
+                        }
                     }
                 }
             }
@@ -4943,15 +4985,18 @@ namespace IceBlink2
             int highestNonStackable = -99;
             foreach (Effect ef in pc.effectsList)
             {
-                if (ef.isStackableEffect)
+                if (!ef.isPermanent)
                 {
-                    adder += ef.babModifier;
-                }
-                else
-                {
-                    if ((ef.babModifier != 0) && (ef.babModifier > highestNonStackable))
+                    if (ef.isStackableEffect)
                     {
-                        highestNonStackable = ef.babModifier;
+                        adder += ef.babModifier;
+                    }
+                    else
+                    {
+                        if ((ef.babModifier != 0) && (ef.babModifier > highestNonStackable))
+                        {
+                            highestNonStackable = ef.babModifier;
+                        }
                     }
                 }
             }
@@ -4964,15 +5009,18 @@ namespace IceBlink2
             int highestNonStackable = -99;
             foreach (Effect ef in pc.effectsList)
             {
-                if (ef.isStackableEffect)
+                if (!ef.isPermanent)
                 {
-                    adder += ef.acModifier;
-                }
-                else
-                {
-                    if ((ef.acModifier != 0) && (ef.acModifier > highestNonStackable))
+                    if (ef.isStackableEffect)
                     {
-                        highestNonStackable = ef.acModifier;
+                        adder += ef.acModifier;
+                    }
+                    else
+                    {
+                        if ((ef.acModifier != 0) && (ef.acModifier > highestNonStackable))
+                        {
+                            highestNonStackable = ef.acModifier;
+                        }
                     }
                 }
             }
@@ -5027,15 +5075,18 @@ namespace IceBlink2
             int highestNonStackable = -99;
             foreach (Effect ef in pc.effectsList)
             {
-                if (ef.isStackableEffect)
+                if (!ef.isPermanent)
                 {
-                    moveBonuses += ef.modifyMoveDistance;
-                }
-                else
-                {
-                    if ((ef.modifyMoveDistance != 0) && (ef.modifyMoveDistance > highestNonStackable))
+                    if (ef.isStackableEffect)
                     {
-                        highestNonStackable = ef.modifyMoveDistance;
+                        moveBonuses += ef.modifyMoveDistance;
+                    }
+                    else
+                    {
+                        if ((ef.modifyMoveDistance != 0) && (ef.modifyMoveDistance > highestNonStackable))
+                        {
+                            highestNonStackable = ef.modifyMoveDistance;
+                        }
                     }
                 }
             }
@@ -5652,20 +5703,26 @@ namespace IceBlink2
                 }
                 if (ef.doBuff)
                 {
-                    gv.cc.addLogText("<font color='yellow'>" + crt.cr_name + " has effect: " + ef.name + ", (" + (int)((ef.durationInUnits / gv.mod.TimePerRound) - 1) + " round(s) remain)</font><BR>");
-                    if ((int)(ef.durationInUnits / gv.mod.TimePerRound) <= 1)
+                    if (!ef.isPermanent)
                     {
-                        gv.cc.addLogText("<font color='yellow'>" + "This effect is removed on start of next turn of " + crt.cr_name + "</font><BR>");
+                        gv.cc.addLogText("<font color='yellow'>" + crt.cr_name + " has effect: " + ef.name + ", (" + (int)((ef.durationInUnits / gv.mod.TimePerRound) - 1) + " round(s) remain)</font><BR>");
+                        if ((int)(ef.durationInUnits / gv.mod.TimePerRound) <= 1)
+                        {
+                            gv.cc.addLogText("<font color='yellow'>" + "This effect is removed on start of next turn of " + crt.cr_name + "</font><BR>");
+                        }
                     }
                     //no need to do anything here as buffs are used in updateStats or during
                     //checks such as ef.addStatusType.Equals("Held") on Player or Creature class
                 }
                 if (ef.doDeBuff)
                 {
-                    gv.cc.addLogText("<font color='yellow'>" + crt.cr_name + " has effect: " + ef.name + ", (" + (int)((ef.durationInUnits / gv.mod.TimePerRound) - 1) + " round(s) remain)</font><BR>");
-                    if ((int)(ef.durationInUnits / gv.mod.TimePerRound) <= 1)
+                    if (!ef.isPermanent)
                     {
-                        gv.cc.addLogText("<font color='yellow'>" + "This effect is removed on start of next turn of " + crt.cr_name + "</font><BR>");
+                        gv.cc.addLogText("<font color='yellow'>" + crt.cr_name + " has effect: " + ef.name + ", (" + (int)((ef.durationInUnits / gv.mod.TimePerRound) - 1) + " round(s) remain)</font><BR>");
+                        if ((int)(ef.durationInUnits / gv.mod.TimePerRound) <= 1)
+                        {
+                            gv.cc.addLogText("<font color='yellow'>" + "This effect is removed on start of next turn of " + crt.cr_name + "</font><BR>");
+                        }
                     }
                     //no need to do anything here as buffs are used in updateStats or during
                     //checks such as ef.addStatusType.Equals("Held") on Player or Creature class
@@ -5822,20 +5879,26 @@ namespace IceBlink2
                 }
                 if (ef.doBuff)
                 {
-                    gv.cc.addLogText("<font color='yellow'>" + pc.name + " has effect: " + ef.name + ", (" + (int)((ef.durationInUnits / gv.mod.TimePerRound) - 1) + " turn(s) remain)</font><BR>");
-                    if ((int)(ef.durationInUnits / gv.mod.TimePerRound) <=  1)
+                    if (!ef.isPermanent)
                     {
-                        gv.cc.addLogText("<font color='yellow'>" + "This effect is removed on start of next turn of " + pc.name + "</font><BR>");
+                        gv.cc.addLogText("<font color='yellow'>" + pc.name + " has effect: " + ef.name + ", (" + (int)((ef.durationInUnits / gv.mod.TimePerRound) - 1) + " turn(s) remain)</font><BR>");
+                        if ((int)(ef.durationInUnits / gv.mod.TimePerRound) <= 1)
+                        {
+                            gv.cc.addLogText("<font color='yellow'>" + "This effect is removed on start of next turn of " + pc.name + "</font><BR>");
+                        }
                     }
                     //no need to do anything here as buffs are used in updateStats or during
                     //checks such as ef.addStatusType.Equals("Held") on Player or Creature class
                 }
                 if (ef.doDeBuff)
                 {
-                    gv.cc.addLogText("<font color='yellow'>" + pc.name + " has effect: " + ef.name + ", (" + (int)((ef.durationInUnits / gv.mod.TimePerRound) - 1) + " turn(s) remain)</font><BR>");
-                    if ((int)(ef.durationInUnits / gv.mod.TimePerRound) <= 1)
+                    if (!ef.isPermanent)
                     {
-                        gv.cc.addLogText("<font color='yellow'>" + "This effect is removed on start of next turn of " + pc.name + "</font><BR>");
+                        gv.cc.addLogText("<font color='yellow'>" + pc.name + " has effect: " + ef.name + ", (" + (int)((ef.durationInUnits / gv.mod.TimePerRound) - 1) + " turn(s) remain)</font><BR>");
+                        if ((int)(ef.durationInUnits / gv.mod.TimePerRound) <= 1)
+                        {
+                            gv.cc.addLogText("<font color='yellow'>" + "This effect is removed on start of next turn of " + pc.name + "</font><BR>");
+                        }
                     }
                     //no need to do anything here as buffs are used in updateStats or during
                     //checks such as ef.addStatusType.Equals("Held") on Player or Creature class

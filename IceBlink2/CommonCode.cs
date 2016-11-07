@@ -8143,7 +8143,10 @@ namespace IceBlink2
                     foreach (Effect ef in pc.effectsList)
                     {
                         //decrement duration of all
-                        ef.durationInUnits -= gv.mod.currentArea.TimePerSquare;
+                        if (!ef.isPermanent)
+                        {
+                            ef.durationInUnits -= gv.mod.currentArea.TimePerSquare;
+                        }
                         if (!ef.usedForUpdateStats) //not used for stat updates
                         {
                             doEffectScript(pc, ef);
@@ -8157,7 +8160,10 @@ namespace IceBlink2
                     {
                         if (pc.effectsList[i - 1].durationInUnits <= 0)
                         {
-                            pc.effectsList.RemoveAt(i - 1);
+                            if (!pc.effectsList[i-1].isPermanent)
+                            {
+                                pc.effectsList.RemoveAt(i - 1);
+                            }
                         }
                     }
                 }
