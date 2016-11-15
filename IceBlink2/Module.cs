@@ -86,6 +86,8 @@ namespace IceBlink2
         public int logNumberOfLines = 20;
         public string spellLabelSingular = "Spell";
         public string spellLabelPlural = "Spells";
+        public string traitLabelSingular = "Trait";
+        public string traitsLabelPlural = "Traits";
         public string goldLabelSingular = "Gold";
         public string goldLabelPlural = "Gold";
         public float diagonalMoveCost = 1.0f;

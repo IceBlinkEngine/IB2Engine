@@ -12,8 +12,10 @@ namespace IceBlink2
 	    public int atWhatLevelIsAvailable = 0;
 	    public bool automaticallyLearned = false;
 	    public bool allow = true;
-	
-	    public TraitAllowed()
+        public string useableInSituation = "Always"; //InCombat, OutOfCombat, Always, Passive
+        public string associatedSpellTag = "none";
+
+        public TraitAllowed()
 	    {
 		
 	    }
@@ -25,7 +27,9 @@ namespace IceBlink2
 		    copy.tag = this.tag;
 		    copy.atWhatLevelIsAvailable = this.atWhatLevelIsAvailable;
 		    copy.automaticallyLearned = this.automaticallyLearned;
-		    copy.allow = this.allow;		
+		    copy.allow = this.allow;
+            copy.useableInSituation = this.useableInSituation;
+            copy.associatedSpellTag = this.associatedSpellTag;		
 		    return copy;
 	    }
     }

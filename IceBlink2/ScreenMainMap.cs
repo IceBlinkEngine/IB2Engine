@@ -29843,6 +29843,71 @@ namespace IceBlink2
                             }
                         }
                     }
+
+                    //adding lines for trait use button on main map
+                    else if (rtn.Equals("btnTraitUseOnMainMap"))
+                    {
+
+                        List<string> pcNames = new List<string>();
+                        List<int> pcIndex = new List<int>();
+                        pcNames.Add("cancel");
+
+                        int cnt = 0;
+                        foreach (Player p in mod.playerList)
+                        {
+                            if (p.knownOutsideCombatUsableTraitsTags.Count > 0)
+                            {
+                                pcNames.Add(p.name);
+                                pcIndex.Add(cnt);
+                            }
+                            cnt++;
+                        }
+
+                        //If only one PC, do not show select PC dialog...just go to cast selector
+                        if (pcIndex.Count == 1)
+                        {
+                            try
+                            {
+                                gv.screenCastSelector.castingPlayerIndex = pcIndex[0];
+                                gv.screenCombat.spellSelectorIndex = 0;
+                                gv.screenType = "mainMapTraitUse";
+                                return;
+                            }
+                            catch (Exception ex)
+                            {
+                                //print error
+                                IBMessageBox.Show(gv, "error with Pc Selector screen: " + ex.ToString());
+                                gv.errorLog(ex.ToString());
+                                return;
+                            }
+                        }
+
+                        using (ItemListSelector pcSel = new ItemListSelector(gv, pcNames, "Select Character"))
+                        {
+                            pcSel.ShowDialog();
+
+                            if (pcSel.selectedIndex > 0)
+                            {
+                                try
+                                {
+                                    gv.screenCastSelector.castingPlayerIndex = pcIndex[pcSel.selectedIndex - 1]; // pcIndex.get(item - 1);
+                                    gv.screenCombat.spellSelectorIndex = 0;
+                                    gv.screenType = "mainMapTraitUse";
+                                }
+                                catch (Exception ex)
+                                {
+                                    IBMessageBox.Show(gv, "error with Pc Selector screen: " + ex.ToString());
+                                    gv.errorLog(ex.ToString());
+                                    //print error
+                                }
+                            }
+                            else if (pcSel.selectedIndex == 0) // selected "cancel"
+                            {
+                                //do nothing
+                            }
+                        }
+                    }
+
                     else if (rtn.Equals("btnToggleArrows"))
                     {
                         foreach (IB2Panel pnl in mainUiLayout.panelList)
@@ -30956,6 +31021,71 @@ namespace IceBlink2
                     }
                 }
             }
+
+            //adding lines for trait use via hotkey on main map
+            else if (keyData == Keys.T)
+            {
+                List<string> pcNames = new List<string>();
+                List<int> pcIndex = new List<int>();
+                pcNames.Add("cancel");
+
+                int cnt = 0;
+                foreach (Player p in mod.playerList)
+                {
+                    if (p.knownOutsideCombatUsableTraitsTags.Count > 0)
+                    {
+                        pcNames.Add(p.name);
+                        pcIndex.Add(cnt);
+                    }
+                    cnt++;
+                }
+
+                //If only one PC, do not show select PC dialog...just go to cast selector
+                if (pcIndex.Count == 1)
+                {
+                    try
+                    {
+                        gv.screenCastSelector.castingPlayerIndex = pcIndex[0];
+                        gv.screenCombat.spellSelectorIndex = 0;
+                        gv.screenType = "mainMapTraitUse";
+                        return;
+                    }
+                    catch (Exception ex)
+                    {
+                        //print error
+                        IBMessageBox.Show(gv, "error with Pc Selector screen: " + ex.ToString());
+                        gv.errorLog(ex.ToString());
+                        return;
+                    }
+                }
+
+                using (ItemListSelector pcSel = new ItemListSelector(gv, pcNames, "Select Character"))
+                {
+                    pcSel.ShowDialog();
+
+                    if (pcSel.selectedIndex > 0)
+                    {
+                        try
+                        {
+                            gv.screenCastSelector.castingPlayerIndex = pcIndex[pcSel.selectedIndex - 1]; // pcIndex.get(item - 1);
+                            gv.screenCombat.spellSelectorIndex = 0;
+                            gv.screenType = "mainMapTraitUse";
+                        }
+                        catch (Exception ex)
+                        {
+                            IBMessageBox.Show(gv, "error with Pc Selector screen: " + ex.ToString());
+                            gv.errorLog(ex.ToString());
+                            //print error
+                        }
+                    }
+                    else if (pcSel.selectedIndex == 0) // selected "cancel"
+                    {
+                        //do nothing
+                    }
+                }
+            }
+
+
             else if (keyData == Keys.X)
             {
                 if (!hideClock)

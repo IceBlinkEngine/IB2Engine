@@ -348,6 +348,23 @@ namespace IceBlink2
 			    {
 				    //add trait
 				    pc.knownTraitsTags.Add(tr.tag);
+                    //public string useableInSituation = "Always"; //InCombat, OutOfCombat, Always, Passive
+                    if (tr.useableInSituation.Contains("Always"))
+                    {
+                        pc.knownUsableTraitsTags.Add(tr.associatedSpellTag);
+                        pc.knownOutsideCombatUsableTraitsTags.Add(tr.associatedSpellTag);
+                        pc.knownInCombatUsableTraitsTags.Add(tr.associatedSpellTag);
+                    }
+                    if (tr.useableInSituation.Contains("OutOfCombat"))
+                    {
+                        pc.knownUsableTraitsTags.Add(tr.associatedSpellTag);
+                        pc.knownOutsideCombatUsableTraitsTags.Add(tr.associatedSpellTag);
+                    }
+                    if (tr.useableInSituation.Contains("InCombat"))
+                    {
+                        pc.knownUsableTraitsTags.Add(tr.associatedSpellTag);
+                        pc.knownInCombatUsableTraitsTags.Add(tr.associatedSpellTag);
+                    }
 
                     //add permanent effects of trait to effect list of this pc
                     foreach (EffectTagForDropDownList efTag in tr.traitEffectTagList)

@@ -18,7 +18,11 @@ namespace IceBlink2
 	    public string tag = "newClassTag"; //item unique tag name
         public bool UsableByPlayer = true;
 	    public string description = "";
-	    public int startingHP = 10;
+        public string labelForCastAction = "CAST";
+        public string labelForSpellsButtoninCombat = "SPELL";
+        public string labelForUseTraitAction = "USE";
+        public string labelForUseTraitButtoninCombat = "TRAIT";
+        public int startingHP = 10;
 	    public int startingSP = 20;
         public string modifierFromSPRelevantAttribute = "intelligence";
         public int hpPerLevelUp = 10;
@@ -89,6 +93,11 @@ namespace IceBlink2
 		    copy.xpTable = (int[])this.xpTable.Clone();
             copy.itemsAllowed = new List<ItemRefs>();
             copy.modifierFromSPRelevantAttribute = this.modifierFromSPRelevantAttribute;
+
+            copy.labelForCastAction = this.labelForCastAction;
+            copy.labelForSpellsButtoninCombat = this.labelForSpellsButtoninCombat;
+            copy.labelForUseTraitAction = this.labelForUseTraitAction;
+            copy.labelForUseTraitButtoninCombat = this.labelForUseTraitButtoninCombat;
 
             foreach (ItemRefs s in this.itemsAllowed)
             {

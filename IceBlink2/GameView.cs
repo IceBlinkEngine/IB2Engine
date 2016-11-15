@@ -106,6 +106,7 @@ namespace IceBlink2
         public ScreenJournal screenJournal;
         public ScreenShop screenShop;
         public ScreenCastSelector screenCastSelector;
+        public ScreenTraitUseSelector screenTraitUseSelector;
         public ScreenConvo screenConvo;
         public ScreenTitle screenTitle;
         public ScreenPcCreation screenPcCreation;
@@ -293,7 +294,8 @@ namespace IceBlink2
 		    screenJournal = new ScreenJournal(mod, this);	
 		    screenShop = new ScreenShop(mod, this);
 		    screenCastSelector = new ScreenCastSelector(mod, this);
-		    screenConvo = new ScreenConvo(mod, this);		    
+            screenTraitUseSelector = new ScreenTraitUseSelector(mod, this);
+            screenConvo = new ScreenConvo(mod, this);		    
 		    screenMainMap = new ScreenMainMap(mod, this);
             screenCombat = new ScreenCombat(mod, this);
             screenTitle = new ScreenTitle(mod, this);
@@ -1383,6 +1385,14 @@ namespace IceBlink2
             {
                 screenCastSelector.redrawCastSelector(false);
             }
+            else if (screenType.Equals("combatTraitUse"))
+            {
+                screenTraitUseSelector.redrawTraitUseSelector(true);
+            }
+            else if (screenType.Equals("mainMapTraitUse"))
+            {
+                screenTraitUseSelector.redrawTraitUseSelector(false);
+            }
             else if (screenType.Equals("convo"))
             {
                 screenConvo.redrawConvo();
@@ -1632,6 +1642,14 @@ namespace IceBlink2
                     else if (screenType.Equals("mainMapCast"))
                     {
                         screenCastSelector.onTouchCastSelector(e, eventType, false);
+                    }
+                    else if (screenType.Equals("combatTraitUse"))
+                    {
+                        screenTraitUseSelector.onTouchCastSelector(e, eventType, true);
+                    }
+                    else if (screenType.Equals("mainMapTraitUse"))
+                    {
+                        screenTraitUseSelector.onTouchCastSelector(e, eventType, false);
                     }
                     else if (screenType.Equals("convo"))
                     {

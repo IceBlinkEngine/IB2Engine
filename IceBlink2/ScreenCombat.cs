@@ -5713,6 +5713,25 @@ namespace IceBlink2
                     }
                 }
             }
+            else if (keyData == Keys.T)
+            {
+                if (isPlayerTurn)
+                {
+                    Player pc = mod.playerList[currentPlayerIndex];
+                    if (pc.knownInCombatUsableTraitsTags.Count > 0)
+                    {
+                        currentCombatMode = "traitUseSelector";
+                        gv.screenType = "combatTraitUse";
+                        gv.screenCastSelector.castingPlayerIndex = currentPlayerIndex;
+                        spellSelectorIndex = 0;
+                        setTargetHighlightStartLocation(pc);
+                    }
+                    else
+                    {
+                        //TODO Toast.makeText(gv.gameContext, "PC has no Spells", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
             else if (keyData == Keys.X)
             {
                 foreach (IB2Panel pnl in combatUiLayout.panelList)
@@ -9813,6 +9832,24 @@ namespace IceBlink2
                             {
                                 currentCombatMode = "castSelector";
                                 gv.screenType = "combatCast";
+                                gv.screenCastSelector.castingPlayerIndex = currentPlayerIndex;
+                                spellSelectorIndex = 0;
+                                setTargetHighlightStartLocation(pc);
+                            }
+                        }
+                        else
+                        {
+                            //TODO Toast.makeText(gv.gameContext, "PC has no Spells", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                    else if (rtn.Equals("btnTraitUse"))
+                    {
+                        if (isPlayerTurn)
+                        {
+                            if (pc.knownInCombatUsableTraitsTags.Count > 0)
+                            {
+                                currentCombatMode = "traitUseSelector";
+                                gv.screenType = "combatTraitUse";
                                 gv.screenCastSelector.castingPlayerIndex = currentPlayerIndex;
                                 spellSelectorIndex = 0;
                                 setTargetHighlightStartLocation(pc);

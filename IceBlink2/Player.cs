@@ -38,6 +38,9 @@ namespace IceBlink2
         public PlayerClass playerClass = new PlayerClass();
         public List<string> knownSpellsTags = new List<string>();
         public List<string> knownTraitsTags = new List<string>();
+        public List<string> knownUsableTraitsTags = new List<string>();
+        public List<string> knownInCombatUsableTraitsTags = new List<string>();
+        public List<string> knownOutsideCombatUsableTraitsTags = new List<string>();
         public List<Effect> effectsList = new List<Effect>();
         public int classLevel = 1;
         public bool isMale = true;
@@ -176,6 +179,18 @@ namespace IceBlink2
             foreach (string s in this.knownTraitsTags)
             {
                 copy.knownTraitsTags.Add(s);
+            }
+
+            copy.knownInCombatUsableTraitsTags = new List<string>();
+            foreach (string s in this.knownInCombatUsableTraitsTags)
+            {
+                copy.knownInCombatUsableTraitsTags.Add(s);
+            }
+
+            copy.knownOutsideCombatUsableTraitsTags = new List<string>();
+            foreach (string s in this.knownOutsideCombatUsableTraitsTags)
+            {
+                copy.knownOutsideCombatUsableTraitsTags.Add(s);
             }
 
             return copy;

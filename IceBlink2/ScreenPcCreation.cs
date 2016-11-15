@@ -664,6 +664,24 @@ namespace IceBlink2
                                 if ((ta.automaticallyLearned) && (ta.atWhatLevelIsAvailable == pc.classLevel))
                                 {
                                     pc.knownTraitsTags.Add(ta.tag);
+                                    //public string useableInSituation = "Always"; //InCombat, OutOfCombat, Always, Passive
+                                    if (ta.useableInSituation.Contains("Always"))
+                                    {
+                                        pc.knownUsableTraitsTags.Add(ta.associatedSpellTag);
+                                        pc.knownOutsideCombatUsableTraitsTags.Add(ta.associatedSpellTag);
+                                        pc.knownInCombatUsableTraitsTags.Add(ta.associatedSpellTag);
+                                    }
+                                    if (ta.useableInSituation.Contains("OutOfCombat"))
+                                    {
+                                        pc.knownUsableTraitsTags.Add(ta.associatedSpellTag);
+                                        pc.knownOutsideCombatUsableTraitsTags.Add(ta.associatedSpellTag);
+                                    }
+                                    if (ta.useableInSituation.Contains("InCombat"))
+                                    {
+                                        pc.knownUsableTraitsTags.Add(ta.associatedSpellTag);
+                                        pc.knownInCombatUsableTraitsTags.Add(ta.associatedSpellTag);
+                                    }
+
                                 }
                             }
                             foreach (SpellAllowed sa in pc.playerClass.spellsAllowed)

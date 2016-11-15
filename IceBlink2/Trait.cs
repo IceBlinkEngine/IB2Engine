@@ -21,6 +21,7 @@ namespace IceBlink2
 	    public int skillModifier = 0;
 	    public string skillModifierAttribute = "str";
 	    public string useableInSituation = "Always"; //InCombat, OutOfCombat, Always, Passive
+        public string associatedSpellTag = "none";
 	    public string spriteFilename = "none";
 	    public string spriteEndingFilename = "none";
 	    public int costSP = 10;	
@@ -30,6 +31,7 @@ namespace IceBlink2
 	    public int range = 2;	
 	    public string traitScript = "none";
         public List<EffectTagForDropDownList> traitEffectTagList = new List<EffectTagForDropDownList>();
+
 
         public Trait()
 	    {
@@ -55,6 +57,7 @@ namespace IceBlink2
 		    copy.aoeRadius = this.aoeRadius;
 		    copy.range = this.range;
 		    copy.traitScript = this.traitScript;
+            copy.associatedSpellTag = this.associatedSpellTag;
 
             copy.traitEffectTagList = new List<EffectTagForDropDownList>();
             foreach (EffectTagForDropDownList s in this.traitEffectTagList)

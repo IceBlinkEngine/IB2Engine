@@ -3111,6 +3111,23 @@ namespace IceBlink2
             if (tr != null)
             {
                 pc.knownTraitsTags.Add(tr.tag);
+                //public string useableInSituation = "Always"; //InCombat, OutOfCombat, Always, Passive
+                if (tr.useableInSituation.Contains("Always"))
+                {
+                    pc.knownUsableTraitsTags.Add(tr.associatedSpellTag);
+                    pc.knownOutsideCombatUsableTraitsTags.Add(tr.associatedSpellTag);
+                    pc.knownInCombatUsableTraitsTags.Add(tr.associatedSpellTag);
+                }
+                if (tr.useableInSituation.Contains("OutOfCombat"))
+                {
+                    pc.knownUsableTraitsTags.Add(tr.associatedSpellTag);
+                    pc.knownOutsideCombatUsableTraitsTags.Add(tr.associatedSpellTag);
+                }
+                if (tr.useableInSituation.Contains("InCombat"))
+                {
+                    pc.knownUsableTraitsTags.Add(tr.associatedSpellTag);
+                    pc.knownInCombatUsableTraitsTags.Add(tr.associatedSpellTag);
+                }
             }
             else if (mod.debugMode) //SD_20131102
             {
