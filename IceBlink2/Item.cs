@@ -90,8 +90,12 @@ namespace IceBlink2
 	    public int damageTypeResistanceValueMagic = 0;
 	    public int damageTypeResistanceValuePoison = 0;
         public string typeOfDamage = "Normal"; //Normal,Acid,Cold,Electricity,Fire,Magic,Poison
-    
-	    public Item()
+
+        //Not yet implemented
+        public string labelForCastAction = "CAST";
+        public string labelForSpellsButtonInCombat = "SPELL";
+
+        public Item()
 	    {
 		
 	    }
@@ -167,6 +171,8 @@ namespace IceBlink2
 		    copy.damageTypeResistanceValueMagic = this.damageTypeResistanceValueMagic;
 		    copy.damageTypeResistanceValuePoison = this.damageTypeResistanceValuePoison;
 		    copy.typeOfDamage = this.typeOfDamage;
+            copy.labelForCastAction = this.labelForCastAction;
+            copy.labelForSpellsButtonInCombat = this.labelForSpellsButtonInCombat;
 		    return copy;
 	    }
     }

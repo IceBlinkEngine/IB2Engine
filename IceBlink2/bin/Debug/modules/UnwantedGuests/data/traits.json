@@ -1,7 +1,9 @@
 [
   {
     "name": "Bluff (L1)",
+    "traitEffectTagList": [],
     "tag": "bluff",
+    "associatedSpellTag": "none",
     "traitImage": "tr_bluff",
     "description": "Useful in conversations for influencing others. Uses Intelligence as a modifier.",
     "prerequisiteTrait": "none",
@@ -19,7 +21,9 @@
   },
   {
     "name": "Bluff (L2)",
+    "traitEffectTagList": [],
     "tag": "bluff2",
+    "associatedSpellTag": "none",
     "traitImage": "tr_bluff",
     "description": "Useful in conversations for influencing others. Uses Intelligence as a modifier.",
     "prerequisiteTrait": "bluff",
@@ -37,7 +41,9 @@
   },
   {
     "name": "Cleave",
+    "traitEffectTagList": [],
     "tag": "cleave",
+    "associatedSpellTag": "none",
     "traitImage": "tr_cleave",
     "description": "Allows to make another melee attack on a near by target upon killing their first target in that same round.",
     "prerequisiteTrait": "none",
@@ -55,7 +61,9 @@
   },
   {
     "name": "Critical Strike",
+    "traitEffectTagList": [],
     "tag": "criticalstrike",
+    "associatedSpellTag": "none",
     "traitImage": "tr_criticalstrike",
     "description": "Use Dexterity for attack and damage bonuses for melee attacks.",
     "prerequisiteTrait": "none",
@@ -73,7 +81,9 @@
   },
   {
     "name": "Diplomacy (L1)",
+    "traitEffectTagList": [],
     "tag": "diplomacy",
+    "associatedSpellTag": "none",
     "traitImage": "tr_diplomacy",
     "description": "Useful in conversations for influencing others. Uses Charisma as a modifier.",
     "prerequisiteTrait": "none",
@@ -91,7 +101,9 @@
   },
   {
     "name": "Diplomacy (L2)",
+    "traitEffectTagList": [],
     "tag": "diplomacy2",
+    "associatedSpellTag": "none",
     "traitImage": "tr_diplomacy",
     "description": "Useful in conversations for influencing others. Uses Charisma as a modifier.",
     "prerequisiteTrait": "diplomacy",
@@ -109,7 +121,9 @@
   },
   {
     "name": "Disable Device (L1)",
+    "traitEffectTagList": [],
     "tag": "disabledevice",
+    "associatedSpellTag": "none",
     "traitImage": "tr_disabledevice",
     "description": "Chance to pick a lock or disarm a trap.",
     "prerequisiteTrait": "none",
@@ -127,7 +141,9 @@
   },
   {
     "name": "Disable Device (L2)",
+    "traitEffectTagList": [],
     "tag": "disabledevice2",
+    "associatedSpellTag": "none",
     "traitImage": "tr_disabledevice",
     "description": "Chance to pick a lock or disarm a trap.",
     "prerequisiteTrait": "disabledevice",
@@ -145,7 +161,9 @@
   },
   {
     "name": "Evasion",
+    "traitEffectTagList": [],
     "tag": "evasion",
+    "associatedSpellTag": "none",
     "traitImage": "tr_evasion",
     "description": "possibility to avoid area of effect damage for spells that do half damage on successful reflex check.",
     "prerequisiteTrait": "none",
@@ -163,7 +181,9 @@
   },
   {
     "name": "Intimidate (L1)",
+    "traitEffectTagList": [],
     "tag": "intimidate",
+    "associatedSpellTag": "none",
     "traitImage": "tr_intimidate",
     "description": "Useful in conversations for influencing others. Uses Strength as a modifier.",
     "prerequisiteTrait": "none",
@@ -181,7 +201,9 @@
   },
   {
     "name": "Intimidate (L2)",
+    "traitEffectTagList": [],
     "tag": "intimidate2",
+    "associatedSpellTag": "none",
     "traitImage": "tr_intimidate",
     "description": "Useful in conversations for influencing others. Uses Strength as a modifier.",
     "prerequisiteTrait": "intimidate",
@@ -199,7 +221,9 @@
   },
   {
     "name": "Pick Pocket (L1)",
+    "traitEffectTagList": [],
     "tag": "pickpocket",
+    "associatedSpellTag": "none",
     "traitImage": "tr_pickpocket",
     "description": "Ability to try and pick the pockets of an unsuspecting target.",
     "prerequisiteTrait": "none",
@@ -217,7 +241,9 @@
   },
   {
     "name": "Pick Pocket (L2)",
+    "traitEffectTagList": [],
     "tag": "pickpocket2",
+    "associatedSpellTag": "none",
     "traitImage": "tr_pickpocket",
     "description": "Ability to try and pick the pockets of an unsuspecting target.",
     "prerequisiteTrait": "pickpocket",
@@ -235,7 +261,9 @@
   },
   {
     "name": "Point Blank Shot",
+    "traitEffectTagList": [],
     "tag": "pointblankshot",
+    "associatedSpellTag": "none",
     "traitImage": "tr_pointblankshot",
     "description": "Allows to avoid the '-4 to attack' penalty when using a ranged weapon with enemies in adjacent squares.",
     "prerequisiteTrait": "none",
@@ -253,7 +281,9 @@
   },
   {
     "name": "Sneak Attack",
+    "traitEffectTagList": [],
     "tag": "sneakattack",
+    "associatedSpellTag": "none",
     "traitImage": "tr_sneakattack",
     "description": "When in stealth mode, melee attacks are considered sneak attacks and do more damage (+1d6 for every 2 levels after 1st level) and have a better chance to hit (+1 to hit for every 2 levels after 1st level).",
     "prerequisiteTrait": "none",
@@ -271,7 +301,9 @@
   },
   {
     "name": "Spot (L1)",
+    "traitEffectTagList": [],
     "tag": "spot",
+    "associatedSpellTag": "none",
     "traitImage": "tr_spot",
     "description": "Ability to detect traps, spot signs of enemies, etc.",
     "prerequisiteTrait": "none",
@@ -289,7 +321,9 @@
   },
   {
     "name": "Spot (L2)",
+    "traitEffectTagList": [],
     "tag": "spot2",
+    "associatedSpellTag": "none",
     "traitImage": "tr_spot",
     "description": "Ability to detect traps, spot signs of enemies, etc.",
     "prerequisiteTrait": "spot",
@@ -307,7 +341,9 @@
   },
   {
     "name": "Stealth (L1)",
+    "traitEffectTagList": [],
     "tag": "stealth",
+    "associatedSpellTag": "none",
     "traitImage": "tr_stealth",
     "description": "Ability to move undetected.",
     "prerequisiteTrait": "none",
@@ -325,7 +361,9 @@
   },
   {
     "name": "Stealth (L2)",
+    "traitEffectTagList": [],
     "tag": "stealth2",
+    "associatedSpellTag": "none",
     "traitImage": "tr_stealth",
     "description": "Ability to move undetected.",
     "prerequisiteTrait": "stealth",
@@ -343,7 +381,9 @@
   },
   {
     "name": "Two Attacks",
+    "traitEffectTagList": [],
     "tag": "twoAttack",
+    "associatedSpellTag": "none",
     "traitImage": "tr_twoattacks",
     "description": "Allows the player to make two attacks per round on same target.",
     "prerequisiteTrait": "none",
@@ -361,7 +401,9 @@
   },
   {
     "name": "Hard to Kill",
+    "traitEffectTagList": [],
     "tag": "hardtokill",
+    "associatedSpellTag": "none",
     "traitImage": "tr_hardtokill",
     "description": "The rage of battle results in a large adrenaline rush that makes them shake off pain and even death, but also makes them less precise and a little wild in their attacks.<br>: 50% chance to jump back up to 1/10 HpMax if HP drops below 0 (this check is made at the start of each round)<br>: -2 to attack rolls",
     "prerequisiteTrait": "none",
@@ -379,7 +421,9 @@
   },
   {
     "name": "Precise Shot (L1)",
+    "traitEffectTagList": [],
     "tag": "preciseshot",
+    "associatedSpellTag": "none",
     "traitImage": "tr_preciseshot",
     "description": "Gains a +1 bonus on attack and damage rolls with ranged weapons.",
     "prerequisiteTrait": "none",
@@ -397,7 +441,9 @@
   },
   {
     "name": "Precise Shot (L2)",
+    "traitEffectTagList": [],
     "tag": "preciseshot2",
+    "associatedSpellTag": "none",
     "traitImage": "tr_preciseshot",
     "description": "Gains a +2 bonus on attack and damage rolls with ranged weapons.",
     "prerequisiteTrait": "preciseshot",
@@ -415,7 +461,9 @@
   },
   {
     "name": "Rapid Shot (L1)",
+    "traitEffectTagList": [],
     "tag": "rapidshot",
+    "associatedSpellTag": "none",
     "traitImage": "tr_rapidshot",
     "description": "Can make two ranged attacks per round on same target.",
     "prerequisiteTrait": "none",
@@ -433,7 +481,9 @@
   },
   {
     "name": "Rapid Shot (L2)",
+    "traitEffectTagList": [],
     "tag": "rapidshot2",
+    "associatedSpellTag": "none",
     "traitImage": "tr_rapidshot",
     "description": "Can make two ranged attacks per round on same target.",
     "prerequisiteTrait": "rapidshot",
@@ -451,13 +501,39 @@
   },
   {
     "name": "Battle Regeneration",
+    "traitEffectTagList": [],
     "tag": "battleregen",
+    "associatedSpellTag": "none",
     "traitImage": "tr_battleregen",
     "description": "The rage of battle seems to make you stronger as the battle gets longer.<br>: regenerates 1 HP per round while in combat.",
     "prerequisiteTrait": "none",
     "skillModifier": 0,
     "skillModifierAttribute": "str",
     "useableInSituation": "Always",
+    "spriteFilename": "none",
+    "spriteEndingFilename": "none",
+    "costSP": 0,
+    "traitTargetType": "Enemy",
+    "traitEffectType": "Damage",
+    "aoeRadius": 0,
+    "range": 0,
+    "traitScript": "none"
+  },
+  {
+    "name": "Super Strength",
+    "traitEffectTagList": [
+      {
+        "tag": "SuperStrength+20_10014"
+      }
+    ],
+    "tag": "newTraitTag_10015",
+    "associatedSpellTag": "none",
+    "traitImage": "sp_magebolt",
+    "description": "Increase strength by +20.",
+    "prerequisiteTrait": "none",
+    "skillModifier": 0,
+    "skillModifierAttribute": "str",
+    "useableInSituation": "Passive",
     "spriteFilename": "none",
     "spriteEndingFilename": "none",
     "costSP": 0,

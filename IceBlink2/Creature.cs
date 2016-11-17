@@ -85,6 +85,10 @@ namespace IceBlink2
         public float glideAdderX = 0;
         public float glideAdderY = 0;
         public int hpLastTurn = -1;
+        
+        //The two below are not yet implemented 
+        public string labelForCastAction = "CAST";
+        public string labelForSpellsButtonInCombat = "SPELL";
 
         public Creature()
 	    {
@@ -151,6 +155,8 @@ namespace IceBlink2
             copy.glideAdderX = this.glideAdderX;
             copy.glideAdderY = this.glideAdderY;
             copy.hpLastTurn = this.hpLastTurn;
+            copy.labelForCastAction = this.labelForCastAction;
+            copy.labelForSpellsButtonInCombat = this.labelForSpellsButtonInCombat;
 
             copy.knownSpellsTags = new List<string>();
             foreach (string s in this.knownSpellsTags)

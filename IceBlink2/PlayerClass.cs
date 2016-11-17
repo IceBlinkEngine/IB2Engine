@@ -19,9 +19,9 @@ namespace IceBlink2
         public bool UsableByPlayer = true;
 	    public string description = "";
         public string labelForCastAction = "CAST";
-        public string labelForSpellsButtoninCombat = "SPELL";
+        public string labelForSpellsButtonInCombat = "SPELL";
         public string labelForUseTraitAction = "USE";
-        public string labelForUseTraitButtoninCombat = "TRAIT";
+        public string labelForUseTraitButtonInCombat = "TRAIT";
         public int startingHP = 10;
 	    public int startingSP = 20;
         public string modifierFromSPRelevantAttribute = "intelligence";
@@ -95,9 +95,9 @@ namespace IceBlink2
             copy.modifierFromSPRelevantAttribute = this.modifierFromSPRelevantAttribute;
 
             copy.labelForCastAction = this.labelForCastAction;
-            copy.labelForSpellsButtoninCombat = this.labelForSpellsButtoninCombat;
+            copy.labelForSpellsButtonInCombat = this.labelForSpellsButtonInCombat;
             copy.labelForUseTraitAction = this.labelForUseTraitAction;
-            copy.labelForUseTraitButtoninCombat = this.labelForUseTraitButtoninCombat;
+            copy.labelForUseTraitButtonInCombat = this.labelForUseTraitButtonInCombat;
 
             foreach (ItemRefs s in this.itemsAllowed)
             {

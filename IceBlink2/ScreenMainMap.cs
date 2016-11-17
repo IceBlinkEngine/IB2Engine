@@ -29845,7 +29845,7 @@ namespace IceBlink2
                     }
 
                     //adding lines for trait use button on main map
-                    else if (rtn.Equals("btnTraitUseOnMainMap"))
+                    else if (rtn.Equals("btnUseTraitOnMainMap"))
                     {
 
                         List<string> pcNames = new List<string>();

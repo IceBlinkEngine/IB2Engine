@@ -33,8 +33,11 @@ namespace IceBlink2
         public string spellEffectTag = "none";
         public List<EffectTagForDropDownList> spellEffectTagList = new List<EffectTagForDropDownList>();
         public List<EffectTagForDropDownList> removeEffectTagList = new List<EffectTagForDropDownList>();
-    
-	    public Spell()
+        
+        //Not yet implemented the one below
+        string additionalCustomLogTextOnCast = "";
+
+        public Spell()
 	    {
 		
 	    }

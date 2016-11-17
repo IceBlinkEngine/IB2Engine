@@ -708,7 +708,7 @@ namespace IceBlink2
 
                             else if (spellTagsList.Count > 0)
                             {
-                                gv.screenSpellLevelUp.resetPC(false, pc);
+                                gv.screenSpellLevelUp.resetPC(false, pc, false);
                                 gv.screenType = "learnSpellCreation";
                             }
                             else

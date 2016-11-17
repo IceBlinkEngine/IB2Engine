@@ -15,7 +15,7 @@ namespace IceBlink2
         public GameView gv;
         private IbbHtmlTextBox description;
         private IbbHtmlTextBox attackAndDamageInfo;
-
+         
         public List<IbbButton> btnPartyIndex = new List<IbbButton>();
         private IbbPortrait btnPortrait = null;
         private IbbButton btnToken = null;
@@ -755,13 +755,29 @@ namespace IceBlink2
                     }
                     else if (btnSpells.getImpact(x, y))
                     {
-                        gv.screenSpellLevelUp.resetPC(true, pc);
-                        gv.screenType = "learnSpellLevelUp";
+                        if (inCombat)
+                        {
+                            gv.screenSpellLevelUp.resetPC(true, pc, true);
+                            gv.screenType = "learnSpellLevelUpCombat";
+                        }
+                        else
+                        {
+                            gv.screenSpellLevelUp.resetPC(true, pc, false);
+                            gv.screenType = "learnSpellLevelUp";
+                        }
                     }
                     else if (btnTraits.getImpact(x, y))
                     {
-                        gv.screenTraitLevelUp.resetPC(true, pc);
-                        gv.screenType = "learnTraitLevelUp";
+                        if (inCombat)
+                        {
+                            gv.screenTraitLevelUp.resetPC(true, pc);
+                            gv.screenType = "learnTraitLevelUpCombat";
+                        }
+                        else
+                        {
+                            gv.screenTraitLevelUp.resetPC(true, pc);
+                            gv.screenType = "learnTraitLevelUp";
+                        }
                     }
                     else if (btnEffects.getImpact(x, y))
                     {
@@ -1227,7 +1243,7 @@ namespace IceBlink2
                     }
                     else if (spellTagsList.Count > 0)
                     {
-                        gv.screenSpellLevelUp.resetPC(false, pc);
+                        gv.screenSpellLevelUp.resetPC(false, pc, false);
                         gv.screenType = "learnSpellLevelUp";
                     }
                     else //no spells or traits to learn

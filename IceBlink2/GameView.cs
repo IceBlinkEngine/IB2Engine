@@ -1316,8 +1316,9 @@ namespace IceBlink2
             else if (screenType.Equals("learnSpellCreation"))
             {
                 screenSpellLevelUp.redrawSpellLevelUp(true);
+                
             }
-            else if (screenType.Equals("learnSpellLevelUp"))
+            else if (screenType.Equals("learnSpellLevelUp") || screenType.Equals("learnSpellLevelUpCombat"))
             {
                 screenSpellLevelUp.redrawSpellLevelUp(false);
             }
@@ -1325,7 +1326,7 @@ namespace IceBlink2
             {
                 screenTraitLevelUp.redrawTraitLevelUp(true);
             }
-            else if (screenType.Equals("learnTraitLevelUp"))
+            else if (screenType.Equals("learnTraitLevelUp") || screenType.Equals("learnTraitLevelUpCombat"))
             {
                 screenTraitLevelUp.redrawTraitLevelUp(false);
             }
@@ -1573,19 +1574,27 @@ namespace IceBlink2
                     }
                     else if (screenType.Equals("learnSpellCreation"))
                     {
-                        screenSpellLevelUp.onTouchSpellLevelUp(e, eventType, true);   	
+                        screenSpellLevelUp.onTouchSpellLevelUp(e, eventType, true, false);   	
                     }
                     else if (screenType.Equals("learnSpellLevelUp"))
                     {
-                        screenSpellLevelUp.onTouchSpellLevelUp(e, eventType, false);     	
+                        screenSpellLevelUp.onTouchSpellLevelUp(e, eventType, false, false);     	
+                    }
+                    else if (screenType.Equals("learnSpellLevelUpCombat"))
+                    {
+                        screenSpellLevelUp.onTouchSpellLevelUp(e, eventType, false, true);
                     }
                     else if (screenType.Equals("learnTraitCreation"))
                     {
-                        screenTraitLevelUp.onTouchTraitLevelUp(e, eventType, true);   	
+                        screenTraitLevelUp.onTouchTraitLevelUp(e, eventType, true, false);   	
                     }
                     else if (screenType.Equals("learnTraitLevelUp"))
                     {
-                        screenTraitLevelUp.onTouchTraitLevelUp(e, eventType, false);     	
+                        screenTraitLevelUp.onTouchTraitLevelUp(e, eventType, false, false);     	
+                    }
+                    else if (screenType.Equals("learnTraitLevelUpCombat"))
+                    {
+                        screenTraitLevelUp.onTouchTraitLevelUp(e, eventType, false, true);
                     }
                     else if (screenType.Equals("title"))
                     {

@@ -4085,6 +4085,23 @@ namespace IceBlink2
                     btn.btnState = buttonState.Normal;
                 }
             }
+            //use trait button
+            if (currentCombatMode.Equals("useTrait"))
+            {
+                btn = combatUiLayout.GetButtonByTag("btnUseTrait");
+                if (btn != null)
+                {
+                    btn.btnState = buttonState.On;
+                }
+            }
+            else
+            {
+                btn = combatUiLayout.GetButtonByTag("btnUseTrait");
+                if (btn != null)
+                {
+                    btn.btnState = buttonState.Normal;
+                }
+            }
 
             combatUiLayout.Draw();            
         }
@@ -4846,10 +4863,13 @@ namespace IceBlink2
                     src = new IbRect(0, 0, pc.token.PixelSize.Width, pc.token.PixelSize.Width);
                     foreach (Effect ef in pc.effectsList)
                     {
-                        Bitmap fx = gv.cc.LoadBitmap(ef.spriteFilename);
-                        src = new IbRect(0, 0, fx.PixelSize.Width, fx.PixelSize.Width);
-                        gv.DrawBitmap(fx, src, dst);
-                        gv.cc.DisposeOfBitmap(ref fx);
+                        if ((!ef.isPermanent) && (ef.spriteFilename != "none") && (ef.spriteFilename != ""))
+                        {
+                            Bitmap fx = gv.cc.LoadBitmap(ef.spriteFilename);
+                            src = new IbRect(0, 0, fx.PixelSize.Width, fx.PixelSize.Width);
+                            gv.DrawBitmap(fx, src, dst);
+                            gv.cc.DisposeOfBitmap(ref fx);
+                        }
                     }
                     if ((pc.isDead()) || (pc.isUnconcious()))
                     {

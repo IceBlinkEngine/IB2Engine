@@ -23,6 +23,7 @@ namespace IceBlink2
 	    List<string> spellsToLearnTagsList = new List<string>();
 	    private Player pc;
         public bool infoOnly = false; //set to true when called for info only
+        public bool isInCombat = false;
         private string stringMessageSpellLevelUp = "";
         private IbbHtmlTextBox description;
 	
@@ -36,10 +37,11 @@ namespace IceBlink2
 		    stringMessageSpellLevelUp = gv.cc.loadTextToString("data/MessageSpellLevelUp.txt");
 	    }
 	
-	    public void resetPC(bool info_only, Player p)
+	    public void resetPC(bool info_only, Player p, bool inCombat)
 	    {
 		    pc = p;
             infoOnly = info_only;
+            isInCombat = inCombat;
         }
 	
 	    public void setControlsStart()
@@ -126,6 +128,8 @@ namespace IceBlink2
                 locY = (gv.squareSize * 0) + (pH * 2);
                 gv.DrawText("Select One " + mod.spellLabelSingular + " to Learn", noticeX, pH * 1, 1.0f, Color.Gray);
                 gv.DrawText(getCastingPlayer().name + " SP: " + getCastingPlayer().sp + "/" + getCastingPlayer().spMax, pW * 50, pH * 1, 1.0f, Color.Yellow);
+                gv.DrawText(getCastingPlayer().name + " HP: " + getCastingPlayer().hp + "/" + getCastingPlayer().hpMax, pW * 50, pH * 1, 1.0f, Color.Yellow);
+
 
                 //DRAW NOTIFICATIONS
                 if (isSelectedSpellSlotInKnownSpellsRange())
@@ -233,6 +237,7 @@ namespace IceBlink2
                 string textToSpan = "<u>Description</u>" + "<BR>";
                 textToSpan += "<b><i><big>" + sp.name + "</big></i></b><BR>";
                 textToSpan += "SP Cost: " + sp.costSP + "<BR>";
+                textToSpan += "HP Cost: " + sp.costHP + "<BR>";
                 textToSpan += "Target Range: " + sp.range + "<BR>";
                 textToSpan += "Area of Effect Radius: " + sp.aoeRadius + "<BR>";
                 textToSpan += "Available at Level: " + getLevelAvailable(sp.tag) + "<BR>";
@@ -261,7 +266,7 @@ namespace IceBlink2
                 btnSelect.Draw();
             }
         }
-        public void onTouchSpellLevelUp(MouseEventArgs e, MouseEventType.EventType eventType, bool inPcCreation)
+        public void onTouchSpellLevelUp(MouseEventArgs e, MouseEventType.EventType eventType, bool inPcCreation, bool inCombat)
 	    {
 		    btnHelp.glowOn = false;
 		    btnExit.glowOn = false;
@@ -316,14 +321,21 @@ namespace IceBlink2
                     gv.PlaySound("btn_click");
                     if (infoOnly)
                     {
-                        gv.screenType = "party";
-                    }
+                            if (inCombat)
+                            {
+                                gv.screenType = "combatParty";
+                            }
+                            else
+                            {
+                                gv.screenType = "party";
+                            }
+                        }
                     else
                     {
                         doSelectedSpellToLearn(inPcCreation);
                     }
 			    }
-			    else if (btnExit.getImpact(x, y))
+			    else if (btnExit.getImpact(x, y))// NOT USED  ACTUALLY 
 			    {
                     if (!infoOnly)
                     {
@@ -332,11 +344,30 @@ namespace IceBlink2
                         {
                             gv.screenType = "pcCreation";
                         }
-                        else
+                        else //differentiate for combat, use incombat
                         {
-                            gv.screenType = "party";
+                                if (inCombat)
+                                {
+                                    gv.screenType = "combatParty";
+                                }
+                                else
+                                {
+                                    gv.screenType = "party";
+                                }
                         }
-                    }						
+                    }
+                        else //differentiate for combat, use incombat
+                        {
+                            if (inCombat)
+                            {
+                                gv.screenType = "combatParty";
+                            }
+                            else
+                            {
+                                gv.screenType = "party";
+                            }
+
+                        }						
 			    }
 			    break;		
 		    }

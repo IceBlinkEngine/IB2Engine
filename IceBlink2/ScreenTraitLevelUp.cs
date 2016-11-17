@@ -258,7 +258,7 @@ namespace IceBlink2
                 btnSelect.Draw();
             }            
         }
-        public void onTouchTraitLevelUp(MouseEventArgs e, MouseEventType.EventType eventType, bool inPcCreation)
+        public void onTouchTraitLevelUp(MouseEventArgs e, MouseEventType.EventType eventType, bool inPcCreation, bool inCombat)
 	    {
 		    btnHelp.glowOn = false;
 		    btnExit.glowOn = false;
@@ -313,8 +313,15 @@ namespace IceBlink2
                     gv.PlaySound("btn_click");
                     if (infoOnly)
                     {
-                        gv.screenType = "party";
-                    }
+                            if (inCombat)
+                            {
+                                gv.screenType = "combatParty";
+                            }
+                            else
+                            {
+                                gv.screenType = "party";
+                            }
+                        }
                     else
                     {
                         doSelectedTraitToLearn(inPcCreation);
@@ -402,7 +409,7 @@ namespace IceBlink2
 				        spellTagsList = pc.getSpellsToLearn();
 				        if (spellTagsList.Count > 0)
 				        {
-				    	    gv.screenSpellLevelUp.resetPC(false, pc);
+				    	    gv.screenSpellLevelUp.resetPC(false, pc, false);
 				    	    gv.screenType = "learnSpellCreation";
 				        }
 				        else //no spells to learn
@@ -420,7 +427,7 @@ namespace IceBlink2
 				    
 					    if (spellTagsList.Count > 0)
  	        	        {
-						    gv.screenSpellLevelUp.resetPC(false, pc);
+						    gv.screenSpellLevelUp.resetPC(false, pc, false);
  	        		        gv.screenType = "learnSpellLevelUp";
  	        	        }
  	        	        else //no spells or traits to learn

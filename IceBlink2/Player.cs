@@ -193,6 +193,18 @@ namespace IceBlink2
                 copy.knownOutsideCombatUsableTraitsTags.Add(s);
             }
 
+            copy.knownUsableTraitsTags = new List<string>();
+            foreach (string s in this.knownUsableTraitsTags)
+            {
+                copy.knownUsableTraitsTags.Add(s);
+            }
+
+            copy.effectsList = new List<Effect>();
+            foreach (Effect ef in this.effectsList)
+            {
+                copy.effectsList.Add(ef);
+            }
+
             return copy;
         }
         public bool IsReadyToAdvanceLevel()
