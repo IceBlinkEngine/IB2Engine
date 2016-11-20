@@ -285,7 +285,7 @@ namespace IceBlink2
                         //if (inCombat) //all spells can be used in combat
                         //{
                             //if currently selected is usable say "Available to Cast" in lime
-                            if ((pc.sp >= GetCurrentlySelectedSpell().costSP) && ((pc.hp-1) >= GetCurrentlySelectedSpell().costHP))
+                            if ((pc.sp >= sp.costSP) && ((pc.hp-1) >= sp.costHP))
                             {
                                 //gv.mSheetTextPaint.setColor(Color.GREEN);
                                 gv.DrawText("Available", noticeX, noticeY, 1.0f, Color.Lime);
@@ -340,7 +340,7 @@ namespace IceBlink2
                     //if (inCombat) //all spells can be used in combat
                     //{
                     //if currently selected is usable say "Available to Cast" in lime
-                    if ((pc.sp >= GetCurrentlySelectedSpell().costSP) && ((pc.hp-1) >= GetCurrentlySelectedSpell().costHP))
+                    if ((pc.sp >= sp.costSP) && ((pc.hp-1) >= sp.costHP))
                     {
                         //gv.mSheetTextPaint.setColor(Color.GREEN);
                         gv.DrawText("Available", noticeX, noticeY, 1.0f, Color.Lime);
@@ -687,7 +687,7 @@ namespace IceBlink2
 	    }
 	    public Player getCastingPlayer()
 	    {
-		    return mod.playerList[castingPlayerIndex];
+		    return mod.playerList[gv.screenCastSelector.castingPlayerIndex];
 	    }
 	    public void tutorialMessageCastingScreen()
         {
