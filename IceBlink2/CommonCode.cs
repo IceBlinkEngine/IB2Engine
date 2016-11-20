@@ -2313,32 +2313,39 @@ namespace IceBlink2
             //code for discardign surplus resource items
             bool discardedRations = false;
             bool discardedLightSources = false;
-            foreach (ItemRefs itRef in gv.mod.partyInventoryRefsList)
+            for (int i = gv.mod.partyInventoryRefsList.Count-1; i >= 0; i--)
+            //foreach (ItemRefs itRef in gv.mod.partyInventoryRefsList)
             {
                 //code for capping number of rations and light sources
-                if ((itRef.isRation) && (gv.mod.numberOfRationsRemaining > gv.mod.maxNumberOfRationsAllowed))
+                if ((gv.mod.partyInventoryRefsList[i].isRation) && (gv.mod.numberOfRationsRemaining > gv.mod.maxNumberOfRationsAllowed))
                 {
+                    //gv.mod.numberOfRationsRemaining--;
                     gv.mod.numberOfRationsRemaining--;
                     //itRef.quantity = gv.mod.maxNumberOfRationsAllowed;
-                    if (itRef.quantity < 1)
+                    if (gv.mod.partyInventoryRefsList[i].quantity < 1)
                     {
-                        gv.mod.partyInventoryRefsList.Remove(itRef);
+                        gv.mod.partyInventoryRefsList.Remove(gv.mod.partyInventoryRefsList[i]);
                     }
                     else
                     {
-                        itRef.quantity--;
+                        //gv.mod.partyInventoryRefsList[i].quantity = gv.mod.maxNumberOfRationsAllowed;
+                        gv.mod.partyInventoryRefsList.Remove(gv.mod.partyInventoryRefsList[i]);
+                        //gv.mod.partyInventoryRefsList[i].quantity = gv.mod.maxNumberOfRationsAllowed;
                     }
                     discardedRations = true;
                 }
+            }
 
-                if (itRef.isLightSource)
+             for (int i = gv.mod.partyInventoryRefsList.Count-1; i >= 0; i--)
+             {
+                if (gv.mod.partyInventoryRefsList[i].isLightSource)
                 {
                     int lightSourceCounter = 0;
                     foreach (ItemRefs itRef2 in gv.mod.partyInventoryRefsList)
                     {
                         if (itRef2.isLightSource)
                         {
-                            if( itRef2.quantity > 0)
+                            if (itRef2.quantity > 0)
                             {
 
                                 lightSourceCounter += itRef2.quantity;
@@ -2355,13 +2362,14 @@ namespace IceBlink2
 
                         //gv.mod.numberOfRationsRemaining--;
                         //itRef.quantity = gv.mod.maxNumberOfRationsAllowed;
-                        if (itRef.quantity < 1)
+                        if (gv.mod.partyInventoryRefsList[i].quantity < 1)
                         {
-                            gv.mod.partyInventoryRefsList.Remove(itRef);
+                            gv.mod.partyInventoryRefsList.Remove(gv.mod.partyInventoryRefsList[i]);
                         }
                         else
                         {
-                            itRef.quantity--;
+                            //gv.mod.partyInventoryRefsList[i].quantity--;
+                            gv.mod.partyInventoryRefsList.Remove(gv.mod.partyInventoryRefsList[i]);
                         }
                         //discardedRations = true;
                         /*
@@ -2375,7 +2383,7 @@ namespace IceBlink2
 
             if (discardedRations)
             {
-                gv.screenMainMap.addFloatyText(gv.mod.PlayerLocationX, gv.mod.PlayerLocationY, "Discarding excess ration, too heavy", "white", 4000);
+                gv.screenMainMap.addFloatyText(gv.mod.PlayerLocationX, gv.mod.PlayerLocationY, "Discarding excess rations, too heavy", "white", 4000);
             }
 
             if (discardedLightSources)
