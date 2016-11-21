@@ -4302,6 +4302,7 @@ namespace IceBlink2
             ReCalcSavingThrowBases(pc); //SD_20131029
 
             //preparing modifiers from permanent effects, liek e.g. from traits
+            //remember adding the reset for incoming additional properties, too, here
                 int acModifier = 0;
                 int babModifier = 0;
                 int modifyCha = 0;
@@ -4331,30 +4332,72 @@ namespace IceBlink2
             {
                 if (ef.isPermanent)
                 {
-                    babModifier += ef.babModifier;
-                    acModifier += ef.acModifier;
-                    modifyCha += ef.modifyCha;
-                    modifyCon += ef.modifyCon;
-                    modifyDamageTypeResistanceAcid += ef.modifyDamageTypeResistanceAcid;
-                    modifyDamageTypeResistanceCold += ef.modifyDamageTypeResistanceCold;
-                    modifyDamageTypeResistanceElectricity += ef.modifyDamageTypeResistanceElectricity;
-                    modifyDamageTypeResistanceFire += ef.modifyDamageTypeResistanceFire;
-                    modifyDamageTypeResistanceMagic += ef.modifyDamageTypeResistanceMagic;
-                    modifyDamageTypeResistanceNormal += ef.modifyDamageTypeResistanceNormal;
-                    modifyDamageTypeResistancePoison += ef.modifyDamageTypeResistancePoison;
-                    modifyDex += ef.modifyDex;
-                    modifyFortitude += ef.modifyFortitude;
-                    modifyHpMax += ef.modifyHpMax;
-                    modifyInt += ef.modifyInt;
-                    modifyLuk += ef.modifyLuk;
-                    modifyMoveDistance += ef.modifyMoveDistance;
-                    modifyNumberOfMeleeAttacks += ef.modifyNumberOfMeleeAttacks;
-                    modifyNumberOfRangedAttacks += ef.modifyNumberOfRangedAttacks;
-                    modifyReflex += ef.modifyReflex;
-                    modifySpMax += ef.modifySpMax;
-                    modifyStr += ef.modifyStr;
-                    modifyWill += ef.modifyWill;
-                    modifyWis += ef.modifyWis;
+                    bool traitWorksForThisPC = false;
+
+                    if (ef.traitWorksOnlyWhen.Count <= 0)
+                    {
+                        traitWorksForThisPC = true;
+                    }
+          
+                    //note that the tratNeccessities are logically connected with OR the way it is setup
+                    else foreach (string traitNeccessity in ef.traitWorksOnlyWhen)
+                    {
+                        foreach (string pcTag in pc.pcTags)
+                        {
+                            if (traitNeccessity.Equals(pcTag))
+                            {
+                                traitWorksForThisPC = true;
+                                break;
+                            }
+                        }
+                    }
+
+                    //one redFlag is enough to stop the trait from working, ie connected with OR, too
+                    if (traitWorksForThisPC)
+                    {
+                        foreach (string traitRedFlag in ef.traitWorksOnlyWhen)
+                        {
+                            foreach (string pcTag in pc.pcTags)
+                            {
+                                if (traitRedFlag.Equals(pcTag))
+                                {
+                                    traitWorksForThisPC = false;
+                                    break;
+                                }
+                            }
+                        }
+
+                    }
+                    
+                    //eventually add damge bonus or multiplier for attacks from behind 
+                    //eventually add max dex bonus allowed when wearing armor
+                    if (traitWorksForThisPC)
+                    {
+                        babModifier += ef.babModifier;
+                        acModifier += ef.acModifier;
+                        modifyCha += ef.modifyCha;
+                        modifyCon += ef.modifyCon;
+                        modifyDamageTypeResistanceAcid += ef.modifyDamageTypeResistanceAcid;
+                        modifyDamageTypeResistanceCold += ef.modifyDamageTypeResistanceCold;
+                        modifyDamageTypeResistanceElectricity += ef.modifyDamageTypeResistanceElectricity;
+                        modifyDamageTypeResistanceFire += ef.modifyDamageTypeResistanceFire;
+                        modifyDamageTypeResistanceMagic += ef.modifyDamageTypeResistanceMagic;
+                        modifyDamageTypeResistanceNormal += ef.modifyDamageTypeResistanceNormal;
+                        modifyDamageTypeResistancePoison += ef.modifyDamageTypeResistancePoison;
+                        modifyDex += ef.modifyDex;
+                        modifyFortitude += ef.modifyFortitude;
+                        modifyHpMax += ef.modifyHpMax;
+                        modifyInt += ef.modifyInt;
+                        modifyLuk += ef.modifyLuk;
+                        modifyMoveDistance += ef.modifyMoveDistance;
+                        modifyNumberOfMeleeAttacks += ef.modifyNumberOfMeleeAttacks;
+                        modifyNumberOfRangedAttacks += ef.modifyNumberOfRangedAttacks;
+                        modifyReflex += ef.modifyReflex;
+                        modifySpMax += ef.modifySpMax;
+                        modifyStr += ef.modifyStr;
+                        modifyWill += ef.modifyWill;
+                        modifyWis += ef.modifyWis;
+                    }
                 }
             }
             pc.fortitude = pc.baseFortitude + CalcSavingThrowModifiersFortitude(pc) + (pc.constitution - 10) / 2 + modifyFortitude; //SD_20131127

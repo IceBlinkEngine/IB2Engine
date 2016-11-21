@@ -33,7 +33,9 @@ namespace IceBlink2
         public string spellEffectTag = "none";
         public List<EffectTagForDropDownList> spellEffectTagList = new List<EffectTagForDropDownList>();
         public List<EffectTagForDropDownList> removeEffectTagList = new List<EffectTagForDropDownList>();
-        
+        public List<string> traitWorksOnlyWhen = new List<string>();
+        public List<string> traitWorksNeverWhen = new List<string>();
+
         //Not yet implemented the one below
         string additionalCustomLogTextOnCast = "";
 
@@ -75,6 +77,18 @@ namespace IceBlink2
             foreach (EffectTagForDropDownList s in this.removeEffectTagList)
             {
                 copy.removeEffectTagList.Add(s);
+            }
+
+            copy.traitWorksOnlyWhen = new List<string>();
+            foreach (string s in this.traitWorksOnlyWhen)
+            {
+                copy.traitWorksOnlyWhen.Add(s);
+            }
+
+            copy.traitWorksNeverWhen = new List<string>();
+            foreach (string s in this.traitWorksNeverWhen)
+            {
+                copy.traitWorksNeverWhen.Add(s);
             }
 
             return copy;

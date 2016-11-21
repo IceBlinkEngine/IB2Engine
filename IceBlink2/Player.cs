@@ -42,6 +42,7 @@ namespace IceBlink2
         public List<string> knownInCombatUsableTraitsTags = new List<string>();
         public List<string> knownOutsideCombatUsableTraitsTags = new List<string>();
         public List<Effect> effectsList = new List<Effect>();
+        public List<string> pcTags = new List<string>();
         public int classLevel = 1;
         public bool isMale = true;
         public string charStatus = "Alive"; //Alive, Dead, Held
@@ -173,6 +174,12 @@ namespace IceBlink2
             foreach (string s in this.knownSpellsTags)
             {
                 copy.knownSpellsTags.Add(s);
+            }
+
+            copy.pcTags = new List<string>();
+            foreach (string s in this.pcTags)
+            {
+                copy.pcTags.Add(s);
             }
 
             copy.knownTraitsTags = new List<string>();

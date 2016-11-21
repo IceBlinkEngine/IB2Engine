@@ -90,7 +90,7 @@ namespace IceBlink2
 	    public int damageTypeResistanceValueMagic = 0;
 	    public int damageTypeResistanceValuePoison = 0;
         public string typeOfDamage = "Normal"; //Normal,Acid,Cold,Electricity,Fire,Magic,Poison
-
+        public List<string> entriesForPcTags = new List<string>();
         //Not yet implemented
         public string labelForCastAction = "CAST";
         public string labelForSpellsButtonInCombat = "SPELL";
@@ -173,7 +173,12 @@ namespace IceBlink2
 		    copy.typeOfDamage = this.typeOfDamage;
             copy.labelForCastAction = this.labelForCastAction;
             copy.labelForSpellsButtonInCombat = this.labelForSpellsButtonInCombat;
-		    return copy;
+            copy.entriesForPcTags = new List<string>();
+            foreach (string s in this.entriesForPcTags)
+            {
+                copy.entriesForPcTags.Add(s);
+            }
+            return copy;
 	    }
     }
 }

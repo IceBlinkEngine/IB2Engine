@@ -265,8 +265,8 @@ namespace IceBlink2
 
             gv.DrawText("Select a " + gv.mod.playerList[gv.screenCastSelector.castingPlayerIndex].playerClass.labelForUseTraitButtonInCombat.ToLower() + " to " + gv.mod.playerList[gv.screenCastSelector.castingPlayerIndex].playerClass.labelForUseTraitAction.ToLower(), noticeX, pH * 3);
 		    //gv.mSheetTextPaint.setColor(Color.YELLOW);
-		    gv.DrawText(getCastingPlayer().name + " SP: " + getCastingPlayer().sp + "/" + getCastingPlayer().spMax, pW * 55, leftStartY);
-            gv.DrawText(getCastingPlayer().name + " HP: " + getCastingPlayer().hp + "/" + getCastingPlayer().hpMax, pW * 55, leftStartY + (int)(gv.squareSize/3));
+		    gv.DrawText(getCastingPlayer().name + "  SP: " + getCastingPlayer().sp + "/" + getCastingPlayer().spMax, pW * 55, leftStartY);
+            gv.DrawText(getCastingPlayer().name + "  HP: " + getCastingPlayer().hp + "/" + getCastingPlayer().hpMax, pW * 55, leftStartY + (int)(gv.squareSize/3));
 
             //DRAW NOTIFICATIONS
             //spellSlotIndex < getCastingPlayer().playerClass.spellsAllowed.Count;
@@ -282,48 +282,96 @@ namespace IceBlink2
                     Spell sp = mod.getSpellByTag(pc.knownInCombatUsableTraitsTags[spellSlotIndex]);
                     //if (pc.knownSpellsTags.Contains(sp.tag))
                     //{
-                        //if (inCombat) //all spells can be used in combat
-                        //{
-                            //if currently selected is usable say "Available to Cast" in lime
-                            if ((pc.sp >= sp.costSP) && ((pc.hp-1) >= sp.costHP))
-                            {
-                                //gv.mSheetTextPaint.setColor(Color.GREEN);
-                                gv.DrawText("Available", noticeX, noticeY, 1.0f, Color.Lime);
-                            }
-                            else //if known but not enough spell points, "Insufficient SP to Cast" in yellow
-                            {
-                                //gv.mSheetTextPaint.setColor(Color.YELLOW);
-                                gv.DrawText("Insufficient SP or HP", noticeX, noticeY, 1.0f, Color.Yellow);
-                            }
-                        //}
-                        //not in combat so check if spell can be used on adventure maps
-                        /*
-                        else if ((sp.useableInSituation.Equals("Always")) || (sp.useableInSituation.Equals("OutOfCombat")))
+                    //if (inCombat) //all spells can be used in combat
+                    //{
+                    //if currently selected is usable say "Available to Cast" in lime
+
+                    //enter check for workability based on entries in pcTags
+                    bool traitWorksForThisPC = false;
+
+                    if (sp.traitWorksOnlyWhen.Count <= 0)
+                    {
+                        traitWorksForThisPC = true;
+                    }
+
+                    //note that the tratNeccessities are logically connected with OR the way it is setup
+                    else
+                        foreach (string traitNeccessity in sp.traitWorksOnlyWhen)
                         {
-                            //if currently selected is usable say "Available to Cast" in lime
-                            if (pc.sp >= GetCurrentlySelectedSpell().costSP)
+                            foreach (string pcTag in pc.pcTags)
                             {
-                                //gv.mSheetTextPaint.setColor(Color.GREEN);
-                                gv.DrawText("Available to Cast", noticeX, noticeY, 1.0f, Color.Lime);
-                            }
-                            else //if known but not enough spell points, "Insufficient SP to Cast" in yellow
-                            {
-                                //gv.mSheetTextPaint.setColor(Color.YELLOW);
-                                gv.DrawText("Insufficient SP", noticeX, noticeY, 1.0f, Color.Yellow);
+                                if (traitNeccessity.Equals(pcTag))
+                                {
+                                    traitWorksForThisPC = true;
+                                    break;
+                                }
                             }
                         }
-                        else //can't be used on adventure map
+
+                    //one redFlag is enough to stop the trait from working, ie connected with OR, too
+                    if (traitWorksForThisPC)
+                    {
+                        foreach (string traitRedFlag in sp.traitWorksOnlyWhen)
+                        {
+                            foreach (string pcTag in pc.pcTags)
+                            {
+                                if (traitRedFlag.Equals(pcTag))
+                                {
+                                    traitWorksForThisPC = false;
+                                    break;
+                                }
+                            }
+                        }
+
+                    }
+ 
+                    if (traitWorksForThisPC)
+                    {
+
+                        if ((pc.sp >= sp.costSP) && ((pc.hp - 1) >= sp.costHP))
+                    {
+                        //gv.mSheetTextPaint.setColor(Color.GREEN);
+                        gv.DrawText("Available", noticeX, noticeY, 1.0f, Color.Lime);
+                    }
+                    else //if known but not enough spell points, "Insufficient SP to Cast" in yellow
+                    {
+                        //gv.mSheetTextPaint.setColor(Color.YELLOW);
+                        gv.DrawText("Insufficient SP or HP", noticeX, noticeY, 1.0f, Color.Yellow);
+                    }
+                }
+                    else
+                    {
+                        gv.DrawText("Specific requirements like e.g. worn equipment not met", noticeX, noticeY, 1.0f, Color.Yellow);
+                    }
+                    //}
+                    //not in combat so check if spell can be used on adventure maps
+                    /*
+                    else if ((sp.useableInSituation.Equals("Always")) || (sp.useableInSituation.Equals("OutOfCombat")))
+                    {
+                        //if currently selected is usable say "Available to Cast" in lime
+                        if (pc.sp >= GetCurrentlySelectedSpell().costSP)
+                        {
+                            //gv.mSheetTextPaint.setColor(Color.GREEN);
+                            gv.DrawText("Available to Cast", noticeX, noticeY, 1.0f, Color.Lime);
+                        }
+                        else //if known but not enough spell points, "Insufficient SP to Cast" in yellow
                         {
                             //gv.mSheetTextPaint.setColor(Color.YELLOW);
-                            gv.DrawText("Not Available Here", noticeX, noticeY, 1.0f, Color.Yellow);
+                            gv.DrawText("Insufficient SP", noticeX, noticeY, 1.0f, Color.Yellow);
                         }
-                        */
+                    }
+                    else //can't be used on adventure map
+                    {
+                        //gv.mSheetTextPaint.setColor(Color.YELLOW);
+                        gv.DrawText("Not Available Here", noticeX, noticeY, 1.0f, Color.Yellow);
+                    }
+                    */
                     //}
                     //else //spell not known
                     //{
-                        //if unknown spell, "Spell Not Known Yet" in red
-                        //gv.mSheetTextPaint.setColor(Color.RED);
-                        //gv.DrawText(mod.spellLabelSingular + " Not Known Yet", noticeX, noticeY, 1.0f, Color.Red);
+                    //if unknown spell, "Spell Not Known Yet" in red
+                    //gv.mSheetTextPaint.setColor(Color.RED);
+                    //gv.DrawText(mod.spellLabelSingular + " Not Known Yet", noticeX, noticeY, 1.0f, Color.Red);
                     //}
                 }
             }
@@ -340,7 +388,51 @@ namespace IceBlink2
                     //if (inCombat) //all spells can be used in combat
                     //{
                     //if currently selected is usable say "Available to Cast" in lime
-                    if ((pc.sp >= sp.costSP) && ((pc.hp-1) >= sp.costHP))
+
+                    //enter check for workability based on entries in pcTags
+                    bool traitWorksForThisPC = false;
+
+                    if (sp.traitWorksOnlyWhen.Count <= 0)
+                    {
+                        traitWorksForThisPC = true;
+                    }
+
+                    //note that the tratNeccessities are logically connected with OR the way it is setup
+                    else
+                        foreach (string traitNeccessity in sp.traitWorksOnlyWhen)
+                        {
+                            foreach (string pcTag in pc.pcTags)
+                            {
+                                if (traitNeccessity.Equals(pcTag))
+                                {
+                                    traitWorksForThisPC = true;
+                                    break;
+                                }
+                            }
+                        }
+
+                    //one redFlag is enough to stop the trait from working, ie connected with OR, too
+                    if (traitWorksForThisPC)
+                    {
+                        foreach (string traitRedFlag in sp.traitWorksOnlyWhen)
+                        {
+                            foreach (string pcTag in pc.pcTags)
+                            {
+                                if (traitRedFlag.Equals(pcTag))
+                                {
+                                    traitWorksForThisPC = false;
+                                    break;
+                                }
+                            }
+                        }
+
+                    }
+
+                    //eventually add damge bonus or multiplier for attacks from behind 
+                    //eventually add max dex bonus allowed when wearing armor
+                    if (traitWorksForThisPC)
+                    {
+                        if ((pc.sp >= sp.costSP) && ((pc.hp - 1) >= sp.costHP))
                     {
                         //gv.mSheetTextPaint.setColor(Color.GREEN);
                         gv.DrawText("Available", noticeX, noticeY, 1.0f, Color.Lime);
@@ -349,6 +441,11 @@ namespace IceBlink2
                     {
                         //gv.mSheetTextPaint.setColor(Color.YELLOW);
                         gv.DrawText("Insufficient SP or HP", noticeX, noticeY, 1.0f, Color.Yellow);
+                    }
+                }
+                    else
+                    {
+                        gv.DrawText("Specific requirements like e.g. worn equipment not met", noticeX, noticeY, 1.0f, Color.Yellow);
                     }
                     //}
                     //not in combat so check if spell can be used on adventure maps
@@ -581,16 +678,60 @@ namespace IceBlink2
                 {
                     Spell sp = mod.getSpellByTag(pc.knownInCombatUsableTraitsTags[spellSlotIndex]);
 
-                    if ((pc.sp >= sp.costSP) && (pc.hp > sp.costHP))
+                    //enter check for workability based on entries in pcTags
+                    bool traitWorksForThisPC = false;
+
+                    if (sp.traitWorksOnlyWhen.Count <= 0)
                     {
-                        gv.cc.currentSelectedSpell = sp;
-                        gv.screenType = "combat";
-                        gv.screenCombat.currentCombatMode = "cast";
-                        doCleanUp();
+                        traitWorksForThisPC = true;
                     }
+
+                    //note that the tratNeccessities are logically connected with OR the way it is setup
                     else
+                        foreach (string traitNeccessity in sp.traitWorksOnlyWhen)
+                        {
+                            foreach (string pcTag in pc.pcTags)
+                            {
+                                if (traitNeccessity.Equals(pcTag))
+                                {
+                                    traitWorksForThisPC = true;
+                                    break;
+                                }
+                            }
+                        }
+
+                    //one redFlag is enough to stop the trait from working, ie connected with OR, too
+                    if (traitWorksForThisPC)
                     {
-                        //Toast.makeText(gv.gameContext, "Not Enough SP for that spell", Toast.LENGTH_SHORT).show();
+                        foreach (string traitRedFlag in sp.traitWorksOnlyWhen)
+                        {
+                            foreach (string pcTag in pc.pcTags)
+                            {
+                                if (traitRedFlag.Equals(pcTag))
+                                {
+                                    traitWorksForThisPC = false;
+                                    break;
+                                }
+                            }
+                        }
+
+                    }
+
+                    //eventually add damge bonus or multiplier for attacks from behind 
+                    //eventually add max dex bonus allowed when wearing armor
+                    if (traitWorksForThisPC)
+                    {
+                        if ((pc.sp >= sp.costSP) && (pc.hp > sp.costHP))
+                        {
+                            gv.cc.currentSelectedSpell = sp;
+                            gv.screenType = "combat";
+                            gv.screenCombat.currentCombatMode = "cast";
+                            doCleanUp();
+                        }
+                        else
+                        {
+                            //Toast.makeText(gv.gameContext, "Not Enough SP for that spell", Toast.LENGTH_SHORT).show();
+                        }
                     }
                 }
             }
@@ -604,65 +745,108 @@ namespace IceBlink2
                 {
                     Spell sp = mod.getSpellByTag(pc.knownOutsideCombatUsableTraitsTags[spellSlotIndex]);
 
-                    if ((pc.sp >= sp.costSP) && (pc.hp > sp.costHP))
+                    //pcTags
+                    //enter check for workability based on entries in pcTags
+                    bool traitWorksForThisPC = false;
+
+                    if (sp.traitWorksOnlyWhen.Count <= 0)
                     {
-                        gv.cc.currentSelectedSpell = sp;
-                        //ask for target
-                        // selected to USE ITEM
+                        traitWorksForThisPC = true;
+                    }
 
-                        List<string> pcNames = new List<string>();
-                        pcNames.Add("cancel");
-                        foreach (Player p in mod.playerList)
+                    //note that the tratNeccessities are logically connected with OR the way it is setup
+                    else
+                        foreach (string traitNeccessity in sp.traitWorksOnlyWhen)
                         {
-                            pcNames.Add(p.name);
-                        }
-
-                        //If only one PC, do not show select PC dialog...just go to cast selector
-                        if (mod.playerList.Count == 1)
-                        {
-                            try
+                            foreach (string pcTag in pc.pcTags)
                             {
-                                Player target = mod.playerList[0];
-                                gv.cc.doSpellBasedOnScriptOrEffectTag(gv.cc.currentSelectedSpell, target, target);
-                                gv.screenType = "main";
-                                doCleanUp();
-                                return;
-                            }
-                            catch (Exception ex)
-                            {
-                                gv.errorLog(ex.ToString());
+                                if (traitNeccessity.Equals(pcTag))
+                                {
+                                    traitWorksForThisPC = true;
+                                    break;
+                                }
                             }
                         }
 
-                        using (ItemListSelector pcSel = new ItemListSelector(gv, pcNames, mod.spellLabelSingular + " Target"))
+                    //one redFlag is enough to stop the trait from working, ie connected with OR, too
+                    if (traitWorksForThisPC)
+                    {
+                        foreach (string traitRedFlag in sp.traitWorksOnlyWhen)
                         {
-                            pcSel.ShowDialog();
-                            if (pcSel.selectedIndex > 0)
+                            foreach (string pcTag in pc.pcTags)
+                            {
+                                if (traitRedFlag.Equals(pcTag))
+                                {
+                                    traitWorksForThisPC = false;
+                                    break;
+                                }
+                            }
+                        }
+                    }
+
+                    //eventually add damge bonus or multiplier for attacks from behind 
+                    //eventually add max dex bonus allowed when wearing armor
+                    if (traitWorksForThisPC)
+                    {
+                        if ((pc.sp >= sp.costSP) && (pc.hp > sp.costHP))
+                        {
+                            gv.cc.currentSelectedSpell = sp;
+                            //ask for target
+                            // selected to USE ITEM
+
+                            List<string> pcNames = new List<string>();
+                            pcNames.Add("cancel");
+                            foreach (Player p in mod.playerList)
+                            {
+                                pcNames.Add(p.name);
+                            }
+
+                            //If only one PC, do not show select PC dialog...just go to cast selector
+                            if (mod.playerList.Count == 1)
                             {
                                 try
                                 {
-                                    Player target = mod.playerList[pcSel.selectedIndex - 1];
-                                    gv.cc.doSpellBasedOnScriptOrEffectTag(gv.cc.currentSelectedSpell, pc, target);
+                                    Player target = mod.playerList[0];
+                                    gv.cc.doSpellBasedOnScriptOrEffectTag(gv.cc.currentSelectedSpell, target, target);
                                     gv.screenType = "main";
                                     doCleanUp();
+                                    return;
                                 }
                                 catch (Exception ex)
                                 {
-                                    IBMessageBox.Show(gv, "error with Pc Selector screen: " + ex.ToString());
                                     gv.errorLog(ex.ToString());
                                 }
                             }
-                            else if (pcSel.selectedIndex == 0) // selected "cancel"
+
+                            using (ItemListSelector pcSel = new ItemListSelector(gv, pcNames, mod.spellLabelSingular + " Target"))
                             {
-                                //do nothing
+                                pcSel.ShowDialog();
+                                if (pcSel.selectedIndex > 0)
+                                {
+                                    try
+                                    {
+                                        Player target = mod.playerList[pcSel.selectedIndex - 1];
+                                        gv.cc.doSpellBasedOnScriptOrEffectTag(gv.cc.currentSelectedSpell, pc, target);
+                                        gv.screenType = "main";
+                                        doCleanUp();
+                                    }
+                                    catch (Exception ex)
+                                    {
+                                        IBMessageBox.Show(gv, "error with Pc Selector screen: " + ex.ToString());
+                                        gv.errorLog(ex.ToString());
+                                    }
+                                }
+                                else if (pcSel.selectedIndex == 0) // selected "cancel"
+                                {
+                                    //do nothing
+                                }
                             }
                         }
+                        else
+                        {
+                            //Toast.makeText(gv.gameContext, "Not Enough SP for that spell", Toast.LENGTH_SHORT).show();
+                        }
                     }
-                    else
-                    {
-                        //Toast.makeText(gv.gameContext, "Not Enough SP for that spell", Toast.LENGTH_SHORT).show();
-                    }
-        
                 }
             }
 		}          

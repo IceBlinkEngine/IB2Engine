@@ -634,16 +634,64 @@ namespace IceBlink2
             {
                 if (!pc.MainHandRefs.resref.Equals("none"))
                 {
+                    //get the item
+                    Item it = gv.mod.getItemByResRef(pc.MainHandRefs.resref);
+
+                    //remove item tags from p tags
+                    if (it.entriesForPcTags.Count > 0)
+                    {
+                        bool breakOuter = false;
+                        for (int i = it.entriesForPcTags.Count-1; i >= 0; i--)
+                        {
+                            for (int j = pc.pcTags.Count-1; j >= 0; j--)
+                            {
+                                if (it.entriesForPcTags[i] == pc.pcTags[j])
+                                {
+                                    pc.pcTags.RemoveAt(j);
+                                    breakOuter = true;
+                                    break;
+                                }
+                            }
+                            if (breakOuter)
+                            {
+                                break;
+                            }
+                        }
+                    }
                     //move currently equipped item to the party inventory (list and taglist)
                     mod.partyInventoryRefsList.Add(pc.MainHandRefs.DeepCopy());
+                    
+                    //add adding pcTags for new main hand item here
+                    
                     //place the item into the main hand
                     pc.MainHandRefs = GetCurrentlySelectedItemRefs().DeepCopy();
+
+                    //add item tags to pc tags
+                    it = gv.mod.getItemByResRef(pc.MainHandRefs.resref);
+                    if (it.entriesForPcTags.Count > 0)
+                    {
+                        for (int i = it.entriesForPcTags.Count - 1; i >= 0; i--)
+                        {
+                            pc.pcTags.Add(it.entriesForPcTags[i]);
+                        }
+                    }
+
                     //remove the item from the party inventory
                     mod.partyInventoryRefsList.Remove(GetCurrentlySelectedItemRefs());
                 }
                 else //there was no item equipped so add item to main-hand but no need to move anything to party inventory
                 {
                     pc.MainHandRefs = GetCurrentlySelectedItemRefs().DeepCopy();
+                    //add item tags to pc tags
+                    //get the item
+                    Item it = gv.mod.getItemByResRef(pc.MainHandRefs.resref);
+                    if (it.entriesForPcTags.Count > 0)
+                    {
+                        for (int i = it.entriesForPcTags.Count - 1; i >= 0; i--)
+                        {
+                            pc.pcTags.Add(it.entriesForPcTags[i]);
+                        }
+                    }
                     mod.partyInventoryRefsList.Remove(GetCurrentlySelectedItemRefs());
                 }
                 //if the item being equipped is a two-handed weapon, remove the item in off-hand if exists and place in inventory
@@ -652,6 +700,31 @@ namespace IceBlink2
                     if (!pc.OffHandRefs.resref.Equals("none"))
                     {
                         mod.partyInventoryRefsList.Add(pc.OffHandRefs.DeepCopy());
+                        //get the item
+                        Item it = gv.mod.getItemByResRef(pc.OffHandRefs.resref);
+
+                        //remove item tags from p tags
+                        if (it.entriesForPcTags.Count > 0)
+                        {
+                            bool breakOuter = false;
+                            for (int i = it.entriesForPcTags.Count - 1; i >= 0; i--)
+                            {
+                                for (int j = pc.pcTags.Count - 1; j >= 0; j--)
+                                {
+                                    if (it.entriesForPcTags[i] == pc.pcTags[j])
+                                    {
+                                        pc.pcTags.RemoveAt(j);
+                                        breakOuter = true;
+                                        break;
+                                    }
+                                }
+                                if (breakOuter)
+                                {
+                                    break;
+                                }
+                            }
+                        }
+
                         pc.OffHandRefs = new ItemRefs();
 
                         gv.sf.MessageBoxHtml("Equipping a two-handed weapon, removing item from off-hand and placing it in the party's inventory.");
@@ -668,6 +741,31 @@ namespace IceBlink2
                     }
                     else //ammo not compatible so remove ItemRefs
                     {
+                        //remove tags form pc tags list associated with the removed ammo
+                        Item it = gv.mod.getItemByResRef(pc.AmmoRefs.resref);
+
+                        //remove item tags from p tags
+                        if (it.entriesForPcTags.Count > 0)
+                        {
+                            bool breakOuter = false;
+                            for (int i = it.entriesForPcTags.Count - 1; i >= 0; i--)
+                            {
+                                for (int j = pc.pcTags.Count - 1; j >= 0; j--)
+                                {
+                                    if (it.entriesForPcTags[i] == pc.pcTags[j])
+                                    {
+                                        pc.pcTags.RemoveAt(j);
+                                        breakOuter = true;
+                                        break;
+                                    }
+                                }
+                                if (breakOuter)
+                                {
+                                    break;
+                                }
+                            }
+                        }
+
                         pc.AmmoRefs = new ItemRefs();
                         gv.sf.MessageBoxHtml("Currently assigned ammo is not compatible with this weapon, unassigning ammo.");
                     }
@@ -679,12 +777,58 @@ namespace IceBlink2
                 if (!pc.HeadRefs.resref.Equals("none"))
                 {
                     mod.partyInventoryRefsList.Add(pc.HeadRefs.DeepCopy());
+                    
+                    //get the item
+                    Item it = gv.mod.getItemByResRef(pc.HeadRefs.resref);
+
+                    //remove item tags from p tags
+                    if (it.entriesForPcTags.Count > 0)
+                    {
+                        bool breakOuter = false;
+                        for (int i = it.entriesForPcTags.Count - 1; i >= 0; i--)
+                        {
+                            for (int j = pc.pcTags.Count - 1; j >= 0; j--)
+                            {
+                                if (it.entriesForPcTags[i] == pc.pcTags[j])
+                                {
+                                    pc.pcTags.RemoveAt(j);
+                                    breakOuter = true;
+                                    break;
+                                }
+                            }
+                            if (breakOuter)
+                            {
+                                break;
+                            }
+                        }
+                    }
+
                     pc.HeadRefs = GetCurrentlySelectedItemRefs().DeepCopy();
+                    //add item tags to pc tags
+                    //get the item
+                    it = gv.mod.getItemByResRef(pc.HeadRefs.resref);
+                    if (it.entriesForPcTags.Count > 0)
+                    {
+                        for (int i = it.entriesForPcTags.Count - 1; i >= 0; i--)
+                        {
+                            pc.pcTags.Add(it.entriesForPcTags[i]);
+                        }
+                    }
                     mod.partyInventoryRefsList.Remove(GetCurrentlySelectedItemRefs());
                 }
                 else //equip slot was empty
                 {
                     pc.HeadRefs = GetCurrentlySelectedItemRefs().DeepCopy();
+                    //add item tags to pc tags
+                    //get the item
+                    Item it = gv.mod.getItemByResRef(pc.HeadRefs.resref);
+                    if (it.entriesForPcTags.Count > 0)
+                    {
+                        for (int i = it.entriesForPcTags.Count - 1; i >= 0; i--)
+                        {
+                            pc.pcTags.Add(it.entriesForPcTags[i]);
+                        }
+                    }
                     mod.partyInventoryRefsList.Remove(GetCurrentlySelectedItemRefs());
                 }
             }
@@ -694,12 +838,57 @@ namespace IceBlink2
                 if (!pc.NeckRefs.resref.Equals("none"))
                 {
                     mod.partyInventoryRefsList.Add(pc.NeckRefs.DeepCopy());
+                    //get the item
+                    Item it = gv.mod.getItemByResRef(pc.NeckRefs.resref);
+
+                    //remove item tags from p tags
+                    if (it.entriesForPcTags.Count > 0)
+                    {
+                        bool breakOuter = false;
+                        for (int i = it.entriesForPcTags.Count - 1; i >= 0; i--)
+                        {
+                            for (int j = pc.pcTags.Count - 1; j >= 0; j--)
+                            {
+                                if (it.entriesForPcTags[i] == pc.pcTags[j])
+                                {
+                                    pc.pcTags.RemoveAt(j);
+                                    breakOuter = true;
+                                    break;
+                                }
+                            }
+                            if (breakOuter)
+                            {
+                                break;
+                            }
+                        }
+                    }
                     pc.NeckRefs = GetCurrentlySelectedItemRefs().DeepCopy();
+                    //add item tags to pc tags
+                    //get the item
+                    it = gv.mod.getItemByResRef(pc.NeckRefs.resref);
+                    if (it.entriesForPcTags.Count > 0)
+                    {
+                        for (int i = it.entriesForPcTags.Count - 1; i >= 0; i--)
+                        {
+                            pc.pcTags.Add(it.entriesForPcTags[i]);
+                        }
+                    }
+
                     mod.partyInventoryRefsList.Remove(GetCurrentlySelectedItemRefs());
                 }
                 else //equip slot was empty
                 {
                     pc.NeckRefs = GetCurrentlySelectedItemRefs().DeepCopy();
+                    //add item tags to pc tags
+                    //get the item
+                    Item it = gv.mod.getItemByResRef(pc.NeckRefs.resref);
+                    if (it.entriesForPcTags.Count > 0)
+                    {
+                        for (int i = it.entriesForPcTags.Count - 1; i >= 0; i--)
+                        {
+                            pc.pcTags.Add(it.entriesForPcTags[i]);
+                        }
+                    }
                     mod.partyInventoryRefsList.Remove(GetCurrentlySelectedItemRefs());
                 }
             }
@@ -708,12 +897,56 @@ namespace IceBlink2
                 if (!pc.OffHandRefs.resref.Equals("none"))
                 {
                     mod.partyInventoryRefsList.Add(pc.OffHandRefs.DeepCopy());
+                    //get the item
+                    Item it = gv.mod.getItemByResRef(pc.OffHandRefs.resref);
+
+                    //remove item tags from p tags
+                    if (it.entriesForPcTags.Count > 0)
+                    {
+                        bool breakOuter = false;
+                        for (int i = it.entriesForPcTags.Count - 1; i >= 0; i--)
+                        {
+                            for (int j = pc.pcTags.Count - 1; j >= 0; j--)
+                            {
+                                if (it.entriesForPcTags[i] == pc.pcTags[j])
+                                {
+                                    pc.pcTags.RemoveAt(j);
+                                    breakOuter = true;
+                                    break;
+                                }
+                            }
+                            if (breakOuter)
+                            {
+                                break;
+                            }
+                        }
+                    }
                     pc.OffHandRefs = GetCurrentlySelectedItemRefs().DeepCopy();
+                    //add item tags to pc tags
+                    //get the item
+                    it = gv.mod.getItemByResRef(pc.OffHandRefs.resref);
+                    if (it.entriesForPcTags.Count > 0)
+                    {
+                        for (int i = it.entriesForPcTags.Count - 1; i >= 0; i--)
+                        {
+                            pc.pcTags.Add(it.entriesForPcTags[i]);
+                        }
+                    }
                     mod.partyInventoryRefsList.Remove(GetCurrentlySelectedItemRefs());
                 }
                 else
                 {
                     pc.OffHandRefs = GetCurrentlySelectedItemRefs().DeepCopy();
+                    //add item tags to pc tags
+                    //get the item
+                    Item it = gv.mod.getItemByResRef(pc.OffHandRefs.resref);
+                    if (it.entriesForPcTags.Count > 0)
+                    {
+                        for (int i = it.entriesForPcTags.Count - 1; i >= 0; i--)
+                        {
+                            pc.pcTags.Add(it.entriesForPcTags[i]);
+                        }
+                    }
                     mod.partyInventoryRefsList.Remove(GetCurrentlySelectedItemRefs());
                 }
             }
@@ -722,12 +955,56 @@ namespace IceBlink2
                 if (!pc.RingRefs.resref.Equals("none"))
                 {
                     mod.partyInventoryRefsList.Add(pc.RingRefs.DeepCopy());
+                    //get the item
+                    Item it = gv.mod.getItemByResRef(pc.RingRefs.resref);
+
+                    //remove item tags from p tags
+                    if (it.entriesForPcTags.Count > 0)
+                    {
+                        bool breakOuter = false;
+                        for (int i = it.entriesForPcTags.Count - 1; i >= 0; i--)
+                        {
+                            for (int j = pc.pcTags.Count - 1; j >= 0; j--)
+                            {
+                                if (it.entriesForPcTags[i] == pc.pcTags[j])
+                                {
+                                    pc.pcTags.RemoveAt(j);
+                                    breakOuter = true;
+                                    break;
+                                }
+                            }
+                            if (breakOuter)
+                            {
+                                break;
+                            }
+                        }
+                    }
                     pc.RingRefs = GetCurrentlySelectedItemRefs().DeepCopy();
+                    //add item tags to pc tags
+                    //get the item
+                    it = gv.mod.getItemByResRef(pc.RingRefs.resref);
+                    if (it.entriesForPcTags.Count > 0)
+                    {
+                        for (int i = it.entriesForPcTags.Count - 1; i >= 0; i--)
+                        {
+                            pc.pcTags.Add(it.entriesForPcTags[i]);
+                        }
+                    }
                     mod.partyInventoryRefsList.Remove(GetCurrentlySelectedItemRefs());
                 }
                 else
                 {
                     pc.RingRefs = GetCurrentlySelectedItemRefs().DeepCopy();
+                    //add item tags to pc tags
+                    //get the item
+                    Item it = gv.mod.getItemByResRef(pc.RingRefs.resref);
+                    if (it.entriesForPcTags.Count > 0)
+                    {
+                        for (int i = it.entriesForPcTags.Count - 1; i >= 0; i--)
+                        {
+                            pc.pcTags.Add(it.entriesForPcTags[i]);
+                        }
+                    }
                     mod.partyInventoryRefsList.Remove(GetCurrentlySelectedItemRefs());
                 }
             }
@@ -737,12 +1014,56 @@ namespace IceBlink2
                 if (!pc.BodyRefs.resref.Equals("none"))
                 {
                     mod.partyInventoryRefsList.Add(pc.BodyRefs.DeepCopy());
+                    //get the item
+                    Item it = gv.mod.getItemByResRef(pc.BodyRefs.resref);
+
+                    //remove item tags from p tags
+                    if (it.entriesForPcTags.Count > 0)
+                    {
+                        bool breakOuter = false;
+                        for (int i = it.entriesForPcTags.Count - 1; i >= 0; i--)
+                        {
+                            for (int j = pc.pcTags.Count - 1; j >= 0; j--)
+                            {
+                                if (it.entriesForPcTags[i] == pc.pcTags[j])
+                                {
+                                    pc.pcTags.RemoveAt(j);
+                                    breakOuter = true;
+                                    break;
+                                }
+                            }
+                            if (breakOuter)
+                            {
+                                break;
+                            }
+                        }
+                    }
                     pc.BodyRefs = GetCurrentlySelectedItemRefs().DeepCopy();
+                    //add item tags to pc tags
+                    //get the item
+                    it = gv.mod.getItemByResRef(pc.BodyRefs.resref);
+                    if (it.entriesForPcTags.Count > 0)
+                    {
+                        for (int i = it.entriesForPcTags.Count - 1; i >= 0; i--)
+                        {
+                            pc.pcTags.Add(it.entriesForPcTags[i]);
+                        }
+                    }
                     mod.partyInventoryRefsList.Remove(GetCurrentlySelectedItemRefs());
                 }
                 else //equip slot was empty
                 {
                     pc.BodyRefs = GetCurrentlySelectedItemRefs().DeepCopy();
+                    //add item tags to pc tags
+                    //get the item
+                    Item it = gv.mod.getItemByResRef(pc.BodyRefs.resref);
+                    if (it.entriesForPcTags.Count > 0)
+                    {
+                        for (int i = it.entriesForPcTags.Count - 1; i >= 0; i--)
+                        {
+                            pc.pcTags.Add(it.entriesForPcTags[i]);
+                        }
+                    }
                     mod.partyInventoryRefsList.Remove(GetCurrentlySelectedItemRefs());
                 }
             }
@@ -752,12 +1073,56 @@ namespace IceBlink2
                 if (!pc.FeetRefs.resref.Equals("none"))
                 {
                     mod.partyInventoryRefsList.Add(pc.FeetRefs.DeepCopy());
+                    //get the item
+                    Item it = gv.mod.getItemByResRef(pc.FeetRefs.resref);
+
+                    //remove item tags from p tags
+                    if (it.entriesForPcTags.Count > 0)
+                    {
+                        bool breakOuter = false;
+                        for (int i = it.entriesForPcTags.Count - 1; i >= 0; i--)
+                        {
+                            for (int j = pc.pcTags.Count - 1; j >= 0; j--)
+                            {
+                                if (it.entriesForPcTags[i] == pc.pcTags[j])
+                                {
+                                    pc.pcTags.RemoveAt(j);
+                                    breakOuter = true;
+                                    break;
+                                }
+                            }
+                            if (breakOuter)
+                            {
+                                break;
+                            }
+                        }
+                    }
                     pc.FeetRefs = GetCurrentlySelectedItemRefs().DeepCopy();
+                    //add item tags to pc tags
+                    //get the item
+                    it = gv.mod.getItemByResRef(pc.FeetRefs.resref);
+                    if (it.entriesForPcTags.Count > 0)
+                    {
+                        for (int i = it.entriesForPcTags.Count - 1; i >= 0; i--)
+                        {
+                            pc.pcTags.Add(it.entriesForPcTags[i]);
+                        }
+                    }
                     mod.partyInventoryRefsList.Remove(GetCurrentlySelectedItemRefs());
                 }
                 else //equip slot was empty
                 {
                     pc.FeetRefs = GetCurrentlySelectedItemRefs().DeepCopy();
+                    //add item tags to pc tags
+                    //get the item
+                    Item it = gv.mod.getItemByResRef(pc.FeetRefs.resref);
+                    if (it.entriesForPcTags.Count > 0)
+                    {
+                        for (int i = it.entriesForPcTags.Count - 1; i >= 0; i--)
+                        {
+                            pc.pcTags.Add(it.entriesForPcTags[i]);
+                        }
+                    }
                     mod.partyInventoryRefsList.Remove(GetCurrentlySelectedItemRefs());
                 }
             }
@@ -766,19 +1131,97 @@ namespace IceBlink2
                 if (!pc.Ring2Refs.resref.Equals("none"))
                 {
                     mod.partyInventoryRefsList.Add(pc.Ring2Refs.DeepCopy());
+                    //get the item
+                    Item it = gv.mod.getItemByResRef(pc.Ring2Refs.resref);
+
+                    //remove item tags from p tags
+                    if (it.entriesForPcTags.Count > 0)
+                    {
+                        bool breakOuter = false;
+                        for (int i = it.entriesForPcTags.Count - 1; i >= 0; i--)
+                        {
+                            for (int j = pc.pcTags.Count - 1; j >= 0; j--)
+                            {
+                                if (it.entriesForPcTags[i] == pc.pcTags[j])
+                                {
+                                    pc.pcTags.RemoveAt(j);
+                                    breakOuter = true;
+                                    break;
+                                }
+                            }
+                            if (breakOuter)
+                            {
+                                break;
+                            }
+                        }
+                    }
                     pc.Ring2Refs = GetCurrentlySelectedItemRefs().DeepCopy();
+                    //add item tags to pc tags
+                    //get the item
+                    it = gv.mod.getItemByResRef(pc.Ring2Refs.resref);
+                    if (it.entriesForPcTags.Count > 0)
+                    {
+                        for (int i = it.entriesForPcTags.Count - 1; i >= 0; i--)
+                        {
+                            pc.pcTags.Add(it.entriesForPcTags[i]);
+                        }
+                    }
                     mod.partyInventoryRefsList.Remove(GetCurrentlySelectedItemRefs());
                 }
                 else
                 {
                     pc.Ring2Refs = GetCurrentlySelectedItemRefs().DeepCopy();
+                    //add item tags to pc tags
+                    //get the item
+                    Item it = gv.mod.getItemByResRef(pc.Ring2Refs.resref);
+                    if (it.entriesForPcTags.Count > 0)
+                    {
+                        for (int i = it.entriesForPcTags.Count - 1; i >= 0; i--)
+                        {
+                            pc.pcTags.Add(it.entriesForPcTags[i]);
+                        }
+                    }
                     mod.partyInventoryRefsList.Remove(GetCurrentlySelectedItemRefs());
                 }
             }
             else if (gv.cc.partyItemSlotIndex == 8) //Ammo
             {
+                //get the item
+                Item it = gv.mod.getItemByResRef(pc.AmmoRefs.resref);
+
+                //remove item tags from p tags
+                if (it.entriesForPcTags.Count > 0)
+                {
+                    bool breakOuter = false;
+                    for (int i = it.entriesForPcTags.Count - 1; i >= 0; i--)
+                    {
+                        for (int j = pc.pcTags.Count - 1; j >= 0; j--)
+                        {
+                            if (it.entriesForPcTags[i] == pc.pcTags[j])
+                            {
+                                pc.pcTags.RemoveAt(j);
+                                breakOuter = true;
+                                break;
+                            }
+                        }
+                        if (breakOuter)
+                        {
+                            break;
+                        }
+                    }
+                }
                 // if equip slot has an ammo, no need to move it to inventory since it is only a ref            			
                 pc.AmmoRefs = GetCurrentlySelectedItemRefs().DeepCopy();
+                //add item tags to pc tags
+                //get the item
+                it = gv.mod.getItemByResRef(pc.AmmoRefs.resref);
+                if (it.entriesForPcTags.Count > 0)
+                {
+                    for (int i = it.entriesForPcTags.Count - 1; i >= 0; i--)
+                    {
+                        pc.pcTags.Add(it.entriesForPcTags[i]);
+                    }
+                }
             }
         }
         public void unequipItem()
@@ -790,6 +1233,30 @@ namespace IceBlink2
                 if (!pc.MainHandRefs.resref.Equals("none"))
                 {
                     mod.partyInventoryRefsList.Add(pc.MainHandRefs.DeepCopy());
+                    //get the item
+                    Item it = gv.mod.getItemByResRef(pc.MainHandRefs.resref);
+
+                    //remove item tags from p tags
+                    if (it.entriesForPcTags.Count > 0)
+                    {
+                        bool breakOuter = false;
+                        for (int i = it.entriesForPcTags.Count - 1; i >= 0; i--)
+                        {
+                            for (int j = pc.pcTags.Count - 1; j >= 0; j--)
+                            {
+                                if (it.entriesForPcTags[i] == pc.pcTags[j])
+                                {
+                                    pc.pcTags.RemoveAt(j);
+                                    breakOuter = true;
+                                    break;
+                                }
+                            }
+                            if (breakOuter)
+                            {
+                                break;
+                            }
+                        }
+                    }
                     pc.MainHandRefs = new ItemRefs();
                 }
             }
@@ -799,6 +1266,30 @@ namespace IceBlink2
                 if (!pc.HeadRefs.resref.Equals("none"))
                 {
                     mod.partyInventoryRefsList.Add(pc.HeadRefs.DeepCopy());
+                    //get the item
+                    Item it = gv.mod.getItemByResRef(pc.HeadRefs.resref);
+
+                    //remove item tags from p tags
+                    if (it.entriesForPcTags.Count > 0)
+                    {
+                        bool breakOuter = false;
+                        for (int i = it.entriesForPcTags.Count - 1; i >= 0; i--)
+                        {
+                            for (int j = pc.pcTags.Count - 1; j >= 0; j--)
+                            {
+                                if (it.entriesForPcTags[i] == pc.pcTags[j])
+                                {
+                                    pc.pcTags.RemoveAt(j);
+                                    breakOuter = true;
+                                    break;
+                                }
+                            }
+                            if (breakOuter)
+                            {
+                                break;
+                            }
+                        }
+                    }
                     pc.HeadRefs = new ItemRefs();
                 }
             }
@@ -808,6 +1299,30 @@ namespace IceBlink2
                 if (!pc.NeckRefs.resref.Equals("none"))
                 {
                     mod.partyInventoryRefsList.Add(pc.NeckRefs.DeepCopy());
+                    //get the item
+                    Item it = gv.mod.getItemByResRef(pc.NeckRefs.resref);
+
+                    //remove item tags from p tags
+                    if (it.entriesForPcTags.Count > 0)
+                    {
+                        bool breakOuter = false;
+                        for (int i = it.entriesForPcTags.Count - 1; i >= 0; i--)
+                        {
+                            for (int j = pc.pcTags.Count - 1; j >= 0; j--)
+                            {
+                                if (it.entriesForPcTags[i] == pc.pcTags[j])
+                                {
+                                    pc.pcTags.RemoveAt(j);
+                                    breakOuter = true;
+                                    break;
+                                }
+                            }
+                            if (breakOuter)
+                            {
+                                break;
+                            }
+                        }
+                    }
                     pc.NeckRefs = new ItemRefs();
                 }
             }
@@ -816,6 +1331,30 @@ namespace IceBlink2
                 if (!pc.OffHandRefs.resref.Equals("none"))
                 {
                     mod.partyInventoryRefsList.Add(pc.OffHandRefs.DeepCopy());
+                    //get the item
+                    Item it = gv.mod.getItemByResRef(pc.OffHandRefs.resref);
+
+                    //remove item tags from p tags
+                    if (it.entriesForPcTags.Count > 0)
+                    {
+                        bool breakOuter = false;
+                        for (int i = it.entriesForPcTags.Count - 1; i >= 0; i--)
+                        {
+                            for (int j = pc.pcTags.Count - 1; j >= 0; j--)
+                            {
+                                if (it.entriesForPcTags[i] == pc.pcTags[j])
+                                {
+                                    pc.pcTags.RemoveAt(j);
+                                    breakOuter = true;
+                                    break;
+                                }
+                            }
+                            if (breakOuter)
+                            {
+                                break;
+                            }
+                        }
+                    }
                     pc.OffHandRefs = new ItemRefs();
                 }
             }
@@ -824,6 +1363,30 @@ namespace IceBlink2
                 if (!pc.RingRefs.resref.Equals("none"))
                 {
                     mod.partyInventoryRefsList.Add(pc.RingRefs.DeepCopy());
+                    //get the item
+                    Item it = gv.mod.getItemByResRef(pc.RingRefs.resref);
+
+                    //remove item tags from p tags
+                    if (it.entriesForPcTags.Count > 0)
+                    {
+                        bool breakOuter = false;
+                        for (int i = it.entriesForPcTags.Count - 1; i >= 0; i--)
+                        {
+                            for (int j = pc.pcTags.Count - 1; j >= 0; j--)
+                            {
+                                if (it.entriesForPcTags[i] == pc.pcTags[j])
+                                {
+                                    pc.pcTags.RemoveAt(j);
+                                    breakOuter = true;
+                                    break;
+                                }
+                            }
+                            if (breakOuter)
+                            {
+                                break;
+                            }
+                        }
+                    }
                     pc.RingRefs = new ItemRefs();
                 }
             }
@@ -833,6 +1396,30 @@ namespace IceBlink2
                 if (!pc.BodyRefs.resref.Equals("none"))
                 {
                     mod.partyInventoryRefsList.Add(pc.BodyRefs.DeepCopy());
+                    //get the item
+                    Item it = gv.mod.getItemByResRef(pc.BodyRefs.resref);
+
+                    //remove item tags from p tags
+                    if (it.entriesForPcTags.Count > 0)
+                    {
+                        bool breakOuter = false;
+                        for (int i = it.entriesForPcTags.Count - 1; i >= 0; i--)
+                        {
+                            for (int j = pc.pcTags.Count - 1; j >= 0; j--)
+                            {
+                                if (it.entriesForPcTags[i] == pc.pcTags[j])
+                                {
+                                    pc.pcTags.RemoveAt(j);
+                                    breakOuter = true;
+                                    break;
+                                }
+                            }
+                            if (breakOuter)
+                            {
+                                break;
+                            }
+                        }
+                    }
                     pc.BodyRefs = new ItemRefs();
                 }
             }
@@ -842,6 +1429,30 @@ namespace IceBlink2
                 if (!pc.FeetRefs.resref.Equals("none"))
                 {
                     mod.partyInventoryRefsList.Add(pc.FeetRefs.DeepCopy());
+                    //get the item
+                    Item it = gv.mod.getItemByResRef(pc.FeetRefs.resref);
+
+                    //remove item tags from p tags
+                    if (it.entriesForPcTags.Count > 0)
+                    {
+                        bool breakOuter = false;
+                        for (int i = it.entriesForPcTags.Count - 1; i >= 0; i--)
+                        {
+                            for (int j = pc.pcTags.Count - 1; j >= 0; j--)
+                            {
+                                if (it.entriesForPcTags[i] == pc.pcTags[j])
+                                {
+                                    pc.pcTags.RemoveAt(j);
+                                    breakOuter = true;
+                                    break;
+                                }
+                            }
+                            if (breakOuter)
+                            {
+                                break;
+                            }
+                        }
+                    }
                     pc.FeetRefs = new ItemRefs();
                 }
             }
@@ -850,11 +1461,59 @@ namespace IceBlink2
                 if (!pc.Ring2Refs.resref.Equals("none"))
                 {
                     mod.partyInventoryRefsList.Add(pc.Ring2Refs.DeepCopy());
+                    //get the item
+                    Item it = gv.mod.getItemByResRef(pc.Ring2Refs.resref);
+
+                    //remove item tags from p tags
+                    if (it.entriesForPcTags.Count > 0)
+                    {
+                        bool breakOuter = false;
+                        for (int i = it.entriesForPcTags.Count - 1; i >= 0; i--)
+                        {
+                            for (int j = pc.pcTags.Count - 1; j >= 0; j--)
+                            {
+                                if (it.entriesForPcTags[i] == pc.pcTags[j])
+                                {
+                                    pc.pcTags.RemoveAt(j);
+                                    breakOuter = true;
+                                    break;
+                                }
+                            }
+                            if (breakOuter)
+                            {
+                                break;
+                            }
+                        }
+                    }
                     pc.Ring2Refs = new ItemRefs();
                 }
             }
             else if (gv.cc.partyItemSlotIndex == 8) //Ammo
             {
+                //get the item
+                Item it = gv.mod.getItemByResRef(pc.AmmoRefs.resref);
+
+                //remove item tags from p tags
+                if (it.entriesForPcTags.Count > 0)
+                {
+                    bool breakOuter = false;
+                    for (int i = it.entriesForPcTags.Count - 1; i >= 0; i--)
+                    {
+                        for (int j = pc.pcTags.Count - 1; j >= 0; j--)
+                        {
+                            if (it.entriesForPcTags[i] == pc.pcTags[j])
+                            {
+                                pc.pcTags.RemoveAt(j);
+                                breakOuter = true;
+                                break;
+                            }
+                        }
+                        if (breakOuter)
+                        {
+                            break;
+                        }
+                    }
+                }
                 // if equip slot has an item, move it to inventory first
                 pc.AmmoRefs = new ItemRefs();
             }

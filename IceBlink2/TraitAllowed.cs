@@ -14,6 +14,8 @@ namespace IceBlink2
 	    public bool allow = true;
         public string useableInSituation = "Always"; //InCombat, OutOfCombat, Always, Passive
         public string associatedSpellTag = "none";
+        public List<string> traitWorksOnlyWhen = new List<string>();
+        public List<string> traitWorksNeverWhen = new List<string>();
 
         public TraitAllowed()
 	    {
@@ -29,8 +31,20 @@ namespace IceBlink2
 		    copy.automaticallyLearned = this.automaticallyLearned;
 		    copy.allow = this.allow;
             copy.useableInSituation = this.useableInSituation;
-            copy.associatedSpellTag = this.associatedSpellTag;		
-		    return copy;
+            copy.associatedSpellTag = this.associatedSpellTag;
+            copy.traitWorksOnlyWhen = new List<string>();
+            foreach (string s in this.traitWorksOnlyWhen)
+            {
+                copy.traitWorksOnlyWhen.Add(s);
+            }
+
+            copy.traitWorksNeverWhen = new List<string>();
+            foreach (string s in this.traitWorksNeverWhen)
+            {
+                copy.traitWorksNeverWhen.Add(s);
+            }
+
+            return copy;
 	    }
     }
 }
