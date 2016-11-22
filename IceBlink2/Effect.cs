@@ -103,8 +103,8 @@ namespace IceBlink2
         public int modifyDamageTypeResistancePoison = 0;
         public int modifyNumberOfMeleeAttacks = 0;
         public int modifyNumberOfRangedAttacks = 0;
-        public List<string> traitWorksOnlyWhen = new List<string>();
-        public List<string> traitWorksNeverWhen = new List<string>();
+        public List<LocalImmunityString> traitWorksOnlyWhen = new List<LocalImmunityString>();
+        public List<LocalImmunityString> traitWorksNeverWhen = new List<LocalImmunityString>();
 
         public Effect()
 	    {
@@ -195,14 +195,14 @@ namespace IceBlink2
                 copy.affectNeverList.Add(s);
             }
 
-            copy.traitWorksOnlyWhen = new List<string>();
-            foreach (string s in this.traitWorksOnlyWhen)
+            copy.traitWorksOnlyWhen = new List<LocalImmunityString>();
+            foreach (LocalImmunityString s in this.traitWorksOnlyWhen)
             {
                 copy.traitWorksOnlyWhen.Add(s);
             }
 
-            copy.traitWorksNeverWhen = new List<string>();
-            foreach (string s in this.traitWorksNeverWhen)
+            copy.traitWorksNeverWhen = new List<LocalImmunityString>();
+            foreach (LocalImmunityString s in this.traitWorksNeverWhen)
             {
                 copy.traitWorksNeverWhen.Add(s);
             }

@@ -31,8 +31,8 @@ namespace IceBlink2
 	    public int range = 2;	
 	    public string traitScript = "none";
         public List<EffectTagForDropDownList> traitEffectTagList = new List<EffectTagForDropDownList>();
-        public List<string> traitWorksOnlyWhen = new List<string>();
-        public List<string> traitWorksNeverWhen = new List<string>();
+        public List<LocalImmunityString> traitWorksOnlyWhen = new List<LocalImmunityString>();
+        public List<LocalImmunityString> traitWorksNeverWhen = new List<LocalImmunityString>();
 
         public Trait()
 	    {
@@ -60,14 +60,14 @@ namespace IceBlink2
 		    copy.traitScript = this.traitScript;
             copy.associatedSpellTag = this.associatedSpellTag;
 
-            copy.traitWorksOnlyWhen = new List<string>();
-            foreach (string s in this.traitWorksOnlyWhen)
+            copy.traitWorksOnlyWhen = new List<LocalImmunityString>();
+            foreach (LocalImmunityString s in this.traitWorksOnlyWhen)
             {
                 copy.traitWorksOnlyWhen.Add(s);
             }
 
-            copy.traitWorksNeverWhen = new List<string>();
-            foreach (string s in this.traitWorksNeverWhen)
+            copy.traitWorksNeverWhen = new List<LocalImmunityString>();
+            foreach (LocalImmunityString s in this.traitWorksNeverWhen)
             {
                 copy.traitWorksNeverWhen.Add(s);
             }

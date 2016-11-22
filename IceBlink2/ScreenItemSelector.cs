@@ -645,7 +645,7 @@ namespace IceBlink2
                         {
                             for (int j = pc.pcTags.Count-1; j >= 0; j--)
                             {
-                                if (it.entriesForPcTags[i] == pc.pcTags[j])
+                                if (it.entriesForPcTags[i].Value == pc.pcTags[j])
                                 {
                                     pc.pcTags.RemoveAt(j);
                                     breakOuter = true;
@@ -672,7 +672,7 @@ namespace IceBlink2
                     {
                         for (int i = it.entriesForPcTags.Count - 1; i >= 0; i--)
                         {
-                            pc.pcTags.Add(it.entriesForPcTags[i]);
+                            pc.pcTags.Add(it.entriesForPcTags[i].Value);
                         }
                     }
 
@@ -689,7 +689,7 @@ namespace IceBlink2
                     {
                         for (int i = it.entriesForPcTags.Count - 1; i >= 0; i--)
                         {
-                            pc.pcTags.Add(it.entriesForPcTags[i]);
+                            pc.pcTags.Add(it.entriesForPcTags[i].Value);
                         }
                     }
                     mod.partyInventoryRefsList.Remove(GetCurrentlySelectedItemRefs());
@@ -711,7 +711,7 @@ namespace IceBlink2
                             {
                                 for (int j = pc.pcTags.Count - 1; j >= 0; j--)
                                 {
-                                    if (it.entriesForPcTags[i] == pc.pcTags[j])
+                                    if (it.entriesForPcTags[i].Value == pc.pcTags[j])
                                     {
                                         pc.pcTags.RemoveAt(j);
                                         breakOuter = true;
@@ -752,7 +752,7 @@ namespace IceBlink2
                             {
                                 for (int j = pc.pcTags.Count - 1; j >= 0; j--)
                                 {
-                                    if (it.entriesForPcTags[i] == pc.pcTags[j])
+                                    if (it.entriesForPcTags[i].Value == pc.pcTags[j])
                                     {
                                         pc.pcTags.RemoveAt(j);
                                         breakOuter = true;
@@ -789,7 +789,7 @@ namespace IceBlink2
                         {
                             for (int j = pc.pcTags.Count - 1; j >= 0; j--)
                             {
-                                if (it.entriesForPcTags[i] == pc.pcTags[j])
+                                if (it.entriesForPcTags[i].Value == pc.pcTags[j])
                                 {
                                     pc.pcTags.RemoveAt(j);
                                     breakOuter = true;
@@ -811,7 +811,7 @@ namespace IceBlink2
                     {
                         for (int i = it.entriesForPcTags.Count - 1; i >= 0; i--)
                         {
-                            pc.pcTags.Add(it.entriesForPcTags[i]);
+                            pc.pcTags.Add(it.entriesForPcTags[i].Value);
                         }
                     }
                     mod.partyInventoryRefsList.Remove(GetCurrentlySelectedItemRefs());
@@ -826,7 +826,7 @@ namespace IceBlink2
                     {
                         for (int i = it.entriesForPcTags.Count - 1; i >= 0; i--)
                         {
-                            pc.pcTags.Add(it.entriesForPcTags[i]);
+                            pc.pcTags.Add(it.entriesForPcTags[i].Value);
                         }
                     }
                     mod.partyInventoryRefsList.Remove(GetCurrentlySelectedItemRefs());
@@ -849,7 +849,7 @@ namespace IceBlink2
                         {
                             for (int j = pc.pcTags.Count - 1; j >= 0; j--)
                             {
-                                if (it.entriesForPcTags[i] == pc.pcTags[j])
+                                if (it.entriesForPcTags[i].Value == pc.pcTags[j])
                                 {
                                     pc.pcTags.RemoveAt(j);
                                     breakOuter = true;
@@ -870,7 +870,7 @@ namespace IceBlink2
                     {
                         for (int i = it.entriesForPcTags.Count - 1; i >= 0; i--)
                         {
-                            pc.pcTags.Add(it.entriesForPcTags[i]);
+                            pc.pcTags.Add(it.entriesForPcTags[i].Value);
                         }
                     }
 
@@ -886,7 +886,7 @@ namespace IceBlink2
                     {
                         for (int i = it.entriesForPcTags.Count - 1; i >= 0; i--)
                         {
-                            pc.pcTags.Add(it.entriesForPcTags[i]);
+                            pc.pcTags.Add(it.entriesForPcTags[i].Value);
                         }
                     }
                     mod.partyInventoryRefsList.Remove(GetCurrentlySelectedItemRefs());
@@ -908,7 +908,7 @@ namespace IceBlink2
                         {
                             for (int j = pc.pcTags.Count - 1; j >= 0; j--)
                             {
-                                if (it.entriesForPcTags[i] == pc.pcTags[j])
+                                if (it.entriesForPcTags[i].Value == pc.pcTags[j])
                                 {
                                     pc.pcTags.RemoveAt(j);
                                     breakOuter = true;
@@ -929,7 +929,7 @@ namespace IceBlink2
                     {
                         for (int i = it.entriesForPcTags.Count - 1; i >= 0; i--)
                         {
-                            pc.pcTags.Add(it.entriesForPcTags[i]);
+                            pc.pcTags.Add(it.entriesForPcTags[i].Value);
                         }
                     }
                     mod.partyInventoryRefsList.Remove(GetCurrentlySelectedItemRefs());
@@ -944,7 +944,7 @@ namespace IceBlink2
                     {
                         for (int i = it.entriesForPcTags.Count - 1; i >= 0; i--)
                         {
-                            pc.pcTags.Add(it.entriesForPcTags[i]);
+                            pc.pcTags.Add(it.entriesForPcTags[i].Value);
                         }
                     }
                     mod.partyInventoryRefsList.Remove(GetCurrentlySelectedItemRefs());
@@ -966,7 +966,7 @@ namespace IceBlink2
                         {
                             for (int j = pc.pcTags.Count - 1; j >= 0; j--)
                             {
-                                if (it.entriesForPcTags[i] == pc.pcTags[j])
+                                if (it.entriesForPcTags[i].Value == pc.pcTags[j])
                                 {
                                     pc.pcTags.RemoveAt(j);
                                     breakOuter = true;
@@ -987,7 +987,7 @@ namespace IceBlink2
                     {
                         for (int i = it.entriesForPcTags.Count - 1; i >= 0; i--)
                         {
-                            pc.pcTags.Add(it.entriesForPcTags[i]);
+                            pc.pcTags.Add(it.entriesForPcTags[i].Value);
                         }
                     }
                     mod.partyInventoryRefsList.Remove(GetCurrentlySelectedItemRefs());
@@ -1002,7 +1002,7 @@ namespace IceBlink2
                     {
                         for (int i = it.entriesForPcTags.Count - 1; i >= 0; i--)
                         {
-                            pc.pcTags.Add(it.entriesForPcTags[i]);
+                            pc.pcTags.Add(it.entriesForPcTags[i].Value);
                         }
                     }
                     mod.partyInventoryRefsList.Remove(GetCurrentlySelectedItemRefs());
@@ -1025,7 +1025,7 @@ namespace IceBlink2
                         {
                             for (int j = pc.pcTags.Count - 1; j >= 0; j--)
                             {
-                                if (it.entriesForPcTags[i] == pc.pcTags[j])
+                                if (it.entriesForPcTags[i].Value == pc.pcTags[j])
                                 {
                                     pc.pcTags.RemoveAt(j);
                                     breakOuter = true;
@@ -1046,7 +1046,7 @@ namespace IceBlink2
                     {
                         for (int i = it.entriesForPcTags.Count - 1; i >= 0; i--)
                         {
-                            pc.pcTags.Add(it.entriesForPcTags[i]);
+                            pc.pcTags.Add(it.entriesForPcTags[i].Value);
                         }
                     }
                     mod.partyInventoryRefsList.Remove(GetCurrentlySelectedItemRefs());
@@ -1061,7 +1061,7 @@ namespace IceBlink2
                     {
                         for (int i = it.entriesForPcTags.Count - 1; i >= 0; i--)
                         {
-                            pc.pcTags.Add(it.entriesForPcTags[i]);
+                            pc.pcTags.Add(it.entriesForPcTags[i].Value);
                         }
                     }
                     mod.partyInventoryRefsList.Remove(GetCurrentlySelectedItemRefs());
@@ -1084,7 +1084,7 @@ namespace IceBlink2
                         {
                             for (int j = pc.pcTags.Count - 1; j >= 0; j--)
                             {
-                                if (it.entriesForPcTags[i] == pc.pcTags[j])
+                                if (it.entriesForPcTags[i].Value == pc.pcTags[j])
                                 {
                                     pc.pcTags.RemoveAt(j);
                                     breakOuter = true;
@@ -1105,7 +1105,7 @@ namespace IceBlink2
                     {
                         for (int i = it.entriesForPcTags.Count - 1; i >= 0; i--)
                         {
-                            pc.pcTags.Add(it.entriesForPcTags[i]);
+                            pc.pcTags.Add(it.entriesForPcTags[i].Value);
                         }
                     }
                     mod.partyInventoryRefsList.Remove(GetCurrentlySelectedItemRefs());
@@ -1120,7 +1120,7 @@ namespace IceBlink2
                     {
                         for (int i = it.entriesForPcTags.Count - 1; i >= 0; i--)
                         {
-                            pc.pcTags.Add(it.entriesForPcTags[i]);
+                            pc.pcTags.Add(it.entriesForPcTags[i].Value);
                         }
                     }
                     mod.partyInventoryRefsList.Remove(GetCurrentlySelectedItemRefs());
@@ -1142,7 +1142,7 @@ namespace IceBlink2
                         {
                             for (int j = pc.pcTags.Count - 1; j >= 0; j--)
                             {
-                                if (it.entriesForPcTags[i] == pc.pcTags[j])
+                                if (it.entriesForPcTags[i].Value == pc.pcTags[j])
                                 {
                                     pc.pcTags.RemoveAt(j);
                                     breakOuter = true;
@@ -1163,7 +1163,7 @@ namespace IceBlink2
                     {
                         for (int i = it.entriesForPcTags.Count - 1; i >= 0; i--)
                         {
-                            pc.pcTags.Add(it.entriesForPcTags[i]);
+                            pc.pcTags.Add(it.entriesForPcTags[i].Value);
                         }
                     }
                     mod.partyInventoryRefsList.Remove(GetCurrentlySelectedItemRefs());
@@ -1178,7 +1178,7 @@ namespace IceBlink2
                     {
                         for (int i = it.entriesForPcTags.Count - 1; i >= 0; i--)
                         {
-                            pc.pcTags.Add(it.entriesForPcTags[i]);
+                            pc.pcTags.Add(it.entriesForPcTags[i].Value);
                         }
                     }
                     mod.partyInventoryRefsList.Remove(GetCurrentlySelectedItemRefs());
@@ -1197,7 +1197,7 @@ namespace IceBlink2
                     {
                         for (int j = pc.pcTags.Count - 1; j >= 0; j--)
                         {
-                            if (it.entriesForPcTags[i] == pc.pcTags[j])
+                            if (it.entriesForPcTags[i].Value == pc.pcTags[j])
                             {
                                 pc.pcTags.RemoveAt(j);
                                 breakOuter = true;
@@ -1219,7 +1219,7 @@ namespace IceBlink2
                 {
                     for (int i = it.entriesForPcTags.Count - 1; i >= 0; i--)
                     {
-                        pc.pcTags.Add(it.entriesForPcTags[i]);
+                        pc.pcTags.Add(it.entriesForPcTags[i].Value);
                     }
                 }
             }
@@ -1244,7 +1244,7 @@ namespace IceBlink2
                         {
                             for (int j = pc.pcTags.Count - 1; j >= 0; j--)
                             {
-                                if (it.entriesForPcTags[i] == pc.pcTags[j])
+                                if (it.entriesForPcTags[i].Value == pc.pcTags[j])
                                 {
                                     pc.pcTags.RemoveAt(j);
                                     breakOuter = true;
@@ -1277,7 +1277,7 @@ namespace IceBlink2
                         {
                             for (int j = pc.pcTags.Count - 1; j >= 0; j--)
                             {
-                                if (it.entriesForPcTags[i] == pc.pcTags[j])
+                                if (it.entriesForPcTags[i].Value == pc.pcTags[j])
                                 {
                                     pc.pcTags.RemoveAt(j);
                                     breakOuter = true;
@@ -1310,7 +1310,7 @@ namespace IceBlink2
                         {
                             for (int j = pc.pcTags.Count - 1; j >= 0; j--)
                             {
-                                if (it.entriesForPcTags[i] == pc.pcTags[j])
+                                if (it.entriesForPcTags[i].Value == pc.pcTags[j])
                                 {
                                     pc.pcTags.RemoveAt(j);
                                     breakOuter = true;
@@ -1342,7 +1342,7 @@ namespace IceBlink2
                         {
                             for (int j = pc.pcTags.Count - 1; j >= 0; j--)
                             {
-                                if (it.entriesForPcTags[i] == pc.pcTags[j])
+                                if (it.entriesForPcTags[i].Value == pc.pcTags[j])
                                 {
                                     pc.pcTags.RemoveAt(j);
                                     breakOuter = true;
@@ -1374,7 +1374,7 @@ namespace IceBlink2
                         {
                             for (int j = pc.pcTags.Count - 1; j >= 0; j--)
                             {
-                                if (it.entriesForPcTags[i] == pc.pcTags[j])
+                                if (it.entriesForPcTags[i].Value == pc.pcTags[j])
                                 {
                                     pc.pcTags.RemoveAt(j);
                                     breakOuter = true;
@@ -1407,7 +1407,7 @@ namespace IceBlink2
                         {
                             for (int j = pc.pcTags.Count - 1; j >= 0; j--)
                             {
-                                if (it.entriesForPcTags[i] == pc.pcTags[j])
+                                if (it.entriesForPcTags[i].Value == pc.pcTags[j])
                                 {
                                     pc.pcTags.RemoveAt(j);
                                     breakOuter = true;
@@ -1440,7 +1440,7 @@ namespace IceBlink2
                         {
                             for (int j = pc.pcTags.Count - 1; j >= 0; j--)
                             {
-                                if (it.entriesForPcTags[i] == pc.pcTags[j])
+                                if (it.entriesForPcTags[i].Value == pc.pcTags[j])
                                 {
                                     pc.pcTags.RemoveAt(j);
                                     breakOuter = true;
@@ -1472,7 +1472,7 @@ namespace IceBlink2
                         {
                             for (int j = pc.pcTags.Count - 1; j >= 0; j--)
                             {
-                                if (it.entriesForPcTags[i] == pc.pcTags[j])
+                                if (it.entriesForPcTags[i].Value == pc.pcTags[j])
                                 {
                                     pc.pcTags.RemoveAt(j);
                                     breakOuter = true;
@@ -1501,7 +1501,7 @@ namespace IceBlink2
                     {
                         for (int j = pc.pcTags.Count - 1; j >= 0; j--)
                         {
-                            if (it.entriesForPcTags[i] == pc.pcTags[j])
+                            if (it.entriesForPcTags[i].Value == pc.pcTags[j])
                             {
                                 pc.pcTags.RemoveAt(j);
                                 breakOuter = true;

@@ -296,11 +296,11 @@ namespace IceBlink2
 
                     //note that the tratNeccessities are logically connected with OR the way it is setup
                     else
-                        foreach (string traitNeccessity in sp.traitWorksOnlyWhen)
+                        foreach (LocalImmunityString traitNeccessity in sp.traitWorksOnlyWhen)
                         {
                             foreach (string pcTag in pc.pcTags)
                             {
-                                if (traitNeccessity.Equals(pcTag))
+                                if (traitNeccessity.Value.Equals(pcTag))
                                 {
                                     traitWorksForThisPC = true;
                                     break;
@@ -311,11 +311,11 @@ namespace IceBlink2
                     //one redFlag is enough to stop the trait from working, ie connected with OR, too
                     if (traitWorksForThisPC)
                     {
-                        foreach (string traitRedFlag in sp.traitWorksOnlyWhen)
+                        foreach (LocalImmunityString traitRedFlag in sp.traitWorksNeverWhen)
                         {
                             foreach (string pcTag in pc.pcTags)
                             {
-                                if (traitRedFlag.Equals(pcTag))
+                                if (traitRedFlag.Value.Equals(pcTag))
                                 {
                                     traitWorksForThisPC = false;
                                     break;
@@ -399,11 +399,11 @@ namespace IceBlink2
 
                     //note that the tratNeccessities are logically connected with OR the way it is setup
                     else
-                        foreach (string traitNeccessity in sp.traitWorksOnlyWhen)
+                        foreach (LocalImmunityString traitNeccessity in sp.traitWorksOnlyWhen)
                         {
                             foreach (string pcTag in pc.pcTags)
                             {
-                                if (traitNeccessity.Equals(pcTag))
+                                if (traitNeccessity.Value.Equals(pcTag))
                                 {
                                     traitWorksForThisPC = true;
                                     break;
@@ -414,11 +414,11 @@ namespace IceBlink2
                     //one redFlag is enough to stop the trait from working, ie connected with OR, too
                     if (traitWorksForThisPC)
                     {
-                        foreach (string traitRedFlag in sp.traitWorksOnlyWhen)
+                        foreach (LocalImmunityString traitRedFlag in sp.traitWorksNeverWhen)
                         {
                             foreach (string pcTag in pc.pcTags)
                             {
-                                if (traitRedFlag.Equals(pcTag))
+                                if (traitRedFlag.Value.Equals(pcTag))
                                 {
                                     traitWorksForThisPC = false;
                                     break;
@@ -688,11 +688,11 @@ namespace IceBlink2
 
                     //note that the tratNeccessities are logically connected with OR the way it is setup
                     else
-                        foreach (string traitNeccessity in sp.traitWorksOnlyWhen)
+                        foreach (LocalImmunityString traitNeccessity in sp.traitWorksOnlyWhen)
                         {
                             foreach (string pcTag in pc.pcTags)
                             {
-                                if (traitNeccessity.Equals(pcTag))
+                                if (traitNeccessity.Value.Equals(pcTag))
                                 {
                                     traitWorksForThisPC = true;
                                     break;
@@ -703,11 +703,11 @@ namespace IceBlink2
                     //one redFlag is enough to stop the trait from working, ie connected with OR, too
                     if (traitWorksForThisPC)
                     {
-                        foreach (string traitRedFlag in sp.traitWorksOnlyWhen)
+                        foreach (LocalImmunityString traitRedFlag in sp.traitWorksNeverWhen)
                         {
                             foreach (string pcTag in pc.pcTags)
                             {
-                                if (traitRedFlag.Equals(pcTag))
+                                if (traitRedFlag.Value.Equals(pcTag))
                                 {
                                     traitWorksForThisPC = false;
                                     break;
@@ -756,11 +756,11 @@ namespace IceBlink2
 
                     //note that the tratNeccessities are logically connected with OR the way it is setup
                     else
-                        foreach (string traitNeccessity in sp.traitWorksOnlyWhen)
+                        foreach (LocalImmunityString traitNeccessity in sp.traitWorksOnlyWhen)
                         {
                             foreach (string pcTag in pc.pcTags)
                             {
-                                if (traitNeccessity.Equals(pcTag))
+                                if (traitNeccessity.Value.Equals(pcTag))
                                 {
                                     traitWorksForThisPC = true;
                                     break;
@@ -771,11 +771,11 @@ namespace IceBlink2
                     //one redFlag is enough to stop the trait from working, ie connected with OR, too
                     if (traitWorksForThisPC)
                     {
-                        foreach (string traitRedFlag in sp.traitWorksOnlyWhen)
+                        foreach (LocalImmunityString traitRedFlag in sp.traitWorksNeverWhen)
                         {
                             foreach (string pcTag in pc.pcTags)
                             {
-                                if (traitRedFlag.Equals(pcTag))
+                                if (traitRedFlag.Value.Equals(pcTag))
                                 {
                                     traitWorksForThisPC = false;
                                     break;
