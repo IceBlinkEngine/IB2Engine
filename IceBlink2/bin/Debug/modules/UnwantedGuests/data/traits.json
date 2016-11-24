@@ -2,8 +2,10 @@
   {
     "name": "Bluff (L1)",
     "traitEffectTagList": [],
+    "traitWorksOnlyWhen": [],
+    "traitWorksNeverWhen": [],
     "tag": "bluff",
-    "associatedSpellTag": "fireball",
+    "associatedSpellTag": "none",
     "traitImage": "tr_bluff",
     "description": "Useful in conversations for influencing others. Uses Intelligence as a modifier.",
     "prerequisiteTrait": "none",
@@ -22,6 +24,8 @@
   {
     "name": "Bluff (L2)",
     "traitEffectTagList": [],
+    "traitWorksOnlyWhen": [],
+    "traitWorksNeverWhen": [],
     "tag": "bluff2",
     "associatedSpellTag": "none",
     "traitImage": "tr_bluff",
@@ -42,6 +46,8 @@
   {
     "name": "Cleave",
     "traitEffectTagList": [],
+    "traitWorksOnlyWhen": [],
+    "traitWorksNeverWhen": [],
     "tag": "cleave",
     "associatedSpellTag": "none",
     "traitImage": "tr_cleave",
@@ -62,6 +68,8 @@
   {
     "name": "Critical Strike",
     "traitEffectTagList": [],
+    "traitWorksOnlyWhen": [],
+    "traitWorksNeverWhen": [],
     "tag": "criticalstrike",
     "associatedSpellTag": "none",
     "traitImage": "tr_criticalstrike",
@@ -82,6 +90,8 @@
   {
     "name": "Diplomacy (L1)",
     "traitEffectTagList": [],
+    "traitWorksOnlyWhen": [],
+    "traitWorksNeverWhen": [],
     "tag": "diplomacy",
     "associatedSpellTag": "none",
     "traitImage": "tr_diplomacy",
@@ -102,6 +112,8 @@
   {
     "name": "Diplomacy (L2)",
     "traitEffectTagList": [],
+    "traitWorksOnlyWhen": [],
+    "traitWorksNeverWhen": [],
     "tag": "diplomacy2",
     "associatedSpellTag": "none",
     "traitImage": "tr_diplomacy",
@@ -122,6 +134,8 @@
   {
     "name": "Disable Device (L1)",
     "traitEffectTagList": [],
+    "traitWorksOnlyWhen": [],
+    "traitWorksNeverWhen": [],
     "tag": "disabledevice",
     "associatedSpellTag": "none",
     "traitImage": "tr_disabledevice",
@@ -142,6 +156,8 @@
   {
     "name": "Disable Device (L2)",
     "traitEffectTagList": [],
+    "traitWorksOnlyWhen": [],
+    "traitWorksNeverWhen": [],
     "tag": "disabledevice2",
     "associatedSpellTag": "none",
     "traitImage": "tr_disabledevice",
@@ -162,6 +178,8 @@
   {
     "name": "Evasion",
     "traitEffectTagList": [],
+    "traitWorksOnlyWhen": [],
+    "traitWorksNeverWhen": [],
     "tag": "evasion",
     "associatedSpellTag": "none",
     "traitImage": "tr_evasion",
@@ -182,6 +200,8 @@
   {
     "name": "Intimidate (L1)",
     "traitEffectTagList": [],
+    "traitWorksOnlyWhen": [],
+    "traitWorksNeverWhen": [],
     "tag": "intimidate",
     "associatedSpellTag": "none",
     "traitImage": "tr_intimidate",
@@ -202,6 +222,8 @@
   {
     "name": "Intimidate (L2)",
     "traitEffectTagList": [],
+    "traitWorksOnlyWhen": [],
+    "traitWorksNeverWhen": [],
     "tag": "intimidate2",
     "associatedSpellTag": "none",
     "traitImage": "tr_intimidate",
@@ -222,6 +244,8 @@
   {
     "name": "Pick Pocket (L1)",
     "traitEffectTagList": [],
+    "traitWorksOnlyWhen": [],
+    "traitWorksNeverWhen": [],
     "tag": "pickpocket",
     "associatedSpellTag": "none",
     "traitImage": "tr_pickpocket",
@@ -242,6 +266,8 @@
   {
     "name": "Pick Pocket (L2)",
     "traitEffectTagList": [],
+    "traitWorksOnlyWhen": [],
+    "traitWorksNeverWhen": [],
     "tag": "pickpocket2",
     "associatedSpellTag": "none",
     "traitImage": "tr_pickpocket",
@@ -262,6 +288,8 @@
   {
     "name": "Point Blank Shot",
     "traitEffectTagList": [],
+    "traitWorksOnlyWhen": [],
+    "traitWorksNeverWhen": [],
     "tag": "pointblankshot",
     "associatedSpellTag": "none",
     "traitImage": "tr_pointblankshot",
@@ -282,6 +310,8 @@
   {
     "name": "Sneak Attack",
     "traitEffectTagList": [],
+    "traitWorksOnlyWhen": [],
+    "traitWorksNeverWhen": [],
     "tag": "sneakattack",
     "associatedSpellTag": "none",
     "traitImage": "tr_sneakattack",
@@ -302,6 +332,8 @@
   {
     "name": "Spot (L1)",
     "traitEffectTagList": [],
+    "traitWorksOnlyWhen": [],
+    "traitWorksNeverWhen": [],
     "tag": "spot",
     "associatedSpellTag": "none",
     "traitImage": "tr_spot",
@@ -322,6 +354,8 @@
   {
     "name": "Spot (L2)",
     "traitEffectTagList": [],
+    "traitWorksOnlyWhen": [],
+    "traitWorksNeverWhen": [],
     "tag": "spot2",
     "associatedSpellTag": "none",
     "traitImage": "tr_spot",
@@ -342,6 +376,8 @@
   {
     "name": "Stealth (L1)",
     "traitEffectTagList": [],
+    "traitWorksOnlyWhen": [],
+    "traitWorksNeverWhen": [],
     "tag": "stealth",
     "associatedSpellTag": "none",
     "traitImage": "tr_stealth",
@@ -362,6 +398,8 @@
   {
     "name": "Stealth (L2)",
     "traitEffectTagList": [],
+    "traitWorksOnlyWhen": [],
+    "traitWorksNeverWhen": [],
     "tag": "stealth2",
     "associatedSpellTag": "none",
     "traitImage": "tr_stealth",
@@ -382,6 +420,8 @@
   {
     "name": "Two Attacks",
     "traitEffectTagList": [],
+    "traitWorksOnlyWhen": [],
+    "traitWorksNeverWhen": [],
     "tag": "twoAttack",
     "associatedSpellTag": "none",
     "traitImage": "tr_twoattacks",
@@ -402,6 +442,8 @@
   {
     "name": "Hard to Kill",
     "traitEffectTagList": [],
+    "traitWorksOnlyWhen": [],
+    "traitWorksNeverWhen": [],
     "tag": "hardtokill",
     "associatedSpellTag": "none",
     "traitImage": "tr_hardtokill",
@@ -422,6 +464,8 @@
   {
     "name": "Precise Shot (L1)",
     "traitEffectTagList": [],
+    "traitWorksOnlyWhen": [],
+    "traitWorksNeverWhen": [],
     "tag": "preciseshot",
     "associatedSpellTag": "none",
     "traitImage": "tr_preciseshot",
@@ -442,6 +486,8 @@
   {
     "name": "Precise Shot (L2)",
     "traitEffectTagList": [],
+    "traitWorksOnlyWhen": [],
+    "traitWorksNeverWhen": [],
     "tag": "preciseshot2",
     "associatedSpellTag": "none",
     "traitImage": "tr_preciseshot",
@@ -462,6 +508,8 @@
   {
     "name": "Rapid Shot (L1)",
     "traitEffectTagList": [],
+    "traitWorksOnlyWhen": [],
+    "traitWorksNeverWhen": [],
     "tag": "rapidshot",
     "associatedSpellTag": "none",
     "traitImage": "tr_rapidshot",
@@ -482,6 +530,8 @@
   {
     "name": "Rapid Shot (L2)",
     "traitEffectTagList": [],
+    "traitWorksOnlyWhen": [],
+    "traitWorksNeverWhen": [],
     "tag": "rapidshot2",
     "associatedSpellTag": "none",
     "traitImage": "tr_rapidshot",
@@ -502,6 +552,8 @@
   {
     "name": "Battle Regeneration",
     "traitEffectTagList": [],
+    "traitWorksOnlyWhen": [],
+    "traitWorksNeverWhen": [],
     "tag": "battleregen",
     "associatedSpellTag": "none",
     "traitImage": "tr_battleregen",
@@ -526,6 +578,8 @@
         "tag": "SuperStrength+20_10014"
       }
     ],
+    "traitWorksOnlyWhen": [],
+    "traitWorksNeverWhen": [],
     "tag": "newTraitTag_10015",
     "associatedSpellTag": "none",
     "traitImage": "sp_magebolt",
@@ -546,6 +600,8 @@
   {
     "name": "Fighter Ball",
     "traitEffectTagList": [],
+    "traitWorksOnlyWhen": [],
+    "traitWorksNeverWhen": [],
     "tag": "newTraitTag_10057",
     "associatedSpellTag": "fireball",
     "traitImage": "sp_magebolt",
@@ -566,6 +622,8 @@
   {
     "name": "Fighter Ball 2",
     "traitEffectTagList": [],
+    "traitWorksOnlyWhen": [],
+    "traitWorksNeverWhen": [],
     "tag": "newTraitTag_10371",
     "associatedSpellTag": "fireball",
     "traitImage": "sp_magebolt",
@@ -577,6 +635,40 @@
     "spriteFilename": "none",
     "spriteEndingFilename": "none",
     "costSP": 1,
+    "traitTargetType": "Enemy",
+    "traitEffectType": "Damage",
+    "aoeRadius": 0,
+    "range": 0,
+    "traitScript": "none"
+  },
+  {
+    "name": "testTrait",
+    "traitEffectTagList": [
+      {
+        "tag": "SuperStrength+20_10014"
+      }
+    ],
+    "traitWorksOnlyWhen": [
+      {
+        "Value": "axe"
+      }
+    ],
+    "traitWorksNeverWhen": [
+      {
+        "Value": "lightArmor"
+      }
+    ],
+    "tag": "newTraitTag_10412",
+    "associatedSpellTag": "none",
+    "traitImage": "sp_magebolt",
+    "description": "",
+    "prerequisiteTrait": "none",
+    "skillModifier": 0,
+    "skillModifierAttribute": "str",
+    "useableInSituation": "Always",
+    "spriteFilename": "none",
+    "spriteEndingFilename": "none",
+    "costSP": 0,
     "traitTargetType": "Enemy",
     "traitEffectType": "Damage",
     "aoeRadius": 0,

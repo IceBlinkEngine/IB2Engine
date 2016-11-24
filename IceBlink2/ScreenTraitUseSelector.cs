@@ -289,6 +289,41 @@ namespace IceBlink2
                     //enter check for workability based on entries in pcTags
                     bool traitWorksForThisPC = false;
 
+                    // set up usablility lists for this spell (traitWorksOnlyWhen and traitWorksNeverWhen)
+                    sp.traitWorksNeverWhen.Clear();
+                    sp.traitWorksOnlyWhen.Clear();
+                    //go through all trait tags of pc
+                    foreach (string traitTag in pc.knownTraitsTags)
+                    {
+                        //go through all traits of module
+                        foreach (Trait t in gv.mod.moduleTraitsList)
+                        {
+                            //found a trait the pc has
+                            if (t.tag.Equals(traitTag))
+                            {
+                                    //found out that our current spell is the associated spell of this trait
+                                    if (t.associatedSpellTag.Equals(sp.tag))
+                                    {
+                                    //built the lists on runtime for our current spell from the trait's template
+                                    foreach (LocalImmunityString ls in t.traitWorksOnlyWhen)
+                                    {
+                                        LocalImmunityString ls2 = ls.DeepCopy();
+                                        sp.traitWorksOnlyWhen.Add(ls2);
+                                    }
+
+                                    foreach (LocalImmunityString ls in t.traitWorksNeverWhen)
+                                    {
+                                        LocalImmunityString ls2 = ls.DeepCopy();
+                                        sp.traitWorksNeverWhen.Add(ls2);
+                                    }
+                                    //sp.traitWorksNeverWhen = t.traitWorksNeverWhen;
+                                    //sp.traitWorksOnlyWhen = t.traitWorksOnlyWhen;
+                                }
+                            }
+                        }
+                    }
+
+
                     if (sp.traitWorksOnlyWhen.Count <= 0)
                     {
                         traitWorksForThisPC = true;
@@ -391,6 +426,39 @@ namespace IceBlink2
 
                     //enter check for workability based on entries in pcTags
                     bool traitWorksForThisPC = false;
+                    // set up usablility lists for this spell (traitWorksOnlyWhen and traitWorksNeverWhen)
+                    sp.traitWorksNeverWhen.Clear();
+                    sp.traitWorksOnlyWhen.Clear();
+                    //go through all trait tags of pc
+                    foreach (string traitTag in pc.knownTraitsTags)
+                    {
+                        //go through all traits of module
+                        foreach (Trait t in gv.mod.moduleTraitsList)
+                        {
+                            //found a trait the pc has
+                            if (t.tag.Equals(traitTag))
+                            {
+                                //found out that our current spell is the associated spell of this trait
+                                if (t.associatedSpellTag.Equals(sp.tag))
+                                {
+                                    //built the lists on runtime for our current spell from the trait's template
+                                    foreach (LocalImmunityString ls in t.traitWorksOnlyWhen)
+                                    {
+                                        LocalImmunityString ls2 = ls.DeepCopy();
+                                        sp.traitWorksOnlyWhen.Add(ls2);
+                                    }
+
+                                    foreach (LocalImmunityString ls in t.traitWorksNeverWhen)
+                                    {
+                                        LocalImmunityString ls2 = ls.DeepCopy();
+                                        sp.traitWorksNeverWhen.Add(ls2);
+                                    }
+                                    //sp.traitWorksNeverWhen = t.traitWorksNeverWhen;
+                                    //sp.traitWorksOnlyWhen = t.traitWorksOnlyWhen;
+                                }
+                            }
+                        }
+                    }
 
                     if (sp.traitWorksOnlyWhen.Count <= 0)
                     {
@@ -681,6 +749,40 @@ namespace IceBlink2
                     //enter check for workability based on entries in pcTags
                     bool traitWorksForThisPC = false;
 
+                    // set up usablility lists for this spell (traitWorksOnlyWhen and traitWorksNeverWhen)
+                    sp.traitWorksNeverWhen.Clear();
+                    sp.traitWorksOnlyWhen.Clear();
+                    //go through all trait tags of pc
+                    foreach (string traitTag in pc.knownTraitsTags)
+                    {
+                        //go through all traits of module
+                        foreach (Trait t in gv.mod.moduleTraitsList)
+                        {
+                            //found a trait the pc has
+                            if (t.tag.Equals(traitTag))
+                            {
+                                //found out that our current spell is the associated spell of this trait
+                                if (t.associatedSpellTag.Equals(sp.tag))
+                                {
+                                    //built the lists on runtime for our current spell from the trait's template
+                                    foreach (LocalImmunityString ls in t.traitWorksOnlyWhen)
+                                    {
+                                        LocalImmunityString ls2 = ls.DeepCopy();
+                                        sp.traitWorksOnlyWhen.Add(ls2);
+                                    }
+
+                                    foreach (LocalImmunityString ls in t.traitWorksNeverWhen)
+                                    {
+                                        LocalImmunityString ls2 = ls.DeepCopy();
+                                        sp.traitWorksNeverWhen.Add(ls2);
+                                    }
+                                    //sp.traitWorksNeverWhen = t.traitWorksNeverWhen;
+                                    //sp.traitWorksOnlyWhen = t.traitWorksOnlyWhen;
+                                }
+                            }
+                        }
+                    }
+
                     if (sp.traitWorksOnlyWhen.Count <= 0)
                     {
                         traitWorksForThisPC = true;
@@ -748,6 +850,39 @@ namespace IceBlink2
                     //pcTags
                     //enter check for workability based on entries in pcTags
                     bool traitWorksForThisPC = false;
+                    // set up usablility lists for this spell (traitWorksOnlyWhen and traitWorksNeverWhen)
+                    sp.traitWorksNeverWhen.Clear();
+                    sp.traitWorksOnlyWhen.Clear();
+                    //go through all trait tags of pc
+                    foreach (string traitTag in pc.knownTraitsTags)
+                    {
+                        //go through all traits of module
+                        foreach (Trait t in gv.mod.moduleTraitsList)
+                        {
+                            //found a trait the pc has
+                            if (t.tag.Equals(traitTag))
+                            {
+                                //found out that our current spell is the associated spell of this trait
+                                if (t.associatedSpellTag.Equals(sp.tag))
+                                {
+                                    //built the lists on runtime for our current spell from the trait's template
+                                    foreach (LocalImmunityString ls in t.traitWorksOnlyWhen)
+                                    {
+                                        LocalImmunityString ls2 = ls.DeepCopy();
+                                        sp.traitWorksOnlyWhen.Add(ls2);
+                                    }
+
+                                    foreach (LocalImmunityString ls in t.traitWorksNeverWhen)
+                                    {
+                                        LocalImmunityString ls2 = ls.DeepCopy();
+                                        sp.traitWorksNeverWhen.Add(ls2);
+                                    }
+                                    //sp.traitWorksNeverWhen = t.traitWorksNeverWhen;
+                                    //sp.traitWorksOnlyWhen = t.traitWorksOnlyWhen;
+                                }
+                            }
+                        }
+                    }
 
                     if (sp.traitWorksOnlyWhen.Count <= 0)
                     {

@@ -75,7 +75,7 @@
     "itemsAllowed": [
       {
         "resref": "chainmail",
-        "tag": "chainmail_10373",
+        "tag": "chainmail_10415",
         "name": "Chainmail Armor",
         "canNotBeUnequipped": false,
         "isLightSource": false,
@@ -84,7 +84,7 @@
       },
       {
         "resref": "largeshield",
-        "tag": "largeshield_10374",
+        "tag": "largeshield_10416",
         "name": "Large Shield",
         "canNotBeUnequipped": false,
         "isLightSource": false,
@@ -93,7 +93,7 @@
       },
       {
         "resref": "larmor1",
-        "tag": "larmor1_10375",
+        "tag": "larmor1_10417",
         "name": "Leather Armor",
         "canNotBeUnequipped": false,
         "isLightSource": false,
@@ -102,7 +102,7 @@
       },
       {
         "resref": "studdedLeather",
-        "tag": "studdedLeather_10376",
+        "tag": "studdedLeather_10418",
         "name": "Studded Leather Armor",
         "canNotBeUnequipped": false,
         "isLightSource": false,
@@ -111,7 +111,7 @@
       },
       {
         "resref": "platemail",
-        "tag": "platemail_10377",
+        "tag": "platemail_10419",
         "name": "Platemail Armor",
         "canNotBeUnequipped": false,
         "isLightSource": false,
@@ -120,7 +120,7 @@
       },
       {
         "resref": "robes",
-        "tag": "robes_10378",
+        "tag": "robes_10420",
         "name": "Robes",
         "canNotBeUnequipped": false,
         "isLightSource": false,
@@ -129,7 +129,7 @@
       },
       {
         "resref": "campingKit",
-        "tag": "campingKit_10379",
+        "tag": "campingKit_10421",
         "name": "Camping Kit",
         "canNotBeUnequipped": false,
         "isLightSource": false,
@@ -138,7 +138,7 @@
       },
       {
         "resref": "ringOfProtection",
-        "tag": "ringOfProtection_10380",
+        "tag": "ringOfProtection_10422",
         "name": "Ring of Protection",
         "canNotBeUnequipped": false,
         "isLightSource": false,
@@ -147,7 +147,7 @@
       },
       {
         "resref": "ringOfFireResist",
-        "tag": "ringOfFireResist_10381",
+        "tag": "ringOfFireResist_10423",
         "name": "Ring of Fire Resistance",
         "canNotBeUnequipped": false,
         "isLightSource": false,
@@ -156,7 +156,7 @@
       },
       {
         "resref": "healingPotion",
-        "tag": "healingPotion_10382",
+        "tag": "healingPotion_10424",
         "name": "Healing Potion",
         "canNotBeUnequipped": false,
         "isLightSource": false,
@@ -165,7 +165,7 @@
       },
       {
         "resref": "healingPotionExtra",
-        "tag": "healingPotionExtra_10383",
+        "tag": "healingPotionExtra_10425",
         "name": "Extra Healing Potion",
         "canNotBeUnequipped": false,
         "isLightSource": false,
@@ -174,7 +174,7 @@
       },
       {
         "resref": "spPotion",
-        "tag": "spPotion_10384",
+        "tag": "spPotion_10426",
         "name": "Spell Points Potion",
         "canNotBeUnequipped": false,
         "isLightSource": false,
@@ -183,7 +183,7 @@
       },
       {
         "resref": "battleaxe",
-        "tag": "battleaxe_10385",
+        "tag": "battleaxe_10427",
         "name": "Battle Axe",
         "canNotBeUnequipped": false,
         "isLightSource": false,
@@ -192,7 +192,7 @@
       },
       {
         "resref": "crossbow",
-        "tag": "crossbow_10386",
+        "tag": "crossbow_10428",
         "name": "Crossbow",
         "canNotBeUnequipped": false,
         "isLightSource": false,
@@ -201,7 +201,7 @@
       },
       {
         "resref": "dagger01",
-        "tag": "dagger01_10387",
+        "tag": "dagger01_10429",
         "name": "Dagger",
         "canNotBeUnequipped": false,
         "isLightSource": false,
@@ -210,7 +210,7 @@
       },
       {
         "resref": "elvishshortsword",
-        "tag": "elvishshortsword_10388",
+        "tag": "elvishshortsword_10430",
         "name": "Elvish Short Sword +1",
         "canNotBeUnequipped": false,
         "isLightSource": false,
@@ -219,7 +219,7 @@
       },
       {
         "resref": "fireDagger",
-        "tag": "fireDagger_10389",
+        "tag": "fireDagger_10431",
         "name": "Fire Dagger",
         "canNotBeUnequipped": false,
         "isLightSource": false,
@@ -228,7 +228,7 @@
       },
       {
         "resref": "fireLongSword",
-        "tag": "fireLongSword_10390",
+        "tag": "fireLongSword_10432",
         "name": "Flaming Long Sword",
         "canNotBeUnequipped": false,
         "isLightSource": false,
@@ -237,7 +237,7 @@
       },
       {
         "resref": "handaxe",
-        "tag": "handaxe_10391",
+        "tag": "handaxe_10433",
         "name": "Hand Axe",
         "canNotBeUnequipped": false,
         "isLightSource": false,
@@ -246,7 +246,7 @@
       },
       {
         "resref": "lsword01",
-        "tag": "lsword01_10392",
+        "tag": "lsword01_10434",
         "name": "Long Sword",
         "canNotBeUnequipped": false,
         "isLightSource": false,
@@ -255,7 +255,7 @@
       },
       {
         "resref": "mace",
-        "tag": "mace_10393",
+        "tag": "mace_10435",
         "name": "Mace",
         "canNotBeUnequipped": false,
         "isLightSource": false,
@@ -264,7 +264,7 @@
       },
       {
         "resref": "shortBow",
-        "tag": "shortBow_10394",
+        "tag": "shortBow_10436",
         "name": "Short Bow",
         "canNotBeUnequipped": false,
         "isLightSource": false,
@@ -273,7 +273,7 @@
       },
       {
         "resref": "ssword01",
-        "tag": "ssword01_10395",
+        "tag": "ssword01_10437",
         "name": "Short Sword",
         "canNotBeUnequipped": false,
         "isLightSource": false,
@@ -282,7 +282,7 @@
       },
       {
         "resref": "sling",
-        "tag": "sling_10396",
+        "tag": "sling_10438",
         "name": "Sling",
         "canNotBeUnequipped": false,
         "isLightSource": false,
@@ -291,7 +291,7 @@
       },
       {
         "resref": "fireSling",
-        "tag": "fireSling_10397",
+        "tag": "fireSling_10439",
         "name": "Sling of Fire",
         "canNotBeUnequipped": false,
         "isLightSource": false,
@@ -300,7 +300,7 @@
       },
       {
         "resref": "spear",
-        "tag": "spear_10398",
+        "tag": "spear_10440",
         "name": "Spear",
         "canNotBeUnequipped": false,
         "isLightSource": false,
@@ -309,7 +309,7 @@
       },
       {
         "resref": "arrow",
-        "tag": "arrow_10399",
+        "tag": "arrow_10441",
         "name": "Arrow",
         "canNotBeUnequipped": false,
         "isLightSource": false,
@@ -318,7 +318,7 @@
       },
       {
         "resref": "stone",
-        "tag": "stone_10400",
+        "tag": "stone_10442",
         "name": "Stone",
         "canNotBeUnequipped": false,
         "isLightSource": false,
@@ -327,7 +327,7 @@
       },
       {
         "resref": "stonefire",
-        "tag": "stonefire_10401",
+        "tag": "stonefire_10443",
         "name": "Stone of Fire",
         "canNotBeUnequipped": false,
         "isLightSource": false,
@@ -336,7 +336,7 @@
       },
       {
         "resref": "magicamulet",
-        "tag": "magicamulet_10402",
+        "tag": "magicamulet_10444",
         "name": "Magic Amulet",
         "canNotBeUnequipped": false,
         "isLightSource": false,
@@ -345,7 +345,7 @@
       },
       {
         "resref": "magicbook",
-        "tag": "magicbook_10403",
+        "tag": "magicbook_10445",
         "name": "Magic Book",
         "canNotBeUnequipped": false,
         "isLightSource": false,
@@ -354,7 +354,7 @@
       },
       {
         "resref": "bolt",
-        "tag": "bolt_10404",
+        "tag": "bolt_10446",
         "name": "Bolt",
         "canNotBeUnequipped": false,
         "isLightSource": false,
@@ -363,7 +363,7 @@
       },
       {
         "resref": "maceofstunning",
-        "tag": "maceofstunning_10405",
+        "tag": "maceofstunning_10447",
         "name": "Mace of Stunning",
         "canNotBeUnequipped": false,
         "isLightSource": false,
@@ -372,7 +372,7 @@
       },
       {
         "resref": "thsworddefender",
-        "tag": "thsworddefender_10406",
+        "tag": "thsworddefender_10448",
         "name": "Two Handed Sword of the Defender",
         "canNotBeUnequipped": false,
         "isLightSource": false,
@@ -381,7 +381,7 @@
       },
       {
         "resref": "poisonDagger",
-        "tag": "poisonDagger_10407",
+        "tag": "poisonDagger_10449",
         "name": "Poison Dagger",
         "canNotBeUnequipped": false,
         "isLightSource": false,
@@ -390,7 +390,7 @@
       },
       {
         "resref": "firebomb",
-        "tag": "firebomb_10408",
+        "tag": "firebomb_10450",
         "name": "Bomb of Fire",
         "canNotBeUnequipped": false,
         "isLightSource": false,
@@ -399,7 +399,7 @@
       },
       {
         "resref": "minorhealpotion",
-        "tag": "minorhealpotion_10409",
+        "tag": "minorhealpotion_10451",
         "name": "Minor Healing Potion",
         "canNotBeUnequipped": false,
         "isLightSource": false,
@@ -408,7 +408,7 @@
       },
       {
         "resref": "antidote",
-        "tag": "antidote_10410",
+        "tag": "antidote_10452",
         "name": "Antidote Potion",
         "canNotBeUnequipped": false,
         "isLightSource": false,
@@ -931,7 +931,7 @@
     "itemsAllowed": [
       {
         "resref": "larmor1",
-        "tag": "larmor1_9218",
+        "tag": "larmor1_10453",
         "name": "Leather Armor",
         "canNotBeUnequipped": false,
         "isLightSource": false,
@@ -940,7 +940,7 @@
       },
       {
         "resref": "studdedLeather",
-        "tag": "studdedLeather_9219",
+        "tag": "studdedLeather_10454",
         "name": "Studded Leather Armor",
         "canNotBeUnequipped": false,
         "isLightSource": false,
@@ -949,7 +949,7 @@
       },
       {
         "resref": "robes",
-        "tag": "robes_9220",
+        "tag": "robes_10455",
         "name": "Robes",
         "canNotBeUnequipped": false,
         "isLightSource": false,
@@ -958,7 +958,7 @@
       },
       {
         "resref": "campingKit",
-        "tag": "campingKit_9221",
+        "tag": "campingKit_10456",
         "name": "Camping Kit",
         "canNotBeUnequipped": false,
         "isLightSource": false,
@@ -967,7 +967,7 @@
       },
       {
         "resref": "ringOfProtection",
-        "tag": "ringOfProtection_9222",
+        "tag": "ringOfProtection_10457",
         "name": "Ring of Protection",
         "canNotBeUnequipped": false,
         "isLightSource": false,
@@ -976,7 +976,7 @@
       },
       {
         "resref": "ringOfFireResist",
-        "tag": "ringOfFireResist_9223",
+        "tag": "ringOfFireResist_10458",
         "name": "Ring of Fire Resistance",
         "canNotBeUnequipped": false,
         "isLightSource": false,
@@ -985,7 +985,7 @@
       },
       {
         "resref": "healingPotion",
-        "tag": "healingPotion_9224",
+        "tag": "healingPotion_10459",
         "name": "Healing Potion",
         "canNotBeUnequipped": false,
         "isLightSource": false,
@@ -994,7 +994,7 @@
       },
       {
         "resref": "healingPotionExtra",
-        "tag": "healingPotionExtra_9225",
+        "tag": "healingPotionExtra_10460",
         "name": "Extra Healing Potion",
         "canNotBeUnequipped": false,
         "isLightSource": false,
@@ -1003,7 +1003,7 @@
       },
       {
         "resref": "spPotion",
-        "tag": "spPotion_9226",
+        "tag": "spPotion_10461",
         "name": "Spell Points Potion",
         "canNotBeUnequipped": false,
         "isLightSource": false,
@@ -1012,7 +1012,7 @@
       },
       {
         "resref": "battleaxe",
-        "tag": "battleaxe_9227",
+        "tag": "battleaxe_10462",
         "name": "Battle Axe",
         "canNotBeUnequipped": false,
         "isLightSource": false,
@@ -1021,7 +1021,7 @@
       },
       {
         "resref": "crossbow",
-        "tag": "crossbow_9228",
+        "tag": "crossbow_10463",
         "name": "Crossbow",
         "canNotBeUnequipped": false,
         "isLightSource": false,
@@ -1030,7 +1030,7 @@
       },
       {
         "resref": "dagger01",
-        "tag": "dagger01_9229",
+        "tag": "dagger01_10464",
         "name": "Dagger",
         "canNotBeUnequipped": false,
         "isLightSource": false,
@@ -1039,7 +1039,7 @@
       },
       {
         "resref": "elvishshortsword",
-        "tag": "elvishshortsword_9230",
+        "tag": "elvishshortsword_10465",
         "name": "Elvish Short Sword +1",
         "canNotBeUnequipped": false,
         "isLightSource": false,
@@ -1048,7 +1048,7 @@
       },
       {
         "resref": "fireDagger",
-        "tag": "fireDagger_9231",
+        "tag": "fireDagger_10466",
         "name": "Fire Dagger",
         "canNotBeUnequipped": false,
         "isLightSource": false,
@@ -1057,7 +1057,7 @@
       },
       {
         "resref": "fireLongSword",
-        "tag": "fireLongSword_9232",
+        "tag": "fireLongSword_10467",
         "name": "Flaming Long Sword",
         "canNotBeUnequipped": false,
         "isLightSource": false,
@@ -1066,7 +1066,7 @@
       },
       {
         "resref": "handaxe",
-        "tag": "handaxe_9233",
+        "tag": "handaxe_10468",
         "name": "Hand Axe",
         "canNotBeUnequipped": false,
         "isLightSource": false,
@@ -1075,7 +1075,7 @@
       },
       {
         "resref": "lbow1",
-        "tag": "lbow1_9234",
+        "tag": "lbow1_10469",
         "name": "Long Bow",
         "canNotBeUnequipped": false,
         "isLightSource": false,
@@ -1084,7 +1084,7 @@
       },
       {
         "resref": "lsword01",
-        "tag": "lsword01_9235",
+        "tag": "lsword01_10470",
         "name": "Long Sword",
         "canNotBeUnequipped": false,
         "isLightSource": false,
@@ -1093,7 +1093,7 @@
       },
       {
         "resref": "mace",
-        "tag": "mace_9236",
+        "tag": "mace_10471",
         "name": "Mace",
         "canNotBeUnequipped": false,
         "isLightSource": false,
@@ -1102,7 +1102,7 @@
       },
       {
         "resref": "shortBow",
-        "tag": "shortBow_9237",
+        "tag": "shortBow_10472",
         "name": "Short Bow",
         "canNotBeUnequipped": false,
         "isLightSource": false,
@@ -1111,7 +1111,7 @@
       },
       {
         "resref": "ssword01",
-        "tag": "ssword01_9238",
+        "tag": "ssword01_10473",
         "name": "Short Sword",
         "canNotBeUnequipped": false,
         "isLightSource": false,
@@ -1120,7 +1120,7 @@
       },
       {
         "resref": "sling",
-        "tag": "sling_9239",
+        "tag": "sling_10474",
         "name": "Sling",
         "canNotBeUnequipped": false,
         "isLightSource": false,
@@ -1129,7 +1129,7 @@
       },
       {
         "resref": "fireSling",
-        "tag": "fireSling_9240",
+        "tag": "fireSling_10475",
         "name": "Sling of Fire",
         "canNotBeUnequipped": false,
         "isLightSource": false,
@@ -1138,7 +1138,7 @@
       },
       {
         "resref": "spear",
-        "tag": "spear_9241",
+        "tag": "spear_10476",
         "name": "Spear",
         "canNotBeUnequipped": false,
         "isLightSource": false,
@@ -1147,7 +1147,7 @@
       },
       {
         "resref": "arrow",
-        "tag": "arrow_9242",
+        "tag": "arrow_10477",
         "name": "Arrow",
         "canNotBeUnequipped": false,
         "isLightSource": false,
@@ -1156,7 +1156,7 @@
       },
       {
         "resref": "stone",
-        "tag": "stone_9243",
+        "tag": "stone_10478",
         "name": "Stone",
         "canNotBeUnequipped": false,
         "isLightSource": false,
@@ -1165,7 +1165,7 @@
       },
       {
         "resref": "stonefire",
-        "tag": "stonefire_9244",
+        "tag": "stonefire_10479",
         "name": "Stone of Fire",
         "canNotBeUnequipped": false,
         "isLightSource": false,
@@ -1174,7 +1174,7 @@
       },
       {
         "resref": "magicamulet",
-        "tag": "magicamulet_9245",
+        "tag": "magicamulet_10480",
         "name": "Magic Amulet",
         "canNotBeUnequipped": false,
         "isLightSource": false,
@@ -1183,7 +1183,7 @@
       },
       {
         "resref": "magicbook",
-        "tag": "magicbook_9246",
+        "tag": "magicbook_10481",
         "name": "Magic Book",
         "canNotBeUnequipped": false,
         "isLightSource": false,
@@ -1192,7 +1192,7 @@
       },
       {
         "resref": "bolt",
-        "tag": "bolt_9247",
+        "tag": "bolt_10482",
         "name": "Bolt",
         "canNotBeUnequipped": false,
         "isLightSource": false,
@@ -1201,7 +1201,7 @@
       },
       {
         "resref": "lilyringofpower",
-        "tag": "lilyringofpower_9248",
+        "tag": "lilyringofpower_10483",
         "name": "Ring of Power",
         "canNotBeUnequipped": false,
         "isLightSource": false,
@@ -1210,7 +1210,7 @@
       },
       {
         "resref": "maceofstunning",
-        "tag": "maceofstunning_9249",
+        "tag": "maceofstunning_10484",
         "name": "Mace of Stunning",
         "canNotBeUnequipped": false,
         "isLightSource": false,
@@ -1219,7 +1219,7 @@
       },
       {
         "resref": "thsworddefender",
-        "tag": "thsworddefender_9250",
+        "tag": "thsworddefender_10485",
         "name": "Two Handed Sword of the Defender",
         "canNotBeUnequipped": false,
         "isLightSource": false,
@@ -1228,7 +1228,7 @@
       },
       {
         "resref": "poisonDagger",
-        "tag": "poisonDagger_9251",
+        "tag": "poisonDagger_10486",
         "name": "Poison Dagger",
         "canNotBeUnequipped": false,
         "isLightSource": false,
@@ -1237,7 +1237,7 @@
       },
       {
         "resref": "firebomb",
-        "tag": "firebomb_9252",
+        "tag": "firebomb_10487",
         "name": "Bomb of Fire",
         "canNotBeUnequipped": false,
         "isLightSource": false,
@@ -1246,7 +1246,7 @@
       },
       {
         "resref": "minorhealpotion",
-        "tag": "minorhealpotion_9253",
+        "tag": "minorhealpotion_10488",
         "name": "Minor Healing Potion",
         "canNotBeUnequipped": false,
         "isLightSource": false,
@@ -1255,7 +1255,7 @@
       },
       {
         "resref": "antidote",
-        "tag": "antidote_9254",
+        "tag": "antidote_10489",
         "name": "Antidote Potion",
         "canNotBeUnequipped": false,
         "isLightSource": false,
@@ -1343,6 +1343,15 @@
         "associatedSpellTag": "none",
         "atWhatLevelIsAvailable": 0,
         "automaticallyLearned": false,
+        "allow": true
+      },
+      {
+        "name": "testTrait",
+        "tag": "newTraitTag_10412",
+        "usableInSituation": "Always",
+        "associatedSpellTag": "none",
+        "atWhatLevelIsAvailable": 1,
+        "automaticallyLearned": true,
         "allow": true
       }
     ],

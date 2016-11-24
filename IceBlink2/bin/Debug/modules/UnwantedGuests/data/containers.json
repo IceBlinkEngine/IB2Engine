@@ -219,6 +219,15 @@
         "isLightSource": true,
         "isRation": false,
         "quantity": 1
+      },
+      {
+        "resref": "battleaxe",
+        "tag": "battleaxe_10492",
+        "name": "Battle Axe",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
       }
     ]
   }

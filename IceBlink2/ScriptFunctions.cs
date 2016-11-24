@@ -4332,7 +4332,47 @@ namespace IceBlink2
             {
                 if (ef.isPermanent)
                 {
+
                     bool traitWorksForThisPC = false;
+                    
+                    // set up effects lists for traitWorksOnlyWhen and traitWorksNeverWhen
+                    ef.traitWorksNeverWhen.Clear();
+                    ef.traitWorksOnlyWhen.Clear();
+                    //go through all trait tags of pc
+                    foreach (string traitTag in pc.knownTraitsTags)
+                    {
+                        //go through all traits of module
+                        foreach (Trait t in gv.mod.moduleTraitsList)
+                        {
+                            //found a trait the pc has
+                            if (t.tag.Equals(traitTag))
+                            {
+                                //go through effect tags for drop down list of this trait
+                                foreach (EffectTagForDropDownList effectTag in t.traitEffectTagList)
+                                {
+                                    //found out that our current effect ef stems from this trait of the pc
+                                    if (effectTag.tag.Equals(ef.tag))
+                                    {
+                                        //built the lists on runtime for our current ef from the trait's template
+                                        foreach (LocalImmunityString ls in t.traitWorksOnlyWhen)
+                                        {
+                                            LocalImmunityString ls2 = ls.DeepCopy();
+                                            ef.traitWorksOnlyWhen.Add(ls2);
+                                        }
+
+                                        foreach (LocalImmunityString ls in t.traitWorksNeverWhen)
+                                        {
+                                            LocalImmunityString ls2 = ls.DeepCopy();
+                                            ef.traitWorksNeverWhen.Add(ls2);
+                                        }
+
+                                        //ef.traitWorksNeverWhen = t.traitWorksNeverWhen;
+                                        //ef.traitWorksOnlyWhen = t.traitWorksOnlyWhen;
+                                    }
+                                }
+                            }
+                        }
+                    }
 
                     if (ef.traitWorksOnlyWhen.Count <= 0)
                     {
@@ -4369,8 +4409,10 @@ namespace IceBlink2
 
                     }
                     
-                    //eventually add damge bonus or multiplier for attacks from behind 
+                    //eventually add damge bonus or multiplier for attacks from behind (nomral and stealth sepaarely)
                     //eventually add max dex bonus allowed when wearing armor
+                    //eventually add direct damage modifier, separAted by melee, range and spell/trait maybe
+                    //Add initiative and damage absorbtion into engine and then modifiers here
                     if (traitWorksForThisPC)
                     {
                         babModifier += ef.babModifier;

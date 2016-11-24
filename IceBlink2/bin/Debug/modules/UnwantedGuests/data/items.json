@@ -1,6 +1,8 @@
 [
   {
     "name": "Chainmail Armor",
+    "entriesForPcTags": [],
+    "labelForTheCastAction": "casts",
     "tag": "chainmail",
     "resref": "chainmail",
     "ArmorWeightType": "Light",
@@ -73,6 +75,8 @@
   },
   {
     "name": "Large Shield",
+    "entriesForPcTags": [],
+    "labelForTheCastAction": "casts",
     "tag": "largeshield",
     "resref": "largeshield",
     "ArmorWeightType": "Light",
@@ -145,6 +149,8 @@
   },
   {
     "name": "Leather Armor",
+    "entriesForPcTags": [],
+    "labelForTheCastAction": "casts",
     "tag": "larmor1",
     "resref": "larmor1",
     "ArmorWeightType": "Light",
@@ -217,6 +223,8 @@
   },
   {
     "name": "Studded Leather Armor",
+    "entriesForPcTags": [],
+    "labelForTheCastAction": "casts",
     "tag": "studdedLeather",
     "resref": "studdedLeather",
     "ArmorWeightType": "Light",
@@ -289,6 +297,8 @@
   },
   {
     "name": "Platemail Armor",
+    "entriesForPcTags": [],
+    "labelForTheCastAction": "casts",
     "tag": "platemail",
     "resref": "platemail",
     "ArmorWeightType": "Light",
@@ -361,6 +371,8 @@
   },
   {
     "name": "Robes",
+    "entriesForPcTags": [],
+    "labelForTheCastAction": "casts",
     "tag": "robes",
     "resref": "robes",
     "ArmorWeightType": "Light",
@@ -433,6 +445,8 @@
   },
   {
     "name": "Camping Kit",
+    "entriesForPcTags": [],
+    "labelForTheCastAction": "casts",
     "tag": "campingKit",
     "resref": "campingKit",
     "ArmorWeightType": "Light",
@@ -505,6 +519,8 @@
   },
   {
     "name": "Emerald",
+    "entriesForPcTags": [],
+    "labelForTheCastAction": "casts",
     "tag": "emerald",
     "resref": "emerald",
     "ArmorWeightType": "Light",
@@ -577,6 +593,8 @@
   },
   {
     "name": "Gold Ring",
+    "entriesForPcTags": [],
+    "labelForTheCastAction": "casts",
     "tag": "goldring",
     "resref": "goldring",
     "ArmorWeightType": "Light",
@@ -649,6 +667,8 @@
   },
   {
     "name": "Golden Goblet",
+    "entriesForPcTags": [],
+    "labelForTheCastAction": "casts",
     "tag": "goblet",
     "resref": "goblet",
     "ArmorWeightType": "Light",
@@ -721,6 +741,8 @@
   },
   {
     "name": "Ring of Protection",
+    "entriesForPcTags": [],
+    "labelForTheCastAction": "casts",
     "tag": "ringOfProtection",
     "resref": "ringOfProtection",
     "ArmorWeightType": "Light",
@@ -793,6 +815,8 @@
   },
   {
     "name": "Ring of Fire Resistance",
+    "entriesForPcTags": [],
+    "labelForTheCastAction": "casts",
     "tag": "ringOfFireResist",
     "resref": "ringOfFireResist",
     "ArmorWeightType": "Light",
@@ -865,6 +889,8 @@
   },
   {
     "name": "Healing Potion",
+    "entriesForPcTags": [],
+    "labelForTheCastAction": "casts",
     "tag": "healingPotion",
     "resref": "healingPotion",
     "ArmorWeightType": "Light",
@@ -937,6 +963,8 @@
   },
   {
     "name": "Extra Healing Potion",
+    "entriesForPcTags": [],
+    "labelForTheCastAction": "casts",
     "tag": "healingPotionExtra",
     "resref": "healingPotionExtra",
     "ArmorWeightType": "Light",
@@ -1009,6 +1037,8 @@
   },
   {
     "name": "Spell Points Potion",
+    "entriesForPcTags": [],
+    "labelForTheCastAction": "casts",
     "tag": "spPotion",
     "resref": "spPotion",
     "ArmorWeightType": "Light",
@@ -1081,6 +1111,12 @@
   },
   {
     "name": "Battle Axe",
+    "entriesForPcTags": [
+      {
+        "Value": "axe"
+      }
+    ],
+    "labelForTheCastAction": "casts",
     "tag": "battleaxe",
     "resref": "battleaxe",
     "ArmorWeightType": "Light",
@@ -1153,6 +1189,8 @@
   },
   {
     "name": "Crossbow",
+    "entriesForPcTags": [],
+    "labelForTheCastAction": "casts",
     "tag": "crossbow",
     "resref": "crossbow",
     "ArmorWeightType": "Light",
@@ -1225,6 +1263,8 @@
   },
   {
     "name": "Dagger",
+    "entriesForPcTags": [],
+    "labelForTheCastAction": "casts",
     "tag": "dagger01",
     "resref": "dagger01",
     "ArmorWeightType": "Light",
@@ -1297,6 +1337,8 @@
   },
   {
     "name": "Elvish Short Sword +1",
+    "entriesForPcTags": [],
+    "labelForTheCastAction": "casts",
     "tag": "elvishshortsword",
     "resref": "elvishshortsword",
     "ArmorWeightType": "Light",
@@ -1369,6 +1411,8 @@
   },
   {
     "name": "Fire Dagger",
+    "entriesForPcTags": [],
+    "labelForTheCastAction": "casts",
     "tag": "fireDagger",
     "resref": "fireDagger",
     "ArmorWeightType": "Light",
@@ -1441,6 +1485,8 @@
   },
   {
     "name": "Flaming Long Sword",
+    "entriesForPcTags": [],
+    "labelForTheCastAction": "casts",
     "tag": "fireLongSword",
     "resref": "fireLongSword",
     "ArmorWeightType": "Light",
@@ -1513,6 +1559,8 @@
   },
   {
     "name": "Hand Axe",
+    "entriesForPcTags": [],
+    "labelForTheCastAction": "casts",
     "tag": "handaxe",
     "resref": "handaxe",
     "ArmorWeightType": "Light",
@@ -1585,6 +1633,8 @@
   },
   {
     "name": "Long Bow",
+    "entriesForPcTags": [],
+    "labelForTheCastAction": "casts",
     "tag": "lbow1",
     "resref": "lbow1",
     "ArmorWeightType": "Light",
@@ -1657,6 +1707,8 @@
   },
   {
     "name": "Long Sword",
+    "entriesForPcTags": [],
+    "labelForTheCastAction": "casts",
     "tag": "lsword01",
     "resref": "lsword01",
     "ArmorWeightType": "Light",
@@ -1729,6 +1781,8 @@
   },
   {
     "name": "Mace",
+    "entriesForPcTags": [],
+    "labelForTheCastAction": "casts",
     "tag": "mace",
     "resref": "mace",
     "ArmorWeightType": "Light",
@@ -1801,6 +1855,8 @@
   },
   {
     "name": "Short Bow",
+    "entriesForPcTags": [],
+    "labelForTheCastAction": "casts",
     "tag": "shortBow",
     "resref": "shortBow",
     "ArmorWeightType": "Light",
@@ -1873,6 +1929,8 @@
   },
   {
     "name": "Short Sword",
+    "entriesForPcTags": [],
+    "labelForTheCastAction": "casts",
     "tag": "ssword01",
     "resref": "ssword01",
     "ArmorWeightType": "Light",
@@ -1945,6 +2003,8 @@
   },
   {
     "name": "Sling",
+    "entriesForPcTags": [],
+    "labelForTheCastAction": "casts",
     "tag": "sling",
     "resref": "sling",
     "ArmorWeightType": "Light",
@@ -2017,6 +2077,8 @@
   },
   {
     "name": "Sling of Fire",
+    "entriesForPcTags": [],
+    "labelForTheCastAction": "casts",
     "tag": "fireSling",
     "resref": "fireSling",
     "ArmorWeightType": "Light",
@@ -2089,6 +2151,8 @@
   },
   {
     "name": "Spear",
+    "entriesForPcTags": [],
+    "labelForTheCastAction": "casts",
     "tag": "spear",
     "resref": "spear",
     "ArmorWeightType": "Light",
@@ -2161,6 +2225,8 @@
   },
   {
     "name": "Arrow",
+    "entriesForPcTags": [],
+    "labelForTheCastAction": "casts",
     "tag": "arrow",
     "resref": "arrow",
     "ArmorWeightType": "Light",
@@ -2233,6 +2299,8 @@
   },
   {
     "name": "Stone",
+    "entriesForPcTags": [],
+    "labelForTheCastAction": "casts",
     "tag": "stone",
     "resref": "stone",
     "ArmorWeightType": "Light",
@@ -2305,6 +2373,8 @@
   },
   {
     "name": "Stone of Fire",
+    "entriesForPcTags": [],
+    "labelForTheCastAction": "casts",
     "tag": "stonefire",
     "resref": "stonefire",
     "ArmorWeightType": "Light",
@@ -2377,6 +2447,8 @@
   },
   {
     "name": "Magic Amulet",
+    "entriesForPcTags": [],
+    "labelForTheCastAction": "casts",
     "tag": "magicamulet",
     "resref": "magicamulet",
     "ArmorWeightType": "Light",
@@ -2449,6 +2521,8 @@
   },
   {
     "name": "Magic Book",
+    "entriesForPcTags": [],
+    "labelForTheCastAction": "casts",
     "tag": "magicbook",
     "resref": "magicbook",
     "ArmorWeightType": "Light",
@@ -2521,6 +2595,8 @@
   },
   {
     "name": "Bolt",
+    "entriesForPcTags": [],
+    "labelForTheCastAction": "casts",
     "tag": "bolt",
     "resref": "bolt",
     "ArmorWeightType": "Light",
@@ -2593,6 +2669,8 @@
   },
   {
     "name": "Ring of Power",
+    "entriesForPcTags": [],
+    "labelForTheCastAction": "casts",
     "tag": "lilyringofpower",
     "resref": "lilyringofpower",
     "ArmorWeightType": "Light",
@@ -2665,6 +2743,8 @@
   },
   {
     "name": "Mace of Stunning",
+    "entriesForPcTags": [],
+    "labelForTheCastAction": "casts",
     "tag": "maceofstunning",
     "resref": "maceofstunning",
     "ArmorWeightType": "Light",
@@ -2737,6 +2817,8 @@
   },
   {
     "name": "Two Handed Sword of the Defender",
+    "entriesForPcTags": [],
+    "labelForTheCastAction": "casts",
     "tag": "thsworddefender",
     "resref": "thsworddefender",
     "ArmorWeightType": "Light",
@@ -2809,6 +2891,8 @@
   },
   {
     "name": "Poison Dagger",
+    "entriesForPcTags": [],
+    "labelForTheCastAction": "casts",
     "tag": "poisonDagger",
     "resref": "poisonDagger",
     "ArmorWeightType": "Light",
@@ -2881,6 +2965,8 @@
   },
   {
     "name": "Bomb of Fire",
+    "entriesForPcTags": [],
+    "labelForTheCastAction": "casts",
     "tag": "firebomb",
     "resref": "firebomb",
     "ArmorWeightType": "Light",
@@ -2953,6 +3039,8 @@
   },
   {
     "name": "Minor Healing Potion",
+    "entriesForPcTags": [],
+    "labelForTheCastAction": "casts",
     "tag": "minorhealpotion",
     "resref": "minorhealpotion",
     "ArmorWeightType": "Light",
@@ -3025,6 +3113,8 @@
   },
   {
     "name": "Antidote Potion",
+    "entriesForPcTags": [],
+    "labelForTheCastAction": "casts",
     "tag": "antidote",
     "resref": "antidote",
     "ArmorWeightType": "Light",
@@ -3097,6 +3187,8 @@
   },
   {
     "name": "Flaming Axe",
+    "entriesForPcTags": [],
+    "labelForTheCastAction": "casts",
     "tag": "newTag_9360",
     "resref": "battleaxeFlaming",
     "ArmorWeightType": "Light",
@@ -3169,6 +3261,8 @@
   },
   {
     "name": "Corrosive Sword",
+    "entriesForPcTags": [],
+    "labelForTheCastAction": "casts",
     "tag": "newTag_9362",
     "resref": "lsword01Corrosive",
     "ArmorWeightType": "Light",
@@ -3241,6 +3335,8 @@
   },
   {
     "name": "Torch",
+    "entriesForPcTags": [],
+    "labelForTheCastAction": "casts",
     "tag": "newTag_9931",
     "resref": "torch",
     "ArmorWeightType": "Light",
@@ -3313,6 +3409,8 @@
   },
   {
     "name": "Ration",
+    "entriesForPcTags": [],
+    "labelForTheCastAction": "casts",
     "tag": "newTag_9963",
     "resref": "ration",
     "ArmorWeightType": "Light",

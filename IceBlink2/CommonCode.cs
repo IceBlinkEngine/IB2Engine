@@ -939,6 +939,7 @@ namespace IceBlink2
             {
                 JsonSerializer serializer = new JsonSerializer();
                 gv.mod.moduleTraitsList = (List<Trait>)serializer.Deserialize(file, typeof(List<Trait>));
+                //int i = 0;
             }
         }
 

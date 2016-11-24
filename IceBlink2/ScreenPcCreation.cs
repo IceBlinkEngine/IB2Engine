@@ -678,6 +678,45 @@ namespace IceBlink2
                                                     {
                                                         if (ef.isPermanent)
                                                         {
+                                                            /*
+                                                            bool traitWorksForThisPC = false;
+                                                            //add conditional requirements
+                                                            if (t.traitWorksOnlyWhen.Count <= 0)
+                                                            {
+                                                                traitWorksForThisPC = true;
+                                                            }
+
+                                                            //note that the tratNeccessities are logically connected with OR the way it is setup
+                                                            else
+                                                                foreach (LocalImmunityString traitNeccessity in t.traitWorksOnlyWhen)
+                                                                {
+                                                                    foreach (string pcTag in pc.pcTags)
+                                                                    {
+                                                                        if (traitNeccessity.Value.Equals(pcTag))
+                                                                        {
+                                                                            traitWorksForThisPC = true;
+                                                                            break;
+                                                                        }
+                                                                    }
+                                                                }
+
+                                                            //one redFlag is enough to stop the trait from working, ie connected with OR, too
+                                                            if (traitWorksForThisPC)
+                                                            {
+                                                                foreach (LocalImmunityString traitRedFlag in t.traitWorksNeverWhen)
+                                                                {
+                                                                    foreach (string pcTag in pc.pcTags)
+                                                                    {
+                                                                        if (traitRedFlag.Value.Equals(pcTag))
+                                                                        {
+                                                                            traitWorksForThisPC = false;
+                                                                            break;
+                                                                        }
+                                                                    }
+                                                                }
+                                                            }
+                                                            */
+                                                                //end of conditional code
                                                             bool doesNotExistAlfready = true;
                                                             foreach (Effect ef2 in pc.effectsList)
                                                             {
@@ -687,7 +726,7 @@ namespace IceBlink2
                                                                     break;
                                                                 }
                                                             }
-
+                                                            
                                                             if (doesNotExistAlfready)
                                                             {
                                                                 pc.effectsList.Add(ef);
