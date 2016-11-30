@@ -6547,6 +6547,10 @@ namespace IceBlink2
                 sourceName = source.name;
                 source.sp -= thisSpell.costSP;
                 if (source.sp < 0) { source.sp = 0; }
+                if (source.hp > thisSpell.costHP)
+                {
+                    source.hp -= thisSpell.costHP;
+                }
             }
             else if (src is Creature) //creature casting
             {
@@ -6555,6 +6559,10 @@ namespace IceBlink2
                 sourceName = source.cr_name;
                 source.sp -= thisSpell.costSP;
                 if (source.sp < 0) { source.sp = 0; }
+                //if (source.hp > thisSpell.costHP)
+                //{
+                    //source.hp -= thisSpell.costHP;
+                //}
             }
             else if (src is Item) //item was used
             {
@@ -7264,6 +7272,10 @@ namespace IceBlink2
                 sourceName = source.name;
                 source.sp -= thisSpell.costSP;
                 if (source.sp < 0) { source.sp = 0; }
+                if (source.hp > thisSpell.costHP)
+                {
+                    source.hp -= thisSpell.costHP;
+                }
             }
             else if (src is Creature) //creature casting
             {
@@ -7972,6 +7984,10 @@ namespace IceBlink2
                 sourceName = source.name;
                 source.sp -= gv.cc.currentSelectedSpell.costSP;
                 if (source.sp < 0) { source.sp = 0; }
+                if (source.hp > thisSpell.costHP)
+                {
+                    source.hp -= thisSpell.costHP;
+                }
             }
             else //creature casting
             {
@@ -8155,6 +8171,10 @@ namespace IceBlink2
 
                 source.sp -= gv.cc.currentSelectedSpell.costSP;
                 if (source.sp < 0) { source.sp = 0; }
+                if (source.hp > gv.cc.currentSelectedSpell.costHP)
+                {
+                    source.hp -= gv.cc.currentSelectedSpell.costHP;
+                }
             }
             else if (src is Creature) //creature casting
             {
@@ -8221,6 +8241,10 @@ namespace IceBlink2
                 classLevel = source.classLevel;
                 source.sp -= gv.cc.currentSelectedSpell.costSP;
                 if (source.sp < 0) { source.sp = 0; }
+                if (source.hp > gv.cc.currentSelectedSpell.costHP)
+                {
+                    source.hp -= gv.cc.currentSelectedSpell.costHP;
+                }
             }
             else //creature casting
             {
@@ -8301,6 +8325,10 @@ namespace IceBlink2
                 target.AddEffectByObject(ef, source.classLevel);
                 source.sp -= gv.cc.currentSelectedSpell.costSP;
                 if (source.sp < 0) { source.sp = 0; }
+                if (source.hp > gv.cc.currentSelectedSpell.costHP)
+                {
+                    source.hp -= gv.cc.currentSelectedSpell.costHP;
+                }
             }
             else if (src is Creature) //creature casting
             {
@@ -8337,6 +8365,10 @@ namespace IceBlink2
                 target.AddEffectByObject(ef, source.classLevel);
                 source.sp -= gv.cc.currentSelectedSpell.costSP;
                 if (source.sp < 0) { source.sp = 0; }
+                if (source.hp > gv.cc.currentSelectedSpell.costHP)
+                {
+                    source.hp -= gv.cc.currentSelectedSpell.costHP;
+                }
             }
             else if (src is Creature) //creature casting
             {
@@ -8374,6 +8406,10 @@ namespace IceBlink2
                 classLevel = source.classLevel;
                 source.sp -= gv.cc.currentSelectedSpell.costSP;
                 if (source.sp < 0) { source.sp = 0; }
+                if (source.hp > gv.cc.currentSelectedSpell.costHP)
+                {
+                    source.hp -= gv.cc.currentSelectedSpell.costHP;
+                }
             }
             else //creature casting
             {
@@ -8452,6 +8488,10 @@ namespace IceBlink2
                 sourceName = source.name;
                 source.sp -= gv.cc.currentSelectedSpell.costSP;
                 if (source.sp < 0) { source.sp = 0; }
+                if (source.hp > gv.cc.currentSelectedSpell.costHP)
+                {
+                    source.hp -= gv.cc.currentSelectedSpell.costHP;
+                }
             }
             else //creature casting
             {
@@ -8591,6 +8631,10 @@ namespace IceBlink2
                 sourceName = source.name;
                 source.sp -= gv.cc.currentSelectedSpell.costSP;
                 if (source.sp < 0) { source.sp = 0; }
+                if (source.hp > gv.cc.currentSelectedSpell.costHP)
+                {
+                    source.hp -= gv.cc.currentSelectedSpell.costHP;
+                }
             }
             else //creature casting
             {
@@ -8730,6 +8774,10 @@ namespace IceBlink2
                 sourceName = source.name;
                 source.sp -= gv.cc.currentSelectedSpell.costSP;
                 if (source.sp < 0) { source.sp = 0; }
+                if (source.hp > gv.cc.currentSelectedSpell.costHP)
+                {
+                    source.hp -= gv.cc.currentSelectedSpell.costHP;
+                }
             }
             else //creature casting
             {
@@ -8881,6 +8929,10 @@ namespace IceBlink2
                 }
                 source.sp -= gv.cc.currentSelectedSpell.costSP;
                 if (source.sp < 0) { source.sp = 0; }
+                if (source.hp > gv.cc.currentSelectedSpell.costHP)
+                {
+                    source.hp -= gv.cc.currentSelectedSpell.costHP;
+                }
             }
             if (src is Item) //player casting
             {
@@ -8960,6 +9012,10 @@ namespace IceBlink2
                 }
                 source.sp -= gv.cc.currentSelectedSpell.costSP;
                 if (source.sp < 0) { source.sp = 0; }
+                if (source.hp > gv.cc.currentSelectedSpell.costHP)
+                {
+                    source.hp -= gv.cc.currentSelectedSpell.costHP;
+                }
             }
             else if (src is Creature) //creature casting
             {
@@ -9006,6 +9062,10 @@ namespace IceBlink2
                 }
                 source.sp -= gv.cc.currentSelectedSpell.costSP;
                 if (source.sp < 0) { source.sp = 0; }
+                if (source.hp > gv.cc.currentSelectedSpell.costHP)
+                {
+                    source.hp -= gv.cc.currentSelectedSpell.costHP;
+                }
             }
             else if (src is Creature) //creature casting
             {
@@ -9107,6 +9167,10 @@ namespace IceBlink2
 
                 source.sp -= gv.cc.currentSelectedSpell.costSP;
                 if (source.sp < 0) { source.sp = 0; }
+                if (source.hp > gv.cc.currentSelectedSpell.costHP)
+                {
+                    source.hp -= gv.cc.currentSelectedSpell.costHP;
+                }
             }
             else if (src is Creature) //creature casting
             {
@@ -9183,6 +9247,10 @@ namespace IceBlink2
                 sourceName = source.name;
                 source.sp -= gv.cc.currentSelectedSpell.costSP;
                 if (source.sp < 0) { source.sp = 0; }
+                if (source.hp > gv.cc.currentSelectedSpell.costHP)
+                {
+                    source.hp -= gv.cc.currentSelectedSpell.costHP;
+                }
             }
             else //creature casting
             {
@@ -9328,6 +9396,10 @@ namespace IceBlink2
                 }
                 source.sp -= gv.cc.currentSelectedSpell.costSP;
                 if (source.sp < 0) { source.sp = 0; }
+                if (source.hp > gv.cc.currentSelectedSpell.costHP)
+                {
+                    source.hp -= gv.cc.currentSelectedSpell.costHP;
+                }
             }
             else if (src is Creature) //creature casting
             {

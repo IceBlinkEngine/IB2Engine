@@ -1,5 +1,7 @@
 [
   {
+    "traitWorksOnlyWhen": [],
+    "traitWorksNeverWhen": [],
     "name": "Flame Fingers",
     "tag": "flameFingers",
     "spellImage": "sp_flamefingers",
@@ -23,6 +25,8 @@
     "spellEffectTagList": []
   },
   {
+    "traitWorksOnlyWhen": [],
+    "traitWorksNeverWhen": [],
     "name": "Mage Bolt",
     "tag": "mageBolt",
     "spellImage": "sp_magebolt",
@@ -46,6 +50,8 @@
     "spellEffectTagList": []
   },
   {
+    "traitWorksOnlyWhen": [],
+    "traitWorksNeverWhen": [],
     "name": "Mage Armor",
     "tag": "mageArmor",
     "spellImage": "sp_magearmor",
@@ -69,6 +75,8 @@
     "spellEffectTagList": []
   },
   {
+    "traitWorksOnlyWhen": [],
+    "traitWorksNeverWhen": [],
     "name": "Sleep",
     "tag": "sleep",
     "spellImage": "sp_sleep",
@@ -92,6 +100,8 @@
     "spellEffectTagList": []
   },
   {
+    "traitWorksOnlyWhen": [],
+    "traitWorksNeverWhen": [],
     "name": "Web",
     "tag": "web",
     "spellImage": "sp_web",
@@ -115,6 +125,8 @@
     "spellEffectTagList": []
   },
   {
+    "traitWorksOnlyWhen": [],
+    "traitWorksNeverWhen": [],
     "name": "Minor Regeneration",
     "tag": "minorRegen",
     "spellImage": "sp_regeneration",
@@ -138,6 +150,8 @@
     "spellEffectTagList": []
   },
   {
+    "traitWorksOnlyWhen": [],
+    "traitWorksNeverWhen": [],
     "name": "Ice Storm",
     "tag": "iceStorm",
     "spellImage": "sp_icestorm",
@@ -161,6 +175,8 @@
     "spellEffectTagList": []
   },
   {
+    "traitWorksOnlyWhen": [],
+    "traitWorksNeverWhen": [],
     "name": "Fireball",
     "tag": "fireball",
     "spellImage": "sp_fireball",
@@ -170,7 +186,7 @@
     "spriteEndingFilename": "fx_fireball3x3end",
     "spellStartSound": "fireballstart",
     "spellEndSound": "fireballend",
-    "costSP": 5,
+    "costSP": 20,
     "costHP": 0,
     "spellTargetType": "PointLocation",
     "spellEffectType": "Damage",
@@ -184,6 +200,8 @@
     "spellEffectTagList": []
   },
   {
+    "traitWorksOnlyWhen": [],
+    "traitWorksNeverWhen": [],
     "name": "Lightning",
     "tag": "lightning",
     "spellImage": "sp_lightning",
@@ -207,6 +225,8 @@
     "spellEffectTagList": []
   },
   {
+    "traitWorksOnlyWhen": [],
+    "traitWorksNeverWhen": [],
     "name": "Minor Healing",
     "tag": "minorHealing",
     "spellImage": "sp_minorheal",
@@ -230,6 +250,8 @@
     "spellEffectTagList": []
   },
   {
+    "traitWorksOnlyWhen": [],
+    "traitWorksNeverWhen": [],
     "name": "Bless",
     "tag": "bless",
     "spellImage": "sp_bless",
@@ -253,6 +275,8 @@
     "spellEffectTagList": []
   },
   {
+    "traitWorksOnlyWhen": [],
+    "traitWorksNeverWhen": [],
     "name": "Magic Stone",
     "tag": "magicStone",
     "spellImage": "sp_magicstone",
@@ -276,6 +300,8 @@
     "spellEffectTagList": []
   },
   {
+    "traitWorksOnlyWhen": [],
+    "traitWorksNeverWhen": [],
     "name": "Moderate Healing",
     "tag": "moderateHealing",
     "spellImage": "sp_moderateheal",
@@ -299,6 +325,8 @@
     "spellEffectTagList": []
   },
   {
+    "traitWorksOnlyWhen": [],
+    "traitWorksNeverWhen": [],
     "name": "Blast of Light",
     "tag": "blastOfLight",
     "spellImage": "sp_blastoflight",
@@ -322,6 +350,8 @@
     "spellEffectTagList": []
   },
   {
+    "traitWorksOnlyWhen": [],
+    "traitWorksNeverWhen": [],
     "name": "Hold",
     "tag": "hold",
     "spellImage": "sp_hold",
@@ -345,6 +375,8 @@
     "spellEffectTagList": []
   },
   {
+    "traitWorksOnlyWhen": [],
+    "traitWorksNeverWhen": [],
     "name": "Mass Minor Healing",
     "tag": "massMinorHealing",
     "spellImage": "sp_massheal",
@@ -368,6 +400,8 @@
     "spellEffectTagList": []
   },
   {
+    "traitWorksOnlyWhen": [],
+    "traitWorksNeverWhen": [],
     "name": "Spider Bite Poison Minor",
     "tag": "spiderPoisonMinor",
     "spellImage": "sp_flamefingers",
@@ -391,6 +425,8 @@
     "spellEffectTagList": []
   },
   {
+    "traitWorksOnlyWhen": [],
+    "traitWorksNeverWhen": [],
     "name": "Remove Poison",
     "tag": "removePoison",
     "spellImage": "sp_magebolt",
@@ -422,5 +458,34 @@
       }
     ],
     "spellEffectTagList": []
+  },
+  {
+    "traitWorksOnlyWhen": [],
+    "traitWorksNeverWhen": [],
+    "name": "Bloody Whirlwind",
+    "tag": "newSpellTag_10498",
+    "spellImage": "sp_magebolt",
+    "description": "",
+    "useableInSituation": "InCombat",
+    "spriteFilename": "none",
+    "spriteEndingFilename": "none",
+    "spellStartSound": "none",
+    "spellEndSound": "none",
+    "costSP": 0,
+    "costHP": 3,
+    "spellTargetType": "Enemy",
+    "spellEffectType": "Damage",
+    "aoeShape": "Circle",
+    "aoeRadius": 1,
+    "range": 1,
+    "spellScript": "none",
+    "additionalCustomLogTextOnCast": "none",
+    "spellEffectTag": "none",
+    "removeEffectTagList": [],
+    "spellEffectTagList": [
+      {
+        "tag": "newEffectTag_10494"
+      }
+    ]
   }
 ]

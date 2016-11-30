@@ -6682,6 +6682,8 @@ namespace IceBlink2
 
         }
 
+        
+
         public void doPropMoves()
         {
             //using this for pathfinding now, especially bridge situation

@@ -674,5 +674,31 @@
     "aoeRadius": 0,
     "range": 0,
     "traitScript": "none"
+  },
+  {
+    "name": "Bloody Whirlwind",
+    "traitEffectTagList": [],
+    "traitWorksOnlyWhen": [
+      {
+        "Value": "axe"
+      }
+    ],
+    "traitWorksNeverWhen": [],
+    "tag": "newTraitTag_10496",
+    "associatedSpellTag": "newSpellTag_10498",
+    "traitImage": "sp_magebolt",
+    "description": "",
+    "prerequisiteTrait": "none",
+    "skillModifier": 0,
+    "skillModifierAttribute": "str",
+    "useableInSituation": "InCombat",
+    "spriteFilename": "none",
+    "spriteEndingFilename": "none",
+    "costSP": 0,
+    "traitTargetType": "Enemy",
+    "traitEffectType": "Damage",
+    "aoeRadius": 0,
+    "range": 0,
+    "traitScript": "none"
   }
 ]

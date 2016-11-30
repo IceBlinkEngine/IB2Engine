@@ -349,6 +349,9 @@ namespace IceBlink2
         //MAIN SCREEN UPDATE
         public void Update(int elapsed)
         {
+            //prop animation code
+            doPropAnimations(elapsed);
+
             if (gv.moveTimerRuns)
             {
                 int x = gv.mousePositionX - (int)(gv.squareSize * 15f / 100f);
@@ -919,6 +922,77 @@ namespace IceBlink2
             }            
             #endregion
         }
+
+        public void doPropAnimations(float elapsed)
+        {
+            foreach (Prop p in gv.mod.currentArea.Props)
+            {
+
+                if (p.animationIsActive)
+                {
+                    //p.drawAnimatedProp = true;
+                    if ((p.maxNumberOfFrames > 1) && (!p.animationComplete))
+                    {
+                        p.animationDelayCounter += (300 / elapsed);
+
+                        if (p.animationDelayCounter >= p.updateTicksNeededTillNextFrame)
+                        {
+                            p.currentFrameNumber++;
+                            p.animationDelayCounter = 0;
+                            if (p.currentFrameNumber > (p.maxNumberOfFrames - 1))
+                            {
+                                p.currentFrameNumber = 0;
+                                p.animationComplete = true;
+                                if (p.hiddenWhenComplete)
+                                {
+                                    p.drawAnimatedProp = false;
+                                }
+                            }
+                        }
+                    }
+
+                    if (p.animationComplete)
+                    {
+                        if (p.doOnce)
+                        {
+                            p.animationIsActive = false;
+                        }
+
+                        if (p.animationIsActive)
+                        {
+                            if (p.chanceToTriggerAnimationCycle >= 100)
+                            {
+                                p.animationComplete = false;
+                                p.drawAnimatedProp = true;
+                            }
+                            else
+                            {
+                                p.normalizedTime += (1 / elapsed);
+                                if (p.normalizedTime >= 1)
+                                {
+                                    p.normalizedTime = 0;
+                                    float rollRandom = gv.sf.RandInt(100);
+                                    if (rollRandom <= p.chanceToTriggerAnimationCycle)
+                                    {
+                                        p.animationComplete = false;
+                                        p.drawAnimatedProp = true;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                //animation is not active
+                else
+                {
+                    if (p.hiddenWhenNotActive)
+                    {
+                        p.drawAnimatedProp = false;
+                    }
+                }
+            }
+        }
+
         //MAIN SCREEN DRAW
         public void resetMiniMapBitmap()
         {
@@ -24943,11 +25017,11 @@ namespace IceBlink2
                              //get dst rct based on distance of prop to  palyer
                                 int x = ((p.LocationX - mod.PlayerLocationX) * gv.squareSize) + (gv.playerOffsetX * gv.squareSize);
                                 int y = ((p.LocationY - mod.PlayerLocationY) * gv.squareSize) + (gv.playerOffsetY * gv.squareSize);
-                                int dstW = (int)(((float)gv.mod.loadedTileBitmaps[indexOfLoadedTile].PixelSize.Width / (float)gv.squareSizeInPixels) * (float)gv.squareSize);
-                                int dstH = (int)(((float)gv.mod.loadedTileBitmaps[indexOfLoadedTile].PixelSize.Height / (float)gv.squareSizeInPixels) * (float)gv.squareSize);
+                                int dstW = (int)((((float)gv.mod.loadedTileBitmaps[indexOfLoadedTile].PixelSize.Width / (float)gv.squareSizeInPixels) * (float)gv.squareSize) * (p.sizeFactor /100f));
+                                int dstH = (int)((((float)(gv.mod.loadedTileBitmaps[indexOfLoadedTile].PixelSize.Height / p.maxNumberOfFrames) / (float)gv.squareSizeInPixels) * (float)gv.squareSize) * (p.sizeFactor / 100f));
                                 int dstXshift = (dstW - gv.squareSize) / 2;
                                 int dstYshift = (dstH - gv.squareSize) / 2;
-                                IbRect src = new IbRect(0, 0, gv.mod.loadedTileBitmaps[indexOfLoadedTile].PixelSize.Width, gv.mod.loadedTileBitmaps[indexOfLoadedTile].PixelSize.Width);
+                                IbRect src = new IbRect(0, p.currentFrameNumber * p.propFrameHeight, gv.mod.loadedTileBitmaps[indexOfLoadedTile].PixelSize.Width, p.propFrameHeight);
                                 IbRect dst = new IbRect(x + gv.oXshift + mapStartLocXinPixels - dstXshift, y - dstYshift, dstW, dstH);
 
                                 //adjust size of props
@@ -24961,7 +25035,10 @@ namespace IceBlink2
                                 }
 
                                 //draw the prop
-                                gv.DrawBitmap(gv.mod.loadedTileBitmaps[indexOfLoadedTile], src, dst, !p.PropFacingLeft);
+                                if ((p.maxNumberOfFrames == 1) || (p.drawAnimatedProp))
+                                {
+                                    gv.DrawBitmap(gv.mod.loadedTileBitmaps[indexOfLoadedTile], src, dst, !p.PropFacingLeft);
+                                }
 
                                 //for shwoign whetehr prop is encounte,r optional or mandatory conversation
                                 if (mod.showInteractionState == true)
@@ -25019,11 +25096,12 @@ namespace IceBlink2
                          //get dst rct based on distance of prop to  palyer
                             int x = ((p.LocationX - mod.PlayerLocationX) * gv.squareSize) + (gv.playerOffsetX * gv.squareSize);
                             int y = ((p.LocationY - mod.PlayerLocationY) * gv.squareSize) + (gv.playerOffsetY * gv.squareSize);
-                            int dstW = (int)(((float)p.token.PixelSize.Width / (float)gv.squareSizeInPixels) * (float)gv.squareSize);
-                            int dstH = (int)(((float)p.token.PixelSize.Height / (float)gv.squareSizeInPixels) * (float)gv.squareSize);
+                            int dstW = (int)((((float)p.token.PixelSize.Width / (float)gv.squareSizeInPixels) * (float)gv.squareSize) * (p.sizeFactor / 100f));
+                            int dstH = (int)((((float)(p.token.PixelSize.Height / p.maxNumberOfFrames) / (float)gv.squareSizeInPixels) * (float)gv.squareSize) * (p.sizeFactor / 100f));
                             int dstXshift = (dstW - gv.squareSize) / 2;
                             int dstYshift = (dstH - gv.squareSize) / 2;
-                            IbRect src = new IbRect(0, 0, p.token.PixelSize.Width, p.token.PixelSize.Width);
+                            //IbRect src = new IbRect(0, 0, p.token.PixelSize.Width, p.token.PixelSize.Width);
+                            IbRect src = new IbRect(0, p.currentFrameNumber * p.propFrameHeight, p.token.PixelSize.Width, p.propFrameHeight);
                             IbRect dst = new IbRect(x + gv.oXshift + mapStartLocXinPixels - dstXshift, y - dstYshift, dstW, dstH);
 
                             //adjust size of props
@@ -25037,7 +25115,10 @@ namespace IceBlink2
                             }
 
                             //draw the prop
-                            gv.DrawBitmap(p.token, src, dst, !p.PropFacingLeft);
+                            if ((p.maxNumberOfFrames == 1) || (p.drawAnimatedProp))
+                            {
+                                gv.DrawBitmap(p.token, src, dst, !p.PropFacingLeft);
+                            }
 
                             //for shwoign whetehr prop is encounte,r optional or mandatory conversation
                             if (mod.showInteractionState == true)
@@ -25087,11 +25168,12 @@ namespace IceBlink2
                             //prop X - playerX
                             int x = ((p.LocationX - mod.PlayerLocationX) * gv.squareSize) + (gv.playerOffsetX * gv.squareSize);
                             int y = ((p.LocationY - mod.PlayerLocationY) * gv.squareSize) + (gv.playerOffsetY * gv.squareSize);
-                            int dstW = (int)(((float)p.token.PixelSize.Width / (float)gv.squareSizeInPixels) * (float)gv.squareSize);
-                            int dstH = (int)(((float)p.token.PixelSize.Height / (float)gv.squareSizeInPixels) * (float)gv.squareSize);
+                            int dstW = (int)((((float)p.token.PixelSize.Width / (float)gv.squareSizeInPixels) * (float)gv.squareSize) * (p.sizeFactor / 100f));
+                            int dstH = (int)((((float)(p.token.PixelSize.Height / p.maxNumberOfFrames) / (float)gv.squareSizeInPixels) * (float)gv.squareSize) * (p.sizeFactor / 100f));
                             int dstXshift = (dstW - gv.squareSize) / 2;
                             int dstYshift = (dstH - gv.squareSize) / 2;
-                            IbRect src = new IbRect(0, 0, p.token.PixelSize.Width, p.token.PixelSize.Width);
+                            //IbRect src = new IbRect(0, 0, p.token.PixelSize.Width, p.token.PixelSize.Width);
+                            IbRect src = new IbRect(0, p.currentFrameNumber * p.propFrameHeight, p.token.PixelSize.Width, p.propFrameHeight);
                             IbRect dst = new IbRect(x + gv.oXshift + mapStartLocXinPixels - dstXshift, y - dstYshift, dstW, dstH);
 
                             if (gv.mod.currentArea.useSuperTinyProps)
@@ -25102,8 +25184,10 @@ namespace IceBlink2
                             {
                                 dst = new IbRect((int)p.currentPixelPositionX + (int)(gv.squareSize / 4) - dstXshift, (int)p.currentPixelPositionY + (int)(gv.squareSize / 4) - dstYshift, (int)(dstW / 2), (int)(dstH / 2));
                             }
-
-                            gv.DrawBitmap(p.token, src, dst, !p.PropFacingLeft);
+                            if ((p.maxNumberOfFrames == 1) || (p.drawAnimatedProp))
+                            {
+                                gv.DrawBitmap(p.token, src, dst, !p.PropFacingLeft);
+                            }
 
                             if (mod.showInteractionState == true)
                             {
@@ -25151,7 +25235,10 @@ namespace IceBlink2
                         if ((p.LocationX + 1 >= mod.PlayerLocationX - gv.playerOffsetX) && (p.LocationX - 1 <= mod.PlayerLocationX + gv.playerOffsetX)
                             && (p.LocationY + 1 >= mod.PlayerLocationY - gv.playerOffsetY) && (p.LocationY - 1 <= mod.PlayerLocationY + gv.playerOffsetY))
                         {
-                            IbRect src = new IbRect(0, 0, p.token.PixelSize.Width, p.token.PixelSize.Width);
+                            //IbRect src = new IbRect(0, 0, p.token.PixelSize.Width, p.token.PixelSize.Width);
+                            //float xDimension = p.token.PixelSize.Width * p.sizeFactor;
+                            //float yDimension = p.propFrameHeight * p.sizeFactor;
+                            IbRect src = new IbRect(0, p.currentFrameNumber * p.propFrameHeight, p.token.PixelSize.Width, p.propFrameHeight);
                             if (p.destinationPixelPositionXList.Count > 0)
                             {
                                 if ((p.destinationPixelPositionXList[0] >= (p.currentPixelPositionX - 0)) && (p.destinationPixelPositionXList[0] <= (p.currentPixelPositionX + 0)))
@@ -25256,8 +25343,8 @@ namespace IceBlink2
 
                             if ((pixDistanceOfPropToPlayerX <= ((gv.playerOffsetX + 1) * gv.squareSize)) && (pixDistanceOfPropToPlayerY <= ((gv.playerOffsetY + 1) * gv.squareSize)))
                             {
-                                int dstW = (int)(((float)p.token.PixelSize.Width / (float)gv.squareSizeInPixels) * (float)gv.squareSize);
-                                int dstH = (int)(((float)p.token.PixelSize.Height / (float)gv.squareSizeInPixels) * (float)gv.squareSize);
+                                int dstW = (int)((((float)p.token.PixelSize.Width / (float)gv.squareSizeInPixels) * (float)gv.squareSize) * (p.sizeFactor / 100f));
+                                int dstH = (int)((((float)(p.token.PixelSize.Height / p.maxNumberOfFrames) / (float)gv.squareSizeInPixels) * (float)gv.squareSize) * (p.sizeFactor / 100f));
                                 int dstXshift = (dstW - gv.squareSize) / 2;
                                 int dstYshift = (dstH - gv.squareSize) / 2;
 
@@ -25362,7 +25449,10 @@ namespace IceBlink2
                                     dst = new IbRect((int)p.currentPixelPositionX + (int)(gv.squareSize / 4) - dstXshift + (int)p.roamDistanceX, (int)p.currentPixelPositionY + (int)(gv.squareSize / 4) - dstYshift + (int)p.roamDistanceY, (int)(dstW / 2), (int)(dstH / 2));
                                 }
 
-                                gv.DrawBitmap(p.token, src, dst);
+                                if ((p.maxNumberOfFrames == 1) || (p.drawAnimatedProp))
+                                {
+                                    gv.DrawBitmap(p.token, src, dst);
+                                }
 
                                 if (mod.showInteractionState == true)
                                 {
@@ -25438,13 +25528,17 @@ namespace IceBlink2
                             //prop X - playerX
                             int x = ((p.LocationX - mod.PlayerLocationX) * gv.squareSize) + (gv.playerOffsetX * gv.squareSize);
                             int y = ((p.LocationY - mod.PlayerLocationY) * gv.squareSize) + (gv.playerOffsetY * gv.squareSize);
-                            int dstW = (int)(((float)p.token.PixelSize.Width / (float)gv.squareSizeInPixels) * (float)gv.squareSize);
-                            int dstH = (int)(((float)p.token.PixelSize.Height / (float)gv.squareSizeInPixels) * (float)gv.squareSize);
+                            int dstW = (int)((((float)p.token.PixelSize.Width / (float)gv.squareSizeInPixels) * (float)gv.squareSize) * (p.sizeFactor / 100f));
+                            int dstH = (int)((((float)(p.token.PixelSize.Height / p.maxNumberOfFrames) / (float)gv.squareSizeInPixels) * (float)gv.squareSize) * (p.sizeFactor / 100f));
                             int dstXshift = (dstW - gv.squareSize) / 2;
                             int dstYshift = (dstH - gv.squareSize) / 2;
-                            IbRect src = new IbRect(0, 0, p.token.PixelSize.Width, p.token.PixelSize.Width);
+                            IbRect src = new IbRect(0, p.currentFrameNumber * p.propFrameHeight, p.token.PixelSize.Width, p.propFrameHeight);
+                            //IbRect src = new IbRect(0, 0, p.token.PixelSize.Width, p.token.PixelSize.Width);
                             IbRect dst = new IbRect(x + gv.oXshift + mapStartLocXinPixels - dstXshift, y - dstYshift, dstW, dstH);
-                            gv.DrawBitmap(p.token, src, dst);
+                            if ((p.maxNumberOfFrames == 1) || (p.drawAnimatedProp))
+                            {
+                                gv.DrawBitmap(p.token, src, dst);
+                            }
 
                             if (mod.showInteractionState)
                             {

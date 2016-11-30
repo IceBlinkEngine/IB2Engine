@@ -90,6 +90,21 @@ namespace IceBlink2
         public bool goRight = false;
         public float inactiveTimer = 0;
 
+        //prop animation variables
+        public int maxNumberOfFrames = 1;
+        public int currentFrameNumber = 0;
+        public float animationDelayCounter = 0;
+        public float updateTicksNeededTillNextFrame = 0;
+        public float chanceToTriggerAnimationCycle = 100;
+        public bool animationComplete = false;
+        public float normalizedTime = 0;
+        public int propFrameHeight = 100;
+        public int sizeFactor = 100;
+        public bool doOnce = false;
+        public bool animationIsActive = true;
+        public bool hiddenWhenComplete = false;
+        public bool hiddenWhenNotActive = false;
+        public bool drawAnimatedProp = true;
 
         public Prop()
         {
@@ -193,6 +208,22 @@ namespace IceBlink2
             copy.goDown = this.goDown;
             copy.goRight = this.goRight;
             copy.inactiveTimer = this.inactiveTimer;
+
+             //prop animation variables
+            copy.maxNumberOfFrames = this.maxNumberOfFrames;
+            copy.currentFrameNumber = this.currentFrameNumber;
+            copy.animationDelayCounter = this.animationDelayCounter;
+            copy.updateTicksNeededTillNextFrame = this.updateTicksNeededTillNextFrame;
+            copy.chanceToTriggerAnimationCycle = this.chanceToTriggerAnimationCycle;
+            copy.animationComplete = this.animationComplete;
+            copy.normalizedTime = this.normalizedTime;
+            copy.propFrameHeight = this.propFrameHeight;
+            copy.hiddenWhenComplete = this.hiddenWhenComplete;
+            copy.sizeFactor = this.sizeFactor;
+            copy.doOnce = this.doOnce;
+            copy.animationIsActive = this.animationIsActive;
+            copy.hiddenWhenNotActive = this.hiddenWhenNotActive;
+            copy.drawAnimatedProp = this.drawAnimatedProp;
 
 		    return copy;
         }

@@ -20181,6 +20181,8 @@
         "tag": "magicamulet_8208",
         "name": "Magic Amulet",
         "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
         "quantity": 1
       }
     ],
