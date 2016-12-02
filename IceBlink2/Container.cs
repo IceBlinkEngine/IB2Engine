@@ -48,6 +48,12 @@ namespace IceBlink2
             {
                 other.containerItemRefs.Add(this.containerItemRefs[i].DeepCopy());
             }
+            other.initialContainerItemRefs = new List<ItemRefs>();
+            for (int i = 0; i < this.initialContainerItemRefs.Count; i++)
+            {
+                other.initialContainerItemRefs.Add(this.initialContainerItemRefs[i].DeepCopy());
+            }
+
             return other;
         }
     }

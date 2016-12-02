@@ -667,6 +667,7 @@ namespace IceBlink2
                         if (newItem != null)
                         {
                             updatedCont.containerItemRefs.Add(it.DeepCopy());
+                            updatedCont.initialContainerItemRefs.Add(it.DeepCopy());
                         }
                     }
                     //compare lists and add items that are new
@@ -702,6 +703,8 @@ namespace IceBlink2
                         if (newItem != null)
                         {
                             updatedShop.shopItemRefs.Add(it.DeepCopy());
+                            //make sure to add to initial list so it doesn't keep getting duplicated with every load save 
+                            updatedShop.initialShopItemRefs.Add(it.DeepCopy());
                         }
                     }
                     //compare lists and add items that are new
