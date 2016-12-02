@@ -105,6 +105,11 @@ namespace IceBlink2
         public bool hiddenWhenComplete = false;
         public bool hiddenWhenNotActive = false;
         public bool drawAnimatedProp = true;
+        public int numberOfCyclesNeededForCompletion = 1;
+        public int cycleCounter = 0;
+        public int framesNeededForFullFadeInOut = 0; 
+        public int totalFramesInWholeLoopCounter = 0;
+        public float opacity = 1;
 
         public Prop()
         {
@@ -224,6 +229,11 @@ namespace IceBlink2
             copy.animationIsActive = this.animationIsActive;
             copy.hiddenWhenNotActive = this.hiddenWhenNotActive;
             copy.drawAnimatedProp = this.drawAnimatedProp;
+            copy.numberOfCyclesNeededForCompletion = this.numberOfCyclesNeededForCompletion;
+            copy.cycleCounter = this.cycleCounter;
+            copy.framesNeededForFullFadeInOut = this.framesNeededForFullFadeInOut;
+            copy.totalFramesInWholeLoopCounter = this.totalFramesInWholeLoopCounter;
+            copy.opacity = this.opacity;
 
 		    return copy;
         }

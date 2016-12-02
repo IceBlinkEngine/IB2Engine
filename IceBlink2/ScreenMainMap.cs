@@ -927,9 +927,32 @@ namespace IceBlink2
         {
             foreach (Prop p in gv.mod.currentArea.Props)
             {
-
                 if (p.animationIsActive)
                 {
+                    float fadeAmount = 0;
+                    if (p.framesNeededForFullFadeInOut > 0)
+                    { 
+                        fadeAmount = 1f / p.framesNeededForFullFadeInOut;
+                        if (p.totalFramesInWholeLoopCounter <= p.framesNeededForFullFadeInOut)
+                        {
+                            p.opacity = fadeAmount * p.totalFramesInWholeLoopCounter;
+                            if (p.opacity > 1)
+                            {
+                                p.opacity = 1;
+                            }   
+                        }
+
+                        else if (p.totalFramesInWholeLoopCounter >= ((p.maxNumberOfFrames * p.numberOfCyclesNeededForCompletion) - p.framesNeededForFullFadeInOut))
+                        {
+                            int framesLeft = (p.maxNumberOfFrames * p.numberOfCyclesNeededForCompletion) - p.totalFramesInWholeLoopCounter;
+                            p.opacity = framesLeft * fadeAmount;
+                        }
+                        else
+                        {
+                            p.opacity = 1;
+                        }
+                  }
+                    
                     //p.drawAnimatedProp = true;
                     if ((p.maxNumberOfFrames > 1) && (!p.animationComplete))
                     {
@@ -938,14 +961,34 @@ namespace IceBlink2
                         if (p.animationDelayCounter >= p.updateTicksNeededTillNextFrame)
                         {
                             p.currentFrameNumber++;
+                            p.totalFramesInWholeLoopCounter++;
                             p.animationDelayCounter = 0;
                             if (p.currentFrameNumber > (p.maxNumberOfFrames - 1))
                             {
                                 p.currentFrameNumber = 0;
-                                p.animationComplete = true;
-                                if (p.hiddenWhenComplete)
+                                //enter new conditional for multiple cylces required before compleetion here
+                                if (p.numberOfCyclesNeededForCompletion <= 1)
                                 {
-                                    p.drawAnimatedProp = false;
+                                    p.animationComplete = true;
+                                    p.totalFramesInWholeLoopCounter = 0;
+                                    if (p.hiddenWhenComplete)
+                                    {
+                                        p.drawAnimatedProp = false;
+                                    }
+                                }
+                                else
+                                {
+                                    p.cycleCounter++;
+                                    if (p.cycleCounter == p.numberOfCyclesNeededForCompletion)
+                                    {
+                                        p.animationComplete = true;
+                                        p.cycleCounter = 0;
+                                        p.totalFramesInWholeLoopCounter = 0;
+                                        if (p.hiddenWhenComplete)
+                                        {
+                                            p.drawAnimatedProp = false;
+                                        }
+                                    }
                                 }
                             }
                         }
@@ -25037,7 +25080,7 @@ namespace IceBlink2
                                 //draw the prop
                                 if ((p.maxNumberOfFrames == 1) || (p.drawAnimatedProp))
                                 {
-                                    gv.DrawBitmap(gv.mod.loadedTileBitmaps[indexOfLoadedTile], src, dst, !p.PropFacingLeft);
+                                    gv.DrawBitmap(gv.mod.loadedTileBitmaps[indexOfLoadedTile], src, dst, !p.PropFacingLeft, p.opacity);
                                 }
 
                                 //for shwoign whetehr prop is encounte,r optional or mandatory conversation
@@ -25117,7 +25160,7 @@ namespace IceBlink2
                             //draw the prop
                             if ((p.maxNumberOfFrames == 1) || (p.drawAnimatedProp))
                             {
-                                gv.DrawBitmap(p.token, src, dst, !p.PropFacingLeft);
+                                gv.DrawBitmap(p.token, src, dst, !p.PropFacingLeft, p.opacity);
                             }
 
                             //for shwoign whetehr prop is encounte,r optional or mandatory conversation
@@ -25186,7 +25229,7 @@ namespace IceBlink2
                             }
                             if ((p.maxNumberOfFrames == 1) || (p.drawAnimatedProp))
                             {
-                                gv.DrawBitmap(p.token, src, dst, !p.PropFacingLeft);
+                                gv.DrawBitmap(p.token, src, dst, !p.PropFacingLeft, p.opacity);
                             }
 
                             if (mod.showInteractionState == true)
@@ -25451,7 +25494,7 @@ namespace IceBlink2
 
                                 if ((p.maxNumberOfFrames == 1) || (p.drawAnimatedProp))
                                 {
-                                    gv.DrawBitmap(p.token, src, dst);
+                                    gv.DrawBitmap(p.token, src, dst, !p.PropFacingLeft, p.opacity);
                                 }
 
                                 if (mod.showInteractionState == true)
@@ -25537,7 +25580,7 @@ namespace IceBlink2
                             IbRect dst = new IbRect(x + gv.oXshift + mapStartLocXinPixels - dstXshift, y - dstYshift, dstW, dstH);
                             if ((p.maxNumberOfFrames == 1) || (p.drawAnimatedProp))
                             {
-                                gv.DrawBitmap(p.token, src, dst);
+                                gv.DrawBitmap(p.token, src, dst, !p.PropFacingLeft, p.opacity);
                             }
 
                             if (mod.showInteractionState)

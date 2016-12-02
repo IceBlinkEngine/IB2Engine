@@ -2451,8 +2451,8 @@ namespace IceBlink2
                     foreach (ItemRefs it in gv.mod.partyInventoryRefsList)
                     {
                         if (it.isRation)
-                        {
-                            gv.mod.numberOfRationsRemaining = it.quantity;
+                        { 
+                            gv.mod.numberOfRationsRemaining += it.quantity;
                         }
                     }
 

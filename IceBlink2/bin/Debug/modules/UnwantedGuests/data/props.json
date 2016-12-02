@@ -1,5 +1,8 @@
 [
   {
+    "_framesNeededForFullFadeInOut": 0,
+    "framesNeededForFullFadeInOut": 0,
+    "numberOfCyclesNeededForCompletion": 1,
     "maxNumberOfFrames": 1,
     "updateTicksNeededTillNextFrame": 20.0,
     "chanceToTriggerAnimationCycle": 100.0,
@@ -50,6 +53,9 @@
     "OnHeartBeatIBScriptParms": ""
   },
   {
+    "_framesNeededForFullFadeInOut": 0,
+    "framesNeededForFullFadeInOut": 0,
+    "numberOfCyclesNeededForCompletion": 1,
     "maxNumberOfFrames": 1,
     "updateTicksNeededTillNextFrame": 20.0,
     "chanceToTriggerAnimationCycle": 100.0,
@@ -100,6 +106,9 @@
     "OnHeartBeatIBScriptParms": ""
   },
   {
+    "_framesNeededForFullFadeInOut": 0,
+    "framesNeededForFullFadeInOut": 0,
+    "numberOfCyclesNeededForCompletion": 1,
     "maxNumberOfFrames": 1,
     "updateTicksNeededTillNextFrame": 20.0,
     "chanceToTriggerAnimationCycle": 100.0,
@@ -150,6 +159,9 @@
     "OnHeartBeatIBScriptParms": ""
   },
   {
+    "_framesNeededForFullFadeInOut": 0,
+    "framesNeededForFullFadeInOut": 0,
+    "numberOfCyclesNeededForCompletion": 1,
     "maxNumberOfFrames": 1,
     "updateTicksNeededTillNextFrame": 20.0,
     "chanceToTriggerAnimationCycle": 100.0,
@@ -200,6 +212,9 @@
     "OnHeartBeatIBScriptParms": ""
   },
   {
+    "_framesNeededForFullFadeInOut": 0,
+    "framesNeededForFullFadeInOut": 0,
+    "numberOfCyclesNeededForCompletion": 1,
     "maxNumberOfFrames": 1,
     "updateTicksNeededTillNextFrame": 20.0,
     "chanceToTriggerAnimationCycle": 100.0,
@@ -250,6 +265,9 @@
     "OnHeartBeatIBScriptParms": ""
   },
   {
+    "_framesNeededForFullFadeInOut": 0,
+    "framesNeededForFullFadeInOut": 0,
+    "numberOfCyclesNeededForCompletion": 1,
     "maxNumberOfFrames": 1,
     "updateTicksNeededTillNextFrame": 20.0,
     "chanceToTriggerAnimationCycle": 100.0,
@@ -300,6 +318,9 @@
     "OnHeartBeatIBScriptParms": ""
   },
   {
+    "_framesNeededForFullFadeInOut": 0,
+    "framesNeededForFullFadeInOut": 0,
+    "numberOfCyclesNeededForCompletion": 1,
     "maxNumberOfFrames": 1,
     "updateTicksNeededTillNextFrame": 20.0,
     "chanceToTriggerAnimationCycle": 100.0,
@@ -350,6 +371,9 @@
     "OnHeartBeatIBScriptParms": ""
   },
   {
+    "_framesNeededForFullFadeInOut": 0,
+    "framesNeededForFullFadeInOut": 0,
+    "numberOfCyclesNeededForCompletion": 1,
     "maxNumberOfFrames": 1,
     "updateTicksNeededTillNextFrame": 20.0,
     "chanceToTriggerAnimationCycle": 100.0,
@@ -400,6 +424,9 @@
     "OnHeartBeatIBScriptParms": ""
   },
   {
+    "_framesNeededForFullFadeInOut": 0,
+    "framesNeededForFullFadeInOut": 0,
+    "numberOfCyclesNeededForCompletion": 1,
     "maxNumberOfFrames": 1,
     "updateTicksNeededTillNextFrame": 20.0,
     "chanceToTriggerAnimationCycle": 100.0,
@@ -450,6 +477,9 @@
     "OnHeartBeatIBScriptParms": ""
   },
   {
+    "_framesNeededForFullFadeInOut": 0,
+    "framesNeededForFullFadeInOut": 0,
+    "numberOfCyclesNeededForCompletion": 1,
     "maxNumberOfFrames": 1,
     "updateTicksNeededTillNextFrame": 20.0,
     "chanceToTriggerAnimationCycle": 100.0,
@@ -500,6 +530,9 @@
     "OnHeartBeatIBScriptParms": ""
   },
   {
+    "_framesNeededForFullFadeInOut": 0,
+    "framesNeededForFullFadeInOut": 0,
+    "numberOfCyclesNeededForCompletion": 1,
     "maxNumberOfFrames": 1,
     "updateTicksNeededTillNextFrame": 20.0,
     "chanceToTriggerAnimationCycle": 100.0,
@@ -550,6 +583,9 @@
     "OnHeartBeatIBScriptParms": ""
   },
   {
+    "_framesNeededForFullFadeInOut": 0,
+    "framesNeededForFullFadeInOut": 0,
+    "numberOfCyclesNeededForCompletion": 1,
     "maxNumberOfFrames": 1,
     "updateTicksNeededTillNextFrame": 20.0,
     "chanceToTriggerAnimationCycle": 100.0,
@@ -600,6 +636,9 @@
     "OnHeartBeatIBScriptParms": ""
   },
   {
+    "_framesNeededForFullFadeInOut": 0,
+    "framesNeededForFullFadeInOut": 0,
+    "numberOfCyclesNeededForCompletion": 1,
     "maxNumberOfFrames": 1,
     "updateTicksNeededTillNextFrame": 20.0,
     "chanceToTriggerAnimationCycle": 100.0,
@@ -650,6 +689,9 @@
     "OnHeartBeatIBScriptParms": ""
   },
   {
+    "_framesNeededForFullFadeInOut": 0,
+    "framesNeededForFullFadeInOut": 0,
+    "numberOfCyclesNeededForCompletion": 1,
     "maxNumberOfFrames": 1,
     "updateTicksNeededTillNextFrame": 20.0,
     "chanceToTriggerAnimationCycle": 100.0,
@@ -700,6 +742,9 @@
     "OnHeartBeatIBScriptParms": ""
   },
   {
+    "_framesNeededForFullFadeInOut": 0,
+    "framesNeededForFullFadeInOut": 0,
+    "numberOfCyclesNeededForCompletion": 1,
     "maxNumberOfFrames": 1,
     "updateTicksNeededTillNextFrame": 20.0,
     "chanceToTriggerAnimationCycle": 100.0,
@@ -750,6 +795,9 @@
     "OnHeartBeatIBScriptParms": ""
   },
   {
+    "_framesNeededForFullFadeInOut": 0,
+    "framesNeededForFullFadeInOut": 0,
+    "numberOfCyclesNeededForCompletion": 1,
     "maxNumberOfFrames": 1,
     "updateTicksNeededTillNextFrame": 20.0,
     "chanceToTriggerAnimationCycle": 100.0,
@@ -800,6 +848,9 @@
     "OnHeartBeatIBScriptParms": ""
   },
   {
+    "_framesNeededForFullFadeInOut": 0,
+    "framesNeededForFullFadeInOut": 0,
+    "numberOfCyclesNeededForCompletion": 1,
     "maxNumberOfFrames": 1,
     "updateTicksNeededTillNextFrame": 20.0,
     "chanceToTriggerAnimationCycle": 100.0,
@@ -850,6 +901,9 @@
     "OnHeartBeatIBScriptParms": ""
   },
   {
+    "_framesNeededForFullFadeInOut": 0,
+    "framesNeededForFullFadeInOut": 0,
+    "numberOfCyclesNeededForCompletion": 1,
     "maxNumberOfFrames": 1,
     "updateTicksNeededTillNextFrame": 20.0,
     "chanceToTriggerAnimationCycle": 100.0,
@@ -900,6 +954,9 @@
     "OnHeartBeatIBScriptParms": ""
   },
   {
+    "_framesNeededForFullFadeInOut": 0,
+    "framesNeededForFullFadeInOut": 0,
+    "numberOfCyclesNeededForCompletion": 1,
     "maxNumberOfFrames": 1,
     "updateTicksNeededTillNextFrame": 20.0,
     "chanceToTriggerAnimationCycle": 100.0,
@@ -950,14 +1007,17 @@
     "OnHeartBeatIBScriptParms": ""
   },
   {
+    "_framesNeededForFullFadeInOut": 15,
+    "framesNeededForFullFadeInOut": 15,
+    "numberOfCyclesNeededForCompletion": 25,
     "maxNumberOfFrames": 2,
-    "updateTicksNeededTillNextFrame": 100.0,
-    "chanceToTriggerAnimationCycle": 100.0,
+    "updateTicksNeededTillNextFrame": 30.0,
+    "chanceToTriggerAnimationCycle": 15.0,
     "propFrameHeight": 100,
     "sizeFactor": 100,
     "doOnce": false,
     "animationIsActive": true,
-    "hiddenWhenComplete": false,
+    "hiddenWhenComplete": true,
     "hiddenWhenNotActive": false,
     "LocationX": 0,
     "LocationY": 0,
