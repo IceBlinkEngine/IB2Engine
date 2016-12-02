@@ -4174,11 +4174,11 @@ namespace IceBlink2
                         if (!entryAlreadyExists(jem.Tag))
                         {
                             jcp.Entries.Add(jem);
-                            if (jem.EndPoint)
-                            {
-                                mod.partyJournalCompleted.Add(jcp);
-                                mod.partyJournalQuests.Remove(jcp);
-                            }
+                            //if (jem.EndPoint)
+                            //{
+                                //mod.partyJournalCompleted.Add(jcp);
+                                //mod.partyJournalQuests.Remove(jcp);
+                            //}
                             //Toast.makeText(gv.gameContext, "Your journal has been updated with: " + jem.EntryTitle, Toast.LENGTH_LONG).show();
                             //gv.TrackerSendEvent("Journal", jcp.Name, jem.EntryTitle, 0l);
                             //gv.TrackerSendEventJournal(jcp.Name + " -- " + jem.EntryTitle);
@@ -4229,11 +4229,11 @@ namespace IceBlink2
                         if (!entryAlreadyExists(jem.Tag))
                         {
                             jcp.Entries.Add(jem);
-                            if (jem.EndPoint)
-                            {
-                                mod.partyJournalCompleted.Add(jcp);
-                                mod.partyJournalQuests.Remove(jcp);
-                            }
+                            //if (jem.EndPoint)
+                            //{
+                                //mod.partyJournalCompleted.Add(jcp);
+                                //mod.partyJournalQuests.Remove(jcp);
+                            //}
                             //Toast.makeText(gv.gameContext, "Your journal has been updated with: " + jem.EntryTitle, Toast.LENGTH_LONG).show();
                         }
                     }
@@ -4253,11 +4253,11 @@ namespace IceBlink2
                         jcp2.Entries.Add(jem);
                         mod.partyJournalQuests.Add(jcp2);
                         //Toast.makeText(gv.gameContext, "Your journal has been updated with: " + jem.EntryTitle, Toast.LENGTH_LONG).show();
-                        if (jem.EndPoint)
-                        {
-                            mod.partyJournalCompleted.Add(jcp2);
-                            mod.partyJournalQuests.Remove(jcp2);
-                        }
+                        //if (jem.EndPoint)
+                        //{
+                            //mod.partyJournalCompleted.Add(jcp2);
+                            //mod.partyJournalQuests.Remove(jcp2);
+                        //}
                     }
                     else
                     {
