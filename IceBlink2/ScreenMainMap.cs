@@ -29622,7 +29622,19 @@ namespace IceBlink2
                         {
                             if ((p.LocationX == actualX) && (p.LocationY == actualY))
                             {
-                                if (!p.MouseOverText.Equals("none"))
+                                bool lightIsNoProblem = false;
+                                if ((!mod.currentArea.useLightSystem) || (mod.currentArea.UseDayNightCycle))
+                                {
+                                    lightIsNoProblem = true;
+                                }
+                                else
+                                {
+                                    if (mod.currentArea.Tiles[actualY * mod.currentArea.MapSizeX + actualX].isLit.Count > 0)
+                                    {
+                                        lightIsNoProblem = true;
+                                    }
+                                }
+                                if ( (!p.MouseOverText.Equals("none")) && (mod.currentArea.Tiles[actualY * mod.currentArea.MapSizeX + actualX].Visible) && lightIsNoProblem)
                                 {
                                     gv.cc.floatyText = p.MouseOverText;
                                     gv.cc.floatyTextLoc = new Coordinate(gridx * gv.squareSize, gridy * gv.squareSize);
