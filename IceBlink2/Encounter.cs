@@ -40,6 +40,8 @@ namespace IceBlink2
         public string OnEndCombatIBScript = "none";
         public string OnEndCombatIBScriptParms = "";
         public bool isOver = false;
+        public int triggerScriptCalledFromSquareLocX = 0;
+        public int triggerScriptCalledFromSquareLocY = 0;
     
 	    public Encounter()
 	    {
