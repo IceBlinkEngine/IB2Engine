@@ -31,6 +31,7 @@ namespace IceBlink2
 	    public int range = 2;	
 	    public string spellScript = "none";
         public string spellEffectTag = "none";
+        public bool isUsedForCombatSquareEffect = false;
         public List<EffectTagForDropDownList> spellEffectTagList = new List<EffectTagForDropDownList>();
         public List<EffectTagForDropDownList> removeEffectTagList = new List<EffectTagForDropDownList>();
         public List<LocalImmunityString> traitWorksOnlyWhen = new List<LocalImmunityString>();
@@ -90,6 +91,9 @@ namespace IceBlink2
             {
                 copy.traitWorksNeverWhen.Add(s);
             }
+
+            copy.isUsedForCombatSquareEffect = this.isUsedForCombatSquareEffect;
+
 
             return copy;
 	    }

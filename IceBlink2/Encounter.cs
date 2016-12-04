@@ -25,6 +25,7 @@ namespace IceBlink2
 	    public List<Creature> encounterCreatureList = new List<Creature>();
         public List<ItemRefs> encounterInventoryRefsList = new List<ItemRefs>();
         public List<Coordinate> encounterPcStartLocations = new List<Coordinate>();
+        public List<Effect> effectsList = new List<Effect>();
 	    public int goldDrop = 0;
 	    public string AreaMusic = "none";
 	    public int AreaMusicDelay = 0;
@@ -41,7 +42,84 @@ namespace IceBlink2
     
 	    public Encounter()
 	    {
-		
-	    }
+
+		}
+            public Effect getEffectByTag(string tag)
+            {
+            foreach (Effect ef in this.effectsList)
+            {
+                if (ef.tag.Equals(tag)) return ef;
+            }
+            return null;
+            }
+
+        public bool IsInEffectListAtSameLocation(string effectTag, Coordinate coor)
+        {
+            foreach (Effect ef in this.effectsList)
+            {
+                if (ef.tag.Equals(effectTag))
+                {
+                    if ((ef.combatLocX == coor.X) && (ef.combatLocY == coor.Y))
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+
+        public void AddEffect(Effect ef)
+        {
+            this.effectsList.Add(ef);
+        }
+
+        public void AddEffectByObject(Effect ef, int classLevel)
+        {
+            ef.classLevelOfSender = classLevel;
+            //stackable effect and duration (just add effect to list)
+            if (ef.isStackableEffect)
+            {
+                //add to the list
+                AddEffect(ef);
+            }
+            //stackable duration (add to list if not there, if there add to duration)
+            else if ((!ef.isStackableEffect) && (ef.isStackableDuration))
+            {
+                if (!IsInEffectListAtSameLocation(ef.tag, new Coordinate(ef.combatLocX, ef.combatLocY))) //Not in list so add to list
+                {
+                    AddEffect(ef);
+                }
+                else //is in list so add durations together
+                {
+                    Effect e = this.getEffectByTag(ef.tag);
+                    e.durationInUnits += ef.durationInUnits;
+                    if (classLevel > e.classLevelOfSender)
+                    {
+                        e.classLevelOfSender = classLevel;
+                    }
+                }
+            }
+            //none stackable (add to list if not there)
+            else if ((!ef.isStackableEffect) && (!ef.isStackableDuration))
+            {
+                if (!IsInEffectListAtSameLocation(ef.tag, new Coordinate(ef.combatLocX, ef.combatLocY))) //Not in list so add to list
+                {
+                    AddEffect(ef);
+                }
+                else //is in list so reset duration
+                {
+                    Effect e = this.getEffectByTag(ef.tag);
+                    e.durationInUnits = ef.durationInUnits;
+                    if (classLevel > e.classLevelOfSender)
+                    {
+                        e.classLevelOfSender = classLevel;
+                    }
+                }
+            }
+        }
+
+
     }    
 }
+
+

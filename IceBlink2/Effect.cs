@@ -32,6 +32,8 @@ namespace IceBlink2
 	    public string effectScript = "none";
         public string saveCheckType = "none"; //none, reflex, will, fortitude
         public int saveCheckDC = 10;
+        public int combatLocX = 0; //used in combat for effects on squares
+        public int combatLocY = 0; //used in combat for effects on squares
         public List<LocalImmunityString> affectOnlyList = new List<LocalImmunityString>();
         public List<LocalImmunityString> affectNeverList = new List<LocalImmunityString>();
         public bool endEffectWhenCarrierTakesDamage = false;
@@ -132,6 +134,8 @@ namespace IceBlink2
 		    copy.effectScript = this.effectScript;
             copy.saveCheckType = this.saveCheckType;
             copy.saveCheckDC = this.saveCheckDC;
+            copy.combatLocX = this.combatLocX;
+            copy.combatLocY = this.combatLocY;
             copy.doBuff = this.doBuff;
             copy.doDamage = this.doDamage;
             copy.doDeBuff = this.doDeBuff;

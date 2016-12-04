@@ -873,11 +873,52 @@ namespace IceBlink2
             {
                 RunAllItemCombatRegenerations(pc);
             }
+            applyEffectsFromSquares();
             //applyEffectsCombat();
             //IBScript Start Combat Round Hook
             gv.cc.doIBScriptBasedOnFilename(gv.mod.currentEncounter.OnStartCombatRoundIBScript, gv.mod.currentEncounter.OnStartCombatRoundIBScriptParms);
             turnController();
         }
+
+        public void applyEffectsFromSquares()
+        {
+
+             foreach (Effect ef in mod.currentEncounter.effectsList)
+                {
+                    //decrement duration of all effects on the encounter map squares
+                    ef.durationInUnits -= gv.mod.TimePerRound;
+
+                    foreach (Player pc in mod.playerList)
+                    {
+                        if ((pc.combatLocX == ef.combatLocX) && (pc.combatLocY == ef.combatLocY))
+                        {
+                            if (!ef.usedForUpdateStats) //not used for stat updates
+                            {
+                                gv.cc.doEffectScript(pc, ef);
+                            }
+                        }
+                    }
+                    foreach (Creature crtr in mod.currentEncounter.encounterCreatureList)
+                    {
+                        if ((crtr.combatLocX == ef.combatLocX) && (crtr.combatLocY == ef.combatLocY))
+                        {
+                            if (!ef.usedForUpdateStats) //not used for stat updates
+                            {
+                                gv.cc.doEffectScript(crtr, ef);
+                            }
+                        }
+                    }
+                }
+
+             for (int i = mod.currentEncounter.effectsList.Count; i > 0; i--)
+                {
+                    if (mod.currentEncounter.effectsList[i - 1].durationInUnits <= 0)
+                    {
+                        mod.currentEncounter.effectsList.RemoveAt(i - 1);
+                    }
+                 }
+        }
+
         public void doBattleRegenTrait()
         {
             foreach (Player pc in mod.playerList)
@@ -2969,6 +3010,7 @@ namespace IceBlink2
         public void redrawCombat()
         {
             drawCombatMap();
+            drawEffectSquares();  
             drawCombatPlayers();
             if (gv.mod.useCombatSmoothMovement == false)
             {
@@ -3011,6 +3053,16 @@ namespace IceBlink2
                 }
             }
             drawUiLayout();
+        }
+
+        public void drawEffectSquares()
+        {
+            foreach (Effect ef in mod.currentEncounter.effectsList)
+            {
+                IbRect src = new IbRect(0, 0, gv.cc.GetFromBitmapList(ef.spriteFilename).PixelSize.Width, gv.cc.GetFromBitmapList(ef.spriteFilename).PixelSize.Width);
+                IbRect dst = new IbRect(getPixelLocX(ef.combatLocX), getPixelLocY(ef.combatLocY), gv.squareSize, gv.squareSize);
+                gv.DrawBitmap(gv.cc.GetFromBitmapList(ef.spriteFilename), src, dst);
+            }
         }
 
         public void recalculateCreaturesShownInInitiativeBar()
@@ -5295,6 +5347,8 @@ namespace IceBlink2
             {
                 if (!isPlayerTurn)
                 {
+                     if (creatureIndex < mod.currentEncounter.encounterCreatureList.Count)
+                    {
                     Creature cr = mod.currentEncounter.encounterCreatureList[creatureIndex];
                     if (IsInVisibleCombatWindow(cr.combatLocX, cr.combatLocY))
                     {
@@ -5302,6 +5356,7 @@ namespace IceBlink2
                         IbRect dst = new IbRect(getPixelLocX(cr.combatLocX), getPixelLocY(cr.combatLocY), gv.squareSize, gv.squareSize);
                         gv.DrawBitmap(gv.cc.turn_marker, src, dst);
                     }
+                }
                 }
             }
             foreach (Creature crt in mod.currentEncounter.encounterCreatureList)
