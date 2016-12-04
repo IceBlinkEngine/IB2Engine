@@ -19,6 +19,7 @@ namespace IceBlink2
         public bool UseDayNightCycle = false;
         public int MapSizeX = 7;
         public int MapSizeY = 7;
+        public List<Trigger> Triggers = new List<Trigger>();
         public List<TileEnc> encounterTiles = new List<TileEnc>();
 	    public List<CreatureRefs> encounterCreatureRefsList = new List<CreatureRefs>();
         [JsonIgnore]
@@ -44,6 +45,34 @@ namespace IceBlink2
 	    {
 
 		}
+
+        public Trigger getTriggerByLocation(int x, int y)
+        {
+            foreach (Trigger t in this.Triggers)
+            {
+                foreach (Coordinate p in t.TriggerSquaresList)
+                {
+                    if ((p.X == x) && (p.Y == y))
+                    {
+                        return t;
+                    }
+                }
+            }
+            return null;
+        }
+
+        public Trigger getTriggerByTag(String tag)
+        {
+            foreach (Trigger t in this.Triggers)
+            {
+                if (t.TriggerTag.Equals(tag))
+                {
+                    return t;
+                }
+            }
+            return null;
+        }
+
             public Effect getEffectByTag(string tag)
             {
             foreach (Effect ef in this.effectsList)
