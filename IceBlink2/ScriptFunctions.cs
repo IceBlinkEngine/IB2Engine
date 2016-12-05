@@ -8000,9 +8000,74 @@ namespace IceBlink2
 
                 //            gv.postDelayed("doFloatyText", 100);
         }
-        
-        
+
+
         //SPELLS WIZARD
+        public void spDimensionDoor(object src, object trg)
+         {  
+             if (src is Player) //player casting  
+             {  
+                 Player source = (Player)src;  
+                 Coordinate target = (Coordinate)trg;  
+   
+                 if (IsSquareOpen(target))  
+                 {  
+                     gv.cc.addLogText("<gn>" + source.name + " teleports to another location</gn><BR>");  
+                     source.combatLocX = target.X;  
+                     source.combatLocY = target.Y;  
+                     source.sp -= gv.cc.currentSelectedSpell.costSP;  
+                     if (source.sp< 0) { source.sp = 0; }  
+                 }  
+                 else  
+                 {  
+                     gv.cc.addLogText("<yl>" + source.name + " fails to teleport, square is already occupied or not valid</yl><BR>");  
+                 }  
+            }  
+             else if (src is Creature) //creature casting  
+             {  
+                 Creature source = (Creature)src;  
+                 Coordinate target = (Coordinate)trg;  
+  
+                 if (IsSquareOpen(target))  
+                 {  
+                     gv.cc.addLogText("<gn>" + source.cr_name + " teleports to another location</gn><BR>");  
+                     source.combatLocX = target.X;  
+                     source.combatLocY = target.Y;  
+                     source.sp -= SpellToCast.costSP;  
+                     if (source.sp< 0) { source.sp = 0; }  
+                 }  
+                 else  
+                 {  
+                     gv.cc.addLogText("<yl>" + source.cr_name + " fails to teleport, square is already occupied or not valid</yl><BR>");  
+                 }  
+             }  
+         }  
+         public bool IsSquareOpen(Coordinate target)
+         {  
+             if (!gv.mod.currentEncounter.encounterTiles[target.Y * mod.currentEncounter.MapSizeX + target.X].Walkable)  
+             {  
+                 return false;  
+             }  
+             foreach (Player pc in gv.mod.playerList)  
+             {  
+                 if ((pc.combatLocX == target.X) && (pc.combatLocY == target.Y))  
+                 {  
+                     if (pc.isAlive())  
+                     {  
+                         return false;  
+                     }  
+                 }  
+             }  
+             foreach (Creature crt in gv.mod.currentEncounter.encounterCreatureList)  
+             {  
+                 if ((crt.combatLocX == target.X) && (crt.combatLocY == target.Y))  
+                 {  
+                     return false;  
+                 }  
+             }  
+             return true;  
+         }   
+
         public void spFlameFingers(object src, object trg, Spell thisSpell)
         {
             //set squares list

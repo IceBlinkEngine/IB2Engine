@@ -28,7 +28,8 @@ namespace IceBlink2
         public List<Coordinate> encounterPcStartLocations = new List<Coordinate>();
         public List<Effect> effectsList = new List<Effect>();
 	    public int goldDrop = 0;
-	    public string AreaMusic = "none";
+        public List<Prop> propsList = new List<Prop>();
+        public string AreaMusic = "none";
 	    public int AreaMusicDelay = 0;
 	    public int AreaMusicDelayRandomAdder = 0;
 	    public string OnSetupCombatIBScript = "none";
@@ -48,7 +49,30 @@ namespace IceBlink2
 
 		}
 
-        public Trigger getTriggerByLocation(int x, int y)
+        public Prop getPropByLocation(int x, int y)
+         {  
+             foreach (Prop p in this.propsList)  
+             {  
+                 if ((p.LocationX == x) && (p.LocationY == y))  
+                 {  
+                     return p;  
+                 }  
+             }  
+             return null;  
+         }  
+         public Prop getPropByTag(string tag)
+         {  
+             foreach (Prop p in this.propsList)  
+             {
+                    if (p.PropTag.Equals(tag))
+                        {
+                            return p;
+                        }
+                }  
+             return null;  
+         }
+
+public Trigger getTriggerByLocation(int x, int y)
         {
             foreach (Trigger t in this.Triggers)
             {

@@ -8629,6 +8629,12 @@ namespace IceBlink2
             }
 
             //WIZARD SPELLS
+
+            else if (spell.spellScript.Equals("spDimensionDoor"))
+            {
+                gv.sf.spDimensionDoor(source, target); 
+            }
+
             else if (spell.spellScript.Equals("spFlameFingers"))
             {
                 gv.sf.spFlameFingers(source, target, spell);

@@ -2836,28 +2836,84 @@ namespace IceBlink2
 
         public void afterEachMoveCalls()
         {
-            gv.triggerIndex = 0;
-            doTriggers();
+            //gv.triggerIndex = 0;
+            //doTriggers();
+
+            triggerIndexCombat = 0;
+            doPropTriggers();
         }
 
+        public void doPropTriggers()
+        {
+            try
+            {
+                //reset the calling square loaction  
+                gv.mod.currentEncounter.triggerScriptCalledFromSquareLocX = 0;
+                gv.mod.currentEncounter.triggerScriptCalledFromSquareLocY = 0;
 
+                Prop prp = gv.mod.currentEncounter.getPropByLocation(0, 0);
+                if (isPlayerTurn)
+                {
+                    Player pc = mod.playerList[currentPlayerIndex];
+                    prp = gv.mod.currentEncounter.getPropByLocation(pc.combatLocX, pc.combatLocY);
+                    gv.mod.currentEncounter.triggerScriptCalledFromSquareLocX = pc.combatLocX;
+                    gv.mod.currentEncounter.triggerScriptCalledFromSquareLocY = pc.combatLocY;
+                }
+                else
+                {
+                    Creature crt = mod.currentEncounter.encounterCreatureList[creatureIndex];
+                    prp = gv.mod.currentEncounter.getPropByLocation(crt.combatLocX, crt.combatLocY);
+                    gv.mod.currentEncounter.triggerScriptCalledFromSquareLocX = crt.combatLocX;
+                    gv.mod.currentEncounter.triggerScriptCalledFromSquareLocY = crt.combatLocY;
+                }
+                if ((prp != null) && (prp.isActive))
+                {
+                    //check to see what type of event  
+                    if (!prp.OnEnterSquareIBScript.Equals("none"))
+                    {
+                        gv.cc.doIBScriptBasedOnFilename(prp.OnEnterSquareIBScript, prp.OnEnterSquareIBScriptParms);
+                    }
+                }
+
+                doTriggers();
+            }
+            catch (Exception ex)
+            {
+                if (gv.mod.debugMode)
+                {
+                    gv.sf.MessageBox("failed to do prop trigger: " + ex.ToString());
+                    gv.errorLog(ex.ToString());
+                }
+            }
+        }
 
         public void doTriggers()        
         {
             try
             {
-                Trigger trig = gv.mod.currentEncounter.getTriggerByLocation(gv.mod.PlayerLocationX, gv.mod.PlayerLocationY);
+                //reset the calling square loaction  
+                gv.mod.currentEncounter.triggerScriptCalledFromSquareLocX = 0;
+                gv.mod.currentEncounter.triggerScriptCalledFromSquareLocY = 0;
+
+                //Trigger trig = gv.mod.currentEncounter.getTriggerByLocation(gv.mod.PlayerLocationX, gv.mod.PlayerLocationY);
+                Trigger trig = gv.mod.currentEncounter.getTriggerByLocation(0, 0);
                 if (isPlayerTurn)
                 {
                     Player pc = mod.playerList[currentPlayerIndex];
                     trig = gv.mod.currentEncounter.getTriggerByLocation(pc.combatLocX, pc.combatLocY);
+                    gv.mod.currentEncounter.triggerScriptCalledFromSquareLocX = pc.combatLocX;
+                    gv.mod.currentEncounter.triggerScriptCalledFromSquareLocY = pc.combatLocY;
+
                 }
                 else
                 {
                     Creature crt = mod.currentEncounter.encounterCreatureList[creatureIndex];
                     trig = gv.mod.currentEncounter.getTriggerByLocation(crt.combatLocX, crt.combatLocY);
+                    gv.mod.currentEncounter.triggerScriptCalledFromSquareLocX = crt.combatLocX;
+                    gv.mod.currentEncounter.triggerScriptCalledFromSquareLocY = crt.combatLocY;
+
                 }
-                
+
                 if ((trig != null) && (trig.Enabled))
                 {
                     //iterate through each event                  

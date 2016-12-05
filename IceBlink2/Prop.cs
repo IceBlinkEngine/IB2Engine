@@ -110,6 +110,9 @@ namespace IceBlink2
         public int framesNeededForFullFadeInOut = 0; 
         public int totalFramesInWholeLoopCounter = 0;
         public float opacity = 1;
+        public string OnEnterSquareIBScript = "none";  
+        public string OnEnterSquareIBScriptParms = "";
+
 
         public Prop()
         {
@@ -234,6 +237,9 @@ namespace IceBlink2
             copy.framesNeededForFullFadeInOut = this.framesNeededForFullFadeInOut;
             copy.totalFramesInWholeLoopCounter = this.totalFramesInWholeLoopCounter;
             copy.opacity = this.opacity;
+
+            copy.OnEnterSquareIBScript = this.OnEnterSquareIBScript;
+            copy.OnEnterSquareIBScriptParms = this.OnEnterSquareIBScriptParms;
 
 		    return copy;
         }

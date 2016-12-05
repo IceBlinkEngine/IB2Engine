@@ -19373,6 +19373,8 @@ namespace IceBlink2
                     return "0";
                 }
             }
+            //else if
+
             else if (parm.StartsWith("$"))
             {
                 //grab the value from the Dictionary
@@ -19396,6 +19398,20 @@ namespace IceBlink2
                     {
                         gv.cc.addLogText("<font color='yellow'>Replaced " + parm + " with " + parmsList[index] + "</font><BR>");
                     }
+                    //check to see if it is a rand(3-16)  
+                    if (parmsList[index].StartsWith("rand("))
+                                        {
+                        string firstNum = parmsList[index].Split('(', '-')[1]; //.Substring(parm.IndexOf("(") + 1, parm.IndexOf("-"));  
+                        string lastNum = parmsList[index].Split('-', ')')[1]; //.Substring(parm.IndexOf("-") + 1, parm.IndexOf(")"));  
+                        int fNum = Convert.ToInt32(firstNum);
+                        int lNum = Convert.ToInt32(lastNum);
+                        int returnRand = gv.sf.RandInt(fNum, lNum);
+                        if (gv.mod.debugMode)
+                        {
+                             gv.cc.addLogText("<font color='yellow'>Replaced " + parmsList[index] + " with " + returnRand + "</font><BR>");
+                        }
+                        return returnRand + "";
+                                            }
                     return parmsList[index];
                 }
                 else
@@ -22437,7 +22453,7 @@ namespace IceBlink2
                 #endregion
 
                 #region CreatureInCurrentEncounter
-                else if (parm.StartsWith("%CreatureInCurrrentEncounter"))
+                else if (parm.StartsWith("%CreatureInCurrentEncounter"))
                 {
                     if (parm.EndsWith("cr_tokenFilename"))
                     {
@@ -22840,6 +22856,8 @@ namespace IceBlink2
 
                 #endregion
 
+
+
                 #region Encounter
                 if (parm.StartsWith("%Encounter"))
                 {
@@ -22883,6 +22901,14 @@ namespace IceBlink2
                     {
                         return gv.mod.moduleEncountersList[indexNum].AreaMusicDelayRandomAdder.ToString();
                     }
+                    else if (parm.EndsWith("triggerScriptCalledFromSquareLocX"))
+                    {
+                        return gv.mod.currentEncounter.triggerScriptCalledFromSquareLocX.ToString();
+                    }
+                    else if (parm.EndsWith("triggerScriptCalledFromSquareLocY"))
+                    {
+                        return gv.mod.currentEncounter.triggerScriptCalledFromSquareLocY.ToString();
+                    }  
                     else if (parm.EndsWith("OnSetupCombatIBScript"))
                     {
                         return gv.mod.moduleEncountersList[indexNum].OnSetupCombatIBScript.ToString();
