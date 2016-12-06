@@ -3189,6 +3189,7 @@ namespace IceBlink2
         public void redrawCombat()
         {
             drawCombatMap();
+            drawProps();
             drawEffectSquares();  
             drawCombatPlayers();
             if (gv.mod.useCombatSmoothMovement == false)
@@ -3234,7 +3235,17 @@ namespace IceBlink2
             drawUiLayout();
         }
 
-        public void drawEffectSquares()
+        public void drawProps()
+        {  
+             foreach (Prop prp in mod.currentEncounter.propsList)  
+             {  
+                 IbRect src = new IbRect(0, 0, gv.cc.GetFromBitmapList(prp.ImageFileName).PixelSize.Width, gv.cc.GetFromBitmapList(prp.ImageFileName).PixelSize.Width);  
+                 IbRect dst = new IbRect(getPixelLocX(prp.LocationX), getPixelLocY(prp.LocationY), gv.squareSize, gv.squareSize);  
+                 gv.DrawBitmap(gv.cc.GetFromBitmapList(prp.ImageFileName), src, dst);  
+             }  
+         }
+
+public void drawEffectSquares()
         {
             foreach (Effect ef in mod.currentEncounter.effectsList)
             {

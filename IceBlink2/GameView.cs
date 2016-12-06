@@ -57,6 +57,7 @@ namespace IceBlink2
         public int mousePositionY = 0;
         public bool moveTimerRuns = false;
         public float moveTimerCounter = 0;
+        public int standardTokenSize = 100;
 
 
         public Graphics gCanvas;

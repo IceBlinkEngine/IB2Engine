@@ -85,7 +85,16 @@ namespace IceBlink2
         public float glideAdderX = 0;
         public float glideAdderY = 0;
         public int hpLastTurn = -1;
-        
+
+        //creature size system
+        //1=normal, 2=wide, 3=tall, 4=large
+        //normal is 100px width, 100px height each frame (1x1 squares in battle)
+        //wide is 200px width, 100px height each frame (2x1 squares in battle)
+        //tall is is 100px width, 200px height each frame (1x2 squares in battle)
+        //large is 200px width, 200px height each frame (2x2 squares in battle)
+        public int creatureSize = 1;
+        public List<Coordinate> tokenCoveredSquares = new List<Coordinate>();
+
         //The two below are not yet implemented 
         public string labelForCastAction = "CAST";
         public string labelForSpellsButtonInCombat = "SPELL";
@@ -157,13 +166,21 @@ namespace IceBlink2
             copy.hpLastTurn = this.hpLastTurn;
             copy.labelForCastAction = this.labelForCastAction;
             copy.labelForSpellsButtonInCombat = this.labelForSpellsButtonInCombat;
+            copy.creatureSize = this.creatureSize;
 
             copy.knownSpellsTags = new List<string>();
             foreach (string s in this.knownSpellsTags)
             {
                 copy.knownSpellsTags.Add(s);
             }
-        
+
+            //public List<Coordinate> tokenCoveredSquares = new List<Coordinate>();
+            copy.tokenCoveredSquares = new List<Coordinate>();
+            foreach (Coordinate c in this.tokenCoveredSquares)
+            {
+                copy.tokenCoveredSquares.Add(c);
+            }
+
             copy.CreatureLocalInts = new List<LocalInt>();
             foreach (LocalInt l in this.CreatureLocalInts)
             {

@@ -9721,7 +9721,39 @@ namespace IceBlink2
                 dist = deltaY;
             return dist;
         }
-        public System.Drawing.Bitmap LoadBitmapGDI(string filename) //change this to LoadBitmapGDI
+
+        /*
+        public int getCreatureSize(string tokenfilename)
+        {  
+             
+            //1=normal, 2=wide, 3=tall, 4=large  
+             int width = gv.cc.GetFromBitmapList(tokenfilename).PixelSize.Width;  
+             int height = gv.cc.GetFromBitmapList(tokenfilename).PixelSize.Height;  
+             //normal  
+             if ((width == gv.standardTokenSize) && (height == gv.standardTokenSize* 2))  
+             {  
+                 return 1;  
+             }  
+             //wide  
+             else if ((width == gv.standardTokenSize* 2) && (height == gv.standardTokenSize* 2))  
+             {  
+                 return 2;  
+             }  
+             //tall  
+             else if ((width == gv.standardTokenSize) && (height == gv.standardTokenSize* 4))  
+             {  
+                 return 3;  
+             }  
+             //large  
+             else if ((width == gv.standardTokenSize* 2) && (height == gv.standardTokenSize* 4))  
+             {  
+                 return 4;  
+             }  
+             return 1;  
+        }
+        */
+
+    public System.Drawing.Bitmap LoadBitmapGDI(string filename) //change this to LoadBitmapGDI
         {
             System.Drawing.Bitmap bm = null;
             bm = LoadBitmapGDI(filename, gv.mod); //change this to LoadBitmapGDI
