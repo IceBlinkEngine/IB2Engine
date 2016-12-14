@@ -14,7 +14,16 @@ namespace IceBlink2
 {
     public class Prop 
     {
-	    public int LocationX = 0;
+        public string OnEnterSquareScript = "none";  
+        public string OnEnterSquareScriptParm1 = "none";  
+        public string OnEnterSquareScriptParm2 = "none";
+        public string OnEnterSquareScriptParm3 = "none";  
+        public string OnEnterSquareScriptParm4 = "none";  
+        public bool canBeTriggeredByPc = true;  
+        public bool canBeTriggeredByCreature = true;  
+        public int numberOfScriptCallsRemaining = 999;
+
+        public int LocationX = 0;
 	    public int LocationY = 0;
         public int LocationZ = 0;
         public int lastLocationX = 0;
@@ -110,8 +119,13 @@ namespace IceBlink2
         public int framesNeededForFullFadeInOut = 0; 
         public int totalFramesInWholeLoopCounter = 0;
         public float opacity = 1;
+
+
         public string OnEnterSquareIBScript = "none";  
         public string OnEnterSquareIBScriptParms = "";
+        public bool isTrap = false;  
+        public int trapDCforDisableCheck = 10;
+
 
 
         public Prop()
@@ -149,8 +163,18 @@ namespace IceBlink2
 		    copy.PropCategoryName = this.PropCategoryName;
 		    copy.ConversationWhenOnPartySquare = this.ConversationWhenOnPartySquare;
 		    copy.EncounterWhenOnPartySquare = this.EncounterWhenOnPartySquare;
-		    copy.DeletePropWhenThisEncounterIsWon = this.DeletePropWhenThisEncounterIsWon;		
-		    copy.PropLocalInts = new List<LocalInt>();
+		    copy.DeletePropWhenThisEncounterIsWon = this.DeletePropWhenThisEncounterIsWon;
+            //copy.PropLocalInts = new List<LocalInt>();
+            //copy.OnEnterSquareIBScriptParms = this.OnEnterSquareIBScriptParms;
+            copy.OnEnterSquareScript = this.OnEnterSquareScript;
+            copy.OnEnterSquareScriptParm1 = this.OnEnterSquareScriptParm1;
+            copy.OnEnterSquareScriptParm2 = this.OnEnterSquareScriptParm1;
+            copy.OnEnterSquareScriptParm3 = this.OnEnterSquareScriptParm1;
+            copy.OnEnterSquareScriptParm4 = this.OnEnterSquareScriptParm1;
+            copy.canBeTriggeredByPc = this.canBeTriggeredByPc;
+            copy.canBeTriggeredByCreature = this.canBeTriggeredByCreature;
+            copy.numberOfScriptCallsRemaining = this.numberOfScriptCallsRemaining;
+            copy.PropLocalInts = new List<LocalInt>();
             foreach (LocalInt l in this.PropLocalInts)
             {
                 LocalInt Lint = new LocalInt();
@@ -240,8 +264,11 @@ namespace IceBlink2
 
             copy.OnEnterSquareIBScript = this.OnEnterSquareIBScript;
             copy.OnEnterSquareIBScriptParms = this.OnEnterSquareIBScriptParms;
+            copy.isTrap = this.isTrap;
+            copy.trapDCforDisableCheck = this.trapDCforDisableCheck;
 
-		    return copy;
+
+            return copy;
         }
     }
 }

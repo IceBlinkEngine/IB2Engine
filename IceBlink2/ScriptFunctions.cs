@@ -513,6 +513,10 @@ namespace IceBlink2
                         bool enable = Boolean.Parse(p3);
                         gv.mod.currentArea.Tiles[y * gv.mod.currentArea.MapSizeX + x].Walkable = enable;
                     }
+                    else if (filename.Equals("gaPropOrTriggerCastSpellOnThisSquare.cs"))
+                    {
+                        gv.screenCombat.doPropOrTriggerCastSpell(p1);
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -5766,7 +5770,11 @@ namespace IceBlink2
                     crt.hp -= damageTotal;
                     if (crt.hp <= 0)
                     {
-                        gv.screenCombat.deathAnimationLocations.Add(new Coordinate(crt.combatLocX, crt.combatLocY));
+                        //gv.screenCombat.deathAnimationLocations.Add(new Coordinate(crt.combatLocX, crt.combatLocY));
+                        foreach (Coordinate coor in crt.tokenCoveredSquares)
+                        {
+                            gv.screenCombat.deathAnimationLocations.Add(new Coordinate(coor.X, coor.Y));
+                        }
                         gv.cc.addLogText("<font color='lime'>" + "You killed the " + crt.cr_name + "</font><BR>");
                     }
                     //Do floaty text damage
@@ -6276,6 +6284,12 @@ namespace IceBlink2
                 srcX = pcs.combatLocX;
                 srcY = pcs.combatLocY;
             }
+            else if (src is Coordinate) //prop or trigger was used  
+            {
+                Coordinate coor = (Coordinate)src;
+                srcX = coor.X;
+                srcY = coor.Y;
+            }
 
             //shape and radius
             #region Circle
@@ -6441,6 +6455,12 @@ namespace IceBlink2
                 startX2 = gv.screenCombat.targetHighlightCenterLocation.X * gv.squareSize + (gv.squareSize / 2);
                 startY2 = gv.screenCombat.targetHighlightCenterLocation.Y * gv.squareSize + (gv.squareSize / 2);
             }
+            else if (src is Coordinate) //called from a prop or trigger  
+            {
+                startX2 = gv.mod.currentEncounter.triggerScriptCalledFromSquareLocX * gv.squareSize + (gv.squareSize / 2);
+                startY2 = gv.mod.currentEncounter.triggerScriptCalledFromSquareLocX * gv.squareSize + (gv.squareSize / 2);
+            }  
+
             else if (src is Creature) //source is a Creature
             {
                 if (trg is Player)
@@ -6478,14 +6498,20 @@ namespace IceBlink2
                     foreach (Creature crt in mod.currentEncounter.encounterCreatureList)
                     {
                         //if in range of radius of x and radius of y
-                        if ((crt.combatLocX == coor.X) && (crt.combatLocY == coor.Y))
+                        //if ((crt.combatLocX == coor.X) && (crt.combatLocY == coor.Y))
+                        //if any part of creature is in range of radius of x and radius of y  
+                        foreach (Coordinate crtCoor in crt.tokenCoveredSquares)
                         {
                             //player casts on creature
                             if ((src is Player) || (src is Item))
                             {
                                 if ((thisSpell.spellTargetType.Equals("Enemy")) || (thisSpell.spellTargetType.Equals("PointLocation")) )
                                 {
-                                    AoeTargetsList.Add(crt);
+                                    //AoeTargetsList.Add(crt);
+                                    if ((crtCoor.X == coor.X) && (crtCoor.Y == coor.Y))
+                                    {
+                                        AoeTargetsList.Add(crt);
+                                    }
                                 }
                             }
                             //creature casts on creature
@@ -6493,7 +6519,10 @@ namespace IceBlink2
                             {
                                 if ((thisSpell.spellTargetType.Equals("Friend")) || (thisSpell.spellTargetType.Equals("PointLocation")))
                                 {
-                                    AoeTargetsList.Add(crt);
+                                    if ((crtCoor.X == coor.X) && (crtCoor.Y == coor.Y))
+                                    {
+                                        AoeTargetsList.Add(crt);
+                                    }
                                 }
                             }
                         }
@@ -6526,7 +6555,7 @@ namespace IceBlink2
             }
         }
 
-        public void spGeneric(Spell thisSpell, object src, object trg)
+        public void spGeneric(Spell thisSpell, object src, object trg, bool outsideCombat)
         {
             
             //Effect thisSpellEffect = gv.mod.getEffectByTag(thisSpell.spellEffectTag);
@@ -6536,20 +6565,26 @@ namespace IceBlink2
 
             //set target list
             //CreateAoeTargetsList(src, trg, thisSpell, false);
-            if (thisSpell.isUsedForCombatSquareEffect)
-                {
-                    CreateAoeTargetsList(src, trg, thisSpell, true);
-                }
-                else
-                {
-                    CreateAoeTargetsList(src, trg, thisSpell, false);
-                }
+            if (outsideCombat)
+            {
+                AoeTargetsList.Clear();
+                AoeTargetsList.Add(trg);
+            } 
+            else if (thisSpell.isUsedForCombatSquareEffect)
+            {
+                CreateAoeTargetsList(src, trg, thisSpell, true);
+            }
+            else
+            {
+                CreateAoeTargetsList(src, trg, thisSpell, false);
+            }
 
             //Effect thisSpellEffect = gv.mod.getEffectByTag(thisSpell.spellEffectTag);
 
             #region Get casting source information
             int classLevel = 0;
             string sourceName = "";
+            
             /*            
             if (thisSpellEffect == null)
             {
@@ -6587,6 +6622,13 @@ namespace IceBlink2
                 classLevel = source.levelOfItemForCastSpell;
                 sourceName = source.name;
             }
+
+            else if (src is Coordinate) //trigger or prop was used  
+            {
+                classLevel = 1;
+                sourceName = "trigger";
+            }
+
             #endregion
 
             //loop through all effects of spell from here
@@ -6802,8 +6844,13 @@ namespace IceBlink2
                                 crt.hp -= damageTotal;
                                 if (crt.hp <= 0)
                                 {
-                                    gv.screenCombat.deathAnimationLocations.Add(new Coordinate(crt.combatLocX, crt.combatLocY));
-                                    gv.cc.addLogText("<font color='lime'>" + "You killed the " + crt.cr_name + "</font><BR>");
+                                        //gv.screenCombat.deathAnimationLocations.Add(new Coordinate(crt.combatLocX, crt.combatLocY));
+                                        //gv.screenCombat.deathAnimationLocations.Add(new Coordinate(crt.combatLocX, crt.combatLocY));  
+                                        foreach (Coordinate coor in crt.tokenCoveredSquares)
+                                        {
+                                            gv.screenCombat.deathAnimationLocations.Add(new Coordinate(coor.X, coor.Y));
+                                        }
+                                        gv.cc.addLogText("<font color='lime'>" + "You killed the " + crt.cr_name + "</font><BR>");
                                 }
                                 //Do floaty text damage
                                 //gv.screenCombat.floatyTextOn = true;
@@ -7282,13 +7329,27 @@ namespace IceBlink2
             }
         }
 
-        public void spGenericUsingOldSingleEffectTag(Spell thisSpell, object src, object trg)
+        public void spGenericUsingOldSingleEffectTag(Spell thisSpell, object src, object trg, bool outsideCombat)
         {
             //set squares list
             CreateAoeSquaresList(src, trg, thisSpell.aoeShape, thisSpell.aoeRadius);
 
+            if (outsideCombat)
+            {
+                AoeTargetsList.Clear();
+                AoeTargetsList.Add(trg);
+            }
+            else if (thisSpell.isUsedForCombatSquareEffect)
+            {
+                CreateAoeTargetsList(src, trg, thisSpell, true);
+            }
+            else
+            {
+                CreateAoeTargetsList(src, trg, thisSpell, false);
+            }
+
             //set target list
-            CreateAoeTargetsList(src, trg, thisSpell, false);
+            //CreateAoeTargetsList(src, trg, thisSpell, false);
 
             //Effect thisSpellEffect = gv.mod.getEffectByTag(thisSpell.spellEffectTag);
 
@@ -7523,8 +7584,12 @@ namespace IceBlink2
                         crt.hp -= damageTotal;
                         if (crt.hp <= 0)
                         {
-                            gv.screenCombat.deathAnimationLocations.Add(new Coordinate(crt.combatLocX, crt.combatLocY));
-                            gv.cc.addLogText("<font color='lime'>" + "You killed the " + crt.cr_name + "</font><BR>");
+                                //gv.screenCombat.deathAnimationLocations.Add(new Coordinate(crt.combatLocX, crt.combatLocY));
+                                foreach (Coordinate coor in crt.tokenCoveredSquares)
+                                {
+                                    gv.screenCombat.deathAnimationLocations.Add(new Coordinate(coor.X, coor.Y));
+                                }
+                                gv.cc.addLogText("<font color='lime'>" + "You killed the " + crt.cr_name + "</font><BR>");
                         }
                         //Do floaty text damage
                         //gv.screenCombat.floatyTextOn = true;
@@ -8001,6 +8066,28 @@ namespace IceBlink2
                 //            gv.postDelayed("doFloatyText", 100);
         }
 
+        public void trRemoveTrap(object src, object trg)
+        {  
+           if (src is Player) //player casting  
+            {  
+                Player source = (Player)src;  
+                Coordinate target = (Coordinate)trg;  
+  
+                 foreach(Prop prp in gv.mod.currentEncounter.propsList)  
+                 {  
+                    if ((prp.LocationX == target.X) && (prp.LocationY == target.Y))  
+                    {  
+                         if (prp.isTrap)  
+                         {  
+                             gv.mod.currentEncounter.propsList.Remove(prp);  
+                             gv.cc.addLogText("<gn>" + source.name + " removed trap</gn><BR>");  
+                             gv.cc.addFloatyText(new Coordinate(target.X, target.X), "trap removed", "green");  
+                             return;  
+                         }  
+                     }  
+                 }  
+             }              
+        }  
 
         //SPELLS WIZARD
         public void spDimensionDoor(object src, object trg)

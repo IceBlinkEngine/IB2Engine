@@ -942,7 +942,7 @@ namespace IceBlink2
                                 try
                                 {
                                     Player target = mod.playerList[0];
-                                    gv.cc.doSpellBasedOnScriptOrEffectTag(gv.cc.currentSelectedSpell, target, target);
+                                    gv.cc.doSpellBasedOnScriptOrEffectTag(gv.cc.currentSelectedSpell, target, target, inCombat);
                                     gv.screenType = "main";
                                     doCleanUp();
                                     return;
@@ -961,7 +961,7 @@ namespace IceBlink2
                                     try
                                     {
                                         Player target = mod.playerList[pcSel.selectedIndex - 1];
-                                        gv.cc.doSpellBasedOnScriptOrEffectTag(gv.cc.currentSelectedSpell, pc, target);
+                                        gv.cc.doSpellBasedOnScriptOrEffectTag(gv.cc.currentSelectedSpell, pc, target, inCombat);
                                         gv.screenType = "main";
                                         doCleanUp();
                                     }

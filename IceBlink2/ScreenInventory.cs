@@ -501,7 +501,8 @@ namespace IceBlink2
 		                			}
                                     else if (!it.onUseItemCastSpellTag.Equals("none"))
                                     {
-                                        doItemInventoryCastSpell(itSel2.selectedIndex - 1);
+                                        bool outsideCombat = !inCombat;
+                                        doItemInventoryCastSpell(itSel2.selectedIndex - 1, outsideCombat);
                                     }
                                 }
 		                    }
@@ -577,7 +578,7 @@ namespace IceBlink2
             }
             resetInventory();
         }
-        public void doItemInventoryCastSpell(int pcIndex)
+        public void doItemInventoryCastSpell(int pcIndex, bool outsideCombat)
         {
             if (isSelectedItemSlotInPartyInventoryRange())
             {
@@ -586,7 +587,7 @@ namespace IceBlink2
                 Spell sp = mod.getSpellByTag(it.onUseItemCastSpellTag);
                 Player pc = mod.playerList[pcIndex];
                 gv.mod.indexOfPCtoLastUseItem = pcIndex;
-                gv.cc.doSpellBasedOnScriptOrEffectTag(sp, it, pc);
+                gv.cc.doSpellBasedOnScriptOrEffectTag(sp, it, pc, outsideCombat);
                 if (it.destroyItemAfterOnUseItemCastSpell)
                 {
                     gv.sf.RemoveItemFromInventory(itRef, 1);

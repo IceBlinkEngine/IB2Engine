@@ -339,7 +339,7 @@ namespace IceBlink2
                     Spell sp = mod.getSpellByTag(s);
                     allSpells += sp.name + ", ";
                 }
-                gv.DrawText(mod.spellLabelPlural + ": " + allSpells, locX, locY += spacing);
+                gv.DrawText(mod.getPlayerClass(pc.classTag).spellLabelPlural + ": " + allSpells, locX, locY += spacing);
 
                 //draw traits known list
                 string allTraits = "";

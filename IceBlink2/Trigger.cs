@@ -48,7 +48,12 @@ namespace IceBlink2
 	    public string Event3Parm2 = "none";
 	    public string Event3Parm3 = "none";
 	    public string Event3Parm4 = "none";
-    
+
+        public int numberOfScriptCallsRemaining = 999;  
+        public bool canBeTriggeredByPc = true;  
+        public bool canBeTriggeredByCreature = true;
+
+
         public Trigger()
         {
     	

@@ -149,14 +149,15 @@ namespace IceBlink2
 	    //CAST SELECTOR SCREEN (COMBAT and MAIN)
         public void redrawCastSelector(bool inCombat)
         {
+            Player pc = getCastingPlayer();
             isInCombat = inCombat;
     	    //IF CONTROLS ARE NULL, CREATE THEM
     	    if (btnSelect == null)
     	    {
     		    setControlsStart();
     	    }
-    	
-    	    int pW = (int)((float)gv.screenWidth / 100.0f);
+            btnSelect.Text = "CAST SELECTED " + mod.getPlayerClass(getCastingPlayer().classTag).spellLabelSingular.ToUpper();
+            int pW = (int)((float)gv.screenWidth / 100.0f);
 		    int pH = (int)((float)gv.screenHeight / 100.0f);
 		
     	    int locY = 0;
@@ -174,15 +175,16 @@ namespace IceBlink2
             //DRAW TEXT		
 		    locY = (gv.squareSize * 0) + (pH * 2);
 		    //gv.mSheetTextPaint.setColor(Color.LTGRAY);
-		    gv.DrawText("Select a " + mod.spellLabelSingular + " to Cast", noticeX, pH * 3);
-		    //gv.mSheetTextPaint.setColor(Color.YELLOW);
-		    gv.DrawText(getCastingPlayer().name + " SP: " + getCastingPlayer().sp + "/" + getCastingPlayer().spMax, pW * 55, leftStartY);
+		    gv.DrawText("Select a " + mod.getPlayerClass(pc.classTag).spellLabelSingular + " to Cast", noticeX, pH * 3);
+            //gv.DrawText("Select a " + mod.getPlayerClass(pc.classTag).spellLabelSingular + " to Cast", noticeX, pH * 3, "wh");
+            //gv.mSheetTextPaint.setColor(Color.YELLOW);
+            gv.DrawText(getCastingPlayer().name + " SP: " + getCastingPlayer().sp + "/" + getCastingPlayer().spMax, pW * 55, leftStartY);
 		
 		    //DRAW NOTIFICATIONS
 		    if (isSelectedSpellSlotInKnownSpellsRange())
 		    {
 			    Spell sp = GetCurrentlySelectedSpell();
-			    Player pc = getCastingPlayer();	
+			    //Player pc = getCastingPlayer();	
 			
 			    if (pc.knownSpellsTags.Contains(sp.tag))
 			    {
@@ -225,7 +227,7 @@ namespace IceBlink2
 			    {
 				    //if unknown spell, "Spell Not Known Yet" in red
 				    //gv.mSheetTextPaint.setColor(Color.RED);
-                    gv.DrawText(mod.spellLabelSingular + " Not Known Yet", noticeX, noticeY, 1.0f, Color.Red);
+                    gv.DrawText(mod.getPlayerClass(pc.classTag).spellLabelSingular + " not known yet", noticeX, noticeY, 1.0f, Color.Red);
 			    }
 		    }		
 		
@@ -399,7 +401,7 @@ namespace IceBlink2
 			        			    try
 			                        {
 			        				    Player target = mod.playerList[0];
-		            				    gv.cc.doSpellBasedOnScriptOrEffectTag(gv.cc.currentSelectedSpell, target, target);
+		            				    gv.cc.doSpellBasedOnScriptOrEffectTag(gv.cc.currentSelectedSpell, target, target, true);
                                         gv.screenType = "main";
 		        					    doCleanUp();
 			        				    return;
@@ -410,7 +412,7 @@ namespace IceBlink2
 			                        }        	                            	        	                        
 			            	    }
 
-                                using (ItemListSelector pcSel = new ItemListSelector(gv, pcNames, mod.spellLabelSingular + " Target"))
+                                using (ItemListSelector pcSel = new ItemListSelector(gv, pcNames, mod.getPlayerClass(getCastingPlayer().classTag).spellLabelSingular + " Target"))
                                 {
                                     pcSel.ShowDialog();                                                                        
                                     Player pc = getCastingPlayer();
@@ -419,7 +421,7 @@ namespace IceBlink2
 				            			try
 				                        {
 				            				Player target = mod.playerList[pcSel.selectedIndex - 1];
-				            				gv.cc.doSpellBasedOnScriptOrEffectTag(gv.cc.currentSelectedSpell, pc, target);
+				            				gv.cc.doSpellBasedOnScriptOrEffectTag(gv.cc.currentSelectedSpell, pc, target, true);
                                             gv.screenType = "main";
 				        					doCleanUp();
 				                        }

@@ -29,7 +29,10 @@ namespace IceBlink2
 	    public int spPerLevelUp = 20;
 	    public int hpRegenTimeNeeded = 0;
 	    public int spRegenTimeNeeded = 0;
-	    public int[] baseFortitudeAtLevel = new int[]{0, 2, 3, 3, 4, 4, 5, 5, 6};
+        public string spellLabelSingular = "Spell";  
+        public string spellLabelPlural = "Spells";
+ 
+        public int[] baseFortitudeAtLevel = new int[]{0, 2, 3, 3, 4, 4, 5, 5, 6};
 	    public int[] baseWillAtLevel = new int[]{0, 0, 0, 1, 1, 1, 2, 2, 2};
 	    public int[] baseReflexAtLevel = new int[]{0, 0, 0, 1, 1, 1, 2, 2, 2};
         public int[] babTable = new int[]{0,1,2,3,4,5,6,7,8,9};	
@@ -86,7 +89,10 @@ namespace IceBlink2
 		    copy.startingSP = this.startingSP;	
 		    copy.hpPerLevelUp = this.hpPerLevelUp;
 		    copy.spPerLevelUp = this.spPerLevelUp;
-		    copy.baseFortitudeAtLevel = (int[])this.baseFortitudeAtLevel.Clone();
+            copy.spellLabelSingular = this.spellLabelSingular;
+            copy.spellLabelPlural = this.spellLabelPlural;
+
+            copy.baseFortitudeAtLevel = (int[])this.baseFortitudeAtLevel.Clone();
 		    copy.baseWillAtLevel = (int[])this.baseWillAtLevel.Clone();
 		    copy.baseReflexAtLevel = (int[])this.baseReflexAtLevel.Clone();
 		    copy.babTable = (int[])this.babTable.Clone();	

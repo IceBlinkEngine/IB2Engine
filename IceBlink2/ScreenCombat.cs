@@ -40,6 +40,7 @@ namespace IceBlink2
         public string moveDirection = ""; //available: N,NE,E,SE,S,SW,W,NW
         public int idx = 0;
         public int triggerIndexCombat = 0;
+        public bool didTriggerEvent = false;
 
         //public int creatureCounter2 = 0;
 
@@ -619,7 +620,7 @@ namespace IceBlink2
             {
                 encounterXP += crtr.cr_XP;
             }
-            pf = new PathFinderEncounters(mod);
+            pf = new PathFinderEncounters(gv, mod);
             tutorialMessageCombat(false);
             //IBScript Setup Combat Hook (run only once)
             gv.cc.doIBScriptBasedOnFilename(gv.mod.currentEncounter.OnSetupCombatIBScript, gv.mod.currentEncounter.OnSetupCombatIBScriptParms);
@@ -1373,8 +1374,10 @@ namespace IceBlink2
 
                 foreach (Creature crt in mod.currentEncounter.encounterCreatureList)
                 {
-                    if ((crt.combatLocX == targetHighlightCenterLocation.X) && (crt.combatLocY == targetHighlightCenterLocation.Y))
+                    //if ((crt.combatLocX == targetHighlightCenterLocation.X) && (crt.combatLocY == targetHighlightCenterLocation.Y))
+                    foreach (Coordinate coor in crt.tokenCoveredSquares)
                     {
+                        /*
                         int attResult = 0; //0=missed, 1=hit, 2=killed
                         int numAtt = 1;
                         int crtLocX = crt.combatLocX;
@@ -1393,50 +1396,86 @@ namespace IceBlink2
                             numAtt = 3;
                         }
                         for (int i = 0; i < numAtt; i++)
+                        */
+                        if ((coor.X == targetHighlightCenterLocation.X) && (coor.Y == targetHighlightCenterLocation.Y))
                         {
-                            if ((gv.sf.hasTrait(pc, "cleave")) && (mod.getItemByResRefForInfo(pc.MainHandRefs.resref).category.Equals("Melee")))
+                            int attResult = 0; //0=missed, 1=hit, 2=killed  
+                            int numAtt = 1;
+                            int crtLocX = crt.combatLocX;
+                            int crtLocY = crt.combatLocY;
+                            
+                                                        if ((gv.sf.hasTrait(pc, "twoAttack")) && (mod.getItemByResRefForInfo(pc.MainHandRefs.resref).category.Equals("Melee")))
+                                                            {
+                                 numAtt = 2;
+                                                            }
+                                                        if ((gv.sf.hasTrait(pc, "rapidshot")) && (mod.getItemByResRefForInfo(pc.MainHandRefs.resref).category.Equals("Ranged")))
+
+
+                            //if ((gv.sf.hasTrait(pc, "cleave")) && (mod.getItemByResRefForInfo(pc.MainHandRefs.resref).category.Equals("Melee")))
                             {
-                                attResult = doActualCombatAttack(pc, crt, i);
-                                if (attResult == 2) //2=killed, 1=hit, 0=missed
+                                numAtt = 2;
+                                                            }
+                                                        if ((gv.sf.hasTrait(pc, "rapidshot2")) && (mod.getItemByResRefForInfo(pc.MainHandRefs.resref).category.Equals("Ranged")))
+                                                            {
+                                 numAtt = 3;
+                                                            }
+                                                        for (int i = 0; i < numAtt; i++)
+                                                            {
+                                                                if ((gv.sf.hasTrait(pc, "cleave")) && (mod.getItemByResRefForInfo(pc.MainHandRefs.resref).category.Equals("Melee")))
+                                                                    {
+                                     attResult = doActualCombatAttack(pc, crt, i);
+                                                                        if (attResult == 2) //2=killed, 1=hit, 0=missed  
+                                                                            {
+                                         Creature crt2 = GetNextAdjacentCreature(pc);
+                                                                                if (crt2 != null)
+                                                                                    {
+                                             crtLocX = crt2.combatLocX;
+                                             crtLocY = crt2.combatLocY;
+                                             gv.cc.addFloatyText(new Coordinate(pc.combatLocX, pc.combatLocY), "cleave", "green");
+                                             attResult = doActualCombatAttack(pc, crt2, i);
+                                                                                    }
+                                                                                break; //do not try and attack same creature that was just killed  
+                                                                            }
+                                                                    }
+                                                                else  
+
+                                //attResult = doActualCombatAttack(pc, crt, i);
+                                //if (attResult == 2) //2=killed, 1=hit, 0=missed
                                 {
-                                    Creature crt2 = GetNextAdjacentCreature(pc);
-                                    if (crt2 != null)
+                                    //Creature crt2 = GetNextAdjacentCreature(pc);
+                                    //if (crt2 != null)
+                                    attResult = doActualCombatAttack(pc, crt, i);
+                                    if (attResult == 2) //2=killed, 1=hit, 0=missed  
+
                                     {
-                                        crtLocX = crt2.combatLocX;
-                                        crtLocY = crt2.combatLocY;
-                                        gv.cc.addFloatyText(new Coordinate(pc.combatLocX, pc.combatLocY), "cleave", "green");
-                                        attResult = doActualCombatAttack(pc, crt2, i);
+                                        //crtLocX = crt2.combatLocX;
+                                        //crtLocY = crt2.combatLocY;
+                                        //gv.cc.addFloatyText(new Coordinate(pc.combatLocX, pc.combatLocY), "cleave", "green");
+                                        //attResult = doActualCombatAttack(pc, crt2, i);
+                                        break; //do not try and attack same creature that was just killed
                                     }
-                                    break; //do not try and attack same creature that was just killed
+                                    //break; //do not try and attack same creature that was just killed
                                 }
+                            }
+                                                        if (attResult > 0) //2=killed, 1=hit, 0=missed  
+                                                            {
+                                 hitAnimationLocation = new Coordinate(getPixelLocX(crtLocX), getPixelLocY(crtLocY));
+                                                                //new system  
+                                 AnimationStackGroup newGroup = new AnimationStackGroup();
+                                 animationSeqStack[0].AnimationSeq.Add(newGroup);
+                                 addHitAnimation(newGroup); 
                             }
                             else
                             {
-                                attResult = doActualCombatAttack(pc, crt, i);
-                                if (attResult == 2) //2=killed, 1=hit, 0=missed
-                                {
-                                    break; //do not try and attack same creature that was just killed
-                                }
+                                hitAnimationLocation = new Coordinate(getPixelLocX(crtLocX), getPixelLocY(crtLocY));
+                                                               //new system  
+                                AnimationStackGroup newGroup = new AnimationStackGroup();
+                                animationSeqStack[0].AnimationSeq.Add(newGroup);
+                                addMissAnimation(newGroup);
                             }
 
+                            return;
                         }
-                        if (attResult > 0) //2=killed, 1=hit, 0=missed
-                        {
-                            hitAnimationLocation = new Coordinate(getPixelLocX(crtLocX), getPixelLocY(crtLocY));
-                            //new system
-                            AnimationStackGroup newGroup = new AnimationStackGroup();
-                            animationSeqStack[0].AnimationSeq.Add(newGroup);
-                            addHitAnimation(newGroup);
-                        }
-                        else
-                        {
-                            hitAnimationLocation = new Coordinate(getPixelLocX(crtLocX), getPixelLocY(crtLocY));
-                            //new system
-                            AnimationStackGroup newGroup = new AnimationStackGroup();
-                            animationSeqStack[0].AnimationSeq.Add(newGroup);
-                            addMissAnimation(newGroup);
-                        }
-                        return;
                     }
                 }
             }
@@ -1499,7 +1538,11 @@ namespace IceBlink2
 
                 if (crt.hp <= 0)
                 {
-                    deathAnimationLocations.Add(new Coordinate(crt.combatLocX, crt.combatLocY));
+                    //deathAnimationLocations.Add(new Coordinate(crt.combatLocX, crt.combatLocY));
+                    foreach (Coordinate coor in crt.tokenCoveredSquares)
+                    {
+                        deathAnimationLocations.Add(new Coordinate(coor.X, coor.Y));
+                    }
                     gv.cc.addLogText("<font color='lime'>You killed the " + crt.cr_name + "</font><BR>");
                     return 2; //killed
                 }
@@ -1525,7 +1568,7 @@ namespace IceBlink2
         {
             Spell sp = gv.mod.getSpellByTag(tag);
             if (sp == null) { return; }
-            gv.cc.doSpellBasedOnScriptOrEffectTag(sp, it, trg);
+            gv.cc.doSpellBasedOnScriptOrEffectTag(sp, it, trg, false);
         }        
         public void endPcTurn(bool endStealthMode)
         {
@@ -1707,7 +1750,7 @@ namespace IceBlink2
                         coordinatesOfPcTheCreatureMovesTowards.X = pc.combatLocX;
                         coordinatesOfPcTheCreatureMovesTowards.Y = pc.combatLocY;
                         //run pathFinder to get new location
-                        pf.resetGrid();
+                        pf.resetGrid(crt);
                         storedPathOfCurrentCreature.Clear();
                         storedPathOfCurrentCreature = pf.findNewPoint(crt, new Coordinate(coordinatesOfPcTheCreatureMovesTowards.X, coordinatesOfPcTheCreatureMovesTowards.Y));
                     }
@@ -1720,7 +1763,6 @@ namespace IceBlink2
                 {
                     //didn't find a path, don't move
                     //KArl
-                    //gv.Render();
                     blockAnimationBridge = false;
                     endCreatureTurn(crt);
                     return;
@@ -1733,13 +1775,111 @@ namespace IceBlink2
 				    if ((crt.newCoor.X == -1) && (crt.newCoor.Y == -1))
 				    {
                         //didn't find a path, don't move
-                        //KArl
-                        //gv.Render();
-                        blockAnimationBridge = false;
-                        endCreatureTurn(crt);
-					    return;
-				    }
-				   
+                        //blockAnimationBridge = false;
+                        //endCreatureTurn(crt);
+                        //return;
+
+                        //didn't find a path, try other PCs  
+                        bool foundOne = false;
+                        //try each PC  
+                        for (int d = 0; d < gv.mod.playerList.Count; d++)
+                        {
+                            if ((gv.mod.playerList[d].isAlive()) && (!gv.mod.playerList[d].steathModeOn) && (!gv.mod.playerList[d].isInvisible()))
+                            {
+                                pf.resetGrid(crt);
+                                storedPathOfCurrentCreature.Clear();
+
+                                storedPathOfCurrentCreature = pf.findNewPoint(crt, new Coordinate(gv.mod.playerList[d].combatLocX, gv.mod.playerList[d].combatLocY));
+
+                                if (storedPathOfCurrentCreature.Count > 1)
+                                {
+                                    crt.newCoor = storedPathOfCurrentCreature[storedPathOfCurrentCreature.Count - 2];
+                                }
+
+                                //newCoor = pf.findNewPoint(crt, new Coordinate(gv.mod.playerList[d].combatLocX, gv.mod.playerList[d].combatLocY));
+                                if ((crt.newCoor.X == -1) && (crt.newCoor.Y == -1))
+                                {
+                                    //didn't find a path so keep searching  
+                                }
+                                else
+                                {
+                                    //found a path so break 
+                                    if (gv.mod.debugMode)
+                                    {
+                                        gv.cc.addLogText("<yl>player " + d + ":" + crt.newCoor.X + "," + crt.newCoor.Y + "</yl><BR>");
+                                    }
+
+                                    foundOne = true;
+                                    break;
+                                }
+                            }
+                      }
+                      if (!foundOne)
+                      {
+                            //try around the nearest PC  
+                            int closestDist = 999;
+                            for (int j = 1; j < 5; j++) //used for radius around PC  
+                            {
+                                 for (int x = -j; x <= j; x++)
+                                 {
+                                        for (int y = -j; y <= j; y++)
+                                        {
+                                              if (isSquareOnCombatMap(pc.combatLocX + x, pc.combatLocY + y))
+                                              {
+                                                    pf.resetGrid(crt);
+                                                    storedPathOfCurrentCreature.Clear();
+                                                    //Coordinate testCoor = pf.findNewPoint(crt, new Coordinate(pc.combatLocX + x, pc.combatLocY + y));
+                                                    storedPathOfCurrentCreature = pf.findNewPoint(crt, new Coordinate(pc.combatLocX, pc.combatLocY));
+
+                                                    Coordinate testCoor = new Coordinate();
+                                                    testCoor.X = -1;
+                                                    testCoor.Y = -1;
+
+                                                    if (storedPathOfCurrentCreature.Count > 1)
+                                                    {
+                                                        testCoor = storedPathOfCurrentCreature[storedPathOfCurrentCreature.Count - 2];
+                                                    }
+
+                                                    if ((testCoor.X == -1) && (testCoor.Y == -1))
+                                                    {
+                                                         //didn't find a path so keep searching  
+                                                    }
+                                                    else  
+                                                    {
+                                                        //found a path so check if closer distance  
+                                                        int dist = getDistance(new Coordinate(pc.combatLocX + x, pc.combatLocY + y), new Coordinate(crt.combatLocX, crt.combatLocY));
+                                                        if (dist < closestDist)
+                                                        {
+                                                              closestDist = dist;
+                                                              crt.newCoor.X = testCoor.X;
+                                                              crt.newCoor.Y = testCoor.Y;
+                                                              foundOne = true;
+                                                        if (gv.mod.debugMode)
+                                                        {
+                                                              gv.cc.addLogText("<yl>dist: " + dist + " coor:" + crt.newCoor.X + "," + crt.newCoor.Y + "</yl><BR>");
+                                                        }
+
+                                                }
+                                            }
+                                                }
+                                           }
+                                      }//for2
+                                }//for1
+                            }//found check
+
+                        if (!foundOne)
+                        {
+                            //give up and end  
+                            blockAnimationBridge = false;
+                            endCreatureTurn(crt);
+                            return;
+                        }
+                   }
+                   if (gv.mod.debugMode)
+                   {
+                         gv.cc.addLogText("<yl>newCoor:" + crt.newCoor.X + "," + crt.newCoor.Y + "</yl><BR>");
+                   }
+
                     //it's a diagonal move
                     if ((crt.combatLocX != crt.newCoor.X) && (crt.combatLocY != crt.newCoor.Y))
                     {
@@ -1817,7 +1957,7 @@ namespace IceBlink2
                         //try to move horizontally or vertically instead if most points are not enough for diagonal move
                         else if ((crt.moveDistance - creatureMoves) >= 1)
                         {
-                            pf.resetGrid();
+                            pf.resetGrid(crt);
                             //block the originial diagonal target square and calculate again
                             mod.nonAllowedDiagonalSquareX = crt.newCoor.X;
                             mod.nonAllowedDiagonalSquareY = crt.newCoor.Y;
@@ -1983,7 +2123,29 @@ namespace IceBlink2
 			    return;
 		    }
 	    }
-	    public void CreatureDoesAttack(Creature crt)
+
+        public bool isSquareOnCombatMap(int x, int y)
+         {  
+             if (x >= gv.mod.currentEncounter.MapSizeX)  
+             {  
+                return false;  
+             }  
+             if (x< 0)  
+             {  
+                 return false;  
+             }  
+             if (y >= gv.mod.currentEncounter.MapSizeY)  
+             {  
+                return false;  
+             }  
+             if (y< 0)  
+             {  
+                return false;  
+             }  
+                return true;  
+         }
+
+    public void CreatureDoesAttack(Creature crt)
         {
             if (gv.sf.CombatTarget != null)
             {
@@ -1995,7 +2157,7 @@ namespace IceBlink2
 			    int startY = crt.combatLocY * gv.squareSize + (gv.squareSize / 2);
 	            // determine if ranged or melee
 	            if ((crt.cr_category.Equals("Ranged")) 
-	        		    && (CalcDistance(crt.combatLocX, crt.combatLocY, pc.combatLocX, pc.combatLocY) <= crt.cr_attRange)
+	        		    && (CalcDistance(crt, crt.combatLocX, crt.combatLocY, pc.combatLocX, pc.combatLocY) <= crt.cr_attRange)
 	        		    && (isVisibleLineOfSight(new Coordinate(endX, endY), new Coordinate(startX, startY))))
 	            {
 	                //play attack sound for ranged
@@ -2070,7 +2232,7 @@ namespace IceBlink2
 	                }
 	            }
 	            else if ((crt.cr_category.Equals("Melee")) 
-	        		    && (CalcDistance(crt.combatLocX, crt.combatLocY, pc.combatLocX, pc.combatLocY) <= crt.cr_attRange))
+	        		    && (CalcDistance(crt, crt.combatLocX, crt.combatLocY, pc.combatLocX, pc.combatLocY) <= crt.cr_attRange))
 	            {
 	        	    if ((pc.combatLocX < crt.combatLocX) && (!crt.combatFacingLeft)) //attack left
         		    {
@@ -2222,7 +2384,7 @@ namespace IceBlink2
                 newSeq.AnimationSeq.Add(newGroup);
                 launchProjectile(filename, startX, startY, endX, endY, newGroup);
                 //gv.PlaySound(gv.sf.SpellToCast.spellEndSound);
-                gv.cc.doSpellBasedOnScriptOrEffectTag(gv.sf.SpellToCast, crt, gv.sf.CombatTarget);
+                gv.cc.doSpellBasedOnScriptOrEffectTag(gv.sf.SpellToCast, crt, gv.sf.CombatTarget, false);
                 //add ending projectile animation
                 newGroup = new AnimationStackGroup();
                 animationSeqStack[0].AnimationSeq.Add(newGroup);
@@ -2305,7 +2467,7 @@ namespace IceBlink2
             else
             {
                 gv.sf.CombatTarget = pc;
-                int dist = CalcDistance(crt.combatLocX, crt.combatLocY, pc.combatLocX, pc.combatLocY);
+                int dist = CalcDistance(crt, crt.combatLocX, crt.combatLocY, pc.combatLocX, pc.combatLocY);
                 if (dist <= crt.cr_attRange)
                 {
                     gv.sf.ActionToTake = "Attack";
@@ -2740,7 +2902,7 @@ namespace IceBlink2
         {
             Spell sp = gv.mod.getSpellByTag(crt.onScoringHitCastSpellTag);
             if (sp == null) { return; }
-            gv.cc.doSpellBasedOnScriptOrEffectTag(sp, crt, pc);
+            gv.cc.doSpellBasedOnScriptOrEffectTag(sp, crt, pc, false);
         }
         public bool checkEndEncounter()
         {
@@ -2868,10 +3030,34 @@ namespace IceBlink2
                 }
                 if ((prp != null) && (prp.isActive))
                 {
-                    //check to see what type of event  
+                    //check to see if using an IBScript   
                     if (!prp.OnEnterSquareIBScript.Equals("none"))
                     {
-                        gv.cc.doIBScriptBasedOnFilename(prp.OnEnterSquareIBScript, prp.OnEnterSquareIBScriptParms);
+                        //gv.cc.doIBScriptBasedOnFilename(prp.OnEnterSquareIBScript, prp.OnEnterSquareIBScriptParms);
+                        if ((isPlayerTurn) && (prp.canBeTriggeredByPc)) //only do if PC can trigger  
+                        {
+                            gv.cc.doIBScriptBasedOnFilename(prp.OnEnterSquareIBScript, prp.OnEnterSquareIBScriptParms);
+                            decrementAndRemoveProp(prp);
+                        }
+                        else if ((!isPlayerTurn) && (prp.canBeTriggeredByCreature)) //only do if creature can trigger  
+                        {
+                            gv.cc.doIBScriptBasedOnFilename(prp.OnEnterSquareIBScript, prp.OnEnterSquareIBScriptParms);
+                            decrementAndRemoveProp(prp);
+                        }
+                     }
+                     //check to see if using a Script  
+                     else if (!prp.OnEnterSquareScript.Equals("none"))
+                     {
+                        if ((isPlayerTurn) && (prp.canBeTriggeredByPc)) //only do if PC can trigger  
+                        {
+                            gv.cc.doScriptBasedOnFilename(prp.OnEnterSquareScript, prp.OnEnterSquareScriptParm1, prp.OnEnterSquareScriptParm2, prp.OnEnterSquareScriptParm3, prp.OnEnterSquareScriptParm4);
+                            decrementAndRemoveProp(prp);
+                        }
+                        else if ((!isPlayerTurn) && (prp.canBeTriggeredByCreature)) //only do if creature can trigger  
+                        {
+                            gv.cc.doScriptBasedOnFilename(prp.OnEnterSquareScript, prp.OnEnterSquareScriptParm1, prp.OnEnterSquareScriptParm2, prp.OnEnterSquareScriptParm3, prp.OnEnterSquareScriptParm4);
+                            decrementAndRemoveProp(prp);
+                        }
                     }
                 }
 
@@ -2886,6 +3072,26 @@ namespace IceBlink2
                 }
             }
         }
+
+        public void decrementAndRemoveProp(Prop prp)
+        {  
+             prp.numberOfScriptCallsRemaining--;  
+             if (prp.numberOfScriptCallsRemaining< 1)  
+             {  
+                 gv.mod.currentEncounter.propsList.Remove(prp);  
+             }  
+        }
+          
+        public void decrementAndRemoveTrigger(Trigger trg)
+        {  
+             trg.numberOfScriptCallsRemaining--;  
+             if (trg.numberOfScriptCallsRemaining< 1)  
+             {  
+                 gv.mod.currentEncounter.Triggers.Remove(trg);  
+             }  
+        }  
+   
+
 
         public void doTriggers()        
         {
@@ -2926,12 +3132,32 @@ namespace IceBlink2
                         //check to see what type of event
                         if (trig.Event1Type.Equals("script"))
                         {
-                            gv.cc.doScriptBasedOnFilename(trig.Event1FilenameOrTag, trig.Event1Parm1, trig.Event1Parm2, trig.Event1Parm3, trig.Event1Parm4);
+                            //gv.cc.doScriptBasedOnFilename(trig.Event1FilenameOrTag, trig.Event1Parm1, trig.Event1Parm2, trig.Event1Parm3, trig.Event1Parm4);
+                            if ((isPlayerTurn) && (trig.canBeTriggeredByPc)) //only do if PC can trigger  
+                            {
+                                gv.cc.doScriptBasedOnFilename(trig.Event1FilenameOrTag, trig.Event1Parm1, trig.Event1Parm2, trig.Event1Parm3, trig.Event1Parm4);
+                                didTriggerEvent = true;
+                            }
+                            else if ((!isPlayerTurn) && (trig.canBeTriggeredByCreature)) //only do if creature can trigger  
+                            {
+                                gv.cc.doScriptBasedOnFilename(trig.Event1FilenameOrTag, trig.Event1Parm1, trig.Event1Parm2, trig.Event1Parm3, trig.Event1Parm4);
+                                didTriggerEvent = true;
+                            }
                             doTriggers();
                         }
                         else if (trig.Event1Type.Equals("ibscript"))
                        {
-                            gv.cc.doIBScriptBasedOnFilename(trig.Event1FilenameOrTag, trig.Event1Parm1);
+                            //gv.cc.doIBScriptBasedOnFilename(trig.Event1FilenameOrTag, trig.Event1Parm1);
+                            if ((isPlayerTurn) && (trig.canBeTriggeredByPc)) //only do if PC can trigger  
+                            {
+                                gv.cc.doIBScriptBasedOnFilename(trig.Event1FilenameOrTag, trig.Event1Parm1);
+                                didTriggerEvent = true;
+                            }
+                            else if ((!isPlayerTurn) && (trig.canBeTriggeredByCreature)) //only do if creature can trigger  
+                            {
+                                gv.cc.doIBScriptBasedOnFilename(trig.Event1FilenameOrTag, trig.Event1Parm1);
+                                didTriggerEvent = true;
+                            }
                             doTriggers();
                         }
                         //do that event
@@ -2948,12 +3174,33 @@ namespace IceBlink2
                         //check to see what type of event
                         if (trig.Event2Type.Equals("script"))
                         {
-                            gv.cc.doScriptBasedOnFilename(trig.Event2FilenameOrTag, trig.Event2Parm1, trig.Event2Parm2, trig.Event2Parm3, trig.Event2Parm4);
+                            //gv.cc.doScriptBasedOnFilename(trig.Event2FilenameOrTag, trig.Event2Parm1, trig.Event2Parm2, trig.Event2Parm3, trig.Event2Parm4);
+                            if ((isPlayerTurn) && (trig.canBeTriggeredByPc)) //only do if PC can trigger  
+                                                            {
+                                 gv.cc.doScriptBasedOnFilename(trig.Event2FilenameOrTag, trig.Event2Parm1, trig.Event2Parm2, trig.Event2Parm3, trig.Event2Parm4);
+                                 didTriggerEvent = true;
+                                                            }
+                                                        else if ((!isPlayerTurn) && (trig.canBeTriggeredByCreature)) //only do if creature can trigger  
+                                                            {
+                                 gv.cc.doScriptBasedOnFilename(trig.Event2FilenameOrTag, trig.Event2Parm1, trig.Event2Parm2, trig.Event2Parm3, trig.Event2Parm4);
+                                 didTriggerEvent = true;
+                                                           }
+
                             doTriggers();
                         }
                         else if (trig.Event1Type.Equals("ibscript"))
                         {
-                            gv.cc.doIBScriptBasedOnFilename(trig.Event2FilenameOrTag, trig.Event2Parm1);
+                            //gv.cc.doIBScriptBasedOnFilename(trig.Event2FilenameOrTag, trig.Event2Parm1);
+                            if ((isPlayerTurn) && (trig.canBeTriggeredByPc)) //only do if PC can trigger  
+                                                        {
+                                gv.cc.doIBScriptBasedOnFilename(trig.Event2FilenameOrTag, trig.Event2Parm1);
+                                didTriggerEvent = true;
+                                                            }
+                                                        else if ((!isPlayerTurn) && (trig.canBeTriggeredByCreature)) //only do if creature can trigger  
+                                                            {
+                                gv.cc.doIBScriptBasedOnFilename(trig.Event2FilenameOrTag, trig.Event2Parm1);
+                                didTriggerEvent = true;
+                                                            }
                             doTriggers();
                         }
                         //do that event
@@ -2970,12 +3217,33 @@ namespace IceBlink2
                         //check to see what type of event
                         if (trig.Event3Type.Equals("script"))
                         {
-                            gv.cc.doScriptBasedOnFilename(trig.Event3FilenameOrTag, trig.Event3Parm1, trig.Event3Parm2, trig.Event3Parm3, trig.Event3Parm4);
+                            //gv.cc.doScriptBasedOnFilename(trig.Event3FilenameOrTag, trig.Event3Parm1, trig.Event3Parm2, trig.Event3Parm3, trig.Event3Parm4);
+                            if ((isPlayerTurn) && (trig.canBeTriggeredByPc)) //only do if PC can trigger  
+                                                            {
+                                gv.cc.doScriptBasedOnFilename(trig.Event3FilenameOrTag, trig.Event3Parm1, trig.Event3Parm2, trig.Event3Parm3, trig.Event3Parm4);
+                                didTriggerEvent = true;
+                                                           }
+                                                        else if ((!isPlayerTurn) && (trig.canBeTriggeredByCreature)) //only do if creature can trigger  
+                                                           {
+                                gv.cc.doScriptBasedOnFilename(trig.Event3FilenameOrTag, trig.Event3Parm1, trig.Event3Parm2, trig.Event3Parm3, trig.Event3Parm4);
+                                didTriggerEvent = true;
+                                                           }
+
                             doTriggers();
                         }
-                        else if (trig.Event1Type.Equals("ibscript"))
+                        else if (trig.Event3Type.Equals("ibscript"))
                         {
-                            gv.cc.doIBScriptBasedOnFilename(trig.Event3FilenameOrTag, trig.Event3Parm1);
+                            //gv.cc.doIBScriptBasedOnFilename(trig.Event3FilenameOrTag, trig.Event3Parm1);
+                            if ((isPlayerTurn) && (trig.canBeTriggeredByPc)) //only do if PC can trigger  
+                                                            {
+                                gv.cc.doIBScriptBasedOnFilename(trig.Event3FilenameOrTag, trig.Event3Parm1);
+                                didTriggerEvent = true;
+                                                           }
+                                                       else if ((!isPlayerTurn) && (trig.canBeTriggeredByCreature)) //only do if creature can trigger  
+                                                           {
+                                gv.cc.doIBScriptBasedOnFilename(trig.Event3FilenameOrTag, trig.Event3Parm1);
+                                didTriggerEvent = true;
+                                                           }
                             doTriggers();
                         }
                         //do that event
@@ -2991,7 +3259,13 @@ namespace IceBlink2
                     #endregion
                     if (triggerIndexCombat > 3)
                     {
+                        if (didTriggerEvent)
+                                                 {
+                            decrementAndRemoveTrigger(trig);
+                                                   }
+
                         triggerIndexCombat = 0;
+                        didTriggerEvent = false;
                         if (trig.DoOnceOnly)
                         {
                             trig.Enabled = false;
@@ -3009,10 +3283,61 @@ namespace IceBlink2
             }
         }
 
+        public void doPropOrTriggerCastSpell(string tag)
+        {  
+            Spell sp = gv.mod.getSpellByTag(tag);  
+            if (sp == null) { return; }  
+            Coordinate srcCoor = new Coordinate(gv.mod.currentEncounter.triggerScriptCalledFromSquareLocX, gv.mod.currentEncounter.triggerScriptCalledFromSquareLocY);  
+            //if spell target type is coor, use coor...else use creature or PC on square  
+            if (sp.spellTargetType.Equals("PointLocation"))  
+            {  
+                gv.cc.doSpellBasedOnScriptOrEffectTag(sp, srcCoor, srcCoor, false);  
+            }  
+            else  
+            {  
+                foreach (Creature crt in gv.mod.currentEncounter.encounterCreatureList)  
+                {  
+                    if ((crt.combatLocX == gv.mod.currentEncounter.triggerScriptCalledFromSquareLocX) && (crt.combatLocY == gv.mod.currentEncounter.triggerScriptCalledFromSquareLocY))
+                    {  
+                        gv.cc.doSpellBasedOnScriptOrEffectTag(sp, srcCoor, crt, false);
+                    }  
+                }  
+                foreach (Player pc in gv.mod.playerList)  
+                {  
+                    if ((pc.combatLocX == gv.mod.currentEncounter.triggerScriptCalledFromSquareLocX) && (pc.combatLocY == gv.mod.currentEncounter.triggerScriptCalledFromSquareLocY))  
+                    {  
+                        gv.cc.doSpellBasedOnScriptOrEffectTag(sp, srcCoor, pc, false);  
+                    }  
+                }  
+            }  
+              
+            //add ending animation  
+            string filename = sp.spriteEndingFilename;  
+            AnimationSequence newSeq = new AnimationSequence();  
+            animationSeqStack.Add(newSeq);  
+            AnimationStackGroup newGroup = new AnimationStackGroup();  
+            animationSeqStack[0].AnimationSeq.Add(newGroup);  
+            foreach (Coordinate coor in gv.sf.AoeSquaresList)  
+            {  
+                addEndingAnimation(newGroup, new Coordinate(getPixelLocX(coor.X), getPixelLocY(coor.Y)), filename);  
+            }  
+            //add floaty text  
+            //add death animations  
+            newGroup = new AnimationStackGroup();  
+            animationSeqStack[0].AnimationSeq.Add(newGroup);  
+            foreach (Coordinate coor in deathAnimationLocations)  
+            {  
+                addDeathAnimation(newGroup, new Coordinate(getPixelLocX(coor.X), getPixelLocY(coor.Y)));  
+            }  
+            animationsOn = true;  
+        }  
+
+
         //COMBAT SCREEN UPDATE
         public void Update(int elapsed)
         {
             combatUiLayout.Update(elapsed);
+            refreshCreatureCoveredSquares();
 
             #region PROP AMBIENT SPRITES
             foreach (Sprite spr in spriteList)
@@ -3050,14 +3375,29 @@ namespace IceBlink2
                     playerToAnimate = null;
                     foreach (AnimationSequence seq in animationSeqStack)
                     {
-                        if(seq.AnimationSeq[0].turnFloatyTextOn)
+                        //if(seq.AnimationSeq[0].turnFloatyTextOn)
+                        if (seq.AnimationSeq.Count > 0)
                         {
+                            /*
                             floatyTextOn = true; //show any floaty text in the pool
                         }
                         foreach (Sprite spr in seq.AnimationSeq[0].SpriteGroup)
                         {
                             //just update the group at the top of the stack, first in first
                             spr.Update(elapsed, gv);
+                            */
+                            //new
+                            if (seq.AnimationSeq[0].turnFloatyTextOn)
+                            {
+                                floatyTextOn = true; //show any floaty text in the pool  
+                            }
+                            foreach (Sprite spr in seq.AnimationSeq[0].SpriteGroup)
+                            {
+                                //just update the group at the top of the stack, first in first  
+                                spr.Update(elapsed, gv);
+                            }
+                            //new
+     
                         }
                     }
                     //remove sprites if hit end of life
@@ -3184,7 +3524,40 @@ namespace IceBlink2
             }
             #endregion
         }
-        
+
+        public void refreshCreatureCoveredSquares()
+         {  
+             foreach (Creature crt in mod.currentEncounter.encounterCreatureList)  
+             {  
+                 crt.tokenCoveredSquares.Clear();  
+                //add normal creature size square location first...add other sizes as needed  
+                 crt.tokenCoveredSquares.Add(new Coordinate(crt.combatLocX, crt.combatLocY));  
+                   
+                 int width = gv.cc.GetFromBitmapList(crt.cr_tokenFilename).PixelSize.Width;  
+                 int height = gv.cc.GetFromBitmapList(crt.cr_tokenFilename).PixelSize.Height;
+                //1=normal, 2=wide, 3=tall, 4=large  
+                int crtSize = crt.creatureSize; 
+   
+                 //wide  
+                 if (crtSize == 2)  
+                 {  
+                     crt.tokenCoveredSquares.Add(new Coordinate(crt.combatLocX + 1, crt.combatLocY));  
+                }  
+                 //tall  
+                 else if (crtSize == 3)  
+                 {  
+                     crt.tokenCoveredSquares.Add(new Coordinate(crt.combatLocX, crt.combatLocY + 1));  
+                 }  
+                 //large  
+                 else if (crtSize == 4)  
+                 {  
+                     crt.tokenCoveredSquares.Add(new Coordinate(crt.combatLocX + 1, crt.combatLocY));  
+                     crt.tokenCoveredSquares.Add(new Coordinate(crt.combatLocX, crt.combatLocY + 1));  
+                     crt.tokenCoveredSquares.Add(new Coordinate(crt.combatLocX + 1, crt.combatLocY + 1));  
+                 }  
+             }  
+         }  
+
         #region Combat Draw
         public void redrawCombat()
         {
@@ -4411,8 +4784,10 @@ public void drawEffectSquares()
                                 if ((pf.values != null) && (mod.debugMode))
                                 {
                                     //gv.DrawText(pf.values[x, y].ToString(), (x - UpperLeftSquare.X) * gv.squareSize + gv.oXshift + mapStartLocXinPixels, (y - UpperLeftSquare.Y) * gv.squareSize);
-                                }
+                                    //gv.DrawText(pf.values[x, y].ToString(), x * gv.squareSize + mapStartLocXinPixels, y * gv.squareSize, "wh");
+
                             }
+                        }
                         }
                     }
                 }
@@ -5543,19 +5918,46 @@ public void drawEffectSquares()
                     if (IsInVisibleCombatWindow(cr.combatLocX, cr.combatLocY))
                     {
                         IbRect src = new IbRect(0, 0, gv.cc.turn_marker.PixelSize.Width, gv.cc.turn_marker.PixelSize.Height);
-                        IbRect dst = new IbRect(getPixelLocX(cr.combatLocX), getPixelLocY(cr.combatLocY), gv.squareSize, gv.squareSize);
-                        gv.DrawBitmap(gv.cc.turn_marker, src, dst);
+                            //IbRect dst = new IbRect(getPixelLocX(cr.combatLocX), getPixelLocY(cr.combatLocY), gv.squareSize, gv.squareSize);
+                            //gv.DrawBitmap(gv.cc.turn_marker, src, dst);
+                            foreach (Coordinate coor in cr.tokenCoveredSquares)
+                            {
+                                IbRect dst = new IbRect(getPixelLocX(coor.X), getPixelLocY(coor.Y), gv.squareSize, gv.squareSize);
+                                gv.DrawBitmap(gv.cc.turn_marker, src, dst);
+                            }
+                        }
                     }
-                }
                 }
             }
             foreach (Creature crt in mod.currentEncounter.encounterCreatureList)
             {
-                if (!IsInVisibleCombatWindow(crt.combatLocX, crt.combatLocY))
+                bool drawCreature = false;
+                foreach (Coordinate coor in crt.tokenCoveredSquares)
+                {
+                    if (IsInVisibleCombatWindow(coor.X, coor.Y))
+                    {
+                        drawCreature = true;
+                    }
+                }                     
+
+                if (!drawCreature)
                 {
                     continue;
                 }
-                IbRect src = new IbRect(0, 0, crt.token.PixelSize.Width, crt.token.PixelSize.Width);
+
+                //if (!IsInVisibleCombatWindow(crt.combatLocX, crt.combatLocY))
+                //{
+                //continue;
+                //}
+
+                //IbRect src = new IbRect(0, 0, crt.token.PixelSize.Width, crt.token.PixelSize.Width);
+
+                int width = gv.cc.GetFromBitmapList(crt.cr_tokenFilename).PixelSize.Width;
+                int height = gv.cc.GetFromBitmapList(crt.cr_tokenFilename).PixelSize.Height;
+                                //1=normal, 2=wide, 3=tall, 4=large  
+                int crtSize = crt.creatureSize;
+                IbRect src = new IbRect(0, 0, width, height / 2);
+
                 if ((creatureToAnimate != null) && (creatureToAnimate == crt))
                 {
                     //blockAnimationBridge = true;
@@ -5572,13 +5974,36 @@ public void drawEffectSquares()
                         blockAnimationBridge = false;
                     }
                     src = new IbRect(0, crt.token.PixelSize.Width * attackAnimationFrameCounter, crt.token.PixelSize.Width, crt.token.PixelSize.Width);
-			    }
-
-                IbRect dst = new IbRect(getPixelLocX(crt.combatLocX), getPixelLocY(crt.combatLocY), gv.squareSize, gv.squareSize);
-                if (crt.token.PixelSize.Width > 100)
-                {
-                    dst = new IbRect(getPixelLocX(crt.combatLocX) - (gv.squareSize / 2), getPixelLocY(crt.combatLocY) - (gv.squareSize / 2), gv.squareSize * 2, gv.squareSize * 2);
+                    //src = new IbRect(0, height / 2, width, height / 2);
                 }
+
+                //normal
+                IbRect dst = new IbRect(getPixelLocX(crt.combatLocX), getPixelLocY(crt.combatLocY), gv.squareSize, gv.squareSize);
+
+                //wide  
+                if (crtSize == 2)
+                {
+                    dst = new IbRect(getPixelLocX(crt.combatLocX), getPixelLocY(crt.combatLocY), gv.squareSize * 2, gv.squareSize);
+                }
+
+                //tall  
+                if (crtSize == 3)
+                {
+                    //dst = new IbRect(getPixelLocX(crt.combatLocX) - (gv.squareSize / 2), getPixelLocY(crt.combatLocY) - (gv.squareSize / 2), gv.squareSize * 2, gv.squareSize * 2);
+                    dst = new IbRect(getPixelLocX(crt.combatLocX), getPixelLocY(crt.combatLocY), gv.squareSize, gv.squareSize * 2);
+                }
+
+                //large  
+                if (crtSize == 4)
+                {
+                    dst = new IbRect(getPixelLocX(crt.combatLocX), getPixelLocY(crt.combatLocY), gv.squareSize * 2, gv.squareSize * 2);
+                }
+
+                //if (crt.token.PixelSize.Width > 100)
+                //{
+                //dst = new IbRect(getPixelLocX(crt.combatLocX) - (gv.squareSize / 2), getPixelLocY(crt.combatLocY) - (gv.squareSize / 2), gv.squareSize * 2, gv.squareSize * 2);
+                //}
+
                 gv.DrawBitmap(crt.token, src, dst, !crt.combatFacingLeft);
                 foreach (Effect ef in crt.cr_effectsList)
                 {
@@ -5895,10 +6320,16 @@ public void drawEffectSquares()
                 {
                     foreach (AnimationSequence seq in animationSeqStack)
                     {
-                        foreach (Sprite spr in seq.AnimationSeq[0].SpriteGroup)
+                        //foreach (Sprite spr in seq.AnimationSeq[0].SpriteGroup)
+                        if (seq.AnimationSeq.Count > 0)
                         {
                             //just draw the group at the top of the stack, first in first
-                            spr.Draw(gv);
+                            //spr.Draw(gv);
+                            foreach (Sprite spr in seq.AnimationSeq[0].SpriteGroup)
+                            {
+                                //just draw the group at the top of the stack, first in first  
+                                spr.Draw(gv);
+                            }
                         }
                     }
                 }
@@ -7282,15 +7713,61 @@ public void drawEffectSquares()
                     gv.cc.floatyText3 = "";
                     foreach (Creature crt in mod.currentEncounter.encounterCreatureList)
                     {
-                        if ((crt.combatLocX == gridx + UpperLeftSquare.X) && (crt.combatLocY == gridy + UpperLeftSquare.Y))
+                        //if ((crt.combatLocX == gridx + UpperLeftSquare.X) && (crt.combatLocY == gridy + UpperLeftSquare.Y))
+                        //1=normal, 2=wide, 3=tall, 4=large  
+                        int crtSize = crt.creatureSize;
+
+                        //normal  
+                        if (crtSize == 1)
                         {
-                            gv.cc.floatyText = crt.cr_name;
-                            gv.cc.floatyText2 = "HP:" + crt.hp + " SP:" + crt.sp;
-                            gv.cc.floatyText3 = "AC:" + crt.AC + " " + crt.cr_status;
-                            gv.cc.floatyTextLoc = new Coordinate(getPixelLocX(crt.combatLocX), getPixelLocY(crt.combatLocY));
+                            if ((crt.combatLocX == gridx) && (crt.combatLocY == gridy))
+                            {
+                                gv.cc.floatyText = crt.cr_name;
+                                gv.cc.floatyText2 = "HP:" + crt.hp + " SP:" + crt.sp;
+                                gv.cc.floatyText3 = "AC:" + crt.AC + " " + crt.cr_status;
+                                gv.cc.floatyTextLoc = new Coordinate(getPixelLocX(crt.combatLocX), getPixelLocY(crt.combatLocY));
+                            }
+                        }
+
+                        //wide  
+                        else if (crtSize == 2)
+                        {
+                            if (((crt.combatLocX == gridx) && (crt.combatLocY == gridy)) || ((crt.combatLocX + 1 == gridx) && (crt.combatLocY == gridy)))
+                            {
+                                gv.cc.floatyText = crt.cr_name;
+                                gv.cc.floatyText2 = "HP:" + crt.hp + " SP:" + crt.sp;
+                                gv.cc.floatyText3 = "AC:" + crt.AC + " " + crt.cr_status;
+                                gv.cc.floatyTextLoc = new Coordinate(getPixelLocX(crt.combatLocX), getPixelLocY(crt.combatLocY));
+                            }
+                        }
+
+                        //tall  
+                        else if (crtSize == 3)
+                        {
+                            if (((crt.combatLocX == gridx) && (crt.combatLocY == gridy)) || ((crt.combatLocX == gridx) && (crt.combatLocY + 1 == gridy)))
+                            {
+                                gv.cc.floatyText = crt.cr_name;
+                                gv.cc.floatyText2 = "HP:" + crt.hp + " SP:" + crt.sp;
+                                gv.cc.floatyText3 = "AC:" + crt.AC + " " + crt.cr_status;
+                                gv.cc.floatyTextLoc = new Coordinate(getPixelLocX(crt.combatLocX), getPixelLocY(crt.combatLocY));
+                            }
+                        }
+
+                        //large  
+                        else if (crtSize == 4)
+                        {
+                            if (((crt.combatLocX == gridx) && (crt.combatLocY == gridy)) || ((crt.combatLocX + 1 == gridx) && (crt.combatLocY == gridy)) ||
+                            ((crt.combatLocX == gridx) && (crt.combatLocY + 1 == gridy)) ||
+                            ((crt.combatLocX + 1 == gridx) && (crt.combatLocY + 1 == gridy)))
+                            {
+                                gv.cc.floatyText = crt.cr_name;
+                                gv.cc.floatyText2 = "HP:" + crt.hp + " SP:" + crt.sp;
+                                gv.cc.floatyText3 = "AC:" + crt.AC + " " + crt.cr_status;
+                                gv.cc.floatyTextLoc = new Coordinate(getPixelLocX(crt.combatLocX), getPixelLocY(crt.combatLocY));
+                            }
                         }
                     }
-                    foreach (Player pc1 in mod.playerList)
+                        foreach (Player pc1 in mod.playerList)
                     {
                         if ((pc1.combatLocX == gridx + UpperLeftSquare.X) && (pc1.combatLocY == gridy + UpperLeftSquare.Y))
                         {
@@ -10689,7 +11166,7 @@ public void drawEffectSquares()
                 launchProjectile(filename, startX, startY, endX, endY, newGroup);
                 //gv.PlaySound(gv.cc.currentSelectedSpell.spellEndSound);
                 object target = getCastTarget(pc);
-                gv.cc.doSpellBasedOnScriptOrEffectTag(gv.cc.currentSelectedSpell, pc, target);
+                gv.cc.doSpellBasedOnScriptOrEffectTag(gv.cc.currentSelectedSpell, pc, target, false);
                 //add ending projectile animation
                 newGroup = new AnimationStackGroup();
                 animationSeqStack[0].AnimationSeq.Add(newGroup);
@@ -11037,12 +11514,19 @@ public void drawEffectSquares()
 			    {
 				    foreach (Creature crt in mod.currentEncounter.encounterCreatureList)
 				    {
-					    if ((crt.combatLocX == targetHighlightCenterLocation.X) && (crt.combatLocY == targetHighlightCenterLocation.Y))
-					    {
-						    return true;
-					    }
-				    }
-			    }
+                        //if ((crt.combatLocX == targetHighlightCenterLocation.X) && (crt.combatLocY == targetHighlightCenterLocation.Y))
+                        //{
+                        //return true;
+                        //}
+                        foreach (Coordinate coor in crt.tokenCoveredSquares)
+                        {
+                            if ((coor.X == targetHighlightCenterLocation.X) && (coor.Y == targetHighlightCenterLocation.Y))
+                            {
+                                return true;
+                            }
+                        }
+                    }
+                }
 		    }
 		    return false;
 	    }
@@ -11073,12 +11557,19 @@ public void drawEffectSquares()
 				    {
 					    foreach (Creature crt in mod.currentEncounter.encounterCreatureList)
 					    {
-						    if ((crt.combatLocX == targetHighlightCenterLocation.X) && (crt.combatLocY == targetHighlightCenterLocation.Y))
-						    {
-							    return true;
-						    }
-					    }
-				    }
+                            //if ((crt.combatLocX == targetHighlightCenterLocation.X) && (crt.combatLocY == targetHighlightCenterLocation.Y))
+                            //{
+                            //return true;
+                            //}
+                            foreach (Coordinate coor in crt.tokenCoveredSquares)
+                            {
+                                if ((coor.X == targetHighlightCenterLocation.X) && (coor.Y == targetHighlightCenterLocation.Y))
+                                {
+                                    return true;
+                                }
+                            }
+                        }
+                    }
 			    }			
 		    }
 		    return false;
@@ -11110,11 +11601,18 @@ public void drawEffectSquares()
 				    {
 					    foreach (Creature crt in mod.currentEncounter.encounterCreatureList)
 					    {
-						    if ((crt.combatLocX == targetHighlightCenterLocation.X) && (crt.combatLocY == targetHighlightCenterLocation.Y))
-						    {
-							    return crt;
-						    }
-					    }
+                            //if ((crt.combatLocX == targetHighlightCenterLocation.X) && (crt.combatLocY == targetHighlightCenterLocation.Y))
+                            //{
+                            //return crt;
+                            //}
+                            foreach (Coordinate coor in crt.tokenCoveredSquares)
+                            {
+                                if ((coor.X == targetHighlightCenterLocation.X) && (coor.Y == targetHighlightCenterLocation.Y))
+                                {
+                                    return true;
+                                }
+                            }
+                        }
 				    }
 			    }			
 		    }
@@ -11154,15 +11652,22 @@ public void drawEffectSquares()
 	    {
 		    foreach (Creature crt in mod.currentEncounter.encounterCreatureList)
 		    {
-			    if (getDistance(new Coordinate(pc.combatLocX,pc.combatLocY), new Coordinate(crt.combatLocX,crt.combatLocY)) == 1)
-			    {
-				    if (!crt.isHeld())
-				    {
-                        if (crt.hp > 0)
+                //if (getDistance(new Coordinate(pc.combatLocX,pc.combatLocY), new Coordinate(crt.combatLocX,crt.combatLocY)) == 1)
+                foreach (Coordinate coor in crt.tokenCoveredSquares)
+                {
+                    //if (!crt.isHeld())
+                    if (getDistance(new Coordinate(pc.combatLocX, pc.combatLocY), new Coordinate(coor.X, coor.Y)) == 1)
+                    {
+                        //if (crt.hp > 0)
+                        if (!crt.isHeld())
                         {
-                            return true;
+                            //return true;
+                            if (crt.hp > 0)
+                            {
+                                return true;
+                            }
                         }
-				    }
+                    }
 			    }
 		    }
 		    return false;
@@ -11511,9 +12016,14 @@ public void drawEffectSquares()
         {
             foreach (Creature crt in mod.currentEncounter.encounterCreatureList)
             {
-                if ((crt.combatLocX == x) && (crt.combatLocY == y))
+                //if ((crt.combatLocX == x) && (crt.combatLocY == y))
+                foreach (Coordinate coor in crt.tokenCoveredSquares)
                 {
-            	    return crt;
+                    //return crt;
+                    if ((coor.X == x) && (coor.Y == y))
+                    {
+                        return crt;
+                    }
                 }
             }
             return null;
@@ -11528,10 +12038,15 @@ public void drawEffectSquares()
                     //if started in distance = 1 and now distance = 2 then do attackOfOpportunity
                     //also do attackOfOpportunity if moving within controlled area around a creature, i.e. when distance to cerature after move is still one square
                     //the later makes it harder to circle around a cretaure or break through lines, fighters get more area control this way, allwoing them to protect other charcters with more ease
-                    if ( ( (CalcDistance(crt.combatLocX, crt.combatLocY, pc.combatLocX, pc.combatLocY) == 1)
+                    /*if ( ( (CalcDistance(crt.combatLocX, crt.combatLocY, pc.combatLocX, pc.combatLocY) == 1)
                         && (CalcDistance(crt.combatLocX, crt.combatLocY, futurePlayerLocationX, futurePlayerLocationY) == 2) ) 
                         || ( (currentMoves > 0) && (CalcDistance(crt.combatLocX, crt.combatLocY, pc.combatLocX, pc.combatLocY) == 1)
-                        && (CalcDistance(crt.combatLocX, crt.combatLocY, futurePlayerLocationX, futurePlayerLocationY) == 1) ) )
+                        && (CalcDistance(crt.combatLocX, crt.combatLocY, futurePlayerLocationX, futurePlayerLocationY) == 1) ) )*/
+
+                        if (((CalcDistance(crt, crt.combatLocX, crt.combatLocY, pc.combatLocX, pc.combatLocY) == 1)
+                         && (CalcDistance(crt, crt.combatLocX, crt.combatLocY, futurePlayerLocationX, futurePlayerLocationY) == 2))  
+                         || ((currentMoves > 0) && (CalcDistance(crt, crt.combatLocX, crt.combatLocY, pc.combatLocX, pc.combatLocY) == 1)
+                         && (CalcDistance(crt, crt.combatLocX, crt.combatLocY, futurePlayerLocationX, futurePlayerLocationY) == 1)))  
                     {
                         if (pc.steathModeOn)
                         {
@@ -11904,7 +12419,8 @@ public void drawEffectSquares()
             {
                 if ((!p.isDead()) && (p.hp > 0) && (!p.steathModeOn))
                 {
-                    int dist = CalcDistance(crt.combatLocX, crt.combatLocY, p.combatLocX, p.combatLocY);
+                    //int dist = CalcDistance(crt.combatLocX, crt.combatLocY, p.combatLocX, p.combatLocY);
+                    int dist = CalcDistance(crt, crt.combatLocX, crt.combatLocY, p.combatLocX, p.combatLocY);
                     if (dist == farDist)
                     {
                 	    //since at same distance, do a random check to see if switch or stay with current PC target
@@ -11971,14 +12487,19 @@ public void drawEffectSquares()
                     } 
                     foreach (Creature crtr in mod.currentEncounter.encounterCreatureList) //if its allies are in the burst subtract a point, or half depending on how evil it is.
                     {
-                        if (this.CalcDistance(crtr.combatLocX, crtr.combatLocY, selectedPoint.X, selectedPoint.Y) <= gv.sf.SpellToCast.aoeRadius) //if friendly creatures are in the AOE burst, count how many, subtract 0.5 for each, evil is evil
+                        //if (this.CalcDistance(crtr.combatLocX, crtr.combatLocY, selectedPoint.X, selectedPoint.Y) <= gv.sf.SpellToCast.aoeRadius) //if friendly creatures are in the AOE burst, count how many, subtract 0.5 for each, evil is evil
+                        //{
+                        if (this.CalcDistance(crtr, crtr.combatLocX, crtr.combatLocY, selectedPoint.X, selectedPoint.Y) <= gv.sf.SpellToCast.aoeRadius) //if friendly creatures are in the AOE burst, count how many, subtract 0.5 for each, evil is evil  
                         {
+
                             utility -= 1;
                         }
                     }
                     foreach (Player tgt_pc in mod.playerList)
                     {
-                        if ((this.CalcDistance(tgt_pc.combatLocX, tgt_pc.combatLocY, selectedPoint.X, selectedPoint.Y) <= gv.sf.SpellToCast.aoeRadius) && (tgt_pc.hp > 0)) //if players are in the AOE burst, count how many, total count is utility  //&& sf.GetLocalInt(tgt_pc.Tag, "StealthModeOn") != 1  <-throws an annoying message if not found!!
+                        //if ((this.CalcDistance(tgt_pc.combatLocX, tgt_pc.combatLocY, selectedPoint.X, selectedPoint.Y) <= gv.sf.SpellToCast.aoeRadius) && (tgt_pc.hp > 0)) //if players are in the AOE burst, count how many, total count is utility  //&& sf.GetLocalInt(tgt_pc.Tag, "StealthModeOn") != 1  <-throws an annoying message if not found!!
+                        //{
+                        if ((this.CalcDistance(null, tgt_pc.combatLocX, tgt_pc.combatLocY, selectedPoint.X, selectedPoint.Y) <= gv.sf.SpellToCast.aoeRadius) && (tgt_pc.hp > 0)) //if players are in the AOE burst, count how many, total count is utility  //&& sf.GetLocalInt(tgt_pc.Tag, "StealthModeOn") != 1  <-throws an annoying message if not found!!  
                         {
                             utility += 2;
                             if (utility > optimalUtil)
@@ -11998,8 +12519,10 @@ public void drawEffectSquares()
 
             return targetLoc;
         }
-	    public int CalcDistance(int locCrX, int locCrY, int locPcX, int locPcY)
+	    public int CalcDistance(Creature crt, int locCrX, int locCrY, int locPcX, int locPcY)
         {
+            //KARL: transpose IBMini changes
+            /*
             int dist = 0;
             int deltaX = (int)Math.Abs((locCrX - locPcX));
             int deltaY = (int)Math.Abs((locCrY - locPcY));
@@ -12007,6 +12530,102 @@ public void drawEffectSquares()
                 dist = deltaX;
             else
                 dist = deltaY;
+                */
+
+            int dist = 999;
+            if (crt == null)
+            {
+                int deltaX = (int)Math.Abs((locCrX - locPcX));
+                int deltaY = (int)Math.Abs((locCrY - locPcY));
+                if (deltaX > deltaY)
+                    return deltaX;
+                else  
+                    return deltaY;
+             }
+                       //go through all squares of creature and return the lowest distance  
+             int crtSize = crt.creatureSize; //1=normal, 2=wide, 3=tall, 4=large  
+                        //crt normal  
+                        if (crtSize == 1)
+                           {
+                 int deltaX = (int)Math.Abs((locCrX - locPcX));
+                 int deltaY = (int)Math.Abs((locCrY - locPcY));
+                                if (deltaX > deltaY)
+                     dist = deltaX;
+                                else  
+                     dist = deltaY;
+                           }
+                       //crt wide  
+                        else if (crtSize == 2)
+                            {
+                 int dist1 = 999;
+                 int dist2 = 999;
+                                //main square  
+                 int deltaX = (int)Math.Abs((locCrX - locPcX));
+                 int deltaY = (int)Math.Abs((locCrY - locPcY));
+                                if (deltaX > deltaY) { dist1 = deltaX; }
+                                else { dist1 = deltaY; }
+                                //right square  
+                 deltaX = (int)Math.Abs((locCrX + 1 - locPcX));
+                 deltaY = (int)Math.Abs((locCrY - locPcY));
+                                if (deltaX > deltaY) { dist2 = deltaX; }
+                                else { dist2 = deltaY; }
+                                //see which is lower  
+                                if (dist1 > dist2) { dist = dist2; }
+                                else { dist = dist1; }
+                            }
+                        //crt tall  
+                        else if (crtSize == 3)
+                            {
+                 int dist1 = 999;
+                 int dist2 = 999;
+                                //main square  
+                 int deltaX = (int)Math.Abs((locCrX - locPcX));
+                 int deltaY = (int)Math.Abs((locCrY - locPcY));
+                                if (deltaX > deltaY) { dist1 = deltaX; }
+                                else { dist1 = deltaY; }
+                                //lower square  
+                 deltaX = (int)Math.Abs((locCrX - locPcX));
+                 deltaY = (int)Math.Abs((locCrY + 1 - locPcY));
+                                if (deltaX > deltaY) { dist2 = deltaX; }
+                                else { dist2 = deltaY; }
+                                //see which is lower  
+                                if (dist1 > dist2) { dist = dist2; }
+                                else { dist = dist1; }
+                            }
+                        //crt large  
+                        else if (crtSize == 4)
+                            {
+                 int dist1 = 999;
+                 int dist2 = 999;
+                 int dist3 = 999;
+                 int dist4 = 999;
+                                //main square  
+                 int deltaX = (int)Math.Abs((locCrX - locPcX));
+                 int deltaY = (int)Math.Abs((locCrY - locPcY));
+                                if (deltaX > deltaY) { dist1 = deltaX; }
+                                else { dist1 = deltaY; }
+                                //right square  
+                 deltaX = (int)Math.Abs((locCrX + 1 - locPcX));
+                 deltaY = (int)Math.Abs((locCrY - locPcY));
+                                if (deltaX > deltaY) { dist2 = deltaX; }
+                                else { dist2 = deltaY; }
+                                //lower square  
+                 deltaX = (int)Math.Abs((locCrX - locPcX));
+                 deltaY = (int)Math.Abs((locCrY + 1 - locPcY));
+                                if (deltaX > deltaY) { dist3 = deltaX; }
+                                else { dist3 = deltaY; }
+                                //lower right square  
+                 deltaX = (int)Math.Abs((locCrX + 1 - locPcX));
+                 deltaY = (int)Math.Abs((locCrY + 1 - locPcY));
+                                if (deltaX > deltaY) { dist4 = deltaX; }
+                                else { dist4 = deltaY; }
+                                //see which is lower  
+                                if (dist1 < dist) { dist = dist1; }
+                                if (dist2 < dist) { dist = dist2; }
+                                if (dist3 < dist) { dist = dist3; }
+                                if (dist4 < dist) { dist = dist4; }
+                            }
+
             return dist;
         }
 	    public Creature GetCreatureWithLowestHP()
@@ -12048,7 +12667,8 @@ public void drawEffectSquares()
         {
             foreach (Creature nextCrt in mod.currentEncounter.encounterCreatureList)
             {
-                if ((CalcDistance(nextCrt.combatLocX, nextCrt.combatLocY, pc.combatLocX, pc.combatLocY) < 2) && (nextCrt.hp > 0))
+                //if ((CalcDistance(nextCrt.combatLocX, nextCrt.combatLocY, pc.combatLocX, pc.combatLocY) < 2) && (nextCrt.hp > 0))
+                if ((CalcDistance(nextCrt, nextCrt.combatLocX, nextCrt.combatLocY, pc.combatLocX, pc.combatLocY) < 2) && (nextCrt.hp > 0))
                 {
                     return nextCrt;
                 }

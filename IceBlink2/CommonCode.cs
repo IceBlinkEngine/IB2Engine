@@ -8601,7 +8601,7 @@ namespace IceBlink2
                 //gv.mod.doConvo = true;
             //}
         }
-        public void doSpellBasedOnScriptOrEffectTag(Spell spell, object source, object target)
+        public void doSpellBasedOnScriptOrEffectTag(Spell spell, object source, object target, bool outsideCombat)
         {
             if (source is Creature)
             {
@@ -8615,17 +8615,17 @@ namespace IceBlink2
 
                 gv.cc.addLogText("<font color='yellow'>" + src.name + " creates " + spell.name + "</font><BR>");
             }
-
+            
             gv.sf.AoeTargetsList.Clear();
 
             //this sorts the three possible effect sources in the order: tag list for generic, single tag for generic (compatibility with old spells) and finally specific script
             if (spell.spellEffectTagList.Count > 0)
             {
-                gv.sf.spGeneric(spell, source, target);
+                gv.sf.spGeneric(spell, source, target, outsideCombat);
             }
             else if (!spell.spellEffectTag.Equals("none"))
             {
-                gv.sf.spGenericUsingOldSingleEffectTag(spell, source, target);
+                gv.sf.spGenericUsingOldSingleEffectTag(spell, source, target, outsideCombat);
             }
 
             //WIZARD SPELLS
@@ -8701,7 +8701,46 @@ namespace IceBlink2
             {
                 gv.sf.spHold(source, target);
             }
+            //THIEF SKILL 
+            else if (spell.spellScript.Equals("trRemoveTrap"))
+            {
+                gv.sf.trRemoveTrap(source, target);
+            }
         }
+
+/*
+        public void doSpellBasedOnScriptOrEffectTag(Spell spell, object source, object target, bool outsideCombat)
+2614         { 
+2615             gv.sf.AoeTargetsList.Clear(); 
+2616 
+ 
+2617             if (!spell.spellEffectTag.Equals("none")) 
+2618             { 
+2619                 gv.sf.spGeneric(spell, source, target, outsideCombat); 
+2620             } 
+2621 
+ 
+2622             //WIZARD SPELLS 
+2623             else if (spell.spellScript.Equals("spDimensionDoor")) 
+2624             { 
+2625                 gv.sf.spDimensionDoor(source, target); 
+2626             } 
+2627                          
+2628             //CLERIC SPELLS 
+2629             else if (spell.tag.Equals("minorHealing")) 
+2630             { 
+2631                 //gv.sf.spHeal(source, target, 8); 
+2632             } 
+2633 
+ 
+2634             //THIEF SKILL 
+2635             else if (spell.spellScript.Equals("trRemoveTrap")) 
+2636             { 
+2637                 gv.sf.trRemoveTrap(source, target); 
+2638             } 
+2639         } 
+*/
+
         public void doScriptBasedOnFilename(string filename, string prm1, string prm2, string prm3, string prm4)
         {
             if (!filename.Equals("none"))
