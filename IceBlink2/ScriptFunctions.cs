@@ -8465,7 +8465,9 @@ namespace IceBlink2
                         gv.cc.addLogText("<font color='red'>" + crt.cr_name + " is held by a sleep spell" + "</font><BR>");
                         crt.cr_status = "Held";
                         Effect ef = mod.getEffectByTag("sleep");
+                        ef.statusType = "Held";
                         crt.AddEffectByObject(ef, classLevel);
+
                     }
                 }
                 else //target is Player
@@ -8654,6 +8656,7 @@ namespace IceBlink2
                         gv.cc.addLogText("<font color='red'>" + pc.name + " is held by a web spell" + "</font><BR>");
                         pc.charStatus = "Held";
                         Effect ef = mod.getEffectByTag("web");
+                        ef.statusType = "Held";
                         pc.AddEffectByObject(ef, classLevel);
                     }
                 }
@@ -9581,6 +9584,7 @@ namespace IceBlink2
                     gv.cc.addLogText("<font color='red'>" + target.cr_name + " is held by a hold spell" + "</font><BR>");
                     target.cr_status = "Held";
                     Effect ef = mod.getEffectByTag("hold");
+                    ef.statusType = "Held";
                     target.AddEffectByObject(ef, source.classLevel);
                 }
                 source.sp -= gv.cc.currentSelectedSpell.costSP;
