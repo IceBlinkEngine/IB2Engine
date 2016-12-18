@@ -412,6 +412,11 @@ namespace IceBlink2
 		    cc.LoadCreatures();
 		    cc.LoadEncounters();
 		    cc.LoadJournal();
+
+            //Add new methods for laoding entTiles and Tiles diretcly from the module file
+            //already in via LaodEncounters();
+            //
+
             //hurghj
             //if (!mod.useAllTileSystem)
             //{

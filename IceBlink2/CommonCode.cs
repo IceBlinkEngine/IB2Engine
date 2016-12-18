@@ -208,11 +208,66 @@ namespace IceBlink2
         {
             string filepath = gv.mainDirectory + "\\saves\\" + gv.mod.moduleName + "\\" + filename;
             MakeDirectoryIfDoesntExist(filepath);
+
+            //make backup of each encounter's tiles and then clear them
+            List<List<TileEnc>> backupListOfEncTileLists = new List<List<TileEnc>>();   
+            foreach (Encounter enc in gv.mod.moduleEncountersList)
+            {
+                List<TileEnc> interimList = new List<TileEnc>();
+                foreach (TileEnc t2 in enc.encounterTiles)
+                {
+                    interimList.Add(t2);
+                }
+                backupListOfEncTileLists.Add(interimList);
+                enc.encounterTiles.Clear();
+            }
+
+            //make backup of each area's tiles and then clear them
+            List<List<Tile>> backupListOfAreaTileLists = new List<List<Tile>>();
+            foreach (Area a in gv.mod.moduleAreasObjects)
+            {
+                List<Tile> interimList = new List<Tile>();
+                a.tileVisibilityList.Clear();
+                foreach (Tile t2 in a.Tiles)
+                {
+                    interimList.Add(t2);
+                    bool vis = false;
+                    if (t2.Visible)
+                    {
+                        vis = true;
+                    }
+                    a.tileVisibilityList.Add(vis);
+                }
+                backupListOfAreaTileLists.Add(interimList);
+                a.Tiles.Clear();
+            }
+
             string json = JsonConvert.SerializeObject(gv.mod, Newtonsoft.Json.Formatting.Indented);
             using (StreamWriter sw = new StreamWriter(filepath))
             {
                 sw.Write(json.ToString());
             }
+
+            //restore the encounter tiles after saving
+            for (int i = 0; i < gv.mod.moduleEncountersList.Count; i++)
+            {
+                foreach (TileEnc t in backupListOfEncTileLists[i])
+                {
+                    gv.mod.moduleEncountersList[i].encounterTiles.Add(t);
+                }
+            }
+            backupListOfEncTileLists.Clear();
+
+            //restore the area tiles after saving
+            for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
+            {
+                foreach (Tile t in backupListOfAreaTileLists[i])
+                {
+                    gv.mod.moduleAreasObjects[i].Tiles.Add(t);
+                }
+            }
+            backupListOfAreaTileLists.Clear();
+
         }
         public void SaveGameInfo(string filename)
         {
@@ -526,6 +581,11 @@ namespace IceBlink2
             }
             //  "moduleConvosList": [], Don't need to update
             //U  "moduleEncountersList": [], (use new except delete those completed already in save)
+
+            //DO LISTS with all info to survive:
+            //cretaure sin encounetrs
+            //visibility of tiles
+            //trigger states?
             foreach (Encounter enc in saveMod.moduleEncountersList)
             {
                 if (enc.encounterCreatureRefsList.Count <= 0)
@@ -746,7 +806,10 @@ namespace IceBlink2
                         //tiles
                         for (int index = 0; index < ar.Tiles.Count; index++)
                         {
-                            ar.Tiles[index].Visible = sar.Tiles[index].Visible;
+                            //add new mechanism for reading in visibility, likely form new property
+                            //a.tileVisibilityList.Add(vis);
+                            ar.Tiles[index].Visible = sar.tileVisibilityList[index];
+                            //ar.Tiles[index].Visible = sar.Tiles[index].Visible;
                         }
 
                         //props
@@ -991,7 +1054,7 @@ namespace IceBlink2
         public void LoadEncounters()
         {
             using (StreamReader file = File.OpenText(GetModulePath() + "\\data\\encounters.json"))
-            {
+            { 
                 JsonSerializer serializer = new JsonSerializer();
                 gv.mod.moduleEncountersList = (List<Encounter>)serializer.Deserialize(file, typeof(List<Encounter>));
             }

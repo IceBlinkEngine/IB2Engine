@@ -101,7 +101,9 @@ namespace IceBlink2
         public int minutesSinceLastRationConsumed = 0;
         [JsonIgnore]
         public List<Item> moduleItemsList = new List<Item>();
+        
         public List<Encounter> moduleEncountersList = new List<Encounter>();
+        
         public List<Container> moduleContainersList = new List<Container>();
         public List<Shop> moduleShopsList = new List<Shop>();
         [JsonIgnore]
@@ -118,9 +120,13 @@ namespace IceBlink2
         public List<Trait> moduleTraitsList = new List<Trait>();
         [JsonIgnore]
         public List<Effect> moduleEffectsList = new List<Effect>();
+        
         public List<string> moduleAreasList = new List<string>();
+        
         public List<string> moduleConvosList = new List<string>();
+        
         public List<Area> moduleAreasObjects = new List<Area>();
+
         public List<GlobalInt> moduleGlobalInts = new List<GlobalInt>();
         public List<GlobalString> moduleGlobalStrings = new List<GlobalString>();
         public List<ConvoSavedValues> moduleConvoSavedValuesList = new List<ConvoSavedValues>();

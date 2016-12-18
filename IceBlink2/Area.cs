@@ -38,6 +38,9 @@ namespace IceBlink2
 	    public string AreaSounds = "none";
 	    public int AreaSoundsDelay = 0;
 	    public int AreaSoundsDelayRandomAdder = 0;
+        //[JsonIgnore]
+        //[JsonProperty(Required = Required.Always)]
+        //[JsonObject(]
 	    public List<Tile> Tiles = new List<Tile>();
 	    public List<Prop> Props = new List<Prop>();
 	    public List<string> InitialAreaPropTagsList = new List<string>();
@@ -76,6 +79,8 @@ namespace IceBlink2
 
 
         public string sourceBitmapName = "";
+
+        public List<bool> tileVisibilityList = new List<bool>();
 
         //TODO use the inGameAreaName on main map
 

@@ -20,7 +20,12 @@ namespace IceBlink2
         public int MapSizeX = 7;
         public int MapSizeY = 7;
         public List<Trigger> Triggers = new List<Trigger>();
+
+        //[JsonIgnore]
+        //[ReadOnly(true)]
         public List<TileEnc> encounterTiles = new List<TileEnc>();
+        
+        //public List<TileEnc> encounterTiles = new List<TileEnc>();
 	    public List<CreatureRefs> encounterCreatureRefsList = new List<CreatureRefs>();
         [JsonIgnore]
 	    public List<Creature> encounterCreatureList = new List<Creature>();
