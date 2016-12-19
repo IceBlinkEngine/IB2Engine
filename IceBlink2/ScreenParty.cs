@@ -130,7 +130,8 @@ namespace IceBlink2
                 btnPartyRoster.Text = "ROSTER";
                 btnPartyRoster.Img = gv.cc.LoadBitmap("btn_small"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small);
                 btnPartyRoster.Glow = gv.cc.LoadBitmap("btn_small_glow"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_glow);
-                btnPartyRoster.X = 13 * gv.squareSize;
+                ///btnPartyRoster.X = 13 * gv.squareSize;
+                btnPartyRoster.X = (gv.screenWidth / 2) + (int)((gv.ibbwidthL / 2) * gv.screenDensity) + (int)(gv.squareSize * 0.5);
                 btnPartyRoster.Height = (int)(gv.ibbheight * gv.screenDensity);
                 btnPartyRoster.Width = (int)(gv.ibbwidthR * gv.screenDensity);
             }
@@ -140,8 +141,9 @@ namespace IceBlink2
                 btnHelp.Text = "HELP";
                 btnHelp.Img = gv.cc.LoadBitmap("btn_small"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small);
                 btnHelp.Glow = gv.cc.LoadBitmap("btn_small_glow"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_glow);
-                btnHelp.X = 5 * gv.squareSize + padW * 1 + gv.oXshift;
+                //btnHelp.X = 5 * gv.squareSize + padW * 1 + gv.oXshift;
                 btnHelp.Y = 9 * gv.squareSize + pH * 2;
+                btnHelp.X = (gv.screenWidth / 2) - (int)((gv.ibbwidthL / 2) * gv.screenDensity) - (int)(gv.squareSize * 1.5);
                 btnHelp.Height = (int)(gv.ibbheight * gv.screenDensity);
                 btnHelp.Width = (int)(gv.ibbwidthR * gv.screenDensity);
             }
@@ -151,10 +153,11 @@ namespace IceBlink2
                 btnInfo.Text = "INFO";
                 btnInfo.Img = gv.cc.LoadBitmap("btn_small"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small);
                 btnInfo.Glow = gv.cc.LoadBitmap("btn_small_glow"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_glow);
-                btnInfo.X = (11 * gv.squareSize) - padW + (int)(gv.squareSize * 0.75f);
+                btnInfo.X = 10 * gv.squareSize + (padW * 5) + gv.oXshift + (int)(gv.squareSize * 0.75f);
+                //btnInfo.X = (11 * gv.squareSize) - padW + (int)(gv.squareSize * 0.75f);
                 //btnInfo.Y = 9 * gv.squareSize + pH * 2;
-                btnInfo.Y = 6 * gv.squareSize + (pH * 2);
-                ;
+                btnInfo.Y = 6 * gv.squareSize + (int)(pH * 2.5f);
+
                 btnInfo.Height = (int)(gv.ibbheight * gv.screenDensity);
                 btnInfo.Width = (int)(gv.ibbwidthR * gv.screenDensity);
             }
