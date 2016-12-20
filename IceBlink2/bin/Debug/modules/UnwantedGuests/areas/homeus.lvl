@@ -17,7 +17,13 @@
   "useSuperTinyProps": false,
   "drawWithLessVisibleSeamsButMorePixelated": false,
   "use100pixSquares": false,
-  "useLightSystem": true,
+  "useLightSystem": false,
+  "noFlicker": false,
+  "noPositionShift": false,
+  "flickerSlowDownFactor": 1.0,
+  "shifterSlowDownFactor": 1.0,
+  "minimumDarkness": 12.0,
+  "maxLightMultiplier": 1.0,
   "areaDark": false,
   "UseDayNightCycle": false,
   "TimePerSquare": 6,
@@ -64,7 +70,17 @@
       "Layer5Yscale": 0,
       "Walkable": false,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "homeus1",
@@ -105,7 +121,17 @@
       "Layer5Yscale": 0,
       "Walkable": false,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "homeus2",
@@ -146,7 +172,17 @@
       "Layer5Yscale": 0,
       "Walkable": false,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "homeus3",
@@ -187,7 +223,17 @@
       "Layer5Yscale": 0,
       "Walkable": false,
       "LoSBlocked": true,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "homeus4",
@@ -228,7 +274,17 @@
       "Layer5Yscale": 0,
       "Walkable": false,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "homeus5",
@@ -269,7 +325,17 @@
       "Layer5Yscale": 0,
       "Walkable": false,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "homeus6",
@@ -310,7 +376,17 @@
       "Layer5Yscale": 0,
       "Walkable": false,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "homeus7",
@@ -351,7 +427,17 @@
       "Layer5Yscale": 0,
       "Walkable": false,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "homeus8",
@@ -392,7 +478,17 @@
       "Layer5Yscale": 0,
       "Walkable": false,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "homeus9",
@@ -433,7 +529,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "homeus10",
@@ -474,7 +580,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "homeus11",
@@ -515,7 +631,17 @@
       "Layer5Yscale": 0,
       "Walkable": false,
       "LoSBlocked": true,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "homeus12",
@@ -556,7 +682,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "homeus13",
@@ -597,7 +733,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "homeus14",
@@ -638,7 +784,17 @@
       "Layer5Yscale": 0,
       "Walkable": false,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "homeus15",
@@ -679,7 +835,17 @@
       "Layer5Yscale": 0,
       "Walkable": false,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "homeus16",
@@ -720,7 +886,17 @@
       "Layer5Yscale": 0,
       "Walkable": false,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "homeus17",
@@ -761,7 +937,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 1,
+      "isRamp": true,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": true,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 1,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "homeus18",
@@ -802,7 +988,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 1,
+      "isRamp": true,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": true,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 1,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "homeus19",
@@ -843,7 +1039,17 @@
       "Layer5Yscale": 0,
       "Walkable": false,
       "LoSBlocked": true,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "homeus20",
@@ -884,7 +1090,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "homeus21",
@@ -925,7 +1141,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "homeus22",
@@ -966,7 +1192,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "homeus23",
@@ -1007,7 +1243,17 @@
       "Layer5Yscale": 0,
       "Walkable": false,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "homeus24",
@@ -1048,7 +1294,17 @@
       "Layer5Yscale": 0,
       "Walkable": false,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "homeus25",
@@ -1089,7 +1345,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "homeus26",
@@ -1130,7 +1396,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 1,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 1,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "homeus27",
@@ -1171,7 +1447,17 @@
       "Layer5Yscale": 0,
       "Walkable": false,
       "LoSBlocked": true,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "homeus28",
@@ -1212,7 +1498,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": true,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "homeus29",
@@ -1253,7 +1549,17 @@
       "Layer5Yscale": 0,
       "Walkable": false,
       "LoSBlocked": true,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "homeus30",
@@ -1294,7 +1600,17 @@
       "Layer5Yscale": 0,
       "Walkable": false,
       "LoSBlocked": true,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "homeus31",
@@ -1335,7 +1651,17 @@
       "Layer5Yscale": 0,
       "Walkable": false,
       "LoSBlocked": true,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "homeus32",
@@ -1376,7 +1702,17 @@
       "Layer5Yscale": 0,
       "Walkable": false,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "homeus33",
@@ -1417,7 +1753,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "homeus34",
@@ -1458,7 +1804,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 1,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 1,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "homeus35",
@@ -1499,7 +1855,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": true,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "homeus36",
@@ -1540,7 +1906,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "homeus37",
@@ -1581,7 +1957,17 @@
       "Layer5Yscale": 0,
       "Walkable": false,
       "LoSBlocked": true,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "homeus38",
@@ -1622,7 +2008,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "homeus39",
@@ -1663,7 +2059,17 @@
       "Layer5Yscale": 0,
       "Walkable": false,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "homeus40",
@@ -1704,7 +2110,17 @@
       "Layer5Yscale": 0,
       "Walkable": false,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "homeus41",
@@ -1745,7 +2161,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "homeus42",
@@ -1786,7 +2212,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 1,
+      "isRamp": true,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": true,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 1,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "homeus43",
@@ -1827,7 +2263,17 @@
       "Layer5Yscale": 0,
       "Walkable": false,
       "LoSBlocked": true,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "homeus44",
@@ -1868,7 +2314,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "homeus45",
@@ -1909,7 +2365,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "homeus46",
@@ -1950,7 +2416,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "homeus47",
@@ -1991,7 +2467,17 @@
       "Layer5Yscale": 0,
       "Walkable": false,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "homeus48",
@@ -2032,7 +2518,17 @@
       "Layer5Yscale": 0,
       "Walkable": false,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "homeus49",
@@ -2073,7 +2569,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "homeus50",
@@ -2114,7 +2620,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "homeus51",
@@ -2155,7 +2671,17 @@
       "Layer5Yscale": 0,
       "Walkable": false,
       "LoSBlocked": true,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "homeus52",
@@ -2196,7 +2722,17 @@
       "Layer5Yscale": 0,
       "Walkable": false,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "homeus53",
@@ -2237,7 +2773,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "homeus54",
@@ -2278,7 +2824,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "homeus55",
@@ -2319,7 +2875,17 @@
       "Layer5Yscale": 0,
       "Walkable": false,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "homeus56",
@@ -2360,7 +2926,17 @@
       "Layer5Yscale": 0,
       "Walkable": false,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "homeus57",
@@ -2401,7 +2977,17 @@
       "Layer5Yscale": 0,
       "Walkable": false,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "homeus58",
@@ -2442,7 +3028,17 @@
       "Layer5Yscale": 0,
       "Walkable": false,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "homeus59",
@@ -2483,7 +3079,17 @@
       "Layer5Yscale": 0,
       "Walkable": false,
       "LoSBlocked": true,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "homeus60",
@@ -2524,7 +3130,17 @@
       "Layer5Yscale": 0,
       "Walkable": false,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "homeus61",
@@ -2565,7 +3181,17 @@
       "Layer5Yscale": 0,
       "Walkable": false,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "homeus62",
@@ -2606,7 +3232,17 @@
       "Layer5Yscale": 0,
       "Walkable": false,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "homeus63",
@@ -2647,7 +3283,17 @@
       "Layer5Yscale": 0,
       "Walkable": false,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -2688,7 +3334,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -2729,7 +3385,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -2770,7 +3436,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -2811,7 +3487,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -2852,7 +3538,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -2893,7 +3589,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -2934,7 +3640,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -2975,7 +3691,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -3016,7 +3742,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -3057,7 +3793,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -3098,7 +3844,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -3139,7 +3895,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -3180,7 +3946,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -3221,7 +3997,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -3262,7 +4048,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -3303,7 +4099,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -3344,7 +4150,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -3385,7 +4201,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -3426,7 +4252,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -3467,7 +4303,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -3508,7 +4354,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -3549,7 +4405,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -3590,7 +4456,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -3631,7 +4507,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -3672,7 +4558,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -3713,7 +4609,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -3754,7 +4660,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -3795,7 +4711,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -3836,7 +4762,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -3877,7 +4813,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -3918,7 +4864,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -3959,7 +4915,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -4000,7 +4966,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -4041,7 +5017,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -4082,7 +5068,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -4123,7 +5119,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -4164,7 +5170,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -4205,7 +5221,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -4246,7 +5272,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -4287,7 +5323,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -4328,7 +5374,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -4369,7 +5425,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -4410,7 +5476,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -4451,7 +5527,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -4492,7 +5578,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -4533,7 +5629,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -4574,7 +5680,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -4615,7 +5731,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -4656,7 +5782,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -4697,7 +5833,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -4738,7 +5884,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -4779,7 +5935,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -4820,7 +5986,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -4861,7 +6037,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -4902,7 +6088,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -4943,7 +6139,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -4984,7 +6190,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -5025,7 +6241,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -5066,7 +6292,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -5107,7 +6343,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -5148,7 +6394,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -5189,7 +6445,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -5230,7 +6496,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -5271,7 +6547,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -5312,7 +6598,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -5353,7 +6649,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -5394,7 +6700,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -5435,7 +6751,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -5476,7 +6802,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -5517,7 +6853,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -5558,7 +6904,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -5599,7 +6955,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -5640,7 +7006,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -5681,7 +7057,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -5722,7 +7108,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -5763,7 +7159,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -5804,7 +7210,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -5845,7 +7261,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -5886,7 +7312,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -5927,7 +7363,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -5968,7 +7414,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -6009,7 +7465,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -6050,7 +7516,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -6091,7 +7567,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -6132,7 +7618,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -6173,7 +7669,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -6214,7 +7720,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -6255,7 +7771,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -6296,7 +7822,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -6337,7 +7873,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -6378,7 +7924,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -6419,7 +7975,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -6460,7 +8026,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -6501,7 +8077,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -6542,7 +8128,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -6583,7 +8179,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -6624,7 +8230,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -6665,7 +8281,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -6706,7 +8332,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -6747,7 +8383,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -6788,7 +8434,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -6829,7 +8485,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -6870,7 +8536,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -6911,7 +8587,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -6952,7 +8638,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -6993,7 +8689,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -7034,7 +8740,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -7075,7 +8791,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -7116,7 +8842,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -7157,7 +8893,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -7198,7 +8944,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -7239,7 +8995,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -7280,7 +9046,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -7321,7 +9097,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -7362,7 +9148,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -7403,7 +9199,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -7444,7 +9250,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -7485,7 +9301,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -7526,7 +9352,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -7567,7 +9403,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -7608,7 +9454,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -7649,7 +9505,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -7690,7 +9556,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -7731,7 +9607,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -7772,7 +9658,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -7813,7 +9709,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -7854,7 +9760,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -7895,7 +9811,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -7936,7 +9862,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -7977,7 +9913,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -8018,7 +9964,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -8059,7 +10015,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -8100,7 +10066,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -8141,7 +10117,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -8182,7 +10168,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -8223,7 +10219,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -8264,7 +10270,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -8305,7 +10321,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -8346,7 +10372,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -8387,7 +10423,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -8428,7 +10474,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -8469,7 +10525,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -8510,7 +10576,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -8551,7 +10627,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -8592,7 +10678,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -8633,7 +10729,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -8674,7 +10780,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -8715,7 +10831,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -8756,7 +10882,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -8797,7 +10933,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -8838,7 +10984,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -8879,7 +11035,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -8920,7 +11086,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -8961,7 +11137,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -9002,7 +11188,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -9043,7 +11239,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -9084,7 +11290,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -9125,7 +11341,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -9166,7 +11392,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -9207,7 +11443,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -9248,7 +11494,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -9289,7 +11545,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -9330,7 +11596,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -9371,7 +11647,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -9412,7 +11698,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -9453,7 +11749,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -9494,7 +11800,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -9535,7 +11851,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -9576,7 +11902,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -9617,7 +11953,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -9658,7 +12004,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -9699,7 +12055,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -9740,7 +12106,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -9781,7 +12157,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -9822,7 +12208,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -9863,7 +12259,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -9904,7 +12310,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -9945,7 +12361,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -9986,7 +12412,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -10027,7 +12463,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -10068,7 +12514,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -10109,7 +12565,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -10150,7 +12616,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -10191,7 +12667,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -10232,7 +12718,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -10273,7 +12769,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -10314,7 +12820,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -10355,7 +12871,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -10396,7 +12922,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -10437,7 +12973,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -10478,7 +13024,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -10519,7 +13075,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -10560,7 +13126,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -10601,7 +13177,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -10642,7 +13228,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -10683,7 +13279,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -10724,7 +13330,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -10765,7 +13381,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -10806,7 +13432,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -10847,7 +13483,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -10888,7 +13534,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -10929,7 +13585,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -10970,7 +13636,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -11011,7 +13687,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -11052,7 +13738,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -11093,7 +13789,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -11134,7 +13840,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -11175,7 +13891,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -11216,7 +13942,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -11257,7 +13993,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -11298,7 +14044,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -11339,7 +14095,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -11380,7 +14146,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -11421,7 +14197,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -11462,7 +14248,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -11503,7 +14299,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -11544,7 +14350,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -11585,7 +14401,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -11626,7 +14452,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -11667,7 +14503,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -11708,7 +14554,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -11749,7 +14605,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -11790,7 +14656,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -11831,7 +14707,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -11872,7 +14758,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -11913,7 +14809,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -11954,7 +14860,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -11995,7 +14911,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -12036,7 +14962,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -12077,7 +15013,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -12118,7 +15064,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -12159,7 +15115,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -12200,7 +15166,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -12241,7 +15217,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -12282,7 +15268,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -12323,7 +15319,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -12364,7 +15370,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -12405,7 +15421,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -12446,7 +15472,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -12487,7 +15523,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -12528,7 +15574,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -12569,7 +15625,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -12610,7 +15676,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -12651,7 +15727,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -12692,7 +15778,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -12733,7 +15829,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -12774,7 +15880,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -12815,7 +15931,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -12856,7 +15982,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -12897,7 +16033,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -12938,7 +16084,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -12979,7 +16135,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -13020,7 +16186,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -13061,7 +16237,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -13102,7 +16288,17 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     },
     {
       "Layer0Filename": "t_blank",
@@ -13143,13 +16339,47 @@
       "Layer5Yscale": 0,
       "Walkable": true,
       "LoSBlocked": false,
-      "Visible": false
+      "Visible": false,
+      "heightLevel": 0,
+      "isRamp": false,
+      "isEWBridge": false,
+      "isNSBridge": false,
+      "isShadowCaster": false,
+      "IsRamp": false,
+      "IsEWBridge": false,
+      "IsNSBridge": false,
+      "HeightLevel": 0,
+      "IsShadowCaster": false
     }
   ],
   "Props": [
     {
+      "OnEnterSquareIBScript": "none",
+      "OnEnterSquareScript": "none",
+      "OnEnterSquareScriptParm1": "none",
+      "OnEnterSquareScriptParm2": "none",
+      "OnEnterSquareScriptParm3": "none",
+      "isTrap": false,
+      "trapDCforDisableCheck": 10,
+      "OnEnterSquareScriptParm4": "none",
+      "canBeTriggeredByPc": true,
+      "canBeTriggeredByCreature": true,
+      "numberOfScriptCallsRemaining": 999,
+      "OnEnterSquareIBScriptParms": "",
+      "framesNeededForFullFadeInOut": 0,
+      "numberOfCyclesNeededForCompletion": 1,
+      "maxNumberOfFrames": 1,
+      "updateTicksNeededTillNextFrame": 20.0,
+      "chanceToTriggerAnimationCycle": 100.0,
+      "propFrameHeight": 100,
+      "sizeFactor": 100,
+      "doOnce": false,
+      "animationIsActive": true,
+      "hiddenWhenComplete": false,
+      "hiddenWhenNotActive": false,
       "LocationX": 3,
       "LocationY": 4,
+      "LocationZ": 0,
       "ImageFileName": "prp_doorv",
       "HasCollision": false,
       "PropFacingLeft": true,
@@ -13175,18 +16405,43 @@
       "isChaser": false,
       "unavoidableConversation": false,
       "isLight": false,
+      "hasHalo": false,
+      "focalIntensity": 1.0,
+      "ringIntensity": 1.0,
       "ChaserDetectRangeRadius": 2,
       "ChaserGiveUpChasingRangeRadius": 3,
       "ChaserChaseDuration": 24,
       "RandomMoverRadius": 5,
-      "OnHeartBeatLogicTree": "none",
-      "OnHeartBeatParms": "",
       "OnHeartBeatIBScript": "none",
       "OnHeartBeatIBScriptParms": ""
     },
     {
+      "OnEnterSquareIBScript": "none",
+      "OnEnterSquareScript": "none",
+      "OnEnterSquareScriptParm1": "none",
+      "OnEnterSquareScriptParm2": "none",
+      "OnEnterSquareScriptParm3": "none",
+      "isTrap": false,
+      "trapDCforDisableCheck": 10,
+      "OnEnterSquareScriptParm4": "none",
+      "canBeTriggeredByPc": true,
+      "canBeTriggeredByCreature": true,
+      "numberOfScriptCallsRemaining": 999,
+      "OnEnterSquareIBScriptParms": "",
+      "framesNeededForFullFadeInOut": 0,
+      "numberOfCyclesNeededForCompletion": 1,
+      "maxNumberOfFrames": 1,
+      "updateTicksNeededTillNextFrame": 20.0,
+      "chanceToTriggerAnimationCycle": 100.0,
+      "propFrameHeight": 100,
+      "sizeFactor": 100,
+      "doOnce": false,
+      "animationIsActive": true,
+      "hiddenWhenComplete": false,
+      "hiddenWhenNotActive": false,
       "LocationX": 4,
       "LocationY": 3,
+      "LocationZ": 0,
       "ImageFileName": "prp_doorh",
       "HasCollision": false,
       "PropFacingLeft": true,
@@ -13212,18 +16467,43 @@
       "isChaser": false,
       "unavoidableConversation": false,
       "isLight": false,
+      "hasHalo": false,
+      "focalIntensity": 1.0,
+      "ringIntensity": 1.0,
       "ChaserDetectRangeRadius": 2,
       "ChaserGiveUpChasingRangeRadius": 3,
       "ChaserChaseDuration": 24,
       "RandomMoverRadius": 5,
-      "OnHeartBeatLogicTree": "none",
-      "OnHeartBeatParms": "",
       "OnHeartBeatIBScript": "none",
       "OnHeartBeatIBScriptParms": ""
     },
     {
+      "OnEnterSquareIBScript": "none",
+      "OnEnterSquareScript": "none",
+      "OnEnterSquareScriptParm1": "none",
+      "OnEnterSquareScriptParm2": "none",
+      "OnEnterSquareScriptParm3": "none",
+      "isTrap": false,
+      "trapDCforDisableCheck": 10,
+      "OnEnterSquareScriptParm4": "none",
+      "canBeTriggeredByPc": true,
+      "canBeTriggeredByCreature": true,
+      "numberOfScriptCallsRemaining": 999,
+      "OnEnterSquareIBScriptParms": "",
+      "framesNeededForFullFadeInOut": 0,
+      "numberOfCyclesNeededForCompletion": 1,
+      "maxNumberOfFrames": 1,
+      "updateTicksNeededTillNextFrame": 20.0,
+      "chanceToTriggerAnimationCycle": 100.0,
+      "propFrameHeight": 100,
+      "sizeFactor": 100,
+      "doOnce": false,
+      "animationIsActive": true,
+      "hiddenWhenComplete": false,
+      "hiddenWhenNotActive": false,
       "LocationX": 6,
       "LocationY": 4,
+      "LocationZ": 0,
       "ImageFileName": "prp_treasure",
       "HasCollision": false,
       "PropFacingLeft": true,
@@ -13249,18 +16529,103 @@
       "isChaser": false,
       "unavoidableConversation": false,
       "isLight": false,
+      "hasHalo": false,
+      "focalIntensity": 1.0,
+      "ringIntensity": 1.0,
       "ChaserDetectRangeRadius": 2,
       "ChaserGiveUpChasingRangeRadius": 3,
       "ChaserChaseDuration": 24,
       "RandomMoverRadius": 5,
-      "OnHeartBeatLogicTree": "none",
-      "OnHeartBeatParms": "",
+      "OnHeartBeatIBScript": "none",
+      "OnHeartBeatIBScriptParms": ""
+    },
+    {
+      "OnEnterSquareIBScript": "none",
+      "OnEnterSquareScript": "none",
+      "OnEnterSquareScriptParm1": "none",
+      "OnEnterSquareScriptParm2": "none",
+      "OnEnterSquareScriptParm3": "none",
+      "isTrap": false,
+      "trapDCforDisableCheck": 10,
+      "OnEnterSquareScriptParm4": "none",
+      "canBeTriggeredByPc": true,
+      "canBeTriggeredByCreature": true,
+      "numberOfScriptCallsRemaining": 999,
+      "OnEnterSquareIBScriptParms": "",
+      "framesNeededForFullFadeInOut": 0,
+      "numberOfCyclesNeededForCompletion": 1,
+      "maxNumberOfFrames": 1,
+      "updateTicksNeededTillNextFrame": 20.0,
+      "chanceToTriggerAnimationCycle": 100.0,
+      "propFrameHeight": 100,
+      "sizeFactor": 100,
+      "doOnce": false,
+      "animationIsActive": true,
+      "hiddenWhenComplete": false,
+      "hiddenWhenNotActive": false,
+      "LocationX": 2,
+      "LocationY": 1,
+      "LocationZ": 0,
+      "ImageFileName": "prp_giant",
+      "HasCollision": false,
+      "PropFacingLeft": true,
+      "isShown": true,
+      "isActive": true,
+      "PropName": "heightTester",
+      "PropTag": "newPropTag_10597_10599",
+      "PropCategoryName": "Mover",
+      "MouseOverText": "none",
+      "ConversationWhenOnPartySquare": "none",
+      "EncounterWhenOnPartySquare": "none",
+      "DeletePropWhenThisEncounterIsWon": false,
+      "PropLocalInts": [],
+      "PropLocalStrings": [],
+      "PostLocationX": 0,
+      "PostLocationY": 0,
+      "WayPointList": [
+        {
+          "X": 2,
+          "Y": 1,
+          "WaitDuration": 1,
+          "areaName": null,
+          "departureTime": null,
+          "BarkStringsAtWayPoint": [],
+          "BarkStringsOnTheWayToNextWayPoint": []
+        },
+        {
+          "X": 2,
+          "Y": 6,
+          "WaitDuration": 1,
+          "areaName": null,
+          "departureTime": null,
+          "BarkStringsAtWayPoint": [],
+          "BarkStringsOnTheWayToNextWayPoint": []
+        }
+      ],
+      "Schedules": [],
+      "isMover": true,
+      "MoverType": "patrol",
+      "ChanceToMove2Squares": 0,
+      "ChanceToMove0Squares": 0,
+      "isChaser": false,
+      "unavoidableConversation": false,
+      "isLight": false,
+      "hasHalo": false,
+      "focalIntensity": 1.0,
+      "ringIntensity": 1.0,
+      "ChaserDetectRangeRadius": 2,
+      "ChaserGiveUpChasingRangeRadius": 3,
+      "ChaserChaseDuration": 24,
+      "RandomMoverRadius": 5,
       "OnHeartBeatIBScript": "none",
       "OnHeartBeatIBScriptParms": ""
     }
   ],
   "Triggers": [
     {
+      "numberOfScriptCallsRemaining": 999,
+      "canBeTriggeredByPc": true,
+      "canBeTriggeredByCreature": true,
       "TriggerTag": "newTrigger_8139",
       "Enabled": true,
       "conversationCannotBeAvoided": true,
@@ -13303,6 +16668,9 @@
       "Event3Parm4": "none"
     },
     {
+      "numberOfScriptCallsRemaining": 999,
+      "canBeTriggeredByPc": true,
+      "canBeTriggeredByCreature": true,
       "TriggerTag": "newTrigger_8146",
       "Enabled": true,
       "conversationCannotBeAvoided": true,
@@ -13345,6 +16713,9 @@
       "Event3Parm4": "none"
     },
     {
+      "numberOfScriptCallsRemaining": 999,
+      "canBeTriggeredByPc": true,
+      "canBeTriggeredByCreature": true,
       "TriggerTag": "newTrigger_8202",
       "Enabled": true,
       "conversationCannotBeAvoided": true,
@@ -13393,7 +16764,7 @@
   "AreaSounds": "none",
   "AreaSoundsDelay": 0,
   "AreaSoundsDelayRandomAdder": 0,
-  "NextIdNumber": 167,
+  "NextIdNumber": 175,
   "OnHeartBeatIBScript": "none",
   "OnHeartBeatIBScriptParms": "",
   "AreaLocalInts": [],
