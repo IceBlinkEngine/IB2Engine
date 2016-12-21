@@ -46,7 +46,7 @@ namespace IceBlink2
                 pathNodes.Add(new Coordinate(end.X, end.Y));
                 for (int i = 0; i < values[end.X, end.Y]; i++)
                 {
-                    pathNodes.Add(getLowestNeighbor(pathNodes[pathNodes.Count - 1], callingProp));
+                    pathNodes.Add(getLowestNeighbor(pathNodes[pathNodes.Count - 1], callingProp, values[end.X, end.Y]));
                     //pathNodes.Add(getLowestNeighbor(pathNodes[pathNodes.Count - 1 - i], callingProp));
                 }
                 //build list of path points
@@ -111,7 +111,7 @@ namespace IceBlink2
                 pathNodes.Add(new Coordinate(end.X, end.Y));
                 for (int i = 0; i < values[end.X, end.Y]; i++)
                 {
-                    pathNodes.Add(getLowestNeighbor(pathNodes[pathNodes.Count - 1], callingProp));
+                    pathNodes.Add(getLowestNeighbor(pathNodes[pathNodes.Count - 1], callingProp, values[end.X, end.Y]));
                 }
                 //build list of path points
                 newPoint = pathNodes[pathNodes.Count - 2];
@@ -190,7 +190,7 @@ namespace IceBlink2
 
                     }
 
-                    pathNodes.Add(getLowestNeighbor(pathNodes[pathNodes.Count - 1], callingProp));
+                    pathNodes.Add(getLowestNeighbor(pathNodes[pathNodes.Count - 1], callingProp, values[end.X, end.Y]));
                     //Note to self: might be that the order is reverse here, check when debugging
 
                     int shiftXDifference = pathNodes[pathNodes.Count - 1].Y - pathNodes[pathNodes.Count - 2].Y;
@@ -651,203 +651,390 @@ RULES:
                     return false;
                 }
         }
-        public Coordinate getLowestNeighbor(Coordinate p, Prop callingProp)
+        public Coordinate getLowestNeighbor(Coordinate p, Prop callingProp, int pathLength)
         {
             int maxX = mod.currentArea.MapSizeX;
             int maxY = mod.currentArea.MapSizeY;
             Coordinate lowest = new Coordinate();
             int val = 1000;
-
-            //checking towards east
-            if ((p.X + 1 < maxX) && (values[p.X + 1, p.Y] < val))
+            int lastTileNumber = -1;
+            int priorHeightLevelOnPath = -1;
+            if (pathNodes.Count > 1)
             {
-                bool allowAssignment = false;
+                lastTileNumber = pathNodes[pathNodes.Count - 2].Y * mod.currentArea.MapSizeX + pathNodes[pathNodes.Count - 2].X;
+            }
+            if (lastTileNumber > -1)
+            {
+                priorHeightLevelOnPath = mod.currentArea.Tiles[lastTileNumber].heightLevel;
+            }
+            
+            if (pathNodes.Count == pathLength)
+            {
+                priorHeightLevelOnPath = callingProp.lastLocationZ;
+            }
 
-                //same hieght level target always works
-                if (mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X].heightLevel == mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X + 1].heightLevel)
-                {
-                    allowAssignment = true;
-                }
+            //pathNodes[0].X = 0;
+            //mod.currentArea.Tiles
 
-                /*
-                //if under bridge currently, also one height level lower also works
-                //determine via lastlocationZ of prop
-                //this assumes bridges of length one with -1 height squares on sides and same height squares on end
-                if (mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X].isEWBridge || mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X].isNSBridge)
+                //First sort order: check in 4 directions
+
+                //checking towards east
+                if ((p.X + 1 < maxX) && (values[p.X + 1, p.Y] < val))
                 {
-                    if ((callingProp.lastLocationZ + 1 == callingProp.LocationZ) && (callingProp.LocationZ - 1 == mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X + 1].heightLevel))
+                //within each direction exist two fundamentally different scenarios: 
+                //1. current tile is NO bridge (normal case)
+                //2. current tile is bridge:
+                //we have to check if we are 
+                //a) currently under bridge[priorHeightLevelOnPath is one lower than on current tile]
+                //Consequence if true: only allow assigning target tile that is one height level LOWER than current tile  
+                //b) currently ontop bridge[priorHeightLevelOnPath is same as current tile] 
+                //Consequence if true: only allow assigning target tile that is SAME height level as current tile 
+
+                //note: add fail save check for priorHeightLevelOnPath == -1 (which marks te final targt point that can always be entered, bridge is no problem) 
+
+                //first scenario: current tile is NO bridge
+                if (!mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X].isEWBridge && !mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X].isNSBridge)
+                {
+                    bool allowAssignment = false;
+
+                    //same height level target always works
+                    if (mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X].heightLevel == mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X + 1].heightLevel)
                     {
                         allowAssignment = true;
                     }
-                }
-                */
 
-                //if on ramp currently, one level lower also works
-                if (mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X].isRamp)
-                {
-                    if (mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X].heightLevel - 1 == mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X + 1].heightLevel)
+                    /*
+                    //if under bridge currently, also one height level lower also works
+                    //determine via lastlocationZ of prop
+                    //this assumes bridges of length one with -1 height squares on sides and same height squares on end
+                    if (mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X].isEWBridge || mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X].isNSBridge)
                     {
-                        allowAssignment = true;
+                        if ((callingProp.lastLocationZ + 1 == callingProp.LocationZ) && (callingProp.LocationZ - 1 == mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X + 1].heightLevel))
+                        {
+                            allowAssignment = true;
+                        }
+                    }
+                    */
+
+                    //if on ramp currently, one level lower also works
+                    if (mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X].isRamp)
+                    {
+                        if (mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X].heightLevel - 1 == mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X + 1].heightLevel)
+                        {
+                            allowAssignment = true;
+                        }
+                    }
+
+                    //if target is ramp, one level higher also works
+                    if (mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X + 1].isRamp)
+                    {
+                        if (mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X].heightLevel + 1 == mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X + 1].heightLevel)
+                        {
+                            allowAssignment = true;
+                        }
+                    }
+
+                    if (allowAssignment)
+                    {
+                        val = values[p.X + 1, p.Y];
+                        lowest = new Coordinate(p.X + 1, p.Y);
                     }
                 }
-
-                //if target is ramp, one level higher also works
-                if (mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X+1].isRamp)
+                // current tile IS bridge
+                else
                 {
-                    if (mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X].heightLevel + 1 == mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X + 1].heightLevel)
+                    //currently under bridge
+                    if (priorHeightLevelOnPath < mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X].heightLevel)
                     {
-                        allowAssignment = true;
-                    }
-                }
+                        bool allowAssignment = false;
 
-                if (allowAssignment)
-                {
-                    val = values[p.X + 1, p.Y];
-                    lowest = new Coordinate(p.X + 1, p.Y);
+                        //one height level LOWER always works
+                        if (mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X].heightLevel - 1 == mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X + 1].heightLevel)
+                        {
+                            allowAssignment = true;
+                        }
+
+                        //build rule: no ramps on side of bridges
+                        //also ramp as target tile always works (direct ascension from under bridge)
+                        //if (mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X+1].isRamp)
+                        //{
+                            //allowAssignment = true;
+                        //}
+                    }
+
+                    //currently ontop bridge
+                    if (priorHeightLevelOnPath == mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X].heightLevel)
+                    {
+                        bool allowAssignment = false;
+
+                        //same height level always works
+                        if (mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X].heightLevel == mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X + 1].heightLevel)
+                        {
+                            allowAssignment = true;
+                        }
+                    }
+
                 }
             }
-            //checking towards west
-            if ((p.X - 1 >= 0) && (values[p.X - 1, p.Y] < val))
-            {
-                bool allowAssignment = false;
-
-                //same hieght level target always works
-                if (mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X].heightLevel == mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X - 1].heightLevel)
+                //checking towards west
+                if ((p.X - 1 >= 0) && (values[p.X - 1, p.Y] < val))
                 {
-                    allowAssignment = true;
-                }
-
-                /*
-                //if under bridge currently, also one height level lower also works
-                //determine via lastlocationZ of prop
-                //this assumes bridges of length one with -1 height squares on sides and same height squares on end
-                if (mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X].isEWBridge || mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X].isNSBridge)
+                //first scenario: current tile is NO bridge
+                if (!mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X].isEWBridge && !mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X].isNSBridge)
                 {
-                    if ((callingProp.lastLocationZ + 1 == callingProp.LocationZ) && (callingProp.LocationZ - 1 == mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X + 1].heightLevel))
+                    bool allowAssignment = false;
+
+                    //same hieght level target always works
+                    if (mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X].heightLevel == mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X - 1].heightLevel)
                     {
                         allowAssignment = true;
                     }
-                }
-                */
 
-                //if on ramp currently, one level lower also works
-                if (mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X].isRamp)
-                {
-                    if (mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X].heightLevel - 1 == mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X - 1].heightLevel)
+
+                    //if under bridge currently, also one height level lower also works
+                    //determine via lastlocationZ of prop
+                    //this assumes bridges of length one with -1 height squares on sides and same height squares on end
+                    if (mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X].isEWBridge || mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X].isNSBridge)
                     {
-                        allowAssignment = true;
+                        if ((priorHeightLevelOnPath + 1 == mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X].heightLevel) && (callingProp.LocationZ - 1 == mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X + 1].heightLevel))
+                        {
+                            allowAssignment = true;
+                        }
+                    }
+
+
+                    //if on ramp currently, one level lower also works
+                    if (mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X].isRamp)
+                    {
+                        if (mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X].heightLevel - 1 == mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X - 1].heightLevel)
+                        {
+                            allowAssignment = true;
+                        }
+                    }
+
+                    //if target is ramp, one level higher also works
+                    if (mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X - 1].isRamp)
+                    {
+                        if (mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X].heightLevel + 1 == mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X - 1].heightLevel)
+                        {
+                            allowAssignment = true;
+                        }
+                    }
+
+                    if (allowAssignment)
+                    {
+                        val = values[p.X - 1, p.Y];
+                        lowest = new Coordinate(p.X - 1, p.Y);
                     }
                 }
-
-                //if target is ramp, one level higher also works
-                if (mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X-1].isRamp)
+                // current tile IS bridge
+                else
                 {
-                    if (mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X].heightLevel + 1 == mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X - 1].heightLevel)
+                    //currently under bridge
+                    if (priorHeightLevelOnPath < mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X].heightLevel)
                     {
-                        allowAssignment = true;
-                    }
-                }
+                        bool allowAssignment = false;
 
-                if (allowAssignment)
-                {
-                    val = values[p.X - 1, p.Y];
-                    lowest = new Coordinate(p.X - 1, p.Y);
+                        //one height level LOWER always works
+                        if (mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X].heightLevel - 1 == mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X - 1].heightLevel)
+                        {
+                            allowAssignment = true;
+                        }
+
+                        //build rule: no ramps on side of bridges
+                        //also ramp as target tile always works (direct ascension from under bridge)
+                        //if (mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X+1].isRamp)
+                        //{
+                        //allowAssignment = true;
+                        //}
+                    }
+
+                    //currently ontop bridge
+                    if (priorHeightLevelOnPath == mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X].heightLevel)
+                    {
+                        bool allowAssignment = false;
+
+                        //same height level always works
+                        if (mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X].heightLevel == mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X - 1].heightLevel)
+                        {
+                            allowAssignment = true;
+                        }
+                    }
+
                 }
             }
+                
             //checking towards south
             if ((p.Y + 1 < maxY) && (values[p.X, p.Y + 1] < val))
             {
-                bool allowAssignment = false;
-
-                //same hieght level target always works
-                if (mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X].heightLevel == mod.currentArea.Tiles[(p.Y+1) * mod.currentArea.MapSizeX + p.X].heightLevel)
+                //first scenario: current tile is NO bridge
+                if (!mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X].isEWBridge && !mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X].isNSBridge)
                 {
-                    allowAssignment = true;
-                }
+                    bool allowAssignment = false;
 
-                /*
-                //if under bridge currently, also one height level lower also works
-                //determine via lastlocationZ of prop
-                //this assumes bridges of length one with -1 height squares on sides and same height squares on end
-                if (mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X].isEWBridge || mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X].isNSBridge)
-                {
-                    if ((callingProp.lastLocationZ + 1 == callingProp.LocationZ) && (callingProp.LocationZ - 1 == mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X + 1].heightLevel))
+                    //same hieght level target always works
+                    if (mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X].heightLevel == mod.currentArea.Tiles[(p.Y + 1) * mod.currentArea.MapSizeX + p.X].heightLevel)
                     {
                         allowAssignment = true;
                     }
-                }
-                */
 
-                //if on ramp currently, one level lower also works
-                if (mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X].isRamp)
-                {
-                    if (mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X].heightLevel - 1 == mod.currentArea.Tiles[(p.Y+1) * mod.currentArea.MapSizeX + p.X].heightLevel)
+                    /*
+                    //if under bridge currently, also one height level lower also works
+                    //determine via lastlocationZ of prop
+                    //this assumes bridges of length one with -1 height squares on sides and same height squares on end
+                    if (mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X].isEWBridge || mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X].isNSBridge)
                     {
-                        allowAssignment = true;
+                        if ((callingProp.lastLocationZ + 1 == callingProp.LocationZ) && (callingProp.LocationZ - 1 == mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X + 1].heightLevel))
+                        {
+                            allowAssignment = true;
+                        }
+                    }
+                    */
+
+                    //if on ramp currently, one level lower also works
+                    if (mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X].isRamp)
+                    {
+                        if (mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X].heightLevel - 1 == mod.currentArea.Tiles[(p.Y + 1) * mod.currentArea.MapSizeX + p.X].heightLevel)
+                        {
+                            allowAssignment = true;
+                        }
+                    }
+
+                    //if target is ramp, one level higher also works
+                    if (mod.currentArea.Tiles[(p.Y + 1) * mod.currentArea.MapSizeX + p.X].isRamp)
+                    {
+                        if (mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X].heightLevel + 1 == mod.currentArea.Tiles[(p.Y + 1) * mod.currentArea.MapSizeX + p.X].heightLevel)
+                        {
+                            allowAssignment = true;
+                        }
+                    }
+
+                    if (allowAssignment)
+                    {
+                        val = values[p.X, p.Y + 1];
+                        lowest = new Coordinate(p.X, p.Y + 1);
                     }
                 }
-
-                //if target is ramp, one level higher also works
-                if (mod.currentArea.Tiles[(p.Y+1) * mod.currentArea.MapSizeX + p.X].isRamp)
+                // current tile IS bridge
+                else
                 {
-                    if (mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X].heightLevel + 1 == mod.currentArea.Tiles[(p.Y+1) * mod.currentArea.MapSizeX + p.X].heightLevel)
+                    //currently under bridge
+                    if (priorHeightLevelOnPath < mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X].heightLevel)
                     {
-                        allowAssignment = true;
-                    }
-                }
+                        bool allowAssignment = false;
 
-                if (allowAssignment)
-                {
-                    val = values[p.X, p.Y + 1];
-                    lowest = new Coordinate(p.X, p.Y + 1);
+                        //one height level LOWER always works
+                        if (mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X].heightLevel - 1 == mod.currentArea.Tiles[(p.Y+1) * mod.currentArea.MapSizeX + p.X].heightLevel)
+                        {
+                            allowAssignment = true;
+                        }
+
+                        //build rule: no ramps on side of bridges
+                        //also ramp as target tile always works (direct ascension from under bridge)
+                        //if (mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X+1].isRamp)
+                        //{
+                        //allowAssignment = true;
+                        //}
+                    }
+
+                    //currently ontop bridge
+                    if (priorHeightLevelOnPath == mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X].heightLevel)
+                    {
+                        bool allowAssignment = false;
+
+                        //same height level always works
+                        if (mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X].heightLevel == mod.currentArea.Tiles[(p.Y+1) * mod.currentArea.MapSizeX + p.X].heightLevel)
+                        {
+                            allowAssignment = true;
+                        }
+                    }
+
                 }
             }
             //checking towards north
             if ((p.Y - 1 >= 0) && (values[p.X, p.Y - 1] < val))
             {
-                bool allowAssignment = false;
-
-                //same hieght level target always works
-                if (mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X].heightLevel == mod.currentArea.Tiles[(p.Y - 1) * mod.currentArea.MapSizeX + p.X].heightLevel)
+                //first scenario: current tile is NO bridge
+                if (!mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X].isEWBridge && !mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X].isNSBridge)
                 {
-                    allowAssignment = true;
-                }
+                    bool allowAssignment = false;
 
-                /*
-                //if under bridge currently, also one height level lower also works
-                //determine via lastlocationZ of prop
-                //this assumes bridges of length one with -1 height squares on sides and same height squares on end
-                if (mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X].isEWBridge || mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X].isNSBridge)
-                {
-                    if ((callingProp.lastLocationZ + 1 == callingProp.LocationZ) && (callingProp.LocationZ - 1 == mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X + 1].heightLevel))
+                    //same hieght level target always works
+                    if (mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X].heightLevel == mod.currentArea.Tiles[(p.Y - 1) * mod.currentArea.MapSizeX + p.X].heightLevel)
                     {
                         allowAssignment = true;
                     }
-                }
-                */
 
-                //if on ramp currently, one level lower also works
-                if (mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X].isRamp)
-                {
-                    if (mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X].heightLevel - 1 == mod.currentArea.Tiles[(p.Y - 1) * mod.currentArea.MapSizeX + p.X].heightLevel)
+                    /*
+                    //if under bridge currently, also one height level lower also works
+                    //determine via lastlocationZ of prop
+                    //this assumes bridges of length one with -1 height squares on sides and same height squares on end
+                    if (mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X].isEWBridge || mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X].isNSBridge)
                     {
-                        allowAssignment = true;
+                        if ((callingProp.lastLocationZ + 1 == callingProp.LocationZ) && (callingProp.LocationZ - 1 == mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X + 1].heightLevel))
+                        {
+                            allowAssignment = true;
+                        }
+                    }
+                    */
+
+                    //if on ramp currently, one level lower also works
+                    if (mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X].isRamp)
+                    {
+                        if (mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X].heightLevel - 1 == mod.currentArea.Tiles[(p.Y - 1) * mod.currentArea.MapSizeX + p.X].heightLevel)
+                        {
+                            allowAssignment = true;
+                        }
+                    }
+
+                    //if target is ramp, one level higher also works
+                    if (mod.currentArea.Tiles[(p.Y - 1) * mod.currentArea.MapSizeX + p.X].isRamp)
+                    {
+                        if (mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X].heightLevel + 1 == mod.currentArea.Tiles[(p.Y - 1) * mod.currentArea.MapSizeX + p.X].heightLevel)
+                        {
+                            allowAssignment = true;
+                        }
+                    }
+
+                    if (allowAssignment)
+                    {
+                        val = values[p.X, p.Y - 1];
+                        lowest = new Coordinate(p.X, p.Y - 1);
                     }
                 }
-
-                //if target is ramp, one level higher also works
-                if (mod.currentArea.Tiles[(p.Y-1) * mod.currentArea.MapSizeX + p.X].isRamp)
+                // current tile IS bridge
+                else
                 {
-                    if (mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X].heightLevel + 1 == mod.currentArea.Tiles[(p.Y - 1) * mod.currentArea.MapSizeX + p.X].heightLevel)
+                    //currently under bridge
+                    if (priorHeightLevelOnPath < mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X].heightLevel)
                     {
-                        allowAssignment = true;
-                    }
-                }
+                        bool allowAssignment = false;
 
-                if (allowAssignment)
-                {
-                    val = values[p.X, p.Y - 1];
-                    lowest = new Coordinate(p.X, p.Y - 1);
+                        //one height level LOWER always works
+                        if (mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X].heightLevel - 1 == mod.currentArea.Tiles[(p.Y - 1) * mod.currentArea.MapSizeX + p.X].heightLevel)
+                        {
+                            allowAssignment = true;
+                        }
+
+                        //build rule: no ramps on side of bridges
+                        //also ramp as target tile always works (direct ascension from under bridge)
+                        //if (mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X+1].isRamp)
+                        //{
+                        //allowAssignment = true;
+                        //}
+                    }
+
+                    //currently ontop bridge
+                    if (priorHeightLevelOnPath == mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X].heightLevel)
+                    {
+                        bool allowAssignment = false;
+
+                        //same height level always works
+                        if (mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X].heightLevel == mod.currentArea.Tiles[(p.Y - 1) * mod.currentArea.MapSizeX + p.X].heightLevel)
+                        {
+                            allowAssignment = true;
+                        }
+                    }
                 }
             }
 
