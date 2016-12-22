@@ -40,6 +40,7 @@ namespace IceBlink2
             if (!foundEnd)
             {
                 //do not build path for now so return (-1,-1), later add code for picking a spot to move
+                int i = 1;
             }
             else
             {
@@ -54,6 +55,28 @@ namespace IceBlink2
             }
             callingProp.lengthOfLastPath = pathNodes.Count;
             pathNodes.Clear();
+
+            /*
+            foreach (Prop propObject in gv.mod.currentArea.Props)
+            {
+                if ((propObject.lastLocationX != propObject.LocationX) || (propObject.lastLocationY != propObject.LocationY))
+                {
+                    propObject.lastLocationZ = propObject.LocationZ;
+                    //propObject.lastLocationX = propObject.LocationX;
+                    //propObject.lastLocationY = propObject.LocationY;   
+                }
+
+                //updating props heightLevel
+                propObject.LocationZ = gv.mod.currentArea.Tiles[propObject.LocationY * gv.mod.currentArea.MapSizeX + propObject.LocationX].heightLevel;
+
+            }
+            */
+            if ((newPoint.X != -1 && newPoint.Y != -1) && (newPoint.X != callingProp.LocationX || newPoint.Y != callingProp.LocationY))
+            {
+                callingProp.lastLocationX = callingProp.LocationX;
+                callingProp.lastLocationY = callingProp.LocationY;
+            }
+
             return newPoint;
 
             /*
@@ -233,6 +256,24 @@ namespace IceBlink2
             callingProp.destinationPixelPositionXList.Reverse();
             callingProp.destinationPixelPositionYList.Reverse();
 
+            /*
+            foreach (Prop propObject in gv.mod.currentArea.Props)
+            {
+                if ((propObject.lastLocationX != propObject.LocationX) || (propObject.lastLocationY != propObject.LocationY))
+                {
+                    propObject.lastLocationZ = propObject.LocationZ;
+                    //propObject.lastLocationX = propObject.LocationX;
+                    //propObject.lastLocationY = propObject.LocationY;   
+                }
+
+                //updating props heightLevel
+                propObject.LocationZ = gv.mod.currentArea.Tiles[propObject.LocationY * gv.mod.currentArea.MapSizeX + propObject.LocationX].heightLevel;
+
+            }
+            */
+
+            //if (newPoint)
+
             return newPoint;
         }
 
@@ -400,7 +441,10 @@ namespace IceBlink2
         }
         public bool evaluateValue(int x, int y, int next, Prop callingProp, int originX, int originY)
         {
-
+            if (x == 2 && y == 4 )
+            {
+                int i = 0;
+            }
             //this will be set to true if currently checked square (next+1) can be reached
             //we will not need to care for walkable as this was handled already beforehand (setting grid[x,y] to 1, ie closed)
             //whether one can enter depends on the squares eligible as squares beforehand in path (next - 1, tricky, can be several), the current square (originX, originY, ie next) and the target square (x,y, ie next+1)
@@ -449,7 +493,15 @@ RULES:
                 //former to east
                 if (originX + 1 <= mod.currentArea.MapSizeX - 1)
                 {
-                    if (values[originX + 1, originY] == next - 1)
+                if (next == 0)
+                {
+                    if ((callingProp.lastLocationX == (originX + 1)) && (callingProp.lastLocationY == originY))
+                    {
+                        easternTile = mod.currentArea.Tiles[originY * mod.currentArea.MapSizeX + originX + 1];
+                        easternTileIsPriorTile = true;
+                    }
+                }
+                else if (values[originX + 1, originY] == next - 1)
                     {
                         easternTile = mod.currentArea.Tiles[originY * mod.currentArea.MapSizeX + originX + 1];
                         easternTileIsPriorTile = true;
@@ -459,7 +511,15 @@ RULES:
                 //former to west
                 if (originX - 1 >= 0)
                 {
-                    if (values[originX - 1, originY] == next - 1)
+                if (next == 0)
+                {
+                    if ((callingProp.lastLocationX == (originX - 1)) && (callingProp.lastLocationY == originY))
+                    {
+                        westernTile = mod.currentArea.Tiles[originY * mod.currentArea.MapSizeX + originX - 1];
+                        westernTileIsPriorTile = true;
+                    }
+                }
+                else if (values[originX - 1, originY] == next - 1)
                     {
                         westernTile = mod.currentArea.Tiles[originY * mod.currentArea.MapSizeX + originX - 1];
                         westernTileIsPriorTile = true;
@@ -469,7 +529,15 @@ RULES:
                 //former to south
                 if (originY + 1 <= mod.currentArea.MapSizeY - 1)
                 {
-                    if (values[originX, originY + 1] == next - 1)
+                if (next == 0)
+                {
+                    if ((callingProp.lastLocationX == originX) && (callingProp.lastLocationY == (originY + 1)))
+                    {
+                        southernTile = mod.currentArea.Tiles[(originY + 1) * mod.currentArea.MapSizeX + originX];
+                        southernTileIsPriorTile = true;
+                    }
+                }
+                else if (values[originX, originY + 1] == next - 1)
                     {
                         southernTile = mod.currentArea.Tiles[(originY + 1) * mod.currentArea.MapSizeX + originX];
                         southernTileIsPriorTile = true;
@@ -479,7 +547,15 @@ RULES:
                 //former to north
                 if (originY - 1 >= 0)
                 {
-                    if (values[originX, originY - 1] == next - 1)
+                    if (next == 0)
+                    {
+                        if ((callingProp.lastLocationX == originX) && (callingProp.lastLocationY == (originY - 1)))
+                        {
+                            northernTile = mod.currentArea.Tiles[(originY - 1) * mod.currentArea.MapSizeX + originX];
+                            northernTileIsPriorTile = true;
+                        }
+                    }
+                    else if (values[originX, originY - 1] == next - 1)
                     {
                         northernTile = mod.currentArea.Tiles[(originY - 1) * mod.currentArea.MapSizeX + originX];
                         northernTileIsPriorTile = true;
@@ -603,7 +679,7 @@ RULES:
                         {
                             //has same height level as target square?
                             if (mod.currentArea.Tiles[originY * mod.currentArea.MapSizeX + originX].heightLevel == mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x].heightLevel)
-                            {
+                            {  
                                 allowAssignment = true;
                             }
                         }
@@ -743,10 +819,11 @@ RULES:
                 // current tile IS bridge
                 else
                 {
+                    bool allowAssignment = false;
                     //currently under bridge
                     if (priorHeightLevelOnPath < mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X].heightLevel)
                     {
-                        bool allowAssignment = false;
+                        //bool allowAssignment = false;
 
                         //one height level LOWER always works
                         if (mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X].heightLevel - 1 == mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X + 1].heightLevel)
@@ -765,13 +842,19 @@ RULES:
                     //currently ontop bridge
                     if (priorHeightLevelOnPath == mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X].heightLevel)
                     {
-                        bool allowAssignment = false;
+                        //bool allowAssignment = false;
 
                         //same height level always works
                         if (mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X].heightLevel == mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X + 1].heightLevel)
                         {
                             allowAssignment = true;
                         }
+                    }
+
+                    if (allowAssignment)
+                    {
+                        val = values[p.X + 1, p.Y];
+                        lowest = new Coordinate(p.X + 1, p.Y);
                     }
 
                 }
@@ -830,10 +913,11 @@ RULES:
                 // current tile IS bridge
                 else
                 {
+                    bool allowAssignment = false;
                     //currently under bridge
                     if (priorHeightLevelOnPath < mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X].heightLevel)
                     {
-                        bool allowAssignment = false;
+                        //bool allowAssignment = false;
 
                         //one height level LOWER always works
                         if (mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X].heightLevel - 1 == mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X - 1].heightLevel)
@@ -852,7 +936,7 @@ RULES:
                     //currently ontop bridge
                     if (priorHeightLevelOnPath == mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X].heightLevel)
                     {
-                        bool allowAssignment = false;
+                        //bool allowAssignment = false;
 
                         //same height level always works
                         if (mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X].heightLevel == mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X - 1].heightLevel)
@@ -861,6 +945,11 @@ RULES:
                         }
                     }
 
+                    if (allowAssignment)
+                    {
+                        val = values[p.X - 1, p.Y];
+                        lowest = new Coordinate(p.X - 1, p.Y);
+                    }
                 }
             }
                 
@@ -918,10 +1007,12 @@ RULES:
                 // current tile IS bridge
                 else
                 {
+                    bool allowAssignment = false;
+
                     //currently under bridge
                     if (priorHeightLevelOnPath < mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X].heightLevel)
                     {
-                        bool allowAssignment = false;
+                        //bool allowAssignment = false;
 
                         //one height level LOWER always works
                         if (mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X].heightLevel - 1 == mod.currentArea.Tiles[(p.Y+1) * mod.currentArea.MapSizeX + p.X].heightLevel)
@@ -940,7 +1031,7 @@ RULES:
                     //currently ontop bridge
                     if (priorHeightLevelOnPath == mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X].heightLevel)
                     {
-                        bool allowAssignment = false;
+                        ///bool allowAssignment = false;
 
                         //same height level always works
                         if (mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X].heightLevel == mod.currentArea.Tiles[(p.Y+1) * mod.currentArea.MapSizeX + p.X].heightLevel)
@@ -948,7 +1039,11 @@ RULES:
                             allowAssignment = true;
                         }
                     }
-
+                    if (allowAssignment)
+                    {
+                        val = values[p.X, p.Y + 1];
+                        lowest = new Coordinate(p.X, p.Y + 1);
+                    }
                 }
             }
             //checking towards north
@@ -1005,10 +1100,11 @@ RULES:
                 // current tile IS bridge
                 else
                 {
+                    bool allowAssignment = false;
                     //currently under bridge
                     if (priorHeightLevelOnPath < mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X].heightLevel)
                     {
-                        bool allowAssignment = false;
+                        //bool allowAssignment = false;
 
                         //one height level LOWER always works
                         if (mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X].heightLevel - 1 == mod.currentArea.Tiles[(p.Y - 1) * mod.currentArea.MapSizeX + p.X].heightLevel)
@@ -1027,13 +1123,19 @@ RULES:
                     //currently ontop bridge
                     if (priorHeightLevelOnPath == mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X].heightLevel)
                     {
-                        bool allowAssignment = false;
+                        //bool allowAssignment = false;
 
                         //same height level always works
                         if (mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X].heightLevel == mod.currentArea.Tiles[(p.Y - 1) * mod.currentArea.MapSizeX + p.X].heightLevel)
                         {
                             allowAssignment = true;
                         }
+                    }
+
+                    if (allowAssignment)
+                    {
+                        val = values[p.X, p.Y - 1];
+                        lowest = new Coordinate(p.X, p.Y - 1);
                     }
                 }
             }

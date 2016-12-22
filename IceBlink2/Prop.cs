@@ -23,11 +23,15 @@ namespace IceBlink2
         public bool canBeTriggeredByCreature = true;  
         public int numberOfScriptCallsRemaining = 999;
 
+        public bool allowLastLocationUpdate = false;
+
         public int LocationX = 0;
 	    public int LocationY = 0;
         public int LocationZ = 0;
         public int lastLocationX = 0;
         public int lastLocationY = 0;
+        public int priorLastLocationX = 0;
+        public int priorLastLocationY = 0;
         public int lastLocationZ = 0;
         public string ImageFileName = "blank";
         public bool isLight = false;
@@ -141,6 +145,7 @@ namespace IceBlink2
         public Prop DeepCopy()
         {
     	    Prop copy = new Prop();
+            copy.allowLastLocationUpdate = this.allowLastLocationUpdate;
             copy.isLight = this.isLight;
             copy.hasHalo = this.hasHalo;
             copy.focalIntensity = this.focalIntensity;
@@ -152,6 +157,8 @@ namespace IceBlink2
             copy.wasTriggeredLastUpdate = this.wasTriggeredLastUpdate;
             copy.lastLocationX = this.lastLocationX;
             copy.lastLocationY = this.lastLocationY;
+            copy.priorLastLocationX = this.lastLocationX;
+            copy.priorLastLocationY = this.lastLocationY;
             copy.lastLocationZ = this.lastLocationZ;
             copy.ImageFileName = this.ImageFileName;
 		    copy.PropFacingLeft = this.PropFacingLeft;

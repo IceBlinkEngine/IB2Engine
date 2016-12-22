@@ -6748,7 +6748,7 @@ namespace IceBlink2
 
         }
 
-        
+
 
         public void doPropMoves()
         {
@@ -6757,15 +6757,16 @@ namespace IceBlink2
             {
                 if ((propObject.lastLocationX != propObject.LocationX) || (propObject.lastLocationY != propObject.LocationY))
                 {
-                    propObject.lastLocationX = propObject.LocationX;
-                    propObject.lastLocationY = propObject.LocationY;
                     propObject.lastLocationZ = propObject.LocationZ;
+                    //propObject.lastLocationX = propObject.LocationX;
+                    //propObject.lastLocationY = propObject.LocationY;   
                 }
 
                 //updating props heightLevel
                 propObject.LocationZ = gv.mod.currentArea.Tiles[propObject.LocationY * gv.mod.currentArea.MapSizeX + propObject.LocationX].heightLevel;
+                
             }
-            
+
             #region Synchronization: update the position of time driven movers (either when the party switches area or when a time driven mover enters the current area)
 
             //Synchronization: check for all time driven movers either 1. found when entering an area (three variants: move into current area, move on current area, move out of current area) or 2. coming in from outside while party is already on current area
@@ -7043,7 +7044,7 @@ namespace IceBlink2
                                         gv.mod.moduleAreasObjects[relevantAreaIndex].Props[relevantPropIndex].passOneMove = true;
                                         int xLocForFloaty = gv.mod.moduleAreasObjects[relevantAreaIndex].Props[relevantPropIndex].WayPointList[listEndCheckedIndexOfNextWaypoint].X;
                                         int yLocForFloaty = gv.mod.moduleAreasObjects[relevantAreaIndex].Props[relevantPropIndex].WayPointList[listEndCheckedIndexOfNextWaypoint].Y;
-                                        
+
                                         gv.sf.osController("osSetPropLocationAnyArea.cs", gv.mod.moduleAreasObjects[relevantAreaIndex].Props[relevantPropIndex].PropTag, gv.mod.moduleAreasObjects[relevantAreaIndex].Props[relevantPropIndex].WayPointList[listEndCheckedIndexOfNextWaypoint].areaName, gv.mod.moduleAreasObjects[relevantAreaIndex].Props[relevantPropIndex].WayPointList[listEndCheckedIndexOfNextWaypoint].X.ToString(), gv.mod.moduleAreasObjects[relevantAreaIndex].Props[relevantPropIndex].WayPointList[listEndCheckedIndexOfNextWaypoint].Y.ToString());
 
                                         //gv.mod.moduleAreasObjects[relevantAreaIndex].Props[relevantPropIndex].WayPointList[listEndCheckedIndexOfNextWaypoint].X
@@ -7093,11 +7094,11 @@ namespace IceBlink2
 
                 //if (gv.mod.currentArea.Props[i].passOneMove == true)
                 //{
-                    //gv.mod.currentArea.Props[i].passOneMove = false;
-                    //continue;
+                //gv.mod.currentArea.Props[i].passOneMove = false;
+                //continue;
                 //}
                 //else
-                if (1 ==1)
+                if (1 == 1)
                 {
                     /*
                     #region delay a mover for one turn on same square as party
@@ -7149,7 +7150,7 @@ namespace IceBlink2
                                     gv.screenMainMap.addFloatyText(gv.mod.currentArea.Props[i], "Chasing...", "red", 1500);
                                     if (gv.mod.debugMode)
                                     {
-                                        
+
                                         //gv.screenMainMap.addFloatyText(gv.mod.currentArea.Props[i].LocationX, gv.mod.currentArea.Props[i].LocationY, "following you", "red", 4000);
                                         gv.cc.addLogText("<font color='yellow'>" + gv.mod.currentArea.Props[i].PropTag + " start chasing " + gv.mod.currentArea.Props[i].ChaserChaseDuration + " seconds</font><BR>");
                                     }
@@ -7486,7 +7487,17 @@ namespace IceBlink2
             }
 
             #endregion
-
+            /*
+            foreach (Prop propObject in gv.mod.currentArea.Props)
+            {
+                if ((propObject.lastLocationX != propObject.LocationX) || (propObject.lastLocationY != propObject.LocationY))
+                {
+                    propObject.lastLocationX = propObject.LocationX;
+                    propObject.lastLocationY = propObject.LocationY;
+                    //propObject.lastLocationZ = propObject.LocationZ;
+                }
+            }
+            */
         }
         public void doPropBarkString(Prop prp)
         {
