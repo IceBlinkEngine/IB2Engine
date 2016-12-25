@@ -408,7 +408,7 @@ namespace IceBlink2
                         {
                             if (mod.PlayerLocationY > 0)
                             {
-                                if (mod.currentArea.GetBlocked(mod.PlayerLocationX, mod.PlayerLocationY - 1) == false)
+                                if (mod.currentArea.GetBlocked(mod.PlayerLocationX, mod.PlayerLocationY - 1, gv.mod.PlayerLocationX, gv.mod.PlayerLocationY, gv.mod.PlayerLastLocationX, gv.mod.PlayerLastLocationY) == false)
                                 {
                                     mod.PlayerLastLocationX = mod.PlayerLocationX;
                                     mod.PlayerLastLocationY = mod.PlayerLocationY;
@@ -427,7 +427,7 @@ namespace IceBlink2
                             int mapheight = mod.currentArea.MapSizeY;
                             if (mod.PlayerLocationY < (mapheight - 1))
                             {
-                                if (mod.currentArea.GetBlocked(mod.PlayerLocationX, mod.PlayerLocationY + 1) == false)
+                                if (mod.currentArea.GetBlocked(mod.PlayerLocationX, mod.PlayerLocationY + 1, gv.mod.PlayerLocationX, gv.mod.PlayerLocationY, gv.mod.PlayerLastLocationX, gv.mod.PlayerLastLocationY) == false)
                                 {
                                     mod.PlayerLastLocationX = mod.PlayerLocationX;
                                     mod.PlayerLastLocationY = mod.PlayerLocationY;
@@ -444,7 +444,7 @@ namespace IceBlink2
                         {
                             if (mod.PlayerLocationX > 0)
                             {
-                                if (mod.currentArea.GetBlocked(mod.PlayerLocationX - 1, mod.PlayerLocationY) == false)
+                                if (mod.currentArea.GetBlocked(mod.PlayerLocationX - 1, mod.PlayerLocationY, gv.mod.PlayerLocationX, gv.mod.PlayerLocationY, gv.mod.PlayerLastLocationX, gv.mod.PlayerLastLocationY) == false)
                                 {
                                     mod.PlayerLastLocationX = mod.PlayerLocationX;
                                     mod.PlayerLastLocationY = mod.PlayerLocationY;
@@ -469,7 +469,7 @@ namespace IceBlink2
                             int mapwidth = mod.currentArea.MapSizeX;
                             if (mod.PlayerLocationX < (mapwidth - 1))
                             {
-                                if (mod.currentArea.GetBlocked(mod.PlayerLocationX + 1, mod.PlayerLocationY) == false)
+                                if (mod.currentArea.GetBlocked(mod.PlayerLocationX + 1, mod.PlayerLocationY, gv.mod.PlayerLocationX, gv.mod.PlayerLocationY, gv.mod.PlayerLastLocationX, gv.mod.PlayerLastLocationY) == false)
                                 {
                                     mod.PlayerLastLocationX = mod.PlayerLocationX;
                                     mod.PlayerLastLocationY = mod.PlayerLocationY;
@@ -1206,6 +1206,7 @@ namespace IceBlink2
                     //drawProps();
                     //drawMovingProps();
                     drawPlayer();
+                    drawBrigdePropsOverPlayer();
                 }
                 if (gv.mod.useAllTileSystem)
                 {
@@ -1218,6 +1219,7 @@ namespace IceBlink2
                     //drawProps();
                     //drawMovingProps();
                     drawPlayer();
+                    drawBrigdePropsOverPlayer();
                 }
                 drawFogOfWar();
                 drawMainMapFloatyText();
@@ -25267,6 +25269,631 @@ namespace IceBlink2
                 #endregion
             }
         }
+
+        public void drawBrigdePropsOverPlayer()
+        {
+            if (gv.mod.currentArea.PlayerIsUnderBridge)
+            {
+                if (mod.useAllTileSystem)
+                {
+                    #region new system
+                    //1
+                    //think I am gonna use the drawworldmap routines here, too
+
+                    //XXXXXXXXXXXXXXXXXXXXXXXX
+                    int indexOfNorthernNeighbour = -1;
+                    int indexOfSouthernNeighbour = -1;
+                    int indexOfEasternNeighbour = -1;
+                    int indexOfWesternNeighbour = -1;
+                    int indexOfNorthEasternNeighbour = -1;
+                    int indexOfNorthWesternNeighbour = -1;
+                    int indexOfSouthEasternNeighbour = -1;
+                    int indexOfSouthWesternNeighbour = -1;
+
+                    int seamlessModififierMinX = 0;
+                    int seamlessModififierMaxX = 0;
+                    int seamlessModififierMinY = 0;
+                    int seamlessModififierMaxY = 0;
+
+                    //player near northern border
+                    if ((gv.mod.currentArea.northernNeighbourArea != "") && (gv.mod.PlayerLocationY < gv.playerOffsetY))
+                    {
+                        seamlessModififierMinY = gv.playerOffsetY - gv.mod.PlayerLocationY;
+                        for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
+                        {
+                            if (gv.mod.moduleAreasObjects[i].Filename == gv.mod.currentArea.northernNeighbourArea)
+                            {
+                                indexOfNorthernNeighbour = i;
+                            }
+                        }
+
+                        if (gv.mod.moduleAreasObjects[indexOfNorthernNeighbour].easternNeighbourArea != "")
+                        {
+                            for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
+                            {
+                                if (gv.mod.moduleAreasObjects[i].Filename == gv.mod.moduleAreasObjects[indexOfNorthernNeighbour].easternNeighbourArea)
+                                {
+                                    indexOfNorthEasternNeighbour = i;
+                                }
+                            }
+                        }
+
+                        if (gv.mod.moduleAreasObjects[indexOfNorthernNeighbour].westernNeighbourArea != "")
+                        {
+                            for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
+                            {
+                                if (gv.mod.moduleAreasObjects[i].Filename == gv.mod.moduleAreasObjects[indexOfNorthernNeighbour].westernNeighbourArea)
+                                {
+                                    indexOfNorthWesternNeighbour = i;
+                                }
+                            }
+                        }
+                    }
+
+                    //player near southern  border
+                    if ((gv.mod.currentArea.southernNeighbourArea != "") && (gv.mod.PlayerLocationY > (gv.mod.currentArea.MapSizeY - gv.playerOffsetY - 1)))
+                    {
+
+                        seamlessModififierMaxY = gv.mod.PlayerLocationY - (gv.mod.currentArea.MapSizeY - gv.playerOffsetY - 1);
+                        for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
+                        {
+                            if (gv.mod.moduleAreasObjects[i].Filename == gv.mod.currentArea.southernNeighbourArea)
+                            {
+                                indexOfSouthernNeighbour = i;
+                            }
+                        }
+
+                        if (gv.mod.moduleAreasObjects[indexOfSouthernNeighbour].easternNeighbourArea != "")
+                        {
+                            for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
+                            {
+                                if (gv.mod.moduleAreasObjects[i].Filename == gv.mod.moduleAreasObjects[indexOfSouthernNeighbour].easternNeighbourArea)
+                                {
+                                    indexOfSouthEasternNeighbour = i;
+                                }
+                            }
+                        }
+
+                        if (gv.mod.moduleAreasObjects[indexOfSouthernNeighbour].westernNeighbourArea != "")
+                        {
+                            for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
+                            {
+                                if (gv.mod.moduleAreasObjects[i].Filename == gv.mod.moduleAreasObjects[indexOfSouthernNeighbour].westernNeighbourArea)
+                                {
+                                    indexOfSouthWesternNeighbour = i;
+                                }
+                            }
+                        }
+                    }
+
+                    //player near western border
+                    if ((gv.mod.currentArea.westernNeighbourArea != "") && (gv.mod.PlayerLocationX < gv.playerOffsetX))
+                    {
+                        seamlessModififierMinX = gv.playerOffsetX - gv.mod.PlayerLocationX;
+                        for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
+                        {
+                            if (gv.mod.moduleAreasObjects[i].Filename == gv.mod.currentArea.westernNeighbourArea)
+                            {
+                                indexOfWesternNeighbour = i;
+                            }
+                        }
+
+                        if (gv.mod.moduleAreasObjects[indexOfWesternNeighbour].northernNeighbourArea != "")
+                        {
+                            for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
+                            {
+                                if (gv.mod.moduleAreasObjects[i].Filename == gv.mod.moduleAreasObjects[indexOfWesternNeighbour].northernNeighbourArea)
+                                {
+                                    indexOfNorthWesternNeighbour = i;
+                                }
+                            }
+                        }
+
+                        if (gv.mod.moduleAreasObjects[indexOfWesternNeighbour].southernNeighbourArea != "")
+                        {
+                            for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
+                            {
+                                if (gv.mod.moduleAreasObjects[i].Filename == gv.mod.moduleAreasObjects[indexOfWesternNeighbour].southernNeighbourArea)
+                                {
+                                    indexOfSouthWesternNeighbour = i;
+                                }
+                            }
+                        }
+                    }
+
+                    //player near eastern border
+                    if ((gv.mod.currentArea.easternNeighbourArea != "") && (gv.mod.PlayerLocationX > (gv.mod.currentArea.MapSizeX - gv.playerOffsetX - 1)))
+                    {
+                        seamlessModififierMaxX = gv.mod.PlayerLocationX - (gv.mod.currentArea.MapSizeX - gv.playerOffsetX - 1);
+                        for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
+                        {
+                            if (gv.mod.moduleAreasObjects[i].Filename == gv.mod.currentArea.easternNeighbourArea)
+                            {
+                                indexOfEasternNeighbour = i;
+                            }
+                        }
+
+                        if (gv.mod.moduleAreasObjects[indexOfEasternNeighbour].northernNeighbourArea != "")
+                        {
+                            for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
+                            {
+                                if (gv.mod.moduleAreasObjects[i].Filename == gv.mod.moduleAreasObjects[indexOfEasternNeighbour].northernNeighbourArea)
+                                {
+                                    indexOfNorthEasternNeighbour = i;
+                                }
+                            }
+                        }
+
+                        if (gv.mod.moduleAreasObjects[indexOfEasternNeighbour].southernNeighbourArea != "")
+                        {
+                            for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
+                            {
+                                if (gv.mod.moduleAreasObjects[i].Filename == gv.mod.moduleAreasObjects[indexOfEasternNeighbour].southernNeighbourArea)
+                                {
+                                    indexOfSouthEasternNeighbour = i;
+                                }
+                            }
+                        }
+                    }
+
+                    bool situationFound = false;
+                    //int relevantIndex = -1;
+                    List<int> relevantIndices = new List<int>();
+                    int northernModifier = 0;
+                    int easternModifier = 0;
+                    int westernModifier = 0;
+                    int southernModifier = 0;
+
+                    //northwest
+                    if ((seamlessModififierMinX > 0) && (seamlessModififierMinY > 0) && (indexOfNorthWesternNeighbour != -1))
+                    {
+                        situationFound = true;
+                        relevantIndices.Add(indexOfNorthWesternNeighbour);
+                    }
+                    //northeast
+                    if ((seamlessModififierMaxX > 0) && (seamlessModififierMinY > 0) && (indexOfNorthEasternNeighbour != -1))
+                    {
+                        situationFound = true;
+                        relevantIndices.Add(indexOfNorthEasternNeighbour);
+                    }
+                    //southwest
+                    if ((seamlessModififierMinX > 0) && (seamlessModififierMaxY > 0) && (indexOfSouthWesternNeighbour != -1))
+                    {
+                        situationFound = true;
+                        relevantIndices.Add(indexOfSouthWesternNeighbour);
+                    }
+                    //southeast
+                    if ((seamlessModififierMaxX > 0) && (seamlessModififierMaxY > 0) && (indexOfSouthEasternNeighbour != -1))
+                    {
+                        situationFound = true;
+                        relevantIndices.Add(indexOfSouthEasternNeighbour);
+                    }
+                    //north
+                    if ((seamlessModififierMinY > 0) && (indexOfNorthernNeighbour != -1))
+                    {
+                        situationFound = true;
+                        relevantIndices.Add(indexOfNorthernNeighbour);
+                    }
+                    //south
+                    if ((seamlessModififierMaxY > 0) && (indexOfSouthernNeighbour != -1))
+                    {
+                        situationFound = true;
+                        relevantIndices.Add(indexOfSouthernNeighbour);
+                    }
+                    //west
+                    if ((seamlessModififierMinX > 0) && (indexOfWesternNeighbour != -1))
+                    {
+                        situationFound = true;
+                        relevantIndices.Add(indexOfWesternNeighbour);
+                    }
+                    //east
+                    if ((seamlessModififierMaxX > 0) && (indexOfEasternNeighbour != -1))
+                    {
+                        situationFound = true;
+                        relevantIndices.Add(indexOfEasternNeighbour);
+                    }
+                    /*
+                    //current map
+                    if (!situationFound)
+                    {
+                        for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
+                        {
+                            if (gv.mod.currentArea.Filename == gv.mod.moduleAreasObjects[i].Filename)
+                            {
+                                relevantIndex = i;
+                            }
+                        } 
+                    }
+                    */
+
+                    //XXXXXXXXXXXXXXXXXXXXXXXX
+                    for (int i = 0; i < relevantIndices.Count; i++)
+                    {//2
+
+                        int backupLocationX = -1;
+                        int backupLocationY = -1;
+
+                        foreach (Prop p in mod.moduleAreasObjects[relevantIndices[i]].Props)
+                        {//3
+                         //only for on-movers (the movers use drawMovingProps below)
+                         //if ((p.isShown) && (!p.isMover) && (p.token != null))
+                            bool nonTimeDriven = true;
+                            if (p.MoverType == "daily" || p.MoverType == "weekly" || p.MoverType == "monthly" || p.MoverType == "yearly")
+                            {
+                                nonTimeDriven = false;
+                            }
+                            int indexOfLoadedTile = -1;
+                            if ((p.isShown) && (nonTimeDriven == true))
+                            {//hurghkarl
+
+                                //try
+                                //{
+                                //gv.cc.DisposeOfBitmap(ref p.token);
+                                //}
+                                //catch { }
+
+                                //p.token = gv.cc.LoadBitmap(p.ImageFileName);
+
+                                try
+                                {
+                                    //insert1                        
+                                    bool tileBitmapIsLoadedAlready = false;
+                                    //int indexOfLoadedTile = -1;
+                                    for (int j = 0; j < gv.mod.loadedTileBitmapsNames.Count; j++)
+                                    {
+                                        if ((gv.mod.loadedTileBitmapsNames[j] == p.ImageFileName) && (!gv.mod.loadedTileBitmaps[j].IsDisposed))
+                                        {
+                                            tileBitmapIsLoadedAlready = true;
+                                            indexOfLoadedTile = j;
+                                            break;
+                                        }
+                                    }
+
+                                    //insert2
+                                    if (!tileBitmapIsLoadedAlready)
+                                    {
+                                        gv.mod.loadedTileBitmapsNames.Add(p.ImageFileName);
+                                        p.token = gv.cc.LoadBitmap(p.ImageFileName);
+                                        gv.mod.loadedTileBitmaps.Add(p.token);
+                                        indexOfLoadedTile = gv.mod.loadedTileBitmaps.Count - 1;
+
+                                    }
+                                }
+                                catch
+                                { }
+
+
+
+                                backupLocationX = p.LocationX;
+                                backupLocationY = p.LocationY;
+
+                                //XXXXXXXXXXXXXXXXXXX
+                                situationFound = false;
+
+                                //northwest
+                                if (indexOfNorthWesternNeighbour != -1)
+                                {
+                                    if (mod.moduleAreasObjects[relevantIndices[i]].Filename.Contains(mod.moduleAreasObjects[indexOfNorthWesternNeighbour].Filename))
+                                    //if ((seamlessModififierMinX > 0) && (seamlessModififierMinY > 0) && !situationFound)
+                                    {
+                                        situationFound = true;
+                                        p.LocationX = p.LocationX - mod.moduleAreasObjects[relevantIndices[i]].MapSizeX;
+                                        p.LocationY = p.LocationY - mod.moduleAreasObjects[relevantIndices[i]].MapSizeY;
+
+                                    }
+                                }
+
+                                //northeast
+                                if (indexOfNorthEasternNeighbour != -1)
+                                {
+                                    if (mod.moduleAreasObjects[relevantIndices[i]].Filename.Contains(mod.moduleAreasObjects[indexOfNorthEasternNeighbour].Filename))
+
+                                    //if ((seamlessModififierMaxX > 0) && (seamlessModififierMinY > 0) && !situationFound)
+                                    {
+                                        situationFound = true;
+                                        p.LocationX = p.LocationX + mod.currentArea.MapSizeX;
+                                        p.LocationY = p.LocationY - mod.moduleAreasObjects[relevantIndices[i]].MapSizeY;
+
+                                    }
+                                }
+
+                                //southwest
+                                if (indexOfSouthWesternNeighbour != -1)
+                                {
+                                    if (mod.moduleAreasObjects[relevantIndices[i]].Filename.Contains(mod.moduleAreasObjects[indexOfSouthWesternNeighbour].Filename))
+
+                                    //if ((seamlessModififierMinX > 0) && (seamlessModififierMaxY > 0) && !situationFound)
+                                    {
+                                        situationFound = true;
+                                        p.LocationX = p.LocationX - mod.moduleAreasObjects[relevantIndices[i]].MapSizeX;
+                                        p.LocationY = p.LocationY + mod.currentArea.MapSizeY;
+
+                                    }
+                                }
+
+                                //southeast
+                                if (indexOfSouthEasternNeighbour != -1)
+                                {
+                                    if (mod.moduleAreasObjects[relevantIndices[i]].Filename.Contains(mod.moduleAreasObjects[indexOfSouthEasternNeighbour].Filename))
+
+                                    //if ((seamlessModififierMaxX > 0) && (seamlessModififierMaxY > 0) && !situationFound)
+                                    {
+                                        situationFound = true;
+                                        p.LocationX = p.LocationX + mod.currentArea.MapSizeX;
+                                        p.LocationY = p.LocationY + mod.currentArea.MapSizeY;
+
+                                    }
+                                }
+
+                                //north
+                                if (indexOfNorthernNeighbour != -1)
+                                {
+                                    if (mod.moduleAreasObjects[relevantIndices[i]].Filename.Contains(mod.moduleAreasObjects[indexOfNorthernNeighbour].Filename))
+
+                                    //if ((seamlessModififierMinY > 0) && !situationFound)
+                                    {
+                                        situationFound = true;
+                                        p.LocationY = p.LocationY - mod.moduleAreasObjects[relevantIndices[i]].MapSizeY;
+
+                                    }
+                                }
+
+                                //south
+                                if (indexOfSouthernNeighbour != -1)
+                                {
+                                    if (mod.moduleAreasObjects[relevantIndices[i]].Filename.Contains(mod.moduleAreasObjects[indexOfSouthernNeighbour].Filename))
+
+                                    //if ((seamlessModififierMaxY > 0) && !situationFound)
+                                    {
+                                        situationFound = true;
+                                        p.LocationY = p.LocationY + mod.currentArea.MapSizeY;
+
+                                    }
+                                }
+
+                                //west
+                                if (indexOfWesternNeighbour != -1)
+                                {
+                                    if (mod.moduleAreasObjects[relevantIndices[i]].Filename.Contains(mod.moduleAreasObjects[indexOfWesternNeighbour].Filename))
+
+                                    //if ((seamlessModififierMinX > 0) && !situationFound)
+                                    {
+                                        situationFound = true;
+                                        p.LocationX = p.LocationX - mod.moduleAreasObjects[relevantIndices[i]].MapSizeX;
+                                    }
+                                }
+
+                                //east
+                                if (indexOfEasternNeighbour != -1)
+                                {
+                                    if (mod.moduleAreasObjects[relevantIndices[i]].Filename.Contains(mod.moduleAreasObjects[indexOfEasternNeighbour].Filename))
+
+                                    //if ((seamlessModififierMaxX > 0) && !situationFound)
+                                    {
+                                        situationFound = true;
+                                        p.LocationX = p.LocationX + mod.currentArea.MapSizeX;
+                                    }
+                                }
+
+                                //XXXXXXXXXXXXXXXXXXXXXXXX
+
+                                //distance check
+                                if ((p.LocationX >= mod.PlayerLocationX - gv.playerOffsetX) && (p.LocationX <= mod.PlayerLocationX + gv.playerOffsetX)
+                                    && (p.LocationY >= mod.PlayerLocationY - gv.playerOffsetY) && (p.LocationY <= mod.PlayerLocationY + gv.playerOffsetY))
+                                {//5
+                                 //prop X - playerX
+                                 //get dst rct based on distance of prop to  palyer
+                                    int x = ((p.LocationX - mod.PlayerLocationX) * gv.squareSize) + (gv.playerOffsetX * gv.squareSize);
+                                    int y = ((p.LocationY - mod.PlayerLocationY) * gv.squareSize) + (gv.playerOffsetY * gv.squareSize);
+                                    int dstW = (int)((((float)gv.mod.loadedTileBitmaps[indexOfLoadedTile].PixelSize.Width / (float)gv.squareSizeInPixels) * (float)gv.squareSize) * (p.sizeFactor / 100f));
+                                    int dstH = (int)((((float)(gv.mod.loadedTileBitmaps[indexOfLoadedTile].PixelSize.Height / p.maxNumberOfFrames) / (float)gv.squareSizeInPixels) * (float)gv.squareSize) * (p.sizeFactor / 100f));
+                                    int dstXshift = (dstW - gv.squareSize) / 2;
+                                    int dstYshift = (dstH - gv.squareSize) / 2;
+                                    IbRect src = new IbRect(0, p.currentFrameNumber * p.propFrameHeight, gv.mod.loadedTileBitmaps[indexOfLoadedTile].PixelSize.Width, p.propFrameHeight);
+                                    IbRect dst = new IbRect(x + gv.oXshift + mapStartLocXinPixels - dstXshift, y - dstYshift, dstW, dstH);
+
+                                    //adjust size of props
+                                    if (gv.mod.currentArea.useSuperTinyProps)
+                                    {
+                                        dst = new IbRect((int)p.currentPixelPositionX + (int)(gv.squareSize * 3 / 8) - dstXshift, (int)p.currentPixelPositionY + (int)(gv.squareSize * 3 / 8) - dstYshift, (int)(dstW / 4), (int)(dstH / 4));
+                                    }
+                                    else if (gv.mod.currentArea.useMiniProps)
+                                    {
+                                        dst = new IbRect((int)p.currentPixelPositionX + (int)(gv.squareSize / 4) - dstXshift, (int)p.currentPixelPositionY + (int)(gv.squareSize / 4) - dstYshift, (int)(dstW / 2), (int)(dstH / 2));
+                                    }
+
+                                    //draw the prop
+                                    if ((p.maxNumberOfFrames == 1) || (p.drawAnimatedProp))
+                                    {
+                                        gv.DrawBitmap(gv.mod.loadedTileBitmaps[indexOfLoadedTile], src, dst, !p.PropFacingLeft, p.opacity);
+                                    }
+
+                                    //for shwoign whetehr prop is encounte,r optional or mandatory conversation
+                                    if (mod.showInteractionState == true)
+                                    {//6
+                                        if (!p.EncounterWhenOnPartySquare.Equals("none"))
+                                        {
+                                            Bitmap interactionStateIndicator = gv.cc.LoadBitmap("encounter_indicator");
+                                            src = new IbRect(0, 0, interactionStateIndicator.PixelSize.Width, interactionStateIndicator.PixelSize.Height);
+                                            gv.DrawBitmap(interactionStateIndicator, src, dst);
+                                            gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
+                                            continue;
+                                        }
+
+                                        if (p.unavoidableConversation)
+                                        {
+                                            Bitmap interactionStateIndicator = gv.cc.LoadBitmap("mandatory_conversation_indicator");
+                                            src = new IbRect(0, 0, interactionStateIndicator.PixelSize.Width, interactionStateIndicator.PixelSize.Height);
+                                            gv.DrawBitmap(interactionStateIndicator, src, dst);
+                                            gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
+                                            continue;
+                                        }
+
+                                        if (!p.ConversationWhenOnPartySquare.Equals("none"))
+                                        {
+                                            Bitmap interactionStateIndicator = gv.cc.LoadBitmap("optional_conversation_indicator");
+                                            src = new IbRect(0, 0, interactionStateIndicator.PixelSize.Width, interactionStateIndicator.PixelSize.Height);
+                                            gv.DrawBitmap(interactionStateIndicator, src, dst);
+                                            gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
+                                            continue;
+                                        }
+                                    }//6
+                                }//5
+
+                                p.LocationX = backupLocationX;
+                                p.LocationY = backupLocationY;
+
+                            }//4
+                        }//3
+
+
+                    }//2
+
+                    //normal prop draw routine
+                    foreach (Prop p in mod.currentArea.Props)
+                    {//3
+                     //only for on-movers (the movers use drawMovingProps below)
+                        if ((p.isShown) && (!p.isMover) && (p.token != null))
+                        {//4
+
+                            //distance check
+                            if ((p.LocationX >= mod.PlayerLocationX - gv.playerOffsetX) && (p.LocationX <= mod.PlayerLocationX + gv.playerOffsetX)
+                                && (p.LocationY >= mod.PlayerLocationY - gv.playerOffsetY) && (p.LocationY <= mod.PlayerLocationY + gv.playerOffsetY))
+                            {//5
+                             //prop X - playerX
+                             //get dst rct based on distance of prop to  palyer
+                                int x = ((p.LocationX - mod.PlayerLocationX) * gv.squareSize) + (gv.playerOffsetX * gv.squareSize);
+                                int y = ((p.LocationY - mod.PlayerLocationY) * gv.squareSize) + (gv.playerOffsetY * gv.squareSize);
+                                int dstW = (int)((((float)p.token.PixelSize.Width / (float)gv.squareSizeInPixels) * (float)gv.squareSize) * (p.sizeFactor / 100f));
+                                int dstH = (int)((((float)(p.token.PixelSize.Height / p.maxNumberOfFrames) / (float)gv.squareSizeInPixels) * (float)gv.squareSize) * (p.sizeFactor / 100f));
+                                int dstXshift = (dstW - gv.squareSize) / 2;
+                                int dstYshift = (dstH - gv.squareSize) / 2;
+                                //IbRect src = new IbRect(0, 0, p.token.PixelSize.Width, p.token.PixelSize.Width);
+                                IbRect src = new IbRect(0, p.currentFrameNumber * p.propFrameHeight, p.token.PixelSize.Width, p.propFrameHeight);
+                                IbRect dst = new IbRect(x + gv.oXshift + mapStartLocXinPixels - dstXshift, y - dstYshift, dstW, dstH);
+
+                                //adjust size of props
+                                if (gv.mod.currentArea.useSuperTinyProps)
+                                {
+                                    dst = new IbRect((int)p.currentPixelPositionX + (int)(gv.squareSize * 3 / 8) - dstXshift, (int)p.currentPixelPositionY + (int)(gv.squareSize * 3 / 8) - dstYshift, (int)(dstW / 4), (int)(dstH / 4));
+                                }
+                                else if (gv.mod.currentArea.useMiniProps)
+                                {
+                                    dst = new IbRect((int)p.currentPixelPositionX + (int)(gv.squareSize / 4) - dstXshift, (int)p.currentPixelPositionY + (int)(gv.squareSize / 4) - dstYshift, (int)(dstW / 2), (int)(dstH / 2));
+                                }
+
+                                //draw the prop
+                                if ((p.maxNumberOfFrames == 1) || (p.drawAnimatedProp))
+                                {
+                                    gv.DrawBitmap(p.token, src, dst, !p.PropFacingLeft, p.opacity);
+                                }
+
+                                //for shwoign whetehr prop is encounte,r optional or mandatory conversation
+                                if (mod.showInteractionState == true)
+                                {//6
+                                    if (!p.EncounterWhenOnPartySquare.Equals("none"))
+                                    {
+                                        Bitmap interactionStateIndicator = gv.cc.LoadBitmap("encounter_indicator");
+                                        src = new IbRect(0, 0, interactionStateIndicator.PixelSize.Width, interactionStateIndicator.PixelSize.Height);
+                                        gv.DrawBitmap(interactionStateIndicator, src, dst);
+                                        gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
+                                        continue;
+                                    }
+
+                                    if (p.unavoidableConversation)
+                                    {
+                                        Bitmap interactionStateIndicator = gv.cc.LoadBitmap("mandatory_conversation_indicator");
+                                        src = new IbRect(0, 0, interactionStateIndicator.PixelSize.Width, interactionStateIndicator.PixelSize.Height);
+                                        gv.DrawBitmap(interactionStateIndicator, src, dst);
+                                        gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
+                                        continue;
+                                    }
+
+                                    if (!p.ConversationWhenOnPartySquare.Equals("none"))
+                                    {
+                                        Bitmap interactionStateIndicator = gv.cc.LoadBitmap("optional_conversation_indicator");
+                                        src = new IbRect(0, 0, interactionStateIndicator.PixelSize.Width, interactionStateIndicator.PixelSize.Height);
+                                        gv.DrawBitmap(interactionStateIndicator, src, dst);
+                                        gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
+                                        continue;
+                                    }
+                                }//6
+                            }//5
+                        }//4
+                    }//3
+                    #endregion
+                }
+                else //old system
+                {
+                    #region old system
+                    foreach (Prop p in mod.currentArea.Props)
+                    {
+                        if ((p.isShown) && (!p.isMover))
+                        {
+                            if ((p.LocationX >= mod.PlayerLocationX - gv.playerOffsetX) && (p.LocationX <= mod.PlayerLocationX + gv.playerOffsetX)
+                                && (p.LocationY >= mod.PlayerLocationY - gv.playerOffsetY) && (p.LocationY <= mod.PlayerLocationY + gv.playerOffsetY))
+                            {
+                                //prop X - playerX
+                                int x = ((p.LocationX - mod.PlayerLocationX) * gv.squareSize) + (gv.playerOffsetX * gv.squareSize);
+                                int y = ((p.LocationY - mod.PlayerLocationY) * gv.squareSize) + (gv.playerOffsetY * gv.squareSize);
+                                int dstW = (int)((((float)p.token.PixelSize.Width / (float)gv.squareSizeInPixels) * (float)gv.squareSize) * (p.sizeFactor / 100f));
+                                int dstH = (int)((((float)(p.token.PixelSize.Height / p.maxNumberOfFrames) / (float)gv.squareSizeInPixels) * (float)gv.squareSize) * (p.sizeFactor / 100f));
+                                int dstXshift = (dstW - gv.squareSize) / 2;
+                                int dstYshift = (dstH - gv.squareSize) / 2;
+                                //IbRect src = new IbRect(0, 0, p.token.PixelSize.Width, p.token.PixelSize.Width);
+                                IbRect src = new IbRect(0, p.currentFrameNumber * p.propFrameHeight, p.token.PixelSize.Width, p.propFrameHeight);
+                                IbRect dst = new IbRect(x + gv.oXshift + mapStartLocXinPixels - dstXshift, y - dstYshift, dstW, dstH);
+
+                                if (gv.mod.currentArea.useSuperTinyProps)
+                                {
+                                    dst = new IbRect((int)p.currentPixelPositionX + (int)(gv.squareSize * 3 / 8) - dstXshift, (int)p.currentPixelPositionY + (int)(gv.squareSize * 3 / 8) - dstYshift, (int)(dstW / 4), (int)(dstH / 4));
+                                }
+                                else if (gv.mod.currentArea.useMiniProps)
+                                {
+                                    dst = new IbRect((int)p.currentPixelPositionX + (int)(gv.squareSize / 4) - dstXshift, (int)p.currentPixelPositionY + (int)(gv.squareSize / 4) - dstYshift, (int)(dstW / 2), (int)(dstH / 2));
+                                }
+                                if ((p.maxNumberOfFrames == 1) || (p.drawAnimatedProp))
+                                {
+                                    gv.DrawBitmap(p.token, src, dst, !p.PropFacingLeft, p.opacity);
+                                }
+
+                                if (mod.showInteractionState == true)
+                                {
+                                    if (!p.EncounterWhenOnPartySquare.Equals("none"))
+                                    {
+                                        Bitmap interactionStateIndicator = gv.cc.LoadBitmap("encounter_indicator");
+                                        src = new IbRect(0, 0, interactionStateIndicator.PixelSize.Width, interactionStateIndicator.PixelSize.Height);
+                                        gv.DrawBitmap(interactionStateIndicator, src, dst);
+                                        gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
+                                        continue;
+                                    }
+
+                                    if (p.unavoidableConversation)
+                                    {
+                                        Bitmap interactionStateIndicator = gv.cc.LoadBitmap("mandatory_conversation_indicator");
+                                        src = new IbRect(0, 0, interactionStateIndicator.PixelSize.Width, interactionStateIndicator.PixelSize.Height);
+                                        gv.DrawBitmap(interactionStateIndicator, src, dst);
+                                        gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
+                                        continue;
+                                    }
+
+                                    if (!p.ConversationWhenOnPartySquare.Equals("none"))
+                                    {
+                                        Bitmap interactionStateIndicator = gv.cc.LoadBitmap("optional_conversation_indicator");
+                                        src = new IbRect(0, 0, interactionStateIndicator.PixelSize.Width, interactionStateIndicator.PixelSize.Height);
+                                        gv.DrawBitmap(interactionStateIndicator, src, dst);
+                                        gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
+                                        continue;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    #endregion
+                }
+            }
+        }
+
         public void drawMovingProps(float elapsed)
         {
             if (mod.useSmoothMovement == true)
@@ -30087,7 +30714,7 @@ namespace IceBlink2
                             {
                                 if (mod.PlayerLocationY > 0)
                                 {
-                                    if (mod.currentArea.GetBlocked(mod.PlayerLocationX, mod.PlayerLocationY - 1) == false)
+                                    if (mod.currentArea.GetBlocked(mod.PlayerLocationX, mod.PlayerLocationY - 1, gv.mod.PlayerLocationX, gv.mod.PlayerLocationY, gv.mod.PlayerLastLocationX, gv.mod.PlayerLastLocationY) == false)
                                     {
                                         mod.PlayerLastLocationX = mod.PlayerLocationX;
                                         mod.PlayerLastLocationY = mod.PlayerLocationY;
@@ -30110,7 +30737,7 @@ namespace IceBlink2
                                 int mapheight = mod.currentArea.MapSizeY;
                                 if (mod.PlayerLocationY < (mapheight - 1))
                                 {
-                                    if (mod.currentArea.GetBlocked(mod.PlayerLocationX, mod.PlayerLocationY + 1) == false)
+                                    if (mod.currentArea.GetBlocked(mod.PlayerLocationX, mod.PlayerLocationY + 1, gv.mod.PlayerLocationX, gv.mod.PlayerLocationY, gv.mod.PlayerLastLocationX, gv.mod.PlayerLastLocationY) == false)
                                     {
                                         mod.PlayerLastLocationX = mod.PlayerLocationX;
                                         mod.PlayerLastLocationY = mod.PlayerLocationY;
@@ -30132,7 +30759,7 @@ namespace IceBlink2
                             {
                                 if (mod.PlayerLocationX > 0)
                                 {
-                                    if (mod.currentArea.GetBlocked(mod.PlayerLocationX - 1, mod.PlayerLocationY) == false)
+                                    if (mod.currentArea.GetBlocked(mod.PlayerLocationX - 1, mod.PlayerLocationY, gv.mod.PlayerLocationX, gv.mod.PlayerLocationY, gv.mod.PlayerLastLocationX, gv.mod.PlayerLastLocationY) == false)
                                     {
                                         mod.PlayerLastLocationX = mod.PlayerLocationX;
                                         mod.PlayerLastLocationY = mod.PlayerLocationY;
@@ -30162,7 +30789,7 @@ namespace IceBlink2
                                 int mapwidth = mod.currentArea.MapSizeX;
                                 if (mod.PlayerLocationX < (mapwidth - 1))
                                 {
-                                    if (mod.currentArea.GetBlocked(mod.PlayerLocationX + 1, mod.PlayerLocationY) == false)
+                                    if (mod.currentArea.GetBlocked(mod.PlayerLocationX + 1, mod.PlayerLocationY, gv.mod.PlayerLocationX, gv.mod.PlayerLocationY, gv.mod.PlayerLastLocationX, gv.mod.PlayerLastLocationY) == false)
                                     {
                                         mod.PlayerLastLocationX = mod.PlayerLocationX;
                                         mod.PlayerLastLocationY = mod.PlayerLocationY;
@@ -31316,7 +31943,7 @@ namespace IceBlink2
         {
             if (mod.PlayerLocationX > 0)
             {
-                if (mod.currentArea.GetBlocked(mod.PlayerLocationX - 1, mod.PlayerLocationY) == false)
+                if (mod.currentArea.GetBlocked(mod.PlayerLocationX - 1, mod.PlayerLocationY, gv.mod.PlayerLocationX, gv.mod.PlayerLocationY, gv.mod.PlayerLastLocationX, gv.mod.PlayerLastLocationY) == false)
                 {
                    
                     //gv.mod.blockTrigger = false;
@@ -31341,7 +31968,7 @@ namespace IceBlink2
             int mapwidth = mod.currentArea.MapSizeX;
             if (mod.PlayerLocationX < (mapwidth - 1))
             {
-                if (mod.currentArea.GetBlocked(mod.PlayerLocationX + 1, mod.PlayerLocationY) == false)
+                if (mod.currentArea.GetBlocked(mod.PlayerLocationX + 1, mod.PlayerLocationY, gv.mod.PlayerLocationX, gv.mod.PlayerLocationY, gv.mod.PlayerLastLocationX, gv.mod.PlayerLastLocationY) == false)
                 {
                     
                     //gv.mod.blockTrigger = false;
@@ -31365,7 +31992,7 @@ namespace IceBlink2
         {
             if (mod.PlayerLocationY > 0)
             {
-                if (mod.currentArea.GetBlocked(mod.PlayerLocationX, mod.PlayerLocationY - 1) == false)
+                if (mod.currentArea.GetBlocked(mod.PlayerLocationX, mod.PlayerLocationY - 1, gv.mod.PlayerLocationX, gv.mod.PlayerLocationY, gv.mod.PlayerLastLocationX, gv.mod.PlayerLastLocationY) == false)
                 {
 
                     //gv.mod.blockTrigger = false;
@@ -31383,7 +32010,7 @@ namespace IceBlink2
             int mapheight = mod.currentArea.MapSizeY;
             if (mod.PlayerLocationY < (mapheight - 1))
             {
-                if (mod.currentArea.GetBlocked(mod.PlayerLocationX, mod.PlayerLocationY + 1) == false)
+                if (mod.currentArea.GetBlocked(mod.PlayerLocationX, mod.PlayerLocationY + 1, gv.mod.PlayerLocationX, gv.mod.PlayerLocationY, gv.mod.PlayerLastLocationX, gv.mod.PlayerLastLocationY) == false)
                 {
                    
                     //gv.mod.blockTrigger = false;

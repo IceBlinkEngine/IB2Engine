@@ -137,6 +137,7 @@ namespace IceBlink2
         public int PlayerLocationY = 1;
         public int PlayerLastLocationX = 4;
         public int PlayerLastLocationY = 1;
+        //public bool PalyerIsUnderBridge = false;
         [JsonIgnore]
         public bool PlayerFacingLeft = true;
         public Area currentArea = new Area();

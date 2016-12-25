@@ -17,6 +17,7 @@ namespace IceBlink2
         //public float rememberedWeatherDuration = 0;
         //public float skyCoverCloudsChance = 0;
         //public float skyCoverSeveriy
+        public bool PlayerIsUnderBridge = false;
         public string Filename = "newArea";
         public int AreaVisibleDistance = 4;
         public bool RestingAllowed = false;
@@ -571,12 +572,166 @@ namespace IceBlink2
 	    {	
 	    }
 	
-	    public bool GetBlocked(int playerXPosition, int playerYPosition)
-        {        
+	    public bool GetBlocked(int playerXPosition, int playerYPosition, int lastPlayerXPosition, int lastPlayerYPosition, int lastLastPlayerXPosition, int lastLastPlayerYPosition)
+        {
+
+            this.PlayerIsUnderBridge = false;
             if (this.Tiles[playerYPosition * this.MapSizeX + playerXPosition].Walkable == false)
             {
                 return true;
             }
+            
+            if (this.Tiles[playerYPosition * this.MapSizeX + playerXPosition].heightLevel != this.Tiles[lastPlayerYPosition * this.MapSizeX + lastPlayerXPosition].heightLevel)
+            {
+                //ramp section
+
+                bool allowMove = false;
+                
+                //player is on ramp and climbs down
+                if ((this.Tiles[lastPlayerYPosition * this.MapSizeX + lastPlayerXPosition].isRamp) && (this.Tiles[playerYPosition * this.MapSizeX + playerXPosition].heightLevel + 1 == this.Tiles[lastPlayerYPosition * this.MapSizeX + lastPlayerXPosition].heightLevel))
+                {
+                    allowMove = true;
+                }
+
+                //player enters ramp and climbs up
+                if ((this.Tiles[playerYPosition * this.MapSizeX + playerXPosition].isRamp) && (this.Tiles[playerYPosition * this.MapSizeX + playerXPosition].heightLevel - 1 == this.Tiles[lastPlayerYPosition * this.MapSizeX + lastPlayerXPosition].heightLevel))
+                {
+                    allowMove = true;
+                }
+
+                //EW bridge: player tries to leave bridge to NS side
+                if ((this.Tiles[lastPlayerYPosition * this.MapSizeX + lastPlayerXPosition].isEWBridge))
+                {
+                    //this.PlayerIsUnderBridge = true;
+                    //stepping toward north square
+                    if (lastPlayerYPosition - 1 == playerYPosition)
+                    {
+                        //came from north or south and is under bridge now
+                        if ((lastLastPlayerYPosition - 1 == lastPlayerYPosition) || (lastLastPlayerYPosition + 1 == lastPlayerYPosition))
+                        {
+                            //allow the move under the bridge (which is a move to one height level lower)
+                            allowMove = true;
+                        }
+                    }
+
+                    //stepping toward south square
+                    if (lastPlayerYPosition + 1 == playerYPosition)
+                    {
+                        //came from north and is under bridge now
+                        if ((lastLastPlayerYPosition - 1 == lastPlayerYPosition) || (lastLastPlayerYPosition + 1 == lastPlayerYPosition))
+                        {
+                            //allow the move under the bridge (which is a move to one height level lower)
+                            allowMove = true;
+                        }
+                    }
+                }
+
+                //NS bridge: player tries to leave bridge to EW side
+                if ((this.Tiles[lastPlayerYPosition * this.MapSizeX + lastPlayerXPosition].isNSBridge))
+                {
+                    //this.PlayerIsUnderBridge = true;
+                    //stepping toward western square
+                    if (lastPlayerXPosition - 1 == playerXPosition)
+                    {
+                        //came from west or east and is under bridge now
+                        if ((lastLastPlayerXPosition - 1 == lastPlayerXPosition) || (lastLastPlayerXPosition + 1 == lastPlayerXPosition))
+                        {
+                            //allow the move under the bridge (which is a move to one height level lower)
+                            allowMove = true;
+                        }
+                    }
+
+                    //stepping toward eastern square
+                    if (lastPlayerXPosition + 1 == playerXPosition)
+                    {
+                        //came from west or east and is under bridge now
+                        if ((lastLastPlayerXPosition - 1 == lastPlayerXPosition) || (lastLastPlayerXPosition + 1 == lastPlayerXPosition))
+                        {
+                            //allow the move under the bridge (which is a move to one height level lower)
+                            allowMove = true;
+                        }
+                    }
+                }
+
+                //Player tries to go under a bridge (with strict map building rules always possible)
+                //note: on top of bridge scenario is filtered out by beginning condition of height level difference
+                if (this.Tiles[playerYPosition * this.MapSizeX + playerXPosition].isEWBridge || this.Tiles[playerYPosition * this.MapSizeX + playerXPosition].isNSBridge)
+                {
+                    this.PlayerIsUnderBridge = true;
+                    allowMove = true;
+                }
+
+                if (!allowMove)
+                {
+                    return true;
+                }        
+            }
+            
+            //same height
+           else
+           {
+                bool allowMove = true;
+                
+                //NS bridge: player tries to leave bridge to NS side
+                if ((this.Tiles[lastPlayerYPosition * this.MapSizeX + lastPlayerXPosition].isNSBridge))
+                {
+                    //stepping toward northern square
+                    if (lastPlayerYPosition - 1 == playerYPosition)
+                    {
+                        //came from west or east and is under bridge now
+                        if ((lastLastPlayerXPosition - 1 == lastPlayerXPosition) || (lastLastPlayerXPosition + 1 == lastPlayerXPosition))
+                        {
+                            //prevent bridge climbing from under the bridge
+                            allowMove = false;
+                        }
+                    }
+
+                    //stepping toward southern square
+                    if (lastPlayerYPosition + 1 == playerYPosition)
+                    {
+                        //came from west or east and is under bridge now
+                        if ((lastLastPlayerXPosition - 1 == lastPlayerXPosition) || (lastLastPlayerXPosition + 1 == lastPlayerXPosition))
+                        {
+                            //prevent bridge climbing from under the bridge
+                            allowMove = false;
+                        }
+                    }
+                }
+
+                //EW bridge: player tries to leave bridge to EW side
+                if ((this.Tiles[lastPlayerYPosition * this.MapSizeX + lastPlayerXPosition].isEWBridge))
+                {
+                    //stepping toward western square
+                    if (lastPlayerXPosition - 1 == playerXPosition)
+                    {
+                        //came from north or south and is under bridge now
+                        if ((lastLastPlayerYPosition - 1 == lastPlayerYPosition) || (lastLastPlayerYPosition + 1 == lastPlayerYPosition))
+                        {
+                            //prevent bridge climbing from under the bridge
+                            allowMove = false;
+                        }
+                    }
+
+                    //stepping toward eastern square
+                    if (lastPlayerXPosition + 1 == playerXPosition)
+                    {
+                        //came from north or south and is under bridge now
+                        if ((lastLastPlayerYPosition - 1 == lastPlayerYPosition) || (lastLastPlayerYPosition + 1 == lastPlayerYPosition))
+                        {
+                            //prevent bridge climbing from under the bridge
+                            allowMove = false;
+                        }
+                    }
+                }
+
+                if (!allowMove)
+                {
+                    //block
+                    return true;
+                }
+            }
+
+
             foreach (Prop p in this.Props)
             {
                 if ((p.LocationX == playerXPosition) && (p.LocationY == playerYPosition))
@@ -589,8 +744,53 @@ namespace IceBlink2
             }
             return false;
         }
-	
-	    public Trigger getTriggerByLocation(int x, int y)
+
+        public bool GetBlocked(int playerXPosition, int playerYPosition)
+        {
+            if (this.Tiles[playerYPosition * this.MapSizeX + playerXPosition].Walkable == false)
+            {
+                return true;
+            }
+
+            /*
+            if (this.Tiles[playerYPosition * this.MapSizeX + playerXPosition].heightLevel != this.Tiles[lastPlayerYPosition * this.MapSizeX + lastPlayerXPosition].heightLevel)
+            {
+                //ramp section
+
+                bool rampAllowsHeightTraversal = false;
+
+                //player is on ramp and climbs down
+                if ((this.Tiles[lastPlayerYPosition * this.MapSizeX + lastPlayerXPosition].isRamp) && (this.Tiles[playerYPosition * this.MapSizeX + playerXPosition].heightLevel + 1 == this.Tiles[lastPlayerYPosition * this.MapSizeX + lastPlayerXPosition].heightLevel))
+                {
+                    rampAllowsHeightTraversal = true;
+                }
+
+                //player enters ramp and climbs up
+                if ((this.Tiles[playerYPosition * this.MapSizeX + playerXPosition].isRamp) && (this.Tiles[playerYPosition * this.MapSizeX + playerXPosition].heightLevel - 1 == this.Tiles[lastPlayerYPosition * this.MapSizeX + lastPlayerXPosition].heightLevel))
+                {
+                    rampAllowsHeightTraversal = true;
+                }
+
+                if (!rampAllowsHeightTraversal)
+                {
+                    return true;
+                }
+            }
+            */
+
+            foreach (Prop p in this.Props)
+            {
+                if ((p.LocationX == playerXPosition) && (p.LocationY == playerYPosition))
+                {
+                    if (p.HasCollision)
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+        public Trigger getTriggerByLocation(int x, int y)
         {
             foreach (Trigger t in this.Triggers)
             {

@@ -441,10 +441,10 @@ namespace IceBlink2
         }
         public bool evaluateValue(int x, int y, int next, Prop callingProp, int originX, int originY)
         {
-            if (x == 2 && y == 4 )
-            {
-                int i = 0;
-            }
+            //if ((originX == 1 && originY == 3 ) && (x == 2 && y == 3))
+            //{
+                //int i = 0;
+            //}
             //this will be set to true if currently checked square (next+1) can be reached
             //we will not need to care for walkable as this was handled already beforehand (setting grid[x,y] to 1, ie closed)
             //whether one can enter depends on the squares eligible as squares beforehand in path (next - 1, tricky, can be several), the current square (originX, originY, ie next) and the target square (x,y, ie next+1)
@@ -501,6 +501,7 @@ RULES:
                         easternTileIsPriorTile = true;
                     }
                 }
+                //wrog to assume former here as the bridge woudl not have allow this "jump" move!
                 else if (values[originX + 1, originY] == next - 1)
                     {
                         easternTile = mod.currentArea.Tiles[originY * mod.currentArea.MapSizeX + originX + 1];
@@ -688,7 +689,7 @@ RULES:
                     //b. check east or west
                     if ((originX > x) || (originX < x))
                     {
-                        //must move UNDER bridge in northern or southern direction
+                        //must move UNDER bridge in eastern or western direction
                         if ((easternTileIsPriorTile) || (westernTileIsPriorTile))
                         {
                             //has height level of target square - 1?
@@ -735,6 +736,10 @@ RULES:
             int val = 1000;
             int lastTileNumber = -1;
             int priorHeightLevelOnPath = -1;
+            //if (p.X == 1 && p.Y == 3)
+            //{
+                //int i = 1;
+            //}
             if (pathNodes.Count > 1)
             {
                 lastTileNumber = pathNodes[pathNodes.Count - 2].Y * mod.currentArea.MapSizeX + pathNodes[pathNodes.Count - 2].X;
@@ -810,12 +815,28 @@ RULES:
                         }
                     }
 
+                    //if target is bridge one level higher and opposite side square has value of target -1, assign
+                    //NS
+                    if (mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X + 1].isNSBridge)
+                    {
+                        //check one to east
+                        if (mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X].heightLevel + 1 == mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X + 1].heightLevel)
+                        {
+                            //check two to east
+                            if (values[p.X + 2, p.Y] == values[p.X + 1, p.Y] - 1)
+                            {
+                                allowAssignment = true;
+                            }
+                        }
+                    }
+
                     if (allowAssignment)
                     {
                         val = values[p.X + 1, p.Y];
                         lowest = new Coordinate(p.X + 1, p.Y);
                     }
                 }
+
                 // current tile IS bridge
                 else
                 {
@@ -901,6 +922,30 @@ RULES:
                         if (mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X].heightLevel + 1 == mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X - 1].heightLevel)
                         {
                             allowAssignment = true;
+                        }
+                    }
+
+                    //if target is bridge, one level higher also works
+                    if (mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X - 1].isEWBridge || mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X - 1].isNSBridge)
+                    {
+                        if (mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X].heightLevel + 1 == mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X - 1].heightLevel)
+                        {
+                            allowAssignment = true;
+                        }
+                    }
+
+                    //if target is bridge one level higher and opposite side square has value of target -1, assign
+                    //NS
+                    if (mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X - 1].isNSBridge)
+                    {
+                        //check one to west
+                        if (mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X].heightLevel + 1 == mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X - 1].heightLevel)
+                        {
+                            //check two to west
+                            if (values[p.X - 2, p.Y] == values[p.X - 1, p.Y] - 1)
+                            {
+                                allowAssignment = true;
+                            }
                         }
                     }
 
@@ -998,6 +1043,30 @@ RULES:
                         }
                     }
 
+                    //if target is bridge, one level higher also works
+                    if (mod.currentArea.Tiles[(p.Y+1) * mod.currentArea.MapSizeX + p.X].isEWBridge || mod.currentArea.Tiles[(p.Y+1) * mod.currentArea.MapSizeX + p.X].isNSBridge)
+                    {
+                        if (mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X].heightLevel + 1 == mod.currentArea.Tiles[(p.Y+1) * mod.currentArea.MapSizeX + p.X].heightLevel)
+                        {
+                            allowAssignment = true;
+                        }
+                    }
+
+                    //if target is bridge one level higher and opposite side square has value of target -1, assign
+                    //EW
+                    if (mod.currentArea.Tiles[(p.Y+1) * mod.currentArea.MapSizeX + p.X].isEWBridge)
+                    {
+                        //check one to south
+                        if (mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X].heightLevel + 1 == mod.currentArea.Tiles[(p.Y+1) * mod.currentArea.MapSizeX + p.X].heightLevel)
+                        {
+                            //check two to south
+                            if (values[p.X, p.Y + 2] == values[p.X, p.Y + 1] - 1)
+                            {
+                                allowAssignment = true;
+                            }
+                        }
+                    }
+
                     if (allowAssignment)
                     {
                         val = values[p.X, p.Y + 1];
@@ -1088,6 +1157,30 @@ RULES:
                         if (mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X].heightLevel + 1 == mod.currentArea.Tiles[(p.Y - 1) * mod.currentArea.MapSizeX + p.X].heightLevel)
                         {
                             allowAssignment = true;
+                        }
+                    }
+
+                    //if target is bridge, one level higher also works
+                    if (mod.currentArea.Tiles[(p.Y - 1) * mod.currentArea.MapSizeX + p.X].isEWBridge || mod.currentArea.Tiles[(p.Y - 1) * mod.currentArea.MapSizeX + p.X].isNSBridge)
+                    {
+                        if (mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X].heightLevel + 1 == mod.currentArea.Tiles[(p.Y - 1) * mod.currentArea.MapSizeX + p.X].heightLevel)
+                        {
+                            allowAssignment = true;
+                        }
+                    }
+
+                    //if target is bridge one level higher and opposite side square has value of target -1, assign
+                    //EW
+                    if (mod.currentArea.Tiles[(p.Y - 1) * mod.currentArea.MapSizeX + p.X].isEWBridge)
+                    {
+                        //check one to north
+                        if (mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X].heightLevel + 1 == mod.currentArea.Tiles[(p.Y - 1) * mod.currentArea.MapSizeX + p.X].heightLevel)
+                        {
+                            //check two to north
+                            if (values[p.X, p.Y - 2] == values[p.X, p.Y - 1] - 1)
+                            {
+                                allowAssignment = true;
+                            }
                         }
                     }
 
