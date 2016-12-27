@@ -14,6 +14,8 @@ namespace IceBlink2
 {
     public class Prop 
     {
+        public bool isUnderBridge = false;
+
         public string OnEnterSquareScript = "none";  
         public string OnEnterSquareScriptParm1 = "none";  
         public string OnEnterSquareScriptParm2 = "none";
@@ -247,6 +249,8 @@ namespace IceBlink2
             copy.goDown = this.goDown;
             copy.goRight = this.goRight;
             copy.inactiveTimer = this.inactiveTimer;
+
+            copy.isUnderBridge = this.isUnderBridge;
 
              //prop animation variables
             copy.maxNumberOfFrames = this.maxNumberOfFrames;

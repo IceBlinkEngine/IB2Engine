@@ -1199,6 +1199,7 @@ namespace IceBlink2
 
             if (!mod.currentArea.areaDark)
             {
+                drawMovingPropsUnderBridge(elapsed);
                 drawProps();
                 drawMovingProps(elapsed);
                 if((!gv.mod.currentArea.useLightSystem)|| (!gv.mod.partyLightOn))
@@ -25900,7 +25901,7 @@ namespace IceBlink2
             {
                 foreach (Prop p in mod.currentArea.Props)
                 {
-                    if ((p.isShown) && (p.isMover))
+                    if ((p.isShown) && (p.isMover) && (!p.isUnderBridge))
                     {
                         if ((p.LocationX + 1 >= mod.PlayerLocationX - gv.playerOffsetX) && (p.LocationX - 1 <= mod.PlayerLocationX + gv.playerOffsetX)
                             && (p.LocationY + 1 >= mod.PlayerLocationY - gv.playerOffsetY) && (p.LocationY - 1 <= mod.PlayerLocationY + gv.playerOffsetY))
@@ -26190,7 +26191,7 @@ namespace IceBlink2
             {
                 foreach (Prop p in mod.currentArea.Props)
                 {
-                    if ((p.isShown) && (p.isMover))
+                    if ((p.isShown) && (p.isMover) && (!p.isUnderBridge))
                     {
                         if ((p.LocationX >= mod.PlayerLocationX - gv.playerOffsetX) && (p.LocationX <= mod.PlayerLocationX + gv.playerOffsetX)
                             && (p.LocationY >= mod.PlayerLocationY - gv.playerOffsetY) && (p.LocationY <= mod.PlayerLocationY + gv.playerOffsetY))
@@ -26244,6 +26245,385 @@ namespace IceBlink2
                 }
             }
         }
+
+        public void drawMovingPropsUnderBridge(float elapsed)
+        {
+            foreach (Prop p in mod.currentArea.Props)
+            {
+                if ((p.isShown) && (p.isMover))
+                {
+                    if ((p.LocationX == 2) && (p.LocationY == 3))
+                    {
+                        int i = 0;
+                    }
+
+                    if (gv.mod.currentArea.Tiles[p.LocationY * gv.mod.currentArea.MapSizeX + p.LocationX].isEWBridge || gv.mod.currentArea.Tiles[p.LocationY * gv.mod.currentArea.MapSizeX + p.LocationX].isNSBridge)
+                    {
+                        if (gv.mod.currentArea.Tiles[p.lastLocationY * gv.mod.currentArea.MapSizeX + p.lastLocationX].heightLevel + 1 == gv.mod.currentArea.Tiles[p.LocationY * gv.mod.currentArea.MapSizeX + p.LocationX].heightLevel)
+                        {
+                            p.isUnderBridge = true;
+                        }
+                        else
+                        {
+                            p.isUnderBridge = false;
+                        }
+                    }
+                    else
+                    {
+                        p.isUnderBridge = false;
+                    }
+                }
+            }
+
+            if (mod.useSmoothMovement == true)
+            {
+                foreach (Prop p in mod.currentArea.Props)
+                {
+                    if ((p.isShown) && (p.isMover) && (p.isUnderBridge))
+                    {
+                        if ((p.LocationX + 1 >= mod.PlayerLocationX - gv.playerOffsetX) && (p.LocationX - 1 <= mod.PlayerLocationX + gv.playerOffsetX)
+                            && (p.LocationY + 1 >= mod.PlayerLocationY - gv.playerOffsetY) && (p.LocationY - 1 <= mod.PlayerLocationY + gv.playerOffsetY))
+                        {
+                            //IbRect src = new IbRect(0, 0, p.token.PixelSize.Width, p.token.PixelSize.Width);
+                            //float xDimension = p.token.PixelSize.Width * p.sizeFactor;
+                            //float yDimension = p.propFrameHeight * p.sizeFactor;
+                            IbRect src = new IbRect(0, p.currentFrameNumber * p.propFrameHeight, p.token.PixelSize.Width, p.propFrameHeight);
+                            if (p.destinationPixelPositionXList.Count > 0)
+                            {
+                                if ((p.destinationPixelPositionXList[0] >= (p.currentPixelPositionX - 0)) && (p.destinationPixelPositionXList[0] <= (p.currentPixelPositionX + 0)))
+                                {
+                                    if (p.destinationPixelPositionYList[0] > p.currentPixelPositionY)
+                                    {
+                                        p.currentPixelPositionY += (gv.floatPixMovedPerTick * p.pixelMoveSpeed);
+                                        if (p.currentPixelPositionY >= p.destinationPixelPositionYList[0])
+                                        {
+                                            p.currentPixelPositionY = p.destinationPixelPositionYList[0];
+                                            p.destinationPixelPositionYList.RemoveAt(0);
+                                            p.destinationPixelPositionXList.RemoveAt(0);
+
+                                        }
+                                    }
+                                    else
+                                    {
+                                        p.currentPixelPositionY -= (gv.floatPixMovedPerTick * p.pixelMoveSpeed);
+                                        if (p.currentPixelPositionY <= p.destinationPixelPositionYList[0])
+                                        {
+                                            p.currentPixelPositionY = p.destinationPixelPositionYList[0];
+                                            p.destinationPixelPositionYList.RemoveAt(0);
+                                            p.destinationPixelPositionXList.RemoveAt(0);
+                                        }
+
+                                    }
+                                }
+                                else if ((p.destinationPixelPositionYList[0] >= (p.currentPixelPositionY - 0)) && (p.destinationPixelPositionYList[0] <= (p.currentPixelPositionY + 0)))
+                                {
+                                    {
+                                        if (p.destinationPixelPositionXList[0] > p.currentPixelPositionX)
+                                        {
+                                            p.currentPixelPositionX += (gv.floatPixMovedPerTick * p.pixelMoveSpeed);
+                                            if (p.currentPixelPositionX >= p.destinationPixelPositionXList[0])
+                                            {
+                                                p.currentPixelPositionX = p.destinationPixelPositionXList[0];
+                                                p.destinationPixelPositionXList.RemoveAt(0);
+                                                p.destinationPixelPositionYList.RemoveAt(0);
+                                            }
+                                        }
+                                        else
+                                        {
+                                            p.currentPixelPositionX -= (gv.floatPixMovedPerTick * p.pixelMoveSpeed);
+                                            if (p.currentPixelPositionX <= p.destinationPixelPositionXList[0])
+                                            {
+                                                p.currentPixelPositionX = p.destinationPixelPositionXList[0];
+                                                p.destinationPixelPositionXList.RemoveAt(0);
+                                                p.destinationPixelPositionYList.RemoveAt(0);
+                                            }
+                                        }
+                                    }
+                                }
+
+                            }//end, set dst
+
+                            int playerPositionXInPix = 0;
+                            int playerPositionYInPix = 0;
+
+                            if (p.destinationPixelPositionXList.Count <= 0)
+                            {
+                                p.destinationPixelPositionXList.Clear();
+                                p.destinationPixelPositionXList = new List<int>();
+                                p.destinationPixelPositionYList.Clear();
+                                p.destinationPixelPositionYList = new List<int>();
+
+                                //set the currentPixel position of the props
+                                int xOffSetInSquares = p.LocationX - gv.mod.PlayerLocationX;
+                                int yOffSetInSquares = p.LocationY - gv.mod.PlayerLocationY;
+                                playerPositionXInPix = gv.oXshift + gv.screenMainMap.mapStartLocXinPixels + (gv.playerOffsetX * gv.squareSize);
+                                playerPositionYInPix = gv.playerOffsetY * gv.squareSize;
+
+                                p.currentPixelPositionX = playerPositionXInPix + (xOffSetInSquares * gv.squareSize);
+                                p.currentPixelPositionY = playerPositionYInPix + (yOffSetInSquares * gv.squareSize);
+                            }
+
+
+                            playerPositionXInPix = gv.oXshift + gv.screenMainMap.mapStartLocXinPixels + (gv.playerOffsetX * gv.squareSize);
+                            playerPositionYInPix = gv.playerOffsetY * gv.squareSize + gv.oYshift;
+
+                            float floatConvertedToSquareDistanceX = (p.currentPixelPositionX - playerPositionXInPix) / gv.squareSize;
+                            int ConvertedToSquareDistanceX = (int)Math.Ceiling(floatConvertedToSquareDistanceX);
+
+                            float floatConvertedToSquareDistanceY = (p.currentPixelPositionY - playerPositionYInPix) / gv.squareSize;
+                            int ConvertedToSquareDistanceY = (int)Math.Ceiling(floatConvertedToSquareDistanceY);
+
+                            int SquareThatPixIsOnX = mod.PlayerLocationX + ConvertedToSquareDistanceX;
+                            int SquareThatPixIsOnY = mod.PlayerLocationY + ConvertedToSquareDistanceY;
+
+                            int tileNumberOfPropSquare = SquareThatPixIsOnX + (SquareThatPixIsOnY * gv.mod.currentArea.MapSizeX);
+
+                            //cast the pix position to int in order to draw it at nearly exact loc
+                            int pixDistanceOfPropToPlayerX = ((int)p.currentPixelPositionX - playerPositionXInPix);
+                            if (pixDistanceOfPropToPlayerX < 0)
+                            {
+                                pixDistanceOfPropToPlayerX *= -1;
+                            }
+                            int pixDistanceOfPropToPlayerY = ((int)p.currentPixelPositionY - playerPositionYInPix);
+                            if (pixDistanceOfPropToPlayerY < 0)
+                            {
+                                pixDistanceOfPropToPlayerY *= -1;
+                            }
+
+                            if ((pixDistanceOfPropToPlayerX <= ((gv.playerOffsetX + 1) * gv.squareSize)) && (pixDistanceOfPropToPlayerY <= ((gv.playerOffsetY + 1) * gv.squareSize)))
+                            {
+                                int dstW = (int)((((float)p.token.PixelSize.Width / (float)gv.squareSizeInPixels) * (float)gv.squareSize) * (p.sizeFactor / 100f));
+                                int dstH = (int)((((float)(p.token.PixelSize.Height / p.maxNumberOfFrames) / (float)gv.squareSizeInPixels) * (float)gv.squareSize) * (p.sizeFactor / 100f));
+                                int dstXshift = (dstW - gv.squareSize) / 2;
+                                int dstYshift = (dstH - gv.squareSize) / 2;
+
+
+                                //set up idle move code
+
+                                int randXInt = 0;
+                                int randYInt = 0;
+                                float randX = 0;
+                                float randY = 0;
+                                int decider = 0;
+                                int moveChance = 100;
+
+                                //the lower the number, the sooner and more often it stops
+                                int stopIdleChance = (int)(30f * (30f / elapsed));
+
+                                decider = gv.sf.RandInt(stopIdleChance);
+                                if ((decider == 1) && (p.inactiveTimer == 0))
+                                {
+                                    p.inactiveTimer += gv.sf.RandInt(2);
+                                }
+
+                                if (p.inactiveTimer != 0)
+                                {
+                                    int decider2 = gv.sf.RandInt(100);
+                                    int waitPeriodIncreaseChance = (int)(50f * (elapsed / 30f));
+
+                                    if (decider2 < waitPeriodIncreaseChance)
+                                    {
+                                        p.inactiveTimer += gv.sf.RandInt(4);
+                                    }
+                                }
+
+                                if (p.inactiveTimer > 240)
+                                {
+                                    p.inactiveTimer = 0;
+                                }
+
+                                if ((gv.sf.RandInt(100) <= moveChance) && (p.inactiveTimer == 0))
+                                {
+                                    randXInt = gv.sf.RandInt(100);
+                                    randX = ((randXInt + 75) / 250f * (elapsed / 30f));
+                                    if (!p.goRight)
+                                    {
+                                        p.straightLineDistanceX += randX;
+                                        randX = -1 * randX;
+                                        if (p.straightLineDistanceX >= 1.5f * gv.pS)
+                                        {
+                                            p.goRight = true;
+                                            p.straightLineDistanceX = 0;
+                                        }
+
+                                    }
+                                    else if (p.goRight)
+                                    {
+                                        p.straightLineDistanceX += randX;
+                                        randX = randX;
+                                        if (p.straightLineDistanceX >= 1.5f * gv.pS)
+                                        {
+                                            p.goRight = false;
+                                            p.straightLineDistanceX = 0;
+                                        }
+                                    }
+
+                                    randYInt = gv.sf.RandInt(100);
+                                    randY = ((randYInt + 75) / 250f * (elapsed / 30f));
+                                    if (!p.goDown)
+                                    {
+                                        p.straightLineDistanceY += randY;
+                                        randY = -1 * randY;
+                                        if (p.straightLineDistanceY >= 1.5 * gv.pS)
+                                        {
+                                            p.goDown = true;
+                                            p.straightLineDistanceY = 0;
+                                        }
+
+                                    }
+                                    else if (p.goDown)
+                                    {
+                                        p.straightLineDistanceY += randY;
+                                        randY = randY;
+                                        if (p.straightLineDistanceY >= 1.5 * gv.pS)
+                                        {
+                                            p.goDown = false;
+                                            p.straightLineDistanceY = 0;
+                                        }
+                                    }
+
+                                    p.roamDistanceX += (randX * 7f / 10f);
+                                    p.roamDistanceY += (randY * 7f / 10f);
+                                }
+
+
+                                IbRect dst = new IbRect((int)p.currentPixelPositionX - dstXshift + (int)p.roamDistanceX, (int)p.currentPixelPositionY - dstYshift + (int)p.roamDistanceY, dstW, dstH);
+
+                                if (gv.mod.currentArea.useSuperTinyProps)
+                                {
+                                    dst = new IbRect((int)p.currentPixelPositionX + (int)(gv.squareSize * 3 / 8) - dstXshift + (int)p.roamDistanceX, (int)p.currentPixelPositionY + (int)(gv.squareSize * 3 / 8) - dstYshift + +(int)p.roamDistanceY, (int)(dstW / 4), (int)(dstH / 4));
+                                }
+                                else if (gv.mod.currentArea.useMiniProps)
+                                {
+                                    dst = new IbRect((int)p.currentPixelPositionX + (int)(gv.squareSize / 4) - dstXshift + (int)p.roamDistanceX, (int)p.currentPixelPositionY + (int)(gv.squareSize / 4) - dstYshift + (int)p.roamDistanceY, (int)(dstW / 2), (int)(dstH / 2));
+                                }
+
+                                if ((p.maxNumberOfFrames == 1) || (p.drawAnimatedProp))
+                                {
+                                    gv.DrawBitmap(p.token, src, dst, !p.PropFacingLeft, p.opacity);
+                                }
+
+                                if (mod.showInteractionState == true)
+                                {
+                                    if (!p.EncounterWhenOnPartySquare.Equals("none"))
+                                    {
+                                        Bitmap interactionStateIndicator = gv.cc.LoadBitmap("encounter_indicator");
+                                        src = new IbRect(0, 0, interactionStateIndicator.PixelSize.Width, interactionStateIndicator.PixelSize.Height);
+                                        gv.DrawBitmap(interactionStateIndicator, src, dst);
+                                        gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
+                                        continue;
+                                    }
+
+                                    if (p.unavoidableConversation)
+                                    {
+                                        Bitmap interactionStateIndicator = gv.cc.LoadBitmap("mandatory_conversation_indicator");
+                                        src = new IbRect(0, 0, interactionStateIndicator.PixelSize.Width, interactionStateIndicator.PixelSize.Height);
+                                        gv.DrawBitmap(interactionStateIndicator, src, dst);
+                                        gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
+                                        continue;
+                                    }
+
+                                    if (!p.ConversationWhenOnPartySquare.Equals("none"))
+                                    {
+                                        Bitmap interactionStateIndicator = gv.cc.LoadBitmap("optional_conversation_indicator");
+                                        src = new IbRect(0, 0, interactionStateIndicator.PixelSize.Width, interactionStateIndicator.PixelSize.Height);
+                                        gv.DrawBitmap(interactionStateIndicator, src, dst);
+                                        gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
+                                        continue;
+                                    }
+                                }
+                            }
+
+                        }
+                    }
+                }
+                for (int i = 0; i < mod.currentArea.Tiles.Count; i++)
+                {
+
+                    float floatPositionY = i / mod.currentArea.MapSizeX;
+                    int positionY = (int)Math.Floor(floatPositionY);
+                    int positionX = i % mod.currentArea.MapSizeY;
+                    int dist = 0;
+                    int deltaX = (int)Math.Abs((positionX - mod.PlayerLocationX));
+                    int deltaY = (int)Math.Abs((positionY - mod.PlayerLocationY));
+                    if (deltaX > deltaY)
+                    {
+                        dist = deltaX;
+                    }
+                    else
+                    {
+                        dist = deltaY;
+                    }
+                    if ((dist == (gv.playerOffsetX + 1)) || (dist == (gv.playerOffsetX + 2)))
+                    {
+                        int squareInPixelsX = ((positionX - mod.PlayerLocationX) * gv.squareSize) + gv.oXshift + gv.screenMainMap.mapStartLocXinPixels + (gv.playerOffsetX * gv.squareSize);
+                        int squareInPixelsY = ((positionY - mod.PlayerLocationY) * gv.squareSize) + (gv.playerOffsetY * gv.squareSize);
+                        IbRect src2 = new IbRect(0, 0, gv.squareSize, gv.squareSize);
+                        IbRect dst2 = new IbRect(squareInPixelsX, squareInPixelsY, gv.squareSize, gv.squareSize);
+                        //NOT USEDgv.DrawBitmap(gv.cc.black_tile, src2, dst2);
+                    }
+                }
+
+            }
+            else
+            {
+                foreach (Prop p in mod.currentArea.Props)
+                {
+                    if ((p.isShown) && (p.isMover) && (p.isUnderBridge))
+                    {
+                        if ((p.LocationX >= mod.PlayerLocationX - gv.playerOffsetX) && (p.LocationX <= mod.PlayerLocationX + gv.playerOffsetX)
+                            && (p.LocationY >= mod.PlayerLocationY - gv.playerOffsetY) && (p.LocationY <= mod.PlayerLocationY + gv.playerOffsetY))
+                        {
+                            //prop X - playerX
+                            int x = ((p.LocationX - mod.PlayerLocationX) * gv.squareSize) + (gv.playerOffsetX * gv.squareSize);
+                            int y = ((p.LocationY - mod.PlayerLocationY) * gv.squareSize) + (gv.playerOffsetY * gv.squareSize);
+                            int dstW = (int)((((float)p.token.PixelSize.Width / (float)gv.squareSizeInPixels) * (float)gv.squareSize) * (p.sizeFactor / 100f));
+                            int dstH = (int)((((float)(p.token.PixelSize.Height / p.maxNumberOfFrames) / (float)gv.squareSizeInPixels) * (float)gv.squareSize) * (p.sizeFactor / 100f));
+                            int dstXshift = (dstW - gv.squareSize) / 2;
+                            int dstYshift = (dstH - gv.squareSize) / 2;
+                            IbRect src = new IbRect(0, p.currentFrameNumber * p.propFrameHeight, p.token.PixelSize.Width, p.propFrameHeight);
+                            //IbRect src = new IbRect(0, 0, p.token.PixelSize.Width, p.token.PixelSize.Width);
+                            IbRect dst = new IbRect(x + gv.oXshift + mapStartLocXinPixels - dstXshift, y - dstYshift, dstW, dstH);
+                            if ((p.maxNumberOfFrames == 1) || (p.drawAnimatedProp))
+                            {
+                                gv.DrawBitmap(p.token, src, dst, !p.PropFacingLeft, p.opacity);
+                            }
+
+                            if (mod.showInteractionState)
+                            {
+                                if (!p.EncounterWhenOnPartySquare.Equals("none"))
+                                {
+                                    Bitmap interactionStateIndicator = gv.cc.LoadBitmap("encounter_indicator");
+                                    src = new IbRect(0, 0, interactionStateIndicator.PixelSize.Width, interactionStateIndicator.PixelSize.Height);
+                                    gv.DrawBitmap(interactionStateIndicator, src, dst);
+                                    gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
+                                    continue;
+                                }
+
+                                if (p.unavoidableConversation)
+                                {
+                                    Bitmap interactionStateIndicator = gv.cc.LoadBitmap("mandatory_conversation_indicator");
+                                    src = new IbRect(0, 0, interactionStateIndicator.PixelSize.Width, interactionStateIndicator.PixelSize.Height);
+                                    gv.DrawBitmap(interactionStateIndicator, src, dst);
+                                    gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
+                                    continue;
+                                }
+
+                                if (!p.ConversationWhenOnPartySquare.Equals("none"))
+                                {
+                                    Bitmap interactionStateIndicator = gv.cc.LoadBitmap("optional_conversation_indicator");
+                                    src = new IbRect(0, 0, interactionStateIndicator.PixelSize.Width, interactionStateIndicator.PixelSize.Height);
+                                    gv.DrawBitmap(interactionStateIndicator, src, dst);
+                                    gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
+                                    continue;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
         public void drawMiniMap()
         {
             if (showMiniMap)
