@@ -37,6 +37,8 @@ namespace IceBlink2
             grid[end.X, end.Y] = 3; //3 marks the end point in the grid
             buildPath(start, callingProp);
 
+
+
             if (!foundEnd)
             {
                 //do not build path for now so return (-1,-1), later add code for picking a spot to move
@@ -52,6 +54,10 @@ namespace IceBlink2
                 }
                 //build list of path points
                 newPoint = pathNodes[pathNodes.Count - 2];
+                //if (newPoint.X == 5 && newPoint.Y == 6)
+                //{
+                    //int hgh = 0;
+                //}
             }
             callingProp.lengthOfLastPath = pathNodes.Count;
             pathNodes.Clear();
@@ -141,9 +147,18 @@ namespace IceBlink2
             }
             callingProp.lengthOfLastPath = pathNodes.Count;
             pathNodes.Clear();
+
+            //added as part of height level system
+            if ((newPoint.X != -1 && newPoint.Y != -1) && (newPoint.X != callingProp.LocationX || newPoint.Y != callingProp.LocationY))
+            {
+                callingProp.lastLocationX = callingProp.LocationX;
+                callingProp.lastLocationY = callingProp.LocationY;
+            }
+
             return newPoint;
         }
 
+        //NOT USED
         //find new point in square part of an area around a center point withhin a radius, here: record path, too (selected by overload)
         public Coordinate findNewPoint(Coordinate start, Coordinate end, Prop callingProp, int centerPointX, int centerPointY, int radius, bool recordPath, GameView g)
         {
@@ -571,16 +586,163 @@ RULES:
                     //has same height level as target square?
                     if (mod.currentArea.Tiles[originY * mod.currentArea.MapSizeX + originX].heightLevel == mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x].heightLevel)
                     {
-                        allowAssignment = true;
+                        //division
+                        if (!mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x].isRamp)
+                        {
+                            allowAssignment = true;
+                        }
+                        
+                        //Coming from north division
+                        else if ((originY == y - 1) && (originX == x))
+                        {
+                            //ramp has bottom end facing to north
+                            if (mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x].hasDownStairShadowS)
+                            {
+                                allowAssignment = true;
+                            }
+                        if (mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x].hasDownStairShadowE)
+                        {
+                            allowAssignment = true;
+                        }
+                        if (mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x].hasDownStairShadowW)
+                        {
+                            allowAssignment = true;
+                        }
                     }
+                    //Coming from south division
+                    else if ((originY == y + 1) && (originX == x))
+                    {
+                        //ramp has bottom end facing to south
+                        if (mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x].hasDownStairShadowN)
+                        {
+                            allowAssignment = true;
+                        }
+                        if (mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x].hasDownStairShadowE)
+                        {
+                            allowAssignment = true;
+                        }
+                        if (mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x].hasDownStairShadowW)
+                        {
+                            allowAssignment = true;
+                        }
+
+                    }
+
+                    //Coming from east division
+                    else if ((originY == y) && (originX == x + 1))
+                    {
+                        //ramp has bottom end facing to east
+                        if (mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x].hasDownStairShadowW)
+                        {
+                            allowAssignment = true;
+                        }
+                        if (mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x].hasDownStairShadowS)
+                        {
+                            allowAssignment = true;
+                        }
+                        if (mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x].hasDownStairShadowN)
+                        {
+                            allowAssignment = true;
+                        }
+                    }
+
+                    //Coming from west division
+                    else if ((originY == y) && (originX == x - 1))
+                    {
+                        //ramp has bottom end facing to west
+                        if (mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x].hasDownStairShadowE)
+                        {
+                            allowAssignment = true;
+                        }
+                        if (mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x].hasDownStairShadowN)
+                        {
+                            allowAssignment = true;
+                        }
+                        if (mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x].hasDownStairShadowS)
+                        {
+                            allowAssignment = true;
+                        }
+                    }
+
+                }
 
                     //target is ramp, then additionally entering from one height level lower (climb up ramp) works
                     else if ((mod.currentArea.Tiles[originY * mod.currentArea.MapSizeX + originX].heightLevel + 1 == mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x].heightLevel) && mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x].isRamp)
                     {
-                        allowAssignment = true;
+                        //Coming from north division
+                        if ((originY == y-1) && (originX == x))
+                        {
+                            //ramp has bottom end facing to north
+                            if (mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x].hasDownStairShadowN)
+                            {
+                                allowAssignment = true;
+                            }
+                            if (mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x].hasDownStairShadowE)
+                            {
+                                allowAssignment = true;
+                            }
+                            if (mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x].hasDownStairShadowW)
+                            {
+                                allowAssignment = true;
+                            }
                     }
 
-                    //target is EW-Bridge and origin square is north or south of bridge , then additionally entering from one height level lower (climb up ramp) works
+                    //Coming from south division
+                    if ((originY == y + 1) && (originX == x))
+                    {
+                        //ramp has bottom end facing to south
+                        if (mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x].hasDownStairShadowS)
+                        {
+                            allowAssignment = true;
+                        }
+                        if (mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x].hasDownStairShadowE)
+                        {
+                            allowAssignment = true;
+                        }
+                        if (mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x].hasDownStairShadowW)
+                        {
+                            allowAssignment = true;
+                        }
+                    }
+
+                    //Coming from east division
+                    if ((originY == y) && (originX == x + 1))
+                    {
+                        //ramp has bottom end facing to east
+                        if (mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x].hasDownStairShadowE)
+                        {
+                            allowAssignment = true;
+                        }
+                        if (mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x].hasDownStairShadowS)
+                        {
+                            allowAssignment = true;
+                        }
+                        if (mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x].hasDownStairShadowN)
+                        {
+                            allowAssignment = true;
+                        }
+                    }
+
+                    //Coming from west division
+                    if ((originY == y) && (originX == x - 1))
+                    {
+                        //ramp has bottom end facing to west
+                        if (mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x].hasDownStairShadowW)
+                        {
+                            allowAssignment = true;
+                        }
+                        if (mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x].hasDownStairShadowS)
+                        {
+                            allowAssignment = true;
+                        }
+                        if (mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x].hasDownStairShadowN)
+                        {
+                            allowAssignment = true;
+                        }
+                    }
+                }
+
+                    //target is EW-Bridge and origin square is north or south of bridge , then additionally entering from one height level lower works
                     else if ((mod.currentArea.Tiles[originY * mod.currentArea.MapSizeX + originX].heightLevel + 1 == mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x].heightLevel) && mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x].isEWBridge)
                     {
                         //checking northern or southern square as target
@@ -590,7 +752,7 @@ RULES:
                         }
                     }
 
-                    //target is NS-Bridge and origin square is east or west of bridge , then additionally entering from one height level lower (climb up ramp) works
+                    //target is NS-Bridge and origin square is east or west of bridge , then additionally entering from one height level lower works
                     else if ((mod.currentArea.Tiles[originY * mod.currentArea.MapSizeX + originX].heightLevel + 1 == mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x].heightLevel) && mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x].isNSBridge)
                     {
                         //checking eastern or western square as target
@@ -604,17 +766,139 @@ RULES:
                 //2.Current tile is ramp
                 else if (mod.currentArea.Tiles[(originY) * mod.currentArea.MapSizeX + originX].isRamp)
                 {
-                    //target is normal tile, entering from same or one height level higher is possible
+                    //target has same or one height level higher (two subbrackets)
                     //same height (plain)
                     if (mod.currentArea.Tiles[originY * mod.currentArea.MapSizeX + originX].heightLevel == mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x].heightLevel)
                     {
-                        allowAssignment = true;
+                    //division
+                    //going towards north
+                    if ((originY == y + 1) && (originX == x))
+                    {
+                        //ORIGIN ramp has bottom end facing to north
+                        if (mod.currentArea.Tiles[originY * mod.currentArea.MapSizeX + originX].hasDownStairShadowN)
+                        {
+                           
+                        }
+                        else
+                        {
+                            allowAssignment = true;
+                        }
                     }
-                    //target lower (walk down)
-                    else if (mod.currentArea.Tiles[originY * mod.currentArea.MapSizeX + originX].heightLevel - 1 == mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x].heightLevel)
+
+                    //going towards south
+                    else if ((originY == y -1) && (originX == x))
+                    {
+                        //ORIGIN ramp has bottom end facing to south
+                        if (mod.currentArea.Tiles[originY * mod.currentArea.MapSizeX + originX].hasDownStairShadowS)
+                        {
+
+                        }
+                        else
+                        {
+                            allowAssignment = true;
+                        }
+                    }
+
+                    //going towards east
+                    else if ((originY == y) && (originX == x-1))
+                    {
+                        //ORIGIN ramp has bottom end facing to east
+                        if (mod.currentArea.Tiles[originY * mod.currentArea.MapSizeX + originX].hasDownStairShadowE)
+                        {
+
+                        }
+                        else
+                        {
+                            allowAssignment = true;
+                        }
+                    }
+
+                    //going towards west
+                    else if ((originY == y) && (originX == x + 1))
+                    {
+                        //ORIGIN ramp has bottom end facing to west
+                        if (mod.currentArea.Tiles[originY * mod.currentArea.MapSizeX + originX].hasDownStairShadowW)
+                        {
+
+                        }
+                        else
+                        {
+                            allowAssignment = true;
+                        }
+                    }
+                    //liekely not needed?
+                    else
                     {
                         allowAssignment = true;
                     }
+
+                   }
+                    //target lower (walk down)
+                    else if (mod.currentArea.Tiles[originY * mod.currentArea.MapSizeX + originX].heightLevel - 1 == mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x].heightLevel)
+                    {
+                    //division
+                    //allowAssignment = true;
+                    //going towards north
+                    if ((originY == y + 1) && (originX == x))
+                    {
+                        //ORIGIN ramp has bottom end facing to south
+                        if (mod.currentArea.Tiles[originY * mod.currentArea.MapSizeX + originX].hasDownStairShadowS)
+                        {
+
+                        }
+                        else
+                        {
+                            allowAssignment = true;
+                        }
+                    }
+
+                    //going towards south
+                    else if ((originY == y - 1) && (originX == x))
+                    {
+                        //ORIGIN ramp has bottom end facing to north
+                        if (mod.currentArea.Tiles[originY * mod.currentArea.MapSizeX + originX].hasDownStairShadowN)
+                        {
+
+                        }
+                        else
+                        {
+                            allowAssignment = true;
+                        }
+                    }
+
+                    //going towards east
+                    else if ((originY == y) && (originX == x - 1))
+                    {
+                        //ORIGIN ramp has bottom end facing to west
+                        if (mod.currentArea.Tiles[originY * mod.currentArea.MapSizeX + originX].hasDownStairShadowW)
+                        {
+
+                        }
+                        else
+                        {
+                            allowAssignment = true;
+                        }
+                    }
+
+                    //going towards west
+                    else if ((originY == y) && (originX == x + 1))
+                    {
+                        //ORIGIN ramp has bottom end facing to east
+                        if (mod.currentArea.Tiles[originY * mod.currentArea.MapSizeX + originX].hasDownStairShadowE)
+                        {
+
+                        }
+                        else
+                        {
+                            allowAssignment = true;
+                        }
+                    }
+                    //likely not needed
+                    else
+                    {
+                        allowAssignment = true;
+                    }
+                }
 
                     //target is EW-Bridge and origin square is north or south of bridge , then additionally entering from one height level lower (climb up ramp) works
                     else if ((mod.currentArea.Tiles[originY * mod.currentArea.MapSizeX + originX].heightLevel + 1 == mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x].heightLevel) && mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x].isEWBridge)
@@ -635,6 +919,68 @@ RULES:
                             allowAssignment = true;
                         }
                     }
+
+                    //target is  ramp: we were missing ramp-ramp here and we are walking upward by one square (same or lower height is already caught above)
+                    else if ((mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x].isRamp) && (mod.currentArea.Tiles[originY * mod.currentArea.MapSizeX + originX].heightLevel + 1 == mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x].heightLevel))
+                    {
+                    //division
+                    //ADJUST BELOW
+                    //going towards north
+                    if ((originY == y + 1) && (originX == x))
+                    {
+                        //TARGET ramp has bottom end facing to north
+                        if (mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x].hasDownStairShadowN)
+                        {
+
+                        }
+                        else
+                        {
+                            allowAssignment = true;
+                        }
+                    }
+
+                    //going towards south
+                    else if ((originY == y - 1) && (originX == x))
+                    {
+                        //TAREGT ramp has bottom end facing to south
+                        if (mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x].hasDownStairShadowS)
+                        {
+
+                        }
+                        else
+                        {
+                            allowAssignment = true;
+                        }
+                    }
+
+                    //going towards east
+                    else if ((originY == y) && (originX == x - 1))
+                    {
+                        //TARGET has bottom end facing to east
+                        if (mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x].hasDownStairShadowE)
+                        {
+
+                        }
+                        else
+                        {
+                            allowAssignment = true;
+                        }
+                    }
+
+                    //going towards west
+                    else if ((originY == y) && (originX == x + 1))
+                    {
+                        //TAREGT ramp has bottom end facing to west
+                        if (mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x].hasDownStairShadowW)
+                        {
+
+                        }
+                        else
+                        {
+                            allowAssignment = true;
+                        }
+                    }
+                }
                 }
 
                 //3. Current tile is EW-bridge
@@ -759,9 +1105,10 @@ RULES:
 
                 //First sort order: check in 4 directions
 
-                //checking towards east
+                //checking towards EAST
                 if ((p.X + 1 < maxX) && (values[p.X + 1, p.Y] < val))
                 {
+                //NOTE: now adding directional ramps to below thoughts
                 //within each direction exist two fundamentally different scenarios: 
                 //1. current tile is NO bridge (normal case)
                 //2. current tile is bridge:
@@ -778,10 +1125,24 @@ RULES:
                 {
                     bool allowAssignment = false;
 
-                    //same height level target always works
+                    //same height level target always works, UNLESS we are on ramp and try to leave via LOW end OR we go towrds low end of neighbouring ramp
                     if (mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X].heightLevel == mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X + 1].heightLevel)
                     {
-                        allowAssignment = true;
+                        //try to leave ramp via low end
+                        //we are in the check east branch of the code here
+                        if (mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X].hasDownStairShadowE)
+                        {
+
+                        }
+                        //go towards low end of neighbouring ramp
+                        else if (mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X + 1].hasDownStairShadowW)
+                        {
+
+                        }
+                        else
+                        {
+                            allowAssignment = true;
+                        }
                     }
 
                     /*
@@ -798,20 +1159,36 @@ RULES:
                     */
 
                     //if on ramp currently, one level lower also works
+                    //DEPENDING ON DIRECTION, TODO!
                     if (mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X].isRamp)
                     {
                         if (mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X].heightLevel - 1 == mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X + 1].heightLevel)
                         {
-                            allowAssignment = true;
+                            if (mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X].hasDownStairShadowW)
+                            {
+
+                            }
+                            else
+                            {
+                                //division
+                                allowAssignment = true;
+                            }
                         }
                     }
 
-                    //if target is ramp, one level higher also works
+                    //if target is ramp, one level higher also works, again depending on direction
                     if (mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X + 1].isRamp)
                     {
                         if (mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X].heightLevel + 1 == mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X + 1].heightLevel)
                         {
-                            allowAssignment = true;
+                            if (mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X + 1].hasDownStairShadowE)
+                            {
+
+                            }
+                            else
+                            {
+                                allowAssignment = true;
+                            }
                         }
                     }
 
@@ -880,6 +1257,7 @@ RULES:
 
                 }
             }
+                //now adjust changes from above for the other three directions; TODO
                 //checking towards west
                 if ((p.X - 1 >= 0) && (values[p.X - 1, p.Y] < val))
                 {
@@ -891,7 +1269,21 @@ RULES:
                     //same hieght level target always works
                     if (mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X].heightLevel == mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X - 1].heightLevel)
                     {
-                        allowAssignment = true;
+                        //try to leave ramp via low end
+                        //we are in the check west branch of the code here
+                        if (mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X].hasDownStairShadowW)
+                        {
+
+                        }
+                        //go towards low end of neighbouring ramp
+                        else if (mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X - 1].hasDownStairShadowE)
+                        {
+
+                        }
+                        else
+                        {
+                            allowAssignment = true;
+                        }
                     }
 
 
@@ -912,7 +1304,15 @@ RULES:
                     {
                         if (mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X].heightLevel - 1 == mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X - 1].heightLevel)
                         {
-                            allowAssignment = true;
+                            if (mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X].hasDownStairShadowE)
+                            {
+
+                            }
+                            else
+                            {
+                                //division
+                                allowAssignment = true;
+                            }
                         }
                     }
 
@@ -921,7 +1321,14 @@ RULES:
                     {
                         if (mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X].heightLevel + 1 == mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X - 1].heightLevel)
                         {
-                            allowAssignment = true;
+                            if (mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X - 1].hasDownStairShadowW)
+                            {
+
+                            }
+                            else
+                            {
+                                allowAssignment = true;
+                            }
                         }
                     }
 
@@ -1006,10 +1413,23 @@ RULES:
                 {
                     bool allowAssignment = false;
 
-                    //same hieght level target always works
+                    //same height level target always works
                     if (mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X].heightLevel == mod.currentArea.Tiles[(p.Y + 1) * mod.currentArea.MapSizeX + p.X].heightLevel)
                     {
-                        allowAssignment = true;
+                        //we are in the check south branch of the code here
+                        if (mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X].hasDownStairShadowS)
+                        {
+
+                        }
+                        //go towards low end of neighbouring ramp
+                        else if (mod.currentArea.Tiles[(p.Y+1) * mod.currentArea.MapSizeX + p.X].hasDownStairShadowN)
+                        {
+
+                        }
+                        else
+                        {
+                            allowAssignment = true;
+                        }
                     }
 
                     /*
@@ -1030,7 +1450,15 @@ RULES:
                     {
                         if (mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X].heightLevel - 1 == mod.currentArea.Tiles[(p.Y + 1) * mod.currentArea.MapSizeX + p.X].heightLevel)
                         {
-                            allowAssignment = true;
+                            if (mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X].hasDownStairShadowN)
+                            {
+
+                            }
+                            else
+                            {
+                                //division
+                                allowAssignment = true;
+                            }
                         }
                     }
 
@@ -1039,7 +1467,14 @@ RULES:
                     {
                         if (mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X].heightLevel + 1 == mod.currentArea.Tiles[(p.Y + 1) * mod.currentArea.MapSizeX + p.X].heightLevel)
                         {
-                            allowAssignment = true;
+                            if (mod.currentArea.Tiles[(p.Y+1) * mod.currentArea.MapSizeX + p.X].hasDownStairShadowS)
+                            {
+
+                            }
+                            else
+                            {
+                                allowAssignment = true;
+                            }
                         }
                     }
 
@@ -1126,7 +1561,20 @@ RULES:
                     //same hieght level target always works
                     if (mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X].heightLevel == mod.currentArea.Tiles[(p.Y - 1) * mod.currentArea.MapSizeX + p.X].heightLevel)
                     {
-                        allowAssignment = true;
+                        //we are in the check south branch of the code here
+                        if (mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X].hasDownStairShadowN)
+                        {
+
+                        }
+                        //go towards low end of neighbouring ramp
+                        else if (mod.currentArea.Tiles[(p.Y - 1) * mod.currentArea.MapSizeX + p.X].hasDownStairShadowS)
+                        {
+
+                        }
+                        else
+                        {
+                            allowAssignment = true;
+                        }
                     }
 
                     /*
@@ -1147,7 +1595,15 @@ RULES:
                     {
                         if (mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X].heightLevel - 1 == mod.currentArea.Tiles[(p.Y - 1) * mod.currentArea.MapSizeX + p.X].heightLevel)
                         {
-                            allowAssignment = true;
+                            if (mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X].hasDownStairShadowS)
+                            {
+
+                            }
+                            else
+                            {
+                                //division
+                                allowAssignment = true;
+                            }
                         }
                     }
 
@@ -1165,7 +1621,14 @@ RULES:
                     {
                         if (mod.currentArea.Tiles[p.Y * mod.currentArea.MapSizeX + p.X].heightLevel + 1 == mod.currentArea.Tiles[(p.Y - 1) * mod.currentArea.MapSizeX + p.X].heightLevel)
                         {
-                            allowAssignment = true;
+                            if (mod.currentArea.Tiles[(p.Y - 1) * mod.currentArea.MapSizeX + p.X].hasDownStairShadowN)
+                            {
+
+                            }
+                            else
+                            {
+                                allowAssignment = true;
+                            }
                         }
                     }
 

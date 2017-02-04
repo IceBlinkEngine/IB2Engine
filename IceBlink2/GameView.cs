@@ -309,6 +309,25 @@ namespace IceBlink2
 	    }
         public void LoadStandardImages()
         {
+
+            cc.downStairFlankShadowLeft = cc.LoadBitmap("downStairFlankShadowLeft");
+            cc.downStairShadow = cc.LoadBitmap("downStairShadow");
+            cc.downStairFlankShadowRight = cc.LoadBitmap("downStairFlankShadowRight");
+            cc.bridgeShadow = cc.LoadBitmap("bridgeShadow");
+            cc.highlight90 = cc.LoadBitmap("highlight90");
+            cc.highlightGreen = cc.LoadBitmap("highlightGreen");
+            cc.leftCurtain = cc.LoadBitmap("leftCurtain");
+            cc.rightCurtain = cc.LoadBitmap("rightCurtain");
+            cc.longShadow = cc.LoadBitmap("longShadow");
+            cc.longShadowCorner = cc.LoadBitmap("longShadowCorner");
+            cc.shortShadow = cc.LoadBitmap("shortShadow");
+            cc.shortShadowCorner = cc.LoadBitmap("shortShadowCorner");
+            cc.shortShadowCorner2 = cc.LoadBitmap("shortShadowCorner2");
+            cc.smallStairNEMirror = cc.LoadBitmap("smallStairNEMirror");
+            cc.smallStairNENormal = cc.LoadBitmap("smallStairNENormal");
+            cc.corner3 = cc.LoadBitmap("corner3");
+            cc.entranceLightNorth2 = cc.LoadBitmap("entranceLightNorth2");
+
             cc.btnIni = cc.LoadBitmap("btn_ini");
             cc.btnIniGlow = cc.LoadBitmap("btn_ini_glow");
             cc.walkPass = cc.LoadBitmap("walk_pass");
@@ -1180,6 +1199,12 @@ namespace IceBlink2
             SharpDX.RectangleF src = new SharpDX.RectangleF(source.Left, source.Top, source.Width, source.Height);
             DrawD2DBitmap(bitmap, src, tar, angleInDegrees, mirror, Xshift, Yshift, Xscale, Yscale);
         }
+        public void DrawBitmap(SharpDX.Direct2D1.Bitmap bitmap, IbRect source, IbRect target, int angleInDegrees, bool mirror, int Xshift, int Yshift, int Xscale, int Yscale, float opacity)
+        {
+            SharpDX.RectangleF tar = new SharpDX.RectangleF(target.Left, target.Top + oYshift, target.Width, target.Height);
+            SharpDX.RectangleF src = new SharpDX.RectangleF(source.Left, source.Top, source.Width, source.Height);
+            DrawD2DBitmap(bitmap, src, tar, angleInDegrees, mirror, Xshift, Yshift, Xscale, Yscale, opacity);
+        }
         public void DrawBitmap(SharpDX.Direct2D1.Bitmap bitmap, IbRect source, IbRect target, float angleInRadians, bool mirror, int Xshift, int Yshift, int Xscale, int Yscale)
         {
             SharpDX.RectangleF tar = new SharpDX.RectangleF(target.Left, target.Top + oYshift, target.Width, target.Height);
@@ -1475,6 +1500,10 @@ namespace IceBlink2
         {
             DrawD2DBitmap(bitmap, source, target, angleInDegrees, mirror, 1.0f, Xshift, Yshift, Xscale, Yscale, false);
         }
+        public void DrawD2DBitmap(SharpDX.Direct2D1.Bitmap bitmap, SharpDX.RectangleF source, SharpDX.RectangleF target, int angleInDegrees, bool mirror, int Xshift, int Yshift, int Xscale, int Yscale, float opacity)
+        {
+            DrawD2DBitmap(bitmap, source, target, angleInDegrees, mirror, 1.0f, Xshift, Yshift, Xscale, Yscale, false, opacity);
+        }
         public void DrawD2DBitmap(SharpDX.Direct2D1.Bitmap bitmap, SharpDX.RectangleF source, SharpDX.RectangleF target, float angleInRadians, bool mirror, int Xshift, int Yshift, int Xscale, int Yscale)
         {
             DrawD2DBitmap(bitmap, source, target, angleInRadians, mirror, 1.0f, Xshift, Yshift, Xscale, Yscale, false);
@@ -1485,6 +1514,14 @@ namespace IceBlink2
             float angleInRadians = (float)(Math.PI * 2 * (float)angleInDegrees / (float)360);
             DrawD2DBitmap(bitmap, source, target, angleInRadians, mirror, opac, Xshift, Yshift, Xscale, Yscale, false);
         }
+
+        public void DrawD2DBitmap(SharpDX.Direct2D1.Bitmap bitmap, SharpDX.RectangleF source, SharpDX.RectangleF target, int angleInDegrees, bool mirror, float opac, int Xshift, int Yshift, int Xscale, int Yscale, bool NearestNeighbourInterpolation, float opacity)
+        {
+            //convert degrees to radians
+            float angleInRadians = (float)(Math.PI * 2 * (float)angleInDegrees / (float)360);
+            DrawD2DBitmap(bitmap, source, target, angleInRadians, mirror, opacity, Xshift, Yshift, Xscale, Yscale, false);
+        }
+
         public void DrawD2DBitmap(SharpDX.Direct2D1.Bitmap bitmap, SharpDX.RectangleF source, SharpDX.RectangleF target, float angleInRadians, bool mirror, float opac, int Xshift, int Yshift, int Xscale, int Yscale, bool NearestNeighbourInterpolation)
         {
             int mir = 1;
@@ -1520,6 +1557,42 @@ namespace IceBlink2
             renderTarget2D.Transform = Matrix3x2.Identity;
         }
 
+        /*
+        public void DrawD2DBitmap(SharpDX.Direct2D1.Bitmap bitmap, SharpDX.RectangleF source, SharpDX.RectangleF target, float angleInRadians, bool mirror, float opac, int Xshift, int Yshift, int Xscale, int Yscale, bool NearestNeighbourInterpolation, float opacity)
+        {
+            int mir = 1;
+            if (mirror) { mir = -1; }
+            float xshf = (float)Xshift * 2 * screenDensity;
+            float yshf = (float)Yshift * 2 * screenDensity;
+            float xscl = 1f + (((float)Xscale * 2 * screenDensity) / squareSize);
+            float yscl = 1f + (((float)Yscale * 2 * screenDensity) / squareSize);
+
+            Vector2 center = new Vector2(target.Left + (target.Width / 2), target.Top + (target.Height / 2));
+            renderTarget2D.Transform = SharpDX.Matrix.Transformation2D(center, 0, new Vector2(mir * xscl, yscl), center, angleInRadians, new Vector2(xshf, yshf));
+            SharpDX.RectangleF trg = new SharpDX.RectangleF(target.Left, target.Top, target.Width, target.Height);
+            SharpDX.RectangleF src = new SharpDX.RectangleF(source.Left, source.Top, source.Width, source.Height);
+
+            /*
+            if (bitmap == cc.offScreen)
+            {
+                if ((target.Left <= (screenWidth / 2 - mod.pixDistanceToBorderWest)) && (target.Left >= (screenWidth / 2 - mod.pixDistanceToBorderWest - squareSize)))
+                {
+                    bitmap = cc.offScreenTrans;
+                }
+            }
+            
+
+            if (NearestNeighbourInterpolation)
+            {
+                renderTarget2D.DrawBitmap(bitmap, trg, opac, BitmapInterpolationMode.NearestNeighbor, src);
+            }
+            else
+            {
+                renderTarget2D.DrawBitmap(bitmap, trg, opac, BitmapInterpolationMode.Linear, src);
+            }
+            renderTarget2D.Transform = Matrix3x2.Identity;
+        }
+    */
         //INPUT STUFF
         private void GameView_MouseWheel(object sender, MouseEventArgs e)
         {

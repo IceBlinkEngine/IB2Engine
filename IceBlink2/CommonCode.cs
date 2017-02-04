@@ -71,6 +71,28 @@ namespace IceBlink2
         public Bitmap btnIniGlow;
         public Bitmap walkBlocked;
         public Bitmap losBlocked;
+
+        public Bitmap downStairFlankShadowLeft;
+        public Bitmap downStairFlankShadowRight;
+        public Bitmap downStairShadow;
+        public Bitmap bridgeShadow;
+        public Bitmap highlight90;
+        public Bitmap highlightGreen;
+        public Bitmap leftCurtain;
+        public Bitmap rightCurtain;
+        public Bitmap longShadow;
+        public Bitmap longShadowCorner;
+        public Bitmap shortShadow;
+        public Bitmap shortShadowCorner;
+        public Bitmap shortShadowCorner2;
+        public Bitmap smallStairNEMirror;
+        public Bitmap smallStairNENormal;
+        public Bitmap corner3;
+        public Bitmap entranceLightNorth2;
+
+
+
+
         public Bitmap hitSymbol;
         public Bitmap missSymbol;
         public Bitmap highlight_green;
@@ -194,6 +216,35 @@ namespace IceBlink2
                 sw.Write(json.ToString());
             }
         }
+
+        public void setBridgeStateForMovingProps()
+        {
+            //note: player bridge state is handled by gv.mod.currentArea.PlayerIsUnderBridge
+            //note: for moving props it is then p.isUnderBridge
+
+            foreach (Prop p in gv.mod.currentArea.Props)
+            {
+                if ((p.isShown) && (p.isMover))
+                {
+                    if (gv.mod.currentArea.Tiles[p.LocationY * gv.mod.currentArea.MapSizeX + p.LocationX].isEWBridge || gv.mod.currentArea.Tiles[p.LocationY * gv.mod.currentArea.MapSizeX + p.LocationX].isNSBridge)
+                    {
+                        if (gv.mod.currentArea.Tiles[p.lastLocationY * gv.mod.currentArea.MapSizeX + p.lastLocationX].heightLevel + 1 == gv.mod.currentArea.Tiles[p.LocationY * gv.mod.currentArea.MapSizeX + p.LocationX].heightLevel)
+                        {
+                            p.isUnderBridge = true;
+                        }
+                        else
+                        {
+                            p.isUnderBridge = false;
+                        }
+                    }
+                    else
+                    {
+                        p.isUnderBridge = false;
+                    }
+                }
+            }
+        }
+
         public void QuickSave()
         {
             string filename = gv.mainDirectory + "\\saves\\" + gv.mod.moduleName + "\\quicksave.json";
@@ -1688,6 +1739,7 @@ namespace IceBlink2
         {
             gv.realTimeTimerMilliSecondsEllapsed = 0;
             handleRationsAndLightSources();
+            //setBridgeStateForMovingProps();
             gv.mod.EncounterOfTurnDone = false;
             setToBorderPixDistancesMainMap();
             if (gv.mod.useAllTileSystem)

@@ -101,11 +101,106 @@ namespace IceBlink2
         public List<float> lightSourceRingHaloIntensity = new List<float>();
         //public float partyFocalHaloIntensity = 1f;
 
+        /*
+    public bool isRamp = false;
+    public bool isEWBridge = false;
+    public bool isNSBridge = false;
+    public int heightLevel = 0;
+    public bool isShadowCaster = true;
+    public bool hasDownStairShadowN = false;
+    public bool hasDownStairShadowE = false;
+    public bool hasDownStairShadowS = false;
+    public bool hasDownStairShadowW = false;
+    */
+
+        public int heightLevel = 0;
         public bool isRamp = false;
         public bool isEWBridge = false;
         public bool isNSBridge = false;
-        public int heightLevel = 0;
         public bool isShadowCaster = true;
+        public bool drawDownStairShadows = true;
+
+        public bool isInShortShadeN = false;
+        public bool isInShortShadeE = false;
+        public bool isInShortShadeS = false;
+        public bool isInShortShadeW = false;
+        public bool isInShortShadeNE = false;
+        public bool isInShortShadeSE = false;
+        public bool isInShortShadeSW = false;
+        public bool isInShortShadeNW = false;
+
+        public bool isInLongShadeN = false;
+        public bool isInLongShadeE = false;
+        public bool isInLongShadeS = false;
+        public bool isInLongShadeW = false;
+        public bool isInLongShadeNE = false;
+        public bool isInLongShadeSE = false;
+        public bool isInLongShadeSW = false;
+        public bool isInLongShadeNW = false;
+
+        public bool isInMaxShadeN = false;
+        public bool isInMaxShadeE = false;
+        public bool isInMaxShadeS = false;
+        public bool isInMaxShadeW = false;
+        public bool isInMaxShadeNE = false;
+        public bool isInMaxShadeSE = false;
+        public bool isInMaxShadeSW = false;
+        public bool isInMaxShadeNW = false;
+
+        public bool hasHighlightN = false;
+        public int highlightStrengthN = 100;
+        public bool hasHighlightE = false;
+        public int highlightStrengthE = 100;
+        public bool hasHighlightS = false;
+        public int highlightStrengthS = 100;
+        public bool hasHighlightW = false;
+        public int highlightStrengthW = 100;
+
+        public bool hasDownStairShadowN = false;
+        public bool hasDownStairShadowE = false;
+        public bool hasDownStairShadowS = false;
+        public bool hasDownStairShadowW = false;
+
+        public int numberOfHeightLevelsThisTileisHigherThanNeighbourN = 0;
+        public int numberOfHeightLevelsThisTileisHigherThanNeighbourE = 0;
+        public int numberOfHeightLevelsThisTileisHigherThanNeighbourS = 0;
+        public int numberOfHeightLevelsThisTileisHigherThanNeighbourW = 0;
+
+        public bool inSmallStairNEHorizontal = false;
+        public bool inSmallStairNEVertical = false;
+        public bool inSmallStairSEHorizontal = false;
+        public bool inSmallStairSEVertical = false;
+        public bool inSmallStairSWHorizontal = false;
+        public bool inSmallStairSWVertical = false;
+        public bool inSmallStairNWHorizontal = false;
+        public bool inSmallStairNWVertical = false;
+
+        public bool hasEntranceLightNorth = false;
+        public bool hasEntranceLightEast = false;
+        public bool hasEntranceLightSouth = false;
+        public bool hasEntranceLightWest = false;
+
+        public bool inRampShadowWest1Short = false;
+        public bool inRampShadowWest1Long = false;
+        public bool inRampShadowWest2Short = false;
+        public bool inRampShadowWest2Long = false;
+
+        public bool inRampShadowEast3Short = false;
+        public bool inRampShadowEast3Long = false;
+        public bool inRampShadowEast4Short = false;
+        public bool inRampShadowEast4Long = false;
+
+        public bool inRampShadowNorth5Short = false;
+        public bool inRampShadowNorth5Long = false;
+        public bool inRampShadowNorth6Short = false;
+        public bool inRampShadowNorth6Long = false;
+
+        public bool inRampShadowSouth7Short = false;
+        public bool inRampShadowSouth7Long = false;
+        public bool inRampShadowSouth8Short = false;
+        public bool inRampShadowSouth8Long = false;
+
+
 
         public Tile()
         {
