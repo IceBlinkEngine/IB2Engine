@@ -45,6 +45,11 @@ namespace IceBlink2
         public int Layer3Yscale = 0;
         public int Layer4Yscale = 0;
         public int Layer5Yscale = 0;
+        public float Layer1Opacity = 0;
+        public float Layer2Opacity = 0;
+        public float Layer3Opacity = 0;
+        public float Layer4Opacity = 0;
+        public float Layer5Opacity = 0;
         public bool Walkable = true;
         public bool LoSBlocked = false;
         public bool Visible = false;

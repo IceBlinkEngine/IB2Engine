@@ -2961,7 +2961,7 @@ namespace IceBlink2
 
                                     gv.mod.loadedTileBitmaps.Add(tile.tileBitmap1);
                                     //gv.DrawBitmap(tile.tileBitmap1, src, dst);
-                                    gv.DrawBitmap(tile.tileBitmap1, src, dst, tile.Layer1Rotate, tile.Layer1Mirror, tile.Layer1Xshift, tile.Layer1Yshift, tile.Layer1Xscale, tile.Layer1Yscale);
+                                    gv.DrawBitmap(tile.tileBitmap1, src, dst, tile.Layer1Rotate, tile.Layer1Mirror, tile.Layer1Xshift, tile.Layer1Yshift, tile.Layer1Xscale, tile.Layer1Yscale, tile.Layer1Opacity);
                                 }
                                 else
                                 {
@@ -2975,7 +2975,7 @@ namespace IceBlink2
                                     IbRect dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels, tlY, brX, brY);
 
                                     //gv.DrawBitmap(gv.mod.loadedTileBitmaps[indexOfLoadedTile], src, dst);
-                                    gv.DrawBitmap(gv.mod.loadedTileBitmaps[indexOfLoadedTile], src, dst, tile.Layer1Rotate, tile.Layer1Mirror, tile.Layer1Xshift, tile.Layer1Yshift, tile.Layer1Xscale, tile.Layer1Yscale);
+                                    gv.DrawBitmap(gv.mod.loadedTileBitmaps[indexOfLoadedTile], src, dst, tile.Layer1Rotate, tile.Layer1Mirror, tile.Layer1Xshift, tile.Layer1Yshift, tile.Layer1Xscale, tile.Layer1Yscale, tile.Layer1Opacity);
 
                                 }
 
@@ -3174,7 +3174,7 @@ namespace IceBlink2
 
                                     gv.mod.loadedTileBitmaps.Add(tile.tileBitmap2);
                                     //gv.DrawBitmap(tile.tileBitmap2, src, dst);
-                                    gv.DrawBitmap(tile.tileBitmap2, src, dst, tile.Layer2Rotate, tile.Layer2Mirror, tile.Layer2Xshift, tile.Layer2Yshift, tile.Layer2Xscale, tile.Layer2Yscale);
+                                    gv.DrawBitmap(tile.tileBitmap2, src, dst, tile.Layer2Rotate, tile.Layer2Mirror, tile.Layer2Xshift, tile.Layer2Yshift, tile.Layer2Xscale, tile.Layer2Yscale, tile.Layer2Opacity);
 
                                 }
                                 else
@@ -3189,7 +3189,7 @@ namespace IceBlink2
                                     IbRect dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels, tlY, brX, brY);
 
                                     //gv.DrawBitmap(gv.mod.loadedTileBitmaps[indexOfLoadedTile], src, dst);
-                                    gv.DrawBitmap(gv.mod.loadedTileBitmaps[indexOfLoadedTile], src, dst, tile.Layer2Rotate, tile.Layer2Mirror, tile.Layer2Xshift, tile.Layer2Yshift, tile.Layer2Xscale, tile.Layer2Yscale);
+                                    gv.DrawBitmap(gv.mod.loadedTileBitmaps[indexOfLoadedTile], src, dst, tile.Layer2Rotate, tile.Layer2Mirror, tile.Layer2Xshift, tile.Layer2Yshift, tile.Layer2Xscale, tile.Layer2Yscale, tile.Layer2Opacity);
 
                                 }
 
@@ -3388,7 +3388,7 @@ namespace IceBlink2
 
                                     gv.mod.loadedTileBitmaps.Add(tile.tileBitmap3);
                                     //gv.DrawBitmap(tile.tileBitmap3, src, dst);
-                                    gv.DrawBitmap(tile.tileBitmap3, src, dst, tile.Layer3Rotate, tile.Layer3Mirror, tile.Layer3Xshift, tile.Layer3Yshift, tile.Layer3Xscale, tile.Layer3Yscale);
+                                    gv.DrawBitmap(tile.tileBitmap3, src, dst, tile.Layer3Rotate, tile.Layer3Mirror, tile.Layer3Xshift, tile.Layer3Yshift, tile.Layer3Xscale, tile.Layer3Yscale, tile.Layer3Opacity);
 
                                 }
                                 else
@@ -3403,7 +3403,7 @@ namespace IceBlink2
                                     IbRect dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels, tlY, brX, brY);
 
                                     //gv.DrawBitmap(gv.mod.loadedTileBitmaps[indexOfLoadedTile], src, dst);
-                                    gv.DrawBitmap(gv.mod.loadedTileBitmaps[indexOfLoadedTile], src, dst, tile.Layer3Rotate, tile.Layer3Mirror, tile.Layer3Xshift, tile.Layer3Yshift, tile.Layer3Xscale, tile.Layer3Yscale);
+                                    gv.DrawBitmap(gv.mod.loadedTileBitmaps[indexOfLoadedTile], src, dst, tile.Layer3Rotate, tile.Layer3Mirror, tile.Layer3Xshift, tile.Layer3Yshift, tile.Layer3Xscale, tile.Layer3Yscale, tile.Layer3Opacity);
                                 }
 
                                 //gv.DrawBitmap(gv.cc.tileBitmapList[tile.Layer1Filename], src, dst);
@@ -3601,7 +3601,7 @@ namespace IceBlink2
 
                                     gv.mod.loadedTileBitmaps.Add(tile.tileBitmap4);
                                     //gv.DrawBitmap(tile.tileBitmap4, src, dst);
-                                    gv.DrawBitmap(tile.tileBitmap4, src, dst, tile.Layer4Rotate, tile.Layer4Mirror, tile.Layer4Xshift, tile.Layer4Yshift, tile.Layer4Xscale, tile.Layer4Yscale);
+                                    gv.DrawBitmap(tile.tileBitmap4, src, dst, tile.Layer4Rotate, tile.Layer4Mirror, tile.Layer4Xshift, tile.Layer4Yshift, tile.Layer4Xscale, tile.Layer4Yscale, tile.Layer4Opacity);
 
                                 }
                                 else
@@ -3616,7 +3616,7 @@ namespace IceBlink2
                                     IbRect dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels, tlY, brX, brY);
 
                                     //gv.DrawBitmap(gv.mod.loadedTileBitmaps[indexOfLoadedTile], src, dst);
-                                    gv.DrawBitmap(gv.mod.loadedTileBitmaps[indexOfLoadedTile], src, dst, tile.Layer4Rotate, tile.Layer4Mirror, tile.Layer4Xshift, tile.Layer4Yshift, tile.Layer4Xscale, tile.Layer4Yscale);
+                                    gv.DrawBitmap(gv.mod.loadedTileBitmaps[indexOfLoadedTile], src, dst, tile.Layer4Rotate, tile.Layer4Mirror, tile.Layer4Xshift, tile.Layer4Yshift, tile.Layer4Xscale, tile.Layer4Yscale, tile.Layer4Opacity);
 
                                 }
 
@@ -4030,7 +4030,7 @@ namespace IceBlink2
 
                                     gv.mod.loadedTileBitmaps.Add(tile.tileBitmap5);
                                     //gv.DrawBitmap(tile.tileBitmap5, src, dst);
-                                    gv.DrawBitmap(tile.tileBitmap5, src, dst, tile.Layer5Rotate, tile.Layer5Mirror, tile.Layer5Xshift, tile.Layer5Yshift, tile.Layer5Xscale, tile.Layer5Yscale);
+                                    gv.DrawBitmap(tile.tileBitmap5, src, dst, tile.Layer5Rotate, tile.Layer5Mirror, tile.Layer5Xshift, tile.Layer5Yshift, tile.Layer5Xscale, tile.Layer5Yscale, tile.Layer5Opacity);
 
                                 }
                                 else
@@ -4045,7 +4045,7 @@ namespace IceBlink2
                                     IbRect dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels, tlY, brX, brY);
 
                                     //gv.DrawBitmap(gv.mod.loadedTileBitmaps[indexOfLoadedTile], src, dst);
-                                    gv.DrawBitmap(gv.mod.loadedTileBitmaps[indexOfLoadedTile], src, dst, tile.Layer5Rotate, tile.Layer5Mirror, tile.Layer5Xshift, tile.Layer5Yshift, tile.Layer5Xscale, tile.Layer5Yscale);
+                                    gv.DrawBitmap(gv.mod.loadedTileBitmaps[indexOfLoadedTile], src, dst, tile.Layer5Rotate, tile.Layer5Mirror, tile.Layer5Xshift, tile.Layer5Yshift, tile.Layer5Xscale, tile.Layer5Yscale, tile.Layer5Opacity);
                                 }
 
                                 //gv.DrawBitmap(gv.cc.tileBitmapList[tile.Layer1Filename], src, dst);
