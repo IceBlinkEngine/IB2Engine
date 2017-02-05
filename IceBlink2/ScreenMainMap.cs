@@ -1761,7 +1761,7 @@ namespace IceBlink2
 
                         if (tile.inRampShadowWest1Long)
                         {
-                            gv.DrawBitmap(gv.cc.rightCurtain, src, dst, 180, true, 0, 0);
+                            gv.DrawBitmap(gv.cc.leftCurtain, src, dst, 180, true, 0, 0);
                         }
                         if (tile.inRampShadowWest1Short)
                         {
@@ -1797,7 +1797,7 @@ namespace IceBlink2
 
                         if (tile.inRampShadowNorth5Long)
                         {
-                            gv.DrawBitmap(gv.cc.rightCurtain, src, dst, 270, true, 0, 0);
+                            gv.DrawBitmap(gv.cc.leftCurtain, src, dst, 270, true, 0, 0);
                         }
                         if (tile.inRampShadowNorth5Short)
                         {
