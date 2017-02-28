@@ -183,8 +183,19 @@ namespace IceBlink2
     	    {
     		    setControlsStart();
     	    }
-    	
-    	    int pW = (int)((float)gv.screenWidth / 100.0f);
+
+            if (itemSelectorType.Equals("container"))
+            {
+                btnAction.Text = "TAKE ALL";
+                btnAction2.Text = "TAKE SELECTED";
+            }
+            else if (itemSelectorType.Equals("equip"))
+            {
+                btnAction.Text = "EQUIP SELECTED";
+                btnAction2.Text = "UNEQUIP";
+            }
+
+            int pW = (int)((float)gv.screenWidth / 100.0f);
 		    int pH = (int)((float)gv.screenHeight / 100.0f);
 		
     	    int locY = 0;
