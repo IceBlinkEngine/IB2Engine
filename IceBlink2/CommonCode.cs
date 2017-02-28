@@ -8773,13 +8773,19 @@ namespace IceBlink2
 
                 gv.cc.addLogText("<font color='yellow'>" + src.cr_name + " creates " + spell.name + "</font><BR>");
             }
-            else
+            else if (source is Player)
             {
                 Player src = (Player)source;
 
                 gv.cc.addLogText("<font color='yellow'>" + src.name + " creates " + spell.name + "</font><BR>");
             }
-            
+            else if (source is Item)
+            {
+                Item src = (Item)source;
+
+                gv.cc.addLogText("<font color='yellow'>" + src.name + " creates " + spell.name + "</font><BR>");
+            }
+
             gv.sf.AoeTargetsList.Clear();
 
             //this sorts the three possible effect sources in the order: tag list for generic, single tag for generic (compatibility with old spells) and finally specific script
