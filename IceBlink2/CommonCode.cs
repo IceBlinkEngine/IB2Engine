@@ -8734,8 +8734,9 @@ namespace IceBlink2
             try
             {
                 Container container = gv.mod.getContainerByTag(tag);
-                gv.screenType = "itemSelector";
+                //gv.screenType = "itemSelector";
                 gv.screenItemSelector.resetItemSelector(container.containerItemRefs, "container", "main");
+                gv.screenType = "itemSelector";
             }
             catch (Exception ex)
             {
