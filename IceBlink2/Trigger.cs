@@ -53,6 +53,10 @@ namespace IceBlink2
         public bool canBeTriggeredByPc = true;  
         public bool canBeTriggeredByCreature = true;
 
+        public bool isLinkToMaster = false;
+        public string tagOfLinkedMaster = "none";
+        public string tagOfLink = "none";
+        public int transitionToMasterRotationCounter = 1;
 
         public Trigger()
         {

@@ -113,6 +113,10 @@ namespace IceBlink2
     public bool hasDownStairShadowW = false;
     */
 
+        public string transitionToMasterDirection = "none";
+        public int numberOfLinkedAreaToTransitionTo = -1;
+        public bool linkedToMasterMap = false;
+
         public int heightLevel = 0;
         public bool isRamp = false;
         public bool isEWBridge = false;

@@ -18,6 +18,12 @@ namespace IceBlink2
         //public float skyCoverCloudsChance = 0;
         //public float skyCoverSeveriy
 
+        public int linkedAreasCounter = 0;
+        public string masterOfThisArea = "none";
+        public List<string> linkedAreas = new List<string>();
+        public List<int> linkNumbers = new List<int>();
+        public int linkNumberOfThisArea = -1;
+
         public int averageHeightOnThisMap = 0; 
 
         public bool PlayerIsUnderBridge = false;
@@ -596,10 +602,65 @@ namespace IceBlink2
             
             if (this.Tiles[playerYPosition * this.MapSizeX + playerXPosition].heightLevel != this.Tiles[lastPlayerYPosition * this.MapSizeX + lastPlayerXPosition].heightLevel)
             {
-                //ramp section
-
                 bool allowMove = false;
-                
+
+                //enter transition to link from master section
+                if ((this.Tiles[playerYPosition * this.MapSizeX + playerXPosition].transitionToMasterDirection != "none") && (this.masterOfThisArea == "none"))
+                {
+                    //let us first sort by intended direction of palyer move
+
+                    //stepping toward north square
+                    if (lastPlayerYPosition - 1 == playerYPosition)
+                    {
+                        if (this.Tiles[playerYPosition * this.MapSizeX + playerXPosition].transitionToMasterDirection == "S")
+                        {
+                            if (this.Tiles[lastPlayerYPosition * this.MapSizeX + lastPlayerXPosition].heightLevel + 1 == this.Tiles[playerYPosition * this.MapSizeX + playerXPosition].heightLevel)
+                            {
+                                allowMove = true;
+                            }
+                        }
+                    }
+
+                    //stepping toward south square
+                    if (lastPlayerYPosition + 1 == playerYPosition)
+                    {
+                        if (this.Tiles[playerYPosition * this.MapSizeX + playerXPosition].transitionToMasterDirection == "N")
+                        {
+                            if (this.Tiles[lastPlayerYPosition * this.MapSizeX + lastPlayerXPosition].heightLevel + 1 == this.Tiles[playerYPosition * this.MapSizeX + playerXPosition].heightLevel)
+                            {
+                                allowMove = true;
+                            }
+                        }
+                    }
+
+                    //stepping toward east square
+                    if (lastPlayerXPosition + 1 == playerXPosition)
+                    {
+                        if (this.Tiles[playerYPosition * this.MapSizeX + playerXPosition].transitionToMasterDirection == "W")
+                        {
+                            if (this.Tiles[lastPlayerYPosition * this.MapSizeX + lastPlayerXPosition].heightLevel + 1 == this.Tiles[playerYPosition * this.MapSizeX + playerXPosition].heightLevel)
+                            {
+                                allowMove = true;
+                            }
+                        }
+                    }
+
+                    //stepping toward west square
+                    if (lastPlayerXPosition - 1 == playerXPosition)
+                    {
+                        if (this.Tiles[playerYPosition * this.MapSizeX + playerXPosition].transitionToMasterDirection == "E")
+                        {
+                            if (this.Tiles[lastPlayerYPosition * this.MapSizeX + lastPlayerXPosition].heightLevel + 1 == this.Tiles[playerYPosition * this.MapSizeX + playerXPosition].heightLevel)
+                            {
+                                allowMove = true;
+                            }
+                        }
+                    }
+
+                }
+
+                //ramp section
+                //bool allowMove = false;
                 //player is on ramp and climbs down
                 if ((this.Tiles[lastPlayerYPosition * this.MapSizeX + lastPlayerXPosition].isRamp) && (this.Tiles[playerYPosition * this.MapSizeX + playerXPosition].heightLevel + 1 == this.Tiles[lastPlayerYPosition * this.MapSizeX + lastPlayerXPosition].heightLevel))
                 {

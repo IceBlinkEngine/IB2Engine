@@ -8493,198 +8493,236 @@ namespace IceBlink2
         }
         public void doTrigger()
         {
-            if (gv.realTimeTimerMilliSecondsEllapsed < gv.mod.realTimeTimerLengthInMilliSeconds)
+            bool allowTrigger = true;
+            Trigger trig2 = gv.mod.currentArea.getTriggerByLocation(gv.mod.PlayerLocationX, gv.mod.PlayerLocationY);
+            //to do: different direction checks (when leaving link in diection of master) needed below
+            if ((trig2.isLinkToMaster) && (gv.mod.currentArea.masterOfThisArea == "none"))
             {
-                try
+                if (gv.mod.currentArea.Tiles[gv.mod.PlayerLocationY * gv.mod.currentArea.MapSizeX + gv.mod.PlayerLocationX].transitionToMasterDirection =="N")
                 {
-                    Trigger trig = gv.mod.currentArea.getTriggerByLocation(gv.mod.PlayerLocationX, gv.mod.PlayerLocationY);
-                    if ((trig != null) && (trig.Enabled))
+                    if ((gv.mod.PlayerLastLocationX != gv.mod.PlayerLocationX) || (gv.mod.PlayerLastLocationY+1 != gv.mod.PlayerLocationY))
                     {
-                        blockSecondPropTriggersCall = true;
-                        //iterate through each event                  
-                        //#region Event1 stuff
-                        //check to see if enabled and parm not "none"
-                        /*for (int i = 0; i < 15; i++)
-                        {
-                            gv.Render();
-                        }*/
-                        gv.triggerIndex++;
+                        allowTrigger = false;
+                    }
+                }
+                else if (gv.mod.currentArea.Tiles[gv.mod.PlayerLocationY * gv.mod.currentArea.MapSizeX + gv.mod.PlayerLocationX].transitionToMasterDirection == "S")
+                {
+                    if ((gv.mod.PlayerLastLocationX != gv.mod.PlayerLocationX) || (gv.mod.PlayerLastLocationY -1  != gv.mod.PlayerLocationY))
+                    {
+                        allowTrigger = false;
+                    }
+                }
+                else if (gv.mod.currentArea.Tiles[gv.mod.PlayerLocationY * gv.mod.currentArea.MapSizeX + gv.mod.PlayerLocationX].transitionToMasterDirection == "W")
+                {
+                    if ((gv.mod.PlayerLastLocationY != gv.mod.PlayerLocationY) || (gv.mod.PlayerLastLocationX + 1 != gv.mod.PlayerLocationX))
+                    {
+                        allowTrigger = false;
+                    }
+                }
+                else if (gv.mod.currentArea.Tiles[gv.mod.PlayerLocationY * gv.mod.currentArea.MapSizeX + gv.mod.PlayerLocationX].transitionToMasterDirection == "E")
+                {
+                    if ((gv.mod.PlayerLastLocationY != gv.mod.PlayerLocationY) || (gv.mod.PlayerLastLocationX - 1 != gv.mod.PlayerLocationX))
+                    {
+                        allowTrigger = false;
+                    }
+                }
+            }
 
-                        if ((gv.triggerIndex == 1) && (trig.EnabledEvent1) && (!trig.Event1FilenameOrTag.Equals("none")))
+            if (allowTrigger)
+            {
+                if (gv.realTimeTimerMilliSecondsEllapsed < gv.mod.realTimeTimerLengthInMilliSeconds)
+                {
+                    try
+                    {
+                        Trigger trig = gv.mod.currentArea.getTriggerByLocation(gv.mod.PlayerLocationX, gv.mod.PlayerLocationY);
+                        if ((trig != null) && (trig.Enabled))
                         {
-                            //check to see what type of event
-                            if (trig.Event1Type.Equals("container"))
+                            blockSecondPropTriggersCall = true;
+                            //iterate through each event                  
+                            //#region Event1 stuff
+                            //check to see if enabled and parm not "none"
+                            /*for (int i = 0; i < 15; i++)
                             {
-                                doContainerBasedOnTag(trig.Event1FilenameOrTag);
-                                doTrigger();
-                            }
-                            else if (trig.Event1Type.Equals("transition"))
-                            {
-                                doTransitionBasedOnAreaLocation(trig.Event1FilenameOrTag, trig.Event1TransPointX, trig.Event1TransPointY);
-                            }
-                            else if (trig.Event1Type.Equals("conversation"))
-                            {
-                                if (trig.conversationCannotBeAvoided == true)
-                                {
-                                    doConversationBasedOnTag(trig.Event1FilenameOrTag);
-                                }
-                                else if (gv.mod.avoidInteraction == false)
-                                {
-                                    doConversationBasedOnTag(trig.Event1FilenameOrTag);
-                                }
-                            }
-                            else if (trig.Event1Type.Equals("encounter"))
-                            {
-                                if (!gv.mod.EncounterOfTurnDone)
-                                {
-                                    gv.mod.EncounterOfTurnDone = true;
-                                    doEncounterBasedOnTag(trig.Event1FilenameOrTag);
-                                    //gv.mod.EncounterOfTurnDone = true;
-                                }
-                                //doEncounterBasedOnTag(trig.Event1FilenameOrTag);
-                            }
-                            else if (trig.Event1Type.Equals("script"))
-                            {
-                                doScriptBasedOnFilename(trig.Event1FilenameOrTag, trig.Event1Parm1, trig.Event1Parm2, trig.Event1Parm3, trig.Event1Parm4);
-                                doTrigger();
-                            }
-                            else if (trig.Event1Type.Equals("ibscript"))
-                            {
-                                doIBScriptBasedOnFilename(trig.Event1FilenameOrTag, trig.Event1Parm1);
-                                doTrigger();
-                            }
-                            //do that event
-                            if (trig.DoOnceOnlyEvent1)
-                            {
-                                trig.EnabledEvent1 = false;
-                            }
-                        }
-                        //#endregion
-                        //#region Event2 stuff
-                        //check to see if enabled and parm not "none"
-                        else if ((gv.triggerIndex == 2) && (trig.EnabledEvent2) && (!trig.Event2FilenameOrTag.Equals("none")))
-                        {
-                            //check to see what type of event
-                            if (trig.Event2Type.Equals("container"))
-                            {
-                                doContainerBasedOnTag(trig.Event2FilenameOrTag);
-                                doTrigger();
-                            }
-                            else if (trig.Event2Type.Equals("transition"))
-                            {
-                                doTransitionBasedOnAreaLocation(trig.Event2FilenameOrTag, trig.Event2TransPointX, trig.Event2TransPointY);
-                            }
-                            else if (trig.Event2Type.Equals("conversation"))
-                            {
-                                if (trig.conversationCannotBeAvoided == true)
-                                {
-                                    doConversationBasedOnTag(trig.Event2FilenameOrTag);
-                                }
-                                else if (gv.mod.avoidInteraction == false)
-                                {
-                                    doConversationBasedOnTag(trig.Event2FilenameOrTag);
-                                }
-                            }
-                            else if (trig.Event2Type.Equals("encounter"))
-                            {
-                                if (!gv.mod.EncounterOfTurnDone)
-                                {
-                                    gv.mod.EncounterOfTurnDone = true;
-                                    doEncounterBasedOnTag(trig.Event2FilenameOrTag);
-                                    //gv.mod.EncounterOfTurnDone = true;
-                                }
-                                //doEncounterBasedOnTag(trig.Event2FilenameOrTag);
-                            }
-                            else if (trig.Event2Type.Equals("script"))
-                            {
-                                doScriptBasedOnFilename(trig.Event2FilenameOrTag, trig.Event2Parm1, trig.Event2Parm2, trig.Event2Parm3, trig.Event2Parm4);
-                                doTrigger();
-                            }
-                            else if (trig.Event1Type.Equals("ibscript"))
-                            {
-                                doIBScriptBasedOnFilename(trig.Event2FilenameOrTag, trig.Event2Parm1);
-                                doTrigger();
-                            }
-                            //do that event
-                            if (trig.DoOnceOnlyEvent2)
-                            {
-                                trig.EnabledEvent2 = false;
-                            }
-                        }
-                        //#endregion
-                        //#region Event3 stuff
-                        //check to see if enabled and parm not "none"
-                        else if ((gv.triggerIndex == 3) && (trig.EnabledEvent3) && (!trig.Event3FilenameOrTag.Equals("none")))
-                        {
-                            //check to see what type of event
-                            if (trig.Event3Type.Equals("container"))
-                            {
-                                doContainerBasedOnTag(trig.Event3FilenameOrTag);
-                                doTrigger();
-                            }
-                            else if (trig.Event3Type.Equals("transition"))
-                            {
-                                doTransitionBasedOnAreaLocation(trig.Event3FilenameOrTag, trig.Event3TransPointX, trig.Event3TransPointY);
-                            }
-                            else if (trig.Event3Type.Equals("conversation"))
-                            {
-                                if (trig.conversationCannotBeAvoided == true)
-                                {
-                                    doConversationBasedOnTag(trig.Event3FilenameOrTag);
-                                }
-                                else if (gv.mod.avoidInteraction == false)
-                                {
-                                    doConversationBasedOnTag(trig.Event3FilenameOrTag);
-                                }
-                            }
-                            else if (trig.Event3Type.Equals("encounter"))
-                            {
+                                gv.Render();
+                            }*/
+                            gv.triggerIndex++;
 
-                                if (!gv.mod.EncounterOfTurnDone)
+                            if ((gv.triggerIndex == 1) && (trig.EnabledEvent1) && (!trig.Event1FilenameOrTag.Equals("none")))
+                            {
+                                //check to see what type of event
+                                if (trig.Event1Type.Equals("container"))
                                 {
-                                    gv.mod.EncounterOfTurnDone = true;
-                                    doEncounterBasedOnTag(trig.Event3FilenameOrTag);
-                                    //gv.mod.EncounterOfTurnDone = true;
+                                    doContainerBasedOnTag(trig.Event1FilenameOrTag);
+                                    doTrigger();
                                 }
-                                //doEncounterBasedOnTag(trig.Event3FilenameOrTag);
+                                else if (trig.Event1Type.Equals("transition"))
+                                {
+                                    doTransitionBasedOnAreaLocation(trig.Event1FilenameOrTag, trig.Event1TransPointX, trig.Event1TransPointY);
+                                }
+                                else if (trig.Event1Type.Equals("conversation"))
+                                {
+                                    if (trig.conversationCannotBeAvoided == true)
+                                    {
+                                        doConversationBasedOnTag(trig.Event1FilenameOrTag);
+                                    }
+                                    else if (gv.mod.avoidInteraction == false)
+                                    {
+                                        doConversationBasedOnTag(trig.Event1FilenameOrTag);
+                                    }
+                                }
+                                else if (trig.Event1Type.Equals("encounter"))
+                                {
+                                    if (!gv.mod.EncounterOfTurnDone)
+                                    {
+                                        gv.mod.EncounterOfTurnDone = true;
+                                        doEncounterBasedOnTag(trig.Event1FilenameOrTag);
+                                        //gv.mod.EncounterOfTurnDone = true;
+                                    }
+                                    //doEncounterBasedOnTag(trig.Event1FilenameOrTag);
+                                }
+                                else if (trig.Event1Type.Equals("script"))
+                                {
+                                    doScriptBasedOnFilename(trig.Event1FilenameOrTag, trig.Event1Parm1, trig.Event1Parm2, trig.Event1Parm3, trig.Event1Parm4);
+                                    doTrigger();
+                                }
+                                else if (trig.Event1Type.Equals("ibscript"))
+                                {
+                                    doIBScriptBasedOnFilename(trig.Event1FilenameOrTag, trig.Event1Parm1);
+                                    doTrigger();
+                                }
+                                //do that event
+                                if (trig.DoOnceOnlyEvent1)
+                                {
+                                    trig.EnabledEvent1 = false;
+                                }
                             }
-                            else if (trig.Event3Type.Equals("script"))
+                            //#endregion
+                            //#region Event2 stuff
+                            //check to see if enabled and parm not "none"
+                            else if ((gv.triggerIndex == 2) && (trig.EnabledEvent2) && (!trig.Event2FilenameOrTag.Equals("none")))
                             {
-                                doScriptBasedOnFilename(trig.Event3FilenameOrTag, trig.Event3Parm1, trig.Event3Parm2, trig.Event3Parm3, trig.Event3Parm4);
+                                //check to see what type of event
+                                if (trig.Event2Type.Equals("container"))
+                                {
+                                    doContainerBasedOnTag(trig.Event2FilenameOrTag);
+                                    doTrigger();
+                                }
+                                else if (trig.Event2Type.Equals("transition"))
+                                {
+                                    doTransitionBasedOnAreaLocation(trig.Event2FilenameOrTag, trig.Event2TransPointX, trig.Event2TransPointY);
+                                }
+                                else if (trig.Event2Type.Equals("conversation"))
+                                {
+                                    if (trig.conversationCannotBeAvoided == true)
+                                    {
+                                        doConversationBasedOnTag(trig.Event2FilenameOrTag);
+                                    }
+                                    else if (gv.mod.avoidInteraction == false)
+                                    {
+                                        doConversationBasedOnTag(trig.Event2FilenameOrTag);
+                                    }
+                                }
+                                else if (trig.Event2Type.Equals("encounter"))
+                                {
+                                    if (!gv.mod.EncounterOfTurnDone)
+                                    {
+                                        gv.mod.EncounterOfTurnDone = true;
+                                        doEncounterBasedOnTag(trig.Event2FilenameOrTag);
+                                        //gv.mod.EncounterOfTurnDone = true;
+                                    }
+                                    //doEncounterBasedOnTag(trig.Event2FilenameOrTag);
+                                }
+                                else if (trig.Event2Type.Equals("script"))
+                                {
+                                    doScriptBasedOnFilename(trig.Event2FilenameOrTag, trig.Event2Parm1, trig.Event2Parm2, trig.Event2Parm3, trig.Event2Parm4);
+                                    doTrigger();
+                                }
+                                else if (trig.Event1Type.Equals("ibscript"))
+                                {
+                                    doIBScriptBasedOnFilename(trig.Event2FilenameOrTag, trig.Event2Parm1);
+                                    doTrigger();
+                                }
+                                //do that event
+                                if (trig.DoOnceOnlyEvent2)
+                                {
+                                    trig.EnabledEvent2 = false;
+                                }
+                            }
+                            //#endregion
+                            //#region Event3 stuff
+                            //check to see if enabled and parm not "none"
+                            else if ((gv.triggerIndex == 3) && (trig.EnabledEvent3) && (!trig.Event3FilenameOrTag.Equals("none")))
+                            {
+                                //check to see what type of event
+                                if (trig.Event3Type.Equals("container"))
+                                {
+                                    doContainerBasedOnTag(trig.Event3FilenameOrTag);
+                                    doTrigger();
+                                }
+                                else if (trig.Event3Type.Equals("transition"))
+                                {
+                                    doTransitionBasedOnAreaLocation(trig.Event3FilenameOrTag, trig.Event3TransPointX, trig.Event3TransPointY);
+                                }
+                                else if (trig.Event3Type.Equals("conversation"))
+                                {
+                                    if (trig.conversationCannotBeAvoided == true)
+                                    {
+                                        doConversationBasedOnTag(trig.Event3FilenameOrTag);
+                                    }
+                                    else if (gv.mod.avoidInteraction == false)
+                                    {
+                                        doConversationBasedOnTag(trig.Event3FilenameOrTag);
+                                    }
+                                }
+                                else if (trig.Event3Type.Equals("encounter"))
+                                {
+
+                                    if (!gv.mod.EncounterOfTurnDone)
+                                    {
+                                        gv.mod.EncounterOfTurnDone = true;
+                                        doEncounterBasedOnTag(trig.Event3FilenameOrTag);
+                                        //gv.mod.EncounterOfTurnDone = true;
+                                    }
+                                    //doEncounterBasedOnTag(trig.Event3FilenameOrTag);
+                                }
+                                else if (trig.Event3Type.Equals("script"))
+                                {
+                                    doScriptBasedOnFilename(trig.Event3FilenameOrTag, trig.Event3Parm1, trig.Event3Parm2, trig.Event3Parm3, trig.Event3Parm4);
+                                    doTrigger();
+                                }
+                                else if (trig.Event1Type.Equals("ibscript"))
+                                {
+                                    doIBScriptBasedOnFilename(trig.Event3FilenameOrTag, trig.Event3Parm1);
+                                    doTrigger();
+                                }
+                                //do that event
+                                if (trig.DoOnceOnlyEvent3)
+                                {
+                                    trig.EnabledEvent3 = false;
+                                }
+                            }
+                            else if (gv.triggerIndex < 4)
+                            {
                                 doTrigger();
                             }
-                            else if (trig.Event1Type.Equals("ibscript"))
+                            //#endregion
+                            if (gv.triggerIndex > 3)
                             {
-                                doIBScriptBasedOnFilename(trig.Event3FilenameOrTag, trig.Event3Parm1);
-                                doTrigger();
-                            }
-                            //do that event
-                            if (trig.DoOnceOnlyEvent3)
-                            {
-                                trig.EnabledEvent3 = false;
-                            }
-                        }
-                        else if (gv.triggerIndex < 4)
-                        {
-                            doTrigger();
-                        }
-                        //#endregion
-                        if (gv.triggerIndex > 3)
-                        {
-                            gv.triggerIndex = 0;
-                            if (trig.DoOnceOnly)
-                            {
-                                trig.Enabled = false;
+                                gv.triggerIndex = 0;
+                                if (trig.DoOnceOnly)
+                                {
+                                    trig.Enabled = false;
+                                }
                             }
                         }
                     }
-                }
-                catch (Exception ex)
-                {
-                    if (gv.mod.debugMode)
+                    catch (Exception ex)
                     {
-                        gv.sf.MessageBox("failed to do trigger: " + ex.ToString());
-                        gv.errorLog(ex.ToString());
+                        if (gv.mod.debugMode)
+                        {
+                            gv.sf.MessageBox("failed to do trigger: " + ex.ToString());
+                            gv.errorLog(ex.ToString());
+                        }
                     }
                 }
             }
@@ -9187,25 +9225,43 @@ namespace IceBlink2
                     gv.mod.arrivalSquareY = gv.mod.PlayerLocationY;
                     //TDO: reset light!
                     //gv.mod.currentArea.Filename = areaFilename;
-                    
+
                     //hmmm, is double (see below, must verify later)
                     //if (gv.mod.playMusic)
                     //{
-                        //gv.stopMusic();
-                        //gv.stopAmbient();
+                    //gv.stopMusic();
+                    //gv.stopAmbient();
 
-                        
+
                     //}
 
                     //if (gv.mod.playMusic)
                     //{
-                        //gv.startMusic();
-                        //gv.startAmbient();
+                    //gv.startMusic();
+                    //gv.startAmbient();
                     //}
 
                     //areaMusic.controls.pause();
+                    Area oldMaster = new Area();
+                    oldMaster.Filename = "ignore";
+                    if (gv.mod.currentArea.masterOfThisArea == "none")
+                    {
+                        oldMaster = gv.mod.currentArea;
+                    }
 
                     gv.mod.setCurrentArea(areaFilename, gv);
+
+                    if (gv.mod.currentArea.masterOfThisArea == oldMaster.Filename)
+                    {
+                        for (int i = 0; i <= gv.mod.currentArea.Tiles.Count-1; i++)
+                        {
+                            if (gv.mod.currentArea.Tiles[i].linkedToMasterMap)
+                            {
+                                gv.mod.currentArea.Tiles[i].Visible = oldMaster.Tiles[i].Visible;
+                            }
+                        }
+                    }
+
                     if (gv.mod.playMusic)
                     {
                         gv.startMusic();
