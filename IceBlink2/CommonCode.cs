@@ -711,6 +711,8 @@ namespace IceBlink2
             gv.mod.showTutorialInventory = saveMod.showTutorialInventory;
             //U  "showTutorialParty": true, (use all save)
             gv.mod.showTutorialParty = saveMod.showTutorialParty;
+
+            gv.mod.minutesSinceLastRationConsumed = saveMod.minutesSinceLastRationConsumed;
             //U  "soundVolume": 1.0, (use all save)
             gv.mod.soundVolume = saveMod.soundVolume;
             //U  "startingPlayerPositionX": 4, (use all save)
@@ -8495,38 +8497,45 @@ namespace IceBlink2
         {
             bool allowTrigger = true;
             Trigger trig2 = gv.mod.currentArea.getTriggerByLocation(gv.mod.PlayerLocationX, gv.mod.PlayerLocationY);
-            //to do: different direction checks (when leaving link in diection of master) needed below
-            if ((trig2.isLinkToMaster) && (gv.mod.currentArea.masterOfThisArea == "none"))
+            if ((trig2 != null) && (trig2.Enabled))
             {
-                if (gv.mod.currentArea.Tiles[gv.mod.PlayerLocationY * gv.mod.currentArea.MapSizeX + gv.mod.PlayerLocationX].transitionToMasterDirection =="N")
+                //to do: different direction checks (when leaving link in diection of master) needed below
+                if ((trig2.isLinkToMaster) && (gv.mod.currentArea.masterOfThisArea == "none"))
                 {
-                    if ((gv.mod.PlayerLastLocationX != gv.mod.PlayerLocationX) || (gv.mod.PlayerLastLocationY+1 != gv.mod.PlayerLocationY))
+                    if (gv.mod.currentArea.Tiles[gv.mod.PlayerLocationY * gv.mod.currentArea.MapSizeX + gv.mod.PlayerLocationX].transitionToMasterDirection == "N")
                     {
-                        allowTrigger = false;
+                        if ((gv.mod.PlayerLastLocationX != gv.mod.PlayerLocationX) || (gv.mod.PlayerLastLocationY + 1 != gv.mod.PlayerLocationY))
+                        {
+                            allowTrigger = false;
+                        }
                     }
-                }
-                else if (gv.mod.currentArea.Tiles[gv.mod.PlayerLocationY * gv.mod.currentArea.MapSizeX + gv.mod.PlayerLocationX].transitionToMasterDirection == "S")
-                {
-                    if ((gv.mod.PlayerLastLocationX != gv.mod.PlayerLocationX) || (gv.mod.PlayerLastLocationY -1  != gv.mod.PlayerLocationY))
+                    else if (gv.mod.currentArea.Tiles[gv.mod.PlayerLocationY * gv.mod.currentArea.MapSizeX + gv.mod.PlayerLocationX].transitionToMasterDirection == "S")
                     {
-                        allowTrigger = false;
+                        if ((gv.mod.PlayerLastLocationX != gv.mod.PlayerLocationX) || (gv.mod.PlayerLastLocationY - 1 != gv.mod.PlayerLocationY))
+                        {
+                            allowTrigger = false;
+                        }
                     }
-                }
-                else if (gv.mod.currentArea.Tiles[gv.mod.PlayerLocationY * gv.mod.currentArea.MapSizeX + gv.mod.PlayerLocationX].transitionToMasterDirection == "W")
-                {
-                    if ((gv.mod.PlayerLastLocationY != gv.mod.PlayerLocationY) || (gv.mod.PlayerLastLocationX + 1 != gv.mod.PlayerLocationX))
+                    else if (gv.mod.currentArea.Tiles[gv.mod.PlayerLocationY * gv.mod.currentArea.MapSizeX + gv.mod.PlayerLocationX].transitionToMasterDirection == "W")
                     {
-                        allowTrigger = false;
+                        if ((gv.mod.PlayerLastLocationY != gv.mod.PlayerLocationY) || (gv.mod.PlayerLastLocationX + 1 != gv.mod.PlayerLocationX))
+                        {
+                            allowTrigger = false;
+                        }
                     }
-                }
-                else if (gv.mod.currentArea.Tiles[gv.mod.PlayerLocationY * gv.mod.currentArea.MapSizeX + gv.mod.PlayerLocationX].transitionToMasterDirection == "E")
-                {
-                    if ((gv.mod.PlayerLastLocationY != gv.mod.PlayerLocationY) || (gv.mod.PlayerLastLocationX - 1 != gv.mod.PlayerLocationX))
+                    else if (gv.mod.currentArea.Tiles[gv.mod.PlayerLocationY * gv.mod.currentArea.MapSizeX + gv.mod.PlayerLocationX].transitionToMasterDirection == "E")
                     {
-                        allowTrigger = false;
+                        if ((gv.mod.PlayerLastLocationY != gv.mod.PlayerLocationY) || (gv.mod.PlayerLastLocationX - 1 != gv.mod.PlayerLocationX))
+                        {
+                            allowTrigger = false;
+                        }
                     }
                 }
             }
+            //else
+            //{
+                //allowTrigger = false;
+            //}
 
             if (allowTrigger)
             {
@@ -10619,6 +10628,18 @@ namespace IceBlink2
                 else if ((s == "font color='yellow'") || (s == "font color = 'yellow'"))
                 {
                     clr = SharpDX.Color.Yellow;
+                }
+                else if ((s == "font color='magenta'") || (s == "font color = 'magenta'"))
+                {
+                    clr = SharpDX.Color.Magenta;
+                }
+                else if ((s == "font color='green'") || (s == "font color = 'mgreen'"))
+                {
+                    clr = SharpDX.Color.Green;
+                }
+                else if ((s == "font color='gray'") || (s == "font color = 'gray'"))
+                {
+                    clr = SharpDX.Color.Gray;
                 }
             }
             return clr;
