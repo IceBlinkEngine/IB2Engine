@@ -5443,7 +5443,7 @@ public void drawEffectSquares()
         }
         public void drawCombatPlayers()
 	    {
-		    Player p = mod.playerList[currentPlayerIndex];
+            Player p = mod.playerList[currentPlayerIndex];
             if (IsInVisibleCombatWindow(p.combatLocX, p.combatLocY))
             {
                 IbRect src = new IbRect(0, 0, gv.cc.turn_marker.PixelSize.Width, gv.cc.turn_marker.PixelSize.Width);
@@ -5478,14 +5478,17 @@ public void drawEffectSquares()
                     IbRect dst = new IbRect(getPixelLocX(pc.combatLocX), getPixelLocY(pc.combatLocY), gv.squareSize, gv.squareSize);
                     gv.DrawBitmap(pc.token, src, dst, !pc.combatFacingLeft);
                     src = new IbRect(0, 0, pc.token.PixelSize.Width, pc.token.PixelSize.Width);
-                    foreach (Effect ef in pc.effectsList)
+                    if (!animationsOn)
                     {
-                        if ((!ef.isPermanent) && (ef.spriteFilename != "none") && (ef.spriteFilename != ""))
+                        foreach (Effect ef in pc.effectsList)
                         {
-                            Bitmap fx = gv.cc.LoadBitmap(ef.spriteFilename);
-                            src = new IbRect(0, 0, fx.PixelSize.Width, fx.PixelSize.Width);
-                            gv.DrawBitmap(fx, src, dst);
-                            gv.cc.DisposeOfBitmap(ref fx);
+                            if ((!ef.isPermanent) && (ef.spriteFilename != "none") && (ef.spriteFilename != ""))
+                            {
+                                Bitmap fx = gv.cc.LoadBitmap(ef.spriteFilename);
+                                src = new IbRect(0, 0, fx.PixelSize.Width, fx.PixelSize.Width);
+                                gv.DrawBitmap(fx, src, dst);
+                                gv.cc.DisposeOfBitmap(ref fx);
+                            }
                         }
                     }
                     if ((pc.isDead()) || (pc.isUnconcious()))
@@ -5879,12 +5882,15 @@ public void drawEffectSquares()
                     //gv.cc.addLogText("lime", "attack animation frame counter is:" + attackAnimationFrameCounter.ToString());
                 }
                 gv.DrawBitmap(crt.token, src, dst, !crt.combatFacingLeft);
-			    foreach (Effect ef in crt.cr_effectsList)
-			    {
-				    Bitmap fx = gv.cc.LoadBitmap(ef.spriteFilename);
-                    src = new IbRectF(0, 0, fx.PixelSize.Width, fx.PixelSize.Width);
+                if (!animationsOn)
+                {
+                    foreach (Effect ef in crt.cr_effectsList)
+                    {
+                        Bitmap fx = gv.cc.LoadBitmap(ef.spriteFilename);
+                        src = new IbRectF(0, 0, fx.PixelSize.Width, fx.PixelSize.Width);
                         gv.DrawBitmap(fx, src, dst);
-                    gv.cc.DisposeOfBitmap(ref fx);
+                        gv.cc.DisposeOfBitmap(ref fx);
+                    }
                 }
                 //CREATURE FACING
                 src = new IbRectF(0, 0, gv.cc.facing1.PixelSize.Width, gv.cc.facing1.PixelSize.Height);
@@ -6005,12 +6011,15 @@ public void drawEffectSquares()
                 //}
 
                 gv.DrawBitmap(crt.token, src, dst, !crt.combatFacingLeft);
-                foreach (Effect ef in crt.cr_effectsList)
+                if (!animationsOn)
                 {
-                    Bitmap fx = gv.cc.LoadBitmap(ef.spriteFilename);
-                    src = new IbRect(0, 0, fx.PixelSize.Width, fx.PixelSize.Width);
-                    gv.DrawBitmap(fx, src, dst);
-                    gv.cc.DisposeOfBitmap(ref fx);
+                    foreach (Effect ef in crt.cr_effectsList)
+                    {
+                        Bitmap fx = gv.cc.LoadBitmap(ef.spriteFilename);
+                        src = new IbRect(0, 0, fx.PixelSize.Width, fx.PixelSize.Width);
+                        gv.DrawBitmap(fx, src, dst);
+                        gv.cc.DisposeOfBitmap(ref fx);
+                    }
                 }
                 //CREATURE FACING
                 src = new IbRect(0, 0, gv.cc.facing1.PixelSize.Width, gv.cc.facing1.PixelSize.Height);

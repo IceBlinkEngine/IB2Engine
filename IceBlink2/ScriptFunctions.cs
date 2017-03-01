@@ -1455,6 +1455,9 @@ namespace IceBlink2
                         newMO.PcOrCreature = copy;
                         newMO.rank = 100;
                         gv.screenCombat.moveOrderList.Add(newMO);
+                        //increment the number of initial move order objects
+                        //note: check how ini bar system will interact with creatures added while battle is running  
+                        gv.screenCombat.initialMoveOrderListSize++;
                         //add to encounter xp  
                         gv.screenCombat.encounterXP += copy.cr_XP;
 
