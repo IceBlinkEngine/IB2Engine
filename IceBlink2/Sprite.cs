@@ -159,7 +159,11 @@ namespace IceBlink2
             {
                 numberOfFrames = this.numberOFFramesForAnimationsMadeFromSeveralBitmaps;
             }
-
+            //note: wonder whether this works with changes in IB2...
+            if (numberOfFrames == 0)
+            {
+                numberOfFrames = 1;
+            }
             if (numberOFFramesForAnimationsMadeFromSeveralBitmaps == 0)
             {
                 int x = totalElapsedTime % (numberOfFrames * millisecondsPerFrame);
