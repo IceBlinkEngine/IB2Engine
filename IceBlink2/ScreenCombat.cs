@@ -12249,34 +12249,71 @@ public void drawEffectSquares()
 
             float resist = 0;
 
-            if (mod.getItemByResRefForInfo(pc.MainHandRefs.resref).typeOfDamage.Equals("Acid"))
+            if ((mod.getItemByResRefForInfo(pc.MainHandRefs.resref).category.Equals("Melee"))
+                     || (pc.MainHandRefs.name.Equals("none"))
+                     || (mod.getItemByResRefForInfo(pc.AmmoRefs.resref).name.Equals("none")))
             {
-                resist = (float)(1f - ((float)crt.damageTypeResistanceValueAcid / 100f));
+
+                if (mod.getItemByResRefForInfo(pc.MainHandRefs.resref).typeOfDamage.Equals("Acid"))
+                {
+                    resist = (float)(1f - ((float)crt.damageTypeResistanceValueAcid / 100f));
+                }
+                else if (mod.getItemByResRefForInfo(pc.MainHandRefs.resref).typeOfDamage.Equals("Normal"))
+                {
+                    resist = (float)(1f - ((float)crt.damageTypeResistanceValueNormal / 100f));
+                }
+                else if (mod.getItemByResRefForInfo(pc.MainHandRefs.resref).typeOfDamage.Equals("Cold"))
+                {
+                    resist = (float)(1f - ((float)crt.damageTypeResistanceValueCold / 100f));
+                }
+                else if (mod.getItemByResRefForInfo(pc.MainHandRefs.resref).typeOfDamage.Equals("Electricity"))
+                {
+                    resist = (float)(1f - ((float)crt.damageTypeResistanceValueElectricity / 100f));
+                }
+                else if (mod.getItemByResRefForInfo(pc.MainHandRefs.resref).typeOfDamage.Equals("Fire"))
+                {
+                    resist = (float)(1f - ((float)crt.damageTypeResistanceValueFire / 100f));
+                }
+                else if (mod.getItemByResRefForInfo(pc.MainHandRefs.resref).typeOfDamage.Equals("Magic"))
+                {
+                    resist = (float)(1f - ((float)crt.damageTypeResistanceValueMagic / 100f));
+                }
+                else if (mod.getItemByResRefForInfo(pc.MainHandRefs.resref).typeOfDamage.Equals("Poison"))
+                {
+                    resist = (float)(1f - ((float)crt.damageTypeResistanceValuePoison / 100f));
+                }
             }
-            else if (mod.getItemByResRefForInfo(pc.MainHandRefs.resref).typeOfDamage.Equals("Normal"))
+            else //ranged weapon so use ammo mods  
             {
-                resist = (float)(1f - ((float)crt.damageTypeResistanceValueNormal / 100f));
+                if (mod.getItemByResRefForInfo(pc.AmmoRefs.resref).typeOfDamage.Equals("Acid"))
+                {
+                    resist = (float)(1f - ((float)crt.damageTypeResistanceValueAcid / 100f));
+                }
+                else if (mod.getItemByResRefForInfo(pc.AmmoRefs.resref).typeOfDamage.Equals("Normal"))
+                {
+                    resist = (float)(1f - ((float)crt.damageTypeResistanceValueNormal / 100f));
+                }
+                else if (mod.getItemByResRefForInfo(pc.AmmoRefs.resref).typeOfDamage.Equals("Cold"))
+                {
+                    resist = (float)(1f - ((float)crt.damageTypeResistanceValueCold / 100f));
+                }
+                else if (mod.getItemByResRefForInfo(pc.AmmoRefs.resref).typeOfDamage.Equals("Electricity"))
+                {
+                    resist = (float)(1f - ((float)crt.damageTypeResistanceValueElectricity / 100f));
+                }
+                else if (mod.getItemByResRefForInfo(pc.AmmoRefs.resref).typeOfDamage.Equals("Fire"))
+                {
+                    resist = (float)(1f - ((float)crt.damageTypeResistanceValueFire / 100f));
+                }
+                else if (mod.getItemByResRefForInfo(pc.AmmoRefs.resref).typeOfDamage.Equals("Magic"))
+                {
+                    resist = (float)(1f - ((float)crt.damageTypeResistanceValueMagic / 100f));
+                }
+                else if (mod.getItemByResRefForInfo(pc.AmmoRefs.resref).typeOfDamage.Equals("Poison"))
+                {
+                    resist = (float)(1f - ((float)crt.damageTypeResistanceValuePoison / 100f));
+                }
             }
-            else if (mod.getItemByResRefForInfo(pc.MainHandRefs.resref).typeOfDamage.Equals("Cold"))
-            {
-                resist = (float)(1f - ((float)crt.damageTypeResistanceValueCold / 100f));
-            }
-            else if (mod.getItemByResRefForInfo(pc.MainHandRefs.resref).typeOfDamage.Equals("Electricity"))
-            {
-                resist = (float)(1f - ((float)crt.damageTypeResistanceValueElectricity / 100f));
-            }
-            else if (mod.getItemByResRefForInfo(pc.MainHandRefs.resref).typeOfDamage.Equals("Fire"))
-            {
-                resist = (float)(1f - ((float)crt.damageTypeResistanceValueFire / 100f));
-            }
-            else if (mod.getItemByResRefForInfo(pc.MainHandRefs.resref).typeOfDamage.Equals("Magic"))
-            {
-                resist = (float)(1f - ((float)crt.damageTypeResistanceValueMagic / 100f));
-            }
-            else if (mod.getItemByResRefForInfo(pc.MainHandRefs.resref).typeOfDamage.Equals("Poison"))
-            {
-                resist = (float)(1f - ((float)crt.damageTypeResistanceValuePoison / 100f));
-            }        
 
             int totalDam = (int)(damage * resist);
             if (totalDam < 0)
