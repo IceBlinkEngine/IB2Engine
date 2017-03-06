@@ -15,6 +15,7 @@ namespace IceBlink2
     {
 	    public Module mod;
 	    public GameView gv;
+        public List<string> alreadyTargetedCreatureTagsList = new List<string>();
         public int upperLeftInFastForwardX = -100;
         public int upperLeftInFastForwardY = -100;
         public int maxUsableCounterValue = 0;
@@ -93,7 +94,8 @@ namespace IceBlink2
         //COMBAT STUFF
         public bool adjustCamToRangedCreature = false;
 	    private bool isPlayerTurn = true;
-	    public bool canMove = true;
+        private bool dontEndTurn = false;
+        public bool canMove = true;
 	    public int currentPlayerIndex = 0;
         public int creatureIndex = 0;
         public int currentMoveOrderIndex = 0;
@@ -737,6 +739,12 @@ namespace IceBlink2
             //redraw screen
             //KArl
             //gv.Render();
+
+            foreach (Player p in mod.playerList)
+            {
+               gv.sf.UpdateStats(p);
+            }
+
             if (currentMoveOrderIndex >= initialMoveOrderListSize)
             {
                 //hit the end so start the next round
@@ -877,6 +885,17 @@ namespace IceBlink2
             foreach (Player pc in mod.playerList)
             {
                 RunAllItemCombatRegenerations(pc);
+                int regenSP = gv.sf.CalcPcSpRegenInCombat(pc);
+                if (regenSP > 0)
+                {
+                    doRegenSp(pc, regenSP);
+                }
+                int regenHP = gv.sf.CalcPcHpRegenInCombat(pc);
+                if (regenHP > 0)
+                {
+                    doRegenHp(pc, regenHP);
+                }
+
             }
             applyEffectsFromSquares();
             //applyEffectsCombat();
@@ -1283,15 +1302,13 @@ namespace IceBlink2
                 if (itr != null)
                 {
                     //decrement by one
-                    itr.quantity--;
-                    if (gv.sf.hasTrait(pc, "rapidshot"))
+                    int numOfAtt = gv.sf.CalcNumberOfRangedAttacks(pc);
+                    if (numOfAtt > 0)
                     {
-                        itr.quantity--;
+                        //itr.quantity--;
+                        itr.quantity -= numOfAtt;
                     }
-                    if (gv.sf.hasTrait(pc, "rapidshot2"))
-                    {
-                        itr.quantity--;
-                    }
+
                     //if equal to zero, remove from party inventory and from all PCs ammo slot
                     if (itr.quantity < 1)
                     {
@@ -1403,62 +1420,85 @@ namespace IceBlink2
                             int numAtt = 1;
                             int crtLocX = crt.combatLocX;
                             int crtLocY = crt.combatLocY;
-                            
-                                                        if ((gv.sf.hasTrait(pc, "twoAttack")) && (mod.getItemByResRefForInfo(pc.MainHandRefs.resref).category.Equals("Melee")))
-                                                            {
-                                 numAtt = 2;
-                                                            }
-                                                        if ((gv.sf.hasTrait(pc, "rapidshot")) && (mod.getItemByResRefForInfo(pc.MainHandRefs.resref).category.Equals("Ranged")))
 
+                            //if ((gv.sf.hasTrait(pc, "twoAttack")) && (mod.getItemByResRefForInfo(pc.MainHandRefs.resref).category.Equals("Melee")))
+                            numAtt = gv.sf.CalcNumberOfAttacks(pc);
+                            if (numAtt < 1)
+                            {
+                                numAtt = 2;
+                            }
+                            //if ((gv.sf.hasTrait(pc, "rapidshot")) && (mod.getItemByResRefForInfo(pc.MainHandRefs.resref).category.Equals("Ranged")))
+
+                            //reset the already targeted creatures list  
+                            alreadyTargetedCreatureTagsList.Clear();
+                            int numSweep = gv.sf.CalcNumberOfSweepAttackTargets(pc);
+                            //do sweep attacks if any                          
+                            if ((numSweep > 0) && (gv.sf.isMeleeAttack(pc)))
 
                             //if ((gv.sf.hasTrait(pc, "cleave")) && (mod.getItemByResRefForInfo(pc.MainHandRefs.resref).category.Equals("Melee")))
                             {
-                                numAtt = 2;
-                                                            }
-                                                        if ((gv.sf.hasTrait(pc, "rapidshot2")) && (mod.getItemByResRefForInfo(pc.MainHandRefs.resref).category.Equals("Ranged")))
-                                                            {
-                                 numAtt = 3;
-                                                            }
-                                                        for (int i = 0; i < numAtt; i++)
-                                                            {
-                                                                if ((gv.sf.hasTrait(pc, "cleave")) && (mod.getItemByResRefForInfo(pc.MainHandRefs.resref).category.Equals("Melee")))
-                                                                    {
-                                     attResult = doActualCombatAttack(pc, crt, i);
-                                                                        if (attResult == 2) //2=killed, 1=hit, 0=missed  
-                                                                            {
-                                         Creature crt2 = GetNextAdjacentCreature(pc);
-                                                                                if (crt2 != null)
-                                                                                    {
-                                             crtLocX = crt2.combatLocX;
-                                             crtLocY = crt2.combatLocY;
-                                             gv.cc.addFloatyText(new Coordinate(pc.combatLocX, pc.combatLocY), "cleave", "green");
-                                             attResult = doActualCombatAttack(pc, crt2, i);
-                                                                                    }
-                                                                                break; //do not try and attack same creature that was just killed  
-                                                                            }
-                                                                    }
-                                                                else  
-
-                                //attResult = doActualCombatAttack(pc, crt, i);
-                                //if (attResult == 2) //2=killed, 1=hit, 0=missed
+                                attResult = doActualCombatAttack(pc, crt, 0);
+                                for (int j = 1; j < numSweep; j++)
                                 {
-                                    //Creature crt2 = GetNextAdjacentCreature(pc);
-                                    //if (crt2 != null)
-                                    attResult = doActualCombatAttack(pc, crt, i);
-                                    if (attResult == 2) //2=killed, 1=hit, 0=missed  
-
+                                    Creature crt2 = GetNextAdjacentCreature(pc);
+                                    if (crt2 != null)
                                     {
-                                        //crtLocX = crt2.combatLocX;
-                                        //crtLocY = crt2.combatLocY;
-                                        //gv.cc.addFloatyText(new Coordinate(pc.combatLocX, pc.combatLocY), "cleave", "green");
-                                        //attResult = doActualCombatAttack(pc, crt2, i);
-                                        break; //do not try and attack same creature that was just killed
-                                    }
-                                    //break; //do not try and attack same creature that was just killed
+                                        crtLocX = crt2.combatLocX;
+                                        crtLocY = crt2.combatLocY;
+                                        gv.cc.addFloatyText(new Coordinate(pc.combatLocX, pc.combatLocY), "sweep", "green");
+                                        int attResult2 = doActualCombatAttack(pc, crt2, 0);
+                                     }
                                 }
                             }
-                                                        if (attResult > 0) //2=killed, 1=hit, 0=missed  
-                                                            {
+
+                            //for (int i = 0; i < numAtt; i++)
+                            else //do multiple attack and cleave attack 
+                            {
+                                //if ((gv.sf.hasTrait(pc, "cleave")) && (mod.getItemByResRefForInfo(pc.MainHandRefs.resref).category.Equals("Melee")))
+                                int numCleave = gv.sf.CalcNumberOfCleaveAttackTargets(pc);
+                                for (int i = 0; i < numAtt; i++)
+                                {
+                                    //do cleave attacks if any                          
+                                    if ((numCleave > 0) && (gv.sf.isMeleeAttack(pc)))
+                                    {
+                                        attResult = doActualCombatAttack(pc, crt, i);
+                                        if (attResult == 2) //2=killed, 1=hit, 0=missed  
+                                        {
+                                            for (int j = 0; j < numCleave; j++)
+                                            {
+                                                Creature crt2 = GetNextAdjacentCreature(pc);
+                                                if (crt2 != null)
+                                                {
+                                                    crtLocX = crt2.combatLocX;
+                                                    crtLocY = crt2.combatLocY;
+                                                    gv.cc.addFloatyText(new Coordinate(pc.combatLocX, pc.combatLocY), "cleave", "green");
+                                                    int attResult2 = doActualCombatAttack(pc, crt2, i);
+                                                    if (attResult2 != 2)
+                                                    {
+                                                        //didn't kill this creature so stop with the cleaves  
+                                                        break;
+                                                     }
+                                                 }
+                                             }
+                                         break; //do not try and attack same creature that was just killed  
+
+                                        }
+                                       
+                                     }
+
+
+                                    else
+                                    {
+                                        attResult = doActualCombatAttack(pc, crt, i);
+                                        if (attResult == 2) //2=killed, 1=hit, 0=missed  
+                                        {
+                                            break; //do not try and attack same creature that was just killed  
+                                        }
+                                    }
+                                }
+                            }
+                            if (attResult > 0) //2=killed, 1=hit, 0=missed  
+                            {
                                  hitAnimationLocation = new Coordinate(getPixelLocX(crtLocX), getPixelLocY(crtLocY));
                                                                 //new system  
                                  AnimationStackGroup newGroup = new AnimationStackGroup();
@@ -1480,6 +1520,7 @@ namespace IceBlink2
                 }
             }
         }
+
         public int doActualCombatAttack(Player pc, Creature crt, int attackNumber)
         {
             //always decrement ammo by one whether a hit or miss
@@ -3473,16 +3514,29 @@ namespace IceBlink2
                             checkEndEncounter();
                             gv.touchEnabled = true;
                             animationState = AnimationState.None;
-                            endPcTurn(true);
+                            //endPcTurn(true);
+                            if (dontEndTurn)
+                            {
+                                //don't end turn just yet..probably called from a trait that is meant to be used right away like Power Attack or Set Trap  
+                                dontEndTurn = false;
+                                currentCombatMode = "move";
+                                //update all player stats in case their was a recently added spell or trait effect that would change them  
+                                foreach (Player p in mod.playerList)
+                                {
+                                    gv.sf.UpdateStats(p);
+                                }
+                             }
+                             else  
+                             {
+                                endPcTurn(true);
+                             }
                         }
                         else
                         {
                             animationState = AnimationState.None;
                             endCreatureTurn(gv.mod.currentEncounter.encounterCreatureList[idx]);
                         }
-  
                     }
-                    
                 }
                 if ((gv.mod.useManualCombatCam) && (animationSeqStack.Count == 0))
                 {
@@ -11201,6 +11255,11 @@ public void drawEffectSquares()
                     addDeathAnimation(newGroup, new Coordinate(getPixelLocX(coor.X), getPixelLocY(coor.Y)));
                 }
                 animationsOn = true;
+                //if this is a trait that is meant to not consume a turn then set the flag 
+                if (!gv.cc.currentSelectedSpell.usesTurnToActivate)
+                {
+                    dontEndTurn = true;
+                }
             }
         }
         public void launchProjectile(string filename, int startX, int startY, int endX, int endY, AnimationStackGroup group)
@@ -12079,12 +12138,12 @@ public void drawEffectSquares()
         {
             int modifier = 0;
             int situationalModifier = 0;
-            if ((mod.getItemByResRefForInfo(pc.MainHandRefs.resref).category.Equals("Melee")) 
-        		    || (mod.getItemByResRefForInfo(pc.MainHandRefs.resref).name.Equals("none"))
-        		    || (mod.getItemByResRefForInfo(pc.AmmoRefs.resref).name.Equals("none")))
+
+            if (gv.sf.isMeleeAttack(pc))
             {
-                modifier = (pc.strength - 10) / 2;
+                modifier = gv.sf.CalcPcMeleeAttackAttributeModifier(pc);
                 //if has critical strike trait use dexterity for attack modifier in melee if greater than strength modifier
+                /*
                 if (pc.knownTraitsTags.Contains("criticalstrike"))
 			    {
             	    int modifierDex = (pc.dexterity - 10) / 2;
@@ -12093,6 +12152,7 @@ public void drawEffectSquares()
             		    modifier = (pc.dexterity - 10) / 2;
             	    }
 			    }
+                */
                 //if doing sneak attack, bonus to hit roll
                 if (pc.steathModeOn)
                 {
@@ -12130,11 +12190,12 @@ public void drawEffectSquares()
                 //factor in penalty for adjacent enemies when using ranged weapon
                 if (isAdjacentEnemy(pc))
                 {
-            	    if (gv.sf.hasTrait(pc, "pointblankshot"))
-            	    {
-            		    //has point blank shot trait, no penalty
-            	    }
-            	    else
+                    //if (gv.sf.hasTrait(pc, "pointblankshot"))
+                    if (gv.sf.canNegateAdjacentAttackPenalty(pc))
+                    {
+                        //can ignore attack penalty due to PC having a pointblankshot type of trait or effect 
+                    }
+                    else
             	    {
 	            	    modifier -= 4;
                         situationalModifier -= 4;
@@ -12143,16 +12204,27 @@ public void drawEffectSquares()
 	            	    //gv.cc.addFloatyText(new Coordinate(pc.combatLocX, pc.combatLocY), "-4 att", "yellow");
             	    }
                 }
-                if (gv.sf.hasTrait(pc, "preciseshot2"))
+                //if (gv.sf.hasTrait(pc, "preciseshot2"))
+                int preciseShotAdder = 0;
+                preciseShotAdder = gv.sf.CalcPcRangedAttackModifier(pc);
+                if (preciseShotAdder > 0)
+                {
+                    modifier += preciseShotAdder;
+                    gv.cc.addLogText("<font color='lime'> Bonus: +" + preciseShotAdder + "to hit</font><BR>");
+                }
+                else
         	    {
-        		    modifier += 2;
-        		    gv.cc.addLogText("<font color='lime'> PreciseShotL2: +2 to hit</font><BR>");
-        	    }
-                else if (gv.sf.hasTrait(pc, "preciseshot"))
-        	    {
-            	    modifier++;
-            	    gv.cc.addLogText("<font color='lime'> PreciseShotL1: +1 to hit</font><BR>");
-        	    }
+                    if (gv.sf.hasTrait(pc, "preciseshot2"))
+                    {
+                        modifier += 2;
+                        gv.cc.addLogText("<font color='lime'> PreciseShotL2: +2 to hit</font><BR>");
+                    }
+                   else if (gv.sf.hasTrait(pc, "preciseshot"))
+                  { 
+                        modifier++;
+                        gv.cc.addLogText("<font color='lime'> PreciseShotL1: +1 to hit</font><BR>");
+                  }
+                }
             }
 
             if (gv.sf.hasTrait(pc, "hardtokill"))
@@ -12194,10 +12266,13 @@ public void drawEffectSquares()
             int damModifier = 0;
             int adder = 0;
             bool melee = false;
+            /*
             if ((mod.getItemByResRefForInfo(pc.MainHandRefs.resref).category.Equals("Melee")) 
         		    || (pc.MainHandRefs.name.Equals("none"))
         		    || (mod.getItemByResRefForInfo(pc.AmmoRefs.resref).name.Equals("none")))
-            {
+             */
+                if (gv.sf.isMeleeAttack(pc))
+                {
         	    melee = true;
         	    damModifier = (pc.strength - 10) / 2;
         	    //if has critical strike trait use dexterity for damage modifier in melee if greater than strength modifier
@@ -12321,8 +12396,9 @@ public void drawEffectSquares()
                 totalDam = 0;
             }
             //if doing sneak attack, does extra damage
-            if ((pc.steathModeOn) && (melee) && (IsAttackFromBehind(pc,crt)))
-            {
+            //if ((pc.steathModeOn) && (melee) && (IsAttackFromBehind(pc,crt)))
+            if ((pc.steathModeOn) && (gv.sf.isMeleeAttack(pc)) && (IsAttackFromBehind(pc, crt)))
+                {
 	            if (pc.knownTraitsTags.Contains("sneakattack"))
 			    {
 	        	    //+1d6 for every 2 levels after level 1
@@ -12348,10 +12424,8 @@ public void drawEffectSquares()
 		    {
                 if (isAdjacentPc(crt))
                 {
-                    gv.cc.addLogText("<font color='yellow'>" + "-4 ranged attack penalty" + "</font>" +
-                            "<BR>");
-                    gv.cc.addLogText("<font color='yellow'>" + "with enemies in melee range" + "</font>" +
-                            "<BR>");
+                    gv.cc.addLogText("<font color='yellow'> -4 ranged attack penalty </font><BR>");
+                    gv.cc.addLogText("<font color='yellow'>with enemies in melee range</font><BR>");
                     gv.cc.addFloatyText(new Coordinate(crt.combatLocX, crt.combatLocY), "-4 att", "yellow");
                     return crt.cr_att - 4;
                 }
@@ -12713,9 +12787,16 @@ public void drawEffectSquares()
         {
             foreach (Creature nextCrt in mod.currentEncounter.encounterCreatureList)
             {
+                if (alreadyTargetedCreatureTagsList.Contains(nextCrt.cr_tag))
+                {
+                    //already targeted this creature once so skip  
+                    continue;
+                }
+
                 //if ((CalcDistance(nextCrt.combatLocX, nextCrt.combatLocY, pc.combatLocX, pc.combatLocY) < 2) && (nextCrt.hp > 0))
                 if ((CalcDistance(nextCrt, nextCrt.combatLocX, nextCrt.combatLocY, pc.combatLocX, pc.combatLocY) < 2) && (nextCrt.hp > 0))
                 {
+                    alreadyTargetedCreatureTagsList.Add(nextCrt.cr_tag);
                     return nextCrt;
                 }
             }

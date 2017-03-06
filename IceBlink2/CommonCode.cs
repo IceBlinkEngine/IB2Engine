@@ -152,6 +152,8 @@ namespace IceBlink2
         public Dictionary<string, System.Drawing.Bitmap> tileGDIBitmapList = new Dictionary<string, System.Drawing.Bitmap>();
 
         public Spell currentSelectedSpell = new Spell();
+        //for now I am not completely revamping the existing implementation and trying to work in the existing framework
+        //public Trait currentSelectedTrait = new Trait();
         public string floatyText = "";
         public string floatyText2 = "";
         public string floatyText3 = "";

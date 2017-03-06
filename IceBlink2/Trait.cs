@@ -22,6 +22,7 @@ namespace IceBlink2
 	    public string skillModifierAttribute = "str";
 	    public string useableInSituation = "Always"; //InCombat, OutOfCombat, Always, Passive
         public string associatedSpellTag = "none";
+        //note: uses turn to activate is defined on spell level
 	    public string spriteFilename = "none";
 	    public string spriteEndingFilename = "none";
 	    public int costSP = 10;	

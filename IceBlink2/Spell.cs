@@ -36,6 +36,7 @@ namespace IceBlink2
         public List<EffectTagForDropDownList> removeEffectTagList = new List<EffectTagForDropDownList>();
         public List<LocalImmunityString> traitWorksOnlyWhen = new List<LocalImmunityString>();
         public List<LocalImmunityString> traitWorksNeverWhen = new List<LocalImmunityString>();
+        public bool usesTurnToActivate = true;
 
         //Not yet implemented the one below
         string additionalCustomLogTextOnCast = "";
@@ -48,6 +49,7 @@ namespace IceBlink2
 	    public Spell DeepCopy()
 	    {
 		    Spell copy = new Spell();
+            copy.usesTurnToActivate = this.usesTurnToActivate;
 		    copy.name = this.name;
 		    copy.tag = this.tag;
 		    copy.spellImage = this.spellImage;

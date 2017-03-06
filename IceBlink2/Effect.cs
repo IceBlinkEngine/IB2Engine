@@ -23,6 +23,10 @@ namespace IceBlink2
         public int currentDurationInUnits = 0;
 	    public int startingTimeInUnits = 0;
 	    public int babModifier = 0; //for Creatures modifies cr_att, for PCs modifies baseAttBonus
+        public int babModifierForRangedAttack = 0;  
+        public int damageModifierForMeleeAttack = 0;  
+        public int damageModifierForRangedAttack = 0;
+
         public int acModifier = 0;
         public bool isStackableEffect = false;
 	    public bool isStackableDuration = false;
@@ -67,6 +71,7 @@ namespace IceBlink2
 
         //HEAL (hp)
         public bool doHeal = false;
+        public bool healHP = true; //if true, heals HP. If false, heals SP
         public string healType = "Organic"; //Organic (living things), NonOrganic (robots, constructs)
         //(for reference) HealActions: AdB+C for every D levels after level E up to F levels total
         public int healNumOfDice = 0; //(A)how many dice to roll
@@ -96,6 +101,9 @@ namespace IceBlink2
         public int modifyHpMax = 0;
         public int modifySpMax = 0;
         public int modifySp = 0;
+        public int modifyHpInCombat = 0;  
+        public int modifySpInCombat = 0;
+
         public int modifyDamageTypeResistanceAcid = 0;
         public int modifyDamageTypeResistanceCold = 0;
         public int modifyDamageTypeResistanceNormal = 0;
@@ -105,6 +113,14 @@ namespace IceBlink2
         public int modifyDamageTypeResistancePoison = 0;
         public int modifyNumberOfMeleeAttacks = 0;
         public int modifyNumberOfRangedAttacks = 0;
+
+        public int modifyNumberOfEnemiesAttackedOnCleave = 0; //(melee only) cleave attacks are only made if previous attacked enemy goes down.  
+        public int modifyNumberOfEnemiesAttackedOnSweepAttack = 0; //(melee only) sweep attack simultaneously attacks multiple enemies in range  
+        public bool useDexterityForMeleeAttackModifierIfGreaterThanStrength = false;  
+        public bool useDexterityForMeleeDamageModifierIfGreaterThanStrength = false;  
+        public bool negateAttackPenaltyForAdjacentEnemyWithRangedAttack = false;  
+        public bool useEvasion = false; // 
+
         public List<LocalImmunityString> traitWorksOnlyWhen = new List<LocalImmunityString>();
         public List<LocalImmunityString> traitWorksNeverWhen = new List<LocalImmunityString>();
 
@@ -126,7 +142,11 @@ namespace IceBlink2
 		    copy.startingTimeInUnits = this.startingTimeInUnits;
 		    copy.babModifier = this.babModifier;
 		    copy.acModifier = this.acModifier;
-		    copy.isStackableEffect = this.isStackableEffect;
+            copy.babModifierForRangedAttack = this.babModifierForRangedAttack;
+            copy.damageModifierForMeleeAttack = this.damageModifierForMeleeAttack;
+            copy.damageModifierForRangedAttack = this.damageModifierForRangedAttack;
+
+            copy.isStackableEffect = this.isStackableEffect;
 		    copy.isStackableDuration = this.isStackableDuration;
 		    copy.usedForUpdateStats = this.usedForUpdateStats;
 		    copy.effectLetter = this.effectLetter;
@@ -140,6 +160,7 @@ namespace IceBlink2
             copy.doDamage = this.doDamage;
             copy.doDeBuff = this.doDeBuff;
             copy.doHeal = this.doHeal;
+            copy.healHP = this.healHP;
             copy.damType = this.damType;
             copy.damNumOfDice = this.damNumOfDice;
             copy.damDie = this.damDie;
@@ -173,6 +194,9 @@ namespace IceBlink2
             copy.modifyHpMax = this.modifyHpMax;
             copy.modifySpMax = this.modifySpMax;
             copy.modifySp = this.modifySp;
+            copy.modifyHpInCombat = this.modifyHpInCombat;
+            copy.modifySpInCombat = this.modifySpInCombat;
+
             copy.modifyDamageTypeResistanceAcid = this.modifyDamageTypeResistanceAcid;
             copy.modifyDamageTypeResistanceCold = this.modifyDamageTypeResistanceCold;
             copy.modifyDamageTypeResistanceNormal = this.modifyDamageTypeResistanceNormal;
@@ -182,6 +206,13 @@ namespace IceBlink2
             copy.modifyDamageTypeResistancePoison = this.modifyDamageTypeResistancePoison;
             copy.modifyNumberOfMeleeAttacks = this.modifyNumberOfMeleeAttacks;
             copy.modifyNumberOfRangedAttacks = this.modifyNumberOfRangedAttacks;
+            copy.modifyNumberOfEnemiesAttackedOnCleave = this.modifyNumberOfEnemiesAttackedOnCleave;
+            copy.modifyNumberOfEnemiesAttackedOnSweepAttack = this.modifyNumberOfEnemiesAttackedOnSweepAttack;
+            copy.useDexterityForMeleeAttackModifierIfGreaterThanStrength = this.useDexterityForMeleeAttackModifierIfGreaterThanStrength;
+            copy.useDexterityForMeleeDamageModifierIfGreaterThanStrength = this.useDexterityForMeleeDamageModifierIfGreaterThanStrength;
+            copy.negateAttackPenaltyForAdjacentEnemyWithRangedAttack = this.negateAttackPenaltyForAdjacentEnemyWithRangedAttack;
+            copy.useEvasion = this.useEvasion;
+
             copy.isPermanent = this.isPermanent;
             copy.endEffectWhenCarrierTakesDamage = this.endEffectWhenCarrierTakesDamage;
             copy.repeatTerminalSaveEachRound = this.repeatTerminalSaveEachRound;

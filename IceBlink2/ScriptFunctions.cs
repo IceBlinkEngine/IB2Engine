@@ -4515,6 +4515,7 @@ namespace IceBlink2
 
             //preparing modifiers from permanent effects, liek e.g. from traits
             //remember adding the reset for incoming additional properties, too, here
+            /*
                 int acModifier = 0;
                 int babModifier = 0;
                 int modifyCha = 0;
@@ -4539,7 +4540,17 @@ namespace IceBlink2
                 int modifyStr = 0;
                 int modifyWill = 0;
                 int modifyWis = 0;
-            
+                int modifyNumberOfEnemiesAttackedOnCleave = 0;
+                int modifyNumberOfEnemiesAttackedOnSweepAttack = 0;
+                int babModifierForRangedAttack = 0;
+                int damageModifierForMeleeAttack = 0;
+                int damageModifierForRangedAttack = 0;
+                int modifyHpInCombat = 0;  
+                int modifySpInCombat = 0;
+                */
+            /*
+            //code block for cheking tag based trait requirements
+            #region
             foreach (Effect ef in pc.effectsList)
             {
                 if (ef.isPermanent)
@@ -4620,12 +4631,13 @@ namespace IceBlink2
                         }
 
                     }
-                    
-                    //eventually add damge bonus or multiplier for attacks from behind (nomral and stealth sepaarely)
-                    //eventually add max dex bonus allowed when wearing armor
-                    //eventually add direct damage modifier, separAted by melee, range and spell/trait maybe
-                    //Add initiative and damage absorbtion into engine and then modifiers here
-                    if (traitWorksForThisPC)
+                    //note: work with  if (traitWorksForThisPC){} from here on
+                        #endregion
+                        //eventually add damge bonus or multiplier for attacks from behind (nomral and stealth sepaarely)
+                        //eventually add max dex bonus allowed when wearing armor
+                        //eventually add direct damage modifier, separAted by melee, range and spell/trait maybe
+                        //Add initiative and damage absorbtion into engine and then modifiers here
+                        if (traitWorksForThisPC)
                     {
                         babModifier += ef.babModifier;
                         acModifier += ef.acModifier;
@@ -4651,37 +4663,49 @@ namespace IceBlink2
                         modifyStr += ef.modifyStr;
                         modifyWill += ef.modifyWill;
                         modifyWis += ef.modifyWis;
+
+                        //hard to get these in here as they have special situational requirements
+                        //they must be added in the code sections that are used in that situation and only there 
+                        modifyNumberOfEnemiesAttackedOnCleave += ef.modifyNumberOfEnemiesAttackedOnCleave;
+                        modifyNumberOfEnemiesAttackedOnSweepAttack += ef.modifyNumberOfEnemiesAttackedOnSweepAttack;
+                        babModifierForRangedAttack += ef.babModifierForRangedAttack;
+                        damageModifierForMeleeAttack += ef.damageModifierForMeleeAttack;
+                        damageModifierForRangedAttack += ef.damageModifierForRangedAttack;
+                        modifyHpInCombat += ef.modifyHpInCombat;
+                        modifySpInCombat += ef.modifySpInCombat;
                     }
                 }
             }
-            pc.fortitude = pc.baseFortitude + CalcSavingThrowModifiersFortitude(pc) + (pc.constitution - 10) / 2 + modifyFortitude; //SD_20131127
-            pc.will = pc.baseWill + CalcSavingThrowModifiersWill(pc) + (pc.intelligence - 10) / 2 + modifyWill; //SD_20131127
-            pc.reflex = pc.baseReflex + CalcSavingThrowModifiersReflex(pc) + (pc.dexterity - 10) / 2 + modifyReflex; //SD_20131127
-            pc.strength = pc.baseStr + pc.race.strMod + CalcAttributeModifierStr(pc) + modifyStr; //SD_20131127
-            pc.dexterity = pc.baseDex + pc.race.dexMod + CalcAttributeModifierDex(pc) + modifyDex; //SD_20131127
-            pc.intelligence = pc.baseInt + pc.race.intMod + CalcAttributeModifierInt(pc) + modifyInt; //SD_20131127
-            pc.charisma = pc.baseCha + pc.race.chaMod + CalcAttributeModifierCha(pc) + modifyCha; //SD_20131127
-            pc.wisdom = pc.baseWis + pc.race.wisMod + CalcAttributeModifierWis(pc) + modifyWis; //SD_20131127
-            pc.constitution = pc.baseCon + pc.race.conMod + CalcAttributeModifierCon(pc) + modifyCon; //SD_20131127
-            pc.luck = pc.baseLuck + pc.race.luckMod + CalcAttributeModifierLuk(pc) + modifyLuk;
-            pc.damageTypeResistanceTotalAcid = pc.race.damageTypeResistanceValueAcid + CalcAcidModifiers(pc) + modifyDamageTypeResistanceAcid;
+            */
+
+            pc.fortitude = pc.baseFortitude + CalcSavingThrowModifiersFortitude(pc) + (pc.constitution - 10) / 2; //SD_20131127
+            pc.will = pc.baseWill + CalcSavingThrowModifiersWill(pc) + (pc.intelligence - 10) / 2; //SD_20131127
+            pc.reflex = pc.baseReflex + CalcSavingThrowModifiersReflex(pc) + (pc.dexterity - 10) / 2; //SD_20131127
+            pc.strength = pc.baseStr + pc.race.strMod + CalcAttributeModifierStr(pc); //SD_20131127
+            pc.dexterity = pc.baseDex + pc.race.dexMod + CalcAttributeModifierDex(pc); //SD_20131127
+            pc.intelligence = pc.baseInt + pc.race.intMod + CalcAttributeModifierInt(pc); //SD_20131127
+            pc.charisma = pc.baseCha + pc.race.chaMod + CalcAttributeModifierCha(pc); //SD_20131127
+            pc.wisdom = pc.baseWis + pc.race.wisMod + CalcAttributeModifierWis(pc); //SD_20131127
+            pc.constitution = pc.baseCon + pc.race.conMod + CalcAttributeModifierCon(pc); //SD_20131127
+            pc.luck = pc.baseLuck + pc.race.luckMod + CalcAttributeModifierLuk(pc);
+            pc.damageTypeResistanceTotalAcid = pc.race.damageTypeResistanceValueAcid + CalcAcidModifiers(pc);
             if (pc.damageTypeResistanceTotalAcid > gv.mod.resistanceMaxValue) { pc.damageTypeResistanceTotalAcid = gv.mod.resistanceMaxValue; }
-            pc.damageTypeResistanceTotalNormal = pc.race.damageTypeResistanceValueNormal + CalcNormalModifiers(pc) + modifyDamageTypeResistanceNormal;
+            pc.damageTypeResistanceTotalNormal = pc.race.damageTypeResistanceValueNormal + CalcNormalModifiers(pc);
             if (pc.damageTypeResistanceTotalNormal > gv.mod.resistanceMaxValue) { pc.damageTypeResistanceTotalNormal = gv.mod.resistanceMaxValue; }
-            pc.damageTypeResistanceTotalCold = pc.race.damageTypeResistanceValueCold + CalcColdModifiers(pc) + modifyDamageTypeResistanceCold;
+            pc.damageTypeResistanceTotalCold = pc.race.damageTypeResistanceValueCold + CalcColdModifiers(pc);
             if (pc.damageTypeResistanceTotalCold > gv.mod.resistanceMaxValue) { pc.damageTypeResistanceTotalCold = gv.mod.resistanceMaxValue; }
-            pc.damageTypeResistanceTotalElectricity = pc.race.damageTypeResistanceValueElectricity + CalcElectricityModifiers(pc) + modifyDamageTypeResistanceElectricity;
+            pc.damageTypeResistanceTotalElectricity = pc.race.damageTypeResistanceValueElectricity + CalcElectricityModifiers(pc);
             if (pc.damageTypeResistanceTotalElectricity > gv.mod.resistanceMaxValue) { pc.damageTypeResistanceTotalElectricity = gv.mod.resistanceMaxValue; }
-            pc.damageTypeResistanceTotalFire = pc.race.damageTypeResistanceValueFire + CalcFireModifiers(pc) + modifyDamageTypeResistanceFire;
+            pc.damageTypeResistanceTotalFire = pc.race.damageTypeResistanceValueFire + CalcFireModifiers(pc);
             if (pc.damageTypeResistanceTotalFire > gv.mod.resistanceMaxValue) { pc.damageTypeResistanceTotalFire = gv.mod.resistanceMaxValue; }
-            pc.damageTypeResistanceTotalMagic = pc.race.damageTypeResistanceValueMagic + CalcMagicModifiers(pc) + modifyDamageTypeResistanceMagic;
+            pc.damageTypeResistanceTotalMagic = pc.race.damageTypeResistanceValueMagic + CalcMagicModifiers(pc);
             if (pc.damageTypeResistanceTotalMagic > gv.mod.resistanceMaxValue) { pc.damageTypeResistanceTotalMagic = gv.mod.resistanceMaxValue; }
-            pc.damageTypeResistanceTotalPoison = pc.race.damageTypeResistanceValuePoison + CalcPoisonModifiers(pc) + modifyDamageTypeResistancePoison;
+            pc.damageTypeResistanceTotalPoison = pc.race.damageTypeResistanceValuePoison + CalcPoisonModifiers(pc);
             if (pc.damageTypeResistanceTotalPoison > gv.mod.resistanceMaxValue) { pc.damageTypeResistanceTotalPoison = gv.mod.resistanceMaxValue; }
             
             if (pc.playerClass.babTable.Length > 0)//SD_20131115
             {
-                pc.baseAttBonus = pc.playerClass.babTable[pc.classLevel] + CalcBABAdders(pc) + babModifier; //SD_20131115
+                pc.baseAttBonus = pc.playerClass.babTable[pc.classLevel] + CalcBABAdders(pc); //SD_20131115
             }
 
             int modifierFromSPRelevantAttribute = 0;
@@ -4723,8 +4747,8 @@ namespace IceBlink2
 
             int cMod = (pc.constitution - 10) / 2;
             int iMod = modifierFromSPRelevantAttribute;
-            pc.spMax = pc.playerClass.startingSP + iMod + ((pc.classLevel - 1) * (pc.playerClass.spPerLevelUp + iMod)) + modifyHpMax;
-            pc.hpMax = pc.playerClass.startingHP + cMod + ((pc.classLevel - 1) * (pc.playerClass.hpPerLevelUp + cMod)) + modifySpMax;
+            pc.spMax = pc.playerClass.startingSP + iMod + ((pc.classLevel - 1) * (pc.playerClass.spPerLevelUp + iMod)) + CalcAttributeModifierHpMax(pc);
+            pc.hpMax = pc.playerClass.startingHP + cMod + ((pc.classLevel - 1) * (pc.playerClass.hpPerLevelUp + cMod)) + CalcAttributeModifierSpMax(pc);
 
             pc.XPNeeded = pc.playerClass.xpTable[pc.classLevel];
 
@@ -4735,14 +4759,14 @@ namespace IceBlink2
             int acMods = 0;
             armBonus = CalcArmorBonuses(pc);
             acMods = CalcACModifiers(pc);
-            pc.AC = pc.ACBase + dMod + armBonus + acMods + acModifier;
+            pc.AC = pc.ACBase + dMod + armBonus + acMods;
             if (mod.getItemByResRefForInfo(pc.BodyRefs.resref).ArmorWeightType.Equals("Light"))
             {
-                pc.moveDistance = pc.race.MoveDistanceLightArmor + CalcMovementBonuses(pc) + modifyMoveDistance;
+                pc.moveDistance = pc.race.MoveDistanceLightArmor + CalcMovementBonuses(pc);
             }
             else //medium or heavy SD_20131116
             {
-                pc.moveDistance = pc.race.MoveDistanceMediumHeavyArmor + CalcMovementBonuses(pc) + modifyMoveDistance;
+                pc.moveDistance = pc.race.MoveDistanceMediumHeavyArmor + CalcMovementBonuses(pc);
             }
             RunAllItemWhileEquippedScripts(pc);
             if (pc.hp > pc.hpMax) { pc.hp = pc.hpMax; } //SD_20131201
@@ -4761,6 +4785,235 @@ namespace IceBlink2
                 pc.baseWill = pc.playerClass.baseWillAtLevel[pc.classLevel];
             }
         }
+
+        public bool isPassiveTraitApplied(Effect ef, Player pc)
+        {
+            //code block for cheking tag based trait requirements
+
+            //we have an effect coming from a passive trait
+            //for non permanent effects fed to it the method returns true in any case
+            if (ef.isPermanent)
+            {//1
+                bool traitWorksForThisPC = false;
+
+                // set up effects lists for traitWorksOnlyWhen and traitWorksNeverWhen
+                ef.traitWorksNeverWhen.Clear();
+                ef.traitWorksOnlyWhen.Clear();
+                //go through all trait tags of pc
+                foreach (string traitTag in pc.knownTraitsTags)
+                {//2
+                 //go through all traits of module
+                    foreach (Trait t in gv.mod.moduleTraitsList)
+                    {//3
+                     //found a trait the pc has
+                        if (t.tag.Equals(traitTag))
+                        {//4
+                         //go through effect tags for drop down list of this trait
+                            foreach (EffectTagForDropDownList effectTag in t.traitEffectTagList)
+                            {//5
+                             //found out that our current effect ef stems from this trait of the pc
+                                if (effectTag.tag.Equals(ef.tag))
+                                {//6
+                                 //built the lists on runtime for our current ef from the trait's template
+                                    foreach (LocalImmunityString ls in t.traitWorksOnlyWhen)
+                                    {//7
+                                        LocalImmunityString ls2 = ls.DeepCopy();
+                                        ef.traitWorksOnlyWhen.Add(ls2);
+                                    }//7closed
+
+                                    foreach (LocalImmunityString ls in t.traitWorksNeverWhen)
+                                    {//7
+                                        LocalImmunityString ls2 = ls.DeepCopy();
+                                        ef.traitWorksNeverWhen.Add(ls2);
+                                    }//7closed
+
+                                    //ef.traitWorksNeverWhen = t.traitWorksNeverWhen;
+                                    //ef.traitWorksOnlyWhen = t.traitWorksOnlyWhen;
+                                }//6closed
+                            }//5 closed
+                        }//4closed
+                    }//3closed
+                }//2clsoed
+
+                if (ef.traitWorksOnlyWhen.Count <= 0)
+                {
+                    traitWorksForThisPC = true;
+                }
+
+                //note that the tratNeccessities are logically connected with OR the way it is setup
+                else
+                    foreach (LocalImmunityString traitNeccessity in ef.traitWorksOnlyWhen)
+                    {
+                        foreach (string pcTag in pc.pcTags)
+                        {
+                            if (traitNeccessity.Value.Equals(pcTag))
+                            {
+                                traitWorksForThisPC = true;
+                                break;
+                            }
+                        }
+                    }
+
+                //one redFlag is enough to stop the trait from working, ie connected with OR, too
+                if (traitWorksForThisPC)
+                {
+                    foreach (LocalImmunityString traitRedFlag in ef.traitWorksNeverWhen)
+                    {
+                        foreach (string pcTag in pc.pcTags)
+                        {
+                            if (traitRedFlag.Value.Equals(pcTag))
+                            {
+                                traitWorksForThisPC = false;
+                                break;
+                            }
+                        }
+                    }
+                }
+                //note: work with  if (traitWorksForThisPC){} from here on
+
+                if (traitWorksForThisPC)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return true;
+            }
+        }
+
+        /*
+        public int getSumOfSameTypeEffects (Effect ef, Player pc)
+        {
+            // or addEffectByObjet
+            //find all stackable effects of this type and add them together
+            foreach (Effect ef2 in pc.effectsList)
+            {
+
+            }
+            //compare the result with each non-stackable effect of this type and return the highest
+        }
+        */
+        /*
+        public int CalcPcSpRegenInCombat(Player pc)
+         {  
+             
+            int adder = 0;  
+           
+            //go through all traits and see if has passive HP regen type trait, use largest, not cumulative  
+            foreach (string taTag in pc.knownTraitsTags)  
+             {  
+                 Trait ta = mod.getTraitByTag(taTag);  
+                 foreach (EffectTagForDropDownList efTag in ta.traitEffectTagList)  
+                 {  
+                     Effect ef = mod.getEffectByTag(efTag.tag);  
+                    
+                     if (ef.modifySpInCombat > adder)  
+                     {  
+                         adder = ef.modifySpInCombat;  
+                     }  
+                 }  
+             }  
+             return adder;  
+        }
+
+        public int CalcPcHpRegenInCombat(Player pc)
+        {
+
+            int adder = 0;
+
+            //go through all traits and see if has passive HP regen type trait, use largest, not cumulative  
+            foreach (string taTag in pc.knownTraitsTags)
+            {
+                Trait ta = mod.getTraitByTag(taTag);
+                foreach (EffectTagForDropDownList efTag in ta.traitEffectTagList)
+                {
+                    Effect ef = mod.getEffectByTag(efTag.tag);
+
+                    if (ef.modifyHpInCombat > adder)
+                    {
+                        adder = ef.modifyHpInCombat;
+                    }
+                }
+            }
+            return adder;
+        }
+        */
+
+        public int CalcAttributeModifierHpMax(Player pc)
+        {
+            int hpMaxBonuses = 0;
+            /*
+            hpMaxBonuses += mod.getItemByResRefForInfo(pc.BodyRefs.resref).savingThrowModifierReflex;
+            hpMaxBonuses += mod.getItemByResRefForInfo(pc.MainHandRefs.resref).savingThrowModifierReflex;
+            hpMaxBonuses += mod.getItemByResRefForInfo(pc.OffHandRefs.resref).savingThrowModifierReflex;
+            hpMaxBonuses += mod.getItemByResRefForInfo(pc.RingRefs.resref).savingThrowModifierReflex;
+            hpMaxBonuses += mod.getItemByResRefForInfo(pc.HeadRefs.resref).savingThrowModifierReflex;
+            hpMaxBonuses += mod.getItemByResRefForInfo(pc.NeckRefs.resref).savingThrowModifierReflex;
+            hpMaxBonuses += mod.getItemByResRefForInfo(pc.Ring2Refs.resref).savingThrowModifierReflex;
+            hpMaxBonuses += mod.getItemByResRefForInfo(pc.FeetRefs.resref).savingThrowModifierReflex;
+            */
+            int highestNonStackable = -99;
+            foreach (Effect ef in pc.effectsList)
+            {
+                if (isPassiveTraitApplied(ef, pc))
+                {
+                    if (ef.isStackableEffect)
+                    {
+                        hpMaxBonuses += ef.modifyHpMax;
+                    }
+                    else
+                    {
+                        if ((ef.modifyHpMax != 0) && (ef.modifyHpMax > highestNonStackable))
+                        {
+                            highestNonStackable = ef.modifyHpMax;
+                        }
+                    }
+                }
+            }
+            if (highestNonStackable > hpMaxBonuses) { hpMaxBonuses = highestNonStackable; }
+            return hpMaxBonuses;
+        }
+
+        public int CalcAttributeModifierSpMax(Player pc)
+        {
+            int spMaxBonuses = 0;
+            /*
+            hpMaxBonuses += mod.getItemByResRefForInfo(pc.BodyRefs.resref).savingThrowModifierReflex;
+            hpMaxBonuses += mod.getItemByResRefForInfo(pc.MainHandRefs.resref).savingThrowModifierReflex;
+            hpMaxBonuses += mod.getItemByResRefForInfo(pc.OffHandRefs.resref).savingThrowModifierReflex;
+            hpMaxBonuses += mod.getItemByResRefForInfo(pc.RingRefs.resref).savingThrowModifierReflex;
+            hpMaxBonuses += mod.getItemByResRefForInfo(pc.HeadRefs.resref).savingThrowModifierReflex;
+            hpMaxBonuses += mod.getItemByResRefForInfo(pc.NeckRefs.resref).savingThrowModifierReflex;
+            hpMaxBonuses += mod.getItemByResRefForInfo(pc.Ring2Refs.resref).savingThrowModifierReflex;
+            hpMaxBonuses += mod.getItemByResRefForInfo(pc.FeetRefs.resref).savingThrowModifierReflex;
+            */
+            int highestNonStackable = -99;
+            foreach (Effect ef in pc.effectsList)
+            {
+                if (isPassiveTraitApplied(ef, pc))
+                {
+                    if (ef.isStackableEffect)
+                    {
+                        spMaxBonuses += ef.modifySpMax;
+                    }
+                    else
+                    {
+                        if ((ef.modifySpMax != 0) && (ef.modifySpMax > highestNonStackable))
+                        {
+                            highestNonStackable = ef.modifySpMax;
+                        }
+                    }
+                }
+            }
+            if (highestNonStackable > spMaxBonuses) { spMaxBonuses = highestNonStackable; }
+            return spMaxBonuses;
+        }
+
         public int CalcSavingThrowModifiersReflex(Player pc)
         {
             int savBonuses = 0;
@@ -4775,19 +5028,22 @@ namespace IceBlink2
             int highestNonStackable = -99;
             foreach (Effect ef in pc.effectsList)
             {
-                if (ef.isStackableEffect)
+                if (isPassiveTraitApplied(ef, pc))
                 {
-                    savBonuses += ef.modifyReflex;
-                }
-                else
-                {
-                    if ((ef.modifyReflex != 0) && (ef.modifyReflex > highestNonStackable))
+                    if (ef.isStackableEffect)
                     {
-                        highestNonStackable = ef.modifyReflex;
+                        savBonuses += ef.modifyReflex;
+                    }
+                    else
+                    {
+                        if ((ef.modifyReflex != 0) && (ef.modifyReflex > highestNonStackable))
+                        {
+                            highestNonStackable = ef.modifyReflex;
+                        }
                     }
                 }
             }
-            if (highestNonStackable > savBonuses) { savBonuses = highestNonStackable; }
+            if (highestNonStackable > -99) { savBonuses = highestNonStackable; }
             return savBonuses;
         }
         public int CalcSavingThrowModifiersFortitude(Player pc)
@@ -4804,19 +5060,22 @@ namespace IceBlink2
             int highestNonStackable = -99;
             foreach (Effect ef in pc.effectsList)
             {
-                if (ef.isStackableEffect)
+                if (isPassiveTraitApplied(ef, pc))
                 {
-                    savBonuses += ef.modifyFortitude;
-                }
-                else
-                {
-                    if ((ef.modifyFortitude != 0) && (ef.modifyFortitude > highestNonStackable))
+                    if (ef.isStackableEffect)
                     {
-                        highestNonStackable = ef.modifyFortitude;
+                        savBonuses += ef.modifyFortitude;
+                    }
+                    else
+                    {
+                        if ((ef.modifyFortitude != 0) && (ef.modifyFortitude > highestNonStackable))
+                        {
+                            highestNonStackable = ef.modifyFortitude;
+                        }
                     }
                 }
             }
-            if (highestNonStackable > savBonuses) { savBonuses = highestNonStackable; }
+            if (highestNonStackable > -99) { savBonuses = highestNonStackable; }
             return savBonuses;
         }
         public int CalcSavingThrowModifiersWill(Player pc)
@@ -4833,19 +5092,22 @@ namespace IceBlink2
             int highestNonStackable = -99;
             foreach (Effect ef in pc.effectsList)
             {
-                if (ef.isStackableEffect)
+                if (isPassiveTraitApplied(ef, pc))
                 {
-                    savBonuses += ef.modifyWill;
-                }
-                else
-                {
-                    if ((ef.modifyWill != 0) && (ef.modifyWill > highestNonStackable))
+                    if (ef.isStackableEffect)
                     {
-                        highestNonStackable = ef.modifyWill;
+                        savBonuses += ef.modifyWill;
+                    }
+                    else
+                    {
+                        if ((ef.modifyWill != 0) && (ef.modifyWill > highestNonStackable))
+                        {
+                            highestNonStackable = ef.modifyWill;
+                        }
                     }
                 }
             }
-            if (highestNonStackable > savBonuses) { savBonuses = highestNonStackable; }
+            if (highestNonStackable > -99) { savBonuses = highestNonStackable; }
             return savBonuses;
         }
         public int CalcAttributeModifierStr(Player pc)
@@ -4862,22 +5124,22 @@ namespace IceBlink2
             int highestNonStackable = -99;
             foreach (Effect ef in pc.effectsList)
             {
-                if (!ef.isPermanent)
+                if (isPassiveTraitApplied(ef, pc))
                 {
-                    if (ef.isStackableEffect)
-                    {
-                        attBonuses += ef.modifyStr;
-                    }
-                    else
-                    {
-                        if ((ef.modifyStr != 0) && (ef.modifyStr > highestNonStackable))
+                        if (ef.isStackableEffect)
                         {
-                            highestNonStackable = ef.modifyStr;
+                            attBonuses += ef.modifyStr;
+                        }
+                        else
+                        {
+                            if ((ef.modifyStr != 0) && (ef.modifyStr > highestNonStackable))
+                            {
+                                highestNonStackable = ef.modifyStr;
+                            }
                         }
                     }
-                }
             }
-            if (highestNonStackable > attBonuses) { attBonuses = highestNonStackable; }
+            if (highestNonStackable > -99) { attBonuses = highestNonStackable; }
             return attBonuses;
         }
         public int CalcAttributeModifierDex(Player pc)
@@ -4894,22 +5156,23 @@ namespace IceBlink2
             int highestNonStackable = -99;
             foreach (Effect ef in pc.effectsList)
             {
-                if (!ef.isPermanent)
+                if (isPassiveTraitApplied(ef, pc))
                 {
-                    if (ef.isStackableEffect)
-                    {
-                        attBonuses += ef.modifyDex;
-                    }
-                    else
-                    {
-                        if ((ef.modifyDex != 0) && (ef.modifyDex > highestNonStackable))
+                    
+                        if (ef.isStackableEffect)
                         {
-                            highestNonStackable = ef.modifyDex;
+                            attBonuses += ef.modifyDex;
                         }
-                    }
+                        else
+                        {
+                            if ((ef.modifyDex != 0) && (ef.modifyDex > highestNonStackable))
+                            {
+                                highestNonStackable = ef.modifyDex;
+                            }
+                        }
                 }
             }
-            if (highestNonStackable > attBonuses) { attBonuses = highestNonStackable; }
+            if (highestNonStackable > -99) { attBonuses = highestNonStackable; }
             return attBonuses;
         }
         public int CalcAttributeModifierInt(Player pc)
@@ -4926,8 +5189,10 @@ namespace IceBlink2
             int highestNonStackable = -99;
             foreach (Effect ef in pc.effectsList)
             {
-                if (!ef.isPermanent)
+                if (isPassiveTraitApplied(ef, pc))
                 {
+                    //if (!ef.isPermanent)
+                //{
                     if (ef.isStackableEffect)
                     {
                         attBonuses += ef.modifyInt;
@@ -4941,7 +5206,7 @@ namespace IceBlink2
                     }
                 }
             }
-            if (highestNonStackable > attBonuses) { attBonuses = highestNonStackable; }
+            if (highestNonStackable > -99) { attBonuses = highestNonStackable; }
             return attBonuses;
         }
         public int CalcAttributeModifierCha(Player pc)
@@ -4958,7 +5223,7 @@ namespace IceBlink2
             int highestNonStackable = -99;
             foreach (Effect ef in pc.effectsList)
             {
-                if (!ef.isPermanent)
+                if (isPassiveTraitApplied(ef, pc))
                 {
                     if (ef.isStackableEffect)
                     {
@@ -4973,7 +5238,7 @@ namespace IceBlink2
                     }
                 }
             }
-            if (highestNonStackable > attBonuses) { attBonuses = highestNonStackable; }
+            if (highestNonStackable > -99) { attBonuses = highestNonStackable; }
             return attBonuses;
         }
         public int CalcAttributeModifierCon(Player pc)
@@ -4990,7 +5255,7 @@ namespace IceBlink2
             int highestNonStackable = -99;
             foreach (Effect ef in pc.effectsList)
             {
-                if (!ef.isPermanent)
+                if (isPassiveTraitApplied(ef, pc))
                 {
                     if (ef.isStackableEffect)
                     {
@@ -5005,7 +5270,7 @@ namespace IceBlink2
                     }
                 }
             }
-            if (highestNonStackable > attBonuses) { attBonuses = highestNonStackable; }
+            if (highestNonStackable > -99) { attBonuses = highestNonStackable; }
             return attBonuses;
         }
         public int CalcAttributeModifierWis(Player pc)
@@ -5022,7 +5287,7 @@ namespace IceBlink2
             int highestNonStackable = -99;
             foreach (Effect ef in pc.effectsList)
             {
-                if (!ef.isPermanent)
+                if (isPassiveTraitApplied(ef, pc))
                 {
                     if (ef.isStackableEffect)
                     {
@@ -5037,7 +5302,7 @@ namespace IceBlink2
                     }
                 }
             }
-            if (highestNonStackable > attBonuses) { attBonuses = highestNonStackable; }
+            if (highestNonStackable > -99) { attBonuses = highestNonStackable; }
             return attBonuses;
         }
         public int CalcAttributeModifierLuk(Player pc)
@@ -5054,7 +5319,7 @@ namespace IceBlink2
             int highestNonStackable = -99;
             foreach (Effect ef in pc.effectsList)
             {
-                if (!ef.isPermanent)
+                if (isPassiveTraitApplied(ef, pc))
                 {
                     if (ef.isStackableEffect)
                     {
@@ -5069,7 +5334,7 @@ namespace IceBlink2
                     }
                 }
             }
-            if (highestNonStackable > attBonuses) { attBonuses = highestNonStackable; }
+            if (highestNonStackable > -99) { attBonuses = highestNonStackable; }
             return attBonuses;
         }
         public int CalcAcidModifiers(Player pc)
@@ -5086,7 +5351,7 @@ namespace IceBlink2
             int highestNonStackable = -99;
             foreach (Effect ef in pc.effectsList)
             {
-                if (!ef.isPermanent)
+                if (isPassiveTraitApplied(ef, pc))
                 {
                     if (ef.isStackableEffect)
                     {
@@ -5101,7 +5366,7 @@ namespace IceBlink2
                     }
                 }
             }
-            if (highestNonStackable > md) { md = highestNonStackable; }
+            if (highestNonStackable > -99) { md = highestNonStackable; }
             return md;
         }
         public int CalcNormalModifiers(Player pc)
@@ -5118,7 +5383,7 @@ namespace IceBlink2
             int highestNonStackable = -99;
             foreach (Effect ef in pc.effectsList)
             {
-                if (!ef.isPermanent)
+                if (isPassiveTraitApplied(ef, pc))
                 {
                     if (ef.isStackableEffect)
                     {
@@ -5133,7 +5398,7 @@ namespace IceBlink2
                     }
                 }
             }
-            if (highestNonStackable > md) { md = highestNonStackable; }
+            if (highestNonStackable > -99) { md = highestNonStackable; }
             return md;
         }
         public int CalcColdModifiers(Player pc)
@@ -5150,7 +5415,7 @@ namespace IceBlink2
             int highestNonStackable = -99;
             foreach (Effect ef in pc.effectsList)
             {
-                if (!ef.isPermanent)
+                if (isPassiveTraitApplied(ef, pc))
                 {
                     if (ef.isStackableEffect)
                     {
@@ -5165,7 +5430,7 @@ namespace IceBlink2
                     }
                 }
             }
-            if (highestNonStackable > md) { md = highestNonStackable; }
+            if (highestNonStackable > -99) { md = highestNonStackable; }
             return md;
         }
         public int CalcElectricityModifiers(Player pc)
@@ -5182,7 +5447,7 @@ namespace IceBlink2
             int highestNonStackable = -99;
             foreach (Effect ef in pc.effectsList)
             {
-                if (!ef.isPermanent)
+                if (isPassiveTraitApplied(ef, pc))
                 {
                     if (ef.isStackableEffect)
                     {
@@ -5197,7 +5462,7 @@ namespace IceBlink2
                     }
                 }
             }
-            if (highestNonStackable > md) { md = highestNonStackable; }
+            if (highestNonStackable > -99) { md = highestNonStackable; }
             return md;
         }
         public int CalcFireModifiers(Player pc)
@@ -5214,7 +5479,7 @@ namespace IceBlink2
             int highestNonStackable = -99;
             foreach (Effect ef in pc.effectsList)
             {
-                if (!ef.isPermanent)
+                if (isPassiveTraitApplied(ef, pc))
                 {
                     if (ef.isStackableEffect)
                     {
@@ -5229,7 +5494,7 @@ namespace IceBlink2
                     }
                 }
             }
-            if (highestNonStackable > md) { md = highestNonStackable; }
+            if (highestNonStackable > -99) { md = highestNonStackable; }
             return md;
         }
         public int CalcMagicModifiers(Player pc)
@@ -5246,7 +5511,7 @@ namespace IceBlink2
             int highestNonStackable = -99;
             foreach (Effect ef in pc.effectsList)
             {
-                if (!ef.isPermanent)
+                if (isPassiveTraitApplied(ef, pc))
                 {
                     if (ef.isStackableEffect)
                     {
@@ -5261,7 +5526,7 @@ namespace IceBlink2
                     }
                 }
             }
-            if (highestNonStackable > md) { md = highestNonStackable; }
+            if (highestNonStackable > -99) { md = highestNonStackable; }
             return md;
         }
         public int CalcPoisonModifiers(Player pc)
@@ -5278,7 +5543,7 @@ namespace IceBlink2
             int highestNonStackable = -99;
             foreach (Effect ef in pc.effectsList)
             {
-                if (!ef.isPermanent)
+                if (isPassiveTraitApplied(ef, pc))
                 {
                     if (ef.isStackableEffect)
                     {
@@ -5293,7 +5558,7 @@ namespace IceBlink2
                     }
                 }
             }
-            if (highestNonStackable > md) { md = highestNonStackable; }
+            if (highestNonStackable > -99) { md = highestNonStackable; }
             return md;
         }
         public int CalcBABAdders(Player pc)
@@ -5302,7 +5567,7 @@ namespace IceBlink2
             int highestNonStackable = -99;
             foreach (Effect ef in pc.effectsList)
             {
-                if (!ef.isPermanent)
+                if (isPassiveTraitApplied(ef, pc))
                 {
                     if (ef.isStackableEffect)
                     {
@@ -5317,7 +5582,7 @@ namespace IceBlink2
                     }
                 }
             }
-            if (highestNonStackable > adder) { adder = highestNonStackable; }
+            if (highestNonStackable > -99) { adder = highestNonStackable; }
             return adder;
         }
         public int CalcACModifiers(Player pc)
@@ -5326,7 +5591,7 @@ namespace IceBlink2
             int highestNonStackable = -99;
             foreach (Effect ef in pc.effectsList)
             {
-                if (!ef.isPermanent)
+                if (isPassiveTraitApplied(ef, pc))
                 {
                     if (ef.isStackableEffect)
                     {
@@ -5341,7 +5606,7 @@ namespace IceBlink2
                     }
                 }
             }
-            if (highestNonStackable > adder) { adder = highestNonStackable; }
+            if (highestNonStackable > -99) { adder = highestNonStackable; }
             return adder;
         }
         public int CalcArmorBonuses(Player pc)
@@ -5392,7 +5657,7 @@ namespace IceBlink2
             int highestNonStackable = -99;
             foreach (Effect ef in pc.effectsList)
             {
-                if (!ef.isPermanent)
+                if (isPassiveTraitApplied(ef, pc))
                 {
                     if (ef.isStackableEffect)
                     {
@@ -5407,10 +5672,585 @@ namespace IceBlink2
                     }
                 }
             }
-            if (highestNonStackable > moveBonuses) { moveBonuses = highestNonStackable; }
+            if (highestNonStackable > -99) { moveBonuses = highestNonStackable; }
             return moveBonuses;
         }
-        public void RunAllItemWhileEquippedScripts(Player pc)
+
+        public int CalcNumberOfAttacks(Player pc)
+         {  
+             if (isMeleeAttack(pc))  
+             {  
+                 return CalcNumberOfMeleeAttacks(pc);  
+             }  
+             else  
+             {  
+                 return CalcNumberOfRangedAttacks(pc);  
+             }  
+         }
+
+        public int CalcNumberOfMeleeAttacks(Player pc)
+         {  
+             int numOfAdditionalPositiveMeleeAttacks = 0;  
+             int numOfAdditionalPositiveStackableMeleeAttacks = 0;  
+             int numOfAdditionalNegativeMeleeAttacks = 0;  
+             int numOfAdditionalNegativeStackableMeleeAttacks = 0;  
+             /*
+             //go through all traits and see if has passive rapidshot type trait, use largest, not cumulative  
+             foreach (string taTag in pc.knownTraitsTags)  
+             {  
+                 Trait ta = mod.getTraitByTag(taTag);  
+                 foreach (EffectTagForDropDownList efTag in ta.traitEffectTagList)  
+                 {  
+                     Effect ef = mod.getEffectByTag(efTag.tag);  
+                     //replace non-stackable positive with highest value  
+                     if ((ef.modifyNumberOfMeleeAttacks > numOfAdditionalPositiveMeleeAttacks) && (ef.isPermanent) && (!ef.isStackableEffect))  
+                     {  
+                         numOfAdditionalPositiveMeleeAttacks = ef.modifyNumberOfMeleeAttacks;  
+                     }  
+                     //replace non-stackable negative with lowest value  
+                     if ((ef.modifyNumberOfMeleeAttacks<numOfAdditionalNegativeMeleeAttacks) && (ef.isPermanent) && (!ef.isStackableEffect))  
+                     {  
+                         numOfAdditionalNegativeMeleeAttacks = ef.modifyNumberOfMeleeAttacks;  
+                     }  
+                     //if isStackable positive then pile on  
+                     if ((ef.modifyNumberOfMeleeAttacks > 0) && (ef.isPermanent) && (ef.isStackableEffect))  
+                     {  
+                         numOfAdditionalPositiveStackableMeleeAttacks += ef.modifyNumberOfMeleeAttacks;  
+                     }  
+                     //if isStackable negative then pile on  
+                     if ((ef.modifyNumberOfMeleeAttacks< 0) && (ef.isPermanent) && (ef.isStackableEffect))  
+                     {  
+                         numOfAdditionalNegativeStackableMeleeAttacks += ef.modifyNumberOfMeleeAttacks;  
+                     }  
+                 }  
+             }
+             */  
+             //go through each effect and see if has a buff type like rapidshot, use largest, not cumulative  
+             foreach (Effect ef in pc.effectsList)  
+             {
+                if (isPassiveTraitApplied(ef, pc))
+                {
+                    //replace non-stackable positive with highest value  
+                    if ((ef.modifyNumberOfMeleeAttacks > numOfAdditionalPositiveMeleeAttacks) && (!ef.isStackableEffect))
+                    {
+                        numOfAdditionalPositiveMeleeAttacks = ef.modifyNumberOfMeleeAttacks;
+                    }
+                    //replace non-stackable negative with lowest value  
+                    if ((ef.modifyNumberOfMeleeAttacks < numOfAdditionalNegativeMeleeAttacks) && (!ef.isStackableEffect))
+                    {
+                        numOfAdditionalNegativeMeleeAttacks = ef.modifyNumberOfMeleeAttacks;
+                    }
+                    //if isStackable positive then pile on  
+                    if ((ef.modifyNumberOfMeleeAttacks > 0) && (ef.isStackableEffect))
+                    {
+                        numOfAdditionalPositiveStackableMeleeAttacks += ef.modifyNumberOfMeleeAttacks;
+                    }
+                    //if isStackable negative then pile on  
+                    if ((ef.modifyNumberOfMeleeAttacks < 0) && (ef.isStackableEffect))
+                    {
+                        numOfAdditionalNegativeStackableMeleeAttacks += ef.modifyNumberOfMeleeAttacks;
+                    }
+                }  
+             }  
+   
+             int numOfPos = 0;  
+             int numOfNeg = 0;  
+             //check to see if stackable is greater than non-stackable and combine the highest positive and negative effect  
+             if (numOfAdditionalPositiveMeleeAttacks > numOfAdditionalPositiveStackableMeleeAttacks)  
+             {  
+                 numOfPos = numOfAdditionalPositiveMeleeAttacks;  
+             }  
+             else  
+             {  
+                 numOfPos = numOfAdditionalPositiveStackableMeleeAttacks;  
+             }  
+             if (numOfAdditionalNegativeMeleeAttacks > numOfAdditionalNegativeStackableMeleeAttacks)  
+             {  
+                 numOfNeg = numOfAdditionalNegativeMeleeAttacks;  
+             }  
+             else  
+             {  
+                 numOfNeg = numOfAdditionalNegativeStackableMeleeAttacks;  
+             }  
+   
+             int numOfAdditionalAttacks = numOfPos + numOfNeg;  
+             if (numOfAdditionalAttacks != 0)  
+             {  
+                 return numOfAdditionalAttacks + 1;  
+             }  
+             else if (gv.sf.hasTrait(pc, "twoAttack"))  
+             {  
+                 return 2;  
+             }  
+             else  
+             {
+                return 1;  
+             }  
+       }
+
+        public int CalcNumberOfRangedAttacks(Player pc)
+         {  
+             int numOfAdditionalPositiveRangedAttacks = 0;  
+             int numOfAdditionalPositiveStackableRangedAttacks = 0;  
+             int numOfAdditionalNegativeRangedAttacks = 0;  
+             int numOfAdditionalNegativeStackableRangedAttacks = 0;  
+        /*
+ 5021 +            //go through all traits and see if has passive rapidshot type trait, use largest, not cumulative  
+ 5022 +            foreach (string taTag in pc.knownTraitsTags)  
+ 5023 +            {  
+ 5024 +                Trait ta = mod.getTraitByTag(taTag);  
+ 5025 +                foreach (EffectTagForDropDownList efTag in ta.traitEffectTagList)  
+ 5026 +                {  
+ 5027 +                    Effect ef = mod.getEffectByTag(efTag.tag);  
+ 5028 +                    //replace non-stackable positive with highest value  
+ 5029 +                    if ((ef.modifyNumberOfRangedAttacks > numOfAdditionalPositiveRangedAttacks) && (ta.isPassive) && (!ef.isStackableEffect))  
+ 5030 +                    {  
+ 5031 +                        numOfAdditionalPositiveRangedAttacks = ef.modifyNumberOfRangedAttacks;  
+ 5032 +                    }  
+ 5033 +                    //replace non-stackable negative with lowest value  
+ 5034 +                    if ((ef.modifyNumberOfRangedAttacks<numOfAdditionalNegativeRangedAttacks) && (ta.isPassive) && (!ef.isStackableEffect))  
+ 5035 +                    {  
+ 5036 +                        numOfAdditionalNegativeRangedAttacks = ef.modifyNumberOfRangedAttacks;  
+ 5037 +                    }  
+ 5038 +                    //if isStackable positive then pile on  
+ 5039 +                    if ((ef.modifyNumberOfRangedAttacks > 0) && (ta.isPassive) && (ef.isStackableEffect))  
+ 5040 +                    {  
+ 5041 +                        numOfAdditionalPositiveStackableRangedAttacks += ef.modifyNumberOfRangedAttacks;  
+ 5042 +                    }  
+ 5043 +                    //if isStackable negative then pile on  
+ 5044 +                    if ((ef.modifyNumberOfRangedAttacks< 0) && (ta.isPassive) && (ef.isStackableEffect))  
+ 5045 +                    {  
+ 5046 +                        numOfAdditionalNegativeStackableRangedAttacks += ef.modifyNumberOfRangedAttacks;  
+ 5047 +                    }  
+ 5048 +                }  
+ 5049 +            }
+ */  
+             //go through each effect and see if has a buff type like rapidshot, use largest, not cumulative  
+             foreach (Effect ef in pc.effectsList)  
+             {
+                if (isPassiveTraitApplied(ef, pc))
+                {
+                    //replace non-stackable positive with highest value  
+                    if ((ef.modifyNumberOfRangedAttacks > numOfAdditionalPositiveRangedAttacks) && (!ef.isStackableEffect))
+                    {
+                        numOfAdditionalPositiveRangedAttacks = ef.modifyNumberOfRangedAttacks;
+                    }
+                    //replace non-stackable negative with lowest value  
+                    if ((ef.modifyNumberOfRangedAttacks < numOfAdditionalNegativeRangedAttacks) && (!ef.isStackableEffect))
+                    {
+                        numOfAdditionalNegativeRangedAttacks = ef.modifyNumberOfRangedAttacks;
+                    }
+                    //if isStackable positive then pile on  
+                    if ((ef.modifyNumberOfRangedAttacks > 0) && (ef.isStackableEffect))
+                    {
+                        numOfAdditionalPositiveStackableRangedAttacks += ef.modifyNumberOfRangedAttacks;
+                    }
+                    //if isStackable negative then pile on  
+                    if ((ef.modifyNumberOfRangedAttacks < 0) && (ef.isStackableEffect))
+                    {
+                        numOfAdditionalNegativeStackableRangedAttacks += ef.modifyNumberOfRangedAttacks;
+                    }
+                }  
+             }  
+   
+            int numOfPos = 0;  
+             int numOfNeg = 0;  
+             //check to see if stackable is greater than non-stackable and combine the highest positive and negative effect  
+             if (numOfAdditionalPositiveRangedAttacks > numOfAdditionalPositiveStackableRangedAttacks)  
+             {  
+                 numOfPos = numOfAdditionalPositiveRangedAttacks;  
+             }  
+             else  
+             {  
+                 numOfPos = numOfAdditionalPositiveStackableRangedAttacks;  
+             }  
+             if (numOfAdditionalNegativeRangedAttacks > numOfAdditionalNegativeStackableRangedAttacks)  
+             {  
+                 numOfNeg = numOfAdditionalNegativeRangedAttacks;  
+             }  
+             else  
+             {  
+                 numOfNeg = numOfAdditionalNegativeStackableRangedAttacks;  
+             }  
+   
+             int numOfAdditionalAttacks = numOfPos + numOfNeg;  
+             if (numOfAdditionalAttacks != 0)  
+             {  
+                 return numOfAdditionalAttacks + 1;  
+             }  
+             else if (gv.sf.hasTrait(pc, "rapidshot2"))  
+             {  
+                 return 3;  
+             }  
+             else if (gv.sf.hasTrait(pc, "rapidshot"))  
+             {  
+                 return 2;  
+             }  
+             else  
+             {  
+                 return 1;  
+             }  
+         }
+
+        public bool isMeleeAttack(Player pc)
+         {  
+            if ((mod.getItemByResRefForInfo(pc.MainHandRefs.resref).category.Equals("Melee"))  
+                    || (mod.getItemByResRefForInfo(pc.MainHandRefs.resref).name.Equals("none"))  
+                     || (mod.getItemByResRefForInfo(pc.AmmoRefs.resref).name.Equals("none")))  
+             {  
+                 return true;  
+             }  
+             return false;  
+         }
+
+        public int CalcNumberOfCleaveAttackTargets(Player pc)
+        {  
+             int cleaveAttTargets = 0;  
+ /*
+        5126 +            //go through all traits and see if has passive cleave type trait, use largest, not cumulative  
+ 5127 +            foreach (string taTag in pc.knownTraitsTags)  
+ 5128 +            {  
+ 5129 +                Trait ta = mod.getTraitByTag(taTag);  
+ 5130 +                foreach (EffectTagForDropDownList efTag in ta.traitEffectTagList)  
+ 5131 +                {  
+ 5132 +                    Effect ef = mod.getEffectByTag(efTag.tag);  
+ 5133 +                    if ((ef.modifyNumberOfEnemiesAttackedOnCleave > cleaveAttTargets) && (ta.isPassive))  
+ 5134 +                    {  
+ 5135 +                        cleaveAttTargets = ef.modifyNumberOfEnemiesAttackedOnCleave;  
+ 5136 +                    }  
+ 5137 +                }  
+ 5138 +            }
+ */  
+             //go through each effect and see if has a buff type like cleave, use largest, not cumulative  
+             foreach (Effect ef in pc.effectsList)  
+             {  
+                 if (ef.modifyNumberOfEnemiesAttackedOnCleave > cleaveAttTargets)  
+                 {
+                    if (isPassiveTraitApplied(ef, pc))
+                    {
+                        cleaveAttTargets = ef.modifyNumberOfEnemiesAttackedOnCleave;
+                    }
+                 }  
+             }  
+             if (cleaveAttTargets > 0)  
+             {  
+                 return cleaveAttTargets;  
+             }  
+             else if (gv.sf.hasTrait(pc, "cleave"))  
+             {  
+                 return 1;  
+             }  
+             else  
+             {  
+                 return 0;  
+             }  
+         }
+
+        public int CalcNumberOfSweepAttackTargets(Player pc)
+        {  
+             int sweepAttTargets = 0;  
+ /*
+ 5163 +            //go through all traits and see if has passive sweep type trait, use largest, not cumulative  
+ 5164 +            foreach (string taTag in pc.knownTraitsTags)  
+ 5165 +            {  
+ 5166 +                Trait ta = mod.getTraitByTag(taTag);  
+ 5167 +                foreach (EffectTagForDropDownList efTag in ta.traitEffectTagList)  
+ 5168 +                {  
+ 5169 +                    Effect ef = mod.getEffectByTag(efTag.tag);  
+ 5170 +                    if ((ef.modifyNumberOfEnemiesAttackedOnSweepAttack > sweepAttTargets) && (ta.isPassive))  
+ 5171 +                    {  
+ 5172 +                        sweepAttTargets = ef.modifyNumberOfEnemiesAttackedOnSweepAttack;  
+ 5173 +                    }  
+ 5174 +                }  
+ 5175 +            }
+ */  
+             //go through each effect and see if has a buff/active type like sweep, use largest, not cumulative  
+             foreach (Effect ef in pc.effectsList)  
+             {  
+                 if (ef.modifyNumberOfEnemiesAttackedOnSweepAttack > sweepAttTargets)  
+                 {
+                    if (isPassiveTraitApplied(ef, pc))
+                    {
+                        sweepAttTargets = ef.modifyNumberOfEnemiesAttackedOnSweepAttack;
+                    }
+                 }  
+             }  
+             if (sweepAttTargets > 0)  
+             {  
+                 return sweepAttTargets;  
+             }              
+             else  
+             {  
+                 return 0;  
+             }  
+         }
+        public int CalcPcMeleeAttackAttributeModifier(Player pc)
+        {  
+             int modifier = (pc.strength - 10) / 2;  
+             bool useDexModifier = false;  
+            /*
+ 5197 +            //go through all traits and see if has passive criticalstrike type trait  
+ 5198 +            foreach (string taTag in pc.knownTraitsTags)  
+ 5199 +            {  
+ 5200 +                Trait ta = mod.getTraitByTag(taTag);  
+ 5201 +                foreach (EffectTagForDropDownList efTag in ta.traitEffectTagList)  
+ 5202 +                {  
+ 5203 +                    Effect ef = mod.getEffectByTag(efTag.tag);  
+ 5204 +                    if ((ef.useDexterityForMeleeAttackModifierIfGreaterThanStrength) && (ta.isPassive))  
+ 5205 +                    {  
+ 5206 +                        useDexModifier = true;  
+ 5207 +                    }  
+ 5208 +                }  
+ 5209 +            }
+ */
+   
+             //go through each effect and see if has a buff type like criticalstrike  
+             foreach (Effect ef in pc.effectsList)  
+             {  
+                 if (ef.useDexterityForMeleeAttackModifierIfGreaterThanStrength)  
+                 {
+                    if (isPassiveTraitApplied(ef, pc))
+                    {
+                        useDexModifier = true;
+                    }
+                 }  
+             }  
+             //if has critical strike trait use dexterity for attack modifier in melee if greater than strength modifier  
+             if ((pc.knownTraitsTags.Contains("criticalstrike")) || (useDexModifier))  
+             {  
+                int modifierDex = (pc.dexterity - 10) / 2;  
+                 if (modifierDex > modifier)  
+                 {  
+                     modifier = (pc.dexterity - 10) / 2;  
+                 }  
+             }  
+             return modifier;  
+         }
+
+        public int CalcPcMeleeDamageAttributeModifier(Player pc)
+        {  
+             int damModifier = (pc.strength - 10) / 2;  
+             bool useDexModifier = false;  
+            /*
+ 5233 +            //go through all traits and see if has passive criticalstrike type trait  
+ 5234 +            foreach (string taTag in pc.knownTraitsTags)  
+ 5235 +            {  
+ 5236 +                Trait ta = mod.getTraitByTag(taTag);  
+ 5237 +                foreach (EffectTagForDropDownList efTag in ta.traitEffectTagList)  
+ 5238 +                {  
+ 5239 +                    Effect ef = mod.getEffectByTag(efTag.tag);  
+ 5240 +                    if ((ef.useDexterityForMeleeDamageModifierIfGreaterThanStrength) && (ta.isPassive))  
+ 5241 +                    {  
+ 5242 +                        useDexModifier = true;  
+ 5243 +                    }  
+ 5244 +                }  
+ 5245 +            } 
+ */ 
+             //go through each effect and see if has a buff type like criticalstrike  
+             foreach (Effect ef in pc.effectsList)  
+             {  
+                 if (ef.useDexterityForMeleeDamageModifierIfGreaterThanStrength)  
+                 {
+                    if (isPassiveTraitApplied(ef, pc))
+                    {
+                        useDexModifier = true;
+                    }
+                 }  
+             }  
+            //if has critical strike trait use dexterity for damage modifier in melee if greater than strength modifier  
+            if ((pc.knownTraitsTags.Contains("criticalstrike")) || (useDexModifier))  
+            {  
+                 int damModifierDex = (pc.dexterity - 10) / 4;  
+                 if (damModifierDex > damModifier)  
+                 {  
+                     damModifier = damModifierDex;  
+                 }  
+             }  
+             return damModifier;  
+         }
+
+        public bool canNegateAdjacentAttackPenalty(Player pc)
+         {  
+             bool cancelAttackPenalty = false;  
+            /*
+             //go through all traits and see if has passive pointblankshot type trait  
+             foreach (string taTag in pc.knownTraitsTags)  
+             {  
+                 Trait ta = mod.getTraitByTag(taTag);  
+                 foreach (EffectTagForDropDownList efTag in ta.traitEffectTagList)  
+                  {  
+                     Effect ef = mod.getEffectByTag(efTag.tag);  
+                     if ((ef.negateAttackPenaltyForAdjacentEnemyWithRangedAttack) && (ta.isPassive))  
+                     {  
+                         cancelAttackPenalty = true;  
+                     }  
+                 }  
+             }
+             */  
+             //go through each effect and see if has a buff type like pointblankshot  
+             foreach (Effect ef in pc.effectsList)  
+             {  
+                 if (ef.negateAttackPenaltyForAdjacentEnemyWithRangedAttack)  
+                 {
+                    if (isPassiveTraitApplied(ef, pc))
+                    {
+                        cancelAttackPenalty = true;
+                    }
+                 }  
+             }  
+             if ((gv.sf.hasTrait(pc, "pointblankshot")) || (cancelAttackPenalty))  
+             {  
+                 return true;  
+             }  
+             return false;  
+         }
+
+        public int CalcPcRangedAttackModifier(Player pc)
+         {  
+             int preciseShotAdder = 0;  
+             string label = "";
+            /*  
+             //go through all traits and see if has passive preciseshot type trait, use largest, not cumulative  
+             foreach (string taTag in pc.knownTraitsTags)  
+             {  
+                 Trait ta = mod.getTraitByTag(taTag);  
+                 foreach (EffectTagForDropDownList efTag in ta.traitEffectTagList)  
+ 5304 +                {  
+ 5305 +                    Effect ef = mod.getEffectByTag(efTag.tag);  
+ 5306 +                    if ((ef.babModifierForRangedAttack > preciseShotAdder) && (ta.isPassive))  
+ 5307 +                    {  
+ 5308 +                        preciseShotAdder = ef.babModifierForRangedAttack;  
+ 5309 +                        label = ta.name;  
+ 5310 +                    }  
+ 5311 +                }  
+ 5312 +            }
+ */  
+             //go through each effect and see if has a buff type like preciseshot, use largest, not cumulative  
+             foreach (Effect ef in pc.effectsList)  
+             {  
+                 if (ef.babModifierForRangedAttack > preciseShotAdder)  
+                 {
+                    if (isPassiveTraitApplied(ef, pc))
+                    {
+                        preciseShotAdder = ef.babModifierForRangedAttack;
+                        label = ef.name;
+                    }
+                 }  
+             }  
+             return preciseShotAdder;  
+         }
+
+        public int CalcPcMeleeDamageModifier(Player pc)
+         {  
+             int adder = 0;  
+             //go through all traits and see if has passive preciseshot type trait, use largest, not cumulative  
+             /*
+ 5328 +            foreach (string taTag in pc.knownTraitsTags)  
+ 5329 +            {  
+ 5330 +                Trait ta = mod.getTraitByTag(taTag);  
+ 5331 +                foreach (EffectTagForDropDownList efTag in ta.traitEffectTagList)  
+ 5332 +                {  
+ 5333 +                    Effect ef = mod.getEffectByTag(efTag.tag);  
+ 5334 +                    if ((ef.damageModifierForMeleeAttack > adder) && (ta.isPassive))  
+ 5335 +                    {  
+ 5336 +                        adder = ef.damageModifierForMeleeAttack;  
+ 5337 +                    }  
+ 5338 +                }  
+ 5339 +            }
+ */  
+             //go through each effect and see if has a buff type like preciseshot, use largest, not cumulative  
+             foreach (Effect ef in pc.effectsList)  
+             {  
+                 if (ef.damageModifierForMeleeAttack > adder)  
+                 {
+                    if (isPassiveTraitApplied(ef, pc))
+                    {
+                        adder = ef.damageModifierForMeleeAttack;
+                    }
+                 }  
+             }  
+             return adder;  
+         }
+
+        public int CalcPcRangedDamageModifier(Player pc)
+         {  
+             int preciseShotAdder = 0;  
+             //go through all traits and see if has passive preciseshot type trait, use largest, not cumulative  
+             /*
+ 5354 +            foreach (string taTag in pc.knownTraitsTags)  
+ 5355 +            {  
+ 5356 +                Trait ta = mod.getTraitByTag(taTag);  
+ 5357 +                foreach (EffectTagForDropDownList efTag in ta.traitEffectTagList)  
+ 5358 +                {  
+ 5359 +                    Effect ef = mod.getEffectByTag(efTag.tag);  
+ 5360 +                    if ((ef.damageModifierForRangedAttack > preciseShotAdder) && (ta.isPassive))  
+ 5361 +                    {  
+ 5362 +                        preciseShotAdder = ef.damageModifierForRangedAttack;  
+ 5363 +                    }  
+ 5364 +                }  
+ 5365 +            }
+ */  
+             //go through each effect and see if has a buff type like preciseshot, use largest, not cumulative  
+             foreach (Effect ef in pc.effectsList)  
+             {  
+                 if (ef.damageModifierForRangedAttack > preciseShotAdder)  
+                 {
+                    if (isPassiveTraitApplied(ef, pc))
+                    {
+                        preciseShotAdder = ef.damageModifierForRangedAttack;
+                    }
+                 }  
+             }  
+             return preciseShotAdder;  
+         }
+
+        public int CalcPcHpRegenInCombat(Player pc)
+         {  
+             int adder = 0;
+          
+             //go through all traits and see if has passive HP regen type trait, use largest, not cumulative  
+             foreach (string taTag in pc.knownTraitsTags)  
+             {  
+                 Trait ta = mod.getTraitByTag(taTag);  
+                 foreach (EffectTagForDropDownList efTag in ta.traitEffectTagList)  
+                 {  
+                     Effect ef = mod.getEffectByTag(efTag.tag);  
+                     if ((ef.modifyHpInCombat > adder) && (ef.isPermanent))  
+                     {
+                        if (isPassiveTraitApplied(ef, pc))
+                        {
+                            adder = ef.modifyHpInCombat;
+                        }
+                     }  
+                 }  
+             }  
+             return adder;  
+         }
+
+        public int CalcPcSpRegenInCombat(Player pc)
+         {  
+             int adder = 0;  
+             //go through all traits and see if has passive HP regen type trait, use largest, not cumulative  
+             foreach (string taTag in pc.knownTraitsTags)  
+             {  
+                 Trait ta = mod.getTraitByTag(taTag);  
+                 foreach (EffectTagForDropDownList efTag in ta.traitEffectTagList)  
+                 {  
+                     Effect ef = mod.getEffectByTag(efTag.tag);  
+                     if ((ef.modifySpInCombat > adder) && (ef.isPermanent))  
+                     {
+                        if (isPassiveTraitApplied(ef, pc))
+                        {
+                            adder = ef.modifySpInCombat;
+                        }
+                     }  
+                 }  
+             }  
+             return adder;  
+        }  
+
+
+    public void RunAllItemWhileEquippedScripts(Player pc)
         {
             try
             {
@@ -7086,15 +7926,31 @@ namespace IceBlink2
                                     }
                                 }
                                 #endregion
-                                crt.hp += heal;
-                                if (crt.hp > crt.hpMax)
+                                //crt.hp += heal;
+                                //if (crt.hp > crt.hpMax)
+                                if (thisSpellEffect.healHP)
                                 {
-                                    crt.hp = crt.hpMax;
-                                }
-                                gv.cc.addLogText("<font color='lime'>" + crt.cr_name + " gains " + heal + " HPs" + "</font><BR>");
-                                //Do floaty text heal
-                                //gv.screenCombat.floatyTextOn = true;
-                                gv.cc.addFloatyText(new Coordinate(crt.combatLocX, crt.combatLocY), heal + "", "green");
+                                        //crt.hp = crt.hpMax;
+                                        crt.hp += heal;
+                                        if (crt.hp > crt.hpMax)
+                                        {
+                                            crt.hp = crt.hpMax;
+                                        }
+                                        gv.cc.addLogText("<font color='lime'>" + crt.cr_name + " gains " + heal + " HPs" + "</font><BR>");
+                                        gv.cc.addFloatyText(new Coordinate(crt.combatLocX, crt.combatLocY), heal + "", "green");
+
+                                 }
+                                    //gv.cc.addLogText("<font color='lime'>" + crt.cr_name + " gains " + heal + " HPs" + "</font><BR>");
+                                 else
+                                 {
+                                        crt.sp += heal;
+                                        gv.cc.addLogText("<font color='lime'>" + crt.cr_name + " gains " + heal + " SPs" + "</font><BR>");
+                                        gv.cc.addFloatyText(new Coordinate(crt.combatLocX, crt.combatLocY), heal + "", "yellow");
+                                 }
+
+                                    //Do floaty text heal
+                                    //gv.screenCombat.floatyTextOn = true;
+                                    //gv.cc.addFloatyText(new Coordinate(crt.combatLocX, crt.combatLocY), heal + "", "green");
                                 #endregion
                             }
 
@@ -7406,20 +8262,41 @@ namespace IceBlink2
                                             heal += RandDiceRoll(thisSpellEffect.healNumOfDice, thisSpellEffect.healDie) + thisSpellEffect.healAdder;
                                         }
                                     }
-                                    #endregion
-                                    pc.hp += heal;
-                                    if (pc.hp > pc.hpMax)
+                                        #endregion
+                                        //pc.hp += heal;
+                                        //if (pc.hp > pc.hpMax)
+                                    if (thisSpellEffect.healHP)
                                     {
-                                        pc.hp = pc.hpMax;
-                                    }
-                                    if (pc.hp > 0)
+                                            //pc.hp = pc.hpMax;
+                                            pc.hp += heal;
+                                            if (pc.hp > pc.hpMax)
+                                            {
+                                                pc.hp = pc.hpMax;
+                                            }
+                                            if (pc.hp > 0)
+                                            {
+                                                pc.charStatus = "Alive";
+                                            }
+                                            gv.cc.addLogText("<font color='lime'>" + pc.name + " gains " + heal + " HPs" + "</font><BR>");
+                                            gv.cc.addFloatyText(new Coordinate(pc.combatLocX, pc.combatLocY), heal + "", "green");
+
+                                   }
+                                   else
                                     {
-                                        pc.charStatus = "Alive";
-                                    }
-                                    gv.cc.addLogText("<font color='lime'>" + pc.name + " gains " + heal + " HPs" + "</font><BR>");
+                                            //pc.charStatus = "Alive";
+                                            pc.sp += heal;
+                                            if (pc.sp > pc.spMax)
+                                            {
+                                                pc.sp = pc.spMax;
+                                            }
+                                            gv.cc.addLogText("<font color='lime'>" + pc.name + " gains " + heal + " SPs" + "</font><BR>");
+                                            gv.cc.addFloatyText(new Coordinate(pc.combatLocX, pc.combatLocY), heal + "", "yellow");
+
+                                        }
+                                        //gv.cc.addLogText("<font color='lime'>" + pc.name + " gains " + heal + " HPs" + "</font><BR>");
                                     //Do floaty text heal
                                     //gv.screenCombat.floatyTextOn = true;
-                                    gv.cc.addFloatyText(new Coordinate(pc.combatLocX, pc.combatLocY), heal + "", "green");
+                                    //gv.cc.addFloatyText(new Coordinate(pc.combatLocX, pc.combatLocY), heal + "", "green");
                                 }
                                 #endregion
                             }
