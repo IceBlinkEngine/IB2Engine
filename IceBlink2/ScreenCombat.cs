@@ -2522,6 +2522,17 @@ namespace IceBlink2
         public void GeneralCaster(Creature crt)
         {
     	    gv.sf.SpellToCast = null;
+            //check if should cast spell or attack/move  
+            int castpercent = gv.sf.RandInt(100);
+            if (crt.percentChanceToCastSpell < castpercent)
+            {
+                //don't cast this round, instead try and attack or move  
+                Player pc = targetClosestPC(crt);
+                gv.sf.CombatTarget = pc;
+                gv.sf.ActionToTake = "Attack";
+                return;
+            }
+
             //just pick a random spell from KnownSpells
             //try a few times to pick a random spell that has enough SP
             for (int i = 0; i < 10; i++)

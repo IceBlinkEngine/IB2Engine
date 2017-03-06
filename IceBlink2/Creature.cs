@@ -19,6 +19,7 @@ namespace IceBlink2
         [JsonIgnore]
 	    public Bitmap token;
         public float roamDistanceX = 0;
+        public int percentChanceToCastSpell = 100; //for GeneralCaster, this is the % chance that they will try and cast a spell on each turn (100 = 100%, 80 = 80%, etc.)    	    
         public float roamDistanceY = 0;
         public float straightLineDistanceX = 0;
         public float straightLineDistanceY = 0;
@@ -107,6 +108,7 @@ namespace IceBlink2
 	    public Creature DeepCopy()
 	    {
 		    Creature copy = new Creature();
+            copy.percentChanceToCastSpell = this.percentChanceToCastSpell;
             copy.roamDistanceX = this.roamDistanceX;
             copy.roamDistanceY = this.roamDistanceY;
             copy.straightLineDistanceX = this.straightLineDistanceX;
