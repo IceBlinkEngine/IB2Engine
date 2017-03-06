@@ -15,7 +15,8 @@ namespace IceBlink2
 	    private GameView gv;
 	
 	    private int traitSlotIndex = 0;
-	    private int slotsPerPage = 20;
+        private int traitToLearnIndex = 1;
+        private int slotsPerPage = 20;
 	    private List<IbbButton> btnTraitSlots = new List<IbbButton>();
 	    private IbbButton btnHelp = null;
 	    private IbbButton btnSelect = null;
@@ -126,7 +127,8 @@ namespace IceBlink2
             {
                 //DRAW TEXT		
                 locY = (gv.squareSize * 0) + (pH * 2);
-                gv.DrawText("Select One Trait to Learn", noticeX, pH * 1, 1.0f, Color.Gray);
+                //gv.DrawText("Select One Trait to Learn", noticeX, pH * 1, 1.0f, Color.Gray);
+                gv.DrawText("Select " + traitToLearnIndex + " of " + mod.getPlayerClass(pc.classTag).traitsToLearnAtLevelTable[pc.classLevel] + " Traits to Learn", noticeX, pH * 1, 1.0f, Color.Gray);
 
                 //DRAW NOTIFICATIONS
                 if (isSelectedTraitSlotInKnownTraitsRange())
@@ -538,7 +540,7 @@ namespace IceBlink2
                             }
                         }
                     }
-
+                    /*
                     //else if in creation go back to partybuild				
                     if (inPcCreation)
 				    {
@@ -575,12 +577,59 @@ namespace IceBlink2
  						    gv.screenParty.doLevelUpSummary();
  	        	        }					
 				    }
-			    }
-			    else
+                    */
+
+                    //check to see if there are more traits to learn at this level  
+                    traitToLearnIndex++;
+                    if (traitToLearnIndex <= mod.getPlayerClass(pc.classTag).traitsToLearnAtLevelTable[pc.classLevel])
+                    {
+                        gv.screenParty.traitGained += tr.name + ", ";
+                    }
+                    else //finished learning all traits available for this level  
+                    {
+                        //else if in creation go back to partybuild				  
+                        if (inPcCreation)
+                        {
+                            //if there are spells to learn go to spell screen next  
+                            List < string > spellTagsList = new List<string>();
+                            spellTagsList = pc.getSpellsToLearn();
+                            if (spellTagsList.Count > 0)
+                            {
+                                gv.screenSpellLevelUp.resetPC(false, pc, false);
+                                gv.screenType = "learnSpellCreation";
+                            }
+                            else //no spells to learn  
+                            {
+                                //save character, add them to the pcList of screenPartyBuild, and go back to build screen  
+                                gv.screenPcCreation.SaveCharacter(pc);
+                                gv.screenPartyBuild.pcList.Add(pc);
+                                gv.screenType = "partyBuild";
+                             }
+                         }
+                         else  
+                         {
+                            //if there are spells to learn go to spell screen next  
+                            List < string > spellTagsList = new List<string>();
+                            spellTagsList = pc.getSpellsToLearn();
+                            if (spellTagsList.Count > 0)
+                            {
+                                gv.screenSpellLevelUp.resetPC(false, pc, false);
+                                gv.screenType = "learnSpellLevelUp";
+                             }
+                             else //no spells or traits to learn  
+                             {
+                                gv.screenType = "party";
+                                gv.screenParty.traitGained += tr.name + ", ";
+                                gv.screenParty.doLevelUpSummary();
+                             }
+                        }
+                  }
+                }
+                else
 			    {
-				    gv.sf.MessageBox("Can't learn that spell, try another or exit");
+				    gv.sf.MessageBox("Can't learn that trait, try another or exit");
 			    }
-		    }	
+		    }   	
         }
             
         public bool isAvailableToLearn(string spellTag)

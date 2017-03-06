@@ -35,8 +35,11 @@ namespace IceBlink2
         public int[] baseFortitudeAtLevel = new int[]{0, 2, 3, 3, 4, 4, 5, 5, 6};
 	    public int[] baseWillAtLevel = new int[]{0, 0, 0, 1, 1, 1, 2, 2, 2};
 	    public int[] baseReflexAtLevel = new int[]{0, 0, 0, 1, 1, 1, 2, 2, 2};
-        public int[] babTable = new int[]{0,1,2,3,4,5,6,7,8,9};	
-	    public int[] xpTable = new int[]{0,200,400,800,1600,3200,6500,12500,25000,50000};
+        public int[] babTable = new int[]{0,1,2,3,4,5,6,7,8,9};
+        public int[] traitsToLearnAtLevelTable = new int[] { 0, 1, 1, 1, 1, 1, 1, 1, 1, 1 };  
+        public int[] spellsToLearnAtLevelTable = new int[] { 0, 1, 1, 1, 1, 1, 1, 1, 1, 1 };
+
+        public int[] xpTable = new int[]{0,200,400,800,1600,3200,6500,12500,25000,50000};
 	    public List<ItemRefs> itemsAllowed = new List<ItemRefs>();
 	    public List<TraitAllowed> traitsAllowed = new List<TraitAllowed>();
 	    public List<SpellAllowed> spellsAllowed = new List<SpellAllowed>();
@@ -119,7 +122,10 @@ namespace IceBlink2
             {
                 copy.traitsAllowed.Add(ta.DeepCopy());
             }
-		    return copy;
+            copy.traitsToLearnAtLevelTable = (int[])this.traitsToLearnAtLevelTable.Clone();
+            copy.spellsToLearnAtLevelTable = (int[])this.spellsToLearnAtLevelTable.Clone();
+
+            return copy;
 	    }
     }
 }
