@@ -1416,7 +1416,8 @@ namespace IceBlink2
                         */
                         if ((coor.X == targetHighlightCenterLocation.X) && (coor.Y == targetHighlightCenterLocation.Y))
                         {
-                            int attResult = 0; //0=missed, 1=hit, 2=killed  
+                            int attResult = 0; //0=missed, 1=hit, 2=killed
+                            bool attResultHit = false;
                             int numAtt = 1;
                             int crtLocX = crt.combatLocX;
                             int crtLocY = crt.combatLocY;
@@ -1438,6 +1439,7 @@ namespace IceBlink2
                             //if ((gv.sf.hasTrait(pc, "cleave")) && (mod.getItemByResRefForInfo(pc.MainHandRefs.resref).category.Equals("Melee")))
                             {
                                 attResult = doActualCombatAttack(pc, crt, 0);
+                                if (attResult > 0) { attResultHit = true; }
                                 for (int j = 1; j < numSweep; j++)
                                 {
                                     Creature crt2 = GetNextAdjacentCreature(pc);
@@ -1447,7 +1449,8 @@ namespace IceBlink2
                                         crtLocY = crt2.combatLocY;
                                         gv.cc.addFloatyText(new Coordinate(pc.combatLocX, pc.combatLocY), "sweep", "green");
                                         int attResult2 = doActualCombatAttack(pc, crt2, 0);
-                                     }
+                                        if (attResult2 > 0) { attResultHit = true; }
+                                    }
                                 }
                             }
 
@@ -1462,6 +1465,7 @@ namespace IceBlink2
                                     if ((numCleave > 0) && (gv.sf.isMeleeAttack(pc)))
                                     {
                                         attResult = doActualCombatAttack(pc, crt, i);
+                                        if (attResult > 0) { attResultHit = true; }
                                         if (attResult == 2) //2=killed, 1=hit, 0=missed  
                                         {
                                             for (int j = 0; j < numCleave; j++)
@@ -1473,6 +1477,7 @@ namespace IceBlink2
                                                     crtLocY = crt2.combatLocY;
                                                     gv.cc.addFloatyText(new Coordinate(pc.combatLocX, pc.combatLocY), "cleave", "green");
                                                     int attResult2 = doActualCombatAttack(pc, crt2, i);
+                                                    if (attResult2 > 0) { attResultHit = true; }
                                                     if (attResult2 != 2)
                                                     {
                                                         //didn't kill this creature so stop with the cleaves  
@@ -1490,6 +1495,7 @@ namespace IceBlink2
                                     else
                                     {
                                         attResult = doActualCombatAttack(pc, crt, i);
+                                        if (attResult > 0) { attResultHit = true; }
                                         if (attResult == 2) //2=killed, 1=hit, 0=missed  
                                         {
                                             break; //do not try and attack same creature that was just killed  
@@ -1497,7 +1503,8 @@ namespace IceBlink2
                                     }
                                 }
                             }
-                            if (attResult > 0) //2=killed, 1=hit, 0=missed  
+                            //if (attResult > 0) //2=killed, 1=hit, 0=missed  
+                            if (attResultHit) //2=killed, 1=hit, 0=missed 
                             {
                                  hitAnimationLocation = new Coordinate(getPixelLocX(crtLocX), getPixelLocY(crtLocY));
                                                                 //new system  
