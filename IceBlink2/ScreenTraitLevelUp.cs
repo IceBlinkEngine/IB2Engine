@@ -41,6 +41,7 @@ namespace IceBlink2
 	    {
 		    pc = p;
             infoOnly = info_only;
+            traitToLearnIndex = 1;
         }
 	
 	    public void setControlsStart()
@@ -136,7 +137,8 @@ namespace IceBlink2
                     Trait tr = GetCurrentlySelectedTrait();
                     
                     //check to see if already known
-                    if (pc.knownTraitsTags.Contains(tr.tag))
+                    //if (pc.knownTraitsTags.Contains(tr.tag))
+                    if ((pc.knownTraitsTags.Contains(tr.tag)) || (pc.learningTraitsTags.Contains(tr.tag)))
                     {
                         //say that you already know this one
                         gv.DrawText("Already Known", noticeX, noticeY, 1.0f, Color.Yellow);
@@ -333,7 +335,12 @@ namespace IceBlink2
 			    {
                     if (!infoOnly)
                     {
-                        gv.PlaySound("btn_click");
+                            gv.screenParty.traitGained = "";
+                            gv.screenParty.spellGained = "";
+                            pc.learningTraitsTags.Clear();
+                            pc.learningSpellsTags.Clear();
+                            traitToLearnIndex = 1;
+                            gv.PlaySound("btn_click");
                         if (inPcCreation)
                         {
                             gv.screenType = "pcCreation";
@@ -355,9 +362,12 @@ namespace IceBlink2
 			    Trait tr = GetCurrentlySelectedTrait();
 			    if (isAvailableToLearn(tr.tag))
 			    {
-				    //add trait
-				    pc.knownTraitsTags.Add(tr.tag);
+                    //add trait
+                    //pc.knownTraitsTags.Add(tr.tag);
+                    pc.learningTraitsTags.Add(tr.tag);
                     //public string useableInSituation = "Always"; //InCombat, OutOfCombat, Always, Passive
+                    //note: might have to do this on exit
+                    /*
                     if (!tr.associatedSpellTag.Equals("none"))
                     {
                         if (tr.useableInSituation.Contains("Always"))
@@ -377,55 +387,57 @@ namespace IceBlink2
                             pc.knownInCombatUsableTraitsTags.Add(tr.associatedSpellTag);
                         }
                     }
+                    */
 
+                    /*
                     //add permanent effects of trait to effect list of this pc
                     foreach (EffectTagForDropDownList efTag in tr.traitEffectTagList)
-                    {
+                    {//1
                         foreach (Effect ef in gv.mod.moduleEffectsList)
-                        {
+                        {//2
                             if (ef.tag == efTag.tag)
-                            {
+                            {//3
                                 if (ef.isPermanent)
-                                {
+                                {//4
                                     bool doesNotExistAlfready = true;
                                     foreach (Effect ef2 in pc.effectsList)
-                                    {
+                                    {//5
                                         if (ef2.tag == ef.tag)
-                                        {
+                                        {//6
                                             doesNotExistAlfready = false;
                                             break;
-                                        }
-                                    }
+                                        }//6
+                                    }//5
 
                                     if (doesNotExistAlfready)
-                                    {
+                                    {//6
                                         pc.effectsList.Add(ef);
                                         gv.sf.UpdateStats(pc);
                                         if (ef.modifyHpMax != 0)
-                                        {
+                                        {//7
                                             pc.hp += ef.modifyHpMax;
                                             if (pc.hp < 1)
-                                            {
+                                            {//8
                                                 pc.hp = 1;
-                                            }
+                                            }//8
                                             if (pc.hp > pc.hpMax)
                                             {
                                                 pc.hp = pc.hpMax;
                                             }
-                                        }
+                                        }//7
 
                                         if (ef.modifyCon != 0)
-                                        {
+                                        {//7
                                             pc.hp += ef.modifyCon / 2;
                                             if (pc.hp < 1)
-                                            {
+                                            {//8
                                                 pc.hp = 1;
-                                            }
+                                            }//8
                                             if (pc.hp > pc.hpMax)
                                             {
                                                 pc.hp = pc.hpMax;
                                             }
-                                        }
+                                        }//7
 
                                         if (ef.modifySpMax != 0)
                                         {
@@ -535,11 +547,13 @@ namespace IceBlink2
                                                 }
                                             }
                                         }
-                                    }
-                                }
-                            }
-                        }
-                    }
+                                    }//6
+                                }//5
+                            }//4
+                        }//3
+                    }//2 (is 1 actually)
+                    */
+
                     /*
                     //else if in creation go back to partybuild				
                     if (inPcCreation)
@@ -600,7 +614,206 @@ namespace IceBlink2
                             }
                             else //no spells to learn  
                             {
-                                //save character, add them to the pcList of screenPartyBuild, and go back to build screen  
+                                //save character, add them to the pcList of screenPartyBuild, and go back to build screen
+                                foreach (string s in pc.learningTraitsTags)
+                                {
+                                    pc.knownTraitsTags.Add(s);
+                                    //TODO: must get trait by ts string
+                                    foreach (Trait t in gv.mod.moduleTraitsList)
+                                    {
+                                        if (t.tag == s)
+                                        {
+                                            tr = t;
+                                            break;
+                                        }
+                                    }
+
+                                    //add trait/effect system here: usable traits
+                                    if (!tr.associatedSpellTag.Equals("none"))
+                                    {
+                                        if (tr.useableInSituation.Contains("Always"))
+                                        {
+                                            pc.knownUsableTraitsTags.Add(tr.associatedSpellTag);
+                                            pc.knownOutsideCombatUsableTraitsTags.Add(tr.associatedSpellTag);
+                                            pc.knownInCombatUsableTraitsTags.Add(tr.associatedSpellTag);
+                                        }
+                                        if (tr.useableInSituation.Contains("OutOfCombat"))
+                                        {
+                                            pc.knownUsableTraitsTags.Add(tr.associatedSpellTag);
+                                            pc.knownOutsideCombatUsableTraitsTags.Add(tr.associatedSpellTag);
+                                        }
+                                        if (tr.useableInSituation.Contains("InCombat"))
+                                        {
+                                            pc.knownUsableTraitsTags.Add(tr.associatedSpellTag);
+                                            pc.knownInCombatUsableTraitsTags.Add(tr.associatedSpellTag);
+                                        }
+                                    }
+                    
+                    //add permanent effects of trait to effect list of this pc
+                    foreach (EffectTagForDropDownList efTag in tr.traitEffectTagList)
+                    {//1
+                        foreach (Effect ef in gv.mod.moduleEffectsList)
+                        {//2
+                            if (ef.tag == efTag.tag)
+                            {//3
+                                if (ef.isPermanent)
+                                {//4
+                                    bool doesNotExistAlfready = true;
+                                    foreach (Effect ef2 in pc.effectsList)
+                                    {//5
+                                        if (ef2.tag == ef.tag)
+                                        {//6
+                                            doesNotExistAlfready = false;
+                                            break;
+                                        }//6
+                                    }//5
+
+                                    if (doesNotExistAlfready)
+                                    {//6
+                                        pc.effectsList.Add(ef);
+                                        gv.sf.UpdateStats(pc);
+                                        if (ef.modifyHpMax != 0)
+                                        {//7
+                                            pc.hp += ef.modifyHpMax;
+                                            if (pc.hp < 1)
+                                            {//8
+                                                pc.hp = 1;
+                                            }//8
+                                            if (pc.hp > pc.hpMax)
+                                            {
+                                                pc.hp = pc.hpMax;
+                                            }
+                                        }//7
+
+                                        if (ef.modifyCon != 0)
+                                        {//7
+                                            pc.hp += ef.modifyCon / 2;
+                                            if (pc.hp < 1)
+                                            {//8
+                                                pc.hp = 1;
+                                            }//8
+                                            if (pc.hp > pc.hpMax)
+                                            {
+                                                pc.hp = pc.hpMax;
+                                            }
+                                        }//7
+
+                                        if (ef.modifySpMax != 0)
+                                        {
+                                            pc.sp += ef.modifySpMax;
+                                            if (pc.sp < 1)
+                                            {
+                                                pc.sp = 1;
+                                            }
+                                            if (pc.sp > pc.spMax)
+                                            {
+                                                pc.sp = pc.spMax;
+                                            }
+                                        }
+
+                                        if (ef.modifyStr != 0)
+                                        {
+                                            if (pc.playerClass.modifierFromSPRelevantAttribute.Equals("strength"))
+                                            {
+                                                pc.sp += ef.modifyStr / 2;
+                                                if (pc.sp < 1)
+                                                {
+                                                    pc.sp = 1;
+                                                }
+                                                if (pc.sp > pc.spMax)
+                                                {
+                                                    pc.sp = pc.spMax;
+                                                }
+                                            }
+                                        }
+
+                                        if (ef.modifyDex != 0)
+                                        {
+                                            if (pc.playerClass.modifierFromSPRelevantAttribute.Equals("dexterity"))
+                                            {
+                                                pc.sp += ef.modifyDex / 2;
+                                                if (pc.sp < 1)
+                                                {
+                                                    pc.sp = 1;
+                                                }
+                                                if (pc.sp > pc.spMax)
+                                                {
+                                                    pc.sp = pc.spMax;
+                                                }
+                                            }
+                                        }
+
+                                        if (ef.modifyCon != 0)
+                                        {
+                                            if (pc.playerClass.modifierFromSPRelevantAttribute.Equals("constitution"))
+                                            {
+                                                pc.sp += ef.modifyCon / 2;
+                                                if (pc.sp < 1)
+                                                {
+                                                    pc.sp = 1;
+                                                }
+                                                if (pc.sp > pc.spMax)
+                                                {
+                                                    pc.sp = pc.spMax;
+                                                }
+                                            }
+                                        }
+
+                                        if (ef.modifyCha != 0)
+                                        {
+                                            if (pc.playerClass.modifierFromSPRelevantAttribute.Equals("charisma"))
+                                            {
+                                                pc.sp += ef.modifyCha / 2;
+                                                if (pc.sp < 1)
+                                                {
+                                                    pc.sp = 1;
+                                                }
+                                                if (pc.sp > pc.spMax)
+                                                {
+                                                    pc.sp = pc.spMax;
+                                                }
+                                            }
+                                        }
+
+                                        if (ef.modifyInt != 0)
+                                        {
+                                            if (pc.playerClass.modifierFromSPRelevantAttribute.Equals("intelligence"))
+                                            {
+                                                pc.sp += ef.modifyInt / 2;
+                                                if (pc.sp < 1)
+                                                {
+                                                    pc.sp = 1;
+                                                }
+                                                if (pc.sp > pc.spMax)
+                                                {
+                                                    pc.sp = pc.spMax;
+                                                }
+                                            }
+                                        }
+
+                                        if (ef.modifyWis != 0)
+                                        {
+                                            if (pc.playerClass.modifierFromSPRelevantAttribute.Equals("wisdom"))
+                                            {
+                                                pc.sp += ef.modifyWis / 2;
+                                                if (pc.sp < 1)
+                                                {
+                                                    pc.sp = 1;
+                                                }
+                                                if (pc.sp > pc.spMax)
+                                                {
+                                                    pc.sp = pc.spMax;
+                                                }
+                                            }
+                                        }
+                                    }//5
+                                }//4
+                            }//3
+                        }//2
+                    }//1 
+
+                                }
+                                //note2
                                 gv.screenPcCreation.SaveCharacter(pc);
                                 gv.screenPartyBuild.pcList.Add(pc);
                                 gv.screenType = "partyBuild";

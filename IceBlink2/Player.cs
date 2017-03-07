@@ -38,6 +38,9 @@ namespace IceBlink2
         public PlayerClass playerClass = new PlayerClass();
         public List<string> knownSpellsTags = new List<string>();
         public List<string> knownTraitsTags = new List<string>();
+        public List<string> learningSpellsTags = new List<string>();  
+        public List<string> learningTraitsTags = new List<string>();
+
         public List<string> knownUsableTraitsTags = new List<string>();
         public List<string> knownInCombatUsableTraitsTags = new List<string>();
         public List<string> knownOutsideCombatUsableTraitsTags = new List<string>();
@@ -322,6 +325,7 @@ namespace IceBlink2
         }
         public bool hasSpellAlready(SpellAllowed sa)
         {
+            /*
             foreach (string s in this.knownSpellsTags)
             {
                 if (sa.tag.Equals(s))
@@ -329,6 +333,10 @@ namespace IceBlink2
                     return true;
                 }
             }
+            */
+            if (this.knownSpellsTags.Contains(sa.tag)) { return true; }
+            if (this.learningSpellsTags.Contains(sa.tag)) { return true; }
+
             return false;
         }
         public List<string> getTraitsToLearn(Module mod)
@@ -364,7 +372,10 @@ namespace IceBlink2
         }
         public bool hasTraitAlready(TraitAllowed ta)
         {
-            return this.knownTraitsTags.Contains(ta.tag);
+            //return this.knownTraitsTags.Contains(ta.tag);
+            if (this.knownTraitsTags.Contains(ta.tag)) { return true; }
+            if (this.learningTraitsTags.Contains(ta.tag)) { return true; }
+            return false;
         }
 
         public Effect getEffectByTag(string tag)
