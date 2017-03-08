@@ -17,7 +17,10 @@ namespace IceBlink2
 	    public string shopName = "";
 	    public List<ItemRefs> shopItemRefs = new List<ItemRefs>();
 	    public List<ItemRefs> initialShopItemRefs = new List<ItemRefs>();
-    
+        public int buybackPercent = 70;  
+        public int sellPercent = 100;
+
+
         public Shop()
 	    {
 		
@@ -46,7 +49,10 @@ namespace IceBlink2
             Shop copy = new Shop();
 		    copy.shopTag = this.shopTag;
 		    copy.shopName = this.shopName;
-		    copy.shopItemRefs = new List<ItemRefs>();
+            copy.buybackPercent = this.buybackPercent;
+            copy.sellPercent = this.sellPercent;
+
+            copy.shopItemRefs = new List<ItemRefs>();
 		    foreach (ItemRefs s in this.shopItemRefs)
             {
                 copy.shopItemRefs.Add(s);

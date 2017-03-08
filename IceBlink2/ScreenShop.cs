@@ -204,7 +204,7 @@ namespace IceBlink2
 		    btnShopLeft.Draw();
 		    btnShopRight.Draw();		
 		
-		    //DRAW ALL INVENTORY SLOTS of SHOP		
+		    //DRAW ALL SHOP INVENTORY SLOTS of SHOP		
 		    int cntSlot = 0;
 		    foreach (IbbButton btn in btnShopSlot)
 		    {
@@ -218,15 +218,19 @@ namespace IceBlink2
                     btn.Img2 = gv.cc.LoadBitmap(it.itemImage);	
 				    if (itrs.quantity < it.groupSizeForSellingStackableItems)
     			    {
-    				    //less than the stack size for selling
-    				    int cost = (itrs.quantity * it.value) / it.groupSizeForSellingStackableItems;
-    				    btn.Text = "" + cost;
+                        //less than the stack size for selling
+                        //int cost = (itrs.quantity * it.value) / it.groupSizeForSellingStackableItems;
+                        int cost = (itrs.quantity * storeSellValueForItem(it)) / it.groupSizeForSellingStackableItems;
+                        btn.Text = "" + cost;
     			    }
     			    else //have more than the stack size for selling
     			    {
-    				    int full = (itrs.quantity / it.groupSizeForSellingStackableItems) * it.value;
-    				    int part = ((itrs.quantity % it.groupSizeForSellingStackableItems) * it.value) / it.groupSizeForSellingStackableItems;
-    				    int total = full + part;
+                        //int full = (itrs.quantity / it.groupSizeForSellingStackableItems) * it.value;
+                        //int part = ((itrs.quantity % it.groupSizeForSellingStackableItems) * it.value) / it.groupSizeForSellingStackableItems;
+                        int full = (itrs.quantity / it.groupSizeForSellingStackableItems) * storeSellValueForItem(it);
+                        int part = ((itrs.quantity % it.groupSizeForSellingStackableItems) * storeSellValueForItem(it)) / it.groupSizeForSellingStackableItems;
+
+                        int total = full + part;
     				    btn.Text = "" + total;
     			    }
 				
@@ -296,7 +300,7 @@ namespace IceBlink2
 		    gv.DrawText("Party", tabX2 + gv.squareSize * 5, locY, 1.0f, Color.Yellow);
             gv.DrawText(mod.goldLabelPlural + ": " + mod.partyGold, tabX2 + gv.squareSize * 5, locY += spacing, 1.0f, Color.Yellow);
 		
-		    //DRAW ALL INVENTORY SLOTS		
+		    //DRAW ALL PARTY INVENTORY SLOTS		
 		    cntSlot = 0;
 		    foreach (IbbButton btn in btnInventorySlot)
 		    {
@@ -310,15 +314,19 @@ namespace IceBlink2
                     btn.Img2 = gv.cc.LoadBitmap(it.itemImage);	
 				    if (itr.quantity < it.groupSizeForSellingStackableItems)
     			    {
-    				    //less than the stack size for selling
-    				    int cost = (itr.quantity * it.value) / it.groupSizeForSellingStackableItems;
-    				    btn.Text = "" + cost;
+                        //less than the stack size for selling
+                        //int cost = (itr.quantity * it.value) / it.groupSizeForSellingStackableItems;
+                        int cost = (itr.quantity * storeBuyBackValueForItem(it)) / it.groupSizeForSellingStackableItems;
+                        btn.Text = "" + cost;
     			    }
     			    else //have more than the stack size for selling
     			    {
-    				    int full = (itr.quantity / it.groupSizeForSellingStackableItems) * it.value;
-    				    int part = ((itr.quantity % it.groupSizeForSellingStackableItems) * it.value) / it.groupSizeForSellingStackableItems;
-    				    int total = full + part;
+                        //int full = (itr.quantity / it.groupSizeForSellingStackableItems) * it.value;
+                        //int part = ((itr.quantity % it.groupSizeForSellingStackableItems) * it.value) / it.groupSizeForSellingStackableItems;
+                        int full = (itr.quantity / it.groupSizeForSellingStackableItems) * storeBuyBackValueForItem(it);
+                        int part = ((itr.quantity % it.groupSizeForSellingStackableItems) * storeBuyBackValueForItem(it)) / it.groupSizeForSellingStackableItems;
+
+                        int total = full + part;
     				    btn.Text = "" + total;
     			    }				
 				    if (itr.quantity > 1)
@@ -377,6 +385,21 @@ namespace IceBlink2
 		    btnHelp.Draw();		
 		    btnReturn.Draw();
         }
+
+        public int storeSellValueForItem(Item it)
+        {  
+             int sellPrice = (int)(it.value * ((float)currentShop.sellPercent / 100f));  
+             if (sellPrice< 1) { sellPrice = 1; }  
+             return sellPrice;  
+        }
+          
+        public int storeBuyBackValueForItem(Item it)
+        {  
+            int buyPrice = (int)(it.value * ((float)currentShop.buybackPercent / 100f));  
+            if (buyPrice< 1) { buyPrice = 1; }  
+            return buyPrice;  
+        }  
+
 	
         public string isUseableBy(Item it)
         {
@@ -569,7 +592,9 @@ namespace IceBlink2
                             if (itr.quantity < it.groupSizeForSellingStackableItems)
                             {
                                 //less than the stack size for selling
-                                mod.partyGold += (itr.quantity * it.value) / it.groupSizeForSellingStackableItems;
+                                //mod.partyGold += (itr.quantity * it.value) / it.groupSizeForSellingStackableItems;
+                                mod.partyGold += (itr.quantity * storeBuyBackValueForItem(it)) / it.groupSizeForSellingStackableItems;
+
                                 ItemRefs itrCopy = itr.DeepCopy();
                                 itrCopy.quantity = itr.quantity;
                                 currentShop.shopItemRefs.Add(itrCopy);
@@ -578,7 +603,8 @@ namespace IceBlink2
                             }
                             else //have more than the stack size for selling
                             {
-                                mod.partyGold += it.value;
+                                //mod.partyGold += it.value;
+                                mod.partyGold += storeBuyBackValueForItem(it);
                                 ItemRefs itrCopy = itr.DeepCopy();
                                 itrCopy.quantity = it.groupSizeForSellingStackableItems;
                                 currentShop.shopItemRefs.Add(itrCopy);
@@ -607,7 +633,8 @@ namespace IceBlink2
 	            Item it = mod.getItemByResRef(currentShop.shopItemRefs[shopSlotIndex + (shopPageIndex * 10)].resref);
                 if (it != null)
                 {
-                    if (mod.partyGold < it.value)
+                    ///if (mod.partyGold < it.value)
+                    if (mod.partyGold < storeSellValueForItem(it))
                     {
                         gv.sf.MessageBoxHtml("Your party does not have enough gold to purchase this item.");
                         return;
@@ -675,7 +702,9 @@ namespace IceBlink2
                         if (itr.quantity < it.groupSizeForSellingStackableItems)
                         {
                             //less than the stack size for selling
-                            mod.partyGold -= (itr.quantity * it.value) / it.groupSizeForSellingStackableItems;
+                            //mod.partyGold -= (itr.quantity * it.value) / it.groupSizeForSellingStackableItems;
+                            mod.partyGold -= (itr.quantity * storeSellValueForItem(it)) / it.groupSizeForSellingStackableItems;
+
                             //add item and tag to party inventory
                             mod.partyInventoryRefsList.Add(itr.DeepCopy());
                             //remove tag from shop list
@@ -684,7 +713,8 @@ namespace IceBlink2
                         else //have more than the stack size for selling
                         {
                             //subtract gold from party
-                            mod.partyGold -= it.value;
+                            //mod.partyGold -= it.value;
+                            mod.partyGold -= storeSellValueForItem(it);
                             //add item and tag to party inventory
                             mod.partyInventoryRefsList.Add(itr.DeepCopy());
                             //remove tag from shop list
