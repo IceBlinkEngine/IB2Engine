@@ -247,7 +247,462 @@ namespace IceBlink2
             }
             return false;
         }
+        //*****************************************************
 
+
+        public int getDamageTypeResistanceValueMagic()
+         {  
+             int modifier = 0;  
+             int highestNonStackable = -99;  
+             foreach (Effect ef in this.cr_effectsList)  
+             {  
+                 if (ef.isStackableEffect)  
+                 {  
+                     modifier += ef.modifyDamageTypeResistanceMagic;  
+                 }  
+                 else  
+                 {  
+                     if ((ef.modifyDamageTypeResistanceMagic != 0) && (ef.modifyDamageTypeResistanceMagic > highestNonStackable))  
+                     {  
+                         highestNonStackable = ef.modifyDamageTypeResistanceMagic;  
+                     }  
+                 }  
+             }  
+             if (highestNonStackable > -99) { modifier = highestNonStackable; }  
+   
+             int returnValue = this.damageTypeResistanceValueMagic + modifier;  
+   
+             if (returnValue > 100) //check is necessary so creature could never receive negative damage (heal) due to greater than 100 resistance.  
+             {  
+                 returnValue = 100;  
+             }  
+             return returnValue;  
+         }  
+         public int getDamageTypeResistanceValueAcid()
+         {  
+             int modifier = 0;  
+             int highestNonStackable = -99;  
+             foreach (Effect ef in this.cr_effectsList)  
+             {
+                    if (ef.isStackableEffect)
+                       {
+         modifier += ef.modifyDamageTypeResistanceAcid;
+                        }
+                   else  
+                 {
+                            if ((ef.modifyDamageTypeResistanceAcid != 0) && (ef.modifyDamageTypeResistanceAcid > highestNonStackable))
+                                {
+             highestNonStackable = ef.modifyDamageTypeResistanceAcid;
+                                }
+                        }
+                }  
+             if (highestNonStackable > -99) { modifier = highestNonStackable; }  
+   
+             int returnValue = this.damageTypeResistanceValueAcid + modifier;  
+   
+             if (returnValue > 100) //check is necessary so creature could never receive negative damage (heal) due to greater than 100 resistance.  
+             {
+     returnValue = 100;
+                }  
+             return returnValue;  
+         }  
+         public int getDamageTypeResistanceValueNormal()
+         {  
+             int modifier = 0;  
+             int highestNonStackable = -99;  
+             foreach (Effect ef in this.cr_effectsList)  
+             {
+                    if (ef.isStackableEffect)
+                        {
+         modifier += ef.modifyDamageTypeResistanceNormal;
+                        }
+                    else  
+                 {
+                            if ((ef.modifyDamageTypeResistanceNormal != 0) && (ef.modifyDamageTypeResistanceNormal > highestNonStackable))
+                                {
+             highestNonStackable = ef.modifyDamageTypeResistanceNormal;
+                                }
+                        }
+                }  
+             if (highestNonStackable > -99) { modifier = highestNonStackable; }  
+   
+             int returnValue = this.damageTypeResistanceValueNormal + modifier;  
+   
+             if (returnValue > 100) //check is necessary so creature could never receive negative damage (heal) due to greater than 100 resistance.  
+             {
+     returnValue = 100;
+                }  
+             return returnValue;  
+         }  
+         public int getDamageTypeResistanceValueCold()
+         {  
+             int modifier = 0;  
+             int highestNonStackable = -99;  
+             foreach (Effect ef in this.cr_effectsList)  
+             {
+                    if (ef.isStackableEffect)
+                        {
+         modifier += ef.modifyDamageTypeResistanceCold;
+                        }
+                    else  
+                 {
+                            if ((ef.modifyDamageTypeResistanceCold != 0) && (ef.modifyDamageTypeResistanceCold > highestNonStackable))
+                                {
+             highestNonStackable = ef.modifyDamageTypeResistanceCold;
+                                }
+                        }
+                }  
+             if (highestNonStackable > -99) { modifier = highestNonStackable; }  
+   
+             int returnValue = this.damageTypeResistanceValueCold + modifier;  
+   
+             if (returnValue > 100) //check is necessary so creature could never receive negative damage (heal) due to greater than 100 resistance.  
+             {
+     returnValue = 100;
+                }  
+             return returnValue;  
+         }  
+         public int getDamageTypeResistanceValueElectricity()
+         {  
+             int modifier = 0;  
+             int highestNonStackable = -99;  
+             foreach (Effect ef in this.cr_effectsList)  
+             {
+                    if (ef.isStackableEffect)
+                        {
+         modifier += ef.modifyDamageTypeResistanceElectricity;
+                        }
+                    else  
+                 {
+                            if ((ef.modifyDamageTypeResistanceElectricity != 0) && (ef.modifyDamageTypeResistanceElectricity > highestNonStackable))
+                                {
+             highestNonStackable = ef.modifyDamageTypeResistanceElectricity;
+                                }
+                        }
+                }  
+             if (highestNonStackable > -99) { modifier = highestNonStackable; }  
+   
+             int returnValue = this.damageTypeResistanceValueElectricity + modifier;  
+   
+             if (returnValue > 100) //check is necessary so creature could never receive negative damage (heal) due to greater than 100 resistance.  
+             {
+     returnValue = 100;
+                }  
+             return returnValue;  
+         }  
+         public int getDamageTypeResistanceValueFire()
+         {  
+             int modifier = 0;  
+             int highestNonStackable = -99;  
+             foreach (Effect ef in this.cr_effectsList)  
+             {
+                    if (ef.isStackableEffect)
+                        {
+         modifier += ef.modifyDamageTypeResistanceFire;
+                        }
+                    else  
+                 {
+                            if ((ef.modifyDamageTypeResistanceFire != 0) && (ef.modifyDamageTypeResistanceFire > highestNonStackable))
+                                {
+             highestNonStackable = ef.modifyDamageTypeResistanceFire;
+                                }
+                       }
+                }  
+             if (highestNonStackable > -99) { modifier = highestNonStackable; }  
+   
+             int returnValue = this.damageTypeResistanceValueFire + modifier;  
+   
+             if (returnValue > 100) //check is necessary so creature could never receive negative damage (heal) due to greater than 100 resistance.  
+             {
+     returnValue = 100;
+                }  
+             return returnValue;  
+         }  
+         public int getDamageTypeResistanceValuePoison()
+         {  
+             int modifier = 0;  
+             int highestNonStackable = -99;  
+             foreach (Effect ef in this.cr_effectsList)  
+             {
+                    if (ef.isStackableEffect)
+                        {
+         modifier += ef.modifyDamageTypeResistancePoison;
+                       }
+                    else  
+                 {
+                           if ((ef.modifyDamageTypeResistancePoison != 0) && (ef.modifyDamageTypeResistancePoison > highestNonStackable))
+                                {
+             highestNonStackable = ef.modifyDamageTypeResistancePoison;
+                                }
+                        }
+                }  
+             if (highestNonStackable > -99) { modifier = highestNonStackable; }  
+   
+             int returnValue = this.damageTypeResistanceValuePoison + modifier;  
+   
+             if (returnValue > 100) //check is necessary so creature could never receive negative damage (heal) due to greater than 100 resistance.  
+             {
+     returnValue = 100;
+                }  
+             return returnValue;  
+         }  
+         public int getMoveDistance()
+         {  
+             int moveBonuses = 0;  
+             int highestNonStackable = -99;  
+             foreach (Effect ef in this.cr_effectsList)  
+             {
+                    if (ef.isStackableEffect)
+                        {
+         moveBonuses += ef.modifyMoveDistance;
+                        }
+                    else  
+                 {
+                            if ((ef.modifyMoveDistance != 0) && (ef.modifyMoveDistance > highestNonStackable))
+                                {
+             highestNonStackable = ef.modifyMoveDistance;
+                                }
+                        }
+                }  
+             if (highestNonStackable > -99) { moveBonuses = highestNonStackable; }  
+   
+             int moveDist = this.moveDistance + moveBonuses;  
+             if (moveDist < 0) { moveDist = 0; }  
+             return moveDist;  
+         }  
+         public int getAc()
+         {  
+             int adder = 0;  
+             int highestNonStackable = -99;  
+             foreach (Effect ef in this.cr_effectsList)  
+             {
+                    if (ef.isStackableEffect)
+                        {
+         adder += ef.acModifier;
+                        }
+                    else  
+                 {
+                            if ((ef.acModifier != 0) && (ef.acModifier > highestNonStackable))
+                                {
+             highestNonStackable = ef.acModifier;
+                                }
+                        }
+                }  
+             if (highestNonStackable > -99) { adder = highestNonStackable; }  
+             int ac = this.AC + adder;  
+             return ac;  
+         }  
+         public int getAttackBonus()
+         {  
+             int adder = 0;  
+             int highestNonStackable = -99;  
+             foreach (Effect ef in this.cr_effectsList)  
+             {
+                    if (ef.isStackableEffect)
+                        {
+         adder += ef.babModifier;
+                        }
+                    else  
+                 {
+                            if ((ef.babModifier != 0) && (ef.babModifier > highestNonStackable))
+                                {
+             highestNonStackable = ef.babModifier;
+                                }
+                        }
+               }  
+             if (highestNonStackable > -99) { adder = highestNonStackable; }  
+             int att = this.cr_att + adder;  
+             return adder;  
+         }  
+         public int getNumberOfAttacks()
+         {  
+             if (this.cr_category.Equals("Melee"))  
+             {
+     int numOfAdditionalPositiveMeleeAttacks = 0;
+     int numOfAdditionalPositiveStackableMeleeAttacks = 0;
+     int numOfAdditionalNegativeMeleeAttacks = 0;
+     int numOfAdditionalNegativeStackableMeleeAttacks = 0;
+                    //go through each effect and see if has a buff type like rapidshot, use largest, not cumulative  
+                    foreach (Effect ef in this.cr_effectsList)
+                    {
+                            //replace non-stackable positive with highest value  
+                            if ((ef.modifyNumberOfMeleeAttacks > numOfAdditionalPositiveMeleeAttacks) && (!ef.isStackableEffect))
+                                {
+             numOfAdditionalPositiveMeleeAttacks = ef.modifyNumberOfMeleeAttacks;
+                                }
+                            //replace non-stackable negative with lowest value  
+                            if ((ef.modifyNumberOfMeleeAttacks < numOfAdditionalNegativeMeleeAttacks) && (!ef.isStackableEffect))
+                                {
+             numOfAdditionalNegativeMeleeAttacks = ef.modifyNumberOfMeleeAttacks;
+                                }
+                            //if isStackable positive then pile on  
+                            if ((ef.modifyNumberOfMeleeAttacks > 0) && (ef.isStackableEffect))
+                                {
+             numOfAdditionalPositiveStackableMeleeAttacks += ef.modifyNumberOfMeleeAttacks;
+                                }
+                            //if isStackable negative then pile on  
+                            if ((ef.modifyNumberOfMeleeAttacks < 0) && (ef.isStackableEffect))
+                                {
+             numOfAdditionalNegativeStackableMeleeAttacks += ef.modifyNumberOfMeleeAttacks;
+                                }
+                        }
+    
+     int numOfPos = 0;
+     int numOfNeg = 0;
+                    //check to see if stackable is greater than non-stackable and combine the highest positive and negative effect  
+                    if (numOfAdditionalPositiveMeleeAttacks > numOfAdditionalPositiveStackableMeleeAttacks)
+                        {
+         numOfPos = numOfAdditionalPositiveMeleeAttacks;
+                        }
+                    else  
+                 {
+         numOfPos = numOfAdditionalPositiveStackableMeleeAttacks;
+                        }
+                    if (numOfAdditionalNegativeMeleeAttacks < numOfAdditionalNegativeStackableMeleeAttacks)
+                        {
+         numOfNeg = numOfAdditionalNegativeMeleeAttacks;
+                        }
+                    else  
+                 {
+         numOfNeg = numOfAdditionalNegativeStackableMeleeAttacks;
+                        }
+    
+     int numOfAdditionalAttacks = numOfPos + numOfNeg;
+     int numAtt = this.cr_numberOfAttacks + numOfAdditionalAttacks;
+                    if (numAtt < 0)
+                        {
+                            return 0;
+                        }
+                    return numAtt;
+                }  
+             else //Ranged attacks  
+             {
+     int numOfAdditionalPositiveRangedAttacks = 0;
+     int numOfAdditionalPositiveStackableRangedAttacks = 0;
+     int numOfAdditionalNegativeRangedAttacks = 0;
+     int numOfAdditionalNegativeStackableRangedAttacks = 0;
+                    //go through each effect and see if has a buff type like rapidshot, use largest, not cumulative  
+                    foreach (Effect ef in this.cr_effectsList)
+                        {
+                            //replace non-stackable positive with highest value  
+                            if ((ef.modifyNumberOfRangedAttacks > numOfAdditionalPositiveRangedAttacks) && (!ef.isStackableEffect))
+                                {
+             numOfAdditionalPositiveRangedAttacks = ef.modifyNumberOfRangedAttacks;
+                                }
+                            //replace non-stackable negative with lowest value  
+                            if ((ef.modifyNumberOfRangedAttacks < numOfAdditionalNegativeRangedAttacks) && (!ef.isStackableEffect))
+                                {
+             numOfAdditionalNegativeRangedAttacks = ef.modifyNumberOfRangedAttacks;
+                                }
+                            //if isStackable positive then pile on  
+                            if ((ef.modifyNumberOfRangedAttacks > 0) && (ef.isStackableEffect))
+                                {
+             numOfAdditionalPositiveStackableRangedAttacks += ef.modifyNumberOfRangedAttacks;
+                                }
+                            //if isStackable negative then pile on  
+                            if ((ef.modifyNumberOfRangedAttacks < 0) && (ef.isStackableEffect))
+                                {
+             numOfAdditionalNegativeStackableRangedAttacks += ef.modifyNumberOfRangedAttacks;
+                                }
+                        }
+    
+     int numOfPos = 0;
+     int numOfNeg = 0;
+                    //check to see if stackable is greater than non-stackable and combine the highest positive and negative effect  
+                    if (numOfAdditionalPositiveRangedAttacks > numOfAdditionalPositiveStackableRangedAttacks)
+                        {
+         numOfPos = numOfAdditionalPositiveRangedAttacks;
+                        }
+                    else  
+                 {
+         numOfPos = numOfAdditionalPositiveStackableRangedAttacks;
+                        }
+                    if (numOfAdditionalNegativeRangedAttacks < numOfAdditionalNegativeStackableRangedAttacks)
+                        {
+         numOfNeg = numOfAdditionalNegativeRangedAttacks;
+                        }
+                    else  
+                 {
+         numOfNeg = numOfAdditionalNegativeStackableRangedAttacks;
+                     }
+    
+     int numOfAdditionalAttacks = numOfPos + numOfNeg;
+     int numAtt = this.cr_numberOfAttacks + numOfAdditionalAttacks;
+                    if (numAtt < 0)
+                        {
+                            return 0;
+                        }
+                    return numAtt;
+                }  
+         }  
+         public int getFortitude()
+         {  
+             int savBonuses = 0;  
+             int highestNonStackable = -99;  
+             foreach (Effect ef in this.cr_effectsList)  
+             {
+                    if (ef.isStackableEffect)
+                        {
+         savBonuses += ef.modifyFortitude;
+                        }
+                    else  
+                 {
+                            if ((ef.modifyFortitude != 0) && (ef.modifyFortitude > highestNonStackable))
+                                {
+             highestNonStackable = ef.modifyFortitude;
+                                }
+                        }
+                }  
+             if (highestNonStackable > -99) { savBonuses = highestNonStackable; }  
+             int fort = this.fortitude + savBonuses;  
+             return fort;  
+         }  
+         public int getWill()
+         {  
+             int savBonuses = 0;  
+             int highestNonStackable = -99;  
+             foreach (Effect ef in this.cr_effectsList)  
+             {
+                    if (ef.isStackableEffect)
+                        {
+         savBonuses += ef.modifyWill;
+                        }
+                    else  
+                 {
+                            if ((ef.modifyWill != 0) && (ef.modifyWill > highestNonStackable))
+                                {
+             highestNonStackable = ef.modifyWill;
+                                }
+                        }
+                }  
+             if (highestNonStackable > -99) { savBonuses = highestNonStackable; }  
+             int wil = this.will + savBonuses;  
+             return wil;  
+         }  
+         public int getReflex()
+         {  
+             int savBonuses = 0;  
+             int highestNonStackable = -99;  
+             foreach (Effect ef in this.cr_effectsList)  
+             {
+                    if (ef.isStackableEffect)
+                        {
+         savBonuses += ef.modifyReflex;
+                        }
+                    else  
+                 {
+                            if ((ef.modifyReflex != 0) && (ef.modifyReflex > highestNonStackable))
+                                {
+             highestNonStackable = ef.modifyReflex;
+                                }
+                        }
+                }  
+             if (highestNonStackable > -99) { savBonuses = highestNonStackable; }  
+             int reflx = this.reflex + savBonuses;  
+             return reflx;  
+         }  
+   
+        //*****************************************************
         public Effect getEffectByTag(string tag)
         {
             foreach (Effect ef in this.cr_effectsList)

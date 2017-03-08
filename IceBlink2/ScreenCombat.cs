@@ -1767,7 +1767,8 @@ namespace IceBlink2
             }
             else if (gv.sf.ActionToTake.Equals("Move"))
             {
-                if ((creatureMoves + 0.5f) < crt.moveDistance)
+                //if ((creatureMoves + 0.5f) < crt.getMoveDistance)
+                if ((creatureMoves + 0.5f) < crt.getMoveDistance())
                 {
                     CreatureMoves();
                 }
@@ -1787,7 +1788,7 @@ namespace IceBlink2
 	    public void CreatureMoves()
 	    {
             Creature crt = mod.currentEncounter.encounterCreatureList[creatureIndex];
-            if (creatureMoves + 0.5f < crt.moveDistance)
+            if (creatureMoves + 0.5f < crt.getMoveDistance())
 		    {
 			    Player pc = targetClosestPC(crt);
                 Coordinate newCoor = new Coordinate(-1,-1);
@@ -1932,7 +1933,7 @@ namespace IceBlink2
                     if ((crt.combatLocX != crt.newCoor.X) && (crt.combatLocY != crt.newCoor.Y))
                     {
                         //enough  move points availbale to do the diagonal move
-                        if ((crt.moveDistance - creatureMoves) >= mod.diagonalMoveCost)
+                        if ((crt.getMoveDistance() - creatureMoves) >= mod.diagonalMoveCost)
                         {
                             if ((crt.newCoor.X < crt.combatLocX) && (!crt.combatFacingLeft)) //move left
                             {
@@ -2003,7 +2004,7 @@ namespace IceBlink2
                         }
                         
                         //try to move horizontally or vertically instead if most points are not enough for diagonal move
-                        else if ((crt.moveDistance - creatureMoves) >= 1)
+                        else if ((crt.getMoveDistance() - creatureMoves) >= 1)
                         {
                             pf.resetGrid(crt);
                             //block the originial diagonal target square and calculate again
@@ -2667,7 +2668,7 @@ namespace IceBlink2
             upperLeftInFastForwardY = pc.combatLocY - gv.playerOffsetY;
 
             bool hit = false;
-            for (int i = 0; i < crt.cr_numberOfAttacks; i++)
+            for (int i = 0; i < crt.getNumberOfAttacks(); i++)
             {
                 //this reduces the to hit bonus for each further creature attack by an additional -5
                 //creatureMultAttackPenalty = 5 * i;            
@@ -2799,15 +2800,15 @@ namespace IceBlink2
                         {
                             //attempt to hold PC
                             int saveChkRoll = gv.sf.RandInt(20);
-                            int saveChk = saveChkRoll + crt.fortitude;
+                            int saveChk = saveChkRoll + crt.getFortitude();
                             int DC = 15;
                             if (saveChk >= DC) //passed save check
                             {
-                                gv.cc.addLogText("<font color='yellow'>" + crt.cr_name + " avoids stun (" + saveChkRoll + " + " + crt.fortitude + " >= " + DC + ")</font><BR>");
+                                gv.cc.addLogText("<font color='yellow'>" + crt.cr_name + " avoids stun (" + saveChkRoll + " + " + crt.getFortitude() + " >= " + DC + ")</font><BR>");
                             }
                             else
                             {
-                                gv.cc.addLogText("<font color='red'>" + crt.cr_name + " is stunned by mace (" + saveChkRoll + " + " + crt.fortitude + " < " + DC + ")</font><BR>");
+                                gv.cc.addLogText("<font color='red'>" + crt.cr_name + " is stunned by mace (" + saveChkRoll + " + " + crt.getFortitude() + " < " + DC + ")</font><BR>");
                                 crt.cr_status = "Held";
                                 Effect ef = mod.getEffectByTag("hold");
                                 crt.AddEffectByObject(ef, 1);
@@ -2851,7 +2852,7 @@ namespace IceBlink2
                     }
                     else if (filename.Equals("onHitOneFire.cs"))
                     {
-                        float resist = (float)(1f - ((float)crt.damageTypeResistanceValueFire / 100f));
+                        float resist = (float)(1f - ((float)crt.getDamageTypeResistanceValueFire ()/ 100f));
                         float damage = 1.0f;
                         int fireDam = (int)(damage * resist);
 
@@ -2870,7 +2871,7 @@ namespace IceBlink2
                     }
                     else if (filename.Equals("onHitOneTwoFire.cs"))
                     {
-                        float resist = (float)(1f - ((float)crt.damageTypeResistanceValueFire / 100f));
+                        float resist = (float)(1f - ((float)crt.getDamageTypeResistanceValueFire ()/ 100f));
                         float damage = (1 * gv.sf.RandInt(2)) + 0;
                         int fireDam = (int)(damage * resist);
 
@@ -2889,7 +2890,7 @@ namespace IceBlink2
                     }
                     else if (filename.Equals("onHitTwoThreeFire.cs"))
                     {
-                        float resist = (float)(1f - ((float)crt.damageTypeResistanceValueFire / 100f));
+                        float resist = (float)(1f - ((float)crt.getDamageTypeResistanceValueFire ()/ 100f));
                         float damage = (1 * gv.sf.RandInt(2)) + 1;
                         int fireDam = (int)(damage * resist);
 
@@ -6770,7 +6771,7 @@ public void drawEffectSquares()
                         {
                             gv.cc.floatyText = crt.cr_name;
                             gv.cc.floatyText2 = "HP:" + crt.hp + " SP:" + crt.sp;
-                            gv.cc.floatyText3 = "AC:" + crt.AC + " " + crt.cr_status;
+                            gv.cc.floatyText3 = "AC:" + crt.getAc() + " " + crt.cr_status;
                             gv.cc.floatyTextLoc = new Coordinate(getPixelLocX(crt.combatLocX), getPixelLocY(crt.combatLocY));
                         }
                     }
@@ -7805,7 +7806,7 @@ public void drawEffectSquares()
                             {
                                 gv.cc.floatyText = crt.cr_name;
                                 gv.cc.floatyText2 = "HP:" + crt.hp + " SP:" + crt.sp;
-                                gv.cc.floatyText3 = "AC:" + crt.AC + " " + crt.cr_status;
+                                gv.cc.floatyText3 = "AC:" + crt.getAc() + " " + crt.cr_status;
                                 gv.cc.floatyTextLoc = new Coordinate(getPixelLocX(crt.combatLocX), getPixelLocY(crt.combatLocY));
                             }
                         }
@@ -7817,7 +7818,7 @@ public void drawEffectSquares()
                             {
                                 gv.cc.floatyText = crt.cr_name;
                                 gv.cc.floatyText2 = "HP:" + crt.hp + " SP:" + crt.sp;
-                                gv.cc.floatyText3 = "AC:" + crt.AC + " " + crt.cr_status;
+                                gv.cc.floatyText3 = "AC:" + crt.getAc() + " " + crt.cr_status;
                                 gv.cc.floatyTextLoc = new Coordinate(getPixelLocX(crt.combatLocX), getPixelLocY(crt.combatLocY));
                             }
                         }
@@ -7829,7 +7830,7 @@ public void drawEffectSquares()
                             {
                                 gv.cc.floatyText = crt.cr_name;
                                 gv.cc.floatyText2 = "HP:" + crt.hp + " SP:" + crt.sp;
-                                gv.cc.floatyText3 = "AC:" + crt.AC + " " + crt.cr_status;
+                                gv.cc.floatyText3 = "AC:" + crt.getAc() + " " + crt.cr_status;
                                 gv.cc.floatyTextLoc = new Coordinate(getPixelLocX(crt.combatLocX), getPixelLocY(crt.combatLocY));
                             }
                         }
@@ -7843,7 +7844,7 @@ public void drawEffectSquares()
                             {
                                 gv.cc.floatyText = crt.cr_name;
                                 gv.cc.floatyText2 = "HP:" + crt.hp + " SP:" + crt.sp;
-                                gv.cc.floatyText3 = "AC:" + crt.AC + " " + crt.cr_status;
+                                gv.cc.floatyText3 = "AC:" + crt.getAc() + " " + crt.cr_status;
                                 gv.cc.floatyTextLoc = new Coordinate(getPixelLocX(crt.combatLocX), getPixelLocY(crt.combatLocY));
                             }
                         }
@@ -12267,7 +12268,7 @@ public void drawEffectSquares()
         }
 	    public int CalcCreatureDefense(Player pc, Creature crt)
         {
-            int defense = crt.AC;
+            int defense = crt.getAc();
             
             /*
             if (crt.isHeld())
@@ -12349,62 +12350,62 @@ public void drawEffectSquares()
 
                 if (mod.getItemByResRefForInfo(pc.MainHandRefs.resref).typeOfDamage.Equals("Acid"))
                 {
-                    resist = (float)(1f - ((float)crt.damageTypeResistanceValueAcid / 100f));
+                    resist = (float)(1f - ((float)crt.getDamageTypeResistanceValueAcid () / 100f));
                 }
                 else if (mod.getItemByResRefForInfo(pc.MainHandRefs.resref).typeOfDamage.Equals("Normal"))
                 {
-                    resist = (float)(1f - ((float)crt.damageTypeResistanceValueNormal / 100f));
+                    resist = (float)(1f - ((float)crt.getDamageTypeResistanceValueNormal() / 100f));
                 }
                 else if (mod.getItemByResRefForInfo(pc.MainHandRefs.resref).typeOfDamage.Equals("Cold"))
                 {
-                    resist = (float)(1f - ((float)crt.damageTypeResistanceValueCold / 100f));
+                    resist = (float)(1f - ((float)crt.getDamageTypeResistanceValueCold() / 100f));
                 }
                 else if (mod.getItemByResRefForInfo(pc.MainHandRefs.resref).typeOfDamage.Equals("Electricity"))
                 {
-                    resist = (float)(1f - ((float)crt.damageTypeResistanceValueElectricity / 100f));
+                    resist = (float)(1f - ((float)crt.getDamageTypeResistanceValueElectricity() / 100f));
                 }
                 else if (mod.getItemByResRefForInfo(pc.MainHandRefs.resref).typeOfDamage.Equals("Fire"))
                 {
-                    resist = (float)(1f - ((float)crt.damageTypeResistanceValueFire / 100f));
+                    resist = (float)(1f - ((float)crt.getDamageTypeResistanceValueFire ()/ 100f));
                 }
                 else if (mod.getItemByResRefForInfo(pc.MainHandRefs.resref).typeOfDamage.Equals("Magic"))
                 {
-                    resist = (float)(1f - ((float)crt.damageTypeResistanceValueMagic / 100f));
+                    resist = (float)(1f - ((float)crt.getDamageTypeResistanceValueMagic() / 100f));
                 }
                 else if (mod.getItemByResRefForInfo(pc.MainHandRefs.resref).typeOfDamage.Equals("Poison"))
                 {
-                    resist = (float)(1f - ((float)crt.damageTypeResistanceValuePoison / 100f));
+                    resist = (float)(1f - ((float)crt.getDamageTypeResistanceValuePoison() / 100f));
                 }
             }
             else //ranged weapon so use ammo mods  
             {
                 if (mod.getItemByResRefForInfo(pc.AmmoRefs.resref).typeOfDamage.Equals("Acid"))
                 {
-                    resist = (float)(1f - ((float)crt.damageTypeResistanceValueAcid / 100f));
+                    resist = (float)(1f - ((float)crt.getDamageTypeResistanceValueAcid () / 100f));
                 }
                 else if (mod.getItemByResRefForInfo(pc.AmmoRefs.resref).typeOfDamage.Equals("Normal"))
                 {
-                    resist = (float)(1f - ((float)crt.damageTypeResistanceValueNormal / 100f));
+                    resist = (float)(1f - ((float)crt.getDamageTypeResistanceValueNormal() / 100f));
                 }
                 else if (mod.getItemByResRefForInfo(pc.AmmoRefs.resref).typeOfDamage.Equals("Cold"))
                 {
-                    resist = (float)(1f - ((float)crt.damageTypeResistanceValueCold / 100f));
+                    resist = (float)(1f - ((float)crt.getDamageTypeResistanceValueCold() / 100f));
                 }
                 else if (mod.getItemByResRefForInfo(pc.AmmoRefs.resref).typeOfDamage.Equals("Electricity"))
                 {
-                    resist = (float)(1f - ((float)crt.damageTypeResistanceValueElectricity / 100f));
+                    resist = (float)(1f - ((float)crt.getDamageTypeResistanceValueElectricity() / 100f));
                 }
                 else if (mod.getItemByResRefForInfo(pc.AmmoRefs.resref).typeOfDamage.Equals("Fire"))
                 {
-                    resist = (float)(1f - ((float)crt.damageTypeResistanceValueFire / 100f));
+                    resist = (float)(1f - ((float)crt.getDamageTypeResistanceValueFire ()/ 100f));
                 }
                 else if (mod.getItemByResRefForInfo(pc.AmmoRefs.resref).typeOfDamage.Equals("Magic"))
                 {
-                    resist = (float)(1f - ((float)crt.damageTypeResistanceValueMagic / 100f));
+                    resist = (float)(1f - ((float)crt.getDamageTypeResistanceValueMagic() / 100f));
                 }
                 else if (mod.getItemByResRefForInfo(pc.AmmoRefs.resref).typeOfDamage.Equals("Poison"))
                 {
-                    resist = (float)(1f - ((float)crt.damageTypeResistanceValuePoison / 100f));
+                    resist = (float)(1f - ((float)crt.getDamageTypeResistanceValuePoison() / 100f));
                 }
             }
 
@@ -12445,11 +12446,11 @@ public void drawEffectSquares()
                     gv.cc.addLogText("<font color='yellow'> -4 ranged attack penalty </font><BR>");
                     gv.cc.addLogText("<font color='yellow'>with enemies in melee range</font><BR>");
                     gv.cc.addFloatyText(new Coordinate(crt.combatLocX, crt.combatLocY), "-4 att", "yellow");
-                    return crt.cr_att - 4;
+                    return crt.getAttackBonus() - 4;
                 }
                 else
                 {
-                    return crt.cr_att;
+                    return crt.getAttackBonus();
                 }
             }
             else //melee weapon used
@@ -12472,7 +12473,7 @@ public void drawEffectSquares()
                 {
                     gv.cc.addFloatyText(new Coordinate(crt.combatLocX, crt.combatLocY), "+" + situationalModifier + " att", "yellow");
                 }
-                return crt.cr_att + modifier;            
+                return crt.getAttackBonus() + modifier;            
             }
         }
 	    public int CalcPcDefense(Player pc, Creature crt)

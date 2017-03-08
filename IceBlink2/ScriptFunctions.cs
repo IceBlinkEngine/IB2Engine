@@ -5764,7 +5764,7 @@ namespace IceBlink2
              {  
                  numOfPos = numOfAdditionalPositiveStackableMeleeAttacks;  
              }  
-             if (numOfAdditionalNegativeMeleeAttacks > numOfAdditionalNegativeStackableMeleeAttacks)  
+             if (numOfAdditionalNegativeMeleeAttacks < numOfAdditionalNegativeStackableMeleeAttacks)  
              {  
                  numOfNeg = numOfAdditionalNegativeMeleeAttacks;  
              }  
@@ -5864,7 +5864,7 @@ namespace IceBlink2
              {  
                  numOfPos = numOfAdditionalPositiveStackableRangedAttacks;  
              }  
-             if (numOfAdditionalNegativeRangedAttacks > numOfAdditionalNegativeStackableRangedAttacks)  
+             if (numOfAdditionalNegativeRangedAttacks < numOfAdditionalNegativeStackableRangedAttacks)  
              {  
                  numOfNeg = numOfAdditionalNegativeRangedAttacks;  
              }  
@@ -6734,6 +6734,7 @@ namespace IceBlink2
                     #region Do Damage
                     #region Get Resistances
                     float resist = 0;
+                    /*
                     if (ef.damType.Equals("Normal")) { resist = (float)(1f - ((float)crt.damageTypeResistanceValueNormal / 100f)); }
                     else if (ef.damType.Equals("Acid")) { resist = (float)(1f - ((float)crt.damageTypeResistanceValueAcid / 100f)); }
                     else if (ef.damType.Equals("Cold")) { resist = (float)(1f - ((float)crt.damageTypeResistanceValueCold / 100f)); }
@@ -6741,6 +6742,14 @@ namespace IceBlink2
                     else if (ef.damType.Equals("Fire")) { resist = (float)(1f - ((float)crt.damageTypeResistanceValueFire / 100f)); }
                     else if (ef.damType.Equals("Magic")) { resist = (float)(1f - ((float)crt.damageTypeResistanceValueMagic / 100f)); }
                     else if (ef.damType.Equals("Poison")) { resist = (float)(1f - ((float)crt.damageTypeResistanceValuePoison / 100f)); }
+                    */
+                    if (ef.damType.Equals("Normal")) { resist = (float)(1f - ((float)crt.getDamageTypeResistanceValueNormal() / 100f)); }
+                    else if (ef.damType.Equals("Acid")) { resist = (float)(1f - ((float)crt.getDamageTypeResistanceValueAcid() / 100f)); }
+                    else if (ef.damType.Equals("Cold")) { resist = (float)(1f - ((float)crt.getDamageTypeResistanceValueCold() / 100f)); }
+                    else if (ef.damType.Equals("Electricity")) { resist = (float)(1f - ((float)crt.getDamageTypeResistanceValueElectricity() / 100f)); }
+                    else if (ef.damType.Equals("Fire")) { resist = (float)(1f - ((float)crt.getDamageTypeResistanceValueFire() / 100f)); }
+                    else if (ef.damType.Equals("Magic")) { resist = (float)(1f - ((float)crt.getDamageTypeResistanceValueMagic() / 100f)); }
+
                     #endregion
                     int damageTotal = 0;
                     #region Calculate Number of Attacks
@@ -6786,15 +6795,15 @@ namespace IceBlink2
                         int saveChkAdder = 0;
                         if (ef.saveCheckType.Equals("will"))
                         {
-                            saveChkAdder = crt.will;
+                            saveChkAdder = crt.getWill();
                         }
                         else if (ef.saveCheckType.Equals("reflex"))
                         {
-                            saveChkAdder = crt.reflex;
+                            saveChkAdder = crt.getReflex();
                         }
                         else if (ef.saveCheckType.Equals("fortitude"))
                         {
-                            saveChkAdder = crt.fortitude;
+                            saveChkAdder = crt.getFortitude();
                         }
                         else
                         {
@@ -7772,6 +7781,7 @@ namespace IceBlink2
                                 #region Do Damage
                                 #region Get Resistances
                                 float resist = 0;
+                                 /*
                                 if (thisSpellEffect.damType.Equals("Normal")) { resist = (float)(1f - ((float)crt.damageTypeResistanceValueNormal / 100f)); }
                                 else if (thisSpellEffect.damType.Equals("Acid")) { resist = (float)(1f - ((float)crt.damageTypeResistanceValueAcid / 100f)); }
                                 else if (thisSpellEffect.damType.Equals("Cold")) { resist = (float)(1f - ((float)crt.damageTypeResistanceValueCold / 100f)); }
@@ -7779,8 +7789,18 @@ namespace IceBlink2
                                 else if (thisSpellEffect.damType.Equals("Fire")) { resist = (float)(1f - ((float)crt.damageTypeResistanceValueFire / 100f)); }
                                 else if (thisSpellEffect.damType.Equals("Magic")) { resist = (float)(1f - ((float)crt.damageTypeResistanceValueMagic / 100f)); }
                                 else if (thisSpellEffect.damType.Equals("Poison")) { resist = (float)(1f - ((float)crt.damageTypeResistanceValuePoison / 100f)); }
+                                */
+
+                                    if (thisSpellEffect.damType.Equals("Normal")) { resist = (float)(1f - ((float)crt.getDamageTypeResistanceValueNormal() / 100f)); }
+                                    else if (thisSpellEffect.damType.Equals("Acid")) { resist = (float)(1f - ((float)crt.getDamageTypeResistanceValueAcid() / 100f)); }
+                                    else if (thisSpellEffect.damType.Equals("Cold")) { resist = (float)(1f - ((float)crt.getDamageTypeResistanceValueCold() / 100f)); }
+                                    else if (thisSpellEffect.damType.Equals("Electricity")) { resist = (float)(1f - ((float)crt.getDamageTypeResistanceValueElectricity() / 100f)); }
+                                    else if (thisSpellEffect.damType.Equals("Fire")) { resist = (float)(1f - ((float)crt.getDamageTypeResistanceValueFire() / 100f)); }
+                                    else if (thisSpellEffect.damType.Equals("Magic")) { resist = (float)(1f - ((float)crt.getDamageTypeResistanceValueMagic() / 100f)); }
+                                    else if (thisSpellEffect.damType.Equals("Poison")) { resist = (float)(1f - ((float)crt.getDamageTypeResistanceValuePoison() / 100f)); }
+
                                 #endregion
-                                int damageTotal = 0;
+                                    int damageTotal = 0;
                                 #region Calculate Number of Attacks
                                 //(for reference) NumOfAttacks: A of these attacks for every B levels after level C up to D attacks total                    
                                 int numberOfAttacks = 0;
@@ -7825,15 +7845,15 @@ namespace IceBlink2
                                     int saveChkAdder = 0;
                                     if (thisSpellEffect.saveCheckType.Equals("will"))
                                     {
-                                        saveChkAdder = crt.will;
+                                        saveChkAdder = crt.getWill();
                                     }
                                     else if (thisSpellEffect.saveCheckType.Equals("reflex"))
                                     {
-                                        saveChkAdder = crt.reflex;
+                                        saveChkAdder = crt.getReflex();
                                     }
                                     else if (thisSpellEffect.saveCheckType.Equals("fortitude"))
                                     {
-                                        saveChkAdder = crt.fortitude;
+                                        saveChkAdder = crt.getFortitude();
                                     }
                                     else
                                     {
@@ -7976,15 +7996,15 @@ namespace IceBlink2
                                 int saveChkAdder = 0;
                                 if (thisSpellEffect.saveCheckType.Equals("will"))
                                 {
-                                    saveChkAdder = crt.will;
+                                    saveChkAdder = crt.getWill();
                                 }
                                 else if (thisSpellEffect.saveCheckType.Equals("reflex"))
                                 {
-                                    saveChkAdder = crt.reflex;
+                                    saveChkAdder = crt.getReflex();
                                 }
                                 else if (thisSpellEffect.saveCheckType.Equals("fortitude"))
                                 {
-                                    saveChkAdder = crt.fortitude;
+                                    saveChkAdder = crt.getFortitude();
                                 }
                                 else
                                 {
@@ -8602,15 +8622,15 @@ namespace IceBlink2
                             int saveChkAdder = 0;
                             if (thisSpellEffect.saveCheckType.Equals("will"))
                             {
-                                saveChkAdder = crt.will;
+                                saveChkAdder = crt.getWill();
                             }
                             else if (thisSpellEffect.saveCheckType.Equals("reflex"))
                             {
-                                saveChkAdder = crt.reflex;
+                                saveChkAdder = crt.getReflex();
                             }
                             else if (thisSpellEffect.saveCheckType.Equals("fortitude"))
                             {
-                                saveChkAdder = crt.fortitude;
+                                saveChkAdder = crt.getFortitude();
                             }
                             else
                             {
@@ -8736,15 +8756,15 @@ namespace IceBlink2
                         int saveChkAdder = 0;
                         if (thisSpellEffect.saveCheckType.Equals("will"))
                         {
-                            saveChkAdder = crt.will;
+                            saveChkAdder = crt.getWill();
                         }
                         else if (thisSpellEffect.saveCheckType.Equals("reflex"))
                         {
-                            saveChkAdder = crt.reflex;
+                            saveChkAdder = crt.getReflex();
                         }
                         else if (thisSpellEffect.saveCheckType.Equals("fortitude"))
                         {
-                            saveChkAdder = crt.fortitude;
+                            saveChkAdder = crt.getFortitude();
                         }
                         else
                         {
@@ -9282,7 +9302,7 @@ namespace IceBlink2
                     float damage = classLevel * RandInt(3);
                     int fireDam = (int)(damage * resist);
                     int saveChkRoll = RandInt(20);
-                    int saveChk = saveChkRoll + crt.reflex;
+                    int saveChk = saveChkRoll + crt.getReflex();
                     int DC = 13;
                     if (saveChk >= DC) //passed save check
                     {
@@ -9290,7 +9310,7 @@ namespace IceBlink2
                         gv.cc.addLogText("<font color='yellow'>" + crt.cr_name + " evades most of the Flame Fingers spell" + "</font><BR>");
                         if (mod.debugMode)
                         {
-                            gv.cc.addLogText("<font color='yellow'>" + saveChkRoll + " + " + crt.reflex + " >= " + DC + "</font><BR>");
+                            gv.cc.addLogText("<font color='yellow'>" + saveChkRoll + " + " + crt.getReflex() + " >= " + DC + "</font><BR>");
                         }
                     }
                     if (mod.debugMode)
@@ -9535,14 +9555,14 @@ namespace IceBlink2
                 {
                     Creature crt = (Creature)target;
                     int saveChkRoll = RandInt(20);
-                    int saveChk = saveChkRoll + crt.will;
+                    int saveChk = saveChkRoll + crt.getWill();
                     int DC = 13;
                     if (saveChk >= DC) //passed save check
                     {
                         gv.cc.addLogText("<font color='yellow'>" + crt.cr_name + " avoids the sleep spell" + "</font><BR>");
                         if (mod.debugMode)
                         {
-                            gv.cc.addLogText("<font color='yellow'>" + saveChkRoll + " + " + crt.will + " >= " + DC + "</font><BR>");
+                            gv.cc.addLogText("<font color='yellow'>" + saveChkRoll + " + " + crt.getWill() + " >= " + DC + "</font><BR>");
                         }
                     }
                     else //failed check
@@ -9702,14 +9722,14 @@ namespace IceBlink2
                 {
                     Creature crt = (Creature)target;
                     int saveChkRoll = RandInt(20);
-                    int saveChk = saveChkRoll + crt.reflex;
+                    int saveChk = saveChkRoll + crt.getReflex();
                     int DC = 13;
                     if (saveChk >= DC) //passed save check
                     {
                         gv.cc.addLogText("<font color='yellow'>" + crt.cr_name + " avoids the web spell" + "</font><BR>");
                         if (mod.debugMode)
                         {
-                            gv.cc.addLogText("<font color='yellow'>" + saveChkRoll + " + " + crt.reflex + " >= " + DC + "</font><BR>");
+                            gv.cc.addLogText("<font color='yellow'>" + saveChkRoll + " + " + crt.getReflex() + " >= " + DC + "</font><BR>");
                         }
                     }
                     else //failed check
@@ -9790,7 +9810,7 @@ namespace IceBlink2
                     int iceDam = (int)(damage * resist);
 
                     int saveChkRoll = RandInt(20);
-                    int saveChk = saveChkRoll + crt.reflex;
+                    int saveChk = saveChkRoll + crt.getReflex();
                     int DC = 13;
                     if (saveChk >= DC) //passed save check
                     {
@@ -9798,7 +9818,7 @@ namespace IceBlink2
                         gv.cc.addLogText("<font color='yellow'>" + crt.cr_name + " evades most of the Ice Storm spell" + "</font><BR>");
                         if (mod.debugMode)
                         {
-                            gv.cc.addLogText("<font color='yellow'>" + saveChkRoll + " + " + crt.reflex + " >= " + DC + "</font><BR>");
+                            gv.cc.addLogText("<font color='yellow'>" + saveChkRoll + " + " + crt.getReflex() + " >= " + DC + "</font><BR>");
                         }
                     }
                     if (mod.debugMode)
@@ -9933,7 +9953,7 @@ namespace IceBlink2
                     int fireDam = (int)(damage * resist);
 
                     int saveChkRoll = RandInt(20);
-                    int saveChk = saveChkRoll + crt.reflex;
+                    int saveChk = saveChkRoll + crt.getReflex();
                     int DC = 13;
                     if (saveChk >= DC) //passed save check
                     {
@@ -9941,7 +9961,7 @@ namespace IceBlink2
                         gv.cc.addLogText("<font color='yellow'>" + crt.cr_name + " evades most of the Fireball spell" + "</font><BR>");
                         if (mod.debugMode)
                         {
-                            gv.cc.addLogText("<font color='yellow'>" + saveChkRoll + " + " + crt.reflex + " >= " + DC + "</font><BR>");
+                            gv.cc.addLogText("<font color='yellow'>" + saveChkRoll + " + " + crt.getReflex() + " >= " + DC + "</font><BR>");
                         }
                     }
                     if (mod.debugMode)
@@ -10076,7 +10096,7 @@ namespace IceBlink2
                     int elecDam = (int)(damage * resist);
 
                     int saveChkRoll = RandInt(20);
-                    int saveChk = saveChkRoll + crt.reflex;
+                    int saveChk = saveChkRoll + crt.getReflex();
                     int DC = 13;
                     if (saveChk >= DC) //passed save check
                     {
@@ -10084,7 +10104,7 @@ namespace IceBlink2
                         gv.cc.addLogText("<font color='yellow'>" + crt.cr_name + " evades most of the Lightning spell" + "</font><BR>");
                         if (mod.debugMode)
                         {
-                            gv.cc.addLogText("<font color='yellow'>" + saveChkRoll + " + " + crt.reflex + " >= " + DC + "</font><BR>");
+                            gv.cc.addLogText("<font color='yellow'>" + saveChkRoll + " + " + crt.getReflex() + " >= " + DC + "</font><BR>");
                         }
                     }
                     if (mod.debugMode)
@@ -10549,7 +10569,7 @@ namespace IceBlink2
                     int fireDam = (int)(damage * resist);
 
                     int saveChkRoll = RandInt(20);
-                    int saveChk = saveChkRoll + crt.reflex;
+                    int saveChk = saveChkRoll + crt.getReflex();
                     int DC = 13;
                     if (saveChk >= DC) //passed save check
                     {
@@ -10557,7 +10577,7 @@ namespace IceBlink2
                         gv.cc.addLogText("<font color='yellow'>" + crt.cr_name + " evades most of the Blast of Light spell" + "</font><BR>");
                         if (mod.debugMode)
                         {
-                            gv.cc.addLogText("<font color='yellow'>" + saveChkRoll + " + " + crt.reflex + " >= " + DC + "</font><BR>");
+                            gv.cc.addLogText("<font color='yellow'>" + saveChkRoll + " + " + crt.getReflex() + " >= " + DC + "</font><BR>");
                         }
                     }
                     if (mod.debugMode)
