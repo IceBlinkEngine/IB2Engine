@@ -387,15 +387,49 @@ namespace IceBlink2
         }
 
         public int storeSellValueForItem(Item it)
-        {  
-             int sellPrice = (int)(it.value * ((float)currentShop.sellPercent / 100f));  
-             if (sellPrice< 1) { sellPrice = 1; }  
-             return sellPrice;  
+        {
+            //int sellPrice = (int)(it.value * ((float)currentShop.sellPercent / 100f));  
+            int adder = 0;
+            int highestNonStackable = -99;
+            foreach (Player pc in mod.playerList)
+            {
+                int mod = gv.sf.CalcShopSellModifier(pc);
+                if (mod > highestNonStackable)
+                {
+                    mod = highestNonStackable;
+                }
+            }
+            
+            if (highestNonStackable > -99) { adder = highestNonStackable; }
+            
+            int totalSellPerc = currentShop.sellPercent + adder;
+            
+            int sellPrice = (int)(it.value * ((float)totalSellPerc / 100f));
+
+            if (sellPrice< 1) { sellPrice = 1; }  
+            return sellPrice;  
         }
           
         public int storeBuyBackValueForItem(Item it)
-        {  
-            int buyPrice = (int)(it.value * ((float)currentShop.buybackPercent / 100f));  
+        {
+            //int buyPrice = (int)(it.value * ((float)currentShop.buybackPercent / 100f));  
+            int adder = 0;
+            int highestNonStackable = -99;
+            foreach (Player pc in mod.playerList)
+            {
+                int mod = gv.sf.CalcShopBuyBackModifier(pc);
+                if (mod > highestNonStackable)
+                {
+                    mod = highestNonStackable;
+                 }
+            }
+            
+                        if (highestNonStackable > -99) { adder = highestNonStackable; }
+            
+            int totalBuyPerc = currentShop.buybackPercent + adder;
+            
+            int buyPrice = (int)(it.value * ((float)totalBuyPerc / 100f));
+
             if (buyPrice< 1) { buyPrice = 1; }  
             return buyPrice;  
         }  

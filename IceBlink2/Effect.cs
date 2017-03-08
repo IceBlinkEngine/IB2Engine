@@ -13,7 +13,10 @@ namespace IceBlink2
 {
     public class Effect 
     {
-	    public string name = "newEffect";
+        public int modifyShopBuyBackPrice = 0;  
+        public int modifyShopSellPrice = 0;
+
+        public string name = "newEffect";
 	    public string tag = "newEffectTag";
 	    public string tagOfSender = "senderTag";
         public int classLevelOfSender = 0;
@@ -212,6 +215,9 @@ namespace IceBlink2
             copy.useDexterityForMeleeDamageModifierIfGreaterThanStrength = this.useDexterityForMeleeDamageModifierIfGreaterThanStrength;
             copy.negateAttackPenaltyForAdjacentEnemyWithRangedAttack = this.negateAttackPenaltyForAdjacentEnemyWithRangedAttack;
             copy.useEvasion = this.useEvasion;
+            copy.modifyShopBuyBackPrice = this.modifyShopBuyBackPrice;
+            copy.modifyShopSellPrice = this.modifyShopSellPrice;
+
 
             copy.isPermanent = this.isPermanent;
             copy.endEffectWhenCarrierTakesDamage = this.endEffectWhenCarrierTakesDamage;
