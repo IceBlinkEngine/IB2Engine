@@ -728,7 +728,22 @@ namespace IceBlink2
     	    btnSelect = null;
     	    btnExit = null;
 	    }
-    
+
+        public void doSpellTarget(Player pc, Player target)
+        {
+            try
+            {
+                gv.cc.doSpellBasedOnScriptOrEffectTag(gv.cc.currentSelectedSpell, pc, target, !isInCombat);
+                gv.screenType = "main";
+                doCleanUp();
+            }
+            catch (Exception ex)
+            {
+                gv.sf.MessageBoxHtml("error with Pc Selector screen: " + ex.ToString());
+                gv.errorLog(ex.ToString());
+            }
+        }
+
         public void doSelectedSpell(bool inCombat)
 	    {
             //if (isSelectedSpellSlotInKnownSpellsRange())
@@ -926,54 +941,67 @@ namespace IceBlink2
                         if ((pc.sp >= sp.costSP) && (pc.hp > sp.costHP))
                         {
                             gv.cc.currentSelectedSpell = sp;
-                            //ask for target
-                            // selected to USE ITEM
 
-                            List<string> pcNames = new List<string>();
-                            pcNames.Add("cancel");
-                            foreach (Player p in mod.playerList)
+
+                            //if target is SELF then just do doSpellTarget(self) 
+                            if (gv.cc.currentSelectedSpell.spellTargetType.Equals("Self"))
                             {
-                                pcNames.Add(p.name);
+                                doSpellTarget(getCastingPlayer(), getCastingPlayer());
                             }
 
-                            //If only one PC, do not show select PC dialog...just go to cast selector
-                            if (mod.playerList.Count == 1)
+                            //********************************************
+                            else
                             {
-                                try
-                                {
-                                    Player target = mod.playerList[0];
-                                    gv.cc.doSpellBasedOnScriptOrEffectTag(gv.cc.currentSelectedSpell, target, target, inCombat);
-                                    gv.screenType = "main";
-                                    doCleanUp();
-                                    return;
-                                }
-                                catch (Exception ex)
-                                {
-                                    gv.errorLog(ex.ToString());
-                                }
-                            }
 
-                            using (ItemListSelector pcSel = new ItemListSelector(gv, pcNames, mod.spellLabelSingular + " Target"))
-                            {
-                                pcSel.ShowDialog();
-                                if (pcSel.selectedIndex > 0)
+                                //ask for target
+                                // selected to USE ITEM
+
+                                List<string> pcNames = new List<string>();
+                                pcNames.Add("cancel");
+                                foreach (Player p in mod.playerList)
+                                {
+                                    pcNames.Add(p.name);
+                                }
+
+                                //If only one PC, do not show select PC dialog...just go to cast selector
+                                if (mod.playerList.Count == 1)
                                 {
                                     try
                                     {
-                                        Player target = mod.playerList[pcSel.selectedIndex - 1];
-                                        gv.cc.doSpellBasedOnScriptOrEffectTag(gv.cc.currentSelectedSpell, pc, target, inCombat);
+                                        Player target = mod.playerList[0];
+                                        gv.cc.doSpellBasedOnScriptOrEffectTag(gv.cc.currentSelectedSpell, target, target, inCombat);
                                         gv.screenType = "main";
                                         doCleanUp();
+                                        return;
                                     }
                                     catch (Exception ex)
                                     {
-                                        IBMessageBox.Show(gv, "error with Pc Selector screen: " + ex.ToString());
                                         gv.errorLog(ex.ToString());
                                     }
                                 }
-                                else if (pcSel.selectedIndex == 0) // selected "cancel"
+
+                                using (ItemListSelector pcSel = new ItemListSelector(gv, pcNames, mod.spellLabelSingular + " Target"))
                                 {
-                                    //do nothing
+                                    pcSel.ShowDialog();
+                                    if (pcSel.selectedIndex > 0)
+                                    {
+                                        try
+                                        {
+                                            Player target = mod.playerList[pcSel.selectedIndex - 1];
+                                            gv.cc.doSpellBasedOnScriptOrEffectTag(gv.cc.currentSelectedSpell, pc, target, inCombat);
+                                            gv.screenType = "main";
+                                            doCleanUp();
+                                        }
+                                        catch (Exception ex)
+                                        {
+                                            IBMessageBox.Show(gv, "error with Pc Selector screen: " + ex.ToString());
+                                            gv.errorLog(ex.ToString());
+                                        }
+                                    }
+                                    else if (pcSel.selectedIndex == 0) // selected "cancel"
+                                    {
+                                        //do nothing
+                                    }
                                 }
                             }
                         }

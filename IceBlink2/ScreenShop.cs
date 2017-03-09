@@ -430,7 +430,8 @@ namespace IceBlink2
             
             int buyPrice = (int)(it.value * ((float)totalBuyPerc / 100f));
 
-            if (buyPrice< 1) { buyPrice = 1; }  
+            if (buyPrice< 1) { buyPrice = 1; }
+            if (buyPrice > storeSellValueForItem(it)) { buyPrice = storeSellValueForItem(it); }
             return buyPrice;  
         }  
 

@@ -385,57 +385,70 @@ namespace IceBlink2
 						    if (getCastingPlayer().sp >= GetCurrentlySelectedSpell().costSP)
 						    {
 							    gv.cc.currentSelectedSpell = GetCurrentlySelectedSpell();
-							    //ask for target
-							    // selected to USE ITEM
+                                //ask for target
+                                // selected to USE ITEM
 
-				    		    List<string> pcNames = new List<string>();
-				                pcNames.Add("cancel");
-				                foreach (Player p in mod.playerList)
-				                {
-				            	    pcNames.Add(p.name);
-				                }	
-				            
-				                //If only one PC, do not show select PC dialog...just go to cast selector
-			                    if (mod.playerList.Count == 1)
-			            	    {
-			        			    try
-			                        {
-			        				    Player target = mod.playerList[0];
-		            				    gv.cc.doSpellBasedOnScriptOrEffectTag(gv.cc.currentSelectedSpell, target, target, true);
-                                        gv.screenType = "main";
-		        					    doCleanUp();
-			        				    return;
-			                        }
-			                        catch (Exception ex)
-			                        {
-                                        gv.errorLog(ex.ToString());
-			                        }        	                            	        	                        
-			            	    }
+                                //********************************************
 
-                                using (ItemListSelector pcSel = new ItemListSelector(gv, pcNames, mod.getPlayerClass(getCastingPlayer().classTag).spellLabelSingular + " Target"))
+                                //if target is SELF then just do doSpellTarget(self) 
+                                if (gv.cc.currentSelectedSpell.spellTargetType.Equals("Self"))
                                 {
-                                    pcSel.ShowDialog();                                                                        
-                                    Player pc = getCastingPlayer();
-                                    if (pcSel.selectedIndex > 0)
-				                	{	        	                		
-				            			try
-				                        {
-				            				Player target = mod.playerList[pcSel.selectedIndex - 1];
-				            				gv.cc.doSpellBasedOnScriptOrEffectTag(gv.cc.currentSelectedSpell, pc, target, true);
-                                            gv.screenType = "main";
-				        					doCleanUp();
-				                        }
-				                        catch (Exception ex)
-				                        {
-                                            IBMessageBox.Show(gv, "error with Pc Selector screen: " + ex.ToString());
-                                            gv.errorLog(ex.ToString());
-				                        }        	                            	        	                        
-				                	}
-                                    else if (pcSel.selectedIndex == 0) // selected "cancel"
-				                	{
-				                		//do nothing
-				                	}                                   
+                                    doSpellTarget(getCastingPlayer(), getCastingPlayer());
                                 }
+
+                                //********************************************
+                                else
+                                {
+
+                                    List<string> pcNames = new List<string>();
+                                    pcNames.Add("cancel");
+                                    foreach (Player p in mod.playerList)
+                                    {
+                                        pcNames.Add(p.name);
+                                    }
+
+                                    //If only one PC, do not show select PC dialog...just go to cast selector
+                                    if (mod.playerList.Count == 1)
+                                    {
+                                        try
+                                        {
+                                            Player target = mod.playerList[0];
+                                            gv.cc.doSpellBasedOnScriptOrEffectTag(gv.cc.currentSelectedSpell, target, target, true);
+                                            gv.screenType = "main";
+                                            doCleanUp();
+                                            return;
+                                        }
+                                        catch (Exception ex)
+                                        {
+                                            gv.errorLog(ex.ToString());
+                                        }
+                                    }
+
+                                    using (ItemListSelector pcSel = new ItemListSelector(gv, pcNames, mod.getPlayerClass(getCastingPlayer().classTag).spellLabelSingular + " Target"))
+                                    {
+                                        pcSel.ShowDialog();
+                                        Player pc = getCastingPlayer();
+                                        if (pcSel.selectedIndex > 0)
+                                        {
+                                            try
+                                            {
+                                                Player target = mod.playerList[pcSel.selectedIndex - 1];
+                                                gv.cc.doSpellBasedOnScriptOrEffectTag(gv.cc.currentSelectedSpell, pc, target, true);
+                                                gv.screenType = "main";
+                                                doCleanUp();
+                                            }
+                                            catch (Exception ex)
+                                            {
+                                                IBMessageBox.Show(gv, "error with Pc Selector screen: " + ex.ToString());
+                                                gv.errorLog(ex.ToString());
+                                            }
+                                        }
+                                        else if (pcSel.selectedIndex == 0) // selected "cancel"
+                                        {
+                                            //do nothing
+                                        }
+                                    }
+                                }//closing else or target self
 						    }
 						    else
 						    {
@@ -446,6 +459,22 @@ namespace IceBlink2
 			    }
 		    }            
 	    }
+
+        public void doSpellTarget(Player pc, Player target)
+        {  
+        try  
+        {  
+                 gv.cc.doSpellBasedOnScriptOrEffectTag(gv.cc.currentSelectedSpell, pc, target, !isInCombat);  
+                 gv.screenType = "main";  
+                 doCleanUp();  
+        }  
+        catch (Exception ex)  
+        {  
+                 gv.sf.MessageBoxHtml("error with Pc Selector screen: " + ex.ToString());  
+                 gv.errorLog(ex.ToString());  
+        }  
+        }  
+
     
         public Spell GetCurrentlySelectedSpell()
 	    {

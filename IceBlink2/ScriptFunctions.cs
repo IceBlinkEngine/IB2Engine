@@ -788,6 +788,7 @@ namespace IceBlink2
                  {  
                      shp.buybackPercent -= Convert.ToInt32(value);  
                  }  
+                 /*
                  else if (opertr.Equals("/"))  
                  {  
                      shp.buybackPercent /= Convert.ToInt32(value);  
@@ -795,7 +796,8 @@ namespace IceBlink2
                  else if (opertr.Equals("*"))  
                  {  
                      shp.buybackPercent *= Convert.ToInt32(value);  
-                 }  
+                 } 
+                 */ 
                  else  
                  {  
                      shp.buybackPercent = Convert.ToInt32(value);  
@@ -832,6 +834,7 @@ namespace IceBlink2
                  {  
                      shp.sellPercent -= Convert.ToInt32(value);  
                  }  
+                 /*
                  else if (opertr.Equals("/"))  
                  {  
                      shp.sellPercent /= Convert.ToInt32(value);  
@@ -839,7 +842,8 @@ namespace IceBlink2
                  else if (opertr.Equals("*"))  
                  {  
                      shp.sellPercent *= Convert.ToInt32(value);  
-                 }  
+                 } 
+                 */ 
                  else  
                  {  
                      shp.sellPercent = Convert.ToInt32(value);  
