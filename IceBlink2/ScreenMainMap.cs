@@ -33355,10 +33355,13 @@ namespace IceBlink2
                         int cnt = 0;
                         foreach (Player p in mod.playerList)
                         {
-                            if (hasMainMapTypeSpell(p))
+                            if (p.isAlive())
                             {
-                                pcNames.Add(p.name);
-                                pcIndex.Add(cnt);
+                                if (hasMainMapTypeSpell(p))
+                                {
+                                    pcNames.Add(p.name);
+                                    pcIndex.Add(cnt);
+                                }
                             }
                             cnt++;
                         }
@@ -33419,10 +33422,13 @@ namespace IceBlink2
                         int cnt = 0;
                         foreach (Player p in mod.playerList)
                         {
-                            if (p.knownOutsideCombatUsableTraitsTags.Count > 0)
+                            if (p.isAlive())
                             {
-                                pcNames.Add(p.name);
-                                pcIndex.Add(cnt);
+                                if (p.knownOutsideCombatUsableTraitsTags.Count > 0)
+                                {
+                                    pcNames.Add(p.name);
+                                    pcIndex.Add(cnt);
+                                }
                             }
                             cnt++;
                         }
@@ -37415,6 +37421,7 @@ namespace IceBlink2
             foreach (string s in pc.knownSpellsTags)
             {
                 Spell sp = mod.getSpellByTag(s);
+                if (sp == null) { continue; }
                 if ((sp.useableInSituation.Equals("Always")) || (sp.useableInSituation.Equals("OutOfCombat")))
                 {
                     return true;

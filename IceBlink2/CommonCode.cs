@@ -814,9 +814,15 @@ namespace IceBlink2
                 Shop updatedShop = gv.mod.getShopByTag(saveShp.shopTag);
                 if (updatedShop != null)
                 {
+                    /*
                     //use the buyback and sell values from the save  
                     updatedShop.buybackPercent = saveShp.buybackPercent;
                     updatedShop.sellPercent = saveShp.sellPercent;
+                    */
+
+                    //use the buyback and sell modifier values from the save  
+                    updatedShop.buybackModifier = saveShp.buybackModifier;
+                    updatedShop.sellModifier = saveShp.sellModifier;
 
                     //this shop in the save also exists in the newMod so clear it out and add everything in the save
                     updatedShop.shopItemRefs.Clear();

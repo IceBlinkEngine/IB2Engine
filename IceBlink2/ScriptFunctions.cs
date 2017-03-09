@@ -782,11 +782,11 @@ namespace IceBlink2
              {  
                  if (opertr.Equals("+"))  
                  {  
-                     shp.buybackPercent += Convert.ToInt32(value);  
+                     shp.buybackModifier += Convert.ToInt32(value);  
                  }  
                  else if (opertr.Equals("-"))  
                  {  
-                     shp.buybackPercent -= Convert.ToInt32(value);  
+                     shp.buybackModifier -= Convert.ToInt32(value);  
                  }  
                  /*
                  else if (opertr.Equals("/"))  
@@ -800,7 +800,7 @@ namespace IceBlink2
                  */ 
                  else  
                  {  
-                     shp.buybackPercent = Convert.ToInt32(value);  
+                     shp.buybackModifier = Convert.ToInt32(value);  
                  }  
              }  
              catch (Exception ex)  
@@ -828,11 +828,11 @@ namespace IceBlink2
              {  
                  if (opertr.Equals("+"))  
                  {  
-                     shp.sellPercent += Convert.ToInt32(value);  
+                     shp.sellModifier += Convert.ToInt32(value);  
                  }  
                  else if (opertr.Equals("-"))  
                  {  
-                     shp.sellPercent -= Convert.ToInt32(value);  
+                     shp.sellModifier -= Convert.ToInt32(value);  
                  }  
                  /*
                  else if (opertr.Equals("/"))  
@@ -846,7 +846,7 @@ namespace IceBlink2
                  */ 
                  else  
                  {  
-                     shp.sellPercent = Convert.ToInt32(value);  
+                     shp.sellModifier = Convert.ToInt32(value);  
                  }  
              }  
              catch (Exception ex)  
@@ -8030,11 +8030,17 @@ namespace IceBlink2
                             }
                             if ((thisSpellEffect.doHeal) && (thisSpellEffect.durationInUnits == 0))
                             {
-                                #region Do Heal
-                                #region Calculate Heal
-                                //(for reference) Heal: AdB+C for every D levels after level E up to F levels total
-                                // heal += RandDieRoll(A,B) + C
-                                int heal = 0;
+                                    //this will be checked whiel building the AOETargetsList
+                                    //if (src is Player) //PCs shouldn't heal creatures  
+                                    //{
+                                        //continue;
+                                    //}
+
+                                    #region Do Heal
+                                    #region Calculate Heal
+                                    //(for reference) Heal: AdB+C for every D levels after level E up to F levels total
+                                    // heal += RandDieRoll(A,B) + C
+                                    int heal = 0;
                                 if (thisSpellEffect.healActionsEveryNLevels == 0) //this heal is not level based
                                 {
                                     heal = RandDiceRoll(thisSpellEffect.healNumOfDice, thisSpellEffect.healDie) + thisSpellEffect.healAdder;
@@ -8089,7 +8095,7 @@ namespace IceBlink2
                             */
 
                             ///trying to keep old spells compatible, in the long run likely just rely on duration > 0
-                            if ((thisSpellEffect.doDeBuff) || (thisSpellEffect.doDeBuff) || (thisSpellEffect.durationInUnits > 0))
+                            if ((thisSpellEffect.doBuff) || (thisSpellEffect.doDeBuff) || (thisSpellEffect.durationInUnits > 0))
                             {
                                 #region (Try to) add to effect list of target
                                 #region Do Calc Save and DC

@@ -19,6 +19,9 @@ namespace IceBlink2
 	    public List<ItemRefs> initialShopItemRefs = new List<ItemRefs>();
         public int buybackPercent = 70;  
         public int sellPercent = 100;
+        public int buybackModifier = 0;  
+        public int sellModifier = 0;
+
 
 
         public Shop()
@@ -51,6 +54,9 @@ namespace IceBlink2
 		    copy.shopName = this.shopName;
             copy.buybackPercent = this.buybackPercent;
             copy.sellPercent = this.sellPercent;
+            copy.buybackModifier = this.buybackModifier;
+            copy.sellModifier = this.sellModifier;
+
 
             copy.shopItemRefs = new List<ItemRefs>();
 		    foreach (ItemRefs s in this.shopItemRefs)
