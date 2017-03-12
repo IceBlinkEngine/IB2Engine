@@ -164,6 +164,24 @@ namespace IceBlink2
             //setToggleButtonsStart();
 	    }
 
+        public void saveUILayout()
+        {
+            try
+            {
+                //string filepath = gv.mainDirectory + "\\CombatUILayout.json";
+                string filepath = gv.cc.GetModulePath() + "\\data\\CombatUILayout.json";
+                string json = JsonConvert.SerializeObject(combatUiLayout, Newtonsoft.Json.Formatting.Indented);
+                using (StreamWriter sw = new StreamWriter(filepath))
+                {
+                    sw.Write(json.ToString());
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+        }
+
         public void loadMainUILayout()
         {
             try

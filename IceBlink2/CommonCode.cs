@@ -217,6 +217,8 @@ namespace IceBlink2
             {
                 sw.Write(json.ToString());
             }
+            gv.screenMainMap.saveUILayout();
+            gv.screenCombat.saveUILayout();
         }
 
         public void setBridgeStateForMovingProps()
@@ -256,9 +258,15 @@ namespace IceBlink2
             {
                 sw.Write(json.ToString());
             }
+            gv.screenMainMap.saveUILayout();
+            gv.screenCombat.saveUILayout();
         }
         public void SaveGame(string filename)
         {
+
+            gv.screenMainMap.saveUILayout();
+            gv.screenCombat.saveUILayout();
+
             string filepath = gv.mainDirectory + "\\saves\\" + gv.mod.moduleName + "\\" + filename;
             MakeDirectoryIfDoesntExist(filepath);
 

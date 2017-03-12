@@ -154,7 +154,8 @@ namespace IceBlink2
         {
             try
             {
-                string filepath = gv.mainDirectory + "\\MainUILayout.json";
+                //string filepath = gv.mainDirectory + "\\MainUILayout.json";
+                string filepath = gv.cc.GetModulePath() + "\\data\\MainUILayout.json";
                 string json = JsonConvert.SerializeObject(mainUiLayout, Newtonsoft.Json.Formatting.Indented);
                 using (StreamWriter sw = new StreamWriter(filepath))
                 {
