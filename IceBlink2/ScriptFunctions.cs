@@ -276,6 +276,10 @@ namespace IceBlink2
                     {
                         itForceRest();
                     }
+                    else if (filename.Equals("gaForceRestNoRations.cs"))
+                    {
+                        itForceRestNoRations();
+                    }  
                     else if (filename.Equals("gaForceRestAndRaiseDead.cs"))
                     {
                         itForceRestAndRaiseDead();
@@ -6802,6 +6806,22 @@ namespace IceBlink2
                 gv.cc.addLogText("<font color='lime'>" + "Party safely rests until completely healed." + "</font><BR>");
             }
         }
+
+        public void itForceRestNoRations()
+        {  
+             foreach (Player pc in mod.playerList)  
+             {  
+                 if (pc.hp > -20)  
+                 {  
+                     pc.hp = pc.hpMax;  
+                     pc.sp = pc.spMax;  
+                 }  
+             }  
+             MessageBox("Party safely rests until completely healed.");  
+             gv.cc.addLogText("<gn>" + "Party safely rests until completely healed." + "</gn><BR>");  
+         }  
+
+
         public void itForceRestAndRaiseDead()
         {
             //MessageBox.Show("Heal Light Wounds");
