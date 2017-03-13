@@ -12,7 +12,7 @@ namespace IceBlink2
     public class ScreenJournal 
     {
 
-	    public Module mod;
+	    //public gv.module gv.mod;
 	    public GameView gv;
 	    private int journalScreenQuestIndex = 0;
 	    private int journalScreenEntryIndex = 0;	
@@ -26,7 +26,7 @@ namespace IceBlink2
 	
 	    public ScreenJournal(Module m, GameView g)
 	    {
-		    mod = m;
+		    //gv.mod = m;
 		    gv = g;
 	    }
 	    public void setControlsStart()
@@ -127,13 +127,13 @@ namespace IceBlink2
             gv.DrawBitmap(journalBack, src, dst);
         
             //MAKE SURE NO OUT OF INDEX ERRORS
-    	    if (mod.partyJournalQuests.Count > 0)
+    	    if (gv.mod.partyJournalQuests.Count > 0)
     	    {
-	    	    if (journalScreenQuestIndex >= mod.partyJournalQuests.Count)
+	    	    if (journalScreenQuestIndex >= gv.mod.partyJournalQuests.Count)
 	    	    {
 	    		    journalScreenQuestIndex = 0;
 	    	    }    	
-	    	    if (journalScreenEntryIndex >= mod.partyJournalQuests[journalScreenQuestIndex].Entries.Count)
+	    	    if (journalScreenEntryIndex >= gv.mod.partyJournalQuests[journalScreenQuestIndex].Entries.Count)
 	    	    {
 	    		    journalScreenEntryIndex = 0;
 	    	    }
@@ -143,10 +143,10 @@ namespace IceBlink2
             Color color = Color.Black;
 		    gv.DrawText("Active Quests:", locX, locY += leftStartY, 1.0f, color);
 		    gv.DrawText("--------------", locX, locY += spacing, 1.0f, color);
-		    if (mod.partyJournalQuests.Count > 0)
+		    if (gv.mod.partyJournalQuests.Count > 0)
     	    {
 			    int cnt = 0;
-			    foreach (JournalQuest jq in mod.partyJournalQuests)
+			    foreach (JournalQuest jq in gv.mod.partyJournalQuests)
 			    {
                     if (journalScreenQuestIndex == cnt) { color = Color.Lime; }
 				    else { color = Color.Black; }	
@@ -159,11 +159,11 @@ namespace IceBlink2
 		    locY = tabStartY;
 		    gv.DrawText("Quest Entry:", locX, locY, 1.0f, Color.Black);
 		    gv.DrawText("--------------", locX, locY += spacing, 1.0f, Color.Black);	
-		    if (mod.partyJournalQuests.Count > 0)
+		    if (gv.mod.partyJournalQuests.Count > 0)
     	    {
                 //Description
-                string textToSpan = "<font color='black'><i><b>" + mod.partyJournalQuests[journalScreenQuestIndex].Entries[journalScreenEntryIndex].EntryTitle + "</b></i></font><br>";
-                textToSpan += mod.partyJournalQuests[journalScreenQuestIndex].Entries[journalScreenEntryIndex].EntryText;
+                string textToSpan = "<font color='black'><i><b>" + gv.mod.partyJournalQuests[journalScreenQuestIndex].Entries[journalScreenEntryIndex].EntryTitle + "</b></i></font><br>";
+                textToSpan += gv.mod.partyJournalQuests[journalScreenQuestIndex].Entries[journalScreenEntryIndex].EntryText;
 	                            
                 int yLoc = pH * 18;
 
@@ -236,15 +236,15 @@ namespace IceBlink2
 				    if (journalScreenQuestIndex > 0)
 				    {
 					    journalScreenQuestIndex--;
-					    journalScreenEntryIndex = mod.partyJournalQuests[journalScreenQuestIndex].Entries.Count - 1;
+					    journalScreenEntryIndex = gv.mod.partyJournalQuests[journalScreenQuestIndex].Entries.Count - 1;
 				    }
 			    }
 			    else if (ctrlDownArrow.getImpact(x, y))
 			    {
-				    if (journalScreenQuestIndex < mod.partyJournalQuests.Count - 1)
+				    if (journalScreenQuestIndex < gv.mod.partyJournalQuests.Count - 1)
 				    {
 					    journalScreenQuestIndex++;
-					    journalScreenEntryIndex = mod.partyJournalQuests[journalScreenQuestIndex].Entries.Count - 1;
+					    journalScreenEntryIndex = gv.mod.partyJournalQuests[journalScreenQuestIndex].Entries.Count - 1;
 				    }
 			    }
 			    else if (ctrlLeftArrow.getImpact(x, y))
@@ -256,7 +256,7 @@ namespace IceBlink2
 			    }
 			    else if (ctrlRightArrow.getImpact(x, y))
 			    {
-				    if (journalScreenEntryIndex < mod.partyJournalQuests[journalScreenQuestIndex].Entries.Count - 1)
+				    if (journalScreenEntryIndex < gv.mod.partyJournalQuests[journalScreenQuestIndex].Entries.Count - 1)
 				    {
 					    journalScreenEntryIndex++;
 				    }

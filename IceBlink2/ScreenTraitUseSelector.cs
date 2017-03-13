@@ -10,7 +10,7 @@ namespace IceBlink2
 {
     public class ScreenTraitUseSelector 
     {
-	    private Module mod;
+	    //private gv.module gv.mod;
 	    private GameView gv;
 	
 	    public int castingPlayerIndex = 0;
@@ -26,7 +26,7 @@ namespace IceBlink2
 	
 	    public ScreenTraitUseSelector(Module m, GameView g) 
 	    {
-		    mod = m;
+		    //gv.mod = m;
 		    gv = g;
 
             //Maybe add own text for traits later or generalize text in MessageCastSelector
@@ -114,12 +114,12 @@ namespace IceBlink2
                     if (cntSlot < pc.knownInCombatUsableTraitsTags.Count)
                     {
                         //TraitAllowed sa = pc.knownInCombatUsableTraitsTags[cntSlot];
-                        //Trait sp = mod.getTraitByTag(sa.tag);
+                        //Trait sp = gv.mod.getTraitByTag(sa.tag);
 
                         //TraitAllowed sa = pc.knownInCombatUsableTraitsTags[cntSlot];
 
                         //the system assumes that traits have an associatedSpellTag property nd that these associted spell tags are written into knownInCombatUsableTraitsTags
-                        Spell sp = mod.getSpellByTag(pc.knownInCombatUsableTraitsTags[cntSlot]);
+                        Spell sp = gv.mod.getSpellByTag(pc.knownInCombatUsableTraitsTags[cntSlot]);
 
                         //best sue same image for trait and spell, traitImage and spellImage should align then
                         btn.Img2 = gv.cc.LoadBitmap(sp.spellImage);
@@ -181,13 +181,13 @@ namespace IceBlink2
                     if (cntSlot < pc.knownOutsideCombatUsableTraitsTags.Count)
                     {
                         //TraitAllowed sa = pc.knownInCombatUsableTraitsTags[cntSlot];
-                        //Trait sp = mod.getTraitByTag(sa.tag);
+                        //Trait sp = gv.mod.getTraitByTag(sa.tag);
 
                         //TraitAllowed sa = pc.knownInCombatUsableTraitsTags[cntSlot];
-                        //Spell sp = mod.getSpellByTag(pc.knownOutsideCombatUsableTraitsTags[cntSlot]);
+                        //Spell sp = gv.mod.getSpellByTag(pc.knownOutsideCombatUsableTraitsTags[cntSlot]);
                         
                         //the system assumes that traits have an associatedSpellTag property nd that these associted spell tags are written into knownInCombatUsableTraitsTags
-                        Spell sp = mod.getSpellByTag(pc.knownOutsideCombatUsableTraitsTags[cntSlot]);
+                        Spell sp = gv.mod.getSpellByTag(pc.knownOutsideCombatUsableTraitsTags[cntSlot]);
 
                         btn.Img2 = gv.cc.LoadBitmap(sp.spellImage);
                         btn.Img2Off = gv.cc.LoadBitmap(sp.spellImage + "_off");
@@ -261,7 +261,7 @@ namespace IceBlink2
 		    locY = (gv.squareSize * 0) + (pH * 2);
             //gv.mSheetTextPaint.setColor(Color.LTGRAY);
             //change labels, TODO
-            //btnSelect.Text = gv.mod.playerList[gv.screenCastSelector.castingPlayerIndex].playerClass.labelForUseTraitAction + " SELECTED " + gv.mod.playerList[gv.screenCastSelector.castingPlayerIndex].playerClass.labelForUseTraitButtonInCombat;
+            //btnSelect.Text = gv.gv.mod.playerList[gv.screenCastSelector.castingPlayerIndex].playerClass.labelForUseTraitAction + " SELECTED " + gv.gv.mod.playerList[gv.screenCastSelector.castingPlayerIndex].playerClass.labelForUseTraitButtonInCombat;
 
             gv.DrawText("Select a " + gv.mod.playerList[gv.screenCastSelector.castingPlayerIndex].playerClass.labelForUseTraitButtonInCombat.ToLower() + " to " + gv.mod.playerList[gv.screenCastSelector.castingPlayerIndex].playerClass.labelForUseTraitAction.ToLower(), noticeX, pH * 3);
 		    //gv.mSheetTextPaint.setColor(Color.YELLOW);
@@ -279,7 +279,7 @@ namespace IceBlink2
             {
                 if (spellSlotIndex < pc.knownInCombatUsableTraitsTags.Count)
                 {
-                    Spell sp = mod.getSpellByTag(pc.knownInCombatUsableTraitsTags[spellSlotIndex]);
+                    Spell sp = gv.mod.getSpellByTag(pc.knownInCombatUsableTraitsTags[spellSlotIndex]);
                     //if (pc.knownSpellsTags.Contains(sp.tag))
                     //{
                     //if (inCombat) //all spells can be used in combat
@@ -295,7 +295,7 @@ namespace IceBlink2
                     //go through all trait tags of pc
                     foreach (string traitTag in pc.knownTraitsTags)
                     {
-                        //go through all traits of module
+                        //go through all traits of gv.module
                         foreach (Trait t in gv.mod.moduleTraitsList)
                         {
                             //found a trait the pc has
@@ -406,7 +406,7 @@ namespace IceBlink2
                     //{
                     //if unknown spell, "Spell Not Known Yet" in red
                     //gv.mSheetTextPaint.setColor(Color.RED);
-                    //gv.DrawText(mod.spellLabelSingular + " Not Known Yet", noticeX, noticeY, 1.0f, Color.Red);
+                    //gv.DrawText(gv.mod.spellLabelSingular + " Not Known Yet", noticeX, noticeY, 1.0f, Color.Red);
                     //}
                 }
             }
@@ -417,7 +417,7 @@ namespace IceBlink2
             {
                 if (spellSlotIndex < pc.knownOutsideCombatUsableTraitsTags.Count)
                 {
-                    Spell sp = mod.getSpellByTag(pc.knownOutsideCombatUsableTraitsTags[spellSlotIndex]);
+                    Spell sp = gv.mod.getSpellByTag(pc.knownOutsideCombatUsableTraitsTags[spellSlotIndex]);
                     //if (pc.knownSpellsTags.Contains(sp.tag))
                     //{
                     //if (inCombat) //all spells can be used in combat
@@ -432,7 +432,7 @@ namespace IceBlink2
                     //go through all trait tags of pc
                     foreach (string traitTag in pc.knownTraitsTags)
                     {
-                        //go through all traits of module
+                        //go through all traits of gv.module
                         foreach (Trait t in gv.mod.moduleTraitsList)
                         {
                             //found a trait the pc has
@@ -543,7 +543,7 @@ namespace IceBlink2
                     //{
                     //if unknown spell, "Spell Not Known Yet" in red
                     //gv.mSheetTextPaint.setColor(Color.RED);
-                    //gv.DrawText(mod.spellLabelSingular + " Not Known Yet", noticeX, noticeY, 1.0f, Color.Red);
+                    //gv.DrawText(gv.mod.spellLabelSingular + " Not Known Yet", noticeX, noticeY, 1.0f, Color.Red);
                     //}
                 }
             }
@@ -573,7 +573,7 @@ namespace IceBlink2
             {
                 if (spellSlotIndex < pc.knownInCombatUsableTraitsTags.Count)
                 {
-                    Spell sp = mod.getSpellByTag(pc.knownInCombatUsableTraitsTags[spellSlotIndex]);
+                    Spell sp = gv.mod.getSpellByTag(pc.knownInCombatUsableTraitsTags[spellSlotIndex]);
                     //SpellAllowed sa = getCastingPlayer().playerClass.getSpellAllowedByTag(sp.tag);
                     string textToSpan = "<u>Description</u>" + "<BR>";
                     textToSpan += "<b><i><big>" + sp.name + "</big></i></b><BR>";
@@ -620,7 +620,7 @@ namespace IceBlink2
             {
                 if (spellSlotIndex < pc.knownOutsideCombatUsableTraitsTags.Count)
                 {
-                    Spell sp = mod.getSpellByTag(pc.knownOutsideCombatUsableTraitsTags[spellSlotIndex]);
+                    Spell sp = gv.mod.getSpellByTag(pc.knownOutsideCombatUsableTraitsTags[spellSlotIndex]);
                     string textToSpan = "<u>Description</u>" + "<BR>";
                     textToSpan += "<b><i><big>" + sp.name + "</big></i></b><BR>";
                     textToSpan += "SP Cost: " + sp.costSP + "<BR>";
@@ -759,7 +759,7 @@ namespace IceBlink2
             {
                 if (spellSlotIndex < pc.knownInCombatUsableTraitsTags.Count)
                 {
-                    Spell sp = mod.getSpellByTag(pc.knownInCombatUsableTraitsTags[spellSlotIndex]);
+                    Spell sp = gv.mod.getSpellByTag(pc.knownInCombatUsableTraitsTags[spellSlotIndex]);
 
                     //enter check for workability based on entries in pcTags
                     bool traitWorksForThisPC = false;
@@ -770,7 +770,7 @@ namespace IceBlink2
                     //go through all trait tags of pc
                     foreach (string traitTag in pc.knownTraitsTags)
                     {
-                        //go through all traits of module
+                        //go through all traits of gv.module
                         foreach (Trait t in gv.mod.moduleTraitsList)
                         {
                             //found a trait the pc has
@@ -860,7 +860,7 @@ namespace IceBlink2
                 //{
                 if (spellSlotIndex < pc.knownOutsideCombatUsableTraitsTags.Count)
                 {
-                    Spell sp = mod.getSpellByTag(pc.knownOutsideCombatUsableTraitsTags[spellSlotIndex]);
+                    Spell sp = gv.mod.getSpellByTag(pc.knownOutsideCombatUsableTraitsTags[spellSlotIndex]);
 
                     //pcTags
                     //enter check for workability based on entries in pcTags
@@ -871,7 +871,7 @@ namespace IceBlink2
                     //go through all trait tags of pc
                     foreach (string traitTag in pc.knownTraitsTags)
                     {
-                        //go through all traits of module
+                        //go through all traits of gv.module
                         foreach (Trait t in gv.mod.moduleTraitsList)
                         {
                             //found a trait the pc has
@@ -958,17 +958,17 @@ namespace IceBlink2
 
                                 List<string> pcNames = new List<string>();
                                 pcNames.Add("cancel");
-                                foreach (Player p in mod.playerList)
+                                foreach (Player p in gv.mod.playerList)
                                 {
                                     pcNames.Add(p.name);
                                 }
 
                                 //If only one PC, do not show select PC dialog...just go to cast selector
-                                if (mod.playerList.Count == 1)
+                                if (gv.mod.playerList.Count == 1)
                                 {
                                     try
                                     {
-                                        Player target = mod.playerList[0];
+                                        Player target = gv.mod.playerList[0];
                                         gv.cc.doSpellBasedOnScriptOrEffectTag(gv.cc.currentSelectedSpell, target, target, inCombat);
                                         gv.screenType = "main";
                                         doCleanUp();
@@ -980,14 +980,14 @@ namespace IceBlink2
                                     }
                                 }
 
-                                using (ItemListSelector pcSel = new ItemListSelector(gv, pcNames, mod.spellLabelSingular + " Target"))
+                                using (ItemListSelector pcSel = new ItemListSelector(gv, pcNames, gv.mod.spellLabelSingular + " Target"))
                                 {
                                     pcSel.ShowDialog();
                                     if (pcSel.selectedIndex > 0)
                                     {
                                         try
                                         {
-                                            Player target = mod.playerList[pcSel.selectedIndex - 1];
+                                            Player target = gv.mod.playerList[pcSel.selectedIndex - 1];
                                             gv.cc.doSpellBasedOnScriptOrEffectTag(gv.cc.currentSelectedSpell, pc, target, inCombat);
                                             gv.screenType = "main";
                                             doCleanUp();
@@ -1017,7 +1017,7 @@ namespace IceBlink2
         public Spell GetCurrentlySelectedSpell()
 	    {
     	    SpellAllowed sa = getCastingPlayer().playerClass.spellsAllowed[spellSlotIndex];
-		    return mod.getSpellByTag(sa.tag);
+		    return gv.mod.getSpellByTag(sa.tag);
 	    }
 	    public bool isSelectedSpellSlotInKnownSpellsRange()
 	    {
@@ -1034,7 +1034,7 @@ namespace IceBlink2
 	    }
 	    public Player getCastingPlayer()
 	    {
-		    return mod.playerList[gv.screenCastSelector.castingPlayerIndex];
+		    return gv.mod.playerList[gv.screenCastSelector.castingPlayerIndex];
 	    }
 	    public void tutorialMessageCastingScreen()
         {

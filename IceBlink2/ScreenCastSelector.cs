@@ -10,10 +10,11 @@ namespace IceBlink2
 {
     public class ScreenCastSelector 
     {
-	    private Module mod;
+	   
 	    private GameView gv;
-	
-	    public int castingPlayerIndex = 0;
+        //private gv.module gv.mod = gv.mod;
+
+        public int castingPlayerIndex = 0;
 	    private int spellSlotIndex = 0;
 	    private int slotsPerPage = 20;
 	    private List<IbbButton> btnSpellSlots = new List<IbbButton>();
@@ -26,7 +27,7 @@ namespace IceBlink2
 	
 	    public ScreenCastSelector(Module m, GameView g) 
 	    {
-		    mod = m;
+		    //mod = m;
 		    gv = g;
 		    stringMessageCastSelector = gv.cc.loadTextToString("data/MessageCastSelector.txt");
 	    }
@@ -43,7 +44,7 @@ namespace IceBlink2
 		    if (btnSelect == null)
 		    {
 			    btnSelect = new IbbButton(gv, 0.8f);	
-			    btnSelect.Text = "CAST SELECTED " + mod.spellLabelSingular.ToUpper();
+			    btnSelect.Text = "CAST SELECTED " + gv.mod.spellLabelSingular.ToUpper();
 			    btnSelect.Img = gv.cc.LoadBitmap("btn_large"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_large);
 			    btnSelect.Glow = gv.cc.LoadBitmap("btn_large_glow"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_large_glow);
                 btnSelect.X = (gv.screenWidth / 2) - (int)(gv.ibbwidthL * gv.screenDensity / 2.0f);
@@ -103,7 +104,7 @@ namespace IceBlink2
                 if (cntSlot < pc.playerClass.spellsAllowed.Count)
                 {
                     SpellAllowed sa = pc.playerClass.spellsAllowed[cntSlot];
-                    Spell sp = mod.getSpellByTag(sa.tag);
+                    Spell sp = gv.mod.getSpellByTag(sa.tag);
 
                     btn.Img2 = gv.cc.LoadBitmap(sp.spellImage);
                     btn.Img2Off = gv.cc.LoadBitmap(sp.spellImage + "_off");
@@ -156,7 +157,7 @@ namespace IceBlink2
     	    {
     		    setControlsStart();
     	    }
-            btnSelect.Text = "CAST SELECTED " + mod.getPlayerClass(getCastingPlayer().classTag).spellLabelSingular.ToUpper();
+            btnSelect.Text = "CAST SELECTED " + gv.mod.getPlayerClass(getCastingPlayer().classTag).spellLabelSingular.ToUpper();
             int pW = (int)((float)gv.screenWidth / 100.0f);
 		    int pH = (int)((float)gv.screenHeight / 100.0f);
 		
@@ -175,8 +176,8 @@ namespace IceBlink2
             //DRAW TEXT		
 		    locY = (gv.squareSize * 0) + (pH * 2);
 		    //gv.mSheetTextPaint.setColor(Color.LTGRAY);
-		    gv.DrawText("Select a " + mod.getPlayerClass(pc.classTag).spellLabelSingular + " to Cast", noticeX, pH * 3);
-            //gv.DrawText("Select a " + mod.getPlayerClass(pc.classTag).spellLabelSingular + " to Cast", noticeX, pH * 3, "wh");
+		    gv.DrawText("Select a " + gv.mod.getPlayerClass(pc.classTag).spellLabelSingular + " to Cast", noticeX, pH * 3);
+            //gv.DrawText("Select a " + gv.mod.getPlayerClass(pc.classTag).spellLabelSingular + " to Cast", noticeX, pH * 3, "wh");
             //gv.mSheetTextPaint.setColor(Color.YELLOW);
             gv.DrawText(getCastingPlayer().name + " SP: " + getCastingPlayer().sp + "/" + getCastingPlayer().spMax, pW * 55, leftStartY);
 		
@@ -227,7 +228,7 @@ namespace IceBlink2
 			    {
 				    //if unknown spell, "Spell Not Known Yet" in red
 				    //gv.mSheetTextPaint.setColor(Color.RED);
-                    gv.DrawText(mod.getPlayerClass(pc.classTag).spellLabelSingular + " not known yet", noticeX, noticeY, 1.0f, Color.Red);
+                    gv.DrawText(gv.mod.getPlayerClass(pc.classTag).spellLabelSingular + " not known yet", noticeX, noticeY, 1.0f, Color.Red);
 			    }
 		    }		
 		
@@ -402,17 +403,17 @@ namespace IceBlink2
 
                                     List<string> pcNames = new List<string>();
                                     pcNames.Add("cancel");
-                                    foreach (Player p in mod.playerList)
+                                    foreach (Player p in gv.mod.playerList)
                                     {
                                         pcNames.Add(p.name);
                                     }
 
                                     //If only one PC, do not show select PC dialog...just go to cast selector
-                                    if (mod.playerList.Count == 1)
+                                    if (gv.mod.playerList.Count == 1)
                                     {
                                         try
                                         {
-                                            Player target = mod.playerList[0];
+                                            Player target = gv.mod.playerList[0];
                                             gv.cc.doSpellBasedOnScriptOrEffectTag(gv.cc.currentSelectedSpell, target, target, true);
                                             gv.screenType = "main";
                                             doCleanUp();
@@ -424,7 +425,7 @@ namespace IceBlink2
                                         }
                                     }
 
-                                    using (ItemListSelector pcSel = new ItemListSelector(gv, pcNames, mod.getPlayerClass(getCastingPlayer().classTag).spellLabelSingular + " Target"))
+                                    using (ItemListSelector pcSel = new ItemListSelector(gv, pcNames, gv.mod.getPlayerClass(getCastingPlayer().classTag).spellLabelSingular + " Target"))
                                     {
                                         pcSel.ShowDialog();
                                         Player pc = getCastingPlayer();
@@ -432,7 +433,7 @@ namespace IceBlink2
                                         {
                                             try
                                             {
-                                                Player target = mod.playerList[pcSel.selectedIndex - 1];
+                                                Player target = gv.mod.playerList[pcSel.selectedIndex - 1];
                                                 gv.cc.doSpellBasedOnScriptOrEffectTag(gv.cc.currentSelectedSpell, pc, target, true);
                                                 gv.screenType = "main";
                                                 doCleanUp();
@@ -479,7 +480,7 @@ namespace IceBlink2
         public Spell GetCurrentlySelectedSpell()
 	    {
     	    SpellAllowed sa = getCastingPlayer().playerClass.spellsAllowed[spellSlotIndex];
-		    return mod.getSpellByTag(sa.tag);
+		    return gv.mod.getSpellByTag(sa.tag);
 	    }
 	    public bool isSelectedSpellSlotInKnownSpellsRange()
 	    {
@@ -496,7 +497,7 @@ namespace IceBlink2
 	    }
 	    public Player getCastingPlayer()
 	    {
-		    return mod.playerList[castingPlayerIndex];
+		    return gv.mod.playerList[castingPlayerIndex];
 	    }
 	    public void tutorialMessageCastingScreen()
         {

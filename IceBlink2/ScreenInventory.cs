@@ -9,7 +9,7 @@ namespace IceBlink2
 {
     public class ScreenInventory 
     {
-	    public Module mod;
+	    //public gv.module gv.mod;
 	    public GameView gv;
 	    private int inventoryPageIndex = 0;
 	    private int inventorySlotIndex = 0;
@@ -25,7 +25,7 @@ namespace IceBlink2
 	
 	    public ScreenInventory(Module m, GameView g)
 	    {
-		    mod = m;
+		    //gv.mod = m;
 		    gv = g;
 		    //setControlsStart();
 	    }
@@ -150,12 +150,12 @@ namespace IceBlink2
             int cntSlot = 0;
             foreach (IbbButton btn in btnInventorySlot)
             {
-                if ((cntSlot + (inventoryPageIndex * slotsPerPage)) < mod.partyInventoryRefsList.Count)
+                if ((cntSlot + (inventoryPageIndex * slotsPerPage)) < gv.mod.partyInventoryRefsList.Count)
                 {
-                    Item it = mod.getItemByResRefForInfo(mod.partyInventoryRefsList[cntSlot + (inventoryPageIndex * slotsPerPage)].resref);
+                    Item it = gv.mod.getItemByResRefForInfo(gv.mod.partyInventoryRefsList[cntSlot + (inventoryPageIndex * slotsPerPage)].resref);
                     gv.cc.DisposeOfBitmap(ref btn.Img2);
                     btn.Img2 = gv.cc.LoadBitmap(it.itemImage);
-                    ItemRefs itr = mod.partyInventoryRefsList[cntSlot + (inventoryPageIndex * slotsPerPage)];
+                    ItemRefs itr = gv.mod.partyInventoryRefsList[cntSlot + (inventoryPageIndex * slotsPerPage)];
                     if (itr.quantity > 1)
                     {
                         btn.Quantity = itr.quantity + "";
@@ -202,7 +202,7 @@ namespace IceBlink2
             gv.DrawText("Inventory", locX + (gv.squareSize * 5) + pW * 2, locY += spacing);
 		    locY = gv.squareSize + (pH * 2);
 		    gv.DrawText("Party", tabX2 + (gv.squareSize * 6), locY);
-            gv.DrawText(mod.goldLabelPlural + ": " + mod.partyGold, tabX2 + (gv.squareSize * 6), locY += spacing);
+            gv.DrawText(gv.mod.goldLabelPlural + ": " + gv.mod.partyGold, tabX2 + (gv.squareSize * 6), locY += spacing);
 
 		    //DRAW LEFT/RIGHT ARROWS and PAGE INDEX
 		    btnPageIndex.Draw();
@@ -224,7 +224,7 @@ namespace IceBlink2
 		    if (isSelectedItemSlotInPartyInventoryRange())
 		    {
 			    ItemRefs itRef = GetCurrentlySelectedItemRefs();
-        	    Item it = mod.getItemByResRefForInfo(itRef.resref);
+        	    Item it = gv.mod.getItemByResRefForInfo(itRef.resref);
 
                 //Description
 		        string textToSpan = "";
@@ -268,7 +268,7 @@ namespace IceBlink2
         public string isUseableBy(Item it)
         {
     	    string strg = "";
-    	    foreach (PlayerClass cls in mod.modulePlayerClassList)
+    	    foreach (PlayerClass cls in gv.mod.modulePlayerClassList)
     	    {
                 string firstLetter = cls.name.Substring(0,1);
     		    foreach (ItemRefs stg in cls.itemsAllowed)
@@ -380,7 +380,7 @@ namespace IceBlink2
 				    {				
 					    ItemRefs itRef = GetCurrentlySelectedItemRefs();
 					    if (itRef == null) { return;}
-	            	    Item it = mod.getItemByResRef(itRef.resref);
+	            	    Item it = gv.mod.getItemByResRef(itRef.resref);
 	            	    if (it == null) {return;}
 					    gv.sf.ShowFullDescription(it);
 				    }				
@@ -432,7 +432,7 @@ namespace IceBlink2
                 itSel.setupAll(gv);
                 var ret = itSel.ShowDialog();
                 ItemRefs itRef = GetCurrentlySelectedItemRefs();
-	            Item it = mod.getItemByResRefForInfo(itRef.resref);
+	            Item it = gv.mod.getItemByResRefForInfo(itRef.resref);
                 if ((itSel.selectedIndex == 0) && ( (!it.onUseItem.Equals("none")) || (!it.onUseItemIBScript.Equals("none")) || (!it.onUseItemCastSpellTag.Equals("none")) ) )
                 {                    
 	            	// selected to USE ITEM
@@ -440,12 +440,12 @@ namespace IceBlink2
 	                pcNames.Add("cancel");
 	                if (inCombat)
 	                {
-	                    Player pc = mod.playerList[gv.screenCombat.currentPlayerIndex];
+	                    Player pc = gv.mod.playerList[gv.screenCombat.currentPlayerIndex];
 	                    pcNames.Add(pc.name);
 	                }
 	                else
 	                {
-		                foreach (Player pc in mod.playerList)
+		                foreach (Player pc in gv.mod.playerList)
 		                {
 		                    pcNames.Add(pc.name);
 		                }	   
@@ -461,13 +461,13 @@ namespace IceBlink2
                             try
 		                    {
 		                		itRef = GetCurrentlySelectedItemRefs();
-		            	        it = mod.getItemByResRefForInfo(itRef.resref);
+		            	        it = gv.mod.getItemByResRefForInfo(itRef.resref);
 		                		if (inCombat)
 		                		{
                                     //check to see if use IBScript first
 		                			if (!it.onUseItem.Equals("none"))
 		                			{
-			                			Player pc = mod.playerList[gv.screenCombat.currentPlayerIndex];
+			                			Player pc = gv.mod.playerList[gv.screenCombat.currentPlayerIndex];
 			                			doItemInventoryScriptBasedOnFilename(pc);
 			                			gv.screenCombat.currentCombatMode = "move";
 			                			gv.screenType = "combat";
@@ -492,7 +492,7 @@ namespace IceBlink2
                                     //check to see if use IBScript first
 		                			if (!it.onUseItem.Equals("none"))
 		                			{
-			                			Player pc = mod.playerList[itSel2.selectedIndex - 1];
+			                			Player pc = gv.mod.playerList[itSel2.selectedIndex - 1];
 			                			doItemInventoryScriptBasedOnFilename(pc);
 		                			}
                                     else if (!it.onUseItemIBScript.Equals("none"))
@@ -520,7 +520,7 @@ namespace IceBlink2
                     {
                         //drop item
 	    	            itRef = GetCurrentlySelectedItemRefs();
-	    	            it = mod.getItemByResRef(itRef.resref);
+	    	            it = gv.mod.getItemByResRef(itRef.resref);
 	    	            if (!it.plotItem)
 	    	            {
 		    	            gv.sf.RemoveItemFromInventory(itRef, 1);
@@ -570,7 +570,7 @@ namespace IceBlink2
                 ItemRefs itRef = GetCurrentlySelectedItemRefs();
                 Item it = gv.mod.getItemByResRefForInfo(itRef.resref);
                 gv.mod.indexOfPCtoLastUseItem = pcIndex;
-                gv.cc.currentSelectedSpell = mod.getSpellByTag(it.onUseItemCastSpellTag);
+                gv.cc.currentSelectedSpell = gv.mod.getSpellByTag(it.onUseItemCastSpellTag);
                 if (it.destroyItemAfterOnUseItemCastSpell)
                 {
                     gv.sf.RemoveItemFromInventory(itRef, 1);
@@ -584,8 +584,8 @@ namespace IceBlink2
             {
                 ItemRefs itRef = GetCurrentlySelectedItemRefs();
                 Item it = gv.mod.getItemByResRefForInfo(itRef.resref);
-                Spell sp = mod.getSpellByTag(it.onUseItemCastSpellTag);
-                Player pc = mod.playerList[pcIndex];
+                Spell sp = gv.mod.getSpellByTag(it.onUseItemCastSpellTag);
+                Player pc = gv.mod.playerList[pcIndex];
                 gv.mod.indexOfPCtoLastUseItem = pcIndex;
                 gv.cc.doSpellBasedOnScriptOrEffectTag(sp, it, pc, outsideCombat);
                 if (it.destroyItemAfterOnUseItemCastSpell)
@@ -602,20 +602,20 @@ namespace IceBlink2
 	
 	    public void doItemStacking()
 	    {
-		    for (int i = 0; i < mod.partyInventoryRefsList.Count; i++)
+		    for (int i = 0; i < gv.mod.partyInventoryRefsList.Count; i++)
 		    {
-			    ItemRefs itr = mod.partyInventoryRefsList[i];
-			    Item itm = mod.getItemByResRefForInfo(itr.resref);
+			    ItemRefs itr = gv.mod.partyInventoryRefsList[i];
+			    Item itm = gv.mod.getItemByResRefForInfo(itr.resref);
 			    if (itm.isStackable)
 			    {
-				    for (int j = mod.partyInventoryRefsList.Count - 1; j >= 0; j--)
+				    for (int j = gv.mod.partyInventoryRefsList.Count - 1; j >= 0; j--)
 				    {
-					    ItemRefs it = mod.partyInventoryRefsList[j];
+					    ItemRefs it = gv.mod.partyInventoryRefsList[j];
 					    //do check to see if same resref and then stack and delete
 					    if ((it.resref.Equals(itr.resref)) && (i != j))
 					    {
 						    itr.quantity += it.quantity;
-						    mod.partyInventoryRefsList.RemoveAt(j);
+						    gv.mod.partyInventoryRefsList.RemoveAt(j);
 					    }
 				    }
 			    }
@@ -623,18 +623,18 @@ namespace IceBlink2
 	    }
 	    public ItemRefs GetCurrentlySelectedItemRefs()
 	    {
-		    return mod.partyInventoryRefsList[GetIndex()];
+		    return gv.mod.partyInventoryRefsList[GetIndex()];
 	    }
 	    public bool isSelectedItemSlotInPartyInventoryRange()
 	    {
-		    return GetIndex() < mod.partyInventoryRefsList.Count;
+		    return GetIndex() < gv.mod.partyInventoryRefsList.Count;
 	    }
 	    public void tutorialMessageInventory(bool helpCall)
         {
-    	    if ((mod.showTutorialInventory) || (helpCall))
+    	    if ((gv.mod.showTutorialInventory) || (helpCall))
 		    {
     		    gv.sf.MessageBoxHtml(gv.cc.stringMessageInventory);    		
-			    mod.showTutorialInventory = false;
+			    gv.mod.showTutorialInventory = false;
 		    }
         }
     }

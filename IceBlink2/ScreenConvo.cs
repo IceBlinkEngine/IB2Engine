@@ -10,7 +10,7 @@ namespace IceBlink2
 {
     public class ScreenConvo 
     {
-	    public Module mod;
+	    //publicgv.modulegv.mod;
 	    public GameView gv;
 	
 	    public List<IbbButton> btnPartyIndex = new List<IbbButton>();
@@ -33,7 +33,7 @@ namespace IceBlink2
 
 	    public ScreenConvo(Module m, GameView g)
 	    {
-		    mod = m;
+		    //mod = m;
 		    gv = g;
 		    setControlsStart();
 	    }
@@ -74,9 +74,9 @@ namespace IceBlink2
 			    int cntPCs = 0;
 			    foreach (IbbButton btn in btnPartyIndex)
 			    {
-				    if (cntPCs < mod.playerList.Count)
+				    if (cntPCs <gv.mod.playerList.Count)
 				    {
-					    if (cntPCs == mod.selectedPartyLeader) {btn.glowOn = true;}
+					    if (cntPCs ==gv.mod.selectedPartyLeader) {btn.glowOn = true;}
 					    else {btn.glowOn = false;}					
 					    btn.Draw();
 				    }
@@ -270,11 +270,11 @@ namespace IceBlink2
 			
 			    if (currentConvo.PartyChat)
 			    {
-				    for (int j = 0; j < mod.playerList.Count; j++)
+				    for (int j = 0; j <gv.mod.playerList.Count; j++)
 				    {
 					    if (btnPartyIndex[j].getImpact(x, y))
 					    {
-						    mod.selectedPartyLeader = j;
+						   gv.mod.selectedPartyLeader = j;
 						    doActions = false;
 			                doConvo(parentIdNum);
 					    }
@@ -334,12 +334,12 @@ namespace IceBlink2
                 {
                     if (pc.mainPc)
                     {
-                        mod.selectedPartyLeader = x;
+                       gv.mod.selectedPartyLeader = x;
                     }
                     x++;
                 }
 		    }
-            if (mod.playerList[mod.selectedPartyLeader].isDead())
+            if (gv.mod.playerList[gv.mod.selectedPartyLeader].isDead())
             {
                 gv.cc.SwitchToNextAvailablePartyLeader();
             }
@@ -348,15 +348,15 @@ namespace IceBlink2
             int cntPCs = 0;
 		    foreach (IbbButton btn in btnPartyIndex)
 		    {
-			    if (cntPCs < mod.playerList.Count)
+			    if (cntPCs <gv.mod.playerList.Count)
 			    {
                     gv.cc.DisposeOfBitmap(ref btn.Img2);
-                    btn.Img2 = gv.cc.LoadBitmap(mod.playerList[cntPCs].tokenFilename);						
+                    btn.Img2 = gv.cc.LoadBitmap(gv.mod.playerList[cntPCs].tokenFilename);						
 			    }
 			    cntPCs++;
 		    }
 		    //Remember who the party leader is so that when convo is over we can revert back to them
-            originalSelectedPartyLeader = mod.selectedPartyLeader;
+            originalSelectedPartyLeader =gv.mod.selectedPartyLeader;
             parentIdNum = 0;
 		    SetNodeIsActiveFalseForAll();
             parentIdNum = getParentIdNum(parentIdNum);  
@@ -437,7 +437,7 @@ namespace IceBlink2
         }
 	    private void SetNodeIsActiveFalseForAll()
         {
-            foreach (ConvoSavedValues csv in mod.moduleConvoSavedValuesList)
+            foreach (ConvoSavedValues csv in gv.mod.moduleConvoSavedValuesList)
             {
                 if (csv.ConvoFileName.Equals(currentConvo.ConvoFileName))
                 {
@@ -472,22 +472,22 @@ namespace IceBlink2
         	    gv.cc.doScriptBasedOnFilename(conditional.c_script, conditional.c_parameter_1, conditional.c_parameter_2, conditional.c_parameter_3, conditional.c_parameter_4);
                 if (AndStatments) //this is an "and" set
                 {
-                    if ((mod.returnCheck == false) && (conditional.c_not == false))
+                    if ((gv.mod.returnCheck == false) && (conditional.c_not == false))
                     {
                         check = false;
                     }
-                    if ((mod.returnCheck == true) && (conditional.c_not == true))
+                    if ((gv.mod.returnCheck == true) && (conditional.c_not == true))
                     {
                         check = false;
                     }
                 }
                 else //this is an "or" set
                 {
-                    if ((mod.returnCheck == false) && (conditional.c_not == false))
+                    if ((gv.mod.returnCheck == false) && (conditional.c_not == false))
                     {
                         check = false;
                     }
-                    else if ((mod.returnCheck == true) && (conditional.c_not == true))
+                    else if ((gv.mod.returnCheck == true) && (conditional.c_not == true))
                     {
                         check = false;
                     }
@@ -529,7 +529,7 @@ namespace IceBlink2
             ConvoSavedValues newCSV = new ConvoSavedValues();
             newCSV.ConvoFileName = currentConvo.ConvoFileName;
             newCSV.NodeNotActiveIdNum = nod.idNum;
-            mod.moduleConvoSavedValuesList.Add(newCSV);
+           gv.mod.moduleConvoSavedValuesList.Add(newCSV);
         }
         private void doConvo(int prntIdNum) // load up the text for the NPC node and all PC responses
         {
@@ -577,23 +577,23 @@ namespace IceBlink2
             //PARTY CHAT SYSTEM other PCs NODE STUFF
             //Iterate through all other PCs and see what node options they have and indicate if different
             int PcIndx = 0;
-            int originalPartyLeader = mod.selectedPartyLeader; //remember who was the currently selected PC to check against for diffs
+            int originalPartyLeader =gv.mod.selectedPartyLeader; //remember who was the currently selected PC to check against for diffs
         
             //set all Img3 bitmaps to null to turn off convo plus bubble tag
             int cntPCs = 0;
 		    foreach (IbbButton btn in btnPartyIndex)
 		    {
-			    if (cntPCs < mod.playerList.Count)
+			    if (cntPCs <gv.mod.playerList.Count)
 			    {
 				    btn.Img3 = null;						
 			    }
 			    cntPCs++;
 		    }
 		
-            foreach (Player pc in mod.playerList)
+            foreach (Player pc in gv.mod.playerList)
             {
                 comparePcOptions = "";
-                mod.selectedPartyLeader = PcIndx;
+               gv.mod.selectedPartyLeader = PcIndx;
                 if (PcIndx != originalPartyLeader)
                 {
                     //loop through all nodes and check to see if they should be visible
@@ -625,7 +625,7 @@ namespace IceBlink2
             }
         
             //return back to original selected PC after making checks for different node options available
-            mod.selectedPartyLeader = originalPartyLeader;
+           gv.mod.selectedPartyLeader = originalPartyLeader;
 
             //load node portrait and play node sound
             loadNodePortrait();
@@ -650,7 +650,7 @@ namespace IceBlink2
 	            //write to log
                 gv.cc.addLogText("<font color='yellow'>" + NPCname + ": </font>" +
                                  "<font color='silver'>" + npcNode + "<br>" + "</font>" +
-                                 "<font color='aqua'>" + mod.playerList[mod.selectedPartyLeader].name + ": </font>" +
+                                 "<font color='aqua'>" +gv.mod.playerList[gv.mod.selectedPartyLeader].name + ": </font>" +
                                  "<font color='silver'>" + pcNode + "</font>");
 	
 	            int childIdNum = currentConvo.GetContentNodeById(parentIdNum).subNodes[index].idNum;
@@ -667,7 +667,7 @@ namespace IceBlink2
 	            if (currentConvo.GetContentNodeById(childIdNum).subNodes.Count < 1)
 	            {
                     gv.cc.addLogText("[end convo]<br><br>"); //add a blank line to main screen log at the end of a conversation
-	                mod.selectedPartyLeader = originalSelectedPartyLeader;
+	               gv.mod.selectedPartyLeader = originalSelectedPartyLeader;
 	        	    if ((gv.screenType.Equals("shop")) || (gv.screenType.Equals("title")) || (gv.screenType.Equals("combat")))
 	        	    {
 	        		    //leave as shop and launch shop screen
@@ -700,7 +700,7 @@ namespace IceBlink2
         public string replaceText(string originalText)
         {
             //for The Raventhal, always assumed that main PC is talking
-            Player pc = mod.playerList[mod.selectedPartyLeader];
+            Player pc =gv.mod.playerList[gv.mod.selectedPartyLeader];
             string newString = originalText;
         
             newString = newString.Replace("<FirstName>", pc.name);

@@ -9,7 +9,7 @@ namespace IceBlink2
 {
     public class ScreenItemSelector
     {
-        public Module mod;
+        //public Module gv.mod;
 	    public GameView gv;
 	    private int inventoryPageIndex = 0;
 	    private int inventorySlotIndex = 0;
@@ -29,7 +29,7 @@ namespace IceBlink2
 
         public ScreenItemSelector(Module m, GameView g)
 	    {
-		    mod = m;
+		    //gv.mod = m;
 		    gv = g;
 	    }
 
@@ -224,7 +224,7 @@ namespace IceBlink2
 			    else {btn.glowOn = false;}
 			    if ((cntSlot + (inventoryPageIndex * slotsPerPage)) < thisItemRefs.Count)
 			    {
-                    Item it = mod.getItemByResRefForInfo(thisItemRefs[cntSlot + (inventoryPageIndex * slotsPerPage)].resref);
+                    Item it = gv.mod.getItemByResRefForInfo(thisItemRefs[cntSlot + (inventoryPageIndex * slotsPerPage)].resref);
 				    btn.Img2 = gv.cc.LoadBitmap(it.itemImage);
                     ItemRefs itr = thisItemRefs[cntSlot + (inventoryPageIndex * slotsPerPage)];
 				    if (itr.quantity > 1)
@@ -250,7 +250,7 @@ namespace IceBlink2
 		    if (isSelectedItemSlotInPartyInventoryRange())
 		    {
 			    ItemRefs itRef = GetCurrentlySelectedItemRefs();
-        	    Item it = mod.getItemByResRefForInfo(itRef.resref);
+        	    Item it = gv.mod.getItemByResRefForInfo(itRef.resref);
 
                 //Description
 		        string textToSpan = "";
@@ -295,7 +295,7 @@ namespace IceBlink2
         public string isUseableBy(Item it)
         {
     	    string strg = "";
-    	    foreach (PlayerClass cls in mod.modulePlayerClassList)
+    	    foreach (PlayerClass cls in gv.mod.modulePlayerClassList)
     	    {
                 string firstLetter = cls.name.Substring(0,1);
     		    foreach (ItemRefs stg in cls.itemsAllowed)
@@ -463,7 +463,7 @@ namespace IceBlink2
 				    {				
 					    ItemRefs itRef = GetCurrentlySelectedItemRefs();
 					    if (itRef == null) { return;}
-	            	    Item it = mod.getItemByResRef(itRef.resref);
+	            	    Item it = gv.mod.getItemByResRef(itRef.resref);
 	            	    if (it == null) {return;}
 					    gv.sf.ShowFullDescription(it);
 				    }				
@@ -640,7 +640,7 @@ namespace IceBlink2
 	    }
         public void switchEquipment()
         {
-            Player pc = mod.playerList[gv.cc.partyScreenPcIndex];
+            Player pc = gv.mod.playerList[gv.cc.partyScreenPcIndex];
             if (GetCurrentlySelectedItemRefs().resref.Equals("none"))
             {
                 return;
@@ -675,7 +675,7 @@ namespace IceBlink2
                         }
                     }
                     //move currently equipped item to the party inventory (list and taglist)
-                    mod.partyInventoryRefsList.Add(pc.MainHandRefs.DeepCopy());
+                    gv.mod.partyInventoryRefsList.Add(pc.MainHandRefs.DeepCopy());
                     
                     //add adding pcTags for new main hand item here
                     
@@ -693,7 +693,7 @@ namespace IceBlink2
                     }
 
                     //remove the item from the party inventory
-                    mod.partyInventoryRefsList.Remove(GetCurrentlySelectedItemRefs());
+                    gv.mod.partyInventoryRefsList.Remove(GetCurrentlySelectedItemRefs());
                 }
                 else //there was no item equipped so add item to main-hand but no need to move anything to party inventory
                 {
@@ -708,14 +708,14 @@ namespace IceBlink2
                             pc.pcTags.Add(it.entriesForPcTags[i].Value);
                         }
                     }
-                    mod.partyInventoryRefsList.Remove(GetCurrentlySelectedItemRefs());
+                    gv.mod.partyInventoryRefsList.Remove(GetCurrentlySelectedItemRefs());
                 }
                 //if the item being equipped is a two-handed weapon, remove the item in off-hand if exists and place in inventory
-                if (mod.getItemByResRef(pc.MainHandRefs.resref).twoHanded)
+                if (gv.mod.getItemByResRef(pc.MainHandRefs.resref).twoHanded)
                 {
                     if (!pc.OffHandRefs.resref.Equals("none"))
                     {
-                        mod.partyInventoryRefsList.Add(pc.OffHandRefs.DeepCopy());
+                        gv.mod.partyInventoryRefsList.Add(pc.OffHandRefs.DeepCopy());
                         //get the item
                         Item it = gv.mod.getItemByResRef(pc.OffHandRefs.resref);
 
@@ -747,8 +747,8 @@ namespace IceBlink2
                     }
                 }
                 //if the item is a ranged weapon that uses ammo, check ammo slot to see if need to remove ammo not this type
-                Item itMH = mod.getItemByResRef(pc.MainHandRefs.resref);
-                Item itA = mod.getItemByResRef(pc.AmmoRefs.resref);
+                Item itMH = gv.mod.getItemByResRef(pc.MainHandRefs.resref);
+                Item itA = gv.mod.getItemByResRef(pc.AmmoRefs.resref);
                 if ((itA != null) && (itMH != null))
                 {
                     if ((itMH.category.Equals("Ranged")) && (!itMH.ammoType.Equals("none")) && (itMH.ammoType.Equals(itA.ammoType)))
@@ -792,7 +792,7 @@ namespace IceBlink2
                 // if equip slot has an item, move it to inventory first
                 if (!pc.HeadRefs.resref.Equals("none"))
                 {
-                    mod.partyInventoryRefsList.Add(pc.HeadRefs.DeepCopy());
+                    gv.mod.partyInventoryRefsList.Add(pc.HeadRefs.DeepCopy());
                     
                     //get the item
                     Item it = gv.mod.getItemByResRef(pc.HeadRefs.resref);
@@ -830,7 +830,7 @@ namespace IceBlink2
                             pc.pcTags.Add(it.entriesForPcTags[i].Value);
                         }
                     }
-                    mod.partyInventoryRefsList.Remove(GetCurrentlySelectedItemRefs());
+                    gv.mod.partyInventoryRefsList.Remove(GetCurrentlySelectedItemRefs());
                 }
                 else //equip slot was empty
                 {
@@ -845,7 +845,7 @@ namespace IceBlink2
                             pc.pcTags.Add(it.entriesForPcTags[i].Value);
                         }
                     }
-                    mod.partyInventoryRefsList.Remove(GetCurrentlySelectedItemRefs());
+                    gv.mod.partyInventoryRefsList.Remove(GetCurrentlySelectedItemRefs());
                 }
             }
             else if (gv.cc.partyItemSlotIndex == 2) //Neck
@@ -853,7 +853,7 @@ namespace IceBlink2
                 // if equip slot has an item, move it to inventory first
                 if (!pc.NeckRefs.resref.Equals("none"))
                 {
-                    mod.partyInventoryRefsList.Add(pc.NeckRefs.DeepCopy());
+                    gv.mod.partyInventoryRefsList.Add(pc.NeckRefs.DeepCopy());
                     //get the item
                     Item it = gv.mod.getItemByResRef(pc.NeckRefs.resref);
 
@@ -890,7 +890,7 @@ namespace IceBlink2
                         }
                     }
 
-                    mod.partyInventoryRefsList.Remove(GetCurrentlySelectedItemRefs());
+                    gv.mod.partyInventoryRefsList.Remove(GetCurrentlySelectedItemRefs());
                 }
                 else //equip slot was empty
                 {
@@ -905,14 +905,14 @@ namespace IceBlink2
                             pc.pcTags.Add(it.entriesForPcTags[i].Value);
                         }
                     }
-                    mod.partyInventoryRefsList.Remove(GetCurrentlySelectedItemRefs());
+                    gv.mod.partyInventoryRefsList.Remove(GetCurrentlySelectedItemRefs());
                 }
             }
             else if (gv.cc.partyItemSlotIndex == 3) //Off Hand
             {
                 if (!pc.OffHandRefs.resref.Equals("none"))
                 {
-                    mod.partyInventoryRefsList.Add(pc.OffHandRefs.DeepCopy());
+                    gv.mod.partyInventoryRefsList.Add(pc.OffHandRefs.DeepCopy());
                     //get the item
                     Item it = gv.mod.getItemByResRef(pc.OffHandRefs.resref);
 
@@ -948,7 +948,7 @@ namespace IceBlink2
                             pc.pcTags.Add(it.entriesForPcTags[i].Value);
                         }
                     }
-                    mod.partyInventoryRefsList.Remove(GetCurrentlySelectedItemRefs());
+                    gv.mod.partyInventoryRefsList.Remove(GetCurrentlySelectedItemRefs());
                 }
                 else
                 {
@@ -963,14 +963,14 @@ namespace IceBlink2
                             pc.pcTags.Add(it.entriesForPcTags[i].Value);
                         }
                     }
-                    mod.partyInventoryRefsList.Remove(GetCurrentlySelectedItemRefs());
+                    gv.mod.partyInventoryRefsList.Remove(GetCurrentlySelectedItemRefs());
                 }
             }
             else if (gv.cc.partyItemSlotIndex == 4)//Ring
             {
                 if (!pc.RingRefs.resref.Equals("none"))
                 {
-                    mod.partyInventoryRefsList.Add(pc.RingRefs.DeepCopy());
+                    gv.mod.partyInventoryRefsList.Add(pc.RingRefs.DeepCopy());
                     //get the item
                     Item it = gv.mod.getItemByResRef(pc.RingRefs.resref);
 
@@ -1006,7 +1006,7 @@ namespace IceBlink2
                             pc.pcTags.Add(it.entriesForPcTags[i].Value);
                         }
                     }
-                    mod.partyInventoryRefsList.Remove(GetCurrentlySelectedItemRefs());
+                    gv.mod.partyInventoryRefsList.Remove(GetCurrentlySelectedItemRefs());
                 }
                 else
                 {
@@ -1021,7 +1021,7 @@ namespace IceBlink2
                             pc.pcTags.Add(it.entriesForPcTags[i].Value);
                         }
                     }
-                    mod.partyInventoryRefsList.Remove(GetCurrentlySelectedItemRefs());
+                    gv.mod.partyInventoryRefsList.Remove(GetCurrentlySelectedItemRefs());
                 }
             }
             else if (gv.cc.partyItemSlotIndex == 5) //Body
@@ -1029,7 +1029,7 @@ namespace IceBlink2
                 // if equip slot has an item, move it to inventory first
                 if (!pc.BodyRefs.resref.Equals("none"))
                 {
-                    mod.partyInventoryRefsList.Add(pc.BodyRefs.DeepCopy());
+                    gv.mod.partyInventoryRefsList.Add(pc.BodyRefs.DeepCopy());
                     //get the item
                     Item it = gv.mod.getItemByResRef(pc.BodyRefs.resref);
 
@@ -1065,7 +1065,7 @@ namespace IceBlink2
                             pc.pcTags.Add(it.entriesForPcTags[i].Value);
                         }
                     }
-                    mod.partyInventoryRefsList.Remove(GetCurrentlySelectedItemRefs());
+                    gv.mod.partyInventoryRefsList.Remove(GetCurrentlySelectedItemRefs());
                 }
                 else //equip slot was empty
                 {
@@ -1080,7 +1080,7 @@ namespace IceBlink2
                             pc.pcTags.Add(it.entriesForPcTags[i].Value);
                         }
                     }
-                    mod.partyInventoryRefsList.Remove(GetCurrentlySelectedItemRefs());
+                    gv.mod.partyInventoryRefsList.Remove(GetCurrentlySelectedItemRefs());
                 }
             }
             else if (gv.cc.partyItemSlotIndex == 6) //Feet
@@ -1088,7 +1088,7 @@ namespace IceBlink2
                 // if equip slot has an item, move it to inventory first
                 if (!pc.FeetRefs.resref.Equals("none"))
                 {
-                    mod.partyInventoryRefsList.Add(pc.FeetRefs.DeepCopy());
+                    gv.mod.partyInventoryRefsList.Add(pc.FeetRefs.DeepCopy());
                     //get the item
                     Item it = gv.mod.getItemByResRef(pc.FeetRefs.resref);
 
@@ -1124,7 +1124,7 @@ namespace IceBlink2
                             pc.pcTags.Add(it.entriesForPcTags[i].Value);
                         }
                     }
-                    mod.partyInventoryRefsList.Remove(GetCurrentlySelectedItemRefs());
+                    gv.mod.partyInventoryRefsList.Remove(GetCurrentlySelectedItemRefs());
                 }
                 else //equip slot was empty
                 {
@@ -1139,14 +1139,14 @@ namespace IceBlink2
                             pc.pcTags.Add(it.entriesForPcTags[i].Value);
                         }
                     }
-                    mod.partyInventoryRefsList.Remove(GetCurrentlySelectedItemRefs());
+                    gv.mod.partyInventoryRefsList.Remove(GetCurrentlySelectedItemRefs());
                 }
             }
             else if (gv.cc.partyItemSlotIndex == 7) //Ring2
             {
                 if (!pc.Ring2Refs.resref.Equals("none"))
                 {
-                    mod.partyInventoryRefsList.Add(pc.Ring2Refs.DeepCopy());
+                    gv.mod.partyInventoryRefsList.Add(pc.Ring2Refs.DeepCopy());
                     //get the item
                     Item it = gv.mod.getItemByResRef(pc.Ring2Refs.resref);
 
@@ -1182,7 +1182,7 @@ namespace IceBlink2
                             pc.pcTags.Add(it.entriesForPcTags[i].Value);
                         }
                     }
-                    mod.partyInventoryRefsList.Remove(GetCurrentlySelectedItemRefs());
+                    gv.mod.partyInventoryRefsList.Remove(GetCurrentlySelectedItemRefs());
                 }
                 else
                 {
@@ -1197,7 +1197,7 @@ namespace IceBlink2
                             pc.pcTags.Add(it.entriesForPcTags[i].Value);
                         }
                     }
-                    mod.partyInventoryRefsList.Remove(GetCurrentlySelectedItemRefs());
+                    gv.mod.partyInventoryRefsList.Remove(GetCurrentlySelectedItemRefs());
                 }
             }
             else if (gv.cc.partyItemSlotIndex == 8) //Ammo
@@ -1242,13 +1242,13 @@ namespace IceBlink2
         }
         public void unequipItem()
         {
-            Player pc = mod.playerList[gv.cc.partyScreenPcIndex];
+            Player pc = gv.mod.playerList[gv.cc.partyScreenPcIndex];
             if (gv.cc.partyItemSlotIndex == 0) //Main Hand
             {
                 // if equip slot has an item, move it to inventory            		
                 if (!pc.MainHandRefs.resref.Equals("none"))
                 {
-                    mod.partyInventoryRefsList.Add(pc.MainHandRefs.DeepCopy());
+                    gv.mod.partyInventoryRefsList.Add(pc.MainHandRefs.DeepCopy());
                     //get the item
                     Item it = gv.mod.getItemByResRef(pc.MainHandRefs.resref);
 
@@ -1281,7 +1281,7 @@ namespace IceBlink2
                 // if equip slot has an item, move it to inventory first
                 if (!pc.HeadRefs.resref.Equals("none"))
                 {
-                    mod.partyInventoryRefsList.Add(pc.HeadRefs.DeepCopy());
+                    gv.mod.partyInventoryRefsList.Add(pc.HeadRefs.DeepCopy());
                     //get the item
                     Item it = gv.mod.getItemByResRef(pc.HeadRefs.resref);
 
@@ -1314,7 +1314,7 @@ namespace IceBlink2
                 // if equip slot has an item, move it to inventory first
                 if (!pc.NeckRefs.resref.Equals("none"))
                 {
-                    mod.partyInventoryRefsList.Add(pc.NeckRefs.DeepCopy());
+                    gv.mod.partyInventoryRefsList.Add(pc.NeckRefs.DeepCopy());
                     //get the item
                     Item it = gv.mod.getItemByResRef(pc.NeckRefs.resref);
 
@@ -1346,7 +1346,7 @@ namespace IceBlink2
             {
                 if (!pc.OffHandRefs.resref.Equals("none"))
                 {
-                    mod.partyInventoryRefsList.Add(pc.OffHandRefs.DeepCopy());
+                    gv.mod.partyInventoryRefsList.Add(pc.OffHandRefs.DeepCopy());
                     //get the item
                     Item it = gv.mod.getItemByResRef(pc.OffHandRefs.resref);
 
@@ -1378,7 +1378,7 @@ namespace IceBlink2
             {
                 if (!pc.RingRefs.resref.Equals("none"))
                 {
-                    mod.partyInventoryRefsList.Add(pc.RingRefs.DeepCopy());
+                    gv.mod.partyInventoryRefsList.Add(pc.RingRefs.DeepCopy());
                     //get the item
                     Item it = gv.mod.getItemByResRef(pc.RingRefs.resref);
 
@@ -1411,7 +1411,7 @@ namespace IceBlink2
                 // if equip slot has an item, move it to inventory first
                 if (!pc.BodyRefs.resref.Equals("none"))
                 {
-                    mod.partyInventoryRefsList.Add(pc.BodyRefs.DeepCopy());
+                    gv.mod.partyInventoryRefsList.Add(pc.BodyRefs.DeepCopy());
                     //get the item
                     Item it = gv.mod.getItemByResRef(pc.BodyRefs.resref);
 
@@ -1444,7 +1444,7 @@ namespace IceBlink2
                 // if equip slot has an item, move it to inventory first
                 if (!pc.FeetRefs.resref.Equals("none"))
                 {
-                    mod.partyInventoryRefsList.Add(pc.FeetRefs.DeepCopy());
+                    gv.mod.partyInventoryRefsList.Add(pc.FeetRefs.DeepCopy());
                     //get the item
                     Item it = gv.mod.getItemByResRef(pc.FeetRefs.resref);
 
@@ -1476,7 +1476,7 @@ namespace IceBlink2
             {
                 if (!pc.Ring2Refs.resref.Equals("none"))
                 {
-                    mod.partyInventoryRefsList.Add(pc.Ring2Refs.DeepCopy());
+                    gv.mod.partyInventoryRefsList.Add(pc.Ring2Refs.DeepCopy());
                     //get the item
                     Item it = gv.mod.getItemByResRef(pc.Ring2Refs.resref);
 

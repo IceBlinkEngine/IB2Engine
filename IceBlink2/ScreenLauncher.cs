@@ -11,7 +11,7 @@ namespace IceBlink2
 {
     public class ScreenLauncher 
     {
-	    private Module mod;
+	    //private Module mod;
 	    private GameView gv;
 	
 	    private IbbButton btnLeft = null;
@@ -25,7 +25,7 @@ namespace IceBlink2
 	
 	    public ScreenLauncher(Module m, GameView g) 
 	    {
-		    mod = m;
+		    //mod = m;
 		    gv = g;
 		    setControlsStart();
             int pH = (int)((float)gv.screenHeight / 100.0f);

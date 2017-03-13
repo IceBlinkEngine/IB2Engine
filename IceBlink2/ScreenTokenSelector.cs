@@ -10,7 +10,7 @@ namespace IceBlink2
 {
     public class ScreenTokenSelector
     {
-        public Module mod;
+        //public gv.module gv.mod;
 	    public GameView gv;
         public Player pc;
 	    private int tknPageIndex = 0;
@@ -28,7 +28,7 @@ namespace IceBlink2
 
         public ScreenTokenSelector(Module m, GameView g)
 	    {
-		    mod = m;
+		    //gv.mod = m;
 		    gv = g;
 	    }
 
@@ -44,11 +44,11 @@ namespace IceBlink2
             playerTokenList.Clear();
             try
             {
-                //Load from module folder first
+                //Load from gv.module folder first
                 string[] files;
-                if (Directory.Exists(gv.mainDirectory + "\\modules\\" + gv.mod.moduleName + "\\pctokens"))
+                if (Directory.Exists(gv.mainDirectory + "\\gv.modules\\" + gv.mod.moduleName + "\\pctokens"))
                 {
-                    files = Directory.GetFiles(gv.mainDirectory + "\\modules\\" + gv.mod.moduleName + "\\pctokens", "*.png");
+                    files = Directory.GetFiles(gv.mainDirectory + "\\gv.modules\\" + gv.mod.moduleName + "\\pctokens", "*.png");
                     //directory.mkdirs(); 
                     foreach (string file in files)
                     {
@@ -310,9 +310,9 @@ namespace IceBlink2
                             //return to calling screen
                             if (callingScreen.Equals("party"))
                             {
-                                gv.screenParty.mod.playerList[gv.cc.partyScreenPcIndex].tokenFilename = playerTokenList[GetIndex()];
+                                gv.screenParty.gv.mod.playerList[gv.cc.partyScreenPcIndex].tokenFilename = playerTokenList[GetIndex()];
                                 gv.screenType = "party";
-                                gv.screenParty.tokenLoad(gv.screenParty.mod.playerList[gv.cc.partyScreenPcIndex]);
+                                gv.screenParty.tokenLoad(gv.screenParty.gv.mod.playerList[gv.cc.partyScreenPcIndex]);
                             }
                             else if (callingScreen.Equals("pcCreation"))
                             {
@@ -347,9 +347,9 @@ namespace IceBlink2
 				    //return to calling screen
                     if (callingScreen.Equals("party"))
                     {
-                        gv.screenParty.mod.playerList[gv.cc.partyScreenPcIndex].tokenFilename = playerTokenList[GetIndex()];
+                        gv.screenParty.gv.mod.playerList[gv.cc.partyScreenPcIndex].tokenFilename = playerTokenList[GetIndex()];
                         gv.screenType = "party";
-                        gv.screenParty.tokenLoad(gv.screenParty.mod.playerList[gv.cc.partyScreenPcIndex]);
+                        gv.screenParty.tokenLoad(gv.screenParty.gv.mod.playerList[gv.cc.partyScreenPcIndex]);
                     }
                     else if (callingScreen.Equals("pcCreation"))
                     {

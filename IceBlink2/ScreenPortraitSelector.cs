@@ -10,7 +10,7 @@ namespace IceBlink2
 {
     public class ScreenPortraitSelector
     {
-        public Module mod;
+        //public gv.module gv.mod;
 	    public GameView gv;
         public Player pc;
 	    private int ptrPageIndex = 0;
@@ -28,7 +28,7 @@ namespace IceBlink2
 
         public ScreenPortraitSelector(Module m, GameView g)
 	    {
-		    mod = m;
+		    //gv.mod = m;
 		    gv = g;
 	    }
 
@@ -44,7 +44,7 @@ namespace IceBlink2
             playerPortraitList.Clear();
             try
             {
-                //Load from module folder first
+                //Load from gv.module folder first
                 string[] files;
                 if (Directory.Exists(gv.mainDirectory + "\\modules\\" + gv.mod.moduleName + "\\portraits"))
                 {
@@ -303,9 +303,9 @@ namespace IceBlink2
                             //return to calling screen
                             if (callingScreen.Equals("party"))
                             {
-                                gv.screenParty.mod.playerList[gv.cc.partyScreenPcIndex].portraitFilename = playerPortraitList[GetIndex()];
+                                gv.screenParty.gv.mod.playerList[gv.cc.partyScreenPcIndex].portraitFilename = playerPortraitList[GetIndex()];
                                 gv.screenType = "party";
-                                gv.screenParty.portraitLoad(gv.screenParty.mod.playerList[gv.cc.partyScreenPcIndex]);
+                                gv.screenParty.portraitLoad(gv.screenParty.gv.mod.playerList[gv.cc.partyScreenPcIndex]);
                             }
                             else if (callingScreen.Equals("pcCreation"))
                             {
@@ -340,9 +340,9 @@ namespace IceBlink2
 				    //return to calling screen
                     if (callingScreen.Equals("party"))
                     {
-                        gv.screenParty.mod.playerList[gv.cc.partyScreenPcIndex].portraitFilename = playerPortraitList[GetIndex()];
+                        gv.screenParty.gv.mod.playerList[gv.cc.partyScreenPcIndex].portraitFilename = playerPortraitList[GetIndex()];
                         gv.screenType = "party";
-                        gv.screenParty.portraitLoad(gv.screenParty.mod.playerList[gv.cc.partyScreenPcIndex]);
+                        gv.screenParty.portraitLoad(gv.screenParty.gv.mod.playerList[gv.cc.partyScreenPcIndex]);
                     }
                     else if (callingScreen.Equals("pcCreation"))
                     {

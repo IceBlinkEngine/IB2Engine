@@ -13,7 +13,7 @@ namespace IceBlink2
 {
     public class ScreenCombat 
     {
-	    public Module mod;
+	    //public Module gv.mod;
 	    public GameView gv;
         public List<string> alreadyTargetedCreatureTagsList = new List<string>();
         public int upperLeftInFastForwardX = -100;
@@ -155,7 +155,7 @@ namespace IceBlink2
 
         public ScreenCombat(Module m, GameView g)
 	    {
-		    mod = m;
+		    //mod = m;
 		    gv = g;
             mapStartLocXinPixels = 0 * gv.squareSize;
             loadMainUILayout();
@@ -438,28 +438,28 @@ namespace IceBlink2
         }*/
         /*public void resetToggleButtons()
         {
-            if (mod.combatAnimationSpeed == 100)
+            if (gv.mod.combatAnimationSpeed == 100)
             {
                 gv.cc.DisposeOfBitmap(ref tglSpeed.ImgOff);
                 tglSpeed.ImgOff = gv.cc.LoadBitmap("tgl_speed_1");
             }
-            else if (mod.combatAnimationSpeed == 50)
+            else if (gv.mod.combatAnimationSpeed == 50)
             {
                 gv.cc.DisposeOfBitmap(ref tglSpeed.ImgOff);
                 tglSpeed.ImgOff = gv.cc.LoadBitmap("tgl_speed_2");
             }
-            else if (mod.combatAnimationSpeed == 25)
+            else if (gv.mod.combatAnimationSpeed == 25)
             {
                 gv.cc.DisposeOfBitmap(ref tglSpeed.ImgOff);
                 tglSpeed.ImgOff = gv.cc.LoadBitmap("tgl_speed_4");
             }
-            else if (mod.combatAnimationSpeed == 10)
+            else if (gv.mod.combatAnimationSpeed == 10)
             {
                 gv.cc.DisposeOfBitmap(ref tglSpeed.ImgOff);
                 tglSpeed.ImgOff = gv.cc.LoadBitmap("tgl_speed_10");
             }
 
-            if (mod.playMusic)
+            if (gv.mod.playMusic)
             {
                 gv.cc.tglSound.toggleOn = true;
             }
@@ -468,7 +468,7 @@ namespace IceBlink2
                 gv.cc.tglSound.toggleOn = false;
             }
 
-            if (mod.playSoundFx)
+            if (gv.mod.playSoundFx)
             {
                 tglSoundFx.toggleOn = true;
             }
@@ -479,7 +479,7 @@ namespace IceBlink2
         }*/
 	    public void tutorialMessageCombat(bool helpCall)
         {
-    	    if ((mod.showTutorialCombat) || (helpCall))
+    	    if ((gv.mod.showTutorialCombat) || (helpCall))
 		    {
 			    gv.sf.MessageBoxHtml(
 					    "<big><b>COMBAT</b></big><br><br>" +
@@ -488,10 +488,10 @@ namespace IceBlink2
 					    " light blue box. You can Move one square (or stay put) and make one additional action such" + 
 					    " as ATTACK, CAST, use item, or end turn (SKIP button).<br><br>" +
 					
-					    "<b>2. Info Mode:</b> Info mode is the default mode. In this mode you can tap on a token (player or enemy image) to show" + 
-					    " some of their stats (HP, SP, etc.). If none of the buttons are highlighted, then you are in 'Info' mode. If you are" +
-					    " in 'move' mode and want to return to 'info' mode, tap on the move button to unselect it and return to 'info' mode. Same" +
-					    " concept works for 'attack' mode back to 'info' mode.<br><br>" +
+					    "<b>2. Info gv.mode:</b> Info gv.mode is the default gv.mode. In this gv.mode you can tap on a token (player or enemy image) to show" + 
+					    " some of their stats (HP, SP, etc.). If none of the buttons are highlighted, then you are in 'Info' gv.mode. If you are" +
+					    " in 'move' gv.mode and want to return to 'info' gv.mode, tap on the move button to unselect it and return to 'info' gv.mode. Same" +
+					    " concept works for 'attack' gv.mode back to 'info' gv.mode.<br><br>" +
 					
 					    "<b>3. Move:</b> After pressing move, you may move one square and then do one more action or press 'SKIP' to end this Player's" +
 					    " turn. You move by pressing one of the arrow direction buttons or tapping on a square adjacent to the PC.<br><br>" +
@@ -511,7 +511,7 @@ namespace IceBlink2
 					
 					    "<small><b>Note:</b> Also, check out the 'Player's Guide' in the settings menu (the rusty gear looking button)</small>"
 					    );
-			    mod.showTutorialCombat = false;
+			    gv.mod.showTutorialCombat = false;
 		    }
         }
 	    
@@ -531,10 +531,10 @@ namespace IceBlink2
             {
                 creatureToAnimate = null;
                 playerToAnimate = null;
-                Creature crt = mod.currentEncounter.encounterCreatureList[creatureIndex];
-                if (moveCost == mod.diagonalMoveCost)
+                Creature crt = gv.mod.currentEncounter.encounterCreatureList[creatureIndex];
+                if (moveCost == gv.mod.diagonalMoveCost)
                 {
-                    creatureMoves += mod.diagonalMoveCost;
+                    creatureMoves += gv.mod.diagonalMoveCost;
                     moveCost = 1.0f;
                 }
                 else
@@ -551,7 +551,7 @@ namespace IceBlink2
         public void doCombatSetup()
         {
             
-            if (mod.playMusic)
+            if (gv.mod.playMusic)
             {
                 gv.stopMusic();
                 gv.stopAmbient();
@@ -560,19 +560,19 @@ namespace IceBlink2
             gv.screenType = "combat";
             //resetToggleButtons();
             //Load map if used
-            if (mod.currentEncounter.UseMapImage)
+            if (gv.mod.currentEncounter.UseMapImage)
             {
                 gv.cc.DisposeOfBitmap(ref mapBitmap);
-                mapBitmap = gv.cc.LoadBitmap(mod.currentEncounter.MapImage);
+                mapBitmap = gv.cc.LoadBitmap(gv.mod.currentEncounter.MapImage);
             }
             else //loads only the tiles that are used on this encounter map
             {
                 //TODO gv.cc.LoadTileBitmapList();
             }
             //Load up all creature stuff
-            foreach (CreatureRefs crf in mod.currentEncounter.encounterCreatureRefsList)
+            foreach (CreatureRefs crf in gv.mod.currentEncounter.encounterCreatureRefsList)
             {
-                //find this creatureRef in mod creature list
+                //find this creatureRef in gv.mod creature list
                 foreach (Creature c in gv.mod.moduleCreaturesList)
                 {
                     if (crf.creatureResRef.Equals(c.cr_resref))
@@ -586,7 +586,7 @@ namespace IceBlink2
                             copy.token = gv.cc.LoadBitmap(copy.cr_tokenFilename);
                             copy.combatLocX = crf.creatureStartLocationX;
                             copy.combatLocY = crf.creatureStartLocationY;
-                            mod.currentEncounter.encounterCreatureList.Add(copy);
+                            gv.mod.currentEncounter.encounterCreatureList.Add(copy);
                         }
                         catch (Exception ex)
                         {
@@ -596,7 +596,7 @@ namespace IceBlink2
                 }
             }
 
-            foreach (Creature crt in mod.currentEncounter.encounterCreatureList)
+            foreach (Creature crt in gv.mod.currentEncounter.encounterCreatureList)
             {
                 int decider = gv.sf.RandInt(2);
                 if (decider == 1)
@@ -620,10 +620,10 @@ namespace IceBlink2
             }
 
             //Place all PCs
-            for (int index = 0; index < mod.playerList.Count; index++)
+            for (int index = 0; index < gv.mod.playerList.Count; index++)
             {
-                mod.playerList[index].combatLocX = mod.currentEncounter.encounterPcStartLocations[index].X;
-                mod.playerList[index].combatLocY = mod.currentEncounter.encounterPcStartLocations[index].Y;
+                gv.mod.playerList[index].combatLocX = gv.mod.currentEncounter.encounterPcStartLocations[index].X;
+                gv.mod.playerList[index].combatLocY = gv.mod.currentEncounter.encounterPcStartLocations[index].Y;
             }
             isPlayerTurn = true;
             currentPlayerIndex = 0;
@@ -636,11 +636,11 @@ namespace IceBlink2
             {
                 CenterScreenOnPC();
             }
-            foreach (Creature crtr in mod.currentEncounter.encounterCreatureList)
+            foreach (Creature crtr in gv.mod.currentEncounter.encounterCreatureList)
             {
                 encounterXP += crtr.cr_XP;
             }
-            pf = new PathFinderEncounters(gv, mod);
+            pf = new PathFinderEncounters(gv, gv.mod);
             tutorialMessageCombat(false);
             //IBScript Setup Combat Hook (run only once)
             gv.cc.doIBScriptBasedOnFilename(gv.mod.currentEncounter.OnSetupCombatIBScript, gv.mod.currentEncounter.OnSetupCombatIBScriptParms);
@@ -657,7 +657,7 @@ namespace IceBlink2
             moveOrderList.Clear();
             //creatureCounter2 = 0;
             //go through each PC and creature and make initiative roll
-            foreach (Player pc in mod.playerList)
+            foreach (Player pc in gv.mod.playerList)
             {
                
                     int roll = gv.sf.RandInt(100) + (((pc.dexterity - 10) / 2) * 5);
@@ -668,7 +668,7 @@ namespace IceBlink2
                 
 
             }
-            foreach (Creature crt in mod.currentEncounter.encounterCreatureList)
+            foreach (Creature crt in gv.mod.currentEncounter.encounterCreatureList)
             {
                 
                 
@@ -705,7 +705,7 @@ namespace IceBlink2
             moveOrderList.Clear();
             //creatureCounter2 = 0;
             //go through each PC and creature and make initiative roll
-            foreach (Player pc in mod.playerList)
+            foreach (Player pc in gv.mod.playerList)
             {
                 if (pc.hp > 0)
                 {
@@ -717,7 +717,7 @@ namespace IceBlink2
                 }
 
             }
-            foreach (Creature crt in mod.currentEncounter.encounterCreatureList)
+            foreach (Creature crt in gv.mod.currentEncounter.encounterCreatureList)
             {
                 if (crt.hp > 0)
                 {
@@ -758,7 +758,7 @@ namespace IceBlink2
             //KArl
             //gv.Render();
 
-            foreach (Player p in mod.playerList)
+            foreach (Player p in gv.mod.playerList)
             {
                gv.sf.UpdateStats(p);
             }
@@ -771,7 +771,7 @@ namespace IceBlink2
             }
             //get the next PC or Creature based on currentMoveOrderIndex and moveOrder property
             idx = 0;
-            foreach (Player pc in mod.playerList)
+            foreach (Player pc in gv.mod.playerList)
             {
                 if (pc.moveOrder == currentMoveOrderIndex)
                 {
@@ -849,7 +849,7 @@ namespace IceBlink2
                 idx++;
             }
             idx = 0;
-            foreach (Creature crt in mod.currentEncounter.encounterCreatureList)
+            foreach (Creature crt in gv.mod.currentEncounter.encounterCreatureList)
             {
                 if (crt.moveOrder == currentMoveOrderIndex)
                 {
@@ -900,7 +900,7 @@ namespace IceBlink2
             //gv.sf.dsWorldTime();
             doHardToKillTrait();
             doBattleRegenTrait();
-            foreach (Player pc in mod.playerList)
+            foreach (Player pc in gv.mod.playerList)
             {
                 RunAllItemCombatRegenerations(pc);
                 int regenSP = gv.sf.CalcPcSpRegenInCombat(pc);
@@ -925,12 +925,12 @@ namespace IceBlink2
         public void applyEffectsFromSquares()
         {
 
-             foreach (Effect ef in mod.currentEncounter.effectsList)
+             foreach (Effect ef in gv.mod.currentEncounter.effectsList)
                 {
                     //decrement duration of all effects on the encounter map squares
                     ef.durationInUnits -= gv.mod.TimePerRound;
 
-                    foreach (Player pc in mod.playerList)
+                    foreach (Player pc in gv.mod.playerList)
                     {
                         if ((pc.combatLocX == ef.combatLocX) && (pc.combatLocY == ef.combatLocY))
                         {
@@ -940,7 +940,7 @@ namespace IceBlink2
                             }
                         }
                     }
-                    foreach (Creature crtr in mod.currentEncounter.encounterCreatureList)
+                    foreach (Creature crtr in gv.mod.currentEncounter.encounterCreatureList)
                     {
                         if ((crtr.combatLocX == ef.combatLocX) && (crtr.combatLocY == ef.combatLocY))
                         {
@@ -952,18 +952,18 @@ namespace IceBlink2
                     }
                 }
 
-             for (int i = mod.currentEncounter.effectsList.Count; i > 0; i--)
+             for (int i = gv.mod.currentEncounter.effectsList.Count; i > 0; i--)
                 {
-                    if (mod.currentEncounter.effectsList[i - 1].durationInUnits <= 0)
+                    if (gv.mod.currentEncounter.effectsList[i - 1].durationInUnits <= 0)
                     {
-                        mod.currentEncounter.effectsList.RemoveAt(i - 1);
+                        gv.mod.currentEncounter.effectsList.RemoveAt(i - 1);
                     }
                  }
         }
 
         public void doBattleRegenTrait()
         {
-            foreach (Player pc in mod.playerList)
+            foreach (Player pc in gv.mod.playerList)
             {
                 if (gv.sf.hasTrait(pc, "battleregen"))
                 {
@@ -991,7 +991,7 @@ namespace IceBlink2
         }
         public void doHardToKillTrait()
         {
-            foreach (Player pc in mod.playerList)
+            foreach (Player pc in gv.mod.playerList)
             {
                 if (gv.sf.hasTrait(pc, "hardtokill"))
                 {
@@ -1006,7 +1006,7 @@ namespace IceBlink2
                             pc.hp = pc.hpMax / 10;
                             //do damage to all
                             gv.cc.addLogText("<font color='lime'>" + pc.name + " jumps back up (Hard to Kill trait).</font><br>");
-                            if (mod.debugMode)
+                            if (gv.mod.debugMode)
                             {
                                 gv.cc.addLogText("<font color='yellow'>" + "roll = " + roll + " (" + roll + " > 50)</font><BR>");
                             }
@@ -1014,7 +1014,7 @@ namespace IceBlink2
                         else
                         {
                             gv.cc.addLogText("<font color='lime'>" + pc.name + " stays down (Hard to Kill trait).</font><br>");
-                            if (mod.debugMode)
+                            if (gv.mod.debugMode)
                             {
                                 gv.cc.addLogText("<font color='yellow'>" + "roll = " + roll + " (" + roll + " < 51)</font><BR>");
                             }
@@ -1027,85 +1027,85 @@ namespace IceBlink2
         {
             try
             {
-                if (mod.getItemByResRefForInfo(pc.BodyRefs.resref).spRegenPerRoundInCombat > 0)
+                if (gv.mod.getItemByResRefForInfo(pc.BodyRefs.resref).spRegenPerRoundInCombat > 0)
                 {
-                    doRegenSp(pc, mod.getItemByResRefForInfo(pc.BodyRefs.resref).spRegenPerRoundInCombat);
+                    doRegenSp(pc, gv.mod.getItemByResRefForInfo(pc.BodyRefs.resref).spRegenPerRoundInCombat);
                 }
-                if (mod.getItemByResRefForInfo(pc.BodyRefs.resref).hpRegenPerRoundInCombat > 0)
+                if (gv.mod.getItemByResRefForInfo(pc.BodyRefs.resref).hpRegenPerRoundInCombat > 0)
                 {
-                    doRegenHp(pc, mod.getItemByResRefForInfo(pc.BodyRefs.resref).hpRegenPerRoundInCombat);
-                }
-
-                if (mod.getItemByResRefForInfo(pc.MainHandRefs.resref).spRegenPerRoundInCombat > 0)
-                {
-                    doRegenSp(pc, mod.getItemByResRefForInfo(pc.MainHandRefs.resref).spRegenPerRoundInCombat);
-                }
-                if (mod.getItemByResRefForInfo(pc.MainHandRefs.resref).hpRegenPerRoundInCombat > 0)
-                {
-                    doRegenHp(pc, mod.getItemByResRefForInfo(pc.MainHandRefs.resref).hpRegenPerRoundInCombat);
+                    doRegenHp(pc, gv.mod.getItemByResRefForInfo(pc.BodyRefs.resref).hpRegenPerRoundInCombat);
                 }
 
-                if (mod.getItemByResRefForInfo(pc.OffHandRefs.resref).spRegenPerRoundInCombat > 0)
+                if (gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref).spRegenPerRoundInCombat > 0)
                 {
-                    doRegenSp(pc, mod.getItemByResRefForInfo(pc.OffHandRefs.resref).spRegenPerRoundInCombat);
+                    doRegenSp(pc, gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref).spRegenPerRoundInCombat);
                 }
-                if (mod.getItemByResRefForInfo(pc.OffHandRefs.resref).hpRegenPerRoundInCombat > 0)
+                if (gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref).hpRegenPerRoundInCombat > 0)
                 {
-                    doRegenHp(pc, mod.getItemByResRefForInfo(pc.OffHandRefs.resref).hpRegenPerRoundInCombat);
-                }
-
-                if (mod.getItemByResRefForInfo(pc.RingRefs.resref).spRegenPerRoundInCombat > 0)
-                {
-                    doRegenSp(pc, mod.getItemByResRefForInfo(pc.RingRefs.resref).spRegenPerRoundInCombat);
-                }
-                if (mod.getItemByResRefForInfo(pc.RingRefs.resref).hpRegenPerRoundInCombat > 0)
-                {
-                    doRegenHp(pc, mod.getItemByResRefForInfo(pc.RingRefs.resref).hpRegenPerRoundInCombat);
+                    doRegenHp(pc, gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref).hpRegenPerRoundInCombat);
                 }
 
-                if (mod.getItemByResRefForInfo(pc.HeadRefs.resref).spRegenPerRoundInCombat > 0)
+                if (gv.mod.getItemByResRefForInfo(pc.OffHandRefs.resref).spRegenPerRoundInCombat > 0)
                 {
-                    doRegenSp(pc, mod.getItemByResRefForInfo(pc.HeadRefs.resref).spRegenPerRoundInCombat);
+                    doRegenSp(pc, gv.mod.getItemByResRefForInfo(pc.OffHandRefs.resref).spRegenPerRoundInCombat);
                 }
-                if (mod.getItemByResRefForInfo(pc.HeadRefs.resref).hpRegenPerRoundInCombat > 0)
+                if (gv.mod.getItemByResRefForInfo(pc.OffHandRefs.resref).hpRegenPerRoundInCombat > 0)
                 {
-                    doRegenHp(pc, mod.getItemByResRefForInfo(pc.HeadRefs.resref).hpRegenPerRoundInCombat);
-                }
-
-                if (mod.getItemByResRefForInfo(pc.NeckRefs.resref).spRegenPerRoundInCombat > 0)
-                {
-                    doRegenSp(pc, mod.getItemByResRefForInfo(pc.NeckRefs.resref).spRegenPerRoundInCombat);
-                }
-                if (mod.getItemByResRefForInfo(pc.NeckRefs.resref).hpRegenPerRoundInCombat > 0)
-                {
-                    doRegenHp(pc, mod.getItemByResRefForInfo(pc.NeckRefs.resref).hpRegenPerRoundInCombat);
+                    doRegenHp(pc, gv.mod.getItemByResRefForInfo(pc.OffHandRefs.resref).hpRegenPerRoundInCombat);
                 }
 
-                if (mod.getItemByResRefForInfo(pc.FeetRefs.resref).spRegenPerRoundInCombat > 0)
+                if (gv.mod.getItemByResRefForInfo(pc.RingRefs.resref).spRegenPerRoundInCombat > 0)
                 {
-                    doRegenSp(pc, mod.getItemByResRefForInfo(pc.FeetRefs.resref).spRegenPerRoundInCombat);
+                    doRegenSp(pc, gv.mod.getItemByResRefForInfo(pc.RingRefs.resref).spRegenPerRoundInCombat);
                 }
-                if (mod.getItemByResRefForInfo(pc.FeetRefs.resref).hpRegenPerRoundInCombat > 0)
+                if (gv.mod.getItemByResRefForInfo(pc.RingRefs.resref).hpRegenPerRoundInCombat > 0)
                 {
-                    doRegenHp(pc, mod.getItemByResRefForInfo(pc.FeetRefs.resref).hpRegenPerRoundInCombat);
-                }
-
-                if (mod.getItemByResRefForInfo(pc.Ring2Refs.resref).spRegenPerRoundInCombat > 0)
-                {
-                    doRegenSp(pc, mod.getItemByResRefForInfo(pc.Ring2Refs.resref).spRegenPerRoundInCombat);
-                }
-                if (mod.getItemByResRefForInfo(pc.Ring2Refs.resref).hpRegenPerRoundInCombat > 0)
-                {
-                    doRegenHp(pc, mod.getItemByResRefForInfo(pc.Ring2Refs.resref).hpRegenPerRoundInCombat);
+                    doRegenHp(pc, gv.mod.getItemByResRefForInfo(pc.RingRefs.resref).hpRegenPerRoundInCombat);
                 }
 
-                if (mod.getItemByResRefForInfo(pc.AmmoRefs.resref).spRegenPerRoundInCombat > 0)
+                if (gv.mod.getItemByResRefForInfo(pc.HeadRefs.resref).spRegenPerRoundInCombat > 0)
                 {
-                    doRegenSp(pc, mod.getItemByResRefForInfo(pc.AmmoRefs.resref).spRegenPerRoundInCombat);
+                    doRegenSp(pc, gv.mod.getItemByResRefForInfo(pc.HeadRefs.resref).spRegenPerRoundInCombat);
                 }
-                if (mod.getItemByResRefForInfo(pc.AmmoRefs.resref).hpRegenPerRoundInCombat > 0)
+                if (gv.mod.getItemByResRefForInfo(pc.HeadRefs.resref).hpRegenPerRoundInCombat > 0)
                 {
-                    doRegenHp(pc, mod.getItemByResRefForInfo(pc.AmmoRefs.resref).hpRegenPerRoundInCombat);
+                    doRegenHp(pc, gv.mod.getItemByResRefForInfo(pc.HeadRefs.resref).hpRegenPerRoundInCombat);
+                }
+
+                if (gv.mod.getItemByResRefForInfo(pc.NeckRefs.resref).spRegenPerRoundInCombat > 0)
+                {
+                    doRegenSp(pc, gv.mod.getItemByResRefForInfo(pc.NeckRefs.resref).spRegenPerRoundInCombat);
+                }
+                if (gv.mod.getItemByResRefForInfo(pc.NeckRefs.resref).hpRegenPerRoundInCombat > 0)
+                {
+                    doRegenHp(pc, gv.mod.getItemByResRefForInfo(pc.NeckRefs.resref).hpRegenPerRoundInCombat);
+                }
+
+                if (gv.mod.getItemByResRefForInfo(pc.FeetRefs.resref).spRegenPerRoundInCombat > 0)
+                {
+                    doRegenSp(pc, gv.mod.getItemByResRefForInfo(pc.FeetRefs.resref).spRegenPerRoundInCombat);
+                }
+                if (gv.mod.getItemByResRefForInfo(pc.FeetRefs.resref).hpRegenPerRoundInCombat > 0)
+                {
+                    doRegenHp(pc, gv.mod.getItemByResRefForInfo(pc.FeetRefs.resref).hpRegenPerRoundInCombat);
+                }
+
+                if (gv.mod.getItemByResRefForInfo(pc.Ring2Refs.resref).spRegenPerRoundInCombat > 0)
+                {
+                    doRegenSp(pc, gv.mod.getItemByResRefForInfo(pc.Ring2Refs.resref).spRegenPerRoundInCombat);
+                }
+                if (gv.mod.getItemByResRefForInfo(pc.Ring2Refs.resref).hpRegenPerRoundInCombat > 0)
+                {
+                    doRegenHp(pc, gv.mod.getItemByResRefForInfo(pc.Ring2Refs.resref).hpRegenPerRoundInCombat);
+                }
+
+                if (gv.mod.getItemByResRefForInfo(pc.AmmoRefs.resref).spRegenPerRoundInCombat > 0)
+                {
+                    doRegenSp(pc, gv.mod.getItemByResRefForInfo(pc.AmmoRefs.resref).spRegenPerRoundInCombat);
+                }
+                if (gv.mod.getItemByResRefForInfo(pc.AmmoRefs.resref).hpRegenPerRoundInCombat > 0)
+                {
+                    doRegenHp(pc, gv.mod.getItemByResRefForInfo(pc.AmmoRefs.resref).hpRegenPerRoundInCombat);
                 }
             }
             catch (Exception ex)
@@ -1131,7 +1131,7 @@ namespace IceBlink2
             try
             {
                 //maybe reorder all based on their order property            
-                foreach (Player pc in mod.playerList)
+                foreach (Player pc in gv.mod.playerList)
                 {
                     foreach (Effect ef in pc.effectsList)
                     {
@@ -1146,7 +1146,7 @@ namespace IceBlink2
                         }
                     }
                 }
-                foreach (Creature crtr in mod.currentEncounter.encounterCreatureList)
+                foreach (Creature crtr in gv.mod.currentEncounter.encounterCreatureList)
                 {
                     foreach (Effect ef in crtr.cr_effectsList)
                     {
@@ -1164,7 +1164,7 @@ namespace IceBlink2
                 }
                 //if remaining duration <= 0, remove from list
                 //returnkarl
-                foreach (Player pc in mod.playerList)
+                foreach (Player pc in gv.mod.playerList)
                 {
                     for (int i = pc.effectsList.Count; i > 0; i--)
                     {
@@ -1177,7 +1177,7 @@ namespace IceBlink2
                         }
                     }
                 }
-                foreach (Creature crtr in mod.currentEncounter.encounterCreatureList)
+                foreach (Creature crtr in gv.mod.currentEncounter.encounterCreatureList)
                 {
                     for (int i = crtr.cr_effectsList.Count; i > 0; i--)
                     {
@@ -1313,10 +1313,10 @@ namespace IceBlink2
         #region PC Combat Stuff
         public void decrementAmmo(Player pc)
         {
-            if ((mod.getItemByResRefForInfo(pc.MainHandRefs.resref).category.Equals("Ranged"))
-                    && (!mod.getItemByResRefForInfo(pc.AmmoRefs.resref).name.Equals("none")))
+            if ((gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref).category.Equals("Ranged"))
+                    && (!gv.mod.getItemByResRefForInfo(pc.AmmoRefs.resref).name.Equals("none")))
             {
-                ItemRefs itr = mod.getItemRefsInInventoryByResRef(pc.AmmoRefs.resref);
+                ItemRefs itr = gv.mod.getItemRefsInInventoryByResRef(pc.AmmoRefs.resref);
                 if (itr != null)
                 {
                     //decrement by one
@@ -1330,14 +1330,14 @@ namespace IceBlink2
                     //if equal to zero, remove from party inventory and from all PCs ammo slot
                     if (itr.quantity < 1)
                     {
-                        foreach (Player p in mod.playerList)
+                        foreach (Player p in gv.mod.playerList)
                         {
                             if (p.AmmoRefs.resref.Equals(itr.resref))
                             {
                                 p.AmmoRefs = new ItemRefs();
                             }
                         }
-                        mod.partyInventoryRefsList.Remove(itr);
+                        gv.mod.partyInventoryRefsList.Remove(itr);
                     }
                 }
             }
@@ -1350,7 +1350,7 @@ namespace IceBlink2
             isPlayerTurn = true;
             gv.touchEnabled = true;
             currentCombatMode = "move";
-            Player pc = mod.playerList[currentPlayerIndex];
+            Player pc = gv.mod.playerList[currentPlayerIndex];
             gv.sf.UpdateStats(pc);
             currentMoves = 0;
             //do onTurn IBScript
@@ -1370,16 +1370,16 @@ namespace IceBlink2
             if (isInRange(pc))
             {
                 
-                Item itChk = mod.getItemByResRefForInfo(pc.MainHandRefs.resref);
+                Item itChk = gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref);
                 if (itChk != null)
                 {
                     if (itChk.automaticallyHitsTarget) //if AoE type attack and automatically hits
                     {
                         //if using ranged and have ammo, use ammo properties
-                        if ((mod.getItemByResRefForInfo(pc.MainHandRefs.resref).category.Equals("Ranged"))
-                        && (!mod.getItemByResRefForInfo(pc.AmmoRefs.resref).name.Equals("none")))
+                        if ((gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref).category.Equals("Ranged"))
+                        && (!gv.mod.getItemByResRefForInfo(pc.AmmoRefs.resref).name.Equals("none")))
                         {
-                            itChk = mod.getItemByResRefForInfo(pc.AmmoRefs.resref);
+                            itChk = gv.mod.getItemByResRefForInfo(pc.AmmoRefs.resref);
                             if (itChk != null)
                             {
                                 //always decrement ammo by one whether a hit or miss
@@ -1407,7 +1407,7 @@ namespace IceBlink2
                 }
                 
 
-                foreach (Creature crt in mod.currentEncounter.encounterCreatureList)
+                foreach (Creature crt in gv.mod.currentEncounter.encounterCreatureList)
                 {
                     //if ((crt.combatLocX == targetHighlightCenterLocation.X) && (crt.combatLocY == targetHighlightCenterLocation.Y))
                     foreach (Coordinate coor in crt.tokenCoveredSquares)
@@ -1418,15 +1418,15 @@ namespace IceBlink2
                         int crtLocX = crt.combatLocX;
                         int crtLocY = crt.combatLocY;
 
-                        if ((gv.sf.hasTrait(pc, "twoAttack")) && (mod.getItemByResRefForInfo(pc.MainHandRefs.resref).category.Equals("Melee")))
+                        if ((gv.sf.hasTrait(pc, "twoAttack")) && (gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref).category.Equals("Melee")))
                         {
                             numAtt = 2;
                         }
-                        if ((gv.sf.hasTrait(pc, "rapidshot")) && (mod.getItemByResRefForInfo(pc.MainHandRefs.resref).category.Equals("Ranged")))
+                        if ((gv.sf.hasTrait(pc, "rapidshot")) && (gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref).category.Equals("Ranged")))
                         {
                             numAtt = 2;
                         }
-                        if ((gv.sf.hasTrait(pc, "rapidshot2")) && (mod.getItemByResRefForInfo(pc.MainHandRefs.resref).category.Equals("Ranged")))
+                        if ((gv.sf.hasTrait(pc, "rapidshot2")) && (gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref).category.Equals("Ranged")))
                         {
                             numAtt = 3;
                         }
@@ -1440,13 +1440,13 @@ namespace IceBlink2
                             int crtLocX = crt.combatLocX;
                             int crtLocY = crt.combatLocY;
 
-                            //if ((gv.sf.hasTrait(pc, "twoAttack")) && (mod.getItemByResRefForInfo(pc.MainHandRefs.resref).category.Equals("Melee")))
+                            //if ((gv.sf.hasTrait(pc, "twoAttack")) && (gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref).category.Equals("Melee")))
                             numAtt = gv.sf.CalcNumberOfAttacks(pc);
                             if (numAtt < 1)
                             {
                                 numAtt = 2;
                             }
-                            //if ((gv.sf.hasTrait(pc, "rapidshot")) && (mod.getItemByResRefForInfo(pc.MainHandRefs.resref).category.Equals("Ranged")))
+                            //if ((gv.sf.hasTrait(pc, "rapidshot")) && (gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref).category.Equals("Ranged")))
 
                             //reset the already targeted creatures list  
                             alreadyTargetedCreatureTagsList.Clear();
@@ -1454,7 +1454,7 @@ namespace IceBlink2
                             //do sweep attacks if any                          
                             if ((numSweep > 0) && (gv.sf.isMeleeAttack(pc)))
 
-                            //if ((gv.sf.hasTrait(pc, "cleave")) && (mod.getItemByResRefForInfo(pc.MainHandRefs.resref).category.Equals("Melee")))
+                            //if ((gv.sf.hasTrait(pc, "cleave")) && (gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref).category.Equals("Melee")))
                             {
                                 attResult = doActualCombatAttack(pc, crt, 0);
                                 if (attResult > 0) { attResultHit = true; }
@@ -1475,7 +1475,7 @@ namespace IceBlink2
                             //for (int i = 0; i < numAtt; i++)
                             else //do multiple attack and cleave attack 
                             {
-                                //if ((gv.sf.hasTrait(pc, "cleave")) && (mod.getItemByResRefForInfo(pc.MainHandRefs.resref).category.Equals("Melee")))
+                                //if ((gv.sf.hasTrait(pc, "cleave")) && (gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref).category.Equals("Melee")))
                                 int numCleave = gv.sf.CalcNumberOfCleaveAttackTargets(pc);
                                 for (int i = 0; i < numAtt; i++)
                                 {
@@ -1558,7 +1558,7 @@ namespace IceBlink2
             int damage = CalcPcDamageToCreature(pc, crt);
 
             bool automaticallyHits = false;
-            Item itChk = mod.getItemByResRefForInfo(pc.MainHandRefs.resref);
+            Item itChk = gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref);
             if (itChk != null)
             {
                 automaticallyHits = itChk.automaticallyHitsTarget;
@@ -1571,7 +1571,7 @@ namespace IceBlink2
                 gv.cc.addLogText("<font color='white'> and HITS (</font><font color='lime'>" + damage + "</font><font color='white'> damage)</font><BR>");
                 gv.cc.addLogText("<font color='white'>" + attackRoll + " + " + attackMod + " >= " + defense + "</font><BR>");
 
-                Item it = mod.getItemByResRefForInfo(pc.MainHandRefs.resref);
+                Item it = gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref);
                 if (it != null)
                 {                    
                     doOnHitScriptBasedOnFilename(it.onScoringHit, crt, pc);
@@ -1581,7 +1581,7 @@ namespace IceBlink2
                     }
                 }
 
-                it = mod.getItemByResRefForInfo(pc.AmmoRefs.resref);
+                it = gv.mod.getItemByResRefForInfo(pc.AmmoRefs.resref);
                 if (it != null)
                 {
                     doOnHitScriptBasedOnFilename(it.onScoringHit, crt, pc);
@@ -1592,9 +1592,9 @@ namespace IceBlink2
                 }
                                 
                 //play attack sound for melee (not ranged)
-                if (mod.getItemByResRefForInfo(pc.MainHandRefs.resref).category.Equals("Melee"))
+                if (gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref).category.Equals("Melee"))
                 {
-                    gv.PlaySound(mod.getItemByResRefForInfo(pc.MainHandRefs.resref).itemOnUseSound);
+                    gv.PlaySound(gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref).itemOnUseSound);
                 }
 
                 //Draw floaty text showing damage above Creature
@@ -1620,9 +1620,9 @@ namespace IceBlink2
             else //MISSED
             {
                 //play attack sound for melee (not ranged)
-                if (mod.getItemByResRefForInfo(pc.MainHandRefs.resref).category.Equals("Melee"))
+                if (gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref).category.Equals("Melee"))
                 {
-                    gv.PlaySound(mod.getItemByResRefForInfo(pc.MainHandRefs.resref).itemOnUseSound);
+                    gv.PlaySound(gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref).itemOnUseSound);
                 }
                 gv.cc.addLogText("<font color='aqua'>" + pc.name + "</font><font color='white'> attacks </font><font color='gray'>" + crt.cr_name + "</font>");
                 gv.cc.addLogText("<font color='white'> and MISSES</font><BR>");
@@ -1639,7 +1639,7 @@ namespace IceBlink2
         public void endPcTurn(bool endStealthMode)
         {
             //remove stealth if endStealthMode = true		
-            Player pc = mod.playerList[currentPlayerIndex];
+            Player pc = gv.mod.playerList[currentPlayerIndex];
             if (pc.hp >= 0)
             {
                 pc.hpLastTurn = pc.hp;
@@ -1648,7 +1648,7 @@ namespace IceBlink2
             {
                 pc.steathModeOn = false;
             }
-            else //else test to see if enter/stay in stealth mode if has trait
+            else //else test to see if enter/stay in stealth gv.mode if has trait
             {
                 doStealthModeCheck(pc);
             }
@@ -1660,22 +1660,22 @@ namespace IceBlink2
             int skillMod = 0;
             if (pc.knownTraitsTags.Contains("stealth4"))
             {
-                Trait tr = mod.getTraitByTag("stealth4");
+                Trait tr = gv.mod.getTraitByTag("stealth4");
                 skillMod = tr.skillModifier;
             }
             else if (pc.knownTraitsTags.Contains("stealth3"))
             {
-                Trait tr = mod.getTraitByTag("stealth3");
+                Trait tr = gv.mod.getTraitByTag("stealth3");
                 skillMod = tr.skillModifier;
             }
             else if (pc.knownTraitsTags.Contains("stealth2"))
             {
-                Trait tr = mod.getTraitByTag("stealth2");
+                Trait tr = gv.mod.getTraitByTag("stealth2");
                 skillMod = tr.skillModifier;
             }
             else if (pc.knownTraitsTags.Contains("stealth"))
             {
-                Trait tr = mod.getTraitByTag("stealth");
+                Trait tr = gv.mod.getTraitByTag("stealth");
                 skillMod = tr.skillModifier;
             }
             else
@@ -1715,7 +1715,7 @@ namespace IceBlink2
 	    public void doCreatureTurn()
 	    {
             canMove = true;
-		    Creature crt = mod.currentEncounter.encounterCreatureList[creatureIndex];
+		    Creature crt = gv.mod.currentEncounter.encounterCreatureList[creatureIndex];
             
             //do onStartTurn IBScript
             gv.cc.doIBScriptBasedOnFilename(gv.mod.currentEncounter.OnStartCombatTurnIBScript, gv.mod.currentEncounter.OnStartCombatTurnIBScriptParms);
@@ -1724,7 +1724,7 @@ namespace IceBlink2
 	    }
         public void doCreatureNextAction()
         {
-            Creature crt = mod.currentEncounter.encounterCreatureList[creatureIndex];
+            Creature crt = gv.mod.currentEncounter.encounterCreatureList[creatureIndex];
             CalculateUpperLeftCreature();
             if ((crt.hp > 0) && (!crt.isHeld()))
             {
@@ -1735,13 +1735,13 @@ namespace IceBlink2
                 animationState = AnimationState.CreatureThink;
                 if (!gv.mod.useManualCombatCam)
                 {
-                    gv.postDelayed("doAnimation", (int)(2.5f * mod.combatAnimationSpeed));
+                    gv.postDelayed("doAnimation", (int)(2.5f * gv.mod.combatAnimationSpeed));
                 }
                 else
                 {
                     if (((crt.combatLocX + 1) <= (UpperLeftSquare.X + (gv.playerOffsetX * 2))) && ((crt.combatLocX - 1) >= (UpperLeftSquare.X)) && ((crt.combatLocY + 1) <= (UpperLeftSquare.Y + (gv.playerOffsetY * 2))) && ((crt.combatLocY - 1) >= (UpperLeftSquare.Y)))
                     {
-                        gv.postDelayed("doAnimation", (int)(2.5f * mod.combatAnimationSpeed));
+                        gv.postDelayed("doAnimation", (int)(2.5f * gv.mod.combatAnimationSpeed));
                         //doCreatureTurnAfterDelay();
                     }
                     else
@@ -1759,7 +1759,7 @@ namespace IceBlink2
         }
 	    public void doCreatureTurnAfterDelay()
 	    {
-		    Creature crt = mod.currentEncounter.encounterCreatureList[creatureIndex];
+		    Creature crt = gv.mod.currentEncounter.encounterCreatureList[creatureIndex];
 		
 		    gv.sf.ActionToTake = null;
 		    gv.sf.SpellToCast = null;
@@ -1805,7 +1805,7 @@ namespace IceBlink2
 	    }
 	    public void CreatureMoves()
 	    {
-            Creature crt = mod.currentEncounter.encounterCreatureList[creatureIndex];
+            Creature crt = gv.mod.currentEncounter.encounterCreatureList[creatureIndex];
             if (creatureMoves + 0.5f < crt.getMoveDistance())
 		    {
 			    Player pc = targetClosestPC(crt);
@@ -1951,7 +1951,7 @@ namespace IceBlink2
                     if ((crt.combatLocX != crt.newCoor.X) && (crt.combatLocY != crt.newCoor.Y))
                     {
                         //enough  move points availbale to do the diagonal move
-                        if ((crt.getMoveDistance() - creatureMoves) >= mod.diagonalMoveCost)
+                        if ((crt.getMoveDistance() - creatureMoves) >= gv.mod.diagonalMoveCost)
                         {
                             if ((crt.newCoor.X < crt.combatLocX) && (!crt.combatFacingLeft)) //move left
                             {
@@ -1963,7 +1963,7 @@ namespace IceBlink2
                             }
                             //CHANGE FACING BASED ON MOVE
                             doCreatureCombatFacing(crt, crt.newCoor.X, crt.newCoor.Y);
-                            moveCost = mod.diagonalMoveCost;
+                            moveCost = gv.mod.diagonalMoveCost;
 
                             /*
                             //set the currentPixel position of the props
@@ -1984,7 +1984,7 @@ namespace IceBlink2
                                 destinationPixelLocY = crt.newCoor.Y * gv.squareSize;
                             }
                              * */
-                            if ( (IsInVisibleCombatWindow(crt.combatLocX, crt.combatLocY)) && (crt == mod.currentEncounter.encounterCreatureList[creatureIndex]) && (gv.mod.useCombatSmoothMovement))
+                            if ( (IsInVisibleCombatWindow(crt.combatLocX, crt.combatLocY)) && (crt == gv.mod.currentEncounter.encounterCreatureList[creatureIndex]) && (gv.mod.useCombatSmoothMovement))
                             {
                                 blockAnimationBridge = true;
                             }
@@ -2006,7 +2006,7 @@ namespace IceBlink2
                             {
                                 if (((crt.combatLocX + 1) <= (UpperLeftSquare.X + (gv.playerOffsetX * 2))) && ((crt.combatLocX - 1) >= (UpperLeftSquare.X)) && ((crt.combatLocY + 1) <= (UpperLeftSquare.Y + (gv.playerOffsetY * 2))) && ((crt.combatLocY - 1) >= (UpperLeftSquare.Y)))
                                 {
-                                    gv.postDelayed("doAnimation", (int)(0.025f * mod.combatAnimationSpeed));
+                                    gv.postDelayed("doAnimation", (int)(0.025f * gv.mod.combatAnimationSpeed));
                                 }
                                 else
                                 {
@@ -2016,7 +2016,7 @@ namespace IceBlink2
                             }
                             else
                             {
-                                gv.postDelayed("doAnimation", (int)(1f * mod.combatAnimationSpeed));
+                                gv.postDelayed("doAnimation", (int)(1f * gv.mod.combatAnimationSpeed));
                             }
 
                         }
@@ -2026,8 +2026,8 @@ namespace IceBlink2
                         {
                             pf.resetGrid(crt);
                             //block the originial diagonal target square and calculate again
-                            mod.nonAllowedDiagonalSquareX = crt.newCoor.X;
-                            mod.nonAllowedDiagonalSquareY = crt.newCoor.Y;
+                            gv.mod.nonAllowedDiagonalSquareX = crt.newCoor.X;
+                            gv.mod.nonAllowedDiagonalSquareY = crt.newCoor.Y;
                             storedPathOfCurrentCreature = pf.findNewPoint(crt, new Coordinate(pc.combatLocX, pc.combatLocY));
 
                             if (storedPathOfCurrentCreature.Count > 1)
@@ -2064,7 +2064,7 @@ namespace IceBlink2
                             //CHANGE FACING BASED ON MOVE
                             doCreatureCombatFacing(crt, crt.newCoor.X, crt.newCoor.Y);
                             moveCost = 1;
-                            if ((IsInVisibleCombatWindow(crt.combatLocX, crt.combatLocY)) && (crt == mod.currentEncounter.encounterCreatureList[creatureIndex]) && (gv.mod.useCombatSmoothMovement))
+                            if ((IsInVisibleCombatWindow(crt.combatLocX, crt.combatLocY)) && (crt == gv.mod.currentEncounter.encounterCreatureList[creatureIndex]) && (gv.mod.useCombatSmoothMovement))
                             {
                                 blockAnimationBridge = true;
                             }
@@ -2086,7 +2086,7 @@ namespace IceBlink2
                             {
                                 if (((crt.combatLocX + 1) <= (UpperLeftSquare.X + (gv.playerOffsetX * 2))) && ((crt.combatLocX - 1) >= (UpperLeftSquare.X)) && ((crt.combatLocY + 1) <= (UpperLeftSquare.Y + (gv.playerOffsetY * 2))) && ((crt.combatLocY - 1) >= (UpperLeftSquare.Y)))
                                 {
-                                    gv.postDelayed("doAnimation", (int)(0.025f * mod.combatAnimationSpeed));
+                                    gv.postDelayed("doAnimation", (int)(0.025f * gv.mod.combatAnimationSpeed));
                                 }
                                 else
                                 {
@@ -2095,7 +2095,7 @@ namespace IceBlink2
                             }
                             else
                             {
-                                gv.postDelayed("doAnimation", (int)(1f * mod.combatAnimationSpeed));
+                                gv.postDelayed("doAnimation", (int)(1f * gv.mod.combatAnimationSpeed));
                             }
 
                         }
@@ -2108,7 +2108,7 @@ namespace IceBlink2
                             {
                                 if (((crt.combatLocX + 1) <= (UpperLeftSquare.X + (gv.playerOffsetX * 2))) && ((crt.combatLocX - 1) >= (UpperLeftSquare.X)) && ((crt.combatLocY + 1) <= (UpperLeftSquare.Y + (gv.playerOffsetY * 2))) && ((crt.combatLocY - 1) >= (UpperLeftSquare.Y)))
                                 {
-                                    gv.postDelayed("doAnimation", (int)(0.025f * mod.combatAnimationSpeed));
+                                    gv.postDelayed("doAnimation", (int)(0.025f * gv.mod.combatAnimationSpeed));
                                 }
                                 else
                                 {
@@ -2117,7 +2117,7 @@ namespace IceBlink2
                             }
                             else
                             {
-                                gv.postDelayed("doAnimation", (int)(1f * mod.combatAnimationSpeed));
+                                gv.postDelayed("doAnimation", (int)(1f * gv.mod.combatAnimationSpeed));
                             }
 
                         }
@@ -2136,7 +2136,7 @@ namespace IceBlink2
                         //CHANGE FACING BASED ON MOVE
                         doCreatureCombatFacing(crt, crt.newCoor.X, crt.newCoor.Y);
 
-                        if ((IsInVisibleCombatWindow(crt.combatLocX, crt.combatLocY)) && (crt == mod.currentEncounter.encounterCreatureList[creatureIndex]) && (gv.mod.useCombatSmoothMovement))
+                        if ((IsInVisibleCombatWindow(crt.combatLocX, crt.combatLocY)) && (crt == gv.mod.currentEncounter.encounterCreatureList[creatureIndex]) && (gv.mod.useCombatSmoothMovement))
                         {
                             blockAnimationBridge = true;
                         }
@@ -2157,7 +2157,7 @@ namespace IceBlink2
                         {
                             if (((crt.combatLocX + 1) <= (UpperLeftSquare.X + (gv.playerOffsetX * 2))) && ((crt.combatLocX - 1) >= (UpperLeftSquare.X)) && ((crt.combatLocY + 1) <= (UpperLeftSquare.Y + (gv.playerOffsetY * 2))) && ((crt.combatLocY - 1) >= (UpperLeftSquare.Y)))
                             {
-                                gv.postDelayed("doAnimation", (int)(0.025f * mod.combatAnimationSpeed));
+                                gv.postDelayed("doAnimation", (int)(0.025f * gv.mod.combatAnimationSpeed));
                             }
                             else 
                             {
@@ -2167,7 +2167,7 @@ namespace IceBlink2
                         }
                         else
                         {
-                            gv.postDelayed("doAnimation", (int)(1f * mod.combatAnimationSpeed));
+                            gv.postDelayed("doAnimation", (int)(1f * gv.mod.combatAnimationSpeed));
                         }
 
                     }
@@ -2261,9 +2261,9 @@ namespace IceBlink2
                         creatureTargetLocation = new Coordinate(pc.combatLocX, pc.combatLocY);
                         //set attack animation and do a delay
                         attackAnimationTimeElapsed = 0;
-                        //attackAnimationLengthInMilliseconds = (int) ( (5f * mod.attackAnimationSpeed) * (-1 + (int)crt.token.PixelSize.Height / 100f) );
-                        attackAnimationLengthInMilliseconds = (int)(5f * mod.attackAnimationSpeed);
-                        //attackAnimationLengthInMilliseconds = (int)((5f * mod.attackAnimationSpeed) + (-1 + (int)crt.token.PixelSize.Height / 100f) * 100);
+                        //attackAnimationLengthInMilliseconds = (int) ( (5f * gv.mod.attackAnimationSpeed) * (-1 + (int)crt.token.PixelSize.Height / 100f) );
+                        attackAnimationLengthInMilliseconds = (int)(5f * gv.mod.attackAnimationSpeed);
+                        //attackAnimationLengthInMilliseconds = (int)((5f * gv.mod.attackAnimationSpeed) + (-1 + (int)crt.token.PixelSize.Height / 100f) * 100);
 
                         //add projectile animation
                         startX = getPixelLocX(crt.combatLocX);
@@ -2330,9 +2330,9 @@ namespace IceBlink2
 	    	            playerToAnimate = null;
 
                         attackAnimationTimeElapsed = 0;
-                        attackAnimationLengthInMilliseconds = (int)(5f * mod.attackAnimationSpeed);
-                        //attackAnimationLengthInMilliseconds = (int)((5f * mod.attackAnimationSpeed) * (-1 + (int)crt.token.PixelSize.Height / 100f));
-                        //attackAnimationLengthInMilliseconds = (int)((5f * mod.attackAnimationSpeed) + (-1 + (int)crt.token.PixelSize.Height / 100f) * 100);
+                        attackAnimationLengthInMilliseconds = (int)(5f * gv.mod.attackAnimationSpeed);
+                        //attackAnimationLengthInMilliseconds = (int)((5f * gv.mod.attackAnimationSpeed) * (-1 + (int)crt.token.PixelSize.Height / 100f));
+                        //attackAnimationLengthInMilliseconds = (int)((5f * gv.mod.attackAnimationSpeed) + (-1 + (int)crt.token.PixelSize.Height / 100f) * 100);
 
                         //do melee attack stuff and animations  
                         AnimationSequence newSeq = new AnimationSequence();
@@ -2435,9 +2435,9 @@ namespace IceBlink2
 
                 //set attack animation and do a delay
                 attackAnimationTimeElapsed = 0;
-                attackAnimationLengthInMilliseconds = (int)(5f * mod.attackAnimationSpeed);
-                //attackAnimationLengthInMilliseconds = (int)((5f * mod.attackAnimationSpeed) * (-1 + (int)crt.token.PixelSize.Height / 100f));
-                //attackAnimationLengthInMilliseconds = (int)((5f * mod.attackAnimationSpeed) + (-1 + (int)crt.token.PixelSize.Height / 100f) * 100);
+                attackAnimationLengthInMilliseconds = (int)(5f * gv.mod.attackAnimationSpeed);
+                //attackAnimationLengthInMilliseconds = (int)((5f * gv.mod.attackAnimationSpeed) * (-1 + (int)crt.token.PixelSize.Height / 100f));
+                //attackAnimationLengthInMilliseconds = (int)((5f * gv.mod.attackAnimationSpeed) + (-1 + (int)crt.token.PixelSize.Height / 100f) * 100);
                 AnimationSequence newSeq = new AnimationSequence();
                 animationSeqStack.Add(newSeq);
                 //add projectile animation
@@ -2564,7 +2564,7 @@ namespace IceBlink2
             for (int i = 0; i < 10; i++)
             {
                 int rnd = gv.sf.RandInt(crt.knownSpellsTags.Count);
-                Spell sp = mod.getSpellByTag(crt.knownSpellsTags[rnd-1]);
+                Spell sp = gv.mod.getSpellByTag(crt.knownSpellsTags[rnd-1]);
                 if (sp != null)
                 {
                     if (sp.costSP <= crt.sp)
@@ -2679,7 +2679,7 @@ namespace IceBlink2
         }
         public void doStandardCreatureAttack()
         {
-            Creature crt = mod.currentEncounter.encounterCreatureList[creatureIndex];
+            Creature crt = gv.mod.currentEncounter.encounterCreatureList[creatureIndex];
             Player pc = (Player)gv.sf.CombatTarget;
 
             upperLeftInFastForwardX = pc.combatLocX - gv.playerOffsetX;
@@ -2797,7 +2797,7 @@ namespace IceBlink2
                         float damage = (1 * gv.sf.RandInt(2)) + 0;
                         int fireDam = (int)(damage * resist);
 
-                        if (mod.debugMode)
+                        if (gv.mod.debugMode)
                         {
                             gv.cc.addLogText("<font color='yellow'>" + "resist = " + resist + " damage = " + damage
                                         + " fireDam = " + fireDam + "</font>" +
@@ -2828,7 +2828,7 @@ namespace IceBlink2
                             {
                                 gv.cc.addLogText("<font color='red'>" + crt.cr_name + " is stunned by mace (" + saveChkRoll + " + " + crt.getFortitude() + " < " + DC + ")</font><BR>");
                                 crt.cr_status = "Held";
-                                Effect ef = mod.getEffectByTag("hold");
+                                Effect ef = gv.mod.getEffectByTag("hold");
                                 crt.AddEffectByObject(ef, 1);
                             }
                         }
@@ -2839,7 +2839,7 @@ namespace IceBlink2
                         float damage = (1 * gv.sf.RandInt(2)) + 0;
                         int acidDam = (int)(damage * resist);
 
-                        if (mod.debugMode)
+                        if (gv.mod.debugMode)
                         {
                             gv.cc.addLogText("<font color='yellow'>" + "resist = " + resist + " damage = " + damage
                                     + " acidDam = " + acidDam + "</font>" +
@@ -2864,7 +2864,7 @@ namespace IceBlink2
                         {
                             gv.cc.addLogText("<font color='red'>" + pc.name + " is held by an acid stun (" + saveChkRoll + " + " + pc.fortitude + " < " + DC + ")</font><BR>");
                             pc.charStatus = "Held";
-                            Effect ef = mod.getEffectByTag("hold");
+                            Effect ef = gv.mod.getEffectByTag("hold");
                             pc.AddEffectByObject(ef, 1);
                         }
                     }
@@ -2874,7 +2874,7 @@ namespace IceBlink2
                         float damage = 1.0f;
                         int fireDam = (int)(damage * resist);
 
-                        if (mod.debugMode)
+                        if (gv.mod.debugMode)
                         {
                             gv.cc.addLogText("<font color='yellow'>" + "resist = " + resist + " damage = " + damage
                                         + " fireDam = " + fireDam + "</font>" +
@@ -2893,7 +2893,7 @@ namespace IceBlink2
                         float damage = (1 * gv.sf.RandInt(2)) + 0;
                         int fireDam = (int)(damage * resist);
 
-                        if (mod.debugMode)
+                        if (gv.mod.debugMode)
                         {
                             gv.cc.addLogText("<font color='yellow'>" + "resist = " + resist + " damage = " + damage
                                         + " fireDam = " + fireDam + "</font>" +
@@ -2912,7 +2912,7 @@ namespace IceBlink2
                         float damage = (1 * gv.sf.RandInt(2)) + 1;
                         int fireDam = (int)(damage * resist);
 
-                        if (mod.debugMode)
+                        if (gv.mod.debugMode)
                         {
                             gv.cc.addLogText("<font color='yellow'>" + "resist = " + resist + " damage = " + damage
                                         + " fireDam = " + fireDam + "</font>" +
@@ -2934,7 +2934,7 @@ namespace IceBlink2
                         {
                             gv.cc.addLogText("<font color='yellow'>" + pc.name + " avoids being poisoned" + "</font>" +
                                     "<BR>");
-                            if (mod.debugMode)
+                            if (gv.mod.debugMode)
                             {
                                 gv.cc.addLogText("<font color='yellow'>" + saveChkRoll + " + " + pc.reflex + " >= " + DC + "</font>" +
                                             "<BR>");
@@ -2943,7 +2943,7 @@ namespace IceBlink2
                         else //failed check
                         {
                             gv.cc.addLogText("<font color='red'>" + pc.name + " is poisoned" + "</font>" + "<BR>");
-                            Effect ef = mod.getEffectByTag("poisonedLight");
+                            Effect ef = gv.mod.getEffectByTag("poisonedLight");
                             pc.AddEffectByObject(ef, 1);
                         }
                     }
@@ -2956,7 +2956,7 @@ namespace IceBlink2
                         {
                             gv.cc.addLogText("<font color='yellow'>" + pc.name + " avoids being poisoned" + "</font>" +
                                     "<BR>");
-                            if (mod.debugMode)
+                            if (gv.mod.debugMode)
                             {
                                 gv.cc.addLogText("<font color='yellow'>" + saveChkRoll + " + " + pc.reflex + " >= " + DC + "</font>" +
                                             "<BR>");
@@ -2965,7 +2965,7 @@ namespace IceBlink2
                         else //failed check
                         {
                             gv.cc.addLogText("<font color='red'>" + pc.name + " is poisoned" + "</font>" + "<BR>");
-                            Effect ef = mod.getEffectByTag("poisonedMedium");
+                            Effect ef = gv.mod.getEffectByTag("poisonedMedium");
                             pc.AddEffectByObject(ef, 1);
                         }
                     }
@@ -2985,7 +2985,7 @@ namespace IceBlink2
         public bool checkEndEncounter()
         {
             int foundOneCrtr = 0;
-            foreach (Creature crtr in mod.currentEncounter.encounterCreatureList)
+            foreach (Creature crtr in gv.mod.currentEncounter.encounterCreatureList)
             {
                 if (crtr.hp > 0)
                 {
@@ -2994,38 +2994,38 @@ namespace IceBlink2
             }
             if ((foundOneCrtr == 0) && (gv.screenType.Equals("combat")))
             {
-                mod.currentEncounter.isOver = true;
+                gv.mod.currentEncounter.isOver = true;
                 gv.touchEnabled = true;
                 // give gold drop
-                if (mod.currentEncounter.goldDrop > 0)
+                if (gv.mod.currentEncounter.goldDrop > 0)
                 {
-                    gv.cc.addLogText("<font color='yellow'>The party finds " + mod.currentEncounter.goldDrop + " " + mod.goldLabelPlural + ".<BR></font>");
+                    gv.cc.addLogText("<font color='yellow'>The party finds " + gv.mod.currentEncounter.goldDrop + " " + gv.mod.goldLabelPlural + ".<BR></font>");
                 }
-                mod.partyGold += mod.currentEncounter.goldDrop;
+                gv.mod.partyGold += gv.mod.currentEncounter.goldDrop;
                 // give InventoryList
-                if (mod.currentEncounter.encounterInventoryRefsList.Count > 0)
+                if (gv.mod.currentEncounter.encounterInventoryRefsList.Count > 0)
                 {
 
                     string s = "<font color='fuchsia'>" + "The party has found:<BR>";
-                    foreach (ItemRefs itRef in mod.currentEncounter.encounterInventoryRefsList)
+                    foreach (ItemRefs itRef in gv.mod.currentEncounter.encounterInventoryRefsList)
                     {
-                        mod.partyInventoryRefsList.Add(itRef.DeepCopy());
+                        gv.mod.partyInventoryRefsList.Add(itRef.DeepCopy());
                         s += itRef.name + "<BR>";
-                        //find this creatureRef in mod creature list
+                        //find this creatureRef in gv.mod creature list
 
                     }
                     gv.cc.addLogText(s + "</font>" + "<BR>");
                 }
 
-                int giveEachXP = encounterXP / mod.playerList.Count;
+                int giveEachXP = encounterXP / gv.mod.playerList.Count;
                 gv.cc.addLogText("fuchsia", "Each receives " + giveEachXP + " XP");
-                foreach (Player givePcXp in mod.playerList)
+                foreach (Player givePcXp in gv.mod.playerList)
                 {
                     givePcXp.XP = givePcXp.XP + giveEachXP;
                 }
                 //btnSelect.Text = "SELECT";
                 gv.screenType = "main";
-                if (mod.playMusic)
+                if (gv.mod.playMusic)
                 {
                     gv.stopCombatMusic();
                     gv.startMusic();
@@ -3050,7 +3050,7 @@ namespace IceBlink2
             }
 
             int foundOnePc = 0;
-            foreach (Player pc in mod.playerList)
+            foreach (Player pc in gv.mod.playerList)
             {
                 if (pc.hp > 0)
                 {
@@ -3061,7 +3061,7 @@ namespace IceBlink2
             {
                 gv.touchEnabled = true;
                 gv.sf.MessageBox("Your party has been defeated!");
-                if (mod.playMusic)
+                if (gv.mod.playMusic)
                 {
                     gv.stopCombatMusic();
                     gv.startMusic();
@@ -3094,14 +3094,14 @@ namespace IceBlink2
                 Prop prp = gv.mod.currentEncounter.getPropByLocation(0, 0);
                 if (isPlayerTurn)
                 {
-                    Player pc = mod.playerList[currentPlayerIndex];
+                    Player pc = gv.mod.playerList[currentPlayerIndex];
                     prp = gv.mod.currentEncounter.getPropByLocation(pc.combatLocX, pc.combatLocY);
                     gv.mod.currentEncounter.triggerScriptCalledFromSquareLocX = pc.combatLocX;
                     gv.mod.currentEncounter.triggerScriptCalledFromSquareLocY = pc.combatLocY;
                 }
                 else
                 {
-                    Creature crt = mod.currentEncounter.encounterCreatureList[creatureIndex];
+                    Creature crt = gv.mod.currentEncounter.encounterCreatureList[creatureIndex];
                     prp = gv.mod.currentEncounter.getPropByLocation(crt.combatLocX, crt.combatLocY);
                     gv.mod.currentEncounter.triggerScriptCalledFromSquareLocX = crt.combatLocX;
                     gv.mod.currentEncounter.triggerScriptCalledFromSquareLocY = crt.combatLocY;
@@ -3183,7 +3183,7 @@ namespace IceBlink2
                 Trigger trig = gv.mod.currentEncounter.getTriggerByLocation(0, 0);
                 if (isPlayerTurn)
                 {
-                    Player pc = mod.playerList[currentPlayerIndex];
+                    Player pc = gv.mod.playerList[currentPlayerIndex];
                     trig = gv.mod.currentEncounter.getTriggerByLocation(pc.combatLocX, pc.combatLocY);
                     gv.mod.currentEncounter.triggerScriptCalledFromSquareLocX = pc.combatLocX;
                     gv.mod.currentEncounter.triggerScriptCalledFromSquareLocY = pc.combatLocY;
@@ -3191,7 +3191,7 @@ namespace IceBlink2
                 }
                 else
                 {
-                    Creature crt = mod.currentEncounter.encounterCreatureList[creatureIndex];
+                    Creature crt = gv.mod.currentEncounter.encounterCreatureList[creatureIndex];
                     trig = gv.mod.currentEncounter.getTriggerByLocation(crt.combatLocX, crt.combatLocY);
                     gv.mod.currentEncounter.triggerScriptCalledFromSquareLocX = crt.combatLocX;
                     gv.mod.currentEncounter.triggerScriptCalledFromSquareLocY = crt.combatLocY;
@@ -3529,16 +3529,16 @@ namespace IceBlink2
                         deathAnimationLocations.Clear();
                         
                         //remove any dead creatures                        
-                        for (int x = mod.currentEncounter.encounterCreatureList.Count - 1; x >= 0; x--)
+                        for (int x = gv.mod.currentEncounter.encounterCreatureList.Count - 1; x >= 0; x--)
                         {
-                            if (mod.currentEncounter.encounterCreatureList[x].hp <= 0)
+                            if (gv.mod.currentEncounter.encounterCreatureList[x].hp <= 0)
                             {
                                 try
                                 {
                                     //do OnDeath IBScript
-                                    gv.cc.doIBScriptBasedOnFilename(mod.currentEncounter.encounterCreatureList[x].onDeathIBScript, mod.currentEncounter.encounterCreatureList[x].onDeathIBScriptParms);
-                                    mod.currentEncounter.encounterCreatureList.RemoveAt(x);
-                                    mod.currentEncounter.encounterCreatureRefsList.RemoveAt(x);
+                                    gv.cc.doIBScriptBasedOnFilename(gv.mod.currentEncounter.encounterCreatureList[x].onDeathIBScript, gv.mod.currentEncounter.encounterCreatureList[x].onDeathIBScriptParms);
+                                    gv.mod.currentEncounter.encounterCreatureList.RemoveAt(x);
+                                    gv.mod.currentEncounter.encounterCreatureRefsList.RemoveAt(x);
                                 }
                                 catch (Exception ex)
                                 {
@@ -3558,7 +3558,7 @@ namespace IceBlink2
                                 dontEndTurn = false;
                                 currentCombatMode = "move";
                                 //update all player stats in case their was a recently added spell or trait effect that would change them  
-                                foreach (Player p in mod.playerList)
+                                foreach (Player p in gv.mod.playerList)
                                 {
                                     gv.sf.UpdateStats(p);
                                 }
@@ -3618,7 +3618,7 @@ namespace IceBlink2
 
         public void refreshCreatureCoveredSquares()
          {  
-             foreach (Creature crt in mod.currentEncounter.encounterCreatureList)  
+             foreach (Creature crt in gv.mod.currentEncounter.encounterCreatureList)  
              {  
                  crt.tokenCoveredSquares.Clear();  
                 //add normal creature size square location first...add other sizes as needed  
@@ -3666,7 +3666,7 @@ namespace IceBlink2
             }
             //drawCombatPlayers();
             drawSprites();
-            if (mod.currentEncounter.UseDayNightCycle)
+            if (gv.mod.currentEncounter.UseDayNightCycle)
             {
                 drawOverlayTints();
             }
@@ -3701,7 +3701,7 @@ namespace IceBlink2
 
         public void drawProps()
         {  
-             foreach (Prop prp in mod.currentEncounter.propsList)  
+             foreach (Prop prp in gv.mod.currentEncounter.propsList)  
              {  
                  IbRect src = new IbRect(0, 0, gv.cc.GetFromBitmapList(prp.ImageFileName).PixelSize.Width, gv.cc.GetFromBitmapList(prp.ImageFileName).PixelSize.Width);  
                  IbRect dst = new IbRect(getPixelLocX(prp.LocationX), getPixelLocY(prp.LocationY), gv.squareSize, gv.squareSize);  
@@ -3711,7 +3711,7 @@ namespace IceBlink2
 
 public void drawEffectSquares()
         {
-            foreach (Effect ef in mod.currentEncounter.effectsList)
+            foreach (Effect ef in gv.mod.currentEncounter.effectsList)
             {
                 IbRect src = new IbRect(0, 0, gv.cc.GetFromBitmapList(ef.spriteFilename).PixelSize.Width, gv.cc.GetFromBitmapList(ef.spriteFilename).PixelSize.Width);
                 IbRect dst = new IbRect(getPixelLocX(ef.combatLocX), getPixelLocY(ef.combatLocY), gv.squareSize, gv.squareSize);
@@ -4663,7 +4663,7 @@ public void drawEffectSquares()
                         ptr.show = false;
                     }
                     int index = 0;
-                    foreach (Player pc1 in mod.playerList)
+                    foreach (Player pc1 in gv.mod.playerList)
                     {
                         pnl.portraitList[index].show = true;
                         pnl.portraitList[index].ImgFilename = pc1.portraitFilename;
@@ -4684,7 +4684,7 @@ public void drawEffectSquares()
             }
 
             //SET MOVES LEFT TEXT
-            Player pc = mod.playerList[currentPlayerIndex];
+            Player pc = gv.mod.playerList[currentPlayerIndex];
             float movesLeft = pc.moveDistance - currentMoves;
             if (movesLeft < 0) { movesLeft = 0; }
             IB2Button btn = combatUiLayout.GetButtonByTag("btnMoveCounter");
@@ -4694,7 +4694,7 @@ public void drawEffectSquares()
             }
 
             //SET KILL BUTTON
-            if (mod.debugMode)
+            if (gv.mod.debugMode)
             {
                 IB2ToggleButton tgl = combatUiLayout.GetToggleByTag("tglKill");
                 if (tgl != null)
@@ -4813,23 +4813,23 @@ public void drawEffectSquares()
         }
         public void drawCombatMap()
 	    {
-            if (mod.useAllTileSystem)
+            if (gv.mod.useAllTileSystem)
             {
                 //row = y
                 //col = x
-                if (mod.currentEncounter.UseMapImage)
+                if (gv.mod.currentEncounter.UseMapImage)
                 {
                     /*
-                    int sqrsizeW = mapBitmap.PixelSize.Width / this.mod.currentEncounter.MapSizeX;
-                    int sqrsizeH = mapBitmap.PixelSize.Height / this.mod.currentEncounter.MapSizeY;
+                    int sqrsizeW = mapBitmap.PixelSize.Width / gv.mod.currentEncounter.MapSizeX;
+                    int sqrsizeH = mapBitmap.PixelSize.Height / gv.mod.currentEncounter.MapSizeY;
                     IbRect src = new IbRect(UpperLeftSquare.X * sqrsizeW, UpperLeftSquare.Y * sqrsizeH, sqrsizeW * 9, sqrsizeH * 9);
                     IbRect dst = new IbRect(0 + gv.oXshift + mapStartLocXinPixels, 0, gv.squareSize * 9, gv.squareSize * 9);
                     gv.DrawBitmap(mapBitmap, src, dst);
                     */
                     int bmpWidth = mapBitmap.PixelSize.Width;
                     int bmpHeight = mapBitmap.PixelSize.Height;
-                    int sqrsizeW = mapBitmap.PixelSize.Width / this.mod.currentEncounter.MapSizeX;
-                    int sqrsizeH = mapBitmap.PixelSize.Height / this.mod.currentEncounter.MapSizeY;
+                    int sqrsizeW = mapBitmap.PixelSize.Width / gv.mod.currentEncounter.MapSizeX;
+                    int sqrsizeH = mapBitmap.PixelSize.Height / gv.mod.currentEncounter.MapSizeY;
                     int dstX = -(UpperLeftSquare.X * gv.squareSize);
                     int dstY = -(UpperLeftSquare.Y * gv.squareSize);
                     int dstWidth = (int)(bmpWidth * 2 * gv.screenDensity); //assumes squares are 50x50 in this image
@@ -4841,13 +4841,13 @@ public void drawEffectSquares()
                     gv.DrawBitmap(mapBitmap, src, dst);
 
                     //draw grid
-                    if (mod.com_showGrid)
+                    if (gv.mod.com_showGrid)
                     {
                         src = new IbRect(0, 0, gv.squareSizeInPixels / 2, gv.squareSizeInPixels / 2);
                         dst = new IbRect(0 + mapStartLocXinPixels, 0, gv.squareSize, gv.squareSize);
-                        for (int x = UpperLeftSquare.X; x < this.mod.currentEncounter.MapSizeX; x++)
+                        for (int x = UpperLeftSquare.X; x < gv.mod.currentEncounter.MapSizeX; x++)
                         {
-                            for (int y = UpperLeftSquare.Y; y < this.mod.currentEncounter.MapSizeY; y++)
+                            for (int y = UpperLeftSquare.Y; y < gv.mod.currentEncounter.MapSizeY; y++)
                             {
                                 if (!IsInVisibleCombatWindow(x, y))
                                 {
@@ -4860,11 +4860,11 @@ public void drawEffectSquares()
                                 int brY = gv.squareSize;
 
                                 dst = new IbRect(tlX, tlY, brX, brY);
-                                if (mod.currentEncounter.encounterTiles[y * mod.currentEncounter.MapSizeX + x].LoSBlocked)
+                                if (gv.mod.currentEncounter.encounterTiles[y * gv.mod.currentEncounter.MapSizeX + x].LoSBlocked)
                                 {
                                     gv.DrawBitmap(gv.cc.losBlocked, src, dst);
                                 }
-                                if (mod.currentEncounter.encounterTiles[y * mod.currentEncounter.MapSizeX + x].Walkable != true)
+                                if (gv.mod.currentEncounter.encounterTiles[y * gv.mod.currentEncounter.MapSizeX + x].Walkable != true)
                                 {
                                     gv.DrawBitmap(gv.cc.walkBlocked, src, dst);
                                 }
@@ -4872,7 +4872,7 @@ public void drawEffectSquares()
                                 {
                                     gv.DrawBitmap(gv.cc.walkPass, src, dst);
                                 }
-                                if ((pf.values != null) && (mod.debugMode))
+                                if ((pf.values != null) && (gv.mod.debugMode))
                                 {
                                     //gv.DrawText(pf.values[x, y].ToString(), (x - UpperLeftSquare.X) * gv.squareSize + gv.oXshift + mapStartLocXinPixels, (y - UpperLeftSquare.Y) * gv.squareSize);
                                     //gv.DrawText(pf.values[x, y].ToString(), x * gv.squareSize + mapStartLocXinPixels, y * gv.squareSize, "wh");
@@ -4889,16 +4889,16 @@ public void drawEffectSquares()
                     int minY = UpperLeftSquare.Y - 5;
                     if (minY < 0) { minY = 0; }
                     int maxX = UpperLeftSquare.X + gv.playerOffsetX + gv.playerOffsetX + 1;
-                    if (maxX > this.mod.currentEncounter.MapSizeX) { maxX = this.mod.currentEncounter.MapSizeX; }
+                    if (maxX > gv.mod.currentEncounter.MapSizeX) { maxX = gv.mod.currentEncounter.MapSizeX; }
                     int maxY = UpperLeftSquare.Y + gv.playerOffsetY + gv.playerOffsetY + 1;
-                    if (maxY > this.mod.currentEncounter.MapSizeY) { maxY = this.mod.currentEncounter.MapSizeY; }
+                    if (maxY > gv.mod.currentEncounter.MapSizeY) { maxY = gv.mod.currentEncounter.MapSizeY; }
 
                     #region Draw Layer1
                     for (int x = minX; x < maxX; x++)
                     {
                         for (int y = minY; y < maxY; y++)
                         {
-                            TileEnc tile = mod.currentEncounter.encounterTiles[y * mod.currentEncounter.MapSizeX + x];
+                            TileEnc tile = gv.mod.currentEncounter.encounterTiles[y * gv.mod.currentEncounter.MapSizeX + x];
                             try
                             {
                                 //insert1                        
@@ -4978,7 +4978,7 @@ public void drawEffectSquares()
                     {
                         for (int y = minY; y < maxY; y++)
                         {
-                            TileEnc tile = mod.currentEncounter.encounterTiles[y * mod.currentEncounter.MapSizeX + x];
+                            TileEnc tile = gv.mod.currentEncounter.encounterTiles[y * gv.mod.currentEncounter.MapSizeX + x];
                             try
                             {
                                 //insert1                        
@@ -5058,7 +5058,7 @@ public void drawEffectSquares()
                     {
                         for (int y = minY; y < maxY; y++)
                         {
-                            TileEnc tile = mod.currentEncounter.encounterTiles[y * mod.currentEncounter.MapSizeX + x];
+                            TileEnc tile = gv.mod.currentEncounter.encounterTiles[y * gv.mod.currentEncounter.MapSizeX + x];
                             try
                             {
                                 //insert1                        
@@ -5135,11 +5135,11 @@ public void drawEffectSquares()
 
                     #region Draw Grid
                     //I brought the pix width and height of source back to normal
-                    if (mod.com_showGrid)
+                    if (gv.mod.com_showGrid)
                     {
-                        for (int x = UpperLeftSquare.X; x < this.mod.currentEncounter.MapSizeX; x++)
+                        for (int x = UpperLeftSquare.X; x < gv.mod.currentEncounter.MapSizeX; x++)
                         {
-                            for (int y = UpperLeftSquare.Y; y < this.mod.currentEncounter.MapSizeY; y++)
+                            for (int y = UpperLeftSquare.Y; y < gv.mod.currentEncounter.MapSizeY; y++)
                             {
                                 if (!IsInVisibleCombatWindow(x, y))
                                 {
@@ -5166,7 +5166,7 @@ public void drawEffectSquares()
                                     continue;
                                 }
 
-                                TileEnc tile = mod.currentEncounter.encounterTiles[y * mod.currentEncounter.MapSizeX + x];
+                                TileEnc tile = gv.mod.currentEncounter.encounterTiles[y * gv.mod.currentEncounter.MapSizeX + x];
 
                                 int tlX = ((x - UpperLeftSquare.X) * gv.squareSize) + gv.oXshift + mapStartLocXinPixels;
                                 int tlY = (y - UpperLeftSquare.Y) * gv.squareSize;
@@ -5175,11 +5175,11 @@ public void drawEffectSquares()
 
                                 IbRect srcGrid = new IbRect(0, 0, gv.squareSizeInPixels, gv.squareSizeInPixels);
                                 IbRect dstGrid = new IbRect(tlX, tlY, brX, brY);
-                                if (mod.currentEncounter.encounterTiles[y * mod.currentEncounter.MapSizeX + x].LoSBlocked)
+                                if (gv.mod.currentEncounter.encounterTiles[y * gv.mod.currentEncounter.MapSizeX + x].LoSBlocked)
                                 {
                                     gv.DrawBitmap(gv.cc.losBlocked, srcGrid, dstGrid);
                                 }
-                                if (mod.currentEncounter.encounterTiles[y * mod.currentEncounter.MapSizeX + x].Walkable != true)
+                                if (gv.mod.currentEncounter.encounterTiles[y * gv.mod.currentEncounter.MapSizeX + x].Walkable != true)
                                 {
                                     gv.DrawBitmap(gv.cc.walkBlocked, srcGrid, dstGrid);
                                 }
@@ -5192,15 +5192,15 @@ public void drawEffectSquares()
                     }
                     #endregion
                     #region Draw Pathfinding Numbers
-                    for (int x = UpperLeftSquare.X; x < this.mod.currentEncounter.MapSizeX; x++)
+                    for (int x = UpperLeftSquare.X; x < gv.mod.currentEncounter.MapSizeX; x++)
                     {
-                        for (int y = UpperLeftSquare.Y; y < this.mod.currentEncounter.MapSizeY; y++)
+                        for (int y = UpperLeftSquare.Y; y < gv.mod.currentEncounter.MapSizeY; y++)
                         {
                             if (!IsInVisibleCombatWindow(x, y))
                             {
                                 continue;
                             }
-                            if ((pf.values != null) && (mod.debugMode))
+                            if ((pf.values != null) && (gv.mod.debugMode))
                             {
                                 //gv.DrawText(pf.values[x, y].ToString(), (x - UpperLeftSquare.X) * gv.squareSize + gv.oXshift + mapStartLocXinPixels, (y - UpperLeftSquare.Y) * gv.squareSize);
                             }
@@ -5219,13 +5219,13 @@ public void drawEffectSquares()
             {
                 //row = y
                 //col = x
-                if (mod.currentEncounter.UseMapImage)
+                if (gv.mod.currentEncounter.UseMapImage)
                 {
                     #region background image
                     int bmpWidth = mapBitmap.PixelSize.Width;
                     int bmpHeight = mapBitmap.PixelSize.Height;
-                    int sqrsizeW = mapBitmap.PixelSize.Width / this.mod.currentEncounter.MapSizeX;
-                    int sqrsizeH = mapBitmap.PixelSize.Height / this.mod.currentEncounter.MapSizeY;
+                    int sqrsizeW = mapBitmap.PixelSize.Width / gv.mod.currentEncounter.MapSizeX;
+                    int sqrsizeH = mapBitmap.PixelSize.Height / gv.mod.currentEncounter.MapSizeY;
                     int dstX = -(UpperLeftSquare.X * gv.squareSize);
                     int dstY = -(UpperLeftSquare.Y * gv.squareSize);
                     int dstWidth = (int)(bmpWidth * 2 * gv.screenDensity); //assumes squares are 50x50 in this image
@@ -5235,8 +5235,8 @@ public void drawEffectSquares()
                     IbRect dst = new IbRect(dstX + gv.oXshift + mapStartLocXinPixels, dstY, dstWidth, dstHeight);
                     gv.DrawBitmap(mapBitmap, src, dst);
 
-                    //int sqrsizeW = mapBitmap.PixelSize.Width / this.mod.currentEncounter.MapSizeX;
-                    //int sqrsizeH = mapBitmap.PixelSize.Height / this.mod.currentEncounter.MapSizeY;
+                    //int sqrsizeW = mapBitmap.PixelSize.Width / gv.mod.currentEncounter.MapSizeX;
+                    //int sqrsizeH = mapBitmap.PixelSize.Height / gv.mod.currentEncounter.MapSizeY;
                     //IbRect src = new IbRect(UpperLeftSquare.X * sqrsizeW, UpperLeftSquare.Y * sqrsizeH, sqrsizeW * (gv.playerOffsetX + gv.playerOffsetX + 1), sqrsizeH * (gv.playerOffsetY + gv.playerOffsetY + 1));
                     //IbRect dst = new IbRect(0 + gv.oXshift + mapStartLocXinPixels, 0, gv.squareSize * (gv.playerOffsetX + gv.playerOffsetX + 1), gv.squareSize * (gv.playerOffsetY + gv.playerOffsetY + 1));
                     //gv.DrawBitmap(mapBitmap, src, dst);                    
@@ -5248,16 +5248,16 @@ public void drawEffectSquares()
                 int minY = UpperLeftSquare.Y - (gv.playerOffsetY + 1);
                 if (minY < 0) { minY = 0; }
                 int maxX = UpperLeftSquare.X + gv.playerOffsetX + gv.playerOffsetX + 1;
-                if (maxX > this.mod.currentEncounter.MapSizeX) { maxX = this.mod.currentEncounter.MapSizeX; }
+                if (maxX > gv.mod.currentEncounter.MapSizeX) { maxX = gv.mod.currentEncounter.MapSizeX; }
                 int maxY = UpperLeftSquare.Y + gv.playerOffsetY + gv.playerOffsetY + 2;
-                if (maxY > this.mod.currentEncounter.MapSizeY) { maxY = this.mod.currentEncounter.MapSizeY; }
+                if (maxY > gv.mod.currentEncounter.MapSizeY) { maxY = gv.mod.currentEncounter.MapSizeY; }
 
                 #region Draw Layer1
                 for (int x = minX; x < maxX; x++)
                 {
                     for (int y = minY; y < maxY; y++)
                     {
-                        TileEnc tile = mod.currentEncounter.encounterTiles[y * mod.currentEncounter.MapSizeX + x];
+                        TileEnc tile = gv.mod.currentEncounter.encounterTiles[y * gv.mod.currentEncounter.MapSizeX + x];
                         IbRect srcLyr = getSourceIbRect(
                             x,
                             y,
@@ -5287,7 +5287,7 @@ public void drawEffectSquares()
                 {
                     for (int y = minY; y < maxY; y++)
                     {
-                        TileEnc tile = mod.currentEncounter.encounterTiles[y * mod.currentEncounter.MapSizeX + x];
+                        TileEnc tile = gv.mod.currentEncounter.encounterTiles[y * gv.mod.currentEncounter.MapSizeX + x];
                         IbRect srcLyr = getSourceIbRect(
                             x,
                             y,
@@ -5317,7 +5317,7 @@ public void drawEffectSquares()
                 {
                     for (int y = minY; y < maxY; y++)
                     {
-                        TileEnc tile = mod.currentEncounter.encounterTiles[y * mod.currentEncounter.MapSizeX + x];
+                        TileEnc tile = gv.mod.currentEncounter.encounterTiles[y * gv.mod.currentEncounter.MapSizeX + x];
                         IbRect srcLyr = getSourceIbRect(
                             x,
                             y,
@@ -5344,11 +5344,11 @@ public void drawEffectSquares()
                 #endregion
                 #region Draw Grid
                 //I brought the pix width and height of source back to normal
-                if (mod.com_showGrid)
+                if (gv.mod.com_showGrid)
                 {
-                    for (int x = UpperLeftSquare.X; x < this.mod.currentEncounter.MapSizeX; x++)
+                    for (int x = UpperLeftSquare.X; x < gv.mod.currentEncounter.MapSizeX; x++)
                     {
-                        for (int y = UpperLeftSquare.Y; y < this.mod.currentEncounter.MapSizeY; y++)
+                        for (int y = UpperLeftSquare.Y; y < gv.mod.currentEncounter.MapSizeY; y++)
                         {
                             if (!IsInVisibleCombatWindow(x, y))
                             {
@@ -5366,7 +5366,7 @@ public void drawEffectSquares()
                                 continue;
                             }
 
-                            TileEnc tile = mod.currentEncounter.encounterTiles[y * mod.currentEncounter.MapSizeX + x];
+                            TileEnc tile = gv.mod.currentEncounter.encounterTiles[y * gv.mod.currentEncounter.MapSizeX + x];
 
                             int tlX = ((x - UpperLeftSquare.X) * gv.squareSize) + gv.oXshift + mapStartLocXinPixels;
                             int tlY = (y - UpperLeftSquare.Y) * gv.squareSize;
@@ -5375,11 +5375,11 @@ public void drawEffectSquares()
 
                             IbRect srcGrid = new IbRect(0, 0, gv.squareSizeInPixels, gv.squareSizeInPixels);
                             IbRect dstGrid = new IbRect(tlX, tlY, brX, brY);
-                            if (mod.currentEncounter.encounterTiles[y * mod.currentEncounter.MapSizeX + x].LoSBlocked)
+                            if (gv.mod.currentEncounter.encounterTiles[y * gv.mod.currentEncounter.MapSizeX + x].LoSBlocked)
                             {
                                 gv.DrawBitmap(gv.cc.losBlocked, srcGrid, dstGrid);
                             }
-                            if (mod.currentEncounter.encounterTiles[y * mod.currentEncounter.MapSizeX + x].Walkable != true)
+                            if (gv.mod.currentEncounter.encounterTiles[y * gv.mod.currentEncounter.MapSizeX + x].Walkable != true)
                             {
                                 gv.DrawBitmap(gv.cc.walkBlocked, srcGrid, dstGrid);
                             }
@@ -5392,15 +5392,15 @@ public void drawEffectSquares()
                 }
                 #endregion
                 #region Draw Pathfinding Numbers
-                for (int x = UpperLeftSquare.X; x < this.mod.currentEncounter.MapSizeX; x++)
+                for (int x = UpperLeftSquare.X; x < gv.mod.currentEncounter.MapSizeX; x++)
                 {
-                    for (int y = UpperLeftSquare.Y; y < this.mod.currentEncounter.MapSizeY; y++)
+                    for (int y = UpperLeftSquare.Y; y < gv.mod.currentEncounter.MapSizeY; y++)
                     {
                         if (!IsInVisibleCombatWindow(x, y))
                         {
                             continue;
                         }
-                        if ((pf.values != null) && (mod.debugMode))
+                        if ((pf.values != null) && (gv.mod.debugMode))
                         {
                             //gv.DrawText(pf.values[x, y].ToString(), (x - UpperLeftSquare.X) * gv.squareSize + gv.oXshift + mapStartLocXinPixels, (y - UpperLeftSquare.Y) * gv.squareSize);
                         }
@@ -5419,7 +5419,7 @@ public void drawEffectSquares()
         //XXXX
         public void drawColumnOfBlack()
         {
-            if ((UpperLeftSquare.X <= 0) || (UpperLeftSquare.X >= (this.mod.currentEncounter.MapSizeX - 1 - (gv.playerOffsetX*2 + 1))))
+            if ((UpperLeftSquare.X <= 0) || (UpperLeftSquare.X >= (gv.mod.currentEncounter.MapSizeX - 1 - (gv.playerOffsetX*2 + 1))))
             {
                 int offset = 0;
                 if (UpperLeftSquare.X <= 0)
@@ -5437,9 +5437,9 @@ public void drawEffectSquares()
                     }
                 }
 
-                if (UpperLeftSquare.X >= (this.mod.currentEncounter.MapSizeX - 1 - (gv.playerOffsetX * 2 + 1)))
+                if (UpperLeftSquare.X >= (gv.mod.currentEncounter.MapSizeX - 1 - (gv.playerOffsetX * 2 + 1)))
                 {
-                    offset = ((this.mod.currentEncounter.MapSizeX - 1) - UpperLeftSquare.X +1)*-1;
+                    offset = ((gv.mod.currentEncounter.MapSizeX - 1) - UpperLeftSquare.X +1)*-1;
                     //offset = gv.playerOffsetX * 2 + 1 + offset -1;
                     for (int y = -1; y < gv.playerOffsetY * 2 + 3; y++)
                     {
@@ -5457,7 +5457,7 @@ public void drawEffectSquares()
 
         public void drawRowOfBlack()
         {
-            if ((UpperLeftSquare.Y <= 0) || (UpperLeftSquare.Y >= (this.mod.currentEncounter.MapSizeY - 1 - (gv.playerOffsetY*2+1))))
+            if ((UpperLeftSquare.Y <= 0) || (UpperLeftSquare.Y >= (gv.mod.currentEncounter.MapSizeY - 1 - (gv.playerOffsetY*2+1))))
             {
                 int offset = 0;
                 if (UpperLeftSquare.Y <= 0)
@@ -5476,9 +5476,9 @@ public void drawEffectSquares()
                     }
                 }
                 
-                if (UpperLeftSquare.Y >= (this.mod.currentEncounter.MapSizeY - 1 - (gv.playerOffsetY * 2 + 1)))
+                if (UpperLeftSquare.Y >= (gv.mod.currentEncounter.MapSizeY - 1 - (gv.playerOffsetY * 2 + 1)))
                 {
-                    offset = ((this.mod.currentEncounter.MapSizeY - 1) - UpperLeftSquare.Y + 1)*-1;
+                    offset = ((gv.mod.currentEncounter.MapSizeY - 1) - UpperLeftSquare.Y + 1)*-1;
                     //offset = gv.playerOffsetY * 2 + 1 + offset - 1;
                     for (int x = -1; x < gv.playerOffsetX * 2 + 3; x++)
                     {
@@ -5534,7 +5534,7 @@ public void drawEffectSquares()
         }
         public void drawCombatPlayers()
 	    {
-            Player p = mod.playerList[currentPlayerIndex];
+            Player p = gv.mod.playerList[currentPlayerIndex];
             if (IsInVisibleCombatWindow(p.combatLocX, p.combatLocY))
             {
                 IbRect src = new IbRect(0, 0, gv.cc.turn_marker.PixelSize.Width, gv.cc.turn_marker.PixelSize.Width);
@@ -5544,7 +5544,7 @@ public void drawEffectSquares()
                     gv.DrawBitmap(gv.cc.turn_marker, src, dst);
                 }
             }
-		    foreach (Player pc in mod.playerList)
+		    foreach (Player pc in gv.mod.playerList)
 		    {
                 if (IsInVisibleCombatWindow(pc.combatLocX, pc.combatLocY))
                 {
@@ -5618,7 +5618,7 @@ public void drawEffectSquares()
 	    }
         public void drawLosTrail()
 	    {
-		    Player p = mod.playerList[currentPlayerIndex];
+		    Player p = gv.mod.playerList[currentPlayerIndex];
 		    if ((currentCombatMode.Equals("attack")) || (currentCombatMode.Equals("cast")))
 		    {
                 //Uses the Screen Pixel Locations
@@ -5645,13 +5645,13 @@ public void drawEffectSquares()
 	    }
 	    public void drawMovingCombatCreatures()
 	    {
-            //foreach (Creature c in mod.currentEncounter.encounterCreatureList)
+            //foreach (Creature c in gv.mod.currentEncounter.encounterCreatureList)
             //{
 
             //}
                  
                     
-           //if ((crt == mod.currentEncounter.encounterCreatureList[creatureIndex])
+           //if ((crt == gv.mod.currentEncounter.encounterCreatureList[creatureIndex])
 
             if ((gv.mod.fastMode) && (!isPlayerTurn))
             {
@@ -5681,15 +5681,15 @@ public void drawEffectSquares()
                 }
             }
 
-            float glideSpeed = 3f * (100f/gv.mod.combatAnimationSpeed) * (1f + mod.currentEncounter.encounterCreatureList.Count * 0.125f); 
+            float glideSpeed = 3f * (100f/gv.mod.combatAnimationSpeed) * (1f + gv.mod.currentEncounter.encounterCreatureList.Count * 0.125f); 
 
-		    foreach (Creature crt in mod.currentEncounter.encounterCreatureList)
+		    foreach (Creature crt in gv.mod.currentEncounter.encounterCreatureList)
 		    {
                 if ((!IsInVisibleCombatWindow(crt.combatLocX, crt.combatLocY)) || (!gv.mod.useCombatSmoothMovement))
                 {
-                    if (creatureIndex <= (mod.currentEncounter.encounterCreatureList.Count - 1))
+                    if (creatureIndex <= (gv.mod.currentEncounter.encounterCreatureList.Count - 1))
                     {
-                        if (((crt == mod.currentEncounter.encounterCreatureList[creatureIndex]) && (!isPlayerTurn)) || (!gv.mod.useCombatSmoothMovement))
+                        if (((crt == gv.mod.currentEncounter.encounterCreatureList[creatureIndex]) && (!isPlayerTurn)) || (!gv.mod.useCombatSmoothMovement))
                         {
                             if ((crt.newCoor.X != -1) && (crt.newCoor.Y != -1))
                             {
@@ -5703,9 +5703,9 @@ public void drawEffectSquares()
                     continue;
                 }
 
-                if (creatureIndex < mod.currentEncounter.encounterCreatureList.Count)
+                if (creatureIndex < gv.mod.currentEncounter.encounterCreatureList.Count)
                 {
-                    if ((crt == mod.currentEncounter.encounterCreatureList[creatureIndex]) && (!isPlayerTurn) && (gv.mod.useCombatSmoothMovement))
+                    if ((crt == gv.mod.currentEncounter.encounterCreatureList[creatureIndex]) && (!isPlayerTurn) && (gv.mod.useCombatSmoothMovement))
                     {
 
                         if ((crt.combatLocX != crt.newCoor.X) || (crt.combatLocY != crt.newCoor.Y))
@@ -5921,7 +5921,7 @@ public void drawEffectSquares()
 			    }
                 
                 IbRectF src = new IbRectF(0, 0, gv.cc.turn_marker.PixelSize.Width, gv.cc.turn_marker.PixelSize.Height);
-                //if ((crt == mod.currentEncounter.encounterCreatureList[creatureIndex]) && (!isPlayerTurn))
+                //if ((crt == gv.mod.currentEncounter.encounterCreatureList[creatureIndex]) && (!isPlayerTurn))
                 //{
                     //gv.DrawBitmap(gv.cc.turn_marker, src, dst);
                 //}
@@ -6005,13 +6005,13 @@ public void drawEffectSquares()
 	    }
         public void drawCombatCreatures()
         {
-            if (mod.currentEncounter.encounterCreatureList.Count > 0)
+            if (gv.mod.currentEncounter.encounterCreatureList.Count > 0)
             {
                 if (!isPlayerTurn)
                 {
-                     if (creatureIndex < mod.currentEncounter.encounterCreatureList.Count)
+                     if (creatureIndex < gv.mod.currentEncounter.encounterCreatureList.Count)
                     {
-                    Creature cr = mod.currentEncounter.encounterCreatureList[creatureIndex];
+                    Creature cr = gv.mod.currentEncounter.encounterCreatureList[creatureIndex];
                     if (IsInVisibleCombatWindow(cr.combatLocX, cr.combatLocY))
                     {
                         IbRect src = new IbRect(0, 0, gv.cc.turn_marker.PixelSize.Width, gv.cc.turn_marker.PixelSize.Height);
@@ -6026,7 +6026,7 @@ public void drawEffectSquares()
                     }
                 }
             }
-            foreach (Creature crt in mod.currentEncounter.encounterCreatureList)
+            foreach (Creature crt in gv.mod.currentEncounter.encounterCreatureList)
             {
                 bool drawCreature = false;
                 foreach (Coordinate coor in crt.tokenCoveredSquares)
@@ -6133,20 +6133,20 @@ public void drawEffectSquares()
         }
 	    public void drawTargetHighlight()
 	    {
-		    Player pc = mod.playerList[currentPlayerIndex];
+		    Player pc = gv.mod.playerList[currentPlayerIndex];
 		    if (currentCombatMode.Equals("attack"))
 		    {
-                Item it = mod.getItemByResRefForInfo(pc.MainHandRefs.resref);
+                Item it = gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref);
                 //if using ranged and have ammo, use ammo properties
-                if ((mod.getItemByResRefForInfo(pc.MainHandRefs.resref).category.Equals("Ranged"))
-                        && (!mod.getItemByResRefForInfo(pc.AmmoRefs.resref).name.Equals("none")))
+                if ((gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref).category.Equals("Ranged"))
+                        && (!gv.mod.getItemByResRefForInfo(pc.AmmoRefs.resref).name.Equals("none")))
                 {
                     //ranged weapon with ammo
-                    it = mod.getItemByResRefForInfo(pc.AmmoRefs.resref);
+                    it = gv.mod.getItemByResRefForInfo(pc.AmmoRefs.resref);
                 }
                 if (it == null)
                 {
-                    it = mod.getItemByResRefForInfo(pc.MainHandRefs.resref);
+                    it = gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref);
                 }
                 //set squares list
                 gv.sf.CreateAoeSquaresList(pc, targetHighlightCenterLocation, it.aoeShape, it.AreaOfEffect);
@@ -6272,14 +6272,14 @@ public void drawEffectSquares()
 	    {		
 		    if ((showHP) && (!animationsOn))
 		    {
-			    foreach (Creature crt in mod.currentEncounter.encounterCreatureList)
+			    foreach (Creature crt in gv.mod.currentEncounter.encounterCreatureList)
 			    {
                     if (IsInVisibleCombatWindow(crt.combatLocX, crt.combatLocY))
                     {
                         drawText(getPixelLocX(crt.combatLocX) + (int)crt.roamDistanceX + (int)crt.glideAdderX, getPixelLocY(crt.combatLocY) + (int)crt.roamDistanceY + (int)crt.glideAdderY, crt.hp + "/" + crt.hpMax, Color.Red);
                     }
 			    }
-			    foreach (Player pc in mod.playerList)
+			    foreach (Player pc in gv.mod.playerList)
 			    {
                     if (IsInVisibleCombatWindow(pc.combatLocX, pc.combatLocY))
                     {
@@ -6293,14 +6293,14 @@ public void drawEffectSquares()
 		    if ((showSP) && (!animationsOn))
 		    {
 			    int txtH = (int)gv.drawFontRegHeight;
-			    foreach (Creature crt in mod.currentEncounter.encounterCreatureList)
+			    foreach (Creature crt in gv.mod.currentEncounter.encounterCreatureList)
 			    {
                     if (IsInVisibleCombatWindow(crt.combatLocX, crt.combatLocY))
                     {
                         drawText(getPixelLocX(crt.combatLocX) + (int)crt.roamDistanceX + (int)crt.glideAdderX, getPixelLocY(crt.combatLocY) + txtH + (int)crt.roamDistanceY + (int)crt.glideAdderY, "sp: " + crt.sp, Color.Yellow);
                     }
 			    }
-			    foreach (Player pc in mod.playerList)
+			    foreach (Player pc in gv.mod.playerList)
 			    {
                     if (IsInVisibleCombatWindow(pc.combatLocX, pc.combatLocY))
                     {
@@ -6455,7 +6455,7 @@ public void drawEffectSquares()
             {
                 if (isPlayerTurn)
                 {
-                    Player pc = mod.playerList[currentPlayerIndex];
+                    Player pc = gv.mod.playerList[currentPlayerIndex];
                     currentCombatMode = "attack";
                     gv.screenType = "combat";
                     setTargetHighlightStartLocation(pc);
@@ -6465,7 +6465,7 @@ public void drawEffectSquares()
             {
                 if (isPlayerTurn)
                 {
-                    if (currentPlayerIndex > mod.playerList.Count - 1)
+                    if (currentPlayerIndex > gv.mod.playerList.Count - 1)
                     {
                         return;
                     }
@@ -6494,7 +6494,7 @@ public void drawEffectSquares()
             {
                 if (isPlayerTurn)
                 {
-                    Player pc = mod.playerList[currentPlayerIndex];
+                    Player pc = gv.mod.playerList[currentPlayerIndex];
                     if (pc.knownSpellsTags.Count > 0)
                     {
                         currentCombatMode = "castSelector";
@@ -6513,7 +6513,7 @@ public void drawEffectSquares()
             {
                 if (isPlayerTurn)
                 {
-                    Player pc = mod.playerList[currentPlayerIndex];
+                    Player pc = gv.mod.playerList[currentPlayerIndex];
                     if (pc.knownInCombatUsableTraitsTags.Count > 0)
                     {
                         currentCombatMode = "traitUseSelector";
@@ -6630,7 +6630,7 @@ public void drawEffectSquares()
             {
                 if (gv.mod.useManualCombatCam)
                 {
-                    if (UpperLeftSquare.Y < mod.currentEncounter.MapSizeY - gv.playerOffsetY - 1)
+                    if (UpperLeftSquare.Y < gv.mod.currentEncounter.MapSizeY - gv.playerOffsetY - 1)
                     {
                         UpperLeftSquare.Y++;
                     }
@@ -6638,7 +6638,7 @@ public void drawEffectSquares()
                 }
                 else
                 {
-                    if (UpperLeftSquare.Y < mod.currentEncounter.MapSizeY - gv.playerOffsetY - gv.playerOffsetY - 1)
+                    if (UpperLeftSquare.Y < gv.mod.currentEncounter.MapSizeY - gv.playerOffsetY - gv.playerOffsetY - 1)
                     {
                         UpperLeftSquare.Y++;
                     }
@@ -6649,7 +6649,7 @@ public void drawEffectSquares()
             {
                 if (gv.mod.useManualCombatCam)
                 {
-                    if (UpperLeftSquare.X < mod.currentEncounter.MapSizeX - gv.playerOffsetX - 1)
+                    if (UpperLeftSquare.X < gv.mod.currentEncounter.MapSizeX - gv.playerOffsetX - 1)
                     {
                         UpperLeftSquare.X++;
                     }
@@ -6657,7 +6657,7 @@ public void drawEffectSquares()
                 }
                 else
                 {
-                    if (UpperLeftSquare.X < mod.currentEncounter.MapSizeX - gv.playerOffsetX - gv.playerOffsetX - 1)
+                    if (UpperLeftSquare.X < gv.mod.currentEncounter.MapSizeX - gv.playerOffsetX - gv.playerOffsetX - 1)
                     {
                         UpperLeftSquare.X++;
                     }
@@ -6665,10 +6665,10 @@ public void drawEffectSquares()
                 }
             }
             #endregion
-            #region Move PC mode
+            #region Move PC gv.mode
             if (currentCombatMode.Equals("move"))
             {
-                Player pc = mod.playerList[currentPlayerIndex];
+                Player pc = gv.mod.playerList[currentPlayerIndex];
                 if (keyData == Keys.NumPad7) 
                 {
                     MoveUpLeft(pc);
@@ -6708,10 +6708,10 @@ public void drawEffectSquares()
                 return;
             }
             #endregion
-            #region Move Targeting Mode
+            #region Move Targeting gv.mode
             if (currentCombatMode.Equals("attack"))
             {
-                Player pc = mod.playerList[currentPlayerIndex];
+                Player pc = gv.mod.playerList[currentPlayerIndex];
                 if (keyData == Keys.NumPad5)
                 {
                     TargetAttackPressed(pc);
@@ -6720,7 +6720,7 @@ public void drawEffectSquares()
             }
             if (currentCombatMode.Equals("cast"))
             {
-                Player pc = mod.playerList[currentPlayerIndex];
+                Player pc = gv.mod.playerList[currentPlayerIndex];
                 if (keyData == Keys.NumPad5)
                 {
                     TargetCastPressed(pc);
@@ -6783,7 +6783,7 @@ public void drawEffectSquares()
                     gv.cc.floatyText = "";
                     gv.cc.floatyText2 = "";
                     gv.cc.floatyText3 = "";
-                    foreach (Creature crt in mod.currentEncounter.encounterCreatureList)
+                    foreach (Creature crt in gv.mod.currentEncounter.encounterCreatureList)
                     {
                         if ((crt.combatLocX == gridx + UpperLeftSquare.X) && (crt.combatLocY == gridy + UpperLeftSquare.Y))
                         {
@@ -6793,12 +6793,12 @@ public void drawEffectSquares()
                             gv.cc.floatyTextLoc = new Coordinate(getPixelLocX(crt.combatLocX), getPixelLocY(crt.combatLocY));
                         }
                     }
-                    foreach (Player pc in mod.playerList)
+                    foreach (Player pc in gv.mod.playerList)
                     {
                         if ((pc.combatLocX == gridx + UpperLeftSquare.X) && (pc.combatLocY == gridy + UpperLeftSquare.Y))
                         {
                             string am = "";
-                            ItemRefs itr = mod.getItemRefsInInventoryByResRef(pc.AmmoRefs.resref);
+                            ItemRefs itr = gv.mod.getItemRefsInInventoryByResRef(pc.AmmoRefs.resref);
                             if (itr != null)
                             {
                                 am = itr.quantity + "";
@@ -6810,7 +6810,7 @@ public void drawEffectSquares()
 
                             gv.cc.floatyText = pc.name;
                             int actext = 0;
-                            if (mod.ArmorClassAscending) { actext = pc.AC; }
+                            if (gv.mod.ArmorClassAscending) { actext = pc.AC; }
                             else { actext = 20 - pc.AC; }
                             gv.cc.floatyText2 = "AC:" + actext + " " + pc.charStatus;
                             gv.cc.floatyText3 = "Ammo: " + am;
@@ -6822,8 +6822,8 @@ public void drawEffectSquares()
                     #region Toggles
                     if (tglHP.getImpact(x, y))
                     {
-                        //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-                        //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
+                        //if (gv.mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
+                        //if (gv.mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
                         if (tglHP.toggleOn)
                         {
                             tglHP.toggleOn = false;
@@ -6835,8 +6835,8 @@ public void drawEffectSquares()
                     }
                     if (tglSP.getImpact(x, y))
                     {
-                        //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-                        //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
+                        //if (gv.mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
+                        //if (gv.mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
                         if (tglSP.toggleOn)
                         {
                             tglSP.toggleOn = false;
@@ -6848,8 +6848,8 @@ public void drawEffectSquares()
                     }
                     if (tglMoveOrder.getImpact(x, y))
                     {
-                        //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-                        //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
+                        //if (gv.mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
+                        //if (gv.mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
                         if (tglMoveOrder.toggleOn)
                         {
                             tglMoveOrder.toggleOn = false;
@@ -6861,33 +6861,33 @@ public void drawEffectSquares()
                     }
                     if (tglSpeed.getImpact(x, y))
                     {
-                        //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-                        //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
+                        //if (gv.mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
+                        //if (gv.mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
                         
-                        if (mod.combatAnimationSpeed == 100)
+                        if (gv.mod.combatAnimationSpeed == 100)
                         {
-                            mod.combatAnimationSpeed = 50;
+                            gv.mod.combatAnimationSpeed = 50;
                             gv.cc.addLogText("lime", "combat speed: 2x");
                             gv.cc.DisposeOfBitmap(ref tglSpeed.ImgOff);
                             tglSpeed.ImgOff = gv.cc.LoadBitmap("tgl_speed_2");
                         }
-                        else if (mod.combatAnimationSpeed == 50)
+                        else if (gv.mod.combatAnimationSpeed == 50)
                         {
-                            mod.combatAnimationSpeed = 25;
+                            gv.mod.combatAnimationSpeed = 25;
                             gv.cc.addLogText("lime", "combat speed: 4x");
                             gv.cc.DisposeOfBitmap(ref tglSpeed.ImgOff);
                             tglSpeed.ImgOff = gv.cc.LoadBitmap("tgl_speed_4");
                         }
-                        else if (mod.combatAnimationSpeed == 25)
+                        else if (gv.mod.combatAnimationSpeed == 25)
                         {
-                            mod.combatAnimationSpeed = 10;
+                            gv.mod.combatAnimationSpeed = 10;
                             gv.cc.addLogText("lime", "combat speed: 10x");
                             gv.cc.DisposeOfBitmap(ref tglSpeed.ImgOff);
                             tglSpeed.ImgOff = gv.cc.LoadBitmap("tgl_speed_10");
                         }
-                        else if (mod.combatAnimationSpeed == 10)
+                        else if (gv.mod.combatAnimationSpeed == 10)
                         {
-                            mod.combatAnimationSpeed = 100;
+                            gv.mod.combatAnimationSpeed = 100;
                             gv.cc.addLogText("lime", "combat speed: 1x");
                             gv.cc.DisposeOfBitmap(ref tglSpeed.ImgOff);
                             tglSpeed.ImgOff = gv.cc.LoadBitmap("tgl_speed_1");
@@ -6895,79 +6895,79 @@ public void drawEffectSquares()
                     }
                     if (gv.cc.tglSound.getImpact(x, y))
                     {
-                        //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-                        //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
+                        //if (gv.mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
+                        //if (gv.mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
                         if (gv.cc.tglSound.toggleOn)
                         {
                             gv.cc.tglSound.toggleOn = false;
-                            mod.playMusic = false;
+                            gv.mod.playMusic = false;
                             gv.stopCombatMusic();
                             //addLogText("lime","Music Off");
                         }
                         else
                         {
                             gv.cc.tglSound.toggleOn = true;
-                            mod.playMusic = true;
+                            gv.mod.playMusic = true;
                             gv.startCombatMusic();
                             //addLogText("lime","Music On");
                         }
                     }
                     if (tglSoundFx.getImpact(x, y))
                     {
-                        //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-                        //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
+                        //if (gv.mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
+                        //if (gv.mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
                         if (tglSoundFx.toggleOn)
                         {
                             tglSoundFx.toggleOn = false;
-                            mod.playSoundFx = false;
+                            gv.mod.playSoundFx = false;
                             //gv.stopCombatMusic();
                             //addLogText("lime","Music Off");
                         }
                         else
                         {
                             tglSoundFx.toggleOn = true;
-                            mod.playSoundFx = true;
+                            gv.mod.playSoundFx = true;
                             //gv.startCombatMusic();
                             //addLogText("lime","Music On");
                         }
                     }
                     if (tglGrid.getImpact(x, y))
                     {
-                        //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-                        //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
+                        //if (gv.mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
+                        //if (gv.mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
                         if (tglGrid.toggleOn)
                         {
                             tglGrid.toggleOn = false;
-                            mod.com_showGrid = false;
+                            gv.mod.com_showGrid = false;
                         }
                         else
                         {
                             tglGrid.toggleOn = true;
-                            mod.com_showGrid = true;
+                            gv.mod.com_showGrid = true;
                         }
                     }
                     if (tglHelp.getImpact(x, y))
                     {
-                        //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-                        //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
+                        //if (gv.mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
+                        //if (gv.mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
                         tutorialMessageCombat(true);
                     }
-                    if ((tglKill.getImpact(x, y)) && (mod.debugMode))
+                    if ((tglKill.getImpact(x, y)) && (gv.mod.debugMode))
                     {
-                        //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-                        //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
-                        mod.currentEncounter.encounterCreatureList.Clear();
-                        mod.currentEncounter.encounterCreatureRefsList.Clear();
+                        //if (gv.mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
+                        //if (gv.mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
+                        gv.mod.currentEncounter.encounterCreatureList.Clear();
+                        gv.mod.currentEncounter.encounterCreatureRefsList.Clear();
                         checkEndEncounter();
                     }
                     #endregion
 
                     if (btnSwitchWeapon.getImpact(x, y))
                     {
-                        //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-                        //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
+                        //if (gv.mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
+                        //if (gv.mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
 
-                        if (currentPlayerIndex > mod.playerList.Count - 1)
+                        if (currentPlayerIndex > gv.mod.playerList.Count - 1)
                         {
                             return;
                         }
@@ -7000,13 +7000,13 @@ public void drawEffectSquares()
             }
             else
             {
-                //info mode
+                //info gv.mode
             }
         }*/
         /*public void onTouchCombatInfo(MouseEventArgs e, MouseEventType.EventType eventType)
         {
             //TODOgv.cc.onTouchLog();
-            Player pc = mod.playerList[currentPlayerIndex];
+            Player pc = gv.mod.playerList[currentPlayerIndex];
 
             btnMove.glowOn = false;
             gv.cc.btnInventory.glowOn = false;
@@ -7060,23 +7060,23 @@ public void drawEffectSquares()
                     {
                         if (canMove)
                         {
-                            //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-                            //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
+                            //if (gv.mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
+                            //if (gv.mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
                             currentCombatMode = "move";
                             gv.screenType = "combat";
                         }
                     }
                     else if (gv.cc.btnInventory.getImpact(x, y))
                     {
-                        //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-                        //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
+                        //if (gv.mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
+                        //if (gv.mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
                         gv.screenType = "combatInventory";
                         gv.screenInventory.resetInventory();
                     }
                     else if (btnAttack.getImpact(x, y))
                     {
-                        //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-                        //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
+                        //if (gv.mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
+                        //if (gv.mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
                         currentCombatMode = "attack";
                         gv.screenType = "combat";
                         setTargetHighlightStartLocation(pc);
@@ -7085,8 +7085,8 @@ public void drawEffectSquares()
                     {
                         if (pc.knownSpellsTags.Count > 0)
                         {
-                            //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-                            //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
+                            //if (gv.mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
+                            //if (gv.mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
                             currentCombatMode = "castSelector";
                             gv.screenType = "combatCast";
                             gv.screenCastSelector.castingPlayerIndex = currentPlayerIndex;
@@ -7095,15 +7095,15 @@ public void drawEffectSquares()
                         }
                         else
                         {
-                            //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-                            //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
+                            //if (gv.mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
+                            //if (gv.mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
                             //TODO Toast.makeText(gv.gameContext, "PC has no Spells", Toast.LENGTH_SHORT).show();
                         }
                     }
                     else if (btnSkipTurn.getImpact(x, y))
                     {
-                        //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-                        //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
+                        //if (gv.mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
+                        //if (gv.mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
                         gv.screenType = "combat";
                         endPcTurn(false);
                     }
@@ -7113,7 +7113,7 @@ public void drawEffectSquares()
         /*public void onTouchCombatMove(MouseEventArgs e, MouseEventType.EventType eventType)
         {
             //gv.cc.onTouchLog();
-            Player pc = mod.playerList[currentPlayerIndex];
+            Player pc = gv.mod.playerList[currentPlayerIndex];
 
             gv.cc.ctrlUpArrow.glowOn = false;
             gv.cc.ctrlDownArrow.glowOn = false;
@@ -7214,7 +7214,7 @@ public void drawEffectSquares()
                     //int gridx = (int)e.X / gv.squareSize - 4;
                     //int gridy = (int)(e.Y - (gv.squareSize / 2)) / gv.squareSize;
 
-                    if (gridy < mod.currentEncounter.MapSizeY)
+                    if (gridy < gv.mod.currentEncounter.MapSizeY)
                     {
                         gv.cc.floatyText = "";
                         gv.cc.floatyText2 = "";
@@ -7225,75 +7225,75 @@ public void drawEffectSquares()
                     //BUTTONS
                     if ((gv.cc.ctrlUpArrow.getImpact(x, y)) || ((gridx + UpperLeftSquare.X == pc.combatLocX) && (gridy + UpperLeftSquare.Y == pc.combatLocY - 1)))
                     {
-                        //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-                        //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
+                        //if (gv.mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
+                        //if (gv.mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
                         MoveUp(pc);
                     }
                     else if ((gv.cc.ctrlDownArrow.getImpact(x, y)) || ((gridx + UpperLeftSquare.X == pc.combatLocX) && (gridy + UpperLeftSquare.Y == pc.combatLocY + 1)))
                     {
-                        //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-                        //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
+                        //if (gv.mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
+                        //if (gv.mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
                         MoveDown(pc);
                     }
                     else if ((gv.cc.ctrlLeftArrow.getImpact(x, y)) || ((gridx + UpperLeftSquare.X == pc.combatLocX - 1) && (gridy + UpperLeftSquare.Y == pc.combatLocY)))
                     {
-                        //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-                        //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
+                        //if (gv.mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
+                        //if (gv.mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
                         MoveLeft(pc);
                     }
                     else if ((gv.cc.ctrlRightArrow.getImpact(x, y)) || ((gridx + UpperLeftSquare.X == pc.combatLocX + 1) && (gridy + UpperLeftSquare.Y == pc.combatLocY)))
                     {
-                        //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-                        //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
+                        //if (gv.mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
+                        //if (gv.mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
                         MoveRight(pc);
                     }
                     else if ((gv.cc.ctrlUpRightArrow.getImpact(x, y)) || ((gridx + UpperLeftSquare.X == pc.combatLocX + 1) && (gridy + UpperLeftSquare.Y == pc.combatLocY - 1)))
                     {
-                        //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-                        //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
+                        //if (gv.mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
+                        //if (gv.mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
                         MoveUpRight(pc);
                     }
                     else if ((gv.cc.ctrlDownRightArrow.getImpact(x, y)) || ((gridx + UpperLeftSquare.X == pc.combatLocX + 1) && (gridy + UpperLeftSquare.Y == pc.combatLocY + 1)))
                     {
-                        //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-                        //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
+                        //if (gv.mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
+                        //if (gv.mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
                         MoveDownRight(pc);
                     }
                     else if ((gv.cc.ctrlUpLeftArrow.getImpact(x, y)) || ((gridx + UpperLeftSquare.X == pc.combatLocX - 1) && (gridy + UpperLeftSquare.Y == pc.combatLocY - 1)))
                     {
-                        //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-                        //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
+                        //if (gv.mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
+                        //if (gv.mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
                         MoveUpLeft(pc);
                     }
                     else if ((gv.cc.ctrlDownLeftArrow.getImpact(x, y)) || ((gridx + UpperLeftSquare.X == pc.combatLocX - 1) && (gridy + UpperLeftSquare.Y == pc.combatLocY + 1)))
                     {
-                        //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-                        //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
+                        //if (gv.mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
+                        //if (gv.mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
                         MoveDownLeft(pc);
                     }
                     else if (btnMove.getImpact(x, y))
                     {
                         if (canMove)
                         {
-                            //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-                            //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
+                            //if (gv.mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
+                            //if (gv.mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
                             currentCombatMode = "info";
                             gv.screenType = "combat";
-                            //Toast.makeText(gameContext, "Move Mode", Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(gameContext, "Move gv.mode", Toast.LENGTH_SHORT).show();
                         }
                     }
                     else if (gv.cc.btnInventory.getImpact(x, y))
                     {
-                        //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-                        //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
+                        //if (gv.mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
+                        //if (gv.mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
                         gv.screenType = "combatInventory";
                         gv.screenInventory.resetInventory();
                         //Toast.makeText(gameContext, "Inventory Button", Toast.LENGTH_SHORT).show();
                     }
                     else if (btnAttack.getImpact(x, y))
                     {
-                        //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-                        //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
+                        //if (gv.mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
+                        //if (gv.mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
                         currentCombatMode = "attack";
                         gv.screenType = "combat";
                         setTargetHighlightStartLocation(pc);
@@ -7302,8 +7302,8 @@ public void drawEffectSquares()
                     {
                         if (pc.knownSpellsTags.Count > 0)
                         {
-                            //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-                            //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
+                            //if (gv.mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
+                            //if (gv.mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
                             currentCombatMode = "castSelector";
                             gv.screenType = "combatCast";
                             gv.screenCastSelector.castingPlayerIndex = currentPlayerIndex;
@@ -7312,15 +7312,15 @@ public void drawEffectSquares()
                         }
                         else
                         {
-                            //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-                            //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
+                            //if (gv.mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
+                            //if (gv.mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
                             //TODO Toast.makeText(gv.gameContext, "PC has no Spells", Toast.LENGTH_SHORT).show();
                         }
                     }
                     else if (btnSkipTurn.getImpact(x, y))
                     {
-                        //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-                        //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
+                        //if (gv.mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
+                        //if (gv.mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
                         gv.screenType = "combat";
                         endPcTurn(false);
                     }
@@ -7329,7 +7329,7 @@ public void drawEffectSquares()
         }*/
         /*public void onTouchCombatAttack(MouseEventArgs e, MouseEventType.EventType eventType)
         {
-            Player pc = mod.playerList[currentPlayerIndex];
+            Player pc = gv.mod.playerList[currentPlayerIndex];
 
             gv.cc.ctrlUpArrow.glowOn = false;
             gv.cc.ctrlDownArrow.glowOn = false;
@@ -7453,79 +7453,79 @@ public void drawEffectSquares()
                     //BUTTONS
                     if (gv.cc.ctrlUpArrow.getImpact(x, y))
                     {
-                        //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-                        //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
+                        //if (gv.mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
+                        //if (gv.mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
                         MoveTargetHighlight(8);
                     }
                     else if (gv.cc.ctrlDownArrow.getImpact(x, y))
                     {
-                        //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-                        //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
+                        //if (gv.mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
+                        //if (gv.mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
                         MoveTargetHighlight(2);
                     }
                     else if (gv.cc.ctrlLeftArrow.getImpact(x, y))
                     {
-                        //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-                        //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
+                        //if (gv.mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
+                        //if (gv.mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
                         MoveTargetHighlight(4);
                     }
                     else if (gv.cc.ctrlRightArrow.getImpact(x, y))
                     {
-                        //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-                        //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
+                        //if (gv.mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
+                        //if (gv.mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
                         MoveTargetHighlight(6);
                     }
                     else if (gv.cc.ctrlUpRightArrow.getImpact(x, y))
                     {
-                        //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-                        //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
+                        //if (gv.mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
+                        //if (gv.mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
                         MoveTargetHighlight(9);
                     }
                     else if (gv.cc.ctrlDownRightArrow.getImpact(x, y))
                     {
-                        //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-                        //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
+                        //if (gv.mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
+                        //if (gv.mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
                         MoveTargetHighlight(3);
                     }
                     else if (gv.cc.ctrlUpLeftArrow.getImpact(x, y))
                     {
-                        //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-                        //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
+                        //if (gv.mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
+                        //if (gv.mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
                         MoveTargetHighlight(7);
                     }
                     else if (gv.cc.ctrlDownLeftArrow.getImpact(x, y))
                     {
-                        //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-                        //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
+                        //if (gv.mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
+                        //if (gv.mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
                         MoveTargetHighlight(1);
                     }
                     else if (btnSelect.getImpact(x, y))
                     {
-                        //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-                        //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
+                        //if (gv.mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
+                        //if (gv.mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
                         TargetAttackPressed(pc);                        
                     }
                     else if (btnMove.getImpact(x, y))
                     {
                         if (canMove)
                         {
-                            //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-                            //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
+                            //if (gv.mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
+                            //if (gv.mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
                             currentCombatMode = "move";
                             gv.screenType = "combat";
                         }
                     }
                     else if (gv.cc.btnInventory.getImpact(x, y))
                     {
-                        //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-                        //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
+                        //if (gv.mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
+                        //if (gv.mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
                         gv.screenType = "combatInventory";
                         gv.screenInventory.resetInventory();
                     }
                     else if (btnAttack.getImpact(x, y))
                     {
-                        //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-                        //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
+                        //if (gv.mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
+                        //if (gv.mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
                         currentCombatMode = "info";
                         gv.screenType = "combat";
                         setTargetHighlightStartLocation(pc);
@@ -7534,8 +7534,8 @@ public void drawEffectSquares()
                     {
                         if (pc.knownSpellsTags.Count > 0)
                         {
-                            //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-                            //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
+                            //if (gv.mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
+                            //if (gv.mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
                             currentCombatMode = "castSelector";
                             gv.screenType = "combatCast";
                             gv.screenCastSelector.castingPlayerIndex = currentPlayerIndex;
@@ -7544,15 +7544,15 @@ public void drawEffectSquares()
                         }
                         else
                         {
-                            //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-                            //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
+                            //if (gv.mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
+                            //if (gv.mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
                             //TODO Toast.makeText(gv.gameContext, "PC has no Spells", Toast.LENGTH_SHORT).show();
                         }
                     }
                     else if (btnSkipTurn.getImpact(x, y))
                     {
-                        //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-                        //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
+                        //if (gv.mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
+                        //if (gv.mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
                         endPcTurn(false);
                     }
                     break;
@@ -7561,7 +7561,7 @@ public void drawEffectSquares()
         /*public void onTouchCombatCast(MouseEventArgs e, MouseEventType.EventType eventType)
         {
             //gv.cc.onTouchLog();
-            Player pc = mod.playerList[currentPlayerIndex];
+            Player pc = gv.mod.playerList[currentPlayerIndex];
 
             gv.cc.ctrlUpArrow.glowOn = false;
             gv.cc.ctrlDownArrow.glowOn = false;
@@ -7667,7 +7667,7 @@ public void drawEffectSquares()
                     int gridy = ((int)(e.Y - (gv.squareSize / 2)) / gv.squareSize) + UpperLeftSquare.Y;
 
                     if (IsInVisibleCombatWindow(gridx, gridy))
-                    //if (gridy < mod.currentEncounter.MapSizeY)
+                    //if (gridy < gv.mod.currentEncounter.MapSizeY)
                     {
                         gv.cc.floatyText = "";
                         gv.cc.floatyText2 = "";
@@ -7684,50 +7684,50 @@ public void drawEffectSquares()
                     //BUTTONS
                     if (gv.cc.ctrlUpArrow.getImpact(x, y))
                     {
-                        //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-                        //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
+                        //if (gv.mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
+                        //if (gv.mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
                         MoveTargetHighlight(8);
                     }
                     else if (gv.cc.ctrlDownArrow.getImpact(x, y))
                     {
-                        //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-                        //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
+                        //if (gv.mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
+                        //if (gv.mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
                         MoveTargetHighlight(2);
                     }
                     else if (gv.cc.ctrlLeftArrow.getImpact(x, y))
                     {
-                        //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-                        //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
+                        //if (gv.mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
+                        //if (gv.mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
                         MoveTargetHighlight(4);
                     }
                     else if (gv.cc.ctrlRightArrow.getImpact(x, y))
                     {
-                        //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-                        //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
+                        //if (gv.mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
+                        //if (gv.mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
                         MoveTargetHighlight(6);
                     }
                     else if (gv.cc.ctrlUpRightArrow.getImpact(x, y))
                     {
-                        //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-                        //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
+                        //if (gv.mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
+                        //if (gv.mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
                         MoveTargetHighlight(9);
                     }
                     else if (gv.cc.ctrlDownRightArrow.getImpact(x, y))
                     {
-                        //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-                        //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
+                        //if (gv.mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
+                        //if (gv.mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
                         MoveTargetHighlight(3);
                     }
                     else if (gv.cc.ctrlUpLeftArrow.getImpact(x, y))
                     {
-                        //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-                        //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
+                        //if (gv.mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
+                        //if (gv.mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
                         MoveTargetHighlight(7);
                     }
                     else if (gv.cc.ctrlDownLeftArrow.getImpact(x, y))
                     {
-                        //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-                        //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
+                        //if (gv.mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
+                        //if (gv.mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
                         MoveTargetHighlight(1);
                     }
                     else if (btnSelect.getImpact(x, y))
@@ -7739,36 +7739,36 @@ public void drawEffectSquares()
                     {
                         if (canMove)
                         {
-                            //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-                            //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
+                            //if (gv.mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
+                            //if (gv.mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
                             currentCombatMode = "move";
                             gv.screenType = "combat";
-                            //Toast.makeText(gameContext, "Move Mode", Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(gameContext, "Move gv.mode", Toast.LENGTH_SHORT).show();
                         }
                     }
                     else if (gv.cc.btnInventory.getImpact(x, y))
                     {
-                        //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-                        //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
+                        //if (gv.mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
+                        //if (gv.mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
                         gv.screenType = "combatInventory";
                         gv.screenInventory.resetInventory();
                         //Toast.makeText(gameContext, "Inventory Button", Toast.LENGTH_SHORT).show();
                     }
                     else if (btnAttack.getImpact(x, y))
                     {
-                        //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-                        //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
+                        //if (gv.mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
+                        //if (gv.mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
                         currentCombatMode = "attack";
                         gv.screenType = "combat";
                         setTargetHighlightStartLocation(pc);
-                        //Toast.makeText(gameContext, "Attack Mode", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(gameContext, "Attack gv.mode", Toast.LENGTH_SHORT).show();
                     }
                     else if (btnCast.getImpact(x, y))
                     {
                         if (pc.knownSpellsTags.Count > 0)
                         {
-                            //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-                            //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
+                            //if (gv.mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
+                            //if (gv.mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
                             currentCombatMode = "castSelector";
                             gv.screenType = "combatCast";
                             gv.screenCastSelector.castingPlayerIndex = currentPlayerIndex;
@@ -7777,15 +7777,15 @@ public void drawEffectSquares()
                         }
                         else
                         {
-                            //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-                            //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
+                            //if (gv.mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
+                            //if (gv.mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
                             //TODO Toast.makeText(gv.gameContext, "PC has no Spells", Toast.LENGTH_SHORT).show();
                         }
                     }
                     else if (btnSkipTurn.getImpact(x, y))
                     {
-                        //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-                        //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
+                        //if (gv.mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
+                        //if (gv.mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
                         endPcTurn(false);
                     }
                     break;
@@ -7811,7 +7811,7 @@ public void drawEffectSquares()
                     gv.cc.floatyText = "";
                     gv.cc.floatyText2 = "";
                     gv.cc.floatyText3 = "";
-                    foreach (Creature crt in mod.currentEncounter.encounterCreatureList)
+                    foreach (Creature crt in gv.mod.currentEncounter.encounterCreatureList)
                     {
                         //if ((crt.combatLocX == gridx + UpperLeftSquare.X) && (crt.combatLocY == gridy + UpperLeftSquare.Y))
                         //1=normal, 2=wide, 3=tall, 4=large  
@@ -7867,12 +7867,12 @@ public void drawEffectSquares()
                             }
                         }
                     }
-                        foreach (Player pc1 in mod.playerList)
+                        foreach (Player pc1 in gv.mod.playerList)
                     {
                         if ((pc1.combatLocX == gridx + UpperLeftSquare.X) && (pc1.combatLocY == gridy + UpperLeftSquare.Y))
                         {
                             string am = "";
-                            ItemRefs itr = mod.getItemRefsInInventoryByResRef(pc1.AmmoRefs.resref);
+                            ItemRefs itr = gv.mod.getItemRefsInInventoryByResRef(pc1.AmmoRefs.resref);
                             if (itr != null)
                             {
                                 am = itr.quantity + "";
@@ -7884,7 +7884,7 @@ public void drawEffectSquares()
 
                             gv.cc.floatyText = pc1.name;
                             int actext = 0;
-                            if (mod.ArmorClassAscending) { actext = pc1.AC; }
+                            if (gv.mod.ArmorClassAscending) { actext = pc1.AC; }
                             else { actext = 20 - pc1.AC; }
                             gv.cc.floatyText2 = "AC:" + actext + " " + pc1.charStatus;
                             gv.cc.floatyText3 = "Ammo: " + am;
@@ -7900,7 +7900,7 @@ public void drawEffectSquares()
                     x = (int)e.X;
                     y = (int)e.Y;
 
-                    Player pc = mod.playerList[currentPlayerIndex];
+                    Player pc = gv.mod.playerList[currentPlayerIndex];
 
                     //NEW SYSTEM
                     string rtn = combatUiLayout.getImpact(x, y);
@@ -7940,12 +7940,12 @@ public void drawEffectSquares()
                         IB2ToggleButton tgl = combatUiLayout.GetToggleByTag(rtn);
                         if (tgl == null) { return; }
                         tgl.toggleOn = !tgl.toggleOn;
-                        if (mod.fastMode)
+                        if (gv.mod.fastMode)
                         {
-                            UpperLeftSquare.X = mod.currentEncounter.encounterCreatureList[creatureIndex].combatLocX - gv.playerOffsetX;
-                            UpperLeftSquare.Y = mod.currentEncounter.encounterCreatureList[creatureIndex].combatLocY - gv.playerOffsetY;
+                            UpperLeftSquare.X = gv.mod.currentEncounter.encounterCreatureList[creatureIndex].combatLocX - gv.playerOffsetX;
+                            UpperLeftSquare.Y = gv.mod.currentEncounter.encounterCreatureList[creatureIndex].combatLocY - gv.playerOffsetY;
                         }
-                        mod.fastMode = !mod.fastMode;
+                        gv.mod.fastMode = !gv.mod.fastMode;
                     }
 
                     if (rtn.Equals("tglSpeed"))
@@ -7953,27 +7953,27 @@ public void drawEffectSquares()
                         IB2ToggleButton tgl = combatUiLayout.GetToggleByTag(rtn);
                         if (tgl == null) { return; }
 
-                        if (mod.combatAnimationSpeed == 100)
+                        if (gv.mod.combatAnimationSpeed == 100)
                         {
-                            mod.combatAnimationSpeed = 50;
+                            gv.mod.combatAnimationSpeed = 50;
                             tgl.ImgOffFilename = "tgl_speed_2";
                             gv.cc.addLogText("lime", "move speed: 2x");                            
                         }
-                        else if (mod.combatAnimationSpeed == 50)
+                        else if (gv.mod.combatAnimationSpeed == 50)
                         {
-                            mod.combatAnimationSpeed = 25;
+                            gv.mod.combatAnimationSpeed = 25;
                             tgl.ImgOffFilename = "tgl_speed_4";
                             gv.cc.addLogText("lime", "move speed: 4x");                            
                         }
-                        else if (mod.combatAnimationSpeed == 25)
+                        else if (gv.mod.combatAnimationSpeed == 25)
                         {
-                            mod.combatAnimationSpeed = 10;
+                            gv.mod.combatAnimationSpeed = 10;
                             tgl.ImgOffFilename = "tgl_speed_10";
                             gv.cc.addLogText("lime", "move speed: 10x");
                         }
-                        else if (mod.combatAnimationSpeed == 10)
+                        else if (gv.mod.combatAnimationSpeed == 10)
                         {
-                            mod.combatAnimationSpeed = 100;
+                            gv.mod.combatAnimationSpeed = 100;
                             tgl.ImgOffFilename = "tgl_speed_1";
                             gv.cc.addLogText("lime", "move speed: 1x");
                         }
@@ -7983,27 +7983,27 @@ public void drawEffectSquares()
                         IB2ToggleButton tgl = combatUiLayout.GetToggleByTag(rtn);
                         if (tgl == null) { return; }
 
-                        if (mod.attackAnimationSpeed == 100)
+                        if (gv.mod.attackAnimationSpeed == 100)
                         {
-                            mod.attackAnimationSpeed = 50;
+                            gv.mod.attackAnimationSpeed = 50;
                             tgl.ImgOffFilename = "tgl_attackSpeed_2";
                             gv.cc.addLogText("lime", "attack and cast speed: 2x");
                         }
-                        else if (mod.attackAnimationSpeed == 50)
+                        else if (gv.mod.attackAnimationSpeed == 50)
                         {
-                            mod.attackAnimationSpeed = 25;
+                            gv.mod.attackAnimationSpeed = 25;
                             tgl.ImgOffFilename = "tgl_attackSpeed_4";
                             gv.cc.addLogText("lime", "attack and cast speed: 4x");
                         }
-                        else if (mod.attackAnimationSpeed == 25)
+                        else if (gv.mod.attackAnimationSpeed == 25)
                         {
-                            mod.attackAnimationSpeed = 10;
+                            gv.mod.attackAnimationSpeed = 10;
                             tgl.ImgOffFilename = "tgl_attackSpeed_10";
                             gv.cc.addLogText("lime", "attack and cast speed: 10x");
                         }
-                        else if (mod.attackAnimationSpeed == 10)
+                        else if (gv.mod.attackAnimationSpeed == 10)
                         {
-                            mod.attackAnimationSpeed = 100;
+                            gv.mod.attackAnimationSpeed = 100;
                             tgl.ImgOffFilename = "tgl_attackSpeed_1";
                             gv.cc.addLogText("lime", "attack and cast speed: 1x");
                         }
@@ -8015,7 +8015,7 @@ public void drawEffectSquares()
                         if (tgl.toggleOn)
                         {
                             tgl.toggleOn = false;
-                            mod.playMusic = false;
+                            gv.mod.playMusic = false;
                             //TODO gv.screenCombat.tglSoundFx.toggleOn = false;
                             gv.stopCombatMusic();
                             gv.cc.addLogText("lime", "Music Off");
@@ -8023,7 +8023,7 @@ public void drawEffectSquares()
                         else
                         {
                             tgl.toggleOn = true;
-                            mod.playMusic = true;
+                            gv.mod.playMusic = true;
                             //TODO gv.screenCombat.tglSoundFx.toggleOn = true;
                             gv.startCombatMusic();
                             gv.cc.addLogText("lime", "Music On");
@@ -8036,13 +8036,13 @@ public void drawEffectSquares()
                         if (tgl.toggleOn)
                         {
                             tgl.toggleOn = false;
-                            mod.playSoundFx = false;
+                            gv.mod.playSoundFx = false;
                             gv.cc.addLogText("lime", "SoundFX Off");
                         }
                         else
                         {
                             tgl.toggleOn = true;
-                            mod.playSoundFx = true;
+                            gv.mod.playSoundFx = true;
                             gv.cc.addLogText("lime", "SoundFX On");
                         }
                     }
@@ -8053,22 +8053,22 @@ public void drawEffectSquares()
                         if (tgl.toggleOn)
                         {
                             tgl.toggleOn = false;
-                            mod.com_showGrid = false;
+                            gv.mod.com_showGrid = false;
                         }
                         else
                         {
                             tgl.toggleOn = true;
-                            mod.com_showGrid = true;
+                            gv.mod.com_showGrid = true;
                         }
                     }
                     if (rtn.Equals("tglHelp"))
                     {
                         tutorialMessageCombat(true);
                     }
-                    if ((rtn.Equals("tglKill")) && (mod.debugMode))
+                    if ((rtn.Equals("tglKill")) && (gv.mod.debugMode))
                     {
-                        mod.currentEncounter.encounterCreatureList.Clear();
-                        mod.currentEncounter.encounterCreatureRefsList.Clear();
+                        gv.mod.currentEncounter.encounterCreatureList.Clear();
+                        gv.mod.currentEncounter.encounterCreatureRefsList.Clear();
                         checkEndEncounter();
                     }
                     #endregion
@@ -8245,7 +8245,7 @@ public void drawEffectSquares()
                     {
                         if (isPlayerTurn)
                         {
-                            if (currentPlayerIndex > mod.playerList.Count - 1)
+                            if (currentPlayerIndex > gv.mod.playerList.Count - 1)
                             {
                                 return;
                             }
@@ -10753,9 +10753,9 @@ public void drawEffectSquares()
         public void doUpdate(Player pc)
         {
             CalculateUpperLeft();
-            if (moveCost == mod.diagonalMoveCost)
+            if (moveCost == gv.mod.diagonalMoveCost)
             {
-                currentMoves += mod.diagonalMoveCost;
+                currentMoves += gv.mod.diagonalMoveCost;
                 moveCost = 1.0f;
             }
             else
@@ -10782,7 +10782,7 @@ public void drawEffectSquares()
                     }
                     break;
                 case 2: //down
-                    if (targetHighlightCenterLocation.Y < mod.currentEncounter.MapSizeY - 1)
+                    if (targetHighlightCenterLocation.Y < gv.mod.currentEncounter.MapSizeY - 1)
                     {
                         targetHighlightCenterLocation.Y++;
                         if (!IsInVisibleCombatWindow(targetHighlightCenterLocation.X, targetHighlightCenterLocation.Y))
@@ -10802,7 +10802,7 @@ public void drawEffectSquares()
                     }
                     break;
                 case 6: //right
-                    if (targetHighlightCenterLocation.X < mod.currentEncounter.MapSizeX - 1)
+                    if (targetHighlightCenterLocation.X < gv.mod.currentEncounter.MapSizeX - 1)
                     {
                         targetHighlightCenterLocation.X++;
                         if (!IsInVisibleCombatWindow(targetHighlightCenterLocation.X, targetHighlightCenterLocation.Y))
@@ -10812,7 +10812,7 @@ public void drawEffectSquares()
                     }
                     break;
                 case 9: //upright
-                    if ((targetHighlightCenterLocation.X < mod.currentEncounter.MapSizeX - 1) && (targetHighlightCenterLocation.Y > 0))
+                    if ((targetHighlightCenterLocation.X < gv.mod.currentEncounter.MapSizeX - 1) && (targetHighlightCenterLocation.Y > 0))
                     {
                         targetHighlightCenterLocation.X++;
                         targetHighlightCenterLocation.Y--;
@@ -10824,7 +10824,7 @@ public void drawEffectSquares()
                     }
                     break;
                 case 3: //downright
-                    if ((targetHighlightCenterLocation.X < mod.currentEncounter.MapSizeX - 1) && (targetHighlightCenterLocation.Y < mod.currentEncounter.MapSizeY - 1))
+                    if ((targetHighlightCenterLocation.X < gv.mod.currentEncounter.MapSizeX - 1) && (targetHighlightCenterLocation.Y < gv.mod.currentEncounter.MapSizeY - 1))
                     {
                         targetHighlightCenterLocation.X++;
                         targetHighlightCenterLocation.Y++;
@@ -10848,7 +10848,7 @@ public void drawEffectSquares()
                     }
                     break;
                 case 1: //downleft
-                    if ((targetHighlightCenterLocation.X > 0) && (targetHighlightCenterLocation.Y < mod.currentEncounter.MapSizeY - 1))
+                    if ((targetHighlightCenterLocation.X > 0) && (targetHighlightCenterLocation.Y < gv.mod.currentEncounter.MapSizeY - 1))
                     {
                         targetHighlightCenterLocation.X--;
                         targetHighlightCenterLocation.Y++;
@@ -10901,7 +10901,7 @@ public void drawEffectSquares()
                 CenterScreenOnPC();
             }
 
-            if ((pc.combatLocX < mod.currentEncounter.MapSizeX - 1) && (pc.combatLocY > 0))
+            if ((pc.combatLocX < gv.mod.currentEncounter.MapSizeX - 1) && (pc.combatLocY > 0))
             {
                 if (isWalkable(pc.combatLocX + 1, pc.combatLocY - 1))
                 {
@@ -10914,7 +10914,7 @@ public void drawEffectSquares()
                         currentCombatMode = "attack";
                         TargetAttackPressed(pc);
                     }
-                    else if ((pc.moveDistance - currentMoves) >= mod.diagonalMoveCost)
+                    else if ((pc.moveDistance - currentMoves) >= gv.mod.diagonalMoveCost)
                     {
                         LeaveThreatenedCheck(pc, pc.combatLocX + 1, pc.combatLocY - 1);
                         doPlayerCombatFacing(pc, pc.combatLocX + 1, pc.combatLocY - 1);
@@ -10924,7 +10924,7 @@ public void drawEffectSquares()
                         {
                             pc.combatFacingLeft = false;
                         }
-                        moveCost = mod.diagonalMoveCost;
+                        moveCost = gv.mod.diagonalMoveCost;
                         doUpdate(pc);
                     }
                 }
@@ -10950,7 +10950,7 @@ public void drawEffectSquares()
                         currentCombatMode = "attack";
                         TargetAttackPressed(pc);
                     }
-                    else if ((pc.moveDistance - currentMoves) >= mod.diagonalMoveCost)
+                    else if ((pc.moveDistance - currentMoves) >= gv.mod.diagonalMoveCost)
                     {
                         LeaveThreatenedCheck(pc, pc.combatLocX - 1, pc.combatLocY - 1);
                         doPlayerCombatFacing(pc, pc.combatLocX - 1, pc.combatLocY - 1);
@@ -10960,7 +10960,7 @@ public void drawEffectSquares()
                         {
                             pc.combatFacingLeft = true;
                         }
-                        moveCost = mod.diagonalMoveCost;
+                        moveCost = gv.mod.diagonalMoveCost;
                         doUpdate(pc);
                     }
                 }
@@ -10973,7 +10973,7 @@ public void drawEffectSquares()
                 CenterScreenOnPC();
             }
 
-            if (pc.combatLocY < mod.currentEncounter.MapSizeY - 1)
+            if (pc.combatLocY < gv.mod.currentEncounter.MapSizeY - 1)
             {
                 if (isWalkable(pc.combatLocX, pc.combatLocY + 1))
                 {
@@ -11003,7 +11003,7 @@ public void drawEffectSquares()
                 CenterScreenOnPC();
             }
 
-            if ((pc.combatLocX < mod.currentEncounter.MapSizeX - 1) && (pc.combatLocY < mod.currentEncounter.MapSizeY - 1))
+            if ((pc.combatLocX < gv.mod.currentEncounter.MapSizeX - 1) && (pc.combatLocY < gv.mod.currentEncounter.MapSizeY - 1))
             {
                 if (isWalkable(pc.combatLocX + 1, pc.combatLocY + 1))
                 {
@@ -11016,7 +11016,7 @@ public void drawEffectSquares()
                         currentCombatMode = "attack";
                         TargetAttackPressed(pc);
                     }
-                    else if ((pc.moveDistance - currentMoves) >= mod.diagonalMoveCost)
+                    else if ((pc.moveDistance - currentMoves) >= gv.mod.diagonalMoveCost)
                     {
                         LeaveThreatenedCheck(pc, pc.combatLocX + 1, pc.combatLocY + 1);
                         doPlayerCombatFacing(pc, pc.combatLocX + 1, pc.combatLocY + 1);
@@ -11026,7 +11026,7 @@ public void drawEffectSquares()
                         {
                             pc.combatFacingLeft = false;
                         }
-                        moveCost = mod.diagonalMoveCost;
+                        moveCost = gv.mod.diagonalMoveCost;
                         doUpdate(pc);
                     }
                 }
@@ -11039,7 +11039,7 @@ public void drawEffectSquares()
                 CenterScreenOnPC();
             }
 
-            if ((pc.combatLocX > 0) && (pc.combatLocY < mod.currentEncounter.MapSizeY - 1))
+            if ((pc.combatLocX > 0) && (pc.combatLocY < gv.mod.currentEncounter.MapSizeY - 1))
             {
                 if (isWalkable(pc.combatLocX - 1, pc.combatLocY + 1))
                 {
@@ -11052,7 +11052,7 @@ public void drawEffectSquares()
                         currentCombatMode = "attack";
                         TargetAttackPressed(pc);
                     }
-                    else if ((pc.moveDistance - currentMoves) >= mod.diagonalMoveCost)
+                    else if ((pc.moveDistance - currentMoves) >= gv.mod.diagonalMoveCost)
                     {
                         LeaveThreatenedCheck(pc, pc.combatLocX - 1, pc.combatLocY + 1);
                         doPlayerCombatFacing(pc, pc.combatLocX - 1, pc.combatLocY + 1);
@@ -11062,7 +11062,7 @@ public void drawEffectSquares()
                         {
                             pc.combatFacingLeft = true;
                         }
-                        moveCost = mod.diagonalMoveCost;
+                        moveCost = gv.mod.diagonalMoveCost;
                         doUpdate(pc);
                     }
                 }
@@ -11075,7 +11075,7 @@ public void drawEffectSquares()
                 CenterScreenOnPC();
             }
 
-            if (pc.combatLocX < mod.currentEncounter.MapSizeX - 1)
+            if (pc.combatLocX < gv.mod.currentEncounter.MapSizeX - 1)
             {
                 if (isWalkable(pc.combatLocX + 1, pc.combatLocY))
                 {
@@ -11159,12 +11159,12 @@ public void drawEffectSquares()
                 playerToAnimate = pc;
                 //set attack animation and do a delay
                 attackAnimationTimeElapsed = 0;
-                attackAnimationLengthInMilliseconds = (int)(5f * mod.attackAnimationSpeed);
-                //attackAnimationLengthInMilliseconds = (int)((5f * mod.attackAnimationSpeed) * (-1 + (int)pc.token.PixelSize.Height / 100f));
-                //attackAnimationLengthInMilliseconds = (int)((5f * mod.attackAnimationSpeed) + (-1 + (int)pc.token.PixelSize.Height / 100f) * 100);
-                if ((mod.getItemByResRefForInfo(pc.MainHandRefs.resref).category.Equals("Melee"))
-                        || (mod.getItemByResRefForInfo(pc.MainHandRefs.resref).name.Equals("none"))
-                        || (mod.getItemByResRefForInfo(pc.AmmoRefs.resref).name.Equals("none")))
+                attackAnimationLengthInMilliseconds = (int)(5f * gv.mod.attackAnimationSpeed);
+                //attackAnimationLengthInMilliseconds = (int)((5f * gv.mod.attackAnimationSpeed) * (-1 + (int)pc.token.PixelSize.Height / 100f));
+                //attackAnimationLengthInMilliseconds = (int)((5f * gv.mod.attackAnimationSpeed) + (-1 + (int)pc.token.PixelSize.Height / 100f) * 100);
+                if ((gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref).category.Equals("Melee"))
+                        || (gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref).name.Equals("none"))
+                        || (gv.mod.getItemByResRefForInfo(pc.AmmoRefs.resref).name.Equals("none")))
                 {
                     //do melee attack stuff and animations  
                     AnimationSequence newSeq = new AnimationSequence();
@@ -11188,14 +11188,14 @@ public void drawEffectSquares()
                 else //Ranged Attack
                 {
                     //play attack sound for ranged
-                    gv.PlaySound(mod.getItemByResRefForInfo(pc.MainHandRefs.resref).itemOnUseSound);
+                    gv.PlaySound(gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref).itemOnUseSound);
                     //do ranged attack stuff and animations
                     //add projectile animation
                     int startX = getPixelLocX(pc.combatLocX);
                     int startY = getPixelLocY(pc.combatLocY);
                     int endX = getPixelLocX(targetHighlightCenterLocation.X);
                     int endY = getPixelLocY(targetHighlightCenterLocation.Y);
-                    string filename = mod.getItemByResRefForInfo(pc.AmmoRefs.resref).projectileSpriteFilename;                    
+                    string filename = gv.mod.getItemByResRefForInfo(pc.AmmoRefs.resref).projectileSpriteFilename;                    
                     AnimationSequence newSeq = new AnimationSequence();
                     animationSeqStack.Add(newSeq);
                     AnimationStackGroup newGroup = new AnimationStackGroup();
@@ -11249,9 +11249,9 @@ public void drawEffectSquares()
                 playerToAnimate = pc;
                 //set attack animation and do a delay
                 attackAnimationTimeElapsed = 0;
-                attackAnimationLengthInMilliseconds = (int)(5f * mod.attackAnimationSpeed);
-                //attackAnimationLengthInMilliseconds = (int)((5f * mod.attackAnimationSpeed) + (-1 + (int)pc.token.PixelSize.Height / 100f) * 2* mod.attackAnimationSpeed);
-                //attackAnimationLengthInMilliseconds = (int)((5f * mod.attackAnimationSpeed) + (-1 + (int)pc.token.PixelSize.Height / 100f) * 100);
+                attackAnimationLengthInMilliseconds = (int)(5f * gv.mod.attackAnimationSpeed);
+                //attackAnimationLengthInMilliseconds = (int)((5f * gv.mod.attackAnimationSpeed) + (-1 + (int)pc.token.PixelSize.Height / 100f) * 2* gv.mod.attackAnimationSpeed);
+                //attackAnimationLengthInMilliseconds = (int)((5f * gv.mod.attackAnimationSpeed) + (-1 + (int)pc.token.PixelSize.Height / 100f) * 100);
                 AnimationSequence newSeq = new AnimationSequence();
                 animationSeqStack.Add(newSeq);
                 //add projectile animation
@@ -11326,7 +11326,7 @@ public void drawEffectSquares()
             {
                 gv.touchEnabled = false;
             }
-            int ttl = 8 * mod.attackAnimationSpeed;
+            int ttl = 8 * gv.mod.attackAnimationSpeed;
             Sprite spr = new Sprite(gv, "hit_symbol", hitAnimationLocation.X, hitAnimationLocation.Y, 0, 0, 0, 0, 1.0f, ttl, false, ttl / 4);
             group.turnFloatyTextOn = true;
             group.SpriteGroup.Add(spr);
@@ -11337,7 +11337,7 @@ public void drawEffectSquares()
             {
                 gv.touchEnabled = false;
             }
-            int ttl = 8 * mod.attackAnimationSpeed;
+            int ttl = 8 * gv.mod.attackAnimationSpeed;
             Sprite spr = new Sprite(gv, "miss_symbol", hitAnimationLocation.X, hitAnimationLocation.Y, 0, 0, 0, 0, 1.0f, ttl, false, ttl / 4);
             group.SpriteGroup.Add(spr);
         }
@@ -11347,7 +11347,7 @@ public void drawEffectSquares()
             {
                 gv.touchEnabled = false;
             }
-            int ttl = 16 * mod.attackAnimationSpeed;
+            int ttl = 16 * gv.mod.attackAnimationSpeed;
             Sprite spr = new Sprite(gv, "death_fx", Loc.X, Loc.Y, 0, 0, 0, 0, 1.0f, ttl, false, ttl / 4);
             group.SpriteGroup.Add(spr);
         }
@@ -11358,10 +11358,10 @@ public void drawEffectSquares()
                 gv.touchEnabled = false;
             }
 
-            int ttl = 16 * mod.attackAnimationSpeed;
+            int ttl = 16 * gv.mod.attackAnimationSpeed;
             if (gv.mod.useManualCombatCam)
             {
-                ttl = 8 * mod.attackAnimationSpeed;
+                ttl = 8 * gv.mod.attackAnimationSpeed;
             }
             
             Sprite spr = new Sprite(gv, filename, Loc.X, Loc.Y, 0, 0, 0, 0, 1.0f, ttl, false, ttl / 4);
@@ -11382,7 +11382,7 @@ public void drawEffectSquares()
             }
             else
             {
-                Player pc = mod.playerList[currentPlayerIndex];
+                Player pc = gv.mod.playerList[currentPlayerIndex];
                 int minX = pc.combatLocX - gv.playerOffsetX;
                 if (minX < 0) { minX = 0; }
                 int minY = pc.combatLocY - gv.playerOffsetY;
@@ -11401,7 +11401,7 @@ public void drawEffectSquares()
         }
         public void CalculateUpperLeftCreature()
         {
-            Creature crt = mod.currentEncounter.encounterCreatureList[creatureIndex];
+            Creature crt = gv.mod.currentEncounter.encounterCreatureList[creatureIndex];
             int minX = crt.combatLocX - gv.playerOffsetX;
             if (!gv.mod.useManualCombatCam)
             {
@@ -11440,7 +11440,7 @@ public void drawEffectSquares()
                         relevantRange = crt.cr_attRange;
                     }
                     //Melee or AoO situation
-                    foreach (Player p in mod.playerList)
+                    foreach (Player p in gv.mod.playerList)
                     {
                         if (getDistance(new Coordinate(p.combatLocX, p.combatLocY), new Coordinate(crt.combatLocX, crt.combatLocY)) <= relevantRange)
                         {
@@ -11494,7 +11494,7 @@ public void drawEffectSquares()
         }
         public void CenterScreenOnPC()
         {
-            Player pc = mod.playerList[currentPlayerIndex];
+            Player pc = gv.mod.playerList[currentPlayerIndex];
             int minX = pc.combatLocX - gv.playerOffsetX;
             if (!gv.mod.useManualCombatCam)
             {
@@ -11590,17 +11590,17 @@ public void drawEffectSquares()
 	    {
 		    if (isInRange(pc))
 		    {
-                Item it = mod.getItemByResRefForInfo(pc.MainHandRefs.resref);
+                Item it = gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref);
                 //if using ranged and have ammo, use ammo properties
-                if ((mod.getItemByResRefForInfo(pc.MainHandRefs.resref).category.Equals("Ranged"))
-                        && (!mod.getItemByResRefForInfo(pc.AmmoRefs.resref).name.Equals("none")))
+                if ((gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref).category.Equals("Ranged"))
+                        && (!gv.mod.getItemByResRefForInfo(pc.AmmoRefs.resref).name.Equals("none")))
                 {
                     //ranged weapon with ammo
-                    it = mod.getItemByResRefForInfo(pc.AmmoRefs.resref);
+                    it = gv.mod.getItemByResRefForInfo(pc.AmmoRefs.resref);
                 }
                 if (it == null)
                 {
-                    it = mod.getItemByResRefForInfo(pc.MainHandRefs.resref);
+                    it = gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref);
                 }
                 //check to see if is AoE or Point Target else needs a target PC or Creature
                 if (it.AreaOfEffect > 0)
@@ -11617,7 +11617,7 @@ public void drawEffectSquares()
 			    if ((isVisibleLineOfSight(new Coordinate(endX2, endY2), new Coordinate(startX2, startY2)))
 				    || (getDistance(new Coordinate(pc.combatLocX,pc.combatLocY), targetHighlightCenterLocation) == 1))
 			    {
-				    foreach (Creature crt in mod.currentEncounter.encounterCreatureList)
+				    foreach (Creature crt in gv.mod.currentEncounter.encounterCreatureList)
 				    {
                         //if ((crt.combatLocX == targetHighlightCenterLocation.X) && (crt.combatLocY == targetHighlightCenterLocation.Y))
                         //{
@@ -11650,7 +11650,7 @@ public void drawEffectSquares()
 				    //check to see if target is a friend or self
 				    if ((gv.cc.currentSelectedSpell.spellTargetType.Equals("Friend")) || (gv.cc.currentSelectedSpell.spellTargetType.Equals("Self")))
 				    {
-					    foreach (Player p in mod.playerList)
+					    foreach (Player p in gv.mod.playerList)
 					    {
 						    if ((p.combatLocX == targetHighlightCenterLocation.X) && (p.combatLocY == targetHighlightCenterLocation.Y))
 						    {
@@ -11660,7 +11660,7 @@ public void drawEffectSquares()
 				    }
 				    else //target is a creature
 				    {
-					    foreach (Creature crt in mod.currentEncounter.encounterCreatureList)
+					    foreach (Creature crt in gv.mod.currentEncounter.encounterCreatureList)
 					    {
                             //if ((crt.combatLocX == targetHighlightCenterLocation.X) && (crt.combatLocY == targetHighlightCenterLocation.Y))
                             //{
@@ -11694,7 +11694,7 @@ public void drawEffectSquares()
 				    //check to see if target is a friend or self
 				    if ((gv.cc.currentSelectedSpell.spellTargetType.Equals("Friend")) || (gv.cc.currentSelectedSpell.spellTargetType.Equals("Self")))
 				    {
-					    foreach (Player p in mod.playerList)
+					    foreach (Player p in gv.mod.playerList)
 					    {
 						    if ((p.combatLocX == targetHighlightCenterLocation.X) && (p.combatLocY == targetHighlightCenterLocation.Y))
 						    {
@@ -11704,7 +11704,7 @@ public void drawEffectSquares()
 				    }
 				    else //target is a creature
 				    {
-					    foreach (Creature crt in mod.currentEncounter.encounterCreatureList)
+					    foreach (Creature crt in gv.mod.currentEncounter.encounterCreatureList)
 					    {
                             //if ((crt.combatLocX == targetHighlightCenterLocation.X) && (crt.combatLocY == targetHighlightCenterLocation.Y))
                             //{
@@ -11728,15 +11728,15 @@ public void drawEffectSquares()
 		    if (currentCombatMode.Equals("attack"))
 		    {
 			    int range = 1;
-			    if ((mod.getItemByResRefForInfo(pc.MainHandRefs.resref).category.Equals("Ranged")) 
-	        		    && (mod.getItemByResRefForInfo(pc.AmmoRefs.resref).name.Equals("none")))
+			    if ((gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref).category.Equals("Ranged")) 
+	        		    && (gv.mod.getItemByResRefForInfo(pc.AmmoRefs.resref).name.Equals("none")))
 	            {
 				    //ranged weapon with no ammo
 				    range = 1;
 	            }
 			    else 
 			    {
-				    range = mod.getItemByResRefForInfo(pc.MainHandRefs.resref).attackRange;
+				    range = gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref).attackRange;
 			    }
 			
 			    if (getDistance(new Coordinate(pc.combatLocX,pc.combatLocY), targetHighlightCenterLocation) <= range)
@@ -11755,7 +11755,7 @@ public void drawEffectSquares()
 	    }
 	    public bool isAdjacentEnemy(Player pc)
 	    {
-		    foreach (Creature crt in mod.currentEncounter.encounterCreatureList)
+		    foreach (Creature crt in gv.mod.currentEncounter.encounterCreatureList)
 		    {
                 //if (getDistance(new Coordinate(pc.combatLocX,pc.combatLocY), new Coordinate(crt.combatLocX,crt.combatLocY)) == 1)
                 foreach (Coordinate coor in crt.tokenCoveredSquares)
@@ -11779,7 +11779,7 @@ public void drawEffectSquares()
 	    }
 	    public bool isAdjacentPc(Creature crt)
 	    {
-		    foreach (Player pc in mod.playerList)
+		    foreach (Player pc in gv.mod.playerList)
 		    {
 			    if (getDistance(new Coordinate(pc.combatLocX,pc.combatLocY), new Coordinate(crt.combatLocX,crt.combatLocY)) == 1)
 			    {
@@ -11794,28 +11794,28 @@ public void drawEffectSquares()
 	    public int getGridX(Coordinate nextPoint)
         {
             int gridx = ((nextPoint.X - mapStartLocXinPixels - gv.oXshift) / gv.squareSize) + UpperLeftSquare.X;
-            if (gridx > mod.currentEncounter.MapSizeX - 1) { gridx = mod.currentEncounter.MapSizeX - 1; }
+            if (gridx > gv.mod.currentEncounter.MapSizeX - 1) { gridx = gv.mod.currentEncounter.MapSizeX - 1; }
             if (gridx < 0) { gridx = 0; }
             return gridx;
         }
         public int getGridY(Coordinate nextPoint)
         {
             int gridy = ((nextPoint.Y - gv.oYshift) / gv.squareSize) + UpperLeftSquare.Y;
-            if (gridy > mod.currentEncounter.MapSizeY - 1) { gridy = mod.currentEncounter.MapSizeY - 1; }
+            if (gridy > gv.mod.currentEncounter.MapSizeY - 1) { gridy = gv.mod.currentEncounter.MapSizeY - 1; }
             if (gridy < 0) { gridy = 0; }
             return gridy;
         }
         public int getMapSquareX(Coordinate nextPoint)
         {
             int gridx = (nextPoint.X / gv.squareSize);
-            if (gridx > mod.currentEncounter.MapSizeX - 1) { gridx = mod.currentEncounter.MapSizeX - 1; }
+            if (gridx > gv.mod.currentEncounter.MapSizeX - 1) { gridx = gv.mod.currentEncounter.MapSizeX - 1; }
             if (gridx < 0) { gridx = 0; }
             return gridx;
         }
         public int getMapSquareY(Coordinate nextPoint)
         {
             int gridy = (nextPoint.Y / gv.squareSize);
-            if (gridy > mod.currentEncounter.MapSizeY - 1) { gridy = mod.currentEncounter.MapSizeY - 1; }
+            if (gridy > gv.mod.currentEncounter.MapSizeY - 1) { gridy = gv.mod.currentEncounter.MapSizeY - 1; }
             if (gridy < 0) { gridy = 0; }
             return gridy;
         }
@@ -11851,7 +11851,7 @@ public void drawEffectSquares()
                         //do your checks here for LoS blocking
                         int gridx = getMapSquareX(nextPoint);
                         int gridy = getMapSquareY(nextPoint);
-                        if (mod.currentEncounter.encounterTiles[gridy * mod.currentEncounter.MapSizeX + gridx].LoSBlocked)
+                        if (gv.mod.currentEncounter.encounterTiles[gridy * gv.mod.currentEncounter.MapSizeX + gridx].LoSBlocked)
                         {
                     	    return false;
                         }                       
@@ -11871,7 +11871,7 @@ public void drawEffectSquares()
                         //do your checks here for LoS blocking
                         int gridx = getMapSquareX(nextPoint);
                         int gridy = getMapSquareY(nextPoint);
-                        if (mod.currentEncounter.encounterTiles[gridy * mod.currentEncounter.MapSizeX + gridx].LoSBlocked)
+                        if (gv.mod.currentEncounter.encounterTiles[gridy * gv.mod.currentEncounter.MapSizeX + gridx].LoSBlocked)
                         {
                     	    return false;
                         }                      
@@ -11900,7 +11900,7 @@ public void drawEffectSquares()
                         //do your checks here for LoS blocking
                         int gridx = getMapSquareX(nextPoint);
                         int gridy = getMapSquareY(nextPoint);
-                        if (mod.currentEncounter.encounterTiles[gridy * mod.currentEncounter.MapSizeX + gridx].LoSBlocked)
+                        if (gv.mod.currentEncounter.encounterTiles[gridy * gv.mod.currentEncounter.MapSizeX + gridx].LoSBlocked)
                         {
                     	    return false;
                         }                      
@@ -11920,7 +11920,7 @@ public void drawEffectSquares()
                         //do your checks here for LoS blocking
                         int gridx = getMapSquareX(nextPoint);
                         int gridy = getMapSquareY(nextPoint);
-                        if (mod.currentEncounter.encounterTiles[gridy * mod.currentEncounter.MapSizeX + gridx].LoSBlocked)
+                        if (gv.mod.currentEncounter.encounterTiles[gridy * gv.mod.currentEncounter.MapSizeX + gridx].LoSBlocked)
                         {
                     	    return false;
                         }                       
@@ -11968,7 +11968,7 @@ public void drawEffectSquares()
                         int gridx = getGridX(nextPoint);
                         int gridy = getGridY(nextPoint);
                         gv.DrawLine(lastX + gv.oXshift, lastY, nextPoint.X + gv.oXshift, nextPoint.Y, penColor, penWidth);
-                        if (mod.currentEncounter.encounterTiles[gridy * mod.currentEncounter.MapSizeX + gridx].LoSBlocked)
+                        if (gv.mod.currentEncounter.encounterTiles[gridy * gv.mod.currentEncounter.MapSizeX + gridx].LoSBlocked)
                         {
                     	    return false;
                         }
@@ -11993,7 +11993,7 @@ public void drawEffectSquares()
                         int gridx = getGridX(nextPoint);
                         int gridy = getGridY(nextPoint);
                         gv.DrawLine(lastX + gv.oXshift, lastY, nextPoint.X + gv.oXshift, nextPoint.Y, penColor, penWidth);
-                        if (mod.currentEncounter.encounterTiles[gridy * mod.currentEncounter.MapSizeX + gridx].LoSBlocked)
+                        if (gv.mod.currentEncounter.encounterTiles[gridy * gv.mod.currentEncounter.MapSizeX + gridx].LoSBlocked)
                         {
                     	    return false;
                         }
@@ -12027,7 +12027,7 @@ public void drawEffectSquares()
                         int gridx = getGridX(nextPoint);
                         int gridy = getGridY(nextPoint);
                         gv.DrawLine(lastX + gv.oXshift, lastY, nextPoint.X + gv.oXshift, nextPoint.Y, penColor, penWidth);
-                        if (mod.currentEncounter.encounterTiles[gridy * mod.currentEncounter.MapSizeX + gridx].LoSBlocked)
+                        if (gv.mod.currentEncounter.encounterTiles[gridy * gv.mod.currentEncounter.MapSizeX + gridx].LoSBlocked)
                         {
                     	    return false;
                         }
@@ -12052,7 +12052,7 @@ public void drawEffectSquares()
                         int gridx = getGridX(nextPoint);
                         int gridy = getGridY(nextPoint);
                         gv.DrawLine(lastX + gv.oXshift, lastY, nextPoint.X + gv.oXshift, nextPoint.Y, penColor, penWidth);
-                        if (mod.currentEncounter.encounterTiles[gridy * mod.currentEncounter.MapSizeX + gridx].LoSBlocked)
+                        if (gv.mod.currentEncounter.encounterTiles[gridy * gv.mod.currentEncounter.MapSizeX + gridx].LoSBlocked)
                         {
                     	    return false;
                         }   
@@ -12101,11 +12101,11 @@ public void drawEffectSquares()
 	    }
 	    public bool isWalkable(int x, int y)
 	    {
-            if (!mod.currentEncounter.encounterTiles[y * mod.currentEncounter.MapSizeX + x].Walkable)
+            if (!gv.mod.currentEncounter.encounterTiles[y * gv.mod.currentEncounter.MapSizeX + x].Walkable)
             {
         	    return false;
             }
-		    foreach (Player p in mod.playerList)
+		    foreach (Player p in gv.mod.playerList)
 		    {
 			    if ((p.combatLocX == x) && (p.combatLocY == y))
 			    {
@@ -12119,7 +12119,7 @@ public void drawEffectSquares()
 	    }
         public Creature isBumpIntoCreature(int x, int y)
         {
-            foreach (Creature crt in mod.currentEncounter.encounterCreatureList)
+            foreach (Creature crt in gv.mod.currentEncounter.encounterCreatureList)
             {
                 //if ((crt.combatLocX == x) && (crt.combatLocY == y))
                 foreach (Coordinate coor in crt.tokenCoveredSquares)
@@ -12136,7 +12136,7 @@ public void drawEffectSquares()
         public void LeaveThreatenedCheck(Player pc, int futurePlayerLocationX, int futurePlayerLocationY)
         {
        
-            foreach (Creature crt in mod.currentEncounter.encounterCreatureList)
+            foreach (Creature crt in gv.mod.currentEncounter.encounterCreatureList)
             {
                 if ((crt.hp > 0) && (!crt.isHeld()))
                 {
@@ -12205,11 +12205,11 @@ public void drawEffectSquares()
                 //all attacks of the PC from behind get a +2 bonus to hit            
                 if (IsAttackFromBehind(pc, crt))
                 {
-                    modifier += mod.attackFromBehindToHitModifier;
-                    situationalModifier += mod.attackFromBehindToHitModifier;
-                    if (mod.attackFromBehindToHitModifier > 0)
+                    modifier += gv.mod.attackFromBehindToHitModifier;
+                    situationalModifier += gv.mod.attackFromBehindToHitModifier;
+                    if (gv.mod.attackFromBehindToHitModifier > 0)
                     {
-                        gv.cc.addLogText("<font color='lime'> Attack from behind: +" + mod.attackFromBehindToHitModifier.ToString() + " to hit." + "</font><BR>");
+                        gv.cc.addLogText("<font color='lime'> Attack from behind: +" + gv.mod.attackFromBehindToHitModifier.ToString() + " to hit." + "</font><BR>");
                     }
                 }
                 //attacks on truely held creatures get +4 bonus to hit
@@ -12276,11 +12276,11 @@ public void drawEffectSquares()
                 gv.cc.addFloatyText(new Coordinate(pc.combatLocX, pc.combatLocY), "+" + situationalModifier + " att", "yellow");
             }
 
-            int attackMod = modifier + pc.baseAttBonus + mod.getItemByResRefForInfo(pc.MainHandRefs.resref).attackBonus;        
-            Item it = mod.getItemByResRefForInfo(pc.AmmoRefs.resref);
+            int attackMod = modifier + pc.baseAttBonus + gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref).attackBonus;        
+            Item it = gv.mod.getItemByResRefForInfo(pc.AmmoRefs.resref);
             if (it != null)
             {
-        	    attackMod += mod.getItemByResRefForInfo(pc.AmmoRefs.resref).attackBonus;
+        	    attackMod += gv.mod.getItemByResRefForInfo(pc.AmmoRefs.resref).attackBonus;
             }
             return attackMod;
         }
@@ -12304,9 +12304,9 @@ public void drawEffectSquares()
             int adder = 0;
             bool melee = false;
             /*
-            if ((mod.getItemByResRefForInfo(pc.MainHandRefs.resref).category.Equals("Melee")) 
+            if ((gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref).category.Equals("Melee")) 
         		    || (pc.MainHandRefs.name.Equals("none"))
-        		    || (mod.getItemByResRefForInfo(pc.AmmoRefs.resref).name.Equals("none")))
+        		    || (gv.mod.getItemByResRefForInfo(pc.AmmoRefs.resref).name.Equals("none")))
              */
                 if (gv.sf.isMeleeAttack(pc))
                 {
@@ -12324,10 +12324,10 @@ public void drawEffectSquares()
                 
                 if (IsAttackFromBehind(pc, crt))
                 {
-                    damModifier += mod.attackFromBehindDamageModifier;
-                    if (mod.attackFromBehindDamageModifier > 0)
+                    damModifier += gv.mod.attackFromBehindDamageModifier;
+                    if (gv.mod.attackFromBehindDamageModifier > 0)
                     {
-                        gv.cc.addLogText("<font color='lime'> Attack from behind: +" + mod.attackFromBehindDamageModifier.ToString() +  " damage." + "</font><BR>");
+                        gv.cc.addLogText("<font color='lime'> Attack from behind: +" + gv.mod.attackFromBehindDamageModifier.ToString() +  " damage." + "</font><BR>");
                     }
                 }
             }
@@ -12347,81 +12347,81 @@ public void drawEffectSquares()
 	    	
             }            
 
-            int dDam = mod.getItemByResRefForInfo(pc.MainHandRefs.resref).damageDie;
-            float damage = (mod.getItemByResRefForInfo(pc.MainHandRefs.resref).damageNumDice * gv.sf.RandInt(dDam)) + damModifier + adder + mod.getItemByResRefForInfo(pc.MainHandRefs.resref).damageAdder;
+            int dDam = gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref).damageDie;
+            float damage = (gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref).damageNumDice * gv.sf.RandInt(dDam)) + damModifier + adder + gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref).damageAdder;
             if (damage < 0)
             {
                 damage = 0;
             }
-            Item it = mod.getItemByResRefForInfo(pc.AmmoRefs.resref);
+            Item it = gv.mod.getItemByResRefForInfo(pc.AmmoRefs.resref);
             if (it != null)
             {
-        	    damage += mod.getItemByResRefForInfo(pc.AmmoRefs.resref).damageAdder;
+        	    damage += gv.mod.getItemByResRefForInfo(pc.AmmoRefs.resref).damageAdder;
             }
 
             float resist = 0;
 
-            if ((mod.getItemByResRefForInfo(pc.MainHandRefs.resref).category.Equals("Melee"))
+            if ((gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref).category.Equals("Melee"))
                      || (pc.MainHandRefs.name.Equals("none"))
-                     || (mod.getItemByResRefForInfo(pc.AmmoRefs.resref).name.Equals("none")))
+                     || (gv.mod.getItemByResRefForInfo(pc.AmmoRefs.resref).name.Equals("none")))
             {
 
-                if (mod.getItemByResRefForInfo(pc.MainHandRefs.resref).typeOfDamage.Equals("Acid"))
+                if (gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref).typeOfDamage.Equals("Acid"))
                 {
                     resist = (float)(1f - ((float)crt.getDamageTypeResistanceValueAcid () / 100f));
                 }
-                else if (mod.getItemByResRefForInfo(pc.MainHandRefs.resref).typeOfDamage.Equals("Normal"))
+                else if (gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref).typeOfDamage.Equals("Normal"))
                 {
                     resist = (float)(1f - ((float)crt.getDamageTypeResistanceValueNormal() / 100f));
                 }
-                else if (mod.getItemByResRefForInfo(pc.MainHandRefs.resref).typeOfDamage.Equals("Cold"))
+                else if (gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref).typeOfDamage.Equals("Cold"))
                 {
                     resist = (float)(1f - ((float)crt.getDamageTypeResistanceValueCold() / 100f));
                 }
-                else if (mod.getItemByResRefForInfo(pc.MainHandRefs.resref).typeOfDamage.Equals("Electricity"))
+                else if (gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref).typeOfDamage.Equals("Electricity"))
                 {
                     resist = (float)(1f - ((float)crt.getDamageTypeResistanceValueElectricity() / 100f));
                 }
-                else if (mod.getItemByResRefForInfo(pc.MainHandRefs.resref).typeOfDamage.Equals("Fire"))
+                else if (gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref).typeOfDamage.Equals("Fire"))
                 {
                     resist = (float)(1f - ((float)crt.getDamageTypeResistanceValueFire ()/ 100f));
                 }
-                else if (mod.getItemByResRefForInfo(pc.MainHandRefs.resref).typeOfDamage.Equals("Magic"))
+                else if (gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref).typeOfDamage.Equals("Magic"))
                 {
                     resist = (float)(1f - ((float)crt.getDamageTypeResistanceValueMagic() / 100f));
                 }
-                else if (mod.getItemByResRefForInfo(pc.MainHandRefs.resref).typeOfDamage.Equals("Poison"))
+                else if (gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref).typeOfDamage.Equals("Poison"))
                 {
                     resist = (float)(1f - ((float)crt.getDamageTypeResistanceValuePoison() / 100f));
                 }
             }
-            else //ranged weapon so use ammo mods  
+            else //ranged weapon so use ammo gv.mods  
             {
-                if (mod.getItemByResRefForInfo(pc.AmmoRefs.resref).typeOfDamage.Equals("Acid"))
+                if (gv.mod.getItemByResRefForInfo(pc.AmmoRefs.resref).typeOfDamage.Equals("Acid"))
                 {
                     resist = (float)(1f - ((float)crt.getDamageTypeResistanceValueAcid () / 100f));
                 }
-                else if (mod.getItemByResRefForInfo(pc.AmmoRefs.resref).typeOfDamage.Equals("Normal"))
+                else if (gv.mod.getItemByResRefForInfo(pc.AmmoRefs.resref).typeOfDamage.Equals("Normal"))
                 {
                     resist = (float)(1f - ((float)crt.getDamageTypeResistanceValueNormal() / 100f));
                 }
-                else if (mod.getItemByResRefForInfo(pc.AmmoRefs.resref).typeOfDamage.Equals("Cold"))
+                else if (gv.mod.getItemByResRefForInfo(pc.AmmoRefs.resref).typeOfDamage.Equals("Cold"))
                 {
                     resist = (float)(1f - ((float)crt.getDamageTypeResistanceValueCold() / 100f));
                 }
-                else if (mod.getItemByResRefForInfo(pc.AmmoRefs.resref).typeOfDamage.Equals("Electricity"))
+                else if (gv.mod.getItemByResRefForInfo(pc.AmmoRefs.resref).typeOfDamage.Equals("Electricity"))
                 {
                     resist = (float)(1f - ((float)crt.getDamageTypeResistanceValueElectricity() / 100f));
                 }
-                else if (mod.getItemByResRefForInfo(pc.AmmoRefs.resref).typeOfDamage.Equals("Fire"))
+                else if (gv.mod.getItemByResRefForInfo(pc.AmmoRefs.resref).typeOfDamage.Equals("Fire"))
                 {
                     resist = (float)(1f - ((float)crt.getDamageTypeResistanceValueFire ()/ 100f));
                 }
-                else if (mod.getItemByResRefForInfo(pc.AmmoRefs.resref).typeOfDamage.Equals("Magic"))
+                else if (gv.mod.getItemByResRefForInfo(pc.AmmoRefs.resref).typeOfDamage.Equals("Magic"))
                 {
                     resist = (float)(1f - ((float)crt.getDamageTypeResistanceValueMagic() / 100f));
                 }
-                else if (mod.getItemByResRefForInfo(pc.AmmoRefs.resref).typeOfDamage.Equals("Poison"))
+                else if (gv.mod.getItemByResRefForInfo(pc.AmmoRefs.resref).typeOfDamage.Equals("Poison"))
                 {
                     resist = (float)(1f - ((float)crt.getDamageTypeResistanceValuePoison() / 100f));
                 }
@@ -12477,9 +12477,9 @@ public void drawEffectSquares()
                 //all attacks of the Creature from behind get a +2 bonus to hit            
                 if (IsCreatureAttackFromBehind(pc, crt))
                 {
-                    modifier += mod.attackFromBehindToHitModifier;
-                    situationalModifier += mod.attackFromBehindToHitModifier;
-                    gv.cc.addLogText("<font color='yellow'>" + crt.cr_name + " attacks from behind: +" + mod.attackFromBehindToHitModifier  + " att</font><BR>");
+                    modifier += gv.mod.attackFromBehindToHitModifier;
+                    situationalModifier += gv.mod.attackFromBehindToHitModifier;
+                    gv.cc.addLogText("<font color='yellow'>" + crt.cr_name + " attacks from behind: +" + gv.mod.attackFromBehindToHitModifier  + " att</font><BR>");
                 }
                 if (pc.isHeld())
                 {
@@ -12554,7 +12554,7 @@ public void drawEffectSquares()
             int farDist = 99;
             bool doDeStealth = true;
 
-            foreach (Player p in mod.playerList)
+            foreach (Player p in gv.mod.playerList)
             {
                 if ((p.hp > 0) && (!p.steathModeOn))
                 {
@@ -12565,14 +12565,14 @@ public void drawEffectSquares()
 
             if (doDeStealth)
             {
-                foreach (Player p in mod.playerList)
+                foreach (Player p in gv.mod.playerList)
                 {
                     p.steathModeOn = false;
                 }
                 gv.cc.addLogText("<font color='red'> All stealthers are discovered </font><BR>");
             }
 
-            foreach (Player p in mod.playerList)
+            foreach (Player p in gv.mod.playerList)
             {
                 if ((!p.isDead()) && (p.hp > 0) && (!p.steathModeOn))
                 {
@@ -12619,7 +12619,7 @@ public void drawEffectSquares()
                     selectedPoint = new Coordinate(crt.combatLocX + x, crt.combatLocY + y);
                 
                     //check if selected point is a valid location on combat map
-                    if ((selectedPoint.X < 0) || (selectedPoint.X > mod.currentEncounter.MapSizeX - 1) || (selectedPoint.Y < 0) || (selectedPoint.Y > mod.currentEncounter.MapSizeY - 1))
+                    if ((selectedPoint.X < 0) || (selectedPoint.X > gv.mod.currentEncounter.MapSizeX - 1) || (selectedPoint.Y < 0) || (selectedPoint.Y > gv.mod.currentEncounter.MapSizeY - 1))
                     {
                 	    continue;
                     }
@@ -12642,7 +12642,7 @@ public void drawEffectSquares()
                             utility -= 4;
                         }
                     } 
-                    foreach (Creature crtr in mod.currentEncounter.encounterCreatureList) //if its allies are in the burst subtract a point, or half depending on how evil it is.
+                    foreach (Creature crtr in gv.mod.currentEncounter.encounterCreatureList) //if its allies are in the burst subtract a point, or half depending on how evil it is.
                     {
                         //if (this.CalcDistance(crtr.combatLocX, crtr.combatLocY, selectedPoint.X, selectedPoint.Y) <= gv.sf.SpellToCast.aoeRadius) //if friendly creatures are in the AOE burst, count how many, subtract 0.5 for each, evil is evil
                         //{
@@ -12652,7 +12652,7 @@ public void drawEffectSquares()
                             utility -= 1;
                         }
                     }
-                    foreach (Player tgt_pc in mod.playerList)
+                    foreach (Player tgt_pc in gv.mod.playerList)
                     {
                         //if ((this.CalcDistance(tgt_pc.combatLocX, tgt_pc.combatLocY, selectedPoint.X, selectedPoint.Y) <= gv.sf.SpellToCast.aoeRadius) && (tgt_pc.hp > 0)) //if players are in the AOE burst, count how many, total count is utility  //&& sf.GetLocalInt(tgt_pc.Tag, "StealthModeOn") != 1  <-throws an annoying message if not found!!
                         //{
@@ -12789,7 +12789,7 @@ public void drawEffectSquares()
         {
             int lowHP = 999;
             Creature returnCrt = null;
-            foreach (Creature crt in mod.currentEncounter.encounterCreatureList)
+            foreach (Creature crt in gv.mod.currentEncounter.encounterCreatureList)
             {
                 if (crt.hp > 0)
                 {
@@ -12806,7 +12806,7 @@ public void drawEffectSquares()
         {
             int damaged = 0;
             Creature returnCrt = null;
-            foreach (Creature crt in mod.currentEncounter.encounterCreatureList)
+            foreach (Creature crt in gv.mod.currentEncounter.encounterCreatureList)
             {        	
                 if (crt.hp > 0)
                 {
@@ -12822,7 +12822,7 @@ public void drawEffectSquares()
         }
 	    public Creature GetNextAdjacentCreature(Player pc)
         {
-            foreach (Creature nextCrt in mod.currentEncounter.encounterCreatureList)
+            foreach (Creature nextCrt in gv.mod.currentEncounter.encounterCreatureList)
             {
                 if (alreadyTargetedCreatureTagsList.Contains(nextCrt.cr_tag))
                 {
@@ -12841,7 +12841,7 @@ public void drawEffectSquares()
         }
 	    public Creature GetCreatureByTag(String tag)
         {
-            foreach (Creature crt in mod.currentEncounter.encounterCreatureList)
+            foreach (Creature crt in gv.mod.currentEncounter.encounterCreatureList)
             {
                 if (crt.cr_tag.Equals(tag))
                 {

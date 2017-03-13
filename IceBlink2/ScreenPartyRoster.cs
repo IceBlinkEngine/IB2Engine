@@ -10,7 +10,7 @@ namespace IceBlink2
 {
     public class ScreenPartyRoster
     {
-	    public Module mod;
+	    //public gv.module gv.mod;
 	    public GameView gv;
 
 	    public List<IbbButton> btnPartyIndex = new List<IbbButton>();
@@ -27,8 +27,8 @@ namespace IceBlink2
 
 	    public ScreenPartyRoster(Module m, GameView g)
 	    {
-		    mod = m;
-		    gv = g;
+            //gv.mod = m;
+            gv = g;
 		    setControlsStart();
 		    stringMessagePartyRoster = gv.cc.loadTextToString("data/MessagePartyRoster.txt");
 	    }    
@@ -37,10 +37,10 @@ namespace IceBlink2
 		    int cntPCs = 0;
 		    foreach (IbbButton btn in btnPartyIndex)
 		    {
-			    if (cntPCs < mod.playerList.Count)
+			    if (cntPCs < gv.mod.playerList.Count)
 			    {
                     gv.cc.DisposeOfBitmap(ref btn.Img2);
-                    btn.Img2 = gv.cc.LoadBitmap(mod.playerList[cntPCs].tokenFilename);						
+                    btn.Img2 = gv.cc.LoadBitmap(gv.mod.playerList[cntPCs].tokenFilename);						
 			    }
 			    else
 			    {
@@ -54,10 +54,10 @@ namespace IceBlink2
             int cntPCs = 0;
             foreach (IbbButton btn in btnPartyRosterIndex)
             {
-                if (cntPCs < mod.partyRosterList.Count)
+                if (cntPCs < gv.mod.partyRosterList.Count)
                 {
                     gv.cc.DisposeOfBitmap(ref btn.Img2);
-                    btn.Img2 = gv.cc.LoadBitmap(mod.partyRosterList[cntPCs].tokenFilename);
+                    btn.Img2 = gv.cc.LoadBitmap(gv.mod.partyRosterList[cntPCs].tokenFilename);
                 }
                 else
                 {
@@ -73,7 +73,7 @@ namespace IceBlink2
 		    int pH = (int)((float)gv.screenHeight / 100.0f);
 		    int padW = gv.squareSize/6;
 		
-		    for (int x = 0; x < mod.MaxPartySize; x++)
+		    for (int x = 0; x < gv.mod.MaxPartySize; x++)
 		    {
 			    IbbButton btnNew = new IbbButton(gv, 1.0f);
                 gv.cc.DisposeOfBitmap(ref btnNew.Img);
@@ -162,22 +162,22 @@ namespace IceBlink2
 	    //PARTY SCREEN
         public void redrawPartyRoster()
         {    	
-    	    if (partyScreenPcIndex >= mod.playerList.Count)
+    	    if (partyScreenPcIndex >= gv.mod.playerList.Count)
     	    {
     		    partyScreenPcIndex = 0;
     	    }
-    	    if (partyRosterPcIndex >= mod.partyRosterList.Count)
+    	    if (partyRosterPcIndex >= gv.mod.partyRosterList.Count)
     	    {
     		    partyRosterPcIndex = 0;
     	    }
     	    Player pc = null;
-    	    if ((mod.playerList.Count > 0) && (lastClickedPlayerList))
+    	    if ((gv.mod.playerList.Count > 0) && (lastClickedPlayerList))
     	    {
-    		    pc = mod.playerList[partyScreenPcIndex];
+    		    pc = gv.mod.playerList[partyScreenPcIndex];
     	    }
-    	    else if ((mod.partyRosterList.Count > 0) && (!lastClickedPlayerList))
+    	    else if ((gv.mod.partyRosterList.Count > 0) && (!lastClickedPlayerList))
     	    {
-    		    pc = mod.partyRosterList[partyRosterPcIndex];
+    		    pc = gv.mod.partyRosterList[partyRosterPcIndex];
     	    }
     	    if (pc != null)
     	    {
@@ -196,9 +196,9 @@ namespace IceBlink2
     	    int leftStartY = 5 * gv.squareSize + (pH * 6);
     	    
             //Draw screen title name
-		    int textWidth = (int)gv.cc.MeasureString("Current Party Members [" + mod.MaxPartySize + " Maximum]", SharpDX.DirectWrite.FontWeight.Normal, SharpDX.DirectWrite.FontStyle.Normal, gv.drawFontRegHeight);
+		    int textWidth = (int)gv.cc.MeasureString("Current Party Members [" + gv.mod.MaxPartySize + " Maximum]", SharpDX.DirectWrite.FontWeight.Normal, SharpDX.DirectWrite.FontStyle.Normal, gv.drawFontRegHeight);
             int ulX = (gv.screenWidth / 2) - (textWidth / 2);
-		    gv.DrawText("Current Party Members [" + mod.MaxPartySize + " Maximum]", ulX, pH * 3, 1.0f, Color.Gray);
+		    gv.DrawText("Current Party Members [" + gv.mod.MaxPartySize + " Maximum]", ulX, pH * 3, 1.0f, Color.Gray);
 		    		    
 		    //DRAW EACH PC BUTTON
 		    this.refreshPlayerTokens();
@@ -206,7 +206,7 @@ namespace IceBlink2
 		    int cntPCs = 0;
 		    foreach (IbbButton btn in btnPartyIndex)
 		    {
-			    if (cntPCs < mod.playerList.Count)
+			    if (cntPCs < gv.mod.playerList.Count)
 			    {
 				    if (cntPCs == partyScreenPcIndex) {btn.glowOn = true;}
 				    else {btn.glowOn = false;}					
@@ -226,7 +226,7 @@ namespace IceBlink2
             cntPCs = 0;
             foreach (IbbButton btn in btnPartyRosterIndex)
             {
-                if (cntPCs < mod.partyRosterList.Count)
+                if (cntPCs < gv.mod.partyRosterList.Count)
                 {
                     if (cntPCs == partyRosterPcIndex) {btn.glowOn = true;}
                     else {btn.glowOn = false;}
@@ -244,7 +244,7 @@ namespace IceBlink2
 		    {
 			    //DRAW LEFT STATS
 			    gv.DrawText("Name: " + pc.name, locX, locY += leftStartY);
-			    gv.DrawText("Race: " + mod.getRace(pc.raceTag).name, locX, locY += spacing);
+			    gv.DrawText("Race: " + gv.mod.getRace(pc.raceTag).name, locX, locY += spacing);
 			    if (pc.isMale)
 			    {
 				    gv.DrawText("Gender: Male", locX, locY += spacing);
@@ -253,7 +253,7 @@ namespace IceBlink2
 			    {
 				    gv.DrawText("Gender: Female", locX, locY += spacing);
 			    }
-			    gv.DrawText("Class: " + mod.getPlayerClass(pc.classTag).name, locX, locY += spacing);			
+			    gv.DrawText("Class: " + gv.mod.getPlayerClass(pc.classTag).name, locX, locY += spacing);			
 			    gv.DrawText("Level: " + pc.classLevel, locX, locY += spacing);
 			    gv.DrawText("XP: " + pc.XP + "/" + pc.XPNeeded, locX, locY += spacing);
 			    gv.DrawText("---------------", locX, locY += spacing);
@@ -262,23 +262,23 @@ namespace IceBlink2
 			    string allSpells = "";
 			    foreach (string s in pc.knownSpellsTags)
 			    {
-				    Spell sp = mod.getSpellByTag(s);
+				    Spell sp = gv.mod.getSpellByTag(s);
 				    allSpells += sp.name + ", ";
 			    }
-			    gv.DrawText(mod.spellLabelPlural + ": " + allSpells, locX, locY += spacing);
+			    gv.DrawText(gv.mod.spellLabelPlural + ": " + allSpells, locX, locY += spacing);
 			
 			    //draw traits known list
 			    string allTraits = "";
 			    foreach (string s in pc.knownTraitsTags)
 			    {
-				    Trait tr = mod.getTraitByTag(s);
+				    Trait tr = gv.mod.getTraitByTag(s);
 				    allTraits += tr.name + ", ";
 			    }
 			    gv.DrawText("Traits: " + allTraits, locX, locY += spacing);
 			
 			    //DRAW RIGHT STATS
                 int actext = 0;
-                if (mod.ArmorClassAscending) { actext = pc.AC; }
+                if (gv.mod.ArmorClassAscending) { actext = pc.AC; }
                 else { actext = 20 - pc.AC; }
 			    locY = 0;
 			    gv.DrawText("STR: " + pc.strength, tabX, locY += leftStartY);
@@ -337,34 +337,34 @@ namespace IceBlink2
 			    if (btnUp.getImpact(x, y))
 			    {
 				    //add selected PC to partyList and remove from pcList
-				    if ((mod.partyRosterList.Count > 0) && (mod.playerList.Count < mod.MaxPartySize))
+				    if ((gv.mod.partyRosterList.Count > 0) && (gv.mod.playerList.Count < gv.mod.MaxPartySize))
 				    {
-					    Player copyPC = mod.partyRosterList[partyRosterPcIndex].DeepCopy();
+					    Player copyPC = gv.mod.partyRosterList[partyRosterPcIndex].DeepCopy();
                         gv.cc.DisposeOfBitmap(ref copyPC.token);
                         copyPC.token = gv.cc.LoadBitmap(copyPC.tokenFilename);
                         gv.cc.DisposeOfBitmap(ref copyPC.portrait);
                         copyPC.portrait = gv.cc.LoadBitmap(copyPC.portraitFilename);
-					    copyPC.playerClass = mod.getPlayerClass(copyPC.classTag);
-					    copyPC.race = mod.getRace(copyPC.raceTag);
-                        //Player copyPC = mod.partyRosterList[partyRosterPcIndex];
-					    mod.playerList.Add(copyPC);
-                        mod.partyRosterList.RemoveAt(partyRosterPcIndex);
+					    copyPC.playerClass = gv.mod.getPlayerClass(copyPC.classTag);
+					    copyPC.race = gv.mod.getRace(copyPC.raceTag);
+                        //Player copyPC = gv.mod.partyRosterList[partyRosterPcIndex];
+					    gv.mod.playerList.Add(copyPC);
+                        gv.mod.partyRosterList.RemoveAt(partyRosterPcIndex);
 				    }
 			    }
 			    else if (btnDown.getImpact(x, y))
 			    {
 				    //remove selected from partyList and add to pcList
-				    if (mod.playerList.Count > 0)
+				    if (gv.mod.playerList.Count > 0)
 				    {
-					    Player copyPC = mod.playerList[partyScreenPcIndex].DeepCopy();
+					    Player copyPC = gv.mod.playerList[partyScreenPcIndex].DeepCopy();
                         gv.cc.DisposeOfBitmap(ref copyPC.token);
                         copyPC.token = gv.cc.LoadBitmap(copyPC.tokenFilename);
                         gv.cc.DisposeOfBitmap(ref copyPC.portrait);
                         copyPC.portrait = gv.cc.LoadBitmap(copyPC.portraitFilename);
-					    copyPC.playerClass = mod.getPlayerClass(copyPC.classTag);
-					    copyPC.race = mod.getRace(copyPC.raceTag);
-                        mod.partyRosterList.Add(copyPC);
-					    mod.playerList.RemoveAt(partyScreenPcIndex);
+					    copyPC.playerClass = gv.mod.getPlayerClass(copyPC.classTag);
+					    copyPC.race = gv.mod.getRace(copyPC.raceTag);
+                        gv.mod.partyRosterList.Add(copyPC);
+					    gv.mod.playerList.RemoveAt(partyScreenPcIndex);
 				    }
 			    }
 			    else if (btnHelp.getImpact(x, y))
@@ -373,7 +373,7 @@ namespace IceBlink2
 			    }
 			    else if (btnReturn.getImpact(x, y))
 			    {
-				    if (mod.playerList.Count > 0)
+				    if (gv.mod.playerList.Count > 0)
 				    {
                         //check to see if any non-removeable PCs are in roster
                         if (checkForNoneRemovablePcInRoster())
@@ -391,7 +391,7 @@ namespace IceBlink2
                         }
 				    }
 			    }
-			    for (int j = 0; j < mod.playerList.Count; j++)
+			    for (int j = 0; j < gv.mod.playerList.Count; j++)
 			    {
 				    if (btnPartyIndex[j].getImpact(x, y))
 				    {
@@ -399,7 +399,7 @@ namespace IceBlink2
 					    lastClickedPlayerList = true;
 				    }
 			    }
-                for (int j = 0; j < mod.partyRosterList.Count; j++)
+                for (int j = 0; j < gv.mod.partyRosterList.Count; j++)
                 {
                     if (btnPartyRosterIndex[j].getImpact(x, y))
                     {
@@ -425,7 +425,7 @@ namespace IceBlink2
 
         public bool checkForNoneRemovablePcInRoster()
         {
-            foreach (Player pc in mod.partyRosterList)
+            foreach (Player pc in gv.mod.partyRosterList)
             {
                 if (pc.nonRemoveablePc)
                 {

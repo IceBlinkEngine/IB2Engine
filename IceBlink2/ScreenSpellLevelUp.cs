@@ -10,7 +10,7 @@ namespace IceBlink2
 {
     public class ScreenSpellLevelUp 
     {
-	    private Module mod;
+	    //private gv.module gv.mod;
 	    private GameView gv;
 
         public int spellToLearnIndex = 1;
@@ -31,7 +31,7 @@ namespace IceBlink2
 	
 	    public ScreenSpellLevelUp(Module m, GameView g) 
 	    {
-		    mod = m;
+		    //gv.mod = m;
 		    gv = g;
 		    setControlsStart();
 		    pc = new Player();
@@ -110,7 +110,7 @@ namespace IceBlink2
         public void redrawSpellLevelUp(bool inPcCreation)
         {
             Player pc = getCastingPlayer();
-            btnSelect.Text = "LEARN SELECTED " + mod.getPlayerClass(getCastingPlayer().classTag).spellLabelPlural;
+            btnSelect.Text = "LEARN SELECTED " + gv.mod.getPlayerClass(getCastingPlayer().classTag).spellLabelPlural;
             spellsToLearnTagsList.Clear();
     	    fillToLearnList();
     	
@@ -130,8 +130,8 @@ namespace IceBlink2
             {
                 //DRAW TEXT		
                 locY = (gv.squareSize * 0) + (pH * 2);
-                //gv.DrawText("Select One " + mod.getPlayerClass(pc.classTag).spellLabelSingular + " to Learn", noticeX, pH * 1, 1.0f, Color.Gray);
-                gv.DrawText("Select " + spellToLearnIndex + " of " + mod.getPlayerClass(pc.classTag).spellsToLearnAtLevelTable[getCastingPlayer().classLevel] + " " + mod.getPlayerClass(pc.classTag).spellLabelPlural + " to Learn", noticeX, pH * 1, 1.0f, Color.Gray);
+                //gv.DrawText("Select One " + gv.mod.getPlayerClass(pc.classTag).spellLabelSingular + " to Learn", noticeX, pH * 1, 1.0f, Color.Gray);
+                gv.DrawText("Select " + spellToLearnIndex + " of " + gv.mod.getPlayerClass(pc.classTag).spellsToLearnAtLevelTable[getCastingPlayer().classLevel] + " " + gv.mod.getPlayerClass(pc.classTag).spellLabelPlural + " to Learn", noticeX, pH * 1, 1.0f, Color.Gray);
                 gv.DrawText(getCastingPlayer().name + " SP: " + getCastingPlayer().sp + "/" + getCastingPlayer().spMax, pW * 50, pH * 1, 1.0f, Color.Yellow);
                 gv.DrawText(getCastingPlayer().name + " HP: " + getCastingPlayer().hp + "/" + getCastingPlayer().hpMax, pW * 50, pH * 1, 1.0f, Color.Yellow);
 
@@ -158,7 +158,7 @@ namespace IceBlink2
                         }
                         else //not available yet
                         {
-                            gv.DrawText(mod.getPlayerClass(pc.classTag).spellLabelSingular + " Not Available to Learn Yet", noticeX, noticeY, 1.0f, Color.Red);
+                            gv.DrawText(gv.mod.getPlayerClass(pc.classTag).spellLabelSingular + " Not Available to Learn Yet", noticeX, noticeY, 1.0f, Color.Red);
                         }
                     }
                 }
@@ -177,7 +177,7 @@ namespace IceBlink2
 			    if (cntSlot < pc.playerClass.spellsAllowed.Count)
 			    {
 				    SpellAllowed sa = pc.playerClass.spellsAllowed[cntSlot];
-				    Spell sp = mod.getSpellByTag(sa.tag);
+				    Spell sp = gv.mod.getSpellByTag(sa.tag);
 
                     if (infoOnly)
                     {
@@ -266,7 +266,7 @@ namespace IceBlink2
             }
             else
             {
-                btnSelect.Text = "LEARN SELECTED " + mod.getPlayerClass(pc.classTag).spellLabelSingular.ToUpper();
+                btnSelect.Text = "LEARN SELECTED " + gv.mod.getPlayerClass(pc.classTag).spellLabelSingular.ToUpper();
                 btnHelp.Draw();
                 btnExit.Draw();
                 btnSelect.Draw();
@@ -410,7 +410,7 @@ namespace IceBlink2
                     */
                     //check to see if there are more spells to learn at this level  
                     spellToLearnIndex++;
-                    if (spellToLearnIndex <= mod.getPlayerClass(pc.classTag).spellsToLearnAtLevelTable[getCastingPlayer().classLevel])
+                    if (spellToLearnIndex <= gv.mod.getPlayerClass(pc.classTag).spellsToLearnAtLevelTable[getCastingPlayer().classLevel])
                     {
                         gv.screenParty.spellGained += sp.name + ", ";
                     }
@@ -665,7 +665,7 @@ namespace IceBlink2
         public Spell GetCurrentlySelectedSpell()
 	    {
     	    SpellAllowed sa = getCastingPlayer().playerClass.spellsAllowed[spellSlotIndex];
-		    return mod.getSpellByTag(sa.tag);
+		    return gv.mod.getSpellByTag(sa.tag);
 	    }
 	    public bool isSelectedSpellSlotInKnownSpellsRange()
 	    {

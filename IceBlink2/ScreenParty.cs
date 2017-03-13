@@ -11,7 +11,7 @@ namespace IceBlink2
 {
     public class ScreenParty
     {
-        public Module mod;
+        //public gv.module gv.mod;
         public GameView gv;
         private IbbHtmlTextBox description;
         private IbbHtmlTextBox attackAndDamageInfo;
@@ -44,7 +44,7 @@ namespace IceBlink2
 
         public ScreenParty(Module m, GameView g)
         {
-            mod = m;
+            //gv.mod = m;
             gv = g;
             setControlsStart();
             description = new IbbHtmlTextBox(gv, 320, 100, 500, 300);
@@ -83,7 +83,7 @@ namespace IceBlink2
             if (btnSpells == null)
             {
                 btnSpells = new IbbButton(gv, 0.6f);
-                btnSpells.Text = mod.spellLabelPlural.ToUpper();
+                btnSpells.Text = gv.mod.spellLabelPlural.ToUpper();
                 btnSpells.Img = gv.cc.LoadBitmap("btn_small"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small);
                 btnSpells.Glow = gv.cc.LoadBitmap("btn_small_glow"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_glow);
                 btnSpells.X = 6 * gv.squareSize + padW * 1 + gv.oXshift + (int)(gv.squareSize * 0.75f);
@@ -296,10 +296,10 @@ namespace IceBlink2
             int cntPCs = 0;
             foreach (IbbButton btn in btnPartyIndex)
             {
-                if (cntPCs < mod.playerList.Count)
+                if (cntPCs < gv.mod.playerList.Count)
                 {
                     gv.cc.DisposeOfBitmap(ref btn.Img2);
-                    btn.Img2 = gv.cc.LoadBitmap(mod.playerList[cntPCs].tokenFilename);
+                    btn.Img2 = gv.cc.LoadBitmap(gv.mod.playerList[cntPCs].tokenFilename);
                 }
                 cntPCs++;
             }
@@ -307,17 +307,17 @@ namespace IceBlink2
         }
         public void resetTokenAndPortrait()
         {
-            btnToken.Img2 = mod.playerList[gv.cc.partyScreenPcIndex].token;
-            btnPortrait.Img = mod.playerList[gv.cc.partyScreenPcIndex].portrait;
+            btnToken.Img2 = gv.mod.playerList[gv.cc.partyScreenPcIndex].token;
+            btnPortrait.Img = gv.mod.playerList[gv.cc.partyScreenPcIndex].portrait;
         }
 
         public void redrawParty()
         {
-            if (gv.cc.partyScreenPcIndex >= mod.playerList.Count)
+            if (gv.cc.partyScreenPcIndex >= gv.mod.playerList.Count)
             {
                 gv.cc.partyScreenPcIndex = 0;
             }
-            Player pc = mod.playerList[gv.cc.partyScreenPcIndex];
+            Player pc = gv.mod.playerList[gv.cc.partyScreenPcIndex];
             gv.sf.UpdateStats(pc);
             int pW = (int)((float)gv.screenWidth / 100.0f);
             int pH = (int)((float)gv.screenHeight / 100.0f);
@@ -335,7 +335,7 @@ namespace IceBlink2
             int cntPCs = 0;
             foreach (IbbButton btn in btnPartyIndex)
             {
-                if (cntPCs < mod.playerList.Count)
+                if (cntPCs < gv.mod.playerList.Count)
                 {
                     if (cntPCs == gv.cc.partyScreenPcIndex) { btn.glowOn = true; }
                     else { btn.glowOn = false; }
@@ -352,7 +352,7 @@ namespace IceBlink2
             gv.DrawText(pc.name, locX, locY += leftStartY, 1.0f, Color.White);
 
             //race
-            gv.DrawText("Race: " + mod.getRace(pc.raceTag).name, locX, locY += spacing, 1.0f, Color.White);
+            gv.DrawText("Race: " + gv.mod.getRace(pc.raceTag).name, locX, locY += spacing, 1.0f, Color.White);
 
             //gender
             if (pc.isMale)
@@ -365,7 +365,7 @@ namespace IceBlink2
             }
 
             //class
-            gv.DrawText("Class: " + mod.getPlayerClass(pc.classTag).name, locX, locY += spacing, 1.0f, Color.White);
+            gv.DrawText("Class: " + gv.mod.getPlayerClass(pc.classTag).name, locX, locY += spacing, 1.0f, Color.White);
             gv.DrawText("Level: " + pc.classLevel, locX, locY += spacing, 1.0f, Color.White);
             gv.DrawText("XP: " + pc.XP + "/" + pc.XPNeeded, locX, locY += spacing, 1.0f, Color.White);
             //gv.DrawText("---------------", locX, locY += spacing, 1.0f, Color.White);
@@ -396,7 +396,7 @@ namespace IceBlink2
             //DRAW RIGHT STATS
             int actext = 0;
             //float locY2 = 4 * gv.squareSize + gv.squareSize / 4;
-            if (mod.ArmorClassAscending) { actext = pc.AC; }
+            if (gv.mod.ArmorClassAscending) { actext = pc.AC; }
             else { actext = 20 - pc.AC; }
             locY = 0;
             gv.DrawText("STR:  " + pc.baseStr + " + " + (pc.strength - pc.baseStr) + " = " + pc.strength + " (" + ((pc.strength - 10) / 2) + ")", tabX, locY += leftStartY);
@@ -414,13 +414,13 @@ namespace IceBlink2
             gv.DrawText("WILL: " + pc.will + ", Magic: " + pc.damageTypeResistanceTotalMagic + "%" + ", Poison: " + pc.damageTypeResistanceTotalPoison + "%", tabX2, locY += spacing);
             gv.DrawText("WIS:  " + pc.baseWis + " + " + (pc.wisdom - pc.baseWis) + " = " + pc.wisdom + " (" + ((pc.wisdom - 10) / 2) + ")", tabX, locY -= (spacing * 2));
             gv.DrawText("CHA: " + pc.baseCha + " + " + (pc.charisma - pc.baseCha) + " = " + pc.charisma + " (" + ((pc.charisma - 10) / 2) + ")", tabX, locY += spacing);
-            if (mod.useLuck == true)
+            if (gv.mod.useLuck == true)
             {
                 gv.DrawText("LCK:  " + pc.baseLuck + " + " + (pc.luck - pc.baseLuck) + " = " + pc.luck, tabX, locY += spacing);
             }
 
             //DRAW LEVEL UP BUTTON
-            if (mod.playerList[gv.cc.partyScreenPcIndex].IsReadyToAdvanceLevel())
+            if (gv.mod.playerList[gv.cc.partyScreenPcIndex].IsReadyToAdvanceLevel())
             {
                 btnLevelUp.Draw();
             }
@@ -445,25 +445,25 @@ namespace IceBlink2
             else { btnAmmo.glowOn = false; }
 
             gv.cc.DisposeOfBitmap(ref btnMainHand.Img2);
-            btnMainHand.Img2 = gv.cc.LoadBitmap(mod.getItemByResRefForInfo(pc.MainHandRefs.resref).itemImage);
+            btnMainHand.Img2 = gv.cc.LoadBitmap(gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref).itemImage);
             gv.cc.DisposeOfBitmap(ref btnHead.Img2);
-            btnHead.Img2 = gv.cc.LoadBitmap(mod.getItemByResRefForInfo(pc.HeadRefs.resref).itemImage);
+            btnHead.Img2 = gv.cc.LoadBitmap(gv.mod.getItemByResRefForInfo(pc.HeadRefs.resref).itemImage);
             gv.cc.DisposeOfBitmap(ref btnNeck.Img2);
-            btnNeck.Img2 = gv.cc.LoadBitmap(mod.getItemByResRefForInfo(pc.NeckRefs.resref).itemImage);
+            btnNeck.Img2 = gv.cc.LoadBitmap(gv.mod.getItemByResRefForInfo(pc.NeckRefs.resref).itemImage);
             gv.cc.DisposeOfBitmap(ref btnOffHand.Img2);
-            btnOffHand.Img2 = gv.cc.LoadBitmap(mod.getItemByResRefForInfo(pc.OffHandRefs.resref).itemImage);
+            btnOffHand.Img2 = gv.cc.LoadBitmap(gv.mod.getItemByResRefForInfo(pc.OffHandRefs.resref).itemImage);
             gv.cc.DisposeOfBitmap(ref btnRing.Img2);
-            btnRing.Img2 = gv.cc.LoadBitmap(mod.getItemByResRefForInfo(pc.RingRefs.resref).itemImage);
+            btnRing.Img2 = gv.cc.LoadBitmap(gv.mod.getItemByResRefForInfo(pc.RingRefs.resref).itemImage);
             gv.cc.DisposeOfBitmap(ref btnBody.Img2);
-            btnBody.Img2 = gv.cc.LoadBitmap(mod.getItemByResRefForInfo(pc.BodyRefs.resref).itemImage);
+            btnBody.Img2 = gv.cc.LoadBitmap(gv.mod.getItemByResRefForInfo(pc.BodyRefs.resref).itemImage);
             gv.cc.DisposeOfBitmap(ref btnFeet.Img2);
-            btnFeet.Img2 = gv.cc.LoadBitmap(mod.getItemByResRefForInfo(pc.FeetRefs.resref).itemImage);
+            btnFeet.Img2 = gv.cc.LoadBitmap(gv.mod.getItemByResRefForInfo(pc.FeetRefs.resref).itemImage);
             gv.cc.DisposeOfBitmap(ref btnRing2.Img2);
-            btnRing2.Img2 = gv.cc.LoadBitmap(mod.getItemByResRefForInfo(pc.Ring2Refs.resref).itemImage);
+            btnRing2.Img2 = gv.cc.LoadBitmap(gv.mod.getItemByResRefForInfo(pc.Ring2Refs.resref).itemImage);
             gv.cc.DisposeOfBitmap(ref btnAmmo.Img2);
-            btnAmmo.Img2 = gv.cc.LoadBitmap(mod.getItemByResRefForInfo(pc.AmmoRefs.resref).itemImage);
+            btnAmmo.Img2 = gv.cc.LoadBitmap(gv.mod.getItemByResRefForInfo(pc.AmmoRefs.resref).itemImage);
             
-            ItemRefs itr = mod.getItemRefsInInventoryByResRef(pc.AmmoRefs.resref);
+            ItemRefs itr = gv.mod.getItemRefsInInventoryByResRef(pc.AmmoRefs.resref);
             if (itr != null)
             {
                 btnAmmo.Quantity = itr.quantity + "";
@@ -486,22 +486,22 @@ namespace IceBlink2
             btnTraits.Draw();
             btnEffects.Draw();
             btnOthers.Draw();
-            if (mod.hideRoster == false)
+            if (gv.mod.hideRoster == false)
             {
                 btnPartyRoster.Draw();
             }
             
             //DRAW DESCRIPTION BOX
             Item it = new Item();
-            if (gv.cc.partyItemSlotIndex == 0) { it = mod.getItemByResRefForInfo(pc.MainHandRefs.resref); }
-            else if (gv.cc.partyItemSlotIndex == 1) { it = mod.getItemByResRefForInfo(pc.HeadRefs.resref); }
-            else if (gv.cc.partyItemSlotIndex == 2) { it = mod.getItemByResRefForInfo(pc.NeckRefs.resref); }
-            else if (gv.cc.partyItemSlotIndex == 3) { it = mod.getItemByResRefForInfo(pc.OffHandRefs.resref); }
-            else if (gv.cc.partyItemSlotIndex == 4) { it = mod.getItemByResRefForInfo(pc.RingRefs.resref); }
-            else if (gv.cc.partyItemSlotIndex == 5) { it = mod.getItemByResRefForInfo(pc.BodyRefs.resref); }
-            else if (gv.cc.partyItemSlotIndex == 6) { it = mod.getItemByResRefForInfo(pc.FeetRefs.resref); }
-            else if (gv.cc.partyItemSlotIndex == 7) { it = mod.getItemByResRefForInfo(pc.Ring2Refs.resref); }
-            else if (gv.cc.partyItemSlotIndex == 8) { it = mod.getItemByResRefForInfo(pc.AmmoRefs.resref); }
+            if (gv.cc.partyItemSlotIndex == 0) { it = gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref); }
+            else if (gv.cc.partyItemSlotIndex == 1) { it = gv.mod.getItemByResRefForInfo(pc.HeadRefs.resref); }
+            else if (gv.cc.partyItemSlotIndex == 2) { it = gv.mod.getItemByResRefForInfo(pc.NeckRefs.resref); }
+            else if (gv.cc.partyItemSlotIndex == 3) { it = gv.mod.getItemByResRefForInfo(pc.OffHandRefs.resref); }
+            else if (gv.cc.partyItemSlotIndex == 4) { it = gv.mod.getItemByResRefForInfo(pc.RingRefs.resref); }
+            else if (gv.cc.partyItemSlotIndex == 5) { it = gv.mod.getItemByResRefForInfo(pc.BodyRefs.resref); }
+            else if (gv.cc.partyItemSlotIndex == 6) { it = gv.mod.getItemByResRefForInfo(pc.FeetRefs.resref); }
+            else if (gv.cc.partyItemSlotIndex == 7) { it = gv.mod.getItemByResRefForInfo(pc.Ring2Refs.resref); }
+            else if (gv.cc.partyItemSlotIndex == 8) { it = gv.mod.getItemByResRefForInfo(pc.AmmoRefs.resref); }
 
             //Description
             string textToSpan = "";
@@ -540,15 +540,15 @@ namespace IceBlink2
             int numAtt = 1;
             numAtt = gv.sf.CalcNumberOfAttacks(pc);
             /*
-            if ((gv.sf.hasTrait(pc, "twoAttack")) && (mod.getItemByResRefForInfo(pc.MainHandRefs.resref).category.Equals("Melee")))
+            if ((gv.sf.hasTrait(pc, "twoAttack")) && (gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref).category.Equals("Melee")))
             {
                 numAtt = 2;
             }
-            if ((gv.sf.hasTrait(pc, "rapidshot")) && (mod.getItemByResRefForInfo(pc.MainHandRefs.resref).category.Equals("Ranged")))
+            if ((gv.sf.hasTrait(pc, "rapidshot")) && (gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref).category.Equals("Ranged")))
             {
                 numAtt = 2;
             }
-            if ((gv.sf.hasTrait(pc, "rapidshot2")) && (mod.getItemByResRefForInfo(pc.MainHandRefs.resref).category.Equals("Ranged")))
+            if ((gv.sf.hasTrait(pc, "rapidshot2")) && (gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref).category.Equals("Ranged")))
             {
                 numAtt = 3;
             }
@@ -558,9 +558,9 @@ namespace IceBlink2
             int attackMod = 0;
             int modifier = 0;
             /*
-            if ((mod.getItemByResRefForInfo(pc.MainHandRefs.resref).category.Equals("Melee"))
-                    || (mod.getItemByResRefForInfo(pc.MainHandRefs.resref).name.Equals("none"))
-                    || (mod.getItemByResRefForInfo(pc.AmmoRefs.resref).name.Equals("none")))
+            if ((gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref).category.Equals("Melee"))
+                    || (gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref).name.Equals("none"))
+                    || (gv.mod.getItemByResRefForInfo(pc.AmmoRefs.resref).name.Equals("none")))
                     */
 
             if (gv.sf.isMeleeAttack(pc))
@@ -601,71 +601,71 @@ namespace IceBlink2
                         modifier++;
                     }
                 }
-                Item it2 = mod.getItemByResRefForInfo(pc.AmmoRefs.resref);
+                Item it2 = gv.mod.getItemByResRefForInfo(pc.AmmoRefs.resref);
                 if (it2 != null)
                 {
-                    modifier += mod.getItemByResRefForInfo(pc.AmmoRefs.resref).attackBonus;
+                    modifier += gv.mod.getItemByResRefForInfo(pc.AmmoRefs.resref).attackBonus;
                 }
             }
 
-            attackMod = modifier + pc.baseAttBonus + mod.getItemByResRefForInfo(pc.MainHandRefs.resref).attackBonus;
+            attackMod = modifier + pc.baseAttBonus + gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref).attackBonus;
 
-            //3. Calculate damage with current weapon (numberOfDiceRolled, typeOfDieRolled, damModifier)  
+            //3. Calculate damage with current weapon (numberOfDiceRolled, typeOfDieRolled, dammodifier)  
             int numberOfDiceRolled = 0;
             int typeOfDieRolled = 0;
-            int damModifier = 0;
-            string damageType = mod.getItemByResRefForInfo(pc.MainHandRefs.resref).typeOfDamage;
+            int dammodifier = 0;
+            string damageType = gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref).typeOfDamage;
 
             if (gv.sf.isMeleeAttack(pc))
             {
                 /*
-                damModifier = (pc.strength - 10) / 2;
+                dammodifier = (pc.strength - 10) / 2;
                 //if has critical strike trait use dexterity for damage modifier in melee if greater than strength modifier
                 if (gv.sf.hasTrait(pc, "criticalstrike"))
                 {
-                    int damModifierDex = (pc.dexterity - 10) / 4;
-                    if (damModifierDex > damModifier)
+                    int dammodifierDex = (pc.dexterity - 10) / 4;
+                    if (dammodifierDex > dammodifier)
                     {
-                        damModifier = (pc.dexterity - 10) / 2;
+                        dammodifier = (pc.dexterity - 10) / 2;
                     }
                 }
                 */
-                damModifier = gv.sf.CalcPcMeleeDamageAttributeModifier(pc);
+                dammodifier = gv.sf.CalcPcMeleeDamageAttributeModifier(pc);
             }
             else //ranged weapon used
             {
-                damModifier = 0;
+                dammodifier = 0;
                 int preciseShotAdder = 0;
                 preciseShotAdder = gv.sf.CalcPcRangedDamageModifier(pc);
                 if (preciseShotAdder > 0)
                 {
-                    //damModifier += 2;
-                    damModifier += preciseShotAdder;
+                    //dammodifier += 2;
+                    dammodifier += preciseShotAdder;
                 }
                 else
                 {
                     if (gv.sf.hasTrait(pc, "preciseshot2"))
                     {
-                        damModifier += 2;
+                        dammodifier += 2;
                     }
                     else if (gv.sf.hasTrait(pc, "preciseshot"))
                     {
-                        damModifier++;
+                        dammodifier++;
                     }
 
                 }
-                Item it3 = mod.getItemByResRefForInfo(pc.AmmoRefs.resref);
+                Item it3 = gv.mod.getItemByResRefForInfo(pc.AmmoRefs.resref);
                 if (it3 != null)
                 {
-                    damModifier += mod.getItemByResRefForInfo(pc.AmmoRefs.resref).damageAdder;
-                    damageType = mod.getItemByResRefForInfo(pc.AmmoRefs.resref).typeOfDamage;
+                    dammodifier += gv.mod.getItemByResRefForInfo(pc.AmmoRefs.resref).damageAdder;
+                    damageType = gv.mod.getItemByResRefForInfo(pc.AmmoRefs.resref).typeOfDamage;
                 }
 
             }
 
-            damModifier += mod.getItemByResRefForInfo(pc.MainHandRefs.resref).damageAdder;
-            numberOfDiceRolled = mod.getItemByResRefForInfo(pc.MainHandRefs.resref).damageNumDice;
-            typeOfDieRolled = mod.getItemByResRefForInfo(pc.MainHandRefs.resref).damageDie;
+            dammodifier += gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref).damageAdder;
+            numberOfDiceRolled = gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref).damageNumDice;
+            typeOfDieRolled = gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref).damageDie;
 
             //4. Draw TextBox with info from abvoe about attack and damage
             //Description
@@ -673,7 +673,7 @@ namespace IceBlink2
             textToSpan2 = "<u>Current Attack and Damage</u>" + "<BR>";
             textToSpan2 += "Number of attacks: " + numAtt + "<BR>";
             textToSpan2 += "Attack bonus: " + attackMod + "<BR>";
-            textToSpan2 += "Damage: " + numberOfDiceRolled + "d" + typeOfDieRolled + "+" + damModifier + "<BR>";
+            textToSpan2 += "Damage: " + numberOfDiceRolled + "d" + typeOfDieRolled + "+" + dammodifier + "<BR>";
             textToSpan2 += "Damage type: " + damageType + "<BR>";
 
             locY = btnBody.Y + btnBody.Height + (pH * 2);
@@ -767,7 +767,7 @@ namespace IceBlink2
                     btnEffects.glowOn = false;
                     btnOthers.glowOn = false;
 
-                    Player pc = mod.playerList[gv.cc.partyScreenPcIndex];
+                    Player pc = gv.mod.playerList[gv.cc.partyScreenPcIndex];
 
                     if (btnPortrait.getImpact(x, y))
                     {
@@ -827,7 +827,7 @@ namespace IceBlink2
                     }
                     else if (btnOthers.getImpact(x, y))
                     {
-                        gv.sf.MessageBoxHtml("<big><b><u>SAVING THROW MODIFIERS</u></b></big><br>" +
+                        gv.sf.MessageBoxHtml("<big><b><u>SAVING THROW modifierS</u></b></big><br>" +
                                 "Fortitude: " + pc.fortitude + "<br>" +
                                 "Will: " + pc.will + "<br>" +
                                 "Reflex: " + pc.reflex + "<br><br>" +
@@ -951,9 +951,9 @@ namespace IceBlink2
                             gv.sf.MessageBoxHtml("Can't Level up during combat.");
                             return;
                         }
-                        if (mod.playerList[gv.cc.partyScreenPcIndex].IsReadyToAdvanceLevel())
+                        if (gv.mod.playerList[gv.cc.partyScreenPcIndex].IsReadyToAdvanceLevel())
                         {
-                            if (mod.playerList[gv.cc.partyScreenPcIndex].isDead())
+                            if (gv.mod.playerList[gv.cc.partyScreenPcIndex].isDead())
                             {
                                 //Toast.makeText(gv.gameContext, "Can't Level Up a Dead Character", Toast.LENGTH_SHORT).show();
                             }
@@ -970,15 +970,15 @@ namespace IceBlink2
                     else if (btnInfo.getImpact(x, y))
                     {
                         Item it = new Item();
-                        if (gv.cc.partyItemSlotIndex == 0) { it = mod.getItemByResRef(pc.MainHandRefs.resref); }
-                        else if (gv.cc.partyItemSlotIndex == 1) { it = mod.getItemByResRef(pc.HeadRefs.resref); }
-                        else if (gv.cc.partyItemSlotIndex == 2) { it = mod.getItemByResRef(pc.NeckRefs.resref); }
-                        else if (gv.cc.partyItemSlotIndex == 3) { it = mod.getItemByResRef(pc.OffHandRefs.resref); }
-                        else if (gv.cc.partyItemSlotIndex == 4) { it = mod.getItemByResRef(pc.RingRefs.resref); }
-                        else if (gv.cc.partyItemSlotIndex == 5) { it = mod.getItemByResRef(pc.BodyRefs.resref); }
-                        else if (gv.cc.partyItemSlotIndex == 6) { it = mod.getItemByResRef(pc.FeetRefs.resref); }
-                        else if (gv.cc.partyItemSlotIndex == 7) { it = mod.getItemByResRef(pc.Ring2Refs.resref); }
-                        else if (gv.cc.partyItemSlotIndex == 8) { it = mod.getItemByResRef(pc.AmmoRefs.resref); }
+                        if (gv.cc.partyItemSlotIndex == 0) { it = gv.mod.getItemByResRef(pc.MainHandRefs.resref); }
+                        else if (gv.cc.partyItemSlotIndex == 1) { it = gv.mod.getItemByResRef(pc.HeadRefs.resref); }
+                        else if (gv.cc.partyItemSlotIndex == 2) { it = gv.mod.getItemByResRef(pc.NeckRefs.resref); }
+                        else if (gv.cc.partyItemSlotIndex == 3) { it = gv.mod.getItemByResRef(pc.OffHandRefs.resref); }
+                        else if (gv.cc.partyItemSlotIndex == 4) { it = gv.mod.getItemByResRef(pc.RingRefs.resref); }
+                        else if (gv.cc.partyItemSlotIndex == 5) { it = gv.mod.getItemByResRef(pc.BodyRefs.resref); }
+                        else if (gv.cc.partyItemSlotIndex == 6) { it = gv.mod.getItemByResRef(pc.FeetRefs.resref); }
+                        else if (gv.cc.partyItemSlotIndex == 7) { it = gv.mod.getItemByResRef(pc.Ring2Refs.resref); }
+                        else if (gv.cc.partyItemSlotIndex == 8) { it = gv.mod.getItemByResRef(pc.AmmoRefs.resref); }
                         if (it != null)
                         {
                             gv.sf.ShowFullDescription(it);
@@ -1012,12 +1012,12 @@ namespace IceBlink2
                     }
                     if (!inCombat)
                     {
-                        for (int j = 0; j < mod.playerList.Count; j++)
+                        for (int j = 0; j < gv.mod.playerList.Count; j++)
                         {
                             if (btnPartyIndex[j].getImpact(x, y))
                             {
-                                mod.selectedPartyLeader = j;
-                                gv.cc.addLogText("lime", mod.playerList[j].name + " is Party Leader");
+                                gv.mod.selectedPartyLeader = j;
+                                gv.cc.addLogText("lime", gv.mod.playerList[j].name + " is Party Leader");
                                 if (gv.cc.partyScreenPcIndex == j)
                                 {
                                     doInterPartyConvo(); //not used in The Raventhal
@@ -1043,7 +1043,7 @@ namespace IceBlink2
         public String isUseableBy(Item it)
         {
             string strg = "";
-            foreach (PlayerClass cls in mod.modulePlayerClassList)
+            foreach (PlayerClass cls in gv.mod.modulePlayerClassList)
             {
                 string firstLetter = cls.name.Substring(0, 1);
                 foreach (ItemRefs stg in cls.itemsAllowed)
@@ -1062,16 +1062,16 @@ namespace IceBlink2
             {
                 return;
             }
-            if (gv.cc.partyScreenPcIndex >= mod.playerList.Count)
+            if (gv.cc.partyScreenPcIndex >= gv.mod.playerList.Count)
             {
                 return;
             }
-            Player pc = mod.playerList[gv.cc.partyScreenPcIndex];
+            Player pc = gv.mod.playerList[gv.cc.partyScreenPcIndex];
             gv.cc.doConversationBasedOnTag(pc.name);
         }
         public bool canNotBeUnequipped()
         {
-            Player pc = mod.playerList[gv.cc.partyScreenPcIndex];
+            Player pc = gv.mod.playerList[gv.cc.partyScreenPcIndex];
             if (gv.cc.partyItemSlotIndex == 0) { return pc.MainHandRefs.canNotBeUnequipped; }
             else if (gv.cc.partyItemSlotIndex == 1) { return pc.HeadRefs.canNotBeUnequipped; }
             else if (gv.cc.partyItemSlotIndex == 2) { return pc.NeckRefs.canNotBeUnequipped; }
@@ -1085,10 +1085,10 @@ namespace IceBlink2
         }
         public void switchEquipment(bool inCombat)
         {
-            Player pc = mod.playerList[gv.cc.partyScreenPcIndex];
+            Player pc = gv.mod.playerList[gv.cc.partyScreenPcIndex];
             if (gv.cc.partyItemSlotIndex == 3)
             {
-                if (mod.getItemByResRefForInfo(pc.MainHandRefs.resref).twoHanded)
+                if (gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref).twoHanded)
                 {
                     gv.sf.MessageBoxHtml("Can't equip an item in off-hand while using a two-handed weapon. Unequip the two-handed weapon from the main-hand first.");
                     return;
@@ -1098,7 +1098,7 @@ namespace IceBlink2
             //check to see if ammo can be used by MainHand weapon
             if (gv.cc.partyItemSlotIndex == 8)
             {
-                Item itMH = mod.getItemByResRef(pc.MainHandRefs.resref);
+                Item itMH = gv.mod.getItemByResRef(pc.MainHandRefs.resref);
                 if ((!itMH.category.Equals("Ranged")) || (itMH.ammoType.Equals("none")))
                 {
                     gv.sf.MessageBoxHtml("Can't use ammo with the weapon currently equipped in your main-hand.");
@@ -1116,9 +1116,9 @@ namespace IceBlink2
             List<ItemRefs> allowedItems = new List<ItemRefs>();
 
             //add any other allowed items to the allowed list
-            foreach (ItemRefs itRef in mod.partyInventoryRefsList)
+            foreach (ItemRefs itRef in gv.mod.partyInventoryRefsList)
             {
-                Item it = mod.getItemByResRef(itRef.resref);
+                Item it = gv.mod.getItemByResRef(itRef.resref);
                 if (gv.cc.partyItemSlotIndex == 0)
                 {
                     if ((it.category.Equals("Melee")) || (it.category.Equals("Ranged")))
@@ -1182,7 +1182,7 @@ namespace IceBlink2
                 {
                     if (pc.playerClass.containsItemRefsWithResRef(itRef.resref))
                     {
-                        Item itMH = mod.getItemByResRef(pc.MainHandRefs.resref);
+                        Item itMH = gv.mod.getItemByResRef(pc.MainHandRefs.resref);
                         if ((itMH.category.Equals("Ranged")) && (!itMH.ammoType.Equals("none")) && (itMH.ammoType.Equals(it.ammoType)))
                         {
                             allowedItems.Add(itRef);
@@ -1218,7 +1218,7 @@ namespace IceBlink2
                 }
                 else if (itSel.selectedIndex == 1) // selected to LEVEL UP
                 {
-                    Player pc = mod.playerList[gv.cc.partyScreenPcIndex];
+                    Player pc = gv.mod.playerList[gv.cc.partyScreenPcIndex];
                     //LEVEL UP ALL STATS AND UPDATE STATS
                     pc.LevelUp();
                     gv.sf.UpdateStats(pc);
@@ -1291,7 +1291,7 @@ namespace IceBlink2
         }
         public void doLevelUpSummary()
         {
-            Player pc = mod.playerList[gv.cc.partyScreenPcIndex];
+            Player pc = gv.mod.playerList[gv.cc.partyScreenPcIndex];
             int babGained = pc.playerClass.babTable[pc.classLevel] - pc.playerClass.babTable[pc.classLevel - 1];
 
             string text = pc.name + " has gained:<br>"
@@ -1304,10 +1304,10 @@ namespace IceBlink2
         }
         public void tutorialMessageParty(bool helpCall)
         {
-            if ((mod.showTutorialParty) || (helpCall))
+            if ((gv.mod.showTutorialParty) || (helpCall))
             {
                 gv.sf.MessageBoxHtml(gv.cc.stringMessageParty);
-                mod.showTutorialParty = false;
+                gv.mod.showTutorialParty = false;
             }
         }
     }

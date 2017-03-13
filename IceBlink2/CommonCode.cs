@@ -198,7 +198,7 @@ namespace IceBlink2
                 JsonSerializer serializer = new JsonSerializer();
                 toReturn = (Player)serializer.Deserialize(file, typeof(Player));
             }
-            return toReturn;
+            return toReturn.DeepCopy();
         }
         public void LoadCurrentConvo(string filename)
         {
@@ -343,9 +343,79 @@ namespace IceBlink2
                 sw.Write(json.ToString());
             }
         }
+
+        public void doVerifyReturnToMain()
+        {
+            List<string> actionList = new List<string> { "Yes, Return To Main Menu", "No, Keep Playing" };
+
+            using (ItemListSelector itSel = new ItemListSelector(gv, actionList, "Are you sure you wish to exit to Main Menu?"))
+            {
+                itSel.IceBlinkButtonClose.Enabled = true;
+                itSel.IceBlinkButtonClose.Visible = true;
+                itSel.setupAll(gv);
+                var ret = itSel.ShowDialog();
+
+                /*
+                if (fixedModule.Equals("")) //this is the IceBlink Engine app
+                {
+                    screenLauncher = new ScreenLauncher(mod, this);
+                    screenLauncher.loadModuleFiles();
+                    screenType = "launcher";
+                }
+                else //this is a fixed module
+                {
+                    mod = cc.LoadModule(fixedModule + "/" + fixedModule + ".mod", false);
+                    resetGame();
+                    cc.LoadSaveListItems();
+                    screenType = "title";
+                }
+                */
+
+                if (itSel.selectedIndex == 0)
+                {
+                    //go to launcher screen  
+                    if (gv.fixedModule.Equals("")) //this is the IceBlink Engine app  
+                    {
+                        //gv.createScreens();
+                        if (gv.screenLauncher == null)
+                        {
+                            gv.screenLauncher = new ScreenLauncher(gv.mod, gv);
+                        }
+                        if (gv.screenPartyBuild == null)
+                        {
+                            gv.screenPartyBuild = new ScreenPartyBuild(gv.mod, gv);
+                        }
+                        if (gv.screenPcCreation == null)
+                        {
+                            gv.screenPcCreation = new ScreenPcCreation(gv.mod, gv);
+                        }
+                        if (gv.screenTitle == null)
+                        {
+                            gv.screenTitle = new ScreenTitle(gv.mod, gv);
+                        }
+
+                        //TODO make sure this works  
+                        gv.screenLauncher.loadModuleFiles();
+                        gv.screenType = "launcher";
+                    }
+                    else //this is a fixed module  
+                    {
+                        gv.mod = gv.cc.LoadModule(gv.fixedModule + "/" + gv.fixedModule + ".mod", false);
+                        gv.resetGame();
+                        gv.cc.LoadSaveListItems();
+                        gv.screenType = "title";
+                    }
+                }
+                if (itSel.selectedIndex == 1)
+                {
+                    //keep playing 
+                }
+            }
+        }
+         
         public void doSavesDialog()
         {
-            List<string> saveList = new List<string> { slot0, slot1, slot2, slot3, slot4, slot5 };
+            List<string> saveList = new List<string> { slot0, slot1, slot2, slot3, slot4, slot5, "Return to Main Menu" };
 
             using (ItemListSelector itSel = new ItemListSelector(gv, saveList, "Choose a slot to save game."))
             {
@@ -446,7 +516,13 @@ namespace IceBlink2
                         gv.errorLog(ex.ToString());
                     }
                 }
+                else if (itSel.selectedIndex == 6)
+                {
+                    //ask if they really want to exit, remind to save first  
+                    doVerifyReturnToMain();
+                }
             }
+
         }
         public void doLoadSaveGameDialog()
         {

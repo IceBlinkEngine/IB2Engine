@@ -9,7 +9,7 @@ namespace IceBlink2
 {
     public class ScreenTitle 
     {
-	    public Module mod;
+	    //public gv.module gv.mod;
 	    public GameView gv;
 	
 	    private IbbButton btnNewGame = null;
@@ -20,7 +20,7 @@ namespace IceBlink2
 	
 	    public ScreenTitle(Module m, GameView g)
 	    {
-		    mod = m;
+		    //gv.mod = m;
 		    gv = g;
 		    setControlsStart();
 	    }
@@ -96,10 +96,10 @@ namespace IceBlink2
             IbRect dst = new IbRect(0, 0, gv.screenWidth, (int)dstHeight);
             gv.DrawBitmap(gv.cc.title, src, dst);
 
-            //Draw This Module's Version Number
+            //Draw This gv.module's Version Number
             int xLoc = (gv.screenWidth / 2) - 4;
             int pH = (int)((float)gv.screenHeight / 100.0f);
-            gv.DrawText("v" + mod.moduleVersion, xLoc, (7 * gv.squareSize) + (pH * 4));
+            gv.DrawText("v" + gv.mod.moduleVersion, xLoc, (7 * gv.squareSize) + (pH * 4));
             
             drawTitleControls();
         }

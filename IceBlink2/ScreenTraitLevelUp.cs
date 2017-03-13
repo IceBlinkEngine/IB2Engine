@@ -11,7 +11,7 @@ namespace IceBlink2
     public class ScreenTraitLevelUp 
     {
 
-	    private Module mod;
+	    //private gv.module gv.mod;
 	    private GameView gv;
 	
 	    private int traitSlotIndex = 0;
@@ -30,7 +30,7 @@ namespace IceBlink2
 	
 	    public ScreenTraitLevelUp(Module m, GameView g) 
 	    {
-		    mod = m;
+		    //gv.mod = m;
 		    gv = g;
 		    setControlsStart();
 		    pc = new Player();
@@ -129,7 +129,7 @@ namespace IceBlink2
                 //DRAW TEXT		
                 locY = (gv.squareSize * 0) + (pH * 2);
                 //gv.DrawText("Select One Trait to Learn", noticeX, pH * 1, 1.0f, Color.Gray);
-                gv.DrawText("Select " + traitToLearnIndex + " of " + mod.getPlayerClass(pc.classTag).traitsToLearnAtLevelTable[pc.classLevel] + " Traits to Learn", noticeX, pH * 1, 1.0f, Color.Gray);
+                gv.DrawText("Select " + traitToLearnIndex + " of " + gv.mod.getPlayerClass(pc.classTag).traitsToLearnAtLevelTable[pc.classLevel] + " Traits to Learn", noticeX, pH * 1, 1.0f, Color.Gray);
 
                 //DRAW NOTIFICATIONS
                 if (isSelectedTraitSlotInKnownTraitsRange())
@@ -171,7 +171,7 @@ namespace IceBlink2
 			    if (cntSlot < pc.playerClass.traitsAllowed.Count)
 			    {
 				    TraitAllowed ta = pc.playerClass.traitsAllowed[cntSlot];
-				    Trait tr = mod.getTraitByTag(ta.tag);
+				    Trait tr = gv.mod.getTraitByTag(ta.tag);
 
                     if (infoOnly)
                     {
@@ -393,7 +393,7 @@ namespace IceBlink2
                     //add permanent effects of trait to effect list of this pc
                     foreach (EffectTagForDropDownList efTag in tr.traitEffectTagList)
                     {//1
-                        foreach (Effect ef in gv.mod.moduleEffectsList)
+                        foreach (Effect ef in gv.gv.mod.gv.moduleEffectsList)
                         {//2
                             if (ef.tag == efTag.tag)
                             {//3
@@ -413,9 +413,9 @@ namespace IceBlink2
                                     {//6
                                         pc.effectsList.Add(ef);
                                         gv.sf.UpdateStats(pc);
-                                        if (ef.modifyHpMax != 0)
+                                        if (ef.gv.modifyHpMax != 0)
                                         {//7
-                                            pc.hp += ef.modifyHpMax;
+                                            pc.hp += ef.gv.modifyHpMax;
                                             if (pc.hp < 1)
                                             {//8
                                                 pc.hp = 1;
@@ -426,9 +426,9 @@ namespace IceBlink2
                                             }
                                         }//7
 
-                                        if (ef.modifyCon != 0)
+                                        if (ef.gv.modifyCon != 0)
                                         {//7
-                                            pc.hp += ef.modifyCon / 2;
+                                            pc.hp += ef.gv.modifyCon / 2;
                                             if (pc.hp < 1)
                                             {//8
                                                 pc.hp = 1;
@@ -439,9 +439,9 @@ namespace IceBlink2
                                             }
                                         }//7
 
-                                        if (ef.modifySpMax != 0)
+                                        if (ef.gv.modifySpMax != 0)
                                         {
-                                            pc.sp += ef.modifySpMax;
+                                            pc.sp += ef.gv.modifySpMax;
                                             if (pc.sp < 1)
                                             {
                                                 pc.sp = 1;
@@ -452,11 +452,11 @@ namespace IceBlink2
                                             }
                                         }
 
-                                        if (ef.modifyStr != 0)
+                                        if (ef.gv.modifyStr != 0)
                                         {
-                                            if (pc.playerClass.modifierFromSPRelevantAttribute.Equals("strength"))
+                                            if (pc.playerClass.gv.modifierFromSPRelevantAttribute.Equals("strength"))
                                             {
-                                                pc.sp += ef.modifyStr / 2;
+                                                pc.sp += ef.gv.modifyStr / 2;
                                                 if (pc.sp < 1)
                                                 {
                                                     pc.sp = 1;
@@ -468,11 +468,11 @@ namespace IceBlink2
                                             }
                                         }
 
-                                        if (ef.modifyDex != 0)
+                                        if (ef.gv.modifyDex != 0)
                                         {
-                                            if (pc.playerClass.modifierFromSPRelevantAttribute.Equals("dexterity"))
+                                            if (pc.playerClass.gv.modifierFromSPRelevantAttribute.Equals("dexterity"))
                                             {
-                                                pc.sp += ef.modifyDex / 2;
+                                                pc.sp += ef.gv.modifyDex / 2;
                                                 if (pc.sp < 1)
                                                 {
                                                     pc.sp = 1;
@@ -484,11 +484,11 @@ namespace IceBlink2
                                             }
                                         }
 
-                                        if (ef.modifyCon != 0)
+                                        if (ef.gv.modifyCon != 0)
                                         {
-                                            if (pc.playerClass.modifierFromSPRelevantAttribute.Equals("constitution"))
+                                            if (pc.playerClass.gv.modifierFromSPRelevantAttribute.Equals("constitution"))
                                             {
-                                                pc.sp += ef.modifyCon / 2;
+                                                pc.sp += ef.gv.modifyCon / 2;
                                                 if (pc.sp < 1)
                                                 {
                                                     pc.sp = 1;
@@ -500,11 +500,11 @@ namespace IceBlink2
                                             }
                                         }
 
-                                        if (ef.modifyCha != 0)
+                                        if (ef.gv.modifyCha != 0)
                                         {
-                                            if (pc.playerClass.modifierFromSPRelevantAttribute.Equals("charisma"))
+                                            if (pc.playerClass.gv.modifierFromSPRelevantAttribute.Equals("charisma"))
                                             {
-                                                pc.sp += ef.modifyCha / 2;
+                                                pc.sp += ef.gv.modifyCha / 2;
                                                 if (pc.sp < 1)
                                                 {
                                                     pc.sp = 1;
@@ -516,11 +516,11 @@ namespace IceBlink2
                                             }
                                         }
 
-                                        if (ef.modifyInt != 0)
+                                        if (ef.gv.modifyInt != 0)
                                         {
-                                            if (pc.playerClass.modifierFromSPRelevantAttribute.Equals("intelligence"))
+                                            if (pc.playerClass.gv.modifierFromSPRelevantAttribute.Equals("intelligence"))
                                             {
-                                                pc.sp += ef.modifyInt / 2;
+                                                pc.sp += ef.gv.modifyInt / 2;
                                                 if (pc.sp < 1)
                                                 {
                                                     pc.sp = 1;
@@ -532,11 +532,11 @@ namespace IceBlink2
                                             }
                                         }
 
-                                        if (ef.modifyWis != 0)
+                                        if (ef.gv.modifyWis != 0)
                                         {
-                                            if (pc.playerClass.modifierFromSPRelevantAttribute.Equals("wisdom"))
+                                            if (pc.playerClass.gv.modifierFromSPRelevantAttribute.Equals("wisdom"))
                                             {
-                                                pc.sp += ef.modifyWis / 2;
+                                                pc.sp += ef.gv.modifyWis / 2;
                                                 if (pc.sp < 1)
                                                 {
                                                     pc.sp = 1;
@@ -595,7 +595,7 @@ namespace IceBlink2
 
                     //check to see if there are more traits to learn at this level  
                     traitToLearnIndex++;
-                    if (traitToLearnIndex <= mod.getPlayerClass(pc.classTag).traitsToLearnAtLevelTable[pc.classLevel])
+                    if (traitToLearnIndex <= gv.mod.getPlayerClass(pc.classTag).traitsToLearnAtLevelTable[pc.classLevel])
                     {
                         gv.screenParty.traitGained += tr.name + ", ";
                     }
@@ -860,7 +860,7 @@ namespace IceBlink2
         public Trait GetCurrentlySelectedTrait()
 	    {
     	    TraitAllowed ta = pc.playerClass.traitsAllowed[traitSlotIndex];
-		    return mod.getTraitByTag(ta.tag);
+		    return gv.mod.getTraitByTag(ta.tag);
 	    }
 	    public bool isSelectedTraitSlotInKnownTraitsRange()
 	    {

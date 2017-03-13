@@ -13,7 +13,7 @@ namespace IceBlink2
 {
     public class ScreenPcCreation
     {
-        public Module mod;
+        //public gv.module gv.mod;
         public GameView gv;
 
         private IbbButton btnName = null;
@@ -42,7 +42,7 @@ namespace IceBlink2
 
         public ScreenPcCreation(Module m, GameView g)
         {
-            mod = m;
+            //gv.mod = m;
             gv = g;
             blankItemSlot = gv.cc.LoadBitmap("item_slot");
             LoadPlayerBitmapList();
@@ -58,7 +58,7 @@ namespace IceBlink2
             pc = gv.cc.LoadPlayer(gv.mod.defaultPlayerFilename);
             pc.token = gv.cc.LoadBitmap(pc.tokenFilename);
             pc.portrait = gv.cc.LoadBitmap(pc.portraitFilename);
-            pc.playerClass = mod.getPlayerClass(pc.classTag);
+            pc.playerClass = gv.mod.getPlayerClass(pc.classTag);
             pc.race = this.getAllowedRace(pc.raceTag);
             pc.name = "CharacterName";
             pc.tag = "characterName";
@@ -69,7 +69,7 @@ namespace IceBlink2
         {
             //Create Race List
             playerRaces.Clear();
-            foreach (Race rc in mod.moduleRacesList)
+            foreach (Race rc in gv.mod.moduleRacesList)
             {
                 if (rc.UsableByPlayer)
                 {
@@ -77,7 +77,7 @@ namespace IceBlink2
                     newRace.classesAllowed.Clear();
                     foreach (string s in rc.classesAllowed)
                     {
-                        PlayerClass plc = mod.getPlayerClass(s);
+                        PlayerClass plc = gv.mod.getPlayerClass(s);
                         if ((plc != null) && (plc.UsableByPlayer))
                         {
                             newRace.classesAllowed.Add(s);
@@ -100,7 +100,7 @@ namespace IceBlink2
             playerTokenList.Clear();
             try
             {
-                //Load from module folder first
+                //Load from gv.module folder first
                 string[] files;
                 if (Directory.Exists(gv.mainDirectory + "\\modules\\" + gv.mod.moduleName + "\\pctokens"))
                 {
@@ -169,7 +169,7 @@ namespace IceBlink2
             playerPortraitList.Clear();
             try
             {
-                //Load from module folder first
+                //Load from gv.module folder first
                 string[] files;
                 if (Directory.Exists(gv.mainDirectory + "\\modules\\" + gv.mod.moduleName + "\\portraits"))
                 {
@@ -362,7 +362,7 @@ namespace IceBlink2
 
         public void redrawPcCreation()
         {
-            //Player pc = mod.playerList.get(0);
+            //Player pc = gv.mod.playerList.get(0);
             gv.sf.UpdateStats(pc);
 
             int pW = (int)((float)gv.screenWidth / 100.0f);
@@ -388,23 +388,23 @@ namespace IceBlink2
             Color color = Color.White;
 
             int actext = 0;
-            if (mod.ArmorClassAscending) { actext = pc.AC; }
+            if (gv.mod.ArmorClassAscending) { actext = pc.AC; }
             else { actext = 20 - pc.AC; }
-            if (mod.useOrbitronFont == true)
+            if (gv.mod.useOrbitronFont == true)
             {
-                if (mod.use3d6 && mod.useLuck)
+                if (gv.mod.use3d6 && gv.mod.useLuck)
                 {
                     gv.DrawText("Rolling: 3d6, Luck is high for those who need it", locX + pW, locY += (spacing));
                 }
-                else if (mod.use3d6 && !mod.useLuck)
+                else if (gv.mod.use3d6 && !gv.mod.useLuck)
                 {
                     gv.DrawText("Rolling: 3d6", locX + pW, locY += (spacing));
                 }
-                else if (!mod.use3d6 && mod.useLuck)
+                else if (!gv.mod.use3d6 && gv.mod.useLuck)
                 {
                     gv.DrawText("Rolling: 6 + d12, Luck is high for those who need it", locX + pW, locY += (spacing));
                 }
-                else if (!mod.use3d6 && !mod.useLuck)
+                else if (!gv.mod.use3d6 && !gv.mod.useLuck)
                 {
                     gv.DrawText("Rolling: 6 + d12", locX + pW, locY += (spacing));
 
@@ -422,7 +422,7 @@ namespace IceBlink2
                 gv.DrawText("WILL: " + pc.will + ", Magic: " + pc.damageTypeResistanceTotalMagic + "%" + ", Poison: " + pc.damageTypeResistanceTotalPoison + "%", tabX2, locY2 += spacing);
                 gv.DrawText("WIS:  " + pc.baseWis + " + " + (pc.wisdom - pc.baseWis) + " = " + pc.wisdom + " (" + ((pc.wisdom - 10) / 2) + ")", locX + pW, locY += spacing);
                 gv.DrawText("CHA: " + pc.baseCha + " + " + (pc.charisma - pc.baseCha) + " = " + pc.charisma + " (" + ((pc.charisma - 10) / 2) + ")", locX + pW, locY += spacing);
-                if (mod.useLuck)
+                if (gv.mod.useLuck)
                 {
                     gv.DrawText("LCK:  " + pc.baseLuck + " + " + (pc.luck - pc.baseLuck) + " = " + pc.luck, locX + pW, locY += spacing);
                 }
@@ -430,19 +430,19 @@ namespace IceBlink2
             else
             {
 
-                if (mod.use3d6 && mod.useLuck)
+                if (gv.mod.use3d6 && gv.mod.useLuck)
                 {
                     gv.DrawText("Rolling: 3d6, Luck is high for those who need it", locX + pW, locY += (spacing));
                 }
-                else if (mod.use3d6 && !mod.useLuck)
+                else if (gv.mod.use3d6 && !gv.mod.useLuck)
                 {
                     gv.DrawText("Rolling: 3d6", locX + pW, locY += (spacing));
                 }
-                else if (!mod.use3d6 && mod.useLuck)
+                else if (!gv.mod.use3d6 && gv.mod.useLuck)
                 {
                     gv.DrawText("Rolling: 6 + d12, Luck is high for those who need it", locX + pW, locY += (spacing));
                 }
-                else if (!mod.use3d6 && !mod.useLuck)
+                else if (!gv.mod.use3d6 && !gv.mod.useLuck)
                 {
                     gv.DrawText("Rolling: 6 + d12", locX + pW, locY += (spacing));
 
@@ -460,7 +460,7 @@ namespace IceBlink2
                 gv.DrawText("WILL: " + pc.will + ", Magic: " + pc.damageTypeResistanceTotalMagic + "%" + ", Poison: " + pc.damageTypeResistanceTotalPoison + "%", tabX2, locY2 += spacing);
                 gv.DrawText("WIS:  " + pc.baseWis + " + " + (pc.wisdom - pc.baseWis) + " = " + pc.wisdom + " (" + ((pc.wisdom - 10) / 2) + ")", locX + pW, locY += spacing);
                 gv.DrawText("CHA: " + pc.baseCha + " + " + (pc.charisma - pc.baseCha) + " = " + pc.charisma + " (" + ((pc.charisma - 10) / 2) + ")", locX + pW, locY += spacing);
-                if (mod.useLuck)
+                if (gv.mod.useLuck)
                 {
                     gv.DrawText("LCK:  " + pc.baseLuck + " + " + (pc.luck - pc.baseLuck) + " = " + pc.luck, locX + pW, locY += spacing);
                 }
@@ -628,7 +628,7 @@ namespace IceBlink2
                         {
                             pcClassSelectionIndex = 0;
                         }
-                        pc.playerClass = mod.getPlayerClass(pc.race.classesAllowed[pcClassSelectionIndex]);
+                        pc.playerClass = gv.mod.getPlayerClass(pc.race.classesAllowed[pcClassSelectionIndex]);
                         pc.classTag = pc.playerClass.tag;
                         gv.sf.UpdateStats(pc);
                         pc.hp = pc.hpMax;
@@ -1027,7 +1027,7 @@ namespace IceBlink2
         }
         public void reRollStats(Player p)
         {
-            if (mod.use3d6 == true)
+            if (gv.mod.use3d6 == true)
             {
                 p.baseStr = gv.sf.RandInt(6) + gv.sf.RandInt(6) + gv.sf.RandInt(6);
                 p.baseDex = gv.sf.RandInt(6) + gv.sf.RandInt(6) + gv.sf.RandInt(6);
@@ -1081,7 +1081,7 @@ namespace IceBlink2
         public void resetClassSelection(Player p)
         {
             pcClassSelectionIndex = 0;
-            p.playerClass = mod.getPlayerClass(p.race.classesAllowed[pcClassSelectionIndex]);
+            p.playerClass = gv.mod.getPlayerClass(p.race.classesAllowed[pcClassSelectionIndex]);
             p.classTag = p.playerClass.tag;
             gv.sf.UpdateStats(p);
             p.hp = p.hpMax;
