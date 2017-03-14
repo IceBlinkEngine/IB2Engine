@@ -90,7 +90,7 @@ namespace IceBlink2
                 }
                 else
                 {
-                    using (StreamReader file = File.OpenText(gv.mainDirectory + "\\default\\Newgv.module\\data\\MainUILayout.json"))
+                    using (StreamReader file = File.OpenText(gv.mainDirectory + "\\default\\NewModule\\data\\MainUILayout.json"))
                     {
                         JsonSerializer serializer = new JsonSerializer();
                         mainUiLayout = (IB2UILayout)serializer.Deserialize(file, typeof(IB2UILayout));

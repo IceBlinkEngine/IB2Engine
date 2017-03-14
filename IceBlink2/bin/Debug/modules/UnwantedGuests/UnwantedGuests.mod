@@ -52,7 +52,8 @@
     "winter_2_",
     "wm_debug",
     "wm_Movers",
-    "wm_try"
+    "wm_try",
+    "tilesOnly"
   ],
   "moduleConvosList": [
     "aTestConvo",
@@ -182,13 +183,13 @@
   "MaxPartySize": 6,
   "moduleDescription": "Short module tutorial on how to make a simple module.",
   "moduleCredits": "<big><b>Unwanted Guests</b></big><BR>\r\n<BR>\r\n-visit the forums for more info:<BR>\r\nwww.iceblinkengine.com/forums",
-  "nextIdNumber": 10873,
+  "nextIdNumber": 10877,
   "realTimeTimerLengthInMilliSeconds": 7000,
   "borderAreaSize": 0,
   "WorldTime": 0,
-  "startingArea": "linktest",
-  "startingPlayerPositionX": 5,
-  "startingPlayerPositionY": 0,
+  "startingArea": "tilesOnly",
+  "startingPlayerPositionX": 4,
+  "startingPlayerPositionY": 3,
   "partyGold": 100,
   "partyTokenFilename": "prp_party",
   "OnHeartBeatIBScript": "none",
