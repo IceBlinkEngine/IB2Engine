@@ -444,7 +444,7 @@ namespace IceBlink2
                 }
             }
         }
-        public void setCurrentArea(string filename, GameView gv)
+        public bool setCurrentArea(string filename, GameView gv)
         {
             try
             {
@@ -461,13 +461,17 @@ namespace IceBlink2
                             gv.cc.DisposeOfBitmap(ref p.token);
                             p.token = gv.cc.LoadBitmap(p.ImageFileName);
                         }
+                        return true;
                     }
                 }
+                return false;
             }
             catch (Exception ex)
             {
                 gv.errorLog(ex.ToString());
+                return false;
             }
+
         }
 
         public int getNextIdNumber()

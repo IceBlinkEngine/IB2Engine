@@ -413,8 +413,14 @@ namespace IceBlink2
                         
 		    mod.debugMode = false;
 		    mod.loadAreas(this);
-		    mod.setCurrentArea(mod.startingArea, this);
-		    mod.PlayerLocationX = mod.startingPlayerPositionX;
+		    //mod.setCurrentArea(mod.startingArea, this);
+            bool foundArea = mod.setCurrentArea(mod.startingArea, this);
+            if (!foundArea)
+            {
+                MessageBox.Show("Area: " + mod.startingArea + " does not exist in the module...check the spelling or make sure your are pointing to the correct starting area that you intended");
+            }
+
+            mod.PlayerLocationX = mod.startingPlayerPositionX;
 		    mod.PlayerLocationY = mod.startingPlayerPositionY;
 		    cc.title = cc.LoadBitmap("title");
             LoadStandardImages();

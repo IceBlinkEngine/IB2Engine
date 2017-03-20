@@ -4854,6 +4854,12 @@ public void drawEffectSquares()
                                     continue;
                                 }
 
+                                int index = y * gv.mod.currentEncounter.MapSizeX + x;
+                                if ((index >= gv.mod.currentEncounter.encounterTiles.Count))
+                                {
+                                    continue;
+                                }
+
                                 int tlX = ((x - UpperLeftSquare.X) * gv.squareSize) + gv.oXshift + mapStartLocXinPixels;
                                 int tlY = (y - UpperLeftSquare.Y) * gv.squareSize;
                                 int brX = gv.squareSize;
@@ -4898,6 +4904,11 @@ public void drawEffectSquares()
                     {
                         for (int y = minY; y < maxY; y++)
                         {
+                            int index = y * gv.mod.currentEncounter.MapSizeX + x;
+                            if ((index >= gv.mod.currentEncounter.encounterTiles.Count))
+                            {
+                                continue;
+                            }
                             TileEnc tile = gv.mod.currentEncounter.encounterTiles[y * gv.mod.currentEncounter.MapSizeX + x];
                             try
                             {
@@ -4978,6 +4989,11 @@ public void drawEffectSquares()
                     {
                         for (int y = minY; y < maxY; y++)
                         {
+                            int index = y * gv.mod.currentEncounter.MapSizeX + x;
+                            if ((index >= gv.mod.currentEncounter.encounterTiles.Count))
+                            {
+                                continue;
+                            }
                             TileEnc tile = gv.mod.currentEncounter.encounterTiles[y * gv.mod.currentEncounter.MapSizeX + x];
                             try
                             {
@@ -5058,6 +5074,11 @@ public void drawEffectSquares()
                     {
                         for (int y = minY; y < maxY; y++)
                         {
+                            int index = y * gv.mod.currentEncounter.MapSizeX + x;
+                            if ((index >= gv.mod.currentEncounter.encounterTiles.Count))
+                            {
+                                continue;
+                            }
                             TileEnc tile = gv.mod.currentEncounter.encounterTiles[y * gv.mod.currentEncounter.MapSizeX + x];
                             try
                             {
@@ -5200,6 +5221,11 @@ public void drawEffectSquares()
                             {
                                 continue;
                             }
+                            int index = y * gv.mod.currentEncounter.MapSizeX + x;
+                            if ((index >= gv.mod.currentEncounter.encounterTiles.Count))
+                            {
+                                continue;
+                            }
                             if ((pf.values != null) && (gv.mod.debugMode))
                             {
                                 //gv.DrawText(pf.values[x, y].ToString(), (x - UpperLeftSquare.X) * gv.squareSize + gv.oXshift + mapStartLocXinPixels, (y - UpperLeftSquare.Y) * gv.squareSize);
@@ -5257,6 +5283,11 @@ public void drawEffectSquares()
                 {
                     for (int y = minY; y < maxY; y++)
                     {
+                        int index = y * gv.mod.currentEncounter.MapSizeX + x;
+                        if ((index >= gv.mod.currentEncounter.encounterTiles.Count))
+                        {
+                            continue;
+                        }
                         TileEnc tile = gv.mod.currentEncounter.encounterTiles[y * gv.mod.currentEncounter.MapSizeX + x];
                         IbRect srcLyr = getSourceIbRect(
                             x,
@@ -5287,6 +5318,11 @@ public void drawEffectSquares()
                 {
                     for (int y = minY; y < maxY; y++)
                     {
+                        int index = y * gv.mod.currentEncounter.MapSizeX + x;
+                        if ((index >= gv.mod.currentEncounter.encounterTiles.Count))
+                        {
+                            continue;
+                        }
                         TileEnc tile = gv.mod.currentEncounter.encounterTiles[y * gv.mod.currentEncounter.MapSizeX + x];
                         IbRect srcLyr = getSourceIbRect(
                             x,
@@ -5317,6 +5353,11 @@ public void drawEffectSquares()
                 {
                     for (int y = minY; y < maxY; y++)
                     {
+                        int index = y * gv.mod.currentEncounter.MapSizeX + x;
+                        if ((index >= gv.mod.currentEncounter.encounterTiles.Count))
+                        {
+                            continue;
+                        }
                         TileEnc tile = gv.mod.currentEncounter.encounterTiles[y * gv.mod.currentEncounter.MapSizeX + x];
                         IbRect srcLyr = getSourceIbRect(
                             x,
@@ -5397,6 +5438,11 @@ public void drawEffectSquares()
                     for (int y = UpperLeftSquare.Y; y < gv.mod.currentEncounter.MapSizeY; y++)
                     {
                         if (!IsInVisibleCombatWindow(x, y))
+                        {
+                            continue;
+                        }
+                        int index = y * gv.mod.currentEncounter.MapSizeX + x;
+                        if ((index >= gv.mod.currentEncounter.encounterTiles.Count))
                         {
                             continue;
                         }

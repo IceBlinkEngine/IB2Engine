@@ -37179,7 +37179,14 @@ namespace IceBlink2
                 #region Old System
 
                 // set current position to visible
-                gv.mod.currentArea.Tiles[gv.mod.PlayerLocationY * gv.mod.currentArea.MapSizeX + gv.mod.PlayerLocationX].Visible = true;
+                //gv.mod.currentArea.Tiles[gv.mod.PlayerLocationY * gv.mod.currentArea.MapSizeX + gv.mod.PlayerLocationX].Visible = true;
+
+                if (gv.mod.PlayerLocationY * gv.mod.currentArea.MapSizeX + gv.mod.PlayerLocationX < gv.mod.currentArea.Tiles.Count)
+                {
+                    gv.mod.currentArea.Tiles[gv.mod.PlayerLocationY * gv.mod.currentArea.MapSizeX + gv.mod.PlayerLocationX].Visible = true;
+                 }
+
+
                 // set tiles to visible around the PC
                 for (int x = gv.mod.PlayerLocationX - gv.mod.currentArea.AreaVisibleDistance; x <= gv.mod.PlayerLocationX + gv.mod.currentArea.AreaVisibleDistance; x++)
                 {

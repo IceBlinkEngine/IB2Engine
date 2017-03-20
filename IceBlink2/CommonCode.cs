@@ -707,7 +707,13 @@ namespace IceBlink2
             this.updateAreas(saveMod);
             //
             //U  "currentArea": {},
-            gv.mod.setCurrentArea(saveMod.currentArea.Filename, gv);
+            //gv.mod.setCurrentArea(saveMod.currentArea.Filename, gv);
+            bool foundArea = gv.mod.setCurrentArea(saveMod.currentArea.Filename, gv);
+            if (!foundArea)
+            {
+                MessageBox.Show("Area: " + saveMod.currentArea.Filename + " does not exist in the module...maybe the area in the module was changed since this save game was made.");
+            }
+
             //U  "moduleContainersList": [], (have an original containers items tags list and the current tags list to see what to add or delete from the save tags list)
             this.updateContainers(saveMod);
             //U  "moduleConvoSavedValuesList": [], (use all save)
@@ -9325,7 +9331,7 @@ namespace IceBlink2
         {
             try
             {
-
+               
                 if ((gv.mod.justTransitioned == false) || (gv.mod.allowImmediateRetransition == true))
                 {
                     gv.mod.PlayerLocationX = x;
@@ -9367,7 +9373,13 @@ namespace IceBlink2
                         oldMaster = gv.mod.currentArea;
                     }
 
-                    gv.mod.setCurrentArea(areaFilename, gv);
+                    bool foundArea = gv.mod.setCurrentArea(areaFilename, gv);
+                    if (!foundArea)
+                    {
+                        MessageBox.Show("Area: " + areaFilename + " does not exist in the module...check the spelling of the 'area.Filename'");
+                        return;
+                    }
+                    //gv.mod.setCurrentArea(areaFilename, gv);
 
                     if (gv.mod.currentArea.masterOfThisArea == oldMaster.Filename)
                     {
