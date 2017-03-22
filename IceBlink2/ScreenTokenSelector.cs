@@ -46,9 +46,9 @@ namespace IceBlink2
             {
                 //Load from gv.module folder first
                 string[] files;
-                if (Directory.Exists(gv.mainDirectory + "\\gv.modules\\" + gv.mod.moduleName + "\\pctokens"))
+                if (Directory.Exists(gv.mainDirectory + "\\modules\\" + gv.mod.moduleName + "\\pctokens"))
                 {
-                    files = Directory.GetFiles(gv.mainDirectory + "\\gv.modules\\" + gv.mod.moduleName + "\\pctokens", "*.png");
+                    files = Directory.GetFiles(gv.mainDirectory + "\\modules\\" + gv.mod.moduleName + "\\pctokens", "*.png");
                     //directory.mkdirs(); 
                     foreach (string file in files)
                     {
