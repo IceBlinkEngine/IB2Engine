@@ -251,16 +251,75 @@ namespace IceBlink2
 
         public void QuickSave()
         {
+            gv.screenMainMap.saveUILayout();
+            gv.screenCombat.saveUILayout();
+
             string filename = gv.mainDirectory + "\\saves\\" + gv.mod.moduleName + "\\quicksave.json";
             MakeDirectoryIfDoesntExist(filename);
+
+            //make backup of each encounter's tiles and then clear them
+            List<List<TileEnc>> backupListOfEncTileLists = new List<List<TileEnc>>();
+            foreach (Encounter enc in gv.mod.moduleEncountersList)
+            {
+                List<TileEnc> interimList = new List<TileEnc>();
+                foreach (TileEnc t2 in enc.encounterTiles)
+                {
+                    interimList.Add(t2);
+                }
+                backupListOfEncTileLists.Add(interimList);
+                enc.encounterTiles.Clear();
+            }
+
+            //make backup of each area's tiles and then clear them
+            List<List<Tile>> backupListOfAreaTileLists = new List<List<Tile>>();
+            foreach (Area a in gv.mod.moduleAreasObjects)
+            {
+                List<Tile> interimList = new List<Tile>();
+                a.tileVisibilityList.Clear();
+                foreach (Tile t2 in a.Tiles)
+                {
+                    interimList.Add(t2);
+                    bool vis = false;
+                    if (t2.Visible)
+                    {
+                        vis = true;
+                    }
+                    a.tileVisibilityList.Add(vis);
+                }
+                backupListOfAreaTileLists.Add(interimList);
+                a.Tiles.Clear();
+            }
+
             string json = JsonConvert.SerializeObject(gv.mod, Newtonsoft.Json.Formatting.Indented);
             using (StreamWriter sw = new StreamWriter(filename))
             {
                 sw.Write(json.ToString());
             }
-            gv.screenMainMap.saveUILayout();
-            gv.screenCombat.saveUILayout();
+
+            //restore the encounter tiles after saving
+            for (int i = 0; i < gv.mod.moduleEncountersList.Count; i++)
+            {
+                foreach (TileEnc t in backupListOfEncTileLists[i])
+                {
+                    gv.mod.moduleEncountersList[i].encounterTiles.Add(t);
+                }
+            }
+            backupListOfEncTileLists.Clear();
+
+            //restore the area tiles after saving
+            for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
+            {
+                foreach (Tile t in backupListOfAreaTileLists[i])
+                {
+                    gv.mod.moduleAreasObjects[i].Tiles.Add(t);
+                }
+            }
+            backupListOfAreaTileLists.Clear();
+
+            //gv.screenMainMap.saveUILayout();
+            //gv.screenCombat.saveUILayout();
         }
+
         public void SaveGame(string filename)
         {
 
