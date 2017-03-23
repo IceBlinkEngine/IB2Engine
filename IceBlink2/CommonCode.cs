@@ -1029,6 +1029,10 @@ namespace IceBlink2
                             //add new mechanism for reading in visibility, likely form new property
                             //a.tileVisibilityList.Add(vis);
                             ar.Tiles[index].Visible = sar.tileVisibilityList[index];
+                            if (ar.Tiles[index].Visible)
+                            {
+                                ar.Tiles[index].opacity = 0;
+                            }
                             //ar.Tiles[index].Visible = sar.Tiles[index].Visible;
                         }
 
