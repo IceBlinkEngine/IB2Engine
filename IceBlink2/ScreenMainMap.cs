@@ -1610,7 +1610,8 @@ namespace IceBlink2
                         }
 
                         //highlights
-                        if (gv.mod.currentArea.Tiles[(y + yAdder) * gv.mod.currentArea.MapSizeX + x].transitionToMasterDirection != "S")
+                        //if (gv.mod.currentArea.Tiles[(y + yAdder) * gv.mod.currentArea.MapSizeX + x].transitionToMasterDirection != "S")
+                        if (tile.transitionToMasterDirection != "S")
                         {
                             if (tile.hasHighlightS)
                             {
@@ -1626,7 +1627,8 @@ namespace IceBlink2
                             }
                         }
 
-                        if (gv.mod.currentArea.Tiles[(y - ySubstractor) * gv.mod.currentArea.MapSizeX + x].transitionToMasterDirection != "N")
+                        //if (gv.mod.currentArea.Tiles[(y - ySubstractor) * gv.mod.currentArea.MapSizeX + x].transitionToMasterDirection != "N")
+                        if (tile.transitionToMasterDirection != "N")
                         {
                             if (tile.hasHighlightN)
                             {
@@ -1641,7 +1643,8 @@ namespace IceBlink2
                             }
                         }
 
-                        if (gv.mod.currentArea.Tiles[(y) * gv.mod.currentArea.MapSizeX + x - xSubstractor].transitionToMasterDirection != "W")
+                        //if (gv.mod.currentArea.Tiles[(y) * gv.mod.currentArea.MapSizeX + x - xSubstractor].transitionToMasterDirection != "W")
+                        if (tile.transitionToMasterDirection != "W")
                         {
                             if (tile.hasHighlightW)
                             {
@@ -1655,7 +1658,9 @@ namespace IceBlink2
                                 }
                             }
                         }
-                        if (gv.mod.currentArea.Tiles[(y) * gv.mod.currentArea.MapSizeX + x + xAdder].transitionToMasterDirection != "E")
+
+                        //if (gv.mod.currentArea.Tiles[(y) * gv.mod.currentArea.MapSizeX + x + xAdder].transitionToMasterDirection != "E")
+                        if (tile.transitionToMasterDirection != "E")
                         {
                             if (tile.hasHighlightE)
                             {

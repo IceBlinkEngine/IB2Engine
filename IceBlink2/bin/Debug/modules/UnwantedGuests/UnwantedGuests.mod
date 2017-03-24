@@ -1,5 +1,6 @@
 {
   "formerDirection": "N",
+  "_usePredefinedTileCategories": true,
   "masterAreasList": [
     "desert",
     "linktest"
@@ -52,8 +53,7 @@
     "winter_2_",
     "wm_debug",
     "wm_Movers",
-    "wm_try",
-    "tilesOnly"
+    "wm_try"
   ],
   "moduleConvosList": [
     "aTestConvo",
@@ -148,6 +148,7 @@
   "mustUsePreMadePC": false,
   "useRealTimeTimer": true,
   "useSmoothMovement": true,
+  "usePredefinedTileCategories": true,
   "useAllTileSystem": true,
   "useRationSystem": true,
   "nameOfFirstDayOfTheWeek": "Monday",
@@ -183,13 +184,13 @@
   "MaxPartySize": 6,
   "moduleDescription": "Short module tutorial on how to make a simple module.",
   "moduleCredits": "<big><b>Unwanted Guests</b></big><BR>\r\n<BR>\r\n-visit the forums for more info:<BR>\r\nwww.iceblinkengine.com/forums",
-  "nextIdNumber": 10877,
+  "nextIdNumber": 10876,
   "realTimeTimerLengthInMilliSeconds": 7000,
   "borderAreaSize": 0,
   "WorldTime": 0,
-  "startingArea": "tilesOnly",
-  "startingPlayerPositionX": 4,
-  "startingPlayerPositionY": 3,
+  "startingArea": "autumn",
+  "startingPlayerPositionX": 5,
+  "startingPlayerPositionY": 2,
   "partyGold": 100,
   "partyTokenFilename": "prp_party",
   "OnHeartBeatIBScript": "none",
