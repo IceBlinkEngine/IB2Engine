@@ -53,7 +53,8 @@
     "winter_2_",
     "wm_debug",
     "wm_Movers",
-    "wm_try"
+    "wm_try",
+    "tilesOnly",
   ],
   "moduleConvosList": [
     "aTestConvo",
@@ -188,7 +189,7 @@
   "realTimeTimerLengthInMilliSeconds": 7000,
   "borderAreaSize": 0,
   "WorldTime": 0,
-  "startingArea": "autumn",
+  "startingArea": "tilesOnly",
   "startingPlayerPositionX": 5,
   "startingPlayerPositionY": 2,
   "partyGold": 100,
