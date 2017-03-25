@@ -217,8 +217,8 @@
   "OnHeartBeatIBScript": "none",
   "OnHeartBeatIBScriptParms": "",
   "useMinimalisticUI": true,
-  "useManualCombatCam": false,
-  "useCombatSmoothMovement": false,
+  "useManualCombatCam": true,
+  "useCombatSmoothMovement": true,
   "useMathGridFade": false,
   "durationInStepsOfPartyLightItems": 250
 }
