@@ -2,15 +2,15 @@
   "panelList": [
     {
       "tag": "logPanel",
-      "backgroundImageFilename": "ui_bg_log",
-      "shownLocX": 5,
-      "shownLocY": 0,
-      "hiddenLocX": -410,
+      "backgroundImageFilename": "journalback2",
+      "shownLocX": 20,
+      "shownLocY": 150,
+      "hiddenLocX": -460,
       "hiddenLocY": 0,
       "hidingXIncrement": -3,
       "hidingYIncrement": 0,
-      "Width": 400,
-      "Height": 900,
+      "Width": 410,
+      "Height": 750,
       "buttonList": [],
       "toggleList": [],
       "portraitList": [],
@@ -20,7 +20,7 @@
            "tbYloc": 10,
            "tbWidth": 390,
            "tbHeight": 890,
-           "numberOfLinesToShow": 26
+           "numberOfLinesToShow": 20
         }
       ]
     },
@@ -29,7 +29,7 @@
       "backgroundImageFilename": "ui_bg_portraits",
       "shownLocX": 1800,
       "shownLocY": 0,
-      "hiddenLocX": 1930,
+      "hiddenLocX": 1920,
       "hiddenLocY": 0,
       "hidingXIncrement": 1,
       "hidingYIncrement": 0,
@@ -286,6 +286,29 @@
 											"Height": 100,
 											"scaler": 0.8,
 											"show": true
+},
+{
+                                                                                        "tag": "btnTraitUse",
+											"ImgFilename": "btn_small",
+											"ImgOffFilename": "btn_small_off",
+											"ImgOnFilename": "btn_small_on",
+											"Img2Filename": "",
+											"Img2OffFilename": "",
+											"Img3Filename": "",
+											"GlowFilename": "btn_small_glow",
+											"btnState": "Normal",
+											"btnNotificationOn": false,
+											"glowOn": false,
+											"Text": "TRAIT",
+											"Quantity": "",
+											"HotKey": "T",
+											"X": 1290,
+											"Y": 10,
+											"IBScript": "none",
+											"Width": 100,
+											"Height": 100,
+											"scaler": 0.8,
+											"show": true
         },
         {
 											"tag": "btnMoveCounter",
@@ -302,7 +325,7 @@
 											"Text": "0",
 											"Quantity": "",
 											"HotKey": "",
-											"X": 1290,
+											"X": 1390,
 											"Y": 10,
 											"IBScript": "none",
 											"Width": 100,
@@ -347,8 +370,8 @@
         },
         {
 											"tag": "tglSpeed",
-											"ImgOnFilename": "tgl_speed_1",
-											"ImgOffFilename": "tgl_speed_1",
+											"ImgOnFilename": "tgl_speedNEW_1",
+											"ImgOffFilename": "tgl_speedNEW_1",
 											"toggleOn": false,
 											"X": 505,
 											"Y": 25,
@@ -443,7 +466,7 @@
 											"Y": 25,
 											"Width": 50,
 											"Height": 50,
-											"show": true
+											"show": false
         }
       ],
       "portraitList": [],

@@ -8002,25 +8002,25 @@ public void drawEffectSquares()
                         if (gv.mod.combatAnimationSpeed == 100)
                         {
                             gv.mod.combatAnimationSpeed = 50;
-                            tgl.ImgOffFilename = "tgl_speed_2";
+                            tgl.ImgOffFilename = "tgl_speedNEW_2";
                             gv.cc.addLogText("lime", "move speed: 2x");                            
                         }
                         else if (gv.mod.combatAnimationSpeed == 50)
                         {
                             gv.mod.combatAnimationSpeed = 25;
-                            tgl.ImgOffFilename = "tgl_speed_4";
+                            tgl.ImgOffFilename = "tgl_speedNEW_4";
                             gv.cc.addLogText("lime", "move speed: 4x");                            
                         }
                         else if (gv.mod.combatAnimationSpeed == 25)
                         {
                             gv.mod.combatAnimationSpeed = 10;
-                            tgl.ImgOffFilename = "tgl_speed_10";
+                            tgl.ImgOffFilename = "tgl_speedNEW_10";
                             gv.cc.addLogText("lime", "move speed: 10x");
                         }
                         else if (gv.mod.combatAnimationSpeed == 10)
                         {
                             gv.mod.combatAnimationSpeed = 100;
-                            tgl.ImgOffFilename = "tgl_speed_1";
+                            tgl.ImgOffFilename = "tgl_speedNEW_1";
                             gv.cc.addLogText("lime", "move speed: 1x");
                         }
                     }
