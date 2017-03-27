@@ -370,8 +370,8 @@
         },
         {
 											"tag": "tglSpeed",
-											"ImgOnFilename": "tgl_speedNEW_1",
-											"ImgOffFilename": "tgl_speedNEW_1",
+											"ImgOnFilename": "tgl_speedNEW_2",
+											"ImgOffFilename": "tgl_speedNEW_2",
 											"toggleOn": false,
 											"X": 505,
 											"Y": 25,

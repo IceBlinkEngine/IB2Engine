@@ -36949,7 +36949,7 @@ namespace IceBlink2
 
                     if ((y - 1) <= (gv.mod.currentArea.MapSizeY - 1))
                     {
-                        if (!gv.mod.currentArea.Tiles[(y - 1) * gv.mod.currentArea.MapSizeY + x].LoSBlocked)
+                        if (!gv.mod.currentArea.Tiles[(y - 1) * gv.mod.currentArea.MapSizeX + x].LoSBlocked)
                         {
                             loSCheck1 = true;
                         }

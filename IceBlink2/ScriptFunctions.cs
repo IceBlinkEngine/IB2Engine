@@ -9742,6 +9742,9 @@ namespace IceBlink2
         }
         public void spMageBolt(object src, object trg)
         {
+            //clear squares list
+            gv.sf.AoeSquaresList.Clear();
+
             if (src is Player) //player casting
             {
                 Player source = (Player)src;
@@ -9941,6 +9944,9 @@ namespace IceBlink2
         }
         public void spMageArmor(object src, object trg)
         {
+            //clear squares list
+            gv.sf.AoeSquaresList.Clear();
+
             if (src is Player) //player casting
             {
                 Player source = (Player)src;
@@ -9990,6 +9996,9 @@ namespace IceBlink2
         }
         public void spMinorRegen(object src, object trg)
         {
+            //clear squares list
+            gv.sf.AoeSquaresList.Clear();
+
             if (src is Player) //player casting
             {
                 Player source = (Player)src;
@@ -10539,6 +10548,9 @@ namespace IceBlink2
         //SPELLS CLERIC
         public void spHeal(object src, object trg, int healAmount)
         {
+            //clear squares list
+            gv.sf.AoeSquaresList.Clear();
+
             if (src is Player) //player casting
             {
                 Player source = (Player)src;
@@ -10620,6 +10632,9 @@ namespace IceBlink2
         }
         public void spMassHeal(object src, object trg, int healAmount)
         {
+            //clear squares list
+            gv.sf.AoeSquaresList.Clear();
+
             if (src is Player) //player casting
             {
                 Player source = (Player)src;
@@ -10681,6 +10696,9 @@ namespace IceBlink2
         }
         public void spBless(object src, object trg)
         {
+            //clear squares list
+            gv.sf.AoeSquaresList.Clear();
+
             if (src is Player) //player casting
             {
                 Player source = (Player)src;
@@ -10732,6 +10750,9 @@ namespace IceBlink2
         }
         public void spMagicStone(object src, object trg)
         {
+            //clear squares list
+            gv.sf.AoeSquaresList.Clear();
+
             if (src is Player) //player casting
             {
                 Player source = (Player)src;
@@ -11010,6 +11031,9 @@ namespace IceBlink2
         }
         public void spHold(object src, object trg)
         {
+            //clear squares list
+            gv.sf.AoeSquaresList.Clear();
+
             if (src is Player) //player casting
             {
                 Player source = (Player)src;
