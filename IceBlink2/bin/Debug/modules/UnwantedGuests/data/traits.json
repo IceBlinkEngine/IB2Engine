@@ -12,13 +12,6 @@
     "skillModifier": 5,
     "skillModifierAttribute": "int",
     "useableInSituation": "Always",
-    "spriteFilename": "none",
-    "spriteEndingFilename": "none",
-    "costSP": 0,
-    "traitTargetType": "Enemy",
-    "traitEffectType": "Damage",
-    "aoeRadius": 0,
-    "range": 0,
     "traitScript": "none"
   },
   {
@@ -34,13 +27,6 @@
     "skillModifier": 10,
     "skillModifierAttribute": "int",
     "useableInSituation": "Always",
-    "spriteFilename": "none",
-    "spriteEndingFilename": "none",
-    "costSP": 0,
-    "traitTargetType": "Enemy",
-    "traitEffectType": "Damage",
-    "aoeRadius": 0,
-    "range": 0,
     "traitScript": "none"
   },
   {
@@ -56,13 +42,6 @@
     "skillModifier": 0,
     "skillModifierAttribute": "str",
     "useableInSituation": "Always",
-    "spriteFilename": "none",
-    "spriteEndingFilename": "none",
-    "costSP": 0,
-    "traitTargetType": "Enemy",
-    "traitEffectType": "Damage",
-    "aoeRadius": 0,
-    "range": 0,
     "traitScript": "none"
   },
   {
@@ -78,13 +57,6 @@
     "skillModifier": 0,
     "skillModifierAttribute": "dex",
     "useableInSituation": "Always",
-    "spriteFilename": "none",
-    "spriteEndingFilename": "none",
-    "costSP": 0,
-    "traitTargetType": "Enemy",
-    "traitEffectType": "Damage",
-    "aoeRadius": 0,
-    "range": 0,
     "traitScript": "none"
   },
   {
@@ -100,13 +72,6 @@
     "skillModifier": 5,
     "skillModifierAttribute": "cha",
     "useableInSituation": "Always",
-    "spriteFilename": "none",
-    "spriteEndingFilename": "none",
-    "costSP": 0,
-    "traitTargetType": "Enemy",
-    "traitEffectType": "Damage",
-    "aoeRadius": 0,
-    "range": 0,
     "traitScript": "none"
   },
   {
@@ -122,13 +87,6 @@
     "skillModifier": 10,
     "skillModifierAttribute": "cha",
     "useableInSituation": "Always",
-    "spriteFilename": "none",
-    "spriteEndingFilename": "none",
-    "costSP": 0,
-    "traitTargetType": "Enemy",
-    "traitEffectType": "Damage",
-    "aoeRadius": 0,
-    "range": 0,
     "traitScript": "none"
   },
   {
@@ -144,13 +102,6 @@
     "skillModifier": 5,
     "skillModifierAttribute": "dex",
     "useableInSituation": "Always",
-    "spriteFilename": "none",
-    "spriteEndingFilename": "none",
-    "costSP": 0,
-    "traitTargetType": "Enemy",
-    "traitEffectType": "Damage",
-    "aoeRadius": 0,
-    "range": 0,
     "traitScript": "none"
   },
   {
@@ -166,13 +117,6 @@
     "skillModifier": 10,
     "skillModifierAttribute": "dex",
     "useableInSituation": "Always",
-    "spriteFilename": "none",
-    "spriteEndingFilename": "none",
-    "costSP": 0,
-    "traitTargetType": "Enemy",
-    "traitEffectType": "Damage",
-    "aoeRadius": 0,
-    "range": 0,
     "traitScript": "none"
   },
   {
@@ -188,13 +132,6 @@
     "skillModifier": 0,
     "skillModifierAttribute": "dex",
     "useableInSituation": "Always",
-    "spriteFilename": "none",
-    "spriteEndingFilename": "none",
-    "costSP": 0,
-    "traitTargetType": "Enemy",
-    "traitEffectType": "Damage",
-    "aoeRadius": 0,
-    "range": 0,
     "traitScript": "none"
   },
   {
@@ -210,13 +147,6 @@
     "skillModifier": 5,
     "skillModifierAttribute": "str",
     "useableInSituation": "Always",
-    "spriteFilename": "none",
-    "spriteEndingFilename": "none",
-    "costSP": 0,
-    "traitTargetType": "Enemy",
-    "traitEffectType": "Damage",
-    "aoeRadius": 0,
-    "range": 0,
     "traitScript": "none"
   },
   {
@@ -232,13 +162,6 @@
     "skillModifier": 10,
     "skillModifierAttribute": "str",
     "useableInSituation": "Always",
-    "spriteFilename": "none",
-    "spriteEndingFilename": "none",
-    "costSP": 0,
-    "traitTargetType": "Enemy",
-    "traitEffectType": "Damage",
-    "aoeRadius": 0,
-    "range": 0,
     "traitScript": "none"
   },
   {
@@ -254,13 +177,6 @@
     "skillModifier": 5,
     "skillModifierAttribute": "dex",
     "useableInSituation": "Always",
-    "spriteFilename": "none",
-    "spriteEndingFilename": "none",
-    "costSP": 0,
-    "traitTargetType": "Enemy",
-    "traitEffectType": "Damage",
-    "aoeRadius": 0,
-    "range": 0,
     "traitScript": "none"
   },
   {
@@ -276,13 +192,6 @@
     "skillModifier": 10,
     "skillModifierAttribute": "dex",
     "useableInSituation": "Always",
-    "spriteFilename": "none",
-    "spriteEndingFilename": "none",
-    "costSP": 0,
-    "traitTargetType": "Enemy",
-    "traitEffectType": "Damage",
-    "aoeRadius": 0,
-    "range": 0,
     "traitScript": "none"
   },
   {
@@ -298,13 +207,6 @@
     "skillModifier": 0,
     "skillModifierAttribute": "str",
     "useableInSituation": "Always",
-    "spriteFilename": "none",
-    "spriteEndingFilename": "none",
-    "costSP": 0,
-    "traitTargetType": "Enemy",
-    "traitEffectType": "Damage",
-    "aoeRadius": 0,
-    "range": 0,
     "traitScript": "none"
   },
   {
@@ -320,13 +222,6 @@
     "skillModifier": 0,
     "skillModifierAttribute": "dex",
     "useableInSituation": "Always",
-    "spriteFilename": "none",
-    "spriteEndingFilename": "none",
-    "costSP": 0,
-    "traitTargetType": "Enemy",
-    "traitEffectType": "Damage",
-    "aoeRadius": 0,
-    "range": 0,
     "traitScript": "none"
   },
   {
@@ -342,13 +237,6 @@
     "skillModifier": 5,
     "skillModifierAttribute": "dex",
     "useableInSituation": "Always",
-    "spriteFilename": "none",
-    "spriteEndingFilename": "none",
-    "costSP": 0,
-    "traitTargetType": "Enemy",
-    "traitEffectType": "Damage",
-    "aoeRadius": 0,
-    "range": 0,
     "traitScript": "none"
   },
   {
@@ -364,13 +252,6 @@
     "skillModifier": 10,
     "skillModifierAttribute": "dex",
     "useableInSituation": "Always",
-    "spriteFilename": "none",
-    "spriteEndingFilename": "none",
-    "costSP": 0,
-    "traitTargetType": "Enemy",
-    "traitEffectType": "Damage",
-    "aoeRadius": 0,
-    "range": 0,
     "traitScript": "none"
   },
   {
@@ -386,13 +267,6 @@
     "skillModifier": 5,
     "skillModifierAttribute": "dex",
     "useableInSituation": "Always",
-    "spriteFilename": "none",
-    "spriteEndingFilename": "none",
-    "costSP": 0,
-    "traitTargetType": "Enemy",
-    "traitEffectType": "Damage",
-    "aoeRadius": 0,
-    "range": 0,
     "traitScript": "none"
   },
   {
@@ -408,13 +282,6 @@
     "skillModifier": 10,
     "skillModifierAttribute": "dex",
     "useableInSituation": "Always",
-    "spriteFilename": "none",
-    "spriteEndingFilename": "none",
-    "costSP": 0,
-    "traitTargetType": "Enemy",
-    "traitEffectType": "Damage",
-    "aoeRadius": 0,
-    "range": 0,
     "traitScript": "none"
   },
   {
@@ -430,13 +297,6 @@
     "skillModifier": 0,
     "skillModifierAttribute": "str",
     "useableInSituation": "Always",
-    "spriteFilename": "none",
-    "spriteEndingFilename": "none",
-    "costSP": 0,
-    "traitTargetType": "Enemy",
-    "traitEffectType": "Damage",
-    "aoeRadius": 0,
-    "range": 0,
     "traitScript": "none"
   },
   {
@@ -452,13 +312,6 @@
     "skillModifier": 0,
     "skillModifierAttribute": "str",
     "useableInSituation": "Always",
-    "spriteFilename": "none",
-    "spriteEndingFilename": "none",
-    "costSP": 0,
-    "traitTargetType": "Enemy",
-    "traitEffectType": "Damage",
-    "aoeRadius": 0,
-    "range": 0,
     "traitScript": "none"
   },
   {
@@ -474,13 +327,6 @@
     "skillModifier": 0,
     "skillModifierAttribute": "str",
     "useableInSituation": "Always",
-    "spriteFilename": "none",
-    "spriteEndingFilename": "none",
-    "costSP": 0,
-    "traitTargetType": "Enemy",
-    "traitEffectType": "Damage",
-    "aoeRadius": 0,
-    "range": 0,
     "traitScript": "none"
   },
   {
@@ -496,13 +342,6 @@
     "skillModifier": 0,
     "skillModifierAttribute": "str",
     "useableInSituation": "Always",
-    "spriteFilename": "none",
-    "spriteEndingFilename": "none",
-    "costSP": 0,
-    "traitTargetType": "Enemy",
-    "traitEffectType": "Damage",
-    "aoeRadius": 0,
-    "range": 0,
     "traitScript": "none"
   },
   {
@@ -518,13 +357,6 @@
     "skillModifier": 0,
     "skillModifierAttribute": "str",
     "useableInSituation": "Always",
-    "spriteFilename": "none",
-    "spriteEndingFilename": "none",
-    "costSP": 0,
-    "traitTargetType": "Enemy",
-    "traitEffectType": "Damage",
-    "aoeRadius": 0,
-    "range": 0,
     "traitScript": "none"
   },
   {
@@ -540,13 +372,6 @@
     "skillModifier": 0,
     "skillModifierAttribute": "str",
     "useableInSituation": "Always",
-    "spriteFilename": "none",
-    "spriteEndingFilename": "none",
-    "costSP": 0,
-    "traitTargetType": "Enemy",
-    "traitEffectType": "Damage",
-    "aoeRadius": 0,
-    "range": 0,
     "traitScript": "none"
   },
   {
@@ -562,13 +387,6 @@
     "skillModifier": 0,
     "skillModifierAttribute": "str",
     "useableInSituation": "Always",
-    "spriteFilename": "none",
-    "spriteEndingFilename": "none",
-    "costSP": 0,
-    "traitTargetType": "Enemy",
-    "traitEffectType": "Damage",
-    "aoeRadius": 0,
-    "range": 0,
     "traitScript": "none"
   },
   {
@@ -588,13 +406,6 @@
     "skillModifier": 0,
     "skillModifierAttribute": "str",
     "useableInSituation": "Passive",
-    "spriteFilename": "none",
-    "spriteEndingFilename": "none",
-    "costSP": 0,
-    "traitTargetType": "Enemy",
-    "traitEffectType": "Damage",
-    "aoeRadius": 0,
-    "range": 0,
     "traitScript": "none"
   },
   {
@@ -610,13 +421,6 @@
     "skillModifier": 0,
     "skillModifierAttribute": "str",
     "useableInSituation": "InCombat",
-    "spriteFilename": "none",
-    "spriteEndingFilename": "none",
-    "costSP": 0,
-    "traitTargetType": "Enemy",
-    "traitEffectType": "Damage",
-    "aoeRadius": 0,
-    "range": 0,
     "traitScript": "none"
   },
   {
@@ -632,13 +436,6 @@
     "skillModifier": 0,
     "skillModifierAttribute": "str",
     "useableInSituation": "InCombat",
-    "spriteFilename": "none",
-    "spriteEndingFilename": "none",
-    "costSP": 1,
-    "traitTargetType": "Enemy",
-    "traitEffectType": "Damage",
-    "aoeRadius": 0,
-    "range": 0,
     "traitScript": "none"
   },
   {
@@ -666,13 +463,6 @@
     "skillModifier": 0,
     "skillModifierAttribute": "str",
     "useableInSituation": "Always",
-    "spriteFilename": "none",
-    "spriteEndingFilename": "none",
-    "costSP": 0,
-    "traitTargetType": "Enemy",
-    "traitEffectType": "Damage",
-    "aoeRadius": 0,
-    "range": 0,
     "traitScript": "none"
   },
   {
@@ -692,13 +482,44 @@
     "skillModifier": 0,
     "skillModifierAttribute": "str",
     "useableInSituation": "InCombat",
-    "spriteFilename": "none",
-    "spriteEndingFilename": "none",
-    "costSP": 0,
-    "traitTargetType": "Enemy",
-    "traitEffectType": "Damage",
-    "aoeRadius": 0,
-    "range": 0,
+    "traitScript": "none"
+  },
+  {
+    "name": "Sweep",
+    "traitEffectTagList": [
+      {
+        "tag": "newEffectTag_10899"
+      }
+    ],
+    "traitWorksOnlyWhen": [],
+    "traitWorksNeverWhen": [],
+    "tag": "newTraitTag_10900",
+    "associatedSpellTag": "none",
+    "traitImage": "sp_magebolt",
+    "description": "",
+    "prerequisiteTrait": "none",
+    "skillModifier": 0,
+    "skillModifierAttribute": "str",
+    "useableInSituation": "Passive",
+    "traitScript": "none"
+  },
+  {
+    "name": "LightningWielder",
+    "traitEffectTagList": [],
+    "traitWorksOnlyWhen": [
+      {
+        "Value": "axe"
+      }
+    ],
+    "traitWorksNeverWhen": [],
+    "tag": "newTraitTag_10950",
+    "associatedSpellTag": "newSpellTag_10948",
+    "traitImage": "sp_magebolt",
+    "description": "",
+    "prerequisiteTrait": "none",
+    "skillModifier": 0,
+    "skillModifierAttribute": "str",
+    "useableInSituation": "InCombat",
     "traitScript": "none"
   }
 ]
