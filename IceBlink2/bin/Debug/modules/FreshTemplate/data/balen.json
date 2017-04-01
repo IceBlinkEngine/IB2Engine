@@ -1,0 +1,109 @@
+{
+  "tokenFilename": "tkn_balen",
+  "portraitFilename": "M0063_L",
+  "combatFacingLeft": true,
+  "combatLocX": 0,
+  "combatLocY": 0,
+  "knownSpellsTags": [
+    "minorHealing"
+  ],
+  "knownSpellsList": [],
+  "knownTraitsTags": [],
+  "knownTraitsList": [],
+  "effectsList": [],
+  "charStatus": "Alive",
+  "fortitude": 2,
+  "will": 2,
+  "reflex": 0,
+  "strength": 16,
+  "dexterity": 15,
+  "intelligence": 14,
+  "charisma": 10,
+  "AC": 10,
+  "classBonus": 0,
+  "baseAttBonus": 1,
+  "baseAttBonusAdders": 0,
+  "hp": 11,
+  "hpMax": 11,
+  "sp": 12,
+  "spMax": 12,
+  "XPNeeded": 150,
+  "HeadRefs": {
+    "resref": "none",
+    "tag": "none",
+    "name": "none",
+    "canNotBeUnequipped": false,
+    "quantity": 1
+  },
+  "NeckRefs": {
+    "resref": "none",
+    "tag": "none",
+    "name": "none",
+    "canNotBeUnequipped": false,
+    "quantity": 1
+  },
+  "BodyRefs": {
+    "resref": "larmor1",
+    "tag": "larmor1_2067",
+    "name": "Leather Armor",
+    "canNotBeUnequipped": false,
+    "quantity": 1
+  },
+  "MainHandRefs": {
+    "resref": "mace",
+    "tag": "mace_2080",
+    "name": "Mace",
+    "canNotBeUnequipped": false,
+    "quantity": 1
+  },
+  "OffHandRefs": {
+    "resref": "none",
+    "tag": "none",
+    "name": "none",
+    "canNotBeUnequipped": false,
+    "quantity": 1
+  },
+  "RingRefs": {
+    "resref": "none",
+    "tag": "none",
+    "name": "none",
+    "canNotBeUnequipped": false,
+    "quantity": 1
+  },
+  "Ring2Refs": {
+    "resref": "none",
+    "tag": "none",
+    "name": "none",
+    "canNotBeUnequipped": false,
+    "quantity": 1
+  },
+  "FeetRefs": {
+    "resref": "none",
+    "tag": "none",
+    "name": "none",
+    "canNotBeUnequipped": false,
+    "quantity": 1
+  },
+  "damageTypeResistanceTotalAcid": 0,
+  "damageTypeResistanceTotalCold": 0,
+  "damageTypeResistanceTotalNormal": 0,
+  "damageTypeResistanceTotalElectricity": 0,
+  "damageTypeResistanceTotalFire": 0,
+  "damageTypeResistanceTotalMagic": 0,
+  "damageTypeResistanceTotalPoison": 0,
+  "name": "Balen",
+  "tag": "balen",
+  "raceTag": "dwarf",
+  "classTag": "cleric",
+  "classLevel": 1,
+  "isMale": true,
+  "baseFortitude": 2,
+  "baseWill": 2,
+  "baseReflex": 0,
+  "baseStr": 14,
+  "baseDex": 16,
+  "baseInt": 14,
+  "baseCha": 11,
+  "ACBase": 10,
+  "XP": 130
+}
