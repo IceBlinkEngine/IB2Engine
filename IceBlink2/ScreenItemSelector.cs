@@ -1202,30 +1202,36 @@ namespace IceBlink2
             }
             else if (gv.cc.partyItemSlotIndex == 8) //Ammo
             {
+                //pc.AmmoRefs = GetCurrentlySelectedItemRefs().DeepCopy();
                 //get the item
+                //Item it = gv.mod.getItemByResRef(pc.AmmoRefs.resref);
                 Item it = gv.mod.getItemByResRef(pc.AmmoRefs.resref);
 
-                //remove item tags from p tags
-                if (it.entriesForPcTags.Count > 0)
+                if (it != null)
                 {
-                    bool breakOuter = false;
-                    for (int i = it.entriesForPcTags.Count - 1; i >= 0; i--)
+                    //remove item tags from p tags
+                    if (it.entriesForPcTags.Count > 0)
                     {
-                        for (int j = pc.pcTags.Count - 1; j >= 0; j--)
+                        bool breakOuter = false;
+                        for (int i = it.entriesForPcTags.Count - 1; i >= 0; i--)
                         {
-                            if (it.entriesForPcTags[i].Value == pc.pcTags[j])
+                            for (int j = pc.pcTags.Count - 1; j >= 0; j--)
                             {
-                                pc.pcTags.RemoveAt(j);
-                                breakOuter = true;
+                                if (it.entriesForPcTags[i].Value == pc.pcTags[j])
+                                {
+                                    pc.pcTags.RemoveAt(j);
+                                    breakOuter = true;
+                                    break;
+                                }
+                            }
+                            if (breakOuter)
+                            {
                                 break;
                             }
                         }
-                        if (breakOuter)
-                        {
-                            break;
-                        }
                     }
                 }
+
                 // if equip slot has an ammo, no need to move it to inventory since it is only a ref            			
                 pc.AmmoRefs = GetCurrentlySelectedItemRefs().DeepCopy();
                 //add item tags to pc tags
