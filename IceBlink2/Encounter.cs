@@ -20,6 +20,7 @@ namespace IceBlink2
         public int MapSizeX = 7;
         public int MapSizeY = 7;
         public List<Trigger> Triggers = new List<Trigger>();
+        public bool isRepeatable = true;
 
         //[JsonIgnore]
         //[ReadOnly(true)]

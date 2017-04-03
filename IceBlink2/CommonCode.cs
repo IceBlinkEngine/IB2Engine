@@ -9138,6 +9138,7 @@ namespace IceBlink2
 
         public void doEncounterBasedOnTag(string name)
         {
+            //project repeatable
             try
             {
                 gv.mod.currentEncounter = gv.mod.getEncounter(name);

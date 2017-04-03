@@ -3538,8 +3538,12 @@ namespace IceBlink2
                                 {
                                     //do OnDeath IBScript
                                     gv.cc.doIBScriptBasedOnFilename(gv.mod.currentEncounter.encounterCreatureList[x].onDeathIBScript, gv.mod.currentEncounter.encounterCreatureList[x].onDeathIBScriptParms);
+                                    //project repeatable
                                     gv.mod.currentEncounter.encounterCreatureList.RemoveAt(x);
-                                    gv.mod.currentEncounter.encounterCreatureRefsList.RemoveAt(x);
+                                    if (!gv.mod.currentEncounter.isRepeatable)
+                                    {
+                                        gv.mod.currentEncounter.encounterCreatureRefsList.RemoveAt(x);
+                                    }
                                 }
                                 catch (Exception ex)
                                 {
