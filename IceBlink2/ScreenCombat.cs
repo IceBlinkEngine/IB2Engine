@@ -10800,6 +10800,7 @@ namespace IceBlink2
         public void doUpdate(Player pc)
         {
             CalculateUpperLeft();
+            checkEndEncounter();
             if (moveCost == gv.mod.diagonalMoveCost)
             {
                 currentMoves += gv.mod.diagonalMoveCost;
@@ -12211,6 +12212,7 @@ namespace IceBlink2
                             if (pc.hp <= 0)
                             {
                                 currentMoves = 99;
+                                //checkEndEncounter();
                             }
                         }
                     }

@@ -6433,10 +6433,12 @@ namespace IceBlink2
 
         public void doChannelScripts()
         {
+            /*
             gv.cc.doIBScriptBasedOnFilename(gv.mod.currentArea.effectChannelScript1, "fullScreenEffectScript");
             gv.cc.doIBScriptBasedOnFilename(gv.mod.currentArea.effectChannelScript2, "fullScreenEffectScript");
             gv.cc.doIBScriptBasedOnFilename(gv.mod.currentArea.effectChannelScript3, "fullScreenEffectScript");
             gv.cc.doIBScriptBasedOnFilename(gv.mod.currentArea.effectChannelScript4, "fullScreenEffectScript");
+            */
 
         }
 
@@ -9117,19 +9119,23 @@ namespace IceBlink2
         }
         public void doIBScriptBasedOnFilename(string filename, string parms)
         {
-            try
-            {
-                if (!filename.Equals("none"))
+            //if (parms != "fullScreenEffectScript")
+            //{
+                try
                 {
-                    IBScriptEngine e = new IBScriptEngine(gv, filename, parms);
-                    e.RunScript();
+                    if (!filename.Equals("none"))
+                    {
+                        IBScriptEngine e = new IBScriptEngine(gv, filename, parms);
+                        e.RunScript();
+                    }
                 }
-            }
-            catch (Exception ex)
-            {
-                gv.sf.MessageBox("failed to run IBScript: " + filename);
-            }
+                catch (Exception ex)
+                {
+                    gv.sf.MessageBox("failed to run IBScript: " + filename);
+                }
+            //}
         }
+
         public void doEncounterBasedOnTag(string name)
         {
             try
