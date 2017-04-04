@@ -619,6 +619,9 @@ namespace IceBlink2
                 }
             }
 
+            //IBScript Setup Combat Hook (run only once)
+            gv.cc.doIBScriptBasedOnFilename(gv.mod.currentEncounter.OnSetupCombatIBScript, gv.mod.currentEncounter.OnSetupCombatIBScriptParms);
+
             //Place all PCs
             for (int index = 0; index < gv.mod.playerList.Count; index++)
             {
@@ -643,7 +646,7 @@ namespace IceBlink2
             pf = new PathFinderEncounters(gv, gv.mod);
             tutorialMessageCombat(false);
             //IBScript Setup Combat Hook (run only once)
-            gv.cc.doIBScriptBasedOnFilename(gv.mod.currentEncounter.OnSetupCombatIBScript, gv.mod.currentEncounter.OnSetupCombatIBScriptParms);
+            //gv.cc.doIBScriptBasedOnFilename(gv.mod.currentEncounter.OnSetupCombatIBScript, gv.mod.currentEncounter.OnSetupCombatIBScriptParms);
             //IBScript Start Combat Round Hook
             gv.cc.doIBScriptBasedOnFilename(gv.mod.currentEncounter.OnStartCombatRoundIBScript, gv.mod.currentEncounter.OnStartCombatRoundIBScriptParms);
             //determine initiative
@@ -1639,21 +1642,24 @@ namespace IceBlink2
         }
         public void endPcTurn(bool endStealthMode)
         {
-            //remove stealth if endStealthMode = true		
-            Player pc = gv.mod.playerList[currentPlayerIndex];
-            if (pc.hp >= 0)
+            //remove stealth if endStealthMode = true
+            if (currentPlayerIndex <= gv.mod.playerList.Count-1)
             {
-                pc.hpLastTurn = pc.hp;
+                Player pc = gv.mod.playerList[currentPlayerIndex];
+                if (pc.hp >= 0)
+                {
+                    pc.hpLastTurn = pc.hp;
+                }
+                if (endStealthMode)
+                {
+                    pc.steathModeOn = false;
+                }
+                else //else test to see if enter/stay in stealth gv.mode if has trait
+                {
+                    doStealthModeCheck(pc);
+                }
+                canMove = true;
             }
-            if (endStealthMode)
-            {
-                pc.steathModeOn = false;
-            }
-            else //else test to see if enter/stay in stealth gv.mode if has trait
-            {
-                doStealthModeCheck(pc);
-            }
-            canMove = true;
             turnController();
         }
         public void doStealthModeCheck(Player pc)

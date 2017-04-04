@@ -2617,7 +2617,7 @@ namespace IceBlink2
         {
             try
             {
-                Player newPc = gv.cc.LoadPlayer(filename); //ex: filename = "ezzbel.json"
+                Player newPc = gv.cc.LoadPlayer(filename +".json"); //ex: filename = "ezzbel.json"
                 newPc.token = gv.cc.LoadBitmap(newPc.tokenFilename);
                 newPc.portrait = gv.cc.LoadBitmap(newPc.portraitFilename);
                 newPc.playerClass = mod.getPlayerClass(newPc.classTag);
@@ -2675,7 +2675,7 @@ namespace IceBlink2
                         return;
                     }
                 }
-                else if ((index != null) && (!index.Equals("")))
+                else if ((index != null) && (!index.Equals("")) && (!index.Equals("none")))
                 {
                     int parm2 = Convert.ToInt32(index);
                     if ((parm2 >= 0) && (parm2 < gv.mod.playerList.Count))

@@ -184,7 +184,12 @@ namespace IceBlink2
         //LOAD FILES
         public void LoadTestParty()
         {
+            gv.mod.defaultPlayerFilename = gv.mod.defaultPlayerFilename.Replace(".json", "");
             gv.sf.AddCharacterToParty(gv.mod.defaultPlayerFilename); //drin.json is default
+            //if (gv.mod.playerList.Count == 0)
+            //{
+                //gv.sf.AddCharacterToParty(gv.mod.defaultPlayerFilename)
+            //}
             gv.mod.partyTokenFilename = "prp_party";
             gv.mod.partyTokenBitmap = this.LoadBitmap(gv.mod.partyTokenFilename);
         }
@@ -1919,7 +1924,7 @@ namespace IceBlink2
             {
                 resetLightAndDarkness();
             }
-            #region tile loading on demand
+#region tile loading on demand
             if (gv.mod.useAllTileSystem)
             {
                 //addLogText("yellow", "Number of tiles, before cull:" + gv.mod.loadedTileBitmaps.Count.ToString());
@@ -1986,7 +1991,7 @@ namespace IceBlink2
                 //addLogText("red", "number of tiles in cache, after cull:" + gv.mod.loadedTileBitmaps.Count);
                 //normal cleanup while moving
             }
-            #endregion
+#endregion
 
             //reset the timer interval, important for synching with party move
             if (gv.mod.useRealTimeTimer == true)
@@ -2014,7 +2019,7 @@ namespace IceBlink2
                 return;
             }
 
-            #region handling chances for full screen animation effects, edit: for all 10 channels now
+#region handling chances for full screen animation effects, edit: for all 10 channels now
             if ((gv.mod.currentArea.fullScreenEffectLayerIsActive1 == false) && (gv.mod.currentArea.numberOfCyclesPerOccurence1 != 0))
             {
                 if (gv.sf.RandInt(100) < gv.mod.currentArea.fullScreenEffectChanceToOccur1)
@@ -2486,7 +2491,7 @@ namespace IceBlink2
                     }
                 }
             }
-            #endregion
+#endregion
            
             //CLEAN UP START SCREENS IF DONE WITH THEM
             if (gv.screenLauncher != null)
@@ -5939,7 +5944,7 @@ namespace IceBlink2
 
         public void doWeatherSound()
         {
-            #region weatherSounds
+#region weatherSounds
             //Note that in doTransitionBasedOnAreaLocation() method another weather code part is located
             //the whole system uses three sound channels, ie three instances of mediaplayer (defined in gameview, set to loop there):
             //sound channel 1 (weatherSounds1 media player) is for different degreees of rain effects
@@ -6417,7 +6422,7 @@ namespace IceBlink2
                     gv.weatherSounds2.controls.stop();
                     gv.weatherSounds3.controls.stop();
                 }
-                #endregion
+#endregion
             }
         }
         public void doPropHeartBeat()
@@ -6477,7 +6482,7 @@ namespace IceBlink2
                     }
                 }
 
-                #region check if current weather exists in this area
+#region check if current weather exists in this area
                 //check whether the current weather is still in the entry list of current area (which should contain all weathers possible in an area)
                 bool doesCurrentWeatherExistHere = false;
                 foreach (string weatherName in gv.mod.listOfEntryWeatherNames)
@@ -6514,7 +6519,7 @@ namespace IceBlink2
                         }
                     }
                 }
-                #endregion
+#endregion
 
                 //if (gv.mod.currentArea.areaWeatherName == "")
                 //{
@@ -6609,7 +6614,7 @@ namespace IceBlink2
                     gv.mod.fullScreenEffectOpacityWeather = 1f * (gv.mod.currentWeatherDuration / changeThreshold);
                 }
 
-                #region weather duration has ended, setup new weather
+#region weather duration has ended, setup new weather
                 //weather duration has ended 
                 if (gv.mod.currentWeatherDuration <= 0)
                 {
@@ -6710,7 +6715,7 @@ namespace IceBlink2
                     }
 
                 }
-                #endregion
+#endregion
 
                 gv.mod.isRaining = false;
                 gv.mod.isCloudy = false;
@@ -6994,7 +6999,7 @@ namespace IceBlink2
                 
             }
 
-            #region Synchronization: update the position of time driven movers (either when the party switches area or when a time driven mover enters the current area)
+#region Synchronization: update the position of time driven movers (either when the party switches area or when a time driven mover enters the current area)
 
             //Synchronization: check for all time driven movers either 1. found when entering an area (three variants: move into current area, move on current area, move out of current area) or 2. coming in from outside while party is already on current area
             //three nested loops running through area/prop/waypoint
@@ -7296,9 +7301,9 @@ namespace IceBlink2
                 }
             }
 
-            #endregion
+#endregion
 
-            #region move ALL movers on current map (post, random, patrol, daily, weekly, monthly, yearly; also handle chasing)
+#region move ALL movers on current map (post, random, patrol, daily, weekly, monthly, yearly; also handle chasing)
             //begin moving the existing props in this map
 
             for (int i = gv.mod.currentArea.Props.Count - 1; i >= 0; i--)
@@ -7328,7 +7333,7 @@ namespace IceBlink2
                 if (1 == 1)
                 {
                     /*
-                    #region delay a mover for one turn on same square as party
+#region delay a mover for one turn on same square as party
                     //I suggest to modify this, so the prop will only wait for one turn and then move on, regardless of shared location with player
                     //otherwise the player can pin down a mover forever which feels weird imho
                     if ((gv.mod.currentArea.Props[i].LocationX == gv.mod.PlayerLocationX) && (gv.mod.currentArea.Props[i].LocationY == gv.mod.PlayerLocationY))
@@ -7344,17 +7349,17 @@ namespace IceBlink2
                     {
                         gv.sf.SetLocalInt(gv.mod.currentArea.Props[i].PropTag, "hasAlreadyWaited", "-1");
                     }
-                    #endregion
+#endregion
                     */
 
-                    #region DISABLED: dont move props further away than ten squares
+#region DISABLED: dont move props further away than ten squares
                     //Here I would suggest a full disable - the illsuion of a living wold would not work with a time freeze bubble outside 10 square radius
                     //if (getDistance(new Coordinate(gv.mod.PlayerLocationX, gv.mod.PlayerLocationY), new Coordinate(gv.mod.currentArea.Props[i].LocationX, gv.mod.currentArea.Props[i].LocationY)) > 10)
                     //{
                     //do nothing since prop and player are far away from each other
                     //continue;			
                     //}
-                    #endregion
+#endregion
 
                     if ((gv.mod.currentArea.Props[i].isMover) && (gv.mod.currentArea.Props[i].isActive))
                     {
@@ -7363,7 +7368,7 @@ namespace IceBlink2
                         //gv.mod.currentArea.Props[i].pixelMoveSpeed = moveDist;
 
 
-                        #region Chaser code
+#region Chaser code
                         if ((gv.mod.currentArea.Props[i].isChaser) && (!gv.mod.currentArea.Props[i].ReturningToPost))
                         {
                             //determine if start chasing or stop chasing (set isCurrentlyChasing to true or false)
@@ -7434,9 +7439,9 @@ namespace IceBlink2
                                 gv.screenMainMap.addFloatyText(gv.mod.currentArea.Props[i].LocationX, gv.mod.currentArea.Props[i].LocationY, "(" + gv.mod.currentArea.Props[i].LocationX + "," + gv.mod.currentArea.Props[i].LocationY + ")", "yellow", 4000);
                             }
                         }
-                        #endregion
+#endregion
 
-                        #region Mover type: post
+#region Mover type: post
                         //not chasing so do mover type
                         else if (gv.mod.currentArea.Props[i].MoverType.Equals("post"))
                         {
@@ -7461,9 +7466,9 @@ namespace IceBlink2
                             }
                             doPropBarkString(gv.mod.currentArea.Props[i]);
                         }
-                        #endregion
+#endregion
 
-                        #region Mover type: random
+#region Mover type: random
                         else if (gv.mod.currentArea.Props[i].MoverType.Equals("random"))
                         {
                             gv.mod.currentArea.Props[i].randomMoverTimerForNextTarget += 1;
@@ -7490,9 +7495,9 @@ namespace IceBlink2
                             }
                             doPropBarkString(gv.mod.currentArea.Props[i]);
                         }
-                        #endregion
+#endregion
 
-                        #region Mover type: patrol
+#region Mover type: patrol
                         else if (gv.mod.currentArea.Props[i].MoverType.Equals("patrol"))
                         {
                             bool mustWait = false;
@@ -7541,9 +7546,9 @@ namespace IceBlink2
                             }
                             doPropBarkString(gv.mod.currentArea.Props[i]);
                         }
-                        #endregion
+#endregion
 
-                        #region time driven movers (daily, weekly, monthly, yearly)
+#region time driven movers (daily, weekly, monthly, yearly)
                         else if (gv.mod.currentArea.Props[i].MoverType.Equals("daily") || gv.mod.currentArea.Props[i].MoverType.Equals("weekly") || gv.mod.currentArea.Props[i].MoverType.Equals("monthly") || gv.mod.currentArea.Props[i].MoverType.Equals("yearly"))
                         {
                             bool departureTimeReached = false;
@@ -7708,12 +7713,12 @@ namespace IceBlink2
                                 doPropBarkString(gv.mod.currentArea.Props[i]);
                             }
                         }
-                        #endregion
+#endregion
                     }
                 }
             }
 
-            #endregion
+#endregion
             /*
             foreach (Prop propObject in gv.mod.currentArea.Props)
             {
@@ -10586,7 +10591,7 @@ namespace IceBlink2
                 }
                 string combinedChars = previousChar.ToString() + c.ToString() + nextChar.ToString();
 
-                #region Start/Stop Tags
+#region Start/Stop Tags
                 //start a tag and check for end of word
                 if ((c == '<') && (!combinedChars.Contains("<=")) && (!combinedChars.Equals(" < ")))
                 {
@@ -10700,9 +10705,9 @@ namespace IceBlink2
                     tag = "";
                     continue;
                 }
-                #endregion
+#endregion
 
-                #region Words
+#region Words
                 if (!tagMode)
                 {
                     if (c != ' ') //keep adding to word until hit a space
@@ -10766,7 +10771,7 @@ namespace IceBlink2
                 {
                     tag += c;
                 }
-                #endregion
+#endregion
             }
             tagStack.Clear();
             return logLinesList;

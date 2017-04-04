@@ -6509,7 +6509,7 @@
         "Y": 1
       },
       {
-        "X": 4,
+        "X": 6,
         "Y": 0
       },
       {
@@ -6524,6 +6524,7 @@
     "MapImage": "none",
     "UseMapImage": false,
     "UseDayNightCycle": false,
+    "IsRepeatable": true,
     "AreaMusic": "none",
     "AreaMusicDelay": 0,
     "AreaMusicDelayRandomAdder": 0,
@@ -6533,13 +6534,13 @@
     "OnStartCombatTurnParms": "",
     "OnEndCombatLogicTree": "none",
     "OnEndCombatParms": "",
-    "OnSetupCombatIBScript": "none",
-    "OnSetupCombatIBScriptParms": "",
+    "OnSetupCombatIBScript": "addCharacter",
+    "OnSetupCombatIBScriptParms": "archie",
     "OnStartCombatRoundIBScript": "none",
     "OnStartCombatRoundIBScriptParms": "",
     "OnStartCombatTurnIBScript": "none",
     "OnStartCombatTurnIBScriptParms": "",
-    "OnEndCombatIBScript": "none",
-    "OnEndCombatIBScriptParms": ""
+    "OnEndCombatIBScript": "removeCharacter",
+    "OnEndCombatIBScriptParms": "archie"
   }
 ]

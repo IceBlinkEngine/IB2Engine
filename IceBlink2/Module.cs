@@ -484,7 +484,8 @@ namespace IceBlink2
         {
             foreach (Player pc in this.playerList)
             {
-                if (pc.name.Equals(tag))
+                if (string.Equals(tag, pc.name, StringComparison.CurrentCultureIgnoreCase))
+                ///if (pc.name.Equals(tag))
                 {
                     return pc;
                 }
