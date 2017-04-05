@@ -197,13 +197,26 @@ namespace IceBlink2
         {
             Player toReturn = null;
 
-            // deserialize JSON directly from a file
-            using (StreamReader file = File.OpenText(GetModulePath() + "\\data\\" + filename))
+            if (!filename.Contains(".json"))
             {
-                JsonSerializer serializer = new JsonSerializer();
-                toReturn = (Player)serializer.Deserialize(file, typeof(Player));
+                // deserialize JSON directly from a file
+                using (StreamReader file = File.OpenText(GetModulePath() + "\\data\\" + filename + ".json"))
+                {
+                    JsonSerializer serializer = new JsonSerializer();
+                    toReturn = (Player)serializer.Deserialize(file, typeof(Player));
+                }
+                return toReturn.DeepCopy();
             }
-            return toReturn.DeepCopy();
+            else
+            {
+                // deserialize JSON directly from a file
+                using (StreamReader file = File.OpenText(GetModulePath() + "\\data\\" + filename))
+                {
+                    JsonSerializer serializer = new JsonSerializer();
+                    toReturn = (Player)serializer.Deserialize(file, typeof(Player));
+                }
+                return toReturn.DeepCopy();
+            }
         }
         public void LoadCurrentConvo(string filename)
         {
