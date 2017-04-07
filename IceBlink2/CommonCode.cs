@@ -1042,17 +1042,54 @@ namespace IceBlink2
                         }
 
                         //tiles
+                        bool isOldSave = false;
+                        try
+                        {
+                            ar.Tiles[0].Visible = sar.tileVisibilityList[0];
+                        }
+                        catch
+                        {
+                            isOldSave = true; ;
+                        }
+                        for (int index = 0; index < ar.Tiles.Count; index++)
+                        {
+                            if (isOldSave)
+                            {
+                                ar.Tiles[index].Visible = sar.Tiles[index].Visible;
+                            }
+                            else
+                            {
+                                ar.Tiles[index].Visible = sar.tileVisibilityList[index];
+                            }
+
+                            if (ar.Tiles[index].Visible)
+                            {
+                                ar.Tiles[index].opacity = 0;
+                            }
+                        }
+
+                        /*
+                        //tiles
                         for (int index = 0; index < ar.Tiles.Count; index++)
                         {
                             //add new mechanism for reading in visibility, likely form new property
                             //a.tileVisibilityList.Add(vis);
-                            ar.Tiles[index].Visible = sar.tileVisibilityList[index];
+                            try
+                            {
+                                ar.Tiles[index].Visible = sar.tileVisibilityList[index];
+                            }
+                            catch
+                            {
+                                ar.Tiles[index].Visible = sar.Tiles[index].Visible;
+                            }
+
                             if (ar.Tiles[index].Visible)
                             {
                                 ar.Tiles[index].opacity = 0;
                             }
                             //ar.Tiles[index].Visible = sar.Tiles[index].Visible;
                         }
+                        */
 
                         //props
                         //start at the end of the newMod prop list and work up

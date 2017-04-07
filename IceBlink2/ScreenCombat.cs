@@ -11772,7 +11772,7 @@ namespace IceBlink2
                             {
                                 if ((coor.X == targetHighlightCenterLocation.X) && (coor.Y == targetHighlightCenterLocation.Y))
                                 {
-                                    return true;
+                                    return crt;
                                 }
                             }
                         }
