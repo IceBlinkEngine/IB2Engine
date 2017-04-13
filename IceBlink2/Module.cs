@@ -16,6 +16,8 @@ namespace IceBlink2
         public bool useMinimalisticUI = true;
         public bool useManualCombatCam = true;
         public bool useCombatSmoothMovement = true;
+        public float fogOfWarOpacity = 0.9525f;
+        public bool spritesUnderOverlays = true;
 
         public int creatureCounterSubstractor = 0;
         public int moveOrderOfCreatureThatIsBeforeBandChange = 0;

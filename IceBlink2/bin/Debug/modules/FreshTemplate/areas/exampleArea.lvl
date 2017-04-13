@@ -37,7 +37,7 @@
   "minimumDarkness": 12.0,
   "maxLightMultiplier": 1.0,
   "areaDark": false,
-  "UseDayNightCycle": false,
+  "UseDayNightCycle": true,
   "TimePerSquare": 6,
   "ImageFileName": "none",
   "MapSizeX": 16,
