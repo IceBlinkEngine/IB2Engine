@@ -926,115 +926,361 @@ namespace IceBlink2
 
         public void doPropAnimations(float elapsed)
         {
-            foreach (Prop p in gv.mod.currentArea.Props)
-            {
-                if (p.animationIsActive)
-                {
-                    float fadeAmount = 0;
-                    if (p.framesNeededForFullFadeInOut > 0)
-                    {
-                        fadeAmount = 1f / p.framesNeededForFullFadeInOut;
-                        if (p.totalFramesInWholeLoopCounter <= p.framesNeededForFullFadeInOut)
-                        {
-                            p.opacity = fadeAmount * p.totalFramesInWholeLoopCounter;
-                            if (p.opacity > 1)
-                            {
-                                p.opacity = 1;
-                            }
-                        }
+            
+            //need to update animated props on neighbouring areas, too
+            //theflameandtheflood
 
-                        else if (p.totalFramesInWholeLoopCounter >= ((p.maxNumberOfFrames * p.numberOfCyclesNeededForCompletion) - p.framesNeededForFullFadeInOut))
+            //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+             //XXXXXXXXXXXXXXXXXXXXXXXX
+                int indexOfNorthernNeighbour = -1;
+                int indexOfSouthernNeighbour = -1;
+                int indexOfEasternNeighbour = -1;
+                int indexOfWesternNeighbour = -1;
+                int indexOfNorthEasternNeighbour = -1;
+                int indexOfNorthWesternNeighbour = -1;
+                int indexOfSouthEasternNeighbour = -1;
+                int indexOfSouthWesternNeighbour = -1;
+
+                int seamlessModififierMinX = 0;
+                int seamlessModififierMaxX = 0;
+                int seamlessModififierMinY = 0;
+                int seamlessModififierMaxY = 0;
+
+                //player near northern border
+                if ((gv.mod.currentArea.northernNeighbourArea != "") && (gv.mod.PlayerLocationY < gv.playerOffsetY))
+                {
+                    seamlessModififierMinY = gv.playerOffsetY - gv.mod.PlayerLocationY;
+                    for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
+                    {
+                        if (gv.mod.moduleAreasObjects[i].Filename == gv.mod.currentArea.northernNeighbourArea)
                         {
-                            int framesLeft = (p.maxNumberOfFrames * p.numberOfCyclesNeededForCompletion) - p.totalFramesInWholeLoopCounter;
-                            p.opacity = framesLeft * fadeAmount;
-                        }
-                        else
-                        {
-                            p.opacity = 1;
+                            indexOfNorthernNeighbour = i;
                         }
                     }
 
-                    //p.drawAnimatedProp = true;
-                    if ((p.maxNumberOfFrames > 1) && (!p.animationComplete))
+                    if (gv.mod.moduleAreasObjects[indexOfNorthernNeighbour].easternNeighbourArea != "")
                     {
-                        p.animationDelayCounter += (300 / elapsed);
-
-                        if (p.animationDelayCounter >= p.updateTicksNeededTillNextFrame)
+                        for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
                         {
-                            p.currentFrameNumber++;
-                            p.totalFramesInWholeLoopCounter++;
-                            p.animationDelayCounter = 0;
-                            if (p.currentFrameNumber > (p.maxNumberOfFrames - 1))
+                            if (gv.mod.moduleAreasObjects[i].Filename == gv.mod.moduleAreasObjects[indexOfNorthernNeighbour].easternNeighbourArea)
                             {
-                                p.currentFrameNumber = 0;
-                                //enter new conditional for multiple cylces required before compleetion here
-                                if (p.numberOfCyclesNeededForCompletion <= 1)
+                                indexOfNorthEasternNeighbour = i;
+                            }
+                        }
+                    }
+
+                    if (gv.mod.moduleAreasObjects[indexOfNorthernNeighbour].westernNeighbourArea != "")
+                    {
+                        for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
+                        {
+                            if (gv.mod.moduleAreasObjects[i].Filename == gv.mod.moduleAreasObjects[indexOfNorthernNeighbour].westernNeighbourArea)
+                            {
+                                indexOfNorthWesternNeighbour = i;
+                            }
+                        }
+                    }
+                }
+
+                //player near southern  border
+                if ((gv.mod.currentArea.southernNeighbourArea != "") && (gv.mod.PlayerLocationY > (gv.mod.currentArea.MapSizeY - gv.playerOffsetY - 1)))
+                {
+
+                    seamlessModififierMaxY = gv.mod.PlayerLocationY - (gv.mod.currentArea.MapSizeY - gv.playerOffsetY - 1);
+                    for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
+                    {
+                        if (gv.mod.moduleAreasObjects[i].Filename == gv.mod.currentArea.southernNeighbourArea)
+                        {
+                            indexOfSouthernNeighbour = i;
+                        }
+                    }
+
+                    if (gv.mod.moduleAreasObjects[indexOfSouthernNeighbour].easternNeighbourArea != "")
+                    {
+                        for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
+                        {
+                            if (gv.mod.moduleAreasObjects[i].Filename == gv.mod.moduleAreasObjects[indexOfSouthernNeighbour].easternNeighbourArea)
+                            {
+                                indexOfSouthEasternNeighbour = i;
+                            }
+                        }
+                    }
+
+                    if (gv.mod.moduleAreasObjects[indexOfSouthernNeighbour].westernNeighbourArea != "")
+                    {
+                        for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
+                        {
+                            if (gv.mod.moduleAreasObjects[i].Filename == gv.mod.moduleAreasObjects[indexOfSouthernNeighbour].westernNeighbourArea)
+                            {
+                                indexOfSouthWesternNeighbour = i;
+                            }
+                        }
+                    }
+                }
+
+                //player near western border
+                if ((gv.mod.currentArea.westernNeighbourArea != "") && (gv.mod.PlayerLocationX < gv.playerOffsetX))
+                {
+                    seamlessModififierMinX = gv.playerOffsetX - gv.mod.PlayerLocationX;
+                    for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
+                    {
+                        if (gv.mod.moduleAreasObjects[i].Filename == gv.mod.currentArea.westernNeighbourArea)
+                        {
+                            indexOfWesternNeighbour = i;
+                        }
+                    }
+
+                    if (gv.mod.moduleAreasObjects[indexOfWesternNeighbour].northernNeighbourArea != "")
+                    {
+                        for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
+                        {
+                            if (gv.mod.moduleAreasObjects[i].Filename == gv.mod.moduleAreasObjects[indexOfWesternNeighbour].northernNeighbourArea)
+                            {
+                                indexOfNorthWesternNeighbour = i;
+                            }
+                        }
+                    }
+
+                    if (gv.mod.moduleAreasObjects[indexOfWesternNeighbour].southernNeighbourArea != "")
+                    {
+                        for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
+                        {
+                            if (gv.mod.moduleAreasObjects[i].Filename == gv.mod.moduleAreasObjects[indexOfWesternNeighbour].southernNeighbourArea)
+                            {
+                                indexOfSouthWesternNeighbour = i;
+                            }
+                        }
+                    }
+                }
+
+                //player near eastern border
+                if ((gv.mod.currentArea.easternNeighbourArea != "") && (gv.mod.PlayerLocationX > (gv.mod.currentArea.MapSizeX - gv.playerOffsetX - 1)))
+                {
+                    seamlessModififierMaxX = gv.mod.PlayerLocationX - (gv.mod.currentArea.MapSizeX - gv.playerOffsetX - 1);
+                    for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
+                    {
+                        if (gv.mod.moduleAreasObjects[i].Filename == gv.mod.currentArea.easternNeighbourArea)
+                        {
+                            indexOfEasternNeighbour = i;
+                        }
+                    }
+
+                    if (gv.mod.moduleAreasObjects[indexOfEasternNeighbour].northernNeighbourArea != "")
+                    {
+                        for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
+                        {
+                            if (gv.mod.moduleAreasObjects[i].Filename == gv.mod.moduleAreasObjects[indexOfEasternNeighbour].northernNeighbourArea)
+                            {
+                                indexOfNorthEasternNeighbour = i;
+                            }
+                        }
+                    }
+
+                    if (gv.mod.moduleAreasObjects[indexOfEasternNeighbour].southernNeighbourArea != "")
+                    {
+                        for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
+                        {
+                            if (gv.mod.moduleAreasObjects[i].Filename == gv.mod.moduleAreasObjects[indexOfEasternNeighbour].southernNeighbourArea)
+                            {
+                                indexOfSouthEasternNeighbour = i;
+                            }
+                        }
+                    }
+                }
+
+                bool situationFound = false;
+                //int relevantIndex = -1;
+                List<int> relevantIndices = new List<int>();
+                int northernmodifier = 0;
+                int easternmodifier = 0;
+                int westernmodifier = 0;
+                int southernmodifier = 0;
+
+                //northwest
+                if ((seamlessModififierMinX > 0) && (seamlessModififierMinY > 0) && (indexOfNorthWesternNeighbour != -1))
+                {
+                    situationFound = true;
+                    relevantIndices.Add(indexOfNorthWesternNeighbour);
+                }
+                //northeast
+                if ((seamlessModififierMaxX > 0) && (seamlessModififierMinY > 0) && (indexOfNorthEasternNeighbour != -1))
+                {
+                    situationFound = true;
+                    relevantIndices.Add(indexOfNorthEasternNeighbour);
+                }
+                //southwest
+                if ((seamlessModififierMinX > 0) && (seamlessModififierMaxY > 0) && (indexOfSouthWesternNeighbour != -1))
+                {
+                    situationFound = true;
+                    relevantIndices.Add(indexOfSouthWesternNeighbour);
+                }
+                //southeast
+                if ((seamlessModififierMaxX > 0) && (seamlessModififierMaxY > 0) && (indexOfSouthEasternNeighbour != -1))
+                {
+                    situationFound = true;
+                    relevantIndices.Add(indexOfSouthEasternNeighbour);
+                }
+                //north
+                if ((seamlessModififierMinY > 0) && (indexOfNorthernNeighbour != -1))
+                {
+                    situationFound = true;
+                    relevantIndices.Add(indexOfNorthernNeighbour);
+                }
+                //south
+                if ((seamlessModififierMaxY > 0) && (indexOfSouthernNeighbour != -1))
+                {
+                    situationFound = true;
+                    relevantIndices.Add(indexOfSouthernNeighbour);
+                }
+                //west
+                if ((seamlessModififierMinX > 0) && (indexOfWesternNeighbour != -1))
+                {
+                    situationFound = true;
+                    relevantIndices.Add(indexOfWesternNeighbour);
+                }
+                //east
+                if ((seamlessModififierMaxX > 0) && (indexOfEasternNeighbour != -1))
+                {
+                    situationFound = true;
+                    relevantIndices.Add(indexOfEasternNeighbour);
+                }
+                
+                //current map
+                //if (!situationFound)
+                //{
+                    for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
+                    {
+                        if (gv.mod.currentArea.Filename == gv.mod.moduleAreasObjects[i].Filename)
+                        {
+                            relevantIndices.Add(i);
+                        }
+                    } 
+                //}
+                
+
+                //XXXXXXXXXXXXXXXXXXXXXXXX
+                for (int i = 0; i < relevantIndices.Count; i++)
+                {//2
+
+                    int backupLocationX = -1;
+                    int backupLocationY = -1;
+
+                    foreach (Prop p in gv.mod.moduleAreasObjects[relevantIndices[i]].Props)
+                    {
+
+
+                        //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                        //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+
+                        //foreach (Prop p in gv.mod.currentArea.Props)
+                        //{
+                        if (p.animationIsActive)
+                        {
+                            float fadeAmount = 0;
+                            if (p.framesNeededForFullFadeInOut > 0)
+                            {
+                                fadeAmount = 1f / p.framesNeededForFullFadeInOut;
+                                if (p.totalFramesInWholeLoopCounter <= p.framesNeededForFullFadeInOut)
                                 {
-                                    p.animationComplete = true;
-                                    p.totalFramesInWholeLoopCounter = 0;
-                                    if (p.hiddenWhenComplete)
+                                    p.opacity = fadeAmount * p.totalFramesInWholeLoopCounter;
+                                    if (p.opacity > 1)
                                     {
-                                        p.drawAnimatedProp = false;
+                                        p.opacity = 1;
                                     }
+                                }
+
+                                else if (p.totalFramesInWholeLoopCounter >= ((p.maxNumberOfFrames * p.numberOfCyclesNeededForCompletion) - p.framesNeededForFullFadeInOut))
+                                {
+                                    int framesLeft = (p.maxNumberOfFrames * p.numberOfCyclesNeededForCompletion) - p.totalFramesInWholeLoopCounter;
+                                    p.opacity = framesLeft * fadeAmount;
                                 }
                                 else
                                 {
-                                    p.cycleCounter++;
-                                    if (p.cycleCounter == p.numberOfCyclesNeededForCompletion)
+                                    p.opacity = 1;
+                                }
+                            }
+
+                            //p.drawAnimatedProp = true;
+                            if ((p.maxNumberOfFrames > 1) && (!p.animationComplete))
+                            {
+                                p.animationDelayCounter += (300 / elapsed);
+
+                                if (p.animationDelayCounter >= p.updateTicksNeededTillNextFrame)
+                                {
+                                    p.currentFrameNumber++;
+                                    p.totalFramesInWholeLoopCounter++;
+                                    p.animationDelayCounter = 0;
+                                    if (p.currentFrameNumber > (p.maxNumberOfFrames - 1))
                                     {
-                                        p.animationComplete = true;
-                                        p.cycleCounter = 0;
-                                        p.totalFramesInWholeLoopCounter = 0;
-                                        if (p.hiddenWhenComplete)
+                                        p.currentFrameNumber = 0;
+                                        //enter new conditional for multiple cylces required before compleetion here
+                                        if (p.numberOfCyclesNeededForCompletion <= 1)
                                         {
-                                            p.drawAnimatedProp = false;
+                                            p.animationComplete = true;
+                                            p.totalFramesInWholeLoopCounter = 0;
+                                            if (p.hiddenWhenComplete)
+                                            {
+                                                p.drawAnimatedProp = false;
+                                            }
+                                        }
+                                        else
+                                        {
+                                            p.cycleCounter++;
+                                            if (p.cycleCounter == p.numberOfCyclesNeededForCompletion)
+                                            {
+                                                p.animationComplete = true;
+                                                p.cycleCounter = 0;
+                                                p.totalFramesInWholeLoopCounter = 0;
+                                                if (p.hiddenWhenComplete)
+                                                {
+                                                    p.drawAnimatedProp = false;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+
+                            if (p.animationComplete)
+                            {
+                                if (p.doOnce)
+                                {
+                                    p.animationIsActive = false;
+                                }
+
+                                if (p.animationIsActive)
+                                {
+                                    if (p.chanceToTriggerAnimationCycle >= 100)
+                                    {
+                                        p.animationComplete = false;
+                                        p.drawAnimatedProp = true;
+                                    }
+                                    else
+                                    {
+                                        p.normalizedTime += (1 / elapsed);
+                                        if (p.normalizedTime >= 1)
+                                        {
+                                            p.normalizedTime = 0;
+                                            float rollRandom = gv.sf.RandInt(100);
+                                            if (rollRandom <= p.chanceToTriggerAnimationCycle)
+                                            {
+                                                p.animationComplete = false;
+                                                p.drawAnimatedProp = true;
+                                            }
                                         }
                                     }
                                 }
                             }
                         }
-                    }
-
-                    if (p.animationComplete)
-                    {
-                        if (p.doOnce)
+                        //animation is not active
+                        else
                         {
-                            p.animationIsActive = false;
-                        }
-
-                        if (p.animationIsActive)
-                        {
-                            if (p.chanceToTriggerAnimationCycle >= 100)
+                            if (p.hiddenWhenNotActive)
                             {
-                                p.animationComplete = false;
-                                p.drawAnimatedProp = true;
-                            }
-                            else
-                            {
-                                p.normalizedTime += (1 / elapsed);
-                                if (p.normalizedTime >= 1)
-                                {
-                                    p.normalizedTime = 0;
-                                    float rollRandom = gv.sf.RandInt(100);
-                                    if (rollRandom <= p.chanceToTriggerAnimationCycle)
-                                    {
-                                        p.animationComplete = false;
-                                        p.drawAnimatedProp = true;
-                                    }
-                                }
+                                p.drawAnimatedProp = false;
                             }
                         }
                     }
                 }
-                //animation is not active
-                else
-                {
-                    if (p.hiddenWhenNotActive)
-                    {
-                        p.drawAnimatedProp = false;
-                    }
-                }
-            }
         }
 
         //MAIN SCREEN DRAW
