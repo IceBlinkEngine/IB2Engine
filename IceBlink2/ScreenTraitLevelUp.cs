@@ -105,6 +105,39 @@ namespace IceBlink2
 			    btnTraitSlots.Add(btnNew);
 		    }			
 	    }
+
+        //new method for checking attribute requiremnts of traits
+        public bool checkAttributeRequirementsOfTrait (Player pc, Trait t)
+        {
+            gv.sf.UpdateStats(pc);
+
+            if (pc.strength < t.requiredStrength)
+            {
+                return false;
+            }
+            if (pc.dexterity < t.requiredDexterity)
+            {
+                return false;
+            }
+            if (pc.constitution < t.requiredConstitution)
+            {
+                return false;
+            }
+            if (pc.intelligence < t.requiredIntelligence)
+            {
+                return false;
+            }
+            if (pc.wisdom < t.requiredWisdom)
+            {
+                return false;
+            }
+            if (pc.charisma < t.requiredCharisma)
+            {
+                return false;
+            }
+
+            return true;
+        }
 	
 	    //CAST SELECTOR SCREEN (COMBAT and MAIN)
         public void redrawTraitLevelUp(bool inPcCreation)
@@ -145,14 +178,24 @@ namespace IceBlink2
                     }
                     else //trait not known
                     {
+                        //checking attribute requiremnts of trait
+                        bool attributeRequirementsMet = checkAttributeRequirementsOfTrait(pc, tr);
+                        
                         //check if available to learn
-                        if (isAvailableToLearn(tr.tag))
+                        if (isAvailableToLearn(tr.tag) && attributeRequirementsMet)
                         {
                             gv.DrawText("Available to Learn", noticeX, noticeY, 1.0f, Color.Lime);
                         }
                         else //not available yet
                         {
-                            gv.DrawText("Trait Not Available to Learn Yet", noticeX, noticeY, 1.0f, Color.Red);
+                            if (attributeRequirementsMet)
+                            {
+                                gv.DrawText("Trait Not Available to Learn Yet", noticeX, noticeY, 1.0f, Color.Red);
+                            }
+                            else 
+                            {
+                                gv.DrawText("Attribute requirements not met", noticeX, noticeY, 1.0f, Color.Red);
+                            }
                         }
                     }
                 }
@@ -181,6 +224,7 @@ namespace IceBlink2
                             btn.Img = gv.cc.LoadBitmap("btn_small");
                             gv.cc.DisposeOfBitmap(ref btn.Img2);
                             btn.Img2 = gv.cc.LoadBitmap(tr.traitImage);
+                            btn.Img3 = gv.cc.LoadBitmap("mandatory_conversation_indicator");
                         }
                         else //trait not known yet
                         {
@@ -198,10 +242,17 @@ namespace IceBlink2
                             btn.Img = gv.cc.LoadBitmap("btn_small_off");
                             gv.cc.DisposeOfBitmap(ref btn.Img2);
                             btn.Img2 = gv.cc.LoadBitmap(tr.traitImage + "_off");
+                            btn.Img3 = gv.cc.LoadBitmap("mandatory_conversation_indicator");
                         }
                         else //trait not known yet
                         {
-                            if (isAvailableToLearn(tr.tag)) //if available to learn, turn on button
+                            //checking attribute requiremnts of trait
+                            bool attributeRequirementsMet = checkAttributeRequirementsOfTrait(pc, tr);
+                            //if (tr.tag == "bluff")
+                            //{
+                                //int hghg = 0;
+                            //}
+                            if (isAvailableToLearn(tr.tag) && attributeRequirementsMet) //if available to learn, turn on button
                             {
                                 gv.cc.DisposeOfBitmap(ref btn.Img);
                                 btn.Img = gv.cc.LoadBitmap("btn_small");
@@ -214,6 +265,7 @@ namespace IceBlink2
                                 btn.Img = gv.cc.LoadBitmap("btn_small_off");
                                 gv.cc.DisposeOfBitmap(ref btn.Img2);
                                 btn.Img2 = gv.cc.LoadBitmap(tr.traitImage + "_off");
+                                btn.Img3 = gv.cc.LoadBitmap("encounter_indicator");
                             }
                         }
                     }				
@@ -237,6 +289,36 @@ namespace IceBlink2
                 string textToSpan = "<u>Description</u>" + "<BR>";
                 textToSpan += "<b><i><big>" + tr.name + "</big></i></b><BR>";
                 textToSpan += "Available at Level: " + getLevelAvailable(tr.tag) + "<BR>";
+                if (tr.requiredStrength > 0)
+                {
+                    textToSpan += "Required STR: " + tr.requiredStrength + "<BR>"; 
+                   
+                }
+                if (tr.requiredDexterity > 0)
+                {
+                    textToSpan += "Required DEX: " + tr.requiredDexterity + "<BR>";
+
+                }
+                if (tr.requiredConstitution > 0)
+                {
+                    textToSpan += "Required CON: " + tr.requiredConstitution + "<BR>";
+
+                }
+                if (tr.requiredIntelligence > 0)
+                {
+                    textToSpan += "Required INT: " + tr.requiredIntelligence + "<BR>";
+
+                }
+                if (tr.requiredWisdom > 0)
+                {
+                    textToSpan += "Required WIS: " + tr.requiredWisdom + "<BR>";
+
+                }
+                if (tr.requiredCharisma > 0)
+                {
+                    textToSpan += "Required CHA: " + tr.requiredCharisma + "<BR>";
+
+                }
                 textToSpan += "<BR>";
                 textToSpan += tr.description;
 
@@ -360,7 +442,11 @@ namespace IceBlink2
     	    if (isSelectedTraitSlotInKnownTraitsRange())
 		    {
 			    Trait tr = GetCurrentlySelectedTrait();
-			    if (isAvailableToLearn(tr.tag))
+
+                //checking attribute requiremnts of trait
+                bool attributeRequirementsMet = checkAttributeRequirementsOfTrait(pc, tr);
+
+			    if (isAvailableToLearn(tr.tag) && attributeRequirementsMet)
 			    {
                     //add trait
                     //pc.knownTraitsTags.Add(tr.tag);

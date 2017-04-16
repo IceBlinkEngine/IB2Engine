@@ -34,6 +34,12 @@ namespace IceBlink2
         public List<EffectTagForDropDownList> traitEffectTagList = new List<EffectTagForDropDownList>();
         public List<LocalImmunityString> traitWorksOnlyWhen = new List<LocalImmunityString>();
         public List<LocalImmunityString> traitWorksNeverWhen = new List<LocalImmunityString>();
+        public int requiredStrength = 0;
+        public int requiredDexterity = 0;
+        public int requiredConstitution = 0;
+        public int requiredIntelligence = 0;
+        public int requiredWisdom = 0;
+        public int requiredCharisma = 0;
 
         public Trait()
 	    {
