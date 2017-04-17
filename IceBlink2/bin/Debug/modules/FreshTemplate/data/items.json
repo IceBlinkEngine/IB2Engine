@@ -1156,7 +1156,7 @@
     "damageTypeResistanceValueCold": 0,
     "damageTypeResistanceValueElectricity": 0,
     "damageTypeResistanceValueFire": 0,
-    "typeOfDamage": "Normal",
+    "typeOfDamage": "Electricity",
     "attributeBonusModifierStr": 0,
     "attributeBonusModifierDex": 0,
     "attributeBonusModifierInt": 0,

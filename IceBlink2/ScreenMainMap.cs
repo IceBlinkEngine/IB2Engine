@@ -1206,15 +1206,33 @@ namespace IceBlink2
 
                                 if (p.animationDelayCounter >= p.updateTicksNeededTillNextFrame)
                                 {
+
+                                #region forwardDirection
+                                //if (!p.inverseAnimationDirection)
+                                //{
                                     p.currentFrameNumber++;
                                     p.totalFramesInWholeLoopCounter++;
                                     p.animationDelayCounter = 0;
                                     if (p.currentFrameNumber > (p.maxNumberOfFrames - 1))
                                     {
                                         p.currentFrameNumber = 0;
+
                                         //enter new conditional for multiple cylces required before compleetion here
                                         if (p.numberOfCyclesNeededForCompletion <= 1)
                                         {
+                                            if (p.randomAnimationDirectionEachCall)
+                                            {
+                                                int decider = gv.sf.RandInt(0, 100);
+                                                if (decider >= 50)
+                                                {
+                                                    p.inverseAnimationDirection = true;
+                                                }
+                                                else
+                                                {
+                                                    p.inverseAnimationDirection = false;
+                                                }
+                                            }
+
                                             p.animationComplete = true;
                                             p.totalFramesInWholeLoopCounter = 0;
                                             if (p.hiddenWhenComplete)
@@ -1227,6 +1245,19 @@ namespace IceBlink2
                                             p.cycleCounter++;
                                             if (p.cycleCounter == p.numberOfCyclesNeededForCompletion)
                                             {
+                                                if (p.randomAnimationDirectionEachCall)
+                                                {
+                                                    int decider = gv.sf.RandInt(0, 100);
+                                                    if (decider >= 50)
+                                                    {
+                                                        p.inverseAnimationDirection = true;
+                                                    }
+                                                    else
+                                                    {
+                                                        p.inverseAnimationDirection = false;
+                                                    }
+                                                }
+
                                                 p.animationComplete = true;
                                                 p.cycleCounter = 0;
                                                 p.totalFramesInWholeLoopCounter = 0;
@@ -1237,7 +1268,62 @@ namespace IceBlink2
                                             }
                                         }
                                     }
+                                //}
+                                #endregion
+                                /*
+                                #region backwardsDirection
+                                else
+                                {
+                                    p.currentFrameNumber--;
+                                    p.totalFramesInWholeLoopCounter--;
+                                    p.animationDelayCounter = 0;
+                                    if (p.currentFrameNumber > (p.maxNumberOfFrames - 1))
+                                    {
+                                        p.currentFrameNumber = 0;
+
+                                    //enter new conditional for multiple cylces required before compleetion here
+                                    if (p.numberOfCyclesNeededForCompletion <= 1)
+                                    {
+                                        p.animationComplete = true;
+                                        p.totalFramesInWholeLoopCounter = 0;
+                                        if (p.hiddenWhenComplete)
+                                        {
+                                            p.drawAnimatedProp = false;
+                                        }
+                                    }
+                                    else
+                                    {
+                                        p.cycleCounter++;
+                                        if (p.cycleCounter == p.numberOfCyclesNeededForCompletion)
+                                        {
+                                            if (p.randomAnimationDirectionEachCall)
+                                            {
+                                                int decider = gv.sf.RandInt(0, 100);
+                                                if (decider >= 50)
+                                                {
+                                                    p.inverseAnimationDirection = true;
+                                                }
+                                                else
+                                                {
+                                                    p.inverseAnimationDirection = false;
+                                                }
+                                            }
+
+                                            p.animationComplete = true;
+                                            p.cycleCounter = 0;
+                                            p.totalFramesInWholeLoopCounter = 0;
+                                            if (p.hiddenWhenComplete)
+                                            {
+                                                p.drawAnimatedProp = false;
+                                            }
+                                        }
+                                    }
                                 }
+                            } 
+
+                                #endregion
+                                */
+                            }
                             }
 
                             if (p.animationComplete)
@@ -27787,7 +27873,12 @@ namespace IceBlink2
                                 int dstH = (int)((((float)(gv.mod.loadedTileBitmaps[indexOfLoadedTile].PixelSize.Height / p.maxNumberOfFrames) / (float)gv.squareSizeInPixels) * (float)gv.squareSize) * (p.sizeFactor / 100f));
                                 int dstXshift = (dstW - gv.squareSize) / 2;
                                 int dstYshift = (dstH - gv.squareSize) / 2;
-                                IbRect src = new IbRect(0, p.currentFrameNumber * p.propFrameHeight, gv.mod.loadedTileBitmaps[indexOfLoadedTile].PixelSize.Width, p.propFrameHeight);
+                                int framePosition = p.currentFrameNumber;
+                                if (p.inverseAnimationDirection)
+                                {
+                                    framePosition = (p.maxNumberOfFrames-1) - p.currentFrameNumber;
+                                }
+                                IbRect src = new IbRect(0, framePosition * p.propFrameHeight, gv.mod.loadedTileBitmaps[indexOfLoadedTile].PixelSize.Width, p.propFrameHeight);
                                 IbRect dst = new IbRect(x + gv.oXshift + mapStartLocXinPixels - dstXshift, y - dstYshift, dstW, dstH);
 
                                 //adjust size of props
@@ -27867,7 +27958,12 @@ namespace IceBlink2
                             int dstXshift = (dstW - gv.squareSize) / 2;
                             int dstYshift = (dstH - gv.squareSize) / 2;
                             //IbRect src = new IbRect(0, 0, p.token.PixelSize.Width, p.token.PixelSize.Width);
-                            IbRect src = new IbRect(0, p.currentFrameNumber * p.propFrameHeight, p.token.PixelSize.Width, p.propFrameHeight);
+                            int framePosition = p.currentFrameNumber;
+                            if (p.inverseAnimationDirection)
+                            {
+                                framePosition = (p.maxNumberOfFrames - 1) - p.currentFrameNumber;
+                            }
+                            IbRect src = new IbRect(0, framePosition * p.propFrameHeight, p.token.PixelSize.Width, p.propFrameHeight);
                             IbRect dst = new IbRect(x + gv.oXshift + mapStartLocXinPixels - dstXshift, y - dstYshift, dstW, dstH);
 
                             //adjust size of props
@@ -27939,7 +28035,12 @@ namespace IceBlink2
                             int dstXshift = (dstW - gv.squareSize) / 2;
                             int dstYshift = (dstH - gv.squareSize) / 2;
                             //IbRect src = new IbRect(0, 0, p.token.PixelSize.Width, p.token.PixelSize.Width);
-                            IbRect src = new IbRect(0, p.currentFrameNumber * p.propFrameHeight, p.token.PixelSize.Width, p.propFrameHeight);
+                            int framePosition = p.currentFrameNumber;
+                            if (p.inverseAnimationDirection)
+                            {
+                                framePosition = (p.maxNumberOfFrames - 1) - p.currentFrameNumber;
+                            }
+                            IbRect src = new IbRect(0, framePosition * p.propFrameHeight, p.token.PixelSize.Width, p.propFrameHeight);
                             IbRect dst = new IbRect(x + gv.oXshift + mapStartLocXinPixels - dstXshift, y - dstYshift, dstW, dstH);
 
                             if (gv.mod.currentArea.useSuperTinyProps)
@@ -28410,7 +28511,12 @@ namespace IceBlink2
                                     int dstH = (int)((((float)(gv.mod.loadedTileBitmaps[indexOfLoadedTile].PixelSize.Height / p.maxNumberOfFrames) / (float)gv.squareSizeInPixels) * (float)gv.squareSize) * (p.sizeFactor / 100f));
                                     int dstXshift = (dstW - gv.squareSize) / 2;
                                     int dstYshift = (dstH - gv.squareSize) / 2;
-                                    IbRect src = new IbRect(0, p.currentFrameNumber * p.propFrameHeight, gv.mod.loadedTileBitmaps[indexOfLoadedTile].PixelSize.Width, p.propFrameHeight);
+                                    int framePosition = p.currentFrameNumber;
+                                    if (p.inverseAnimationDirection)
+                                    {
+                                        framePosition = (p.maxNumberOfFrames - 1) - p.currentFrameNumber;
+                                    }
+                                    IbRect src = new IbRect(0, framePosition * p.propFrameHeight, gv.mod.loadedTileBitmaps[indexOfLoadedTile].PixelSize.Width, p.propFrameHeight);
                                     IbRect dst = new IbRect(x + gv.oXshift + mapStartLocXinPixels - dstXshift, y - dstYshift, dstW, dstH);
 
                                     //adjust size of props
@@ -28490,7 +28596,12 @@ namespace IceBlink2
                                 int dstXshift = (dstW - gv.squareSize) / 2;
                                 int dstYshift = (dstH - gv.squareSize) / 2;
                                 //IbRect src = new IbRect(0, 0, p.token.PixelSize.Width, p.token.PixelSize.Width);
-                                IbRect src = new IbRect(0, p.currentFrameNumber * p.propFrameHeight, p.token.PixelSize.Width, p.propFrameHeight);
+                                int framePosition = p.currentFrameNumber;
+                                if (p.inverseAnimationDirection)
+                                {
+                                    framePosition = (p.maxNumberOfFrames - 1) - p.currentFrameNumber;
+                                }
+                                IbRect src = new IbRect(0, framePosition * p.propFrameHeight, p.token.PixelSize.Width, p.propFrameHeight);
                                 IbRect dst = new IbRect(x + gv.oXshift + mapStartLocXinPixels - dstXshift, y - dstYshift, dstW, dstH);
 
                                 //adjust size of props
@@ -28562,7 +28673,12 @@ namespace IceBlink2
                                 int dstXshift = (dstW - gv.squareSize) / 2;
                                 int dstYshift = (dstH - gv.squareSize) / 2;
                                 //IbRect src = new IbRect(0, 0, p.token.PixelSize.Width, p.token.PixelSize.Width);
-                                IbRect src = new IbRect(0, p.currentFrameNumber * p.propFrameHeight, p.token.PixelSize.Width, p.propFrameHeight);
+                                int framePosition = p.currentFrameNumber;
+                                if (p.inverseAnimationDirection)
+                                {
+                                    framePosition = (p.maxNumberOfFrames - 1) - p.currentFrameNumber;
+                                }
+                                IbRect src = new IbRect(0, framePosition * p.propFrameHeight, p.token.PixelSize.Width, p.propFrameHeight);
                                 IbRect dst = new IbRect(x + gv.oXshift + mapStartLocXinPixels - dstXshift, y - dstYshift, dstW, dstH);
 
                                 if (gv.mod.currentArea.useSuperTinyProps)
@@ -28629,7 +28745,12 @@ namespace IceBlink2
                             //IbRect src = new IbRect(0, 0, p.token.PixelSize.Width, p.token.PixelSize.Width);
                             //float xDimension = p.token.PixelSize.Width * p.sizeFactor;
                             //float yDimension = p.propFrameHeight * p.sizeFactor;
-                            IbRect src = new IbRect(0, p.currentFrameNumber * p.propFrameHeight, p.token.PixelSize.Width, p.propFrameHeight);
+                            int framePosition = p.currentFrameNumber;
+                            if (p.inverseAnimationDirection)
+                            {
+                                framePosition = (p.maxNumberOfFrames - 1) - p.currentFrameNumber;
+                            }
+                            IbRect src = new IbRect(0, framePosition * p.propFrameHeight, p.token.PixelSize.Width, p.propFrameHeight);
                             if (p.destinationPixelPositionXList.Count > 0)
                             {
                                 if ((p.destinationPixelPositionXList[0] >= (p.currentPixelPositionX - 0)) && (p.destinationPixelPositionXList[0] <= (p.currentPixelPositionX + 0)))
@@ -28923,7 +29044,12 @@ namespace IceBlink2
                             int dstH = (int)((((float)(p.token.PixelSize.Height / p.maxNumberOfFrames) / (float)gv.squareSizeInPixels) * (float)gv.squareSize) * (p.sizeFactor / 100f));
                             int dstXshift = (dstW - gv.squareSize) / 2;
                             int dstYshift = (dstH - gv.squareSize) / 2;
-                            IbRect src = new IbRect(0, p.currentFrameNumber * p.propFrameHeight, p.token.PixelSize.Width, p.propFrameHeight);
+                            int framePosition = p.currentFrameNumber;
+                            if (p.inverseAnimationDirection)
+                            {
+                                framePosition = (p.maxNumberOfFrames - 1) - p.currentFrameNumber;
+                            }
+                            IbRect src = new IbRect(0, framePosition * p.propFrameHeight, p.token.PixelSize.Width, p.propFrameHeight);
                             //IbRect src = new IbRect(0, 0, p.token.PixelSize.Width, p.token.PixelSize.Width);
                             IbRect dst = new IbRect(x + gv.oXshift + mapStartLocXinPixels - dstXshift, y - dstYshift, dstW, dstH);
                             if ((p.maxNumberOfFrames == 1) || (p.drawAnimatedProp))
@@ -29007,7 +29133,12 @@ namespace IceBlink2
                             //IbRect src = new IbRect(0, 0, p.token.PixelSize.Width, p.token.PixelSize.Width);
                             //float xDimension = p.token.PixelSize.Width * p.sizeFactor;
                             //float yDimension = p.propFrameHeight * p.sizeFactor;
-                            IbRect src = new IbRect(0, p.currentFrameNumber * p.propFrameHeight, p.token.PixelSize.Width, p.propFrameHeight);
+                            int framePosition = p.currentFrameNumber;
+                            if (p.inverseAnimationDirection)
+                            {
+                                framePosition = (p.maxNumberOfFrames - 1) - p.currentFrameNumber;
+                            }
+                            IbRect src = new IbRect(0, framePosition * p.propFrameHeight, p.token.PixelSize.Width, p.propFrameHeight);
                             if (p.destinationPixelPositionXList.Count > 0)
                             {
                                 if ((p.destinationPixelPositionXList[0] >= (p.currentPixelPositionX - 0)) && (p.destinationPixelPositionXList[0] <= (p.currentPixelPositionX + 0)))
@@ -29301,7 +29432,12 @@ namespace IceBlink2
                             int dstH = (int)((((float)(p.token.PixelSize.Height / p.maxNumberOfFrames) / (float)gv.squareSizeInPixels) * (float)gv.squareSize) * (p.sizeFactor / 100f));
                             int dstXshift = (dstW - gv.squareSize) / 2;
                             int dstYshift = (dstH - gv.squareSize) / 2;
-                            IbRect src = new IbRect(0, p.currentFrameNumber * p.propFrameHeight, p.token.PixelSize.Width, p.propFrameHeight);
+                            int framePosition = p.currentFrameNumber;
+                            if (p.inverseAnimationDirection)
+                            {
+                                framePosition = (p.maxNumberOfFrames - 1) - p.currentFrameNumber;
+                            }
+                            IbRect src = new IbRect(0, framePosition * p.propFrameHeight, p.token.PixelSize.Width, p.propFrameHeight);
                             //IbRect src = new IbRect(0, 0, p.token.PixelSize.Width, p.token.PixelSize.Width);
                             IbRect dst = new IbRect(x + gv.oXshift + mapStartLocXinPixels - dstXshift, y - dstYshift, dstW, dstH);
                             if ((p.maxNumberOfFrames == 1) || (p.drawAnimatedProp))

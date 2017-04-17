@@ -125,7 +125,8 @@ namespace IceBlink2
         public int framesNeededForFullFadeInOut = 0; 
         public int totalFramesInWholeLoopCounter = 0;
         public float opacity = 1;
-
+        public bool inverseAnimationDirection = false;
+        public bool randomAnimationDirectionEachCall = false; 
 
         public string OnEnterSquareIBScript = "none";  
         public string OnEnterSquareIBScriptParms = "";
@@ -149,6 +150,8 @@ namespace IceBlink2
     	    Prop copy = new Prop();
             copy.allowLastLocationUpdate = this.allowLastLocationUpdate;
             copy.isLight = this.isLight;
+            copy.inverseAnimationDirection = this.inverseAnimationDirection;
+            copy.randomAnimationDirectionEachCall = this.randomAnimationDirectionEachCall;
             copy.hasHalo = this.hasHalo;
             copy.focalIntensity = this.focalIntensity;
             copy.ringIntensity = this.ringIntensity;
