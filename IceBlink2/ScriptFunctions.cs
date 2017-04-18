@@ -8373,7 +8373,7 @@ namespace IceBlink2
                                             }
                                             //gv.cc.addLogText("<font color='yellow'>" + pc.name + " makes successful " + thisSpellEffect.saveCheckType + " saving roll (" + saveChkRollPc.ToString() + "+" + saveChkAdder + ">=" + DCPc.ToString() + ")" + "</font><BR>");
                                             //damagePc = damagePc / 2;
-                                            gv.cc.addLogText("<font color='yellow'>" + pc.name + " takes only half damage from " + thisSpellEffect.name + "</font><BR>");
+                                            //gv.cc.addLogText("<font color='yellow'>" + pc.name + " takes only half damage from " + thisSpellEffect.name + "</font><BR>");
                                     }
                                     else //failed save check or no save check allowed
                                     {
