@@ -1130,6 +1130,9 @@ namespace IceBlink2
             if (pc.hp > pc.hpMax) { pc.hp = pc.hpMax; }
             gv.cc.addLogText("<font color='lime'>" + pc.name + " regens " + increment + "hp</font><br>");
         }
+
+        //not used
+        /*
         public void applyEffectsCombat()
         {
             try
@@ -1202,6 +1205,7 @@ namespace IceBlink2
             }
             checkEndEncounter();
         }
+        */
 
         public void applyEffectsCombat(Creature crtr)
         {
@@ -1218,8 +1222,48 @@ namespace IceBlink2
                 }
             }
 
+
             try
             {
+
+                for (int i = crtr.cr_effectsList.Count; i > 0; i--)
+                {
+                if (crtr.cr_effectsList[i-1].repeatTerminalSaveEachRound)
+                {
+                    //sean
+                    #region Do Calc Save and DC
+                    int saveChkRoll = gv.sf.RandInt(20);
+                    int saveChk = 0;
+                    int DC = 0;
+                    int saveChkAdder = 0;
+                    if (crtr.cr_effectsList[i-1].saveCheckType.Equals("will"))
+                    {
+                        saveChkAdder = crtr.getWill();
+                    }
+                    else if (crtr.cr_effectsList[i-1].saveCheckType.Equals("reflex"))
+                    {
+                        saveChkAdder = crtr.getReflex();
+                    }
+                    else if (crtr.cr_effectsList[i-1].saveCheckType.Equals("fortitude"))
+                    {
+                        saveChkAdder = crtr.getFortitude();
+                    }
+                    else
+                    {
+                        saveChkAdder = -99;
+                    }
+                    saveChk = saveChkRoll + saveChkAdder;
+                    DC = crtr.cr_effectsList[i-1].saveCheckDC;
+                    #endregion
+
+                    if (saveChk >= DC)
+                    {
+                        crtr.cr_effectsList.RemoveAt(i - 1);
+                        gv.cc.addLogText("<font color='yellow'>" + "The " + crtr.cr_effectsList[i - 1].name + " effect on " + crtr.cr_name + " has been shrugged off." + " </font><BR>");
+                    }
+                }
+            }
+
                 //if remaining duration <= 0, remove from list
                 for (int i = crtr.cr_effectsList.Count; i > 0; i--)
                 {
@@ -1275,6 +1319,48 @@ namespace IceBlink2
 
             try
             {
+
+                //**********************************************************
+                for (int i = pc.effectsList.Count; i > 0; i--)
+                {
+                    if (pc.effectsList[i-1].repeatTerminalSaveEachRound)
+                    {
+                        //sean
+                        #region Do Calc Save and DC
+                        int saveChkRoll = gv.sf.RandInt(20);
+                        int saveChk = 0;
+                        int DC = 0;
+                        int saveChkAdder = 0;
+                        if (pc.effectsList[i - 1].saveCheckType.Equals("will"))
+                        {
+                            saveChkAdder = pc.will;
+                        }
+                        else if (pc.effectsList[i - 1].saveCheckType.Equals("reflex"))
+                        {
+                            saveChkAdder = pc.reflex;
+                        }
+                        else if (pc.effectsList[i - 1].saveCheckType.Equals("fortitude"))
+                        {
+                            saveChkAdder = pc.fortitude;
+                        }
+                        else
+                        {
+                            saveChkAdder = -99;
+                        }
+                        saveChk = saveChkRoll + saveChkAdder;
+                        DC = pc.effectsList[i - 1].saveCheckDC;
+                        #endregion
+
+                        if (saveChk >= DC)
+                        {
+                            pc.effectsList.RemoveAt(i - 1);
+                            gv.cc.addLogText("<font color='yellow'>" + "The " + pc.effectsList[i - 1].name + " effect on " + pc.name + " has been shrugged off." + " </font><BR>");
+                        }
+                    }
+                }
+
+
+                //**********************************************************
                 //europa3
                 for (int i = pc.effectsList.Count; i > 0; i--)
                 {

@@ -449,7 +449,12 @@ namespace IceBlink2
                     else if (filename.Equals("gaKillAllCreatures.cs"))
                     {
                         gv.mod.currentEncounter.encounterCreatureList.Clear();
-                        gv.mod.currentEncounter.encounterCreatureRefsList.Clear();
+                        //alllow thereticlly to repeat encounter
+                        //check condition, totDO
+                        if (!gv.mod.currentEncounter.isRepeatable)
+                        {
+                            gv.mod.currentEncounter.encounterCreatureRefsList.Clear();
+                        }
                         gv.screenCombat.checkEndEncounter();
                     }
                     else if (filename.Equals("gaOpenShopByTag.cs"))
@@ -6937,9 +6942,22 @@ namespace IceBlink2
                         #endregion
                         if (saveChk >= DC) //passed save check (do half or avoid all?)
                         {
-                            damage = damage / 2;
-                            gv.cc.addLogText("<font color='yellow'>" + crt.cr_name + " evades most of the " + ef.name + "</font><BR>");
-                            if (mod.debugMode) { gv.cc.addLogText("<font color='yellow'>" + saveChkRoll + " + " + saveChkAdder + " >= " + DC + "</font><BR>"); }
+                            //**************************************
+                            if (ef.saveOnlyHalvesDamage)
+                            {
+                                damage = damage / 2;
+                                gv.cc.addLogText("<font color='yellow'>" + crt.cr_name + " takes only half damage from " + ef.name + "</font><BR>");
+                            }
+                            else
+                            {
+                                damage = 0;
+                                gv.cc.addLogText("<font color='yellow'>" + crt.cr_name + " takes no damage from " + ef.name + "</font><BR>");
+                            }
+                        
+                        //**************************************
+                        //damage = damage / 2;
+                        //gv.cc.addLogText("<font color='yellow'>" + crt.cr_name + " evades most of the " + ef.name + "</font><BR>");
+                        if (mod.debugMode) { gv.cc.addLogText("<font color='yellow'>" + saveChkRoll + " + " + saveChkAdder + " >= " + DC + "</font><BR>"); }
                         }
                         if (mod.debugMode) { gv.cc.addLogText("<font color='yellow'>" + "resist = " + resist + " damage = " + damage + "</font><BR>"); }
                         int damageAndResist = (int)((float)damage * resist);
@@ -7100,9 +7118,20 @@ namespace IceBlink2
                         #endregion
                         if (saveChkPc >= DCPc) //passed save check (do half or avoid all?)
                         {
-                            damagePc = damagePc / 2;
-                            gv.cc.addLogText("<font color='yellow'>" + pc.name + " evades most of the " + ef.name + "</font><BR>");
-                            if (mod.debugMode) { gv.cc.addLogText("<font color='yellow'>" + saveChkRollPc + " + " + saveChkAdder + " >= " + DCPc + "</font><BR>"); }
+                            if (ef.saveOnlyHalvesDamage)
+                            {
+                                damagePc = damagePc / 2;
+                                gv.cc.addLogText("<font color='yellow'>" + pc.name + " takes only half damage from " + ef.name + "</font><BR>");
+                            }
+                            else
+                            {
+                                damagePc = 0;
+                                gv.cc.addLogText("<font color='yellow'>" + pc.name + " takes no damage from " + ef.name + "</font><BR>");
+                            }
+                        
+                        //damagePc = damagePc / 2;
+                        //gv.cc.addLogText("<font color='yellow'>" + pc.name + " evades most of the " + ef.name + "</font><BR>");
+                        if (mod.debugMode) { gv.cc.addLogText("<font color='yellow'>" + saveChkRollPc + " + " + saveChkAdder + " >= " + DCPc + "</font><BR>"); }
                         }
                         if (mod.debugMode) { gv.cc.addLogText("<font color='yellow'>" + "resist = " + resistPc + " damage = " + damagePc + "</font><BR>"); }
                         int damageAndResist = (int)((float)damagePc * resistPc);
@@ -7989,8 +8018,16 @@ namespace IceBlink2
                                     if (saveChk >= DC) //passed save check (do half or avoid all?)
                                     {
                                         gv.cc.addLogText("<font color='yellow'>" + crt.cr_name + " makes successful " + thisSpellEffect.saveCheckType + " saving roll (" + saveChkRoll.ToString() + "+" + saveChkAdder + ">=" + DC.ToString() + ")" + "</font><BR>");
-                                        damage = damage / 2;
-                                        gv.cc.addLogText("<font color='yellow'>" + crt.cr_name + " takes only half damage from " + thisSpellEffect.name + "</font><BR>");
+                                        if (thisSpellEffect.saveOnlyHalvesDamage)
+                                        {
+                                            damage = damage / 2;
+                                            gv.cc.addLogText("<font color='yellow'>" + crt.cr_name + " takes only half damage from " + thisSpellEffect.name + "</font><BR>");
+                                        }
+                                        else
+                                        {
+                                            damage = 0;
+                                            gv.cc.addLogText("<font color='yellow'>" + crt.cr_name + " takes no damage from " + thisSpellEffect.name + "</font><BR>");
+                                        }
                                     }
                                     else //failed save check or no save check allowed
                                     {
@@ -8323,9 +8360,20 @@ namespace IceBlink2
 
                                     if (saveChkPc >= DCPc) //passed save check (do half or avoid all?)
                                     {
-                                        gv.cc.addLogText("<font color='yellow'>" + pc.name + " makes successful " + thisSpellEffect.saveCheckType + " saving roll (" + saveChkRollPc.ToString() + "+" + saveChkAdder + ">=" + DCPc.ToString() + ")" + "</font><BR>");
-                                        damagePc = damagePc / 2;
-                                        gv.cc.addLogText("<font color='yellow'>" + pc.name + " takes only half damage from " + thisSpellEffect.name + "</font><BR>");
+
+                                            if (thisSpellEffect.saveOnlyHalvesDamage)
+                                            {
+                                                damagePc = damagePc / 2;
+                                                gv.cc.addLogText("<font color='yellow'>" + pc.name + " takes only half damage from " + thisSpellEffect.name + "</font><BR>");
+                                            }
+                                            else
+                                            {
+                                                damagePc = 0;
+                                                gv.cc.addLogText("<font color='yellow'>" + pc.name + " takes no damage from " + thisSpellEffect.name + "</font><BR>");
+                                            }
+                                            //gv.cc.addLogText("<font color='yellow'>" + pc.name + " makes successful " + thisSpellEffect.saveCheckType + " saving roll (" + saveChkRollPc.ToString() + "+" + saveChkAdder + ">=" + DCPc.ToString() + ")" + "</font><BR>");
+                                            //damagePc = damagePc / 2;
+                                            gv.cc.addLogText("<font color='yellow'>" + pc.name + " takes only half damage from " + thisSpellEffect.name + "</font><BR>");
                                     }
                                     else //failed save check or no save check allowed
                                     {
@@ -8772,8 +8820,19 @@ namespace IceBlink2
                             if (saveChk >= DC) //passed save check (do half or avoid all?)
                             {
                                 gv.cc.addLogText("<font color='yellow'>" + crt.cr_name + " makes successful " + thisSpellEffect.saveCheckType + " saving roll (" + saveChkRoll.ToString() + "+" + saveChkAdder + ">=" + DC.ToString() + ")" + "</font><BR>");
-                                damage = damage / 2;
-                                gv.cc.addLogText("<font color='yellow'>" + crt.cr_name + " takes only half damage from " + thisSpellEffect.name + "</font><BR>");
+                                    if (thisSpellEffect.saveOnlyHalvesDamage)
+                                    {
+                                        damage = damage / 2;
+                                        gv.cc.addLogText("<font color='yellow'>" + crt.cr_name + " takes only half damage from " + thisSpellEffect.name + "</font><BR>");
+                                    }
+                                    else
+                                    {
+                                        damage = 0;
+                                        gv.cc.addLogText("<font color='yellow'>" + crt.cr_name + " takes no damage from " + thisSpellEffect.name + "</font><BR>");
+                                    }
+                                
+                                //damage = damage / 2;
+                                //gv.cc.addLogText("<font color='yellow'>" + crt.cr_name + " takes only half damage from " + thisSpellEffect.name + "</font><BR>");
                             }
                             else //failed save check or no save check allowed
                             {
@@ -9083,8 +9142,19 @@ namespace IceBlink2
                                 if (saveChkPc >= DCPc) //passed save check (do half or avoid all?)
                                 {
                                     gv.cc.addLogText("<font color='yellow'>" + pc.name + " makes successful " + thisSpellEffect.saveCheckType + " saving roll (" + saveChkRollPc.ToString() + "+" + saveChkAdder + ">=" + DCPc.ToString() + ")" + "</font><BR>");
-                                    damagePc = damagePc / 2;
-                                    gv.cc.addLogText("<font color='yellow'>" + pc.name + " takes only half damage from " + thisSpellEffect.name + "</font><BR>");
+                                    if (thisSpellEffect.saveOnlyHalvesDamage)
+                                    {
+                                        damagePc = damagePc / 2;
+                                        gv.cc.addLogText("<font color='yellow'>" + pc.name + " takes only half damage from " + thisSpellEffect.name + "</font><BR>");
+                                    }
+                                    else
+                                    {
+                                        damagePc = 0;
+                                        gv.cc.addLogText("<font color='yellow'>" + pc.name + " takes no damage from " + thisSpellEffect.name + "</font><BR>");
+                                    }
+
+                                    //damagePc = damagePc / 2;
+                                    //gv.cc.addLogText("<font color='yellow'>" + pc.name + " takes only half damage from " + thisSpellEffect.name + "</font><BR>");
                                 }
                                 else //failed save check or no save check allowed
                                 {
