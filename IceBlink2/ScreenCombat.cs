@@ -7877,7 +7877,7 @@ namespace IceBlink2
                         //normal  
                         if (crtSize == 1)
                         {
-                            if ((crt.combatLocX == gridx) && (crt.combatLocY == gridy))
+                            if ((crt.combatLocX == gridx + UpperLeftSquare.X) && (crt.combatLocY == gridy + UpperLeftSquare.Y))
                             {
                                 gv.cc.floatyText = crt.cr_name;
                                 gv.cc.floatyText2 = "HP:" + crt.hp + " SP:" + crt.sp;
@@ -7889,7 +7889,7 @@ namespace IceBlink2
                         //wide  
                         else if (crtSize == 2)
                         {
-                            if (((crt.combatLocX == gridx) && (crt.combatLocY == gridy)) || ((crt.combatLocX + 1 == gridx) && (crt.combatLocY == gridy)))
+                            if (((crt.combatLocX == gridx + UpperLeftSquare.X) && (crt.combatLocY == gridy + UpperLeftSquare.Y)) || ((crt.combatLocX + 1 == gridx + UpperLeftSquare.X) && (crt.combatLocY == gridy + UpperLeftSquare.Y)))
                             {
                                 gv.cc.floatyText = crt.cr_name;
                                 gv.cc.floatyText2 = "HP:" + crt.hp + " SP:" + crt.sp;
@@ -7901,7 +7901,7 @@ namespace IceBlink2
                         //tall  
                         else if (crtSize == 3)
                         {
-                            if (((crt.combatLocX == gridx) && (crt.combatLocY == gridy)) || ((crt.combatLocX == gridx) && (crt.combatLocY + 1 == gridy)))
+                            if (((crt.combatLocX == gridx + UpperLeftSquare.X) && (crt.combatLocY == gridy + UpperLeftSquare.Y)) || ((crt.combatLocX == gridx + UpperLeftSquare.X) && (crt.combatLocY + 1 == gridy + UpperLeftSquare.Y)))
                             {
                                 gv.cc.floatyText = crt.cr_name;
                                 gv.cc.floatyText2 = "HP:" + crt.hp + " SP:" + crt.sp;
@@ -7913,9 +7913,9 @@ namespace IceBlink2
                         //large  
                         else if (crtSize == 4)
                         {
-                            if (((crt.combatLocX == gridx) && (crt.combatLocY == gridy)) || ((crt.combatLocX + 1 == gridx) && (crt.combatLocY == gridy)) ||
-                            ((crt.combatLocX == gridx) && (crt.combatLocY + 1 == gridy)) ||
-                            ((crt.combatLocX + 1 == gridx) && (crt.combatLocY + 1 == gridy)))
+                            if (((crt.combatLocX == gridx + UpperLeftSquare.X) && (crt.combatLocY == gridy + UpperLeftSquare.Y)) || ((crt.combatLocX + 1 == gridx + UpperLeftSquare.X) && (crt.combatLocY == gridy + UpperLeftSquare.Y)) ||
+                            ((crt.combatLocX == gridx + +UpperLeftSquare.X) && (crt.combatLocY + 1 == gridy + UpperLeftSquare.Y)) ||
+                            ((crt.combatLocX + 1 == gridx + UpperLeftSquare.X) && (crt.combatLocY + 1 == gridy + UpperLeftSquare.Y)))
                             {
                                 gv.cc.floatyText = crt.cr_name;
                                 gv.cc.floatyText2 = "HP:" + crt.hp + " SP:" + crt.sp;
