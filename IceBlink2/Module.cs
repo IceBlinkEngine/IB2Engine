@@ -93,6 +93,7 @@ namespace IceBlink2
         public string traitsLabelPlural = "Traits";
         public string goldLabelSingular = "Gold";
         public string goldLabelPlural = "Gold";
+        public string raceLabel = "Race";
         public float diagonalMoveCost = 1.0f;
         public int nonAllowedDiagonalSquareX = -1;
         public int nonAllowedDiagonalSquareY = -1;

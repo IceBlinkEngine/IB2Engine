@@ -367,7 +367,7 @@ namespace IceBlink2
             gv.DrawText(pc.name, locX, locY += leftStartY, 1.0f, Color.White);
 
             //race
-            gv.DrawText("Race: " + gv.mod.getRace(pc.raceTag).name, locX, locY += spacing, 1.0f, Color.White);
+            gv.DrawText(gv.mod.raceLabel +": " + gv.mod.getRace(pc.raceTag).name, locX, locY += spacing, 1.0f, Color.White);
 
             //gender
             if (pc.isMale)

@@ -318,7 +318,7 @@ namespace IceBlink2
 
                 //DRAW LEFT STATS
                 gv.DrawText("Name: " + pc.name, locX, locY += leftStartY);
-                gv.DrawText("Race: " + gv.mod.getRace(pc.raceTag).name, locX, locY += spacing);
+                gv.DrawText(gv.mod.raceLabel + ": " + gv.mod.getRace(pc.raceTag).name, locX, locY += spacing);
                 if (pc.isMale)
                 {
                     gv.DrawText("Gender: Male", locX, locY += spacing);
