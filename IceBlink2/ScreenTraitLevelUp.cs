@@ -190,7 +190,7 @@ namespace IceBlink2
                         {
                             if (attributeRequirementsMet)
                             {
-                                gv.DrawText("Trait Not Available to Learn Yet", noticeX, noticeY, 1.0f, Color.Red);
+                                gv.DrawText(pc.playerClass.traitLabelSingular + " Not Available to Learn Yet", noticeX, noticeY, 1.0f, Color.Red);
                             }
                             else 
                             {
@@ -338,7 +338,7 @@ namespace IceBlink2
             }
             else
             {
-                btnSelect.Text = "LEARN SELECTED TRAIT";
+                btnSelect.Text = "LEARN SELECTED " + pc.playerClass.traitLabelSingular.ToUpper();
                 btnHelp.Draw();
                 btnExit.Draw();
                 btnSelect.Draw();

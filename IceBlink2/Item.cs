@@ -92,7 +92,7 @@ namespace IceBlink2
         public string typeOfDamage = "Normal"; //Normal,Acid,Cold,Electricity,Fire,Magic,Poison
         public List<LocalImmunityString> entriesForPcTags = new List<LocalImmunityString>();
         //Not yet implemented
-        public string labelForCastAction = "CAST";
+        public string labelForCastAction = "none";
         public string labelForSpellsButtonInCombat = "SPELL";
 
         public Item()

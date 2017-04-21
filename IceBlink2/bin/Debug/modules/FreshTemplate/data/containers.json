@@ -46,6 +46,15 @@
         "isLightSource": false,
         "isRation": false,
         "quantity": 20
+      },
+      {
+        "resref": "bolasItem",
+        "tag": "bolas_11459_11463",
+        "name": "Bolas",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
       }
     ]
   }

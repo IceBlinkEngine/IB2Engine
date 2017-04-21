@@ -44,7 +44,7 @@ namespace IceBlink2
 		    if (btnSelect == null)
 		    {
 			    btnSelect = new IbbButton(gv, 0.8f);	
-			    btnSelect.Text = "CAST SELECTED " + gv.mod.spellLabelSingular.ToUpper();
+			    btnSelect.Text = gv.mod.playerList[gv.screenCastSelector.castingPlayerIndex].playerClass.labelForUseTraitAction.ToUpper() + " SELECTED " + gv.mod.playerList[gv.screenCastSelector.castingPlayerIndex].playerClass.spellLabelSingular.ToUpper();
 			    btnSelect.Img = gv.cc.LoadBitmap("btn_large"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_large);
 			    btnSelect.Glow = gv.cc.LoadBitmap("btn_large_glow"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_large_glow);
                 btnSelect.X = (gv.screenWidth / 2) - (int)(gv.ibbwidthL * gv.screenDensity / 2.0f);
@@ -99,12 +99,13 @@ namespace IceBlink2
 			
 			    if (cntSlot == spellSlotIndex) {btn.glowOn = true;}
 			    else {btn.glowOn = false;}
-			
-			    //show only spells for the PC class
-                if (cntSlot < pc.playerClass.spellsAllowed.Count)
+
+                //show only spells for the PC class
+                //if (cntSlot < pc.playerClass.spellsAllowed.Count)
+                if (cntSlot < pc.knownSpellsTags.Count)
                 {
-                    SpellAllowed sa = pc.playerClass.spellsAllowed[cntSlot];
-                    Spell sp = gv.mod.getSpellByTag(sa.tag);
+                    //SpellAllowed sa = pc.playerClass.spellsAllowed[cntSlot];
+                    Spell sp = gv.mod.getSpellByTag(pc.knownSpellsTags[cntSlot]);
 
                     btn.Img2 = gv.cc.LoadBitmap(sp.spellImage);
                     btn.Img2Off = gv.cc.LoadBitmap(sp.spellImage + "_off");
@@ -157,7 +158,7 @@ namespace IceBlink2
     	    {
     		    setControlsStart();
     	    }
-            btnSelect.Text = "CAST SELECTED " + gv.mod.getPlayerClass(getCastingPlayer().classTag).spellLabelSingular.ToUpper();
+            btnSelect.Text = pc.playerClass.labelForCastAction.ToUpper() + " SELECTED " + gv.mod.getPlayerClass(getCastingPlayer().classTag).spellLabelSingular.ToUpper();
             int pW = (int)((float)gv.screenWidth / 100.0f);
 		    int pH = (int)((float)gv.screenHeight / 100.0f);
 		
@@ -176,13 +177,14 @@ namespace IceBlink2
             //DRAW TEXT		
 		    locY = (gv.squareSize * 0) + (pH * 2);
 		    //gv.mSheetTextPaint.setColor(Color.LTGRAY);
-		    gv.DrawText("Select a " + gv.mod.getPlayerClass(pc.classTag).spellLabelSingular + " to Cast", noticeX, pH * 3);
+		    gv.DrawText("Select a " + gv.mod.getPlayerClass(pc.classTag).spellLabelSingular + " to " + gv.mod.getPlayerClass(pc.classTag).labelForCastAction, noticeX, pH * 3);
             //gv.DrawText("Select a " + gv.mod.getPlayerClass(pc.classTag).spellLabelSingular + " to Cast", noticeX, pH * 3, "wh");
             //gv.mSheetTextPaint.setColor(Color.YELLOW);
             gv.DrawText(getCastingPlayer().name + " SP: " + getCastingPlayer().sp + "/" + getCastingPlayer().spMax, pW * 55, leftStartY);
-		
-		    //DRAW NOTIFICATIONS
-		    if (isSelectedSpellSlotInKnownSpellsRange())
+            gv.DrawText(getCastingPlayer().name + "  HP: " + getCastingPlayer().hp + "/" + getCastingPlayer().hpMax, pW * 55, leftStartY + (int)(gv.squareSize / 3));
+
+            //DRAW NOTIFICATIONS
+            if (isSelectedSpellSlotInKnownSpellsRange())
 		    {
 			    Spell sp = GetCurrentlySelectedSpell();
 			    //Player pc = getCastingPlayer();	
@@ -224,6 +226,7 @@ namespace IceBlink2
                         gv.DrawText("Not Available Here", noticeX, noticeY, 1.0f, Color.Yellow);
 				    }	
 			    }
+                //should not be releveant anymore
 			    else //spell not known
 			    {
 				    //if unknown spell, "Spell Not Known Yet" in red
@@ -251,10 +254,11 @@ namespace IceBlink2
 		    if (isSelectedSpellSlotInKnownSpellsRange())
 		    {
 			    Spell sp = GetCurrentlySelectedSpell();
-			    string textToSpan = "<u>Description</u>" + "<BR>";
+			    string textToSpan = "<u>Description</u>" + "<BR>" + "<BR>";
 	            textToSpan += "<b><i><big>" + sp.name + "</big></i></b><BR>";
 	            textToSpan += "SP Cost: " + sp.costSP + "<BR>";
-	            textToSpan += "Target Range: " + sp.range + "<BR>";
+                textToSpan += "HP Cost: " + sp.costHP + "<BR>";
+                textToSpan += "Target Range: " + sp.range + "<BR>";
 	            textToSpan += "Area of Effect Radius: " + sp.aoeRadius + "<BR>";
 	            textToSpan += "Available at Level: " + getLevelAvailable(sp.tag) + "<BR>";
 	            textToSpan += "<BR>";
@@ -414,7 +418,7 @@ namespace IceBlink2
                                         try
                                         {
                                             Player target = gv.mod.playerList[0];
-                                            gv.cc.doSpellBasedOnScriptOrEffectTag(gv.cc.currentSelectedSpell, target, target, true);
+                                            gv.cc.doSpellBasedOnScriptOrEffectTag(gv.cc.currentSelectedSpell, target, target, true, false);
                                             gv.screenType = "main";
                                             doCleanUp();
                                             return;
@@ -434,7 +438,7 @@ namespace IceBlink2
                                             try
                                             {
                                                 Player target = gv.mod.playerList[pcSel.selectedIndex - 1];
-                                                gv.cc.doSpellBasedOnScriptOrEffectTag(gv.cc.currentSelectedSpell, pc, target, true);
+                                                gv.cc.doSpellBasedOnScriptOrEffectTag(gv.cc.currentSelectedSpell, pc, target, true, false);
                                                 gv.screenType = "main";
                                                 doCleanUp();
                                             }
@@ -465,7 +469,7 @@ namespace IceBlink2
         {  
         try  
         {  
-                 gv.cc.doSpellBasedOnScriptOrEffectTag(gv.cc.currentSelectedSpell, pc, target, !isInCombat);  
+                 gv.cc.doSpellBasedOnScriptOrEffectTag(gv.cc.currentSelectedSpell, pc, target, !isInCombat, false);  
                  gv.screenType = "main";  
                  doCleanUp();  
         }  
@@ -479,14 +483,16 @@ namespace IceBlink2
     
         public Spell GetCurrentlySelectedSpell()
 	    {
-    	    SpellAllowed sa = getCastingPlayer().playerClass.spellsAllowed[spellSlotIndex];
-		    return gv.mod.getSpellByTag(sa.tag);
+            //SpellAllowed sa = getCastingPlayer().playerClass.spellsAllowed[spellSlotIndex];
+            //return gv.mod.getSpellByTag(sa.tag);
+            return gv.mod.getSpellByTag(getCastingPlayer().knownSpellsTags[spellSlotIndex]);
 	    }
-	    public bool isSelectedSpellSlotInKnownSpellsRange()
+        public bool isSelectedSpellSlotInKnownSpellsRange()
 	    {
-		    return spellSlotIndex < getCastingPlayer().playerClass.spellsAllowed.Count;
-	    }	
-	    public int getLevelAvailable(String tag)
+            //return spellSlotIndex < getCastingPlayer().playerClass.spellsAllowed.Count;
+            return spellSlotIndex < getCastingPlayer().knownSpellsTags.Count;
+        }
+        public int getLevelAvailable(String tag)
 	    {
 		    SpellAllowed sa = getCastingPlayer().playerClass.getSpellAllowedByTag(tag);
 		    if (sa != null)

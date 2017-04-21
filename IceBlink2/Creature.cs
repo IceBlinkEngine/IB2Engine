@@ -97,7 +97,7 @@ namespace IceBlink2
         public List<Coordinate> tokenCoveredSquares = new List<Coordinate>();
 
         //The two below are not yet implemented 
-        public string labelForCastAction = "CAST";
+        public string labelForCastAction = "none";
         public string labelForSpellsButtonInCombat = "SPELL";
 
         public Creature()

@@ -348,7 +348,7 @@ namespace IceBlink2
                     Trait tr = gv.mod.getTraitByTag(s);
                     allTraits += tr.name + ", ";
                 }
-                gv.DrawText("Traits: " + allTraits, locX, locY += spacing);
+                gv.DrawText(gv.mod.playerList[gv.cc.partyScreenPcIndex].playerClass.traitLabelPlural + ": " + allTraits, locX, locY += spacing);
 
                 //DRAW RIGHT STATS
                 int actext = 0;

@@ -18,10 +18,14 @@ namespace IceBlink2
 	    public string tag = "newClassTag"; //item unique tag name
         public bool UsableByPlayer = true;
 	    public string description = "";
-        public string labelForCastAction = "CAST";
-        public string labelForSpellsButtonInCombat = "SPELL";
+        
+        //third person singular, eg "evokes"
+        public string labelForCastAction = "none";
+  
+        //third person singular, eg "creates"
         public string labelForUseTraitAction = "USE";
-        public string labelForUseTraitButtonInCombat = "TRAIT";
+       
+
         public int startingHP = 10;
 	    public int startingSP = 20;
         public string modifierFromSPRelevantAttribute = "intelligence";
@@ -31,7 +35,9 @@ namespace IceBlink2
 	    public int spRegenTimeNeeded = 0;
         public string spellLabelSingular = "Spell";  
         public string spellLabelPlural = "Spells";
- 
+        public string traitLabelSingular = "Trait";
+        public string traitLabelPlural = "Traits";
+
         public int[] baseFortitudeAtLevel = new int[]{0, 2, 3, 3, 4, 4, 5, 5, 6};
 	    public int[] baseWillAtLevel = new int[]{0, 0, 0, 1, 1, 1, 2, 2, 2};
 	    public int[] baseReflexAtLevel = new int[]{0, 0, 0, 1, 1, 1, 2, 2, 2};
@@ -94,6 +100,8 @@ namespace IceBlink2
 		    copy.spPerLevelUp = this.spPerLevelUp;
             copy.spellLabelSingular = this.spellLabelSingular;
             copy.spellLabelPlural = this.spellLabelPlural;
+            copy.traitLabelSingular = this.traitLabelSingular;
+            copy.traitLabelPlural = this.traitLabelPlural;
 
             copy.baseFortitudeAtLevel = (int[])this.baseFortitudeAtLevel.Clone();
 		    copy.baseWillAtLevel = (int[])this.baseWillAtLevel.Clone();
@@ -104,10 +112,8 @@ namespace IceBlink2
             copy.modifierFromSPRelevantAttribute = this.modifierFromSPRelevantAttribute;
 
             copy.labelForCastAction = this.labelForCastAction;
-            copy.labelForSpellsButtonInCombat = this.labelForSpellsButtonInCombat;
             copy.labelForUseTraitAction = this.labelForUseTraitAction;
-            copy.labelForUseTraitButtonInCombat = this.labelForUseTraitButtonInCombat;
-
+       
             foreach (ItemRefs s in this.itemsAllowed)
             {
                 copy.itemsAllowed.Add(s.DeepCopy());

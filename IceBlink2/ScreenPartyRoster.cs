@@ -265,7 +265,7 @@ namespace IceBlink2
 				    Spell sp = gv.mod.getSpellByTag(s);
 				    allSpells += sp.name + ", ";
 			    }
-			    gv.DrawText(gv.mod.spellLabelPlural + ": " + allSpells, locX, locY += spacing);
+			    gv.DrawText(pc.playerClass.spellLabelPlural + ": " + allSpells, locX, locY += spacing);
 			
 			    //draw traits known list
 			    string allTraits = "";
@@ -274,7 +274,7 @@ namespace IceBlink2
 				    Trait tr = gv.mod.getTraitByTag(s);
 				    allTraits += tr.name + ", ";
 			    }
-			    gv.DrawText("Traits: " + allTraits, locX, locY += spacing);
+			    gv.DrawText(pc.playerClass.traitLabelPlural + ": " + allTraits, locX, locY += spacing);
 			
 			    //DRAW RIGHT STATS
                 int actext = 0;

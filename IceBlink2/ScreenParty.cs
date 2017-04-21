@@ -83,7 +83,14 @@ namespace IceBlink2
             if (btnSpells == null)
             {
                 btnSpells = new IbbButton(gv, 0.6f);
-                btnSpells.Text = gv.mod.spellLabelPlural.ToUpper();
+                if ((gv.mod.playerList.Count > 0) && (gv.cc.partyScreenPcIndex < gv.mod.playerList.Count))
+                {
+                    btnSpells.Text = gv.mod.playerList[gv.cc.partyScreenPcIndex].playerClass.spellLabelPlural.ToUpper();
+                }
+                else
+                {
+                    btnSpells.Text = gv.mod.spellLabelPlural.ToUpper();
+                }
                 btnSpells.Img = gv.cc.LoadBitmap("btn_small"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small);
                 btnSpells.Glow = gv.cc.LoadBitmap("btn_small_glow"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_glow);
                 btnSpells.X = 6 * gv.squareSize + padW * 1 + gv.oXshift + (int)(gv.squareSize * 0.75f);
@@ -94,7 +101,15 @@ namespace IceBlink2
             if (btnTraits == null)
             {
                 btnTraits = new IbbButton(gv, 0.6f);
-                btnTraits.Text = "TRAITS";
+                if ((gv.mod.playerList.Count > 0) && (gv.cc.partyScreenPcIndex < gv.mod.playerList.Count))
+                {
+                    btnTraits.Text = gv.mod.playerList[gv.cc.partyScreenPcIndex].playerClass.traitLabelPlural.ToUpper();
+                }
+                else
+                {
+                    btnTraits.Text = gv.mod.traitsLabelPlural.ToUpper();
+                }
+                //btnTraits.Text = gv.mod.playerList[gv.cc.partyScreenPcIndex].playerClass.traitLabelPlural.ToUpper();
                 btnTraits.Img = gv.cc.LoadBitmap("btn_small"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small);
                 btnTraits.Glow = gv.cc.LoadBitmap("btn_small_glow"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_glow);
                 btnTraits.X = 7 * gv.squareSize + padW * 2 + gv.oXshift + (int)(gv.squareSize * 0.75f);

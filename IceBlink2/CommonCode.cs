@@ -9003,25 +9003,62 @@ namespace IceBlink2
                 //gv.mod.doConvo = true;
             //}
         }
-        public void doSpellBasedOnScriptOrEffectTag(Spell spell, object source, object target, bool outsideCombat)
+        public void doSpellBasedOnScriptOrEffectTag(Spell spell, object source, object target, bool outsideCombat, bool isTraitUsage)
         {
             if (source is Creature)
             {
                 Creature src = (Creature)source;
-
-                gv.cc.addLogText("<font color='yellow'>" + src.cr_name + " creates " + spell.name + "</font><BR>");
+                
+                    if (src.labelForCastAction != "none" && src.labelForCastAction != "CAST")
+                    {
+                        gv.cc.addLogText("<font color='yellow'>" + src.cr_name + " " + src.labelForCastAction + " " + spell.name + "</font><BR>");
+                    }
+                    else
+                    {
+                        gv.cc.addLogText("<font color='yellow'>" + src.cr_name + " creates " + spell.name + "</font><BR>");
+                    }
             }
             else if (source is Player)
             {
                 Player src = (Player)source;
+                if (!isTraitUsage)
+                {
+                    if (src.playerClass.labelForCastAction != "none" && src.playerClass.labelForCastAction != "CAST")
+                    {
+                        gv.cc.addLogText("<font color='yellow'>" + src.name + " " + src.playerClass.labelForCastAction + " " + spell.name + "</font><BR>");
+                    }
+                    else
+                    {
+                        gv.cc.addLogText("<font color='yellow'>" + src.name + " creates " + spell.name + "</font><BR>");
+                    }
+                }
+                else
+                {
+                    if (src.playerClass.labelForUseTraitAction != "none" && src.playerClass.labelForUseTraitAction != "USE")
+                    {
+                        gv.cc.addLogText("<font color='yellow'>" + src.name + " " + src.playerClass.labelForUseTraitAction + " " + spell.name + "</font><BR>");
+                    }
+                    else
+                    {
+                        gv.cc.addLogText("<font color='yellow'>" + src.name + " creates " + spell.name + "</font><BR>");
+                    }
+                }
 
-                gv.cc.addLogText("<font color='yellow'>" + src.name + " creates " + spell.name + "</font><BR>");
+                //gv.cc.addLogText("<font color='yellow'>" + src.name + " creates " + spell.name + "</font><BR>");
             }
             else if (source is Item)
             {
                 Item src = (Item)source;
+                if (src.labelForCastAction != "none")
+                {
+                    gv.cc.addLogText("<font color='yellow'>" + src.name + " " + src.labelForCastAction + " " + spell.name + "</font><BR>");
+                }
+                else
+                {
+                    gv.cc.addLogText("<font color='yellow'>" + src.name + " creates " + spell.name + "</font><BR>");
+                }
 
-                gv.cc.addLogText("<font color='yellow'>" + src.name + " creates " + spell.name + "</font><BR>");
+                //gv.cc.addLogText("<font color='yellow'>" + src.name + " creates " + spell.name + "</font><BR>");
             }
 
             gv.sf.AoeTargetsList.Clear();

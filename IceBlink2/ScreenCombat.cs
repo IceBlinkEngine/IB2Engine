@@ -1258,8 +1258,12 @@ namespace IceBlink2
 
                     if (saveChk >= DC)
                     {
-                        crtr.cr_effectsList.RemoveAt(i - 1);
                         gv.cc.addLogText("<font color='yellow'>" + "The " + crtr.cr_effectsList[i - 1].name + " effect on " + crtr.cr_name + " has been shrugged off." + " </font><BR>");
+                        crtr.cr_effectsList.RemoveAt(i - 1);
+                    }
+                    else
+                    {
+                        gv.cc.addLogText("<font color='yellow'>" + crtr.cr_name + " fails to shrug off " + crtr.cr_effectsList[i - 1].name + "." + " </font><BR>");
                     }
                 }
             }
@@ -1353,8 +1357,12 @@ namespace IceBlink2
 
                         if (saveChk >= DC)
                         {
-                            pc.effectsList.RemoveAt(i - 1);
                             gv.cc.addLogText("<font color='yellow'>" + "The " + pc.effectsList[i - 1].name + " effect on " + pc.name + " has been shrugged off." + " </font><BR>");
+                            pc.effectsList.RemoveAt(i - 1);
+                        }
+                        else
+                        {
+                            gv.cc.addLogText("<font color='yellow'>" + pc.name + " fails to shrug off " + pc.effectsList[i - 1].name + "." + " </font><BR>");
                         }
                     }
                 }
@@ -1724,7 +1732,7 @@ namespace IceBlink2
         {
             Spell sp = gv.mod.getSpellByTag(tag);
             if (sp == null) { return; }
-            gv.cc.doSpellBasedOnScriptOrEffectTag(sp, it, trg, false);
+            gv.cc.doSpellBasedOnScriptOrEffectTag(sp, it, trg, false, false);
         }
         public void endPcTurn(bool endStealthMode)
         {
@@ -2544,7 +2552,7 @@ namespace IceBlink2
                 newSeq.AnimationSeq.Add(newGroup);
                 launchProjectile(filename, startX, startY, endX, endY, newGroup);
                 //gv.PlaySound(gv.sf.SpellToCast.spellEndSound);
-                gv.cc.doSpellBasedOnScriptOrEffectTag(gv.sf.SpellToCast, crt, gv.sf.CombatTarget, false);
+                gv.cc.doSpellBasedOnScriptOrEffectTag(gv.sf.SpellToCast, crt, gv.sf.CombatTarget, false, false);
                 //add ending projectile animation
                 newGroup = new AnimationStackGroup();
                 animationSeqStack[0].AnimationSeq.Add(newGroup);
@@ -3073,7 +3081,7 @@ namespace IceBlink2
         {
             Spell sp = gv.mod.getSpellByTag(crt.onScoringHitCastSpellTag);
             if (sp == null) { return; }
-            gv.cc.doSpellBasedOnScriptOrEffectTag(sp, crt, pc, false);
+            gv.cc.doSpellBasedOnScriptOrEffectTag(sp, crt, pc, false,false);
         }
         public bool checkEndEncounter()
         {
@@ -3462,7 +3470,7 @@ namespace IceBlink2
             //if spell target type is coor, use coor...else use creature or PC on square  
             if (sp.spellTargetType.Equals("PointLocation"))
             {
-                gv.cc.doSpellBasedOnScriptOrEffectTag(sp, srcCoor, srcCoor, false);
+                gv.cc.doSpellBasedOnScriptOrEffectTag(sp, srcCoor, srcCoor, false,false);
             }
             else
             {
@@ -3470,14 +3478,14 @@ namespace IceBlink2
                 {
                     if ((crt.combatLocX == gv.mod.currentEncounter.triggerScriptCalledFromSquareLocX) && (crt.combatLocY == gv.mod.currentEncounter.triggerScriptCalledFromSquareLocY))
                     {
-                        gv.cc.doSpellBasedOnScriptOrEffectTag(sp, srcCoor, crt, false);
+                        gv.cc.doSpellBasedOnScriptOrEffectTag(sp, srcCoor, crt, false,false);
                     }
                 }
                 foreach (Player pc in gv.mod.playerList)
                 {
                     if ((pc.combatLocX == gv.mod.currentEncounter.triggerScriptCalledFromSquareLocX) && (pc.combatLocY == gv.mod.currentEncounter.triggerScriptCalledFromSquareLocY))
                     {
-                        gv.cc.doSpellBasedOnScriptOrEffectTag(sp, srcCoor, pc, false);
+                        gv.cc.doSpellBasedOnScriptOrEffectTag(sp, srcCoor, pc, false, false);
                     }
                 }
             }
@@ -11410,7 +11418,7 @@ namespace IceBlink2
                 launchProjectile(filename, startX, startY, endX, endY, newGroup);
                 //gv.PlaySound(gv.cc.currentSelectedSpell.spellEndSound);
                 object target = getCastTarget(pc);
-                gv.cc.doSpellBasedOnScriptOrEffectTag(gv.cc.currentSelectedSpell, pc, target, false);
+                gv.cc.doSpellBasedOnScriptOrEffectTag(gv.cc.currentSelectedSpell, pc, target, false, false);
                 //add ending projectile animation
                 newGroup = new AnimationStackGroup();
                 animationSeqStack[0].AnimationSeq.Add(newGroup);

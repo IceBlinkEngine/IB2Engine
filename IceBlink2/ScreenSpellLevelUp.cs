@@ -132,8 +132,8 @@ namespace IceBlink2
                 locY = (gv.squareSize * 0) + (pH * 2);
                 //gv.DrawText("Select One " + gv.mod.getPlayerClass(pc.classTag).spellLabelSingular + " to Learn", noticeX, pH * 1, 1.0f, Color.Gray);
                 gv.DrawText("Select " + spellToLearnIndex + " of " + gv.mod.getPlayerClass(pc.classTag).spellsToLearnAtLevelTable[getCastingPlayer().classLevel] + " " + gv.mod.getPlayerClass(pc.classTag).spellLabelPlural + " to Learn", noticeX, pH * 1, 1.0f, Color.Gray);
-                gv.DrawText(getCastingPlayer().name + " SP: " + getCastingPlayer().sp + "/" + getCastingPlayer().spMax, pW * 50, pH * 1, 1.0f, Color.Yellow);
-                gv.DrawText(getCastingPlayer().name + " HP: " + getCastingPlayer().hp + "/" + getCastingPlayer().hpMax, pW * 50, pH * 1, 1.0f, Color.Yellow);
+                //gv.DrawText(getCastingPlayer().name + " SP: " + getCastingPlayer().sp + "/" + getCastingPlayer().spMax, pW * 50, pH * 1, 1.0f, Color.Yellow);
+                //gv.DrawText(getCastingPlayer().name + " HP: " + getCastingPlayer().hp + "/" + getCastingPlayer().hpMax, pW * 50, pH * 1, 1.0f, Color.Yellow);
 
 
                 //DRAW NOTIFICATIONS
@@ -187,6 +187,7 @@ namespace IceBlink2
                             btn.Img = gv.cc.LoadBitmap("btn_small");
                             gv.cc.DisposeOfBitmap(ref btn.Img2);
                             btn.Img2 = gv.cc.LoadBitmap(sp.spellImage);
+                            btn.Img3 = gv.cc.LoadBitmap("mandatory_conversation_indicator");
                         }
                         else //spell not known yet
                         {
@@ -204,6 +205,7 @@ namespace IceBlink2
                             btn.Img = gv.cc.LoadBitmap("btn_small_off"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_off);
                             gv.cc.DisposeOfBitmap(ref btn.Img2);
                             btn.Img2 = gv.cc.LoadBitmap(sp.spellImage + "_off");
+                            btn.Img3 = gv.cc.LoadBitmap("mandatory_conversation_indicator");
                         }
                         else //spell not known yet
                         {
@@ -220,6 +222,7 @@ namespace IceBlink2
                                 btn.Img = gv.cc.LoadBitmap("btn_small_off"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_off);
                                 gv.cc.DisposeOfBitmap(ref btn.Img2);
                                 btn.Img2 = gv.cc.LoadBitmap(sp.spellImage + "_off");
+                                btn.Img3 = gv.cc.LoadBitmap("encounter_indicator");
                             }
                         }
                     }				

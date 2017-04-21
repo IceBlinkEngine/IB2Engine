@@ -556,5 +556,36 @@
         "tag": "newEffectTag_10946"
       }
     ]
+  },
+  {
+    "traitWorksOnlyWhen": [],
+    "traitWorksNeverWhen": [],
+    "usesTurnToActivate": true,
+    "isUsedForCombatSquareEffect": false,
+    "name": "BolasHoldSpell",
+    "tag": "bolasHoldSpell",
+    "spellImage": "sp_hold",
+    "description": "Holds one target for 3 rounds",
+    "useableInSituation": "InCombat",
+    "spriteFilename": "fx_heal",
+    "spriteEndingFilename": "fx_heal1x1end",
+    "spellStartSound": "buffer",
+    "spellEndSound": "buffer",
+    "costSP": 10,
+    "costHP": 0,
+    "spellTargetType": "Enemy",
+    "spellEffectType": "Debuff",
+    "aoeShape": "Circle",
+    "aoeRadius": 0,
+    "range": 5,
+    "spellScript": "spHold",
+    "additionalCustomLogTextOnCast": "none",
+    "spellEffectTag": "none",
+    "removeEffectTagList": [],
+    "spellEffectTagList": [
+      {
+        "tag": "bolasHold"
+      }
+    ]
   }
 ]

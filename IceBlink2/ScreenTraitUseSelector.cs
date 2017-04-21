@@ -47,7 +47,7 @@ namespace IceBlink2
 			    btnSelect = new IbbButton(gv, 0.8f);
                 //add player class based label for "use" here, same in ScreenCastSelector later	
                 
-                btnSelect.Text = gv.mod.playerList[gv.screenCastSelector.castingPlayerIndex].playerClass.labelForUseTraitAction + " SELECTED " + gv.mod.playerList[gv.screenCastSelector.castingPlayerIndex].playerClass.labelForUseTraitButtonInCombat;
+                btnSelect.Text = gv.mod.playerList[gv.screenCastSelector.castingPlayerIndex].playerClass.labelForUseTraitAction.ToUpper() + " SELECTED " + gv.mod.playerList[gv.screenCastSelector.castingPlayerIndex].playerClass.traitLabelSingular.ToUpper();
                 
                 btnSelect.Img = gv.cc.LoadBitmap("btn_large"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_large);
 			    btnSelect.Glow = gv.cc.LoadBitmap("btn_large_glow"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_large_glow);
@@ -263,7 +263,7 @@ namespace IceBlink2
             //change labels, TODO
             //btnSelect.Text = gv.gv.mod.playerList[gv.screenCastSelector.castingPlayerIndex].playerClass.labelForUseTraitAction + " SELECTED " + gv.gv.mod.playerList[gv.screenCastSelector.castingPlayerIndex].playerClass.labelForUseTraitButtonInCombat;
 
-            gv.DrawText("Select a " + gv.mod.playerList[gv.screenCastSelector.castingPlayerIndex].playerClass.labelForUseTraitButtonInCombat.ToLower() + " to " + gv.mod.playerList[gv.screenCastSelector.castingPlayerIndex].playerClass.labelForUseTraitAction.ToLower(), noticeX, pH * 3);
+            gv.DrawText("Select a " + gv.mod.playerList[gv.screenCastSelector.castingPlayerIndex].playerClass.traitLabelSingular + " to " + gv.mod.playerList[gv.screenCastSelector.castingPlayerIndex].playerClass.labelForUseTraitAction, noticeX, pH * 3);
 		    //gv.mSheetTextPaint.setColor(Color.YELLOW);
 		    gv.DrawText(getCastingPlayer().name + "  SP: " + getCastingPlayer().sp + "/" + getCastingPlayer().spMax, pW * 55, leftStartY);
             gv.DrawText(getCastingPlayer().name + "  HP: " + getCastingPlayer().hp + "/" + getCastingPlayer().hpMax, pW * 55, leftStartY + (int)(gv.squareSize/3));
@@ -733,7 +733,7 @@ namespace IceBlink2
         {
             try
             {
-                gv.cc.doSpellBasedOnScriptOrEffectTag(gv.cc.currentSelectedSpell, pc, target, !isInCombat);
+                gv.cc.doSpellBasedOnScriptOrEffectTag(gv.cc.currentSelectedSpell, pc, target, !isInCombat, true);
                 gv.screenType = "main";
                 doCleanUp();
             }
@@ -969,7 +969,7 @@ namespace IceBlink2
                                     try
                                     {
                                         Player target = gv.mod.playerList[0];
-                                        gv.cc.doSpellBasedOnScriptOrEffectTag(gv.cc.currentSelectedSpell, target, target, inCombat);
+                                        gv.cc.doSpellBasedOnScriptOrEffectTag(gv.cc.currentSelectedSpell, target, target, inCombat, true);
                                         gv.screenType = "main";
                                         doCleanUp();
                                         return;
@@ -980,7 +980,7 @@ namespace IceBlink2
                                     }
                                 }
 
-                                using (ItemListSelector pcSel = new ItemListSelector(gv, pcNames, gv.mod.spellLabelSingular + " Target"))
+                                using (ItemListSelector pcSel = new ItemListSelector(gv, pcNames, gv.mod.playerList[gv.screenCastSelector.castingPlayerIndex].playerClass.traitLabelSingular + " Target"))
                                 {
                                     pcSel.ShowDialog();
                                     if (pcSel.selectedIndex > 0)
@@ -988,7 +988,7 @@ namespace IceBlink2
                                         try
                                         {
                                             Player target = gv.mod.playerList[pcSel.selectedIndex - 1];
-                                            gv.cc.doSpellBasedOnScriptOrEffectTag(gv.cc.currentSelectedSpell, pc, target, inCombat);
+                                            gv.cc.doSpellBasedOnScriptOrEffectTag(gv.cc.currentSelectedSpell, pc, target, inCombat, true);
                                             gv.screenType = "main";
                                             doCleanUp();
                                         }
