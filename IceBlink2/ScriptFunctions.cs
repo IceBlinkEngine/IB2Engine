@@ -3872,27 +3872,27 @@ namespace IceBlink2
                 Trait tr = mod.getTraitByTag(foundLargest);
                 int skillMod = tr.skillModifier;
                 int attMod = 0;
-                if (tr.skillModifierAttribute.Equals("str"))
+                if (tr.skillModifierAttribute.Equals("str") || tr.skillModifierAttribute.Equals("strength") || tr.skillModifierAttribute.Equals("Str") || tr.skillModifierAttribute.Equals("Strength"))
                 {
                     attMod = (mod.playerList[PCIndex].strength - 10) / 2;
                 }
-                else if (tr.skillModifierAttribute.Equals("dex"))
+                else if (tr.skillModifierAttribute.Equals("dex") || tr.skillModifierAttribute.Equals("dexterity") || tr.skillModifierAttribute.Equals("Dex") || tr.skillModifierAttribute.Equals("Dexterity"))
                 {
                     attMod = (mod.playerList[PCIndex].dexterity - 10) / 2;
                 }
-                else if (tr.skillModifierAttribute.Equals("int"))
+                else if (tr.skillModifierAttribute.Equals("int") || tr.skillModifierAttribute.Equals("intelligance") || tr.skillModifierAttribute.Equals("Int") || tr.skillModifierAttribute.Equals("Intelligence"))
                 {
                     attMod = (mod.playerList[PCIndex].intelligence - 10) / 2;
                 }
-                else if (tr.skillModifierAttribute.Equals("cha"))
+                else if (tr.skillModifierAttribute.Equals("cha") || tr.skillModifierAttribute.Equals("charisma") || tr.skillModifierAttribute.Equals("Cha") || tr.skillModifierAttribute.Equals("Charisma"))
                 {
                     attMod = (mod.playerList[PCIndex].charisma - 10) / 2;
                 }
-                else if (tr.skillModifierAttribute.Equals("con"))
+                else if (tr.skillModifierAttribute.Equals("con") || tr.skillModifierAttribute.Equals("constitution") || tr.skillModifierAttribute.Equals("Con") || tr.skillModifierAttribute.Equals("Constitution"))
                 {
                     attMod = (mod.playerList[PCIndex].constitution - 10) / 2;
                 }
-                else if (tr.skillModifierAttribute.Equals("wis"))
+                else if (tr.skillModifierAttribute.Equals("wis") || tr.skillModifierAttribute.Equals("wisdom") || tr.skillModifierAttribute.Equals("Wis") || tr.skillModifierAttribute.Equals("Wisdom"))
                 {
                     attMod = (mod.playerList[PCIndex].wisdom - 10) / 2;
                 }
