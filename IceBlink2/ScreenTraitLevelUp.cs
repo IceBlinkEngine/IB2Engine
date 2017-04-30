@@ -17,8 +17,19 @@ namespace IceBlink2
 	    private int traitSlotIndex = 0;
         private int traitToLearnIndex = 1;
         private int slotsPerPage = 20;
-	    private List<IbbButton> btnTraitSlots = new List<IbbButton>();
-	    private IbbButton btnHelp = null;
+        
+        //added(1)
+        private int maxPages = 20;
+        private int tknPageIndex = 0;
+
+        private List<IbbButton> btnTraitSlots = new List<IbbButton>();
+
+        //added(3)
+        private IbbButton btnTokensLeft = null;
+        private IbbButton btnTokensRight = null;
+        private IbbButton btnPageIndex = null;
+
+        private IbbButton btnHelp = null;
 	    private IbbButton btnSelect = null;
 	    private IbbButton btnExit = null;
 	    List<string> traitsToLearnTagsList = new List<string>();
@@ -26,9 +37,11 @@ namespace IceBlink2
         public bool infoOnly = false; //set to true when called for info only
         private string stringMessageTraitLevelUp = "";
         private IbbHtmlTextBox description;
-	
-	
-	    public ScreenTraitLevelUp(Module m, GameView g) 
+
+        List<TraitAllowed> backupTraitsAllowed = new List<TraitAllowed>();
+
+
+        public ScreenTraitLevelUp(Module m, GameView g) 
 	    {
 		    //gv.mod = m;
 		    gv = g;
@@ -43,7 +56,297 @@ namespace IceBlink2
             infoOnly = info_only;
             traitToLearnIndex = 1;
         }
-	
+
+        public void sortTraitsForLevelUp(Player pc)
+        {
+                //clear 
+                backupTraitsAllowed.Clear();
+                List<string> traitsForLearningTags = new List<string>();
+                List<TraitAllowed> traitsForLearning = new List<TraitAllowed>();
+
+            if (!infoOnly)
+            {
+                //add the unknown available traits first
+                traitsForLearningTags = pc.getTraitsToLearn(gv.mod);
+                foreach (string s in traitsForLearningTags)
+                {
+                    foreach (TraitAllowed ta in pc.playerClass.traitsAllowed)
+                    {
+                        if (ta.tag == s)
+                        {
+                            traitsForLearning.Add(ta);
+                        }
+                    }
+                }
+
+                //sort the unknwon, available traits
+                int levelCounter = 0;
+                while (traitsForLearning.Count > 0)
+                {
+                    for (int i = traitsForLearning.Count - 1; i >= 0; i--)
+                    {
+                        if (levelCounter == traitsForLearning[i].atWhatLevelIsAvailable)
+                        {
+                            backupTraitsAllowed.Add(traitsForLearning[i]);
+                            traitsForLearning.RemoveAt(i);
+                        }
+                    }
+                    levelCounter++;
+                }
+
+                //add the unkown, not yet available traits
+                foreach (TraitAllowed ta in pc.playerClass.traitsAllowed)
+                {
+                    bool notKnownYet = true;
+
+                    //not hidden
+                    if (!ta.allow)
+                    {
+                        //do not show the "hidden" traits that require special learning here
+                        notKnownYet = false;
+                    }
+
+                    //not available
+                    if (ta.atWhatLevelIsAvailable <= pc.classLevel)
+                    {
+                        Trait tr = gv.mod.getTraitByTag(ta.tag);
+                        //not available(attribues, prequisite trait)
+                        //attributes
+                        if (checkAttributeRequirementsOfTrait(pc, tr))
+                        {
+                            //prerequisite traits
+                            if (!tr.prerequisiteTrait.Equals("none"))
+                            {
+                                //requires prereq so check if you have it
+                                if (pc.knownTraitsTags.Contains(tr.prerequisiteTrait) || pc.learningTraitsTags.Contains(tr.prerequisiteTrait))
+                                {
+                                    notKnownYet = false;
+                                }
+                            }
+                            else
+                            {
+                                notKnownYet = false;
+                            }
+                        }
+                        //not known
+                        foreach (string s in pc.knownTraitsTags)
+                        {
+                            if (s == ta.tag)
+                            {
+                                notKnownYet = false;
+                            }
+                        }
+                        //not just learned
+                        foreach (string s in pc.learningTraitsTags)
+                        {
+                            if (s == ta.tag)
+                            {
+                                notKnownYet = false;
+                            }
+                        }
+                    }
+
+                    if (notKnownYet)
+                    {
+                        //add
+                        traitsForLearning.Add(ta);
+                    }
+                }
+
+                //sort the unknwon, not yet available traits
+                levelCounter = 0;
+                while (traitsForLearning.Count > 0)
+                {
+                    for (int i = traitsForLearning.Count - 1; i >= 0; i--)
+                    {
+                        if (levelCounter == traitsForLearning[i].atWhatLevelIsAvailable)
+                        {
+                            backupTraitsAllowed.Add(traitsForLearning[i]);
+                            traitsForLearning.RemoveAt(i);
+                        }
+                    }
+                    levelCounter++;
+                }
+
+                //add the known traits
+                foreach (string s in pc.knownTraitsTags)
+                {
+                    foreach (TraitAllowed ta in pc.playerClass.traitsAllowed)
+                    {
+                        if (ta.tag == s)
+                        {
+                            traitsForLearning.Add(ta);
+                        }
+                    }
+                }
+
+                foreach (string s in pc.learningTraitsTags)
+                {
+                    foreach (TraitAllowed ta in pc.playerClass.traitsAllowed)
+                    {
+                        if (ta.tag == s)
+                        {
+                            traitsForLearning.Add(ta);
+                        }
+                    }
+                }
+
+                //sort the known traits
+                levelCounter = 0;
+                while (traitsForLearning.Count > 0)
+                {
+                    for (int i = traitsForLearning.Count - 1; i >= 0; i--)
+                    {
+                        if (levelCounter == traitsForLearning[i].atWhatLevelIsAvailable)
+                        {
+                            backupTraitsAllowed.Add(traitsForLearning[i]);
+                            traitsForLearning.RemoveAt(i);
+                        }
+                    }
+                    levelCounter++;
+                }
+
+            }
+            //info only
+            //todo: adjust like above, sigh
+            else
+            {
+
+                //add the known traits
+                foreach (string s in pc.knownTraitsTags)
+                {
+                    foreach (TraitAllowed ta in pc.playerClass.traitsAllowed)
+                    {
+                        if (ta.tag == s)
+                        {
+                            traitsForLearning.Add(ta);
+                        }
+                    }
+                }
+
+                /*
+                foreach (string s in pc.learningTraitsTags)
+                {
+                    foreach (TraitAllowed ta in pc.playerClass.traitsAllowed)
+                    {
+                        if (ta.tag == s)
+                        {
+                            traitsForLearning.Add(ta);
+                        }
+                    }
+                }
+                */
+
+                //sort the known traits
+                int levelCounter = 0;
+                while (traitsForLearning.Count > 0)
+                {
+                    for (int i = traitsForLearning.Count - 1; i >= 0; i--)
+                    {
+                        if (levelCounter == traitsForLearning[i].atWhatLevelIsAvailable)
+                        {
+                            backupTraitsAllowed.Add(traitsForLearning[i]);
+                            traitsForLearning.RemoveAt(i);
+                        }
+                    }
+                    levelCounter++;
+                }
+
+                //add the unknown available traits first
+                traitsForLearningTags = pc.getTraitsToLearn(gv.mod);
+                foreach (string s in traitsForLearningTags)
+                {
+                    foreach (TraitAllowed ta in pc.playerClass.traitsAllowed)
+                    {
+                        if (ta.tag == s)
+                        {
+                            traitsForLearning.Add(ta);
+                        }
+                    }
+                }
+
+                //sort the unknwon, available traits
+                levelCounter = 0;
+                while (traitsForLearning.Count > 0)
+                {
+                    for (int i = traitsForLearning.Count - 1; i >= 0; i--)
+                    {
+                        if (levelCounter == traitsForLearning[i].atWhatLevelIsAvailable)
+                        {
+                            backupTraitsAllowed.Add(traitsForLearning[i]);
+                            traitsForLearning.RemoveAt(i);
+                        }
+                    }
+                    levelCounter++;
+                }
+
+
+                //add the unkown, not yet available traits
+                foreach (TraitAllowed ta in pc.playerClass.traitsAllowed)
+                {
+                    bool notKnownYet = true;
+
+                    //not hidden
+                    if (!ta.allow)
+                    {
+                        //do not show the "hidden" traits that require special learning here
+                        notKnownYet = false;
+                    }
+
+                    //not available
+                    if (ta.atWhatLevelIsAvailable <= pc.classLevel)
+                    {
+                        Trait tr = gv.mod.getTraitByTag(ta.tag);
+                        if (checkAttributeRequirementsOfTrait(pc, tr))
+                        {
+                            //prerequisite traits
+                            if (!tr.prerequisiteTrait.Equals("none"))
+                            {
+                                //requires prereq so check if you have it
+                                if (pc.knownTraitsTags.Contains(tr.prerequisiteTrait))
+                                {
+                                    notKnownYet = false;
+                                }
+                            }
+                            else
+                            {
+                                notKnownYet = false;
+                            }
+                        }
+                        //not known
+                        foreach (string s in pc.knownTraitsTags)
+                        {
+                            if (s == ta.tag)
+                            {
+                                notKnownYet = false;
+                            }
+                        }
+                    }
+
+                    if (notKnownYet)
+                    {
+                        //add
+                        traitsForLearning.Add(ta);
+                    }
+                }
+
+                //sort the unknwon, not yet available traits
+                levelCounter = 0;
+                while (traitsForLearning.Count > 0)
+                {
+                    for (int i = traitsForLearning.Count - 1; i >= 0; i--)
+                    {
+                        if (levelCounter == traitsForLearning[i].atWhatLevelIsAvailable)
+                        {
+                            backupTraitsAllowed.Add(traitsForLearning[i]);
+                            traitsForLearning.RemoveAt(i);
+                        }
+                    }
+                    levelCounter++;
+                }
+
+            }
+        }
 	    public void setControlsStart()
 	    {			
     	    int pW = (int)((float)gv.screenWidth / 100.0f);
@@ -51,12 +354,50 @@ namespace IceBlink2
 		    int padW = gv.squareSize/6;
 
             description = new IbbHtmlTextBox(gv, 320, 100, 500, 300);
+            //description = new IbbHtmlTextBox(gv, 3*gv.squareSize + 2*pW, 2*gv.squareSize, gv.squareSize*5, gv.squareSize*10);
             description.showBoxBorder = false;
-		
-		    if (btnSelect == null)
+
+            //added
+            if (btnTokensLeft == null)
+            {
+                btnTokensLeft = new IbbButton(gv, 1.0f);
+                btnTokensLeft.Img = gv.cc.LoadBitmap("btn_small"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small);
+                btnTokensLeft.Img2 = gv.cc.LoadBitmap("ctrl_left_arrow"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.ctrl_left_arrow);
+                btnTokensLeft.Glow = gv.cc.LoadBitmap("btn_small_glow"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_glow);
+                btnTokensLeft.X = (int)(5 * gv.squareSize) + (3 * pW);
+                btnTokensLeft.Y = (1 * gv.squareSize);
+                btnTokensLeft.Height = (int)(gv.ibbheight * gv.screenDensity);
+                btnTokensLeft.Width = (int)(gv.ibbwidthR * gv.screenDensity);
+            }
+            //added
+            if (btnPageIndex == null)
+            {
+                btnPageIndex = new IbbButton(gv, 1.0f);
+                btnPageIndex.Img = gv.cc.LoadBitmap("btn_small_off"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_off);
+                btnPageIndex.Glow = gv.cc.LoadBitmap("btn_small_glow"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_glow);
+                btnPageIndex.Text = "1/20";
+                btnPageIndex.X = (int)(6 * gv.squareSize) + (3 * pW);
+                btnPageIndex.Y = (1 * gv.squareSize);
+                btnPageIndex.Height = (int)(gv.ibbheight * gv.screenDensity);
+                btnPageIndex.Width = (int)(gv.ibbwidthR * gv.screenDensity);
+            }
+            //added
+            if (btnTokensRight == null)
+            {
+                btnTokensRight = new IbbButton(gv, 1.0f);
+                btnTokensRight.Img = gv.cc.LoadBitmap("btn_small"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small);
+                btnTokensRight.Img2 = gv.cc.LoadBitmap("ctrl_right_arrow"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.ctrl_right_arrow);
+                btnTokensRight.Glow = gv.cc.LoadBitmap("btn_small_glow"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_glow);
+                btnTokensRight.X = (int)(7f * gv.squareSize) + (3 * pW);
+                btnTokensRight.Y = (1 * gv.squareSize);
+                btnTokensRight.Height = (int)(gv.ibbheight * gv.screenDensity);
+                btnTokensRight.Width = (int)(gv.ibbwidthR * gv.screenDensity);
+            }
+
+            if (btnSelect == null)
 		    {
 			    btnSelect = new IbbButton(gv, 0.8f);	
-			    btnSelect.Text = "LEARN SELECTED TRAIT";
+			    btnSelect.Text = "LEARN SELECTED CHOICE";
 			    btnSelect.Img = gv.cc.LoadBitmap("btn_large"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_large);
 			    btnSelect.Glow = gv.cc.LoadBitmap("btn_large_glow"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_large_glow);
                 btnSelect.X = (gv.screenWidth / 2) - (int)(gv.ibbwidthL * gv.screenDensity / 2.0f);
@@ -97,11 +438,10 @@ namespace IceBlink2
 			    int x = y % 5;
 			    int yy = y / 5;
 			    btnNew.X = ((x + 4) * gv.squareSize) + (padW * (x+1)) + gv.oXshift;
-			    btnNew.Y = (1 + yy) * gv.squareSize + (padW * yy);
+			    btnNew.Y = (2 + yy) * gv.squareSize + (padW * yy + padW);
 
                 btnNew.Height = (int)(gv.ibbheight * gv.screenDensity);
-                btnNew.Width = (int)(gv.ibbwidthR * gv.screenDensity);	
-			
+                btnNew.Width = (int)(gv.ibbwidthR * gv.screenDensity);
 			    btnTraitSlots.Add(btnNew);
 		    }			
 	    }
@@ -162,7 +502,7 @@ namespace IceBlink2
                 //DRAW TEXT		
                 locY = (gv.squareSize * 0) + (pH * 2);
                 //gv.DrawText("Select One Trait to Learn", noticeX, pH * 1, 1.0f, Color.Gray);
-                gv.DrawText("Select " + traitToLearnIndex + " of " + gv.mod.getPlayerClass(pc.classTag).traitsToLearnAtLevelTable[pc.classLevel] + " Traits to Learn", noticeX, pH * 1, 1.0f, Color.Gray);
+                gv.DrawText("Select " + traitToLearnIndex + " of " + gv.mod.getPlayerClass(pc.classTag).traitsToLearnAtLevelTable[pc.classLevel] + " Choices to Learn", noticeX, pH * 1, 1.0f, Color.Gray);
 
                 //DRAW NOTIFICATIONS
                 if (isSelectedTraitSlotInKnownTraitsRange())
@@ -209,12 +549,22 @@ namespace IceBlink2
 			
 			    if (cntSlot == traitSlotIndex) {btn.glowOn = true;}
 			    else {btn.glowOn = false;}
-			
-			    //show only traits for the PC class
-			    if (cntSlot < pc.playerClass.traitsAllowed.Count)
-			    {
-				    TraitAllowed ta = pc.playerClass.traitsAllowed[cntSlot];
-				    Trait tr = gv.mod.getTraitByTag(ta.tag);
+
+                //added
+                //if ((cntSlot + (tknPageIndex * slotsPerPage)) < playerTokenList.Count)
+                //{
+                //}
+                //show only traits for the PC class
+                
+                //here insert
+                sortTraitsForLevelUp(pc);
+
+                //if ((cntSlot +(tknPageIndex * slotsPerPage)) < pc.playerClass.traitsAllowed.Count)
+                if ((cntSlot + (tknPageIndex * slotsPerPage)) < backupTraitsAllowed.Count)
+                {
+                    //TraitAllowed ta = pc.playerClass.traitsAllowed[cntSlot + (tknPageIndex * slotsPerPage)];
+                    TraitAllowed ta = backupTraitsAllowed[cntSlot + (tknPageIndex * slotsPerPage)];
+                    Trait tr = gv.mod.getTraitByTag(ta.tag);
 
                     if (infoOnly)
                     {
@@ -224,14 +574,47 @@ namespace IceBlink2
                             btn.Img = gv.cc.LoadBitmap("btn_small");
                             gv.cc.DisposeOfBitmap(ref btn.Img2);
                             btn.Img2 = gv.cc.LoadBitmap(tr.traitImage);
-                            btn.Img3 = gv.cc.LoadBitmap("mandatory_conversation_indicator");
+                            btn.Img3 = null;
+
+                            //gv.cc.DisposeOfBitmap(ref btn.Img3);
+                            //btn.Img3 = gv.cc.LoadBitmap("mandatory_conversation_indicator");
                         }
                         else //trait not known yet
                         {
+                            /*
                             gv.cc.DisposeOfBitmap(ref btn.Img);
                             btn.Img = gv.cc.LoadBitmap("btn_small_off");
                             gv.cc.DisposeOfBitmap(ref btn.Img2);
                             btn.Img2 = gv.cc.LoadBitmap(tr.traitImage + "_off");
+                            btn.Img3 = null;
+                            */
+                            //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                            //checking attribute requiremnts of trait
+                            bool attributeRequirementsMet = checkAttributeRequirementsOfTrait(pc, tr);
+                            //if (tr.tag == "bluff")
+                            //{
+                            //int hghg = 0;
+                            //}
+                            if (isAvailableToLearn(tr.tag) && attributeRequirementsMet) //if available to learn, turn on button
+                            {
+                                gv.cc.DisposeOfBitmap(ref btn.Img);
+                                btn.Img = gv.cc.LoadBitmap("btn_small_off");
+                                gv.cc.DisposeOfBitmap(ref btn.Img2);
+                                btn.Img2 = gv.cc.LoadBitmap(tr.traitImage + "_off");
+                                gv.cc.DisposeOfBitmap(ref btn.Img3);
+                                btn.Img3 = gv.cc.LoadBitmap("mandatory_conversation_indicator");
+                            }
+                            else //not available to learn, turn off button
+                            {
+                                gv.cc.DisposeOfBitmap(ref btn.Img);
+                                btn.Img = gv.cc.LoadBitmap("btn_small_off");
+                                gv.cc.DisposeOfBitmap(ref btn.Img2);
+                                btn.Img2 = gv.cc.LoadBitmap(tr.traitImage + "_off");
+                                gv.cc.DisposeOfBitmap(ref btn.Img3);
+                                btn.Img3 = gv.cc.LoadBitmap("encounter_indicator");
+                            }
+
+                            //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
                         }
                     }
                     else
@@ -242,6 +625,7 @@ namespace IceBlink2
                             btn.Img = gv.cc.LoadBitmap("btn_small_off");
                             gv.cc.DisposeOfBitmap(ref btn.Img2);
                             btn.Img2 = gv.cc.LoadBitmap(tr.traitImage + "_off");
+                            gv.cc.DisposeOfBitmap(ref btn.Img3);
                             btn.Img3 = gv.cc.LoadBitmap("mandatory_conversation_indicator");
                         }
                         else //trait not known yet
@@ -258,6 +642,7 @@ namespace IceBlink2
                                 btn.Img = gv.cc.LoadBitmap("btn_small");
                                 gv.cc.DisposeOfBitmap(ref btn.Img2);
                                 btn.Img2 = gv.cc.LoadBitmap(tr.traitImage);
+                                btn.Img3 = null;
                             }
                             else //not available to learn, turn off button
                             {
@@ -265,6 +650,7 @@ namespace IceBlink2
                                 btn.Img = gv.cc.LoadBitmap("btn_small_off");
                                 gv.cc.DisposeOfBitmap(ref btn.Img2);
                                 btn.Img2 = gv.cc.LoadBitmap(tr.traitImage + "_off");
+                                gv.cc.DisposeOfBitmap(ref btn.Img3);
                                 btn.Img3 = gv.cc.LoadBitmap("encounter_indicator");
                             }
                         }
@@ -275,6 +661,7 @@ namespace IceBlink2
                     gv.cc.DisposeOfBitmap(ref btn.Img);
                     btn.Img = gv.cc.LoadBitmap("btn_small_off"); 
 				    btn.Img2 = null;
+                    btn.Img3 = null;
 			    }			
 			    btn.Draw();
 			    cntSlot++;
@@ -285,39 +672,45 @@ namespace IceBlink2
 		    if (isSelectedTraitSlotInKnownTraitsRange())
 		    {
                 Trait tr = GetCurrentlySelectedTrait();
-                
-                string textToSpan = "<u>Description</u>" + "<BR>";
-                textToSpan += "<b><i><big>" + tr.name + "</big></i></b><BR>";
+                //string textToSpan = "<u>Description</u>" + "<BR>" + "<BR>";
+                string textToSpan = "<b><big>" + tr.name + "</big></b><BR>";
                 textToSpan += "Available at Level: " + getLevelAvailable(tr.tag) + "<BR>";
+         
+                if (tr.prerequisiteTrait != "none")
+                {
+                    foreach (Trait t in gv.mod.moduleTraitsList)
+                    {
+                        if (t.tag == tr.prerequisiteTrait)
+                        {
+                            textToSpan += "Requires: " + t.name + "<BR>";
+                            break;
+                        }
+                    }
+                }
+
                 if (tr.requiredStrength > 0)
                 {
                     textToSpan += "Required STR: " + tr.requiredStrength + "<BR>"; 
-                   
                 }
                 if (tr.requiredDexterity > 0)
                 {
                     textToSpan += "Required DEX: " + tr.requiredDexterity + "<BR>";
-
                 }
                 if (tr.requiredConstitution > 0)
                 {
                     textToSpan += "Required CON: " + tr.requiredConstitution + "<BR>";
-
                 }
                 if (tr.requiredIntelligence > 0)
                 {
                     textToSpan += "Required INT: " + tr.requiredIntelligence + "<BR>";
-
                 }
                 if (tr.requiredWisdom > 0)
                 {
                     textToSpan += "Required WIS: " + tr.requiredWisdom + "<BR>";
-
                 }
                 if (tr.requiredCharisma > 0)
                 {
                     textToSpan += "Required CHA: " + tr.requiredCharisma + "<BR>";
-
                 }
                 textToSpan += "<BR>";
                 textToSpan += tr.description;
@@ -335,22 +728,34 @@ namespace IceBlink2
             {
                 btnSelect.Text = "RETURN";
                 btnSelect.Draw();
-            }
+                btnTokensLeft.Draw();
+                btnTokensRight.Draw(); 
+                btnPageIndex.Draw();
+        //todo draw other buttons
+        //zeke2
+    }
             else
             {
                 btnSelect.Text = "LEARN SELECTED " + pc.playerClass.traitLabelSingular.ToUpper();
                 btnHelp.Draw();
                 btnExit.Draw();
                 btnSelect.Draw();
-            }            
+                //todo draw other buttons
+                btnTokensLeft.Draw();
+                btnTokensRight.Draw();
+                btnPageIndex.Draw();
+            }
         }
         public void onTouchTraitLevelUp(MouseEventArgs e, MouseEventType.EventType eventType, bool inPcCreation, bool inCombat)
 	    {
 		    btnHelp.glowOn = false;
 		    btnExit.glowOn = false;
 		    btnSelect.glowOn = false;
-		
-		    switch (eventType)
+            btnTokensLeft.glowOn = false;
+            btnTokensRight.glowOn = false;
+            btnPageIndex.glowOn = false;
+
+            switch (eventType)
 		    {
 		    case MouseEventType.EventType.MouseDown:
 		    case MouseEventType.EventType.MouseMove:
@@ -368,13 +773,27 @@ namespace IceBlink2
 			    {
 				    btnExit.glowOn = true;
 			    }
-			    break;
+                    else if (btnTokensLeft.getImpact(x, y))
+                    {
+                        btnTokensLeft.glowOn = true;
+                    }
+                    else if (btnTokensRight.getImpact(x, y))
+                    {
+                        btnTokensRight.glowOn = true;
+                    }
+                    else if (btnPageIndex.getImpact(x, y))
+                    {
+                        btnPageIndex.glowOn = true;
+                    }
+                    break;
 
             case MouseEventType.EventType.MouseUp:
                 x = (int)e.X;
                 y = (int)e.Y;
-			
-			    btnHelp.glowOn = false;
+
+                btnTokensLeft.glowOn = false;
+                btnTokensRight.glowOn = false;
+                btnHelp.glowOn = false;
 			    btnExit.glowOn = false;
 			    btnSelect.glowOn = false;
 			
@@ -386,7 +805,23 @@ namespace IceBlink2
 					    traitSlotIndex = j;
 				    }
 			    }
-			    if (btnHelp.getImpact(x, y))
+                if (btnTokensLeft.getImpact(x, y))
+                {
+                        if (tknPageIndex > 0)
+                        {
+                            tknPageIndex--;
+                            btnPageIndex.Text = (tknPageIndex + 1) + "/" + maxPages;
+                        }
+                }
+                else if (btnTokensRight.getImpact(x, y))
+                {
+                        if (tknPageIndex < maxPages)
+                        {
+                            tknPageIndex++;
+                            btnPageIndex.Text = (tknPageIndex + 1) + "/" + maxPages;
+                        }
+                }
+                else if (btnHelp.getImpact(x, y))
 			    {
                     if (!infoOnly)
                     {
@@ -420,6 +855,7 @@ namespace IceBlink2
                             gv.screenParty.traitGained = "";
                             gv.screenParty.spellGained = "";
                             pc.learningTraitsTags.Clear();
+                            pc.learningEffects.Clear();
                             pc.learningSpellsTags.Clear();
                             traitToLearnIndex = 1;
                             gv.PlaySound("btn_click");
@@ -451,6 +887,20 @@ namespace IceBlink2
                     //add trait
                     //pc.knownTraitsTags.Add(tr.tag);
                     pc.learningTraitsTags.Add(tr.tag);
+                    sortTraitsForLevelUp(pc);
+                    foreach (EffectTagForDropDownList etfddl in tr.traitEffectTagList)
+                    {
+                        foreach (Effect e in gv.mod.moduleEffectsList)
+                        {
+                            if (e.tag == etfddl.tag)
+                            {
+                                if (e.isPermanent)
+                                {
+                                    pc.learningEffects.Add(e);
+                                }
+                            }
+                        }
+                    }
                     //public string useableInSituation = "Always"; //InCombat, OutOfCombat, Always, Passive
                     //note: might have to do this on exit
                     /*
@@ -945,13 +1395,17 @@ namespace IceBlink2
         }    
         public Trait GetCurrentlySelectedTrait()
 	    {
-    	    TraitAllowed ta = pc.playerClass.traitsAllowed[traitSlotIndex];
-		    return gv.mod.getTraitByTag(ta.tag);
+            sortTraitsForLevelUp(pc);
+            //TraitAllowed ta = pc.playerClass.traitsAllowed[traitSlotIndex + (tknPageIndex * slotsPerPage)];
+            TraitAllowed ta = backupTraitsAllowed[traitSlotIndex + (tknPageIndex * slotsPerPage)];
+            return gv.mod.getTraitByTag(ta.tag);
 	    }
 	    public bool isSelectedTraitSlotInKnownTraitsRange()
 	    {
-		    return traitSlotIndex < pc.playerClass.traitsAllowed.Count;
-	    }	
+            //return (traitSlotIndex + (tknPageIndex * slotsPerPage)) < pc.playerClass.traitsAllowed.Count;
+            sortTraitsForLevelUp(pc);
+            return (traitSlotIndex + (tknPageIndex * slotsPerPage)) < backupTraitsAllowed.Count;
+        }	
 	    public int getLevelAvailable(string tag)
 	    {
 		    TraitAllowed ta = pc.playerClass.getTraitAllowedByTag(tag);

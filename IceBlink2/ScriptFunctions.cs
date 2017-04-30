@@ -7001,15 +7001,26 @@ namespace IceBlink2
                         }
                     }
                     #endregion
-                    crt.hp += heal;
-                    if (crt.hp > crt.hpMax)
+                    if (ef.healHP)
                     {
-                        crt.hp = crt.hpMax;
+                        crt.hp += heal;
+                        if (crt.hp > crt.hpMax)
+                        {
+                            crt.hp = crt.hpMax;
+                        }
+                        gv.cc.addLogText("<font color='lime'>" + crt.cr_name + " gains " + heal + " HPs" + "</font><BR>");
+                        //Do floaty text heal
+                        //gv.screenCombat.floatyTextOn = true;
+                        gv.cc.addFloatyText(new Coordinate(crt.combatLocX, crt.combatLocY), heal + "", "green");
                     }
-                    gv.cc.addLogText("<font color='lime'>" + crt.cr_name + " gains " + heal + " HPs" + "</font><BR>");
-                    //Do floaty text heal
-                    //gv.screenCombat.floatyTextOn = true;
-                    gv.cc.addFloatyText(new Coordinate(crt.combatLocX, crt.combatLocY), heal + "", "green");
+                    else
+                    {
+                        crt.sp += heal;
+                        gv.cc.addLogText("<font color='lime'>" + crt.cr_name + " gains " + heal + " SPs" + "</font><BR>");
+                        //Do floaty text heal
+                        //gv.screenCombat.floatyTextOn = true;
+                        gv.cc.addFloatyText(new Coordinate(crt.combatLocX, crt.combatLocY), heal + "", "green");
+                    }
                     #endregion
                 }
                 if (ef.doBuff)
@@ -7183,19 +7194,34 @@ namespace IceBlink2
                             }
                         }
                         #endregion
-                        pc.hp += heal;
-                        if (pc.hp > pc.hpMax)
+                        if (ef.healHP)
                         {
-                            pc.hp = pc.hpMax;
+                            pc.hp += heal;
+                            if (pc.hp > pc.hpMax)
+                            {
+                                pc.hp = pc.hpMax;
+                            }
+                            if (pc.hp > 0)
+                            {
+                                pc.charStatus = "Alive";
+                            }
+                            gv.cc.addLogText("<font color='lime'>" + pc.name + " gains " + heal + " HPs" + "</font><BR>");
+                            //Do floaty text heal
+                            //gv.screenCombat.floatyTextOn = true;
+                            gv.cc.addFloatyText(new Coordinate(pc.combatLocX, pc.combatLocY), heal + "", "green");
                         }
-                        if (pc.hp > 0)
+                        else
                         {
-                            pc.charStatus = "Alive";
+                            pc.sp += heal;
+                            if (pc.sp > pc.spMax)
+                            {
+                                pc.sp = pc.spMax;
+                            }
+                            gv.cc.addLogText("<font color='lime'>" + pc.name + " gains " + heal + " SPs" + "</font><BR>");
+                            //Do floaty text heal
+                            //gv.screenCombat.floatyTextOn = true;
+                            gv.cc.addFloatyText(new Coordinate(pc.combatLocX, pc.combatLocY), heal + "", "green");
                         }
-                        gv.cc.addLogText("<font color='lime'>" + pc.name + " gains " + heal + " HPs" + "</font><BR>");
-                        //Do floaty text heal
-                        //gv.screenCombat.floatyTextOn = true;
-                        gv.cc.addFloatyText(new Coordinate(pc.combatLocX, pc.combatLocY), heal + "", "green");
                     }
                     #endregion
                 }
@@ -8909,16 +8935,28 @@ namespace IceBlink2
                                 heal += RandDiceRoll(thisSpellEffect.healNumOfDice, thisSpellEffect.healDie) + thisSpellEffect.healAdder;
                             }
                         }
-                        #endregion
-                        crt.hp += heal;
-                        if (crt.hp > crt.hpMax)
-                        {
-                            crt.hp = crt.hpMax;
-                        }
-                        gv.cc.addLogText("<font color='lime'>" + crt.cr_name + " gains " + heal + " HPs" + "</font><BR>");
-                        //Do floaty text heal
-                        //gv.screenCombat.floatyTextOn = true;
-                        gv.cc.addFloatyText(new Coordinate(crt.combatLocX, crt.combatLocY), heal + "", "green");
+                            #endregion
+
+                            if (thisSpellEffect.healHP)
+                            {
+                                crt.hp += heal;
+                                if (crt.hp > crt.hpMax)
+                                {
+                                    crt.hp = crt.hpMax;
+                                }
+                                gv.cc.addLogText("<font color='lime'>" + crt.cr_name + " gains " + heal + " HPs" + "</font><BR>");
+                                //Do floaty text heal
+                                //gv.screenCombat.floatyTextOn = true;
+                                gv.cc.addFloatyText(new Coordinate(crt.combatLocX, crt.combatLocY), heal + "", "green");
+                            }
+                            else
+                            {
+                                crt.sp += heal;
+                                gv.cc.addLogText("<font color='lime'>" + crt.cr_name + " gains " + heal + " SPs" + "</font><BR>");
+                                //Do floaty text heal
+                                //gv.screenCombat.floatyTextOn = true;
+                                gv.cc.addFloatyText(new Coordinate(crt.combatLocX, crt.combatLocY), heal + "", "green");
+                            }
                         #endregion
                     }
 
@@ -9241,19 +9279,34 @@ namespace IceBlink2
                                     }
                                 }
                                 #endregion
-                                pc.hp += heal;
-                                if (pc.hp > pc.hpMax)
+                                if (thisSpellEffect.healHP)
                                 {
-                                    pc.hp = pc.hpMax;
+                                    pc.hp += heal;
+                                    if (pc.hp > pc.hpMax)
+                                    {
+                                        pc.hp = pc.hpMax;
+                                    }
+                                    if (pc.hp > 0)
+                                    {
+                                        pc.charStatus = "Alive";
+                                    }
+                                    gv.cc.addLogText("<font color='lime'>" + pc.name + " gains " + heal + " HPs" + "</font><BR>");
+                                    //Do floaty text heal
+                                    //gv.screenCombat.floatyTextOn = true;
+                                    gv.cc.addFloatyText(new Coordinate(pc.combatLocX, pc.combatLocY), heal + "", "green");
                                 }
-                                if (pc.hp > 0)
+                                else
                                 {
-                                    pc.charStatus = "Alive";
+                                    pc.sp += heal;
+                                    if (pc.sp > pc.spMax)
+                                    {
+                                        pc.sp = pc.spMax;
+                                    }
+                                    gv.cc.addLogText("<font color='lime'>" + pc.name + " gains " + heal + " SPs" + "</font><BR>");
+                                    //Do floaty text heal
+                                    //gv.screenCombat.floatyTextOn = true;
+                                    gv.cc.addFloatyText(new Coordinate(pc.combatLocX, pc.combatLocY), heal + "", "green");
                                 }
-                                gv.cc.addLogText("<font color='lime'>" + pc.name + " gains " + heal + " HPs" + "</font><BR>");
-                                //Do floaty text heal
-                                //gv.screenCombat.floatyTextOn = true;
-                                gv.cc.addFloatyText(new Coordinate(pc.combatLocX, pc.combatLocY), heal + "", "green");
                             }
                             #endregion
                         }

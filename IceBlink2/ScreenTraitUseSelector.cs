@@ -16,15 +16,29 @@ namespace IceBlink2
 	    public int castingPlayerIndex = 0;
 	    private int spellSlotIndex = 0;
 	    private int slotsPerPage = 20;
-	    private List<IbbButton> btnSpellSlots = new List<IbbButton>();
-	    private IbbButton btnHelp = null;
+
+        private int maxPages = 20;
+        private int tknPageIndex = 0;
+
+        private List<IbbButton> btnSpellSlots = new List<IbbButton>();
+
+        private IbbButton btnTokensLeft = null;
+        private IbbButton btnTokensRight = null;
+        private IbbButton btnPageIndex = null;
+
+        private IbbButton btnHelp = null;
 	    private IbbButton btnSelect = null;
 	    private IbbButton btnExit = null;
 	    private string stringMessageCastSelector = "";
         private IbbHtmlTextBox description;
         public bool isInCombat = false;
-	
-	    public ScreenTraitUseSelector(Module m, GameView g) 
+
+        List<string> backupKnownOutsideCombatUsableTraitsTags = new List<string>();
+        List<string> backupKnownInCombatUsableTraitsTags = new List<string>();
+        //pc.knownOutsideCombatUsableTraitsTags
+        //knownInCombatUsableTraitsTags
+
+        public ScreenTraitUseSelector(Module m, GameView g) 
 	    {
 		    //gv.mod = m;
 		    gv = g;
@@ -32,17 +46,140 @@ namespace IceBlink2
             //Maybe add own text for traits later or generalize text in MessageCastSelector
             //stringMessageCastSelector = gv.cc.loadTextToString("data/MessageCastSelector.txt");
 	    }
-	
-	    public void setControlsStart()
+
+        public void sortTraitsForLevelUp(Player pc)
+        {
+            //clear
+            backupKnownOutsideCombatUsableTraitsTags.Clear();
+            backupKnownInCombatUsableTraitsTags.Clear();
+            
+            List<string> traitsForLearningTags = new List<string>();
+            List<TraitAllowed> traitsForLearning = new List<TraitAllowed>();
+
+            if (!isInCombat)
+            {
+                TraitAllowed tempTA = new TraitAllowed();
+
+                //add the known in battle useable traits
+                foreach (string s in pc.knownOutsideCombatUsableTraitsTags)
+                {
+                    traitsForLearningTags.Add(s);
+                }
+
+                //traitsForLearningTags
+                //sort the known in battle useable traits
+
+
+                int levelCounter = 0;
+                while (traitsForLearningTags.Count > 0)
+                {
+                    for (int i = traitsForLearningTags.Count - 1; i >= 0; i--)
+                    {
+                        foreach (TraitAllowed ta in pc.playerClass.traitsAllowed)
+                        {
+                            if (ta.associatedSpellTag == traitsForLearningTags[i])
+                            {
+                                tempTA = ta.DeepCopy();
+                                break;
+                            }
+                        }
+                        if (levelCounter == tempTA.atWhatLevelIsAvailable)
+                        {
+                            backupKnownOutsideCombatUsableTraitsTags.Add(traitsForLearningTags[i]);
+                            traitsForLearningTags.RemoveAt(i);
+                        }
+                    }
+                    levelCounter++;
+                }
+
+            }
+            //inside combat
+            else
+            {
+                TraitAllowed tempTA = new TraitAllowed();
+
+                //add the known in battle useable traits
+                foreach (string s in pc.knownInCombatUsableTraitsTags)
+                {
+                    traitsForLearningTags.Add(s);
+                }
+             
+                //traitsForLearningTags
+                //sort the known in battle useable traits
+               
+                  
+                int levelCounter = 0;
+                while (traitsForLearningTags.Count > 0)
+                {
+                    for (int i = traitsForLearningTags.Count - 1; i >= 0; i--)
+                    {
+                        foreach (TraitAllowed ta in pc.playerClass.traitsAllowed)
+                        {
+                            if (ta.associatedSpellTag == traitsForLearningTags[i])
+                            {
+                                tempTA = ta.DeepCopy();
+                                break;
+                            }
+                        }
+                        if (levelCounter == tempTA.atWhatLevelIsAvailable)
+                        {
+                            backupKnownInCombatUsableTraitsTags.Add(traitsForLearningTags[i]);
+                            traitsForLearningTags.RemoveAt(i);
+                        }
+                    }
+                    levelCounter++;
+                }
+            }
+        }
+
+        public void setControlsStart()
 	    {			
     	    int pW = (int)((float)gv.screenWidth / 100.0f);
 		    int pH = (int)((float)gv.screenHeight / 100.0f);
 		    int padW = gv.squareSize/6;
 
-            description = new IbbHtmlTextBox(gv, 320, 100, 500, 300);
+            //description = new IbbHtmlTextBox(gv, 320, 100, 500, 300);
+            description = new IbbHtmlTextBox(gv, 3 * gv.squareSize + 2 * pW, 2 * gv.squareSize, gv.squareSize * 5, gv.squareSize * 6);
             description.showBoxBorder = false;
-		
-		    if (btnSelect == null)
+
+            //added
+            if (btnTokensLeft == null)
+            {
+                btnTokensLeft = new IbbButton(gv, 1.0f);
+                btnTokensLeft.Img = gv.cc.LoadBitmap("btn_small"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small);
+                btnTokensLeft.Img2 = gv.cc.LoadBitmap("ctrl_left_arrow"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.ctrl_left_arrow);
+                btnTokensLeft.Glow = gv.cc.LoadBitmap("btn_small_glow"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_glow);
+                btnTokensLeft.X = (int)(5 * gv.squareSize) + (3 * pW);
+                btnTokensLeft.Y = (2 * gv.squareSize);
+                btnTokensLeft.Height = (int)(gv.ibbheight * gv.screenDensity);
+                btnTokensLeft.Width = (int)(gv.ibbwidthR * gv.screenDensity);
+            }
+            //added
+            if (btnPageIndex == null)
+            {
+                btnPageIndex = new IbbButton(gv, 1.0f);
+                btnPageIndex.Img = gv.cc.LoadBitmap("btn_small_off"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_off);
+                btnPageIndex.Glow = gv.cc.LoadBitmap("btn_small_glow"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_glow);
+                btnPageIndex.Text = "1/20";
+                btnPageIndex.X = (int)(6 * gv.squareSize) + (3 * pW);
+                btnPageIndex.Y = (2 * gv.squareSize);
+                btnPageIndex.Height = (int)(gv.ibbheight * gv.screenDensity);
+                btnPageIndex.Width = (int)(gv.ibbwidthR * gv.screenDensity);
+            }
+            //added
+            if (btnTokensRight == null)
+            {
+                btnTokensRight = new IbbButton(gv, 1.0f);
+                btnTokensRight.Img = gv.cc.LoadBitmap("btn_small"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small);
+                btnTokensRight.Img2 = gv.cc.LoadBitmap("ctrl_right_arrow"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.ctrl_right_arrow);
+                btnTokensRight.Glow = gv.cc.LoadBitmap("btn_small_glow"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_glow);
+                btnTokensRight.X = (int)(7f * gv.squareSize) + (3 * pW);
+                btnTokensRight.Y = (2 * gv.squareSize);
+                btnTokensRight.Height = (int)(gv.ibbheight * gv.screenDensity);
+                btnTokensRight.Width = (int)(gv.ibbwidthR * gv.screenDensity);
+            }
+
+            if (btnSelect == null)
 		    {
 			    btnSelect = new IbbButton(gv, 0.8f);
                 //add player class based label for "use" here, same in ScreenCastSelector later	
@@ -88,7 +225,7 @@ namespace IceBlink2
 			    int x = y % 5;
 			    int yy = y / 5;
 			    btnNew.X = ((x+4) * gv.squareSize) + (padW * (x+1)) + gv.oXshift;
-			    btnNew.Y = (1 + yy) * gv.squareSize + (padW * yy);
+			    btnNew.Y = (3 + yy) * gv.squareSize + (padW * yy + padW);
 
                 btnNew.Height = (int)(gv.ibbheight * gv.screenDensity);
                 btnNew.Width = (int)(gv.ibbwidthR * gv.screenDensity);	
@@ -110,8 +247,12 @@ namespace IceBlink2
                         btn.glowOn = false;
                     }
 
+                    sortTraitsForLevelUp(pc);
+
                     //show only traits known by this pc and usable in combat
-                    if (cntSlot < pc.knownInCombatUsableTraitsTags.Count)
+                    //if (cntSlot < pc.knownInCombatUsableTraitsTags.Count)
+                    //{
+                    if ((cntSlot + (tknPageIndex * slotsPerPage)) < backupKnownInCombatUsableTraitsTags.Count)
                     {
                         //TraitAllowed sa = pc.knownInCombatUsableTraitsTags[cntSlot];
                         //Trait sp = gv.mod.getTraitByTag(sa.tag);
@@ -119,10 +260,14 @@ namespace IceBlink2
                         //TraitAllowed sa = pc.knownInCombatUsableTraitsTags[cntSlot];
 
                         //the system assumes that traits have an associatedSpellTag property nd that these associted spell tags are written into knownInCombatUsableTraitsTags
-                        Spell sp = gv.mod.getSpellByTag(pc.knownInCombatUsableTraitsTags[cntSlot]);
+                        Spell sp = gv.mod.getSpellByTag(backupKnownInCombatUsableTraitsTags[cntSlot + (tknPageIndex * slotsPerPage)]);
+                        //TraitAllowed ta = backupTraitsAllowed[cntSlot + (tknPageIndex * slotsPerPage)];
+                        //Trait tr = gv.mod.getTraitByTag(ta.tag);
 
                         //best sue same image for trait and spell, traitImage and spellImage should align then
+                        gv.cc.DisposeOfBitmap(ref btn.Img2);
                         btn.Img2 = gv.cc.LoadBitmap(sp.spellImage);
+                        gv.cc.DisposeOfBitmap(ref btn.Img2Off);
                         btn.Img2Off = gv.cc.LoadBitmap(sp.spellImage + "_off");
 
                         //if (pc.knownSpellsTags.Contains(sp.tag))
@@ -177,17 +322,22 @@ namespace IceBlink2
                         btn.glowOn = false;
                     }
 
+                    sortTraitsForLevelUp(pc);
+
                     //show only traits known by this pc and usable in combat
-                    if (cntSlot < pc.knownOutsideCombatUsableTraitsTags.Count)
+                    //if (cntSlot < pc.knownOutsideCombatUsableTraitsTags.Count)
+                    //{
+                    if ((cntSlot + (tknPageIndex * slotsPerPage)) < backupKnownOutsideCombatUsableTraitsTags.Count)
                     {
                         //TraitAllowed sa = pc.knownInCombatUsableTraitsTags[cntSlot];
                         //Trait sp = gv.mod.getTraitByTag(sa.tag);
 
                         //TraitAllowed sa = pc.knownInCombatUsableTraitsTags[cntSlot];
                         //Spell sp = gv.mod.getSpellByTag(pc.knownOutsideCombatUsableTraitsTags[cntSlot]);
-                        
+
                         //the system assumes that traits have an associatedSpellTag property nd that these associted spell tags are written into knownInCombatUsableTraitsTags
-                        Spell sp = gv.mod.getSpellByTag(pc.knownOutsideCombatUsableTraitsTags[cntSlot]);
+                        //Spell sp = gv.mod.getSpellByTag(pc.knownOutsideCombatUsableTraitsTags[cntSlot]);
+                        Spell sp = gv.mod.getSpellByTag(backupKnownOutsideCombatUsableTraitsTags[cntSlot + (tknPageIndex * slotsPerPage)]);
 
                         btn.Img2 = gv.cc.LoadBitmap(sp.spellImage);
                         btn.Img2Off = gv.cc.LoadBitmap(sp.spellImage + "_off");
@@ -274,12 +424,18 @@ namespace IceBlink2
             //Spell sp = GetCurrentlySelectedSpell();
             Player pc = getCastingPlayer();
 
+            //here insert
+            sortTraitsForLevelUp(pc);
+
             //let's do in combat first
             if (isInCombat)
             {
-                if (spellSlotIndex < pc.knownInCombatUsableTraitsTags.Count)
+                //+(tknPageIndex * slotsPerPage)
+                //if (spellSlotIndex < pc.knownInCombatUsableTraitsTags.Count)
+                if ((spellSlotIndex + (tknPageIndex * slotsPerPage)) < backupKnownInCombatUsableTraitsTags.Count)
                 {
-                    Spell sp = gv.mod.getSpellByTag(pc.knownInCombatUsableTraitsTags[spellSlotIndex]);
+                    //Spell sp = gv.mod.getSpellByTag(pc.knownInCombatUsableTraitsTags[spellSlotIndex]);
+                    Spell sp = gv.mod.getSpellByTag(backupKnownInCombatUsableTraitsTags[spellSlotIndex + (tknPageIndex * slotsPerPage)]);
                     //if (pc.knownSpellsTags.Contains(sp.tag))
                     //{
                     //if (inCombat) //all spells can be used in combat
@@ -415,9 +571,12 @@ namespace IceBlink2
             //copy from above
             else
             {
-                if (spellSlotIndex < pc.knownOutsideCombatUsableTraitsTags.Count)
+                //if (spellSlotIndex < pc.knownOutsideCombatUsableTraitsTags.Count)
+                //{
+                if ((spellSlotIndex + (tknPageIndex * slotsPerPage)) < backupKnownOutsideCombatUsableTraitsTags.Count)
                 {
-                    Spell sp = gv.mod.getSpellByTag(pc.knownOutsideCombatUsableTraitsTags[spellSlotIndex]);
+                    //Spell sp = gv.mod.getSpellByTag(pc.knownOutsideCombatUsableTraitsTags[spellSlotIndex]);
+                    Spell sp = gv.mod.getSpellByTag(backupKnownOutsideCombatUsableTraitsTags[spellSlotIndex + (tknPageIndex * slotsPerPage)]);
                     //if (pc.knownSpellsTags.Contains(sp.tag))
                     //{
                     //if (inCombat) //all spells can be used in combat
@@ -556,7 +715,29 @@ namespace IceBlink2
 			
 			    if (cntSlot == spellSlotIndex) {btn.glowOn = true;}
 			    else {btn.glowOn = false;}
-			
+
+                //code for turning buttons off
+                //purpose
+
+                if ((cntSlot + (tknPageIndex * slotsPerPage)) < backupKnownInCombatUsableTraitsTags.Count)
+                {
+                    Spell sp = gv.mod.getSpellByTag(backupKnownInCombatUsableTraitsTags[cntSlot + (tknPageIndex * slotsPerPage)]);
+                    //TraitAllowed ta = backupTraitsAllowed[cntSlot + (tknPageIndex * slotsPerPage)];
+                    gv.cc.DisposeOfBitmap(ref btn.Img2);
+                    btn.Img2 = gv.cc.LoadBitmap(sp.spellImage);
+                    gv.cc.DisposeOfBitmap(ref btn.Img2Off);
+                    btn.Img2Off = gv.cc.LoadBitmap(sp.spellImage + "_off");
+                    btn.btnState = buttonState.Normal;
+                }
+                else
+                {
+                    gv.cc.DisposeOfBitmap(ref btn.Img);
+                    btn.Img = gv.cc.LoadBitmap("btn_small_off");
+                    btn.Img2 = null;
+                    btn.Img2Off = null;
+                    btn.Img3 = null;
+                    btn.btnState = buttonState.Off;
+                }
 			    		
 			    btn.Draw();
 			    cntSlot++;
@@ -571,12 +752,14 @@ namespace IceBlink2
             //Spell sp = GetCurrentlySelectedSpell();
             if (isInCombat)
             {
-                if (spellSlotIndex < pc.knownInCombatUsableTraitsTags.Count)
+                //sortTraitsForLevelUp(pc);
+                if ((spellSlotIndex + (tknPageIndex * slotsPerPage)) < backupKnownInCombatUsableTraitsTags.Count)
                 {
-                    Spell sp = gv.mod.getSpellByTag(pc.knownInCombatUsableTraitsTags[spellSlotIndex]);
+                    //newSpellTag_10948
+                    Spell sp = gv.mod.getSpellByTag(backupKnownInCombatUsableTraitsTags[spellSlotIndex + (tknPageIndex * slotsPerPage)]);
                     //SpellAllowed sa = getCastingPlayer().playerClass.getSpellAllowedByTag(sp.tag);
-                    string textToSpan = "<u>Description</u>" + "<BR>";
-                    textToSpan += "<b><i><big>" + sp.name + "</big></i></b><BR>";
+                    //string textToSpan = "<u>Description</u>" + "<BR>";
+                    string textToSpan = "<b><big>" + sp.name + "</big></b><BR>";
                     textToSpan += "SP Cost: " + sp.costSP + "<BR>";
                     textToSpan += "HP Cost: " + sp.costHP + "<BR>";
                     textToSpan += "Target Range: " + sp.range + "<BR>";
@@ -608,7 +791,7 @@ namespace IceBlink2
                     textToSpan += sp.description;
 
                     description.tbXloc = 11 * gv.squareSize;
-                    description.tbYloc = 1 * gv.squareSize;
+                    description.tbYloc = 2 * gv.squareSize;
                     description.tbWidth = pW * 40;
                     description.tbHeight = pH * 80;
                     description.logLinesList.Clear();
@@ -618,9 +801,10 @@ namespace IceBlink2
             }
             else
             {
-                if (spellSlotIndex < pc.knownOutsideCombatUsableTraitsTags.Count)
+                //sortTraitsForLevelUp(pc);
+                if ((spellSlotIndex + (tknPageIndex * slotsPerPage)) < backupKnownOutsideCombatUsableTraitsTags.Count)
                 {
-                    Spell sp = gv.mod.getSpellByTag(pc.knownOutsideCombatUsableTraitsTags[spellSlotIndex]);
+                    Spell sp = gv.mod.getSpellByTag(backupKnownOutsideCombatUsableTraitsTags[spellSlotIndex + (tknPageIndex * slotsPerPage)]);
                     string textToSpan = "<u>Description</u>" + "<BR>";
                     textToSpan += "<b><i><big>" + sp.name + "</big></i></b><BR>";
                     textToSpan += "SP Cost: " + sp.costSP + "<BR>";
@@ -644,14 +828,20 @@ namespace IceBlink2
             btnHelp.Draw();	
 		    btnExit.Draw();	
 		    btnSelect.Draw();
+            btnTokensLeft.Draw();
+            btnTokensRight.Draw();
+            btnPageIndex.Draw();
         }
         public void onTouchCastSelector(MouseEventArgs e, MouseEventType.EventType eventType, bool inCombat)
 	    {
 		    btnHelp.glowOn = false;
 		    btnExit.glowOn = false;
 		    btnSelect.glowOn = false;
-		
-		    switch (eventType)
+            btnTokensLeft.glowOn = false;
+            btnTokensRight.glowOn = false;
+            btnPageIndex.glowOn = false;
+
+            switch (eventType)
 		    {
 		    case MouseEventType.EventType.MouseDown:
 		    case MouseEventType.EventType.MouseMove:
@@ -669,7 +859,19 @@ namespace IceBlink2
 			    {
 				    btnExit.glowOn = true;
 			    }
-			    break;
+                    else if (btnTokensLeft.getImpact(x, y))
+                    {
+                        btnTokensLeft.glowOn = true;
+                    }
+                    else if (btnTokensRight.getImpact(x, y))
+                    {
+                        btnTokensRight.glowOn = true;
+                    }
+                    else if (btnPageIndex.getImpact(x, y))
+                    {
+                        btnPageIndex.glowOn = true;
+                    }
+                    break;
 			
 		    case MouseEventType.EventType.MouseUp:
 			    x = (int) e.X;
@@ -679,15 +881,36 @@ namespace IceBlink2
 			    //btnInfo.glowOn = false;
 			    btnExit.glowOn = false;
 			    btnSelect.glowOn = false;
-			
-			    for (int j = 0; j < slotsPerPage; j++)
+                    btnHelp.glowOn = false;
+                    btnExit.glowOn = false;
+                    btnSelect.glowOn = false;
+
+                    for (int j = 0; j < slotsPerPage; j++)
 			    {
 				    if (btnSpellSlots[j].getImpact(x, y))
 				    {
 					    spellSlotIndex = j;
 				    }
 			    }
-			    if (btnHelp.getImpact(x, y))
+                    if (btnTokensLeft.getImpact(x, y))
+                    {
+                        if (tknPageIndex > 0)
+                        {
+                            tknPageIndex--;
+                            btnPageIndex.Text = (tknPageIndex + 1) + "/" + maxPages;
+                        }
+                    }
+                    else if (btnTokensRight.getImpact(x, y))
+                    {
+                        if (tknPageIndex < maxPages)
+                        {
+                            tknPageIndex++;
+                            btnPageIndex.Text = (tknPageIndex + 1) + "/" + maxPages;
+                        }
+                    }
+
+
+                 else if (btnHelp.getImpact(x, y))
 			    {
 				    tutorialMessageCastingScreen();
 			    }
@@ -727,6 +950,10 @@ namespace IceBlink2
     	    btnHelp = null;
     	    btnSelect = null;
     	    btnExit = null;
+            btnTokensLeft = null;
+            btnTokensRight = null;
+            btnPageIndex = null;
+                
 	    }
 
         public void doSpellTarget(Player pc, Player target)
@@ -757,9 +984,9 @@ namespace IceBlink2
 
             if (inCombat)
             {
-                if (spellSlotIndex < pc.knownInCombatUsableTraitsTags.Count)
+                if ((spellSlotIndex + (tknPageIndex * slotsPerPage)) < backupKnownInCombatUsableTraitsTags.Count)
                 {
-                    Spell sp = gv.mod.getSpellByTag(pc.knownInCombatUsableTraitsTags[spellSlotIndex]);
+                    Spell sp = gv.mod.getSpellByTag(backupKnownInCombatUsableTraitsTags[spellSlotIndex + (tknPageIndex * slotsPerPage)]);
 
                     //enter check for workability based on entries in pcTags
                     bool traitWorksForThisPC = false;
@@ -858,9 +1085,9 @@ namespace IceBlink2
                 //only cast if useable on adventure maps
                 //if ((GetCurrentlySelectedSpell().useableInSituation.Equals("Always")) || (GetCurrentlySelectedSpell().useableInSituation.Equals("OutOfCombat")))
                 //{
-                if (spellSlotIndex < pc.knownOutsideCombatUsableTraitsTags.Count)
+                if (spellSlotIndex + (tknPageIndex * slotsPerPage) < backupKnownOutsideCombatUsableTraitsTags.Count)
                 {
-                    Spell sp = gv.mod.getSpellByTag(pc.knownOutsideCombatUsableTraitsTags[spellSlotIndex]);
+                    Spell sp = gv.mod.getSpellByTag(backupKnownOutsideCombatUsableTraitsTags[spellSlotIndex + (tknPageIndex * slotsPerPage)]);
 
                     //pcTags
                     //enter check for workability based on entries in pcTags
@@ -1012,17 +1239,21 @@ namespace IceBlink2
                     }
                 }
             }
-		}          
-    
+		}
+
+        //not used
         public Spell GetCurrentlySelectedSpell()
 	    {
     	    SpellAllowed sa = getCastingPlayer().playerClass.spellsAllowed[spellSlotIndex];
 		    return gv.mod.getSpellByTag(sa.tag);
 	    }
+
+        //no used
 	    public bool isSelectedSpellSlotInKnownSpellsRange()
 	    {
 		    return spellSlotIndex < getCastingPlayer().playerClass.spellsAllowed.Count;
 	    }	
+
 	    public int getLevelAvailable(String tag)
 	    {
 		    SpellAllowed sa = getCastingPlayer().playerClass.getSpellAllowedByTag(tag);

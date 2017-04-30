@@ -6065,6 +6065,66 @@ namespace IceBlink2
                 }
                 //IbRect dst = new IbRect((int)this.position.X, (int)(this.position.Y + randY), (int)((gv.squareSize * this.scaleX) + randX), (int)(gv.squareSize * this.scaleY));
 
+                int width = gv.cc.GetFromBitmapList(crt.cr_tokenFilename).PixelSize.Width;
+                int height = gv.cc.GetFromBitmapList(crt.cr_tokenFilename).PixelSize.Height;
+                //1=normal, 2=wide, 3=tall, 4=large  
+                int crtSize = crt.creatureSize;
+                IbRectF src = new IbRectF(0, 0, width, height / 2);
+
+                if ((creatureToAnimate != null) && (creatureToAnimate == crt))
+                {
+                    //blockAnimationBridge = true;
+                    attackAnimationDelayCounter++;
+                    if (attackAnimationDelayCounter >= (int)(crt.token.PixelSize.Height / 100f - 1))
+                    {
+                        attackAnimationFrameCounter++;
+                        attackAnimationDelayCounter = 0;
+                    }
+                    int maxUsableCounterValue = (int)(crt.token.PixelSize.Height / 100f - 1);
+                    if ((crtSize == 3) || (crtSize == 4))
+                    {
+                        maxUsableCounterValue = (int)(crt.token.PixelSize.Height / 200f - 1);
+                    }
+                    if (attackAnimationFrameCounter > maxUsableCounterValue)
+                    {
+                        attackAnimationFrameCounter = maxUsableCounterValue;
+                        blockAnimationBridge = false;
+                    }
+                    src = new IbRectF(0, crt.token.PixelSize.Width * attackAnimationFrameCounter, crt.token.PixelSize.Width, crt.token.PixelSize.Width);
+                    //src = new IbRect(0, height / 2, width, height / 2);
+                }
+
+                //normal
+                IbRectF dst = new IbRectF(getPixelLocX(crt.combatLocX) + crt.roamDistanceX + crt.glideAdderX, getPixelLocY(crt.combatLocY) + crt.roamDistanceY + crt.glideAdderY, gv.squareSize, gv.squareSize);
+
+                //wide  
+                if (crtSize == 2)
+                {
+                    dst = new IbRectF(getPixelLocX(crt.combatLocX) + crt.roamDistanceX + crt.glideAdderX, getPixelLocY(crt.combatLocY) + crt.roamDistanceY + crt.glideAdderY, gv.squareSize * 2, gv.squareSize);
+                }
+
+                //tall  
+                if (crtSize == 3)
+                {
+                    //dst = new IbRect(getPixelLocX(crt.combatLocX) - (gv.squareSize / 2), getPixelLocY(crt.combatLocY) - (gv.squareSize / 2), gv.squareSize * 2, gv.squareSize * 2);
+                    dst = new IbRectF(getPixelLocX(crt.combatLocX) + crt.roamDistanceX + crt.glideAdderX, getPixelLocY(crt.combatLocY) + crt.roamDistanceY + crt.glideAdderY, gv.squareSize, gv.squareSize * 2);
+                }
+
+                //large  
+                if (crtSize == 4)
+                {
+                    dst = new IbRectF(getPixelLocX(crt.combatLocX) + crt.roamDistanceX + crt.glideAdderX, getPixelLocY(crt.combatLocY) + crt.roamDistanceY + crt.glideAdderY, gv.squareSize * 2, gv.squareSize * 2);
+                }
+
+                //if (crt.token.PixelSize.Width > 100)
+                //{
+                //dst = new IbRect(getPixelLocX(crt.combatLocX) - (gv.squareSize / 2), getPixelLocY(crt.combatLocY) - (gv.squareSize / 2), gv.squareSize * 2, gv.squareSize * 2);
+                //}
+
+                gv.DrawBitmap(crt.token, src, dst, !crt.combatFacingLeft);
+
+                /*
+                //start
                 IbRectF dst = new IbRectF(getPixelLocX(crt.combatLocX) + crt.roamDistanceX + crt.glideAdderX, getPixelLocY(crt.combatLocY) + crt.roamDistanceY + crt.glideAdderY, gv.squareSize, gv.squareSize);
                 if (crt.token.PixelSize.Width > 100)
                 {
@@ -6124,6 +6184,10 @@ namespace IceBlink2
                     //gv.cc.addLogText("lime", "attack animation frame counter is:" + attackAnimationFrameCounter.ToString());
                 }
                 gv.DrawBitmap(crt.token, src, dst, !crt.combatFacingLeft);
+
+                //end
+                */
+
                 if (!animationsOn)
                 {
                     foreach (Effect ef in crt.cr_effectsList)

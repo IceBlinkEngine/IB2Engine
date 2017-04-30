@@ -40,6 +40,8 @@ namespace IceBlink2
         public List<string> knownTraitsTags = new List<string>();
         public List<string> learningSpellsTags = new List<string>();  
         public List<string> learningTraitsTags = new List<string>();
+        public List<Effect> learningEffects = new List<Effect>();
+
 
         public List<string> knownUsableTraitsTags = new List<string>();
         public List<string> knownInCombatUsableTraitsTags = new List<string>();
@@ -339,6 +341,58 @@ namespace IceBlink2
 
             return false;
         }
+
+        //new method for checking attribute requiremnts of traits
+        public bool checkAttributeRequirementsOfTrait(Player pc, Trait t)
+        {
+
+            int tempSTR = 0;
+            int tempDEX = 0;
+            int tempCON = 0;
+            int tempINT = 0;
+            int tempWIS = 0;
+            int tempCHA = 0;
+
+            //this.learningTraitsTags.Contains(tr.prerequisiteTrait)
+            foreach (Effect e in pc.learningEffects)
+            {
+                tempSTR += e.modifyStr;
+                tempDEX += e.modifyDex;
+                tempCON += e.modifyCon;
+                tempINT += e.modifyInt;
+                tempWIS += e.modifyWis;
+                tempCHA += e.modifyCha;
+            }
+
+            if (pc.strength + tempSTR < t.requiredStrength)
+            {
+                return false;
+            }
+            if (pc.dexterity + tempDEX < t.requiredDexterity)
+            {
+                return false;
+            }
+            if (pc.constitution + tempCON < t.requiredConstitution)
+            {
+                return false;
+            }
+            if (pc.intelligence + tempINT < t.requiredIntelligence)
+            {
+                return false;
+            }
+            if (pc.wisdom + tempWIS < t.requiredWisdom)
+            {
+                return false;
+            }
+            if (pc.charisma + tempCHA < t.requiredCharisma)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+
         public List<string> getTraitsToLearn(Module mod)
         {
             List<string> traitTagsList = new List<string>();
@@ -355,14 +409,20 @@ namespace IceBlink2
                             if (!tr.prerequisiteTrait.Equals("none"))
                             {
                                 //requires prereq so check if you have it
-                                if (this.knownTraitsTags.Contains(tr.prerequisiteTrait))
+                                if (this.knownTraitsTags.Contains(tr.prerequisiteTrait) || this.learningTraitsTags.Contains(tr.prerequisiteTrait))
                                 {
-                                    traitTagsList.Add(ta.tag);
+                                    if (checkAttributeRequirementsOfTrait(this, tr))
+                                    {
+                                        traitTagsList.Add(ta.tag);
+                                    }
                                 }
                             }
                             else //does not require prereq so add to list
                             {
-                                traitTagsList.Add(ta.tag);
+                                if (checkAttributeRequirementsOfTrait(this, tr))
+                                {
+                                    traitTagsList.Add(ta.tag);
+                                }
                             }
                         }
                     }

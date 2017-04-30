@@ -460,50 +460,76 @@ namespace IceBlink2
                         {
                             try
 		                    {
-		                		itRef = GetCurrentlySelectedItemRefs();
+                                Player pc = gv.mod.playerList[gv.screenCombat.currentPlayerIndex];
+                                itRef = GetCurrentlySelectedItemRefs();
 		            	        it = gv.mod.getItemByResRefForInfo(itRef.resref);
-		                		if (inCombat)
-		                		{
-                                    //check to see if use IBScript first
-		                			if (!it.onUseItem.Equals("none"))
-		                			{
-			                			Player pc = gv.mod.playerList[gv.screenCombat.currentPlayerIndex];
-			                			doItemInventoryScriptBasedOnFilename(pc);
-			                			gv.screenCombat.currentCombatMode = "move";
-			                			gv.screenType = "combat";
-			                			gv.screenCombat.endPcTurn(false);
-		                			}
-                                    else if (!it.onUseItemIBScript.Equals("none"))
-		                			{
-		                				doItemInventoryIBScript(gv.screenCombat.currentPlayerIndex);
-		                				gv.screenCombat.currentCombatMode = "move";
-			                			gv.screenType = "combat";
-			                			gv.screenCombat.endPcTurn(false);
-		                			}
-                                    else if (!it.onUseItemCastSpellTag.Equals("none"))
+                                bool isClassBound = false;
+                                foreach (PlayerClass pClass in gv.mod.modulePlayerClassList)
+                                {
+                                    foreach (ItemRefs iRef in pClass.itemsAllowed)
                                     {
-                                        doItemInventoryCastSpellCombat(gv.screenCombat.currentPlayerIndex);
-                                        gv.screenCombat.currentCombatMode = "cast";
-                                        gv.screenType = "combat";
+                                        if (iRef == itRef)
+                                        {
+                                            isClassBound = true;
+                                            break;
+                                        }
+                                    }
+                                    if (isClassBound)
+                                    {
+                                        break;
                                     }
                                 }
-		                		else
-		                		{
-                                    //check to see if use IBScript first
-		                			if (!it.onUseItem.Equals("none"))
-		                			{
-			                			Player pc = gv.mod.playerList[itSel2.selectedIndex - 1];
-			                			doItemInventoryScriptBasedOnFilename(pc);
-		                			}
-                                    else if (!it.onUseItemIBScript.Equals("none"))
-		                			{
-                                        doItemInventoryIBScript(itSel2.selectedIndex - 1);
-		                			}
-                                    else if (!it.onUseItemCastSpellTag.Equals("none"))
+                                if (pc.playerClass.containsItemRefsWithResRef(itRef.resref) || !isClassBound)
+                                {
+                                    if (inCombat)
                                     {
-                                        bool outsideCombat = !inCombat;
-                                        doItemInventoryCastSpell(itSel2.selectedIndex - 1, outsideCombat);
+                                        //check to see if use IBScript first
+                                        if (!it.onUseItem.Equals("none"))
+                                        {
+                                            //Player pc = gv.mod.playerList[gv.screenCombat.currentPlayerIndex];
+                                            doItemInventoryScriptBasedOnFilename(pc);
+                                            gv.screenCombat.currentCombatMode = "move";
+                                            gv.screenType = "combat";
+                                            gv.screenCombat.endPcTurn(false);
+                                        }
+                                        else if (!it.onUseItemIBScript.Equals("none"))
+                                        {
+                                            doItemInventoryIBScript(gv.screenCombat.currentPlayerIndex);
+                                            gv.screenCombat.currentCombatMode = "move";
+                                            gv.screenType = "combat";
+                                            gv.screenCombat.endPcTurn(false);
+                                        }
+                                        else if (!it.onUseItemCastSpellTag.Equals("none"))
+                                        {
+                                            doItemInventoryCastSpellCombat(gv.screenCombat.currentPlayerIndex);
+                                            gv.screenCombat.currentCombatMode = "cast";
+                                            gv.screenType = "combat";
+                                        }
                                     }
+                                    //outside combat
+                                    else
+                                    {
+                                        //check to see if use IBScript first
+                                        if (!it.onUseItem.Equals("none"))
+                                        {
+                                            pc = gv.mod.playerList[itSel2.selectedIndex - 1];
+                                            doItemInventoryScriptBasedOnFilename(pc);
+                                        }
+                                        else if (!it.onUseItemIBScript.Equals("none"))
+                                        {
+                                            doItemInventoryIBScript(itSel2.selectedIndex - 1);
+                                        }
+                                        else if (!it.onUseItemCastSpellTag.Equals("none"))
+                                        {
+                                            bool outsideCombat = !inCombat;
+                                            doItemInventoryCastSpell(itSel2.selectedIndex - 1, outsideCombat);
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    //item not allowed for class
+                                    IBMessageBox.Show(gv, "The item cannot be used by this player.");
                                 }
 		                    }
 		                    catch (Exception ex)

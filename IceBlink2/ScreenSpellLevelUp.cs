@@ -58,7 +58,7 @@ namespace IceBlink2
 		    if (btnSelect == null)
 		    {
 			    btnSelect = new IbbButton(gv, 0.8f);	
-			    btnSelect.Text = "LEARN SELECTED SPELL";
+			    btnSelect.Text = "LEARN SELECTED CHOICE";
 			    btnSelect.Img = gv.cc.LoadBitmap("btn_large"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_large);
 			    btnSelect.Glow = gv.cc.LoadBitmap("btn_large_glow"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_large_glow);
                 btnSelect.X = (gv.screenWidth / 2) - (int)(gv.ibbwidthL * gv.screenDensity / 2.0f);
@@ -351,6 +351,7 @@ namespace IceBlink2
                             gv.screenParty.traitGained = "";
                             gv.screenParty.spellGained = "";
                             pc.learningTraitsTags.Clear();
+                            pc.learningEffects.Clear();
                             pc.learningSpellsTags.Clear();
                             spellToLearnIndex = 1;
                             gv.PlaySound("btn_click");
@@ -624,7 +625,7 @@ namespace IceBlink2
 
                             //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
                         }
-                            pc.learningTraitsTags.Clear();
+                            //pc.learningTraitsTags.Clear();
                             foreach (string s in pc.learningSpellsTags)
                             {
                                 pc.knownSpellsTags.Add(s);
