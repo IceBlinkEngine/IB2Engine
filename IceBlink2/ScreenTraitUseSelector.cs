@@ -718,25 +718,51 @@ namespace IceBlink2
 
                 //code for turning buttons off
                 //purpose
-
-                if ((cntSlot + (tknPageIndex * slotsPerPage)) < backupKnownInCombatUsableTraitsTags.Count)
+                if (isInCombat)
                 {
-                    Spell sp = gv.mod.getSpellByTag(backupKnownInCombatUsableTraitsTags[cntSlot + (tknPageIndex * slotsPerPage)]);
-                    //TraitAllowed ta = backupTraitsAllowed[cntSlot + (tknPageIndex * slotsPerPage)];
-                    gv.cc.DisposeOfBitmap(ref btn.Img2);
-                    btn.Img2 = gv.cc.LoadBitmap(sp.spellImage);
-                    gv.cc.DisposeOfBitmap(ref btn.Img2Off);
-                    btn.Img2Off = gv.cc.LoadBitmap(sp.spellImage + "_off");
-                    btn.btnState = buttonState.Normal;
+                    if ((cntSlot + (tknPageIndex * slotsPerPage)) < backupKnownInCombatUsableTraitsTags.Count)
+                    {
+                        Spell sp = gv.mod.getSpellByTag(backupKnownInCombatUsableTraitsTags[cntSlot + (tknPageIndex * slotsPerPage)]);
+                        //TraitAllowed ta = backupTraitsAllowed[cntSlot + (tknPageIndex * slotsPerPage)];
+                        gv.cc.DisposeOfBitmap(ref btn.Img2);
+                        btn.Img2 = gv.cc.LoadBitmap(sp.spellImage);
+                        gv.cc.DisposeOfBitmap(ref btn.Img2Off);
+                        btn.Img2Off = gv.cc.LoadBitmap(sp.spellImage + "_off");
+                        btn.btnState = buttonState.Normal;
+                    }
+                    else
+                    {
+                        gv.cc.DisposeOfBitmap(ref btn.Img);
+                        btn.Img = gv.cc.LoadBitmap("btn_small_off");
+                        btn.Img2 = null;
+                        btn.Img2Off = null;
+                        btn.Img3 = null;
+                        btn.btnState = buttonState.Off;
+                    }
                 }
+
+                //outside combat
                 else
                 {
-                    gv.cc.DisposeOfBitmap(ref btn.Img);
-                    btn.Img = gv.cc.LoadBitmap("btn_small_off");
-                    btn.Img2 = null;
-                    btn.Img2Off = null;
-                    btn.Img3 = null;
-                    btn.btnState = buttonState.Off;
+                    if ((cntSlot + (tknPageIndex * slotsPerPage)) < backupKnownOutsideCombatUsableTraitsTags.Count)
+                    {
+                        Spell sp = gv.mod.getSpellByTag(backupKnownOutsideCombatUsableTraitsTags[cntSlot + (tknPageIndex * slotsPerPage)]);
+                        //TraitAllowed ta = backupTraitsAllowed[cntSlot + (tknPageIndex * slotsPerPage)];
+                        gv.cc.DisposeOfBitmap(ref btn.Img2);
+                        btn.Img2 = gv.cc.LoadBitmap(sp.spellImage);
+                        gv.cc.DisposeOfBitmap(ref btn.Img2Off);
+                        btn.Img2Off = gv.cc.LoadBitmap(sp.spellImage + "_off");
+                        btn.btnState = buttonState.Normal;
+                    }
+                    else
+                    {
+                        gv.cc.DisposeOfBitmap(ref btn.Img);
+                        btn.Img = gv.cc.LoadBitmap("btn_small_off");
+                        btn.Img2 = null;
+                        btn.Img2Off = null;
+                        btn.Img3 = null;
+                        btn.btnState = buttonState.Off;
+                    }
                 }
 			    		
 			    btn.Draw();
@@ -816,7 +842,7 @@ namespace IceBlink2
                     textToSpan += sp.description;
 
                     description.tbXloc = 11 * gv.squareSize;
-                    description.tbYloc = 1 * gv.squareSize;
+                    description.tbYloc = 2 * gv.squareSize;
                     description.tbWidth = pW * 40;
                     description.tbHeight = pH * 80;
                     description.logLinesList.Clear();
@@ -881,9 +907,9 @@ namespace IceBlink2
 			    //btnInfo.glowOn = false;
 			    btnExit.glowOn = false;
 			    btnSelect.glowOn = false;
-                    btnHelp.glowOn = false;
-                    btnExit.glowOn = false;
-                    btnSelect.glowOn = false;
+                    btnTokensLeft.glowOn = false;
+                    btnTokensRight.glowOn = false;
+                    btnPageIndex.glowOn = false;
 
                     for (int j = 0; j < slotsPerPage; j++)
 			    {

@@ -17,8 +17,19 @@ namespace IceBlink2
         public int castingPlayerIndex = 0;
 	    private int spellSlotIndex = 0;
 	    private int slotsPerPage = 20;
-	    private List<IbbButton> btnSpellSlots = new List<IbbButton>();
-	    private IbbButton btnHelp = null;
+
+        //added(1)
+        private int maxPages = 20;
+        private int tknPageIndex = 0;
+
+        private List<IbbButton> btnSpellSlots = new List<IbbButton>();
+
+        //added(3)
+        private IbbButton btnTokensLeft = null;
+        private IbbButton btnTokensRight = null;
+        private IbbButton btnPageIndex = null;
+
+        private IbbButton btnHelp = null;
 	    private IbbButton btnSelect = null;
 	    private IbbButton btnExit = null;
 	    List<string> spellsToLearnTagsList = new List<string>();
@@ -27,9 +38,10 @@ namespace IceBlink2
         public bool isInCombat = false;
         private string stringMessageSpellLevelUp = "";
         private IbbHtmlTextBox description;
-	
-	
-	    public ScreenSpellLevelUp(Module m, GameView g) 
+
+        List<SpellAllowed> backupSpellsAllowed = new List<SpellAllowed>();
+
+        public ScreenSpellLevelUp(Module m, GameView g) 
 	    {
 		    //gv.mod = m;
 		    gv = g;
@@ -45,8 +57,308 @@ namespace IceBlink2
             isInCombat = inCombat;
             spellToLearnIndex = 1;
         }
-	
-	    public void setControlsStart()
+
+        public void sortSpellsForLevelUp(Player pc)
+        {
+            //clear 
+            backupSpellsAllowed.Clear();
+            List<string> spellsForLearningTags = new List<string>();
+            List<SpellAllowed> spellsForLearning = new List<SpellAllowed>();
+
+            if (!infoOnly)
+            {
+                //add the unknown available traits first
+                spellsForLearningTags = pc.getSpellsToLearn();
+                foreach (string s in spellsForLearningTags)
+                {
+                    foreach (SpellAllowed ta in pc.playerClass.spellsAllowed)
+                    {
+                        if (ta.tag == s)
+                        {
+                            spellsForLearning.Add(ta);
+                        }
+                    }
+                }
+
+                //sort the unknwon, available traits
+                int levelCounter = 0;
+                while (spellsForLearning.Count > 0)
+                {
+                    for (int i = spellsForLearning.Count - 1; i >= 0; i--)
+                    {
+                        if (levelCounter == spellsForLearning[i].atWhatLevelIsAvailable)
+                        {
+                            backupSpellsAllowed.Add(spellsForLearning[i]);
+                            spellsForLearning.RemoveAt(i);
+                        }
+                    }
+                    levelCounter++;
+                }
+
+                //add the unkown, not yet available traits
+                foreach (SpellAllowed ta in pc.playerClass.spellsAllowed)
+                {
+                    bool notKnownYet = true;
+
+                    //not hidden
+                    if (!ta.allow)
+                    {
+                        //do not show the "hidden" traits that require special learning here
+                        notKnownYet = false;
+                    }
+
+                    //not available
+                    if (ta.atWhatLevelIsAvailable <= pc.classLevel)
+                    {
+                        //Spell tr = gv.mod.getSpellByTag(ta.tag);
+                        notKnownYet = false;
+                    }
+                        //not available(attribues, prequisite trait)
+                        //attributes
+                        /*
+                        if (checkAttributeRequirementsOfTrait(pc, tr))
+                        {
+                            //prerequisite traits
+                            if (!tr.prerequisiteTrait.Equals("none"))
+                            {
+                                //requires prereq so check if you have it
+                                if (pc.knownTraitsTags.Contains(tr.prerequisiteTrait) || pc.learningTraitsTags.Contains(tr.prerequisiteTrait))
+                                {
+                                    notKnownYet = false;
+                                }
+                            }
+                            else
+                            {
+                                notKnownYet = false;
+                            }
+                        }
+                        */
+                        //not known
+                        foreach (string s in pc.knownSpellsTags)
+                        {
+                            if (s == ta.tag)
+                            {
+                                notKnownYet = false;
+                            }
+                        }
+                        //not just learned
+                        foreach (string s in pc.learningSpellsTags)
+                        {
+                            if (s == ta.tag)
+                            {
+                                notKnownYet = false;
+                            }
+                        }
+                    
+
+                    if (notKnownYet)
+                    {
+                        //add
+                        spellsForLearning.Add(ta);
+                    }
+                }
+
+                //sort the unknwon, not yet available traits
+                levelCounter = 0;
+                while (spellsForLearning.Count > 0)
+                {
+                    for (int i = spellsForLearning.Count - 1; i >= 0; i--)
+                    {
+                        if (levelCounter == spellsForLearning[i].atWhatLevelIsAvailable)
+                        {
+                            backupSpellsAllowed.Add(spellsForLearning[i]);
+                            spellsForLearning.RemoveAt(i);
+                        }
+                    }
+                    levelCounter++;
+                }
+
+                //add the known traits
+                foreach (string s in pc.knownSpellsTags)
+                {
+                    foreach (SpellAllowed ta in pc.playerClass.spellsAllowed)
+                    {
+                        if (ta.tag == s)
+                        {
+                            spellsForLearning.Add(ta);
+                        }
+                    }
+                }
+
+                foreach (string s in pc.learningSpellsTags)
+                {
+                    foreach (SpellAllowed ta in pc.playerClass.spellsAllowed)
+                    {
+                        if (ta.tag == s)
+                        {
+                            spellsForLearning.Add(ta);
+                        }
+                    }
+                }
+
+                //sort the known traits
+                levelCounter = 0;
+                while (spellsForLearning.Count > 0)
+                {
+                    for (int i = spellsForLearning.Count - 1; i >= 0; i--)
+                    {
+                        if (levelCounter == spellsForLearning[i].atWhatLevelIsAvailable)
+                        {
+                            backupSpellsAllowed.Add(spellsForLearning[i]);
+                            spellsForLearning.RemoveAt(i);
+                        }
+                    }
+                    levelCounter++;
+                }
+
+            }
+            //info only
+            //todo: adjust like above, sigh
+            else
+            {
+
+                //add the known spells
+                foreach (string s in pc.knownSpellsTags)
+                {
+                    foreach (SpellAllowed ta in pc.playerClass.spellsAllowed)
+                    {
+                        if (ta.tag == s)
+                        {
+                            spellsForLearning.Add(ta);
+                        }
+                    }
+                }
+
+                /*
+                foreach (string s in pc.learningTraitsTags)
+                {
+                    foreach (TraitAllowed ta in pc.playerClass.traitsAllowed)
+                    {
+                        if (ta.tag == s)
+                        {
+                            traitsForLearning.Add(ta);
+                        }
+                    }
+                }
+                */
+
+                //sort the known traits
+                int levelCounter = 0;
+                while (spellsForLearning.Count > 0)
+                {
+                    for (int i = spellsForLearning.Count - 1; i >= 0; i--)
+                    {
+                        if (levelCounter == spellsForLearning[i].atWhatLevelIsAvailable)
+                        {
+                            backupSpellsAllowed.Add(spellsForLearning[i]);
+                            spellsForLearning.RemoveAt(i);
+                        }
+                    }
+                    levelCounter++;
+                }
+
+                //add the unknown available traits first
+                spellsForLearningTags = pc.getSpellsToLearn();
+                foreach (string s in spellsForLearningTags)
+                {
+                    foreach (SpellAllowed ta in pc.playerClass.spellsAllowed)
+                    {
+                        if (ta.tag == s)
+                        {
+                            spellsForLearning.Add(ta);
+                        }
+                    }
+                }
+
+                //sort the unknwon, available traits
+                levelCounter = 0;
+                while (spellsForLearning.Count > 0)
+                {
+                    for (int i = spellsForLearning.Count - 1; i >= 0; i--)
+                    {
+                        if (levelCounter == spellsForLearning[i].atWhatLevelIsAvailable)
+                        {
+                            backupSpellsAllowed.Add(spellsForLearning[i]);
+                            spellsForLearning.RemoveAt(i);
+                        }
+                    }
+                    levelCounter++;
+                }
+
+
+                //add the unkown, not yet available traits
+                foreach (SpellAllowed ta in pc.playerClass.spellsAllowed)
+                {
+                    bool notKnownYet = true;
+
+                    //is hidden
+                    if (!ta.allow)
+                    {
+                        //do not show the "hidden" traits that require special learning here
+                        notKnownYet = false;
+                    }
+
+                    //is available
+                    if (ta.atWhatLevelIsAvailable <= pc.classLevel)
+                    {
+                        notKnownYet = false;
+                    }
+                        /*
+                        Trait tr = gv.mod.getTraitByTag(ta.tag);
+                        if (checkAttributeRequirementsOfTrait(pc, tr))
+                        {
+                            //prerequisite traits
+                            if (!tr.prerequisiteTrait.Equals("none"))
+                            {
+                                //requires prereq so check if you have it
+                                if (pc.knownTraitsTags.Contains(tr.prerequisiteTrait))
+                                {
+                                    notKnownYet = false;
+                                }
+                            }
+                            else
+                            {
+                                notKnownYet = false;
+                            }
+                        }
+                        */
+
+                        //is known
+                        foreach (string s in pc.knownSpellsTags)
+                        {
+                            if (s == ta.tag)
+                            {
+                                notKnownYet = false;
+                            }
+                        }
+                    
+
+                    if (notKnownYet)
+                    {
+                        //add
+                        spellsForLearning.Add(ta);
+                    }
+                }
+
+                //sort the unknwon, not yet available traits
+                levelCounter = 0;
+                while (spellsForLearning.Count > 0)
+                {
+                    for (int i = spellsForLearning.Count - 1; i >= 0; i--)
+                    {
+                        if (levelCounter == spellsForLearning[i].atWhatLevelIsAvailable)
+                        {
+                            backupSpellsAllowed.Add(spellsForLearning[i]);
+                            spellsForLearning.RemoveAt(i);
+                        }
+                    }
+                    levelCounter++;
+                }
+
+            }
+        }
+
+        public void setControlsStart()
 	    {			
     	    int pW = (int)((float)gv.screenWidth / 100.0f);
 		    int pH = (int)((float)gv.screenHeight / 100.0f);
@@ -54,8 +366,45 @@ namespace IceBlink2
 
             description = new IbbHtmlTextBox(gv, 320, 100, 500, 300);
             description.showBoxBorder = false;
-		
-		    if (btnSelect == null)
+
+            //added
+            if (btnTokensLeft == null)
+            {
+                btnTokensLeft = new IbbButton(gv, 1.0f);
+                btnTokensLeft.Img = gv.cc.LoadBitmap("btn_small"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small);
+                btnTokensLeft.Img2 = gv.cc.LoadBitmap("ctrl_left_arrow"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.ctrl_left_arrow);
+                btnTokensLeft.Glow = gv.cc.LoadBitmap("btn_small_glow"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_glow);
+                btnTokensLeft.X = (int)(5 * gv.squareSize) + (3 * pW);
+                btnTokensLeft.Y = (1 * gv.squareSize);
+                btnTokensLeft.Height = (int)(gv.ibbheight * gv.screenDensity);
+                btnTokensLeft.Width = (int)(gv.ibbwidthR * gv.screenDensity);
+            }
+            //added
+            if (btnPageIndex == null)
+            {
+                btnPageIndex = new IbbButton(gv, 1.0f);
+                btnPageIndex.Img = gv.cc.LoadBitmap("btn_small_off"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_off);
+                btnPageIndex.Glow = gv.cc.LoadBitmap("btn_small_glow"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_glow);
+                btnPageIndex.Text = "1/20";
+                btnPageIndex.X = (int)(6 * gv.squareSize) + (3 * pW);
+                btnPageIndex.Y = (1 * gv.squareSize);
+                btnPageIndex.Height = (int)(gv.ibbheight * gv.screenDensity);
+                btnPageIndex.Width = (int)(gv.ibbwidthR * gv.screenDensity);
+            }
+            //added
+            if (btnTokensRight == null)
+            {
+                btnTokensRight = new IbbButton(gv, 1.0f);
+                btnTokensRight.Img = gv.cc.LoadBitmap("btn_small"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small);
+                btnTokensRight.Img2 = gv.cc.LoadBitmap("ctrl_right_arrow"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.ctrl_right_arrow);
+                btnTokensRight.Glow = gv.cc.LoadBitmap("btn_small_glow"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_glow);
+                btnTokensRight.X = (int)(7f * gv.squareSize) + (3 * pW);
+                btnTokensRight.Y = (1 * gv.squareSize);
+                btnTokensRight.Height = (int)(gv.ibbheight * gv.screenDensity);
+                btnTokensRight.Width = (int)(gv.ibbwidthR * gv.screenDensity);
+            }
+
+            if (btnSelect == null)
 		    {
 			    btnSelect = new IbbButton(gv, 0.8f);	
 			    btnSelect.Text = "LEARN SELECTED CHOICE";
@@ -97,7 +446,7 @@ namespace IceBlink2
 			    int x = y % 5;
 			    int yy = y / 5;
 			    btnNew.X = ((x + 4) * gv.squareSize) + (padW * (x+1)) + gv.oXshift;
-			    btnNew.Y = (1 + yy) * gv.squareSize + (padW * yy);
+			    btnNew.Y = (2 + yy) * gv.squareSize + (padW * yy + padW);
 
                 btnNew.Height = (int)(gv.ibbheight * gv.screenDensity);
                 btnNew.Width = (int)(gv.ibbwidthR * gv.screenDensity);	
@@ -172,11 +521,14 @@ namespace IceBlink2
 			
 			    if (cntSlot == spellSlotIndex) {btn.glowOn = true;}
 			    else {btn.glowOn = false;}
-			
-			    //show only spells for the PC class
-			    if (cntSlot < pc.playerClass.spellsAllowed.Count)
+
+                //here insert
+                sortSpellsForLevelUp(pc);
+
+                //show only spells for the PC class
+                if ((cntSlot + (tknPageIndex * slotsPerPage)) < backupSpellsAllowed.Count)
 			    {
-				    SpellAllowed sa = pc.playerClass.spellsAllowed[cntSlot];
+				    SpellAllowed sa = backupSpellsAllowed[cntSlot + (tknPageIndex * slotsPerPage)];
 				    Spell sp = gv.mod.getSpellByTag(sa.tag);
 
                     if (infoOnly)
@@ -187,14 +539,26 @@ namespace IceBlink2
                             btn.Img = gv.cc.LoadBitmap("btn_small");
                             gv.cc.DisposeOfBitmap(ref btn.Img2);
                             btn.Img2 = gv.cc.LoadBitmap(sp.spellImage);
-                            btn.Img3 = gv.cc.LoadBitmap("mandatory_conversation_indicator");
+                            //gv.cc.DisposeOfBitmap(ref btn.Img3);
+                            //btn.Img3 = gv.cc.LoadBitmap("mandatory_conversation_indicator");
                         }
                         else //spell not known yet
                         {
                             gv.cc.DisposeOfBitmap(ref btn.Img);
                             btn.Img = gv.cc.LoadBitmap("btn_small_off");
                             gv.cc.DisposeOfBitmap(ref btn.Img2);
-                            btn.Img2 = gv.cc.LoadBitmap(sp.spellImage + "_off");                            
+                            btn.Img2 = gv.cc.LoadBitmap(sp.spellImage + "_off");
+
+                            if (isAvailableToLearn(sp.tag))
+                            {
+                                gv.cc.DisposeOfBitmap(ref btn.Img3);
+                                btn.Img3 = gv.cc.LoadBitmap("mandatory_conversation_indicator");
+                            }
+                            else
+                            {
+                                gv.cc.DisposeOfBitmap(ref btn.Img3);
+                                btn.Img3 = gv.cc.LoadBitmap("encounter_indicator");
+                            }
                         }
                     }
                     else
@@ -205,6 +569,7 @@ namespace IceBlink2
                             btn.Img = gv.cc.LoadBitmap("btn_small_off"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_off);
                             gv.cc.DisposeOfBitmap(ref btn.Img2);
                             btn.Img2 = gv.cc.LoadBitmap(sp.spellImage + "_off");
+                            gv.cc.DisposeOfBitmap(ref btn.Img3);
                             btn.Img3 = gv.cc.LoadBitmap("mandatory_conversation_indicator");
                         }
                         else //spell not known yet
@@ -222,6 +587,7 @@ namespace IceBlink2
                                 btn.Img = gv.cc.LoadBitmap("btn_small_off"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_off);
                                 gv.cc.DisposeOfBitmap(ref btn.Img2);
                                 btn.Img2 = gv.cc.LoadBitmap(sp.spellImage + "_off");
+                                gv.cc.DisposeOfBitmap(ref btn.Img3);
                                 btn.Img3 = gv.cc.LoadBitmap("encounter_indicator");
                             }
                         }
@@ -232,7 +598,8 @@ namespace IceBlink2
                     gv.cc.DisposeOfBitmap(ref btn.Img);
                     btn.Img = gv.cc.LoadBitmap("btn_small_off"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_off);
 				    btn.Img2 = null;
-			    }			
+                    btn.Img3 = null;
+                }			
 			    btn.Draw();
 			    cntSlot++;
 		    }
@@ -243,8 +610,8 @@ namespace IceBlink2
             {
                 Spell sp = GetCurrentlySelectedSpell();
                 
-                string textToSpan = "<u>Description</u>" + "<BR>";
-                textToSpan += "<b><i><big>" + sp.name + "</big></i></b><BR>";
+                //string textToSpan = "<u>Description</u>" + "<BR>";
+                string textToSpan = "<b><big>" + sp.name + "</big></b><BR>";
                 textToSpan += "SP Cost: " + sp.costSP + "<BR>";
                 textToSpan += "HP Cost: " + sp.costHP + "<BR>";
                 textToSpan += "Target Range: " + sp.range + "<BR>";
@@ -266,6 +633,9 @@ namespace IceBlink2
             {
                 btnSelect.Text = "RETURN";
                 btnSelect.Draw();
+                btnTokensLeft.Draw();
+                btnTokensRight.Draw();
+                btnPageIndex.Draw();
             }
             else
             {
@@ -273,6 +643,9 @@ namespace IceBlink2
                 btnHelp.Draw();
                 btnExit.Draw();
                 btnSelect.Draw();
+                btnTokensLeft.Draw();
+                btnTokensRight.Draw();
+                btnPageIndex.Draw();
             }
         }
         public void onTouchSpellLevelUp(MouseEventArgs e, MouseEventType.EventType eventType, bool inPcCreation, bool inCombat)
@@ -280,8 +653,11 @@ namespace IceBlink2
 		    btnHelp.glowOn = false;
 		    btnExit.glowOn = false;
 		    btnSelect.glowOn = false;
-		
-		    switch (eventType)
+            btnTokensLeft.glowOn = false;
+            btnTokensRight.glowOn = false;
+            btnPageIndex.glowOn = false;
+
+            switch (eventType)
 		    {
 		    case MouseEventType.EventType.MouseDown:
 		    case MouseEventType.EventType.MouseMove:
@@ -299,13 +675,27 @@ namespace IceBlink2
 			    {
 				    btnExit.glowOn = true;
 			    }
-			    break;
+                    else if (btnTokensLeft.getImpact(x, y))
+                    {
+                        btnTokensLeft.glowOn = true;
+                    }
+                    else if (btnTokensRight.getImpact(x, y))
+                    {
+                        btnTokensRight.glowOn = true;
+                    }
+                    else if (btnPageIndex.getImpact(x, y))
+                    {
+                        btnPageIndex.glowOn = true;
+                    }
+                    break;
 
             case MouseEventType.EventType.MouseUp:
                 x = (int)e.X;
                 y = (int)e.Y;
-			
-			    btnHelp.glowOn = false;
+
+                btnTokensLeft.glowOn = false;
+                btnTokensRight.glowOn = false;
+                btnHelp.glowOn = false;
 			    btnExit.glowOn = false;
 			    btnSelect.glowOn = false;
 			
@@ -317,7 +707,23 @@ namespace IceBlink2
 					    spellSlotIndex = j;
 				    }
 			    }
-			    if (btnHelp.getImpact(x, y))
+                    if (btnTokensLeft.getImpact(x, y))
+                    {
+                        if (tknPageIndex > 0)
+                        {
+                            tknPageIndex--;
+                            btnPageIndex.Text = (tknPageIndex + 1) + "/" + maxPages;
+                        }
+                    }
+                    else if (btnTokensRight.getImpact(x, y))
+                    {
+                        if (tknPageIndex < maxPages)
+                        {
+                            tknPageIndex++;
+                            btnPageIndex.Text = (tknPageIndex + 1) + "/" + maxPages;
+                        }
+                    }
+                    else if (btnHelp.getImpact(x, y))
 			    {
                     if (!infoOnly)
                     {
@@ -398,6 +804,7 @@ namespace IceBlink2
                     Player pc = getCastingPlayer();
                     //pc.knownSpellsTags.Add(sp.tag);
                     pc.learningSpellsTags.Add(sp.tag);
+                    sortSpellsForLevelUp(pc);
                     /*
                     if (inPcCreation)
 				    {
@@ -668,13 +1075,19 @@ namespace IceBlink2
     
         public Spell GetCurrentlySelectedSpell()
 	    {
-    	    SpellAllowed sa = getCastingPlayer().playerClass.spellsAllowed[spellSlotIndex];
-		    return gv.mod.getSpellByTag(sa.tag);
-	    }
+            //SpellAllowed sa = getCastingPlayer().playerClass.spellsAllowed[spellSlotIndex];
+            //return gv.mod.getSpellByTag(sa.tag);
+            sortSpellsForLevelUp(pc);
+            //TraitAllowed ta = pc.playerClass.traitsAllowed[traitSlotIndex + (tknPageIndex * slotsPerPage)];
+            SpellAllowed ta = backupSpellsAllowed[spellSlotIndex + (tknPageIndex * slotsPerPage)];
+            return gv.mod.getSpellByTag(ta.tag);
+        }
 	    public bool isSelectedSpellSlotInKnownSpellsRange()
 	    {
-		    return spellSlotIndex < getCastingPlayer().playerClass.spellsAllowed.Count;
-	    }	
+            //return spellSlotIndex < getCastingPlayer().playerClass.spellsAllowed.Count;
+            sortSpellsForLevelUp(pc);
+            return (spellSlotIndex + (tknPageIndex * slotsPerPage)) < backupSpellsAllowed.Count;
+        }	
 	    public int getLevelAvailable(string tag)
 	    {
 		    SpellAllowed sa = getCastingPlayer().playerClass.getSpellAllowedByTag(tag);
