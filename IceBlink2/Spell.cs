@@ -38,6 +38,9 @@ namespace IceBlink2
         public List<LocalImmunityString> traitWorksNeverWhen = new List<LocalImmunityString>();
         public bool usesTurnToActivate = true;
 
+        public int castTimeInTurns = 0;
+        public bool canBeInterrupted = false;
+
         //Not yet implemented the one below
         string additionalCustomLogTextOnCast = "";
 

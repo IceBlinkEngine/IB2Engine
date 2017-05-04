@@ -622,10 +622,20 @@ namespace IceBlink2
 					
 					    if ((getCastingPlayer().sp >= GetCurrentlySelectedSpell().costSP) && (getCastingPlayer().hp > GetCurrentlySelectedSpell().costHP))
                         {
-						    gv.cc.currentSelectedSpell = GetCurrentlySelectedSpell();
-						    gv.screenType = "combat";
-						    gv.screenCombat.currentCombatMode = "cast";
-						    doCleanUp();
+                            //if (GetCurrentlySelectedSpell().castTimeInTurns == 0)
+                            //{
+                                gv.cc.currentSelectedSpell = GetCurrentlySelectedSpell();
+                                gv.screenType = "combat";
+                                gv.screenCombat.currentCombatMode = "cast";
+                                doCleanUp();
+                            //}
+                            //a spell requirign a turn or more is cast
+                            //else
+                            //{
+                                //getCastingPlayer().sp = -GetCurrentlySelectedSpell().costSP;
+                                //getCastingPlayer().hp = -GetCurrentlySelectedSpell().costHP;
+                                //endturn
+                            //}
 					    }
 					    else
 					    {

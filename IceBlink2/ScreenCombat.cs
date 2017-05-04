@@ -1222,13 +1222,13 @@ namespace IceBlink2
                 }
             }
 
-
+     
             try
             {
 
-                for (int i = crtr.cr_effectsList.Count; i > 0; i--)
+                for (int i = crtr.cr_effectsList.Count - 1; i >= 0; i--)
                 {
-                if (crtr.cr_effectsList[i-1].repeatTerminalSaveEachRound)
+                if (crtr.cr_effectsList[i].repeatTerminalSaveEachRound)
                 {
                     //sean
                     #region Do Calc Save and DC
@@ -1236,15 +1236,15 @@ namespace IceBlink2
                     int saveChk = 0;
                     int DC = 0;
                     int saveChkAdder = 0;
-                    if (crtr.cr_effectsList[i-1].saveCheckType.Equals("will"))
+                    if (crtr.cr_effectsList[i].saveCheckType.Equals("will"))
                     {
                         saveChkAdder = crtr.getWill();
                     }
-                    else if (crtr.cr_effectsList[i-1].saveCheckType.Equals("reflex"))
+                    else if (crtr.cr_effectsList[i].saveCheckType.Equals("reflex"))
                     {
                         saveChkAdder = crtr.getReflex();
                     }
-                    else if (crtr.cr_effectsList[i-1].saveCheckType.Equals("fortitude"))
+                    else if (crtr.cr_effectsList[i].saveCheckType.Equals("fortitude"))
                     {
                         saveChkAdder = crtr.getFortitude();
                     }
@@ -1253,30 +1253,30 @@ namespace IceBlink2
                         saveChkAdder = -99;
                     }
                     saveChk = saveChkRoll + saveChkAdder;
-                    DC = crtr.cr_effectsList[i-1].saveCheckDC;
+                    DC = crtr.cr_effectsList[i].saveCheckDC;
                     #endregion
 
                     if (saveChk >= DC)
                     {
-                        gv.cc.addLogText("<font color='yellow'>" + "The " + crtr.cr_effectsList[i - 1].name + " effect on " + crtr.cr_name + " has been shrugged off." + " </font><BR>");
-                        crtr.cr_effectsList.RemoveAt(i - 1);
+                        gv.cc.addLogText("<font color='yellow'>" + "The " + crtr.cr_effectsList[i].name + " effect on " + crtr.cr_name + " has been shrugged off." + " </font><BR>");
+                        crtr.cr_effectsList.RemoveAt(i);
                     }
                     else
                     {
-                        gv.cc.addLogText("<font color='yellow'>" + crtr.cr_name + " fails to shrug off " + crtr.cr_effectsList[i - 1].name + "." + " </font><BR>");
+                        gv.cc.addLogText("<font color='yellow'>" + crtr.cr_name + " fails to shrug off " + crtr.cr_effectsList[i].name + "." + " </font><BR>");
                     }
                 }
             }
 
                 //if remaining duration <= 0, remove from list
-                for (int i = crtr.cr_effectsList.Count; i > 0; i--)
+                for (int i = crtr.cr_effectsList.Count-1; i >= 0; i--)
                 {
-                    if (crtr.cr_effectsList[i - 1].durationInUnits <= 0)
+                    if (crtr.cr_effectsList[i].durationInUnits <= 0)
                     {
-                        if (!crtr.cr_effectsList[i - 1].isPermanent)
+                        if (!crtr.cr_effectsList[i].isPermanent)
                         {
-                            gv.cc.addLogText("<font color='yellow'>" + "The " + crtr.cr_effectsList[i - 1].name + " effect on " + crtr.cr_name + " has just ended." + " </font><BR>");
-                            crtr.cr_effectsList.RemoveAt(i - 1);
+                            gv.cc.addLogText("<font color='yellow'>" + "The " + crtr.cr_effectsList[i].name + " effect on " + crtr.cr_name + " has just ended." + " </font><BR>");
+                            crtr.cr_effectsList.RemoveAt(i);
                         }
                     }
                 }
@@ -1325,9 +1325,9 @@ namespace IceBlink2
             {
 
                 //**********************************************************
-                for (int i = pc.effectsList.Count; i > 0; i--)
+                for (int i = pc.effectsList.Count-1; i >= 0; i--)
                 {
-                    if (pc.effectsList[i-1].repeatTerminalSaveEachRound)
+                    if (pc.effectsList[i].repeatTerminalSaveEachRound)
                     {
                         //sean
                         #region Do Calc Save and DC
@@ -1335,15 +1335,15 @@ namespace IceBlink2
                         int saveChk = 0;
                         int DC = 0;
                         int saveChkAdder = 0;
-                        if (pc.effectsList[i - 1].saveCheckType.Equals("will"))
+                        if (pc.effectsList[i].saveCheckType.Equals("will"))
                         {
                             saveChkAdder = pc.will;
                         }
-                        else if (pc.effectsList[i - 1].saveCheckType.Equals("reflex"))
+                        else if (pc.effectsList[i].saveCheckType.Equals("reflex"))
                         {
                             saveChkAdder = pc.reflex;
                         }
-                        else if (pc.effectsList[i - 1].saveCheckType.Equals("fortitude"))
+                        else if (pc.effectsList[i].saveCheckType.Equals("fortitude"))
                         {
                             saveChkAdder = pc.fortitude;
                         }
@@ -1352,17 +1352,17 @@ namespace IceBlink2
                             saveChkAdder = -99;
                         }
                         saveChk = saveChkRoll + saveChkAdder;
-                        DC = pc.effectsList[i - 1].saveCheckDC;
+                        DC = pc.effectsList[i].saveCheckDC;
                         #endregion
 
                         if (saveChk >= DC)
                         {
-                            gv.cc.addLogText("<font color='yellow'>" + "The " + pc.effectsList[i - 1].name + " effect on " + pc.name + " has been shrugged off." + " </font><BR>");
-                            pc.effectsList.RemoveAt(i - 1);
+                            gv.cc.addLogText("<font color='yellow'>" + "The " + pc.effectsList[i].name + " effect on " + pc.name + " has been shrugged off." + " </font><BR>");
+                            pc.effectsList.RemoveAt(i);
                         }
                         else
                         {
-                            gv.cc.addLogText("<font color='yellow'>" + pc.name + " fails to shrug off " + pc.effectsList[i - 1].name + "." + " </font><BR>");
+                            gv.cc.addLogText("<font color='yellow'>" + pc.name + " fails to shrug off " + pc.effectsList[i].name + "." + " </font><BR>");
                         }
                     }
                 }
@@ -1370,14 +1370,14 @@ namespace IceBlink2
 
                 //**********************************************************
                 //europa3
-                for (int i = pc.effectsList.Count; i > 0; i--)
+                for (int i = pc.effectsList.Count-1; i >= 0; i--)
                 {
-                    if (pc.effectsList[i - 1].durationInUnits <= 0)
+                    if (pc.effectsList[i].durationInUnits <= 0)
                     {
-                        if (!pc.effectsList[i - 1].isPermanent)
+                        if (!pc.effectsList[i].isPermanent)
                         {
-                            gv.cc.addLogText("<font color='yellow'>" + "The " + pc.effectsList[i - 1].name + " effect on " + pc.name + " has just ended." + " </font><BR>");
-                            pc.effectsList.RemoveAt(i - 1);
+                            gv.cc.addLogText("<font color='yellow'>" + "The " + pc.effectsList[i].name + " effect on " + pc.name + " has just ended." + " </font><BR>");
+                            pc.effectsList.RemoveAt(i);
                         }
                     }
                 }
