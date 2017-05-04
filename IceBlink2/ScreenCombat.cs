@@ -1212,17 +1212,16 @@ namespace IceBlink2
 
             if (crtr.hp < crtr.hpLastTurn)
             {
-                foreach (Effect ef in crtr.cr_effectsList)
+                for (int i = crtr.cr_effectsList.Count - 1; i >= 0; i--)
                 {
-                    if (ef.endEffectWhenCarrierTakesDamage)
+                    if (crtr.cr_effectsList[i].endEffectWhenCarrierTakesDamage)
                     {
-                        gv.cc.addLogText("<font color='yellow'>" + crtr.cr_name + "took damage and is freed from" + ef.name + "</font><BR>");
-                        crtr.cr_effectsList.Remove(ef);
+                        gv.cc.addLogText("<font color='yellow'>" + crtr.cr_name + "took damage and is freed from" + crtr.cr_effectsList[i].name + "</font><BR>");
+                        crtr.cr_effectsList.Remove(crtr.cr_effectsList[i]);
                     }
                 }
             }
 
-     
             try
             {
 
@@ -1311,12 +1310,12 @@ namespace IceBlink2
         {
             if (pc.hp < pc.hpLastTurn)
             {
-                foreach (Effect ef in pc.effectsList)
+                for (int i = pc.effectsList.Count - 1; i >= 0; i--)
                 {
-                    if (ef.endEffectWhenCarrierTakesDamage)
+                    if (pc.effectsList[i].endEffectWhenCarrierTakesDamage)
                     {
-                        gv.cc.addLogText("<font color='yellow'>" + pc.name + "took damage and is freed from" + ef.name + "</font><BR>");
-                        pc.effectsList.Remove(ef);
+                        gv.cc.addLogText("<font color='yellow'>" + pc.name + "took damage and is freed from" + pc.effectsList[i].name + "</font><BR>");
+                        pc.effectsList.Remove(pc.effectsList[i]);
                     }
                 }
             }

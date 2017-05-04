@@ -634,6 +634,8 @@ namespace IceBlink2
                             //{
                                 //getCastingPlayer().sp = -GetCurrentlySelectedSpell().costSP;
                                 //getCastingPlayer().hp = -GetCurrentlySelectedSpell().costHP;
+                                //gv.screenType = "combat";
+                                //
                                 //endturn
                             //}
 					    }
