@@ -102,9 +102,11 @@ namespace IceBlink2
         public int damageTypeResistanceTotalPoison = 0;
         public int hpLastTurn = -1;
 
-        //too: addto copy clone
-        public int doCastActionInXTurns = 0;
+        public int doCastActionInXFullTurns = 0;
         public string tagOfSpellToBeCastAfterCastTimeIsDone = "none";
+        public bool thisCasterCanBeInterrupted = true;
+        public bool isPreparingSpell = false;
+        public bool thisCastIsFreeOfCost = false;
 
         public Player()
         {
@@ -113,7 +115,10 @@ namespace IceBlink2
         public Player DeepCopy()
         {
             Player copy = new Player();
-            copy.doCastActionInXTurns = this.doCastActionInXTurns;
+            copy.thisCastIsFreeOfCost = this.thisCastIsFreeOfCost;
+            copy.isPreparingSpell = this.isPreparingSpell;
+            copy.thisCasterCanBeInterrupted = this.thisCasterCanBeInterrupted;
+            copy.doCastActionInXFullTurns = this.doCastActionInXFullTurns;
             copy.tagOfSpellToBeCastAfterCastTimeIsDone = this.tagOfSpellToBeCastAfterCastTimeIsDone;
             copy.tokenFilename = this.tokenFilename;
             copy.portraitFilename = this.portraitFilename;

@@ -122,7 +122,10 @@ namespace IceBlink2
         public bool useDexterityForMeleeAttackModifierIfGreaterThanStrength = false;  
         public bool useDexterityForMeleeDamageModifierIfGreaterThanStrength = false;  
         public bool negateAttackPenaltyForAdjacentEnemyWithRangedAttack = false;  
-        public bool useEvasion = false; // 
+        public bool useEvasion = false; //
+
+        public bool allowCastingWithoutTriggeringAoO = false;
+        public bool allowCastingWithoutRiskOfInterruption = false;
 
         public List<LocalImmunityString> traitWorksOnlyWhen = new List<LocalImmunityString>();
         public List<LocalImmunityString> traitWorksNeverWhen = new List<LocalImmunityString>();
@@ -134,6 +137,8 @@ namespace IceBlink2
 	    public Effect DeepCopy()
 	    {
 		    Effect copy = new Effect();
+            copy.allowCastingWithoutRiskOfInterruption = this.allowCastingWithoutRiskOfInterruption;
+            copy.allowCastingWithoutTriggeringAoO = this.allowCastingWithoutTriggeringAoO;
 		    copy.name = this.name;
 		    copy.tag = this.tag;
 		    copy.tagOfSender = this.tagOfSender;

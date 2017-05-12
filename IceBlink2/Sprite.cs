@@ -234,5 +234,59 @@ namespace IceBlink2
 
             }   
         }
+
+        public void DrawCombat(GameView gv)
+        {
+            IbRect src = new IbRect(currentFrameIndex * frameHeight, 0, frameHeight, frameHeight);
+            IbRect dst = new IbRect(0, 0, 0, 0);
+            //assumes frames of equal proportions
+            if (numberOFFramesForAnimationsMadeFromSeveralBitmaps != 0)
+            {
+                src = new IbRect(0, 0, 150, 150);
+            }
+            /*
+            if (gv.screenType.Equals("combat"))
+            {
+                int randXInt = gv.sf.RandInt(500);
+                float randX = randXInt / 10000f;
+                int decider = gv.sf.RandInt(2);
+                if (decider == 1)
+                {
+                    randX = -1 * randX;
+                }
+
+                int randYInt = gv.sf.RandInt(500);
+                float randY = randXInt / 10000f;
+                decider = gv.sf.RandInt(2);
+                if (decider == 1)
+                {
+                    randY = -1 * randY;
+                }
+
+                dst = new IbRect((int)this.position.X, (int)(this.position.Y + randY), (int)((gv.squareSize * this.scaleX) + randX), (int)(gv.squareSize * this.scaleY));
+            }
+            else
+            {
+            */
+            dst = new IbRect((int)this.position.X, (int)this.position.Y, (int)(gv.squareSize * this.scaleX), (int)(gv.squareSize * this.scaleY));
+            //}
+            float opacityMulti = 1;
+            if (this.movementMethod.Contains("fog") || this.movementMethod.Contains("clouds"))
+            {
+                opacityMulti = 0.64f;
+            }
+
+            if (numberOFFramesForAnimationsMadeFromSeveralBitmaps == 0)
+            {
+                gv.DrawBitmap(gv.cc.GetFromBitmapList(bitmap), src, dst, angle, false, this.opacity * opacityMulti);
+            }
+            else
+            {
+                //gv.cc.addLogText("red", currentFrameIndex.ToString());
+
+                gv.DrawBitmap(gv.cc.GetFromBitmapList(bitmap + currentFrameIndex.ToString()), src, dst, angle, false, this.opacity * opacityMulti);
+
+            }
+        }
     }    
 }

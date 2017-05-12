@@ -39,7 +39,8 @@ namespace IceBlink2
         public bool usesTurnToActivate = true;
 
         public int castTimeInTurns = 0;
-        public bool canBeInterrupted = false;
+        public bool canBeInterrupted = true;
+        public bool triggersAoO = true;
 
         //Not yet implemented the one below
         string additionalCustomLogTextOnCast = "";
@@ -52,6 +53,8 @@ namespace IceBlink2
 	    public Spell DeepCopy()
 	    {
 		    Spell copy = new Spell();
+            copy.triggersAoO = this.triggersAoO;
+            copy.canBeInterrupted = this.canBeInterrupted;
             copy.usesTurnToActivate = this.usesTurnToActivate;
 		    copy.name = this.name;
 		    copy.tag = this.tag;

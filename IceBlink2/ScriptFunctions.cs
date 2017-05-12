@@ -7832,11 +7832,14 @@ namespace IceBlink2
                 Player source = (Player)src;
                 classLevel = source.classLevel;
                 sourceName = source.name;
-                source.sp -= thisSpell.costSP;
-                if (source.sp < 0) { source.sp = 0; }
-                if (source.hp > thisSpell.costHP)
+                if (!source.thisCastIsFreeOfCost)
                 {
-                    source.hp -= thisSpell.costHP;
+                    source.sp -= thisSpell.costSP;
+                    if (source.sp < 0) { source.sp = 0; }
+                    if (source.hp > thisSpell.costHP)
+                    {
+                        source.hp -= thisSpell.costHP;
+                    }
                 }
             }
             else if (src is Creature) //creature casting
@@ -8676,11 +8679,14 @@ namespace IceBlink2
                 Player source = (Player)src;
                 classLevel = source.classLevel;
                 sourceName = source.name;
-                source.sp -= thisSpell.costSP;
-                if (source.sp < 0) { source.sp = 0; }
-                if (source.hp > thisSpell.costHP)
+                if (!source.thisCastIsFreeOfCost)
                 {
-                    source.hp -= thisSpell.costHP;
+                    source.sp -= thisSpell.costSP;
+                    if (source.sp < 0) { source.sp = 0; }
+                    if (source.hp > thisSpell.costHP)
+                    {
+                        source.hp -= thisSpell.costHP;
+                    }
                 }
             }
             else if (src is Creature) //creature casting
@@ -9458,9 +9464,17 @@ namespace IceBlink2
                  {  
                      gv.cc.addLogText("<gn>" + source.name + " teleports to another location</gn><BR>");  
                      source.combatLocX = target.X;  
-                     source.combatLocY = target.Y;  
-                     source.sp -= gv.cc.currentSelectedSpell.costSP;  
-                     if (source.sp< 0) { source.sp = 0; }  
+                     source.combatLocY = target.Y;
+                    if (!source.thisCastIsFreeOfCost)
+                    {
+                        source.sp -= gv.cc.currentSelectedSpell.costSP;
+                        if (source.sp < 0) { source.sp = 0; }
+
+                        if (source.hp > gv.cc.currentSelectedSpell.costHP)
+                        {
+                            source.hp -= gv.cc.currentSelectedSpell.costHP;
+                        }
+                    }
                  }  
                  else  
                  {  
@@ -9738,11 +9752,14 @@ namespace IceBlink2
                 Player source = (Player)src;
                 classLevel = source.classLevel;
                 sourceName = source.name;
-                source.sp -= gv.cc.currentSelectedSpell.costSP;
-                if (source.sp < 0) { source.sp = 0; }
-                if (source.hp > thisSpell.costHP)
+                if (!source.thisCastIsFreeOfCost)
                 {
-                    source.hp -= thisSpell.costHP;
+                    source.sp -= gv.cc.currentSelectedSpell.costSP;
+                    if (source.sp < 0) { source.sp = 0; }
+                    if (source.hp > thisSpell.costHP)
+                    {
+                        source.hp -= thisSpell.costHP;
+                    }
                 }
             }
             else //creature casting
@@ -9926,13 +9943,15 @@ namespace IceBlink2
                 //Do floaty text damage
                 //gv.screenCombat.floatyTextOn = true;
                 gv.cc.addFloatyText(new Coordinate(target.combatLocX, target.combatLocY), damageTotal + "");
-//                gv.postDelayed("doFloatyText", 100);
-
-                source.sp -= gv.cc.currentSelectedSpell.costSP;
-                if (source.sp < 0) { source.sp = 0; }
-                if (source.hp > gv.cc.currentSelectedSpell.costHP)
+                //                gv.postDelayed("doFloatyText", 100);
+                if (!source.thisCastIsFreeOfCost)
                 {
-                    source.hp -= gv.cc.currentSelectedSpell.costHP;
+                    source.sp -= gv.cc.currentSelectedSpell.costSP;
+                    if (source.sp < 0) { source.sp = 0; }
+                    if (source.hp > gv.cc.currentSelectedSpell.costHP)
+                    {
+                        source.hp -= gv.cc.currentSelectedSpell.costHP;
+                    }
                 }
             }
             else if (src is Creature) //creature casting
@@ -9998,11 +10017,14 @@ namespace IceBlink2
             {
                 Player source = (Player)src;
                 classLevel = source.classLevel;
-                source.sp -= gv.cc.currentSelectedSpell.costSP;
-                if (source.sp < 0) { source.sp = 0; }
-                if (source.hp > gv.cc.currentSelectedSpell.costHP)
+                if (!source.thisCastIsFreeOfCost)
                 {
-                    source.hp -= gv.cc.currentSelectedSpell.costHP;
+                    source.sp -= gv.cc.currentSelectedSpell.costSP;
+                    if (source.sp < 0) { source.sp = 0; }
+                    if (source.hp > gv.cc.currentSelectedSpell.costHP)
+                    {
+                        source.hp -= gv.cc.currentSelectedSpell.costHP;
+                    }
                 }
             }
             else //creature casting
@@ -10087,11 +10109,14 @@ namespace IceBlink2
                 gv.cc.addLogText("<font color='lime'>" + "Mage Armor is applied on " + target.name + "<BR>");
                 gv.cc.addLogText("<font color='lime'>" + " for " + numberOfRounds + " round(s)" + "</font><BR>");
                 target.AddEffectByObject(ef, source.classLevel);
-                source.sp -= gv.cc.currentSelectedSpell.costSP;
-                if (source.sp < 0) { source.sp = 0; }
-                if (source.hp > gv.cc.currentSelectedSpell.costHP)
+                if (!source.thisCastIsFreeOfCost)
                 {
-                    source.hp -= gv.cc.currentSelectedSpell.costHP;
+                    source.sp -= gv.cc.currentSelectedSpell.costSP;
+                    if (source.sp < 0) { source.sp = 0; }
+                    if (source.hp > gv.cc.currentSelectedSpell.costHP)
+                    {
+                        source.hp -= gv.cc.currentSelectedSpell.costHP;
+                    }
                 }
             }
             else if (src is Creature) //creature casting
@@ -10130,11 +10155,14 @@ namespace IceBlink2
                 Effect ef = mod.getEffectByTag("minorRegen");
                 gv.cc.addLogText("<font color='lime'>" + "Minor Regeneration is applied on " + target.name + "</font><BR>");
                 target.AddEffectByObject(ef, source.classLevel);
-                source.sp -= gv.cc.currentSelectedSpell.costSP;
-                if (source.sp < 0) { source.sp = 0; }
-                if (source.hp > gv.cc.currentSelectedSpell.costHP)
+                if (!source.thisCastIsFreeOfCost)
                 {
-                    source.hp -= gv.cc.currentSelectedSpell.costHP;
+                    source.sp -= gv.cc.currentSelectedSpell.costSP;
+                    if (source.sp < 0) { source.sp = 0; }
+                    if (source.hp > gv.cc.currentSelectedSpell.costHP)
+                    {
+                        source.hp -= gv.cc.currentSelectedSpell.costHP;
+                    }
                 }
             }
             else if (src is Creature) //creature casting
@@ -10171,11 +10199,14 @@ namespace IceBlink2
             {
                 Player source = (Player)src;
                 classLevel = source.classLevel;
-                source.sp -= gv.cc.currentSelectedSpell.costSP;
-                if (source.sp < 0) { source.sp = 0; }
-                if (source.hp > gv.cc.currentSelectedSpell.costHP)
+                if (!source.thisCastIsFreeOfCost)
                 {
-                    source.hp -= gv.cc.currentSelectedSpell.costHP;
+                    source.sp -= gv.cc.currentSelectedSpell.costSP;
+                    if (source.sp < 0) { source.sp = 0; }
+                    if (source.hp > gv.cc.currentSelectedSpell.costHP)
+                    {
+                        source.hp -= gv.cc.currentSelectedSpell.costHP;
+                    }
                 }
             }
             else //creature casting
@@ -10254,11 +10285,14 @@ namespace IceBlink2
                 Player source = (Player)src;
                 classLevel = source.classLevel;
                 sourceName = source.name;
-                source.sp -= gv.cc.currentSelectedSpell.costSP;
-                if (source.sp < 0) { source.sp = 0; }
-                if (source.hp > gv.cc.currentSelectedSpell.costHP)
+                if (!source.thisCastIsFreeOfCost)
                 {
-                    source.hp -= gv.cc.currentSelectedSpell.costHP;
+                    source.sp -= gv.cc.currentSelectedSpell.costSP;
+                    if (source.sp < 0) { source.sp = 0; }
+                    if (source.hp > gv.cc.currentSelectedSpell.costHP)
+                    {
+                        source.hp -= gv.cc.currentSelectedSpell.costHP;
+                    }
                 }
             }
             else //creature casting
@@ -10397,11 +10431,14 @@ namespace IceBlink2
                 Player source = (Player)src;
                 classLevel = source.classLevel;
                 sourceName = source.name;
-                source.sp -= gv.cc.currentSelectedSpell.costSP;
-                if (source.sp < 0) { source.sp = 0; }
-                if (source.hp > gv.cc.currentSelectedSpell.costHP)
+                if (!source.thisCastIsFreeOfCost)
                 {
-                    source.hp -= gv.cc.currentSelectedSpell.costHP;
+                    source.sp -= gv.cc.currentSelectedSpell.costSP;
+                    if (source.sp < 0) { source.sp = 0; }
+                    if (source.hp > gv.cc.currentSelectedSpell.costHP)
+                    {
+                        source.hp -= gv.cc.currentSelectedSpell.costHP;
+                    }
                 }
             }
             else //creature casting
@@ -10540,11 +10577,14 @@ namespace IceBlink2
                 Player source = (Player)src;
                 classLevel = source.classLevel;
                 sourceName = source.name;
-                source.sp -= gv.cc.currentSelectedSpell.costSP;
-                if (source.sp < 0) { source.sp = 0; }
-                if (source.hp > gv.cc.currentSelectedSpell.costHP)
+                if (!source.thisCastIsFreeOfCost)
                 {
-                    source.hp -= gv.cc.currentSelectedSpell.costHP;
+                    source.sp -= gv.cc.currentSelectedSpell.costSP;
+                    if (source.sp < 0) { source.sp = 0; }
+                    if (source.hp > gv.cc.currentSelectedSpell.costHP)
+                    {
+                        source.hp -= gv.cc.currentSelectedSpell.costHP;
+                    }
                 }
             }
             else //creature casting
@@ -10698,11 +10738,14 @@ namespace IceBlink2
                     //MessageBox(pc.name + " gains " + healAmount + " HPs");
                     gv.cc.addLogText("<font color='lime'>" + target.name + " gains " + healAmount + " HPs" + "</font><BR>");
                 }
-                source.sp -= gv.cc.currentSelectedSpell.costSP;
-                if (source.sp < 0) { source.sp = 0; }
-                if (source.hp > gv.cc.currentSelectedSpell.costHP)
+                if (!source.thisCastIsFreeOfCost)
                 {
-                    source.hp -= gv.cc.currentSelectedSpell.costHP;
+                    source.sp -= gv.cc.currentSelectedSpell.costSP;
+                    if (source.sp < 0) { source.sp = 0; }
+                    if (source.hp > gv.cc.currentSelectedSpell.costHP)
+                    {
+                        source.hp -= gv.cc.currentSelectedSpell.costHP;
+                    }
                 }
             }
             if (src is Item) //player casting
@@ -10784,11 +10827,14 @@ namespace IceBlink2
                         gv.cc.addLogText("<font color='lime'>" + pc.name + " gains " + healAmount + " HPs" + "</font><BR>");
                     }
                 }
-                source.sp -= gv.cc.currentSelectedSpell.costSP;
-                if (source.sp < 0) { source.sp = 0; }
-                if (source.hp > gv.cc.currentSelectedSpell.costHP)
+                if (!source.thisCastIsFreeOfCost)
                 {
-                    source.hp -= gv.cc.currentSelectedSpell.costHP;
+                    source.sp -= gv.cc.currentSelectedSpell.costSP;
+                    if (source.sp < 0) { source.sp = 0; }
+                    if (source.hp > gv.cc.currentSelectedSpell.costHP)
+                    {
+                        source.hp -= gv.cc.currentSelectedSpell.costHP;
+                    }
                 }
             }
             else if (src is Creature) //creature casting
@@ -10837,11 +10883,14 @@ namespace IceBlink2
                             "<BR>");
                     pc.AddEffectByObject(ef, source.classLevel);
                 }
-                source.sp -= gv.cc.currentSelectedSpell.costSP;
-                if (source.sp < 0) { source.sp = 0; }
-                if (source.hp > gv.cc.currentSelectedSpell.costHP)
+                if (!source.thisCastIsFreeOfCost)
                 {
-                    source.hp -= gv.cc.currentSelectedSpell.costHP;
+                    source.sp -= gv.cc.currentSelectedSpell.costSP;
+                    if (source.sp < 0) { source.sp = 0; }
+                    if (source.hp > gv.cc.currentSelectedSpell.costHP)
+                    {
+                        source.hp -= gv.cc.currentSelectedSpell.costHP;
+                    }
                 }
             }
             else if (src is Creature) //creature casting
@@ -10943,13 +10992,15 @@ namespace IceBlink2
                 //Do floaty text damage
                 //gv.screenCombat.floatyTextOn = true;
                 gv.cc.addFloatyText(new Coordinate(target.combatLocX, target.combatLocY), damageTotal + "");
-//                gv.postDelayed("doFloatyText", 100);
-
-                source.sp -= gv.cc.currentSelectedSpell.costSP;
-                if (source.sp < 0) { source.sp = 0; }
-                if (source.hp > gv.cc.currentSelectedSpell.costHP)
+                //                gv.postDelayed("doFloatyText", 100);
+                if (!source.thisCastIsFreeOfCost)
                 {
-                    source.hp -= gv.cc.currentSelectedSpell.costHP;
+                    source.sp -= gv.cc.currentSelectedSpell.costSP;
+                    if (source.sp < 0) { source.sp = 0; }
+                    if (source.hp > gv.cc.currentSelectedSpell.costHP)
+                    {
+                        source.hp -= gv.cc.currentSelectedSpell.costHP;
+                    }
                 }
             }
             else if (src is Creature) //creature casting
@@ -11025,11 +11076,14 @@ namespace IceBlink2
                 Player source = (Player)src;
                 classLevel = source.classLevel;
                 sourceName = source.name;
-                source.sp -= gv.cc.currentSelectedSpell.costSP;
-                if (source.sp < 0) { source.sp = 0; }
-                if (source.hp > gv.cc.currentSelectedSpell.costHP)
+                if (!source.thisCastIsFreeOfCost)
                 {
-                    source.hp -= gv.cc.currentSelectedSpell.costHP;
+                    source.sp -= gv.cc.currentSelectedSpell.costSP;
+                    if (source.sp < 0) { source.sp = 0; }
+                    if (source.hp > gv.cc.currentSelectedSpell.costHP)
+                    {
+                        source.hp -= gv.cc.currentSelectedSpell.costHP;
+                    }
                 }
             }
             else //creature casting
@@ -11178,11 +11232,14 @@ namespace IceBlink2
                     ef.statusType = "Held";
                     target.AddEffectByObject(ef, source.classLevel);
                 }
-                source.sp -= gv.cc.currentSelectedSpell.costSP;
-                if (source.sp < 0) { source.sp = 0; }
-                if (source.hp > gv.cc.currentSelectedSpell.costHP)
+                if (!source.thisCastIsFreeOfCost)
                 {
-                    source.hp -= gv.cc.currentSelectedSpell.costHP;
+                    source.sp -= gv.cc.currentSelectedSpell.costSP;
+                    if (source.sp < 0) { source.sp = 0; }
+                    if (source.hp > gv.cc.currentSelectedSpell.costHP)
+                    {
+                        source.hp -= gv.cc.currentSelectedSpell.costHP;
+                    }
                 }
             }
             else if (src is Creature) //creature casting

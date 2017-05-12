@@ -104,6 +104,8 @@ namespace IceBlink2
         public float currentMoves = 0;
         public float creatureMoves = 0;
         public Coordinate UpperLeftSquare = new Coordinate();
+        public Coordinate FormerUpperLeftSquare = new Coordinate();
+
         public string currentCombatMode = "info"; //info, move, cast, attack
         public Coordinate targetHighlightCenterLocation = new Coordinate();
         public Coordinate creatureTargetLocation = new Coordinate();
@@ -754,150 +756,288 @@ namespace IceBlink2
         */
         public void turnController()
         {
-            recalculateCreaturesShownInInitiativeBar();
-            attackAnimationFrameCounter = 0;
-            attackAnimationDelayCounter = 0;
-            //redraw screen
-            //KArl
-            //gv.Render();
+            if (animationSeqStack.Count == 0)
+            {
+                recalculateCreaturesShownInInitiativeBar();
+                attackAnimationFrameCounter = 0;
+                attackAnimationDelayCounter = 0;
+                //redraw screen
+                //KArl
+                //gv.Render();
 
-            foreach (Player p in gv.mod.playerList)
-            {
-                gv.sf.UpdateStats(p);
-            }
-
-            if (currentMoveOrderIndex >= initialMoveOrderListSize)
-            {
-                //hit the end so start the next round
-                startNextRoundStuff();
-                return;
-            }
-            //get the next PC or Creature based on currentMoveOrderIndex and moveOrder property
-            idx = 0;
-            foreach (Player pc in gv.mod.playerList)
-            {
-                if (pc.moveOrder == currentMoveOrderIndex)
+                foreach (Player p in gv.mod.playerList)
                 {
-                    if ((pc.hp <= 0) && (pc.hp > -20))
+                    gv.sf.UpdateStats(p);
+                }
+
+                if (currentMoveOrderIndex >= initialMoveOrderListSize)
+                {
+                    //hit the end so start the next round
+                    startNextRoundStuff();
+                    return;
+                }
+                //get the next PC or Creature based on currentMoveOrderIndex and moveOrder property
+                idx = 0;
+                foreach (Player pc in gv.mod.playerList)
+                {
+                    if (pc.moveOrder == currentMoveOrderIndex)
                     {
-                        pc.hp -= 1;
-                        gv.cc.addLogText("<font color='red'>" + pc.name + " bleeds 1 HP, dead at -20 HP!" + "</font><BR>");
-                        pc.charStatus = "Dead";
-                        if (pc.hp <= -20)
+
+                        //write the pc's name to log whsoe turn it is
+                        gv.cc.addLogText("<font color='blue'>It's the turn of " + pc.name + ". </font><BR>");
+
+                        if ((pc.hp <= 0) && (pc.hp > -20))
                         {
-                            gv.cc.addLogText("<font color='red'>" + pc.name + " has DIED!" + "</font><BR>");
+                            pc.hp -= 1;
+                            gv.cc.addLogText("<font color='red'>" + pc.name + " bleeds 1 HP, dead at -20 HP!" + "</font><BR>");
+                            pc.charStatus = "Dead";
+                            if (pc.hp <= -20)
+                            {
+                                gv.cc.addLogText("<font color='red'>" + pc.name + " has DIED!" + "</font><BR>");
+                            }
                         }
-                    }
 
-                    spriteList.Clear();
-                    gv.cc.floatyTextList.Clear();
-                    //highlight the portrait of the pc whose current turn it is
-                    gv.cc.ptrPc0.glowOn = false;
-                    gv.cc.ptrPc1.glowOn = false;
-                    gv.cc.ptrPc2.glowOn = false;
-                    gv.cc.ptrPc3.glowOn = false;
-                    gv.cc.ptrPc4.glowOn = false;
-                    gv.cc.ptrPc5.glowOn = false;
+                        //add code for interrupting the caster of a spell with long duration here
+                        if ((pc.hp < pc.hpLastTurn) && (pc.hp > 0) && (!pc.isHeld()))
+                        {
+                            foreach (Effect ef in pc.effectsList)
+                            {
+                                if (ef.allowCastingWithoutRiskOfInterruption)
+                                {
+                                    pc.thisCasterCanBeInterrupted = false;
+                                    break;
+                                }
+                            }
 
-                    if (idx == 0)
-                    {
-                        gv.cc.ptrPc0.glowOn = true;
-                    }
-                    if (idx == 1)
-                    {
-                        gv.cc.ptrPc1.glowOn = true;
-                    }
-                    if (idx == 2)
-                    {
-                        gv.cc.ptrPc2.glowOn = true;
-                    }
-                    if (idx == 3)
-                    {
-                        gv.cc.ptrPc3.glowOn = true;
-                    }
-                    if (idx == 4)
-                    {
-                        gv.cc.ptrPc4.glowOn = true;
-                    }
-                    if (idx == 5)
-                    {
-                        gv.cc.ptrPc5.glowOn = true;
-                    }
+                            if (pc.isPreparingSpell && pc.thisCasterCanBeInterrupted)
+                            {
+                                #region Do Calc Save and DC
+                                int saveChkRoll = gv.sf.RandInt(20);
+                                int saveChk = 0;
+                                int DC = 10 + (pc.hpLastTurn - pc.hp);
+                                int saveChkAdder = pc.will;
 
-                    //write the pc's name to log whsoe turn it is
-                    gv.cc.addLogText("<font color='blue'>It's the turn of " + pc.name + ". </font><BR>");
+                                saveChk = saveChkRoll + saveChkAdder;
+                                #endregion
 
-                    //switching to a system where effects last from turn they are applied to start of the target creature's next turn (multiplied with duration of effect)
-                    applyEffectsCombat(pc);
-                    //change creatureIndex or currentPlayerIndex
-                    currentPlayerIndex = idx;
-                    //set isPlayerTurn 
-                    isPlayerTurn = true;
+                                if (saveChk >= DC)
+                                {
+                                    gv.cc.addLogText("<font color='yellow'>" + pc.name + " makes will save(" + saveChkRoll + "+" + saveChkAdder + " >= " + DC + ") and " + pc.playerClass.labelForCastAction + " still despite damage during last turn." + "</font><BR>");
+                                }
+                                else
+                                {
+                                    gv.cc.addLogText("<font color='yellow'>" + pc.name + " fails will save(" + saveChkRoll + "+" + saveChkAdder + " <= " + DC + ") - " + pc.playerClass.spellLabelSingular + " cancelled due to damage during last turn." + "</font><BR>");
 
-                    currentCombatMode = "info";
-                    currentMoveOrderIndex++;
-                    gv.mod.enteredFirstTime = false;
-                    //Karl
-                    //gv.Render();
-                    //go to start PlayerTurn or start CreatureTurn
-                    if ((pc.isHeld()) || (pc.isDead()))
-                    {
-                        endPcTurn(false);
+                                    //reset all relevant values to default
+                                    pc.isPreparingSpell = false;
+                                    pc.doCastActionInXFullTurns = 0;
+                                    pc.tagOfSpellToBeCastAfterCastTimeIsDone = "none";
+                                    pc.thisCastIsFreeOfCost = false;
+                                    pc.thisCasterCanBeInterrupted = true;
+                                }
+                            }
+                        }
+
+                        spriteList.Clear();
+                        gv.cc.floatyTextList.Clear();
+                        //highlight the portrait of the pc whose current turn it is
+                        gv.cc.ptrPc0.glowOn = false;
+                        gv.cc.ptrPc1.glowOn = false;
+                        gv.cc.ptrPc2.glowOn = false;
+                        gv.cc.ptrPc3.glowOn = false;
+                        gv.cc.ptrPc4.glowOn = false;
+                        gv.cc.ptrPc5.glowOn = false;
+
+                        if (idx == 0)
+                        {
+                            gv.cc.ptrPc0.glowOn = true;
+                        }
+                        if (idx == 1)
+                        {
+                            gv.cc.ptrPc1.glowOn = true;
+                        }
+                        if (idx == 2)
+                        {
+                            gv.cc.ptrPc2.glowOn = true;
+                        }
+                        if (idx == 3)
+                        {
+                            gv.cc.ptrPc3.glowOn = true;
+                        }
+                        if (idx == 4)
+                        {
+                            gv.cc.ptrPc4.glowOn = true;
+                        }
+                        if (idx == 5)
+                        {
+                            gv.cc.ptrPc5.glowOn = true;
+                        }
+
+                        //switching to a system where effects last from turn they are applied to start of the target creature's next turn (multiplied with duration of effect)
+                        applyEffectsCombat(pc);
+                        //change creatureIndex or currentPlayerIndex
+                        currentPlayerIndex = idx;
+                        //set isPlayerTurn 
+                        isPlayerTurn = true;
+
+                        currentCombatMode = "info";
+                        currentMoveOrderIndex++;
+                        gv.mod.enteredFirstTime = false;
+                        //Karl
+                        //gv.Render();
+                        //go to start PlayerTurn or start CreatureTurn
+                        if ((pc.isHeld()) || (pc.isDead()))
+                        {
+                            pc.thisCastIsFreeOfCost = false;
+                            pc.isPreparingSpell = false;
+                            pc.doCastActionInXFullTurns = 0;
+                            pc.tagOfSpellToBeCastAfterCastTimeIsDone = "none";
+                            pc.thisCasterCanBeInterrupted = true;
+                            endPcTurn(true);
+                        }
+                        else
+                        {
+                            //no normal turn if player is preparing spell
+                            //it is either passing move while reducing remaining cast time by 1
+                            //it is doing the cast of the stored spell, jumping to select target mode ("cast") (note: without spell cost that was paid upfront)
+                            if (pc.isPreparingSpell)
+                            {
+                                //AoO code
+                                foreach (Creature crt in gv.mod.currentEncounter.encounterCreatureList)
+                                {
+                                    if (gv.screenCombat.CalcDistance(crt, crt.combatLocX, crt.combatLocY, pc.combatLocX, pc.combatLocY) == 1)
+                                    {
+                                        bool triggersAoO = false;
+                                        foreach (Spell sp in gv.mod.moduleSpellsList)
+                                        {
+                                            if (sp.tag == pc.tagOfSpellToBeCastAfterCastTimeIsDone)
+                                            {
+                                                if (sp.triggersAoO)
+                                                {
+                                                    triggersAoO = true;
+                                                }
+                                                break;
+                                            }
+                                        }
+
+                                        foreach (Effect ef in pc.effectsList)
+                                        {
+                                            if (ef.allowCastingWithoutTriggeringAoO)
+                                            {
+                                                triggersAoO = false;
+                                                break;
+                                            }
+                                        }
+
+                                        if (triggersAoO)
+                                        {
+                                            gv.cc.addLogText("<font color='blue'>Attack of Opportunity by: " + crt.cr_name + "</font><BR>");
+                                            //int dcForSaveAdder = pc.hp;
+                                            //gv.screenCombat.doStandardCreatureAttackAoO(pc, crt, 1);
+                                            //gv.screenType = "combat";
+                                            gv.sf.CombatTarget = pc;
+                                            gv.screenCombat.CreatureDoesAttack(crt, false, pc);
+                                            if ((pc.hp <= 0) || (pc.isHeld()))
+                                            {
+                                                gv.screenType = "combat";
+                                                gv.screenCombat.endPcTurn(true);
+                                            }
+                                        }
+                                    }
+                                }
+                                //TODO check flow from here (interruption?)
+                                //takes this full turn still to prepare spell
+                                if (pc.doCastActionInXFullTurns > 1)
+                                {
+
+                                    //reduce cast timer by 1
+                                    pc.doCastActionInXFullTurns--;
+
+                                    //log
+                                    gv.cc.addLogText("<font color='yellow'>" + pc.name + " prepares a " + pc.playerClass.spellLabelSingular + " that takes still " + pc.doCastActionInXFullTurns + " full turn(s)..." + " </font><BR>");
+
+                                    //end turn
+                                    endPcTurn(true);
+                                }
+                                //the cast shall happen this turn, pc.doCastActionInXFullTurn is 1
+                                else
+                                {
+                                    //preparation is over we come to the act of casting
+                                    pc.isPreparingSpell = false;
+
+                                    //setting cast timer to deafult zero again
+                                    pc.doCastActionInXFullTurns--;
+
+                                    //do a very special pc turn now, that directly begins with targeting the preselected spell
+                                    startPcTurnPreparedCast();
+                                }
+                            }
+                            //a normal turn
+                            else
+                            {
+                                pc.thisCastIsFreeOfCost = false;
+                                pc.isPreparingSpell = false;
+                                pc.doCastActionInXFullTurns = 0;
+                                pc.tagOfSpellToBeCastAfterCastTimeIsDone = "none";
+                                pc.thisCasterCanBeInterrupted = true;
+                                startPcTurn();
+                            }
+                        }
+                        return;
                     }
-                    else
-                    {
-                        startPcTurn();
-                    }
-                    return;
+                    idx++;
                 }
-                idx++;
-            }
-            idx = 0;
-            foreach (Creature crt in gv.mod.currentEncounter.encounterCreatureList)
-            {
-                if (crt.moveOrder == currentMoveOrderIndex)
+                idx = 0;
+                foreach (Creature crt in gv.mod.currentEncounter.encounterCreatureList)
                 {
-                    spriteList.Clear();
-                    gv.cc.floatyTextList.Clear();
-                    coordinatesOfPcTheCreatureMovesTowards.X = -1;
-                    coordinatesOfPcTheCreatureMovesTowards.Y = -1;
-                    storedPathOfCurrentCreature.Clear();
-                    gv.cc.addLogText("<font color='blue'>It's the turn of " + crt.cr_name + ". </font><BR>");
-                    //switching to a system where effects last from turn they are applied to start of the target creature's next turn (multiplied with duration of effect)
-                    applyEffectsCombat(crt);
-                    //change creatureIndex or currentPlayerIndex
-                    creatureIndex = idx;
-                    //set isPlayerTurn
-                    isPlayerTurn = false;
+                    if (crt.moveOrder == currentMoveOrderIndex)
+                    {
+                        spriteList.Clear();
+                        gv.cc.floatyTextList.Clear();
+                        coordinatesOfPcTheCreatureMovesTowards.X = -1;
+                        coordinatesOfPcTheCreatureMovesTowards.Y = -1;
+                        storedPathOfCurrentCreature.Clear();
+                        gv.cc.addLogText("<font color='blue'>It's the turn of " + crt.cr_name + ". </font><BR>");
+                        //switching to a system where effects last from turn they are applied to start of the target creature's next turn (multiplied with duration of effect)
+                        applyEffectsCombat(crt);
+                        //change creatureIndex or currentPlayerIndex
+                        creatureIndex = idx;
+                        //set isPlayerTurn
+                        isPlayerTurn = false;
 
-                    if (!gv.mod.useManualCombatCam)
-                    {
-                        gv.touchEnabled = false;
-                    }
+                        if (!gv.mod.useManualCombatCam)
+                        {
+                            gv.touchEnabled = false;
+                        }
 
-                    currentCombatMode = "info";
-                    currentMoveOrderIndex++;
-                    //Karl
-                    //gv.Render();
-                    //go to start PlayerTurn or start CreatureTurn
-                    if ((crt.hp > 0) && (!crt.isHeld()))
-                    {
-                        //upperLeftInFastForwardX = -100;
-                        //upperLeftInFastForwardY = -100;
-                        doCreatureTurn();
+                        currentCombatMode = "info";
+                        currentMoveOrderIndex++;
+                        //Karl
+                        //gv.Render();
+                        //go to start PlayerTurn or start CreatureTurn
+                        if ((crt.hp > 0) && (!crt.isHeld()))
+                        {
+                            //upperLeftInFastForwardX = -100;
+                            //upperLeftInFastForwardY = -100;
+                            doCreatureTurn();
+                        }
+                        else
+                        {
+                            endCreatureTurn(crt);
+                        }
+                        return;
                     }
-                    else
-                    {
-                        endCreatureTurn(crt);
-                    }
-                    return;
+                    idx++;
                 }
-                idx++;
-            }
             //didn't find one so increment moveOrderIndex and try again
-            currentMoveOrderIndex++;
-            turnController();
+            if (animationSeqStack.Count == 0)
+            {
+                currentMoveOrderIndex++;
+            }
+                turnController();
+           }
         }
+
         public void startNextRoundStuff()
         {
             currentMoveOrderIndex = 0;
@@ -1439,6 +1579,45 @@ namespace IceBlink2
                 }
             }
         }
+
+        public void startPcTurnPreparedCast()
+        {
+            CalculateUpperLeft();
+            //karl
+            //gv.Render();
+            isPlayerTurn = true;
+            gv.touchEnabled = true;
+            Player pc = gv.mod.playerList[currentPlayerIndex];
+            foreach (Spell sp in gv.mod.moduleSpellsList)
+            {
+                if (sp.tag == gv.mod.playerList[currentPlayerIndex].tagOfSpellToBeCastAfterCastTimeIsDone)
+                {
+                    gv.cc.currentSelectedSpell = sp;
+                    gv.mod.playerList[currentPlayerIndex].tagOfSpellToBeCastAfterCastTimeIsDone = "none";
+                    break;
+                }
+            }
+            //jump directly to cast mode
+            currentCombatMode = "cast";
+            gv.sf.UpdateStats(pc);
+            currentMoves = 0;
+            //do onTurn IBScript
+            gv.cc.doIBScriptBasedOnFilename(gv.mod.currentEncounter.OnStartCombatTurnIBScript, gv.mod.currentEncounter.OnStartCombatTurnIBScriptParms);
+
+            if ((pc.isHeld()) || (pc.isDead()) || (pc.isUnconcious()))
+            {
+                endPcTurn(false);
+            }
+            else
+            {
+                pc.thisCastIsFreeOfCost = true;
+            }
+            if (pc.isImmobile())
+            {
+                currentMoves = 99;
+            }
+        }
+
         public void startPcTurn()
         {
             CalculateUpperLeft();
@@ -1735,25 +1914,40 @@ namespace IceBlink2
         }
         public void endPcTurn(bool endStealthMode)
         {
-            //remove stealth if endStealthMode = true
-            if (currentPlayerIndex <= gv.mod.playerList.Count-1)
+            if (currentCombatMode != "cast")
             {
-                Player pc = gv.mod.playerList[currentPlayerIndex];
-                if (pc.hp >= 0)
+                /*
+                while (animationSeqStack.Count > 0)
                 {
-                    pc.hpLastTurn = pc.hp;
+                    int c = 0;
+                    while (c < 500000000)
+                    {
+                        c++;
+                    }
+                    animationSeqStack.RemoveAt(animationSeqStack.Count -1);
                 }
-                if (endStealthMode)
+                */
+                //animationSeqStack.Clear();
+                //remove stealth if endStealthMode = true
+                if (currentPlayerIndex <= gv.mod.playerList.Count - 1)
                 {
-                    pc.steathModeOn = false;
+                    Player pc = gv.mod.playerList[currentPlayerIndex];
+                    if (pc.hp >= 0)
+                    {
+                        pc.hpLastTurn = pc.hp;
+                    }
+                    if (endStealthMode)
+                    {
+                        pc.steathModeOn = false;
+                    }
+                    else //else test to see if enter/stay in stealth gv.mode if has trait
+                    {
+                        doStealthModeCheck(pc);
+                    }
+                    canMove = true;
                 }
-                else //else test to see if enter/stay in stealth gv.mode if has trait
-                {
-                    doStealthModeCheck(pc);
-                }
-                canMove = true;
+                turnController();
             }
-            turnController();
         }
         public void doStealthModeCheck(Player pc)
         {
@@ -1825,7 +2019,7 @@ namespace IceBlink2
         public void doCreatureNextAction()
         {
             Creature crt = gv.mod.currentEncounter.encounterCreatureList[creatureIndex];
-            CalculateUpperLeftCreature();
+            CalculateUpperLeftCreature(crt);
             if ((crt.hp > 0) && (!crt.isHeld()))
             {
                 creatureToAnimate = null;
@@ -1881,7 +2075,7 @@ namespace IceBlink2
             {
                 Player pc = targetClosestPC(crt);
                 gv.sf.CombatTarget = pc;
-                CreatureDoesAttack(crt);
+                CreatureDoesAttack(crt, true);
             }
             else if (gv.sf.ActionToTake.Equals("Move"))
             {
@@ -2312,7 +2506,7 @@ namespace IceBlink2
             return true;
         }
 
-        public void CreatureDoesAttack(Creature crt)
+        public void CreatureDoesAttack(Creature crt, bool allowAnimationActivation)
         {
             if (gv.sf.CombatTarget != null)
             {
@@ -2347,7 +2541,7 @@ namespace IceBlink2
                         if (gv.mod.useManualCombatCam)
                         {
                             adjustCamToRangedCreature = true;
-                            CalculateUpperLeftCreature();
+                            CalculateUpperLeftCreature(crt);
                             adjustCamToRangedCreature = false;
 
                             if (IsInVisibleCombatWindow(crt.combatLocX, crt.combatLocY))
@@ -2377,7 +2571,7 @@ namespace IceBlink2
                         newSeq.AnimationSeq.Add(newGroup);
                         launchProjectile(filename, startX, startY, endX, endY, newGroup);
                         //add ending projectile animation  
-                        doStandardCreatureAttack();
+                        doStandardCreatureAttack(crt, pc);
                         //add hit or miss animation
                         //add floaty text
                         //add death animations
@@ -2390,6 +2584,11 @@ namespace IceBlink2
                                 continue;
                             }
                             addDeathAnimation(newGroup, new Coordinate(getPixelLocX(coor.X), getPixelLocY(coor.Y)));
+                        }
+                        if (!allowAnimationActivation)
+                        {
+                            //AoO situation
+                            isPlayerTurn = true;
                         }
                         animationsOn = true;
                     }
@@ -2417,7 +2616,7 @@ namespace IceBlink2
                         if (gv.mod.useManualCombatCam)
                         {
                             //adjustCamToRangedCreature = true;
-                            CalculateUpperLeftCreature();
+                            CalculateUpperLeftCreature(crt);
                             //adjustCamToRangedCreature = false;
 
                             if (IsInVisibleCombatWindow(crt.combatLocX, crt.combatLocY))
@@ -2437,7 +2636,7 @@ namespace IceBlink2
                         //do melee attack stuff and animations  
                         AnimationSequence newSeq = new AnimationSequence();
                         animationSeqStack.Add(newSeq);
-                        doStandardCreatureAttack();
+                        doStandardCreatureAttack(crt, pc);
                         //add hit or miss animation
                         //add floaty text
                         //add death animations
@@ -2450,6 +2649,185 @@ namespace IceBlink2
                                 continue;
                             }
                             addDeathAnimation(newGroup, new Coordinate(getPixelLocX(coor.X), getPixelLocY(coor.Y)));
+                        }
+
+                        if (!allowAnimationActivation)
+                        {
+                            //AoO situation
+                            isPlayerTurn = true;
+                        }
+                        animationsOn = true;
+                    }
+                    else
+                    {
+                        //skip this guys turn
+                    }
+                }
+                else //not in range for attack so MOVE
+                {
+                    CreatureMoves();
+                }
+            }
+            else //no target so move instead
+            {
+                CreatureMoves();
+            }
+        }
+
+
+        //AoO overload
+        public void CreatureDoesAttack(Creature crt, bool allowAnimationActivation, Player pc)
+        {
+
+            if (gv.sf.CombatTarget != null)
+            {
+                //Player pc = (Player)gv.sf.CombatTarget;
+                //Uses Map Pixel Locations
+                int endX = pc.combatLocX * gv.squareSize + (gv.squareSize / 2);
+                int endY = pc.combatLocY * gv.squareSize + (gv.squareSize / 2);
+                int startX = crt.combatLocX * gv.squareSize + (gv.squareSize / 2);
+                int startY = crt.combatLocY * gv.squareSize + (gv.squareSize / 2);
+                // determine if ranged or melee
+                if ((crt.cr_category.Equals("Ranged"))
+                        && (CalcDistance(crt, crt.combatLocX, crt.combatLocY, pc.combatLocX, pc.combatLocY) <= crt.cr_attRange)
+                        && (isVisibleLineOfSight(new Coordinate(endX, endY), new Coordinate(startX, startY))))
+                {
+                    //play attack sound for ranged
+                    gv.PlaySound(crt.cr_attackSound);
+                    if ((pc.combatLocX < crt.combatLocX) && (!crt.combatFacingLeft)) //attack left
+                    {
+                        crt.combatFacingLeft = true;
+                    }
+                    else if ((pc.combatLocX > crt.combatLocX) && (crt.combatFacingLeft)) //attack right
+                    {
+                        crt.combatFacingLeft = false;
+                    }
+                    //CHANGE FACING BASED ON ATTACK
+                    doCreatureCombatFacing(crt, pc.combatLocX, pc.combatLocY);
+
+                    if (crt.hp > 0)
+                    {
+
+                        //bali1
+                        if (gv.mod.useManualCombatCam)
+                        {
+                            adjustCamToRangedCreature = true;
+                            CenterScreenOnPC();
+                            //CalculateUpperLeftCreature(crt);
+                            adjustCamToRangedCreature = false;
+
+                            if (IsInVisibleCombatWindow(crt.combatLocX, crt.combatLocY))
+                            {
+                                gv.touchEnabled = false;
+                            }
+                        }
+
+                        creatureToAnimate = crt;
+                        playerToAnimate = null;
+                        creatureTargetLocation = new Coordinate(pc.combatLocX, pc.combatLocY);
+                        //set attack animation and do a delay
+                        attackAnimationTimeElapsed = 0;
+                        //attackAnimationLengthInMilliseconds = (int) ( (5f * gv.mod.attackAnimationSpeed) * (-1 + (int)crt.token.PixelSize.Height / 100f) );
+                        attackAnimationLengthInMilliseconds = (int)(5f * gv.mod.attackAnimationSpeed);
+                        //attackAnimationLengthInMilliseconds = (int)((5f * gv.mod.attackAnimationSpeed) + (-1 + (int)crt.token.PixelSize.Height / 100f) * 100);
+
+                        //add projectile animation
+                        startX = getPixelLocX(crt.combatLocX);
+                        startY = getPixelLocY(crt.combatLocY);
+                        endX = getPixelLocX(pc.combatLocX);
+                        endY = getPixelLocY(pc.combatLocY);
+                        string filename = crt.cr_projSpriteFilename;
+                        AnimationSequence newSeq = new AnimationSequence();
+                        animationSeqStack.Add(newSeq);
+                        AnimationStackGroup newGroup = new AnimationStackGroup();
+                        newSeq.AnimationSeq.Add(newGroup);
+                        launchProjectile(filename, startX, startY, endX, endY, newGroup);
+                        //add ending projectile animation  
+                        doStandardCreatureAttack(crt, pc);
+                        //add hit or miss animation
+                        //add floaty text
+                        //add death animations
+                        newGroup = new AnimationStackGroup();
+                        animationSeqStack[0].AnimationSeq.Add(newGroup);
+                        foreach (Coordinate coor in deathAnimationLocations)
+                        {
+                            if (!IsInVisibleCombatWindow(coor.X, coor.Y))
+                            {
+                                continue;
+                            }
+                            addDeathAnimation(newGroup, new Coordinate(getPixelLocX(coor.X), getPixelLocY(coor.Y)));
+                        }
+                        if (!allowAnimationActivation)
+                        {
+                            //AoO situation
+                            isPlayerTurn = true;
+                        }
+                        animationsOn = true;
+                    }
+                    else
+                    {
+                        //skip this guys turn
+                    }
+                }
+                else if ((crt.cr_category.Equals("Melee"))
+                        && (CalcDistance(crt, crt.combatLocX, crt.combatLocY, pc.combatLocX, pc.combatLocY) <= crt.cr_attRange))
+                {
+                    if ((pc.combatLocX < crt.combatLocX) && (!crt.combatFacingLeft)) //attack left
+                    {
+                        crt.combatFacingLeft = true;
+                    }
+                    else if ((pc.combatLocX > crt.combatLocX) && (crt.combatFacingLeft)) //attack right
+                    {
+                        crt.combatFacingLeft = false;
+                    }
+                    //CHANGE FACING BASED ON ATTACK
+                    doCreatureCombatFacing(crt, pc.combatLocX, pc.combatLocY);
+                    if (crt.hp > 0)
+                    {
+
+                        if (gv.mod.useManualCombatCam)
+                        {
+                            //adjustCamToRangedCreature = true;
+                            CenterScreenOnPC();
+                            //CalculateUpperLeftCreature(crt);
+                            //adjustCamToRangedCreature = false;
+
+                            if (IsInVisibleCombatWindow(crt.combatLocX, crt.combatLocY))
+                            {
+                                gv.touchEnabled = false;
+                            }
+                        }
+
+                        creatureToAnimate = crt;
+                        playerToAnimate = null;
+
+                        attackAnimationTimeElapsed = 0;
+                        attackAnimationLengthInMilliseconds = (int)(5f * gv.mod.attackAnimationSpeed);
+                        //attackAnimationLengthInMilliseconds = (int)((5f * gv.mod.attackAnimationSpeed) * (-1 + (int)crt.token.PixelSize.Height / 100f));
+                        //attackAnimationLengthInMilliseconds = (int)((5f * gv.mod.attackAnimationSpeed) + (-1 + (int)crt.token.PixelSize.Height / 100f) * 100);
+
+                        //do melee attack stuff and animations  
+                        AnimationSequence newSeq = new AnimationSequence();
+                        animationSeqStack.Add(newSeq);
+                        doStandardCreatureAttack(crt, pc);
+                        //add hit or miss animation
+                        //add floaty text
+                        //add death animations
+                        AnimationStackGroup newGroup = new AnimationStackGroup();
+                        animationSeqStack[0].AnimationSeq.Add(newGroup);
+                        foreach (Coordinate coor in deathAnimationLocations)
+                        {
+                            if (!IsInVisibleCombatWindow(coor.X, coor.Y))
+                            {
+                                continue;
+                            }
+                            addDeathAnimation(newGroup, new Coordinate(getPixelLocX(coor.X), getPixelLocY(coor.Y)));
+                        }
+
+                        if (!allowAnimationActivation)
+                        {
+                            //AoO situation
+                            isPlayerTurn = true;
                         }
                         animationsOn = true;
                     }
@@ -2510,7 +2888,7 @@ namespace IceBlink2
                 if (gv.mod.useManualCombatCam)
                 {
                     adjustCamToRangedCreature = true;
-                    CalculateUpperLeftCreature();
+                    CalculateUpperLeftCreature(crt);
                     adjustCamToRangedCreature = false;
 
                     if (IsInVisibleCombatWindow(crt.combatLocX, crt.combatLocY))
@@ -2583,7 +2961,7 @@ namespace IceBlink2
                 //#region Do a Melee or Ranged Attack
                 Player pc = targetClosestPC(crt);
                 gv.sf.CombatTarget = pc;
-                CreatureDoesAttack(crt);
+                CreatureDoesAttack(crt, true);
             }
         }
         public void doCreatureAI(Creature crt)
@@ -2761,6 +3139,18 @@ namespace IceBlink2
         {
             //store current hp of cretaure, use it at start of creature next turn to see whether damage occured in the meantime
             //if it ccured, effet prone too breaking on damage are removed from the creature
+            /*
+            if (animationSeqStack.Count > 0)
+            {
+                int c = 0;
+                while (c < 500000)
+                {
+                    c++;
+                }
+            }
+            animationSeqStack.Clear();
+            */
+
             if (crt.hp >= 0)
             {
                 crt.hpLastTurn = crt.hp;
@@ -2777,10 +3167,11 @@ namespace IceBlink2
             }
             turnController();
         }
-        public void doStandardCreatureAttack()
+
+        public void doStandardCreatureAttack(Creature crt, Player pc)
         {
-            Creature crt = gv.mod.currentEncounter.encounterCreatureList[creatureIndex];
-            Player pc = (Player)gv.sf.CombatTarget;
+            //Creature crt = gv.mod.currentEncounter.encounterCreatureList[creatureIndex];
+            //Player pc = (Player)gv.sf.CombatTarget;
 
             upperLeftInFastForwardX = pc.combatLocX - gv.playerOffsetX;
             upperLeftInFastForwardY = pc.combatLocY - gv.playerOffsetY;
@@ -2821,6 +3212,66 @@ namespace IceBlink2
                 addMissAnimation(newGroup);
             }
         }
+
+        //not used
+        public void doStandardCreatureAttackAoO(Player pc, Creature crt, int attackNumber)
+        {
+            //Creature crt = gv.mod.currentEncounter.encounterCreatureList[creatureIndex];
+            //Player pc = (Player)gv.sf.CombatTarget;
+
+            upperLeftInFastForwardX = pc.combatLocX - gv.playerOffsetX;
+            upperLeftInFastForwardY = pc.combatLocY - gv.playerOffsetY;
+
+            bool hit = false;
+            for (int i = 0; i < attackNumber; i++)
+            {
+                //this reduces the to hit bonus for each further creature attack by an additional -5
+                //creatureMultAttackPenalty = 5 * i;            
+                bool hitreturn = doActualCreatureAttack(pc, crt, i);
+                if (hitreturn) { hit = true; }
+                if (pc.hp <= 0)
+                {
+                    break; //do not try and attack same PC that was just killed
+                }
+            }
+
+            //play attack sound for melee
+            if (!crt.cr_category.Equals("Ranged"))
+            {
+                gv.PlaySound(crt.cr_attackSound);
+            }
+
+            //testing
+            //animationsOn = true;
+
+            if (hit)
+            {
+                hitAnimationLocation = new Coordinate(getPixelLocX(pc.combatLocX), getPixelLocY(pc.combatLocY));
+                //new system
+                AnimationStackGroup newGroup = new AnimationStackGroup();
+
+                //testing
+                AnimationSequence newSequence = new AnimationSequence();
+                animationSeqStack.Add(newSequence);
+
+                animationSeqStack[0].AnimationSeq.Add(newGroup);
+                addHitAnimation(newGroup);
+            }
+            else
+            {
+                hitAnimationLocation = new Coordinate(getPixelLocX(pc.combatLocX), getPixelLocY(pc.combatLocY));
+                //new system
+                AnimationStackGroup newGroup = new AnimationStackGroup();
+
+                //testing
+                AnimationSequence newSequence = new AnimationSequence();
+                animationSeqStack.Add(newSequence);
+
+                animationSeqStack[0].AnimationSeq.Add(newGroup);
+                addMissAnimation(newGroup);
+            }
+        }
+
         public bool doActualCreatureAttack(Player pc, Creature crt, int attackNumber)
         {
             int attackRoll = gv.sf.RandInt(20);
@@ -3660,7 +4111,10 @@ namespace IceBlink2
                             {
                                 //don't end turn just yet..probably called from a trait that is meant to be used right away like Power Attack or Set Trap  
                                 dontEndTurn = false;
-                                currentCombatMode = "move";
+                                if (currentCombatMode != "cast")
+                                {
+                                    currentCombatMode = "move";
+                                }
                                 //update all player stats in case their was a recently added spell or trait effect that would change them  
                                 foreach (Player p in gv.mod.playerList)
                                 {
@@ -5802,7 +6256,7 @@ namespace IceBlink2
 
 
             //if ((crt == gv.mod.currentEncounter.encounterCreatureList[creatureIndex])
-
+            //fats mode not used right now
             if ((gv.mod.fastMode) && (!isPlayerTurn))
             {
                 framesInFastForwardCounter++;
@@ -6624,6 +7078,8 @@ namespace IceBlink2
         }
         public void drawSprites()
         {
+            //try freeing calculate upper left
+            //hero
             foreach (Sprite spr in spriteList)
             {
                 spr.Draw(gv);
@@ -6654,12 +7110,18 @@ namespace IceBlink2
         #region Keyboard Input
         public void onKeyUp(Keys keyData)
         {
+            
             if (keyData == Keys.M)
             {
                 if (canMove)
                 {
                     if (isPlayerTurn)
                     {
+                        gv.mod.playerList[currentPlayerIndex].thisCastIsFreeOfCost = false;
+                        gv.mod.playerList[currentPlayerIndex].isPreparingSpell = false;
+                        gv.mod.playerList[currentPlayerIndex].doCastActionInXFullTurns = 0;
+                        gv.mod.playerList[currentPlayerIndex].tagOfSpellToBeCastAfterCastTimeIsDone = "none";
+                        gv.mod.playerList[currentPlayerIndex].thisCasterCanBeInterrupted = true;
                         currentCombatMode = "move";
                         gv.screenType = "combat";
                     }
@@ -6669,6 +7131,11 @@ namespace IceBlink2
             {
                 if (isPlayerTurn)
                 {
+                    gv.mod.playerList[currentPlayerIndex].thisCastIsFreeOfCost = false;
+                    gv.mod.playerList[currentPlayerIndex].isPreparingSpell = false;
+                    gv.mod.playerList[currentPlayerIndex].doCastActionInXFullTurns = 0;
+                    gv.mod.playerList[currentPlayerIndex].tagOfSpellToBeCastAfterCastTimeIsDone = "none";
+                    gv.mod.playerList[currentPlayerIndex].thisCasterCanBeInterrupted = true;
                     Player pc = gv.mod.playerList[currentPlayerIndex];
                     currentCombatMode = "attack";
                     gv.screenType = "combat";
@@ -6683,6 +7150,11 @@ namespace IceBlink2
                     {
                         return;
                     }
+                    gv.mod.playerList[currentPlayerIndex].thisCastIsFreeOfCost = false;
+                    gv.mod.playerList[currentPlayerIndex].isPreparingSpell = false;
+                    gv.mod.playerList[currentPlayerIndex].doCastActionInXFullTurns = 0;
+                    gv.mod.playerList[currentPlayerIndex].tagOfSpellToBeCastAfterCastTimeIsDone = "none";
+                    gv.mod.playerList[currentPlayerIndex].thisCasterCanBeInterrupted = true;
                     gv.cc.partyScreenPcIndex = currentPlayerIndex;
                     gv.screenParty.resetPartyScreen();
                     gv.screenType = "combatParty";
@@ -6692,6 +7164,11 @@ namespace IceBlink2
             {
                 if (isPlayerTurn)
                 {
+                    gv.mod.playerList[currentPlayerIndex].thisCastIsFreeOfCost = false;
+                    gv.mod.playerList[currentPlayerIndex].isPreparingSpell = false;
+                    gv.mod.playerList[currentPlayerIndex].doCastActionInXFullTurns = 0;
+                    gv.mod.playerList[currentPlayerIndex].tagOfSpellToBeCastAfterCastTimeIsDone = "none";
+                    gv.mod.playerList[currentPlayerIndex].thisCasterCanBeInterrupted = true;
                     gv.screenType = "combatInventory";
                     gv.screenInventory.resetInventory();
                 }
@@ -6700,6 +7177,11 @@ namespace IceBlink2
             {
                 if (isPlayerTurn)
                 {
+                    gv.mod.playerList[currentPlayerIndex].thisCastIsFreeOfCost = false;
+                    gv.mod.playerList[currentPlayerIndex].isPreparingSpell = false;
+                    gv.mod.playerList[currentPlayerIndex].doCastActionInXFullTurns = 0;
+                    gv.mod.playerList[currentPlayerIndex].tagOfSpellToBeCastAfterCastTimeIsDone = "none";
+                    gv.mod.playerList[currentPlayerIndex].thisCasterCanBeInterrupted = true;
                     gv.screenType = "combat";
                     endPcTurn(false);
                 }
@@ -6708,6 +7190,11 @@ namespace IceBlink2
             {
                 if (isPlayerTurn)
                 {
+                    gv.mod.playerList[currentPlayerIndex].thisCastIsFreeOfCost = false;
+                    gv.mod.playerList[currentPlayerIndex].isPreparingSpell = false;
+                    gv.mod.playerList[currentPlayerIndex].doCastActionInXFullTurns = 0;
+                    gv.mod.playerList[currentPlayerIndex].tagOfSpellToBeCastAfterCastTimeIsDone = "none";
+                    gv.mod.playerList[currentPlayerIndex].thisCasterCanBeInterrupted = true;
                     Player pc = gv.mod.playerList[currentPlayerIndex];
                     if (pc.knownSpellsTags.Count > 0)
                     {
@@ -6727,6 +7214,11 @@ namespace IceBlink2
             {
                 if (isPlayerTurn)
                 {
+                    gv.mod.playerList[currentPlayerIndex].thisCastIsFreeOfCost = false;
+                    gv.mod.playerList[currentPlayerIndex].isPreparingSpell = false;
+                    gv.mod.playerList[currentPlayerIndex].doCastActionInXFullTurns = 0;
+                    gv.mod.playerList[currentPlayerIndex].tagOfSpellToBeCastAfterCastTimeIsDone = "none";
+                    gv.mod.playerList[currentPlayerIndex].thisCasterCanBeInterrupted = true;
                     Player pc = gv.mod.playerList[currentPlayerIndex];
                     if (pc.knownInCombatUsableTraitsTags.Count > 0)
                     {
@@ -8463,6 +8955,11 @@ namespace IceBlink2
                             {
                                 return;
                             }
+                            gv.mod.playerList[currentPlayerIndex].thisCastIsFreeOfCost = false;
+                            gv.mod.playerList[currentPlayerIndex].isPreparingSpell = false;
+                            gv.mod.playerList[currentPlayerIndex].doCastActionInXFullTurns = 0;
+                            gv.mod.playerList[currentPlayerIndex].tagOfSpellToBeCastAfterCastTimeIsDone = "none";
+                            gv.mod.playerList[currentPlayerIndex].thisCasterCanBeInterrupted = true;
                             gv.cc.partyScreenPcIndex = currentPlayerIndex;
                             gv.screenParty.resetPartyScreen();
                             gv.screenType = "combatParty";
@@ -8470,6 +8967,7 @@ namespace IceBlink2
                     }
                     else if (rtn.Equals("btnMove"))
                     {
+                     
                         if (canMove)
                         {
                             if (currentCombatMode.Equals("move"))
@@ -8480,6 +8978,11 @@ namespace IceBlink2
                             {
                                 if (isPlayerTurn)
                                 {
+                                    gv.mod.playerList[currentPlayerIndex].thisCastIsFreeOfCost = false;
+                                    gv.mod.playerList[currentPlayerIndex].isPreparingSpell = false;
+                                    gv.mod.playerList[currentPlayerIndex].doCastActionInXFullTurns = 0;
+                                    gv.mod.playerList[currentPlayerIndex].tagOfSpellToBeCastAfterCastTimeIsDone = "none";
+                                    gv.mod.playerList[currentPlayerIndex].thisCasterCanBeInterrupted = true;
                                     currentCombatMode = "move";
                                 }
                             }
@@ -8490,6 +8993,11 @@ namespace IceBlink2
                     {
                         if (isPlayerTurn)
                         {
+                            gv.mod.playerList[currentPlayerIndex].thisCastIsFreeOfCost = false;
+                            gv.mod.playerList[currentPlayerIndex].isPreparingSpell = false;
+                            gv.mod.playerList[currentPlayerIndex].doCastActionInXFullTurns = 0;
+                            gv.mod.playerList[currentPlayerIndex].tagOfSpellToBeCastAfterCastTimeIsDone = "none";
+                            gv.mod.playerList[currentPlayerIndex].thisCasterCanBeInterrupted = true;
                             gv.screenType = "combatInventory";
                             gv.screenInventory.resetInventory();
                         }
@@ -10874,6 +11382,11 @@ namespace IceBlink2
                             }
                             else
                             {
+                                gv.mod.playerList[currentPlayerIndex].thisCastIsFreeOfCost = false;
+                                gv.mod.playerList[currentPlayerIndex].isPreparingSpell = false;
+                                gv.mod.playerList[currentPlayerIndex].doCastActionInXFullTurns = 0;
+                                gv.mod.playerList[currentPlayerIndex].tagOfSpellToBeCastAfterCastTimeIsDone = "none";
+                                gv.mod.playerList[currentPlayerIndex].thisCasterCanBeInterrupted = true;
                                 currentCombatMode = "attack";
                             }
                             gv.screenType = "combat";
@@ -10884,6 +11397,11 @@ namespace IceBlink2
                     {
                         if (isPlayerTurn)
                         {
+                            gv.mod.playerList[currentPlayerIndex].thisCastIsFreeOfCost = false;
+                            gv.mod.playerList[currentPlayerIndex].isPreparingSpell = false;
+                            gv.mod.playerList[currentPlayerIndex].doCastActionInXFullTurns = 0;
+                            gv.mod.playerList[currentPlayerIndex].tagOfSpellToBeCastAfterCastTimeIsDone = "none";
+                            gv.mod.playerList[currentPlayerIndex].thisCasterCanBeInterrupted = true;
                             if (pc.knownSpellsTags.Count > 0)
                             {
                                 currentCombatMode = "castSelector";
@@ -10902,6 +11420,11 @@ namespace IceBlink2
                     {
                         if (isPlayerTurn)
                         {
+                            gv.mod.playerList[currentPlayerIndex].thisCastIsFreeOfCost = false;
+                            gv.mod.playerList[currentPlayerIndex].isPreparingSpell = false;
+                            gv.mod.playerList[currentPlayerIndex].doCastActionInXFullTurns = 0;
+                            gv.mod.playerList[currentPlayerIndex].tagOfSpellToBeCastAfterCastTimeIsDone = "none";
+                            gv.mod.playerList[currentPlayerIndex].thisCasterCanBeInterrupted = true;
                             if (pc.knownInCombatUsableTraitsTags.Count > 0)
                             {
                                 currentCombatMode = "traitUseSelector";
@@ -10920,6 +11443,11 @@ namespace IceBlink2
                     {
                         if (isPlayerTurn)
                         {
+                            gv.mod.playerList[currentPlayerIndex].thisCastIsFreeOfCost = false;
+                            gv.mod.playerList[currentPlayerIndex].isPreparingSpell = false;
+                            gv.mod.playerList[currentPlayerIndex].doCastActionInXFullTurns = 0;
+                            gv.mod.playerList[currentPlayerIndex].tagOfSpellToBeCastAfterCastTimeIsDone = "none";
+                            gv.mod.playerList[currentPlayerIndex].thisCasterCanBeInterrupted = true;
                             gv.screenType = "combat";
                             endPcTurn(false);
                         }
@@ -11513,6 +12041,7 @@ namespace IceBlink2
                     dontEndTurn = true;
                 }
             }
+            currentCombatMode = "info";
         }
         public void launchProjectile(string filename, int startX, int startY, int endX, int endY, AnimationStackGroup group)
         {
@@ -11591,121 +12120,172 @@ namespace IceBlink2
         //Helper Methods
         public void CalculateUpperLeft()
         {
-            if (gv.mod.useManualCombatCam)
-            {
-                CenterScreenOnPC();
-            }
-            else
-            {
-                Player pc = gv.mod.playerList[currentPlayerIndex];
-                int minX = pc.combatLocX - gv.playerOffsetX;
-                if (minX < 0) { minX = 0; }
-                int minY = pc.combatLocY - gv.playerOffsetY;
-                if (minY < 0) { minY = 0; }
-
-                if ((pc.combatLocX <= (UpperLeftSquare.X + 7)) && (pc.combatLocX >= UpperLeftSquare.X + 2) && (pc.combatLocY <= (UpperLeftSquare.Y + 7)) && (pc.combatLocY >= UpperLeftSquare.Y + 2))
+            
+            //if (animationSeqStack.Count == 0)
+            //{
+                if (gv.mod.useManualCombatCam)
                 {
-                    return;
+                FormerUpperLeftSquare.X = UpperLeftSquare.X;
+                FormerUpperLeftSquare.Y = UpperLeftSquare.Y;
+                CenterScreenOnPC();
                 }
                 else
                 {
-                    UpperLeftSquare.X = minX;
-                    UpperLeftSquare.Y = minY;
+                    Player pc = gv.mod.playerList[currentPlayerIndex];
+                    int minX = pc.combatLocX - gv.playerOffsetX;
+                    if (minX < 0) { minX = 0; }
+                    int minY = pc.combatLocY - gv.playerOffsetY;
+                    if (minY < 0) { minY = 0; }
+
+                    if ((pc.combatLocX <= (UpperLeftSquare.X + 7)) && (pc.combatLocX >= UpperLeftSquare.X + 2) && (pc.combatLocY <= (UpperLeftSquare.Y + 7)) && (pc.combatLocY >= UpperLeftSquare.Y + 2))
+                    {
+                        return;
+                    }
+                    else
+                    {
+                        UpperLeftSquare.X = minX;
+                        UpperLeftSquare.Y = minY;
+                    int deltaX = UpperLeftSquare.X - FormerUpperLeftSquare.X;
+                    int deltaY = UpperLeftSquare.Y - FormerUpperLeftSquare.Y;
+                    deltaX = 0;
+                    deltaY = 0;
+                    foreach (Sprite spr in spriteList)
+                    {
+                        spr.position.X = spr.position.X + (deltaX * gv.squareSize);
+                        spr.position.Y = spr.position.Y + (deltaY * gv.squareSize);
+                    }
                 }
-            }
+                }
+            //}
+           
         }
-        public void CalculateUpperLeftCreature()
+
+        public void CalculateUpperLeftCreature(Creature crt)
         {
-            Creature crt = gv.mod.currentEncounter.encounterCreatureList[creatureIndex];
-            int minX = crt.combatLocX - gv.playerOffsetX;
-            if (!gv.mod.useManualCombatCam)
-            {
-                if (minX < 0) { minX = 0; }
-            }
-            else
-            {
-                if (minX < -gv.playerOffsetX) { minX = -gv.playerOffsetX; }
-            }
-            //if (minX < 0) { minX = 0; }
-            int minY = crt.combatLocY - gv.playerOffsetY;
-            if (!gv.mod.useManualCombatCam)
-            {
-                if (minY < 0) { minY = 0; }
-            }
-            else
-            {
-                if (minY < -gv.playerOffsetY) { minY = -gv.playerOffsetY; }
-            }
-            //if (minY < 0) { minY = 0; }
-
-            //do not adjust view port if creature is on screen already and ends move at least one square away from border
-            if (((crt.combatLocX + 2) <= (UpperLeftSquare.X + (gv.playerOffsetX * 2))) && ((crt.combatLocX - 2) >= (UpperLeftSquare.X)) && ((crt.combatLocY + 2) <= (UpperLeftSquare.Y + (gv.playerOffsetY * 2))) && ((crt.combatLocY - 2) >= (UpperLeftSquare.Y)))
-            {
-                return;
-            }
-
-            else
-            {
-                if ((gv.mod.useManualCombatCam) && !gv.mod.fastMode)
+            FormerUpperLeftSquare.X = UpperLeftSquare.X;
+            FormerUpperLeftSquare.Y = UpperLeftSquare.Y;
+            
+            //if (animationSeqStack.Count == 0)
+            //{
+                //Creature crt = gv.mod.currentEncounter.encounterCreatureList[creatureIndex];
+                int minX = crt.combatLocX - gv.playerOffsetX;
+                if (!gv.mod.useManualCombatCam)
                 {
-                    //bali2
-                    int relevantRange = 1;
-                    if (crt.cr_category.Equals("Melee"))
-                    {
-                        relevantRange = crt.cr_attRange;
-                    }
-                    //Melee or AoO situation
-                    foreach (Player p in gv.mod.playerList)
-                    {
-                        if (getDistance(new Coordinate(p.combatLocX, p.combatLocY), new Coordinate(crt.combatLocX, crt.combatLocY)) <= relevantRange)
-                        {
-                            UpperLeftSquare.X = minX;
-                            UpperLeftSquare.Y = minY;
-                            break;
-                        }
+                    if (minX < 0) { minX = 0; }
+                }
+                else
+                {
+                    if (minX < -gv.playerOffsetX) { minX = -gv.playerOffsetX; }
+                }
+                //if (minX < 0) { minX = 0; }
+                int minY = crt.combatLocY - gv.playerOffsetY;
+                if (!gv.mod.useManualCombatCam)
+                {
+                    if (minY < 0) { minY = 0; }
+                }
+                else
+                {
+                    if (minY < -gv.playerOffsetY) { minY = -gv.playerOffsetY; }
+                }
+                //if (minY < 0) { minY = 0; }
 
-                        //ranged situation
-                        //bali1
-                        if (adjustCamToRangedCreature)
+                //do not adjust view port if creature is on screen already and ends move at least one square away from border
+                if (((crt.combatLocX + 2) <= (UpperLeftSquare.X + (gv.playerOffsetX * 2))) && ((crt.combatLocX - 2) >= (UpperLeftSquare.X)) && ((crt.combatLocY + 2) <= (UpperLeftSquare.Y + (gv.playerOffsetY * 2))) && ((crt.combatLocY - 2) >= (UpperLeftSquare.Y)))
+                {
+                    return;
+                }
+
+                else
+                {
+                    if ((gv.mod.useManualCombatCam) && !gv.mod.fastMode)
+                    {
+                        //bali2
+                        int relevantRange = 1;
+                        if (crt.cr_category.Equals("Melee"))
                         {
-                            UpperLeftSquare.X = minX;
-                            UpperLeftSquare.Y = minY;
-                            break;
-                            //cut out fo bugfixing
-                            /*
-                            if (getDistance(new Coordinate(p.combatLocX, p.combatLocY), new Coordinate(crt.combatLocX, crt.combatLocY)) < 9)
+                            relevantRange = crt.cr_attRange;
+                        }
+                        //Melee or AoO situation
+                        foreach (Player p in gv.mod.playerList)
+                        {
+                            if (getDistance(new Coordinate(p.combatLocX, p.combatLocY), new Coordinate(crt.combatLocX, crt.combatLocY)) <= relevantRange)
                             {
-                                if (p.combatLocX < crt.combatLocX)
-                                {
-                                    UpperLeftSquare.X = p.combatLocX;
-                                }
-                                else
-                                {
-                                    UpperLeftSquare.X = crt.combatLocX;
-                                }
-
-                                if (p.combatLocY < crt.combatLocY)
-                                {
-                                    UpperLeftSquare.Y = p.combatLocY;
-                                }
-                                else
-                                {
-                                    UpperLeftSquare.Y = crt.combatLocY;
-                                }
-                                break;
+                                UpperLeftSquare.X = minX;
+                                UpperLeftSquare.Y = minY;
+                            int deltaX = UpperLeftSquare.X - FormerUpperLeftSquare.X;
+                            int deltaY = UpperLeftSquare.Y - FormerUpperLeftSquare.Y;
+                            deltaX = 0;
+                            deltaY = 0;
+                            foreach (Sprite spr in spriteList)
+                            {
+                                spr.position.X = spr.position.X + (deltaX * gv.squareSize);
+                                spr.position.Y = spr.position.Y + (deltaY * gv.squareSize);
                             }
-                            */
-                        }
-                    }
 
-                    //return;
+                            break;
+                            }
+
+                            //ranged situation
+                            //bali1
+                            if (adjustCamToRangedCreature)
+                            {
+                                UpperLeftSquare.X = minX;
+                                UpperLeftSquare.Y = minY;
+                            int deltaX = UpperLeftSquare.X - FormerUpperLeftSquare.X;
+                            int deltaY = UpperLeftSquare.Y - FormerUpperLeftSquare.Y;
+                            deltaX = 0;
+                            deltaY = 0;
+                            foreach (Sprite spr in spriteList)
+                            {
+                                spr.position.X = spr.position.X + (deltaX * gv.squareSize);
+                                spr.position.Y = spr.position.Y + (deltaY * gv.squareSize);
+                            }
+                            break;
+                                //cut out fo bugfixing
+                                /*
+                                if (getDistance(new Coordinate(p.combatLocX, p.combatLocY), new Coordinate(crt.combatLocX, crt.combatLocY)) < 9)
+                                {
+                                    if (p.combatLocX < crt.combatLocX)
+                                    {
+                                        UpperLeftSquare.X = p.combatLocX;
+                                    }
+                                    else
+                                    {
+                                        UpperLeftSquare.X = crt.combatLocX;
+                                    }
+
+                                    if (p.combatLocY < crt.combatLocY)
+                                    {
+                                        UpperLeftSquare.Y = p.combatLocY;
+                                    }
+                                    else
+                                    {
+                                        UpperLeftSquare.Y = crt.combatLocY;
+                                    }
+                                    break;
+                                }
+                                */
+                            }
+                        }
+
+                        //return;
+                    }
+                    else if (!gv.mod.fastMode)
+                    {
+                        UpperLeftSquare.X = minX;
+                        UpperLeftSquare.Y = minY;
+                    int deltaX = UpperLeftSquare.X - FormerUpperLeftSquare.X;
+                    int deltaY = UpperLeftSquare.Y - FormerUpperLeftSquare.Y;
+                    deltaX = 0;
+                    deltaY = 0;
+                    foreach (Sprite spr in spriteList)
+                    {
+                        spr.position.X = spr.position.X + (deltaX * gv.squareSize);
+                        spr.position.Y = spr.position.Y + (deltaY * gv.squareSize);
+                    }
                 }
-                else if (!gv.mod.fastMode)
-                {
-                    UpperLeftSquare.X = minX;
-                    UpperLeftSquare.Y = minY;
                 }
-            }
+            //}
         }
         public void CenterScreenOnPC()
         {
@@ -11732,6 +12312,16 @@ namespace IceBlink2
 
             UpperLeftSquare.X = minX;
             UpperLeftSquare.Y = minY;
+            //TODO: transform sprite position here, based on delta between current and older upper left, also for creatue
+            int deltaX = UpperLeftSquare.X - FormerUpperLeftSquare.X;
+            int deltaY = UpperLeftSquare.Y - FormerUpperLeftSquare.Y;
+            deltaX = 0;
+            deltaY = 0;
+            foreach (Sprite spr in spriteList)
+            {
+                spr.position.X = spr.position.X + (deltaX * gv.squareSize);
+                spr.position.Y = spr.position.Y + (deltaY * gv.squareSize);
+            }
         }
         public bool IsInVisibleCombatWindow(int sqrX, int sqrY)
         {

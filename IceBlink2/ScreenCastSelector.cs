@@ -622,22 +622,115 @@ namespace IceBlink2
 					
 					    if ((getCastingPlayer().sp >= GetCurrentlySelectedSpell().costSP) && (getCastingPlayer().hp > GetCurrentlySelectedSpell().costHP))
                         {
-                            //if (GetCurrentlySelectedSpell().castTimeInTurns == 0)
-                            //{
-                                gv.cc.currentSelectedSpell = GetCurrentlySelectedSpell();
-                                gv.screenType = "combat";
-                                gv.screenCombat.currentCombatMode = "cast";
-                                doCleanUp();
-                            //}
-                            //a spell requirign a turn or more is cast
-                            //else
-                            //{
-                                //getCastingPlayer().sp = -GetCurrentlySelectedSpell().costSP;
-                                //getCastingPlayer().hp = -GetCurrentlySelectedSpell().costHP;
-                                //gv.screenType = "combat";
-                                //
-                                //endturn
-                            //}
+                            //AoO code
+                            foreach (Creature crt in gv.mod.currentEncounter.encounterCreatureList)
+                            {
+                                if (gv.screenCombat.CalcDistance(crt, crt.combatLocX, crt.combatLocY, getCastingPlayer().combatLocX, getCastingPlayer().combatLocY) == 1)
+                                {
+                                    bool playerReceivesAoOWhileCasting = true;
+                                    foreach (Effect ef in getCastingPlayer().effectsList)
+                                    {
+                                        if (ef.allowCastingWithoutTriggeringAoO)
+                                        {
+                                            playerReceivesAoOWhileCasting = false;
+                                            break;
+                                        }
+                                    }
+
+                                    if ((GetCurrentlySelectedSpell().triggersAoO) && playerReceivesAoOWhileCasting)
+                                    {
+                                        gv.cc.addLogText("<font color='blue'>Attack of Opportunity by: " + crt.cr_name + "</font><BR>");
+                                        int dcForSaveAdder = getCastingPlayer().hp;
+
+                                        //gv.screenCombat.doStandardCreatureAttackAoO(getCastingPlayer(), crt, 1);
+                                        gv.screenType = "combat";
+                                        gv.sf.CombatTarget = getCastingPlayer();
+                                        gv.screenCombat.CreatureDoesAttack(crt, false, getCastingPlayer());
+
+                                        if ((getCastingPlayer().hp <= 0) || (getCastingPlayer().isHeld()))
+                                        {
+                                            gv.screenType = "combat";
+                                            gv.screenCombat.endPcTurn(true);
+                                        }
+                                        dcForSaveAdder = dcForSaveAdder - getCastingPlayer().hp;
+                                        if (dcForSaveAdder > 0)
+                                        {
+                                            bool playerCanBeInterruptedWhileCasting = true;
+                                            foreach (Effect ef in getCastingPlayer().effectsList)
+                                            {
+                                                if (ef.allowCastingWithoutRiskOfInterruption)
+                                                {
+                                                    playerCanBeInterruptedWhileCasting = false;
+                                                    break;
+                                                }
+                                            }
+
+                                            if ((GetCurrentlySelectedSpell().canBeInterrupted) && (GetCurrentlySelectedSpell().castTimeInTurns == 0) && playerCanBeInterruptedWhileCasting)
+                                            {
+                                                //check interruption
+                                                //TODO: continue below, tying in the new effects..
+                                                #region Do Calc Save and DC
+                                                int saveChkRoll = gv.sf.RandInt(20);
+                                                int saveChk = 0;
+                                                int DC = 10 + dcForSaveAdder;
+                                                int saveChkAdder = getCastingPlayer().will;
+
+                                                saveChk = saveChkRoll + saveChkAdder;
+                                                #endregion
+
+                                                if (saveChk >= DC)
+                                                {
+                                                    gv.cc.addLogText("<font color='yellow'>" + getCastingPlayer().name + " makes will save(" + saveChkRoll + "+" + saveChkAdder + " >= " + DC + "), avoiding interruption." + "</font><BR>");
+                                                }
+                                                else
+                                                {
+                                                    gv.cc.addLogText("<font color='yellow'>" + getCastingPlayer().name + " fails will save(" + saveChkRoll + "+" + saveChkAdder + " <= " + DC + "), " + getCastingPlayer().playerClass.spellLabelSingular + " is interrupted. " + "</font><BR>");
+                                                    //switch screen, endturn
+                                                    gv.screenType = "combat";
+                                                    gv.screenCombat.endPcTurn(true);
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+
+                            if ((getCastingPlayer().hp > 0) && (!getCastingPlayer().isHeld()))
+                            {
+                                if (GetCurrentlySelectedSpell().castTimeInTurns == 0)
+                                {
+                                    gv.cc.currentSelectedSpell = GetCurrentlySelectedSpell();
+                                    getCastingPlayer().thisCasterCanBeInterrupted = GetCurrentlySelectedSpell().canBeInterrupted;
+                                    gv.screenType = "combat";
+                                    gv.screenCombat.currentCombatMode = "cast";
+                                    doCleanUp();
+                                }
+                                //a spell requiring a full turn or more is cast
+                                else
+                                {
+                                    //reduce sp and hp in the moment the caster begins the spell
+                                    getCastingPlayer().sp -= GetCurrentlySelectedSpell().costSP;
+                                    getCastingPlayer().hp -= GetCurrentlySelectedSpell().costHP;
+
+                                    //back to combat screen (rendering now)
+                                    gv.screenType = "combat";
+
+                                    //set values to flag taht the pc is now in the process of casting (how long, which spell, can be interrupted, is preparing spell)
+                                    getCastingPlayer().doCastActionInXFullTurns = GetCurrentlySelectedSpell().castTimeInTurns;
+                                    getCastingPlayer().tagOfSpellToBeCastAfterCastTimeIsDone = GetCurrentlySelectedSpell().tag;
+                                    getCastingPlayer().thisCasterCanBeInterrupted = GetCurrentlySelectedSpell().canBeInterrupted;
+                                    getCastingPlayer().isPreparingSpell = true;
+
+                                    //entry in log explaining that the player just started a long time cast
+                                    gv.cc.addLogText("<font color='yellow'>" + getCastingPlayer().name + " begins with a " + getCastingPlayer().playerClass.spellLabelSingular + " that takes " + getCastingPlayer().doCastActionInXFullTurns + " full turn(s)..." + " </font><BR>");
+
+                                    //end turn of casting player for now
+                                    gv.screenCombat.endPcTurn(true);
+
+                                    //wonder why this is after swap of render to combat screen, imitating it here
+                                    doCleanUp();
+                                }
+                            }
 					    }
 					    else
 					    {
