@@ -53,6 +53,7 @@ namespace IceBlink2
 	    public Spell DeepCopy()
 	    {
 		    Spell copy = new Spell();
+            copy.castTimeInTurns = this.castTimeInTurns;
             copy.triggersAoO = this.triggersAoO;
             copy.canBeInterrupted = this.canBeInterrupted;
             copy.usesTurnToActivate = this.usesTurnToActivate;
