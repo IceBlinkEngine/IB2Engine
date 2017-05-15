@@ -38,7 +38,7 @@ namespace IceBlink2
         public List<LocalImmunityString> traitWorksNeverWhen = new List<LocalImmunityString>();
         public bool usesTurnToActivate = true;
 
-        public int castTimeInTurns = 0;
+        public int castTimeInTurns = 1;
         public bool canBeInterrupted = true;
         public bool triggersAoO = true;
 

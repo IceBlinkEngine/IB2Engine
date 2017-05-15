@@ -672,7 +672,7 @@ namespace IceBlink2
                                                 #region Do Calc Save and DC
                                                 int saveChkRoll = gv.sf.RandInt(20);
                                                 int saveChk = 0;
-                                                int DC = 10 + dcForSaveAdder;
+                                                int DC = 100 + dcForSaveAdder;
                                                 int saveChkAdder = getCastingPlayer().will;
 
                                                 saveChk = saveChkRoll + saveChkAdder;
@@ -686,7 +686,16 @@ namespace IceBlink2
                                                 {
                                                     gv.cc.addLogText("<font color='yellow'>" + getCastingPlayer().name + " fails will save(" + saveChkRoll + "+" + saveChkAdder + " <= " + DC + "), " + getCastingPlayer().playerClass.spellLabelSingular + " is interrupted. " + "</font><BR>");
                                                     //switch screen, endturn
+                                                    getCastingPlayer().isPreparingSpell = false;
+                                                    getCastingPlayer().doCastActionInXFullTurns = 0;
+                                                    getCastingPlayer().tagOfSpellToBeCastAfterCastTimeIsDone = "none";
+                                                    getCastingPlayer().thisCastIsFreeOfCost = false;
+                                                    getCastingPlayer().thisCasterCanBeInterrupted = true;
+                                                    backupKnownSpellTagsInCombat.Clear();
                                                     gv.screenType = "combat";
+                                                    //gv.screenCombat.onKeyUp(Keys.S);
+                                                    //gv.screenCombat.animationSeqStack.Clear();
+                                                    //gv.screenCombat.onKeyUp(Keys.S);
                                                     gv.screenCombat.endPcTurn(true);
                                                 }
                                             }

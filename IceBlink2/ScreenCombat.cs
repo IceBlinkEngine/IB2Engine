@@ -797,6 +797,7 @@ namespace IceBlink2
                             }
                         }
 
+                        /*
                         //add code for interrupting the caster of a spell with long duration here
                         if ((pc.hp < pc.hpLastTurn) && (pc.hp > 0) && (!pc.isHeld()))
                         {
@@ -814,7 +815,7 @@ namespace IceBlink2
                                 #region Do Calc Save and DC
                                 int saveChkRoll = gv.sf.RandInt(20);
                                 int saveChk = 0;
-                                int DC = 10 + (pc.hpLastTurn - pc.hp);
+                                int DC = 100 + (pc.hpLastTurn - pc.hp);
                                 int saveChkAdder = pc.will;
 
                                 saveChk = saveChkRoll + saveChkAdder;
@@ -834,13 +835,19 @@ namespace IceBlink2
                                     pc.tagOfSpellToBeCastAfterCastTimeIsDone = "none";
                                     pc.thisCastIsFreeOfCost = false;
                                     pc.thisCasterCanBeInterrupted = true;
+                                    currentCombatMode = "info";
+                                    animationSeqStack.Clear();
+                                    endPcTurn(true);
                                 }
                             }
                         }
+                        */
 
                         spriteList.Clear();
                         gv.cc.floatyTextList.Clear();
                         //highlight the portrait of the pc whose current turn it is
+                        //ratti
+
                         gv.cc.ptrPc0.glowOn = false;
                         gv.cc.ptrPc1.glowOn = false;
                         gv.cc.ptrPc2.glowOn = false;
@@ -897,6 +904,52 @@ namespace IceBlink2
                         }
                         else
                         {
+                            //********************************************************************
+                            //add code for interrupting the caster of a spell with long duration here
+                            if ((pc.hp < pc.hpLastTurn) && (pc.hp > 0) && (!pc.isHeld()))
+                            {
+                                foreach (Effect ef in pc.effectsList)
+                                {
+                                    if (ef.allowCastingWithoutRiskOfInterruption)
+                                    {
+                                        pc.thisCasterCanBeInterrupted = false;
+                                        break;
+                                    }
+                                }
+
+                                if (pc.isPreparingSpell && pc.thisCasterCanBeInterrupted)
+                                {
+                                    #region Do Calc Save and DC
+                                    int saveChkRoll = gv.sf.RandInt(20);
+                                    int saveChk = 0;
+                                    int DC = 10 + (pc.hpLastTurn - pc.hp);
+                                    int saveChkAdder = pc.will;
+
+                                    saveChk = saveChkRoll + saveChkAdder;
+                                    #endregion
+
+                                    if (saveChk >= DC)
+                                    {
+                                        gv.cc.addLogText("<font color='yellow'>" + pc.name + " makes will save(" + saveChkRoll + "+" + saveChkAdder + " >= " + DC + ") and " + pc.playerClass.labelForCastAction + " still despite damage during last turn." + "</font><BR>");
+                                    }
+                                    else
+                                    {
+                                        gv.cc.addLogText("<font color='yellow'>" + pc.name + " fails will save(" + saveChkRoll + "+" + saveChkAdder + " <= " + DC + ") - " + pc.playerClass.spellLabelSingular + " cancelled due to damage during last turn." + "</font><BR>");
+
+                                        //reset all relevant values to default
+                                        pc.isPreparingSpell = false;
+                                        pc.doCastActionInXFullTurns = 0;
+                                        pc.tagOfSpellToBeCastAfterCastTimeIsDone = "none";
+                                        pc.thisCastIsFreeOfCost = false;
+                                        pc.thisCasterCanBeInterrupted = true;
+                                        //currentCombatMode = "info";
+                                        //animationSeqStack.Clear();
+                                        endPcTurn(true);
+                                    }
+                                }
+                            }
+
+                            //**********************************************************************
                             //no normal turn if player is preparing spell
                             //it is either passing move while reducing remaining cast time by 1
                             //it is doing the cast of the stored spell, jumping to select target mode ("cast") (note: without spell cost that was paid upfront)
@@ -1916,6 +1969,7 @@ namespace IceBlink2
         {
             if (currentCombatMode != "cast")
             {
+                
                 /*
                 while (animationSeqStack.Count > 0)
                 {
@@ -5227,7 +5281,28 @@ namespace IceBlink2
                         pnl.portraitList[index].ImgFilename = pc1.portraitFilename;
                         pnl.portraitList[index].TextHP = pc1.hp + "/" + pc1.hpMax;
                         pnl.portraitList[index].TextSP = pc1.sp + "/" + pc1.spMax;
-                        if (gv.mod.selectedPartyLeader == index)
+                        
+                        if (index == 0 && gv.cc.ptrPc0.glowOn)
+                        {
+                            pnl.portraitList[index].glowOn = true;
+                        }
+                        else if (index == 1 && gv.cc.ptrPc1.glowOn)
+                        {
+                            pnl.portraitList[index].glowOn = true;
+                        }
+                        else if (index == 2 && gv.cc.ptrPc2.glowOn)
+                        {
+                            pnl.portraitList[index].glowOn = true;
+                        }
+                        else if (index == 3 && gv.cc.ptrPc3.glowOn)
+                        {
+                            pnl.portraitList[index].glowOn = true;
+                        }
+                        else if (index == 4 && gv.cc.ptrPc4.glowOn)
+                        {
+                            pnl.portraitList[index].glowOn = true;
+                        }
+                        else if (index == 5 && gv.cc.ptrPc5.glowOn)
                         {
                             pnl.portraitList[index].glowOn = true;
                         }
@@ -5235,6 +5310,8 @@ namespace IceBlink2
                         {
                             pnl.portraitList[index].glowOn = false;
                         }
+                        
+                        //gv.cc.ptrPc0.glowOn
                         index++;
                     }
                     break;
