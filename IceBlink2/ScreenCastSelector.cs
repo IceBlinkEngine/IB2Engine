@@ -734,7 +734,14 @@ namespace IceBlink2
                                     gv.cc.addLogText("<font color='yellow'>" + getCastingPlayer().name + " begins with a " + getCastingPlayer().playerClass.spellLabelSingular + " that takes " + getCastingPlayer().doCastActionInXFullTurns + " full turn(s)..." + " </font><BR>");
 
                                     //end turn of casting player for now
+                                    //gv.screenCombat.animationSeqStack.Clear();
+                                    //gv.screenCombat.isPlayerTurn = false;
+                                    //gv.screenCombat.canMove = false;
+                                    //while (gv.screenCombat.animationSeqStack.Count > 0)
+                                    //{
+                                    gv.screenCombat.dontEndTurn = false;
                                     gv.screenCombat.endPcTurn(true);
+                                    //}
 
                                     //wonder why this is after swap of render to combat screen, imitating it here
                                     doCleanUp();

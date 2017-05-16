@@ -93,8 +93,8 @@ namespace IceBlink2
 
         //COMBAT STUFF
         public bool adjustCamToRangedCreature = false;
-        private bool isPlayerTurn = true;
-        private bool dontEndTurn = false;
+        public bool isPlayerTurn = true;
+        public bool dontEndTurn = false;
         public bool canMove = true;
         public int currentPlayerIndex = 0;
         public int creatureIndex = 0;
@@ -110,7 +110,7 @@ namespace IceBlink2
         public Coordinate targetHighlightCenterLocation = new Coordinate();
         public Coordinate creatureTargetLocation = new Coordinate();
         public int encounterXP = 0;
-        private Creature creatureToAnimate = null;
+        private List<Creature> creatureToAnimate = new List<Creature>();
         private Player playerToAnimate = null;
         //private bool drawHitAnimation = false;
         //private bool drawMissAnimation = false;
@@ -525,13 +525,13 @@ namespace IceBlink2
             }
             else if (animationState == AnimationState.CreatureThink)
             {
-                creatureToAnimate = null;
+                creatureToAnimate.Clear();
                 playerToAnimate = null;
                 doCreatureTurnAfterDelay();
             }
             else if (animationState == AnimationState.CreatureMove)
             {
-                creatureToAnimate = null;
+                creatureToAnimate.Clear();
                 playerToAnimate = null;
                 Creature crt = gv.mod.currentEncounter.encounterCreatureList[creatureIndex];
                 if (moveCost == gv.mod.diagonalMoveCost)
@@ -905,6 +905,7 @@ namespace IceBlink2
                         else
                         {
                             //********************************************************************
+                            /*
                             //add code for interrupting the caster of a spell with long duration here
                             if ((pc.hp < pc.hpLastTurn) && (pc.hp > 0) && (!pc.isHeld()))
                             {
@@ -948,6 +949,7 @@ namespace IceBlink2
                                     }
                                 }
                             }
+                            */
 
                             //**********************************************************************
                             //no normal turn if player is preparing spell
@@ -999,6 +1001,50 @@ namespace IceBlink2
                                     }
                                 }
                                 //TODO check flow from here (interruption?)
+                                //add code for interrupting the caster of a spell with long duration here
+                                if ((pc.hp < pc.hpLastTurn) && (pc.hp > 0) && (!pc.isHeld()))
+                                {
+                                    foreach (Effect ef in pc.effectsList)
+                                    {
+                                        if (ef.allowCastingWithoutRiskOfInterruption)
+                                        {
+                                            pc.thisCasterCanBeInterrupted = false;
+                                            break;
+                                        }
+                                    }
+
+                                    if (pc.isPreparingSpell && pc.thisCasterCanBeInterrupted)
+                                    {
+                                        #region Do Calc Save and DC
+                                        int saveChkRoll = gv.sf.RandInt(20);
+                                        int saveChk = 0;
+                                        int DC = 10 + (pc.hpLastTurn - pc.hp);
+                                        int saveChkAdder = pc.will;
+
+                                        saveChk = saveChkRoll + saveChkAdder;
+                                        #endregion
+
+                                        if (saveChk >= DC)
+                                        {
+                                            gv.cc.addLogText("<font color='yellow'>" + pc.name + " makes will save(" + saveChkRoll + "+" + saveChkAdder + " >= " + DC + ") and " + pc.playerClass.labelForCastAction + " still despite damage during last turn." + "</font><BR>");
+                                        }
+                                        else
+                                        {
+                                            gv.cc.addLogText("<font color='yellow'>" + pc.name + " fails will save(" + saveChkRoll + "+" + saveChkAdder + " <= " + DC + ") - " + pc.playerClass.spellLabelSingular + " cancelled due to damage during last turn." + "</font><BR>");
+
+                                            //reset all relevant values to default
+                                            pc.isPreparingSpell = false;
+                                            pc.doCastActionInXFullTurns = 0;
+                                            pc.tagOfSpellToBeCastAfterCastTimeIsDone = "none";
+                                            pc.thisCastIsFreeOfCost = false;
+                                            pc.thisCasterCanBeInterrupted = true;
+                                            //currentCombatMode = "info";
+                                            //animationSeqStack.Clear();
+                                            endPcTurn(true);
+                                        }
+                                    }
+                                }
+
                                 //takes this full turn still to prepare spell
                                 if (pc.doCastActionInXFullTurns > 1)
                                 {
@@ -1089,6 +1135,12 @@ namespace IceBlink2
             }
                 turnController();
            }
+           //else
+           //{
+                //animationsOn = true;
+                //Update2(gv.elapsed);
+                //turnController();
+           //}
         }
 
         public void startNextRoundStuff()
@@ -2076,7 +2128,7 @@ namespace IceBlink2
             CalculateUpperLeftCreature(crt);
             if ((crt.hp > 0) && (!crt.isHeld()))
             {
-                creatureToAnimate = null;
+                creatureToAnimate.Clear();
                 playerToAnimate = null;
                 //Karl
                 //gv.Render();
@@ -2604,7 +2656,7 @@ namespace IceBlink2
                             }
                         }
 
-                        creatureToAnimate = crt;
+                        creatureToAnimate.Add(crt);
                         playerToAnimate = null;
                         creatureTargetLocation = new Coordinate(pc.combatLocX, pc.combatLocY);
                         //set attack animation and do a delay
@@ -2679,7 +2731,7 @@ namespace IceBlink2
                             }
                         }
 
-                        creatureToAnimate = crt;
+                        creatureToAnimate.Add(crt);
                         playerToAnimate = null;
 
                         attackAnimationTimeElapsed = 0;
@@ -2732,8 +2784,7 @@ namespace IceBlink2
         //AoO overload
         public void CreatureDoesAttack(Creature crt, bool allowAnimationActivation, Player pc)
         {
-
-            if (gv.sf.CombatTarget != null)
+            if (pc != null)
             {
                 //Player pc = (Player)gv.sf.CombatTarget;
                 //Uses Map Pixel Locations
@@ -2776,7 +2827,7 @@ namespace IceBlink2
                             }
                         }
 
-                        creatureToAnimate = crt;
+                        creatureToAnimate.Add(crt);
                         playerToAnimate = null;
                         creatureTargetLocation = new Coordinate(pc.combatLocX, pc.combatLocY);
                         //set attack animation and do a delay
@@ -2852,7 +2903,7 @@ namespace IceBlink2
                             }
                         }
 
-                        creatureToAnimate = crt;
+                        creatureToAnimate.Add(crt);
                         playerToAnimate = null;
 
                         attackAnimationTimeElapsed = 0;
@@ -2962,7 +3013,7 @@ namespace IceBlink2
                 //CHANGE FACING BASED ON ATTACK
                 doCreatureCombatFacing(crt, pnt.X, pnt.Y);
                 creatureTargetLocation = pnt;
-                creatureToAnimate = crt;
+                creatureToAnimate.Add(crt);
                 playerToAnimate = null;
 
                 //set attack animation and do a delay
@@ -4054,7 +4105,7 @@ namespace IceBlink2
                 //if ((attackAnimationTimeElapsed >= attackAnimationLengthInMilliseconds))
                 {
                     //time is up, reset attack animations to null
-                    creatureToAnimate = null;
+                    creatureToAnimate.Clear();
                     playerToAnimate = null;
                     foreach (AnimationSequence seq in animationSeqStack)
                     {
@@ -4227,6 +4278,218 @@ namespace IceBlink2
             }
             #endregion
         }
+
+        public void Update2(int elapsed)
+        {
+            //combatUiLayout.Update(elapsed);
+            //refreshCreatureCoveredSquares();
+
+            #region PROP AMBIENT SPRITES
+            foreach (Sprite spr in spriteList)
+            {
+                spr.Update(elapsed, gv);
+            }
+            //remove sprite if hit end of life
+            for (int x = spriteList.Count - 1; x >= 0; x--)
+            {
+                if (spriteList[x].timeToLiveInMilliseconds <= 0)
+                {
+                    try
+                    {
+                        spriteList.RemoveAt(x);
+                    }
+                    catch (Exception ex)
+                    {
+                        gv.errorLog(ex.ToString());
+                    }
+                }
+            }
+            #endregion
+
+            #region COMBAT ANIMATION SPRITES
+            if (animationsOn)
+            {
+                attackAnimationTimeElapsed += elapsed;
+                //hurgh1000
+                //if ((attackAnimationTimeElapsed >= attackAnimationLengthInMilliseconds) && ((attackAnimationFrameCounter >= maxUsableCounterValue) || (isPlayerTurn)))
+                if ((attackAnimationTimeElapsed >= attackAnimationLengthInMilliseconds) && (attackAnimationFrameCounter >= maxUsableCounterValue))
+                //if ((attackAnimationTimeElapsed >= attackAnimationLengthInMilliseconds))
+                {
+                    //time is up, reset attack animations to null
+                    creatureToAnimate.Clear();
+                    playerToAnimate = null;
+                    foreach (AnimationSequence seq in animationSeqStack)
+                    {
+                        //if(seq.AnimationSeq[0].turnFloatyTextOn)
+                        if (seq.AnimationSeq.Count > 0)
+                        {
+                            /*
+                            floatyTextOn = true; //show any floaty text in the pool
+                        }
+                        foreach (Sprite spr in seq.AnimationSeq[0].SpriteGroup)
+                        {
+                            //just update the group at the top of the stack, first in first
+                            spr.Update(elapsed, gv);
+                            */
+                            //new
+                            if (seq.AnimationSeq[0].turnFloatyTextOn)
+                            {
+                                floatyTextOn = true; //show any floaty text in the pool  
+                            }
+                            foreach (Sprite spr in seq.AnimationSeq[0].SpriteGroup)
+                            {
+                                //just update the group at the top of the stack, first in first  
+                                spr.Update(elapsed, gv);
+                            }
+                            //new
+
+                        }
+                    }
+                    //remove sprites if hit end of life
+                    for (int aniseq = animationSeqStack.Count - 1; aniseq >= 0; aniseq--)
+                    {
+                        for (int stkgrp = animationSeqStack[aniseq].AnimationSeq.Count - 1; stkgrp >= 0; stkgrp--)
+                        {
+                            for (int sprt = animationSeqStack[aniseq].AnimationSeq[stkgrp].SpriteGroup.Count - 1; sprt >= 0; sprt--)
+                            {
+                                if (animationSeqStack[aniseq].AnimationSeq[stkgrp].SpriteGroup[sprt].timeToLiveInMilliseconds <= 0)
+                                {
+                                    try
+                                    {
+                                        animationSeqStack[aniseq].AnimationSeq[stkgrp].SpriteGroup.RemoveAt(sprt);
+
+                                    }
+                                    catch (Exception ex)
+                                    {
+                                        gv.errorLog(ex.ToString());
+                                    }
+                                }
+                            }
+                            if (animationSeqStack[aniseq].AnimationSeq[stkgrp].SpriteGroup.Count == 0)
+                            {
+                                try
+                                {
+                                    animationSeqStack[aniseq].AnimationSeq.RemoveAt(stkgrp);
+                                }
+                                catch (Exception ex)
+                                {
+                                    gv.errorLog(ex.ToString());
+                                }
+                            }
+                        }
+                        if (animationSeqStack[aniseq].AnimationSeq.Count == 0)
+                        {
+                            try
+                            {
+                                animationSeqStack.RemoveAt(aniseq);
+                            }
+                            catch (Exception ex)
+                            {
+                                gv.errorLog(ex.ToString());
+                            }
+                        }
+                    }
+                    //if all animation sequences are done, end this turn
+                    if (animationSeqStack.Count == 0)
+                    {
+                        animationsOn = false;
+                        deathAnimationLocations.Clear();
+
+                        //remove any dead creatures                        
+                        for (int x = gv.mod.currentEncounter.encounterCreatureList.Count - 1; x >= 0; x--)
+                        {
+                            if (gv.mod.currentEncounter.encounterCreatureList[x].hp <= 0)
+                            {
+                                try
+                                {
+                                    //do OnDeath IBScript
+                                    gv.cc.doIBScriptBasedOnFilename(gv.mod.currentEncounter.encounterCreatureList[x].onDeathIBScript, gv.mod.currentEncounter.encounterCreatureList[x].onDeathIBScriptParms);
+                                    //project repeatable
+                                    gv.mod.currentEncounter.encounterCreatureList.RemoveAt(x);
+                                    if (!gv.mod.currentEncounter.isRepeatable)
+                                    {
+                                        gv.mod.currentEncounter.encounterCreatureRefsList.RemoveAt(x);
+                                    }
+                                }
+                                catch (Exception ex)
+                                {
+                                    gv.errorLog(ex.ToString());
+                                }
+                            }
+                        }
+                        if (isPlayerTurn)
+                        {
+                            checkEndEncounter();
+                            gv.touchEnabled = true;
+                            animationState = AnimationState.None;
+                            //endPcTurn(true);
+                            if (dontEndTurn)
+                            {
+                                //don't end turn just yet..probably called from a trait that is meant to be used right away like Power Attack or Set Trap  
+                                dontEndTurn = false;
+                                if (currentCombatMode != "cast")
+                                {
+                                    currentCombatMode = "move";
+                                }
+                                //update all player stats in case their was a recently added spell or trait effect that would change them  
+                                foreach (Player p in gv.mod.playerList)
+                                {
+                                    gv.sf.UpdateStats(p);
+                                }
+                            }
+                            else
+                            {
+                                endPcTurn(true);
+                            }
+                        }
+                        else
+                        {
+                            animationState = AnimationState.None;
+                            endCreatureTurn(gv.mod.currentEncounter.encounterCreatureList[idx]);
+                        }
+                    }
+                }
+                if ((gv.mod.useManualCombatCam) && (animationSeqStack.Count == 0))
+                {
+                    gv.touchEnabled = true;
+                }
+            }
+            #endregion
+
+            #region FLOATY TEXT
+            if (floatyTextOn)
+            {
+                //move up 50pxl per second (50px/1000ms)*elapsed
+                float multiplier = 100.0f / gv.mod.attackAnimationSpeed;
+                int shiftUp = (int)(0.05f * elapsed * multiplier);
+                foreach (FloatyText ft in gv.cc.floatyTextList)
+                {
+                    ft.location.Y -= shiftUp;
+                    ft.timeToLive -= (int)(elapsed * multiplier);
+                }
+                //remove sprite if hit end of life
+                for (int x = gv.cc.floatyTextList.Count - 1; x >= 0; x--)
+                {
+                    if (gv.cc.floatyTextList[x].timeToLive <= 0)
+                    {
+                        try
+                        {
+                            gv.cc.floatyTextList.RemoveAt(x);
+                        }
+                        catch (Exception ex)
+                        {
+                            gv.errorLog(ex.ToString());
+                        }
+                    }
+                }
+                if (gv.cc.floatyTextList.Count == 0)
+                {
+                    floatyTextOn = false;
+                }
+            }
+            #endregion
+        }
+
 
         public void refreshCreatureCoveredSquares()
         {
@@ -6601,8 +6864,9 @@ namespace IceBlink2
                 int crtSize = crt.creatureSize;
                 IbRectF src = new IbRectF(0, 0, width, height / 2);
 
-                if ((creatureToAnimate != null) && (creatureToAnimate == crt))
-                {
+                //if ((creatureToAnimate != null) && (creatureToAnimate == crt))
+                if ( (creatureToAnimate.Count > 0) && (creatureToAnimate.Contains(crt)) )
+                    {
                     //blockAnimationBridge = true;
                     attackAnimationDelayCounter++;
                     if (attackAnimationDelayCounter >= (int)(crt.token.PixelSize.Height / 100f - 1))
@@ -6800,7 +7064,8 @@ namespace IceBlink2
                 int crtSize = crt.creatureSize;
                 IbRect src = new IbRect(0, 0, width, height / 2);
 
-                if ((creatureToAnimate != null) && (creatureToAnimate == crt))
+                //if ((creatureToAnimate != null) && (creatureToAnimate == crt))
+                if ((creatureToAnimate.Count > 0) && (creatureToAnimate.Contains(crt)))
                 {
                     //blockAnimationBridge = true;
                     attackAnimationDelayCounter++;
@@ -11975,7 +12240,7 @@ namespace IceBlink2
                 }
                 doPlayerCombatFacing(pc, targetHighlightCenterLocation.X, targetHighlightCenterLocation.Y);
                 gv.touchEnabled = false;
-                creatureToAnimate = null;
+                creatureToAnimate.Clear();
                 playerToAnimate = pc;
                 //set attack animation and do a delay
                 attackAnimationTimeElapsed = 0;
@@ -12065,7 +12330,7 @@ namespace IceBlink2
                 }
                 doPlayerCombatFacing(pc, targetHighlightCenterLocation.X, targetHighlightCenterLocation.Y);
                 gv.touchEnabled = false;
-                creatureToAnimate = null;
+                creatureToAnimate.Clear();
                 playerToAnimate = pc;
                 //set attack animation and do a delay
                 attackAnimationTimeElapsed = 0;
@@ -13017,7 +13282,8 @@ namespace IceBlink2
         }
         public void LeaveThreatenedCheck(Player pc, int futurePlayerLocationX, int futurePlayerLocationY)
         {
-
+            //testing...
+            dontEndTurn = true;
             foreach (Creature crt in gv.mod.currentEncounter.encounterCreatureList)
             {
                 if ((crt.hp > 0) && (!crt.isHeld()))
@@ -13042,10 +13308,12 @@ namespace IceBlink2
                         else
                         {
                             gv.cc.addLogText("<font color='blue'>Attack of Opportunity by: " + crt.cr_name + "</font><BR>");
-                            doActualCreatureAttack(pc, crt, 1);
+                            CreatureDoesAttack(crt, false, pc);
+                            //doActualCreatureAttack(pc, crt, 1);
                             if (pc.hp <= 0)
                             {
                                 currentMoves = 99;
+                                dontEndTurn = false;
                                 //checkEndEncounter();
                             }
                         }
