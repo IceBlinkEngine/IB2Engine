@@ -319,7 +319,7 @@ namespace IceBlink2
     	    {
                 for (int row = 0; row < mod.currentEncounter.MapSizeX; row++)
     		    {
-    			    if (isWalkable(col,row))
+    			    if (isWalkable(row,col))
     			    {
     				    grid[row,col] = 0;
     			    }

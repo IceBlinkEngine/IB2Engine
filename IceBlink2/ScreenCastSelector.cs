@@ -686,17 +686,29 @@ namespace IceBlink2
                                                 {
                                                     gv.cc.addLogText("<font color='yellow'>" + getCastingPlayer().name + " fails will save(" + saveChkRoll + "+" + saveChkAdder + " <= " + DC + "), " + getCastingPlayer().playerClass.spellLabelSingular + " is interrupted. " + "</font><BR>");
                                                     //switch screen, endturn
+                                                    getCastingPlayer().sp -= GetCurrentlySelectedSpell().costSP;
+                                                    getCastingPlayer().hp -= GetCurrentlySelectedSpell().costHP;
                                                     getCastingPlayer().isPreparingSpell = false;
                                                     getCastingPlayer().doCastActionInXFullTurns = 0;
                                                     getCastingPlayer().tagOfSpellToBeCastAfterCastTimeIsDone = "none";
                                                     getCastingPlayer().thisCastIsFreeOfCost = false;
                                                     getCastingPlayer().thisCasterCanBeInterrupted = true;
-                                                    backupKnownSpellTagsInCombat.Clear();
-                                                    gv.screenType = "combat";
+                                                    //backupKnownSpellTagsInCombat.Clear();
+                                                    //gv.screenType = "combat";
                                                     //gv.screenCombat.onKeyUp(Keys.S);
                                                     //gv.screenCombat.animationSeqStack.Clear();
                                                     //gv.screenCombat.onKeyUp(Keys.S);
-                                                    gv.screenCombat.endPcTurn(true);
+                                                    if (GetCurrentlySelectedSpell().usesTurnToActivate)
+                                                    {
+                                                        backupKnownSpellTagsInCombat.Clear();
+                                                        gv.screenType = "combat";
+                                                        gv.screenCombat.endPcTurn(true);
+                                                    }
+                                                    else
+                                                    {
+                                                        backupKnownSpellTagsInCombat.Clear();
+                                                        gv.screenCombat.continueTurn = true;
+                                                    }
                                                 }
                                             }
                                         }

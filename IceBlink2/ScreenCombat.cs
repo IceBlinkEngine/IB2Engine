@@ -95,6 +95,7 @@ namespace IceBlink2
         public bool adjustCamToRangedCreature = false;
         public bool isPlayerTurn = true;
         public bool dontEndTurn = false;
+        public bool continueTurn = false;
         public bool canMove = true;
         public int currentPlayerIndex = 0;
         public int creatureIndex = 0;
@@ -756,7 +757,7 @@ namespace IceBlink2
         */
         public void turnController()
         {
-            if (animationSeqStack.Count == 0)
+            if ((animationSeqStack.Count == 0) && (!continueTurn))
             {
                 recalculateCreaturesShownInInitiativeBar();
                 attackAnimationFrameCounter = 0;
@@ -2052,7 +2053,14 @@ namespace IceBlink2
                     }
                     canMove = true;
                 }
-                turnController();
+                //if (!continueTurn)
+                //{
+                    turnController();
+                //}
+                //else
+                //{
+                    //continueTurn = false;
+                //}
             }
         }
         public void doStealthModeCheck(Player pc)
@@ -7519,6 +7527,7 @@ namespace IceBlink2
             {
                 if (isPlayerTurn)
                 {
+                    continueTurn = false;
                     gv.mod.playerList[currentPlayerIndex].thisCastIsFreeOfCost = false;
                     gv.mod.playerList[currentPlayerIndex].isPreparingSpell = false;
                     gv.mod.playerList[currentPlayerIndex].doCastActionInXFullTurns = 0;
@@ -7532,6 +7541,7 @@ namespace IceBlink2
             {
                 if (isPlayerTurn)
                 {
+                    continueTurn = false;
                     gv.mod.playerList[currentPlayerIndex].thisCastIsFreeOfCost = false;
                     gv.mod.playerList[currentPlayerIndex].isPreparingSpell = false;
                     gv.mod.playerList[currentPlayerIndex].doCastActionInXFullTurns = 0;
@@ -7556,6 +7566,7 @@ namespace IceBlink2
             {
                 if (isPlayerTurn)
                 {
+                    continueTurn = false;
                     gv.mod.playerList[currentPlayerIndex].thisCastIsFreeOfCost = false;
                     gv.mod.playerList[currentPlayerIndex].isPreparingSpell = false;
                     gv.mod.playerList[currentPlayerIndex].doCastActionInXFullTurns = 0;
@@ -7719,18 +7730,22 @@ namespace IceBlink2
                 Player pc = gv.mod.playerList[currentPlayerIndex];
                 if (keyData == Keys.NumPad7)
                 {
+                    continueTurn = false;
                     MoveUpLeft(pc);
                 }
                 else if (keyData == Keys.NumPad8)
                 {
+                    continueTurn = false;
                     MoveUp(pc);
                 }
                 else if (keyData == Keys.NumPad9)
                 {
+                    continueTurn = false;
                     MoveUpRight(pc);
                 }
                 else if (keyData == Keys.NumPad4)
                 {
+                    continueTurn = false;
                     MoveLeft(pc);
                 }
                 else if (keyData == Keys.NumPad5)
@@ -7739,18 +7754,22 @@ namespace IceBlink2
                 }
                 else if (keyData == Keys.NumPad6)
                 {
+                    continueTurn = false;
                     MoveRight(pc);
                 }
                 else if (keyData == Keys.NumPad1)
                 {
+                    continueTurn = false;
                     MoveDownLeft(pc);
                 }
                 else if (keyData == Keys.NumPad2)
                 {
+                    continueTurn = false;
                     MoveDown(pc);
                 }
                 else if (keyData == Keys.NumPad3)
                 {
+                    continueTurn = false;
                     MoveDownRight(pc);
                 }
                 return;
@@ -7762,6 +7781,7 @@ namespace IceBlink2
                 Player pc = gv.mod.playerList[currentPlayerIndex];
                 if (keyData == Keys.NumPad5)
                 {
+                    continueTurn = false;
                     TargetAttackPressed(pc);
                     return;
                 }
@@ -7771,6 +7791,7 @@ namespace IceBlink2
                 Player pc = gv.mod.playerList[currentPlayerIndex];
                 if (keyData == Keys.NumPad5)
                 {
+                    continueTurn = false;
                     TargetCastPressed(pc);
                     return;
                 }
@@ -7779,34 +7800,42 @@ namespace IceBlink2
             {
                 if (keyData == Keys.NumPad7)
                 {
+                    continueTurn = false;
                     MoveTargetHighlight(7);
                 }
                 else if (keyData == Keys.NumPad8)
                 {
+                    continueTurn = false;
                     MoveTargetHighlight(8);
                 }
                 else if (keyData == Keys.NumPad9)
                 {
+                    continueTurn = false;
                     MoveTargetHighlight(9);
                 }
                 else if (keyData == Keys.NumPad4)
                 {
+                    continueTurn = false;
                     MoveTargetHighlight(4);
                 }
                 else if (keyData == Keys.NumPad6)
                 {
+                    continueTurn = false;
                     MoveTargetHighlight(6);
                 }
                 else if (keyData == Keys.NumPad1)
                 {
+                    continueTurn = false;
                     MoveTargetHighlight(1);
                 }
                 else if (keyData == Keys.NumPad2)
                 {
+                    continueTurn = false;
                     MoveTargetHighlight(2);
                 }
                 else if (keyData == Keys.NumPad3)
                 {
+                    continueTurn = false;
                     MoveTargetHighlight(3);
                 }
                 return;
@@ -9139,10 +9168,12 @@ namespace IceBlink2
                             {
                                 if (currentCombatMode.Equals("attack"))
                                 {
+                                    continueTurn = false;
                                     TargetAttackPressed(pc);
                                 }
                                 else if (currentCombatMode.Equals("cast"))
                                 {
+                                    continueTurn = false;
                                     TargetCastPressed(pc);
                                 }
                             }
@@ -9159,12 +9190,14 @@ namespace IceBlink2
                         {
                             if (currentCombatMode.Equals("move"))
                             {
+                                continueTurn = false;
                                 MoveUp(pc);
                             }
                             else if ((currentCombatMode.Equals("attack")) || (currentCombatMode.Equals("cast")))
                             {
                                 if (rtn.Equals("ctrlUpArrow")) //if clicked on square, don't move the highlight...only move for arrow button
                                 {
+                                    continueTurn = false;
                                     MoveTargetHighlight(8);
                                 }
                             }
@@ -9176,12 +9209,14 @@ namespace IceBlink2
                         {
                             if (currentCombatMode.Equals("move"))
                             {
+                                continueTurn = false;
                                 MoveDown(pc);
                             }
                             else if ((currentCombatMode.Equals("attack")) || (currentCombatMode.Equals("cast")))
                             {
                                 if (rtn.Equals("ctrlDownArrow")) //if clicked on square, don't move the highlight...only move for arrow button
                                 {
+                                    continueTurn = false;
                                     MoveTargetHighlight(2);
                                 }
                             }
@@ -9193,12 +9228,14 @@ namespace IceBlink2
                         {
                             if (currentCombatMode.Equals("move"))
                             {
+                                continueTurn = false;
                                 MoveLeft(pc);
                             }
                             else if ((currentCombatMode.Equals("attack")) || (currentCombatMode.Equals("cast")))
                             {
                                 if (rtn.Equals("ctrlLeftArrow")) //if clicked on square, don't move the highlight...only move for arrow button
                                 {
+                                    continueTurn = false;
                                     MoveTargetHighlight(4);
                                 }
                             }
@@ -9210,12 +9247,14 @@ namespace IceBlink2
                         {
                             if (currentCombatMode.Equals("move"))
                             {
+                                continueTurn = false;
                                 MoveRight(pc);
                             }
                             else if ((currentCombatMode.Equals("attack")) || (currentCombatMode.Equals("cast")))
                             {
                                 if (rtn.Equals("ctrlRightArrow")) //if clicked on square, don't move the highlight...only move for arrow button
                                 {
+                                    continueTurn = false;
                                     MoveTargetHighlight(6);
                                 }
                             }
@@ -9227,12 +9266,14 @@ namespace IceBlink2
                         {
                             if (currentCombatMode.Equals("move"))
                             {
+                                continueTurn = false;
                                 MoveUpRight(pc);
                             }
                             else if ((currentCombatMode.Equals("attack")) || (currentCombatMode.Equals("cast")))
                             {
                                 if (rtn.Equals("ctrlUpRightArrow")) //if clicked on square, don't move the highlight...only move for arrow button
                                 {
+                                    continueTurn = false;
                                     MoveTargetHighlight(9);
                                 }
                             }
@@ -9244,12 +9285,14 @@ namespace IceBlink2
                         {
                             if (currentCombatMode.Equals("move"))
                             {
+                                continueTurn = false;
                                 MoveDownRight(pc);
                             }
                             else if ((currentCombatMode.Equals("attack")) || (currentCombatMode.Equals("cast")))
                             {
                                 if (rtn.Equals("ctrlDownRightArrow")) //if clicked on square, don't move the highlight...only move for arrow button
                                 {
+                                    continueTurn = false;
                                     MoveTargetHighlight(3);
                                 }
                             }
@@ -9261,12 +9304,14 @@ namespace IceBlink2
                         {
                             if (currentCombatMode.Equals("move"))
                             {
+                                continueTurn = false;
                                 MoveUpLeft(pc);
                             }
                             else if ((currentCombatMode.Equals("attack")) || (currentCombatMode.Equals("cast")))
                             {
                                 if (rtn.Equals("ctrlUpLeftArrow")) //if clicked on square, don't move the highlight...only move for arrow button
                                 {
+                                    continueTurn = false;
                                     MoveTargetHighlight(7);
                                 }
                             }
@@ -9278,12 +9323,14 @@ namespace IceBlink2
                         {
                             if (currentCombatMode.Equals("move"))
                             {
+                                continueTurn = false;
                                 MoveDownLeft(pc);
                             }
                             else if ((currentCombatMode.Equals("attack")) || (currentCombatMode.Equals("cast")))
                             {
                                 if (rtn.Equals("ctrlDownLeftArrow")) //if clicked on square, don't move the highlight...only move for arrow button
                                 {
+                                    continueTurn = false;
                                     MoveTargetHighlight(1);
                                 }
                             }
@@ -9293,6 +9340,7 @@ namespace IceBlink2
                     {
                         if (isPlayerTurn)
                         {
+                            continueTurn = false;
                             if (currentPlayerIndex > gv.mod.playerList.Count - 1)
                             {
                                 return;
@@ -11739,6 +11787,7 @@ namespace IceBlink2
                     {
                         if (isPlayerTurn)
                         {
+                            continueTurn = false;
                             gv.mod.playerList[currentPlayerIndex].thisCastIsFreeOfCost = false;
                             gv.mod.playerList[currentPlayerIndex].isPreparingSpell = false;
                             gv.mod.playerList[currentPlayerIndex].doCastActionInXFullTurns = 0;
@@ -11762,6 +11811,7 @@ namespace IceBlink2
                     {
                         if (isPlayerTurn)
                         {
+                            continueTurn = false;
                             gv.mod.playerList[currentPlayerIndex].thisCastIsFreeOfCost = false;
                             gv.mod.playerList[currentPlayerIndex].isPreparingSpell = false;
                             gv.mod.playerList[currentPlayerIndex].doCastActionInXFullTurns = 0;
@@ -11785,6 +11835,7 @@ namespace IceBlink2
                     {
                         if (isPlayerTurn)
                         {
+                            continueTurn = false;
                             gv.mod.playerList[currentPlayerIndex].thisCastIsFreeOfCost = false;
                             gv.mod.playerList[currentPlayerIndex].isPreparingSpell = false;
                             gv.mod.playerList[currentPlayerIndex].doCastActionInXFullTurns = 0;
@@ -11800,10 +11851,12 @@ namespace IceBlink2
                         {
                             if (currentCombatMode.Equals("attack"))
                             {
+                                continueTurn = false;
                                 TargetAttackPressed(pc);
                             }
                             else if (currentCombatMode.Equals("cast"))
                             {
+                                continueTurn = false;
                                 TargetCastPressed(pc);
                             }
                         }
@@ -12380,7 +12433,9 @@ namespace IceBlink2
                 //if this is a trait that is meant to not consume a turn then set the flag 
                 if (!gv.cc.currentSelectedSpell.usesTurnToActivate)
                 {
-                    dontEndTurn = true;
+                    continueTurn = true;
+                    //currentCombatMode = "move";
+                    //return;
                 }
             }
             currentCombatMode = "info";

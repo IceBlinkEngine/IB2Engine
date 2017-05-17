@@ -356,11 +356,11 @@ namespace IceBlink2
                 {
                     if (isWalkable(col, row))
                     {
-                        grid[row, col] = 0;
+                        grid[col,row] = 0;
                     }
                     else
                     {
-                        grid[row, col] = 1;
+                        grid[col, row] = 1;
                     }
                 }
             }
@@ -389,11 +389,11 @@ namespace IceBlink2
     		    {
     			    if (isWalkable(col,row))
     			    {
-    				    grid[row,col] = 0;
+    				    grid[col,row] = 0;
     			    }
     			    else
     			    {
-    				    grid[row,col] = 1;
+    				    grid[col,row] = 1;
     			    }
     		    }
     	    }
@@ -1905,7 +1905,7 @@ RULES:
         }
         public bool isWalkable(int col, int row)
         {
-            if (mod.currentArea.Tiles[col * mod.currentArea.MapSizeX + row].Walkable)
+            if (mod.currentArea.Tiles[row * mod.currentArea.MapSizeX + col].Walkable)
             {
                 return true;
             }
