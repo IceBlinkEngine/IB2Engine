@@ -441,7 +441,10 @@ namespace IceBlink2
 	                if (inCombat)
 	                {
 	                    Player pc = gv.mod.playerList[gv.screenCombat.currentPlayerIndex];
-	                    pcNames.Add(pc.name);
+                        if (!pc.isTemporaryAllyForThisEncounterOnly)
+                        {
+                            pcNames.Add(pc.name);
+                        }
 	                }
 	                else
 	                {
@@ -479,7 +482,7 @@ namespace IceBlink2
                                         break;
                                     }
                                 }
-                                if (pc.playerClass.containsItemRefsWithResRef(itRef.resref) || !isClassBound)
+                                if ( (pc.playerClass.containsItemRefsWithResRef(itRef.resref) || !isClassBound) && (!pc.isTemporaryAllyForThisEncounterOnly))
                                 {
                                     if (inCombat)
                                     {

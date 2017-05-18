@@ -108,6 +108,8 @@ namespace IceBlink2
         public bool isPreparingSpell = false;
         public bool thisCastIsFreeOfCost = false;
 
+        public bool isTemporaryAllyForThisEncounterOnly = false;
+
         public Player()
         {
 
@@ -115,6 +117,7 @@ namespace IceBlink2
         public Player DeepCopy()
         {
             Player copy = new Player();
+            copy.isTemporaryAllyForThisEncounterOnly = this.isTemporaryAllyForThisEncounterOnly;
             copy.thisCastIsFreeOfCost = this.thisCastIsFreeOfCost;
             copy.isPreparingSpell = this.isPreparingSpell;
             copy.thisCasterCanBeInterrupted = this.thisCasterCanBeInterrupted;

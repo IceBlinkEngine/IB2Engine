@@ -313,8 +313,11 @@ namespace IceBlink2
             {
                 if (cntPCs < gv.mod.playerList.Count)
                 {
-                    gv.cc.DisposeOfBitmap(ref btn.Img2);
-                    btn.Img2 = gv.cc.LoadBitmap(gv.mod.playerList[cntPCs].tokenFilename);
+                    if (!gv.mod.playerList[cntPCs].isTemporaryAllyForThisEncounterOnly)
+                    {
+                        gv.cc.DisposeOfBitmap(ref btn.Img2);
+                        btn.Img2 = gv.cc.LoadBitmap(gv.mod.playerList[cntPCs].tokenFilename);
+                    }
                 }
                 cntPCs++;
             }
@@ -330,7 +333,12 @@ namespace IceBlink2
         {
             if (gv.cc.partyScreenPcIndex >= gv.mod.playerList.Count)
             {
-                gv.cc.partyScreenPcIndex = 0;
+                int i = 0;
+                while (gv.mod.playerList[i].isTemporaryAllyForThisEncounterOnly)
+                {
+                    i++;
+                }
+                gv.cc.partyScreenPcIndex = i;
             }
             Player pc = gv.mod.playerList[gv.cc.partyScreenPcIndex];
             gv.sf.UpdateStats(pc);

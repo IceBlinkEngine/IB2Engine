@@ -7494,7 +7494,7 @@ namespace IceBlink2
             }
             else if (keyData == Keys.P)
             {
-                if (isPlayerTurn)
+                if ((isPlayerTurn) && (!gv.mod.playerList[currentPlayerIndex].isTemporaryAllyForThisEncounterOnly))
                 {
                     if (currentPlayerIndex > gv.mod.playerList.Count - 1)
                     {
@@ -7505,14 +7505,17 @@ namespace IceBlink2
                     gv.mod.playerList[currentPlayerIndex].doCastActionInXFullTurns = 0;
                     gv.mod.playerList[currentPlayerIndex].tagOfSpellToBeCastAfterCastTimeIsDone = "none";
                     gv.mod.playerList[currentPlayerIndex].thisCasterCanBeInterrupted = true;
-                    gv.cc.partyScreenPcIndex = currentPlayerIndex;
+                    //if (!gv.mod.playerList[currentPlayerIndex].isTemporaryAllyForThisEncounterOnly)
+                    //{
+                        gv.cc.partyScreenPcIndex = currentPlayerIndex;
+                    //}
                     gv.screenParty.resetPartyScreen();
                     gv.screenType = "combatParty";
                 }
             }
             else if (keyData == Keys.I)
             {
-                if (isPlayerTurn)
+                if ((isPlayerTurn) && (!gv.mod.playerList[currentPlayerIndex].isTemporaryAllyForThisEncounterOnly))
                 {
                     gv.mod.playerList[currentPlayerIndex].thisCastIsFreeOfCost = false;
                     gv.mod.playerList[currentPlayerIndex].isPreparingSpell = false;
@@ -12017,6 +12020,7 @@ namespace IceBlink2
                     if (c != null)
                     {
                         //attack creature
+                        dontEndTurn = false;
                         targetHighlightCenterLocation.X = pc.combatLocX;
                         targetHighlightCenterLocation.Y = pc.combatLocY - 1;
                         currentCombatMode = "attack";
@@ -12046,7 +12050,7 @@ namespace IceBlink2
                     Creature c = isBumpIntoCreature(pc.combatLocX + 1, pc.combatLocY - 1);
                     if (c != null)
                     {
-
+                        dontEndTurn = false;
                         targetHighlightCenterLocation.X = pc.combatLocX + 1;
                         targetHighlightCenterLocation.Y = pc.combatLocY - 1;
                         currentCombatMode = "attack";
@@ -12082,7 +12086,7 @@ namespace IceBlink2
                     Creature c = isBumpIntoCreature(pc.combatLocX - 1, pc.combatLocY - 1);
                     if (c != null)
                     {
-
+                        dontEndTurn = false;
                         targetHighlightCenterLocation.X = pc.combatLocX - 1;
                         targetHighlightCenterLocation.Y = pc.combatLocY - 1;
                         currentCombatMode = "attack";
@@ -12118,7 +12122,7 @@ namespace IceBlink2
                     Creature c = isBumpIntoCreature(pc.combatLocX, pc.combatLocY + 1);
                     if (c != null)
                     {
-
+                        dontEndTurn = false;
                         targetHighlightCenterLocation.X = pc.combatLocX;
                         targetHighlightCenterLocation.Y = pc.combatLocY + 1;
                         currentCombatMode = "attack";
@@ -12148,7 +12152,7 @@ namespace IceBlink2
                     Creature c = isBumpIntoCreature(pc.combatLocX + 1, pc.combatLocY + 1);
                     if (c != null)
                     {
-
+                        dontEndTurn = false;
                         targetHighlightCenterLocation.X = pc.combatLocX + 1;
                         targetHighlightCenterLocation.Y = pc.combatLocY + 1;
                         currentCombatMode = "attack";
@@ -12184,7 +12188,7 @@ namespace IceBlink2
                     Creature c = isBumpIntoCreature(pc.combatLocX - 1, pc.combatLocY + 1);
                     if (c != null)
                     {
-
+                        dontEndTurn = false;
                         targetHighlightCenterLocation.X = pc.combatLocX - 1;
                         targetHighlightCenterLocation.Y = pc.combatLocY + 1;
                         currentCombatMode = "attack";
@@ -12220,7 +12224,7 @@ namespace IceBlink2
                     Creature c = isBumpIntoCreature(pc.combatLocX + 1, pc.combatLocY);
                     if (c != null)
                     {
-
+                        dontEndTurn = false;
                         targetHighlightCenterLocation.X = pc.combatLocX + 1;
                         targetHighlightCenterLocation.Y = pc.combatLocY;
                         currentCombatMode = "attack";
@@ -12254,7 +12258,7 @@ namespace IceBlink2
                     Creature c = isBumpIntoCreature(pc.combatLocX - 1, pc.combatLocY);
                     if (c != null)
                     {
-
+                        dontEndTurn = false;
                         targetHighlightCenterLocation.X = pc.combatLocX - 1;
                         targetHighlightCenterLocation.Y = pc.combatLocY;
                         currentCombatMode = "attack";
@@ -13338,7 +13342,10 @@ namespace IceBlink2
         public void LeaveThreatenedCheck(Player pc, int futurePlayerLocationX, int futurePlayerLocationY)
         {
             //testing...
-            dontEndTurn = true;
+            if (currentCombatMode == "move")
+            {
+                dontEndTurn = true;
+            }
             foreach (Creature crt in gv.mod.currentEncounter.encounterCreatureList)
             {
                 if ((crt.hp > 0) && (!crt.isHeld()))
