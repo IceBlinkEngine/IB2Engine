@@ -109,6 +109,9 @@ namespace IceBlink2
         public bool thisCastIsFreeOfCost = false;
 
         public bool isTemporaryAllyForThisEncounterOnly = false;
+        public List<Coordinate> tokenCoveredSquares = new List<Coordinate>();
+        public int playerSize = 1;
+        public int stayDurationInTurns = 100000;
 
         public Player()
         {
@@ -117,6 +120,8 @@ namespace IceBlink2
         public Player DeepCopy()
         {
             Player copy = new Player();
+            copy.stayDurationInTurns = this.stayDurationInTurns;
+            copy.playerSize = this.playerSize;  //1=normal, 2=wide, 3=tall, 4=large  
             copy.isTemporaryAllyForThisEncounterOnly = this.isTemporaryAllyForThisEncounterOnly;
             copy.thisCastIsFreeOfCost = this.thisCastIsFreeOfCost;
             copy.isPreparingSpell = this.isPreparingSpell;
@@ -193,6 +198,12 @@ namespace IceBlink2
             foreach (string s in this.knownSpellsTags)
             {
                 copy.knownSpellsTags.Add(s);
+            }
+
+            copy.tokenCoveredSquares = new List<Coordinate>();
+            foreach (Coordinate c in this.tokenCoveredSquares)
+            {
+                copy.tokenCoveredSquares.Add(c);
             }
 
             copy.pcTags = new List<string>();

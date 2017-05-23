@@ -30,6 +30,8 @@ namespace IceBlink2
 	    public int aoeRadius = 1;
 	    public int range = 2;	
 	    public string spellScript = "none";
+        public string spellScriptParm1 = "none";
+        public string spellScriptParm2 = "none";
         public string spellEffectTag = "none";
         public bool isUsedForCombatSquareEffect = false;
         public List<EffectTagForDropDownList> spellEffectTagList = new List<EffectTagForDropDownList>();
@@ -74,6 +76,8 @@ namespace IceBlink2
 		    copy.aoeRadius = this.aoeRadius;
 		    copy.range = this.range;
 		    copy.spellScript = this.spellScript;
+            copy.spellScriptParm1 = this.spellScriptParm1;
+            copy.spellScriptParm2 = this.spellScriptParm2;
             copy.spellEffectTag = this.spellEffectTag;
 
             //copy.spellEffectTagList = this.spellEffectTagList;

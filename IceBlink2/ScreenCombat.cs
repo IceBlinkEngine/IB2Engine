@@ -623,13 +623,24 @@ namespace IceBlink2
             }
 
             //IBScript Setup Combat Hook (run only once)
+            //could be used for placing temporary allies
             gv.cc.doIBScriptBasedOnFilename(gv.mod.currentEncounter.OnSetupCombatIBScript, gv.mod.currentEncounter.OnSetupCombatIBScriptParms);
 
             //Place all PCs
             for (int index = 0; index < gv.mod.playerList.Count; index++)
             {
-                gv.mod.playerList[index].combatLocX = gv.mod.currentEncounter.encounterPcStartLocations[index].X;
-                gv.mod.playerList[index].combatLocY = gv.mod.currentEncounter.encounterPcStartLocations[index].Y;
+                //place regular pc
+                if (!gv.mod.playerList[index].isTemporaryAllyForThisEncounterOnly)
+                {
+                    gv.mod.playerList[index].combatLocX = gv.mod.currentEncounter.encounterPcStartLocations[index].X;
+                    gv.mod.playerList[index].combatLocY = gv.mod.currentEncounter.encounterPcStartLocations[index].Y;
+                }
+                //place temporary allies
+                else
+                {
+                    //no entry needed,directly use combatLocX and combatLocY in tooolset (enable fields for them)
+                    //or maybe a script does this, called at start of encounter
+                }
             }
             isPlayerTurn = true;
             currentPlayerIndex = 0;
@@ -773,6 +784,19 @@ namespace IceBlink2
 
                 if (currentMoveOrderIndex >= initialMoveOrderListSize)
                 {
+                    for (int i = gv.mod.playerList.Count - 1; i >= 0; i--)
+                    {
+                        if (gv.mod.playerList[i].isTemporaryAllyForThisEncounterOnly)
+                        {
+                            gv.mod.playerList[i].stayDurationInTurns--;
+                            if (gv.mod.playerList[i].stayDurationInTurns <= 0)
+                            {
+                                gv.cc.addLogText("<font color='blue'>" + gv.mod.playerList[i].name + " vanishes." + "</font><BR>");
+                                gv.mod.playerList.RemoveAt(i);
+                            }
+                        }
+                    }
+                    
                     //hit the end so start the next round
                     startNextRoundStuff();
                     return;
@@ -858,28 +882,65 @@ namespace IceBlink2
 
                         if (idx == 0)
                         {
-                            gv.cc.ptrPc0.glowOn = true;
+                            if (gv.mod.playerList.Count > 0)
+                            {
+                                if (!gv.mod.playerList[0].isTemporaryAllyForThisEncounterOnly)
+                                {
+                                    gv.cc.ptrPc0.glowOn = true;
+                                }
+                            }
                         }
                         if (idx == 1)
                         {
-                            gv.cc.ptrPc1.glowOn = true;
+                            if (gv.mod.playerList.Count > 1)
+                            {
+                                if (!gv.mod.playerList[1].isTemporaryAllyForThisEncounterOnly)
+                                {
+                                    gv.cc.ptrPc1.glowOn = true;
+                                }
+                            }
                         }
                         if (idx == 2)
                         {
-                            gv.cc.ptrPc2.glowOn = true;
+                            if (gv.mod.playerList.Count > 2)
+                            {
+                                if (!gv.mod.playerList[2].isTemporaryAllyForThisEncounterOnly)
+                                {
+                                    gv.cc.ptrPc2.glowOn = true;
+                                }
+                            }
                         }
                         if (idx == 3)
                         {
-                            gv.cc.ptrPc3.glowOn = true;
+                            if (gv.mod.playerList.Count > 3)
+                            {
+                                if (!gv.mod.playerList[3].isTemporaryAllyForThisEncounterOnly)
+                                {
+                                    gv.cc.ptrPc3.glowOn = true;
+                                }
+                            }
                         }
                         if (idx == 4)
                         {
-                            gv.cc.ptrPc4.glowOn = true;
+                            if (gv.mod.playerList.Count > 4)
+                            {
+                                if (!gv.mod.playerList[4].isTemporaryAllyForThisEncounterOnly)
+                                {
+                                    gv.cc.ptrPc4.glowOn = true;
+                                }
+                            }
                         }
                         if (idx == 5)
                         {
-                            gv.cc.ptrPc5.glowOn = true;
+                            if (gv.mod.playerList.Count > 5)
+                            {
+                                if (!gv.mod.playerList[5].isTemporaryAllyForThisEncounterOnly)
+                                {
+                                    gv.cc.ptrPc5.glowOn = true;
+                                }
+                            }
                         }
+                        //blubb
 
                         //switching to a system where effects last from turn they are applied to start of the target creature's next turn (multiplied with duration of effect)
                         applyEffectsCombat(pc);
@@ -3660,6 +3721,16 @@ namespace IceBlink2
             {
                 gv.mod.currentEncounter.isOver = true;
                 gv.touchEnabled = true;
+
+                //remove temporary allies
+                for (int i = gv.mod.playerList.Count-1; i >= 0; i--)
+                {
+                    if (gv.mod.playerList[i].isTemporaryAllyForThisEncounterOnly)
+                    {
+                        gv.mod.playerList.RemoveAt(i);
+                    }
+                }
+
                 // give gold drop
                 if (gv.mod.currentEncounter.goldDrop > 0)
                 {
@@ -3718,7 +3789,11 @@ namespace IceBlink2
             {
                 if (pc.hp > 0)
                 {
-                    foundOnePc = 1;
+                    //at least one true player must remain above 0 hp or the battle is considered lost
+                    if (!pc.isTemporaryAllyForThisEncounterOnly)
+                    {
+                        foundOnePc = 1;
+                    }
                 }
             }
             if (foundOnePc == 0)
@@ -4498,7 +4573,7 @@ namespace IceBlink2
             #endregion
         }
 
-
+        //we will need player covered squares, too
         public void refreshCreatureCoveredSquares()
         {
             foreach (Creature crt in gv.mod.currentEncounter.encounterCreatureList)
@@ -4511,6 +4586,41 @@ namespace IceBlink2
                 int height = gv.cc.GetFromBitmapList(crt.cr_tokenFilename).PixelSize.Height;
                 //1=normal, 2=wide, 3=tall, 4=large  
                 int crtSize = crt.creatureSize;
+
+                //wide  
+                if (crtSize == 2)
+                {
+                    crt.tokenCoveredSquares.Add(new Coordinate(crt.combatLocX + 1, crt.combatLocY));
+                }
+                //tall  
+                else if (crtSize == 3)
+                {
+                    crt.tokenCoveredSquares.Add(new Coordinate(crt.combatLocX, crt.combatLocY + 1));
+                }
+                //large  
+                else if (crtSize == 4)
+                {
+                    crt.tokenCoveredSquares.Add(new Coordinate(crt.combatLocX + 1, crt.combatLocY));
+                    crt.tokenCoveredSquares.Add(new Coordinate(crt.combatLocX, crt.combatLocY + 1));
+                    crt.tokenCoveredSquares.Add(new Coordinate(crt.combatLocX + 1, crt.combatLocY + 1));
+                }
+            }
+        }
+
+        //not used yet
+        //will not be easy, think eg attacking by bump - with which part?
+        public void refreshPlayerCoveredSquares()
+        {
+            foreach (Player crt in gv.mod.playerList)
+            {
+                crt.tokenCoveredSquares.Clear();
+                //add normal creature size square location first...add other sizes as needed  
+                crt.tokenCoveredSquares.Add(new Coordinate(crt.combatLocX, crt.combatLocY));
+
+                int width = gv.cc.GetFromBitmapList(crt.tokenFilename).PixelSize.Width;
+                int height = gv.cc.GetFromBitmapList(crt.tokenFilename).PixelSize.Height;
+                //1=normal, 2=wide, 3=tall, 4=large  
+                int crtSize = crt.playerSize;
 
                 //wide  
                 if (crtSize == 2)
@@ -5548,42 +5658,49 @@ namespace IceBlink2
                     int index = 0;
                     foreach (Player pc1 in gv.mod.playerList)
                     {
-                        pnl.portraitList[index].show = true;
-                        pnl.portraitList[index].ImgFilename = pc1.portraitFilename;
-                        pnl.portraitList[index].TextHP = pc1.hp + "/" + pc1.hpMax;
-                        pnl.portraitList[index].TextSP = pc1.sp + "/" + pc1.spMax;
-                        
-                        if (index == 0 && gv.cc.ptrPc0.glowOn)
+                        if (!pc1.isTemporaryAllyForThisEncounterOnly)
                         {
-                            pnl.portraitList[index].glowOn = true;
+                            pnl.portraitList[index].show = true;
+                            pnl.portraitList[index].ImgFilename = pc1.portraitFilename;
+                            pnl.portraitList[index].TextHP = pc1.hp + "/" + pc1.hpMax;
+                            pnl.portraitList[index].TextSP = pc1.sp + "/" + pc1.spMax;
+
+                            if (index == 0 && gv.cc.ptrPc0.glowOn)
+                            {
+                                pnl.portraitList[index].glowOn = true;
+                            }
+                            else if (index == 1 && gv.cc.ptrPc1.glowOn)
+                            {
+                                pnl.portraitList[index].glowOn = true;
+                            }
+                            else if (index == 2 && gv.cc.ptrPc2.glowOn)
+                            {
+                                pnl.portraitList[index].glowOn = true;
+                            }
+                            else if (index == 3 && gv.cc.ptrPc3.glowOn)
+                            {
+                                pnl.portraitList[index].glowOn = true;
+                            }
+                            else if (index == 4 && gv.cc.ptrPc4.glowOn)
+                            {
+                                pnl.portraitList[index].glowOn = true;
+                            }
+                            else if (index == 5 && gv.cc.ptrPc5.glowOn)
+                            {
+                                pnl.portraitList[index].glowOn = true;
+                            }
+                            else
+                            {
+                                pnl.portraitList[index].glowOn = false;
+                            }
                         }
-                        else if (index == 1 && gv.cc.ptrPc1.glowOn)
-                        {
-                            pnl.portraitList[index].glowOn = true;
-                        }
-                        else if (index == 2 && gv.cc.ptrPc2.glowOn)
-                        {
-                            pnl.portraitList[index].glowOn = true;
-                        }
-                        else if (index == 3 && gv.cc.ptrPc3.glowOn)
-                        {
-                            pnl.portraitList[index].glowOn = true;
-                        }
-                        else if (index == 4 && gv.cc.ptrPc4.glowOn)
-                        {
-                            pnl.portraitList[index].glowOn = true;
-                        }
-                        else if (index == 5 && gv.cc.ptrPc5.glowOn)
-                        {
-                            pnl.portraitList[index].glowOn = true;
-                        }
-                        else
-                        {
-                            pnl.portraitList[index].glowOn = false;
-                        }
-                        
+
+
                         //gv.cc.ptrPc0.glowOn
-                        index++;
+                        if (!pc1.isTemporaryAllyForThisEncounterOnly)
+                        {
+                            index++;
+                        }
                     }
                     break;
                 }
@@ -6132,10 +6249,10 @@ namespace IceBlink2
                             {
                                 continue;
                             }
-                            if ((pf.values != null) && (gv.mod.debugMode))
-                            {
+                            //if ((pf.values != null) && (gv.mod.debugMode))
+                            //{
                                 //gv.DrawText(pf.values[x, y].ToString(), (x - UpperLeftSquare.X) * gv.squareSize + gv.oXshift + mapStartLocXinPixels, (y - UpperLeftSquare.Y) * gv.squareSize);
-                            }
+                            //}
                         }
                     }
                     #endregion
@@ -6510,7 +6627,8 @@ namespace IceBlink2
                             attackAnimationFrameCounter++;
                             attackAnimationDelayCounter = 0;
                         }
-                        maxUsableCounterValue = (int)(pc.token.PixelSize.Height / 100f - 1);
+                        //maxUsableCounterValue = (int)(pc.token.PixelSize.Height / 100f - 1);
+                        maxUsableCounterValue = 1;
                         if (attackAnimationFrameCounter >= maxUsableCounterValue)
                         {
                             attackAnimationFrameCounter = maxUsableCounterValue;

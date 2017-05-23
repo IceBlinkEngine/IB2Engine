@@ -421,6 +421,8 @@ namespace IceBlink2
         public bool firstTriggerCall = true;
         public bool isRecursiveCall = false;
 
+        public int allyCounter = 0;
+
         public Module()
         {
 

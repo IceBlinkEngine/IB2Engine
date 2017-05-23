@@ -401,6 +401,15 @@ namespace IceBlink2
                     {
                         AddCharacterToParty(p1);
                     }
+                    else if (filename.Equals("gaAddTemporaryAllyForThisEncounter.cs"))
+                    {
+                        int parm2 = Convert.ToInt32(p2);//x
+                        int parm3 = Convert.ToInt32(p3);//y
+                        int parm4 = Convert.ToInt32(p4);//duration
+
+                        //ally name, x, y, stayDurationInTurns
+                        AddTemporaryAllyForThisEncounter(p1,parm2,parm3,parm4);
+                    }
                     else if (filename.Equals("gaRemovePartyMember.cs"))
                     {
                         RemoveCharacterFromParty(prm1, p2);
@@ -2663,6 +2672,66 @@ namespace IceBlink2
                 gv.errorLog(ex.ToString());
             }
         }
+
+        //AddTemporaryAllyForThisEncounter(p1, p2, p3, p4);
+        public void AddTemporaryAllyForThisEncounter(string filename, int locationX, int locationY, int stayDuration)
+        {
+            try
+            {
+                Player newPc = gv.cc.LoadPlayer(filename + ".json"); //ex: filename = "ezzbel.json"
+
+                //new set of values for temporaries allies/summons
+                newPc.isTemporaryAllyForThisEncounterOnly = true;
+                newPc.stayDurationInTurns = stayDuration;
+                newPc.combatLocX = locationX;
+                newPc.combatLocY = locationY;
+
+                newPc.token = gv.cc.LoadBitmap(newPc.tokenFilename);
+                //newPc.portrait = gv.cc.LoadBitmap(newPc.portraitFilename);
+                newPc.playerClass = mod.getPlayerClass(newPc.classTag);
+                newPc.race = mod.getRace(newPc.raceTag);
+                //check to see if already in party before adding
+                //bool foundOne = false;
+                foreach (Player pc in mod.playerList)
+                {
+                    if (newPc.tag.Equals(pc.tag))
+                    {
+                        newPc.tag += gv.mod.allyCounter;
+                        gv.mod.allyCounter++;
+                    }
+                }
+                //if (!foundOne)
+                //{
+                    mod.playerList.Add(newPc);
+                    if (!newPc.AmmoRefs.resref.Equals("none"))
+                    {
+                        GiveItem(newPc.AmmoRefs.resref, 1);
+                    }
+                    //gv.TrackerSendEventOnePlayerInfo(newPc,"PartyAddCompanion:" + newPc.name);
+                    gv.cc.addLogText("<font color='lime'>" + newPc.name + " joins the party</font><BR>");
+                //}
+                //else
+                //{
+                    //if (mod.debugMode) //SD_20131102
+                    //{
+                        //gv.cc.addLogText("<font color='yellow'>" + "This PC is already in the party" + "</font><BR>");
+                    //}
+                //}
+            }
+            catch (Exception ex)
+            {
+                if (mod.debugMode) //SD_20131102
+                {
+                    gv.cc.addLogText("<font color='yellow'>" + "failed to load character from character folder" + "</font><BR>");
+                }
+                gv.errorLog(ex.ToString());
+            }
+        }
+
+
+
+
+
         public void RemoveCharacterFromParty(string PCtag, string index)
         {
             try
@@ -6416,14 +6485,14 @@ namespace IceBlink2
         //DEFAULT SCRIPTS
         public void dsWorldTime()
         {
-            gv.mod.timeInThisYear = (gv.mod.WorldTime * 60) % 29030400;
+            gv.mod.timeInThisYear = (gv.mod.WorldTime) % 483840;
            
             //note: our ranges strat at 0 here, while our usual displayed counting starts at 1
-            gv.mod.currentYear = (gv.mod.WorldTime * 60) / 29030400;
+            gv.mod.currentYear = (gv.mod.WorldTime) / 483840;
             decimal.Round(gv.mod.currentYear, 0);
-            gv.mod.currentMonth = ((gv.mod.timeInThisYear) / 2419200);
+            gv.mod.currentMonth = ((gv.mod.timeInThisYear) / 40320);
             decimal.Round(gv.mod.currentMonth, 0);
-            gv.mod.currentDay = ((gv.mod.timeInThisYear) / 86400);
+            gv.mod.currentDay = ((gv.mod.timeInThisYear) / 1440);
             decimal.Round(gv.mod.currentDay, 0);
             gv.mod.currentWeekDay = (gv.mod.currentDay % 7);
             gv.mod.currentMonthDay = (gv.mod.currentDay % 28);
@@ -9500,6 +9569,56 @@ namespace IceBlink2
                  }  
              }  
          }
+
+        public void spSummonAlly(object src, object trg, Spell sp)
+        {
+            if (src is Player) //player casting  
+            {
+                Player source = (Player)src;
+                Coordinate target = (Coordinate)trg;
+
+                if (IsSquareOpen(target))
+                {
+                    gv.cc.addLogText("<gn>" + source.name + " calls for a " + sp.spellScriptParm1 + "</gn><BR>");
+                    //hersel
+                    int parm2 = Convert.ToInt32(sp.spellScriptParm2);
+                    gv.sf.AddTemporaryAllyForThisEncounter(sp.spellScriptParm1, target.X, target.Y, parm2);
+                    if (!source.thisCastIsFreeOfCost)
+                    {
+                        source.sp -= gv.cc.currentSelectedSpell.costSP;
+                        if (source.sp < 0) { source.sp = 0; }
+
+                        if (source.hp > gv.cc.currentSelectedSpell.costHP)
+                        {
+                            source.hp -= gv.cc.currentSelectedSpell.costHP;
+                        }
+                    }
+                }
+                else
+                {
+                    gv.cc.addLogText("<yl>" + source.name + " fails to call ally, square is already occupied or not valid</yl><BR>");
+                }
+            }
+
+            else if (src is Creature) //creature casting  
+            {
+                Creature source = (Creature)src;
+                Coordinate target = (Coordinate)trg;
+
+                if (IsSquareOpen(target))
+                {
+                    gv.cc.addLogText("<gn>" + source.cr_name + " teleports to another location</gn><BR>");
+                    source.combatLocX = target.X;
+                    source.combatLocY = target.Y;
+                    source.sp -= SpellToCast.costSP;
+                    if (source.sp < 0) { source.sp = 0; }
+                }
+                else
+                {
+                    gv.cc.addLogText("<yl>" + source.cr_name + " fails to teleport, square is already occupied or not valid</yl><BR>");
+                }
+            }
+        }
 
         public int CalcShopBuyBackModifier(Player pc)
          {  

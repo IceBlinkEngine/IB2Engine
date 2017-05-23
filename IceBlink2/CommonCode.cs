@@ -850,7 +850,16 @@ namespace IceBlink2
             //U  "allowAutosave": true, (use all save)
             gv.mod.allowAutosave = saveMod.allowAutosave;
             //U  "WorldTime": 24, (use all save)
-            gv.mod.WorldTime = saveMod.WorldTime;
+            //additive approach, adding world time
+            if (gv.mod.WorldTime <= saveMod.WorldTime)
+            {
+                gv.mod.WorldTime = saveMod.WorldTime;
+            }
+            else
+            {
+                gv.mod.WorldTime += saveMod.WorldTime;
+            }
+            
             gv.mod.nextIdNumber = saveMod.nextIdNumber;
             //U  "PlayerLocationY": 2, (use all save)
             gv.mod.PlayerLocationY = saveMod.PlayerLocationY;
@@ -7098,8 +7107,8 @@ namespace IceBlink2
                                     dayCounter = (dayCounter - 1);
                                 }
 
-                                //turn the the three counters into one number for departure time (in seconds)
-                                int convertedDepartureTime = dayCounter * 86400 + hourCounter * 3600 + minuteCounter * 60;
+                                //turn the the three counters into one number for departure time (in minutes)
+                                int convertedDepartureTime = dayCounter * 1440 + hourCounter * 60 + minuteCounter;
 
                                 //automatically overwritwe departure time for last in line waypoint to be at the end of the respective time interval 
                                 //and factor in the duration of one step 
@@ -7109,27 +7118,27 @@ namespace IceBlink2
                                 {
                                     if (gv.mod.moduleAreasObjects[i].Props[j].MoverType.Equals("daily"))
                                     {
-                                        convertedDepartureTime = 86400 - (gv.mod.currentArea.TimePerSquare * 60 + 1);//times 60 is necceessary as world time and time per square are measured in minutes  
+                                        convertedDepartureTime = 1440 - (gv.mod.currentArea.TimePerSquare + 1);
                                     }
                                     if (gv.mod.moduleAreasObjects[i].Props[j].MoverType.Equals("weekly"))
                                     {
-                                        convertedDepartureTime = 604800 - (gv.mod.currentArea.TimePerSquare * 60 + 1);
+                                        convertedDepartureTime = 10080 - (gv.mod.currentArea.TimePerSquare + 1);
                                     }
                                     if (gv.mod.moduleAreasObjects[i].Props[j].MoverType.Equals("monthly"))
                                     {
-                                        convertedDepartureTime = 2419200 - (gv.mod.currentArea.TimePerSquare * 60 + 1);
+                                        convertedDepartureTime = 40320 - (gv.mod.currentArea.TimePerSquare + 1);
                                     }
                                     if (gv.mod.moduleAreasObjects[i].Props[j].MoverType.Equals("yearly"))
                                     {
-                                        convertedDepartureTime = 29030400 - (gv.mod.currentArea.TimePerSquare * 60 + 1);
+                                        convertedDepartureTime = 483840 - (gv.mod.currentArea.TimePerSquare + 1);
                                     }
                                 }
 
                                 if (k == 0)
                                 {
-                                    if (convertedDepartureTime < (gv.mod.currentArea.TimePerSquare * 60 + 1))
+                                    if (convertedDepartureTime < (gv.mod.currentArea.TimePerSquare + 1))
                                     {
-                                        convertedDepartureTime = gv.mod.currentArea.TimePerSquare * 60 + 1;
+                                        convertedDepartureTime = gv.mod.currentArea.TimePerSquare + 1;
                                     }
                                 }
 
@@ -7137,19 +7146,19 @@ namespace IceBlink2
                                 //the intervalls endlessly run from zero to maximum length to zero to maximum length and so forth
                                 if (gv.mod.moduleAreasObjects[i].Props[j].MoverType.Equals("daily"))
                                 {
-                                    currentTimeInInterval = (gv.mod.WorldTime * 60) % 86400;
+                                    currentTimeInInterval = (gv.mod.WorldTime) % 1440;
                                 }
                                 if (gv.mod.moduleAreasObjects[i].Props[j].MoverType.Equals("weekly"))
                                 {
-                                    currentTimeInInterval = (gv.mod.WorldTime * 60) % 604800;
+                                    currentTimeInInterval = (gv.mod.WorldTime) % 10080;
                                 }
                                 if (gv.mod.moduleAreasObjects[i].Props[j].MoverType.Equals("monthly"))
                                 {
-                                    currentTimeInInterval = (gv.mod.WorldTime * 60) % 2419200;
+                                    currentTimeInInterval = (gv.mod.WorldTime) % 40320;
                                 }
                                 if (gv.mod.moduleAreasObjects[i].Props[j].MoverType.Equals("yearly"))
                                 {
-                                    currentTimeInInterval = (gv.mod.WorldTime * 60) % 29030400;
+                                    currentTimeInInterval = (gv.mod.WorldTime) % 483840;
                                 }
 
                                 //we look for waypoints whose time has already been reached in this step
@@ -7621,51 +7630,51 @@ namespace IceBlink2
                                 dayCounter = (dayCounter - 1);
                             }
 
-                            int convertedDepartureTime = dayCounter * 86400 + hourCounter * 3600 + minuteCounter * 60;
+                            int convertedDepartureTime = dayCounter * 1440 + hourCounter * 60 + minuteCounter;
 
                             if (gv.mod.currentArea.Props[i].WayPointListCurrentIndex == gv.mod.currentArea.Props[i].WayPointList.Count - 1)
                             {
                                 if (gv.mod.currentArea.Props[i].MoverType.Equals("daily"))
                                 {
-                                    convertedDepartureTime = 86400 - (gv.mod.currentArea.TimePerSquare * 60 + 1);
+                                    convertedDepartureTime = 1440 - (gv.mod.currentArea.TimePerSquare + 1);
                                 }
                                 if (gv.mod.currentArea.Props[i].MoverType.Equals("weekly"))
                                 {
-                                    convertedDepartureTime = 604800 - (gv.mod.currentArea.TimePerSquare * 60 + 1);
+                                    convertedDepartureTime = 10080 - (gv.mod.currentArea.TimePerSquare + 1);
                                 }
                                 if (gv.mod.currentArea.Props[i].MoverType.Equals("monthly"))
                                 {
-                                    convertedDepartureTime = 2419200 - (gv.mod.currentArea.TimePerSquare * 60 + 1);
+                                    convertedDepartureTime = 40320 - (gv.mod.currentArea.TimePerSquare + 1);
                                 }
                                 if (gv.mod.currentArea.Props[i].MoverType.Equals("yearly"))
                                 {
-                                    convertedDepartureTime = 29030400 - (gv.mod.currentArea.TimePerSquare * 60 + 1);
+                                    convertedDepartureTime = 483840 - (gv.mod.currentArea.TimePerSquare + 1);
                                 }
                             }
 
                             if (gv.mod.currentArea.Props[i].WayPointListCurrentIndex == 0)
                             {
-                                if (convertedDepartureTime < (gv.mod.currentArea.TimePerSquare * 60 + 1))
+                                if (convertedDepartureTime < (gv.mod.currentArea.TimePerSquare + 1))
                                 {
-                                    convertedDepartureTime = gv.mod.currentArea.TimePerSquare * 60 + 1;
+                                    convertedDepartureTime = gv.mod.currentArea.TimePerSquare + 1;
                                 }
                             }
 
                             if (gv.mod.currentArea.Props[i].MoverType.Equals("daily"))
                             {
-                                currentTimeInInterval = (gv.mod.WorldTime * 60) % 86400;
+                                currentTimeInInterval = (gv.mod.WorldTime) % 1440;
                             }
                             if (gv.mod.currentArea.Props[i].MoverType.Equals("weekly"))
                             {
-                                currentTimeInInterval = (gv.mod.WorldTime * 60) % 604800;
+                                currentTimeInInterval = (gv.mod.WorldTime) % 10080;
                             }
                             if (gv.mod.currentArea.Props[i].MoverType.Equals("monthly"))
                             {
-                                currentTimeInInterval = (gv.mod.WorldTime * 60) % 2419200;
+                                currentTimeInInterval = (gv.mod.WorldTime) % 40320;
                             }
                             if (gv.mod.currentArea.Props[i].MoverType.Equals("yearly"))
                             {
-                                currentTimeInInterval = (gv.mod.WorldTime * 60) % 29030400;
+                                currentTimeInInterval = (gv.mod.WorldTime) % 483840;
                             }
 
                             if (currentTimeInInterval >= convertedDepartureTime)
@@ -9080,6 +9089,11 @@ namespace IceBlink2
                 gv.sf.spDimensionDoor(source, target); 
             }
 
+            else if (spell.spellScript.Equals("spSummonAlly"))
+            {
+                gv.sf.spSummonAlly(source, target, spell);
+            }
+            
             else if (spell.spellScript.Equals("spFlameFingers"))
             {
                 gv.sf.spFlameFingers(source, target, spell);
