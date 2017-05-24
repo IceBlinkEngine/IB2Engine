@@ -619,8 +619,8 @@ namespace IceBlink2
 			    {
 				    if (inCombat) //Combat Map
 				    {
-					
-					    if ((getCastingPlayer().sp >= GetCurrentlySelectedSpell().costSP) && (getCastingPlayer().hp > GetCurrentlySelectedSpell().costHP))
+                        gv.screenCombat.dontEndTurn = false;
+                        if ((getCastingPlayer().sp >= GetCurrentlySelectedSpell().costSP) && (getCastingPlayer().hp > GetCurrentlySelectedSpell().costHP))
                         {
                             //AoO code
                             foreach (Creature crt in gv.mod.currentEncounter.encounterCreatureList)

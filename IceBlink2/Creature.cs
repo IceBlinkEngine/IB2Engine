@@ -500,7 +500,7 @@ namespace IceBlink2
              {
                     if (ef.isStackableEffect)
                         {
-         adder += ef.babModifier;
+                            adder += ef.babModifier;
                         }
                     else  
                  {
@@ -512,8 +512,9 @@ namespace IceBlink2
                }  
              if (highestNonStackable > -99) { adder = highestNonStackable; }  
              int att = this.cr_att + adder;  
-             return adder;  
+             return att;  
          }  
+
          public int getNumberOfAttacks()
          {  
              if (this.cr_category.Equals("Melee"))  

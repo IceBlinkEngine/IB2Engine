@@ -1810,6 +1810,7 @@ namespace IceBlink2
         }
         public void doCombatAttack(Player pc)
         {
+            dontEndTurn = false;
             if (isInRange(pc))
             {
 
@@ -13459,11 +13460,14 @@ namespace IceBlink2
         }
         public void LeaveThreatenedCheck(Player pc, int futurePlayerLocationX, int futurePlayerLocationY)
         {
+            
             //testing...
             if (currentCombatMode == "move")
             {
                 dontEndTurn = true;
             }
+            
+
             foreach (Creature crt in gv.mod.currentEncounter.encounterCreatureList)
             {
                 if ((crt.hp > 0) && (!crt.isHeld()))
