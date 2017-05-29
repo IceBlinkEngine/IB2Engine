@@ -139,65 +139,69 @@ namespace IceBlink2
 		    btnModuleName.Draw();
 	    }
         public void onTouchLauncher(MouseEventArgs e, MouseEventType.EventType eventType)
-	    {
-    	    btnLeft.glowOn = false;
-    	    btnRight.glowOn = false;	
-    	    btnModuleName.glowOn = false;
-		
-		    switch (eventType)
-		    {
-		        case MouseEventType.EventType.MouseUp:
-			        int x = (int) e.X;
-			        int y = (int) e.Y;
-				
-			        btnLeft.glowOn = false;
-	    	        btnRight.glowOn = false;	
-	    	        btnModuleName.glowOn = false;
-			
-	    	        if (btnLeft.getImpact(x, y))
-			        {
-                        if (moduleIndex > 0)
-				        {
-					        moduleIndex--;
-					        btnModuleName.Text = moduleList[moduleIndex].moduleName;
-				        }
-			        }
-			        else if (btnRight.getImpact(x, y))
-			        {
-                        if (moduleIndex < moduleList.Count-1)
-				        {
-					        moduleIndex++;
-					        btnModuleName.Text = moduleList[moduleIndex].moduleName;
-				        }
-			        }	    	
-			        else if (btnModuleName.getImpact(x, y))
-			        {
-				        gv.mod = moduleList[moduleIndex];
-				        gv.resetGame();
-				        gv.cc.LoadSaveListItems();
-				        gv.screenType = "title";
-			        }
-			        break;
-		
-		        case MouseEventType.EventType.MouseMove:
-		        case MouseEventType.EventType.MouseDown:
-			        x = (int) e.X;
-			        y = (int) e.Y;
-				
-			        if (btnLeft.getImpact(x, y))
-			        {
-                        btnLeft.glowOn = true;
-			        }
-			        else if (btnRight.getImpact(x, y))
-			        {
-				        btnRight.glowOn = true;
-			        }
-			        else if (btnModuleName.getImpact(x, y))
-			        {
-				        btnModuleName.glowOn = true;
-			        }
-			        break;		
-		    }
-	    }
+        {
+            try
+            {
+                btnLeft.glowOn = false;
+                btnRight.glowOn = false;
+                btnModuleName.glowOn = false;
+
+                switch (eventType)
+                {
+                    case MouseEventType.EventType.MouseUp:
+                        int x = (int)e.X;
+                        int y = (int)e.Y;
+
+                        btnLeft.glowOn = false;
+                        btnRight.glowOn = false;
+                        btnModuleName.glowOn = false;
+
+                        if (btnLeft.getImpact(x, y))
+                        {
+                            if (moduleIndex > 0)
+                            {
+                                moduleIndex--;
+                                btnModuleName.Text = moduleList[moduleIndex].moduleName;
+                            }
+                        }
+                        else if (btnRight.getImpact(x, y))
+                        {
+                            if (moduleIndex < moduleList.Count - 1)
+                            {
+                                moduleIndex++;
+                                btnModuleName.Text = moduleList[moduleIndex].moduleName;
+                            }
+                        }
+                        else if (btnModuleName.getImpact(x, y))
+                        {
+                            gv.mod = moduleList[moduleIndex];
+                            gv.resetGame();
+                            gv.cc.LoadSaveListItems();
+                            gv.screenType = "title";
+                        }
+                        break;
+
+                    case MouseEventType.EventType.MouseMove:
+                    case MouseEventType.EventType.MouseDown:
+                        x = (int)e.X;
+                        y = (int)e.Y;
+
+                        if (btnLeft.getImpact(x, y))
+                        {
+                            btnLeft.glowOn = true;
+                        }
+                        else if (btnRight.getImpact(x, y))
+                        {
+                            btnRight.glowOn = true;
+                        }
+                        else if (btnModuleName.getImpact(x, y))
+                        {
+                            btnModuleName.glowOn = true;
+                        }
+                        break;
+                }
+            }
+            catch { }
+        }
     }
 }

@@ -495,120 +495,125 @@ namespace IceBlink2
     
         public void onTouchShop(MouseEventArgs e, MouseEventType.EventType eventType)
 	    {
-		    btnInventoryLeft.glowOn = false;
-		    btnInventoryRight.glowOn = false;
-		    btnHelp.glowOn = false;
-		    btnReturn.glowOn = false;
-		    btnShopLeft.glowOn = false;
-		    btnShopRight.glowOn = false;	
-		
-		    switch (eventType)
-		    {
-		    case MouseEventType.EventType.MouseDown:
-		    case MouseEventType.EventType.MouseMove:
-			    int x = (int) e.X;
-			    int y = (int) e.Y;
-			    if (btnInventoryLeft.getImpact(x, y))
-			    {
-				    btnInventoryLeft.glowOn = true;
-			    }
-			    else if (btnInventoryRight.getImpact(x, y))
-			    {
-				    btnInventoryRight.glowOn = true;
-			    }
-			    else if (btnHelp.getImpact(x, y))
-			    {
-				    btnHelp.glowOn = true;
-			    }
-			    else if (btnReturn.getImpact(x, y))
-			    {
-				    btnReturn.glowOn = true;
-			    }
-			    else if (btnShopLeft.getImpact(x, y))
-			    {
-				    btnShopLeft.glowOn = true;
-			    }
-			    else if (btnShopRight.getImpact(x, y))
-			    {
-				    btnShopRight.glowOn = true;
-			    }
-			    break;
-			
-		    case MouseEventType.EventType.MouseUp:
-                x = (int)e.X;
-                y = (int)e.Y;
-			
-			    btnInventoryLeft.glowOn = false;
-			    btnInventoryRight.glowOn = false;
-			    btnHelp.glowOn = false;
-			    btnReturn.glowOn = false;
-			    btnShopLeft.glowOn = false;
-			    btnShopRight.glowOn = false;	
-			
-			    for (int j = 0; j < 10; j++)
-			    {
-				    if (btnInventorySlot[j].getImpact(x, y))
-				    {
-					    if (inventorySlotIndex == j)
-					    {
-						    doInventoryActions();
-					    }
-					    inventorySlotIndex = j;
-				    }
-			    }
-			    for (int j = 0; j < 10; j++)
-			    {
-				    if (btnShopSlot[j].getImpact(x, y))
-				    {
-					    if (shopSlotIndex == j)
-					    {
-						    doShopActions();
-					    }
-					    shopSlotIndex = j;
-				    }
-			    }
-			    if (btnInventoryLeft.getImpact(x, y))
-			    {
-				    if (inventoryPageIndex > 0)
-				    {
-					    inventoryPageIndex--;
-					    btnPageIndex.Text = (inventoryPageIndex + 1) + "/10";
-				    }
-			    }
-			    else if (btnInventoryRight.getImpact(x, y))
-			    {
-				    if (inventoryPageIndex < 9)
-				    {
-					    inventoryPageIndex++;
-					    btnPageIndex.Text = (inventoryPageIndex + 1) + "/10";
-				    }
-			    }
-			    else if (btnShopLeft.getImpact(x, y))
-			    {
-				    if (shopPageIndex > 0)
-				    {
-					    shopPageIndex--;
-					    btnShopPageIndex.Text = (shopPageIndex + 1) + "/10";
-				    }
-			    }
-			    else if (btnShopRight.getImpact(x, y))
-			    {
-				    if (shopPageIndex < 9)
-				    {
-					    shopPageIndex++;
-					    btnShopPageIndex.Text = (shopPageIndex + 1) + "/10";
-				    }
-			    }
-			    else if (btnHelp.getImpact(x, y))
-			    {
-				    tutorialMessageShop();
-			    }
-			    else if (btnReturn.getImpact(x, y))
-			    {
-				    gv.screenType = "main";	
-			    }
-			    break;		
-		    }
+            try
+            {
+                btnInventoryLeft.glowOn = false;
+                btnInventoryRight.glowOn = false;
+                btnHelp.glowOn = false;
+                btnReturn.glowOn = false;
+                btnShopLeft.glowOn = false;
+                btnShopRight.glowOn = false;
+
+                switch (eventType)
+                {
+                    case MouseEventType.EventType.MouseDown:
+                    case MouseEventType.EventType.MouseMove:
+                        int x = (int)e.X;
+                        int y = (int)e.Y;
+                        if (btnInventoryLeft.getImpact(x, y))
+                        {
+                            btnInventoryLeft.glowOn = true;
+                        }
+                        else if (btnInventoryRight.getImpact(x, y))
+                        {
+                            btnInventoryRight.glowOn = true;
+                        }
+                        else if (btnHelp.getImpact(x, y))
+                        {
+                            btnHelp.glowOn = true;
+                        }
+                        else if (btnReturn.getImpact(x, y))
+                        {
+                            btnReturn.glowOn = true;
+                        }
+                        else if (btnShopLeft.getImpact(x, y))
+                        {
+                            btnShopLeft.glowOn = true;
+                        }
+                        else if (btnShopRight.getImpact(x, y))
+                        {
+                            btnShopRight.glowOn = true;
+                        }
+                        break;
+
+                    case MouseEventType.EventType.MouseUp:
+                        x = (int)e.X;
+                        y = (int)e.Y;
+
+                        btnInventoryLeft.glowOn = false;
+                        btnInventoryRight.glowOn = false;
+                        btnHelp.glowOn = false;
+                        btnReturn.glowOn = false;
+                        btnShopLeft.glowOn = false;
+                        btnShopRight.glowOn = false;
+
+                        for (int j = 0; j < 10; j++)
+                        {
+                            if (btnInventorySlot[j].getImpact(x, y))
+                            {
+                                if (inventorySlotIndex == j)
+                                {
+                                    doInventoryActions();
+                                }
+                                inventorySlotIndex = j;
+                            }
+                        }
+                        for (int j = 0; j < 10; j++)
+                        {
+                            if (btnShopSlot[j].getImpact(x, y))
+                            {
+                                if (shopSlotIndex == j)
+                                {
+                                    doShopActions();
+                                }
+                                shopSlotIndex = j;
+                            }
+                        }
+                        if (btnInventoryLeft.getImpact(x, y))
+                        {
+                            if (inventoryPageIndex > 0)
+                            {
+                                inventoryPageIndex--;
+                                btnPageIndex.Text = (inventoryPageIndex + 1) + "/10";
+                            }
+                        }
+                        else if (btnInventoryRight.getImpact(x, y))
+                        {
+                            if (inventoryPageIndex < 9)
+                            {
+                                inventoryPageIndex++;
+                                btnPageIndex.Text = (inventoryPageIndex + 1) + "/10";
+                            }
+                        }
+                        else if (btnShopLeft.getImpact(x, y))
+                        {
+                            if (shopPageIndex > 0)
+                            {
+                                shopPageIndex--;
+                                btnShopPageIndex.Text = (shopPageIndex + 1) + "/10";
+                            }
+                        }
+                        else if (btnShopRight.getImpact(x, y))
+                        {
+                            if (shopPageIndex < 9)
+                            {
+                                shopPageIndex++;
+                                btnShopPageIndex.Text = (shopPageIndex + 1) + "/10";
+                            }
+                        }
+                        else if (btnHelp.getImpact(x, y))
+                        {
+                            tutorialMessageShop();
+                        }
+                        else if (btnReturn.getImpact(x, y))
+                        {
+                            gv.screenType = "main";
+                        }
+                        break;
+                }
+            }
+            catch
+            { }
 	    }
 	
 	    public void doInventoryActions()

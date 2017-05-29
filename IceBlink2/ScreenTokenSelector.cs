@@ -263,50 +263,89 @@ namespace IceBlink2
         }
         public void onTouchTokenSelector(MouseEventArgs e, MouseEventType.EventType eventType)
 	    {
-		    btnTokensLeft.glowOn = false;
-		    btnTokensRight.glowOn = false;
-		    btnAction.glowOn = false;
-            btnExit.glowOn = false;
-            
-            switch (eventType)
-		    {
-		    case MouseEventType.EventType.MouseDown:
-		    case MouseEventType.EventType.MouseMove:
-			    int x = (int) e.X;
-			    int y = (int) e.Y;
-			    if (btnTokensLeft.getImpact(x, y))
-			    {
-				    btnTokensLeft.glowOn = true;
-			    }
-			    else if (btnTokensRight.getImpact(x, y))
-			    {
-				    btnTokensRight.glowOn = true;
-			    }
-			    else if (btnAction.getImpact(x, y))
-			    {
-				    btnAction.glowOn = true;
-			    }
-                else if (btnExit.getImpact(x, y))
-                {
-                    btnExit.glowOn = true;
-                }
-                break;
-			
-		    case MouseEventType.EventType.MouseUp:
-			    x = (int) e.X;
-			    y = (int) e.Y;
-			
-			    btnTokensLeft.glowOn = false;
-			    btnTokensRight.glowOn = false;
-			    btnAction.glowOn = false;
+            try
+            {
+                btnTokensLeft.glowOn = false;
+                btnTokensRight.glowOn = false;
+                btnAction.glowOn = false;
                 btnExit.glowOn = false;
-                
-                for (int j = 0; j < slotsPerPage; j++)
-			    {
-				    if (btnTokenSlot[j].getImpact(x, y))
-				    {
-					    if (tknSlotIndex == j)
-                        {                            
+
+                switch (eventType)
+                {
+                    case MouseEventType.EventType.MouseDown:
+                    case MouseEventType.EventType.MouseMove:
+                        int x = (int)e.X;
+                        int y = (int)e.Y;
+                        if (btnTokensLeft.getImpact(x, y))
+                        {
+                            btnTokensLeft.glowOn = true;
+                        }
+                        else if (btnTokensRight.getImpact(x, y))
+                        {
+                            btnTokensRight.glowOn = true;
+                        }
+                        else if (btnAction.getImpact(x, y))
+                        {
+                            btnAction.glowOn = true;
+                        }
+                        else if (btnExit.getImpact(x, y))
+                        {
+                            btnExit.glowOn = true;
+                        }
+                        break;
+
+                    case MouseEventType.EventType.MouseUp:
+                        x = (int)e.X;
+                        y = (int)e.Y;
+
+                        btnTokensLeft.glowOn = false;
+                        btnTokensRight.glowOn = false;
+                        btnAction.glowOn = false;
+                        btnExit.glowOn = false;
+
+                        for (int j = 0; j < slotsPerPage; j++)
+                        {
+                            if (btnTokenSlot[j].getImpact(x, y))
+                            {
+                                if (tknSlotIndex == j)
+                                {
+                                    //return to calling screen
+                                    if (callingScreen.Equals("party"))
+                                    {
+                                        gv.screenParty.gv.mod.playerList[gv.cc.partyScreenPcIndex].tokenFilename = playerTokenList[GetIndex()];
+                                        gv.screenType = "party";
+                                        gv.screenParty.tokenLoad(gv.screenParty.gv.mod.playerList[gv.cc.partyScreenPcIndex]);
+                                    }
+                                    else if (callingScreen.Equals("pcCreation"))
+                                    {
+                                        //set PC token filename to the currently selected image
+                                        gv.screenPcCreation.pc.tokenFilename = playerTokenList[GetIndex()];
+                                        gv.screenType = "pcCreation";
+                                        gv.screenPcCreation.tokenLoad(gv.screenPcCreation.pc);
+                                    }
+                                    doCleanUp();
+                                }
+                                tknSlotIndex = j;
+                            }
+                        }
+                        if (btnTokensLeft.getImpact(x, y))
+                        {
+                            if (tknPageIndex > 0)
+                            {
+                                tknPageIndex--;
+                                btnPageIndex.Text = (tknPageIndex + 1) + "/" + maxPages;
+                            }
+                        }
+                        else if (btnTokensRight.getImpact(x, y))
+                        {
+                            if (tknPageIndex < maxPages)
+                            {
+                                tknPageIndex++;
+                                btnPageIndex.Text = (tknPageIndex + 1) + "/" + maxPages;
+                            }
+                        }
+                        else if (btnAction.getImpact(x, y))
+                        {
                             //return to calling screen
                             if (callingScreen.Equals("party"))
                             {
@@ -316,65 +355,31 @@ namespace IceBlink2
                             }
                             else if (callingScreen.Equals("pcCreation"))
                             {
-                                //set PC token filename to the currently selected image
+                                //set PC portrait filename to the currently selected image
                                 gv.screenPcCreation.pc.tokenFilename = playerTokenList[GetIndex()];
                                 gv.screenType = "pcCreation";
                                 gv.screenPcCreation.tokenLoad(gv.screenPcCreation.pc);
                             }
                             doCleanUp();
                         }
-					    tknSlotIndex = j;
-				    }
-			    }
-			    if (btnTokensLeft.getImpact(x, y))
-			    {
-				    if (tknPageIndex > 0)
-				    {
-					    tknPageIndex--;
-					    btnPageIndex.Text = (tknPageIndex + 1) + "/" + maxPages;
-				    }
-			    }
-			    else if (btnTokensRight.getImpact(x, y))
-			    {
-				    if (tknPageIndex < maxPages)
-				    {
-					    tknPageIndex++;
-					    btnPageIndex.Text = (tknPageIndex + 1) + "/" + maxPages;
-				    }
-			    }
-			    else if (btnAction.getImpact(x, y))
-			    {
-				    //return to calling screen
-                    if (callingScreen.Equals("party"))
-                    {
-                        gv.screenParty.gv.mod.playerList[gv.cc.partyScreenPcIndex].tokenFilename = playerTokenList[GetIndex()];
-                        gv.screenType = "party";
-                        gv.screenParty.tokenLoad(gv.screenParty.gv.mod.playerList[gv.cc.partyScreenPcIndex]);
-                    }
-                    else if (callingScreen.Equals("pcCreation"))
-                    {
-                        //set PC portrait filename to the currently selected image
-                        gv.screenPcCreation.pc.tokenFilename = playerTokenList[GetIndex()];
-                        gv.screenType = "pcCreation";
-                        gv.screenPcCreation.tokenLoad(gv.screenPcCreation.pc);
-                    }
-					doCleanUp();						
-			    }
-                else if (btnExit.getImpact(x, y))
-                {
-                    //do nothing, return to calling screen
-                    if (callingScreen.Equals("party"))
-                    {
-                        gv.screenType = "party";
-                    }
-                    else if (callingScreen.Equals("pcCreation"))
-                    {
-                        gv.screenType = "pcCreation";
-                    }
-                    doCleanUp();
-                }                
-			    break;		
-		    }
+                        else if (btnExit.getImpact(x, y))
+                        {
+                            //do nothing, return to calling screen
+                            if (callingScreen.Equals("party"))
+                            {
+                                gv.screenType = "party";
+                            }
+                            else if (callingScreen.Equals("pcCreation"))
+                            {
+                                gv.screenType = "pcCreation";
+                            }
+                            doCleanUp();
+                        }
+                        break;
+                }
+            }
+            catch
+            { }
 	    }
         public void doCleanUp()
 	    {

@@ -295,120 +295,127 @@ namespace IceBlink2
        }
         public void onTouchPartyRoster(MouseEventArgs e, MouseEventType.EventType eventType)
 	    {
-		    btnDown.glowOn = false;
-		    btnUp.glowOn = false;
-		    btnHelp.glowOn = false;
-		    btnReturn.glowOn = false;
-		
-		    switch (eventType)
-		    {
-		    case MouseEventType.EventType.MouseDown:
-		    case MouseEventType.EventType.MouseMove:
-			    int x = (int) e.X;
-			    int y = (int) e.Y;
+            try
+            {
+                btnDown.glowOn = false;
+                btnUp.glowOn = false;
+                btnHelp.glowOn = false;
+                btnReturn.glowOn = false;
 
-			    if (btnDown.getImpact(x, y))
-			    {
-				    btnDown.glowOn = true;
-			    }
-			    else if (btnUp.getImpact(x, y))
-			    {
-				    btnUp.glowOn = true;
-			    }
-			    else if (btnHelp.getImpact(x, y))
-			    {
-				    btnHelp.glowOn = true;
-			    }			
-			    else if (btnReturn.getImpact(x, y))
-			    {
-				    btnReturn.glowOn = true;
-			    }
-			    break;
-
-            case MouseEventType.EventType.MouseUp:
-                x = (int)e.X;
-                y = (int)e.Y;
-			
-			    btnDown.glowOn = false;
-			    btnUp.glowOn = false;
-			    btnHelp.glowOn = false;
-			    btnReturn.glowOn = false;
-			
-			    if (btnUp.getImpact(x, y))
-			    {
-				    //add selected PC to partyList and remove from pcList
-				    if ((gv.mod.partyRosterList.Count > 0) && (gv.mod.playerList.Count < gv.mod.MaxPartySize))
-				    {
-					    Player copyPC = gv.mod.partyRosterList[partyRosterPcIndex].DeepCopy();
-                        gv.cc.DisposeOfBitmap(ref copyPC.token);
-                        copyPC.token = gv.cc.LoadBitmap(copyPC.tokenFilename);
-                        gv.cc.DisposeOfBitmap(ref copyPC.portrait);
-                        copyPC.portrait = gv.cc.LoadBitmap(copyPC.portraitFilename);
-					    copyPC.playerClass = gv.mod.getPlayerClass(copyPC.classTag);
-					    copyPC.race = gv.mod.getRace(copyPC.raceTag);
-                        //Player copyPC = gv.mod.partyRosterList[partyRosterPcIndex];
-					    gv.mod.playerList.Add(copyPC);
-                        gv.mod.partyRosterList.RemoveAt(partyRosterPcIndex);
-				    }
-			    }
-			    else if (btnDown.getImpact(x, y))
-			    {
-				    //remove selected from partyList and add to pcList
-				    if (gv.mod.playerList.Count > 0)
-				    {
-					    Player copyPC = gv.mod.playerList[partyScreenPcIndex].DeepCopy();
-                        gv.cc.DisposeOfBitmap(ref copyPC.token);
-                        copyPC.token = gv.cc.LoadBitmap(copyPC.tokenFilename);
-                        gv.cc.DisposeOfBitmap(ref copyPC.portrait);
-                        copyPC.portrait = gv.cc.LoadBitmap(copyPC.portraitFilename);
-					    copyPC.playerClass = gv.mod.getPlayerClass(copyPC.classTag);
-					    copyPC.race = gv.mod.getRace(copyPC.raceTag);
-                        gv.mod.partyRosterList.Add(copyPC);
-					    gv.mod.playerList.RemoveAt(partyScreenPcIndex);
-				    }
-			    }
-			    else if (btnHelp.getImpact(x, y))
-			    {
-				    tutorialPartyRoster();
-			    }
-			    else if (btnReturn.getImpact(x, y))
-			    {
-				    if (gv.mod.playerList.Count > 0)
-				    {
-                        //check to see if any non-removeable PCs are in roster
-                        if (checkForNoneRemovablePcInRoster())
-                        {
-                            return;
-                        }
-                        //check to see if mainPc is in party
-                        if (checkForMainPc())
-                        {
-                            gv.screenType = "main";
-                        }
-                        else
-                        {
-                            gv.sf.MessageBoxHtml("You must have the Main PC (the first PC you created) in your party before exiting this screen");
-                        }
-				    }
-			    }
-			    for (int j = 0; j < gv.mod.playerList.Count; j++)
-			    {
-				    if (btnPartyIndex[j].getImpact(x, y))
-				    {
-					    partyScreenPcIndex = j;
-					    lastClickedPlayerList = true;
-				    }
-			    }
-                for (int j = 0; j < gv.mod.partyRosterList.Count; j++)
+                switch (eventType)
                 {
-                    if (btnPartyRosterIndex[j].getImpact(x, y))
-                    {
-                        partyRosterPcIndex = j;
-                        lastClickedPlayerList = false;
-                    }
+                    case MouseEventType.EventType.MouseDown:
+                    case MouseEventType.EventType.MouseMove:
+                        int x = (int)e.X;
+                        int y = (int)e.Y;
+
+                        if (btnDown.getImpact(x, y))
+                        {
+                            btnDown.glowOn = true;
+                        }
+                        else if (btnUp.getImpact(x, y))
+                        {
+                            btnUp.glowOn = true;
+                        }
+                        else if (btnHelp.getImpact(x, y))
+                        {
+                            btnHelp.glowOn = true;
+                        }
+                        else if (btnReturn.getImpact(x, y))
+                        {
+                            btnReturn.glowOn = true;
+                        }
+                        break;
+
+                    case MouseEventType.EventType.MouseUp:
+                        x = (int)e.X;
+                        y = (int)e.Y;
+
+                        btnDown.glowOn = false;
+                        btnUp.glowOn = false;
+                        btnHelp.glowOn = false;
+                        btnReturn.glowOn = false;
+
+                        if (btnUp.getImpact(x, y))
+                        {
+                            //add selected PC to partyList and remove from pcList
+                            if ((gv.mod.partyRosterList.Count > 0) && (gv.mod.playerList.Count < gv.mod.MaxPartySize))
+                            {
+                                Player copyPC = gv.mod.partyRosterList[partyRosterPcIndex].DeepCopy();
+                                gv.cc.DisposeOfBitmap(ref copyPC.token);
+                                copyPC.token = gv.cc.LoadBitmap(copyPC.tokenFilename);
+                                gv.cc.DisposeOfBitmap(ref copyPC.portrait);
+                                copyPC.portrait = gv.cc.LoadBitmap(copyPC.portraitFilename);
+                                copyPC.playerClass = gv.mod.getPlayerClass(copyPC.classTag);
+                                copyPC.race = gv.mod.getRace(copyPC.raceTag);
+                                //Player copyPC = gv.mod.partyRosterList[partyRosterPcIndex];
+                                gv.mod.playerList.Add(copyPC);
+                                gv.mod.partyRosterList.RemoveAt(partyRosterPcIndex);
+                            }
+                        }
+                        else if (btnDown.getImpact(x, y))
+                        {
+                            //remove selected from partyList and add to pcList
+                            if (gv.mod.playerList.Count > 0)
+                            {
+                                Player copyPC = gv.mod.playerList[partyScreenPcIndex].DeepCopy();
+                                gv.cc.DisposeOfBitmap(ref copyPC.token);
+                                copyPC.token = gv.cc.LoadBitmap(copyPC.tokenFilename);
+                                gv.cc.DisposeOfBitmap(ref copyPC.portrait);
+                                copyPC.portrait = gv.cc.LoadBitmap(copyPC.portraitFilename);
+                                copyPC.playerClass = gv.mod.getPlayerClass(copyPC.classTag);
+                                copyPC.race = gv.mod.getRace(copyPC.raceTag);
+                                gv.mod.partyRosterList.Add(copyPC);
+                                gv.mod.playerList.RemoveAt(partyScreenPcIndex);
+                            }
+                        }
+                        else if (btnHelp.getImpact(x, y))
+                        {
+                            tutorialPartyRoster();
+                        }
+                        else if (btnReturn.getImpact(x, y))
+                        {
+                            if (gv.mod.playerList.Count > 0)
+                            {
+                                //check to see if any non-removeable PCs are in roster
+                                if (checkForNoneRemovablePcInRoster())
+                                {
+                                    return;
+                                }
+                                //check to see if mainPc is in party
+                                if (checkForMainPc())
+                                {
+                                    gv.screenType = "main";
+                                }
+                                else
+                                {
+                                    gv.sf.MessageBoxHtml("You must have the Main PC (the first PC you created) in your party before exiting this screen");
+                                }
+                            }
+                        }
+                        for (int j = 0; j < gv.mod.playerList.Count; j++)
+                        {
+                            if (btnPartyIndex[j].getImpact(x, y))
+                            {
+                                partyScreenPcIndex = j;
+                                lastClickedPlayerList = true;
+                            }
+                        }
+                        for (int j = 0; j < gv.mod.partyRosterList.Count; j++)
+                        {
+                            if (btnPartyRosterIndex[j].getImpact(x, y))
+                            {
+                                partyRosterPcIndex = j;
+                                lastClickedPlayerList = false;
+                            }
+                        }
+                        break;
                 }
-			    break;	
-		    }
+            }
+            catch
+            {
+
+            }
 	    }
 
         public bool checkForMainPc()

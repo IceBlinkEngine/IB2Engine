@@ -672,7 +672,7 @@ namespace IceBlink2
                                                 #region Do Calc Save and DC
                                                 int saveChkRoll = gv.sf.RandInt(20);
                                                 int saveChk = 0;
-                                                int DC = 100 + dcForSaveAdder;
+                                                int DC = 10 + dcForSaveAdder;
                                                 int saveChkAdder = getCastingPlayer().will;
 
                                                 saveChk = saveChkRoll + saveChkAdder;

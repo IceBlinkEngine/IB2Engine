@@ -748,129 +748,134 @@ namespace IceBlink2
         }
         public void onTouchTraitLevelUp(MouseEventArgs e, MouseEventType.EventType eventType, bool inPcCreation, bool inCombat)
 	    {
-		    btnHelp.glowOn = false;
-		    btnExit.glowOn = false;
-		    btnSelect.glowOn = false;
-            btnTokensLeft.glowOn = false;
-            btnTokensRight.glowOn = false;
-            btnPageIndex.glowOn = false;
-
-            switch (eventType)
-		    {
-		    case MouseEventType.EventType.MouseDown:
-		    case MouseEventType.EventType.MouseMove:
-			    int x = (int) e.X;
-			    int y = (int) e.Y;
-			    if (btnHelp.getImpact(x, y))
-			    {
-				    btnHelp.glowOn = true;
-			    }
-			    else if (btnSelect.getImpact(x, y))
-			    {
-				    btnSelect.glowOn = true;
-			    }
-			    else if (btnExit.getImpact(x, y))
-			    {
-				    btnExit.glowOn = true;
-			    }
-                    else if (btnTokensLeft.getImpact(x, y))
-                    {
-                        btnTokensLeft.glowOn = true;
-                    }
-                    else if (btnTokensRight.getImpact(x, y))
-                    {
-                        btnTokensRight.glowOn = true;
-                    }
-                    else if (btnPageIndex.getImpact(x, y))
-                    {
-                        btnPageIndex.glowOn = true;
-                    }
-                    break;
-
-            case MouseEventType.EventType.MouseUp:
-                x = (int)e.X;
-                y = (int)e.Y;
-
+            try
+            {
+                btnHelp.glowOn = false;
+                btnExit.glowOn = false;
+                btnSelect.glowOn = false;
                 btnTokensLeft.glowOn = false;
                 btnTokensRight.glowOn = false;
-                btnHelp.glowOn = false;
-			    btnExit.glowOn = false;
-			    btnSelect.glowOn = false;
-			
-			    for (int j = 0; j < slotsPerPage; j++)
-			    {
-				    if (btnTraitSlots[j].getImpact(x, y))
-				    {
-                        gv.PlaySound("btn_click");
-					    traitSlotIndex = j;
-				    }
-			    }
-                if (btnTokensLeft.getImpact(x, y))
+                btnPageIndex.glowOn = false;
+
+                switch (eventType)
                 {
-                        if (tknPageIndex > 0)
+                    case MouseEventType.EventType.MouseDown:
+                    case MouseEventType.EventType.MouseMove:
+                        int x = (int)e.X;
+                        int y = (int)e.Y;
+                        if (btnHelp.getImpact(x, y))
                         {
-                            tknPageIndex--;
-                            btnPageIndex.Text = (tknPageIndex + 1) + "/" + maxPages;
+                            btnHelp.glowOn = true;
                         }
-                }
-                else if (btnTokensRight.getImpact(x, y))
-                {
-                        if (tknPageIndex < maxPages)
+                        else if (btnSelect.getImpact(x, y))
                         {
-                            tknPageIndex++;
-                            btnPageIndex.Text = (tknPageIndex + 1) + "/" + maxPages;
+                            btnSelect.glowOn = true;
                         }
-                }
-                else if (btnHelp.getImpact(x, y))
-			    {
-                    if (!infoOnly)
-                    {
-                        gv.PlaySound("btn_click");
-                        tutorialMessageTraitScreen();
-                    }
-			    }
-			    else if (btnSelect.getImpact(x, y))
-			    {
-                    gv.PlaySound("btn_click");
-                    if (infoOnly)
-                    {
-                            if (inCombat)
+                        else if (btnExit.getImpact(x, y))
+                        {
+                            btnExit.glowOn = true;
+                        }
+                        else if (btnTokensLeft.getImpact(x, y))
+                        {
+                            btnTokensLeft.glowOn = true;
+                        }
+                        else if (btnTokensRight.getImpact(x, y))
+                        {
+                            btnTokensRight.glowOn = true;
+                        }
+                        else if (btnPageIndex.getImpact(x, y))
+                        {
+                            btnPageIndex.glowOn = true;
+                        }
+                        break;
+
+                    case MouseEventType.EventType.MouseUp:
+                        x = (int)e.X;
+                        y = (int)e.Y;
+
+                        btnTokensLeft.glowOn = false;
+                        btnTokensRight.glowOn = false;
+                        btnHelp.glowOn = false;
+                        btnExit.glowOn = false;
+                        btnSelect.glowOn = false;
+
+                        for (int j = 0; j < slotsPerPage; j++)
+                        {
+                            if (btnTraitSlots[j].getImpact(x, y))
                             {
-                                gv.screenType = "combatParty";
+                                gv.PlaySound("btn_click");
+                                traitSlotIndex = j;
+                            }
+                        }
+                        if (btnTokensLeft.getImpact(x, y))
+                        {
+                            if (tknPageIndex > 0)
+                            {
+                                tknPageIndex--;
+                                btnPageIndex.Text = (tknPageIndex + 1) + "/" + maxPages;
+                            }
+                        }
+                        else if (btnTokensRight.getImpact(x, y))
+                        {
+                            if (tknPageIndex < maxPages)
+                            {
+                                tknPageIndex++;
+                                btnPageIndex.Text = (tknPageIndex + 1) + "/" + maxPages;
+                            }
+                        }
+                        else if (btnHelp.getImpact(x, y))
+                        {
+                            if (!infoOnly)
+                            {
+                                gv.PlaySound("btn_click");
+                                tutorialMessageTraitScreen();
+                            }
+                        }
+                        else if (btnSelect.getImpact(x, y))
+                        {
+                            gv.PlaySound("btn_click");
+                            if (infoOnly)
+                            {
+                                if (inCombat)
+                                {
+                                    gv.screenType = "combatParty";
+                                }
+                                else
+                                {
+                                    gv.screenType = "party";
+                                }
                             }
                             else
                             {
-                                gv.screenType = "party";
+                                doSelectedTraitToLearn(inPcCreation);
                             }
                         }
-                    else
-                    {
-                        doSelectedTraitToLearn(inPcCreation);
-                    }
-			    }
-			    else if (btnExit.getImpact(x, y))
-			    {
-                    if (!infoOnly)
-                    {
-                            gv.screenParty.traitGained = "";
-                            gv.screenParty.spellGained = "";
-                            pc.learningTraitsTags.Clear();
-                            pc.learningEffects.Clear();
-                            pc.learningSpellsTags.Clear();
-                            traitToLearnIndex = 1;
-                            gv.PlaySound("btn_click");
-                        if (inPcCreation)
+                        else if (btnExit.getImpact(x, y))
                         {
-                            gv.screenType = "pcCreation";
+                            if (!infoOnly)
+                            {
+                                gv.screenParty.traitGained = "";
+                                gv.screenParty.spellGained = "";
+                                pc.learningTraitsTags.Clear();
+                                pc.learningEffects.Clear();
+                                pc.learningSpellsTags.Clear();
+                                traitToLearnIndex = 1;
+                                gv.PlaySound("btn_click");
+                                if (inPcCreation)
+                                {
+                                    gv.screenType = "pcCreation";
+                                }
+                                else
+                                {
+                                    gv.screenType = "party";
+                                }
+                            }
                         }
-                        else
-                        {
-                            gv.screenType = "party";
-                        }
-                    }						
-			    }
-			    break;		
-		    }
+                        break;
+                }
+            }
+            catch
+            { }
 	    }
     
         public void doSelectedTraitToLearn(bool inPcCreation)

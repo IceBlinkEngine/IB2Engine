@@ -310,78 +310,195 @@ namespace IceBlink2
         }
 	    public void onTouchItemSelector(MouseEventArgs e, MouseEventType.EventType eventType)
 	    {
-		    btnInventoryLeft.glowOn = false;
-		    btnInventoryRight.glowOn = false;
-		    btnInfo.glowOn = false;
-		    btnAction.glowOn = false;
-            btnExit.glowOn = false;
-            if ((itemSelectorType.Equals("container")) || (itemSelectorType.Equals("equip")))
+            try
             {
-                btnAction2.glowOn = false;
-            }
-		
-		    switch (eventType)
-		    {
-		    case MouseEventType.EventType.MouseDown:
-		    case MouseEventType.EventType.MouseMove:
-			    int x = (int) e.X;
-			    int y = (int) e.Y;
-			    if (btnInventoryLeft.getImpact(x, y))
-			    {
-				    btnInventoryLeft.glowOn = true;
-			    }
-			    else if (btnInventoryRight.getImpact(x, y))
-			    {
-				    btnInventoryRight.glowOn = true;
-			    }
-			    else if (btnInfo.getImpact(x, y))
-			    {
-				    btnInfo.glowOn = true;
-			    }
-			    else if (btnAction.getImpact(x, y))
-			    {
-				    btnAction.glowOn = true;
-			    }
-                else if (btnExit.getImpact(x, y))
-                {
-                    btnExit.glowOn = true;
-                }
-                else if (((itemSelectorType.Equals("container")) || (itemSelectorType.Equals("equip"))) && (btnAction2.getImpact(x,y)))
-                {
-                    btnAction2.glowOn = true;
-                }
-			    break;
-			
-		    case MouseEventType.EventType.MouseUp:
-			    x = (int) e.X;
-			    y = (int) e.Y;
-			
-			    btnInventoryLeft.glowOn = false;
-			    btnInventoryRight.glowOn = false;
-			    btnInfo.glowOn = false;
-			    btnAction.glowOn = false;
+                btnInventoryLeft.glowOn = false;
+                btnInventoryRight.glowOn = false;
+                btnInfo.glowOn = false;
+                btnAction.glowOn = false;
                 btnExit.glowOn = false;
                 if ((itemSelectorType.Equals("container")) || (itemSelectorType.Equals("equip")))
                 {
                     btnAction2.glowOn = false;
                 }
-			
-			    for (int j = 0; j < slotsPerPage; j++)
-			    {
-				    if (btnInventorySlot[j].getImpact(x, y))
-				    {
-					    if (inventorySlotIndex == j)
-					    {
-						    if (itemSelectorType.Equals("container"))
+
+                switch (eventType)
+                {
+                    case MouseEventType.EventType.MouseDown:
+                    case MouseEventType.EventType.MouseMove:
+                        int x = (int)e.X;
+                        int y = (int)e.Y;
+                        if (btnInventoryLeft.getImpact(x, y))
+                        {
+                            btnInventoryLeft.glowOn = true;
+                        }
+                        else if (btnInventoryRight.getImpact(x, y))
+                        {
+                            btnInventoryRight.glowOn = true;
+                        }
+                        else if (btnInfo.getImpact(x, y))
+                        {
+                            btnInfo.glowOn = true;
+                        }
+                        else if (btnAction.getImpact(x, y))
+                        {
+                            btnAction.glowOn = true;
+                        }
+                        else if (btnExit.getImpact(x, y))
+                        {
+                            btnExit.glowOn = true;
+                        }
+                        else if (((itemSelectorType.Equals("container")) || (itemSelectorType.Equals("equip"))) && (btnAction2.getImpact(x, y)))
+                        {
+                            btnAction2.glowOn = true;
+                        }
+                        break;
+
+                    case MouseEventType.EventType.MouseUp:
+                        x = (int)e.X;
+                        y = (int)e.Y;
+
+                        btnInventoryLeft.glowOn = false;
+                        btnInventoryRight.glowOn = false;
+                        btnInfo.glowOn = false;
+                        btnAction.glowOn = false;
+                        btnExit.glowOn = false;
+                        if ((itemSelectorType.Equals("container")) || (itemSelectorType.Equals("equip")))
+                        {
+                            btnAction2.glowOn = false;
+                        }
+
+                        for (int j = 0; j < slotsPerPage; j++)
+                        {
+                            if (btnInventorySlot[j].getImpact(x, y))
                             {
-                                    ItemRefs itRef = GetCurrentlySelectedItemRefs();
-                                    bool allowAdding = true;
+                                if (inventorySlotIndex == j)
+                                {
+                                    if (itemSelectorType.Equals("container"))
+                                    {
+                                        ItemRefs itRef = GetCurrentlySelectedItemRefs();
+                                        bool allowAdding = true;
+                                        //code for capping number of rations and light sources
+                                        if ((itRef.isRation) && (gv.mod.numberOfRationsRemaining >= gv.mod.maxNumberOfRationsAllowed))
+                                        {
+                                            gv.sf.MessageBoxHtml("Too much encumbrance by rations - your party can carry only " + gv.mod.maxNumberOfRationsAllowed.ToString() + ".");
+                                            allowAdding = false;
+                                            //return;
+                                        }
+
+                                        if (itRef.isLightSource)
+                                        {
+                                            int lightSourceCounter = 0;
+                                            foreach (ItemRefs itRef2 in gv.mod.partyInventoryRefsList)
+                                            {
+                                                if (itRef2.isLightSource)
+                                                {
+                                                    lightSourceCounter += itRef2.quantity;
+                                                }
+                                            }
+
+                                            if (lightSourceCounter >= gv.mod.maxNumberOfLightSourcesAllowed)
+                                            {
+                                                gv.sf.MessageBoxHtml("Too much encumbrance by light sources - your party can carry only " + gv.mod.maxNumberOfLightSourcesAllowed.ToString() + ".");
+                                                allowAdding = false;
+                                                //return;
+                                            }
+                                        }
+
+                                        if (allowAdding)
+                                        {
+                                            gv.mod.partyInventoryRefsList.Add(itRef.DeepCopy());
+                                            if (itRef.isRation)
+                                            {
+
+                                                //gv.mod.numberOfRationsRemaining = it.quantity;
+                                                if (itRef.quantity <= 1)
+                                                {
+                                                    gv.mod.numberOfRationsRemaining++;
+                                                }
+                                                else
+                                                {
+                                                    gv.mod.numberOfRationsRemaining += itRef.quantity;
+                                                }
+
+
+                                                //gv.mod.numberOfRationsRemaining++;
+                                            }
+                                            thisItemRefs.Remove(itRef);
+                                        }
+                                    }
+                                    else if (itemSelectorType.Equals("equip"))
+                                    {
+                                        switchEquipment();
+                                        if (callingScreen.Equals("party"))
+                                        {
+                                            gv.screenType = "party";
+                                        }
+                                        else if (callingScreen.Equals("combatParty"))
+                                        {
+                                            gv.screenType = "combatParty";
+                                        }
+                                    }
+                                }
+                                inventorySlotIndex = j;
+                            }
+                        }
+                        if (btnInventoryLeft.getImpact(x, y))
+                        {
+                            if (inventoryPageIndex > 0)
+                            {
+                                inventoryPageIndex--;
+                                btnPageIndex.Text = (inventoryPageIndex + 1) + "/10";
+                            }
+                        }
+                        else if (btnInventoryRight.getImpact(x, y))
+                        {
+                            if (inventoryPageIndex < 9)
+                            {
+                                inventoryPageIndex++;
+                                btnPageIndex.Text = (inventoryPageIndex + 1) + "/10";
+                            }
+                        }
+                        else if (btnInfo.getImpact(x, y))
+                        {
+                            if (isSelectedItemSlotInPartyInventoryRange())
+                            {
+                                ItemRefs itRef = GetCurrentlySelectedItemRefs();
+                                if (itRef == null) { return; }
+                                Item it = gv.mod.getItemByResRef(itRef.resref);
+                                if (it == null) { return; }
+                                gv.sf.ShowFullDescription(it);
+                            }
+                        }
+                        else if (btnAction.getImpact(x, y))
+                        {
+                            if (itemSelectorType.Equals("container"))
+                            {
+                                //TO DO: Adjust for rtion and light source limits
+                                bool allowAdding = true;
+                                int numberOfRationsInChest = 0;
+                                int numberOfLightSourceItemsInChest = 0;
+                                foreach (ItemRefs itRef in thisItemRefs)
+                                {
+                                    if (itRef.isRation)
+                                    {
+                                        numberOfRationsInChest++;
+                                    }
+
+                                    if (itRef.isLightSource)
+                                    {
+                                        numberOfLightSourceItemsInChest++;
+                                    }
+                                }
+                                //to do
+                                foreach (ItemRefs itRef in thisItemRefs)
+                                {
                                     //code for capping number of rations and light sources
-                                    if ((itRef.isRation) && (gv.mod.numberOfRationsRemaining >= gv.mod.maxNumberOfRationsAllowed))
+                                    if ((itRef.isRation) && (gv.mod.numberOfRationsRemaining + numberOfRationsInChest > gv.mod.maxNumberOfRationsAllowed))
                                     {
                                         gv.sf.MessageBoxHtml("Too much encumbrance by rations - your party can carry only " + gv.mod.maxNumberOfRationsAllowed.ToString() + ".");
                                         allowAdding = false;
-                                        //return;
+                                        break;
                                     }
 
                                     if (itRef.isLightSource)
@@ -395,35 +512,26 @@ namespace IceBlink2
                                             }
                                         }
 
-                                        if (lightSourceCounter >= gv.mod.maxNumberOfLightSourcesAllowed)
+                                        if (lightSourceCounter + numberOfLightSourceItemsInChest > gv.mod.maxNumberOfLightSourcesAllowed)
                                         {
                                             gv.sf.MessageBoxHtml("Too much encumbrance by light sources - your party can carry only " + gv.mod.maxNumberOfLightSourcesAllowed.ToString() + ".");
                                             allowAdding = false;
-                                            //return;
+                                            break;
                                         }
                                     }
 
-                                    if (allowAdding)
+                                }
+                                //XXXXXXX
+                                //TAKE ALL                        
+                                if (allowAdding)
+                                {
+                                    foreach (ItemRefs s in thisItemRefs)
                                     {
-                                        gv.mod.partyInventoryRefsList.Add(itRef.DeepCopy());
-                                        if (itRef.isRation)
-                                        {
-                                            
-                                                //gv.mod.numberOfRationsRemaining = it.quantity;
-                                                if (itRef.quantity <= 1)
-                                                {
-                                                    gv.mod.numberOfRationsRemaining++;
-                                                }
-                                                else
-                                                {
-                                                    gv.mod.numberOfRationsRemaining += itRef.quantity;
-                                                }
-                                            
-
-                                            //gv.mod.numberOfRationsRemaining++;
-                                        }
-                                        thisItemRefs.Remove(itRef);
+                                        gv.mod.partyInventoryRefsList.Add(s.DeepCopy());
                                     }
+                                    thisItemRefs.Clear();
+                                    gv.screenType = "main";
+                                }
                             }
                             else if (itemSelectorType.Equals("equip"))
                             {
@@ -437,66 +545,40 @@ namespace IceBlink2
                                     gv.screenType = "combatParty";
                                 }
                             }
+                            doCleanUp();
                         }
-					    inventorySlotIndex = j;
-				    }
-			    }
-			    if (btnInventoryLeft.getImpact(x, y))
-			    {
-				    if (inventoryPageIndex > 0)
-				    {
-					    inventoryPageIndex--;
-					    btnPageIndex.Text = (inventoryPageIndex + 1) + "/10";
-				    }
-			    }
-			    else if (btnInventoryRight.getImpact(x, y))
-			    {
-				    if (inventoryPageIndex < 9)
-				    {
-					    inventoryPageIndex++;
-					    btnPageIndex.Text = (inventoryPageIndex + 1) + "/10";
-				    }
-			    }
-			    else if (btnInfo.getImpact(x, y))
-			    {
-				    if (isSelectedItemSlotInPartyInventoryRange())
-				    {				
-					    ItemRefs itRef = GetCurrentlySelectedItemRefs();
-					    if (itRef == null) { return;}
-	            	    Item it = gv.mod.getItemByResRef(itRef.resref);
-	            	    if (it == null) {return;}
-					    gv.sf.ShowFullDescription(it);
-				    }				
-			    }
-			    else if (btnAction.getImpact(x, y))
-			    {
-				    if (itemSelectorType.Equals("container"))
-                    {
-                            //TO DO: Adjust for rtion and light source limits
-                            bool allowAdding = true;
-                            int numberOfRationsInChest = 0;
-                            int numberOfLightSourceItemsInChest = 0;
-                            foreach (ItemRefs itRef in thisItemRefs)
+                        else if (btnExit.getImpact(x, y))
+                        {
+                            if (itemSelectorType.Equals("container"))
                             {
-                                if (itRef.isRation)
+                                gv.screenType = "main";
+                            }
+                            else if (itemSelectorType.Equals("equip"))
+                            {
+                                if (callingScreen.Equals("party"))
                                 {
-                                    numberOfRationsInChest++;
+                                    gv.screenType = "party";
                                 }
-
-                                if (itRef.isLightSource)
+                                else if (callingScreen.Equals("combatParty"))
                                 {
-                                    numberOfLightSourceItemsInChest++;
+                                    gv.screenType = "combatParty";
                                 }
                             }
-                                //to do
-                            foreach (ItemRefs itRef in thisItemRefs)
+                            doCleanUp();
+                        }
+                        else if (((itemSelectorType.Equals("container")) || (itemSelectorType.Equals("equip"))) && (btnAction2.getImpact(x, y)))
+                        {
+                            if (itemSelectorType.Equals("container"))
                             {
+
+                                ItemRefs itRef = GetCurrentlySelectedItemRefs();
+                                bool allowAdding = true;
                                 //code for capping number of rations and light sources
-                                if ((itRef.isRation) && (gv.mod.numberOfRationsRemaining + numberOfRationsInChest > gv.mod.maxNumberOfRationsAllowed))
+                                if ((itRef.isRation) && (gv.mod.numberOfRationsRemaining >= gv.mod.maxNumberOfRationsAllowed))
                                 {
                                     gv.sf.MessageBoxHtml("Too much encumbrance by rations - your party can carry only " + gv.mod.maxNumberOfRationsAllowed.ToString() + ".");
                                     allowAdding = false;
-                                    break;
+                                    //return;
                                 }
 
                                 if (itRef.isLightSource)
@@ -510,133 +592,56 @@ namespace IceBlink2
                                         }
                                     }
 
-                                    if (lightSourceCounter + numberOfLightSourceItemsInChest > gv.mod.maxNumberOfLightSourcesAllowed)
+                                    if (lightSourceCounter >= gv.mod.maxNumberOfLightSourcesAllowed)
                                     {
                                         gv.sf.MessageBoxHtml("Too much encumbrance by light sources - your party can carry only " + gv.mod.maxNumberOfLightSourcesAllowed.ToString() + ".");
                                         allowAdding = false;
-                                        break;
+                                        //return;
                                     }
                                 }
 
+                                if (allowAdding)
+                                {
+                                    gv.mod.partyInventoryRefsList.Add(itRef.DeepCopy());
+                                    if (itRef.isRation)
+                                    {
+                                        //gv.mod.numberOfRationsRemaining = it.quantity;
+                                        if (itRef.quantity <= 1)
+                                        {
+                                            gv.mod.numberOfRationsRemaining++;
+                                        }
+                                        else
+                                        {
+                                            gv.mod.numberOfRationsRemaining += itRef.quantity;
+                                        }
+                                    }
+                                    thisItemRefs.Remove(itRef);
+                                }
+
+                                //ItemRefs itRef = GetCurrentlySelectedItemRefs();
+                                //gv.mod.partyInventoryRefsList.Add(itRef.DeepCopy());
+                                //thisItemRefs.Remove(itRef);
                             }
-                            //XXXXXXX
-                            //TAKE ALL                        
-                            if (allowAdding)
+                            else if (itemSelectorType.Equals("equip"))
                             {
-                                foreach (ItemRefs s in thisItemRefs)
+                                unequipItem();
+                                if (callingScreen.Equals("party"))
                                 {
-                                    gv.mod.partyInventoryRefsList.Add(s.DeepCopy());
+                                    gv.screenType = "party";
                                 }
-                                thisItemRefs.Clear();
-                                gv.screenType = "main";
-                            }	
-                    }
-                    else if (itemSelectorType.Equals("equip"))
-                    {
-                        switchEquipment();
-                        if (callingScreen.Equals("party"))
-                        {
-                            gv.screenType = "party";
-                        }
-                        else if (callingScreen.Equals("combatParty"))
-                        {
-                            gv.screenType = "combatParty";
-                        }
-                    }
-					doCleanUp();						
-			    }
-                else if (btnExit.getImpact(x, y))
-                {
-                    if (itemSelectorType.Equals("container"))
-                    {
-                        gv.screenType = "main";
-                    }
-                    else if (itemSelectorType.Equals("equip"))
-                    {
-                        if (callingScreen.Equals("party"))
-                        {
-                            gv.screenType = "party";
-                        }
-                        else if (callingScreen.Equals("combatParty"))
-                        {
-                            gv.screenType = "combatParty";
-                        }
-                    } 
-                    doCleanUp();
-                }
-                else if (((itemSelectorType.Equals("container")) || (itemSelectorType.Equals("equip"))) && (btnAction2.getImpact(x, y)))
-                {
-                    if (itemSelectorType.Equals("container"))
-                    {
-
-                            ItemRefs itRef = GetCurrentlySelectedItemRefs();
-                                         bool allowAdding = true;
-                                         //code for capping number of rations and light sources
-                                         if ((itRef.isRation) && (gv.mod.numberOfRationsRemaining >= gv.mod.maxNumberOfRationsAllowed))
-                                         {
-                                             gv.sf.MessageBoxHtml("Too much encumbrance by rations - your party can carry only " + gv.mod.maxNumberOfRationsAllowed.ToString() + ".");
-                                             allowAdding = false;
-                                             //return;
-                                         }
-
-                                         if (itRef.isLightSource)
-                                         {
-                                             int lightSourceCounter = 0;
-                                             foreach (ItemRefs itRef2 in gv.mod.partyInventoryRefsList)
-                                             {
-                                                if (itRef2.isLightSource)
-                                                {
-                                                    lightSourceCounter += itRef2.quantity;
-                                                }
-                                             }
-
-                                             if (lightSourceCounter >= gv.mod.maxNumberOfLightSourcesAllowed)
-                                             {
-                                                 gv.sf.MessageBoxHtml("Too much encumbrance by light sources - your party can carry only " + gv.mod.maxNumberOfLightSourcesAllowed.ToString() + ".");
-                                                 allowAdding = false;
-                                                 //return;
-                                             }
-                                         }
-
-                                         if (allowAdding)
-                                         {
-                                             gv.mod.partyInventoryRefsList.Add(itRef.DeepCopy());
-                                if (itRef.isRation)
+                                else if (callingScreen.Equals("combatParty"))
                                 {
-                                    //gv.mod.numberOfRationsRemaining = it.quantity;
-                                    if (itRef.quantity <= 1)
-                                    {
-                                        gv.mod.numberOfRationsRemaining++;
-                                    }
-                                    else
-                                    {
-                                        gv.mod.numberOfRationsRemaining += itRef.quantity;
-                                    }
+                                    gv.screenType = "combatParty";
                                 }
-                                thisItemRefs.Remove(itRef);
-                                         }
+                            }
+                            doCleanUp();
 
-                        //ItemRefs itRef = GetCurrentlySelectedItemRefs();
-                        //gv.mod.partyInventoryRefsList.Add(itRef.DeepCopy());
-                        //thisItemRefs.Remove(itRef);
-                    }
-                    else if (itemSelectorType.Equals("equip"))
-                    {
-                        unequipItem();
-                        if (callingScreen.Equals("party"))
-                        {
-                            gv.screenType = "party";
                         }
-                        else if (callingScreen.Equals("combatParty"))
-                        {
-                            gv.screenType = "combatParty";
-                        }
-                    }
-                    doCleanUp();
-                    
+                        break;
                 }
-			    break;		
-		    }
+            }
+            catch
+            { }
 	    }
         public void switchEquipment()
         {

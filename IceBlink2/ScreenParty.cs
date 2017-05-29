@@ -720,338 +720,342 @@ namespace IceBlink2
         }
         public void onTouchParty(MouseEventArgs e, MouseEventType.EventType eventType, bool inCombat)
         {
-            btnLevelUp.glowOn = false;
-            btnPartyRoster.glowOn = false;
-            btnHelp.glowOn = false;
-            btnInfo.glowOn = false;
-            btnReturn.glowOn = false;
-            btnSpells.glowOn = false;
-            btnTraits.glowOn = false;
-            btnEffects.glowOn = false;
-            btnOthers.glowOn = false;
-
-            //int eventAction = event.getAction();
-            switch (eventType)
+            try
             {
-                case MouseEventType.EventType.MouseDown:
-                case MouseEventType.EventType.MouseMove:
-                    int x = (int)e.X;
-                    int y = (int)e.Y;
+                btnLevelUp.glowOn = false;
+                btnPartyRoster.glowOn = false;
+                btnHelp.glowOn = false;
+                btnInfo.glowOn = false;
+                btnReturn.glowOn = false;
+                btnSpells.glowOn = false;
+                btnTraits.glowOn = false;
+                btnEffects.glowOn = false;
+                btnOthers.glowOn = false;
 
-                    if (btnLevelUp.getImpact(x, y))
-                    {
-                        btnLevelUp.glowOn = true;
-                    }
-                    else if (btnPartyRoster.getImpact(x, y))
-                    {
-                        btnPartyRoster.glowOn = true;
-                    }
-                    else if (btnHelp.getImpact(x, y))
-                    {
-                        btnHelp.glowOn = true;
-                    }
-                    else if (btnInfo.getImpact(x, y))
-                    {
-                        btnInfo.glowOn = true;
-                    }
-                    else if (btnReturn.getImpact(x, y))
-                    {
-                        btnReturn.glowOn = true;
-                    }
-                    else if (btnSpells.getImpact(x, y))
-                    {
-                        btnSpells.glowOn = true;
-                    }
-                    else if (btnTraits.getImpact(x, y))
-                    {
-                        btnTraits.glowOn = true;
-                    }
-                    else if (btnEffects.getImpact(x, y))
-                    {
-                        btnEffects.glowOn = true;
-                    }
-                    else if (btnOthers.getImpact(x, y))
-                    {
-                        btnOthers.glowOn = true;
-                    }
-                    break;
+                //int eventAction = event.getAction();
+                switch (eventType)
+                {
+                    case MouseEventType.EventType.MouseDown:
+                    case MouseEventType.EventType.MouseMove:
+                        int x = (int)e.X;
+                        int y = (int)e.Y;
 
-                case MouseEventType.EventType.MouseUp:
-                    x = (int)e.X;
-                    y = (int)e.Y;
+                        if (btnLevelUp.getImpact(x, y))
+                        {
+                            btnLevelUp.glowOn = true;
+                        }
+                        else if (btnPartyRoster.getImpact(x, y))
+                        {
+                            btnPartyRoster.glowOn = true;
+                        }
+                        else if (btnHelp.getImpact(x, y))
+                        {
+                            btnHelp.glowOn = true;
+                        }
+                        else if (btnInfo.getImpact(x, y))
+                        {
+                            btnInfo.glowOn = true;
+                        }
+                        else if (btnReturn.getImpact(x, y))
+                        {
+                            btnReturn.glowOn = true;
+                        }
+                        else if (btnSpells.getImpact(x, y))
+                        {
+                            btnSpells.glowOn = true;
+                        }
+                        else if (btnTraits.getImpact(x, y))
+                        {
+                            btnTraits.glowOn = true;
+                        }
+                        else if (btnEffects.getImpact(x, y))
+                        {
+                            btnEffects.glowOn = true;
+                        }
+                        else if (btnOthers.getImpact(x, y))
+                        {
+                            btnOthers.glowOn = true;
+                        }
+                        break;
 
-                    btnLevelUp.glowOn = false;
-                    btnPartyRoster.glowOn = false;
-                    btnHelp.glowOn = false;
-                    btnInfo.glowOn = false;
-                    btnReturn.glowOn = false;
-                    btnSpells.glowOn = false;
-                    btnTraits.glowOn = false;
-                    btnEffects.glowOn = false;
-                    btnOthers.glowOn = false;
+                    case MouseEventType.EventType.MouseUp:
+                        x = (int)e.X;
+                        y = (int)e.Y;
 
-                    Player pc = gv.mod.playerList[gv.cc.partyScreenPcIndex];
+                        btnLevelUp.glowOn = false;
+                        btnPartyRoster.glowOn = false;
+                        btnHelp.glowOn = false;
+                        btnInfo.glowOn = false;
+                        btnReturn.glowOn = false;
+                        btnSpells.glowOn = false;
+                        btnTraits.glowOn = false;
+                        btnEffects.glowOn = false;
+                        btnOthers.glowOn = false;
 
-                    if (btnPortrait.getImpact(x, y))
-                    {
-                        if (!inCombat)
+                        Player pc = gv.mod.playerList[gv.cc.partyScreenPcIndex];
+
+                        if (btnPortrait.getImpact(x, y))
                         {
-                            //pass items to selector
-                            gv.screenType = "portraitSelector";
-                            gv.screenPortraitSelector.resetPortraitSelector("party", pc);
-                        }
-                    }
-                    else if (btnToken.getImpact(x, y))
-                    {
-                        if (!inCombat)
-                        {
-                            gv.screenType = "tokenSelector";
-                            gv.screenTokenSelector.resetTokenSelector("party", pc);
-                        }
-                    }
-                    else if (btnSpells.getImpact(x, y))
-                    {
-                        if (inCombat)
-                        {
-                            gv.screenSpellLevelUp.resetPC(true, pc, true);
-                            gv.screenType = "learnSpellLevelUpCombat";
-                        }
-                        else
-                        {
-                            gv.screenSpellLevelUp.resetPC(true, pc, false);
-                            gv.screenType = "learnSpellLevelUp";
-                        }
-                    }
-                    else if (btnTraits.getImpact(x, y))
-                    {
-                        if (inCombat)
-                        {
-                            gv.screenTraitLevelUp.resetPC(true, pc);
-                            gv.screenType = "learnTraitLevelUpCombat";
-                        }
-                        else
-                        {
-                            gv.screenTraitLevelUp.resetPC(true, pc);
-                            gv.screenType = "learnTraitLevelUp";
-                        }
-                    }
-                    else if (btnEffects.getImpact(x, y))
-                    {
-                        string allEffects = "";
-                        foreach (Effect ef in pc.effectsList)
-                        {
-                            if (!ef.isPermanent)
+                            if (!inCombat)
                             {
-                                int left = ef.durationInUnits;
-                                allEffects += ef.name + " (" + left + ")" + "<br>";
+                                //pass items to selector
+                                gv.screenType = "portraitSelector";
+                                gv.screenPortraitSelector.resetPortraitSelector("party", pc);
                             }
                         }
-                        gv.sf.MessageBoxHtml("<big><b>CURRENT EFFECTS</b></big><br><b><small>(#) denotes effect time left</small></b><br><br>" + allEffects);
-                    }
-                    else if (btnOthers.getImpact(x, y))
-                    {
-                        gv.sf.MessageBoxHtml("<big><b><u>SAVING THROW modifierS</u></b></big><br>" +
-                                "Fortitude: " + pc.fortitude + "<br>" +
-                                "Will: " + pc.will + "<br>" +
-                                "Reflex: " + pc.reflex + "<br><br>" +
-                                "<big><b><u>RESISTANCES (%)</u></b></big><br>" +
-                                "Acid: " + pc.damageTypeResistanceTotalAcid + "<br>" +
-                                "Cold: " + pc.damageTypeResistanceTotalCold + "<br>" +
-                                "Normal: " + pc.damageTypeResistanceTotalNormal + "<br>" +
-                                "Electricity: " + pc.damageTypeResistanceTotalElectricity + "<br>" +
-                                "Fire: " + pc.damageTypeResistanceTotalFire + "<br>" +
-                                "Magic: " + pc.damageTypeResistanceTotalMagic + "<br>" +
-                                "Poison: " + pc.damageTypeResistanceTotalPoison + "<br>"
-                                );
-                    }
-                    else if (btnMainHand.getImpact(x, y))
-                    {
-                        if (gv.cc.partyItemSlotIndex == 0)
+                        else if (btnToken.getImpact(x, y))
                         {
-                            switchEquipment(inCombat);
-                        }
-                        gv.cc.partyItemSlotIndex = 0;
-                    }
-                    else if (btnHead.getImpact(x, y))
-                    {
-                        if (inCombat)
-                        {
-                            gv.sf.MessageBoxHtml("Can't equip/unequip this item in combat.");
-                            return;
-                        }
-                        if (gv.cc.partyItemSlotIndex == 1)
-                        {
-                            switchEquipment(inCombat);
-                        }
-                        gv.cc.partyItemSlotIndex = 1;
-                    }
-                    else if (btnNeck.getImpact(x, y))
-                    {
-                        if (inCombat)
-                        {
-                            gv.sf.MessageBoxHtml("Can't equip/unequip this item in combat.");
-                            return;
-                        }
-                        if (gv.cc.partyItemSlotIndex == 2)
-                        {
-                            switchEquipment(inCombat);
-                        }
-                        gv.cc.partyItemSlotIndex = 2;
-                    }
-                    else if (btnOffHand.getImpact(x, y))
-                    {
-                        if (gv.cc.partyItemSlotIndex == 3)
-                        {
-                            switchEquipment(inCombat);
-                        }
-                        gv.cc.partyItemSlotIndex = 3;
-                    }
-                    else if (btnRing.getImpact(x, y))
-                    {
-                        if (inCombat)
-                        {
-                            gv.sf.MessageBoxHtml("Can't equip/unequip this item in combat.");
-                            return;
-                        }
-                        if (gv.cc.partyItemSlotIndex == 4)
-                        {
-                            switchEquipment(inCombat);
-                        }
-                        gv.cc.partyItemSlotIndex = 4;
-                    }
-                    else if (btnBody.getImpact(x, y))
-                    {
-                        if (inCombat)
-                        {
-                            gv.sf.MessageBoxHtml("Can't equip/unequip this item in combat.");
-                            return;
-                        }
-                        if (gv.cc.partyItemSlotIndex == 5)
-                        {
-                            switchEquipment(inCombat);
-                        }
-                        gv.cc.partyItemSlotIndex = 5;
-                    }
-                    else if (btnFeet.getImpact(x, y))
-                    {
-                        if (inCombat)
-                        {
-                            gv.sf.MessageBoxHtml("Can't equip/unequip this item in combat.");
-                            return;
-                        }
-                        if (gv.cc.partyItemSlotIndex == 6)
-                        {
-                            switchEquipment(inCombat);
-                        }
-                        gv.cc.partyItemSlotIndex = 6;
-                    }
-                    else if (btnRing2.getImpact(x, y))
-                    {
-                        if (inCombat)
-                        {
-                            gv.sf.MessageBoxHtml("Can't equip/unequip this item in combat.");
-                            return;
-                        }
-                        if (gv.cc.partyItemSlotIndex == 7)
-                        {
-                            switchEquipment(inCombat);
-                        }
-                        gv.cc.partyItemSlotIndex = 7;
-                    }
-                    else if (btnAmmo.getImpact(x, y))
-                    {
-                        if (gv.cc.partyItemSlotIndex == 8)
-                        {
-                            switchEquipment(inCombat);
-                        }
-                        gv.cc.partyItemSlotIndex = 8;
-                    }
-
-                    else if (btnLevelUp.getImpact(x, y))
-                    {
-                        if (inCombat)
-                        {
-                            gv.sf.MessageBoxHtml("Can't Level up during combat.");
-                            return;
-                        }
-                        if (gv.mod.playerList[gv.cc.partyScreenPcIndex].IsReadyToAdvanceLevel())
-                        {
-                            if (gv.mod.playerList[gv.cc.partyScreenPcIndex].isDead())
+                            if (!inCombat)
                             {
-                                //Toast.makeText(gv.gameContext, "Can't Level Up a Dead Character", Toast.LENGTH_SHORT).show();
+                                gv.screenType = "tokenSelector";
+                                gv.screenTokenSelector.resetTokenSelector("party", pc);
+                            }
+                        }
+                        else if (btnSpells.getImpact(x, y))
+                        {
+                            if (inCombat)
+                            {
+                                gv.screenSpellLevelUp.resetPC(true, pc, true);
+                                gv.screenType = "learnSpellLevelUpCombat";
                             }
                             else
                             {
-                                doLevelUp();
+                                gv.screenSpellLevelUp.resetPC(true, pc, false);
+                                gv.screenType = "learnSpellLevelUp";
                             }
                         }
-                    }
-                    else if (btnHelp.getImpact(x, y))
-                    {
-                        tutorialMessageParty(true);
-                    }
-                    else if (btnInfo.getImpact(x, y))
-                    {
-                        Item it = new Item();
-                        if (gv.cc.partyItemSlotIndex == 0) { it = gv.mod.getItemByResRef(pc.MainHandRefs.resref); }
-                        else if (gv.cc.partyItemSlotIndex == 1) { it = gv.mod.getItemByResRef(pc.HeadRefs.resref); }
-                        else if (gv.cc.partyItemSlotIndex == 2) { it = gv.mod.getItemByResRef(pc.NeckRefs.resref); }
-                        else if (gv.cc.partyItemSlotIndex == 3) { it = gv.mod.getItemByResRef(pc.OffHandRefs.resref); }
-                        else if (gv.cc.partyItemSlotIndex == 4) { it = gv.mod.getItemByResRef(pc.RingRefs.resref); }
-                        else if (gv.cc.partyItemSlotIndex == 5) { it = gv.mod.getItemByResRef(pc.BodyRefs.resref); }
-                        else if (gv.cc.partyItemSlotIndex == 6) { it = gv.mod.getItemByResRef(pc.FeetRefs.resref); }
-                        else if (gv.cc.partyItemSlotIndex == 7) { it = gv.mod.getItemByResRef(pc.Ring2Refs.resref); }
-                        else if (gv.cc.partyItemSlotIndex == 8) { it = gv.mod.getItemByResRef(pc.AmmoRefs.resref); }
-                        if (it != null)
+                        else if (btnTraits.getImpact(x, y))
                         {
-                            gv.sf.ShowFullDescription(it);
-                        }
-                    }
-                    else if (btnReturn.getImpact(x, y))
-                    {
-                        if (inCombat)
-                        {
-                            if (gv.screenCombat.canMove)
+                            if (inCombat)
                             {
-                                gv.screenCombat.currentCombatMode = "move";
+                                gv.screenTraitLevelUp.resetPC(true, pc);
+                                gv.screenType = "learnTraitLevelUpCombat";
                             }
                             else
                             {
-                                gv.screenCombat.currentCombatMode = "attack";
+                                gv.screenTraitLevelUp.resetPC(true, pc);
+                                gv.screenType = "learnTraitLevelUp";
                             }
-                            gv.screenType = "combat";
                         }
-                        else
+                        else if (btnEffects.getImpact(x, y))
                         {
-                            gv.screenType = "main";
-                        }
-                    }
-                    else if (btnPartyRoster.getImpact(x, y))
-                    {
-                        if (!inCombat)
-                        {
-                            gv.screenType = "partyRoster";
-                        }
-                    }
-                    if (!inCombat)
-                    {
-                        for (int j = 0; j < gv.mod.playerList.Count; j++)
-                        {
-                            if (btnPartyIndex[j].getImpact(x, y))
+                            string allEffects = "";
+                            foreach (Effect ef in pc.effectsList)
                             {
-                                gv.mod.selectedPartyLeader = j;
-                                gv.cc.addLogText("lime", gv.mod.playerList[j].name + " is Party Leader");
-                                if (gv.cc.partyScreenPcIndex == j)
+                                if (!ef.isPermanent)
                                 {
-                                    doInterPartyConvo(); //not used in The Raventhal
+                                    int left = ef.durationInUnits;
+                                    allEffects += ef.name + " (" + left + ")" + "<br>";
                                 }
-                                gv.cc.partyScreenPcIndex = j;
-                                resetTokenAndPortrait();
+                            }
+                            gv.sf.MessageBoxHtml("<big><b>CURRENT EFFECTS</b></big><br><b><small>(#) denotes effect time left</small></b><br><br>" + allEffects);
+                        }
+                        else if (btnOthers.getImpact(x, y))
+                        {
+                            gv.sf.MessageBoxHtml("<big><b><u>SAVING THROW modifierS</u></b></big><br>" +
+                                    "Fortitude: " + pc.fortitude + "<br>" +
+                                    "Will: " + pc.will + "<br>" +
+                                    "Reflex: " + pc.reflex + "<br><br>" +
+                                    "<big><b><u>RESISTANCES (%)</u></b></big><br>" +
+                                    "Acid: " + pc.damageTypeResistanceTotalAcid + "<br>" +
+                                    "Cold: " + pc.damageTypeResistanceTotalCold + "<br>" +
+                                    "Normal: " + pc.damageTypeResistanceTotalNormal + "<br>" +
+                                    "Electricity: " + pc.damageTypeResistanceTotalElectricity + "<br>" +
+                                    "Fire: " + pc.damageTypeResistanceTotalFire + "<br>" +
+                                    "Magic: " + pc.damageTypeResistanceTotalMagic + "<br>" +
+                                    "Poison: " + pc.damageTypeResistanceTotalPoison + "<br>"
+                                    );
+                        }
+                        else if (btnMainHand.getImpact(x, y))
+                        {
+                            if (gv.cc.partyItemSlotIndex == 0)
+                            {
+                                switchEquipment(inCombat);
+                            }
+                            gv.cc.partyItemSlotIndex = 0;
+                        }
+                        else if (btnHead.getImpact(x, y))
+                        {
+                            if (inCombat)
+                            {
+                                gv.sf.MessageBoxHtml("Can't equip/unequip this item in combat.");
+                                return;
+                            }
+                            if (gv.cc.partyItemSlotIndex == 1)
+                            {
+                                switchEquipment(inCombat);
+                            }
+                            gv.cc.partyItemSlotIndex = 1;
+                        }
+                        else if (btnNeck.getImpact(x, y))
+                        {
+                            if (inCombat)
+                            {
+                                gv.sf.MessageBoxHtml("Can't equip/unequip this item in combat.");
+                                return;
+                            }
+                            if (gv.cc.partyItemSlotIndex == 2)
+                            {
+                                switchEquipment(inCombat);
+                            }
+                            gv.cc.partyItemSlotIndex = 2;
+                        }
+                        else if (btnOffHand.getImpact(x, y))
+                        {
+                            if (gv.cc.partyItemSlotIndex == 3)
+                            {
+                                switchEquipment(inCombat);
+                            }
+                            gv.cc.partyItemSlotIndex = 3;
+                        }
+                        else if (btnRing.getImpact(x, y))
+                        {
+                            if (inCombat)
+                            {
+                                gv.sf.MessageBoxHtml("Can't equip/unequip this item in combat.");
+                                return;
+                            }
+                            if (gv.cc.partyItemSlotIndex == 4)
+                            {
+                                switchEquipment(inCombat);
+                            }
+                            gv.cc.partyItemSlotIndex = 4;
+                        }
+                        else if (btnBody.getImpact(x, y))
+                        {
+                            if (inCombat)
+                            {
+                                gv.sf.MessageBoxHtml("Can't equip/unequip this item in combat.");
+                                return;
+                            }
+                            if (gv.cc.partyItemSlotIndex == 5)
+                            {
+                                switchEquipment(inCombat);
+                            }
+                            gv.cc.partyItemSlotIndex = 5;
+                        }
+                        else if (btnFeet.getImpact(x, y))
+                        {
+                            if (inCombat)
+                            {
+                                gv.sf.MessageBoxHtml("Can't equip/unequip this item in combat.");
+                                return;
+                            }
+                            if (gv.cc.partyItemSlotIndex == 6)
+                            {
+                                switchEquipment(inCombat);
+                            }
+                            gv.cc.partyItemSlotIndex = 6;
+                        }
+                        else if (btnRing2.getImpact(x, y))
+                        {
+                            if (inCombat)
+                            {
+                                gv.sf.MessageBoxHtml("Can't equip/unequip this item in combat.");
+                                return;
+                            }
+                            if (gv.cc.partyItemSlotIndex == 7)
+                            {
+                                switchEquipment(inCombat);
+                            }
+                            gv.cc.partyItemSlotIndex = 7;
+                        }
+                        else if (btnAmmo.getImpact(x, y))
+                        {
+                            if (gv.cc.partyItemSlotIndex == 8)
+                            {
+                                switchEquipment(inCombat);
+                            }
+                            gv.cc.partyItemSlotIndex = 8;
+                        }
+
+                        else if (btnLevelUp.getImpact(x, y))
+                        {
+                            if (inCombat)
+                            {
+                                gv.sf.MessageBoxHtml("Can't Level up during combat.");
+                                return;
+                            }
+                            if (gv.mod.playerList[gv.cc.partyScreenPcIndex].IsReadyToAdvanceLevel())
+                            {
+                                if (gv.mod.playerList[gv.cc.partyScreenPcIndex].isDead())
+                                {
+                                    //Toast.makeText(gv.gameContext, "Can't Level Up a Dead Character", Toast.LENGTH_SHORT).show();
+                                }
+                                else
+                                {
+                                    doLevelUp();
+                                }
                             }
                         }
-                    }
-                    break;
+                        else if (btnHelp.getImpact(x, y))
+                        {
+                            tutorialMessageParty(true);
+                        }
+                        else if (btnInfo.getImpact(x, y))
+                        {
+                            Item it = new Item();
+                            if (gv.cc.partyItemSlotIndex == 0) { it = gv.mod.getItemByResRef(pc.MainHandRefs.resref); }
+                            else if (gv.cc.partyItemSlotIndex == 1) { it = gv.mod.getItemByResRef(pc.HeadRefs.resref); }
+                            else if (gv.cc.partyItemSlotIndex == 2) { it = gv.mod.getItemByResRef(pc.NeckRefs.resref); }
+                            else if (gv.cc.partyItemSlotIndex == 3) { it = gv.mod.getItemByResRef(pc.OffHandRefs.resref); }
+                            else if (gv.cc.partyItemSlotIndex == 4) { it = gv.mod.getItemByResRef(pc.RingRefs.resref); }
+                            else if (gv.cc.partyItemSlotIndex == 5) { it = gv.mod.getItemByResRef(pc.BodyRefs.resref); }
+                            else if (gv.cc.partyItemSlotIndex == 6) { it = gv.mod.getItemByResRef(pc.FeetRefs.resref); }
+                            else if (gv.cc.partyItemSlotIndex == 7) { it = gv.mod.getItemByResRef(pc.Ring2Refs.resref); }
+                            else if (gv.cc.partyItemSlotIndex == 8) { it = gv.mod.getItemByResRef(pc.AmmoRefs.resref); }
+                            if (it != null)
+                            {
+                                gv.sf.ShowFullDescription(it);
+                            }
+                        }
+                        else if (btnReturn.getImpact(x, y))
+                        {
+                            if (inCombat)
+                            {
+                                if (gv.screenCombat.canMove)
+                                {
+                                    gv.screenCombat.currentCombatMode = "move";
+                                }
+                                else
+                                {
+                                    gv.screenCombat.currentCombatMode = "attack";
+                                }
+                                gv.screenType = "combat";
+                            }
+                            else
+                            {
+                                gv.screenType = "main";
+                            }
+                        }
+                        else if (btnPartyRoster.getImpact(x, y))
+                        {
+                            if (!inCombat)
+                            {
+                                gv.screenType = "partyRoster";
+                            }
+                        }
+                        if (!inCombat)
+                        {
+                            for (int j = 0; j < gv.mod.playerList.Count; j++)
+                            {
+                                if (btnPartyIndex[j].getImpact(x, y))
+                                {
+                                    gv.mod.selectedPartyLeader = j;
+                                    gv.cc.addLogText("lime", gv.mod.playerList[j].name + " is Party Leader");
+                                    if (gv.cc.partyScreenPcIndex == j)
+                                    {
+                                        doInterPartyConvo(); //not used in The Raventhal
+                                    }
+                                    gv.cc.partyScreenPcIndex = j;
+                                    resetTokenAndPortrait();
+                                }
+                            }
+                        }
+                        break;
+                }
             }
+            catch { }
         }
         public void tokenLoad(Player p)
         {

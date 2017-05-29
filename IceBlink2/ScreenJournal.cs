@@ -183,96 +183,101 @@ namespace IceBlink2
 		    ctrlRightArrow.Draw();
 		    btnReturnJournal.Draw();
         }
-    
-	    public void onTouchJournal(MouseEventArgs e, MouseEventType.EventType eventType)
-	    {
-		    ctrlUpArrow.glowOn = false;
-		    ctrlDownArrow.glowOn = false;
-		    ctrlLeftArrow.glowOn = false;
-		    ctrlRightArrow.glowOn = false;
-		    btnReturnJournal.glowOn = false;
-		
-		    switch (eventType)
-		    {
-		    case MouseEventType.EventType.MouseDown:
-		    case MouseEventType.EventType.MouseMove:
-			    int x = (int) e.X;
-			    int y = (int) e.Y;
-			    if (ctrlUpArrow.getImpact(x, y))
-			    {
-				    ctrlUpArrow.glowOn = true;
-			    }
-			    else if (ctrlDownArrow.getImpact(x, y))
-			    {
-				    ctrlDownArrow.glowOn = true;
-			    }
-			    else if (ctrlLeftArrow.getImpact(x, y))
-			    {
-				    ctrlLeftArrow.glowOn = true;
-			    }
-			    else if (ctrlRightArrow.getImpact(x, y))
-			    {
-				    ctrlRightArrow.glowOn = true;
-			    }	
-			    else if (btnReturnJournal.getImpact(x, y))
-			    {
-				    btnReturnJournal.glowOn = true;
-			    }
-			
-			    break;
-			
-		    case MouseEventType.EventType.MouseUp:
-			    x = (int) e.X;
-			    y = (int) e.Y;
-			
-			    ctrlUpArrow.glowOn = false;
-			    ctrlDownArrow.glowOn = false;
-			    ctrlLeftArrow.glowOn = false;
-			    ctrlRightArrow.glowOn = false;
-			    btnReturnJournal.glowOn = false;
-			
-			    if (ctrlUpArrow.getImpact(x, y))
-			    {
-				    if (journalScreenQuestIndex > 0)
-				    {
-					    journalScreenQuestIndex--;
-					    journalScreenEntryIndex = gv.mod.partyJournalQuests[journalScreenQuestIndex].Entries.Count - 1;
-				    }
-			    }
-			    else if (ctrlDownArrow.getImpact(x, y))
-			    {
-				    if (journalScreenQuestIndex < gv.mod.partyJournalQuests.Count - 1)
-				    {
-					    journalScreenQuestIndex++;
-					    journalScreenEntryIndex = gv.mod.partyJournalQuests[journalScreenQuestIndex].Entries.Count - 1;
-				    }
-			    }
-			    else if (ctrlLeftArrow.getImpact(x, y))
-			    {
-				    if (journalScreenEntryIndex > 0)
-				    {
-					    journalScreenEntryIndex--;
-				    }
-			    }
-			    else if (ctrlRightArrow.getImpact(x, y))
-			    {
-				    if (journalScreenEntryIndex < gv.mod.partyJournalQuests[journalScreenQuestIndex].Entries.Count - 1)
-				    {
-					    journalScreenEntryIndex++;
-				    }
-			    }	
-			    else if (btnReturnJournal.getImpact(x, y))
-			    {
-				    gv.screenType = "main";
-				    journalBack = null;
-				    btnReturnJournal = null;
-				    ctrlUpArrow = null;
-				    ctrlDownArrow = null;
-				    ctrlLeftArrow = null;
-				    ctrlRightArrow = null;
-			    }			
-			    break;		
-		    }
-	    }	    
+
+        public void onTouchJournal(MouseEventArgs e, MouseEventType.EventType eventType)
+        {//1
+            try
+            {//2 
+                ctrlUpArrow.glowOn = false;
+                ctrlDownArrow.glowOn = false;
+                ctrlLeftArrow.glowOn = false;
+                ctrlRightArrow.glowOn = false;
+                btnReturnJournal.glowOn = false;
+
+                switch (eventType)
+                {//3
+                    case MouseEventType.EventType.MouseDown:
+                    case MouseEventType.EventType.MouseMove:
+                        int x = (int)e.X;
+                        int y = (int)e.Y;
+                        if (ctrlUpArrow.getImpact(x, y))
+                        {
+                            ctrlUpArrow.glowOn = true;
+                        }
+                        else if (ctrlDownArrow.getImpact(x, y))
+                        {
+                            ctrlDownArrow.glowOn = true;
+                        }
+                        else if (ctrlLeftArrow.getImpact(x, y))
+                        {
+                            ctrlLeftArrow.glowOn = true;
+                        }
+                        else if (ctrlRightArrow.getImpact(x, y))
+                        {
+                            ctrlRightArrow.glowOn = true;
+                        }
+                        else if (btnReturnJournal.getImpact(x, y))
+                        {
+                            btnReturnJournal.glowOn = true;
+                        }
+
+                        break;
+
+                    case MouseEventType.EventType.MouseUp:
+                        x = (int)e.X;
+                        y = (int)e.Y;
+
+                        ctrlUpArrow.glowOn = false;
+                        ctrlDownArrow.glowOn = false;
+                        ctrlLeftArrow.glowOn = false;
+                        ctrlRightArrow.glowOn = false;
+                        btnReturnJournal.glowOn = false;
+
+                        if (ctrlUpArrow.getImpact(x, y))
+                        {
+                            if (journalScreenQuestIndex > 0)
+                            {
+                                journalScreenQuestIndex--;
+                                journalScreenEntryIndex = gv.mod.partyJournalQuests[journalScreenQuestIndex].Entries.Count - 1;
+                            }
+                        }
+                        else if (ctrlDownArrow.getImpact(x, y))
+                        {
+                            if (journalScreenQuestIndex < gv.mod.partyJournalQuests.Count - 1)
+                            {
+                                journalScreenQuestIndex++;
+                                journalScreenEntryIndex = gv.mod.partyJournalQuests[journalScreenQuestIndex].Entries.Count - 1;
+                            }
+                        }
+                        else if (ctrlLeftArrow.getImpact(x, y))
+                        {
+                            if (journalScreenEntryIndex > 0)
+                            {
+                                journalScreenEntryIndex--;
+                            }
+                        }
+                        else if (ctrlRightArrow.getImpact(x, y))
+                        {
+                            if (journalScreenEntryIndex < gv.mod.partyJournalQuests[journalScreenQuestIndex].Entries.Count - 1)
+                            {
+                                journalScreenEntryIndex++;
+                            }
+                        }
+                        else if (btnReturnJournal.getImpact(x, y))
+                        {
+                            gv.screenType = "main";
+                            journalBack = null;
+                            btnReturnJournal = null;
+                            ctrlUpArrow = null;
+                            ctrlDownArrow = null;
+                            ctrlLeftArrow = null;
+                            ctrlRightArrow = null;
+                        }
+                        break;
+                }//3
+            }//2
+            catch
+            { }
+        }	    
     }
 }

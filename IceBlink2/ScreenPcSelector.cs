@@ -137,45 +137,50 @@ namespace IceBlink2
         }
         public void onTouchPcSelector(MouseEventArgs e, MouseEventType.EventType eventType)
         {
-            btnReturn.glowOn = false;
-
-            switch (eventType)
+            try
             {
-                case MouseEventType.EventType.MouseDown:
-                case MouseEventType.EventType.MouseMove:
-                    int x = (int)e.X;
-                    int y = (int)e.Y;
+                btnReturn.glowOn = false;
 
-                    if (btnReturn.getImpact(x, y))
-                    {
-                        btnReturn.glowOn = true;
-                    }
-                    break;
+                switch (eventType)
+                {
+                    case MouseEventType.EventType.MouseDown:
+                    case MouseEventType.EventType.MouseMove:
+                        int x = (int)e.X;
+                        int y = (int)e.Y;
 
-                case MouseEventType.EventType.MouseUp:
-                    x = (int)e.X;
-                    y = (int)e.Y;
-
-                    btnReturn.glowOn = false;
-
-                    Player pc = gv.mod.playerList[pcSelectorPcIndex];
-
-                    if (btnReturn.getImpact(x, y))
-                    {
-                        if (pcSelectorType.Equals("spellcaster"))
+                        if (btnReturn.getImpact(x, y))
                         {
-                            gv.screenType = "main";
+                            btnReturn.glowOn = true;
                         }
-                    }                    
-                    for (int j = 0; j < gv.mod.playerList.Count; j++)
-                    {
-                        if (btnPartyIndex[j].getImpact(x, y))
+                        break;
+
+                    case MouseEventType.EventType.MouseUp:
+                        x = (int)e.X;
+                        y = (int)e.Y;
+
+                        btnReturn.glowOn = false;
+
+                        Player pc = gv.mod.playerList[pcSelectorPcIndex];
+
+                        if (btnReturn.getImpact(x, y))
                         {
-                            pcSelectorPcIndex = j;
+                            if (pcSelectorType.Equals("spellcaster"))
+                            {
+                                gv.screenType = "main";
+                            }
                         }
-                    }                    
-                    break;
+                        for (int j = 0; j < gv.mod.playerList.Count; j++)
+                        {
+                            if (btnPartyIndex[j].getImpact(x, y))
+                            {
+                                pcSelectorPcIndex = j;
+                            }
+                        }
+                        break;
+                }
             }
-        }        
+            catch
+            { }
+         }        
     }
 }

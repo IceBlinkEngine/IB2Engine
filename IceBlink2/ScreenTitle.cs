@@ -112,97 +112,102 @@ namespace IceBlink2
 		    btnAbout.Draw();
 	    }
         public void onTouchTitle(MouseEventArgs e, MouseEventType.EventType eventType)
-	    {
-    	    btnNewGame.glowOn = false;
-		    btnLoadSavedGame.glowOn = false;
-		    btnPlayerGuide.glowOn = false;
-		    btnBeginnerGuide.glowOn = false;				
-		    btnAbout.glowOn = false;	
-		
-		    switch (eventType)
-		    {
-		    case MouseEventType.EventType.MouseUp:
-                int x = (int)e.X;
-                int y = (int)e.Y;
-				
-			    btnNewGame.glowOn = false;
-			    btnLoadSavedGame.glowOn = false;
-			    btnAbout.glowOn = false;
-			    btnPlayerGuide.glowOn = false;
-			    btnBeginnerGuide.glowOn = false;
-			
-			    if (btnNewGame.getImpact(x, y))
-			    {
-                    gv.PlaySound("btn_click");
-				    if (gv.mod.mustUsePreMadePC)
-				    {
-					    //no spell selection offered
-					    gv.cc.tutorialMessageMainMap();
-			    	    gv.screenType = "main";
-			    	    gv.cc.doUpdate();
-				    }
-				    else
-				    {
-					    gv.screenType = "partyBuild";
-					    gv.screenPartyBuild.loadPlayerList();
-				    }
-			    }
-			    else if (btnLoadSavedGame.getImpact(x, y))
-			    {
-                    gv.PlaySound("btn_click");
-				    if (gv.cc.slot5.Equals(""))
-				    {
-					    //Toast.makeText(gv.gameContext, "Still Loading Data... try again in a second", Toast.LENGTH_SHORT).show();
-				    }
-				    else
-				    {
-					    gv.cc.doLoadSaveGameDialog();
-				    }
-			    }
-			    else if (btnPlayerGuide.getImpact(x, y))
-			    {
-                    gv.PlaySound("btn_click");
-				    gv.cc.tutorialPlayersGuide();
-			    }
-			    else if (btnBeginnerGuide.getImpact(x, y))
-			    {
-                    gv.PlaySound("btn_click");
-				    gv.cc.tutorialBeginnersGuide();
-			    }
-			    else if (btnAbout.getImpact(x, y))
-			    {
-                    gv.PlaySound("btn_click");
-				    gv.cc.doAboutDialog();
-			    }						
-			    break;
+        {
+            try
+            {
+                btnNewGame.glowOn = false;
+                btnLoadSavedGame.glowOn = false;
+                btnPlayerGuide.glowOn = false;
+                btnBeginnerGuide.glowOn = false;
+                btnAbout.glowOn = false;
 
-            case MouseEventType.EventType.MouseDown:
-            case MouseEventType.EventType.MouseMove:
-                x = (int)e.X;
-                y = (int)e.Y;
-				
-			    if (btnNewGame.getImpact(x, y))
-			    {
-                    btnNewGame.glowOn = true;
-			    }
-			    else if (btnLoadSavedGame.getImpact(x, y))
-			    {
-				    btnLoadSavedGame.glowOn = true;
-			    }
-			    else if (btnAbout.getImpact(x, y))
-			    {
-				    btnAbout.glowOn = true;
-			    }
-			    else if (btnPlayerGuide.getImpact(x, y))
-			    {
-				    btnPlayerGuide.glowOn = true;
-			    }
-			    else if (btnBeginnerGuide.getImpact(x, y))
-			    {
-				    btnBeginnerGuide.glowOn = true;	
-			    }
-			    break;		
-		    }
-	    }
+                switch (eventType)
+                {
+                    case MouseEventType.EventType.MouseUp:
+                        int x = (int)e.X;
+                        int y = (int)e.Y;
+
+                        btnNewGame.glowOn = false;
+                        btnLoadSavedGame.glowOn = false;
+                        btnAbout.glowOn = false;
+                        btnPlayerGuide.glowOn = false;
+                        btnBeginnerGuide.glowOn = false;
+
+                        if (btnNewGame.getImpact(x, y))
+                        {
+                            gv.PlaySound("btn_click");
+                            if (gv.mod.mustUsePreMadePC)
+                            {
+                                //no spell selection offered
+                                gv.cc.tutorialMessageMainMap();
+                                gv.screenType = "main";
+                                gv.cc.doUpdate();
+                            }
+                            else
+                            {
+                                gv.screenType = "partyBuild";
+                                gv.screenPartyBuild.loadPlayerList();
+                            }
+                        }
+                        else if (btnLoadSavedGame.getImpact(x, y))
+                        {
+                            gv.PlaySound("btn_click");
+                            if (gv.cc.slot5.Equals(""))
+                            {
+                                //Toast.makeText(gv.gameContext, "Still Loading Data... try again in a second", Toast.LENGTH_SHORT).show();
+                            }
+                            else
+                            {
+                                gv.cc.doLoadSaveGameDialog();
+                            }
+                        }
+                        else if (btnPlayerGuide.getImpact(x, y))
+                        {
+                            gv.PlaySound("btn_click");
+                            gv.cc.tutorialPlayersGuide();
+                        }
+                        else if (btnBeginnerGuide.getImpact(x, y))
+                        {
+                            gv.PlaySound("btn_click");
+                            gv.cc.tutorialBeginnersGuide();
+                        }
+                        else if (btnAbout.getImpact(x, y))
+                        {
+                            gv.PlaySound("btn_click");
+                            gv.cc.doAboutDialog();
+                        }
+                        break;
+
+                    case MouseEventType.EventType.MouseDown:
+                    case MouseEventType.EventType.MouseMove:
+                        x = (int)e.X;
+                        y = (int)e.Y;
+
+                        if (btnNewGame.getImpact(x, y))
+                        {
+                            btnNewGame.glowOn = true;
+                        }
+                        else if (btnLoadSavedGame.getImpact(x, y))
+                        {
+                            btnLoadSavedGame.glowOn = true;
+                        }
+                        else if (btnAbout.getImpact(x, y))
+                        {
+                            btnAbout.glowOn = true;
+                        }
+                        else if (btnPlayerGuide.getImpact(x, y))
+                        {
+                            btnPlayerGuide.glowOn = true;
+                        }
+                        else if (btnBeginnerGuide.getImpact(x, y))
+                        {
+                            btnBeginnerGuide.glowOn = true;
+                        }
+                        break;
+                }
+            }
+            catch
+            { }
+        }
     }
 }

@@ -2707,8 +2707,13 @@ namespace IceBlink2
                     {
                         GiveItem(newPc.AmmoRefs.resref, 1);
                     }
-                    //gv.TrackerSendEventOnePlayerInfo(newPc,"PartyAddCompanion:" + newPc.name);
-                    gv.cc.addLogText("<font color='lime'>" + newPc.name + " joins the party</font><BR>");
+
+                MoveOrder newMO = new MoveOrder();
+                newMO.PcOrCreature = newPc;
+                newMO.rank = 1000 + gv.mod.allyCounter; 
+                gv.screenCombat.moveOrderList.Add(newMO);
+                //gv.TrackerSendEventOnePlayerInfo(newPc,"PartyAddCompanion:" + newPc.name);
+                gv.cc.addLogText("<font color='lime'>" + newPc.name + " joins the party</font><BR>");
                 //}
                 //else
                 //{
@@ -4928,8 +4933,8 @@ namespace IceBlink2
 
             int cMod = (pc.constitution - 10) / 2;
             int iMod = modifierFromSPRelevantAttribute;
-            pc.spMax = pc.playerClass.startingSP + iMod + ((pc.classLevel - 1) * (pc.playerClass.spPerLevelUp + iMod)) + CalcAttributeModifierHpMax(pc);
-            pc.hpMax = pc.playerClass.startingHP + cMod + ((pc.classLevel - 1) * (pc.playerClass.hpPerLevelUp + cMod)) + CalcAttributeModifierSpMax(pc);
+            pc.spMax = pc.playerClass.startingSP + iMod + ((pc.classLevel - 1) * (pc.playerClass.spPerLevelUp + iMod)) + CalcAttributeModifierSpMax(pc);
+            pc.hpMax = pc.playerClass.startingHP + cMod + ((pc.classLevel - 1) * (pc.playerClass.hpPerLevelUp + cMod)) + CalcAttributeModifierHpMax(pc);
 
             pc.XPNeeded = pc.playerClass.xpTable[pc.classLevel];
 

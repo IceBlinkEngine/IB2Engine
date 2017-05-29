@@ -281,134 +281,140 @@ namespace IceBlink2
     	    }
     	    return strg;
         }
-	    public void onTouchInventory(MouseEventArgs e, MouseEventType.EventType eventType, bool inCombat)
-	    {
-		    btnInventoryLeft.glowOn = false;
-		    btnInventoryRight.glowOn = false;
-		    btnHelp.glowOn = false;
-		    btnInfo.glowOn = false;
-		    btnReturn.glowOn = false;
-		
-		    //int eventAction = event.getAction();
-		    switch (eventType)
-		    {
-		    case MouseEventType.EventType.MouseDown:
-		    case MouseEventType.EventType.MouseMove:
-			    int x = (int) e.X;
-			    int y = (int) e.Y;
-			    if (btnInventoryLeft.getImpact(x, y))
-			    {
-				    btnInventoryLeft.glowOn = true;
-			    }
-			    else if (btnInventoryRight.getImpact(x, y))
-			    {
-				    btnInventoryRight.glowOn = true;
-			    }
-			    else if (btnHelp.getImpact(x, y))
-			    {
-				    btnHelp.glowOn = true;
-			    }
-			    else if (btnInfo.getImpact(x, y))
-			    {
-				    btnInfo.glowOn = true;
-			    }
-			    else if (btnReturn.getImpact(x, y))
-			    {
-				    btnReturn.glowOn = true;
-			    }
-			    break;
-			
-		    case MouseEventType.EventType.MouseUp:
-			    x = (int) e.X;
-			    y = (int) e.Y;
-			
-			    btnInventoryLeft.glowOn = false;
-			    btnInventoryRight.glowOn = false;
-			    btnHelp.glowOn = false;
-			    btnInfo.glowOn = false;
-			    btnReturn.glowOn = false;
-			
-			    for (int j = 0; j < slotsPerPage; j++)
-			    {
-				    if (btnInventorySlot[j].getImpact(x, y))
-				    {
-					    if (inventorySlotIndex == j)
-					    {
-						    if (inCombat)
-						    {
-                                if (isSelectedItemSlotInPartyInventoryRange())
+        public void onTouchInventory(MouseEventArgs e, MouseEventType.EventType eventType, bool inCombat)
+        {
+            try
+            {
+                btnInventoryLeft.glowOn = false;
+                btnInventoryRight.glowOn = false;
+                btnHelp.glowOn = false;
+                btnInfo.glowOn = false;
+                btnReturn.glowOn = false;
+
+                //int eventAction = event.getAction();
+                switch (eventType)
+                {
+                    case MouseEventType.EventType.MouseDown:
+                    case MouseEventType.EventType.MouseMove:
+                        int x = (int)e.X;
+                        int y = (int)e.Y;
+                        if (btnInventoryLeft.getImpact(x, y))
+                        {
+                            btnInventoryLeft.glowOn = true;
+                        }
+                        else if (btnInventoryRight.getImpact(x, y))
+                        {
+                            btnInventoryRight.glowOn = true;
+                        }
+                        else if (btnHelp.getImpact(x, y))
+                        {
+                            btnHelp.glowOn = true;
+                        }
+                        else if (btnInfo.getImpact(x, y))
+                        {
+                            btnInfo.glowOn = true;
+                        }
+                        else if (btnReturn.getImpact(x, y))
+                        {
+                            btnReturn.glowOn = true;
+                        }
+                        break;
+
+                    case MouseEventType.EventType.MouseUp:
+                        x = (int)e.X;
+                        y = (int)e.Y;
+
+                        btnInventoryLeft.glowOn = false;
+                        btnInventoryRight.glowOn = false;
+                        btnHelp.glowOn = false;
+                        btnInfo.glowOn = false;
+                        btnReturn.glowOn = false;
+
+                        for (int j = 0; j < slotsPerPage; j++)
+                        {
+                            if (btnInventorySlot[j].getImpact(x, y))
+                            {
+                                if (inventorySlotIndex == j)
                                 {
-                                    doItemAction(true);
+                                    if (inCombat)
+                                    {
+                                        if (isSelectedItemSlotInPartyInventoryRange())
+                                        {
+                                            doItemAction(true);
+                                        }
+                                    }
+                                    else
+                                    {
+                                        if (isSelectedItemSlotInPartyInventoryRange())
+                                        {
+                                            doItemAction(false);
+                                        }
+                                    }
                                 }
-						    }
-						    else
-						    {
-                                if (isSelectedItemSlotInPartyInventoryRange())
+                                inventorySlotIndex = j;
+                            }
+                        }
+                        if (btnInventoryLeft.getImpact(x, y))
+                        {
+                            if (inventoryPageIndex > 0)
+                            {
+                                inventoryPageIndex--;
+                                btnPageIndex.Text = (inventoryPageIndex + 1) + "/10";
+                                resetInventory();
+                            }
+                        }
+                        else if (btnInventoryRight.getImpact(x, y))
+                        {
+                            if (inventoryPageIndex < 9)
+                            {
+                                inventoryPageIndex++;
+                                btnPageIndex.Text = (inventoryPageIndex + 1) + "/10";
+                                resetInventory();
+                            }
+                        }
+                        else if (btnHelp.getImpact(x, y))
+                        {
+                            tutorialMessageInventory(true);
+                        }
+                        else if (btnInfo.getImpact(x, y))
+                        {
+                            if (isSelectedItemSlotInPartyInventoryRange())
+                            {
+                                ItemRefs itRef = GetCurrentlySelectedItemRefs();
+                                if (itRef == null) { return; }
+                                Item it = gv.mod.getItemByResRef(itRef.resref);
+                                if (it == null) { return; }
+                                gv.sf.ShowFullDescription(it);
+                            }
+                        }
+                        else if (btnReturn.getImpact(x, y))
+                        {
+                            if (inCombat)
+                            {
+                                if (gv.screenCombat.canMove)
                                 {
-                                    doItemAction(false);
+                                    gv.screenCombat.currentCombatMode = "move";
                                 }
-						    }
-					    }
-					    inventorySlotIndex = j;
-				    }
-			    }
-			    if (btnInventoryLeft.getImpact(x, y))
-			    {
-				    if (inventoryPageIndex > 0)
-				    {
-					    inventoryPageIndex--;
-					    btnPageIndex.Text = (inventoryPageIndex + 1) + "/10";
-                        resetInventory();
-				    }
-			    }
-			    else if (btnInventoryRight.getImpact(x, y))
-			    {
-				    if (inventoryPageIndex < 9)
-				    {
-					    inventoryPageIndex++;
-					    btnPageIndex.Text = (inventoryPageIndex + 1) + "/10";
-                        resetInventory();
-				    }
-			    }
-			    else if (btnHelp.getImpact(x, y))
-			    {
-				    tutorialMessageInventory(true);
-			    }
-			    else if (btnInfo.getImpact(x, y))
-			    {
-				    if (isSelectedItemSlotInPartyInventoryRange())
-				    {				
-					    ItemRefs itRef = GetCurrentlySelectedItemRefs();
-					    if (itRef == null) { return;}
-	            	    Item it = gv.mod.getItemByResRef(itRef.resref);
-	            	    if (it == null) {return;}
-					    gv.sf.ShowFullDescription(it);
-				    }				
-			    }
-			    else if (btnReturn.getImpact(x, y))
-			    {
-				    if (inCombat)
-				    {
-					    if (gv.screenCombat.canMove)
-					    {
-						    gv.screenCombat.currentCombatMode = "move";
-					    }
-					    else
-					    {
-						    gv.screenCombat.currentCombatMode = "attack";
-					    }
-					    gv.screenType = "combat";
-					    doCleanUp();
-				    }
-				    else
-				    {
-					    gv.screenType = "main";	
-					    doCleanUp();
-				    }							
-			    }
-			    break;		
-		    }
-	    }
+                                else
+                                {
+                                    gv.screenCombat.currentCombatMode = "attack";
+                                }
+                                gv.screenType = "combat";
+                                doCleanUp();
+                            }
+                            else
+                            {
+                                gv.screenType = "main";
+                                doCleanUp();
+                            }
+                        }
+                        break;
+                }
+             }
+            catch
+            {
+            }
+         }
 	
 	    public void doCleanUp()
 	    {

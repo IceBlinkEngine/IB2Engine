@@ -400,162 +400,168 @@ namespace IceBlink2
         }
         public void onTouchPartyBuild(MouseEventArgs e, MouseEventType.EventType eventType)
         {
-            btnAdd.glowOn = false;
-            btnRemove.glowOn = false;
-            btnLeft.glowOn = false;
-            btnRight.glowOn = false;
-            btnCreate.glowOn = false;
-            btnHelp.glowOn = false;
-            btnReturn.glowOn = false;
-
-            switch (eventType)
+            try
             {
-                case MouseEventType.EventType.MouseDown:
-                case MouseEventType.EventType.MouseMove:
-                    int x = (int)e.X;
-                    int y = (int)e.Y;
+                btnAdd.glowOn = false;
+                btnRemove.glowOn = false;
+                btnLeft.glowOn = false;
+                btnRight.glowOn = false;
+                btnCreate.glowOn = false;
+                btnHelp.glowOn = false;
+                btnReturn.glowOn = false;
 
-                    if (btnAdd.getImpact(x, y))
-                    {
-                        btnAdd.glowOn = true;
-                    }
-                    else if (btnRemove.getImpact(x, y))
-                    {
-                        btnRemove.glowOn = true;
-                    }
-                    else if (btnLeft.getImpact(x, y))
-                    {
-                        btnLeft.glowOn = true;
-                    }
-                    else if (btnPcListIndex.getImpact(x, y))
-                    {
-                        btnPcListIndex.glowOn = true;
-                    }
-                    else if (btnRight.getImpact(x, y))
-                    {
-                        btnRight.glowOn = true;
-                    }
-                    else if (btnCreate.getImpact(x, y))
-                    {
-                        btnCreate.glowOn = true;
-                    }
-                    else if (btnHelp.getImpact(x, y))
-                    {
-                        btnHelp.glowOn = true;
-                    }
-                    else if (btnReturn.getImpact(x, y))
-                    {
-                        btnReturn.glowOn = true;
-                    }
-                    break;
+                switch (eventType)
+                {
+                    case MouseEventType.EventType.MouseDown:
+                    case MouseEventType.EventType.MouseMove:
+                        int x = (int)e.X;
+                        int y = (int)e.Y;
 
-                case MouseEventType.EventType.MouseUp:
-                    x = (int)e.X;
-                    y = (int)e.Y;
-
-                    btnAdd.glowOn = false;
-                    btnRemove.glowOn = false;
-                    btnLeft.glowOn = false;
-                    btnRight.glowOn = false;
-                    btnPcListIndex.glowOn = false;
-                    btnCreate.glowOn = false;
-                    btnHelp.glowOn = false;
-                    btnReturn.glowOn = false;
-
-                    if (btnAdd.getImpact(x, y))
-                    {
-                        gv.PlaySound("btn_click");
-                        //add selected PC to partyList and remove from pcList
-                        if ((pcList.Count > 0) && (gv.mod.playerList.Count < gv.mod.numberOfPlayerMadePcsAllowed))
+                        if (btnAdd.getImpact(x, y))
                         {
-                            Player copyPC = pcList[pcIndex].DeepCopy();
-                            copyPC.token = gv.cc.LoadBitmap(copyPC.tokenFilename);
-                            copyPC.portrait = gv.cc.LoadBitmap(copyPC.portraitFilename);
-                            copyPC.playerClass = gv.mod.getPlayerClass(copyPC.classTag);
-                            copyPC.race = gv.mod.getRace(copyPC.raceTag);
-                            gv.mod.playerList.Add(copyPC);
-                            pcList.RemoveAt(pcIndex);
+                            btnAdd.glowOn = true;
                         }
-                    }
-                    else if (btnRemove.getImpact(x, y))
-                    {
-                        gv.PlaySound("btn_click");
-                        //remove selected from partyList and add to pcList
-                        if (gv.mod.playerList.Count > 0)
+                        else if (btnRemove.getImpact(x, y))
                         {
-                            Player copyPC = gv.mod.playerList[partyScreenPcIndex].DeepCopy();
-                            copyPC.token = gv.cc.LoadBitmap(copyPC.tokenFilename);
-                            copyPC.portrait = gv.cc.LoadBitmap(copyPC.portraitFilename);
-                            copyPC.playerClass = gv.mod.getPlayerClass(copyPC.classTag);
-                            copyPC.race = gv.mod.getRace(copyPC.raceTag);
-                            pcList.Add(copyPC);
-                            gv.mod.playerList.RemoveAt(partyScreenPcIndex);
+                            btnRemove.glowOn = true;
                         }
-                    }
-                    else if (btnLeft.getImpact(x, y))
-                    {
-                        gv.PlaySound("btn_click");
-                        //change index of pcList
-                        lastClickedPlayerList = false;
-                        if (pcIndex > 0)
+                        else if (btnLeft.getImpact(x, y))
                         {
-                            pcIndex--;
+                            btnLeft.glowOn = true;
                         }
-                    }
-                    else if (btnPcListIndex.getImpact(x, y))
-                    {
-                        gv.PlaySound("btn_click");
-                        //change index of pcList
-                        lastClickedPlayerList = false;
-                    }
-                    else if (btnRight.getImpact(x, y))
-                    {
-                        gv.PlaySound("btn_click");
-                        //change index of pcList
-                        lastClickedPlayerList = false;
-                        if (pcIndex < pcList.Count - 1)
+                        else if (btnPcListIndex.getImpact(x, y))
                         {
-                            pcIndex++;
+                            btnPcListIndex.glowOn = true;
                         }
-                    }
-                    else if (btnCreate.getImpact(x, y))
-                    {
-                        gv.PlaySound("btn_click");
-                        //switch to PcCreation screen
-                        gv.screenPcCreation.CreateRaceList();
-                        gv.screenPcCreation.resetPC();
-                        gv.screenType = "pcCreation";
-                    }
+                        else if (btnRight.getImpact(x, y))
+                        {
+                            btnRight.glowOn = true;
+                        }
+                        else if (btnCreate.getImpact(x, y))
+                        {
+                            btnCreate.glowOn = true;
+                        }
+                        else if (btnHelp.getImpact(x, y))
+                        {
+                            btnHelp.glowOn = true;
+                        }
+                        else if (btnReturn.getImpact(x, y))
+                        {
+                            btnReturn.glowOn = true;
+                        }
+                        break;
 
-                    else if (btnHelp.getImpact(x, y))
-                    {
-                        gv.PlaySound("btn_click");
-                        tutorialPartyBuild();
-                    }
+                    case MouseEventType.EventType.MouseUp:
+                        x = (int)e.X;
+                        y = (int)e.Y;
 
-                    else if (btnReturn.getImpact(x, y))
-                    {
-                        gv.PlaySound("btn_click");
-                        if (gv.mod.playerList.Count > 0)
-                        {
-                            gv.mod.PlayerLocationX = gv.mod.startingPlayerPositionX;
-                            gv.mod.PlayerLocationY = gv.mod.startingPlayerPositionY;
-                            gv.mod.playerList[0].mainPc = true;
-                            gv.cc.tutorialMessageMainMap();
-                            gv.screenType = "main";
-                            gv.cc.doUpdate();
-                        }
-                    }
-                    for (int j = 0; j < gv.mod.playerList.Count; j++)
-                    {
-                        if (btnPartyIndex[j].getImpact(x, y))
+                        btnAdd.glowOn = false;
+                        btnRemove.glowOn = false;
+                        btnLeft.glowOn = false;
+                        btnRight.glowOn = false;
+                        btnPcListIndex.glowOn = false;
+                        btnCreate.glowOn = false;
+                        btnHelp.glowOn = false;
+                        btnReturn.glowOn = false;
+
+                        if (btnAdd.getImpact(x, y))
                         {
                             gv.PlaySound("btn_click");
-                            partyScreenPcIndex = j;
-                            lastClickedPlayerList = true;
+                            //add selected PC to partyList and remove from pcList
+                            if ((pcList.Count > 0) && (gv.mod.playerList.Count < gv.mod.numberOfPlayerMadePcsAllowed))
+                            {
+                                Player copyPC = pcList[pcIndex].DeepCopy();
+                                copyPC.token = gv.cc.LoadBitmap(copyPC.tokenFilename);
+                                copyPC.portrait = gv.cc.LoadBitmap(copyPC.portraitFilename);
+                                copyPC.playerClass = gv.mod.getPlayerClass(copyPC.classTag);
+                                copyPC.race = gv.mod.getRace(copyPC.raceTag);
+                                gv.mod.playerList.Add(copyPC);
+                                pcList.RemoveAt(pcIndex);
+                            }
                         }
-                    }
-                    break;
+                        else if (btnRemove.getImpact(x, y))
+                        {
+                            gv.PlaySound("btn_click");
+                            //remove selected from partyList and add to pcList
+                            if (gv.mod.playerList.Count > 0)
+                            {
+                                Player copyPC = gv.mod.playerList[partyScreenPcIndex].DeepCopy();
+                                copyPC.token = gv.cc.LoadBitmap(copyPC.tokenFilename);
+                                copyPC.portrait = gv.cc.LoadBitmap(copyPC.portraitFilename);
+                                copyPC.playerClass = gv.mod.getPlayerClass(copyPC.classTag);
+                                copyPC.race = gv.mod.getRace(copyPC.raceTag);
+                                pcList.Add(copyPC);
+                                gv.mod.playerList.RemoveAt(partyScreenPcIndex);
+                            }
+                        }
+                        else if (btnLeft.getImpact(x, y))
+                        {
+                            gv.PlaySound("btn_click");
+                            //change index of pcList
+                            lastClickedPlayerList = false;
+                            if (pcIndex > 0)
+                            {
+                                pcIndex--;
+                            }
+                        }
+                        else if (btnPcListIndex.getImpact(x, y))
+                        {
+                            gv.PlaySound("btn_click");
+                            //change index of pcList
+                            lastClickedPlayerList = false;
+                        }
+                        else if (btnRight.getImpact(x, y))
+                        {
+                            gv.PlaySound("btn_click");
+                            //change index of pcList
+                            lastClickedPlayerList = false;
+                            if (pcIndex < pcList.Count - 1)
+                            {
+                                pcIndex++;
+                            }
+                        }
+                        else if (btnCreate.getImpact(x, y))
+                        {
+                            gv.PlaySound("btn_click");
+                            //switch to PcCreation screen
+                            gv.screenPcCreation.CreateRaceList();
+                            gv.screenPcCreation.resetPC();
+                            gv.screenType = "pcCreation";
+                        }
+
+                        else if (btnHelp.getImpact(x, y))
+                        {
+                            gv.PlaySound("btn_click");
+                            tutorialPartyBuild();
+                        }
+
+                        else if (btnReturn.getImpact(x, y))
+                        {
+                            gv.PlaySound("btn_click");
+                            if (gv.mod.playerList.Count > 0)
+                            {
+                                gv.mod.PlayerLocationX = gv.mod.startingPlayerPositionX;
+                                gv.mod.PlayerLocationY = gv.mod.startingPlayerPositionY;
+                                gv.mod.playerList[0].mainPc = true;
+                                gv.cc.tutorialMessageMainMap();
+                                gv.screenType = "main";
+                                gv.cc.doUpdate();
+                            }
+                        }
+                        for (int j = 0; j < gv.mod.playerList.Count; j++)
+                        {
+                            if (btnPartyIndex[j].getImpact(x, y))
+                            {
+                                gv.PlaySound("btn_click");
+                                partyScreenPcIndex = j;
+                                lastClickedPlayerList = true;
+                            }
+                        }
+                        break;
+                }
+            }
+            catch
+            {
             }
         }
 

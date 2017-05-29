@@ -860,114 +860,119 @@ namespace IceBlink2
         }
         public void onTouchCastSelector(MouseEventArgs e, MouseEventType.EventType eventType, bool inCombat)
 	    {
-		    btnHelp.glowOn = false;
-		    btnExit.glowOn = false;
-		    btnSelect.glowOn = false;
-            btnTokensLeft.glowOn = false;
-            btnTokensRight.glowOn = false;
-            btnPageIndex.glowOn = false;
+            try
+            {
+                btnHelp.glowOn = false;
+                btnExit.glowOn = false;
+                btnSelect.glowOn = false;
+                btnTokensLeft.glowOn = false;
+                btnTokensRight.glowOn = false;
+                btnPageIndex.glowOn = false;
 
-            switch (eventType)
-		    {
-		    case MouseEventType.EventType.MouseDown:
-		    case MouseEventType.EventType.MouseMove:
-			    int x = (int) e.X;
-			    int y = (int) e.Y;
-			    if (btnHelp.getImpact(x, y))
-			    {
-				    btnHelp.glowOn = true;
-			    }
-			    else if (btnSelect.getImpact(x, y))
-			    {
-				    btnSelect.glowOn = true;
-			    }
-			    else if (btnExit.getImpact(x, y))
-			    {
-				    btnExit.glowOn = true;
-			    }
-                    else if (btnTokensLeft.getImpact(x, y))
-                    {
-                        btnTokensLeft.glowOn = true;
-                    }
-                    else if (btnTokensRight.getImpact(x, y))
-                    {
-                        btnTokensRight.glowOn = true;
-                    }
-                    else if (btnPageIndex.getImpact(x, y))
-                    {
-                        btnPageIndex.glowOn = true;
-                    }
-                    break;
-			
-		    case MouseEventType.EventType.MouseUp:
-			    x = (int) e.X;
-			    y = (int) e.Y;
-			
-			    btnHelp.glowOn = false;
-			    //btnInfo.glowOn = false;
-			    btnExit.glowOn = false;
-			    btnSelect.glowOn = false;
-                    btnTokensLeft.glowOn = false;
-                    btnTokensRight.glowOn = false;
-                    btnPageIndex.glowOn = false;
-
-                    for (int j = 0; j < slotsPerPage; j++)
-			    {
-				    if (btnSpellSlots[j].getImpact(x, y))
-				    {
-					    spellSlotIndex = j;
-				    }
-			    }
-                    if (btnTokensLeft.getImpact(x, y))
-                    {
-                        if (tknPageIndex > 0)
+                switch (eventType)
+                {
+                    case MouseEventType.EventType.MouseDown:
+                    case MouseEventType.EventType.MouseMove:
+                        int x = (int)e.X;
+                        int y = (int)e.Y;
+                        if (btnHelp.getImpact(x, y))
                         {
-                            tknPageIndex--;
-                            btnPageIndex.Text = (tknPageIndex + 1) + "/" + maxPages;
+                            btnHelp.glowOn = true;
                         }
-                    }
-                    else if (btnTokensRight.getImpact(x, y))
-                    {
-                        if (tknPageIndex < maxPages)
+                        else if (btnSelect.getImpact(x, y))
                         {
-                            tknPageIndex++;
-                            btnPageIndex.Text = (tknPageIndex + 1) + "/" + maxPages;
+                            btnSelect.glowOn = true;
                         }
-                    }
+                        else if (btnExit.getImpact(x, y))
+                        {
+                            btnExit.glowOn = true;
+                        }
+                        else if (btnTokensLeft.getImpact(x, y))
+                        {
+                            btnTokensLeft.glowOn = true;
+                        }
+                        else if (btnTokensRight.getImpact(x, y))
+                        {
+                            btnTokensRight.glowOn = true;
+                        }
+                        else if (btnPageIndex.getImpact(x, y))
+                        {
+                            btnPageIndex.glowOn = true;
+                        }
+                        break;
+
+                    case MouseEventType.EventType.MouseUp:
+                        x = (int)e.X;
+                        y = (int)e.Y;
+
+                        btnHelp.glowOn = false;
+                        //btnInfo.glowOn = false;
+                        btnExit.glowOn = false;
+                        btnSelect.glowOn = false;
+                        btnTokensLeft.glowOn = false;
+                        btnTokensRight.glowOn = false;
+                        btnPageIndex.glowOn = false;
+
+                        for (int j = 0; j < slotsPerPage; j++)
+                        {
+                            if (btnSpellSlots[j].getImpact(x, y))
+                            {
+                                spellSlotIndex = j;
+                            }
+                        }
+                        if (btnTokensLeft.getImpact(x, y))
+                        {
+                            if (tknPageIndex > 0)
+                            {
+                                tknPageIndex--;
+                                btnPageIndex.Text = (tknPageIndex + 1) + "/" + maxPages;
+                            }
+                        }
+                        else if (btnTokensRight.getImpact(x, y))
+                        {
+                            if (tknPageIndex < maxPages)
+                            {
+                                tknPageIndex++;
+                                btnPageIndex.Text = (tknPageIndex + 1) + "/" + maxPages;
+                            }
+                        }
 
 
-                 else if (btnHelp.getImpact(x, y))
-			    {
-				    tutorialMessageCastingScreen();
-			    }
-			    else if (btnSelect.getImpact(x, y))
-			    {
-                        //check later whether this is properly addjusted
-                        doSelectedSpell(inCombat);
-			    }
-			    else if (btnExit.getImpact(x, y))
-			    {
-				    if (inCombat)
-				    {
-					    if (gv.screenCombat.canMove)
-					    {
-						    gv.screenCombat.currentCombatMode = "move";
-					    }
-					    else
-					    {
-						    gv.screenCombat.currentCombatMode = "attack";
-					    }
-					    gv.screenType = "combat";
-					    doCleanUp();
-				    }
-				    else
-				    {
-					    gv.screenType = "main";	
-					    doCleanUp();
-				    }							
-			    }
-			    break;		
-		    }
+                        else if (btnHelp.getImpact(x, y))
+                        {
+                            tutorialMessageCastingScreen();
+                        }
+                        else if (btnSelect.getImpact(x, y))
+                        {
+                            //check later whether this is properly addjusted
+                            doSelectedSpell(inCombat);
+                        }
+                        else if (btnExit.getImpact(x, y))
+                        {
+                            if (inCombat)
+                            {
+                                if (gv.screenCombat.canMove)
+                                {
+                                    gv.screenCombat.currentCombatMode = "move";
+                                }
+                                else
+                                {
+                                    gv.screenCombat.currentCombatMode = "attack";
+                                }
+                                gv.screenType = "combat";
+                                doCleanUp();
+                            }
+                            else
+                            {
+                                gv.screenType = "main";
+                                doCleanUp();
+                            }
+                        }
+                        break;
+                }
+            }
+            catch
+            { }
 	    }
     
         public void doCleanUp()

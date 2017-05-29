@@ -792,7 +792,13 @@ namespace IceBlink2
                             if (gv.mod.playerList[i].stayDurationInTurns <= 0)
                             {
                                 gv.cc.addLogText("<font color='blue'>" + gv.mod.playerList[i].name + " vanishes." + "</font><BR>");
+                                gv.mod.playerList[i].hp = -20;
+                                recalculateCreaturesShownInInitiativeBar();
                                 gv.mod.playerList.RemoveAt(i);
+                            }
+                            else if (gv.mod.playerList[i].stayDurationInTurns < 10)
+                            {
+                                gv.cc.addLogText("<font color='blue'>" + gv.mod.playerList[i].name + " has " + gv.mod.playerList[i].stayDurationInTurns + " turns left." + "</font><BR>");
                             }
                         }
                     }
@@ -2211,7 +2217,12 @@ namespace IceBlink2
                 {
                     if (((crt.combatLocX + 1) <= (UpperLeftSquare.X + (gv.playerOffsetX * 2))) && ((crt.combatLocX - 1) >= (UpperLeftSquare.X)) && ((crt.combatLocY + 1) <= (UpperLeftSquare.Y + (gv.playerOffsetY * 2))) && ((crt.combatLocY - 1) >= (UpperLeftSquare.Y)))
                     {
+                        //gv.animationTimer.Enabled = true;
                         gv.postDelayed("doAnimation", (int)(2.5f * gv.mod.combatAnimationSpeed));
+                        ///while (gv.animationTimer.Enabled)
+                        //{
+                            //gv.postDelayed("doAnimation", (int)(2.5f * gv.mod.combatAnimationSpeed));
+                        //}
                         //doCreatureTurnAfterDelay();
                     }
                     else
@@ -2278,6 +2289,7 @@ namespace IceBlink2
             Creature crt = gv.mod.currentEncounter.encounterCreatureList[creatureIndex];
             if (creatureMoves + 0.5f < crt.getMoveDistance())
             {
+                /*
                 Player pc = targetClosestPC(crt);
                 Coordinate newCoor = new Coordinate(-1, -1);
                 if (pc != null)
@@ -2292,6 +2304,40 @@ namespace IceBlink2
                         storedPathOfCurrentCreature = pf.findNewPoint(crt, new Coordinate(coordinatesOfPcTheCreatureMovesTowards.X, coordinatesOfPcTheCreatureMovesTowards.Y));
                     }
                 }
+                */
+                Player pc = targetClosestPC(crt);
+                Coordinate newCoor = new Coordinate(-1, -1);
+                int shortestPath = 999;
+                List<Coordinate> InterimPath = new List<Coordinate>();
+                foreach (Player p in gv.mod.playerList)
+                {
+                    if (p.isAlive())
+                    {
+                        if ((p.combatLocX != coordinatesOfPcTheCreatureMovesTowards.X) || (p.combatLocY != coordinatesOfPcTheCreatureMovesTowards.Y))
+                        {
+                            coordinatesOfPcTheCreatureMovesTowards.X = p.combatLocX;
+                            coordinatesOfPcTheCreatureMovesTowards.Y = p.combatLocY;
+                            //run pathFinder to get new location
+                            pf.resetGrid(crt);
+                            InterimPath.Clear();
+                            InterimPath = pf.findNewPoint(crt, new Coordinate(coordinatesOfPcTheCreatureMovesTowards.X, coordinatesOfPcTheCreatureMovesTowards.Y));
+                            if (InterimPath != null)
+                            {
+                                if ((InterimPath.Count < shortestPath) && (InterimPath.Count > 0))
+                                {
+                                    shortestPath = InterimPath.Count;
+                                    pc = p;
+                                    storedPathOfCurrentCreature.Clear();
+                                    foreach (Coordinate c in InterimPath)
+                                    {
+                                        storedPathOfCurrentCreature.Add(c);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
                 if (storedPathOfCurrentCreature.Count > 1)
                 {
                     crt.newCoor = storedPathOfCurrentCreature[storedPathOfCurrentCreature.Count - 2];
@@ -12707,10 +12753,15 @@ namespace IceBlink2
                 {
                     if (minY < -gv.playerOffsetY) { minY = -gv.playerOffsetY; }
                 }
-                //if (minY < 0) { minY = 0; }
+            //if (minY < 0) { minY = 0; }
 
-                //do not adjust view port if creature is on screen already and ends move at least one square away from border
-                if (((crt.combatLocX + 2) <= (UpperLeftSquare.X + (gv.playerOffsetX * 2))) && ((crt.combatLocX - 2) >= (UpperLeftSquare.X)) && ((crt.combatLocY + 2) <= (UpperLeftSquare.Y + (gv.playerOffsetY * 2))) && ((crt.combatLocY - 2) >= (UpperLeftSquare.Y)))
+            //do not adjust view port if creature is on screen already and ends move at least one square away from border
+            int oversizeMargin = 0;
+            if (crt.creatureSize > 1)
+            {
+                oversizeMargin = 2;
+            }
+                if (((crt.combatLocX + 2 + oversizeMargin) <= (UpperLeftSquare.X + (gv.playerOffsetX * 2))) && ((crt.combatLocX - 2 - oversizeMargin) >= (UpperLeftSquare.X)) && ((crt.combatLocY + 2 + oversizeMargin) <= (UpperLeftSquare.Y + (gv.playerOffsetY * 2))) && ((crt.combatLocY - 2 - oversizeMargin) >= (UpperLeftSquare.Y)))
                 {
                     return;
                 }
@@ -12792,8 +12843,8 @@ namespace IceBlink2
                     }
                     else if (!gv.mod.fastMode)
                     {
-                        UpperLeftSquare.X = minX;
-                        UpperLeftSquare.Y = minY;
+                    UpperLeftSquare.X = minX;
+                    UpperLeftSquare.Y = minY;
                     int deltaX = UpperLeftSquare.X - FormerUpperLeftSquare.X;
                     int deltaY = UpperLeftSquare.Y - FormerUpperLeftSquare.Y;
                     deltaX = 0;
@@ -13913,6 +13964,7 @@ namespace IceBlink2
                 {
                     //int dist = CalcDistance(crt.combatLocX, crt.combatLocY, p.combatLocX, p.combatLocY);
                     int dist = CalcDistance(crt, crt.combatLocX, crt.combatLocY, p.combatLocX, p.combatLocY);
+                    /*
                     if (dist == farDist)
                     {
                         //since at same distance, do a random check to see if switch or stay with current PC target
@@ -13926,7 +13978,8 @@ namespace IceBlink2
                             }
                         }
                     }
-                    else if (dist < farDist)
+                    */
+                    if (dist < farDist)
                     {
                         farDist = dist;
                         pc = p;
