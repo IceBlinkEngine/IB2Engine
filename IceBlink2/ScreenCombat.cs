@@ -802,7 +802,23 @@ namespace IceBlink2
                             }
                         }
                     }
-                    
+
+                    for (int i = gv.mod.currentEncounter.encounterCreatureList.Count - 1; i >= 0; i--)
+                    {
+                            gv.mod.currentEncounter.encounterCreatureList[i].stayDurationInTurns--;
+                            if (gv.mod.currentEncounter.encounterCreatureList[i].stayDurationInTurns <= 0)
+                            {
+                                gv.cc.addLogText("<font color='blue'>" + gv.mod.currentEncounter.encounterCreatureList[i].cr_name + " vanishes." + "</font><BR>");
+                                gv.mod.currentEncounter.encounterCreatureList[i].hp = -20;
+                                recalculateCreaturesShownInInitiativeBar();
+                                gv.mod.currentEncounter.encounterCreatureList.RemoveAt(i);
+                            }
+                            else if (gv.mod.currentEncounter.encounterCreatureList[i].stayDurationInTurns < 10)
+                            {
+                                gv.cc.addLogText("<font color='blue'>" + gv.mod.currentEncounter.encounterCreatureList[i].cr_name + " has " + gv.mod.currentEncounter.encounterCreatureList[i].stayDurationInTurns + " turns left." + "</font><BR>");
+                            }   
+                    }
+
                     //hit the end so start the next round
                     startNextRoundStuff();
                     return;
@@ -2305,13 +2321,15 @@ namespace IceBlink2
                     }
                 }
                 */
+
                 Player pc = targetClosestPC(crt);
                 Coordinate newCoor = new Coordinate(-1, -1);
                 int shortestPath = 999;
                 List<Coordinate> InterimPath = new List<Coordinate>();
                 foreach (Player p in gv.mod.playerList)
                 {
-                    if (p.isAlive())
+                    //EXPI: add stealth to the conditions
+                    if (p.isAlive() && !p.steathModeOn && !p.isInvisible())
                     {
                         if ((p.combatLocX != coordinatesOfPcTheCreatureMovesTowards.X) || (p.combatLocY != coordinatesOfPcTheCreatureMovesTowards.Y))
                         {
@@ -2332,11 +2350,11 @@ namespace IceBlink2
                                     {
                                         storedPathOfCurrentCreature.Add(c);
                                     }
-                                }
-                            }
-                        }
-                    }
-                }
+                                }//if inner
+                            }//if outer
+                        }//if
+                    }//if
+                }//foreach
 
                 if (storedPathOfCurrentCreature.Count > 1)
                 {
@@ -2351,6 +2369,7 @@ namespace IceBlink2
                     return;
                 }
 
+
                 if (pc != null)
                 {
                     //pf.resetGrid();
@@ -2362,8 +2381,12 @@ namespace IceBlink2
                         //endCreatureTurn(crt);
                         //return;
 
-                        //didn't find a path, try other PCs  
-                        bool foundOne = false;
+                        //didn't find a path, try other PCs
+                        //EXPI: set this to true (below=  
+                        bool foundOne = true;
+
+                        //EXPI: disable the redundnat search
+                        /*
                         //try each PC  
                         for (int d = 0; d < gv.mod.playerList.Count; d++)
                         {
@@ -2397,6 +2420,9 @@ namespace IceBlink2
                                 }
                             }
                         }
+                        */
+
+                        //EXPI note: this branch si nver called
                         if (!foundOne)
                         {
                             //try around the nearest PC  
@@ -2462,7 +2488,7 @@ namespace IceBlink2
                     {
                         gv.cc.addLogText("<yl>newCoor:" + crt.newCoor.X + "," + crt.newCoor.Y + "</yl><BR>");
                     }
-
+                    
                     //it's a diagonal move
                     if ((crt.combatLocX != crt.newCoor.X) && (crt.combatLocY != crt.newCoor.Y))
                     {
@@ -2538,12 +2564,16 @@ namespace IceBlink2
                         }
 
                         //try to move horizontally or vertically instead if most points are not enough for diagonal move
+                        //EXPI: best use the same pathfinding concpt as for diagonal above
                         else if ((crt.getMoveDistance() - creatureMoves) >= 1)
                         {
+
                             pf.resetGrid(crt);
                             //block the originial diagonal target square and calculate again
                             gv.mod.nonAllowedDiagonalSquareX = crt.newCoor.X;
                             gv.mod.nonAllowedDiagonalSquareY = crt.newCoor.Y;
+                            //EXPI:line below
+                            storedPathOfCurrentCreature.Clear();
                             storedPathOfCurrentCreature = pf.findNewPoint(crt, new Coordinate(pc.combatLocX, pc.combatLocY));
 
                             if (storedPathOfCurrentCreature.Count > 1)
@@ -2768,6 +2798,7 @@ namespace IceBlink2
 
                             if (IsInVisibleCombatWindow(crt.combatLocX, crt.combatLocY))
                             {
+                                //ATTAKCKI
                                 gv.touchEnabled = false;
                             }
                         }
@@ -2838,11 +2869,14 @@ namespace IceBlink2
                         if (gv.mod.useManualCombatCam)
                         {
                             //adjustCamToRangedCreature = true;
-                            CalculateUpperLeftCreature(crt);
+                            //michael
+                            CenterScreenOnPC(pc);
+                            //CalculateUpperLeftCreature(crt);
                             //adjustCamToRangedCreature = false;
 
                             if (IsInVisibleCombatWindow(crt.combatLocX, crt.combatLocY))
                             {
+                                //ATTACKI
                                 gv.touchEnabled = false;
                             }
                         }
@@ -2939,6 +2973,7 @@ namespace IceBlink2
 
                             if (IsInVisibleCombatWindow(crt.combatLocX, crt.combatLocY))
                             {
+                                //ATTACKI
                                 gv.touchEnabled = false;
                             }
                         }
@@ -3015,6 +3050,7 @@ namespace IceBlink2
 
                             if (IsInVisibleCombatWindow(crt.combatLocX, crt.combatLocY))
                             {
+                                //ATTACKI
                                 gv.touchEnabled = false;
                             }
                         }
@@ -3114,6 +3150,7 @@ namespace IceBlink2
 
                     if (IsInVisibleCombatWindow(crt.combatLocX, crt.combatLocY))
                     {
+                        //ATTACKI
                         gv.touchEnabled = false;
                     }
                 }
@@ -5754,14 +5791,27 @@ namespace IceBlink2
             }
 
             //SET MOVES LEFT TEXT
-            Player pc = gv.mod.playerList[currentPlayerIndex];
-            float movesLeft = pc.moveDistance - currentMoves;
-            if (movesLeft < 0) { movesLeft = 0; }
             IB2Button btn = combatUiLayout.GetButtonByTag("btnMoveCounter");
-            if (btn != null)
+            if (currentPlayerIndex < gv.mod.playerList.Count)
             {
-                btn.Text = movesLeft.ToString();
+                Player pc = gv.mod.playerList[currentPlayerIndex];
+                float movesLeft = pc.moveDistance - currentMoves;
+                if (movesLeft < 0) { movesLeft = 0; }
+                //IB2Button btn = combatUiLayout.GetButtonByTag("btnMoveCounter");
+                if (btn != null)
+                {
+                    btn.Text = movesLeft.ToString();
+                }
             }
+            else
+            {
+                //IB2Button btn = combatUiLayout.GetButtonByTag("btnMoveCounter");
+                if (btn != null)
+                {
+                    btn.Text = "0";
+                }
+            }
+            
 
             //SET KILL BUTTON
             if (gv.mod.debugMode)
@@ -6650,14 +6700,17 @@ namespace IceBlink2
         }
         public void drawCombatPlayers()
         {
-            Player p = gv.mod.playerList[currentPlayerIndex];
-            if (IsInVisibleCombatWindow(p.combatLocX, p.combatLocY))
+            if (currentPlayerIndex < gv.mod.playerList.Count)
             {
-                IbRect src = new IbRect(0, 0, gv.cc.turn_marker.PixelSize.Width, gv.cc.turn_marker.PixelSize.Width);
-                IbRect dst = new IbRect(getPixelLocX(p.combatLocX), getPixelLocY(p.combatLocY), gv.squareSize, gv.squareSize);
-                if (isPlayerTurn)
+                Player p = gv.mod.playerList[currentPlayerIndex];
+                if (IsInVisibleCombatWindow(p.combatLocX, p.combatLocY))
                 {
-                    gv.DrawBitmap(gv.cc.turn_marker, src, dst);
+                    IbRect src = new IbRect(0, 0, gv.cc.turn_marker.PixelSize.Width, gv.cc.turn_marker.PixelSize.Width);
+                    IbRect dst = new IbRect(getPixelLocX(p.combatLocX), getPixelLocY(p.combatLocY), gv.squareSize, gv.squareSize);
+                    if (isPlayerTurn)
+                    {
+                        gv.DrawBitmap(gv.cc.turn_marker, src, dst);
+                    }
                 }
             }
             foreach (Player pc in gv.mod.playerList)
@@ -12894,6 +12947,44 @@ namespace IceBlink2
                 spr.position.Y = spr.position.Y + (deltaY * gv.squareSize);
             }
         }
+
+        public void CenterScreenOnPC(Player pc)
+        {
+            //Player pc = gv.mod.playerList[currentPlayerIndex];
+            int minX = pc.combatLocX - gv.playerOffsetX;
+            if (!gv.mod.useManualCombatCam)
+            {
+                if (minX < 0) { minX = 0; }
+            }
+            else
+            {
+                if (minX < -gv.playerOffsetX) { minX = -gv.playerOffsetX; }
+            }
+            int minY = pc.combatLocY - gv.playerOffsetY;
+
+            if (!gv.mod.useManualCombatCam)
+            {
+                if (minY < 0) { minY = 0; }
+            }
+            else
+            {
+                if (minY < -gv.playerOffsetY) { minY = -gv.playerOffsetY; }
+            }
+
+            UpperLeftSquare.X = minX;
+            UpperLeftSquare.Y = minY;
+            //TODO: transform sprite position here, based on delta between current and older upper left, also for creatue
+            int deltaX = UpperLeftSquare.X - FormerUpperLeftSquare.X;
+            int deltaY = UpperLeftSquare.Y - FormerUpperLeftSquare.Y;
+            deltaX = 0;
+            deltaY = 0;
+            foreach (Sprite spr in spriteList)
+            {
+                spr.position.X = spr.position.X + (deltaX * gv.squareSize);
+                spr.position.Y = spr.position.Y + (deltaY * gv.squareSize);
+            }
+        }
+
         public bool IsInVisibleCombatWindow(int sqrX, int sqrY)
         {
             //all input coordinates are in Map Location, not Screen Location

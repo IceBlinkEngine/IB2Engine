@@ -546,7 +546,7 @@ namespace IceBlink2
                     }
                     else if (filename.Equals("gaAddCreatureToCurrentEncounter.cs"))
                     {
-                        AddCreatureToCurrentEncounter(p1, p2, p3);
+                        AddCreatureToCurrentEncounter(p1, p2, p3, p4);
                     }
 
                 }
@@ -1162,7 +1162,7 @@ namespace IceBlink2
                     else if (filename.Equals("osAddCreatureToCurrentEncounter.cs"))
                     {
                         //p1 is the resref of the summoned cretaure (use one from a blueprint in the toolset's creature blueprints section)
-                        //p2 will be teh su mmon duartion (NOT IMPLEMENTED YET)
+                        //p2 will be the summon duartion (NOT IMPLEMENTED YET)
                         //p3 x location of the summon in current encounter (will be automatically adjusted to nearest location if the spot is already occupied or non-walkable)
                         //p4 y location of the summon in current encounter (will be automatically adjusted to nearest location if the spot is already occupied or non-walkable)
 
@@ -1347,7 +1347,7 @@ namespace IceBlink2
                             }
                         }
                         */
-                        AddCreatureToCurrentEncounter(p1, p2, p3);
+                        AddCreatureToCurrentEncounter(p1, p2, p3, p4);
                     }
 
                     else if (filename.Equals("osSetTriggerSingleLocation.cs"))
@@ -1389,18 +1389,20 @@ namespace IceBlink2
             
         }
 
-        public void AddCreatureToCurrentEncounter(string p1, string p2, string p3)
+        public void AddCreatureToCurrentEncounter(string p1, string p2, string p3, string p4)
          {  
              //p1 is the resref of the added creature (use one from a blueprint in the toolset's creature blueprints section)  
              //p2 x location of the creature in current encounter (will be automatically adjusted to nearest location if the spot is already occupied or non-walkable)  
              //p3 y location of the creature in current encounter (will be automatically adjusted to nearest location if the spot is already occupied or non-walkable)  
+             //p4 is the duration in turns that the creature will stay
    
              foreach (Creature c in gv.mod.moduleCreaturesList)  
              {  
                  if (c.cr_resref.Equals(p1))  
                  {  
-                     //fetch the data for our creature by making a blueprint(object) copy  
-                      Creature copy = c.DeepCopy();
+                   //fetch the data for our creature by making a blueprint(object) copy  
+                    Creature copy = c.DeepCopy();
+                    copy.stayDurationInTurns = Convert.ToInt32(p4);
 
                     //test if still needed with IB2 later on
                     //crucial for loading the creature token
@@ -1433,9 +1435,12 @@ namespace IceBlink2
                     //Check whether the target tile is free (then it's not neccessary to loop through any other tiles)  
                     //three checks are done in the following: walkable, occupied by creature, occupied by pc  
 
+                    //TODO: for oversized cretaures
+                    //which squares will the cretaure cover
+               
                     //first check: check walkable  
                     //if (gv.mod.currentEncounter.encounterTiles[targetTile].Walkable == false)
-                        if (gv.mod.currentEncounter.encounterTiles[targetTile].Walkable == false)  
+                    if (gv.mod.currentEncounter.encounterTiles[targetTile].Walkable == false)  
                      {  
                          changeSummonLocation = true;  
                       }  
@@ -2708,21 +2713,111 @@ namespace IceBlink2
                         GiveItem(newPc.AmmoRefs.resref, 1);
                     }
 
+                newPc.moveOrder = gv.screenCombat.moveOrderList.Count;
+                //finally add creature  
+                //mod.currentEncounter.encounterCreatureList.Add(copy);
+                //add to end of move order  
                 MoveOrder newMO = new MoveOrder();
                 newMO.PcOrCreature = newPc;
-                newMO.rank = 1000 + gv.mod.allyCounter; 
+                newMO.rank = 100;
                 gv.screenCombat.moveOrderList.Add(newMO);
-                //gv.TrackerSendEventOnePlayerInfo(newPc,"PartyAddCompanion:" + newPc.name);
+                //increment the number of initial move order objects
+                //note: check how ini bar system will interact with creatures added while battle is running  
+                gv.screenCombat.initialMoveOrderListSize++;
+                //add to encounter xp  
+
+                /*
+                                MoveOrder newMO = new MoveOrder();
+                                newMO.PcOrCreature = newPc;
+                                newMO.rank = 1000 + gv.mod.allyCounter; 
+                                gv.screenCombat.moveOrderList.Add(newMO);
+                                //gv.TrackerSendEventOnePlayerInfo(newPc,"PartyAddCompanion:" + newPc.name);
+
+                                gv.screenCombat.initialMoveOrderListSize = gv.screenCombat.moveOrderList.Count;
+                                gv.screenCombat.moveOrderList = gv.screenCombat.moveOrderList.OrderByDescending(x => x.rank).ToList();
+
+                                int cnt = 0;
+                                foreach (MoveOrder m in gv.screenCombat.moveOrderList)
+                                {
+                                    if (m.PcOrCreature is Player)
+                                    {
+                                        Player pc = (Player)m.PcOrCreature;
+                                        pc.moveOrder = cnt;
+                                    }
+                                    else
+                                    {
+                                        Creature crt = (Creature)m.PcOrCreature;
+                                        crt.moveOrder = cnt;
+                                    }
+                                    cnt++;
+                                }
+                  */
+
                 gv.cc.addLogText("<font color='lime'>" + newPc.name + " joins the party</font><BR>");
-                //}
-                //else
-                //{
-                    //if (mod.debugMode) //SD_20131102
-                    //{
-                        //gv.cc.addLogText("<font color='yellow'>" + "This PC is already in the party" + "</font><BR>");
-                    //}
-                //}
+
+                //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                /*
+                //draw form here
+        public void calcualteMoveOrder()
+        {
+            moveOrderList.Clear();
+            //creatureCounter2 = 0;
+            //go through each PC and creature and make initiative roll
+            foreach (Player pc in gv.mod.playerList)
+            {
+
+                int roll = gv.sf.RandInt(100) + (((pc.dexterity - 10) / 2) * 5);
+                MoveOrder newMO = new MoveOrder();
+                newMO.PcOrCreature = pc;
+                newMO.rank = roll;
+                moveOrderList.Add(newMO);
+
+
             }
+            foreach (Creature crt in gv.mod.currentEncounter.encounterCreatureList)
+            {
+
+
+                int roll = gv.sf.RandInt(100) + (crt.initiativeBonus * 5);
+                MoveOrder newMO = new MoveOrder();
+                newMO.PcOrCreature = crt;
+                newMO.rank = roll;
+                moveOrderList.Add(newMO);
+
+            }
+            initialMoveOrderListSize = moveOrderList.Count;
+            //sort PCs and creatures based on results
+            moveOrderList = moveOrderList.OrderByDescending(x => x.rank).ToList();
+            //assign moveOrder to PC and Creature property
+            int cnt = 0;
+            foreach (MoveOrder m in moveOrderList)
+            {
+                if (m.PcOrCreature is Player)
+                {
+                    Player pc = (Player)m.PcOrCreature;
+                    pc.moveOrder = cnt;
+                }
+                else
+                {
+                    Creature crt = (Creature)m.PcOrCreature;
+                    crt.moveOrder = cnt;
+                }
+                cnt++;
+            }
+        }
+        */
+
+        ///XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+
+        //}
+        //else
+        //{
+        //if (mod.debugMode) //SD_20131102
+        //{
+        //gv.cc.addLogText("<font color='yellow'>" + "This PC is already in the party" + "</font><BR>");
+        //}
+        //}
+    }
             catch (Exception ex)
             {
                 if (mod.debugMode) //SD_20131102
@@ -9604,25 +9699,444 @@ namespace IceBlink2
                     gv.cc.addLogText("<yl>" + source.name + " fails to call ally, square is already occupied or not valid</yl><BR>");
                 }
             }
+            //gaAddCreatureToCurrentEncounter.cs
+            //AddCreatureToCurrentEncounter(p1, p2, p3, p4);
 
             else if (src is Creature) //creature casting  
             {
                 Creature source = (Creature)src;
                 Coordinate target = (Coordinate)trg;
+                bool foundPlace = true;
 
-                if (IsSquareOpen(target))
+                //holla
+                //we must determine the size of the summoned creature
+                Creature summon = new Creature();
+                foreach (Creature c in gv.mod.moduleCreaturesList)
                 {
-                    gv.cc.addLogText("<gn>" + source.cr_name + " teleports to another location</gn><BR>");
-                    source.combatLocX = target.X;
-                    source.combatLocY = target.Y;
+                    if (c.cr_resref == sp.spellScriptParm1)
+                    {
+                        summon.creatureSize = c.creatureSize;
+                    }
+                }
+
+                Coordinate plusX = new Coordinate();
+                plusX.X = target.X + 1;
+                plusX.Y = target.Y;
+                Coordinate plusY = new Coordinate();
+                plusY.X = target.X;
+                plusY.Y = target.Y + 1;
+                Coordinate plusXandY = new Coordinate();
+                plusXandY.X = target.X + 1;
+                plusXandY.Y = target.Y + 1;
+
+                if (summon.creatureSize == 1)
+                {
+                    if (!IsSquareOpen(target))
+                    {
+                        foundPlace = false;
+                    }
+                }
+
+                if (summon.creatureSize == 2)
+                {
+                   
+                    if (!IsSquareOpen(target))
+                    {
+                        foundPlace = false;
+                    }
+
+                    if (plusX.X < gv.mod.currentEncounter.MapSizeX)
+                    {
+                        if (!IsSquareOpen(plusX))
+                        {
+                            foundPlace = false;
+                        }
+                    }
+                    else
+                    {
+                        foundPlace = false;
+                    }
+                }
+
+                if (summon.creatureSize == 3)
+                {
+
+                    if (!IsSquareOpen(target))
+                    {
+                        foundPlace = false;
+                    }
+
+                    if (plusY.Y < gv.mod.currentEncounter.MapSizeY)
+                    {
+                        if (!IsSquareOpen(plusY))
+                        {
+                            foundPlace = false;
+                        }
+                    }
+                    else
+                    {
+                        foundPlace = false;
+                    }
+                }
+
+                if (summon.creatureSize == 4)
+                {
+
+                    if (!IsSquareOpen(target))
+                    {
+                        foundPlace = false;
+                    }
+
+                    if (plusX.X < gv.mod.currentEncounter.MapSizeX)
+                    {
+                        if (!IsSquareOpen(plusX))
+                        {
+                            foundPlace = false;
+                        }
+                    }
+                    else
+                    {
+                        foundPlace = false;
+                    }
+
+                    if (plusY.Y < gv.mod.currentEncounter.MapSizeY)
+                    {
+                        if (!IsSquareOpen(plusY))
+                        {
+                            foundPlace = false;
+                        }
+                    }
+                    else
+                    {
+                        foundPlace = false;
+                    }
+
+                    if (plusXandY.X < gv.mod.currentEncounter.MapSizeX && plusXandY.Y < gv.mod.currentEncounter.MapSizeY)
+                    {
+                        if (!IsSquareOpen(plusXandY))
+                        {
+                            foundPlace = false;
+                        }
+                    }
+                    else
+                    {
+                        foundPlace = false;
+                    }
+                }
+
+                //try to find a nearby square
+                if (foundPlace)
+                {
+                    gv.cc.addLogText("<gn>" + source.cr_name + " calls for a " + sp.spellScriptParm1 + "</gn><BR>");
+                    //p1 is the resref of the added creature(use one from a blueprint in the toolset's creature blueprints section)  
+                    //p2 is the duration in turns that the creature will stay
+                    gv.sf.AddCreatureToCurrentEncounter(sp.spellScriptParm1, target.X.ToString(), target.Y.ToString(), sp.spellScriptParm2);
+                    source.hp -= SpellToCast.costHP;
+                    if (source.hp < 0) { source.hp = 1; }
                     source.sp -= SpellToCast.costSP;
                     if (source.sp < 0) { source.sp = 0; }
                 }
                 else
                 {
-                    gv.cc.addLogText("<yl>" + source.cr_name + " fails to teleport, square is already occupied or not valid</yl><BR>");
+                    //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                    //find correct summon spot, replace with nearest location if neccessary  
+              
+                    bool changeSummonLocation = false;// used as switch for cycling through all tiles in case the originally intended spot was occupied/not-walkable  
+                    int targetTile = target.Y * gv.mod.currentEncounter.MapSizeX + target.X;//the index of the original target spot in the encounter's tiles list  
+                    List<int> freeTilesByIndex = new List<int>();// a new list used to store the indices of all free tiles in the enocunter  
+                    int tileLocX = 0;//just temporary storage in for locations of tiles  
+                    int tileLocY = 0;//just temporary storage in for locations of tiles  
+                    double floatTileLocY = 0;//was uncertain about rounding and conversion details, therefore need this one (see below)  
+                    bool tileIsFree = true;//identify a tile suited as new summon loaction  
+                    int nearestTileByIndex = -1;//store the nearest tile by index; as the relevant loop runs this will be replaced several times likely with ever nearer tiles  
+                    int dist = 0;//distance between the orignally intended summon location and a free tile  
+                    int lowestDist = 10000;//this storest the lowest ditance found while the loop runs  
+                    int deltaX = 0;//temporary value used for distance calculation   
+                    int deltaY = 0;//temporary value used for distance calculation   
+
+                    //Check whether the target tile is free (then it's not neccessary to loop through any other tiles)  
+                    //three checks are done in the following: walkable, occupied by creature, occupied by pc  
+
+                    //TODO: for oversized cretaures
+                    //which squares will the cretaure cover
+
+                    //first check: check walkable  
+                    //if (gv.mod.currentEncounter.encounterTiles[targetTile].Walkable == false)
+                    /*
+                    if (gv.mod.currentEncounter.encounterTiles[targetTile].Walkable == false)
+                    {
+                        changeSummonLocation = true;
+                    }
+
+                    //second check: check occupied by creature (only necceessary if walkable)  
+                    if (changeSummonLocation == false)
+                    {
+                        foreach (Creature cr in gv.mod.currentEncounter.encounterCreatureList)
+                        {
+                            if ((cr.combatLocX == target.X) && (cr.combatLocY == target.Y))
+                            {
+                                changeSummonLocation = true;
+                                break;
+                            }
+                        }
+                    }
+
+                    //third check: check occupied by pc (only necceessary if walkable and not occupied by creature)  
+                    if (changeSummonLocation == false)
+                    {
+                        foreach (Player pc in gv.mod.playerList)
+                        {
+                            if ((pc.combatLocX == target.X) && (pc.combatLocY == target.Y))
+                            {
+                                changeSummonLocation = true;
+                                break;
+                            }
+                        }
+                    }
+                    */
+                    changeSummonLocation = true;
+                    Coordinate target2 = new Coordinate();
+                    //target square was already occupied/non-walkable, so all other tiles are searched for the NEAREST FREE tile to switch the summon location to  
+                    if (changeSummonLocation == true)
+                    {
+                        //FIRST PART: get all FREE tiles in the current encounter  
+                        for (int i = 0; i < gv.mod.currentEncounter.encounterTiles.Count; i++)
+                        {
+                            //get the x and y location of current tile by calculation derived from index number, assuming that counting starts at top left corner of a map (0x, 0y)  
+                            //and that each horizintal x-line is counted first, then counting next horizonal x-line starting from the left again  
+                            tileIsFree = true;
+                            //Note: When e.g. MapsizeY is 7, the y values range from 0 to 6  
+                            tileLocX = i % gv.mod.currentEncounter.MapSizeY;
+                            //Note: ensure rounding down here   
+                            floatTileLocY = i / gv.mod.currentEncounter.MapSizeX;
+                            tileLocY = (int)Math.Floor(floatTileLocY);
+                            target2.X = tileLocX;
+                            target2.Y = tileLocY;
+
+                            //code for large summons goes here, see above
+                            //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                            plusX.X = target2.X + 1;
+                            plusX.Y = target2.Y;
+                            plusY.X = target2.X;
+                            plusY.Y = target2.Y + 1;
+                            plusXandY.X = target2.X + 1;
+                            plusXandY.Y = target2.Y + 1;
+
+                            foundPlace = true;
+
+                            if (summon.creatureSize == 1)
+                            {
+                                if (!IsSquareOpen(target2))
+                                {
+                                    foundPlace = false;
+                                }
+                            }
+
+                            if (summon.creatureSize == 2)
+                            {
+
+                                if (!IsSquareOpen(target2))
+                                {
+                                    foundPlace = false;
+                                }
+
+                                if (plusX.X < gv.mod.currentEncounter.MapSizeX)
+                                {
+                                    if (!IsSquareOpen(plusX))
+                                    {
+                                        foundPlace = false;
+                                    }
+                                }
+                                else
+                                {
+                                    foundPlace = false;
+                                }
+                            }
+
+                            if (summon.creatureSize == 3)
+                            {
+
+                                if (!IsSquareOpen(target2))
+                                {
+                                    foundPlace = false;
+                                }
+
+                                if (plusY.Y < gv.mod.currentEncounter.MapSizeY)
+                                {
+                                    if (!IsSquareOpen(plusY))
+                                    {
+                                        foundPlace = false;
+                                    }
+                                }
+                                else
+                                {
+                                    foundPlace = false;
+                                }
+                            }
+
+                            if (summon.creatureSize == 4)
+                            {
+
+                                if (!IsSquareOpen(target2))
+                                {
+                                    foundPlace = false;
+                                }
+
+                                if (plusX.X < gv.mod.currentEncounter.MapSizeX)
+                                {
+                                    if (!IsSquareOpen(plusX))
+                                    {
+                                        foundPlace = false;
+                                    }
+                                }
+                                else
+                                {
+                                    foundPlace = false;
+                                }
+
+                                if (plusY.Y < gv.mod.currentEncounter.MapSizeY)
+                                {
+                                    if (!IsSquareOpen(plusY))
+                                    {
+                                        foundPlace = false;
+                                    }
+                                }
+                                else
+                                {
+                                    foundPlace = false;
+                                }
+
+                                if (plusXandY.X < gv.mod.currentEncounter.MapSizeX && plusXandY.Y < gv.mod.currentEncounter.MapSizeY)
+                                {
+                                    if (!IsSquareOpen(plusXandY))
+                                    {
+                                        foundPlace = false;
+                                    }
+                                }
+                                else
+                                {
+                                    foundPlace = false;
+                                }
+                            }
+
+
+                            //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+
+                            if (foundPlace)
+                            {
+                                tileIsFree = true;
+                            }
+                            else
+                            {
+                                tileIsFree = false;
+                            }
+                            /*
+                                //look at content of currently checked tile, again with three checks for walkable, occupied by creature, occupied by pc  
+                                //walkbale check  
+                                if (gv.mod.currentEncounter.encounterTiles[i].Walkable == false)
+                            {
+                                tileIsFree = false;
+                            }
+
+                            //creature occupied check  
+                            if (tileIsFree == true)
+                            {
+                                foreach (Creature cr in gv.mod.currentEncounter.encounterCreatureList)
+                                {
+                                    if ((cr.combatLocX == tileLocX) && (cr.combatLocY == tileLocY))
+                                    {
+                                        tileIsFree = false;
+                                        break;
+                                    }
+                                }
+                            }
+
+                            //pc occupied check  
+                            if (tileIsFree == true)
+                            {
+                                foreach (Player pc in gv.mod.playerList)
+                                {
+                                    if ((pc.combatLocX == tileLocX) && (pc.combatLocY == tileLocY))
+                                    {
+                                        tileIsFree = false;
+                                        break;
+                                    }
+                                }
+                            }
+                            */
+
+                            //this writes all free tiles into a fresh list; please note that the values of the elements of this new list are our relevant index values  
+                            //therefore it's not the index (which doesnt correalte to locations) in this list that's relevant, but the value of the element at that index  
+                            if (tileIsFree == true)
+                            {
+                                freeTilesByIndex.Add(i);
+                            }
+                        }
+
+                        //SECOND PART: find the free tile NEAREST to originally intended summon location  
+                        for (int i = 0; i < freeTilesByIndex.Count; i++)
+                        {
+                            dist = 0;
+
+                            //get location x and y of the tile stored at the index number i, i.e. get the value of elment indexed with i and transform to x and y location  
+                            tileLocX = freeTilesByIndex[i] % gv.mod.currentEncounter.MapSizeY;
+                            floatTileLocY = freeTilesByIndex[i] / gv.mod.currentEncounter.MapSizeX;
+                            tileLocY = (int)Math.Floor(floatTileLocY);
+
+                            //get distance between the current free tile and the originally intended summon location  
+                            deltaX = (int)Math.Abs((tileLocX - target.X));
+                            deltaY = (int)Math.Abs((tileLocY - target.Y));
+                            if (deltaX > deltaY)
+                            {
+                                dist = deltaX;
+                            }
+                            else
+                            {
+                                dist = deltaY;
+                            }
+
+                            //filter out the nearest tile by remembering it and its distance for further comparison while the loop runs through all free tiles  
+                            if (dist < lowestDist)
+                            {
+                                lowestDist = dist;
+                                nearestTileByIndex = freeTilesByIndex[i];
+                            }
+                        }
+
+                        if (nearestTileByIndex != -1)
+                        {
+                            //get the nearest tile's x and y location and use it as creature summon coordinates  
+                            tileLocX = nearestTileByIndex % gv.mod.currentEncounter.MapSizeY;
+                            floatTileLocY = nearestTileByIndex / gv.mod.currentEncounter.MapSizeX;
+                            tileLocY = (int)Math.Floor(floatTileLocY);
+
+                            target.X = tileLocX;
+                            target.Y = tileLocY;
+                        }
+
+                    }
+
+                    //just check whether a free squre does exist at all; if not, do not complete the summon  
+                    if ((nearestTileByIndex != -1) || (changeSummonLocation == false))
+                    {
+                        gv.cc.addLogText("<gn>" + source.cr_name + " calls for a " + sp.spellScriptParm1 + "</gn><BR>");
+                        //p1 is the resref of the added creature(use one from a blueprint in the toolset's creature blueprints section)  
+                        //p2 is the duration in turns that the creature will stay
+                        gv.sf.AddCreatureToCurrentEncounter(sp.spellScriptParm1, target.X.ToString(), target.Y.ToString(), sp.spellScriptParm2);
+                        source.hp -= SpellToCast.costHP;
+                        if (source.hp < 0) { source.hp = 1; }
+                        source.sp -= SpellToCast.costSP;
+                        if (source.sp < 0) { source.sp = 0; }
+                    }
+                    else
+                    {
+                        gv.cc.addLogText("<yl>" + source.cr_name + " fails to call ally, square is already occupied or not valid</yl><BR>");
+                    }
+
+                    //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
                 }
             }
+           
         }
 
         public int CalcShopBuyBackModifier(Player pc)
@@ -9856,7 +10370,42 @@ namespace IceBlink2
                  {  
                      return false;  
                  }  
-             }  
+
+                 //check additional squares occupied by oversized creatures
+                if (crt.creatureSize == 2)
+                {
+                    if ((crt.combatLocX + 1 == target.X) && (crt.combatLocY == target.Y))
+                    {
+                        return false;
+                    }
+                }
+
+                if (crt.creatureSize == 3)
+                {
+                    if ((crt.combatLocX == target.X) && (crt.combatLocY + 1 == target.Y))
+                    {
+                        return false;
+                    }
+                }
+
+                if (crt.creatureSize == 4)
+                {
+                    if ((crt.combatLocX + 1 == target.X) && (crt.combatLocY == target.Y))
+                    {
+                        return false;
+                    }
+
+                    if ((crt.combatLocX == target.X) && (crt.combatLocY + 1 == target.Y))
+                    {
+                        return false;
+                    }
+
+                    if ((crt.combatLocX + 1 == target.X) && (crt.combatLocY + 1 == target.Y))
+                    {
+                        return false;
+                    }
+                }
+                }  
              return true;  
          }   
 

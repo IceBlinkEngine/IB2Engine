@@ -32,6 +32,8 @@ namespace IceBlink2
 	    public string spellScript = "none";
         public string spellScriptParm1 = "none";
         public string spellScriptParm2 = "none";
+        public string spellScriptParm3 = "none";
+        public string spellScriptParm4 = "none";
         public string spellEffectTag = "none";
         public bool isUsedForCombatSquareEffect = false;
         public List<EffectTagForDropDownList> spellEffectTagList = new List<EffectTagForDropDownList>();
@@ -78,6 +80,8 @@ namespace IceBlink2
 		    copy.spellScript = this.spellScript;
             copy.spellScriptParm1 = this.spellScriptParm1;
             copy.spellScriptParm2 = this.spellScriptParm2;
+            copy.spellScriptParm3 = this.spellScriptParm3;
+            copy.spellScriptParm4 = this.spellScriptParm4;
             copy.spellEffectTag = this.spellEffectTag;
 
             //copy.spellEffectTagList = this.spellEffectTagList;

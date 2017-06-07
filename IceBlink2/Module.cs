@@ -423,6 +423,8 @@ namespace IceBlink2
 
         public int allyCounter = 0;
 
+        public Coordinate alternativeEnd = new Coordinate();
+
         public Module()
         {
 

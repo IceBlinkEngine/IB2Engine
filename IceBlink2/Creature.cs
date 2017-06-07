@@ -100,6 +100,8 @@ namespace IceBlink2
         public string labelForCastAction = "none";
         public string labelForSpellsButtonInCombat = "SPELL";
 
+        public int stayDurationInTurns = 100000;
+
         public Creature()
 	    {
 		
@@ -108,6 +110,7 @@ namespace IceBlink2
 	    public Creature DeepCopy()
 	    {
 		    Creature copy = new Creature();
+            copy.stayDurationInTurns = this.stayDurationInTurns;
             copy.percentChanceToCastSpell = this.percentChanceToCastSpell;
             copy.roamDistanceX = this.roamDistanceX;
             copy.roamDistanceY = this.roamDistanceY;
