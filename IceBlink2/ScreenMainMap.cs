@@ -29005,7 +29005,7 @@ namespace IceBlink2
 
                     float floatPositionY = i / gv.mod.currentArea.MapSizeX;
                     int positionY = (int)Math.Floor(floatPositionY);
-                    int positionX = i % gv.mod.currentArea.MapSizeY;
+                    int positionX = i % gv.mod.currentArea.MapSizeX;
                     int dist = 0;
                     int deltaX = (int)Math.Abs((positionX - gv.mod.PlayerLocationX));
                     int deltaY = (int)Math.Abs((positionY - gv.mod.PlayerLocationY));
@@ -29393,7 +29393,7 @@ namespace IceBlink2
 
                     float floatPositionY = i / gv.mod.currentArea.MapSizeX;
                     int positionY = (int)Math.Floor(floatPositionY);
-                    int positionX = i % gv.mod.currentArea.MapSizeY;
+                    int positionX = i % gv.mod.currentArea.MapSizeX;
                     int dist = 0;
                     int deltaX = (int)Math.Abs((positionX - gv.mod.PlayerLocationX));
                     int deltaY = (int)Math.Abs((positionY - gv.mod.PlayerLocationY));

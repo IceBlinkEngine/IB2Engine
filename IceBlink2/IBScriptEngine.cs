@@ -53,6 +53,7 @@ namespace IceBlink2
 
         public IBScriptEngine(GameView g, string filename, string parms)
         {
+            //
             gv = g;
             scriptFilename = filename;
             //read in script file and create line numbered list

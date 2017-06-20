@@ -568,16 +568,13 @@ namespace IceBlink2
                 if ((pathNodes[0].X == gv.mod.alternativeEnd.X) && (pathNodes[0].Y == gv.mod.alternativeEnd.Y))
                 {
                     if (crt.creatureSize == 4)
-                    {
-                        //quäl
+                    {//1
                         //check walkability and occupation state with other creatures for whole body, otherwise remove from path
                         //if gv.mod.alternativeEnd.X + 1
 
                         //only remove alt end if the path node before it does not allow an attack
                         //pathNodes is still wlked, woory not
 
-                        //TODO
-                        //HEUREKA
                         //if square BEFORE alt end does not touch a pc 
                         // AND ALT END is fully accessible, 
                         //do not remove ALT END
@@ -585,65 +582,137 @@ namespace IceBlink2
                         bool remove = true;
 
                         foreach (Player p in gv.mod.playerList)
-                        {
+                        {//2
                             if (p.isAlive() && !p.isInvisible() && !p.steathModeOn)
-                            {
+                            {//3
                                 if (gv.screenCombat.CalcDistance(crt, pathNodes[1].X, pathNodes[1].Y, p.combatLocX, p.combatLocY) <= 1)
-                                {
+                                {//4
                                     //boy (x+1,y)
                                     if (gv.mod.currentEncounter.encounterTiles[gv.mod.alternativeEnd.Y * gv.mod.currentEncounter.MapSizeX + gv.mod.alternativeEnd.X + 1].Walkable && !containsPCorCrt(gv.mod.alternativeEnd.X + 1, gv.mod.alternativeEnd.Y, crt))
-                                    {
+                                    {//5
                                         //body (x,y+1)
                                         if (gv.mod.currentEncounter.encounterTiles[(gv.mod.alternativeEnd.Y + 1) * gv.mod.currentEncounter.MapSizeX + gv.mod.alternativeEnd.X].Walkable && !containsPCorCrt(gv.mod.alternativeEnd.X, gv.mod.alternativeEnd.Y + 1, crt))
-                                        {
+                                        {//6
                                             // body (x+1, y+1)
                                             if (gv.mod.currentEncounter.encounterTiles[(gv.mod.alternativeEnd.Y + 1) * gv.mod.currentEncounter.MapSizeX + gv.mod.alternativeEnd.X + 1].Walkable && !containsPCorCrt(gv.mod.alternativeEnd.X + 1, gv.mod.alternativeEnd.Y + 1, crt))
-                                            {
+                                            {//7
                                                 // body (x, y)
                                                 if (gv.mod.currentEncounter.encounterTiles[(gv.mod.alternativeEnd.Y) * gv.mod.currentEncounter.MapSizeX + gv.mod.alternativeEnd.X].Walkable && !containsPCorCrt(gv.mod.alternativeEnd.X, gv.mod.alternativeEnd.Y, crt))
-                                                {
+                                                {//8
                                                     remove = false;
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
+                                                }//8
+                                            }//7
+                                        }//6
+                                    }//5
+                                }//4
+                            }//3
+                        }//2
 
-                            /*
-                            //old removal attemt based on wlakability of end (which shall never be enetred anywy)
-                            //boy (x+1,y)
-                            if (gv.mod.currentEncounter.encounterTiles[gv.mod.alternativeEnd.Y * gv.mod.currentEncounter.MapSizeX + gv.mod.alternativeEnd.X + 1].Walkable && !containsPCorCrt(gv.mod.alternativeEnd.X + 1, gv.mod.alternativeEnd.Y, crt))
-                            {
-                                //body (x,y+1)
-                                if (gv.mod.currentEncounter.encounterTiles[(gv.mod.alternativeEnd.Y + 1) * gv.mod.currentEncounter.MapSizeX + gv.mod.alternativeEnd.X].Walkable && !containsPCorCrt(gv.mod.alternativeEnd.X, gv.mod.alternativeEnd.Y + 1, crt))
-                                {
-                                    // body (x+1, y+1)
-                                    if (gv.mod.currentEncounter.encounterTiles[(gv.mod.alternativeEnd.Y + 1) * gv.mod.currentEncounter.MapSizeX + gv.mod.alternativeEnd.X + 1].Walkable && !containsPCorCrt(gv.mod.alternativeEnd.X + 1, gv.mod.alternativeEnd.Y + 1, crt))
-                                    {
-                                        // body (x, y)
-                                        if (gv.mod.currentEncounter.encounterTiles[(gv.mod.alternativeEnd.Y) * gv.mod.currentEncounter.MapSizeX + gv.mod.alternativeEnd.X].Walkable && !containsPCorCrt(gv.mod.alternativeEnd.X, gv.mod.alternativeEnd.Y, crt))
-                                        {
-                                            remove = false;
-                                        }
-                                    }
-                                }
-                            }
-                            */
-
-                            if (remove)
+                        if (remove)
                         {
                             pathNodes.RemoveAt(0);
-                            
-                            /*
-                            //resetGrid(crt);
-                            grid[gv.mod.alternativeEnd.X, gv.mod.alternativeEnd.Y] = 4;
-                            findNewPoint(crt, end);
-                            */
                         }
 
-                    }
+                    }//1
+
+                    if (crt.creatureSize == 3)
+                    {//1
+                        //check walkability and occupation state with other creatures for whole body, otherwise remove from path
+                        //if gv.mod.alternativeEnd.X + 1
+
+                        //only remove alt end if the path node before it does not allow an attack
+                        //pathNodes is still wlked, woory not
+
+                        //if square BEFORE alt end does not touch a pc 
+                        // AND ALT END is fully accessible, 
+                        //do not remove ALT END
+
+                        bool remove = true;
+
+                        foreach (Player p in gv.mod.playerList)
+                        {//2
+                            if (p.isAlive() && !p.isInvisible() && !p.steathModeOn)
+                            {//3
+                                if (gv.screenCombat.CalcDistance(crt, pathNodes[1].X, pathNodes[1].Y, p.combatLocX, p.combatLocY) <= 1)
+                                {//4
+                                    //boy (x+1,y)
+                                    //if (gv.mod.currentEncounter.encounterTiles[gv.mod.alternativeEnd.Y * gv.mod.currentEncounter.MapSizeX + gv.mod.alternativeEnd.X + 1].Walkable && !containsPCorCrt(gv.mod.alternativeEnd.X + 1, gv.mod.alternativeEnd.Y, crt))
+                                    //{//5
+                                        //body (x,y+1)
+                                        if (gv.mod.currentEncounter.encounterTiles[(gv.mod.alternativeEnd.Y + 1) * gv.mod.currentEncounter.MapSizeX + gv.mod.alternativeEnd.X].Walkable && !containsPCorCrt(gv.mod.alternativeEnd.X, gv.mod.alternativeEnd.Y + 1, crt))
+                                        {//6
+                                            // body (x+1, y+1)
+                                            //if (gv.mod.currentEncounter.encounterTiles[(gv.mod.alternativeEnd.Y + 1) * gv.mod.currentEncounter.MapSizeX + gv.mod.alternativeEnd.X + 1].Walkable && !containsPCorCrt(gv.mod.alternativeEnd.X + 1, gv.mod.alternativeEnd.Y + 1, crt))
+                                            //{//7
+                                                // body (x, y)
+                                                if (gv.mod.currentEncounter.encounterTiles[(gv.mod.alternativeEnd.Y) * gv.mod.currentEncounter.MapSizeX + gv.mod.alternativeEnd.X].Walkable && !containsPCorCrt(gv.mod.alternativeEnd.X, gv.mod.alternativeEnd.Y, crt))
+                                                {//8
+                                                    remove = false;
+                                                }//8
+                                            //}//7
+                                        }//6
+                                    //}//5
+                                }//4
+                            }//3
+                        }//2
+
+                        if (remove)
+                        {
+                            pathNodes.RemoveAt(0);
+                        }
+
+                    }//1
+
+                    if (crt.creatureSize == 2)
+                    {//1
+                        //check walkability and occupation state with other creatures for whole body, otherwise remove from path
+                        //if gv.mod.alternativeEnd.X + 1
+
+                        //only remove alt end if the path node before it does not allow an attack
+                        //pathNodes is still wlked, woory not
+
+                        //if square BEFORE alt end does not touch a pc 
+                        // AND ALT END is fully accessible, 
+                        //do not remove ALT END
+
+                        bool remove = true;
+
+                        foreach (Player p in gv.mod.playerList)
+                        {//2
+                            if (p.isAlive() && !p.isInvisible() && !p.steathModeOn)
+                            {//3
+                                if (gv.screenCombat.CalcDistance(crt, pathNodes[1].X, pathNodes[1].Y, p.combatLocX, p.combatLocY) <= 1)
+                                {//4
+                                    //boy (x+1,y)
+                                    if (gv.mod.currentEncounter.encounterTiles[gv.mod.alternativeEnd.Y * gv.mod.currentEncounter.MapSizeX + gv.mod.alternativeEnd.X + 1].Walkable && !containsPCorCrt(gv.mod.alternativeEnd.X + 1, gv.mod.alternativeEnd.Y, crt))
+                                    {//5
+                                        //body (x,y+1)
+                                        //if (gv.mod.currentEncounter.encounterTiles[(gv.mod.alternativeEnd.Y + 1) * gv.mod.currentEncounter.MapSizeX + gv.mod.alternativeEnd.X].Walkable && !containsPCorCrt(gv.mod.alternativeEnd.X, gv.mod.alternativeEnd.Y + 1, crt))
+                                        //{//6
+                                            // body (x+1, y+1)
+                                            //if (gv.mod.currentEncounter.encounterTiles[(gv.mod.alternativeEnd.Y + 1) * gv.mod.currentEncounter.MapSizeX + gv.mod.alternativeEnd.X + 1].Walkable && !containsPCorCrt(gv.mod.alternativeEnd.X + 1, gv.mod.alternativeEnd.Y + 1, crt))
+                                            //{//7
+                                                // body (x, y)
+                                                if (gv.mod.currentEncounter.encounterTiles[(gv.mod.alternativeEnd.Y) * gv.mod.currentEncounter.MapSizeX + gv.mod.alternativeEnd.X].Walkable && !containsPCorCrt(gv.mod.alternativeEnd.X, gv.mod.alternativeEnd.Y, crt))
+                                                {//8
+                                                    remove = false;
+                                                }//8
+                                            //}//7
+                                        //}//6
+                                    }//5
+                                }//4
+                            }//3
+                        }//2
+
+                        if (remove)
+                        {
+                            pathNodes.RemoveAt(0);
+                        }
+
+                    }//1
+
+
+
 
                 }
             }
@@ -874,41 +943,42 @@ namespace IceBlink2
 
                 if (crt.creatureSize == 2)
                 {
-                    //if (direction == "E")
-                    //{
-
-                    if (x + 1 < gv.mod.currentEncounter.MapSizeX)
+                    if (direction == "E")
                     {
-                        if (grid[x + 1, y] == 3)
-                        {
-                            values[x, y] = next + 1;
-                            //set these as end coordinates
-                            gv.mod.alternativeEnd.X = x;
-                            gv.mod.alternativeEnd.Y = y;
 
-                            return true; //found end
+                        if (x + 1 < gv.mod.currentEncounter.MapSizeX)
+                        {
+                            if (grid[x + 1, y] == 3)
+                            {
+                                values[x, y] = next + 1;
+                                //set these as end coordinates
+                                gv.mod.alternativeEnd.X = x;
+                                gv.mod.alternativeEnd.Y = y;
+
+                                return true; //found end
+                            }
                         }
-                    }
 
-                    if ((x + 1 < gv.mod.currentEncounter.MapSizeX) && (y + 1 < gv.mod.currentEncounter.MapSizeY))
-                    {
-                        if (grid[x + 1, y + 1] == 3)
+                        if ((x + 1 < gv.mod.currentEncounter.MapSizeX) && (y + 1 < gv.mod.currentEncounter.MapSizeY))
                         {
-                            values[x, y] = next + 1;
-                            gv.mod.alternativeEnd.X = x;
-                            gv.mod.alternativeEnd.Y = y;
-                            return true; //found end
+                            if (grid[x + 1, y + 1] == 3)
+                            {
+                                values[x, y] = next + 1;
+                                gv.mod.alternativeEnd.X = x;
+                                gv.mod.alternativeEnd.Y = y;
+                                return true; //found end
+                            }
                         }
-                    }
 
-                    if ((x + 1 < gv.mod.currentEncounter.MapSizeX) && (y - 1 >= 0))
-                    {
-                        if (grid[x + 1, y - 1] == 3)
+                        if ((x + 1 < gv.mod.currentEncounter.MapSizeX) && (y - 1 >= 0))
                         {
-                            values[x, y] = next + 1;
-                            gv.mod.alternativeEnd.X = x;
-                            gv.mod.alternativeEnd.Y = y;
-                            return true; //found end
+                            if (grid[x + 1, y - 1] == 3)
+                            {
+                                values[x, y] = next + 1;
+                                gv.mod.alternativeEnd.X = x;
+                                gv.mod.alternativeEnd.Y = y;
+                                return true; //found end
+                            }
                         }
                     }
 
@@ -922,39 +992,46 @@ namespace IceBlink2
 
                 if (crt.creatureSize == 3)
                 {
-                    //if (direction == "S")
-                    //{
-                    if (y + 1 < gv.mod.currentEncounter.MapSizeY)
+                    if (direction == "S")
                     {
-                        if (grid[x, y + 1] == 3)
+                        if (y + 1 < gv.mod.currentEncounter.MapSizeY)
                         {
-                            values[x, y] = next + 1;
-                            gv.mod.alternativeEnd.X = x;
-                            gv.mod.alternativeEnd.Y = y;
-                            return true; //found end
+                            if (grid[x, y + 1] == 3)
+                            {
+                                values[x, y] = next + 1;
+                                gv.mod.alternativeEnd.X = x;
+                                gv.mod.alternativeEnd.Y = y;
+                                return true; //found end
+                            }
+                        }
+
+                        if ((x + 1 < gv.mod.currentEncounter.MapSizeX) && (y + 1 < gv.mod.currentEncounter.MapSizeY))
+                        {
+                            if (grid[x + 1, y + 1] == 3)
+                            {
+                                values[x, y] = next + 1;
+                                gv.mod.alternativeEnd.X = x;
+                                gv.mod.alternativeEnd.Y = y;
+                                return true; //found end
+                            }
+                        }
+
+                        if ((y + 1 < gv.mod.currentEncounter.MapSizeY) && (x - 1 >= 0))
+                        {
+                            if (grid[x - 1, y + 1] == 3)
+                            {
+                                values[x, y] = next + 1;
+                                gv.mod.alternativeEnd.X = x;
+                                gv.mod.alternativeEnd.Y = y;
+                                return true; //found end
+                            }
                         }
                     }
 
-                    if ((x + 1 < gv.mod.currentEncounter.MapSizeX) && (y + 1 < gv.mod.currentEncounter.MapSizeY))
+                    if (grid[x, y] == 3)
                     {
-                        if (grid[x + 1, y + 1] == 3)
-                        {
-                            values[x, y] = next + 1;
-                            gv.mod.alternativeEnd.X = x;
-                            gv.mod.alternativeEnd.Y = y;
-                            return true; //found end
-                        }
-                    }
-
-                    if ((y + 1 < gv.mod.currentEncounter.MapSizeY) && (x - 1 >= 0))
-                    {
-                        if (grid[x - 1, y + 1] == 3)
-                        {
-                            values[x, y] = next + 1;
-                            gv.mod.alternativeEnd.X = x;
-                            gv.mod.alternativeEnd.Y = y;
-                            return true; //found end
-                        }
+                        values[x, y] = next + 1;
+                        return true; //found end
                     }
                     //}
                 }

@@ -8308,7 +8308,7 @@ namespace IceBlink2
                                     //and that each horizintal x-line is counted first, then counting next horizonal x-line starting from the left again
                                     tileIsFree = true;
                                     //Note: When e.g. MapsizeY is 7, the y values range from 0 to 6
-                                    tileLocX = j % gv.mod.currentArea.MapSizeY;
+                                    tileLocX = j % gv.mod.currentArea.MapSizeX;
                                     //Note: ensure rounding down here 
                                     floatTileLocY = j / gv.mod.currentArea.MapSizeX;
                                     tileLocY = (int)Math.Floor(floatTileLocY);
@@ -8356,7 +8356,7 @@ namespace IceBlink2
                                     dist = 0;
 
                                     //get location x and y of the tile stored at the index number j, i.e. get the value of elment indexed with i and transform to x and y location
-                                    tileLocX = freeTilesByIndex[k] % gv.mod.currentArea.MapSizeY;
+                                    tileLocX = freeTilesByIndex[k] % gv.mod.currentArea.MapSizeX;
                                     floatTileLocY = freeTilesByIndex[k] / gv.mod.currentArea.MapSizeX;
                                     tileLocY = (int)Math.Floor(floatTileLocY);
 
@@ -8389,7 +8389,7 @@ namespace IceBlink2
                                 if (nearestTileByIndex != -1)
                                 {
                                     //get the nearest tile's x and y location and use it as target square coordinates
-                                    tileLocX = nearestTileByIndex % gv.mod.currentArea.MapSizeY;
+                                    tileLocX = nearestTileByIndex % gv.mod.currentArea.MapSizeX;
                                     floatTileLocY = nearestTileByIndex / gv.mod.currentArea.MapSizeX;
                                     tileLocY = (int)Math.Floor(floatTileLocY);
 

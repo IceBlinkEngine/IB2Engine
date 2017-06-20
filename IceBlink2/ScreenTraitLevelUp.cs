@@ -892,6 +892,90 @@ namespace IceBlink2
                     //add trait
                     //pc.knownTraitsTags.Add(tr.tag);
                     pc.learningTraitsTags.Add(tr.tag);
+
+                    //get the trait tor replace (if existent)
+                    Trait temp = new Trait();
+                    foreach (Trait t in gv.mod.moduleTraitsList)
+                    {
+                        if (t.tag == tr.traitToReplaceByTag)
+                        {
+                            temp = t.DeepCopy();
+                        }
+                    }
+
+                    //adding trait to replace mechanism: known traits
+                    for (int i = pc.knownTraitsTags.Count -1; i >= 0; i--)
+                    {
+                        if (pc.knownTraitsTags[i] == tr.traitToReplaceByTag)
+                        {
+                            //TODO: remove connected permannent effects
+                            //Peter
+                            for (int j = pc.effectsList.Count - 1; j >= 0; j--)
+                            {
+                                foreach (EffectTagForDropDownList etfddl in temp.traitEffectTagList)
+                                {
+                                    if (pc.effectsList[j].tag == etfddl.tag)
+                                    {
+                                        if (pc.effectsList[j].isPermanent)
+                                        {
+                                            pc.effectsList.RemoveAt(j);
+                                        }
+                                    }
+                               }
+                            }
+                                pc.knownTraitsTags.RemoveAt(i);
+                        }
+                    }
+
+                    for (int i = pc.knownInCombatUsableTraitsTags.Count - 1; i >= 0; i--)
+                    {
+                        if (pc.knownInCombatUsableTraitsTags[i] == tr.traitToReplaceByTag)
+                        {
+                            pc.knownInCombatUsableTraitsTags.RemoveAt(i);
+                        }
+                    }
+
+                    for (int i = pc.knownOutsideCombatUsableTraitsTags.Count - 1; i >= 0; i--)
+                    {
+                        if (pc.knownOutsideCombatUsableTraitsTags[i] == tr.traitToReplaceByTag)
+                        {
+                            pc.knownOutsideCombatUsableTraitsTags.RemoveAt(i);
+                        }
+                    }
+
+                    for (int i = pc.knownUsableTraitsTags.Count - 1; i >= 0; i--)
+                    {
+                        if (pc.knownUsableTraitsTags[i] == tr.traitToReplaceByTag)
+                        {
+                            pc.knownUsableTraitsTags.RemoveAt(i);
+                        }
+                    }
+
+
+                    //adding trait to replace mechanism: learing traits list (just added)
+                    for (int i = pc.learningTraitsTags.Count - 1; i >= 0; i--)
+                    {
+                        if (pc.learningTraitsTags[i] == tr.traitToReplaceByTag)
+                        {
+                            //TODO: remove connected permannent effects
+                            //Peter
+                            for (int j = pc.effectsList.Count - 1; j >= 0; j--)
+                            {
+                                foreach (EffectTagForDropDownList etfddl in temp.traitEffectTagList)
+                                {
+                                    if (pc.effectsList[j].tag == etfddl.tag)
+                                    {
+                                        if (pc.effectsList[j].isPermanent)
+                                        {
+                                            pc.effectsList.RemoveAt(j);
+                                        }
+                                    }
+                                }
+                            }
+                            pc.learningTraitsTags.RemoveAt(i);
+                        }
+                    }
+
                     sortTraitsForLevelUp(pc);
                     foreach (EffectTagForDropDownList etfddl in tr.traitEffectTagList)
                     {

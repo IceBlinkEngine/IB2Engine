@@ -40,6 +40,7 @@ namespace IceBlink2
         public int requiredIntelligence = 0;
         public int requiredWisdom = 0;
         public int requiredCharisma = 0;
+        public string traitToReplaceByTag = "none";
 
         public Trait()
 	    {
@@ -49,6 +50,7 @@ namespace IceBlink2
 	    public Trait DeepCopy()
 	    {
 		    Trait copy = new Trait();
+            copy.traitToReplaceByTag = this.traitToReplaceByTag;
 		    copy.name = this.name;
 		    copy.tag = this.tag;
 		    copy.traitImage = this.traitImage;
