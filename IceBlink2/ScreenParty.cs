@@ -1247,70 +1247,471 @@ namespace IceBlink2
                 {
                     Player pc = gv.mod.playerList[gv.cc.partyScreenPcIndex];
                     //LEVEL UP ALL STATS AND UPDATE STATS
-                    pc.LevelUp();
+                    //moving the level to later in the process (after all is done, with no exit button clicked)
+                    //pc.LevelUp();
                     gv.sf.UpdateStats(pc);
+                    pc.classLevel++;
+
                     traitGained = "Trait Gained: ";
                     spellGained = "Spell Gained: ";
 
-                    //if automatically learned traits or spells add them
-                    foreach (TraitAllowed ta in pc.playerClass.traitsAllowed)
-                    {
-                        if ((ta.automaticallyLearned) && (ta.atWhatLevelIsAvailable == pc.classLevel))
-                        {
-                            traitGained += ta.name + ", ";
-                            pc.knownTraitsTags.Add(ta.tag);
-                            //public string useableInSituation = "Always"; //InCombat, OutOfCombat, Always, Passive
-                            if (!ta.associatedSpellTag.Equals("none"))
-                            {
-                                if (ta.useableInSituation.Contains("Always"))
-                                {
-                                    pc.knownUsableTraitsTags.Add(ta.associatedSpellTag);
-                                    pc.knownOutsideCombatUsableTraitsTags.Add(ta.associatedSpellTag);
-                                    pc.knownInCombatUsableTraitsTags.Add(ta.associatedSpellTag);
-                                }
-                                if (ta.useableInSituation.Contains("OutOfCombat"))
-                                {
-                                    pc.knownUsableTraitsTags.Add(ta.associatedSpellTag);
-                                    pc.knownOutsideCombatUsableTraitsTags.Add(ta.associatedSpellTag);
-                                }
-                                if (ta.useableInSituation.Contains("InCombat"))
-                                {
-                                    pc.knownUsableTraitsTags.Add(ta.associatedSpellTag);
-                                    pc.knownInCombatUsableTraitsTags.Add(ta.associatedSpellTag);
-                                }
-                            }
-                        }
-                    }
-                    foreach (SpellAllowed sa in pc.playerClass.spellsAllowed)
-                    {
-                        if ((sa.automaticallyLearned) && (sa.atWhatLevelIsAvailable == pc.classLevel))
-                        {
-                            spellGained += sa.name + ", ";
-                            pc.knownSpellsTags.Add(sa.tag);
-                        }
-                    }
+                    //sambal
+                    //brainstorming how to do this correctly
+                    //likely always call the level up screen, even when only automatics are learned
+                    //in case manually chosable traits or spells exist, we only add to temp lists, also for EFFECTS, here and then calll the trait/spell screens
+                    //in case, no manually choosabels exist we can leave it as is
+                    //add automatics only temporarily there, with temp effects (like manually chosen traits/spells)
+                    //but then the screen must finish resolving wthout need to click anything
+                    //maybe add aditional parm to register which kind of call comes?
 
                     //check to see if have any traits to learn
                     List<string> traitTagsList = new List<string>();
                     traitTagsList = pc.getTraitsToLearn(gv.mod);
 
-                    //check to see if have any spells to learn
+                    //check to see if have any spells to learn available
                     List<string> spellTagsList = new List<string>();
                     spellTagsList = pc.getSpellsToLearn();
 
-                    //if so then ask which one
-                    if (traitTagsList.Count > 0)
+                    //no manually selectable spells or traits
+                    if (traitTagsList.Count == 0 && spellTagsList.Count == 0)
                     {
+                        //if automatically learned traits or spells add them
+                        foreach (TraitAllowed ta in pc.playerClass.traitsAllowed)
+                        {
+                            if ((ta.automaticallyLearned) && (ta.atWhatLevelIsAvailable == pc.classLevel))
+                            {
+                                traitGained += ta.name + ", ";
+                                pc.knownTraitsTags.Add(ta.tag);
+                                //public string useableInSituation = "Always"; //InCombat, OutOfCombat, Always, Passive
+                                if (!ta.associatedSpellTag.Equals("none"))
+                                {
+                                    if (ta.useableInSituation.Contains("Always"))
+                                    {
+                                        pc.knownUsableTraitsTags.Add(ta.associatedSpellTag);
+                                        pc.knownOutsideCombatUsableTraitsTags.Add(ta.associatedSpellTag);
+                                        pc.knownInCombatUsableTraitsTags.Add(ta.associatedSpellTag);
+                                    }
+                                    if (ta.useableInSituation.Contains("OutOfCombat"))
+                                    {
+                                        pc.knownUsableTraitsTags.Add(ta.associatedSpellTag);
+                                        pc.knownOutsideCombatUsableTraitsTags.Add(ta.associatedSpellTag);
+                                    }
+                                    if (ta.useableInSituation.Contains("InCombat"))
+                                    {
+                                        pc.knownUsableTraitsTags.Add(ta.associatedSpellTag);
+                                        pc.knownInCombatUsableTraitsTags.Add(ta.associatedSpellTag);
+                                    }
+                                }
+
+                                
+                                //must add replacement code (for spells, too)
+                                //********************************************
+                                #region replacement code traits
+
+                                //get the trait gained
+                                Trait tr = new Trait();
+                                tr = gv.mod.getTraitByTag(ta.tag);
+
+                                //get the trait to replace (if existent)
+                                Trait temp2 = new Trait();
+                                foreach (Trait t in gv.mod.moduleTraitsList)
+                                {
+                                    if (t.tag == tr.traitToReplaceByTag)
+                                    {
+                                        temp2 = t.DeepCopy();
+                                    }
+                                }
+
+                                //adding trait to replace mechanism: known traits
+                                for (int i = pc.knownTraitsTags.Count - 1; i >= 0; i--)
+                                {
+                                    if (pc.knownTraitsTags[i] == tr.traitToReplaceByTag)
+                                    {
+                                        //TODO: remove connected permannent effects
+                                        //Peter
+                                        for (int j = pc.effectsList.Count - 1; j >= 0; j--)
+                                        {
+                                            foreach (EffectTagForDropDownList etfddl in temp2.traitEffectTagList)
+                                            {
+                                                if (pc.effectsList[j].tag == etfddl.tag)
+                                                {
+                                                    if (pc.effectsList[j].isPermanent)
+                                                    {
+                                                        pc.effectsList.RemoveAt(j);
+                                                    }
+                                                }
+                                            }
+                                        }
+                                        pc.knownTraitsTags.RemoveAt(i);
+                                    }
+                                }
+
+                                for (int i = pc.knownInCombatUsableTraitsTags.Count - 1; i >= 0; i--)
+                                {
+                                    if (pc.knownInCombatUsableTraitsTags[i] == tr.traitToReplaceByTag)
+                                    {
+                                        pc.knownInCombatUsableTraitsTags.RemoveAt(i);
+                                    }
+
+                                    if (pc.knownInCombatUsableTraitsTags[i] == temp2.associatedSpellTag)
+                                    {
+                                        pc.knownInCombatUsableTraitsTags.RemoveAt(i);
+                                    }
+                                }
+
+                                for (int i = pc.knownOutsideCombatUsableTraitsTags.Count - 1; i >= 0; i--)
+                                {
+                                    if (pc.knownOutsideCombatUsableTraitsTags[i] == tr.traitToReplaceByTag)
+                                    {
+                                        pc.knownOutsideCombatUsableTraitsTags.RemoveAt(i);
+                                    }
+                                    if (pc.knownOutsideCombatUsableTraitsTags[i] == temp2.associatedSpellTag)
+                                    {
+                                        pc.knownOutsideCombatUsableTraitsTags.RemoveAt(i);
+                                    }
+                                }
+
+                                for (int i = pc.knownUsableTraitsTags.Count - 1; i >= 0; i--)
+                                {
+                                    if (pc.knownUsableTraitsTags[i] == tr.traitToReplaceByTag)
+                                    {
+                                        pc.knownUsableTraitsTags.RemoveAt(i);
+                                    }
+                                    if (pc.knownUsableTraitsTags[i] == temp2.associatedSpellTag)
+                                    {
+                                        pc.knownUsableTraitsTags.RemoveAt(i);
+                                    }
+                                }
+
+
+                                //adding trait to replace mechanism: learing traits list (just added)
+                                for (int i = pc.learningTraitsTags.Count - 1; i >= 0; i--)
+                                {
+                                    if (pc.learningTraitsTags[i] == tr.traitToReplaceByTag)
+                                    {
+                                        //TODO: remove connected permannent effects
+                                        //Peter
+                                        for (int j = pc.effectsList.Count - 1; j >= 0; j--)
+                                        {
+                                            foreach (EffectTagForDropDownList etfddl in temp2.traitEffectTagList)
+                                            {
+                                                if (pc.effectsList[j].tag == etfddl.tag)
+                                                {
+                                                    if (pc.effectsList[j].isPermanent)
+                                                    {
+                                                        pc.effectsList.RemoveAt(j);
+                                                    }
+                                                }
+                                            }
+                                        }
+                                        pc.learningTraitsTags.RemoveAt(i);
+                                    }
+                                }
+                                #endregion
+
+                                //********************************************
+                                ////must add code for adding effects!
+                                //*********************************************
+                                //add permanent effects of trait to effect list of this pc
+                                foreach (EffectTagForDropDownList efTag in tr.traitEffectTagList)
+                                {//1
+                                    foreach (Effect ef in gv.mod.moduleEffectsList)
+                                    {//2
+                                        if (ef.tag == efTag.tag)
+                                        {//3
+                                            if (ef.isPermanent)
+                                            {//4
+                                                bool doesNotExistAlfready = true;
+                                                foreach (Effect ef2 in pc.effectsList)
+                                                {//5
+                                                    if (ef2.tag == ef.tag)
+                                                    {//6
+                                                        doesNotExistAlfready = false;
+                                                        break;
+                                                    }//6
+                                                }//5
+
+                                                if (doesNotExistAlfready)
+                                                {//6
+                                                    pc.effectsList.Add(ef);
+                                                    gv.sf.UpdateStats(pc);
+                                                    if (ef.modifyHpMax != 0)
+                                                    {//7
+                                                        pc.hp += ef.modifyHpMax;
+                                                        if (pc.hp < 1)
+                                                        {//8
+                                                            pc.hp = 1;
+                                                        }//8
+                                                        if (pc.hp > pc.hpMax)
+                                                        {
+                                                            pc.hp = pc.hpMax;
+                                                        }
+                                                    }//7
+
+                                                    if (ef.modifyCon != 0)
+                                                    {//7
+                                                        pc.hp += ef.modifyCon / 2;
+                                                        if (pc.hp < 1)
+                                                        {//8
+                                                            pc.hp = 1;
+                                                        }//8
+                                                        if (pc.hp > pc.hpMax)
+                                                        {
+                                                            pc.hp = pc.hpMax;
+                                                        }
+                                                    }//7
+
+                                                    if (ef.modifySpMax != 0)
+                                                    {
+                                                        pc.sp += ef.modifySpMax;
+                                                        if (pc.sp < 1)
+                                                        {
+                                                            pc.sp = 1;
+                                                        }
+                                                        if (pc.sp > pc.spMax)
+                                                        {
+                                                            pc.sp = pc.spMax;
+                                                        }
+                                                    }
+
+                                                    if (ef.modifyStr != 0)
+                                                    {
+                                                        if (pc.playerClass.modifierFromSPRelevantAttribute.Equals("strength"))
+                                                        {
+                                                            pc.sp += ef.modifyStr / 2;
+                                                            if (pc.sp < 1)
+                                                            {
+                                                                pc.sp = 1;
+                                                            }
+                                                            if (pc.sp > pc.spMax)
+                                                            {
+                                                                pc.sp = pc.spMax;
+                                                            }
+                                                        }
+                                                    }
+
+                                                    if (ef.modifyDex != 0)
+                                                    {
+                                                        if (pc.playerClass.modifierFromSPRelevantAttribute.Equals("dexterity"))
+                                                        {
+                                                            pc.sp += ef.modifyDex / 2;
+                                                            if (pc.sp < 1)
+                                                            {
+                                                                pc.sp = 1;
+                                                            }
+                                                            if (pc.sp > pc.spMax)
+                                                            {
+                                                                pc.sp = pc.spMax;
+                                                            }
+                                                        }
+                                                    }
+
+                                                    if (ef.modifyCon != 0)
+                                                    {
+                                                        if (pc.playerClass.modifierFromSPRelevantAttribute.Equals("constitution"))
+                                                        {
+                                                            pc.sp += ef.modifyCon / 2;
+                                                            if (pc.sp < 1)
+                                                            {
+                                                                pc.sp = 1;
+                                                            }
+                                                            if (pc.sp > pc.spMax)
+                                                            {
+                                                                pc.sp = pc.spMax;
+                                                            }
+                                                        }
+                                                    }
+
+                                                    if (ef.modifyCha != 0)
+                                                    {
+                                                        if (pc.playerClass.modifierFromSPRelevantAttribute.Equals("charisma"))
+                                                        {
+                                                            pc.sp += ef.modifyCha / 2;
+                                                            if (pc.sp < 1)
+                                                            {
+                                                                pc.sp = 1;
+                                                            }
+                                                            if (pc.sp > pc.spMax)
+                                                            {
+                                                                pc.sp = pc.spMax;
+                                                            }
+                                                        }
+                                                    }
+
+                                                    if (ef.modifyInt != 0)
+                                                    {
+                                                        if (pc.playerClass.modifierFromSPRelevantAttribute.Equals("intelligence"))
+                                                        {
+                                                            pc.sp += ef.modifyInt / 2;
+                                                            if (pc.sp < 1)
+                                                            {
+                                                                pc.sp = 1;
+                                                            }
+                                                            if (pc.sp > pc.spMax)
+                                                            {
+                                                                pc.sp = pc.spMax;
+                                                            }
+                                                        }
+                                                    }
+
+                                                    if (ef.modifyWis != 0)
+                                                    {
+                                                        if (pc.playerClass.modifierFromSPRelevantAttribute.Equals("wisdom"))
+                                                        {
+                                                            pc.sp += ef.modifyWis / 2;
+                                                            if (pc.sp < 1)
+                                                            {
+                                                                pc.sp = 1;
+                                                            }
+                                                            if (pc.sp > pc.spMax)
+                                                            {
+                                                                pc.sp = pc.spMax;
+                                                            }
+                                                        }
+                                                    }
+                                                }//5
+                                            }//4
+                                        }//3
+                                    }//2
+                                }//1 
+
+                                //**********************************************
+
+                            }
+                        }
+
+                        foreach (SpellAllowed sa in pc.playerClass.spellsAllowed)
+                        {
+                            if ((sa.automaticallyLearned) && (sa.atWhatLevelIsAvailable == pc.classLevel))
+                            {
+                                spellGained += sa.name + ", ";
+                                pc.knownSpellsTags.Add(sa.tag);
+                                
+                                #region replacement code spells
+                                //get the spell gained
+                                Spell sp = new Spell();
+                                sp = gv.mod.getSpellByTag(sp.tag);
+
+                                //adding trait to replace mechanism: known traits
+                                for (int i = pc.knownSpellsTags.Count - 1; i >= 0; i--)
+                                {
+                                    if (pc.knownSpellsTags[i] == sp.spellToReplaceByTag)
+                                    {
+                                        pc.knownSpellsTags.RemoveAt(i);
+                                    }
+                                }
+
+                                //adding trait to replace mechanism: learing traits list (just added)
+                                for (int i = pc.learningSpellsTags.Count - 1; i >= 0; i--)
+                                {
+                                    if (pc.learningSpellsTags[i] == sp.spellToReplaceByTag)
+                                    {
+                                        pc.learningSpellsTags.RemoveAt(i);
+                                    }
+                                }
+                                #endregion
+                            }
+                        }
+                        pc.classLevel--;
+                        pc.LevelUp();
+                        gv.sf.UpdateStats(pc);
+                        doLevelUpSummary();
+                    }
+
+                    else if (traitTagsList.Count > 0)
+                    {
+                        //add automatically gained spells and traits (inlcuding effects) to the tempoarray lists already here
+                        //no replacements at this stage though (these come when done on the manual screens) 
+
+                        //traits
+                        foreach (TraitAllowed ta in pc.playerClass.traitsAllowed)
+                        {
+                            if ((ta.automaticallyLearned) && (ta.atWhatLevelIsAvailable == pc.classLevel))
+                            {
+                                Trait tr = new Trait();
+                                tr = gv.mod.getTraitByTag(ta.tag);
+
+                                pc.learningTraitsTags.Add(tr.tag);
+
+                                foreach (EffectTagForDropDownList etfddl in tr.traitEffectTagList)
+                                {
+                                    foreach (Effect e in gv.mod.moduleEffectsList)
+                                    {
+                                        if (e.tag == etfddl.tag)
+                                        {
+                                            if (e.isPermanent)
+                                            {
+                                                pc.learningEffects.Add(e);
+                                            }
+                                        }
+                                    }
+                                }
+                                
+                                //}
+                                /*
+                                if (!ta.associatedSpellTag.Equals("none"))
+                                {
+                                    if (ta.useableInSituation.Contains("Always"))
+                                    {
+                                        pc.knownUsableTraitsTags.Add(ta.associatedSpellTag);
+                                        pc.knownOutsideCombatUsableTraitsTags.Add(ta.associatedSpellTag);
+                                        pc.knownInCombatUsableTraitsTags.Add(ta.associatedSpellTag);
+                                    }
+                                    if (ta.useableInSituation.Contains("OutOfCombat"))
+                                    {
+                                        pc.knownUsableTraitsTags.Add(ta.associatedSpellTag);
+                                        pc.knownOutsideCombatUsableTraitsTags.Add(ta.associatedSpellTag);
+                                    }
+                                    if (ta.useableInSituation.Contains("InCombat"))
+                                    {
+                                        pc.knownUsableTraitsTags.Add(ta.associatedSpellTag);
+                                        pc.knownInCombatUsableTraitsTags.Add(ta.associatedSpellTag);
+                                    }
+                                }
+                                */
+                            }
+                        }
+
+                        //spells
+                        foreach (SpellAllowed sa in pc.playerClass.spellsAllowed)
+                        {
+                            if ((sa.automaticallyLearned) && (sa.atWhatLevelIsAvailable == pc.classLevel))
+                            {
+                                Spell sp = new Spell();
+                                sp = gv.mod.getSpellByTag(sa.tag);
+
+                                pc.learningSpellsTags.Add(sp.tag);
+                            }
+                        }
+
                         gv.screenTraitLevelUp.resetPC(false, pc);
                         gv.screenType = "learnTraitLevelUp";
                     }
                     else if (spellTagsList.Count > 0)
                     {
+                        //add automaticall gained spells to the tempoarray lists already here
+                        //no replacements at this stage though
+
+                        //spells
+                        foreach (SpellAllowed sa in pc.playerClass.spellsAllowed)
+                        {
+                            if ((sa.automaticallyLearned) && (sa.atWhatLevelIsAvailable == pc.classLevel))
+                            {
+                                Spell sp = new Spell();
+                                sp = gv.mod.getSpellByTag(sa.tag);
+
+                                pc.learningSpellsTags.Add(sp.tag);
+                            }
+                        }
+
                         gv.screenSpellLevelUp.resetPC(false, pc, false);
                         gv.screenType = "learnSpellLevelUp";
                     }
                     else //no spells or traits to learn
                     {
+                        pc.classLevel--;
+                        pc.LevelUp();
+                        gv.sf.UpdateStats(pc);
                         doLevelUpSummary();
                     }
                 }

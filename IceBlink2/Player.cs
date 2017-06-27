@@ -337,7 +337,16 @@ namespace IceBlink2
             List<string> spellTagsList = new List<string>();
             foreach (SpellAllowed sa in this.playerClass.spellsAllowed)
             {
-                if (sa.allow)
+                bool tempLearnedAlready = false;
+                foreach (string tL in this.learningSpellsTags)
+                {
+                    if (sa.tag == tL)
+                    {
+                        tempLearnedAlready = true;
+                    }
+                }
+
+                if (sa.allow && !sa.automaticallyLearned & !tempLearnedAlready)
                 {
                     if (sa.atWhatLevelIsAvailable <= this.classLevel)
                     {
@@ -423,7 +432,16 @@ namespace IceBlink2
             List<string> traitTagsList = new List<string>();
             foreach (TraitAllowed ta in this.playerClass.traitsAllowed)
             {
-                if (ta.allow)
+                bool tempLearnedAlready = false;
+                foreach (string tL in this.learningTraitsTags)
+                {
+                    if (ta.tag == tL)
+                    {
+                        tempLearnedAlready = true;
+                    }
+                }
+
+                if (ta.allow && !ta.automaticallyLearned && !tempLearnedAlready)
                 {
                     if (ta.atWhatLevelIsAvailable <= this.classLevel)
                     {

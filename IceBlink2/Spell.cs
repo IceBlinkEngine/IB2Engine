@@ -48,6 +48,7 @@ namespace IceBlink2
 
         //Not yet implemented the one below
         string additionalCustomLogTextOnCast = "";
+        public string spellToReplaceByTag = "none";
 
         public Spell()
 	    {
@@ -57,6 +58,7 @@ namespace IceBlink2
 	    public Spell DeepCopy()
 	    {
 		    Spell copy = new Spell();
+            copy.spellToReplaceByTag = this.spellToReplaceByTag;
             copy.castTimeInTurns = this.castTimeInTurns;
             copy.triggersAoO = this.triggersAoO;
             copy.canBeInterrupted = this.canBeInterrupted;
