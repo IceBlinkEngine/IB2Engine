@@ -1238,6 +1238,19 @@ namespace IceBlink2
                         }
                         gv.mod.returnCheck = CheckHasTrait(parm1, p2);
                     }
+                    else if (filename.Equals("gcCheckHasSpell.cs"))
+                    {
+                        int parm1 = 0;
+                        if ((p1.Equals("")) || (p1.Equals("-1")))
+                        {
+                            parm1 = gv.mod.selectedPartyLeader;
+                        }
+                        else
+                        {
+                            parm1 = Convert.ToInt32(p1);
+                        }
+                        gv.mod.returnCheck = CheckHasSpell(parm1, p2);
+                    }
                     else if (filename.Equals("gcPassSkillCheck.cs"))
                     {
                         int parm1 = 0;
@@ -3781,12 +3794,27 @@ namespace IceBlink2
             if (sp != null)
             {
                 pc.knownSpellsTags.Add(sp.tag);
+                //Spell replacement code  
+                if ((sp.spellToReplaceByTag != "none") && (sp.spellToReplaceByTag != ""))
+                {
+                    pc.replacedTraitsOrSpellsByTag.Add(sp.spellToReplaceByTag);
+                }
+
+                for (int i = pc.knownSpellsTags.Count - 1; i >= 0; i--)
+                {
+                    if (pc.knownSpellsTags[i] == sp.spellToReplaceByTag)
+                    {
+                        //pc.replacedTraitsOrSpellsByTag.Add(sp.spellToReplaceByTag);
+                        pc.knownSpellsTags.RemoveAt(i);
+                    }
+                }
             }
             else if (mod.debugMode) //SD_20131102
             {
                 gv.cc.addLogText("<font color='yellow'>Could not find Spell with tag: " + SpellTag + ", aborting</font><BR>");
             }
         }
+
         public void AddTraitToPlayer(string tag, string index, string TraitTag)
         {
             Player pc = gv.mod.playerList[0];
@@ -3828,6 +3856,131 @@ namespace IceBlink2
             {
                 pc.knownTraitsTags.Add(tr.tag);
                 //public string useableInSituation = "Always"; //InCombat, OutOfCombat, Always, Passive
+
+                //**************************************************************************
+                #region replacement code traits
+                //get the trait tor replace (if existent)
+                Trait temp2 = new Trait();
+                foreach (Trait t in gv.mod.moduleTraitsList)
+                {
+                    if (t.tag == tr.traitToReplaceByTag)
+                    {
+                        temp2 = t.DeepCopy();
+                    }
+                }
+                if ((tr.traitToReplaceByTag != "none") && (tr.traitToReplaceByTag != ""))
+                {
+                    pc.replacedTraitsOrSpellsByTag.Add(tr.traitToReplaceByTag);
+                }
+
+                if (tr.traitToReplaceByTag != tr.prerequisiteTrait)
+                {
+                    string replacedTag = tr.traitToReplaceByTag;
+                    for (int j = gv.mod.moduleTraitsList.Count - 1; j >= 0; j--)
+                    {
+                        if (gv.mod.moduleTraitsList[j].prerequisiteTrait == replacedTag)
+                        {
+                            if (!pc.replacedTraitsOrSpellsByTag.Contains(replacedTag))
+                            {
+                                pc.replacedTraitsOrSpellsByTag.Add(gv.mod.moduleTraitsList[j].tag);
+                                replacedTag = gv.mod.moduleTraitsList[j].tag;
+                                j = gv.mod.moduleTraitsList.Count - 1;
+                            }
+                        }
+                    }
+                }
+                //adding trait to replace mechanism: known traits
+                for (int i = pc.knownTraitsTags.Count - 1; i >= 0; i--)
+                {
+                    if (pc.knownTraitsTags[i] == tr.traitToReplaceByTag)
+                    {
+                        //TODO: remove connected permannent effects
+                        //Peter
+                        for (int j = pc.effectsList.Count - 1; j >= 0; j--)
+                        {
+                            foreach (EffectTagForDropDownList etfddl in temp2.traitEffectTagList)
+                            {
+                                if (pc.effectsList[j].tag == etfddl.tag)
+                                {
+                                    if (pc.effectsList[j].isPermanent)
+                                    {
+                                        pc.effectsList.RemoveAt(j);
+                                    }
+                                }
+                            }
+                        }
+                        //pc.replacedTraitsOrSpellsByTag.Add(tr.traitToReplaceByTag);
+                        pc.knownTraitsTags.RemoveAt(i);
+                    }
+                }
+
+                for (int i = pc.knownInCombatUsableTraitsTags.Count - 1; i >= 0; i--)
+                {
+                    if (pc.knownInCombatUsableTraitsTags[i] == tr.traitToReplaceByTag)
+                    {
+                        pc.knownInCombatUsableTraitsTags.RemoveAt(i);
+                    }
+
+                    if (pc.knownInCombatUsableTraitsTags[i] == temp2.associatedSpellTag)
+                    {
+                        pc.knownInCombatUsableTraitsTags.RemoveAt(i);
+                    }
+                }
+
+                for (int i = pc.knownOutsideCombatUsableTraitsTags.Count - 1; i >= 0; i--)
+                {
+                    if (pc.knownOutsideCombatUsableTraitsTags[i] == tr.traitToReplaceByTag)
+                    {
+                        pc.knownOutsideCombatUsableTraitsTags.RemoveAt(i);
+                    }
+                    if (pc.knownOutsideCombatUsableTraitsTags[i] == temp2.associatedSpellTag)
+                    {
+                        pc.knownOutsideCombatUsableTraitsTags.RemoveAt(i);
+                    }
+                }
+
+                for (int i = pc.knownUsableTraitsTags.Count - 1; i >= 0; i--)
+                {
+                    if (pc.knownUsableTraitsTags[i] == tr.traitToReplaceByTag)
+                    {
+                        pc.knownUsableTraitsTags.RemoveAt(i);
+                    }
+                    if (pc.knownUsableTraitsTags[i] == temp2.associatedSpellTag)
+                    {
+                        pc.knownUsableTraitsTags.RemoveAt(i);
+                    }
+                }
+
+
+                //adding trait to replace mechanism: learing traits list (just added)
+                for (int i = pc.learningTraitsTags.Count - 1; i >= 0; i--)
+                {
+                    if (pc.learningTraitsTags[i] == tr.traitToReplaceByTag)
+                    {
+                        //TODO: remove connected permannent effects
+                        //Peter
+                        for (int j = pc.effectsList.Count - 1; j >= 0; j--)
+                        {
+                            foreach (EffectTagForDropDownList etfddl in temp2.traitEffectTagList)
+                            {
+                                if (pc.effectsList[j].tag == etfddl.tag)
+                                {
+                                    if (pc.effectsList[j].isPermanent)
+                                    {
+                                        pc.effectsList.RemoveAt(j);
+                                    }
+                                }
+                            }
+                        }
+                        //pc.replacedTraitsOrSpellsByTag.Add(tr.traitToReplaceByTag);
+                        pc.learningTraitsTags.RemoveAt(i);
+                    }
+                }
+                #endregion
+
+
+                //**************************************************************************
+
                 if (!tr.associatedSpellTag.Equals("none"))
                 {
                     if (tr.useableInSituation.Contains("Always"))
@@ -3847,6 +4000,171 @@ namespace IceBlink2
                         pc.knownInCombatUsableTraitsTags.Add(tr.associatedSpellTag);
                     }
                 }
+
+                //effects
+                //add permanent effects of trait to effect list of this pc
+                foreach (EffectTagForDropDownList efTag in tr.traitEffectTagList)
+                {//1
+                    foreach (Effect ef in gv.mod.moduleEffectsList)
+                    {//2
+                        if (ef.tag == efTag.tag)
+                        {//3
+                            if (ef.isPermanent)
+                            {//4
+                                bool doesNotExistAlfready = true;
+                                foreach (Effect ef2 in pc.effectsList)
+                                {//5
+                                    if (ef2.tag == ef.tag)
+                                    {//6
+                                        doesNotExistAlfready = false;
+                                        break;
+                                    }//6
+                                }//5
+
+                                if (doesNotExistAlfready)
+                                {//6
+                                    pc.effectsList.Add(ef);
+                                    gv.sf.UpdateStats(pc);
+                                    if (ef.modifyHpMax != 0)
+                                    {//7
+                                        pc.hp += ef.modifyHpMax;
+                                        if (pc.hp < 1)
+                                        {//8
+                                            pc.hp = 1;
+                                        }//8
+                                        if (pc.hp > pc.hpMax)
+                                        {
+                                            pc.hp = pc.hpMax;
+                                        }
+                                    }//7
+
+                                    if (ef.modifyCon != 0)
+                                    {//7
+                                        pc.hp += ef.modifyCon / 2;
+                                        if (pc.hp < 1)
+                                        {//8
+                                            pc.hp = 1;
+                                        }//8
+                                        if (pc.hp > pc.hpMax)
+                                        {
+                                            pc.hp = pc.hpMax;
+                                        }
+                                    }//7
+
+                                    if (ef.modifySpMax != 0)
+                                    {
+                                        pc.sp += ef.modifySpMax;
+                                        if (pc.sp < 1)
+                                        {
+                                            pc.sp = 1;
+                                        }
+                                        if (pc.sp > pc.spMax)
+                                        {
+                                            pc.sp = pc.spMax;
+                                        }
+                                    }
+
+                                    if (ef.modifyStr != 0)
+                                    {
+                                        if (pc.playerClass.modifierFromSPRelevantAttribute.Equals("strength"))
+                                        {
+                                            pc.sp += ef.modifyStr / 2;
+                                            if (pc.sp < 1)
+                                            {
+                                                pc.sp = 1;
+                                            }
+                                            if (pc.sp > pc.spMax)
+                                            {
+                                                pc.sp = pc.spMax;
+                                            }
+                                        }
+                                    }
+
+                                    if (ef.modifyDex != 0)
+                                    {
+                                        if (pc.playerClass.modifierFromSPRelevantAttribute.Equals("dexterity"))
+                                        {
+                                            pc.sp += ef.modifyDex / 2;
+                                            if (pc.sp < 1)
+                                            {
+                                                pc.sp = 1;
+                                            }
+                                            if (pc.sp > pc.spMax)
+                                            {
+                                                pc.sp = pc.spMax;
+                                            }
+                                        }
+                                    }
+
+                                    if (ef.modifyCon != 0)
+                                    {
+                                        if (pc.playerClass.modifierFromSPRelevantAttribute.Equals("constitution"))
+                                        {
+                                            pc.sp += ef.modifyCon / 2;
+                                            if (pc.sp < 1)
+                                            {
+                                                pc.sp = 1;
+                                            }
+                                            if (pc.sp > pc.spMax)
+                                            {
+                                                pc.sp = pc.spMax;
+                                            }
+                                        }
+                                    }
+
+                                    if (ef.modifyCha != 0)
+                                    {
+                                        if (pc.playerClass.modifierFromSPRelevantAttribute.Equals("charisma"))
+                                        {
+                                            pc.sp += ef.modifyCha / 2;
+                                            if (pc.sp < 1)
+                                            {
+                                                pc.sp = 1;
+                                            }
+                                            if (pc.sp > pc.spMax)
+                                            {
+                                                pc.sp = pc.spMax;
+                                            }
+                                        }
+                                    }
+
+                                    if (ef.modifyInt != 0)
+                                    {
+                                        if (pc.playerClass.modifierFromSPRelevantAttribute.Equals("intelligence"))
+                                        {
+                                            pc.sp += ef.modifyInt / 2;
+                                            if (pc.sp < 1)
+                                            {
+                                                pc.sp = 1;
+                                            }
+                                            if (pc.sp > pc.spMax)
+                                            {
+                                                pc.sp = pc.spMax;
+                                            }
+                                        }
+                                    }
+
+                                    if (ef.modifyWis != 0)
+                                    {
+                                        if (pc.playerClass.modifierFromSPRelevantAttribute.Equals("wisdom"))
+                                        {
+                                            pc.sp += ef.modifyWis / 2;
+                                            if (pc.sp < 1)
+                                            {
+                                                pc.sp = 1;
+                                            }
+                                            if (pc.sp > pc.spMax)
+                                            {
+                                                pc.sp = pc.spMax;
+                                            }
+                                        }
+                                    }
+                                }//5
+                            }//4
+                        }//3
+                    }//2
+                }//1 
+
             }
             else if (mod.debugMode) //SD_20131102
             {
@@ -4231,6 +4549,19 @@ namespace IceBlink2
             }
             return false;
         }
+
+        public bool CheckHasSpell(int PCIndex, string tag)
+        {
+            foreach (string s in mod.playerList[PCIndex].knownSpellsTags)
+            {
+                if (tag.Equals(s))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
         public bool CheckPassSkill(int PCIndex, string tag, int dc)
         {
             string foundLargest = "none";
@@ -6527,8 +6858,33 @@ namespace IceBlink2
                  {  
                      modifier = (pc.dexterity - 10) / 2;  
                  }  
-             }  
-             return modifier;  
+             }
+
+            //******************************************************
+            int highestNonStackable = -99;
+            foreach (Effect ef in pc.effectsList)
+            {
+                if (isPassiveTraitApplied(ef, pc))
+                {
+                    if (ef.isStackableEffect)
+                    {
+                        modifier += ef.babModifierForMeleeAttack;
+                    }
+                    else
+                    {
+                        if ((ef.babModifierForMeleeAttack != 0) && (ef.babModifierForMeleeAttack > highestNonStackable))
+                        {
+                            highestNonStackable = ef.babModifierForMeleeAttack;
+                        }
+                    }
+                }
+            }
+            if (highestNonStackable > modifier) { modifier = highestNonStackable; }
+
+
+            //*******************************************************
+
+            return modifier;  
          }
 
         public int CalcPcMeleeDamageAttributeModifier(Player pc)
@@ -6569,8 +6925,31 @@ namespace IceBlink2
                  {  
                      damModifier = damModifierDex;  
                  }  
-             }  
-             return damModifier;  
+             }
+
+            //**********************************************************
+            int highestNonStackable = -99;
+            foreach (Effect ef in pc.effectsList)
+            {
+                if (isPassiveTraitApplied(ef, pc))
+                {
+                    if (ef.isStackableEffect)
+                    {
+                       damModifier += ef.damageModifierForMeleeAttack;
+                    }
+                    else
+                    {
+                        if ((ef.damageModifierForMeleeAttack != 0) && (ef.damageModifierForMeleeAttack > highestNonStackable))
+                        {
+                            highestNonStackable = ef.damageModifierForMeleeAttack;
+                        }
+                    }
+                }
+            }
+            if (highestNonStackable > damModifier) { damModifier = highestNonStackable; }
+
+            //********************************************************
+            return damModifier;  
          }
 
         public bool canNegateAdjacentAttackPenalty(Player pc)
@@ -6611,8 +6990,8 @@ namespace IceBlink2
 
         public int CalcPcRangedAttackModifier(Player pc)
          {  
-             int preciseShotAdder = 0;  
-             string label = "";
+             int preciseShotAdder = 0;
+            //string label = "";
             /*  
              //go through all traits and see if has passive preciseshot type trait, use largest, not cumulative  
              foreach (string taTag in pc.knownTraitsTags)  
@@ -6628,9 +7007,10 @@ namespace IceBlink2
  5310 +                    }  
  5311 +                }  
  5312 +            }
- */  
-             //go through each effect and see if has a buff type like preciseshot, use largest, not cumulative  
-             foreach (Effect ef in pc.effectsList)  
+ */
+            //go through each effect and see if has a buff type like preciseshot, use largest, not cumulative  
+            /*
+            foreach (Effect ef in pc.effectsList)  
              {  
                  if (ef.babModifierForRangedAttack > preciseShotAdder)  
                  {
@@ -6640,62 +7020,107 @@ namespace IceBlink2
                         label = ef.name;
                     }
                  }  
-             }  
-             return preciseShotAdder;  
+             }
+             */
+
+            int highestNonStackable = -99;
+            foreach (Effect ef in pc.effectsList)
+            {
+                if (isPassiveTraitApplied(ef, pc))
+                {
+                    if (ef.isStackableEffect)
+                    {
+                        preciseShotAdder += ef.babModifierForRangedAttack;
+                    }
+                    else
+                    {
+                        if ((ef.babModifierForRangedAttack != 0) && (ef.babModifierForRangedAttack > highestNonStackable))
+                        {
+                            highestNonStackable = ef.babModifierForRangedAttack;
+                        }
+                    }
+                }
+            }
+            if (highestNonStackable > preciseShotAdder) { preciseShotAdder = highestNonStackable; }
+
+            return preciseShotAdder;  
          }
 
+        //not used
         public int CalcPcMeleeDamageModifier(Player pc)
          {  
-             int adder = 0;  
-             //go through all traits and see if has passive preciseshot type trait, use largest, not cumulative  
-             /*
- 5328 +            foreach (string taTag in pc.knownTraitsTags)  
- 5329 +            {  
- 5330 +                Trait ta = mod.getTraitByTag(taTag);  
- 5331 +                foreach (EffectTagForDropDownList efTag in ta.traitEffectTagList)  
- 5332 +                {  
- 5333 +                    Effect ef = mod.getEffectByTag(efTag.tag);  
- 5334 +                    if ((ef.damageModifierForMeleeAttack > adder) && (ta.isPassive))  
- 5335 +                    {  
- 5336 +                        adder = ef.damageModifierForMeleeAttack;  
- 5337 +                    }  
- 5338 +                }  
- 5339 +            }
- */  
-             //go through each effect and see if has a buff type like preciseshot, use largest, not cumulative  
-             foreach (Effect ef in pc.effectsList)  
-             {  
-                 if (ef.damageModifierForMeleeAttack > adder)  
-                 {
-                    if (isPassiveTraitApplied(ef, pc))
+             int adder = 0;
+            //go through all traits and see if has passive preciseshot type trait, use largest, not cumulative  
+            /*
+5328 +            foreach (string taTag in pc.knownTraitsTags)  
+5329 +            {  
+5330 +                Trait ta = mod.getTraitByTag(taTag);  
+5331 +                foreach (EffectTagForDropDownList efTag in ta.traitEffectTagList)  
+5332 +                {  
+5333 +                    Effect ef = mod.getEffectByTag(efTag.tag);  
+5334 +                    if ((ef.damageModifierForMeleeAttack > adder) && (ta.isPassive))  
+5335 +                    {  
+5336 +                        adder = ef.damageModifierForMeleeAttack;  
+5337 +                    }  
+5338 +                }  
+5339 +            }
+*/
+            //go through each effect and see if has a buff type like preciseshot, use largest, not cumulative  
+            /*foreach (Effect ef in pc.effectsList)  
+            {  
+                if (ef.damageModifierForMeleeAttack > adder)  
+                {
+                   if (isPassiveTraitApplied(ef, pc))
+                   {
+                       adder = ef.damageModifierForMeleeAttack;
+                   }
+                }  
+            } 
+            */
+            int highestNonStackable = -99;
+            foreach (Effect ef in pc.effectsList)
+            {
+                if (isPassiveTraitApplied(ef, pc))
+                {
+                    if (ef.isStackableEffect)
                     {
-                        adder = ef.damageModifierForMeleeAttack;
+                        adder += ef.damageModifierForMeleeAttack;
                     }
-                 }  
-             }  
-             return adder;  
+                    else
+                    {
+                        if ((ef.damageModifierForMeleeAttack != 0) && (ef.damageModifierForMeleeAttack > highestNonStackable))
+                        {
+                            highestNonStackable = ef.damageModifierForMeleeAttack;
+                        }
+                    }
+                }
+            }
+            if (highestNonStackable > adder) { adder = highestNonStackable; }
+
+            return adder;  
          }
 
         public int CalcPcRangedDamageModifier(Player pc)
          {  
-             int preciseShotAdder = 0;  
-             //go through all traits and see if has passive preciseshot type trait, use largest, not cumulative  
-             /*
- 5354 +            foreach (string taTag in pc.knownTraitsTags)  
- 5355 +            {  
- 5356 +                Trait ta = mod.getTraitByTag(taTag);  
- 5357 +                foreach (EffectTagForDropDownList efTag in ta.traitEffectTagList)  
- 5358 +                {  
- 5359 +                    Effect ef = mod.getEffectByTag(efTag.tag);  
- 5360 +                    if ((ef.damageModifierForRangedAttack > preciseShotAdder) && (ta.isPassive))  
- 5361 +                    {  
- 5362 +                        preciseShotAdder = ef.damageModifierForRangedAttack;  
- 5363 +                    }  
- 5364 +                }  
- 5365 +            }
- */  
-             //go through each effect and see if has a buff type like preciseshot, use largest, not cumulative  
-             foreach (Effect ef in pc.effectsList)  
+             int adder = 0;
+            //go through all traits and see if has passive preciseshot type trait, use largest, not cumulative  
+            /*
+5354 +            foreach (string taTag in pc.knownTraitsTags)  
+5355 +            {  
+5356 +                Trait ta = mod.getTraitByTag(taTag);  
+5357 +                foreach (EffectTagForDropDownList efTag in ta.traitEffectTagList)  
+5358 +                {  
+5359 +                    Effect ef = mod.getEffectByTag(efTag.tag);  
+5360 +                    if ((ef.damageModifierForRangedAttack > preciseShotAdder) && (ta.isPassive))  
+5361 +                    {  
+5362 +                        preciseShotAdder = ef.damageModifierForRangedAttack;  
+5363 +                    }  
+5364 +                }  
+5365 +            }
+*/
+            //go through each effect and see if has a buff type like preciseshot, use largest, not cumulative  
+            /*
+            foreach (Effect ef in pc.effectsList)  
              {  
                  if (ef.damageModifierForRangedAttack > preciseShotAdder)  
                  {
@@ -6704,8 +7129,29 @@ namespace IceBlink2
                         preciseShotAdder = ef.damageModifierForRangedAttack;
                     }
                  }  
-             }  
-             return preciseShotAdder;  
+             }
+             */
+
+            int highestNonStackable = -99;
+            foreach (Effect ef in pc.effectsList)
+            {
+                if (isPassiveTraitApplied(ef, pc))
+                {
+                    if (ef.isStackableEffect)
+                    {
+                        adder += ef.damageModifierForRangedAttack;
+                    }
+                    else
+                    {
+                        if ((ef.damageModifierForRangedAttack != 0) && (ef.damageModifierForRangedAttack > highestNonStackable))
+                        {
+                            highestNonStackable = ef.damageModifierForRangedAttack;
+                        }
+                    }
+                }
+            }
+            if (highestNonStackable > adder) { adder = highestNonStackable; }
+            return adder;  
          }
 
         public int CalcPcHpRegenInCombat(Player pc)

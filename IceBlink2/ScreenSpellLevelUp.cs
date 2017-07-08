@@ -149,7 +149,16 @@ namespace IceBlink2
                                 notKnownYet = false;
                             }
                         }
-                    
+
+                    //not already replaced
+                    foreach (string s in pc.replacedTraitsOrSpellsByTag)
+                    {
+                        if (s == ta.tag)
+                        {
+                            notKnownYet = false;
+                        }
+                    }
+
 
                     if (notKnownYet)
                     {
@@ -331,7 +340,16 @@ namespace IceBlink2
                                 notKnownYet = false;
                             }
                         }
-                    
+
+                    //not already replaced
+                    foreach (string s in pc.replacedTraitsOrSpellsByTag)
+                    {
+                        if (s == ta.tag)
+                        {
+                            notKnownYet = false;
+                        }
+                    }
+
 
                     if (notKnownYet)
                     {
@@ -938,6 +956,26 @@ namespace IceBlink2
                                         temp2 = t.DeepCopy();
                                     }
                                 }
+                                if ((tr.traitToReplaceByTag != "none") && (tr.traitToReplaceByTag != ""))
+                                {
+                                    pc.replacedTraitsOrSpellsByTag.Add(tr.traitToReplaceByTag);
+                                }
+                                if (tr.traitToReplaceByTag != tr.prerequisiteTrait)
+                                {
+                                    string replacedTag = tr.traitToReplaceByTag;
+                                    for (int j = gv.mod.moduleTraitsList.Count - 1; j >= 0; j--)
+                                    {
+                                        if (gv.mod.moduleTraitsList[j].prerequisiteTrait == replacedTag)
+                                        {
+                                            if (!pc.replacedTraitsOrSpellsByTag.Contains(replacedTag))
+                                            {
+                                                pc.replacedTraitsOrSpellsByTag.Add(gv.mod.moduleTraitsList[j].tag);
+                                                replacedTag = gv.mod.moduleTraitsList[j].tag;
+                                                j = gv.mod.moduleTraitsList.Count - 1;
+                                            }
+                                        }
+                                    }
+                                }
 
                                 //adding trait to replace mechanism: known traits
                                 for (int i = pc.knownTraitsTags.Count - 1; i >= 0; i--)
@@ -959,6 +997,7 @@ namespace IceBlink2
                                                 }
                                             }
                                         }
+                                        //pc.replacedTraitsOrSpellsByTag.Add(tr.traitToReplaceByTag);
                                         pc.knownTraitsTags.RemoveAt(i);
                                     }
                                 }
@@ -1021,6 +1060,7 @@ namespace IceBlink2
                                                 }
                                             }
                                         }
+                                        //pc.replacedTraitsOrSpellsByTag.Add(tr.traitToReplaceByTag);
                                         pc.learningTraitsTags.RemoveAt(i);
                                     }
                                 }
@@ -1233,11 +1273,16 @@ namespace IceBlink2
                                         break;
                                     }
                                 }
+                                if ((sp.spellToReplaceByTag != "none") && (sp.spellToReplaceByTag != ""))
+                                {
+                                    pc.replacedTraitsOrSpellsByTag.Add(sp.spellToReplaceByTag);
+                                }
 
                                 for (int i = pc.knownSpellsTags.Count - 1; i >= 0; i--)
                                 {
                                     if (pc.knownSpellsTags[i] == sp.spellToReplaceByTag)
                                     {
+                                        //pc.replacedTraitsOrSpellsByTag.Add(sp.spellToReplaceByTag);
                                         pc.knownSpellsTags.RemoveAt(i);
                                     }
                                 }
@@ -1246,12 +1291,14 @@ namespace IceBlink2
                                 {
                                     if (pc.learningSpellsTags[i] == sp.spellToReplaceByTag)
                                     {
+                                        //pc.replacedTraitsOrSpellsByTag.Add(sp.spellToReplaceByTag);
                                         pc.learningSpellsTags.RemoveAt(i);
                                     }
                                 }
                             }
                             
                             pc.learningTraitsTags.Clear();
+                            pc.learningEffects.Clear();
                             pc.learningSpellsTags.Clear();
 
                             gv.screenPcCreation.SaveCharacter(pc);
@@ -1291,6 +1338,26 @@ namespace IceBlink2
                                         temp2 = t.DeepCopy();
                                     }
                                 }
+                                if ((tr.traitToReplaceByTag != "none") && (tr.traitToReplaceByTag != ""))
+                                {
+                                    pc.replacedTraitsOrSpellsByTag.Add(tr.traitToReplaceByTag);
+                                }
+                                if (tr.traitToReplaceByTag != tr.prerequisiteTrait)
+                                {
+                                    string replacedTag = tr.traitToReplaceByTag;
+                                    for (int j = gv.mod.moduleTraitsList.Count - 1; j >= 0; j--)
+                                    {
+                                        if (gv.mod.moduleTraitsList[j].prerequisiteTrait == replacedTag)
+                                        {
+                                            if (!pc.replacedTraitsOrSpellsByTag.Contains(replacedTag))
+                                            {
+                                                pc.replacedTraitsOrSpellsByTag.Add(gv.mod.moduleTraitsList[j].tag);
+                                                replacedTag = gv.mod.moduleTraitsList[j].tag;
+                                                j = gv.mod.moduleTraitsList.Count - 1;
+                                            }
+                                        }
+                                    }
+                                }
 
                                 //adding trait to replace mechanism: known traits
                                 for (int i = pc.knownTraitsTags.Count - 1; i >= 0; i--)
@@ -1312,6 +1379,7 @@ namespace IceBlink2
                                                 }
                                             }
                                         }
+                                        //pc.replacedTraitsOrSpellsByTag.Add(tr.traitToReplaceByTag);
                                         pc.knownTraitsTags.RemoveAt(i);
                                     }
                                 }
@@ -1374,6 +1442,7 @@ namespace IceBlink2
                                                 }
                                             }
                                         }
+                                        //pc.replacedTraitsOrSpellsByTag.Add(tr.traitToReplaceByTag);
                                         pc.learningTraitsTags.RemoveAt(i);
                                     }
                                 }
@@ -1586,11 +1655,16 @@ namespace IceBlink2
                                         break;
                                     }
                                 }
+                                if ((sp.spellToReplaceByTag != "none") && (sp.spellToReplaceByTag != ""))
+                                {
+                                    pc.replacedTraitsOrSpellsByTag.Add(sp.spellToReplaceByTag);
+                                }
 
                                 for (int i = pc.knownSpellsTags.Count - 1; i >= 0; i--)
                                 {
                                     if (pc.knownSpellsTags[i] == sp.spellToReplaceByTag)
                                     {
+                                        //pc.replacedTraitsOrSpellsByTag.Add(sp.spellToReplaceByTag);
                                         pc.knownSpellsTags.RemoveAt(i);
                                     }
                                 }
@@ -1599,12 +1673,18 @@ namespace IceBlink2
                                 {
                                     if (pc.learningSpellsTags[i] == sp.spellToReplaceByTag)
                                     {
+                                        //pc.replacedTraitsOrSpellsByTag.Add(sp.spellToReplaceByTag);
                                         pc.learningSpellsTags.RemoveAt(i);
                                     }
                                 }
                             }
 
                             //****************************************************
+
+                            pc.learningTraitsTags.Clear();
+                            pc.learningEffects.Clear();
+                            pc.learningSpellsTags.Clear();
+
                             pc.classLevel--;
                             pc.LevelUp();
                             gv.sf.UpdateStats(pc);

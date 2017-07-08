@@ -24,7 +24,8 @@
       "cleric",
       "ranger",
       "wizard",
-      "thief"
+      "thief",
+      "paladin"
     ],
     "traitsAllowed": []
   },

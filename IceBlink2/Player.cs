@@ -113,6 +113,8 @@ namespace IceBlink2
         public int playerSize = 1;
         public int stayDurationInTurns = 100000;
 
+        public List<string> replacedTraitsOrSpellsByTag = new List<string>();
+
         public Player()
         {
 
@@ -198,6 +200,12 @@ namespace IceBlink2
             foreach (string s in this.knownSpellsTags)
             {
                 copy.knownSpellsTags.Add(s);
+            }
+
+            copy.replacedTraitsOrSpellsByTag = new List<string>();
+            foreach (string s in this.replacedTraitsOrSpellsByTag)
+            {
+                copy.replacedTraitsOrSpellsByTag.Add(s);
             }
 
             copy.tokenCoveredSquares = new List<Coordinate>();
@@ -346,7 +354,16 @@ namespace IceBlink2
                     }
                 }
 
-                if (sa.allow && !sa.automaticallyLearned & !tempLearnedAlready)
+                bool hasBeenReplacedAlready = false;
+                foreach (string tR in this.replacedTraitsOrSpellsByTag)
+                {
+                    if (sa.tag == tR)
+                    {
+                        hasBeenReplacedAlready = true;
+                    }
+                }
+
+                if (sa.allow && !sa.automaticallyLearned && !tempLearnedAlready && !hasBeenReplacedAlready)
                 {
                     if (sa.atWhatLevelIsAvailable <= this.classLevel)
                     {
@@ -441,7 +458,16 @@ namespace IceBlink2
                     }
                 }
 
-                if (ta.allow && !ta.automaticallyLearned && !tempLearnedAlready)
+                bool hasBeenReplacedAlready = false;
+                foreach (string tR in this.replacedTraitsOrSpellsByTag)
+                {
+                    if (ta.tag == tR)
+                    {
+                        hasBeenReplacedAlready = true;
+                    }
+                }
+
+                if (ta.allow && !ta.automaticallyLearned && !tempLearnedAlready && !hasBeenReplacedAlready)
                 {
                     if (ta.atWhatLevelIsAvailable <= this.classLevel)
                     {

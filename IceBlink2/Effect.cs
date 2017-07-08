@@ -26,7 +26,8 @@ namespace IceBlink2
         public int currentDurationInUnits = 0;
 	    public int startingTimeInUnits = 0;
 	    public int babModifier = 0; //for Creatures modifies cr_att, for PCs modifies baseAttBonus
-        public int babModifierForRangedAttack = 0;  
+        public int babModifierForRangedAttack = 0;
+        public int babModifierForMeleeAttack = 0;
         public int damageModifierForMeleeAttack = 0;  
         public int damageModifierForRangedAttack = 0;
 
@@ -151,6 +152,7 @@ namespace IceBlink2
 		    copy.babModifier = this.babModifier;
 		    copy.acModifier = this.acModifier;
             copy.babModifierForRangedAttack = this.babModifierForRangedAttack;
+            copy.babModifierForMeleeAttack = this.babModifierForMeleeAttack;
             copy.damageModifierForMeleeAttack = this.damageModifierForMeleeAttack;
             copy.damageModifierForRangedAttack = this.damageModifierForRangedAttack;
 

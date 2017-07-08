@@ -49,6 +49,8 @@ namespace IceBlink2
         public bool isOver = false;
         public int triggerScriptCalledFromSquareLocX = 0;
         public int triggerScriptCalledFromSquareLocY = 0;
+
+        public bool isFriendlyContest = false;
     
 	    public Encounter()
 	    {

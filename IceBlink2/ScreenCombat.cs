@@ -3815,8 +3815,21 @@ namespace IceBlink2
                     }
                 }
 
-                // give gold drop
-                if (gv.mod.currentEncounter.goldDrop > 0)
+                if (gv.mod.currentEncounter.isFriendlyContest)
+                {
+                    foreach (Player pc in gv.mod.playerList)
+                    {
+                        if (pc.hp < 1)
+                        {
+                            pc.hp = 1;
+                        }
+                        pc.charStatus = "Alive";
+                    }
+                    gv.sf.MessageBox("Your party has won this contest - the knocked out characters recover a bit.");
+                }
+
+                    // give gold drop
+                    if (gv.mod.currentEncounter.goldDrop > 0)
                 {
                     gv.cc.addLogText("<font color='yellow'>The party finds " + gv.mod.currentEncounter.goldDrop + " " + gv.mod.goldLabelPlural + ".<BR></font>");
                 }
@@ -3882,17 +3895,69 @@ namespace IceBlink2
             }
             if (foundOnePc == 0)
             {
-                gv.touchEnabled = true;
-                gv.sf.MessageBox("Your party has been defeated!");
-                if (gv.mod.playMusic)
+                if (gv.mod.currentEncounter.isFriendlyContest)
                 {
-                    gv.stopCombatMusic();
-                    gv.startMusic();
-                    gv.startAmbient();
+
+                    gv.mod.currentEncounter.isOver = true;
+                    gv.touchEnabled = true;
+
+                    //remove temporary allies
+                    for (int i = gv.mod.playerList.Count - 1; i >= 0; i--)
+                    {
+                        if (gv.mod.playerList[i].isTemporaryAllyForThisEncounterOnly)
+                        {
+                            gv.mod.playerList.RemoveAt(i);
+                        }
+                    }
+
+                    foreach (Player pc in gv.mod.playerList)
+                    {
+                        if (pc.hp < 1)
+                        {
+                            pc.hp = 1;
+                        }
+                        pc.charStatus = "Alive";
+                    }
+                    gv.sf.MessageBox("Your party has lost this contest - the knocked out characters recover a bit.");
+                    gv.screenType = "main";
+                    if (gv.mod.playMusic)
+                    {
+                        gv.stopCombatMusic();
+                        gv.startMusic();
+                        gv.startAmbient();
+                    }
+                    //do END ENCOUNTER IBScript
+                    gv.cc.doIBScriptBasedOnFilename(gv.mod.currentEncounter.OnEndCombatIBScript, gv.mod.currentEncounter.OnEndCombatIBScriptParms);
+                    if (gv.cc.calledEncounterFromProp)
+                    {
+                        //gv.mod.isRecursiveDoTriggerCallMovingProp = true;
+                        //gv.mod.isRecursiveCall = true;
+                        gv.mod.EncounterOfTurnDone = false;
+                        gv.cc.doPropTriggers();
+                        //gv.mod.isRecursiveCall = false;
+                    }
+                    else
+                    {
+                        gv.mod.EncounterOfTurnDone = false;
+                        gv.cc.doTrigger();
+                    }
+                    return true;
+
                 }
-                gv.resetGame();
-                gv.screenType = "title";
-                return true;
+                else
+                {
+                    gv.touchEnabled = true;
+                    gv.sf.MessageBox("Your party has been defeated!");
+                    if (gv.mod.playMusic)
+                    {
+                        gv.stopCombatMusic();
+                        gv.startMusic();
+                        gv.startAmbient();
+                    }
+                    gv.resetGame();
+                    gv.screenType = "title";
+                    return true;
+                }
             }
             return false;
         }
@@ -13726,8 +13791,8 @@ namespace IceBlink2
                     modifier += preciseShotAdder;
                     gv.cc.addLogText("<font color='lime'> Bonus: +" + preciseShotAdder + "to hit</font><BR>");
                 }
-                else
-                {
+                //else
+                //{
                     if (gv.sf.hasTrait(pc, "preciseshot2"))
                     {
                         modifier += 2;
@@ -13738,7 +13803,7 @@ namespace IceBlink2
                         modifier++;
                         gv.cc.addLogText("<font color='lime'> PreciseShotL1: +1 to hit</font><BR>");
                     }
-                }
+                //}
             }
 
             if (gv.sf.hasTrait(pc, "hardtokill"))
@@ -13788,6 +13853,7 @@ namespace IceBlink2
             if (gv.sf.isMeleeAttack(pc))
             {
                 melee = true;
+                /*
                 damModifier = (pc.strength - 10) / 2;
                 //if has critical strike trait use dexterity for damage modifier in melee if greater than strength modifier
                 if (gv.sf.hasTrait(pc, "criticalstrike"))
@@ -13798,6 +13864,10 @@ namespace IceBlink2
                         damModifier = (pc.dexterity - 10) / 2;
                     }
                 }
+                */
+
+                //we need to take ffect for melee damage into account here
+                damModifier += gv.sf.CalcPcMeleeDamageAttributeModifier(pc);
 
                 if (IsAttackFromBehind(pc, crt))
                 {
@@ -13807,6 +13877,7 @@ namespace IceBlink2
                         gv.cc.addLogText("<font color='lime'> Attack from behind: +" + gv.mod.attackFromBehindDamageModifier.ToString() + " damage." + "</font><BR>");
                     }
                 }
+
             }
             else //ranged weapon used
             {
@@ -13822,6 +13893,8 @@ namespace IceBlink2
                     gv.cc.addLogText("<font color='lime'> PreciseShotL1: +1 damage</font><BR>");
                 }
 
+                //we need to take effect for ranged damage into account here
+                damModifier += gv.sf.CalcPcRangedDamageModifier(pc);
             }
 
             int dDam = gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref).damageDie;

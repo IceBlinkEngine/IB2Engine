@@ -429,7 +429,8 @@ namespace IceBlink2
             gv.DrawText("HP: " + pc.hp + "/" + pc.hpMax, tabX2, locY);
             gv.DrawText("CON: " + pc.baseCon + " + " + (pc.constitution - pc.baseCon) + " = " + pc.constitution + " (" + ((pc.constitution - 10) / 2) + ")", tabX, locY += spacing);
             gv.DrawText("SP: " + pc.sp + "/" + pc.spMax, tabX2, locY);
-            gv.DrawText("BAB: " + pc.baseAttBonus + ", Melee to hit/damage: " + (pc.baseAttBonus + ((pc.strength - 10) / 2)) + "/" + ((pc.strength - 10) / 2) + ", Ranged to hit: " + (pc.baseAttBonus + ((pc.dexterity - 10) / 2)), tabX2, locY += spacing);
+            //gv.DrawText("BAB: " + pc.baseAttBonus + ", Melee to hit/damage: " + (pc.baseAttBonus + ((pc.strength - 10) / 2)) + "/" + ((pc.strength - 10) / 2) + ", Ranged to hit: " + (pc.baseAttBonus + ((pc.dexterity - 10) / 2)), tabX2, locY += spacing);
+            gv.DrawText("BAB: " + pc.baseAttBonus + ", Melee to hit/damage: " + (pc.baseAttBonus + gv.sf.CalcPcMeleeAttackAttributeModifier(pc)) + "/" + (((pc.strength - 10) / 2) + gv.sf.CalcPcMeleeDamageModifier(pc)) + ", Ranged to hit: " + (pc.baseAttBonus + ((pc.dexterity - 10) / 2) + gv.sf.CalcPcRangedAttackModifier(pc)), tabX2, locY += spacing);
             //gv.DrawText("SP: " + pc.sp + "/" + pc.spMax, tabX2, locY);
             gv.DrawText("INT:  " + pc.baseInt + " + " + (pc.intelligence - pc.baseInt) + " = " + pc.intelligence + " (" + ((pc.intelligence - 10) / 2) + ")", tabX, locY);
             gv.DrawText("FORT: " + pc.fortitude + ", Acid: " + pc.damageTypeResistanceTotalAcid + "%" + ", Cold: " + pc.damageTypeResistanceTotalCold + "%" + ", Normal: " + pc.damageTypeResistanceTotalNormal + "%", tabX2, locY += spacing);
@@ -613,8 +614,9 @@ namespace IceBlink2
                 {
                     modifier += preciseShotAdder;
                 }
-                else
-                {
+
+                //else
+                //{
                     if (gv.sf.hasTrait(pc, "preciseshot2"))
                     {
                         modifier += 2;
@@ -623,7 +625,7 @@ namespace IceBlink2
                     {
                         modifier++;
                     }
-                }
+                //}
                 Item it2 = gv.mod.getItemByResRefForInfo(pc.AmmoRefs.resref);
                 if (it2 != null)
                 {
@@ -1322,6 +1324,28 @@ namespace IceBlink2
                                     }
                                 }
 
+                                //adding to replaced list even if never taken (allow alternativley exclusive traits)
+                                if ((tr.traitToReplaceByTag != "none") && (tr.traitToReplaceByTag != ""))
+                                {
+                                    pc.replacedTraitsOrSpellsByTag.Add(tr.traitToReplaceByTag);
+                                }
+                                if (tr.traitToReplaceByTag != tr.prerequisiteTrait)
+                                {
+                                    string replacedTag = tr.traitToReplaceByTag;
+                                    for (int j = gv.mod.moduleTraitsList.Count - 1; j >= 0; j--)
+                                    {
+                                        if (gv.mod.moduleTraitsList[j].prerequisiteTrait == replacedTag)
+                                        {
+                                            if (!pc.replacedTraitsOrSpellsByTag.Contains(replacedTag))
+                                            {
+                                                pc.replacedTraitsOrSpellsByTag.Add(gv.mod.moduleTraitsList[j].tag);
+                                                replacedTag = gv.mod.moduleTraitsList[j].tag;
+                                                j = gv.mod.moduleTraitsList.Count - 1;
+                                            }
+                                        }
+                                    }
+                                }
+
                                 //adding trait to replace mechanism: known traits
                                 for (int i = pc.knownTraitsTags.Count - 1; i >= 0; i--)
                                 {
@@ -1342,6 +1366,7 @@ namespace IceBlink2
                                                 }
                                             }
                                         }
+                                        //pc.replacedTraitsOrSpellsByTag.Add(tr.traitToReplaceByTag);
                                         pc.knownTraitsTags.RemoveAt(i);
                                     }
                                 }
@@ -1404,6 +1429,7 @@ namespace IceBlink2
                                                 }
                                             }
                                         }
+                                        //pc.replacedTraitsOrSpellsByTag.Add(tr.traitToReplaceByTag);
                                         pc.learningTraitsTags.RemoveAt(i);
                                     }
                                 }
@@ -1591,12 +1617,17 @@ namespace IceBlink2
                                 //get the spell gained
                                 Spell sp = new Spell();
                                 sp = gv.mod.getSpellByTag(sp.tag);
-
+                                if ((sp.spellToReplaceByTag != "none") && (sp.spellToReplaceByTag != ""))
+                                {
+                                    pc.replacedTraitsOrSpellsByTag.Add(sp.spellToReplaceByTag);
+                                }
+                                
                                 //adding trait to replace mechanism: known traits
                                 for (int i = pc.knownSpellsTags.Count - 1; i >= 0; i--)
                                 {
                                     if (pc.knownSpellsTags[i] == sp.spellToReplaceByTag)
                                     {
+                                        //pc.replacedTraitsOrSpellsByTag.Add(sp.spellToReplaceByTag);
                                         pc.knownSpellsTags.RemoveAt(i);
                                     }
                                 }
@@ -1606,6 +1637,7 @@ namespace IceBlink2
                                 {
                                     if (pc.learningSpellsTags[i] == sp.spellToReplaceByTag)
                                     {
+                                        //pc.replacedTraitsOrSpellsByTag.Add(sp.spellToReplaceByTag);
                                         pc.learningSpellsTags.RemoveAt(i);
                                     }
                                 }
