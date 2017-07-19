@@ -33610,6 +33610,18 @@ namespace IceBlink2
                         pnl.portraitList[index].ImgFilename = pc.portraitFilename;
                         pnl.portraitList[index].TextHP = pc.hp + "/" + pc.hpMax;
                         pnl.portraitList[index].TextSP = pc.sp + "/" + pc.spMax;
+                        pnl.portraitList[index].levelUpSymbol = "+";
+                        
+                        //DRAW LEVEL UP INDICATOR
+                        if (pc.IsReadyToAdvanceLevel())
+                        {
+                            pnl.portraitList[index].levelUpSymbol = "+";
+                        }
+                        else
+                        {
+                            pnl.portraitList[index].levelUpSymbol = "";
+                        }
+
                         if (gv.mod.selectedPartyLeader == index)
                         {
                             pnl.portraitList[index].glowOn = true;

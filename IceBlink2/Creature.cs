@@ -86,6 +86,8 @@ namespace IceBlink2
         public float glideAdderX = 0;
         public float glideAdderY = 0;
         public int hpLastTurn = -1;
+        public int hpRegenerationPerRound = 0;
+        public int spRegenerationPerRound = 0;
 
         //creature size system
         //1=normal, 2=wide, 3=tall, 4=large
@@ -172,6 +174,8 @@ namespace IceBlink2
             copy.labelForCastAction = this.labelForCastAction;
             copy.labelForSpellsButtonInCombat = this.labelForSpellsButtonInCombat;
             copy.creatureSize = this.creatureSize;
+            copy.spRegenerationPerRound = this.spRegenerationPerRound;
+            copy.hpRegenerationPerRound = this.hpRegenerationPerRound;
 
             copy.knownSpellsTags = new List<string>();
             foreach (string s in this.knownSpellsTags)
@@ -516,7 +520,29 @@ namespace IceBlink2
              if (highestNonStackable > -99) { adder = highestNonStackable; }  
              int att = this.cr_att + adder;  
              return att;  
-         }  
+         } 
+        
+        public int getMaxHPModifier()
+        {
+            int adder = 0;
+            int highestNonStackable = -99;
+            foreach (Effect ef in this.cr_effectsList)
+            {
+                if (ef.isStackableEffect)
+                {
+                    adder += ef.modifyHpMax;
+                }
+                else
+                {
+                    if ((ef.modifyHpMax != 0) && (ef.modifyHpMax > highestNonStackable))
+                    {
+                        highestNonStackable = ef.modifyHpMax;
+                    }
+                }
+            }
+            if (highestNonStackable > -99) { adder = highestNonStackable; }
+            return adder;
+        } 
 
          public int getNumberOfAttacks()
          {  

@@ -596,6 +596,10 @@ namespace IceBlink2
                         gv.resetGame();
                         gv.screenType = "title";
                     }
+                    else if (filename.Equals("gaRoster.cs"))
+                    {
+                        gv.screenType = "partyRoster";
+                    }
                     else if (filename.Equals("gaPlaySound.cs"))
                     {
                         gv.PlaySound(p1);
@@ -5348,171 +5352,6 @@ namespace IceBlink2
             //used at level up, doPcTurn, open inventory, etc.
             ReCalcSavingThrowBases(pc); //SD_20131029
 
-            //preparing modifiers from permanent effects, liek e.g. from traits
-            //remember adding the reset for incoming additional properties, too, here
-            /*
-                int acModifier = 0;
-                int babModifier = 0;
-                int modifyCha = 0;
-                int modifyCon = 0;
-                int modifyDamageTypeResistanceAcid = 0;
-                int modifyDamageTypeResistanceCold = 0;
-                int modifyDamageTypeResistanceElectricity = 0;
-                int modifyDamageTypeResistanceFire = 0;
-                int modifyDamageTypeResistanceMagic = 0;
-                int modifyDamageTypeResistanceNormal = 0;
-                int modifyDamageTypeResistancePoison = 0;
-                int modifyDex = 0;
-                int modifyFortitude = 0;
-                int modifyHpMax = 0;
-                int modifyInt = 0;
-                int modifyLuk = 0;
-                int modifyMoveDistance = 0;
-                int modifyNumberOfMeleeAttacks = 0;
-                int modifyNumberOfRangedAttacks = 0;
-                int modifyReflex = 0;
-                int modifySpMax = 0;
-                int modifyStr = 0;
-                int modifyWill = 0;
-                int modifyWis = 0;
-                int modifyNumberOfEnemiesAttackedOnCleave = 0;
-                int modifyNumberOfEnemiesAttackedOnSweepAttack = 0;
-                int babModifierForRangedAttack = 0;
-                int damageModifierForMeleeAttack = 0;
-                int damageModifierForRangedAttack = 0;
-                int modifyHpInCombat = 0;  
-                int modifySpInCombat = 0;
-                */
-            /*
-            //code block for cheking tag based trait requirements
-            #region
-            foreach (Effect ef in pc.effectsList)
-            {
-                if (ef.isPermanent)
-                {
-
-                    bool traitWorksForThisPC = false;
-                    
-                    // set up effects lists for traitWorksOnlyWhen and traitWorksNeverWhen
-                    ef.traitWorksNeverWhen.Clear();
-                    ef.traitWorksOnlyWhen.Clear();
-                    //go through all trait tags of pc
-                    foreach (string traitTag in pc.knownTraitsTags)
-                    {
-                        //go through all traits of module
-                        foreach (Trait t in gv.mod.moduleTraitsList)
-                        {
-                            //found a trait the pc has
-                            if (t.tag.Equals(traitTag))
-                            {
-                                //go through effect tags for drop down list of this trait
-                                foreach (EffectTagForDropDownList effectTag in t.traitEffectTagList)
-                                {
-                                    //found out that our current effect ef stems from this trait of the pc
-                                    if (effectTag.tag.Equals(ef.tag))
-                                    {
-                                        //built the lists on runtime for our current ef from the trait's template
-                                        foreach (LocalImmunityString ls in t.traitWorksOnlyWhen)
-                                        {
-                                            LocalImmunityString ls2 = ls.DeepCopy();
-                                            ef.traitWorksOnlyWhen.Add(ls2);
-                                        }
-
-                                        foreach (LocalImmunityString ls in t.traitWorksNeverWhen)
-                                        {
-                                            LocalImmunityString ls2 = ls.DeepCopy();
-                                            ef.traitWorksNeverWhen.Add(ls2);
-                                        }
-
-                                        //ef.traitWorksNeverWhen = t.traitWorksNeverWhen;
-                                        //ef.traitWorksOnlyWhen = t.traitWorksOnlyWhen;
-                                    }
-                                }
-                            }
-                        }
-                    }
-
-                    if (ef.traitWorksOnlyWhen.Count <= 0)
-                    {
-                        traitWorksForThisPC = true;
-                    }
-          
-                    //note that the tratNeccessities are logically connected with OR the way it is setup
-                    else foreach (LocalImmunityString traitNeccessity in ef.traitWorksOnlyWhen)
-                    {
-                        foreach (string pcTag in pc.pcTags)
-                        {
-                            if (traitNeccessity.Value.Equals(pcTag))
-                            {
-                                traitWorksForThisPC = true;
-                                break;
-                            }
-                        }
-                    }
-
-                    //one redFlag is enough to stop the trait from working, ie connected with OR, too
-                    if (traitWorksForThisPC)
-                    {
-                        foreach (LocalImmunityString traitRedFlag in ef.traitWorksNeverWhen)
-                        {
-                            foreach (string pcTag in pc.pcTags)
-                            {
-                                if (traitRedFlag.Value.Equals(pcTag))
-                                {
-                                    traitWorksForThisPC = false;
-                                    break;
-                                }
-                            }
-                        }
-
-                    }
-                    //note: work with  if (traitWorksForThisPC){} from here on
-                        #endregion
-                        //eventually add damge bonus or multiplier for attacks from behind (nomral and stealth sepaarely)
-                        //eventually add max dex bonus allowed when wearing armor
-                        //eventually add direct damage modifier, separAted by melee, range and spell/trait maybe
-                        //Add initiative and damage absorbtion into engine and then modifiers here
-                        if (traitWorksForThisPC)
-                    {
-                        babModifier += ef.babModifier;
-                        acModifier += ef.acModifier;
-                        modifyCha += ef.modifyCha;
-                        modifyCon += ef.modifyCon;
-                        modifyDamageTypeResistanceAcid += ef.modifyDamageTypeResistanceAcid;
-                        modifyDamageTypeResistanceCold += ef.modifyDamageTypeResistanceCold;
-                        modifyDamageTypeResistanceElectricity += ef.modifyDamageTypeResistanceElectricity;
-                        modifyDamageTypeResistanceFire += ef.modifyDamageTypeResistanceFire;
-                        modifyDamageTypeResistanceMagic += ef.modifyDamageTypeResistanceMagic;
-                        modifyDamageTypeResistanceNormal += ef.modifyDamageTypeResistanceNormal;
-                        modifyDamageTypeResistancePoison += ef.modifyDamageTypeResistancePoison;
-                        modifyDex += ef.modifyDex;
-                        modifyFortitude += ef.modifyFortitude;
-                        modifyHpMax += ef.modifyHpMax;
-                        modifyInt += ef.modifyInt;
-                        modifyLuk += ef.modifyLuk;
-                        modifyMoveDistance += ef.modifyMoveDistance;
-                        modifyNumberOfMeleeAttacks += ef.modifyNumberOfMeleeAttacks;
-                        modifyNumberOfRangedAttacks += ef.modifyNumberOfRangedAttacks;
-                        modifyReflex += ef.modifyReflex;
-                        modifySpMax += ef.modifySpMax;
-                        modifyStr += ef.modifyStr;
-                        modifyWill += ef.modifyWill;
-                        modifyWis += ef.modifyWis;
-
-                        //hard to get these in here as they have special situational requirements
-                        //they must be added in the code sections that are used in that situation and only there 
-                        modifyNumberOfEnemiesAttackedOnCleave += ef.modifyNumberOfEnemiesAttackedOnCleave;
-                        modifyNumberOfEnemiesAttackedOnSweepAttack += ef.modifyNumberOfEnemiesAttackedOnSweepAttack;
-                        babModifierForRangedAttack += ef.babModifierForRangedAttack;
-                        damageModifierForMeleeAttack += ef.damageModifierForMeleeAttack;
-                        damageModifierForRangedAttack += ef.damageModifierForRangedAttack;
-                        modifyHpInCombat += ef.modifyHpInCombat;
-                        modifySpInCombat += ef.modifySpInCombat;
-                    }
-                }
-            }
-            */
-
             pc.fortitude = pc.baseFortitude + CalcSavingThrowModifiersFortitude(pc) + (pc.constitution - 10) / 2; //SD_20131127
             pc.will = pc.baseWill + CalcSavingThrowModifiersWill(pc) + (pc.intelligence - 10) / 2; //SD_20131127
             pc.reflex = pc.baseReflex + CalcSavingThrowModifiersReflex(pc) + (pc.dexterity - 10) / 2; //SD_20131127
@@ -7102,36 +6941,7 @@ namespace IceBlink2
 
         public int CalcPcRangedDamageModifier(Player pc)
          {  
-             int adder = 0;
-            //go through all traits and see if has passive preciseshot type trait, use largest, not cumulative  
-            /*
-5354 +            foreach (string taTag in pc.knownTraitsTags)  
-5355 +            {  
-5356 +                Trait ta = mod.getTraitByTag(taTag);  
-5357 +                foreach (EffectTagForDropDownList efTag in ta.traitEffectTagList)  
-5358 +                {  
-5359 +                    Effect ef = mod.getEffectByTag(efTag.tag);  
-5360 +                    if ((ef.damageModifierForRangedAttack > preciseShotAdder) && (ta.isPassive))  
-5361 +                    {  
-5362 +                        preciseShotAdder = ef.damageModifierForRangedAttack;  
-5363 +                    }  
-5364 +                }  
-5365 +            }
-*/
-            //go through each effect and see if has a buff type like preciseshot, use largest, not cumulative  
-            /*
-            foreach (Effect ef in pc.effectsList)  
-             {  
-                 if (ef.damageModifierForRangedAttack > preciseShotAdder)  
-                 {
-                    if (isPassiveTraitApplied(ef, pc))
-                    {
-                        preciseShotAdder = ef.damageModifierForRangedAttack;
-                    }
-                 }  
-             }
-             */
-
+            int adder = 0;
             int highestNonStackable = -99;
             foreach (Effect ef in pc.effectsList)
             {
@@ -7155,52 +6965,100 @@ namespace IceBlink2
          }
 
         public int CalcPcHpRegenInCombat(Player pc)
-         {  
-             int adder = 0;
-          
-             //go through all traits and see if has passive HP regen type trait, use largest, not cumulative  
-             foreach (string taTag in pc.knownTraitsTags)  
-             {  
-                 Trait ta = mod.getTraitByTag(taTag);  
-                 foreach (EffectTagForDropDownList efTag in ta.traitEffectTagList)  
-                 {  
-                     Effect ef = mod.getEffectByTag(efTag.tag);  
-                     if ((ef.modifyHpInCombat > adder) && (ef.isPermanent))  
-                     {
-                        if (isPassiveTraitApplied(ef, pc))
+         {
+            int adder = 0;
+            int highestNonStackable = -99;
+            foreach (Effect ef in pc.effectsList)
+            {
+                if (isPassiveTraitApplied(ef, pc))
+                {
+                    if (ef.isStackableEffect)
+                    {
+                        adder += ef.modifyHpInCombat;
+                    }
+                    else
+                    {
+                        if ((ef.modifyHpInCombat != 0) && (ef.modifyHpInCombat > highestNonStackable))
                         {
-                            adder = ef.modifyHpInCombat;
+                            highestNonStackable = ef.modifyHpInCombat;
                         }
-                     }  
-                 }  
-             }  
-             return adder;  
-         }
+                    }
+                }
+            }
+            if (highestNonStackable > adder) { adder = highestNonStackable; }
+            return adder;
+        }
 
         public int CalcPcSpRegenInCombat(Player pc)
-         {  
-             int adder = 0;  
-             //go through all traits and see if has passive HP regen type trait, use largest, not cumulative  
-             foreach (string taTag in pc.knownTraitsTags)  
-             {  
-                 Trait ta = mod.getTraitByTag(taTag);  
-                 foreach (EffectTagForDropDownList efTag in ta.traitEffectTagList)  
-                 {  
-                     Effect ef = mod.getEffectByTag(efTag.tag);  
-                     if ((ef.modifySpInCombat > adder) && (ef.isPermanent))  
-                     {
-                        if (isPassiveTraitApplied(ef, pc))
+         {
+            int adder = 0;
+            int highestNonStackable = -99;
+            foreach (Effect ef in pc.effectsList)
+            {
+                if (isPassiveTraitApplied(ef, pc))
+                {
+                    if (ef.isStackableEffect)
+                    {
+                        adder += ef.modifySpInCombat;
+                    }
+                    else
+                    {
+                        if ((ef.modifySpInCombat != 0) && (ef.modifySpInCombat > highestNonStackable))
                         {
-                            adder = ef.modifySpInCombat;
+                            highestNonStackable = ef.modifySpInCombat;
                         }
-                     }  
-                 }  
-             }  
-             return adder;  
-        }  
+                    }
+                }
+            }
+            if (highestNonStackable > adder) { adder = highestNonStackable; }
+            return adder;
+        }
 
+        public int CalcCrtSpRegenInCombat(Creature crt)
+        {
+            int adder = 0;
+            int highestNonStackable = -99;
+            foreach (Effect ef in crt.cr_effectsList)
+            {
+                    if (ef.isStackableEffect)
+                    {
+                        adder += ef.modifySpInCombat;
+                    }
+                    else
+                    {
+                        if ((ef.modifySpInCombat != 0) && (ef.modifySpInCombat > highestNonStackable))
+                        {
+                            highestNonStackable = ef.modifySpInCombat;
+                        }
+                    }
+            }
+            if (highestNonStackable > adder) { adder = highestNonStackable; }
+            return adder;
+        }
 
-    public void RunAllItemWhileEquippedScripts(Player pc)
+        public int CalcCrtHpRegenInCombat(Creature crt)
+        {
+            int adder = 0;
+            int highestNonStackable = -99;
+            foreach (Effect ef in crt.cr_effectsList)
+            {
+                if (ef.isStackableEffect)
+                {
+                    adder += ef.modifyHpInCombat;
+                }
+                else
+                {
+                    if ((ef.modifyHpInCombat != 0) && (ef.modifyHpInCombat > highestNonStackable))
+                    {
+                        highestNonStackable = ef.modifyHpInCombat;
+                    }
+                }
+            }
+            if (highestNonStackable > adder) { adder = highestNonStackable; }
+            return adder;
+        }
+
+        public void RunAllItemWhileEquippedScripts(Player pc)
         {
             try
             {
@@ -7861,7 +7719,7 @@ namespace IceBlink2
                     }
                     #endregion
                 }
-                if (ef.doBuff)
+                if ((ef.doBuff) || (ef.durationInUnits > 0))
                 {
                     if (!ef.isPermanent)
                     {
@@ -7874,7 +7732,7 @@ namespace IceBlink2
                     //no need to do anything here as buffs are used in updateStats or during
                     //checks such as ef.addStatusType.Equals("Held") on Player or Creature class
                 }
-                if (ef.doDeBuff)
+                if ((ef.doDeBuff) || (ef.durationInUnits > 0))
                 {
                     if (!ef.isPermanent)
                     {
@@ -8063,7 +7921,7 @@ namespace IceBlink2
                     }
                     #endregion
                 }
-                if (ef.doBuff)
+                if ((ef.doBuff) || (ef.durationInUnits > 0))
                 {
                     if (!ef.isPermanent)
                     {
@@ -8076,7 +7934,7 @@ namespace IceBlink2
                     //no need to do anything here as buffs are used in updateStats or during
                     //checks such as ef.addStatusType.Equals("Held") on Player or Creature class
                 }
-                if (ef.doDeBuff)
+                if ((ef.doDeBuff) || (ef.durationInUnits > 0))
                 {
                     if (!ef.isPermanent)
                     {

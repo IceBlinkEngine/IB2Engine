@@ -748,7 +748,10 @@ namespace IceBlink2
                         }
                         else if (btnPartyRoster.getImpact(x, y))
                         {
-                            btnPartyRoster.glowOn = true;
+                            if (gv.mod.hideRoster == false)
+                            {
+                                btnPartyRoster.glowOn = true;
+                            }
                         }
                         else if (btnHelp.getImpact(x, y))
                         {
@@ -1034,7 +1037,10 @@ namespace IceBlink2
                         {
                             if (!inCombat)
                             {
-                                gv.screenType = "partyRoster";
+                                if (gv.mod.hideRoster == false)
+                                {
+                                    gv.screenType = "partyRoster";
+                                }
                             }
                         }
                         if (!inCombat)

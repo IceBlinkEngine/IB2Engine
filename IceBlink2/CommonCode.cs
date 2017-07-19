@@ -8524,7 +8524,7 @@ namespace IceBlink2
                         //decrement duration of all
                         if (!ef.isPermanent)
                         {
-                            ef.durationInUnits -= gv.mod.currentArea.TimePerSquare;
+                            ef.durationInUnits -= gv.mod.currentArea.TimePerSquare * 60; //timePerSquare is in minutes while effects work with seconds
                         }
                         if (!ef.usedForUpdateStats) //not used for stat updates
                         {
@@ -8554,7 +8554,7 @@ namespace IceBlink2
         }
         public void doEffectScript(object src, Effect ef)
         {
-            if (ef.effectScript.Equals("efGeneric"))
+            if (ef.effectScript.Equals("efGeneric") || ef.effectScript.Equals("none"))
             {
                 gv.sf.efGeneric(src, ef);
             }
@@ -9534,12 +9534,37 @@ namespace IceBlink2
 
 
                     //}
+                    bool changeMusic = true;
+                    bool changeAmbient = true;
+                    foreach (Area a in gv.mod.moduleAreasObjects)
+                    {
+                        if (a.Filename == areaFilename)
+                        {
+                            if (a.AreaMusic == gv.mod.currentArea.AreaMusic)
+                            {
+                                changeMusic = false;
+                            }
 
-                    //if (gv.mod.playMusic)
-                    //{
-                    //gv.startMusic();
-                    //gv.startAmbient();
-                    //}
+                            if (a.AreaSounds == gv.mod.currentArea.AreaSounds)
+                            {
+                                changeAmbient = false;
+                            }
+                        }
+                    }
+
+                    /*
+                    if (gv.mod.playMusic)
+                    {
+                        if (changeMusic)
+                        {
+                            gv.startMusic();
+                        }
+                        if (changeAmbient)
+                        {
+                            gv.startAmbient();
+                        }
+                    }
+                    */
 
                     //areaMusic.controls.pause();
                     Area oldMaster = new Area();
@@ -9570,10 +9595,16 @@ namespace IceBlink2
 
                     if (gv.mod.playMusic)
                     {
-                        gv.startMusic();
-                        gv.startAmbient();
+                        if (changeMusic)
+                        {
+                            gv.startMusic();
+                        }
+                        if (changeAmbient)
+                        {
+                            gv.startAmbient();
+                        }
                     }
-
+                    
                     if (gv.mod.currentArea.areaWeatherName == "")
                     {
                         gv.weatherSounds1.controls.pause();

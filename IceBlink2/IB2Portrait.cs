@@ -20,6 +20,7 @@ namespace IceBlink2
         public bool levelUpOn = false;
         public string TextHP = "";
         public string TextSP = "";
+        public string levelUpSymbol = "";
         public int X = 0;
         public int Y = 0;
         public int Width = 0;
@@ -199,7 +200,27 @@ namespace IceBlink2
                 int xLoc2 = (int)((parentPanel.currentLocX + this.X) * gv.screenDensity + ulX - pW);
                 int yLoc2 = (int)((parentPanel.currentLocY + this.Y) * gv.screenDensity + ulY - pH);
                 gv.DrawText(TextSP, xLoc2, yLoc2, scaler, Color.Yellow);
+
+
+                //draw level up symbol
+                ulX = (int)(110 * gv.screenDensity) - pW * 9;
+                ulY = (int)(Height * gv.screenDensity) - ((int)thisFontHeight * 7) + pH;
+
+                for (int x = -2; x <= 2; x++)
+                {
+                    for (int y = -2; y <= 2; y++)
+                    {
+                        int xLoc = (int)((parentPanel.currentLocX + this.X) * gv.screenDensity + ulX - pW + x);
+                        int yLoc = (int)((parentPanel.currentLocY + this.Y) * gv.screenDensity + ulY - pH + y);
+                        gv.DrawText(levelUpSymbol, xLoc, yLoc, scaler*1.2f, Color.Black);
+                    }
+                }
+                int xLoc3 = (int)((parentPanel.currentLocX + this.X) * gv.screenDensity + ulX - pW);
+                int yLoc3 = (int)((parentPanel.currentLocY + this.Y) * gv.screenDensity + ulY - pH);
+                gv.DrawText(levelUpSymbol, xLoc3, yLoc3, scaler*1.2f, Color.Azure);
             }
+
+            //draw level up symbol
         }
 
         public void Update(int elapsed)

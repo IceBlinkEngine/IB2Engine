@@ -36,6 +36,7 @@ namespace IceBlink2
         public bool useMiniProps = false;
         public bool useSuperTinyProps = false;
 	    public int TimePerSquare = 6; //in minutes for now
+        //Music file name not used
 	    public string MusicFileName = "forest.mp3";
 	    public string ImageFileName = "none";
         public int backgroundImageStartLocX = 0;

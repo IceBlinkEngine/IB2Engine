@@ -1235,19 +1235,44 @@ namespace IceBlink2
             doBattleRegenTrait();
             foreach (Player pc in gv.mod.playerList)
             {
-                RunAllItemCombatRegenerations(pc);
-                int regenSP = gv.sf.CalcPcSpRegenInCombat(pc);
-                if (regenSP > 0)
+                if (pc.hp > -20)
                 {
-                    doRegenSp(pc, regenSP);
-                }
-                int regenHP = gv.sf.CalcPcHpRegenInCombat(pc);
-                if (regenHP > 0)
-                {
-                    doRegenHp(pc, regenHP);
+                    RunAllItemCombatRegenerations(pc);
+                    int regenSP = gv.sf.CalcPcSpRegenInCombat(pc);
+                    if (regenSP > 0)
+                    {
+                        doRegenSp(pc, regenSP);
+                    }
+                    int regenHP = gv.sf.CalcPcHpRegenInCombat(pc);
+                    if (regenHP > 0)
+                    {
+                        doRegenHp(pc, regenHP);
+                    }
                 }
 
             }
+
+            foreach (Creature crt in gv.mod.currentEncounter.encounterCreatureList)
+            {
+                if (crt.hp > 0)
+                {
+                    int regenSP = gv.sf.CalcCrtSpRegenInCombat(crt);
+                    regenSP += crt.spRegenerationPerRound;
+                    if (regenSP > 0)
+                    {
+                        doRegenSp(crt, regenSP);
+                    }
+
+                    int regenHP = gv.sf.CalcCrtHpRegenInCombat(crt);
+                    regenHP += crt.hpRegenerationPerRound;
+                    if (regenHP > 0)
+                    {
+                        doRegenHp(crt, regenHP);
+                    }
+                }
+
+            }
+            //TODO:creature regeneration!
             applyEffectsFromSquares();
             //applyEffectsCombat();
             //IBScript Start Combat Round Hook
@@ -1449,15 +1474,49 @@ namespace IceBlink2
         public void doRegenSp(Player pc, int increment)
         {
             pc.sp += increment;
-            if (pc.sp > pc.spMax) { pc.sp = pc.spMax; }
-            gv.cc.addLogText("<font color='lime'>" + pc.name + " regens " + increment + "sp</font><br>");
+            if (pc.sp > pc.spMax)
+            {
+                increment = increment - (pc.sp - pc.spMax);
+                pc.sp = pc.spMax;
+            }
+            if (increment > 0)
+            {
+                gv.cc.addLogText("<font color='lime'>" + pc.name + " regens " + increment + "sp</font><br>");
+            }
 
         }
         public void doRegenHp(Player pc, int increment)
         {
             pc.hp += increment;
-            if (pc.hp > pc.hpMax) { pc.hp = pc.hpMax; }
-            gv.cc.addLogText("<font color='lime'>" + pc.name + " regens " + increment + "hp</font><br>");
+            if (pc.hp > pc.hpMax)
+            {
+                increment = increment - (pc.hp - pc.hpMax);
+                pc.hp = pc.hpMax;
+            }
+            if (increment > 0)
+            {
+                gv.cc.addLogText("<font color='lime'>" + pc.name + " regens " + increment + "hp</font><br>");
+            }
+        }
+
+        public void doRegenSp(Creature crt, int increment)
+        {
+            crt.sp += increment;
+            gv.cc.addLogText("<font color='lime'>" + crt.cr_name + " regens " + increment + "sp</font><br>");
+
+        }
+        public void doRegenHp(Creature crt, int increment)
+        {
+            crt.hp += increment;
+            if (crt.hp > crt.hpMax)
+            {
+                increment = increment - (crt.hp- crt.hpMax);
+                crt.hp = crt.hpMax;
+            }
+            if (increment > 0)
+            {
+                gv.cc.addLogText("<font color='lime'>" + crt.cr_name + " regens " + increment + "hp</font><br>");
+            }
         }
 
         //not used
@@ -2104,6 +2163,7 @@ namespace IceBlink2
         }
         public void endPcTurn(bool endStealthMode)
         {
+            updateStatsAllCreatures();
             if (currentCombatMode != "cast")
             {
                 
@@ -2211,6 +2271,7 @@ namespace IceBlink2
 
             //do onStartTurn IBScript
             gv.cc.doIBScriptBasedOnFilename(gv.mod.currentEncounter.OnStartCombatTurnIBScript, gv.mod.currentEncounter.OnStartCombatTurnIBScriptParms);
+
             creatureMoves = 0;
             doCreatureNextAction();
         }
@@ -3346,6 +3407,21 @@ namespace IceBlink2
                         }
                         else if (gv.sf.SpellToCast.spellTargetType.Equals("Friend"))
                         {
+                            //Neumarkt
+                            Creature targetCrt = targetClosestCreature(crt);
+                            if (targetCrt != null)
+                            {
+                                gv.sf.CombatTarget = targetCrt;
+                                gv.sf.ActionToTake = "Cast";
+                                break;
+                            }
+                            else //didn't find a target that needs HP
+                            {
+                                gv.sf.SpellToCast = null;
+                                continue;
+                            }
+
+                            /*
                             //target is another creature (currently assumed that spell is a heal spell)
                             Creature targetCrt = GetCreatureWithMostDamaged();
                             if (targetCrt != null)
@@ -3359,6 +3435,7 @@ namespace IceBlink2
                                 gv.sf.SpellToCast = null;
                                 continue;
                             }
+                            */
                         }
                         else if (gv.sf.SpellToCast.spellTargetType.Equals("Self"))
                         {
@@ -3393,8 +3470,30 @@ namespace IceBlink2
                 }
             }
         }
+
+        public void updateStatsAllCreatures()
+        {
+            //called at end of turn of pc or cretaure
+            //used for:
+            //ef.modifyHpMax
+
+
+            foreach (Creature crt in gv.mod.currentEncounter.encounterCreatureList)
+            {
+                foreach (Creature crtOrg in gv.mod.moduleCreaturesList)
+                {
+                    if (crt.cr_resref == crtOrg.cr_resref)
+                    {
+                                crt.hpMax = crtOrg.hpMax + crt.getMaxHPModifier();
+                               
+                    }
+                }
+            }
+        } 
+
         public void endCreatureTurn(Creature crt)
         {
+            updateStatsAllCreatures();
             //store current hp of cretaure, use it at start of creature next turn to see whether damage occured in the meantime
             //if it ccured, effet prone too breaking on damage are removed from the creature
             /*
@@ -14156,6 +14255,67 @@ namespace IceBlink2
             }
             return pc;
         }
+
+        public Creature targetClosestCreature(Creature crt)
+        {
+            Creature crtReturn = null;
+            int farDist = 99;
+            //bool doDeStealth = true;
+            /*
+            foreach (Player p in gv.mod.playerList)
+            {
+                if ((p.hp > 0) && (!p.steathModeOn))
+                {
+                    doDeStealth = false;
+                    break;
+                }
+            }
+
+            if (doDeStealth)
+            {
+                foreach (Player p in gv.mod.playerList)
+                {
+                    p.steathModeOn = false;
+                }
+                gv.cc.addLogText("<font color='red'> All stealthers are discovered </font><BR>");
+            }
+            */
+
+            foreach (Creature crtByCounter in gv.mod.currentEncounter.encounterCreatureList)
+            {
+                if ((crtByCounter.hp > 0) && (crtByCounter.cr_tag != crt.cr_tag))
+                {
+                    //int dist = CalcDistance(crt.combatLocX, crt.combatLocY, p.combatLocX, p.combatLocY);
+                    int dist = CalcDistance(crt, crt.combatLocX, crt.combatLocY, crtByCounter.combatLocX, crtByCounter.combatLocY);
+                    /*
+                    if (dist == farDist)
+                    {
+                        //since at same distance, do a random check to see if switch or stay with current PC target
+                        if (gv.sf.RandInt(20) > 10)
+                        {
+                            //switch target
+                            pc = p;
+                            if (gv.mod.debugMode)
+                            {
+                                gv.cc.addLogText("<font color='yellow'>target:" + pc.name + "</font><BR>");
+                            }
+                        }
+                    }
+                    */
+                    if (dist < farDist)
+                    {
+                        farDist = dist;
+                        crtReturn = crtByCounter;
+                        if (gv.mod.debugMode)
+                        {
+                            gv.cc.addLogText("<font color='yellow'>target:" + crtReturn.cr_name + "</font><BR>");
+                        }
+                    }
+                }
+            }
+            return crtReturn;
+        }
+
         public Coordinate targetBestPointLocation(Creature crt)
         {
             Coordinate targetLoc = new Coordinate(-1, -1);
