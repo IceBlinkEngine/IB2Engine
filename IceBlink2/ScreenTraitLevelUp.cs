@@ -101,7 +101,7 @@ namespace IceBlink2
                     bool notKnownYet = true;
 
                     //not hidden
-                    if (!ta.allow)
+                    if (!ta.allow || ta.needsSpecificTrainingToLearn)
                     {
                         //do not show the "hidden" traits that require special learning here
                         notKnownYet = false;
@@ -298,7 +298,7 @@ namespace IceBlink2
                     bool notKnownYet = true;
 
                     //not hidden
-                    if (!ta.allow)
+                    if (!ta.allow || ta.needsSpecificTrainingToLearn)
                     {
                         //do not show the "hidden" traits that require special learning here
                         notKnownYet = false;

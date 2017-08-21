@@ -45,10 +45,11 @@ namespace IceBlink2
         public int castTimeInTurns = 0;
         public bool canBeInterrupted = true;
         public bool triggersAoO = true;
+        public string spellToReplaceByTag = "none";
 
         //Not yet implemented the one below
         string additionalCustomLogTextOnCast = "";
-        public string spellToReplaceByTag = "none";
+        
 
         public Spell()
 	    {

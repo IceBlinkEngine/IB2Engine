@@ -104,6 +104,8 @@ namespace IceBlink2
 
         public int stayDurationInTurns = 100000;
 
+        public string targetPcTag = "none";
+
         public Creature()
 	    {
 		
@@ -112,6 +114,7 @@ namespace IceBlink2
 	    public Creature DeepCopy()
 	    {
 		    Creature copy = new Creature();
+            copy.targetPcTag = this.targetPcTag;
             copy.stayDurationInTurns = this.stayDurationInTurns;
             copy.percentChanceToCastSpell = this.percentChanceToCastSpell;
             copy.roamDistanceX = this.roamDistanceX;

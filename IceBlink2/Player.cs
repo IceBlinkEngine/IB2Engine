@@ -363,7 +363,7 @@ namespace IceBlink2
                     }
                 }
 
-                if (sa.allow && !sa.automaticallyLearned && !tempLearnedAlready && !hasBeenReplacedAlready)
+                if (sa.allow && !sa.automaticallyLearned && !tempLearnedAlready && !hasBeenReplacedAlready && !sa.needsSpecificTrainingToLearn)
                 {
                     if (sa.atWhatLevelIsAvailable <= this.classLevel)
                     {
@@ -467,7 +467,7 @@ namespace IceBlink2
                     }
                 }
 
-                if (ta.allow && !ta.automaticallyLearned && !tempLearnedAlready && !hasBeenReplacedAlready)
+                if (ta.allow && !ta.automaticallyLearned && !tempLearnedAlready && !hasBeenReplacedAlready && !ta.needsSpecificTrainingToLearn)
                 {
                     if (ta.atWhatLevelIsAvailable <= this.classLevel)
                     {

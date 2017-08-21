@@ -30,7 +30,7 @@ namespace IceBlink2
 	    public string traitEffectType = "Damage"; //Damage, Heal, Buff, Debuff
 	    public int aoeRadius = 1;
 	    public int range = 2;	
-	    public string traitScript = "none";
+	    public string traitScript = "none";//not used
         public List<EffectTagForDropDownList> traitEffectTagList = new List<EffectTagForDropDownList>();
         public List<LocalImmunityString> traitWorksOnlyWhen = new List<LocalImmunityString>();
         public List<LocalImmunityString> traitWorksNeverWhen = new List<LocalImmunityString>();

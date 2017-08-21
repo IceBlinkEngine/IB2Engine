@@ -12,6 +12,7 @@ namespace IceBlink2
 	    public int atWhatLevelIsAvailable = 0;
 	    public bool automaticallyLearned = false;
 	    public bool allow = true;
+        public bool needsSpecificTrainingToLearn = false;
 	
 	    public SpellAllowed()
 	    {
@@ -21,6 +22,7 @@ namespace IceBlink2
 	    public SpellAllowed DeepCopy()
 	    {
 		    SpellAllowed copy = new SpellAllowed();
+            copy.needsSpecificTrainingToLearn = this.needsSpecificTrainingToLearn;
 		    copy.name = this.name;
 		    copy.tag = this.tag;
 		    copy.atWhatLevelIsAvailable = this.atWhatLevelIsAvailable;

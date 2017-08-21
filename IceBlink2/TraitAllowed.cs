@@ -16,6 +16,7 @@ namespace IceBlink2
         public string associatedSpellTag = "none";
         public List<string> traitWorksOnlyWhen = new List<string>();
         public List<string> traitWorksNeverWhen = new List<string>();
+        public bool needsSpecificTrainingToLearn = false;
 
         public TraitAllowed()
 	    {
@@ -32,6 +33,7 @@ namespace IceBlink2
 		    copy.allow = this.allow;
             copy.useableInSituation = this.useableInSituation;
             copy.associatedSpellTag = this.associatedSpellTag;
+            copy.needsSpecificTrainingToLearn = this.needsSpecificTrainingToLearn;
             copy.traitWorksOnlyWhen = new List<string>();
             foreach (string s in this.traitWorksOnlyWhen)
             {
