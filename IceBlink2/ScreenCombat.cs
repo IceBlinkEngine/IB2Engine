@@ -2449,63 +2449,130 @@ namespace IceBlink2
                     float range = crt.moveDistance + crt.cr_attRange - creatureMoves;
                     int lowestHPFound = 1000000;
                     float interimPathCountAdjustForDiagonalMoves = 999;
-                    
-                    //check players in range (facor in attack range)
-                   foreach (Player p in gv.mod.playerList)
-                    {
-                        //only still conscious targets
-                        if (p.isAlive() && !p.steathModeOn && !p.isInvisible())
-                        {
-                            //if ((p.combatLocX != coordinatesOfPcTheCreatureMovesTowards.X) || (p.combatLocY != coordinatesOfPcTheCreatureMovesTowards.Y))
-                            //{
-                            coordinatesOfPcTheCreatureMovesTowards.X = p.combatLocX;
-                            coordinatesOfPcTheCreatureMovesTowards.Y = p.combatLocY;
-                            //run pathFinder to get new location
-                            pf.resetGrid(crt);
-                            InterimPath.Clear();
-                            InterimPath2.Clear();
-                            InterimPath2 = pf.findNewPoint(crt, new Coordinate(coordinatesOfPcTheCreatureMovesTowards.X, coordinatesOfPcTheCreatureMovesTowards.Y), false);
-                            foreach (Coordinate cord in InterimPath2)
-                            {
-                                InterimPath.Add(cord);
-                            }
-                            if (InterimPath != null)
-                            {
-                                interimPathCountAdjustForDiagonalMoves = 0;
-                                if (InterimPath.Count > 2)
-                                {
-                                    for (int i = 1; i < InterimPath.Count - 1; i++)
-                                    {
-                                        //it a horizontal/vertical move
-                                        if ((InterimPath[i].X == InterimPath[i + 1].X) || (InterimPath[i].Y == InterimPath[i + 1].Y))
-                                        {
-                                            interimPathCountAdjustForDiagonalMoves++;
-                                        }
-                                        //it is a diagonal move
-                                        else
-                                        {
-                                            interimPathCountAdjustForDiagonalMoves = interimPathCountAdjustForDiagonalMoves + gv.mod.diagonalMoveCost;
-                                        }
-                                    }
-                                }
 
-                                if ((interimPathCountAdjustForDiagonalMoves > 0) && (p.hp < lowestHPFound) && ((interimPathCountAdjustForDiagonalMoves+1) <= range) && p.hp > 0 && !p.steathModeOn)
+                    if (crt.targetPcTag == "none")
+                    {
+                        //check players in range (facor in attack range)
+                        foreach (Player p in gv.mod.playerList)
+                        {
+                            //only still conscious targets
+                            if (p.isAlive() && !p.steathModeOn && !p.isInvisible())
+                            {
+                                //if ((p.combatLocX != coordinatesOfPcTheCreatureMovesTowards.X) || (p.combatLocY != coordinatesOfPcTheCreatureMovesTowards.Y))
+                                //{
+                                coordinatesOfPcTheCreatureMovesTowards.X = p.combatLocX;
+                                coordinatesOfPcTheCreatureMovesTowards.Y = p.combatLocY;
+                                //run pathFinder to get new location
+                                pf.resetGrid(crt);
+                                InterimPath.Clear();
+                                InterimPath2.Clear();
+                                InterimPath2 = pf.findNewPoint(crt, new Coordinate(coordinatesOfPcTheCreatureMovesTowards.X, coordinatesOfPcTheCreatureMovesTowards.Y), false);
+                                foreach (Coordinate cord in InterimPath2)
                                 {
-                                    //coordinatesOfPcTheCreatureMovesTowards.X = p.combatLocX;
-                                    //coordinatesOfPcTheCreatureMovesTowards.Y = p.combatLocY;
-                                    //shortestPath = interimPathCountAdjustForDiagonalMoves;
-                                    lowestHPFound = p.hp;
-                                    pc = p;
-                                    crt.targetPcTag = pc.tag;
-                                    storedPathOfCurrentCreature.Clear();
-                                    foreach (Coordinate c in InterimPath)
+                                    InterimPath.Add(cord);
+                                }
+                                if (InterimPath != null)
+                                {
+                                    interimPathCountAdjustForDiagonalMoves = 0;
+                                    if (InterimPath.Count > 2)
                                     {
-                                        storedPathOfCurrentCreature.Add(c);
+                                        for (int i = 1; i < InterimPath.Count - 1; i++)
+                                        {
+                                            //it a horizontal/vertical move
+                                            if ((InterimPath[i].X == InterimPath[i + 1].X) || (InterimPath[i].Y == InterimPath[i + 1].Y))
+                                            {
+                                                interimPathCountAdjustForDiagonalMoves++;
+                                            }
+                                            //it is a diagonal move
+                                            else
+                                            {
+                                                interimPathCountAdjustForDiagonalMoves = interimPathCountAdjustForDiagonalMoves + gv.mod.diagonalMoveCost;
+                                            }
+                                        }
                                     }
-                                }//if inner
-                            }//if outer
-                             //}//if
-                        }//if
+
+                                    if ((interimPathCountAdjustForDiagonalMoves > 0) && (p.hp < lowestHPFound) && ((interimPathCountAdjustForDiagonalMoves + 1) <= range) && p.hp > 0 && !p.steathModeOn)
+                                    {
+                                        //coordinatesOfPcTheCreatureMovesTowards.X = p.combatLocX;
+                                        //coordinatesOfPcTheCreatureMovesTowards.Y = p.combatLocY;
+                                        //shortestPath = interimPathCountAdjustForDiagonalMoves;
+                                        lowestHPFound = p.hp;
+                                        pc = p;
+                                        crt.targetPcTag = pc.tag;
+                                        storedPathOfCurrentCreature.Clear();
+                                        foreach (Coordinate c in InterimPath)
+                                        {
+                                            storedPathOfCurrentCreature.Add(c);
+                                        }
+                                    }//if inner
+                                }//if outer
+                                 //}//if
+                            }//if
+                        }
+                    }
+                    //known target
+                    else
+                    {
+                        //TODO: path to original target!
+                        //check players in range (facor in attack range)
+                        foreach (Player p in gv.mod.playerList)
+                        {
+                            if (p.tag == crt.targetPcTag)
+                            {
+                                //only still conscious targets
+                                if (p.isAlive() && !p.steathModeOn && !p.isInvisible())
+                                {
+                                    //if ((p.combatLocX != coordinatesOfPcTheCreatureMovesTowards.X) || (p.combatLocY != coordinatesOfPcTheCreatureMovesTowards.Y))
+                                    //{
+                                    coordinatesOfPcTheCreatureMovesTowards.X = p.combatLocX;
+                                    coordinatesOfPcTheCreatureMovesTowards.Y = p.combatLocY;
+                                    //run pathFinder to get new location
+                                    pf.resetGrid(crt);
+                                    InterimPath.Clear();
+                                    InterimPath2.Clear();
+                                    InterimPath2 = pf.findNewPoint(crt, new Coordinate(coordinatesOfPcTheCreatureMovesTowards.X, coordinatesOfPcTheCreatureMovesTowards.Y), false);
+                                    foreach (Coordinate cord in InterimPath2)
+                                    {
+                                        InterimPath.Add(cord);
+                                    }
+                                    if (InterimPath != null)
+                                    {
+                                        interimPathCountAdjustForDiagonalMoves = 0;
+                                        if (InterimPath.Count > 2)
+                                        {
+                                            for (int i = 1; i < InterimPath.Count - 1; i++)
+                                            {
+                                                //it a horizontal/vertical move
+                                                if ((InterimPath[i].X == InterimPath[i + 1].X) || (InterimPath[i].Y == InterimPath[i + 1].Y))
+                                                {
+                                                    interimPathCountAdjustForDiagonalMoves++;
+                                                }
+                                                //it is a diagonal move
+                                                else
+                                                {
+                                                    interimPathCountAdjustForDiagonalMoves = interimPathCountAdjustForDiagonalMoves + gv.mod.diagonalMoveCost;
+                                                }
+                                            }
+                                        }
+
+                                        if ((interimPathCountAdjustForDiagonalMoves > 0) && p.hp > 0 && !p.steathModeOn)
+                                        {
+                                            //coordinatesOfPcTheCreatureMovesTowards.X = p.combatLocX;
+                                            //coordinatesOfPcTheCreatureMovesTowards.Y = p.combatLocY;
+                                            //shortestPath = interimPathCountAdjustForDiagonalMoves;
+                                            pc = p;
+                                            crt.targetPcTag = pc.tag;
+                                            storedPathOfCurrentCreature.Clear();
+                                            foreach (Coordinate c in InterimPath)
+                                            {
+                                                storedPathOfCurrentCreature.Add(c);
+                                            }
+                                        }//if inner
+                                    }//if outer
+                                     //}//if
+                                }//if
+                            }
+                        }
                     }
                         //if only one, target this pc
 
@@ -2519,68 +2586,134 @@ namespace IceBlink2
                 //mindHunter AI
                 else if ((crt.cr_ai == "mindHunter"))
                 {
-
                     //determine move range and add melee/ranged attack range
                     float range = crt.moveDistance + crt.cr_attRange - creatureMoves;
                     int highestSPFound = 1000000;
                     float interimPathCountAdjustForDiagonalMoves = 999;
 
-                    //check players in range (facor in attack range)
-                    foreach (Player p in gv.mod.playerList)
+                    if (crt.targetPcTag == "none")
                     {
-                        //only still conscious targets
-                        if (p.isAlive() && !p.steathModeOn && !p.isInvisible())
+                        //check players in range (facor in attack range)
+                        foreach (Player p in gv.mod.playerList)
                         {
-                            //if ((p.combatLocX != coordinatesOfPcTheCreatureMovesTowards.X) || (p.combatLocY != coordinatesOfPcTheCreatureMovesTowards.Y))
-                            //{
-                            coordinatesOfPcTheCreatureMovesTowards.X = p.combatLocX;
-                            coordinatesOfPcTheCreatureMovesTowards.Y = p.combatLocY;
-                            //run pathFinder to get new location
-                            pf.resetGrid(crt);
-                            InterimPath.Clear();
-                            InterimPath2.Clear();
-                            InterimPath2 = pf.findNewPoint(crt, new Coordinate(coordinatesOfPcTheCreatureMovesTowards.X, coordinatesOfPcTheCreatureMovesTowards.Y), false);
-                            foreach (Coordinate cord in InterimPath2)
+                            //only still conscious targets
+                            if (p.isAlive() && !p.steathModeOn && !p.isInvisible())
                             {
-                                InterimPath.Add(cord);
-                            }
-                            if (InterimPath != null)
-                            {
-                                interimPathCountAdjustForDiagonalMoves = 0;
-                                if (InterimPath.Count > 2)
+                                //if ((p.combatLocX != coordinatesOfPcTheCreatureMovesTowards.X) || (p.combatLocY != coordinatesOfPcTheCreatureMovesTowards.Y))
+                                //{
+                                coordinatesOfPcTheCreatureMovesTowards.X = p.combatLocX;
+                                coordinatesOfPcTheCreatureMovesTowards.Y = p.combatLocY;
+                                //run pathFinder to get new location
+                                pf.resetGrid(crt);
+                                InterimPath.Clear();
+                                InterimPath2.Clear();
+                                InterimPath2 = pf.findNewPoint(crt, new Coordinate(coordinatesOfPcTheCreatureMovesTowards.X, coordinatesOfPcTheCreatureMovesTowards.Y), false);
+                                foreach (Coordinate cord in InterimPath2)
                                 {
-                                    for (int i = 1; i < InterimPath.Count - 1; i++)
-                                    {
-                                        //it a horizontal/vertical move
-                                        if ((InterimPath[i].X == InterimPath[i + 1].X) || (InterimPath[i].Y == InterimPath[i + 1].Y))
-                                        {
-                                            interimPathCountAdjustForDiagonalMoves++;
-                                        }
-                                        //it is a diagonal move
-                                        else
-                                        {
-                                            interimPathCountAdjustForDiagonalMoves = interimPathCountAdjustForDiagonalMoves + gv.mod.diagonalMoveCost;
-                                        }
-                                    }
+                                    InterimPath.Add(cord);
                                 }
-
-                                if ((interimPathCountAdjustForDiagonalMoves > 0) && (p.sp > highestSPFound) && ((interimPathCountAdjustForDiagonalMoves + 1) <= range) && p.hp > 0 && !p.steathModeOn)
+                                if (InterimPath != null)
                                 {
-                                    //coordinatesOfPcTheCreatureMovesTowards.X = p.combatLocX;
-                                    //coordinatesOfPcTheCreatureMovesTowards.Y = p.combatLocY;
-                                    //shortestPath = interimPathCountAdjustForDiagonalMoves;
-                                    highestSPFound = p.sp;
-                                    pc = p;
-                                    crt.targetPcTag = pc.tag;
-                                    storedPathOfCurrentCreature.Clear();
-                                    foreach (Coordinate c in InterimPath)
+                                    interimPathCountAdjustForDiagonalMoves = 0;
+                                    if (InterimPath.Count > 2)
                                     {
-                                        storedPathOfCurrentCreature.Add(c);
+                                        for (int i = 1; i < InterimPath.Count - 1; i++)
+                                        {
+                                            //it a horizontal/vertical move
+                                            if ((InterimPath[i].X == InterimPath[i + 1].X) || (InterimPath[i].Y == InterimPath[i + 1].Y))
+                                            {
+                                                interimPathCountAdjustForDiagonalMoves++;
+                                            }
+                                            //it is a diagonal move
+                                            else
+                                            {
+                                                interimPathCountAdjustForDiagonalMoves = interimPathCountAdjustForDiagonalMoves + gv.mod.diagonalMoveCost;
+                                            }
+                                        }
                                     }
-                                }//if inner
-                            }//if outer
-                             //}//if
-                        }//if
+
+                                    if ((interimPathCountAdjustForDiagonalMoves > 0) && (p.sp > highestSPFound) && ((interimPathCountAdjustForDiagonalMoves + 1) <= range) && p.hp > 0 && !p.steathModeOn)
+                                    {
+                                        //coordinatesOfPcTheCreatureMovesTowards.X = p.combatLocX;
+                                        //coordinatesOfPcTheCreatureMovesTowards.Y = p.combatLocY;
+                                        //shortestPath = interimPathCountAdjustForDiagonalMoves;
+                                        highestSPFound = p.sp;
+                                        pc = p;
+                                        crt.targetPcTag = pc.tag;
+                                        storedPathOfCurrentCreature.Clear();
+                                        foreach (Coordinate c in InterimPath)
+                                        {
+                                            storedPathOfCurrentCreature.Add(c);
+                                        }
+                                    }//if inner
+                                }//if outer
+                                 //}//if
+                            }//if
+                        }
+                    }
+                    //known target
+                    else
+                    {
+                        //TODO: path to original target!
+                        //check players in range (facor in attack range)
+                        foreach (Player p in gv.mod.playerList)
+                        {
+                            if (p.tag == crt.targetPcTag)
+                            {
+                                //only still conscious targets
+                                if (p.isAlive() && !p.steathModeOn && !p.isInvisible())
+                                {
+                                    //if ((p.combatLocX != coordinatesOfPcTheCreatureMovesTowards.X) || (p.combatLocY != coordinatesOfPcTheCreatureMovesTowards.Y))
+                                    //{
+                                    coordinatesOfPcTheCreatureMovesTowards.X = p.combatLocX;
+                                    coordinatesOfPcTheCreatureMovesTowards.Y = p.combatLocY;
+                                    //run pathFinder to get new location
+                                    pf.resetGrid(crt);
+                                    InterimPath.Clear();
+                                    InterimPath2.Clear();
+                                    InterimPath2 = pf.findNewPoint(crt, new Coordinate(coordinatesOfPcTheCreatureMovesTowards.X, coordinatesOfPcTheCreatureMovesTowards.Y), false);
+                                    foreach (Coordinate cord in InterimPath2)
+                                    {
+                                        InterimPath.Add(cord);
+                                    }
+                                    if (InterimPath != null)
+                                    {
+                                        interimPathCountAdjustForDiagonalMoves = 0;
+                                        if (InterimPath.Count > 2)
+                                        {
+                                            for (int i = 1; i < InterimPath.Count - 1; i++)
+                                            {
+                                                //it a horizontal/vertical move
+                                                if ((InterimPath[i].X == InterimPath[i + 1].X) || (InterimPath[i].Y == InterimPath[i + 1].Y))
+                                                {
+                                                    interimPathCountAdjustForDiagonalMoves++;
+                                                }
+                                                //it is a diagonal move
+                                                else
+                                                {
+                                                    interimPathCountAdjustForDiagonalMoves = interimPathCountAdjustForDiagonalMoves + gv.mod.diagonalMoveCost;
+                                                }
+                                            }
+                                        }
+
+                                        if ((interimPathCountAdjustForDiagonalMoves > 0) && p.hp > 0 && !p.steathModeOn)
+                                        {
+                                            //coordinatesOfPcTheCreatureMovesTowards.X = p.combatLocX;
+                                            //coordinatesOfPcTheCreatureMovesTowards.Y = p.combatLocY;
+                                            //shortestPath = interimPathCountAdjustForDiagonalMoves;
+                                            pc = p;
+                                            crt.targetPcTag = pc.tag;
+                                            storedPathOfCurrentCreature.Clear();
+                                            foreach (Coordinate c in InterimPath)
+                                            {
+                                                storedPathOfCurrentCreature.Add(c);
+                                            }
+                                        }//if inner
+                                    }//if outer
+                                     //}//if
+                                }//if
+                            }
+                        }
                     }
                     //if only one, target this pc
 
@@ -2595,65 +2728,132 @@ namespace IceBlink2
                 {
                     //determine move range and add melee/ranged attack range
                     float range = crt.moveDistance + crt.cr_attRange - creatureMoves;
-                    int worstACFound = 999;
+                    int worstACFound = 1000000;
                     float interimPathCountAdjustForDiagonalMoves = 999;
 
-                    //check players in range (facor in attack range)
-                    foreach (Player p in gv.mod.playerList)
+                    if (crt.targetPcTag == "none")
                     {
-                        //only still conscious targets
-                        if (p.isAlive() && !p.steathModeOn && !p.isInvisible())
+                        //check players in range (facor in attack range)
+                        foreach (Player p in gv.mod.playerList)
                         {
-                            //if ((p.combatLocX != coordinatesOfPcTheCreatureMovesTowards.X) || (p.combatLocY != coordinatesOfPcTheCreatureMovesTowards.Y))
-                            //{
-                            coordinatesOfPcTheCreatureMovesTowards.X = p.combatLocX;
-                            coordinatesOfPcTheCreatureMovesTowards.Y = p.combatLocY;
-                            //run pathFinder to get new location
-                            pf.resetGrid(crt);
-                            InterimPath.Clear();
-                            InterimPath2.Clear();
-                            InterimPath2 = pf.findNewPoint(crt, new Coordinate(coordinatesOfPcTheCreatureMovesTowards.X, coordinatesOfPcTheCreatureMovesTowards.Y), false);
-                            foreach (Coordinate cord in InterimPath2)
+                            //only still conscious targets
+                            if (p.isAlive() && !p.steathModeOn && !p.isInvisible())
                             {
-                                InterimPath.Add(cord);
-                            }
-                            if (InterimPath != null)
-                            {
-                                interimPathCountAdjustForDiagonalMoves = 0;
-                                if (InterimPath.Count > 2)
+                                //if ((p.combatLocX != coordinatesOfPcTheCreatureMovesTowards.X) || (p.combatLocY != coordinatesOfPcTheCreatureMovesTowards.Y))
+                                //{
+                                coordinatesOfPcTheCreatureMovesTowards.X = p.combatLocX;
+                                coordinatesOfPcTheCreatureMovesTowards.Y = p.combatLocY;
+                                //run pathFinder to get new location
+                                pf.resetGrid(crt);
+                                InterimPath.Clear();
+                                InterimPath2.Clear();
+                                InterimPath2 = pf.findNewPoint(crt, new Coordinate(coordinatesOfPcTheCreatureMovesTowards.X, coordinatesOfPcTheCreatureMovesTowards.Y), false);
+                                foreach (Coordinate cord in InterimPath2)
                                 {
-                                    for (int i = 1; i < InterimPath.Count - 1; i++)
-                                    {
-                                        //it a horizontal/vertical move
-                                        if ((InterimPath[i].X == InterimPath[i + 1].X) || (InterimPath[i].Y == InterimPath[i + 1].Y))
-                                        {
-                                            interimPathCountAdjustForDiagonalMoves++;
-                                        }
-                                        //it is a diagonal move
-                                        else
-                                        {
-                                            interimPathCountAdjustForDiagonalMoves = interimPathCountAdjustForDiagonalMoves + gv.mod.diagonalMoveCost;
-                                        }
-                                    }
+                                    InterimPath.Add(cord);
                                 }
-
-                                if ((interimPathCountAdjustForDiagonalMoves > 0) && (p.AC < worstACFound) && ((interimPathCountAdjustForDiagonalMoves + 1) <= range) && p.hp > 0 && !p.steathModeOn)
+                                if (InterimPath != null)
                                 {
-                                    //coordinatesOfPcTheCreatureMovesTowards.X = p.combatLocX;
-                                    //coordinatesOfPcTheCreatureMovesTowards.Y = p.combatLocY;
-                                    //shortestPath = interimPathCountAdjustForDiagonalMoves;
-                                    worstACFound = p.AC;
-                                    pc = p;
-                                    crt.targetPcTag = pc.tag;
-                                    storedPathOfCurrentCreature.Clear();
-                                    foreach (Coordinate c in InterimPath)
+                                    interimPathCountAdjustForDiagonalMoves = 0;
+                                    if (InterimPath.Count > 2)
                                     {
-                                        storedPathOfCurrentCreature.Add(c);
+                                        for (int i = 1; i < InterimPath.Count - 1; i++)
+                                        {
+                                            //it a horizontal/vertical move
+                                            if ((InterimPath[i].X == InterimPath[i + 1].X) || (InterimPath[i].Y == InterimPath[i + 1].Y))
+                                            {
+                                                interimPathCountAdjustForDiagonalMoves++;
+                                            }
+                                            //it is a diagonal move
+                                            else
+                                            {
+                                                interimPathCountAdjustForDiagonalMoves = interimPathCountAdjustForDiagonalMoves + gv.mod.diagonalMoveCost;
+                                            }
+                                        }
                                     }
-                                }//if inner
-                            }//if outer
-                             //}//if
-                        }//if
+
+                                    if ((interimPathCountAdjustForDiagonalMoves > 0) && (p.AC < worstACFound) && ((interimPathCountAdjustForDiagonalMoves + 1) <= range) && p.hp > 0 && !p.steathModeOn)
+                                    {
+                                        //coordinatesOfPcTheCreatureMovesTowards.X = p.combatLocX;
+                                        //coordinatesOfPcTheCreatureMovesTowards.Y = p.combatLocY;
+                                        //shortestPath = interimPathCountAdjustForDiagonalMoves;
+                                        worstACFound = p.AC;
+                                        pc = p;
+                                        crt.targetPcTag = pc.tag;
+                                        storedPathOfCurrentCreature.Clear();
+                                        foreach (Coordinate c in InterimPath)
+                                        {
+                                            storedPathOfCurrentCreature.Add(c);
+                                        }
+                                    }//if inner
+                                }//if outer
+                                 //}//if
+                            }//if
+                        }
+                    }
+                    //known target
+                    else
+                    {
+                        //TODO: path to original target!
+                        //check players in range (facor in attack range)
+                        foreach (Player p in gv.mod.playerList)
+                        {
+                            if (p.tag == crt.targetPcTag)
+                            {
+                                //only still conscious targets
+                                if (p.isAlive() && !p.steathModeOn && !p.isInvisible())
+                                {
+                                    //if ((p.combatLocX != coordinatesOfPcTheCreatureMovesTowards.X) || (p.combatLocY != coordinatesOfPcTheCreatureMovesTowards.Y))
+                                    //{
+                                    coordinatesOfPcTheCreatureMovesTowards.X = p.combatLocX;
+                                    coordinatesOfPcTheCreatureMovesTowards.Y = p.combatLocY;
+                                    //run pathFinder to get new location
+                                    pf.resetGrid(crt);
+                                    InterimPath.Clear();
+                                    InterimPath2.Clear();
+                                    InterimPath2 = pf.findNewPoint(crt, new Coordinate(coordinatesOfPcTheCreatureMovesTowards.X, coordinatesOfPcTheCreatureMovesTowards.Y), false);
+                                    foreach (Coordinate cord in InterimPath2)
+                                    {
+                                        InterimPath.Add(cord);
+                                    }
+                                    if (InterimPath != null)
+                                    {
+                                        interimPathCountAdjustForDiagonalMoves = 0;
+                                        if (InterimPath.Count > 2)
+                                        {
+                                            for (int i = 1; i < InterimPath.Count - 1; i++)
+                                            {
+                                                //it a horizontal/vertical move
+                                                if ((InterimPath[i].X == InterimPath[i + 1].X) || (InterimPath[i].Y == InterimPath[i + 1].Y))
+                                                {
+                                                    interimPathCountAdjustForDiagonalMoves++;
+                                                }
+                                                //it is a diagonal move
+                                                else
+                                                {
+                                                    interimPathCountAdjustForDiagonalMoves = interimPathCountAdjustForDiagonalMoves + gv.mod.diagonalMoveCost;
+                                                }
+                                            }
+                                        }
+
+                                        if ((interimPathCountAdjustForDiagonalMoves > 0) && p.hp > 0 && !p.steathModeOn)
+                                        {
+                                            //coordinatesOfPcTheCreatureMovesTowards.X = p.combatLocX;
+                                            //coordinatesOfPcTheCreatureMovesTowards.Y = p.combatLocY;
+                                            //shortestPath = interimPathCountAdjustForDiagonalMoves;
+                                            pc = p;
+                                            crt.targetPcTag = pc.tag;
+                                            storedPathOfCurrentCreature.Clear();
+                                            foreach (Coordinate c in InterimPath)
+                                            {
+                                                storedPathOfCurrentCreature.Add(c);
+                                            }
+                                        }//if inner
+                                    }//if outer
+                                     //}//if
+                                }//if
+                            }
+                        }
                     }
                     //if only one, target this pc
 
@@ -3784,6 +3984,10 @@ namespace IceBlink2
                         {
                             gv.sf.ActionToTake = "Move";
                         }
+                    }
+                    else
+                    {
+                        int gotacha = 0;
                     }
                 }
                 else
@@ -14777,6 +14981,7 @@ namespace IceBlink2
         public Player targetPCWithLeastHPInCombinedRange(Creature crt)
         {
             Player pc = null;
+            crt.targetPcTag = "none";
             //float combinedRange = crt.cr_attRange + crt.getMoveDistance() - creatureMoves;
             //int lowestHP = 10000000;
             bool doDeStealth = true;
@@ -14800,8 +15005,10 @@ namespace IceBlink2
             }
 
 
-            float range = crt.moveDistance + crt.cr_attRange - creatureMoves;
+            bool attackPossible = false;
+            float range = crt.moveDistance - creatureMoves;
             int lowestHPFound = 1000000;
+            float interimPathCountAdjustForDiagonalMovesFirst = 999;
             float interimPathCountAdjustForDiagonalMoves = 999;
             List<Coordinate> InterimPath = new List<Coordinate>();
             List<Coordinate> InterimPath2 = new List<Coordinate>();
@@ -14814,6 +15021,7 @@ namespace IceBlink2
                 {
                     //if ((p.combatLocX != coordinatesOfPcTheCreatureMovesTowards.X) || (p.combatLocY != coordinatesOfPcTheCreatureMovesTowards.Y))
                     //{
+                    attackPossible = false;
                     coordinatesOfPcTheCreatureMovesTowards.X = p.combatLocX;
                     coordinatesOfPcTheCreatureMovesTowards.Y = p.combatLocY;
                     //run pathFinder to get new location
@@ -14831,54 +15039,65 @@ namespace IceBlink2
                         //interimPathCountAdjustForDiagonalMoves = 0;
                         if (InterimPath.Count > 2)
                         {
-                            interimPathCountAdjustForDiagonalMoves = 0;
+                            interimPathCountAdjustForDiagonalMovesFirst = 0;
                             for (int i = 1; i < InterimPath.Count - 1; i++)
                             {
                                 //it a horizontal/vertical move
                                 if ((InterimPath[i].X == InterimPath[i + 1].X) || (InterimPath[i].Y == InterimPath[i + 1].Y))
                                 {
-                                    interimPathCountAdjustForDiagonalMoves++;
+                                    interimPathCountAdjustForDiagonalMovesFirst++;
                                 }
                                 //it is a diagonal move
                                 else
                                 {
-                                    interimPathCountAdjustForDiagonalMoves = interimPathCountAdjustForDiagonalMoves + gv.mod.diagonalMoveCost;
+                                    interimPathCountAdjustForDiagonalMovesFirst = interimPathCountAdjustForDiagonalMovesFirst + gv.mod.diagonalMoveCost;
                                 }
                             }
                         }
                         else if (InterimPath.Count > 0)
                         {
-                            interimPathCountAdjustForDiagonalMoves = 0;
+                            interimPathCountAdjustForDiagonalMovesFirst = 0;
                         }
 
 
-                        int rangeNegator = 0;
-                        if (crt.cr_attRange > 1)
-                        {
-                            bool negateRange = true;
-
-                            foreach (Coordinate c in InterimPath)
+                        //bool attackPossible = false;
+                        
+                            for (int j = InterimPath.Count -1; j >= 0; j--)
                             {
                                 int endX = coordinatesOfPcTheCreatureMovesTowards.X * gv.squareSize + (gv.squareSize / 2);
                                 int endY = coordinatesOfPcTheCreatureMovesTowards.Y * gv.squareSize + (gv.squareSize / 2);
-                                int startX = c.X * gv.squareSize + (gv.squareSize / 2);
-                                int startY = c.Y * gv.squareSize + (gv.squareSize / 2);
+                                int startX = InterimPath[j].X * gv.squareSize + (gv.squareSize / 2);
+                                int startY = InterimPath[j].Y * gv.squareSize + (gv.squareSize / 2);
 
                                 if (isVisibleLineOfSight(new Coordinate(endX, endY), new Coordinate(startX, startY)))
                                 {
-                                    if (CalcDistance(crt, coordinatesOfPcTheCreatureMovesTowards.X, coordinatesOfPcTheCreatureMovesTowards.Y, c.X, c.Y) <= crt.cr_attRange)
+                                    if (CalcDistance(crt, coordinatesOfPcTheCreatureMovesTowards.X, coordinatesOfPcTheCreatureMovesTowards.Y, InterimPath[j].X, InterimPath[j].Y) <= crt.cr_attRange)
                                     {
-                                        negateRange = false;
+
+                                    interimPathCountAdjustForDiagonalMoves = 0;
+                                    for (int i = InterimPath.Count - 1; i > j; i--)
+                                    {
+                                        //it a horizontal/vertical move
+                                        if ((InterimPath[i].X == InterimPath[i - 1].X) || (InterimPath[i].Y == InterimPath[i - 1].Y))
+                                        {
+                                            interimPathCountAdjustForDiagonalMoves++;
+                                        }
+                                        //it is a diagonal move
+                                        else
+                                        {
+                                            interimPathCountAdjustForDiagonalMoves = interimPathCountAdjustForDiagonalMoves + gv.mod.diagonalMoveCost;
+                                        }
+                                    }
+
+                                    if (interimPathCountAdjustForDiagonalMoves <= range)
+                                    {
+                                        attackPossible = true;
                                         break;
                                     }
-                                }
-                            }
+                                 }
+                              }
+                          }
 
-                            if (negateRange)
-                            {
-                                rangeNegator = -crt.cr_attRange + 1;
-                            }
-                        }
                         /*
                         if ((crt.cr_attRange > 1) && (crt.cr_attRange > (InterimPath.Count-2)))
                         {
@@ -14886,7 +15105,7 @@ namespace IceBlink2
                         }
                         */
 
-                        if ((InterimPath.Count >= 2) && (p.hp < lowestHPFound) && ((interimPathCountAdjustForDiagonalMoves + 1)  <= (range - rangeNegator)) && p.hp > 0 && !p.steathModeOn)
+                        if ((InterimPath.Count >= 2) && (p.hp < lowestHPFound) && (attackPossible) && p.hp > 0 && !p.steathModeOn)
                         {
                             //coordinatesOfPcTheCreatureMovesTowards.X = p.combatLocX;
                             //coordinatesOfPcTheCreatureMovesTowards.Y = p.combatLocY;
@@ -14939,6 +15158,364 @@ namespace IceBlink2
         }
 
         public Player targetPCWithHighestSPInCombinedRange(Creature crt)
+        {
+            Player pc = null;
+            crt.targetPcTag = "none";
+            //float combinedRange = crt.cr_attRange + crt.getMoveDistance() - creatureMoves;
+            //int lowestHP = 10000000;
+            bool doDeStealth = true;
+
+            foreach (Player p in gv.mod.playerList)
+            {
+                if ((p.hp > 0) && (!p.steathModeOn))
+                {
+                    doDeStealth = false;
+                    break;
+                }
+            }
+
+            if (doDeStealth)
+            {
+                foreach (Player p in gv.mod.playerList)
+                {
+                    p.steathModeOn = false;
+                }
+                gv.cc.addLogText("<font color='red'> All stealthers are discovered </font><BR>");
+            }
+
+
+            bool attackPossible = false;
+            float range = crt.moveDistance - creatureMoves;
+            int highestSPFound = 0;
+            float interimPathCountAdjustForDiagonalMovesFirst = 999;
+            float interimPathCountAdjustForDiagonalMoves = 999;
+            List<Coordinate> InterimPath = new List<Coordinate>();
+            List<Coordinate> InterimPath2 = new List<Coordinate>();
+
+            //check players in range (facor in attack range)
+            foreach (Player p in gv.mod.playerList)
+            {
+                //only still conscious targets
+                if (p.isAlive() && !p.steathModeOn && !p.isInvisible())
+                {
+                    //if ((p.combatLocX != coordinatesOfPcTheCreatureMovesTowards.X) || (p.combatLocY != coordinatesOfPcTheCreatureMovesTowards.Y))
+                    //{
+                    attackPossible = false;
+                    coordinatesOfPcTheCreatureMovesTowards.X = p.combatLocX;
+                    coordinatesOfPcTheCreatureMovesTowards.Y = p.combatLocY;
+                    //run pathFinder to get new location
+                    pf.resetGrid(crt);
+                    InterimPath.Clear();
+                    InterimPath2.Clear();
+                    //check findNEwPoint favouring diagonal ath too much
+                    InterimPath2 = pf.findNewPoint(crt, new Coordinate(coordinatesOfPcTheCreatureMovesTowards.X, coordinatesOfPcTheCreatureMovesTowards.Y), false);
+                    foreach (Coordinate cord in InterimPath2)
+                    {
+                        InterimPath.Add(cord);
+                    }
+                    if (InterimPath != null)
+                    {
+                        //interimPathCountAdjustForDiagonalMoves = 0;
+                        if (InterimPath.Count > 2)
+                        {
+                            interimPathCountAdjustForDiagonalMovesFirst = 0;
+                            for (int i = 1; i < InterimPath.Count - 1; i++)
+                            {
+                                //it a horizontal/vertical move
+                                if ((InterimPath[i].X == InterimPath[i + 1].X) || (InterimPath[i].Y == InterimPath[i + 1].Y))
+                                {
+                                    interimPathCountAdjustForDiagonalMovesFirst++;
+                                }
+                                //it is a diagonal move
+                                else
+                                {
+                                    interimPathCountAdjustForDiagonalMovesFirst = interimPathCountAdjustForDiagonalMovesFirst + gv.mod.diagonalMoveCost;
+                                }
+                            }
+                        }
+                        else if (InterimPath.Count > 0)
+                        {
+                            interimPathCountAdjustForDiagonalMovesFirst = 0;
+                        }
+
+
+                        //bool attackPossible = false;
+
+                        for (int j = InterimPath.Count - 1; j >= 0; j--)
+                        {
+                            int endX = coordinatesOfPcTheCreatureMovesTowards.X * gv.squareSize + (gv.squareSize / 2);
+                            int endY = coordinatesOfPcTheCreatureMovesTowards.Y * gv.squareSize + (gv.squareSize / 2);
+                            int startX = InterimPath[j].X * gv.squareSize + (gv.squareSize / 2);
+                            int startY = InterimPath[j].Y * gv.squareSize + (gv.squareSize / 2);
+
+                            if (isVisibleLineOfSight(new Coordinate(endX, endY), new Coordinate(startX, startY)))
+                            {
+                                if (CalcDistance(crt, coordinatesOfPcTheCreatureMovesTowards.X, coordinatesOfPcTheCreatureMovesTowards.Y, InterimPath[j].X, InterimPath[j].Y) <= crt.cr_attRange)
+                                {
+
+                                    interimPathCountAdjustForDiagonalMoves = 0;
+                                    for (int i = InterimPath.Count - 1; i > j; i--)
+                                    {
+                                        //it a horizontal/vertical move
+                                        if ((InterimPath[i].X == InterimPath[i - 1].X) || (InterimPath[i].Y == InterimPath[i - 1].Y))
+                                        {
+                                            interimPathCountAdjustForDiagonalMoves++;
+                                        }
+                                        //it is a diagonal move
+                                        else
+                                        {
+                                            interimPathCountAdjustForDiagonalMoves = interimPathCountAdjustForDiagonalMoves + gv.mod.diagonalMoveCost;
+                                        }
+                                    }
+
+                                    if (interimPathCountAdjustForDiagonalMoves <= range)
+                                    {
+                                        attackPossible = true;
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+
+                        /*
+                        if ((crt.cr_attRange > 1) && (crt.cr_attRange > (InterimPath.Count-2)))
+                        {
+
+                        }
+                        */
+
+                        if ((InterimPath.Count >= 2) && (p.sp > highestSPFound) && (attackPossible) && p.hp > 0 && !p.steathModeOn)
+                        {
+                            //coordinatesOfPcTheCreatureMovesTowards.X = p.combatLocX;
+                            //coordinatesOfPcTheCreatureMovesTowards.Y = p.combatLocY;
+                            //shortestPath = interimPathCountAdjustForDiagonalMoves;
+                            highestSPFound = p.sp;
+                            pc = p;
+                            crt.targetPcTag = pc.tag;
+                        }//if inner
+                    }//if outer
+                     //}//if
+                }//if
+            }
+
+            return pc;
+
+            //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+
+            /*
+            foreach (Player p in gv.mod.playerList)
+            {
+                if ((!p.isDead()) && (p.hp > 0) && (!p.steathModeOn))
+                {
+                    int dist = CalcDistance(crt, crt.combatLocX, crt.combatLocY, p.combatLocX, p.combatLocY);
+
+                    if ((combinedRange >= dist) && (p.hp < lowestHP))
+                    {
+                        lowestHP = p.hp;
+                        pc = p;
+                        if (gv.mod.debugMode)
+                        {
+                            gv.cc.addLogText("<font color='yellow'>target:" + pc.name + "</font><BR>");
+                        }
+                    }
+                }
+            }
+
+            if (crt.targetPcTag != "none")
+            {
+                foreach (Player p in gv.mod.playerList)
+                {
+                    if (p.tag == crt.targetPcTag)
+                    {
+                        pc = p;
+                    }
+
+                }
+            }
+            return pc;
+            */
+        }
+
+        public Player targetPCWithWorstACInCombinedRange(Creature crt)
+        {
+            Player pc = null;
+            crt.targetPcTag = "none";
+            //float combinedRange = crt.cr_attRange + crt.getMoveDistance() - creatureMoves;
+            //int lowestHP = 10000000;
+            bool doDeStealth = true;
+
+            foreach (Player p in gv.mod.playerList)
+            {
+                if ((p.hp > 0) && (!p.steathModeOn))
+                {
+                    doDeStealth = false;
+                    break;
+                }
+            }
+
+            if (doDeStealth)
+            {
+                foreach (Player p in gv.mod.playerList)
+                {
+                    p.steathModeOn = false;
+                }
+                gv.cc.addLogText("<font color='red'> All stealthers are discovered </font><BR>");
+            }
+
+
+            bool attackPossible = false;
+            float range = crt.moveDistance - creatureMoves;
+            int worstACFound = 1000000;
+            float interimPathCountAdjustForDiagonalMovesFirst = 999;
+            float interimPathCountAdjustForDiagonalMoves = 999;
+            List<Coordinate> InterimPath = new List<Coordinate>();
+            List<Coordinate> InterimPath2 = new List<Coordinate>();
+
+            //check players in range (facor in attack range)
+            foreach (Player p in gv.mod.playerList)
+            {
+                //only still conscious targets
+                if (p.isAlive() && !p.steathModeOn && !p.isInvisible())
+                {
+                    //if ((p.combatLocX != coordinatesOfPcTheCreatureMovesTowards.X) || (p.combatLocY != coordinatesOfPcTheCreatureMovesTowards.Y))
+                    //{
+                    attackPossible = false;
+                    coordinatesOfPcTheCreatureMovesTowards.X = p.combatLocX;
+                    coordinatesOfPcTheCreatureMovesTowards.Y = p.combatLocY;
+                    //run pathFinder to get new location
+                    pf.resetGrid(crt);
+                    InterimPath.Clear();
+                    InterimPath2.Clear();
+                    //check findNEwPoint favouring diagonal ath too much
+                    InterimPath2 = pf.findNewPoint(crt, new Coordinate(coordinatesOfPcTheCreatureMovesTowards.X, coordinatesOfPcTheCreatureMovesTowards.Y), false);
+                    foreach (Coordinate cord in InterimPath2)
+                    {
+                        InterimPath.Add(cord);
+                    }
+                    if (InterimPath != null)
+                    {
+                        //interimPathCountAdjustForDiagonalMoves = 0;
+                        if (InterimPath.Count > 2)
+                        {
+                            interimPathCountAdjustForDiagonalMovesFirst = 0;
+                            for (int i = 1; i < InterimPath.Count - 1; i++)
+                            {
+                                //it a horizontal/vertical move
+                                if ((InterimPath[i].X == InterimPath[i + 1].X) || (InterimPath[i].Y == InterimPath[i + 1].Y))
+                                {
+                                    interimPathCountAdjustForDiagonalMovesFirst++;
+                                }
+                                //it is a diagonal move
+                                else
+                                {
+                                    interimPathCountAdjustForDiagonalMovesFirst = interimPathCountAdjustForDiagonalMovesFirst + gv.mod.diagonalMoveCost;
+                                }
+                            }
+                        }
+                        else if (InterimPath.Count > 0)
+                        {
+                            interimPathCountAdjustForDiagonalMovesFirst = 0;
+                        }
+
+
+                        //bool attackPossible = false;
+
+                        for (int j = InterimPath.Count - 1; j >= 0; j--)
+                        {
+                            int endX = coordinatesOfPcTheCreatureMovesTowards.X * gv.squareSize + (gv.squareSize / 2);
+                            int endY = coordinatesOfPcTheCreatureMovesTowards.Y * gv.squareSize + (gv.squareSize / 2);
+                            int startX = InterimPath[j].X * gv.squareSize + (gv.squareSize / 2);
+                            int startY = InterimPath[j].Y * gv.squareSize + (gv.squareSize / 2);
+
+                            if (isVisibleLineOfSight(new Coordinate(endX, endY), new Coordinate(startX, startY)))
+                            {
+                                if (CalcDistance(crt, coordinatesOfPcTheCreatureMovesTowards.X, coordinatesOfPcTheCreatureMovesTowards.Y, InterimPath[j].X, InterimPath[j].Y) <= crt.cr_attRange)
+                                {
+
+                                    interimPathCountAdjustForDiagonalMoves = 0;
+                                    for (int i = InterimPath.Count - 1; i > j; i--)
+                                    {
+                                        //it a horizontal/vertical move
+                                        if ((InterimPath[i].X == InterimPath[i - 1].X) || (InterimPath[i].Y == InterimPath[i - 1].Y))
+                                        {
+                                            interimPathCountAdjustForDiagonalMoves++;
+                                        }
+                                        //it is a diagonal move
+                                        else
+                                        {
+                                            interimPathCountAdjustForDiagonalMoves = interimPathCountAdjustForDiagonalMoves + gv.mod.diagonalMoveCost;
+                                        }
+                                    }
+
+                                    if (interimPathCountAdjustForDiagonalMoves <= range)
+                                    {
+                                        attackPossible = true;
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+
+                        /*
+                        if ((crt.cr_attRange > 1) && (crt.cr_attRange > (InterimPath.Count-2)))
+                        {
+
+                        }
+                        */
+
+                        if ((InterimPath.Count >= 2) && (p.AC < worstACFound) && (attackPossible) && p.hp > 0 && !p.steathModeOn)
+                        {
+                            //coordinatesOfPcTheCreatureMovesTowards.X = p.combatLocX;
+                            //coordinatesOfPcTheCreatureMovesTowards.Y = p.combatLocY;
+                            //shortestPath = interimPathCountAdjustForDiagonalMoves;
+                            worstACFound = p.AC;
+                            pc = p;
+                            crt.targetPcTag = pc.tag;
+                        }//if inner
+                    }//if outer
+                     //}//if
+                }//if
+            }
+
+            return pc;
+
+            //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+
+            /*
+            foreach (Player p in gv.mod.playerList)
+            {
+                if ((!p.isDead()) && (p.hp > 0) && (!p.steathModeOn))
+                {
+                    int dist = CalcDistance(crt, crt.combatLocX, crt.combatLocY, p.combatLocX, p.combatLocY);
+
+                    if ((combinedRange >= dist) && (p.hp < lowestHP))
+                    {
+                        lowestHP = p.hp;
+                        pc = p;
+                        if (gv.mod.debugMode)
+                        {
+                            gv.cc.addLogText("<font color='yellow'>target:" + pc.name + "</font><BR>");
+                        }
+                    }
+                }
+            }
+
+            if (crt.targetPcTag != "none")
+            {
+                foreach (Player p in gv.mod.playerList)
+                {
+                    if (p.tag == crt.targetPcTag)
+                    {
+                        pc = p;
+                    }
+
+                }
+            }
+            return pc;
+            */
+        }
+
+        public Player targetPCWithHighestSPInCombinedRangeOLD(Creature crt)
         {
             Player pc = null;
             //float combinedRange = crt.cr_attRange + crt.getMoveDistance() - creatureMoves;
@@ -15102,7 +15679,7 @@ namespace IceBlink2
             */
         }
 
-        public Player targetPCWithWorstACInCombinedRange(Creature crt)
+        public Player targetPCWithWorstACInCombinedRangeOLD(Creature crt)
         {
             Player pc = null;
             //float combinedRange = crt.cr_attRange + crt.getMoveDistance() - creatureMoves;
