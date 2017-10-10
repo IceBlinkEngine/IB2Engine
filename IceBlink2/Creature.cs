@@ -42,7 +42,8 @@ namespace IceBlink2
 	    public int hp = 10;
 	    public int hpMax = 10;
 	    public int sp = 50;
-	    public int cr_XP = 10;
+        public int spMax = 50;
+        public int cr_XP = 10;
 	    public int AC = 10;
 	    public string cr_status = "Alive"; //Alive, Dead, Held
 	    public int cr_att = 0;
@@ -73,7 +74,9 @@ namespace IceBlink2
         public string onDeathIBScript = "none";
         public string onDeathIBScriptParms = ""; 
 	    public List<string> knownSpellsTags = new List<string>();
-	    public List<Effect> cr_effectsList = new List<Effect>();
+        public List<LocalInt> castChances = new List<LocalInt>();
+
+        public List<Effect> cr_effectsList = new List<Effect>();
 	    public List<LocalInt> CreatureLocalInts = new List<LocalInt>();
 	    public List<LocalString> CreatureLocalStrings = new List<LocalString>();
         public List<int> destinationPixelPositionXList = new List<int>();
@@ -106,6 +109,9 @@ namespace IceBlink2
 
         public string targetPcTag = "none";
 
+        public int percentRequirementOfTargetInjuryForHealSpells = 50;
+        public int percentRequirementOfTargetSPLossForRestoreSPSpells = 50;
+
         public Creature()
 	    {
 		
@@ -114,6 +120,8 @@ namespace IceBlink2
 	    public Creature DeepCopy()
 	    {
 		    Creature copy = new Creature();
+            copy.percentRequirementOfTargetInjuryForHealSpells = this.percentRequirementOfTargetInjuryForHealSpells;
+            copy.percentRequirementOfTargetSPLossForRestoreSPSpells = this.percentRequirementOfTargetInjuryForHealSpells;
             copy.targetPcTag = this.targetPcTag;
             copy.stayDurationInTurns = this.stayDurationInTurns;
             copy.percentChanceToCastSpell = this.percentChanceToCastSpell;
@@ -138,7 +146,11 @@ namespace IceBlink2
 		    copy.cr_level = this.cr_level;
 		    copy.hp = this.hp;
 		    copy.hpMax = this.hpMax;
-		    copy.sp = this.sp;
+            
+            //idea is that creatures are generated at start of each batte by copying template, ie they always start with maxSP in full height (= initial sp)
+            copy.spMax = this.sp;
+
+            copy.sp = this.sp;
 		    copy.cr_XP = this.cr_XP;
 		    copy.AC = this.AC;
 		    copy.cr_status = this.cr_status;
@@ -185,6 +197,29 @@ namespace IceBlink2
             {
                 copy.knownSpellsTags.Add(s);
             }
+
+            copy.castChances = new List<LocalInt>();
+            foreach (LocalInt l in this.castChances)
+            {
+                LocalInt Lint = new LocalInt();
+                Lint.Key = l.Key;
+                Lint.Value = l.Value;
+                copy.castChances.Add(Lint);
+                //copy.castChances.Add(s);
+            }
+
+            /*
+            bool useCastChances = true;
+            foreach (LocalInt l in this.castChances)
+
+            if (copy.castChances.Count < 1)
+            {
+                foreach (string s in copy.knownSpellsTags)
+                {
+                    copy.castChances.Add(100);
+                }
+            }
+            */
 
             //public List<Coordinate> tokenCoveredSquares = new List<Coordinate>();
             copy.tokenCoveredSquares = new List<Coordinate>();

@@ -3375,14 +3375,14 @@ namespace IceBlink2
             {
                 Player pc = (Player)gv.sf.CombatTarget;
                 //Uses Map Pixel Locations
-                int endX = pc.combatLocX * gv.squareSize + (gv.squareSize / 2);
-                int endY = pc.combatLocY * gv.squareSize + (gv.squareSize / 2);
-                int startX = crt.combatLocX * gv.squareSize + (gv.squareSize / 2);
-                int startY = crt.combatLocY * gv.squareSize + (gv.squareSize / 2);
+                int startX = pc.combatLocX * gv.squareSize + (gv.squareSize / 2);
+                int startY = pc.combatLocY * gv.squareSize + (gv.squareSize / 2);
+                int endX = crt.combatLocX * gv.squareSize + (gv.squareSize / 2);
+                int endY = crt.combatLocY * gv.squareSize + (gv.squareSize / 2);
                 // determine if ranged or melee
                 if ((crt.cr_category.Equals("Ranged"))
                         && (CalcDistance(crt, crt.combatLocX, crt.combatLocY, pc.combatLocX, pc.combatLocY) <= crt.cr_attRange)
-                        && (isVisibleLineOfSight(new Coordinate(endX, endY), new Coordinate(startX, startY))))
+                        && (isVisibleLineOfSight(new Coordinate(startX, startY), new Coordinate(endX, endY))))
                 {
                     //play attack sound for ranged
                     gv.PlaySound(crt.cr_attackSound);
@@ -3549,14 +3549,14 @@ namespace IceBlink2
             {
                 //Player pc = (Player)gv.sf.CombatTarget;
                 //Uses Map Pixel Locations
-                int endX = pc.combatLocX * gv.squareSize + (gv.squareSize / 2);
-                int endY = pc.combatLocY * gv.squareSize + (gv.squareSize / 2);
-                int startX = crt.combatLocX * gv.squareSize + (gv.squareSize / 2);
-                int startY = crt.combatLocY * gv.squareSize + (gv.squareSize / 2);
+                int startX = pc.combatLocX * gv.squareSize + (gv.squareSize / 2);
+                int startY = pc.combatLocY * gv.squareSize + (gv.squareSize / 2);
+                int endX = crt.combatLocX * gv.squareSize + (gv.squareSize / 2);
+                int endY = crt.combatLocY * gv.squareSize + (gv.squareSize / 2);
                 // determine if ranged or melee
                 if ((crt.cr_category.Equals("Ranged"))
                         && (CalcDistance(crt, crt.combatLocX, crt.combatLocY, pc.combatLocX, pc.combatLocY) <= crt.cr_attRange)
-                        && (isVisibleLineOfSight(new Coordinate(endX, endY), new Coordinate(startX, startY))))
+                        && (isVisibleLineOfSight(new Coordinate(startX, startY), new Coordinate(endX, endY))))
                 {
                     //play attack sound for ranged
                     gv.PlaySound(crt.cr_attackSound);
@@ -3750,7 +3750,7 @@ namespace IceBlink2
             int startX = crt.combatLocX * gv.squareSize + (gv.squareSize / 2);
             int startY = crt.combatLocY * gv.squareSize + (gv.squareSize / 2);
             if ((getDistance(pnt, new Coordinate(crt.combatLocX, crt.combatLocY)) <= gv.sf.SpellToCast.range)
-                    && (isVisibleLineOfSight(new Coordinate(endX, endY), new Coordinate(startX, startY))))
+                    && (isVisibleLineOfSight(new Coordinate(startX, startY), new Coordinate(endX, endY))))
             {
 
                 if (gv.mod.useManualCombatCam)
@@ -3893,7 +3893,12 @@ namespace IceBlink2
         public void doCreatureAI(Creature crt)
         {
             //These are the current generic AI types
-            //BasicAttacker:          basic attack (ranged or melee)
+            //BasicAttacker:          basic attack (ranged or melee) on nearest target, otherwise approach nearest
+            //bloodHunter:            basic attack (ranged or melee) on target in range with least hp, otherwise approach nearest
+            //mindHunter:             basic attack (ranged or melee) on target in range with most sp, otherwise approach nearest
+            //softTargetHunter:       basic attack (ranged or melee) on target in range with worst AC, otherwise approach nearest
+            //GeneralCaster:          cast any of their known spells, based on chance to cast that spell; if no spell is cast (), act like BasicAttacker
+
             //Healer:                 heal Friend(s) until out of SP
             //BattleHealer:           heal Friend(s) and/or attack
             //DamageCaster:           cast damage spells
@@ -4003,7 +4008,312 @@ namespace IceBlink2
                 }
             }
         }
+
         public void GeneralCaster(Creature crt)
+        {
+
+            /*
+            //to do:add range and vis checks already here, more casting
+               int endX = pnt.X * gv.squareSize + (gv.squareSize / 2);
+            int endY = pnt.Y * gv.squareSize + (gv.squareSize / 2);
+            int startX = crt.combatLocX * gv.squareSize + (gv.squareSize / 2);
+            int startY = crt.combatLocY * gv.squareSize + (gv.squareSize / 2);
+            if ((getDistance(pnt, new Coordinate(crt.combatLocX, crt.combatLocY)) <= gv.sf.SpellToCast.range)
+                    && (isVisibleLineOfSight(new Coordinate(startX, startY), new Coordinate(endX, endY))))
+
+
+            */
+            gv.sf.SpellToCast = null;
+            //check if should cast spell or attack/move  
+            int castpercent = gv.sf.RandInt(100);
+            if (crt.percentChanceToCastSpell < castpercent)
+            {
+                //don't cast this round, instead try and attack or move  
+                //Player pc = targetClosestPC(crt);
+                //gv.sf.CombatTarget = pc;
+                //gv.sf.ActionToTake = "Attack";
+                BasicAttacker(crt);
+                return;
+            }
+
+            //List<int> existingSpellNumbers = new List<int>();
+            List<int> usedSpellNumbers = new List<int>();
+            int remainingCastCeiling = 100;
+
+            /*
+            for (int i = 0; i < crt.knownSpellsTags.Count; i++)
+            {
+                existingSpellNumbers.Add(i);
+            }
+            */
+
+                //just pick a random spell from KnownSpells
+                //try a few times to pick a random spell that has enough SP
+                for (int i = 0; i < crt.knownSpellsTags.Count; i++)
+                {
+                int rnd = gv.sf.RandInt(crt.knownSpellsTags.Count)-1;
+                while (usedSpellNumbers.Contains(rnd))
+                {
+                    rnd = gv.sf.RandInt(crt.knownSpellsTags.Count)-1;
+                }
+                usedSpellNumbers.Add(rnd);
+
+                bool isRandomCaster = false;
+
+                //list with cats chnces is empty (old creature, never touched again)
+                if (crt.castChances.Count == 0)
+                {
+                    isRandomCaster = true;
+                }
+
+                //all existing cast chances at 0
+                if (!isRandomCaster)
+                {
+                    isRandomCaster = true;
+                    foreach (LocalInt l in crt.castChances)
+                    {
+                        if (l.Value > 0)
+                        {
+                            isRandomCaster = false;
+                            break;
+                        }
+                    }
+                }
+
+                Spell sp = gv.mod.getSpellByTag(crt.knownSpellsTags[rnd]);
+                if (!isRandomCaster)
+                {
+                    int castingChance = 0;
+                    foreach (LocalInt lint in crt.castChances)
+                    {
+                        if (lint.Key == crt.knownSpellsTags[rnd])
+                        {
+                            castingChance = lint.Value;
+                        }
+                    } 
+
+                    int rnd2 = gv.sf.RandInt(remainingCastCeiling);
+                    remainingCastCeiling -= castingChance;
+
+                    if (remainingCastCeiling < 2)
+                    {
+                        remainingCastCeiling = 1;
+                    }
+
+                    if (rnd2 > castingChance)
+                    {
+                        continue;
+
+                    }
+                }
+               
+                if (sp != null)
+                {
+                    if (sp.costSP <= crt.sp)
+                    {
+                        //gv.sf.SpellToCast = sp;
+
+                        if (sp.spellTargetType.Equals("Enemy"))
+                        {
+                            Player pc = targetClosestPC(crt);
+
+                            bool inRange = false;
+                            int endX = pc.combatLocX * gv.squareSize + (gv.squareSize / 2);
+                            int endY = pc.combatLocY* gv.squareSize + (gv.squareSize / 2);
+                            int startX = crt.combatLocX * gv.squareSize + (gv.squareSize / 2);
+                            int startY = crt.combatLocY * gv.squareSize + (gv.squareSize / 2);
+                            if ((getDistance(new Coordinate(pc.combatLocX, pc.combatLocY), new Coordinate(crt.combatLocX, crt.combatLocY)) <= sp.range)
+                                    && (isVisibleLineOfSight(new Coordinate(startX, startY), new Coordinate(endX, endY))))
+                            {
+                                inRange = true;
+                            }
+
+                            if ((pc != null) && inRange)
+                            {
+                                gv.sf.SpellToCast = sp;
+                                gv.sf.CombatTarget = pc;
+                                gv.sf.ActionToTake = "Cast";
+                                break;
+                            }
+                            else
+                            {
+                                //endCreatureTurn(crt);
+                                //BasicAttacker(crt);
+                                continue;
+                            }
+                        }
+                        else if (sp.spellTargetType.Equals("PointLocation"))
+                        {
+                            Coordinate bestLoc = targetBestPointLocation(crt);
+                            if (bestLoc == new Coordinate(-1, -1))
+                            {
+                                //didn't find a target so use closest PC
+                                Player pc = targetClosestPC(crt);
+
+                                bool inRange = false;
+                                int endX = pc.combatLocX * gv.squareSize + (gv.squareSize / 2);
+                                int endY = pc.combatLocY * gv.squareSize + (gv.squareSize / 2);
+                                int startX = crt.combatLocX * gv.squareSize + (gv.squareSize / 2);
+                                int startY = crt.combatLocY * gv.squareSize + (gv.squareSize / 2);
+                                if ((getDistance(new Coordinate(pc.combatLocX, pc.combatLocY), new Coordinate(crt.combatLocX, crt.combatLocY)) <= sp.range)
+                                        && (isVisibleLineOfSight(new Coordinate(startX, startY), new Coordinate(endX, endY))))
+                                {
+                                    inRange = true;
+                                }
+
+                                if ((pc != null) && inRange)
+                                {
+                                    gv.sf.SpellToCast = sp;
+                                    gv.sf.CombatTarget = new Coordinate(pc.combatLocX, pc.combatLocY);
+                                }
+                                else
+                                {
+                                    //endCreatureTurn(crt);
+                                    //BasicAttacker(crt);
+                                    continue;
+                                }
+                            }
+                            else
+                            {
+                                gv.sf.SpellToCast = sp;
+                                gv.sf.CombatTarget = targetBestPointLocation(crt);
+                            }
+                            gv.sf.ActionToTake = "Cast";
+                            break;
+                        }
+                        else if (sp.spellTargetType.Equals("Friend"))
+                        {
+                            bool isHPHealing = false;
+                            bool isSPRestoring = false;
+                            Effect effectToCheck = new Effect();
+                            foreach (EffectTagForDropDownList efTFDDL in sp.spellEffectTagList)
+                            {
+                                effectToCheck = gv.mod.getEffectByTag(efTFDDL.tag);
+                                if (effectToCheck.doHeal == true && effectToCheck.healHP == true)
+                                {
+                                    isHPHealing = true;
+                                    break;
+                                }
+                            }
+                            
+                            if (sp.spellScript == "spHeal")
+                            {
+                                isHPHealing = true;
+                            }
+
+                            //if not healing, let us see if sp restoring
+                            if (!isHPHealing)
+                            {
+                                foreach (EffectTagForDropDownList efTFDDL in sp.spellEffectTagList)
+                                {
+                                    effectToCheck = gv.mod.getEffectByTag(efTFDDL.tag);
+                                    if (effectToCheck.doHeal == true && effectToCheck.healHP == false)
+                                    {
+                                        isSPRestoring = true;
+                                        break;
+                                    }
+                                }
+
+                            }
+
+                            Creature targetCrt = new Creature(); 
+                            //add sp healing
+                            if (isHPHealing)
+                            {
+                                //also only have these helper functions only return cretaure in spell range and visible
+                                gv.sf.SpellToCast = sp;
+                                targetCrt = GetCreatureWithMostDamaged(crt); 
+                            }
+                            else if (isSPRestoring)
+                            {
+                                //also only have these helper functions only return cretaure in spell range and visible
+     
+                                gv.sf.SpellToCast = sp;
+                                targetCrt = GetCreatureWithMostSPMissing(crt);
+                            }
+                            else
+                            {
+                                //is buff, no heal hp or heal sp
+                                //also only have these helper functions only return cretaure in spell range and visible
+                                gv.sf.SpellToCast = sp;
+                                targetCrt = targetClosestCreatureInRangeAndVisible(crt);
+                            }
+
+                            /*
+                            if (targetCrt == null)
+                            {
+                                gv.sf.SpellToCast = null;
+                            }
+                            */
+
+                            if (targetCrt != null)
+                            {
+                                gv.sf.SpellToCast = sp;
+                                gv.sf.CombatTarget = targetCrt;
+                                gv.sf.ActionToTake = "Cast";
+                                break;
+                            }
+                            else //didn't find a target that needs HP
+                            {
+                                gv.sf.SpellToCast = null;
+                                continue;
+                            }
+
+                            /*
+                            //target is another creature (currently assumed that spell is a heal spell)
+                            Creature targetCrt = GetCreatureWithMostDamaged();
+                            if (targetCrt != null)
+                            {
+                                gv.sf.CombatTarget = targetCrt;
+                                gv.sf.ActionToTake = "Cast";
+                                break;
+                            }
+                            else //didn't find a target that needs HP
+                            {
+                                gv.sf.SpellToCast = null;
+                                continue;
+                            }
+                            */
+                        }
+                        else if (gv.sf.SpellToCast.spellTargetType.Equals("Self"))
+                        {
+                            //target is self (currently assumed that spell is a heal spell)
+                            Creature targetCrt = crt;
+                            if (targetCrt != null)
+                            {
+                                gv.sf.SpellToCast = sp;
+                                gv.sf.CombatTarget = targetCrt;
+                                gv.sf.ActionToTake = "Cast";
+                                break;
+                            }
+                        }
+                        else //didn't find a target so set to null so that will use attack instead
+                        {
+                            gv.sf.SpellToCast = null;
+                        }
+                    }
+                }
+            }
+
+            if (gv.sf.SpellToCast == null) //didn't find a spell that matched the criteria so use attack instead
+            {
+                BasicAttacker(crt);
+                /*
+                Player pc = targetClosestPC(crt);
+                if (pc == null)
+                {
+                    endCreatureTurn(crt);
+                }
+                else
+                {
+                    gv.sf.CombatTarget = pc;
+                    gv.sf.ActionToTake = "Attack";
+                }
+                */
+            }
+        }
+
+        public void ChanceBasedCaster(Creature crt)
         {
             gv.sf.SpellToCast = null;
             //check if should cast spell or attack/move  
@@ -4011,9 +4321,10 @@ namespace IceBlink2
             if (crt.percentChanceToCastSpell < castpercent)
             {
                 //don't cast this round, instead try and attack or move  
-                Player pc = targetClosestPC(crt);
-                gv.sf.CombatTarget = pc;
-                gv.sf.ActionToTake = "Attack";
+                //Player pc = targetClosestPC(crt);
+                //gv.sf.CombatTarget = pc;
+                //gv.sf.ActionToTake = "Attack";
+                BasicAttacker(crt);
                 return;
             }
 
@@ -4040,7 +4351,8 @@ namespace IceBlink2
                             }
                             else
                             {
-                                endCreatureTurn(crt);
+                                //endCreatureTurn(crt);
+                                BasicAttacker(crt);
                             }
                         }
                         else if (gv.sf.SpellToCast.spellTargetType.Equals("PointLocation"))
@@ -4056,7 +4368,8 @@ namespace IceBlink2
                                 }
                                 else
                                 {
-                                    endCreatureTurn(crt);
+                                    //endCreatureTurn(crt);
+                                    BasicAttacker(crt);
                                 }
                             }
                             else
@@ -4119,6 +4432,8 @@ namespace IceBlink2
 
             if (gv.sf.SpellToCast == null) //didn't find a spell that matched the criteria so use attack instead
             {
+                BasicAttacker(crt);
+                /*
                 Player pc = targetClosestPC(crt);
                 if (pc == null)
                 {
@@ -4129,8 +4444,10 @@ namespace IceBlink2
                     gv.sf.CombatTarget = pc;
                     gv.sf.ActionToTake = "Attack";
                 }
+                */
             }
         }
+
 
         public void updateStatsAllCreatures()
         {
@@ -7638,7 +7955,7 @@ namespace IceBlink2
                 int startY2 = p.combatLocY * gv.squareSize + (gv.squareSize / 2);
 
                 //check if target is within attack distance, use green if true, red if false
-                if (isVisibleLineOfSight(new Coordinate(endX2, endY2), new Coordinate(startX2, startY2)))
+                if (isVisibleLineOfSight(new Coordinate(startX2, startY2), new Coordinate(endX2, endY2)))
                 {
                     drawVisibleLineOfSightTrail(new Coordinate(endX, endY), new Coordinate(startX, startY), Color.Lime, 2);
                 }
@@ -8242,7 +8559,7 @@ namespace IceBlink2
                     int startX2 = targetHighlightCenterLocation.X * gv.squareSize + (gv.squareSize / 2);
                     int startY2 = targetHighlightCenterLocation.Y * gv.squareSize + (gv.squareSize / 2);
 
-                    if (isVisibleLineOfSight(new Coordinate(endX2, endY2), new Coordinate(startX2, startY2)))
+                    if (isVisibleLineOfSight(new Coordinate(startX2, startY2), new Coordinate(endX2, endY2)))
                     {
                         hl_green = true;
                     }
@@ -8254,7 +8571,7 @@ namespace IceBlink2
                     {
                         int startX3 = pc.combatLocX * gv.squareSize + (gv.squareSize / 2);
                         int startY3 = pc.combatLocY * gv.squareSize + (gv.squareSize / 2);
-                        if ((isValidAttackTarget(pc)) && (isVisibleLineOfSight(new Coordinate(endX2, endY2), new Coordinate(startX3, startY3))))
+                        if ((isValidAttackTarget(pc)) && (isVisibleLineOfSight(new Coordinate(startX3, startY3), new Coordinate(endX2, endY2))))
                         {
                             hl_green = true;
                         }
@@ -8294,7 +8611,7 @@ namespace IceBlink2
                     int startX2 = targetHighlightCenterLocation.X * gv.squareSize + (gv.squareSize / 2);
                     int startY2 = targetHighlightCenterLocation.Y * gv.squareSize + (gv.squareSize / 2);
 
-                    if ((isValidCastTarget(pc)) && (isVisibleLineOfSight(new Coordinate(endX2, endY2), new Coordinate(startX2, startY2))))
+                    if ((isValidCastTarget(pc)) && (isVisibleLineOfSight(new Coordinate(startX2, startY2), new Coordinate(endX2, endY2))))
                     {
                         hl_green = true;
                     }
@@ -8306,7 +8623,7 @@ namespace IceBlink2
                     {
                         int startX3 = pc.combatLocX * gv.squareSize + (gv.squareSize / 2);
                         int startY3 = pc.combatLocY * gv.squareSize + (gv.squareSize / 2);
-                        if ((isValidCastTarget(pc)) && (isVisibleLineOfSight(new Coordinate(endX2, endY2), new Coordinate(startX3, startY3))))
+                        if ((isValidCastTarget(pc)) && (isVisibleLineOfSight(new Coordinate(startX3, startY3), new Coordinate(endX2, endY2))))
                         {
                             hl_green = true;
                         }
@@ -8377,7 +8694,7 @@ namespace IceBlink2
                 {
                     if (IsInVisibleCombatWindow(crt.combatLocX, crt.combatLocY))
                     {
-                        drawText(getPixelLocX(crt.combatLocX) + (int)crt.roamDistanceX + (int)crt.glideAdderX, getPixelLocY(crt.combatLocY) + txtH + (int)crt.roamDistanceY + (int)crt.glideAdderY, "sp: " + crt.sp, Color.Yellow);
+                        drawText(getPixelLocX(crt.combatLocX) + (int)crt.roamDistanceX + (int)crt.glideAdderX, getPixelLocY(crt.combatLocY) + txtH + (int)crt.roamDistanceY + (int)crt.glideAdderY, crt.sp + "/" + crt.spMax, Color.Yellow);
                     }
                 }
                 foreach (Player pc in gv.mod.playerList)
@@ -13437,7 +13754,7 @@ namespace IceBlink2
             int startX = pc.combatLocX * gv.squareSize + (gv.squareSize / 2);
             int startY = pc.combatLocY * gv.squareSize + (gv.squareSize / 2);
 
-            if ((isValidCastTarget(pc)) && (isVisibleLineOfSight(new Coordinate(endX, endY), new Coordinate(startX, startY))))
+            if ((isValidCastTarget(pc)) && (isVisibleLineOfSight(new Coordinate(startX, startY), new Coordinate(endX, endY))))
             {
                 if ((targetHighlightCenterLocation.X < pc.combatLocX) && (!pc.combatFacingLeft)) //attack left
                 {
@@ -13925,7 +14242,7 @@ namespace IceBlink2
                 int startX2 = pc.combatLocX * gv.squareSize + (gv.squareSize / 2);
                 int startY2 = pc.combatLocY * gv.squareSize + (gv.squareSize / 2);
 
-                if ((isVisibleLineOfSight(new Coordinate(endX2, endY2), new Coordinate(startX2, startY2)))
+                if ((isVisibleLineOfSight(new Coordinate(startX2, startY2), new Coordinate(endX2, endY2)))
                     || (getDistance(new Coordinate(pc.combatLocX, pc.combatLocY), targetHighlightCenterLocation) == 1))
                 {
                     foreach (Creature crt in gv.mod.currentEncounter.encounterCreatureList)
@@ -14130,7 +14447,7 @@ namespace IceBlink2
             if (gridy < 0) { gridy = 0; }
             return gridy;
         }
-        public bool isVisibleLineOfSight(Coordinate end, Coordinate start)
+        public bool isVisibleLineOfSight(Coordinate start, Coordinate end)
         {
             //This Method Uses Map Pixel Locations Only
 
@@ -15069,7 +15386,7 @@ namespace IceBlink2
                                 int startX = InterimPath[j].X * gv.squareSize + (gv.squareSize / 2);
                                 int startY = InterimPath[j].Y * gv.squareSize + (gv.squareSize / 2);
 
-                                if (isVisibleLineOfSight(new Coordinate(endX, endY), new Coordinate(startX, startY)))
+                                if (isVisibleLineOfSight(new Coordinate(startX, startY), new Coordinate(endX, endY)))
                                 {
                                     if (CalcDistance(crt, coordinatesOfPcTheCreatureMovesTowards.X, coordinatesOfPcTheCreatureMovesTowards.Y, InterimPath[j].X, InterimPath[j].Y) <= crt.cr_attRange)
                                     {
@@ -15248,7 +15565,7 @@ namespace IceBlink2
                             int startX = InterimPath[j].X * gv.squareSize + (gv.squareSize / 2);
                             int startY = InterimPath[j].Y * gv.squareSize + (gv.squareSize / 2);
 
-                            if (isVisibleLineOfSight(new Coordinate(endX, endY), new Coordinate(startX, startY)))
+                            if (isVisibleLineOfSight(new Coordinate(startX, startY), new Coordinate(endX, endY)))
                             {
                                 if (CalcDistance(crt, coordinatesOfPcTheCreatureMovesTowards.X, coordinatesOfPcTheCreatureMovesTowards.Y, InterimPath[j].X, InterimPath[j].Y) <= crt.cr_attRange)
                                 {
@@ -15427,7 +15744,7 @@ namespace IceBlink2
                             int startX = InterimPath[j].X * gv.squareSize + (gv.squareSize / 2);
                             int startY = InterimPath[j].Y * gv.squareSize + (gv.squareSize / 2);
 
-                            if (isVisibleLineOfSight(new Coordinate(endX, endY), new Coordinate(startX, startY)))
+                            if (isVisibleLineOfSight(new Coordinate(startX, startY), new Coordinate(endX, endY)))
                             {
                                 if (CalcDistance(crt, coordinatesOfPcTheCreatureMovesTowards.X, coordinatesOfPcTheCreatureMovesTowards.Y, InterimPath[j].X, InterimPath[j].Y) <= crt.cr_attRange)
                                 {
@@ -15605,7 +15922,7 @@ namespace IceBlink2
                                 int startX = c.X * gv.squareSize + (gv.squareSize / 2);
                                 int startY = c.Y * gv.squareSize + (gv.squareSize / 2);
 
-                                if (isVisibleLineOfSight(new Coordinate(endX, endY), new Coordinate(startX, startY)))
+                                if (isVisibleLineOfSight(new Coordinate(startX, startY), new Coordinate(endX, endY)))
                                 {
                                     if (CalcDistance(crt, coordinatesOfPcTheCreatureMovesTowards.X, coordinatesOfPcTheCreatureMovesTowards.Y, c.X, c.Y) <= crt.cr_attRange)
                                     {
@@ -15769,7 +16086,7 @@ namespace IceBlink2
                                 int startX = c.X * gv.squareSize + (gv.squareSize / 2);
                                 int startY = c.Y * gv.squareSize + (gv.squareSize / 2);
 
-                                if (isVisibleLineOfSight(new Coordinate(endX, endY), new Coordinate(startX, startY)))
+                                if (isVisibleLineOfSight(new Coordinate(startX, startY), new Coordinate(endX, endY)))
                                 {
                                     if (CalcDistance(crt, coordinatesOfPcTheCreatureMovesTowards.X, coordinatesOfPcTheCreatureMovesTowards.Y, c.X, c.Y) <= crt.cr_attRange)
                                     {
@@ -16062,6 +16379,60 @@ namespace IceBlink2
             return crtReturn;
         }
 
+        public Creature targetClosestCreatureInRangeAndVisible(Creature crt)
+        {
+            Creature crtReturn = null;
+            int farDist = 99;
+            
+
+            foreach (Creature crtByCounter in gv.mod.currentEncounter.encounterCreatureList)
+            {
+                if ((crtByCounter.hp > 0) && (crtByCounter.cr_tag != crt.cr_tag))
+                {
+
+                    int endX = crtByCounter.combatLocX * gv.squareSize + (gv.squareSize / 2);
+                    int endY = crtByCounter.combatLocY * gv.squareSize + (gv.squareSize / 2);
+                    int startX = crt.combatLocX * gv.squareSize + (gv.squareSize / 2);
+                    int startY = crt.combatLocY * gv.squareSize + (gv.squareSize / 2);
+
+                    int dist = CalcDistance(crt, crt.combatLocX, crt.combatLocY, crtByCounter.combatLocX, crtByCounter.combatLocY);
+
+                    if ((dist <= gv.sf.SpellToCast.range) && (isVisibleLineOfSight(new Coordinate(startX, startY), new Coordinate(endX, endY))))
+                    {
+
+
+                        //int dist = CalcDistance(crt.combatLocX, crt.combatLocY, p.combatLocX, p.combatLocY);
+                        //int dist = CalcDistance(crt, crt.combatLocX, crt.combatLocY, crtByCounter.combatLocX, crtByCounter.combatLocY);
+                        /*
+                        if (dist == farDist)
+                        {
+                            //since at same distance, do a random check to see if switch or stay with current PC target
+                            if (gv.sf.RandInt(20) > 10)
+                            {
+                                //switch target
+                                pc = p;
+                                if (gv.mod.debugMode)
+                                {
+                                    gv.cc.addLogText("<font color='yellow'>target:" + pc.name + "</font><BR>");
+                                }
+                            }
+                        }
+                        */
+                        if (dist < farDist)
+                        {
+                            farDist = dist;
+                            crtReturn = crtByCounter;
+                            if (gv.mod.debugMode)
+                            {
+                                gv.cc.addLogText("<font color='yellow'>target:" + crtReturn.cr_name + "</font><BR>");
+                            }
+                        }
+                    }
+                }
+            }
+            return crtReturn;
+        }
+
         public Coordinate targetBestPointLocation(Creature crt)
         {
             Coordinate targetLoc = new Coordinate(-1, -1);
@@ -16087,7 +16458,7 @@ namespace IceBlink2
                     int endY = selectedPoint.Y * gv.squareSize + (gv.squareSize / 2);
                     int startX = crt.combatLocX * gv.squareSize + (gv.squareSize / 2);
                     int startY = crt.combatLocY * gv.squareSize + (gv.squareSize / 2);
-                    if (!isVisibleLineOfSight(new Coordinate(endX, endY), new Coordinate(startX, startY)))
+                    if (!isVisibleLineOfSight(new Coordinate(startX, startY), new Coordinate(endX, endY)))
                     {
                         continue;
                     }
@@ -16260,7 +16631,8 @@ namespace IceBlink2
             }
             return returnCrt;
         }
-        public Creature GetCreatureWithMostDamaged()
+
+        public Creature GetCreatureWithMostDamaged(Creature creatureCaster)
         {
             int damaged = 0;
             Creature returnCrt = null;
@@ -16268,16 +16640,69 @@ namespace IceBlink2
             {
                 if (crt.hp > 0)
                 {
-                    int dam = crt.hpMax - crt.hp;
-                    if (dam > damaged)
+                    int endX = crt.combatLocX * gv.squareSize + (gv.squareSize / 2);
+                    int endY = crt.combatLocY * gv.squareSize + (gv.squareSize / 2);
+                    int startX = creatureCaster.combatLocX * gv.squareSize + (gv.squareSize / 2);
+                    int startY = creatureCaster.combatLocY * gv.squareSize + (gv.squareSize / 2);
+
+                    int dist = CalcDistance(crt, crt.combatLocX, crt.combatLocY, creatureCaster.combatLocX, creatureCaster.combatLocY);
+
+                    if ((dist <= gv.sf.SpellToCast.range) && (isVisibleLineOfSight(new Coordinate(startX, startY), new Coordinate(endX, endY))))
                     {
-                        damaged = dam;
-                        returnCrt = crt;
+                        int dam = crt.hpMax - crt.hp;
+                        float hpProxy = crt.hp;
+                        float hpMaxProxy = crt.hpMax;
+                        float injuryLevel = (1 - (float)(hpProxy/hpMaxProxy)) * 100;
+                        if (injuryLevel >= crt.percentRequirementOfTargetInjuryForHealSpells)
+                        {
+                            if (dam > damaged)
+                            {
+                                damaged = dam;
+                                returnCrt = crt;
+                            }
+                        }
                     }
                 }
             }
             return returnCrt;
         }
+
+        public Creature GetCreatureWithMostSPMissing(Creature creatureCaster)
+        {
+            int damaged = 0;
+            Creature returnCrt = null;
+            foreach (Creature crt in gv.mod.currentEncounter.encounterCreatureList)
+            {
+                if (crt.hp > 0)
+                {
+                    int endX = crt.combatLocX * gv.squareSize + (gv.squareSize / 2);
+                    int endY = crt.combatLocY * gv.squareSize + (gv.squareSize / 2);
+                    int startX = creatureCaster.combatLocX * gv.squareSize + (gv.squareSize / 2);
+                    int startY = creatureCaster.combatLocY * gv.squareSize + (gv.squareSize / 2);
+
+                    int dist = CalcDistance(crt, crt.combatLocX, crt.combatLocY, creatureCaster.combatLocX, creatureCaster.combatLocY);
+
+                    if ((dist <= gv.sf.SpellToCast.range) && (isVisibleLineOfSight(new Coordinate(startX, startY), new Coordinate(endX, endY))))
+                    {
+                        int dam = crt.spMax - crt.sp;
+                        float spProxy = crt.sp;
+                        float spMaxProxy = crt.spMax;
+                        float injuryLevel = (1 - (float)(spProxy / spMaxProxy)) * 100;
+                        if (injuryLevel >= crt.percentRequirementOfTargetSPLossForRestoreSPSpells)
+                        {
+                            if (dam > damaged)
+                            {
+                                damaged = dam;
+                                returnCrt = crt;
+                            }
+                        }
+                    }
+                }
+            }
+            return returnCrt;
+        }
+
+
         public Creature GetNextAdjacentCreature(Player pc)
         {
             foreach (Creature nextCrt in gv.mod.currentEncounter.encounterCreatureList)

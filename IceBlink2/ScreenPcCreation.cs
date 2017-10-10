@@ -899,6 +899,7 @@ namespace IceBlink2
 
                                     }
                                 }
+
                                 foreach (SpellAllowed sa in pc.playerClass.spellsAllowed)
                                 {
                                     if ((sa.automaticallyLearned) && (sa.atWhatLevelIsAvailable == pc.classLevel || sa.atWhatLevelIsAvailable == 0))
@@ -915,13 +916,13 @@ namespace IceBlink2
                                 List<string> spellTagsList = new List<string>();
                                 spellTagsList = pc.getSpellsToLearn();
 
-                                if (traitTagsList.Count > 0)
+                                if ((traitTagsList.Count > 0) && (pc.playerClass.traitsToLearnAtLevelTable[pc.classLevel] > 0))
                                 {
                                     gv.screenTraitLevelUp.resetPC(false, pc);
                                     gv.screenType = "learnTraitCreation";
                                 }
 
-                                else if (spellTagsList.Count > 0)
+                                else if ((spellTagsList.Count > 0) && (pc.playerClass.spellsToLearnAtLevelTable[pc.classLevel] > 0))
                                 {
                                     gv.screenSpellLevelUp.resetPC(false, pc, false);
                                     gv.screenType = "learnSpellCreation";

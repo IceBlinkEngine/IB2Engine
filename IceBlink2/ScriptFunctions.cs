@@ -7712,6 +7712,10 @@ namespace IceBlink2
                     else
                     {
                         crt.sp += heal;
+                        if (crt.sp > crt.spMax)
+                        {
+                            crt.sp = crt.spMax;
+                        }
                         gv.cc.addLogText("<font color='lime'>" + crt.cr_name + " gains " + heal + " SPs" + "</font><BR>");
                         //Do floaty text heal
                         //gv.screenCombat.floatyTextOn = true;
@@ -8424,7 +8428,7 @@ namespace IceBlink2
                     AoeTargetsList.Add(new Coordinate(coor.X, coor.Y));
                 }
 
-                else if (gv.screenCombat.isVisibleLineOfSight(new Coordinate(endX2, endY2), new Coordinate(startX2, startY2)))
+                else if (gv.screenCombat.isVisibleLineOfSight(new Coordinate(startX2, startY2), new Coordinate(endX2, endY2)))
                 {
                     foreach (Creature crt in mod.currentEncounter.encounterCreatureList)
                     {
@@ -8855,6 +8859,10 @@ namespace IceBlink2
                                  else
                                  {
                                         crt.sp += heal;
+                                        if (crt.sp > crt.spMax)
+                                        {
+                                            crt.sp = crt.spMax;
+                                        }
                                         gv.cc.addLogText("<font color='lime'>" + crt.cr_name + " gains " + heal + " SPs" + "</font><BR>");
                                         gv.cc.addFloatyText(new Coordinate(crt.combatLocX, crt.combatLocY), heal + "", "yellow");
                                  }

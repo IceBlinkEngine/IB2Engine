@@ -1281,7 +1281,9 @@ namespace IceBlink2
                     spellTagsList = pc.getSpellsToLearn();
 
                     //no manually selectable spells or traits
-                    if (traitTagsList.Count == 0 && spellTagsList.Count == 0)
+                    //kölnsüd
+                    //pc.playerClass.spellsToLearnAtLevelTable[pc.classLevel] > 0
+                    if ((traitTagsList.Count == 0 && spellTagsList.Count == 0) || (pc.playerClass.spellsToLearnAtLevelTable[pc.classLevel] == 0 && pc.playerClass.traitsToLearnAtLevelTable[pc.classLevel] == 0))
                     {
                         //if automatically learned traits or spells add them
                         foreach (TraitAllowed ta in pc.playerClass.traitsAllowed)
@@ -1655,8 +1657,9 @@ namespace IceBlink2
                         gv.sf.UpdateStats(pc);
                         doLevelUpSummary();
                     }
+                    //found: at least one screen needs to be called
 
-                    else if (traitTagsList.Count > 0)
+                    else if (traitTagsList.Count > 0 && pc.playerClass.traitsToLearnAtLevelTable[pc.classLevel] > 0)
                     {
                         //add automatically gained spells and traits (inlcuding effects) to the tempoarray lists already here
                         //no replacements at this stage though (these come when done on the manual screens) 
@@ -1725,7 +1728,7 @@ namespace IceBlink2
                         gv.screenTraitLevelUp.resetPC(false, pc);
                         gv.screenType = "learnTraitLevelUp";
                     }
-                    else if (spellTagsList.Count > 0)
+                    else if (spellTagsList.Count > 0 && pc.playerClass.spellsToLearnAtLevelTable[pc.classLevel] > 0)
                     {
                         //add automaticall gained spells to the tempoarray lists already here
                         //no replacements at this stage though
