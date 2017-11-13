@@ -1763,12 +1763,56 @@ namespace IceBlink2
             Player pc = gv.mod.playerList[gv.cc.partyScreenPcIndex];
             int babGained = pc.playerClass.babTable[pc.classLevel] - pc.playerClass.babTable[pc.classLevel - 1];
 
-            string text = pc.name + " has gained:<br>"
-                   + "HP: +" + pc.playerClass.hpPerLevelUp + "<br>"
-                   + "SP: +" + pc.playerClass.spPerLevelUp + "<br>"
+            string text = pc.name + " has gained:<br>";
+            if (pc.playerClass.modifierFromSPRelevantAttribute.Equals("intelligence"))
+            {
+                text += "HP: +" + (pc.playerClass.hpPerLevelUp + ((pc.constitution - 10) / 2)) + "<br>"
+                   + "SP: +" + (pc.playerClass.spPerLevelUp + ((pc.intelligence - 10) / 2)) + "<br>"
                    + "BAB: +" + babGained + "<br>"
                    + traitGained + "<br>"
                    + spellGained;
+            }
+            if (pc.playerClass.modifierFromSPRelevantAttribute.Equals("wisdom"))
+            {
+                text += "HP: +" + (pc.playerClass.hpPerLevelUp + ((pc.constitution - 10) / 2)) + "<br>"
+                   + "SP: +" + (pc.playerClass.spPerLevelUp + ((pc.wisdom - 10) / 2)) + "<br>"
+                   + "BAB: +" + babGained + "<br>"
+                   + traitGained + "<br>"
+                   + spellGained;
+            }
+            if (pc.playerClass.modifierFromSPRelevantAttribute.Equals("charisma"))
+            {
+                text += "HP: +" + (pc.playerClass.hpPerLevelUp + ((pc.constitution - 10) / 2)) + "<br>"
+                   + "SP: +" + (pc.playerClass.spPerLevelUp + ((pc.charisma - 10) / 2)) + "<br>"
+                   + "BAB: +" + babGained + "<br>"
+                   + traitGained + "<br>"
+                   + spellGained;
+            }
+            if (pc.playerClass.modifierFromSPRelevantAttribute.Equals("strength"))
+            {
+                text += "HP: +" + (pc.playerClass.hpPerLevelUp + ((pc.constitution - 10) / 2)) + "<br>"
+                   + "SP: +" + (pc.playerClass.spPerLevelUp + ((pc.strength - 10) / 2)) + "<br>"
+                   + "BAB: +" + babGained + "<br>"
+                   + traitGained + "<br>"
+                   + spellGained;
+            }
+            if (pc.playerClass.modifierFromSPRelevantAttribute.Equals("dexterity"))
+            {
+                text += "HP: +" + (pc.playerClass.hpPerLevelUp + ((pc.constitution - 10) / 2)) + "<br>"
+                   + "SP: +" + (pc.playerClass.spPerLevelUp + ((pc.dexterity - 10) / 2)) + "<br>"
+                   + "BAB: +" + babGained + "<br>"
+                   + traitGained + "<br>"
+                   + spellGained;
+            }
+            if (pc.playerClass.modifierFromSPRelevantAttribute.Equals("constitution"))
+            {
+                text += "HP: +" + (pc.playerClass.hpPerLevelUp + ((pc.constitution - 10) / 2)) + "<br>"
+                   + "SP: +" + (pc.playerClass.spPerLevelUp + ((pc.constitution - 10) / 2)) + "<br>"
+                   + "BAB: +" + babGained + "<br>"
+                   + traitGained + "<br>"
+                   + spellGained;
+            }
+
             gv.sf.MessageBoxHtml(text);
         }
         public void tutorialMessageParty(bool helpCall)

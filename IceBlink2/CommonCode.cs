@@ -9012,6 +9012,120 @@ namespace IceBlink2
                 //gv.mod.doConvo = true;
             //}
         }
+
+        //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+        public void doSpellCalledFromScript (Spell spell, Player player, int casterLevel, string logTextForCastingAction)
+        {
+            
+           gv.cc.addLogText("<font color='yellow'>" + logTextForCastingAction + "</font><BR>");
+
+            Creature source = new Creature();
+            source.cr_level = casterLevel;
+            source.cr_name = ""; 
+            source.sp = 1000000;
+            source.hp = 1000000;
+            
+            bool outsideCombat = true;
+            Object target = new Object();
+            target = player;
+
+            //this sorts the three possible effect sources in the order: tag list for generic, single tag for generic (compatibility with old spells) and finally specific script
+            if (spell.spellEffectTagList.Count > 0)
+            {
+                gv.sf.spGeneric(spell, source, target, outsideCombat, logTextForCastingAction);
+            }
+            else if (!spell.spellEffectTag.Equals("none"))
+            {
+                gv.sf.spGenericUsingOldSingleEffectTag(spell, source, target, outsideCombat);
+            }
+
+            //WIZARD SPELLS
+
+            else if (spell.spellScript.Equals("spDimensionDoor"))
+            {
+                gv.sf.spDimensionDoor(source, target);
+            }
+
+            else if (spell.spellScript.Equals("spSummonAlly"))
+            {
+                gv.sf.spSummonAlly(source, target, spell);
+            }
+
+            else if (spell.spellScript.Equals("spFlameFingers"))
+            {
+                gv.sf.spFlameFingers(source, target, spell);
+            }
+            else if (spell.spellScript.Equals("spMageBolt"))
+            {
+                gv.sf.spMageBolt(source, target);
+            }
+            else if (spell.spellScript.Equals("spSleep"))
+            {
+                gv.sf.spSleep(source, target, spell);
+            }
+            else if (spell.spellScript.Equals("spMageArmor"))
+            {
+                gv.sf.spMageArmor(source, target);
+            }
+            else if (spell.spellScript.Equals("spMinorRegen"))
+            {
+                gv.sf.spMinorRegen(source, target);
+            }
+            else if (spell.spellScript.Equals("spWeb"))
+            {
+                gv.sf.spWeb(source, target, spell);
+            }
+            else if (spell.spellScript.Equals("spIceStorm"))
+            {
+                gv.sf.spIceStorm(source, target, spell);
+            }
+            else if (spell.spellScript.Equals("spFireball"))
+            {
+                gv.sf.spFireball(source, target, spell);
+            }
+            else if (spell.spellScript.Equals("spLightning"))
+            {
+                gv.sf.spLightning(source, target, spell);
+            }
+
+            //CLERIC SPELLS
+            else if (spell.tag.Equals("minorHealing"))
+            {
+                gv.sf.spHeal(source, target, 8);
+            }
+            else if (spell.tag.Equals("moderateHealing"))
+            {
+                gv.sf.spHeal(source, target, 16);
+            }
+            else if (spell.tag.Equals("massMinorHealing"))
+            {
+                gv.sf.spMassHeal(source, target, 8);
+            }
+            else if (spell.spellScript.Equals("spBless"))
+            {
+                gv.sf.spBless(source, target);
+            }
+            else if (spell.spellScript.Equals("spMagicStone"))
+            {
+                gv.sf.spMagicStone(source, target);
+            }
+            else if (spell.spellScript.Equals("spBlastOfLight"))
+            {
+                gv.sf.spBlastOfLight(source, target, spell);
+            }
+            else if (spell.spellScript.Equals("spHold"))
+            {
+                gv.sf.spHold(source, target);
+            }
+            //THIEF SKILL 
+            else if (spell.spellScript.Equals("trRemoveTrap"))
+            {
+                gv.sf.trRemoveTrap(source, target);
+            }
+        }
+
+        //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+
         public void doSpellBasedOnScriptOrEffectTag(Spell spell, object source, object target, bool outsideCombat, bool isTraitUsage)
         {
             if (source is Creature)
@@ -9075,7 +9189,8 @@ namespace IceBlink2
             //this sorts the three possible effect sources in the order: tag list for generic, single tag for generic (compatibility with old spells) and finally specific script
             if (spell.spellEffectTagList.Count > 0)
             {
-                gv.sf.spGeneric(spell, source, target, outsideCombat);
+                string logTextForCastAction = "none";
+                gv.sf.spGeneric(spell, source, target, outsideCombat, logTextForCastAction);
             }
             else if (!spell.spellEffectTag.Equals("none"))
             {

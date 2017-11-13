@@ -13,6 +13,8 @@ namespace IceBlink2
 {
     public class Module
     {
+
+        public bool encounterSingleImageAutoScale = true;
         public bool useMinimalisticUI = true;
         public bool useManualCombatCam = true;
         public bool useCombatSmoothMovement = true;

@@ -1561,6 +1561,7 @@ namespace IceBlink2
                 renderTarget2D.DrawBitmap(bitmap, trg, opac, BitmapInterpolationMode.Linear, src);
             }            
             renderTarget2D.Transform = Matrix3x2.Identity;
+            //TBSüd
         }
 
         /*

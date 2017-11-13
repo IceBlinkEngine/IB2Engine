@@ -4128,6 +4128,27 @@ namespace IceBlink2
                                 inRange = true;
                             }
 
+                            if (!inRange)
+                            {
+                                foreach (Player p in gv.mod.playerList)
+                                {
+                                    if (p.hp > 0)
+                                    {
+                                        endX = p.combatLocX * gv.squareSize + (gv.squareSize / 2);
+                                        endY = pc.combatLocY * gv.squareSize + (gv.squareSize / 2);
+
+                                        if ((getDistance(new Coordinate(p.combatLocX, p.combatLocY), new Coordinate(crt.combatLocX, crt.combatLocY)) <= sp.range)
+                                      && (isVisibleLineOfSight(new Coordinate(startX, startY), new Coordinate(endX, endY))))
+                                        {
+                                            inRange = true;
+                                            pc = p;
+                                            break;
+                                        }
+                                    }
+                                } 
+                            }
+
+
                             if ((pc != null) && inRange)
                             {
                                 gv.sf.SpellToCast = sp;
@@ -4144,8 +4165,9 @@ namespace IceBlink2
                         }
                         else if (sp.spellTargetType.Equals("PointLocation"))
                         {
+                            gv.sf.SpellToCast = sp;
                             Coordinate bestLoc = targetBestPointLocation(crt);
-                            if (bestLoc == new Coordinate(-1, -1))
+                            if (bestLoc.X == -1 &&  bestLoc.Y == -1)
                             {
                                 //didn't find a target so use closest PC
                                 Player pc = targetClosestPC(crt);
@@ -4170,6 +4192,7 @@ namespace IceBlink2
                                 {
                                     //endCreatureTurn(crt);
                                     //BasicAttacker(crt);
+                                    gv.sf.SpellToCast = null;
                                     continue;
                                 }
                             }
@@ -7095,14 +7118,20 @@ namespace IceBlink2
                     int sqrsizeH = mapBitmap.PixelSize.Height / gv.mod.currentEncounter.MapSizeY;
                     int dstX = -(UpperLeftSquare.X * gv.squareSize);
                     int dstY = -(UpperLeftSquare.Y * gv.squareSize);
-                    int dstWidth = (int)(bmpWidth * 2 * gv.screenDensity); //assumes squares are 50x50 in this image
-                    int dstHeight = (int)(bmpHeight * 2 * gv.screenDensity); //assumes squares are 50x50 in this image
+                    float singleImageTileSizeProxy = 100f / ((float)mapBitmap.PixelSize.Width/ (float)gv.mod.currentEncounter.MapSizeX);
+                    if (!gv.mod.encounterSingleImageAutoScale)
+                    {
+                        singleImageTileSizeProxy = 2;
+                    }
+                    int dstWidth = (int)(bmpWidth * singleImageTileSizeProxy * gv.screenDensity); //assumes squares are 50x50 in this image, for 100x100 use *4
+                    int dstHeight = (int)(bmpHeight * singleImageTileSizeProxy * gv.screenDensity); //assumes squares are 50x50 in this image, for 100x100 use *4
 
                     IbRect src = new IbRect(0, 0, bmpWidth, bmpHeight);
                     //IbRect dst = new IbRect(dstX + gv.oXshift + mapStartLocXinPixels, dstY, dstWidth, dstHeight);
                     IbRect dst = new IbRect(dstX + gv.oXshift + mapStartLocXinPixels, dstY, dstWidth, dstHeight);
                     gv.DrawBitmap(mapBitmap, src, dst);
 
+                    /*
                     //draw grid
                     if (gv.mod.com_showGrid)
                     {
@@ -7150,8 +7179,10 @@ namespace IceBlink2
                             }
                         }
                     }
+                    */
                 }
-                else //using tiles
+
+                //else //using tiles
                 {
                     int minX = UpperLeftSquare.X - 5;
                     if (minX < 0) { minX = 0; }
@@ -7202,6 +7233,7 @@ namespace IceBlink2
                                     UpperLeftSquare.Y,
                                     tile.tileBitmap1.PixelSize.Width,
                                     tile.tileBitmap1.PixelSize.Height);
+
                                     if (srcLyr != null)
                                     {
                                         int shiftY = srcLyr.Top / gv.squareSizeInPixels;
@@ -7213,7 +7245,8 @@ namespace IceBlink2
                                         int brX = (int)(gv.squareSize * scalerX);
                                         int brY = (int)(gv.squareSize * scalerY);
                                         IbRect dstLyr = new IbRect(tlX, tlY, brX, brY);
-                                        gv.DrawBitmap(tile.tileBitmap1, srcLyr, dstLyr);
+                                        gv.DrawBitmap(tile.tileBitmap1, srcLyr, dstLyr, tile.Layer1Rotate, tile.Layer1Mirror, tile.Layer1Xshift, tile.Layer1Yshift, tile.Layer1Xscale, tile.Layer1Yscale);
+                                        //gv.DrawBitmap(gv.cc.GetFromTileBitmapList(tile.Layer1Filename), srcLyr, dstLyr, tile.Layer1Rotate, tile.Layer1Mirror, tile.Layer1Xshift, tile.Layer1Yshift, tile.Layer1Xscale, tile.Layer1Yscale);
                                     }
                                 }
                                 else
@@ -7236,7 +7269,9 @@ namespace IceBlink2
                                         int brX = (int)(gv.squareSize * scalerX);
                                         int brY = (int)(gv.squareSize * scalerY);
                                         IbRect dstLyr = new IbRect(tlX, tlY, brX, brY);
-                                        gv.DrawBitmap(gv.mod.loadedTileBitmaps[indexOfLoadedTile], srcLyr, dstLyr);
+                                        gv.DrawBitmap(gv.mod.loadedTileBitmaps[indexOfLoadedTile], srcLyr, dstLyr, tile.Layer1Rotate, tile.Layer1Mirror, tile.Layer1Xshift, tile.Layer1Yshift, tile.Layer1Xscale, tile.Layer1Yscale);
+                                        //gv.DrawBitmap(gv.cc.GetFromTileBitmapList(tile.Layer1Filename), srcLyr, dstLyr, tile.Layer1Rotate, tile.Layer1Mirror, tile.Layer1Xshift, tile.Layer1Yshift, tile.Layer1Xscale, tile.Layer1Yscale);
+
                                     }
 
                                 }
@@ -7298,7 +7333,9 @@ namespace IceBlink2
                                         int brX = (int)(gv.squareSize * scalerX);
                                         int brY = (int)(gv.squareSize * scalerY);
                                         IbRect dstLyr = new IbRect(tlX, tlY, brX, brY);
-                                        gv.DrawBitmap(tile.tileBitmap2, srcLyr, dstLyr);
+                                        //gv.DrawBitmap(tile.tileBitmap2, srcLyr, dstLyr);
+                                        gv.DrawBitmap(tile.tileBitmap2, srcLyr, dstLyr, tile.Layer2Rotate, tile.Layer2Mirror, tile.Layer2Xshift, tile.Layer2Yshift, tile.Layer2Xscale, tile.Layer2Yscale);
+
                                     }
                                 }
                                 else
@@ -7321,7 +7358,9 @@ namespace IceBlink2
                                         int brX = (int)(gv.squareSize * scalerX);
                                         int brY = (int)(gv.squareSize * scalerY);
                                         IbRect dstLyr = new IbRect(tlX, tlY, brX, brY);
-                                        gv.DrawBitmap(gv.mod.loadedTileBitmaps[indexOfLoadedTile], srcLyr, dstLyr);
+                                        //gv.DrawBitmap(gv.mod.loadedTileBitmaps[indexOfLoadedTile], srcLyr, dstLyr);
+                                        gv.DrawBitmap(gv.mod.loadedTileBitmaps[indexOfLoadedTile], srcLyr, dstLyr, tile.Layer2Rotate, tile.Layer2Mirror, tile.Layer2Xshift, tile.Layer2Yshift, tile.Layer2Xscale, tile.Layer2Yscale);
+
                                     }
 
                                 }
@@ -7383,7 +7422,9 @@ namespace IceBlink2
                                         int brX = (int)(gv.squareSize * scalerX);
                                         int brY = (int)(gv.squareSize * scalerY);
                                         IbRect dstLyr = new IbRect(tlX, tlY, brX, brY);
-                                        gv.DrawBitmap(tile.tileBitmap3, srcLyr, dstLyr);
+                                        //gv.DrawBitmap(tile.tileBitmap3, srcLyr, dstLyr);
+                                        gv.DrawBitmap(tile.tileBitmap3, srcLyr, dstLyr, tile.Layer3Rotate, tile.Layer3Mirror, tile.Layer3Xshift, tile.Layer3Yshift, tile.Layer3Xscale, tile.Layer3Yscale);
+
                                     }
                                 }
                                 else
@@ -7406,7 +7447,9 @@ namespace IceBlink2
                                         int brX = (int)(gv.squareSize * scalerX);
                                         int brY = (int)(gv.squareSize * scalerY);
                                         IbRect dstLyr = new IbRect(tlX, tlY, brX, brY);
-                                        gv.DrawBitmap(gv.mod.loadedTileBitmaps[indexOfLoadedTile], srcLyr, dstLyr);
+                                        //gv.DrawBitmap(gv.mod.loadedTileBitmaps[indexOfLoadedTile], srcLyr, dstLyr);
+                                        gv.DrawBitmap(gv.mod.loadedTileBitmaps[indexOfLoadedTile], srcLyr, dstLyr, tile.Layer3Rotate, tile.Layer3Mirror, tile.Layer3Xshift, tile.Layer3Yshift, tile.Layer3Xscale, tile.Layer3Yscale);
+
                                     }
 
                                 }
@@ -14074,75 +14117,84 @@ namespace IceBlink2
         }
         public void CenterScreenOnPC()
         {
-            Player pc = gv.mod.playerList[currentPlayerIndex];
-            int minX = pc.combatLocX - gv.playerOffsetX;
-            if (!gv.mod.useManualCombatCam)
+            if (currentPlayerIndex < gv.mod.playerList.Count && currentPlayerIndex > -1)
             {
-                if (minX < 0) { minX = 0; }
-            }
-            else
-            {
-                if (minX < -gv.playerOffsetX) { minX = -gv.playerOffsetX; }
-            }
-            int minY = pc.combatLocY - gv.playerOffsetY;
+                if (gv.mod.playerList[currentPlayerIndex] != null)
+                {
+                    Player pc = gv.mod.playerList[currentPlayerIndex];
+                    int minX = pc.combatLocX - gv.playerOffsetX;
+                    if (!gv.mod.useManualCombatCam)
+                    {
+                        if (minX < 0) { minX = 0; }
+                    }
+                    else
+                    {
+                        if (minX < -gv.playerOffsetX) { minX = -gv.playerOffsetX; }
+                    }
+                    int minY = pc.combatLocY - gv.playerOffsetY;
 
-            if (!gv.mod.useManualCombatCam)
-            {
-                if (minY < 0) { minY = 0; }
-            }
-            else
-            {
-                if (minY < -gv.playerOffsetY) { minY = -gv.playerOffsetY; }
-            }
+                    if (!gv.mod.useManualCombatCam)
+                    {
+                        if (minY < 0) { minY = 0; }
+                    }
+                    else
+                    {
+                        if (minY < -gv.playerOffsetY) { minY = -gv.playerOffsetY; }
+                    }
 
-            UpperLeftSquare.X = minX;
-            UpperLeftSquare.Y = minY;
-            //TODO: transform sprite position here, based on delta between current and older upper left, also for creatue
-            int deltaX = UpperLeftSquare.X - FormerUpperLeftSquare.X;
-            int deltaY = UpperLeftSquare.Y - FormerUpperLeftSquare.Y;
-            deltaX = 0;
-            deltaY = 0;
-            foreach (Sprite spr in spriteList)
-            {
-                spr.position.X = spr.position.X + (deltaX * gv.squareSize);
-                spr.position.Y = spr.position.Y + (deltaY * gv.squareSize);
+                    UpperLeftSquare.X = minX;
+                    UpperLeftSquare.Y = minY;
+                    //TODO: transform sprite position here, based on delta between current and older upper left, also for creatue
+                    int deltaX = UpperLeftSquare.X - FormerUpperLeftSquare.X;
+                    int deltaY = UpperLeftSquare.Y - FormerUpperLeftSquare.Y;
+                    deltaX = 0;
+                    deltaY = 0;
+                    foreach (Sprite spr in spriteList)
+                    {
+                        spr.position.X = spr.position.X + (deltaX * gv.squareSize);
+                        spr.position.Y = spr.position.Y + (deltaY * gv.squareSize);
+                    }
+                }
             }
         }
 
         public void CenterScreenOnPC(Player pc)
         {
-            //Player pc = gv.mod.playerList[currentPlayerIndex];
-            int minX = pc.combatLocX - gv.playerOffsetX;
-            if (!gv.mod.useManualCombatCam)
+            if (pc != null)
             {
-                if (minX < 0) { minX = 0; }
-            }
-            else
-            {
-                if (minX < -gv.playerOffsetX) { minX = -gv.playerOffsetX; }
-            }
-            int minY = pc.combatLocY - gv.playerOffsetY;
+                //Player pc = gv.mod.playerList[currentPlayerIndex];
+                int minX = pc.combatLocX - gv.playerOffsetX;
+                if (!gv.mod.useManualCombatCam)
+                {
+                    if (minX < 0) { minX = 0; }
+                }
+                else
+                {
+                    if (minX < -gv.playerOffsetX) { minX = -gv.playerOffsetX; }
+                }
+                int minY = pc.combatLocY - gv.playerOffsetY;
 
-            if (!gv.mod.useManualCombatCam)
-            {
-                if (minY < 0) { minY = 0; }
-            }
-            else
-            {
-                if (minY < -gv.playerOffsetY) { minY = -gv.playerOffsetY; }
-            }
+                if (!gv.mod.useManualCombatCam)
+                {
+                    if (minY < 0) { minY = 0; }
+                }
+                else
+                {
+                    if (minY < -gv.playerOffsetY) { minY = -gv.playerOffsetY; }
+                }
 
-            UpperLeftSquare.X = minX;
-            UpperLeftSquare.Y = minY;
-            //TODO: transform sprite position here, based on delta between current and older upper left, also for creatue
-            int deltaX = UpperLeftSquare.X - FormerUpperLeftSquare.X;
-            int deltaY = UpperLeftSquare.Y - FormerUpperLeftSquare.Y;
-            deltaX = 0;
-            deltaY = 0;
-            foreach (Sprite spr in spriteList)
-            {
-                spr.position.X = spr.position.X + (deltaX * gv.squareSize);
-                spr.position.Y = spr.position.Y + (deltaY * gv.squareSize);
+                UpperLeftSquare.X = minX;
+                UpperLeftSquare.Y = minY;
+                //TODO: transform sprite position here, based on delta between current and older upper left, also for creatue
+                int deltaX = UpperLeftSquare.X - FormerUpperLeftSquare.X;
+                int deltaY = UpperLeftSquare.Y - FormerUpperLeftSquare.Y;
+                deltaX = 0;
+                deltaY = 0;
+                foreach (Sprite spr in spriteList)
+                {
+                    spr.position.X = spr.position.X + (deltaX * gv.squareSize);
+                    spr.position.Y = spr.position.Y + (deltaY * gv.squareSize);
+                }
             }
         }
 
@@ -16471,24 +16523,103 @@ namespace IceBlink2
                             utility -= 4;
                         }
                     }
-                    foreach (Creature crtr in gv.mod.currentEncounter.encounterCreatureList) //if its allies are in the burst subtract a point, or half depending on how evil it is.
-                    {
-                        //if (this.CalcDistance(crtr.combatLocX, crtr.combatLocY, selectedPoint.X, selectedPoint.Y) <= gv.sf.SpellToCast.aoeRadius) //if friendly creatures are in the AOE burst, count how many, subtract 0.5 for each, evil is evil
-                        //{
-                        if (this.CalcDistance(crtr, crtr.combatLocX, crtr.combatLocY, selectedPoint.X, selectedPoint.Y) <= gv.sf.SpellToCast.aoeRadius) //if friendly creatures are in the AOE burst, count how many, subtract 0.5 for each, evil is evil  
-                        {
 
-                            utility -= 1;
+                    //get the list of AFFECTED SQUARES AND SEE IF A CREATURE is on it
+                    if (gv.sf.SpellToCast.aoeShape == AreaOfEffectShape.Line || (gv.sf.SpellToCast.aoeShape == AreaOfEffectShape.Cone))
+                    {
+                        List<Coordinate> targetSquareList = new List<Coordinate>();
+                        targetSquareList = gv.sf.CreateAoeSquaresListWithReturnValue(crt, selectedPoint, gv.sf.SpellToCast.aoeShape, gv.sf.SpellToCast.aoeRadius);
+                        foreach (Creature crtr in gv.mod.currentEncounter.encounterCreatureList) //if its allies are in the burst subtract a point, or half depending on how evil it is.
+                        {
+                            Coordinate crtCoord = new Coordinate();
+                            crtCoord.X = crtr.combatLocX;
+                            crtCoord.Y = crtr.combatLocY;
+                            foreach (Coordinate c in targetSquareList)
+                            {
+                                if (c.X == crtCoord.X && c.Y == crtCoord.Y)
+                                {
+                                    utility -= 1;
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        foreach (Creature crtr in gv.mod.currentEncounter.encounterCreatureList) //if its allies are in the burst subtract a point, or half depending on how evil it is.
+                        {
+                            //if (this.CalcDistance(crtr.combatLocX, crtr.combatLocY, selectedPoint.X, selectedPoint.Y) <= gv.sf.SpellToCast.aoeRadius) //if friendly creatures are in the AOE burst, count how many, subtract 0.5 for each, evil is evil
+                            //{
+                            if (this.CalcDistance(crtr, crtr.combatLocX, crtr.combatLocY, selectedPoint.X, selectedPoint.Y) <= gv.sf.SpellToCast.aoeRadius) //if friendly creatures are in the AOE burst, count how many, subtract 0.5 for each, evil is evil  
+                            {
+
+                                utility -= 1;
+                            }
                         }
                     }
                     foreach (Player tgt_pc in gv.mod.playerList)
                     {
                         //if ((this.CalcDistance(tgt_pc.combatLocX, tgt_pc.combatLocY, selectedPoint.X, selectedPoint.Y) <= gv.sf.SpellToCast.aoeRadius) && (tgt_pc.hp > 0)) //if players are in the AOE burst, count how many, total count is utility  //&& sf.GetLocalInt(tgt_pc.Tag, "StealthModeOn") != 1  <-throws an annoying message if not found!!
                         //{
-                        if ((this.CalcDistance(null, tgt_pc.combatLocX, tgt_pc.combatLocY, selectedPoint.X, selectedPoint.Y) <= gv.sf.SpellToCast.aoeRadius) && (tgt_pc.hp > 0)) //if players are in the AOE burst, count how many, total count is utility  //&& sf.GetLocalInt(tgt_pc.Tag, "StealthModeOn") != 1  <-throws an annoying message if not found!!  
+                        
+                            List<Coordinate> targetSquareList = new List<Coordinate>();
+                            targetSquareList = gv.sf.CreateAoeSquaresListWithReturnValue(crt, selectedPoint, gv.sf.SpellToCast.aoeShape, gv.sf.SpellToCast.aoeRadius);
+                            //foreach (Creature crtr in gv.mod.currentEncounter.encounterCreatureList) //if its allies are in the burst subtract a point, or half depending on how evil it is.
+                            //{
+                                Coordinate playerCoord = new Coordinate();
+                                playerCoord.X = tgt_pc.combatLocX;
+                                playerCoord.Y = tgt_pc.combatLocY;
+                        if (gv.sf.SpellToCast.aoeShape == AreaOfEffectShape.Line || (gv.sf.SpellToCast.aoeShape == AreaOfEffectShape.Cone))
                         {
-                            utility += 2;
-                            if (utility > optimalUtil)
+                            //***********************************
+                            foreach (Coordinate c in targetSquareList)
+                                {
+                                    if (c.X == playerCoord.X && c.Y == playerCoord.Y)
+                                    {
+                                    if (tgt_pc.hp > 0 && tgt_pc.hp < (float)(tgt_pc.hpMax/4f))
+                                    {
+                                        utility += 3;
+                                    }
+                                    else if (tgt_pc.hp > 0)
+                                    {
+                                        utility += 2;
+                                    }
+                                   
+                                        if ((utility > optimalUtil) && (utility > -4))
+                                        {
+                                            //optimal found, choose this point
+                                            optimalUtil = utility;
+                                            targetLoc = selectedPoint;
+                                        }
+                                    }
+                                }
+
+                                //***********************************
+                                /*
+                                if (targetSquareList.Contains(crtCoord))
+                                {
+                                    utility += 2;
+                                    if (utility > optimalUtil)
+                                    {
+                                        //optimal found, choose this point
+                                        optimalUtil = utility;
+                                        targetLoc = selectedPoint;
+                                    }
+                                }
+                                */
+                            //}
+                        }
+                        else if ((this.CalcDistance(null, tgt_pc.combatLocX, tgt_pc.combatLocY, selectedPoint.X, selectedPoint.Y) <= gv.sf.SpellToCast.aoeRadius) && (tgt_pc.hp > 0)) //if players are in the AOE burst, count how many, total count is utility  //&& sf.GetLocalInt(tgt_pc.Tag, "StealthModeOn") != 1  <-throws an annoying message if not found!!  
+                        {
+                            if (tgt_pc.hp > 0 && tgt_pc.hp < (float)(tgt_pc.hpMax / 4f))
+                            {
+                                utility += 3;
+                            }
+                            else if (tgt_pc.hp > 0)
+                            {
+                                utility += 2;
+                            }
+                            
+                            if ((utility > optimalUtil) && (utility > -4))
                             {
                                 //optimal found, choose this point
                                 optimalUtil = utility;

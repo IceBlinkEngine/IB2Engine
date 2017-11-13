@@ -24,13 +24,17 @@
     "aoeShape": "Cone",
     "aoeRadius": 2,
     "range": 1,
-    "spellScript": "spFlameFingers",
+    "spellScript": "none",
     "spellScriptParm1": "none",
     "spellScriptParm2": "none",
     "additionalCustomLogTextOnCast": "none",
     "spellEffectTag": "none",
     "removeEffectTagList": [],
-    "spellEffectTagList": []
+    "spellEffectTagList": [
+      {
+        "tag": "flamefingers"
+      }
+    ]
   },
   {
     "traitWorksOnlyWhen": [],
@@ -287,7 +291,7 @@
     "spellEffectType": "Damage",
     "aoeShape": "Line",
     "aoeRadius": 5,
-    "range": 3,
+    "range": 5,
     "spellScript": "spLightning",
     "spellScriptParm1": "none",
     "spellScriptParm2": "none",
@@ -717,7 +721,7 @@
   {
     "traitWorksOnlyWhen": [],
     "traitWorksNeverWhen": [],
-    "usesTurnToActivate": true,
+    "usesTurnToActivate": false,
     "isUsedForCombatSquareEffect": false,
     "name": "Summon Ally Bear (Pc)",
     "tag": "summonAllyTag_11737",
@@ -845,6 +849,43 @@
     "spellEffectTag": "none",
     "removeEffectTagList": [],
     "spellEffectTagList": []
+  },
+  {
+    "traitWorksOnlyWhen": [],
+    "traitWorksNeverWhen": [],
+    "usesTurnToActivate": false,
+    "isUsedForCombatSquareEffect": false,
+    "name": "Prone",
+    "tag": "spell_prone",
+    "spellImage": "",
+    "description": "Trip an opponent and cause him to become Prone for 2 turns.",
+    "useableInSituation": "InCombat",
+    "spellToReplaceByTag": "none",
+    "spriteFilename": "none",
+    "spriteEndingFilename": "none",
+    "spellStartSound": "none",
+    "spellEndSound": "none",
+    "costSP": 0,
+    "costHP": 0,
+    "castTimeInTurns": 0,
+    "canBeInterrupted": false,
+    "triggersAoO": false,
+    "spellTargetType": "Enemy",
+    "spellEffectType": "Damage",
+    "aoeShape": "Circle",
+    "aoeRadius": 0,
+    "range": 1,
+    "spellScript": "none",
+    "spellScriptParm1": "none",
+    "spellScriptParm2": "none",
+    "additionalCustomLogTextOnCast": "none",
+    "spellEffectTag": "poisonLight",
+    "removeEffectTagList": [],
+    "spellEffectTagList": [
+      {
+        "tag": "fx_prone"
+      }
+    ]
   },
   {
     "traitWorksOnlyWhen": [],

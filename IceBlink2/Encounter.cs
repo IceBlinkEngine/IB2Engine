@@ -15,7 +15,8 @@ namespace IceBlink2
     {
 	    public string encounterName = "newEncounter";
 	    public string MapImage = "none";
-	    public bool UseMapImage = false;
+        public int singleImageMapTileSize = 50;
+        public bool UseMapImage = false;
         public bool UseDayNightCycle = false;
         public int MapSizeX = 7;
         public int MapSizeY = 7;

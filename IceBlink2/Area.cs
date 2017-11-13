@@ -24,8 +24,8 @@ namespace IceBlink2
         public List<int> linkNumbers = new List<int>();
         public int linkNumberOfThisArea = -1;
 
-        public int averageHeightOnThisMap = 0; 
-
+        public int averageHeightOnThisMap = 0;
+    
         public bool PlayerIsUnderBridge = false;
         public string Filename = "newArea";
         public int AreaVisibleDistance = 4;

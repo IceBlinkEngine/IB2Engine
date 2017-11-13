@@ -260,7 +260,15 @@ namespace IceBlink2
                     else if (filename.Equals("gaGiveXP.cs"))
                     {
                         int parm1 = Convert.ToInt32(p1);
-                        GiveXP(parm1);
+                        GiveXP(parm1, p2);
+                    }
+                    else if (filename.Equals("gaCastSpell.cs"))
+                    {
+                        //unterhose
+                        //int parm1 = Convert.ToInt32(p2);
+                        //GiveXP(parm1, p2);
+                        //public void doSpellCalledFromScript(Spell spell, Player player, int casterLevel, string logTextForCastingAction)
+                        castSpell(p1,p2,p3,p4);
                     }
                     else if (filename.Equals("gaGiveGold.cs"))
                     {
@@ -298,6 +306,11 @@ namespace IceBlink2
                     {
                         int parm1 = Convert.ToInt32(p1);
                         ApplyPartyDamage(parm1);
+                    }
+                    else if (filename.Equals("gaSinglePCDamage.cs"))
+                    {
+                        int parm1 = Convert.ToInt32(p1);
+                        ApplySinglePCDamage(parm1, p2);
                     }
                     else if (filename.Equals("gaRiddle.cs"))
                     {
@@ -2789,19 +2802,116 @@ namespace IceBlink2
                 gv.mod.partyInventoryRefsList.Remove(itRef);
             }
         }
-        public void GiveXP(int amount)
+
+        public void GiveXP(int amount, string pcIdentifier)
         {
-            if (mod.playerList.Count > 0)
+            
+            if (pcIdentifier == "-1")
             {
-                int xpToGive = amount / mod.playerList.Count;
-                //give xp to each PC member...split the value given
-                foreach (Player givePcXp in mod.playerList)
+                //musculus
+                if (mod.playerList.Count > 0)
                 {
-                    givePcXp.XP += xpToGive;
+                    int xpToGive = amount;
+                    gv.mod.playerList[gv.mod.selectedPartyLeader].XP += xpToGive;
+                    gv.cc.addLogText("<font color='yellow'>" + gv.mod.playerList[gv.mod.selectedPartyLeader].name + " has gained " + xpToGive + " XP" + "</font>" +
+                            "<BR>");
                 }
-                gv.cc.addLogText("<font color='yellow'>" + "Each player has gained " + xpToGive + " XP" + "</font>" +
-                        "<BR>");
             }
+            else if (pcIdentifier == "0")
+            {
+                //musculus
+                if (mod.playerList.Count > 0)
+                {
+                    int xpToGive = amount;
+                    gv.mod.playerList[0].XP += xpToGive;
+                    gv.cc.addLogText("<font color='yellow'>" + gv.mod.playerList[0].name + " has gained " + xpToGive + " XP" + "</font>" +
+                            "<BR>");
+                }
+            }
+            else if (pcIdentifier == "1")
+            {
+                //musculus
+                if (mod.playerList.Count > 1)
+                {
+                    int xpToGive = amount;
+                    gv.mod.playerList[1].XP += xpToGive;
+                    gv.cc.addLogText("<font color='yellow'>" + gv.mod.playerList[1].name + " has gained " + xpToGive + " XP" + "</font>" +
+                            "<BR>");
+                }
+            }
+            else if (pcIdentifier == "2")
+            {
+                //musculus
+                if (mod.playerList.Count > 2)
+                {
+                    int xpToGive = amount;
+                    gv.mod.playerList[2].XP += xpToGive;
+                    gv.cc.addLogText("<font color='yellow'>" + gv.mod.playerList[2].name + " has gained " + xpToGive + " XP" + "</font>" +
+                            "<BR>");
+                }
+            }
+            else if (pcIdentifier == "3")
+            {
+                //musculus
+                if (mod.playerList.Count > 3)
+                {
+                    int xpToGive = amount;
+                    gv.mod.playerList[3].XP += xpToGive;
+                    gv.cc.addLogText("<font color='yellow'>" + gv.mod.playerList[3].name + " has gained " + xpToGive + " XP" + "</font>" +
+                            "<BR>");
+                }
+            }
+            else if (pcIdentifier == "4")
+            {
+                //musculus
+                if (mod.playerList.Count > 4)
+                {
+                    int xpToGive = amount;
+                    gv.mod.playerList[4].XP += xpToGive;
+                    gv.cc.addLogText("<font color='yellow'>" + gv.mod.playerList[4].name + " has gained " + xpToGive + " XP" + "</font>" +
+                            "<BR>");
+                }
+            }
+            else if (pcIdentifier == "5")
+            {
+                //musculus
+                if (mod.playerList.Count > 5)
+                {
+                    int xpToGive = amount;
+                    gv.mod.playerList[5].XP += xpToGive;
+                    gv.cc.addLogText("<font color='yellow'>" + gv.mod.playerList[5].name + " has gained " + xpToGive + " XP" + "</font>" +
+                            "<BR>");
+                }
+            }
+            else
+            {
+                if (mod.playerList.Count > 0)
+                {
+                    int xpToGive = amount / mod.playerList.Count;
+                    //give xp to each PC member...split the value given
+                    foreach (Player givePcXp in mod.playerList)
+                    {
+                        givePcXp.XP += xpToGive;
+                    }
+                    gv.cc.addLogText("<font color='yellow'>" + "Each player has gained " + xpToGive + " XP" + "</font>" +
+                            "<BR>");
+                }
+            }
+
+                //musculus
+                if (mod.playerList.Count > 0)
+                {
+                    foreach (Player p in gv.mod.playerList)
+                    {
+                        if (p.name == pcIdentifier)
+                        {
+                            int xpToGive = amount;
+                            p.XP += xpToGive;
+                            gv.cc.addLogText("<font color='yellow'>" + p.name + " has gained " + xpToGive + " XP" + "</font>" +
+                                    "<BR>");
+                        }
+                    }
+                }
         }
         public void TakeItem(string resref, int quantity)
         {
@@ -4371,6 +4481,118 @@ namespace IceBlink2
                 }
             }
         }
+
+        public void ApplySinglePCDamage(int dam, string pcIdentifier)
+        {
+            //musculus
+            //block for party leader, "-1"
+            if (pcIdentifier == "-1")
+            {         
+                    gv.cc.addLogText("<font color='yellow'>" + gv.mod.playerList[gv.mod.selectedPartyLeader].name + " takes " + dam + " damage" + "</font><BR>");
+                    gv.mod.playerList[gv.mod.selectedPartyLeader].hp -= dam;
+                    if (gv.mod.playerList[gv.mod.selectedPartyLeader].hp <= 0)
+                    {
+                        gv.cc.addLogText("<font color='red'>" + gv.mod.playerList[gv.mod.selectedPartyLeader].name + " drops unconcious!" + "</font><BR>");
+                        gv.mod.playerList[gv.mod.selectedPartyLeader].charStatus = "Dead";
+                    }
+            }
+            else if (pcIdentifier == "0")
+            {
+                if (gv.mod.playerList.Count > 0)
+                {
+                    gv.cc.addLogText("<font color='yellow'>" + gv.mod.playerList[0].name + " takes " + dam + " damage" + "</font><BR>");
+                    gv.mod.playerList[0].hp -= dam;
+                    if (gv.mod.playerList[0].hp <= 0)
+                    {
+                        gv.cc.addLogText("<font color='red'>" + gv.mod.playerList[0].name + " drops unconcious!" + "</font><BR>");
+                        gv.mod.playerList[0].charStatus = "Dead";
+                    }
+                }
+            }
+            else if (pcIdentifier == "1")
+            {
+                if (gv.mod.playerList.Count > 1)
+                {
+                    gv.cc.addLogText("<font color='yellow'>" + gv.mod.playerList[1].name + " takes " + dam + " damage" + "</font><BR>");
+                    gv.mod.playerList[1].hp -= dam;
+                    if (gv.mod.playerList[1].hp <= 0)
+                    {
+                        gv.cc.addLogText("<font color='red'>" + gv.mod.playerList[1].name + " drops unconcious!" + "</font><BR>");
+                        gv.mod.playerList[1].charStatus = "Dead";
+                    }
+                }
+            }
+            else if (pcIdentifier == "2")
+            {
+                if (gv.mod.playerList.Count > 2)
+                {
+                    gv.cc.addLogText("<font color='yellow'>" + gv.mod.playerList[2].name + " takes " + dam + " damage" + "</font><BR>");
+                    gv.mod.playerList[2].hp -= dam;
+                    if (gv.mod.playerList[2].hp <= 0)
+                    {
+                        gv.cc.addLogText("<font color='red'>" + gv.mod.playerList[2].name + " drops unconcious!" + "</font><BR>");
+                        gv.mod.playerList[2].charStatus = "Dead";
+                    }
+                }
+            }
+            else if (pcIdentifier == "3")
+            {
+                if (gv.mod.playerList.Count > 3)
+                {
+                    gv.cc.addLogText("<font color='yellow'>" + gv.mod.playerList[3].name + " takes " + dam + " damage" + "</font><BR>");
+                    gv.mod.playerList[3].hp -= dam;
+                    if (gv.mod.playerList[3].hp <= 0)
+                    {
+                        gv.cc.addLogText("<font color='red'>" + gv.mod.playerList[3].name + " drops unconcious!" + "</font><BR>");
+                        gv.mod.playerList[3].charStatus = "Dead";
+                    }
+                }
+            }
+            else if (pcIdentifier == "4")
+            {
+                if (gv.mod.playerList.Count > 4)
+                {
+                    gv.cc.addLogText("<font color='yellow'>" + gv.mod.playerList[4].name + " takes " + dam + " damage" + "</font><BR>");
+                    gv.mod.playerList[4].hp -= dam;
+                    if (gv.mod.playerList[4].hp <= 0)
+                    {
+                        gv.cc.addLogText("<font color='red'>" + gv.mod.playerList[4].name + " drops unconcious!" + "</font><BR>");
+                        gv.mod.playerList[4].charStatus = "Dead";
+                    }
+                }
+            }
+            else if (pcIdentifier == "5")
+            {
+                if (gv.mod.playerList.Count > 5)
+                {
+                    gv.cc.addLogText("<font color='yellow'>" + gv.mod.playerList[5].name + " takes " + dam + " damage" + "</font><BR>");
+                    gv.mod.playerList[5].hp -= dam;
+                    if (gv.mod.playerList[5].hp <= 0)
+                    {
+                        gv.cc.addLogText("<font color='red'>" + gv.mod.playerList[5].name + " drops unconcious!" + "</font><BR>");
+                        gv.mod.playerList[5].charStatus = "Dead";
+                    }
+                }
+            }
+            else
+            {
+                foreach (Player pc in mod.playerList)
+                {
+                    if (pc.name == pcIdentifier)
+                    {
+                        gv.cc.addLogText("<font color='yellow'>" + pc.name + " takes " + dam + " damage" + "</font><BR>");
+                        pc.hp -= dam;
+                        if (pc.hp <= 0)
+                        {
+                            gv.cc.addLogText("<font color='red'>" + pc.name + " drops unconcious!" + "</font><BR>");
+                            pc.charStatus = "Dead";
+                        }
+                    }
+                }
+            }
+            
+        }
+
         public void riddle()
         {
             /*TODO
@@ -5073,6 +5295,75 @@ namespace IceBlink2
             }
             return crt;
         }
+
+        public void castSpell(string spellString, string pcIdentifier, string casterLevelString, string logTextForCastingAction)
+        {
+            //unterhose
+
+            //get spell section
+            Spell spell = new Spell();
+            foreach (Spell sp in gv.mod.moduleSpellsList)
+            {
+                if (sp.tag == spellString)
+                {
+                    spell = sp;
+                    break;
+                }
+            }
+
+            //turn casterLevelString to int
+            int casterLevel = Convert.ToInt32(casterLevelString);
+
+            //unterhose
+            if (pcIdentifier == "party")
+            {
+                foreach (Player p in gv.mod.playerList)
+                {
+                    gv.cc.doSpellCalledFromScript(spell, p, casterLevel, logTextForCastingAction);
+                }
+            }
+            else if (pcIdentifier == "-1")
+            {
+                gv.cc.doSpellCalledFromScript(spell, gv.mod.playerList[gv.mod.selectedPartyLeader], casterLevel, logTextForCastingAction);
+            }
+            else if (pcIdentifier == "0")
+            {
+                gv.cc.doSpellCalledFromScript(spell, gv.mod.playerList[0], casterLevel, logTextForCastingAction);
+            }
+            else if (pcIdentifier == "1")
+            {
+                gv.cc.doSpellCalledFromScript(spell, gv.mod.playerList[1], casterLevel, logTextForCastingAction);
+            }
+            else if (pcIdentifier == "2")
+            {
+                gv.cc.doSpellCalledFromScript(spell, gv.mod.playerList[2], casterLevel, logTextForCastingAction);
+            }
+            else if (pcIdentifier == "3")
+            {
+                gv.cc.doSpellCalledFromScript(spell, gv.mod.playerList[3], casterLevel, logTextForCastingAction);
+            }
+            else if (pcIdentifier == "4")
+            {
+                gv.cc.doSpellCalledFromScript(spell, gv.mod.playerList[4], casterLevel, logTextForCastingAction);
+            }
+            else if (pcIdentifier == "5")
+            {
+                gv.cc.doSpellCalledFromScript(spell, gv.mod.playerList[5], casterLevel, logTextForCastingAction);
+            }
+            else
+            {
+                foreach (Player pc in mod.playerList)
+                {
+                    if (pc.name == pcIdentifier)
+                    {
+                        gv.cc.doSpellCalledFromScript(spell, pc, casterLevel, logTextForCastingAction);
+                        break;
+                    }
+                }
+            }
+        }
+
+
         public Player GetPlayer(string tag, string index)
         {
             Player pc = null;
@@ -8373,6 +8664,206 @@ namespace IceBlink2
             }
             #endregion
         }
+
+        public List<Coordinate> CreateAoeSquaresListWithReturnValue(object src, object trg, AreaOfEffectShape shape, int aoeRadius)
+        {
+            AoeSquaresList.Clear();
+
+            Coordinate target = new Coordinate(0, 0);
+
+            if (trg is Player)
+            {
+                Player pc = (Player)trg;
+                target = new Coordinate(pc.combatLocX, pc.combatLocY);
+            }
+            else if (trg is Creature)
+            {
+                Creature crt = (Creature)trg;
+                target = new Coordinate(crt.combatLocX, crt.combatLocY);
+            }
+            else if (trg is Coordinate)
+            {
+                target = (Coordinate)trg;
+            }
+
+            //define AoE Radius
+            int srcX = 0;
+            int srcY = 0;
+            if (src is Player)
+            {
+                Player pcs = (Player)src;
+                srcX = pcs.combatLocX;
+                srcY = pcs.combatLocY;
+            }
+            else if (src is Creature)
+            {
+                Creature crts = (Creature)src;
+                srcX = crts.combatLocX;
+                srcY = crts.combatLocY;
+            }
+            else if (src is Item) //item was used
+            {
+                Player pcs = mod.playerList[gv.screenCombat.currentPlayerIndex];
+                srcX = pcs.combatLocX;
+                srcY = pcs.combatLocY;
+            }
+            else if (src is Coordinate) //prop or trigger was used  
+            {
+                Coordinate coor = (Coordinate)src;
+                srcX = coor.X;
+                srcY = coor.Y;
+            }
+
+            //shape and radius
+            #region Circle
+            if (shape == AreaOfEffectShape.Circle)
+            {
+                for (int x = target.X - aoeRadius; x <= target.X + aoeRadius; x++)
+                {
+                    for (int y = target.Y - aoeRadius; y <= target.Y + aoeRadius; y++)
+                    {
+                        //TODO check for LoS from (target.X, target.Y) center location to (x,y)
+                        AoeSquaresList.Add(new Coordinate(x, y));
+                    }
+                }
+            }
+            #endregion
+            #region Cone
+            else if (shape == AreaOfEffectShape.Cone)
+            {
+                int signX = target.X - srcX;
+                int signY = target.Y - srcY;
+                int incY = 0;
+                if (signY < 0) { incY = -1; }
+                else { incY = 1; }
+                int incX = 0;
+                if (signX < 0) { incX = -1; }
+                else { incX = 1; }
+
+                //non-diagnols
+                if ((signX == 0) || (signY == 0))
+                {
+                    if (signY == 0) //right or left
+                    {
+                        for (int x = 0; Math.Abs(x) <= aoeRadius; x += incX)
+                        {
+                            for (int y = -Math.Abs(x); y <= Math.Abs(x); y++)
+                            {
+                                float r = GetDistanceF(0, 0, x, y);
+                                if (r <= aoeRadius)
+                                {
+                                    //TODO check for LoS from (target.X, target.Y) center location to (x,y)
+                                    AoeSquaresList.Add(new Coordinate(x + target.X, y + target.Y));
+                                }
+                            }
+                        }
+                    }
+                    else //up or down
+                    {
+                        for (int y = 0; Math.Abs(y) <= aoeRadius; y += incY)
+                        {
+                            for (int x = -Math.Abs(y); x <= Math.Abs(y); x++)
+                            {
+                                float r = GetDistanceF(0, 0, x, y);
+                                if (r <= aoeRadius)
+                                {
+                                    //TODO check for LoS from (target.X, target.Y) center location to (x,y)
+                                    AoeSquaresList.Add(new Coordinate(x + target.X, y + target.Y));
+                                }
+                            }
+                        }
+                    }
+                }
+                //diagnols
+                else
+                {
+                    for (int x = 0; Math.Abs(x) <= aoeRadius; x += incX)
+                    {
+                        for (int y = 0; Math.Abs(y) <= aoeRadius; y += incY)
+                        {
+                            float r = GetDistanceF(0, 0, x, y);
+                            if (r <= aoeRadius)
+                            {
+                                //TODO check for LoS from (target.X, target.Y) center location to (x,y)
+                                AoeSquaresList.Add(new Coordinate(x + target.X, y + target.Y));
+                            }
+                        }
+                    }
+                }
+            }
+            #endregion
+            #region Line
+            else if (shape == AreaOfEffectShape.Line)
+            {
+                int rise = target.Y - srcY;
+                int incY = 0;
+                if (rise < 0) { incY = -1; }
+                else { incY = 1; }
+                if (rise == 0) { incY = 0; }
+                int run = target.X - srcX;
+                int incX = 0;
+                if (run < 0) { incX = -1; }
+                else { incX = 1; }
+                if (run == 0) { incX = 0; }
+                int slope = 1;
+                if (Math.Abs(rise) > Math.Abs(run))
+                {
+                    if (run != 0)
+                    {
+                        slope = rise / run;
+                    }
+                }
+                else
+                {
+                    if (rise != 0)
+                    {
+                        slope = run / rise;
+                    }
+                }
+                int currentX = target.X;
+                int currentY = target.Y;
+                int riseCnt = 1;
+                for (int i = 0; i < aoeRadius; i++)
+                {
+                    //TODO check for LoS from (target.X, target.Y) center location to (x,y)
+                    AoeSquaresList.Add(new Coordinate(currentX, currentY));
+
+                    //do the increments for the next location
+                    if (Math.Abs(rise) > Math.Abs(run))
+                    {
+                        if (riseCnt < Math.Abs(slope)) //do rise increment only
+                        {
+                            currentY += incY;
+                            riseCnt++;
+                        }
+                        else //do rise and run then reset riseCnt = 0
+                        {
+                            currentY += incY;
+                            currentX += incX;
+                            riseCnt = 1;
+                        }
+                    }
+                    else
+                    {
+                        if (riseCnt < Math.Abs(slope)) //do rise increment only
+                        {
+                            currentX += incX;
+                            riseCnt++;
+                        }
+                        else //do rise and run then reset riseCnt = 0
+                        {
+                            currentY += incY;
+                            currentX += incX;
+                            riseCnt = 1;
+                        }
+                    }
+                }
+            }
+            return AoeSquaresList;
+            #endregion
+        }
+
+
         public void CreateAoeTargetsList(object src, object trg, Spell thisSpell, bool usedForEffectSquares)
         {
             //europa4
@@ -8490,13 +8981,13 @@ namespace IceBlink2
             }
         }
 
-        public void spGeneric(Spell thisSpell, object src, object trg, bool outsideCombat)
+        public void spGeneric(Spell thisSpell, object src, object trg, bool outsideCombat, string logTextForCastAction)
         {
             
             //Effect thisSpellEffect = gv.mod.getEffectByTag(thisSpell.spellEffectTag);
 
             //set squares list
-            CreateAoeSquaresList(src, trg, thisSpell.aoeShape, thisSpell.aoeRadius);
+            //CreateAoeSquaresList(src, trg, thisSpell.aoeShape, thisSpell.aoeRadius);
 
             //set target list
             //CreateAoeTargetsList(src, trg, thisSpell, false);
@@ -8507,10 +8998,13 @@ namespace IceBlink2
             } 
             else if (thisSpell.isUsedForCombatSquareEffect)
             {
+            
+                CreateAoeSquaresList(src, trg, thisSpell.aoeShape, thisSpell.aoeRadius);
                 CreateAoeTargetsList(src, trg, thisSpell, true);
             }
             else
             {
+                CreateAoeSquaresList(src, trg, thisSpell.aoeShape, thisSpell.aoeRadius);
                 CreateAoeTargetsList(src, trg, thisSpell, false);
             }
 
@@ -9347,7 +9841,7 @@ namespace IceBlink2
         public void spGenericUsingOldSingleEffectTag(Spell thisSpell, object src, object trg, bool outsideCombat)
         {
             //set squares list
-            CreateAoeSquaresList(src, trg, thisSpell.aoeShape, thisSpell.aoeRadius);
+            //CreateAoeSquaresList(src, trg, thisSpell.aoeShape, thisSpell.aoeRadius);
 
             if (outsideCombat)
             {
@@ -9356,10 +9850,12 @@ namespace IceBlink2
             }
             else if (thisSpell.isUsedForCombatSquareEffect)
             {
+                CreateAoeSquaresList(src, trg, thisSpell.aoeShape, thisSpell.aoeRadius);
                 CreateAoeTargetsList(src, trg, thisSpell, true);
             }
             else
             {
+                CreateAoeSquaresList(src, trg, thisSpell.aoeShape, thisSpell.aoeRadius);
                 CreateAoeTargetsList(src, trg, thisSpell, false);
             }
 
