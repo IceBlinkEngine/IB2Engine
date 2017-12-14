@@ -35,6 +35,55 @@ namespace IceBlink2
 
         public void resetItemSelector(List<ItemRefs> itemRefsList, string selectorType, string callingScreenToReturnTo)
         {
+
+            if (gv.mod.addedItemsRefs.Count > 0 && gv.mod.partyInventoryRefsList.Count > 0)
+            {
+                for (int i = gv.mod.addedItemsRefs.Count - 1; i >= 0; i--)
+                {
+                    for (int j = gv.mod.partyInventoryRefsList.Count - 1; j >= 0; j--)
+                    {
+
+                        if (gv.mod.addedItemsRefs[i] == gv.mod.partyInventoryRefsList[j].tag)
+                        {
+                            gv.mod.partyInventoryRefsList.RemoveAt(j);
+                            if (btnInventorySlot.Count > j)
+                            {
+                                try
+                                {
+                                    btnInventorySlot[j].Img3 = null;
+                                }
+                                catch
+                                { }
+                            }
+                            break;
+                        }
+
+                    }
+                }
+            }
+
+            if (gv.mod.addedItemsRefs.Count > 0 && itemRefsList.Count > 0)
+            {
+                for (int i = gv.mod.addedItemsRefs.Count - 1; i >= 0; i--)
+                {
+                    for (int j = itemRefsList.Count - 1; j >= 0; j--)
+                    {
+
+                        if (gv.mod.addedItemsRefs[i] == itemRefsList[j].tag)
+                        {
+                            itemRefsList.RemoveAt(j);
+                            //btnInventorySlot[i].Img3 = null;
+                            break;
+                        }
+
+                    }
+                }
+            }
+
+
+
+            gv.mod.addedItemsRefs.Clear();
+
             thisItemRefs = itemRefsList;
             itemSelectorType = selectorType;
             callingScreen = callingScreenToReturnTo;
@@ -227,20 +276,51 @@ namespace IceBlink2
                     Item it = gv.mod.getItemByResRefForInfo(thisItemRefs[cntSlot + (inventoryPageIndex * slotsPerPage)].resref);
 				    btn.Img2 = gv.cc.LoadBitmap(it.itemImage);
                     ItemRefs itr = thisItemRefs[cntSlot + (inventoryPageIndex * slotsPerPage)];
-				    if (itr.quantity > 1)
-				    {
-					    btn.Quantity = itr.quantity + "";
-				    }
-				    else
-				    {
-					    btn.Quantity = "";
-				    }
-			    }
+                    if ((it.onUseItemCastSpellTag == "none" || it.onUseItemCastSpellTag == "") && (it.onUseItemIBScript == "none" || it.onUseItemIBScript == "") && (it.onUseItem == "none" || it.onUseItem == ""))
+                    {
+                        //if (it.onUseItemCastSpellTag == "none" || it.onUseItemCastSpellTag == "")
+                    //{
+                        if (itr.quantity > 1)
+                        {
+                            btn.Quantity = itr.quantity + "";
+                            btn.btnOfChargedItem = false;
+                            //btn.Img3 = null;
+                        }
+                        else
+                        {
+                            btn.Quantity = "";
+                            btn.btnOfChargedItem = false;
+
+                        }
+                    }
+                    else if (itr.quantity != 1)
+                    {
+                        if (itr.quantity > 1)
+                        {
+                            btn.Quantity = (itr.quantity - 1) + "";
+                            if (!it.isStackable)
+                            {
+                                btn.btnOfChargedItem = true;
+                            }
+                            //eg potion
+                            else
+                            {
+                                btn.btnOfChargedItem = false;
+                            }
+                        }
+                        else
+                        {
+                            btn.Quantity = "0";
+                            btn.btnOfChargedItem = true;
+                        }
+                    }
+                }
 			    else
 			    {
 				    btn.Img2 = null;
 				    btn.Quantity = "";
-			    }
+                    btn.btnOfChargedItem = false;
+                }
 			    btn.Draw();
 			    cntSlot++;
 		    }
@@ -429,7 +509,16 @@ namespace IceBlink2
                                     }
                                     else if (itemSelectorType.Equals("equip"))
                                     {
-                                        switchEquipment();
+                                        bool inCombat = false;
+                                        if (callingScreen.Equals("party"))
+                                        {
+                                            inCombat = false;
+                                        }
+                                        else if (callingScreen.Equals("combatParty"))
+                                        {
+                                            inCombat = true;
+                                        }
+                                        switchEquipment(inCombat);
                                         if (callingScreen.Equals("party"))
                                         {
                                             gv.screenType = "party";
@@ -438,6 +527,7 @@ namespace IceBlink2
                                         {
                                             gv.screenType = "combatParty";
                                         }
+                                        
                                     }
                                 }
                                 inventorySlotIndex = j;
@@ -535,7 +625,18 @@ namespace IceBlink2
                             }
                             else if (itemSelectorType.Equals("equip"))
                             {
-                                switchEquipment();
+                                bool inCombat = false;
+                                if (callingScreen.Equals("party"))
+                                {
+                                    inCombat = false;
+                                }
+                                else if (callingScreen.Equals("combatParty"))
+                                {
+                                    inCombat = true;
+                                }
+
+                                switchEquipment(inCombat);
+
                                 if (callingScreen.Equals("party"))
                                 {
                                     gv.screenType = "party";
@@ -643,7 +744,7 @@ namespace IceBlink2
             catch
             { }
 	    }
-        public void switchEquipment()
+        public void switchEquipment(bool inCombat)
         {
             Player pc = gv.mod.playerList[gv.cc.partyScreenPcIndex];
             if (GetCurrentlySelectedItemRefs().resref.Equals("none"))
@@ -653,6 +754,7 @@ namespace IceBlink2
 
             if (gv.cc.partyItemSlotIndex == 0) //Main Hand
             {
+                bool endTurn = false;
                 if (!pc.MainHandRefs.resref.Equals("none"))
                 {
                     //get the item
@@ -697,8 +799,16 @@ namespace IceBlink2
                         }
                     }
 
+                    
+                    if (it.endTurnAfterEquipping)
+                    {
+                        endTurn = true;
+                    }
+                    
+
                     //remove the item from the party inventory
                     gv.mod.partyInventoryRefsList.Remove(GetCurrentlySelectedItemRefs());
+
                 }
                 else //there was no item equipped so add item to main-hand but no need to move anything to party inventory
                 {
@@ -714,6 +824,11 @@ namespace IceBlink2
                         }
                     }
                     gv.mod.partyInventoryRefsList.Remove(GetCurrentlySelectedItemRefs());
+
+                    if (it.endTurnAfterEquipping)
+                    {
+                        endTurn = true;
+                    }
                 }
                 //if the item being equipped is a two-handed weapon, remove the item in off-hand if exists and place in inventory
                 if (gv.mod.getItemByResRef(pc.MainHandRefs.resref).twoHanded)
@@ -791,6 +906,15 @@ namespace IceBlink2
                         gv.sf.MessageBoxHtml("Currently assigned ammo is not compatible with this weapon, unassigning ammo.");
                     }
                 }
+                if (inCombat)
+                {
+                    if (endTurn)
+                    {
+                        callingScreen = "combat";
+                        gv.screenType = "combat";
+                        gv.screenCombat.endPcTurn(false);
+                    }
+                }
             }
             else if (gv.cc.partyItemSlotIndex == 1) //Head
             {
@@ -836,6 +960,17 @@ namespace IceBlink2
                         }
                     }
                     gv.mod.partyInventoryRefsList.Remove(GetCurrentlySelectedItemRefs());
+
+                    if (inCombat)
+                    {
+                        if (it.endTurnAfterEquipping)
+                        {
+                            callingScreen = "combat";
+                            gv.screenType = "combat";
+                            gv.screenCombat.endPcTurn(false);
+                        }
+                    }
+
                 }
                 else //equip slot was empty
                 {
@@ -851,6 +986,18 @@ namespace IceBlink2
                         }
                     }
                     gv.mod.partyInventoryRefsList.Remove(GetCurrentlySelectedItemRefs());
+
+                    if (inCombat)
+                    {
+                        if (it.endTurnAfterEquipping)
+                        {
+                            //baby
+                            callingScreen = "combat";
+                            gv.screenType = "combat";
+                            gv.screenCombat.endPcTurn(false);
+                        }
+                    }
+
                 }
             }
             else if (gv.cc.partyItemSlotIndex == 2) //Neck
@@ -896,6 +1043,17 @@ namespace IceBlink2
                     }
 
                     gv.mod.partyInventoryRefsList.Remove(GetCurrentlySelectedItemRefs());
+
+                    if (inCombat)
+                    {
+                        if (it.endTurnAfterEquipping)
+                        {
+                            callingScreen = "combat";
+                            gv.screenType = "combat";
+                            gv.screenCombat.endPcTurn(false);
+                        }
+                    }
+
                 }
                 else //equip slot was empty
                 {
@@ -911,6 +1069,17 @@ namespace IceBlink2
                         }
                     }
                     gv.mod.partyInventoryRefsList.Remove(GetCurrentlySelectedItemRefs());
+
+                    if (inCombat)
+                    {
+                        if (it.endTurnAfterEquipping)
+                        {
+                            callingScreen = "combat";
+                            gv.screenType = "combat";
+                            gv.screenCombat.endPcTurn(false);
+                        }
+                    }
+
                 }
             }
             else if (gv.cc.partyItemSlotIndex == 3) //Off Hand
@@ -954,6 +1123,17 @@ namespace IceBlink2
                         }
                     }
                     gv.mod.partyInventoryRefsList.Remove(GetCurrentlySelectedItemRefs());
+
+                    if (inCombat)
+                    {
+                        if (it.endTurnAfterEquipping)
+                        {
+                            callingScreen = "combat";
+                            gv.screenType = "combat";
+                            gv.screenCombat.endPcTurn(false);
+                        }
+                    }
+
                 }
                 else
                 {
@@ -969,6 +1149,17 @@ namespace IceBlink2
                         }
                     }
                     gv.mod.partyInventoryRefsList.Remove(GetCurrentlySelectedItemRefs());
+
+                    if (inCombat)
+                    {
+                        if (it.endTurnAfterEquipping)
+                        {
+                            callingScreen = "combat";
+                            gv.screenType = "combat";
+                            gv.screenCombat.endPcTurn(false);
+                        }
+                    }
+
                 }
             }
             else if (gv.cc.partyItemSlotIndex == 4)//Ring
@@ -1012,6 +1203,17 @@ namespace IceBlink2
                         }
                     }
                     gv.mod.partyInventoryRefsList.Remove(GetCurrentlySelectedItemRefs());
+
+                    if (inCombat)
+                    {
+                        if (it.endTurnAfterEquipping)
+                        {
+                            callingScreen = "combat";
+                            gv.screenType = "combat";
+                            gv.screenCombat.endPcTurn(false);
+                        }
+                    }
+
                 }
                 else
                 {
@@ -1027,6 +1229,17 @@ namespace IceBlink2
                         }
                     }
                     gv.mod.partyInventoryRefsList.Remove(GetCurrentlySelectedItemRefs());
+
+                    if (inCombat)
+                    {
+                        if (it.endTurnAfterEquipping)
+                        {
+                            callingScreen = "combat";
+                            gv.screenType = "combat";
+                            gv.screenCombat.endPcTurn(false);
+                        }
+                    }
+
                 }
             }
             else if (gv.cc.partyItemSlotIndex == 5) //Body
@@ -1071,6 +1284,17 @@ namespace IceBlink2
                         }
                     }
                     gv.mod.partyInventoryRefsList.Remove(GetCurrentlySelectedItemRefs());
+
+                    if (inCombat)
+                    {
+                        if (it.endTurnAfterEquipping)
+                        {
+                            callingScreen = "combat";
+                            gv.screenType = "combat";
+                            gv.screenCombat.endPcTurn(false);
+                        }
+                    }
+
                 }
                 else //equip slot was empty
                 {
@@ -1086,6 +1310,16 @@ namespace IceBlink2
                         }
                     }
                     gv.mod.partyInventoryRefsList.Remove(GetCurrentlySelectedItemRefs());
+                    if (inCombat)
+                    {
+                        if (it.endTurnAfterEquipping)
+                        {
+                            callingScreen = "combat";
+                            gv.screenType = "combat";
+                            gv.screenCombat.endPcTurn(false);
+                        }
+                    }
+
                 }
             }
             else if (gv.cc.partyItemSlotIndex == 6) //Feet
@@ -1130,6 +1364,16 @@ namespace IceBlink2
                         }
                     }
                     gv.mod.partyInventoryRefsList.Remove(GetCurrentlySelectedItemRefs());
+                    if (inCombat)
+                    {
+                        if (it.endTurnAfterEquipping)
+                        {
+                            callingScreen = "combat";
+                            gv.screenType = "combat";
+                            gv.screenCombat.endPcTurn(false);
+                        }
+                    }
+
                 }
                 else //equip slot was empty
                 {
@@ -1145,6 +1389,16 @@ namespace IceBlink2
                         }
                     }
                     gv.mod.partyInventoryRefsList.Remove(GetCurrentlySelectedItemRefs());
+                    if (inCombat)
+                    {
+                        if (it.endTurnAfterEquipping)
+                        {
+                            callingScreen = "combat";
+                            gv.screenType = "combat";
+                            gv.screenCombat.endPcTurn(false);
+                        }
+                    }
+
                 }
             }
             else if (gv.cc.partyItemSlotIndex == 7) //Ring2
@@ -1188,6 +1442,16 @@ namespace IceBlink2
                         }
                     }
                     gv.mod.partyInventoryRefsList.Remove(GetCurrentlySelectedItemRefs());
+                    if (inCombat)
+                    {
+                        if (it.endTurnAfterEquipping)
+                        {
+                            callingScreen = "combat";
+                            gv.screenType = "combat";
+                            gv.screenCombat.endPcTurn(false);
+                        }
+                    }
+
                 }
                 else
                 {
@@ -1203,6 +1467,16 @@ namespace IceBlink2
                         }
                     }
                     gv.mod.partyInventoryRefsList.Remove(GetCurrentlySelectedItemRefs());
+                    if (inCombat)
+                    {
+                        if (it.endTurnAfterEquipping)
+                        {
+                            callingScreen = "combat";
+                            gv.screenType = "combat";
+                            gv.screenCombat.endPcTurn(false);
+                        }
+                    }
+
                 }
             }
             else if (gv.cc.partyItemSlotIndex == 8) //Ammo
@@ -1249,8 +1523,88 @@ namespace IceBlink2
                         pc.pcTags.Add(it.entriesForPcTags[i].Value);
                     }
                 }
+
+                if (inCombat)
+                {
+                    if (it.endTurnAfterEquipping)
+                    {
+                        callingScreen = "combat";
+                        gv.screenType = "combat";
+                        gv.screenCombat.endPcTurn(false);
+                    }
+                }
+
             }
         }
+
+        //add a modified unequip on destroy
+        //toDo
+        public void unequipItemOnDestroy(Item it, Player pc, ItemRefs itr)
+        {
+            //remove item tags from p tags
+            if (it.entriesForPcTags.Count > 0)
+            {
+                bool breakOuter = false;
+                for (int i = it.entriesForPcTags.Count - 1; i >= 0; i--)
+                {
+                    for (int j = pc.pcTags.Count - 1; j >= 0; j--)
+                    {
+                        if (it.entriesForPcTags[i].Value == pc.pcTags[j])
+                        {
+                            pc.pcTags.RemoveAt(j);
+                            breakOuter = true;
+                            break;
+                        }
+                    }
+                    if (breakOuter)
+                    {
+                        break;
+                    }
+                }
+            }
+
+            //unequip
+            if (pc.MainHandRefs.tag == itr.tag)
+            {
+                pc.MainHandRefs = new ItemRefs();
+            }
+
+            if (pc.OffHandRefs.tag == itr.tag)
+            {
+                pc.OffHandRefs = new ItemRefs();
+            }
+
+            if (pc.BodyRefs.tag == itr.tag)
+            {
+                pc.BodyRefs = new ItemRefs();
+            }
+
+            if (pc.HeadRefs.tag == itr.tag)
+            {
+                pc.HeadRefs = new ItemRefs();
+            }
+
+            if (pc.NeckRefs.tag == itr.tag)
+            {
+                pc.NeckRefs = new ItemRefs();
+            }
+
+            if (pc.FeetRefs.tag == itr.tag)
+            {
+                pc.FeetRefs = new ItemRefs();
+            }
+
+            if (pc.RingRefs.tag == itr.tag)
+            {
+                pc.RingRefs = new ItemRefs();
+            }
+
+            if (pc.Ring2Refs.tag == itr.tag)
+            {
+                pc.Ring2Refs = new ItemRefs();
+            }
+        }
+
         public void unequipItem()
         {
             Player pc = gv.mod.playerList[gv.cc.partyScreenPcIndex];

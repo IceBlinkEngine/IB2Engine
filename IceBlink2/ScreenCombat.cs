@@ -1219,6 +1219,7 @@ namespace IceBlink2
             }
                 turnController();
            }
+           
            //else
            //{
                 //animationsOn = true;
@@ -2164,7 +2165,8 @@ namespace IceBlink2
         public void endPcTurn(bool endStealthMode)
         {
             updateStatsAllCreatures();
-            if (currentCombatMode != "cast")
+            //if (currentCombatMode != "cast")
+            if ((!gv.cc.currentSelectedSpell.usesTurnToActivate && currentCombatMode == "cast") || currentCombatMode != "cast")
             {
                 
                 /*
@@ -8945,7 +8947,7 @@ namespace IceBlink2
                     gv.mod.playerList[currentPlayerIndex].tagOfSpellToBeCastAfterCastTimeIsDone = "none";
                     gv.mod.playerList[currentPlayerIndex].thisCasterCanBeInterrupted = true;
                     gv.screenType = "combatInventory";
-                    gv.screenInventory.resetInventory();
+                    gv.screenInventory.resetInventory(true);
                 }
             }
             else if (keyData == Keys.S)
@@ -10814,7 +10816,7 @@ namespace IceBlink2
                             gv.mod.playerList[currentPlayerIndex].tagOfSpellToBeCastAfterCastTimeIsDone = "none";
                             gv.mod.playerList[currentPlayerIndex].thisCasterCanBeInterrupted = true;
                             gv.screenType = "combatInventory";
-                            gv.screenInventory.resetInventory();
+                            gv.screenInventory.resetInventory(true);
                         }
                     }
 

@@ -14,6 +14,8 @@ namespace IceBlink2
     public class Module
     {
 
+        public List<string> addedItemsRefs = new List<string>();
+
         public bool encounterSingleImageAutoScale = true;
         public bool useMinimalisticUI = true;
         public bool useManualCombatCam = true;
@@ -543,6 +545,8 @@ namespace IceBlink2
             newIR.quantity = it.quantity;
             newIR.isRation = it.isRation;
             newIR.isLightSource = it.isLightSource;
+            newIR.hpRegenTimer = it.hpRegenTimer;
+            newIR.spRegenTimer = it.spRegenTimer;
             return newIR;
         }
         public Container getContainerByTag(string tag)

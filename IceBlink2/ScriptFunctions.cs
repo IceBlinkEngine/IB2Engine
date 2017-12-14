@@ -34,18 +34,295 @@ namespace IceBlink2
 
         public void ShowFullDescription(Item it)
         {
-            string textToSpan = "<u>Description</u>" + "<BR>";
-            textToSpan += "<b><i><big>" + it.name + "</big></i></b><BR>";
-            if ((it.category.Equals("Melee")) || (it.category.Equals("Ranged")))
+            //greatitemproject
+            //string textToSpan = "<u>Description</u>" + "<BR>";
+            string textToSpan = "<b><big>" + it.name + "</big></b><BR>";
+            //if ((it.category.Equals("Melee")) || (it.category.Equals("Ranged")))
+            //{
+            if (it.category == "Melee" || it.category == "Ranged")
             {
-                textToSpan += "Damage: " + it.damageNumDice + "d" + it.damageDie + "+" + it.damageAdder + "<BR>";
-                textToSpan += "Attack Bonus: " + it.attackBonus + "<BR>";
-                textToSpan += "Attack Range: " + it.attackRange + "<BR>";
+                if (it.damageNumDice != 0 || it.damageAdder != 0)
+                {
+                    if (it.damageAdder != 0 && it.damageNumDice != 0)
+                    {
+                        textToSpan += "Damage: " + it.damageNumDice + "d" + it.damageDie + "+" + it.damageAdder + "<BR>";
+                    }
+                    else if (it.damageAdder == 0 && it.damageNumDice != 0)
+                    {
+                        textToSpan += "Damage: " + it.damageNumDice + "d" + it.damageDie + "<BR>";
+                    }
+                    else if (it.damageAdder != 0 && it.damageNumDice == 0)
+                    {
+                        textToSpan += "Damage: " + it.damageAdder + "<BR>";
+                    }
+                }
+            }
+                if (it.attackBonus != 0)
+                {
+                    textToSpan += "Attack Modifier: " + it.attackBonus + "<BR>";
+                }
+                if (it.attackRange > 1)
+                {
+                    textToSpan += "Attack Range: " + it.attackRange + "<BR>";
+                }
+
+                if (it.AreaOfEffect > 0)
+                {
+                    textToSpan += "Area of Effect radius/length: " + it.AreaOfEffect + "<BR>";
+                    textToSpan += "Area of Effect shape: " + it.aoeShape + "<BR>";
+                }
+
+                if (it.typeOfDamage != "Normal")
+                {
+                    textToSpan += "Type of Damage: " + it.typeOfDamage + "<BR>";
+                }
+
+                if ((it.ammoType != "none") && (it.category != "Ammo"))
+                {
+                    string ammoName = "none";
+                    foreach (Item itA in gv.mod.moduleItemsList)
+                    {
+                        if (itA.tag == it.ammoType)
+                        {
+                            ammoName = itA.name;
+                        }
+                    }
+                    textToSpan += "Required Ammo: " + ammoName + "<BR>";
+                }
+                if (it.armorBonus != 0)
+                {
+                    textToSpan += "AC Modifier: " + it.armorBonus + "<BR>";
+                }
+
+                if (it.twoHanded)
+                {
+                    textToSpan += "Two handed: " + it.twoHanded + "<BR>";
+                }
+             
+                if (it.category == "Armor")
+                {
+                    textToSpan += "Armor type: " + it.ArmorWeightType + "<BR>";
+                }
+
+                if (it.maxDexBonus != 99)
+                {
+                    textToSpan += "Max dexterity bonus: " + it.maxDexBonus + "<BR>";
+                }
+
+                if (it.automaticallyHitsTarget)
+                {
+                    textToSpan += "Always hits: " + it.automaticallyHitsTarget + "<BR>";
+                }
+
+                if (it.canNotBeChangedInCombat)
+                {
+                    textToSpan += "Not changeable in combat: " + it.canNotBeChangedInCombat + "<BR>";
+                }
+
+                if (it.canNotBeUnequipped)
+                {
+                    textToSpan += "Can never be changed: " + it.canNotBeUnequipped + "<BR>";
+                }
+
+                if (!it.endTurnAfterEquipping)
+                {
+                    textToSpan += "Changing is free action: " + it.endTurnAfterEquipping + "<BR>";
+                }
+
+              
+                if (it.onUseItemCastSpellTag != "none" || it.onUseItemIBScript != "none" || it.onUseItem != "none" )
+                {
+                    textToSpan += "Allows USE action: true" + "<BR>";
+                    if (it.destroyItemAfterOnUseItemCastSpell || it.destroyItemAfterOnUseItemIBScript || it.destroyItemAfterOnUseItemScript)
+                    {
+                        textToSpan += "Item is destroyed after use (of last charge if charged): true" + "<BR>";
+                    }
+                }
+
+                if (it.onUseItemCastSpellTag != "none")
+                {
+                    string spellName = "none";
+                    foreach (Spell sp in gv.mod.moduleSpellsList)
+                    {
+                        if (sp.tag == it.onUseItemCastSpellTag)
+                        {
+                            spellName = sp.name;
+                            break;
+                        }
+                    }
+
+                    textToSpan += "Spell to cast on use: " + spellName + "<BR>";
+                    textToSpan += "Item on use caster level: " + it.levelOfItemForCastSpell + "<BR>";
+                }
+
+                if (it.onlyUseableWhenEquipped)
+                {
+                    textToSpan += "Must be equipped to use: " + it.onlyUseableWhenEquipped + "<BR>";
+                }
+
+                if (it.useableInSituation != "Passive" && it.useableInSituation != "Always")
+                {
+                    if (it.useableInSituation == "InCombat")
+                    {
+                        textToSpan += "Only useable in combat: true" + "<BR>";
+                    }
+
+                    else if (it.useableInSituation == "OutOfCombat")
+                    {
+                        textToSpan += "Only useable out of combat: true" + "<BR>";
+                    }
+                }
+
+                if (it.onScoringHitCastSpellTag != "none")
+                {
+                    textToSpan += "Special effect on hit: true" + "<BR>";
+                }
+                
+
+                if (it.entriesForPcTags.Count > 0)
+                {
+                    string pcTags = "";
+                    foreach (LocalImmunityString ls in it.entriesForPcTags)
+                    {
+                        pcTags += ls.Value + ", ";
+                    }
+                    textToSpan += "Item perks: " + pcTags + "<BR>";
+                }
+
+                if (it.isRation)
+                {
+                    textToSpan += "Is ration: " + it.isRation + "<BR>";
+                }
+
+                if (it.isLightSource)
+                {
+                    textToSpan += "Is light source: " + it.isLightSource + "<BR>";
+                }
+
+                if (it.attributeBonusModifierStr != 0)
+                {
+                    textToSpan += "STR modifier: " + it.attributeBonusModifierStr + "<BR>";
+                }
+
+                if (it.attributeBonusModifierDex != 0)
+                {
+                    textToSpan += "DEX modifier: " + it.attributeBonusModifierDex + "<BR>";
+                }
+
+                if (it.attributeBonusModifierCon != 0)
+                {
+                    textToSpan += "CON modifier: " + it.attributeBonusModifierCon + "<BR>";
+                }
+
+                if (it.attributeBonusModifierInt != 0)
+                {
+                    textToSpan += "INT modifier: " + it.attributeBonusModifierInt + "<BR>";
+                }
+
+                if (it.attributeBonusModifierWis != 0)
+                {
+                    textToSpan += "WIS modifier: " + it.attributeBonusModifierWis + "<BR>";
+                }
+
+                if (it.attributeBonusModifierCha != 0)
+                {
+                    textToSpan += "CHA modifier: " + it.attributeBonusModifierCha + "<BR>";
+                }
+
+                if (it.hpRegenPerRoundInCombat != 0)
+                {
+                    textToSpan += "HP reg per round in combat: " + it.hpRegenPerRoundInCombat + "<BR>"; 
+                }
+
+                if (it.spRegenPerRoundInCombat != 0)
+                {
+                    textToSpan += "SP reg per round in combat: " + it.spRegenPerRoundInCombat + "<BR>";
+                }
+
+                if (it.minutesPerHpRegenOutsideCombat != 0)
+                {
+                    textToSpan += "+1 HP outside combat every: " + it.minutesPerHpRegenOutsideCombat + " minutes" + "<BR>";
+                }
+
+                if (it.minutesPerSpRegenOutsideCombat != 0)
+                {
+                    textToSpan += "+1 SP outside combat every: " + it.minutesPerSpRegenOutsideCombat + " minutes" + "<BR>";
+                }
+
+                if (it.MovementPointModifier != 0)
+                {
+                    textToSpan += "Effect on movement points: " + it.MovementPointModifier + "<BR>";
+                }
+
+                if (it.savingThrowModifierFortitude != 0)
+                {
+                    textToSpan += "Fortitude save modifier: " + it.savingThrowModifierFortitude + "<BR>";
+                }
+
+                if (it.savingThrowModifierReflex != 0)
+                {
+                    textToSpan += "Reflex save modifier: " + it.savingThrowModifierReflex + "<BR>";
+                }
+
+                if (it.savingThrowModifierFortitude != 0)
+                {
+                    textToSpan += "Will save modifier: " + it.savingThrowModifierWill + "<BR>";
+                }
+
+                if (it.damageTypeResistanceValueNormal != 0)
+                {
+                    textToSpan += "Resistance physical modifier: " + it.damageTypeResistanceValueNormal + "<BR>";
+                }
+
+                if (it.damageTypeResistanceValueAcid != 0)
+                {
+                    textToSpan += "Resistance acid modifier: " + it.damageTypeResistanceValueAcid + "<BR>";
+                }
+
+            if (it.damageTypeResistanceValueElectricity != 0)
+            {
+                textToSpan += "Resistance electricity modifier: " + it.damageTypeResistanceValueElectricity + "<BR>";
+            }
+
+            if (it.damageTypeResistanceValueFire != 0)
+            {
+                textToSpan += "Resistance fire modifier: " + it.damageTypeResistanceValueFire + "<BR>";
+            }
+
+            if (it.damageTypeResistanceValueCold != 0)
+            {
+                textToSpan += "Resistance cold modifier: " + it.damageTypeResistanceValueCold + "<BR>";
+            }
+
+            if (it.damageTypeResistanceValuePoison != 0)
+            {
+                textToSpan += "Resistance poison modifier: " + it.damageTypeResistanceValuePoison + "<BR>";
+            }
+
+            if (it.damageTypeResistanceValueMagic != 0)
+            {
+                textToSpan += "Resistance magic modifier: " + it.damageTypeResistanceValueMagic + "<BR>";
+            }
+
+            if (it.onUseItemCastSpellTag != "none" || it.onUseItemIBScript != "none" || it.onUseItem != "none" || it.category != "General")
+            {
+                textToSpan += "Allowed for classes: " + isUseableBy(it) + "<BR>";
+            }
+
+            textToSpan += "Value: " + it.value + "<BR>";
+
+            //rückwärts
+
+                /*
                 textToSpan += "Useable By: " + isUseableBy(it) + "<BR>";
                 textToSpan += "Two-Handed Weapon: ";
                 if (it.twoHanded) { textToSpan += "Yes<BR>"; }
                 else { textToSpan += "No<BR>"; }
+                */
+
+
                 textToSpan += "<BR>";
+
                 if (!it.descFull.Equals(""))
                 {
                     textToSpan += it.descFull;
@@ -54,7 +331,8 @@ namespace IceBlink2
                 {
                     textToSpan += it.desc;
                 }
-            }
+            //}
+        /*
             else if (!it.category.Equals("General"))
             {
                 textToSpan += "AC Bonus: " + it.armorBonus + "<BR>";
@@ -83,6 +361,7 @@ namespace IceBlink2
                     textToSpan += it.desc;
                 }
             }
+            */
             MessageBoxHtml(textToSpan);
         }
         public string isUseableBy(Item it)
@@ -90,15 +369,19 @@ namespace IceBlink2
             string strg = "";
             foreach (PlayerClass cls in mod.modulePlayerClassList)
             {
-                string firstLetter = cls.name.Substring(0, 1);
+                string firstLetters = cls.name.Substring(0, 2);
                 foreach (ItemRefs ia in cls.itemsAllowed)
                 {
                     string stg = ia.resref;
                     if (stg.Equals(it.resref))
                     {
-                        strg += firstLetter + ", ";
+                        strg += firstLetters + ", ";
                     }
                 }
+            }
+            if (strg =="")
+            {
+                strg = "all";
             }
             return strg;
         }
@@ -2792,14 +3075,24 @@ namespace IceBlink2
             }
             gv.cc.addLogText("<font color='yellow'>" + "The party gains " + quantity + " " + newItem.name + "(s)" + "</font><BR>");
         }
+
         public void RemoveItemFromInventory(ItemRefs itRef, int quantity)
         {
-            //decrement item quantity
-            itRef.quantity -= quantity;
-            //if item quantity <= 0, remove item from inventory
-            if (itRef.quantity < 1)
+            Item newItem = mod.getItemByResRef(itRef.resref);
+
+            if (!newItem.isStackable)
             {
                 gv.mod.partyInventoryRefsList.Remove(itRef);
+            }
+            else
+            {
+                //decrement item quantity
+                itRef.quantity -= quantity;
+                //if item quantity <= 0, remove item from inventory
+                if (itRef.quantity < 1)
+                {
+                    gv.mod.partyInventoryRefsList.Remove(itRef);
+                }
             }
         }
 
@@ -7574,31 +7867,42 @@ namespace IceBlink2
                 //check to see if allow HP to regen
                 if (mod.getPlayerClass(pc.classTag).hpRegenTimeNeeded > 0)
                 {
-                    if (pc.hp > 0) //do not regen if dead
+                    if (pc.hp > -20) //do not regen if truely dead
                     {
                         pc.hpRegenTimePassedCounter += mod.currentArea.TimePerSquare;
                         if (pc.hpRegenTimePassedCounter >= mod.getPlayerClass(pc.classTag).hpRegenTimeNeeded)
                         {
-                            pc.hp++;
+                            int hpGained = 0;
+                            hpGained = pc.hpRegenTimePassedCounter / mod.getPlayerClass(pc.classTag).hpRegenTimeNeeded;
+                            pc.hp += hpGained;
                             if (pc.hp > pc.hpMax)
                             {
                                 pc.hp = pc.hpMax;
                             }
+                            if ((pc.charStatus == "Dead") && (pc.hp > 0))
+                            {
+                                pc.charStatus = "Alive";
+                            }
                             pc.hpRegenTimePassedCounter = 0;
-                            gv.cc.addLogText("<font color='lime'>" + pc.name + " regen 1hp</font><br>");
+                            gv.cc.addLogText("<font color='lime'>" + pc.name + " gains " + hpGained + " HP" + "</font><br>");
                         }
                     }
                 }
                 //check to see if allow SP to regen
                 if (mod.getPlayerClass(pc.classTag).spRegenTimeNeeded > 0)
                 {
-                    pc.spRegenTimePassedCounter += mod.currentArea.TimePerSquare;
-                    if (pc.spRegenTimePassedCounter >= mod.getPlayerClass(pc.classTag).spRegenTimeNeeded)
+                    if (pc.hp > -20) //do not regen if truely dead
                     {
-                        pc.sp++;
-                        if (pc.sp > pc.spMax) { pc.sp = pc.spMax; }
-                        pc.spRegenTimePassedCounter = 0;
-                        gv.cc.addLogText("<font color='lime'>" + pc.name + " regen 1sp</font><br>");
+                        pc.spRegenTimePassedCounter += mod.currentArea.TimePerSquare;
+                        if (pc.spRegenTimePassedCounter >= mod.getPlayerClass(pc.classTag).spRegenTimeNeeded)
+                        {
+                            int spGained = 0;
+                            spGained = pc.spRegenTimePassedCounter / mod.getPlayerClass(pc.classTag).spRegenTimeNeeded;
+                            pc.sp += spGained;
+                            if (pc.sp > pc.spMax) { pc.sp = pc.spMax; }
+                            pc.spRegenTimePassedCounter = 0;
+                            gv.cc.addLogText("<font color='lime'>" + pc.name + " gains " + spGained + " SP" + "</font><br>");
+                        }
                     }
                 }
                 //check all items to see if any are regeneration SP or HP type scripts that happen over intervals of time
@@ -7611,6 +7915,7 @@ namespace IceBlink2
                     pc.charStatus = "Dead";
                     if (pc.hp <= -20)
                     {
+                        pc.charStatus = "Dead";
                         gv.cc.addLogText("<font color='red'>" + pc.name + " has DIED!" + "</font><BR>");
                     }
                 }
@@ -7620,85 +7925,85 @@ namespace IceBlink2
         {
             try
             {
-                if (mod.getItemByResRefForInfo(pc.BodyRefs.resref).roundsPerSpRegenOutsideCombat > 0)
+                if (mod.getItemByResRefForInfo(pc.BodyRefs.resref).minutesPerSpRegenOutsideCombat > 0)
                 {
-                    doRegenSp(pc, mod.getItemByResRefForInfo(pc.BodyRefs.resref).roundsPerSpRegenOutsideCombat);
+                    doRegenSp(pc, mod.getItemByResRefForInfo(pc.BodyRefs.resref).minutesPerSpRegenOutsideCombat, pc.BodyRefs);
                 }
-                if (mod.getItemByResRefForInfo(pc.BodyRefs.resref).roundsPerHpRegenOutsideCombat > 0)
+                if (mod.getItemByResRefForInfo(pc.BodyRefs.resref).minutesPerHpRegenOutsideCombat > 0)
                 {
-                    doRegenHp(pc, mod.getItemByResRefForInfo(pc.BodyRefs.resref).roundsPerHpRegenOutsideCombat);
-                }
-
-                if (mod.getItemByResRefForInfo(pc.MainHandRefs.resref).roundsPerSpRegenOutsideCombat > 0)
-                {
-                    doRegenSp(pc, mod.getItemByResRefForInfo(pc.MainHandRefs.resref).roundsPerSpRegenOutsideCombat);
-                }
-                if (mod.getItemByResRefForInfo(pc.MainHandRefs.resref).roundsPerHpRegenOutsideCombat > 0)
-                {
-                    doRegenHp(pc, mod.getItemByResRefForInfo(pc.MainHandRefs.resref).roundsPerHpRegenOutsideCombat);
+                    doRegenHp(pc, mod.getItemByResRefForInfo(pc.BodyRefs.resref).minutesPerHpRegenOutsideCombat, pc.BodyRefs);
                 }
 
-                if (mod.getItemByResRefForInfo(pc.OffHandRefs.resref).roundsPerSpRegenOutsideCombat > 0)
+                if (mod.getItemByResRefForInfo(pc.MainHandRefs.resref).minutesPerSpRegenOutsideCombat > 0)
                 {
-                    doRegenSp(pc, mod.getItemByResRefForInfo(pc.OffHandRefs.resref).roundsPerSpRegenOutsideCombat);
+                    doRegenSp(pc, mod.getItemByResRefForInfo(pc.MainHandRefs.resref).minutesPerSpRegenOutsideCombat, pc.MainHandRefs);
                 }
-                if (mod.getItemByResRefForInfo(pc.OffHandRefs.resref).roundsPerHpRegenOutsideCombat > 0)
+                if (mod.getItemByResRefForInfo(pc.MainHandRefs.resref).minutesPerHpRegenOutsideCombat > 0)
                 {
-                    doRegenHp(pc, mod.getItemByResRefForInfo(pc.OffHandRefs.resref).roundsPerHpRegenOutsideCombat);
-                }
-
-                if (mod.getItemByResRefForInfo(pc.RingRefs.resref).roundsPerSpRegenOutsideCombat > 0)
-                {
-                    doRegenSp(pc, mod.getItemByResRefForInfo(pc.RingRefs.resref).roundsPerSpRegenOutsideCombat);
-                }
-                if (mod.getItemByResRefForInfo(pc.RingRefs.resref).roundsPerHpRegenOutsideCombat > 0)
-                {
-                    doRegenHp(pc, mod.getItemByResRefForInfo(pc.RingRefs.resref).roundsPerHpRegenOutsideCombat);
+                    doRegenHp(pc, mod.getItemByResRefForInfo(pc.MainHandRefs.resref).minutesPerHpRegenOutsideCombat, pc.MainHandRefs);
                 }
 
-                if (mod.getItemByResRefForInfo(pc.HeadRefs.resref).roundsPerSpRegenOutsideCombat > 0)
+                if (mod.getItemByResRefForInfo(pc.OffHandRefs.resref).minutesPerSpRegenOutsideCombat > 0)
                 {
-                    doRegenSp(pc, mod.getItemByResRefForInfo(pc.HeadRefs.resref).roundsPerSpRegenOutsideCombat);
+                    doRegenSp(pc, mod.getItemByResRefForInfo(pc.OffHandRefs.resref).minutesPerSpRegenOutsideCombat, pc.OffHandRefs);
                 }
-                if (mod.getItemByResRefForInfo(pc.HeadRefs.resref).roundsPerHpRegenOutsideCombat > 0)
+                if (mod.getItemByResRefForInfo(pc.OffHandRefs.resref).minutesPerHpRegenOutsideCombat > 0)
                 {
-                    doRegenHp(pc, mod.getItemByResRefForInfo(pc.HeadRefs.resref).roundsPerHpRegenOutsideCombat);
-                }
-
-                if (mod.getItemByResRefForInfo(pc.NeckRefs.resref).roundsPerSpRegenOutsideCombat > 0)
-                {
-                    doRegenSp(pc, mod.getItemByResRefForInfo(pc.NeckRefs.resref).roundsPerSpRegenOutsideCombat);
-                }
-                if (mod.getItemByResRefForInfo(pc.NeckRefs.resref).roundsPerHpRegenOutsideCombat > 0)
-                {
-                    doRegenHp(pc, mod.getItemByResRefForInfo(pc.NeckRefs.resref).roundsPerHpRegenOutsideCombat);
+                    doRegenHp(pc, mod.getItemByResRefForInfo(pc.OffHandRefs.resref).minutesPerHpRegenOutsideCombat, pc.OffHandRefs);
                 }
 
-                if (mod.getItemByResRefForInfo(pc.FeetRefs.resref).roundsPerSpRegenOutsideCombat > 0)
+                if (mod.getItemByResRefForInfo(pc.RingRefs.resref).minutesPerSpRegenOutsideCombat > 0)
                 {
-                    doRegenSp(pc, mod.getItemByResRefForInfo(pc.FeetRefs.resref).roundsPerSpRegenOutsideCombat);
+                    doRegenSp(pc, mod.getItemByResRefForInfo(pc.RingRefs.resref).minutesPerSpRegenOutsideCombat, pc.RingRefs);
                 }
-                if (mod.getItemByResRefForInfo(pc.FeetRefs.resref).roundsPerHpRegenOutsideCombat > 0)
+                if (mod.getItemByResRefForInfo(pc.RingRefs.resref).minutesPerHpRegenOutsideCombat > 0)
                 {
-                    doRegenHp(pc, mod.getItemByResRefForInfo(pc.FeetRefs.resref).roundsPerHpRegenOutsideCombat);
-                }
-
-                if (mod.getItemByResRefForInfo(pc.Ring2Refs.resref).roundsPerSpRegenOutsideCombat > 0)
-                {
-                    doRegenSp(pc, mod.getItemByResRefForInfo(pc.Ring2Refs.resref).roundsPerSpRegenOutsideCombat);
-                }
-                if (mod.getItemByResRefForInfo(pc.Ring2Refs.resref).roundsPerHpRegenOutsideCombat > 0)
-                {
-                    doRegenHp(pc, mod.getItemByResRefForInfo(pc.Ring2Refs.resref).roundsPerHpRegenOutsideCombat);
+                    doRegenHp(pc, mod.getItemByResRefForInfo(pc.RingRefs.resref).minutesPerHpRegenOutsideCombat, pc.RingRefs);
                 }
 
-                if (mod.getItemByResRefForInfo(pc.AmmoRefs.resref).roundsPerSpRegenOutsideCombat > 0)
+                if (mod.getItemByResRefForInfo(pc.HeadRefs.resref).minutesPerSpRegenOutsideCombat > 0)
                 {
-                    doRegenSp(pc, mod.getItemByResRefForInfo(pc.AmmoRefs.resref).roundsPerSpRegenOutsideCombat);
+                    doRegenSp(pc, mod.getItemByResRefForInfo(pc.HeadRefs.resref).minutesPerSpRegenOutsideCombat, pc.HeadRefs);
                 }
-                if (mod.getItemByResRefForInfo(pc.AmmoRefs.resref).roundsPerHpRegenOutsideCombat > 0)
+                if (mod.getItemByResRefForInfo(pc.HeadRefs.resref).minutesPerHpRegenOutsideCombat > 0)
                 {
-                    doRegenHp(pc, mod.getItemByResRefForInfo(pc.AmmoRefs.resref).roundsPerHpRegenOutsideCombat);
+                    doRegenHp(pc, mod.getItemByResRefForInfo(pc.HeadRefs.resref).minutesPerHpRegenOutsideCombat, pc.HeadRefs);
+                }
+
+                if (mod.getItemByResRefForInfo(pc.NeckRefs.resref).minutesPerSpRegenOutsideCombat > 0)
+                {
+                    doRegenSp(pc, mod.getItemByResRefForInfo(pc.NeckRefs.resref).minutesPerSpRegenOutsideCombat, pc.NeckRefs);
+                }
+                if (mod.getItemByResRefForInfo(pc.NeckRefs.resref).minutesPerHpRegenOutsideCombat > 0)
+                {
+                    doRegenHp(pc, mod.getItemByResRefForInfo(pc.NeckRefs.resref).minutesPerHpRegenOutsideCombat, pc.NeckRefs);
+                }
+
+                if (mod.getItemByResRefForInfo(pc.FeetRefs.resref).minutesPerSpRegenOutsideCombat > 0)
+                {
+                    doRegenSp(pc, mod.getItemByResRefForInfo(pc.FeetRefs.resref).minutesPerSpRegenOutsideCombat, pc.FeetRefs);
+                }
+                if (mod.getItemByResRefForInfo(pc.FeetRefs.resref).minutesPerHpRegenOutsideCombat > 0)
+                {
+                    doRegenHp(pc, mod.getItemByResRefForInfo(pc.FeetRefs.resref).minutesPerHpRegenOutsideCombat, pc.FeetRefs);
+                }
+
+                if (mod.getItemByResRefForInfo(pc.Ring2Refs.resref).minutesPerSpRegenOutsideCombat > 0)
+                {
+                    doRegenSp(pc, mod.getItemByResRefForInfo(pc.Ring2Refs.resref).minutesPerSpRegenOutsideCombat, pc.Ring2Refs);
+                }
+                if (mod.getItemByResRefForInfo(pc.Ring2Refs.resref).minutesPerHpRegenOutsideCombat > 0)
+                {
+                    doRegenHp(pc, mod.getItemByResRefForInfo(pc.Ring2Refs.resref).minutesPerHpRegenOutsideCombat, pc.Ring2Refs);
+                }
+
+                if (mod.getItemByResRefForInfo(pc.AmmoRefs.resref).minutesPerSpRegenOutsideCombat > 0)
+                {
+                    doRegenSp(pc, mod.getItemByResRefForInfo(pc.AmmoRefs.resref).minutesPerSpRegenOutsideCombat, pc.AmmoRefs);
+                }
+                if (mod.getItemByResRefForInfo(pc.AmmoRefs.resref).minutesPerHpRegenOutsideCombat > 0)
+                {
+                    doRegenHp(pc, mod.getItemByResRefForInfo(pc.AmmoRefs.resref).minutesPerHpRegenOutsideCombat, pc.AmmoRefs);
                 }
             }
             catch (Exception ex)
@@ -7706,22 +8011,38 @@ namespace IceBlink2
                 gv.errorLog(ex.ToString());
             }
         }
-        public void doRegenSp(Player pc, int rounds)
+
+        public void doRegenSp(Player pc, int minutesNeeded, ItemRefs itRef)
         {
-            if (mod.WorldTime % (rounds * 6) == 0)
+            if ((minutesNeeded > 0) && (pc.hp > -20))
             {
-                pc.sp++;
-                if (pc.sp > pc.spMax) { pc.sp = pc.spMax; }
-                //gv.cc.addLogText("<font color='lime'>" + pc.name + " regen 1sp</font><br>");
+                itRef.spRegenTimer += mod.currentArea.TimePerSquare;
+                if (itRef.spRegenTimer >= minutesNeeded)
+                {
+                    int spGained = 0;
+                    spGained = itRef.spRegenTimer / minutesNeeded;
+                    pc.sp += spGained;
+                    if (pc.sp > pc.spMax) { pc.sp = pc.spMax; }
+                    itRef.spRegenTimer = 0;
+                    gv.cc.addLogText("<font color='lime'>" + pc.name + " gains " + spGained + " SP" + "</font><br>");
+                }
             }
         }
-        public void doRegenHp(Player pc, int rounds)
+
+        public void doRegenHp(Player pc, int minutesNeeded, ItemRefs itRef)
         {
-            if (mod.WorldTime % (rounds * 6) == 0)
+            if ((minutesNeeded > 0) && (pc.hp > -20))
             {
-                pc.hp++;
-                if (pc.hp > pc.hpMax) { pc.hp = pc.hpMax; }
-                //gv.cc.addLogText("<font color='lime'>" + pc.name + " regen 1hp</font><br>");
+                itRef.hpRegenTimer += mod.currentArea.TimePerSquare;
+                if (itRef.hpRegenTimer >= minutesNeeded)
+                {
+                    int hpGained = 0;
+                    hpGained = itRef.hpRegenTimer / minutesNeeded;
+                    pc.hp += hpGained;
+                    if (pc.hp > pc.hpMax) { pc.hp = pc.hpMax; }
+                    itRef.hpRegenTimer = 0;
+                    gv.cc.addLogText("<font color='lime'>" + pc.name + " gains " + hpGained + " HP" + "</font><br>");
+                }
             }
         }
 
@@ -9411,7 +9732,7 @@ namespace IceBlink2
                                 {
                                     gv.cc.addLogText("<font color='yellow'>" + crt.cr_name + " makes successful " + thisSpellEffect.saveCheckType + " saving roll (" + saveChkRoll.ToString() + "+" + saveChkAdder + ">=" + DC.ToString() + ")" + " and avoids " + thisSpellEffect.name + " </font><BR>");
                                     //gv.cc.addLogText("<font color='yellow'>" + "(" + thisSpellEffect.saveCheckType + " saving roll (" + saveChkRoll.ToString() + "+" + saveChkAdder + ">=" + DC.ToString() + ")" + " and avoids the longer lasting effect of" + thisSpellEffect.name + " </font><BR>");
-                                    gv.cc.addLogText("<font color='yellow'>" + "(" + saveChkRoll.ToString() + "+" + saveChkAdder + " < " + DC.ToString() + ")" + "</font><BR>");
+                                    //gv.cc.addLogText("<font color='yellow'>" + "(" + saveChkRoll.ToString() + "+" + saveChkAdder + " < " + DC.ToString() + ")" + "</font><BR>");
                                     //gv.cc.addLogText("<font color='yellow'>" + crt.cr_name + " avoids the " + thisSpellEffect.name + " effect.</font><BR>");
                                 }
                                 else//failed save roll or no roll allowed
@@ -10210,7 +10531,7 @@ namespace IceBlink2
                         {
                             gv.cc.addLogText("<font color='yellow'>" + crt.cr_name + " makes successful " + thisSpellEffect.saveCheckType + " saving roll (" + saveChkRoll.ToString() + "+" + saveChkAdder + ">=" + DC.ToString() + ")" + " and avoids " + thisSpellEffect.name + " </font><BR>");
                             //gv.cc.addLogText("<font color='yellow'>" + "(" + thisSpellEffect.saveCheckType + " saving roll (" + saveChkRoll.ToString() + "+" + saveChkAdder + ">=" + DC.ToString() + ")" + " and avoids the longer lasting effect of" + thisSpellEffect.name + " </font><BR>");
-                            gv.cc.addLogText("<font color='yellow'>" + "(" + saveChkRoll.ToString() + "+" + saveChkAdder + " < " + DC.ToString() + ")" + "</font><BR>");
+                            //gv.cc.addLogText("<font color='yellow'>" + "(" + saveChkRoll.ToString() + "+" + saveChkAdder + " < " + DC.ToString() + ")" + "</font><BR>");
                             //gv.cc.addLogText("<font color='yellow'>" + crt.cr_name + " avoids the " + thisSpellEffect.name + " effect.</font><BR>");
                         }
                         else//failed save roll or no roll allowed

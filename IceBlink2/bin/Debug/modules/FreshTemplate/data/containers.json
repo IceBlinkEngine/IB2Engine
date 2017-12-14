@@ -55,6 +55,15 @@
         "isLightSource": false,
         "isRation": false,
         "quantity": 1
+      },
+      {
+        "resref": "wand2904",
+        "tag": "Wand2904_13305",
+        "name": "Wand2904",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 6
       }
     ]
   }

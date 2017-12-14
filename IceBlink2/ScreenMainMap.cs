@@ -34123,7 +34123,7 @@ namespace IceBlink2
                     else if (rtn.Equals("btnInventory"))
                     {
                         gv.screenType = "inventory";
-                        gv.screenInventory.resetInventory();
+                        gv.screenInventory.resetInventory(false);
                         gv.cc.tutorialMessageInventory(false);
                     }
                     else if (rtn.Equals("btnSettings"))
@@ -35314,7 +35314,7 @@ namespace IceBlink2
             else if (keyData == Keys.I)
             {
                 gv.screenType = "inventory";
-                gv.screenInventory.resetInventory();
+                gv.screenInventory.resetInventory(false);
                 gv.cc.tutorialMessageInventory(false);
             }
             else if (keyData == Keys.J)

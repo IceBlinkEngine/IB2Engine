@@ -345,19 +345,22 @@ namespace IceBlink2
             if (maxLines > logLinesList.Count) { maxLines = logLinesList.Count; }
             for (int i = currentTopLineIndex; i < maxLines; i++)
             {
-                //loop through each line and print each word
-                foreach (FormattedWordGDI word in logLinesList[i].wordsList)
+                if (i >= 0)
                 {
-                    //print each word and move xLoc
-                    font = new Font(fontfamily, word.fontSize, word.fontStyle);
-                    int wordWidth = (int)(g.MeasureString(word.text, font)).Width;
-                    brush.Color = word.color;
-                    int difYheight = logLinesList[i].lineHeight - font.Height;
-                    DrawString(g, word.text, font, brush, xLoc, yLoc + difYheight);
-                    xLoc += wordWidth;
+                    //loop through each line and print each word
+                    foreach (FormattedWordGDI word in logLinesList[i].wordsList)
+                    {
+                        //print each word and move xLoc
+                        font = new Font(fontfamily, word.fontSize, word.fontStyle);
+                        int wordWidth = (int)(g.MeasureString(word.text, font)).Width;
+                        brush.Color = word.color;
+                        int difYheight = logLinesList[i].lineHeight - font.Height;
+                        DrawString(g, word.text, font, brush, xLoc, yLoc + difYheight);
+                        xLoc += wordWidth;
+                    }
+                    xLoc = 0;
+                    yLoc += logLinesList[i].lineHeight;
                 }
-                xLoc = 0;
-                yLoc += logLinesList[i].lineHeight;
             }
 
             //determine the scrollbutton location            

@@ -14,6 +14,8 @@ namespace IceBlink2
 	    public int quantity = 1; //useful for stacking and ammo
         public bool isRation = false;
         public bool isLightSource = false;
+        public int hpRegenTimer = 0;
+        public int spRegenTimer = 0;
     
         public ItemRefs()
         {
@@ -29,6 +31,8 @@ namespace IceBlink2
 		    copy.resref = this.resref;
 		    copy.canNotBeUnequipped = this.canNotBeUnequipped; 	
 		    copy.quantity = this.quantity;
+            copy.hpRegenTimer = this.hpRegenTimer;
+            copy.spRegenTimer = this.spRegenTimer;
 		    return copy;
 	    }    
     }

@@ -140,35 +140,206 @@ namespace IceBlink2
 		    }			
 	    }
 	
-        public void resetInventory()
+        public void resetInventory(bool inCombat)
         {
             if (btnReturn == null)
             {
                 setControlsStart();
             }
+
+            for (int i = gv.mod.addedItemsRefs.Count - 1; i >= 0; i--)
+            {
+                for (int j = gv.mod.partyInventoryRefsList.Count - 1; j >= 0; j--)
+                {
+
+                    if (gv.mod.addedItemsRefs[i] == gv.mod.partyInventoryRefsList[j].tag)
+                    {
+                        //krahn
+                        gv.mod.partyInventoryRefsList.RemoveAt(j);
+                        //btnInventorySlot
+                        //btn.Img3 = gv.cc.LoadBitmap("mandatory_conversation_indicator");
+                        //btnInventorySlot[i].Img3 = null;
+                        break;
+                    }
+                    
+                }
+            }
+
+            foreach (IbbButton b in btnInventorySlot)
+            {
+                b.Img3 = null;
+            }
+
+            gv.mod.addedItemsRefs.Clear();
+
             doItemStacking();
             int cntSlot = 0;
-            foreach (IbbButton btn in btnInventorySlot)
+
+            //entrypoint
+            Player pc = gv.mod.playerList[gv.screenCombat.currentPlayerIndex];
+            if (!inCombat)
+            {
+                pc = gv.mod.playerList[gv.mod.selectedPartyLeader];
+            }
+
+            //make list on mod level that stores the added tags of pc
+            //remove matchng refs first
+            /*
+            for (int i = gv.mod.partyInventoryRefsList.Count-1; i >= 0; i--)
+            {
+                if (gv.mod.partyInventoryRefsList[i].tag == pc.BodyRefs.tag)
+                {
+
+                }
+            }
+            */
+            if (inventoryPageIndex == 0)
+            {
+                int insertCounter = 0;
+
+                //if (inventoryPageIndex == 0)
+                //{
+                //Body
+                if (pc.BodyRefs.tag != "none" && pc.BodyRefs.tag != "")
+                {
+                    gv.mod.partyInventoryRefsList.Insert(insertCounter, pc.BodyRefs);
+                    gv.mod.addedItemsRefs.Add(pc.BodyRefs.tag);
+                    btnInventorySlot[insertCounter].Img3 = gv.cc.LoadBitmap("mandatory_conversation_indicator");
+                    insertCounter++;
+                }
+
+                //weapon
+                if (pc.MainHandRefs.tag != "none" && pc.MainHandRefs.tag != "")
+                {
+                    gv.mod.partyInventoryRefsList.Insert(insertCounter, pc.MainHandRefs);
+                    gv.mod.addedItemsRefs.Add(pc.MainHandRefs.tag);
+                    btnInventorySlot[insertCounter].Img3 = gv.cc.LoadBitmap("mandatory_conversation_indicator");
+                    insertCounter++;
+                }
+
+                //offhand
+                if (pc.OffHandRefs.tag != "none" && pc.OffHandRefs.tag != "")
+                {
+                    gv.mod.partyInventoryRefsList.Insert(insertCounter, pc.OffHandRefs);
+                    gv.mod.addedItemsRefs.Add(pc.OffHandRefs.tag);
+                    btnInventorySlot[insertCounter].Img3 = gv.cc.LoadBitmap("mandatory_conversation_indicator");
+                    insertCounter++;
+                }
+
+                //head
+                if (pc.HeadRefs.tag != "none" && pc.HeadRefs.tag != "")
+                {
+                    gv.mod.partyInventoryRefsList.Insert(insertCounter, pc.HeadRefs);
+                    gv.mod.addedItemsRefs.Add(pc.HeadRefs.tag);
+                    btnInventorySlot[insertCounter].Img3 = gv.cc.LoadBitmap("mandatory_conversation_indicator");
+                    insertCounter++;
+                }
+
+                //ring1
+                if (pc.RingRefs.tag != "none" && pc.RingRefs.tag != "")
+                {
+                    gv.mod.partyInventoryRefsList.Insert(insertCounter, pc.RingRefs);
+                    gv.mod.addedItemsRefs.Add(pc.RingRefs.tag);
+                    btnInventorySlot[insertCounter].Img3 = gv.cc.LoadBitmap("mandatory_conversation_indicator");
+                    insertCounter++;
+                }
+
+
+                //ring2
+                if (pc.Ring2Refs.tag != "none" && pc.Ring2Refs.tag != "")
+                {
+                    gv.mod.partyInventoryRefsList.Insert(insertCounter, pc.Ring2Refs);
+                    gv.mod.addedItemsRefs.Add(pc.Ring2Refs.tag);
+                    btnInventorySlot[insertCounter].Img3 = gv.cc.LoadBitmap("mandatory_conversation_indicator");
+                    insertCounter++;
+                }
+
+                //neck
+                if (pc.NeckRefs.tag != "none" && pc.NeckRefs.tag != "")
+                {
+                    gv.mod.partyInventoryRefsList.Insert(insertCounter, pc.NeckRefs);
+                    gv.mod.addedItemsRefs.Add(pc.NeckRefs.tag);
+                    btnInventorySlot[insertCounter].Img3 = gv.cc.LoadBitmap("mandatory_conversation_indicator");
+                    insertCounter++;
+                }
+
+                //feet
+                if (pc.FeetRefs.tag != "none" && pc.FeetRefs.tag != "")
+                {
+                    gv.mod.partyInventoryRefsList.Insert(insertCounter, pc.FeetRefs);
+                    gv.mod.addedItemsRefs.Add(pc.FeetRefs.tag);
+                    btnInventorySlot[insertCounter].Img3 = gv.cc.LoadBitmap("mandatory_conversation_indicator");
+                    insertCounter++;
+                }
+            }
+            //}
+
+            //int startCounter = cntSlot;
+            //if (inventoryPageIndex != 0)
+            //{
+            //startCounter = 0;
+            //}
+
+            //foreach (IbbButton btn in btnInventorySlot)
+            int startCounter = 0;
+            for (int i = startCounter; i < btnInventorySlot.Count; i++)
             {
                 if ((cntSlot + (inventoryPageIndex * slotsPerPage)) < gv.mod.partyInventoryRefsList.Count)
                 {
                     Item it = gv.mod.getItemByResRefForInfo(gv.mod.partyInventoryRefsList[cntSlot + (inventoryPageIndex * slotsPerPage)].resref);
-                    gv.cc.DisposeOfBitmap(ref btn.Img2);
-                    btn.Img2 = gv.cc.LoadBitmap(it.itemImage);
+                    gv.cc.DisposeOfBitmap(ref btnInventorySlot[i].Img2);
+                    btnInventorySlot[i].Img2 = gv.cc.LoadBitmap(it.itemImage);
                     ItemRefs itr = gv.mod.partyInventoryRefsList[cntSlot + (inventoryPageIndex * slotsPerPage)];
-                    if (itr.quantity > 1)
+
+                    //if ()
+                    //bockauf
+                    //chargelogic
+                    //check shop: no sepaartwd selling of charges items
+                    //check zero charges items - hopefully not deleted
+
+                    if ((it.onUseItemCastSpellTag == "none" || it.onUseItemCastSpellTag == "") && (it.onUseItemIBScript == "none" || it.onUseItemIBScript == "") && (it.onUseItem == "none" || it.onUseItem == ""))
                     {
-                        btn.Quantity = itr.quantity + "";
+                        if (itr.quantity > 1)
+                        {
+                            btnInventorySlot[i].Quantity = itr.quantity + "";
+                            btnInventorySlot[i].btnOfChargedItem = false;
+                        }
+                        else
+                        {
+                            btnInventorySlot[i].Quantity = "";
+                            btnInventorySlot[i].btnOfChargedItem = false;
+                        }
                     }
-                    else
+                    //useable item
+                    else if (itr.quantity != 1)
                     {
-                        btn.Quantity = "";
+                        if (itr.quantity > 1)
+                        {
+                            btnInventorySlot[i].Quantity = (itr.quantity-1) + "";
+                            //eg staff that can conjure three fireballs
+                            if (!it.isStackable)
+                            {
+                                btnInventorySlot[i].btnOfChargedItem = true;
+                            }
+                            //eg potion
+                            else
+                            {
+                                btnInventorySlot[i].btnOfChargedItem = false;
+                            }
+                        }
+                        else
+                        {
+                            btnInventorySlot[i].Quantity = "0";
+                            btnInventorySlot[i].btnOfChargedItem = true;
+                        }
                     }
                 }
+                //no item in on button
                 else
                 {
-                    btn.Img2 = null;
-                    btn.Quantity = "";
+                    btnInventorySlot[i].Img2 = null;
+                    btnInventorySlot[i].Quantity = "";
+                    btnInventorySlot[i].btnOfChargedItem = false;
                 }
                 cntSlot++;
             }
@@ -226,12 +397,13 @@ namespace IceBlink2
 			    ItemRefs itRef = GetCurrentlySelectedItemRefs();
         	    Item it = gv.mod.getItemByResRefForInfo(itRef.resref);
 
+                /*
                 //Description
 		        string textToSpan = "";
                 //textToSpan = "Description:" + Environment.NewLine;
         	    //textToSpan += it.name + Environment.NewLine;
-                textToSpan = "<u>Description</u>" + "<BR>";
-	            textToSpan += "<b><i><big>" + it.name + "</big></i></b><BR>";
+                //textToSpan = "<u>Description</u>" + "<BR>";
+	            textToSpan += "<b><big>" + it.name + "</big></b><BR>";
 	            if ((it.category.Equals("Melee")) || (it.category.Equals("Ranged")))
 	            {
 	        	    textToSpan += "Damage: " + it.damageNumDice + "d" + it.damageDie + "+" + it.damageAdder + "<BR>";
@@ -252,7 +424,294 @@ namespace IceBlink2
 	        	    textToSpan += "Useable By: " + isUseableBy(it) + "<BR>";
 	        	    textToSpan += "Tap 'INFO' for Full Description<BR>";
 	            }
-                
+                */
+                //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                string textToSpan = "<b><big>" + it.name + "</big></b><BR>";
+                //if ((it.category.Equals("Melee")) || (it.category.Equals("Ranged")))
+                //{
+                if (it.category == "Melee" || it.category == "Ranged")
+                {
+                    if (it.damageNumDice != 0 || it.damageAdder != 0)
+                    {
+                        if (it.damageAdder != 0 && it.damageNumDice != 0)
+                        {
+                            textToSpan += "Damage: " + it.damageNumDice + "d" + it.damageDie + "+" + it.damageAdder + "<BR>";
+                        }
+                        else if (it.damageAdder == 0 && it.damageNumDice != 0)
+                        {
+                            textToSpan += "Damage: " + it.damageNumDice + "d" + it.damageDie + "<BR>";
+                        }
+                        else if (it.damageAdder != 0 && it.damageNumDice == 0)
+                        {
+                            textToSpan += "Damage: " + it.damageAdder + "<BR>";
+                        }
+                    }
+                }
+                if (it.attackBonus != 0)
+                {
+                    textToSpan += "Attack Modifier: " + it.attackBonus + "<BR>";
+                }
+                if (it.attackRange > 1)
+                {
+                    textToSpan += "Attack Range: " + it.attackRange + "<BR>";
+                }
+
+                if (it.AreaOfEffect > 0)
+                {
+                    textToSpan += "Area of Effect radius/length: " + it.AreaOfEffect + "<BR>";
+                    textToSpan += "Area of Effect shape: " + it.aoeShape + "<BR>";
+                }
+
+                if (it.typeOfDamage != "Normal")
+                {
+                    textToSpan += "Type of Damage: " + it.typeOfDamage + "<BR>";
+                }
+
+                if ((it.ammoType != "none") && (it.category != "Ammo"))
+                {
+                    string ammoName = "none";
+                    foreach (Item itA in gv.mod.moduleItemsList)
+                    {
+                        if (itA.tag == it.ammoType)
+                        {
+                            ammoName = itA.name;
+                        }
+                    }
+                    textToSpan += "Required Ammo: " + ammoName + "<BR>";
+                }
+                if (it.armorBonus != 0)
+                {
+                    textToSpan += "AC Modifier: " + it.armorBonus + "<BR>";
+                }
+
+                if (it.twoHanded)
+                {
+                    textToSpan += "Two handed: " + it.twoHanded + "<BR>";
+                }
+
+                if (it.category == "Armor")
+                {
+                    textToSpan += "Armor type: " + it.ArmorWeightType + "<BR>";
+                }
+
+                if (it.maxDexBonus != 99)
+                {
+                    textToSpan += "Max dexterity bonus: " + it.maxDexBonus + "<BR>";
+                }
+
+                if (it.automaticallyHitsTarget)
+                {
+                    textToSpan += "Always hits: " + it.automaticallyHitsTarget + "<BR>";
+                }
+
+                if (it.canNotBeChangedInCombat)
+                {
+                    textToSpan += "Not changeable in combat: " + it.canNotBeChangedInCombat + "<BR>";
+                }
+
+                if (it.canNotBeUnequipped)
+                {
+                    textToSpan += "Can never be changed: " + it.canNotBeUnequipped + "<BR>";
+                }
+
+                if (!it.endTurnAfterEquipping)
+                {
+                    textToSpan += "Changing is free action: " + it.endTurnAfterEquipping + "<BR>";
+                }
+
+
+                if (it.onUseItemCastSpellTag != "none" || it.onUseItemIBScript != "none" || it.onUseItem != "none")
+                {
+                    textToSpan += "Allows USE action: true" + "<BR>";
+                    if (it.destroyItemAfterOnUseItemCastSpell || it.destroyItemAfterOnUseItemIBScript || it.destroyItemAfterOnUseItemScript)
+                    {
+                        textToSpan += "Item is destroyed after full use: true" + "<BR>";
+                    }
+                }
+
+                if (it.onUseItemCastSpellTag != "none")
+                {
+                    string spellName = "none";
+                    foreach (Spell sp in gv.mod.moduleSpellsList)
+                    {
+                        if (sp.tag == it.onUseItemCastSpellTag)
+                        {
+                            spellName = sp.name;
+                            break;
+                        }
+                    }
+
+                    textToSpan += "Spell to cast on use: " + spellName + "<BR>";
+                    textToSpan += "Item on use caster level: " + it.levelOfItemForCastSpell + "<BR>";
+                }
+
+                if (it.onlyUseableWhenEquipped)
+                {
+                    textToSpan += "Must be equipped to use: " + it.onlyUseableWhenEquipped + "<BR>";
+                }
+
+                if (it.useableInSituation != "Passive" && it.useableInSituation != "Always")
+                {
+                    if (it.useableInSituation == "InCombat")
+                    {
+                        textToSpan += "Only useable in combat: true" + "<BR>";
+                    }
+
+                    else if (it.useableInSituation == "OutOfCombat")
+                    {
+                        textToSpan += "Only useable out of combat: true" + "<BR>";
+                    }
+                }
+
+                if (it.onScoringHitCastSpellTag != "none")
+                {
+                    textToSpan += "Special effect on hit: true" + "<BR>";
+                }
+
+
+                if (it.entriesForPcTags.Count > 0)
+                {
+                    string pcTags = "";
+                    foreach (LocalImmunityString ls in it.entriesForPcTags)
+                    {
+                        pcTags += ls.Value + ", ";
+                    }
+                    textToSpan += "Item perks: " + pcTags + "<BR>";
+                }
+
+                if (it.isRation)
+                {
+                    textToSpan += "Is ration: " + it.isRation + "<BR>";
+                }
+
+                if (it.isLightSource)
+                {
+                    textToSpan += "Is light source: " + it.isLightSource + "<BR>";
+                }
+
+                if (it.attributeBonusModifierStr != 0)
+                {
+                    textToSpan += "STR modifier: " + it.attributeBonusModifierStr + "<BR>";
+                }
+
+                if (it.attributeBonusModifierDex != 0)
+                {
+                    textToSpan += "DEX modifier: " + it.attributeBonusModifierDex + "<BR>";
+                }
+
+                if (it.attributeBonusModifierCon != 0)
+                {
+                    textToSpan += "CON modifier: " + it.attributeBonusModifierCon + "<BR>";
+                }
+
+                if (it.attributeBonusModifierInt != 0)
+                {
+                    textToSpan += "INT modifier: " + it.attributeBonusModifierInt + "<BR>";
+                }
+
+                if (it.attributeBonusModifierWis != 0)
+                {
+                    textToSpan += "WIS modifier: " + it.attributeBonusModifierWis + "<BR>";
+                }
+
+                if (it.attributeBonusModifierCha != 0)
+                {
+                    textToSpan += "CHA modifier: " + it.attributeBonusModifierCha + "<BR>";
+                }
+
+                if (it.hpRegenPerRoundInCombat != 0)
+                {
+                    textToSpan += "HP reg per round in combat: " + it.hpRegenPerRoundInCombat + "<BR>";
+                }
+
+                if (it.spRegenPerRoundInCombat != 0)
+                {
+                    textToSpan += "SP reg per round in combat: " + it.spRegenPerRoundInCombat + "<BR>";
+                }
+
+                if (it.minutesPerHpRegenOutsideCombat != 0)
+                {
+                    textToSpan += "+1 HP outside combat every: " + it.minutesPerHpRegenOutsideCombat + " minutes" + "<BR>";
+                }
+
+                if (it.minutesPerSpRegenOutsideCombat != 0)
+                {
+                    textToSpan += "+1 SP outside combat every: " + it.minutesPerSpRegenOutsideCombat + " minutes" + "<BR>";
+                }
+
+                if (it.MovementPointModifier != 0)
+                {
+                    textToSpan += "Effect on movement points: " + it.MovementPointModifier + "<BR>";
+                }
+
+                if (it.savingThrowModifierFortitude != 0)
+                {
+                    textToSpan += "Fortitude save modifier: " + it.savingThrowModifierFortitude + "<BR>";
+                }
+
+                if (it.savingThrowModifierReflex != 0)
+                {
+                    textToSpan += "Reflex save modifier: " + it.savingThrowModifierReflex + "<BR>";
+                }
+
+                if (it.savingThrowModifierFortitude != 0)
+                {
+                    textToSpan += "Will save modifier: " + it.savingThrowModifierWill + "<BR>";
+                }
+
+                if (it.damageTypeResistanceValueNormal != 0)
+                {
+                    textToSpan += "Resistance physical modifier: " + it.damageTypeResistanceValueNormal + "<BR>";
+                }
+
+                if (it.damageTypeResistanceValueAcid != 0)
+                {
+                    textToSpan += "Resistance acid modifier: " + it.damageTypeResistanceValueAcid + "<BR>";
+                }
+
+                if (it.damageTypeResistanceValueElectricity != 0)
+                {
+                    textToSpan += "Resistance electricity modifier: " + it.damageTypeResistanceValueElectricity + "<BR>";
+                }
+
+                if (it.damageTypeResistanceValueFire != 0)
+                {
+                    textToSpan += "Resistance fire modifier: " + it.damageTypeResistanceValueFire + "<BR>";
+                }
+
+                if (it.damageTypeResistanceValueCold != 0)
+                {
+                    textToSpan += "Resistance cold modifier: " + it.damageTypeResistanceValueCold + "<BR>";
+                }
+
+                if (it.damageTypeResistanceValuePoison != 0)
+                {
+                    textToSpan += "Resistance poison modifier: " + it.damageTypeResistanceValuePoison + "<BR>";
+                }
+
+                if (it.damageTypeResistanceValueMagic != 0)
+                {
+                    textToSpan += "Resistance magic modifier: " + it.damageTypeResistanceValueMagic + "<BR>";
+                }
+
+                if (it.onUseItemCastSpellTag != "none" || it.onUseItemIBScript != "none" || it.onUseItem != "none" || it.category != "General")
+                {
+                    textToSpan += "Allowed for classes: " + gv.sf.isUseableBy(it) + "<BR>";
+                }
+
+                textToSpan += "Value: " + it.value + "<BR>";
+
+                //rückwärts
+
+                /*
+                textToSpan += "Useable By: " + isUseableBy(it) + "<BR>";
+                textToSpan += "Two-Handed Weapon: ";
+                if (it.twoHanded) { textToSpan += "Yes<BR>"; }
+                else { textToSpan += "No<BR>"; }
+                */
+                textToSpan += "<BR>";
+
+                //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
                 description.tbXloc = (11 * gv.squareSize) + (pW * 5) + gv.oXshift;
                 description.tbYloc = 2 * gv.squareSize;
                 description.tbWidth = pW * 80;
@@ -360,7 +819,7 @@ namespace IceBlink2
                             {
                                 inventoryPageIndex--;
                                 btnPageIndex.Text = (inventoryPageIndex + 1) + "/10";
-                                resetInventory();
+                                resetInventory(inCombat);
                             }
                         }
                         else if (btnInventoryRight.getImpact(x, y))
@@ -369,7 +828,7 @@ namespace IceBlink2
                             {
                                 inventoryPageIndex++;
                                 btnPageIndex.Text = (inventoryPageIndex + 1) + "/10";
-                                resetInventory();
+                                resetInventory(inCombat);
                             }
                         }
                         else if (btnHelp.getImpact(x, y))
@@ -429,49 +888,89 @@ namespace IceBlink2
 	
 	    public void doItemAction(bool inCombat)
 	    {
-            List<string> actionList = new List<string> { "Use Item", "Drop Item", "View Item Description" };
 
-            using (ItemListSelector itSel = new ItemListSelector(gv, actionList, "Item Action"))
+            ItemRefs itRef = GetCurrentlySelectedItemRefs();
+            bool isEquippedItem = false;
+            foreach (string s in gv.mod.addedItemsRefs)
             {
-                itSel.IceBlinkButtonClose.Enabled = true;
-                itSel.IceBlinkButtonClose.Visible = true;
-                itSel.setupAll(gv);
-                var ret = itSel.ShowDialog();
-                ItemRefs itRef = GetCurrentlySelectedItemRefs();
-	            Item it = gv.mod.getItemByResRefForInfo(itRef.resref);
-                if ((itSel.selectedIndex == 0) && ( (!it.onUseItem.Equals("none")) || (!it.onUseItemIBScript.Equals("none")) || (!it.onUseItemCastSpellTag.Equals("none")) ) )
-                {                    
-	            	// selected to USE ITEM
-	            	List<string> pcNames = new List<string>();
-	                pcNames.Add("cancel");
-	                if (inCombat)
-	                {
-	                    Player pc = gv.mod.playerList[gv.screenCombat.currentPlayerIndex];
-                        if (!pc.isTemporaryAllyForThisEncounterOnly)
-                        {
-                            pcNames.Add(pc.name);
-                        }
-	                }
-	                else
-	                {
-		                foreach (Player pc in gv.mod.playerList)
-		                {
-		                    pcNames.Add(pc.name);
-		                }	   
-	                }
-                    using (ItemListSelector itSel2 = new ItemListSelector(gv, pcNames, "Selected PC to Use Item"))
+                if (s == itRef.tag)
+                {
+                    isEquippedItem = true;
+                    break;
+                }
+            }
+
+            if (!isEquippedItem)
+            {
+
+                //todo: check wheter torach ahs use action, otehr wise add in
+
+                //different item selector if item allows no use action at all
+                Item it = gv.mod.getItemByResRefForInfo(itRef.resref);
+                if ((it.onUseItem.Equals("none") && it.onUseItemIBScript.Equals("none") && it.onUseItemCastSpellTag.Equals("none")) || itRef.quantity == 0 || (inCombat && it.useableInSituation == "OutOfCombat") || (!inCombat && it.useableInSituation == "InCombat") || it.useableInSituation
+                    == "Passive")
+                {
+
+                    //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                    List<string> actionList = new List<string> { "View Item Description", "Drop Item"};
+                    using (ItemListSelector itSel = new ItemListSelector(gv, actionList, "Item Action"))
                     {
-                        itSel2.IceBlinkButtonClose.Enabled = true;
-                        itSel2.IceBlinkButtonClose.Visible = true;
-                        itSel2.setupAll(gv);
-                        var ret2 = itSel2.ShowDialog();
-                        if (itSel2.selectedIndex > 0)
+                        itSel.IceBlinkButtonClose.Enabled = true;
+                        itSel.IceBlinkButtonClose.Visible = true;
+                        itSel.setupAll(gv);
+                        var ret = itSel.ShowDialog();
+                        //ItemRefs itRef = GetCurrentlySelectedItemRefs();
+                        it = gv.mod.getItemByResRefForInfo(itRef.resref);
+
+                        if (itSel.selectedIndex == 0) // selected to VIEW ITEM
                         {
-                            try
-		                    {
-                                Player pc = gv.mod.playerList[gv.screenCombat.currentPlayerIndex];
+                            gv.sf.ShowFullDescription(it);
+                        }
+                        else if (itSel.selectedIndex == 1) // selected to DROP ITEM
+                        {
+                            DialogResult dlg = IBMessageBox.Show(gv, "Do you wish to drop this item forever?", enumMessageButton.YesNo);
+                            if (dlg == DialogResult.Yes)
+                            {
+                                //drop item
                                 itRef = GetCurrentlySelectedItemRefs();
-		            	        it = gv.mod.getItemByResRefForInfo(itRef.resref);
+                                it = gv.mod.getItemByResRef(itRef.resref);
+                                if (!it.plotItem)
+                                {
+                                    gv.sf.RemoveItemFromInventory(itRef, 1);
+                                }
+                                else
+                                {
+                                    gv.sf.MessageBoxHtml("You can't drop this item.");
+                                }
+                            }
+                        }
+
+                    }
+                    resetInventory(inCombat);
+                    //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                }
+                else
+                {
+                    List<string> actionList = new List<string> { "Use Item", "Drop Item", "View Item Description" };
+
+                    using (ItemListSelector itSel = new ItemListSelector(gv, actionList, "Item Action"))
+                    {
+                        itSel.IceBlinkButtonClose.Enabled = true;
+                        itSel.IceBlinkButtonClose.Visible = true;
+                        itSel.setupAll(gv);
+                        var ret = itSel.ShowDialog();
+                        //ItemRefs itRef = GetCurrentlySelectedItemRefs();
+                        it = gv.mod.getItemByResRefForInfo(itRef.resref);
+                        if ((itSel.selectedIndex == 0) && (((!it.onUseItem.Equals("none") && itRef.quantity != 0)) || ((!it.onUseItemIBScript.Equals("none")) && itRef.quantity != 0) || ((!it.onUseItemCastSpellTag.Equals("none") && itRef.quantity != 0))))
+                        {
+                            // selected to USE ITEM
+                            List<string> pcNames = new List<string>();
+                            pcNames.Add("cancel");
+
+                            if (inCombat || it.isLightSource)
+                            {
+                                Player pc = gv.mod.playerList[gv.screenCombat.currentPlayerIndex];
+                                //check to see if use IBScript first
                                 bool isClassBound = false;
                                 foreach (PlayerClass pClass in gv.mod.modulePlayerClassList)
                                 {
@@ -488,15 +987,14 @@ namespace IceBlink2
                                         break;
                                     }
                                 }
-                                if ( (pc.playerClass.containsItemRefsWithResRef(itRef.resref) || !isClassBound) && (!pc.isTemporaryAllyForThisEncounterOnly))
+                                if ((pc.playerClass.containsItemRefsWithResRef(itRef.resref) || !isClassBound) && (!it.onlyUseableWhenEquipped))
                                 {
-                                    if (inCombat)
+                                    if (inCombat && !it.isLightSource)
                                     {
-                                        //check to see if use IBScript first
                                         if (!it.onUseItem.Equals("none"))
                                         {
                                             //Player pc = gv.mod.playerList[gv.screenCombat.currentPlayerIndex];
-                                            doItemInventoryScriptBasedOnFilename(pc);
+                                            doItemInventoryScriptBasedOnFilename(gv.mod.playerList[gv.screenCombat.currentPlayerIndex]);
                                             gv.screenCombat.currentCombatMode = "move";
                                             gv.screenType = "combat";
                                             gv.screenCombat.endPcTurn(false);
@@ -513,90 +1011,393 @@ namespace IceBlink2
                                             doItemInventoryCastSpellCombat(gv.screenCombat.currentPlayerIndex);
                                             gv.screenCombat.currentCombatMode = "cast";
                                             gv.screenType = "combat";
+                                            //gv.cc.currentSelectedSpell = gv.mod.getSpellByTag(it.onUseItemCastSpellTag);
+                                            //if (gv.cc.currentSelectedSpell.usesTurnToActivate)
+                                            //{
+                                            //gv.screenCombat.endPcTurn(false);
+                                            //}
                                         }
                                     }
-                                    //outside combat
-                                    else
+                                    //light source outside combat
+                                    else if (!inCombat)
                                     {
                                         //check to see if use IBScript first
                                         if (!it.onUseItem.Equals("none"))
                                         {
-                                            pc = gv.mod.playerList[itSel2.selectedIndex - 1];
+                                            pc = gv.mod.playerList[gv.mod.selectedPartyLeader];
                                             doItemInventoryScriptBasedOnFilename(pc);
                                         }
                                         else if (!it.onUseItemIBScript.Equals("none"))
                                         {
-                                            doItemInventoryIBScript(itSel2.selectedIndex - 1);
+                                            doItemInventoryIBScript(gv.mod.selectedPartyLeader);
                                         }
                                         else if (!it.onUseItemCastSpellTag.Equals("none"))
                                         {
                                             bool outsideCombat = !inCombat;
-                                            doItemInventoryCastSpell(itSel2.selectedIndex - 1, outsideCombat);
+                                            doItemInventoryCastSpell(gv.mod.selectedPartyLeader, outsideCombat);
                                         }
                                     }
                                 }
                                 else
                                 {
-                                    //item not allowed for class
-                                    IBMessageBox.Show(gv, "The item cannot be used by this player.");
+                                    if (!pc.playerClass.containsItemRefsWithResRef(itRef.resref) && isClassBound)
+                                    {
+                                        //add message that this class cannot use this time
+                                        IBMessageBox.Show(gv, "The item cannot be used by this player.");
+                                    }
+                                    else
+                                    {
+                                        //or can only be used while equipped
+                                        IBMessageBox.Show(gv, "The item can only be used while equipped.");
+                                    }
                                 }
-		                    }
-		                    catch (Exception ex)
-		                    {
-                                gv.errorLog(ex.ToString());
-		                    } 
+
+
+                                /*
+                                if (!pc.isTemporaryAllyForThisEncounterOnly)
+                                {
+                                    pcNames.Add(pc.name);
+                                }
+                                */
+                            }
+                            //not in combat and no light source item
+                            else
+                            {
+                                foreach (Player pc in gv.mod.playerList)
+                                {
+                                    pcNames.Add(pc.name);
+                                }
+                                //}
+                                using (ItemListSelector itSel2 = new ItemListSelector(gv, pcNames, "Selected PC to Use Item"))
+                                {
+                                    itSel2.IceBlinkButtonClose.Enabled = true;
+                                    itSel2.IceBlinkButtonClose.Visible = true;
+                                    itSel2.setupAll(gv);
+                                    var ret2 = itSel2.ShowDialog();
+                                    if (itSel2.selectedIndex > 0)
+                                    {
+                                        try
+                                        {
+                                            Player pc = gv.mod.playerList[gv.screenCombat.currentPlayerIndex];
+                                            itRef = GetCurrentlySelectedItemRefs();
+                                            it = gv.mod.getItemByResRefForInfo(itRef.resref);
+                                            bool isClassBound = false;
+                                            foreach (PlayerClass pClass in gv.mod.modulePlayerClassList)
+                                            {
+                                                foreach (ItemRefs iRef in pClass.itemsAllowed)
+                                                {
+                                                    if (iRef == itRef)
+                                                    {
+                                                        isClassBound = true;
+                                                        break;
+                                                    }
+                                                }
+                                                if (isClassBound)
+                                                {
+                                                    break;
+                                                }
+                                            }
+                                            if ((pc.playerClass.containsItemRefsWithResRef(itRef.resref) || !isClassBound) && (!pc.isTemporaryAllyForThisEncounterOnly))
+                                            {
+                                                if (inCombat)
+                                                {
+                                                    //check to see if use IBScript first
+                                                    if (!it.onUseItem.Equals("none"))
+                                                    {
+                                                        //Player pc = gv.mod.playerList[gv.screenCombat.currentPlayerIndex];
+                                                        doItemInventoryScriptBasedOnFilename(pc);
+                                                        gv.screenCombat.currentCombatMode = "move";
+                                                        gv.screenType = "combat";
+                                                        gv.screenCombat.endPcTurn(false);
+                                                    }
+                                                    else if (!it.onUseItemIBScript.Equals("none"))
+                                                    {
+                                                        doItemInventoryIBScript(gv.screenCombat.currentPlayerIndex);
+                                                        gv.screenCombat.currentCombatMode = "move";
+                                                        gv.screenType = "combat";
+                                                        gv.screenCombat.endPcTurn(false);
+                                                    }
+                                                    else if (!it.onUseItemCastSpellTag.Equals("none"))
+                                                    {
+                                                        doItemInventoryCastSpellCombat(gv.screenCombat.currentPlayerIndex);
+                                                        gv.screenCombat.currentCombatMode = "cast";
+                                                        gv.screenType = "combat";
+                                                        //gv.cc.currentSelectedSpell = gv.mod.getSpellByTag(it.onUseItemCastSpellTag);
+                                                        //if (gv.cc.currentSelectedSpell.usesTurnToActivate)
+                                                        //{
+                                                        //gv.screenCombat.endPcTurn(false);
+                                                        //}
+                                                    }
+                                                }
+                                                //outside combat
+                                                else
+                                                {
+                                                    //check to see if use IBScript first
+                                                    if (!it.onUseItem.Equals("none"))
+                                                    {
+                                                        pc = gv.mod.playerList[itSel2.selectedIndex - 1];
+                                                        doItemInventoryScriptBasedOnFilename(pc);
+                                                    }
+                                                    else if (!it.onUseItemIBScript.Equals("none"))
+                                                    {
+                                                        doItemInventoryIBScript(itSel2.selectedIndex - 1);
+                                                    }
+                                                    else if (!it.onUseItemCastSpellTag.Equals("none"))
+                                                    {
+                                                        bool outsideCombat = !inCombat;
+                                                        doItemInventoryCastSpell(itSel2.selectedIndex - 1, outsideCombat);
+                                                    }
+                                                }
+                                            }
+                                            else
+                                            {
+                                                //item not allowed for class
+                                                IBMessageBox.Show(gv, "The item cannot be used by this player.");
+                                            }
+                                        }
+                                        catch (Exception ex)
+                                        {
+                                            gv.errorLog(ex.ToString());
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        else if (itSel.selectedIndex == 1) // selected to DROP ITEM
+                        {
+                            DialogResult dlg = IBMessageBox.Show(gv, "Do you wish to drop this item forever?", enumMessageButton.YesNo);
+                            if (dlg == DialogResult.Yes)
+                            {
+                                //drop item
+                                itRef = GetCurrentlySelectedItemRefs();
+                                it = gv.mod.getItemByResRef(itRef.resref);
+                                if (!it.plotItem)
+                                {
+                                    gv.sf.RemoveItemFromInventory(itRef, 1);
+                                }
+                                else
+                                {
+                                    gv.sf.MessageBoxHtml("You can't drop this item.");
+                                }
+                            }
+                        }
+                        else if (itSel.selectedIndex == 2) // selected to VIEW ITEM
+                        {
+                            gv.sf.ShowFullDescription(it);
                         }
                     }
-                }	                
-	            else if (itSel.selectedIndex == 1) // selected to DROP ITEM
-	            {	                		
-	            	DialogResult dlg = IBMessageBox.Show(gv, "Do you wish to drop this item forever?", enumMessageButton.YesNo);
-                    if (dlg == DialogResult.Yes)
-                    {
-                        //drop item
-	    	            itRef = GetCurrentlySelectedItemRefs();
-	    	            it = gv.mod.getItemByResRef(itRef.resref);
-	    	            if (!it.plotItem)
-	    	            {
-		    	            gv.sf.RemoveItemFromInventory(itRef, 1);
-	    	            }
-	    	            else
-	    	            {
-	    	                gv.sf.MessageBoxHtml("You can't drop this item.");
-	    	            }
-                    }
-	            }
-	            else if (itSel.selectedIndex == 2) // selected to VIEW ITEM
-	            {
-	            	gv.sf.ShowFullDescription(it);
-	            }                                
+                    resetInventory(inCombat);
+                }
             }
-            resetInventory();
+
+            //is equipped item
+            else
+            {
+                //different item selector if item allows no use action at all
+                Item it = gv.mod.getItemByResRefForInfo(itRef.resref);
+                if ((it.onUseItem.Equals("none") && it.onUseItemIBScript.Equals("none") && it.onUseItemCastSpellTag.Equals("none")) || itRef.quantity == 0 || (inCombat && it.useableInSituation == "OutOfCombat") || (!inCombat && it.useableInSituation == "InCombat") || it.useableInSituation
+                    == "Passive")
+                {
+
+                    //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                    List<string> actionList = new List<string> { "View Item Description" };
+                    using (ItemListSelector itSel = new ItemListSelector(gv, actionList, "Item Action"))
+                    {
+                        itSel.IceBlinkButtonClose.Enabled = true;
+                        itSel.IceBlinkButtonClose.Visible = true;
+                        itSel.setupAll(gv);
+                        var ret = itSel.ShowDialog();
+                        //ItemRefs itRef = GetCurrentlySelectedItemRefs();
+                        it = gv.mod.getItemByResRefForInfo(itRef.resref);
+                        
+                        if (itSel.selectedIndex == 0) // selected to VIEW ITEM
+                        {
+                            gv.sf.ShowFullDescription(it);
+                        }
+                    }
+                    resetInventory(inCombat);
+                    //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                }
+                else
+                {
+
+                    List<string> actionList = new List<string> { "Use Item", "View Item Description" };
+                    using (ItemListSelector itSel = new ItemListSelector(gv, actionList, "Item Action"))
+                    {
+                        itSel.IceBlinkButtonClose.Enabled = true;
+                        itSel.IceBlinkButtonClose.Visible = true;
+                        itSel.setupAll(gv);
+                        var ret = itSel.ShowDialog();
+                        //ItemRefs itRef = GetCurrentlySelectedItemRefs();
+                        it = gv.mod.getItemByResRefForInfo(itRef.resref);
+                        if ((itSel.selectedIndex == 0) && (((!it.onUseItem.Equals("none") && itRef.quantity != 0)) || ((!it.onUseItemIBScript.Equals("none")) && itRef.quantity != 0) || ((!it.onUseItemCastSpellTag.Equals("none") && itRef.quantity != 0))))
+                        {
+                            // selected to USE ITEM
+                            List<string> pcNames = new List<string>();
+                            pcNames.Add("cancel");
+                            if (inCombat)
+                            {
+                                Player pc = gv.mod.playerList[gv.screenCombat.currentPlayerIndex];
+                                //if (!pc.isTemporaryAllyForThisEncounterOnly)
+                                //{
+                                pcNames.Add(pc.name);
+                                //}
+                            }
+                            else
+                            {
+
+                                Player pc = gv.mod.playerList[gv.mod.selectedPartyLeader];
+                                pcNames.Add(pc.name);
+
+                            }
+
+                            //pc choosing selector
+
+                            //1. find out if current pc can use the item
+
+                            //2. if he can, do it
+
+                            //3. if he cant, cancel
+                            if (inCombat)
+                            {
+                                //check to see if use IBScript first
+                                if (!it.onUseItem.Equals("none"))
+                                {
+                                    //Player pc = gv.mod.playerList[gv.screenCombat.currentPlayerIndex];
+                                    doItemInventoryScriptBasedOnFilename(gv.mod.playerList[gv.screenCombat.currentPlayerIndex]);
+                                    gv.screenCombat.currentCombatMode = "move";
+                                    gv.screenType = "combat";
+                                    gv.screenCombat.endPcTurn(false);
+                                }
+                                else if (!it.onUseItemIBScript.Equals("none"))
+                                {
+                                    doItemInventoryIBScript(gv.screenCombat.currentPlayerIndex);
+                                    gv.screenCombat.currentCombatMode = "move";
+                                    gv.screenType = "combat";
+                                    gv.screenCombat.endPcTurn(false);
+                                }
+                                else if (!it.onUseItemCastSpellTag.Equals("none"))
+                                {
+                                    doItemInventoryCastSpellCombat(gv.screenCombat.currentPlayerIndex);
+                                    gv.screenCombat.currentCombatMode = "cast";
+                                    gv.screenType = "combat";
+
+                                    gv.cc.currentSelectedSpell = gv.mod.getSpellByTag(it.onUseItemCastSpellTag);
+                                    if (gv.cc.currentSelectedSpell.usesTurnToActivate)
+                                    {
+                                        //gv.screenCombat.endPcTurn(false);
+                                        gv.screenCombat.continueTurn = false;
+                                        gv.screenCombat.dontEndTurn = false;
+                                    }
+                                }
+                            }
+                            //outside combat
+                            //Player pc = gv.mod.playerList[gv.mod.selectedPartyLeader];
+                            else
+                            {
+                                //check to see if use IBScript first
+                                if (!it.onUseItem.Equals("none"))
+                                {
+                                    //pc = gv.mod.playerList[itSel2.selectedIndex - 1];
+                                    doItemInventoryScriptBasedOnFilename(gv.mod.playerList[gv.mod.selectedPartyLeader]);
+                                }
+                                else if (!it.onUseItemIBScript.Equals("none"))
+                                {
+                                    doItemInventoryIBScript(gv.mod.selectedPartyLeader);
+                                }
+                                else if (!it.onUseItemCastSpellTag.Equals("none"))
+                                {
+                                    bool outsideCombat = !inCombat;
+                                    doItemInventoryCastSpell(gv.mod.selectedPartyLeader, outsideCombat);
+                                }
+                            }
+                        }
+                        else if (itSel.selectedIndex == 1) // selected to VIEW ITEM
+                        {
+                            gv.sf.ShowFullDescription(it);
+                        }
+                    }
+                    resetInventory(inCombat);
+                }
+            }
 	    }
-	    public void doItemInventoryScriptBasedOnFilename(Player pc)
+        public void doItemInventoryScriptBasedOnFilename(Player pc)
         {
-    	    if (isSelectedItemSlotInPartyInventoryRange())
-		    {
-    		    ItemRefs itRef = GetCurrentlySelectedItemRefs();
-        	    gv.cc.doItemScriptBasedOnUseItem(pc, itRef, true);	    	
-		    }
-            resetInventory();
+            //punkrock
+            if (isSelectedItemSlotInPartyInventoryRange())
+            {
+                ItemRefs itRef = GetCurrentlySelectedItemRefs();
+                if (itRef.quantity != 0)
+                {
+                    gv.cc.doItemScriptBasedOnUseItem(pc, itRef, true);
+                    Item it = gv.mod.getItemByResRefForInfo(itRef.resref);
+                    if (it.destroyItemAfterOnUseItemIBScript && itRef.quantity == 1)
+                    {
+                        gv.screenItemSelector.unequipItemOnDestroy(it, pc, itRef);
+                        gv.sf.RemoveItemFromInventory(itRef, 1);
+                        //resetInventory(true);
+                    }
+                    if (itRef.quantity > 1)
+                    {
+                        itRef.quantity--;
+                        if (itRef.quantity == 1)
+                        {
+                            itRef.quantity--;
+                            if (it.destroyItemAfterOnUseItemIBScript)
+                            {
+                                gv.screenItemSelector.unequipItemOnDestroy(it, pc, itRef);
+                                gv.sf.RemoveItemFromInventory(itRef, 1);
+                            }
+                        }
+                    }
+                }
+            }
+
+            bool inCombat = false;
+            if (gv.screenType == "combatInventory")
+            {
+                inCombat = true;
+            }
+            resetInventory(inCombat);
         }
+
 	    public void doItemInventoryIBScript(int pcIndex)
         {
     	    if (isSelectedItemSlotInPartyInventoryRange())
 		    {
     		    ItemRefs itRef = GetCurrentlySelectedItemRefs();
     		    Item it = gv.mod.getItemByResRefForInfo(itRef.resref);
-    		    gv.mod.indexOfPCtoLastUseItem = pcIndex;
-                //do IBScript
-                gv.cc.doIBScriptBasedOnFilename(it.onUseItemIBScript, it.onUseItemIBScriptParms);
-                if (it.destroyItemAfterOnUseItemIBScript)
+                if (itRef.quantity != 0)
                 {
-                    gv.sf.RemoveItemFromInventory(itRef, 1);
+                    gv.mod.indexOfPCtoLastUseItem = pcIndex;
+                    //do IBScript
+                    gv.cc.doIBScriptBasedOnFilename(it.onUseItemIBScript, it.onUseItemIBScriptParms);
+                    if (it.destroyItemAfterOnUseItemIBScript && itRef.quantity == 1)
+                    {
+                        gv.screenItemSelector.unequipItemOnDestroy(it, gv.mod.playerList[pcIndex],itRef);
+                        gv.sf.RemoveItemFromInventory(itRef, 1);
+                    }
+                    if (itRef.quantity > 1)
+                    {
+                        itRef.quantity--;
+                        if (itRef.quantity == 1)
+                        {
+                            itRef.quantity--;
+                            if (it.destroyItemAfterOnUseItemIBScript)
+                            {
+                                gv.screenItemSelector.unequipItemOnDestroy(it, gv.mod.playerList[pcIndex], itRef);
+                                gv.sf.RemoveItemFromInventory(itRef, 1);
+                            }
+                        }
+                    }
                 }	    	
 		    }
-            resetInventory();
+            bool inCombat = false;
+            if (gv.screenType == "combatInventory")
+            {
+                inCombat = true;
+            }
+            resetInventory(inCombat);
         }
         public void doItemInventoryCastSpellCombat(int pcIndex)
         {
@@ -604,14 +1405,38 @@ namespace IceBlink2
             {
                 ItemRefs itRef = GetCurrentlySelectedItemRefs();
                 Item it = gv.mod.getItemByResRefForInfo(itRef.resref);
-                gv.mod.indexOfPCtoLastUseItem = pcIndex;
-                gv.cc.currentSelectedSpell = gv.mod.getSpellByTag(it.onUseItemCastSpellTag);
-                if (it.destroyItemAfterOnUseItemCastSpell)
+                if (itRef.quantity != 0)
                 {
-                    gv.sf.RemoveItemFromInventory(itRef, 1);
+                    gv.mod.indexOfPCtoLastUseItem = pcIndex;
+                    gv.cc.currentSelectedSpell = gv.mod.getSpellByTag(it.onUseItemCastSpellTag);
+                    if (it.destroyItemAfterOnUseItemCastSpell && itRef.quantity == 1)
+                    {
+                        //destroyer
+                        //knacker2
+                        gv.screenItemSelector.unequipItemOnDestroy(it, gv.mod.playerList[pcIndex], itRef);
+                        gv.sf.RemoveItemFromInventory(itRef, 1);
+                    }
+                    if (itRef.quantity > 1)
+                    {
+                        itRef.quantity--;
+                        if (itRef.quantity == 1)
+                        {
+                            itRef.quantity--;
+                            if (it.destroyItemAfterOnUseItemCastSpell)
+                            {
+                                gv.screenItemSelector.unequipItemOnDestroy(it, gv.mod.playerList[pcIndex], itRef);
+                                gv.sf.RemoveItemFromInventory(itRef, 1);
+                            }
+                        }
+                    }
                 }
             }
-            resetInventory();
+            bool inCombat = false;
+            if (gv.screenType == "combatInventory")
+            {
+                inCombat = true;
+            }
+            resetInventory(inCombat);
         }
         public void doItemInventoryCastSpell(int pcIndex, bool outsideCombat)
         {
@@ -619,16 +1444,38 @@ namespace IceBlink2
             {
                 ItemRefs itRef = GetCurrentlySelectedItemRefs();
                 Item it = gv.mod.getItemByResRefForInfo(itRef.resref);
-                Spell sp = gv.mod.getSpellByTag(it.onUseItemCastSpellTag);
-                Player pc = gv.mod.playerList[pcIndex];
-                gv.mod.indexOfPCtoLastUseItem = pcIndex;
-                gv.cc.doSpellBasedOnScriptOrEffectTag(sp, it, pc, outsideCombat, false);
-                if (it.destroyItemAfterOnUseItemCastSpell)
+                if (itRef.quantity != 0)
                 {
-                    gv.sf.RemoveItemFromInventory(itRef, 1);
+                    Spell sp = gv.mod.getSpellByTag(it.onUseItemCastSpellTag);
+                    Player pc = gv.mod.playerList[pcIndex];
+                    gv.mod.indexOfPCtoLastUseItem = pcIndex;
+                    gv.cc.doSpellBasedOnScriptOrEffectTag(sp, it, pc, outsideCombat, false);
+                    if (it.destroyItemAfterOnUseItemCastSpell && itRef.quantity == 1)
+                    {
+                        gv.screenItemSelector.unequipItemOnDestroy(it, gv.mod.playerList[pcIndex], itRef);
+                        gv.sf.RemoveItemFromInventory(itRef, 1);
+                    }
+                    if (itRef.quantity > 1)
+                    {
+                        itRef.quantity--;
+                        if (itRef.quantity == 1)
+                        {
+                            itRef.quantity--;
+                            if (it.destroyItemAfterOnUseItemCastSpell)
+                            {
+                                gv.screenItemSelector.unequipItemOnDestroy(it, gv.mod.playerList[pcIndex], itRef);
+                                gv.sf.RemoveItemFromInventory(itRef, 1);
+                            }
+                        }
+                    }
                 }
             }
-            resetInventory();
+            bool inCombat = false;
+            if (gv.screenType == "combatInventory")
+            {
+                inCombat = true;
+            }
+            resetInventory(inCombat);
         }
         public int GetIndex()
 	    {

@@ -31,6 +31,7 @@ namespace IceBlink2
         public int Height = 0;
         public float scaler = 1.0f;
         public bool playedHoverSound = false;
+        public bool btnOfChargedItem = false;
         public GameView gv;
 
         public IbbButton(GameView g, float sc)
@@ -156,7 +157,14 @@ namespace IceBlink2
                     gv.DrawText(Quantity, this.X + ulX + x, this.Y + ulY + y, scaler, Color.Black);
                 }
             }
-            gv.DrawText(Quantity, this.X + ulX, this.Y + ulY, scaler, Color.White);
+            if (!this.btnOfChargedItem)
+            {
+                gv.DrawText(Quantity, this.X + ulX, this.Y + ulY, scaler, Color.White);
+            }
+            else
+            {
+                gv.DrawText(Quantity, this.X + ulX, this.Y + ulY, scaler, Color.Green);
+            }
 
             // DRAW HOTKEY
             if (gv.showHotKeys)

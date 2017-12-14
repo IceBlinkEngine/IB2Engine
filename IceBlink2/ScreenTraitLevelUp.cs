@@ -520,10 +520,22 @@ namespace IceBlink2
 
             if (!infoOnly)
             {
+                
+                
                 //DRAW TEXT		
                 locY = (gv.squareSize * 0) + (pH * 2);
                 //gv.DrawText("Select One Trait to Learn", noticeX, pH * 1, 1.0f, Color.Gray);
-                gv.DrawText("Select " + traitToLearnIndex + " of " + gv.mod.getPlayerClass(pc.classTag).traitsToLearnAtLevelTable[pc.classLevel] + " Choices to Learn", noticeX, pH * 1, 1.0f, Color.Gray);
+                int maxNumber = 0;
+                if (gv.mod.getPlayerClass(pc.classTag).traitsToLearnAtLevelTable[pc.classLevel] > pc.getTraitsToLearn(gv.mod).Count)
+                {
+                    maxNumber = pc.getTraitsToLearn(gv.mod).Count;
+                    maxNumber += traitToLearnIndex-1;
+                }
+                else
+                {
+                    maxNumber = gv.mod.getPlayerClass(pc.classTag).traitsToLearnAtLevelTable[pc.classLevel];
+                }
+                gv.DrawText("Select Choice Nr. " + traitToLearnIndex + " of " + maxNumber + " Choice(s) to Learn", noticeX, pH * 1, 1.0f, Color.Gray);
 
                 //DRAW NOTIFICATIONS
                 if (isSelectedTraitSlotInKnownTraitsRange())
@@ -970,7 +982,16 @@ namespace IceBlink2
 
                     //check to see if there are more traits to learn at this level  
                     traitToLearnIndex++;
-                    if (traitToLearnIndex <= gv.mod.getPlayerClass(pc.classTag).traitsToLearnAtLevelTable[pc.classLevel])
+                    int maxNumber = 0;
+                    if (gv.mod.getPlayerClass(pc.classTag).traitsToLearnAtLevelTable[pc.classLevel] > pc.getTraitsToLearn(gv.mod).Count)
+                    {
+                        maxNumber = pc.getTraitsToLearn(gv.mod).Count + 1;
+                    }
+                    else
+                    {
+                        maxNumber = gv.mod.getPlayerClass(pc.classTag).traitsToLearnAtLevelTable[pc.classLevel];
+                    }
+                    if (traitToLearnIndex <= maxNumber)
                     {
                         gv.screenParty.traitGained += tr.name + ", ";
                     }

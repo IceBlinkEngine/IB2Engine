@@ -486,17 +486,418 @@ namespace IceBlink2
             btnRing2.Img2 = gv.cc.LoadBitmap(gv.mod.getItemByResRefForInfo(pc.Ring2Refs.resref).itemImage);
             gv.cc.DisposeOfBitmap(ref btnAmmo.Img2);
             btnAmmo.Img2 = gv.cc.LoadBitmap(gv.mod.getItemByResRefForInfo(pc.AmmoRefs.resref).itemImage);
-            
+
+            //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+            /*
+            if ((it.onUseItemCastSpellTag == "none" || it.onUseItemCastSpellTag == "") && (it.onUseItemIBScript == "none" || it.onUseItemIBScript == "") && (it.onUseItem == "none" || it.onUseItem == ""))
+            {
+                if (itr.quantity > 1)
+                {
+                    btnInventorySlot[i].Quantity = itr.quantity + "";
+                }
+                else
+                {
+                    btnInventorySlot[i].Quantity = "";
+                }
+            }
+            else if (itr.quantity != 1)
+            {
+                if (itr.quantity > 1)
+                {
+                    btnInventorySlot[i].Quantity = (itr.quantity - 1) + "";
+                }
+                else
+                {
+                    btnInventorySlot[i].Quantity = "0";
+                }
+            }
+            */
+            //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+            //bockauf
+            //Ammo
             ItemRefs itr = gv.mod.getItemRefsInInventoryByResRef(pc.AmmoRefs.resref);
+          
             if (itr != null)
             {
+                //Item itQ = gv.mod.getItemByResRefForInfo(pc.AmmoRefs.resref);
                 btnAmmo.Quantity = itr.quantity + "";
             }
             else
             {
                 btnAmmo.Quantity = "";
             }
-            
+
+            //MainHand
+            itr = pc.MainHandRefs;
+            if (itr != null)
+            {
+                Item itQ = gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref);
+                if ((itQ.onUseItemCastSpellTag == "none" || itQ.onUseItemCastSpellTag == "") && (itQ.onUseItemIBScript == "none" || itQ.onUseItemIBScript == "") && (itQ.onUseItem == "none" || itQ.onUseItem == ""))
+                {
+                    if (itr.quantity > 1)
+                    {
+                        btnMainHand.Quantity = itr.quantity + "";
+                        btnMainHand.btnOfChargedItem = false;
+                    }
+                    else
+                    {
+                        btnMainHand.Quantity = "";
+                        btnMainHand.btnOfChargedItem = false;
+                    }
+                }
+                else if (itr.quantity != 1)
+                {
+                    if (itr.quantity > 1)
+                    {
+                        btnMainHand.Quantity = (itr.quantity - 1) + "";
+                        if (!itQ.isStackable)
+                        {
+                            btnMainHand.btnOfChargedItem = true;
+                        }
+                        //eg potion
+                        else
+                        {
+                            btnMainHand.btnOfChargedItem = false;
+                        }
+                    }
+                    else
+                    {
+                        btnMainHand.Quantity = "0";
+                        btnMainHand.btnOfChargedItem = true;
+                    }
+                }
+            }
+            else
+            {
+                btnMainHand.Quantity = "";
+                btnMainHand.btnOfChargedItem = false;
+            }
+
+
+            //offhand, todo
+            //MainHand
+            itr = pc.OffHandRefs;
+            if (itr != null)
+            {
+                Item itQ = gv.mod.getItemByResRefForInfo(pc.OffHandRefs.resref);
+                if ((itQ.onUseItemCastSpellTag == "none" || itQ.onUseItemCastSpellTag == "") && (itQ.onUseItemIBScript == "none" || itQ.onUseItemIBScript == "") && (itQ.onUseItem == "none" || itQ.onUseItem == ""))
+                {
+                    if (itr.quantity > 1)
+                    {
+                        btnOffHand.Quantity = itr.quantity + "";
+                        btnOffHand.btnOfChargedItem = false;
+                    }
+                    else
+                    {
+                        btnOffHand.Quantity = "";
+                        btnOffHand.btnOfChargedItem = false;
+                    }
+                }
+                else if (itr.quantity != 1)
+                {
+                    if (itr.quantity > 1)
+                    {
+                        btnOffHand.Quantity = (itr.quantity - 1) + "";
+                        if (!itQ.isStackable)
+                        {
+                            btnOffHand.btnOfChargedItem = true;
+                        }
+                        //eg potion
+                        else
+                        {
+                            btnOffHand.btnOfChargedItem = false;
+                        }
+                    }
+                    else
+                    {
+                        btnOffHand.Quantity = "0";
+                        btnOffHand.btnOfChargedItem = true;
+                    }
+                }
+            }
+            else
+            {
+                btnOffHand.Quantity = "";
+                btnOffHand.btnOfChargedItem = false;
+            }
+
+            //Head
+            itr =  pc.HeadRefs;
+            if (itr != null)
+            {
+                Item itQ = gv.mod.getItemByResRefForInfo(pc.HeadRefs.resref);
+                if ((itQ.onUseItemCastSpellTag == "none" || itQ.onUseItemCastSpellTag == "") && (itQ.onUseItemIBScript == "none" || itQ.onUseItemIBScript == "") && (itQ.onUseItem == "none" || itQ.onUseItem == ""))
+                {
+                    if (itr.quantity > 1)
+                    {
+                        btnHead.Quantity = itr.quantity + "";
+                        btnHead.btnOfChargedItem = false;
+                    }
+                    else
+                    {
+                        btnHead.Quantity = "";
+                        btnHead.btnOfChargedItem = false;
+                    }
+                }
+                else if (itr.quantity != 1)
+                {
+                    if (itr.quantity > 1)
+                    {
+                        btnHead.Quantity = (itr.quantity - 1) + "";
+                        if (!itQ.isStackable)
+                        {
+                            btnHead.btnOfChargedItem = true;
+                        }
+                        //eg potion
+                        else
+                        {
+                            btnHead.btnOfChargedItem = false;
+                        }
+                    }
+                    else
+                    {
+                        btnHead.Quantity = "0";
+                        btnHead.btnOfChargedItem = true;
+                    }
+                }
+            }
+            else
+            {
+                btnHead.Quantity = "";
+                btnHead.btnOfChargedItem = false;
+            }
+
+            //Body
+            itr = pc.BodyRefs;
+            if (itr != null)
+            {
+                Item itQ = gv.mod.getItemByResRefForInfo(pc.BodyRefs.resref);
+                if ((itQ.onUseItemCastSpellTag == "none" || itQ.onUseItemCastSpellTag == "") && (itQ.onUseItemIBScript == "none" || itQ.onUseItemIBScript == "") && (itQ.onUseItem == "none" || itQ.onUseItem == ""))
+                {
+                    if (itr.quantity > 1)
+                    {
+                        btnBody.Quantity = itr.quantity + "";
+                        btnBody.btnOfChargedItem = false;
+                    }
+                    else
+                    {
+                        btnBody.Quantity = "";
+                        btnBody.btnOfChargedItem = false;
+                    }
+                }
+                else if (itr.quantity != 1)
+                {
+                    if (itr.quantity > 1)
+                    {
+                        btnBody.Quantity = (itr.quantity - 1) + "";
+                        if (!itQ.isStackable)
+                        {
+                            btnBody.btnOfChargedItem = true;
+                        }
+                        //eg potion
+                        else
+                        {
+                            btnBody.btnOfChargedItem = false;
+                        }
+                    }
+                    else
+                    {
+                        btnBody.Quantity = "0";
+                        btnBody.btnOfChargedItem = true;
+                    }
+                }
+            }
+            else
+            {
+                btnBody.Quantity = "";
+                btnBody.btnOfChargedItem = false;
+            }
+
+            //Neck
+            itr = pc.NeckRefs;
+            if (itr != null)
+            {
+                Item itQ = gv.mod.getItemByResRefForInfo(pc.NeckRefs.resref);
+                if ((itQ.onUseItemCastSpellTag == "none" || itQ.onUseItemCastSpellTag == "") && (itQ.onUseItemIBScript == "none" || itQ.onUseItemIBScript == "") && (itQ.onUseItem == "none" || itQ.onUseItem == ""))
+                {
+                    if (itr.quantity > 1)
+                    {
+                        btnNeck.Quantity = itr.quantity + "";
+                        btnNeck.btnOfChargedItem = false;
+                    }
+                    else
+                    {
+                        btnNeck.Quantity = "";
+                        btnNeck.btnOfChargedItem = false;
+                    }
+                }
+                else if (itr.quantity != 1)
+                {
+                    if (itr.quantity > 1)
+                    {
+                        btnNeck.Quantity = (itr.quantity - 1) + "";
+                        if (!itQ.isStackable)
+                        {
+                            btnNeck.btnOfChargedItem = true;
+                        }
+                        //eg potion
+                        else
+                        {
+                            btnNeck.btnOfChargedItem = false;
+                        }
+                    }
+                    else
+                    {
+                        btnNeck.Quantity = "0";
+                        btnNeck.btnOfChargedItem = true;
+                    }
+                }
+            }
+            else
+            {
+                btnNeck.Quantity = "";
+                btnNeck.btnOfChargedItem = false;
+            }
+
+            //Feet
+            itr = pc.FeetRefs;
+            if (itr != null)
+            {
+                Item itQ = gv.mod.getItemByResRefForInfo(pc.FeetRefs.resref);
+                if ((itQ.onUseItemCastSpellTag == "none" || itQ.onUseItemCastSpellTag == "") && (itQ.onUseItemIBScript == "none" || itQ.onUseItemIBScript == "") && (itQ.onUseItem == "none" || itQ.onUseItem == ""))
+                {
+                    if (itr.quantity > 1)
+                    {
+                        btnFeet.Quantity = itr.quantity + "";
+                        btnFeet.btnOfChargedItem = false;
+                    }
+                    else
+                    {
+                        btnFeet.Quantity = "";
+                        btnFeet.btnOfChargedItem = false;
+                    }
+                }
+                else if (itr.quantity != 1)
+                {
+                    if (itr.quantity > 1)
+                    {
+                        btnFeet.Quantity = (itr.quantity - 1) + "";
+                        if (!itQ.isStackable)
+                        {
+                            btnFeet.btnOfChargedItem = true;
+                        }
+                        //eg potion
+                        else
+                        {
+                            btnFeet.btnOfChargedItem = false;
+                        }
+                    }
+                    else
+                    {
+                        btnFeet.Quantity = "0";
+                        btnFeet.btnOfChargedItem = true;
+                    }
+                }
+            }
+            else
+            {
+                btnFeet.Quantity = "";
+                btnFeet.btnOfChargedItem = false;
+            }
+
+            //Ring1
+            itr = pc.RingRefs;
+            if (itr != null)
+            {
+                Item itQ = gv.mod.getItemByResRefForInfo(pc.RingRefs.resref);
+                if ((itQ.onUseItemCastSpellTag == "none" || itQ.onUseItemCastSpellTag == "") && (itQ.onUseItemIBScript == "none" || itQ.onUseItemIBScript == "") && (itQ.onUseItem == "none" || itQ.onUseItem == ""))
+                {
+                    if (itr.quantity > 1)
+                    {
+                        btnRing.Quantity = itr.quantity + "";
+                        btnRing.btnOfChargedItem = false;
+                    }
+                    else
+                    {
+                        btnRing.Quantity = "";
+                        btnRing.btnOfChargedItem = false;
+                    }
+                }
+                else if (itr.quantity != 1)
+                {
+                    if (itr.quantity > 1)
+                    {
+                        btnRing.Quantity = (itr.quantity - 1) + "";
+                        if (!itQ.isStackable)
+                        {
+                            btnRing.btnOfChargedItem = true;
+                        }
+                        //eg potion
+                        else
+                        {
+                            btnRing.btnOfChargedItem = false;
+                        }
+                    }
+                    else
+                    {
+                        btnRing.Quantity = "0";
+                        btnRing.btnOfChargedItem = true;
+                    }
+                }
+            }
+            else
+            {
+                btnRing.Quantity = "";
+                btnRing.btnOfChargedItem = false;
+            }
+
+            //Ring2
+            itr = pc.Ring2Refs;
+            if (itr != null)
+            {
+                Item itQ = gv.mod.getItemByResRefForInfo(pc.Ring2Refs.resref);
+                if ((itQ.onUseItemCastSpellTag == "none" || itQ.onUseItemCastSpellTag == "") && (itQ.onUseItemIBScript == "none" || itQ.onUseItemIBScript == "") && (itQ.onUseItem == "none" || itQ.onUseItem == ""))
+                {
+                    if (itr.quantity > 1)
+                    {
+                        btnRing2.Quantity = itr.quantity + "";
+                        btnRing2.btnOfChargedItem = false;
+                    }
+                    else
+                    {
+                        btnRing2.Quantity = "";
+                        btnRing2.btnOfChargedItem = false;
+                    }
+                }
+                else if (itr.quantity != 1)
+                {
+                    if (itr.quantity > 1)
+                    {
+                        btnRing2.Quantity = (itr.quantity - 1) + "";
+                        if (!itQ.isStackable)
+                        {
+                            btnRing2.btnOfChargedItem = true;
+                        }
+                        //eg potion
+                        else
+                        {
+                            btnRing2.btnOfChargedItem = false;
+                        }
+                    }
+                    else
+                    {
+                        btnRing2.Quantity = "0";
+                        btnRing2.btnOfChargedItem = true;
+
+                    }
+                }
+            }
+            else
+            {
+                btnRing2.Quantity = "";
+                btnRing2.btnOfChargedItem = false;
+            }
+
             btnMainHand.Draw();
             btnHead.Draw();
             btnNeck.Draw();
@@ -527,6 +928,7 @@ namespace IceBlink2
             else if (gv.cc.partyItemSlotIndex == 7) { it = gv.mod.getItemByResRefForInfo(pc.Ring2Refs.resref); }
             else if (gv.cc.partyItemSlotIndex == 8) { it = gv.mod.getItemByResRefForInfo(pc.AmmoRefs.resref); }
 
+            /*
             //Description
             string textToSpan = "";
             textToSpan = "<u>Description</u>" + "<BR>";
@@ -546,6 +948,299 @@ namespace IceBlink2
                 textToSpan += "Useable By: " + isUseableBy(it) + "<BR>";
                 textToSpan += "Tap 'INFO' for Full Description<BR>";
             }
+            */
+            //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+            string textToSpan = "";
+            if (it.name != "none")
+            {
+                textToSpan = "<b><big>" + it.name + "</big></b><BR>";
+                //if ((it.category.Equals("Melee")) || (it.category.Equals("Ranged")))
+                //{
+                if (it.category == "Melee" || it.category == "Ranged")
+                {
+                    if (it.damageNumDice != 0 || it.damageAdder != 0)
+                    {
+                        if (it.damageAdder != 0 && it.damageNumDice != 0)
+                        {
+                            textToSpan += "Damage: " + it.damageNumDice + "d" + it.damageDie + "+" + it.damageAdder + "<BR>";
+                        }
+                        else if (it.damageAdder == 0 && it.damageNumDice != 0)
+                        {
+                            textToSpan += "Damage: " + it.damageNumDice + "d" + it.damageDie + "<BR>";
+                        }
+                        else if (it.damageAdder != 0 && it.damageNumDice == 0)
+                        {
+                            textToSpan += "Damage: " + it.damageAdder + "<BR>";
+                        }
+                    }
+                }
+                if (it.attackBonus != 0)
+                {
+                    textToSpan += "Attack Modifier: " + it.attackBonus + "<BR>";
+                }
+                if (it.attackRange > 1)
+                {
+                    textToSpan += "Attack Range: " + it.attackRange + "<BR>";
+                }
+
+                if (it.AreaOfEffect > 0)
+                {
+                    textToSpan += "Area of Effect radius/length: " + it.AreaOfEffect + "<BR>";
+                    textToSpan += "Area of Effect shape: " + it.aoeShape + "<BR>";
+                }
+
+                if (it.typeOfDamage != "Normal")
+                {
+                    textToSpan += "Type of Damage: " + it.typeOfDamage + "<BR>";
+                }
+
+                if ((it.ammoType != "none") && (it.category != "Ammo"))
+                {
+                    string ammoName = "none";
+                    foreach (Item itA in gv.mod.moduleItemsList)
+                    {
+                        if (itA.tag == it.ammoType)
+                        {
+                            ammoName = itA.name;
+                        }
+                    }
+                    textToSpan += "Required Ammo: " + ammoName + "<BR>";
+                }
+                if (it.armorBonus != 0)
+                {
+                    textToSpan += "AC Modifier: " + it.armorBonus + "<BR>";
+                }
+
+                if (it.twoHanded)
+                {
+                    textToSpan += "Two handed: " + it.twoHanded + "<BR>";
+                }
+
+                if (it.category == "Armor")
+                {
+                    textToSpan += "Armor type: " + it.ArmorWeightType + "<BR>";
+                }
+
+                if (it.maxDexBonus != 99)
+                {
+                    textToSpan += "Max dexterity bonus: " + it.maxDexBonus + "<BR>";
+                }
+
+                if (it.automaticallyHitsTarget)
+                {
+                    textToSpan += "Always hits: " + it.automaticallyHitsTarget + "<BR>";
+                }
+
+                if (it.canNotBeChangedInCombat)
+                {
+                    textToSpan += "Not changeable in combat: " + it.canNotBeChangedInCombat + "<BR>";
+                }
+
+                if (it.canNotBeUnequipped)
+                {
+                    textToSpan += "Can never be changed: " + it.canNotBeUnequipped + "<BR>";
+                }
+
+                if (!it.endTurnAfterEquipping)
+                {
+                    textToSpan += "Changing is free action: " + it.endTurnAfterEquipping + "<BR>";
+                }
+
+
+                if (it.onUseItemCastSpellTag != "none" || it.onUseItemIBScript != "none" || it.onUseItem != "none")
+                {
+                    textToSpan += "Allows USE action: true" + "<BR>";
+                    if (it.destroyItemAfterOnUseItemCastSpell || it.destroyItemAfterOnUseItemIBScript || it.destroyItemAfterOnUseItemScript)
+                    {
+                        textToSpan += "Item is destroyed after full use: true" + "<BR>";
+                    }
+                }
+
+                if (it.onUseItemCastSpellTag != "none")
+                {
+                    string spellName = "none";
+                    foreach (Spell sp in gv.mod.moduleSpellsList)
+                    {
+                        if (sp.tag == it.onUseItemCastSpellTag)
+                        {
+                            spellName = sp.name;
+                            break;
+                        }
+                    }
+
+                    textToSpan += "Spell to cast on use: " + spellName + "<BR>";
+                    textToSpan += "Item on use caster level: " + it.levelOfItemForCastSpell + "<BR>";
+                }
+
+                if (it.onlyUseableWhenEquipped)
+                {
+                    textToSpan += "Must be equipped to use: " + it.onlyUseableWhenEquipped + "<BR>";
+                }
+
+                if (it.useableInSituation != "Passive" && it.useableInSituation != "Always")
+                {
+                    if (it.useableInSituation == "InCombat")
+                    {
+                        textToSpan += "Only useable in combat: true" + "<BR>";
+                    }
+
+                    else if (it.useableInSituation == "OutOfCombat")
+                    {
+                        textToSpan += "Only useable out of combat: true" + "<BR>";
+                    }
+                }
+
+                if (it.onScoringHitCastSpellTag != "none")
+                {
+                    textToSpan += "Special effect on hit: true" + "<BR>";
+                }
+
+
+                if (it.entriesForPcTags.Count > 0)
+                {
+                    string pcTags = "";
+                    foreach (LocalImmunityString ls in it.entriesForPcTags)
+                    {
+                        pcTags += ls.Value + ", ";
+                    }
+                    textToSpan += "Item perks: " + pcTags + "<BR>";
+                }
+
+                if (it.isRation)
+                {
+                    textToSpan += "Is ration: " + it.isRation + "<BR>";
+                }
+
+                if (it.isLightSource)
+                {
+                    textToSpan += "Is light source: " + it.isLightSource + "<BR>";
+                }
+
+                if (it.attributeBonusModifierStr != 0)
+                {
+                    textToSpan += "STR modifier: " + it.attributeBonusModifierStr + "<BR>";
+                }
+
+                if (it.attributeBonusModifierDex != 0)
+                {
+                    textToSpan += "DEX modifier: " + it.attributeBonusModifierDex + "<BR>";
+                }
+
+                if (it.attributeBonusModifierCon != 0)
+                {
+                    textToSpan += "CON modifier: " + it.attributeBonusModifierCon + "<BR>";
+                }
+
+                if (it.attributeBonusModifierInt != 0)
+                {
+                    textToSpan += "INT modifier: " + it.attributeBonusModifierInt + "<BR>";
+                }
+
+                if (it.attributeBonusModifierWis != 0)
+                {
+                    textToSpan += "WIS modifier: " + it.attributeBonusModifierWis + "<BR>";
+                }
+
+                if (it.attributeBonusModifierCha != 0)
+                {
+                    textToSpan += "CHA modifier: " + it.attributeBonusModifierCha + "<BR>";
+                }
+
+                if (it.hpRegenPerRoundInCombat != 0)
+                {
+                    textToSpan += "HP reg per round in combat: " + it.hpRegenPerRoundInCombat + "<BR>";
+                }
+
+                if (it.spRegenPerRoundInCombat != 0)
+                {
+                    textToSpan += "SP reg per round in combat: " + it.spRegenPerRoundInCombat + "<BR>";
+                }
+
+                if (it.minutesPerHpRegenOutsideCombat != 0)
+                {
+                    textToSpan += "+1 HP outside combat every: " + it.minutesPerHpRegenOutsideCombat + " minutes" + "<BR>";
+                }
+
+                if (it.minutesPerSpRegenOutsideCombat != 0)
+                {
+                    textToSpan += "+1 SP outside combat every: " + it.minutesPerSpRegenOutsideCombat + " minutes" + "<BR>";
+                }
+
+                if (it.MovementPointModifier != 0)
+                {
+                    textToSpan += "Effect on movement points: " + it.MovementPointModifier + "<BR>";
+                }
+
+                if (it.savingThrowModifierFortitude != 0)
+                {
+                    textToSpan += "Fortitude save modifier: " + it.savingThrowModifierFortitude + "<BR>";
+                }
+
+                if (it.savingThrowModifierReflex != 0)
+                {
+                    textToSpan += "Reflex save modifier: " + it.savingThrowModifierReflex + "<BR>";
+                }
+
+                if (it.savingThrowModifierFortitude != 0)
+                {
+                    textToSpan += "Will save modifier: " + it.savingThrowModifierWill + "<BR>";
+                }
+
+                if (it.damageTypeResistanceValueNormal != 0)
+                {
+                    textToSpan += "Resistance physical modifier: " + it.damageTypeResistanceValueNormal + "<BR>";
+                }
+
+                if (it.damageTypeResistanceValueAcid != 0)
+                {
+                    textToSpan += "Resistance acid modifier: " + it.damageTypeResistanceValueAcid + "<BR>";
+                }
+
+                if (it.damageTypeResistanceValueElectricity != 0)
+                {
+                    textToSpan += "Resistance electricity modifier: " + it.damageTypeResistanceValueElectricity + "<BR>";
+                }
+
+                if (it.damageTypeResistanceValueFire != 0)
+                {
+                    textToSpan += "Resistance fire modifier: " + it.damageTypeResistanceValueFire + "<BR>";
+                }
+
+                if (it.damageTypeResistanceValueCold != 0)
+                {
+                    textToSpan += "Resistance cold modifier: " + it.damageTypeResistanceValueCold + "<BR>";
+                }
+
+                if (it.damageTypeResistanceValuePoison != 0)
+                {
+                    textToSpan += "Resistance poison modifier: " + it.damageTypeResistanceValuePoison + "<BR>";
+                }
+
+                if (it.damageTypeResistanceValueMagic != 0)
+                {
+                    textToSpan += "Resistance magic modifier: " + it.damageTypeResistanceValueMagic + "<BR>";
+                }
+
+                if (it.onUseItemCastSpellTag != "none" || it.onUseItemIBScript != "none" || it.onUseItem != "none" || it.category != "General")
+                {
+                    textToSpan += "Allowed for classes: " + gv.sf.isUseableBy(it) + "<BR>";
+                }
+
+                textToSpan += "Value: " + it.value + "<BR>";
+
+                //rückwärts
+
+                /*
+                textToSpan += "Useable By: " + isUseableBy(it) + "<BR>";
+                textToSpan += "Two-Handed Weapon: ";
+                if (it.twoHanded) { textToSpan += "Yes<BR>"; }
+                else { textToSpan += "No<BR>"; }
+                */
+                textToSpan += "<BR>";
+            }
+            //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+
+
             locY = btnBody.Y + btnBody.Height + (pH * 2);
 
             int xLoc = (11 * gv.squareSize) + (pW * 5) + gv.oXshift + (int)(gv.squareSize * 0.75f);
@@ -695,7 +1390,7 @@ namespace IceBlink2
             //4. Draw TextBox with info from abvoe about attack and damage
             //Description
             string textToSpan2 = "";
-            textToSpan2 = "<u>Current Attack and Damage</u>" + "<BR>";
+            textToSpan2 = "<b>Current Attack and Damage</b>" + "<BR>";
             textToSpan2 += "Number of attacks: " + numAtt + "<BR>";
             textToSpan2 += "Attack bonus: " + attackMod + "<BR>";
             textToSpan2 += "Damage: " + numberOfDiceRolled + "d" + typeOfDieRolled + "+" + dammodifier + "<BR>";
@@ -706,7 +1401,7 @@ namespace IceBlink2
             xLoc = (1 * gv.squareSize) + (pW * 5) + gv.oXshift + (int)(gv.squareSize * 0.75f);
             yLoc = startSlotsY - 2 * pH;
             width = pW * 80;
-            height = pH * 50;
+            height = pH * 60;
             DrawTextLayout(attackAndDamageInfo, textToSpan2, xLoc, yLoc, width, height);
 
         }
@@ -875,17 +1570,18 @@ namespace IceBlink2
                         {
                             if (gv.cc.partyItemSlotIndex == 0)
                             {
+                                //lipgloss
                                 switchEquipment(inCombat);
                             }
                             gv.cc.partyItemSlotIndex = 0;
                         }
                         else if (btnHead.getImpact(x, y))
                         {
-                            if (inCombat)
-                            {
-                                gv.sf.MessageBoxHtml("Can't equip/unequip this item in combat.");
-                                return;
-                            }
+                            //if (inCombat)
+                            //{
+                                //gv.sf.MessageBoxHtml("Can't equip/unequip this item in combat.");
+                                //return;
+                            //}
                             if (gv.cc.partyItemSlotIndex == 1)
                             {
                                 switchEquipment(inCombat);
@@ -894,11 +1590,11 @@ namespace IceBlink2
                         }
                         else if (btnNeck.getImpact(x, y))
                         {
-                            if (inCombat)
-                            {
-                                gv.sf.MessageBoxHtml("Can't equip/unequip this item in combat.");
-                                return;
-                            }
+                            //if (inCombat)
+                            //{
+                                //gv.sf.MessageBoxHtml("Can't equip/unequip this item in combat.");
+                                //return;
+                            //}
                             if (gv.cc.partyItemSlotIndex == 2)
                             {
                                 switchEquipment(inCombat);
@@ -915,11 +1611,11 @@ namespace IceBlink2
                         }
                         else if (btnRing.getImpact(x, y))
                         {
-                            if (inCombat)
-                            {
-                                gv.sf.MessageBoxHtml("Can't equip/unequip this item in combat.");
-                                return;
-                            }
+                            //if (inCombat)
+                            //{
+                                //gv.sf.MessageBoxHtml("Can't equip/unequip this item in combat.");
+                                //return;
+                            //}
                             if (gv.cc.partyItemSlotIndex == 4)
                             {
                                 switchEquipment(inCombat);
@@ -928,11 +1624,11 @@ namespace IceBlink2
                         }
                         else if (btnBody.getImpact(x, y))
                         {
-                            if (inCombat)
-                            {
-                                gv.sf.MessageBoxHtml("Can't equip/unequip this item in combat.");
-                                return;
-                            }
+                            //if (inCombat)
+                            //{
+                                //gv.sf.MessageBoxHtml("Can't equip/unequip this item in combat.");
+                                //return;
+                            //}
                             if (gv.cc.partyItemSlotIndex == 5)
                             {
                                 switchEquipment(inCombat);
@@ -941,11 +1637,11 @@ namespace IceBlink2
                         }
                         else if (btnFeet.getImpact(x, y))
                         {
-                            if (inCombat)
-                            {
-                                gv.sf.MessageBoxHtml("Can't equip/unequip this item in combat.");
-                                return;
-                            }
+                            //if (inCombat)
+                            //{
+                                //gv.sf.MessageBoxHtml("Can't equip/unequip this item in combat.");
+                                //return;
+                            //}
                             if (gv.cc.partyItemSlotIndex == 6)
                             {
                                 switchEquipment(inCombat);
@@ -954,11 +1650,11 @@ namespace IceBlink2
                         }
                         else if (btnRing2.getImpact(x, y))
                         {
-                            if (inCombat)
-                            {
-                                gv.sf.MessageBoxHtml("Can't equip/unequip this item in combat.");
-                                return;
-                            }
+                            //if (inCombat)
+                            //{
+                                //gv.sf.MessageBoxHtml("Can't equip/unequip this item in combat.");
+                                //return;
+                            //}
                             if (gv.cc.partyItemSlotIndex == 7)
                             {
                                 switchEquipment(inCombat);
@@ -1104,6 +1800,7 @@ namespace IceBlink2
             Player pc = gv.mod.playerList[gv.cc.partyScreenPcIndex];
             gv.cc.doConversationBasedOnTag(pc.name);
         }
+
         public bool canNotBeUnequipped()
         {
             Player pc = gv.mod.playerList[gv.cc.partyScreenPcIndex];
@@ -1118,6 +1815,68 @@ namespace IceBlink2
             else if (gv.cc.partyItemSlotIndex == 8) { return pc.AmmoRefs.canNotBeUnequipped; }
             return false;
         }
+
+        public bool canNotBeChangedInCombat()
+        {
+            Player pc = gv.mod.playerList[gv.cc.partyScreenPcIndex];
+
+            if (gv.cc.partyItemSlotIndex == 0)
+            {
+                Item it = gv.mod.getItemByResRef(pc.MainHandRefs.resref);
+                if (it == null) { return false; };
+                return it.canNotBeChangedInCombat;
+            }
+            else if (gv.cc.partyItemSlotIndex == 1)
+            {
+                Item it = gv.mod.getItemByResRef(pc.HeadRefs.resref);
+                if (it == null) { return false; };
+                return it.canNotBeChangedInCombat;
+            }
+            else if (gv.cc.partyItemSlotIndex == 2)
+            {
+                Item it = gv.mod.getItemByResRef(pc.NeckRefs.resref);
+                if (it == null) { return false; };
+                return it.canNotBeChangedInCombat;
+            }
+            else if (gv.cc.partyItemSlotIndex == 3)
+            {
+                Item it = gv.mod.getItemByResRef(pc.OffHandRefs.resref);
+                if (it == null) { return false; };
+                return it.canNotBeChangedInCombat;
+            }
+            else if (gv.cc.partyItemSlotIndex == 4)
+            {
+                Item it = gv.mod.getItemByResRef(pc.RingRefs.resref);
+                if (it == null) { return false; };
+                return it.canNotBeChangedInCombat;
+            }
+            else if (gv.cc.partyItemSlotIndex == 5)
+            {
+                Item it = gv.mod.getItemByResRef(pc.BodyRefs.resref);
+                if (it == null) { return false; };
+                return it.canNotBeChangedInCombat;
+            }
+            else if (gv.cc.partyItemSlotIndex == 6)
+            {
+                Item it = gv.mod.getItemByResRef(pc.FeetRefs.resref);
+                if (it == null) { return false; };
+                return it.canNotBeChangedInCombat;
+            }
+            else if (gv.cc.partyItemSlotIndex == 7)
+            {
+                Item it = gv.mod.getItemByResRef(pc.Ring2Refs.resref);
+                if (it == null) { return false; };
+                return it.canNotBeChangedInCombat;
+            }
+            else if (gv.cc.partyItemSlotIndex == 8)
+            {
+                Item it = gv.mod.getItemByResRef(pc.AmmoRefs.resref);
+                if (it == null) { return false; };
+                return it.canNotBeChangedInCombat;
+            }
+            return false;
+        }
+
         public void switchEquipment(bool inCombat)
         {
             Player pc = gv.mod.playerList[gv.cc.partyScreenPcIndex];
@@ -1148,12 +1907,31 @@ namespace IceBlink2
                 return;
             }
 
+            //check to see if item can not be unequipped
+            if (inCombat)
+            {
+                if (canNotBeChangedInCombat())
+                {
+                    gv.sf.MessageBoxHtml("Can't change this item during combat.");
+                    return;
+                }
+            }
+
             List<ItemRefs> allowedItems = new List<ItemRefs>();
 
             //add any other allowed items to the allowed list
             foreach (ItemRefs itRef in gv.mod.partyInventoryRefsList)
             {
                 Item it = gv.mod.getItemByResRef(itRef.resref);
+
+                if (inCombat)
+                {
+                    if (it.canNotBeChangedInCombat)
+                    {
+                        continue;
+                    }
+                }
+
                 if (gv.cc.partyItemSlotIndex == 0)
                 {
                     if ((it.category.Equals("Melee")) || (it.category.Equals("Ranged")))
@@ -1237,6 +2015,7 @@ namespace IceBlink2
                 gv.screenItemSelector.resetItemSelector(allowedItems, "equip", "party");
             }
         }
+
         public void doLevelUp()
         {
             List<string> actionList = new List<string> { "Cancel", "LEVEL UP" };
@@ -1659,7 +2438,7 @@ namespace IceBlink2
                     }
                     //found: at least one screen needs to be called
 
-                    else if (traitTagsList.Count > 0 && pc.playerClass.traitsToLearnAtLevelTable[pc.classLevel] > 0)
+                    else if (traitTagsList.Count > 0 && pc.playerClass.traitsToLearnAtLevelTable[pc.classLevel] > 0 && pc.getTraitsToLearn(gv.mod).Count > 0)
                     {
                         //add automatically gained spells and traits (inlcuding effects) to the tempoarray lists already here
                         //no replacements at this stage though (these come when done on the manual screens) 

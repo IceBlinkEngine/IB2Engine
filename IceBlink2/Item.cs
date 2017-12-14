@@ -42,8 +42,8 @@ namespace IceBlink2
 	    public int charges = 0; //useful for items like wand of mage bolts
         public string ammoType = "none"; //typically arrow, stone, bolt 
 	    public bool twoHanded = false; //true if item requires the use of two hands
-	    public bool canNotBeUnequipped = false; 
-	    public bool isStackable = false;
+        public bool canNotBeUnequipped = false;
+        public bool isStackable = false;
         public bool automaticallyHitsTarget = false; //does not require a successful to hit roll, always hits target (ex. mage bolt wand)
         public int attackBonus = 0; //attack bonus
 	    public int attackRange = 1; //attack range
@@ -68,8 +68,8 @@ namespace IceBlink2
         public int MovementPointModifier = 0;
         public int spRegenPerRoundInCombat = 0;
         public int hpRegenPerRoundInCombat = 0;
-        public int roundsPerSpRegenOutsideCombat = 0;
-        public int roundsPerHpRegenOutsideCombat = 0;
+        public int minutesPerSpRegenOutsideCombat = 0;
+        public int minutesPerHpRegenOutsideCombat = 0;
         public string onScoringHit = "none";
         public string onScoringHitParms = "";
         public string onUseItem = "none";
@@ -77,6 +77,7 @@ namespace IceBlink2
         public string onUseItemIBScript = "none";
         public string onUseItemIBScriptParms = "";
         public bool destroyItemAfterOnUseItemIBScript = false;
+        public bool destroyItemAfterOnUseItemScript = true;
         public string onScoringHitCastSpellTag = "none";
         public string onUseItemCastSpellTag = "none";
         public bool destroyItemAfterOnUseItemCastSpell = false;
@@ -91,9 +92,19 @@ namespace IceBlink2
 	    public int damageTypeResistanceValuePoison = 0;
         public string typeOfDamage = "Normal"; //Normal,Acid,Cold,Electricity,Fire,Magic,Poison
         public List<LocalImmunityString> entriesForPcTags = new List<LocalImmunityString>();
+
+        public bool canNotBeChangedInCombat = false;
+
+        public bool endTurnAfterEquipping = true;
+
+        public int hpRegenTimer = 0;
+        public int spRegenTimer = 0;
+
         //Not yet implemented
         public string labelForCastAction = "none";
         public string labelForSpellsButtonInCombat = "SPELL";
+
+        public bool onlyUseableWhenEquipped = false;
 
         public Item()
 	    {
@@ -103,6 +114,8 @@ namespace IceBlink2
 	    {
 		    Item copy = new Item();
 		    copy.name = this.name;
+            copy.onlyUseableWhenEquipped = this.onlyUseableWhenEquipped;
+            copy.endTurnAfterEquipping = this.endTurnAfterEquipping;
             copy.isRation = this.isRation;
             copy.isLightSource = this.isLightSource;
             copy.ArmorWeightType = this.ArmorWeightType;
@@ -130,6 +143,7 @@ namespace IceBlink2
 		    copy.attackRange = this.attackRange;
 		    copy.AreaOfEffect = this.AreaOfEffect;
             copy.aoeShape = this.aoeShape;
+            copy.canNotBeChangedInCombat = this.canNotBeChangedInCombat;
             copy.spellTag = this.spellTag;
             copy.damageNumDice = this.damageNumDice;
 		    copy.damageDie = this.damageDie;
@@ -149,8 +163,8 @@ namespace IceBlink2
             copy.MovementPointModifier = this.MovementPointModifier;
             copy.spRegenPerRoundInCombat = this.spRegenPerRoundInCombat;
             copy.hpRegenPerRoundInCombat = this.hpRegenPerRoundInCombat;
-            copy.roundsPerSpRegenOutsideCombat = this.roundsPerSpRegenOutsideCombat;
-            copy.roundsPerHpRegenOutsideCombat = this.roundsPerHpRegenOutsideCombat;
+            copy.minutesPerSpRegenOutsideCombat = this.minutesPerSpRegenOutsideCombat;
+            copy.minutesPerHpRegenOutsideCombat = this.minutesPerHpRegenOutsideCombat;
 		    copy.onScoringHit = this.onScoringHit;
 		    copy.onScoringHitParms = this.onScoringHitParms;
 		    copy.onUseItem = this.onUseItem;
@@ -158,6 +172,7 @@ namespace IceBlink2
 		    copy.onUseItemIBScript = this.onUseItemIBScript;
             copy.onUseItemIBScriptParms = this.onUseItemIBScriptParms;
             copy.destroyItemAfterOnUseItemIBScript = this.destroyItemAfterOnUseItemIBScript;
+            copy.destroyItemAfterOnUseItemScript = this.destroyItemAfterOnUseItemScript;
             copy.onScoringHitCastSpellTag = this.onScoringHitCastSpellTag;
             copy.onUseItemCastSpellTag = this.onUseItemCastSpellTag;
             copy.destroyItemAfterOnUseItemCastSpell = this.destroyItemAfterOnUseItemCastSpell;
@@ -178,6 +193,8 @@ namespace IceBlink2
             {
                 copy.entriesForPcTags.Add(s);
             }
+            copy.hpRegenTimer = this.hpRegenTimer;
+            copy.spRegenTimer = this.spRegenTimer;
             return copy;
 	    }
     }

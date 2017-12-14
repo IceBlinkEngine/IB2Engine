@@ -9128,9 +9128,11 @@ namespace IceBlink2
 
         public void doSpellBasedOnScriptOrEffectTag(Spell spell, object source, object target, bool outsideCombat, bool isTraitUsage)
         {
+            //int powerLevel = 0;
             if (source is Creature)
             {
                 Creature src = (Creature)source;
+                //powerLevel = src.cr_level;
                 
                     if (src.labelForCastAction != "none" && src.labelForCastAction != "CAST")
                     {
@@ -9144,6 +9146,7 @@ namespace IceBlink2
             else if (source is Player)
             {
                 Player src = (Player)source;
+                ///powerLevel = src.classLevel;
                 if (!isTraitUsage)
                 {
                     if (src.playerClass.labelForCastAction != "none" && src.playerClass.labelForCastAction != "CAST")
@@ -9172,6 +9175,7 @@ namespace IceBlink2
             else if (source is Item)
             {
                 Item src = (Item)source;
+                //powerLevel = 
                 if (src.labelForCastAction != "none")
                 {
                     gv.cc.addLogText("<font color='yellow'>" + src.name + " " + src.labelForCastAction + " " + spell.name + "</font><BR>");
@@ -10033,10 +10037,10 @@ namespace IceBlink2
                 gv.sf.itForceRest();
                 foundScript = true;
             }
-            if ((foundScript) && (destroyItemAfterUse))
-            {
-                gv.sf.RemoveItemFromInventory(itRef, 1);
-            }
+            //if ((foundScript) && (destroyItemAfterUse))
+            //{
+                //gv.sf.RemoveItemFromInventory(itRef, 1);
+            //}
         }
 
         //TESTING STUFF

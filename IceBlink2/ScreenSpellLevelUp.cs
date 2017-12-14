@@ -497,8 +497,20 @@ namespace IceBlink2
             {
                 //DRAW TEXT		
                 locY = (gv.squareSize * 0) + (pH * 2);
+                int maxNumber = 0;
+                if (gv.mod.getPlayerClass(pc.classTag).spellsToLearnAtLevelTable[pc.classLevel] > pc.getSpellsToLearn(gv.mod).Count)
+                {
+                    maxNumber = pc.getSpellsToLearn(gv.mod).Count;
+                    maxNumber += spellToLearnIndex - 1;
+                }
+                else
+                {
+                    maxNumber = gv.mod.getPlayerClass(pc.classTag).traitsToLearnAtLevelTable[pc.classLevel];
+                }
+                gv.DrawText("Select Choice Nr. " + spellToLearnIndex + " of " + maxNumber + " Choice(s) to Learn", noticeX, pH * 1, 1.0f, Color.Gray);
+
                 //gv.DrawText("Select One " + gv.mod.getPlayerClass(pc.classTag).spellLabelSingular + " to Learn", noticeX, pH * 1, 1.0f, Color.Gray);
-                gv.DrawText("Select " + spellToLearnIndex + " of " + gv.mod.getPlayerClass(pc.classTag).spellsToLearnAtLevelTable[getCastingPlayer().classLevel] + " " + gv.mod.getPlayerClass(pc.classTag).spellLabelPlural + " to Learn", noticeX, pH * 1, 1.0f, Color.Gray);
+                //gv.DrawText("Select " + spellToLearnIndex + " of " + gv.mod.getPlayerClass(pc.classTag).spellsToLearnAtLevelTable[getCastingPlayer().classLevel] + " " + gv.mod.getPlayerClass(pc.classTag).spellLabelPlural + " to Learn", noticeX, pH * 1, 1.0f, Color.Gray);
                 //gv.DrawText(getCastingPlayer().name + " SP: " + getCastingPlayer().sp + "/" + getCastingPlayer().spMax, pW * 50, pH * 1, 1.0f, Color.Yellow);
                 //gv.DrawText(getCastingPlayer().name + " HP: " + getCastingPlayer().hp + "/" + getCastingPlayer().hpMax, pW * 50, pH * 1, 1.0f, Color.Yellow);
 
@@ -918,7 +930,18 @@ namespace IceBlink2
                     */
                     //check to see if there are more spells to learn at this level  
                     spellToLearnIndex++;
-                    if (spellToLearnIndex <= gv.mod.getPlayerClass(pc.classTag).spellsToLearnAtLevelTable[getCastingPlayer().classLevel])
+                    int maxNumber = 0;
+                    if (gv.mod.getPlayerClass(pc.classTag).spellsToLearnAtLevelTable[pc.classLevel] > pc.getSpellsToLearn(gv.mod).Count)
+                    {
+                        maxNumber = pc.getSpellsToLearn(gv.mod).Count + 1;
+                    }
+                    else
+                    {
+                        maxNumber = gv.mod.getPlayerClass(pc.classTag).spellsToLearnAtLevelTable[pc.classLevel];
+                    }
+
+                   
+                    if (spellToLearnIndex <= maxNumber)
                     {
                         gv.screenParty.spellGained += sp.name + ", ";
                     }

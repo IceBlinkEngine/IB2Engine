@@ -1334,7 +1334,7 @@ namespace IceBlink2
           
             renderTarget2D.Clear(Color4.Black); //uncomment this for DIRECT2D ADDITIONS
 
-            if ((mod.useUIBackground) && (!screenType.Equals("main")) && (!screenType.Equals("combat")) && (!screenType.Equals("launcher")) && (!screenType.Equals("title")))
+            if ((mod.useUIBackground) && (!screenType.Equals("main")) && (!screenType.Equals("combat")) && (!screenType.Equals("launcher")) && (! screenType.Equals("title")))
             {
                 drawUIBackground();
             }            

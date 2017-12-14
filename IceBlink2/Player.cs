@@ -499,6 +499,45 @@ namespace IceBlink2
             }
             return traitTagsList;
         }
+
+        public List<string> getSpellsToLearn(Module mod)
+        {
+            List<string> spellTagsList = new List<string>();
+            foreach (SpellAllowed sa in this.playerClass.spellsAllowed)
+            {
+                bool tempLearnedAlready = false;
+                foreach (string tL in this.learningSpellsTags)
+                {
+                    if (sa.tag == tL)
+                    {
+                        tempLearnedAlready = true;
+                    }
+                }
+
+                bool hasBeenReplacedAlready = false;
+                foreach (string sR in this.replacedTraitsOrSpellsByTag)
+                {
+                    if (sa.tag == sR)
+                    {
+                        hasBeenReplacedAlready = true;
+                    }
+                }
+
+                if (sa.allow && !sa.automaticallyLearned && !tempLearnedAlready && !hasBeenReplacedAlready && !sa.needsSpecificTrainingToLearn)
+                {
+                    if (sa.atWhatLevelIsAvailable <= this.classLevel)
+                    {
+                        if (!hasSpellAlready(sa))
+                        {           
+                                    spellTagsList.Add(sa.tag);       
+                        }
+                    }
+                }
+            }
+            return spellTagsList;
+        }
+
+
         public bool hasTraitAlready(TraitAllowed ta)
         {
             //return this.knownTraitsTags.Contains(ta.tag);
