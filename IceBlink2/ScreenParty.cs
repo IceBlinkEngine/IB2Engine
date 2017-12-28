@@ -949,296 +949,7 @@ namespace IceBlink2
                 textToSpan += "Tap 'INFO' for Full Description<BR>";
             }
             */
-            //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-            string textToSpan = "";
-            if (it.name != "none")
-            {
-                textToSpan = "<b><big>" + it.name + "</big></b><BR>";
-                //if ((it.category.Equals("Melee")) || (it.category.Equals("Ranged")))
-                //{
-                if (it.category == "Melee" || it.category == "Ranged")
-                {
-                    if (it.damageNumDice != 0 || it.damageAdder != 0)
-                    {
-                        if (it.damageAdder != 0 && it.damageNumDice != 0)
-                        {
-                            textToSpan += "Damage: " + it.damageNumDice + "d" + it.damageDie + "+" + it.damageAdder + "<BR>";
-                        }
-                        else if (it.damageAdder == 0 && it.damageNumDice != 0)
-                        {
-                            textToSpan += "Damage: " + it.damageNumDice + "d" + it.damageDie + "<BR>";
-                        }
-                        else if (it.damageAdder != 0 && it.damageNumDice == 0)
-                        {
-                            textToSpan += "Damage: " + it.damageAdder + "<BR>";
-                        }
-                    }
-                }
-                if (it.attackBonus != 0)
-                {
-                    textToSpan += "Attack Modifier: " + it.attackBonus + "<BR>";
-                }
-                if (it.attackRange > 1)
-                {
-                    textToSpan += "Attack Range: " + it.attackRange + "<BR>";
-                }
-
-                if (it.AreaOfEffect > 0)
-                {
-                    textToSpan += "Area of Effect radius/length: " + it.AreaOfEffect + "<BR>";
-                    textToSpan += "Area of Effect shape: " + it.aoeShape + "<BR>";
-                }
-
-                if (it.typeOfDamage != "Normal")
-                {
-                    textToSpan += "Type of Damage: " + it.typeOfDamage + "<BR>";
-                }
-
-                if ((it.ammoType != "none") && (it.category != "Ammo"))
-                {
-                    string ammoName = "none";
-                    foreach (Item itA in gv.mod.moduleItemsList)
-                    {
-                        if (itA.tag == it.ammoType)
-                        {
-                            ammoName = itA.name;
-                        }
-                    }
-                    textToSpan += "Required Ammo: " + ammoName + "<BR>";
-                }
-                if (it.armorBonus != 0)
-                {
-                    textToSpan += "AC Modifier: " + it.armorBonus + "<BR>";
-                }
-
-                if (it.twoHanded)
-                {
-                    textToSpan += "Two handed: " + it.twoHanded + "<BR>";
-                }
-
-                if (it.category == "Armor")
-                {
-                    textToSpan += "Armor type: " + it.ArmorWeightType + "<BR>";
-                }
-
-                if (it.maxDexBonus != 99)
-                {
-                    textToSpan += "Max dexterity bonus: " + it.maxDexBonus + "<BR>";
-                }
-
-                if (it.automaticallyHitsTarget)
-                {
-                    textToSpan += "Always hits: " + it.automaticallyHitsTarget + "<BR>";
-                }
-
-                if (it.canNotBeChangedInCombat)
-                {
-                    textToSpan += "Not changeable in combat: " + it.canNotBeChangedInCombat + "<BR>";
-                }
-
-                if (it.canNotBeUnequipped)
-                {
-                    textToSpan += "Can never be changed: " + it.canNotBeUnequipped + "<BR>";
-                }
-
-                if (!it.endTurnAfterEquipping)
-                {
-                    textToSpan += "Changing is free action: " + it.endTurnAfterEquipping + "<BR>";
-                }
-
-
-                if (it.onUseItemCastSpellTag != "none" || it.onUseItemIBScript != "none" || it.onUseItem != "none")
-                {
-                    textToSpan += "Allows USE action: true" + "<BR>";
-                    if (it.destroyItemAfterOnUseItemCastSpell || it.destroyItemAfterOnUseItemIBScript || it.destroyItemAfterOnUseItemScript)
-                    {
-                        textToSpan += "Item is destroyed after full use: true" + "<BR>";
-                    }
-                }
-
-                if (it.onUseItemCastSpellTag != "none")
-                {
-                    string spellName = "none";
-                    foreach (Spell sp in gv.mod.moduleSpellsList)
-                    {
-                        if (sp.tag == it.onUseItemCastSpellTag)
-                        {
-                            spellName = sp.name;
-                            break;
-                        }
-                    }
-
-                    textToSpan += "Spell to cast on use: " + spellName + "<BR>";
-                    textToSpan += "Item on use caster level: " + it.levelOfItemForCastSpell + "<BR>";
-                }
-
-                if (it.onlyUseableWhenEquipped)
-                {
-                    textToSpan += "Must be equipped to use: " + it.onlyUseableWhenEquipped + "<BR>";
-                }
-
-                if (it.useableInSituation != "Passive" && it.useableInSituation != "Always")
-                {
-                    if (it.useableInSituation == "InCombat")
-                    {
-                        textToSpan += "Only useable in combat: true" + "<BR>";
-                    }
-
-                    else if (it.useableInSituation == "OutOfCombat")
-                    {
-                        textToSpan += "Only useable out of combat: true" + "<BR>";
-                    }
-                }
-
-                if (it.onScoringHitCastSpellTag != "none")
-                {
-                    textToSpan += "Special effect on hit: true" + "<BR>";
-                }
-
-
-                if (it.entriesForPcTags.Count > 0)
-                {
-                    string pcTags = "";
-                    foreach (LocalImmunityString ls in it.entriesForPcTags)
-                    {
-                        pcTags += ls.Value + ", ";
-                    }
-                    textToSpan += "Item perks: " + pcTags + "<BR>";
-                }
-
-                if (it.isRation)
-                {
-                    textToSpan += "Is ration: " + it.isRation + "<BR>";
-                }
-
-                if (it.isLightSource)
-                {
-                    textToSpan += "Is light source: " + it.isLightSource + "<BR>";
-                }
-
-                if (it.attributeBonusModifierStr != 0)
-                {
-                    textToSpan += "STR modifier: " + it.attributeBonusModifierStr + "<BR>";
-                }
-
-                if (it.attributeBonusModifierDex != 0)
-                {
-                    textToSpan += "DEX modifier: " + it.attributeBonusModifierDex + "<BR>";
-                }
-
-                if (it.attributeBonusModifierCon != 0)
-                {
-                    textToSpan += "CON modifier: " + it.attributeBonusModifierCon + "<BR>";
-                }
-
-                if (it.attributeBonusModifierInt != 0)
-                {
-                    textToSpan += "INT modifier: " + it.attributeBonusModifierInt + "<BR>";
-                }
-
-                if (it.attributeBonusModifierWis != 0)
-                {
-                    textToSpan += "WIS modifier: " + it.attributeBonusModifierWis + "<BR>";
-                }
-
-                if (it.attributeBonusModifierCha != 0)
-                {
-                    textToSpan += "CHA modifier: " + it.attributeBonusModifierCha + "<BR>";
-                }
-
-                if (it.hpRegenPerRoundInCombat != 0)
-                {
-                    textToSpan += "HP reg per round in combat: " + it.hpRegenPerRoundInCombat + "<BR>";
-                }
-
-                if (it.spRegenPerRoundInCombat != 0)
-                {
-                    textToSpan += "SP reg per round in combat: " + it.spRegenPerRoundInCombat + "<BR>";
-                }
-
-                if (it.minutesPerHpRegenOutsideCombat != 0)
-                {
-                    textToSpan += "+1 HP outside combat every: " + it.minutesPerHpRegenOutsideCombat + " minutes" + "<BR>";
-                }
-
-                if (it.minutesPerSpRegenOutsideCombat != 0)
-                {
-                    textToSpan += "+1 SP outside combat every: " + it.minutesPerSpRegenOutsideCombat + " minutes" + "<BR>";
-                }
-
-                if (it.MovementPointModifier != 0)
-                {
-                    textToSpan += "Effect on movement points: " + it.MovementPointModifier + "<BR>";
-                }
-
-                if (it.savingThrowModifierFortitude != 0)
-                {
-                    textToSpan += "Fortitude save modifier: " + it.savingThrowModifierFortitude + "<BR>";
-                }
-
-                if (it.savingThrowModifierReflex != 0)
-                {
-                    textToSpan += "Reflex save modifier: " + it.savingThrowModifierReflex + "<BR>";
-                }
-
-                if (it.savingThrowModifierFortitude != 0)
-                {
-                    textToSpan += "Will save modifier: " + it.savingThrowModifierWill + "<BR>";
-                }
-
-                if (it.damageTypeResistanceValueNormal != 0)
-                {
-                    textToSpan += "Resistance physical modifier: " + it.damageTypeResistanceValueNormal + "<BR>";
-                }
-
-                if (it.damageTypeResistanceValueAcid != 0)
-                {
-                    textToSpan += "Resistance acid modifier: " + it.damageTypeResistanceValueAcid + "<BR>";
-                }
-
-                if (it.damageTypeResistanceValueElectricity != 0)
-                {
-                    textToSpan += "Resistance electricity modifier: " + it.damageTypeResistanceValueElectricity + "<BR>";
-                }
-
-                if (it.damageTypeResistanceValueFire != 0)
-                {
-                    textToSpan += "Resistance fire modifier: " + it.damageTypeResistanceValueFire + "<BR>";
-                }
-
-                if (it.damageTypeResistanceValueCold != 0)
-                {
-                    textToSpan += "Resistance cold modifier: " + it.damageTypeResistanceValueCold + "<BR>";
-                }
-
-                if (it.damageTypeResistanceValuePoison != 0)
-                {
-                    textToSpan += "Resistance poison modifier: " + it.damageTypeResistanceValuePoison + "<BR>";
-                }
-
-                if (it.damageTypeResistanceValueMagic != 0)
-                {
-                    textToSpan += "Resistance magic modifier: " + it.damageTypeResistanceValueMagic + "<BR>";
-                }
-
-                if (it.onUseItemCastSpellTag != "none" || it.onUseItemIBScript != "none" || it.onUseItem != "none" || it.category != "General")
-                {
-                    textToSpan += "Allowed for classes: " + gv.sf.isUseableBy(it) + "<BR>";
-                }
-
-                textToSpan += "Value: " + it.value + "<BR>";
-
-                //rückwärts
-
-                /*
-                textToSpan += "Useable By: " + isUseableBy(it) + "<BR>";
-                textToSpan += "Two-Handed Weapon: ";
-                if (it.twoHanded) { textToSpan += "Yes<BR>"; }
-                else { textToSpan += "No<BR>"; }
-                */
-                textToSpan += "<BR>";
-            }
-            //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+            string textToSpan = gv.cc.buildItemInfoText(it, 0);
 
 
             locY = btnBody.Y + btnBody.Height + (pH * 2);
@@ -1258,6 +969,10 @@ namespace IceBlink2
             //1. get number of attacks with melee or ranged (numAtt)
             int numAtt = 1;
             numAtt = gv.sf.CalcNumberOfAttacks(pc);
+            if (numAtt < 1)
+            {
+                numAtt = 1;
+            }
             /*
             if ((gv.sf.hasTrait(pc, "twoAttack")) && (gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref).category.Equals("Melee")))
             {
@@ -1392,18 +1107,41 @@ namespace IceBlink2
             string textToSpan2 = "";
             textToSpan2 = "<b>Current Attack and Damage</b>" + "<BR>";
             textToSpan2 += "Number of attacks: " + numAtt + "<BR>";
+            if (it.attackRange > 1)
+            {
+                textToSpan2 += "Attack range: " + it.attackRange + "<BR>";
+            }
             textToSpan2 += "Attack bonus: " + attackMod + "<BR>";
-            textToSpan2 += "Damage: " + numberOfDiceRolled + "d" + typeOfDieRolled + "+" + dammodifier + "<BR>";
+            if (numberOfDiceRolled > 0)
+            {
+                textToSpan2 += "Damage: " + numberOfDiceRolled + "d" + typeOfDieRolled + "+" + dammodifier + "<BR>";
+            }
+            else
+            {
+                textToSpan2 += "Damage: " + dammodifier + "<BR>";
+            }
             textToSpan2 += "Damage type: " + damageType + "<BR>";
+
+            /*
+               locY = btnBody.Y + btnBody.Height + (pH * 2);
+
+            int xLoc = (11 * gv.squareSize) + (pW * 5) + gv.oXshift + (int)(gv.squareSize * 0.75f);
+            int yLoc = startSlotsY - pH;
+            int width = pW * 80;
+            int height = pH * 50;
+            DrawTextLayout(description, textToSpan, xLoc, yLoc, width, height);
+
+            */
+
 
             locY = btnBody.Y + btnBody.Height + (pH * 2);
 
             xLoc = (1 * gv.squareSize) + (pW * 5) + gv.oXshift + (int)(gv.squareSize * 0.75f);
-            yLoc = startSlotsY - 2 * pH;
+            yLoc = startSlotsY - pH;
             width = pW * 80;
-            height = pH * 60;
+            height = pH * 50;
             DrawTextLayout(attackAndDamageInfo, textToSpan2, xLoc, yLoc, width, height);
-
+            //antidings
         }
         public void DrawTextLayout(IbbHtmlTextBox tb, string text, int xLoc, int yLoc, int width, int height)
         {
@@ -1707,7 +1445,7 @@ namespace IceBlink2
                             else if (gv.cc.partyItemSlotIndex == 8) { it = gv.mod.getItemByResRef(pc.AmmoRefs.resref); }
                             if (it != null)
                             {
-                                gv.sf.ShowFullDescription(it);
+                                gv.cc.buildItemInfoText(it, -100);
                             }
                         }
                         else if (btnReturn.getImpact(x, y))
@@ -1932,73 +1670,76 @@ namespace IceBlink2
                     }
                 }
 
-                if (gv.cc.partyItemSlotIndex == 0)
+                if ((it.requiredLevel <= pc.classLevel) &&(gv.cc.checkRequirmentsMet(pc, it)))
                 {
-                    if ((it.category.Equals("Melee")) || (it.category.Equals("Ranged")))
+                    if (gv.cc.partyItemSlotIndex == 0)
+                    {
+                        if ((it.category.Equals("Melee")) || (it.category.Equals("Ranged")))
+                        {
+                            if (pc.playerClass.containsItemRefsWithResRef(itRef.resref))
+                            {
+                                allowedItems.Add(itRef);
+                            }
+                        }
+                    }
+                    else if ((it.category.Equals("Head")) && (gv.cc.partyItemSlotIndex == 1))
                     {
                         if (pc.playerClass.containsItemRefsWithResRef(itRef.resref))
                         {
                             allowedItems.Add(itRef);
                         }
                     }
-                }
-                else if ((it.category.Equals("Head")) && (gv.cc.partyItemSlotIndex == 1))
-                {
-                    if (pc.playerClass.containsItemRefsWithResRef(itRef.resref))
+                    else if ((it.category.Equals("Neck")) && (gv.cc.partyItemSlotIndex == 2))
                     {
-                        allowedItems.Add(itRef);
-                    }
-                }
-                else if ((it.category.Equals("Neck")) && (gv.cc.partyItemSlotIndex == 2))
-                {
-                    if (pc.playerClass.containsItemRefsWithResRef(itRef.resref))
-                    {
-                        allowedItems.Add(itRef);
-                    }
-                }
-                else if ((it.category.Equals("Shield")) && (gv.cc.partyItemSlotIndex == 3))
-                {
-                    if (pc.playerClass.containsItemRefsWithResRef(itRef.resref))
-                    {
-                        allowedItems.Add(itRef);
-                    }
-                }
-                else if ((it.category.Equals("Ring")) && (gv.cc.partyItemSlotIndex == 4))
-                {
-                    if (pc.playerClass.containsItemRefsWithResRef(itRef.resref))
-                    {
-                        allowedItems.Add(itRef);
-                    }
-                }
-                else if ((it.category.Equals("Armor")) && (gv.cc.partyItemSlotIndex == 5))
-                {
-                    if (pc.playerClass.containsItemRefsWithResRef(itRef.resref))
-                    {
-                        allowedItems.Add(itRef);
-                    }
-                }
-                else if ((it.category.Equals("Feet")) && (gv.cc.partyItemSlotIndex == 6))
-                {
-                    if (pc.playerClass.containsItemRefsWithResRef(itRef.resref))
-                    {
-                        allowedItems.Add(itRef);
-                    }
-                }
-                else if ((it.category.Equals("Ring")) && (gv.cc.partyItemSlotIndex == 7))
-                {
-                    if (pc.playerClass.containsItemRefsWithResRef(itRef.resref))
-                    {
-                        allowedItems.Add(itRef);
-                    }
-                }
-                else if ((it.category.Equals("Ammo")) && (gv.cc.partyItemSlotIndex == 8))
-                {
-                    if (pc.playerClass.containsItemRefsWithResRef(itRef.resref))
-                    {
-                        Item itMH = gv.mod.getItemByResRef(pc.MainHandRefs.resref);
-                        if ((itMH.category.Equals("Ranged")) && (!itMH.ammoType.Equals("none")) && (itMH.ammoType.Equals(it.ammoType)))
+                        if (pc.playerClass.containsItemRefsWithResRef(itRef.resref))
                         {
                             allowedItems.Add(itRef);
+                        }
+                    }
+                    else if ((it.category.Equals("Shield")) && (gv.cc.partyItemSlotIndex == 3))
+                    {
+                        if (pc.playerClass.containsItemRefsWithResRef(itRef.resref))
+                        {
+                            allowedItems.Add(itRef);
+                        }
+                    }
+                    else if ((it.category.Equals("Ring")) && (gv.cc.partyItemSlotIndex == 4))
+                    {
+                        if (pc.playerClass.containsItemRefsWithResRef(itRef.resref))
+                        {
+                            allowedItems.Add(itRef);
+                        }
+                    }
+                    else if ((it.category.Equals("Armor")) && (gv.cc.partyItemSlotIndex == 5))
+                    {
+                        if (pc.playerClass.containsItemRefsWithResRef(itRef.resref))
+                        {
+                            allowedItems.Add(itRef);
+                        }
+                    }
+                    else if ((it.category.Equals("Feet")) && (gv.cc.partyItemSlotIndex == 6))
+                    {
+                        if (pc.playerClass.containsItemRefsWithResRef(itRef.resref))
+                        {
+                            allowedItems.Add(itRef);
+                        }
+                    }
+                    else if ((it.category.Equals("Ring")) && (gv.cc.partyItemSlotIndex == 7))
+                    {
+                        if (pc.playerClass.containsItemRefsWithResRef(itRef.resref))
+                        {
+                            allowedItems.Add(itRef);
+                        }
+                    }
+                    else if ((it.category.Equals("Ammo")) && (gv.cc.partyItemSlotIndex == 8))
+                    {
+                        if (pc.playerClass.containsItemRefsWithResRef(itRef.resref))
+                        {
+                            Item itMH = gv.mod.getItemByResRef(pc.MainHandRefs.resref);
+                            if ((itMH.category.Equals("Ranged")) && (!itMH.ammoType.Equals("none")) && (itMH.ammoType.Equals(it.ammoType)))
+                            {
+                                allowedItems.Add(itRef);
+                            }
                         }
                     }
                 }

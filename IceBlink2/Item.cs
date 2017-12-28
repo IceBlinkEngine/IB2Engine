@@ -55,7 +55,15 @@ namespace IceBlink2
 	    public int damageAdder = 0; //the adder like 2d4+1 where "1" is the adder
 	    public int armorBonus = 0; //armor bonus
 	    public int maxDexBonus = 99; //maximum Dexterity bonus allowed with this armor
-	    public int attributeBonusModifierStr = 0;
+        public int modifierMaxHP = 0;
+        public int modifierMaxSP = 0;
+        public int requiredSTR = 0;
+        public int requiredDEX = 0;
+        public int requiredCON = 0;
+        public int requiredINT = 0;
+        public int requiredWIS = 0;
+        public int requiredCHA = 0;
+        public int attributeBonusModifierStr = 0;
 	    public int attributeBonusModifierDex = 0;
 	    public int attributeBonusModifierInt = 0;
 	    public int attributeBonusModifierCha = 0;
@@ -79,6 +87,7 @@ namespace IceBlink2
         public bool destroyItemAfterOnUseItemIBScript = false;
         public bool destroyItemAfterOnUseItemScript = true;
         public string onScoringHitCastSpellTag = "none";
+        public bool onScoringHitCastOnSelf = false;
         public string onUseItemCastSpellTag = "none";
         public bool destroyItemAfterOnUseItemCastSpell = false;
         public int levelOfItemForCastSpell = 1;
@@ -90,8 +99,13 @@ namespace IceBlink2
 	    public int damageTypeResistanceValueFire = 0;
 	    public int damageTypeResistanceValueMagic = 0;
 	    public int damageTypeResistanceValuePoison = 0;
+        public int requiredLevel = 0;
         public string typeOfDamage = "Normal"; //Normal,Acid,Cold,Electricity,Fire,Magic,Poison
         public List<LocalImmunityString> entriesForPcTags = new List<LocalImmunityString>();
+
+        public string requiredTrait = "none";
+        public string requiredRace = "none";
+        public string restrictedRace = "none";
 
         public bool canNotBeChangedInCombat = false;
 
@@ -99,6 +113,8 @@ namespace IceBlink2
 
         public int hpRegenTimer = 0;
         public int spRegenTimer = 0;
+
+        public int additionalAttacks = 0;
 
         //Not yet implemented
         public string labelForCastAction = "none";
@@ -131,7 +147,18 @@ namespace IceBlink2
 		    copy.category = this.category;
 		    copy.plotItem = this.plotItem;
 		    copy.value = this.value;
-		    copy.quantity = this.quantity;
+            copy.requiredLevel = this.requiredLevel;
+            copy.requiredSTR = this.requiredSTR;
+            copy.requiredDEX = this.requiredDEX;
+            copy.requiredCON = this.requiredCON;
+            copy.requiredINT = this.requiredINT;
+            copy.requiredWIS = this.requiredWIS;
+            copy.requiredCHA = this.requiredCHA;
+            copy.requiredTrait = this.requiredTrait;
+            copy.requiredRace = this.requiredRace;
+            copy.restrictedRace = this.restrictedRace;
+
+            copy.quantity = this.quantity;
 		    copy.groupSizeForSellingStackableItems = this.groupSizeForSellingStackableItems;
 		    copy.charges = this.charges;
 		    copy.ammoType = this.ammoType;
@@ -148,9 +175,12 @@ namespace IceBlink2
             copy.damageNumDice = this.damageNumDice;
 		    copy.damageDie = this.damageDie;
 		    copy.damageAdder = this.damageAdder;
-		    copy.armorBonus = this.armorBonus;
+            copy.additionalAttacks = this.additionalAttacks;
+            copy.armorBonus = this.armorBonus;
 		    copy.maxDexBonus = this.maxDexBonus;
-		    copy.attributeBonusModifierStr = this.attributeBonusModifierStr;
+            copy.modifierMaxHP = this.modifierMaxHP;
+            copy.modifierMaxSP = this.modifierMaxSP;
+            copy.attributeBonusModifierStr = this.attributeBonusModifierStr;
 		    copy.attributeBonusModifierDex = this.attributeBonusModifierDex;
 		    copy.attributeBonusModifierInt = this.attributeBonusModifierInt;
 		    copy.attributeBonusModifierCha = this.attributeBonusModifierCha;
@@ -174,6 +204,7 @@ namespace IceBlink2
             copy.destroyItemAfterOnUseItemIBScript = this.destroyItemAfterOnUseItemIBScript;
             copy.destroyItemAfterOnUseItemScript = this.destroyItemAfterOnUseItemScript;
             copy.onScoringHitCastSpellTag = this.onScoringHitCastSpellTag;
+            copy.onScoringHitCastOnSelf = this.onScoringHitCastOnSelf;
             copy.onUseItemCastSpellTag = this.onUseItemCastSpellTag;
             copy.destroyItemAfterOnUseItemCastSpell = this.destroyItemAfterOnUseItemCastSpell;
             copy.levelOfItemForCastSpell = this.levelOfItemForCastSpell;

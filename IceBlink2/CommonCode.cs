@@ -9342,6 +9342,825 @@ namespace IceBlink2
                 }
             }
         }
+
+        public bool checkRequirmentsMet(Player pc, Item it)
+        {
+            bool requirementsMet = true;
+
+            if (it.requiredTrait != "none")
+            {
+                requirementsMet = false;
+                bool returnFalse = true;
+                foreach (string t in pc.knownTraitsTags)
+                {
+                    if (t == it.requiredTrait)
+                    {
+                        requirementsMet = true;
+                        returnFalse = false;
+                        break;
+                    }
+                }
+                if (returnFalse)
+                {
+                    return requirementsMet;
+                }
+            }
+
+            if (it.requiredRace != "none")
+            {
+                requirementsMet = false;
+                bool returnFalse = true;
+                if (pc.raceTag == it.requiredRace)
+                {
+                    requirementsMet = true;
+                    returnFalse = false;
+                }
+                if (returnFalse)
+                {
+                    return requirementsMet;
+                }
+            }
+
+            if (pc.strength < it.requiredSTR)
+            {
+                requirementsMet = false;
+            }
+            if (pc.dexterity < it.requiredDEX)
+            {
+                requirementsMet = false;
+            }
+            if (pc.constitution < it.requiredCON)
+            {
+                requirementsMet = false;
+            }
+            if (pc.intelligence < it.requiredINT)
+            {
+                requirementsMet = false;
+            }
+            if (pc.wisdom < it.requiredWIS)
+            {
+                requirementsMet = false;
+            }
+            if (pc.charisma < it.requiredCHA)
+            {
+                requirementsMet = false;
+            }
+
+            if (it.restrictedRace != "none")
+            {
+                if (pc.raceTag == it.restrictedRace)
+                {
+                    requirementsMet = false;
+                }
+            }
+
+            return requirementsMet;
+
+        }
+
+        public string buildItemInfoText (Item it, int lineCount)
+        {
+            //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+            //int lineCount = 3;
+            bool showFullInfo = false;
+            if (lineCount == -100)
+            {
+                showFullInfo = true;
+                lineCount = -100000;
+            }
+            string textToSpan = "<b>" + it.name + "</b><BR>";
+            if (showFullInfo)
+            {
+                textToSpan += "" + "<BR>";
+            }
+
+            if (it.requiredLevel != 0)
+            {
+                if (lineCount < 10)
+                {
+                    lineCount++;
+                    textToSpan += "Required level: " + it.requiredLevel + "<BR>";
+                }
+            }
+
+           
+
+
+
+            //if ((it.category.Equals("Melee")) || (it.category.Equals("Ranged")))
+            //{
+            if (it.category == "Melee" || it.category == "Ranged")
+            {
+                if (it.damageNumDice != 0 || it.damageAdder != 0)
+                {
+                    if (it.damageAdder != 0 && it.damageNumDice != 0)
+                    {
+                        if (lineCount < 10)
+                        {
+                            lineCount++;
+                            textToSpan += "Damage: " + it.damageNumDice + "d" + it.damageDie + "+" + it.damageAdder + "<BR>";
+                        }
+                    }
+                    else if (it.damageAdder == 0 && it.damageNumDice != 0)
+                    {
+                        if (lineCount < 10)
+                        {
+                            lineCount++;
+                            textToSpan += "Damage: " + it.damageNumDice + "d" + it.damageDie + "<BR>";
+                        }
+                    }
+                    else if (it.damageAdder != 0 && it.damageNumDice == 0)
+                    {
+                        if (lineCount < 10)
+                        {
+                            lineCount++;
+                            textToSpan += "Damage: " + it.damageAdder + "<BR>";
+                        }
+                    }
+                }
+            }
+
+            if (it.category == "Ammo")
+            {
+                string usedFor = "";
+                int cutCounter = 0;
+                foreach (Item wp in gv.mod.moduleItemsList)
+                {
+                    if ((wp.ammoType == it.tag) && (wp.category != "Ammo"))
+                    {
+                        cutCounter++;
+                        usedFor += wp.name + ", ";
+                    }
+                    if (cutCounter >= 2)
+                    {
+                        usedFor += "etc";
+                        break;
+                    }
+                }
+                lineCount++;
+                textToSpan += "Used by: " + usedFor + "<BR>";
+            }
+
+            if (it.attackBonus != 0)
+            {
+                if (lineCount < 10)
+                {
+                    lineCount++;
+                    textToSpan += "Attack Modifier: " + it.attackBonus + "<BR>";
+                }
+            }
+
+            if (it.additionalAttacks != 0)
+            {
+                if (lineCount < 10)
+                {
+                    lineCount++;
+                    textToSpan += "Additional attacks granted: " + it.additionalAttacks + "<BR>";
+                }
+            }
+
+            if (it.attackRange > 1)
+            {
+                if (lineCount < 10)
+                {
+                    lineCount++;
+                    textToSpan += "Attack Range: " + it.attackRange + "<BR>";
+                }
+            }
+
+            if (it.AreaOfEffect > 0)
+            {
+                if (lineCount < 10)
+                {
+                    lineCount++;
+                    textToSpan += "Area of Effect radius/length: " + it.AreaOfEffect + "<BR>";
+                }
+                if (lineCount < 10)
+                {
+                    lineCount++;
+                    textToSpan += "Area of Effect shape: " + it.aoeShape + "<BR>";
+                }
+            }
+
+            if (it.typeOfDamage != "Normal")
+            {
+                if (lineCount < 10)
+                {
+                    lineCount++;
+                    textToSpan += "Type of Damage: " + it.typeOfDamage + "<BR>";
+                }
+            }
+
+            if ((it.ammoType != "none") && (it.category != "Ammo"))
+            {
+                string ammoName = "none";
+                foreach (Item itA in gv.mod.moduleItemsList)
+                {
+                    if (itA.tag == it.ammoType)
+                    {
+                        ammoName = itA.name;
+                    }
+                }
+                if (lineCount < 10)
+                {
+                    lineCount++;
+                    textToSpan += "Required Ammo: " + ammoName + "<BR>";
+                }
+            }
+            if (it.armorBonus != 0)
+            {
+                if (lineCount < 10)
+                {
+                    lineCount++;
+                    textToSpan += "AC Modifier: " + it.armorBonus + "<BR>";
+                }
+            }
+
+            if (it.twoHanded)
+            {
+                if (lineCount < 10)
+                {
+                    lineCount++;
+                    textToSpan += "Two handed: " + it.twoHanded + "<BR>";
+                }
+            }
+
+            if (it.category == "Armor")
+            {
+                if (lineCount < 10)
+                {
+                    lineCount++;
+                    textToSpan += "Armor type: " + it.ArmorWeightType + "<BR>";
+                }
+            }
+
+            if (it.maxDexBonus != 99)
+            {
+                if (lineCount < 10)
+                {
+                    lineCount++;
+                    textToSpan += "Max dexterity bonus: " + it.maxDexBonus + "<BR>";
+                }
+            }
+
+            if (it.automaticallyHitsTarget)
+            {
+                if (lineCount < 10)
+                {
+                    lineCount++;
+                    textToSpan += "Always hits: " + it.automaticallyHitsTarget + "<BR>";
+                }
+            }
+
+            if (it.canNotBeChangedInCombat)
+            {
+                if (lineCount < 10)
+                {
+                    lineCount++;
+                    textToSpan += "Not changeable in combat: " + it.canNotBeChangedInCombat + "<BR>";
+                }
+            }
+
+            if (it.canNotBeUnequipped)
+            {
+                if (lineCount < 10)
+                {
+                    lineCount++;
+                    textToSpan += "Can never be changed: " + it.canNotBeUnequipped + "<BR>";
+                }
+            }
+
+            if (!it.endTurnAfterEquipping)
+            {
+                if (lineCount < 10)
+                {
+                    lineCount++;
+                    textToSpan += "Changing is free action: " + it.endTurnAfterEquipping + "<BR>";
+                }
+            }
+
+
+            if (it.onUseItemCastSpellTag != "none" || it.onUseItemIBScript != "none" || it.onUseItem != "none")
+            {
+                if (lineCount < 10)
+                {
+                    lineCount++;
+                    textToSpan += "Allows use action: True" + "<BR>";
+                }
+                if ((it.destroyItemAfterOnUseItemCastSpell && it.onUseItemCastSpellTag != "none") || (it.destroyItemAfterOnUseItemIBScript && it.onUseItemIBScript != "none") || (it.destroyItemAfterOnUseItemScript && it.onUseItem != "none"))
+                {
+                    if (lineCount < 10)
+                    {
+                        lineCount++;
+                        textToSpan += "Item is destroyed after full use: True" + "<BR>";
+                    }
+                }
+            }
+
+            if (it.onUseItemCastSpellTag != "none")
+            {
+                string spellName = "none";
+                foreach (Spell sp in gv.mod.moduleSpellsList)
+                {
+                    if (sp.tag == it.onUseItemCastSpellTag)
+                    {
+                        spellName = sp.name;
+                        break;
+                    }
+                }
+
+                if (lineCount < 10)
+                {
+                    lineCount++;
+                    textToSpan += "On use: " + spellName + "<BR>";
+                }
+                if (lineCount < 10)
+                {
+                    lineCount++;
+                    if (it.usePlayerClassLevelForOnUseItemCastSpell)
+                    {
+                        textToSpan += "Item on use level: " + "character level" + "<BR>";
+                    }
+                    else
+                    {
+                        textToSpan += "Item on use level: " + it.levelOfItemForCastSpell + "<BR>";
+                    }
+                }
+            }
+
+                if (it.onlyUseableWhenEquipped)
+            {
+                if (lineCount < 10)
+                {
+                    lineCount++;
+                    textToSpan += "Must be equipped to use: " + it.onlyUseableWhenEquipped + "<BR>";
+                }
+            }
+
+            if (it.useableInSituation != "Passive" && it.useableInSituation != "Always")
+            {
+                if (it.useableInSituation == "InCombat")
+                {
+                    if (lineCount < 10)
+                    {
+                        lineCount++;
+                        textToSpan += "Only useable in combat: True" + "<BR>";
+                    }
+                }
+
+                else if (it.useableInSituation == "OutOfCombat")
+                {
+                    if (lineCount < 10)
+                    {
+                        lineCount++;
+                        textToSpan += "Only useable out of combat: True" + "<BR>";
+                    }
+                }
+            }
+
+            if (it.onScoringHitCastSpellTag != "none")
+            {
+                if (lineCount < 10)
+                {
+                    foreach (Spell sp in gv.mod.moduleSpellsList)
+                    {
+                        if (sp.tag == it.onScoringHitCastSpellTag)
+                        {
+                            lineCount++;
+                            textToSpan += "On hit: " + sp.name + "<BR>";
+                            if (it.onScoringHitCastOnSelf)
+                            {
+                                if (lineCount < 10)
+                                {
+                                    lineCount++;
+                                    textToSpan += "Center on hit effect on self: " + "True" + "<BR>";
+                                }
+                            }
+                                
+                            if (lineCount < 10)
+                            {
+                                lineCount++;
+                                if (it.usePlayerClassLevelForOnUseItemCastSpell)
+                                {
+                                    textToSpan += "Item on hit level: " + "Character level" + "<BR>";
+                                }
+                                else
+                                {
+                                    textToSpan += "Item on hit level: " + it.levelOfItemForCastSpell + "<BR>";
+                                }
+                            }
+                         }
+                    }
+                }
+            }
+
+            if (it.entriesForPcTags.Count > 0)
+            {
+                string pcTags = "";
+                foreach (LocalImmunityString ls in it.entriesForPcTags)
+                {
+                    pcTags += ls.Value + ", ";
+                }
+                if (lineCount < 10)
+                {
+                    lineCount++;
+                    textToSpan += "Item perks: " + pcTags + "<BR>";
+                }
+            }
+
+            if (it.requiredRace != "none")
+            {
+                if (lineCount < 10)
+                {
+                    lineCount++;
+                    string raceName = "";
+                    foreach (Race r in gv.mod.moduleRacesList)
+                    {
+                        if (r.tag == it.requiredRace)
+                        {
+                            raceName = r.name;
+                            break;
+                        }
+                    }
+                    textToSpan += "Required race: " + raceName + "<BR>";
+                }
+            }
+
+            if (it.restrictedRace != "none")
+            {
+                if (lineCount < 10)
+                {
+                    lineCount++;
+                    string raceName = "";
+                    foreach (Race r in gv.mod.moduleRacesList)
+                    {
+                        if (r.tag == it.restrictedRace)
+                        {
+                            raceName = r.name;
+                            break;
+                        }
+                    }
+                    textToSpan += "Not allowed for race: " + raceName + "<BR>";
+                }
+            }
+
+            if (it.requiredTrait != "none")
+            {
+                if (lineCount < 10)
+                {
+                    lineCount++;
+                    string traitName = "";
+                    foreach (Trait t in gv.mod.moduleTraitsList)
+                    {
+                        if (t.tag == it.requiredTrait)
+                        {
+                            traitName = t.name;
+                            break;
+                        }
+                    }
+                    textToSpan += "Required trait: " + traitName + "<BR>";
+                }
+            }
+
+            if (it.requiredSTR != 0)
+            {
+                if (lineCount < 10)
+                {
+                    lineCount++;
+                    textToSpan += "Required Strength: " + it.requiredSTR + "<BR>";
+                }
+            }
+
+            if (it.requiredDEX != 0)
+            {
+                if (lineCount < 10)
+                {
+                    lineCount++;
+                    textToSpan += "Required Dexterity: " + it.requiredDEX + "<BR>";
+                }
+            }
+
+            if (it.requiredCON != 0)
+            {
+                if (lineCount < 10)
+                {
+                    lineCount++;
+                    textToSpan += "Required Constitution: " + it.requiredCON + "<BR>";
+                }
+            }
+
+            if (it.requiredINT != 0)
+            {
+                if (lineCount < 10)
+                {
+                    lineCount++;
+                    textToSpan += "Required Intelligence: " + it.requiredINT + "<BR>";
+                }
+            }
+
+            if (it.requiredWIS != 0)
+            {
+                if (lineCount < 10)
+                {
+                    lineCount++;
+                    textToSpan += "Required Wisdom: " + it.requiredWIS + "<BR>";
+                }
+            }
+
+            if (it.requiredCHA != 0)
+            {
+                if (lineCount < 10)
+                {
+                    lineCount++;
+                    textToSpan += "Required Charisma: " + it.requiredCHA + "<BR>";
+                }
+            }
+
+
+            if (it.isRation)
+            {
+                if (lineCount < 10)
+                {
+                    lineCount++;
+                    textToSpan += "Is ration: " + it.isRation + "<BR>";
+                }
+            }
+
+            if (it.isLightSource)
+            {
+                if (lineCount < 10)
+                {
+                    lineCount++;
+                    textToSpan += "Is light source: " + it.isLightSource + "<BR>";
+                }
+            }
+
+            if (it.modifierMaxHP != 0)
+            {
+                if (lineCount < 10)
+                {
+                    lineCount++;
+                    textToSpan += "HP modifier: " + it.modifierMaxHP + "<BR>";
+                }
+            }
+
+            if (it.modifierMaxSP != 0)
+            {
+                if (lineCount < 10)
+                {
+                    lineCount++;
+                    textToSpan += "SP modifier: " + it.modifierMaxSP + "<BR>";
+                }
+            }
+
+            if (it.attributeBonusModifierStr != 0)
+            {
+                if (lineCount < 10)
+                {
+                    lineCount++;
+                    textToSpan += "STR modifier: " + it.attributeBonusModifierStr + "<BR>";
+                }
+            }
+
+            if (it.attributeBonusModifierDex != 0)
+            {
+                if (lineCount < 10)
+                {
+                    lineCount++;
+                    textToSpan += "DEX modifier: " + it.attributeBonusModifierDex + "<BR>";
+                }
+            }
+
+            if (it.attributeBonusModifierCon != 0)
+            {
+                if (lineCount < 10)
+                {
+                    lineCount++;
+                    textToSpan += "CON modifier: " + it.attributeBonusModifierCon + "<BR>";
+                }
+            }
+
+            if (it.attributeBonusModifierInt != 0)
+            {
+                if (lineCount < 10)
+                {
+                    lineCount++;
+                    textToSpan += "INT modifier: " + it.attributeBonusModifierInt + "<BR>";
+                }
+            }
+
+            if (it.attributeBonusModifierWis != 0)
+            {
+                if (lineCount < 10)
+                {
+                    lineCount++;
+                    textToSpan += "WIS modifier: " + it.attributeBonusModifierWis + "<BR>";
+                }
+            }
+
+            if (it.attributeBonusModifierCha != 0)
+            {
+                if (lineCount < 10)
+                {
+                    lineCount++;
+                    textToSpan += "CHA modifier: " + it.attributeBonusModifierCha + "<BR>";
+                }
+            }
+
+            if (it.hpRegenPerRoundInCombat != 0)
+            {
+                if (lineCount < 10)
+                {
+                    lineCount++;
+                    textToSpan += "HP reg per round in combat: " + it.hpRegenPerRoundInCombat + "<BR>";
+                }
+            }
+
+            if (it.spRegenPerRoundInCombat != 0)
+            {
+                if (lineCount < 10)
+                {
+                    lineCount++;
+                    textToSpan += "SP reg per round in combat: " + it.spRegenPerRoundInCombat + "<BR>";
+                }
+            }
+
+            if (it.minutesPerHpRegenOutsideCombat != 0)
+            {
+                if (lineCount < 10)
+                {
+                    lineCount++;
+                    textToSpan += "+1 HP outside combat every: " + it.minutesPerHpRegenOutsideCombat + " minutes" + "<BR>";
+                }
+            }
+
+            if (it.minutesPerSpRegenOutsideCombat != 0)
+            {
+                if (lineCount < 10)
+                {
+                    lineCount++;
+                    textToSpan += "+1 SP outside combat every: " + it.minutesPerSpRegenOutsideCombat + " minutes" + "<BR>";
+                }
+            }
+
+            if (it.MovementPointModifier != 0)
+            {
+                if (lineCount < 10)
+                {
+                    lineCount++;
+                    textToSpan += "Effect on movement points: " + it.MovementPointModifier + "<BR>";
+                }
+            }
+
+            if (it.savingThrowModifierFortitude != 0)
+            {
+                if (lineCount < 10)
+                {
+                    lineCount++;
+                    textToSpan += "Fortitude save modifier: " + it.savingThrowModifierFortitude + "<BR>";
+                }
+            }
+
+            if (it.savingThrowModifierReflex != 0)
+            {
+                if (lineCount < 10)
+                {
+                    lineCount++;
+                    textToSpan += "Reflex save modifier: " + it.savingThrowModifierReflex + "<BR>";
+                }
+            }
+
+            if (it.savingThrowModifierFortitude != 0)
+            {
+                if (lineCount < 10)
+                {
+                    lineCount++;
+                    textToSpan += "Will save modifier: " + it.savingThrowModifierWill + "<BR>";
+                }
+            }
+
+            if (it.damageTypeResistanceValueNormal != 0)
+            {
+                if (lineCount < 10)
+                {
+                    lineCount++;
+                    textToSpan += "Resistance physical modifier: " + it.damageTypeResistanceValueNormal + "<BR>";
+                }
+            }
+
+            if (it.damageTypeResistanceValueAcid != 0)
+            {
+                if (lineCount < 10)
+                {
+                    lineCount++;
+                    textToSpan += "Resistance acid modifier: " + it.damageTypeResistanceValueAcid + "<BR>";
+                }
+            }
+
+            if (it.damageTypeResistanceValueElectricity != 0)
+            {
+                if (lineCount < 10)
+                {
+                    lineCount++;
+                    textToSpan += "Resistance electricity modifier: " + it.damageTypeResistanceValueElectricity + "<BR>";
+                }
+            }
+
+            if (it.damageTypeResistanceValueFire != 0)
+            {
+                if (lineCount < 10)
+                {
+                    lineCount++;
+                    textToSpan += "Resistance fire modifier: " + it.damageTypeResistanceValueFire + "<BR>";
+                }
+            }
+
+            if (it.damageTypeResistanceValueCold != 0)
+            {
+                if (lineCount < 10)
+                {
+                    lineCount++;
+                    textToSpan += "Resistance cold modifier: " + it.damageTypeResistanceValueCold + "<BR>";
+                }
+            }
+
+            if (it.damageTypeResistanceValuePoison != 0)
+            {
+                if (lineCount < 10)
+                {
+                    lineCount++;
+                    textToSpan += "Resistance poison modifier: " + it.damageTypeResistanceValuePoison + "<BR>";
+                }
+            }
+
+            if (it.damageTypeResistanceValueMagic != 0)
+            {
+                if (lineCount < 10)
+                {
+                    lineCount++;
+                    textToSpan += "Resistance magic modifier: " + it.damageTypeResistanceValueMagic + "<BR>";
+                }
+            }
+
+            if (it.onUseItemCastSpellTag != "none" || it.onUseItemIBScript != "none" || it.onUseItem != "none" || it.category != "General")
+            {
+                if (lineCount < 10)
+                {
+                    lineCount++;
+                    textToSpan += "Allowed for: " + gv.sf.isUseableBy(it) + "<BR>";
+                }
+            }
+
+            if (lineCount < 10)
+            {
+                lineCount++;
+                textToSpan += "Value: " + it.value + "<BR>";
+            }
+
+            if (!showFullInfo)
+            {
+                if (lineCount < 10)
+                {
+                    textToSpan += "Press INFO for item description " + "<BR>";
+                }
+                else
+                {
+                    textToSpan += "[Cut off] See more via INFO " + "<BR>";
+                }
+            }
+            //rückwärts
+
+            /*
+            textToSpan += "Useable By: " + isUseableBy(it) + "<BR>";
+            textToSpan += "Two-Handed Weapon: ";
+            if (it.twoHanded) { textToSpan += "Yes<BR>"; }
+            else { textToSpan += "No<BR>"; }
+            */
+            if (showFullInfo)
+            {
+                if ((!it.descFull.Equals("")))
+                {
+                    textToSpan += "" + "<BR>";
+                    textToSpan += it.descFull;
+                }
+                else
+                {
+                    textToSpan += "" + "<BR>";
+                    textToSpan += it.desc;
+                }
+            }
+
+            textToSpan += "<BR>";
+
+            if (showFullInfo)
+            {
+                gv.sf.MessageBoxHtml(textToSpan);
+            }
+
+            //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+            return textToSpan;
+        }
+
         public void doIBScriptBasedOnFilename(string filename, string parms)
         {
             //if (parms != "fullScreenEffectScript")

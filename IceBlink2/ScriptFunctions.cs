@@ -6005,8 +6005,8 @@ namespace IceBlink2
 
             int cMod = (pc.constitution - 10) / 2;
             int iMod = modifierFromSPRelevantAttribute;
-            pc.spMax = pc.playerClass.startingSP + iMod + ((pc.classLevel - 1) * (pc.playerClass.spPerLevelUp + iMod)) + CalcAttributeModifierSpMax(pc);
-            pc.hpMax = pc.playerClass.startingHP + cMod + ((pc.classLevel - 1) * (pc.playerClass.hpPerLevelUp + cMod)) + CalcAttributeModifierHpMax(pc);
+            pc.spMax = pc.playerClass.startingSP + iMod + ((pc.classLevel - 1) * (pc.playerClass.spPerLevelUp + iMod)) + CalcAttributeModifierSpMax(pc) + CalcModifierMaxSP(pc);
+            pc.hpMax = pc.playerClass.startingHP + cMod + ((pc.classLevel - 1) * (pc.playerClass.hpPerLevelUp + cMod)) + CalcAttributeModifierHpMax(pc) + CalcModifierMaxHP(pc);
 
             pc.XPNeeded = pc.playerClass.xpTable[pc.classLevel];
 
@@ -6368,6 +6368,7 @@ namespace IceBlink2
             if (highestNonStackable > -99) { savBonuses = highestNonStackable; }
             return savBonuses;
         }
+
         public int CalcAttributeModifierStr(Player pc)
         {
             int attBonuses = 0;
@@ -6400,6 +6401,73 @@ namespace IceBlink2
             if (highestNonStackable > -99) { attBonuses = highestNonStackable; }
             return attBonuses;
         }
+
+        public int CalcModifierMaxHP(Player pc)
+        {
+            int attBonuses = 0;
+            attBonuses += mod.getItemByResRefForInfo(pc.BodyRefs.resref).modifierMaxHP;
+            attBonuses += mod.getItemByResRefForInfo(pc.MainHandRefs.resref).modifierMaxHP;
+            attBonuses += mod.getItemByResRefForInfo(pc.OffHandRefs.resref).modifierMaxHP;
+            attBonuses += mod.getItemByResRefForInfo(pc.RingRefs.resref).modifierMaxHP;
+            attBonuses += mod.getItemByResRefForInfo(pc.HeadRefs.resref).modifierMaxHP;
+            attBonuses += mod.getItemByResRefForInfo(pc.NeckRefs.resref).modifierMaxHP;
+            attBonuses += mod.getItemByResRefForInfo(pc.Ring2Refs.resref).modifierMaxHP;
+            attBonuses += mod.getItemByResRefForInfo(pc.FeetRefs.resref).modifierMaxHP;
+            int highestNonStackable = -99;
+            foreach (Effect ef in pc.effectsList)
+            {
+                if (isPassiveTraitApplied(ef, pc))
+                {
+                    if (ef.isStackableEffect)
+                    {
+                        attBonuses += ef.modifyHpMax;
+                    }
+                    else
+                    {
+                        if ((ef.modifyHpMax != 0) && (ef.modifyHpMax > highestNonStackable))
+                        {
+                            highestNonStackable = ef.modifyHpMax;
+                        }
+                    }
+                }
+            }
+            if (highestNonStackable > -99) { attBonuses = highestNonStackable; }
+            return attBonuses;
+        }
+
+        public int CalcModifierMaxSP(Player pc)
+        {
+            int attBonuses = 0;
+            attBonuses += mod.getItemByResRefForInfo(pc.BodyRefs.resref).modifierMaxSP;
+            attBonuses += mod.getItemByResRefForInfo(pc.MainHandRefs.resref).modifierMaxSP;
+            attBonuses += mod.getItemByResRefForInfo(pc.OffHandRefs.resref).modifierMaxSP;
+            attBonuses += mod.getItemByResRefForInfo(pc.RingRefs.resref).modifierMaxSP;
+            attBonuses += mod.getItemByResRefForInfo(pc.HeadRefs.resref).modifierMaxSP;
+            attBonuses += mod.getItemByResRefForInfo(pc.NeckRefs.resref).modifierMaxSP;
+            attBonuses += mod.getItemByResRefForInfo(pc.Ring2Refs.resref).modifierMaxSP;
+            attBonuses += mod.getItemByResRefForInfo(pc.FeetRefs.resref).modifierMaxSP;
+            int highestNonStackable = -99;
+            foreach (Effect ef in pc.effectsList)
+            {
+                if (isPassiveTraitApplied(ef, pc))
+                {
+                    if (ef.isStackableEffect)
+                    {
+                        attBonuses += ef.modifySpMax;
+                    }
+                    else
+                    {
+                        if ((ef.modifySpMax != 0) && (ef.modifySpMax > highestNonStackable))
+                        {
+                            highestNonStackable = ef.modifySpMax;
+                        }
+                    }
+                }
+            }
+            if (highestNonStackable > -99) { attBonuses = highestNonStackable; }
+            return attBonuses;
+        }
+
         public int CalcAttributeModifierDex(Player pc)
         {
             int attBonuses = 0;
@@ -6935,14 +7003,24 @@ namespace IceBlink2
         }
 
         public int CalcNumberOfAttacks(Player pc)
-         {  
-             if (isMeleeAttack(pc))  
+         {
+            int moveBonuses = 0;
+            moveBonuses += mod.getItemByResRefForInfo(pc.BodyRefs.resref).additionalAttacks;
+            moveBonuses += mod.getItemByResRefForInfo(pc.MainHandRefs.resref).additionalAttacks;
+            moveBonuses += mod.getItemByResRefForInfo(pc.OffHandRefs.resref).additionalAttacks;
+            moveBonuses += mod.getItemByResRefForInfo(pc.RingRefs.resref).additionalAttacks;
+            moveBonuses += mod.getItemByResRefForInfo(pc.HeadRefs.resref).additionalAttacks;
+            moveBonuses += mod.getItemByResRefForInfo(pc.NeckRefs.resref).additionalAttacks;
+            moveBonuses += mod.getItemByResRefForInfo(pc.FeetRefs.resref).additionalAttacks;
+            moveBonuses += mod.getItemByResRefForInfo(pc.Ring2Refs.resref).additionalAttacks;
+
+            if (isMeleeAttack(pc))  
              {  
-                 return CalcNumberOfMeleeAttacks(pc);  
+                 return CalcNumberOfMeleeAttacks(pc) + moveBonuses;  
              }  
              else  
              {  
-                 return CalcNumberOfRangedAttacks(pc);  
+                 return CalcNumberOfRangedAttacks(pc) + moveBonuses;  
              }  
          }
 
@@ -9372,7 +9450,14 @@ namespace IceBlink2
             else if (src is Item) //item was used
             {
                 Item source = (Item)src;
-                classLevel = source.levelOfItemForCastSpell;
+                if (source.usePlayerClassLevelForOnUseItemCastSpell)
+                {
+                    classLevel = gv.mod.playerList[gv.screenCombat.currentPlayerIndex].classLevel;
+                }
+                else
+                {
+                    classLevel = source.levelOfItemForCastSpell;
+                }
                 sourceName = source.name;
             }
 
@@ -11788,7 +11873,7 @@ namespace IceBlink2
                     }
                 }
             }
-            else //creature casting
+            else if (src is Creature) //creature casting
             {
                 Creature source = (Creature)src;
                 classLevel = source.cr_level;
@@ -11796,7 +11881,19 @@ namespace IceBlink2
                 source.sp -= SpellToCast.costSP;
                 if (source.sp < 0) { source.sp = 0; }
             }
-            
+              else if (src is Item) //item was used
+            {
+                Item source = (Item)src;
+                classLevel = source.levelOfItemForCastSpell;
+                sourceName = source.name;
+            }
+
+            else if (src is Coordinate) //trigger or prop was used  
+            {
+                classLevel = 1;
+                sourceName = "trigger";
+            }
+
             //iterate over targets and do damage
             foreach (object target in AoeTargetsList)
             {
@@ -12019,14 +12116,6 @@ namespace IceBlink2
 
                 source.sp -= SpellToCast.costSP;
                 if (source.sp < 0) { source.sp = 0; }
-            }
-            else if (src is Coordinate)
-            {
-                //Toast.makeText(gv.gameContext, "target is not a PC or Creature", Toast.LENGTH_SHORT).show();
-            }
-            else
-            {
-                //Toast.makeText(gv.gameContext, "don't recognize target type", Toast.LENGTH_SHORT).show();			
             }
         }
         public void spSleep(object src, object trg, Spell thisSpell)
@@ -12467,13 +12556,26 @@ namespace IceBlink2
                     }
                 }
             }
-            else //creature casting
+            else if (src is Creature) //creature casting
             {
                 Creature source = (Creature)src;
                 classLevel = source.cr_level;
                 sourceName = source.cr_name;
                 source.sp -= SpellToCast.costSP;
                 if (source.sp < 0) { source.sp = 0; }
+            }
+
+            else if (src is Item) //item was used
+            {
+                Item source = (Item)src;
+                classLevel = source.levelOfItemForCastSpell;
+                sourceName = source.name;
+            }
+
+            else if (src is Coordinate) //trigger or prop was used  
+            {
+                classLevel = 1;
+                sourceName = "trigger";
             }
 
             //iterate over targets and do damage

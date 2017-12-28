@@ -32,6 +32,7 @@ namespace IceBlink2
         public float scaler = 1.0f;
         public bool playedHoverSound = false;
         public bool btnOfChargedItem = false;
+        public bool btnWithGold = false;
         public GameView gv;
 
         public IbbButton(GameView g, float sc)
@@ -141,7 +142,14 @@ namespace IceBlink2
                     gv.DrawText(Text, this.X + ulX + x, this.Y + ulY + y , scaler, Color.Black);
                 }
             }
-            gv.DrawText(Text, this.X + ulX, this.Y + ulY, scaler, Color.White);
+            if (!this.btnWithGold)
+            {
+                gv.DrawText(Text, this.X + ulX, this.Y + ulY, scaler, Color.White);
+            }
+            else
+            {
+                gv.DrawText(Text, this.X + ulX, this.Y + ulY, scaler, Color.Gold);
+            }
             
             // DRAW QUANTITY
             stringSize = gv.cc.MeasureString(Quantity, SharpDX.DirectWrite.FontWeight.Normal, SharpDX.DirectWrite.FontStyle.Normal, thisFontHeight);

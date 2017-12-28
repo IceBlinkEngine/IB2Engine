@@ -257,15 +257,19 @@
     "spellTargetType": "PointLocation",
     "spellEffectType": "Damage",
     "aoeShape": "Circle",
-    "aoeRadius": 1,
+    "aoeRadius": 2,
     "range": 3,
-    "spellScript": "spFireball",
+    "spellScript": "none",
     "spellScriptParm1": "none",
     "spellScriptParm2": "none",
     "additionalCustomLogTextOnCast": "none",
     "spellEffectTag": "none",
     "removeEffectTagList": [],
-    "spellEffectTagList": []
+    "spellEffectTagList": [
+      {
+        "tag": "flamefingers"
+      }
+    ]
   },
   {
     "traitWorksOnlyWhen": [],

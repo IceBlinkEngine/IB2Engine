@@ -332,6 +332,7 @@ namespace IceBlink2
 			    ItemRefs itRef = GetCurrentlySelectedItemRefs();
         	    Item it = gv.mod.getItemByResRefForInfo(itRef.resref);
 
+                /*
                 //Description
 		        string textToSpan = "";
                 textToSpan = "<u>Description</u>" + "<BR>";
@@ -356,6 +357,11 @@ namespace IceBlink2
 	        	    textToSpan += "Useable By: " + isUseableBy(it) + "<BR>";
 	        	    textToSpan += "Tap 'INFO' for Full Description<BR>";
 	            }
+                */
+
+                string textToSpan = gv.cc.buildItemInfoText(it, -3);
+
+
                 description.tbXloc = (11 * gv.squareSize) + (pW * 5) + gv.oXshift;
                 description.tbYloc = 2 * gv.squareSize;
                 description.tbWidth = pW * 80;
@@ -557,7 +563,7 @@ namespace IceBlink2
                                 if (itRef == null) { return; }
                                 Item it = gv.mod.getItemByResRef(itRef.resref);
                                 if (it == null) { return; }
-                                gv.sf.ShowFullDescription(it);
+                                gv.cc.buildItemInfoText(it, -100);
                             }
                         }
                         else if (btnAction.getImpact(x, y))

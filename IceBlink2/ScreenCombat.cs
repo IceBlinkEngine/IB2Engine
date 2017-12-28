@@ -1913,13 +1913,14 @@ namespace IceBlink2
 
                                 if (!itChk.onScoringHitCastSpellTag.Equals("none"))
                                 {
-                                    doItemOnHitCastSpell(itChk.onScoringHitCastSpellTag, itChk, targetHighlightCenterLocation);
+                                    doItemOnHitCastSpell(itChk.onScoringHitCastSpellTag, itChk, targetHighlightCenterLocation, pc);
+                                    //gv.cc.doSpellBasedOnScriptOrEffectTag(sp, it, pc, outsideCombat, false);
                                 }
                             }
                         }
                         else if (!itChk.onScoringHitCastSpellTag.Equals("none"))
                         {
-                            doItemOnHitCastSpell(itChk.onScoringHitCastSpellTag, itChk, targetHighlightCenterLocation);
+                            doItemOnHitCastSpell(itChk.onScoringHitCastSpellTag, itChk, targetHighlightCenterLocation, pc);
                         }
 
                         hitAnimationLocation = new Coordinate(getPixelLocX(targetHighlightCenterLocation.X), getPixelLocY(targetHighlightCenterLocation.Y));
@@ -1970,7 +1971,8 @@ namespace IceBlink2
                             numAtt = gv.sf.CalcNumberOfAttacks(pc);
                             if (numAtt < 1)
                             {
-                                numAtt = 2;
+                                //???
+                                numAtt = 1;
                             }
                             //if ((gv.sf.hasTrait(pc, "rapidshot")) && (gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref).category.Equals("Ranged")))
 
@@ -2103,7 +2105,7 @@ namespace IceBlink2
                     doOnHitScriptBasedOnFilename(it.onScoringHit, crt, pc);
                     if (!it.onScoringHitCastSpellTag.Equals("none"))
                     {
-                        doItemOnHitCastSpell(it.onScoringHitCastSpellTag, it, crt);
+                        doItemOnHitCastSpell(it.onScoringHitCastSpellTag, it, crt, pc);
                     }
                 }
 
@@ -2113,7 +2115,7 @@ namespace IceBlink2
                     doOnHitScriptBasedOnFilename(it.onScoringHit, crt, pc);
                     if (!it.onScoringHitCastSpellTag.Equals("none"))
                     {
-                        doItemOnHitCastSpell(it.onScoringHitCastSpellTag, it, crt);
+                        doItemOnHitCastSpell(it.onScoringHitCastSpellTag, it, crt, pc);
                     }
                 }
 
@@ -2156,11 +2158,12 @@ namespace IceBlink2
                 return 0; //missed
             }
         }
-        public void doItemOnHitCastSpell(string tag, Item it, object trg)
+        public void doItemOnHitCastSpell(string tag, Item it, object trg, Player pc)
         {
-            Spell sp = gv.mod.getSpellByTag(tag);
-            if (sp == null) { return; }
-            gv.cc.doSpellBasedOnScriptOrEffectTag(sp, it, trg, false, false);
+            gv.cc.currentSelectedSpell = gv.mod.getSpellByTag(tag);
+            if (gv.cc.currentSelectedSpell == null) { return; }
+            gv.screenCombat.TargetCastPressed(pc, it);
+            //gv.cc.doSpellBasedOnScriptOrEffectTag(sp, it, trg, false, false);
         }
         public void endPcTurn(bool endStealthMode)
         {
@@ -8591,7 +8594,33 @@ namespace IceBlink2
                     it = gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref);
                 }
                 //set squares list
-                gv.sf.CreateAoeSquaresList(pc, targetHighlightCenterLocation, it.aoeShape, it.AreaOfEffect);
+                AreaOfEffectShape aoeShape = new AreaOfEffectShape();
+                int areaOfEffect = 0;
+                bool useSpellForAoEDisplay = false;
+
+                if (it.onScoringHitCastSpellTag != "none")
+                {
+                    foreach(Spell sp in gv.mod.moduleSpellsList)
+                    {
+                        if (sp.tag == it.onScoringHitCastSpellTag)
+                        {
+                            aoeShape = sp.aoeShape;
+                            areaOfEffect = sp.aoeRadius;
+                            useSpellForAoEDisplay = true;
+                            break;
+                        }
+                    }
+                }
+
+                if (useSpellForAoEDisplay)
+                {
+                    gv.sf.CreateAoeSquaresList(pc, targetHighlightCenterLocation, aoeShape, areaOfEffect);
+                }
+                else
+                {
+                    gv.sf.CreateAoeSquaresList(pc, targetHighlightCenterLocation, it.aoeShape, it.AreaOfEffect);
+                }
+
                 foreach (Coordinate coor in gv.sf.AoeSquaresList)
                 {
                     if (!IsInVisibleCombatWindow(coor.X, coor.Y))
@@ -13868,6 +13897,99 @@ namespace IceBlink2
             }
             currentCombatMode = "info";
         }
+
+        //overload for cast from item
+        public void TargetCastPressed(Player pc, Item it)
+        {
+            //if (isPlayerTurn)
+            //{
+            //CenterScreenOnPC();
+            //}
+
+            //Uses Map Pixel Locations
+            int endX = targetHighlightCenterLocation.X * gv.squareSize + (gv.squareSize / 2);
+            int endY = targetHighlightCenterLocation.Y * gv.squareSize + (gv.squareSize / 2);
+            int startX = pc.combatLocX * gv.squareSize + (gv.squareSize / 2);
+            int startY = pc.combatLocY * gv.squareSize + (gv.squareSize / 2);
+
+            if ((isValidCastTarget(pc)) && (isVisibleLineOfSight(new Coordinate(startX, startY), new Coordinate(endX, endY))))
+            {
+                if ((targetHighlightCenterLocation.X < pc.combatLocX) && (!pc.combatFacingLeft)) //attack left
+                {
+                    pc.combatFacingLeft = true;
+                }
+                else if ((targetHighlightCenterLocation.X > pc.combatLocX) && (pc.combatFacingLeft)) //attack right
+                {
+                    pc.combatFacingLeft = false;
+                }
+                doPlayerCombatFacing(pc, targetHighlightCenterLocation.X, targetHighlightCenterLocation.Y);
+                gv.touchEnabled = false;
+                creatureToAnimate.Clear();
+                playerToAnimate = pc;
+                //set attack animation and do a delay
+                attackAnimationTimeElapsed = 0;
+                attackAnimationLengthInMilliseconds = (int)(5f * gv.mod.attackAnimationSpeed);
+                //attackAnimationLengthInMilliseconds = (int)((5f * gv.mod.attackAnimationSpeed) + (-1 + (int)pc.token.PixelSize.Height / 100f) * 2* gv.mod.attackAnimationSpeed);
+                //attackAnimationLengthInMilliseconds = (int)((5f * gv.mod.attackAnimationSpeed) + (-1 + (int)pc.token.PixelSize.Height / 100f) * 100);
+                AnimationSequence newSeq = new AnimationSequence();
+                animationSeqStack.Add(newSeq);
+                //add projectile animation
+                gv.PlaySound(gv.cc.currentSelectedSpell.spellStartSound);
+                startX = getPixelLocX(pc.combatLocX);
+                startY = getPixelLocY(pc.combatLocY);
+                endX = getPixelLocX(targetHighlightCenterLocation.X);
+                endY = getPixelLocY(targetHighlightCenterLocation.Y);
+                string filename = gv.cc.currentSelectedSpell.spriteFilename;
+                AnimationStackGroup newGroup = new AnimationStackGroup();
+                newSeq.AnimationSeq.Add(newGroup);
+                launchProjectile(filename, startX, startY, endX, endY, newGroup);
+                //gv.PlaySound(gv.cc.currentSelectedSpell.spellEndSound);
+                object target = new object();
+                if (it.onScoringHitCastOnSelf)
+                {
+                    target = pc;
+                }
+                else
+                {
+                    target = getCastTarget(pc);
+                }
+                gv.cc.doSpellBasedOnScriptOrEffectTag(gv.cc.currentSelectedSpell, it, target, false, false);
+                //add ending projectile animation
+                newGroup = new AnimationStackGroup();
+                animationSeqStack[0].AnimationSeq.Add(newGroup);
+                filename = gv.cc.currentSelectedSpell.spriteEndingFilename;
+                foreach (Coordinate coor in gv.sf.AoeSquaresList)
+                {
+                    if (!IsInVisibleCombatWindow(coor.X, coor.Y))
+                    {
+                        continue;
+                    }
+                    addEndingAnimation(newGroup, new Coordinate(getPixelLocX(coor.X), getPixelLocY(coor.Y)), filename);
+                }
+                //add floaty text
+                //add death animations
+                newGroup = new AnimationStackGroup();
+                animationSeqStack[0].AnimationSeq.Add(newGroup);
+                foreach (Coordinate coor in deathAnimationLocations)
+                {
+                    if (!IsInVisibleCombatWindow(coor.X, coor.Y))
+                    {
+                        continue;
+                    }
+                    addDeathAnimation(newGroup, new Coordinate(getPixelLocX(coor.X), getPixelLocY(coor.Y)));
+                }
+                animationsOn = true;
+                //if this is a trait that is meant to not consume a turn then set the flag 
+                if (!gv.cc.currentSelectedSpell.usesTurnToActivate)
+                {
+                    continueTurn = true;
+                    //currentCombatMode = "move";
+                    //return;
+                }
+            }
+            currentCombatMode = "info";
+        }
+
         public void launchProjectile(string filename, int startX, int startY, int endX, int endY, AnimationStackGroup group)
         {
             //calculate angle from start to end point
@@ -14284,12 +14406,30 @@ namespace IceBlink2
                 {
                     it = gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref);
                 }
+
                 //check to see if is AoE or Point Target else needs a target PC or Creature
+                /*
+                bool isAoEType = false;
+                if (it.onScoringHitCastSpellTag != "none")
+                {
+                    foreach (Spell sp in gv.mod.moduleSpellsList)
+                    {
+                        if (sp.tag == it.onUseItemCastSpellTag)
+                        {
+                            isAoEType = true;
+                            break;
+                        }
+                    }
+                }
+                if (it.AreaOfEffect > 0 || isAoEType)
+                {
+                    return true;
+                }
+                */
                 if (it.AreaOfEffect > 0)
                 {
                     return true;
                 }
-
                 //Uses the Map Pixel Locations
                 int endX2 = targetHighlightCenterLocation.X * gv.squareSize + (gv.squareSize / 2);
                 int endY2 = targetHighlightCenterLocation.Y * gv.squareSize + (gv.squareSize / 2);
