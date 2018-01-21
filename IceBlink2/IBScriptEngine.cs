@@ -19720,21 +19720,41 @@ namespace IceBlink2
                     {
                         return gv.mod.playerList[indexNum].HeadRefs.quantity.ToString();
                     }
+                    else if (parm.EndsWith("GlovesRefsTag"))
+                    {
+                        return gv.mod.playerList[indexNum].GlovesRefs.tag.ToString();
+                    }
                     else if (parm.EndsWith("NeckRefsTag"))
                     {
                         return gv.mod.playerList[indexNum].NeckRefs.tag.ToString();
+                    }
+                    else if (parm.EndsWith("GlovesRefsName"))
+                    {
+                        return gv.mod.playerList[indexNum].GlovesRefs.name.ToString();
                     }
                     else if (parm.EndsWith("NeckRefsName"))
                     {
                         return gv.mod.playerList[indexNum].NeckRefs.name.ToString();
                     }
+                    else if (parm.EndsWith("GlovesRefsResRef"))
+                    {
+                        return gv.mod.playerList[indexNum].GlovesRefs.resref.ToString();
+                    }
                     else if (parm.EndsWith("NeckRefsResRef"))
                     {
                         return gv.mod.playerList[indexNum].NeckRefs.resref.ToString();
                     }
+                    else if (parm.EndsWith("GlovesRefsCanNotBeUnequipped"))
+                    {
+                        return gv.mod.playerList[indexNum].GlovesRefs.canNotBeUnequipped.ToString();
+                    }
                     else if (parm.EndsWith("NeckRefsCanNotBeUnequipped"))
                     {
                         return gv.mod.playerList[indexNum].NeckRefs.canNotBeUnequipped.ToString();
+                    }
+                    else if (parm.EndsWith("GlovesRefsQuantity"))
+                    {
+                        return gv.mod.playerList[indexNum].GlovesRefs.quantity.ToString();
                     }
                     else if (parm.EndsWith("NeckRefsQuantity"))
                     {

@@ -17,8 +17,8 @@
     "requiredWisdom": 0,
     "requiredCharisma": 21,
     "skillModifierAttribute": "int",
-    "useableInSituation": "Always",
-    "traitScript": "none"
+    "traitToReplaceByTag": "none",
+    "useableInSituation": "Always"
   },
   {
     "name": "Bluff (L2)",
@@ -38,8 +38,8 @@
     "requiredWisdom": 0,
     "requiredCharisma": 0,
     "skillModifierAttribute": "int",
-    "useableInSituation": "Always",
-    "traitScript": "none"
+    "traitToReplaceByTag": "none",
+    "useableInSituation": "Always"
   },
   {
     "name": "Cleave",
@@ -59,8 +59,8 @@
     "requiredWisdom": 0,
     "requiredCharisma": 0,
     "skillModifierAttribute": "str",
-    "useableInSituation": "Always",
-    "traitScript": "none"
+    "traitToReplaceByTag": "none",
+    "useableInSituation": "Always"
   },
   {
     "name": "Critical Strike",
@@ -80,8 +80,8 @@
     "requiredWisdom": 0,
     "requiredCharisma": 0,
     "skillModifierAttribute": "dex",
-    "useableInSituation": "Always",
-    "traitScript": "none"
+    "traitToReplaceByTag": "none",
+    "useableInSituation": "Always"
   },
   {
     "name": "Diplomacy (L1)",
@@ -101,8 +101,8 @@
     "requiredWisdom": 0,
     "requiredCharisma": 0,
     "skillModifierAttribute": "cha",
-    "useableInSituation": "Always",
-    "traitScript": "none"
+    "traitToReplaceByTag": "none",
+    "useableInSituation": "Always"
   },
   {
     "name": "Diplomacy (L2)",
@@ -122,8 +122,8 @@
     "requiredWisdom": 0,
     "requiredCharisma": 0,
     "skillModifierAttribute": "cha",
-    "useableInSituation": "Always",
-    "traitScript": "none"
+    "traitToReplaceByTag": "none",
+    "useableInSituation": "Always"
   },
   {
     "name": "Disable Device (L1)",
@@ -143,8 +143,8 @@
     "requiredWisdom": 0,
     "requiredCharisma": 0,
     "skillModifierAttribute": "dex",
-    "useableInSituation": "Always",
-    "traitScript": "none"
+    "traitToReplaceByTag": "none",
+    "useableInSituation": "Always"
   },
   {
     "name": "Disable Device (L2)",
@@ -164,8 +164,8 @@
     "requiredWisdom": 0,
     "requiredCharisma": 0,
     "skillModifierAttribute": "dex",
-    "useableInSituation": "Always",
-    "traitScript": "none"
+    "traitToReplaceByTag": "none",
+    "useableInSituation": "Always"
   },
   {
     "name": "Evasion",
@@ -185,8 +185,8 @@
     "requiredWisdom": 0,
     "requiredCharisma": 0,
     "skillModifierAttribute": "dex",
-    "useableInSituation": "Always",
-    "traitScript": "none"
+    "traitToReplaceByTag": "none",
+    "useableInSituation": "Always"
   },
   {
     "name": "Intimidate (L1)",
@@ -206,8 +206,8 @@
     "requiredWisdom": 0,
     "requiredCharisma": 0,
     "skillModifierAttribute": "str",
-    "useableInSituation": "Always",
-    "traitScript": "none"
+    "traitToReplaceByTag": "none",
+    "useableInSituation": "Always"
   },
   {
     "name": "Intimidate (L2)",
@@ -227,8 +227,8 @@
     "requiredWisdom": 0,
     "requiredCharisma": 0,
     "skillModifierAttribute": "str",
-    "useableInSituation": "Always",
-    "traitScript": "none"
+    "traitToReplaceByTag": "none",
+    "useableInSituation": "Always"
   },
   {
     "name": "Pick Pocket (L1)",
@@ -248,8 +248,8 @@
     "requiredWisdom": 0,
     "requiredCharisma": 0,
     "skillModifierAttribute": "dex",
-    "useableInSituation": "Always",
-    "traitScript": "none"
+    "traitToReplaceByTag": "none",
+    "useableInSituation": "Always"
   },
   {
     "name": "Pick Pocket (L2)",
@@ -269,8 +269,8 @@
     "requiredWisdom": 0,
     "requiredCharisma": 0,
     "skillModifierAttribute": "dex",
-    "useableInSituation": "Always",
-    "traitScript": "none"
+    "traitToReplaceByTag": "none",
+    "useableInSituation": "Always"
   },
   {
     "name": "Point Blank Shot",
@@ -290,8 +290,8 @@
     "requiredWisdom": 0,
     "requiredCharisma": 0,
     "skillModifierAttribute": "str",
-    "useableInSituation": "Always",
-    "traitScript": "none"
+    "traitToReplaceByTag": "none",
+    "useableInSituation": "Always"
   },
   {
     "name": "Sneak Attack",
@@ -311,8 +311,8 @@
     "requiredWisdom": 0,
     "requiredCharisma": 0,
     "skillModifierAttribute": "dex",
-    "useableInSituation": "Always",
-    "traitScript": "none"
+    "traitToReplaceByTag": "none",
+    "useableInSituation": "Always"
   },
   {
     "name": "Spot (L1)",
@@ -332,8 +332,8 @@
     "requiredWisdom": 0,
     "requiredCharisma": 0,
     "skillModifierAttribute": "dex",
-    "useableInSituation": "Always",
-    "traitScript": "none"
+    "traitToReplaceByTag": "none",
+    "useableInSituation": "Always"
   },
   {
     "name": "Spot (L2)",
@@ -353,8 +353,8 @@
     "requiredWisdom": 0,
     "requiredCharisma": 0,
     "skillModifierAttribute": "dex",
-    "useableInSituation": "Always",
-    "traitScript": "none"
+    "traitToReplaceByTag": "none",
+    "useableInSituation": "Always"
   },
   {
     "name": "Stealth (L1)",
@@ -374,8 +374,8 @@
     "requiredWisdom": 0,
     "requiredCharisma": 0,
     "skillModifierAttribute": "dex",
-    "useableInSituation": "Always",
-    "traitScript": "none"
+    "traitToReplaceByTag": "none",
+    "useableInSituation": "Always"
   },
   {
     "name": "Stealth (L2)",
@@ -395,8 +395,8 @@
     "requiredWisdom": 0,
     "requiredCharisma": 0,
     "skillModifierAttribute": "dex",
-    "useableInSituation": "Always",
-    "traitScript": "none"
+    "traitToReplaceByTag": "none",
+    "useableInSituation": "Always"
   },
   {
     "name": "Two Attacks",
@@ -416,8 +416,8 @@
     "requiredWisdom": 0,
     "requiredCharisma": 0,
     "skillModifierAttribute": "str",
-    "useableInSituation": "Always",
-    "traitScript": "none"
+    "traitToReplaceByTag": "none",
+    "useableInSituation": "Always"
   },
   {
     "name": "Hard to Kill",
@@ -437,8 +437,8 @@
     "requiredWisdom": 0,
     "requiredCharisma": 0,
     "skillModifierAttribute": "str",
-    "useableInSituation": "Always",
-    "traitScript": "none"
+    "traitToReplaceByTag": "none",
+    "useableInSituation": "Always"
   },
   {
     "name": "Precise Shot (L1)",
@@ -458,8 +458,8 @@
     "requiredWisdom": 0,
     "requiredCharisma": 0,
     "skillModifierAttribute": "str",
-    "useableInSituation": "Always",
-    "traitScript": "none"
+    "traitToReplaceByTag": "none",
+    "useableInSituation": "Always"
   },
   {
     "name": "Precise Shot (L2)",
@@ -479,8 +479,8 @@
     "requiredWisdom": 0,
     "requiredCharisma": 0,
     "skillModifierAttribute": "str",
-    "useableInSituation": "Always",
-    "traitScript": "none"
+    "traitToReplaceByTag": "none",
+    "useableInSituation": "Always"
   },
   {
     "name": "Rapid Shot (L1)",
@@ -500,8 +500,8 @@
     "requiredWisdom": 0,
     "requiredCharisma": 0,
     "skillModifierAttribute": "str",
-    "useableInSituation": "Always",
-    "traitScript": "none"
+    "traitToReplaceByTag": "none",
+    "useableInSituation": "Always"
   },
   {
     "name": "Rapid Shot (L2)",
@@ -521,8 +521,8 @@
     "requiredWisdom": 0,
     "requiredCharisma": 0,
     "skillModifierAttribute": "str",
-    "useableInSituation": "Always",
-    "traitScript": "none"
+    "traitToReplaceByTag": "none",
+    "useableInSituation": "Always"
   },
   {
     "name": "Battle Regeneration",
@@ -542,8 +542,8 @@
     "requiredWisdom": 0,
     "requiredCharisma": 0,
     "skillModifierAttribute": "str",
-    "useableInSituation": "Always",
-    "traitScript": "none"
+    "traitToReplaceByTag": "none",
+    "useableInSituation": "Always"
   },
   {
     "name": "Super Strength",
@@ -567,8 +567,8 @@
     "requiredWisdom": 0,
     "requiredCharisma": 0,
     "skillModifierAttribute": "str",
-    "useableInSituation": "Passive",
-    "traitScript": "none"
+    "traitToReplaceByTag": "none",
+    "useableInSituation": "Passive"
   },
   {
     "name": "Fighter Ball",
@@ -588,8 +588,8 @@
     "requiredWisdom": 0,
     "requiredCharisma": 0,
     "skillModifierAttribute": "str",
-    "useableInSituation": "InCombat",
-    "traitScript": "none"
+    "traitToReplaceByTag": "none",
+    "useableInSituation": "InCombat"
   },
   {
     "name": "Fighter Ball 2",
@@ -609,8 +609,8 @@
     "requiredWisdom": 0,
     "requiredCharisma": 0,
     "skillModifierAttribute": "str",
-    "useableInSituation": "InCombat",
-    "traitScript": "none"
+    "traitToReplaceByTag": "none",
+    "useableInSituation": "InCombat"
   },
   {
     "name": "testTrait",
@@ -642,8 +642,8 @@
     "requiredWisdom": 0,
     "requiredCharisma": 0,
     "skillModifierAttribute": "str",
-    "useableInSituation": "Always",
-    "traitScript": "none"
+    "traitToReplaceByTag": "none",
+    "useableInSituation": "Always"
   },
   {
     "name": "Bloody Whirlwind",
@@ -667,8 +667,8 @@
     "requiredWisdom": 0,
     "requiredCharisma": 0,
     "skillModifierAttribute": "str",
-    "useableInSituation": "InCombat",
-    "traitScript": "none"
+    "traitToReplaceByTag": "none",
+    "useableInSituation": "InCombat"
   },
   {
     "name": "Sweep",
@@ -692,8 +692,8 @@
     "requiredWisdom": 0,
     "requiredCharisma": 0,
     "skillModifierAttribute": "str",
-    "useableInSituation": "Passive",
-    "traitScript": "none"
+    "traitToReplaceByTag": "none",
+    "useableInSituation": "Passive"
   },
   {
     "name": "LightningWielder",
@@ -717,7 +717,132 @@
     "requiredWisdom": 0,
     "requiredCharisma": 0,
     "skillModifierAttribute": "str",
-    "useableInSituation": "InCombat",
-    "traitScript": "none"
+    "traitToReplaceByTag": "none",
+    "useableInSituation": "InCombat"
+  },
+  {
+    "name": "Bear Strength",
+    "traitEffectTagList": [
+      {
+        "tag": "newEffectTag_11531"
+      }
+    ],
+    "traitWorksOnlyWhen": [],
+    "traitWorksNeverWhen": [],
+    "tag": "newTraitTag_11597",
+    "associatedSpellTag": "none",
+    "traitImage": "sp_magebolt",
+    "description": "",
+    "prerequisiteTrait": "none",
+    "skillModifier": 0,
+    "requiredStrength": 0,
+    "requiredDexterity": 0,
+    "requiredConstitution": 0,
+    "requiredIntelligence": 0,
+    "requiredWisdom": 0,
+    "requiredCharisma": 0,
+    "skillModifierAttribute": "str",
+    "traitToReplaceByTag": "none",
+    "useableInSituation": "Always"
+  },
+  {
+    "name": "Replace Me (L1)",
+    "traitEffectTagList": [
+      {
+        "tag": "Strength+2_12029"
+      }
+    ],
+    "traitWorksOnlyWhen": [],
+    "traitWorksNeverWhen": [],
+    "tag": "replaceMe1_tag",
+    "associatedSpellTag": "none",
+    "traitImage": "tr_bluff",
+    "description": "Useful in conversations for influencing others. Uses Intelligence as a modifier.",
+    "prerequisiteTrait": "none",
+    "skillModifier": 5,
+    "requiredStrength": 0,
+    "requiredDexterity": 0,
+    "requiredConstitution": 0,
+    "requiredIntelligence": 0,
+    "requiredWisdom": 0,
+    "requiredCharisma": 0,
+    "skillModifierAttribute": "int",
+    "traitToReplaceByTag": "none",
+    "useableInSituation": "Always"
+  },
+  {
+    "name": "Replace Me (L2)",
+    "traitEffectTagList": [
+      {
+        "tag": "Strength + 4_12030"
+      }
+    ],
+    "traitWorksOnlyWhen": [],
+    "traitWorksNeverWhen": [],
+    "tag": "replaceMe2_tag",
+    "associatedSpellTag": "none",
+    "traitImage": "tr_bluff",
+    "description": "Useful in conversations for influencing others. Uses Intelligence as a modifier.",
+    "prerequisiteTrait": "none",
+    "skillModifier": 5,
+    "requiredStrength": 0,
+    "requiredDexterity": 0,
+    "requiredConstitution": 0,
+    "requiredIntelligence": 0,
+    "requiredWisdom": 0,
+    "requiredCharisma": 0,
+    "skillModifierAttribute": "int",
+    "traitToReplaceByTag": "replaceMe1_tag",
+    "useableInSituation": "Always"
+  },
+  {
+    "name": "Melee Attack and Damage +10",
+    "traitEffectTagList": [
+      {
+        "tag": "melee _danage_+10_12122"
+      }
+    ],
+    "traitWorksOnlyWhen": [],
+    "traitWorksNeverWhen": [],
+    "tag": "melee_attack+10_12200",
+    "associatedSpellTag": "none",
+    "traitImage": "sp_magebolt",
+    "description": "Increase strength by +20.",
+    "prerequisiteTrait": "none",
+    "skillModifier": 0,
+    "requiredStrength": 0,
+    "requiredDexterity": 0,
+    "requiredConstitution": 0,
+    "requiredIntelligence": 0,
+    "requiredWisdom": 0,
+    "requiredCharisma": 0,
+    "skillModifierAttribute": "str",
+    "traitToReplaceByTag": "none",
+    "useableInSituation": "Passive"
+  },
+  {
+    "name": "Trip",
+    "traitEffectTagList": [],
+    "traitWorksOnlyWhen": [],
+    "traitWorksNeverWhen": [
+      {
+        "Value": "Large"
+      }
+    ],
+    "tag": "trip",
+    "associatedSpellTag": "spell_prone",
+    "traitImage": "tr_cleave",
+    "description": "Trip an opponent and cause him to become Prone for 2 turns.",
+    "prerequisiteTrait": "none",
+    "skillModifier": 0,
+    "requiredStrength": 0,
+    "requiredDexterity": 0,
+    "requiredConstitution": 0,
+    "requiredIntelligence": 0,
+    "requiredWisdom": 0,
+    "requiredCharisma": 0,
+    "skillModifierAttribute": "str",
+    "traitToReplaceByTag": "none",
+    "useableInSituation": "InCombat"
   }
 ]

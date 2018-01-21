@@ -254,6 +254,15 @@ namespace IceBlink2
                     insertCounter++;
                 }
 
+                //gloves
+                if (pc.GlovesRefs.tag != "none" && pc.GlovesRefs.tag != "")
+                {
+                    gv.mod.partyInventoryRefsList.Insert(insertCounter, pc.GlovesRefs);
+                    gv.mod.addedItemsRefs.Add(pc.GlovesRefs.tag);
+                    btnInventorySlot[insertCounter].Img3 = gv.cc.LoadBitmap("mandatory_conversation_indicator");
+                    insertCounter++;
+                }
+
                 //neck
                 if (pc.NeckRefs.tag != "none" && pc.NeckRefs.tag != "")
                 {

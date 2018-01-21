@@ -746,7 +746,26 @@ namespace IceBlink2
                 newString = newString.Replace("<man/woman>", "woman");
                 newString = newString.Replace("<Brother/Sister>", "Sister");
                 newString = newString.Replace("<brother/sister>", "sister");
-            }           
+            }
+
+            //work with contains, go throuh all global strings and add <>
+
+            foreach (GlobalString gs in gv.mod.moduleGlobalStrings)
+            {
+                if (newString.Contains("<" + gs.Key + ">"))
+                {
+                    newString = newString.Replace("<" + gs.Key + ">", gs.Value);
+                }
+            }
+
+            foreach (GlobalInt gi in gv.mod.moduleGlobalInts)
+            {
+                if (newString.Contains("<" + gi.Key + ">"))
+                {
+                    newString = newString.Replace("<" + gi.Key + ">", gi.Value.ToString());
+                }
+            }
+
             return newString;
         }
     }

@@ -381,7 +381,7 @@ namespace IceBlink2
             }
             if (strg =="")
             {
-                strg = "all";
+                strg = "All";
             }
             return strg;
         }
@@ -460,6 +460,18 @@ namespace IceBlink2
                     if (filename.Equals("gaSetGlobalInt.cs"))
                     {
                         SetGlobalInt(prm1, p2);
+                    }
+                    else if (filename.Equals("gaRechargeSingleItem.cs"))
+                    {
+                        RechargeSingleItem(prm1);
+                    }
+                    else if (filename.Equals("gaRechargeAllItemsOfAType.cs"))
+                    {
+                        RechargeAllItemsOfAType(prm1);
+                    }
+                    else if (filename.Equals("gaRechargeAllItems.cs"))
+                    {
+                        RechargeAllItems();
                     }
                     else if (filename.Equals("gaSetLocalInt.cs"))
                     {
@@ -1563,7 +1575,17 @@ namespace IceBlink2
                             parm1 = Convert.ToInt32(p1);
                         }
                         int parm3 = Convert.ToInt32(p3);
-                        gv.mod.returnCheck = CheckPassSkill(parm1, p2, parm3);
+
+                        bool useRollTen = false;
+                        if ((p4.Equals("false")) || (p4.Equals("False")) || (p4.Equals("")))
+                        {
+                            useRollTen = false;
+                        }
+                        else if ((p4.Equals("true")) || (p4.Equals("True")) || (p4.Equals("10")))
+                        {
+                            useRollTen = true;
+                        }
+                        gv.mod.returnCheck = CheckPassSkill(parm1, p2, parm3, useRollTen);
                     }
                     else if (filename.Equals("gcCheckIsClassLevel.cs"))
                     {
@@ -1776,6 +1798,166 @@ namespace IceBlink2
                     {
                         String val = gv.mod.playerList.Count + "";
                         SetGlobalInt(prm1, val);
+                    }
+                    else if (filename.Equals("ogGetNumberOfChargesMissing.cs"))
+                    {
+                        int counter = 0;
+
+                        if (prm1 == "all")
+                        {
+                            foreach (ItemRefs ir in gv.mod.partyInventoryRefsList)
+                            {
+                                Item item = mod.getItemByResRef(ir.resref);
+
+                                if ((item.quantity > 1) && (item.onUseItemCastSpellTag != "none" || item.onUseItemIBScript != "none" || item.onUseItem != "none"))
+                                {
+                                    if (ir.quantity < item.quantity)
+                                    {
+                                        counter += (item.quantity - ir.quantity);
+                                    }
+                                }
+                            }
+
+                            foreach (Player pc in gv.mod.playerList)
+                            {
+                                Item item = mod.getItemByResRef(pc.BodyRefs.resref);
+                                if (item != null)
+                                {
+                                    if ((pc.BodyRefs.quantity < item.quantity))
+                                    {
+                                        counter += (item.quantity - pc.BodyRefs.quantity);
+                                    }
+                                }
+
+                                item = mod.getItemByResRef(pc.OffHandRefs.resref);
+                                if (item != null)
+                                {
+                                    if ((pc.OffHandRefs.quantity < item.quantity))
+                                    {
+                                        counter += (item.quantity - pc.OffHandRefs.quantity);
+                                    }
+                                }
+
+                                item = mod.getItemByResRef(pc.MainHandRefs.resref);
+                                if (item != null)
+                                {
+                                    if ((pc.MainHandRefs.quantity < item.quantity))
+                                    {
+                                        counter += (item.quantity - pc.MainHandRefs.quantity);
+                                    }
+                                }
+
+                                item = mod.getItemByResRef(pc.RingRefs.resref);
+                                if (item != null)
+                                {
+                                    if ((pc.RingRefs.quantity < item.quantity))
+                                    {
+                                        counter += (item.quantity - pc.RingRefs.quantity);
+                                    }
+                                }
+
+                                item = mod.getItemByResRef(pc.Ring2Refs.resref);
+                                if (item != null)
+                                {
+                                    if ((pc.Ring2Refs.quantity < item.quantity))
+                                    {
+                                        counter += (item.quantity - pc.Ring2Refs.quantity);
+                                    }
+                                }
+
+                                item = mod.getItemByResRef(pc.HeadRefs.resref);
+                                if (item != null)
+                                {
+                                    if ((pc.HeadRefs.quantity < item.quantity))
+                                    {
+                                        counter += (item.quantity - pc.HeadRefs.quantity);
+                                    }
+                                }
+
+                                item = mod.getItemByResRef(pc.GlovesRefs.resref);
+                                if (item != null)
+                                {
+                                    if ((pc.GlovesRefs.quantity < item.quantity))
+                                    {
+                                        counter += (item.quantity - pc.GlovesRefs.quantity);
+                                    }
+                                }
+
+                                item = mod.getItemByResRef(pc.NeckRefs.resref);
+                                if (item != null)
+                                {
+                                    if ((pc.NeckRefs.quantity < item.quantity))
+                                    {
+                                        counter += (item.quantity - pc.NeckRefs.quantity);
+                                    }
+                                }
+
+                                item = mod.getItemByResRef(pc.FeetRefs.resref);
+                                if (item != null)
+                                {
+                                    if ((pc.FeetRefs.quantity < item.quantity))
+                                    {
+                                        counter += (item.quantity - pc.FeetRefs.quantity);
+                                    }
+                                }
+                            }
+                        }
+                        else
+                        {
+                            Item masterItem = mod.getItemByResRef(prm1);
+
+                            foreach (ItemRefs ir in gv.mod.partyInventoryRefsList)
+                            {
+                                if (ir.resref == prm1)
+                                {
+                                    if (ir.quantity < masterItem.quantity)
+                                    {
+                                        counter += (masterItem.quantity - ir.quantity);
+                                    }
+                                }
+                            }
+
+                                foreach (Player pc in gv.mod.playerList)
+                                {
+                                    if (pc.BodyRefs.resref.Equals(prm1) && (pc.BodyRefs.quantity < masterItem.quantity))
+                                    {
+                                        counter += (masterItem.quantity - pc.BodyRefs.quantity);
+                                    }
+                                    else if (pc.OffHandRefs.resref.Equals(prm1) && (pc.OffHandRefs.quantity < masterItem.quantity))
+                                    {
+                                        counter += (masterItem.quantity - pc.OffHandRefs.quantity);
+                                    }
+                                    else if (pc.MainHandRefs.resref.Equals(prm1) && (pc.MainHandRefs.quantity < masterItem.quantity))
+                                    {
+                                        counter += (masterItem.quantity - pc.MainHandRefs.quantity);
+                                    }
+                                    else if (pc.RingRefs.resref.Equals(prm1) && (pc.RingRefs.quantity < masterItem.quantity))
+                                    {
+                                        counter += (masterItem.quantity - pc.RingRefs.quantity);
+                                    }
+                                    else if (pc.Ring2Refs.resref.Equals(prm1) && (pc.Ring2Refs.quantity < masterItem.quantity))
+                                    {
+                                        counter += (masterItem.quantity - pc.Ring2Refs.quantity);
+                                    }   
+                                    else if (pc.HeadRefs.resref.Equals(prm1) && (pc.HeadRefs.quantity < masterItem.quantity))
+                                    {
+                                        counter += (masterItem.quantity - pc.HeadRefs.quantity);
+                                    }
+                                    else if (pc.GlovesRefs.resref.Equals(prm1) && (pc.GlovesRefs.quantity < masterItem.quantity))
+                                    {
+                                        counter += (masterItem.quantity - pc.GlovesRefs.quantity);
+                                    }
+                                    else if (pc.NeckRefs.resref.Equals(prm1) && (pc.NeckRefs.quantity < masterItem.quantity))
+                                    {
+                                        counter += (masterItem.quantity - pc.NeckRefs.quantity);
+                                    }
+                                    else if (pc.FeetRefs.resref.Equals(prm1) && (pc.FeetRefs.quantity < masterItem.quantity))
+                                    {
+                                        counter += (masterItem.quantity - pc.NeckRefs.quantity);
+                                    }
+                                }
+                        }
+                        SetGlobalInt(prm2, counter.ToString());
                     }
                     else if (filename.Equals("ogGetPartyRosterSize.cs"))
                     {
@@ -3065,6 +3247,252 @@ namespace IceBlink2
             }
             gv.cc.addLogText("<font color='yellow'>" + "The party loses " + amount + " Gold" + "</font>" + "<BR>");
         }
+
+        /*
+        else if (filename.Equals("gaRechargeSingleItem.cs"))
+                    {
+                        RechargeSingleItem(prm1);
+                    }
+                    else if (filename.Equals("gaRechargeAllItemsOfAType.cs"))
+                    {
+                        RechargeAllItemsOfAType(prm1);
+                    }
+                    else if (filename.Equals("gaRechargeAllItems.cs"))
+                    {
+                        RechargeAllItems();
+                    }
+        */
+
+        public void RechargeSingleItem(string resref)
+        {
+            //callister
+            Item masterItem = mod.getItemByResRef(resref);
+            bool itemFound = false;
+
+            foreach (ItemRefs ir in gv.mod.partyInventoryRefsList)
+            {
+                if (ir.resref == resref)
+                {
+                    if (ir.quantity < masterItem.quantity)
+                    {
+                        ir.quantity = masterItem.quantity;
+                        itemFound = true;
+                        break;
+                    }
+                }
+            }
+
+            if (!itemFound)
+            {
+                foreach (Player pc in gv.mod.playerList)
+                {
+                    if (pc.BodyRefs.resref.Equals(resref) && (pc.BodyRefs.quantity < masterItem.quantity)) 
+                    {
+                        pc.BodyRefs.quantity = masterItem.quantity;
+                        break;
+                    }
+                   else if (pc.OffHandRefs.resref.Equals(resref) && (pc.OffHandRefs.quantity < masterItem.quantity))
+                    {
+                        pc.OffHandRefs.quantity = masterItem.quantity;
+                        break;
+                    }
+                    else if (pc.MainHandRefs.resref.Equals(resref) && (pc.MainHandRefs.quantity < masterItem.quantity))
+                    {
+                        pc.MainHandRefs.quantity = masterItem.quantity;
+                        break;
+                    }
+                    else if (pc.RingRefs.resref.Equals(resref) && (pc.RingRefs.quantity < masterItem.quantity))
+                    {
+                        pc.RingRefs.quantity = masterItem.quantity;
+                        break;
+                    }
+                    else if (pc.Ring2Refs.resref.Equals(resref) && (pc.Ring2Refs.quantity < masterItem.quantity))
+                    {
+                        pc.Ring2Refs.quantity = masterItem.quantity;
+                        break;
+                    }
+                   else if (pc.HeadRefs.resref.Equals(resref) && (pc.HeadRefs.quantity < masterItem.quantity))
+                    {
+                        pc.HeadRefs.quantity = masterItem.quantity;
+                        break;
+                    }
+                    else if (pc.GlovesRefs.resref.Equals(resref) && (pc.GlovesRefs.quantity < masterItem.quantity))
+                    {
+                        pc.GlovesRefs.quantity = masterItem.quantity;
+                        break;
+                    }
+                    else if (pc.NeckRefs.resref.Equals(resref) && (pc.NeckRefs.quantity < masterItem.quantity))
+                    {
+                        pc.NeckRefs.quantity = masterItem.quantity;
+                        break;
+                    }
+                    else if (pc.FeetRefs.resref.Equals(resref) && (pc.FeetRefs.quantity < masterItem.quantity))
+                    {
+                        pc.FeetRefs.quantity = masterItem.quantity;
+                        break;
+                    }
+                }
+            }
+
+            gv.cc.addLogText("<font color='yellow'>" + "A(n) " + masterItem.name + " has been fully recharged." + "</font><BR>");
+        }
+
+        public void RechargeAllItemsOfAType(string resref)
+        {
+            Item masterItem = mod.getItemByResRef(resref);
+
+            foreach (ItemRefs ir in gv.mod.partyInventoryRefsList)
+            {
+                if (ir.resref == resref)
+                {
+                    ir.quantity = masterItem.quantity;
+                }
+            }
+
+                foreach (Player pc in gv.mod.playerList)
+                {
+                    if (pc.BodyRefs.resref.Equals(resref))
+                    {
+                        pc.BodyRefs.quantity = masterItem.quantity;
+                    }
+                    else if (pc.OffHandRefs.resref.Equals(resref))
+                    {
+                        pc.OffHandRefs.quantity = masterItem.quantity;
+                    }
+                    else if (pc.MainHandRefs.resref.Equals(resref))
+                    {
+                        pc.MainHandRefs.quantity = masterItem.quantity;
+                    }
+                    else if (pc.RingRefs.resref.Equals(resref))
+                    {
+                        pc.RingRefs.quantity = masterItem.quantity;
+                    }
+                    else if (pc.Ring2Refs.resref.Equals(resref))
+                    {
+                        pc.Ring2Refs.quantity = masterItem.quantity;
+                    }
+                    else if (pc.HeadRefs.resref.Equals(resref))
+                    {
+                        pc.HeadRefs.quantity = masterItem.quantity;
+                    }
+                    else if (pc.GlovesRefs.resref.Equals(resref))
+                    {
+                        pc.GlovesRefs.quantity = masterItem.quantity;
+                    }
+                    else if (pc.NeckRefs.resref.Equals(resref))
+                    {
+                        pc.NeckRefs.quantity = masterItem.quantity;
+                    }
+                    else if (pc.FeetRefs.resref.Equals(resref))
+                    {
+                        pc.FeetRefs.quantity = masterItem.quantity;
+                    }
+                }
+            
+            gv.cc.addLogText("<font color='yellow'>" + "All items of type " + masterItem.name + " have been fully recharged." + "</font><BR>");
+        }
+
+
+        public void RechargeAllItems()
+        {
+            foreach (ItemRefs ir in gv.mod.partyInventoryRefsList)
+            {
+                Item item = mod.getItemByResRef(ir.resref);
+
+                //identify charged item
+                if ((item.quantity > 1) && (item.onUseItemCastSpellTag != "none" || item.onUseItemIBScript != "none" || item.onUseItem != "none" ))
+                {
+                    ir.quantity = item.quantity;
+                }
+            }
+
+            foreach (Player pc in gv.mod.playerList)
+            {
+                if (pc.BodyRefs.resref != "none")
+                {
+                    Item item = mod.getItemByResRef(pc.BodyRefs.resref);
+                    //identify charged item
+                    if ((item.quantity > 1) && (item.onUseItemCastSpellTag != "none" || item.onUseItemIBScript != "none" || item.onUseItem != "none"))
+                    {
+                        pc.BodyRefs.quantity = item.quantity;
+                    }
+                }
+                else if (pc.OffHandRefs.resref != "none")
+                {
+                    Item item = mod.getItemByResRef(pc.OffHandRefs.resref);
+                    //identify charged item
+                    if ((item.quantity > 1) && (item.onUseItemCastSpellTag != "none" || item.onUseItemIBScript != "none" || item.onUseItem != "none"))
+                    {
+                        pc.OffHandRefs.quantity = item.quantity;
+                    }
+                }
+                else if (pc.MainHandRefs.resref != "none")
+                {
+                    Item item = mod.getItemByResRef(pc.MainHandRefs.resref);
+                    //identify charged item
+                    if ((item.quantity > 1) && (item.onUseItemCastSpellTag != "none" || item.onUseItemIBScript != "none" || item.onUseItem != "none"))
+                    {
+                        pc.MainHandRefs.quantity = item.quantity;
+                    }
+                }
+                else if (pc.RingRefs.resref != "none")
+                {
+                    Item item = mod.getItemByResRef(pc.RingRefs.resref);
+                    //identify charged item
+                    if ((item.quantity > 1) && (item.onUseItemCastSpellTag != "none" || item.onUseItemIBScript != "none" || item.onUseItem != "none"))
+                    {
+                        pc.RingRefs.quantity = item.quantity;
+                    }
+                }
+                else if (pc.Ring2Refs.resref != "none")
+                {
+                    Item item = mod.getItemByResRef(pc.Ring2Refs.resref);
+                    //identify charged item
+                    if ((item.quantity > 1) && (item.onUseItemCastSpellTag != "none" || item.onUseItemIBScript != "none" || item.onUseItem != "none"))
+                    {
+                        pc.Ring2Refs.quantity = item.quantity;
+                    }
+                }
+                else if (pc.HeadRefs.resref != "none")
+                {
+                    Item item = mod.getItemByResRef(pc.HeadRefs.resref);
+                    //identify charged item
+                    if ((item.quantity > 1) && (item.onUseItemCastSpellTag != "none" || item.onUseItemIBScript != "none" || item.onUseItem != "none"))
+                    {
+                        pc.HeadRefs.quantity = item.quantity;
+                    }
+                }
+                else if (pc.GlovesRefs.resref != "none")
+                {
+                    Item item = mod.getItemByResRef(pc.GlovesRefs.resref);
+                    //identify charged item
+                    if ((item.quantity > 1) && (item.onUseItemCastSpellTag != "none" || item.onUseItemIBScript != "none" || item.onUseItem != "none"))
+                    {
+                        pc.GlovesRefs.quantity = item.quantity;
+                    }
+                }
+                else if (pc.NeckRefs.resref != "none")
+                {
+                    Item item = mod.getItemByResRef(pc.NeckRefs.resref);
+                    //identify charged item
+                    if ((item.quantity > 1) && (item.onUseItemCastSpellTag != "none" || item.onUseItemIBScript != "none" || item.onUseItem != "none"))
+                    {
+                        pc.NeckRefs.quantity = item.quantity;
+                    }
+                }
+                else if (pc.FeetRefs.resref != "none")
+                {
+                    Item item = mod.getItemByResRef(pc.FeetRefs.resref);
+                    //identify charged item
+                    if ((item.quantity > 1) && (item.onUseItemCastSpellTag != "none" || item.onUseItemIBScript != "none" || item.onUseItem != "none"))
+                    {
+                        pc.FeetRefs.quantity = item.quantity;
+                    }
+                }
+            }
+            gv.cc.addLogText("<font color='yellow'>" + "All rechargeable items have been fully recharged." + "</font><BR>");
+        }
+
         public void GiveItem(string resref, int quantity)
         {
             Item newItem = mod.getItemByResRef(resref);
@@ -3258,6 +3686,11 @@ namespace IceBlink2
                         if (pc.HeadRefs.resref.Equals(resref))
                         {
                             mod.playerList[cnt].HeadRefs = new ItemRefs();
+                            FoundOne = true;
+                        }
+                        if (pc.GlovesRefs.resref.Equals(resref))
+                        {
+                            mod.playerList[cnt].GlovesRefs = new ItemRefs();
                             FoundOne = true;
                         }
                         if (pc.NeckRefs.resref.Equals(resref))
@@ -4988,6 +5421,7 @@ namespace IceBlink2
                 if (pc.RingRefs.resref.Equals(resref)) { numFound++; }
                 if (pc.OffHandRefs.resref.Equals(resref)) { numFound++; }
                 if (pc.HeadRefs.resref.Equals(resref)) { numFound++; }
+                if (pc.GlovesRefs.resref.Equals(resref)) { numFound++; }
                 if (pc.NeckRefs.resref.Equals(resref)) { numFound++; }
                 if (pc.Ring2Refs.resref.Equals(resref)) { numFound++; }
                 if (pc.FeetRefs.resref.Equals(resref)) { numFound++; }
@@ -5081,7 +5515,7 @@ namespace IceBlink2
             return false;
         }
 
-        public bool CheckPassSkill(int PCIndex, string tag, int dc)
+        public bool CheckPassSkill(int PCIndex, string tag, int dc, bool useRollTen)
         {
             string foundLargest = "none";
             int largest = 0;
@@ -5108,11 +5542,28 @@ namespace IceBlink2
                     }
                 }
             }
+
+            int skillMod = 0;
+            Trait tr = new Trait();
             if (!foundLargest.Equals("none"))
             {
                 //PC has trait skill so do calculation check
-                Trait tr = mod.getTraitByTag(foundLargest);
-                int skillMod = tr.skillModifier;
+                tr = mod.getTraitByTag(foundLargest);
+                skillMod = tr.skillModifier;
+            }
+            else
+            {
+              
+                foreach (Trait t in mod.moduleTraitsList)
+                {
+                    if (t.tag.Contains(tag))
+                    {
+                        tr = mod.getTraitByTag(t.tag);
+                        break;
+                    }
+                }
+            }
+
                 int attMod = 0;
                 if (tr.skillModifierAttribute.Equals("str") || tr.skillModifierAttribute.Equals("strength") || tr.skillModifierAttribute.Equals("Str") || tr.skillModifierAttribute.Equals("Strength"))
                 {
@@ -5138,12 +5589,127 @@ namespace IceBlink2
                 {
                     attMod = (mod.playerList[PCIndex].wisdom - 10) / 2;
                 }
+
+                int itemMod = 0;
+
+                if (mod.playerList[PCIndex].BodyRefs.resref != "none")
+                {
+                    Item itm = gv.mod.getItemByResRefForInfo(mod.playerList[PCIndex].BodyRefs.resref);
+                    if (itm != null)
+                    {
+                        if (itm.tagOfTraitInfluenced.Contains(tag))
+                        {
+                            itemMod += itm.traitSkillRollModifier;
+                        }
+                    }
+                }
+
+                if (mod.playerList[PCIndex].RingRefs.resref != "none")
+                {
+                    Item itm = gv.mod.getItemByResRefForInfo(mod.playerList[PCIndex].RingRefs.resref);
+                    if (itm != null)
+                    {
+                        if (itm.tagOfTraitInfluenced.Contains(tag))
+                        {
+                            itemMod += itm.traitSkillRollModifier;
+                        }
+                    }
+                }
+
+                if (mod.playerList[PCIndex].MainHandRefs.resref != "none")
+                {
+                    Item itm = gv.mod.getItemByResRefForInfo(mod.playerList[PCIndex].MainHandRefs.resref);
+                    if (itm != null)
+                    {
+                        if (itm.tagOfTraitInfluenced.Contains(tag))
+                        {
+                            itemMod += itm.traitSkillRollModifier;
+                        }
+                    }
+                }
+
+                if (mod.playerList[PCIndex].OffHandRefs.resref != "none")
+                {
+                    Item itm = gv.mod.getItemByResRefForInfo(mod.playerList[PCIndex].OffHandRefs.resref);
+                    if (itm != null)
+                    {
+                        if (itm.tagOfTraitInfluenced.Contains(tag))
+                        {
+                            itemMod += itm.traitSkillRollModifier;
+                        }
+                    }
+                }
+
+                if (mod.playerList[PCIndex].HeadRefs.resref != "none")
+                {
+                    Item itm = gv.mod.getItemByResRefForInfo(mod.playerList[PCIndex].HeadRefs.resref);
+                    if (itm != null)
+                    {
+                        if (itm.tagOfTraitInfluenced.Contains(tag))
+                        {
+                            itemMod += itm.traitSkillRollModifier;
+                        }
+                    }
+                }
+
+                if (mod.playerList[PCIndex].GlovesRefs.resref != "none")
+                {
+                    Item itm = gv.mod.getItemByResRefForInfo(mod.playerList[PCIndex].GlovesRefs.resref);
+                    if (itm != null)
+                    {
+                        if (itm.tagOfTraitInfluenced.Contains(tag))
+                        {
+                            itemMod += itm.traitSkillRollModifier;
+                        }
+                    }
+                }
+
+                if (mod.playerList[PCIndex].NeckRefs.resref != "none")
+                {
+                    Item itm = gv.mod.getItemByResRefForInfo(mod.playerList[PCIndex].NeckRefs.resref);
+                    if (itm != null)
+                    {
+                        if (itm.tagOfTraitInfluenced.Contains(tag))
+                        {
+                            itemMod += itm.traitSkillRollModifier;
+                        }
+                    }
+                }
+
+                if (mod.playerList[PCIndex].Ring2Refs.resref != "none")
+                {
+                    Item itm = gv.mod.getItemByResRefForInfo(mod.playerList[PCIndex].Ring2Refs.resref);
+                    if (itm != null)
+                    {
+                        if (itm.tagOfTraitInfluenced.Contains(tag))
+                        {
+                            itemMod += itm.traitSkillRollModifier;
+                        }
+                    }
+                }
+
+                if (mod.playerList[PCIndex].FeetRefs.resref != "none")
+                {
+                    Item itm = gv.mod.getItemByResRefForInfo(mod.playerList[PCIndex].FeetRefs.resref);
+                    if (itm != null)
+                    {
+                        if (itm.tagOfTraitInfluenced.Contains(tag))
+                        {
+                            itemMod += itm.traitSkillRollModifier;
+                        }
+                    }
+                }
+
                 int roll = gv.sf.RandInt(20);
-                if (roll + attMod + skillMod >= dc)
+                if (useRollTen)
+                {
+                    roll = 10;
+                }
+                if (roll + attMod + skillMod + itemMod >= dc)
                 {
                     if (mod.debugMode) //SD_20131102
                     {
-                        gv.cc.addLogText("<font color='yellow'> skill check(" + tag + "): " + roll + "+" + attMod + "+" + skillMod + ">=" + dc + "</font><BR>");
+                        gv.cc.addLogText("<font color='yellow'> skill check(" + tag + "): " + roll + "+" + attMod + "+" + skillMod + itemMod + ">=" + dc + "</font><BR>");
                     }
                     return true;
                 }
@@ -5151,13 +5717,14 @@ namespace IceBlink2
                 {
                     if (mod.debugMode) //SD_20131102
                     {
-                        gv.cc.addLogText("<font color='yellow'> skill check: " + roll + "+" + attMod + "+" + skillMod + " < " + dc + "</font><BR>");
+                        gv.cc.addLogText("<font color='yellow'> skill check: " + roll + "+" + attMod + "+" + skillMod + itemMod + " < " + dc + "</font><BR>");
                     }
                     return false;
                 }
-            }
-            return false;
+            
+            //return false;
         }
+
         public bool CheckIsMale(int PCIndex)
         {
             if (mod.playerList[PCIndex].isMale)
@@ -6280,6 +6847,7 @@ namespace IceBlink2
             savBonuses += mod.getItemByResRefForInfo(pc.OffHandRefs.resref).savingThrowModifierReflex;
             savBonuses += mod.getItemByResRefForInfo(pc.RingRefs.resref).savingThrowModifierReflex;
             savBonuses += mod.getItemByResRefForInfo(pc.HeadRefs.resref).savingThrowModifierReflex;
+            savBonuses += mod.getItemByResRefForInfo(pc.GlovesRefs.resref).savingThrowModifierReflex;
             savBonuses += mod.getItemByResRefForInfo(pc.NeckRefs.resref).savingThrowModifierReflex;
             savBonuses += mod.getItemByResRefForInfo(pc.Ring2Refs.resref).savingThrowModifierReflex;
             savBonuses += mod.getItemByResRefForInfo(pc.FeetRefs.resref).savingThrowModifierReflex;
@@ -6312,6 +6880,7 @@ namespace IceBlink2
             savBonuses += mod.getItemByResRefForInfo(pc.OffHandRefs.resref).savingThrowModifierFortitude;
             savBonuses += mod.getItemByResRefForInfo(pc.RingRefs.resref).savingThrowModifierFortitude;
             savBonuses += mod.getItemByResRefForInfo(pc.HeadRefs.resref).savingThrowModifierFortitude;
+            savBonuses += mod.getItemByResRefForInfo(pc.GlovesRefs.resref).savingThrowModifierFortitude;
             savBonuses += mod.getItemByResRefForInfo(pc.NeckRefs.resref).savingThrowModifierFortitude;
             savBonuses += mod.getItemByResRefForInfo(pc.Ring2Refs.resref).savingThrowModifierFortitude;
             savBonuses += mod.getItemByResRefForInfo(pc.FeetRefs.resref).savingThrowModifierFortitude;
@@ -6344,6 +6913,7 @@ namespace IceBlink2
             savBonuses += mod.getItemByResRefForInfo(pc.OffHandRefs.resref).savingThrowModifierWill;
             savBonuses += mod.getItemByResRefForInfo(pc.RingRefs.resref).savingThrowModifierWill;
             savBonuses += mod.getItemByResRefForInfo(pc.HeadRefs.resref).savingThrowModifierWill;
+            savBonuses += mod.getItemByResRefForInfo(pc.GlovesRefs.resref).savingThrowModifierWill;
             savBonuses += mod.getItemByResRefForInfo(pc.NeckRefs.resref).savingThrowModifierWill;
             savBonuses += mod.getItemByResRefForInfo(pc.Ring2Refs.resref).savingThrowModifierWill;
             savBonuses += mod.getItemByResRefForInfo(pc.FeetRefs.resref).savingThrowModifierWill;
@@ -6377,6 +6947,7 @@ namespace IceBlink2
             attBonuses += mod.getItemByResRefForInfo(pc.OffHandRefs.resref).attributeBonusModifierStr;
             attBonuses += mod.getItemByResRefForInfo(pc.RingRefs.resref).attributeBonusModifierStr;
             attBonuses += mod.getItemByResRefForInfo(pc.HeadRefs.resref).attributeBonusModifierStr;
+            attBonuses += mod.getItemByResRefForInfo(pc.GlovesRefs.resref).attributeBonusModifierStr;
             attBonuses += mod.getItemByResRefForInfo(pc.NeckRefs.resref).attributeBonusModifierStr;
             attBonuses += mod.getItemByResRefForInfo(pc.Ring2Refs.resref).attributeBonusModifierStr;
             attBonuses += mod.getItemByResRefForInfo(pc.FeetRefs.resref).attributeBonusModifierStr;
@@ -6410,6 +6981,7 @@ namespace IceBlink2
             attBonuses += mod.getItemByResRefForInfo(pc.OffHandRefs.resref).modifierMaxHP;
             attBonuses += mod.getItemByResRefForInfo(pc.RingRefs.resref).modifierMaxHP;
             attBonuses += mod.getItemByResRefForInfo(pc.HeadRefs.resref).modifierMaxHP;
+            attBonuses += mod.getItemByResRefForInfo(pc.GlovesRefs.resref).modifierMaxHP;
             attBonuses += mod.getItemByResRefForInfo(pc.NeckRefs.resref).modifierMaxHP;
             attBonuses += mod.getItemByResRefForInfo(pc.Ring2Refs.resref).modifierMaxHP;
             attBonuses += mod.getItemByResRefForInfo(pc.FeetRefs.resref).modifierMaxHP;
@@ -6443,6 +7015,7 @@ namespace IceBlink2
             attBonuses += mod.getItemByResRefForInfo(pc.OffHandRefs.resref).modifierMaxSP;
             attBonuses += mod.getItemByResRefForInfo(pc.RingRefs.resref).modifierMaxSP;
             attBonuses += mod.getItemByResRefForInfo(pc.HeadRefs.resref).modifierMaxSP;
+            attBonuses += mod.getItemByResRefForInfo(pc.GlovesRefs.resref).modifierMaxSP;
             attBonuses += mod.getItemByResRefForInfo(pc.NeckRefs.resref).modifierMaxSP;
             attBonuses += mod.getItemByResRefForInfo(pc.Ring2Refs.resref).modifierMaxSP;
             attBonuses += mod.getItemByResRefForInfo(pc.FeetRefs.resref).modifierMaxSP;
@@ -6476,6 +7049,7 @@ namespace IceBlink2
             attBonuses += mod.getItemByResRefForInfo(pc.OffHandRefs.resref).attributeBonusModifierDex;
             attBonuses += mod.getItemByResRefForInfo(pc.RingRefs.resref).attributeBonusModifierDex;
             attBonuses += mod.getItemByResRefForInfo(pc.HeadRefs.resref).attributeBonusModifierDex;
+            attBonuses += mod.getItemByResRefForInfo(pc.GlovesRefs.resref).attributeBonusModifierDex;
             attBonuses += mod.getItemByResRefForInfo(pc.NeckRefs.resref).attributeBonusModifierDex;
             attBonuses += mod.getItemByResRefForInfo(pc.Ring2Refs.resref).attributeBonusModifierDex;
             attBonuses += mod.getItemByResRefForInfo(pc.FeetRefs.resref).attributeBonusModifierDex;
@@ -6509,6 +7083,7 @@ namespace IceBlink2
             attBonuses += mod.getItemByResRefForInfo(pc.OffHandRefs.resref).attributeBonusModifierInt;
             attBonuses += mod.getItemByResRefForInfo(pc.RingRefs.resref).attributeBonusModifierInt;
             attBonuses += mod.getItemByResRefForInfo(pc.HeadRefs.resref).attributeBonusModifierInt;
+            attBonuses += mod.getItemByResRefForInfo(pc.GlovesRefs.resref).attributeBonusModifierInt;
             attBonuses += mod.getItemByResRefForInfo(pc.NeckRefs.resref).attributeBonusModifierInt;
             attBonuses += mod.getItemByResRefForInfo(pc.Ring2Refs.resref).attributeBonusModifierInt;
             attBonuses += mod.getItemByResRefForInfo(pc.FeetRefs.resref).attributeBonusModifierInt;
@@ -6543,6 +7118,7 @@ namespace IceBlink2
             attBonuses += mod.getItemByResRefForInfo(pc.OffHandRefs.resref).attributeBonusModifierCha;
             attBonuses += mod.getItemByResRefForInfo(pc.RingRefs.resref).attributeBonusModifierCha;
             attBonuses += mod.getItemByResRefForInfo(pc.HeadRefs.resref).attributeBonusModifierCha;
+            attBonuses += mod.getItemByResRefForInfo(pc.GlovesRefs.resref).attributeBonusModifierCha;
             attBonuses += mod.getItemByResRefForInfo(pc.NeckRefs.resref).attributeBonusModifierCha;
             attBonuses += mod.getItemByResRefForInfo(pc.Ring2Refs.resref).attributeBonusModifierCha;
             attBonuses += mod.getItemByResRefForInfo(pc.FeetRefs.resref).attributeBonusModifierCha;
@@ -6575,6 +7151,7 @@ namespace IceBlink2
             attBonuses += mod.getItemByResRefForInfo(pc.OffHandRefs.resref).attributeBonusModifierCon;
             attBonuses += mod.getItemByResRefForInfo(pc.RingRefs.resref).attributeBonusModifierCon;
             attBonuses += mod.getItemByResRefForInfo(pc.HeadRefs.resref).attributeBonusModifierCon;
+            attBonuses += mod.getItemByResRefForInfo(pc.GlovesRefs.resref).attributeBonusModifierCon;
             attBonuses += mod.getItemByResRefForInfo(pc.NeckRefs.resref).attributeBonusModifierCon;
             attBonuses += mod.getItemByResRefForInfo(pc.Ring2Refs.resref).attributeBonusModifierCon;
             attBonuses += mod.getItemByResRefForInfo(pc.FeetRefs.resref).attributeBonusModifierCon;
@@ -6607,6 +7184,7 @@ namespace IceBlink2
             attBonuses += mod.getItemByResRefForInfo(pc.OffHandRefs.resref).attributeBonusModifierWis;
             attBonuses += mod.getItemByResRefForInfo(pc.RingRefs.resref).attributeBonusModifierWis;
             attBonuses += mod.getItemByResRefForInfo(pc.HeadRefs.resref).attributeBonusModifierWis;
+            attBonuses += mod.getItemByResRefForInfo(pc.GlovesRefs.resref).attributeBonusModifierWis;
             attBonuses += mod.getItemByResRefForInfo(pc.NeckRefs.resref).attributeBonusModifierWis;
             attBonuses += mod.getItemByResRefForInfo(pc.Ring2Refs.resref).attributeBonusModifierWis;
             attBonuses += mod.getItemByResRefForInfo(pc.FeetRefs.resref).attributeBonusModifierWis;
@@ -6639,6 +7217,7 @@ namespace IceBlink2
             attBonuses += mod.getItemByResRefForInfo(pc.OffHandRefs.resref).attributeBonusModifierLuk;
             attBonuses += mod.getItemByResRefForInfo(pc.RingRefs.resref).attributeBonusModifierLuk;
             attBonuses += mod.getItemByResRefForInfo(pc.HeadRefs.resref).attributeBonusModifierLuk;
+            attBonuses += mod.getItemByResRefForInfo(pc.GlovesRefs.resref).attributeBonusModifierLuk;
             attBonuses += mod.getItemByResRefForInfo(pc.NeckRefs.resref).attributeBonusModifierLuk;
             attBonuses += mod.getItemByResRefForInfo(pc.Ring2Refs.resref).attributeBonusModifierLuk;
             attBonuses += mod.getItemByResRefForInfo(pc.FeetRefs.resref).attributeBonusModifierLuk;
@@ -6671,6 +7250,7 @@ namespace IceBlink2
             md += mod.getItemByResRefForInfo(pc.OffHandRefs.resref).damageTypeResistanceValueAcid;
             md += mod.getItemByResRefForInfo(pc.RingRefs.resref).damageTypeResistanceValueAcid;
             md += mod.getItemByResRefForInfo(pc.HeadRefs.resref).damageTypeResistanceValueAcid;
+            md += mod.getItemByResRefForInfo(pc.GlovesRefs.resref).damageTypeResistanceValueAcid;
             md += mod.getItemByResRefForInfo(pc.NeckRefs.resref).damageTypeResistanceValueAcid;
             md += mod.getItemByResRefForInfo(pc.FeetRefs.resref).damageTypeResistanceValueAcid;
             md += mod.getItemByResRefForInfo(pc.Ring2Refs.resref).damageTypeResistanceValueAcid;
@@ -6703,6 +7283,7 @@ namespace IceBlink2
             md += mod.getItemByResRefForInfo(pc.OffHandRefs.resref).damageTypeResistanceValueNormal;
             md += mod.getItemByResRefForInfo(pc.RingRefs.resref).damageTypeResistanceValueNormal;
             md += mod.getItemByResRefForInfo(pc.HeadRefs.resref).damageTypeResistanceValueNormal;
+            md += mod.getItemByResRefForInfo(pc.GlovesRefs.resref).damageTypeResistanceValueNormal;
             md += mod.getItemByResRefForInfo(pc.NeckRefs.resref).damageTypeResistanceValueNormal;
             md += mod.getItemByResRefForInfo(pc.FeetRefs.resref).damageTypeResistanceValueNormal;
             md += mod.getItemByResRefForInfo(pc.Ring2Refs.resref).damageTypeResistanceValueNormal;
@@ -6735,6 +7316,7 @@ namespace IceBlink2
             md += mod.getItemByResRefForInfo(pc.OffHandRefs.resref).damageTypeResistanceValueCold;
             md += mod.getItemByResRefForInfo(pc.RingRefs.resref).damageTypeResistanceValueCold;
             md += mod.getItemByResRefForInfo(pc.HeadRefs.resref).damageTypeResistanceValueCold;
+            md += mod.getItemByResRefForInfo(pc.GlovesRefs.resref).damageTypeResistanceValueCold;
             md += mod.getItemByResRefForInfo(pc.NeckRefs.resref).damageTypeResistanceValueCold;
             md += mod.getItemByResRefForInfo(pc.FeetRefs.resref).damageTypeResistanceValueCold;
             md += mod.getItemByResRefForInfo(pc.Ring2Refs.resref).damageTypeResistanceValueCold;
@@ -6767,6 +7349,7 @@ namespace IceBlink2
             md += mod.getItemByResRefForInfo(pc.OffHandRefs.resref).damageTypeResistanceValueElectricity;
             md += mod.getItemByResRefForInfo(pc.RingRefs.resref).damageTypeResistanceValueElectricity;
             md += mod.getItemByResRefForInfo(pc.HeadRefs.resref).damageTypeResistanceValueElectricity;
+            md += mod.getItemByResRefForInfo(pc.GlovesRefs.resref).damageTypeResistanceValueElectricity;
             md += mod.getItemByResRefForInfo(pc.NeckRefs.resref).damageTypeResistanceValueElectricity;
             md += mod.getItemByResRefForInfo(pc.FeetRefs.resref).damageTypeResistanceValueElectricity;
             md += mod.getItemByResRefForInfo(pc.Ring2Refs.resref).damageTypeResistanceValueElectricity;
@@ -6799,6 +7382,7 @@ namespace IceBlink2
             md += mod.getItemByResRefForInfo(pc.OffHandRefs.resref).damageTypeResistanceValueFire;
             md += mod.getItemByResRefForInfo(pc.RingRefs.resref).damageTypeResistanceValueFire;
             md += mod.getItemByResRefForInfo(pc.HeadRefs.resref).damageTypeResistanceValueFire;
+            md += mod.getItemByResRefForInfo(pc.GlovesRefs.resref).damageTypeResistanceValueFire;
             md += mod.getItemByResRefForInfo(pc.NeckRefs.resref).damageTypeResistanceValueFire;
             md += mod.getItemByResRefForInfo(pc.FeetRefs.resref).damageTypeResistanceValueFire;
             md += mod.getItemByResRefForInfo(pc.Ring2Refs.resref).damageTypeResistanceValueFire;
@@ -6831,6 +7415,7 @@ namespace IceBlink2
             md += mod.getItemByResRefForInfo(pc.OffHandRefs.resref).damageTypeResistanceValueMagic;
             md += mod.getItemByResRefForInfo(pc.RingRefs.resref).damageTypeResistanceValueMagic;
             md += mod.getItemByResRefForInfo(pc.HeadRefs.resref).damageTypeResistanceValueMagic;
+            md += mod.getItemByResRefForInfo(pc.GlovesRefs.resref).damageTypeResistanceValueMagic;
             md += mod.getItemByResRefForInfo(pc.NeckRefs.resref).damageTypeResistanceValueMagic;
             md += mod.getItemByResRefForInfo(pc.FeetRefs.resref).damageTypeResistanceValueMagic;
             md += mod.getItemByResRefForInfo(pc.Ring2Refs.resref).damageTypeResistanceValueMagic;
@@ -6863,6 +7448,7 @@ namespace IceBlink2
             md += mod.getItemByResRefForInfo(pc.OffHandRefs.resref).damageTypeResistanceValuePoison;
             md += mod.getItemByResRefForInfo(pc.RingRefs.resref).damageTypeResistanceValuePoison;
             md += mod.getItemByResRefForInfo(pc.HeadRefs.resref).damageTypeResistanceValuePoison;
+            md += mod.getItemByResRefForInfo(pc.GlovesRefs.resref).damageTypeResistanceValuePoison;
             md += mod.getItemByResRefForInfo(pc.NeckRefs.resref).damageTypeResistanceValuePoison;
             md += mod.getItemByResRefForInfo(pc.FeetRefs.resref).damageTypeResistanceValuePoison;
             md += mod.getItemByResRefForInfo(pc.Ring2Refs.resref).damageTypeResistanceValuePoison;
@@ -6943,6 +7529,7 @@ namespace IceBlink2
             armBonuses += mod.getItemByResRefForInfo(pc.OffHandRefs.resref).armorBonus;
             armBonuses += mod.getItemByResRefForInfo(pc.RingRefs.resref).armorBonus;
             armBonuses += mod.getItemByResRefForInfo(pc.HeadRefs.resref).armorBonus;
+            armBonuses += mod.getItemByResRefForInfo(pc.GlovesRefs.resref).armorBonus;
             armBonuses += mod.getItemByResRefForInfo(pc.NeckRefs.resref).armorBonus;
             armBonuses += mod.getItemByResRefForInfo(pc.FeetRefs.resref).armorBonus;
             armBonuses += mod.getItemByResRefForInfo(pc.Ring2Refs.resref).armorBonus;
@@ -6961,6 +7548,8 @@ namespace IceBlink2
             if (mdb < armMaxDexBonuses) { armMaxDexBonuses = mdb; }
             mdb = mod.getItemByResRefForInfo(pc.HeadRefs.resref).maxDexBonus;
             if (mdb < armMaxDexBonuses) { armMaxDexBonuses = mdb; }
+            mdb = mod.getItemByResRefForInfo(pc.GlovesRefs.resref).maxDexBonus;
+            if (mdb < armMaxDexBonuses) { armMaxDexBonuses = mdb; }
             mdb = mod.getItemByResRefForInfo(pc.NeckRefs.resref).maxDexBonus;
             if (mdb < armMaxDexBonuses) { armMaxDexBonuses = mdb; }
             mdb = mod.getItemByResRefForInfo(pc.FeetRefs.resref).maxDexBonus;
@@ -6977,6 +7566,7 @@ namespace IceBlink2
             moveBonuses += mod.getItemByResRefForInfo(pc.OffHandRefs.resref).MovementPointModifier;
             moveBonuses += mod.getItemByResRefForInfo(pc.RingRefs.resref).MovementPointModifier;
             moveBonuses += mod.getItemByResRefForInfo(pc.HeadRefs.resref).MovementPointModifier;
+            moveBonuses += mod.getItemByResRefForInfo(pc.GlovesRefs.resref).MovementPointModifier;
             moveBonuses += mod.getItemByResRefForInfo(pc.NeckRefs.resref).MovementPointModifier;
             moveBonuses += mod.getItemByResRefForInfo(pc.FeetRefs.resref).MovementPointModifier;
             moveBonuses += mod.getItemByResRefForInfo(pc.Ring2Refs.resref).MovementPointModifier;
@@ -7010,6 +7600,7 @@ namespace IceBlink2
             moveBonuses += mod.getItemByResRefForInfo(pc.OffHandRefs.resref).additionalAttacks;
             moveBonuses += mod.getItemByResRefForInfo(pc.RingRefs.resref).additionalAttacks;
             moveBonuses += mod.getItemByResRefForInfo(pc.HeadRefs.resref).additionalAttacks;
+            moveBonuses += mod.getItemByResRefForInfo(pc.GlovesRefs.resref).additionalAttacks;
             moveBonuses += mod.getItemByResRefForInfo(pc.NeckRefs.resref).additionalAttacks;
             moveBonuses += mod.getItemByResRefForInfo(pc.FeetRefs.resref).additionalAttacks;
             moveBonuses += mod.getItemByResRefForInfo(pc.Ring2Refs.resref).additionalAttacks;
@@ -7391,7 +7982,13 @@ namespace IceBlink2
         public int CalcPcMeleeDamageAttributeModifier(Player pc)
         {  
              int damModifier = (pc.strength - 10) / 2;  
-             bool useDexModifier = false;  
+             bool useDexModifier = false;
+             Item it = gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref);
+             if (damModifier > it.maxStrengthBonusAllowedForWeapon)
+             {
+                damModifier = it.maxStrengthBonusAllowedForWeapon;
+             }
+
             /*
  5233 +            //go through all traits and see if has passive criticalstrike type trait  
  5234 +            foreach (string taTag in pc.knownTraitsTags)  
@@ -7406,9 +8003,9 @@ namespace IceBlink2
  5243 +                    }  
  5244 +                }  
  5245 +            } 
- */ 
-             //go through each effect and see if has a buff type like criticalstrike  
-             foreach (Effect ef in pc.effectsList)  
+ */
+            //go through each effect and see if has a buff type like criticalstrike  
+            foreach (Effect ef in pc.effectsList)  
              {  
                  if (ef.useDexterityForMeleeDamageModifierIfGreaterThanStrength)  
                  {
@@ -7421,7 +8018,7 @@ namespace IceBlink2
             //if has critical strike trait use dexterity for damage modifier in melee if greater than strength modifier  
             if ((pc.knownTraitsTags.Contains("criticalstrike")) || (useDexModifier))  
             {  
-                 int damModifierDex = (pc.dexterity - 10) / 4;  
+                 int damModifierDex = (pc.dexterity - 10) / 2;  
                  if (damModifierDex > damModifier)  
                  {  
                      damModifier = damModifierDex;  
@@ -7430,13 +8027,15 @@ namespace IceBlink2
 
             //**********************************************************
             int highestNonStackable = -99;
+            int additionalDamModifier = 0;
+
             foreach (Effect ef in pc.effectsList)
             {
                 if (isPassiveTraitApplied(ef, pc))
                 {
                     if (ef.isStackableEffect)
                     {
-                       damModifier += ef.damageModifierForMeleeAttack;
+                       additionalDamModifier += ef.damageModifierForMeleeAttack;
                     }
                     else
                     {
@@ -7447,10 +8046,10 @@ namespace IceBlink2
                     }
                 }
             }
-            if (highestNonStackable > damModifier) { damModifier = highestNonStackable; }
+            if (highestNonStackable > additionalDamModifier) { additionalDamModifier = highestNonStackable; }
 
             //********************************************************
-            return damModifier;  
+            return damModifier + additionalDamModifier;  
          }
 
         public bool canNegateAdjacentAttackPenalty(Player pc)
@@ -7743,6 +8342,10 @@ namespace IceBlink2
                 if (!mod.getItemByResRefForInfo(pc.HeadRefs.resref).onWhileEquipped.Equals("none"))
                 {
                     gv.cc.doScriptBasedOnFilename(mod.getItemByResRefForInfo(pc.HeadRefs.resref).onWhileEquipped, "", "", "", "");
+                }
+                if (!mod.getItemByResRefForInfo(pc.GlovesRefs.resref).onWhileEquipped.Equals("none"))
+                {
+                    gv.cc.doScriptBasedOnFilename(mod.getItemByResRefForInfo(pc.GlovesRefs.resref).onWhileEquipped, "", "", "", "");
                 }
                 if (!mod.getItemByResRefForInfo(pc.NeckRefs.resref).onWhileEquipped.Equals("none"))
                 {
@@ -8047,6 +8650,16 @@ namespace IceBlink2
                 {
                     doRegenHp(pc, mod.getItemByResRefForInfo(pc.HeadRefs.resref).minutesPerHpRegenOutsideCombat, pc.HeadRefs);
                 }
+
+                if (mod.getItemByResRefForInfo(pc.GlovesRefs.resref).minutesPerSpRegenOutsideCombat > 0)
+                {
+                    doRegenSp(pc, mod.getItemByResRefForInfo(pc.GlovesRefs.resref).minutesPerSpRegenOutsideCombat, pc.GlovesRefs);
+                }
+                if (mod.getItemByResRefForInfo(pc.GlovesRefs.resref).minutesPerHpRegenOutsideCombat > 0)
+                {
+                    doRegenHp(pc, mod.getItemByResRefForInfo(pc.GlovesRefs.resref).minutesPerHpRegenOutsideCombat, pc.GlovesRefs);
+                }
+
 
                 if (mod.getItemByResRefForInfo(pc.NeckRefs.resref).minutesPerSpRegenOutsideCombat > 0)
                 {

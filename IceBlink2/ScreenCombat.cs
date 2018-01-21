@@ -1431,6 +1431,15 @@ namespace IceBlink2
                     doRegenHp(pc, gv.mod.getItemByResRefForInfo(pc.HeadRefs.resref).hpRegenPerRoundInCombat);
                 }
 
+                if (gv.mod.getItemByResRefForInfo(pc.GlovesRefs.resref).spRegenPerRoundInCombat > 0)
+                {
+                    doRegenSp(pc, gv.mod.getItemByResRefForInfo(pc.GlovesRefs.resref).spRegenPerRoundInCombat);
+                }
+                if (gv.mod.getItemByResRefForInfo(pc.GlovesRefs.resref).hpRegenPerRoundInCombat > 0)
+                {
+                    doRegenHp(pc, gv.mod.getItemByResRefForInfo(pc.GlovesRefs.resref).hpRegenPerRoundInCombat);
+                }
+
                 if (gv.mod.getItemByResRefForInfo(pc.NeckRefs.resref).spRegenPerRoundInCombat > 0)
                 {
                     doRegenSp(pc, gv.mod.getItemByResRefForInfo(pc.NeckRefs.resref).spRegenPerRoundInCombat);
@@ -1899,6 +1908,8 @@ namespace IceBlink2
                 Item itChk = gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref);
                 if (itChk != null)
                 {
+
+
                     if (itChk.automaticallyHitsTarget) //if AoE type attack and automatically hits
                     {
                         //if using ranged and have ammo, use ammo properties
@@ -2079,8 +2090,43 @@ namespace IceBlink2
             //always decrement ammo by one whether a hit or miss
             this.decrementAmmo(pc);
 
+            //pay attack cost in sp or hp
+            Item item = gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref);
+            bool attackPenaltyForCostNotPaid = false;
+            bool paidSpCost = false;
+            bool paidHpCost = false;
+            if (item.hpCostPerAttack > 0)
+            {
+                if (pc.hp > item.hpCostPerAttack)
+                {
+                    paidHpCost = true;
+                    pc.hp -= item.hpCostPerAttack;
+                }
+                else
+                {
+                    attackPenaltyForCostNotPaid = true;
+                }
+            }
+            if (item.spCostPerAttack > 0)
+            {
+                if (pc.sp > item.spCostPerAttack)
+                {
+                    paidSpCost = true;
+                    pc.sp -= item.spCostPerAttack;
+                }
+                else
+                {
+                    attackPenaltyForCostNotPaid = true;
+                }
+            }
+
             int attackRoll = gv.sf.RandInt(20);
             int attackMod = CalcPcAttackModifier(pc, crt);
+            if (attackPenaltyForCostNotPaid)
+            {
+                attackMod -= 10;
+            }
+
             int attack = attackRoll + attackMod;
             int defense = CalcCreatureDefense(pc, crt);
             int damage = CalcPcDamageToCreature(pc, crt);
@@ -2095,6 +2141,18 @@ namespace IceBlink2
             if ((attack >= defense) || (attackRoll == 20) || (automaticallyHits == true)) //HIT
             {
                 crt.hp = crt.hp - damage;
+                if (paidHpCost)
+                {
+                    gv.cc.addLogText("<font color='aqua'>" + pc.name + "</font><font color='white'> is damaged for " + itChk.hpCostPerAttack + "HP by attacking." + "</font><BR>");
+                }
+                if (paidSpCost)
+                {
+                    gv.cc.addLogText("<font color='aqua'>" + pc.name + "</font><font color='white'> is drained for " + itChk.spCostPerAttack + " SP by attacking." + "</font><BR>");
+                }
+                if (attackPenaltyForCostNotPaid)
+                {
+                    gv.cc.addLogText("<font color='aqua'>" + pc.name + "</font><font color='white'> could not pay cost for attack, -10 to hit." + "</font><BR>");
+                }
                 gv.cc.addLogText("<font color='aqua'>" + pc.name + "</font><font color='white'> attacks </font><font color='silver'>" + crt.cr_name + "</font>");
                 gv.cc.addLogText("<font color='white'> and HITS (</font><font color='lime'>" + damage + "</font><font color='white'> damage)</font><BR>");
                 gv.cc.addLogText("<font color='white'>" + attackRoll + " + " + attackMod + " >= " + defense + "</font><BR>");
@@ -2151,6 +2209,18 @@ namespace IceBlink2
                 if (gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref).category.Equals("Melee"))
                 {
                     gv.PlaySound(gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref).itemOnUseSound);
+                }
+                if (paidHpCost)
+                {
+                    gv.cc.addLogText("<font color='aqua'>" + pc.name + "</font><font color='white'> is damaged for " + itChk.hpCostPerAttack + "HP by attacking." + "</font><BR>");
+                }
+                if (paidSpCost)
+                {
+                    gv.cc.addLogText("<font color='aqua'>" + pc.name + "</font><font color='white'> is drained for " + itChk.spCostPerAttack + " SP by attacking." + "</font><BR>");
+                }
+                if (attackPenaltyForCostNotPaid)
+                {
+                    gv.cc.addLogText("<font color='aqua'>" + pc.name + "</font><font color='white'> could not pay cost for attack, -10 to hit." + "</font><BR>");
                 }
                 gv.cc.addLogText("<font color='aqua'>" + pc.name + "</font><font color='white'> attacks </font><font color='gray'>" + crt.cr_name + "</font>");
                 gv.cc.addLogText("<font color='white'> and MISSES</font><BR>");

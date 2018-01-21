@@ -86,6 +86,7 @@ namespace IceBlink2
         public int spRegenTimePassedCounter = 0;
         public ItemRefs HeadRefs = new ItemRefs();
         public ItemRefs NeckRefs = new ItemRefs();
+        public ItemRefs GlovesRefs = new ItemRefs();
         public ItemRefs BodyRefs = new ItemRefs();
         public ItemRefs MainHandRefs = new ItemRefs();
         public ItemRefs OffHandRefs = new ItemRefs();
@@ -178,6 +179,7 @@ namespace IceBlink2
             copy.XPNeeded = this.XPNeeded;
             copy.HeadRefs = this.HeadRefs.DeepCopy();
             copy.NeckRefs = this.NeckRefs.DeepCopy();
+            copy.GlovesRefs = this.GlovesRefs.DeepCopy();
             copy.BodyRefs = this.BodyRefs.DeepCopy();
             copy.MainHandRefs = this.MainHandRefs.DeepCopy();
             copy.OffHandRefs = this.OffHandRefs.DeepCopy();

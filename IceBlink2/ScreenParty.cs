@@ -21,6 +21,7 @@ namespace IceBlink2
         private IbbButton btnToken = null;
         private IbbButton btnHead = null;
         private IbbButton btnNeck = null;
+        private IbbButton btnGloves = null;
         private IbbButton btnBody = null;
         private IbbButton btnMainHand = null;
         private IbbButton btnOffHand = null;
@@ -171,7 +172,7 @@ namespace IceBlink2
                 btnInfo.X = 10 * gv.squareSize + (padW * 5) + gv.oXshift + (int)(gv.squareSize * 0.75f);
                 //btnInfo.X = (11 * gv.squareSize) - padW + (int)(gv.squareSize * 0.75f);
                 //btnInfo.Y = 9 * gv.squareSize + pH * 2;
-                btnInfo.Y = 6 * gv.squareSize + (int)(pH * 2.5f);
+                //btnInfo.Y = 7 * gv.squareSize + (int)(pH * 2.5f);
 
                 btnInfo.Height = (int)(gv.ibbheight * gv.screenDensity);
                 btnInfo.Width = (int)(gv.ibbwidthR * gv.screenDensity);
@@ -216,17 +217,38 @@ namespace IceBlink2
                 btnHead = new IbbButton(gv, 1.0f);
                 btnHead.Img = gv.cc.LoadBitmap("item_slot_head"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.item_slot_head);
                 btnHead.Glow = gv.cc.LoadBitmap("btn_small_glow"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_glow);
-                btnHead.X = 7 * gv.squareSize + (padW * 2) + gv.oXshift + (int)(gv.squareSize * 0.75f);
+                btnHead.X = 8 * gv.squareSize + (padW * 3) + gv.oXshift + (int)(gv.squareSize * 0.75f);
                 btnHead.Y = 1 * gv.squareSize; //not used, see onDraw function
                 btnHead.Height = (int)(gv.ibbheight * gv.screenDensity);
                 btnHead.Width = (int)(gv.ibbwidthR * gv.screenDensity);
+            }
+            if (btnGloves == null)
+            {
+                btnGloves = new IbbButton(gv, 1.0f);
+                btnGloves.Img = gv.cc.LoadBitmap("item_slot_gloves"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.item_slot_neck);
+                btnGloves.Glow = gv.cc.LoadBitmap("btn_small_glow"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_glow);
+
+                btnGloves.X = 9 * gv.squareSize + (padW * 4) + gv.oXshift + (int)(gv.squareSize * 0.75f);
+                //btnGloves.X = 8 * gv.squareSize + (padW * 5) + gv.oXshift + (int)(gv.squareSize * 0.75f);
+                btnGloves.Y = 2 * gv.squareSize + (padW * 2); //not used, see onDraw function
+
+                //btnGloves.X = 10 * gv.squareSize + (padW * 5) + gv.oXshift + (int)(gv.squareSize * 0.75f);
+                //btnGloves.Y = 2 * gv.squareSize + padW; //not used, see onDraw function
+                // btnGloves.X = 10 * gv.squareSize + (padW * 5) + gv.oXshift + (int)(gv.squareSize * 0.75f);
+                //btnInfo.X = (11 * gv.squareSize) - padW + (int)(gv.squareSize * 0.75f);
+                //btnInfo.Y = 9 * gv.squareSize + pH * 2;
+                //btnGloves.Y = 6 * gv.squareSize + (int)(pH * 2.5f);
+                //btnGloves.X = 10 * gv.squareSize + (padW * 3) + gv.oXshift + (int)(gv.squareSize * 0.75f);
+                //btnGloves.Y = 1 * gv.squareSize; //not used, see onDraw function
+                btnGloves.Height = (int)(gv.ibbheight * gv.screenDensity);
+                btnGloves.Width = (int)(gv.ibbwidthR * gv.screenDensity);
             }
             if (btnNeck == null)
             {
                 btnNeck = new IbbButton(gv, 1.0f);
                 btnNeck.Img = gv.cc.LoadBitmap("item_slot_neck"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.item_slot_neck);
                 btnNeck.Glow = gv.cc.LoadBitmap("btn_small_glow"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_glow);
-                btnNeck.X = 8 * gv.squareSize + (padW * 3) + gv.oXshift + (int)(gv.squareSize * 0.75f);
+                btnNeck.X = 7 * gv.squareSize + (padW * 2) + gv.oXshift + (int)(gv.squareSize * 0.75f);
                 btnNeck.Y = 1 * gv.squareSize; //not used, see onDraw function
                 btnNeck.Height = (int)(gv.ibbheight * gv.screenDensity);
                 btnNeck.Width = (int)(gv.ibbwidthR * gv.screenDensity);
@@ -256,7 +278,7 @@ namespace IceBlink2
                 btnBody = new IbbButton(gv, 1.0f);
                 btnBody.Img = gv.cc.LoadBitmap("item_slot_body"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.item_slot_body);
                 btnBody.Glow = gv.cc.LoadBitmap("btn_small_glow"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_glow);
-                btnBody.X = 7 * gv.squareSize + (padW * 2) + gv.oXshift + (int)(gv.squareSize * 0.75f);
+                btnBody.X = 8 * gv.squareSize + (padW * 3) + gv.oXshift + (int)(gv.squareSize * 0.75f);
                 btnBody.Y = 1 * gv.squareSize; //not used, see onDraw function
                 btnBody.Height = (int)(gv.ibbheight * gv.screenDensity);
                 btnBody.Width = (int)(gv.ibbwidthR * gv.screenDensity);
@@ -266,7 +288,7 @@ namespace IceBlink2
                 btnFeet = new IbbButton(gv, 1.0f);
                 btnFeet.Img = gv.cc.LoadBitmap("item_slot_feet"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.item_slot_feet);
                 btnFeet.Glow = gv.cc.LoadBitmap("btn_small_glow"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_glow);
-                btnFeet.X = 8 * gv.squareSize + (padW * 3) + gv.oXshift + (int)(gv.squareSize * 0.75f);
+                btnFeet.X = 7 * gv.squareSize + (padW * 2) + gv.oXshift + (int)(gv.squareSize * 0.75f);
                 btnFeet.Y = 1 * gv.squareSize; //not used, see onDraw function
                 btnFeet.Height = (int)(gv.ibbheight * gv.screenDensity);
                 btnFeet.Width = (int)(gv.ibbwidthR * gv.screenDensity);
@@ -276,7 +298,7 @@ namespace IceBlink2
                 btnRing2 = new IbbButton(gv, 1.0f);
                 btnRing2.Img = gv.cc.LoadBitmap("item_slot_ring"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.item_slot_ring);
                 btnRing2.Glow = gv.cc.LoadBitmap("btn_small_glow"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_glow);
-                btnRing2.X = 9 * gv.squareSize + (padW * 4) + gv.oXshift + (int)(gv.squareSize * 0.75f);
+                btnRing2.X = 10 * gv.squareSize + (padW * 5) + gv.oXshift + (int)(gv.squareSize * 0.75f);
                 btnRing2.Y = 2 * gv.squareSize + padW; //not used, see onDraw function
                 btnRing2.Height = (int)(gv.ibbheight * gv.screenDensity);
                 btnRing2.Width = (int)(gv.ibbwidthR * gv.screenDensity);
@@ -401,12 +423,14 @@ namespace IceBlink2
             btnTraits.Y = (int)bottomLocY;
             btnEffects.Y = (int)bottomLocY;
             btnOthers.Y = (int)bottomLocY;
+            btnInfo.Y = (int)bottomLocY;
             btnPartyRoster.Y = 9 * gv.squareSize + pH * 2;
 
             //LOCATE EQUIPMENT SLOTS
             int startSlotsY = (int)locY + 2 * gv.squareSize + padH + (pH * 2) - gv.squareSize;
             btnHead.Y = startSlotsY;
             btnNeck.Y = startSlotsY;
+            //btnGloves.Y = startSlotsY;
             btnMainHand.Y = startSlotsY;
             btnOffHand.Y = startSlotsY;
             btnAmmo.Y = startSlotsY;
@@ -415,6 +439,7 @@ namespace IceBlink2
             btnRing2.Y = startSlotsY2;
             btnBody.Y = startSlotsY2;
             btnFeet.Y = startSlotsY2;
+            btnGloves.Y = startSlotsY2;
 
             //DRAW RIGHT STATS
             int actext = 0;
@@ -453,6 +478,8 @@ namespace IceBlink2
             else { btnMainHand.glowOn = false; }
             if (gv.cc.partyItemSlotIndex == 1) { btnHead.glowOn = true; }
             else { btnHead.glowOn = false; }
+            if (gv.cc.partyItemSlotIndex == 2) { btnGloves.glowOn = true; }
+            else { btnGloves.glowOn = false; }
             if (gv.cc.partyItemSlotIndex == 2) { btnNeck.glowOn = true; }
             else { btnNeck.glowOn = false; }
             if (gv.cc.partyItemSlotIndex == 3) { btnOffHand.glowOn = true; }
@@ -467,11 +494,15 @@ namespace IceBlink2
             else { btnRing2.glowOn = false; }
             if (gv.cc.partyItemSlotIndex == 8) { btnAmmo.glowOn = true; }
             else { btnAmmo.glowOn = false; }
+            if (gv.cc.partyItemSlotIndex == 9) { btnGloves.glowOn = true; }
+            else { btnGloves.glowOn = false; }
 
             gv.cc.DisposeOfBitmap(ref btnMainHand.Img2);
             btnMainHand.Img2 = gv.cc.LoadBitmap(gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref).itemImage);
             gv.cc.DisposeOfBitmap(ref btnHead.Img2);
             btnHead.Img2 = gv.cc.LoadBitmap(gv.mod.getItemByResRefForInfo(pc.HeadRefs.resref).itemImage);
+            gv.cc.DisposeOfBitmap(ref btnGloves.Img2);
+            btnGloves.Img2 = gv.cc.LoadBitmap(gv.mod.getItemByResRefForInfo(pc.GlovesRefs.resref).itemImage);
             gv.cc.DisposeOfBitmap(ref btnNeck.Img2);
             btnNeck.Img2 = gv.cc.LoadBitmap(gv.mod.getItemByResRefForInfo(pc.NeckRefs.resref).itemImage);
             gv.cc.DisposeOfBitmap(ref btnOffHand.Img2);
@@ -566,11 +597,12 @@ namespace IceBlink2
                         btnMainHand.btnOfChargedItem = true;
                     }
                 }
-            }
-            else
-            {
-                btnMainHand.Quantity = "";
-                btnMainHand.btnOfChargedItem = false;
+
+                else
+                {
+                    btnMainHand.Quantity = "";
+                    btnMainHand.btnOfChargedItem = false;
+                }
             }
 
 
@@ -614,11 +646,11 @@ namespace IceBlink2
                         btnOffHand.btnOfChargedItem = true;
                     }
                 }
-            }
-            else
-            {
-                btnOffHand.Quantity = "";
-                btnOffHand.btnOfChargedItem = false;
+                else
+                {
+                    btnOffHand.Quantity = "";
+                    btnOffHand.btnOfChargedItem = false;
+                }
             }
 
             //Head
@@ -660,11 +692,12 @@ namespace IceBlink2
                         btnHead.btnOfChargedItem = true;
                     }
                 }
-            }
-            else
-            {
-                btnHead.Quantity = "";
-                btnHead.btnOfChargedItem = false;
+
+                else
+                {
+                    btnHead.Quantity = "";
+                    btnHead.btnOfChargedItem = false;
+                }
             }
 
             //Body
@@ -706,11 +739,59 @@ namespace IceBlink2
                         btnBody.btnOfChargedItem = true;
                     }
                 }
+
+                else
+                {
+                    btnBody.Quantity = "";
+                    btnBody.btnOfChargedItem = false;
+                }
             }
-            else
+
+            //Gloves
+            itr = pc.GlovesRefs;
+            if (itr != null)
             {
-                btnBody.Quantity = "";
-                btnBody.btnOfChargedItem = false;
+                Item itQ = gv.mod.getItemByResRefForInfo(pc.GlovesRefs.resref);
+                if ((itQ.onUseItemCastSpellTag == "none" || itQ.onUseItemCastSpellTag == "") && (itQ.onUseItemIBScript == "none" || itQ.onUseItemIBScript == "") && (itQ.onUseItem == "none" || itQ.onUseItem == ""))
+                {
+                    if (itr.quantity > 1)
+                    {
+                        btnGloves.Quantity = itr.quantity + "";
+                        btnGloves.btnOfChargedItem = false;
+                    }
+                    else
+                    {
+                        btnGloves.Quantity = "";
+                        btnGloves.btnOfChargedItem = false;
+                    }
+                }
+                else if (itr.quantity != 1)
+                {
+                    if (itr.quantity > 1)
+                    {
+                        btnGloves.Quantity = (itr.quantity - 1) + "";
+                        if (!itQ.isStackable)
+                        {
+                            btnGloves.btnOfChargedItem = true;
+                        }
+                        //eg potion
+                        else
+                        {
+                            btnGloves.btnOfChargedItem = false;
+                        }
+                    }
+                    else
+                    {
+                        btnGloves.Quantity = "0";
+                        btnGloves.btnOfChargedItem = true;
+                    }
+                }
+
+                else
+                {
+                    btnGloves.Quantity = "";
+                    btnGloves.btnOfChargedItem = false;
+                }
             }
 
             //Neck
@@ -752,11 +833,12 @@ namespace IceBlink2
                         btnNeck.btnOfChargedItem = true;
                     }
                 }
-            }
-            else
-            {
-                btnNeck.Quantity = "";
-                btnNeck.btnOfChargedItem = false;
+
+                else
+                {
+                    btnNeck.Quantity = "";
+                    btnNeck.btnOfChargedItem = false;
+                }
             }
 
             //Feet
@@ -798,11 +880,12 @@ namespace IceBlink2
                         btnFeet.btnOfChargedItem = true;
                     }
                 }
-            }
-            else
-            {
-                btnFeet.Quantity = "";
-                btnFeet.btnOfChargedItem = false;
+
+                else
+                {
+                    btnFeet.Quantity = "";
+                    btnFeet.btnOfChargedItem = false;
+                }
             }
 
             //Ring1
@@ -844,11 +927,12 @@ namespace IceBlink2
                         btnRing.btnOfChargedItem = true;
                     }
                 }
-            }
-            else
-            {
-                btnRing.Quantity = "";
-                btnRing.btnOfChargedItem = false;
+
+                else
+                {
+                    btnRing.Quantity = "";
+                    btnRing.btnOfChargedItem = false;
+                }
             }
 
             //Ring2
@@ -891,15 +975,17 @@ namespace IceBlink2
 
                     }
                 }
-            }
-            else
-            {
-                btnRing2.Quantity = "";
-                btnRing2.btnOfChargedItem = false;
+
+                else
+                {
+                    btnRing2.Quantity = "";
+                    btnRing2.btnOfChargedItem = false;
+                }
             }
 
             btnMainHand.Draw();
             btnHead.Draw();
+            btnGloves.Draw();
             btnNeck.Draw();
             btnOffHand.Draw();
             btnRing.Draw();
@@ -920,6 +1006,7 @@ namespace IceBlink2
             Item it = new Item();
             if (gv.cc.partyItemSlotIndex == 0) { it = gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref); }
             else if (gv.cc.partyItemSlotIndex == 1) { it = gv.mod.getItemByResRefForInfo(pc.HeadRefs.resref); }
+            else if (gv.cc.partyItemSlotIndex == 9) { it = gv.mod.getItemByResRefForInfo(pc.GlovesRefs.resref); }
             else if (gv.cc.partyItemSlotIndex == 2) { it = gv.mod.getItemByResRefForInfo(pc.NeckRefs.resref); }
             else if (gv.cc.partyItemSlotIndex == 3) { it = gv.mod.getItemByResRefForInfo(pc.OffHandRefs.resref); }
             else if (gv.cc.partyItemSlotIndex == 4) { it = gv.mod.getItemByResRefForInfo(pc.RingRefs.resref); }
@@ -1107,9 +1194,10 @@ namespace IceBlink2
             string textToSpan2 = "";
             textToSpan2 = "<b>Current Attack and Damage</b>" + "<BR>";
             textToSpan2 += "Number of attacks: " + numAtt + "<BR>";
-            if (it.attackRange > 1)
+            //Item it2 = gv.mod.getItemByResRefForInfo(pc.AmmoRefs.resref);
+            if (gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref).attackRange > 1)
             {
-                textToSpan2 += "Attack range: " + it.attackRange + "<BR>";
+                textToSpan2 += "Attack range: " + gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref).attackRange + "<BR>";
             }
             textToSpan2 += "Attack bonus: " + attackMod + "<BR>";
             if (numberOfDiceRolled > 0)
@@ -1326,6 +1414,19 @@ namespace IceBlink2
                             }
                             gv.cc.partyItemSlotIndex = 1;
                         }
+                        else if (btnGloves.getImpact(x, y))
+                        {
+                            //if (inCombat)
+                            //{
+                            //gv.sf.MessageBoxHtml("Can't equip/unequip this item in combat.");
+                            //return;
+                            //}
+                            if (gv.cc.partyItemSlotIndex == 9)
+                            {
+                                switchEquipment(inCombat);
+                            }
+                            gv.cc.partyItemSlotIndex = 9;
+                        }
                         else if (btnNeck.getImpact(x, y))
                         {
                             //if (inCombat)
@@ -1436,6 +1537,7 @@ namespace IceBlink2
                             Item it = new Item();
                             if (gv.cc.partyItemSlotIndex == 0) { it = gv.mod.getItemByResRef(pc.MainHandRefs.resref); }
                             else if (gv.cc.partyItemSlotIndex == 1) { it = gv.mod.getItemByResRef(pc.HeadRefs.resref); }
+                            else if (gv.cc.partyItemSlotIndex == 9) { it = gv.mod.getItemByResRef(pc.GlovesRefs.resref); }
                             else if (gv.cc.partyItemSlotIndex == 2) { it = gv.mod.getItemByResRef(pc.NeckRefs.resref); }
                             else if (gv.cc.partyItemSlotIndex == 3) { it = gv.mod.getItemByResRef(pc.OffHandRefs.resref); }
                             else if (gv.cc.partyItemSlotIndex == 4) { it = gv.mod.getItemByResRef(pc.RingRefs.resref); }
@@ -1544,6 +1646,7 @@ namespace IceBlink2
             Player pc = gv.mod.playerList[gv.cc.partyScreenPcIndex];
             if (gv.cc.partyItemSlotIndex == 0) { return pc.MainHandRefs.canNotBeUnequipped; }
             else if (gv.cc.partyItemSlotIndex == 1) { return pc.HeadRefs.canNotBeUnequipped; }
+            else if (gv.cc.partyItemSlotIndex == 9) { return pc.GlovesRefs.canNotBeUnequipped; }
             else if (gv.cc.partyItemSlotIndex == 2) { return pc.NeckRefs.canNotBeUnequipped; }
             else if (gv.cc.partyItemSlotIndex == 3) { return pc.OffHandRefs.canNotBeUnequipped; }
             else if (gv.cc.partyItemSlotIndex == 4) { return pc.RingRefs.canNotBeUnequipped; }
@@ -1567,6 +1670,12 @@ namespace IceBlink2
             else if (gv.cc.partyItemSlotIndex == 1)
             {
                 Item it = gv.mod.getItemByResRef(pc.HeadRefs.resref);
+                if (it == null) { return false; };
+                return it.canNotBeChangedInCombat;
+            }
+            else if (gv.cc.partyItemSlotIndex == 9)
+            {
+                Item it = gv.mod.getItemByResRef(pc.GlovesRefs.resref);
                 if (it == null) { return false; };
                 return it.canNotBeChangedInCombat;
             }
@@ -1689,6 +1798,13 @@ namespace IceBlink2
                             allowedItems.Add(itRef);
                         }
                     }
+                    else if ((it.category.Equals("Gloves")) && (gv.cc.partyItemSlotIndex == 9))
+                    {
+                        if (pc.playerClass.containsItemRefsWithResRef(itRef.resref))
+                        {
+                            allowedItems.Add(itRef);
+                        }
+                    }
                     else if ((it.category.Equals("Neck")) && (gv.cc.partyItemSlotIndex == 2))
                     {
                         if (pc.playerClass.containsItemRefsWithResRef(itRef.resref))
@@ -1736,7 +1852,7 @@ namespace IceBlink2
                         if (pc.playerClass.containsItemRefsWithResRef(itRef.resref))
                         {
                             Item itMH = gv.mod.getItemByResRef(pc.MainHandRefs.resref);
-                            if ((itMH.category.Equals("Ranged")) && (!itMH.ammoType.Equals("none")) && (itMH.ammoType.Equals(it.ammoType)))
+                            if ((itMH.category.Equals("Ranged")) && (!itMH.ammoType.Equals("none")) && (it.ammoType.Equals(itMH.ammoType)))
                             {
                                 allowedItems.Add(itRef);
                             }
