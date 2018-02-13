@@ -8548,7 +8548,7 @@ namespace IceBlink2
                 //check to see if allow HP to regen
                 if (mod.getPlayerClass(pc.classTag).hpRegenTimeNeeded > 0)
                 {
-                    if (pc.hp > -20) //do not regen if truely dead
+                    if (pc.hp > -20 && pc.hp < pc.hpMax) //do not regen if truely dead
                     {
                         pc.hpRegenTimePassedCounter += mod.currentArea.TimePerSquare;
                         if (pc.hpRegenTimePassedCounter >= mod.getPlayerClass(pc.classTag).hpRegenTimeNeeded)
@@ -8565,14 +8565,13 @@ namespace IceBlink2
                                 pc.charStatus = "Alive";
                             }
                             pc.hpRegenTimePassedCounter = 0;
-                            gv.cc.addLogText("<font color='lime'>" + pc.name + " gains " + hpGained + " HP" + "</font><br>");
                         }
                     }
                 }
                 //check to see if allow SP to regen
                 if (mod.getPlayerClass(pc.classTag).spRegenTimeNeeded > 0)
                 {
-                    if (pc.hp > -20) //do not regen if truely dead
+                    if (pc.hp > -20 && pc.sp < pc.spMax) //do not regen if truely dead
                     {
                         pc.spRegenTimePassedCounter += mod.currentArea.TimePerSquare;
                         if (pc.spRegenTimePassedCounter >= mod.getPlayerClass(pc.classTag).spRegenTimeNeeded)
@@ -8582,7 +8581,6 @@ namespace IceBlink2
                             pc.sp += spGained;
                             if (pc.sp > pc.spMax) { pc.sp = pc.spMax; }
                             pc.spRegenTimePassedCounter = 0;
-                            gv.cc.addLogText("<font color='lime'>" + pc.name + " gains " + spGained + " SP" + "</font><br>");
                         }
                     }
                 }
@@ -8705,7 +8703,7 @@ namespace IceBlink2
 
         public void doRegenSp(Player pc, int minutesNeeded, ItemRefs itRef)
         {
-            if ((minutesNeeded > 0) && (pc.hp > -20))
+            if ((minutesNeeded > 0) && (pc.hp > -20) && (pc.sp < pc.spMax))
             {
                 itRef.spRegenTimer += mod.currentArea.TimePerSquare;
                 if (itRef.spRegenTimer >= minutesNeeded)
@@ -8715,14 +8713,13 @@ namespace IceBlink2
                     pc.sp += spGained;
                     if (pc.sp > pc.spMax) { pc.sp = pc.spMax; }
                     itRef.spRegenTimer = 0;
-                    gv.cc.addLogText("<font color='lime'>" + pc.name + " gains " + spGained + " SP" + "</font><br>");
                 }
             }
         }
 
         public void doRegenHp(Player pc, int minutesNeeded, ItemRefs itRef)
         {
-            if ((minutesNeeded > 0) && (pc.hp > -20))
+            if ((minutesNeeded > 0) && (pc.hp > -20) && (pc.hp < pc.hpMax))
             {
                 itRef.hpRegenTimer += mod.currentArea.TimePerSquare;
                 if (itRef.hpRegenTimer >= minutesNeeded)
@@ -8732,7 +8729,6 @@ namespace IceBlink2
                     pc.hp += hpGained;
                     if (pc.hp > pc.hpMax) { pc.hp = pc.hpMax; }
                     itRef.hpRegenTimer = 0;
-                    gv.cc.addLogText("<font color='lime'>" + pc.name + " gains " + hpGained + " HP" + "</font><br>");
                 }
             }
         }
