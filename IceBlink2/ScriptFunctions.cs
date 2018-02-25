@@ -9991,7 +9991,7 @@ namespace IceBlink2
 
         public void spGeneric(Spell thisSpell, object src, object trg, bool outsideCombat, string logTextForCastAction)
         {
-            
+           
             //Effect thisSpellEffect = gv.mod.getEffectByTag(thisSpell.spellEffectTag);
 
             //set squares list
@@ -10799,7 +10799,9 @@ namespace IceBlink2
                                     int numberOfRounds = thisSpellEffect.durationInUnits / gv.mod.TimePerRound;
                                     gv.cc.addLogText("<font color='lime'>" + thisSpellEffect.name + " is applied on " + pc.name + " for " + numberOfRounds + " round(s)</font><BR>");
                                     pc.AddEffectByObject(thisSpellEffect, classLevel);
-                                }
+                                    gv.cc.doEffectScript(pc, thisSpellEffect);
+
+                                    }
                                 #endregion
                             }
                             if (thisSpell.removeEffectTagList.Count > 0)

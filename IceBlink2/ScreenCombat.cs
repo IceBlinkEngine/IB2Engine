@@ -1905,46 +1905,6 @@ namespace IceBlink2
             if (isInRange(pc))
             {
 
-                Item itChk = gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref);
-                if (itChk != null)
-                {
-
-
-                    if (itChk.automaticallyHitsTarget) //if AoE type attack and automatically hits
-                    {
-                        //if using ranged and have ammo, use ammo properties
-                        if ((gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref).category.Equals("Ranged"))
-                        && (!gv.mod.getItemByResRefForInfo(pc.AmmoRefs.resref).name.Equals("none")))
-                        {
-                            itChk = gv.mod.getItemByResRefForInfo(pc.AmmoRefs.resref);
-                            if (itChk != null)
-                            {
-                                //always decrement ammo by one whether a hit or miss
-                                this.decrementAmmo(pc);
-
-                                if (!itChk.onScoringHitCastSpellTag.Equals("none"))
-                                {
-                                    doItemOnHitCastSpell(itChk.onScoringHitCastSpellTag, itChk, targetHighlightCenterLocation, pc);
-                                    //gv.cc.doSpellBasedOnScriptOrEffectTag(sp, it, pc, outsideCombat, false);
-                                }
-                            }
-                        }
-                        else if (!itChk.onScoringHitCastSpellTag.Equals("none"))
-                        {
-                            doItemOnHitCastSpell(itChk.onScoringHitCastSpellTag, itChk, targetHighlightCenterLocation, pc);
-                        }
-
-                        hitAnimationLocation = new Coordinate(getPixelLocX(targetHighlightCenterLocation.X), getPixelLocY(targetHighlightCenterLocation.Y));
-
-                        //new system
-                        AnimationStackGroup newGroup = new AnimationStackGroup();
-                        animationSeqStack[0].AnimationSeq.Add(newGroup);
-                        addHitAnimation(newGroup);
-                        return;
-                    }
-                }
-
-
                 foreach (Creature crt in gv.mod.currentEncounter.encounterCreatureList)
                 {
                     //if ((crt.combatLocX == targetHighlightCenterLocation.X) && (crt.combatLocY == targetHighlightCenterLocation.Y))
@@ -2153,9 +2113,17 @@ namespace IceBlink2
                 {
                     gv.cc.addLogText("<font color='aqua'>" + pc.name + "</font><font color='white'> could not pay cost for attack, -10 to hit." + "</font><BR>");
                 }
-                gv.cc.addLogText("<font color='aqua'>" + pc.name + "</font><font color='white'> attacks </font><font color='silver'>" + crt.cr_name + "</font>");
-                gv.cc.addLogText("<font color='white'> and HITS (</font><font color='lime'>" + damage + "</font><font color='white'> damage)</font><BR>");
-                gv.cc.addLogText("<font color='white'>" + attackRoll + " + " + attackMod + " >= " + defense + "</font><BR>");
+               
+                    gv.cc.addLogText("<font color='aqua'>" + pc.name + "</font><font color='white'> attacks </font><font color='silver'>" + crt.cr_name + "</font>");
+                    gv.cc.addLogText("<font color='white'> and HITS (</font><font color='lime'>" + damage + "</font><font color='white'> damage)</font><BR>");
+                if (!automaticallyHits)
+                {
+                    gv.cc.addLogText("<font color='white'>" + attackRoll + " + " + attackMod + " >= " + defense + "</font><BR>");
+                }
+                else
+                {
+                    gv.cc.addLogText("<font color='white'>" + "(Automatic hit)" + "</font><BR>");
+                }
 
                 Item it = gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref);
                 if (it != null)
