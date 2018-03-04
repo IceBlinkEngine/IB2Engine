@@ -128,7 +128,12 @@ namespace IceBlink2
         public List<Trait> moduleTraitsList = new List<Trait>();
         [JsonIgnore]
         public List<Effect> moduleEffectsList = new List<Effect>();
-        
+        [JsonIgnore]
+        public List<string> nonRepeatableFreeActionsUsedThisTurnBySpellTag = new List<string>();
+        [JsonIgnore]
+        public bool swiftActionHasBeenUsedThisTurn = false;
+
+
         public List<string> moduleAreasList = new List<string>();
         
         public List<string> moduleConvosList = new List<string>();

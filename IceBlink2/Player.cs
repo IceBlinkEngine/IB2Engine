@@ -22,6 +22,8 @@ namespace IceBlink2
         [JsonIgnore]
         public int combatFacing = 4; //numpad directions (7,8,9,4,6,1,2,3)
         public bool steathModeOn = false;
+        public List<int> coolDownTimes = new List<int>();
+        public List<string> coolingSpellsByTag = new List<string>();
         public bool mainPc = false;
         public bool nonRemoveablePc = false;
         public int combatLocX = 0;
@@ -202,6 +204,18 @@ namespace IceBlink2
             foreach (string s in this.knownSpellsTags)
             {
                 copy.knownSpellsTags.Add(s);
+            }
+
+            copy.coolingSpellsByTag = new List<string>();
+            foreach (string s in this.coolingSpellsByTag)
+            {
+                copy.coolingSpellsByTag.Add(s);
+            }
+
+            copy.coolDownTimes = new List<int>();
+            foreach (int i in this.coolDownTimes)
+            {
+                copy.coolDownTimes.Add(i);
             }
 
             copy.replacedTraitsOrSpellsByTag = new List<string>();

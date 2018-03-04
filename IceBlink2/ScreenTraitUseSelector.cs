@@ -519,21 +519,60 @@ namespace IceBlink2
                     if (traitWorksForThisPC)
                     {
 
-                        if ((pc.sp >= sp.costSP) && ((pc.hp - 1) >= sp.costHP))
+                        bool swiftBlocked = false;
+                        if (sp.isSwiftAction && gv.mod.swiftActionHasBeenUsedThisTurn)
+                        {
+                            swiftBlocked = true;
+                        }
+
+                        bool coolBlocked = false;
+                        int coolDownTime = 0;
+                        for (int i = 0; i < pc.coolingSpellsByTag.Count; i++)
+                        {
+                            if (pc.coolingSpellsByTag[i] == sp.tag)
+                            {
+                                coolBlocked = true;
+                                coolDownTime = pc.coolDownTimes[i];
+                                if (coolDownTime < sp.coolDownTime)
+                                {
+                                    coolDownTime++;
+                                }
+                            }
+                        }
+
+                        if (coolBlocked)
+                        {
+                            gv.DrawText("This is still cooling down for " + coolDownTime + " turn(s).", noticeX, noticeY, 1.0f, Color.Red);
+                        }
+
+                       else if (swiftBlocked)
+                        {
+                            gv.DrawText("Swift action already used this turn.", noticeX, noticeY, 1.0f, Color.Red);
+                        }
+
+                        else if ((pc.sp >= sp.costSP) && ((pc.hp - 1) >= sp.costHP) && !gv.mod.nonRepeatableFreeActionsUsedThisTurnBySpellTag.Contains(sp.tag))
                     {
                         //gv.mSheetTextPaint.setColor(Color.GREEN);
                         gv.DrawText("Available", noticeX, noticeY, 1.0f, Color.Lime);
                     }
-                    else //if known but not enough spell points, "Insufficient SP to Cast" in yellow
+                    else if (!gv.mod.nonRepeatableFreeActionsUsedThisTurnBySpellTag.Contains(sp.tag)) //if known but not enough spell points, "Insufficient SP to Cast" in yellow
                     {
                         //gv.mSheetTextPaint.setColor(Color.YELLOW);
                         gv.DrawText("Insufficient SP or HP", noticeX, noticeY, 1.0f, Color.Yellow);
                     }
+                    else
+                    {
+                            gv.DrawText("This can only be used once per turn.", noticeX, noticeY, 1.0f, Color.Red);
+                    }
                 }
                     else
                     {
-                        gv.DrawText("Specific requirements like e.g. worn equipment not met", noticeX, noticeY, 1.0f, Color.Yellow);
+                        gv.DrawText("Specific requirements like e.g. worn equipment not met", noticeX, noticeY, 1.0f, Color.Red);
                     }
+
+                   
+
+
                     //}
                     //not in combat so check if spell can be used on adventure maps
                     /*
@@ -786,6 +825,26 @@ namespace IceBlink2
                     //SpellAllowed sa = getCastingPlayer().playerClass.getSpellAllowedByTag(sp.tag);
                     //string textToSpan = "<u>Description</u>" + "<BR>";
                     string textToSpan = "<b><big>" + sp.name + "</big></b><BR>";
+                    if (sp.isSwiftAction && !sp.usesTurnToActivate)
+                    {
+                        textToSpan += "Swift action" + "<BR>";
+                    }
+                    else if (sp.onlyOncePerTurn && !sp.usesTurnToActivate)
+                    {
+                        textToSpan += "Free action, not repeatable" + "<BR>";
+                    }
+                    else if (!sp.onlyOncePerTurn && !sp.usesTurnToActivate)
+                    {
+                        textToSpan += "Free action, repeatable" + "<BR>";
+                    }
+                    else if (sp.castTimeInTurns > 0)
+                    {
+                        textToSpan += "Takes " + sp.castTimeInTurns + " full turn(s)" + "<BR>";
+                    }
+                    if (sp.coolDownTime > 0)
+                    {
+                        textToSpan += "Cool down time: " + sp.coolDownTime + " turn(s)" + "<BR>";
+                    }
                     textToSpan += "SP Cost: " + sp.costSP + "<BR>";
                     textToSpan += "HP Cost: " + sp.costHP + "<BR>";
                     textToSpan += "Target Range: " + sp.range + "<BR>";
@@ -833,6 +892,26 @@ namespace IceBlink2
                     Spell sp = gv.mod.getSpellByTag(backupKnownOutsideCombatUsableTraitsTags[spellSlotIndex + (tknPageIndex * slotsPerPage)]);
                     string textToSpan = "<u>Description</u>" + "<BR>";
                     textToSpan += "<b><i><big>" + sp.name + "</big></i></b><BR>";
+                    if (sp.isSwiftAction && !sp.usesTurnToActivate)
+                    {
+                        textToSpan += "Swift action" + "<BR>";
+                    }
+                    else if (sp.onlyOncePerTurn && !sp.usesTurnToActivate)
+                    {
+                        textToSpan += "Free action, not repeatable" + "<BR>";
+                    }
+                    else if (!sp.onlyOncePerTurn && !sp.usesTurnToActivate)
+                    {
+                        textToSpan += "Free action, repeatable" + "<BR>";
+                    }
+                    else if (sp.castTimeInTurns > 0)
+                    {
+                        textToSpan += "Takes " + sp.castTimeInTurns + " full turn(s)" + "<BR>";
+                    }
+                    if (sp.coolDownTime > 0)
+                    {
+                        textToSpan += "Cool down time: " + sp.coolDownTime + " turn(s)" + "<BR>";
+                    }
                     textToSpan += "SP Cost: " + sp.costSP + "<BR>";
                     textToSpan += "HP Cost: " + sp.costHP + "<BR>";
                     textToSpan += "Target Range: " + sp.range + "<BR>";
@@ -1096,8 +1175,37 @@ namespace IceBlink2
                     //eventually add max dex bonus allowed when wearing armor
                     if (traitWorksForThisPC)
                     {
-                        if ((pc.sp >= sp.costSP) && (pc.hp > sp.costHP))
+                        bool swiftBlocked = false;
+                        if (sp.isSwiftAction && gv.mod.swiftActionHasBeenUsedThisTurn)
                         {
+                            swiftBlocked = true;
+                        }
+
+                        bool coolBlocked = false;
+                        for (int i = 0; i < pc.coolingSpellsByTag.Count; i++)
+                        {
+                            if (pc.coolingSpellsByTag[i] == GetCurrentlySelectedSpell().tag)
+                            {
+                                coolBlocked = true;
+                            }
+                        }
+
+                        if ((pc.sp >= sp.costSP) && (pc.hp > sp.costHP) && (!gv.mod.nonRepeatableFreeActionsUsedThisTurnBySpellTag.Contains(sp.tag)) && !swiftBlocked && !coolBlocked)
+                        {
+
+                            if (sp.onlyOncePerTurn)
+                            {
+                                gv.mod.nonRepeatableFreeActionsUsedThisTurnBySpellTag.Add(sp.tag);
+                            }
+                            if (sp.isSwiftAction)
+                            {
+                                gv.mod.swiftActionHasBeenUsedThisTurn = true;
+                            }
+                            if (sp.coolDownTime > 0)
+                            {
+                                pc.coolingSpellsByTag.Add(sp.tag);
+                                pc.coolDownTimes.Add(sp.coolDownTime);
+                            }
                             gv.cc.currentSelectedSpell = sp;
                             gv.screenType = "combat";
                             gv.screenCombat.currentCombatMode = "cast";

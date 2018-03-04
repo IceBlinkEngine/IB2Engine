@@ -38,7 +38,96 @@ namespace IceBlink2
 	    {
 		    //gv.mod = m;
 		    gv = g;
-		    setControlsStart();
+
+            for (int i = gv.mod.addedItemsRefs.Count - 1; i >= 0; i--)
+            {
+                for (int j = gv.mod.partyInventoryRefsList.Count - 1; j >= 0; j--)
+                {
+
+                    if (gv.mod.addedItemsRefs[i] == gv.mod.partyInventoryRefsList[j].tag)
+                    {
+                        //krahn
+                        gv.mod.partyInventoryRefsList.RemoveAt(j);
+                        //btnInventorySlot
+                        //btn.Img3 = gv.cc.LoadBitmap("mandatory_conversation_indicator");
+                        //btnInventorySlot[i].Img3 = null;
+                        break;
+                    }
+
+                }
+            }
+            gv.mod.addedItemsRefs.Clear();
+
+
+            foreach (ItemRefs s in gv.mod.partyInventoryRefsList)
+            {
+                //do not add items currently equipped
+                //dschungel
+                bool allowAdding = true;
+                foreach (Player p in gv.mod.playerList)
+                {
+                    if (p.AmmoRefs.tag == s.tag)
+                    {
+                        allowAdding = false;
+                        break;
+                    }
+                    if (p.BodyRefs.tag == s.tag)
+                    {
+                        allowAdding = false;
+                        break;
+                    }
+                    if (p.FeetRefs.tag == s.tag)
+                    {
+                        allowAdding = false;
+                        break;
+                    }
+                    if (p.GlovesRefs.tag == s.tag)
+                    {
+                        allowAdding = false;
+                        break;
+                    }
+                    if (p.HeadRefs.tag == s.tag)
+                    {
+                        allowAdding = false;
+                        break;
+                    }
+                    if (p.MainHandRefs.tag == s.tag)
+                    {
+                        allowAdding = false;
+                        break;
+                    }
+                    if (p.NeckRefs.tag == s.tag)
+                    {
+                        allowAdding = false;
+                        break;
+                    }
+                    if (p.OffHandRefs.tag == s.tag)
+                    {
+                        allowAdding = false;
+                        break;
+                    }
+                    if (p.RingRefs.tag == s.tag)
+                    {
+                        allowAdding = false;
+                        break;
+                    }
+                    if (p.Ring2Refs.tag == s.tag)
+                    {
+                        allowAdding = false;
+                        break;
+                    }
+                }
+
+                if (!allowAdding)
+                {
+                    gv.mod.partyInventoryRefsList.Remove(s);
+                }
+            }
+
+
+
+
+            setControlsStart();
 		    stringMessageShop = gv.cc.loadTextToString("data/MessageShop.txt");
 	    }    
 	
@@ -207,7 +296,26 @@ namespace IceBlink2
 
         public void redrawShop()
         {
-    	    this.doItemStackingParty();
+            for (int i = gv.mod.addedItemsRefs.Count - 1; i >= 0; i--)
+            {
+                for (int j = gv.mod.partyInventoryRefsList.Count - 1; j >= 0; j--)
+                {
+
+                    if (gv.mod.addedItemsRefs[i] == gv.mod.partyInventoryRefsList[j].tag)
+                    {
+                        //krahn
+                        gv.mod.partyInventoryRefsList.RemoveAt(j);
+                        //btnInventorySlot
+                        //btn.Img3 = gv.cc.LoadBitmap("mandatory_conversation_indicator");
+                        //btnInventorySlot[i].Img3 = null;
+                        break;
+                    }
+
+                }
+            }
+            gv.mod.addedItemsRefs.Clear();
+
+            this.doItemStackingParty();
     	    
     	    int pW = (int)((float)gv.screenWidth / 100.0f);
 		    int pH = (int)((float)gv.screenHeight / 100.0f);
@@ -401,7 +509,7 @@ namespace IceBlink2
                 //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
                 description.tbXloc = 12 * gv.squareSize;
-                description.tbYloc = 2 * gv.squareSize -2*pH;
+                description.tbYloc = 2 * gv.squareSize -1*pH;
                 description.tbWidth = pW * 40;
                 description.tbHeight = pH * 50;
                 description.logLinesList.Clear();

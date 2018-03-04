@@ -626,9 +626,12 @@ namespace IceBlink2
             //could be used for placing temporary allies
             gv.cc.doIBScriptBasedOnFilename(gv.mod.currentEncounter.OnSetupCombatIBScript, gv.mod.currentEncounter.OnSetupCombatIBScriptParms);
 
-            //Place all PCs
+            //Place and preapre all PCs
             for (int index = 0; index < gv.mod.playerList.Count; index++)
             {
+                gv.mod.playerList[index].coolDownTimes.Clear();
+                gv.mod.playerList[index].coolingSpellsByTag.Clear();
+
                 //place regular pc
                 if (!gv.mod.playerList[index].isTemporaryAllyForThisEncounterOnly)
                 {
@@ -966,8 +969,23 @@ namespace IceBlink2
 
                         //switching to a system where effects last from turn they are applied to start of the target creature's next turn (multiplied with duration of effect)
                         applyEffectsCombat(pc);
-                        //change creatureIndex or currentPlayerIndex
-                        currentPlayerIndex = idx;
+
+                        //reduce existing cooldown times
+                        if (pc.coolingSpellsByTag.Count > 0)
+                        {
+                            for (int i = pc.coolingSpellsByTag.Count - 1; i >= 0; i--)
+                            {
+                                pc.coolDownTimes[i]--;
+                                if (pc.coolDownTimes[i] <= -1)
+                                {
+                                    pc.coolDownTimes.RemoveAt(i);
+                                    pc.coolingSpellsByTag.RemoveAt(i);
+                                }
+                            }
+                        }
+
+                            //change creatureIndex or currentPlayerIndex
+                            currentPlayerIndex = idx;
                         //set isPlayerTurn 
                         isPlayerTurn = true;
 
@@ -1878,6 +1896,8 @@ namespace IceBlink2
 
         public void startPcTurn()
         {
+            gv.mod.nonRepeatableFreeActionsUsedThisTurnBySpellTag.Clear();
+            gv.mod.swiftActionHasBeenUsedThisTurn = false;
             CalculateUpperLeft();
             //karl
             //gv.Render();
