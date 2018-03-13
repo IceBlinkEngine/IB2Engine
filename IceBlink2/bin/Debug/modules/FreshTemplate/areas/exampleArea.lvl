@@ -35968,6 +35968,7 @@
     },
     {
       "numberOfScriptCallsRemaining": 999,
+       "requiresActiveSearch": true,
       "canBeTriggeredByPc": true,
       "canBeTriggeredByCreature": true,
       "isLinkToMaster": false,

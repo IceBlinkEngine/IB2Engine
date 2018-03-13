@@ -793,7 +793,7 @@ namespace IceBlink2
                                 {
                                     gv.cc.currentSelectedSpell = GetCurrentlySelectedSpell();
                                     getCastingPlayer().thisCasterCanBeInterrupted = GetCurrentlySelectedSpell().canBeInterrupted;
-
+                                    /*
                                     if (GetCurrentlySelectedSpell().onlyOncePerTurn)
                                     {
                                         gv.mod.nonRepeatableFreeActionsUsedThisTurnBySpellTag.Add(GetCurrentlySelectedSpell().tag);
@@ -807,6 +807,7 @@ namespace IceBlink2
                                         getCastingPlayer().coolingSpellsByTag.Add(GetCurrentlySelectedSpell().tag);
                                         getCastingPlayer().coolDownTimes.Add(GetCurrentlySelectedSpell().coolDownTime);
                                     }
+                                    */
                                     gv.screenType = "combat";
                                     gv.screenCombat.currentCombatMode = "cast";
                                     doCleanUp();

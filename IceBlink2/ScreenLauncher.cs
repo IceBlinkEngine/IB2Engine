@@ -16,7 +16,8 @@ namespace IceBlink2
 	
 	    private IbbButton btnLeft = null;
 	    private IbbButton btnRight = null;
-	    private IbbButton btnModuleName = null;
+        private IbbButton btnExit = null;
+        private IbbButton btnModuleName = null;
         private IbbHtmlTextBox description;
 	    private List<Module> moduleList = new List<Module>();
 	    private List<Bitmap> titleList = new List<Bitmap>();
@@ -99,8 +100,20 @@ namespace IceBlink2
 			    btnRight.Y = (5 * gv.squareSize) - (pH * 2);
                 btnRight.Height = (int)(gv.ibbheight * gv.screenDensity);
                 btnRight.Width = (int)(gv.ibbwidthR * gv.screenDensity);
-		    }	
-	    }
+		    }
+
+            if (btnExit == null)
+            {
+                btnExit = new IbbButton(gv, 1.0f);
+                btnExit.Img = gv.cc.LoadBitmap("btn_large");
+                btnExit.Glow = gv.cc.LoadBitmap("btn_large_glow");
+                btnExit.Text = "EXIT";
+                btnExit.X = wideX;
+                btnExit.Y = (9 * gv.squareSize) - (pH * 2);
+                btnExit.Height = (int)(gv.ibbheight * gv.screenDensity);
+                btnExit.Width = (int)(gv.ibbwidthL * gv.screenDensity);
+            }
+        }
 
 	    //TITLE SCREEN  
         public void redrawLauncher()
@@ -137,6 +150,7 @@ namespace IceBlink2
 		    btnLeft.Draw();		
 		    btnRight.Draw();
 		    btnModuleName.Draw();
+            btnExit.Draw();
 	    }
         public void onTouchLauncher(MouseEventArgs e, MouseEventType.EventType eventType)
         {
@@ -145,6 +159,7 @@ namespace IceBlink2
                 btnLeft.glowOn = false;
                 btnRight.glowOn = false;
                 btnModuleName.glowOn = false;
+                btnExit.glowOn = false;
 
                 switch (eventType)
                 {
@@ -155,6 +170,7 @@ namespace IceBlink2
                         btnLeft.glowOn = false;
                         btnRight.glowOn = false;
                         btnModuleName.glowOn = false;
+                        btnExit.glowOn = false;
 
                         if (btnLeft.getImpact(x, y))
                         {
@@ -179,6 +195,10 @@ namespace IceBlink2
                             gv.cc.LoadSaveListItems();
                             gv.screenType = "title";
                         }
+                        else if (btnExit.getImpact(x, y))
+                        {
+                            gv.Close();
+                        }
                         break;
 
                     case MouseEventType.EventType.MouseMove:
@@ -197,6 +217,10 @@ namespace IceBlink2
                         else if (btnModuleName.getImpact(x, y))
                         {
                             btnModuleName.glowOn = true;
+                        }
+                        else if (btnExit.getImpact(x, y))
+                        {
+                            btnExit.glowOn = true;
                         }
                         break;
                 }

@@ -390,6 +390,9 @@ namespace IceBlink2
 	    {
 		    //mod = new Module();
 		    mod = cc.LoadModule(mod.moduleName + ".mod", false);
+            log.tagStack.Clear();
+            log.logLinesList.Clear();
+            log.currentTopLineIndex = 0;
             if (mod.useSmoothMovement == true)
             {
                 //16 milliseconds a tick, equals - theoretically - about 60 FPS
@@ -1824,6 +1827,7 @@ namespace IceBlink2
         //ON FORM CLOSING
         private void GameView_FormClosing(object sender, FormClosingEventArgs e)
         {
+            
             DialogResult dlg = IBMessageBox.Show(this, "Are you sure you wish to exit?", enumMessageButton.YesNo);
             if (dlg == DialogResult.Yes)
             {
@@ -1833,6 +1837,8 @@ namespace IceBlink2
             {
                 e.Cancel = true;
             }
+            
+            //if ()
         }
         private void GameView_FormClosed(object sender, FormClosedEventArgs e)
         {

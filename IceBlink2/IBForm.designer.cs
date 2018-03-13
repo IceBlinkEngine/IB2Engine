@@ -67,7 +67,8 @@
             this.pnlTitle.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pnlTitle_MouseUp);
             // 
             // iceBlinkButtonResize1
-            // 
+            //
+            /* 
             this.iceBlinkButtonResize1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.iceBlinkButtonResize1.BackColor = System.Drawing.Color.Transparent;
             this.iceBlinkButtonResize1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("iceBlinkButtonResize1.BackgroundImage")));
@@ -86,9 +87,11 @@
             this.iceBlinkButtonResize1.TabIndex = 1;
             this.iceBlinkButtonResize1.UseVisualStyleBackColor = false;
             this.iceBlinkButtonResize1.Click += new System.EventHandler(this.iceBlinkButtonResize1_Click);
+            */
             // 
             // iceBlinkButtonClose1
-            // 
+            //
+            /* 
             this.iceBlinkButtonClose1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.iceBlinkButtonClose1.BackColor = System.Drawing.Color.Transparent;
             this.iceBlinkButtonClose1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("iceBlinkButtonClose1.BackgroundImage")));
@@ -107,6 +110,7 @@
             this.iceBlinkButtonClose1.TabIndex = 0;
             this.iceBlinkButtonClose1.UseVisualStyleBackColor = false;
             this.iceBlinkButtonClose1.Click += new System.EventHandler(this.iceBlinkButtonClose1_Click);
+            */
             // 
             // IBForm
             // 
@@ -120,6 +124,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "IBForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.IBForm_KeyUp);
             this.pnlTop.ResumeLayout(false);
             this.pnlTitle.ResumeLayout(false);
             this.ResumeLayout(false);

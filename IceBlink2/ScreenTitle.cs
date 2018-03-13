@@ -139,6 +139,9 @@ namespace IceBlink2
                             if (gv.mod.mustUsePreMadePC)
                             {
                                 //no spell selection offered
+                                gv.log.tagStack.Clear();
+                                gv.log.logLinesList.Clear();
+                                gv.log.currentTopLineIndex = 0;
                                 gv.cc.tutorialMessageMainMap();
                                 gv.screenType = "main";
                                 gv.cc.doUpdate();

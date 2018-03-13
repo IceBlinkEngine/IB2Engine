@@ -21,6 +21,7 @@ namespace IceBlink2
         public bool showMiniMap = false;
         public bool showClock = false;
         public bool showFullParty = false;
+        public bool showMoveKeys = false;
         public bool showArrows = true;
         public bool hideClock = false;
         public int shifter = 0;
@@ -113,6 +114,12 @@ namespace IceBlink2
                 if (tgl3 != null)
                 {
                     showFullParty = tgl3.toggleOn;
+                }
+
+                IB2ToggleButton tgl4 = mainUiLayout.GetToggleByTag("tglMoveKeys");
+                if (tgl4 != null)
+                {
+                    showMoveKeys = tgl4.toggleOn;
                 }
                 foreach (IB2Panel pnl in mainUiLayout.panelList)
                 {
@@ -414,6 +421,7 @@ namespace IceBlink2
                                     gv.mod.PlayerLastLocationX = gv.mod.PlayerLocationX;
                                     gv.mod.PlayerLastLocationY = gv.mod.PlayerLocationY;
                                     gv.mod.PlayerLocationY--;
+                                    gv.mod.breakActiveSearch = false;
                                     gv.cc.doUpdate();
                                 }
                             }
@@ -433,6 +441,7 @@ namespace IceBlink2
                                     gv.mod.PlayerLastLocationX = gv.mod.PlayerLocationX;
                                     gv.mod.PlayerLastLocationY = gv.mod.PlayerLocationY;
                                     gv.mod.PlayerLocationY++;
+                                    gv.mod.breakActiveSearch = false;
                                     gv.cc.doUpdate();
                                 }
                             }
@@ -457,6 +466,7 @@ namespace IceBlink2
                                             pc.combatFacingLeft = true;
                                         }
                                     }
+                                    gv.mod.breakActiveSearch = false;
                                     gv.cc.doUpdate();
                                 }
                             }
@@ -482,6 +492,7 @@ namespace IceBlink2
                                             pc.combatFacingLeft = false;
                                         }
                                     }
+                                    gv.mod.breakActiveSearch = false;
                                     gv.cc.doUpdate();
                                 }
                             }
@@ -2648,20 +2659,23 @@ namespace IceBlink2
             {
                 if ((p.isShown) && (p.isMover))
                 {
-                    if (gv.mod.currentArea.Tiles[p.LocationY * gv.mod.currentArea.MapSizeX + p.LocationX].isEWBridge || gv.mod.currentArea.Tiles[p.LocationY * gv.mod.currentArea.MapSizeX + p.LocationX].isNSBridge)
+                    if (((p.lastLocationY < gv.mod.currentArea.MapSizeY) && (p.lastLocationX < gv.mod.currentArea.MapSizeX) && p.lastLocationX >= 0 && p.lastLocationY >= 0) && ((p.LocationY < gv.mod.currentArea.MapSizeY) && (p.LocationX < gv.mod.currentArea.MapSizeX) && p.LocationX >= 0 && p.LocationY >= 0))
                     {
-                        if (gv.mod.currentArea.Tiles[p.lastLocationY * gv.mod.currentArea.MapSizeX + p.lastLocationX].heightLevel + 1 == gv.mod.currentArea.Tiles[p.LocationY * gv.mod.currentArea.MapSizeX + p.LocationX].heightLevel)
+                        if (gv.mod.currentArea.Tiles[p.LocationY * gv.mod.currentArea.MapSizeX + p.LocationX].isEWBridge || gv.mod.currentArea.Tiles[p.LocationY * gv.mod.currentArea.MapSizeX + p.LocationX].isNSBridge)
                         {
-                            p.isUnderBridge = true;
+                            if (gv.mod.currentArea.Tiles[p.lastLocationY * gv.mod.currentArea.MapSizeX + p.lastLocationX].heightLevel + 1 == gv.mod.currentArea.Tiles[p.LocationY * gv.mod.currentArea.MapSizeX + p.LocationX].heightLevel)
+                            {
+                                p.isUnderBridge = true;
+                            }
+                            else
+                            {
+                                p.isUnderBridge = false;
+                            }
                         }
                         else
                         {
                             p.isUnderBridge = false;
                         }
-                    }
-                    else
-                    {
-                        p.isUnderBridge = false;
                     }
                 }
             }
@@ -27906,25 +27920,25 @@ namespace IceBlink2
                                         src = new IbRect(0, 0, interactionStateIndicator.PixelSize.Width, interactionStateIndicator.PixelSize.Height);
                                         gv.DrawBitmap(interactionStateIndicator, src, dst);
                                         gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
-                                        continue;
+                                        //continue;
                                     }
 
-                                    if (p.unavoidableConversation)
+                                    else if (p.unavoidableConversation)
                                     {
                                         Bitmap interactionStateIndicator = gv.cc.LoadBitmap("mandatory_conversation_indicator");
                                         src = new IbRect(0, 0, interactionStateIndicator.PixelSize.Width, interactionStateIndicator.PixelSize.Height);
                                         gv.DrawBitmap(interactionStateIndicator, src, dst);
                                         gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
-                                        continue;
+                                        //continue;
                                     }
 
-                                    if (!p.ConversationWhenOnPartySquare.Equals("none"))
+                                    else if (!p.ConversationWhenOnPartySquare.Equals("none"))
                                     {
                                         Bitmap interactionStateIndicator = gv.cc.LoadBitmap("optional_conversation_indicator");
                                         src = new IbRect(0, 0, interactionStateIndicator.PixelSize.Width, interactionStateIndicator.PixelSize.Height);
                                         gv.DrawBitmap(interactionStateIndicator, src, dst);
                                         gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
-                                        continue;
+                                        //continue;
                                     }
                                 }//6
                             }//5
@@ -27991,25 +28005,25 @@ namespace IceBlink2
                                     src = new IbRect(0, 0, interactionStateIndicator.PixelSize.Width, interactionStateIndicator.PixelSize.Height);
                                     gv.DrawBitmap(interactionStateIndicator, src, dst);
                                     gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
-                                    continue;
+                                    //continue;
                                 }
 
-                                if (p.unavoidableConversation)
+                                else if (p.unavoidableConversation)
                                 {
                                     Bitmap interactionStateIndicator = gv.cc.LoadBitmap("mandatory_conversation_indicator");
                                     src = new IbRect(0, 0, interactionStateIndicator.PixelSize.Width, interactionStateIndicator.PixelSize.Height);
                                     gv.DrawBitmap(interactionStateIndicator, src, dst);
                                     gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
-                                    continue;
+                                    //continue;
                                 }
 
-                                if (!p.ConversationWhenOnPartySquare.Equals("none"))
+                                else if (!p.ConversationWhenOnPartySquare.Equals("none"))
                                 {
                                     Bitmap interactionStateIndicator = gv.cc.LoadBitmap("optional_conversation_indicator");
                                     src = new IbRect(0, 0, interactionStateIndicator.PixelSize.Width, interactionStateIndicator.PixelSize.Height);
                                     gv.DrawBitmap(interactionStateIndicator, src, dst);
                                     gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
-                                    continue;
+                                    //continue;
                                 }
                             }//6
                         }//5
@@ -28064,25 +28078,25 @@ namespace IceBlink2
                                     src = new IbRect(0, 0, interactionStateIndicator.PixelSize.Width, interactionStateIndicator.PixelSize.Height);
                                     gv.DrawBitmap(interactionStateIndicator, src, dst);
                                     gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
-                                    continue;
+                                    //continue;
                                 }
 
-                                if (p.unavoidableConversation)
+                                else if (p.unavoidableConversation)
                                 {
                                     Bitmap interactionStateIndicator = gv.cc.LoadBitmap("mandatory_conversation_indicator");
                                     src = new IbRect(0, 0, interactionStateIndicator.PixelSize.Width, interactionStateIndicator.PixelSize.Height);
                                     gv.DrawBitmap(interactionStateIndicator, src, dst);
                                     gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
-                                    continue;
+                                    //continue;
                                 }
 
-                                if (!p.ConversationWhenOnPartySquare.Equals("none"))
+                                else if (!p.ConversationWhenOnPartySquare.Equals("none"))
                                 {
                                     Bitmap interactionStateIndicator = gv.cc.LoadBitmap("optional_conversation_indicator");
                                     src = new IbRect(0, 0, interactionStateIndicator.PixelSize.Width, interactionStateIndicator.PixelSize.Height);
                                     gv.DrawBitmap(interactionStateIndicator, src, dst);
                                     gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
-                                    continue;
+                                    //continue;
                                 }
                             }
                         }
@@ -28544,25 +28558,25 @@ namespace IceBlink2
                                             src = new IbRect(0, 0, interactionStateIndicator.PixelSize.Width, interactionStateIndicator.PixelSize.Height);
                                             gv.DrawBitmap(interactionStateIndicator, src, dst);
                                             gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
-                                            continue;
+                                            //continue;
                                         }
 
-                                        if (p.unavoidableConversation)
+                                        else if (p.unavoidableConversation)
                                         {
                                             Bitmap interactionStateIndicator = gv.cc.LoadBitmap("mandatory_conversation_indicator");
                                             src = new IbRect(0, 0, interactionStateIndicator.PixelSize.Width, interactionStateIndicator.PixelSize.Height);
                                             gv.DrawBitmap(interactionStateIndicator, src, dst);
                                             gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
-                                            continue;
+                                            //continue;
                                         }
 
-                                        if (!p.ConversationWhenOnPartySquare.Equals("none"))
+                                        else if (!p.ConversationWhenOnPartySquare.Equals("none"))
                                         {
                                             Bitmap interactionStateIndicator = gv.cc.LoadBitmap("optional_conversation_indicator");
                                             src = new IbRect(0, 0, interactionStateIndicator.PixelSize.Width, interactionStateIndicator.PixelSize.Height);
                                             gv.DrawBitmap(interactionStateIndicator, src, dst);
                                             gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
-                                            continue;
+                                            //continue;
                                         }
                                     }//6
                                 }//5
@@ -28629,25 +28643,25 @@ namespace IceBlink2
                                         src = new IbRect(0, 0, interactionStateIndicator.PixelSize.Width, interactionStateIndicator.PixelSize.Height);
                                         gv.DrawBitmap(interactionStateIndicator, src, dst);
                                         gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
-                                        continue;
+                                        //continue;
                                     }
 
-                                    if (p.unavoidableConversation)
+                                    else if (p.unavoidableConversation)
                                     {
                                         Bitmap interactionStateIndicator = gv.cc.LoadBitmap("mandatory_conversation_indicator");
                                         src = new IbRect(0, 0, interactionStateIndicator.PixelSize.Width, interactionStateIndicator.PixelSize.Height);
                                         gv.DrawBitmap(interactionStateIndicator, src, dst);
                                         gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
-                                        continue;
+                                        //continue;
                                     }
 
-                                    if (!p.ConversationWhenOnPartySquare.Equals("none"))
+                                    else if (!p.ConversationWhenOnPartySquare.Equals("none"))
                                     {
                                         Bitmap interactionStateIndicator = gv.cc.LoadBitmap("optional_conversation_indicator");
                                         src = new IbRect(0, 0, interactionStateIndicator.PixelSize.Width, interactionStateIndicator.PixelSize.Height);
                                         gv.DrawBitmap(interactionStateIndicator, src, dst);
                                         gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
-                                        continue;
+                                        //continue;
                                     }
                                 }//6
                             }//5
@@ -28702,25 +28716,25 @@ namespace IceBlink2
                                         src = new IbRect(0, 0, interactionStateIndicator.PixelSize.Width, interactionStateIndicator.PixelSize.Height);
                                         gv.DrawBitmap(interactionStateIndicator, src, dst);
                                         gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
-                                        continue;
+                                        //continue;
                                     }
 
-                                    if (p.unavoidableConversation)
+                                    else if (p.unavoidableConversation)
                                     {
                                         Bitmap interactionStateIndicator = gv.cc.LoadBitmap("mandatory_conversation_indicator");
                                         src = new IbRect(0, 0, interactionStateIndicator.PixelSize.Width, interactionStateIndicator.PixelSize.Height);
                                         gv.DrawBitmap(interactionStateIndicator, src, dst);
                                         gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
-                                        continue;
+                                        //continue;
                                     }
 
-                                    if (!p.ConversationWhenOnPartySquare.Equals("none"))
+                                    else if (!p.ConversationWhenOnPartySquare.Equals("none"))
                                     {
                                         Bitmap interactionStateIndicator = gv.cc.LoadBitmap("optional_conversation_indicator");
                                         src = new IbRect(0, 0, interactionStateIndicator.PixelSize.Width, interactionStateIndicator.PixelSize.Height);
                                         gv.DrawBitmap(interactionStateIndicator, src, dst);
                                         gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
-                                        continue;
+                                        //continue;
                                     }
                                 }
                             }
@@ -28974,25 +28988,25 @@ namespace IceBlink2
                                         src = new IbRect(0, 0, interactionStateIndicator.PixelSize.Width, interactionStateIndicator.PixelSize.Height);
                                         gv.DrawBitmap(interactionStateIndicator, src, dst);
                                         gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
-                                        continue;
+                                        //continue;
                                     }
 
-                                    if (p.unavoidableConversation)
+                                    else if (p.unavoidableConversation)
                                     {
                                         Bitmap interactionStateIndicator = gv.cc.LoadBitmap("mandatory_conversation_indicator");
                                         src = new IbRect(0, 0, interactionStateIndicator.PixelSize.Width, interactionStateIndicator.PixelSize.Height);
                                         gv.DrawBitmap(interactionStateIndicator, src, dst);
                                         gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
-                                        continue;
+                                        //continue;
                                     }
 
-                                    if (!p.ConversationWhenOnPartySquare.Equals("none"))
+                                    else if (!p.ConversationWhenOnPartySquare.Equals("none"))
                                     {
                                         Bitmap interactionStateIndicator = gv.cc.LoadBitmap("optional_conversation_indicator");
                                         src = new IbRect(0, 0, interactionStateIndicator.PixelSize.Width, interactionStateIndicator.PixelSize.Height);
                                         gv.DrawBitmap(interactionStateIndicator, src, dst);
                                         gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
-                                        continue;
+                                        //continue;
                                     }
                                 }
                             }
@@ -29065,25 +29079,25 @@ namespace IceBlink2
                                     src = new IbRect(0, 0, interactionStateIndicator.PixelSize.Width, interactionStateIndicator.PixelSize.Height);
                                     gv.DrawBitmap(interactionStateIndicator, src, dst);
                                     gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
-                                    continue;
+                                    //continue;
                                 }
 
-                                if (p.unavoidableConversation)
+                                else if (p.unavoidableConversation)
                                 {
                                     Bitmap interactionStateIndicator = gv.cc.LoadBitmap("mandatory_conversation_indicator");
                                     src = new IbRect(0, 0, interactionStateIndicator.PixelSize.Width, interactionStateIndicator.PixelSize.Height);
                                     gv.DrawBitmap(interactionStateIndicator, src, dst);
                                     gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
-                                    continue;
+                                    //continue;
                                 }
 
-                                if (!p.ConversationWhenOnPartySquare.Equals("none"))
+                                else if (!p.ConversationWhenOnPartySquare.Equals("none"))
                                 {
                                     Bitmap interactionStateIndicator = gv.cc.LoadBitmap("optional_conversation_indicator");
                                     src = new IbRect(0, 0, interactionStateIndicator.PixelSize.Width, interactionStateIndicator.PixelSize.Height);
                                     gv.DrawBitmap(interactionStateIndicator, src, dst);
                                     gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
-                                    continue;
+                                    //continue;
                                 }
                             }
                         }
@@ -29362,25 +29376,25 @@ namespace IceBlink2
                                         src = new IbRect(0, 0, interactionStateIndicator.PixelSize.Width, interactionStateIndicator.PixelSize.Height);
                                         gv.DrawBitmap(interactionStateIndicator, src, dst);
                                         gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
-                                        continue;
+                                        //continue;
                                     }
 
-                                    if (p.unavoidableConversation)
+                                    else if (p.unavoidableConversation)
                                     {
                                         Bitmap interactionStateIndicator = gv.cc.LoadBitmap("mandatory_conversation_indicator");
                                         src = new IbRect(0, 0, interactionStateIndicator.PixelSize.Width, interactionStateIndicator.PixelSize.Height);
                                         gv.DrawBitmap(interactionStateIndicator, src, dst);
                                         gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
-                                        continue;
+                                        //continue;
                                     }
 
-                                    if (!p.ConversationWhenOnPartySquare.Equals("none"))
+                                    else if (!p.ConversationWhenOnPartySquare.Equals("none"))
                                     {
                                         Bitmap interactionStateIndicator = gv.cc.LoadBitmap("optional_conversation_indicator");
                                         src = new IbRect(0, 0, interactionStateIndicator.PixelSize.Width, interactionStateIndicator.PixelSize.Height);
                                         gv.DrawBitmap(interactionStateIndicator, src, dst);
                                         gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
-                                        continue;
+                                        //continue;
                                     }
                                 }
                             }
@@ -29453,25 +29467,25 @@ namespace IceBlink2
                                     src = new IbRect(0, 0, interactionStateIndicator.PixelSize.Width, interactionStateIndicator.PixelSize.Height);
                                     gv.DrawBitmap(interactionStateIndicator, src, dst);
                                     gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
-                                    continue;
+                                    //continue;
                                 }
 
-                                if (p.unavoidableConversation)
+                                else if (p.unavoidableConversation)
                                 {
                                     Bitmap interactionStateIndicator = gv.cc.LoadBitmap("mandatory_conversation_indicator");
                                     src = new IbRect(0, 0, interactionStateIndicator.PixelSize.Width, interactionStateIndicator.PixelSize.Height);
                                     gv.DrawBitmap(interactionStateIndicator, src, dst);
                                     gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
-                                    continue;
+                                    //continue;
                                 }
 
-                                if (!p.ConversationWhenOnPartySquare.Equals("none"))
+                                else if (!p.ConversationWhenOnPartySquare.Equals("none"))
                                 {
                                     Bitmap interactionStateIndicator = gv.cc.LoadBitmap("optional_conversation_indicator");
                                     src = new IbRect(0, 0, interactionStateIndicator.PixelSize.Width, interactionStateIndicator.PixelSize.Height);
                                     gv.DrawBitmap(interactionStateIndicator, src, dst);
                                     gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
-                                    continue;
+                                    //continue;
                                 }
                             }
                         }
@@ -33995,6 +34009,23 @@ namespace IceBlink2
                             gv.cc.addLogText("lime", "Show Full Party");
                         }
                     }
+                    if (rtn.Equals("tglMoveKeys"))
+                    {
+                        IB2ToggleButton tgl = mainUiLayout.GetToggleByTag(rtn);
+                        if (tgl == null) { return; }
+                        if (tgl.toggleOn)
+                        {
+                            tgl.toggleOn = false;
+                            showMoveKeys = false;
+                            gv.cc.addLogText("lime", "WASD for movement, arrow keys for log and leader");
+                        }
+                        else
+                        {
+                            tgl.toggleOn = true;
+                            showMoveKeys = true;
+                            gv.cc.addLogText("lime", "Arrow keys for movement, WASD for log and leader");
+                        }
+                    }
                     if (rtn.Equals("tglMiniMap"))
                     {
                         IB2ToggleButton tgl = mainUiLayout.GetToggleByTag(rtn);
@@ -34128,7 +34159,8 @@ namespace IceBlink2
                     }
                     else if (rtn.Equals("btnSettings"))
                     {
-                        gv.cc.doSettingsDialogs();
+                        //gv.cc.doSettingsDialogs();
+                        gv.Close();
                     }
                     else if (rtn.Equals("btnSave"))
                     {
@@ -34310,6 +34342,7 @@ namespace IceBlink2
                                         gv.mod.PlayerLastLocationX = gv.mod.PlayerLocationX;
                                         gv.mod.PlayerLastLocationY = gv.mod.PlayerLocationY;
                                         gv.mod.PlayerLocationY--;
+                                        gv.mod.breakActiveSearch = false;
                                         gv.cc.doUpdate();
                                     }
                                 }
@@ -34333,6 +34366,7 @@ namespace IceBlink2
                                         gv.mod.PlayerLastLocationX = gv.mod.PlayerLocationX;
                                         gv.mod.PlayerLastLocationY = gv.mod.PlayerLocationY;
                                         gv.mod.PlayerLocationY++;
+                                        gv.mod.breakActiveSearch = false;
                                         gv.cc.doUpdate();
                                     }
                                 }
@@ -34362,6 +34396,7 @@ namespace IceBlink2
                                                 pc.combatFacingLeft = true;
                                             }
                                         }
+                                        gv.mod.breakActiveSearch = false;
                                         gv.cc.doUpdate();
                                     }
                                 }
@@ -34392,6 +34427,7 @@ namespace IceBlink2
                                                 pc.combatFacingLeft = false;
                                             }
                                         }
+                                        gv.mod.breakActiveSearch = false;
                                         gv.cc.doUpdate();
                                     }
                                 }
@@ -35252,41 +35288,375 @@ namespace IceBlink2
         {
             if ((moveDelay()) && (finishedMove))
             {
-                if (keyData == Keys.Left | keyData == Keys.D4 | keyData == Keys.NumPad4)
+                if (keyData == Keys.D4 | keyData == Keys.NumPad4)
                 {
                     bool isTransition = gv.cc.goWest();
                     if (!isTransition)
                     {
+                        gv.mod.breakActiveSearch = false;
                         moveLeft();
                     }
                 }
-                else if (keyData == Keys.Right | keyData == Keys.D6 | keyData == Keys.NumPad6)
+                else if (keyData == Keys.Left && showMoveKeys)
+                {
+                    bool isTransition = gv.cc.goWest();
+                    if (!isTransition)
+                    {
+                        gv.mod.breakActiveSearch = false;
+                        moveLeft();
+                    }
+                }
+                else if (keyData == Keys.A && !showMoveKeys)
+                {
+                    bool isTransition = gv.cc.goWest();
+                    if (!isTransition)
+                    {
+                        gv.mod.breakActiveSearch = false;
+                        moveLeft();
+                    }
+                }
+                else if (keyData == Keys.D6 | keyData == Keys.NumPad6)
                 {
                     bool isTransition = gv.cc.goEast();
                     if (!isTransition)
                     {
+                        gv.mod.breakActiveSearch = false;
                         moveRight();
                     }
                 }
-                else if (keyData == Keys.Up | keyData == Keys.D8 | keyData == Keys.NumPad8)
+                else if (keyData == Keys.Right && showMoveKeys)
+                {
+                    bool isTransition = gv.cc.goEast();
+                    if (!isTransition)
+                    {
+                        gv.mod.breakActiveSearch = false;
+                        moveRight();
+                    }
+                }
+                else if (keyData == Keys.D && !showMoveKeys)
+                {
+                    bool isTransition = gv.cc.goEast();
+                    if (!isTransition)
+                    {
+                        gv.mod.breakActiveSearch = false;
+                        moveRight();
+                    }
+                }
+                else if (keyData == Keys.D8 | keyData == Keys.NumPad8)
                 {
                     bool isTransition = gv.cc.goNorth();
                     if (!isTransition)
                     {
+                        gv.mod.breakActiveSearch = false;
                         moveUp();
                     }
                 }
-                else if (keyData == Keys.Down | keyData == Keys.D2 | keyData == Keys.NumPad2)
+                else if (keyData == Keys.Up && showMoveKeys)
+                {
+                    bool isTransition = gv.cc.goNorth();
+                    if (!isTransition)
+                    {
+                        gv.mod.breakActiveSearch = false;
+                        moveUp();
+                    }
+                }
+                else if (keyData == Keys.W && !showMoveKeys)
+                {
+                    bool isTransition = gv.cc.goNorth();
+                    if (!isTransition)
+                    {
+                        gv.mod.breakActiveSearch = false;
+                        moveUp();
+                    }
+                }
+                else if (keyData == Keys.D2 | keyData == Keys.NumPad2)
                 {
                     bool isTransition = gv.cc.goSouth();
                     if (!isTransition)
                     {
+                        gv.mod.breakActiveSearch = false;
                         moveDown();
                     }
                 }
-                else { }
+                else if (keyData == Keys.Down && showMoveKeys)
+                {
+                    bool isTransition = gv.cc.goSouth();
+                    if (!isTransition)
+                    {
+                        gv.mod.breakActiveSearch = false;
+                        moveDown();
+                    }
+                }
+                else if (keyData == Keys.S && !showMoveKeys)
+                {
+                    bool isTransition = gv.cc.goSouth();
+                    if (!isTransition)
+                    {
+                        gv.mod.breakActiveSearch = false;
+                        moveDown();
+                    }
+                }
+                //else { }
             }
+
+            if (keyData == Keys.E)
+            {
+                gv.mod.selectedPartyLeader++;
+                if (gv.mod.selectedPartyLeader >= gv.mod.playerList.Count)
+                {
+                    gv.mod.selectedPartyLeader = 0;
+                }
+            }
+
+            if (keyData == Keys.Right && !showMoveKeys)
+            {
+                gv.mod.selectedPartyLeader++;
+                if (gv.mod.selectedPartyLeader >= gv.mod.playerList.Count)
+                {
+                    gv.mod.selectedPartyLeader = 0;
+                }
+            }
+
+            if (keyData == Keys.D && showMoveKeys)
+            {
+                gv.mod.selectedPartyLeader++;
+                if (gv.mod.selectedPartyLeader >= gv.mod.playerList.Count)
+                {
+                    gv.mod.selectedPartyLeader = 0;
+                }
+            }
+
             if (keyData == Keys.Q)
+            {
+                gv.mod.selectedPartyLeader--;
+                if (gv.mod.selectedPartyLeader < 0)
+                {
+                    gv.mod.selectedPartyLeader = gv.mod.playerList.Count-1;
+                }
+            }
+
+            if (keyData == Keys.Left && !showMoveKeys)
+            {
+                gv.mod.selectedPartyLeader--;
+                if (gv.mod.selectedPartyLeader < 0)
+                {
+                    gv.mod.selectedPartyLeader = gv.mod.playerList.Count - 1;
+                }
+            }
+
+            if (keyData == Keys.A && showMoveKeys)
+            {
+                gv.mod.selectedPartyLeader--;
+                if (gv.mod.selectedPartyLeader < 0)
+                {
+                    gv.mod.selectedPartyLeader = gv.mod.playerList.Count - 1;
+                }
+            }
+
+
+            if (keyData == Keys.R)
+            {
+                //scroll log up
+                //do same for combat screen
+                //wheel
+                //int numberOfTextLinesToMove = e.Delta * SystemInformation.MouseWheelScrollLines / 120;
+                int numberOfTextLinesToMove = 1;
+                gv.mod.logFadeCounter = 120;
+                gv.mod.logOpacity = 1f;
+
+                if (numberOfTextLinesToMove != 0)
+                {
+                    gv.log.SetCurrentTopLineIndex(-numberOfTextLinesToMove);
+                    //gv.Invalidate();
+                    gv.Render(0);
+                }
+            }
+
+            if (keyData == Keys.Up && !showMoveKeys)
+            {
+                //scroll log up
+                //do same for combat screen
+                //wheel
+                //int numberOfTextLinesToMove = e.Delta * SystemInformation.MouseWheelScrollLines / 120;
+                int numberOfTextLinesToMove = 1;
+                gv.mod.logFadeCounter = 120;
+                gv.mod.logOpacity = 1f;
+
+                if (numberOfTextLinesToMove != 0)
+                {
+                    gv.log.SetCurrentTopLineIndex(-numberOfTextLinesToMove);
+                    //gv.Invalidate();
+                    gv.Render(0);
+                }
+            }
+
+            if (keyData == Keys.Space)
+            {
+                gv.mod.breakActiveSearch = false;
+
+                //active search
+                if (!gv.mod.breakActiveSearch)
+                {
+                    gv.cc.doUpdate();
+                }
+                if (!gv.mod.breakActiveSearch)
+                {
+                    gv.cc.doUpdate();
+                }
+                if (!gv.mod.breakActiveSearch)
+                {
+                    gv.cc.doUpdate();
+                }
+                if (!gv.mod.breakActiveSearch)
+                {
+                    gv.cc.doUpdate();
+                }
+                if (!gv.mod.breakActiveSearch)
+                {
+                    gv.cc.doUpdate();
+                }
+                if (!gv.mod.breakActiveSearch)
+                {
+                    gv.cc.doUpdate();
+                }
+                if (!gv.mod.breakActiveSearch)
+                {
+                    gv.cc.doUpdate();
+                }
+                if (!gv.mod.breakActiveSearch)
+                {
+                    gv.cc.doUpdate();
+                }
+                if (!gv.mod.breakActiveSearch)
+                {
+                    gv.cc.doUpdate();
+                }
+                if (!gv.mod.breakActiveSearch)
+                {
+                    bool costPaid = false;
+                    if (gv.mod.activeSearchSPCostPaidByByLeaderOnly)
+                    {
+                       if (gv.mod.playerList[gv.mod.selectedPartyLeader].sp >= gv.mod.activeSearchSPCost)
+                       {
+                            gv.mod.playerList[gv.mod.selectedPartyLeader].sp -= gv.mod.activeSearchSPCost;
+                            costPaid = true;
+                       }
+                    }
+                    else
+                    {
+                        costPaid = true;
+
+                        foreach (Player p in gv.mod.playerList)
+                        {
+                            if (p.sp < gv.mod.activeSearchSPCost)
+                            {
+                                costPaid = false;
+                                break;
+                            }
+                        }
+
+                        if (costPaid)
+                        {
+                            foreach (Player p in gv.mod.playerList)
+                            {
+                                p.sp -= gv.mod.activeSearchSPCost;
+                            }
+                        }
+                    }
+                    if (costPaid)
+                    {
+                        //reinstecken
+                        if (gv.mod.activeSearchSPCostPaidByByLeaderOnly)
+                        {
+                            addFloatyText(gv.mod.PlayerLocationX, gv.mod.PlayerLocationY, "Searching... time passes and "+ gv.mod.playerList[gv.mod.selectedPartyLeader].name + " loses " + gv.mod.activeSearchSPCost + " SP" , "white", 3000);
+                            gv.cc.addLogText("white", "Searching... time passes and " + gv.mod.playerList[gv.mod.selectedPartyLeader].name + " loses " + gv.mod.activeSearchSPCost + " SP");
+                        }
+                        else
+                        {
+                            addFloatyText(gv.mod.PlayerLocationX, gv.mod.PlayerLocationY, "Searching... time passes and" + "everybody loses " + gv.mod.activeSearchSPCost + " SP", "white", 3000);
+                            gv.cc.addLogText("white", "Searching... time passes and everybody loses " + gv.mod.activeSearchSPCost + " SP");
+
+                        }
+                        //add log text, to do
+                        gv.mod.activeSearchDoneThisMove = true;
+                        gv.cc.doUpdate();
+                        gv.mod.activeSearchDoneThisMove = false;
+                    }
+                    else
+                    {
+                        addFloatyText(gv.mod.PlayerLocationX, gv.mod.PlayerLocationY, "Too exhausted to search...", "red", 3000);
+                        gv.cc.addLogText("red", "Too exhausted to search...");
+                    }
+                }
+
+                gv.mod.breakActiveSearch = false;
+
+            }
+
+            if (keyData == Keys.W && showMoveKeys)
+            {
+                //scroll log up
+                //do same for combat screen
+                //wheel
+                //int numberOfTextLinesToMove = e.Delta * SystemInformation.MouseWheelScrollLines / 120;
+                int numberOfTextLinesToMove = 1;
+                gv.mod.logFadeCounter = 120;
+                gv.mod.logOpacity = 1f;
+
+                if (numberOfTextLinesToMove != 0)
+                {
+                    gv.log.SetCurrentTopLineIndex(-numberOfTextLinesToMove);
+                    //gv.Invalidate();
+                    gv.Render(0);
+                }
+            }
+
+            if (keyData == Keys.F)
+            {
+                //scroll log down
+                int numberOfTextLinesToMove = 1;
+                gv.mod.logFadeCounter = 120;
+                gv.mod.logOpacity = 1f;
+
+                if (numberOfTextLinesToMove != 0)
+                {
+                    gv.log.SetCurrentTopLineIndex(+numberOfTextLinesToMove);
+                    //gv.Invalidate();
+                    gv.Render(0);
+                }
+            }
+
+            if (keyData == Keys.Down && !showMoveKeys)
+            {
+                //scroll log down
+                int numberOfTextLinesToMove = 1;
+                gv.mod.logFadeCounter = 120;
+                gv.mod.logOpacity = 1f;
+
+                if (numberOfTextLinesToMove != 0)
+                {
+                    gv.log.SetCurrentTopLineIndex(+numberOfTextLinesToMove);
+                    //gv.Invalidate();
+                    gv.Render(0);
+                }
+            }
+
+            if (keyData == Keys.S && showMoveKeys)
+            {
+                //scroll log down
+                int numberOfTextLinesToMove = 1;
+                gv.mod.logFadeCounter = 120;
+                gv.mod.logOpacity = 1f;
+
+                if (numberOfTextLinesToMove != 0)
+                {
+                    gv.log.SetCurrentTopLineIndex(+numberOfTextLinesToMove);
+                    //gv.Invalidate();
+                    gv.Render(0);
+                }
+            }
+
+            if (keyData == Keys.F5)
             {
                 if (gv.mod.allowSave)
                 {
@@ -35298,7 +35668,10 @@ namespace IceBlink2
                     gv.cc.addLogText("red", "No save allowed at this time.");
                 }
             }
-            else if (keyData == Keys.D)
+            else if (keyData == Keys.B)
+            //gv.mod.KeyDebug = Keys.B;
+            //if (keyData == gv.mod.KeyDebug)
+                
             {
                 if (gv.mod.debugMode)
                 {
@@ -35536,7 +35909,6 @@ namespace IceBlink2
             {
                 if (gv.mod.currentArea.GetBlocked(gv.mod.PlayerLocationX - 1, gv.mod.PlayerLocationY, gv.mod.PlayerLocationX, gv.mod.PlayerLocationY, gv.mod.PlayerLastLocationX, gv.mod.PlayerLastLocationY) == false)
                 {
-                   
                     //gv.mod.blockTrigger = false;
                     //gv.mod.blockTriggerMovingProp = false;
 
@@ -35552,6 +35924,10 @@ namespace IceBlink2
                     }
                     gv.cc.doUpdate();
                 }
+                else
+                {
+                    gv.cc.doUpdate();
+                }
             }
         }
         private void moveRight()
@@ -35559,6 +35935,7 @@ namespace IceBlink2
             int mapwidth = gv.mod.currentArea.MapSizeX;
             if (gv.mod.PlayerLocationX < (mapwidth - 1))
             {
+                
                 if (gv.mod.currentArea.GetBlocked(gv.mod.PlayerLocationX + 1, gv.mod.PlayerLocationY, gv.mod.PlayerLocationX, gv.mod.PlayerLocationY, gv.mod.PlayerLastLocationX, gv.mod.PlayerLastLocationY) == false)
                 {
                     
@@ -35575,6 +35952,10 @@ namespace IceBlink2
                             pc.combatFacingLeft = false;
                         }
                     }
+                    gv.cc.doUpdate();
+                }
+                else
+                {
                     gv.cc.doUpdate();
                 }
             }
@@ -35594,6 +35975,10 @@ namespace IceBlink2
                     gv.mod.PlayerLocationY--;
                     gv.cc.doUpdate();
                 }
+                else
+                {
+                    gv.cc.doUpdate();
+                }
             }
         }
         private void moveDown()
@@ -35610,6 +35995,10 @@ namespace IceBlink2
                     gv.mod.PlayerLastLocationX = gv.mod.PlayerLocationX;
                     gv.mod.PlayerLastLocationY = gv.mod.PlayerLocationY;
                     gv.mod.PlayerLocationY++;
+                    gv.cc.doUpdate();
+                }
+                else
+                {
                     gv.cc.doUpdate();
                 }
             }
