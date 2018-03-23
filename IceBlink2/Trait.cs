@@ -17,6 +17,8 @@ namespace IceBlink2
 	    public string tag = "newTraitTag";
 	    public string traitImage = "sp_magebolt";
 	    public string description = "";
+        public bool showOnMainMap = false;
+        public string methodOfChecking = "leader";  //leader, highest (best suited for oneMustSuccceed, too), lowest (best suited for allMustSucceéd, too)), average 
 	    public string prerequisiteTrait = "none";
 	    public int skillModifier = 0;
 	    public string skillModifierAttribute = "str";
@@ -68,6 +70,8 @@ namespace IceBlink2
 		    copy.range = this.range;
 		    copy.traitScript = this.traitScript;
             copy.associatedSpellTag = this.associatedSpellTag;
+            copy.showOnMainMap = this.showOnMainMap;
+            copy.methodOfChecking = this.methodOfChecking;
 
             copy.traitWorksOnlyWhen = new List<LocalImmunityString>();
             foreach (LocalImmunityString s in this.traitWorksOnlyWhen)

@@ -182,6 +182,7 @@ namespace IceBlink2
         public List<JournalQuest> partyJournalQuests = new List<JournalQuest>();
         public List<JournalQuest> partyJournalCompleted = new List<JournalQuest>();
         public string partyJournalNotes = "";
+        public bool hideZeroPowerTraits = false;
         public int selectedPartyLeader = 0;
         [JsonIgnore]
         public bool returnCheck = false;

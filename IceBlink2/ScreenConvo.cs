@@ -76,9 +76,12 @@ namespace IceBlink2
 			    {
 				    if (cntPCs <gv.mod.playerList.Count)
 				    {
-					    if (cntPCs ==gv.mod.selectedPartyLeader) {btn.glowOn = true;}
-					    else {btn.glowOn = false;}					
-					    btn.Draw();
+                        if (gv.mod.playerList[cntPCs].hp >= 0)
+                        {
+                            if (cntPCs == gv.mod.selectedPartyLeader) { btn.glowOn = true; }
+                            else { btn.glowOn = false; }
+                            btn.Draw();
+                        }
 				    }
 				    cntPCs++;
 			    }
@@ -275,7 +278,8 @@ namespace IceBlink2
 					    if (btnPartyIndex[j].getImpact(x, y))
 					    {
 						   gv.mod.selectedPartyLeader = j;
-						    doActions = false;
+                           gv.screenMainMap.updateTraitsPanel();
+                            doActions = false;
 			                doConvo(parentIdNum);
 					    }
 				    }
@@ -335,6 +339,7 @@ namespace IceBlink2
                     if (pc.mainPc)
                     {
                        gv.mod.selectedPartyLeader = x;
+                       gv.screenMainMap.updateTraitsPanel();
                     }
                     x++;
                 }
@@ -350,8 +355,11 @@ namespace IceBlink2
 		    {
 			    if (cntPCs <gv.mod.playerList.Count)
 			    {
-                    gv.cc.DisposeOfBitmap(ref btn.Img2);
-                    btn.Img2 = gv.cc.LoadBitmap(gv.mod.playerList[cntPCs].tokenFilename);						
+                    if (gv.mod.playerList[cntPCs].hp >= 0)
+                    {
+                        gv.cc.DisposeOfBitmap(ref btn.Img2);
+                        btn.Img2 = gv.cc.LoadBitmap(gv.mod.playerList[cntPCs].tokenFilename);
+                    }
 			    }
 			    cntPCs++;
 		    }
@@ -594,6 +602,7 @@ namespace IceBlink2
             {
                 comparePcOptions = "";
                gv.mod.selectedPartyLeader = PcIndx;
+                gv.screenMainMap.updateTraitsPanel();
                 if (PcIndx != originalPartyLeader)
                 {
                     //loop through all nodes and check to see if they should be visible
@@ -608,7 +617,7 @@ namespace IceBlink2
                         cntr++;
                     }
                     //compare this PC to the selectedPartyLeader's options
-                    if (comparePcOptions.Equals(selectedPcOptions))
+                    if ((comparePcOptions.Equals(selectedPcOptions)) || pc.hp < 0)
                     {
                 	    //no new options for this PC so no plus bubble marker 
                         btnPartyIndex[PcIndx].btnNotificationOn = false;
@@ -626,6 +635,7 @@ namespace IceBlink2
         
             //return back to original selected PC after making checks for different node options available
            gv.mod.selectedPartyLeader = originalPartyLeader;
+            gv.screenMainMap.updateTraitsPanel();
 
             //load node portrait and play node sound
             loadNodePortrait();
@@ -668,7 +678,8 @@ namespace IceBlink2
 	            {
                     gv.cc.addLogText("[end convo]<br><br>"); //add a blank line to main screen log at the end of a conversation
 	               gv.mod.selectedPartyLeader = originalSelectedPartyLeader;
-	        	    if ((gv.screenType.Equals("shop")) || (gv.screenType.Equals("title")) || (gv.screenType.Equals("combat")))
+                    gv.screenMainMap.updateTraitsPanel();
+                    if ((gv.screenType.Equals("shop")) || (gv.screenType.Equals("title")) || (gv.screenType.Equals("combat")))
 	        	    {
 	        		    //leave as shop and launch shop screen
 	        	    }

@@ -33374,6 +33374,99 @@ namespace IceBlink2
             }
         }
 
+        public void updateTraitsPanel()
+        {
+            for (int i = 0; i <= gv.mod.playerList.Count - 1; i++)
+            {
+                if (gv.mod.playerList[gv.mod.selectedPartyLeader].hp <= 0)
+                {
+                    gv.mod.selectedPartyLeader++;
+                }
+                if (gv.mod.playerList[gv.mod.selectedPartyLeader].hp > 0)
+                {
+                    break;
+                }
+            }
+
+            foreach (IB2Panel pnl in mainUiLayout.panelList)
+            {
+                if (pnl.tag == "TraitsPanel")
+                {
+                    int relevantTraitsCounter = 0;
+                    foreach (Trait t in gv.mod.moduleTraitsList)
+                    {
+                        if (t.showOnMainMap)
+                        {
+                            int power = gv.cc.getTraitPower(t.tag, t.methodOfChecking);
+                            if (!gv.mod.hideZeroPowerTraits)
+                            {
+                                if (power > 0)
+                                {
+                                    pnl.buttonList[relevantTraitsCounter].tag = t.tag;
+                                    pnl.buttonList[relevantTraitsCounter].show = true;
+                                    pnl.buttonList[relevantTraitsCounter].btnState = buttonState.Normal;
+                                    pnl.buttonList[relevantTraitsCounter].scaler = 0.8f;
+                                    pnl.buttonList[relevantTraitsCounter].Text = power.ToString();
+                                    pnl.buttonList[relevantTraitsCounter].Img2Filename = t.traitImage;
+                                    pnl.buttonList[relevantTraitsCounter].Img2OffFilename = t.traitImage + "_off";
+                                }
+                                else
+                                {
+                                    pnl.buttonList[relevantTraitsCounter].tag = t.tag;
+                                    pnl.buttonList[relevantTraitsCounter].show = true;
+                                    pnl.buttonList[relevantTraitsCounter].btnState = buttonState.Off;
+                                    pnl.buttonList[relevantTraitsCounter].scaler = 0.8f;
+                                    pnl.buttonList[relevantTraitsCounter].Text = power.ToString();
+                                    pnl.buttonList[relevantTraitsCounter].Img2Filename = t.traitImage;
+                                    pnl.buttonList[relevantTraitsCounter].Img2OffFilename = t.traitImage + "_off";
+                                }
+                            }
+                            //hide zero power traits
+                            else
+                            {
+                                if (power > 0)
+                                {
+                                    pnl.buttonList[relevantTraitsCounter].tag = t.tag;
+                                    pnl.buttonList[relevantTraitsCounter].show = true;
+                                    pnl.buttonList[relevantTraitsCounter].btnState = buttonState.Normal;
+                                    pnl.buttonList[relevantTraitsCounter].scaler = 0.8f;
+                                    pnl.buttonList[relevantTraitsCounter].Text = power.ToString();
+                                    pnl.buttonList[relevantTraitsCounter].Img2Filename = t.traitImage;
+                                    pnl.buttonList[relevantTraitsCounter].Img2OffFilename = t.traitImage + "_off";
+                                }
+                                else
+                                {
+                                    pnl.buttonList[relevantTraitsCounter].tag = t.tag;
+                                    pnl.buttonList[relevantTraitsCounter].show = false;
+                                    pnl.buttonList[relevantTraitsCounter].btnState = buttonState.Off;
+                                    pnl.buttonList[relevantTraitsCounter].scaler = 0.8f;
+                                    pnl.buttonList[relevantTraitsCounter].Text = power.ToString();
+                                    pnl.buttonList[relevantTraitsCounter].Img2Filename = t.traitImage;
+                                    pnl.buttonList[relevantTraitsCounter].Img2OffFilename = t.traitImage + "_off";
+                                }
+                            }
+                          
+
+                            //image for rhis trait for button
+                            //"Img2Filename": "btnparty",
+                            //"Img2OffFilename": "",
+                            //"Img3Filename": "",
+                            /*
+                            gv.cc.DisposeOfBitmap(ref btn.Img);
+                            btn.Img = gv.cc.LoadBitmap("btn_small_off");
+                            gv.cc.DisposeOfBitmap(ref btn.Img2);
+                            btn.Img2 = gv.cc.LoadBitmap(tr.traitImage + "_off");
+                            gv.cc.DisposeOfBitmap(ref btn.Img3);
+                            btn.Img3 = gv.cc.LoadBitmap("mandatory_conversation_indicator");
+                            */
+
+                            relevantTraitsCounter++;
+                        }
+                    }
+                }
+            }
+        }
+
         public void drawColumnOfBlack(int col)
         {
             if (gv.mod.useAllTileSystem)
@@ -34060,6 +34153,7 @@ namespace IceBlink2
                         if (e.Button == MouseButtons.Left)
                         {
                             gv.mod.selectedPartyLeader = 0;
+                            gv.screenMainMap.updateTraitsPanel();
                             gv.cc.partyScreenPcIndex = 0;
                             gv.screenParty.resetPartyScreen();
                             gv.screenType = "party";
@@ -34068,6 +34162,7 @@ namespace IceBlink2
                         else if (e.Button == MouseButtons.Right)
                         {
                             gv.mod.selectedPartyLeader = 0;
+                            gv.screenMainMap.updateTraitsPanel();
                             gv.cc.partyScreenPcIndex = 0;
                         }
                     }
@@ -34076,6 +34171,7 @@ namespace IceBlink2
                         if (e.Button == MouseButtons.Left)
                         {
                             gv.mod.selectedPartyLeader = 1;
+                            gv.screenMainMap.updateTraitsPanel();
                             gv.cc.partyScreenPcIndex = 1;
                             gv.screenParty.resetPartyScreen();
                             gv.screenType = "party";
@@ -34084,6 +34180,7 @@ namespace IceBlink2
                         else if (e.Button == MouseButtons.Right)
                         {
                             gv.mod.selectedPartyLeader = 1;
+                            gv.screenMainMap.updateTraitsPanel();
                             gv.cc.partyScreenPcIndex = 1;
                         }
                     }
@@ -34092,6 +34189,7 @@ namespace IceBlink2
                         if (e.Button == MouseButtons.Left)
                         {
                             gv.mod.selectedPartyLeader = 2;
+                            gv.screenMainMap.updateTraitsPanel();
                             gv.cc.partyScreenPcIndex = 2;
                             gv.screenParty.resetPartyScreen();
                             gv.screenType = "party";
@@ -34100,6 +34198,7 @@ namespace IceBlink2
                         else if (e.Button == MouseButtons.Right)
                         {
                             gv.mod.selectedPartyLeader = 2;
+                            gv.screenMainMap.updateTraitsPanel();
                             gv.cc.partyScreenPcIndex = 2;
                         }
                     }
@@ -34108,6 +34207,7 @@ namespace IceBlink2
                         if (e.Button == MouseButtons.Left)
                         {
                             gv.mod.selectedPartyLeader = 3;
+                            gv.screenMainMap.updateTraitsPanel();
                             gv.cc.partyScreenPcIndex = 3;
                             gv.screenParty.resetPartyScreen();
                             gv.screenType = "party";
@@ -34116,6 +34216,7 @@ namespace IceBlink2
                         else if (e.Button == MouseButtons.Right)
                         {
                             gv.mod.selectedPartyLeader = 3;
+                            gv.screenMainMap.updateTraitsPanel();
                             gv.cc.partyScreenPcIndex = 3;
                         }
                     }
@@ -34124,6 +34225,7 @@ namespace IceBlink2
                         if (e.Button == MouseButtons.Left)
                         {
                             gv.mod.selectedPartyLeader = 4;
+                            gv.screenMainMap.updateTraitsPanel();
                             gv.cc.partyScreenPcIndex = 4;
                             gv.screenParty.resetPartyScreen();
                             gv.screenType = "party";
@@ -34132,6 +34234,7 @@ namespace IceBlink2
                         else if (e.Button == MouseButtons.Right)
                         {
                             gv.mod.selectedPartyLeader = 4;
+                            gv.screenMainMap.updateTraitsPanel();
                             gv.cc.partyScreenPcIndex = 4;
                         }
                     }
@@ -34140,6 +34243,7 @@ namespace IceBlink2
                         if (e.Button == MouseButtons.Left)
                         {
                             gv.mod.selectedPartyLeader = 5;
+                            gv.screenMainMap.updateTraitsPanel();
                             gv.cc.partyScreenPcIndex = 5;
                             gv.screenParty.resetPartyScreen();
                             gv.screenType = "party";
@@ -34148,6 +34252,7 @@ namespace IceBlink2
                         else if (e.Button == MouseButtons.Right)
                         {
                             gv.mod.selectedPartyLeader = 5;
+                            gv.screenMainMap.updateTraitsPanel();
                             gv.cc.partyScreenPcIndex = 5;
                         }
                     }
@@ -35406,6 +35511,7 @@ namespace IceBlink2
                 {
                     gv.mod.selectedPartyLeader = 0;
                 }
+                updateTraitsPanel();
             }
 
             if (keyData == Keys.Right && !showMoveKeys)
@@ -35415,6 +35521,7 @@ namespace IceBlink2
                 {
                     gv.mod.selectedPartyLeader = 0;
                 }
+                updateTraitsPanel();
             }
 
             if (keyData == Keys.D && showMoveKeys)
@@ -35424,6 +35531,7 @@ namespace IceBlink2
                 {
                     gv.mod.selectedPartyLeader = 0;
                 }
+                updateTraitsPanel();
             }
 
             if (keyData == Keys.Q)
@@ -35433,6 +35541,7 @@ namespace IceBlink2
                 {
                     gv.mod.selectedPartyLeader = gv.mod.playerList.Count-1;
                 }
+                updateTraitsPanel();
             }
 
             if (keyData == Keys.Left && !showMoveKeys)
@@ -35442,6 +35551,7 @@ namespace IceBlink2
                 {
                     gv.mod.selectedPartyLeader = gv.mod.playerList.Count - 1;
                 }
+                updateTraitsPanel();
             }
 
             if (keyData == Keys.A && showMoveKeys)
@@ -35451,6 +35561,7 @@ namespace IceBlink2
                 {
                     gv.mod.selectedPartyLeader = gv.mod.playerList.Count - 1;
                 }
+                updateTraitsPanel();
             }
 
 
@@ -35568,12 +35679,14 @@ namespace IceBlink2
                         //reinstecken
                         if (gv.mod.activeSearchSPCostPaidByByLeaderOnly)
                         {
-                            addFloatyText(gv.mod.PlayerLocationX, gv.mod.PlayerLocationY, "Searching... time passes and "+ gv.mod.playerList[gv.mod.selectedPartyLeader].name + " loses " + gv.mod.activeSearchSPCost + " SP" , "white", 3000);
+                            //addFloatyText(gv.mod.PlayerLocationX, gv.mod.PlayerLocationY, "Searching... time passes and "+ gv.mod.playerList[gv.mod.selectedPartyLeader].name + " loses " + gv.mod.activeSearchSPCost + " SP" , "white", 3000);
+                            addFloatyText(gv.mod.PlayerLocationX, gv.mod.PlayerLocationY, "Searching...", "white", 1500);
                             gv.cc.addLogText("white", "Searching... time passes and " + gv.mod.playerList[gv.mod.selectedPartyLeader].name + " loses " + gv.mod.activeSearchSPCost + " SP");
                         }
                         else
                         {
-                            addFloatyText(gv.mod.PlayerLocationX, gv.mod.PlayerLocationY, "Searching... time passes and" + "everybody loses " + gv.mod.activeSearchSPCost + " SP", "white", 3000);
+                            //addFloatyText(gv.mod.PlayerLocationX, gv.mod.PlayerLocationY, "Searching... time passes and" + "everybody loses " + gv.mod.activeSearchSPCost + " SP", "white", 3000);
+                            addFloatyText(gv.mod.PlayerLocationX, gv.mod.PlayerLocationY, "Searching...", "white", 1500);
                             gv.cc.addLogText("white", "Searching... time passes and everybody loses " + gv.mod.activeSearchSPCost + " SP");
 
                         }

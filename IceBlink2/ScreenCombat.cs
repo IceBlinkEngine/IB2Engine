@@ -13485,6 +13485,10 @@ namespace IceBlink2
                             endPcTurn(false);
                         }
                     }
+                    else if (rtn.Equals("btnExit"))
+                    {
+                        gv.Close();
+                    }
                     else if (rtn.Equals("btnSelect"))
                     {
                         if (isPlayerTurn)

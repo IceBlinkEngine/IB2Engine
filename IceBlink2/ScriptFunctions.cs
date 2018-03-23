@@ -469,6 +469,10 @@ namespace IceBlink2
                     {
                         RechargeSingleItem(prm1);
                     }
+                    else if (filename.Equals("gaMovePartyToLastLocation.cs"))
+                    {
+                        MovePartyToLastLocation(prm1);
+                    }
                     else if (filename.Equals("gaRechargeAllItemsOfAType.cs"))
                     {
                         RechargeAllItemsOfAType(prm1);
@@ -595,11 +599,13 @@ namespace IceBlink2
                     {
                         itForceRestAndRaiseDeadRequireRations();
                     }
+                    /*
                     else if (filename.Equals("gaMovePartyToLastLocation.cs"))
                     {
                         gv.mod.PlayerLocationX = gv.mod.PlayerLastLocationX;
                         gv.mod.PlayerLocationY = gv.mod.PlayerLastLocationY;
                     }
+                    */
                     else if (filename.Equals("gaTakeItem.cs"))
                     {
                         int parm2 = Convert.ToInt32(p2);
@@ -1547,40 +1553,107 @@ namespace IceBlink2
                     }
                     else if (filename.Equals("gcCheckHasTrait.cs"))
                     {
+                       
                         int parm1 = 0;
-                        if ((p1.Equals("")) || (p1.Equals("-1")))
+                        if (p1.Equals("") || p1.Equals("-1") || p1.Equals("leader") || p1.Equals("Leader"))
                         {
                             parm1 = gv.mod.selectedPartyLeader;
                         }
+                        //highest
+                        else if (p1.Equals("-2") || p1.Equals("highest") || p1.Equals("Highest"))
+                        {
+                            parm1 = -2;
+                        }
+                        //lowest
+                        else if (p1.Equals("-3") || p1.Equals("lowest") || p1.Equals("Lowest"))
+                        {
+                            parm1 = -3;
+                        }
+                        //average
+                        else if (p1.Equals("-4") || p1.Equals("average") || p1.Equals("Average"))
+                        {
+                            parm1 = -4;
+                        }
+                        //allMustSucceed
+                        else if (p1.Equals("-5") || p1.Equals("allMustSucceed") || p1.Equals("AllMustSucceed"))
+                        {
+                            parm1 = -5;
+                        }
+                        //oneMustSucceed
+                        else if (p1.Equals("-6") || p1.Equals("oneMustSucceed") || p1.Equals("OneMustSucceed"))
+                        {
+                            parm1 = -6;
+                        }
+                        //directly selected
                         else
                         {
                             parm1 = Convert.ToInt32(p1);
+                            if (parm1 < 0 || parm1 > 5)
+                            {
+                                parm1 = gv.mod.selectedPartyLeader;
+                            }
                         }
                         gv.mod.returnCheck = CheckHasTrait(parm1, p2);
                     }
                     else if (filename.Equals("gcCheckHasSpell.cs"))
                     {
                         int parm1 = 0;
+                        //leader
                         if ((p1.Equals("")) || (p1.Equals("-1")))
                         {
                             parm1 = gv.mod.selectedPartyLeader;
                         }
-                        else
+                        //directly selected
+                        else 
                         {
                             parm1 = Convert.ToInt32(p1);
+                            if (parm1 < 0 || parm1 > 5)
+                            {
+                                parm1 = gv.mod.selectedPartyLeader;
+                            }
                         }
                         gv.mod.returnCheck = CheckHasSpell(parm1, p2);
                     }
                     else if (filename.Equals("gcPassSkillCheck.cs"))
                     {
                         int parm1 = 0;
-                        if ((p1.Equals("")) || (p1.Equals("-1")))
+                        if (p1.Equals("") || p1.Equals("-1") || p1.Equals("leader")  || p1.Equals("Leader") )
                         {
                             parm1 = gv.mod.selectedPartyLeader;
                         }
+                        //highest
+                        else if ( p1.Equals("-2") || p1.Equals("highest") || p1.Equals("Highest")) 
+                        {
+                            parm1 = -2;
+                        }
+                        //lowest
+                        else if ( p1.Equals("-3") || p1.Equals("lowest") || p1.Equals("Lowest")) 
+                        {
+                            parm1 = -3;
+                        }
+                        //average
+                        else if (p1.Equals("-4") || p1.Equals("average") || p1.Equals("Average"))
+                        {
+                            parm1 = -4;
+                        }
+                        //allMustSucceed
+                        else if ( p1.Equals("-5") || p1.Equals("allMustSucceed") || p1.Equals("AllMustSucceed")) 
+                        {
+                            parm1 = -5;
+                        }
+                        //oneMustSucceed
+                        else if (p1.Equals("-6") || p1.Equals("oneMustSucceed") || p1.Equals("OneMustSucceed"))
+                        {
+                            parm1 = -6;
+                        }
+                        //directly selected
                         else
                         {
                             parm1 = Convert.ToInt32(p1);
+                            if (parm1 < 0 || parm1 > 5)
+                            {
+                                parm1 = gv.mod.selectedPartyLeader;
+                            }
                         }
                         int parm3 = Convert.ToInt32(p3);
 
@@ -1596,7 +1669,64 @@ namespace IceBlink2
                                 useRollTen = true;
                             }
                         }
-                        gv.mod.returnCheck = CheckPassSkill(parm1, p2, parm3, useRollTen);
+                        gv.mod.returnCheck = CheckPassSkill(parm1, p2, parm3, useRollTen, false);
+                    }
+                    else if (filename.Equals("gcPassSkillCheckSilent.cs"))
+                    {
+                        int parm1 = 0;
+                        if (p1.Equals("") || p1.Equals("-1") || p1.Equals("leader") || p1.Equals("Leader"))
+                        {
+                            parm1 = gv.mod.selectedPartyLeader;
+                        }
+                        //highest
+                        else if (p1.Equals("-2") || p1.Equals("highest") || p1.Equals("Highest"))
+                        {
+                            parm1 = -2;
+                        }
+                        //lowest
+                        else if (p1.Equals("-3") || p1.Equals("lowest") || p1.Equals("Lowest"))
+                        {
+                            parm1 = -3;
+                        }
+                        //average
+                        else if (p1.Equals("-4") || p1.Equals("average") || p1.Equals("Average"))
+                        {
+                            parm1 = -4;
+                        }
+                        //allMustSucceed
+                        else if (p1.Equals("-5") || p1.Equals("allMustSucceed") || p1.Equals("AllMustSucceed"))
+                        {
+                            parm1 = -5;
+                        }
+                        //oneMustSucceed
+                        else if (p1.Equals("-6") || p1.Equals("oneMustSucceed") || p1.Equals("OneMustSucceed"))
+                        {
+                            parm1 = -6;
+                        }
+                        //directly selected
+                        else
+                        {
+                            parm1 = Convert.ToInt32(p1);
+                            if (parm1 < 0 || parm1 > 5)
+                            {
+                                parm1 = gv.mod.selectedPartyLeader;
+                            }
+                        }
+                        int parm3 = Convert.ToInt32(p3);
+
+                        bool useRollTen = false;
+                        if (p4 != null)
+                        {
+                            if ((p4.Equals("false")) || (p4.Equals("False")) || (p4.Equals("")))
+                            {
+                                useRollTen = false;
+                            }
+                            else if ((p4.Equals("true")) || (p4.Equals("True")) || (p4.Equals("10")))
+                            {
+                                useRollTen = true;
+                            }
+                        }
+                        gv.mod.returnCheck = CheckPassSkill(parm1, p2, parm3, useRollTen, true);
                     }
                     else if (filename.Equals("gcCheckIsClassLevel.cs"))
                     {
@@ -3273,6 +3403,18 @@ namespace IceBlink2
                         RechargeAllItems();
                     }
         */
+        public void MovePartyToLastLocation(string message)
+        {
+            gv.mod.PlayerLocationX = gv.mod.PlayerLastLocationX;
+            gv.mod.PlayerLocationY = gv.mod.PlayerLastLocationY;
+            if (message != null)
+            {
+                if (message != "")
+                {
+                    gv.cc.addLogText("<font color='yellow'>" + message + "</font><BR>");
+                }
+            }
+        }
 
         public void RechargeSingleItem(string resref)
         {
@@ -3954,6 +4096,7 @@ namespace IceBlink2
                 }
                 mod.playerList.Remove(pc);
                 mod.selectedPartyLeader = 0;
+                gv.screenMainMap.updateTraitsPanel();
                 gv.cc.partyScreenPcIndex = 0;
             }
             catch (Exception ex)
@@ -4009,6 +4152,7 @@ namespace IceBlink2
                     mod.playerList.Remove(pc);
                 }
                 mod.selectedPartyLeader = 0;
+                gv.screenMainMap.updateTraitsPanel();
                 gv.cc.partyScreenPcIndex = 0;
             }
             catch (Exception ex)
@@ -4078,6 +4222,7 @@ namespace IceBlink2
                     mod.partyRosterList.Remove(pc);
                 }
                 mod.selectedPartyLeader = 0;
+                gv.screenMainMap.updateTraitsPanel();
                 gv.cc.partyScreenPcIndex = 0;
             }
             catch (Exception ex)
@@ -5526,86 +5671,99 @@ namespace IceBlink2
             return false;
         }
 
-        public bool CheckPassSkill(int PCIndex, string tag, int dc, bool useRollTen)
+        public bool CheckPassSkill(int PCIndex, string tag, int dc, bool useRollTen, bool isSilent)
         {
-            string foundLargest = "none";
-            int largest = 0;
-            foreach (string s in mod.playerList[PCIndex].knownTraitsTags)
-            {
-                if (s.StartsWith(tag))
-                {
-                    if (s.Equals(tag))
-                    {
-                        if (foundLargest.Equals("none"))
-                        {
-                            foundLargest = s;
-                        }
-                    }
-                    else //get the number at the end 
-                    {
-                        string c = s.Substring(s.Length - 1, 1);
-                        int i = Convert.ToInt32(c);
-                        if (i > largest)
-                        {
-                            largest = i;
-                            foundLargest = s;
-                        }
-                    }
-                }
-            }
-
+           
+            int itemMod = 0;
             int skillMod = 0;
+            int attMod = 0;
             Trait tr = new Trait();
-            if (!foundLargest.Equals("none"))
+            foreach (Player p in gv.mod.playerList)
             {
-                //PC has trait skill so do calculation check
-                tr = mod.getTraitByTag(foundLargest);
-                skillMod = tr.skillModifier;
-            }
-            else
-            {
-              
-                foreach (Trait t in mod.moduleTraitsList)
-                {
-                    if (t.tag.Contains(tag))
-                    {
-                        tr = mod.getTraitByTag(t.tag);
-                        break;
-                    }
-                }
+                p.powerOfThisPc = 0;
             }
 
-                int attMod = 0;
+            for (int i = 0; i <= gv.mod.playerList.Count-1; i++)
+            {
+
+                string foundLargest = "none";
+                int largest = 0;
+                foreach (string s in mod.playerList[i].knownTraitsTags)
+                {
+                    if (s.StartsWith(tag))
+                    {
+                        if (s.Equals(tag))
+                        {
+                            if (foundLargest.Equals("none"))
+                            {
+                                foundLargest = s;
+                            }
+                        }
+                        else //get the number at the end 
+                        {
+                            string c = s.Substring(s.Length - 1, 1);
+                            int j = Convert.ToInt32(c);
+                            if (j > largest)
+                            {
+                                largest = j;
+                                foundLargest = s;
+                            }
+                        }
+                    }
+                }
+
+                skillMod = 0;
+                //Trait tr = new Trait();
+                if (!foundLargest.Equals("none"))
+                {
+                    //PC has trait skill so do calculation check
+                    tr = mod.getTraitByTag(foundLargest);
+                    skillMod = tr.skillModifier;
+                }
+                else
+                {
+
+                    foreach (Trait t in mod.moduleTraitsList)
+                    {
+                        if (t.tag.Contains(tag))
+                        {
+                            tr = mod.getTraitByTag(t.tag);
+                            break;
+                        }
+                    }
+                }
+
+                attMod = 0;
                 if (tr.skillModifierAttribute.Equals("str") || tr.skillModifierAttribute.Equals("strength") || tr.skillModifierAttribute.Equals("Str") || tr.skillModifierAttribute.Equals("Strength"))
                 {
-                    attMod = (mod.playerList[PCIndex].strength - 10) / 2;
+                    attMod = (mod.playerList[i].strength - 10) / 2;
                 }
                 else if (tr.skillModifierAttribute.Equals("dex") || tr.skillModifierAttribute.Equals("dexterity") || tr.skillModifierAttribute.Equals("Dex") || tr.skillModifierAttribute.Equals("Dexterity"))
                 {
-                    attMod = (mod.playerList[PCIndex].dexterity - 10) / 2;
+                    attMod = (mod.playerList[i].dexterity - 10) / 2;
                 }
                 else if (tr.skillModifierAttribute.Equals("int") || tr.skillModifierAttribute.Equals("intelligance") || tr.skillModifierAttribute.Equals("Int") || tr.skillModifierAttribute.Equals("Intelligence"))
                 {
-                    attMod = (mod.playerList[PCIndex].intelligence - 10) / 2;
+                    attMod = (mod.playerList[i].intelligence - 10) / 2;
                 }
                 else if (tr.skillModifierAttribute.Equals("cha") || tr.skillModifierAttribute.Equals("charisma") || tr.skillModifierAttribute.Equals("Cha") || tr.skillModifierAttribute.Equals("Charisma"))
                 {
-                    attMod = (mod.playerList[PCIndex].charisma - 10) / 2;
+                    attMod = (mod.playerList[i].charisma - 10) / 2;
                 }
                 else if (tr.skillModifierAttribute.Equals("con") || tr.skillModifierAttribute.Equals("constitution") || tr.skillModifierAttribute.Equals("Con") || tr.skillModifierAttribute.Equals("Constitution"))
                 {
-                    attMod = (mod.playerList[PCIndex].constitution - 10) / 2;
+                    attMod = (mod.playerList[i].constitution - 10) / 2;
                 }
                 else if (tr.skillModifierAttribute.Equals("wis") || tr.skillModifierAttribute.Equals("wisdom") || tr.skillModifierAttribute.Equals("Wis") || tr.skillModifierAttribute.Equals("Wisdom"))
                 {
-                    attMod = (mod.playerList[PCIndex].wisdom - 10) / 2;
+                    attMod = (mod.playerList[i].wisdom - 10) / 2;
                 }
 
-                int itemMod = 0;
+                itemMod = 0;
 
-                if (mod.playerList[PCIndex].BodyRefs.resref != "none")
+                if (mod.playerList[i].BodyRefs.resref != "none")
                 {
-                    Item itm = gv.mod.getItemByResRefForInfo(mod.playerList[PCIndex].BodyRefs.resref);
+                    Item itm = gv.mod.getItemByResRefForInfo(mod.playerList[i].BodyRefs.resref);
                     if (itm != null)
                     {
                         if (itm.tagOfTraitInfluenced.Contains(tag))
@@ -5615,9 +5773,9 @@ namespace IceBlink2
                     }
                 }
 
-                if (mod.playerList[PCIndex].RingRefs.resref != "none")
+                if (mod.playerList[i].RingRefs.resref != "none")
                 {
-                    Item itm = gv.mod.getItemByResRefForInfo(mod.playerList[PCIndex].RingRefs.resref);
+                    Item itm = gv.mod.getItemByResRefForInfo(mod.playerList[i].RingRefs.resref);
                     if (itm != null)
                     {
                         if (itm.tagOfTraitInfluenced.Contains(tag))
@@ -5627,9 +5785,9 @@ namespace IceBlink2
                     }
                 }
 
-                if (mod.playerList[PCIndex].MainHandRefs.resref != "none")
+                if (mod.playerList[i].MainHandRefs.resref != "none")
                 {
-                    Item itm = gv.mod.getItemByResRefForInfo(mod.playerList[PCIndex].MainHandRefs.resref);
+                    Item itm = gv.mod.getItemByResRefForInfo(mod.playerList[i].MainHandRefs.resref);
                     if (itm != null)
                     {
                         if (itm.tagOfTraitInfluenced.Contains(tag))
@@ -5639,9 +5797,9 @@ namespace IceBlink2
                     }
                 }
 
-                if (mod.playerList[PCIndex].OffHandRefs.resref != "none")
+                if (mod.playerList[i].OffHandRefs.resref != "none")
                 {
-                    Item itm = gv.mod.getItemByResRefForInfo(mod.playerList[PCIndex].OffHandRefs.resref);
+                    Item itm = gv.mod.getItemByResRefForInfo(mod.playerList[i].OffHandRefs.resref);
                     if (itm != null)
                     {
                         if (itm.tagOfTraitInfluenced.Contains(tag))
@@ -5651,9 +5809,9 @@ namespace IceBlink2
                     }
                 }
 
-                if (mod.playerList[PCIndex].HeadRefs.resref != "none")
+                if (mod.playerList[i].HeadRefs.resref != "none")
                 {
-                    Item itm = gv.mod.getItemByResRefForInfo(mod.playerList[PCIndex].HeadRefs.resref);
+                    Item itm = gv.mod.getItemByResRefForInfo(mod.playerList[i].HeadRefs.resref);
                     if (itm != null)
                     {
                         if (itm.tagOfTraitInfluenced.Contains(tag))
@@ -5663,9 +5821,9 @@ namespace IceBlink2
                     }
                 }
 
-                if (mod.playerList[PCIndex].GlovesRefs.resref != "none")
+                if (mod.playerList[i].GlovesRefs.resref != "none")
                 {
-                    Item itm = gv.mod.getItemByResRefForInfo(mod.playerList[PCIndex].GlovesRefs.resref);
+                    Item itm = gv.mod.getItemByResRefForInfo(mod.playerList[i].GlovesRefs.resref);
                     if (itm != null)
                     {
                         if (itm.tagOfTraitInfluenced.Contains(tag))
@@ -5675,9 +5833,9 @@ namespace IceBlink2
                     }
                 }
 
-                if (mod.playerList[PCIndex].NeckRefs.resref != "none")
+                if (mod.playerList[i].NeckRefs.resref != "none")
                 {
-                    Item itm = gv.mod.getItemByResRefForInfo(mod.playerList[PCIndex].NeckRefs.resref);
+                    Item itm = gv.mod.getItemByResRefForInfo(mod.playerList[i].NeckRefs.resref);
                     if (itm != null)
                     {
                         if (itm.tagOfTraitInfluenced.Contains(tag))
@@ -5687,9 +5845,9 @@ namespace IceBlink2
                     }
                 }
 
-                if (mod.playerList[PCIndex].Ring2Refs.resref != "none")
+                if (mod.playerList[i].Ring2Refs.resref != "none")
                 {
-                    Item itm = gv.mod.getItemByResRefForInfo(mod.playerList[PCIndex].Ring2Refs.resref);
+                    Item itm = gv.mod.getItemByResRefForInfo(mod.playerList[i].Ring2Refs.resref);
                     if (itm != null)
                     {
                         if (itm.tagOfTraitInfluenced.Contains(tag))
@@ -5699,9 +5857,9 @@ namespace IceBlink2
                     }
                 }
 
-                if (mod.playerList[PCIndex].FeetRefs.resref != "none")
+                if (mod.playerList[i].FeetRefs.resref != "none")
                 {
-                    Item itm = gv.mod.getItemByResRefForInfo(mod.playerList[PCIndex].FeetRefs.resref);
+                    Item itm = gv.mod.getItemByResRefForInfo(mod.playerList[i].FeetRefs.resref);
                     if (itm != null)
                     {
                         if (itm.tagOfTraitInfluenced.Contains(tag))
@@ -5711,16 +5869,86 @@ namespace IceBlink2
                     }
                 }
 
+                gv.mod.playerList[i].powerOfThisPc = attMod + skillMod + itemMod;
+            }
+
+            string playerName = "";
+            int power = 0;
+
+            //onlyone pc checks
+            if (PCIndex >= -4)
+            {
+                //leader or directly selected
+                if (PCIndex >= 0)
+                {
+                    playerName = gv.mod.playerList[PCIndex].name + " (selected character)";
+                    power = gv.mod.playerList[PCIndex].powerOfThisPc;
+                }
+
+                //highest
+                if (PCIndex == -2)
+                {
+                    int highestFound = -100;
+                    foreach (Player p in gv.mod.playerList)
+                    {
+                        if (p.powerOfThisPc > highestFound)
+                        {
+                            playerName = p.name + " (best in group)";
+                            power = p.powerOfThisPc;
+                            highestFound = p.powerOfThisPc;
+                        }
+                    }
+                }
+
+                //lowest
+                if (PCIndex == -3)
+                {
+                    int lowestFound = 10000;
+                    foreach (Player p in gv.mod.playerList)
+                    {
+                        if (p.powerOfThisPc < lowestFound)
+                        {
+                            playerName = p.name + " (worst in group)";
+                            power = p.powerOfThisPc;
+                            lowestFound = p.powerOfThisPc;
+                        }
+                    }
+                }
+
+                //average
+                if (PCIndex == -4)
+                {
+                    int sumOfPower = 0;
+                    foreach (Player p in gv.mod.playerList)
+                    {
+                        sumOfPower += p.powerOfThisPc;
+                    }
+                    power = sumOfPower / gv.mod.playerList.Count;
+                    playerName = "group average";
+                }
+
+                //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                //all modifieirs build, lets roll
                 int roll = gv.sf.RandInt(20);
                 if (useRollTen)
                 {
                     roll = 10;
                 }
+                //string power = (attMod + skillMod + itemMod).ToString();
                 if (roll + attMod + skillMod + itemMod >= dc)
                 {
                     if (mod.debugMode) //SD_20131102
                     {
-                        gv.cc.addLogText("<font color='yellow'> skill check(" + tag + "): " + roll + "+" + attMod + "+" + skillMod + itemMod + ">=" + dc + "</font><BR>");
+                        //gv.cc.addLogText("<font color='yellow'> Skill check(" + tag + "): " + roll + "+" + attMod + "+" + skillMod + itemMod + ">=" + dc + "</font><BR>");
+                        //gv.cc.addLogText("<font color='lime'> Static " + tr.name + " check of " + gv.mod.playerList[PCIndex] + " successful (" + roll + "+" + power + ">=" + dc + ")" + "</font><BR>");
+                    }
+                    if ((useRollTen) && (!isSilent))
+                    {
+                        gv.cc.addLogText("<font color='lime'> Static " + tr.name + " check of " + playerName + " successful (" + roll + "+" + power + ">=" + dc + ")" + "</font><BR>");
+                    }
+                    else if ((!useRollTen) && (!isSilent))
+                    {
+                        gv.cc.addLogText("<font color='lime'> Rolled " + tr.name + " check of " + playerName + " successful (" + roll + "+" + power + ">=" + dc + ")" + "</font><BR>");
                     }
                     return true;
                 }
@@ -5728,12 +5956,138 @@ namespace IceBlink2
                 {
                     if (mod.debugMode) //SD_20131102
                     {
-                        gv.cc.addLogText("<font color='yellow'> skill check: " + roll + "+" + attMod + "+" + skillMod + itemMod + " < " + dc + "</font><BR>");
+                        //gv.cc.addLogText("<font color='yellow'> Skill check: " + roll + "+" + attMod + "+" + skillMod + itemMod + " < " + dc + "</font><BR>");
+                    }
+                    if ((useRollTen) && (!isSilent))
+                    {
+                        gv.cc.addLogText("<font color='red'> Static " + tr.name + " check of " + playerName + " failed (" + roll + "+" + power + "<" + dc + ")" + "</font><BR>");
+                    }
+                    else if ((!useRollTen) && (!isSilent))
+                    {
+                        gv.cc.addLogText("<font color='red'> Rolled " + tr.name + " check of " + playerName + " failed (" + roll + "+" + power + "<" + dc + ")" + "</font><BR>");
                     }
                     return false;
                 }
-            
-            //return false;
+            }
+            //all pc must roll
+            else
+            {
+                //allMustSucceed
+                if (PCIndex == -5)
+                {
+                    int rollUsed = 0;
+                    bool success = true;
+                    foreach (Player p in gv.mod.playerList)
+                    {
+                        int roll = gv.sf.RandInt(20);
+                        if (useRollTen)
+                        {
+                            roll = 10;
+                        }
+                        if (roll + attMod + skillMod + itemMod < dc)
+                        {
+                            success = false;
+                            playerName = p.name;
+                            power = p.powerOfThisPc;
+                            rollUsed = roll;
+                            break;
+                        }
+                    }
+
+                    if (success)
+                    {
+                        if (mod.debugMode) //SD_20131102
+                        {
+                            //gv.cc.addLogText("<font color='yellow'> Skill check(" + tag + "): " + roll + "+" + attMod + "+" + skillMod + itemMod + ">=" + dc + "</font><BR>");
+                            //gv.cc.addLogText("<font color='lime'> Static " + tr.name + " check of " + gv.mod.playerList[PCIndex] + " successful (" + roll + "+" + power + ">=" + dc + ")" + "</font><BR>");
+                        }
+                        if ((useRollTen)&& (!isSilent))
+                        {
+                            gv.cc.addLogText("<font color='lime'> Static " + tr.name + " check (for not a single failure in group) was successful" + " (difficulty level was " + dc + ")" + "</font><BR>");
+                        }
+                        else if ((!useRollTen) && (!isSilent))
+                        {
+                            gv.cc.addLogText("<font color='lime'> Rolled " + tr.name + " check (for not a single failure in group) was successful" + " (difficulty level was " + dc + ")" + "</font><BR>");
+                        }
+                        return true;
+                    }
+                    else
+                    {
+                        if (mod.debugMode) //SD_20131102
+                        {
+                            //gv.cc.addLogText("<font color='yellow'> Skill check: " + roll + "+" + attMod + "+" + skillMod + itemMod + " < " + dc + "</font><BR>");
+                        }
+                        if ((useRollTen) && (!isSilent))
+                        {
+                            gv.cc.addLogText("<font color='red'> Static " + tr.name + " check (for not a single failure in group) was failed by " + playerName + " (" + rollUsed + "+" + power + "<" + dc + ")" + "</font><BR>");
+                        }
+                        else if ((!useRollTen) && (!isSilent))                        {
+                            gv.cc.addLogText("<font color='red'> Rolled " + tr.name + " check (for not a single failure in group) was failed by " + playerName + " (" + rollUsed + "+" + power + "<" + dc + ")" + "</font><BR>");
+                        }
+                        return false;
+                    }
+
+                }
+
+                //oneMustSucceed
+                if (PCIndex == -6)
+                {
+                    bool success = false;
+                    int rollUsed = 0;
+                    foreach (Player p in gv.mod.playerList)
+                    {
+                        int roll = gv.sf.RandInt(20);
+                        if (useRollTen)
+                        {
+                            roll = 10;
+                        }
+                        if (roll + attMod + skillMod + itemMod >= dc)
+                        {
+                            success = true;
+                            playerName = p.name;
+                            power = p.powerOfThisPc;
+                            rollUsed = roll;
+                            break;
+                        }
+                    }
+                    if (success)
+                    {
+                        if (mod.debugMode) //SD_20131102
+                        {
+                            //gv.cc.addLogText("<font color='yellow'> Skill check(" + tag + "): " + roll + "+" + attMod + "+" + skillMod + itemMod + ">=" + dc + "</font><BR>");
+                            //gv.cc.addLogText("<font color='lime'> Static " + tr.name + " check of " + gv.mod.playerList[PCIndex] + " successful (" + roll + "+" + power + ">=" + dc + ")" + "</font><BR>");
+                        }
+                        if ((useRollTen) && (!isSilent))
+                        {
+                            gv.cc.addLogText("<font color='lime'> Static " + tr.name + " check (for one success in group) was successful for " + playerName + " (" + rollUsed + "+" + power + ">=" + dc + ")" + "</font><BR>");
+                        }
+                        else if ((!useRollTen) && (!isSilent))
+                        {
+                            gv.cc.addLogText("<font color='lime'> Rolled " + tr.name + " check (for one success in group) was successful for " + playerName + " (" + rollUsed + "+" + power + ">=" + dc + ")" + "</font><BR>");
+                        }
+                        return true;
+                    }
+                    else
+                    {
+                        if (mod.debugMode) //SD_20131102
+                        {
+                            //gv.cc.addLogText("<font color='yellow'> Skill check: " + roll + "+" + attMod + "+" + skillMod + itemMod + " < " + dc + "</font><BR>");
+                        }
+                        if ((useRollTen) && (!isSilent))
+                        {
+                            gv.cc.addLogText("<font color='red'> Static " + tr.name + " check (for one success in group) failed for everybody" + " (difficulty level was " + dc + ")" + "</font><BR>");
+                        }
+                        else if ((!useRollTen) && (!isSilent))
+                        {
+                            gv.cc.addLogText("<font color='red'> Rolled " + tr.name + " check (for one success in group) failed for everybody" + " (difficulty level was " + dc + ")" + "</font><BR>");
+                        }
+                        return false;
+                    }
+                }
+
+                //just a catch, dont ever end here
+                return false;
+            }
         }
 
         public bool CheckIsMale(int PCIndex)

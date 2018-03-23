@@ -1586,8 +1586,9 @@ namespace IceBlink2
                                 if (btnPartyIndex[j].getImpact(x, y))
                                 {
                                     gv.mod.selectedPartyLeader = j;
-                                    gv.cc.addLogText("lime", gv.mod.playerList[j].name + " is Party Leader");
-                                    if (gv.cc.partyScreenPcIndex == j)
+                                    gv.screenMainMap.updateTraitsPanel();
+                                    gv.cc.addLogText("lime", gv.mod.playerList[gv.mod.selectedPartyLeader].name + " is Party Leader");
+                                    if (gv.cc.partyScreenPcIndex == gv.mod.selectedPartyLeader)
                                     {
                                         doInterPartyConvo(); //not used in The Raventhal
                                     }

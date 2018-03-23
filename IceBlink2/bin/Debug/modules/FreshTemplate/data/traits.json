@@ -547,6 +547,8 @@
   },
   {
     "name": "Super Strength",
+    "showOnMainMap": true,
+    "methodOfChecking": "leader",
     "traitEffectTagList": [
       {
         "tag": "SuperStrength+20_10014"
@@ -672,6 +674,8 @@
   },
   {
     "name": "Sweep",
+    "showOnMainMap": true,
+    "methodOfChecking": "leader",
     "traitEffectTagList": [
       {
         "tag": "newEffectTag_10899"
@@ -697,6 +701,8 @@
   },
   {
     "name": "LightningWielder",
+    "showOnMainMap": true,
+    "methodOfChecking": "leader",
     "traitEffectTagList": [],
     "traitWorksOnlyWhen": [
       {
