@@ -1779,6 +1779,16 @@ namespace IceBlink2
                     {
                         if (showHotKeys) { showHotKeys = false; }
                         else { showHotKeys = true; }
+                        /*
+                        if (screenType.Equals("main"))
+                        {
+                            sf.MessageBoxHtml(cc.loadTextToString("MessageParty.txt"));
+                        }
+                        else if (screenType.Equals("combat"))
+                        {
+                            sf.MessageBoxHtml(cc.loadTextToString("MessageParty.txt"));
+                        }
+                        */
                     }
                     if (screenType.Equals("main"))
                     {

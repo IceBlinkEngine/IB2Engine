@@ -2300,6 +2300,12 @@ namespace IceBlink2
 
         public void doUpdate()
         {
+            /*
+            foreach (Player p in gv.mod.playerList)
+            {
+                gv.sf.UpdateStats(p);
+            }
+            */
             gv.realTimeTimerMilliSecondsEllapsed = 0;
             gv.screenMainMap.updateTraitsPanel();
             handleRationsAndLightSources();

@@ -16,9 +16,10 @@ namespace IceBlink2
 	    private IbbButton btnLoadSavedGame = null;
 	    private IbbButton btnPlayerGuide = null;
 	    private IbbButton btnBeginnerGuide = null;
-	    private IbbButton btnAbout = null;	
-	
-	    public ScreenTitle(Module m, GameView g)
+	    private IbbButton btnAbout = null;
+        private IbbButton btnExit = null;
+
+        public ScreenTitle(Module m, GameView g)
 	    {
 		    //gv.mod = m;
 		    gv = g;
@@ -83,8 +84,19 @@ namespace IceBlink2
                 btnAbout.Y = (5 * gv.squareSize) + (10 * pH);
                 btnAbout.Height = (int)(gv.ibbheight * gv.screenDensity);
                 btnAbout.Width = (int)(gv.ibbwidthL * gv.screenDensity);			
-		    }		
-	    }
+		    }
+            if (btnExit == null)
+            {
+                btnExit = new IbbButton(gv, 1.0f);
+                btnExit.Img = gv.cc.LoadBitmap("btn_large"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_large);
+                btnExit.Glow = gv.cc.LoadBitmap("btn_large_glow"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_large_glow);
+                btnExit.Text = "Exit";
+                btnExit.X = (gv.screenWidth / 2) - (int)(gv.ibbwidthL * gv.screenDensity / 2.0f);
+                btnExit.Y = (6 * gv.squareSize) + (12 * pH);
+                btnExit.Height = (int)(gv.ibbheight * gv.screenDensity);
+                btnExit.Width = (int)(gv.ibbwidthL * gv.screenDensity);
+            }
+        }
 
 	    //TITLE SCREEN  
         public void redrawTitle()
@@ -99,7 +111,7 @@ namespace IceBlink2
             //Draw This gv.module's Version Number
             int xLoc = (gv.screenWidth / 2) - 4;
             int pH = (int)((float)gv.screenHeight / 100.0f);
-            gv.DrawText("v" + gv.mod.moduleVersion, xLoc, (7 * gv.squareSize) + (pH * 4));
+            gv.DrawText("v" + gv.mod.moduleVersion, xLoc, (8 * gv.squareSize) + (pH * 4));
             
             drawTitleControls();
         }
@@ -110,7 +122,8 @@ namespace IceBlink2
 		    btnPlayerGuide.Draw();
 		    btnBeginnerGuide.Draw();           
 		    btnAbout.Draw();
-	    }
+            btnExit.Draw();
+        }
         public void onTouchTitle(MouseEventArgs e, MouseEventType.EventType eventType)
         {
             try
@@ -120,6 +133,7 @@ namespace IceBlink2
                 btnPlayerGuide.glowOn = false;
                 btnBeginnerGuide.glowOn = false;
                 btnAbout.glowOn = false;
+                btnExit.glowOn = false;
 
                 switch (eventType)
                 {
@@ -130,6 +144,7 @@ namespace IceBlink2
                         btnNewGame.glowOn = false;
                         btnLoadSavedGame.glowOn = false;
                         btnAbout.glowOn = false;
+                        btnExit.glowOn = false;
                         btnPlayerGuide.glowOn = false;
                         btnBeginnerGuide.glowOn = false;
 
@@ -179,6 +194,11 @@ namespace IceBlink2
                             gv.PlaySound("btn_click");
                             gv.cc.doAboutDialog();
                         }
+                        else if (btnExit.getImpact(x, y))
+                        {
+                            gv.PlaySound("btn_click");
+                            gv.Close();
+                        }
                         break;
 
                     case MouseEventType.EventType.MouseDown:
@@ -197,6 +217,10 @@ namespace IceBlink2
                         else if (btnAbout.getImpact(x, y))
                         {
                             btnAbout.glowOn = true;
+                        }
+                        else if (btnExit.getImpact(x, y))
+                        {
+                            btnExit.glowOn = true;
                         }
                         else if (btnPlayerGuide.getImpact(x, y))
                         {

@@ -54,8 +54,8 @@
             this.pnlTitle.BackColor = System.Drawing.Color.Transparent;
             this.pnlTitle.BackgroundImage = global::IceBlink2.Properties.Resources.gb_lrg_header;
             this.pnlTitle.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.pnlTitle.Controls.Add(this.iceBlinkButtonResize1);
-            this.pnlTitle.Controls.Add(this.iceBlinkButtonClose1);
+            //this.pnlTitle.Controls.Add(this.iceBlinkButtonResize1);
+            //this.pnlTitle.Controls.Add(this.iceBlinkButtonClose1);
             this.pnlTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.pnlTitle.Location = new System.Drawing.Point(2, 2);
             this.pnlTitle.Name = "pnlTitle";

@@ -545,6 +545,10 @@ namespace IceBlink2
                                 gv.mod.PlayerLocationY = gv.mod.startingPlayerPositionY;
                                 gv.mod.playerList[0].mainPc = true;
                                 gv.mod.playerList[0].nonRemoveablePc = true;
+                                foreach (Player p in gv.mod.playerList)
+                                {
+                                    gv.sf.UpdateStats(p);
+                                }
                                 gv.log.tagStack.Clear();
                                 gv.log.logLinesList.Clear();
                                 gv.log.currentTopLineIndex = 0;

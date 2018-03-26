@@ -2822,6 +2822,11 @@ namespace IceBlink2
             {
                 drawMainMapClockText();
             }
+
+            if (gv.showHotKeys)
+            {
+                drawMainMapHotKeys();
+            }
             //finalBlackenOffMapScreen();
             drawUiLayout();
             drawMiniMap();
@@ -30225,7 +30230,16 @@ namespace IceBlink2
             }
 
         }*/
-        
+
+        public void drawMainMapHotKeys()
+        {
+            int txtH = (int)gv.drawFontRegHeight;
+            gv.DrawText("Show/Hide Hotkeys: H", new IbRect(gv.oXshift + (gv.playerOffsetY) * gv.squareSize - 4*gv.pS, (gv.playerOffsetX-8) * gv.squareSize - txtH + (int)(3 * gv.pS), 600, 100), 1.0f, Color.Red);
+            gv.DrawText("Show/Hide Interface: X", new IbRect(gv.oXshift + (gv.playerOffsetY) * gv.squareSize - 4 * gv.pS, (gv.playerOffsetX-8) * gv.squareSize + (int)(3 * gv.pS), 600, 100), 1.0f, Color.Red);
+
+        }
+
+
         public void drawMainMapClockText()
         {
             int timeofday = gv.mod.WorldTime % (24 * 60);
@@ -33381,6 +33395,10 @@ namespace IceBlink2
                 if (gv.mod.playerList[gv.mod.selectedPartyLeader].hp <= 0)
                 {
                     gv.mod.selectedPartyLeader++;
+                    if (gv.mod.selectedPartyLeader > gv.mod.playerList.Count - 1)
+                    {
+                        gv.mod.selectedPartyLeader = 0;
+                    }
                 }
                 if (gv.mod.playerList[gv.mod.selectedPartyLeader].hp > 0)
                 {
@@ -34276,7 +34294,107 @@ namespace IceBlink2
                     }
                     else if (rtn.Equals("btnWait"))
                     {
-                        gv.cc.doUpdate();
+                        gv.mod.breakActiveSearch = false;
+
+                        //active search
+                        if (!gv.mod.breakActiveSearch)
+                        {
+                            gv.cc.doUpdate();
+                        }
+                        if (!gv.mod.breakActiveSearch)
+                        {
+                            gv.cc.doUpdate();
+                        }
+                        if (!gv.mod.breakActiveSearch)
+                        {
+                            gv.cc.doUpdate();
+                        }
+                        if (!gv.mod.breakActiveSearch)
+                        {
+                            gv.cc.doUpdate();
+                        }
+                        if (!gv.mod.breakActiveSearch)
+                        {
+                            gv.cc.doUpdate();
+                        }
+                        if (!gv.mod.breakActiveSearch)
+                        {
+                            gv.cc.doUpdate();
+                        }
+                        if (!gv.mod.breakActiveSearch)
+                        {
+                            gv.cc.doUpdate();
+                        }
+                        if (!gv.mod.breakActiveSearch)
+                        {
+                            gv.cc.doUpdate();
+                        }
+                        if (!gv.mod.breakActiveSearch)
+                        {
+                            gv.cc.doUpdate();
+                        }
+                        if (!gv.mod.breakActiveSearch)
+                        {
+                            bool costPaid = false;
+                            if (gv.mod.activeSearchSPCostPaidByByLeaderOnly)
+                            {
+                                if (gv.mod.playerList[gv.mod.selectedPartyLeader].sp >= gv.mod.activeSearchSPCost)
+                                {
+                                    gv.mod.playerList[gv.mod.selectedPartyLeader].sp -= gv.mod.activeSearchSPCost;
+                                    costPaid = true;
+                                }
+                            }
+                            else
+                            {
+                                costPaid = true;
+
+                                foreach (Player p in gv.mod.playerList)
+                                {
+                                    if (p.sp < gv.mod.activeSearchSPCost)
+                                    {
+                                        costPaid = false;
+                                        break;
+                                    }
+                                }
+
+                                if (costPaid)
+                                {
+                                    foreach (Player p in gv.mod.playerList)
+                                    {
+                                        p.sp -= gv.mod.activeSearchSPCost;
+                                    }
+                                }
+                            }
+                            if (costPaid)
+                            {
+                                //reinstecken
+                                if (gv.mod.activeSearchSPCostPaidByByLeaderOnly)
+                                {
+                                    //addFloatyText(gv.mod.PlayerLocationX, gv.mod.PlayerLocationY, "Searching... time passes and "+ gv.mod.playerList[gv.mod.selectedPartyLeader].name + " loses " + gv.mod.activeSearchSPCost + " SP" , "white", 3000);
+                                    addFloatyText(gv.mod.PlayerLocationX, gv.mod.PlayerLocationY, "Searching...", "white", 1500);
+                                    gv.cc.addLogText("white", "Searching... time passes and " + gv.mod.playerList[gv.mod.selectedPartyLeader].name + " loses " + gv.mod.activeSearchSPCost + " SP");
+                                }
+                                else
+                                {
+                                    //addFloatyText(gv.mod.PlayerLocationX, gv.mod.PlayerLocationY, "Searching... time passes and" + "everybody loses " + gv.mod.activeSearchSPCost + " SP", "white", 3000);
+                                    addFloatyText(gv.mod.PlayerLocationX, gv.mod.PlayerLocationY, "Searching...", "white", 1500);
+                                    gv.cc.addLogText("white", "Searching... time passes and everybody loses " + gv.mod.activeSearchSPCost + " SP");
+
+                                }
+                                //add log text, to do
+                                gv.mod.activeSearchDoneThisMove = true;
+                                gv.cc.doUpdate();
+                                gv.mod.activeSearchDoneThisMove = false;
+                            }
+                            else
+                            {
+                                addFloatyText(gv.mod.PlayerLocationX, gv.mod.PlayerLocationY, "Too exhausted to search...", "red", 3000);
+                                gv.cc.addLogText("red", "Too exhausted to search...");
+                            }
+                        }
+
+                        gv.mod.breakActiveSearch = false;
+
                     }
 
                     else if (rtn.Equals("btnCastOnMainMap"))
@@ -35784,7 +35902,7 @@ namespace IceBlink2
             else if (keyData == Keys.B)
             //gv.mod.KeyDebug = Keys.B;
             //if (keyData == gv.mod.KeyDebug)
-                
+
             {
                 if (gv.mod.debugMode)
                 {
@@ -35874,9 +35992,28 @@ namespace IceBlink2
                     }
                 }
             }
-
-            //adding lines for trait use via hotkey on main map
+            //wait one turn
+            else if ((keyData == Keys.Z) || (keyData == Keys.Y))
+            {
+                gv.cc.doUpdate();
+            }
             else if (keyData == Keys.T)
+            {
+                //gaController(string filename, string prm1, string prm2, string prm3, string prm4)
+                /*
+                if (gv.mod.partyLightOn)
+                { gv.mod.partyLightOn = false;
+                    gv.mod.partyLightName = "";
+                }
+                else
+                { gv.mod.partyLightOn = true;
+                    gv.mod.partyLightName = "Torch";
+                }
+                gv.cc.doUpdate();
+                */
+            }
+            //adding lines for trait use via hotkey on main map
+            else if (keyData == Keys.U)
             {
                 List<string> pcNames = new List<string>();
                 List<int> pcIndex = new List<int>();
