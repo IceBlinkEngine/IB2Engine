@@ -168,6 +168,11 @@ namespace IceBlink2
                 float ulX = ((Width * gv.screenDensity) - stringSize) / 2;
                 float ulY = ((Height * gv.screenDensity) - thisFontHeight) / 2;
 
+                if (scaler == 0.4f)
+                {
+                    ulY = ((Height * gv.screenDensity));
+                }
+
                 for (int x = -2; x <= 2; x++)
                 {
                     for (int y = -2; y <= 2; y++)

@@ -21,2457 +21,6 @@
       "logList": [
         {
           "tag": "",
-          "tagStack": [],
-          "logLinesList": [
-            {
-              "wordsList": [
-                {
-                  "text": "screenDensity:",
-                  "color": {
-                    "R": 255,
-                    "G": 0,
-                    "B": 0,
-                    "A": 255
-                  },
-                  "fontStyle": 0,
-                  "fontWeight": 400,
-                  "underlined": false,
-                  "fontSize": 13.1065989
-                },
-                {
-                  "text": "0,71",
-                  "color": {
-                    "R": 255,
-                    "G": 0,
-                    "B": 0,
-                    "A": 255
-                  },
-                  "fontStyle": 0,
-                  "fontWeight": 400,
-                  "underlined": false,
-                  "fontSize": 13.1065989
-                }
-              ],
-              "lineHeight": 23
-            },
-            {
-              "wordsList": [
-                {
-                  "text": "screenWidth:",
-                  "color": {
-                    "R": 255,
-                    "G": 0,
-                    "B": 255,
-                    "A": 255
-                  },
-                  "fontStyle": 0,
-                  "fontWeight": 400,
-                  "underlined": false,
-                  "fontSize": 13.1065989
-                },
-                {
-                  "text": "1366",
-                  "color": {
-                    "R": 255,
-                    "G": 0,
-                    "B": 255,
-                    "A": 255
-                  },
-                  "fontStyle": 0,
-                  "fontWeight": 400,
-                  "underlined": false,
-                  "fontSize": 13.1065989
-                }
-              ],
-              "lineHeight": 23
-            },
-            {
-              "wordsList": [
-                {
-                  "text": "screenHeight:",
-                  "color": {
-                    "R": 0,
-                    "G": 255,
-                    "B": 0,
-                    "A": 255
-                  },
-                  "fontStyle": 0,
-                  "fontWeight": 400,
-                  "underlined": false,
-                  "fontSize": 13.1065989
-                },
-                {
-                  "text": "768",
-                  "color": {
-                    "R": 0,
-                    "G": 255,
-                    "B": 0,
-                    "A": 255
-                  },
-                  "fontStyle": 0,
-                  "fontWeight": 400,
-                  "underlined": false,
-                  "fontSize": 13.1065989
-                }
-              ],
-              "lineHeight": 23
-            },
-            {
-              "wordsList": [
-                {
-                  "text": "squareSize:",
-                  "color": {
-                    "R": 255,
-                    "G": 255,
-                    "B": 0,
-                    "A": 255
-                  },
-                  "fontStyle": 0,
-                  "fontWeight": 400,
-                  "underlined": false,
-                  "fontSize": 13.1065989
-                },
-                {
-                  "text": "71",
-                  "color": {
-                    "R": 255,
-                    "G": 255,
-                    "B": 0,
-                    "A": 255
-                  },
-                  "fontStyle": 0,
-                  "fontWeight": 400,
-                  "underlined": false,
-                  "fontSize": 13.1065989
-                }
-              ],
-              "lineHeight": 23
-            },
-            {
-              "wordsList": [
-                {
-                  "text": "sqrW:",
-                  "color": {
-                    "R": 255,
-                    "G": 255,
-                    "B": 0,
-                    "A": 255
-                  },
-                  "fontStyle": 0,
-                  "fontWeight": 400,
-                  "underlined": false,
-                  "fontSize": 13.1065989
-                },
-                {
-                  "text": "71,14583",
-                  "color": {
-                    "R": 255,
-                    "G": 255,
-                    "B": 0,
-                    "A": 255
-                  },
-                  "fontStyle": 0,
-                  "fontWeight": 400,
-                  "underlined": false,
-                  "fontSize": 13.1065989
-                }
-              ],
-              "lineHeight": 23
-            },
-            {
-              "wordsList": [
-                {
-                  "text": "sqrH:",
-                  "color": {
-                    "R": 255,
-                    "G": 255,
-                    "B": 0,
-                    "A": 255
-                  },
-                  "fontStyle": 0,
-                  "fontWeight": 400,
-                  "underlined": false,
-                  "fontSize": 13.1065989
-                },
-                {
-                  "text": "74,5631",
-                  "color": {
-                    "R": 255,
-                    "G": 255,
-                    "B": 0,
-                    "A": 255
-                  },
-                  "fontStyle": 0,
-                  "fontWeight": 400,
-                  "underlined": false,
-                  "fontSize": 13.1065989
-                }
-              ],
-              "lineHeight": 23
-            },
-            {
-              "wordsList": [],
-              "lineHeight": 0
-            },
-            {
-              "wordsList": [
-                {
-                  "text": "Welcome",
-                  "color": {
-                    "R": 255,
-                    "G": 0,
-                    "B": 0,
-                    "A": 199
-                  },
-                  "fontStyle": 0,
-                  "fontWeight": 400,
-                  "underlined": false,
-                  "fontSize": 13.1065989
-                },
-                {
-                  "text": "to",
-                  "color": {
-                    "R": 255,
-                    "G": 0,
-                    "B": 0,
-                    "A": 199
-                  },
-                  "fontStyle": 0,
-                  "fontWeight": 400,
-                  "underlined": false,
-                  "fontSize": 13.1065989
-                },
-                {
-                  "text": "Unwanted",
-                  "color": {
-                    "R": 255,
-                    "G": 0,
-                    "B": 0,
-                    "A": 199
-                  },
-                  "fontStyle": 0,
-                  "fontWeight": 400,
-                  "underlined": false,
-                  "fontSize": 13.1065989
-                }
-              ],
-              "lineHeight": 23
-            },
-            {
-              "wordsList": [
-                {
-                  "text": "Guests",
-                  "color": {
-                    "R": 255,
-                    "G": 0,
-                    "B": 0,
-                    "A": 199
-                  },
-                  "fontStyle": 0,
-                  "fontWeight": 400,
-                  "underlined": false,
-                  "fontSize": 13.1065989
-                }
-              ],
-              "lineHeight": 23
-            },
-            {
-              "wordsList": [
-                {
-                  "text": "You",
-                  "color": {
-                    "R": 255,
-                    "G": 0,
-                    "B": 255,
-                    "A": 255
-                  },
-                  "fontStyle": 0,
-                  "fontWeight": 400,
-                  "underlined": false,
-                  "fontSize": 13.1065989
-                },
-                {
-                  "text": "can",
-                  "color": {
-                    "R": 255,
-                    "G": 0,
-                    "B": 255,
-                    "A": 255
-                  },
-                  "fontStyle": 0,
-                  "fontWeight": 400,
-                  "underlined": false,
-                  "fontSize": 13.1065989
-                },
-                {
-                  "text": "scroll",
-                  "color": {
-                    "R": 255,
-                    "G": 0,
-                    "B": 255,
-                    "A": 255
-                  },
-                  "fontStyle": 0,
-                  "fontWeight": 400,
-                  "underlined": false,
-                  "fontSize": 13.1065989
-                },
-                {
-                  "text": "this",
-                  "color": {
-                    "R": 255,
-                    "G": 0,
-                    "B": 255,
-                    "A": 255
-                  },
-                  "fontStyle": 0,
-                  "fontWeight": 400,
-                  "underlined": false,
-                  "fontSize": 13.1065989
-                }
-              ],
-              "lineHeight": 23
-            },
-            {
-              "wordsList": [
-                {
-                  "text": "message",
-                  "color": {
-                    "R": 255,
-                    "G": 0,
-                    "B": 255,
-                    "A": 255
-                  },
-                  "fontStyle": 0,
-                  "fontWeight": 400,
-                  "underlined": false,
-                  "fontSize": 13.1065989
-                },
-                {
-                  "text": "log",
-                  "color": {
-                    "R": 255,
-                    "G": 0,
-                    "B": 255,
-                    "A": 255
-                  },
-                  "fontStyle": 0,
-                  "fontWeight": 400,
-                  "underlined": false,
-                  "fontSize": 13.1065989
-                },
-                {
-                  "text": "box,",
-                  "color": {
-                    "R": 255,
-                    "G": 0,
-                    "B": 255,
-                    "A": 255
-                  },
-                  "fontStyle": 0,
-                  "fontWeight": 400,
-                  "underlined": false,
-                  "fontSize": 13.1065989
-                },
-                {
-                  "text": "use",
-                  "color": {
-                    "R": 255,
-                    "G": 0,
-                    "B": 255,
-                    "A": 255
-                  },
-                  "fontStyle": 0,
-                  "fontWeight": 400,
-                  "underlined": false,
-                  "fontSize": 13.1065989
-                }
-              ],
-              "lineHeight": 23
-            },
-            {
-              "wordsList": [
-                {
-                  "text": "mouse",
-                  "color": {
-                    "R": 255,
-                    "G": 0,
-                    "B": 255,
-                    "A": 255
-                  },
-                  "fontStyle": 0,
-                  "fontWeight": 400,
-                  "underlined": false,
-                  "fontSize": 13.1065989
-                },
-                {
-                  "text": "wheel",
-                  "color": {
-                    "R": 255,
-                    "G": 0,
-                    "B": 255,
-                    "A": 255
-                  },
-                  "fontStyle": 0,
-                  "fontWeight": 400,
-                  "underlined": false,
-                  "fontSize": 13.1065989
-                }
-              ],
-              "lineHeight": 23
-            },
-            {
-              "wordsList": [
-                {
-                  "text": "'x'",
-                  "color": {
-                    "R": 255,
-                    "G": 255,
-                    "B": 0,
-                    "A": 255
-                  },
-                  "fontStyle": 0,
-                  "fontWeight": 400,
-                  "underlined": false,
-                  "fontSize": 13.1065989
-                },
-                {
-                  "text": "will",
-                  "color": {
-                    "R": 255,
-                    "G": 255,
-                    "B": 0,
-                    "A": 255
-                  },
-                  "fontStyle": 0,
-                  "fontWeight": 400,
-                  "underlined": false,
-                  "fontSize": 13.1065989
-                },
-                {
-                  "text": "hide/show",
-                  "color": {
-                    "R": 255,
-                    "G": 255,
-                    "B": 0,
-                    "A": 255
-                  },
-                  "fontStyle": 0,
-                  "fontWeight": 400,
-                  "underlined": false,
-                  "fontSize": 13.1065989
-                },
-                {
-                  "text": "all",
-                  "color": {
-                    "R": 255,
-                    "G": 255,
-                    "B": 0,
-                    "A": 255
-                  },
-                  "fontStyle": 0,
-                  "fontWeight": 400,
-                  "underlined": false,
-                  "fontSize": 13.1065989
-                },
-                {
-                  "text": "UI",
-                  "color": {
-                    "R": 255,
-                    "G": 255,
-                    "B": 0,
-                    "A": 255
-                  },
-                  "fontStyle": 0,
-                  "fontWeight": 400,
-                  "underlined": false,
-                  "fontSize": 13.1065989
-                }
-              ],
-              "lineHeight": 23
-            },
-            {
-              "wordsList": [
-                {
-                  "text": "panels",
-                  "color": {
-                    "R": 255,
-                    "G": 255,
-                    "B": 0,
-                    "A": 255
-                  },
-                  "fontStyle": 0,
-                  "fontWeight": 400,
-                  "underlined": false,
-                  "fontSize": 13.1065989
-                }
-              ],
-              "lineHeight": 23
-            },
-            {
-              "wordsList": [
-                {
-                  "text": "Drin",
-                  "color": {
-                    "R": 0,
-                    "G": 255,
-                    "B": 0,
-                    "A": 255
-                  },
-                  "fontStyle": 0,
-                  "fontWeight": 400,
-                  "underlined": false,
-                  "fontSize": 13.1065989
-                },
-                {
-                  "text": "joins",
-                  "color": {
-                    "R": 0,
-                    "G": 255,
-                    "B": 0,
-                    "A": 255
-                  },
-                  "fontStyle": 0,
-                  "fontWeight": 400,
-                  "underlined": false,
-                  "fontSize": 13.1065989
-                },
-                {
-                  "text": "the",
-                  "color": {
-                    "R": 0,
-                    "G": 255,
-                    "B": 0,
-                    "A": 255
-                  },
-                  "fontStyle": 0,
-                  "fontWeight": 400,
-                  "underlined": false,
-                  "fontSize": 13.1065989
-                },
-                {
-                  "text": "party",
-                  "color": {
-                    "R": 0,
-                    "G": 255,
-                    "B": 0,
-                    "A": 255
-                  },
-                  "fontStyle": 0,
-                  "fontWeight": 400,
-                  "underlined": false,
-                  "fontSize": 13.1065989
-                }
-              ],
-              "lineHeight": 23
-            },
-            {
-              "wordsList": [
-                {
-                  "text": "No",
-                  "color": {
-                    "R": 255,
-                    "G": 0,
-                    "B": 0,
-                    "A": 202
-                  },
-                  "fontStyle": 0,
-                  "fontWeight": 400,
-                  "underlined": false,
-                  "fontSize": 13.1065989
-                },
-                {
-                  "text": "neigbhbouring",
-                  "color": {
-                    "R": 255,
-                    "G": 0,
-                    "B": 0,
-                    "A": 202
-                  },
-                  "fontStyle": 0,
-                  "fontWeight": 400,
-                  "underlined": false,
-                  "fontSize": 13.1065989
-                },
-                {
-                  "text": "area",
-                  "color": {
-                    "R": 255,
-                    "G": 0,
-                    "B": 0,
-                    "A": 202
-                  },
-                  "fontStyle": 0,
-                  "fontWeight": 400,
-                  "underlined": false,
-                  "fontSize": 13.1065989
-                }
-              ],
-              "lineHeight": 23
-            },
-            {
-              "wordsList": [
-                {
-                  "text": "existent.",
-                  "color": {
-                    "R": 255,
-                    "G": 0,
-                    "B": 0,
-                    "A": 255
-                  },
-                  "fontStyle": 0,
-                  "fontWeight": 400,
-                  "underlined": false,
-                  "fontSize": 13.1065989
-                }
-              ],
-              "lineHeight": 23
-            },
-            {
-              "wordsList": [
-                {
-                  "text": "No",
-                  "color": {
-                    "R": 255,
-                    "G": 0,
-                    "B": 0,
-                    "A": 255
-                  },
-                  "fontStyle": 0,
-                  "fontWeight": 400,
-                  "underlined": false,
-                  "fontSize": 13.1065989
-                },
-                {
-                  "text": "neigbhbouring",
-                  "color": {
-                    "R": 255,
-                    "G": 0,
-                    "B": 0,
-                    "A": 255
-                  },
-                  "fontStyle": 0,
-                  "fontWeight": 400,
-                  "underlined": false,
-                  "fontSize": 13.1065989
-                },
-                {
-                  "text": "area",
-                  "color": {
-                    "R": 255,
-                    "G": 0,
-                    "B": 0,
-                    "A": 255
-                  },
-                  "fontStyle": 0,
-                  "fontWeight": 400,
-                  "underlined": false,
-                  "fontSize": 13.1065989
-                }
-              ],
-              "lineHeight": 23
-            },
-            {
-              "wordsList": [
-                {
-                  "text": "existent.",
-                  "color": {
-                    "R": 255,
-                    "G": 0,
-                    "B": 0,
-                    "A": 255
-                  },
-                  "fontStyle": 0,
-                  "fontWeight": 400,
-                  "underlined": false,
-                  "fontSize": 13.1065989
-                }
-              ],
-              "lineHeight": 23
-            },
-            {
-              "wordsList": [
-                {
-                  "text": "No",
-                  "color": {
-                    "R": 255,
-                    "G": 0,
-                    "B": 0,
-                    "A": 235
-                  },
-                  "fontStyle": 0,
-                  "fontWeight": 400,
-                  "underlined": false,
-                  "fontSize": 13.1065989
-                },
-                {
-                  "text": "neigbhbouring",
-                  "color": {
-                    "R": 255,
-                    "G": 0,
-                    "B": 0,
-                    "A": 235
-                  },
-                  "fontStyle": 0,
-                  "fontWeight": 400,
-                  "underlined": false,
-                  "fontSize": 13.1065989
-                },
-                {
-                  "text": "area",
-                  "color": {
-                    "R": 255,
-                    "G": 0,
-                    "B": 0,
-                    "A": 235
-                  },
-                  "fontStyle": 0,
-                  "fontWeight": 400,
-                  "underlined": false,
-                  "fontSize": 13.1065989
-                }
-              ],
-              "lineHeight": 23
-            },
-            {
-              "wordsList": [
-                {
-                  "text": "existent.",
-                  "color": {
-                    "R": 255,
-                    "G": 0,
-                    "B": 0,
-                    "A": 235
-                  },
-                  "fontStyle": 0,
-                  "fontWeight": 400,
-                  "underlined": false,
-                  "fontSize": 13.1065989
-                }
-              ],
-              "lineHeight": 23
-            },
-            {
-              "wordsList": [
-                {
-                  "text": "No",
-                  "color": {
-                    "R": 255,
-                    "G": 0,
-                    "B": 0,
-                    "A": 235
-                  },
-                  "fontStyle": 0,
-                  "fontWeight": 400,
-                  "underlined": false,
-                  "fontSize": 13.1065989
-                },
-                {
-                  "text": "neigbhbouring",
-                  "color": {
-                    "R": 255,
-                    "G": 0,
-                    "B": 0,
-                    "A": 235
-                  },
-                  "fontStyle": 0,
-                  "fontWeight": 400,
-                  "underlined": false,
-                  "fontSize": 13.1065989
-                },
-                {
-                  "text": "area",
-                  "color": {
-                    "R": 255,
-                    "G": 0,
-                    "B": 0,
-                    "A": 235
-                  },
-                  "fontStyle": 0,
-                  "fontWeight": 400,
-                  "underlined": false,
-                  "fontSize": 13.1065989
-                }
-              ],
-              "lineHeight": 23
-            },
-            {
-              "wordsList": [
-                {
-                  "text": "existent.",
-                  "color": {
-                    "R": 255,
-                    "G": 0,
-                    "B": 0,
-                    "A": 255
-                  },
-                  "fontStyle": 0,
-                  "fontWeight": 400,
-                  "underlined": false,
-                  "fontSize": 13.1065989
-                }
-              ],
-              "lineHeight": 23
-            },
-            {
-              "wordsList": [
-                {
-                  "text": "No",
-                  "color": {
-                    "R": 255,
-                    "G": 0,
-                    "B": 0,
-                    "A": 255
-                  },
-                  "fontStyle": 0,
-                  "fontWeight": 400,
-                  "underlined": false,
-                  "fontSize": 13.1065989
-                },
-                {
-                  "text": "neigbhbouring",
-                  "color": {
-                    "R": 255,
-                    "G": 0,
-                    "B": 0,
-                    "A": 255
-                  },
-                  "fontStyle": 0,
-                  "fontWeight": 400,
-                  "underlined": false,
-                  "fontSize": 13.1065989
-                },
-                {
-                  "text": "area",
-                  "color": {
-                    "R": 255,
-                    "G": 0,
-                    "B": 0,
-                    "A": 255
-                  },
-                  "fontStyle": 0,
-                  "fontWeight": 400,
-                  "underlined": false,
-                  "fontSize": 13.1065989
-                }
-              ],
-              "lineHeight": 23
-            },
-            {
-              "wordsList": [
-                {
-                  "text": "existent.",
-                  "color": {
-                    "R": 255,
-                    "G": 0,
-                    "B": 0,
-                    "A": 255
-                  },
-                  "fontStyle": 0,
-                  "fontWeight": 400,
-                  "underlined": false,
-                  "fontSize": 13.1065989
-                }
-              ],
-              "lineHeight": 23
-            },
-            {
-              "wordsList": [
-                {
-                  "text": "No",
-                  "color": {
-                    "R": 255,
-                    "G": 0,
-                    "B": 0,
-                    "A": 225
-                  },
-                  "fontStyle": 0,
-                  "fontWeight": 400,
-                  "underlined": false,
-                  "fontSize": 13.1065989
-                },
-                {
-                  "text": "neigbhbouring",
-                  "color": {
-                    "R": 255,
-                    "G": 0,
-                    "B": 0,
-                    "A": 225
-                  },
-                  "fontStyle": 0,
-                  "fontWeight": 400,
-                  "underlined": false,
-                  "fontSize": 13.1065989
-                },
-                {
-                  "text": "area",
-                  "color": {
-                    "R": 255,
-                    "G": 0,
-                    "B": 0,
-                    "A": 225
-                  },
-                  "fontStyle": 0,
-                  "fontWeight": 400,
-                  "underlined": false,
-                  "fontSize": 13.1065989
-                }
-              ],
-              "lineHeight": 23
-            },
-            {
-              "wordsList": [
-                {
-                  "text": "existent.",
-                  "color": {
-                    "R": 255,
-                    "G": 0,
-                    "B": 0,
-                    "A": 225
-                  },
-                  "fontStyle": 0,
-                  "fontWeight": 400,
-                  "underlined": false,
-                  "fontSize": 13.1065989
-                }
-              ],
-              "lineHeight": 23
-            },
-            {
-              "wordsList": [
-                {
-                  "text": "No",
-                  "color": {
-                    "R": 255,
-                    "G": 0,
-                    "B": 0,
-                    "A": 225
-                  },
-                  "fontStyle": 0,
-                  "fontWeight": 400,
-                  "underlined": false,
-                  "fontSize": 13.1065989
-                },
-                {
-                  "text": "neigbhbouring",
-                  "color": {
-                    "R": 255,
-                    "G": 0,
-                    "B": 0,
-                    "A": 225
-                  },
-                  "fontStyle": 0,
-                  "fontWeight": 400,
-                  "underlined": false,
-                  "fontSize": 13.1065989
-                },
-                {
-                  "text": "area",
-                  "color": {
-                    "R": 255,
-                    "G": 0,
-                    "B": 0,
-                    "A": 225
-                  },
-                  "fontStyle": 0,
-                  "fontWeight": 400,
-                  "underlined": false,
-                  "fontSize": 13.1065989
-                }
-              ],
-              "lineHeight": 23
-            },
-            {
-              "wordsList": [
-                {
-                  "text": "existent.",
-                  "color": {
-                    "R": 255,
-                    "G": 0,
-                    "B": 0,
-                    "A": 1
-                  },
-                  "fontStyle": 0,
-                  "fontWeight": 400,
-                  "underlined": false,
-                  "fontSize": 13.1065989
-                }
-              ],
-              "lineHeight": 23
-            },
-            {
-              "wordsList": [
-                {
-                  "text": "debugMode",
-                  "color": {
-                    "R": 0,
-                    "G": 255,
-                    "B": 0,
-                    "A": 1
-                  },
-                  "fontStyle": 0,
-                  "fontWeight": 400,
-                  "underlined": false,
-                  "fontSize": 13.1065989
-                },
-                {
-                  "text": "Turned",
-                  "color": {
-                    "R": 0,
-                    "G": 255,
-                    "B": 0,
-                    "A": 1
-                  },
-                  "fontStyle": 0,
-                  "fontWeight": 400,
-                  "underlined": false,
-                  "fontSize": 13.1065989
-                },
-                {
-                  "text": "On",
-                  "color": {
-                    "R": 0,
-                    "G": 255,
-                    "B": 0,
-                    "A": 1
-                  },
-                  "fontStyle": 0,
-                  "fontWeight": 400,
-                  "underlined": false,
-                  "fontSize": 13.1065989
-                }
-              ],
-              "lineHeight": 23
-            },
-            {
-              "wordsList": [
-                {
-                  "text": "debugMode",
-                  "color": {
-                    "R": 0,
-                    "G": 255,
-                    "B": 0,
-                    "A": 1
-                  },
-                  "fontStyle": 0,
-                  "fontWeight": 400,
-                  "underlined": false,
-                  "fontSize": 13.1065989
-                },
-                {
-                  "text": "Turned",
-                  "color": {
-                    "R": 0,
-                    "G": 255,
-                    "B": 0,
-                    "A": 1
-                  },
-                  "fontStyle": 0,
-                  "fontWeight": 400,
-                  "underlined": false,
-                  "fontSize": 13.1065989
-                },
-                {
-                  "text": "Off",
-                  "color": {
-                    "R": 0,
-                    "G": 255,
-                    "B": 0,
-                    "A": 1
-                  },
-                  "fontStyle": 0,
-                  "fontWeight": 400,
-                  "underlined": false,
-                  "fontSize": 13.1065989
-                }
-              ],
-              "lineHeight": 23
-            },
-            {
-              "wordsList": [
-                {
-                  "text": "No",
-                  "color": {
-                    "R": 255,
-                    "G": 0,
-                    "B": 0,
-                    "A": 1
-                  },
-                  "fontStyle": 0,
-                  "fontWeight": 400,
-                  "underlined": false,
-                  "fontSize": 13.1065989
-                },
-                {
-                  "text": "neigbhbouring",
-                  "color": {
-                    "R": 255,
-                    "G": 0,
-                    "B": 0,
-                    "A": 1
-                  },
-                  "fontStyle": 0,
-                  "fontWeight": 400,
-                  "underlined": false,
-                  "fontSize": 13.1065989
-                },
-                {
-                  "text": "area",
-                  "color": {
-                    "R": 255,
-                    "G": 0,
-                    "B": 0,
-                    "A": 1
-                  },
-                  "fontStyle": 0,
-                  "fontWeight": 400,
-                  "underlined": false,
-                  "fontSize": 13.1065989
-                }
-              ],
-              "lineHeight": 23
-            },
-            {
-              "wordsList": [
-                {
-                  "text": "existent.",
-                  "color": {
-                    "R": 255,
-                    "G": 0,
-                    "B": 0,
-                    "A": 1
-                  },
-                  "fontStyle": 0,
-                  "fontWeight": 400,
-                  "underlined": false,
-                  "fontSize": 13.1065989
-                }
-              ],
-              "lineHeight": 23
-            },
-            {
-              "wordsList": [
-                {
-                  "text": "No",
-                  "color": {
-                    "R": 255,
-                    "G": 0,
-                    "B": 0,
-                    "A": 1
-                  },
-                  "fontStyle": 0,
-                  "fontWeight": 400,
-                  "underlined": false,
-                  "fontSize": 13.1065989
-                },
-                {
-                  "text": "neigbhbouring",
-                  "color": {
-                    "R": 255,
-                    "G": 0,
-                    "B": 0,
-                    "A": 1
-                  },
-                  "fontStyle": 0,
-                  "fontWeight": 400,
-                  "underlined": false,
-                  "fontSize": 13.1065989
-                },
-                {
-                  "text": "area",
-                  "color": {
-                    "R": 255,
-                    "G": 0,
-                    "B": 0,
-                    "A": 1
-                  },
-                  "fontStyle": 0,
-                  "fontWeight": 400,
-                  "underlined": false,
-                  "fontSize": 13.1065989
-                }
-              ],
-              "lineHeight": 23
-            },
-            {
-              "wordsList": [
-                {
-                  "text": "existent.",
-                  "color": {
-                    "R": 255,
-                    "G": 0,
-                    "B": 0,
-                    "A": 1
-                  },
-                  "fontStyle": 0,
-                  "fontWeight": 400,
-                  "underlined": false,
-                  "fontSize": 13.1065989
-                }
-              ],
-              "lineHeight": 23
-            },
-            {
-              "wordsList": [
-                {
-                  "text": "No",
-                  "color": {
-                    "R": 255,
-                    "G": 0,
-                    "B": 0,
-                    "A": 1
-                  },
-                  "fontStyle": 0,
-                  "fontWeight": 400,
-                  "underlined": false,
-                  "fontSize": 13.1065989
-                },
-                {
-                  "text": "neigbhbouring",
-                  "color": {
-                    "R": 255,
-                    "G": 0,
-                    "B": 0,
-                    "A": 1
-                  },
-                  "fontStyle": 0,
-                  "fontWeight": 400,
-                  "underlined": false,
-                  "fontSize": 13.1065989
-                },
-                {
-                  "text": "area",
-                  "color": {
-                    "R": 255,
-                    "G": 0,
-                    "B": 0,
-                    "A": 1
-                  },
-                  "fontStyle": 0,
-                  "fontWeight": 400,
-                  "underlined": false,
-                  "fontSize": 13.1065989
-                }
-              ],
-              "lineHeight": 23
-            },
-            {
-              "wordsList": [
-                {
-                  "text": "existent.",
-                  "color": {
-                    "R": 255,
-                    "G": 0,
-                    "B": 0,
-                    "A": 1
-                  },
-                  "fontStyle": 0,
-                  "fontWeight": 400,
-                  "underlined": false,
-                  "fontSize": 13.1065989
-                }
-              ],
-              "lineHeight": 23
-            },
-            {
-              "wordsList": [
-                {
-                  "text": "No",
-                  "color": {
-                    "R": 255,
-                    "G": 0,
-                    "B": 0,
-                    "A": 1
-                  },
-                  "fontStyle": 0,
-                  "fontWeight": 400,
-                  "underlined": false,
-                  "fontSize": 13.1065989
-                },
-                {
-                  "text": "neigbhbouring",
-                  "color": {
-                    "R": 255,
-                    "G": 0,
-                    "B": 0,
-                    "A": 1
-                  },
-                  "fontStyle": 0,
-                  "fontWeight": 400,
-                  "underlined": false,
-                  "fontSize": 13.1065989
-                },
-                {
-                  "text": "area",
-                  "color": {
-                    "R": 255,
-                    "G": 0,
-                    "B": 0,
-                    "A": 1
-                  },
-                  "fontStyle": 0,
-                  "fontWeight": 400,
-                  "underlined": false,
-                  "fontSize": 13.1065989
-                }
-              ],
-              "lineHeight": 23
-            },
-            {
-              "wordsList": [
-                {
-                  "text": "existent.",
-                  "color": {
-                    "R": 255,
-                    "G": 0,
-                    "B": 0,
-                    "A": 1
-                  },
-                  "fontStyle": 0,
-                  "fontWeight": 400,
-                  "underlined": false,
-                  "fontSize": 13.1065989
-                }
-              ],
-              "lineHeight": 23
-            },
-            {
-              "wordsList": [
-                {
-                  "text": "Show",
-                  "color": {
-                    "R": 0,
-                    "G": 255,
-                    "B": 0,
-                    "A": 1
-                  },
-                  "fontStyle": 0,
-                  "fontWeight": 400,
-                  "underlined": false,
-                  "fontSize": 13.1065989
-                },
-                {
-                  "text": "Full",
-                  "color": {
-                    "R": 0,
-                    "G": 255,
-                    "B": 0,
-                    "A": 1
-                  },
-                  "fontStyle": 0,
-                  "fontWeight": 400,
-                  "underlined": false,
-                  "fontSize": 13.1065989
-                },
-                {
-                  "text": "Party",
-                  "color": {
-                    "R": 0,
-                    "G": 255,
-                    "B": 0,
-                    "A": 1
-                  },
-                  "fontStyle": 0,
-                  "fontWeight": 400,
-                  "underlined": false,
-                  "fontSize": 13.1065989
-                }
-              ],
-              "lineHeight": 23
-            },
-            {
-              "wordsList": [
-                {
-                  "text": "Show",
-                  "color": {
-                    "R": 0,
-                    "G": 255,
-                    "B": 0,
-                    "A": 1
-                  },
-                  "fontStyle": 0,
-                  "fontWeight": 400,
-                  "underlined": false,
-                  "fontSize": 13.1065989
-                },
-                {
-                  "text": "Party",
-                  "color": {
-                    "R": 0,
-                    "G": 255,
-                    "B": 0,
-                    "A": 1
-                  },
-                  "fontStyle": 0,
-                  "fontWeight": 400,
-                  "underlined": false,
-                  "fontSize": 13.1065989
-                },
-                {
-                  "text": "Leader",
-                  "color": {
-                    "R": 0,
-                    "G": 255,
-                    "B": 0,
-                    "A": 1
-                  },
-                  "fontStyle": 0,
-                  "fontWeight": 400,
-                  "underlined": false,
-                  "fontSize": 13.1065989
-                }
-              ],
-              "lineHeight": 23
-            },
-            {
-              "wordsList": [
-                {
-                  "text": "Music",
-                  "color": {
-                    "R": 0,
-                    "G": 255,
-                    "B": 0,
-                    "A": 1
-                  },
-                  "fontStyle": 0,
-                  "fontWeight": 400,
-                  "underlined": false,
-                  "fontSize": 13.1065989
-                },
-                {
-                  "text": "On,",
-                  "color": {
-                    "R": 0,
-                    "G": 255,
-                    "B": 0,
-                    "A": 1
-                  },
-                  "fontStyle": 0,
-                  "fontWeight": 400,
-                  "underlined": false,
-                  "fontSize": 13.1065989
-                },
-                {
-                  "text": "SoundFX",
-                  "color": {
-                    "R": 0,
-                    "G": 255,
-                    "B": 0,
-                    "A": 1
-                  },
-                  "fontStyle": 0,
-                  "fontWeight": 400,
-                  "underlined": false,
-                  "fontSize": 13.1065989
-                },
-                {
-                  "text": "On",
-                  "color": {
-                    "R": 0,
-                    "G": 255,
-                    "B": 0,
-                    "A": 1
-                  },
-                  "fontStyle": 0,
-                  "fontWeight": 400,
-                  "underlined": false,
-                  "fontSize": 13.1065989
-                }
-              ],
-              "lineHeight": 23
-            },
-            {
-              "wordsList": [
-                {
-                  "text": "Music",
-                  "color": {
-                    "R": 0,
-                    "G": 255,
-                    "B": 0,
-                    "A": 199
-                  },
-                  "fontStyle": 0,
-                  "fontWeight": 400,
-                  "underlined": false,
-                  "fontSize": 13.1065989
-                },
-                {
-                  "text": "Off,",
-                  "color": {
-                    "R": 0,
-                    "G": 255,
-                    "B": 0,
-                    "A": 199
-                  },
-                  "fontStyle": 0,
-                  "fontWeight": 400,
-                  "underlined": false,
-                  "fontSize": 13.1065989
-                },
-                {
-                  "text": "SoundFX",
-                  "color": {
-                    "R": 0,
-                    "G": 255,
-                    "B": 0,
-                    "A": 199
-                  },
-                  "fontStyle": 0,
-                  "fontWeight": 400,
-                  "underlined": false,
-                  "fontSize": 13.1065989
-                },
-                {
-                  "text": "Off",
-                  "color": {
-                    "R": 0,
-                    "G": 255,
-                    "B": 0,
-                    "A": 199
-                  },
-                  "fontStyle": 0,
-                  "fontWeight": 400,
-                  "underlined": false,
-                  "fontSize": 13.1065989
-                }
-              ],
-              "lineHeight": 23
-            },
-            {
-              "wordsList": [
-                {
-                  "text": "In",
-                  "color": {
-                    "R": 255,
-                    "G": 255,
-                    "B": 0,
-                    "A": 199
-                  },
-                  "fontStyle": 0,
-                  "fontWeight": 400,
-                  "underlined": false,
-                  "fontSize": 13.1065989
-                },
-                {
-                  "text": "a",
-                  "color": {
-                    "R": 255,
-                    "G": 255,
-                    "B": 0,
-                    "A": 199
-                  },
-                  "fontStyle": 0,
-                  "fontWeight": 400,
-                  "underlined": false,
-                  "fontSize": 13.1065989
-                },
-                {
-                  "text": "hurry:",
-                  "color": {
-                    "R": 255,
-                    "G": 255,
-                    "B": 0,
-                    "A": 199
-                  },
-                  "fontStyle": 0,
-                  "fontWeight": 400,
-                  "underlined": false,
-                  "fontSize": 13.1065989
-                },
-                {
-                  "text": "Party",
-                  "color": {
-                    "R": 255,
-                    "G": 255,
-                    "B": 0,
-                    "A": 199
-                  },
-                  "fontStyle": 0,
-                  "fontWeight": 400,
-                  "underlined": false,
-                  "fontSize": 13.1065989
-                },
-                {
-                  "text": "is",
-                  "color": {
-                    "R": 255,
-                    "G": 255,
-                    "B": 0,
-                    "A": 199
-                  },
-                  "fontStyle": 0,
-                  "fontWeight": 400,
-                  "underlined": false,
-                  "fontSize": 13.1065989
-                }
-              ],
-              "lineHeight": 23
-            },
-            {
-              "wordsList": [
-                {
-                  "text": "avoiding",
-                  "color": {
-                    "R": 255,
-                    "G": 255,
-                    "B": 0,
-                    "A": 199
-                  },
-                  "fontStyle": 0,
-                  "fontWeight": 400,
-                  "underlined": false,
-                  "fontSize": 13.1065989
-                },
-                {
-                  "text": "all",
-                  "color": {
-                    "R": 255,
-                    "G": 255,
-                    "B": 0,
-                    "A": 199
-                  },
-                  "fontStyle": 0,
-                  "fontWeight": 400,
-                  "underlined": false,
-                  "fontSize": 13.1065989
-                },
-                {
-                  "text": "conversations",
-                  "color": {
-                    "R": 255,
-                    "G": 255,
-                    "B": 0,
-                    "A": 199
-                  },
-                  "fontStyle": 0,
-                  "fontWeight": 400,
-                  "underlined": false,
-                  "fontSize": 13.1065989
-                }
-              ],
-              "lineHeight": 23
-            },
-            {
-              "wordsList": [
-                {
-                  "text": "that",
-                  "color": {
-                    "R": 255,
-                    "G": 255,
-                    "B": 0,
-                    "A": 199
-                  },
-                  "fontStyle": 0,
-                  "fontWeight": 400,
-                  "underlined": false,
-                  "fontSize": 13.1065989
-                },
-                {
-                  "text": "are",
-                  "color": {
-                    "R": 255,
-                    "G": 255,
-                    "B": 0,
-                    "A": 199
-                  },
-                  "fontStyle": 0,
-                  "fontWeight": 400,
-                  "underlined": false,
-                  "fontSize": 13.1065989
-                },
-                {
-                  "text": "not",
-                  "color": {
-                    "R": 255,
-                    "G": 255,
-                    "B": 0,
-                    "A": 199
-                  },
-                  "fontStyle": 0,
-                  "fontWeight": 400,
-                  "underlined": false,
-                  "fontSize": 13.1065989
-                },
-                {
-                  "text": "mandatory",
-                  "color": {
-                    "R": 255,
-                    "G": 255,
-                    "B": 0,
-                    "A": 199
-                  },
-                  "fontStyle": 0,
-                  "fontWeight": 400,
-                  "underlined": false,
-                  "fontSize": 13.1065989
-                }
-              ],
-              "lineHeight": 23
-            },
-            {
-              "wordsList": [
-                {
-                  "text": "Show",
-                  "color": {
-                    "R": 0,
-                    "G": 255,
-                    "B": 0,
-                    "A": 199
-                  },
-                  "fontStyle": 0,
-                  "fontWeight": 400,
-                  "underlined": false,
-                  "fontSize": 13.1065989
-                },
-                {
-                  "text": "info",
-                  "color": {
-                    "R": 0,
-                    "G": 255,
-                    "B": 0,
-                    "A": 199
-                  },
-                  "fontStyle": 0,
-                  "fontWeight": 400,
-                  "underlined": false,
-                  "fontSize": 13.1065989
-                },
-                {
-                  "text": "about",
-                  "color": {
-                    "R": 0,
-                    "G": 255,
-                    "B": 0,
-                    "A": 199
-                  },
-                  "fontStyle": 0,
-                  "fontWeight": 400,
-                  "underlined": false,
-                  "fontSize": 13.1065989
-                }
-              ],
-              "lineHeight": 23
-            },
-            {
-              "wordsList": [
-                {
-                  "text": "interaction",
-                  "color": {
-                    "R": 0,
-                    "G": 255,
-                    "B": 0,
-                    "A": 199
-                  },
-                  "fontStyle": 0,
-                  "fontWeight": 400,
-                  "underlined": false,
-                  "fontSize": 13.1065989
-                },
-                {
-                  "text": "state",
-                  "color": {
-                    "R": 0,
-                    "G": 255,
-                    "B": 0,
-                    "A": 199
-                  },
-                  "fontStyle": 0,
-                  "fontWeight": 400,
-                  "underlined": false,
-                  "fontSize": 13.1065989
-                },
-                {
-                  "text": "of",
-                  "color": {
-                    "R": 0,
-                    "G": 255,
-                    "B": 0,
-                    "A": 199
-                  },
-                  "fontStyle": 0,
-                  "fontWeight": 400,
-                  "underlined": false,
-                  "fontSize": 13.1065989
-                },
-                {
-                  "text": "NPC",
-                  "color": {
-                    "R": 0,
-                    "G": 255,
-                    "B": 0,
-                    "A": 199
-                  },
-                  "fontStyle": 0,
-                  "fontWeight": 400,
-                  "underlined": false,
-                  "fontSize": 13.1065989
-                }
-              ],
-              "lineHeight": 23
-            },
-            {
-              "wordsList": [
-                {
-                  "text": "and",
-                  "color": {
-                    "R": 0,
-                    "G": 255,
-                    "B": 0,
-                    "A": 199
-                  },
-                  "fontStyle": 0,
-                  "fontWeight": 400,
-                  "underlined": false,
-                  "fontSize": 13.1065989
-                },
-                {
-                  "text": "creatures",
-                  "color": {
-                    "R": 0,
-                    "G": 255,
-                    "B": 0,
-                    "A": 199
-                  },
-                  "fontStyle": 0,
-                  "fontWeight": 400,
-                  "underlined": false,
-                  "fontSize": 13.1065989
-                },
-                {
-                  "text": "turned",
-                  "color": {
-                    "R": 0,
-                    "G": 255,
-                    "B": 0,
-                    "A": 199
-                  },
-                  "fontStyle": 0,
-                  "fontWeight": 400,
-                  "underlined": false,
-                  "fontSize": 13.1065989
-                },
-                {
-                  "text": "OFF",
-                  "color": {
-                    "R": 0,
-                    "G": 255,
-                    "B": 0,
-                    "A": 199
-                  },
-                  "fontStyle": 0,
-                  "fontWeight": 400,
-                  "underlined": false,
-                  "fontSize": 13.1065989
-                }
-              ],
-              "lineHeight": 23
-            },
-            {
-              "wordsList": [
-                {
-                  "text": "Normal",
-                  "color": {
-                    "R": 0,
-                    "G": 255,
-                    "B": 0,
-                    "A": 199
-                  },
-                  "fontStyle": 0,
-                  "fontWeight": 400,
-                  "underlined": false,
-                  "fontSize": 13.1065989
-                },
-                {
-                  "text": "move",
-                  "color": {
-                    "R": 0,
-                    "G": 255,
-                    "B": 0,
-                    "A": 199
-                  },
-                  "fontStyle": 0,
-                  "fontWeight": 400,
-                  "underlined": false,
-                  "fontSize": 13.1065989
-                },
-                {
-                  "text": "gv.mode:",
-                  "color": {
-                    "R": 0,
-                    "G": 255,
-                    "B": 0,
-                    "A": 199
-                  },
-                  "fontStyle": 0,
-                  "fontWeight": 400,
-                  "underlined": false,
-                  "fontSize": 13.1065989
-                }
-              ],
-              "lineHeight": 23
-            },
-            {
-              "wordsList": [
-                {
-                  "text": "party",
-                  "color": {
-                    "R": 0,
-                    "G": 255,
-                    "B": 0,
-                    "A": 199
-                  },
-                  "fontStyle": 0,
-                  "fontWeight": 400,
-                  "underlined": false,
-                  "fontSize": 13.1065989
-                },
-                {
-                  "text": "does",
-                  "color": {
-                    "R": 0,
-                    "G": 255,
-                    "B": 0,
-                    "A": 199
-                  },
-                  "fontStyle": 0,
-                  "fontWeight": 400,
-                  "underlined": false,
-                  "fontSize": 13.1065989
-                },
-                {
-                  "text": "all",
-                  "color": {
-                    "R": 0,
-                    "G": 255,
-                    "B": 0,
-                    "A": 199
-                  },
-                  "fontStyle": 0,
-                  "fontWeight": 400,
-                  "underlined": false,
-                  "fontSize": 13.1065989
-                },
-                {
-                  "text": "possible",
-                  "color": {
-                    "R": 0,
-                    "G": 255,
-                    "B": 0,
-                    "A": 199
-                  },
-                  "fontStyle": 0,
-                  "fontWeight": 400,
-                  "underlined": false,
-                  "fontSize": 13.1065989
-                }
-              ],
-              "lineHeight": 23
-            },
-            {
-              "wordsList": [
-                {
-                  "text": "conversations",
-                  "color": {
-                    "R": 0,
-                    "G": 255,
-                    "B": 0,
-                    "A": 199
-                  },
-                  "fontStyle": 0,
-                  "fontWeight": 400,
-                  "underlined": false,
-                  "fontSize": 13.1065989
-                }
-              ],
-              "lineHeight": 23
-            },
-            {
-              "wordsList": [
-                {
-                  "text": "screenDensity:",
-                  "color": {
-                    "R": 255,
-                    "G": 0,
-                    "B": 0,
-                    "A": 199
-                  },
-                  "fontStyle": 0,
-                  "fontWeight": 400,
-                  "underlined": false,
-                  "fontSize": 13.1065989
-                },
-                {
-                  "text": "0,71",
-                  "color": {
-                    "R": 255,
-                    "G": 0,
-                    "B": 0,
-                    "A": 199
-                  },
-                  "fontStyle": 0,
-                  "fontWeight": 400,
-                  "underlined": false,
-                  "fontSize": 13.1065989
-                }
-              ],
-              "lineHeight": 23
-            },
-            {
-              "wordsList": [
-                {
-                  "text": "screenWidth:",
-                  "color": {
-                    "R": 255,
-                    "G": 0,
-                    "B": 255,
-                    "A": 199
-                  },
-                  "fontStyle": 0,
-                  "fontWeight": 400,
-                  "underlined": false,
-                  "fontSize": 13.1065989
-                },
-                {
-                  "text": "1366",
-                  "color": {
-                    "R": 255,
-                    "G": 0,
-                    "B": 255,
-                    "A": 199
-                  },
-                  "fontStyle": 0,
-                  "fontWeight": 400,
-                  "underlined": false,
-                  "fontSize": 13.1065989
-                }
-              ],
-              "lineHeight": 23
-            },
-            {
-              "wordsList": [
-                {
-                  "text": "screenHeight:",
-                  "color": {
-                    "R": 0,
-                    "G": 255,
-                    "B": 0,
-                    "A": 199
-                  },
-                  "fontStyle": 0,
-                  "fontWeight": 400,
-                  "underlined": false,
-                  "fontSize": 13.1065989
-                },
-                {
-                  "text": "768",
-                  "color": {
-                    "R": 0,
-                    "G": 255,
-                    "B": 0,
-                    "A": 199
-                  },
-                  "fontStyle": 0,
-                  "fontWeight": 400,
-                  "underlined": false,
-                  "fontSize": 13.1065989
-                }
-              ],
-              "lineHeight": 23
-            },
-            {
-              "wordsList": [
-                {
-                  "text": "squareSize:",
-                  "color": {
-                    "R": 255,
-                    "G": 255,
-                    "B": 0,
-                    "A": 199
-                  },
-                  "fontStyle": 0,
-                  "fontWeight": 400,
-                  "underlined": false,
-                  "fontSize": 13.1065989
-                },
-                {
-                  "text": "71",
-                  "color": {
-                    "R": 255,
-                    "G": 255,
-                    "B": 0,
-                    "A": 199
-                  },
-                  "fontStyle": 0,
-                  "fontWeight": 400,
-                  "underlined": false,
-                  "fontSize": 13.1065989
-                }
-              ],
-              "lineHeight": 23
-            },
-            {
-              "wordsList": [
-                {
-                  "text": "sqrW:",
-                  "color": {
-                    "R": 255,
-                    "G": 255,
-                    "B": 0,
-                    "A": 199
-                  },
-                  "fontStyle": 0,
-                  "fontWeight": 400,
-                  "underlined": false,
-                  "fontSize": 13.1065989
-                },
-                {
-                  "text": "71,14583",
-                  "color": {
-                    "R": 255,
-                    "G": 255,
-                    "B": 0,
-                    "A": 199
-                  },
-                  "fontStyle": 0,
-                  "fontWeight": 400,
-                  "underlined": false,
-                  "fontSize": 13.1065989
-                }
-              ],
-              "lineHeight": 23
-            },
-            {
-              "wordsList": [
-                {
-                  "text": "sqrH:",
-                  "color": {
-                    "R": 255,
-                    "G": 255,
-                    "B": 0,
-                    "A": 199
-                  },
-                  "fontStyle": 0,
-                  "fontWeight": 400,
-                  "underlined": false,
-                  "fontSize": 13.1065989
-                },
-                {
-                  "text": "74,5631",
-                  "color": {
-                    "R": 255,
-                    "G": 255,
-                    "B": 0,
-                    "A": 199
-                  },
-                  "fontStyle": 0,
-                  "fontWeight": 400,
-                  "underlined": false,
-                  "fontSize": 13.1065989
-                }
-              ],
-              "lineHeight": 23
-            },
-            {
-              "wordsList": [],
-              "lineHeight": 0
-            },
-            {
-              "wordsList": [
-                {
-                  "text": "Welcome",
-                  "color": {
-                    "R": 255,
-                    "G": 0,
-                    "B": 0,
-                    "A": 199
-                  },
-                  "fontStyle": 0,
-                  "fontWeight": 400,
-                  "underlined": false,
-                  "fontSize": 13.1065989
-                },
-                {
-                  "text": "to",
-                  "color": {
-                    "R": 255,
-                    "G": 0,
-                    "B": 0,
-                    "A": 199
-                  },
-                  "fontStyle": 0,
-                  "fontWeight": 400,
-                  "underlined": false,
-                  "fontSize": 13.1065989
-                },
-                {
-                  "text": "Unwanted",
-                  "color": {
-                    "R": 255,
-                    "G": 0,
-                    "B": 0,
-                    "A": 199
-                  },
-                  "fontStyle": 0,
-                  "fontWeight": 400,
-                  "underlined": false,
-                  "fontSize": 13.1065989
-                }
-              ],
-              "lineHeight": 23
-            },
-            {
-              "wordsList": [
-                {
-                  "text": "Guests",
-                  "color": {
-                    "R": 255,
-                    "G": 0,
-                    "B": 0,
-                    "A": 199
-                  },
-                  "fontStyle": 0,
-                  "fontWeight": 400,
-                  "underlined": false,
-                  "fontSize": 13.1065989
-                }
-              ],
-              "lineHeight": 23
-            },
-            {
-              "wordsList": [
-                {
-                  "text": "You",
-                  "color": {
-                    "R": 255,
-                    "G": 0,
-                    "B": 255,
-                    "A": 199
-                  },
-                  "fontStyle": 0,
-                  "fontWeight": 400,
-                  "underlined": false,
-                  "fontSize": 13.1065989
-                },
-                {
-                  "text": "can",
-                  "color": {
-                    "R": 255,
-                    "G": 0,
-                    "B": 255,
-                    "A": 199
-                  },
-                  "fontStyle": 0,
-                  "fontWeight": 400,
-                  "underlined": false,
-                  "fontSize": 13.1065989
-                },
-                {
-                  "text": "scroll",
-                  "color": {
-                    "R": 255,
-                    "G": 0,
-                    "B": 255,
-                    "A": 199
-                  },
-                  "fontStyle": 0,
-                  "fontWeight": 400,
-                  "underlined": false,
-                  "fontSize": 13.1065989
-                },
-                {
-                  "text": "this",
-                  "color": {
-                    "R": 255,
-                    "G": 0,
-                    "B": 255,
-                    "A": 199
-                  },
-                  "fontStyle": 0,
-                  "fontWeight": 400,
-                  "underlined": false,
-                  "fontSize": 13.1065989
-                }
-              ],
-              "lineHeight": 23
-            },
-            {
-              "wordsList": [
-                {
-                  "text": "message",
-                  "color": {
-                    "R": 255,
-                    "G": 0,
-                    "B": 255,
-                    "A": 199
-                  },
-                  "fontStyle": 0,
-                  "fontWeight": 400,
-                  "underlined": false,
-                  "fontSize": 13.1065989
-                },
-                {
-                  "text": "log",
-                  "color": {
-                    "R": 255,
-                    "G": 0,
-                    "B": 255,
-                    "A": 199
-                  },
-                  "fontStyle": 0,
-                  "fontWeight": 400,
-                  "underlined": false,
-                  "fontSize": 13.1065989
-                },
-                {
-                  "text": "box,",
-                  "color": {
-                    "R": 255,
-                    "G": 0,
-                    "B": 255,
-                    "A": 199
-                  },
-                  "fontStyle": 0,
-                  "fontWeight": 400,
-                  "underlined": false,
-                  "fontSize": 13.1065989
-                },
-                {
-                  "text": "use",
-                  "color": {
-                    "R": 255,
-                    "G": 0,
-                    "B": 255,
-                    "A": 199
-                  },
-                  "fontStyle": 0,
-                  "fontWeight": 400,
-                  "underlined": false,
-                  "fontSize": 13.1065989
-                }
-              ],
-              "lineHeight": 23
-            },
-            {
-              "wordsList": [
-                {
-                  "text": "mouse",
-                  "color": {
-                    "R": 255,
-                    "G": 0,
-                    "B": 255,
-                    "A": 199
-                  },
-                  "fontStyle": 0,
-                  "fontWeight": 400,
-                  "underlined": false,
-                  "fontSize": 13.1065989
-                },
-                {
-                  "text": "wheel",
-                  "color": {
-                    "R": 255,
-                    "G": 0,
-                    "B": 255,
-                    "A": 199
-                  },
-                  "fontStyle": 0,
-                  "fontWeight": 400,
-                  "underlined": false,
-                  "fontSize": 13.1065989
-                }
-              ],
-              "lineHeight": 23
-            },
-            {
-              "wordsList": [
-                {
-                  "text": "'x'",
-                  "color": {
-                    "R": 255,
-                    "G": 255,
-                    "B": 0,
-                    "A": 199
-                  },
-                  "fontStyle": 0,
-                  "fontWeight": 400,
-                  "underlined": false,
-                  "fontSize": 13.1065989
-                },
-                {
-                  "text": "will",
-                  "color": {
-                    "R": 255,
-                    "G": 255,
-                    "B": 0,
-                    "A": 199
-                  },
-                  "fontStyle": 0,
-                  "fontWeight": 400,
-                  "underlined": false,
-                  "fontSize": 13.1065989
-                },
-                {
-                  "text": "hide/show",
-                  "color": {
-                    "R": 255,
-                    "G": 255,
-                    "B": 0,
-                    "A": 199
-                  },
-                  "fontStyle": 0,
-                  "fontWeight": 400,
-                  "underlined": false,
-                  "fontSize": 13.1065989
-                },
-                {
-                  "text": "all",
-                  "color": {
-                    "R": 255,
-                    "G": 255,
-                    "B": 0,
-                    "A": 199
-                  },
-                  "fontStyle": 0,
-                  "fontWeight": 400,
-                  "underlined": false,
-                  "fontSize": 13.1065989
-                },
-                {
-                  "text": "UI",
-                  "color": {
-                    "R": 255,
-                    "G": 255,
-                    "B": 0,
-                    "A": 199
-                  },
-                  "fontStyle": 0,
-                  "fontWeight": 400,
-                  "underlined": false,
-                  "fontSize": 13.1065989
-                }
-              ],
-              "lineHeight": 23
-            },
-            {
-              "wordsList": [
-                {
-                  "text": "panels",
-                  "color": {
-                    "R": 255,
-                    "G": 255,
-                    "B": 0,
-                    "A": 199
-                  },
-                  "fontStyle": 0,
-                  "fontWeight": 400,
-                  "underlined": false,
-                  "fontSize": 13.1065989
-                }
-              ],
-              "lineHeight": 23
-            }
-          ],
-          "currentTopLineIndex": 42,
           "numberOfLinesToShow": 24,
           "xLoc": 0.0,
           "startY": 0,
@@ -2530,13 +79,14 @@
         {
           "tag": "port0",
           "ImgBGFilename": "item_slot",
-          "ImgFilename": "M0112_L",
+          "ImgFilename": "ElfArcherMale_L",
           "ImgLUFilename": "btnLevelUpPlus",
           "GlowFilename": "btn_ptr_glow",
-          "glowOn": true,
+          "glowOn": false,
           "levelUpOn": false,
-          "TextHP": "10/10",
-          "TextSP": "0/3",
+          "TextHP": "9/13",
+          "TextSP": "6/10",
+          "levelUpSymbol": "+",
           "X": 13,
           "Y": 15,
           "Width": 91,
@@ -2548,92 +98,97 @@
         {
           "tag": "port1",
           "ImgBGFilename": "item_slot",
-          "ImgFilename": "ptr_adela",
+          "ImgFilename": "DwarfThiefMale_L",
           "ImgLUFilename": "btnLevelUpPlus",
           "GlowFilename": "btn_ptr_glow",
           "glowOn": false,
           "levelUpOn": false,
-          "TextHP": "",
-          "TextSP": "",
+          "TextHP": "7/9",
+          "TextSP": "6/10",
+          "levelUpSymbol": "+",
           "X": 13,
           "Y": 165,
           "Width": 91,
           "Height": 140,
           "scaler": 0.8,
           "playedHoverSound": false,
-          "show": false
+          "show": true
         },
         {
           "tag": "port2",
           "ImgBGFilename": "item_slot",
-          "ImgFilename": "ptr_adela",
+          "ImgFilename": "M0112_L",
           "ImgLUFilename": "btnLevelUpPlus",
           "GlowFilename": "btn_ptr_glow",
           "glowOn": false,
           "levelUpOn": false,
-          "TextHP": "",
-          "TextSP": "",
+          "TextHP": "6/10",
+          "TextSP": "3/5",
+          "levelUpSymbol": "+",
           "X": 13,
           "Y": 315,
           "Width": 91,
           "Height": 140,
           "scaler": 0.6,
           "playedHoverSound": false,
-          "show": false
+          "show": true
         },
         {
           "tag": "port3",
           "ImgBGFilename": "item_slot",
-          "ImgFilename": "ptr_adela",
+          "ImgFilename": "DwarfThiefMale2_L",
           "ImgLUFilename": "btnLevelUpPlus",
           "GlowFilename": "btn_ptr_glow",
-          "glowOn": false,
+          "glowOn": true,
           "levelUpOn": false,
-          "TextHP": "",
-          "TextSP": "",
+          "TextHP": "42/70",
+          "TextSP": "138/230",
+          "levelUpSymbol": "+",
           "X": 13,
           "Y": 465,
           "Width": 91,
           "Height": 140,
           "scaler": 0.8,
           "playedHoverSound": false,
-          "show": false
+          "show": true
         },
         {
           "tag": "port4",
           "ImgBGFilename": "item_slot",
-          "ImgFilename": "ptr_adela",
+          "ImgFilename": "ElfFighterMale_L",
           "ImgLUFilename": "btnLevelUpPlus",
           "GlowFilename": "btn_ptr_glow",
           "glowOn": false,
           "levelUpOn": false,
-          "TextHP": "",
-          "TextSP": "",
+          "TextHP": "30/50",
+          "TextSP": "138/230",
+          "levelUpSymbol": "+",
           "X": 13,
           "Y": 615,
           "Width": 91,
           "Height": 140,
           "scaler": 0.8,
           "playedHoverSound": false,
-          "show": false
+          "show": true
         },
         {
           "tag": "port5",
           "ImgBGFilename": "item_slot",
-          "ImgFilename": "ptr_adela",
+          "ImgFilename": "DwarfClericFemale_L",
           "ImgLUFilename": "btnLevelUpPlus",
           "GlowFilename": "btn_ptr_glow",
           "glowOn": false,
           "levelUpOn": false,
-          "TextHP": "888/888",
-          "TextSP": "999/999",
+          "TextHP": "36/60",
+          "TextSP": "126/210",
+          "levelUpSymbol": "+",
           "X": 13,
           "Y": 765,
           "Width": 91,
           "Height": 140,
           "scaler": 0.8,
           "playedHoverSound": false,
-          "show": false
+          "show": true
         }
       ],
       "logList": []
@@ -2646,7 +201,7 @@
       "shownLocX": 25,
       "shownLocY": 910,
       "currentLocX": 25,
-      "currentLocY": 909,
+      "currentLocY": 910,
       "hiddenLocX": 5,
       "hiddenLocY": 1080,
       "hidingXIncrement": 0,
@@ -2689,7 +244,7 @@
           "GlowFilename": "btn_small_glow",
           "btnState": "Normal",
           "btnNotificationOn": false,
-          "glowOn": false,
+          "glowOn": true,
           "Text": "",
           "Quantity": "",
           "HotKey": "I",
@@ -2716,7 +271,7 @@
           "glowOn": false,
           "Text": "",
           "Quantity": "",
-          "HotKey": "I",
+          "HotKey": "J",
           "X": 900,
           "Y": 10,
           "IBScript": "none",
@@ -2731,17 +286,17 @@
           "ImgFilename": "btn_small",
           "ImgOffFilename": "btn_small_off",
           "ImgOnFilename": "btn_small_on",
-          "Img2Filename": "btnsettings",
+          "Img2Filename": "",
           "Img2OffFilename": "",
           "Img3Filename": "",
           "GlowFilename": "btn_small_glow",
           "btnState": "Normal",
           "btnNotificationOn": false,
           "glowOn": false,
-          "Text": "",
+          "Text": "Exit",
           "Quantity": "",
-          "HotKey": "I",
-          "X": 1000,
+          "HotKey": "",
+          "X": 1300,
           "Y": 10,
           "IBScript": "none",
           "Width": 100,
@@ -2765,7 +320,7 @@
           "Text": "",
           "Quantity": "",
           "HotKey": "C",
-          "X": 1100,
+          "X": 1000,
           "Y": 10,
           "IBScript": "none",
           "Width": 100,
@@ -2788,8 +343,8 @@
           "glowOn": false,
           "Text": "",
           "Quantity": "",
-          "HotKey": "T",
-          "X": 1200,
+          "HotKey": "U",
+          "X": 1100,
           "Y": 10,
           "IBScript": "none",
           "Width": 100,
@@ -2809,17 +364,17 @@
           "GlowFilename": "btn_small_glow",
           "btnState": "Normal",
           "btnNotificationOn": false,
-          "glowOn": true,
+          "glowOn": false,
           "Text": "",
           "Quantity": "",
-          "HotKey": "Q",
-          "X": 1300,
+          "HotKey": "M",
+          "X": 1200,
           "Y": 10,
           "IBScript": "none",
           "Width": 100,
           "Height": 100,
           "scaler": 1.0,
-          "playedHoverSound": true,
+          "playedHoverSound": false,
           "show": true
         }
       ],
@@ -2900,8 +455,353 @@
           "Width": 50,
           "Height": 50,
           "show": false
+        },
+{
+          "tag": "tglMoveKeys",
+          "ImgOnFilename": "tgl_moveKeys_on",
+          "ImgOffFilename": "tgl_moveKeys_off",
+          "toggleOn": true,
+          "X": 380,
+          "Y": 25,
+          "Width": 50,
+          "Height": 50,
+          "show": true
         }
       ],
+      "portraitList": [],
+      "logList": []
+    },
+{
+      "tag": "TraitsPanel",
+      "backgroundImageFilename": "",
+      "hiding": false,
+      "showing": false,
+      "shownLocX": 25,
+      "shownLocY": 0,
+      "currentLocX": 25,
+      "currentLocY": 0,
+      "hiddenLocX": 25,
+      "hiddenLocY": -150,
+      "hidingXIncrement": 0,
+      "hidingYIncrement": -1,
+      "Width": 1790,
+      "Height": 120,
+      "buttonList": [
+        {
+          "tag": "btn1",
+          "ImgFilename": "btn_small",
+          "ImgOffFilename": "btn_small_off",
+          "ImgOnFilename": "btn_small_on",
+          "Img2Filename": "btnparty",
+          "Img2OffFilename": "",
+          "Img3Filename": "",
+          "GlowFilename": "btn_small_glow",
+          "btnState": "Normal",
+          "btnNotificationOn": false,
+          "glowOn": false,
+          "Text": "",
+          "Quantity": "",
+          "HotKey": "",
+          "X": 1675,
+          "Y": 10,
+          "IBScript": "none",
+          "Width": 100,
+          "Height": 100,
+          "scaler": 1.0,
+          "playedHoverSound": false,
+          "show": false
+        },
+{
+          "tag": "btn2",
+          "ImgFilename": "btn_small",
+          "ImgOffFilename": "btn_small_off",
+          "ImgOnFilename": "btn_small_on",
+          "Img2Filename": "btnparty",
+          "Img2OffFilename": "",
+          "Img3Filename": "",
+          "GlowFilename": "btn_small_glow",
+          "btnState": "Normal",
+          "btnNotificationOn": false,
+          "glowOn": false,
+          "Text": "",
+          "Quantity": "",
+          "HotKey": "",
+          "X": 1575,
+          "Y": 10,
+          "IBScript": "none",
+          "Width": 100,
+          "Height": 100,
+          "scaler": 1.0,
+          "playedHoverSound": false,
+          "show": false
+        },
+{
+          "tag": "btn3",
+          "ImgFilename": "btn_small",
+          "ImgOffFilename": "btn_small_off",
+          "ImgOnFilename": "btn_small_on",
+          "Img2Filename": "btnparty",
+          "Img2OffFilename": "",
+          "Img3Filename": "",
+          "GlowFilename": "btn_small_glow",
+          "btnState": "Normal",
+          "btnNotificationOn": false,
+          "glowOn": false,
+          "Text": "",
+          "Quantity": "",
+          "HotKey": "",
+          "X": 1475,
+          "Y": 10,
+          "IBScript": "none",
+          "Width": 100,
+          "Height": 100,
+          "scaler": 1.0,
+          "playedHoverSound": false,
+          "show": false
+        },
+{
+          "tag": "btn4",
+          "ImgFilename": "btn_small",
+          "ImgOffFilename": "btn_small_off",
+          "ImgOnFilename": "btn_small_on",
+          "Img2Filename": "btnparty",
+          "Img2OffFilename": "",
+          "Img3Filename": "",
+          "GlowFilename": "btn_small_glow",
+          "btnState": "Normal",
+          "btnNotificationOn": false,
+          "glowOn": false,
+          "Text": "",
+          "Quantity": "",
+          "HotKey": "",
+          "X": 1375,
+          "Y": 10,
+          "IBScript": "none",
+          "Width": 100,
+          "Height": 100,
+          "scaler": 1.0,
+          "playedHoverSound": false,
+          "show": false
+        },
+{
+          "tag": "btn5",
+          "ImgFilename": "btn_small",
+          "ImgOffFilename": "btn_small_off",
+          "ImgOnFilename": "btn_small_on",
+          "Img2Filename": "btnparty",
+          "Img2OffFilename": "",
+          "Img3Filename": "",
+          "GlowFilename": "btn_small_glow",
+          "btnState": "Normal",
+          "btnNotificationOn": false,
+          "glowOn": false,
+          "Text": "",
+          "Quantity": "",
+          "HotKey": "",
+          "X": 1275,
+          "Y": 10,
+          "IBScript": "none",
+          "Width": 100,
+          "Height": 100,
+          "scaler": 1.0,
+          "playedHoverSound": false,
+          "show": false
+        },
+{
+          "tag": "btn6",
+          "ImgFilename": "btn_small",
+          "ImgOffFilename": "btn_small_off",
+          "ImgOnFilename": "btn_small_on",
+          "Img2Filename": "btnparty",
+          "Img2OffFilename": "",
+          "Img3Filename": "",
+          "GlowFilename": "btn_small_glow",
+          "btnState": "Normal",
+          "btnNotificationOn": false,
+          "glowOn": false,
+          "Text": "",
+          "Quantity": "",
+          "HotKey": "",
+          "X": 1175,
+          "Y": 10,
+          "IBScript": "none",
+          "Width": 100,
+          "Height": 100,
+          "scaler": 1.0,
+          "playedHoverSound": false,
+          "show": false
+        },
+{
+          "tag": "btn7",
+          "ImgFilename": "btn_small",
+          "ImgOffFilename": "btn_small_off",
+          "ImgOnFilename": "btn_small_on",
+          "Img2Filename": "btnparty",
+          "Img2OffFilename": "",
+          "Img3Filename": "",
+          "GlowFilename": "btn_small_glow",
+          "btnState": "Normal",
+          "btnNotificationOn": false,
+          "glowOn": false,
+          "Text": "",
+          "Quantity": "",
+          "HotKey": "",
+          "X": 1075,
+          "Y": 10,
+          "IBScript": "none",
+          "Width": 100,
+          "Height": 100,
+          "scaler": 1.0,
+          "playedHoverSound": false,
+          "show": false
+        },
+{
+          "tag": "btn8",
+          "ImgFilename": "btn_small",
+          "ImgOffFilename": "btn_small_off",
+          "ImgOnFilename": "btn_small_on",
+          "Img2Filename": "btnparty",
+          "Img2OffFilename": "",
+          "Img3Filename": "",
+          "GlowFilename": "btn_small_glow",
+          "btnState": "Normal",
+          "btnNotificationOn": false,
+          "glowOn": false,
+          "Text": "",
+          "Quantity": "",
+          "HotKey": "",
+          "X": 975,
+          "Y": 10,
+          "IBScript": "none",
+          "Width": 100,
+          "Height": 100,
+          "scaler": 1.0,
+          "playedHoverSound": false,
+          "show": false
+        },
+{
+          "tag": "btn9",
+          "ImgFilename": "btn_small",
+          "ImgOffFilename": "btn_small_off",
+          "ImgOnFilename": "btn_small_on",
+          "Img2Filename": "btnparty",
+          "Img2OffFilename": "",
+          "Img3Filename": "",
+          "GlowFilename": "btn_small_glow",
+          "btnState": "Normal",
+          "btnNotificationOn": false,
+          "glowOn": false,
+          "Text": "",
+          "Quantity": "",
+          "HotKey": "",
+          "X": 875,
+          "Y": 10,
+          "IBScript": "none",
+          "Width": 100,
+          "Height": 100,
+          "scaler": 1.0,
+          "playedHoverSound": false,
+          "show": false
+        },
+{
+          "tag": "btn10",
+          "ImgFilename": "btn_small",
+          "ImgOffFilename": "btn_small_off",
+          "ImgOnFilename": "btn_small_on",
+          "Img2Filename": "btnparty",
+          "Img2OffFilename": "",
+          "Img3Filename": "",
+          "GlowFilename": "btn_small_glow",
+          "btnState": "Normal",
+          "btnNotificationOn": false,
+          "glowOn": false,
+          "Text": "",
+          "Quantity": "",
+          "HotKey": "",
+          "X": 775,
+          "Y": 10,
+          "IBScript": "none",
+          "Width": 100,
+          "Height": 100,
+          "scaler": 1.0,
+          "playedHoverSound": false,
+          "show": false
+        },
+{
+          "tag": "btn11",
+          "ImgFilename": "btn_small",
+          "ImgOffFilename": "btn_small_off",
+          "ImgOnFilename": "btn_small_on",
+          "Img2Filename": "btnparty",
+          "Img2OffFilename": "",
+          "Img3Filename": "",
+          "GlowFilename": "btn_small_glow",
+          "btnState": "Normal",
+          "btnNotificationOn": false,
+          "glowOn": false,
+          "Text": "",
+          "Quantity": "",
+          "HotKey": "",
+          "X": 675,
+          "Y": 10,
+          "IBScript": "none",
+          "Width": 100,
+          "Height": 100,
+          "scaler": 1.0,
+          "playedHoverSound": false,
+          "show": false
+        },
+{
+          "tag": "btn12",
+          "ImgFilename": "btn_small",
+          "ImgOffFilename": "btn_small_off",
+          "ImgOnFilename": "btn_small_on",
+          "Img2Filename": "btnparty",
+          "Img2OffFilename": "",
+          "Img3Filename": "",
+          "GlowFilename": "btn_small_glow",
+          "btnState": "Normal",
+          "btnNotificationOn": false,
+          "glowOn": false,
+          "Text": "",
+          "Quantity": "",
+          "HotKey": "",
+          "X": 575,
+          "Y": 10,
+          "IBScript": "none",
+          "Width": 100,
+          "Height": 100,
+          "scaler": 1.0,
+          "playedHoverSound": false,
+          "show": false
+        },
+{
+          "tag": "btn13",
+          "ImgFilename": "btn_small",
+          "ImgOffFilename": "btn_small_off",
+          "ImgOnFilename": "btn_small_on",
+          "Img2Filename": "btnparty",
+          "Img2OffFilename": "",
+          "Img3Filename": "",
+          "GlowFilename": "btn_small_glow",
+          "btnState": "Normal",
+          "btnNotificationOn": false,
+          "glowOn": false,
+          "Text": "",
+          "Quantity": "",
+          "HotKey": "",
+          "X": 475,
+          "Y": 10,
+          "IBScript": "none",
+          "Width": 100,
+          "Height": 100,
+          "scaler": 1.0,
+          "playedHoverSound": false,
+          "show": false
+        }
+        
+      ],
+      "toggleList": [],
       "portraitList": [],
       "logList": []
     },
@@ -3029,7 +929,7 @@
           "btnState": "Normal",
           "btnNotificationOn": false,
           "glowOn": false,
-          "Text": "WAIT",
+          "Text": "Search",
           "Quantity": "",
           "HotKey": "",
           "X": 105,

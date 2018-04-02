@@ -14,6 +14,9 @@ namespace IceBlink2
     public class Module
     {
 
+        public bool noRimLights = false;
+        public bool blendOutTooHighAndTooDeepTiles = false;
+
         public bool activeSearchDoneThisMove = false;
         public bool activeSearchSPCostPaidByByLeaderOnly = true;
         public int activeSearchSPCost = 1;
@@ -83,7 +86,7 @@ namespace IceBlink2
         public int numberOfPlayerMadePcsAllowed = 1;
         public int numberOfPlayerMadePcsRequired = 1;
         public int MaxPartySize = 6;
-        public int requiredPartySize = 0;
+        //public int requiredPartySize = 0;
         public string moduleDescription = "";
         public string moduleCredits = "";
         public int nextIdNumber = 100;

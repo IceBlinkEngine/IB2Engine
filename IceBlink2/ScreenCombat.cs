@@ -5994,6 +5994,13 @@ namespace IceBlink2
             drawHPText();
             drawSPText();
             drawFloatyTextList();
+
+            //draw hotkey text
+            if (gv.showHotKeys)
+            {
+                drawCombatHotKeys();
+            }
+
             //started work on iniative bar for creatures and pc
             if (showIniBar)
             {
@@ -6012,6 +6019,192 @@ namespace IceBlink2
                 }
             }
             drawUiLayout();
+        }
+
+        public void drawCombatHotKeys()
+        {
+            int txtH = (int)gv.drawFontRegHeight;
+            int lineCounter = 1;
+            for (int x = -2; x <= 2; x++)
+            {
+                for (int y = -2; y <= 2; y++)
+                {
+                    gv.DrawText("Show/Hide Hotkeys: H", new IbRect(x + gv.oXshift + (gv.playerOffsetY) * gv.squareSize - 4 * gv.pS, y + (gv.playerOffsetX - 8) * gv.squareSize + (int)(txtH * 1.25f * lineCounter) + (int)(3 * gv.pS), 1000, 100), 1.0f, Color.Black);
+                }
+            }
+            gv.DrawText("Show/Hide Hotkeys: H", new IbRect(gv.oXshift + (gv.playerOffsetY) * gv.squareSize - 4 * gv.pS, (gv.playerOffsetX - 8) * gv.squareSize + (int)(txtH * 1.25f * lineCounter) + (int)(3 * gv.pS), 1000, 100), 1.0f, Color.Red);
+            lineCounter++;
+
+            for (int x = -2; x <= 2; x++)
+            {
+                for (int y = -2; y <= 2; y++)
+                {
+                    gv.DrawText("Show/Hide Interface: X", new IbRect(x + gv.oXshift + (gv.playerOffsetY) * gv.squareSize - 4 * gv.pS, y + (gv.playerOffsetX - 8) * gv.squareSize + (int)(3 * gv.pS), 1000, 100), 1.0f, Color.Black);
+                }
+            }
+            gv.DrawText("Show/Hide Interface: X", new IbRect(gv.oXshift + (gv.playerOffsetY) * gv.squareSize - 4 * gv.pS, (gv.playerOffsetX - 8) * gv.squareSize + (int)(3 * gv.pS), 1000, 100), 1.0f, Color.Red);
+            //lineCounter++;
+
+            for (int x = -2; x <= 2; x++)
+            {
+                for (int y = -2; y <= 2; y++)
+                {
+                    gv.DrawText("Scroll log up: R / mouse wheel up", new IbRect(x + gv.oXshift + (gv.playerOffsetY) * gv.squareSize - 4 * gv.pS, y + (gv.playerOffsetX - 8) * gv.squareSize + (int)(txtH * 1.25f * lineCounter) + (int)(3 * gv.pS), 1000, 100), 1.0f, Color.Black);
+                }
+            }
+            gv.DrawText("Scroll log up: R / mouse wheel up", new IbRect(gv.oXshift + (gv.playerOffsetY) * gv.squareSize - 4 * gv.pS, (gv.playerOffsetX - 8) * gv.squareSize + (int)(txtH * 1.25f * lineCounter) + (int)(3 * gv.pS), 1000, 100), 1.0f, Color.Red);
+            lineCounter++;
+
+            for (int x = -2; x <= 2; x++)
+            {
+                for (int y = -2; y <= 2; y++)
+                {
+                    gv.DrawText("Scroll log down: F / mouse wheel down", new IbRect(x + gv.oXshift + (gv.playerOffsetY) * gv.squareSize - 4 * gv.pS, y + (gv.playerOffsetX - 8) * gv.squareSize + (int)(txtH * 1.25f * lineCounter) + (int)(3 * gv.pS), 1000, 100), 1.0f, Color.Black);
+                }
+            }
+            gv.DrawText("Scroll log down: F / mouse wheel down", new IbRect(gv.oXshift + (gv.playerOffsetY) * gv.squareSize - 4 * gv.pS, (gv.playerOffsetX - 8) * gv.squareSize + (int)(txtH * 1.25f * lineCounter) + (int)(3 * gv.pS), 1000, 100), 1.0f, Color.Red);
+            lineCounter++;
+
+            for (int x = -2; x <= 2; x++)
+            {
+                for (int y = -2; y <= 2; y++)
+                {
+                    gv.DrawText("Attack mode: K", new IbRect(x + gv.oXshift + (gv.playerOffsetY) * gv.squareSize - 4 * gv.pS, y + (gv.playerOffsetX - 8) * gv.squareSize + (int)(txtH * 1.25f * lineCounter) + (int)(3 * gv.pS), 1000, 100), 1.0f, Color.Black);
+                }
+            }
+            gv.DrawText("Attack mode: K", new IbRect(gv.oXshift + (gv.playerOffsetY) * gv.squareSize - 4 * gv.pS, (gv.playerOffsetX - 8) * gv.squareSize + (int)(txtH * 1.25f * lineCounter) + (int)(3 * gv.pS), 1000, 100), 1.0f, Color.Red);
+            lineCounter++;
+
+            for (int x = -2; x <= 2; x++)
+            {
+                for (int y = -2; y <= 2; y++)
+                {
+                    gv.DrawText("Move mode: M", new IbRect(x + gv.oXshift + (gv.playerOffsetY) * gv.squareSize - 4 * gv.pS, y + (gv.playerOffsetX - 8) * gv.squareSize + (int)(txtH * 1.25f * lineCounter) + (int)(3 * gv.pS), 1000, 100), 1.0f, Color.Black);
+                }
+            }
+            gv.DrawText("Move mode: M", new IbRect(gv.oXshift + (gv.playerOffsetY) * gv.squareSize - 4 * gv.pS, (gv.playerOffsetX - 8) * gv.squareSize + (int)(txtH * 1.25f * lineCounter) + (int)(3 * gv.pS), 1000, 100), 1.0f, Color.Red);
+            lineCounter++;
+
+
+            for (int x = -2; x <= 2; x++)
+            {
+                for (int y = -2; y <= 2; y++)
+                {
+                    gv.DrawText("Move up: Keypad8 / (W or arrow up)", new IbRect(x + gv.oXshift + (gv.playerOffsetY) * gv.squareSize - 4 * gv.pS, y + (gv.playerOffsetX - 8) * gv.squareSize + (int)(txtH * 1.25f * lineCounter) + (int)(3 * gv.pS), 1000, 100), 1.0f, Color.Black);
+                }
+            }
+            gv.DrawText("Move up: Keypad8 / (W or arrow up)", new IbRect(gv.oXshift + (gv.playerOffsetY) * gv.squareSize - 4 * gv.pS, (gv.playerOffsetX - 8) * gv.squareSize + (int)(txtH * 1.25f * lineCounter) + (int)(3 * gv.pS), 1000, 100), 1.0f, Color.Red);
+            lineCounter++;
+
+            for (int x = -2; x <= 2; x++)
+            {
+                for (int y = -2; y <= 2; y++)
+                {
+                    gv.DrawText("Move down: Keypad2 / (S or arrow down)", new IbRect(x + gv.oXshift + (gv.playerOffsetY) * gv.squareSize - 4 * gv.pS, y + (gv.playerOffsetX - 8) * gv.squareSize + (int)(txtH * 1.25f * lineCounter) + (int)(3 * gv.pS), 1000, 100), 1.0f, Color.Black);
+                }
+            }
+            gv.DrawText("Move down: Keypad2 / (S or arrow down)", new IbRect(gv.oXshift + (gv.playerOffsetY) * gv.squareSize - 4 * gv.pS, (gv.playerOffsetX - 8) * gv.squareSize + (int)(txtH * 1.25f * lineCounter) + (int)(3 * gv.pS), 1000, 100), 1.0f, Color.Red);
+            lineCounter++;
+
+            for (int x = -2; x <= 2; x++)
+            {
+                for (int y = -2; y <= 2; y++)
+                {
+                    gv.DrawText("Move right: Keypad6 / (D or arrow right)", new IbRect(x + gv.oXshift + (gv.playerOffsetY) * gv.squareSize - 4 * gv.pS, y + (gv.playerOffsetX - 8) * gv.squareSize + (int)(txtH * 1.25f * lineCounter) + (int)(3 * gv.pS), 1000, 100), 1.0f, Color.Black);
+                }
+            }
+            gv.DrawText("Move right: Keypad6 / (D or arrow right)", new IbRect(gv.oXshift + (gv.playerOffsetY) * gv.squareSize - 4 * gv.pS, (gv.playerOffsetX - 8) * gv.squareSize + (int)(txtH * 1.25f * lineCounter) + (int)(3 * gv.pS), 1000, 100), 1.0f, Color.Red);
+            lineCounter++;
+
+            for (int x = -2; x <= 2; x++)
+            {
+                for (int y = -2; y <= 2; y++)
+                {
+                    gv.DrawText("Move left: Keypad4 / (A or arrow left)", new IbRect(x + gv.oXshift + (gv.playerOffsetY) * gv.squareSize - 4 * gv.pS, y + (gv.playerOffsetX - 8) * gv.squareSize + (int)(txtH * 1.25f * lineCounter) + (int)(3 * gv.pS), 1000, 100), 1.0f, Color.Black);
+                }
+            }
+            gv.DrawText("Move left: Keypad4 / (A or arrow left)", new IbRect(gv.oXshift + (gv.playerOffsetY) * gv.squareSize - 4 * gv.pS, (gv.playerOffsetX - 8) * gv.squareSize + (int)(txtH * 1.25f * lineCounter) + (int)(3 * gv.pS), 1000, 100), 1.0f, Color.Red);
+            lineCounter++;
+
+            for (int x = -2; x <= 2; x++)
+            {
+                for (int y = -2; y <= 2; y++)
+                {
+                    gv.DrawText("Move diagonal up-left: Keypad7 / (Q)", new IbRect(x + gv.oXshift + (gv.playerOffsetY) * gv.squareSize - 4 * gv.pS, y + (gv.playerOffsetX - 8) * gv.squareSize + (int)(txtH * 1.25f * lineCounter) + (int)(3 * gv.pS), 1000, 100), 1.0f, Color.Black);
+                }
+            }
+            gv.DrawText("Move diagonal up-left: Keypad7 / (Q)", new IbRect(gv.oXshift + (gv.playerOffsetY) * gv.squareSize - 4 * gv.pS, (gv.playerOffsetX - 8) * gv.squareSize + (int)(txtH * 1.25f * lineCounter) + (int)(3 * gv.pS), 1000, 100), 1.0f, Color.Red);
+            lineCounter++;
+
+            for (int x = -2; x <= 2; x++)
+            {
+                for (int y = -2; y <= 2; y++)
+                {
+                    gv.DrawText("Move diagonal up-right: Keypad9 / (E)", new IbRect(x + gv.oXshift + (gv.playerOffsetY) * gv.squareSize - 4 * gv.pS, y + (gv.playerOffsetX - 8) * gv.squareSize + (int)(txtH * 1.25f * lineCounter) + (int)(3 * gv.pS), 1000, 100), 1.0f, Color.Black);
+                }
+            }
+            gv.DrawText("Move diagonal up-right: Keypad9 / (E)", new IbRect(gv.oXshift + (gv.playerOffsetY) * gv.squareSize - 4 * gv.pS, (gv.playerOffsetX - 8) * gv.squareSize + (int)(txtH * 1.25f * lineCounter) + (int)(3 * gv.pS), 1000, 100), 1.0f, Color.Red);
+            lineCounter++;
+
+            for (int x = -2; x <= 2; x++)
+            {
+                for (int y = -2; y <= 2; y++)
+                {
+                    gv.DrawText("Move diagonal bottom-left: Keypad1 / (Y,Z)", new IbRect(x + gv.oXshift + (gv.playerOffsetY) * gv.squareSize - 4 * gv.pS, y + (gv.playerOffsetX - 8) * gv.squareSize + (int)(txtH * 1.25f * lineCounter) + (int)(3 * gv.pS), 1000, 100), 1.0f, Color.Black);
+                }
+            }
+            gv.DrawText("Move diagonal bottom-left: Keypad1 / (Y,Z)", new IbRect(gv.oXshift + (gv.playerOffsetY) * gv.squareSize - 4 * gv.pS, (gv.playerOffsetX - 8) * gv.squareSize + (int)(txtH * 1.25f * lineCounter) + (int)(3 * gv.pS), 1000, 100), 1.0f, Color.Red);
+            lineCounter++;
+
+            for (int x = -2; x <= 2; x++)
+            {
+                for (int y = -2; y <= 2; y++)
+                {
+                    gv.DrawText("Move diagonal bottom-right: Keypad3 / (C)", new IbRect(x + gv.oXshift + (gv.playerOffsetY) * gv.squareSize - 4 * gv.pS, y + (gv.playerOffsetX - 8) * gv.squareSize + (int)(txtH * 1.25f * lineCounter) + (int)(3 * gv.pS), 1000, 100), 1.0f, Color.Black);
+                }
+            }
+            gv.DrawText("Move diagonal bottom-right: Keypad3 / (C)", new IbRect(gv.oXshift + (gv.playerOffsetY) * gv.squareSize - 4 * gv.pS, (gv.playerOffsetX - 8) * gv.squareSize + (int)(txtH * 1.25f * lineCounter) + (int)(3 * gv.pS), 1000, 100), 1.0f, Color.Red);
+            lineCounter++;
+
+            for (int x = -2; x <= 2; x++)
+            {
+                for (int y = -2; y <= 2; y++)
+                {
+                    gv.DrawText("Camera up: (W or arrow up)", new IbRect(x + gv.oXshift + (gv.playerOffsetY) * gv.squareSize - 4 * gv.pS, y + (gv.playerOffsetX - 8) * gv.squareSize + (int)(txtH * 1.25f * lineCounter) + (int)(3 * gv.pS), 1000, 100), 1.0f, Color.Black);
+                }
+            }
+            gv.DrawText("Camera up: (W or arrow up)", new IbRect(gv.oXshift + (gv.playerOffsetY) * gv.squareSize - 4 * gv.pS, (gv.playerOffsetX - 8) * gv.squareSize + (int)(txtH * 1.25f * lineCounter) + (int)(3 * gv.pS), 1000, 100), 1.0f, Color.Red);
+            lineCounter++;
+
+            for (int x = -2; x <= 2; x++)
+            {
+                for (int y = -2; y <= 2; y++)
+                {
+                    gv.DrawText("Camera down: (S or arrow down)", new IbRect(x + gv.oXshift + (gv.playerOffsetY) * gv.squareSize - 4 * gv.pS, y + (gv.playerOffsetX - 8) * gv.squareSize + (int)(txtH * 1.25f * lineCounter) + (int)(3 * gv.pS), 1000, 100), 1.0f, Color.Black);
+                }
+            }
+            gv.DrawText("Camera down: (S or arrow down)", new IbRect(gv.oXshift + (gv.playerOffsetY) * gv.squareSize - 4 * gv.pS, (gv.playerOffsetX - 8) * gv.squareSize + (int)(txtH * 1.25f * lineCounter) + (int)(3 * gv.pS), 1000, 100), 1.0f, Color.Red);
+            lineCounter++;
+
+            for (int x = -2; x <= 2; x++)
+            {
+                for (int y = -2; y <= 2; y++)
+                {
+                    gv.DrawText("Camera right: (D or arrow right)", new IbRect(x + gv.oXshift + (gv.playerOffsetY) * gv.squareSize - 4 * gv.pS, y + (gv.playerOffsetX - 8) * gv.squareSize + (int)(txtH * 1.25f * lineCounter) + (int)(3 * gv.pS), 1000, 100), 1.0f, Color.Black);
+                }
+            }
+            gv.DrawText("Camera right: (D or arrow right)", new IbRect(gv.oXshift + (gv.playerOffsetY) * gv.squareSize - 4 * gv.pS, (gv.playerOffsetX - 8) * gv.squareSize + (int)(txtH * 1.25f * lineCounter) + (int)(3 * gv.pS), 1000, 100), 1.0f, Color.Red);
+            lineCounter++;
+
+            for (int x = -2; x <= 2; x++)
+            {
+                for (int y = -2; y <= 2; y++)
+                {
+                    gv.DrawText("Camera left: (A or arrow left)", new IbRect(x + gv.oXshift + (gv.playerOffsetY) * gv.squareSize - 4 * gv.pS, y + (gv.playerOffsetX - 8) * gv.squareSize + (int)(txtH * 1.25f * lineCounter) + (int)(3 * gv.pS), 1000, 100), 1.0f, Color.Black);
+                }
+            }
+            gv.DrawText("Camera left: (A or arrow left)", new IbRect(gv.oXshift + (gv.playerOffsetY) * gv.squareSize - 4 * gv.pS, (gv.playerOffsetX - 8) * gv.squareSize + (int)(txtH * 1.25f * lineCounter) + (int)(3 * gv.pS), 1000, 100), 1.0f, Color.Red);
+            lineCounter++;
         }
 
         public void drawProps()
@@ -8981,7 +9174,7 @@ namespace IceBlink2
         public void onKeyUp(Keys keyData)
         {
             
-            if (keyData == Keys.M || keyData == Keys.Q)
+            if (keyData == Keys.M)
             {
                 if (canMove)
                 {
@@ -9031,7 +9224,7 @@ namespace IceBlink2
                     gv.Render(0);
                 }
             }
-            else if (keyData == Keys.E)
+            else if (keyData == Keys.K)
             {
                 if (isPlayerTurn)
                 {
@@ -9094,7 +9287,7 @@ namespace IceBlink2
                     endPcTurn(false);
                 }
             }
-            else if (keyData == Keys.C)
+            else if (keyData == Keys.O)
             {
                 if (isPlayerTurn)
                 {
@@ -9119,7 +9312,7 @@ namespace IceBlink2
                     }
                 }
             }
-            else if (keyData == Keys.T)
+            else if (keyData == Keys.U)
             {
                 if (isPlayerTurn)
                 {
@@ -9280,6 +9473,7 @@ namespace IceBlink2
                     return;
                 }
             }
+
             if (keyData == Keys.W && showMoveKeys)
             {
                 if (gv.mod.useManualCombatCam)
@@ -9361,7 +9555,7 @@ namespace IceBlink2
             if (currentCombatMode.Equals("move"))
             {
                 Player pc = gv.mod.playerList[currentPlayerIndex];
-                if (keyData == Keys.NumPad7)
+                if ((keyData == Keys.NumPad7) || (keyData == Keys.Q && !showMoveKeys))
                 {
                     continueTurn = false;
                     MoveUpLeft(pc);
@@ -9371,7 +9565,7 @@ namespace IceBlink2
                     continueTurn = false;
                     MoveUp(pc);
                 }
-                else if (keyData == Keys.NumPad9)
+                else if ((keyData == Keys.NumPad9) || (keyData == Keys.E && !showMoveKeys))
                 {
                     continueTurn = false;
                     MoveUpRight(pc);
@@ -9390,7 +9584,7 @@ namespace IceBlink2
                     continueTurn = false;
                     MoveRight(pc);
                 }
-                else if (keyData == Keys.NumPad1)
+                else if ((keyData == Keys.NumPad1) || (keyData == Keys.Y && !showMoveKeys) || (keyData == Keys.Z && !showMoveKeys))
                 {
                     continueTurn = false;
                     MoveDownLeft(pc);
@@ -9400,7 +9594,7 @@ namespace IceBlink2
                     continueTurn = false;
                     MoveDown(pc);
                 }
-                else if (keyData == Keys.NumPad3)
+                else if ((keyData == Keys.NumPad3) || (keyData == Keys.C && !showMoveKeys))
                 {
                     continueTurn = false;
                     MoveDownRight(pc);

@@ -328,6 +328,9 @@ namespace IceBlink2
             cc.corner3 = cc.LoadBitmap("corner3");
             cc.entranceLightNorth2 = cc.LoadBitmap("entranceLightNorth2");
 
+            cc.tooHigh = cc.LoadBitmap("tooHigh");
+            cc.tooDeep = cc.LoadBitmap("tooDeep");
+
             cc.btnIni = cc.LoadBitmap("btn_ini");
             cc.btnIniGlow = cc.LoadBitmap("btn_ini_glow");
             cc.walkPass = cc.LoadBitmap("walk_pass");

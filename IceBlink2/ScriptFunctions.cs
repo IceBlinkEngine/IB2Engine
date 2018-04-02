@@ -1617,7 +1617,70 @@ namespace IceBlink2
                     else if (filename.Equals("gcPassSkillCheck.cs"))
                     {
                         int parm1 = 0;
-                        if (p1.Equals("") || p1.Equals("-1") || p1.Equals("leader")  || p1.Equals("Leader") )
+                        string traitMethod = "";
+                        foreach (Trait t in gv.mod.moduleTraitsList)
+                        {
+                            if (t.tag == p2)
+                            {
+                                traitMethod = t.methodOfChecking;
+                            }
+                        }
+                        
+                        if (p1 == null)
+                        {
+                            if (traitMethod.Equals("-1") || traitMethod.Equals("leader") || traitMethod.Equals("Leader"))
+                            {
+                                parm1 = gv.mod.selectedPartyLeader;
+                            }
+                            else if (traitMethod.Equals("-2") || traitMethod.Equals("highest") || traitMethod.Equals("Highest"))
+                            {
+                                parm1 = -2;
+                            }
+                            else if (traitMethod.Equals("-3") || traitMethod.Equals("lowest") || traitMethod.Equals("Lowest"))
+                            {
+                                parm1 = -3;
+                            }
+                            else if (traitMethod.Equals("-4") || traitMethod.Equals("average") || traitMethod.Equals("Average"))
+                            {
+                                parm1 = -4;
+                            }
+                            else if (traitMethod.Equals("-5") || traitMethod.Equals("allMustSucceed") || traitMethod.Equals("AllMustSucceed"))
+                            {
+                                parm1 = -5;
+                            }
+                            else if (traitMethod.Equals("-6") || traitMethod.Equals("oneMustSucceed") || traitMethod.Equals("OneMustSucceed"))
+                            {
+                                parm1 = -6;
+                            }
+                        }
+                        else if (p1.Equals(""))
+                        {
+                            if (traitMethod.Equals("-1") || traitMethod.Equals("leader") || traitMethod.Equals("Leader"))
+                            {
+                                parm1 = gv.mod.selectedPartyLeader;
+                            }
+                            else if (traitMethod.Equals("-2") || traitMethod.Equals("highest") || traitMethod.Equals("Highest"))
+                            {
+                                parm1 = -2;
+                            }
+                            else if (traitMethod.Equals("-3") || traitMethod.Equals("lowest") || traitMethod.Equals("Lowest"))
+                            {
+                                parm1 = -3;
+                            }
+                            else if (traitMethod.Equals("-4") || traitMethod.Equals("average") || traitMethod.Equals("Average"))
+                            {
+                                parm1 = -4;
+                            }
+                            else if (traitMethod.Equals("-5") || traitMethod.Equals("allMustSucceed") || traitMethod.Equals("AllMustSucceed"))
+                            {
+                                parm1 = -5;
+                            }
+                            else if (traitMethod.Equals("-6") || traitMethod.Equals("oneMustSucceed") || traitMethod.Equals("OneMustSucceed"))
+                            {
+                                parm1 = -6;
+                            }
+                        }
+                        else if (p1.Equals("-1") || p1.Equals("leader")  || p1.Equals("Leader") )
                         {
                             parm1 = gv.mod.selectedPartyLeader;
                         }
@@ -1674,7 +1737,70 @@ namespace IceBlink2
                     else if (filename.Equals("gcPassSkillCheckSilent.cs"))
                     {
                         int parm1 = 0;
-                        if (p1.Equals("") || p1.Equals("-1") || p1.Equals("leader") || p1.Equals("Leader"))
+                        string traitMethod = "";
+                        foreach (Trait t in gv.mod.moduleTraitsList)
+                        {
+                            if (t.tag == p2)
+                            {
+                                traitMethod = t.methodOfChecking;
+                            }
+                        }
+
+                        if (p1 == null)
+                        {
+                            if (traitMethod.Equals("-1") || traitMethod.Equals("leader") || traitMethod.Equals("Leader"))
+                            {
+                                parm1 = gv.mod.selectedPartyLeader;
+                            }
+                            else if (traitMethod.Equals("-2") || traitMethod.Equals("highest") || traitMethod.Equals("Highest"))
+                            {
+                                parm1 = -2;
+                            }
+                            else if (traitMethod.Equals("-3") || traitMethod.Equals("lowest") || traitMethod.Equals("Lowest"))
+                            {
+                                parm1 = -3;
+                            }
+                            else if (traitMethod.Equals("-4") || traitMethod.Equals("average") || traitMethod.Equals("Average"))
+                            {
+                                parm1 = -4;
+                            }
+                            else if (traitMethod.Equals("-5") || traitMethod.Equals("allMustSucceed") || traitMethod.Equals("AllMustSucceed"))
+                            {
+                                parm1 = -5;
+                            }
+                            else if (traitMethod.Equals("-6") || traitMethod.Equals("oneMustSucceed") || traitMethod.Equals("OneMustSucceed"))
+                            {
+                                parm1 = -6;
+                            }
+                        }
+                        else if (p1.Equals(""))
+                        {
+                            if (traitMethod.Equals("-1") || traitMethod.Equals("leader") || traitMethod.Equals("Leader"))
+                            {
+                                parm1 = gv.mod.selectedPartyLeader;
+                            }
+                            else if (traitMethod.Equals("-2") || traitMethod.Equals("highest") || traitMethod.Equals("Highest"))
+                            {
+                                parm1 = -2;
+                            }
+                            else if (traitMethod.Equals("-3") || traitMethod.Equals("lowest") || traitMethod.Equals("Lowest"))
+                            {
+                                parm1 = -3;
+                            }
+                            else if (traitMethod.Equals("-4") || traitMethod.Equals("average") || traitMethod.Equals("Average"))
+                            {
+                                parm1 = -4;
+                            }
+                            else if (traitMethod.Equals("-5") || traitMethod.Equals("allMustSucceed") || traitMethod.Equals("AllMustSucceed"))
+                            {
+                                parm1 = -5;
+                            }
+                            else if (traitMethod.Equals("-6") || traitMethod.Equals("oneMustSucceed") || traitMethod.Equals("OneMustSucceed"))
+                            {
+                                parm1 = -6;
+                            }
+                        }
+                        else if (p1.Equals("-1") || p1.Equals("leader") || p1.Equals("Leader"))
                         {
                             parm1 = gv.mod.selectedPartyLeader;
                         }

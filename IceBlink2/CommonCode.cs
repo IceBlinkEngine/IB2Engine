@@ -90,6 +90,9 @@ namespace IceBlink2
         public Bitmap corner3;
         public Bitmap entranceLightNorth2;
 
+        public Bitmap tooHigh;
+        public Bitmap tooDeep;
+
 
 
 
@@ -2254,7 +2257,7 @@ namespace IceBlink2
             }
             int power = 0;
 
-            if (methodOfChecking == "highest")
+            if (methodOfChecking == "highest" || methodOfChecking == "Highest" || methodOfChecking == "-2")
             {
                 int highestFound = -100;
                 foreach (Player p in gv.mod.playerList)
@@ -2267,7 +2270,7 @@ namespace IceBlink2
                 }
             }
 
-            else if (methodOfChecking == "lowest")
+            else if (methodOfChecking == "lowest" || methodOfChecking == "Lowest" || methodOfChecking == "-3")
             {
                 int lowestFound = 10000;
                 foreach (Player p in gv.mod.playerList)
@@ -2280,7 +2283,7 @@ namespace IceBlink2
                 }
             }
 
-            else if (methodOfChecking == "average")
+            else if (methodOfChecking == "average" || methodOfChecking == "Average" || methodOfChecking == "-4" || methodOfChecking == "oneMustSucceed" || methodOfChecking == "OneMustSucceed" || methodOfChecking == "-6" || methodOfChecking == "allMustSucceed" || methodOfChecking == "AllMustSucceed" || methodOfChecking == "-5")
             {
                 int sumOfPower = 0;
                 foreach (Player p in gv.mod.playerList)
