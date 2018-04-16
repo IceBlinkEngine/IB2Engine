@@ -248,6 +248,7 @@ namespace IceBlink2
             gv.screenCombat.saveUILayout();
         }
 
+        /*
         public void setBridgeStateForMovingProps()
         {
             //note: player bridge state is handled by gv.mod.currentArea.PlayerIsUnderBridge
@@ -275,6 +276,7 @@ namespace IceBlink2
                 }
             }
         }
+        */
 
         public void QuickSave()
         {
@@ -857,6 +859,7 @@ namespace IceBlink2
             }
             //U  "moduleShopsList": [], (have an original shop items tags list and the current tags list to see what to add or delete from the save tags list)
             this.updateShops(saveMod);
+            this.updateFactions(saveMod);
             //  "moduleName": "Lanterna2", Don't need to update
             //  "moduleAreasList": [], Don't need to update
             //U  "moduleAreasObjects": [],
@@ -864,6 +867,7 @@ namespace IceBlink2
             //                (tiles: use save "visible" to update new)
             //                (props: have an original props tags list and the current tags list to see what to add or delete from the save tags list)		               
             this.updateAreas(saveMod);
+            this.updatePropsWaitingForRespawn(saveMod);
             //
             //U  "currentArea": {},
             //gv.mod.setCurrentArea(saveMod.currentArea.Filename, gv);
@@ -993,6 +997,7 @@ namespace IceBlink2
             LoadEffects();
             LoadSpells();
             LoadTraits();
+            LoadFactions();
             LoadWeathers();
             LoadWeatherEffects();
             LoadCreatures();
@@ -1022,6 +1027,32 @@ namespace IceBlink2
                 toReturn = (Module)serializer.Deserialize(file, typeof(Module));
             }
             return toReturn;
+        }
+
+        public void updatePropsWaitingForRespawn(Module saveMod)
+        {
+            gv.mod.propsWaitingForRespawn.Clear();
+            Prop AddMe = new Prop();  
+            foreach (Prop WFRProp in saveMod.propsWaitingForRespawn)
+            {
+                AddMe = WFRProp.DeepCopy();
+                gv.mod.propsWaitingForRespawn.Add(AddMe);
+            }
+        }
+
+        public void updateFactions(Module saveMod)
+        {
+            foreach (Faction f in gv.mod.moduleFactionsList)
+            {
+                for (int i = 0;  i < saveMod.storedFactionTags.Count; i++)
+                {
+                    if (saveMod.storedFactionTags[i] == f.tag)
+                    {
+                        f.strength = saveMod.storedFactionStrengths[i];
+                        continue;
+                    }
+                }
+            }
         }
         public void updateContainers(Module saveMod)
         {
@@ -1377,6 +1408,17 @@ namespace IceBlink2
             {
                 JsonSerializer serializer = new JsonSerializer();
                 gv.mod.moduleTraitsList = (List<Trait>)serializer.Deserialize(file, typeof(List<Trait>));
+                //int i = 0;
+            }
+        }
+
+        //todo, stored info in faction tret correctly
+        public void LoadFactions()
+        {
+            using (StreamReader file = File.OpenText(GetModulePath() + "\\data\\factions.json"))
+            {
+                JsonSerializer serializer = new JsonSerializer();
+                gv.mod.moduleFactionsList = (List<Faction>)serializer.Deserialize(file, typeof(List<Faction>));
                 //int i = 0;
             }
         }
@@ -2303,12 +2345,448 @@ namespace IceBlink2
 
         public void doUpdate()
         {
-            /*
-            foreach (Player p in gv.mod.playerList)
+            //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+            //two checks on update function: 1. Respawn check (adds back to areas prop lsit from propsWaitingForRespawn) and 2. faction limit check (sets is isAcive and isShown)
+
+            //add another third check (afterwards) to doupdate that kills off props whose master is on propsWaitingForRespawn (has been killed)
+
+            //on worldtim emethod for each prop in propsWaitingForRespawn the wait time is increased accordingly 
+
+            //here (doPropTriggers, deletepropwhenenciunteriswon): add killed - respawing props, when max number of respawn is not reached - to the new list <prop> propsWaitingForRespawn list of module
+            //this is done regardless of master death (Can change: master respawn) or min-max faction strength requirement (faction strength changes all the time)
+
+            //props are only returned from propsWaitingForRespawn (during respawn check on doupdate) when:
+            //1. respawn time is reached AND
+            //2. target square on home area can be found (free or look for sqaure around it) AND
+            //3. master lives: lives means is himself in prop list (not killed) and also isActive
+            //upon retun the props wait time is set to zero again
+
+            //isActive and isShown are set to false for props outside faction strength min max (called: faction limit check)
+            //and to true if inside, check on every update (faction limit check)
+            //this means they can respawn when outside faction str min max, but will do so inactive
+
+            //question: do respawn for current map or for all maps? Pending! Best for all areas (both respawn and faction limit check), so world time driven movers work with the system
+
+            //grant cretaures a faction property, too, and implement system for buffs and debuffs based on the relevant faction'sstrength
+            //maybe use effect system for this and make it all configurable in the faction editor
+
+
+
+            //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+            Area tempLand = new Area();
+            //1. respawn check XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+            for (int i = gv.mod.propsWaitingForRespawn.Count-1; i >= 0; i--)
             {
-                gv.sf.UpdateStats(p);
+                if ((gv.mod.propsWaitingForRespawn[i].respawnTimeInHours * 60) >= gv.mod.propsWaitingForRespawn[i].respawnTimeInMinutesPassedAlready && (gv.mod.propsWaitingForRespawn[i].spawnArea != null))
+                {
+                    //remember setting time to zero if successful
+                    bool noObstruction = true;
+                    bool masterLives = false;
+                    //find the rae that the props has to be respawned in
+                    foreach (Area a in gv.mod.moduleAreasObjects)
+                    {
+                        if (a.Filename == gv.mod.propsWaitingForRespawn[i].spawnArea && gv.mod.propsWaitingForRespawn[i].spawnArea != "none" && gv.mod.propsWaitingForRespawn[i].spawnArea != "")
+                        {
+                            tempLand = a;
+                            //is other prop blocking the location? Also does master live?
+                            foreach (Prop blockerP in a.Props)
+                            {
+                                //obstruction
+                                if (blockerP.LocationX == gv.mod.propsWaitingForRespawn[i].LocationX && blockerP.LocationY == gv.mod.propsWaitingForRespawn[i].LocationY)
+                                {
+                                    if (blockerP.isMover || blockerP.HasCollision)
+                                    {
+                                        noObstruction = false;
+                                    }
+                                }
+
+                                //master
+                                if (gv.mod.propsWaitingForRespawn[i].thisPropsMaster != null)
+                                {
+                                    if (blockerP.nameAsMaster == gv.mod.propsWaitingForRespawn[i].thisPropsMaster)
+                                    {
+                                        if (blockerP.isActive)
+                                        {
+                                            masterLives = true;
+                                        }
+                                    }
+                                }
+                            }
+
+                            //is tile not walkable?
+                            if (!a.Tiles[gv.mod.propsWaitingForRespawn[i].LocationY * a.MapSizeX + gv.mod.propsWaitingForRespawn[i].LocationX].Walkable)
+                            {
+                                noObstruction = false;
+                            }
+
+                            //is party on location?
+                            if ((gv.mod.PlayerLocationX == gv.mod.propsWaitingForRespawn[i].LocationX) && (gv.mod.PlayerLocationY == gv.mod.propsWaitingForRespawn[i].LocationY))
+                            {
+                                noObstruction = false;
+                            }
+
+                        }
+                    }//end of area loop
+
+                    if (gv.mod.propsWaitingForRespawn[i].thisPropsMaster == null || gv.mod.propsWaitingForRespawn[i].thisPropsMaster == "" || gv.mod.propsWaitingForRespawn[i].thisPropsMaster == "none")
+                    {
+                        masterLives = true;
+                    }
+
+                    if (noObstruction && masterLives)
+                    {
+                        //todo reset more proeprties?
+                        gv.mod.propsWaitingForRespawn[i].respawnTimeInMinutesPassedAlready = 0;
+                        gv.mod.propsWaitingForRespawn[i].numberOfRespawnsThatHappenedAlready++;
+
+                        gv.mod.propsWaitingForRespawn[i].LocationX = gv.mod.propsWaitingForRespawn[i].spawnLocationX;
+                        gv.mod.propsWaitingForRespawn[i].LocationY = gv.mod.propsWaitingForRespawn[i].spawnLocationY;
+                        gv.mod.propsWaitingForRespawn[i].LocationZ = gv.mod.propsWaitingForRespawn[i].spawnLocationZ;
+                        gv.mod.propsWaitingForRespawn[i].lastLocationX = gv.mod.propsWaitingForRespawn[i].spawnLocationX;
+                        gv.mod.propsWaitingForRespawn[i].lastLocationY = gv.mod.propsWaitingForRespawn[i].spawnLocationY;
+                        gv.mod.propsWaitingForRespawn[i].lastLocationZ = gv.mod.propsWaitingForRespawn[i].spawnLocationZ;
+                        gv.mod.propsWaitingForRespawn[i].priorLastLocationX = gv.mod.propsWaitingForRespawn[i].spawnLocationX;
+                        gv.mod.propsWaitingForRespawn[i].priorLastLocationY = gv.mod.propsWaitingForRespawn[i].spawnLocationY;
+                        gv.mod.propsWaitingForRespawn[i].WayPointListCurrentIndex = 0;
+                        gv.mod.propsWaitingForRespawn[i].CurrentMoveToTarget = new Coordinate(0, 0);
+                        gv.mod.propsWaitingForRespawn[i].isCurrentlyChasing = false;
+                        gv.mod.propsWaitingForRespawn[i].ChaserStartChasingTime = 0;
+                        gv.mod.propsWaitingForRespawn[i].ReturningToPost = false;
+                        gv.mod.propsWaitingForRespawn[i].passOneMove = false;
+                        gv.mod.propsWaitingForRespawn[i].randomMoverTimerForNextTarget = 0;
+                        gv.mod.propsWaitingForRespawn[i].lengthOfLastPath = 0;
+                        gv.mod.propsWaitingForRespawn[i].wasTriggeredLastUpdate = false;
+                        gv.mod.propsWaitingForRespawn[i].destinationPixelPositionXList.Clear();
+                        gv.mod.propsWaitingForRespawn[i].destinationPixelPositionYList.Clear();
+                        gv.mod.propsWaitingForRespawn[i].currentPixelPositionX = 0;
+                        gv.mod.propsWaitingForRespawn[i].currentPixelPositionY = 0;
+                        gv.mod.propsWaitingForRespawn[i].inactiveTimer = 0;
+                        gv.mod.propsWaitingForRespawn[i].currentFrameNumber = 0;
+                        gv.mod.propsWaitingForRespawn[i].animationDelayCounter = 0;
+                        gv.mod.propsWaitingForRespawn[i].updateTicksNeededTillNextFrame = 0;
+                        gv.mod.propsWaitingForRespawn[i].animationComplete = false;
+                        gv.mod.propsWaitingForRespawn[i].normalizedTime = 0;
+                        gv.mod.propsWaitingForRespawn[i].cycleCounter = 0;
+
+                        //factionsystem
+                        if (gv.mod.propsWaitingForRespawn[i].factionTag != null && gv.mod.propsWaitingForRespawn[i].factionTag != "" && gv.mod.propsWaitingForRespawn[i].factionTag != "none")
+                        {
+                            foreach (Faction f in gv.mod.moduleFactionsList)
+                            {
+                                if (f.tag == gv.mod.propsWaitingForRespawn[i].factionTag)
+                                {
+                                    if (gv.mod.propsWaitingForRespawn[i].requiredFactionStrength <= f.strength && gv.mod.propsWaitingForRespawn[i].maxFactionStrength >= f.strength)
+                                    {
+                                        gv.mod.propsWaitingForRespawn[i].isActive = true;
+                                        gv.mod.propsWaitingForRespawn[i].isShown = true;
+                                        gv.sf.SetGlobalInt(gv.mod.propsWaitingForRespawn[i].keyOfGlobalVarToSetTo1OnDeathOrInactivity, "0");
+                                    }
+                                    else
+                                    {
+                                        gv.mod.propsWaitingForRespawn[i].isActive = false;
+                                        gv.mod.propsWaitingForRespawn[i].isShown = false;
+                                        gv.sf.SetGlobalInt(gv.mod.propsWaitingForRespawn[i].keyOfGlobalVarToSetTo1OnDeathOrInactivity, "1");
+                                        gv.mod.propsWaitingForRespawn[i].pendingFactionStrengthEffectReversal = true;
+                                    }
+                                }
+                            }
+                        }
+
+                        if (gv.mod.propsWaitingForRespawn[i].isActive && gv.mod.propsWaitingForRespawn[i].isShown)
+                        {
+                            gv.mod.propsWaitingForRespawn[i].pendingFactionStrengthEffectReversal = false;
+                            foreach (Faction f in gv.mod.moduleFactionsList)
+                            {
+                                if (f.tag == gv.mod.propsWaitingForRespawn[i].factionTag)
+                                {
+                                    f.strength += gv.mod.propsWaitingForRespawn[i].worthForOwnFaction;
+                                }
+                                if (f.tag == gv.mod.propsWaitingForRespawn[i].otherFactionAffectedOnDeath1)
+                                {
+                                    f.strength -= gv.mod.propsWaitingForRespawn[i].effectOnOtherFactionOnDeath1;
+                                }
+                                if (f.tag == gv.mod.propsWaitingForRespawn[i].otherFactionAffectedOnDeath2)
+                                {
+                                    f.strength -= gv.mod.propsWaitingForRespawn[i].effectOnOtherFactionOnDeath2;
+                                }
+                                if (f.tag == gv.mod.propsWaitingForRespawn[i].otherFactionAffectedOnDeath3)
+                                {
+                                    f.strength -= gv.mod.propsWaitingForRespawn[i].effectOnOtherFactionOnDeath3;
+                                }
+                                if (f.tag == gv.mod.propsWaitingForRespawn[i].otherFactionAffectedOnDeath4)
+                                {
+                                    f.strength -= gv.mod.propsWaitingForRespawn[i].effectOnOtherFactionOnDeath4;
+                                }                                
+                            }
+                        }
+
+                        tempLand.Props.Add(gv.mod.propsWaitingForRespawn[i]);
+                        gv.mod.propsWaitingForRespawn.Remove(gv.mod.propsWaitingForRespawn[i]);
+
+                    }
+                }
             }
-            */
+
+            //2. faction system XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+            foreach (Area a in gv.mod.moduleAreasObjects)
+            {
+                foreach(Prop p in a.Props)
+                {
+                    //drop out because of faction requirements
+                    if (p.factionTag != null && p.factionTag != "" && p.factionTag != "none")
+                    {
+                        foreach (Faction f in gv.mod.moduleFactionsList)
+                        {
+                            if (f.tag == p.factionTag)
+                            {
+                                if (p.requiredFactionStrength <= f.strength && p.maxFactionStrength >= f.strength)
+                                {
+                                    p.isActive = true;
+                                    p.isShown = true;
+                                    gv.sf.SetGlobalInt(p.keyOfGlobalVarToSetTo1OnDeathOrInactivity, "0");
+
+                                    if (p.pendingFactionStrengthEffectReversal)
+                                    {
+                                        p.pendingFactionStrengthEffectReversal = false;
+                                        foreach (Faction f2 in gv.mod.moduleFactionsList)
+                                        {
+                                            if (f2.tag == p.factionTag)
+                                            {
+                                                f2.strength += p.worthForOwnFaction;
+                                            }
+                                            if (f2.tag == p.otherFactionAffectedOnDeath1)
+                                            {
+                                                f2.strength -= p.effectOnOtherFactionOnDeath1;
+                                            }
+                                            if (f2.tag == p.otherFactionAffectedOnDeath2)
+                                            {
+                                                f2.strength -= p.effectOnOtherFactionOnDeath2;
+                                            }
+                                            if (f2.tag == p.otherFactionAffectedOnDeath3)
+                                            {
+                                                f2.strength -= p.effectOnOtherFactionOnDeath3;
+                                            }
+                                            if (f2.tag == p.otherFactionAffectedOnDeath4)
+                                            {
+                                                f2.strength -= p.effectOnOtherFactionOnDeath4;
+                                            }
+                                        }
+
+                                    }
+                                }
+                                else
+                                {
+                                    p.isActive = false;
+                                    p.isShown = false;
+                                    gv.sf.SetGlobalInt(p.keyOfGlobalVarToSetTo1OnDeathOrInactivity, "1");
+                                }
+                            }
+                        }
+                    }
+                    
+                    //make inactive because master of this prop is incative?
+                    //Not needed, as one can simply set min and max faction strength requirements the same as for the master
+                }
+            }
+
+            //3. kill if master has been slain dead (instant ones) XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+            foreach (Area a in gv.mod.moduleAreasObjects)
+            {
+                for (int i = a.Props.Count-1; i>= 0; i--)
+                {
+                    //check for killing
+                    if (a.Props[i].instantDeathOnMasterDeath)
+                    {
+                        bool masterIsGone = true;
+                        bool breakInnerAreaLoop = false;
+                        //to do: is master gone?
+                        foreach (Area a2 in gv.mod.moduleAreasObjects)
+                        {
+                            foreach (Prop deadMaster in a2.Props)
+                            {
+                                if (deadMaster.nameAsMaster == a.Props[i].thisPropsMaster)
+                                {
+                                    masterIsGone = false;
+                                    breakInnerAreaLoop = true;
+                                    break;
+                                }
+                            }
+                            if (breakInnerAreaLoop)
+                            {
+                                break;
+                            }
+                        }
+
+                        if (masterIsGone)
+                        {
+                            //add to respawn if posisble
+                            if ((a.Props[i].respawnTimeInHours > 0) && ((a.Props[i].numberOfRespawnsThatHappenedAlready < a.Props[i].maxNumberOfRespawns) || (a.Props[i].maxNumberOfRespawns == -1)))
+                            {
+                                gv.mod.propsWaitingForRespawn.Add(a.Props[i]);
+                                gv.sf.SetGlobalInt(gv.mod.propsWaitingForRespawn[i].keyOfGlobalVarToSetTo1OnDeathOrInactivity, "1");
+                            }
+
+                            //to kill effect
+                            foreach (Faction f in gv.mod.moduleFactionsList)
+                            {
+                                if (f.tag == a.Props[i].factionTag)
+                                {
+                                    f.strength -= a.Props[i].worthForOwnFaction;
+                                }
+                                if (f.tag == a.Props[i].otherFactionAffectedOnDeath1)
+                                {
+                                    f.strength += a.Props[i].effectOnOtherFactionOnDeath1;
+                                }
+                                if (f.tag == a.Props[i].otherFactionAffectedOnDeath2)
+                                {
+                                    f.strength += a.Props[i].effectOnOtherFactionOnDeath2;
+                                }
+                                if (f.tag == a.Props[i].otherFactionAffectedOnDeath3)
+                                {
+                                    f.strength += a.Props[i].effectOnOtherFactionOnDeath3;
+                                }
+                                if (f.tag == a.Props[i].otherFactionAffectedOnDeath4)
+                                {
+                                    f.strength += a.Props[i].effectOnOtherFactionOnDeath4;
+                                }
+                            }
+
+                            //remove frm its area list
+                            a.Props.Remove(a.Props[i]);
+                        }
+                    }
+                }
+            }
+
+
+            //code for gcCheck, controlinng prop isActive and isShown -> eg night time only props
+            foreach (Area a in gv.mod.moduleAreasObjects)
+            {
+                foreach (Prop p in a.Props)
+                {
+                    bool availableForGcCheck = false;
+
+                    //is faction prop
+                    if (p.factionTag != null && p.factionTag != "" && p.factionTag != "none" && p.factionTag != "None")
+                    {
+                        //prop is in its faction strength window
+                        if (p.isActive && p.isShown)
+                        {
+                            availableForGcCheck = true;
+                        }
+                        else
+                        {
+                            availableForGcCheck = false;
+                        }
+                    }
+                    //no faction prop
+                    else
+                    {
+                        availableForGcCheck = true;
+                    }
+
+                    if (availableForGcCheck)
+                    {
+                        gv.mod.currentPropTag = p.PropTag;
+                        bool firstConditionMet = false;
+                        bool secondConditionMet = false;
+                        bool thirdConditionMet = false;
+
+                        if (p.firstGcScriptName != null && p.firstGcScriptName != "none" && p.firstGcScriptName != "None")
+                        {
+                            gv.sf.gcController(p.firstGcScriptName, p.firstGcParm1, p.firstGcParm2, p.firstGcParm3, p.firstGcParm4);
+                            firstConditionMet = gv.mod.returnCheck;
+                            if (p.firstCheckForConditionFail)
+                            {
+                                if (firstConditionMet)
+                                {
+                                    firstConditionMet = false;
+                                }
+                                else
+                                {
+                                    firstConditionMet = true;
+                                }
+                            }
+                        }
+                        else
+                        {
+                            firstConditionMet = true;
+                        }
+
+                        if (p.secondGcScriptName != null && p.secondGcScriptName != "none" && p.secondGcScriptName != "None")
+                        {
+                            gv.sf.gcController(p.secondGcScriptName, p.secondGcParm1, p.secondGcParm2, p.secondGcParm3, p.secondGcParm4);
+                            secondConditionMet = gv.mod.returnCheck;
+                            if (p.secondCheckForConditionFail)
+                            {
+                                if (secondConditionMet)
+                                {
+                                    secondConditionMet = false;
+                                }
+                                else
+                                {
+                                    secondConditionMet = true;
+                                }
+                            }
+                        }
+                        else
+                        {
+                            secondConditionMet = true;
+                        }
+
+                        if (p.thirdGcScriptName != null && p.thirdGcScriptName != "none" && p.thirdGcScriptName != "None")
+                        {
+                            gv.sf.gcController(p.thirdGcScriptName, p.thirdGcParm1, p.thirdGcParm2, p.thirdGcParm3, p.thirdGcParm4);
+                            thirdConditionMet = gv.mod.returnCheck;
+                            if (p.thirdCheckForConditionFail)
+                            {
+                                if (thirdConditionMet)
+                                {
+                                    thirdConditionMet = false;
+                                }
+                                else
+                                {
+                                    thirdConditionMet = true;
+                                }
+                            }
+                        }
+                        else
+                        {
+                            thirdConditionMet = true;
+                        }
+
+                        //all conditions must be met
+                        if (p.allConditionsMustBeTrue)
+                        {
+                            if (firstConditionMet && secondConditionMet && thirdConditionMet)
+                            {
+                                p.isActive = true;
+                                p.isShown = true;
+                            }
+                            else
+                            {
+                                p.isActive = false;
+                                p.isShown = false;
+                            }
+                        }
+                        //meeting one condiion is enough
+                        else
+                        {
+                            if (firstConditionMet || secondConditionMet || thirdConditionMet)
+                            {
+                                p.isActive = true;
+                                p.isShown = true;
+                            }
+                            else
+                            {
+                                p.isActive = false;
+                                p.isShown = false;
+                            }
+                        }
+                    }
+                }
+            } 
+
             gv.realTimeTimerMilliSecondsEllapsed = 0;
             gv.screenMainMap.updateTraitsPanel();
             handleRationsAndLightSources();
@@ -2319,6 +2797,7 @@ namespace IceBlink2
             {
                 resetLightAndDarkness();
             }
+
 #region tile loading on demand
             if (gv.mod.useAllTileSystem)
             {
@@ -3594,6 +4073,7 @@ namespace IceBlink2
                                         }
             else if ((time >= night) || (time < dawn))
             {
+                //berlin
                 consumeLightEnergy = true;
             }
 
@@ -9073,10 +9553,64 @@ namespace IceBlink2
                             calledConvoFromProp = false;
                             calledEncounterFromProp = false;
                             foundOne = false;
+                            //factionsystem
                             //delete prop if flag is set to do so and break foreach loop
                             if (prp.DeletePropWhenThisEncounterIsWon)
                             {
+                                if ((prp.respawnTimeInHours > 0) && ((prp.numberOfRespawnsThatHappenedAlready < prp.maxNumberOfRespawns) || (prp.maxNumberOfRespawns == -1) ) )
+                                {
+                                    gv.mod.propsWaitingForRespawn.Add(prp);
+                                }
+
+                                foreach (Faction f in gv.mod.moduleFactionsList)
+                                {
+                                    if (f.tag == prp.factionTag)
+                                    {
+                                        f.strength -= prp.worthForOwnFaction;
+                                    }
+                                    if (f.tag == prp.otherFactionAffectedOnDeath1)
+                                    {
+                                        f.strength += prp.effectOnOtherFactionOnDeath1;
+                                    }
+                                    if (f.tag == prp.otherFactionAffectedOnDeath2)
+                                    {
+                                        f.strength += prp.effectOnOtherFactionOnDeath2;
+                                    }
+                                    if (f.tag == prp.otherFactionAffectedOnDeath3)
+                                    {
+                                        f.strength += prp.effectOnOtherFactionOnDeath3;
+                                    }
+                                    if (f.tag == prp.otherFactionAffectedOnDeath4)
+                                    {
+                                        f.strength += prp.effectOnOtherFactionOnDeath4;
+                                    }
+                                }
+                                gv.sf.SetGlobalInt(prp.keyOfGlobalVarToSetTo1OnDeathOrInactivity, "1");
                                 gv.mod.currentArea.Props.Remove(prp);
+
+                                //two checks on update function: 1. Respawn check (adds back to areas prop lsit from propsWaitingForRespawn) and 2. faction limit check (sets is isAcive and isShown)
+
+                                //add another third check (afterwards) to doupdate that kills off props whose master is inactive or whose master is on propsWaitingForRespawn 
+
+                                //on worldtim emethod for each prop in propsWaitingForRespawn the wait time is increased accordingly 
+
+                                //here (doPropTriggers, deletepropwhenenciunteriswon): add killed - respawing props, when max number of respawn is not reached - to the new list <prop> propsWaitingForRespawn list of module
+                                //this is done regardless of master death (Can change: master respawn) or min-max faction strength requirement (faction strength changes all the time)
+
+                                //props are only returned from propsWaitingForRespawn (during respawn check on doupdate) when:
+                                //1. respawn time is reached AND
+                                //2. target square on home area can be found (free or look for sqaure around it) AND
+                                //3. master lives: lives means is himself in prop list (not killed) and also isActive
+                                //upon retun the props wait time is set to zero again
+
+                                //isActive and isShown are set to false for props outside faction strength min max (called: faction limit check)
+                                //and to true if inside, check on every update (faction limit check)
+                                //this means they can respawn when outside faction str min max, but will do so inactive
+
+                                //question: do respawn for current map or for all maps? Pending! Best for all areas (both respawn and faction limit check), so world time driven movers work with the system
+
+                                //grant cretaures a faction property, too, and implement system for buffs and debuffs based on the relevant faction'sstrength
+                                //maybe use effect system for this and make it all configurable in the faction editor
                             }
                             //continue;
                             break;
@@ -10667,8 +11201,8 @@ namespace IceBlink2
 
         public void doEncounterBasedOnTag(string name)
         {
-            if (gv.mod.breakActiveSearch == false)
-            {
+            //if (gv.mod.breakActiveSearch == false)
+            //{
                 //project repeatable
                 try
                 {
@@ -10698,7 +11232,7 @@ namespace IceBlink2
                 {
                     gv.errorLog(ex.ToString());
                 }
-            }
+            //}
         }
 
         public bool goWest()

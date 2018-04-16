@@ -15,7 +15,7 @@ namespace IceBlink2
         public Creature ThisCreature = null;    //Creature that is calling the current script, when using 'thisCreature' in script, make sure to null out after use
         public object CombatTarget = null;
         public GameView gv;
-        public int spCnt = 0;
+        //public int spCnt = 0;
         public Random rand;
         public List<object> AoeTargetsList = new List<object>();
         public List<Coordinate> AoeSquaresList = new List<Coordinate>();
@@ -425,7 +425,7 @@ namespace IceBlink2
         {
             if (min > max)
             {
-                min = max;
+                max = min;
             }
             //A 32-bit signed integer greater than or equal to minValue and less than maxValue; that is, the range of return values includes minValue but not maxValue.
             return rand.Next(min, max + 1);
@@ -464,6 +464,20 @@ namespace IceBlink2
                     if (filename.Equals("gaSetGlobalInt.cs"))
                     {
                         SetGlobalInt(prm1, p2);
+                    }
+                    else if (filename.Equals("gaModifyFactionStrength.cs"))
+                    {
+                        //p1 is faction tag
+                        //prm2 is operator
+                        //p3 is amount of modification
+                        ModifyFactionStrength(p1, prm2, p3);
+                    }
+                    else if (filename.Equals("gaModifyFactionGrowthRate.cs"))
+                    {
+                        //p1 is faction tag
+                        //prm2 is operator
+                        //p3 is amount of modification
+                        ModifyFactionGrowthRate(p1, prm2, p3);
                     }
                     else if (filename.Equals("gaRechargeSingleItem.cs"))
                     {
@@ -1472,7 +1486,33 @@ namespace IceBlink2
                         int parm3 = Convert.ToInt32(p3);
                         gv.mod.returnCheck = CheckGlobalInt(prm1, prm2, parm3);
                     }
+                    else if (filename.Equals("gcCheckIsInDarkness.cs"))
+                    { 
+                        gv.mod.returnCheck = CheckIsInDarkness(p1, p2);
+                    }
+                    else if (filename.Equals("gcCheckIsInFactionStrengthWindow.cs"))
+                    {
+                        int parm2 = Convert.ToInt32(p2);
+                        int parm3 = Convert.ToInt32(p3);
+                        gv.mod.returnCheck = CheckIsInFactionStrengthWindow(prm1, parm2, parm3);
+                    }
                     else if (filename.Equals("gcCheckLocalInt.cs"))
+                    {
+                        //check to see if prm1 is thisprop or thisarea
+                        if (prm1.Equals("thisprop"))
+                        {
+                            //find the prop at this location
+                            prm1 = mod.currentArea.getPropByLocation(mod.PlayerLocationX, mod.PlayerLocationY).PropTag;
+                        }
+                        else if (prm1.Equals("thisarea"))
+                        {
+                            //use the currentArea
+                            prm1 = mod.currentArea.Filename;
+                        }
+                        int parm4 = Convert.ToInt32(p4);
+                        gv.mod.returnCheck = CheckLocalInt(prm1, prm2, prm3, parm4);
+                    }
+                    else if (filename.Equals("gcCheckIsInDarkness.cs"))
                     {
                         //check to see if prm1 is thisprop or thisarea
                         if (prm1.Equals("thisprop"))
@@ -2885,6 +2925,557 @@ namespace IceBlink2
             }
             return -1;
         }
+
+        /*
+        prm3 = "none";
+                        if (p1 == "thisProp"|| prm3 == "thisPropLast")
+                        {
+                            prm3 = gv.mod.currentPropTag;
+                        }
+                        */
+        public bool CheckIsInDarkness(string identifier, string darkMode)
+        {
+            //the area does not use the light system, nothing is in darkness
+            if (!gv.mod.currentArea.useLightSystem)
+            {
+                return false;
+            }
+
+            #region party
+            else if (identifier == "party" || identifier == "Party")
+           {
+                bool isLit = false;
+                foreach (bool litState in gv.mod.currentArea.Tiles[gv.mod.PlayerLocationY * gv.mod.currentArea.MapSizeX + gv.mod.PlayerLocationX].isLit)
+                {
+                    if (litState)
+                    {
+                        isLit = true;
+                        break;
+                    }
+                }
+
+                //outdoor area, using day&night
+                if (gv.mod.currentArea.UseDayNightCycle && gv.mod.currentArea.useLightSystem)
+                {
+                    //mode wil need utter dark, so this outdoor si always false
+                    if (darkMode == "noLight" || darkMode == "NoLight")
+                    {
+                        return false;
+                    }
+                    // mode is cheking for ngith state
+                    else
+                    {
+                        if (isLit)
+                        {
+                            return false;
+                        }
+                        //not lit
+                        else
+                        {
+                            int dawn = 5 * 60;
+                            int sunrise = 6 * 60;
+                            int day = 7 * 60;
+                            int sunset = 17 * 60;
+                            int dusk = 18 * 60;
+                            int night = 20 * 60;
+                            int time = gv.mod.WorldTime % 1440;
+
+                            if ((time >= dawn) && (time < sunrise))
+                            {
+                                return false;
+                            }
+                            else if ((time >= sunrise) && (time < day))
+                            {
+                                return false;
+                            }
+                            else if ((time >= day) && (time < sunset))
+                            {
+                                return false;
+                            }
+                            else if ((time >= sunset) && (time < dusk))
+                            {
+                                return false;
+                            }
+                            else if ((time >= dusk) && (time < night))
+                            {
+                                return false;
+                            }
+                            else if ((time >= night) || (time < dawn))
+                            {
+                                return true;
+                            }
+
+                        }//tile was not lit
+                    }//mode was looking for night state
+                }// end of outdoor, & lightSystem
+
+                //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                //inddor area, using light system
+                else if (!gv.mod.currentArea.UseDayNightCycle && gv.mod.currentArea.useLightSystem)
+                {
+                    //mode will need outdoor night, so this indoor dark
+                    if (darkMode == "night")
+                    {
+                        return false;
+                    }
+                    // mode is checking for indoor dark state
+                    else
+                    {
+                        if (isLit)
+                        {
+                            return false;
+                        }
+                        //not lit
+                        else
+                        {
+                            return true;
+                        }//tile was not lit
+                    }//mode was looking for indoor dark state
+                }// end of indoor & lightSystem             
+            }//end of "party" identifier
+            #endregion
+
+            #region partyLast
+            else if (identifier == "partyLast" || identifier == "PartyLast")
+            {
+                bool isLit = false;
+                foreach (bool litState in gv.mod.currentArea.Tiles[gv.mod.PlayerLastLocationY * gv.mod.currentArea.MapSizeX + gv.mod.PlayerLastLocationX].isLit)
+                {
+                    if (litState)
+                    {
+                        isLit = true;
+                        break;
+                    }
+                }
+
+                //outdoor area, using day&night
+                if (gv.mod.currentArea.UseDayNightCycle && gv.mod.currentArea.useLightSystem)
+                {
+                    //mode wil need utter dark, so this outdoor si always false
+                    if (darkMode == "noLight" || darkMode == "NoLight")
+                    {
+                        return false;
+                    }
+                    // mode is cheking for ngith state
+                    else
+                    {
+                        if (isLit)
+                        {
+                            return false;
+                        }
+                        //not lit
+                        else
+                        {
+                            int dawn = 5 * 60;
+                            int sunrise = 6 * 60;
+                            int day = 7 * 60;
+                            int sunset = 17 * 60;
+                            int dusk = 18 * 60;
+                            int night = 20 * 60;
+                            int time = gv.mod.WorldTime % 1440;
+
+                            if ((time >= dawn) && (time < sunrise))
+                            {
+                                return false;
+                            }
+                            else if ((time >= sunrise) && (time < day))
+                            {
+                                return false;
+                            }
+                            else if ((time >= day) && (time < sunset))
+                            {
+                                return false;
+                            }
+                            else if ((time >= sunset) && (time < dusk))
+                            {
+                                return false;
+                            }
+                            else if ((time >= dusk) && (time < night))
+                            {
+                                return false;
+                            }
+                            else if ((time >= night) || (time < dawn))
+                            {
+                                return true;
+                            }
+
+                        }//tile was not lit
+                    }//mode was looking for night state
+                }// end of outdoor, & lightSystem
+
+                //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                //inddor area, using light system
+                else if (!gv.mod.currentArea.UseDayNightCycle && gv.mod.currentArea.useLightSystem)
+                {
+                    //mode will need outdoor night, so this indoor dark
+                    if (darkMode == "night")
+                    {
+                        return false;
+                    }
+                    // mode is checking for indoor dark state
+                    else
+                    {
+                        if (isLit)
+                        {
+                            return false;
+                        }
+                        //not lit
+                        else
+                        {
+                            return true;
+                        }//tile was not lit
+                    }//mode was looking for indoor dark state
+                }// end of indoor & lightSystem             
+            }//end of "party" identifier
+            #endregion
+
+            #region thisProp
+            else if (identifier == "thisProp" || identifier == "ThisProp")
+            {
+                bool isLit = false;
+                Prop tempProp = new Prop();
+                bool foundProp = false;
+                foreach (Prop p in gv.mod.currentArea.Props)
+                {
+                    if (p.PropTag == gv.mod.currentPropTag)
+                    {
+                        tempProp = p;
+                        foundProp = true;
+                        break;
+                    }
+                }
+                if (foundProp)
+                {
+                    foreach (bool litState in gv.mod.currentArea.Tiles[tempProp.LocationY * gv.mod.currentArea.MapSizeX + tempProp.LocationX].isLit)
+                    {
+                        if (litState)
+                        {
+                            isLit = true;
+                            break;
+                        }
+                    }
+
+                    //outdoor area, using day&night
+                    if (gv.mod.currentArea.UseDayNightCycle && gv.mod.currentArea.useLightSystem)
+                    {
+                        //mode wil need utter dark, so this outdoor si always false
+                        if (darkMode == "noLight" || darkMode == "NoLight")
+                        {
+                            return false;
+                        }
+                        // mode is cheking for ngith state
+                        else
+                        {
+                            if (isLit)
+                            {
+                                return false;
+                            }
+                            //not lit
+                            else
+                            {
+                                int dawn = 5 * 60;
+                                int sunrise = 6 * 60;
+                                int day = 7 * 60;
+                                int sunset = 17 * 60;
+                                int dusk = 18 * 60;
+                                int night = 20 * 60;
+                                int time = gv.mod.WorldTime % 1440;
+
+                                if ((time >= dawn) && (time < sunrise))
+                                {
+                                    return false;
+                                }
+                                else if ((time >= sunrise) && (time < day))
+                                {
+                                    return false;
+                                }
+                                else if ((time >= day) && (time < sunset))
+                                {
+                                    return false;
+                                }
+                                else if ((time >= sunset) && (time < dusk))
+                                {
+                                    return false;
+                                }
+                                else if ((time >= dusk) && (time < night))
+                                {
+                                    return false;
+                                }
+                                else if ((time >= night) || (time < dawn))
+                                {
+                                    return true;
+                                }
+
+                            }//tile was not lit
+                        }//mode was looking for night state
+                    }// end of outdoor, & lightSystem
+
+                    //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                    //inddor area, using light system
+                    else if (!gv.mod.currentArea.UseDayNightCycle && gv.mod.currentArea.useLightSystem)
+                    {
+                        //mode will need outdoor night, so this indoor dark
+                        if (darkMode == "night")
+                        {
+                            return false;
+                        }
+                        // mode is checking for indoor dark state
+                        else
+                        {
+                            if (isLit)
+                            {
+                                return false;
+                            }
+                            //not lit
+                            else
+                            {
+                                return true;
+                            }//tile was not lit
+                        }//mode was looking for indoor dark state
+                    }// end of indoor & lightSystem
+                }//found prop             
+            }//end of "party" identifier
+            #endregion
+
+            #region thisPropLast
+            else if (identifier == "thisPropLast" || identifier == "ThisPropLast")
+            {
+                bool isLit = false;
+                Prop tempProp = new Prop();
+                foreach (Prop p in gv.mod.currentArea.Props)
+                {
+                    if (p.PropTag == gv.mod.currentPropTag)
+                    {
+                        tempProp = p;
+                        break;
+                    }
+                }
+
+                foreach (bool litState in gv.mod.currentArea.Tiles[tempProp.lastLocationY * gv.mod.currentArea.MapSizeX + tempProp.lastLocationX].isLit)
+                {
+                    if (litState)
+                    {
+                        isLit = true;
+                        break;
+                    }
+                }
+
+                //outdoor area, using day&night
+                if (gv.mod.currentArea.UseDayNightCycle && gv.mod.currentArea.useLightSystem)
+                {
+                    //mode wil need utter dark, so this outdoor si always false
+                    if (darkMode == "noLight" || darkMode == "NoLight")
+                    {
+                        return false;
+                    }
+                    // mode is cheking for ngith state
+                    else
+                    {
+                        if (isLit)
+                        {
+                            return false;
+                        }
+                        //not lit
+                        else
+                        {
+                            int dawn = 5 * 60;
+                            int sunrise = 6 * 60;
+                            int day = 7 * 60;
+                            int sunset = 17 * 60;
+                            int dusk = 18 * 60;
+                            int night = 20 * 60;
+                            int time = gv.mod.WorldTime % 1440;
+
+                            if ((time >= dawn) && (time < sunrise))
+                            {
+                                return false;
+                            }
+                            else if ((time >= sunrise) && (time < day))
+                            {
+                                return false;
+                            }
+                            else if ((time >= day) && (time < sunset))
+                            {
+                                return false;
+                            }
+                            else if ((time >= sunset) && (time < dusk))
+                            {
+                                return false;
+                            }
+                            else if ((time >= dusk) && (time < night))
+                            {
+                                return false;
+                            }
+                            else if ((time >= night) || (time < dawn))
+                            {
+                                return true;
+                            }
+
+                        }//tile was not lit
+                    }//mode was looking for night state
+                }// end of outdoor, & lightSystem
+
+                //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                //inddor area, using light system
+                else if (!gv.mod.currentArea.UseDayNightCycle && gv.mod.currentArea.useLightSystem)
+                {
+                    //mode will need outdoor night, so this indoor dark
+                    if (darkMode == "night")
+                    {
+                        return false;
+                    }
+                    // mode is checking for indoor dark state
+                    else
+                    {
+                        if (isLit)
+                        {
+                            return false;
+                        }
+                        //not lit
+                        else
+                        {
+                            return true;
+                        }//tile was not lit
+                    }//mode was looking for indoor dark state
+                }// end of indoor & lightSystem             
+            }//end of "party" identifier
+            #endregion
+
+            #region PropByTag
+            else
+            {
+                bool isLit = false;
+                Prop tempProp = new Prop();
+                bool foundProp = false;
+                foreach (Prop p in gv.mod.currentArea.Props)
+                {
+                    if (p.PropTag == identifier)
+                    {
+                        tempProp = p;
+                        foundProp = true;
+                        break;
+                    }
+                }
+
+                if (foundProp)
+                {
+
+                    foreach (bool litState in gv.mod.currentArea.Tiles[tempProp.LocationY * gv.mod.currentArea.MapSizeX + tempProp.LocationX].isLit)
+                    {
+                        if (litState)
+                        {
+                            isLit = true;
+                            break;
+                        }
+                    }
+
+                    //outdoor area, using day&night
+                    if (gv.mod.currentArea.UseDayNightCycle && gv.mod.currentArea.useLightSystem)
+                    {
+                        //mode wil need utter dark, so this outdoor si always false
+                        if (darkMode == "noLight" || darkMode == "NoLight")
+                        {
+                            return false;
+                        }
+                        // mode is cheking for ngith state
+                        else
+                        {
+                            if (isLit)
+                            {
+                                return false;
+                            }
+                            //not lit
+                            else
+                            {
+                                int dawn = 5 * 60;
+                                int sunrise = 6 * 60;
+                                int day = 7 * 60;
+                                int sunset = 17 * 60;
+                                int dusk = 18 * 60;
+                                int night = 20 * 60;
+                                int time = gv.mod.WorldTime % 1440;
+
+                                if ((time >= dawn) && (time < sunrise))
+                                {
+                                    return false;
+                                }
+                                else if ((time >= sunrise) && (time < day))
+                                {
+                                    return false;
+                                }
+                                else if ((time >= day) && (time < sunset))
+                                {
+                                    return false;
+                                }
+                                else if ((time >= sunset) && (time < dusk))
+                                {
+                                    return false;
+                                }
+                                else if ((time >= dusk) && (time < night))
+                                {
+                                    return false;
+                                }
+                                else if ((time >= night) || (time < dawn))
+                                {
+                                    return true;
+                                }
+
+                            }//tile was not lit
+                        }//mode was looking for night state
+                    }// end of outdoor, & lightSystem
+
+                    //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                    //inddor area, using light system
+                    else if (!gv.mod.currentArea.UseDayNightCycle && gv.mod.currentArea.useLightSystem)
+                    {
+                        //mode will need outdoor night, so this indoor dark
+                        if (darkMode == "night")
+                        {
+                            return false;
+                        }
+                        // mode is checking for indoor dark state
+                        else
+                        {
+                            if (isLit)
+                            {
+                                return false;
+                            }
+                            //not lit
+                            else
+                            {
+                                return true;
+                            }//tile was not lit
+                        }//mode was looking for indoor dark state
+                    }// end of indoor & lightSystem
+                }//found a prop             
+            }//end of "party" identifier
+            #endregion
+
+            return false;
+        }
+
+
+        public bool CheckIsInFactionStrengthWindow(string factionTag, int minFactionStrength,int maxFactionStrength)
+        {
+            foreach (Faction f in gv.mod.moduleFactionsList)
+            {
+                if (f.tag == factionTag)
+                {
+                    if (f.strength >= minFactionStrength && f.strength <= maxFactionStrength)
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+            }
+
+            return false;
+        }
+
+
         public bool CheckGlobalInt(string variableName, string compare, int value)
         {
             if (mod.debugMode) //SD_20131102
@@ -3154,6 +3745,78 @@ namespace IceBlink2
             }
             return false;
         }
+
+        public void ModifyFactionStrength(string factionTag, string transformType, string amount)
+        {
+            int amountNumber = Convert.ToInt32(amount);
+            foreach (Faction f in gv.mod.moduleFactionsList)
+            {
+                if (f.tag == factionTag)
+                {
+                    if (transformType.Equals("+"))
+                    {
+                        f.strength += amountNumber;
+                    }
+                    else if (transformType.Equals("-"))
+                    {
+                        f.strength -= amountNumber;
+                    }
+                    else if (transformType.Equals("/"))
+                    {
+                        f.strength /= amountNumber;
+                    }
+                    else if (transformType.Equals("%"))
+                    {
+                        f.strength %= amountNumber;
+                    }
+                    else if (transformType.Equals("*"))
+                    {
+                        f.strength *= amountNumber;
+                    }
+                    else if (transformType.Equals("="))
+                    {
+                        f.strength = amountNumber;
+                    }
+                }
+            }
+        }
+
+        public void ModifyFactionGrowthRate(string factionTag, string transformType, string amount)
+        {
+            int amountNumber = Convert.ToInt32(amount);
+            foreach (Faction f in gv.mod.moduleFactionsList)
+            {
+                if (f.tag == factionTag)
+                {
+                    if (transformType.Equals("+"))
+                    {
+                        f.amountOfFactionStrengthChangePerInterval += amountNumber;
+                    }
+                    else if (transformType.Equals("-"))
+                    {
+                        f.amountOfFactionStrengthChangePerInterval -= amountNumber;
+                    }
+                    else if (transformType.Equals("/"))
+                    {
+                        f.amountOfFactionStrengthChangePerInterval /= amountNumber;
+                    }
+                    else if (transformType.Equals("%"))
+                    {
+                        f.amountOfFactionStrengthChangePerInterval %= amountNumber;
+                    }
+                    else if (transformType.Equals("*"))
+                    {
+                        f.amountOfFactionStrengthChangePerInterval *= amountNumber;
+                    }
+                    else if (transformType.Equals("="))
+                    {
+                        f.amountOfFactionStrengthChangePerInterval = amountNumber;
+                    }
+                }
+            }
+        }
+
+
         public void TransformGlobalInt(string firstInt, string transformType, string secondInt, string variableName)
         {
             string val = "";
@@ -8868,6 +9531,9 @@ namespace IceBlink2
         //DEFAULT SCRIPTS
         public void dsWorldTime()
         {
+            //world time is in minues
+            //28 day a month
+            //12 months a year (48 weeks a year)
             gv.mod.timeInThisYear = (gv.mod.WorldTime) % 483840;
            
             //note: our ranges strat at 0 here, while our usual displayed counting starts at 1
@@ -9032,8 +9698,64 @@ namespace IceBlink2
 
             //XXX
             mod.WorldTime += mod.currentArea.TimePerSquare;
+
+            foreach (Prop p in gv.mod.propsWaitingForRespawn)
+            {
+                p.respawnTimeInMinutesPassedAlready += mod.currentArea.TimePerSquare;
+            }
+
+            foreach (Faction f in gv.mod.moduleFactionsList)
+            {
+                f.timePassedInThisInterval += mod.currentArea.TimePerSquare;
+                if (f.timePassedInThisInterval >= (f.intervalOfFactionStrengthChangeInHours*60))
+                {
+                    f.timePassedInThisInterval = 0;
+                    f.strength += f.amountOfFactionStrengthChangePerInterval;
+                    if (f.strength >= f.factionStrengthRequiredForRank10)
+                    {
+                        f.rank = 10;
+                    }
+                    else if (f.strength >= f.factionStrengthRequiredForRank9)
+                    {
+                        f.rank = 9;
+                    }
+                    else if (f.strength >= f.factionStrengthRequiredForRank8)
+                    {
+                        f.rank = 8;
+                    }
+                    else if (f.strength >= f.factionStrengthRequiredForRank7)
+                    {
+                        f.rank = 7;
+                    }
+                    else if (f.strength >= f.factionStrengthRequiredForRank6)
+                    {
+                        f.rank = 6;
+                    }
+                    else if (f.strength >= f.factionStrengthRequiredForRank5)
+                    {
+                        f.rank = 5;
+                    }
+                    else if (f.strength >= f.factionStrengthRequiredForRank4)
+                    {
+                        f.rank = 4;
+                    }
+                    else if (f.strength >= f.factionStrengthRequiredForRank3)
+                    {
+                        f.rank = 3;
+                    }
+                    else if (f.strength >= f.factionStrengthRequiredForRank2)
+                    {
+                        f.rank = 2;
+                    }
+                    else
+                    {
+                        f.rank = 1;
+                    }
+                }
+            }
+
             //Code: Bleed to death at -20 hp
-            spCnt++;
+            //spCnt++;
             foreach (Player pc in mod.playerList)
             {
                 //check to see if allow HP to regen

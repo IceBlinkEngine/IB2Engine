@@ -14,6 +14,8 @@ namespace IceBlink2
     public class Module
     {
 
+        public string currentPropTag = "none";
+
         public bool noRimLights = false;
         public bool blendOutTooHighAndTooDeepTiles = false;
 
@@ -150,7 +152,13 @@ namespace IceBlink2
         public List<string> nonRepeatableFreeActionsUsedThisTurnBySpellTag = new List<string>();
         [JsonIgnore]
         public bool swiftActionHasBeenUsedThisTurn = false;
+        [JsonIgnore]
+        public List<Faction> moduleFactionsList = new List<Faction>();
 
+        public List<string> storedFactionTags = new List<string>();
+        public List<int> storedFactionStrengths = new List<int>();
+
+        public List<Prop> propsWaitingForRespawn = new List<Prop>();
 
         public List<string> moduleAreasList = new List<string>();
         

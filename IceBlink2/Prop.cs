@@ -14,6 +14,63 @@ namespace IceBlink2
 {
     public class Prop 
     {
+
+        //new properties for faction and respawn system
+        //respawn:
+        public int respawnTimeInHours = -1; //-1 meaning false, respawn time is in hours
+        public int maxNumberOfRespawns = -1;//-1 meaning no limit to the number of respawns
+        //public bool spawnOnNearbySquaresIfOccupied = false; //if false, the respawn will be delayed until target square is free
+        public int respawnTimeInMinutesPassedAlready = 0; //internal property, not for toolset
+        public int numberOfRespawnsThatHappenedAlready = 0;//internal property, not for toolset
+        public string nameAsMaster = "none";// blank meaning this prop is master of none
+        public string thisPropsMaster = "none"; //blank means this prop has no master; refers to nameAsMaster of another prop
+        public bool instantDeathOnMasterDeath = false; //if true,the propsis immediately placed on List<Prop> propsWaitingForRespawn of this module on its master's death
+        public string keyOfGlobalVarToSetTo1OnDeathOrInactivity = "none";//set to zero again on respawn
+        public string spawnArea = "";
+        public int spawnLocationX = 0;
+        public int spawnLocationY = 0;
+        public int spawnLocationZ = 0;
+
+        //faction:
+        public string factionTag = "none";
+        public int requiredFactionStrength = 0;
+        public int maxFactionStrength = -1;
+        public int worthForOwnFaction = 0;
+        public string otherFactionAffectedOnDeath1 = "none";
+        public int effectOnOtherFactionOnDeath1 = 0;
+        public string otherFactionAffectedOnDeath2 = "none";
+        public int effectOnOtherFactionOnDeath2 = 0;
+        public string otherFactionAffectedOnDeath3 = "none";
+        public int effectOnOtherFactionOnDeath3 = 0;
+        public string otherFactionAffectedOnDeath4 = "none";
+        public int effectOnOtherFactionOnDeath4 = 0;
+        public bool pendingFactionStrengthEffectReversal = false;
+
+        //gcCheck
+        public string firstGcScriptName = "none";
+        public string firstGcParm1 = "none";
+        public string firstGcParm2 = "none";
+        public string firstGcParm3 = "none";
+        public string firstGcParm4 = "none";
+        public bool firstCheckForConditionFail = false;
+
+        public string secondGcScriptName = "none";
+        public string secondGcParm1 = "none";
+        public string secondGcParm2 = "none";
+        public string secondGcParm3 = "none";
+        public string secondGcParm4 = "none";
+        public bool secondCheckForConditionFail = false;
+
+        public string thirdGcScriptName = "none";
+        public string thirdGcParm1 = "none";
+        public string thirdGcParm2 = "none";
+        public string thirdGcParm3 = "none";
+        public string thirdGcParm4 = "none";
+        public bool thirdCheckForConditionFail = false;
+
+        public bool allConditionsMustBeTrue = true;
+
+
         public bool isUnderBridge = false;
 
         public string OnEnterSquareScript = "none";  
@@ -148,6 +205,11 @@ namespace IceBlink2
         public Prop DeepCopy()
         {
     	    Prop copy = new Prop();
+            copy.pendingFactionStrengthEffectReversal = this.pendingFactionStrengthEffectReversal;
+            copy.spawnLocationX = this.spawnLocationX;
+            copy.spawnLocationY = this.spawnLocationY;
+            copy.spawnLocationZ = this.spawnLocationZ;
+            copy.spawnArea = this.spawnArea;
             copy.allowLastLocationUpdate = this.allowLastLocationUpdate;
             copy.isLight = this.isLight;
             copy.inverseAnimationDirection = this.inverseAnimationDirection;
@@ -281,6 +343,55 @@ namespace IceBlink2
             copy.isTrap = this.isTrap;
             copy.trapDCforDisableCheck = this.trapDCforDisableCheck;
 
+            //faction and respawn systems
+        copy.respawnTimeInHours = this.respawnTimeInHours; //-1 meaning false, respawn time is in hours
+        copy.maxNumberOfRespawns = this.maxNumberOfRespawns;//-1 meaning no limit to the number of respawns
+        //copy.spawnOnNearbySquaresIfOccupied = this.spawnOnNearbySquaresIfOccupied; //if false, the respawn will be delayed until target square is free
+        copy.respawnTimeInMinutesPassedAlready = this.respawnTimeInMinutesPassedAlready; //internal property, not for toolset
+        copy.numberOfRespawnsThatHappenedAlready = this.numberOfRespawnsThatHappenedAlready;//internal property, not for toolset
+        copy.nameAsMaster = this.nameAsMaster;// blank meaning this prop is master of none
+        copy.thisPropsMaster = this.thisPropsMaster; //blank means this prop has no master; refers to nameAsMaster of another prop
+        copy.instantDeathOnMasterDeath = this.instantDeathOnMasterDeath; //if true,the propsis immediately placed on List<Prop> propsWaitingForRespawn of this module on its master's death
+        copy.keyOfGlobalVarToSetTo1OnDeathOrInactivity = this.keyOfGlobalVarToSetTo1OnDeathOrInactivity;//set to zero again when living and active
+
+        //faction:
+        copy.factionTag = this.factionTag;
+        copy.requiredFactionStrength = this.requiredFactionStrength;
+        copy.maxFactionStrength = this.maxFactionStrength;
+        copy.worthForOwnFaction = this.worthForOwnFaction;
+        copy.otherFactionAffectedOnDeath1 = this.otherFactionAffectedOnDeath1;
+        copy.effectOnOtherFactionOnDeath1 = this.effectOnOtherFactionOnDeath1;
+        copy.otherFactionAffectedOnDeath2 = this.otherFactionAffectedOnDeath2;
+        copy.effectOnOtherFactionOnDeath2 = this.effectOnOtherFactionOnDeath2;
+        copy.otherFactionAffectedOnDeath3 = this.otherFactionAffectedOnDeath3;
+        copy.effectOnOtherFactionOnDeath3 = this.effectOnOtherFactionOnDeath3;
+        copy.otherFactionAffectedOnDeath4 = this.otherFactionAffectedOnDeath4;
+        copy.effectOnOtherFactionOnDeath4 = this.effectOnOtherFactionOnDeath4;
+
+        //gcCheck
+        copy.firstGcScriptName = this.firstGcScriptName;
+        copy.firstGcParm1 = this.firstGcParm1;
+        copy.firstGcParm2 = this.firstGcParm2;
+        copy.firstGcParm3 = this.firstGcParm3;
+        copy.firstGcParm4 = this.firstGcParm4;
+        copy.firstCheckForConditionFail = this.firstCheckForConditionFail;
+
+            copy.secondGcScriptName = this.secondGcScriptName;
+            copy.secondGcParm1 = this.secondGcParm1;
+            copy.secondGcParm2 = this.secondGcParm2;
+            copy.secondGcParm3 = this.secondGcParm3;
+            copy.secondGcParm4 = this.secondGcParm4;
+            copy.secondCheckForConditionFail = this.secondCheckForConditionFail;
+
+            copy.thirdGcScriptName = this.thirdGcScriptName;
+            copy.thirdGcParm1 = this.thirdGcParm1;
+            copy.thirdGcParm2 = this.thirdGcParm2;
+            copy.thirdGcParm3 = this.thirdGcParm3;
+            copy.thirdGcParm4 = this.thirdGcParm4;
+            copy.thirdCheckForConditionFail = this.thirdCheckForConditionFail;
+
+
+        copy.allConditionsMustBeTrue = this.allConditionsMustBeTrue;
 
             return copy;
         }

@@ -438,6 +438,7 @@ namespace IceBlink2
 		    cc.LoadEffects();
 		    cc.LoadSpells();
 		    cc.LoadTraits();
+            cc.LoadFactions();
             cc.LoadWeathers();
             cc.LoadWeatherEffects();
 		    cc.LoadCreatures();

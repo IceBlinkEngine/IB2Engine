@@ -598,6 +598,108 @@ namespace IceBlink2
                             copy.token = gv.cc.LoadBitmap(copy.cr_tokenFilename);
                             copy.combatLocX = crf.creatureStartLocationX;
                             copy.combatLocY = crf.creatureStartLocationY;
+                            //factionsystem: faction buff
+                            if (copy.factionTag != null)
+                            {
+                                if (copy.factionTag != "none" && copy.factionTag != "None" && copy.factionTag != "")
+                                {
+                                    //Faction tempFaction = new Faction();
+
+                                    //creature's faction
+                                    foreach (Faction f in gv.mod.moduleFactionsList)
+                                    {
+                                        if (f.tag == copy.factionTag)
+                                        {
+                                            if (f.rank == 1)
+                                            {
+                                                copy.AC += f.accumulatedBuffStrengthRank1;
+                                                copy.cr_att += f.accumulatedBuffStrengthRank1;
+                                                copy.will += f.accumulatedBuffStrengthRank1;
+                                                copy.fortitude += f.accumulatedBuffStrengthRank1;
+                                                copy.reflex += f.accumulatedBuffStrengthRank1;
+                                                //let's limit the faction buff effect a bit for starters
+                                                //copy.hpMax = copy.hpMax + copy.hpMax * (f.accumulatedBuffStrengthRank1 * 10 / 100);
+                                            }
+                                            if (f.rank == 2)
+                                            {
+                                                copy.AC += f.accumulatedBuffStrengthRank2;
+                                                copy.cr_att += f.accumulatedBuffStrengthRank2;
+                                                copy.will += f.accumulatedBuffStrengthRank2;
+                                                copy.fortitude += f.accumulatedBuffStrengthRank2;
+                                                copy.reflex += f.accumulatedBuffStrengthRank2;
+                                            }
+                                            if (f.rank == 3)
+                                            {
+                                                copy.AC += f.accumulatedBuffStrengthRank3;
+                                                copy.cr_att += f.accumulatedBuffStrengthRank3;
+                                                copy.will += f.accumulatedBuffStrengthRank3;
+                                                copy.fortitude += f.accumulatedBuffStrengthRank3;
+                                                copy.reflex += f.accumulatedBuffStrengthRank3;
+                                            }
+                                            if (f.rank == 4)
+                                            {
+                                                copy.AC += f.accumulatedBuffStrengthRank4;
+                                                copy.cr_att += f.accumulatedBuffStrengthRank4;
+                                                copy.will += f.accumulatedBuffStrengthRank4;
+                                                copy.fortitude += f.accumulatedBuffStrengthRank4;
+                                                copy.reflex += f.accumulatedBuffStrengthRank4;
+                                            }
+                                            if (f.rank == 5)
+                                            {
+                                                copy.AC += f.accumulatedBuffStrengthRank5;
+                                                copy.cr_att += f.accumulatedBuffStrengthRank5;
+                                                copy.will += f.accumulatedBuffStrengthRank5;
+                                                copy.fortitude += f.accumulatedBuffStrengthRank5;
+                                                copy.reflex += f.accumulatedBuffStrengthRank5;
+                                            }
+                                            if (f.rank == 6)
+                                            {
+                                                copy.AC += f.accumulatedBuffStrengthRank6;
+                                                copy.cr_att += f.accumulatedBuffStrengthRank6;
+                                                copy.will += f.accumulatedBuffStrengthRank6;
+                                                copy.fortitude += f.accumulatedBuffStrengthRank6;
+                                                copy.reflex += f.accumulatedBuffStrengthRank6;
+                                            }
+                                            if (f.rank == 7)
+                                            {
+                                                copy.AC += f.accumulatedBuffStrengthRank7;
+                                                copy.cr_att += f.accumulatedBuffStrengthRank7;
+                                                copy.will += f.accumulatedBuffStrengthRank7;
+                                                copy.fortitude += f.accumulatedBuffStrengthRank7;
+                                                copy.reflex += f.accumulatedBuffStrengthRank7;
+                                            }
+                                            if (f.rank == 8)
+                                            {
+                                                copy.AC += f.accumulatedBuffStrengthRank8;
+                                                copy.cr_att += f.accumulatedBuffStrengthRank8;
+                                                copy.will += f.accumulatedBuffStrengthRank8;
+                                                copy.fortitude += f.accumulatedBuffStrengthRank8;
+                                                copy.reflex += f.accumulatedBuffStrengthRank8;
+                                            }
+                                            if (f.rank == 9)
+                                            {
+                                                copy.AC += f.accumulatedBuffStrengthRank9;
+                                                copy.cr_att += f.accumulatedBuffStrengthRank9;
+                                                copy.will += f.accumulatedBuffStrengthRank9;
+                                                copy.fortitude += f.accumulatedBuffStrengthRank9;
+                                                copy.reflex += f.accumulatedBuffStrengthRank9;
+                                            }
+                                            if (f.rank == 10)
+                                            {
+                                                copy.AC += f.accumulatedBuffStrengthRank10;
+                                                copy.cr_att += f.accumulatedBuffStrengthRank10;
+                                                copy.will += f.accumulatedBuffStrengthRank10;
+                                                copy.fortitude += f.accumulatedBuffStrengthRank10;
+                                                copy.reflex += f.accumulatedBuffStrengthRank10;
+                                            }
+
+                                            break;
+                                        }
+                                    }
+                                }
+                            }
+
+
                             gv.mod.currentEncounter.encounterCreatureList.Add(copy);
                         }
                         catch (Exception ex)

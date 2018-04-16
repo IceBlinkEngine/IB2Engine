@@ -16,6 +16,9 @@ namespace IceBlink2
     public class Creature 
     {
 	    public string cr_tokenFilename = "blank.png";
+
+        public string factionTag = "none";
+
         [JsonIgnore]
 	    public Bitmap token;
         public float roamDistanceX = 0;
@@ -120,6 +123,7 @@ namespace IceBlink2
 	    public Creature DeepCopy()
 	    {
 		    Creature copy = new Creature();
+            copy.factionTag = this.factionTag;
             copy.percentRequirementOfTargetInjuryForHealSpells = this.percentRequirementOfTargetInjuryForHealSpells;
             copy.percentRequirementOfTargetSPLossForRestoreSPSpells = this.percentRequirementOfTargetInjuryForHealSpells;
             copy.targetPcTag = this.targetPcTag;
