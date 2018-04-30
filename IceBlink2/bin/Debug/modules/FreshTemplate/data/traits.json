@@ -1,5 +1,7 @@
 [
   {
+    "methodOfChecking": "leader",
+    "showOnMainMap": false,
     "name": "Bluff (L1)",
     "traitEffectTagList": [],
     "traitWorksOnlyWhen": [],
@@ -21,6 +23,8 @@
     "useableInSituation": "Always"
   },
   {
+    "methodOfChecking": "leader",
+    "showOnMainMap": false,
     "name": "Bluff (L2)",
     "traitEffectTagList": [],
     "traitWorksOnlyWhen": [],
@@ -42,6 +46,8 @@
     "useableInSituation": "Always"
   },
   {
+    "methodOfChecking": "leader",
+    "showOnMainMap": false,
     "name": "Cleave",
     "traitEffectTagList": [],
     "traitWorksOnlyWhen": [],
@@ -63,6 +69,8 @@
     "useableInSituation": "Always"
   },
   {
+    "methodOfChecking": "leader",
+    "showOnMainMap": false,
     "name": "Critical Strike",
     "traitEffectTagList": [],
     "traitWorksOnlyWhen": [],
@@ -84,6 +92,8 @@
     "useableInSituation": "Always"
   },
   {
+    "methodOfChecking": "leader",
+    "showOnMainMap": false,
     "name": "Diplomacy (L1)",
     "traitEffectTagList": [],
     "traitWorksOnlyWhen": [],
@@ -105,6 +115,8 @@
     "useableInSituation": "Always"
   },
   {
+    "methodOfChecking": "leader",
+    "showOnMainMap": false,
     "name": "Diplomacy (L2)",
     "traitEffectTagList": [],
     "traitWorksOnlyWhen": [],
@@ -126,6 +138,8 @@
     "useableInSituation": "Always"
   },
   {
+    "methodOfChecking": "leader",
+    "showOnMainMap": false,
     "name": "Disable Device (L1)",
     "traitEffectTagList": [],
     "traitWorksOnlyWhen": [],
@@ -147,6 +161,8 @@
     "useableInSituation": "Always"
   },
   {
+    "methodOfChecking": "leader",
+    "showOnMainMap": false,
     "name": "Disable Device (L2)",
     "traitEffectTagList": [],
     "traitWorksOnlyWhen": [],
@@ -168,6 +184,8 @@
     "useableInSituation": "Always"
   },
   {
+    "methodOfChecking": "leader",
+    "showOnMainMap": false,
     "name": "Evasion",
     "traitEffectTagList": [],
     "traitWorksOnlyWhen": [],
@@ -189,6 +207,8 @@
     "useableInSituation": "Always"
   },
   {
+    "methodOfChecking": "leader",
+    "showOnMainMap": false,
     "name": "Intimidate (L1)",
     "traitEffectTagList": [],
     "traitWorksOnlyWhen": [],
@@ -210,6 +230,8 @@
     "useableInSituation": "Always"
   },
   {
+    "methodOfChecking": "leader",
+    "showOnMainMap": false,
     "name": "Intimidate (L2)",
     "traitEffectTagList": [],
     "traitWorksOnlyWhen": [],
@@ -231,6 +253,8 @@
     "useableInSituation": "Always"
   },
   {
+    "methodOfChecking": "leader",
+    "showOnMainMap": false,
     "name": "Pick Pocket (L1)",
     "traitEffectTagList": [],
     "traitWorksOnlyWhen": [],
@@ -252,6 +276,8 @@
     "useableInSituation": "Always"
   },
   {
+    "methodOfChecking": "leader",
+    "showOnMainMap": false,
     "name": "Pick Pocket (L2)",
     "traitEffectTagList": [],
     "traitWorksOnlyWhen": [],
@@ -273,6 +299,8 @@
     "useableInSituation": "Always"
   },
   {
+    "methodOfChecking": "leader",
+    "showOnMainMap": false,
     "name": "Point Blank Shot",
     "traitEffectTagList": [],
     "traitWorksOnlyWhen": [],
@@ -294,6 +322,8 @@
     "useableInSituation": "Always"
   },
   {
+    "methodOfChecking": "leader",
+    "showOnMainMap": false,
     "name": "Sneak Attack",
     "traitEffectTagList": [],
     "traitWorksOnlyWhen": [],
@@ -315,6 +345,8 @@
     "useableInSituation": "Always"
   },
   {
+    "methodOfChecking": "leader",
+    "showOnMainMap": false,
     "name": "Spot (L1)",
     "traitEffectTagList": [],
     "traitWorksOnlyWhen": [],
@@ -336,6 +368,8 @@
     "useableInSituation": "Always"
   },
   {
+    "methodOfChecking": "leader",
+    "showOnMainMap": false,
     "name": "Spot (L2)",
     "traitEffectTagList": [],
     "traitWorksOnlyWhen": [],
@@ -357,6 +391,8 @@
     "useableInSituation": "Always"
   },
   {
+    "methodOfChecking": "leader",
+    "showOnMainMap": false,
     "name": "Stealth (L1)",
     "traitEffectTagList": [],
     "traitWorksOnlyWhen": [],
@@ -378,6 +414,8 @@
     "useableInSituation": "Always"
   },
   {
+    "methodOfChecking": "leader",
+    "showOnMainMap": false,
     "name": "Stealth (L2)",
     "traitEffectTagList": [],
     "traitWorksOnlyWhen": [],
@@ -399,6 +437,8 @@
     "useableInSituation": "Always"
   },
   {
+    "methodOfChecking": "leader",
+    "showOnMainMap": false,
     "name": "Two Attacks",
     "traitEffectTagList": [],
     "traitWorksOnlyWhen": [],
@@ -420,6 +460,8 @@
     "useableInSituation": "Always"
   },
   {
+    "methodOfChecking": "leader",
+    "showOnMainMap": false,
     "name": "Hard to Kill",
     "traitEffectTagList": [],
     "traitWorksOnlyWhen": [],
@@ -441,6 +483,8 @@
     "useableInSituation": "Always"
   },
   {
+    "methodOfChecking": "leader",
+    "showOnMainMap": false,
     "name": "Precise Shot (L1)",
     "traitEffectTagList": [],
     "traitWorksOnlyWhen": [],
@@ -462,6 +506,8 @@
     "useableInSituation": "Always"
   },
   {
+    "methodOfChecking": "leader",
+    "showOnMainMap": false,
     "name": "Precise Shot (L2)",
     "traitEffectTagList": [],
     "traitWorksOnlyWhen": [],
@@ -483,6 +529,8 @@
     "useableInSituation": "Always"
   },
   {
+    "methodOfChecking": "leader",
+    "showOnMainMap": false,
     "name": "Rapid Shot (L1)",
     "traitEffectTagList": [],
     "traitWorksOnlyWhen": [],
@@ -504,6 +552,8 @@
     "useableInSituation": "Always"
   },
   {
+    "methodOfChecking": "leader",
+    "showOnMainMap": false,
     "name": "Rapid Shot (L2)",
     "traitEffectTagList": [],
     "traitWorksOnlyWhen": [],
@@ -525,6 +575,8 @@
     "useableInSituation": "Always"
   },
   {
+    "methodOfChecking": "leader",
+    "showOnMainMap": false,
     "name": "Battle Regeneration",
     "traitEffectTagList": [],
     "traitWorksOnlyWhen": [],
@@ -546,9 +598,9 @@
     "useableInSituation": "Always"
   },
   {
-    "name": "Super Strength",
-    "showOnMainMap": true,
     "methodOfChecking": "leader",
+    "showOnMainMap": false,
+    "name": "Super Strength",
     "traitEffectTagList": [
       {
         "tag": "SuperStrength+20_10014"
@@ -573,6 +625,8 @@
     "useableInSituation": "Passive"
   },
   {
+    "methodOfChecking": "leader",
+    "showOnMainMap": false,
     "name": "Fighter Ball",
     "traitEffectTagList": [],
     "traitWorksOnlyWhen": [],
@@ -594,6 +648,8 @@
     "useableInSituation": "InCombat"
   },
   {
+    "methodOfChecking": "leader",
+    "showOnMainMap": false,
     "name": "Fighter Ball 2",
     "traitEffectTagList": [],
     "traitWorksOnlyWhen": [],
@@ -615,6 +671,8 @@
     "useableInSituation": "InCombat"
   },
   {
+    "methodOfChecking": "leader",
+    "showOnMainMap": false,
     "name": "testTrait",
     "traitEffectTagList": [
       {
@@ -648,6 +706,8 @@
     "useableInSituation": "Always"
   },
   {
+    "methodOfChecking": "leader",
+    "showOnMainMap": false,
     "name": "Bloody Whirlwind",
     "traitEffectTagList": [],
     "traitWorksOnlyWhen": [
@@ -673,9 +733,9 @@
     "useableInSituation": "InCombat"
   },
   {
-    "name": "Sweep",
-    "showOnMainMap": true,
     "methodOfChecking": "leader",
+    "showOnMainMap": false,
+    "name": "Sweep",
     "traitEffectTagList": [
       {
         "tag": "newEffectTag_10899"
@@ -685,7 +745,7 @@
     "traitWorksNeverWhen": [],
     "tag": "newTraitTag_10900",
     "associatedSpellTag": "none",
-    "traitImage": "tr_battleregen",
+    "traitImage": "sp_magebolt",
     "description": "",
     "prerequisiteTrait": "none",
     "skillModifier": 0,
@@ -695,14 +755,14 @@
     "requiredIntelligence": 0,
     "requiredWisdom": 0,
     "requiredCharisma": 0,
-    "skillModifierAttribute": "cha",
+    "skillModifierAttribute": "str",
     "traitToReplaceByTag": "none",
     "useableInSituation": "Passive"
   },
   {
-    "name": "LightningWielder",
-    "showOnMainMap": true,
     "methodOfChecking": "leader",
+    "showOnMainMap": false,
+    "name": "LightningWielder",
     "traitEffectTagList": [],
     "traitWorksOnlyWhen": [
       {
@@ -712,7 +772,7 @@
     "traitWorksNeverWhen": [],
     "tag": "newTraitTag_10950",
     "associatedSpellTag": "newSpellTag_10948",
-    "traitImage": "tr_bluff",
+    "traitImage": "sp_magebolt",
     "description": "",
     "prerequisiteTrait": "none",
     "skillModifier": 0,
@@ -722,11 +782,13 @@
     "requiredIntelligence": 0,
     "requiredWisdom": 0,
     "requiredCharisma": 0,
-    "skillModifierAttribute": "int",
+    "skillModifierAttribute": "str",
     "traitToReplaceByTag": "none",
     "useableInSituation": "InCombat"
   },
   {
+    "methodOfChecking": "leader",
+    "showOnMainMap": false,
     "name": "Bear Strength",
     "traitEffectTagList": [
       {
@@ -752,6 +814,8 @@
     "useableInSituation": "Always"
   },
   {
+    "methodOfChecking": "leader",
+    "showOnMainMap": false,
     "name": "Replace Me (L1)",
     "traitEffectTagList": [
       {
@@ -777,6 +841,8 @@
     "useableInSituation": "Always"
   },
   {
+    "methodOfChecking": "leader",
+    "showOnMainMap": false,
     "name": "Replace Me (L2)",
     "traitEffectTagList": [
       {
@@ -802,6 +868,8 @@
     "useableInSituation": "Always"
   },
   {
+    "methodOfChecking": "leader",
+    "showOnMainMap": false,
     "name": "Melee Attack and Damage +10",
     "traitEffectTagList": [
       {
@@ -827,6 +895,8 @@
     "useableInSituation": "Passive"
   },
   {
+    "methodOfChecking": "leader",
+    "showOnMainMap": false,
     "name": "Trip",
     "traitEffectTagList": [],
     "traitWorksOnlyWhen": [],
@@ -839,6 +909,33 @@
     "associatedSpellTag": "spell_prone",
     "traitImage": "tr_cleave",
     "description": "Trip an opponent and cause him to become Prone for 2 turns.",
+    "prerequisiteTrait": "none",
+    "skillModifier": 0,
+    "requiredStrength": 0,
+    "requiredDexterity": 0,
+    "requiredConstitution": 0,
+    "requiredIntelligence": 0,
+    "requiredWisdom": 0,
+    "requiredCharisma": 0,
+    "skillModifierAttribute": "str",
+    "traitToReplaceByTag": "none",
+    "useableInSituation": "InCombat"
+  },
+  {
+    "methodOfChecking": "leader",
+    "showOnMainMap": false,
+    "name": "Sprint",
+    "traitEffectTagList": [
+      {
+        "tag": "melee _danage_+10_12122"
+      }
+    ],
+    "traitWorksOnlyWhen": [],
+    "traitWorksNeverWhen": [],
+    "tag": "newTraitTag_13667",
+    "associatedSpellTag": "newSpellTag_13668",
+    "traitImage": "sp_magebolt",
+    "description": "Increase strength by +20.",
     "prerequisiteTrait": "none",
     "skillModifier": 0,
     "requiredStrength": 0,

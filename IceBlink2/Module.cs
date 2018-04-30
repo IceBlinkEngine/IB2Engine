@@ -14,6 +14,14 @@ namespace IceBlink2
     public class Module
     {
 
+
+        public int poorVisionModifier = 0;
+
+        public int nightFightModifier = -4;
+        public int darkFightModifier = -8; 
+
+        public bool alreadyDeleted = false; 
+
         public string currentPropTag = "none";
 
         public bool noRimLights = false;
@@ -152,11 +160,7 @@ namespace IceBlink2
         public List<string> nonRepeatableFreeActionsUsedThisTurnBySpellTag = new List<string>();
         [JsonIgnore]
         public bool swiftActionHasBeenUsedThisTurn = false;
-        [JsonIgnore]
         public List<Faction> moduleFactionsList = new List<Faction>();
-
-        public List<string> storedFactionTags = new List<string>();
-        public List<int> storedFactionStrengths = new List<int>();
 
         public List<Prop> propsWaitingForRespawn = new List<Prop>();
 

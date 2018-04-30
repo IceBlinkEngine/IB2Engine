@@ -153,7 +153,7 @@ namespace IceBlink2
             
             // DRAW QUANTITY
             stringSize = gv.cc.MeasureString(Quantity, SharpDX.DirectWrite.FontWeight.Normal, SharpDX.DirectWrite.FontStyle.Normal, thisFontHeight);
-            
+           
             //place in the bottom right quadrant
             ulX = (((this.Width) - stringSize) / 8) * 7;
             ulY = (((this.Height) - thisFontHeight) / 8) * 7;

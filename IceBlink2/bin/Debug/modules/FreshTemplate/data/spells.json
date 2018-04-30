@@ -1005,7 +1005,47 @@
     "removeEffectTagList": [],
     "spellEffectTagList": [
       {
-        "tag": "newEffectTag_12284"
+        "tag": "newEffectTag_13665"
+      }
+    ]
+  },
+  {
+    "traitWorksOnlyWhen": [],
+    "traitWorksNeverWhen": [],
+    "usesTurnToActivate": false,
+    "onlyOncePerTurn": false,
+    "coolDownTime": 0,
+    "isSwiftAction": true,
+    "isUsedForCombatSquareEffect": false,
+    "name": "Sprint",
+    "tag": "newSpellTag_13668",
+    "spellImage": "sp_bless",
+    "description": "+3 moves for 3 rounds",
+    "useableInSituation": "Always",
+    "spellToReplaceByTag": "none",
+    "spriteFilename": "fx_heal",
+    "spriteEndingFilename": "fx_heal1x1end",
+    "spellStartSound": "buffer",
+    "spellEndSound": "buffer",
+    "costSP": 1,
+    "costHP": 0,
+    "castTimeInTurns": 0,
+    "canBeInterrupted": true,
+    "triggersAoO": true,
+    "spellTargetType": "Friend",
+    "spellEffectType": "Buff",
+    "aoeShape": "Circle",
+    "aoeRadius": 0,
+    "range": 3,
+    "spellScript": "none",
+    "spellScriptParm1": "none",
+    "spellScriptParm2": "none",
+    "additionalCustomLogTextOnCast": "none",
+    "spellEffectTag": "none",
+    "removeEffectTagList": [],
+    "spellEffectTagList": [
+      {
+        "tag": "newEffectTag_13665"
       }
     ]
   }

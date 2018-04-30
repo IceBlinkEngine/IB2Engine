@@ -617,6 +617,15 @@ namespace IceBlink2
                                                 copy.will += f.accumulatedBuffStrengthRank1;
                                                 copy.fortitude += f.accumulatedBuffStrengthRank1;
                                                 copy.reflex += f.accumulatedBuffStrengthRank1;
+                                                if (f.accumulatedBuffStrengthRank1 > 0)
+                                                {
+                                                    gv.cc.addLogText("<font color='blue'>" + copy.cr_name + " belongs to " + f.name + " and gets a +" + f.accumulatedBuffStrengthRank1.ToString() + " buff to AC, Hitroll and Saves" + "</font><BR>");
+                                                }
+                                                else if (f.accumulatedBuffStrengthRank1 < 0)
+                                                {
+                                                    gv.cc.addLogText("<font color='blue'>" + copy.cr_name + " belongs to " + f.name + " and gets a -" + f.accumulatedBuffStrengthRank1.ToString() + " debuff to AC, Hitroll and Saves" + "</font><BR>");
+                                                }
+                                                //birthday
                                                 //let's limit the faction buff effect a bit for starters
                                                 //copy.hpMax = copy.hpMax + copy.hpMax * (f.accumulatedBuffStrengthRank1 * 10 / 100);
                                             }
@@ -627,6 +636,14 @@ namespace IceBlink2
                                                 copy.will += f.accumulatedBuffStrengthRank2;
                                                 copy.fortitude += f.accumulatedBuffStrengthRank2;
                                                 copy.reflex += f.accumulatedBuffStrengthRank2;
+                                                if (f.accumulatedBuffStrengthRank2 > 0)
+                                                {
+                                                    gv.cc.addLogText("<font color='blue'>" + copy.cr_name + " belongs to " + f.name + " and gets a +" + f.accumulatedBuffStrengthRank1.ToString() + " buff to AC, Hitroll and Saves" + "</font><BR>");
+                                                }
+                                                else if (f.accumulatedBuffStrengthRank2 < 0)
+                                                {
+                                                    gv.cc.addLogText("<font color='blue'>" + copy.cr_name + " belongs to " + f.name + " and gets a -" + f.accumulatedBuffStrengthRank1.ToString() + " debuff to AC, Hitroll and Saves" + "</font><BR>");
+                                                }
                                             }
                                             if (f.rank == 3)
                                             {
@@ -635,6 +652,14 @@ namespace IceBlink2
                                                 copy.will += f.accumulatedBuffStrengthRank3;
                                                 copy.fortitude += f.accumulatedBuffStrengthRank3;
                                                 copy.reflex += f.accumulatedBuffStrengthRank3;
+                                                if (f.accumulatedBuffStrengthRank3 > 0)
+                                                {
+                                                    gv.cc.addLogText("<font color='blue'>" + copy.cr_name + " belongs to " + f.name + " and gets a +" + f.accumulatedBuffStrengthRank1.ToString() + " buff to AC, Hitroll and Saves" + "</font><BR>");
+                                                }
+                                                else if (f.accumulatedBuffStrengthRank3 < 0)
+                                                {
+                                                    gv.cc.addLogText("<font color='blue'>" + copy.cr_name + " belongs to " + f.name + " and gets a -" + f.accumulatedBuffStrengthRank1.ToString() + " debuff to AC, Hitroll and Saves" + "</font><BR>");
+                                                }
                                             }
                                             if (f.rank == 4)
                                             {
@@ -643,6 +668,14 @@ namespace IceBlink2
                                                 copy.will += f.accumulatedBuffStrengthRank4;
                                                 copy.fortitude += f.accumulatedBuffStrengthRank4;
                                                 copy.reflex += f.accumulatedBuffStrengthRank4;
+                                                if (f.accumulatedBuffStrengthRank4 > 0)
+                                                {
+                                                    gv.cc.addLogText("<font color='blue'>" + copy.cr_name + " belongs to " + f.name + " and gets a +" + f.accumulatedBuffStrengthRank1.ToString() + " buff to AC, Hitroll and Saves" + "</font><BR>");
+                                                }
+                                                else if (f.accumulatedBuffStrengthRank4 < 0)
+                                                {
+                                                    gv.cc.addLogText("<font color='blue'>" + copy.cr_name + " belongs to " + f.name + " and gets a -" + f.accumulatedBuffStrengthRank1.ToString() + " debuff to AC, Hitroll and Saves" + "</font><BR>");
+                                                }
                                             }
                                             if (f.rank == 5)
                                             {
@@ -651,6 +684,14 @@ namespace IceBlink2
                                                 copy.will += f.accumulatedBuffStrengthRank5;
                                                 copy.fortitude += f.accumulatedBuffStrengthRank5;
                                                 copy.reflex += f.accumulatedBuffStrengthRank5;
+                                                if (f.accumulatedBuffStrengthRank5 > 0)
+                                                {
+                                                    gv.cc.addLogText("<font color='blue'>" + copy.cr_name + " belongs to " + f.name + " and gets a +" + f.accumulatedBuffStrengthRank1.ToString() + " buff to AC, Hitroll and Saves" + "</font><BR>");
+                                                }
+                                                else if (f.accumulatedBuffStrengthRank5 < 0)
+                                                {
+                                                    gv.cc.addLogText("<font color='blue'>" + copy.cr_name + " belongs to " + f.name + " and gets a -" + f.accumulatedBuffStrengthRank1.ToString() + " debuff to AC, Hitroll and Saves" + "</font><BR>");
+                                                }
                                             }
                                             if (f.rank == 6)
                                             {
@@ -659,6 +700,14 @@ namespace IceBlink2
                                                 copy.will += f.accumulatedBuffStrengthRank6;
                                                 copy.fortitude += f.accumulatedBuffStrengthRank6;
                                                 copy.reflex += f.accumulatedBuffStrengthRank6;
+                                                if (f.accumulatedBuffStrengthRank6 > 0)
+                                                {
+                                                    gv.cc.addLogText("<font color='blue'>" + copy.cr_name + " belongs to " + f.name + " and gets a +" + f.accumulatedBuffStrengthRank1.ToString() + " buff to AC, Hitroll and Saves" + "</font><BR>");
+                                                }
+                                                else if (f.accumulatedBuffStrengthRank6 < 0)
+                                                {
+                                                    gv.cc.addLogText("<font color='blue'>" + copy.cr_name + " belongs to " + f.name + " and gets a -" + f.accumulatedBuffStrengthRank1.ToString() + " debuff to AC, Hitroll and Saves" + "</font><BR>");
+                                                }
                                             }
                                             if (f.rank == 7)
                                             {
@@ -667,6 +716,14 @@ namespace IceBlink2
                                                 copy.will += f.accumulatedBuffStrengthRank7;
                                                 copy.fortitude += f.accumulatedBuffStrengthRank7;
                                                 copy.reflex += f.accumulatedBuffStrengthRank7;
+                                                if (f.accumulatedBuffStrengthRank7 > 0)
+                                                {
+                                                    gv.cc.addLogText("<font color='blue'>" + copy.cr_name + " belongs to " + f.name + " and gets a +" + f.accumulatedBuffStrengthRank1.ToString() + " buff to AC, Hitroll and Saves" + "</font><BR>");
+                                                }
+                                                else if (f.accumulatedBuffStrengthRank7 < 0)
+                                                {
+                                                    gv.cc.addLogText("<font color='blue'>" + copy.cr_name + " belongs to " + f.name + " and gets a -" + f.accumulatedBuffStrengthRank1.ToString() + " debuff to AC, Hitroll and Saves" + "</font><BR>");
+                                                }
                                             }
                                             if (f.rank == 8)
                                             {
@@ -675,6 +732,14 @@ namespace IceBlink2
                                                 copy.will += f.accumulatedBuffStrengthRank8;
                                                 copy.fortitude += f.accumulatedBuffStrengthRank8;
                                                 copy.reflex += f.accumulatedBuffStrengthRank8;
+                                                if (f.accumulatedBuffStrengthRank8 > 0)
+                                                {
+                                                    gv.cc.addLogText("<font color='blue'>" + copy.cr_name + " belongs to " + f.name + " and gets a +" + f.accumulatedBuffStrengthRank1.ToString() + " buff to AC, Hitroll and Saves" + "</font><BR>");
+                                                }
+                                                else if (f.accumulatedBuffStrengthRank8 < 0)
+                                                {
+                                                    gv.cc.addLogText("<font color='blue'>" + copy.cr_name + " belongs to " + f.name + " and gets a -" + f.accumulatedBuffStrengthRank1.ToString() + " debuff to AC, Hitroll and Saves" + "</font><BR>");
+                                                }
                                             }
                                             if (f.rank == 9)
                                             {
@@ -683,6 +748,14 @@ namespace IceBlink2
                                                 copy.will += f.accumulatedBuffStrengthRank9;
                                                 copy.fortitude += f.accumulatedBuffStrengthRank9;
                                                 copy.reflex += f.accumulatedBuffStrengthRank9;
+                                                if (f.accumulatedBuffStrengthRank9 > 0)
+                                                {
+                                                    gv.cc.addLogText("<font color='blue'>" + copy.cr_name + " belongs to " + f.name + " and gets a +" + f.accumulatedBuffStrengthRank1.ToString() + " buff to AC, Hitroll and Saves" + "</font><BR>");
+                                                }
+                                                else if (f.accumulatedBuffStrengthRank9 < 0)
+                                                {
+                                                    gv.cc.addLogText("<font color='blue'>" + copy.cr_name + " belongs to " + f.name + " and gets a -" + f.accumulatedBuffStrengthRank1.ToString() + " debuff to AC, Hitroll and Saves" + "</font><BR>");
+                                                }
                                             }
                                             if (f.rank == 10)
                                             {
@@ -691,6 +764,14 @@ namespace IceBlink2
                                                 copy.will += f.accumulatedBuffStrengthRank10;
                                                 copy.fortitude += f.accumulatedBuffStrengthRank10;
                                                 copy.reflex += f.accumulatedBuffStrengthRank10;
+                                                if (f.accumulatedBuffStrengthRank10 > 0)
+                                                {
+                                                    gv.cc.addLogText("<font color='blue'>" + copy.cr_name + " belongs to " + f.name + " and gets a +" + f.accumulatedBuffStrengthRank1.ToString() + " buff to AC, Hitroll and Saves" + "</font><BR>");
+                                                }
+                                                else if (f.accumulatedBuffStrengthRank10 < 0)
+                                                {
+                                                    gv.cc.addLogText("<font color='blue'>" + copy.cr_name + " belongs to " + f.name + " and gets a -" + f.accumulatedBuffStrengthRank1.ToString() + " debuff to AC, Hitroll and Saves" + "</font><BR>");
+                                                }
                                             }
 
                                             break;
@@ -756,6 +837,57 @@ namespace IceBlink2
                     //or maybe a script does this, called at start of encounter
                 }
             }
+
+            //ad effects for night and darkness fights
+            if (gv.sf.CheckIsInDarkness("party", "night"))
+            {
+                gv.mod.poorVisionModifier = gv.mod.nightFightModifier;
+                gv.cc.addLogText("<font color='yellow'>Night debuff of " + gv.mod.nightFightModifier.ToString() + " applied on party." + "<BR></font>");
+                for (int index = 0; index < gv.mod.playerList.Count; index++)
+                {
+                    gv.sf.UpdateStats(gv.mod.playerList[index]);
+                }
+
+                /*
+                for (int index = 0; index < gv.mod.playerList.Count; index++)
+                {
+                    gv.mod.poorVisionModifier = gv.mod.nightFightModifier;
+                    gv.mod.playerList[index].ACBase += gv.mod.nightFightModifier;
+                    gv.mod.playerList[index].playerClass.babTable[gv.mod.playerList[index].classLevel] += gv.mod.nightFightModifier;
+                    gv.mod.playerList[index].baseWill += gv.mod.nightFightModifier;
+                    gv.mod.playerList[index].baseReflex += gv.mod.nightFightModifier;
+                    gv.mod.playerList[index].baseFortitude += gv.mod.nightFightModifier;
+                    gv.sf.UpdateStats(gv.mod.playerList[index]);
+                    gv.cc.addLogText("<font color='yellow'>Night debuff of "+ gv.mod.nightFightModifier.ToString() + " applied on " + gv.mod.playerList[index].name + ".<BR></font>");
+                }
+                */
+            }
+            else if (gv.sf.CheckIsInDarkness("party", "noLight"))
+            {
+                gv.mod.poorVisionModifier = gv.mod.nightFightModifier;
+                gv.cc.addLogText("<font color='yellow'>Darkness debuff of " + gv.mod.nightFightModifier.ToString() + " applied on party" + ".<BR></font>");
+                for (int index = 0; index < gv.mod.playerList.Count; index++)
+                {
+                    gv.sf.UpdateStats(gv.mod.playerList[index]);
+                }
+                /*
+                                for (int index = 0; index < gv.mod.playerList.Count; index++)
+                                {
+                                    gv.mod.playerList[index].ACBase += gv.mod.darkFightModifier;
+                                    gv.mod.playerList[index].playerClass.babTable[gv.mod.playerList[index].classLevel] += gv.mod.darkFightModifier;
+                                    gv.mod.playerList[index].baseWill += gv.mod.darkFightModifier;
+                                    gv.mod.playerList[index].baseReflex += gv.mod.darkFightModifier;
+                                    gv.mod.playerList[index].baseFortitude += gv.mod.darkFightModifier;
+                                    gv.sf.UpdateStats(gv.mod.playerList[index]);
+                                    gv.cc.addLogText("<font color='yellow'>Darkness debuff of " + gv.mod.nightFightModifier.ToString() + " applied on " + gv.mod.playerList[index].name + ".<BR></font>");
+                                }
+                                */
+            }
+            else
+            {
+                gv.mod.poorVisionModifier = 0;
+            }
+
             isPlayerTurn = true;
             currentPlayerIndex = 0;
             creatureIndex = 0;
@@ -5081,8 +5213,43 @@ namespace IceBlink2
                 gv.mod.currentEncounter.isOver = true;
                 gv.touchEnabled = true;
 
-                //remove temporary allies
-                for (int i = gv.mod.playerList.Count-1; i >= 0; i--)
+                //remove night and nolight debuffs
+                gv.mod.poorVisionModifier = 0;
+                for (int index = 0; index < gv.mod.playerList.Count; index++)
+                {
+                    gv.sf.UpdateStats(gv.mod.playerList[index]);
+                }
+                    /*
+                    if (gv.sf.CheckIsInDarkness("party", "night"))
+                    {
+                        for (int index = 0; index < gv.mod.playerList.Count; index++)
+                        {
+                            gv.mod.playerList[index].ACBase -= gv.mod.nightFightModifier;
+                            gv.mod.playerList[index].playerClass.babTable[gv.mod.playerList[index].classLevel] -= gv.mod.nightFightModifier;
+                            gv.mod.playerList[index].baseWill -= gv.mod.nightFightModifier;
+                            gv.mod.playerList[index].baseReflex -= gv.mod.nightFightModifier;
+                            gv.mod.playerList[index].baseFortitude -= gv.mod.nightFightModifier;
+                            gv.sf.UpdateStats(gv.mod.playerList[index]);
+                            gv.cc.addLogText("<font color='yellow'>Night debuff removed from " + gv.mod.playerList[index] + ".<BR></font>");
+                        }
+                    }
+                    else if (gv.sf.CheckIsInDarkness("party", "noLight"))
+                    {
+                        for (int index = 0; index < gv.mod.playerList.Count; index++)
+                        {
+                            gv.mod.playerList[index].ACBase -= gv.mod.darkFightModifier;
+                            gv.mod.playerList[index].playerClass.babTable[gv.mod.playerList[index].classLevel] -= gv.mod.nightFightModifier;
+                            gv.mod.playerList[index].baseWill -= gv.mod.darkFightModifier;
+                            gv.mod.playerList[index].baseReflex -= gv.mod.darkFightModifier;
+                            gv.mod.playerList[index].baseFortitude -= gv.mod.darkFightModifier;
+                            gv.sf.UpdateStats(gv.mod.playerList[index]);
+                            gv.cc.addLogText("<font color='yellow'>Darkness debuff removed from " + gv.mod.playerList[index] + ".<BR></font>");
+                        }
+                    }
+                    */
+
+                    //remove temporary allies
+                    for (int i = gv.mod.playerList.Count-1; i >= 0; i--)
                 {
                     if (gv.mod.playerList[i].isTemporaryAllyForThisEncounterOnly)
                     {
@@ -5145,12 +5312,14 @@ namespace IceBlink2
                     //gv.mod.isRecursiveDoTriggerCallMovingProp = true;
                     //gv.mod.isRecursiveCall = true;
                     gv.mod.EncounterOfTurnDone = false;
+                    //gv.triggerPropIndex = 4;
                     gv.cc.doPropTriggers();
                     //gv.mod.isRecursiveCall = false;
                 }
                 else
                 {
                     gv.mod.EncounterOfTurnDone = false;
+                    //gv.triggerPropIndex = 4;
                     gv.cc.doTrigger();
                 }
                 return true;
@@ -5173,7 +5342,10 @@ namespace IceBlink2
                 if (gv.mod.currentEncounter.isFriendlyContest)
                 {
 
-                    gv.mod.currentEncounter.isOver = true;
+                    //if (!gv.mod.currentEncounter.isRepeatable)
+                    //{
+                        gv.mod.currentEncounter.isOver = true;
+                    //}
                     gv.touchEnabled = true;
 
                     //remove temporary allies
@@ -5208,12 +5380,14 @@ namespace IceBlink2
                         //gv.mod.isRecursiveDoTriggerCallMovingProp = true;
                         //gv.mod.isRecursiveCall = true;
                         gv.mod.EncounterOfTurnDone = false;
+                       //gv.triggerPropIndex = 4;
                         gv.cc.doPropTriggers();
                         //gv.mod.isRecursiveCall = false;
                     }
                     else
                     {
                         gv.mod.EncounterOfTurnDone = false;
+                        //gv.triggerPropIndex = 4;
                         gv.cc.doTrigger();
                     }
                     return true;
@@ -9371,6 +9545,7 @@ namespace IceBlink2
                     gv.mod.playerList[currentPlayerIndex].doCastActionInXFullTurns = 0;
                     gv.mod.playerList[currentPlayerIndex].tagOfSpellToBeCastAfterCastTimeIsDone = "none";
                     gv.mod.playerList[currentPlayerIndex].thisCasterCanBeInterrupted = true;
+                    //gv.screenInventory.resetInventory(true);
                     gv.screenType = "combatInventory";
                     gv.screenInventory.resetInventory(true);
                 }
@@ -11324,6 +11499,7 @@ namespace IceBlink2
                             gv.mod.playerList[currentPlayerIndex].doCastActionInXFullTurns = 0;
                             gv.mod.playerList[currentPlayerIndex].tagOfSpellToBeCastAfterCastTimeIsDone = "none";
                             gv.mod.playerList[currentPlayerIndex].thisCasterCanBeInterrupted = true;
+                            //gv.screenInventory.resetInventory(true);
                             gv.screenType = "combatInventory";
                             gv.screenInventory.resetInventory(true);
                         }
@@ -15613,7 +15789,7 @@ namespace IceBlink2
             {
                 attackMod += gv.mod.getItemByResRefForInfo(pc.AmmoRefs.resref).attackBonus;
             }
-            return attackMod;
+            return attackMod + gv.mod.poorVisionModifier;
         }
         public int CalcCreatureDefense(Player pc, Creature crt)
         {

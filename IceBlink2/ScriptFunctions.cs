@@ -1490,6 +1490,24 @@ namespace IceBlink2
                     { 
                         gv.mod.returnCheck = CheckIsInDarkness(p1, p2);
                     }
+                    else if (filename.Equals("gcCheckIsInHoursWindowDaily.cs"))
+                    {
+                        gv.mod.returnCheck = CheckIsInHoursWindowDaily(p1, p2);
+                    }
+                    /*
+                    else if (filename.Equals("gcCheckIsInDaysWindowWeekly.cs"))
+                    {
+                        gv.mod.returnCheck = CheckIsInDaysWindowWeekly(p1, p2);
+                    }
+                    else if (filename.Equals("gcCheckIsInWeeksWindowMonthly.cs"))
+                    {
+                        gv.mod.returnCheck = CheckIsInWeeksWindowMonthly(p1, p2);
+                    }
+                    else if (filename.Equals("gcCheckIsInMonthsWindowYearly.cs"))
+                    {
+                        gv.mod.returnCheck = gcCheckIsInMonthsWindowYearly(p1, p2);
+                    }
+                    */
                     else if (filename.Equals("gcCheckIsInFactionStrengthWindow.cs"))
                     {
                         int parm2 = Convert.ToInt32(p2);
@@ -2926,13 +2944,37 @@ namespace IceBlink2
             return -1;
         }
 
-        /*
-        prm3 = "none";
-                        if (p1 == "thisProp"|| prm3 == "thisPropLast")
-                        {
-                            prm3 = gv.mod.currentPropTag;
-                        }
-                        */
+
+        //CheckIsInHoursWindowDaily
+        public bool CheckIsInHoursWindowDaily(string startHour, string endHour)
+        {
+            int start = Convert.ToInt32(startHour);
+            int end = Convert.ToInt32(endHour);
+            start *= 60;//convert into minutes
+            end *= 60;//convert into minutes
+            int time = gv.mod.WorldTime % 1440;//days begins at 0 minutes(0.00) goes to 1440 minutes (24.00)
+            //note a check for night time will require two checks then (alternativ): between 20 and 24 and between 0 and 6
+            //todo: for simplicity: secial isNight check;
+            if (start <= end)
+            {
+                if (start <= time && end >= time)
+                {
+                    return true;
+                }
+            }
+            //we check for something like night, crossing the 24.00 line
+            else
+            {
+                if (start <= time || end >= time)
+                {
+                    return true;
+                }
+            } 
+
+            return false;
+        }
+
+
         public bool CheckIsInDarkness(string identifier, string darkMode)
         {
             //the area does not use the light system, nothing is in darkness
@@ -7657,9 +7699,9 @@ namespace IceBlink2
             //used at level up, doPcTurn, open inventory, etc.
             ReCalcSavingThrowBases(pc); //SD_20131029
 
-            pc.fortitude = pc.baseFortitude + CalcSavingThrowModifiersFortitude(pc) + (pc.constitution - 10) / 2; //SD_20131127
-            pc.will = pc.baseWill + CalcSavingThrowModifiersWill(pc) + (pc.intelligence - 10) / 2; //SD_20131127
-            pc.reflex = pc.baseReflex + CalcSavingThrowModifiersReflex(pc) + (pc.dexterity - 10) / 2; //SD_20131127
+            pc.fortitude = pc.baseFortitude + CalcSavingThrowModifiersFortitude(pc) + (pc.constitution - 10) / 2 + gv.mod.poorVisionModifier; //SD_20131127
+            pc.will = pc.baseWill + CalcSavingThrowModifiersWill(pc) + (pc.intelligence - 10) / 2 + gv.mod.poorVisionModifier; //SD_20131127
+            pc.reflex = pc.baseReflex + CalcSavingThrowModifiersReflex(pc) + (pc.dexterity - 10) / 2 + gv.mod.poorVisionModifier; //SD_20131127
             pc.strength = pc.baseStr + pc.race.strMod + CalcAttributeModifierStr(pc); //SD_20131127
             pc.dexterity = pc.baseDex + pc.race.dexMod + CalcAttributeModifierDex(pc); //SD_20131127
             pc.intelligence = pc.baseInt + pc.race.intMod + CalcAttributeModifierInt(pc); //SD_20131127
@@ -7738,7 +7780,7 @@ namespace IceBlink2
             int acMods = 0;
             armBonus = CalcArmorBonuses(pc);
             acMods = CalcACModifiers(pc);
-            pc.AC = pc.ACBase + dMod + armBonus + acMods;
+            pc.AC = pc.ACBase + dMod + armBonus + acMods + gv.mod.poorVisionModifier;
             if (mod.getItemByResRefForInfo(pc.BodyRefs.resref).ArmorWeightType.Equals("Light"))
             {
                 pc.moveDistance = pc.race.MoveDistanceLightArmor + CalcMovementBonuses(pc);
@@ -9707,10 +9749,11 @@ namespace IceBlink2
             foreach (Faction f in gv.mod.moduleFactionsList)
             {
                 f.timePassedInThisInterval += mod.currentArea.TimePerSquare;
-                if (f.timePassedInThisInterval >= (f.intervalOfFactionStrengthChangeInHours*60))
+                if (f.timePassedInThisInterval >= (f.intervalOfFactionStrengthChangeInHours * 60))
                 {
                     f.timePassedInThisInterval = 0;
                     f.strength += f.amountOfFactionStrengthChangePerInterval;
+                }
                     if (f.strength >= f.factionStrengthRequiredForRank10)
                     {
                         f.rank = 10;
@@ -9751,7 +9794,7 @@ namespace IceBlink2
                     {
                         f.rank = 1;
                     }
-                }
+                
             }
 
             //Code: Bleed to death at -20 hp

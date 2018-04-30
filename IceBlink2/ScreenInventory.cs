@@ -147,7 +147,12 @@ namespace IceBlink2
                 setControlsStart();
             }
 
-            for (int i = gv.mod.addedItemsRefs.Count - 1; i >= 0; i--)
+            foreach (IbbButton btn in btnInventorySlot)
+            {
+                btn.Quantity = "";
+            }
+
+                for (int i = gv.mod.addedItemsRefs.Count - 1; i >= 0; i--)
             {
                 for (int j = gv.mod.partyInventoryRefsList.Count - 1; j >= 0; j--)
                 {

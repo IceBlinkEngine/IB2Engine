@@ -143,6 +143,332 @@ namespace IceBlink2
             Color color = Color.Black;
 		    gv.DrawText("Active Quests:", locX, locY += leftStartY, 1.0f, color);
 		    gv.DrawText("--------------", locX, locY += spacing, 1.0f, color);
+            
+            //draw Faction info first
+            bool drawFactionQuest = false;
+            if (gv.mod.moduleFactionsList != null)
+            {
+                foreach (Faction f in gv.mod.moduleFactionsList)
+                {
+                    if (f.showThisFactionInJournal)
+                    {
+                        drawFactionQuest = true;
+                        break;
+                    }
+                }
+            }
+
+            if (drawFactionQuest)
+            {
+                //now add the faction quest and an entry for each drawn faction
+
+                //1. No need to add the quest if it already exists
+                bool factionQuestExistsAlready = false;
+                foreach (JournalQuest jQ in gv.mod.partyJournalQuests)
+                {
+                    if (jQ.Tag == "factionQuest001")
+                    {
+                        factionQuestExistsAlready = true;
+                        jQ.Entries.Clear();
+                        break;
+                    }
+                }
+
+                if (!factionQuestExistsAlready)
+                {
+                    JournalQuest factionQuest = new JournalQuest();
+                    factionQuest.Tag = "factionQuest001";
+                    factionQuest.Name = "Factions";
+                    factionQuest.Entries.Clear();
+                    gv.mod.partyJournalQuests.Add(factionQuest);
+                }
+
+                //2. update entries of faction quest
+                foreach (JournalQuest jQ in gv.mod.partyJournalQuests)
+                {
+                    if (jQ.Tag == "factionQuest001")
+                    {
+                        int idCounter = 0;
+                        foreach (Faction f in gv.mod.moduleFactionsList)
+                        {
+                            if (f.showThisFactionInJournal)
+                            {
+                                JournalEntry factionEntry = new JournalEntry();
+                                factionEntry.EntryId = idCounter;
+                                factionEntry.EntryTitle = f.name;
+                                factionEntry.EntryText = "";
+                                //<br>
+                                //Rank 1 (27 of 99, +1 every 24h), +4 buff to AC/toHit/Saves
+                                //showRankInJournal
+                                //displayRankInWords
+                                //showStrengthInJournal
+                                //showChangeRateInJournal
+                                //if buff != 0, show
+
+                                if (f.showRankInJournal)
+                                {
+                                    if (f.displayRankInWords)
+                                    {
+                                        if (f.rank == 1)
+                                        {
+                                            factionEntry.EntryText += f.nameRank1 + " ";
+                                        }
+                                        else if (f.rank == 2)
+                                        {
+                                            factionEntry.EntryText += f.nameRank2 + " ";
+                                        }
+                                        else if (f.rank == 3)
+                                        {
+                                            factionEntry.EntryText += f.nameRank3 + " ";
+                                        }
+                                        else if (f.rank == 4)
+                                        {
+                                            factionEntry.EntryText += f.nameRank4 + " ";
+                                        }
+                                        else if (f.rank == 5)
+                                        {
+                                            factionEntry.EntryText += f.nameRank5 + " ";
+                                        }
+                                        else if (f.rank == 6)
+                                        {
+                                            factionEntry.EntryText += f.nameRank6 + " ";
+                                        }
+                                        else if (f.rank == 7)
+                                        {
+                                            factionEntry.EntryText += f.nameRank7 + " ";
+                                        }
+                                        else if (f.rank == 8)
+                                        {
+                                            factionEntry.EntryText += f.nameRank8 + " ";
+                                        }
+                                        else if (f.rank == 9)
+                                        {
+                                            factionEntry.EntryText += f.nameRank9 + " ";
+                                        }
+                                        else if (f.rank == 10)
+                                        {
+                                            factionEntry.EntryText += f.nameRank10 + " ";
+                                        }
+                                    }
+                                    else
+                                    {
+                                        if (f.rank == 1)
+                                        {
+                                            factionEntry.EntryText += "Rank 1 ";
+                                        }
+                                        else if (f.rank == 2)
+                                        {
+                                            factionEntry.EntryText += "Rank 2 ";
+                                        }
+                                        else if (f.rank == 3)
+                                        {
+                                            factionEntry.EntryText += "Rank 3 ";
+                                        }
+                                        else if (f.rank == 4)
+                                        {
+                                            factionEntry.EntryText += "Rank 4 ";
+                                        }
+                                        else if (f.rank == 5)
+                                        {
+                                            factionEntry.EntryText += "Rank 5 ";
+                                        }
+                                        else if (f.rank == 6)
+                                        {
+                                            factionEntry.EntryText += "Rank 6 ";
+                                        }
+                                        else if (f.rank == 7)
+                                        {
+                                            factionEntry.EntryText += "Rank 7 ";
+                                        }
+                                        else if (f.rank == 8)
+                                        {
+                                            factionEntry.EntryText += "Rank 8 ";
+                                        }
+                                        else if (f.rank == 9)
+                                        {
+                                            factionEntry.EntryText += "Rank 9 ";
+                                        }
+                                        else if (f.rank == 9)
+                                        {
+                                            factionEntry.EntryText += "Rank 9 ";
+                                        }
+                                        else if (f.rank == 10)
+                                        {
+                                            factionEntry.EntryText += "Rank 10 ";
+                                        }
+                                    }
+                                }
+
+                                if ((f.showStrengthInJournal || f.showChangeRateInJournal) && (f.showRankInJournal))
+                                {
+                                    factionEntry.EntryText += "(";
+                                }
+                                if (f.showStrengthInJournal)
+                                {
+                                    if (f.rank == 1)
+                                    {
+                                        factionEntry.EntryText += f.strength.ToString() + " of " + f.factionStrengthRequiredForRank2.ToString();
+                                    }
+                                    else if (f.rank == 2)
+                                    {
+                                        factionEntry.EntryText += f.strength.ToString() + " of " + f.factionStrengthRequiredForRank3.ToString();
+                                    }
+                                    else if (f.rank == 3)
+                                    {
+                                        factionEntry.EntryText += f.strength.ToString() + " of " + f.factionStrengthRequiredForRank4.ToString();
+                                    }
+                                    else if (f.rank == 4)
+                                    {
+                                        factionEntry.EntryText += f.strength.ToString() + " of " + f.factionStrengthRequiredForRank5.ToString();
+                                    }
+                                    else if (f.rank == 5)
+                                    {
+                                        factionEntry.EntryText += f.strength.ToString() + " of " + f.factionStrengthRequiredForRank6.ToString();
+                                    }
+                                    else if (f.rank == 6)
+                                    {
+                                        factionEntry.EntryText += f.strength.ToString() + " of " + f.factionStrengthRequiredForRank7.ToString();
+                                    }
+                                    else if (f.rank == 7)
+                                    {
+                                        factionEntry.EntryText += f.strength.ToString() + " of " + f.factionStrengthRequiredForRank8.ToString();
+                                    }
+                                    else if (f.rank == 8)
+                                    {
+                                        factionEntry.EntryText += f.strength.ToString() + " of " + f.factionStrengthRequiredForRank9.ToString();
+                                    }
+                                    else if (f.rank == 9)
+                                    {
+                                        factionEntry.EntryText += f.strength.ToString() + " of " + f.factionStrengthRequiredForRank10.ToString();
+                                    }
+                                    else if (f.rank == 10)
+                                    {
+                                        factionEntry.EntryText += f.strength.ToString();
+                                    }
+                                }
+
+                                if ((f.showStrengthInJournal && !f.showChangeRateInJournal) && f.showRankInJournal)
+                                {
+                                    factionEntry.EntryText += ") ";
+                                }
+                              
+                                if ((f.showChangeRateInJournal) && (f.showRankInJournal || f.showStrengthInJournal))
+                                {
+                                    if (f.showRankInJournal && f.showStrengthInJournal)
+                                    {
+                                        factionEntry.EntryText += ", " + f.amountOfFactionStrengthChangePerInterval.ToString() + " every " + f.intervalOfFactionStrengthChangeInHours.ToString() + "h)";
+                                    }
+                                    else if (f.showRankInJournal && !f.showStrengthInJournal)
+                                    {
+                                        factionEntry.EntryText += f.amountOfFactionStrengthChangePerInterval.ToString() + " every " + f.intervalOfFactionStrengthChangeInHours.ToString() + "h)";
+                                    }
+                                    else if (!f.showRankInJournal && f.showStrengthInJournal)
+                                    {
+                                        factionEntry.EntryText += ", " + f.amountOfFactionStrengthChangePerInterval.ToString() + " every " + f.intervalOfFactionStrengthChangeInHours.ToString() + "h";
+                                    }
+                                    else if (f.showRankInJournal && !f.showStrengthInJournal)
+                                    {
+                                        factionEntry.EntryText += f.amountOfFactionStrengthChangePerInterval.ToString() + " every " + f.intervalOfFactionStrengthChangeInHours.ToString() + "h)";
+                                    }
+                                }
+                                else if (f.showChangeRateInJournal)
+                                {
+                                    factionEntry.EntryText += f.amountOfFactionStrengthChangePerInterval.ToString() + " every " + f.intervalOfFactionStrengthChangeInHours.ToString() + "h";
+                                }
+
+                                if (f.rank == 1)
+                                {
+                                    if (f.accumulatedBuffStrengthRank1 != 0)
+                                    {
+                                        factionEntry.EntryText += ", +" + f.accumulatedBuffStrengthRank1.ToString() + " buff to AC/toHit/Saves";
+                                        //factionEntry.EntryText += "<br>";
+                                    }
+                                }
+                                else if (f.rank == 2)
+                                {
+                                    if (f.accumulatedBuffStrengthRank2 != 0)
+                                    {
+                                        factionEntry.EntryText += ", +" + f.accumulatedBuffStrengthRank2.ToString() + " buff to AC/toHit/Saves";
+                                        //factionEntry.EntryText += "<br>";
+                                    }
+                                }
+                                else if (f.rank == 3)
+                                {
+                                    if (f.accumulatedBuffStrengthRank3 != 0)
+                                    {
+                                        factionEntry.EntryText += ", +" + f.accumulatedBuffStrengthRank3.ToString() + " buff to AC/toHit/Saves";
+                                        //factionEntry.EntryText += "<br>";
+                                    }
+                                }
+                                else if (f.rank == 4)
+                                {
+                                    if (f.accumulatedBuffStrengthRank4 != 0)
+                                    {
+                                        factionEntry.EntryText += ", +" + f.accumulatedBuffStrengthRank4.ToString() + " buff to AC/toHit/Saves";
+                                        //factionEntry.EntryText += "<br>";
+                                    }
+                                }
+                                else if (f.rank == 5)
+                                {
+                                    if (f.accumulatedBuffStrengthRank5 != 0)
+                                    {
+                                        factionEntry.EntryText += ", +" + f.accumulatedBuffStrengthRank5.ToString() + " buff to AC/toHit/Saves";
+                                        //factionEntry.EntryText += "<br>";
+                                    }
+                                }
+                                else if (f.rank == 6)
+                                {
+                                    if (f.accumulatedBuffStrengthRank6 != 0)
+                                    {
+                                        factionEntry.EntryText += ", +" + f.accumulatedBuffStrengthRank6.ToString() + " buff to AC/toHit/Saves";
+                                        //factionEntry.EntryText += "<br>";
+                                    }
+                                }
+                                else if (f.rank == 7)
+                                {
+                                    if (f.accumulatedBuffStrengthRank7 != 0)
+                                    {
+                                        factionEntry.EntryText += ", +" + f.accumulatedBuffStrengthRank7.ToString() + " buff to AC/toHit/Saves";
+                                        //factionEntry.EntryText += "<br>";
+                                    }
+                                }
+                                else if (f.rank == 8)
+                                {
+                                    if (f.accumulatedBuffStrengthRank8 != 0)
+                                    {
+                                        factionEntry.EntryText += ", +" + f.accumulatedBuffStrengthRank8.ToString() + " buff to AC/toHit/Saves";
+                                        //factionEntry.EntryText += "<br>";
+                                    }
+                                }
+                                else if (f.rank == 9)
+                                {
+                                    if (f.accumulatedBuffStrengthRank9 != 0)
+                                    {
+                                        factionEntry.EntryText += ", +" + f.accumulatedBuffStrengthRank9.ToString() + " buff to AC/toHit/Saves";
+                                        //factionEntry.EntryText += "<br>";
+                                    }
+                                }
+                                else if (f.rank == 10)
+                                {
+                                    if (f.accumulatedBuffStrengthRank10 != 0)
+                                    {
+                                        factionEntry.EntryText += ", +" + f.accumulatedBuffStrengthRank10.ToString() + " buff to AC/toHit/Saves";
+                                        //factionEntry.EntryText += "<br>";
+                                    }
+                                }
+
+                                factionEntry.EntryText += "<br>";
+                                factionEntry.EntryText += "<br>";
+                                factionEntry.EntryText += f.factionDescriptionInJournal;
+                                jQ.Entries.Add(factionEntry);
+                                idCounter++;
+                            }
+                        }
+                        break;
+                    }
+                }
+            }
+           
 		    if (gv.mod.partyJournalQuests.Count > 0)
     	    {
                 /*
@@ -200,8 +526,8 @@ namespace IceBlink2
 
                 description.tbXloc = locX;
                 description.tbYloc = locY + spacing;
-                description.tbWidth = pW * 30;
-                description.tbHeight = pH * 50;
+                description.tbWidth = pW * 60;
+                description.tbHeight = pH * 45;
                 description.logLinesList.Clear();
                 description.AddHtmlTextToLog(textToSpan);
                 description.onDrawLogBox();

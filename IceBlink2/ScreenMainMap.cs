@@ -28860,7 +28860,7 @@ namespace IceBlink2
             {
                 foreach (Prop p in gv.mod.currentArea.Props)
                 {
-                    if ((p.isShown) && (p.isMover) && (!p.isUnderBridge))
+                    if ((p.isShown) && (p.isMover) && (!p.isUnderBridge) && (p.token != null))
                     {
                         if ((p.LocationX + 1 >= gv.mod.PlayerLocationX - gv.playerOffsetX) && (p.LocationX - 1 <= gv.mod.PlayerLocationX + gv.playerOffsetX)
                             && (p.LocationY + 1 >= gv.mod.PlayerLocationY - gv.playerOffsetY) && (p.LocationY - 1 <= gv.mod.PlayerLocationY + gv.playerOffsetY))
@@ -29155,7 +29155,7 @@ namespace IceBlink2
             {
                 foreach (Prop p in gv.mod.currentArea.Props)
                 {
-                    if ((p.isShown) && (p.isMover) && (!p.isUnderBridge))
+                    if ((p.isShown) && (p.isMover) && (!p.isUnderBridge) && (p.token != null))
                     {
                         if ((p.LocationX >= gv.mod.PlayerLocationX - gv.playerOffsetX) && (p.LocationX <= gv.mod.PlayerLocationX + gv.playerOffsetX)
                             && (p.LocationY >= gv.mod.PlayerLocationY - gv.playerOffsetY) && (p.LocationY <= gv.mod.PlayerLocationY + gv.playerOffsetY))
@@ -29248,7 +29248,7 @@ namespace IceBlink2
             {
                 foreach (Prop p in gv.mod.currentArea.Props)
                 {
-                    if ((p.isShown) && (p.isMover) && (p.isUnderBridge))
+                    if ((p.isShown) && (p.isMover) && (p.isUnderBridge) && (p.token != null))
                     {
                         if ((p.LocationX + 1 >= gv.mod.PlayerLocationX - gv.playerOffsetX) && (p.LocationX - 1 <= gv.mod.PlayerLocationX + gv.playerOffsetX)
                             && (p.LocationY + 1 >= gv.mod.PlayerLocationY - gv.playerOffsetY) && (p.LocationY - 1 <= gv.mod.PlayerLocationY + gv.playerOffsetY))
@@ -29543,7 +29543,7 @@ namespace IceBlink2
             {
                 foreach (Prop p in gv.mod.currentArea.Props)
                 {
-                    if ((p.isShown) && (p.isMover) && (p.isUnderBridge))
+                    if ((p.isShown) && (p.isMover) && (p.isUnderBridge) && (p.token != null))
                     {
                         if ((p.LocationX >= gv.mod.PlayerLocationX - gv.playerOffsetX) && (p.LocationX <= gv.mod.PlayerLocationX + gv.playerOffsetX)
                             && (p.LocationY >= gv.mod.PlayerLocationY - gv.playerOffsetY) && (p.LocationY <= gv.mod.PlayerLocationY + gv.playerOffsetY))

@@ -122,12 +122,12 @@ namespace IceBlink2
         //Removed save ignore for currentMoveToTarget,, othrisw all patroling props head towards 0,0 after loading a save
 	    public Coordinate CurrentMoveToTarget = new Coordinate(0,0);
 	    public bool isChaser = false;
-        [JsonIgnore]
+        //[JsonIgnore]
 	    public bool isCurrentlyChasing = false;
 	    public int ChaserDetectRangeRadius = 2;
 	    public int ChaserGiveUpChasingRangeRadius = 3;
 	    public int ChaserChaseDuration = 24;
-        [JsonIgnore]
+        //[JsonIgnore]
 	    public int ChaserStartChasingTime = 0;
 	    public int RandomMoverRadius = 5;
 	    public bool ReturningToPost = false;
@@ -205,6 +205,7 @@ namespace IceBlink2
         public Prop DeepCopy()
         {
     	    Prop copy = new Prop();
+            //copy.token = this.token;
             copy.pendingFactionStrengthEffectReversal = this.pendingFactionStrengthEffectReversal;
             copy.spawnLocationX = this.spawnLocationX;
             copy.spawnLocationY = this.spawnLocationY;

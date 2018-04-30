@@ -13,7 +13,10 @@ namespace IceBlink2
 {
     public class Faction 
     {
-	    public string name = "newFaction";
+        public bool showThisFactionInJournal = true;
+        public string factionDescriptionInJournal = "none";
+
+        public string name = "newFaction";
 	    public string tag = "newFactionTag";
 
         public int strength = 0;
@@ -69,6 +72,9 @@ namespace IceBlink2
 	    public Faction DeepCopy()
 	    {
 		    Faction copy = new Faction();
+
+            copy.showThisFactionInJournal = this.showThisFactionInJournal;
+            copy.factionDescriptionInJournal = this.factionDescriptionInJournal;
             copy.name = this.name;
             copy.tag = this.tag;
 

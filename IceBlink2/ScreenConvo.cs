@@ -601,7 +601,7 @@ namespace IceBlink2
             foreach (Player pc in gv.mod.playerList)
             {
                 comparePcOptions = "";
-               gv.mod.selectedPartyLeader = PcIndx;
+                gv.mod.selectedPartyLeader = PcIndx;
                 gv.screenMainMap.updateTraitsPanel();
                 if (PcIndx != originalPartyLeader)
                 {

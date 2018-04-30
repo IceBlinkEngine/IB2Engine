@@ -1199,7 +1199,7 @@ namespace IceBlink2
             {
                 textToSpan2 += "Attack range: " + gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref).attackRange + "<BR>";
             }
-            textToSpan2 += "Attack bonus: " + attackMod + "<BR>";
+            textToSpan2 += "Attack bonus: " + (attackMod + gv.mod.poorVisionModifier).ToString() +"<BR>";
             if (numberOfDiceRolled > 0)
             {
                 textToSpan2 += "Damage: " + numberOfDiceRolled + "d" + typeOfDieRolled + "+" + dammodifier + "<BR>";

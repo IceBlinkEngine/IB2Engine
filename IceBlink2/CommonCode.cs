@@ -1031,25 +1031,30 @@ namespace IceBlink2
 
         public void updatePropsWaitingForRespawn(Module saveMod)
         {
-            gv.mod.propsWaitingForRespawn.Clear();
-            Prop AddMe = new Prop();  
-            foreach (Prop WFRProp in saveMod.propsWaitingForRespawn)
+            if (saveMod.propsWaitingForRespawn != null)
             {
-                AddMe = WFRProp.DeepCopy();
-                gv.mod.propsWaitingForRespawn.Add(AddMe);
+                gv.mod.propsWaitingForRespawn.Clear();
+                Prop AddMe = new Prop();
+                foreach (Prop WFRProp in saveMod.propsWaitingForRespawn)
+                {
+                    AddMe = WFRProp.DeepCopy();
+                    gv.mod.propsWaitingForRespawn.Add(AddMe);
+                }
             }
         }
 
         public void updateFactions(Module saveMod)
         {
-            foreach (Faction f in gv.mod.moduleFactionsList)
+            if (saveMod.moduleFactionsList != null)
             {
-                for (int i = 0;  i < saveMod.storedFactionTags.Count; i++)
+                foreach (Faction f in gv.mod.moduleFactionsList)
                 {
-                    if (saveMod.storedFactionTags[i] == f.tag)
+                    for (int i = 0; i < saveMod.moduleFactionsList.Count; i++)
                     {
-                        f.strength = saveMod.storedFactionStrengths[i];
-                        continue;
+                        if (saveMod.moduleFactionsList[i].tag == f.tag)
+                        {
+                            f.strength = saveMod.moduleFactionsList[i].strength;
+                        }
                     }
                 }
             }
@@ -2377,7 +2382,7 @@ namespace IceBlink2
             //1. respawn check XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
             for (int i = gv.mod.propsWaitingForRespawn.Count-1; i >= 0; i--)
             {
-                if ((gv.mod.propsWaitingForRespawn[i].respawnTimeInHours * 60) >= gv.mod.propsWaitingForRespawn[i].respawnTimeInMinutesPassedAlready && (gv.mod.propsWaitingForRespawn[i].spawnArea != null))
+                if ((gv.mod.propsWaitingForRespawn[i].respawnTimeInHours * 60) <= gv.mod.propsWaitingForRespawn[i].respawnTimeInMinutesPassedAlready && (gv.mod.propsWaitingForRespawn[i].spawnArea != null))
                 {
                     //remember setting time to zero if successful
                     bool noObstruction = true;
@@ -2468,6 +2473,9 @@ namespace IceBlink2
                         gv.mod.propsWaitingForRespawn[i].normalizedTime = 0;
                         gv.mod.propsWaitingForRespawn[i].cycleCounter = 0;
 
+                        gv.cc.DisposeOfBitmap(ref gv.mod.propsWaitingForRespawn[i].token);
+                        gv.mod.propsWaitingForRespawn[i].token = gv.cc.LoadBitmap(gv.mod.propsWaitingForRespawn[i].ImageFileName);
+
                         //factionsystem
                         if (gv.mod.propsWaitingForRespawn[i].factionTag != null && gv.mod.propsWaitingForRespawn[i].factionTag != "" && gv.mod.propsWaitingForRespawn[i].factionTag != "none")
                         {
@@ -2479,13 +2487,20 @@ namespace IceBlink2
                                     {
                                         gv.mod.propsWaitingForRespawn[i].isActive = true;
                                         gv.mod.propsWaitingForRespawn[i].isShown = true;
-                                        gv.sf.SetGlobalInt(gv.mod.propsWaitingForRespawn[i].keyOfGlobalVarToSetTo1OnDeathOrInactivity, "0");
+                                        if (gv.mod.propsWaitingForRespawn[i].keyOfGlobalVarToSetTo1OnDeathOrInactivity != null && gv.mod.propsWaitingForRespawn[i].keyOfGlobalVarToSetTo1OnDeathOrInactivity != "none")
+                                        {
+
+                                            gv.sf.SetGlobalInt(gv.mod.propsWaitingForRespawn[i].keyOfGlobalVarToSetTo1OnDeathOrInactivity, "0");
+                                        }
                                     }
                                     else
                                     {
                                         gv.mod.propsWaitingForRespawn[i].isActive = false;
                                         gv.mod.propsWaitingForRespawn[i].isShown = false;
-                                        gv.sf.SetGlobalInt(gv.mod.propsWaitingForRespawn[i].keyOfGlobalVarToSetTo1OnDeathOrInactivity, "1");
+                                        if (gv.mod.propsWaitingForRespawn[i].keyOfGlobalVarToSetTo1OnDeathOrInactivity != null && gv.mod.propsWaitingForRespawn[i].keyOfGlobalVarToSetTo1OnDeathOrInactivity != "none")
+                                        {
+                                            gv.sf.SetGlobalInt(gv.mod.propsWaitingForRespawn[i].keyOfGlobalVarToSetTo1OnDeathOrInactivity, "1");
+                                        }
                                         gv.mod.propsWaitingForRespawn[i].pendingFactionStrengthEffectReversal = true;
                                     }
                                 }
@@ -2543,7 +2558,10 @@ namespace IceBlink2
                                 {
                                     p.isActive = true;
                                     p.isShown = true;
-                                    gv.sf.SetGlobalInt(p.keyOfGlobalVarToSetTo1OnDeathOrInactivity, "0");
+                                    if (p.keyOfGlobalVarToSetTo1OnDeathOrInactivity != null && p.keyOfGlobalVarToSetTo1OnDeathOrInactivity != "none")
+                                    {
+                                        gv.sf.SetGlobalInt(p.keyOfGlobalVarToSetTo1OnDeathOrInactivity, "0");
+                                    }
 
                                     if (p.pendingFactionStrengthEffectReversal)
                                     {
@@ -2578,7 +2596,10 @@ namespace IceBlink2
                                 {
                                     p.isActive = false;
                                     p.isShown = false;
-                                    gv.sf.SetGlobalInt(p.keyOfGlobalVarToSetTo1OnDeathOrInactivity, "1");
+                                    if (p.keyOfGlobalVarToSetTo1OnDeathOrInactivity != null && p.keyOfGlobalVarToSetTo1OnDeathOrInactivity != "none")
+                                    {
+                                        gv.sf.SetGlobalInt(p.keyOfGlobalVarToSetTo1OnDeathOrInactivity, "1");
+                                    }
                                 }
                             }
                         }
@@ -2622,8 +2643,12 @@ namespace IceBlink2
                             //add to respawn if posisble
                             if ((a.Props[i].respawnTimeInHours > 0) && ((a.Props[i].numberOfRespawnsThatHappenedAlready < a.Props[i].maxNumberOfRespawns) || (a.Props[i].maxNumberOfRespawns == -1)))
                             {
+                                if (a.Props[i].keyOfGlobalVarToSetTo1OnDeathOrInactivity != null && a.Props[i].keyOfGlobalVarToSetTo1OnDeathOrInactivity != "none")
+                                {
+                                    gv.sf.SetGlobalInt(a.Props[i].keyOfGlobalVarToSetTo1OnDeathOrInactivity, "1");
+                                }
                                 gv.mod.propsWaitingForRespawn.Add(a.Props[i]);
-                                gv.sf.SetGlobalInt(gv.mod.propsWaitingForRespawn[i].keyOfGlobalVarToSetTo1OnDeathOrInactivity, "1");
+                               
                             }
 
                             //to kill effect
@@ -2793,10 +2818,14 @@ namespace IceBlink2
             //setBridgeStateForMovingProps();
             gv.mod.EncounterOfTurnDone = false;
             setToBorderPixDistancesMainMap();
+            //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+            /*
             if (gv.mod.useAllTileSystem)
             {
                 resetLightAndDarkness();
             }
+            */
+            //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
 #region tile loading on demand
             if (gv.mod.useAllTileSystem)
@@ -3416,6 +3445,11 @@ namespace IceBlink2
             //move any props that are active and only if they are not on the party location
             doPropMoves();
 
+            if (gv.mod.useAllTileSystem)
+            {
+                resetLightAndDarkness();
+            }
+
             //set illumination level of tiles based on party and prop position
             if (gv.mod.useAllTileSystem)
             {
@@ -3673,6 +3707,7 @@ namespace IceBlink2
                     }
                 }
         }
+  
 
         public void resetLightAndDarkness()
         {
@@ -9428,18 +9463,20 @@ namespace IceBlink2
             {
                 //search area for any props that share the party location
                 bool foundOne = false;
-                foreach (Prop prp in gv.mod.currentArea.Props)
+                for (int i = gv.mod.currentArea.Props.Count-1; i>=0; i--)
+                //foreach (Prop prp in gv.mod.currentArea.Props)
                 {
                     bool delProp = false;
-                    if (prp.EncounterWhenOnPartySquare != "" && prp.EncounterWhenOnPartySquare != "none")
+                    if (gv.mod.currentArea.Props[i].EncounterWhenOnPartySquare != "" && gv.mod.currentArea.Props[i].EncounterWhenOnPartySquare != "none")
                     {
                         //delProp = true;
                         foreach (Encounter e in gv.mod.moduleEncountersList)
                         {
-                            if (e.encounterName == prp.EncounterWhenOnPartySquare)
+                            if (e.encounterName == gv.mod.currentArea.Props[i].EncounterWhenOnPartySquare)
                             {
                                     if (e.isOver)
                                     {
+                                        e.isOver = false;
                                         delProp = true;
                                         break;
                                     }
@@ -9450,12 +9487,41 @@ namespace IceBlink2
 
                     if (delProp)
                     {
-                        gv.mod.currentArea.Props.Remove(prp);
+                        if ((gv.mod.currentArea.Props[i].respawnTimeInHours > 0) && ((gv.mod.currentArea.Props[i].numberOfRespawnsThatHappenedAlready < gv.mod.currentArea.Props[i].maxNumberOfRespawns) || (gv.mod.currentArea.Props[i].maxNumberOfRespawns == -1)))
+                        {
+                            gv.mod.propsWaitingForRespawn.Add(gv.mod.currentArea.Props[i]);
+                        }
+
+                        foreach (Faction f in gv.mod.moduleFactionsList)
+                        {
+                            if (f.tag == gv.mod.currentArea.Props[i].factionTag)
+                            {
+                                f.strength -= gv.mod.currentArea.Props[i].worthForOwnFaction;
+                            }
+                            if (f.tag == gv.mod.currentArea.Props[i].otherFactionAffectedOnDeath1)
+                            {
+                                f.strength += gv.mod.currentArea.Props[i].effectOnOtherFactionOnDeath1;
+                            }
+                            if (f.tag == gv.mod.currentArea.Props[i].otherFactionAffectedOnDeath2)
+                            {
+                                f.strength += gv.mod.currentArea.Props[i].effectOnOtherFactionOnDeath2;
+                            }
+                            if (f.tag == gv.mod.currentArea.Props[i].otherFactionAffectedOnDeath3)
+                            {
+                                f.strength += gv.mod.currentArea.Props[i].effectOnOtherFactionOnDeath3;
+                            }
+                            if (f.tag == gv.mod.currentArea.Props[i].otherFactionAffectedOnDeath4)
+                            {
+                                f.strength += gv.mod.currentArea.Props[i].effectOnOtherFactionOnDeath4;
+                            }
+                        }
+                        gv.sf.SetGlobalInt(gv.mod.currentArea.Props[i].keyOfGlobalVarToSetTo1OnDeathOrInactivity, "1");
+                        gv.mod.currentArea.Props.Remove(gv.mod.currentArea.Props[i]);
                         continue;
                     }
 
                     bool doNotTriggerProp = false;
-                    if ((prp.isMover == false) || ((prp.MoverType == "Post") && (prp.isChaser == false)))
+                    if ((gv.mod.currentArea.Props[i].isMover == false) || ((gv.mod.currentArea.Props[i].MoverType == "Post") && (gv.mod.currentArea.Props[i].isChaser == false)))
                     {
                         if (gv.realTimeTimerMilliSecondsEllapsed >= gv.mod.realTimeTimerLengthInMilliSeconds)
                         {
@@ -9463,28 +9529,28 @@ namespace IceBlink2
                         }
                     }
                                         
-                    if ((prp.LocationX == gv.mod.PlayerLocationX) && (prp.LocationY == gv.mod.PlayerLocationY) && (prp.isActive) && (doNotTriggerProp == false))
+                    if ((gv.mod.currentArea.Props[i].LocationX == gv.mod.PlayerLocationX) && (gv.mod.currentArea.Props[i].LocationY == gv.mod.PlayerLocationY) && (gv.mod.currentArea.Props[i].isActive) && (doNotTriggerProp == false))
                     {
                         //prp.wasTriggeredLastUpdate = true;
                         foundOne = true;
                         blockSecondPropTriggersCall = true;
                         gv.triggerPropIndex++;
-                        if ((gv.triggerPropIndex == 1) && (!prp.ConversationWhenOnPartySquare.Equals("none")))
+                        if ((gv.triggerPropIndex == 1) && (!gv.mod.currentArea.Props[i].ConversationWhenOnPartySquare.Equals("none")))
                         {
 
-                            if (prp.unavoidableConversation == true)
+                            if (gv.mod.currentArea.Props[i].unavoidableConversation == true)
                             {
                                 gv.mod.breakActiveSearch = true;
                                 calledConvoFromProp = true;
-                                gv.sf.ThisProp = prp;
-                                if ((gv.mod.useSmoothMovement) && (prp.isMover))
+                                gv.sf.ThisProp = gv.mod.currentArea.Props[i];
+                                if ((gv.mod.useSmoothMovement) && (gv.mod.currentArea.Props[i].isMover))
                                 {
                                     //for (int i = 0; i < 30; i++)
                                     //{
                                         //gv.Render(0);
                                     //}
                                 }
-                                doConversationBasedOnTag(prp.ConversationWhenOnPartySquare);
+                                doConversationBasedOnTag(gv.mod.currentArea.Props[i].ConversationWhenOnPartySquare);
                                 //continue;
                                 break;
                             }
@@ -9492,9 +9558,9 @@ namespace IceBlink2
                             {
                                 gv.mod.breakActiveSearch = true;
                                 calledConvoFromProp = true;
-                                gv.sf.ThisProp = prp;
+                                gv.sf.ThisProp = gv.mod.currentArea.Props[i];
                                 
-                                if ((gv.mod.useSmoothMovement) && (prp.isMover))
+                                if ((gv.mod.useSmoothMovement) && (gv.mod.currentArea.Props[i].isMover))
                                 {
                                     //for (int i = 0; i < 30; i++)
                                     //{
@@ -9502,7 +9568,7 @@ namespace IceBlink2
                                     //}
                                 }
                                 
-                                doConversationBasedOnTag(prp.ConversationWhenOnPartySquare);
+                                doConversationBasedOnTag(gv.mod.currentArea.Props[i].ConversationWhenOnPartySquare);
                                 //continue;
                                 break;
                             }
@@ -9514,12 +9580,12 @@ namespace IceBlink2
                             }
 
                         }
-                        else if ((gv.triggerPropIndex == 2) && (!prp.EncounterWhenOnPartySquare.Equals("none")))
+                        else if ((gv.triggerPropIndex == 2) && (!gv.mod.currentArea.Props[i].EncounterWhenOnPartySquare.Equals("none")))
                         {
                             calledEncounterFromProp = true;
-                            gv.sf.ThisProp = prp;
+                            gv.sf.ThisProp = gv.mod.currentArea.Props[i];
                             
-                            if ((gv.mod.useSmoothMovement) && (prp.isMover))
+                            if ((gv.mod.useSmoothMovement) && (gv.mod.currentArea.Props[i].isMover))
                             {
                                 //for (int i = 0; i < 30; i++)
                                 //{
@@ -9530,7 +9596,7 @@ namespace IceBlink2
                             {
                                     
                                     gv.mod.EncounterOfTurnDone = true;
-                                    doEncounterBasedOnTag(prp.EncounterWhenOnPartySquare);
+                                    doEncounterBasedOnTag(gv.mod.currentArea.Props[i].EncounterWhenOnPartySquare);
                                     gv.mod.breakActiveSearch = true;
 
                                 //gv.mod.EncounterOfTurnDone = true;
@@ -9555,38 +9621,38 @@ namespace IceBlink2
                             foundOne = false;
                             //factionsystem
                             //delete prop if flag is set to do so and break foreach loop
-                            if (prp.DeletePropWhenThisEncounterIsWon)
+                            if (gv.mod.currentArea.Props[i].DeletePropWhenThisEncounterIsWon)
                             {
-                                if ((prp.respawnTimeInHours > 0) && ((prp.numberOfRespawnsThatHappenedAlready < prp.maxNumberOfRespawns) || (prp.maxNumberOfRespawns == -1) ) )
+                                if ((gv.mod.currentArea.Props[i].respawnTimeInHours > 0) && ((gv.mod.currentArea.Props[i].numberOfRespawnsThatHappenedAlready < gv.mod.currentArea.Props[i].maxNumberOfRespawns) || (gv.mod.currentArea.Props[i].maxNumberOfRespawns == -1) ) )
                                 {
-                                    gv.mod.propsWaitingForRespawn.Add(prp);
+                                    gv.mod.propsWaitingForRespawn.Add(gv.mod.currentArea.Props[i]);
                                 }
 
                                 foreach (Faction f in gv.mod.moduleFactionsList)
                                 {
-                                    if (f.tag == prp.factionTag)
+                                    if (f.tag == gv.mod.currentArea.Props[i].factionTag)
                                     {
-                                        f.strength -= prp.worthForOwnFaction;
+                                        f.strength -= gv.mod.currentArea.Props[i].worthForOwnFaction;
                                     }
-                                    if (f.tag == prp.otherFactionAffectedOnDeath1)
+                                    if (f.tag == gv.mod.currentArea.Props[i].otherFactionAffectedOnDeath1)
                                     {
-                                        f.strength += prp.effectOnOtherFactionOnDeath1;
+                                        f.strength += gv.mod.currentArea.Props[i].effectOnOtherFactionOnDeath1;
                                     }
-                                    if (f.tag == prp.otherFactionAffectedOnDeath2)
+                                    if (f.tag == gv.mod.currentArea.Props[i].otherFactionAffectedOnDeath2)
                                     {
-                                        f.strength += prp.effectOnOtherFactionOnDeath2;
+                                        f.strength += gv.mod.currentArea.Props[i].effectOnOtherFactionOnDeath2;
                                     }
-                                    if (f.tag == prp.otherFactionAffectedOnDeath3)
+                                    if (f.tag == gv.mod.currentArea.Props[i].otherFactionAffectedOnDeath3)
                                     {
-                                        f.strength += prp.effectOnOtherFactionOnDeath3;
+                                        f.strength += gv.mod.currentArea.Props[i].effectOnOtherFactionOnDeath3;
                                     }
-                                    if (f.tag == prp.otherFactionAffectedOnDeath4)
+                                    if (f.tag == gv.mod.currentArea.Props[i].otherFactionAffectedOnDeath4)
                                     {
-                                        f.strength += prp.effectOnOtherFactionOnDeath4;
+                                        f.strength += gv.mod.currentArea.Props[i].effectOnOtherFactionOnDeath4;
                                     }
                                 }
-                                gv.sf.SetGlobalInt(prp.keyOfGlobalVarToSetTo1OnDeathOrInactivity, "1");
-                                gv.mod.currentArea.Props.Remove(prp);
+                                gv.sf.SetGlobalInt(gv.mod.currentArea.Props[i].keyOfGlobalVarToSetTo1OnDeathOrInactivity, "1");
+                                gv.mod.currentArea.Props.Remove(gv.mod.currentArea.Props[i]);
 
                                 //two checks on update function: 1. Respawn check (adds back to areas prop lsit from propsWaitingForRespawn) and 2. faction limit check (sets is isAcive and isShown)
 
@@ -9635,6 +9701,14 @@ namespace IceBlink2
         {
             bool allowTrigger = true;
             Trigger trig2 = gv.mod.currentArea.getTriggerByLocation(gv.mod.PlayerLocationX, gv.mod.PlayerLocationY);
+            
+            /*
+            if (trig2 == null)
+            {
+                trig2 = gv.mod.currentArea.getTriggerByLocation(gv.mod.PlayerLastLocationX, gv.mod.PlayerLastLocationY);
+            }
+            */
+       
             if (trig2 != null)
             {
                 if ((trig2.requiresActiveSearch && gv.mod.activeSearchDoneThisMove) || !trig2.requiresActiveSearch)
@@ -9757,7 +9831,7 @@ namespace IceBlink2
                                     //#endregion
                                     //#region Event2 stuff
                                     //check to see if enabled and parm not "none"
-                                    else if ((gv.triggerIndex == 2) && (trig.EnabledEvent2) && (!trig.Event2FilenameOrTag.Equals("none")))
+                                    else if ( (gv.triggerIndex == 2) && (trig.EnabledEvent2) && (!trig.Event2FilenameOrTag.Equals("none")) )
                                     {
                                         if (!trig.event2RequiresTrueReturnCheck || (trig.event2RequiresTrueReturnCheck && gv.mod.returnCheck))
                                         {
@@ -9878,10 +9952,11 @@ namespace IceBlink2
                                                 trig.EnabledEvent3 = false;
                                             }
                                         }
-                                        else if (gv.triggerIndex < 4)
-                                        {
-                                            doTrigger();
-                                        }
+                                    }
+                                    else if (gv.triggerIndex < 4)
+                                    {
+                                        doTrigger();
+                                    }
                                         //#endregion
                                         if (gv.triggerIndex > 3)
                                         {
@@ -9892,7 +9967,7 @@ namespace IceBlink2
                                             }
                                         }
                                     }
-                                }
+                                //}
                             }
                             catch (Exception ex)
                             {

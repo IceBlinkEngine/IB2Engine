@@ -34,7 +34,7 @@
   "noPositionShift": false,
   "flickerSlowDownFactor": 1.0,
   "shifterSlowDownFactor": 1.0,
-  "minimumDarkness": 0.0,
+  "minimumDarkness": 12.0,
   "maxLightMultiplier": 1.0,
   "areaDark": false,
   "UseDayNightCycle": true,
