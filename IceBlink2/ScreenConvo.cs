@@ -759,6 +759,204 @@ namespace IceBlink2
                 newString = newString.Replace("<brother/sister>", "sister");
             }
 
+            //countdown, other global int
+            foreach (GlobalInt gi in gv.mod.moduleGlobalInts)
+            {
+                if (newString.Contains("<" + gi.Key + "AutomaticCountDown" + ">"))
+                {
+                    int days = (gi.Value) / (24 * 60);
+                    int hours = ((gi.Value) % (24 * 60)) / 60;
+                    int minutes = ((gi.Value) % (24 * 60)) % 60;
+
+                    string timeText = "";
+                    if ((days > 0) && (hours > 0) && (minutes > 0))
+                    {
+                        timeText = days + " day(s), " + hours + " hour(s), " + minutes + " minute(s)";
+                    }
+                    else if ((days > 0) && (hours <= 0) && (minutes > 0))
+                    {
+                        timeText = days + " day(s), " + minutes + " minute(s)";
+                    }
+                    else if ((days > 0) && (hours > 0) && (minutes <= 0))
+                    {
+                        timeText = days + " day(s), " + hours + " hour(s)";
+                    }
+                    else if ((days > 0) && (hours <= 0) && (minutes <= 0))
+                    {
+                        timeText = days + " day(s), ";
+                    }
+                    else if ((days <= 0) && (hours > 0) && (minutes > 0))
+                    {
+                        timeText = hours + " hour(s), " + minutes + " minute(s)";
+                    }
+                    else if ((days <= 0) && (hours <= 0) && (minutes > 0))
+                    {
+                        timeText = minutes + " minute(s)";
+                    }
+                    else if ((days <= 0) && (hours > 0) && (minutes <= 0))
+                    {
+                        timeText = hours + " hour(s)";
+                    }
+
+                    newString = newString.Replace("<" + gi.Key + "AutomaticCountDown" + ">", timeText);
+                }
+
+                else if (newString.Contains("<" + gi.Key + "DateInformation" + ">"))
+                {
+                    int timeofday = (gi.Value) % (24 * 60);
+                    int hour = timeofday / 60;
+                    int minute = timeofday % 60;
+                    string sMinute = minute + "";
+                    if (minute < 10)
+                    {
+                        sMinute = "0" + minute;
+                    }
+
+                    string timeText = "none";
+
+                    string modifiedMonthDayCounterNumberToDisplay = "none";
+                    string modifiedMonthDayCounterAddendumToDisplay = "none";
+                    string modifiedMonthNameToDisplay = "none";
+                    string modifiedWeekDayNameToDisplay = "none";
+
+                    int modifiedTimeInThisYear = 0;
+                    int modifiedCurrentYear = 0;
+                    int modifiedCurrentMonth = 0;
+                    int modifiedCurrentDay = 0;
+                    int modifiedCurrentWeekDay = 0;
+                    int modifiedCurrentMonthDay = 0;
+
+                    modifiedTimeInThisYear = (gi.Value) % 483840;
+
+                    //note: our ranges strat at 0 here, while our usual displayed counting starts at 1
+                    modifiedCurrentYear = (gi.Value) / 483840;
+                    decimal.Round(modifiedCurrentYear, 0);
+                    modifiedCurrentMonth = ((modifiedTimeInThisYear) / 40320);
+                    decimal.Round(modifiedCurrentMonth, 0);
+                    modifiedCurrentDay = ((modifiedTimeInThisYear) / 1440);
+                    decimal.Round(modifiedCurrentDay, 0);
+                    modifiedCurrentWeekDay = (modifiedCurrentDay % 7);
+                    modifiedCurrentMonthDay = (modifiedCurrentDay % 28);
+
+                    //XXX
+                    if (modifiedCurrentMonth == 0)
+                    {
+                        modifiedMonthNameToDisplay = gv.mod.nameOfFirstMonth;
+                    }
+                    else if (modifiedCurrentMonth == 1)
+                    {
+                        modifiedMonthNameToDisplay = gv.mod.nameOfSecondMonth;
+                    }
+                    else if (modifiedCurrentMonth == 2)
+                    {
+                        modifiedMonthNameToDisplay = gv.mod.nameOfThirdMonth;
+                    }
+                    else if (modifiedCurrentMonth == 3)
+                    {
+                        modifiedMonthNameToDisplay = gv.mod.nameOfFourthMonth;
+                    }
+                    else if (modifiedCurrentMonth == 4)
+                    {
+                        modifiedMonthNameToDisplay = gv.mod.nameOfFifthMonth;
+                    }
+                    else if (modifiedCurrentMonth == 5)
+                    {
+                        modifiedMonthNameToDisplay = gv.mod.nameOfSixthMonth;
+                    }
+                    else if (modifiedCurrentMonth == 6)
+                    {
+                        modifiedMonthNameToDisplay = gv.mod.nameOfSeventhMonth;
+                    }
+                    else if (modifiedCurrentMonth == 7)
+                    {
+                        modifiedMonthNameToDisplay = gv.mod.nameOfEighthMonth;
+                    }
+                    else if (modifiedCurrentMonth == 8)
+                    {
+                        modifiedMonthNameToDisplay = gv.mod.nameOfNinthMonth;
+                    }
+                    else if (modifiedCurrentMonth == 9)
+                    {
+                        modifiedMonthNameToDisplay = gv.mod.nameOfTenthMonth;
+                    }
+                    else if (modifiedCurrentMonth == 10)
+                    {
+                        modifiedMonthNameToDisplay = gv.mod.nameOfEleventhMonth;
+                    }
+                    else if (modifiedCurrentMonth == 11)
+                    {
+                        modifiedMonthNameToDisplay = gv.mod.nameOfTwelfthMonth;
+                    }
+
+                    modifiedMonthDayCounterNumberToDisplay = (modifiedCurrentMonthDay + 1).ToString();
+                    if (modifiedCurrentMonthDay == 0)
+                    {
+                        modifiedMonthDayCounterAddendumToDisplay = "st";
+                    }
+                    else if (modifiedCurrentMonthDay == 1)
+                    {
+                        modifiedMonthDayCounterAddendumToDisplay = "nd";
+                    }
+                    else if (modifiedCurrentMonthDay == 2)
+                    {
+                        modifiedMonthDayCounterAddendumToDisplay = "rd";
+                    }
+                    else if (modifiedCurrentMonthDay == 20)
+                    {
+                        modifiedMonthDayCounterAddendumToDisplay = "st";
+                    }
+                    else if (modifiedCurrentMonthDay == 21)
+                    {
+                        modifiedMonthDayCounterAddendumToDisplay = "nd";
+                    }
+                    else if (modifiedCurrentMonthDay == 22)
+                    {
+                        modifiedMonthDayCounterAddendumToDisplay = "rd";
+                    }
+                    else
+                    {
+                        modifiedMonthDayCounterAddendumToDisplay = "th";
+                    }
+
+                    if (modifiedCurrentWeekDay == 0)
+                    {
+                        modifiedWeekDayNameToDisplay = gv.mod.nameOfFirstDayOfTheWeek;
+                    }
+                    else if (modifiedCurrentWeekDay == 1)
+                    {
+                        modifiedWeekDayNameToDisplay = gv.mod.nameOfSecondDayOfTheWeek;
+                    }
+                    else if (modifiedCurrentWeekDay == 2)
+                    {
+                        modifiedWeekDayNameToDisplay = gv.mod.nameOfThirdDayOfTheWeek;
+                    }
+                    else if (modifiedCurrentWeekDay == 3)
+                    {
+                        modifiedWeekDayNameToDisplay = gv.mod.nameOfFourthDayOfTheWeek;
+                    }
+                    else if (modifiedCurrentWeekDay == 4)
+                    {
+                        modifiedWeekDayNameToDisplay = gv.mod.nameOfFifthDayOfTheWeek;
+                    }
+                    else if (modifiedCurrentWeekDay == 5)
+                    {
+                        modifiedWeekDayNameToDisplay = gv.mod.nameOfSixthDayOfTheWeek;
+                    }
+                    else if (modifiedCurrentWeekDay == 6)
+                    {
+                        modifiedWeekDayNameToDisplay = gv.mod.nameOfSeventhDayOfTheWeek;
+                    }
+
+                    timeText = hour + ":" + sMinute + ", " + modifiedWeekDayNameToDisplay + ", " + modifiedMonthDayCounterNumberToDisplay + modifiedMonthDayCounterAddendumToDisplay + " of " + modifiedMonthNameToDisplay + " " + modifiedCurrentYear.ToString();
+                    newString = newString.Replace("<" + gi.Key + "DateInformation" + ">", timeText);
+                }
+
+                else if (newString.Contains("<" + gi.Key + ">"))
+                {
+                    newString = newString.Replace("<" + gi.Key + ">", gi.Value.ToString());
+                }
+            }
+
             //work with contains, go throuh all global strings and add <>
 
             foreach (GlobalString gs in gv.mod.moduleGlobalStrings)
@@ -766,14 +964,6 @@ namespace IceBlink2
                 if (newString.Contains("<" + gs.Key + ">"))
                 {
                     newString = newString.Replace("<" + gs.Key + ">", gs.Value);
-                }
-            }
-
-            foreach (GlobalInt gi in gv.mod.moduleGlobalInts)
-            {
-                if (newString.Contains("<" + gi.Key + ">"))
-                {
-                    newString = newString.Replace("<" + gi.Key + ">", gi.Value.ToString());
                 }
             }
 

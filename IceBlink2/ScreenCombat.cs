@@ -638,11 +638,11 @@ namespace IceBlink2
                                                 copy.reflex += f.accumulatedBuffStrengthRank2;
                                                 if (f.accumulatedBuffStrengthRank2 > 0)
                                                 {
-                                                    gv.cc.addLogText("<font color='blue'>" + copy.cr_name + " belongs to " + f.name + " and gets a +" + f.accumulatedBuffStrengthRank1.ToString() + " buff to AC, Hitroll and Saves" + "</font><BR>");
+                                                    gv.cc.addLogText("<font color='blue'>" + copy.cr_name + " belongs to " + f.name + " and gets a +" + f.accumulatedBuffStrengthRank2.ToString() + " buff to AC, Hitroll and Saves" + "</font><BR>");
                                                 }
                                                 else if (f.accumulatedBuffStrengthRank2 < 0)
                                                 {
-                                                    gv.cc.addLogText("<font color='blue'>" + copy.cr_name + " belongs to " + f.name + " and gets a -" + f.accumulatedBuffStrengthRank1.ToString() + " debuff to AC, Hitroll and Saves" + "</font><BR>");
+                                                    gv.cc.addLogText("<font color='blue'>" + copy.cr_name + " belongs to " + f.name + " and gets a -" + f.accumulatedBuffStrengthRank2.ToString() + " debuff to AC, Hitroll and Saves" + "</font><BR>");
                                                 }
                                             }
                                             if (f.rank == 3)
@@ -654,11 +654,11 @@ namespace IceBlink2
                                                 copy.reflex += f.accumulatedBuffStrengthRank3;
                                                 if (f.accumulatedBuffStrengthRank3 > 0)
                                                 {
-                                                    gv.cc.addLogText("<font color='blue'>" + copy.cr_name + " belongs to " + f.name + " and gets a +" + f.accumulatedBuffStrengthRank1.ToString() + " buff to AC, Hitroll and Saves" + "</font><BR>");
+                                                    gv.cc.addLogText("<font color='blue'>" + copy.cr_name + " belongs to " + f.name + " and gets a +" + f.accumulatedBuffStrengthRank3.ToString() + " buff to AC, Hitroll and Saves" + "</font><BR>");
                                                 }
                                                 else if (f.accumulatedBuffStrengthRank3 < 0)
                                                 {
-                                                    gv.cc.addLogText("<font color='blue'>" + copy.cr_name + " belongs to " + f.name + " and gets a -" + f.accumulatedBuffStrengthRank1.ToString() + " debuff to AC, Hitroll and Saves" + "</font><BR>");
+                                                    gv.cc.addLogText("<font color='blue'>" + copy.cr_name + " belongs to " + f.name + " and gets a -" + f.accumulatedBuffStrengthRank3.ToString() + " debuff to AC, Hitroll and Saves" + "</font><BR>");
                                                 }
                                             }
                                             if (f.rank == 4)
@@ -670,11 +670,11 @@ namespace IceBlink2
                                                 copy.reflex += f.accumulatedBuffStrengthRank4;
                                                 if (f.accumulatedBuffStrengthRank4 > 0)
                                                 {
-                                                    gv.cc.addLogText("<font color='blue'>" + copy.cr_name + " belongs to " + f.name + " and gets a +" + f.accumulatedBuffStrengthRank1.ToString() + " buff to AC, Hitroll and Saves" + "</font><BR>");
+                                                    gv.cc.addLogText("<font color='blue'>" + copy.cr_name + " belongs to " + f.name + " and gets a +" + f.accumulatedBuffStrengthRank4.ToString() + " buff to AC, Hitroll and Saves" + "</font><BR>");
                                                 }
                                                 else if (f.accumulatedBuffStrengthRank4 < 0)
                                                 {
-                                                    gv.cc.addLogText("<font color='blue'>" + copy.cr_name + " belongs to " + f.name + " and gets a -" + f.accumulatedBuffStrengthRank1.ToString() + " debuff to AC, Hitroll and Saves" + "</font><BR>");
+                                                    gv.cc.addLogText("<font color='blue'>" + copy.cr_name + " belongs to " + f.name + " and gets a -" + f.accumulatedBuffStrengthRank4.ToString() + " debuff to AC, Hitroll and Saves" + "</font><BR>");
                                                 }
                                             }
                                             if (f.rank == 5)
@@ -686,11 +686,11 @@ namespace IceBlink2
                                                 copy.reflex += f.accumulatedBuffStrengthRank5;
                                                 if (f.accumulatedBuffStrengthRank5 > 0)
                                                 {
-                                                    gv.cc.addLogText("<font color='blue'>" + copy.cr_name + " belongs to " + f.name + " and gets a +" + f.accumulatedBuffStrengthRank1.ToString() + " buff to AC, Hitroll and Saves" + "</font><BR>");
+                                                    gv.cc.addLogText("<font color='blue'>" + copy.cr_name + " belongs to " + f.name + " and gets a +" + f.accumulatedBuffStrengthRank5.ToString() + " buff to AC, Hitroll and Saves" + "</font><BR>");
                                                 }
                                                 else if (f.accumulatedBuffStrengthRank5 < 0)
                                                 {
-                                                    gv.cc.addLogText("<font color='blue'>" + copy.cr_name + " belongs to " + f.name + " and gets a -" + f.accumulatedBuffStrengthRank1.ToString() + " debuff to AC, Hitroll and Saves" + "</font><BR>");
+                                                    gv.cc.addLogText("<font color='blue'>" + copy.cr_name + " belongs to " + f.name + " and gets a -" + f.accumulatedBuffStrengthRank5.ToString() + " debuff to AC, Hitroll and Saves" + "</font><BR>");
                                                 }
                                             }
                                             if (f.rank == 6)
@@ -702,11 +702,11 @@ namespace IceBlink2
                                                 copy.reflex += f.accumulatedBuffStrengthRank6;
                                                 if (f.accumulatedBuffStrengthRank6 > 0)
                                                 {
-                                                    gv.cc.addLogText("<font color='blue'>" + copy.cr_name + " belongs to " + f.name + " and gets a +" + f.accumulatedBuffStrengthRank1.ToString() + " buff to AC, Hitroll and Saves" + "</font><BR>");
+                                                    gv.cc.addLogText("<font color='blue'>" + copy.cr_name + " belongs to " + f.name + " and gets a +" + f.accumulatedBuffStrengthRank6.ToString() + " buff to AC, Hitroll and Saves" + "</font><BR>");
                                                 }
                                                 else if (f.accumulatedBuffStrengthRank6 < 0)
                                                 {
-                                                    gv.cc.addLogText("<font color='blue'>" + copy.cr_name + " belongs to " + f.name + " and gets a -" + f.accumulatedBuffStrengthRank1.ToString() + " debuff to AC, Hitroll and Saves" + "</font><BR>");
+                                                    gv.cc.addLogText("<font color='blue'>" + copy.cr_name + " belongs to " + f.name + " and gets a -" + f.accumulatedBuffStrengthRank6.ToString() + " debuff to AC, Hitroll and Saves" + "</font><BR>");
                                                 }
                                             }
                                             if (f.rank == 7)
@@ -718,11 +718,11 @@ namespace IceBlink2
                                                 copy.reflex += f.accumulatedBuffStrengthRank7;
                                                 if (f.accumulatedBuffStrengthRank7 > 0)
                                                 {
-                                                    gv.cc.addLogText("<font color='blue'>" + copy.cr_name + " belongs to " + f.name + " and gets a +" + f.accumulatedBuffStrengthRank1.ToString() + " buff to AC, Hitroll and Saves" + "</font><BR>");
+                                                    gv.cc.addLogText("<font color='blue'>" + copy.cr_name + " belongs to " + f.name + " and gets a +" + f.accumulatedBuffStrengthRank7.ToString() + " buff to AC, Hitroll and Saves" + "</font><BR>");
                                                 }
                                                 else if (f.accumulatedBuffStrengthRank7 < 0)
                                                 {
-                                                    gv.cc.addLogText("<font color='blue'>" + copy.cr_name + " belongs to " + f.name + " and gets a -" + f.accumulatedBuffStrengthRank1.ToString() + " debuff to AC, Hitroll and Saves" + "</font><BR>");
+                                                    gv.cc.addLogText("<font color='blue'>" + copy.cr_name + " belongs to " + f.name + " and gets a -" + f.accumulatedBuffStrengthRank7.ToString() + " debuff to AC, Hitroll and Saves" + "</font><BR>");
                                                 }
                                             }
                                             if (f.rank == 8)
@@ -734,11 +734,11 @@ namespace IceBlink2
                                                 copy.reflex += f.accumulatedBuffStrengthRank8;
                                                 if (f.accumulatedBuffStrengthRank8 > 0)
                                                 {
-                                                    gv.cc.addLogText("<font color='blue'>" + copy.cr_name + " belongs to " + f.name + " and gets a +" + f.accumulatedBuffStrengthRank1.ToString() + " buff to AC, Hitroll and Saves" + "</font><BR>");
+                                                    gv.cc.addLogText("<font color='blue'>" + copy.cr_name + " belongs to " + f.name + " and gets a +" + f.accumulatedBuffStrengthRank8.ToString() + " buff to AC, Hitroll and Saves" + "</font><BR>");
                                                 }
                                                 else if (f.accumulatedBuffStrengthRank8 < 0)
                                                 {
-                                                    gv.cc.addLogText("<font color='blue'>" + copy.cr_name + " belongs to " + f.name + " and gets a -" + f.accumulatedBuffStrengthRank1.ToString() + " debuff to AC, Hitroll and Saves" + "</font><BR>");
+                                                    gv.cc.addLogText("<font color='blue'>" + copy.cr_name + " belongs to " + f.name + " and gets a -" + f.accumulatedBuffStrengthRank8.ToString() + " debuff to AC, Hitroll and Saves" + "</font><BR>");
                                                 }
                                             }
                                             if (f.rank == 9)
@@ -750,11 +750,11 @@ namespace IceBlink2
                                                 copy.reflex += f.accumulatedBuffStrengthRank9;
                                                 if (f.accumulatedBuffStrengthRank9 > 0)
                                                 {
-                                                    gv.cc.addLogText("<font color='blue'>" + copy.cr_name + " belongs to " + f.name + " and gets a +" + f.accumulatedBuffStrengthRank1.ToString() + " buff to AC, Hitroll and Saves" + "</font><BR>");
+                                                    gv.cc.addLogText("<font color='blue'>" + copy.cr_name + " belongs to " + f.name + " and gets a +" + f.accumulatedBuffStrengthRank9.ToString() + " buff to AC, Hitroll and Saves" + "</font><BR>");
                                                 }
                                                 else if (f.accumulatedBuffStrengthRank9 < 0)
                                                 {
-                                                    gv.cc.addLogText("<font color='blue'>" + copy.cr_name + " belongs to " + f.name + " and gets a -" + f.accumulatedBuffStrengthRank1.ToString() + " debuff to AC, Hitroll and Saves" + "</font><BR>");
+                                                    gv.cc.addLogText("<font color='blue'>" + copy.cr_name + " belongs to " + f.name + " and gets a -" + f.accumulatedBuffStrengthRank9.ToString() + " debuff to AC, Hitroll and Saves" + "</font><BR>");
                                                 }
                                             }
                                             if (f.rank == 10)
@@ -766,11 +766,11 @@ namespace IceBlink2
                                                 copy.reflex += f.accumulatedBuffStrengthRank10;
                                                 if (f.accumulatedBuffStrengthRank10 > 0)
                                                 {
-                                                    gv.cc.addLogText("<font color='blue'>" + copy.cr_name + " belongs to " + f.name + " and gets a +" + f.accumulatedBuffStrengthRank1.ToString() + " buff to AC, Hitroll and Saves" + "</font><BR>");
+                                                    gv.cc.addLogText("<font color='blue'>" + copy.cr_name + " belongs to " + f.name + " and gets a +" + f.accumulatedBuffStrengthRank10.ToString() + " buff to AC, Hitroll and Saves" + "</font><BR>");
                                                 }
                                                 else if (f.accumulatedBuffStrengthRank10 < 0)
                                                 {
-                                                    gv.cc.addLogText("<font color='blue'>" + copy.cr_name + " belongs to " + f.name + " and gets a -" + f.accumulatedBuffStrengthRank1.ToString() + " debuff to AC, Hitroll and Saves" + "</font><BR>");
+                                                    gv.cc.addLogText("<font color='blue'>" + copy.cr_name + " belongs to " + f.name + " and gets a -" + f.accumulatedBuffStrengthRank10.ToString() + " debuff to AC, Hitroll and Saves" + "</font><BR>");
                                                 }
                                             }
 
@@ -841,11 +841,14 @@ namespace IceBlink2
             //ad effects for night and darkness fights
             if (gv.sf.CheckIsInDarkness("party", "night"))
             {
-                gv.mod.poorVisionModifier = gv.mod.nightFightModifier;
-                gv.cc.addLogText("<font color='yellow'>Night debuff of " + gv.mod.nightFightModifier.ToString() + " applied on party." + "<BR></font>");
-                for (int index = 0; index < gv.mod.playerList.Count; index++)
+                if (gv.mod.nightFightModifier != 0)
                 {
-                    gv.sf.UpdateStats(gv.mod.playerList[index]);
+                    gv.mod.poorVisionModifier = gv.mod.nightFightModifier;
+                    gv.cc.addLogText("<font color='yellow'>Night debuff of " + gv.mod.nightFightModifier.ToString() + " applied on party." + "<BR></font>");
+                    for (int index = 0; index < gv.mod.playerList.Count; index++)
+                    {
+                        gv.sf.UpdateStats(gv.mod.playerList[index]);
+                    }
                 }
 
                 /*
@@ -864,11 +867,14 @@ namespace IceBlink2
             }
             else if (gv.sf.CheckIsInDarkness("party", "noLight"))
             {
-                gv.mod.poorVisionModifier = gv.mod.nightFightModifier;
-                gv.cc.addLogText("<font color='yellow'>Darkness debuff of " + gv.mod.nightFightModifier.ToString() + " applied on party" + ".<BR></font>");
-                for (int index = 0; index < gv.mod.playerList.Count; index++)
+                if (gv.mod.darkFightModifier != 0)
                 {
-                    gv.sf.UpdateStats(gv.mod.playerList[index]);
+                    gv.mod.poorVisionModifier = gv.mod.darkFightModifier;
+                    gv.cc.addLogText("<font color='yellow'>Darkness debuff of " + gv.mod.darkFightModifier.ToString() + " applied on party" + ".<BR></font>");
+                    for (int index = 0; index < gv.mod.playerList.Count; index++)
+                    {
+                        gv.sf.UpdateStats(gv.mod.playerList[index]);
+                    }
                 }
                 /*
                                 for (int index = 0; index < gv.mod.playerList.Count; index++)
@@ -9020,6 +9026,8 @@ namespace IceBlink2
 
                 //IbRect src = new IbRect(0, 0, crt.token.PixelSize.Width, crt.token.PixelSize.Width);
 
+                //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                /*
                 int width = gv.cc.GetFromBitmapList(crt.cr_tokenFilename).PixelSize.Width;
                 int height = gv.cc.GetFromBitmapList(crt.cr_tokenFilename).PixelSize.Height;
                 //1=normal, 2=wide, 3=tall, 4=large  
@@ -9074,6 +9082,72 @@ namespace IceBlink2
                 //}
 
                 gv.DrawBitmap(crt.token, src, dst, !crt.combatFacingLeft);
+                */
+                //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+
+                //AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+                int width = gv.cc.GetFromBitmapList(crt.cr_tokenFilename).PixelSize.Width;
+                int height = gv.cc.GetFromBitmapList(crt.cr_tokenFilename).PixelSize.Height;
+                //1=normal, 2=wide, 3=tall, 4=large  
+                int crtSize = crt.creatureSize;
+                IbRect src = new IbRect(0, 0, width, height / 2);
+
+                //if ((creatureToAnimate != null) && (creatureToAnimate == crt))
+                if ((creatureToAnimate.Count > 0) && (creatureToAnimate.Contains(crt)))
+                {
+                    //blockAnimationBridge = true;
+                    attackAnimationDelayCounter++;
+                    if (attackAnimationDelayCounter >= (int)(crt.token.PixelSize.Height / 100f - 1))
+                    {
+                        attackAnimationFrameCounter++;
+                        attackAnimationDelayCounter = 0;
+                    }
+                    int maxUsableCounterValue = (int)(crt.token.PixelSize.Height / 100f - 1);
+                    if ((crtSize == 3) || (crtSize == 4))
+                    {
+                        maxUsableCounterValue = (int)(crt.token.PixelSize.Height / 200f - 1);
+                    }
+                    if (attackAnimationFrameCounter > maxUsableCounterValue)
+                    {
+                        attackAnimationFrameCounter = maxUsableCounterValue;
+                        blockAnimationBridge = false;
+                    }
+                    src = new IbRect(0, crt.token.PixelSize.Width * attackAnimationFrameCounter, crt.token.PixelSize.Width, crt.token.PixelSize.Width);
+                    //src = new IbRect(0, height / 2, width, height / 2);
+                }
+
+                //normal
+                IbRect dst = new IbRect(getPixelLocX(crt.combatLocX), getPixelLocY(crt.combatLocY), gv.squareSize, gv.squareSize);
+
+                //wide  
+                if (crtSize == 2)
+                {
+                    dst = new IbRect(getPixelLocX(crt.combatLocX), getPixelLocY(crt.combatLocY), gv.squareSize * 2, gv.squareSize);
+                }
+
+                //tall  
+                if (crtSize == 3)
+                {
+                    //dst = new IbRect(getPixelLocX(crt.combatLocX) - (gv.squareSize / 2), getPixelLocY(crt.combatLocY) - (gv.squareSize / 2), gv.squareSize * 2, gv.squareSize * 2);
+                    dst = new IbRect(getPixelLocX(crt.combatLocX), getPixelLocY(crt.combatLocY), gv.squareSize, gv.squareSize * 2);
+                }
+
+                //large  
+                if (crtSize == 4)
+                {
+                    dst = new IbRect(getPixelLocX(crt.combatLocX), getPixelLocY(crt.combatLocY), gv.squareSize * 2, gv.squareSize * 2);
+                }
+
+                //if (crt.token.PixelSize.Width > 100)
+                //{
+                //dst = new IbRect(getPixelLocX(crt.combatLocX) - (gv.squareSize / 2), getPixelLocY(crt.combatLocY) - (gv.squareSize / 2), gv.squareSize * 2, gv.squareSize * 2);
+                //}
+
+                gv.DrawBitmap(crt.token, src, dst, !crt.combatFacingLeft);
+
+
+
+                //AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
                 if (!animationsOn)
                 {
                     foreach (Effect ef in crt.cr_effectsList)

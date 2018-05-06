@@ -1494,7 +1494,6 @@ namespace IceBlink2
                     {
                         gv.mod.returnCheck = CheckIsInHoursWindowDaily(p1, p2);
                     }
-                    /*
                     else if (filename.Equals("gcCheckIsInDaysWindowWeekly.cs"))
                     {
                         gv.mod.returnCheck = CheckIsInDaysWindowWeekly(p1, p2);
@@ -1505,9 +1504,8 @@ namespace IceBlink2
                     }
                     else if (filename.Equals("gcCheckIsInMonthsWindowYearly.cs"))
                     {
-                        gv.mod.returnCheck = gcCheckIsInMonthsWindowYearly(p1, p2);
+                        gv.mod.returnCheck = CheckIsInMonthsWindowYearly(p1, p2);
                     }
-                    */
                     else if (filename.Equals("gcCheckIsInFactionStrengthWindow.cs"))
                     {
                         int parm2 = Convert.ToInt32(p2);
@@ -1530,6 +1528,7 @@ namespace IceBlink2
                         int parm4 = Convert.ToInt32(p4);
                         gv.mod.returnCheck = CheckLocalInt(prm1, prm2, prm3, parm4);
                     }
+                    /*
                     else if (filename.Equals("gcCheckIsInDarkness.cs"))
                     {
                         //check to see if prm1 is thisprop or thisarea
@@ -1546,6 +1545,7 @@ namespace IceBlink2
                         int parm4 = Convert.ToInt32(p4);
                         gv.mod.returnCheck = CheckLocalInt(prm1, prm2, prm3, parm4);
                     }
+                    */
                     else if (filename.Equals("gcCheckGlobalString.cs"))
                     {
                         gv.mod.returnCheck = CheckGlobalString(prm1, p2);
@@ -2242,45 +2242,45 @@ namespace IceBlink2
                                 }
                             }
 
-                                foreach (Player pc in gv.mod.playerList)
+                            foreach (Player pc in gv.mod.playerList)
+                            {
+                                if (pc.BodyRefs.resref.Equals(prm1) && (pc.BodyRefs.quantity < masterItem.quantity))
                                 {
-                                    if (pc.BodyRefs.resref.Equals(prm1) && (pc.BodyRefs.quantity < masterItem.quantity))
-                                    {
-                                        counter += (masterItem.quantity - pc.BodyRefs.quantity);
-                                    }
-                                    else if (pc.OffHandRefs.resref.Equals(prm1) && (pc.OffHandRefs.quantity < masterItem.quantity))
-                                    {
-                                        counter += (masterItem.quantity - pc.OffHandRefs.quantity);
-                                    }
-                                    else if (pc.MainHandRefs.resref.Equals(prm1) && (pc.MainHandRefs.quantity < masterItem.quantity))
-                                    {
-                                        counter += (masterItem.quantity - pc.MainHandRefs.quantity);
-                                    }
-                                    else if (pc.RingRefs.resref.Equals(prm1) && (pc.RingRefs.quantity < masterItem.quantity))
-                                    {
-                                        counter += (masterItem.quantity - pc.RingRefs.quantity);
-                                    }
-                                    else if (pc.Ring2Refs.resref.Equals(prm1) && (pc.Ring2Refs.quantity < masterItem.quantity))
-                                    {
-                                        counter += (masterItem.quantity - pc.Ring2Refs.quantity);
-                                    }   
-                                    else if (pc.HeadRefs.resref.Equals(prm1) && (pc.HeadRefs.quantity < masterItem.quantity))
-                                    {
-                                        counter += (masterItem.quantity - pc.HeadRefs.quantity);
-                                    }
-                                    else if (pc.GlovesRefs.resref.Equals(prm1) && (pc.GlovesRefs.quantity < masterItem.quantity))
-                                    {
-                                        counter += (masterItem.quantity - pc.GlovesRefs.quantity);
-                                    }
-                                    else if (pc.NeckRefs.resref.Equals(prm1) && (pc.NeckRefs.quantity < masterItem.quantity))
-                                    {
-                                        counter += (masterItem.quantity - pc.NeckRefs.quantity);
-                                    }
-                                    else if (pc.FeetRefs.resref.Equals(prm1) && (pc.FeetRefs.quantity < masterItem.quantity))
-                                    {
-                                        counter += (masterItem.quantity - pc.NeckRefs.quantity);
-                                    }
+                                    counter += (masterItem.quantity - pc.BodyRefs.quantity);
                                 }
+                                else if (pc.OffHandRefs.resref.Equals(prm1) && (pc.OffHandRefs.quantity < masterItem.quantity))
+                                {
+                                    counter += (masterItem.quantity - pc.OffHandRefs.quantity);
+                                }
+                                else if (pc.MainHandRefs.resref.Equals(prm1) && (pc.MainHandRefs.quantity < masterItem.quantity))
+                                {
+                                    counter += (masterItem.quantity - pc.MainHandRefs.quantity);
+                                }
+                                else if (pc.RingRefs.resref.Equals(prm1) && (pc.RingRefs.quantity < masterItem.quantity))
+                                {
+                                    counter += (masterItem.quantity - pc.RingRefs.quantity);
+                                }
+                                else if (pc.Ring2Refs.resref.Equals(prm1) && (pc.Ring2Refs.quantity < masterItem.quantity))
+                                {
+                                    counter += (masterItem.quantity - pc.Ring2Refs.quantity);
+                                }
+                                else if (pc.HeadRefs.resref.Equals(prm1) && (pc.HeadRefs.quantity < masterItem.quantity))
+                                {
+                                    counter += (masterItem.quantity - pc.HeadRefs.quantity);
+                                }
+                                else if (pc.GlovesRefs.resref.Equals(prm1) && (pc.GlovesRefs.quantity < masterItem.quantity))
+                                {
+                                    counter += (masterItem.quantity - pc.GlovesRefs.quantity);
+                                }
+                                else if (pc.NeckRefs.resref.Equals(prm1) && (pc.NeckRefs.quantity < masterItem.quantity))
+                                {
+                                    counter += (masterItem.quantity - pc.NeckRefs.quantity);
+                                }
+                                else if (pc.FeetRefs.resref.Equals(prm1) && (pc.FeetRefs.quantity < masterItem.quantity))
+                                {
+                                    counter += (masterItem.quantity - pc.NeckRefs.quantity);
+                                }
+                            }
                         }
                         SetGlobalInt(prm2, counter.ToString());
                     }
@@ -2288,6 +2288,26 @@ namespace IceBlink2
                     {
                         String val = gv.mod.partyRosterList.Count + "";
                         SetGlobalInt(prm1, val);
+                    }
+                    else if (filename.Equals("ogGetFactionStrength.cs"))
+                    {
+                        foreach (Faction f in gv.mod.moduleFactionsList)
+                        {
+                            if (f.tag == p1)
+                            {
+                                SetGlobalInt(p1, f.strength.ToString());
+                            }
+                        }
+                    }
+                    else if (filename.Equals("ogGetFactionGrowthRate.cs"))
+                    {
+                        foreach (Faction f in gv.mod.moduleFactionsList)
+                        {
+                            if (f.tag == p1)
+                            {
+                                SetGlobalInt(p1 + "GrowthRate", f.amountOfFactionStrengthChangePerInterval.ToString());
+                            }
+                        }
                     }
                     else if (filename.Equals("ogGetNumberOfCreaturesInEncounter.cs"))
                     {
@@ -2400,8 +2420,38 @@ namespace IceBlink2
                     }
                     else if (filename.Equals("ogGetWorldTime.cs"))
                     {
-                        String val = mod.WorldTime + "";
-                        SetGlobalInt(prm2, val);
+                        //this stores time in minutes into a global int
+
+                        //p1 key of global int to store time into; raw number in minutes; the engine automatically extends the key entered here 
+                        //by either DateInformation or AutomaticCountDown, 
+                        //depending on p2 setting (eg you enter DeadLineMike and it becomes DeadLineMikeAutomaticCountDown, if p2 is set so) 
+                        //p2 type of time stored: 
+                        //DateInformation (current world time in minutes + p3 as aditional time in hours) or
+                        //AutomaticCountDown (only p3 as time or the countdown in hours)
+                        //all keys, fully spelled out like DeadLineMikeAutomaticCountDown, can be used via <> in convos and in journal,
+                        //like typing in a convo <DeadLineMikeAutomaticCountDown> to display the remaining time to the player
+                        //they are automatically converted into a well readable time format
+                        //furthermore, you can manipulate them like any global int via scripts, decreasing or extending a countdown manually or shifting a point in time
+                        //AutomaticCountDown types are automatically decreased by the engine as ingame time passes
+                        //p3 either the length of the countDown in hours (AutomaticCountDown) or an amount of time in hours added on top of current world time (DateInformation type)
+
+                        //turn the modifier into a number (it shows hours)
+                        int timeModifier = 0;
+                        if (p3 != "none" && p3 != null)
+                        {
+                            timeModifier = Convert.ToInt32(p3);
+                        }
+
+                        if (p2 == "AutomaticCountDown" || p2 == "automaticCountDown" || p2 == "AutomaticCountdown" || p2 == "automaticCountdown" || p2 == "automaticcountdown")
+                        {
+                            String val = (timeModifier * 60) + "";
+                            SetGlobalInt((p1 + "AutomaticCountDown"), val);
+                        }
+                        else if (p2 == "DateInformation" || p2 == "Dateinformation" || p2 == "dateInformation" || p2 == "dateinformation")
+                        {
+                            String val = (mod.WorldTime + (timeModifier * 60)) + "";
+                            SetGlobalInt(p1 + "DateInformation", val);
+                        }
                     }
                 }
                 catch (Exception ex)
@@ -2944,17 +2994,14 @@ namespace IceBlink2
             return -1;
         }
 
-
-        //CheckIsInHoursWindowDaily
         public bool CheckIsInHoursWindowDaily(string startHour, string endHour)
         {
             int start = Convert.ToInt32(startHour);
             int end = Convert.ToInt32(endHour);
             start *= 60;//convert into minutes
             end *= 60;//convert into minutes
-            int time = gv.mod.WorldTime % 1440;//days begins at 0 minutes(0.00) goes to 1440 minutes (24.00)
-            //note a check for night time will require two checks then (alternativ): between 20 and 24 and between 0 and 6
-            //todo: for simplicity: secial isNight check;
+            int time = gv.mod.WorldTime % 1440;//days begins at 0 minutes(0.00) goes to 1440 minutes (24.00), 0 to 24 for start/end
+ 
             if (start <= end)
             {
                 if (start <= time && end >= time)
@@ -2962,7 +3009,7 @@ namespace IceBlink2
                     return true;
                 }
             }
-            //we check for something like night, crossing the 24.00 line
+            //we check for something like night, crossing the 24.00 line; from 23.00 to 24.00 is(23-24)
             else
             {
                 if (start <= time || end >= time)
@@ -2974,6 +3021,86 @@ namespace IceBlink2
             return false;
         }
 
+        public bool CheckIsInDaysWindowWeekly(string startDay, string endDay)
+        {
+            int start = Convert.ToInt32(startDay);
+            int end = Convert.ToInt32(endDay);
+            start *= 1440;//convert into minutes
+            end *= 1440;//convert into minutes
+            int time = gv.mod.WorldTime % (1440*7);//seven values (0 -7 ), monday (0-1), tuesday (1-2), wednesday (2-3), thursday (3-4), friday (4-5), saturday (5-6), sunday(6-7)
+
+            if (start <= end)
+            {
+                if (start <= time && end >= time)
+                {
+                    return true;
+                }
+            }
+            //we check for something like from Sunday(6) to Monday(1), whole sunday is eg (6-7)
+            else
+            {
+                if (start <= time || end >= time)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        public bool CheckIsInWeeksWindowMonthly(string startWeek, string endWeek)
+        {
+            int start = Convert.ToInt32(startWeek);
+            int end = Convert.ToInt32(endWeek);
+            start *= (1440 * 7);//convert into minutes
+            end *= (1440 * 7);//convert into minutes
+            int time = gv.mod.WorldTime % (1440 * 7 * 4);//month begins at 0 and end at 4 (week1(0-1), week2(1-2), week3(2-3) and week4(3-4)
+
+            if (start <= end)
+            {
+                if (start <= time && end >= time)
+                {
+                    return true;
+                }
+            }
+            //we check for something like from fourth week(3) to first week(1), within week4 is eg 3-4
+            else
+            {
+                if (start <= time || end >= time)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        public bool CheckIsInMonthsWindowYearly(string startMonth, string endMonth)
+        {
+            int start = Convert.ToInt32(startMonth);
+            int end = Convert.ToInt32(endMonth);
+            start *= (1440 * 7 * 4);//convert into minutes
+            end *= (1440 * 7 * 4);//convert into minutes
+            int time = gv.mod.WorldTime % (1440 * 7 * 4 * 12);//year begins at 0 and end at 12 ((0-1),(1-2),(2-3)...(11-12))
+
+            if (start <= end)
+            {
+                if (start <= time && end >= time)
+                {
+                    return true;
+                }
+            }
+            //we check for something like from december(11) to January(1), within december is eg (11-12)
+            else
+            {
+                if (start <= time || end >= time)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
 
         public bool CheckIsInDarkness(string identifier, string darkMode)
         {

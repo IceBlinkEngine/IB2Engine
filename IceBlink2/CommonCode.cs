@@ -2350,6 +2350,17 @@ namespace IceBlink2
 
         public void doUpdate()
         {
+            
+            foreach (GlobalInt g in gv.mod.moduleGlobalInts)
+            {
+                if (g.Key.Contains("AutomaticCountDown"))
+                {
+                    if (g.Value > 0)
+                    {
+                        g.Value -= gv.mod.currentArea.TimePerSquare;
+                    }
+                }
+            }
             //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
             //two checks on update function: 1. Respawn check (adds back to areas prop lsit from propsWaitingForRespawn) and 2. faction limit check (sets is isAcive and isShown)
 
@@ -2710,7 +2721,7 @@ namespace IceBlink2
                         availableForGcCheck = true;
                     }
 
-                    if (availableForGcCheck)
+                    if (availableForGcCheck && (p.firstGcScriptName!= "none" || p.secondGcScriptName != "none" || p.thirdGcScriptName != "none"))
                     {
                         gv.mod.currentPropTag = p.PropTag;
                         bool firstConditionMet = false;
@@ -2861,7 +2872,6 @@ namespace IceBlink2
                     }
 
                 }
-
                 if (gv.mod.loadedTileBitmaps.Count > 250)
                 {
                     //addLogText("yellow", "Disposing tiles.");
