@@ -1169,6 +1169,7 @@ namespace IceBlink2
                         }
 
                         //tiles
+                        //visibility
                         bool isOldSave = false;
                         try
                         {
@@ -1192,6 +1193,57 @@ namespace IceBlink2
                             if (ar.Tiles[index].Visible)
                             {
                                 ar.Tiles[index].opacity = 0;
+                            }
+                        }
+
+                        //walkability
+                        if (sar.toggledSquaresWalkable != null)
+                        {
+                            foreach (Coordinate coord in sar.toggledSquaresWalkable)
+                            {
+                                ar.Tiles[coord.Y * ar.MapSizeX + coord.X].Walkable = true;
+                            }
+                        }
+
+                        if (sar.toggledSquaresWalkableFalse != null)
+                        {
+                            foreach (Coordinate coord in sar.toggledSquaresWalkableFalse)
+                            {
+                                ar.Tiles[coord.Y * ar.MapSizeX + coord.X].Walkable = false;
+                            }
+                        }
+
+                        //LoS
+                        if (sar.toggledSquaresLoS != null)
+                        {
+                            foreach (Coordinate coord in sar.toggledSquaresLoS)
+                            {
+                                ar.Tiles[coord.Y * ar.MapSizeX + coord.X].LoSBlocked = true;
+                            }
+                        }
+
+                        if (sar.toggledSquaresLoSFalse != null)
+                        {
+                            foreach (Coordinate coord in sar.toggledSquaresLoSFalse)
+                            {
+                                ar.Tiles[coord.Y * ar.MapSizeX + coord.X].LoSBlocked = false;
+                            }
+                        }
+
+                        //Secret Passages (through height levels)
+                        if (sar.toggledSquaresIsSecretPassage != null)
+                        {
+                            foreach (Coordinate coord in sar.toggledSquaresIsSecretPassage)
+                            {
+                                ar.Tiles[coord.Y * ar.MapSizeX + coord.X].isSecretPassage = true;
+                            }
+                        }
+
+                        if (sar.toggledSquaresIsSecretPassageFalse != null)
+                        {
+                            foreach (Coordinate coord in sar.toggledSquaresIsSecretPassageFalse)
+                            {
+                                ar.Tiles[coord.Y * ar.MapSizeX + coord.X].isSecretPassage = false;
                             }
                         }
 
@@ -11351,6 +11403,7 @@ namespace IceBlink2
                         //check for block on other side
                         if (gv.mod.moduleAreasObjects[indexOfNeighbourMap].GetBlocked(gv.mod.moduleAreasObjects[indexOfNeighbourMap].MapSizeX - 1 - gv.mod.borderAreaSize, gv.mod.PlayerLocationY, gv.mod.PlayerLocationX, gv.mod.PlayerLocationY, gv.mod.PlayerLastLocationX, gv.mod.PlayerLastLocationY) == false)
                         {
+                           // if (gv.mod.moduleAreasObjects[indexOfNeighbourMap].Tiles[gv.mod.moduleAreasObjects[indexOfNeighbourMap].MapSizeX
                             int xTargetCoordinate = gv.mod.moduleAreasObjects[indexOfNeighbourMap].MapSizeX - 1 - gv.mod.borderAreaSize;
                             int yTargetCoordinate = gv.mod.PlayerLocationY;
                             gv.mod.allowImmediateRetransition = true;

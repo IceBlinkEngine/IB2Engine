@@ -1017,6 +1017,31 @@ namespace IceBlink2
                         int y = Convert.ToInt32(p2);
                         bool enable = Boolean.Parse(p3);
                         gv.mod.currentArea.Tiles[y * gv.mod.currentArea.MapSizeX + x].LoSBlocked = enable;
+                        Coordinate coord = new Coordinate();
+                        coord.X = x;
+                        coord.Y = y;
+                        if (enable)
+                        {
+                            if (gv.mod.currentArea.toggledSquaresLoS != null)
+                            {
+                                gv.mod.currentArea.toggledSquaresLoS.Add(coord);
+                            }
+                        }
+                        else
+                        {
+                            if (gv.mod.currentArea.toggledSquaresLoSFalse != null)
+                            {
+                                gv.mod.currentArea.toggledSquaresLoSFalse.Add(coord);
+                            }
+                        }
+
+                        //floaty in case tile gets transparent
+                        if ((p4 != null && p4 != "none" && p4 != "") && (!enable))
+                        {
+                            //gv.cc.addFloatyText(new Coordinate(coord.X, coord.Y), p4, "green");
+                            gv.screenMainMap.addFloatyText(coord.X, coord.Y, p4, "green", 4000);
+                        }
+
                     }
                     else if (filename.Equals("gaToggleAreaSquareWalkable.cs"))
                     {
@@ -1024,6 +1049,60 @@ namespace IceBlink2
                         int y = Convert.ToInt32(p2);
                         bool enable = Boolean.Parse(p3);
                         gv.mod.currentArea.Tiles[y * gv.mod.currentArea.MapSizeX + x].Walkable = enable;
+                        Coordinate coord = new Coordinate();
+                        coord.X = x;
+                        coord.Y = y;
+                        if (enable)
+                        {
+                            if (gv.mod.currentArea.toggledSquaresWalkable != null)
+                            {
+                                gv.mod.currentArea.toggledSquaresWalkable.Add(coord);
+                            }
+                        }
+                        else
+                        {
+                            if (gv.mod.currentArea.toggledSquaresWalkableFalse != null)
+                            {
+                                gv.mod.currentArea.toggledSquaresWalkableFalse.Add(coord);
+                            }
+                        }
+
+                        //floaty in case tile becomes walkable
+                        if ((p4 != null && p4 != "none" && p4 != "") && (enable))
+                        {
+                            //gv.cc.addFloatyText(new Coordinate(coord.X, coord.Y), p4, "green");
+                            gv.screenMainMap.addFloatyText(coord.X, coord.Y, p4, "green", 4000);
+                        }
+                    }
+                    else if (filename.Equals("gaToggleAreaSquareIsSecretPassage.cs"))
+                    {
+                        int x = Convert.ToInt32(p1);
+                        int y = Convert.ToInt32(p2);
+                        bool enable = Boolean.Parse(p3);
+                        gv.mod.currentArea.Tiles[y * gv.mod.currentArea.MapSizeX + x].isSecretPassage = enable;
+                        Coordinate coord = new Coordinate();
+                        coord.X = x;
+                        coord.Y = y;
+                        if (enable)
+                        {
+                            if (gv.mod.currentArea.toggledSquaresIsSecretPassage != null)
+                            {
+                                gv.mod.currentArea.toggledSquaresIsSecretPassage.Add(coord);
+                            }
+                        }
+                        else
+                        {
+                            if (gv.mod.currentArea.toggledSquaresIsSecretPassageFalse != null)
+                            {
+                                gv.mod.currentArea.toggledSquaresIsSecretPassageFalse.Add(coord);
+                            }
+                        }
+                        //floaty in case passage becomes open/existent
+                        if ((p4 != null && p4 != "none" && p4 != "") && (enable))
+                        {
+                            //gv.cc.addFloatyText(new Coordinate(coord.X, coord.Y), p4, "green");
+                            gv.screenMainMap.addFloatyText(coord.X, coord.Y, p4, "green", 4000);
+                        }
                     }
                     else if (filename.Equals("gaPropOrTriggerCastSpellOnThisSquare.cs"))
                     {
@@ -6893,7 +6972,7 @@ namespace IceBlink2
                     roll = 10;
                 }
                 //string power = (attMod + skillMod + itemMod).ToString();
-                if (roll + attMod + skillMod + itemMod >= dc)
+                if (roll + power >= dc)
                 {
                     if (mod.debugMode) //SD_20131102
                     {
@@ -6918,11 +6997,11 @@ namespace IceBlink2
                     }
                     if ((useRollTen) && (!isSilent))
                     {
-                        gv.cc.addLogText("<font color='red'> Static " + tr.name + " check of " + playerName + " failed (" + roll + "+" + power + "<" + dc + ")" + "</font><BR>");
+                        gv.cc.addLogText("<font color='red'> Static " + tr.name + " check of " + playerName + " failed (" + roll + "+" + power + " is less than " + dc + ")" + "</font><BR>");
                     }
                     else if ((!useRollTen) && (!isSilent))
                     {
-                        gv.cc.addLogText("<font color='red'> Rolled " + tr.name + " check of " + playerName + " failed (" + roll + "+" + power + "<" + dc + ")" + "</font><BR>");
+                        gv.cc.addLogText("<font color='red'> Rolled " + tr.name + " check of " + playerName + " failed (" + roll + "+" + power + " is less than " + dc + ")" + "</font><BR>");
                     }
                     return false;
                 }
@@ -6942,7 +7021,7 @@ namespace IceBlink2
                         {
                             roll = 10;
                         }
-                        if (roll + attMod + skillMod + itemMod < dc)
+                        if (roll + p.powerOfThisPc < dc)
                         {
                             success = false;
                             playerName = p.name;
@@ -6977,10 +7056,10 @@ namespace IceBlink2
                         }
                         if ((useRollTen) && (!isSilent))
                         {
-                            gv.cc.addLogText("<font color='red'> Static " + tr.name + " check (for not a single failure in group) was failed by " + playerName + " (" + rollUsed + "+" + power + "<" + dc + ")" + "</font><BR>");
+                            gv.cc.addLogText("<font color='red'> Static " + tr.name + " check (for not a single failure in group) was failed by " + playerName + " (" + rollUsed + "+" + power + " is less than" + dc + ")" + "</font><BR>");
                         }
                         else if ((!useRollTen) && (!isSilent))                        {
-                            gv.cc.addLogText("<font color='red'> Rolled " + tr.name + " check (for not a single failure in group) was failed by " + playerName + " (" + rollUsed + "+" + power + "<" + dc + ")" + "</font><BR>");
+                            gv.cc.addLogText("<font color='red'> Rolled " + tr.name + " check (for not a single failure in group) was failed by " + playerName + " (" + rollUsed + "+" + power + " is less than" + dc + ")" + "</font><BR>");
                         }
                         return false;
                     }
@@ -6999,7 +7078,7 @@ namespace IceBlink2
                         {
                             roll = 10;
                         }
-                        if (roll + attMod + skillMod + itemMod >= dc)
+                        if (roll + p.powerOfThisPc >= dc)
                         {
                             success = true;
                             playerName = p.name;

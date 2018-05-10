@@ -128,6 +128,8 @@ namespace IceBlink2
         public bool isNSBridge = false;
         public bool isShadowCaster = true;
         public bool drawDownStairShadows = true;
+        public bool alwaysNormalShadow = false;
+        public bool isSecretPassage = false;
 
         public bool isInShortShadeN = false;
         public bool isInShortShadeE = false;
@@ -183,6 +185,8 @@ namespace IceBlink2
         public bool inSmallStairSWVertical = false;
         public bool inSmallStairNWHorizontal = false;
         public bool inSmallStairNWVertical = false;
+
+        public bool drawEntranceLights = true;
 
         public bool hasEntranceLightNorth = false;
         public bool hasEntranceLightEast = false;

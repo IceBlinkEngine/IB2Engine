@@ -22,6 +22,14 @@ namespace IceBlink2
         public string masterOfThisArea = "none";
         public List<string> linkedAreas = new List<string>();
         public List<int> linkNumbers = new List<int>();
+
+        public List<Coordinate> toggledSquaresWalkable = new List<Coordinate>();
+        public List<Coordinate> toggledSquaresLoS = new List<Coordinate>();
+        public List<Coordinate> toggledSquaresIsSecretPassage = new List<Coordinate>();
+        public List<Coordinate> toggledSquaresWalkableFalse = new List<Coordinate>();
+        public List<Coordinate> toggledSquaresLoSFalse = new List<Coordinate>();
+        public List<Coordinate> toggledSquaresIsSecretPassageFalse = new List<Coordinate>();
+
         public int linkNumberOfThisArea = -1;
 
         public int averageHeightOnThisMap = 0;
@@ -600,7 +608,12 @@ namespace IceBlink2
             {
                 return true;
             }
-            
+
+            if (this.Tiles[playerYPosition * this.MapSizeX + playerXPosition].isSecretPassage == true)
+            {
+                return false;
+            }
+
             if (this.Tiles[playerYPosition * this.MapSizeX + playerXPosition].heightLevel != this.Tiles[lastPlayerYPosition * this.MapSizeX + lastPlayerXPosition].heightLevel)
             {
                 bool allowMove = false;

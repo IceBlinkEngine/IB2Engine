@@ -418,11 +418,23 @@ namespace IceBlink2
                             {
                                 if (gv.mod.currentArea.GetBlocked(gv.mod.PlayerLocationX, gv.mod.PlayerLocationY - 1, gv.mod.PlayerLocationX, gv.mod.PlayerLocationY, gv.mod.PlayerLastLocationX, gv.mod.PlayerLastLocationY) == false)
                                 {
-                                    gv.mod.PlayerLastLocationX = gv.mod.PlayerLocationX;
-                                    gv.mod.PlayerLastLocationY = gv.mod.PlayerLocationY;
-                                    gv.mod.PlayerLocationY--;
-                                    gv.mod.breakActiveSearch = false;
-                                    gv.cc.doUpdate();
+                                    if (gv.mod.currentArea.Tiles[(gv.mod.PlayerLocationY - 1) * gv.mod.currentArea.MapSizeX + gv.mod.PlayerLocationX].isSecretPassage)
+                                    {
+                                        gv.mod.PlayerLastLocationX = gv.mod.PlayerLocationX;
+                                        gv.mod.PlayerLastLocationY = gv.mod.PlayerLocationY;
+                                        gv.mod.PlayerLocationY--;
+                                        gv.mod.PlayerLocationY--;
+                                        gv.mod.breakActiveSearch = false;
+                                        gv.cc.doUpdate();
+                                    }
+                                    else
+                                    {
+                                        gv.mod.PlayerLastLocationX = gv.mod.PlayerLocationX;
+                                        gv.mod.PlayerLastLocationY = gv.mod.PlayerLocationY;
+                                        gv.mod.PlayerLocationY--;
+                                        gv.mod.breakActiveSearch = false;
+                                        gv.cc.doUpdate();
+                                    }
                                 }
                             }
                         }
@@ -438,11 +450,23 @@ namespace IceBlink2
                             {
                                 if (gv.mod.currentArea.GetBlocked(gv.mod.PlayerLocationX, gv.mod.PlayerLocationY + 1, gv.mod.PlayerLocationX, gv.mod.PlayerLocationY, gv.mod.PlayerLastLocationX, gv.mod.PlayerLastLocationY) == false)
                                 {
-                                    gv.mod.PlayerLastLocationX = gv.mod.PlayerLocationX;
-                                    gv.mod.PlayerLastLocationY = gv.mod.PlayerLocationY;
-                                    gv.mod.PlayerLocationY++;
-                                    gv.mod.breakActiveSearch = false;
-                                    gv.cc.doUpdate();
+                                    if (gv.mod.currentArea.Tiles[(gv.mod.PlayerLocationY + 1) * gv.mod.currentArea.MapSizeX + gv.mod.PlayerLocationX].isSecretPassage)
+                                    {
+                                        gv.mod.PlayerLastLocationX = gv.mod.PlayerLocationX;
+                                        gv.mod.PlayerLastLocationY = gv.mod.PlayerLocationY;
+                                        gv.mod.PlayerLocationY++;
+                                        gv.mod.PlayerLocationY++;
+                                        gv.mod.breakActiveSearch = false;
+                                        gv.cc.doUpdate();
+                                    }
+                                    else
+                                    {
+                                        gv.mod.PlayerLastLocationX = gv.mod.PlayerLocationX;
+                                        gv.mod.PlayerLastLocationY = gv.mod.PlayerLocationY;
+                                        gv.mod.PlayerLocationY++;
+                                        gv.mod.breakActiveSearch = false;
+                                        gv.cc.doUpdate();
+                                    }
                                 }
                             }
                         }
@@ -456,18 +480,37 @@ namespace IceBlink2
                             {
                                 if (gv.mod.currentArea.GetBlocked(gv.mod.PlayerLocationX - 1, gv.mod.PlayerLocationY, gv.mod.PlayerLocationX, gv.mod.PlayerLocationY, gv.mod.PlayerLastLocationX, gv.mod.PlayerLastLocationY) == false)
                                 {
-                                    gv.mod.PlayerLastLocationX = gv.mod.PlayerLocationX;
-                                    gv.mod.PlayerLastLocationY = gv.mod.PlayerLocationY;
-                                    gv.mod.PlayerLocationX--;
-                                    foreach (Player pc in gv.mod.playerList)
+                                    if (gv.mod.currentArea.Tiles[(gv.mod.PlayerLocationY) * gv.mod.currentArea.MapSizeX + gv.mod.PlayerLocationX - 1].isSecretPassage)
                                     {
-                                        if (!pc.combatFacingLeft)
+                                        gv.mod.PlayerLastLocationX = gv.mod.PlayerLocationX;
+                                        gv.mod.PlayerLastLocationY = gv.mod.PlayerLocationY;
+                                        gv.mod.PlayerLocationX--;
+                                        gv.mod.PlayerLocationX--;
+                                        foreach (Player pc in gv.mod.playerList)
                                         {
-                                            pc.combatFacingLeft = true;
+                                            if (!pc.combatFacingLeft)
+                                            {
+                                                pc.combatFacingLeft = true;
+                                            }
                                         }
+                                        gv.mod.breakActiveSearch = false;
+                                        gv.cc.doUpdate();
                                     }
-                                    gv.mod.breakActiveSearch = false;
-                                    gv.cc.doUpdate();
+                                    else
+                                    {
+                                        gv.mod.PlayerLastLocationX = gv.mod.PlayerLocationX;
+                                        gv.mod.PlayerLastLocationY = gv.mod.PlayerLocationY;
+                                        gv.mod.PlayerLocationX--;
+                                        foreach (Player pc in gv.mod.playerList)
+                                        {
+                                            if (!pc.combatFacingLeft)
+                                            {
+                                                pc.combatFacingLeft = true;
+                                            }
+                                        }
+                                        gv.mod.breakActiveSearch = false;
+                                        gv.cc.doUpdate();
+                                    }
                                 }
                             }
                         }
@@ -482,18 +525,38 @@ namespace IceBlink2
                             {
                                 if (gv.mod.currentArea.GetBlocked(gv.mod.PlayerLocationX + 1, gv.mod.PlayerLocationY, gv.mod.PlayerLocationX, gv.mod.PlayerLocationY, gv.mod.PlayerLastLocationX, gv.mod.PlayerLastLocationY) == false)
                                 {
-                                    gv.mod.PlayerLastLocationX = gv.mod.PlayerLocationX;
-                                    gv.mod.PlayerLastLocationY = gv.mod.PlayerLocationY;
-                                    gv.mod.PlayerLocationX++;
-                                    foreach (Player pc in gv.mod.playerList)
+                                    //todo: like 3 abaove
+                                    if (gv.mod.currentArea.Tiles[(gv.mod.PlayerLocationY) * gv.mod.currentArea.MapSizeX + gv.mod.PlayerLocationX + 1].isSecretPassage)
                                     {
-                                        if (pc.combatFacingLeft)
+                                        gv.mod.PlayerLastLocationX = gv.mod.PlayerLocationX;
+                                        gv.mod.PlayerLastLocationY = gv.mod.PlayerLocationY;
+                                        gv.mod.PlayerLocationX++;
+                                        gv.mod.PlayerLocationX++;
+                                        foreach (Player pc in gv.mod.playerList)
                                         {
-                                            pc.combatFacingLeft = false;
+                                            if (pc.combatFacingLeft)
+                                            {
+                                                pc.combatFacingLeft = false;
+                                            }
                                         }
+                                        gv.mod.breakActiveSearch = false;
+                                        gv.cc.doUpdate();
                                     }
-                                    gv.mod.breakActiveSearch = false;
-                                    gv.cc.doUpdate();
+                                    else
+                                    {
+                                        gv.mod.PlayerLastLocationX = gv.mod.PlayerLocationX;
+                                        gv.mod.PlayerLastLocationY = gv.mod.PlayerLocationY;
+                                        gv.mod.PlayerLocationX++;
+                                        foreach (Player pc in gv.mod.playerList)
+                                        {
+                                            if (pc.combatFacingLeft)
+                                            {
+                                                pc.combatFacingLeft = false;
+                                            }
+                                        }
+                                        gv.mod.breakActiveSearch = false;
+                                        gv.cc.doUpdate();
+                                    }
                                 }
                             }
                         }
@@ -2444,7 +2507,8 @@ namespace IceBlink2
                         {
                             if (tileYCoordOnItsArea - 1 >= 0)
                             {
-                                if (!gv.mod.moduleAreasObjects[index].Tiles[(tileYCoordOnItsArea - 1) * gv.mod.moduleAreasObjects[index].MapSizeX + tileXCoordOnItsArea].isEWBridge && gv.mod.moduleAreasObjects[index].Tiles[(tileYCoordOnItsArea - 1) * gv.mod.moduleAreasObjects[index].MapSizeX + tileXCoordOnItsArea].transitionToMasterDirection != "S")
+                                //todo: alwaysNormalShadow
+                                if ((!gv.mod.moduleAreasObjects[index].Tiles[(tileYCoordOnItsArea - 1) * gv.mod.moduleAreasObjects[index].MapSizeX + tileXCoordOnItsArea].isEWBridge || gv.mod.moduleAreasObjects[index].Tiles[(tileYCoordOnItsArea - 1) * gv.mod.moduleAreasObjects[index].MapSizeX + tileXCoordOnItsArea].alwaysNormalShadow) && gv.mod.moduleAreasObjects[index].Tiles[(tileYCoordOnItsArea - 1) * gv.mod.moduleAreasObjects[index].MapSizeX + tileXCoordOnItsArea].transitionToMasterDirection != "S")
                                 {
                                     gv.DrawBitmap(gv.cc.shortShadow, src, dst, 180, false, 0, 0);
                                 }
@@ -2467,7 +2531,7 @@ namespace IceBlink2
                         {
                             if (tileXCoordOnItsArea + 1 <= gv.mod.moduleAreasObjects[index].MapSizeX - 1)
                             {
-                                if (!gv.mod.moduleAreasObjects[index].Tiles[(tileYCoordOnItsArea) * gv.mod.moduleAreasObjects[index].MapSizeX + (tileXCoordOnItsArea + 1)].isNSBridge && gv.mod.moduleAreasObjects[index].Tiles[(tileYCoordOnItsArea) * gv.mod.moduleAreasObjects[index].MapSizeX + tileXCoordOnItsArea + 1].transitionToMasterDirection != "W")
+                                if ((!gv.mod.moduleAreasObjects[index].Tiles[(tileYCoordOnItsArea) * gv.mod.moduleAreasObjects[index].MapSizeX + (tileXCoordOnItsArea + 1)].isNSBridge || gv.mod.moduleAreasObjects[index].Tiles[(tileYCoordOnItsArea) * gv.mod.moduleAreasObjects[index].MapSizeX + (tileXCoordOnItsArea + 1)].alwaysNormalShadow) && gv.mod.moduleAreasObjects[index].Tiles[(tileYCoordOnItsArea) * gv.mod.moduleAreasObjects[index].MapSizeX + tileXCoordOnItsArea + 1].transitionToMasterDirection != "W")
                                 {
                                     gv.DrawBitmap(gv.cc.shortShadow, src, dst, 270, false, 0, 0);
                                 }
@@ -2491,7 +2555,7 @@ namespace IceBlink2
                         {
                             if (tileYCoordOnItsArea + 1 <= gv.mod.moduleAreasObjects[index].MapSizeY - 1)
                             {
-                                if (!gv.mod.moduleAreasObjects[index].Tiles[(tileYCoordOnItsArea + 1) * gv.mod.moduleAreasObjects[index].MapSizeX + (tileXCoordOnItsArea)].isEWBridge && gv.mod.moduleAreasObjects[index].Tiles[(tileYCoordOnItsArea + 1) * gv.mod.moduleAreasObjects[index].MapSizeX + tileXCoordOnItsArea].transitionToMasterDirection != "N")
+                                if ((!gv.mod.moduleAreasObjects[index].Tiles[(tileYCoordOnItsArea + 1) * gv.mod.moduleAreasObjects[index].MapSizeX + (tileXCoordOnItsArea)].isEWBridge || gv.mod.moduleAreasObjects[index].Tiles[(tileYCoordOnItsArea + 1) * gv.mod.moduleAreasObjects[index].MapSizeX + (tileXCoordOnItsArea)].alwaysNormalShadow) && gv.mod.moduleAreasObjects[index].Tiles[(tileYCoordOnItsArea + 1) * gv.mod.moduleAreasObjects[index].MapSizeX + tileXCoordOnItsArea].transitionToMasterDirection != "N")
                                 {
                                     gv.DrawBitmap(gv.cc.shortShadow, src, dst, 0, false, 0, 0);
                                 }
@@ -2514,7 +2578,7 @@ namespace IceBlink2
                         {
                             if (tileXCoordOnItsArea - 1 >= 0)
                             {
-                                if (!gv.mod.moduleAreasObjects[index].Tiles[(tileYCoordOnItsArea) * gv.mod.moduleAreasObjects[index].MapSizeX + (tileXCoordOnItsArea - 1)].isNSBridge && gv.mod.moduleAreasObjects[index].Tiles[(tileYCoordOnItsArea) * gv.mod.moduleAreasObjects[index].MapSizeX + tileXCoordOnItsArea - 1].transitionToMasterDirection != "E")
+                                if ((!gv.mod.moduleAreasObjects[index].Tiles[(tileYCoordOnItsArea) * gv.mod.moduleAreasObjects[index].MapSizeX + (tileXCoordOnItsArea - 1)].isNSBridge || gv.mod.moduleAreasObjects[index].Tiles[(tileYCoordOnItsArea) * gv.mod.moduleAreasObjects[index].MapSizeX + (tileXCoordOnItsArea - 1)].alwaysNormalShadow) && gv.mod.moduleAreasObjects[index].Tiles[(tileYCoordOnItsArea) * gv.mod.moduleAreasObjects[index].MapSizeX + tileXCoordOnItsArea - 1].transitionToMasterDirection != "E")
                                 {
                                     gv.DrawBitmap(gv.cc.shortShadow, src, dst, 90, false, 0, 0);
                                 }
@@ -4890,8 +4954,11 @@ namespace IceBlink2
 
                             if (tile.isEWBridge)
                             {
-                                gv.DrawBitmap(gv.cc.entranceLightNorth2, src, dstNorth, 0, false, 0, 0, 1, 1, 0.25f);
-                                gv.DrawBitmap(gv.cc.entranceLightNorth2, src, dstSouth, 180, false, 0, 0, 1, 1, 0.25f);
+                                if (tile.drawEntranceLights)
+                                {
+                                    gv.DrawBitmap(gv.cc.entranceLightNorth2, src, dstNorth, 0, false, 0, 0, 1, 1, 0.25f);
+                                    gv.DrawBitmap(gv.cc.entranceLightNorth2, src, dstSouth, 180, false, 0, 0, 1, 1, 0.25f);
+                                }
                                 //DrawD2DBitmap(GetFromBitmapList("shortShadow"), src, dst, 180, false, 0, 0, 1, 1, 0.6f);
                                 //gv.mod.currentArea.PlayerIsUnderBridge = 
 
@@ -4899,8 +4966,11 @@ namespace IceBlink2
 
                             if (tile.isNSBridge)
                             {
-                                gv.DrawBitmap(gv.cc.entranceLightNorth2, src, dstWest, 270, false, 0, 0, 1, 1, 0.25f);
-                                gv.DrawBitmap(gv.cc.entranceLightNorth2, src, dstEast, 90, false, 0, 0, 1, 1, 0.25f);
+                                if (tile.drawEntranceLights)
+                                {
+                                    gv.DrawBitmap(gv.cc.entranceLightNorth2, src, dstWest, 270, false, 0, 0, 1, 1, 0.25f);
+                                    gv.DrawBitmap(gv.cc.entranceLightNorth2, src, dstEast, 90, false, 0, 0, 1, 1, 0.25f);
+                                }
                             }
 
                             if (tile.hasDownStairShadowS)
@@ -35059,11 +35129,23 @@ namespace IceBlink2
                                 {
                                     if (gv.mod.currentArea.GetBlocked(gv.mod.PlayerLocationX, gv.mod.PlayerLocationY - 1, gv.mod.PlayerLocationX, gv.mod.PlayerLocationY, gv.mod.PlayerLastLocationX, gv.mod.PlayerLastLocationY) == false)
                                     {
-                                        gv.mod.PlayerLastLocationX = gv.mod.PlayerLocationX;
-                                        gv.mod.PlayerLastLocationY = gv.mod.PlayerLocationY;
-                                        gv.mod.PlayerLocationY--;
-                                        gv.mod.breakActiveSearch = false;
-                                        gv.cc.doUpdate();
+                                        if (gv.mod.currentArea.Tiles[(gv.mod.PlayerLocationY-1) * gv.mod.currentArea.MapSizeX + gv.mod.PlayerLocationX].isSecretPassage)
+                                        {
+                                            gv.mod.PlayerLastLocationX = gv.mod.PlayerLocationX;
+                                            gv.mod.PlayerLastLocationY = gv.mod.PlayerLocationY;
+                                            gv.mod.PlayerLocationY--;
+                                            gv.mod.PlayerLocationY--;
+                                            gv.mod.breakActiveSearch = false;
+                                            gv.cc.doUpdate();
+                                        }
+                                        else
+                                        {
+                                            gv.mod.PlayerLastLocationX = gv.mod.PlayerLocationX;
+                                            gv.mod.PlayerLastLocationY = gv.mod.PlayerLocationY;
+                                            gv.mod.PlayerLocationY--;
+                                            gv.mod.breakActiveSearch = false;
+                                            gv.cc.doUpdate();
+                                        }
                                     }
                                 }
                             }
@@ -35083,11 +35165,23 @@ namespace IceBlink2
                                 {
                                     if (gv.mod.currentArea.GetBlocked(gv.mod.PlayerLocationX, gv.mod.PlayerLocationY + 1, gv.mod.PlayerLocationX, gv.mod.PlayerLocationY, gv.mod.PlayerLastLocationX, gv.mod.PlayerLastLocationY) == false)
                                     {
-                                        gv.mod.PlayerLastLocationX = gv.mod.PlayerLocationX;
-                                        gv.mod.PlayerLastLocationY = gv.mod.PlayerLocationY;
-                                        gv.mod.PlayerLocationY++;
-                                        gv.mod.breakActiveSearch = false;
-                                        gv.cc.doUpdate();
+                                        if (gv.mod.currentArea.Tiles[(gv.mod.PlayerLocationY + 1) * gv.mod.currentArea.MapSizeX + gv.mod.PlayerLocationX].isSecretPassage)
+                                        {
+                                            gv.mod.PlayerLastLocationX = gv.mod.PlayerLocationX;
+                                            gv.mod.PlayerLastLocationY = gv.mod.PlayerLocationY;
+                                            gv.mod.PlayerLocationY++;
+                                            gv.mod.PlayerLocationY++;
+                                            gv.mod.breakActiveSearch = false;
+                                            gv.cc.doUpdate();
+                                        }
+                                        else
+                                        {
+                                            gv.mod.PlayerLastLocationX = gv.mod.PlayerLocationX;
+                                            gv.mod.PlayerLastLocationY = gv.mod.PlayerLocationY;
+                                            gv.mod.PlayerLocationY++;
+                                            gv.mod.breakActiveSearch = false;
+                                            gv.cc.doUpdate();
+                                        }
                                     }
                                 }
                             }
@@ -35106,18 +35200,37 @@ namespace IceBlink2
                                 {
                                     if (gv.mod.currentArea.GetBlocked(gv.mod.PlayerLocationX - 1, gv.mod.PlayerLocationY, gv.mod.PlayerLocationX, gv.mod.PlayerLocationY, gv.mod.PlayerLastLocationX, gv.mod.PlayerLastLocationY) == false)
                                     {
-                                        gv.mod.PlayerLastLocationX = gv.mod.PlayerLocationX;
-                                        gv.mod.PlayerLastLocationY = gv.mod.PlayerLocationY;
-                                        gv.mod.PlayerLocationX--;
-                                        foreach (Player pc in gv.mod.playerList)
+                                        if (gv.mod.currentArea.Tiles[(gv.mod.PlayerLocationY) * gv.mod.currentArea.MapSizeX + gv.mod.PlayerLocationX - 1].isSecretPassage)
                                         {
-                                            if (!pc.combatFacingLeft)
+                                            gv.mod.PlayerLastLocationX = gv.mod.PlayerLocationX;
+                                            gv.mod.PlayerLastLocationY = gv.mod.PlayerLocationY;
+                                            gv.mod.PlayerLocationX--;
+                                            gv.mod.PlayerLocationX--;
+                                            foreach (Player pc in gv.mod.playerList)
                                             {
-                                                pc.combatFacingLeft = true;
+                                                if (!pc.combatFacingLeft)
+                                                {
+                                                    pc.combatFacingLeft = true;
+                                                }
                                             }
+                                            gv.mod.breakActiveSearch = false;
+                                            gv.cc.doUpdate();
                                         }
-                                        gv.mod.breakActiveSearch = false;
-                                        gv.cc.doUpdate();
+                                        else
+                                        {
+                                            gv.mod.PlayerLastLocationX = gv.mod.PlayerLocationX;
+                                            gv.mod.PlayerLastLocationY = gv.mod.PlayerLocationY;
+                                            gv.mod.PlayerLocationX--;
+                                            foreach (Player pc in gv.mod.playerList)
+                                            {
+                                                if (!pc.combatFacingLeft)
+                                                {
+                                                    pc.combatFacingLeft = true;
+                                                }
+                                            }
+                                            gv.mod.breakActiveSearch = false;
+                                            gv.cc.doUpdate();
+                                        }
                                     }
                                 }
                             }
@@ -35137,18 +35250,37 @@ namespace IceBlink2
                                 {
                                     if (gv.mod.currentArea.GetBlocked(gv.mod.PlayerLocationX + 1, gv.mod.PlayerLocationY, gv.mod.PlayerLocationX, gv.mod.PlayerLocationY, gv.mod.PlayerLastLocationX, gv.mod.PlayerLastLocationY) == false)
                                     {
-                                        gv.mod.PlayerLastLocationX = gv.mod.PlayerLocationX;
-                                        gv.mod.PlayerLastLocationY = gv.mod.PlayerLocationY;
-                                        gv.mod.PlayerLocationX++;
-                                        foreach (Player pc in gv.mod.playerList)
+                                        if (gv.mod.currentArea.Tiles[(gv.mod.PlayerLocationY) * gv.mod.currentArea.MapSizeX + gv.mod.PlayerLocationX + 1].isSecretPassage)
                                         {
-                                            if (pc.combatFacingLeft)
+                                            gv.mod.PlayerLastLocationX = gv.mod.PlayerLocationX;
+                                            gv.mod.PlayerLastLocationY = gv.mod.PlayerLocationY;
+                                            gv.mod.PlayerLocationX++;
+                                            gv.mod.PlayerLocationX++;
+                                            foreach (Player pc in gv.mod.playerList)
                                             {
-                                                pc.combatFacingLeft = false;
+                                                if (pc.combatFacingLeft)
+                                                {
+                                                    pc.combatFacingLeft = false;
+                                                }
                                             }
+                                            gv.mod.breakActiveSearch = false;
+                                            gv.cc.doUpdate();
                                         }
-                                        gv.mod.breakActiveSearch = false;
-                                        gv.cc.doUpdate();
+                                        else
+                                        {
+                                            gv.mod.PlayerLastLocationX = gv.mod.PlayerLocationX;
+                                            gv.mod.PlayerLastLocationY = gv.mod.PlayerLocationY;
+                                            gv.mod.PlayerLocationX++;
+                                            foreach (Player pc in gv.mod.playerList)
+                                            {
+                                                if (pc.combatFacingLeft)
+                                                {
+                                                    pc.combatFacingLeft = false;
+                                                }
+                                            }
+                                            gv.mod.breakActiveSearch = false;
+                                            gv.cc.doUpdate();
+                                        }
                                     }
                                 }
                             }
@@ -36669,18 +36801,35 @@ namespace IceBlink2
                 {
                     //gv.mod.blockTrigger = false;
                     //gv.mod.blockTriggerMovingProp = false;
-
-                    gv.mod.PlayerLastLocationX = gv.mod.PlayerLocationX;
-                    gv.mod.PlayerLastLocationY = gv.mod.PlayerLocationY;
-                    gv.mod.PlayerLocationX--;
-                    foreach (Player pc in gv.mod.playerList)
+                    if (gv.mod.currentArea.Tiles[(gv.mod.PlayerLocationY) * gv.mod.currentArea.MapSizeX + gv.mod.PlayerLocationX - 1].isSecretPassage)
                     {
-                        if (!pc.combatFacingLeft)
+                        gv.mod.PlayerLastLocationX = gv.mod.PlayerLocationX;
+                        gv.mod.PlayerLastLocationY = gv.mod.PlayerLocationY;
+                        gv.mod.PlayerLocationX--;
+                        gv.mod.PlayerLocationX--;
+                        foreach (Player pc in gv.mod.playerList)
                         {
-                            pc.combatFacingLeft = true;
+                            if (!pc.combatFacingLeft)
+                            {
+                                pc.combatFacingLeft = true;
+                            }
                         }
+                        gv.cc.doUpdate();
                     }
-                    gv.cc.doUpdate();
+                    else
+                    {
+                        gv.mod.PlayerLastLocationX = gv.mod.PlayerLocationX;
+                        gv.mod.PlayerLastLocationY = gv.mod.PlayerLocationY;
+                        gv.mod.PlayerLocationX--;
+                        foreach (Player pc in gv.mod.playerList)
+                        {
+                            if (!pc.combatFacingLeft)
+                            {
+                                pc.combatFacingLeft = true;
+                            }
+                        }
+                        gv.cc.doUpdate();
+                    }
                 }
                 else
                 {
@@ -36696,21 +36845,38 @@ namespace IceBlink2
                 
                 if (gv.mod.currentArea.GetBlocked(gv.mod.PlayerLocationX + 1, gv.mod.PlayerLocationY, gv.mod.PlayerLocationX, gv.mod.PlayerLocationY, gv.mod.PlayerLastLocationX, gv.mod.PlayerLastLocationY) == false)
                 {
-                    
+
                     //gv.mod.blockTrigger = false;
                     //gv.mod.blockTriggerMovingProp = false;
-                   
-                    gv.mod.PlayerLastLocationX = gv.mod.PlayerLocationX;
-                    gv.mod.PlayerLastLocationY = gv.mod.PlayerLocationY;
-                    gv.mod.PlayerLocationX++;
-                    foreach (Player pc in gv.mod.playerList)
+                    if (gv.mod.currentArea.Tiles[(gv.mod.PlayerLocationY) * gv.mod.currentArea.MapSizeX + gv.mod.PlayerLocationX + 1].isSecretPassage)
                     {
-                        if (pc.combatFacingLeft)
+                        gv.mod.PlayerLastLocationX = gv.mod.PlayerLocationX;
+                        gv.mod.PlayerLastLocationY = gv.mod.PlayerLocationY;
+                        gv.mod.PlayerLocationX++;
+                        gv.mod.PlayerLocationX++;
+                        foreach (Player pc in gv.mod.playerList)
                         {
-                            pc.combatFacingLeft = false;
+                            if (pc.combatFacingLeft)
+                            {
+                                pc.combatFacingLeft = false;
+                            }
                         }
+                        gv.cc.doUpdate();
                     }
-                    gv.cc.doUpdate();
+                    else
+                    {
+                        gv.mod.PlayerLastLocationX = gv.mod.PlayerLocationX;
+                        gv.mod.PlayerLastLocationY = gv.mod.PlayerLocationY;
+                        gv.mod.PlayerLocationX++;
+                        foreach (Player pc in gv.mod.playerList)
+                        {
+                            if (pc.combatFacingLeft)
+                            {
+                                pc.combatFacingLeft = false;
+                            }
+                        }
+                        gv.cc.doUpdate();
+                    }
                 }
                 else
                 {
@@ -36727,11 +36893,21 @@ namespace IceBlink2
 
                     //gv.mod.blockTrigger = false;
                     //gv.mod.blockTriggerMovingProp = false;
-
-                    gv.mod.PlayerLastLocationX = gv.mod.PlayerLocationX;
-                    gv.mod.PlayerLastLocationY = gv.mod.PlayerLocationY;
-                    gv.mod.PlayerLocationY--;
-                    gv.cc.doUpdate();
+                    if (gv.mod.currentArea.Tiles[(gv.mod.PlayerLocationY - 1) * gv.mod.currentArea.MapSizeX + gv.mod.PlayerLocationX].isSecretPassage)
+                    {
+                        gv.mod.PlayerLastLocationX = gv.mod.PlayerLocationX;
+                        gv.mod.PlayerLastLocationY = gv.mod.PlayerLocationY;
+                        gv.mod.PlayerLocationY--;
+                        gv.mod.PlayerLocationY--;
+                        gv.cc.doUpdate();
+                    }
+                    else
+                    {
+                        gv.mod.PlayerLastLocationX = gv.mod.PlayerLocationX;
+                        gv.mod.PlayerLastLocationY = gv.mod.PlayerLocationY;
+                        gv.mod.PlayerLocationY--;
+                        gv.cc.doUpdate();
+                    }
                 }
                 else
                 {
@@ -36746,14 +36922,24 @@ namespace IceBlink2
             {
                 if (gv.mod.currentArea.GetBlocked(gv.mod.PlayerLocationX, gv.mod.PlayerLocationY + 1, gv.mod.PlayerLocationX, gv.mod.PlayerLocationY, gv.mod.PlayerLastLocationX, gv.mod.PlayerLastLocationY) == false)
                 {
-                   
+
                     //gv.mod.blockTrigger = false;
                     //gv.mod.blockTriggerMovingProp = false;
-
-                    gv.mod.PlayerLastLocationX = gv.mod.PlayerLocationX;
-                    gv.mod.PlayerLastLocationY = gv.mod.PlayerLocationY;
-                    gv.mod.PlayerLocationY++;
-                    gv.cc.doUpdate();
+                    if (gv.mod.currentArea.Tiles[(gv.mod.PlayerLocationY + 1) * gv.mod.currentArea.MapSizeX + gv.mod.PlayerLocationX].isSecretPassage)
+                    {
+                        gv.mod.PlayerLastLocationX = gv.mod.PlayerLocationX;
+                        gv.mod.PlayerLastLocationY = gv.mod.PlayerLocationY;
+                        gv.mod.PlayerLocationY++;
+                        gv.mod.PlayerLocationY++;
+                        gv.cc.doUpdate();
+                    }
+                    else
+                    {
+                        gv.mod.PlayerLastLocationX = gv.mod.PlayerLocationX;
+                        gv.mod.PlayerLastLocationY = gv.mod.PlayerLocationY;
+                        gv.mod.PlayerLocationY++;
+                        gv.cc.doUpdate();
+                    }
                 }
                 else
                 {

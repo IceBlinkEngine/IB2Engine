@@ -762,7 +762,7 @@ namespace IceBlink2
             //countdown, other global int
             foreach (GlobalInt gi in gv.mod.moduleGlobalInts)
             {
-                if (newString.Contains("<" + gi.Key + "AutomaticCountDown" + ">"))
+                if (newString.Contains("<" + gi.Key + ">") && gi.Key.Contains("AutomaticCountDown"))
                 {
                     int days = (gi.Value) / (24 * 60);
                     int hours = ((gi.Value) % (24 * 60)) / 60;
@@ -798,10 +798,10 @@ namespace IceBlink2
                         timeText = hours + " hour(s)";
                     }
 
-                    newString = newString.Replace("<" + gi.Key + "AutomaticCountDown" + ">", timeText);
+                    newString = newString.Replace("<" + gi.Key + ">", timeText);
                 }
 
-                else if (newString.Contains("<" + gi.Key + "DateInformation" + ">"))
+                else if (newString.Contains("<" + gi.Key + ">") && gi.Key.Contains("DateInformation"))
                 {
                     int timeofday = (gi.Value) % (24 * 60);
                     int hour = timeofday / 60;
@@ -948,7 +948,7 @@ namespace IceBlink2
                     }
 
                     timeText = hour + ":" + sMinute + ", " + modifiedWeekDayNameToDisplay + ", " + modifiedMonthDayCounterNumberToDisplay + modifiedMonthDayCounterAddendumToDisplay + " of " + modifiedMonthNameToDisplay + " " + modifiedCurrentYear.ToString();
-                    newString = newString.Replace("<" + gi.Key + "DateInformation" + ">", timeText);
+                    newString = newString.Replace("<" + gi.Key + ">", timeText);
                 }
 
                 else if (newString.Contains("<" + gi.Key + ">"))
