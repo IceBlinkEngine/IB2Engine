@@ -19,6 +19,7 @@ namespace IceBlink2
         public Random rand;
         public List<object> AoeTargetsList = new List<object>();
         public List<Coordinate> AoeSquaresList = new List<Coordinate>();
+        
 
         public ScriptFunctions(Module m, GameView g)
         {
@@ -1569,6 +1570,10 @@ namespace IceBlink2
                     { 
                         gv.mod.returnCheck = CheckIsInDarkness(p1, p2);
                     }
+                    else if (filename.Equals("gcCheckManualKeyboardInput.cs"))
+                    {
+                        CheckManualKeyboardInput(p1, p2, p3, p4);
+                    }
                     else if (filename.Equals("gcCheckIsInHoursWindowDaily.cs"))
                     {
                         gv.mod.returnCheck = CheckIsInHoursWindowDaily(p1, p2);
@@ -2614,6 +2619,57 @@ namespace IceBlink2
                         {
                             crt.combatLocX = Convert.ToInt32(p3);
                             crt.combatLocY = Convert.ToInt32(p4);
+                        }
+                    }
+                    else if (filename.Equals("osSetTileLayerGraphic.cs"))
+                    {
+                        //p1: tile coordX
+                        //p2: tile coordY
+                        //p3: number of layer affected (0 to 5)
+                        //p4: new graphic name without extension 
+
+                        int x = Convert.ToInt32(p1);
+                        int y = Convert.ToInt32(p2);
+                        int layerNumber = Convert.ToInt32(p3);
+                        Coordinate coord = new Coordinate();
+                        coord.X = x;
+                        coord.Y = y;
+
+                        if (layerNumber == 0)
+                        {
+                            gv.mod.currentArea.Tiles[y * gv.mod.currentArea.MapSizeX + x].Layer0Filename = p4;
+                            gv.mod.currentArea.toggledSquaresLayer0FilenameCoords.Add(coord);
+                            gv.mod.currentArea.toggledSquaresLayer0FilenameNames.Add(p4);
+                        }
+                        if (layerNumber == 1)
+                        {
+                            gv.mod.currentArea.Tiles[y * gv.mod.currentArea.MapSizeX + x].Layer1Filename = p4;
+                            gv.mod.currentArea.toggledSquaresLayer1FilenameCoords.Add(coord);
+                            gv.mod.currentArea.toggledSquaresLayer1FilenameNames.Add(p4);
+                        }
+                        if (layerNumber == 2)
+                        {
+                            gv.mod.currentArea.Tiles[y * gv.mod.currentArea.MapSizeX + x].Layer2Filename = p4;
+                            gv.mod.currentArea.toggledSquaresLayer2FilenameCoords.Add(coord);
+                            gv.mod.currentArea.toggledSquaresLayer2FilenameNames.Add(p4);
+                        }
+                        if (layerNumber == 3)
+                        {
+                            gv.mod.currentArea.Tiles[y * gv.mod.currentArea.MapSizeX + x].Layer3Filename = p4;
+                            gv.mod.currentArea.toggledSquaresLayer3FilenameCoords.Add(coord);
+                            gv.mod.currentArea.toggledSquaresLayer3FilenameNames.Add(p4);
+                        }
+                        if (layerNumber == 4)
+                        {
+                            gv.mod.currentArea.Tiles[y * gv.mod.currentArea.MapSizeX + x].Layer4Filename = p4;
+                            gv.mod.currentArea.toggledSquaresLayer4FilenameCoords.Add(coord);
+                            gv.mod.currentArea.toggledSquaresLayer4FilenameNames.Add(p4);
+                        }
+                        if (layerNumber == 5)
+                        {
+                            gv.mod.currentArea.Tiles[y * gv.mod.currentArea.MapSizeX + x].Layer5Filename = p4;
+                            gv.mod.currentArea.toggledSquaresLayer5FilenameCoords.Add(coord);
+                            gv.mod.currentArea.toggledSquaresLayer5FilenameNames.Add(p4);
                         }
                     }
                     else if (filename.Equals("osSetPropLocation.cs"))
@@ -4711,6 +4767,36 @@ namespace IceBlink2
                 {
                     gv.mod.partyInventoryRefsList.Remove(itRef);
                 }
+            }
+        }
+
+        public void CheckManualKeyboardInput(string correctAnswer1, string correctAnswer2, string correctAnswer3, string topLineText)
+        {
+            gv.mod.realTimeTimerStopped = true;
+            gv.realTimeTimerMilliSecondsEllapsed = 0;
+            using (TextInputDialog itSel = new TextInputDialog(gv, topLineText))
+            {
+                itSel.IceBlinkButtonClose.Visible = true;
+                itSel.IceBlinkButtonClose.Enabled = true;
+                itSel.textInput = "Type here";
+
+                var ret = itSel.ShowDialog();
+             
+                    if (ret == DialogResult.OK)
+                    {
+                        if ((itSel.textInput.ToLowerInvariant() == correctAnswer1.ToLowerInvariant() || itSel.textInput.ToLowerInvariant() == correctAnswer2.ToLowerInvariant() || itSel.textInput.ToLowerInvariant() == correctAnswer3.ToLowerInvariant()) && itSel.textInput != "none" && itSel.textInput != "None" && itSel.textInput != "" && itSel.textInput != null)
+                        {
+                            //gv.realTimeTimerMilliSecondsEllapsed = 0;
+                            gv.mod.realTimeTimerStopped = false;
+                            gv.mod.returnCheck = true;
+                        }
+                        else
+                        {
+                            //gv.realTimeTimerMilliSecondsEllapsed = 0;
+                            gv.mod.realTimeTimerStopped = false;
+                            gv.mod.returnCheck = false;
+                        }
+                    }    
             }
         }
 
@@ -7384,7 +7470,16 @@ namespace IceBlink2
                 }
             }
 
-            bool setBool = Boolean.Parse(bln);
+            bool setBool = false;
+            string newImageFileName = "";
+            if (bln == "true" || bln == "True" || bln == "false" || bln == "False")
+            {
+                setBool = Boolean.Parse(bln);
+            }
+            else
+            {
+                newImageFileName = bln;
+            }
 
             if ((property.Equals("s")) || (property.Equals("S")) || (property.Equals("isShown")))
             {
@@ -7428,6 +7523,15 @@ namespace IceBlink2
                 if (mod.debugMode)
                 {
                     gv.cc.addLogText("<font color='yellow'>prop HasCollisions set to " + bln + "</font><BR>");
+                }
+                return;
+            }
+            else if ((property.Equals("i")) || (property.Equals("I")) || (property.Equals("ImageFileName")) || (property.Equals("imageFileName")) || (property.Equals("ImageFilename")) || (property.Equals("imageFilename")))
+            {
+                prp.ImageFileName = bln;
+                if (mod.debugMode)
+                {
+                    gv.cc.addLogText("<font color='yellow'>prop ImageFileName set to " + bln + "</font><BR>");
                 }
                 return;
             }

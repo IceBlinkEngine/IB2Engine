@@ -10,7 +10,9 @@ namespace IceBlink2
 {
     public class Trigger 
     {
-	    public string TriggerTag = "newTrigger"; //must be unique
+        public bool isBumpTrigger = false;
+
+        public string TriggerTag = "newTrigger"; //must be unique
 	    public bool Enabled = true;
 	    public bool DoOnceOnly = false;
         public bool requiresActiveSearch = false;

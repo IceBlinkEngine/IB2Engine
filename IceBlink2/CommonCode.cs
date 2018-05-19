@@ -1230,6 +1230,61 @@ namespace IceBlink2
                             }
                         }
 
+                        //tile graphics
+                        //Layer0
+                        if (sar.toggledSquaresLayer0FilenameCoords != null && sar.toggledSquaresLayer0FilenameNames != null)
+                        {
+                            for (int i = 0; i < sar.toggledSquaresLayer0FilenameCoords.Count; i++)
+                            {
+                                ar.Tiles[sar.toggledSquaresLayer0FilenameCoords[i].Y * ar.MapSizeX + sar.toggledSquaresLayer0FilenameCoords[i].X].Layer0Filename = sar.toggledSquaresLayer0FilenameNames[i];
+                            }
+                        }
+
+                        //Layer1
+                        if (sar.toggledSquaresLayer1FilenameCoords != null && sar.toggledSquaresLayer1FilenameNames != null)
+                        {
+                            for (int i = 0; i < sar.toggledSquaresLayer1FilenameCoords.Count; i++)
+                            {
+                                ar.Tiles[sar.toggledSquaresLayer1FilenameCoords[i].Y * ar.MapSizeX + sar.toggledSquaresLayer1FilenameCoords[i].X].Layer1Filename = sar.toggledSquaresLayer1FilenameNames[i];
+                            }
+                        }
+
+                        //Layer2
+                        if (sar.toggledSquaresLayer2FilenameCoords != null && sar.toggledSquaresLayer2FilenameNames != null)
+                        {
+                            for (int i = 0; i < sar.toggledSquaresLayer2FilenameCoords.Count; i++)
+                            {
+                                ar.Tiles[sar.toggledSquaresLayer2FilenameCoords[i].Y * ar.MapSizeX + sar.toggledSquaresLayer2FilenameCoords[i].X].Layer2Filename = sar.toggledSquaresLayer2FilenameNames[i];
+                            }
+                        }
+
+                        //Layer3
+                        if (sar.toggledSquaresLayer3FilenameCoords != null && sar.toggledSquaresLayer3FilenameNames != null)
+                        {
+                            for (int i = 0; i < sar.toggledSquaresLayer3FilenameCoords.Count; i++)
+                            {
+                                ar.Tiles[sar.toggledSquaresLayer3FilenameCoords[i].Y * ar.MapSizeX + sar.toggledSquaresLayer3FilenameCoords[i].X].Layer3Filename = sar.toggledSquaresLayer3FilenameNames[i];
+                            }
+                        }
+
+                        //Layer4
+                        if (sar.toggledSquaresLayer4FilenameCoords != null && sar.toggledSquaresLayer4FilenameNames != null)
+                        {
+                            for (int i = 0; i < sar.toggledSquaresLayer4FilenameCoords.Count; i++)
+                            {
+                                ar.Tiles[sar.toggledSquaresLayer4FilenameCoords[i].Y * ar.MapSizeX + sar.toggledSquaresLayer4FilenameCoords[i].X].Layer4Filename = sar.toggledSquaresLayer4FilenameNames[i];
+                            }
+                        }
+
+                        //Layer5
+                        if (sar.toggledSquaresLayer5FilenameCoords != null && sar.toggledSquaresLayer5FilenameNames != null)
+                        {
+                            for (int i = 0; i < sar.toggledSquaresLayer5FilenameCoords.Count; i++)
+                            {
+                                ar.Tiles[sar.toggledSquaresLayer5FilenameCoords[i].Y * ar.MapSizeX + sar.toggledSquaresLayer5FilenameCoords[i].X].Layer5Filename = sar.toggledSquaresLayer5FilenameNames[i];
+                            }
+                        }
+
                         //Secret Passages (through height levels)
                         if (sar.toggledSquaresIsSecretPassage != null)
                         {
@@ -10029,6 +10084,296 @@ namespace IceBlink2
                                             }
                                         }
                                     }
+                                //}
+                            }
+                            catch (Exception ex)
+                            {
+                                if (gv.mod.debugMode)
+                                {
+                                    gv.sf.MessageBox("failed to do trigger: " + ex.ToString());
+                                    gv.errorLog(ex.ToString());
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        public void doBumpTrigger(Trigger trig2)
+        {
+            bool allowTrigger = true;
+            int xPosition = trig2.TriggerSquaresList[0].X;
+            int yPosition = trig2.TriggerSquaresList[0].Y;
+           
+            //Trigger trig2 = gv.mod.currentArea.getTriggerByLocation(gv.mod.PlayerLocationX, gv.mod.PlayerLocationY);
+
+            /*
+            if (trig2 == null)
+            {
+                trig2 = gv.mod.currentArea.getTriggerByLocation(gv.mod.PlayerLastLocationX, gv.mod.PlayerLastLocationY);
+            }
+            */
+
+            if (trig2 != null)
+            {
+                if ((trig2.requiresActiveSearch && gv.mod.activeSearchDoneThisMove) || !trig2.requiresActiveSearch)
+                {
+                    if (trig2.Enabled)
+                    {
+                        //to do: different direction checks (when leaving link in diection of master) needed below
+                        if ((trig2.isLinkToMaster) && (gv.mod.currentArea.masterOfThisArea == "none"))
+                        {
+                            //continue with positions
+                            if (gv.mod.currentArea.Tiles[yPosition * gv.mod.currentArea.MapSizeX + xPosition].transitionToMasterDirection == "N")
+                            {
+                                if ((gv.mod.PlayerLastLocationX != gv.mod.PlayerLocationX) || (gv.mod.PlayerLastLocationY + 1 != gv.mod.PlayerLocationY))
+                                {
+                                    allowTrigger = false;
+                                }
+                            }
+                            else if (gv.mod.currentArea.Tiles[yPosition * gv.mod.currentArea.MapSizeX + xPosition].transitionToMasterDirection == "S")
+                            {
+                                if ((gv.mod.PlayerLastLocationX != gv.mod.PlayerLocationX) || (gv.mod.PlayerLastLocationY - 1 != gv.mod.PlayerLocationY))
+                                {
+                                    allowTrigger = false;
+                                }
+                            }
+                            else if (gv.mod.currentArea.Tiles[yPosition * gv.mod.currentArea.MapSizeX + xPosition].transitionToMasterDirection == "W")
+                            {
+                                if ((gv.mod.PlayerLastLocationY != gv.mod.PlayerLocationY) || (gv.mod.PlayerLastLocationX + 1 != gv.mod.PlayerLocationX))
+                                {
+                                    allowTrigger = false;
+                                }
+                            }
+                            else if (gv.mod.currentArea.Tiles[yPosition * gv.mod.currentArea.MapSizeX + xPosition].transitionToMasterDirection == "E")
+                            {
+                                if ((gv.mod.PlayerLastLocationY != gv.mod.PlayerLocationY) || (gv.mod.PlayerLastLocationX - 1 != gv.mod.PlayerLocationX))
+                                {
+                                    allowTrigger = false;
+                                }
+                            }
+                        }
+                    }
+                    //else
+                    //{
+                    //allowTrigger = false;
+                    //}
+
+                    if (allowTrigger)
+                    {
+                        if (gv.realTimeTimerMilliSecondsEllapsed < gv.mod.realTimeTimerLengthInMilliSeconds)
+                        {
+                            try
+                            {
+                                Trigger trig = trig2;
+                                if ((trig != null) && (trig.Enabled))
+                                {
+                                    blockSecondPropTriggersCall = true;
+                                    //iterate through each event                  
+                                    //#region Event1 stuff
+                                    //check to see if enabled and parm not "none"
+                                    /*for (int i = 0; i < 15; i++)
+                                    {
+                                        gv.Render();
+                                    }*/
+                                    gv.triggerIndex++;
+
+                                    if ((gv.triggerIndex == 1) && (trig.EnabledEvent1) && (!trig.Event1FilenameOrTag.Equals("none")))
+                                    {
+                                        //check to see what type of event
+                                        if (trig.Event1Type.Equals("container"))
+                                        {
+                                            gv.mod.breakActiveSearch = true;
+                                            doContainerBasedOnTag(trig.Event1FilenameOrTag);
+                                            doBumpTrigger(trig2);
+                                        }
+                                        else if (trig.Event1Type.Equals("transition"))
+                                        {
+                                            gv.mod.breakActiveSearch = true;
+                                            doTransitionBasedOnAreaLocation(trig.Event1FilenameOrTag, trig.Event1TransPointX, trig.Event1TransPointY);
+                                        }
+                                        else if (trig.Event1Type.Equals("conversation"))
+                                        {
+                                            if (trig.conversationCannotBeAvoided == true)
+                                            {
+                                                gv.mod.breakActiveSearch = true;
+                                                doConversationBasedOnTag(trig.Event1FilenameOrTag);
+                                            }
+                                            else if (gv.mod.avoidInteraction == false)
+                                            {
+                                                gv.mod.breakActiveSearch = true;
+                                                doConversationBasedOnTag(trig.Event1FilenameOrTag);
+                                            }
+                                        }
+                                        else if (trig.Event1Type.Equals("encounter"))
+                                        {
+                                            if (!gv.mod.EncounterOfTurnDone)
+                                            {
+                                                gv.mod.breakActiveSearch = true;
+                                                gv.mod.EncounterOfTurnDone = true;
+                                                doEncounterBasedOnTag(trig.Event1FilenameOrTag);
+                                                //gv.mod.EncounterOfTurnDone = true;
+                                            }
+                                            //doEncounterBasedOnTag(trig.Event1FilenameOrTag);
+                                        }
+                                        else if (trig.Event1Type.Equals("script"))
+                                        {
+                                            gv.mod.breakActiveSearch = true;
+                                            doScriptBasedOnFilename(trig.Event1FilenameOrTag, trig.Event1Parm1, trig.Event1Parm2, trig.Event1Parm3, trig.Event1Parm4);
+                                            doBumpTrigger(trig2);
+                                        }
+                                        else if (trig.Event1Type.Equals("ibscript"))
+                                        {
+                                            gv.mod.breakActiveSearch = true;
+                                            doIBScriptBasedOnFilename(trig.Event1FilenameOrTag, trig.Event1Parm1);
+                                            doBumpTrigger(trig2);
+                                        }
+                                        //do that event
+                                        if (trig.DoOnceOnlyEvent1)
+                                        {
+                                            trig.EnabledEvent1 = false;
+                                        }
+                                    }
+                                    //#endregion
+                                    //#region Event2 stuff
+                                    //check to see if enabled and parm not "none"
+                                    else if ((gv.triggerIndex == 2) && (trig.EnabledEvent2) && (!trig.Event2FilenameOrTag.Equals("none")))
+                                    {
+                                        if (!trig.event2RequiresTrueReturnCheck || (trig.event2RequiresTrueReturnCheck && gv.mod.returnCheck))
+                                        {
+                                            //check to see what type of event
+                                            if (trig.Event2Type.Equals("container"))
+                                            {
+                                                gv.mod.breakActiveSearch = true;
+                                                doContainerBasedOnTag(trig.Event2FilenameOrTag);
+                                                doBumpTrigger(trig2);
+                                            }
+                                            else if (trig.Event2Type.Equals("transition"))
+                                            {
+                                                gv.mod.breakActiveSearch = true;
+                                                doTransitionBasedOnAreaLocation(trig.Event2FilenameOrTag, trig.Event2TransPointX, trig.Event2TransPointY);
+                                            }
+                                            else if (trig.Event2Type.Equals("conversation"))
+                                            {
+                                                if (trig.conversationCannotBeAvoided == true)
+                                                {
+                                                    gv.mod.breakActiveSearch = true;
+                                                    doConversationBasedOnTag(trig.Event2FilenameOrTag);
+                                                }
+                                                else if (gv.mod.avoidInteraction == false)
+                                                {
+                                                    gv.mod.breakActiveSearch = true;
+                                                    doConversationBasedOnTag(trig.Event2FilenameOrTag);
+                                                }
+                                            }
+                                            else if (trig.Event2Type.Equals("encounter"))
+                                            {
+                                                if (!gv.mod.EncounterOfTurnDone)
+                                                {
+                                                    gv.mod.breakActiveSearch = true;
+                                                    gv.mod.EncounterOfTurnDone = true;
+                                                    doEncounterBasedOnTag(trig.Event2FilenameOrTag);
+                                                    //gv.mod.EncounterOfTurnDone = true;
+                                                }
+                                                //doEncounterBasedOnTag(trig.Event2FilenameOrTag);
+                                            }
+                                            else if (trig.Event2Type.Equals("script"))
+                                            {
+                                                gv.mod.breakActiveSearch = true;
+                                                doScriptBasedOnFilename(trig.Event2FilenameOrTag, trig.Event2Parm1, trig.Event2Parm2, trig.Event2Parm3, trig.Event2Parm4);
+                                                doBumpTrigger(trig2);
+                                            }
+                                            else if (trig.Event2Type.Equals("ibscript"))
+                                            {
+                                                gv.mod.breakActiveSearch = true;
+                                                doIBScriptBasedOnFilename(trig.Event2FilenameOrTag, trig.Event2Parm1);
+                                                doBumpTrigger(trig2);
+                                            }
+                                            //do that event
+                                            if (trig.DoOnceOnlyEvent2)
+                                            {
+                                                trig.EnabledEvent2 = false;
+                                            }
+                                        }
+                                    }
+                                    //#endregion
+                                    //#region Event3 stuff
+                                    //check to see if enabled and parm not "none"
+                                    else if ((gv.triggerIndex == 3) && (trig.EnabledEvent3) && (!trig.Event3FilenameOrTag.Equals("none")))
+                                    {
+                                        if (!trig.event3RequiresFalseReturnCheck || (trig.event3RequiresFalseReturnCheck && !gv.mod.returnCheck))
+                                        {
+                                            //check to see what type of event
+                                            if (trig.Event3Type.Equals("container"))
+                                            {
+                                                gv.mod.breakActiveSearch = true;
+                                                doContainerBasedOnTag(trig.Event3FilenameOrTag);
+                                                doBumpTrigger(trig2);
+                                            }
+                                            else if (trig.Event3Type.Equals("transition"))
+                                            {
+                                                gv.mod.breakActiveSearch = true;
+                                                doTransitionBasedOnAreaLocation(trig.Event3FilenameOrTag, trig.Event3TransPointX, trig.Event3TransPointY);
+                                            }
+                                            else if (trig.Event3Type.Equals("conversation"))
+                                            {
+                                                if (trig.conversationCannotBeAvoided == true)
+                                                {
+                                                    gv.mod.breakActiveSearch = true;
+                                                    doConversationBasedOnTag(trig.Event3FilenameOrTag);
+                                                }
+                                                else if (gv.mod.avoidInteraction == false)
+                                                {
+                                                    gv.mod.breakActiveSearch = true;
+                                                    doConversationBasedOnTag(trig.Event3FilenameOrTag);
+                                                }
+                                            }
+                                            else if (trig.Event3Type.Equals("encounter"))
+                                            {
+
+                                                if (!gv.mod.EncounterOfTurnDone)
+                                                {
+                                                    gv.mod.breakActiveSearch = true;
+                                                    gv.mod.EncounterOfTurnDone = true;
+                                                    doEncounterBasedOnTag(trig.Event3FilenameOrTag);
+                                                    //gv.mod.EncounterOfTurnDone = true;
+                                                }
+                                                //doEncounterBasedOnTag(trig.Event3FilenameOrTag);
+                                            }
+                                            else if (trig.Event3Type.Equals("script"))
+                                            {
+                                                gv.mod.breakActiveSearch = true;
+                                                doScriptBasedOnFilename(trig.Event3FilenameOrTag, trig.Event3Parm1, trig.Event3Parm2, trig.Event3Parm3, trig.Event3Parm4);
+                                                doBumpTrigger(trig2);
+                                            }
+                                            else if (trig.Event3Type.Equals("ibscript"))
+                                            {
+                                                gv.mod.breakActiveSearch = true;
+                                                doIBScriptBasedOnFilename(trig.Event3FilenameOrTag, trig.Event3Parm1);
+                                                doBumpTrigger(trig2);
+                                            }
+                                            //do that event
+                                            if (trig.DoOnceOnlyEvent3)
+                                            {
+                                                trig.EnabledEvent3 = false;
+                                            }
+                                        }
+                                    }
+                                    else if (gv.triggerIndex < 4)
+                                    {
+                                        doBumpTrigger(trig2);
+                                    }
+                                    //#endregion
+                                    if (gv.triggerIndex > 3)
+                                    {
+                                        gv.triggerIndex = 0;
+                                        if (trig.DoOnceOnly)
+                                        {
+                                            trig.Enabled = false;
+                                        }
+                                    }
+                                }
                                 //}
                             }
                             catch (Exception ex)

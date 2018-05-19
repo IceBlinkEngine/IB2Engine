@@ -414,6 +414,44 @@ namespace IceBlink2
                         bool isTransition = gv.cc.goNorth();
                         if (!isTransition)
                         {
+                            bool bumpPropExists = false;
+                            bool bumpTriggerExists = false;
+                            Trigger bumpTrigger = new Trigger();
+                            Prop bumpProp = new Prop();
+
+                            if (gv.mod.PlayerLocationY > 0)
+                            {
+                                foreach (Trigger t in gv.mod.currentArea.Triggers)
+                                {
+                                    //migh add isBumpTRigger requirement here
+                                    if (t.Enabled)
+                                    {
+                                        foreach (Coordinate p in t.TriggerSquaresList)
+                                        {
+                                            if ((p.X == gv.mod.PlayerLocationX) && (p.Y == gv.mod.PlayerLocationY - 1))
+                                            {
+                                                bumpTriggerExists = true;
+                                                bumpTrigger = t;
+                                                break;
+                                            }
+                                        }
+                                    }
+                                }
+
+                                foreach (Prop p in gv.mod.currentArea.Props)
+                                {
+                                    if (p.isActive && (p.ConversationWhenOnPartySquare != "none" || p.EncounterWhenOnPartySquare != "none"))
+                                    {
+                                        if ((p.LocationX == gv.mod.PlayerLocationX) && (p.LocationY == gv.mod.PlayerLocationY - 1))
+                                        {
+                                            bumpPropExists = true;
+                                            bumpProp = p;
+                                            break;
+                                        }
+                                    }
+                                }
+                            }
+
                             if (gv.mod.PlayerLocationY > 0)
                             {
                                 if (gv.mod.currentArea.GetBlocked(gv.mod.PlayerLocationX, gv.mod.PlayerLocationY - 1, gv.mod.PlayerLocationX, gv.mod.PlayerLocationY, gv.mod.PlayerLastLocationX, gv.mod.PlayerLastLocationY) == false)
@@ -436,6 +474,29 @@ namespace IceBlink2
                                         gv.cc.doUpdate();
                                     }
                                 }
+                                else if (bumpPropExists || bumpTriggerExists)
+                                {
+                                    if (bumpPropExists)
+                                    {
+                                        if (bumpProp.ConversationWhenOnPartySquare != "none")
+                                        {
+                                            //called from prop add?
+                                            gv.sf.ThisProp = bumpProp;
+                                            gv.cc.doConversationBasedOnTag(bumpProp.ConversationWhenOnPartySquare);
+                                        }
+
+                                        if (bumpProp.EncounterWhenOnPartySquare != "none")
+                                        {
+                                            gv.mod.EncounterOfTurnDone = true;
+                                            gv.cc.doEncounterBasedOnTag(bumpProp.EncounterWhenOnPartySquare);
+                                        }
+                                    }
+                                    else if (bumpTriggerExists)
+                                    {
+                                        gv.cc.doBumpTrigger(bumpTrigger);
+                                    }
+                                    gv.cc.doUpdate();
+                                }
                             }
                         }
                     }
@@ -446,6 +507,44 @@ namespace IceBlink2
                         if (!isTransition)
                         {
                             int mapheight = gv.mod.currentArea.MapSizeY;
+                            bool bumpPropExists = false;
+                            bool bumpTriggerExists = false;
+                            Trigger bumpTrigger = new Trigger();
+                            Prop bumpProp = new Prop();
+
+                            if (gv.mod.PlayerLocationX < (mapheight - 1))
+                            {
+                                foreach (Trigger t in gv.mod.currentArea.Triggers)
+                                {
+                                    //migh add isBumpTRigger requirement here
+                                    if (t.Enabled)
+                                    {
+                                        foreach (Coordinate p in t.TriggerSquaresList)
+                                        {
+                                            if ((p.X == gv.mod.PlayerLocationX) && (p.Y == gv.mod.PlayerLocationY+1))
+                                            {
+                                                bumpTriggerExists = true;
+                                                bumpTrigger = t;
+                                                break;
+                                            }
+                                        }
+                                    }
+                                }
+
+                                foreach (Prop p in gv.mod.currentArea.Props)
+                                {
+                                    if (p.isActive && (p.ConversationWhenOnPartySquare != "none" || p.EncounterWhenOnPartySquare != "none"))
+                                    {
+                                        if ((p.LocationX == gv.mod.PlayerLocationX) && (p.LocationY == gv.mod.PlayerLocationY+1))
+                                        {
+                                            bumpPropExists = true;
+                                            bumpProp = p;
+                                            break;
+                                        }
+                                    }
+                                }
+                            }
+
                             if (gv.mod.PlayerLocationY < (mapheight - 1))
                             {
                                 if (gv.mod.currentArea.GetBlocked(gv.mod.PlayerLocationX, gv.mod.PlayerLocationY + 1, gv.mod.PlayerLocationX, gv.mod.PlayerLocationY, gv.mod.PlayerLastLocationX, gv.mod.PlayerLastLocationY) == false)
@@ -468,6 +567,29 @@ namespace IceBlink2
                                         gv.cc.doUpdate();
                                     }
                                 }
+                                else if (bumpPropExists || bumpTriggerExists)
+                                {
+                                    if (bumpPropExists)
+                                    {
+                                        if (bumpProp.ConversationWhenOnPartySquare != "none")
+                                        {
+                                            //called from prop add?
+                                            gv.sf.ThisProp = bumpProp;
+                                            gv.cc.doConversationBasedOnTag(bumpProp.ConversationWhenOnPartySquare);
+                                        }
+
+                                        if (bumpProp.EncounterWhenOnPartySquare != "none")
+                                        {
+                                            gv.mod.EncounterOfTurnDone = true;
+                                            gv.cc.doEncounterBasedOnTag(bumpProp.EncounterWhenOnPartySquare);
+                                        }
+                                    }
+                                    else if (bumpTriggerExists)
+                                    {
+                                        gv.cc.doBumpTrigger(bumpTrigger);
+                                    }
+                                    gv.cc.doUpdate();
+                                }
                             }
                         }
                     }
@@ -476,6 +598,44 @@ namespace IceBlink2
                         bool isTransition = gv.cc.goWest();
                         if (!isTransition)
                         {
+                            bool bumpPropExists = false;
+                            bool bumpTriggerExists = false;
+                            Trigger bumpTrigger = new Trigger();
+                            Prop bumpProp = new Prop();
+
+                            if (gv.mod.PlayerLocationX > 0)
+                            {
+                                foreach (Trigger t in gv.mod.currentArea.Triggers)
+                                {
+                                    //migh add isBumpTRigger requirement here
+                                    if (t.Enabled)
+                                    {
+                                        foreach (Coordinate p in t.TriggerSquaresList)
+                                        {
+                                            if ((p.X == gv.mod.PlayerLocationX - 1) && (p.Y == gv.mod.PlayerLocationY))
+                                            {
+                                                bumpTriggerExists = true;
+                                                bumpTrigger = t;
+                                                break;
+                                            }
+                                        }
+                                    }
+                                }
+
+                                foreach (Prop p in gv.mod.currentArea.Props)
+                                {
+                                    if (p.isActive && (p.ConversationWhenOnPartySquare != "none" || p.EncounterWhenOnPartySquare != "none"))
+                                    {
+                                        if ((p.LocationX == gv.mod.PlayerLocationX - 1) && (p.LocationY == gv.mod.PlayerLocationY))
+                                        {
+                                            bumpPropExists = true;
+                                            bumpProp = p;
+                                            break;
+                                        }
+                                    }
+                                }
+                            }
+
                             if (gv.mod.PlayerLocationX > 0)
                             {
                                 if (gv.mod.currentArea.GetBlocked(gv.mod.PlayerLocationX - 1, gv.mod.PlayerLocationY, gv.mod.PlayerLocationX, gv.mod.PlayerLocationY, gv.mod.PlayerLastLocationX, gv.mod.PlayerLastLocationY) == false)
@@ -512,6 +672,32 @@ namespace IceBlink2
                                         gv.cc.doUpdate();
                                     }
                                 }
+                                //dodo: code ok here,too?
+                                else if (bumpPropExists || bumpTriggerExists)
+                                {
+                                    if (bumpPropExists)
+                                    {
+                                        if (bumpProp.ConversationWhenOnPartySquare != "none")
+                                        {
+                                            //called from prop add?
+                                            gv.sf.ThisProp = bumpProp;
+                                            gv.cc.doConversationBasedOnTag(bumpProp.ConversationWhenOnPartySquare);
+                                        }
+
+                                        if (bumpProp.EncounterWhenOnPartySquare != "none")
+                                        {
+                                            gv.mod.EncounterOfTurnDone = true;
+                                            gv.cc.doEncounterBasedOnTag(bumpProp.EncounterWhenOnPartySquare);
+                                        }
+                                    }
+                                    else if (bumpTriggerExists)
+                                    {
+                                        gv.cc.doBumpTrigger(bumpTrigger);
+                                    }
+
+                                    gv.cc.doUpdate();
+                                }
+
                             }
                         }
                     }
@@ -520,12 +706,50 @@ namespace IceBlink2
                         bool isTransition = gv.cc.goEast();
                         if (!isTransition)
                         {
+                            //bumper
                             int mapwidth = gv.mod.currentArea.MapSizeX;
+                            bool bumpPropExists = false;
+                            bool bumpTriggerExists = false;
+                            Trigger bumpTrigger = new Trigger();
+                            Prop bumpProp = new Prop();
+
+                            if (gv.mod.PlayerLocationX < (mapwidth - 1))
+                            {
+                                foreach (Trigger t in gv.mod.currentArea.Triggers)
+                                {
+                                    //migh add isBumpTRigger requirement here
+                                    if (t.Enabled)
+                                    {
+                                        foreach (Coordinate p in t.TriggerSquaresList)
+                                        {
+                                            if ((p.X == gv.mod.PlayerLocationX + 1) && (p.Y == gv.mod.PlayerLocationY))
+                                            {
+                                                bumpTriggerExists = true;
+                                                bumpTrigger = t;
+                                                break;
+                                            }
+                                        }
+                                    }
+                                }
+
+                                foreach (Prop p in gv.mod.currentArea.Props)
+                                {
+                                    if (p.isActive && (p.ConversationWhenOnPartySquare != "none" || p.EncounterWhenOnPartySquare != "none"))
+                                    {
+                                        if ((p.LocationX == gv.mod.PlayerLocationX + 1) && (p.LocationY == gv.mod.PlayerLocationY))
+                                        {
+                                            bumpPropExists = true;
+                                            bumpProp = p;
+                                            break;
+                                        }
+                                    }
+                                }
+                            }
+
                             if (gv.mod.PlayerLocationX < (mapwidth - 1))
                             {
                                 if (gv.mod.currentArea.GetBlocked(gv.mod.PlayerLocationX + 1, gv.mod.PlayerLocationY, gv.mod.PlayerLocationX, gv.mod.PlayerLocationY, gv.mod.PlayerLastLocationX, gv.mod.PlayerLastLocationY) == false)
                                 {
-                                    //todo: like 3 abaove
                                     if (gv.mod.currentArea.Tiles[(gv.mod.PlayerLocationY) * gv.mod.currentArea.MapSizeX + gv.mod.PlayerLocationX + 1].isSecretPassage)
                                     {
                                         gv.mod.PlayerLastLocationX = gv.mod.PlayerLocationX;
@@ -558,6 +782,33 @@ namespace IceBlink2
                                         gv.cc.doUpdate();
                                     }
                                 }
+                                //dodo: code ok here,too?
+                                else if (bumpPropExists || bumpTriggerExists)
+                                {
+                                    if (bumpPropExists)
+                                    {
+                                        if (bumpProp.ConversationWhenOnPartySquare != "none")
+                                        {
+                                            //called from prop add?
+                                            gv.sf.ThisProp = bumpProp;
+                                            gv.cc.doConversationBasedOnTag(bumpProp.ConversationWhenOnPartySquare);
+                                        }
+
+                                        if (bumpProp.EncounterWhenOnPartySquare != "none")
+                                        {
+                                            gv.mod.EncounterOfTurnDone = true;
+                                            gv.cc.doEncounterBasedOnTag(bumpProp.EncounterWhenOnPartySquare);
+                                        }
+                                    }
+                                    else if (bumpTriggerExists)
+                                    {
+                                        gv.cc.doBumpTrigger(bumpTrigger);
+                                    }
+
+                                    //update could be wrong here?
+                                    gv.cc.doUpdate();
+                                }
+
                             }
                         }
                     }
@@ -570,7 +821,11 @@ namespace IceBlink2
             //handle RealTime Timer events if gv.module uses this system
             if (gv.mod.useRealTimeTimer)
             {
-                gv.realTimeTimerMilliSecondsEllapsed += elapsed;
+                if (!gv.mod.realTimeTimerStopped)
+                {
+                    gv.realTimeTimerMilliSecondsEllapsed += elapsed;
+                }
+
                 if (gv.realTimeTimerMilliSecondsEllapsed >= gv.mod.realTimeTimerLengthInMilliSeconds)
                 {
                     gv.mod.calledByRealTimeTimer = true;
@@ -27869,19 +28124,22 @@ namespace IceBlink2
                     situationFound = true;
                     relevantIndices.Add(indexOfEasternNeighbour);
                 }
-                /*
+
+
                 //current map
-                if (!situationFound)
-                {
+                //if (!situationFound)
+                //{
+                int currentAreaIndex = 0;
                     for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
                     {
                         if (gv.mod.currentArea.Filename == gv.mod.moduleAreasObjects[i].Filename)
                         {
-                            relevantIndex = i;
+                            currentAreaIndex = i;
+                            relevantIndices.Add(i);
                         }
                     } 
-                }
-                */
+                //}
+                
 
                 //XXXXXXXXXXXXXXXXXXXXXXXX
                 for (int i = 0; i < relevantIndices.Count; i++)
@@ -27922,6 +28180,7 @@ namespace IceBlink2
                                     {
                                         tileBitmapIsLoadedAlready = true;
                                         indexOfLoadedTile = j;
+                                        p.token = gv.mod.loadedTileBitmaps[j];
                                         break;
                                     }
                                 }
@@ -27933,7 +28192,6 @@ namespace IceBlink2
                                     p.token = gv.cc.LoadBitmap(p.ImageFileName);
                                     gv.mod.loadedTileBitmaps.Add(p.token);
                                     indexOfLoadedTile = gv.mod.loadedTileBitmaps.Count - 1;
-
                                 }
                             }
                             catch
@@ -28085,7 +28343,7 @@ namespace IceBlink2
                                 }
 
                                 //draw the prop
-                                if ((p.maxNumberOfFrames == 1) || (p.drawAnimatedProp))
+                                if (((p.maxNumberOfFrames == 1) || (p.drawAnimatedProp)) && ((!p.isMover) || relevantIndices[i] != currentAreaIndex))
                                 {
                                     gv.DrawBitmap(gv.mod.loadedTileBitmaps[indexOfLoadedTile], src, dst, !p.PropFacingLeft, p.opacity);
                                 }
@@ -28130,11 +28388,11 @@ namespace IceBlink2
 
 
                 }//2
-
+                /*
                 //normal prop draw routine
                 foreach (Prop p in gv.mod.currentArea.Props)
                 {//3
-                 //only for on-movers (the movers use drawMovingProps below)
+                 //only for non-movers (the movers use drawMovingProps below)
                     if ((p.isShown) && (!p.isMover) && (p.token != null))
                     {//4
 
@@ -28208,6 +28466,7 @@ namespace IceBlink2
                         }//5
                     }//4
                 }//3
+                */
                 #endregion
             }
             else //old system
@@ -35125,6 +35384,43 @@ namespace IceBlink2
                             bool isTransition = gv.cc.goNorth();
                             if (!isTransition)
                             {
+                                bool bumpPropExists = false;
+                                bool bumpTriggerExists = false;
+                                Trigger bumpTrigger = new Trigger();
+                                Prop bumpProp = new Prop();
+
+                                if (gv.mod.PlayerLocationY > 0)
+                                {
+                                    foreach (Trigger t in gv.mod.currentArea.Triggers)
+                                    {
+                                        //migh add isBumpTRigger requirement here
+                                        if (t.Enabled)
+                                        {
+                                            foreach (Coordinate p in t.TriggerSquaresList)
+                                            {
+                                                if ((p.X == gv.mod.PlayerLocationX) && (p.Y == gv.mod.PlayerLocationY - 1))
+                                                {
+                                                    bumpTriggerExists = true;
+                                                    bumpTrigger = t;
+                                                    break;
+                                                }
+                                            }
+                                        }
+                                    }
+
+                                    foreach (Prop p in gv.mod.currentArea.Props)
+                                    {
+                                        if (p.isActive && (p.ConversationWhenOnPartySquare != "none" || p.EncounterWhenOnPartySquare != "none"))
+                                        {
+                                            if ((p.LocationX == gv.mod.PlayerLocationX) && (p.LocationY == gv.mod.PlayerLocationY - 1))
+                                            {
+                                                bumpPropExists = true;
+                                                bumpProp = p;
+                                                break;
+                                            }
+                                        }
+                                    }
+                                }
                                 if (gv.mod.PlayerLocationY > 0)
                                 {
                                     if (gv.mod.currentArea.GetBlocked(gv.mod.PlayerLocationX, gv.mod.PlayerLocationY - 1, gv.mod.PlayerLocationX, gv.mod.PlayerLocationY, gv.mod.PlayerLastLocationX, gv.mod.PlayerLastLocationY) == false)
@@ -35147,6 +35443,31 @@ namespace IceBlink2
                                             gv.cc.doUpdate();
                                         }
                                     }
+                                    else if (bumpPropExists || bumpTriggerExists)
+                                    {
+                                        if (bumpPropExists)
+                                        {
+                                            if (bumpProp.ConversationWhenOnPartySquare != "none")
+                                            {
+                                                //called from prop add?
+                                                gv.sf.ThisProp = bumpProp;
+                                                gv.cc.doConversationBasedOnTag(bumpProp.ConversationWhenOnPartySquare);
+                                            }
+
+                                            if (bumpProp.EncounterWhenOnPartySquare != "none")
+                                            {
+                                                gv.mod.EncounterOfTurnDone = true;
+                                                gv.cc.doEncounterBasedOnTag(bumpProp.EncounterWhenOnPartySquare);
+                                            }
+                                        }
+                                        else if (bumpTriggerExists)
+                                        {
+                                            gv.cc.doBumpTrigger(bumpTrigger);
+                                        }
+
+                                        //update could be wrong here?
+                                        gv.cc.doUpdate();
+                                    }
                                 }
                             }
                         }
@@ -35161,6 +35482,43 @@ namespace IceBlink2
                             if (!isTransition)
                             {
                                 int mapheight = gv.mod.currentArea.MapSizeY;
+                                bool bumpPropExists = false;
+                                bool bumpTriggerExists = false;
+                                Trigger bumpTrigger = new Trigger();
+                                Prop bumpProp = new Prop();
+
+                                if (gv.mod.PlayerLocationY < (mapheight - 1))
+                                {
+                                    foreach (Trigger t in gv.mod.currentArea.Triggers)
+                                    {
+                                        //migh add isBumpTRigger requirement here
+                                        if (t.Enabled)
+                                        {
+                                            foreach (Coordinate p in t.TriggerSquaresList)
+                                            {
+                                                if ((p.X == gv.mod.PlayerLocationX) && (p.Y == gv.mod.PlayerLocationY + 1))
+                                                {
+                                                    bumpTriggerExists = true;
+                                                    bumpTrigger = t;
+                                                    break;
+                                                }
+                                            }
+                                        }
+                                    }
+
+                                    foreach (Prop p in gv.mod.currentArea.Props)
+                                    {
+                                        if (p.isActive && (p.ConversationWhenOnPartySquare != "none" || p.EncounterWhenOnPartySquare != "none"))
+                                        {
+                                            if ((p.LocationX == gv.mod.PlayerLocationX) && (p.LocationY == gv.mod.PlayerLocationY + 1))
+                                            {
+                                                bumpPropExists = true;
+                                                bumpProp = p;
+                                                break;
+                                            }
+                                        }
+                                    }
+                                }
                                 if (gv.mod.PlayerLocationY < (mapheight - 1))
                                 {
                                     if (gv.mod.currentArea.GetBlocked(gv.mod.PlayerLocationX, gv.mod.PlayerLocationY + 1, gv.mod.PlayerLocationX, gv.mod.PlayerLocationY, gv.mod.PlayerLastLocationX, gv.mod.PlayerLastLocationY) == false)
@@ -35183,6 +35541,31 @@ namespace IceBlink2
                                             gv.cc.doUpdate();
                                         }
                                     }
+                                    else if (bumpPropExists || bumpTriggerExists)
+                                    {
+                                        if (bumpPropExists)
+                                        {
+                                            if (bumpProp.ConversationWhenOnPartySquare != "none")
+                                            {
+                                                //called from prop add?
+                                                gv.sf.ThisProp = bumpProp;
+                                                gv.cc.doConversationBasedOnTag(bumpProp.ConversationWhenOnPartySquare);
+                                            }
+
+                                            if (bumpProp.EncounterWhenOnPartySquare != "none")
+                                            {
+                                                gv.mod.EncounterOfTurnDone = true;
+                                                gv.cc.doEncounterBasedOnTag(bumpProp.EncounterWhenOnPartySquare);
+                                            }
+                                        }
+                                        else if (bumpTriggerExists)
+                                        {
+                                            gv.cc.doBumpTrigger(bumpTrigger);
+                                        }
+
+                                        //update could be wrong here?
+                                        gv.cc.doUpdate();
+                                    }
                                 }
                             }
                         }
@@ -35196,6 +35579,43 @@ namespace IceBlink2
                             bool isTransition = gv.cc.goWest();
                             if (!isTransition)
                             {
+                                bool bumpPropExists = false;
+                                bool bumpTriggerExists = false;
+                                Trigger bumpTrigger = new Trigger();
+                                Prop bumpProp = new Prop();
+
+                                if (gv.mod.PlayerLocationX > 0)
+                                {
+                                    foreach (Trigger t in gv.mod.currentArea.Triggers)
+                                    {
+                                        //migh add isBumpTRigger requirement here
+                                        if (t.Enabled)
+                                        {
+                                            foreach (Coordinate p in t.TriggerSquaresList)
+                                            {
+                                                if ((p.X == gv.mod.PlayerLocationX - 1) && (p.Y == gv.mod.PlayerLocationY))
+                                                {
+                                                    bumpTriggerExists = true;
+                                                    bumpTrigger = t;
+                                                    break;
+                                                }
+                                            }
+                                        }
+                                    }
+
+                                    foreach (Prop p in gv.mod.currentArea.Props)
+                                    {
+                                        if (p.isActive && (p.ConversationWhenOnPartySquare != "none" || p.EncounterWhenOnPartySquare != "none"))
+                                        {
+                                            if ((p.LocationX == gv.mod.PlayerLocationX - 1) && (p.LocationY == gv.mod.PlayerLocationY))
+                                            {
+                                                bumpPropExists = true;
+                                                bumpProp = p;
+                                                break;
+                                            }
+                                        }
+                                    }
+                                }
                                 if (gv.mod.PlayerLocationX > 0)
                                 {
                                     if (gv.mod.currentArea.GetBlocked(gv.mod.PlayerLocationX - 1, gv.mod.PlayerLocationY, gv.mod.PlayerLocationX, gv.mod.PlayerLocationY, gv.mod.PlayerLastLocationX, gv.mod.PlayerLastLocationY) == false)
@@ -35232,6 +35652,31 @@ namespace IceBlink2
                                             gv.cc.doUpdate();
                                         }
                                     }
+                                    else if (bumpPropExists || bumpTriggerExists)
+                                    {
+                                        if (bumpPropExists)
+                                        {
+                                            if (bumpProp.ConversationWhenOnPartySquare != "none")
+                                            {
+                                                //called from prop add?
+                                                gv.sf.ThisProp = bumpProp;
+                                                gv.cc.doConversationBasedOnTag(bumpProp.ConversationWhenOnPartySquare);
+                                            }
+
+                                            if (bumpProp.EncounterWhenOnPartySquare != "none")
+                                            {
+                                                gv.mod.EncounterOfTurnDone = true;
+                                                gv.cc.doEncounterBasedOnTag(bumpProp.EncounterWhenOnPartySquare);
+                                            }
+                                        }
+                                        else if (bumpTriggerExists)
+                                        {
+                                            gv.cc.doBumpTrigger(bumpTrigger);
+                                        }
+
+                                        //update could be wrong here?
+                                        gv.cc.doUpdate();
+                                    }
                                 }
                             }
                         }
@@ -35246,6 +35691,43 @@ namespace IceBlink2
                             if (!isTransition)
                             {
                                 int mapwidth = gv.mod.currentArea.MapSizeX;
+                                bool bumpPropExists = false;
+                                bool bumpTriggerExists = false;
+                                Trigger bumpTrigger = new Trigger();
+                                Prop bumpProp = new Prop();
+
+                                if (gv.mod.PlayerLocationX < (mapwidth - 1))
+                                {
+                                    foreach (Trigger t in gv.mod.currentArea.Triggers)
+                                    {
+                                        //migh add isBumpTRigger requirement here
+                                        if (t.Enabled)
+                                        {
+                                            foreach (Coordinate p in t.TriggerSquaresList)
+                                            {
+                                                if ((p.X == gv.mod.PlayerLocationX + 1) && (p.Y == gv.mod.PlayerLocationY))
+                                                {
+                                                    bumpTriggerExists = true;
+                                                    bumpTrigger = t;
+                                                    break;
+                                                }
+                                            }
+                                        }
+                                    }
+
+                                    foreach (Prop p in gv.mod.currentArea.Props)
+                                    {
+                                        if (p.isActive && (p.ConversationWhenOnPartySquare != "none" || p.EncounterWhenOnPartySquare != "none"))
+                                        {
+                                            if ((p.LocationX == gv.mod.PlayerLocationX + 1) && (p.LocationY == gv.mod.PlayerLocationY))
+                                            {
+                                                bumpPropExists = true;
+                                                bumpProp = p;
+                                                break;
+                                            }
+                                        }
+                                    }
+                                }
                                 if (gv.mod.PlayerLocationX < (mapwidth - 1))
                                 {
                                     if (gv.mod.currentArea.GetBlocked(gv.mod.PlayerLocationX + 1, gv.mod.PlayerLocationY, gv.mod.PlayerLocationX, gv.mod.PlayerLocationY, gv.mod.PlayerLastLocationX, gv.mod.PlayerLastLocationY) == false)
@@ -35281,6 +35763,31 @@ namespace IceBlink2
                                             gv.mod.breakActiveSearch = false;
                                             gv.cc.doUpdate();
                                         }
+                                    }
+                                    else if (bumpPropExists || bumpTriggerExists)
+                                    {
+                                        if (bumpPropExists)
+                                        {
+                                            if (bumpProp.ConversationWhenOnPartySquare != "none")
+                                            {
+                                                //called from prop add?
+                                                gv.sf.ThisProp = bumpProp;
+                                                gv.cc.doConversationBasedOnTag(bumpProp.ConversationWhenOnPartySquare);
+                                            }
+
+                                            if (bumpProp.EncounterWhenOnPartySquare != "none")
+                                            {
+                                                gv.mod.EncounterOfTurnDone = true;
+                                                gv.cc.doEncounterBasedOnTag(bumpProp.EncounterWhenOnPartySquare);
+                                            }
+                                        }
+                                        else if (bumpTriggerExists)
+                                        {
+                                            gv.cc.doBumpTrigger(bumpTrigger);
+                                        }
+
+                                        //update could be wrong here?
+                                        gv.cc.doUpdate();
                                     }
                                 }
                             }
@@ -36795,6 +37302,44 @@ namespace IceBlink2
         }
         private void moveLeft()
         {
+            bool bumpPropExists = false;
+            bool bumpTriggerExists = false;
+            Trigger bumpTrigger = new Trigger();
+            Prop bumpProp = new Prop();
+
+            if (gv.mod.PlayerLocationX > 0)
+            {
+                foreach (Trigger t in gv.mod.currentArea.Triggers)
+                {
+                    //migh add isBumpTRigger requirement here
+                    if (t.Enabled)
+                    {
+                        foreach (Coordinate p in t.TriggerSquaresList)
+                        {
+                            if ((p.X == gv.mod.PlayerLocationX - 1) && (p.Y == gv.mod.PlayerLocationY))
+                            {
+                                bumpTriggerExists = true;
+                                bumpTrigger = t;
+                                break;
+                            }
+                        }
+                    }
+                }
+
+                foreach (Prop p in gv.mod.currentArea.Props)
+                {
+                    if (p.isActive && (p.ConversationWhenOnPartySquare != "none" || p.EncounterWhenOnPartySquare != "none"))
+                    {
+                        if ((p.LocationX == gv.mod.PlayerLocationX - 1) && (p.LocationY == gv.mod.PlayerLocationY))
+                        {
+                            bumpPropExists = true;
+                            bumpProp = p;
+                            break;
+                        }
+                    }
+                }
+            }
+
             if (gv.mod.PlayerLocationX > 0)
             {
                 if (gv.mod.currentArea.GetBlocked(gv.mod.PlayerLocationX - 1, gv.mod.PlayerLocationY, gv.mod.PlayerLocationX, gv.mod.PlayerLocationY, gv.mod.PlayerLastLocationX, gv.mod.PlayerLastLocationY) == false)
@@ -36831,6 +37376,31 @@ namespace IceBlink2
                         gv.cc.doUpdate();
                     }
                 }
+                else if (bumpPropExists || bumpTriggerExists)
+                {
+                    if (bumpPropExists)
+                    {
+                        if (bumpProp.ConversationWhenOnPartySquare != "none")
+                        {
+                            //called from prop add?
+                            //gv.cc.calledConvoFromProp = true;
+                            gv.sf.ThisProp = bumpProp;
+                            gv.cc.doConversationBasedOnTag(bumpProp.ConversationWhenOnPartySquare);
+                        }
+
+                        if (bumpProp.EncounterWhenOnPartySquare != "none")
+                        {
+                            gv.mod.EncounterOfTurnDone = true;
+                            gv.cc.doEncounterBasedOnTag(bumpProp.EncounterWhenOnPartySquare);
+                        }
+                    }
+                    else if (bumpTriggerExists)
+                    {
+                        gv.cc.doBumpTrigger(bumpTrigger);
+                    }
+
+                    gv.cc.doUpdate();
+                }
                 else
                 {
                     gv.cc.doUpdate();
@@ -36840,6 +37410,45 @@ namespace IceBlink2
         private void moveRight()
         {
             int mapwidth = gv.mod.currentArea.MapSizeX;
+            bool bumpPropExists = false;
+            bool bumpTriggerExists = false;
+            Trigger bumpTrigger = new Trigger();
+            Prop bumpProp = new Prop();
+
+            if (gv.mod.PlayerLocationX < (mapwidth - 1))
+            {
+                foreach (Trigger t in gv.mod.currentArea.Triggers)
+                {
+                    //migh add isBumpTRigger requirement here
+                    if (t.Enabled)
+                    {
+                        foreach (Coordinate p in t.TriggerSquaresList)
+                        {
+                            if ((p.X == gv.mod.PlayerLocationX + 1) && (p.Y == gv.mod.PlayerLocationY))
+                            {
+                                bumpTriggerExists = true;
+                                bumpTrigger = t;
+                                break;
+                            }
+                        }
+                    }
+                }
+
+                foreach (Prop p in gv.mod.currentArea.Props)
+                {
+                    if (p.isActive && (p.ConversationWhenOnPartySquare != "none" || p.EncounterWhenOnPartySquare != "none"))
+                    {
+                        if ((p.LocationX == gv.mod.PlayerLocationX + 1) && (p.LocationY == gv.mod.PlayerLocationY))
+                        {
+                            bumpPropExists = true;
+                            bumpProp = p;
+                            break;
+                        }
+                    }
+                }
+            }
+
+
             if (gv.mod.PlayerLocationX < (mapwidth - 1))
             {
                 
@@ -36878,6 +37487,30 @@ namespace IceBlink2
                         gv.cc.doUpdate();
                     }
                 }
+                else if (bumpPropExists || bumpTriggerExists)
+                {
+                    if (bumpPropExists)
+                    {
+                        if (bumpProp.ConversationWhenOnPartySquare != "none")
+                        {
+                            //called from prop add?
+                            gv.sf.ThisProp = bumpProp;
+                            gv.cc.doConversationBasedOnTag(bumpProp.ConversationWhenOnPartySquare);
+                        }
+
+                        if (bumpProp.EncounterWhenOnPartySquare != "none")
+                        {
+                            gv.mod.EncounterOfTurnDone = true;
+                            gv.cc.doEncounterBasedOnTag(bumpProp.EncounterWhenOnPartySquare);
+                        }
+                    }
+                    else if (bumpTriggerExists)
+                    {
+                        gv.cc.doBumpTrigger(bumpTrigger);
+                    }
+
+                    gv.cc.doUpdate();
+                }
                 else
                 {
                     gv.cc.doUpdate();
@@ -36886,6 +37519,45 @@ namespace IceBlink2
         }
         private void moveUp()
         {
+            bool bumpPropExists = false;
+            bool bumpTriggerExists = false;
+            Trigger bumpTrigger = new Trigger();
+            Prop bumpProp = new Prop();
+
+            if (gv.mod.PlayerLocationY > 0)
+            {
+                foreach (Trigger t in gv.mod.currentArea.Triggers)
+                {
+                    //migh add isBumpTRigger requirement here
+                    if (t.Enabled)
+                    {
+                        foreach (Coordinate p in t.TriggerSquaresList)
+                        {
+                            if ((p.X == gv.mod.PlayerLocationX) && (p.Y == gv.mod.PlayerLocationY - 1))
+                            {
+                                bumpTriggerExists = true;
+                                bumpTrigger = t;
+                                break;
+                            }
+                        }
+                    }
+                }
+
+                foreach (Prop p in gv.mod.currentArea.Props)
+                {
+                    if (p.isActive && (p.ConversationWhenOnPartySquare != "none" || p.EncounterWhenOnPartySquare != "none"))
+                    {
+                        if ((p.LocationX == gv.mod.PlayerLocationX) && (p.LocationY == gv.mod.PlayerLocationY - 1))
+                        {
+                            bumpPropExists = true;
+                            bumpProp = p;
+                            break;
+                        }
+                    }
+                }
+            }
+
+
             if (gv.mod.PlayerLocationY > 0)
             {
                 if (gv.mod.currentArea.GetBlocked(gv.mod.PlayerLocationX, gv.mod.PlayerLocationY - 1, gv.mod.PlayerLocationX, gv.mod.PlayerLocationY, gv.mod.PlayerLastLocationX, gv.mod.PlayerLastLocationY) == false)
@@ -36909,6 +37581,30 @@ namespace IceBlink2
                         gv.cc.doUpdate();
                     }
                 }
+                else if (bumpPropExists || bumpTriggerExists)
+                {
+                    if (bumpPropExists)
+                    {
+                        if (bumpProp.ConversationWhenOnPartySquare != "none")
+                        {
+                            //called from prop add?
+                            gv.sf.ThisProp = bumpProp;
+                            gv.cc.doConversationBasedOnTag(bumpProp.ConversationWhenOnPartySquare);
+                        }
+
+                        if (bumpProp.EncounterWhenOnPartySquare != "none")
+                        {
+                            gv.mod.EncounterOfTurnDone = true;
+                            gv.cc.doEncounterBasedOnTag(bumpProp.EncounterWhenOnPartySquare);
+                        }
+                    }
+                    else if (bumpTriggerExists)
+                    {
+                        gv.cc.doBumpTrigger(bumpTrigger);
+                    }
+
+                    gv.cc.doUpdate();
+                }
                 else
                 {
                     gv.cc.doUpdate();
@@ -36918,6 +37614,44 @@ namespace IceBlink2
         private void moveDown()
         {
             int mapheight = gv.mod.currentArea.MapSizeY;
+            bool bumpPropExists = false;
+            bool bumpTriggerExists = false;
+            Trigger bumpTrigger = new Trigger();
+            Prop bumpProp = new Prop();
+             
+            if (gv.mod.PlayerLocationY < (mapheight - 1))
+            {
+                foreach (Trigger t in gv.mod.currentArea.Triggers)
+                {
+                    //migh add isBumpTRigger requirement here
+                    if (t.Enabled)
+                    {
+                        foreach (Coordinate p in t.TriggerSquaresList)
+                        {
+                            if ((p.X == gv.mod.PlayerLocationX) && (p.Y == gv.mod.PlayerLocationY + 1))
+                            {
+                                bumpTriggerExists = true;
+                                bumpTrigger = t;
+                                break;
+                            }
+                        }
+                    }
+                }
+
+                foreach (Prop p in gv.mod.currentArea.Props)
+                {
+                    if (p.isActive && (p.ConversationWhenOnPartySquare != "none" || p.EncounterWhenOnPartySquare != "none"))
+                    {
+                        if ((p.LocationX == gv.mod.PlayerLocationX) && (p.LocationY == gv.mod.PlayerLocationY + 1))
+                        {
+                            bumpPropExists = true;
+                            bumpProp = p;
+                            break;
+                        }
+                    }
+                }
+            }
+
             if (gv.mod.PlayerLocationY < (mapheight - 1))
             {
                 if (gv.mod.currentArea.GetBlocked(gv.mod.PlayerLocationX, gv.mod.PlayerLocationY + 1, gv.mod.PlayerLocationX, gv.mod.PlayerLocationY, gv.mod.PlayerLastLocationX, gv.mod.PlayerLastLocationY) == false)
@@ -36940,6 +37674,30 @@ namespace IceBlink2
                         gv.mod.PlayerLocationY++;
                         gv.cc.doUpdate();
                     }
+                }
+                else if (bumpPropExists || bumpTriggerExists)
+                {
+                    if(bumpPropExists)
+                    {
+                        if (bumpProp.ConversationWhenOnPartySquare != "none")
+                        {
+                            //called from prop add?
+                            gv.sf.ThisProp = bumpProp;
+                            gv.cc.doConversationBasedOnTag(bumpProp.ConversationWhenOnPartySquare);
+                        }
+
+                        if (bumpProp.EncounterWhenOnPartySquare != "none")
+                        {
+                            gv.mod.EncounterOfTurnDone = true;
+                            gv.cc.doEncounterBasedOnTag(bumpProp.EncounterWhenOnPartySquare);
+                        }
+                    }
+                    else if (bumpTriggerExists)
+                    {
+                        gv.cc.doBumpTrigger(bumpTrigger);
+                    }
+
+                    gv.cc.doUpdate();
                 }
                 else
                 {
