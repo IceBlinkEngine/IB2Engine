@@ -15,6 +15,8 @@ namespace IceBlink2
     public class Prop 
     {
 
+        public bool encounterPropTriggerOnEveryStep = false;
+
         //new properties for faction and respawn system
         //respawn:
         public int respawnTimeInHours = -1; //-1 meaning false, respawn time is in hours
@@ -206,6 +208,8 @@ namespace IceBlink2
         {
     	    Prop copy = new Prop();
             //copy.token = this.token;
+
+            copy.encounterPropTriggerOnEveryStep = this.encounterPropTriggerOnEveryStep;
             copy.pendingFactionStrengthEffectReversal = this.pendingFactionStrengthEffectReversal;
             copy.spawnLocationX = this.spawnLocationX;
             copy.spawnLocationY = this.spawnLocationY;

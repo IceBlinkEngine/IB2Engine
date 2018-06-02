@@ -15,7 +15,11 @@ namespace IceBlink2
 {
     public class Creature 
     {
-	    public string cr_tokenFilename = "blank.png";
+
+        [JsonIgnore]
+        public List<String> tagsOfEffectsToRemoveOnMove = new List<String>();
+
+        public string cr_tokenFilename = "blank.png";
 
         public string factionTag = "none";
 
@@ -123,6 +127,10 @@ namespace IceBlink2
 	    public Creature DeepCopy()
 	    {
 		    Creature copy = new Creature();
+            foreach (String et in this.tagsOfEffectsToRemoveOnMove)
+            {
+                copy.tagsOfEffectsToRemoveOnMove.Add(et);
+            }
             copy.factionTag = this.factionTag;
             copy.percentRequirementOfTargetInjuryForHealSpells = this.percentRequirementOfTargetInjuryForHealSpells;
             copy.percentRequirementOfTargetSPLossForRestoreSPSpells = this.percentRequirementOfTargetInjuryForHealSpells;

@@ -10,6 +10,9 @@ namespace IceBlink2
 {
     public class Trigger 
     {
+        public string triggerImage = "none";
+        public bool encounterTriggerOnEveryStep = false;
+
         public bool isBumpTrigger = false;
 
         public string TriggerTag = "newTrigger"; //must be unique

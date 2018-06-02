@@ -1651,8 +1651,8 @@ namespace IceBlink2
         {
             try 
             {
-                if (touchEnabled)
-                {
+                //if (touchEnabled)
+                //{
                     if (screenType.Equals("main"))
                     {
                         screenMainMap.onTouchMain(e, eventType);	
@@ -1735,11 +1735,17 @@ namespace IceBlink2
                     }
                     else if (screenType.Equals("combat"))
                     {
+                    if (touchEnabled)
+                    {
                         screenCombat.onTouchCombat(e, eventType);
+                    }
                     }
                     else if (screenType.Equals("combatCast"))
                     {
+                    if (touchEnabled)
+                    {
                         screenCastSelector.onTouchCastSelector(e, eventType, true);
+                    }
                     }
                     else if (screenType.Equals("mainMapCast"))
                     {
@@ -1747,7 +1753,10 @@ namespace IceBlink2
                     }
                     else if (screenType.Equals("combatTraitUse"))
                     {
+                    if (touchEnabled)
+                    {
                         screenTraitUseSelector.onTouchCastSelector(e, eventType, true);
+                    }
                     }
                     else if (screenType.Equals("mainMapTraitUse"))
                     {
@@ -1765,7 +1774,7 @@ namespace IceBlink2
                     {
                         screenPartyRoster.onTouchPartyRoster(e, eventType);
                     }
-                }
+                //}
             }
             catch (Exception ex) 
             {
@@ -1777,8 +1786,8 @@ namespace IceBlink2
         {
             try
             {
-                if (touchEnabled)
-                {
+                //if (touchEnabled)
+                //{
                     if (keyData == Keys.H)
                     {
                         if (showHotKeys) { showHotKeys = false; }
@@ -1800,7 +1809,10 @@ namespace IceBlink2
                     }
                     else if (screenType.Equals("combat"))
                     {
+                    if (touchEnabled)
+                    {
                         screenCombat.onKeyUp(keyData);
+                    }
                     }
                     else if (screenType.Equals("convo"))
                     {
@@ -1823,8 +1835,6 @@ namespace IceBlink2
                         }
                     }
                     */
-                    
-                }
             }
             catch (Exception ex)
             {

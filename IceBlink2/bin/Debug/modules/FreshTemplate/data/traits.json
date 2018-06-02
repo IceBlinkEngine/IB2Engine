@@ -947,5 +947,28 @@
     "skillModifierAttribute": "str",
     "traitToReplaceByTag": "none",
     "useableInSituation": "InCombat"
+  },
+  {
+    "methodOfChecking": "leader",
+    "showOnMainMap": false,
+    "name": "Double Strike",
+    "traitEffectTagList": [],
+    "traitWorksOnlyWhen": [],
+    "traitWorksNeverWhen": [],
+    "tag": "trait_doubleStrike",
+    "associatedSpellTag": "spell_doubleStrike",
+    "traitImage": "sp_magebolt",
+    "description": "attacks and to hit",
+    "prerequisiteTrait": "none",
+    "skillModifier": 0,
+    "requiredStrength": 0,
+    "requiredDexterity": 0,
+    "requiredConstitution": 0,
+    "requiredIntelligence": 0,
+    "requiredWisdom": 0,
+    "requiredCharisma": 0,
+    "skillModifierAttribute": "str",
+    "traitToReplaceByTag": "none",
+    "useableInSituation": "InCombat"
   }
 ]

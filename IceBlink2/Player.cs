@@ -11,6 +11,9 @@ namespace IceBlink2
 {
     public class Player
     {
+        [JsonIgnore]
+        public List<String> tagsOfEffectsToRemoveOnMove = new List<String>();
+
         public int powerOfThisPc = 0;
         public string tokenFilename = "blank.png";
         public string portraitFilename = "F0404_L";
@@ -126,6 +129,10 @@ namespace IceBlink2
         public Player DeepCopy()
         {
             Player copy = new Player();
+            foreach (String et in this.tagsOfEffectsToRemoveOnMove)
+            {
+                copy.tagsOfEffectsToRemoveOnMove.Add(et);
+            }
             copy.powerOfThisPc = this.powerOfThisPc;
             copy.stayDurationInTurns = this.stayDurationInTurns;
             copy.playerSize = this.playerSize;  //1=normal, 2=wide, 3=tall, 4=large  
@@ -323,7 +330,7 @@ namespace IceBlink2
                 }
             }
             return false;
-        }
+        }   
         public bool isImmobile()
         {
             foreach (Effect ef in this.effectsList)

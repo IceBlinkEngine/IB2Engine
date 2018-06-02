@@ -22,6 +22,7 @@ namespace IceBlink2
         //this class is handled differently than Android version
         public GameView gv;
 
+        public bool isTraitUsage = false;
         public float weatherSoundMultiplier = 2.7f;
         public bool blockSecondPropTriggersCall = false;
         public List<FloatyText> floatyTextList = new List<FloatyText>();
@@ -10541,7 +10542,205 @@ namespace IceBlink2
         }
 
         //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+        public void doSpellEncounterTrigger(string spellTag, string removeAfterStepBool, string casterLevel, string logText)
+        {
+            int casterLevelInt = Convert.ToInt32(casterLevel);
+            bool remove = false;
+            if (removeAfterStepBool == "true" || removeAfterStepBool == "True")
+            {
+                remove = true;
+            }
 
+            Spell spell = new Spell();
+            foreach (Spell sp in gv.mod.moduleSpellsList)
+            {
+                if (sp.tag == spellTag)
+                {
+                    spell = sp;
+                }
+            }
+            if (logText != "none" && logText != "None" && logText != "")
+            {
+                gv.cc.addLogText("<font color='yellow'>" + logText + "</font><BR>");
+            }
+            else
+            {
+                gv.cc.addLogText("<font color='yellow'>" + spell.name + " triggered" + "</font><BR>");
+            }
+        
+            gv.sf.AoeTargetsList.Clear();
+            bool outsideCombat = false;
+            Coordinate triggerCoord = new Coordinate();
+            int relevantMoveOrderIndex = gv.screenCombat.currentMoveOrderIndex - 1;
+
+            foreach (Creature crt in gv.mod.currentEncounter.encounterCreatureList)
+            {
+                if (crt.moveOrder == relevantMoveOrderIndex)
+                {
+                    triggerCoord.X = crt.combatLocX;
+                    triggerCoord.Y = crt.combatLocY;
+                }
+            }
+
+            foreach (Player p in gv.mod.playerList)
+            {
+                if (p.moveOrder == relevantMoveOrderIndex)
+                {
+                    triggerCoord.X = p.combatLocX;
+                    triggerCoord.Y = p.combatLocY;
+                }
+            }
+
+            //this sorts the three possible effect sources in the order: tag list for generic, single tag for generic (compatibility with old spells) and finally specific script
+            if (spell.spellEffectTagList.Count > 0)
+            {
+                //burning man
+                string logTextForCastAction = "none";
+                gv.sf.spGeneric(spell, triggerCoord, triggerCoord, outsideCombat, logTextForCastAction, casterLevelInt, remove);
+            }
+
+
+
+            //add ending animation 
+            //if (!gv.screenCombat.isPlayerTurn)
+            //{
+            //gv.screenCombat.dontEndCreatureTurn = true;
+            //}
+            
+            //if (gv.screenCombat.isPlayerTurn && gv.screenCombat.currentMoves != 0)
+            //{
+                string filename = spell.spriteEndingFilename;
+                AnimationSequence newSeq = new AnimationSequence();
+                gv.screenCombat.animationSeqStack.Add(newSeq);
+                AnimationStackGroup newGroup = new AnimationStackGroup();
+                gv.screenCombat.animationSeqStack[0].AnimationSeq.Add(newGroup);
+                foreach (Coordinate coor in gv.sf.AoeSquaresList)
+                {
+                    gv.screenCombat.addEndingAnimation(newGroup, new Coordinate(gv.screenCombat.getPixelLocX(coor.X), gv.screenCombat.getPixelLocY(coor.Y)), filename);
+                }
+                //add floaty text  
+                //add death animations
+
+                newGroup = new AnimationStackGroup();
+                gv.screenCombat.animationSeqStack[0].AnimationSeq.Add(newGroup);
+                gv.screenCombat.deathAnimationLocations.Clear();
+        
+                foreach (Creature c in gv.mod.currentEncounter.encounterCreatureList)
+                {
+                    if (c.hp <= 0)
+                    {
+                        Coordinate coord = new Coordinate();
+                        coord.X = c.combatLocX;
+                        coord.Y = c.combatLocY;
+                        gv.screenCombat.deathAnimationLocations.Add(coord);
+                    }
+                }
+                foreach (Coordinate coor in gv.screenCombat.deathAnimationLocations)
+                {
+                    gv.screenCombat.addDeathAnimation(newGroup, new Coordinate(gv.screenCombat.getPixelLocX(coor.X), gv.screenCombat.getPixelLocY(coor.Y)));
+                }
+
+                //gv.screenCombat.animationsOn = true;
+                gv.screenCombat.stepAnimationsOn = true;
+            //}
+
+
+            //for now encounter triggers only work for spells taht use spellEffectTagList!
+
+            /*
+            else if (!spell.spellEffectTag.Equals("none"))
+            {
+                gv.sf.spGenericUsingOldSingleEffectTag(spell, triggerCoord, triggerCoord, outsideCombat);
+            }
+
+            //WIZARD SPELLS
+
+            else if (spell.spellScript.Equals("spDimensionDoor"))
+            {
+                gv.sf.spDimensionDoor(source, target);
+            }
+
+            else if (spell.spellScript.Equals("spSummonAlly"))
+            {
+                gv.sf.spSummonAlly(source, target, spell);
+            }
+
+            else if (spell.spellScript.Equals("spFlameFingers"))
+            {
+                gv.sf.spFlameFingers(source, target, spell);
+            }
+            else if (spell.spellScript.Equals("spMageBolt"))
+            {
+                gv.sf.spMageBolt(source, target);
+            }
+            else if (spell.spellScript.Equals("spSleep"))
+            {
+                gv.sf.spSleep(source, target, spell);
+            }
+            else if (spell.spellScript.Equals("spMageArmor"))
+            {
+                gv.sf.spMageArmor(source, target);
+            }
+            else if (spell.spellScript.Equals("spMinorRegen"))
+            {
+                gv.sf.spMinorRegen(source, target);
+            }
+            else if (spell.spellScript.Equals("spWeb"))
+            {
+                gv.sf.spWeb(source, target, spell);
+            }
+            else if (spell.spellScript.Equals("spIceStorm"))
+            {
+                gv.sf.spIceStorm(source, target, spell);
+            }
+            else if (spell.spellScript.Equals("spFireball"))
+            {
+                gv.sf.spFireball(source, target, spell);
+            }
+            else if (spell.spellScript.Equals("spLightning"))
+            {
+                gv.sf.spLightning(source, target, spell);
+            }
+
+            //CLERIC SPELLS
+            else if (spell.tag.Equals("minorHealing"))
+            {
+                gv.sf.spHeal(source, target, 8);
+            }
+            else if (spell.tag.Equals("moderateHealing"))
+            {
+                gv.sf.spHeal(source, target, 16);
+            }
+            else if (spell.tag.Equals("massMinorHealing"))
+            {
+                gv.sf.spMassHeal(source, target, 8);
+            }
+            else if (spell.spellScript.Equals("spBless"))
+            {
+                gv.sf.spBless(source, target);
+            }
+            else if (spell.spellScript.Equals("spMagicStone"))
+            {
+                gv.sf.spMagicStone(source, target);
+            }
+            else if (spell.spellScript.Equals("spBlastOfLight"))
+            {
+                gv.sf.spBlastOfLight(source, target, spell);
+            }
+            else if (spell.spellScript.Equals("spHold"))
+            {
+                gv.sf.spHold(source, target);
+            }
+            //THIEF SKILL 
+            else if (spell.spellScript.Equals("trRemoveTrap"))
+            {
+                gv.sf.trRemoveTrap(source, target);
+            }
+            */
+        }
+
+
+        //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
         public void doSpellBasedOnScriptOrEffectTag(Spell spell, object source, object target, bool outsideCombat, bool isTraitUsage)
         {
             //int powerLevel = 0;
@@ -10702,38 +10901,198 @@ namespace IceBlink2
             }
         }
 
-/*
-        public void doSpellBasedOnScriptOrEffectTag(Spell spell, object source, object target, bool outsideCombat)
-2614         { 
-2615             gv.sf.AoeTargetsList.Clear(); 
-2616 
- 
-2617             if (!spell.spellEffectTag.Equals("none")) 
-2618             { 
-2619                 gv.sf.spGeneric(spell, source, target, outsideCombat); 
-2620             } 
-2621 
- 
-2622             //WIZARD SPELLS 
-2623             else if (spell.spellScript.Equals("spDimensionDoor")) 
-2624             { 
-2625                 gv.sf.spDimensionDoor(source, target); 
-2626             } 
-2627                          
-2628             //CLERIC SPELLS 
-2629             else if (spell.tag.Equals("minorHealing")) 
-2630             { 
-2631                 //gv.sf.spHeal(source, target, 8); 
-2632             } 
-2633 
- 
-2634             //THIEF SKILL 
-2635             else if (spell.spellScript.Equals("trRemoveTrap")) 
-2636             { 
-2637                 gv.sf.trRemoveTrap(source, target); 
-2638             } 
-2639         } 
-*/
+        //overload for getting trait name
+        public void doSpellBasedOnScriptOrEffectTag(Spell spell, object source, object target, bool outsideCombat, bool isTraitUsage, string traitName)
+        {
+            //int powerLevel = 0;
+            if (source is Creature)
+            {
+                Creature src = (Creature)source;
+                //powerLevel = src.cr_level;
+
+                if (src.labelForCastAction != "none" && src.labelForCastAction != "CAST")
+                {
+                    gv.cc.addLogText("<font color='yellow'>" + src.cr_name + " " + src.labelForCastAction + " " + traitName + "</font><BR>");
+                }
+                else
+                {
+                    gv.cc.addLogText("<font color='yellow'>" + src.cr_name + " creates " + traitName + "</font><BR>");
+                }
+            }
+            else if (source is Player)
+            {
+                Player src = (Player)source;
+                ///powerLevel = src.classLevel;
+                if (!isTraitUsage)
+                {
+                    if (src.playerClass.labelForCastAction != "none" && src.playerClass.labelForCastAction != "CAST")
+                    {
+                        gv.cc.addLogText("<font color='yellow'>" + src.name + " " + src.playerClass.labelForCastAction + " " + traitName + "</font><BR>");
+                    }
+                    else
+                    {
+                        gv.cc.addLogText("<font color='yellow'>" + src.name + " creates " + traitName + "</font><BR>");
+                    }
+                }
+                else
+                {
+                    if (src.playerClass.labelForUseTraitAction != "none" && src.playerClass.labelForUseTraitAction != "USE")
+                    {
+                        gv.cc.addLogText("<font color='yellow'>" + src.name + " " + src.playerClass.labelForUseTraitAction + " " + traitName + "</font><BR>");
+                    }
+                    else
+                    {
+                        gv.cc.addLogText("<font color='yellow'>" + src.name + " creates " + traitName + "</font><BR>");
+                    }
+                }
+
+                //gv.cc.addLogText("<font color='yellow'>" + src.name + " creates " + spell.name + "</font><BR>");
+            }
+            else if (source is Item)
+            {
+                Item src = (Item)source;
+                //powerLevel = 
+                if (src.labelForCastAction != "none")
+                {
+                    gv.cc.addLogText("<font color='yellow'>" + src.name + " " + src.labelForCastAction + " " + traitName + "</font><BR>");
+                }
+                else
+                {
+                    gv.cc.addLogText("<font color='yellow'>" + src.name + " creates " + traitName + "</font><BR>");
+                }
+
+                //gv.cc.addLogText("<font color='yellow'>" + src.name + " creates " + spell.name + "</font><BR>");
+            }
+
+            gv.sf.AoeTargetsList.Clear();
+
+            //this sorts the three possible effect sources in the order: tag list for generic, single tag for generic (compatibility with old spells) and finally specific script
+            if (spell.spellEffectTagList.Count > 0)
+            {
+                string logTextForCastAction = "none";
+                gv.sf.spGeneric(spell, source, target, outsideCombat, logTextForCastAction);
+            }
+            else if (!spell.spellEffectTag.Equals("none"))
+            {
+                gv.sf.spGenericUsingOldSingleEffectTag(spell, source, target, outsideCombat);
+            }
+
+            //WIZARD SPELLS
+
+            else if (spell.spellScript.Equals("spDimensionDoor"))
+            {
+                gv.sf.spDimensionDoor(source, target);
+            }
+
+            else if (spell.spellScript.Equals("spSummonAlly"))
+            {
+                gv.sf.spSummonAlly(source, target, spell);
+            }
+
+            else if (spell.spellScript.Equals("spFlameFingers"))
+            {
+                gv.sf.spFlameFingers(source, target, spell);
+            }
+            else if (spell.spellScript.Equals("spMageBolt"))
+            {
+                gv.sf.spMageBolt(source, target);
+            }
+            else if (spell.spellScript.Equals("spSleep"))
+            {
+                gv.sf.spSleep(source, target, spell);
+            }
+            else if (spell.spellScript.Equals("spMageArmor"))
+            {
+                gv.sf.spMageArmor(source, target);
+            }
+            else if (spell.spellScript.Equals("spMinorRegen"))
+            {
+                gv.sf.spMinorRegen(source, target);
+            }
+            else if (spell.spellScript.Equals("spWeb"))
+            {
+                gv.sf.spWeb(source, target, spell);
+            }
+            else if (spell.spellScript.Equals("spIceStorm"))
+            {
+                gv.sf.spIceStorm(source, target, spell);
+            }
+            else if (spell.spellScript.Equals("spFireball"))
+            {
+                gv.sf.spFireball(source, target, spell);
+            }
+            else if (spell.spellScript.Equals("spLightning"))
+            {
+                gv.sf.spLightning(source, target, spell);
+            }
+
+            //CLERIC SPELLS
+            else if (spell.tag.Equals("minorHealing"))
+            {
+                gv.sf.spHeal(source, target, 8);
+            }
+            else if (spell.tag.Equals("moderateHealing"))
+            {
+                gv.sf.spHeal(source, target, 16);
+            }
+            else if (spell.tag.Equals("massMinorHealing"))
+            {
+                gv.sf.spMassHeal(source, target, 8);
+            }
+            else if (spell.spellScript.Equals("spBless"))
+            {
+                gv.sf.spBless(source, target);
+            }
+            else if (spell.spellScript.Equals("spMagicStone"))
+            {
+                gv.sf.spMagicStone(source, target);
+            }
+            else if (spell.spellScript.Equals("spBlastOfLight"))
+            {
+                gv.sf.spBlastOfLight(source, target, spell);
+            }
+            else if (spell.spellScript.Equals("spHold"))
+            {
+                gv.sf.spHold(source, target);
+            }
+            //THIEF SKILL 
+            else if (spell.spellScript.Equals("trRemoveTrap"))
+            {
+                gv.sf.trRemoveTrap(source, target);
+            }
+        }
+        /*
+                public void doSpellBasedOnScriptOrEffectTag(Spell spell, object source, object target, bool outsideCombat)
+        2614         { 
+        2615             gv.sf.AoeTargetsList.Clear(); 
+        2616 
+
+        2617             if (!spell.spellEffectTag.Equals("none")) 
+        2618             { 
+        2619                 gv.sf.spGeneric(spell, source, target, outsideCombat); 
+        2620             } 
+        2621 
+
+        2622             //WIZARD SPELLS 
+        2623             else if (spell.spellScript.Equals("spDimensionDoor")) 
+        2624             { 
+        2625                 gv.sf.spDimensionDoor(source, target); 
+        2626             } 
+        2627                          
+        2628             //CLERIC SPELLS 
+        2629             else if (spell.tag.Equals("minorHealing")) 
+        2630             { 
+        2631                 //gv.sf.spHeal(source, target, 8); 
+        2632             } 
+        2633 
+
+        2634             //THIEF SKILL 
+        2635             else if (spell.spellScript.Equals("trRemoveTrap")) 
+        2636             { 
+        2637                 gv.sf.trRemoveTrap(source, target); 
+        2638             } 
+        2639         } 
+        */
 
         public void doScriptBasedOnFilename(string filename, string prm1, string prm2, string prm3, string prm4)
         {

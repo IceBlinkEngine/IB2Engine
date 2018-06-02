@@ -265,10 +265,28 @@ namespace IceBlink2
                         //Trait tr = gv.mod.getTraitByTag(ta.tag);
 
                         //best sue same image for trait and spell, traitImage and spellImage should align then
+                        string image = "";
+                        foreach (Trait t in gv.mod.moduleTraitsList)
+                        {
+                                if (t.associatedSpellTag == backupKnownInCombatUsableTraitsTags[cntSlot + (tknPageIndex * slotsPerPage)])
+                                {
+                                    image = t.traitImage; 
+                                }
+                        }
+
                         gv.cc.DisposeOfBitmap(ref btn.Img2);
-                        btn.Img2 = gv.cc.LoadBitmap(sp.spellImage);
                         gv.cc.DisposeOfBitmap(ref btn.Img2Off);
-                        btn.Img2Off = gv.cc.LoadBitmap(sp.spellImage + "_off");
+                        //btn.Img2 = gv.cc.LoadBitmap(sp.spellImage);
+                        if ((image != "") && (image != "none") && (image != "None"))
+                        {
+                            btn.Img2 = gv.cc.LoadBitmap(image);
+                            btn.Img2Off = gv.cc.LoadBitmap(image + "_off");
+                        }
+                        else
+                        {
+                            btn.Img2 = gv.cc.LoadBitmap(sp.spellImage);
+                            btn.Img2Off = gv.cc.LoadBitmap(sp.spellImage + "_off");
+                        }
 
                         //if (pc.knownSpellsTags.Contains(sp.tag))
                         //{
@@ -339,8 +357,30 @@ namespace IceBlink2
                         //Spell sp = gv.mod.getSpellByTag(pc.knownOutsideCombatUsableTraitsTags[cntSlot]);
                         Spell sp = gv.mod.getSpellByTag(backupKnownOutsideCombatUsableTraitsTags[cntSlot + (tknPageIndex * slotsPerPage)]);
 
-                        btn.Img2 = gv.cc.LoadBitmap(sp.spellImage);
-                        btn.Img2Off = gv.cc.LoadBitmap(sp.spellImage + "_off");
+                        string image = "";
+                        foreach (Trait t in gv.mod.moduleTraitsList)
+                        {
+                            if (t.associatedSpellTag == backupKnownInCombatUsableTraitsTags[cntSlot + (tknPageIndex * slotsPerPage)])
+                            {
+                                image = t.traitImage;
+                            }
+                        }
+
+                        gv.cc.DisposeOfBitmap(ref btn.Img2);
+                        gv.cc.DisposeOfBitmap(ref btn.Img2Off);
+                        //btn.Img2 = gv.cc.LoadBitmap(sp.spellImage);
+                        if ((image != "") && (image != "none") && (image != "None"))
+                        {
+                            btn.Img2 = gv.cc.LoadBitmap(image);
+                            btn.Img2Off = gv.cc.LoadBitmap(image + "_off");
+                        }
+                        else
+                        {
+                            btn.Img2 = gv.cc.LoadBitmap(sp.spellImage);
+                            btn.Img2Off = gv.cc.LoadBitmap(sp.spellImage + "_off");
+                        }
+                        //btn.Img2 = gv.cc.LoadBitmap(sp.spellImage);
+                        //btn.Img2Off = gv.cc.LoadBitmap(sp.spellImage + "_off");
 
                         //if (pc.knownSpellsTags.Contains(sp.tag))
                         //{
@@ -763,10 +803,34 @@ namespace IceBlink2
                     {
                         Spell sp = gv.mod.getSpellByTag(backupKnownInCombatUsableTraitsTags[cntSlot + (tknPageIndex * slotsPerPage)]);
                         //TraitAllowed ta = backupTraitsAllowed[cntSlot + (tknPageIndex * slotsPerPage)];
+                        string image = "";
+                        foreach (Trait t in gv.mod.moduleTraitsList)
+                        {
+                            if (t.associatedSpellTag == backupKnownInCombatUsableTraitsTags[cntSlot + (tknPageIndex * slotsPerPage)])
+                            {
+                                image = t.traitImage;
+                            }
+                        }
+
+                        gv.cc.DisposeOfBitmap(ref btn.Img2);
+                        gv.cc.DisposeOfBitmap(ref btn.Img2Off);
+                        //btn.Img2 = gv.cc.LoadBitmap(sp.spellImage);
+                        if ((image != "") && (image != "none") && (image != "None"))
+                        {
+                            btn.Img2 = gv.cc.LoadBitmap(image);
+                            btn.Img2Off = gv.cc.LoadBitmap(image + "_off");
+                        }
+                        else
+                        {
+                            btn.Img2 = gv.cc.LoadBitmap(sp.spellImage);
+                            btn.Img2Off = gv.cc.LoadBitmap(sp.spellImage + "_off");
+                        }
+                        /*
                         gv.cc.DisposeOfBitmap(ref btn.Img2);
                         btn.Img2 = gv.cc.LoadBitmap(sp.spellImage);
                         gv.cc.DisposeOfBitmap(ref btn.Img2Off);
                         btn.Img2Off = gv.cc.LoadBitmap(sp.spellImage + "_off");
+                        */
                         btn.btnState = buttonState.Normal;
                     }
                     else
@@ -787,10 +851,34 @@ namespace IceBlink2
                     {
                         Spell sp = gv.mod.getSpellByTag(backupKnownOutsideCombatUsableTraitsTags[cntSlot + (tknPageIndex * slotsPerPage)]);
                         //TraitAllowed ta = backupTraitsAllowed[cntSlot + (tknPageIndex * slotsPerPage)];
+                        string image = "";
+                        foreach (Trait t in gv.mod.moduleTraitsList)
+                        {
+                            if (t.associatedSpellTag == backupKnownInCombatUsableTraitsTags[cntSlot + (tknPageIndex * slotsPerPage)])
+                            {
+                                image = t.traitImage;
+                            }
+                        }
+
+                        gv.cc.DisposeOfBitmap(ref btn.Img2);
+                        gv.cc.DisposeOfBitmap(ref btn.Img2Off);
+                        //btn.Img2 = gv.cc.LoadBitmap(sp.spellImage);
+                        if ((image != "") && (image != "none") && (image != "None"))
+                        {
+                            btn.Img2 = gv.cc.LoadBitmap(image);
+                            btn.Img2Off = gv.cc.LoadBitmap(image + "_off");
+                        }
+                        else
+                        {
+                            btn.Img2 = gv.cc.LoadBitmap(sp.spellImage);
+                            btn.Img2Off = gv.cc.LoadBitmap(sp.spellImage + "_off");
+                        }
+                        /*
                         gv.cc.DisposeOfBitmap(ref btn.Img2);
                         btn.Img2 = gv.cc.LoadBitmap(sp.spellImage);
                         gv.cc.DisposeOfBitmap(ref btn.Img2Off);
                         btn.Img2Off = gv.cc.LoadBitmap(sp.spellImage + "_off");
+                        */
                         btn.btnState = buttonState.Normal;
                     }
                     else
@@ -824,7 +912,25 @@ namespace IceBlink2
                     Spell sp = gv.mod.getSpellByTag(backupKnownInCombatUsableTraitsTags[spellSlotIndex + (tknPageIndex * slotsPerPage)]);
                     //SpellAllowed sa = getCastingPlayer().playerClass.getSpellAllowedByTag(sp.tag);
                     //string textToSpan = "<u>Description</u>" + "<BR>";
-                    string textToSpan = "<b><big>" + sp.name + "</big></b><BR>";
+                    string traitName = "";
+                    string textToSpan = "";
+                    foreach (Trait t in gv.mod.moduleTraitsList)
+                    {
+                        if (t.associatedSpellTag == gv.cc.currentSelectedSpell.tag)
+                        {
+                            traitName = t.name;
+                            break;
+                        }
+                    }
+                    if (traitName == "" || traitName == "none" || traitName == "None")
+                    {
+                        textToSpan = "<b><big>" + sp.name + "</big></b><BR>";
+                    }
+                    else
+                    {
+                        textToSpan = "<b><big>" + traitName + "</big></b><BR>";
+                    }
+            
                     if (sp.isSwiftAction && !sp.usesTurnToActivate)
                     {
                         textToSpan += "Swift action" + "<BR>";
@@ -891,7 +997,24 @@ namespace IceBlink2
                 {
                     Spell sp = gv.mod.getSpellByTag(backupKnownOutsideCombatUsableTraitsTags[spellSlotIndex + (tknPageIndex * slotsPerPage)]);
                     string textToSpan = "<u>Description</u>" + "<BR>";
-                    textToSpan += "<b><i><big>" + sp.name + "</big></i></b><BR>";
+                    string traitName = "";
+                    foreach (Trait t in gv.mod.moduleTraitsList)
+                    {
+                        if (t.associatedSpellTag == gv.cc.currentSelectedSpell.tag)
+                        {
+                            traitName = t.name;
+                            break;
+                        }
+                    }
+                    if (traitName == "" || traitName == "none" || traitName == "None")
+                    {
+                        textToSpan += "<b><i><big>" + sp.name + "</big></i></b><BR>";
+                    }
+                    else
+                    {
+                        textToSpan += "<b><i><big>" + traitName + "</big></i></b><BR>";
+                    }
+
                     if (sp.isSwiftAction && !sp.usesTurnToActivate)
                     {
                         textToSpan += "Swift action" + "<BR>";
@@ -1070,7 +1193,23 @@ namespace IceBlink2
         {
             try
             {
-                gv.cc.doSpellBasedOnScriptOrEffectTag(gv.cc.currentSelectedSpell, pc, target, !isInCombat, true);
+                string traitName = "";
+                foreach (Trait t in gv.mod.moduleTraitsList)
+                {
+                    if (t.associatedSpellTag == gv.cc.currentSelectedSpell.tag)
+                    {
+                        traitName = t.name;
+                        break;
+                    }
+                }
+                if (traitName == "" || traitName == "none" || traitName == "None")
+                {
+                    gv.cc.doSpellBasedOnScriptOrEffectTag(gv.cc.currentSelectedSpell, pc, target, !isInCombat, true);
+                }
+                else
+                {
+                    gv.cc.doSpellBasedOnScriptOrEffectTag(gv.cc.currentSelectedSpell, pc, target, !isInCombat, true, traitName);
+                }
                 gv.screenType = "main";
                 doCleanUp();
             }
@@ -1208,6 +1347,7 @@ namespace IceBlink2
                             }
                             */
 
+                            gv.cc.isTraitUsage = true;
                             gv.cc.currentSelectedSpell = sp;
                             gv.screenType = "combat";
                             gv.screenCombat.currentCombatMode = "cast";
@@ -1337,7 +1477,24 @@ namespace IceBlink2
                                     try
                                     {
                                         Player target = gv.mod.playerList[0];
-                                        gv.cc.doSpellBasedOnScriptOrEffectTag(gv.cc.currentSelectedSpell, target, target, inCombat, true);
+                                        string traitName = "";
+                                        foreach (Trait t in gv.mod.moduleTraitsList)
+                                        {
+                                            if (t.associatedSpellTag == gv.cc.currentSelectedSpell.tag)
+                                            {
+                                                traitName = t.name;
+                                                break;
+                                            }
+                                        }
+                                        if (traitName == "" || traitName == "none" || traitName == "None")
+                                        {
+                                            gv.cc.doSpellBasedOnScriptOrEffectTag(gv.cc.currentSelectedSpell, target, target, isInCombat, true);
+                                        }
+                                        else
+                                        {
+                                            gv.cc.doSpellBasedOnScriptOrEffectTag(gv.cc.currentSelectedSpell, target, target, isInCombat, true, traitName);
+                                        }
+                                        //gv.cc.doSpellBasedOnScriptOrEffectTag(gv.cc.currentSelectedSpell, target, target, inCombat, true);
                                         gv.screenType = "main";
                                         doCleanUp();
                                         return;
@@ -1356,7 +1513,24 @@ namespace IceBlink2
                                         try
                                         {
                                             Player target = gv.mod.playerList[pcSel.selectedIndex - 1];
-                                            gv.cc.doSpellBasedOnScriptOrEffectTag(gv.cc.currentSelectedSpell, pc, target, inCombat, true);
+                                            string traitName = "";
+                                            foreach (Trait t in gv.mod.moduleTraitsList)
+                                            {
+                                                if (t.associatedSpellTag == gv.cc.currentSelectedSpell.tag)
+                                                {
+                                                    traitName = t.name;
+                                                    break;
+                                                }
+                                            }
+                                            if (traitName == "" || traitName == "none" || traitName == "None")
+                                            {
+                                                gv.cc.doSpellBasedOnScriptOrEffectTag(gv.cc.currentSelectedSpell, pc, target, isInCombat, true);
+                                            }
+                                            else
+                                            {
+                                                gv.cc.doSpellBasedOnScriptOrEffectTag(gv.cc.currentSelectedSpell, pc, target, isInCombat, true, traitName);
+                                            }
+                                            //gv.cc.doSpellBasedOnScriptOrEffectTag(gv.cc.currentSelectedSpell, pc, target, inCombat, true);
                                             gv.screenType = "main";
                                             doCleanUp();
                                         }

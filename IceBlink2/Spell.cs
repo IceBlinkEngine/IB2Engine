@@ -36,6 +36,7 @@ namespace IceBlink2
         public string spellScriptParm4 = "none";
         public string spellEffectTag = "none";
         public bool isUsedForCombatSquareEffect = false;
+        public bool triggeredEachStepToo = false;
         public List<EffectTagForDropDownList> spellEffectTagList = new List<EffectTagForDropDownList>();
         public List<EffectTagForDropDownList> removeEffectTagList = new List<EffectTagForDropDownList>();
         public List<LocalImmunityString> traitWorksOnlyWhen = new List<LocalImmunityString>();
@@ -62,6 +63,7 @@ namespace IceBlink2
 	    public Spell DeepCopy()
 	    {
 		    Spell copy = new Spell();
+            copy.triggeredEachStepToo = this.triggeredEachStepToo;
             copy.spellToReplaceByTag = this.spellToReplaceByTag;
             copy.castTimeInTurns = this.castTimeInTurns;
             copy.triggersAoO = this.triggersAoO;
