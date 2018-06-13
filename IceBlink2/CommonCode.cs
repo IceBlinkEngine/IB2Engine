@@ -22,6 +22,8 @@ namespace IceBlink2
         //this class is handled differently than Android version
         public GameView gv;
 
+       
+
         public bool isTraitUsage = false;
         public float weatherSoundMultiplier = 2.7f;
         public bool blockSecondPropTriggersCall = false;
@@ -2008,6 +2010,11 @@ namespace IceBlink2
             int x = ((coorInSquares.X * gv.squareSize) + (gv.squareSize / 2) + gv.oXshift) - (txtH / 2);
             int y = ((coorInSquares.Y * gv.squareSize) + (gv.squareSize / 2) + txtH) - (txtH / 2);
             Coordinate coor = new Coordinate(x, y);
+            if (value.Contains("Round"))
+            {
+                coor.X = gv.screenWidth / 2;
+                coor.Y = gv.screenHeight / 2;
+            }
             floatyTextList.Add(new FloatyText(coor, value, color));
         }
         public void addFloatyText(Coordinate coorInSquares, string value, int shiftUp)
@@ -2458,7 +2465,8 @@ namespace IceBlink2
 
         public void doUpdate()
         {
-            
+
+            gv.screenCombat.allDone = false;
             foreach (GlobalInt g in gv.mod.moduleGlobalInts)
             {
                 if (g.Key.Contains("AutomaticCountDown"))
@@ -10633,6 +10641,7 @@ namespace IceBlink2
                         coord.X = c.combatLocX;
                         coord.Y = c.combatLocY;
                         gv.screenCombat.deathAnimationLocations.Add(coord);
+                        gv.screenCombat.blockCreatureDrawLocations.Add(coord);
                     }
                 }
                 foreach (Coordinate coor in gv.screenCombat.deathAnimationLocations)

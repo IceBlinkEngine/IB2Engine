@@ -6643,8 +6643,8 @@
         "transitionToMasterRotationCounter": 1,
         "encounterTriggerOnEveryStep": true,
         "TriggerTag": "newTrigger_14065",
-        "Enabled": false,
-        "conversationCannotBeAvoided": false,
+        "Enabled": true,
+        "conversationCannotBeAvoided": true,
         "DoOnceOnly": false,
         "RequiresActiveSearch": false,
         "TriggerSquaresList": [

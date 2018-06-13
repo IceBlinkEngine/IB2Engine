@@ -5410,6 +5410,28 @@ namespace IceBlink2
                         return;
                     }
                 }
+
+                foreach (Encounter enc in mod.moduleEncountersList)
+                {
+                    Trigger trig = enc.getTriggerByTag(tag);
+                    if (trig != null)
+                    {
+                        if (eventNumber == 1)
+                        {
+                            trig.EnabledEvent1 = enable;
+                        }
+                        else if (eventNumber == 2)
+                        {
+                            trig.EnabledEvent2 = enable;
+                        }
+                        else if (eventNumber == 3)
+                        {
+                            trig.EnabledEvent3 = enable;
+                        }
+                        return;
+                    }
+                }
+
                 if (mod.debugMode) //SD_20131102
                 {
                     gv.cc.addLogText("<font color='yellow'>" + "failed to find trigger in this area" + "</font><BR>");
@@ -5438,9 +5460,19 @@ namespace IceBlink2
                         return;
                     }
                 }
+
+                foreach (Encounter enc in mod.moduleEncountersList)
+                {
+                    Trigger trig = enc.getTriggerByTag(tag);
+                    if (trig != null)
+                    {
+                        trig.Enabled = enable;
+                        return;
+                    }
+                }
                 if (mod.debugMode) //SD_20131102
                 {
-                    gv.cc.addLogText("<font color='yellow'>" + "can't find designated trigger tag in any area" + "</font><BR>");
+                    gv.cc.addLogText("<font color='yellow'>" + "can't find designated trigger tag in any area or encounter " + "</font><BR>");
                 }
             }
             catch (Exception ex)
@@ -5458,16 +5490,34 @@ namespace IceBlink2
             bool enable = Boolean.Parse(enabl);
             try
             {
-                Trigger trig = mod.currentArea.getTriggerByLocation(mod.PlayerLocationX, mod.PlayerLocationY);
-                if (trig != null)
+                //if (gv.screenType == "main" || gv.screenType == "Main")
+                //{
+                    Trigger trig = mod.currentArea.getTriggerByLocation(mod.PlayerLocationX, mod.PlayerLocationY);
+                    if (trig != null)
+                    {
+                        trig.Enabled = enable;
+                        return;
+                    }
+                    if (mod.debugMode)
+                    {
+                        gv.cc.addLogText("<font color='yellow'>can't find designated trigger at this location</font><BR>");
+                    }
+                //}
+                /*
+                else if (gv.screenType == "combat" || gv.screenType == "Combat")
                 {
-                    trig.Enabled = enable;
-                    return;
+                    Trigger trig = mod.currentEncounter.getTriggerByLocation(mod.PlayerLocationX, mod.PlayerLocationY);
+                    if (trig != null)
+                    {
+                        trig.Enabled = enable;
+                        return;
+                    }
+                    if (mod.debugMode)
+                    {
+                        gv.cc.addLogText("<font color='yellow'>can't find designated trigger at this location</font><BR>");
+                    }
                 }
-                if (mod.debugMode)
-                {
-                    gv.cc.addLogText("<font color='yellow'>can't find designated trigger at this location</font><BR>");
-                }
+                */
             }
             catch (Exception ex)
             {
@@ -6822,7 +6872,18 @@ namespace IceBlink2
 
         public bool CheckPassSkill(int PCIndex, string tag, int dc, bool useRollTen, bool isSilent)
         {
-           
+
+            if (PCIndex == -1 && (gv.screenType == "combat" || gv.screenType == "Combat"))
+            {
+                for (int i = 0; i < gv.mod.playerList.Count; i++)
+                {
+                    if (gv.mod.playerList[i].moveOrder == gv.screenCombat.currentMoveOrderIndex -1)
+                    {
+                        PCIndex = i;
+                    }
+                }
+            }
+
             int itemMod = 0;
             int skillMod = 0;
             int attMod = 0;
@@ -7443,56 +7504,117 @@ namespace IceBlink2
         }
         public void SetProp(string tag, string index, string property, string bln)
         {
-            if (gv.mod.currentArea.Props.Count < 1)
-            {
-                if (mod.debugMode)
-                {
-                    gv.cc.addLogText("<font color='yellow'>didn't find prop in this area, aborting SetProp</font><BR>");
-                }
-                return;
-            }
 
-            Prop prp = gv.mod.currentArea.Props[0];
-            if ((tag != null) && (!tag.Equals("")))
+            Prop prp = new Prop();
+            if (gv.screenType != "combat")
             {
-                if (tag.Equals("thisProp"))
-                {
-                    prp = ThisProp;
-                }
-                else
-                {
-                    prp = gv.mod.currentArea.getPropByTag(tag);
-                }
-                if (prp == null)
+                if (gv.mod.currentArea.Props.Count < 1)
                 {
                     if (mod.debugMode)
                     {
-                        gv.cc.addLogText("<font color='yellow'>didn't find prop in this area (prop=null), aborting SetProp</font><BR>");
+                        gv.cc.addLogText("<font color='yellow'>didn't find prop in this area, aborting SetProp</font><BR>");
                     }
                     return;
                 }
-            }
-            else if ((index != null) && (!index.Equals("")))
-            {
-                int indx = Convert.ToInt32(index);
-                if ((indx >= 0) && (indx < gv.mod.currentArea.Props.Count))
+
+                //Prop prp = gv.mod.currentArea.Props[0];
+                if ((tag != null) && (!tag.Equals("")))
                 {
-                    prp = gv.mod.currentArea.Props[indx];
+                    if (tag.Equals("thisProp"))
+                    {
+                        prp = ThisProp;
+                    }
+                    else
+                    {
+                        prp = gv.mod.currentArea.getPropByTag(tag);
+                    }
+                    if (prp == null)
+                    {
+                        if (mod.debugMode)
+                        {
+                            gv.cc.addLogText("<font color='yellow'>didn't find prop in this area (prop=null), aborting SetProp</font><BR>");
+                        }
+                        return;
+                    }
+                }
+                else if ((index != null) && (!index.Equals("")))
+                {
+                    int indx = Convert.ToInt32(index);
+                    if ((indx >= 0) && (indx < gv.mod.currentArea.Props.Count))
+                    {
+                        prp = gv.mod.currentArea.Props[indx];
+                    }
+                    else
+                    {
+                        if (mod.debugMode) //SD_20131102
+                        {
+                            gv.cc.addLogText("<font color='yellow'>Prop index outside range of PropList size, aborting SetProp</font><BR>");
+                        }
+                        return;
+                    }
                 }
                 else
                 {
                     if (mod.debugMode) //SD_20131102
                     {
-                        gv.cc.addLogText("<font color='yellow'>Prop index outside range of PropList size, aborting SetProp</font><BR>");
+                        gv.cc.addLogText("<font color='yellow'>Do not recognize the Prop's tag or index, aborting SetProp</font><BR>");
+                    }
+                }
+            }
+            //in combat
+            else
+            {
+                if (gv.mod.currentEncounter.propsList.Count < 1)
+                {
+                    if (mod.debugMode)
+                    {
+                        gv.cc.addLogText("<font color='yellow'>didn't find prop in this encounter, aborting SetProp</font><BR>");
                     }
                     return;
                 }
-            }
-            else
-            {
-                if (mod.debugMode) //SD_20131102
+
+                //Prop prp = gv.mod.currentArea.Props[0];
+                if ((tag != null) && (!tag.Equals("")))
                 {
-                    gv.cc.addLogText("<font color='yellow'>Do not recognize the Prop's tag or index, aborting SetProp</font><BR>");
+                    if (tag.Equals("thisProp"))
+                    {
+                        prp = gv.screenCombat.ThisProp;
+                    }
+                    else
+                    {
+                        prp = gv.mod.currentEncounter.getPropByTag(tag);
+                    }
+                    if (prp == null)
+                    {
+                        if (mod.debugMode)
+                        {
+                            gv.cc.addLogText("<font color='yellow'>didn't find prop in this encounter (prop=null), aborting SetProp</font><BR>");
+                        }
+                        return;
+                    }
+                }
+                else if ((index != null) && (!index.Equals("")))
+                {
+                    int indx = Convert.ToInt32(index);
+                    if ((indx >= 0) && (indx < gv.mod.currentEncounter.propsList.Count))
+                    {
+                        prp = gv.mod.currentEncounter.propsList[indx];
+                    }
+                    else
+                    {
+                        if (mod.debugMode) //SD_20131102
+                        {
+                            gv.cc.addLogText("<font color='yellow'>Prop index outside range of PropList size, aborting SetProp</font><BR>");
+                        }
+                        return;
+                    }
+                }
+                else
+                {
+                    if (mod.debugMode) //SD_20131102
+                    {
+                        gv.cc.addLogText("<font color='yellow'>Do not recognize the Prop's tag or index, aborting SetProp</font><BR>");
+                    }
                 }
             }
 
@@ -12106,8 +12228,11 @@ namespace IceBlink2
             //loop through all effects of spell from here
             //turn spellEffectTaag inot  a list of strings
 
+            //List<string> creaturesAlreadyAffected = new List<string>();
+
             for (int k = 0; k < thisSpell.spellEffectTagList.Count; k++)
             {
+                List<string> creaturesAlreadyAffected = new List<string>();
                 Effect thisSpellEffect = gv.mod.getEffectByTag(thisSpell.spellEffectTagList[k].tag);
                 if (thisSpellEffect == null)
                 {
@@ -12146,8 +12271,14 @@ namespace IceBlink2
                         if (target is Creature)
                         {
                             Creature crt = (Creature)target;
-                            bool skip = false;
 
+                            bool skip = false;
+                            //bool alreadyAffectedWithOneSquare = false;
+                            if (creaturesAlreadyAffected.Contains(crt.cr_tag))
+                            {
+                                continue;
+                            }
+                            creaturesAlreadyAffected.Add(crt.cr_tag);
                             //go through creature local vars and compare with this spellEffect's affectOnly and affectNever lists
 
                             //when finding a matching apply never, skip
@@ -14604,11 +14735,24 @@ namespace IceBlink2
                     if ((prp.LocationX == target.X) && (prp.LocationY == target.Y))  
                     {  
                          if (prp.isTrap)  
-                         {  
-                             gv.mod.currentEncounter.propsList.Remove(prp);  
-                             gv.cc.addLogText("<gn>" + source.name + " removed trap</gn><BR>");  
-                             gv.cc.addFloatyText(new Coordinate(target.X, target.X), "trap removed", "green");  
-                             return;  
+                         {
+                            int PCIndex = -1;
+                            for ( int i = 0; i < gv.mod.playerList.Count; i++)
+                            {
+                                if (source.name == gv.mod.playerList[i].name)
+                                {
+                                    PCIndex = i;
+                                    break;
+                                }
+                            }
+                            gv.mod.returnCheck = CheckPassSkill(PCIndex, "disabledevice", prp.trapDCforDisableCheck, false, false);
+                            if (gv.mod.returnCheck)
+                            {
+                                gv.mod.currentEncounter.propsList.Remove(prp);
+                                gv.cc.addLogText("<gn>" + source.name + " removed trap</gn><BR>");
+                                gv.cc.addFloatyText(new Coordinate(target.X, target.X), "trap removed", "green");
+                            }
+                            return;  
                          }  
                      }  
                  }  
@@ -16314,6 +16458,7 @@ namespace IceBlink2
                     {
                         gv.screenCombat.deathAnimationLocations.Add(new Coordinate(crt.combatLocX, crt.combatLocY));
                         gv.cc.addLogText("<font color='lime'>" + "You killed the " + crt.cr_name + "</font><BR>");
+                        //gv.screenCombat.checkEndEncounter();
                     }
                     //Do floaty text damage
                     //gv.screenCombat.floatyTextOn = true;

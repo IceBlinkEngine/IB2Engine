@@ -16,6 +16,14 @@ namespace IceBlink2
         //public Module gv.mod;
         public GameView gv;
 
+        public List<Coordinate> blockCreatureDrawLocations = new List<Coordinate>();
+
+        public bool allDone = false;
+
+        public Prop ThisProp = null;
+        public int roundCounter = 1;
+        public bool floatyTextEnlargerOn = false;
+
         public List<string> tagsOfTriggersAndPropTriggersCalledThisTurn = new List<string>();
 
         public List<string> alreadyTargetedCreatureTagsList = new List<string>();
@@ -588,6 +596,15 @@ namespace IceBlink2
                 gv.startCombatMusic();
             }
             gv.screenType = "combat";
+            roundCounter = 1;
+            //langbein
+            gv.screenCombat.animationSeqStack.Clear();
+            gv.screenCombat.deathAnimationLocations.Clear();
+            gv.screenCombat.blockCreatureDrawLocations.Clear();
+            gv.screenCombat.hitAnimationLocation = null;
+            gv.screenCombat.endingAnimationLocation = null;
+            gv.cc.floatyTextList.Clear();
+
             //resetToggleButtons();
             //Load map if used
             if (gv.mod.currentEncounter.UseMapImage)
@@ -932,6 +949,37 @@ namespace IceBlink2
             }
             pf = new PathFinderEncounters(gv, gv.mod);
             tutorialMessageCombat(false);
+
+            //duisdorf
+            //get name of assassination target
+            foreach (Creature at in gv.mod.currentEncounter.encounterCreatureList)
+            {
+                if (at.cr_tag == gv.mod.currentEncounter.assassinationTargetTag)
+                {
+                    gv.mod.currentEncounter.assassinationTargetName = at.cr_name;
+                }
+            }
+
+            if (gv.mod.currentEncounter.customTextforMessageBoxAtStartOfEncounter != "none" && gv.mod.currentEncounter.customTextforMessageBoxAtStartOfEncounter != "None" && gv.mod.currentEncounter.customTextforMessageBoxAtStartOfEncounter != "")
+            {
+                gv.sf.MessageBox(gv.mod.currentEncounter.customTextforMessageBoxAtStartOfEncounter);
+            }
+            else if (gv.mod.currentEncounter.showDefaultMessageBoxAtStartOfEncounter)
+            {
+                //to do: adjust to victory/loss conditions and battlefield modifiers
+                gv.sf.MessageBox("Win this battle by defeating all enemies.");
+            }
+
+            if (gv.mod.currentEncounter.customTextforLogTextAtStartOfEncounter != "none" && gv.mod.currentEncounter.customTextforLogTextAtStartOfEncounter != "None" && gv.mod.currentEncounter.customTextforLogTextAtStartOfEncounter != "")
+            {
+                gv.cc.addLogText(gv.mod.currentEncounter.customTextforLogTextAtStartOfEncounter);
+            }
+            else if (gv.mod.currentEncounter.showDefaultMessageBoxAtStartOfEncounter)
+            {
+                //to do: adjust to victory/loss conditions and battlefield modifiers
+                gv.cc.addLogText("<font color='yellow'>" + "Win this battle by defeating all enemies." + "<BR></font>");
+            }
+
             //IBScript Setup Combat Hook (run only once)
             //gv.cc.doIBScriptBasedOnFilename(gv.mod.currentEncounter.OnSetupCombatIBScript, gv.mod.currentEncounter.OnSetupCombatIBScriptParms);
             //IBScript Start Combat Round Hook
@@ -940,6 +988,13 @@ namespace IceBlink2
             calcualteMoveOrder();
             //do turn controller
             recalculateCreaturesShownInInitiativeBar();
+            floatyTextOn = false;
+            gv.cc.addFloatyText(new Coordinate(0, 0), "Round " + roundCounter, "green");
+            gv.cc.addLogText("<font color='lime'>" + "Round " + roundCounter + "</font><BR>");
+            floatyTextEnlargerOn = true;
+            //floatyTextOn = true;
+
+            roundCounter++;
             turnController();
         }
         public void calcualteMoveOrder()
@@ -1041,7 +1096,7 @@ namespace IceBlink2
         */
         public void turnController()
         {
-            if ((animationSeqStack.Count == 0) && (!continueTurn))
+            if ((animationSeqStack.Count == 0) && (!continueTurn) && !gv.mod.currentEncounter.isOver && !allDone)
             {
                 recalculateCreaturesShownInInitiativeBar();
                 attackAnimationFrameCounter = 0;
@@ -1093,6 +1148,10 @@ namespace IceBlink2
                                     idx = 0;
                                 }
                             }
+                            if (gv.mod.currentEncounter.assassinationVictory && gv.mod.currentEncounter.assassinationTargetTag == gv.mod.currentEncounter.encounterCreatureList[i].cr_tag)
+                            {
+                                gv.mod.currentEncounter.assassinationConditionMet = true;
+                            }
                             gv.mod.currentEncounter.encounterCreatureList.RemoveAt(i);
                             }
                             else if (gv.mod.currentEncounter.encounterCreatureList[i].stayDurationInTurns < 10)
@@ -1111,9 +1170,16 @@ namespace IceBlink2
                 {
                     if (pc.moveOrder == currentMoveOrderIndex)
                     {
-                        //deathAnimationLocations.Clear();
-                        //write the pc's name to log whsoe turn it is
-                        gv.cc.addLogText("<font color='blue'>It's the turn of " + pc.name + ". </font><BR>");
+                        //tiereimpark
+                        checkEndEncounter();
+                        if (!allDone)
+                        {
+                            //deathAnimationLocations.Clear();
+                            //write the pc's name to log whsoe turn it is
+                            if (pc.hp > 0)
+                            {
+                                gv.cc.addLogText("<font color='blue'>It's the turn of " + pc.name + ". </font><BR>");
+                            }
 
                         if ((pc.hp <= 0) && (pc.hp > -20))
                         {
@@ -1173,7 +1239,10 @@ namespace IceBlink2
                         */
 
                         spriteList.Clear();
-                        gv.cc.floatyTextList.Clear();
+                        if (!floatyTextEnlargerOn)
+                        {
+                            gv.cc.floatyTextList.Clear();
+                        }
                         //highlight the portrait of the pc whose current turn it is
                         //ratti
 
@@ -1250,6 +1319,9 @@ namespace IceBlink2
                         applyEffectsCombat(pc);
                         applyEffectsFromSquare(pc.combatLocX, pc.combatLocY);
 
+                        //tiereimpark
+                        checkEndEncounter();
+
                         //reduce existing cooldown times
                         if (pc.coolingSpellsByTag.Count > 0)
                         {
@@ -1264,8 +1336,8 @@ namespace IceBlink2
                             }
                         }
 
-                            //change creatureIndex or currentPlayerIndex
-                            currentPlayerIndex = idx;
+                        //change creatureIndex or currentPlayerIndex
+                        currentPlayerIndex = idx;
                         //set isPlayerTurn 
                         isPlayerTurn = true;
 
@@ -1273,7 +1345,10 @@ namespace IceBlink2
                         currentMoveOrderIndex++;
                         tagsOfTriggersAndPropTriggersCalledThisTurn.Clear();
                         triggerIndexCombat = 0;
+                        CalculateUpperLeft();
                         doPropTriggers();
+                        //tiereimpark
+                        checkEndEncounter();
                         floatyTextOn = true;
                         gv.mod.enteredFirstTime = false;
                         //Karl
@@ -1470,6 +1545,7 @@ namespace IceBlink2
                         }
                         return;
                     }
+                    }
                     idx++;
                 }
                 idx = 0;
@@ -1477,8 +1553,13 @@ namespace IceBlink2
                 {
                     if (crt.moveOrder == currentMoveOrderIndex)
                     {
+                        //tiereimpark
+                        checkEndEncounter();
                         spriteList.Clear();
-                        gv.cc.floatyTextList.Clear();
+                        if (!floatyTextEnlargerOn)
+                        {
+                            gv.cc.floatyTextList.Clear();
+                        }
                         coordinatesOfPcTheCreatureMovesTowards.X = -1;
                         coordinatesOfPcTheCreatureMovesTowards.Y = -1;
                         storedPathOfCurrentCreature.Clear();
@@ -1487,6 +1568,8 @@ namespace IceBlink2
                         //switching to a system where effects last from turn they are applied to start of the target creature's next turn (multiplied with duration of effect)
                         applyEffectsCombat(crt);
                         applyEffectsFromSquare(crt.combatLocX, crt.combatLocY);
+                        //tiereimpark
+                        checkEndEncounter();
                         //change creatureIndex or currentPlayerIndex
                         creatureIndex = idx;
                         //set isPlayerTurn
@@ -1501,7 +1584,10 @@ namespace IceBlink2
                         currentMoveOrderIndex++;
                         tagsOfTriggersAndPropTriggersCalledThisTurn.Clear();
                         triggerIndexCombat = 0;
+                        CalculateUpperLeft();
                         doPropTriggers();
+                        //tiereimpark
+                        checkEndEncounter();
                         floatyTextOn = true;
                         //Karl
                         //gv.Render();
@@ -1541,6 +1627,16 @@ namespace IceBlink2
 
         public void startNextRoundStuff()
         {
+
+            //summe
+            //gv.sf.MessageBox("New round started.");
+            floatyTextOn = false;
+            gv.cc.addFloatyText(new Coordinate(0, 0), "Round " + roundCounter, "green");
+            gv.cc.addLogText("<font color='lime'>" + "Round " + roundCounter + "</font><BR>");
+            floatyTextEnlargerOn = true;
+            //floatyTextOn = true;
+
+            roundCounter++;
             currentMoveOrderIndex = 0;
             //gv.sf.dsWorldTime();
             doHardToKillTrait();
@@ -1644,6 +1740,7 @@ namespace IceBlink2
                                     newGroup = new AnimationStackGroup();
                                     gv.screenCombat.animationSeqStack[0].AnimationSeq.Add(newGroup);
                                     gv.screenCombat.deathAnimationLocations.Clear();
+                                    gv.screenCombat.blockCreatureDrawLocations.Clear();
 
                                     foreach (Creature c in gv.mod.currentEncounter.encounterCreatureList)
                                     {
@@ -1653,6 +1750,7 @@ namespace IceBlink2
                                             coord.X = c.combatLocX;
                                             coord.Y = c.combatLocY;
                                             gv.screenCombat.deathAnimationLocations.Add(coord);
+                                            gv.screenCombat.blockCreatureDrawLocations.Add(coord);
                                         }
                                     }
                                     foreach (Coordinate coor in gv.screenCombat.deathAnimationLocations)
@@ -1699,6 +1797,7 @@ namespace IceBlink2
                                     newGroup = new AnimationStackGroup();
                                     gv.screenCombat.animationSeqStack[0].AnimationSeq.Add(newGroup);
                                     gv.screenCombat.deathAnimationLocations.Clear();
+                                    gv.screenCombat.blockCreatureDrawLocations.Clear();
 
                                     foreach (Creature c in gv.mod.currentEncounter.encounterCreatureList)
                                     {
@@ -1708,6 +1807,7 @@ namespace IceBlink2
                                             coord.X = c.combatLocX;
                                             coord.Y = c.combatLocY;
                                             gv.screenCombat.deathAnimationLocations.Add(coord);
+                                            gv.screenCombat.blockCreatureDrawLocations.Add(coord);
                                         }
                                     }
                                     foreach (Coordinate coor in gv.screenCombat.deathAnimationLocations)
@@ -2422,7 +2522,7 @@ namespace IceBlink2
                                 for (int j = 1; j < numSweep; j++)
                                 {
                                     Creature crt2 = GetNextAdjacentCreature(pc);
-                                    if (crt2 != null)
+                                    if (crt2 != null && crt2 != crt)
                                     {
                                         crtLocX = crt2.combatLocX;
                                         crtLocY = crt2.combatLocY;
@@ -2450,7 +2550,7 @@ namespace IceBlink2
                                             for (int j = 0; j < numCleave; j++)
                                             {
                                                 Creature crt2 = GetNextAdjacentCreature(pc);
-                                                if (crt2 != null)
+                                                if (crt2 != null && crt2 != crt)
                                                 {
                                                     crtLocX = crt2.combatLocX;
                                                     crtLocY = crt2.combatLocY;
@@ -2502,7 +2602,9 @@ namespace IceBlink2
 
                             return;
                         }
+                        //break here?
                     }
+                    
                 }
             }
         }
@@ -2624,6 +2726,7 @@ namespace IceBlink2
                     foreach (Coordinate coor in crt.tokenCoveredSquares)
                     {
                         deathAnimationLocations.Add(new Coordinate(coor.X, coor.Y));
+                        //gv.screenCombat.blockCreatureDrawLocations.Add();
                     }
                     gv.cc.addLogText("<font color='lime'>You killed the " + crt.cr_name + "</font><BR>");
                     return 2; //killed
@@ -5100,6 +5203,10 @@ namespace IceBlink2
                                     idx = 0;
                                 }
                             }
+                            if (gv.mod.currentEncounter.assassinationVictory && gv.mod.currentEncounter.assassinationTargetTag == gv.mod.currentEncounter.encounterCreatureList[x].cr_tag)
+                            {
+                                gv.mod.currentEncounter.assassinationConditionMet = true;
+                            }
                             gv.mod.currentEncounter.encounterCreatureList.RemoveAt(x);
                             if (!gv.mod.currentEncounter.isRepeatable)
                             {
@@ -5503,9 +5610,26 @@ namespace IceBlink2
                     foundOneCrtr = 1;
                 }
             }
-            if ((foundOneCrtr == 0) && (gv.screenType.Equals("combat")))
-            {
+            //if ( ((foundOneCrtr == 0) && (gv.screenType.Equals("combat"))) || gv.mod.currentEncounter.assassinationConditionMet)
+            if (gv.screenType.Equals("combat") && (gv.mod.currentEncounter.assassinationConditionMet || foundOneCrtr == 0))
+                {
+
+                /*
+                //reset all conditions
+                gv.mod.currentEncounter.assassinationConditionMet = false;
+
+                //kill all creatures, check whether encounter is repeatable
+                gv.mod.currentEncounter.encounterCreatureList.Clear();
+                if (!gv.mod.currentEncounter.isRepeatable)
+                {
+                    gv.mod.currentEncounter.encounterCreatureRefsList.Clear();
+                }
+                */
+
+                gv.screenType = "main";
                 gv.mod.currentEncounter.isOver = true;
+                allDone = true;
+                roundCounter = 1;
                 gv.touchEnabled = true;
                 animationsOn = false;
                 stepAnimationsOn = false;
@@ -5514,6 +5638,7 @@ namespace IceBlink2
                 gv.screenCombat.deathAnimationLocations.Clear();
                 gv.screenCombat.hitAnimationLocation = null;
                 gv.screenCombat.endingAnimationLocation = null;
+                gv.cc.floatyTextList.Clear();
 
 
                 //remove night and nolight debuffs
@@ -5522,34 +5647,6 @@ namespace IceBlink2
                 {
                     gv.sf.UpdateStats(gv.mod.playerList[index]);
                 }
-                    /*
-                    if (gv.sf.CheckIsInDarkness("party", "night"))
-                    {
-                        for (int index = 0; index < gv.mod.playerList.Count; index++)
-                        {
-                            gv.mod.playerList[index].ACBase -= gv.mod.nightFightModifier;
-                            gv.mod.playerList[index].playerClass.babTable[gv.mod.playerList[index].classLevel] -= gv.mod.nightFightModifier;
-                            gv.mod.playerList[index].baseWill -= gv.mod.nightFightModifier;
-                            gv.mod.playerList[index].baseReflex -= gv.mod.nightFightModifier;
-                            gv.mod.playerList[index].baseFortitude -= gv.mod.nightFightModifier;
-                            gv.sf.UpdateStats(gv.mod.playerList[index]);
-                            gv.cc.addLogText("<font color='yellow'>Night debuff removed from " + gv.mod.playerList[index] + ".<BR></font>");
-                        }
-                    }
-                    else if (gv.sf.CheckIsInDarkness("party", "noLight"))
-                    {
-                        for (int index = 0; index < gv.mod.playerList.Count; index++)
-                        {
-                            gv.mod.playerList[index].ACBase -= gv.mod.darkFightModifier;
-                            gv.mod.playerList[index].playerClass.babTable[gv.mod.playerList[index].classLevel] -= gv.mod.nightFightModifier;
-                            gv.mod.playerList[index].baseWill -= gv.mod.darkFightModifier;
-                            gv.mod.playerList[index].baseReflex -= gv.mod.darkFightModifier;
-                            gv.mod.playerList[index].baseFortitude -= gv.mod.darkFightModifier;
-                            gv.sf.UpdateStats(gv.mod.playerList[index]);
-                            gv.cc.addLogText("<font color='yellow'>Darkness debuff removed from " + gv.mod.playerList[index] + ".<BR></font>");
-                        }
-                    }
-                    */
 
                     //remove temporary allies
                     for (int i = gv.mod.playerList.Count-1; i >= 0; i--)
@@ -5559,6 +5656,54 @@ namespace IceBlink2
                         gv.mod.playerList.RemoveAt(i);
                     }
                 }
+                
+                //build the text, depending on victory conditions fullfilled and exp, gold, items gained
+
+                //EXP
+                int giveEachXP = encounterXP / gv.mod.playerList.Count;
+                foreach (Player givePcXp in gv.mod.playerList)
+                {
+                    givePcXp.XP = givePcXp.XP + giveEachXP;
+                }
+                string expText = "";
+                if (giveEachXP > 0)
+                {
+                    expText = "Each party member receives " + giveEachXP.ToString() + " XP.<BR>";
+                }
+
+                //Gold
+                gv.mod.partyGold += gv.mod.currentEncounter.goldDrop;
+                string goldText = "";
+                if (gv.mod.currentEncounter.goldDrop > 0)
+                {
+                    goldText = "The party found " + gv.mod.currentEncounter.goldDrop.ToString() + " " + gv.mod.goldLabelPlural + ".<BR>";
+                }
+
+                //Items 
+                string itemsText = "";
+                if (gv.mod.currentEncounter.encounterInventoryRefsList.Count > 0)
+                {
+                    itemsText = "The party found the following item(s):<BR>";
+                    foreach (ItemRefs itRef in gv.mod.currentEncounter.encounterInventoryRefsList)
+                    {
+                        gv.mod.partyInventoryRefsList.Add(itRef.DeepCopy());
+                        itemsText += itRef.name + "<BR>";
+                    }
+                }
+
+                //Vcitory type description: victoryText
+                string victoryText = "The party has won the encounter. <BR>";
+                if (foundOneCrtr == 0)
+                {
+                    victoryText += "All enemies have been defeated. <BR>"; 
+                }
+                else if (gv.mod.currentEncounter.assassinationConditionMet)
+                {
+                    victoryText += "The main target, " + gv.mod.currentEncounter.assassinationTargetName + ", has been defeated. <BR>";
+                }
+
+                //after all vicotry conditions...
+                victoryText += expText + goldText + itemsText;
 
                 if (gv.mod.currentEncounter.isFriendlyContest)
                 {
@@ -5570,20 +5715,63 @@ namespace IceBlink2
                         }
                         pc.charStatus = "Alive";
                     }
-                    gv.sf.MessageBox("Your party has won this contest - the knocked out characters recover a bit.");
+                    gv.sf.MessageBox(victoryText + "The knocked out characters recover a bit as this was just a contest.<BR>");
+                    gv.cc.addLogText("<font color='yellow'>" + "Your party has won this contest." + "<BR></font>");
+                }
+                else
+                {
+                    if (gv.mod.currentEncounter.customTextforMessageBoxAtEndOfEncounter != "none" && gv.mod.currentEncounter.customTextforMessageBoxAtEndOfEncounter != "None" && gv.mod.currentEncounter.customTextforMessageBoxAtEndOfEncounter != "")
+                    {
+                        gv.sf.MessageBox(gv.mod.currentEncounter.customTextforMessageBoxAtEndOfEncounter);
+                    }
+                    else if (gv.mod.currentEncounter.showDefaultMessageBoxAtEndOfEncounter)
+                    {
+                        gv.sf.MessageBox(victoryText);   
+                    }
+
+                    if (gv.mod.currentEncounter.customTextforLogTextAtEndOfEncounter != "none" && gv.mod.currentEncounter.customTextforLogTextAtEndOfEncounter != "None" && gv.mod.currentEncounter.customTextforLogTextAtEndOfEncounter != "")
+                    {
+                        gv.cc.addLogText(gv.mod.currentEncounter.customTextforLogTextAtEndOfEncounter);
+                    }
+                    else if (gv.mod.currentEncounter.showDefaultLogTextAtEndOfEncounter)
+                    {
+                            gv.cc.addLogText("<font color='yellow'>" + victoryText + "<BR></font>");   
+                    }
+
+
+
+
+                    //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                    //gv.sf.MessageBox("Your party has won this battle by defeating all enemies.<br> <br> Each character gained: " + giveEachXP + "XP.");
+                    //gv.cc.addLogText("<font color='yellow'>" + "Your party has won this battle by defeating all enemies." + "<BR></font>");
+
                 }
 
-                    // give gold drop
-                    if (gv.mod.currentEncounter.goldDrop > 0)
+                //reset all conditions
+                gv.mod.currentEncounter.assassinationConditionMet = false;
+
+                //kill all creatures, check whether encounter is repeatable
+                gv.mod.currentEncounter.encounterCreatureList.Clear();
+                if (!gv.mod.currentEncounter.isRepeatable)
+                {
+                    gv.mod.currentEncounter.encounterCreatureRefsList.Clear();
+                }
+
+
+                /*
+                // give gold drop
+                if (gv.mod.currentEncounter.goldDrop > 0)
                 {
                     gv.cc.addLogText("<font color='yellow'>The party finds " + gv.mod.currentEncounter.goldDrop + " " + gv.mod.goldLabelPlural + ".<BR></font>");
                 }
+                */
+                /*
                 gv.mod.partyGold += gv.mod.currentEncounter.goldDrop;
                 // give InventoryList
                 if (gv.mod.currentEncounter.encounterInventoryRefsList.Count > 0)
                 {
 
-                    string s = "<font color='fuchsia'>" + "The party has found:<BR>";
+                    string s = "<font color='yellow'>" + "The party has found:<BR>";
                     foreach (ItemRefs itRef in gv.mod.currentEncounter.encounterInventoryRefsList)
                     {
                         gv.mod.partyInventoryRefsList.Add(itRef.DeepCopy());
@@ -5591,17 +5779,20 @@ namespace IceBlink2
                         //find this creatureRef in gv.mod creature list
 
                     }
-                    gv.cc.addLogText(s + "</font>" + "<BR>");
+                    gv.cc.addLogText(s + "</font>");
                 }
 
-                int giveEachXP = encounterXP / gv.mod.playerList.Count;
-                gv.cc.addLogText("fuchsia", "Each receives " + giveEachXP + " XP");
+             
+                gv.cc.addLogText("yellow", "Each receives " + giveEachXP + " XP");
                 foreach (Player givePcXp in gv.mod.playerList)
                 {
                     givePcXp.XP = givePcXp.XP + giveEachXP;
                 }
+                */
+
+
                 //btnSelect.Text = "SELECT";
-                gv.screenType = "main";
+                //gv.screenType = "main";
                 if (gv.mod.playMusic)
                 {
                     gv.stopCombatMusic();
@@ -5642,6 +5833,7 @@ namespace IceBlink2
             }
             if (foundOnePc == 0)
             {
+                roundCounter = 1;
                 if (gv.mod.currentEncounter.isFriendlyContest)
                 {
 
@@ -5670,6 +5862,12 @@ namespace IceBlink2
                     }
                     gv.sf.MessageBox("Your party has lost this contest - the knocked out characters recover a bit.");
                     gv.screenType = "main";
+                    gv.screenCombat.animationSeqStack.Clear();
+                    gv.screenCombat.deathAnimationLocations.Clear();
+                    gv.screenCombat.hitAnimationLocation = null;
+                    gv.screenCombat.endingAnimationLocation = null;
+                    gv.cc.floatyTextList.Clear();
+                    roundCounter = 1;
                     if (gv.mod.playMusic)
                     {
                         gv.stopCombatMusic();
@@ -5752,7 +5950,9 @@ namespace IceBlink2
             }
                 triggerIndexCombat = 0;
                 doPropTriggers();
-                floatyTextOn = true;
+            //tiereimpark
+            checkEndEncounter();
+            floatyTextOn = true;
             /*
             if (gv.mod.currentEncounter.encounterCreatureList[creatureIndex].hp <= 0)
             {
@@ -5782,6 +5982,7 @@ namespace IceBlink2
                 {
                     Player pc = gv.mod.playerList[currentPlayerIndex];
                     prp = gv.mod.currentEncounter.getPropByLocation(pc.combatLocX, pc.combatLocY);
+                    ThisProp = prp;
                     gv.mod.currentEncounter.triggerScriptCalledFromSquareLocX = pc.combatLocX;
                     gv.mod.currentEncounter.triggerScriptCalledFromSquareLocY = pc.combatLocY;
                 }
@@ -5798,6 +5999,7 @@ namespace IceBlink2
                         }
                     }
                     prp = gv.mod.currentEncounter.getPropByLocation(crt.combatLocX, crt.combatLocY);
+                    ThisProp = prp;
                     gv.mod.currentEncounter.triggerScriptCalledFromSquareLocX = crt.combatLocX;
                     gv.mod.currentEncounter.triggerScriptCalledFromSquareLocY = crt.combatLocY;
                 }
@@ -5865,6 +6067,7 @@ namespace IceBlink2
             prp.numberOfScriptCallsRemaining--;
             if (prp.numberOfScriptCallsRemaining < 1)
             {
+                gv.cc.addLogText("lime", "Removing this square based trigger - no more charges");
                 gv.mod.currentEncounter.propsList.Remove(prp);
             }
         }
@@ -5874,6 +6077,7 @@ namespace IceBlink2
             trg.numberOfScriptCallsRemaining--;
             if (trg.numberOfScriptCallsRemaining < 1)
             {
+                gv.cc.addLogText("lime", "Removing this square based trigger - no more charges");
                 gv.mod.currentEncounter.Triggers.Remove(trg);
             }
         }
@@ -5980,6 +6184,8 @@ namespace IceBlink2
                     //check to see if enabled and parm not "none"
                     else if ((triggerIndexCombat == 2) && (trig.EnabledEvent2) && (!trig.Event2FilenameOrTag.Equals("none")))
                     {
+                        if (!trig.event2RequiresTrueReturnCheck || (trig.event2RequiresTrueReturnCheck && gv.mod.returnCheck))
+                        {
                         //check to see what type of event
                         if (trig.Event2Type.Equals("script"))
                         {
@@ -6018,47 +6224,51 @@ namespace IceBlink2
                             trig.EnabledEvent2 = false;
                         }
                     }
+                    }
                     #endregion
                     #region Event3 stuff
                     //check to see if enabled and parm not "none"
                     else if ((triggerIndexCombat == 3) && (trig.EnabledEvent3) && (!trig.Event3FilenameOrTag.Equals("none")))
                     {
-                        //check to see what type of event
-                        if (trig.Event3Type.Equals("script"))
+                        if (!trig.event3RequiresFalseReturnCheck || (trig.event3RequiresFalseReturnCheck && !gv.mod.returnCheck))
                         {
-                            //gv.cc.doScriptBasedOnFilename(trig.Event3FilenameOrTag, trig.Event3Parm1, trig.Event3Parm2, trig.Event3Parm3, trig.Event3Parm4);
-                            if ((isPlayerTurn) && (trig.canBeTriggeredByPc)) //only do if PC can trigger  
+                            //check to see what type of event
+                            if (trig.Event3Type.Equals("script"))
                             {
-                                gv.cc.doScriptBasedOnFilename(trig.Event3FilenameOrTag, trig.Event3Parm1, trig.Event3Parm2, trig.Event3Parm3, trig.Event3Parm4);
-                                didTriggerEvent = true;
-                            }
-                            else if ((!isPlayerTurn) && (trig.canBeTriggeredByCreature)) //only do if creature can trigger  
-                            {
-                                gv.cc.doScriptBasedOnFilename(trig.Event3FilenameOrTag, trig.Event3Parm1, trig.Event3Parm2, trig.Event3Parm3, trig.Event3Parm4);
-                                didTriggerEvent = true;
-                            }
+                                //gv.cc.doScriptBasedOnFilename(trig.Event3FilenameOrTag, trig.Event3Parm1, trig.Event3Parm2, trig.Event3Parm3, trig.Event3Parm4);
+                                if ((isPlayerTurn) && (trig.canBeTriggeredByPc)) //only do if PC can trigger  
+                                {
+                                    gv.cc.doScriptBasedOnFilename(trig.Event3FilenameOrTag, trig.Event3Parm1, trig.Event3Parm2, trig.Event3Parm3, trig.Event3Parm4);
+                                    didTriggerEvent = true;
+                                }
+                                else if ((!isPlayerTurn) && (trig.canBeTriggeredByCreature)) //only do if creature can trigger  
+                                {
+                                    gv.cc.doScriptBasedOnFilename(trig.Event3FilenameOrTag, trig.Event3Parm1, trig.Event3Parm2, trig.Event3Parm3, trig.Event3Parm4);
+                                    didTriggerEvent = true;
+                                }
 
-                            doTriggers();
-                        }
-                        else if (trig.Event3Type.Equals("ibscript"))
-                        {
-                            //gv.cc.doIBScriptBasedOnFilename(trig.Event3FilenameOrTag, trig.Event3Parm1);
-                            if ((isPlayerTurn) && (trig.canBeTriggeredByPc)) //only do if PC can trigger  
-                            {
-                                gv.cc.doIBScriptBasedOnFilename(trig.Event3FilenameOrTag, trig.Event3Parm1);
-                                didTriggerEvent = true;
+                                doTriggers();
                             }
-                            else if ((!isPlayerTurn) && (trig.canBeTriggeredByCreature)) //only do if creature can trigger  
+                            else if (trig.Event3Type.Equals("ibscript"))
                             {
-                                gv.cc.doIBScriptBasedOnFilename(trig.Event3FilenameOrTag, trig.Event3Parm1);
-                                didTriggerEvent = true;
+                                //gv.cc.doIBScriptBasedOnFilename(trig.Event3FilenameOrTag, trig.Event3Parm1);
+                                if ((isPlayerTurn) && (trig.canBeTriggeredByPc)) //only do if PC can trigger  
+                                {
+                                    gv.cc.doIBScriptBasedOnFilename(trig.Event3FilenameOrTag, trig.Event3Parm1);
+                                    didTriggerEvent = true;
+                                }
+                                else if ((!isPlayerTurn) && (trig.canBeTriggeredByCreature)) //only do if creature can trigger  
+                                {
+                                    gv.cc.doIBScriptBasedOnFilename(trig.Event3FilenameOrTag, trig.Event3Parm1);
+                                    didTriggerEvent = true;
+                                }
+                                doTriggers();
                             }
-                            doTriggers();
-                        }
-                        //do that event
-                        if (trig.DoOnceOnlyEvent3)
-                        {
-                            trig.EnabledEvent3 = false;
+                            //do that event
+                            if (trig.DoOnceOnlyEvent3)
+                            {
+                                trig.EnabledEvent3 = false;
+                            }
                         }
                     }
                     else if (triggerIndexCombat < 4)
@@ -6258,6 +6468,7 @@ namespace IceBlink2
                     {
                         animationsOn = false;
                         deathAnimationLocations.Clear();
+                        blockCreatureDrawLocations.Clear();
 
                         //remove any dead creatures                        
                         for (int x = gv.mod.currentEncounter.encounterCreatureList.Count - 1; x >= 0; x--)
@@ -6278,6 +6489,10 @@ namespace IceBlink2
                                             idx = 0;
                                         }
                                     }
+                                    if (gv.mod.currentEncounter.assassinationVictory && gv.mod.currentEncounter.assassinationTargetTag == gv.mod.currentEncounter.encounterCreatureList[x].cr_tag)
+                                    {
+                                        gv.mod.currentEncounter.assassinationConditionMet = true;
+                                    }
                                     gv.mod.currentEncounter.encounterCreatureList.RemoveAt(x);
                                     if (!gv.mod.currentEncounter.isRepeatable)
                                     {
@@ -6296,7 +6511,18 @@ namespace IceBlink2
                             gv.touchEnabled = true;
                             animationState = AnimationState.None;
                             //endPcTurn(true);
-                            if (dontEndTurn)
+                            //update all player stats in case their was a recently added spell or trait effect that would change them  
+                            foreach (Player p in gv.mod.playerList)
+                            {
+                                gv.sf.UpdateStats(p);
+                            }
+
+                            if (gv.mod.playerList[currentPlayerIndex].hp <= 0 || gv.mod.playerList[currentPlayerIndex].isHeld())
+                            {
+                                endPcTurn(true);
+                            }
+
+                            if (dontEndTurn && currentCombatMode != "move")
                             {
                                 //don't end turn just yet..probably called from a trait that is meant to be used right away like Power Attack or Set Trap  
                                 dontEndTurn = false;
@@ -6304,15 +6530,21 @@ namespace IceBlink2
                                 {
                                     currentCombatMode = "move";
                                 }
+                            /*
                                 //update all player stats in case their was a recently added spell or trait effect that would change them  
                                 foreach (Player p in gv.mod.playerList)
                                 {
                                     gv.sf.UpdateStats(p);
                                 }
+                                */
                             }
-                            else
+                            else 
                             {
-                                endPcTurn(true);
+                                
+                                if (currentCombatMode != "move")
+                                {
+                                    endPcTurn(true);
+                                }
 
                             }
                         }
@@ -6456,6 +6688,7 @@ namespace IceBlink2
                     {
                         stepAnimationsOn = false;
                         deathAnimationLocations.Clear();
+                        blockCreatureDrawLocations.Clear();
 
                         /*
                         //Creature crt = new Creature();
@@ -6467,7 +6700,7 @@ namespace IceBlink2
                             }
                         }
                         */
-                        
+
                         if (isPlayerTurn)
                         {
 
@@ -6489,6 +6722,10 @@ namespace IceBlink2
                                             {
                                                 idx = 0;
                                             }
+                                        }
+                                        if (gv.mod.currentEncounter.assassinationVictory && gv.mod.currentEncounter.assassinationTargetTag == gv.mod.currentEncounter.encounterCreatureList[x].cr_tag)
+                                        {
+                                            gv.mod.currentEncounter.assassinationConditionMet = true;
                                         }
                                         gv.mod.currentEncounter.encounterCreatureList.RemoveAt(x);
                                         if (!gv.mod.currentEncounter.isRepeatable)
@@ -6523,8 +6760,10 @@ namespace IceBlink2
                             }
                             else
                             {
-                                endPcTurn(true);
-
+                                if (currentCombatMode != "move")
+                                {
+                                    endPcTurn(true);
+                                }
                             }
                             Player tempP = new Player();
                             foreach (Player p in gv.mod.playerList)
@@ -6578,6 +6817,10 @@ namespace IceBlink2
                                                 {
                                                     idx = 0;
                                                 }
+                                            }
+                                            if (gv.mod.currentEncounter.assassinationVictory && gv.mod.currentEncounter.assassinationTargetTag == gv.mod.currentEncounter.encounterCreatureList[x].cr_tag)
+                                            {
+                                                gv.mod.currentEncounter.assassinationConditionMet = true;
                                             }
                                             gv.mod.currentEncounter.encounterCreatureList.RemoveAt(x);
                                             if (!gv.mod.currentEncounter.isRepeatable)
@@ -6652,7 +6895,7 @@ namespace IceBlink2
             #endregion
 
             #region FLOATY TEXT
-            if (floatyTextOn)
+            if (floatyTextOn || floatyTextEnlargerOn)
             {
                 //move up 50pxl per second (50px/1000ms)*elapsed
                 float multiplier = 100.0f / gv.mod.attackAnimationSpeed;
@@ -6679,7 +6922,14 @@ namespace IceBlink2
                 }
                 if (gv.cc.floatyTextList.Count == 0)
                 {
-                    floatyTextOn = false;
+                    if (floatyTextOn)
+                    {
+                        floatyTextOn = false;
+                    }
+                    if (floatyTextEnlargerOn)
+                    {
+                        floatyTextEnlargerOn = false;
+                    }
                 }
             }
             #endregion
@@ -6825,6 +7075,10 @@ namespace IceBlink2
                                         {
                                             idx = 0;
                                         }
+                                    }
+                                    if (gv.mod.currentEncounter.assassinationVictory && gv.mod.currentEncounter.assassinationTargetTag == gv.mod.currentEncounter.encounterCreatureList[x].cr_tag)
+                                    {
+                                        gv.mod.currentEncounter.assassinationConditionMet = true;
                                     }
                                     gv.mod.currentEncounter.encounterCreatureList.RemoveAt(x);
                                     if (!gv.mod.currentEncounter.isRepeatable)
@@ -9180,75 +9434,154 @@ namespace IceBlink2
                     }
                 }
             }
+            //too: te livin on topthe unconciou
             foreach (Player pc in gv.mod.playerList)
             {
-                if (IsInVisibleCombatWindow(pc.combatLocX, pc.combatLocY))
+                if (pc.hp <= 0)
                 {
-                    IbRect src = new IbRect(0, 0, pc.token.PixelSize.Width, pc.token.PixelSize.Width);
-                    //check if drawing animation of player
-                    if ((playerToAnimate != null) && (playerToAnimate == pc))
+                    if (IsInVisibleCombatWindow(pc.combatLocX, pc.combatLocY))
                     {
-                        attackAnimationDelayCounter++;
-                        if (attackAnimationDelayCounter >= (int)(pc.token.PixelSize.Height / 100f - 1))
+                        IbRect src = new IbRect(0, 0, pc.token.PixelSize.Width, pc.token.PixelSize.Width);
+                        //check if drawing animation of player
+                        if ((playerToAnimate != null) && (playerToAnimate == pc))
                         {
-                            attackAnimationFrameCounter++;
-                            attackAnimationDelayCounter = 0;
-                        }
-                        //maxUsableCounterValue = (int)(pc.token.PixelSize.Height / 100f - 1);
-                        maxUsableCounterValue = 1;
-                        if (attackAnimationFrameCounter >= maxUsableCounterValue)
-                        {
-                            attackAnimationFrameCounter = maxUsableCounterValue;
-                            blockAnimationBridge = false;
-                        }
-                        src = new IbRect(0, pc.token.PixelSize.Width * attackAnimationFrameCounter, pc.token.PixelSize.Width, pc.token.PixelSize.Width);
-                    }
-                    IbRect dst = new IbRect(getPixelLocX(pc.combatLocX), getPixelLocY(pc.combatLocY), gv.squareSize, gv.squareSize);
-                    gv.DrawBitmap(pc.token, src, dst, !pc.combatFacingLeft);
-                    src = new IbRect(0, 0, pc.token.PixelSize.Width, pc.token.PixelSize.Width);
-                    if (!animationsOn)
-                    {
-                        foreach (Effect ef in pc.effectsList)
-                        {
-                            if ((!ef.isPermanent) && (ef.spriteFilename != "none") && (ef.spriteFilename != ""))
+                            attackAnimationDelayCounter++;
+                            if (attackAnimationDelayCounter >= (int)(pc.token.PixelSize.Height / 100f - 1))
                             {
-                                Bitmap fx = gv.cc.LoadBitmap(ef.spriteFilename);
-                                src = new IbRect(0, 0, fx.PixelSize.Width, fx.PixelSize.Width);
-                                gv.DrawBitmap(fx, src, dst);
-                                gv.cc.DisposeOfBitmap(ref fx);
+                                attackAnimationFrameCounter++;
+                                attackAnimationDelayCounter = 0;
+                            }
+                            //maxUsableCounterValue = (int)(pc.token.PixelSize.Height / 100f - 1);
+                            maxUsableCounterValue = 1;
+                            if (attackAnimationFrameCounter >= maxUsableCounterValue)
+                            {
+                                attackAnimationFrameCounter = maxUsableCounterValue;
+                                blockAnimationBridge = false;
+                            }
+                            src = new IbRect(0, pc.token.PixelSize.Width * attackAnimationFrameCounter, pc.token.PixelSize.Width, pc.token.PixelSize.Width);
+                        }
+                        IbRect dst = new IbRect(getPixelLocX(pc.combatLocX), getPixelLocY(pc.combatLocY), gv.squareSize, gv.squareSize);
+                        gv.DrawBitmap(pc.token, src, dst, !pc.combatFacingLeft);
+                        src = new IbRect(0, 0, pc.token.PixelSize.Width, pc.token.PixelSize.Width);
+                        if (!animationsOn)
+                        {
+                            foreach (Effect ef in pc.effectsList)
+                            {
+                                if ((!ef.isPermanent) && (ef.spriteFilename != "none") && (ef.spriteFilename != ""))
+                                {
+                                    Bitmap fx = gv.cc.LoadBitmap(ef.spriteFilename);
+                                    src = new IbRect(0, 0, fx.PixelSize.Width, fx.PixelSize.Width);
+                                    gv.DrawBitmap(fx, src, dst);
+                                    gv.cc.DisposeOfBitmap(ref fx);
+                                }
                             }
                         }
-                    }
-                    if ((pc.isDead()) || (pc.isUnconcious()))
-                    {
-                        src = new IbRect(0, 0, gv.cc.pc_dead.PixelSize.Width, gv.cc.pc_dead.PixelSize.Width);
-                        gv.DrawBitmap(gv.cc.pc_dead, src, dst);
-                    }
-                    if (pc.steathModeOn)
-                    {
-                        src = new IbRect(0, 0, gv.cc.pc_stealth.PixelSize.Width, gv.cc.pc_stealth.PixelSize.Width);
-                        gv.DrawBitmap(gv.cc.pc_stealth, src, dst);
-                    }
-                    //PLAYER FACING
-                    src = new IbRect(0, 0, gv.cc.facing1.PixelSize.Width, gv.cc.facing1.PixelSize.Height);
-                    if (pc.hp > 0)
-                    {
-                        if (pc.combatFacing == 8) { gv.DrawBitmap(gv.cc.facing8, src, dst); }
-                        else if (pc.combatFacing == 9) { gv.DrawBitmap(gv.cc.facing9, src, dst); }
-                        else if (pc.combatFacing == 6) { gv.DrawBitmap(gv.cc.facing6, src, dst); }
-                        else if (pc.combatFacing == 3) { gv.DrawBitmap(gv.cc.facing3, src, dst); }
-                        else if (pc.combatFacing == 2) { gv.DrawBitmap(gv.cc.facing2, src, dst); }
-                        else if (pc.combatFacing == 1) { gv.DrawBitmap(gv.cc.facing1, src, dst); }
-                        else if (pc.combatFacing == 4) { gv.DrawBitmap(gv.cc.facing4, src, dst); }
-                        else if (pc.combatFacing == 7) { gv.DrawBitmap(gv.cc.facing7, src, dst); }
-                        else { } //didn't find one
-                    }
+                        if ((pc.isDead()) || (pc.isUnconcious()))
+                        {
+                            src = new IbRect(0, 0, gv.cc.pc_dead.PixelSize.Width, gv.cc.pc_dead.PixelSize.Width);
+                            gv.DrawBitmap(gv.cc.pc_dead, src, dst);
+                        }
+                        if (pc.steathModeOn)
+                        {
+                            src = new IbRect(0, 0, gv.cc.pc_stealth.PixelSize.Width, gv.cc.pc_stealth.PixelSize.Width);
+                            gv.DrawBitmap(gv.cc.pc_stealth, src, dst);
+                        }
+                        //PLAYER FACING
+                        src = new IbRect(0, 0, gv.cc.facing1.PixelSize.Width, gv.cc.facing1.PixelSize.Height);
+                        if (pc.hp > 0)
+                        {
+                            if (pc.combatFacing == 8) { gv.DrawBitmap(gv.cc.facing8, src, dst); }
+                            else if (pc.combatFacing == 9) { gv.DrawBitmap(gv.cc.facing9, src, dst); }
+                            else if (pc.combatFacing == 6) { gv.DrawBitmap(gv.cc.facing6, src, dst); }
+                            else if (pc.combatFacing == 3) { gv.DrawBitmap(gv.cc.facing3, src, dst); }
+                            else if (pc.combatFacing == 2) { gv.DrawBitmap(gv.cc.facing2, src, dst); }
+                            else if (pc.combatFacing == 1) { gv.DrawBitmap(gv.cc.facing1, src, dst); }
+                            else if (pc.combatFacing == 4) { gv.DrawBitmap(gv.cc.facing4, src, dst); }
+                            else if (pc.combatFacing == 7) { gv.DrawBitmap(gv.cc.facing7, src, dst); }
+                            else { } //didn't find one
+                        }
 
 
-                    if (showMoveOrder)
+                        if (showMoveOrder)
+                        {
+                            int mo = pc.moveOrder + 1;
+                            drawText(getPixelLocX(pc.combatLocX), getPixelLocY(pc.combatLocY) - (int)gv.drawFontRegHeight, mo.ToString(), Color.White);
+                        }
+                    }
+                }
+            }
+            foreach (Player pc in gv.mod.playerList)
+            {
+                if (pc.hp > 0)
+                {
+                    if (IsInVisibleCombatWindow(pc.combatLocX, pc.combatLocY))
                     {
-                        int mo = pc.moveOrder + 1;
-                        drawText(getPixelLocX(pc.combatLocX), getPixelLocY(pc.combatLocY) - (int)gv.drawFontRegHeight, mo.ToString(), Color.White);
+                        IbRect src = new IbRect(0, 0, pc.token.PixelSize.Width, pc.token.PixelSize.Width);
+                        //check if drawing animation of player
+                        if ((playerToAnimate != null) && (playerToAnimate == pc))
+                        {
+                            attackAnimationDelayCounter++;
+                            if (attackAnimationDelayCounter >= (int)(pc.token.PixelSize.Height / 100f - 1))
+                            {
+                                attackAnimationFrameCounter++;
+                                attackAnimationDelayCounter = 0;
+                            }
+                            //maxUsableCounterValue = (int)(pc.token.PixelSize.Height / 100f - 1);
+                            maxUsableCounterValue = 1;
+                            if (attackAnimationFrameCounter >= maxUsableCounterValue)
+                            {
+                                attackAnimationFrameCounter = maxUsableCounterValue;
+                                blockAnimationBridge = false;
+                            }
+                            src = new IbRect(0, pc.token.PixelSize.Width * attackAnimationFrameCounter, pc.token.PixelSize.Width, pc.token.PixelSize.Width);
+                        }
+                        IbRect dst = new IbRect(getPixelLocX(pc.combatLocX), getPixelLocY(pc.combatLocY), gv.squareSize, gv.squareSize);
+                        gv.DrawBitmap(pc.token, src, dst, !pc.combatFacingLeft);
+                        src = new IbRect(0, 0, pc.token.PixelSize.Width, pc.token.PixelSize.Width);
+                        if (!animationsOn)
+                        {
+                            foreach (Effect ef in pc.effectsList)
+                            {
+                                if ((!ef.isPermanent) && (ef.spriteFilename != "none") && (ef.spriteFilename != ""))
+                                {
+                                    Bitmap fx = gv.cc.LoadBitmap(ef.spriteFilename);
+                                    src = new IbRect(0, 0, fx.PixelSize.Width, fx.PixelSize.Width);
+                                    gv.DrawBitmap(fx, src, dst);
+                                    gv.cc.DisposeOfBitmap(ref fx);
+                                }
+                            }
+                        }
+                        if ((pc.isDead()) || (pc.isUnconcious()))
+                        {
+                            src = new IbRect(0, 0, gv.cc.pc_dead.PixelSize.Width, gv.cc.pc_dead.PixelSize.Width);
+                            gv.DrawBitmap(gv.cc.pc_dead, src, dst);
+                        }
+                        if (pc.steathModeOn)
+                        {
+                            src = new IbRect(0, 0, gv.cc.pc_stealth.PixelSize.Width, gv.cc.pc_stealth.PixelSize.Width);
+                            gv.DrawBitmap(gv.cc.pc_stealth, src, dst);
+                        }
+                        //PLAYER FACING
+                        src = new IbRect(0, 0, gv.cc.facing1.PixelSize.Width, gv.cc.facing1.PixelSize.Height);
+                        if (pc.hp > 0)
+                        {
+                            if (pc.combatFacing == 8) { gv.DrawBitmap(gv.cc.facing8, src, dst); }
+                            else if (pc.combatFacing == 9) { gv.DrawBitmap(gv.cc.facing9, src, dst); }
+                            else if (pc.combatFacing == 6) { gv.DrawBitmap(gv.cc.facing6, src, dst); }
+                            else if (pc.combatFacing == 3) { gv.DrawBitmap(gv.cc.facing3, src, dst); }
+                            else if (pc.combatFacing == 2) { gv.DrawBitmap(gv.cc.facing2, src, dst); }
+                            else if (pc.combatFacing == 1) { gv.DrawBitmap(gv.cc.facing1, src, dst); }
+                            else if (pc.combatFacing == 4) { gv.DrawBitmap(gv.cc.facing4, src, dst); }
+                            else if (pc.combatFacing == 7) { gv.DrawBitmap(gv.cc.facing7, src, dst); }
+                            else { } //didn't find one
+                        }
+
+
+                        if (showMoveOrder)
+                        {
+                            int mo = pc.moveOrder + 1;
+                            drawText(getPixelLocX(pc.combatLocX), getPixelLocY(pc.combatLocY) - (int)gv.drawFontRegHeight, mo.ToString(), Color.White);
+                        }
                     }
                 }
             }
@@ -9620,7 +9953,44 @@ namespace IceBlink2
                 //dst = new IbRect(getPixelLocX(crt.combatLocX) - (gv.squareSize / 2), getPixelLocY(crt.combatLocY) - (gv.squareSize / 2), gv.squareSize * 2, gv.squareSize * 2);
                 //}
 
-                gv.DrawBitmap(crt.token, src, dst, !crt.combatFacingLeft);
+                bool drawCreature = true;
+                foreach (Coordinate c  in gv.screenCombat.deathAnimationLocations)
+                {
+                    if (c.X == crt.combatLocX && c.Y == crt.combatLocY)
+                    {
+                        drawCreature = false;
+                        break;
+                    }
+                }
+                if (drawCreature)
+                {
+                    gv.DrawBitmap(crt.token, src, dst, !crt.combatFacingLeft);
+                }
+                else
+                {
+                    //normal
+                    dst = new IbRectF(getPixelLocX(crt.combatLocX), getPixelLocY(crt.combatLocY), gv.squareSize, gv.squareSize);
+
+                    //wide  
+                    if (crtSize == 2)
+                    {
+                        dst = new IbRectF(getPixelLocX(crt.combatLocX), getPixelLocY(crt.combatLocY), gv.squareSize * 2, gv.squareSize);
+                    }
+
+                    //tall  
+                    if (crtSize == 3)
+                    {
+                        //dst = new IbRect(getPixelLocX(crt.combatLocX) - (gv.squareSize / 2), getPixelLocY(crt.combatLocY) - (gv.squareSize / 2), gv.squareSize * 2, gv.squareSize * 2);
+                        dst = new IbRectF(getPixelLocX(crt.combatLocX), getPixelLocY(crt.combatLocY), gv.squareSize, gv.squareSize * 2);
+                    }
+
+                    //large  
+                    if (crtSize == 4)
+                    {
+                        dst = new IbRectF(getPixelLocX(crt.combatLocX), getPixelLocY(crt.combatLocY), gv.squareSize * 2, gv.squareSize * 2);
+                    }
+                    gv.DrawBitmap(crt.token, src, dst, !crt.combatFacingLeft);
+                }
 
                 /*
                 //start
@@ -9687,7 +10057,7 @@ namespace IceBlink2
                 //end
                 */
 
-                if (!animationsOn)
+                if (!animationsOn && drawCreature)
                 {
                     foreach (Effect ef in crt.cr_effectsList)
                     {
@@ -9700,20 +10070,23 @@ namespace IceBlink2
                 //CREATURE FACING
                 src = new IbRectF(0, 0, gv.cc.facing1.PixelSize.Width, gv.cc.facing1.PixelSize.Height);
 
-                if (crt.combatFacing == 8) { gv.DrawBitmap(gv.cc.facing8, src, dst); }
-                else if (crt.combatFacing == 9) { gv.DrawBitmap(gv.cc.facing9, src, dst); }
-                else if (crt.combatFacing == 6) { gv.DrawBitmap(gv.cc.facing6, src, dst); }
-                else if (crt.combatFacing == 3) { gv.DrawBitmap(gv.cc.facing3, src, dst); }
-                else if (crt.combatFacing == 2) { gv.DrawBitmap(gv.cc.facing2, src, dst); }
-                else if (crt.combatFacing == 1) { gv.DrawBitmap(gv.cc.facing1, src, dst); }
-                else if (crt.combatFacing == 4) { gv.DrawBitmap(gv.cc.facing4, src, dst); }
-                else if (crt.combatFacing == 7) { gv.DrawBitmap(gv.cc.facing7, src, dst); }
-                else { } //didn't find one
-
-                if (showMoveOrder)
+                if (drawCreature)
                 {
-                    int mo = crt.moveOrder + 1;
-                    drawText(getPixelLocX(crt.combatLocX) + (int)crt.roamDistanceX + (int)crt.glideAdderX, getPixelLocY(crt.combatLocY) - (int)gv.drawFontRegHeight + (int)crt.roamDistanceY + (int)crt.glideAdderY, mo.ToString(), Color.White);
+                    if (crt.combatFacing == 8) { gv.DrawBitmap(gv.cc.facing8, src, dst); }
+                    else if (crt.combatFacing == 9) { gv.DrawBitmap(gv.cc.facing9, src, dst); }
+                    else if (crt.combatFacing == 6) { gv.DrawBitmap(gv.cc.facing6, src, dst); }
+                    else if (crt.combatFacing == 3) { gv.DrawBitmap(gv.cc.facing3, src, dst); }
+                    else if (crt.combatFacing == 2) { gv.DrawBitmap(gv.cc.facing2, src, dst); }
+                    else if (crt.combatFacing == 1) { gv.DrawBitmap(gv.cc.facing1, src, dst); }
+                    else if (crt.combatFacing == 4) { gv.DrawBitmap(gv.cc.facing4, src, dst); }
+                    else if (crt.combatFacing == 7) { gv.DrawBitmap(gv.cc.facing7, src, dst); }
+                    else { } //didn't find one
+
+                    if (showMoveOrder)
+                    {
+                        int mo = crt.moveOrder + 1;
+                        drawText(getPixelLocX(crt.combatLocX) + (int)crt.roamDistanceX + (int)crt.glideAdderX, getPixelLocY(crt.combatLocY) - (int)gv.drawFontRegHeight + (int)crt.roamDistanceY + (int)crt.glideAdderY, mo.ToString(), Color.White);
+                    }
                 }
             }
         }
@@ -10164,6 +10537,7 @@ namespace IceBlink2
         }
         public void drawFloatyTextList()
         {
+            //summe
             if (floatyTextOn)
             {
                 int txtH = (int)gv.drawFontRegHeight;
@@ -10174,7 +10548,10 @@ namespace IceBlink2
                     {
                         for (int y = -2; y <= 2; y++)
                         {
-                            gv.DrawText(ft.value, ft.location.X - (UpperLeftSquare.X * gv.squareSize) + x + mapStartLocXinPixels, ft.location.Y - (UpperLeftSquare.Y * gv.squareSize) + y, 1.0f, Color.Black);
+                            if (!ft.value.Contains("Round"))
+                            {
+                                gv.DrawText(ft.value, ft.location.X - (UpperLeftSquare.X * gv.squareSize) + x + mapStartLocXinPixels, ft.location.Y - (UpperLeftSquare.Y * gv.squareSize) + y, 1.0f, Color.Black);
+                            }
                         }
                     }
                     Color colr = Color.Yellow;
@@ -10194,7 +10571,50 @@ namespace IceBlink2
                     {
                         colr = Color.Red;
                     }
-                    gv.DrawText(ft.value, ft.location.X - (UpperLeftSquare.X * gv.squareSize) + mapStartLocXinPixels, ft.location.Y - (UpperLeftSquare.Y * gv.squareSize), 1.0f, colr);
+                    if (!ft.value.Contains("Round"))
+                    {
+                        gv.DrawText(ft.value, ft.location.X - (UpperLeftSquare.X * gv.squareSize) + mapStartLocXinPixels, ft.location.Y - (UpperLeftSquare.Y * gv.squareSize), 1.0f, colr);
+                    }
+                }
+            }
+            if (floatyTextEnlargerOn)
+            {
+                int txtH = (int)gv.drawFontRegHeight;
+
+                foreach (FloatyText ft in gv.cc.floatyTextList)
+                {
+                    for (int x = -2; x <= 2; x++)
+                    {
+                        for (int y = -2; y <= 2; y++)
+                        {
+                            if (ft.value.Contains("Round"))
+                            {
+                                gv.DrawText(ft.value, ft.location.X + mapStartLocXinPixels + x, ft.location.Y + y, 3.0f, Color.Black);
+                            }
+                        }
+                    }
+                    Color colr = Color.Yellow;
+                    if (ft.color.Equals("yellow"))
+                    {
+                        colr = Color.Yellow;
+                    }
+                    else if (ft.color.Equals("blue"))
+                    {
+                        colr = Color.Blue;
+                    }
+                    else if (ft.color.Equals("green"))
+                    {
+                        colr = Color.Lime;
+                    }
+                    else
+                    {
+                        colr = Color.Red;
+                    }
+                    if (ft.value.Contains("Round"))
+                    {
+                        //summe 
+                        gv.DrawText(ft.value, ft.location.X + mapStartLocXinPixels, ft.location.Y, 3.0f, colr);
+                    }
                 }
             }
         }
@@ -10381,7 +10801,7 @@ namespace IceBlink2
                     gv.mod.playerList[currentPlayerIndex].tagOfSpellToBeCastAfterCastTimeIsDone = "none";
                     gv.mod.playerList[currentPlayerIndex].thisCasterCanBeInterrupted = true;
                     gv.screenType = "combat";
-                    endPcTurn(false);
+                     endPcTurn(false);
                 }
             }
             else if (keyData == Keys.O)
