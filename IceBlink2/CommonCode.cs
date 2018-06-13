@@ -22,6 +22,9 @@ namespace IceBlink2
         //this class is handled differently than Android version
         public GameView gv;
 
+       
+
+        public bool isTraitUsage = false;
         public float weatherSoundMultiplier = 2.7f;
         public bool blockSecondPropTriggersCall = false;
         public List<FloatyText> floatyTextList = new List<FloatyText>();
@@ -89,6 +92,9 @@ namespace IceBlink2
         public Bitmap smallStairNENormal;
         public Bitmap corner3;
         public Bitmap entranceLightNorth2;
+
+        public Bitmap tooHigh;
+        public Bitmap tooDeep;
 
 
 
@@ -185,7 +191,13 @@ namespace IceBlink2
         public void LoadTestParty()
         {
             gv.mod.defaultPlayerFilename = gv.mod.defaultPlayerFilename.Replace(".json", "");
-            gv.sf.AddCharacterToParty(gv.mod.defaultPlayerFilename); //drin.json is default
+            if (gv.mod.mustUsePreMadePC)
+            {
+                gv.sf.AddCharacterToParty(gv.mod.defaultPlayerFilename);
+                gv.mod.playerList[0].mainPc = true;
+                gv.mod.playerList[0].nonRemoveablePc = true;
+                //drin.json is default
+            }
             //if (gv.mod.playerList.Count == 0)
             //{
                 //gv.sf.AddCharacterToParty(gv.mod.defaultPlayerFilename)
@@ -239,6 +251,7 @@ namespace IceBlink2
             gv.screenCombat.saveUILayout();
         }
 
+        /*
         public void setBridgeStateForMovingProps()
         {
             //note: player bridge state is handled by gv.mod.currentArea.PlayerIsUnderBridge
@@ -266,6 +279,7 @@ namespace IceBlink2
                 }
             }
         }
+        */
 
         public void QuickSave()
         {
@@ -741,7 +755,15 @@ namespace IceBlink2
             //{
             //U  "saveName": "Drin, Level:1, XP:150, WorldTime:24", (use all save)
             gv.mod.saveName = saveMod.saveName;
-            //U  "playerList": [], (use all save)  Update PCs later further down
+            gv.mod.minutesSinceLastRationConsumed = saveMod.minutesSinceLastRationConsumed;
+            gv.mod.numberOfRationsRemaining = saveMod.numberOfRationsRemaining;
+            gv.mod.justTransitioned = saveMod.justTransitioned;
+            gv.mod.justTransitioned2 = saveMod.justTransitioned2;
+            gv.mod.arrivalSquareX = saveMod.arrivalSquareX;
+            gv.mod.arrivalSquareY = saveMod.arrivalSquareY;
+            gv.mod.currentLightUnitsLeft = saveMod.currentLightUnitsLeft;
+
+        //U  "playerList": [], (use all save)  Update PCs later further down
             gv.mod.playerList = new List<Player>();
             foreach (Player pc in saveMod.playerList)
             {
@@ -768,13 +790,79 @@ namespace IceBlink2
             //U  "partyJournalCompleted": [], (use tags from save to get all from new)
             // NOT CURRENTLY USED
             //U  "partyInventoryTagList": [], (use all save) update Items later on down
+            gv.mod.addedItemsRefs.Clear();
+            foreach (string s in saveMod.addedItemsRefs)
+            {
+                gv.mod.addedItemsRefs.Add(s);
+            }
             gv.mod.partyInventoryRefsList.Clear();
             foreach (ItemRefs s in saveMod.partyInventoryRefsList)
             {
-                gv.mod.partyInventoryRefsList.Add(s.DeepCopy());
+                //do not add items currently equipped
+                //dschungel
+                bool allowAdding = true;
+                foreach (Player p in gv.mod.playerList)
+                {
+                    if (p.AmmoRefs.tag == s.tag)
+                    {
+                        allowAdding = false;
+                        break;
+                    }
+                    if (p.BodyRefs.tag == s.tag)
+                    {
+                        allowAdding = false;
+                        break;
+                    }
+                    if (p.FeetRefs.tag == s.tag)
+                    {
+                        allowAdding = false;
+                        break;
+                    }
+                    if (p.GlovesRefs.tag == s.tag)
+                    {
+                        allowAdding = false;
+                        break;
+                    }
+                    if (p.HeadRefs.tag == s.tag)
+                    {
+                        allowAdding = false;
+                        break;
+                    }
+                    if (p.MainHandRefs.tag == s.tag)
+                    {
+                        allowAdding = false;
+                        break;
+                    }
+                    if (p.NeckRefs.tag == s.tag)
+                    {
+                        allowAdding = false;
+                        break;
+                    }
+                    if (p.OffHandRefs.tag == s.tag)
+                    {
+                        allowAdding = false;
+                        break;
+                    }
+                    if (p.RingRefs.tag == s.tag)
+                    {
+                        allowAdding = false;
+                        break;
+                    }
+                    if (p.Ring2Refs.tag == s.tag)
+                    {
+                        allowAdding = false;
+                        break;
+                    }
+                }
+
+                if (allowAdding)
+                {
+                    gv.mod.partyInventoryRefsList.Add(s.DeepCopy());
+                }
             }
             //U  "moduleShopsList": [], (have an original shop items tags list and the current tags list to see what to add or delete from the save tags list)
             this.updateShops(saveMod);
+            this.updateFactions(saveMod);
             //  "moduleName": "Lanterna2", Don't need to update
             //  "moduleAreasList": [], Don't need to update
             //U  "moduleAreasObjects": [],
@@ -782,6 +870,7 @@ namespace IceBlink2
             //                (tiles: use save "visible" to update new)
             //                (props: have an original props tags list and the current tags list to see what to add or delete from the save tags list)		               
             this.updateAreas(saveMod);
+            this.updatePropsWaitingForRespawn(saveMod);
             //
             //U  "currentArea": {},
             //gv.mod.setCurrentArea(saveMod.currentArea.Filename, gv);
@@ -911,6 +1000,7 @@ namespace IceBlink2
             LoadEffects();
             LoadSpells();
             LoadTraits();
+            LoadFactions();
             LoadWeathers();
             LoadWeatherEffects();
             LoadCreatures();
@@ -940,6 +1030,37 @@ namespace IceBlink2
                 toReturn = (Module)serializer.Deserialize(file, typeof(Module));
             }
             return toReturn;
+        }
+
+        public void updatePropsWaitingForRespawn(Module saveMod)
+        {
+            if (saveMod.propsWaitingForRespawn != null)
+            {
+                gv.mod.propsWaitingForRespawn.Clear();
+                Prop AddMe = new Prop();
+                foreach (Prop WFRProp in saveMod.propsWaitingForRespawn)
+                {
+                    AddMe = WFRProp.DeepCopy();
+                    gv.mod.propsWaitingForRespawn.Add(AddMe);
+                }
+            }
+        }
+
+        public void updateFactions(Module saveMod)
+        {
+            if (saveMod.moduleFactionsList != null)
+            {
+                foreach (Faction f in gv.mod.moduleFactionsList)
+                {
+                    for (int i = 0; i < saveMod.moduleFactionsList.Count; i++)
+                    {
+                        if (saveMod.moduleFactionsList[i].tag == f.tag)
+                        {
+                            f.strength = saveMod.moduleFactionsList[i].strength;
+                        }
+                    }
+                }
+            }
         }
         public void updateContainers(Module saveMod)
         {
@@ -1051,6 +1172,7 @@ namespace IceBlink2
                         }
 
                         //tiles
+                        //visibility
                         bool isOldSave = false;
                         try
                         {
@@ -1074,6 +1196,112 @@ namespace IceBlink2
                             if (ar.Tiles[index].Visible)
                             {
                                 ar.Tiles[index].opacity = 0;
+                            }
+                        }
+
+                        //walkability
+                        if (sar.toggledSquaresWalkable != null)
+                        {
+                            foreach (Coordinate coord in sar.toggledSquaresWalkable)
+                            {
+                                ar.Tiles[coord.Y * ar.MapSizeX + coord.X].Walkable = true;
+                            }
+                        }
+
+                        if (sar.toggledSquaresWalkableFalse != null)
+                        {
+                            foreach (Coordinate coord in sar.toggledSquaresWalkableFalse)
+                            {
+                                ar.Tiles[coord.Y * ar.MapSizeX + coord.X].Walkable = false;
+                            }
+                        }
+
+                        //LoS
+                        if (sar.toggledSquaresLoS != null)
+                        {
+                            foreach (Coordinate coord in sar.toggledSquaresLoS)
+                            {
+                                ar.Tiles[coord.Y * ar.MapSizeX + coord.X].LoSBlocked = true;
+                            }
+                        }
+
+                        if (sar.toggledSquaresLoSFalse != null)
+                        {
+                            foreach (Coordinate coord in sar.toggledSquaresLoSFalse)
+                            {
+                                ar.Tiles[coord.Y * ar.MapSizeX + coord.X].LoSBlocked = false;
+                            }
+                        }
+
+                        //tile graphics
+                        //Layer0
+                        if (sar.toggledSquaresLayer0FilenameCoords != null && sar.toggledSquaresLayer0FilenameNames != null)
+                        {
+                            for (int i = 0; i < sar.toggledSquaresLayer0FilenameCoords.Count; i++)
+                            {
+                                ar.Tiles[sar.toggledSquaresLayer0FilenameCoords[i].Y * ar.MapSizeX + sar.toggledSquaresLayer0FilenameCoords[i].X].Layer0Filename = sar.toggledSquaresLayer0FilenameNames[i];
+                            }
+                        }
+
+                        //Layer1
+                        if (sar.toggledSquaresLayer1FilenameCoords != null && sar.toggledSquaresLayer1FilenameNames != null)
+                        {
+                            for (int i = 0; i < sar.toggledSquaresLayer1FilenameCoords.Count; i++)
+                            {
+                                ar.Tiles[sar.toggledSquaresLayer1FilenameCoords[i].Y * ar.MapSizeX + sar.toggledSquaresLayer1FilenameCoords[i].X].Layer1Filename = sar.toggledSquaresLayer1FilenameNames[i];
+                            }
+                        }
+
+                        //Layer2
+                        if (sar.toggledSquaresLayer2FilenameCoords != null && sar.toggledSquaresLayer2FilenameNames != null)
+                        {
+                            for (int i = 0; i < sar.toggledSquaresLayer2FilenameCoords.Count; i++)
+                            {
+                                ar.Tiles[sar.toggledSquaresLayer2FilenameCoords[i].Y * ar.MapSizeX + sar.toggledSquaresLayer2FilenameCoords[i].X].Layer2Filename = sar.toggledSquaresLayer2FilenameNames[i];
+                            }
+                        }
+
+                        //Layer3
+                        if (sar.toggledSquaresLayer3FilenameCoords != null && sar.toggledSquaresLayer3FilenameNames != null)
+                        {
+                            for (int i = 0; i < sar.toggledSquaresLayer3FilenameCoords.Count; i++)
+                            {
+                                ar.Tiles[sar.toggledSquaresLayer3FilenameCoords[i].Y * ar.MapSizeX + sar.toggledSquaresLayer3FilenameCoords[i].X].Layer3Filename = sar.toggledSquaresLayer3FilenameNames[i];
+                            }
+                        }
+
+                        //Layer4
+                        if (sar.toggledSquaresLayer4FilenameCoords != null && sar.toggledSquaresLayer4FilenameNames != null)
+                        {
+                            for (int i = 0; i < sar.toggledSquaresLayer4FilenameCoords.Count; i++)
+                            {
+                                ar.Tiles[sar.toggledSquaresLayer4FilenameCoords[i].Y * ar.MapSizeX + sar.toggledSquaresLayer4FilenameCoords[i].X].Layer4Filename = sar.toggledSquaresLayer4FilenameNames[i];
+                            }
+                        }
+
+                        //Layer5
+                        if (sar.toggledSquaresLayer5FilenameCoords != null && sar.toggledSquaresLayer5FilenameNames != null)
+                        {
+                            for (int i = 0; i < sar.toggledSquaresLayer5FilenameCoords.Count; i++)
+                            {
+                                ar.Tiles[sar.toggledSquaresLayer5FilenameCoords[i].Y * ar.MapSizeX + sar.toggledSquaresLayer5FilenameCoords[i].X].Layer5Filename = sar.toggledSquaresLayer5FilenameNames[i];
+                            }
+                        }
+
+                        //Secret Passages (through height levels)
+                        if (sar.toggledSquaresIsSecretPassage != null)
+                        {
+                            foreach (Coordinate coord in sar.toggledSquaresIsSecretPassage)
+                            {
+                                ar.Tiles[coord.Y * ar.MapSizeX + coord.X].isSecretPassage = true;
+                            }
+                        }
+
+                        if (sar.toggledSquaresIsSecretPassageFalse != null)
+                        {
+                            foreach (Coordinate coord in sar.toggledSquaresIsSecretPassageFalse)
+                            {
+                                ar.Tiles[coord.Y * ar.MapSizeX + coord.X].isSecretPassage = false;
                             }
                         }
 
@@ -1198,6 +1426,8 @@ namespace IceBlink2
             if (gv.mod.playerList.Count > 0)
             {
                 gv.mod.playerList[0].mainPc = true;
+                gv.mod.playerList[0].nonRemoveablePc = true;
+
             }
         }
         public Module LoadModule(string folderAndFilename, bool fullPath)
@@ -1293,6 +1523,17 @@ namespace IceBlink2
             {
                 JsonSerializer serializer = new JsonSerializer();
                 gv.mod.moduleTraitsList = (List<Trait>)serializer.Deserialize(file, typeof(List<Trait>));
+                //int i = 0;
+            }
+        }
+
+        //todo, stored info in faction tret correctly
+        public void LoadFactions()
+        {
+            using (StreamReader file = File.OpenText(GetModulePath() + "\\data\\factions.json"))
+            {
+                JsonSerializer serializer = new JsonSerializer();
+                gv.mod.moduleFactionsList = (List<Faction>)serializer.Deserialize(file, typeof(List<Faction>));
                 //int i = 0;
             }
         }
@@ -1769,6 +2010,11 @@ namespace IceBlink2
             int x = ((coorInSquares.X * gv.squareSize) + (gv.squareSize / 2) + gv.oXshift) - (txtH / 2);
             int y = ((coorInSquares.Y * gv.squareSize) + (gv.squareSize / 2) + txtH) - (txtH / 2);
             Coordinate coor = new Coordinate(x, y);
+            if (value.Contains("Round"))
+            {
+                coor.X = gv.screenWidth / 2;
+                coor.Y = gv.screenHeight / 2;
+            }
             floatyTextList.Add(new FloatyText(coor, value, color));
         }
         public void addFloatyText(Coordinate coorInSquares, string value, int shiftUp)
@@ -1963,26 +2209,751 @@ namespace IceBlink2
             int idx = 0;
             foreach (Player pc in gv.mod.playerList)
             {
-                if (!pc.isDead())
+                if (pc.hp >= 0)
                 {
                     gv.mod.selectedPartyLeader = idx;
                     return;
                 }
                 idx++;
             }
+            gv.screenMainMap.updateTraitsPanel();
         }
+
+        public int getTraitPower (string tag, string methodOfChecking)
+        {
+            int itemMod = 0;
+            int skillMod = 0;
+            int attMod = 0;
+            Trait tr = new Trait();
+            foreach (Player p in gv.mod.playerList)
+            {
+                p.powerOfThisPc = 0;
+            }
+
+            for (int i = 0; i <= gv.mod.playerList.Count - 1; i++)
+            {
+                string foundLargest = "none";
+                int largest = 0;
+                foreach (string s in gv.mod.playerList[i].knownTraitsTags)
+                {
+                    if (s.StartsWith(tag))
+                    {
+                        if (s.Equals(tag))
+                        {
+                            if (foundLargest.Equals("none"))
+                            {
+                                foundLargest = s;
+                            }
+                        }
+                        else //get the number at the end 
+                        {
+                            string c = s.Substring(s.Length - 1, 1);
+                            int j = Convert.ToInt32(c);
+                            if (j > largest)
+                            {
+                                largest = j;
+                                foundLargest = s;
+                            }
+                        }
+                    }
+                }
+
+                skillMod = 0;
+                //Trait tr = new Trait();
+                if (!foundLargest.Equals("none"))
+                {
+                    //PC has trait skill so do calculation check
+                    tr = gv.mod.getTraitByTag(foundLargest);
+                    skillMod = tr.skillModifier;
+                }
+                else
+                {
+
+                    foreach (Trait t in gv.mod.moduleTraitsList)
+                    {
+                        if (t.tag.Contains(tag))
+                        {
+                            tr = gv.mod.getTraitByTag(t.tag);
+                            break;
+                        }
+                    }
+                }
+
+                attMod = 0;
+                if (tr.skillModifierAttribute.Equals("str") || tr.skillModifierAttribute.Equals("strength") || tr.skillModifierAttribute.Equals("Str") || tr.skillModifierAttribute.Equals("Strength"))
+                {
+                    attMod = (gv.mod.playerList[i].strength - 10) / 2;
+                }
+                else if (tr.skillModifierAttribute.Equals("dex") || tr.skillModifierAttribute.Equals("dexterity") || tr.skillModifierAttribute.Equals("Dex") || tr.skillModifierAttribute.Equals("Dexterity"))
+                {
+                    attMod = (gv.mod.playerList[i].dexterity - 10) / 2;
+                }
+                else if (tr.skillModifierAttribute.Equals("int") || tr.skillModifierAttribute.Equals("intelligance") || tr.skillModifierAttribute.Equals("Int") || tr.skillModifierAttribute.Equals("Intelligence"))
+                {
+                    attMod = (gv.mod.playerList[i].intelligence - 10) / 2;
+                }
+                else if (tr.skillModifierAttribute.Equals("cha") || tr.skillModifierAttribute.Equals("charisma") || tr.skillModifierAttribute.Equals("Cha") || tr.skillModifierAttribute.Equals("Charisma"))
+                {
+                    attMod = (gv.mod.playerList[i].charisma - 10) / 2;
+                }
+                else if (tr.skillModifierAttribute.Equals("con") || tr.skillModifierAttribute.Equals("constitution") || tr.skillModifierAttribute.Equals("Con") || tr.skillModifierAttribute.Equals("Constitution"))
+                {
+                    attMod = (gv.mod.playerList[i].constitution - 10) / 2;
+                }
+                else if (tr.skillModifierAttribute.Equals("wis") || tr.skillModifierAttribute.Equals("wisdom") || tr.skillModifierAttribute.Equals("Wis") || tr.skillModifierAttribute.Equals("Wisdom"))
+                {
+                    attMod = (gv.mod.playerList[i].wisdom - 10) / 2;
+                }
+
+                itemMod = 0;
+
+                if (gv.mod.playerList[i].BodyRefs.resref != "none")
+                {
+                    Item itm = gv.mod.getItemByResRefForInfo(gv.mod.playerList[i].BodyRefs.resref);
+                    if (itm != null)
+                    {
+                        if (itm.tagOfTraitInfluenced.Contains(tag))
+                        {
+                            itemMod += itm.traitSkillRollModifier;
+                        }
+                    }
+                }
+
+                if (gv.mod.playerList[i].RingRefs.resref != "none")
+                {
+                    Item itm = gv.mod.getItemByResRefForInfo(gv.mod.playerList[i].RingRefs.resref);
+                    if (itm != null)
+                    {
+                        if (itm.tagOfTraitInfluenced.Contains(tag))
+                        {
+                            itemMod += itm.traitSkillRollModifier;
+                        }
+                    }
+                }
+
+                if (gv.mod.playerList[i].MainHandRefs.resref != "none")
+                {
+                    Item itm = gv.mod.getItemByResRefForInfo(gv.mod.playerList[i].MainHandRefs.resref);
+                    if (itm != null)
+                    {
+                        if (itm.tagOfTraitInfluenced.Contains(tag))
+                        {
+                            itemMod += itm.traitSkillRollModifier;
+                        }
+                    }
+                }
+
+                if (gv.mod.playerList[i].OffHandRefs.resref != "none")
+                {
+                    Item itm = gv.mod.getItemByResRefForInfo(gv.mod.playerList[i].OffHandRefs.resref);
+                    if (itm != null)
+                    {
+                        if (itm.tagOfTraitInfluenced.Contains(tag))
+                        {
+                            itemMod += itm.traitSkillRollModifier;
+                        }
+                    }
+                }
+
+                if (gv.mod.playerList[i].HeadRefs.resref != "none")
+                {
+                    Item itm = gv.mod.getItemByResRefForInfo(gv.mod.playerList[i].HeadRefs.resref);
+                    if (itm != null)
+                    {
+                        if (itm.tagOfTraitInfluenced.Contains(tag))
+                        {
+                            itemMod += itm.traitSkillRollModifier;
+                        }
+                    }
+                }
+
+                if (gv.mod.playerList[i].GlovesRefs.resref != "none")
+                {
+                    Item itm = gv.mod.getItemByResRefForInfo(gv.mod.playerList[i].GlovesRefs.resref);
+                    if (itm != null)
+                    {
+                        if (itm.tagOfTraitInfluenced.Contains(tag))
+                        {
+                            itemMod += itm.traitSkillRollModifier;
+                        }
+                    }
+                }
+
+                if (gv.mod.playerList[i].NeckRefs.resref != "none")
+                {
+                    Item itm = gv.mod.getItemByResRefForInfo(gv.mod.playerList[i].NeckRefs.resref);
+                    if (itm != null)
+                    {
+                        if (itm.tagOfTraitInfluenced.Contains(tag))
+                        {
+                            itemMod += itm.traitSkillRollModifier;
+                        }
+                    }
+                }
+
+                if (gv.mod.playerList[i].Ring2Refs.resref != "none")
+                {
+                    Item itm = gv.mod.getItemByResRefForInfo(gv.mod.playerList[i].Ring2Refs.resref);
+                    if (itm != null)
+                    {
+                        if (itm.tagOfTraitInfluenced.Contains(tag))
+                        {
+                            itemMod += itm.traitSkillRollModifier;
+                        }
+                    }
+                }
+
+                if (gv.mod.playerList[i].FeetRefs.resref != "none")
+                {
+                    Item itm = gv.mod.getItemByResRefForInfo(gv.mod.playerList[i].FeetRefs.resref);
+                    if (itm != null)
+                    {
+                        if (itm.tagOfTraitInfluenced.Contains(tag))
+                        {
+                            itemMod += itm.traitSkillRollModifier;
+                        }
+                    }
+                }
+
+                gv.mod.playerList[i].powerOfThisPc = attMod + skillMod + itemMod;
+            }
+            int power = 0;
+
+            if (methodOfChecking == "highest" || methodOfChecking == "Highest" || methodOfChecking == "-2")
+            {
+                int highestFound = -100;
+                foreach (Player p in gv.mod.playerList)
+                {
+                    if (p.powerOfThisPc > highestFound)
+                    {
+                        power = p.powerOfThisPc;
+                        highestFound = p.powerOfThisPc;
+                    }
+                }
+            }
+
+            else if (methodOfChecking == "lowest" || methodOfChecking == "Lowest" || methodOfChecking == "-3")
+            {
+                int lowestFound = 10000;
+                foreach (Player p in gv.mod.playerList)
+                {
+                    if (p.powerOfThisPc < lowestFound)
+                    {
+                        power = p.powerOfThisPc;
+                        lowestFound = p.powerOfThisPc;
+                    }
+                }
+            }
+
+            else if (methodOfChecking == "average" || methodOfChecking == "Average" || methodOfChecking == "-4" || methodOfChecking == "oneMustSucceed" || methodOfChecking == "OneMustSucceed" || methodOfChecking == "-6" || methodOfChecking == "allMustSucceed" || methodOfChecking == "AllMustSucceed" || methodOfChecking == "-5")
+            {
+                int sumOfPower = 0;
+                foreach (Player p in gv.mod.playerList)
+                {
+                    sumOfPower += p.powerOfThisPc;
+                }
+                power = sumOfPower / gv.mod.playerList.Count;
+            }
+            //default: leader
+            else
+            {
+                power = gv.mod.playerList[gv.mod.selectedPartyLeader].powerOfThisPc;
+            }
+
+            return power;
+        }  
 
         public void doUpdate()
         {
+
+            gv.screenCombat.allDone = false;
+            foreach (GlobalInt g in gv.mod.moduleGlobalInts)
+            {
+                if (g.Key.Contains("AutomaticCountDown"))
+                {
+                    if (g.Value > 0)
+                    {
+                        g.Value -= gv.mod.currentArea.TimePerSquare;
+                    }
+                }
+            }
+            //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+            //two checks on update function: 1. Respawn check (adds back to areas prop lsit from propsWaitingForRespawn) and 2. faction limit check (sets is isAcive and isShown)
+
+            //add another third check (afterwards) to doupdate that kills off props whose master is on propsWaitingForRespawn (has been killed)
+
+            //on worldtim emethod for each prop in propsWaitingForRespawn the wait time is increased accordingly 
+
+            //here (doPropTriggers, deletepropwhenenciunteriswon): add killed - respawing props, when max number of respawn is not reached - to the new list <prop> propsWaitingForRespawn list of module
+            //this is done regardless of master death (Can change: master respawn) or min-max faction strength requirement (faction strength changes all the time)
+
+            //props are only returned from propsWaitingForRespawn (during respawn check on doupdate) when:
+            //1. respawn time is reached AND
+            //2. target square on home area can be found (free or look for sqaure around it) AND
+            //3. master lives: lives means is himself in prop list (not killed) and also isActive
+            //upon retun the props wait time is set to zero again
+
+            //isActive and isShown are set to false for props outside faction strength min max (called: faction limit check)
+            //and to true if inside, check on every update (faction limit check)
+            //this means they can respawn when outside faction str min max, but will do so inactive
+
+            //question: do respawn for current map or for all maps? Pending! Best for all areas (both respawn and faction limit check), so world time driven movers work with the system
+
+            //grant cretaures a faction property, too, and implement system for buffs and debuffs based on the relevant faction'sstrength
+            //maybe use effect system for this and make it all configurable in the faction editor
+
+
+
+            //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+            Area tempLand = new Area();
+            //1. respawn check XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+            for (int i = gv.mod.propsWaitingForRespawn.Count-1; i >= 0; i--)
+            {
+                if ((gv.mod.propsWaitingForRespawn[i].respawnTimeInHours * 60) <= gv.mod.propsWaitingForRespawn[i].respawnTimeInMinutesPassedAlready && (gv.mod.propsWaitingForRespawn[i].spawnArea != null))
+                {
+                    //remember setting time to zero if successful
+                    bool noObstruction = true;
+                    bool masterLives = false;
+                    //find the rae that the props has to be respawned in
+                    foreach (Area a in gv.mod.moduleAreasObjects)
+                    {
+                        if (a.Filename == gv.mod.propsWaitingForRespawn[i].spawnArea && gv.mod.propsWaitingForRespawn[i].spawnArea != "none" && gv.mod.propsWaitingForRespawn[i].spawnArea != "")
+                        {
+                            tempLand = a;
+                            //is other prop blocking the location? Also does master live?
+                            foreach (Prop blockerP in a.Props)
+                            {
+                                //obstruction
+                                if (blockerP.LocationX == gv.mod.propsWaitingForRespawn[i].LocationX && blockerP.LocationY == gv.mod.propsWaitingForRespawn[i].LocationY)
+                                {
+                                    if (blockerP.isMover || blockerP.HasCollision)
+                                    {
+                                        noObstruction = false;
+                                    }
+                                }
+
+                                //master
+                                if (gv.mod.propsWaitingForRespawn[i].thisPropsMaster != null)
+                                {
+                                    if (blockerP.nameAsMaster == gv.mod.propsWaitingForRespawn[i].thisPropsMaster)
+                                    {
+                                        if (blockerP.isActive)
+                                        {
+                                            masterLives = true;
+                                        }
+                                    }
+                                }
+                            }
+
+                            //is tile not walkable?
+                            if (!a.Tiles[gv.mod.propsWaitingForRespawn[i].LocationY * a.MapSizeX + gv.mod.propsWaitingForRespawn[i].LocationX].Walkable)
+                            {
+                                noObstruction = false;
+                            }
+
+                            //is party on location?
+                            if ((gv.mod.PlayerLocationX == gv.mod.propsWaitingForRespawn[i].LocationX) && (gv.mod.PlayerLocationY == gv.mod.propsWaitingForRespawn[i].LocationY))
+                            {
+                                noObstruction = false;
+                            }
+
+                        }
+                    }//end of area loop
+
+                    if (gv.mod.propsWaitingForRespawn[i].thisPropsMaster == null || gv.mod.propsWaitingForRespawn[i].thisPropsMaster == "" || gv.mod.propsWaitingForRespawn[i].thisPropsMaster == "none")
+                    {
+                        masterLives = true;
+                    }
+
+                    if (noObstruction && masterLives)
+                    {
+                        //todo reset more proeprties?
+                        gv.mod.propsWaitingForRespawn[i].respawnTimeInMinutesPassedAlready = 0;
+                        gv.mod.propsWaitingForRespawn[i].numberOfRespawnsThatHappenedAlready++;
+
+                        gv.mod.propsWaitingForRespawn[i].LocationX = gv.mod.propsWaitingForRespawn[i].spawnLocationX;
+                        gv.mod.propsWaitingForRespawn[i].LocationY = gv.mod.propsWaitingForRespawn[i].spawnLocationY;
+                        gv.mod.propsWaitingForRespawn[i].LocationZ = gv.mod.propsWaitingForRespawn[i].spawnLocationZ;
+                        gv.mod.propsWaitingForRespawn[i].lastLocationX = gv.mod.propsWaitingForRespawn[i].spawnLocationX;
+                        gv.mod.propsWaitingForRespawn[i].lastLocationY = gv.mod.propsWaitingForRespawn[i].spawnLocationY;
+                        gv.mod.propsWaitingForRespawn[i].lastLocationZ = gv.mod.propsWaitingForRespawn[i].spawnLocationZ;
+                        gv.mod.propsWaitingForRespawn[i].priorLastLocationX = gv.mod.propsWaitingForRespawn[i].spawnLocationX;
+                        gv.mod.propsWaitingForRespawn[i].priorLastLocationY = gv.mod.propsWaitingForRespawn[i].spawnLocationY;
+                        gv.mod.propsWaitingForRespawn[i].WayPointListCurrentIndex = 0;
+                        gv.mod.propsWaitingForRespawn[i].CurrentMoveToTarget = new Coordinate(0, 0);
+                        gv.mod.propsWaitingForRespawn[i].isCurrentlyChasing = false;
+                        gv.mod.propsWaitingForRespawn[i].ChaserStartChasingTime = 0;
+                        gv.mod.propsWaitingForRespawn[i].ReturningToPost = false;
+                        gv.mod.propsWaitingForRespawn[i].passOneMove = false;
+                        gv.mod.propsWaitingForRespawn[i].randomMoverTimerForNextTarget = 0;
+                        gv.mod.propsWaitingForRespawn[i].lengthOfLastPath = 0;
+                        gv.mod.propsWaitingForRespawn[i].wasTriggeredLastUpdate = false;
+                        gv.mod.propsWaitingForRespawn[i].destinationPixelPositionXList.Clear();
+                        gv.mod.propsWaitingForRespawn[i].destinationPixelPositionYList.Clear();
+                        gv.mod.propsWaitingForRespawn[i].currentPixelPositionX = 0;
+                        gv.mod.propsWaitingForRespawn[i].currentPixelPositionY = 0;
+                        gv.mod.propsWaitingForRespawn[i].inactiveTimer = 0;
+                        gv.mod.propsWaitingForRespawn[i].currentFrameNumber = 0;
+                        gv.mod.propsWaitingForRespawn[i].animationDelayCounter = 0;
+                        gv.mod.propsWaitingForRespawn[i].updateTicksNeededTillNextFrame = 0;
+                        gv.mod.propsWaitingForRespawn[i].animationComplete = false;
+                        gv.mod.propsWaitingForRespawn[i].normalizedTime = 0;
+                        gv.mod.propsWaitingForRespawn[i].cycleCounter = 0;
+
+                        gv.cc.DisposeOfBitmap(ref gv.mod.propsWaitingForRespawn[i].token);
+                        gv.mod.propsWaitingForRespawn[i].token = gv.cc.LoadBitmap(gv.mod.propsWaitingForRespawn[i].ImageFileName);
+
+                        //factionsystem
+                        if (gv.mod.propsWaitingForRespawn[i].factionTag != null && gv.mod.propsWaitingForRespawn[i].factionTag != "" && gv.mod.propsWaitingForRespawn[i].factionTag != "none")
+                        {
+                            foreach (Faction f in gv.mod.moduleFactionsList)
+                            {
+                                if (f.tag == gv.mod.propsWaitingForRespawn[i].factionTag)
+                                {
+                                    if (gv.mod.propsWaitingForRespawn[i].requiredFactionStrength <= f.strength && gv.mod.propsWaitingForRespawn[i].maxFactionStrength >= f.strength)
+                                    {
+                                        gv.mod.propsWaitingForRespawn[i].isActive = true;
+                                        gv.mod.propsWaitingForRespawn[i].isShown = true;
+                                        if (gv.mod.propsWaitingForRespawn[i].keyOfGlobalVarToSetTo1OnDeathOrInactivity != null && gv.mod.propsWaitingForRespawn[i].keyOfGlobalVarToSetTo1OnDeathOrInactivity != "none")
+                                        {
+
+                                            gv.sf.SetGlobalInt(gv.mod.propsWaitingForRespawn[i].keyOfGlobalVarToSetTo1OnDeathOrInactivity, "0");
+                                        }
+                                    }
+                                    else
+                                    {
+                                        gv.mod.propsWaitingForRespawn[i].isActive = false;
+                                        gv.mod.propsWaitingForRespawn[i].isShown = false;
+                                        if (gv.mod.propsWaitingForRespawn[i].keyOfGlobalVarToSetTo1OnDeathOrInactivity != null && gv.mod.propsWaitingForRespawn[i].keyOfGlobalVarToSetTo1OnDeathOrInactivity != "none")
+                                        {
+                                            gv.sf.SetGlobalInt(gv.mod.propsWaitingForRespawn[i].keyOfGlobalVarToSetTo1OnDeathOrInactivity, "1");
+                                        }
+                                        gv.mod.propsWaitingForRespawn[i].pendingFactionStrengthEffectReversal = true;
+                                    }
+                                }
+                            }
+                        }
+
+                        if (gv.mod.propsWaitingForRespawn[i].isActive && gv.mod.propsWaitingForRespawn[i].isShown)
+                        {
+                            gv.mod.propsWaitingForRespawn[i].pendingFactionStrengthEffectReversal = false;
+                            foreach (Faction f in gv.mod.moduleFactionsList)
+                            {
+                                if (f.tag == gv.mod.propsWaitingForRespawn[i].factionTag)
+                                {
+                                    f.strength += gv.mod.propsWaitingForRespawn[i].worthForOwnFaction;
+                                }
+                                if (f.tag == gv.mod.propsWaitingForRespawn[i].otherFactionAffectedOnDeath1)
+                                {
+                                    f.strength -= gv.mod.propsWaitingForRespawn[i].effectOnOtherFactionOnDeath1;
+                                }
+                                if (f.tag == gv.mod.propsWaitingForRespawn[i].otherFactionAffectedOnDeath2)
+                                {
+                                    f.strength -= gv.mod.propsWaitingForRespawn[i].effectOnOtherFactionOnDeath2;
+                                }
+                                if (f.tag == gv.mod.propsWaitingForRespawn[i].otherFactionAffectedOnDeath3)
+                                {
+                                    f.strength -= gv.mod.propsWaitingForRespawn[i].effectOnOtherFactionOnDeath3;
+                                }
+                                if (f.tag == gv.mod.propsWaitingForRespawn[i].otherFactionAffectedOnDeath4)
+                                {
+                                    f.strength -= gv.mod.propsWaitingForRespawn[i].effectOnOtherFactionOnDeath4;
+                                }                                
+                            }
+                        }
+
+                        tempLand.Props.Add(gv.mod.propsWaitingForRespawn[i]);
+                        gv.mod.propsWaitingForRespawn.Remove(gv.mod.propsWaitingForRespawn[i]);
+
+                    }
+                }
+            }
+
+            //2. faction system XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+            foreach (Area a in gv.mod.moduleAreasObjects)
+            {
+                foreach(Prop p in a.Props)
+                {
+                    //drop out because of faction requirements
+                    if (p.factionTag != null && p.factionTag != "" && p.factionTag != "none")
+                    {
+                        foreach (Faction f in gv.mod.moduleFactionsList)
+                        {
+                            if (f.tag == p.factionTag)
+                            {
+                                if (p.requiredFactionStrength <= f.strength && p.maxFactionStrength >= f.strength)
+                                {
+                                    p.isActive = true;
+                                    p.isShown = true;
+                                    if (p.keyOfGlobalVarToSetTo1OnDeathOrInactivity != null && p.keyOfGlobalVarToSetTo1OnDeathOrInactivity != "none")
+                                    {
+                                        gv.sf.SetGlobalInt(p.keyOfGlobalVarToSetTo1OnDeathOrInactivity, "0");
+                                    }
+
+                                    if (p.pendingFactionStrengthEffectReversal)
+                                    {
+                                        p.pendingFactionStrengthEffectReversal = false;
+                                        foreach (Faction f2 in gv.mod.moduleFactionsList)
+                                        {
+                                            if (f2.tag == p.factionTag)
+                                            {
+                                                f2.strength += p.worthForOwnFaction;
+                                            }
+                                            if (f2.tag == p.otherFactionAffectedOnDeath1)
+                                            {
+                                                f2.strength -= p.effectOnOtherFactionOnDeath1;
+                                            }
+                                            if (f2.tag == p.otherFactionAffectedOnDeath2)
+                                            {
+                                                f2.strength -= p.effectOnOtherFactionOnDeath2;
+                                            }
+                                            if (f2.tag == p.otherFactionAffectedOnDeath3)
+                                            {
+                                                f2.strength -= p.effectOnOtherFactionOnDeath3;
+                                            }
+                                            if (f2.tag == p.otherFactionAffectedOnDeath4)
+                                            {
+                                                f2.strength -= p.effectOnOtherFactionOnDeath4;
+                                            }
+                                        }
+
+                                    }
+                                }
+                                else
+                                {
+                                    p.isActive = false;
+                                    p.isShown = false;
+                                    if (p.keyOfGlobalVarToSetTo1OnDeathOrInactivity != null && p.keyOfGlobalVarToSetTo1OnDeathOrInactivity != "none")
+                                    {
+                                        gv.sf.SetGlobalInt(p.keyOfGlobalVarToSetTo1OnDeathOrInactivity, "1");
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    
+                    //make inactive because master of this prop is incative?
+                    //Not needed, as one can simply set min and max faction strength requirements the same as for the master
+                }
+            }
+
+            //3. kill if master has been slain dead (instant ones) XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+            foreach (Area a in gv.mod.moduleAreasObjects)
+            {
+                for (int i = a.Props.Count-1; i>= 0; i--)
+                {
+                    //check for killing
+                    if (a.Props[i].instantDeathOnMasterDeath)
+                    {
+                        bool masterIsGone = true;
+                        bool breakInnerAreaLoop = false;
+                        //to do: is master gone?
+                        foreach (Area a2 in gv.mod.moduleAreasObjects)
+                        {
+                            foreach (Prop deadMaster in a2.Props)
+                            {
+                                if (deadMaster.nameAsMaster == a.Props[i].thisPropsMaster)
+                                {
+                                    masterIsGone = false;
+                                    breakInnerAreaLoop = true;
+                                    break;
+                                }
+                            }
+                            if (breakInnerAreaLoop)
+                            {
+                                break;
+                            }
+                        }
+
+                        if (masterIsGone)
+                        {
+                            //add to respawn if posisble
+                            if ((a.Props[i].respawnTimeInHours > 0) && ((a.Props[i].numberOfRespawnsThatHappenedAlready < a.Props[i].maxNumberOfRespawns) || (a.Props[i].maxNumberOfRespawns == -1)))
+                            {
+                                if (a.Props[i].keyOfGlobalVarToSetTo1OnDeathOrInactivity != null && a.Props[i].keyOfGlobalVarToSetTo1OnDeathOrInactivity != "none")
+                                {
+                                    gv.sf.SetGlobalInt(a.Props[i].keyOfGlobalVarToSetTo1OnDeathOrInactivity, "1");
+                                }
+                                gv.mod.propsWaitingForRespawn.Add(a.Props[i]);
+                               
+                            }
+
+                            //to kill effect
+                            foreach (Faction f in gv.mod.moduleFactionsList)
+                            {
+                                if (f.tag == a.Props[i].factionTag)
+                                {
+                                    f.strength -= a.Props[i].worthForOwnFaction;
+                                }
+                                if (f.tag == a.Props[i].otherFactionAffectedOnDeath1)
+                                {
+                                    f.strength += a.Props[i].effectOnOtherFactionOnDeath1;
+                                }
+                                if (f.tag == a.Props[i].otherFactionAffectedOnDeath2)
+                                {
+                                    f.strength += a.Props[i].effectOnOtherFactionOnDeath2;
+                                }
+                                if (f.tag == a.Props[i].otherFactionAffectedOnDeath3)
+                                {
+                                    f.strength += a.Props[i].effectOnOtherFactionOnDeath3;
+                                }
+                                if (f.tag == a.Props[i].otherFactionAffectedOnDeath4)
+                                {
+                                    f.strength += a.Props[i].effectOnOtherFactionOnDeath4;
+                                }
+                            }
+
+                            //remove frm its area list
+                            a.Props.Remove(a.Props[i]);
+                        }
+                    }
+                }
+            }
+
+
+            //code for gcCheck, controlinng prop isActive and isShown -> eg night time only props
+            foreach (Area a in gv.mod.moduleAreasObjects)
+            {
+                foreach (Prop p in a.Props)
+                {
+                    bool availableForGcCheck = false;
+
+                    //is faction prop
+                    if (p.factionTag != null && p.factionTag != "" && p.factionTag != "none" && p.factionTag != "None")
+                    {
+                        //prop is in its faction strength window
+                        if (p.isActive && p.isShown)
+                        {
+                            availableForGcCheck = true;
+                        }
+                        else
+                        {
+                            availableForGcCheck = false;
+                        }
+                    }
+                    //no faction prop
+                    else
+                    {
+                        availableForGcCheck = true;
+                    }
+
+                    if (availableForGcCheck && (p.firstGcScriptName!= "none" || p.secondGcScriptName != "none" || p.thirdGcScriptName != "none"))
+                    {
+                        gv.mod.currentPropTag = p.PropTag;
+                        bool firstConditionMet = false;
+                        bool secondConditionMet = false;
+                        bool thirdConditionMet = false;
+
+                        if (p.firstGcScriptName != null && p.firstGcScriptName != "none" && p.firstGcScriptName != "None")
+                        {
+                            gv.sf.gcController(p.firstGcScriptName, p.firstGcParm1, p.firstGcParm2, p.firstGcParm3, p.firstGcParm4);
+                            firstConditionMet = gv.mod.returnCheck;
+                            if (p.firstCheckForConditionFail)
+                            {
+                                if (firstConditionMet)
+                                {
+                                    firstConditionMet = false;
+                                }
+                                else
+                                {
+                                    firstConditionMet = true;
+                                }
+                            }
+                        }
+                        else
+                        {
+                            firstConditionMet = true;
+                        }
+
+                        if (p.secondGcScriptName != null && p.secondGcScriptName != "none" && p.secondGcScriptName != "None")
+                        {
+                            gv.sf.gcController(p.secondGcScriptName, p.secondGcParm1, p.secondGcParm2, p.secondGcParm3, p.secondGcParm4);
+                            secondConditionMet = gv.mod.returnCheck;
+                            if (p.secondCheckForConditionFail)
+                            {
+                                if (secondConditionMet)
+                                {
+                                    secondConditionMet = false;
+                                }
+                                else
+                                {
+                                    secondConditionMet = true;
+                                }
+                            }
+                        }
+                        else
+                        {
+                            secondConditionMet = true;
+                        }
+
+                        if (p.thirdGcScriptName != null && p.thirdGcScriptName != "none" && p.thirdGcScriptName != "None")
+                        {
+                            gv.sf.gcController(p.thirdGcScriptName, p.thirdGcParm1, p.thirdGcParm2, p.thirdGcParm3, p.thirdGcParm4);
+                            thirdConditionMet = gv.mod.returnCheck;
+                            if (p.thirdCheckForConditionFail)
+                            {
+                                if (thirdConditionMet)
+                                {
+                                    thirdConditionMet = false;
+                                }
+                                else
+                                {
+                                    thirdConditionMet = true;
+                                }
+                            }
+                        }
+                        else
+                        {
+                            thirdConditionMet = true;
+                        }
+
+                        //all conditions must be met
+                        if (p.allConditionsMustBeTrue)
+                        {
+                            if (firstConditionMet && secondConditionMet && thirdConditionMet)
+                            {
+                                p.isActive = true;
+                                p.isShown = true;
+                            }
+                            else
+                            {
+                                p.isActive = false;
+                                p.isShown = false;
+                            }
+                        }
+                        //meeting one condiion is enough
+                        else
+                        {
+                            if (firstConditionMet || secondConditionMet || thirdConditionMet)
+                            {
+                                p.isActive = true;
+                                p.isShown = true;
+                            }
+                            else
+                            {
+                                p.isActive = false;
+                                p.isShown = false;
+                            }
+                        }
+                    }
+                }
+            } 
+
             gv.realTimeTimerMilliSecondsEllapsed = 0;
+            gv.screenMainMap.updateTraitsPanel();
             handleRationsAndLightSources();
             //setBridgeStateForMovingProps();
             gv.mod.EncounterOfTurnDone = false;
             setToBorderPixDistancesMainMap();
+            //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+            /*
             if (gv.mod.useAllTileSystem)
             {
                 resetLightAndDarkness();
             }
+            */
+            //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+
 #region tile loading on demand
             if (gv.mod.useAllTileSystem)
             {
@@ -2017,7 +2988,6 @@ namespace IceBlink2
                     }
 
                 }
-
                 if (gv.mod.loadedTileBitmaps.Count > 250)
                 {
                     //addLogText("yellow", "Disposing tiles.");
@@ -2601,6 +3571,11 @@ namespace IceBlink2
             //move any props that are active and only if they are not on the party location
             doPropMoves();
 
+            if (gv.mod.useAllTileSystem)
+            {
+                resetLightAndDarkness();
+            }
+
             //set illumination level of tiles based on party and prop position
             if (gv.mod.useAllTileSystem)
             {
@@ -2768,7 +3743,11 @@ namespace IceBlink2
                             {
                                 gv.mod.partyInventoryRefsList.Remove(it);
                             }
-                            gv.screenMainMap.addFloatyText(gv.mod.PlayerLocationX, gv.mod.PlayerLocationY, "Ration consumed", "white", 4000);
+                            foundRation = true;
+                            if (gv.mod.numberOfRationsRemaining > 1 && foundRation)
+                            {
+                                gv.screenMainMap.addFloatyText(gv.mod.PlayerLocationX, gv.mod.PlayerLocationY, "Ration consumed", "white", 4000);
+                            }
                             foundRation = true;
                             //gv.mod.onLastRation = false;
                             break;
@@ -2779,24 +3758,37 @@ namespace IceBlink2
                         gv.screenMainMap.addFloatyText(gv.mod.PlayerLocationX, gv.mod.PlayerLocationY, "Very deprived by lack of supplies... HP & SP lost", "red", 4000);
                         foreach (Player p in gv.mod.playerList)
                         {
-                            int healthReduction = (int)(p.hpMax / 5f);
+                            int healthReduction = (int)(p.hpMax / (100f/gv.mod.maxHPandSPPercentageLostOnHunger));
                             if (healthReduction < 1)
                             {
                                 healthReduction = 1;
                             }
+
+                            int initialHP = p.hp;
                             if (p.hp > -20)
                             {
                                 p.hp -= healthReduction;
                             }
 
-                            int spReduction = (int)(p.spMax / 5f);
+                            if (!gv.mod.hungerIsLethal && p.hp < 1 && initialHP > 0)
+                            {
+                                p.hp = 1;
+                            }
+
+                            int spReduction = (int)(p.spMax / (100f / gv.mod.maxHPandSPPercentageLostOnHunger));
                             if (spReduction < 1)
                             {
                                 spReduction = 1;
                             }
-                            if (p.sp >= spReduction)
-                            {
+                            int initialSP = p.sp;
+                            //if (p.sp >= spReduction)
+                            //{
                                 p.sp -= spReduction;
+                            //}
+
+                            if (p.sp < 0 && initialSP >= 0)
+                            {
+                                p.sp = 0;
                             }
 
                         }
@@ -2841,6 +3833,7 @@ namespace IceBlink2
                     }
                 }
         }
+  
 
         public void resetLightAndDarkness()
         {
@@ -3241,6 +4234,7 @@ namespace IceBlink2
                                         }
             else if ((time >= night) || (time < dawn))
             {
+                //berlin
                 consumeLightEnergy = true;
             }
 
@@ -7945,6 +8939,7 @@ namespace IceBlink2
                     {
                         gv.mod.EncounterOfTurnDone = true;
                         doEncounterBasedOnTag(prp.EncounterWhenOnPartySquare);
+                        gv.mod.breakActiveSearch = true;
                         //gv.mod.EncounterOfTurnDone = true;
                     }
                     //doEncounterBasedOnTag(prp.EncounterWhenOnPartySquare);
@@ -8114,6 +9109,7 @@ namespace IceBlink2
                                             {
                                                 gv.mod.EncounterOfTurnDone = true;
                                                 doEncounterBasedOnTag(prp.EncounterWhenOnPartySquare);
+                                                gv.mod.breakActiveSearch = true;
                                                 //gv.mod.EncounterOfTurnDone = true;
                                             }
                                             //doEncounterBasedOnTag(prp.EncounterWhenOnPartySquare);
@@ -8186,6 +9182,7 @@ namespace IceBlink2
                                 {
                                     gv.mod.EncounterOfTurnDone = true;
                                     doEncounterBasedOnTag(prp.EncounterWhenOnPartySquare);
+                                    gv.mod.breakActiveSearch = true;
                                     //gv.mod.EncounterOfTurnDone = true;
                                 }
                                 //doEncounterBasedOnTag(prp.EncounterWhenOnPartySquare);
@@ -8404,6 +9401,7 @@ namespace IceBlink2
                                             {
                                                 gv.mod.EncounterOfTurnDone = true;
                                                 doEncounterBasedOnTag(prp.EncounterWhenOnPartySquare);
+                                                gv.mod.breakActiveSearch = true;
                                                 //gv.mod.EncounterOfTurnDone = true;
                                             }
                                             //doEncounterBasedOnTag(prp.EncounterWhenOnPartySquare);
@@ -8443,6 +9441,7 @@ namespace IceBlink2
                                         {
                                             gv.mod.EncounterOfTurnDone = true;
                                             doEncounterBasedOnTag(prp.EncounterWhenOnPartySquare);
+                                            gv.mod.breakActiveSearch = true;
                                             //gv.mod.EncounterOfTurnDone = true;
                                         }
                                         //doEncounterBasedOnTag(prp.EncounterWhenOnPartySquare);
@@ -8500,8 +9499,12 @@ namespace IceBlink2
                             {
                                 if (!gv.mod.EncounterOfTurnDone)
                                 {
-                                    gv.mod.EncounterOfTurnDone = true;
-                                    doEncounterBasedOnTag(prp.EncounterWhenOnPartySquare);
+                                    if (!gv.mod.EncounterOfTurnDone)
+                                    {
+                                        gv.mod.EncounterOfTurnDone = true;
+                                        doEncounterBasedOnTag(prp.EncounterWhenOnPartySquare);
+                                        gv.mod.breakActiveSearch = true;
+                                    }
                                     //gv.mod.EncounterOfTurnDone = true;
                                 }
                                 //doEncounterBasedOnTag(prp.EncounterWhenOnPartySquare);
@@ -8586,18 +9589,20 @@ namespace IceBlink2
             {
                 //search area for any props that share the party location
                 bool foundOne = false;
-                foreach (Prop prp in gv.mod.currentArea.Props)
+                for (int i = gv.mod.currentArea.Props.Count-1; i>=0; i--)
+                //foreach (Prop prp in gv.mod.currentArea.Props)
                 {
                     bool delProp = false;
-                    if (prp.EncounterWhenOnPartySquare != "" && prp.EncounterWhenOnPartySquare != "none")
+                    if (gv.mod.currentArea.Props[i].EncounterWhenOnPartySquare != "" && gv.mod.currentArea.Props[i].EncounterWhenOnPartySquare != "none")
                     {
                         //delProp = true;
                         foreach (Encounter e in gv.mod.moduleEncountersList)
                         {
-                            if (e.encounterName == prp.EncounterWhenOnPartySquare)
+                            if (e.encounterName == gv.mod.currentArea.Props[i].EncounterWhenOnPartySquare)
                             {
                                     if (e.isOver)
                                     {
+                                        e.isOver = false;
                                         delProp = true;
                                         break;
                                     }
@@ -8608,12 +9613,41 @@ namespace IceBlink2
 
                     if (delProp)
                     {
-                        gv.mod.currentArea.Props.Remove(prp);
+                        if ((gv.mod.currentArea.Props[i].respawnTimeInHours > 0) && ((gv.mod.currentArea.Props[i].numberOfRespawnsThatHappenedAlready < gv.mod.currentArea.Props[i].maxNumberOfRespawns) || (gv.mod.currentArea.Props[i].maxNumberOfRespawns == -1)))
+                        {
+                            gv.mod.propsWaitingForRespawn.Add(gv.mod.currentArea.Props[i]);
+                        }
+
+                        foreach (Faction f in gv.mod.moduleFactionsList)
+                        {
+                            if (f.tag == gv.mod.currentArea.Props[i].factionTag)
+                            {
+                                f.strength -= gv.mod.currentArea.Props[i].worthForOwnFaction;
+                            }
+                            if (f.tag == gv.mod.currentArea.Props[i].otherFactionAffectedOnDeath1)
+                            {
+                                f.strength += gv.mod.currentArea.Props[i].effectOnOtherFactionOnDeath1;
+                            }
+                            if (f.tag == gv.mod.currentArea.Props[i].otherFactionAffectedOnDeath2)
+                            {
+                                f.strength += gv.mod.currentArea.Props[i].effectOnOtherFactionOnDeath2;
+                            }
+                            if (f.tag == gv.mod.currentArea.Props[i].otherFactionAffectedOnDeath3)
+                            {
+                                f.strength += gv.mod.currentArea.Props[i].effectOnOtherFactionOnDeath3;
+                            }
+                            if (f.tag == gv.mod.currentArea.Props[i].otherFactionAffectedOnDeath4)
+                            {
+                                f.strength += gv.mod.currentArea.Props[i].effectOnOtherFactionOnDeath4;
+                            }
+                        }
+                        gv.sf.SetGlobalInt(gv.mod.currentArea.Props[i].keyOfGlobalVarToSetTo1OnDeathOrInactivity, "1");
+                        gv.mod.currentArea.Props.Remove(gv.mod.currentArea.Props[i]);
                         continue;
                     }
 
                     bool doNotTriggerProp = false;
-                    if ((prp.isMover == false) || ((prp.MoverType == "Post") && (prp.isChaser == false)))
+                    if ((gv.mod.currentArea.Props[i].isMover == false) || ((gv.mod.currentArea.Props[i].MoverType == "Post") && (gv.mod.currentArea.Props[i].isChaser == false)))
                     {
                         if (gv.realTimeTimerMilliSecondsEllapsed >= gv.mod.realTimeTimerLengthInMilliSeconds)
                         {
@@ -8621,36 +9655,38 @@ namespace IceBlink2
                         }
                     }
                                         
-                    if ((prp.LocationX == gv.mod.PlayerLocationX) && (prp.LocationY == gv.mod.PlayerLocationY) && (prp.isActive) && (doNotTriggerProp == false))
+                    if ((gv.mod.currentArea.Props[i].LocationX == gv.mod.PlayerLocationX) && (gv.mod.currentArea.Props[i].LocationY == gv.mod.PlayerLocationY) && (gv.mod.currentArea.Props[i].isActive) && (doNotTriggerProp == false))
                     {
                         //prp.wasTriggeredLastUpdate = true;
                         foundOne = true;
                         blockSecondPropTriggersCall = true;
                         gv.triggerPropIndex++;
-                        if ((gv.triggerPropIndex == 1) && (!prp.ConversationWhenOnPartySquare.Equals("none")))
+                        if ((gv.triggerPropIndex == 1) && (!gv.mod.currentArea.Props[i].ConversationWhenOnPartySquare.Equals("none")))
                         {
 
-                            if (prp.unavoidableConversation == true)
+                            if (gv.mod.currentArea.Props[i].unavoidableConversation == true)
                             {
+                                gv.mod.breakActiveSearch = true;
                                 calledConvoFromProp = true;
-                                gv.sf.ThisProp = prp;
-                                if ((gv.mod.useSmoothMovement) && (prp.isMover))
+                                gv.sf.ThisProp = gv.mod.currentArea.Props[i];
+                                if ((gv.mod.useSmoothMovement) && (gv.mod.currentArea.Props[i].isMover))
                                 {
                                     //for (int i = 0; i < 30; i++)
                                     //{
                                         //gv.Render(0);
                                     //}
                                 }
-                                doConversationBasedOnTag(prp.ConversationWhenOnPartySquare);
+                                doConversationBasedOnTag(gv.mod.currentArea.Props[i].ConversationWhenOnPartySquare);
                                 //continue;
                                 break;
                             }
                             else if (gv.mod.avoidInteraction == false)
                             {
+                                gv.mod.breakActiveSearch = true;
                                 calledConvoFromProp = true;
-                                gv.sf.ThisProp = prp;
+                                gv.sf.ThisProp = gv.mod.currentArea.Props[i];
                                 
-                                if ((gv.mod.useSmoothMovement) && (prp.isMover))
+                                if ((gv.mod.useSmoothMovement) && (gv.mod.currentArea.Props[i].isMover))
                                 {
                                     //for (int i = 0; i < 30; i++)
                                     //{
@@ -8658,7 +9694,7 @@ namespace IceBlink2
                                     //}
                                 }
                                 
-                                doConversationBasedOnTag(prp.ConversationWhenOnPartySquare);
+                                doConversationBasedOnTag(gv.mod.currentArea.Props[i].ConversationWhenOnPartySquare);
                                 //continue;
                                 break;
                             }
@@ -8670,12 +9706,12 @@ namespace IceBlink2
                             }
 
                         }
-                        else if ((gv.triggerPropIndex == 2) && (!prp.EncounterWhenOnPartySquare.Equals("none")))
+                        else if ((gv.triggerPropIndex == 2) && (!gv.mod.currentArea.Props[i].EncounterWhenOnPartySquare.Equals("none")))
                         {
                             calledEncounterFromProp = true;
-                            gv.sf.ThisProp = prp;
+                            gv.sf.ThisProp = gv.mod.currentArea.Props[i];
                             
-                            if ((gv.mod.useSmoothMovement) && (prp.isMover))
+                            if ((gv.mod.useSmoothMovement) && (gv.mod.currentArea.Props[i].isMover))
                             {
                                 //for (int i = 0; i < 30; i++)
                                 //{
@@ -8684,8 +9720,11 @@ namespace IceBlink2
                             }
                             if (!gv.mod.EncounterOfTurnDone)
                             {
-                                gv.mod.EncounterOfTurnDone = true;
-                                doEncounterBasedOnTag(prp.EncounterWhenOnPartySquare);
+                                    
+                                    gv.mod.EncounterOfTurnDone = true;
+                                    doEncounterBasedOnTag(gv.mod.currentArea.Props[i].EncounterWhenOnPartySquare);
+                                    gv.mod.breakActiveSearch = true;
+
                                 //gv.mod.EncounterOfTurnDone = true;
                             }
                             //continue;
@@ -8706,10 +9745,64 @@ namespace IceBlink2
                             calledConvoFromProp = false;
                             calledEncounterFromProp = false;
                             foundOne = false;
+                            //factionsystem
                             //delete prop if flag is set to do so and break foreach loop
-                            if (prp.DeletePropWhenThisEncounterIsWon)
+                            if (gv.mod.currentArea.Props[i].DeletePropWhenThisEncounterIsWon)
                             {
-                                gv.mod.currentArea.Props.Remove(prp);
+                                if ((gv.mod.currentArea.Props[i].respawnTimeInHours > 0) && ((gv.mod.currentArea.Props[i].numberOfRespawnsThatHappenedAlready < gv.mod.currentArea.Props[i].maxNumberOfRespawns) || (gv.mod.currentArea.Props[i].maxNumberOfRespawns == -1) ) )
+                                {
+                                    gv.mod.propsWaitingForRespawn.Add(gv.mod.currentArea.Props[i]);
+                                }
+
+                                foreach (Faction f in gv.mod.moduleFactionsList)
+                                {
+                                    if (f.tag == gv.mod.currentArea.Props[i].factionTag)
+                                    {
+                                        f.strength -= gv.mod.currentArea.Props[i].worthForOwnFaction;
+                                    }
+                                    if (f.tag == gv.mod.currentArea.Props[i].otherFactionAffectedOnDeath1)
+                                    {
+                                        f.strength += gv.mod.currentArea.Props[i].effectOnOtherFactionOnDeath1;
+                                    }
+                                    if (f.tag == gv.mod.currentArea.Props[i].otherFactionAffectedOnDeath2)
+                                    {
+                                        f.strength += gv.mod.currentArea.Props[i].effectOnOtherFactionOnDeath2;
+                                    }
+                                    if (f.tag == gv.mod.currentArea.Props[i].otherFactionAffectedOnDeath3)
+                                    {
+                                        f.strength += gv.mod.currentArea.Props[i].effectOnOtherFactionOnDeath3;
+                                    }
+                                    if (f.tag == gv.mod.currentArea.Props[i].otherFactionAffectedOnDeath4)
+                                    {
+                                        f.strength += gv.mod.currentArea.Props[i].effectOnOtherFactionOnDeath4;
+                                    }
+                                }
+                                gv.sf.SetGlobalInt(gv.mod.currentArea.Props[i].keyOfGlobalVarToSetTo1OnDeathOrInactivity, "1");
+                                gv.mod.currentArea.Props.Remove(gv.mod.currentArea.Props[i]);
+
+                                //two checks on update function: 1. Respawn check (adds back to areas prop lsit from propsWaitingForRespawn) and 2. faction limit check (sets is isAcive and isShown)
+
+                                //add another third check (afterwards) to doupdate that kills off props whose master is inactive or whose master is on propsWaitingForRespawn 
+
+                                //on worldtim emethod for each prop in propsWaitingForRespawn the wait time is increased accordingly 
+
+                                //here (doPropTriggers, deletepropwhenenciunteriswon): add killed - respawing props, when max number of respawn is not reached - to the new list <prop> propsWaitingForRespawn list of module
+                                //this is done regardless of master death (Can change: master respawn) or min-max faction strength requirement (faction strength changes all the time)
+
+                                //props are only returned from propsWaitingForRespawn (during respawn check on doupdate) when:
+                                //1. respawn time is reached AND
+                                //2. target square on home area can be found (free or look for sqaure around it) AND
+                                //3. master lives: lives means is himself in prop list (not killed) and also isActive
+                                //upon retun the props wait time is set to zero again
+
+                                //isActive and isShown are set to false for props outside faction strength min max (called: faction limit check)
+                                //and to true if inside, check on every update (faction limit check)
+                                //this means they can respawn when outside faction str min max, but will do so inactive
+
+                                //question: do respawn for current map or for all maps? Pending! Best for all areas (both respawn and faction limit check), so world time driven movers work with the system
+
+                                //grant cretaures a faction property, too, and implement system for buffs and debuffs based on the relevant faction'sstrength
+                                //maybe use effect system for this and make it all configurable in the faction editor
                             }
                             //continue;
                             break;
@@ -8734,240 +9827,572 @@ namespace IceBlink2
         {
             bool allowTrigger = true;
             Trigger trig2 = gv.mod.currentArea.getTriggerByLocation(gv.mod.PlayerLocationX, gv.mod.PlayerLocationY);
-            if ((trig2 != null) && (trig2.Enabled))
+            
+            /*
+            if (trig2 == null)
             {
-                //to do: different direction checks (when leaving link in diection of master) needed below
-                if ((trig2.isLinkToMaster) && (gv.mod.currentArea.masterOfThisArea == "none"))
+                trig2 = gv.mod.currentArea.getTriggerByLocation(gv.mod.PlayerLastLocationX, gv.mod.PlayerLastLocationY);
+            }
+            */
+       
+            if (trig2 != null)
+            {
+                if ((trig2.requiresActiveSearch && gv.mod.activeSearchDoneThisMove) || !trig2.requiresActiveSearch)
                 {
-                    if (gv.mod.currentArea.Tiles[gv.mod.PlayerLocationY * gv.mod.currentArea.MapSizeX + gv.mod.PlayerLocationX].transitionToMasterDirection == "N")
+                    if (trig2.Enabled)
                     {
-                        if ((gv.mod.PlayerLastLocationX != gv.mod.PlayerLocationX) || (gv.mod.PlayerLastLocationY + 1 != gv.mod.PlayerLocationY))
+                        //to do: different direction checks (when leaving link in diection of master) needed below
+                        if ((trig2.isLinkToMaster) && (gv.mod.currentArea.masterOfThisArea == "none"))
                         {
-                            allowTrigger = false;
+                            if (gv.mod.currentArea.Tiles[gv.mod.PlayerLocationY * gv.mod.currentArea.MapSizeX + gv.mod.PlayerLocationX].transitionToMasterDirection == "N")
+                            {
+                                if ((gv.mod.PlayerLastLocationX != gv.mod.PlayerLocationX) || (gv.mod.PlayerLastLocationY + 1 != gv.mod.PlayerLocationY))
+                                {
+                                    allowTrigger = false;
+                                }
+                            }
+                            else if (gv.mod.currentArea.Tiles[gv.mod.PlayerLocationY * gv.mod.currentArea.MapSizeX + gv.mod.PlayerLocationX].transitionToMasterDirection == "S")
+                            {
+                                if ((gv.mod.PlayerLastLocationX != gv.mod.PlayerLocationX) || (gv.mod.PlayerLastLocationY - 1 != gv.mod.PlayerLocationY))
+                                {
+                                    allowTrigger = false;
+                                }
+                            }
+                            else if (gv.mod.currentArea.Tiles[gv.mod.PlayerLocationY * gv.mod.currentArea.MapSizeX + gv.mod.PlayerLocationX].transitionToMasterDirection == "W")
+                            {
+                                if ((gv.mod.PlayerLastLocationY != gv.mod.PlayerLocationY) || (gv.mod.PlayerLastLocationX + 1 != gv.mod.PlayerLocationX))
+                                {
+                                    allowTrigger = false;
+                                }
+                            }
+                            else if (gv.mod.currentArea.Tiles[gv.mod.PlayerLocationY * gv.mod.currentArea.MapSizeX + gv.mod.PlayerLocationX].transitionToMasterDirection == "E")
+                            {
+                                if ((gv.mod.PlayerLastLocationY != gv.mod.PlayerLocationY) || (gv.mod.PlayerLastLocationX - 1 != gv.mod.PlayerLocationX))
+                                {
+                                    allowTrigger = false;
+                                }
+                            }
                         }
                     }
-                    else if (gv.mod.currentArea.Tiles[gv.mod.PlayerLocationY * gv.mod.currentArea.MapSizeX + gv.mod.PlayerLocationX].transitionToMasterDirection == "S")
+                    //else
+                    //{
+                    //allowTrigger = false;
+                    //}
+
+                    if (allowTrigger)
                     {
-                        if ((gv.mod.PlayerLastLocationX != gv.mod.PlayerLocationX) || (gv.mod.PlayerLastLocationY - 1 != gv.mod.PlayerLocationY))
+                        if (gv.realTimeTimerMilliSecondsEllapsed < gv.mod.realTimeTimerLengthInMilliSeconds)
                         {
-                            allowTrigger = false;
-                        }
-                    }
-                    else if (gv.mod.currentArea.Tiles[gv.mod.PlayerLocationY * gv.mod.currentArea.MapSizeX + gv.mod.PlayerLocationX].transitionToMasterDirection == "W")
-                    {
-                        if ((gv.mod.PlayerLastLocationY != gv.mod.PlayerLocationY) || (gv.mod.PlayerLastLocationX + 1 != gv.mod.PlayerLocationX))
-                        {
-                            allowTrigger = false;
-                        }
-                    }
-                    else if (gv.mod.currentArea.Tiles[gv.mod.PlayerLocationY * gv.mod.currentArea.MapSizeX + gv.mod.PlayerLocationX].transitionToMasterDirection == "E")
-                    {
-                        if ((gv.mod.PlayerLastLocationY != gv.mod.PlayerLocationY) || (gv.mod.PlayerLastLocationX - 1 != gv.mod.PlayerLocationX))
-                        {
-                            allowTrigger = false;
+                            try
+                            {
+                                Trigger trig = gv.mod.currentArea.getTriggerByLocation(gv.mod.PlayerLocationX, gv.mod.PlayerLocationY);
+                                if ((trig != null) && (trig.Enabled))
+                                {
+                                    blockSecondPropTriggersCall = true;
+                                    //iterate through each event                  
+                                    //#region Event1 stuff
+                                    //check to see if enabled and parm not "none"
+                                    /*for (int i = 0; i < 15; i++)
+                                    {
+                                        gv.Render();
+                                    }*/
+                                    gv.triggerIndex++;
+
+                                    if ((gv.triggerIndex == 1) && (trig.EnabledEvent1) && (!trig.Event1FilenameOrTag.Equals("none")))
+                                    {
+                                        //check to see what type of event
+                                        if (trig.Event1Type.Equals("container"))
+                                        {
+                                            gv.mod.breakActiveSearch = true;
+                                            doContainerBasedOnTag(trig.Event1FilenameOrTag);
+                                            doTrigger();
+                                        }
+                                        else if (trig.Event1Type.Equals("transition"))
+                                        {
+                                            gv.mod.breakActiveSearch = true;
+                                            doTransitionBasedOnAreaLocation(trig.Event1FilenameOrTag, trig.Event1TransPointX, trig.Event1TransPointY);
+                                        }
+                                        else if (trig.Event1Type.Equals("conversation"))
+                                        {
+                                            if (trig.conversationCannotBeAvoided == true)
+                                            {
+                                                gv.mod.breakActiveSearch = true;
+                                                doConversationBasedOnTag(trig.Event1FilenameOrTag);
+                                            }
+                                            else if (gv.mod.avoidInteraction == false)
+                                            {
+                                                gv.mod.breakActiveSearch = true;
+                                                doConversationBasedOnTag(trig.Event1FilenameOrTag);
+                                            }
+                                        }
+                                        else if (trig.Event1Type.Equals("encounter"))
+                                        {
+                                            if (!gv.mod.EncounterOfTurnDone)
+                                            {
+                                                gv.mod.breakActiveSearch = true;
+                                                gv.mod.EncounterOfTurnDone = true;
+                                                doEncounterBasedOnTag(trig.Event1FilenameOrTag);
+                                                //gv.mod.EncounterOfTurnDone = true;
+                                            }
+                                            //doEncounterBasedOnTag(trig.Event1FilenameOrTag);
+                                        }
+                                        else if (trig.Event1Type.Equals("script"))
+                                        {
+                                            gv.mod.breakActiveSearch = true;
+                                            doScriptBasedOnFilename(trig.Event1FilenameOrTag, trig.Event1Parm1, trig.Event1Parm2, trig.Event1Parm3, trig.Event1Parm4);
+                                            doTrigger();
+                                        }
+                                        else if (trig.Event1Type.Equals("ibscript"))
+                                        {
+                                            gv.mod.breakActiveSearch = true;
+                                            doIBScriptBasedOnFilename(trig.Event1FilenameOrTag, trig.Event1Parm1);
+                                            doTrigger();
+                                        }
+                                        //do that event
+                                        if (trig.DoOnceOnlyEvent1)
+                                        {
+                                            trig.EnabledEvent1 = false;
+                                        }
+                                    }
+                                    //#endregion
+                                    //#region Event2 stuff
+                                    //check to see if enabled and parm not "none"
+                                    else if ( (gv.triggerIndex == 2) && (trig.EnabledEvent2) && (!trig.Event2FilenameOrTag.Equals("none")) )
+                                    {
+                                        if (!trig.event2RequiresTrueReturnCheck || (trig.event2RequiresTrueReturnCheck && gv.mod.returnCheck))
+                                        {
+                                            //check to see what type of event
+                                            if (trig.Event2Type.Equals("container"))
+                                            {
+                                                gv.mod.breakActiveSearch = true;
+                                                doContainerBasedOnTag(trig.Event2FilenameOrTag);
+                                                doTrigger();
+                                            }
+                                            else if (trig.Event2Type.Equals("transition"))
+                                            {
+                                                gv.mod.breakActiveSearch = true;
+                                                doTransitionBasedOnAreaLocation(trig.Event2FilenameOrTag, trig.Event2TransPointX, trig.Event2TransPointY);
+                                            }
+                                            else if (trig.Event2Type.Equals("conversation"))
+                                            {
+                                                if (trig.conversationCannotBeAvoided == true)
+                                                {
+                                                    gv.mod.breakActiveSearch = true;
+                                                    doConversationBasedOnTag(trig.Event2FilenameOrTag);
+                                                }
+                                                else if (gv.mod.avoidInteraction == false)
+                                                {
+                                                    gv.mod.breakActiveSearch = true;
+                                                    doConversationBasedOnTag(trig.Event2FilenameOrTag);
+                                                }
+                                            }
+                                            else if (trig.Event2Type.Equals("encounter"))
+                                            {
+                                                if (!gv.mod.EncounterOfTurnDone)
+                                                {
+                                                    gv.mod.breakActiveSearch = true;
+                                                    gv.mod.EncounterOfTurnDone = true;
+                                                    doEncounterBasedOnTag(trig.Event2FilenameOrTag);
+                                                    //gv.mod.EncounterOfTurnDone = true;
+                                                }
+                                                //doEncounterBasedOnTag(trig.Event2FilenameOrTag);
+                                            }
+                                            else if (trig.Event2Type.Equals("script"))
+                                            {
+                                                gv.mod.breakActiveSearch = true;
+                                                doScriptBasedOnFilename(trig.Event2FilenameOrTag, trig.Event2Parm1, trig.Event2Parm2, trig.Event2Parm3, trig.Event2Parm4);
+                                                doTrigger();
+                                            }
+                                            else if (trig.Event2Type.Equals("ibscript"))
+                                            {
+                                                gv.mod.breakActiveSearch = true;
+                                                doIBScriptBasedOnFilename(trig.Event2FilenameOrTag, trig.Event2Parm1);
+                                                doTrigger();
+                                            }
+                                            //do that event
+                                            if (trig.DoOnceOnlyEvent2)
+                                            {
+                                                trig.EnabledEvent2 = false;
+                                            }
+                                        }
+                                    }
+                                    //#endregion
+                                    //#region Event3 stuff
+                                    //check to see if enabled and parm not "none"
+                                    else if ((gv.triggerIndex == 3) && (trig.EnabledEvent3) && (!trig.Event3FilenameOrTag.Equals("none")))
+                                    {
+                                        if (!trig.event3RequiresFalseReturnCheck || (trig.event3RequiresFalseReturnCheck && !gv.mod.returnCheck))
+                                        {
+                                            //check to see what type of event
+                                            if (trig.Event3Type.Equals("container"))
+                                            {
+                                                gv.mod.breakActiveSearch = true;
+                                                doContainerBasedOnTag(trig.Event3FilenameOrTag);
+                                                doTrigger();
+                                            }
+                                            else if (trig.Event3Type.Equals("transition"))
+                                            {
+                                                gv.mod.breakActiveSearch = true;
+                                                doTransitionBasedOnAreaLocation(trig.Event3FilenameOrTag, trig.Event3TransPointX, trig.Event3TransPointY);
+                                            }
+                                            else if (trig.Event3Type.Equals("conversation"))
+                                            {
+                                                if (trig.conversationCannotBeAvoided == true)
+                                                {
+                                                    gv.mod.breakActiveSearch = true;
+                                                    doConversationBasedOnTag(trig.Event3FilenameOrTag);
+                                                }
+                                                else if (gv.mod.avoidInteraction == false)
+                                                {
+                                                    gv.mod.breakActiveSearch = true;
+                                                    doConversationBasedOnTag(trig.Event3FilenameOrTag);
+                                                }
+                                            }
+                                            else if (trig.Event3Type.Equals("encounter"))
+                                            {
+
+                                                if (!gv.mod.EncounterOfTurnDone)
+                                                {
+                                                    gv.mod.breakActiveSearch = true;
+                                                    gv.mod.EncounterOfTurnDone = true;
+                                                    doEncounterBasedOnTag(trig.Event3FilenameOrTag);
+                                                    //gv.mod.EncounterOfTurnDone = true;
+                                                }
+                                                //doEncounterBasedOnTag(trig.Event3FilenameOrTag);
+                                            }
+                                            else if (trig.Event3Type.Equals("script"))
+                                            {
+                                                gv.mod.breakActiveSearch = true;
+                                                doScriptBasedOnFilename(trig.Event3FilenameOrTag, trig.Event3Parm1, trig.Event3Parm2, trig.Event3Parm3, trig.Event3Parm4);
+                                                doTrigger();
+                                            }
+                                            else if (trig.Event3Type.Equals("ibscript"))
+                                            {
+                                                gv.mod.breakActiveSearch = true;
+                                                doIBScriptBasedOnFilename(trig.Event3FilenameOrTag, trig.Event3Parm1);
+                                                doTrigger();
+                                            }
+                                            //do that event
+                                            if (trig.DoOnceOnlyEvent3)
+                                            {
+                                                trig.EnabledEvent3 = false;
+                                            }
+                                        }
+                                    }
+                                    else if (gv.triggerIndex < 4)
+                                    {
+                                        doTrigger();
+                                    }
+                                        //#endregion
+                                        if (gv.triggerIndex > 3)
+                                        {
+                                            gv.triggerIndex = 0;
+                                            if (trig.DoOnceOnly)
+                                            {
+                                                trig.Enabled = false;
+                                            }
+                                        }
+                                    }
+                                //}
+                            }
+                            catch (Exception ex)
+                            {
+                                if (gv.mod.debugMode)
+                                {
+                                    gv.sf.MessageBox("failed to do trigger: " + ex.ToString());
+                                    gv.errorLog(ex.ToString());
+                                }
+                            }
                         }
                     }
                 }
             }
-            //else
-            //{
-                //allowTrigger = false;
-            //}
+        }
 
-            if (allowTrigger)
+        public void doBumpTrigger(Trigger trig2)
+        {
+            bool allowTrigger = true;
+            int xPosition = trig2.TriggerSquaresList[0].X;
+            int yPosition = trig2.TriggerSquaresList[0].Y;
+           
+            //Trigger trig2 = gv.mod.currentArea.getTriggerByLocation(gv.mod.PlayerLocationX, gv.mod.PlayerLocationY);
+
+            /*
+            if (trig2 == null)
             {
-                if (gv.realTimeTimerMilliSecondsEllapsed < gv.mod.realTimeTimerLengthInMilliSeconds)
+                trig2 = gv.mod.currentArea.getTriggerByLocation(gv.mod.PlayerLastLocationX, gv.mod.PlayerLastLocationY);
+            }
+            */
+
+            if (trig2 != null)
+            {
+                if ((trig2.requiresActiveSearch && gv.mod.activeSearchDoneThisMove) || !trig2.requiresActiveSearch)
                 {
-                    try
+                    if (trig2.Enabled)
                     {
-                        Trigger trig = gv.mod.currentArea.getTriggerByLocation(gv.mod.PlayerLocationX, gv.mod.PlayerLocationY);
-                        if ((trig != null) && (trig.Enabled))
+                        //to do: different direction checks (when leaving link in diection of master) needed below
+                        if ((trig2.isLinkToMaster) && (gv.mod.currentArea.masterOfThisArea == "none"))
                         {
-                            blockSecondPropTriggersCall = true;
-                            //iterate through each event                  
-                            //#region Event1 stuff
-                            //check to see if enabled and parm not "none"
-                            /*for (int i = 0; i < 15; i++)
+                            //continue with positions
+                            if (gv.mod.currentArea.Tiles[yPosition * gv.mod.currentArea.MapSizeX + xPosition].transitionToMasterDirection == "N")
                             {
-                                gv.Render();
-                            }*/
-                            gv.triggerIndex++;
-
-                            if ((gv.triggerIndex == 1) && (trig.EnabledEvent1) && (!trig.Event1FilenameOrTag.Equals("none")))
-                            {
-                                //check to see what type of event
-                                if (trig.Event1Type.Equals("container"))
+                                if ((gv.mod.PlayerLastLocationX != gv.mod.PlayerLocationX) || (gv.mod.PlayerLastLocationY + 1 != gv.mod.PlayerLocationY))
                                 {
-                                    doContainerBasedOnTag(trig.Event1FilenameOrTag);
-                                    doTrigger();
-                                }
-                                else if (trig.Event1Type.Equals("transition"))
-                                {
-                                    doTransitionBasedOnAreaLocation(trig.Event1FilenameOrTag, trig.Event1TransPointX, trig.Event1TransPointY);
-                                }
-                                else if (trig.Event1Type.Equals("conversation"))
-                                {
-                                    if (trig.conversationCannotBeAvoided == true)
-                                    {
-                                        doConversationBasedOnTag(trig.Event1FilenameOrTag);
-                                    }
-                                    else if (gv.mod.avoidInteraction == false)
-                                    {
-                                        doConversationBasedOnTag(trig.Event1FilenameOrTag);
-                                    }
-                                }
-                                else if (trig.Event1Type.Equals("encounter"))
-                                {
-                                    if (!gv.mod.EncounterOfTurnDone)
-                                    {
-                                        gv.mod.EncounterOfTurnDone = true;
-                                        doEncounterBasedOnTag(trig.Event1FilenameOrTag);
-                                        //gv.mod.EncounterOfTurnDone = true;
-                                    }
-                                    //doEncounterBasedOnTag(trig.Event1FilenameOrTag);
-                                }
-                                else if (trig.Event1Type.Equals("script"))
-                                {
-                                    doScriptBasedOnFilename(trig.Event1FilenameOrTag, trig.Event1Parm1, trig.Event1Parm2, trig.Event1Parm3, trig.Event1Parm4);
-                                    doTrigger();
-                                }
-                                else if (trig.Event1Type.Equals("ibscript"))
-                                {
-                                    doIBScriptBasedOnFilename(trig.Event1FilenameOrTag, trig.Event1Parm1);
-                                    doTrigger();
-                                }
-                                //do that event
-                                if (trig.DoOnceOnlyEvent1)
-                                {
-                                    trig.EnabledEvent1 = false;
+                                    allowTrigger = false;
                                 }
                             }
-                            //#endregion
-                            //#region Event2 stuff
-                            //check to see if enabled and parm not "none"
-                            else if ((gv.triggerIndex == 2) && (trig.EnabledEvent2) && (!trig.Event2FilenameOrTag.Equals("none")))
+                            else if (gv.mod.currentArea.Tiles[yPosition * gv.mod.currentArea.MapSizeX + xPosition].transitionToMasterDirection == "S")
                             {
-                                //check to see what type of event
-                                if (trig.Event2Type.Equals("container"))
+                                if ((gv.mod.PlayerLastLocationX != gv.mod.PlayerLocationX) || (gv.mod.PlayerLastLocationY - 1 != gv.mod.PlayerLocationY))
                                 {
-                                    doContainerBasedOnTag(trig.Event2FilenameOrTag);
-                                    doTrigger();
-                                }
-                                else if (trig.Event2Type.Equals("transition"))
-                                {
-                                    doTransitionBasedOnAreaLocation(trig.Event2FilenameOrTag, trig.Event2TransPointX, trig.Event2TransPointY);
-                                }
-                                else if (trig.Event2Type.Equals("conversation"))
-                                {
-                                    if (trig.conversationCannotBeAvoided == true)
-                                    {
-                                        doConversationBasedOnTag(trig.Event2FilenameOrTag);
-                                    }
-                                    else if (gv.mod.avoidInteraction == false)
-                                    {
-                                        doConversationBasedOnTag(trig.Event2FilenameOrTag);
-                                    }
-                                }
-                                else if (trig.Event2Type.Equals("encounter"))
-                                {
-                                    if (!gv.mod.EncounterOfTurnDone)
-                                    {
-                                        gv.mod.EncounterOfTurnDone = true;
-                                        doEncounterBasedOnTag(trig.Event2FilenameOrTag);
-                                        //gv.mod.EncounterOfTurnDone = true;
-                                    }
-                                    //doEncounterBasedOnTag(trig.Event2FilenameOrTag);
-                                }
-                                else if (trig.Event2Type.Equals("script"))
-                                {
-                                    doScriptBasedOnFilename(trig.Event2FilenameOrTag, trig.Event2Parm1, trig.Event2Parm2, trig.Event2Parm3, trig.Event2Parm4);
-                                    doTrigger();
-                                }
-                                else if (trig.Event2Type.Equals("ibscript"))
-                                {
-                                    doIBScriptBasedOnFilename(trig.Event2FilenameOrTag, trig.Event2Parm1);
-                                    doTrigger();
-                                }
-                                //do that event
-                                if (trig.DoOnceOnlyEvent2)
-                                {
-                                    trig.EnabledEvent2 = false;
+                                    allowTrigger = false;
                                 }
                             }
-                            //#endregion
-                            //#region Event3 stuff
-                            //check to see if enabled and parm not "none"
-                            else if ((gv.triggerIndex == 3) && (trig.EnabledEvent3) && (!trig.Event3FilenameOrTag.Equals("none")))
+                            else if (gv.mod.currentArea.Tiles[yPosition * gv.mod.currentArea.MapSizeX + xPosition].transitionToMasterDirection == "W")
                             {
-                                //check to see what type of event
-                                if (trig.Event3Type.Equals("container"))
+                                if ((gv.mod.PlayerLastLocationY != gv.mod.PlayerLocationY) || (gv.mod.PlayerLastLocationX + 1 != gv.mod.PlayerLocationX))
                                 {
-                                    doContainerBasedOnTag(trig.Event3FilenameOrTag);
-                                    doTrigger();
-                                }
-                                else if (trig.Event3Type.Equals("transition"))
-                                {
-                                    doTransitionBasedOnAreaLocation(trig.Event3FilenameOrTag, trig.Event3TransPointX, trig.Event3TransPointY);
-                                }
-                                else if (trig.Event3Type.Equals("conversation"))
-                                {
-                                    if (trig.conversationCannotBeAvoided == true)
-                                    {
-                                        doConversationBasedOnTag(trig.Event3FilenameOrTag);
-                                    }
-                                    else if (gv.mod.avoidInteraction == false)
-                                    {
-                                        doConversationBasedOnTag(trig.Event3FilenameOrTag);
-                                    }
-                                }
-                                else if (trig.Event3Type.Equals("encounter"))
-                                {
-
-                                    if (!gv.mod.EncounterOfTurnDone)
-                                    {
-                                        gv.mod.EncounterOfTurnDone = true;
-                                        doEncounterBasedOnTag(trig.Event3FilenameOrTag);
-                                        //gv.mod.EncounterOfTurnDone = true;
-                                    }
-                                    //doEncounterBasedOnTag(trig.Event3FilenameOrTag);
-                                }
-                                else if (trig.Event3Type.Equals("script"))
-                                {
-                                    doScriptBasedOnFilename(trig.Event3FilenameOrTag, trig.Event3Parm1, trig.Event3Parm2, trig.Event3Parm3, trig.Event3Parm4);
-                                    doTrigger();
-                                }
-                                else if (trig.Event3Type.Equals("ibscript"))
-                                {
-                                    doIBScriptBasedOnFilename(trig.Event3FilenameOrTag, trig.Event3Parm1);
-                                    doTrigger();
-                                }
-                                //do that event
-                                if (trig.DoOnceOnlyEvent3)
-                                {
-                                    trig.EnabledEvent3 = false;
+                                    allowTrigger = false;
                                 }
                             }
-                            else if (gv.triggerIndex < 4)
+                            else if (gv.mod.currentArea.Tiles[yPosition * gv.mod.currentArea.MapSizeX + xPosition].transitionToMasterDirection == "E")
                             {
-                                doTrigger();
-                            }
-                            //#endregion
-                            if (gv.triggerIndex > 3)
-                            {
-                                gv.triggerIndex = 0;
-                                if (trig.DoOnceOnly)
+                                if ((gv.mod.PlayerLastLocationY != gv.mod.PlayerLocationY) || (gv.mod.PlayerLastLocationX - 1 != gv.mod.PlayerLocationX))
                                 {
-                                    trig.Enabled = false;
+                                    allowTrigger = false;
                                 }
                             }
                         }
                     }
-                    catch (Exception ex)
+                    //else
+                    //{
+                    //allowTrigger = false;
+                    //}
+
+                    if (allowTrigger)
                     {
-                        if (gv.mod.debugMode)
+                        if (gv.realTimeTimerMilliSecondsEllapsed < gv.mod.realTimeTimerLengthInMilliSeconds)
                         {
-                            gv.sf.MessageBox("failed to do trigger: " + ex.ToString());
-                            gv.errorLog(ex.ToString());
+                            try
+                            {
+                                Trigger trig = trig2;
+                                if ((trig != null) && (trig.Enabled))
+                                {
+                                    blockSecondPropTriggersCall = true;
+                                    //iterate through each event                  
+                                    //#region Event1 stuff
+                                    //check to see if enabled and parm not "none"
+                                    /*for (int i = 0; i < 15; i++)
+                                    {
+                                        gv.Render();
+                                    }*/
+                                    gv.triggerIndex++;
+
+                                    if ((gv.triggerIndex == 1) && (trig.EnabledEvent1) && (!trig.Event1FilenameOrTag.Equals("none")))
+                                    {
+                                        //check to see what type of event
+                                        if (trig.Event1Type.Equals("container"))
+                                        {
+                                            gv.mod.breakActiveSearch = true;
+                                            doContainerBasedOnTag(trig.Event1FilenameOrTag);
+                                            doBumpTrigger(trig2);
+                                        }
+                                        else if (trig.Event1Type.Equals("transition"))
+                                        {
+                                            gv.mod.breakActiveSearch = true;
+                                            doTransitionBasedOnAreaLocation(trig.Event1FilenameOrTag, trig.Event1TransPointX, trig.Event1TransPointY);
+                                        }
+                                        else if (trig.Event1Type.Equals("conversation"))
+                                        {
+                                            if (trig.conversationCannotBeAvoided == true)
+                                            {
+                                                gv.mod.breakActiveSearch = true;
+                                                doConversationBasedOnTag(trig.Event1FilenameOrTag);
+                                            }
+                                            else if (gv.mod.avoidInteraction == false)
+                                            {
+                                                gv.mod.breakActiveSearch = true;
+                                                doConversationBasedOnTag(trig.Event1FilenameOrTag);
+                                            }
+                                        }
+                                        else if (trig.Event1Type.Equals("encounter"))
+                                        {
+                                            if (!gv.mod.EncounterOfTurnDone)
+                                            {
+                                                gv.mod.breakActiveSearch = true;
+                                                gv.mod.EncounterOfTurnDone = true;
+                                                doEncounterBasedOnTag(trig.Event1FilenameOrTag);
+                                                //gv.mod.EncounterOfTurnDone = true;
+                                            }
+                                            //doEncounterBasedOnTag(trig.Event1FilenameOrTag);
+                                        }
+                                        else if (trig.Event1Type.Equals("script"))
+                                        {
+                                            gv.mod.breakActiveSearch = true;
+                                            doScriptBasedOnFilename(trig.Event1FilenameOrTag, trig.Event1Parm1, trig.Event1Parm2, trig.Event1Parm3, trig.Event1Parm4);
+                                            doBumpTrigger(trig2);
+                                        }
+                                        else if (trig.Event1Type.Equals("ibscript"))
+                                        {
+                                            gv.mod.breakActiveSearch = true;
+                                            doIBScriptBasedOnFilename(trig.Event1FilenameOrTag, trig.Event1Parm1);
+                                            doBumpTrigger(trig2);
+                                        }
+                                        //do that event
+                                        if (trig.DoOnceOnlyEvent1)
+                                        {
+                                            trig.EnabledEvent1 = false;
+                                        }
+                                    }
+                                    //#endregion
+                                    //#region Event2 stuff
+                                    //check to see if enabled and parm not "none"
+                                    else if ((gv.triggerIndex == 2) && (trig.EnabledEvent2) && (!trig.Event2FilenameOrTag.Equals("none")))
+                                    {
+                                        if (!trig.event2RequiresTrueReturnCheck || (trig.event2RequiresTrueReturnCheck && gv.mod.returnCheck))
+                                        {
+                                            //check to see what type of event
+                                            if (trig.Event2Type.Equals("container"))
+                                            {
+                                                gv.mod.breakActiveSearch = true;
+                                                doContainerBasedOnTag(trig.Event2FilenameOrTag);
+                                                doBumpTrigger(trig2);
+                                            }
+                                            else if (trig.Event2Type.Equals("transition"))
+                                            {
+                                                gv.mod.breakActiveSearch = true;
+                                                doTransitionBasedOnAreaLocation(trig.Event2FilenameOrTag, trig.Event2TransPointX, trig.Event2TransPointY);
+                                            }
+                                            else if (trig.Event2Type.Equals("conversation"))
+                                            {
+                                                if (trig.conversationCannotBeAvoided == true)
+                                                {
+                                                    gv.mod.breakActiveSearch = true;
+                                                    doConversationBasedOnTag(trig.Event2FilenameOrTag);
+                                                }
+                                                else if (gv.mod.avoidInteraction == false)
+                                                {
+                                                    gv.mod.breakActiveSearch = true;
+                                                    doConversationBasedOnTag(trig.Event2FilenameOrTag);
+                                                }
+                                            }
+                                            else if (trig.Event2Type.Equals("encounter"))
+                                            {
+                                                if (!gv.mod.EncounterOfTurnDone)
+                                                {
+                                                    gv.mod.breakActiveSearch = true;
+                                                    gv.mod.EncounterOfTurnDone = true;
+                                                    doEncounterBasedOnTag(trig.Event2FilenameOrTag);
+                                                    //gv.mod.EncounterOfTurnDone = true;
+                                                }
+                                                //doEncounterBasedOnTag(trig.Event2FilenameOrTag);
+                                            }
+                                            else if (trig.Event2Type.Equals("script"))
+                                            {
+                                                gv.mod.breakActiveSearch = true;
+                                                doScriptBasedOnFilename(trig.Event2FilenameOrTag, trig.Event2Parm1, trig.Event2Parm2, trig.Event2Parm3, trig.Event2Parm4);
+                                                doBumpTrigger(trig2);
+                                            }
+                                            else if (trig.Event2Type.Equals("ibscript"))
+                                            {
+                                                gv.mod.breakActiveSearch = true;
+                                                doIBScriptBasedOnFilename(trig.Event2FilenameOrTag, trig.Event2Parm1);
+                                                doBumpTrigger(trig2);
+                                            }
+                                            //do that event
+                                            if (trig.DoOnceOnlyEvent2)
+                                            {
+                                                trig.EnabledEvent2 = false;
+                                            }
+                                        }
+                                    }
+                                    //#endregion
+                                    //#region Event3 stuff
+                                    //check to see if enabled and parm not "none"
+                                    else if ((gv.triggerIndex == 3) && (trig.EnabledEvent3) && (!trig.Event3FilenameOrTag.Equals("none")))
+                                    {
+                                        if (!trig.event3RequiresFalseReturnCheck || (trig.event3RequiresFalseReturnCheck && !gv.mod.returnCheck))
+                                        {
+                                            //check to see what type of event
+                                            if (trig.Event3Type.Equals("container"))
+                                            {
+                                                gv.mod.breakActiveSearch = true;
+                                                doContainerBasedOnTag(trig.Event3FilenameOrTag);
+                                                doBumpTrigger(trig2);
+                                            }
+                                            else if (trig.Event3Type.Equals("transition"))
+                                            {
+                                                gv.mod.breakActiveSearch = true;
+                                                doTransitionBasedOnAreaLocation(trig.Event3FilenameOrTag, trig.Event3TransPointX, trig.Event3TransPointY);
+                                            }
+                                            else if (trig.Event3Type.Equals("conversation"))
+                                            {
+                                                if (trig.conversationCannotBeAvoided == true)
+                                                {
+                                                    gv.mod.breakActiveSearch = true;
+                                                    doConversationBasedOnTag(trig.Event3FilenameOrTag);
+                                                }
+                                                else if (gv.mod.avoidInteraction == false)
+                                                {
+                                                    gv.mod.breakActiveSearch = true;
+                                                    doConversationBasedOnTag(trig.Event3FilenameOrTag);
+                                                }
+                                            }
+                                            else if (trig.Event3Type.Equals("encounter"))
+                                            {
+
+                                                if (!gv.mod.EncounterOfTurnDone)
+                                                {
+                                                    gv.mod.breakActiveSearch = true;
+                                                    gv.mod.EncounterOfTurnDone = true;
+                                                    doEncounterBasedOnTag(trig.Event3FilenameOrTag);
+                                                    //gv.mod.EncounterOfTurnDone = true;
+                                                }
+                                                //doEncounterBasedOnTag(trig.Event3FilenameOrTag);
+                                            }
+                                            else if (trig.Event3Type.Equals("script"))
+                                            {
+                                                gv.mod.breakActiveSearch = true;
+                                                doScriptBasedOnFilename(trig.Event3FilenameOrTag, trig.Event3Parm1, trig.Event3Parm2, trig.Event3Parm3, trig.Event3Parm4);
+                                                doBumpTrigger(trig2);
+                                            }
+                                            else if (trig.Event3Type.Equals("ibscript"))
+                                            {
+                                                gv.mod.breakActiveSearch = true;
+                                                doIBScriptBasedOnFilename(trig.Event3FilenameOrTag, trig.Event3Parm1);
+                                                doBumpTrigger(trig2);
+                                            }
+                                            //do that event
+                                            if (trig.DoOnceOnlyEvent3)
+                                            {
+                                                trig.EnabledEvent3 = false;
+                                            }
+                                        }
+                                    }
+                                    else if (gv.triggerIndex < 4)
+                                    {
+                                        doBumpTrigger(trig2);
+                                    }
+                                    //#endregion
+                                    if (gv.triggerIndex > 3)
+                                    {
+                                        gv.triggerIndex = 0;
+                                        if (trig.DoOnceOnly)
+                                        {
+                                            trig.Enabled = false;
+                                        }
+                                    }
+                                }
+                                //}
+                            }
+                            catch (Exception ex)
+                            {
+                                if (gv.mod.debugMode)
+                                {
+                                    gv.sf.MessageBox("failed to do trigger: " + ex.ToString());
+                                    gv.errorLog(ex.ToString());
+                                }
+                            }
                         }
                     }
                 }
@@ -9125,7 +10550,206 @@ namespace IceBlink2
         }
 
         //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+        public void doSpellEncounterTrigger(string spellTag, string removeAfterStepBool, string casterLevel, string logText)
+        {
+            int casterLevelInt = Convert.ToInt32(casterLevel);
+            bool remove = false;
+            if (removeAfterStepBool == "true" || removeAfterStepBool == "True")
+            {
+                remove = true;
+            }
 
+            Spell spell = new Spell();
+            foreach (Spell sp in gv.mod.moduleSpellsList)
+            {
+                if (sp.tag == spellTag)
+                {
+                    spell = sp;
+                }
+            }
+            if (logText != "none" && logText != "None" && logText != "")
+            {
+                gv.cc.addLogText("<font color='yellow'>" + logText + "</font><BR>");
+            }
+            else
+            {
+                gv.cc.addLogText("<font color='yellow'>" + spell.name + " triggered" + "</font><BR>");
+            }
+        
+            gv.sf.AoeTargetsList.Clear();
+            bool outsideCombat = false;
+            Coordinate triggerCoord = new Coordinate();
+            int relevantMoveOrderIndex = gv.screenCombat.currentMoveOrderIndex - 1;
+
+            foreach (Creature crt in gv.mod.currentEncounter.encounterCreatureList)
+            {
+                if (crt.moveOrder == relevantMoveOrderIndex)
+                {
+                    triggerCoord.X = crt.combatLocX;
+                    triggerCoord.Y = crt.combatLocY;
+                }
+            }
+
+            foreach (Player p in gv.mod.playerList)
+            {
+                if (p.moveOrder == relevantMoveOrderIndex)
+                {
+                    triggerCoord.X = p.combatLocX;
+                    triggerCoord.Y = p.combatLocY;
+                }
+            }
+
+            //this sorts the three possible effect sources in the order: tag list for generic, single tag for generic (compatibility with old spells) and finally specific script
+            if (spell.spellEffectTagList.Count > 0)
+            {
+                //burning man
+                string logTextForCastAction = "none";
+                gv.sf.spGeneric(spell, triggerCoord, triggerCoord, outsideCombat, logTextForCastAction, casterLevelInt, remove);
+            }
+
+
+
+            //add ending animation 
+            //if (!gv.screenCombat.isPlayerTurn)
+            //{
+            //gv.screenCombat.dontEndCreatureTurn = true;
+            //}
+            
+            //if (gv.screenCombat.isPlayerTurn && gv.screenCombat.currentMoves != 0)
+            //{
+                string filename = spell.spriteEndingFilename;
+                AnimationSequence newSeq = new AnimationSequence();
+                gv.screenCombat.animationSeqStack.Add(newSeq);
+                AnimationStackGroup newGroup = new AnimationStackGroup();
+                gv.screenCombat.animationSeqStack[0].AnimationSeq.Add(newGroup);
+                foreach (Coordinate coor in gv.sf.AoeSquaresList)
+                {
+                    gv.screenCombat.addEndingAnimation(newGroup, new Coordinate(gv.screenCombat.getPixelLocX(coor.X), gv.screenCombat.getPixelLocY(coor.Y)), filename);
+                }
+                //add floaty text  
+                //add death animations
+
+                newGroup = new AnimationStackGroup();
+                gv.screenCombat.animationSeqStack[0].AnimationSeq.Add(newGroup);
+                gv.screenCombat.deathAnimationLocations.Clear();
+        
+                foreach (Creature c in gv.mod.currentEncounter.encounterCreatureList)
+                {
+                    if (c.hp <= 0)
+                    {
+                        Coordinate coord = new Coordinate();
+                        coord.X = c.combatLocX;
+                        coord.Y = c.combatLocY;
+                        gv.screenCombat.deathAnimationLocations.Add(coord);
+                        gv.screenCombat.blockCreatureDrawLocations.Add(coord);
+                    }
+                }
+                foreach (Coordinate coor in gv.screenCombat.deathAnimationLocations)
+                {
+                    gv.screenCombat.addDeathAnimation(newGroup, new Coordinate(gv.screenCombat.getPixelLocX(coor.X), gv.screenCombat.getPixelLocY(coor.Y)));
+                }
+
+                //gv.screenCombat.animationsOn = true;
+                gv.screenCombat.stepAnimationsOn = true;
+            //}
+
+
+            //for now encounter triggers only work for spells taht use spellEffectTagList!
+
+            /*
+            else if (!spell.spellEffectTag.Equals("none"))
+            {
+                gv.sf.spGenericUsingOldSingleEffectTag(spell, triggerCoord, triggerCoord, outsideCombat);
+            }
+
+            //WIZARD SPELLS
+
+            else if (spell.spellScript.Equals("spDimensionDoor"))
+            {
+                gv.sf.spDimensionDoor(source, target);
+            }
+
+            else if (spell.spellScript.Equals("spSummonAlly"))
+            {
+                gv.sf.spSummonAlly(source, target, spell);
+            }
+
+            else if (spell.spellScript.Equals("spFlameFingers"))
+            {
+                gv.sf.spFlameFingers(source, target, spell);
+            }
+            else if (spell.spellScript.Equals("spMageBolt"))
+            {
+                gv.sf.spMageBolt(source, target);
+            }
+            else if (spell.spellScript.Equals("spSleep"))
+            {
+                gv.sf.spSleep(source, target, spell);
+            }
+            else if (spell.spellScript.Equals("spMageArmor"))
+            {
+                gv.sf.spMageArmor(source, target);
+            }
+            else if (spell.spellScript.Equals("spMinorRegen"))
+            {
+                gv.sf.spMinorRegen(source, target);
+            }
+            else if (spell.spellScript.Equals("spWeb"))
+            {
+                gv.sf.spWeb(source, target, spell);
+            }
+            else if (spell.spellScript.Equals("spIceStorm"))
+            {
+                gv.sf.spIceStorm(source, target, spell);
+            }
+            else if (spell.spellScript.Equals("spFireball"))
+            {
+                gv.sf.spFireball(source, target, spell);
+            }
+            else if (spell.spellScript.Equals("spLightning"))
+            {
+                gv.sf.spLightning(source, target, spell);
+            }
+
+            //CLERIC SPELLS
+            else if (spell.tag.Equals("minorHealing"))
+            {
+                gv.sf.spHeal(source, target, 8);
+            }
+            else if (spell.tag.Equals("moderateHealing"))
+            {
+                gv.sf.spHeal(source, target, 16);
+            }
+            else if (spell.tag.Equals("massMinorHealing"))
+            {
+                gv.sf.spMassHeal(source, target, 8);
+            }
+            else if (spell.spellScript.Equals("spBless"))
+            {
+                gv.sf.spBless(source, target);
+            }
+            else if (spell.spellScript.Equals("spMagicStone"))
+            {
+                gv.sf.spMagicStone(source, target);
+            }
+            else if (spell.spellScript.Equals("spBlastOfLight"))
+            {
+                gv.sf.spBlastOfLight(source, target, spell);
+            }
+            else if (spell.spellScript.Equals("spHold"))
+            {
+                gv.sf.spHold(source, target);
+            }
+            //THIEF SKILL 
+            else if (spell.spellScript.Equals("trRemoveTrap"))
+            {
+                gv.sf.trRemoveTrap(source, target);
+            }
+            */
+        }
+
+
+        //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
         public void doSpellBasedOnScriptOrEffectTag(Spell spell, object source, object target, bool outsideCombat, bool isTraitUsage)
         {
             //int powerLevel = 0;
@@ -9286,38 +10910,198 @@ namespace IceBlink2
             }
         }
 
-/*
-        public void doSpellBasedOnScriptOrEffectTag(Spell spell, object source, object target, bool outsideCombat)
-2614         { 
-2615             gv.sf.AoeTargetsList.Clear(); 
-2616 
- 
-2617             if (!spell.spellEffectTag.Equals("none")) 
-2618             { 
-2619                 gv.sf.spGeneric(spell, source, target, outsideCombat); 
-2620             } 
-2621 
- 
-2622             //WIZARD SPELLS 
-2623             else if (spell.spellScript.Equals("spDimensionDoor")) 
-2624             { 
-2625                 gv.sf.spDimensionDoor(source, target); 
-2626             } 
-2627                          
-2628             //CLERIC SPELLS 
-2629             else if (spell.tag.Equals("minorHealing")) 
-2630             { 
-2631                 //gv.sf.spHeal(source, target, 8); 
-2632             } 
-2633 
- 
-2634             //THIEF SKILL 
-2635             else if (spell.spellScript.Equals("trRemoveTrap")) 
-2636             { 
-2637                 gv.sf.trRemoveTrap(source, target); 
-2638             } 
-2639         } 
-*/
+        //overload for getting trait name
+        public void doSpellBasedOnScriptOrEffectTag(Spell spell, object source, object target, bool outsideCombat, bool isTraitUsage, string traitName)
+        {
+            //int powerLevel = 0;
+            if (source is Creature)
+            {
+                Creature src = (Creature)source;
+                //powerLevel = src.cr_level;
+
+                if (src.labelForCastAction != "none" && src.labelForCastAction != "CAST")
+                {
+                    gv.cc.addLogText("<font color='yellow'>" + src.cr_name + " " + src.labelForCastAction + " " + traitName + "</font><BR>");
+                }
+                else
+                {
+                    gv.cc.addLogText("<font color='yellow'>" + src.cr_name + " creates " + traitName + "</font><BR>");
+                }
+            }
+            else if (source is Player)
+            {
+                Player src = (Player)source;
+                ///powerLevel = src.classLevel;
+                if (!isTraitUsage)
+                {
+                    if (src.playerClass.labelForCastAction != "none" && src.playerClass.labelForCastAction != "CAST")
+                    {
+                        gv.cc.addLogText("<font color='yellow'>" + src.name + " " + src.playerClass.labelForCastAction + " " + traitName + "</font><BR>");
+                    }
+                    else
+                    {
+                        gv.cc.addLogText("<font color='yellow'>" + src.name + " creates " + traitName + "</font><BR>");
+                    }
+                }
+                else
+                {
+                    if (src.playerClass.labelForUseTraitAction != "none" && src.playerClass.labelForUseTraitAction != "USE")
+                    {
+                        gv.cc.addLogText("<font color='yellow'>" + src.name + " " + src.playerClass.labelForUseTraitAction + " " + traitName + "</font><BR>");
+                    }
+                    else
+                    {
+                        gv.cc.addLogText("<font color='yellow'>" + src.name + " creates " + traitName + "</font><BR>");
+                    }
+                }
+
+                //gv.cc.addLogText("<font color='yellow'>" + src.name + " creates " + spell.name + "</font><BR>");
+            }
+            else if (source is Item)
+            {
+                Item src = (Item)source;
+                //powerLevel = 
+                if (src.labelForCastAction != "none")
+                {
+                    gv.cc.addLogText("<font color='yellow'>" + src.name + " " + src.labelForCastAction + " " + traitName + "</font><BR>");
+                }
+                else
+                {
+                    gv.cc.addLogText("<font color='yellow'>" + src.name + " creates " + traitName + "</font><BR>");
+                }
+
+                //gv.cc.addLogText("<font color='yellow'>" + src.name + " creates " + spell.name + "</font><BR>");
+            }
+
+            gv.sf.AoeTargetsList.Clear();
+
+            //this sorts the three possible effect sources in the order: tag list for generic, single tag for generic (compatibility with old spells) and finally specific script
+            if (spell.spellEffectTagList.Count > 0)
+            {
+                string logTextForCastAction = "none";
+                gv.sf.spGeneric(spell, source, target, outsideCombat, logTextForCastAction);
+            }
+            else if (!spell.spellEffectTag.Equals("none"))
+            {
+                gv.sf.spGenericUsingOldSingleEffectTag(spell, source, target, outsideCombat);
+            }
+
+            //WIZARD SPELLS
+
+            else if (spell.spellScript.Equals("spDimensionDoor"))
+            {
+                gv.sf.spDimensionDoor(source, target);
+            }
+
+            else if (spell.spellScript.Equals("spSummonAlly"))
+            {
+                gv.sf.spSummonAlly(source, target, spell);
+            }
+
+            else if (spell.spellScript.Equals("spFlameFingers"))
+            {
+                gv.sf.spFlameFingers(source, target, spell);
+            }
+            else if (spell.spellScript.Equals("spMageBolt"))
+            {
+                gv.sf.spMageBolt(source, target);
+            }
+            else if (spell.spellScript.Equals("spSleep"))
+            {
+                gv.sf.spSleep(source, target, spell);
+            }
+            else if (spell.spellScript.Equals("spMageArmor"))
+            {
+                gv.sf.spMageArmor(source, target);
+            }
+            else if (spell.spellScript.Equals("spMinorRegen"))
+            {
+                gv.sf.spMinorRegen(source, target);
+            }
+            else if (spell.spellScript.Equals("spWeb"))
+            {
+                gv.sf.spWeb(source, target, spell);
+            }
+            else if (spell.spellScript.Equals("spIceStorm"))
+            {
+                gv.sf.spIceStorm(source, target, spell);
+            }
+            else if (spell.spellScript.Equals("spFireball"))
+            {
+                gv.sf.spFireball(source, target, spell);
+            }
+            else if (spell.spellScript.Equals("spLightning"))
+            {
+                gv.sf.spLightning(source, target, spell);
+            }
+
+            //CLERIC SPELLS
+            else if (spell.tag.Equals("minorHealing"))
+            {
+                gv.sf.spHeal(source, target, 8);
+            }
+            else if (spell.tag.Equals("moderateHealing"))
+            {
+                gv.sf.spHeal(source, target, 16);
+            }
+            else if (spell.tag.Equals("massMinorHealing"))
+            {
+                gv.sf.spMassHeal(source, target, 8);
+            }
+            else if (spell.spellScript.Equals("spBless"))
+            {
+                gv.sf.spBless(source, target);
+            }
+            else if (spell.spellScript.Equals("spMagicStone"))
+            {
+                gv.sf.spMagicStone(source, target);
+            }
+            else if (spell.spellScript.Equals("spBlastOfLight"))
+            {
+                gv.sf.spBlastOfLight(source, target, spell);
+            }
+            else if (spell.spellScript.Equals("spHold"))
+            {
+                gv.sf.spHold(source, target);
+            }
+            //THIEF SKILL 
+            else if (spell.spellScript.Equals("trRemoveTrap"))
+            {
+                gv.sf.trRemoveTrap(source, target);
+            }
+        }
+        /*
+                public void doSpellBasedOnScriptOrEffectTag(Spell spell, object source, object target, bool outsideCombat)
+        2614         { 
+        2615             gv.sf.AoeTargetsList.Clear(); 
+        2616 
+
+        2617             if (!spell.spellEffectTag.Equals("none")) 
+        2618             { 
+        2619                 gv.sf.spGeneric(spell, source, target, outsideCombat); 
+        2620             } 
+        2621 
+
+        2622             //WIZARD SPELLS 
+        2623             else if (spell.spellScript.Equals("spDimensionDoor")) 
+        2624             { 
+        2625                 gv.sf.spDimensionDoor(source, target); 
+        2626             } 
+        2627                          
+        2628             //CLERIC SPELLS 
+        2629             else if (spell.tag.Equals("minorHealing")) 
+        2630             { 
+        2631                 //gv.sf.spHeal(source, target, 8); 
+        2632             } 
+        2633 
+
+        2634             //THIEF SKILL 
+        2635             else if (spell.spellScript.Equals("trRemoveTrap")) 
+        2636             { 
+        2637                 gv.sf.trRemoveTrap(source, target); 
+        2638             } 
+        2639         } 
+        */
 
         public void doScriptBasedOnFilename(string filename, string prm1, string prm2, string prm3, string prm4)
         {
@@ -9429,735 +11213,820 @@ namespace IceBlink2
                 lineCount = -100000;
             }
             string textToSpan = "<b>" + it.name + "</b><BR>";
-            if (showFullInfo)
+            if (it.name != "none")
             {
-                textToSpan += "" + "<BR>";
-            }
-
-            if (it.requiredLevel != 0)
-            {
-                if (lineCount < 10)
+                if (showFullInfo)
                 {
-                    lineCount++;
-                    textToSpan += "Required level: " + it.requiredLevel + "<BR>";
+                    textToSpan += "" + "<BR>";
                 }
-            }
 
-           
-
-
-
-            //if ((it.category.Equals("Melee")) || (it.category.Equals("Ranged")))
-            //{
-            if (it.category == "Melee" || it.category == "Ranged")
-            {
-                if (it.damageNumDice != 0 || it.damageAdder != 0)
-                {
-                    if (it.damageAdder != 0 && it.damageNumDice != 0)
-                    {
-                        if (lineCount < 10)
-                        {
-                            lineCount++;
-                            textToSpan += "Damage: " + it.damageNumDice + "d" + it.damageDie + "+" + it.damageAdder + "<BR>";
-                        }
-                    }
-                    else if (it.damageAdder == 0 && it.damageNumDice != 0)
-                    {
-                        if (lineCount < 10)
-                        {
-                            lineCount++;
-                            textToSpan += "Damage: " + it.damageNumDice + "d" + it.damageDie + "<BR>";
-                        }
-                    }
-                    else if (it.damageAdder != 0 && it.damageNumDice == 0)
-                    {
-                        if (lineCount < 10)
-                        {
-                            lineCount++;
-                            textToSpan += "Damage: " + it.damageAdder + "<BR>";
-                        }
-                    }
-                }
-            }
-
-            if (it.category == "Ammo")
-            {
-                string usedFor = "";
-                int cutCounter = 0;
-                foreach (Item wp in gv.mod.moduleItemsList)
-                {
-                    if ((wp.ammoType == it.tag) && (wp.category != "Ammo"))
-                    {
-                        cutCounter++;
-                        usedFor += wp.name + ", ";
-                    }
-                    if (cutCounter >= 2)
-                    {
-                        usedFor += "etc";
-                        break;
-                    }
-                }
-                lineCount++;
-                textToSpan += "Used by: " + usedFor + "<BR>";
-            }
-
-            if (it.attackBonus != 0)
-            {
-                if (lineCount < 10)
-                {
-                    lineCount++;
-                    textToSpan += "Attack Modifier: " + it.attackBonus + "<BR>";
-                }
-            }
-
-            if (it.additionalAttacks != 0)
-            {
-                if (lineCount < 10)
-                {
-                    lineCount++;
-                    textToSpan += "Additional attacks granted: " + it.additionalAttacks + "<BR>";
-                }
-            }
-
-            if (it.attackRange > 1)
-            {
-                if (lineCount < 10)
-                {
-                    lineCount++;
-                    textToSpan += "Attack Range: " + it.attackRange + "<BR>";
-                }
-            }
-
-            if (it.AreaOfEffect > 0)
-            {
-                if (lineCount < 10)
-                {
-                    lineCount++;
-                    textToSpan += "Area of Effect radius/length: " + it.AreaOfEffect + "<BR>";
-                }
-                if (lineCount < 10)
-                {
-                    lineCount++;
-                    textToSpan += "Area of Effect shape: " + it.aoeShape + "<BR>";
-                }
-            }
-
-            if (it.typeOfDamage != "Normal")
-            {
-                if (lineCount < 10)
-                {
-                    lineCount++;
-                    textToSpan += "Type of Damage: " + it.typeOfDamage + "<BR>";
-                }
-            }
-
-            if ((it.ammoType != "none") && (it.category != "Ammo"))
-            {
-                string ammoName = "none";
-                foreach (Item itA in gv.mod.moduleItemsList)
-                {
-                    if (itA.tag == it.ammoType)
-                    {
-                        ammoName = itA.name;
-                    }
-                }
-                if (lineCount < 10)
-                {
-                    lineCount++;
-                    textToSpan += "Required Ammo: " + ammoName + "<BR>";
-                }
-            }
-            if (it.armorBonus != 0)
-            {
-                if (lineCount < 10)
-                {
-                    lineCount++;
-                    textToSpan += "AC Modifier: " + it.armorBonus + "<BR>";
-                }
-            }
-
-            if (it.twoHanded)
-            {
-                if (lineCount < 10)
-                {
-                    lineCount++;
-                    textToSpan += "Two handed: " + it.twoHanded + "<BR>";
-                }
-            }
-
-            if (it.category == "Armor")
-            {
-                if (lineCount < 10)
-                {
-                    lineCount++;
-                    textToSpan += "Armor type: " + it.ArmorWeightType + "<BR>";
-                }
-            }
-
-            if (it.maxDexBonus != 99)
-            {
-                if (lineCount < 10)
-                {
-                    lineCount++;
-                    textToSpan += "Max dexterity bonus: " + it.maxDexBonus + "<BR>";
-                }
-            }
-
-            if (it.automaticallyHitsTarget)
-            {
-                if (lineCount < 10)
-                {
-                    lineCount++;
-                    textToSpan += "Always hits: " + it.automaticallyHitsTarget + "<BR>";
-                }
-            }
-
-            if (it.canNotBeChangedInCombat)
-            {
-                if (lineCount < 10)
-                {
-                    lineCount++;
-                    textToSpan += "Not changeable in combat: " + it.canNotBeChangedInCombat + "<BR>";
-                }
-            }
-
-            if (it.canNotBeUnequipped)
-            {
-                if (lineCount < 10)
-                {
-                    lineCount++;
-                    textToSpan += "Can never be changed: " + it.canNotBeUnequipped + "<BR>";
-                }
-            }
-
-            if (!it.endTurnAfterEquipping)
-            {
-                if (lineCount < 10)
-                {
-                    lineCount++;
-                    textToSpan += "Changing is free action: " + it.endTurnAfterEquipping + "<BR>";
-                }
-            }
-
-
-            if (it.onUseItemCastSpellTag != "none" || it.onUseItemIBScript != "none" || it.onUseItem != "none")
-            {
-                if (lineCount < 10)
-                {
-                    lineCount++;
-                    textToSpan += "Allows use action: True" + "<BR>";
-                }
-                if ((it.destroyItemAfterOnUseItemCastSpell && it.onUseItemCastSpellTag != "none") || (it.destroyItemAfterOnUseItemIBScript && it.onUseItemIBScript != "none") || (it.destroyItemAfterOnUseItemScript && it.onUseItem != "none"))
+                if (it.requiredLevel != 0)
                 {
                     if (lineCount < 10)
                     {
                         lineCount++;
-                        textToSpan += "Item is destroyed after full use: True" + "<BR>";
-                    }
-                }
-            }
-
-            if (it.onUseItemCastSpellTag != "none")
-            {
-                string spellName = "none";
-                foreach (Spell sp in gv.mod.moduleSpellsList)
-                {
-                    if (sp.tag == it.onUseItemCastSpellTag)
-                    {
-                        spellName = sp.name;
-                        break;
+                        textToSpan += "Required level: " + it.requiredLevel + "<BR>";
                     }
                 }
 
-                if (lineCount < 10)
+                //if ((it.category.Equals("Melee")) || (it.category.Equals("Ranged")))
+                //{
+                if (it.category == "Melee" || it.category == "Ranged")
                 {
-                    lineCount++;
-                    textToSpan += "On use: " + spellName + "<BR>";
-                }
-                if (lineCount < 10)
-                {
-                    lineCount++;
-                    if (it.usePlayerClassLevelForOnUseItemCastSpell)
+                    if (it.damageNumDice != 0 || it.damageAdder != 0)
                     {
-                        textToSpan += "Item on use level: " + "character level" + "<BR>";
-                    }
-                    else
-                    {
-                        textToSpan += "Item on use level: " + it.levelOfItemForCastSpell + "<BR>";
-                    }
-                }
-            }
-
-                if (it.onlyUseableWhenEquipped)
-            {
-                if (lineCount < 10)
-                {
-                    lineCount++;
-                    textToSpan += "Must be equipped to use: " + it.onlyUseableWhenEquipped + "<BR>";
-                }
-            }
-
-            if (it.useableInSituation != "Passive" && it.useableInSituation != "Always")
-            {
-                if (it.useableInSituation == "InCombat")
-                {
-                    if (lineCount < 10)
-                    {
-                        lineCount++;
-                        textToSpan += "Only useable in combat: True" + "<BR>";
-                    }
-                }
-
-                else if (it.useableInSituation == "OutOfCombat")
-                {
-                    if (lineCount < 10)
-                    {
-                        lineCount++;
-                        textToSpan += "Only useable out of combat: True" + "<BR>";
-                    }
-                }
-            }
-
-            if (it.onScoringHitCastSpellTag != "none")
-            {
-                if (lineCount < 10)
-                {
-                    foreach (Spell sp in gv.mod.moduleSpellsList)
-                    {
-                        if (sp.tag == it.onScoringHitCastSpellTag)
+                        if (it.damageAdder != 0 && it.damageNumDice != 0)
                         {
-                            lineCount++;
-                            textToSpan += "On hit: " + sp.name + "<BR>";
-                            if (it.onScoringHitCastOnSelf)
-                            {
-                                if (lineCount < 10)
-                                {
-                                    lineCount++;
-                                    textToSpan += "Center on hit effect on self: " + "True" + "<BR>";
-                                }
-                            }
-                                
                             if (lineCount < 10)
                             {
                                 lineCount++;
-                                if (it.usePlayerClassLevelForOnUseItemCastSpell)
-                                {
-                                    textToSpan += "Item on hit level: " + "Character level" + "<BR>";
-                                }
-                                else
-                                {
-                                    textToSpan += "Item on hit level: " + it.levelOfItemForCastSpell + "<BR>";
-                                }
+                                textToSpan += "Damage: " + it.damageNumDice + "d" + it.damageDie + "+" + it.damageAdder + "<BR>";
                             }
-                         }
+                        }
+                        else if (it.damageAdder == 0 && it.damageNumDice != 0)
+                        {
+                            if (lineCount < 10)
+                            {
+                                lineCount++;
+                                textToSpan += "Damage: " + it.damageNumDice + "d" + it.damageDie + "<BR>";
+                            }
+                        }
+                        else if (it.damageAdder != 0 && it.damageNumDice == 0)
+                        {
+                            if (lineCount < 10)
+                            {
+                                lineCount++;
+                                textToSpan += "Damage: " + it.damageAdder + "<BR>";
+                            }
+                        }
                     }
                 }
-            }
 
-            if (it.entriesForPcTags.Count > 0)
-            {
-                string pcTags = "";
-                foreach (LocalImmunityString ls in it.entriesForPcTags)
+                if (it.maxStrengthBonusAllowedForWeapon != 100)
                 {
-                    pcTags += ls.Value + ", ";
-                }
-                if (lineCount < 10)
-                {
-                    lineCount++;
-                    textToSpan += "Item perks: " + pcTags + "<BR>";
-                }
-            }
-
-            if (it.requiredRace != "none")
-            {
-                if (lineCount < 10)
-                {
-                    lineCount++;
-                    string raceName = "";
-                    foreach (Race r in gv.mod.moduleRacesList)
+                    if (lineCount < 10)
                     {
-                        if (r.tag == it.requiredRace)
+                        lineCount++;
+                        textToSpan += "Max strength bonus to damage: " + it.maxStrengthBonusAllowedForWeapon + "<BR>";
+                    }
+                }
+
+                if (it.hpCostPerAttack != 0)
+                {
+                    if (lineCount < 10)
+                    {
+                        lineCount++;
+                        textToSpan += "HP cost per attack: " + it.hpCostPerAttack + "<BR>";
+                    }
+                }
+
+                if (it.spCostPerAttack != 0)
+                {
+                    if (lineCount < 10)
+                    {
+                        lineCount++;
+                        textToSpan += "SP cost per attack: " + it.spCostPerAttack + "<BR>";
+                    }
+                }
+
+                if (it.category == "Ammo")
+                {
+                    if (it.damageAdder != 0)
+                    {
+                        if (lineCount < 10)
                         {
-                            raceName = r.name;
+                            lineCount++;
+                            textToSpan += "Damage modifier: " + it.damageAdder + "<BR>";
+                        }
+                    }
+
+                    if (it.attackBonus != 0)
+                    {
+                        if (lineCount < 10)
+                        {
+                            lineCount++;
+                            textToSpan += "Attack modifier: " + it.attackBonus + "<BR>";
+                        }
+                    }
+
+                    string usedFor = "";
+                    int cutCounter = 0;
+                    foreach (Item wp in gv.mod.moduleItemsList)
+                    {
+                        if ((it.ammoType.Equals(wp.ammoType)) && (wp.category != "Ammo"))
+                        {
+                            cutCounter++;
+                            usedFor += wp.name + ", ";
+                        }
+                        if (cutCounter >= 2)
+                        {
+                            usedFor += "etc";
                             break;
                         }
                     }
-                    textToSpan += "Required race: " + raceName + "<BR>";
-                }
-            }
-
-            if (it.restrictedRace != "none")
-            {
-                if (lineCount < 10)
-                {
                     lineCount++;
-                    string raceName = "";
-                    foreach (Race r in gv.mod.moduleRacesList)
+                    textToSpan += "Used by: " + usedFor + "<BR>";
+                }
+
+                if ((it.attackBonus != 0) && (it.category != "Ammo"))
+                {
+                    if (lineCount < 10)
                     {
-                        if (r.tag == it.restrictedRace)
+                        lineCount++;
+                        textToSpan += "Attack modifier: " + it.attackBonus + "<BR>";
+                    }
+                }
+
+                if (it.additionalAttacks != 0)
+                {
+                    if (lineCount < 10)
+                    {
+                        lineCount++;
+                        textToSpan += "Additional attacks granted: " + it.additionalAttacks + "<BR>";
+                    }
+                }
+
+                if (it.attackRange > 1)
+                {
+                    if (lineCount < 10)
+                    {
+                        lineCount++;
+                        textToSpan += "Attack Range: " + it.attackRange + "<BR>";
+                    }
+                }
+
+                if (it.AreaOfEffect > 0)
+                {
+                    if (lineCount < 10)
+                    {
+                        lineCount++;
+                        textToSpan += "Area of Effect radius/length: " + it.AreaOfEffect + "<BR>";
+                    }
+                    if (lineCount < 10)
+                    {
+                        lineCount++;
+                        textToSpan += "Area of Effect shape: " + it.aoeShape + "<BR>";
+                    }
+                }
+
+                if ((it.typeOfDamage != "Normal") && ((it.category != "Ammo")))
+                {
+                    if (lineCount < 10)
+                    {
+                        lineCount++;
+                        textToSpan += "Type of Damage: " + it.typeOfDamage + "<BR>";
+                    }
+                }
+
+                if ((it.ammoType != "none") && (it.category != "Ammo"))
+                {
+                    /*
+                    string ammoName = "none";
+                    foreach (Item itA in gv.mod.moduleItemsList)
+                    {
+                        if (itA.tag == it.ammoType)
                         {
-                            raceName = r.name;
-                            break;
+                            ammoName = itA.name;
                         }
                     }
-                    textToSpan += "Not allowed for race: " + raceName + "<BR>";
-                }
-            }
+                    */
 
-            if (it.requiredTrait != "none")
-            {
-                if (lineCount < 10)
+                    if (lineCount < 10)
+                    {
+                        lineCount++;
+                        textToSpan += "Required Ammo: " + it.ammoType + "<BR>";
+                    }
+                }
+                if (it.armorBonus != 0)
                 {
-                    lineCount++;
+                    if (lineCount < 10)
+                    {
+                        lineCount++;
+                        textToSpan += "AC Modifier: " + it.armorBonus + "<BR>";
+                    }
+                }
+
+                if (it.twoHanded)
+                {
+                    if (lineCount < 10)
+                    {
+                        lineCount++;
+                        textToSpan += "Two handed: " + it.twoHanded + "<BR>";
+                    }
+                }
+
+                if (it.category == "Armor")
+                {
+                    if (lineCount < 10)
+                    {
+                        lineCount++;
+                        textToSpan += "Armor type: " + it.ArmorWeightType + "<BR>";
+                    }
+                }
+
+                if (it.maxDexBonus != 99)
+                {
+                    if (lineCount < 10)
+                    {
+                        lineCount++;
+                        textToSpan += "Max dexterity bonus: " + it.maxDexBonus + "<BR>";
+                    }
+                }
+
+                if (it.automaticallyHitsTarget)
+                {
+                    if (lineCount < 10)
+                    {
+                        lineCount++;
+                        textToSpan += "Always hits: " + it.automaticallyHitsTarget + "<BR>";
+                    }
+                }
+
+                if (it.tagOfTraitInfluenced != "none")
+                {
                     string traitName = "";
                     foreach (Trait t in gv.mod.moduleTraitsList)
                     {
-                        if (t.tag == it.requiredTrait)
+                        if (t.tag == it.tagOfTraitInfluenced)
                         {
-                            traitName = t.name;
+                            traitName = t.tag.Substring(0, t.tag.Length-2);
+                            //traitName = t.name;
                             break;
                         }
                     }
-                    textToSpan += "Required trait: " + traitName + "<BR>";
-                }
-            }
 
-            if (it.requiredSTR != 0)
-            {
+                    //string traitNameWithoutRank = traitName.Substring(0, traitName.Length-2);
+
+                    if (lineCount < 10)
+                    {
+                        lineCount++;
+                        textToSpan += "Modifier for " + traitName + " checks: " + it.traitSkillRollModifier + "<BR>";
+                    }
+                }
+
+                if (it.canNotBeChangedInCombat)
+                {
+                    if (lineCount < 10)
+                    {
+                        lineCount++;
+                        textToSpan += "Not changeable in combat: " + it.canNotBeChangedInCombat + "<BR>";
+                    }
+                }
+
+                if (it.canNotBeUnequipped)
+                {
+                    if (lineCount < 10)
+                    {
+                        lineCount++;
+                        textToSpan += "Can never be changed: " + it.canNotBeUnequipped + "<BR>";
+                    }
+                }
+
+                if (!it.endTurnAfterEquipping)
+                {
+                    if (lineCount < 10)
+                    {
+                        lineCount++;
+                        textToSpan += "Changing is free action: " + it.endTurnAfterEquipping + "<BR>";
+                    }
+                }
+
+
+                if (it.onUseItemCastSpellTag != "none" || it.onUseItemIBScript != "none" || it.onUseItem != "none")
+                {
+                    if (lineCount < 10)
+                    {
+                        lineCount++;
+                        textToSpan += "Allows use action: True, see item description" + "<BR>";
+                    }
+
+                    if ((it.destroyItemAfterOnUseItemCastSpell && it.onUseItemCastSpellTag != "none") || (it.destroyItemAfterOnUseItemIBScript && it.onUseItemIBScript != "none") || (it.destroyItemAfterOnUseItemScript && it.onUseItem != "none"))
+                    {
+                        if (lineCount < 10)
+                        {
+                            lineCount++;
+                            textToSpan += "Item is destroyed after full use: True" + "<BR>";
+                        }
+                    }
+                }
+
+                if (it.onUseItemCastSpellTag != "none")
+                {
+                    string spellName = "none";
+                    foreach (Spell sp in gv.mod.moduleSpellsList)
+                    {
+                        if (sp.tag == it.onUseItemCastSpellTag)
+                        {
+                            spellName = sp.name;
+                            break;
+                        }
+                    }
+
+                    if (lineCount < 10)
+                    {
+                        lineCount++;
+                        textToSpan += "On use: " + spellName + "<BR>";
+                    }
+                    if (lineCount < 10)
+                    {
+                        lineCount++;
+                        if (it.usePlayerClassLevelForOnUseItemCastSpell)
+                        {
+                            textToSpan += "Item on use level: " + "character level" + "<BR>";
+                        }
+                        else
+                        {
+                            textToSpan += "Item on use level: " + it.levelOfItemForCastSpell + "<BR>";
+                        }
+                    }
+                }
+
+                if (it.onlyUseableWhenEquipped)
+                {
+                    if (lineCount < 10)
+                    {
+                        lineCount++;
+                        textToSpan += "Must be equipped to use: " + it.onlyUseableWhenEquipped + "<BR>";
+                    }
+                }
+
+                if (it.useableInSituation != "Passive" && it.useableInSituation != "Always")
+                {
+                    if (it.useableInSituation == "InCombat")
+                    {
+                        if (lineCount < 10)
+                        {
+                            lineCount++;
+                            textToSpan += "Only useable in combat: True" + "<BR>";
+                        }
+                    }
+
+                    else if (it.useableInSituation == "OutOfCombat")
+                    {
+                        if (lineCount < 10)
+                        {
+                            lineCount++;
+                            textToSpan += "Only useable out of combat: True" + "<BR>";
+                        }
+                    }
+                }
+
+                if (it.onScoringHitCastSpellTag != "none")
+                {
+                    if (lineCount < 10)
+                    {
+                        foreach (Spell sp in gv.mod.moduleSpellsList)
+                        {
+                            if (sp.tag == it.onScoringHitCastSpellTag)
+                            {
+                                lineCount++;
+                                textToSpan += "On hit: " + sp.name + "<BR>";
+                                if (it.onScoringHitCastOnSelf)
+                                {
+                                    if (lineCount < 10)
+                                    {
+                                        lineCount++;
+                                        textToSpan += "Center on hit effect on self: " + "True" + "<BR>";
+                                    }
+                                }
+
+                                if (lineCount < 10)
+                                {
+                                    lineCount++;
+                                    if (it.usePlayerClassLevelForOnUseItemCastSpell)
+                                    {
+                                        textToSpan += "Item on hit level: " + "Character level" + "<BR>";
+                                    }
+                                    else
+                                    {
+                                        textToSpan += "Item on hit level: " + it.levelOfItemForCastSpell + "<BR>";
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                if (it.onScoringHit != "none")
+                {
+                                    if (lineCount < 10)
+                                    {
+                                        lineCount++;
+                                        textToSpan += "Special effect on hit: " + "See item description" + "<BR>";
+                                    }
+                }
+
+
+                if (it.entriesForPcTags.Count > 0)
+                {
+                    string pcTags = "";
+                    foreach (LocalImmunityString ls in it.entriesForPcTags)
+                    {
+                        pcTags += ls.Value + ", ";
+                    }
+                    if (lineCount < 10)
+                    {
+                        lineCount++;
+                        textToSpan += "Item perks: " + pcTags + "<BR>";
+                    }
+                }
+
+                if (it.requiredRace != "none")
+                {
+                    if (lineCount < 10)
+                    {
+                        lineCount++;
+                        string raceName = "";
+                        foreach (Race r in gv.mod.moduleRacesList)
+                        {
+                            if (r.tag == it.requiredRace)
+                            {
+                                raceName = r.name;
+                                break;
+                            }
+                        }
+                        textToSpan += "Required race: " + raceName + "<BR>";
+                    }
+                }
+
+                if (it.restrictedRace != "none")
+                {
+                    if (lineCount < 10)
+                    {
+                        lineCount++;
+                        string raceName = "";
+                        foreach (Race r in gv.mod.moduleRacesList)
+                        {
+                            if (r.tag == it.restrictedRace)
+                            {
+                                raceName = r.name;
+                                break;
+                            }
+                        }
+                        textToSpan += "Not allowed for race: " + raceName + "<BR>";
+                    }
+                }
+
+                if (it.requiredTrait != "none")
+                {
+                    if (lineCount < 10)
+                    {
+                        lineCount++;
+                        string traitName = "";
+                        foreach (Trait t in gv.mod.moduleTraitsList)
+                        {
+                            if (t.tag == it.requiredTrait)
+                            {
+                                traitName = t.name;
+                                break;
+                            }
+                        }
+                        textToSpan += "Required trait: " + traitName + "<BR>";
+                    }
+                }
+
+                if (it.requiredSTR != 0)
+                {
+                    if (lineCount < 10)
+                    {
+                        lineCount++;
+                        textToSpan += "Required Strength: " + it.requiredSTR + "<BR>";
+                    }
+                }
+
+                if (it.requiredDEX != 0)
+                {
+                    if (lineCount < 10)
+                    {
+                        lineCount++;
+                        textToSpan += "Required Dexterity: " + it.requiredDEX + "<BR>";
+                    }
+                }
+
+                if (it.requiredCON != 0)
+                {
+                    if (lineCount < 10)
+                    {
+                        lineCount++;
+                        textToSpan += "Required Constitution: " + it.requiredCON + "<BR>";
+                    }
+                }
+
+                if (it.requiredINT != 0)
+                {
+                    if (lineCount < 10)
+                    {
+                        lineCount++;
+                        textToSpan += "Required Intelligence: " + it.requiredINT + "<BR>";
+                    }
+                }
+
+                if (it.requiredWIS != 0)
+                {
+                    if (lineCount < 10)
+                    {
+                        lineCount++;
+                        textToSpan += "Required Wisdom: " + it.requiredWIS + "<BR>";
+                    }
+                }
+
+                if (it.requiredCHA != 0)
+                {
+                    if (lineCount < 10)
+                    {
+                        lineCount++;
+                        textToSpan += "Required Charisma: " + it.requiredCHA + "<BR>";
+                    }
+                }
+
+
+                if (it.isRation)
+                {
+                    if (lineCount < 10)
+                    {
+                        lineCount++;
+                        textToSpan += "Is ration: " + it.isRation + "<BR>";
+                    }
+                }
+
+                if (it.isLightSource)
+                {
+                    if (lineCount < 10)
+                    {
+                        lineCount++;
+                        textToSpan += "Is light source: " + it.isLightSource + "<BR>";
+                    }
+                }
+
+                if (it.modifierMaxHP != 0)
+                {
+                    if (lineCount < 10)
+                    {
+                        lineCount++;
+                        textToSpan += "HP modifier: " + it.modifierMaxHP + "<BR>";
+                    }
+                }
+
+                if (it.modifierMaxSP != 0)
+                {
+                    if (lineCount < 10)
+                    {
+                        lineCount++;
+                        textToSpan += "SP modifier: " + it.modifierMaxSP + "<BR>";
+                    }
+                }
+
+                if (it.attributeBonusModifierStr != 0)
+                {
+                    if (lineCount < 10)
+                    {
+                        lineCount++;
+                        textToSpan += "STR modifier: " + it.attributeBonusModifierStr + "<BR>";
+                    }
+                }
+
+                if (it.attributeBonusModifierDex != 0)
+                {
+                    if (lineCount < 10)
+                    {
+                        lineCount++;
+                        textToSpan += "DEX modifier: " + it.attributeBonusModifierDex + "<BR>";
+                    }
+                }
+
+                if (it.attributeBonusModifierCon != 0)
+                {
+                    if (lineCount < 10)
+                    {
+                        lineCount++;
+                        textToSpan += "CON modifier: " + it.attributeBonusModifierCon + "<BR>";
+                    }
+                }
+
+                if (it.attributeBonusModifierInt != 0)
+                {
+                    if (lineCount < 10)
+                    {
+                        lineCount++;
+                        textToSpan += "INT modifier: " + it.attributeBonusModifierInt + "<BR>";
+                    }
+                }
+
+                if (it.attributeBonusModifierWis != 0)
+                {
+                    if (lineCount < 10)
+                    {
+                        lineCount++;
+                        textToSpan += "WIS modifier: " + it.attributeBonusModifierWis + "<BR>";
+                    }
+                }
+
+                if (it.attributeBonusModifierCha != 0)
+                {
+                    if (lineCount < 10)
+                    {
+                        lineCount++;
+                        textToSpan += "CHA modifier: " + it.attributeBonusModifierCha + "<BR>";
+                    }
+                }
+
+                if (it.hpRegenPerRoundInCombat != 0)
+                {
+                    if (lineCount < 10)
+                    {
+                        lineCount++;
+                        textToSpan += "HP reg per round in combat: " + it.hpRegenPerRoundInCombat + "<BR>";
+                    }
+                }
+
+                if (it.spRegenPerRoundInCombat != 0)
+                {
+                    if (lineCount < 10)
+                    {
+                        lineCount++;
+                        textToSpan += "SP reg per round in combat: " + it.spRegenPerRoundInCombat + "<BR>";
+                    }
+                }
+
+                if (it.minutesPerHpRegenOutsideCombat != 0)
+                {
+                    if (lineCount < 10)
+                    {
+                        lineCount++;
+                        textToSpan += "+1 HP outside combat every: " + it.minutesPerHpRegenOutsideCombat + " minutes" + "<BR>";
+                    }
+                }
+
+                if (it.minutesPerSpRegenOutsideCombat != 0)
+                {
+                    if (lineCount < 10)
+                    {
+                        lineCount++;
+                        textToSpan += "+1 SP outside combat every: " + it.minutesPerSpRegenOutsideCombat + " minutes" + "<BR>";
+                    }
+                }
+
+                if (it.MovementPointModifier != 0)
+                {
+                    if (lineCount < 10)
+                    {
+                        lineCount++;
+                        textToSpan += "Effect on movement points: " + it.MovementPointModifier + "<BR>";
+                    }
+                }
+
+                if (it.savingThrowModifierFortitude != 0)
+                {
+                    if (lineCount < 10)
+                    {
+                        lineCount++;
+                        textToSpan += "Fortitude save modifier: " + it.savingThrowModifierFortitude + "<BR>";
+                    }
+                }
+
+                if (it.savingThrowModifierReflex != 0)
+                {
+                    if (lineCount < 10)
+                    {
+                        lineCount++;
+                        textToSpan += "Reflex save modifier: " + it.savingThrowModifierReflex + "<BR>";
+                    }
+                }
+
+                if (it.savingThrowModifierFortitude != 0)
+                {
+                    if (lineCount < 10)
+                    {
+                        lineCount++;
+                        textToSpan += "Will save modifier: " + it.savingThrowModifierWill + "<BR>";
+                    }
+                }
+
+                if (it.damageTypeResistanceValueNormal != 0)
+                {
+                    if (lineCount < 10)
+                    {
+                        lineCount++;
+                        textToSpan += "Resistance physical modifier: " + it.damageTypeResistanceValueNormal + "<BR>";
+                    }
+                }
+
+                if (it.damageTypeResistanceValueAcid != 0)
+                {
+                    if (lineCount < 10)
+                    {
+                        lineCount++;
+                        textToSpan += "Resistance acid modifier: " + it.damageTypeResistanceValueAcid + "<BR>";
+                    }
+                }
+
+                if (it.damageTypeResistanceValueElectricity != 0)
+                {
+                    if (lineCount < 10)
+                    {
+                        lineCount++;
+                        textToSpan += "Resistance electricity modifier: " + it.damageTypeResistanceValueElectricity + "<BR>";
+                    }
+                }
+
+                if (it.damageTypeResistanceValueFire != 0)
+                {
+                    if (lineCount < 10)
+                    {
+                        lineCount++;
+                        textToSpan += "Resistance fire modifier: " + it.damageTypeResistanceValueFire + "<BR>";
+                    }
+                }
+
+                if (it.damageTypeResistanceValueCold != 0)
+                {
+                    if (lineCount < 10)
+                    {
+                        lineCount++;
+                        textToSpan += "Resistance cold modifier: " + it.damageTypeResistanceValueCold + "<BR>";
+                    }
+                }
+
+                if (it.damageTypeResistanceValuePoison != 0)
+                {
+                    if (lineCount < 10)
+                    {
+                        lineCount++;
+                        textToSpan += "Resistance poison modifier: " + it.damageTypeResistanceValuePoison + "<BR>";
+                    }
+                }
+
+                if (it.damageTypeResistanceValueMagic != 0)
+                {
+                    if (lineCount < 10)
+                    {
+                        lineCount++;
+                        textToSpan += "Resistance magic modifier: " + it.damageTypeResistanceValueMagic + "<BR>";
+                    }
+                }
+
+                if (it.onUseItemCastSpellTag != "none" || it.onUseItemIBScript != "none" || it.onUseItem != "none" || it.category != "General")
+                {
+                    if (lineCount < 10)
+                    {
+                        lineCount++;
+                        textToSpan += "Allowed for: " + gv.sf.isUseableBy(it) + "<BR>";
+                    }
+                }
+
                 if (lineCount < 10)
                 {
                     lineCount++;
-                    textToSpan += "Required Strength: " + it.requiredSTR + "<BR>";
+                    textToSpan += "Value: " + it.value + "<BR>";
                 }
-            }
 
-            if (it.requiredDEX != 0)
-            {
-                if (lineCount < 10)
+                if (!showFullInfo)
                 {
-                    lineCount++;
-                    textToSpan += "Required Dexterity: " + it.requiredDEX + "<BR>";
+                    if (lineCount < 10)
+                    {
+                        textToSpan += "Press INFO for item description " + "<BR>";
+                    }
+                    else
+                    {
+                        textToSpan += "[Cut off] See more via INFO " + "<BR>";
+                    }
                 }
-            }
+                //rückwärts
 
-            if (it.requiredCON != 0)
-            {
-                if (lineCount < 10)
+                /*
+                textToSpan += "Useable By: " + isUseableBy(it) + "<BR>";
+                textToSpan += "Two-Handed Weapon: ";
+                if (it.twoHanded) { textToSpan += "Yes<BR>"; }
+                else { textToSpan += "No<BR>"; }
+                */
+                if (showFullInfo)
                 {
-                    lineCount++;
-                    textToSpan += "Required Constitution: " + it.requiredCON + "<BR>";
+                    if ((!it.descFull.Equals("")))
+                    {
+                        textToSpan += "" + "<BR>";
+                        textToSpan += it.descFull;
+                    }
+                    else
+                    {
+                        textToSpan += "" + "<BR>";
+                        textToSpan += it.desc;
+                    }
                 }
-            }
 
-            if (it.requiredINT != 0)
-            {
-                if (lineCount < 10)
+                textToSpan += "<BR>";
+
+                if (showFullInfo)
                 {
-                    lineCount++;
-                    textToSpan += "Required Intelligence: " + it.requiredINT + "<BR>";
+                    gv.sf.MessageBoxHtml(textToSpan);
                 }
+
+                //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
             }
 
-            if (it.requiredWIS != 0)
+            if (it.name == "none")
             {
-                if (lineCount < 10)
-                {
-                    lineCount++;
-                    textToSpan += "Required Wisdom: " + it.requiredWIS + "<BR>";
-                }
+                textToSpan = "";
             }
-
-            if (it.requiredCHA != 0)
-            {
-                if (lineCount < 10)
-                {
-                    lineCount++;
-                    textToSpan += "Required Charisma: " + it.requiredCHA + "<BR>";
-                }
-            }
-
-
-            if (it.isRation)
-            {
-                if (lineCount < 10)
-                {
-                    lineCount++;
-                    textToSpan += "Is ration: " + it.isRation + "<BR>";
-                }
-            }
-
-            if (it.isLightSource)
-            {
-                if (lineCount < 10)
-                {
-                    lineCount++;
-                    textToSpan += "Is light source: " + it.isLightSource + "<BR>";
-                }
-            }
-
-            if (it.modifierMaxHP != 0)
-            {
-                if (lineCount < 10)
-                {
-                    lineCount++;
-                    textToSpan += "HP modifier: " + it.modifierMaxHP + "<BR>";
-                }
-            }
-
-            if (it.modifierMaxSP != 0)
-            {
-                if (lineCount < 10)
-                {
-                    lineCount++;
-                    textToSpan += "SP modifier: " + it.modifierMaxSP + "<BR>";
-                }
-            }
-
-            if (it.attributeBonusModifierStr != 0)
-            {
-                if (lineCount < 10)
-                {
-                    lineCount++;
-                    textToSpan += "STR modifier: " + it.attributeBonusModifierStr + "<BR>";
-                }
-            }
-
-            if (it.attributeBonusModifierDex != 0)
-            {
-                if (lineCount < 10)
-                {
-                    lineCount++;
-                    textToSpan += "DEX modifier: " + it.attributeBonusModifierDex + "<BR>";
-                }
-            }
-
-            if (it.attributeBonusModifierCon != 0)
-            {
-                if (lineCount < 10)
-                {
-                    lineCount++;
-                    textToSpan += "CON modifier: " + it.attributeBonusModifierCon + "<BR>";
-                }
-            }
-
-            if (it.attributeBonusModifierInt != 0)
-            {
-                if (lineCount < 10)
-                {
-                    lineCount++;
-                    textToSpan += "INT modifier: " + it.attributeBonusModifierInt + "<BR>";
-                }
-            }
-
-            if (it.attributeBonusModifierWis != 0)
-            {
-                if (lineCount < 10)
-                {
-                    lineCount++;
-                    textToSpan += "WIS modifier: " + it.attributeBonusModifierWis + "<BR>";
-                }
-            }
-
-            if (it.attributeBonusModifierCha != 0)
-            {
-                if (lineCount < 10)
-                {
-                    lineCount++;
-                    textToSpan += "CHA modifier: " + it.attributeBonusModifierCha + "<BR>";
-                }
-            }
-
-            if (it.hpRegenPerRoundInCombat != 0)
-            {
-                if (lineCount < 10)
-                {
-                    lineCount++;
-                    textToSpan += "HP reg per round in combat: " + it.hpRegenPerRoundInCombat + "<BR>";
-                }
-            }
-
-            if (it.spRegenPerRoundInCombat != 0)
-            {
-                if (lineCount < 10)
-                {
-                    lineCount++;
-                    textToSpan += "SP reg per round in combat: " + it.spRegenPerRoundInCombat + "<BR>";
-                }
-            }
-
-            if (it.minutesPerHpRegenOutsideCombat != 0)
-            {
-                if (lineCount < 10)
-                {
-                    lineCount++;
-                    textToSpan += "+1 HP outside combat every: " + it.minutesPerHpRegenOutsideCombat + " minutes" + "<BR>";
-                }
-            }
-
-            if (it.minutesPerSpRegenOutsideCombat != 0)
-            {
-                if (lineCount < 10)
-                {
-                    lineCount++;
-                    textToSpan += "+1 SP outside combat every: " + it.minutesPerSpRegenOutsideCombat + " minutes" + "<BR>";
-                }
-            }
-
-            if (it.MovementPointModifier != 0)
-            {
-                if (lineCount < 10)
-                {
-                    lineCount++;
-                    textToSpan += "Effect on movement points: " + it.MovementPointModifier + "<BR>";
-                }
-            }
-
-            if (it.savingThrowModifierFortitude != 0)
-            {
-                if (lineCount < 10)
-                {
-                    lineCount++;
-                    textToSpan += "Fortitude save modifier: " + it.savingThrowModifierFortitude + "<BR>";
-                }
-            }
-
-            if (it.savingThrowModifierReflex != 0)
-            {
-                if (lineCount < 10)
-                {
-                    lineCount++;
-                    textToSpan += "Reflex save modifier: " + it.savingThrowModifierReflex + "<BR>";
-                }
-            }
-
-            if (it.savingThrowModifierFortitude != 0)
-            {
-                if (lineCount < 10)
-                {
-                    lineCount++;
-                    textToSpan += "Will save modifier: " + it.savingThrowModifierWill + "<BR>";
-                }
-            }
-
-            if (it.damageTypeResistanceValueNormal != 0)
-            {
-                if (lineCount < 10)
-                {
-                    lineCount++;
-                    textToSpan += "Resistance physical modifier: " + it.damageTypeResistanceValueNormal + "<BR>";
-                }
-            }
-
-            if (it.damageTypeResistanceValueAcid != 0)
-            {
-                if (lineCount < 10)
-                {
-                    lineCount++;
-                    textToSpan += "Resistance acid modifier: " + it.damageTypeResistanceValueAcid + "<BR>";
-                }
-            }
-
-            if (it.damageTypeResistanceValueElectricity != 0)
-            {
-                if (lineCount < 10)
-                {
-                    lineCount++;
-                    textToSpan += "Resistance electricity modifier: " + it.damageTypeResistanceValueElectricity + "<BR>";
-                }
-            }
-
-            if (it.damageTypeResistanceValueFire != 0)
-            {
-                if (lineCount < 10)
-                {
-                    lineCount++;
-                    textToSpan += "Resistance fire modifier: " + it.damageTypeResistanceValueFire + "<BR>";
-                }
-            }
-
-            if (it.damageTypeResistanceValueCold != 0)
-            {
-                if (lineCount < 10)
-                {
-                    lineCount++;
-                    textToSpan += "Resistance cold modifier: " + it.damageTypeResistanceValueCold + "<BR>";
-                }
-            }
-
-            if (it.damageTypeResistanceValuePoison != 0)
-            {
-                if (lineCount < 10)
-                {
-                    lineCount++;
-                    textToSpan += "Resistance poison modifier: " + it.damageTypeResistanceValuePoison + "<BR>";
-                }
-            }
-
-            if (it.damageTypeResistanceValueMagic != 0)
-            {
-                if (lineCount < 10)
-                {
-                    lineCount++;
-                    textToSpan += "Resistance magic modifier: " + it.damageTypeResistanceValueMagic + "<BR>";
-                }
-            }
-
-            if (it.onUseItemCastSpellTag != "none" || it.onUseItemIBScript != "none" || it.onUseItem != "none" || it.category != "General")
-            {
-                if (lineCount < 10)
-                {
-                    lineCount++;
-                    textToSpan += "Allowed for: " + gv.sf.isUseableBy(it) + "<BR>";
-                }
-            }
-
-            if (lineCount < 10)
-            {
-                lineCount++;
-                textToSpan += "Value: " + it.value + "<BR>";
-            }
-
-            if (!showFullInfo)
-            {
-                if (lineCount < 10)
-                {
-                    textToSpan += "Press INFO for item description " + "<BR>";
-                }
-                else
-                {
-                    textToSpan += "[Cut off] See more via INFO " + "<BR>";
-                }
-            }
-            //rückwärts
-
-            /*
-            textToSpan += "Useable By: " + isUseableBy(it) + "<BR>";
-            textToSpan += "Two-Handed Weapon: ";
-            if (it.twoHanded) { textToSpan += "Yes<BR>"; }
-            else { textToSpan += "No<BR>"; }
-            */
-            if (showFullInfo)
-            {
-                if ((!it.descFull.Equals("")))
-                {
-                    textToSpan += "" + "<BR>";
-                    textToSpan += it.descFull;
-                }
-                else
-                {
-                    textToSpan += "" + "<BR>";
-                    textToSpan += it.desc;
-                }
-            }
-
-            textToSpan += "<BR>";
-
-            if (showFullInfo)
-            {
-                gv.sf.MessageBoxHtml(textToSpan);
-            }
-
-            //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
             return textToSpan;
         }
 
@@ -10182,35 +12051,38 @@ namespace IceBlink2
 
         public void doEncounterBasedOnTag(string name)
         {
-            //project repeatable
-            try
-            {
-                gv.mod.currentEncounter = gv.mod.getEncounter(name);
-                if (gv.mod.currentEncounter.encounterCreatureRefsList.Count > 0)
+            //if (gv.mod.breakActiveSearch == false)
+            //{
+                //project repeatable
+                try
                 {
-                    gv.screenCombat.doCombatSetup();
-                    int foundOnePc = 0;
-                    foreach (Player chr in gv.mod.playerList)
+                    gv.mod.currentEncounter = gv.mod.getEncounter(name);
+                    if (gv.mod.currentEncounter.encounterCreatureRefsList.Count > 0)
                     {
-                        if (chr.hp > 0)
+                        gv.screenCombat.doCombatSetup();
+                        int foundOnePc = 0;
+                        foreach (Player chr in gv.mod.playerList)
                         {
-                            foundOnePc = 1;
+                            if (chr.hp > 0)
+                            {
+                                foundOnePc = 1;
+                            }
+                        }
+                        if (foundOnePc == 0)
+                        {
+                            //IBMessageBox.Show(game, "Party is wiped out...game over");
                         }
                     }
-                    if (foundOnePc == 0)
+                    else
                     {
-                        //IBMessageBox.Show(game, "Party is wiped out...game over");
+                        //IBMessageBox.Show(game, "no creatures left here"); 
                     }
                 }
-                else
+                catch (Exception ex)
                 {
-                    //IBMessageBox.Show(game, "no creatures left here"); 
+                    gv.errorLog(ex.ToString());
                 }
-            }
-            catch (Exception ex)
-            {
-                gv.errorLog(ex.ToString());
-            }
+            //}
         }
 
         public bool goWest()
@@ -10244,6 +12116,7 @@ namespace IceBlink2
                         //check for block on other side
                         if (gv.mod.moduleAreasObjects[indexOfNeighbourMap].GetBlocked(gv.mod.moduleAreasObjects[indexOfNeighbourMap].MapSizeX - 1 - gv.mod.borderAreaSize, gv.mod.PlayerLocationY, gv.mod.PlayerLocationX, gv.mod.PlayerLocationY, gv.mod.PlayerLastLocationX, gv.mod.PlayerLastLocationY) == false)
                         {
+                           // if (gv.mod.moduleAreasObjects[indexOfNeighbourMap].Tiles[gv.mod.moduleAreasObjects[indexOfNeighbourMap].MapSizeX
                             int xTargetCoordinate = gv.mod.moduleAreasObjects[indexOfNeighbourMap].MapSizeX - 1 - gv.mod.borderAreaSize;
                             int yTargetCoordinate = gv.mod.PlayerLocationY;
                             gv.mod.allowImmediateRetransition = true;

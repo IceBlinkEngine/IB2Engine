@@ -22,6 +22,28 @@ namespace IceBlink2
         public string masterOfThisArea = "none";
         public List<string> linkedAreas = new List<string>();
         public List<int> linkNumbers = new List<int>();
+
+        public List<Coordinate> toggledSquaresWalkable = new List<Coordinate>();
+        public List<Coordinate> toggledSquaresLoS = new List<Coordinate>();
+        public List<Coordinate> toggledSquaresIsSecretPassage = new List<Coordinate>();
+        public List<Coordinate> toggledSquaresWalkableFalse = new List<Coordinate>();
+        public List<Coordinate> toggledSquaresLoSFalse = new List<Coordinate>();
+        public List<Coordinate> toggledSquaresIsSecretPassageFalse = new List<Coordinate>();
+
+        //todo: updateAreas method needs reading these in and add ga controlelr type or os manipualtion script
+        public List<Coordinate> toggledSquaresLayer0FilenameCoords = new List<Coordinate>();
+        public List<string> toggledSquaresLayer0FilenameNames = new List<string>();
+        public List<Coordinate> toggledSquaresLayer1FilenameCoords = new List<Coordinate>();
+        public List<string> toggledSquaresLayer1FilenameNames = new List<string>();
+        public List<Coordinate> toggledSquaresLayer2FilenameCoords = new List<Coordinate>();
+        public List<string> toggledSquaresLayer2FilenameNames = new List<string>();
+        public List<Coordinate> toggledSquaresLayer3FilenameCoords = new List<Coordinate>();
+        public List<string> toggledSquaresLayer3FilenameNames = new List<string>();
+        public List<Coordinate> toggledSquaresLayer4FilenameCoords = new List<Coordinate>();
+        public List<string> toggledSquaresLayer4FilenameNames = new List<string>();
+        public List<Coordinate> toggledSquaresLayer5FilenameCoords = new List<Coordinate>();
+        public List<string> toggledSquaresLayer5FilenameNames = new List<string>();
+
         public int linkNumberOfThisArea = -1;
 
         public int averageHeightOnThisMap = 0;
@@ -600,7 +622,24 @@ namespace IceBlink2
             {
                 return true;
             }
-            
+
+
+            foreach (Prop p in this.Props)
+            {
+                if ((p.LocationX == playerXPosition) && (p.LocationY == playerYPosition))
+                {
+                    if (p.HasCollision)
+                    {
+                        return true;
+                    }
+                }
+            }
+
+            if (this.Tiles[playerYPosition * this.MapSizeX + playerXPosition].isSecretPassage == true)
+            {
+                return false;
+            }
+
             if (this.Tiles[playerYPosition * this.MapSizeX + playerXPosition].heightLevel != this.Tiles[lastPlayerYPosition * this.MapSizeX + lastPlayerXPosition].heightLevel)
             {
                 bool allowMove = false;
@@ -1045,16 +1084,6 @@ namespace IceBlink2
             }
 
 
-            foreach (Prop p in this.Props)
-            {
-                if ((p.LocationX == playerXPosition) && (p.LocationY == playerYPosition))
-                {
-                    if (p.HasCollision)
-                    {
-                        return true;
-                    }
-                }
-            }
             return false;
         }
 

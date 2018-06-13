@@ -15,10 +15,11 @@ namespace IceBlink2
         public Creature ThisCreature = null;    //Creature that is calling the current script, when using 'thisCreature' in script, make sure to null out after use
         public object CombatTarget = null;
         public GameView gv;
-        public int spCnt = 0;
+        //public int spCnt = 0;
         public Random rand;
         public List<object> AoeTargetsList = new List<object>();
         public List<Coordinate> AoeSquaresList = new List<Coordinate>();
+        
 
         public ScriptFunctions(Module m, GameView g)
         {
@@ -381,7 +382,7 @@ namespace IceBlink2
             }
             if (strg =="")
             {
-                strg = "all";
+                strg = "All";
             }
             return strg;
         }
@@ -423,6 +424,10 @@ namespace IceBlink2
         /// <param name="max"> The maximum value that can be found (ex. Random(5, 9); will return a number between 5-9 so 5, 6, 7, 8 or 9 are possible results).</param>
         public int RandInt(int min, int max)
         {
+            if (min > max)
+            {
+                max = min;
+            }
             //A 32-bit signed integer greater than or equal to minValue and less than maxValue; that is, the range of return values includes minValue but not maxValue.
             return rand.Next(min, max + 1);
         }
@@ -460,6 +465,36 @@ namespace IceBlink2
                     if (filename.Equals("gaSetGlobalInt.cs"))
                     {
                         SetGlobalInt(prm1, p2);
+                    }
+                    else if (filename.Equals("gaModifyFactionStrength.cs"))
+                    {
+                        //p1 is faction tag
+                        //prm2 is operator
+                        //p3 is amount of modification
+                        ModifyFactionStrength(p1, prm2, p3);
+                    }
+                    else if (filename.Equals("gaModifyFactionGrowthRate.cs"))
+                    {
+                        //p1 is faction tag
+                        //prm2 is operator
+                        //p3 is amount of modification
+                        ModifyFactionGrowthRate(p1, prm2, p3);
+                    }
+                    else if (filename.Equals("gaRechargeSingleItem.cs"))
+                    {
+                        RechargeSingleItem(prm1);
+                    }
+                    else if (filename.Equals("gaMovePartyToLastLocation.cs"))
+                    {
+                        MovePartyToLastLocation(prm1);
+                    }
+                    else if (filename.Equals("gaRechargeAllItemsOfAType.cs"))
+                    {
+                        RechargeAllItemsOfAType(prm1);
+                    }
+                    else if (filename.Equals("gaRechargeAllItems.cs"))
+                    {
+                        RechargeAllItems();
                     }
                     else if (filename.Equals("gaSetLocalInt.cs"))
                     {
@@ -553,6 +588,32 @@ namespace IceBlink2
                         //public void doSpellCalledFromScript(Spell spell, Player player, int casterLevel, string logTextForCastingAction)
                         castSpell(p1,p2,p3,p4);
                     }
+                    else if (filename.Equals("gaCastSpellEncounterTrigger.cs"))
+                    {
+                        //target square is always current location of the pc or creature whose turn it is (this way multi tile triggers will work correctly)
+                        //option: 
+                        //call from after each move (aftereach movecalls) and from start of turn
+
+                        //string parm1 tag of spell
+                        //bool parm2 remove effect immediately when leaving trigger square (true/false); this is handy for triggers that give positional buffs for position, simualting eg height advantage 
+                        //add effect tag for with duration > 0 (or buff/debuff) to tagsOfEffectsToRemoveOnMove list of cretaure/pc
+                        //string parm3 caster level
+                        //string parm4 custom log text override  
+
+                        //charges can be defined right  int he trigger menu in toolset
+                        //also, whether trigger can be called more than once per turn (encounterTriggerOnEveryStep)
+
+                        //public void doSpellCalledFromScript(Spell spell, Player player, int casterLevel, string logTextForCastingAction)
+                        ///doSpellBasedOnScriptOrEffectTag(Spell spell, object source, object target, bool outsideCombat, bool isTraitUsage)
+                        //castSpell(p1, p2, p3, p4);
+                        //burning man
+                        gv.cc.doSpellEncounterTrigger(p1, p2, p3, p4);
+
+
+                
+
+
+                    }
                     else if (filename.Equals("gaGiveGold.cs"))
                     {
                         int parm1 = Convert.ToInt32(p1);
@@ -575,11 +636,17 @@ namespace IceBlink2
                     {
                         itForceRestAndRaiseDead();
                     }
+                    else if (filename.Equals("gaForceRestAndRaiseDeadRequireRations.cs"))
+                    {
+                        itForceRestAndRaiseDeadRequireRations();
+                    }
+                    /*
                     else if (filename.Equals("gaMovePartyToLastLocation.cs"))
                     {
                         gv.mod.PlayerLocationX = gv.mod.PlayerLastLocationX;
                         gv.mod.PlayerLocationY = gv.mod.PlayerLastLocationY;
                     }
+                    */
                     else if (filename.Equals("gaTakeItem.cs"))
                     {
                         int parm2 = Convert.ToInt32(p2);
@@ -977,6 +1044,31 @@ namespace IceBlink2
                         int y = Convert.ToInt32(p2);
                         bool enable = Boolean.Parse(p3);
                         gv.mod.currentArea.Tiles[y * gv.mod.currentArea.MapSizeX + x].LoSBlocked = enable;
+                        Coordinate coord = new Coordinate();
+                        coord.X = x;
+                        coord.Y = y;
+                        if (enable)
+                        {
+                            if (gv.mod.currentArea.toggledSquaresLoS != null)
+                            {
+                                gv.mod.currentArea.toggledSquaresLoS.Add(coord);
+                            }
+                        }
+                        else
+                        {
+                            if (gv.mod.currentArea.toggledSquaresLoSFalse != null)
+                            {
+                                gv.mod.currentArea.toggledSquaresLoSFalse.Add(coord);
+                            }
+                        }
+
+                        //floaty in case tile gets transparent
+                        if ((p4 != null && p4 != "none" && p4 != "") && (!enable))
+                        {
+                            //gv.cc.addFloatyText(new Coordinate(coord.X, coord.Y), p4, "green");
+                            gv.screenMainMap.addFloatyText(coord.X, coord.Y, p4, "green", 4000);
+                        }
+
                     }
                     else if (filename.Equals("gaToggleAreaSquareWalkable.cs"))
                     {
@@ -984,6 +1076,60 @@ namespace IceBlink2
                         int y = Convert.ToInt32(p2);
                         bool enable = Boolean.Parse(p3);
                         gv.mod.currentArea.Tiles[y * gv.mod.currentArea.MapSizeX + x].Walkable = enable;
+                        Coordinate coord = new Coordinate();
+                        coord.X = x;
+                        coord.Y = y;
+                        if (enable)
+                        {
+                            if (gv.mod.currentArea.toggledSquaresWalkable != null)
+                            {
+                                gv.mod.currentArea.toggledSquaresWalkable.Add(coord);
+                            }
+                        }
+                        else
+                        {
+                            if (gv.mod.currentArea.toggledSquaresWalkableFalse != null)
+                            {
+                                gv.mod.currentArea.toggledSquaresWalkableFalse.Add(coord);
+                            }
+                        }
+
+                        //floaty in case tile becomes walkable
+                        if ((p4 != null && p4 != "none" && p4 != "") && (enable))
+                        {
+                            //gv.cc.addFloatyText(new Coordinate(coord.X, coord.Y), p4, "green");
+                            gv.screenMainMap.addFloatyText(coord.X, coord.Y, p4, "green", 4000);
+                        }
+                    }
+                    else if (filename.Equals("gaToggleAreaSquareIsSecretPassage.cs"))
+                    {
+                        int x = Convert.ToInt32(p1);
+                        int y = Convert.ToInt32(p2);
+                        bool enable = Boolean.Parse(p3);
+                        gv.mod.currentArea.Tiles[y * gv.mod.currentArea.MapSizeX + x].isSecretPassage = enable;
+                        Coordinate coord = new Coordinate();
+                        coord.X = x;
+                        coord.Y = y;
+                        if (enable)
+                        {
+                            if (gv.mod.currentArea.toggledSquaresIsSecretPassage != null)
+                            {
+                                gv.mod.currentArea.toggledSquaresIsSecretPassage.Add(coord);
+                            }
+                        }
+                        else
+                        {
+                            if (gv.mod.currentArea.toggledSquaresIsSecretPassageFalse != null)
+                            {
+                                gv.mod.currentArea.toggledSquaresIsSecretPassageFalse.Add(coord);
+                            }
+                        }
+                        //floaty in case passage becomes open/existent
+                        if ((p4 != null && p4 != "none" && p4 != "") && (enable))
+                        {
+                            //gv.cc.addFloatyText(new Coordinate(coord.X, coord.Y), p4, "green");
+                            gv.screenMainMap.addFloatyText(coord.X, coord.Y, p4, "green", 4000);
+                        }
                     }
                     else if (filename.Equals("gaPropOrTriggerCastSpellOnThisSquare.cs"))
                     {
@@ -1446,6 +1592,36 @@ namespace IceBlink2
                         int parm3 = Convert.ToInt32(p3);
                         gv.mod.returnCheck = CheckGlobalInt(prm1, prm2, parm3);
                     }
+                    else if (filename.Equals("gcCheckIsInDarkness.cs"))
+                    { 
+                        gv.mod.returnCheck = CheckIsInDarkness(p1, p2);
+                    }
+                    else if (filename.Equals("gcCheckManualKeyboardInput.cs"))
+                    {
+                        CheckManualKeyboardInput(p1, p2, p3, p4);
+                    }
+                    else if (filename.Equals("gcCheckIsInHoursWindowDaily.cs"))
+                    {
+                        gv.mod.returnCheck = CheckIsInHoursWindowDaily(p1, p2);
+                    }
+                    else if (filename.Equals("gcCheckIsInDaysWindowWeekly.cs"))
+                    {
+                        gv.mod.returnCheck = CheckIsInDaysWindowWeekly(p1, p2);
+                    }
+                    else if (filename.Equals("gcCheckIsInWeeksWindowMonthly.cs"))
+                    {
+                        gv.mod.returnCheck = CheckIsInWeeksWindowMonthly(p1, p2);
+                    }
+                    else if (filename.Equals("gcCheckIsInMonthsWindowYearly.cs"))
+                    {
+                        gv.mod.returnCheck = CheckIsInMonthsWindowYearly(p1, p2);
+                    }
+                    else if (filename.Equals("gcCheckIsInFactionStrengthWindow.cs"))
+                    {
+                        int parm2 = Convert.ToInt32(p2);
+                        int parm3 = Convert.ToInt32(p3);
+                        gv.mod.returnCheck = CheckIsInFactionStrengthWindow(prm1, parm2, parm3);
+                    }
                     else if (filename.Equals("gcCheckLocalInt.cs"))
                     {
                         //check to see if prm1 is thisprop or thisarea
@@ -1462,6 +1638,24 @@ namespace IceBlink2
                         int parm4 = Convert.ToInt32(p4);
                         gv.mod.returnCheck = CheckLocalInt(prm1, prm2, prm3, parm4);
                     }
+                    /*
+                    else if (filename.Equals("gcCheckIsInDarkness.cs"))
+                    {
+                        //check to see if prm1 is thisprop or thisarea
+                        if (prm1.Equals("thisprop"))
+                        {
+                            //find the prop at this location
+                            prm1 = mod.currentArea.getPropByLocation(mod.PlayerLocationX, mod.PlayerLocationY).PropTag;
+                        }
+                        else if (prm1.Equals("thisarea"))
+                        {
+                            //use the currentArea
+                            prm1 = mod.currentArea.Filename;
+                        }
+                        int parm4 = Convert.ToInt32(p4);
+                        gv.mod.returnCheck = CheckLocalInt(prm1, prm2, prm3, parm4);
+                    }
+                    */
                     else if (filename.Equals("gcCheckGlobalString.cs"))
                     {
                         gv.mod.returnCheck = CheckGlobalString(prm1, p2);
@@ -1527,43 +1721,306 @@ namespace IceBlink2
                     }
                     else if (filename.Equals("gcCheckHasTrait.cs"))
                     {
+                       
                         int parm1 = 0;
-                        if ((p1.Equals("")) || (p1.Equals("-1")))
+                        if (p1.Equals("") || p1.Equals("-1") || p1.Equals("leader") || p1.Equals("Leader"))
                         {
                             parm1 = gv.mod.selectedPartyLeader;
                         }
+                        //highest
+                        else if (p1.Equals("-2") || p1.Equals("highest") || p1.Equals("Highest"))
+                        {
+                            parm1 = -2;
+                        }
+                        //lowest
+                        else if (p1.Equals("-3") || p1.Equals("lowest") || p1.Equals("Lowest"))
+                        {
+                            parm1 = -3;
+                        }
+                        //average
+                        else if (p1.Equals("-4") || p1.Equals("average") || p1.Equals("Average"))
+                        {
+                            parm1 = -4;
+                        }
+                        //allMustSucceed
+                        else if (p1.Equals("-5") || p1.Equals("allMustSucceed") || p1.Equals("AllMustSucceed"))
+                        {
+                            parm1 = -5;
+                        }
+                        //oneMustSucceed
+                        else if (p1.Equals("-6") || p1.Equals("oneMustSucceed") || p1.Equals("OneMustSucceed"))
+                        {
+                            parm1 = -6;
+                        }
+                        //directly selected
                         else
                         {
                             parm1 = Convert.ToInt32(p1);
+                            if (parm1 < 0 || parm1 > 5)
+                            {
+                                parm1 = gv.mod.selectedPartyLeader;
+                            }
                         }
                         gv.mod.returnCheck = CheckHasTrait(parm1, p2);
                     }
                     else if (filename.Equals("gcCheckHasSpell.cs"))
                     {
                         int parm1 = 0;
+                        //leader
                         if ((p1.Equals("")) || (p1.Equals("-1")))
                         {
                             parm1 = gv.mod.selectedPartyLeader;
                         }
-                        else
+                        //directly selected
+                        else 
                         {
                             parm1 = Convert.ToInt32(p1);
+                            if (parm1 < 0 || parm1 > 5)
+                            {
+                                parm1 = gv.mod.selectedPartyLeader;
+                            }
                         }
                         gv.mod.returnCheck = CheckHasSpell(parm1, p2);
                     }
                     else if (filename.Equals("gcPassSkillCheck.cs"))
                     {
                         int parm1 = 0;
-                        if ((p1.Equals("")) || (p1.Equals("-1")))
+                        string traitMethod = "";
+                        foreach (Trait t in gv.mod.moduleTraitsList)
+                        {
+                            if (t.tag == p2)
+                            {
+                                traitMethod = t.methodOfChecking;
+                            }
+                        }
+                        
+                        if (p1 == null)
+                        {
+                            if (traitMethod.Equals("-1") || traitMethod.Equals("leader") || traitMethod.Equals("Leader"))
+                            {
+                                parm1 = gv.mod.selectedPartyLeader;
+                            }
+                            else if (traitMethod.Equals("-2") || traitMethod.Equals("highest") || traitMethod.Equals("Highest"))
+                            {
+                                parm1 = -2;
+                            }
+                            else if (traitMethod.Equals("-3") || traitMethod.Equals("lowest") || traitMethod.Equals("Lowest"))
+                            {
+                                parm1 = -3;
+                            }
+                            else if (traitMethod.Equals("-4") || traitMethod.Equals("average") || traitMethod.Equals("Average"))
+                            {
+                                parm1 = -4;
+                            }
+                            else if (traitMethod.Equals("-5") || traitMethod.Equals("allMustSucceed") || traitMethod.Equals("AllMustSucceed"))
+                            {
+                                parm1 = -5;
+                            }
+                            else if (traitMethod.Equals("-6") || traitMethod.Equals("oneMustSucceed") || traitMethod.Equals("OneMustSucceed"))
+                            {
+                                parm1 = -6;
+                            }
+                        }
+                        else if (p1.Equals(""))
+                        {
+                            if (traitMethod.Equals("-1") || traitMethod.Equals("leader") || traitMethod.Equals("Leader"))
+                            {
+                                parm1 = gv.mod.selectedPartyLeader;
+                            }
+                            else if (traitMethod.Equals("-2") || traitMethod.Equals("highest") || traitMethod.Equals("Highest"))
+                            {
+                                parm1 = -2;
+                            }
+                            else if (traitMethod.Equals("-3") || traitMethod.Equals("lowest") || traitMethod.Equals("Lowest"))
+                            {
+                                parm1 = -3;
+                            }
+                            else if (traitMethod.Equals("-4") || traitMethod.Equals("average") || traitMethod.Equals("Average"))
+                            {
+                                parm1 = -4;
+                            }
+                            else if (traitMethod.Equals("-5") || traitMethod.Equals("allMustSucceed") || traitMethod.Equals("AllMustSucceed"))
+                            {
+                                parm1 = -5;
+                            }
+                            else if (traitMethod.Equals("-6") || traitMethod.Equals("oneMustSucceed") || traitMethod.Equals("OneMustSucceed"))
+                            {
+                                parm1 = -6;
+                            }
+                        }
+                        else if (p1.Equals("-1") || p1.Equals("leader")  || p1.Equals("Leader") )
                         {
                             parm1 = gv.mod.selectedPartyLeader;
                         }
+                        //highest
+                        else if ( p1.Equals("-2") || p1.Equals("highest") || p1.Equals("Highest")) 
+                        {
+                            parm1 = -2;
+                        }
+                        //lowest
+                        else if ( p1.Equals("-3") || p1.Equals("lowest") || p1.Equals("Lowest")) 
+                        {
+                            parm1 = -3;
+                        }
+                        //average
+                        else if (p1.Equals("-4") || p1.Equals("average") || p1.Equals("Average"))
+                        {
+                            parm1 = -4;
+                        }
+                        //allMustSucceed
+                        else if ( p1.Equals("-5") || p1.Equals("allMustSucceed") || p1.Equals("AllMustSucceed")) 
+                        {
+                            parm1 = -5;
+                        }
+                        //oneMustSucceed
+                        else if (p1.Equals("-6") || p1.Equals("oneMustSucceed") || p1.Equals("OneMustSucceed"))
+                        {
+                            parm1 = -6;
+                        }
+                        //directly selected
                         else
                         {
                             parm1 = Convert.ToInt32(p1);
+                            if (parm1 < 0 || parm1 > 5)
+                            {
+                                parm1 = gv.mod.selectedPartyLeader;
+                            }
                         }
                         int parm3 = Convert.ToInt32(p3);
-                        gv.mod.returnCheck = CheckPassSkill(parm1, p2, parm3);
+
+                        bool useRollTen = false;
+                        if (p4 != null)
+                        {
+                            if ((p4.Equals("false")) || (p4.Equals("False")) || (p4.Equals("")))
+                            {
+                                useRollTen = false;
+                            }
+                            else if ((p4.Equals("true")) || (p4.Equals("True")) || (p4.Equals("10")))
+                            {
+                                useRollTen = true;
+                            }
+                        }
+                        gv.mod.returnCheck = CheckPassSkill(parm1, p2, parm3, useRollTen, false);
+                    }
+                    else if (filename.Equals("gcPassSkillCheckSilent.cs"))
+                    {
+                        int parm1 = 0;
+                        string traitMethod = "";
+                        foreach (Trait t in gv.mod.moduleTraitsList)
+                        {
+                            if (t.tag == p2)
+                            {
+                                traitMethod = t.methodOfChecking;
+                            }
+                        }
+
+                        if (p1 == null)
+                        {
+                            if (traitMethod.Equals("-1") || traitMethod.Equals("leader") || traitMethod.Equals("Leader"))
+                            {
+                                parm1 = gv.mod.selectedPartyLeader;
+                            }
+                            else if (traitMethod.Equals("-2") || traitMethod.Equals("highest") || traitMethod.Equals("Highest"))
+                            {
+                                parm1 = -2;
+                            }
+                            else if (traitMethod.Equals("-3") || traitMethod.Equals("lowest") || traitMethod.Equals("Lowest"))
+                            {
+                                parm1 = -3;
+                            }
+                            else if (traitMethod.Equals("-4") || traitMethod.Equals("average") || traitMethod.Equals("Average"))
+                            {
+                                parm1 = -4;
+                            }
+                            else if (traitMethod.Equals("-5") || traitMethod.Equals("allMustSucceed") || traitMethod.Equals("AllMustSucceed"))
+                            {
+                                parm1 = -5;
+                            }
+                            else if (traitMethod.Equals("-6") || traitMethod.Equals("oneMustSucceed") || traitMethod.Equals("OneMustSucceed"))
+                            {
+                                parm1 = -6;
+                            }
+                        }
+                        else if (p1.Equals(""))
+                        {
+                            if (traitMethod.Equals("-1") || traitMethod.Equals("leader") || traitMethod.Equals("Leader"))
+                            {
+                                parm1 = gv.mod.selectedPartyLeader;
+                            }
+                            else if (traitMethod.Equals("-2") || traitMethod.Equals("highest") || traitMethod.Equals("Highest"))
+                            {
+                                parm1 = -2;
+                            }
+                            else if (traitMethod.Equals("-3") || traitMethod.Equals("lowest") || traitMethod.Equals("Lowest"))
+                            {
+                                parm1 = -3;
+                            }
+                            else if (traitMethod.Equals("-4") || traitMethod.Equals("average") || traitMethod.Equals("Average"))
+                            {
+                                parm1 = -4;
+                            }
+                            else if (traitMethod.Equals("-5") || traitMethod.Equals("allMustSucceed") || traitMethod.Equals("AllMustSucceed"))
+                            {
+                                parm1 = -5;
+                            }
+                            else if (traitMethod.Equals("-6") || traitMethod.Equals("oneMustSucceed") || traitMethod.Equals("OneMustSucceed"))
+                            {
+                                parm1 = -6;
+                            }
+                        }
+                        else if (p1.Equals("-1") || p1.Equals("leader") || p1.Equals("Leader"))
+                        {
+                            parm1 = gv.mod.selectedPartyLeader;
+                        }
+                        //highest
+                        else if (p1.Equals("-2") || p1.Equals("highest") || p1.Equals("Highest"))
+                        {
+                            parm1 = -2;
+                        }
+                        //lowest
+                        else if (p1.Equals("-3") || p1.Equals("lowest") || p1.Equals("Lowest"))
+                        {
+                            parm1 = -3;
+                        }
+                        //average
+                        else if (p1.Equals("-4") || p1.Equals("average") || p1.Equals("Average"))
+                        {
+                            parm1 = -4;
+                        }
+                        //allMustSucceed
+                        else if (p1.Equals("-5") || p1.Equals("allMustSucceed") || p1.Equals("AllMustSucceed"))
+                        {
+                            parm1 = -5;
+                        }
+                        //oneMustSucceed
+                        else if (p1.Equals("-6") || p1.Equals("oneMustSucceed") || p1.Equals("OneMustSucceed"))
+                        {
+                            parm1 = -6;
+                        }
+                        //directly selected
+                        else
+                        {
+                            parm1 = Convert.ToInt32(p1);
+                            if (parm1 < 0 || parm1 > 5)
+                            {
+                                parm1 = gv.mod.selectedPartyLeader;
+                            }
+                        }
+                        int parm3 = Convert.ToInt32(p3);
+
+                        bool useRollTen = false;
+                        if (p4 != null)
+                        {
+                            if ((p4.Equals("false")) || (p4.Equals("False")) || (p4.Equals("")))
+                            {
+                                useRollTen = false;
+                            }
+                            else if ((p4.Equals("true")) || (p4.Equals("True")) || (p4.Equals("10")))
+                            {
+                                useRollTen = true;
+                            }
+                        }
+                        gv.mod.returnCheck = CheckPassSkill(parm1, p2, parm3, useRollTen, true);
                     }
                     else if (filename.Equals("gcCheckIsClassLevel.cs"))
                     {
@@ -1777,10 +2234,190 @@ namespace IceBlink2
                         String val = gv.mod.playerList.Count + "";
                         SetGlobalInt(prm1, val);
                     }
+                    else if (filename.Equals("ogGetNumberOfChargesMissing.cs"))
+                    {
+                        int counter = 0;
+
+                        if (prm1 == "all")
+                        {
+                            foreach (ItemRefs ir in gv.mod.partyInventoryRefsList)
+                            {
+                                Item item = mod.getItemByResRef(ir.resref);
+
+                                if ((item.quantity > 1) && (item.onUseItemCastSpellTag != "none" || item.onUseItemIBScript != "none" || item.onUseItem != "none"))
+                                {
+                                    if (ir.quantity < item.quantity)
+                                    {
+                                        counter += (item.quantity - ir.quantity);
+                                    }
+                                }
+                            }
+
+                            foreach (Player pc in gv.mod.playerList)
+                            {
+                                Item item = mod.getItemByResRef(pc.BodyRefs.resref);
+                                if (item != null)
+                                {
+                                    if ((pc.BodyRefs.quantity < item.quantity))
+                                    {
+                                        counter += (item.quantity - pc.BodyRefs.quantity);
+                                    }
+                                }
+
+                                item = mod.getItemByResRef(pc.OffHandRefs.resref);
+                                if (item != null)
+                                {
+                                    if ((pc.OffHandRefs.quantity < item.quantity))
+                                    {
+                                        counter += (item.quantity - pc.OffHandRefs.quantity);
+                                    }
+                                }
+
+                                item = mod.getItemByResRef(pc.MainHandRefs.resref);
+                                if (item != null)
+                                {
+                                    if ((pc.MainHandRefs.quantity < item.quantity))
+                                    {
+                                        counter += (item.quantity - pc.MainHandRefs.quantity);
+                                    }
+                                }
+
+                                item = mod.getItemByResRef(pc.RingRefs.resref);
+                                if (item != null)
+                                {
+                                    if ((pc.RingRefs.quantity < item.quantity))
+                                    {
+                                        counter += (item.quantity - pc.RingRefs.quantity);
+                                    }
+                                }
+
+                                item = mod.getItemByResRef(pc.Ring2Refs.resref);
+                                if (item != null)
+                                {
+                                    if ((pc.Ring2Refs.quantity < item.quantity))
+                                    {
+                                        counter += (item.quantity - pc.Ring2Refs.quantity);
+                                    }
+                                }
+
+                                item = mod.getItemByResRef(pc.HeadRefs.resref);
+                                if (item != null)
+                                {
+                                    if ((pc.HeadRefs.quantity < item.quantity))
+                                    {
+                                        counter += (item.quantity - pc.HeadRefs.quantity);
+                                    }
+                                }
+
+                                item = mod.getItemByResRef(pc.GlovesRefs.resref);
+                                if (item != null)
+                                {
+                                    if ((pc.GlovesRefs.quantity < item.quantity))
+                                    {
+                                        counter += (item.quantity - pc.GlovesRefs.quantity);
+                                    }
+                                }
+
+                                item = mod.getItemByResRef(pc.NeckRefs.resref);
+                                if (item != null)
+                                {
+                                    if ((pc.NeckRefs.quantity < item.quantity))
+                                    {
+                                        counter += (item.quantity - pc.NeckRefs.quantity);
+                                    }
+                                }
+
+                                item = mod.getItemByResRef(pc.FeetRefs.resref);
+                                if (item != null)
+                                {
+                                    if ((pc.FeetRefs.quantity < item.quantity))
+                                    {
+                                        counter += (item.quantity - pc.FeetRefs.quantity);
+                                    }
+                                }
+                            }
+                        }
+                        else
+                        {
+                            Item masterItem = mod.getItemByResRef(prm1);
+
+                            foreach (ItemRefs ir in gv.mod.partyInventoryRefsList)
+                            {
+                                if (ir.resref == prm1)
+                                {
+                                    if (ir.quantity < masterItem.quantity)
+                                    {
+                                        counter += (masterItem.quantity - ir.quantity);
+                                    }
+                                }
+                            }
+
+                            foreach (Player pc in gv.mod.playerList)
+                            {
+                                if (pc.BodyRefs.resref.Equals(prm1) && (pc.BodyRefs.quantity < masterItem.quantity))
+                                {
+                                    counter += (masterItem.quantity - pc.BodyRefs.quantity);
+                                }
+                                else if (pc.OffHandRefs.resref.Equals(prm1) && (pc.OffHandRefs.quantity < masterItem.quantity))
+                                {
+                                    counter += (masterItem.quantity - pc.OffHandRefs.quantity);
+                                }
+                                else if (pc.MainHandRefs.resref.Equals(prm1) && (pc.MainHandRefs.quantity < masterItem.quantity))
+                                {
+                                    counter += (masterItem.quantity - pc.MainHandRefs.quantity);
+                                }
+                                else if (pc.RingRefs.resref.Equals(prm1) && (pc.RingRefs.quantity < masterItem.quantity))
+                                {
+                                    counter += (masterItem.quantity - pc.RingRefs.quantity);
+                                }
+                                else if (pc.Ring2Refs.resref.Equals(prm1) && (pc.Ring2Refs.quantity < masterItem.quantity))
+                                {
+                                    counter += (masterItem.quantity - pc.Ring2Refs.quantity);
+                                }
+                                else if (pc.HeadRefs.resref.Equals(prm1) && (pc.HeadRefs.quantity < masterItem.quantity))
+                                {
+                                    counter += (masterItem.quantity - pc.HeadRefs.quantity);
+                                }
+                                else if (pc.GlovesRefs.resref.Equals(prm1) && (pc.GlovesRefs.quantity < masterItem.quantity))
+                                {
+                                    counter += (masterItem.quantity - pc.GlovesRefs.quantity);
+                                }
+                                else if (pc.NeckRefs.resref.Equals(prm1) && (pc.NeckRefs.quantity < masterItem.quantity))
+                                {
+                                    counter += (masterItem.quantity - pc.NeckRefs.quantity);
+                                }
+                                else if (pc.FeetRefs.resref.Equals(prm1) && (pc.FeetRefs.quantity < masterItem.quantity))
+                                {
+                                    counter += (masterItem.quantity - pc.NeckRefs.quantity);
+                                }
+                            }
+                        }
+                        SetGlobalInt(prm2, counter.ToString());
+                    }
                     else if (filename.Equals("ogGetPartyRosterSize.cs"))
                     {
                         String val = gv.mod.partyRosterList.Count + "";
                         SetGlobalInt(prm1, val);
+                    }
+                    else if (filename.Equals("ogGetFactionStrength.cs"))
+                    {
+                        foreach (Faction f in gv.mod.moduleFactionsList)
+                        {
+                            if (f.tag == p1)
+                            {
+                                SetGlobalInt(p1, f.strength.ToString());
+                            }
+                        }
+                    }
+                    else if (filename.Equals("ogGetFactionGrowthRate.cs"))
+                    {
+                        foreach (Faction f in gv.mod.moduleFactionsList)
+                        {
+                            if (f.tag == p1)
+                            {
+                                SetGlobalInt(p1 + "GrowthRate", f.amountOfFactionStrengthChangePerInterval.ToString());
+                            }
+                        }
                     }
                     else if (filename.Equals("ogGetNumberOfCreaturesInEncounter.cs"))
                     {
@@ -1893,8 +2530,38 @@ namespace IceBlink2
                     }
                     else if (filename.Equals("ogGetWorldTime.cs"))
                     {
-                        String val = mod.WorldTime + "";
-                        SetGlobalInt(prm2, val);
+                        //this stores time in minutes into a global int
+
+                        //p1 key of global int to store time into; raw number in minutes; the engine automatically extends the key entered here 
+                        //by either DateInformation or AutomaticCountDown, 
+                        //depending on p2 setting (eg you enter DeadLineMike and it becomes DeadLineMikeAutomaticCountDown, if p2 is set so) 
+                        //p2 type of time stored: 
+                        //DateInformation (current world time in minutes + p3 as aditional time in hours) or
+                        //AutomaticCountDown (only p3 as time or the countdown in hours)
+                        //all keys, fully spelled out like DeadLineMikeAutomaticCountDown, can be used via <> in convos and in journal,
+                        //like typing in a convo <DeadLineMikeAutomaticCountDown> to display the remaining time to the player
+                        //they are automatically converted into a well readable time format
+                        //furthermore, you can manipulate them like any global int via scripts, decreasing or extending a countdown manually or shifting a point in time
+                        //AutomaticCountDown types are automatically decreased by the engine as ingame time passes
+                        //p3 either the length of the countDown in hours (AutomaticCountDown) or an amount of time in hours added on top of current world time (DateInformation type)
+
+                        //turn the modifier into a number (it shows hours)
+                        int timeModifier = 0;
+                        if (p3 != "none" && p3 != null)
+                        {
+                            timeModifier = Convert.ToInt32(p3);
+                        }
+
+                        if (p2 == "AutomaticCountDown" || p2 == "automaticCountDown" || p2 == "AutomaticCountdown" || p2 == "automaticCountdown" || p2 == "automaticcountdown")
+                        {
+                            String val = (timeModifier * 60) + "";
+                            SetGlobalInt((p1 + "AutomaticCountDown"), val);
+                        }
+                        else if (p2 == "DateInformation" || p2 == "Dateinformation" || p2 == "dateInformation" || p2 == "dateinformation")
+                        {
+                            String val = (mod.WorldTime + (timeModifier * 60)) + "";
+                            SetGlobalInt(p1 + "DateInformation", val);
+                        }
                     }
                 }
                 catch (Exception ex)
@@ -1978,6 +2645,57 @@ namespace IceBlink2
                         {
                             crt.combatLocX = Convert.ToInt32(p3);
                             crt.combatLocY = Convert.ToInt32(p4);
+                        }
+                    }
+                    else if (filename.Equals("osSetTileLayerGraphic.cs"))
+                    {
+                        //p1: tile coordX
+                        //p2: tile coordY
+                        //p3: number of layer affected (0 to 5)
+                        //p4: new graphic name without extension 
+
+                        int x = Convert.ToInt32(p1);
+                        int y = Convert.ToInt32(p2);
+                        int layerNumber = Convert.ToInt32(p3);
+                        Coordinate coord = new Coordinate();
+                        coord.X = x;
+                        coord.Y = y;
+
+                        if (layerNumber == 0)
+                        {
+                            gv.mod.currentArea.Tiles[y * gv.mod.currentArea.MapSizeX + x].Layer0Filename = p4;
+                            gv.mod.currentArea.toggledSquaresLayer0FilenameCoords.Add(coord);
+                            gv.mod.currentArea.toggledSquaresLayer0FilenameNames.Add(p4);
+                        }
+                        if (layerNumber == 1)
+                        {
+                            gv.mod.currentArea.Tiles[y * gv.mod.currentArea.MapSizeX + x].Layer1Filename = p4;
+                            gv.mod.currentArea.toggledSquaresLayer1FilenameCoords.Add(coord);
+                            gv.mod.currentArea.toggledSquaresLayer1FilenameNames.Add(p4);
+                        }
+                        if (layerNumber == 2)
+                        {
+                            gv.mod.currentArea.Tiles[y * gv.mod.currentArea.MapSizeX + x].Layer2Filename = p4;
+                            gv.mod.currentArea.toggledSquaresLayer2FilenameCoords.Add(coord);
+                            gv.mod.currentArea.toggledSquaresLayer2FilenameNames.Add(p4);
+                        }
+                        if (layerNumber == 3)
+                        {
+                            gv.mod.currentArea.Tiles[y * gv.mod.currentArea.MapSizeX + x].Layer3Filename = p4;
+                            gv.mod.currentArea.toggledSquaresLayer3FilenameCoords.Add(coord);
+                            gv.mod.currentArea.toggledSquaresLayer3FilenameNames.Add(p4);
+                        }
+                        if (layerNumber == 4)
+                        {
+                            gv.mod.currentArea.Tiles[y * gv.mod.currentArea.MapSizeX + x].Layer4Filename = p4;
+                            gv.mod.currentArea.toggledSquaresLayer4FilenameCoords.Add(coord);
+                            gv.mod.currentArea.toggledSquaresLayer4FilenameNames.Add(p4);
+                        }
+                        if (layerNumber == 5)
+                        {
+                            gv.mod.currentArea.Tiles[y * gv.mod.currentArea.MapSizeX + x].Layer5Filename = p4;
+                            gv.mod.currentArea.toggledSquaresLayer5FilenameCoords.Add(coord);
+                            gv.mod.currentArea.toggledSquaresLayer5FilenameNames.Add(p4);
                         }
                     }
                     else if (filename.Equals("osSetPropLocation.cs"))
@@ -2436,6 +3154,658 @@ namespace IceBlink2
             }
             return -1;
         }
+
+        public bool CheckIsInHoursWindowDaily(string startHour, string endHour)
+        {
+            int start = Convert.ToInt32(startHour);
+            int end = Convert.ToInt32(endHour);
+            start *= 60;//convert into minutes
+            end *= 60;//convert into minutes
+            int time = gv.mod.WorldTime % 1440;//days begins at 0 minutes(0.00) goes to 1440 minutes (24.00), 0 to 24 for start/end
+ 
+            if (start <= end)
+            {
+                if (start <= time && end >= time)
+                {
+                    return true;
+                }
+            }
+            //we check for something like night, crossing the 24.00 line; from 23.00 to 24.00 is(23-24)
+            else
+            {
+                if (start <= time || end >= time)
+                {
+                    return true;
+                }
+            } 
+
+            return false;
+        }
+
+        public bool CheckIsInDaysWindowWeekly(string startDay, string endDay)
+        {
+            int start = Convert.ToInt32(startDay);
+            int end = Convert.ToInt32(endDay);
+            start *= 1440;//convert into minutes
+            end *= 1440;//convert into minutes
+            int time = gv.mod.WorldTime % (1440*7);//seven values (0 -7 ), monday (0-1), tuesday (1-2), wednesday (2-3), thursday (3-4), friday (4-5), saturday (5-6), sunday(6-7)
+
+            if (start <= end)
+            {
+                if (start <= time && end >= time)
+                {
+                    return true;
+                }
+            }
+            //we check for something like from Sunday(6) to Monday(1), whole sunday is eg (6-7)
+            else
+            {
+                if (start <= time || end >= time)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        public bool CheckIsInWeeksWindowMonthly(string startWeek, string endWeek)
+        {
+            int start = Convert.ToInt32(startWeek);
+            int end = Convert.ToInt32(endWeek);
+            start *= (1440 * 7);//convert into minutes
+            end *= (1440 * 7);//convert into minutes
+            int time = gv.mod.WorldTime % (1440 * 7 * 4);//month begins at 0 and end at 4 (week1(0-1), week2(1-2), week3(2-3) and week4(3-4)
+
+            if (start <= end)
+            {
+                if (start <= time && end >= time)
+                {
+                    return true;
+                }
+            }
+            //we check for something like from fourth week(3) to first week(1), within week4 is eg 3-4
+            else
+            {
+                if (start <= time || end >= time)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        public bool CheckIsInMonthsWindowYearly(string startMonth, string endMonth)
+        {
+            int start = Convert.ToInt32(startMonth);
+            int end = Convert.ToInt32(endMonth);
+            start *= (1440 * 7 * 4);//convert into minutes
+            end *= (1440 * 7 * 4);//convert into minutes
+            int time = gv.mod.WorldTime % (1440 * 7 * 4 * 12);//year begins at 0 and end at 12 ((0-1),(1-2),(2-3)...(11-12))
+
+            if (start <= end)
+            {
+                if (start <= time && end >= time)
+                {
+                    return true;
+                }
+            }
+            //we check for something like from december(11) to January(1), within december is eg (11-12)
+            else
+            {
+                if (start <= time || end >= time)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        public bool CheckIsInDarkness(string identifier, string darkMode)
+        {
+            //the area does not use the light system, nothing is in darkness
+            if (!gv.mod.currentArea.useLightSystem)
+            {
+                return false;
+            }
+
+            #region party
+            else if (identifier == "party" || identifier == "Party")
+           {
+                bool isLit = false;
+                foreach (bool litState in gv.mod.currentArea.Tiles[gv.mod.PlayerLocationY * gv.mod.currentArea.MapSizeX + gv.mod.PlayerLocationX].isLit)
+                {
+                    if (litState)
+                    {
+                        isLit = true;
+                        break;
+                    }
+                }
+
+                //outdoor area, using day&night
+                if (gv.mod.currentArea.UseDayNightCycle && gv.mod.currentArea.useLightSystem)
+                {
+                    //mode wil need utter dark, so this outdoor si always false
+                    if (darkMode == "noLight" || darkMode == "NoLight")
+                    {
+                        return false;
+                    }
+                    // mode is cheking for ngith state
+                    else
+                    {
+                        if (isLit)
+                        {
+                            return false;
+                        }
+                        //not lit
+                        else
+                        {
+                            int dawn = 5 * 60;
+                            int sunrise = 6 * 60;
+                            int day = 7 * 60;
+                            int sunset = 17 * 60;
+                            int dusk = 18 * 60;
+                            int night = 20 * 60;
+                            int time = gv.mod.WorldTime % 1440;
+
+                            if ((time >= dawn) && (time < sunrise))
+                            {
+                                return false;
+                            }
+                            else if ((time >= sunrise) && (time < day))
+                            {
+                                return false;
+                            }
+                            else if ((time >= day) && (time < sunset))
+                            {
+                                return false;
+                            }
+                            else if ((time >= sunset) && (time < dusk))
+                            {
+                                return false;
+                            }
+                            else if ((time >= dusk) && (time < night))
+                            {
+                                return false;
+                            }
+                            else if ((time >= night) || (time < dawn))
+                            {
+                                return true;
+                            }
+
+                        }//tile was not lit
+                    }//mode was looking for night state
+                }// end of outdoor, & lightSystem
+
+                //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                //inddor area, using light system
+                else if (!gv.mod.currentArea.UseDayNightCycle && gv.mod.currentArea.useLightSystem)
+                {
+                    //mode will need outdoor night, so this indoor dark
+                    if (darkMode == "night")
+                    {
+                        return false;
+                    }
+                    // mode is checking for indoor dark state
+                    else
+                    {
+                        if (isLit)
+                        {
+                            return false;
+                        }
+                        //not lit
+                        else
+                        {
+                            return true;
+                        }//tile was not lit
+                    }//mode was looking for indoor dark state
+                }// end of indoor & lightSystem             
+            }//end of "party" identifier
+            #endregion
+
+            #region partyLast
+            else if (identifier == "partyLast" || identifier == "PartyLast")
+            {
+                bool isLit = false;
+                foreach (bool litState in gv.mod.currentArea.Tiles[gv.mod.PlayerLastLocationY * gv.mod.currentArea.MapSizeX + gv.mod.PlayerLastLocationX].isLit)
+                {
+                    if (litState)
+                    {
+                        isLit = true;
+                        break;
+                    }
+                }
+
+                //outdoor area, using day&night
+                if (gv.mod.currentArea.UseDayNightCycle && gv.mod.currentArea.useLightSystem)
+                {
+                    //mode wil need utter dark, so this outdoor si always false
+                    if (darkMode == "noLight" || darkMode == "NoLight")
+                    {
+                        return false;
+                    }
+                    // mode is cheking for ngith state
+                    else
+                    {
+                        if (isLit)
+                        {
+                            return false;
+                        }
+                        //not lit
+                        else
+                        {
+                            int dawn = 5 * 60;
+                            int sunrise = 6 * 60;
+                            int day = 7 * 60;
+                            int sunset = 17 * 60;
+                            int dusk = 18 * 60;
+                            int night = 20 * 60;
+                            int time = gv.mod.WorldTime % 1440;
+
+                            if ((time >= dawn) && (time < sunrise))
+                            {
+                                return false;
+                            }
+                            else if ((time >= sunrise) && (time < day))
+                            {
+                                return false;
+                            }
+                            else if ((time >= day) && (time < sunset))
+                            {
+                                return false;
+                            }
+                            else if ((time >= sunset) && (time < dusk))
+                            {
+                                return false;
+                            }
+                            else if ((time >= dusk) && (time < night))
+                            {
+                                return false;
+                            }
+                            else if ((time >= night) || (time < dawn))
+                            {
+                                return true;
+                            }
+
+                        }//tile was not lit
+                    }//mode was looking for night state
+                }// end of outdoor, & lightSystem
+
+                //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                //inddor area, using light system
+                else if (!gv.mod.currentArea.UseDayNightCycle && gv.mod.currentArea.useLightSystem)
+                {
+                    //mode will need outdoor night, so this indoor dark
+                    if (darkMode == "night")
+                    {
+                        return false;
+                    }
+                    // mode is checking for indoor dark state
+                    else
+                    {
+                        if (isLit)
+                        {
+                            return false;
+                        }
+                        //not lit
+                        else
+                        {
+                            return true;
+                        }//tile was not lit
+                    }//mode was looking for indoor dark state
+                }// end of indoor & lightSystem             
+            }//end of "party" identifier
+            #endregion
+
+            #region thisProp
+            else if (identifier == "thisProp" || identifier == "ThisProp")
+            {
+                bool isLit = false;
+                Prop tempProp = new Prop();
+                bool foundProp = false;
+                foreach (Prop p in gv.mod.currentArea.Props)
+                {
+                    if (p.PropTag == gv.mod.currentPropTag)
+                    {
+                        tempProp = p;
+                        foundProp = true;
+                        break;
+                    }
+                }
+                if (foundProp)
+                {
+                    foreach (bool litState in gv.mod.currentArea.Tiles[tempProp.LocationY * gv.mod.currentArea.MapSizeX + tempProp.LocationX].isLit)
+                    {
+                        if (litState)
+                        {
+                            isLit = true;
+                            break;
+                        }
+                    }
+
+                    //outdoor area, using day&night
+                    if (gv.mod.currentArea.UseDayNightCycle && gv.mod.currentArea.useLightSystem)
+                    {
+                        //mode wil need utter dark, so this outdoor si always false
+                        if (darkMode == "noLight" || darkMode == "NoLight")
+                        {
+                            return false;
+                        }
+                        // mode is cheking for ngith state
+                        else
+                        {
+                            if (isLit)
+                            {
+                                return false;
+                            }
+                            //not lit
+                            else
+                            {
+                                int dawn = 5 * 60;
+                                int sunrise = 6 * 60;
+                                int day = 7 * 60;
+                                int sunset = 17 * 60;
+                                int dusk = 18 * 60;
+                                int night = 20 * 60;
+                                int time = gv.mod.WorldTime % 1440;
+
+                                if ((time >= dawn) && (time < sunrise))
+                                {
+                                    return false;
+                                }
+                                else if ((time >= sunrise) && (time < day))
+                                {
+                                    return false;
+                                }
+                                else if ((time >= day) && (time < sunset))
+                                {
+                                    return false;
+                                }
+                                else if ((time >= sunset) && (time < dusk))
+                                {
+                                    return false;
+                                }
+                                else if ((time >= dusk) && (time < night))
+                                {
+                                    return false;
+                                }
+                                else if ((time >= night) || (time < dawn))
+                                {
+                                    return true;
+                                }
+
+                            }//tile was not lit
+                        }//mode was looking for night state
+                    }// end of outdoor, & lightSystem
+
+                    //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                    //inddor area, using light system
+                    else if (!gv.mod.currentArea.UseDayNightCycle && gv.mod.currentArea.useLightSystem)
+                    {
+                        //mode will need outdoor night, so this indoor dark
+                        if (darkMode == "night")
+                        {
+                            return false;
+                        }
+                        // mode is checking for indoor dark state
+                        else
+                        {
+                            if (isLit)
+                            {
+                                return false;
+                            }
+                            //not lit
+                            else
+                            {
+                                return true;
+                            }//tile was not lit
+                        }//mode was looking for indoor dark state
+                    }// end of indoor & lightSystem
+                }//found prop             
+            }//end of "party" identifier
+            #endregion
+
+            #region thisPropLast
+            else if (identifier == "thisPropLast" || identifier == "ThisPropLast")
+            {
+                bool isLit = false;
+                Prop tempProp = new Prop();
+                foreach (Prop p in gv.mod.currentArea.Props)
+                {
+                    if (p.PropTag == gv.mod.currentPropTag)
+                    {
+                        tempProp = p;
+                        break;
+                    }
+                }
+
+                foreach (bool litState in gv.mod.currentArea.Tiles[tempProp.lastLocationY * gv.mod.currentArea.MapSizeX + tempProp.lastLocationX].isLit)
+                {
+                    if (litState)
+                    {
+                        isLit = true;
+                        break;
+                    }
+                }
+
+                //outdoor area, using day&night
+                if (gv.mod.currentArea.UseDayNightCycle && gv.mod.currentArea.useLightSystem)
+                {
+                    //mode wil need utter dark, so this outdoor si always false
+                    if (darkMode == "noLight" || darkMode == "NoLight")
+                    {
+                        return false;
+                    }
+                    // mode is cheking for ngith state
+                    else
+                    {
+                        if (isLit)
+                        {
+                            return false;
+                        }
+                        //not lit
+                        else
+                        {
+                            int dawn = 5 * 60;
+                            int sunrise = 6 * 60;
+                            int day = 7 * 60;
+                            int sunset = 17 * 60;
+                            int dusk = 18 * 60;
+                            int night = 20 * 60;
+                            int time = gv.mod.WorldTime % 1440;
+
+                            if ((time >= dawn) && (time < sunrise))
+                            {
+                                return false;
+                            }
+                            else if ((time >= sunrise) && (time < day))
+                            {
+                                return false;
+                            }
+                            else if ((time >= day) && (time < sunset))
+                            {
+                                return false;
+                            }
+                            else if ((time >= sunset) && (time < dusk))
+                            {
+                                return false;
+                            }
+                            else if ((time >= dusk) && (time < night))
+                            {
+                                return false;
+                            }
+                            else if ((time >= night) || (time < dawn))
+                            {
+                                return true;
+                            }
+
+                        }//tile was not lit
+                    }//mode was looking for night state
+                }// end of outdoor, & lightSystem
+
+                //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                //inddor area, using light system
+                else if (!gv.mod.currentArea.UseDayNightCycle && gv.mod.currentArea.useLightSystem)
+                {
+                    //mode will need outdoor night, so this indoor dark
+                    if (darkMode == "night")
+                    {
+                        return false;
+                    }
+                    // mode is checking for indoor dark state
+                    else
+                    {
+                        if (isLit)
+                        {
+                            return false;
+                        }
+                        //not lit
+                        else
+                        {
+                            return true;
+                        }//tile was not lit
+                    }//mode was looking for indoor dark state
+                }// end of indoor & lightSystem             
+            }//end of "party" identifier
+            #endregion
+
+            #region PropByTag
+            else
+            {
+                bool isLit = false;
+                Prop tempProp = new Prop();
+                bool foundProp = false;
+                foreach (Prop p in gv.mod.currentArea.Props)
+                {
+                    if (p.PropTag == identifier)
+                    {
+                        tempProp = p;
+                        foundProp = true;
+                        break;
+                    }
+                }
+
+                if (foundProp)
+                {
+
+                    foreach (bool litState in gv.mod.currentArea.Tiles[tempProp.LocationY * gv.mod.currentArea.MapSizeX + tempProp.LocationX].isLit)
+                    {
+                        if (litState)
+                        {
+                            isLit = true;
+                            break;
+                        }
+                    }
+
+                    //outdoor area, using day&night
+                    if (gv.mod.currentArea.UseDayNightCycle && gv.mod.currentArea.useLightSystem)
+                    {
+                        //mode wil need utter dark, so this outdoor si always false
+                        if (darkMode == "noLight" || darkMode == "NoLight")
+                        {
+                            return false;
+                        }
+                        // mode is cheking for ngith state
+                        else
+                        {
+                            if (isLit)
+                            {
+                                return false;
+                            }
+                            //not lit
+                            else
+                            {
+                                int dawn = 5 * 60;
+                                int sunrise = 6 * 60;
+                                int day = 7 * 60;
+                                int sunset = 17 * 60;
+                                int dusk = 18 * 60;
+                                int night = 20 * 60;
+                                int time = gv.mod.WorldTime % 1440;
+
+                                if ((time >= dawn) && (time < sunrise))
+                                {
+                                    return false;
+                                }
+                                else if ((time >= sunrise) && (time < day))
+                                {
+                                    return false;
+                                }
+                                else if ((time >= day) && (time < sunset))
+                                {
+                                    return false;
+                                }
+                                else if ((time >= sunset) && (time < dusk))
+                                {
+                                    return false;
+                                }
+                                else if ((time >= dusk) && (time < night))
+                                {
+                                    return false;
+                                }
+                                else if ((time >= night) || (time < dawn))
+                                {
+                                    return true;
+                                }
+
+                            }//tile was not lit
+                        }//mode was looking for night state
+                    }// end of outdoor, & lightSystem
+
+                    //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                    //inddor area, using light system
+                    else if (!gv.mod.currentArea.UseDayNightCycle && gv.mod.currentArea.useLightSystem)
+                    {
+                        //mode will need outdoor night, so this indoor dark
+                        if (darkMode == "night")
+                        {
+                            return false;
+                        }
+                        // mode is checking for indoor dark state
+                        else
+                        {
+                            if (isLit)
+                            {
+                                return false;
+                            }
+                            //not lit
+                            else
+                            {
+                                return true;
+                            }//tile was not lit
+                        }//mode was looking for indoor dark state
+                    }// end of indoor & lightSystem
+                }//found a prop             
+            }//end of "party" identifier
+            #endregion
+
+            return false;
+        }
+
+
+        public bool CheckIsInFactionStrengthWindow(string factionTag, int minFactionStrength,int maxFactionStrength)
+        {
+            foreach (Faction f in gv.mod.moduleFactionsList)
+            {
+                if (f.tag == factionTag)
+                {
+                    if (f.strength >= minFactionStrength && f.strength <= maxFactionStrength)
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+            }
+
+            return false;
+        }
+
+
         public bool CheckGlobalInt(string variableName, string compare, int value)
         {
             if (mod.debugMode) //SD_20131102
@@ -2705,6 +4075,78 @@ namespace IceBlink2
             }
             return false;
         }
+
+        public void ModifyFactionStrength(string factionTag, string transformType, string amount)
+        {
+            int amountNumber = Convert.ToInt32(amount);
+            foreach (Faction f in gv.mod.moduleFactionsList)
+            {
+                if (f.tag == factionTag)
+                {
+                    if (transformType.Equals("+"))
+                    {
+                        f.strength += amountNumber;
+                    }
+                    else if (transformType.Equals("-"))
+                    {
+                        f.strength -= amountNumber;
+                    }
+                    else if (transformType.Equals("/"))
+                    {
+                        f.strength /= amountNumber;
+                    }
+                    else if (transformType.Equals("%"))
+                    {
+                        f.strength %= amountNumber;
+                    }
+                    else if (transformType.Equals("*"))
+                    {
+                        f.strength *= amountNumber;
+                    }
+                    else if (transformType.Equals("="))
+                    {
+                        f.strength = amountNumber;
+                    }
+                }
+            }
+        }
+
+        public void ModifyFactionGrowthRate(string factionTag, string transformType, string amount)
+        {
+            int amountNumber = Convert.ToInt32(amount);
+            foreach (Faction f in gv.mod.moduleFactionsList)
+            {
+                if (f.tag == factionTag)
+                {
+                    if (transformType.Equals("+"))
+                    {
+                        f.amountOfFactionStrengthChangePerInterval += amountNumber;
+                    }
+                    else if (transformType.Equals("-"))
+                    {
+                        f.amountOfFactionStrengthChangePerInterval -= amountNumber;
+                    }
+                    else if (transformType.Equals("/"))
+                    {
+                        f.amountOfFactionStrengthChangePerInterval /= amountNumber;
+                    }
+                    else if (transformType.Equals("%"))
+                    {
+                        f.amountOfFactionStrengthChangePerInterval %= amountNumber;
+                    }
+                    else if (transformType.Equals("*"))
+                    {
+                        f.amountOfFactionStrengthChangePerInterval *= amountNumber;
+                    }
+                    else if (transformType.Equals("="))
+                    {
+                        f.amountOfFactionStrengthChangePerInterval = amountNumber;
+                    }
+                }
+            }
+        }
+
+
         public void TransformGlobalInt(string firstInt, string transformType, string secondInt, string variableName)
         {
             string val = "";
@@ -3065,6 +4507,264 @@ namespace IceBlink2
             }
             gv.cc.addLogText("<font color='yellow'>" + "The party loses " + amount + " Gold" + "</font>" + "<BR>");
         }
+
+        /*
+        else if (filename.Equals("gaRechargeSingleItem.cs"))
+                    {
+                        RechargeSingleItem(prm1);
+                    }
+                    else if (filename.Equals("gaRechargeAllItemsOfAType.cs"))
+                    {
+                        RechargeAllItemsOfAType(prm1);
+                    }
+                    else if (filename.Equals("gaRechargeAllItems.cs"))
+                    {
+                        RechargeAllItems();
+                    }
+        */
+        public void MovePartyToLastLocation(string message)
+        {
+            gv.mod.PlayerLocationX = gv.mod.PlayerLastLocationX;
+            gv.mod.PlayerLocationY = gv.mod.PlayerLastLocationY;
+            if (message != null)
+            {
+                if (message != "")
+                {
+                    gv.cc.addLogText("<font color='yellow'>" + message + "</font><BR>");
+                }
+            }
+        }
+
+        public void RechargeSingleItem(string resref)
+        {
+            //callister
+            Item masterItem = mod.getItemByResRef(resref);
+            bool itemFound = false;
+
+            foreach (ItemRefs ir in gv.mod.partyInventoryRefsList)
+            {
+                if (ir.resref == resref)
+                {
+                    if (ir.quantity < masterItem.quantity)
+                    {
+                        ir.quantity = masterItem.quantity;
+                        itemFound = true;
+                        break;
+                    }
+                }
+            }
+
+            if (!itemFound)
+            {
+                foreach (Player pc in gv.mod.playerList)
+                {
+                    if (pc.BodyRefs.resref.Equals(resref) && (pc.BodyRefs.quantity < masterItem.quantity)) 
+                    {
+                        pc.BodyRefs.quantity = masterItem.quantity;
+                        break;
+                    }
+                   else if (pc.OffHandRefs.resref.Equals(resref) && (pc.OffHandRefs.quantity < masterItem.quantity))
+                    {
+                        pc.OffHandRefs.quantity = masterItem.quantity;
+                        break;
+                    }
+                    else if (pc.MainHandRefs.resref.Equals(resref) && (pc.MainHandRefs.quantity < masterItem.quantity))
+                    {
+                        pc.MainHandRefs.quantity = masterItem.quantity;
+                        break;
+                    }
+                    else if (pc.RingRefs.resref.Equals(resref) && (pc.RingRefs.quantity < masterItem.quantity))
+                    {
+                        pc.RingRefs.quantity = masterItem.quantity;
+                        break;
+                    }
+                    else if (pc.Ring2Refs.resref.Equals(resref) && (pc.Ring2Refs.quantity < masterItem.quantity))
+                    {
+                        pc.Ring2Refs.quantity = masterItem.quantity;
+                        break;
+                    }
+                   else if (pc.HeadRefs.resref.Equals(resref) && (pc.HeadRefs.quantity < masterItem.quantity))
+                    {
+                        pc.HeadRefs.quantity = masterItem.quantity;
+                        break;
+                    }
+                    else if (pc.GlovesRefs.resref.Equals(resref) && (pc.GlovesRefs.quantity < masterItem.quantity))
+                    {
+                        pc.GlovesRefs.quantity = masterItem.quantity;
+                        break;
+                    }
+                    else if (pc.NeckRefs.resref.Equals(resref) && (pc.NeckRefs.quantity < masterItem.quantity))
+                    {
+                        pc.NeckRefs.quantity = masterItem.quantity;
+                        break;
+                    }
+                    else if (pc.FeetRefs.resref.Equals(resref) && (pc.FeetRefs.quantity < masterItem.quantity))
+                    {
+                        pc.FeetRefs.quantity = masterItem.quantity;
+                        break;
+                    }
+                }
+            }
+
+            gv.cc.addLogText("<font color='yellow'>" + "A(n) " + masterItem.name + " has been fully recharged." + "</font><BR>");
+        }
+
+        public void RechargeAllItemsOfAType(string resref)
+        {
+            Item masterItem = mod.getItemByResRef(resref);
+
+            foreach (ItemRefs ir in gv.mod.partyInventoryRefsList)
+            {
+                if (ir.resref == resref)
+                {
+                    ir.quantity = masterItem.quantity;
+                }
+            }
+
+                foreach (Player pc in gv.mod.playerList)
+                {
+                    if (pc.BodyRefs.resref.Equals(resref))
+                    {
+                        pc.BodyRefs.quantity = masterItem.quantity;
+                    }
+                    else if (pc.OffHandRefs.resref.Equals(resref))
+                    {
+                        pc.OffHandRefs.quantity = masterItem.quantity;
+                    }
+                    else if (pc.MainHandRefs.resref.Equals(resref))
+                    {
+                        pc.MainHandRefs.quantity = masterItem.quantity;
+                    }
+                    else if (pc.RingRefs.resref.Equals(resref))
+                    {
+                        pc.RingRefs.quantity = masterItem.quantity;
+                    }
+                    else if (pc.Ring2Refs.resref.Equals(resref))
+                    {
+                        pc.Ring2Refs.quantity = masterItem.quantity;
+                    }
+                    else if (pc.HeadRefs.resref.Equals(resref))
+                    {
+                        pc.HeadRefs.quantity = masterItem.quantity;
+                    }
+                    else if (pc.GlovesRefs.resref.Equals(resref))
+                    {
+                        pc.GlovesRefs.quantity = masterItem.quantity;
+                    }
+                    else if (pc.NeckRefs.resref.Equals(resref))
+                    {
+                        pc.NeckRefs.quantity = masterItem.quantity;
+                    }
+                    else if (pc.FeetRefs.resref.Equals(resref))
+                    {
+                        pc.FeetRefs.quantity = masterItem.quantity;
+                    }
+                }
+            
+            gv.cc.addLogText("<font color='yellow'>" + "All items of type " + masterItem.name + " have been fully recharged." + "</font><BR>");
+        }
+
+
+        public void RechargeAllItems()
+        {
+            foreach (ItemRefs ir in gv.mod.partyInventoryRefsList)
+            {
+                Item item = mod.getItemByResRef(ir.resref);
+
+                //identify charged item
+                if ((item.quantity > 1) && (item.onUseItemCastSpellTag != "none" || item.onUseItemIBScript != "none" || item.onUseItem != "none" ))
+                {
+                    ir.quantity = item.quantity;
+                }
+            }
+
+            foreach (Player pc in gv.mod.playerList)
+            {
+                if (pc.BodyRefs.resref != "none")
+                {
+                    Item item = mod.getItemByResRef(pc.BodyRefs.resref);
+                    //identify charged item
+                    if ((item.quantity > 1) && (item.onUseItemCastSpellTag != "none" || item.onUseItemIBScript != "none" || item.onUseItem != "none"))
+                    {
+                        pc.BodyRefs.quantity = item.quantity;
+                    }
+                }
+                else if (pc.OffHandRefs.resref != "none")
+                {
+                    Item item = mod.getItemByResRef(pc.OffHandRefs.resref);
+                    //identify charged item
+                    if ((item.quantity > 1) && (item.onUseItemCastSpellTag != "none" || item.onUseItemIBScript != "none" || item.onUseItem != "none"))
+                    {
+                        pc.OffHandRefs.quantity = item.quantity;
+                    }
+                }
+                else if (pc.MainHandRefs.resref != "none")
+                {
+                    Item item = mod.getItemByResRef(pc.MainHandRefs.resref);
+                    //identify charged item
+                    if ((item.quantity > 1) && (item.onUseItemCastSpellTag != "none" || item.onUseItemIBScript != "none" || item.onUseItem != "none"))
+                    {
+                        pc.MainHandRefs.quantity = item.quantity;
+                    }
+                }
+                else if (pc.RingRefs.resref != "none")
+                {
+                    Item item = mod.getItemByResRef(pc.RingRefs.resref);
+                    //identify charged item
+                    if ((item.quantity > 1) && (item.onUseItemCastSpellTag != "none" || item.onUseItemIBScript != "none" || item.onUseItem != "none"))
+                    {
+                        pc.RingRefs.quantity = item.quantity;
+                    }
+                }
+                else if (pc.Ring2Refs.resref != "none")
+                {
+                    Item item = mod.getItemByResRef(pc.Ring2Refs.resref);
+                    //identify charged item
+                    if ((item.quantity > 1) && (item.onUseItemCastSpellTag != "none" || item.onUseItemIBScript != "none" || item.onUseItem != "none"))
+                    {
+                        pc.Ring2Refs.quantity = item.quantity;
+                    }
+                }
+                else if (pc.HeadRefs.resref != "none")
+                {
+                    Item item = mod.getItemByResRef(pc.HeadRefs.resref);
+                    //identify charged item
+                    if ((item.quantity > 1) && (item.onUseItemCastSpellTag != "none" || item.onUseItemIBScript != "none" || item.onUseItem != "none"))
+                    {
+                        pc.HeadRefs.quantity = item.quantity;
+                    }
+                }
+                else if (pc.GlovesRefs.resref != "none")
+                {
+                    Item item = mod.getItemByResRef(pc.GlovesRefs.resref);
+                    //identify charged item
+                    if ((item.quantity > 1) && (item.onUseItemCastSpellTag != "none" || item.onUseItemIBScript != "none" || item.onUseItem != "none"))
+                    {
+                        pc.GlovesRefs.quantity = item.quantity;
+                    }
+                }
+                else if (pc.NeckRefs.resref != "none")
+                {
+                    Item item = mod.getItemByResRef(pc.NeckRefs.resref);
+                    //identify charged item
+                    if ((item.quantity > 1) && (item.onUseItemCastSpellTag != "none" || item.onUseItemIBScript != "none" || item.onUseItem != "none"))
+                    {
+                        pc.NeckRefs.quantity = item.quantity;
+                    }
+                }
+                else if (pc.FeetRefs.resref != "none")
+                {
+                    Item item = mod.getItemByResRef(pc.FeetRefs.resref);
+                    //identify charged item
+                    if ((item.quantity > 1) && (item.onUseItemCastSpellTag != "none" || item.onUseItemIBScript != "none" || item.onUseItem != "none"))
+                    {
+                        pc.FeetRefs.quantity = item.quantity;
+                    }
+                }
+            }
+            gv.cc.addLogText("<font color='yellow'>" + "All rechargeable items have been fully recharged." + "</font><BR>");
+        }
+
         public void GiveItem(string resref, int quantity)
         {
             Item newItem = mod.getItemByResRef(resref);
@@ -3093,6 +4793,36 @@ namespace IceBlink2
                 {
                     gv.mod.partyInventoryRefsList.Remove(itRef);
                 }
+            }
+        }
+
+        public void CheckManualKeyboardInput(string correctAnswer1, string correctAnswer2, string correctAnswer3, string topLineText)
+        {
+            gv.mod.realTimeTimerStopped = true;
+            gv.realTimeTimerMilliSecondsEllapsed = 0;
+            using (TextInputDialog itSel = new TextInputDialog(gv, topLineText))
+            {
+                itSel.IceBlinkButtonClose.Visible = true;
+                itSel.IceBlinkButtonClose.Enabled = true;
+                itSel.textInput = "Type here";
+
+                var ret = itSel.ShowDialog();
+             
+                    if (ret == DialogResult.OK)
+                    {
+                        if ((itSel.textInput.ToLowerInvariant() == correctAnswer1.ToLowerInvariant() || itSel.textInput.ToLowerInvariant() == correctAnswer2.ToLowerInvariant() || itSel.textInput.ToLowerInvariant() == correctAnswer3.ToLowerInvariant()) && itSel.textInput != "none" && itSel.textInput != "None" && itSel.textInput != "" && itSel.textInput != null)
+                        {
+                            //gv.realTimeTimerMilliSecondsEllapsed = 0;
+                            gv.mod.realTimeTimerStopped = false;
+                            gv.mod.returnCheck = true;
+                        }
+                        else
+                        {
+                            //gv.realTimeTimerMilliSecondsEllapsed = 0;
+                            gv.mod.realTimeTimerStopped = false;
+                            gv.mod.returnCheck = false;
+                        }
+                    }    
             }
         }
 
@@ -3258,6 +4988,11 @@ namespace IceBlink2
                         if (pc.HeadRefs.resref.Equals(resref))
                         {
                             mod.playerList[cnt].HeadRefs = new ItemRefs();
+                            FoundOne = true;
+                        }
+                        if (pc.GlovesRefs.resref.Equals(resref))
+                        {
+                            mod.playerList[cnt].GlovesRefs = new ItemRefs();
                             FoundOne = true;
                         }
                         if (pc.NeckRefs.resref.Equals(resref))
@@ -3510,6 +5245,7 @@ namespace IceBlink2
                 }
                 mod.playerList.Remove(pc);
                 mod.selectedPartyLeader = 0;
+                gv.screenMainMap.updateTraitsPanel();
                 gv.cc.partyScreenPcIndex = 0;
             }
             catch (Exception ex)
@@ -3565,6 +5301,7 @@ namespace IceBlink2
                     mod.playerList.Remove(pc);
                 }
                 mod.selectedPartyLeader = 0;
+                gv.screenMainMap.updateTraitsPanel();
                 gv.cc.partyScreenPcIndex = 0;
             }
             catch (Exception ex)
@@ -3634,6 +5371,7 @@ namespace IceBlink2
                     mod.partyRosterList.Remove(pc);
                 }
                 mod.selectedPartyLeader = 0;
+                gv.screenMainMap.updateTraitsPanel();
                 gv.cc.partyScreenPcIndex = 0;
             }
             catch (Exception ex)
@@ -3672,6 +5410,28 @@ namespace IceBlink2
                         return;
                     }
                 }
+
+                foreach (Encounter enc in mod.moduleEncountersList)
+                {
+                    Trigger trig = enc.getTriggerByTag(tag);
+                    if (trig != null)
+                    {
+                        if (eventNumber == 1)
+                        {
+                            trig.EnabledEvent1 = enable;
+                        }
+                        else if (eventNumber == 2)
+                        {
+                            trig.EnabledEvent2 = enable;
+                        }
+                        else if (eventNumber == 3)
+                        {
+                            trig.EnabledEvent3 = enable;
+                        }
+                        return;
+                    }
+                }
+
                 if (mod.debugMode) //SD_20131102
                 {
                     gv.cc.addLogText("<font color='yellow'>" + "failed to find trigger in this area" + "</font><BR>");
@@ -3700,9 +5460,19 @@ namespace IceBlink2
                         return;
                     }
                 }
+
+                foreach (Encounter enc in mod.moduleEncountersList)
+                {
+                    Trigger trig = enc.getTriggerByTag(tag);
+                    if (trig != null)
+                    {
+                        trig.Enabled = enable;
+                        return;
+                    }
+                }
                 if (mod.debugMode) //SD_20131102
                 {
-                    gv.cc.addLogText("<font color='yellow'>" + "can't find designated trigger tag in any area" + "</font><BR>");
+                    gv.cc.addLogText("<font color='yellow'>" + "can't find designated trigger tag in any area or encounter " + "</font><BR>");
                 }
             }
             catch (Exception ex)
@@ -3720,16 +5490,34 @@ namespace IceBlink2
             bool enable = Boolean.Parse(enabl);
             try
             {
-                Trigger trig = mod.currentArea.getTriggerByLocation(mod.PlayerLocationX, mod.PlayerLocationY);
-                if (trig != null)
+                //if (gv.screenType == "main" || gv.screenType == "Main")
+                //{
+                    Trigger trig = mod.currentArea.getTriggerByLocation(mod.PlayerLocationX, mod.PlayerLocationY);
+                    if (trig != null)
+                    {
+                        trig.Enabled = enable;
+                        return;
+                    }
+                    if (mod.debugMode)
+                    {
+                        gv.cc.addLogText("<font color='yellow'>can't find designated trigger at this location</font><BR>");
+                    }
+                //}
+                /*
+                else if (gv.screenType == "combat" || gv.screenType == "Combat")
                 {
-                    trig.Enabled = enable;
-                    return;
+                    Trigger trig = mod.currentEncounter.getTriggerByLocation(mod.PlayerLocationX, mod.PlayerLocationY);
+                    if (trig != null)
+                    {
+                        trig.Enabled = enable;
+                        return;
+                    }
+                    if (mod.debugMode)
+                    {
+                        gv.cc.addLogText("<font color='yellow'>can't find designated trigger at this location</font><BR>");
+                    }
                 }
-                if (mod.debugMode)
-                {
-                    gv.cc.addLogText("<font color='yellow'>can't find designated trigger at this location</font><BR>");
-                }
+                */
             }
             catch (Exception ex)
             {
@@ -4769,7 +6557,7 @@ namespace IceBlink2
                 pc.hp -= dam;
                 if (pc.hp <= 0)
                 {
-                    gv.cc.addLogText("<font color='red'>" + pc.name + " drops unconcious!" + "</font><BR>");
+                    gv.cc.addLogText("<font color='red'>" + pc.name + " is unconcious!" + "</font><BR>");
                     pc.charStatus = "Dead";
                 }
             }
@@ -4785,7 +6573,7 @@ namespace IceBlink2
                     gv.mod.playerList[gv.mod.selectedPartyLeader].hp -= dam;
                     if (gv.mod.playerList[gv.mod.selectedPartyLeader].hp <= 0)
                     {
-                        gv.cc.addLogText("<font color='red'>" + gv.mod.playerList[gv.mod.selectedPartyLeader].name + " drops unconcious!" + "</font><BR>");
+                        gv.cc.addLogText("<font color='red'>" + gv.mod.playerList[gv.mod.selectedPartyLeader].name + " is unconcious!" + "</font><BR>");
                         gv.mod.playerList[gv.mod.selectedPartyLeader].charStatus = "Dead";
                     }
             }
@@ -4797,7 +6585,7 @@ namespace IceBlink2
                     gv.mod.playerList[0].hp -= dam;
                     if (gv.mod.playerList[0].hp <= 0)
                     {
-                        gv.cc.addLogText("<font color='red'>" + gv.mod.playerList[0].name + " drops unconcious!" + "</font><BR>");
+                        gv.cc.addLogText("<font color='red'>" + gv.mod.playerList[0].name + " is unconcious!" + "</font><BR>");
                         gv.mod.playerList[0].charStatus = "Dead";
                     }
                 }
@@ -4810,7 +6598,7 @@ namespace IceBlink2
                     gv.mod.playerList[1].hp -= dam;
                     if (gv.mod.playerList[1].hp <= 0)
                     {
-                        gv.cc.addLogText("<font color='red'>" + gv.mod.playerList[1].name + " drops unconcious!" + "</font><BR>");
+                        gv.cc.addLogText("<font color='red'>" + gv.mod.playerList[1].name + " is unconcious!" + "</font><BR>");
                         gv.mod.playerList[1].charStatus = "Dead";
                     }
                 }
@@ -4823,7 +6611,7 @@ namespace IceBlink2
                     gv.mod.playerList[2].hp -= dam;
                     if (gv.mod.playerList[2].hp <= 0)
                     {
-                        gv.cc.addLogText("<font color='red'>" + gv.mod.playerList[2].name + " drops unconcious!" + "</font><BR>");
+                        gv.cc.addLogText("<font color='red'>" + gv.mod.playerList[2].name + " is unconcious!" + "</font><BR>");
                         gv.mod.playerList[2].charStatus = "Dead";
                     }
                 }
@@ -4836,7 +6624,7 @@ namespace IceBlink2
                     gv.mod.playerList[3].hp -= dam;
                     if (gv.mod.playerList[3].hp <= 0)
                     {
-                        gv.cc.addLogText("<font color='red'>" + gv.mod.playerList[3].name + " drops unconcious!" + "</font><BR>");
+                        gv.cc.addLogText("<font color='red'>" + gv.mod.playerList[3].name + " is unconcious!" + "</font><BR>");
                         gv.mod.playerList[3].charStatus = "Dead";
                     }
                 }
@@ -4849,7 +6637,7 @@ namespace IceBlink2
                     gv.mod.playerList[4].hp -= dam;
                     if (gv.mod.playerList[4].hp <= 0)
                     {
-                        gv.cc.addLogText("<font color='red'>" + gv.mod.playerList[4].name + " drops unconcious!" + "</font><BR>");
+                        gv.cc.addLogText("<font color='red'>" + gv.mod.playerList[4].name + " is unconcious!" + "</font><BR>");
                         gv.mod.playerList[4].charStatus = "Dead";
                     }
                 }
@@ -4862,7 +6650,7 @@ namespace IceBlink2
                     gv.mod.playerList[5].hp -= dam;
                     if (gv.mod.playerList[5].hp <= 0)
                     {
-                        gv.cc.addLogText("<font color='red'>" + gv.mod.playerList[5].name + " drops unconcious!" + "</font><BR>");
+                        gv.cc.addLogText("<font color='red'>" + gv.mod.playerList[5].name + " is unconcious!" + "</font><BR>");
                         gv.mod.playerList[5].charStatus = "Dead";
                     }
                 }
@@ -4877,7 +6665,7 @@ namespace IceBlink2
                         pc.hp -= dam;
                         if (pc.hp <= 0)
                         {
-                            gv.cc.addLogText("<font color='red'>" + pc.name + " drops unconcious!" + "</font><BR>");
+                            gv.cc.addLogText("<font color='red'>" + pc.name + " is unconcious!" + "</font><BR>");
                             pc.charStatus = "Dead";
                         }
                     }
@@ -4947,7 +6735,7 @@ namespace IceBlink2
                         pc.hp -= damage;
                         if (pc.hp <= 0)
                         {
-                            gv.cc.addLogText("<font color='red'>" + pc.name + " drops unconcious!" + "</font><BR>");
+                            gv.cc.addLogText("<font color='red'>" + pc.name + " is unconcious!" + "</font><BR>");
                             pc.charStatus = "Dead";
                         }
                     }
@@ -4965,7 +6753,7 @@ namespace IceBlink2
                         pc.hp -= damage;
                         if (pc.hp <= 0)
                         {
-                            gv.cc.addLogText("<font color='red'>" + pc.name + " drops unconcious!" + "</font><BR>");
+                            gv.cc.addLogText("<font color='red'>" + pc.name + " is unconcious!" + "</font><BR>");
                             pc.charStatus = "Dead";
                         }
                     }
@@ -4988,6 +6776,7 @@ namespace IceBlink2
                 if (pc.RingRefs.resref.Equals(resref)) { numFound++; }
                 if (pc.OffHandRefs.resref.Equals(resref)) { numFound++; }
                 if (pc.HeadRefs.resref.Equals(resref)) { numFound++; }
+                if (pc.GlovesRefs.resref.Equals(resref)) { numFound++; }
                 if (pc.NeckRefs.resref.Equals(resref)) { numFound++; }
                 if (pc.Ring2Refs.resref.Equals(resref)) { numFound++; }
                 if (pc.FeetRefs.resref.Equals(resref)) { numFound++; }
@@ -5081,69 +6870,295 @@ namespace IceBlink2
             return false;
         }
 
-        public bool CheckPassSkill(int PCIndex, string tag, int dc)
+        public bool CheckPassSkill(int PCIndex, string tag, int dc, bool useRollTen, bool isSilent)
         {
-            string foundLargest = "none";
-            int largest = 0;
-            foreach (string s in mod.playerList[PCIndex].knownTraitsTags)
+
+            if (PCIndex == -1 && (gv.screenType == "combat" || gv.screenType == "Combat"))
             {
-                if (s.StartsWith(tag))
+                for (int i = 0; i < gv.mod.playerList.Count; i++)
                 {
-                    if (s.Equals(tag))
+                    if (gv.mod.playerList[i].moveOrder == gv.screenCombat.currentMoveOrderIndex -1)
                     {
-                        if (foundLargest.Equals("none"))
-                        {
-                            foundLargest = s;
-                        }
-                    }
-                    else //get the number at the end 
-                    {
-                        string c = s.Substring(s.Length - 1, 1);
-                        int i = Convert.ToInt32(c);
-                        if (i > largest)
-                        {
-                            largest = i;
-                            foundLargest = s;
-                        }
+                        PCIndex = i;
                     }
                 }
             }
-            if (!foundLargest.Equals("none"))
+
+            int itemMod = 0;
+            int skillMod = 0;
+            int attMod = 0;
+            Trait tr = new Trait();
+            foreach (Player p in gv.mod.playerList)
             {
-                //PC has trait skill so do calculation check
-                Trait tr = mod.getTraitByTag(foundLargest);
-                int skillMod = tr.skillModifier;
-                int attMod = 0;
+                p.powerOfThisPc = 0;
+            }
+
+            for (int i = 0; i <= gv.mod.playerList.Count-1; i++)
+            {
+
+                string foundLargest = "none";
+                int largest = 0;
+                foreach (string s in mod.playerList[i].knownTraitsTags)
+                {
+                    if (s.StartsWith(tag))
+                    {
+                        if (s.Equals(tag))
+                        {
+                            if (foundLargest.Equals("none"))
+                            {
+                                foundLargest = s;
+                            }
+                        }
+                        else //get the number at the end 
+                        {
+                            string c = s.Substring(s.Length - 1, 1);
+                            int j = Convert.ToInt32(c);
+                            if (j > largest)
+                            {
+                                largest = j;
+                                foundLargest = s;
+                            }
+                        }
+                    }
+                }
+
+                skillMod = 0;
+                //Trait tr = new Trait();
+                if (!foundLargest.Equals("none"))
+                {
+                    //PC has trait skill so do calculation check
+                    tr = mod.getTraitByTag(foundLargest);
+                    skillMod = tr.skillModifier;
+                }
+                else
+                {
+
+                    foreach (Trait t in mod.moduleTraitsList)
+                    {
+                        if (t.tag.Contains(tag))
+                        {
+                            tr = mod.getTraitByTag(t.tag);
+                            break;
+                        }
+                    }
+                }
+
+                attMod = 0;
                 if (tr.skillModifierAttribute.Equals("str") || tr.skillModifierAttribute.Equals("strength") || tr.skillModifierAttribute.Equals("Str") || tr.skillModifierAttribute.Equals("Strength"))
                 {
-                    attMod = (mod.playerList[PCIndex].strength - 10) / 2;
+                    attMod = (mod.playerList[i].strength - 10) / 2;
                 }
                 else if (tr.skillModifierAttribute.Equals("dex") || tr.skillModifierAttribute.Equals("dexterity") || tr.skillModifierAttribute.Equals("Dex") || tr.skillModifierAttribute.Equals("Dexterity"))
                 {
-                    attMod = (mod.playerList[PCIndex].dexterity - 10) / 2;
+                    attMod = (mod.playerList[i].dexterity - 10) / 2;
                 }
                 else if (tr.skillModifierAttribute.Equals("int") || tr.skillModifierAttribute.Equals("intelligance") || tr.skillModifierAttribute.Equals("Int") || tr.skillModifierAttribute.Equals("Intelligence"))
                 {
-                    attMod = (mod.playerList[PCIndex].intelligence - 10) / 2;
+                    attMod = (mod.playerList[i].intelligence - 10) / 2;
                 }
                 else if (tr.skillModifierAttribute.Equals("cha") || tr.skillModifierAttribute.Equals("charisma") || tr.skillModifierAttribute.Equals("Cha") || tr.skillModifierAttribute.Equals("Charisma"))
                 {
-                    attMod = (mod.playerList[PCIndex].charisma - 10) / 2;
+                    attMod = (mod.playerList[i].charisma - 10) / 2;
                 }
                 else if (tr.skillModifierAttribute.Equals("con") || tr.skillModifierAttribute.Equals("constitution") || tr.skillModifierAttribute.Equals("Con") || tr.skillModifierAttribute.Equals("Constitution"))
                 {
-                    attMod = (mod.playerList[PCIndex].constitution - 10) / 2;
+                    attMod = (mod.playerList[i].constitution - 10) / 2;
                 }
                 else if (tr.skillModifierAttribute.Equals("wis") || tr.skillModifierAttribute.Equals("wisdom") || tr.skillModifierAttribute.Equals("Wis") || tr.skillModifierAttribute.Equals("Wisdom"))
                 {
-                    attMod = (mod.playerList[PCIndex].wisdom - 10) / 2;
+                    attMod = (mod.playerList[i].wisdom - 10) / 2;
                 }
+
+                itemMod = 0;
+
+                if (mod.playerList[i].BodyRefs.resref != "none")
+                {
+                    Item itm = gv.mod.getItemByResRefForInfo(mod.playerList[i].BodyRefs.resref);
+                    if (itm != null)
+                    {
+                        if (itm.tagOfTraitInfluenced.Contains(tag))
+                        {
+                            itemMod += itm.traitSkillRollModifier;
+                        }
+                    }
+                }
+
+                if (mod.playerList[i].RingRefs.resref != "none")
+                {
+                    Item itm = gv.mod.getItemByResRefForInfo(mod.playerList[i].RingRefs.resref);
+                    if (itm != null)
+                    {
+                        if (itm.tagOfTraitInfluenced.Contains(tag))
+                        {
+                            itemMod += itm.traitSkillRollModifier;
+                        }
+                    }
+                }
+
+                if (mod.playerList[i].MainHandRefs.resref != "none")
+                {
+                    Item itm = gv.mod.getItemByResRefForInfo(mod.playerList[i].MainHandRefs.resref);
+                    if (itm != null)
+                    {
+                        if (itm.tagOfTraitInfluenced.Contains(tag))
+                        {
+                            itemMod += itm.traitSkillRollModifier;
+                        }
+                    }
+                }
+
+                if (mod.playerList[i].OffHandRefs.resref != "none")
+                {
+                    Item itm = gv.mod.getItemByResRefForInfo(mod.playerList[i].OffHandRefs.resref);
+                    if (itm != null)
+                    {
+                        if (itm.tagOfTraitInfluenced.Contains(tag))
+                        {
+                            itemMod += itm.traitSkillRollModifier;
+                        }
+                    }
+                }
+
+                if (mod.playerList[i].HeadRefs.resref != "none")
+                {
+                    Item itm = gv.mod.getItemByResRefForInfo(mod.playerList[i].HeadRefs.resref);
+                    if (itm != null)
+                    {
+                        if (itm.tagOfTraitInfluenced.Contains(tag))
+                        {
+                            itemMod += itm.traitSkillRollModifier;
+                        }
+                    }
+                }
+
+                if (mod.playerList[i].GlovesRefs.resref != "none")
+                {
+                    Item itm = gv.mod.getItemByResRefForInfo(mod.playerList[i].GlovesRefs.resref);
+                    if (itm != null)
+                    {
+                        if (itm.tagOfTraitInfluenced.Contains(tag))
+                        {
+                            itemMod += itm.traitSkillRollModifier;
+                        }
+                    }
+                }
+
+                if (mod.playerList[i].NeckRefs.resref != "none")
+                {
+                    Item itm = gv.mod.getItemByResRefForInfo(mod.playerList[i].NeckRefs.resref);
+                    if (itm != null)
+                    {
+                        if (itm.tagOfTraitInfluenced.Contains(tag))
+                        {
+                            itemMod += itm.traitSkillRollModifier;
+                        }
+                    }
+                }
+
+                if (mod.playerList[i].Ring2Refs.resref != "none")
+                {
+                    Item itm = gv.mod.getItemByResRefForInfo(mod.playerList[i].Ring2Refs.resref);
+                    if (itm != null)
+                    {
+                        if (itm.tagOfTraitInfluenced.Contains(tag))
+                        {
+                            itemMod += itm.traitSkillRollModifier;
+                        }
+                    }
+                }
+
+                if (mod.playerList[i].FeetRefs.resref != "none")
+                {
+                    Item itm = gv.mod.getItemByResRefForInfo(mod.playerList[i].FeetRefs.resref);
+                    if (itm != null)
+                    {
+                        if (itm.tagOfTraitInfluenced.Contains(tag))
+                        {
+                            itemMod += itm.traitSkillRollModifier;
+                        }
+                    }
+                }
+
+                gv.mod.playerList[i].powerOfThisPc = attMod + skillMod + itemMod;
+            }
+
+            string playerName = "";
+            int power = 0;
+
+            //onlyone pc checks
+            if (PCIndex >= -4)
+            {
+                //leader or directly selected
+                if (PCIndex >= 0)
+                {
+                    playerName = gv.mod.playerList[PCIndex].name + " (selected character)";
+                    power = gv.mod.playerList[PCIndex].powerOfThisPc;
+                }
+
+                //highest
+                if (PCIndex == -2)
+                {
+                    int highestFound = -100;
+                    foreach (Player p in gv.mod.playerList)
+                    {
+                        if (p.powerOfThisPc > highestFound)
+                        {
+                            playerName = p.name + " (best in group)";
+                            power = p.powerOfThisPc;
+                            highestFound = p.powerOfThisPc;
+                        }
+                    }
+                }
+
+                //lowest
+                if (PCIndex == -3)
+                {
+                    int lowestFound = 10000;
+                    foreach (Player p in gv.mod.playerList)
+                    {
+                        if (p.powerOfThisPc < lowestFound)
+                        {
+                            playerName = p.name + " (worst in group)";
+                            power = p.powerOfThisPc;
+                            lowestFound = p.powerOfThisPc;
+                        }
+                    }
+                }
+
+                //average
+                if (PCIndex == -4)
+                {
+                    int sumOfPower = 0;
+                    foreach (Player p in gv.mod.playerList)
+                    {
+                        sumOfPower += p.powerOfThisPc;
+                    }
+                    power = sumOfPower / gv.mod.playerList.Count;
+                    playerName = "group average";
+                }
+
+                //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                //all modifieirs build, lets roll
                 int roll = gv.sf.RandInt(20);
-                if (roll + attMod + skillMod >= dc)
+                if (useRollTen)
+                {
+                    roll = 10;
+                }
+                //string power = (attMod + skillMod + itemMod).ToString();
+                if (roll + power >= dc)
                 {
                     if (mod.debugMode) //SD_20131102
                     {
-                        gv.cc.addLogText("<font color='yellow'> skill check(" + tag + "): " + roll + "+" + attMod + "+" + skillMod + ">=" + dc + "</font><BR>");
+                        //gv.cc.addLogText("<font color='yellow'> Skill check(" + tag + "): " + roll + "+" + attMod + "+" + skillMod + itemMod + ">=" + dc + "</font><BR>");
+                        //gv.cc.addLogText("<font color='lime'> Static " + tr.name + " check of " + gv.mod.playerList[PCIndex] + " successful (" + roll + "+" + power + ">=" + dc + ")" + "</font><BR>");
+                    }
+                    if ((useRollTen) && (!isSilent))
+                    {
+                        gv.cc.addLogText("<font color='lime'> Static " + tr.name + " check of " + playerName + " successful (" + roll + "+" + power + ">=" + dc + ")" + "</font><BR>");
+                    }
+                    else if ((!useRollTen) && (!isSilent))
+                    {
+                        gv.cc.addLogText("<font color='lime'> Rolled " + tr.name + " check of " + playerName + " successful (" + roll + "+" + power + ">=" + dc + ")" + "</font><BR>");
                     }
                     return true;
                 }
@@ -5151,13 +7166,140 @@ namespace IceBlink2
                 {
                     if (mod.debugMode) //SD_20131102
                     {
-                        gv.cc.addLogText("<font color='yellow'> skill check: " + roll + "+" + attMod + "+" + skillMod + " < " + dc + "</font><BR>");
+                        //gv.cc.addLogText("<font color='yellow'> Skill check: " + roll + "+" + attMod + "+" + skillMod + itemMod + " < " + dc + "</font><BR>");
+                    }
+                    if ((useRollTen) && (!isSilent))
+                    {
+                        gv.cc.addLogText("<font color='red'> Static " + tr.name + " check of " + playerName + " failed (" + roll + "+" + power + " is less than " + dc + ")" + "</font><BR>");
+                    }
+                    else if ((!useRollTen) && (!isSilent))
+                    {
+                        gv.cc.addLogText("<font color='red'> Rolled " + tr.name + " check of " + playerName + " failed (" + roll + "+" + power + " is less than " + dc + ")" + "</font><BR>");
                     }
                     return false;
                 }
             }
-            return false;
+            //all pc must roll
+            else
+            {
+                //allMustSucceed
+                if (PCIndex == -5)
+                {
+                    int rollUsed = 0;
+                    bool success = true;
+                    foreach (Player p in gv.mod.playerList)
+                    {
+                        int roll = gv.sf.RandInt(20);
+                        if (useRollTen)
+                        {
+                            roll = 10;
+                        }
+                        if (roll + p.powerOfThisPc < dc)
+                        {
+                            success = false;
+                            playerName = p.name;
+                            power = p.powerOfThisPc;
+                            rollUsed = roll;
+                            break;
+                        }
+                    }
+
+                    if (success)
+                    {
+                        if (mod.debugMode) //SD_20131102
+                        {
+                            //gv.cc.addLogText("<font color='yellow'> Skill check(" + tag + "): " + roll + "+" + attMod + "+" + skillMod + itemMod + ">=" + dc + "</font><BR>");
+                            //gv.cc.addLogText("<font color='lime'> Static " + tr.name + " check of " + gv.mod.playerList[PCIndex] + " successful (" + roll + "+" + power + ">=" + dc + ")" + "</font><BR>");
+                        }
+                        if ((useRollTen)&& (!isSilent))
+                        {
+                            gv.cc.addLogText("<font color='lime'> Static " + tr.name + " check (for not a single failure in group) was successful" + " (difficulty level was " + dc + ")" + "</font><BR>");
+                        }
+                        else if ((!useRollTen) && (!isSilent))
+                        {
+                            gv.cc.addLogText("<font color='lime'> Rolled " + tr.name + " check (for not a single failure in group) was successful" + " (difficulty level was " + dc + ")" + "</font><BR>");
+                        }
+                        return true;
+                    }
+                    else
+                    {
+                        if (mod.debugMode) //SD_20131102
+                        {
+                            //gv.cc.addLogText("<font color='yellow'> Skill check: " + roll + "+" + attMod + "+" + skillMod + itemMod + " < " + dc + "</font><BR>");
+                        }
+                        if ((useRollTen) && (!isSilent))
+                        {
+                            gv.cc.addLogText("<font color='red'> Static " + tr.name + " check (for not a single failure in group) was failed by " + playerName + " (" + rollUsed + "+" + power + " is less than" + dc + ")" + "</font><BR>");
+                        }
+                        else if ((!useRollTen) && (!isSilent))                        {
+                            gv.cc.addLogText("<font color='red'> Rolled " + tr.name + " check (for not a single failure in group) was failed by " + playerName + " (" + rollUsed + "+" + power + " is less than" + dc + ")" + "</font><BR>");
+                        }
+                        return false;
+                    }
+
+                }
+
+                //oneMustSucceed
+                if (PCIndex == -6)
+                {
+                    bool success = false;
+                    int rollUsed = 0;
+                    foreach (Player p in gv.mod.playerList)
+                    {
+                        int roll = gv.sf.RandInt(20);
+                        if (useRollTen)
+                        {
+                            roll = 10;
+                        }
+                        if (roll + p.powerOfThisPc >= dc)
+                        {
+                            success = true;
+                            playerName = p.name;
+                            power = p.powerOfThisPc;
+                            rollUsed = roll;
+                            break;
+                        }
+                    }
+                    if (success)
+                    {
+                        if (mod.debugMode) //SD_20131102
+                        {
+                            //gv.cc.addLogText("<font color='yellow'> Skill check(" + tag + "): " + roll + "+" + attMod + "+" + skillMod + itemMod + ">=" + dc + "</font><BR>");
+                            //gv.cc.addLogText("<font color='lime'> Static " + tr.name + " check of " + gv.mod.playerList[PCIndex] + " successful (" + roll + "+" + power + ">=" + dc + ")" + "</font><BR>");
+                        }
+                        if ((useRollTen) && (!isSilent))
+                        {
+                            gv.cc.addLogText("<font color='lime'> Static " + tr.name + " check (for one success in group) was successful for " + playerName + " (" + rollUsed + "+" + power + ">=" + dc + ")" + "</font><BR>");
+                        }
+                        else if ((!useRollTen) && (!isSilent))
+                        {
+                            gv.cc.addLogText("<font color='lime'> Rolled " + tr.name + " check (for one success in group) was successful for " + playerName + " (" + rollUsed + "+" + power + ">=" + dc + ")" + "</font><BR>");
+                        }
+                        return true;
+                    }
+                    else
+                    {
+                        if (mod.debugMode) //SD_20131102
+                        {
+                            //gv.cc.addLogText("<font color='yellow'> Skill check: " + roll + "+" + attMod + "+" + skillMod + itemMod + " < " + dc + "</font><BR>");
+                        }
+                        if ((useRollTen) && (!isSilent))
+                        {
+                            gv.cc.addLogText("<font color='red'> Static " + tr.name + " check (for one success in group) failed for everybody" + " (difficulty level was " + dc + ")" + "</font><BR>");
+                        }
+                        else if ((!useRollTen) && (!isSilent))
+                        {
+                            gv.cc.addLogText("<font color='red'> Rolled " + tr.name + " check (for one success in group) failed for everybody" + " (difficulty level was " + dc + ")" + "</font><BR>");
+                        }
+                        return false;
+                    }
+                }
+
+                //just a catch, dont ever end here
+                return false;
+            }
         }
+
         public bool CheckIsMale(int PCIndex)
         {
             if (mod.playerList[PCIndex].isMale)
@@ -5362,60 +7504,130 @@ namespace IceBlink2
         }
         public void SetProp(string tag, string index, string property, string bln)
         {
-            if (gv.mod.currentArea.Props.Count < 1)
-            {
-                if (mod.debugMode)
-                {
-                    gv.cc.addLogText("<font color='yellow'>didn't find prop in this area, aborting SetProp</font><BR>");
-                }
-                return;
-            }
 
-            Prop prp = gv.mod.currentArea.Props[0];
-            if ((tag != null) && (!tag.Equals("")))
+            Prop prp = new Prop();
+            if (gv.screenType != "combat")
             {
-                if (tag.Equals("thisProp"))
-                {
-                    prp = ThisProp;
-                }
-                else
-                {
-                    prp = gv.mod.currentArea.getPropByTag(tag);
-                }
-                if (prp == null)
+                if (gv.mod.currentArea.Props.Count < 1)
                 {
                     if (mod.debugMode)
                     {
-                        gv.cc.addLogText("<font color='yellow'>didn't find prop in this area (prop=null), aborting SetProp</font><BR>");
+                        gv.cc.addLogText("<font color='yellow'>didn't find prop in this area, aborting SetProp</font><BR>");
                     }
                     return;
                 }
-            }
-            else if ((index != null) && (!index.Equals("")))
-            {
-                int indx = Convert.ToInt32(index);
-                if ((indx >= 0) && (indx < gv.mod.currentArea.Props.Count))
+
+                //Prop prp = gv.mod.currentArea.Props[0];
+                if ((tag != null) && (!tag.Equals("")))
                 {
-                    prp = gv.mod.currentArea.Props[indx];
+                    if (tag.Equals("thisProp"))
+                    {
+                        prp = ThisProp;
+                    }
+                    else
+                    {
+                        prp = gv.mod.currentArea.getPropByTag(tag);
+                    }
+                    if (prp == null)
+                    {
+                        if (mod.debugMode)
+                        {
+                            gv.cc.addLogText("<font color='yellow'>didn't find prop in this area (prop=null), aborting SetProp</font><BR>");
+                        }
+                        return;
+                    }
+                }
+                else if ((index != null) && (!index.Equals("")))
+                {
+                    int indx = Convert.ToInt32(index);
+                    if ((indx >= 0) && (indx < gv.mod.currentArea.Props.Count))
+                    {
+                        prp = gv.mod.currentArea.Props[indx];
+                    }
+                    else
+                    {
+                        if (mod.debugMode) //SD_20131102
+                        {
+                            gv.cc.addLogText("<font color='yellow'>Prop index outside range of PropList size, aborting SetProp</font><BR>");
+                        }
+                        return;
+                    }
                 }
                 else
                 {
                     if (mod.debugMode) //SD_20131102
                     {
-                        gv.cc.addLogText("<font color='yellow'>Prop index outside range of PropList size, aborting SetProp</font><BR>");
+                        gv.cc.addLogText("<font color='yellow'>Do not recognize the Prop's tag or index, aborting SetProp</font><BR>");
+                    }
+                }
+            }
+            //in combat
+            else
+            {
+                if (gv.mod.currentEncounter.propsList.Count < 1)
+                {
+                    if (mod.debugMode)
+                    {
+                        gv.cc.addLogText("<font color='yellow'>didn't find prop in this encounter, aborting SetProp</font><BR>");
                     }
                     return;
                 }
-            }
-            else
-            {
-                if (mod.debugMode) //SD_20131102
+
+                //Prop prp = gv.mod.currentArea.Props[0];
+                if ((tag != null) && (!tag.Equals("")))
                 {
-                    gv.cc.addLogText("<font color='yellow'>Do not recognize the Prop's tag or index, aborting SetProp</font><BR>");
+                    if (tag.Equals("thisProp"))
+                    {
+                        prp = gv.screenCombat.ThisProp;
+                    }
+                    else
+                    {
+                        prp = gv.mod.currentEncounter.getPropByTag(tag);
+                    }
+                    if (prp == null)
+                    {
+                        if (mod.debugMode)
+                        {
+                            gv.cc.addLogText("<font color='yellow'>didn't find prop in this encounter (prop=null), aborting SetProp</font><BR>");
+                        }
+                        return;
+                    }
+                }
+                else if ((index != null) && (!index.Equals("")))
+                {
+                    int indx = Convert.ToInt32(index);
+                    if ((indx >= 0) && (indx < gv.mod.currentEncounter.propsList.Count))
+                    {
+                        prp = gv.mod.currentEncounter.propsList[indx];
+                    }
+                    else
+                    {
+                        if (mod.debugMode) //SD_20131102
+                        {
+                            gv.cc.addLogText("<font color='yellow'>Prop index outside range of PropList size, aborting SetProp</font><BR>");
+                        }
+                        return;
+                    }
+                }
+                else
+                {
+                    if (mod.debugMode) //SD_20131102
+                    {
+                        gv.cc.addLogText("<font color='yellow'>Do not recognize the Prop's tag or index, aborting SetProp</font><BR>");
+                    }
                 }
             }
 
-            bool setBool = Boolean.Parse(bln);
+            bool setBool = false;
+            string newImageFileName = "";
+            if (bln == "true" || bln == "True" || bln == "false" || bln == "False")
+            {
+                setBool = Boolean.Parse(bln);
+            }
+            else
+            {
+                newImageFileName = bln;
+            }
 
             if ((property.Equals("s")) || (property.Equals("S")) || (property.Equals("isShown")))
             {
@@ -5459,6 +7671,15 @@ namespace IceBlink2
                 if (mod.debugMode)
                 {
                     gv.cc.addLogText("<font color='yellow'>prop HasCollisions set to " + bln + "</font><BR>");
+                }
+                return;
+            }
+            else if ((property.Equals("i")) || (property.Equals("I")) || (property.Equals("ImageFileName")) || (property.Equals("imageFileName")) || (property.Equals("ImageFilename")) || (property.Equals("imageFilename")))
+            {
+                prp.ImageFileName = bln;
+                if (mod.debugMode)
+                {
+                    gv.cc.addLogText("<font color='yellow'>prop ImageFileName set to " + bln + "</font><BR>");
                 }
                 return;
             }
@@ -5591,9 +7812,7 @@ namespace IceBlink2
 
         public void castSpell(string spellString, string pcIdentifier, string casterLevelString, string logTextForCastingAction)
         {
-            //unterhose
-
-            //get spell section
+           
             Spell spell = new Spell();
             foreach (Spell sp in gv.mod.moduleSpellsList)
             {
@@ -5936,9 +8155,9 @@ namespace IceBlink2
             //used at level up, doPcTurn, open inventory, etc.
             ReCalcSavingThrowBases(pc); //SD_20131029
 
-            pc.fortitude = pc.baseFortitude + CalcSavingThrowModifiersFortitude(pc) + (pc.constitution - 10) / 2; //SD_20131127
-            pc.will = pc.baseWill + CalcSavingThrowModifiersWill(pc) + (pc.intelligence - 10) / 2; //SD_20131127
-            pc.reflex = pc.baseReflex + CalcSavingThrowModifiersReflex(pc) + (pc.dexterity - 10) / 2; //SD_20131127
+            pc.fortitude = pc.baseFortitude + CalcSavingThrowModifiersFortitude(pc) + (pc.constitution - 10) / 2 + gv.mod.poorVisionModifier; //SD_20131127
+            pc.will = pc.baseWill + CalcSavingThrowModifiersWill(pc) + (pc.intelligence - 10) / 2 + gv.mod.poorVisionModifier; //SD_20131127
+            pc.reflex = pc.baseReflex + CalcSavingThrowModifiersReflex(pc) + (pc.dexterity - 10) / 2 + gv.mod.poorVisionModifier; //SD_20131127
             pc.strength = pc.baseStr + pc.race.strMod + CalcAttributeModifierStr(pc); //SD_20131127
             pc.dexterity = pc.baseDex + pc.race.dexMod + CalcAttributeModifierDex(pc); //SD_20131127
             pc.intelligence = pc.baseInt + pc.race.intMod + CalcAttributeModifierInt(pc); //SD_20131127
@@ -6017,7 +8236,7 @@ namespace IceBlink2
             int acMods = 0;
             armBonus = CalcArmorBonuses(pc);
             acMods = CalcACModifiers(pc);
-            pc.AC = pc.ACBase + dMod + armBonus + acMods;
+            pc.AC = pc.ACBase + dMod + armBonus + acMods + gv.mod.poorVisionModifier;
             if (mod.getItemByResRefForInfo(pc.BodyRefs.resref).ArmorWeightType.Equals("Light"))
             {
                 pc.moveDistance = pc.race.MoveDistanceLightArmor + CalcMovementBonuses(pc);
@@ -6280,6 +8499,7 @@ namespace IceBlink2
             savBonuses += mod.getItemByResRefForInfo(pc.OffHandRefs.resref).savingThrowModifierReflex;
             savBonuses += mod.getItemByResRefForInfo(pc.RingRefs.resref).savingThrowModifierReflex;
             savBonuses += mod.getItemByResRefForInfo(pc.HeadRefs.resref).savingThrowModifierReflex;
+            savBonuses += mod.getItemByResRefForInfo(pc.GlovesRefs.resref).savingThrowModifierReflex;
             savBonuses += mod.getItemByResRefForInfo(pc.NeckRefs.resref).savingThrowModifierReflex;
             savBonuses += mod.getItemByResRefForInfo(pc.Ring2Refs.resref).savingThrowModifierReflex;
             savBonuses += mod.getItemByResRefForInfo(pc.FeetRefs.resref).savingThrowModifierReflex;
@@ -6312,6 +8532,7 @@ namespace IceBlink2
             savBonuses += mod.getItemByResRefForInfo(pc.OffHandRefs.resref).savingThrowModifierFortitude;
             savBonuses += mod.getItemByResRefForInfo(pc.RingRefs.resref).savingThrowModifierFortitude;
             savBonuses += mod.getItemByResRefForInfo(pc.HeadRefs.resref).savingThrowModifierFortitude;
+            savBonuses += mod.getItemByResRefForInfo(pc.GlovesRefs.resref).savingThrowModifierFortitude;
             savBonuses += mod.getItemByResRefForInfo(pc.NeckRefs.resref).savingThrowModifierFortitude;
             savBonuses += mod.getItemByResRefForInfo(pc.Ring2Refs.resref).savingThrowModifierFortitude;
             savBonuses += mod.getItemByResRefForInfo(pc.FeetRefs.resref).savingThrowModifierFortitude;
@@ -6344,6 +8565,7 @@ namespace IceBlink2
             savBonuses += mod.getItemByResRefForInfo(pc.OffHandRefs.resref).savingThrowModifierWill;
             savBonuses += mod.getItemByResRefForInfo(pc.RingRefs.resref).savingThrowModifierWill;
             savBonuses += mod.getItemByResRefForInfo(pc.HeadRefs.resref).savingThrowModifierWill;
+            savBonuses += mod.getItemByResRefForInfo(pc.GlovesRefs.resref).savingThrowModifierWill;
             savBonuses += mod.getItemByResRefForInfo(pc.NeckRefs.resref).savingThrowModifierWill;
             savBonuses += mod.getItemByResRefForInfo(pc.Ring2Refs.resref).savingThrowModifierWill;
             savBonuses += mod.getItemByResRefForInfo(pc.FeetRefs.resref).savingThrowModifierWill;
@@ -6377,6 +8599,7 @@ namespace IceBlink2
             attBonuses += mod.getItemByResRefForInfo(pc.OffHandRefs.resref).attributeBonusModifierStr;
             attBonuses += mod.getItemByResRefForInfo(pc.RingRefs.resref).attributeBonusModifierStr;
             attBonuses += mod.getItemByResRefForInfo(pc.HeadRefs.resref).attributeBonusModifierStr;
+            attBonuses += mod.getItemByResRefForInfo(pc.GlovesRefs.resref).attributeBonusModifierStr;
             attBonuses += mod.getItemByResRefForInfo(pc.NeckRefs.resref).attributeBonusModifierStr;
             attBonuses += mod.getItemByResRefForInfo(pc.Ring2Refs.resref).attributeBonusModifierStr;
             attBonuses += mod.getItemByResRefForInfo(pc.FeetRefs.resref).attributeBonusModifierStr;
@@ -6410,6 +8633,7 @@ namespace IceBlink2
             attBonuses += mod.getItemByResRefForInfo(pc.OffHandRefs.resref).modifierMaxHP;
             attBonuses += mod.getItemByResRefForInfo(pc.RingRefs.resref).modifierMaxHP;
             attBonuses += mod.getItemByResRefForInfo(pc.HeadRefs.resref).modifierMaxHP;
+            attBonuses += mod.getItemByResRefForInfo(pc.GlovesRefs.resref).modifierMaxHP;
             attBonuses += mod.getItemByResRefForInfo(pc.NeckRefs.resref).modifierMaxHP;
             attBonuses += mod.getItemByResRefForInfo(pc.Ring2Refs.resref).modifierMaxHP;
             attBonuses += mod.getItemByResRefForInfo(pc.FeetRefs.resref).modifierMaxHP;
@@ -6443,6 +8667,7 @@ namespace IceBlink2
             attBonuses += mod.getItemByResRefForInfo(pc.OffHandRefs.resref).modifierMaxSP;
             attBonuses += mod.getItemByResRefForInfo(pc.RingRefs.resref).modifierMaxSP;
             attBonuses += mod.getItemByResRefForInfo(pc.HeadRefs.resref).modifierMaxSP;
+            attBonuses += mod.getItemByResRefForInfo(pc.GlovesRefs.resref).modifierMaxSP;
             attBonuses += mod.getItemByResRefForInfo(pc.NeckRefs.resref).modifierMaxSP;
             attBonuses += mod.getItemByResRefForInfo(pc.Ring2Refs.resref).modifierMaxSP;
             attBonuses += mod.getItemByResRefForInfo(pc.FeetRefs.resref).modifierMaxSP;
@@ -6476,6 +8701,7 @@ namespace IceBlink2
             attBonuses += mod.getItemByResRefForInfo(pc.OffHandRefs.resref).attributeBonusModifierDex;
             attBonuses += mod.getItemByResRefForInfo(pc.RingRefs.resref).attributeBonusModifierDex;
             attBonuses += mod.getItemByResRefForInfo(pc.HeadRefs.resref).attributeBonusModifierDex;
+            attBonuses += mod.getItemByResRefForInfo(pc.GlovesRefs.resref).attributeBonusModifierDex;
             attBonuses += mod.getItemByResRefForInfo(pc.NeckRefs.resref).attributeBonusModifierDex;
             attBonuses += mod.getItemByResRefForInfo(pc.Ring2Refs.resref).attributeBonusModifierDex;
             attBonuses += mod.getItemByResRefForInfo(pc.FeetRefs.resref).attributeBonusModifierDex;
@@ -6509,6 +8735,7 @@ namespace IceBlink2
             attBonuses += mod.getItemByResRefForInfo(pc.OffHandRefs.resref).attributeBonusModifierInt;
             attBonuses += mod.getItemByResRefForInfo(pc.RingRefs.resref).attributeBonusModifierInt;
             attBonuses += mod.getItemByResRefForInfo(pc.HeadRefs.resref).attributeBonusModifierInt;
+            attBonuses += mod.getItemByResRefForInfo(pc.GlovesRefs.resref).attributeBonusModifierInt;
             attBonuses += mod.getItemByResRefForInfo(pc.NeckRefs.resref).attributeBonusModifierInt;
             attBonuses += mod.getItemByResRefForInfo(pc.Ring2Refs.resref).attributeBonusModifierInt;
             attBonuses += mod.getItemByResRefForInfo(pc.FeetRefs.resref).attributeBonusModifierInt;
@@ -6543,6 +8770,7 @@ namespace IceBlink2
             attBonuses += mod.getItemByResRefForInfo(pc.OffHandRefs.resref).attributeBonusModifierCha;
             attBonuses += mod.getItemByResRefForInfo(pc.RingRefs.resref).attributeBonusModifierCha;
             attBonuses += mod.getItemByResRefForInfo(pc.HeadRefs.resref).attributeBonusModifierCha;
+            attBonuses += mod.getItemByResRefForInfo(pc.GlovesRefs.resref).attributeBonusModifierCha;
             attBonuses += mod.getItemByResRefForInfo(pc.NeckRefs.resref).attributeBonusModifierCha;
             attBonuses += mod.getItemByResRefForInfo(pc.Ring2Refs.resref).attributeBonusModifierCha;
             attBonuses += mod.getItemByResRefForInfo(pc.FeetRefs.resref).attributeBonusModifierCha;
@@ -6575,6 +8803,7 @@ namespace IceBlink2
             attBonuses += mod.getItemByResRefForInfo(pc.OffHandRefs.resref).attributeBonusModifierCon;
             attBonuses += mod.getItemByResRefForInfo(pc.RingRefs.resref).attributeBonusModifierCon;
             attBonuses += mod.getItemByResRefForInfo(pc.HeadRefs.resref).attributeBonusModifierCon;
+            attBonuses += mod.getItemByResRefForInfo(pc.GlovesRefs.resref).attributeBonusModifierCon;
             attBonuses += mod.getItemByResRefForInfo(pc.NeckRefs.resref).attributeBonusModifierCon;
             attBonuses += mod.getItemByResRefForInfo(pc.Ring2Refs.resref).attributeBonusModifierCon;
             attBonuses += mod.getItemByResRefForInfo(pc.FeetRefs.resref).attributeBonusModifierCon;
@@ -6607,6 +8836,7 @@ namespace IceBlink2
             attBonuses += mod.getItemByResRefForInfo(pc.OffHandRefs.resref).attributeBonusModifierWis;
             attBonuses += mod.getItemByResRefForInfo(pc.RingRefs.resref).attributeBonusModifierWis;
             attBonuses += mod.getItemByResRefForInfo(pc.HeadRefs.resref).attributeBonusModifierWis;
+            attBonuses += mod.getItemByResRefForInfo(pc.GlovesRefs.resref).attributeBonusModifierWis;
             attBonuses += mod.getItemByResRefForInfo(pc.NeckRefs.resref).attributeBonusModifierWis;
             attBonuses += mod.getItemByResRefForInfo(pc.Ring2Refs.resref).attributeBonusModifierWis;
             attBonuses += mod.getItemByResRefForInfo(pc.FeetRefs.resref).attributeBonusModifierWis;
@@ -6639,6 +8869,7 @@ namespace IceBlink2
             attBonuses += mod.getItemByResRefForInfo(pc.OffHandRefs.resref).attributeBonusModifierLuk;
             attBonuses += mod.getItemByResRefForInfo(pc.RingRefs.resref).attributeBonusModifierLuk;
             attBonuses += mod.getItemByResRefForInfo(pc.HeadRefs.resref).attributeBonusModifierLuk;
+            attBonuses += mod.getItemByResRefForInfo(pc.GlovesRefs.resref).attributeBonusModifierLuk;
             attBonuses += mod.getItemByResRefForInfo(pc.NeckRefs.resref).attributeBonusModifierLuk;
             attBonuses += mod.getItemByResRefForInfo(pc.Ring2Refs.resref).attributeBonusModifierLuk;
             attBonuses += mod.getItemByResRefForInfo(pc.FeetRefs.resref).attributeBonusModifierLuk;
@@ -6671,6 +8902,7 @@ namespace IceBlink2
             md += mod.getItemByResRefForInfo(pc.OffHandRefs.resref).damageTypeResistanceValueAcid;
             md += mod.getItemByResRefForInfo(pc.RingRefs.resref).damageTypeResistanceValueAcid;
             md += mod.getItemByResRefForInfo(pc.HeadRefs.resref).damageTypeResistanceValueAcid;
+            md += mod.getItemByResRefForInfo(pc.GlovesRefs.resref).damageTypeResistanceValueAcid;
             md += mod.getItemByResRefForInfo(pc.NeckRefs.resref).damageTypeResistanceValueAcid;
             md += mod.getItemByResRefForInfo(pc.FeetRefs.resref).damageTypeResistanceValueAcid;
             md += mod.getItemByResRefForInfo(pc.Ring2Refs.resref).damageTypeResistanceValueAcid;
@@ -6703,6 +8935,7 @@ namespace IceBlink2
             md += mod.getItemByResRefForInfo(pc.OffHandRefs.resref).damageTypeResistanceValueNormal;
             md += mod.getItemByResRefForInfo(pc.RingRefs.resref).damageTypeResistanceValueNormal;
             md += mod.getItemByResRefForInfo(pc.HeadRefs.resref).damageTypeResistanceValueNormal;
+            md += mod.getItemByResRefForInfo(pc.GlovesRefs.resref).damageTypeResistanceValueNormal;
             md += mod.getItemByResRefForInfo(pc.NeckRefs.resref).damageTypeResistanceValueNormal;
             md += mod.getItemByResRefForInfo(pc.FeetRefs.resref).damageTypeResistanceValueNormal;
             md += mod.getItemByResRefForInfo(pc.Ring2Refs.resref).damageTypeResistanceValueNormal;
@@ -6735,6 +8968,7 @@ namespace IceBlink2
             md += mod.getItemByResRefForInfo(pc.OffHandRefs.resref).damageTypeResistanceValueCold;
             md += mod.getItemByResRefForInfo(pc.RingRefs.resref).damageTypeResistanceValueCold;
             md += mod.getItemByResRefForInfo(pc.HeadRefs.resref).damageTypeResistanceValueCold;
+            md += mod.getItemByResRefForInfo(pc.GlovesRefs.resref).damageTypeResistanceValueCold;
             md += mod.getItemByResRefForInfo(pc.NeckRefs.resref).damageTypeResistanceValueCold;
             md += mod.getItemByResRefForInfo(pc.FeetRefs.resref).damageTypeResistanceValueCold;
             md += mod.getItemByResRefForInfo(pc.Ring2Refs.resref).damageTypeResistanceValueCold;
@@ -6767,6 +9001,7 @@ namespace IceBlink2
             md += mod.getItemByResRefForInfo(pc.OffHandRefs.resref).damageTypeResistanceValueElectricity;
             md += mod.getItemByResRefForInfo(pc.RingRefs.resref).damageTypeResistanceValueElectricity;
             md += mod.getItemByResRefForInfo(pc.HeadRefs.resref).damageTypeResistanceValueElectricity;
+            md += mod.getItemByResRefForInfo(pc.GlovesRefs.resref).damageTypeResistanceValueElectricity;
             md += mod.getItemByResRefForInfo(pc.NeckRefs.resref).damageTypeResistanceValueElectricity;
             md += mod.getItemByResRefForInfo(pc.FeetRefs.resref).damageTypeResistanceValueElectricity;
             md += mod.getItemByResRefForInfo(pc.Ring2Refs.resref).damageTypeResistanceValueElectricity;
@@ -6799,6 +9034,7 @@ namespace IceBlink2
             md += mod.getItemByResRefForInfo(pc.OffHandRefs.resref).damageTypeResistanceValueFire;
             md += mod.getItemByResRefForInfo(pc.RingRefs.resref).damageTypeResistanceValueFire;
             md += mod.getItemByResRefForInfo(pc.HeadRefs.resref).damageTypeResistanceValueFire;
+            md += mod.getItemByResRefForInfo(pc.GlovesRefs.resref).damageTypeResistanceValueFire;
             md += mod.getItemByResRefForInfo(pc.NeckRefs.resref).damageTypeResistanceValueFire;
             md += mod.getItemByResRefForInfo(pc.FeetRefs.resref).damageTypeResistanceValueFire;
             md += mod.getItemByResRefForInfo(pc.Ring2Refs.resref).damageTypeResistanceValueFire;
@@ -6831,6 +9067,7 @@ namespace IceBlink2
             md += mod.getItemByResRefForInfo(pc.OffHandRefs.resref).damageTypeResistanceValueMagic;
             md += mod.getItemByResRefForInfo(pc.RingRefs.resref).damageTypeResistanceValueMagic;
             md += mod.getItemByResRefForInfo(pc.HeadRefs.resref).damageTypeResistanceValueMagic;
+            md += mod.getItemByResRefForInfo(pc.GlovesRefs.resref).damageTypeResistanceValueMagic;
             md += mod.getItemByResRefForInfo(pc.NeckRefs.resref).damageTypeResistanceValueMagic;
             md += mod.getItemByResRefForInfo(pc.FeetRefs.resref).damageTypeResistanceValueMagic;
             md += mod.getItemByResRefForInfo(pc.Ring2Refs.resref).damageTypeResistanceValueMagic;
@@ -6863,6 +9100,7 @@ namespace IceBlink2
             md += mod.getItemByResRefForInfo(pc.OffHandRefs.resref).damageTypeResistanceValuePoison;
             md += mod.getItemByResRefForInfo(pc.RingRefs.resref).damageTypeResistanceValuePoison;
             md += mod.getItemByResRefForInfo(pc.HeadRefs.resref).damageTypeResistanceValuePoison;
+            md += mod.getItemByResRefForInfo(pc.GlovesRefs.resref).damageTypeResistanceValuePoison;
             md += mod.getItemByResRefForInfo(pc.NeckRefs.resref).damageTypeResistanceValuePoison;
             md += mod.getItemByResRefForInfo(pc.FeetRefs.resref).damageTypeResistanceValuePoison;
             md += mod.getItemByResRefForInfo(pc.Ring2Refs.resref).damageTypeResistanceValuePoison;
@@ -6943,6 +9181,7 @@ namespace IceBlink2
             armBonuses += mod.getItemByResRefForInfo(pc.OffHandRefs.resref).armorBonus;
             armBonuses += mod.getItemByResRefForInfo(pc.RingRefs.resref).armorBonus;
             armBonuses += mod.getItemByResRefForInfo(pc.HeadRefs.resref).armorBonus;
+            armBonuses += mod.getItemByResRefForInfo(pc.GlovesRefs.resref).armorBonus;
             armBonuses += mod.getItemByResRefForInfo(pc.NeckRefs.resref).armorBonus;
             armBonuses += mod.getItemByResRefForInfo(pc.FeetRefs.resref).armorBonus;
             armBonuses += mod.getItemByResRefForInfo(pc.Ring2Refs.resref).armorBonus;
@@ -6961,6 +9200,8 @@ namespace IceBlink2
             if (mdb < armMaxDexBonuses) { armMaxDexBonuses = mdb; }
             mdb = mod.getItemByResRefForInfo(pc.HeadRefs.resref).maxDexBonus;
             if (mdb < armMaxDexBonuses) { armMaxDexBonuses = mdb; }
+            mdb = mod.getItemByResRefForInfo(pc.GlovesRefs.resref).maxDexBonus;
+            if (mdb < armMaxDexBonuses) { armMaxDexBonuses = mdb; }
             mdb = mod.getItemByResRefForInfo(pc.NeckRefs.resref).maxDexBonus;
             if (mdb < armMaxDexBonuses) { armMaxDexBonuses = mdb; }
             mdb = mod.getItemByResRefForInfo(pc.FeetRefs.resref).maxDexBonus;
@@ -6977,6 +9218,7 @@ namespace IceBlink2
             moveBonuses += mod.getItemByResRefForInfo(pc.OffHandRefs.resref).MovementPointModifier;
             moveBonuses += mod.getItemByResRefForInfo(pc.RingRefs.resref).MovementPointModifier;
             moveBonuses += mod.getItemByResRefForInfo(pc.HeadRefs.resref).MovementPointModifier;
+            moveBonuses += mod.getItemByResRefForInfo(pc.GlovesRefs.resref).MovementPointModifier;
             moveBonuses += mod.getItemByResRefForInfo(pc.NeckRefs.resref).MovementPointModifier;
             moveBonuses += mod.getItemByResRefForInfo(pc.FeetRefs.resref).MovementPointModifier;
             moveBonuses += mod.getItemByResRefForInfo(pc.Ring2Refs.resref).MovementPointModifier;
@@ -7010,6 +9252,7 @@ namespace IceBlink2
             moveBonuses += mod.getItemByResRefForInfo(pc.OffHandRefs.resref).additionalAttacks;
             moveBonuses += mod.getItemByResRefForInfo(pc.RingRefs.resref).additionalAttacks;
             moveBonuses += mod.getItemByResRefForInfo(pc.HeadRefs.resref).additionalAttacks;
+            moveBonuses += mod.getItemByResRefForInfo(pc.GlovesRefs.resref).additionalAttacks;
             moveBonuses += mod.getItemByResRefForInfo(pc.NeckRefs.resref).additionalAttacks;
             moveBonuses += mod.getItemByResRefForInfo(pc.FeetRefs.resref).additionalAttacks;
             moveBonuses += mod.getItemByResRefForInfo(pc.Ring2Refs.resref).additionalAttacks;
@@ -7391,7 +9634,13 @@ namespace IceBlink2
         public int CalcPcMeleeDamageAttributeModifier(Player pc)
         {  
              int damModifier = (pc.strength - 10) / 2;  
-             bool useDexModifier = false;  
+             bool useDexModifier = false;
+             Item it = gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref);
+             if (damModifier > it.maxStrengthBonusAllowedForWeapon)
+             {
+                damModifier = it.maxStrengthBonusAllowedForWeapon;
+             }
+
             /*
  5233 +            //go through all traits and see if has passive criticalstrike type trait  
  5234 +            foreach (string taTag in pc.knownTraitsTags)  
@@ -7406,9 +9655,9 @@ namespace IceBlink2
  5243 +                    }  
  5244 +                }  
  5245 +            } 
- */ 
-             //go through each effect and see if has a buff type like criticalstrike  
-             foreach (Effect ef in pc.effectsList)  
+ */
+            //go through each effect and see if has a buff type like criticalstrike  
+            foreach (Effect ef in pc.effectsList)  
              {  
                  if (ef.useDexterityForMeleeDamageModifierIfGreaterThanStrength)  
                  {
@@ -7421,7 +9670,7 @@ namespace IceBlink2
             //if has critical strike trait use dexterity for damage modifier in melee if greater than strength modifier  
             if ((pc.knownTraitsTags.Contains("criticalstrike")) || (useDexModifier))  
             {  
-                 int damModifierDex = (pc.dexterity - 10) / 4;  
+                 int damModifierDex = (pc.dexterity - 10) / 2;  
                  if (damModifierDex > damModifier)  
                  {  
                      damModifier = damModifierDex;  
@@ -7430,13 +9679,15 @@ namespace IceBlink2
 
             //**********************************************************
             int highestNonStackable = -99;
+            int additionalDamModifier = 0;
+
             foreach (Effect ef in pc.effectsList)
             {
                 if (isPassiveTraitApplied(ef, pc))
                 {
                     if (ef.isStackableEffect)
                     {
-                       damModifier += ef.damageModifierForMeleeAttack;
+                       additionalDamModifier += ef.damageModifierForMeleeAttack;
                     }
                     else
                     {
@@ -7447,10 +9698,10 @@ namespace IceBlink2
                     }
                 }
             }
-            if (highestNonStackable > damModifier) { damModifier = highestNonStackable; }
+            if (highestNonStackable > additionalDamModifier) { additionalDamModifier = highestNonStackable; }
 
             //********************************************************
-            return damModifier;  
+            return damModifier + additionalDamModifier;  
          }
 
         public bool canNegateAdjacentAttackPenalty(Player pc)
@@ -7744,6 +9995,10 @@ namespace IceBlink2
                 {
                     gv.cc.doScriptBasedOnFilename(mod.getItemByResRefForInfo(pc.HeadRefs.resref).onWhileEquipped, "", "", "", "");
                 }
+                if (!mod.getItemByResRefForInfo(pc.GlovesRefs.resref).onWhileEquipped.Equals("none"))
+                {
+                    gv.cc.doScriptBasedOnFilename(mod.getItemByResRefForInfo(pc.GlovesRefs.resref).onWhileEquipped, "", "", "", "");
+                }
                 if (!mod.getItemByResRefForInfo(pc.NeckRefs.resref).onWhileEquipped.Equals("none"))
                 {
                     gv.cc.doScriptBasedOnFilename(mod.getItemByResRefForInfo(pc.NeckRefs.resref).onWhileEquipped, "", "", "", "");
@@ -7774,6 +10029,9 @@ namespace IceBlink2
         //DEFAULT SCRIPTS
         public void dsWorldTime()
         {
+            //world time is in minues
+            //28 day a month
+            //12 months a year (48 weeks a year)
             gv.mod.timeInThisYear = (gv.mod.WorldTime) % 483840;
            
             //note: our ranges strat at 0 here, while our usual displayed counting starts at 1
@@ -7938,14 +10196,71 @@ namespace IceBlink2
 
             //XXX
             mod.WorldTime += mod.currentArea.TimePerSquare;
+
+            foreach (Prop p in gv.mod.propsWaitingForRespawn)
+            {
+                p.respawnTimeInMinutesPassedAlready += mod.currentArea.TimePerSquare;
+            }
+
+            foreach (Faction f in gv.mod.moduleFactionsList)
+            {
+                f.timePassedInThisInterval += mod.currentArea.TimePerSquare;
+                if (f.timePassedInThisInterval >= (f.intervalOfFactionStrengthChangeInHours * 60))
+                {
+                    f.timePassedInThisInterval = 0;
+                    f.strength += f.amountOfFactionStrengthChangePerInterval;
+                }
+                    if (f.strength >= f.factionStrengthRequiredForRank10)
+                    {
+                        f.rank = 10;
+                    }
+                    else if (f.strength >= f.factionStrengthRequiredForRank9)
+                    {
+                        f.rank = 9;
+                    }
+                    else if (f.strength >= f.factionStrengthRequiredForRank8)
+                    {
+                        f.rank = 8;
+                    }
+                    else if (f.strength >= f.factionStrengthRequiredForRank7)
+                    {
+                        f.rank = 7;
+                    }
+                    else if (f.strength >= f.factionStrengthRequiredForRank6)
+                    {
+                        f.rank = 6;
+                    }
+                    else if (f.strength >= f.factionStrengthRequiredForRank5)
+                    {
+                        f.rank = 5;
+                    }
+                    else if (f.strength >= f.factionStrengthRequiredForRank4)
+                    {
+                        f.rank = 4;
+                    }
+                    else if (f.strength >= f.factionStrengthRequiredForRank3)
+                    {
+                        f.rank = 3;
+                    }
+                    else if (f.strength >= f.factionStrengthRequiredForRank2)
+                    {
+                        f.rank = 2;
+                    }
+                    else
+                    {
+                        f.rank = 1;
+                    }
+                
+            }
+
             //Code: Bleed to death at -20 hp
-            spCnt++;
+            //spCnt++;
             foreach (Player pc in mod.playerList)
             {
                 //check to see if allow HP to regen
                 if (mod.getPlayerClass(pc.classTag).hpRegenTimeNeeded > 0)
                 {
-                    if (pc.hp > -20) //do not regen if truely dead
+                    if (pc.hp > -20 && pc.hp < pc.hpMax) //do not regen if truely dead
                     {
                         pc.hpRegenTimePassedCounter += mod.currentArea.TimePerSquare;
                         if (pc.hpRegenTimePassedCounter >= mod.getPlayerClass(pc.classTag).hpRegenTimeNeeded)
@@ -7962,14 +10277,13 @@ namespace IceBlink2
                                 pc.charStatus = "Alive";
                             }
                             pc.hpRegenTimePassedCounter = 0;
-                            gv.cc.addLogText("<font color='lime'>" + pc.name + " gains " + hpGained + " HP" + "</font><br>");
                         }
                     }
                 }
                 //check to see if allow SP to regen
                 if (mod.getPlayerClass(pc.classTag).spRegenTimeNeeded > 0)
                 {
-                    if (pc.hp > -20) //do not regen if truely dead
+                    if (pc.hp > -20 && pc.sp < pc.spMax) //do not regen if truely dead
                     {
                         pc.spRegenTimePassedCounter += mod.currentArea.TimePerSquare;
                         if (pc.spRegenTimePassedCounter >= mod.getPlayerClass(pc.classTag).spRegenTimeNeeded)
@@ -7979,7 +10293,6 @@ namespace IceBlink2
                             pc.sp += spGained;
                             if (pc.sp > pc.spMax) { pc.sp = pc.spMax; }
                             pc.spRegenTimePassedCounter = 0;
-                            gv.cc.addLogText("<font color='lime'>" + pc.name + " gains " + spGained + " SP" + "</font><br>");
                         }
                     }
                 }
@@ -8048,6 +10361,16 @@ namespace IceBlink2
                     doRegenHp(pc, mod.getItemByResRefForInfo(pc.HeadRefs.resref).minutesPerHpRegenOutsideCombat, pc.HeadRefs);
                 }
 
+                if (mod.getItemByResRefForInfo(pc.GlovesRefs.resref).minutesPerSpRegenOutsideCombat > 0)
+                {
+                    doRegenSp(pc, mod.getItemByResRefForInfo(pc.GlovesRefs.resref).minutesPerSpRegenOutsideCombat, pc.GlovesRefs);
+                }
+                if (mod.getItemByResRefForInfo(pc.GlovesRefs.resref).minutesPerHpRegenOutsideCombat > 0)
+                {
+                    doRegenHp(pc, mod.getItemByResRefForInfo(pc.GlovesRefs.resref).minutesPerHpRegenOutsideCombat, pc.GlovesRefs);
+                }
+
+
                 if (mod.getItemByResRefForInfo(pc.NeckRefs.resref).minutesPerSpRegenOutsideCombat > 0)
                 {
                     doRegenSp(pc, mod.getItemByResRefForInfo(pc.NeckRefs.resref).minutesPerSpRegenOutsideCombat, pc.NeckRefs);
@@ -8092,7 +10415,7 @@ namespace IceBlink2
 
         public void doRegenSp(Player pc, int minutesNeeded, ItemRefs itRef)
         {
-            if ((minutesNeeded > 0) && (pc.hp > -20))
+            if ((minutesNeeded > 0) && (pc.hp > -20) && (pc.sp < pc.spMax))
             {
                 itRef.spRegenTimer += mod.currentArea.TimePerSquare;
                 if (itRef.spRegenTimer >= minutesNeeded)
@@ -8102,14 +10425,13 @@ namespace IceBlink2
                     pc.sp += spGained;
                     if (pc.sp > pc.spMax) { pc.sp = pc.spMax; }
                     itRef.spRegenTimer = 0;
-                    gv.cc.addLogText("<font color='lime'>" + pc.name + " gains " + spGained + " SP" + "</font><br>");
                 }
             }
         }
 
         public void doRegenHp(Player pc, int minutesNeeded, ItemRefs itRef)
         {
-            if ((minutesNeeded > 0) && (pc.hp > -20))
+            if ((minutesNeeded > 0) && (pc.hp > -20) && (pc.hp < pc.hpMax))
             {
                 itRef.hpRegenTimer += mod.currentArea.TimePerSquare;
                 if (itRef.hpRegenTimer >= minutesNeeded)
@@ -8119,7 +10441,6 @@ namespace IceBlink2
                     pc.hp += hpGained;
                     if (pc.hp > pc.hpMax) { pc.hp = pc.hpMax; }
                     itRef.hpRegenTimer = 0;
-                    gv.cc.addLogText("<font color='lime'>" + pc.name + " gains " + hpGained + " HP" + "</font><br>");
                 }
             }
         }
@@ -8147,6 +10468,8 @@ namespace IceBlink2
                 gv.cc.addLogText("<font color='lime'>" + pc.name + " gains " + healAmount + " HPs" + "</font><BR>");
             }
         }
+
+
         public void itForceRest()
         {
             if (gv.mod.useRationSystem)
@@ -8174,8 +10497,14 @@ namespace IceBlink2
                             pc.sp = pc.spMax;
                         }
                     }
-                    MessageBox("Party safely rests until completely healed.");
-                    gv.cc.addLogText("<font color='lime'>" + "Party safely rests until completely healed." + "</font><BR>");
+                    if (gv.mod.showRestMessagesInBox)
+                    {
+                        MessageBox(gv.mod.messageOnRest);
+                    }
+                    if (gv.mod.showRestMessagesInLog)
+                    {
+                        gv.cc.addLogText("<font color='lime'>" + gv.mod.messageOnRest + "</font><BR>");
+                    }
                 }
                 else 
                 { 
@@ -8193,8 +10522,14 @@ namespace IceBlink2
                         pc.sp = pc.spMax;
                     }
                 }
-                MessageBox("Party safely rests until completely healed.");
-                gv.cc.addLogText("<font color='lime'>" + "Party safely rests until completely healed." + "</font><BR>");
+                if (gv.mod.showRestMessagesInBox)
+                {
+                    MessageBox(gv.mod.messageOnRest);
+                }
+                if (gv.mod.showRestMessagesInLog)
+                {
+                    gv.cc.addLogText("<font color='lime'>" + gv.mod.messageOnRest + "</font><BR>");
+                }
             }
         }
 
@@ -8207,10 +10542,16 @@ namespace IceBlink2
                      pc.hp = pc.hpMax;  
                      pc.sp = pc.spMax;  
                  }  
-             }  
-             MessageBox("Party safely rests until completely healed.");  
-             gv.cc.addLogText("<gn>" + "Party safely rests until completely healed." + "</gn><BR>");  
-         }  
+             }
+            if (gv.mod.showRestMessagesInBox)
+            {
+                MessageBox(gv.mod.messageOnRest);
+            }
+            if (gv.mod.showRestMessagesInLog)
+            {
+                gv.cc.addLogText("<font color='lime'>" + gv.mod.messageOnRest + "</font><BR>");
+            }
+        }  
 
 
         public void itForceRestAndRaiseDead()
@@ -8222,9 +10563,78 @@ namespace IceBlink2
                 pc.sp = pc.spMax;
                 pc.charStatus = "Alive";
             }
-            MessageBox("Party safely rests until completely healed and the dead are raised.");
-            gv.cc.addLogText("<font color='lime'>" + "Party safely rests until completely healed and the dead are raised." + "</font><BR>");
+            if (gv.mod.showRestMessagesInBox)
+            {
+                MessageBox(gv.mod.messageOnRestAndRaise);
+            }
+            if (gv.mod.showRestMessagesInLog)
+            {
+                gv.cc.addLogText("<font color='lime'>" + gv.mod.messageOnRestAndRaise + "</font><BR>");
+            }
         }
+
+        public void itForceRestAndRaiseDeadRequireRations()
+        {
+            if (gv.mod.useRationSystem)
+            {
+                if (gv.mod.numberOfRationsRemaining > 0)
+                {
+                    foreach (ItemRefs ir in gv.mod.partyInventoryRefsList)
+                    {
+                        if (ir.isRation)
+                        {
+                            ir.quantity--;
+                            if (ir.quantity < 1)
+                            {
+                                gv.mod.partyInventoryRefsList.Remove(ir);
+                            }
+                            break;
+                        }
+                    }
+
+                    foreach (Player pc in mod.playerList)
+                    {
+                        pc.hp = pc.hpMax;
+                        pc.sp = pc.spMax;
+                        pc.charStatus = "Alive";
+                    }
+                    if (gv.mod.showRestMessagesInBox)
+                    {
+                        MessageBox(gv.mod.messageOnRestAndRaise);
+                    }
+                    if (gv.mod.showRestMessagesInLog)
+                    {
+                        gv.cc.addLogText("<font color='lime'>" + gv.mod.messageOnRestAndRaise + "</font><BR>");
+                    }
+                }//not enough rations:
+                else
+                {
+                    MessageBox("Party cannot rest without rations.");
+                    gv.cc.addLogText("<font color='red'>" + "Party cannot rest without rations." + "</font><BR>");
+                }
+
+            }//no ration system:
+            else
+            {
+                foreach (Player pc in mod.playerList)
+                {
+                    pc.hp = pc.hpMax;
+                    pc.sp = pc.spMax;
+                    pc.charStatus = "Alive";
+                }
+                if (gv.mod.showRestMessagesInBox)
+                {
+                    MessageBox(gv.mod.messageOnRestAndRaise);
+                }
+                if (gv.mod.showRestMessagesInLog)
+                {
+                    gv.cc.addLogText("<font color='lime'>" + gv.mod.messageOnRestAndRaise + "</font><BR>");
+                }
+
+            }
+
+        }//method end
+
         public void itSpHeal(Player pc, Item it, int healAmount)
         {
             pc.sp += healAmount;
@@ -8263,6 +10673,7 @@ namespace IceBlink2
                     else if (ef.damType.Equals("Electricity")) { resist = (float)(1f - ((float)crt.getDamageTypeResistanceValueElectricity() / 100f)); }
                     else if (ef.damType.Equals("Fire")) { resist = (float)(1f - ((float)crt.getDamageTypeResistanceValueFire() / 100f)); }
                     else if (ef.damType.Equals("Magic")) { resist = (float)(1f - ((float)crt.getDamageTypeResistanceValueMagic() / 100f)); }
+                    else if (ef.damType.Equals("Poison")) { resist = (float)(1f - ((float)crt.getDamageTypeResistanceValuePoison() / 100f)); }
 
                     #endregion
                     int damageTotal = 0;
@@ -8413,19 +10824,34 @@ namespace IceBlink2
                     }
                     #endregion
                 }
-                if ((ef.doBuff) || (ef.durationInUnits > 0))
+                if ((ef.doBuff) || (ef.doDeBuff) || (ef.durationInUnits > 0))
                 {
                     if (!ef.isPermanent)
                     {
-                        gv.cc.addLogText("<font color='yellow'>" + crt.cr_name + " has effect: " + ef.name + ", (" + (int)((ef.durationInUnits / gv.mod.TimePerRound) - 1) + " round(s) remain)</font><BR>");
+                        //burning man
+                        if (ef.combatLocX == 0 && ef.combatLocY == 0)
+                        {
+                            gv.cc.addLogText("<font color='yellow'>" + crt.cr_name + " has effect: " + ef.name + ", (" + (int)((ef.durationInUnits / gv.mod.TimePerRound) - 1) + " round(s) remain)</font><BR>");
+                            if ((int)(ef.durationInUnits / gv.mod.TimePerRound) <= 1)
+                            {
+                                gv.cc.addLogText("<font color='yellow'>" + "This effect is removed on start of next turn of " + crt.cr_name + "</font><BR>");
+                            }
+                        }
+                        else
+                        {
+                            gv.cc.addLogText("<font color='yellow'>" + crt.cr_name + " has effect: " + ef.name + "</font><BR>");
+                        }
+                        /*
                         if ((int)(ef.durationInUnits / gv.mod.TimePerRound) <= 1)
                         {
                             gv.cc.addLogText("<font color='yellow'>" + "This effect is removed on start of next turn of " + crt.cr_name + "</font><BR>");
                         }
+                        */
                     }
                     //no need to do anything here as buffs are used in updateStats or during
                     //checks such as ef.addStatusType.Equals("Held") on Player or Creature class
                 }
+                /*
                 if ((ef.doDeBuff) || (ef.durationInUnits > 0))
                 {
                     if (!ef.isPermanent)
@@ -8439,6 +10865,7 @@ namespace IceBlink2
                     //no need to do anything here as buffs are used in updateStats or during
                     //checks such as ef.addStatusType.Equals("Held") on Player or Creature class
                 }
+                */
             }
             else //target is Player
             {
@@ -8546,9 +10973,13 @@ namespace IceBlink2
                     {
                         if (pc.hp <= -20)
                         {
-                            gv.screenCombat.deathAnimationLocations.Add(new Coordinate(pc.combatLocX, pc.combatLocY));
+                            //gv.screenCombat.deathAnimationLocations.Add(new Coordinate(pc.combatLocX, pc.combatLocY));
+                            gv.cc.addLogText("<font color='red'>" + pc.name + " drops DEAD!" + "</font><BR>");
                         }
-                        gv.cc.addLogText("<font color='red'>" + pc.name + " drops unconcious!" + "</font><BR>");
+                        else
+                        {
+                            gv.cc.addLogText("<font color='red'>" + pc.name + " is unconcious!" + "</font><BR>");
+                        }
                         pc.charStatus = "Dead";
                     }
                     //Do floaty text damage
@@ -8615,19 +11046,30 @@ namespace IceBlink2
                     }
                     #endregion
                 }
-                if ((ef.doBuff) || (ef.durationInUnits > 0))
+                if ((ef.doBuff) || (ef.durationInUnits > 0) || (ef.doDeBuff))
                 {
                     if (!ef.isPermanent)
                     {
-                        gv.cc.addLogText("<font color='yellow'>" + pc.name + " has effect: " + ef.name + ", (" + (int)((ef.durationInUnits / gv.mod.TimePerRound) - 1) + " turn(s) remain)</font><BR>");
-                        if ((int)(ef.durationInUnits / gv.mod.TimePerRound) <= 1)
+                        if (ef.combatLocX == 0 && ef.combatLocY == 0)
                         {
-                            gv.cc.addLogText("<font color='yellow'>" + "This effect is removed on start of next turn of " + pc.name + "</font><BR>");
+                            gv.cc.addLogText("<font color='yellow'>" + pc.name + " has effect: " + ef.name + ", (" + (int)((ef.durationInUnits / gv.mod.TimePerRound) - 1) + " round(s) remain)</font><BR>");
+                            if ((int)(ef.durationInUnits / gv.mod.TimePerRound) <= 1)
+                            {
+                                gv.cc.addLogText("<font color='yellow'>" + "This effect is removed on start of next turn of " + pc.name + "</font><BR>");
+                            }
                         }
+                        else
+                        {
+                            gv.cc.addLogText("<font color='yellow'>" + pc.name + " has effect: " + ef.name + "</font><BR>");
+                        }
+                        //gv.cc.addLogText("<font color='yellow'>" + pc.name + " has effect: " + ef.name + ", (" + (int)((ef.durationInUnits / gv.mod.TimePerRound) - 1) + " turn(s) remain)</font><BR>");
+                       
                     }
+                    UpdateStats(pc);
                     //no need to do anything here as buffs are used in updateStats or during
                     //checks such as ef.addStatusType.Equals("Held") on Player or Creature class
                 }
+                /*
                 if ((ef.doDeBuff) || (ef.durationInUnits > 0))
                 {
                     if (!ef.isPermanent)
@@ -8641,6 +11083,7 @@ namespace IceBlink2
                     //no need to do anything here as buffs are used in updateStats or during
                     //checks such as ef.addStatusType.Equals("Held") on Player or Creature class
                 }
+                */
             }
             #endregion
 
@@ -8829,7 +11272,7 @@ namespace IceBlink2
                 source.hp -= poisonDam;
                 if (source.hp <= 0)
                 {
-                    gv.cc.addLogText("<font color='red'>" + source.name + " drops unconcious!" + "</font>" + "<BR>");
+                    gv.cc.addLogText("<font color='red'>" + source.name + " is unconcious!" + "</font>" + "<BR>");
                     source.charStatus = "Dead";
                 }
             }
@@ -8925,7 +11368,37 @@ namespace IceBlink2
                     for (int y = target.Y - aoeRadius; y <= target.Y + aoeRadius; y++)
                     {
                         //TODO check for LoS from (target.X, target.Y) center location to (x,y)
-                        AoeSquaresList.Add(new Coordinate(x, y));
+                        bool add = true;
+                        foreach (Creature crt in gv.mod.currentEncounter.encounterCreatureList)
+                        {
+                            bool containsThisCoordinate = false;
+                            foreach (Coordinate Cord in crt.tokenCoveredSquares)
+                            {
+                                if (Cord.X == x && Cord.Y == y)
+                                {
+                                    containsThisCoordinate = true;
+                                }
+                            }
+
+                            if (containsThisCoordinate)
+                            {
+                                foreach (Coordinate Cord in crt.tokenCoveredSquares)
+                                {
+                                    foreach (Coordinate known in AoeSquaresList)
+                                    {
+                                        if (Cord.X == known.X && Cord.Y == known.Y)
+                                        {
+                                            //add = false;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        if (add)
+                        {
+                            AoeSquaresList.Add(new Coordinate(x, y));
+                        }
+
                     }
                 }                
             }
@@ -8955,7 +11428,36 @@ namespace IceBlink2
                                 if (r <= aoeRadius)
                                 {
                                     //TODO check for LoS from (target.X, target.Y) center location to (x,y)
-                                    AoeSquaresList.Add(new Coordinate(x + target.X, y + target.Y));
+                                    bool add = true;
+                                    foreach (Creature crt in gv.mod.currentEncounter.encounterCreatureList)
+                                    {
+                                        bool containsThisCoordinate = false;
+                                        foreach (Coordinate Cord in crt.tokenCoveredSquares)
+                                        {
+                                            if (Cord.X == x+target.X && Cord.Y == y+target.Y)
+                                            {
+                                                containsThisCoordinate = true;
+                                            }
+                                        }
+
+                                        if (containsThisCoordinate)
+                                        {
+                                            foreach (Coordinate Cord in crt.tokenCoveredSquares)
+                                            {
+                                                foreach (Coordinate known in AoeSquaresList)
+                                                {
+                                                    if (Cord.X == known.X && Cord.Y == known.Y)
+                                                    {
+                                                        //add = false;
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                    if (add)
+                                    {
+                                        AoeSquaresList.Add(new Coordinate(x + target.X, y + target.Y));
+                                    }
                                 }
                             }
                         }
@@ -8970,7 +11472,36 @@ namespace IceBlink2
                                 if (r <= aoeRadius)
                                 {
                                     //TODO check for LoS from (target.X, target.Y) center location to (x,y)
-                                    AoeSquaresList.Add(new Coordinate(x + target.X, y + target.Y));
+                                    bool add = true;
+                                    foreach (Creature crt in gv.mod.currentEncounter.encounterCreatureList)
+                                    {
+                                        bool containsThisCoordinate = false;
+                                        foreach (Coordinate Cord in crt.tokenCoveredSquares)
+                                        {
+                                            if (Cord.X == x + target.X && Cord.Y == y + target.Y)
+                                            {
+                                                containsThisCoordinate = true;
+                                            }
+                                        }
+
+                                        if (containsThisCoordinate)
+                                        {
+                                            foreach (Coordinate Cord in crt.tokenCoveredSquares)
+                                            {
+                                                foreach (Coordinate known in AoeSquaresList)
+                                                {
+                                                    if (Cord.X == known.X && Cord.Y == known.Y)
+                                                    {
+                                                        //add = false;
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                    if (add)
+                                    {
+                                        AoeSquaresList.Add(new Coordinate(x + target.X, y + target.Y));
+                                    }
                                 }
                             }
                         }
@@ -8987,7 +11518,36 @@ namespace IceBlink2
                             if (r <= aoeRadius)
                             {
                                 //TODO check for LoS from (target.X, target.Y) center location to (x,y)
-                                AoeSquaresList.Add(new Coordinate(x + target.X, y + target.Y));
+                                bool add = true;
+                                foreach (Creature crt in gv.mod.currentEncounter.encounterCreatureList)
+                                {
+                                    bool containsThisCoordinate = false;
+                                    foreach (Coordinate Cord in crt.tokenCoveredSquares)
+                                    {
+                                        if (Cord.X == x + target.X && Cord.Y == y + target.Y)
+                                        {
+                                            containsThisCoordinate = true;
+                                        }
+                                    }
+
+                                    if (containsThisCoordinate)
+                                    {
+                                        foreach (Coordinate Cord in crt.tokenCoveredSquares)
+                                        {
+                                            foreach (Coordinate known in AoeSquaresList)
+                                            {
+                                                if (Cord.X == known.X && Cord.Y == known.Y)
+                                                {
+                                                    //add = false;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                                if (add)
+                                {
+                                    AoeSquaresList.Add(new Coordinate(x + target.X, y + target.Y));
+                                }
                             }
                         }
                     }
@@ -9028,7 +11588,36 @@ namespace IceBlink2
                 for (int i = 0; i < aoeRadius; i++)
                 {
                     //TODO check for LoS from (target.X, target.Y) center location to (x,y)
-                    AoeSquaresList.Add(new Coordinate(currentX, currentY));
+                    bool add = true;
+                    foreach (Creature crt in gv.mod.currentEncounter.encounterCreatureList)
+                    {
+                        bool containsThisCoordinate = false;
+                        foreach (Coordinate Cord in crt.tokenCoveredSquares)
+                        {
+                            if (Cord.X == currentX && Cord.Y == currentY)
+                            {
+                                containsThisCoordinate = true;
+                            }
+                        }
+
+                        if (containsThisCoordinate)
+                        {
+                            foreach (Coordinate Cord in crt.tokenCoveredSquares)
+                            {
+                                foreach (Coordinate known in AoeSquaresList)
+                                {
+                                    if (Cord.X == known.X && Cord.Y == known.Y)
+                                    {
+                                        //add = false;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    if (add)
+                    {
+                        AoeSquaresList.Add(new Coordinate(currentX, currentY));
+                    }
 
                     //do the increments for the next location
                     if (Math.Abs(rise) > Math.Abs(run))
@@ -9122,7 +11711,36 @@ namespace IceBlink2
                     for (int y = target.Y - aoeRadius; y <= target.Y + aoeRadius; y++)
                     {
                         //TODO check for LoS from (target.X, target.Y) center location to (x,y)
-                        AoeSquaresList.Add(new Coordinate(x, y));
+                        bool add = true;
+                        foreach (Creature crt in gv.mod.currentEncounter.encounterCreatureList)
+                        {
+                            bool containsThisCoordinate = false;
+                            foreach (Coordinate Cord in crt.tokenCoveredSquares)
+                            {
+                                if (Cord.X == x && Cord.Y == y)
+                                {
+                                    containsThisCoordinate = true;
+                                }
+                            }
+
+                            if (containsThisCoordinate)
+                            {
+                                foreach (Coordinate Cord in crt.tokenCoveredSquares)
+                                {
+                                    foreach (Coordinate known in AoeSquaresList)
+                                    {
+                                        if (Cord.X == known.X && Cord.Y == known.Y)
+                                        {
+                                            //add = false;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        if (add)
+                        {
+                            AoeSquaresList.Add(new Coordinate(x, y));
+                        }
                     }
                 }
             }
@@ -9152,7 +11770,36 @@ namespace IceBlink2
                                 if (r <= aoeRadius)
                                 {
                                     //TODO check for LoS from (target.X, target.Y) center location to (x,y)
-                                    AoeSquaresList.Add(new Coordinate(x + target.X, y + target.Y));
+                                    bool add = true;
+                                    foreach (Creature crt in gv.mod.currentEncounter.encounterCreatureList)
+                                    {
+                                        bool containsThisCoordinate = false;
+                                        foreach (Coordinate Cord in crt.tokenCoveredSquares)
+                                        {
+                                            if (Cord.X == x + target.X && Cord.Y == y + target.Y)
+                                            {
+                                                containsThisCoordinate = true;
+                                            }
+                                        }
+
+                                        if (containsThisCoordinate)
+                                        {
+                                            foreach (Coordinate Cord in crt.tokenCoveredSquares)
+                                            {
+                                                foreach (Coordinate known in AoeSquaresList)
+                                                {
+                                                    if (Cord.X == known.X && Cord.Y == known.Y)
+                                                    {
+                                                        //add = false;
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                    if (add)
+                                    {
+                                        AoeSquaresList.Add(new Coordinate(x + target.X, y + target.Y));
+                                    }
                                 }
                             }
                         }
@@ -9167,7 +11814,36 @@ namespace IceBlink2
                                 if (r <= aoeRadius)
                                 {
                                     //TODO check for LoS from (target.X, target.Y) center location to (x,y)
-                                    AoeSquaresList.Add(new Coordinate(x + target.X, y + target.Y));
+                                    bool add = true;
+                                    foreach (Creature crt in gv.mod.currentEncounter.encounterCreatureList)
+                                    {
+                                        bool containsThisCoordinate = false;
+                                        foreach (Coordinate Cord in crt.tokenCoveredSquares)
+                                        {
+                                            if (Cord.X == x + target.X && Cord.Y == y + target.Y)
+                                            {
+                                                containsThisCoordinate = true;
+                                            }
+                                        }
+
+                                        if (containsThisCoordinate)
+                                        {
+                                            foreach (Coordinate Cord in crt.tokenCoveredSquares)
+                                            {
+                                                foreach (Coordinate known in AoeSquaresList)
+                                                {
+                                                    if (Cord.X == known.X && Cord.Y == known.Y)
+                                                    {
+                                                        //add = false;
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                    if (add)
+                                    {
+                                        AoeSquaresList.Add(new Coordinate(x + target.X, y + target.Y));
+                                    }
                                 }
                             }
                         }
@@ -9184,7 +11860,36 @@ namespace IceBlink2
                             if (r <= aoeRadius)
                             {
                                 //TODO check for LoS from (target.X, target.Y) center location to (x,y)
-                                AoeSquaresList.Add(new Coordinate(x + target.X, y + target.Y));
+                                bool add = true;
+                                foreach (Creature crt in gv.mod.currentEncounter.encounterCreatureList)
+                                {
+                                    bool containsThisCoordinate = false;
+                                    foreach (Coordinate Cord in crt.tokenCoveredSquares)
+                                    {
+                                        if (Cord.X == x + target.X && Cord.Y == y + target.Y)
+                                        {
+                                            containsThisCoordinate = true;
+                                        }
+                                    }
+
+                                    if (containsThisCoordinate)
+                                    {
+                                        foreach (Coordinate Cord in crt.tokenCoveredSquares)
+                                        {
+                                            foreach (Coordinate known in AoeSquaresList)
+                                            {
+                                                if (Cord.X == known.X && Cord.Y == known.Y)
+                                                {
+                                                    //add = false;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                                if (add)
+                                {
+                                    AoeSquaresList.Add(new Coordinate(x + target.X, y + target.Y));
+                                }
                             }
                         }
                     }
@@ -9225,7 +11930,36 @@ namespace IceBlink2
                 for (int i = 0; i < aoeRadius; i++)
                 {
                     //TODO check for LoS from (target.X, target.Y) center location to (x,y)
-                    AoeSquaresList.Add(new Coordinate(currentX, currentY));
+                    bool add = true;
+                    foreach (Creature crt in gv.mod.currentEncounter.encounterCreatureList)
+                    {
+                        bool containsThisCoordinate = false;
+                        foreach (Coordinate Cord in crt.tokenCoveredSquares)
+                        {
+                            if (Cord.X == currentX && Cord.Y == currentY)
+                            {
+                                containsThisCoordinate = true;
+                            }
+                        }
+
+                        if (containsThisCoordinate)
+                        {
+                            foreach (Coordinate Cord in crt.tokenCoveredSquares)
+                            {
+                                foreach (Coordinate known in AoeSquaresList)
+                                {
+                                    if (Cord.X == known.X && Cord.Y == known.Y)
+                                    {
+                                        //add = false;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    if (add)
+                    {
+                        AoeSquaresList.Add(new Coordinate(currentX, currentY));
+                    }
 
                     //do the increments for the next location
                     if (Math.Abs(rise) > Math.Abs(run))
@@ -9282,8 +12016,12 @@ namespace IceBlink2
             }
             else if (src is Coordinate) //called from a prop or trigger  
             {
-                startX2 = gv.mod.currentEncounter.triggerScriptCalledFromSquareLocX * gv.squareSize + (gv.squareSize / 2);
-                startY2 = gv.mod.currentEncounter.triggerScriptCalledFromSquareLocX * gv.squareSize + (gv.squareSize / 2);
+                //startX2 = gv.mod.currentEncounter.triggerScriptCalledFromSquareLocX * gv.squareSize + (gv.squareSize / 2);
+                //startY2 = gv.mod.currentEncounter.triggerScriptCalledFromSquareLocX * gv.squareSize + (gv.squareSize / 2);
+                Coordinate temp = (Coordinate)src;
+
+                startX2 = temp.X * gv.squareSize + (gv.squareSize / 2);
+                startY2 = temp.Y * gv.squareSize + (gv.squareSize / 2);
             }  
 
             else if (src is Creature) //source is a Creature
@@ -9315,10 +12053,13 @@ namespace IceBlink2
 
                 if (usedForEffectSquares)
                 {
-                    AoeTargetsList.Add(new Coordinate(coor.X, coor.Y));
+                    if (coor.X >= 0 && coor.X < gv.mod.currentEncounter.MapSizeX && coor.Y >= 0 && coor.Y < gv.mod.currentEncounter.MapSizeY)
+                    {
+                        AoeTargetsList.Add(new Coordinate(coor.X, coor.Y));
+                    }
                 }
 
-                else if (gv.screenCombat.isVisibleLineOfSight(new Coordinate(startX2, startY2), new Coordinate(endX2, endY2)))
+                    else if (gv.screenCombat.isVisibleLineOfSight(new Coordinate(startX2, startY2), new Coordinate(endX2, endY2)))
                 {
                     foreach (Creature crt in mod.currentEncounter.encounterCreatureList)
                     {
@@ -9336,18 +12077,28 @@ namespace IceBlink2
                                     if ((crtCoor.X == coor.X) && (crtCoor.Y == coor.Y))
                                     {
                                         AoeTargetsList.Add(crt);
+                                        break;
                                     }
                                 }
                             }
                             //creature casts on creature
                             else if (src is Creature)
                             {
-                                if ((thisSpell.spellTargetType.Equals("Friend")) || (thisSpell.spellTargetType.Equals("PointLocation")))
+                                if ((thisSpell.spellTargetType.Equals("Friend")) || (thisSpell.spellTargetType.Equals("PointLocation")) || (thisSpell.spellTargetType.Equals("Self")))
                                 {
                                     if ((crtCoor.X == coor.X) && (crtCoor.Y == coor.Y))
                                     {
                                         AoeTargetsList.Add(crt);
+                                        break;
                                     }
+                                }
+                            }
+                            else if (src is Coordinate)
+                            {
+                                if ((crtCoor.X == coor.X) && (crtCoor.Y == coor.Y))
+                                {
+                                    AoeTargetsList.Add(crt);
+                                    break;
                                 }
                             }
                         }
@@ -9361,7 +12112,7 @@ namespace IceBlink2
                             //player casts on player
                             if ((src is Player) || (src is Item))
                             {
-                                if ((thisSpell.spellTargetType.Equals("Friend")) || (thisSpell.spellTargetType.Equals("PointLocation")))
+                                if ((thisSpell.spellTargetType.Equals("Friend")) || (thisSpell.spellTargetType.Equals("PointLocation")) || (thisSpell.spellTargetType.Equals("Self")))
                                 {
                                     AoeTargetsList.Add(pc);
                                 }
@@ -9374,15 +12125,936 @@ namespace IceBlink2
                                     AoeTargetsList.Add(pc);
                                 }
                             }
+                            else if (src is Coordinate)
+                            {
+                                    AoeTargetsList.Add(pc);   
+                            }
                         }
                     }
                 }
             }
         }
 
+        //overloads for spells from enocunter triggers
+        public void spGeneric(Spell thisSpell, object src, object trg, bool outsideCombat, string logTextForCastAction, int casterLevel, bool remove)
+        {
+
+            //Effect thisSpellEffect = gv.mod.getEffectByTag(thisSpell.spellEffectTag);
+
+            //set squares list
+            //CreateAoeSquaresList(src, trg, thisSpell.aoeShape, thisSpell.aoeRadius);
+
+            //set target list
+            //CreateAoeTargetsList(src, trg, thisSpell, false);
+            if (outsideCombat)
+            {
+                AoeTargetsList.Clear();
+                AoeTargetsList.Add(trg);
+            }
+            else if (thisSpell.isUsedForCombatSquareEffect)
+            {
+
+                CreateAoeSquaresList(src, trg, thisSpell.aoeShape, thisSpell.aoeRadius);
+                CreateAoeTargetsList(src, trg, thisSpell, true);
+            }
+            else
+            {
+                CreateAoeSquaresList(src, trg, thisSpell.aoeShape, thisSpell.aoeRadius);
+                CreateAoeTargetsList(src, trg, thisSpell, false);
+            }
+
+            //Effect thisSpellEffect = gv.mod.getEffectByTag(thisSpell.spellEffectTag);
+
+            #region Get casting source information
+            int classLevel = casterLevel;
+            string sourceName = "";
+
+            /*            
+            if (thisSpellEffect == null)
+            {
+                gv.sf.MessageBoxHtml("EffectTag: " + thisSpell.spellEffectTag + " does not exist in this module. Abort spell cast.");
+                return;
+            }
+            */
+            if (src is Player) //player casting
+            {
+                Player source = (Player)src;
+                classLevel = source.classLevel;
+                sourceName = source.name;
+                if (!source.thisCastIsFreeOfCost)
+                {
+                    source.sp -= thisSpell.costSP;
+                    if (source.sp < 0) { source.sp = 0; }
+                    if (source.hp > thisSpell.costHP)
+                    {
+                        source.hp -= thisSpell.costHP;
+                    }
+                }
+            }
+            else if (src is Creature) //creature casting
+            {
+                Creature source = (Creature)src;
+                classLevel = source.cr_level;
+                sourceName = source.cr_name;
+                source.sp -= thisSpell.costSP;
+                if (source.sp < 0) { source.sp = 0; }
+                //if (source.hp > thisSpell.costHP)
+                //{
+                //source.hp -= thisSpell.costHP;
+                //}
+            }
+            else if (src is Item) //item was used
+            {
+                Item source = (Item)src;
+                if (source.usePlayerClassLevelForOnUseItemCastSpell)
+                {
+                    classLevel = gv.mod.playerList[gv.screenCombat.currentPlayerIndex].classLevel;
+                }
+                else
+                {
+                    classLevel = source.levelOfItemForCastSpell;
+                }
+                sourceName = source.name;
+            }
+
+            else if (src is Coordinate) //trigger or prop was used  
+            {
+                classLevel = casterLevel;
+                sourceName = "trigger";
+            }
+
+            #endregion
+
+            //loop through all effects of spell from here
+            //turn spellEffectTaag inot  a list of strings
+
+            //List<string> creaturesAlreadyAffected = new List<string>();
+
+            for (int k = 0; k < thisSpell.spellEffectTagList.Count; k++)
+            {
+                List<string> creaturesAlreadyAffected = new List<string>();
+                Effect thisSpellEffect = gv.mod.getEffectByTag(thisSpell.spellEffectTagList[k].tag);
+                if (thisSpellEffect == null)
+                {
+                    gv.sf.MessageBoxHtml("EffectTag: " + thisSpell.spellEffectTagList[k].tag + " does not exist in this module. Abort spell cast.");
+                    return;
+                }
+
+                #region Iterate over targets and apply the modifiers for damage, heal, buffs and debuffs
+                if (thisSpell.isUsedForCombatSquareEffect)
+                {
+
+                    #region Iterate over squares and apply effect to them
+                    int numberOfRounds = thisSpellEffect.durationInUnits / gv.mod.TimePerRound;
+                    gv.cc.addLogText("<gn>" + thisSpellEffect.name + " is applied for " + numberOfRounds + " round(s)</gn><BR>");
+                    foreach (object target in AoeTargetsList)
+                    {
+                        if (target is Coordinate)
+                        {
+                            Coordinate c = (Coordinate)target;
+                            Effect e = thisSpellEffect.DeepCopy();
+                            e.combatLocX = c.X;
+                            e.combatLocY = c.Y;
+                            if (thisSpell.triggeredEachStepToo)
+                            {
+                                e.triggeredEachStepToo = true;
+                            }
+                            gv.mod.currentEncounter.AddEffectByObject(e, classLevel);
+                        }
+                    }
+                }
+                #endregion
+
+                else
+                    foreach (object target in AoeTargetsList)
+                    {
+                        if (target is Creature)
+                        {
+                            Creature crt = (Creature)target;
+
+                            bool skip = false;
+                            //bool alreadyAffectedWithOneSquare = false;
+                            if (creaturesAlreadyAffected.Contains(crt.cr_tag))
+                            {
+                                continue;
+                            }
+                            creaturesAlreadyAffected.Add(crt.cr_tag);
+                            //go through creature local vars and compare with this spellEffect's affectOnly and affectNever lists
+
+                            //when finding a matching apply never, skip
+                            foreach (LocalImmunityString s in thisSpellEffect.affectNeverList)
+                            {
+                                foreach (LocalString ls in crt.CreatureLocalStrings)
+                                {
+                                    if (s.Value.Equals(ls.Value))
+                                    {
+                                        skip = true;
+                                        gv.cc.addLogText("<font color='yellow'>" + crt.cr_name + " is immune to " + thisSpellEffect.name + "</font><BR>");
+                                        break;
+                                    }
+                                }
+
+                                if (skip)
+                                {
+                                    break;
+                                }
+                            }
+
+                            //when finding an entry in affectOnlyList, skip unless it matches
+                            if (!skip)
+                            {
+                                if (thisSpellEffect.affectOnlyList.Count > 0)
+                                {
+                                    skip = true;
+
+                                    foreach (LocalImmunityString s in thisSpellEffect.affectOnlyList)
+                                    {
+                                        foreach (LocalString ls in crt.CreatureLocalStrings)
+                                        {
+                                            if (s.Value.Equals(ls.Value))
+                                            {
+                                                skip = false;
+                                                break;
+                                            }
+                                        }
+                                        if (skip)
+                                        {
+                                            break;
+                                        }
+                                    }
+                                }
+                            }
+
+                            if (!skip)
+                            {
+                                if ((thisSpellEffect.doDamage) && (thisSpellEffect.durationInUnits == 0))
+                                {
+                                    #region Do Damage
+                                    #region Get Resistances
+                                    float resist = 0;
+                                    /*
+                                   if (thisSpellEffect.damType.Equals("Normal")) { resist = (float)(1f - ((float)crt.damageTypeResistanceValueNormal / 100f)); }
+                                   else if (thisSpellEffect.damType.Equals("Acid")) { resist = (float)(1f - ((float)crt.damageTypeResistanceValueAcid / 100f)); }
+                                   else if (thisSpellEffect.damType.Equals("Cold")) { resist = (float)(1f - ((float)crt.damageTypeResistanceValueCold / 100f)); }
+                                   else if (thisSpellEffect.damType.Equals("Electricity")) { resist = (float)(1f - ((float)crt.damageTypeResistanceValueElectricity / 100f)); }
+                                   else if (thisSpellEffect.damType.Equals("Fire")) { resist = (float)(1f - ((float)crt.damageTypeResistanceValueFire / 100f)); }
+                                   else if (thisSpellEffect.damType.Equals("Magic")) { resist = (float)(1f - ((float)crt.damageTypeResistanceValueMagic / 100f)); }
+                                   else if (thisSpellEffect.damType.Equals("Poison")) { resist = (float)(1f - ((float)crt.damageTypeResistanceValuePoison / 100f)); }
+                                   */
+
+                                    if (thisSpellEffect.damType.Equals("Normal")) { resist = (float)(1f - ((float)crt.getDamageTypeResistanceValueNormal() / 100f)); }
+                                    else if (thisSpellEffect.damType.Equals("Acid")) { resist = (float)(1f - ((float)crt.getDamageTypeResistanceValueAcid() / 100f)); }
+                                    else if (thisSpellEffect.damType.Equals("Cold")) { resist = (float)(1f - ((float)crt.getDamageTypeResistanceValueCold() / 100f)); }
+                                    else if (thisSpellEffect.damType.Equals("Electricity")) { resist = (float)(1f - ((float)crt.getDamageTypeResistanceValueElectricity() / 100f)); }
+                                    else if (thisSpellEffect.damType.Equals("Fire")) { resist = (float)(1f - ((float)crt.getDamageTypeResistanceValueFire() / 100f)); }
+                                    else if (thisSpellEffect.damType.Equals("Magic")) { resist = (float)(1f - ((float)crt.getDamageTypeResistanceValueMagic() / 100f)); }
+                                    else if (thisSpellEffect.damType.Equals("Poison")) { resist = (float)(1f - ((float)crt.getDamageTypeResistanceValuePoison() / 100f)); }
+
+                                    #endregion
+                                    int damageTotal = 0;
+                                    #region Calculate Number of Attacks
+                                    //(for reference) NumOfAttacks: A of these attacks for every B levels after level C up to D attacks total                    
+                                    int numberOfAttacks = 0;
+                                    if (thisSpellEffect.damNumberOfAttacksForEveryNLevels == 0) //this effect is using a fixed amount of attacks
+                                    {
+                                        numberOfAttacks = thisSpellEffect.damNumberOfAttacks;
+                                    }
+                                    else //this effect is using a variable amount of attacks
+                                    {
+                                        //numberOfAttacks = (((classLevel - C) / B) + 1) * A;
+                                        numberOfAttacks = (((classLevel - thisSpellEffect.damNumberOfAttacksAfterLevelN) / thisSpellEffect.damNumberOfAttacksForEveryNLevels) + 1) * thisSpellEffect.damNumberOfAttacks; //ex: 1 bolt for every 2 levels after level 1
+                                        if (numberOfAttacks > thisSpellEffect.damNumberOfAttacksUpToNAttacksTotal) { numberOfAttacks = thisSpellEffect.damNumberOfAttacksUpToNAttacksTotal; } //can't have more than a max amount of attacks
+                                    }
+
+                                    #endregion
+                                    //loop over number of attacks
+                                    for (int i = 0; i < numberOfAttacks; i++)
+                                    {
+                                        #region Calculate Damage
+                                        //(for reference) Attack: AdB+C for every D levels after level E up to F levels total
+                                        // damage += RandDieRoll(A,B) + C
+                                        //int damage = (int)((1 * RandInt(4) + 1) * resist);
+                                        int damage = 0;
+                                        if (thisSpellEffect.damAttacksEveryNLevels == 0) //this damage is not level based
+                                        {
+                                            damage = RandDiceRoll(thisSpellEffect.damNumOfDice, thisSpellEffect.damDie) + thisSpellEffect.damAdder;
+                                        }
+                                        else //this damage is level based
+                                        {
+                                            int numberOfDamAttacks = ((classLevel - thisSpellEffect.damAttacksAfterLevelN) / thisSpellEffect.damAttacksEveryNLevels) + 1; //ex: 1 bolt for every 2 levels after level 1
+                                            if (numberOfDamAttacks > thisSpellEffect.damAttacksUpToNLevelsTotal) { numberOfDamAttacks = thisSpellEffect.damAttacksUpToNLevelsTotal; } //can't have more than a max amount of attacks
+                                            for (int j = 0; j < numberOfDamAttacks; j++)
+                                            {
+                                                damage += RandDiceRoll(thisSpellEffect.damNumOfDice, thisSpellEffect.damDie) + thisSpellEffect.damAdder;
+                                            }
+                                        }
+                                        #endregion
+                                        #region Do Calc Save and DC
+                                        int saveChkRoll = RandInt(20);
+                                        int saveChk = 0;
+                                        int DC = 0;
+                                        int saveChkAdder = 0;
+                                        if (thisSpellEffect.saveCheckType.Equals("will"))
+                                        {
+                                            saveChkAdder = crt.getWill();
+                                        }
+                                        else if (thisSpellEffect.saveCheckType.Equals("reflex"))
+                                        {
+                                            saveChkAdder = crt.getReflex();
+                                        }
+                                        else if (thisSpellEffect.saveCheckType.Equals("fortitude"))
+                                        {
+                                            saveChkAdder = crt.getFortitude();
+                                        }
+                                        else
+                                        {
+                                            saveChkAdder = -99;
+                                        }
+                                        saveChk = saveChkRoll + saveChkAdder;
+                                        DC = thisSpellEffect.saveCheckDC;
+                                        #endregion
+                                        //europa
+                                        if (saveChk >= DC) //passed save check (do half or avoid all?)
+                                        {
+                                            gv.cc.addLogText("<font color='yellow'>" + crt.cr_name + " makes successful " + thisSpellEffect.saveCheckType + " saving roll (" + saveChkRoll.ToString() + "+" + saveChkAdder + ">=" + DC.ToString() + ")" + "</font><BR>");
+                                            if (thisSpellEffect.saveOnlyHalvesDamage)
+                                            {
+                                                damage = damage / 2;
+                                                gv.cc.addLogText("<font color='yellow'>" + crt.cr_name + " takes only half damage from " + thisSpellEffect.name + "</font><BR>");
+                                            }
+                                            else
+                                            {
+                                                damage = 0;
+                                                gv.cc.addLogText("<font color='yellow'>" + crt.cr_name + " takes no damage from " + thisSpellEffect.name + "</font><BR>");
+                                            }
+                                        }
+                                        else //failed save check or no save check allowed
+                                        {
+                                            //failed save roll
+                                            if (saveChkAdder > -99)
+                                            {
+                                                gv.cc.addLogText("<font color='yellow'>" + crt.cr_name + " failed " + thisSpellEffect.saveCheckType + " saving roll (" + saveChkRoll.ToString() + "+" + saveChkAdder + " < " + DC.ToString() + ")" + "</font><BR>");
+                                            }
+                                            else//no save roll allowed
+                                            {
+                                                gv.cc.addLogText("<font color='yellow'>" + "No saving roll allowed" + "</font><BR>");
+                                            }
+                                        }
+
+                                        if (mod.debugMode) { gv.cc.addLogText("<font color='yellow'>" + saveChkRoll + " + " + saveChkAdder + " >= " + DC + "</font><BR>"); }
+                                        if (mod.debugMode) { gv.cc.addLogText("<font color='yellow'>" + "resist = " + resist + " damage = " + damage + "</font><BR>"); }
+
+                                        int damageAndResist = (int)((float)damage * resist);
+                                        damageTotal += damageAndResist;
+                                        //resistance exists
+                                        if (resist < 1)
+                                        {
+                                            gv.cc.addLogText("<font color='aqua'>" + sourceName + "</font>" + "<font color='white'>" + " damages " + "</font>" + "<font color='silver'>"
+                                                            + crt.cr_name + "</font>" + "<font color='white'>" + "with " + thisSpellEffect.name + " (" + "</font>" + "<font color='lime'>"
+                                                            + damageAndResist + "</font>" + "<font color='white'>" + " damage)" + "(-" + ((1 - resist) * 100f) + "% resistance)" + "</font><BR>");
+                                        }
+                                        //vulnerability exists
+                                        else if (resist > 1)
+                                        {
+                                            gv.cc.addLogText("<font color='aqua'>" + sourceName + "</font>" + "<font color='white'>" + " damages " + "</font>" + "<font color='silver'>"
+                                                            + crt.cr_name + "</font>" + "<font color='white'>" + "with " + thisSpellEffect.name + " (" + "</font>" + "<font color='lime'>"
+                                                            + damageAndResist + "</font>" + "<font color='white'>" + " damage)" + "(+" + ((resist - 1) * 100f) + "% vulnerability)" + "</font><BR>");
+                                        }
+                                        //neither resistance nor vulnerability
+                                        else
+                                        {
+                                            gv.cc.addLogText("<font color='aqua'>" + sourceName + "</font>" + "<font color='white'>" + " damages " + "</font>" + "<font color='silver'>"
+                                                            + crt.cr_name + "</font>" + "<font color='white'>" + "with " + thisSpellEffect.name + " (" + "</font>" + "<font color='lime'>"
+                                                            + damageAndResist + "</font>" + "<font color='white'>" + " damage)" + "</font><BR>");
+                                        }
+                                    }
+                                    crt.hp -= damageTotal;
+                                    if (crt.hp <= 0)
+                                    {
+                                        //gv.screenCombat.deathAnimationLocations.Add(new Coordinate(crt.combatLocX, crt.combatLocY));
+                                        //gv.screenCombat.deathAnimationLocations.Add(new Coordinate(crt.combatLocX, crt.combatLocY));  
+                                        foreach (Coordinate coor in crt.tokenCoveredSquares)
+                                        {
+                                            //brüssel
+                                            gv.screenCombat.deathAnimationLocations.Add(new Coordinate(coor.X, coor.Y));
+                                        }
+                                        gv.cc.addLogText("<font color='lime'>" + "You killed the " + crt.cr_name + "</font><BR>");
+                                    }
+                                    //Do floaty text damage
+                                    //gv.screenCombat.floatyTextOn = true;
+                                    gv.cc.addFloatyText(new Coordinate(crt.combatLocX, crt.combatLocY), damageTotal + "");
+                                    #endregion
+                                }
+                                if ((thisSpellEffect.doHeal) && (thisSpellEffect.durationInUnits == 0))
+                                {
+                                    //this will be checked whiel building the AOETargetsList
+                                    //if (src is Player) //PCs shouldn't heal creatures  
+                                    //{
+                                    //continue;
+                                    //}
+
+                                    #region Do Heal
+                                    #region Calculate Heal
+                                    //(for reference) Heal: AdB+C for every D levels after level E up to F levels total
+                                    // heal += RandDieRoll(A,B) + C
+                                    int heal = 0;
+                                    if (thisSpellEffect.healActionsEveryNLevels == 0) //this heal is not level based
+                                    {
+                                        heal = RandDiceRoll(thisSpellEffect.healNumOfDice, thisSpellEffect.healDie) + thisSpellEffect.healAdder;
+                                    }
+                                    else //this heal is level based
+                                    {
+                                        int numberOfHealActions = ((classLevel - thisSpellEffect.healActionsAfterLevelN) / thisSpellEffect.healActionsEveryNLevels) + 1; //ex: 1 bolt for every 2 levels after level 1
+                                        if (numberOfHealActions > thisSpellEffect.healActionsUpToNLevelsTotal) { numberOfHealActions = thisSpellEffect.healActionsUpToNLevelsTotal; } //can't have more than a max amount of actions
+                                        for (int j = 0; j < numberOfHealActions; j++)
+                                        {
+                                            heal += RandDiceRoll(thisSpellEffect.healNumOfDice, thisSpellEffect.healDie) + thisSpellEffect.healAdder;
+                                        }
+                                    }
+                                    #endregion
+                                    //crt.hp += heal;
+                                    //if (crt.hp > crt.hpMax)
+                                    if (thisSpellEffect.healHP)
+                                    {
+                                        //crt.hp = crt.hpMax;
+                                        crt.hp += heal;
+                                        if (crt.hp > crt.hpMax)
+                                        {
+                                            crt.hp = crt.hpMax;
+                                        }
+                                        gv.cc.addLogText("<font color='lime'>" + crt.cr_name + " gains " + heal + " HPs" + "</font><BR>");
+                                        gv.cc.addFloatyText(new Coordinate(crt.combatLocX, crt.combatLocY), heal + "", "green");
+
+                                    }
+                                    //gv.cc.addLogText("<font color='lime'>" + crt.cr_name + " gains " + heal + " HPs" + "</font><BR>");
+                                    else
+                                    {
+                                        crt.sp += heal;
+                                        if (crt.sp > crt.spMax)
+                                        {
+                                            crt.sp = crt.spMax;
+                                        }
+                                        gv.cc.addLogText("<font color='lime'>" + crt.cr_name + " gains " + heal + " SPs" + "</font><BR>");
+                                        gv.cc.addFloatyText(new Coordinate(crt.combatLocX, crt.combatLocY), heal + "", "yellow");
+                                    }
+
+                                    //Do floaty text heal
+                                    //gv.screenCombat.floatyTextOn = true;
+                                    //gv.cc.addFloatyText(new Coordinate(crt.combatLocX, crt.combatLocY), heal + "", "green");
+                                    #endregion
+                                }
+
+                                /*
+                                if (thisSpellEffect.doBuff)
+                                {
+                                    #region Do Buff
+                                    int numberOfRounds = thisSpellEffect.durationInUnits / gv.mod.TimePerRound;
+                                    gv.cc.addLogText("<font color='lime'>" + thisSpellEffect.name + " is applied on " + crt.cr_name + " for " + numberOfRounds + " round(s)</font><BR>");
+                                    crt.AddEffectByObject(thisSpellEffect, classLevel);
+                                    #endregion
+                                }
+                                */
+
+                                ///trying to keep old spells compatible, in the long run likely just rely on duration > 0
+                                if ((thisSpellEffect.doBuff) || (thisSpellEffect.doDeBuff) || (thisSpellEffect.durationInUnits > 0))
+                                {
+                                    //burning man
+                                    //todo: add to remove lists here! (or on effect level)!
+                                    if (remove)
+                                    {
+                                       
+                                        // is creature turn
+                                       
+                                            foreach (Creature crt2 in gv.mod.currentEncounter.encounterCreatureList)
+                                            {
+                                                if (crt2.moveOrder == gv.screenCombat.currentMoveOrderIndex-1)
+                                                {
+                                                    crt2.tagsOfEffectsToRemoveOnMove.Add(thisSpellEffect.tag);
+                                                }
+               
+                                            }
+                                        //must find pc or certaure whose current turn it is
+                                    }
+                                    #region (Try to) add to effect list of target
+                                    #region Do Calc Save and DC
+                                    int saveChkRoll = RandInt(20);
+                                    int saveChk = 0;
+                                    int DC = 0;
+                                    int saveChkAdder = 0;
+                                    if (thisSpellEffect.saveCheckType.Equals("will"))
+                                    {
+                                        saveChkAdder = crt.getWill();
+                                    }
+                                    else if (thisSpellEffect.saveCheckType.Equals("reflex"))
+                                    {
+                                        saveChkAdder = crt.getReflex();
+                                    }
+                                    else if (thisSpellEffect.saveCheckType.Equals("fortitude"))
+                                    {
+                                        saveChkAdder = crt.getFortitude();
+                                    }
+                                    else
+                                    {
+                                        saveChkAdder = -99;
+                                    }
+                                    saveChk = saveChkRoll + saveChkAdder;
+                                    DC = thisSpellEffect.saveCheckDC;
+                                    #endregion
+                                    //europa
+                                    if (saveChk >= DC) //passed save check
+                                    {
+                                        gv.cc.addLogText("<font color='yellow'>" + crt.cr_name + " makes successful " + thisSpellEffect.saveCheckType + " saving roll (" + saveChkRoll.ToString() + "+" + saveChkAdder + ">=" + DC.ToString() + ")" + " and avoids " + thisSpellEffect.name + " </font><BR>");
+                                        //gv.cc.addLogText("<font color='yellow'>" + "(" + thisSpellEffect.saveCheckType + " saving roll (" + saveChkRoll.ToString() + "+" + saveChkAdder + ">=" + DC.ToString() + ")" + " and avoids the longer lasting effect of" + thisSpellEffect.name + " </font><BR>");
+                                        //gv.cc.addLogText("<font color='yellow'>" + "(" + saveChkRoll.ToString() + "+" + saveChkAdder + " < " + DC.ToString() + ")" + "</font><BR>");
+                                        //gv.cc.addLogText("<font color='yellow'>" + crt.cr_name + " avoids the " + thisSpellEffect.name + " effect.</font><BR>");
+                                    }
+                                    else//failed save roll or no roll allowed
+                                    {
+                                        //failed save roll
+                                        if (saveChkAdder > -99)
+                                        {
+                                            gv.cc.addLogText("<font color='yellow'>" + crt.cr_name + " failed " + thisSpellEffect.saveCheckType + " saving roll for " + thisSpellEffect.name + "(" + saveChkRoll.ToString() + "+" + saveChkAdder + " < " + DC.ToString() + ")" + "</font><BR>");
+                                        }
+                                        //else//no save roll allowed
+                                        //{
+                                        //gv.cc.addLogText("<font color='yellow'>" + "No save roll against longer lasting effect of " + thisSpellEffect.name + " allowed" + "</font><BR>");
+                                        //}
+                                        int numberOfRounds = thisSpellEffect.durationInUnits / gv.mod.TimePerRound;
+                                        gv.cc.addLogText("<font color='lime'>" + thisSpellEffect.name + " is applied on " + crt.cr_name + " for " + numberOfRounds + " round(s)</font><BR>");
+                                        crt.AddEffectByObject(thisSpellEffect, classLevel);
+                                    }
+                                    #endregion
+                                }
+                                if (thisSpell.removeEffectTagList.Count > 0)
+                                {
+                                    #region remove effects  
+                                    foreach (EffectTagForDropDownList efTag in thisSpell.removeEffectTagList)
+                                    {
+                                        for (int x = crt.cr_effectsList.Count - 1; x >= 0; x--)
+                                        {
+                                            if (crt.cr_effectsList[x].tag.Equals(efTag.tag))
+                                            {
+                                                try
+                                                {
+                                                    crt.cr_effectsList.RemoveAt(x);
+                                                }
+                                                catch (Exception ex)
+                                                {
+                                                    gv.errorLog(ex.ToString());
+                                                }
+                                            }
+                                        }
+                                    }
+                                    #endregion
+                                }
+                            }
+                        }
+                        else //target is Player
+                        {
+                            //europa
+                            Player pc = (Player)target;
+
+                            bool skip = false;
+
+                            //go through creature local vars and compare with this spellEffect's affectOnly and affectNever lists
+
+                            //when finding a matching apply never, skip
+                            foreach (LocalImmunityString s in thisSpellEffect.affectNeverList)
+                            {
+                                foreach (string ls in pc.knownTraitsTags)
+                                {
+                                    if (s.Value.Equals(ls))
+                                    {
+                                        skip = true;
+                                        gv.cc.addLogText("<font color='yellow'>" + pc.name + " is immune to " + thisSpellEffect.name + "</font><BR>");
+                                        break;
+                                    }
+                                }
+
+                                if (skip)
+                                {
+                                    break;
+                                }
+                            }
+
+                            //when finding an entry in affectOnlyList, skip unless it matches
+                            if (!skip)
+                            {
+                                if (thisSpellEffect.affectOnlyList.Count > 0)
+                                {
+                                    skip = true;
+
+                                    foreach (LocalImmunityString s in thisSpellEffect.affectOnlyList)
+                                    {
+                                        foreach (string ls in pc.knownTraitsTags)
+                                        {
+                                            if (s.Value.Equals(ls))
+                                            {
+                                                skip = false;
+                                                break;
+                                            }
+                                        }
+                                        if (skip)
+                                        {
+                                            break;
+                                        }
+                                    }
+                                }
+                            }
+
+                            if (!skip)
+                            {
+                                if ((thisSpellEffect.doDamage) && (thisSpellEffect.durationInUnits == 0))
+                                {
+                                    #region Do Damage
+                                    #region Get Resistances
+                                    float resistPc = 0;
+                                    if (thisSpellEffect.damType.Equals("Normal")) { resistPc = (float)(1f - ((float)pc.damageTypeResistanceTotalNormal / 100f)); }
+                                    else if (thisSpellEffect.damType.Equals("Acid")) { resistPc = (float)(1f - ((float)pc.damageTypeResistanceTotalAcid / 100f)); }
+                                    else if (thisSpellEffect.damType.Equals("Cold")) { resistPc = (float)(1f - ((float)pc.damageTypeResistanceTotalCold / 100f)); }
+                                    else if (thisSpellEffect.damType.Equals("Electricity")) { resistPc = (float)(1f - ((float)pc.damageTypeResistanceTotalElectricity / 100f)); }
+                                    else if (thisSpellEffect.damType.Equals("Fire")) { resistPc = (float)(1f - ((float)pc.damageTypeResistanceTotalFire / 100f)); }
+                                    else if (thisSpellEffect.damType.Equals("Magic")) { resistPc = (float)(1f - ((float)pc.damageTypeResistanceTotalMagic / 100f)); }
+                                    else if (thisSpellEffect.damType.Equals("Poison")) { resistPc = (float)(1f - ((float)pc.damageTypeResistanceTotalPoison / 100f)); }
+                                    #endregion
+                                    int damageTotal = 0;
+                                    #region Calculate Number of Attacks
+                                    //(for reference) NumOfAttacks: A of these attacks for every B levels after level C up to D attacks total                    
+                                    int numberOfAttacks = 0;
+                                    if (thisSpellEffect.damNumberOfAttacksForEveryNLevels == 0) //this effect is using a fixed amount of attacks
+                                    {
+                                        numberOfAttacks = thisSpellEffect.damNumberOfAttacks;
+                                    }
+                                    else //this effect is using a variable amount of attacks
+                                    {
+                                        //numberOfAttacks = (((classLevel - C) / B) + 1) * A;
+                                        numberOfAttacks = (((classLevel - thisSpellEffect.damNumberOfAttacksAfterLevelN) / thisSpellEffect.damNumberOfAttacksForEveryNLevels) + 1) * thisSpellEffect.damNumberOfAttacks; //ex: 1 bolt for every 2 levels after level 1
+                                    }
+                                    if (numberOfAttacks > thisSpellEffect.damNumberOfAttacksUpToNAttacksTotal) { numberOfAttacks = thisSpellEffect.damNumberOfAttacksUpToNAttacksTotal; } //can't have more than a max amount of attacks
+                                    #endregion
+                                    //loop over number of attacks
+                                    for (int i = 0; i < numberOfAttacks; i++)
+                                    {
+                                        #region Calculate Damage
+                                        //(for reference) Attack: AdB+C for every D levels after level E up to F levels total
+                                        // damage += RandDieRoll(A,B) + C
+                                        //int damage = (int)((1 * RandInt(4) + 1) * resist);
+                                        int damagePc = 0;
+                                        if (thisSpellEffect.damAttacksEveryNLevels == 0) //this damage is not level based
+                                        {
+                                            damagePc = RandDiceRoll(thisSpellEffect.damNumOfDice, thisSpellEffect.damDie) + thisSpellEffect.damAdder;
+                                        }
+                                        else //this damage is level based
+                                        {
+                                            int numberOfDamAttacks = ((classLevel - thisSpellEffect.damAttacksAfterLevelN) / thisSpellEffect.damAttacksEveryNLevels) + 1; //ex: 1 bolt for every 2 levels after level 1
+                                            if (numberOfDamAttacks > thisSpellEffect.damAttacksUpToNLevelsTotal) { numberOfDamAttacks = thisSpellEffect.damAttacksUpToNLevelsTotal; } //can't have more than a max amount of attacks
+                                            for (int j = 0; j < numberOfDamAttacks; j++)
+                                            {
+                                                damagePc += RandDiceRoll(thisSpellEffect.damNumOfDice, thisSpellEffect.damDie) + thisSpellEffect.damAdder;
+                                            }
+                                        }
+                                        #endregion
+                                        #region Do Calc Save and DC
+                                        int saveChkRollPc = RandInt(20);
+                                        int saveChkPc = 0;
+                                        int DCPc = 0;
+                                        int saveChkAdder = 0;
+                                        if (thisSpellEffect.saveCheckType.Equals("will"))
+                                        {
+                                            saveChkAdder = pc.will;
+                                        }
+                                        else if (thisSpellEffect.saveCheckType.Equals("reflex"))
+                                        {
+                                            saveChkAdder = pc.reflex;
+                                        }
+                                        else if (thisSpellEffect.saveCheckType.Equals("fortitude"))
+                                        {
+                                            saveChkAdder = pc.fortitude;
+                                        }
+                                        else
+                                        {
+                                            saveChkAdder = -99;
+                                        }
+                                        saveChkPc = saveChkRollPc + saveChkAdder;
+                                        DCPc = thisSpellEffect.saveCheckDC;
+                                        #endregion
+
+                                        if (saveChkPc >= DCPc) //passed save check (do half or avoid all?)
+                                        {
+
+                                            if (thisSpellEffect.saveOnlyHalvesDamage)
+                                            {
+                                                damagePc = damagePc / 2;
+                                                gv.cc.addLogText("<font color='yellow'>" + pc.name + " takes only half damage from " + thisSpellEffect.name + "</font><BR>");
+                                            }
+                                            else
+                                            {
+                                                damagePc = 0;
+                                                gv.cc.addLogText("<font color='yellow'>" + pc.name + " takes no damage from " + thisSpellEffect.name + "</font><BR>");
+                                            }
+                                            //gv.cc.addLogText("<font color='yellow'>" + pc.name + " makes successful " + thisSpellEffect.saveCheckType + " saving roll (" + saveChkRollPc.ToString() + "+" + saveChkAdder + ">=" + DCPc.ToString() + ")" + "</font><BR>");
+                                            //damagePc = damagePc / 2;
+                                            //gv.cc.addLogText("<font color='yellow'>" + pc.name + " takes only half damage from " + thisSpellEffect.name + "</font><BR>");
+                                        }
+                                        else //failed save check or no save check allowed
+                                        {
+                                            //failed save roll
+                                            if (saveChkAdder > -99)
+                                            {
+                                                gv.cc.addLogText("<font color='yellow'>" + pc.name + " failed " + thisSpellEffect.saveCheckType + " saving roll (" + saveChkRollPc.ToString() + "+" + saveChkAdder + " < " + DCPc.ToString() + ")" + "</font><BR>");
+                                            }
+                                            else//no save roll allowed
+                                            {
+                                                gv.cc.addLogText("<font color='yellow'>" + "No saving roll allowed" + "</font><BR>");
+                                            }
+                                        }
+
+                                        if (mod.debugMode) { gv.cc.addLogText("<font color='yellow'>" + saveChkRollPc + " + " + saveChkAdder + " >= " + DCPc + "</font><BR>"); }
+                                        if (mod.debugMode) { gv.cc.addLogText("<font color='yellow'>" + "resist = " + resistPc + " damage = " + damagePc + "</font><BR>"); }
+
+                                        int damageAndResist = (int)((float)damagePc * resistPc);
+                                        damageTotal += damageAndResist;
+                                        //europa
+                                        //resistance exists
+                                        if (resistPc < 1)
+                                        {
+                                            gv.cc.addLogText("<font color='aqua'>" + sourceName + "</font>" + "<font color='white'>" + " damages " + "</font>" + "<font color='silver'>"
+                                                            + pc.name + "</font>" + "<font color='white'>" + "with " + thisSpellEffect.name + " (" + "</font>" + "<font color='lime'>"
+                                                            + damageAndResist + "</font>" + "<font color='white'>" + " damage)" + "(-" + ((1 - resistPc) * 100f) + "% resistance)" + "</font><BR>");
+                                        }
+                                        //vulnerability exists
+                                        else if (resistPc > 1)
+                                        {
+                                            gv.cc.addLogText("<font color='aqua'>" + sourceName + "</font>" + "<font color='white'>" + " damages " + "</font>" + "<font color='silver'>"
+                                                            + pc.name + "</font>" + "<font color='white'>" + "with " + thisSpellEffect.name + " (" + "</font>" + "<font color='lime'>"
+                                                            + damageAndResist + "</font>" + "<font color='white'>" + " damage)" + "(+" + ((resistPc - 1) * 100f) + "% vulnerability)" + "</font><BR>");
+                                        }
+                                        //neither resistance nor vulnerability
+                                        else
+                                        {
+                                            gv.cc.addLogText("<font color='aqua'>" + sourceName + "</font>" + "<font color='white'>" + " damages " + "</font>" + "<font color='silver'>"
+                                                            + pc.name + "</font>" + "<font color='white'>" + "with " + thisSpellEffect.name + " (" + "</font>" + "<font color='lime'>"
+                                                            + damageAndResist + "</font>" + "<font color='white'>" + " damage)" + "</font><BR>");
+                                        }
+                                    }
+
+                                    pc.hp -= damageTotal;
+                                    if (pc.hp <= 0)
+                                    {
+                                        if (pc.hp <= -20)
+                                        {
+                                            //gv.screenCombat.deathAnimationLocations.Add(new Coordinate(pc.combatLocX, pc.combatLocY));
+                                            gv.cc.addLogText("<font color='red'>" + pc.name + " drops DEAD!" + "</font><BR>");
+                                        }
+                                        else
+                                        {
+                                            gv.cc.addLogText("<font color='red'>" + pc.name + " is unconcious!" + "</font><BR>");
+                                        }
+                                        pc.charStatus = "Dead";
+                                    }
+                                    //Do floaty text damage
+                                    //gv.screenCombat.floatyTextOn = true;
+                                    gv.cc.addFloatyText(new Coordinate(pc.combatLocX, pc.combatLocY), damageTotal + "");
+                                    #endregion
+                                }
+                                if ((thisSpellEffect.doHeal) && (thisSpellEffect.durationInUnits == 0))
+                                {
+                                    #region Do Heal
+                                    if (pc.hp <= -20)
+                                    {
+                                        //MessageBox("Can't heal a dead character!");
+                                        gv.cc.addLogText("<font color='red'>" + "Can't heal a dead character!" + "</font><BR>");
+                                    }
+                                    else
+                                    {
+                                        #region Calculate Heal
+                                        //(for reference) Heal: AdB+C for every D levels after level E up to F levels total
+                                        // heal += RandDieRoll(A,B) + C
+                                        int heal = 0;
+                                        if (thisSpellEffect.healActionsEveryNLevels == 0) //this heal is not level based
+                                        {
+                                            heal = RandDiceRoll(thisSpellEffect.healNumOfDice, thisSpellEffect.healDie) + thisSpellEffect.healAdder;
+                                        }
+                                        else //this heal is level based
+                                        {
+                                            int numberOfHealActions = ((classLevel - thisSpellEffect.healActionsAfterLevelN) / thisSpellEffect.healActionsEveryNLevels) + 1; //ex: 1 bolt for every 2 levels after level 1
+                                            if (numberOfHealActions > thisSpellEffect.healActionsUpToNLevelsTotal) { numberOfHealActions = thisSpellEffect.healActionsUpToNLevelsTotal; } //can't have more than a max amount of actions
+                                            for (int j = 0; j < numberOfHealActions; j++)
+                                            {
+                                                heal += RandDiceRoll(thisSpellEffect.healNumOfDice, thisSpellEffect.healDie) + thisSpellEffect.healAdder;
+                                            }
+                                        }
+                                        #endregion
+                                        //pc.hp += heal;
+                                        //if (pc.hp > pc.hpMax)
+                                        if (thisSpellEffect.healHP)
+                                        {
+                                            //pc.hp = pc.hpMax;
+                                            pc.hp += heal;
+                                            if (pc.hp > pc.hpMax)
+                                            {
+                                                pc.hp = pc.hpMax;
+                                            }
+                                            if (pc.hp > 0)
+                                            {
+                                                pc.charStatus = "Alive";
+                                            }
+                                            gv.cc.addLogText("<font color='lime'>" + pc.name + " gains " + heal + " HPs" + "</font><BR>");
+                                            gv.cc.addFloatyText(new Coordinate(pc.combatLocX, pc.combatLocY), heal + "", "green");
+
+                                        }
+                                        else
+                                        {
+                                            //pc.charStatus = "Alive";
+                                            pc.sp += heal;
+                                            if (pc.sp > pc.spMax)
+                                            {
+                                                pc.sp = pc.spMax;
+                                            }
+                                            gv.cc.addLogText("<font color='lime'>" + pc.name + " gains " + heal + " SPs" + "</font><BR>");
+                                            gv.cc.addFloatyText(new Coordinate(pc.combatLocX, pc.combatLocY), heal + "", "yellow");
+
+                                        }
+                                        //gv.cc.addLogText("<font color='lime'>" + pc.name + " gains " + heal + " HPs" + "</font><BR>");
+                                        //Do floaty text heal
+                                        //gv.screenCombat.floatyTextOn = true;
+                                        //gv.cc.addFloatyText(new Coordinate(pc.combatLocX, pc.combatLocY), heal + "", "green");
+                                    }
+                                    #endregion
+                                }
+                                /*
+                                if (thisSpellEffect.doBuff)
+                                {
+                                    #region Do Buff
+                                    int numberOfRounds = thisSpellEffect.durationInUnits / gv.mod.TimePerRound;
+                                    gv.cc.addLogText("<font color='lime'>" + thisSpellEffect.name + " is applied on " + pc.name + " for " + numberOfRounds + " round(s)</font><BR>");
+                                    pc.AddEffectByObject(thisSpellEffect, classLevel);
+                                    #endregion
+                                }
+                                */
+
+                                //europa2
+                                //trying to keep this compatible with old spells, in the long run only duration units should be relevant? 
+                                if ((thisSpellEffect.doDeBuff) || (thisSpellEffect.doBuff) || (thisSpellEffect.durationInUnits > 0))
+                                {
+
+                                    if (remove)
+                                    {
+                                        if (gv.screenCombat.isPlayerTurn)
+                                        {
+                                            foreach (Player pc2 in gv.mod.playerList)
+                                            {
+                                                if (pc2.moveOrder == gv.screenCombat.currentMoveOrderIndex-1)
+                                                {
+                                                    pc2.tagsOfEffectsToRemoveOnMove.Add(thisSpellEffect.tag);
+                                                }
+                                            }
+                                        }
+                                    }
+                                        #region (Try to) add to target's effect list
+                                        #region Do Calc Save and DC
+                                        int saveChkRoll = RandInt(20);
+                                    int saveChk = 0;
+                                    int DC = 0;
+                                    int saveChkAdder = 0;
+                                    if (thisSpellEffect.saveCheckType.Equals("will"))
+                                    {
+                                        saveChkAdder = pc.will;
+                                    }
+                                    else if (thisSpellEffect.saveCheckType.Equals("reflex"))
+                                    {
+                                        saveChkAdder = pc.reflex;
+                                    }
+                                    else if (thisSpellEffect.saveCheckType.Equals("fortitude"))
+                                    {
+                                        saveChkAdder = pc.fortitude;
+                                    }
+                                    else
+                                    {
+                                        saveChkAdder = -99;
+                                    }
+                                    saveChk = saveChkRoll + saveChkAdder;
+                                    DC = thisSpellEffect.saveCheckDC;
+                                    #endregion
+                                    if (saveChk >= DC) //passed save check
+                                    {
+                                        gv.cc.addLogText("<font color='yellow'>" + pc.name + " makes successful " + thisSpellEffect.saveCheckType + " saving roll (" + saveChkRoll.ToString() + "+" + saveChkAdder + ">=" + DC.ToString() + ")" + " and avoids " + thisSpellEffect.name + " </font><BR>");
+                                    }
+                                    else//failed save roll or no roll allowed
+                                    {
+                                        //failed save roll
+                                        if (saveChkAdder > -99)
+                                        {
+                                            gv.cc.addLogText("<font color='yellow'>" + pc.name + " failed " + thisSpellEffect.saveCheckType + " saving roll for " + thisSpellEffect.name + "(" + saveChkRoll.ToString() + "+" + saveChkAdder + " < " + DC.ToString() + ")" + "</font><BR>");
+                                            //gv.cc.addLogText("<font color='yellow'>" + pc.name + " failed " + thisSpellEffect.saveCheckType + " saving roll against " + thisSpellEffect.name + "</font><BR>");
+                                            //gv.cc.addLogText("<font color='yellow'>" + "(" + saveChkRoll.ToString() + "+" + saveChkAdder.ToString() + "<" + DC.ToString() + ")" + "</font><BR>");
+                                        }
+                                        else//no save roll allowed
+                                        {
+                                            //gv.cc.addLogText("<font color='yellow'>" + "No saving roll allowed against longer lasting effect of " + thisSpellEffect.name + "</font><BR>");
+                                        }
+                                        int numberOfRounds = thisSpellEffect.durationInUnits / gv.mod.TimePerRound;
+                                        //gv.cc.addLogText("<font color='lime'>" + thisSpellEffect.name + " is applied on " + pc.name + " for " + numberOfRounds + " round(s)</font><BR>");
+                                        pc.AddEffectByObject(thisSpellEffect, classLevel);
+                                        gv.cc.doEffectScript(pc, thisSpellEffect);
+
+                                    }
+                                    #endregion
+                                }
+                                if (thisSpell.removeEffectTagList.Count > 0)
+                                {
+                                    #region remove effects  
+                                    foreach (EffectTagForDropDownList efTag in thisSpell.removeEffectTagList)
+                                    {
+                                        for (int x = pc.effectsList.Count - 1; x >= 0; x--)
+                                        {
+                                            if (pc.effectsList[x].tag.Equals(efTag.tag))
+                                            {
+                                                try
+                                                {
+                                                    pc.effectsList.RemoveAt(x);
+                                                }
+                                                catch (Exception ex)
+                                                {
+                                                    gv.errorLog(ex.ToString());
+                                                }
+                                            }
+                                        }
+                                    }
+                                    #endregion
+                                }
+                            }
+                        }
+                    }
+                #endregion
+
+                #region remove dead creatures            
+                /*for (int x = mod.currentEncounter.encounterCreatureList.Count - 1; x >= 0; x--)
+                {
+                    if (mod.currentEncounter.encounterCreatureList[x].hp <= 0)
+                    {
+                        try
+                        {
+                            //do OnDeath IBScript
+                            gv.cc.doIBScriptBasedOnFilename(mod.currentEncounter.encounterCreatureList[x].onDeathIBScript, mod.currentEncounter.encounterCreatureList[x].onDeathIBScriptParms);
+                            mod.currentEncounter.encounterCreatureList.RemoveAt(x);
+                            mod.currentEncounter.encounterCreatureRefsList.RemoveAt(x);
+                        }
+                        catch (Exception ex)
+                        {
+                            gv.errorLog(ex.ToString());
+                        }
+                    }
+                }*/
+                #endregion
+
+                //            gv.postDelayed("doFloatyText", 100);
+            }
+        }
+
         public void spGeneric(Spell thisSpell, object src, object trg, bool outsideCombat, string logTextForCastAction)
         {
-            
+           
             //Effect thisSpellEffect = gv.mod.getEffectByTag(thisSpell.spellEffectTag);
 
             //set squares list
@@ -9496,6 +13168,10 @@ namespace IceBlink2
                             Effect e = thisSpellEffect.DeepCopy();
                             e.combatLocX = c.X;
                             e.combatLocY = c.Y;
+                            if (thisSpell.triggeredEachStepToo)
+                            {
+                                e.triggeredEachStepToo = true;
+                            }
                             gv.mod.currentEncounter.AddEffectByObject(e, classLevel);
                         }
                     }
@@ -10053,11 +13729,15 @@ namespace IceBlink2
                                 pc.hp -= damageTotal;
                                 if (pc.hp <= 0)
                                 {
-                                    if (pc.hp <= -20)
-                                    {
-                                        gv.screenCombat.deathAnimationLocations.Add(new Coordinate(pc.combatLocX, pc.combatLocY));
-                                    }
-                                    gv.cc.addLogText("<font color='red'>" + pc.name + " drops unconcious!" + "</font><BR>");
+                                        if (pc.hp <= -20)
+                                        {
+                                            gv.cc.addLogText("<font color='red'>" + pc.name + " drops DEAD!" + "</font><BR>");
+                                            //gv.screenCombat.deathAnimationLocations.Add(new Coordinate(pc.combatLocX, pc.combatLocY));
+                                        }
+                                        else
+                                        {
+                                            gv.cc.addLogText("<font color='red'>" + pc.name + " is unconcious!" + "</font><BR>");
+                                        }
                                     pc.charStatus = "Dead";
                                 }
                                 //Do floaty text damage
@@ -10188,9 +13868,11 @@ namespace IceBlink2
                                         //gv.cc.addLogText("<font color='yellow'>" + "No saving roll allowed against longer lasting effect of " + thisSpellEffect.name + "</font><BR>");
                                     }
                                     int numberOfRounds = thisSpellEffect.durationInUnits / gv.mod.TimePerRound;
-                                    gv.cc.addLogText("<font color='lime'>" + thisSpellEffect.name + " is applied on " + pc.name + " for " + numberOfRounds + " round(s)</font><BR>");
+                                    //gv.cc.addLogText("<font color='lime'>" + thisSpellEffect.name + " is applied on " + pc.name + " for " + numberOfRounds + " round(s)</font><BR>");
                                     pc.AddEffectByObject(thisSpellEffect, classLevel);
-                                }
+                                    gv.cc.doEffectScript(pc, thisSpellEffect);
+
+                                    }
                                 #endregion
                             }
                             if (thisSpell.removeEffectTagList.Count > 0)
@@ -10633,7 +14315,8 @@ namespace IceBlink2
                             int numberOfRounds = thisSpellEffect.durationInUnits / gv.mod.TimePerRound;
                             gv.cc.addLogText("<font color='lime'>" + thisSpellEffect.name + " is applied on " + crt.cr_name + " for " + numberOfRounds + " round(s)</font><BR>");
                             crt.AddEffectByObject(thisSpellEffect, classLevel);
-                        }
+                            //gv.cc.doEffectScript(pc, thisSpellEffect);
+                            }
                         #endregion
                     }
                     if (thisSpell.removeEffectTagList.Count > 0)
@@ -10853,9 +14536,13 @@ namespace IceBlink2
                             {
                                 if (pc.hp <= -20)
                                 {
-                                    gv.screenCombat.deathAnimationLocations.Add(new Coordinate(pc.combatLocX, pc.combatLocY));
+                                    gv.cc.addLogText("<font color='red'>" + pc.name + " drops DEAD!" + "</font><BR>");
+                                    //gv.screenCombat.deathAnimationLocations.Add(new Coordinate(pc.combatLocX, pc.combatLocY));
                                 }
-                                gv.cc.addLogText("<font color='red'>" + pc.name + " drops unconcious!" + "</font><BR>");
+                                else
+                                {
+                                    gv.cc.addLogText("<font color='red'>" + pc.name + " is unconscious!" + "</font><BR>");
+                                }
                                 pc.charStatus = "Dead";
                             }
                             //Do floaty text damage
@@ -10979,9 +14666,10 @@ namespace IceBlink2
                                 {
                                     //gv.cc.addLogText("<font color='yellow'>" + "No saving roll allowed against longer lasting effect of " + thisSpellEffect.name + "</font><BR>");
                                 }
-                                int numberOfRounds = thisSpellEffect.durationInUnits / gv.mod.TimePerRound;
-                                gv.cc.addLogText("<font color='lime'>" + thisSpellEffect.name + " is applied on " + pc.name + " for " + numberOfRounds + " round(s)</font><BR>");
+                                //int numberOfRounds = thisSpellEffect.durationInUnits / gv.mod.TimePerRound;
+                                //gv.cc.addLogText("<font color='lime'>" + thisSpellEffect.name + " is applied on " + pc.name + " for " + numberOfRounds + " round(s)</font><BR>");
                                 pc.AddEffectByObject(thisSpellEffect, classLevel);
+                                gv.cc.doEffectScript(pc, thisSpellEffect);
                             }
                             #endregion
                         }
@@ -11047,11 +14735,24 @@ namespace IceBlink2
                     if ((prp.LocationX == target.X) && (prp.LocationY == target.Y))  
                     {  
                          if (prp.isTrap)  
-                         {  
-                             gv.mod.currentEncounter.propsList.Remove(prp);  
-                             gv.cc.addLogText("<gn>" + source.name + " removed trap</gn><BR>");  
-                             gv.cc.addFloatyText(new Coordinate(target.X, target.X), "trap removed", "green");  
-                             return;  
+                         {
+                            int PCIndex = -1;
+                            for ( int i = 0; i < gv.mod.playerList.Count; i++)
+                            {
+                                if (source.name == gv.mod.playerList[i].name)
+                                {
+                                    PCIndex = i;
+                                    break;
+                                }
+                            }
+                            gv.mod.returnCheck = CheckPassSkill(PCIndex, "disabledevice", prp.trapDCforDisableCheck, false, false);
+                            if (gv.mod.returnCheck)
+                            {
+                                gv.mod.currentEncounter.propsList.Remove(prp);
+                                gv.cc.addLogText("<gn>" + source.name + " removed trap</gn><BR>");
+                                gv.cc.addFloatyText(new Coordinate(target.X, target.X), "trap removed", "green");
+                            }
+                            return;  
                          }  
                      }  
                  }  
@@ -11974,7 +15675,7 @@ namespace IceBlink2
                         {
                             gv.screenCombat.deathAnimationLocations.Add(new Coordinate(pc.combatLocX, pc.combatLocY));
                         }
-                        gv.cc.addLogText("<font color='red'>" + pc.name + " drops unconcious!" + "</font><BR>");
+                        gv.cc.addLogText("<font color='red'>" + pc.name + " is unconscious!" + "</font><BR>");
                         pc.charStatus = "Dead";
                     }
                     //Do floaty text damage
@@ -12105,7 +15806,7 @@ namespace IceBlink2
                         {
                             gv.screenCombat.deathAnimationLocations.Add(new Coordinate(target.combatLocX, target.combatLocY));
                         }
-                        gv.cc.addLogText("<font color='red'>" + target.name + " drops unconcious!" + "</font><BR>");
+                        gv.cc.addLogText("<font color='red'>" + target.name + " is unconscious!" + "</font><BR>");
                         target.charStatus = "Dead";
                     }
                 }
@@ -12757,6 +16458,7 @@ namespace IceBlink2
                     {
                         gv.screenCombat.deathAnimationLocations.Add(new Coordinate(crt.combatLocX, crt.combatLocY));
                         gv.cc.addLogText("<font color='lime'>" + "You killed the " + crt.cr_name + "</font><BR>");
+                        //gv.screenCombat.checkEndEncounter();
                     }
                     //Do floaty text damage
                     //gv.screenCombat.floatyTextOn = true;

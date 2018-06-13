@@ -147,7 +147,12 @@ namespace IceBlink2
                 setControlsStart();
             }
 
-            for (int i = gv.mod.addedItemsRefs.Count - 1; i >= 0; i--)
+            foreach (IbbButton btn in btnInventorySlot)
+            {
+                btn.Quantity = "";
+            }
+
+                for (int i = gv.mod.addedItemsRefs.Count - 1; i >= 0; i--)
             {
                 for (int j = gv.mod.partyInventoryRefsList.Count - 1; j >= 0; j--)
                 {
@@ -250,6 +255,15 @@ namespace IceBlink2
                 {
                     gv.mod.partyInventoryRefsList.Insert(insertCounter, pc.Ring2Refs);
                     gv.mod.addedItemsRefs.Add(pc.Ring2Refs.tag);
+                    btnInventorySlot[insertCounter].Img3 = gv.cc.LoadBitmap("mandatory_conversation_indicator");
+                    insertCounter++;
+                }
+
+                //gloves
+                if (pc.GlovesRefs.tag != "none" && pc.GlovesRefs.tag != "")
+                {
+                    gv.mod.partyInventoryRefsList.Insert(insertCounter, pc.GlovesRefs);
+                    gv.mod.addedItemsRefs.Add(pc.GlovesRefs.tag);
                     btnInventorySlot[insertCounter].Img3 = gv.cc.LoadBitmap("mandatory_conversation_indicator");
                     insertCounter++;
                 }

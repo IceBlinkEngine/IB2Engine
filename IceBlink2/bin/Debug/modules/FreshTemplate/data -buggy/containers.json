@@ -1,0 +1,61 @@
+[
+  {
+    "containerTag": "testitems",
+    "containerItemRefs": [
+      {
+        "resref": "ration",
+        "tag": "newTag_9963_9969",
+        "name": "Ration",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": true,
+        "quantity": 1
+      },
+      {
+        "resref": "torch",
+        "tag": "newTag_9931_9970",
+        "name": "Torch",
+        "canNotBeUnequipped": false,
+        "isLightSource": true,
+        "isRation": false,
+        "quantity": 1
+      },
+      {
+        "resref": "battleaxe",
+        "tag": "battleaxe_10492",
+        "name": "Battle Axe",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      },
+      {
+        "resref": "shortBow",
+        "tag": "shortBow_11041",
+        "name": "Short Bow",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      },
+      {
+        "resref": "arrow",
+        "tag": "arrow_11042",
+        "name": "Arrow",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 20
+      },
+      {
+        "resref": "bolasItem",
+        "tag": "bolas_11459_11463",
+        "name": "Bolas",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      }
+    ]
+  }
+]

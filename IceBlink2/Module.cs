@@ -14,6 +14,24 @@ namespace IceBlink2
     public class Module
     {
 
+        public bool realTimeTimerStopped = false;
+
+        public int poorVisionModifier = 0;
+
+        public int nightFightModifier = -4;
+        public int darkFightModifier = -8; 
+
+        public bool alreadyDeleted = false; 
+
+        public string currentPropTag = "none";
+
+        public bool noRimLights = false;
+        public bool blendOutTooHighAndTooDeepTiles = false;
+
+        public bool activeSearchDoneThisMove = false;
+        public bool activeSearchSPCostPaidByByLeaderOnly = true;
+        public int activeSearchSPCost = 1;
+
         public List<string> addedItemsRefs = new List<string>();
 
         public bool encounterSingleImageAutoScale = true;
@@ -66,6 +84,8 @@ namespace IceBlink2
         public float sandStormDirectionX = 1f;
         public float sandStormDirectionY = 1f;
         public string sandStormBlowingTo = "";
+
+        public bool breakActiveSearch = false;
       
         public string moduleName = "none";
         public string moduleLabelName = "none";
@@ -75,7 +95,9 @@ namespace IceBlink2
         public string defaultPlayerFilename = "drin.json";
         public bool mustUsePreMadePC = false;
         public int numberOfPlayerMadePcsAllowed = 1;
+        public int numberOfPlayerMadePcsRequired = 1;
         public int MaxPartySize = 6;
+        //public int requiredPartySize = 0;
         public string moduleDescription = "";
         public string moduleCredits = "";
         public int nextIdNumber = 100;
@@ -105,8 +127,15 @@ namespace IceBlink2
         public bool calledByRealTimeTimer = false;
         public int numberOfRationsRemaining = 0;
         public int maxNumberOfRationsAllowed = 7;
+        public bool hungerIsLethal = true;
+        public float maxHPandSPPercentageLostOnHunger = 20;
+        public bool showRestMessagesInLog = true;
+        public bool showRestMessagesInBox = true;
+        public string messageOnRest = "Party safely rests until completely healed.";
+        public string messageOnRestAndRaise = "Party safely rests until completely healed (bringing back the - at least presumedly - dead as well).";
         public int maxNumberOfLightSourcesAllowed = 7;
         public int minutesSinceLastRationConsumed = 0;
+        //public Keys KeyDebug = new Keys();
         [JsonIgnore]
         public List<Item> moduleItemsList = new List<Item>();
         
@@ -128,7 +157,14 @@ namespace IceBlink2
         public List<Trait> moduleTraitsList = new List<Trait>();
         [JsonIgnore]
         public List<Effect> moduleEffectsList = new List<Effect>();
-        
+        [JsonIgnore]
+        public List<string> nonRepeatableFreeActionsUsedThisTurnBySpellTag = new List<string>();
+        [JsonIgnore]
+        public bool swiftActionHasBeenUsedThisTurn = false;
+        public List<Faction> moduleFactionsList = new List<Faction>();
+
+        public List<Prop> propsWaitingForRespawn = new List<Prop>();
+
         public List<string> moduleAreasList = new List<string>();
         
         public List<string> moduleConvosList = new List<string>();
@@ -162,6 +198,7 @@ namespace IceBlink2
         public List<JournalQuest> partyJournalQuests = new List<JournalQuest>();
         public List<JournalQuest> partyJournalCompleted = new List<JournalQuest>();
         public string partyJournalNotes = "";
+        public bool hideZeroPowerTraits = false;
         public int selectedPartyLeader = 0;
         [JsonIgnore]
         public bool returnCheck = false;
@@ -465,14 +502,19 @@ namespace IceBlink2
                     if (area.Filename.Equals(filename))
                     {
                         this.currentArea = area;
-                        gv.cc.DisposeOfBitmap(ref gv.cc.bmpMap);
-                        gv.cc.bmpMap = gv.cc.LoadBitmap(this.currentArea.ImageFileName);
+                        if (!gv.mod.useAllTileSystem)
+                        {
+                            gv.cc.DisposeOfBitmap(ref gv.cc.bmpMap);
+                            gv.cc.bmpMap = gv.cc.LoadBitmap(this.currentArea.ImageFileName);
+                        }
                         //TODO gv.cc.LoadTileBitmapList();
+                        /*
                         foreach (Prop p in this.currentArea.Props)
                         {
                             gv.cc.DisposeOfBitmap(ref p.token);
                             p.token = gv.cc.LoadBitmap(p.ImageFileName);
                         }
+                        */
                         return true;
                     }
                 }

@@ -15,6 +15,7 @@ namespace IceBlink2
     public partial class IBForm : RenderForm
     {
         private bool moveable;
+        public bool dontChange = false;
         private Point currentPosition;
         private const int cGrip = 0; //Grip size
         private string ibTitle = "";
@@ -215,21 +216,33 @@ namespace IceBlink2
         }
         private void iceBlinkButtonClose1_Click(object sender, EventArgs e)
         {
-            this.Close();
+            
+            if (!dontChange)
+            {
+                this.Close();
+            }
+            dontChange = false;
+            
         }
         private void iceBlinkButtonResize1_Click(object sender, EventArgs e)
         {
-            if (this.WindowState == FormWindowState.Maximized)
+            
+            if (!dontChange)
             {
-                this.WindowState = FormWindowState.Normal;
+                if (this.WindowState == FormWindowState.Maximized)
+                {
+                    this.WindowState = FormWindowState.Normal;
+                }
+                else if (this.WindowState == FormWindowState.Normal)
+                {
+                    //this.MaximumSize = Screen.PrimaryScreen.WorkingArea.Size;
+                    this.WindowState = FormWindowState.Maximized;
+                }
+                this.Invalidate();
+                this.Show();
             }
-            else if (this.WindowState == FormWindowState.Normal)
-            {
-                //this.MaximumSize = Screen.PrimaryScreen.WorkingArea.Size;
-                this.WindowState = FormWindowState.Maximized;
-            }
-            this.Invalidate();
-            this.Show();
+            dontChange = false;
+            
         }
         public void DrawTitleTextShadowOutline(PaintEventArgs e, int x, int y, string text, int aShad, int aText, FontFamily font, float fontPointSize, Color textColor, Color shadowColor)
         {
@@ -264,6 +277,11 @@ namespace IceBlink2
             {
                 MessageBox.Show("draw text on button not working: " + ex.ToString());
             }
+        }
+
+        private void IBForm_KeyUp(object sender, KeyEventArgs e)
+        {
+            dontChange = true;
         }
     }
 

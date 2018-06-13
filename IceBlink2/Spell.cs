@@ -36,13 +36,17 @@ namespace IceBlink2
         public string spellScriptParm4 = "none";
         public string spellEffectTag = "none";
         public bool isUsedForCombatSquareEffect = false;
+        public bool triggeredEachStepToo = false;
         public List<EffectTagForDropDownList> spellEffectTagList = new List<EffectTagForDropDownList>();
         public List<EffectTagForDropDownList> removeEffectTagList = new List<EffectTagForDropDownList>();
         public List<LocalImmunityString> traitWorksOnlyWhen = new List<LocalImmunityString>();
         public List<LocalImmunityString> traitWorksNeverWhen = new List<LocalImmunityString>();
 
         public bool usesTurnToActivate = true;
+        public bool onlyOncePerTurn = true;
+        public bool isSwiftAction = false;
         public int castTimeInTurns = 0;
+        public int coolDownTime = 0;
         public bool canBeInterrupted = true;
         public bool triggersAoO = true;
         public string spellToReplaceByTag = "none";
@@ -59,12 +63,16 @@ namespace IceBlink2
 	    public Spell DeepCopy()
 	    {
 		    Spell copy = new Spell();
+            copy.triggeredEachStepToo = this.triggeredEachStepToo;
             copy.spellToReplaceByTag = this.spellToReplaceByTag;
             copy.castTimeInTurns = this.castTimeInTurns;
             copy.triggersAoO = this.triggersAoO;
             copy.canBeInterrupted = this.canBeInterrupted;
             copy.usesTurnToActivate = this.usesTurnToActivate;
-		    copy.name = this.name;
+            copy.onlyOncePerTurn = this.onlyOncePerTurn;
+            copy.isSwiftAction = this.isSwiftAction;
+            copy.coolDownTime = this.coolDownTime;
+            copy.name = this.name;
 		    copy.tag = this.tag;
 		    copy.spellImage = this.spellImage;
 		    copy.description = this.description;

@@ -13,7 +13,29 @@ namespace IceBlink2
 {
     public class Encounter 
     {
-	    public string encounterName = "newEncounter";
+
+        //Victory conditions
+        //Assassination
+        public bool assassinationVictory = false;
+        public string assassinationTargetTag = "none";
+        public string assassinationTargetName = "none";
+        public bool assassinationConditionMet = false;
+
+        //Loss conditions
+
+        //Battlefield modifiers
+
+        //texts at start and ned (win) of battle
+        public bool showDefaultMessageBoxAtStartOfEncounter = true;
+        public bool showDefaultMessageBoxAtEndOfEncounter = true;
+        public bool showDefaultLogTextAtStartOfEncounter = true;
+        public bool showDefaultLogTextAtEndOfEncounter = true;
+        public string customTextforMessageBoxAtStartOfEncounter = "none";
+        public string customTextforMessageBoxAtEndOfEncounter = "none";
+        public string customTextforLogTextAtStartOfEncounter = "none";
+        public string customTextforLogTextAtEndOfEncounter = "none";
+
+        public string encounterName = "newEncounter";
 	    public string MapImage = "none";
         public int singleImageMapTileSize = 50;
         public bool UseMapImage = false;

@@ -40,7 +40,8 @@
             this.label1.ForeColor = System.Drawing.Color.White;
             this.label1.Location = new System.Drawing.Point(15, 48);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(332, 44);
+            //this.label1.Size = new System.Drawing.Size(332, 44);
+            this.label1.Size = new System.Drawing.Size(664, 44);
             this.label1.TabIndex = 4;
             this.label1.Text = "label1";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -55,7 +56,8 @@
             this.btnReturn.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Silver;
             this.btnReturn.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Gray;
             this.btnReturn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnReturn.Location = new System.Drawing.Point(114, 173);
+            //this.btnReturn.Location = new System.Drawing.Point(114, 173);
+            this.btnReturn.Location = new System.Drawing.Point(294, 173);
             this.btnReturn.Name = "btnReturn";
             this.btnReturn.Size = new System.Drawing.Size(129, 25);
             this.btnReturn.TabIndex = 5;
@@ -70,9 +72,11 @@
             this.txtInput.BackColor = System.Drawing.Color.Black;
             this.txtInput.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtInput.ForeColor = System.Drawing.Color.White;
+            //this.txtInput.Location = new System.Drawing.Point(15, 105);
             this.txtInput.Location = new System.Drawing.Point(15, 105);
             this.txtInput.Name = "txtInput";
-            this.txtInput.Size = new System.Drawing.Size(332, 20);
+            //this.txtInput.Size = new System.Drawing.Size(332, 20);
+            this.txtInput.Size = new System.Drawing.Size(688, 20);
             this.txtInput.TabIndex = 6;
             this.txtInput.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtInput.TextChanged += new System.EventHandler(this.txtInput_TextChanged);
@@ -82,7 +86,8 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
-            this.ClientSize = new System.Drawing.Size(359, 214);
+            //this.ClientSize = new System.Drawing.Size(359, 214);
+            this.ClientSize = new System.Drawing.Size(718, 214);
             this.Controls.Add(this.txtInput);
             this.Controls.Add(this.btnReturn);
             this.Controls.Add(this.label1);

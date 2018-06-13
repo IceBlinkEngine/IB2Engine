@@ -314,6 +314,11 @@ namespace IceBlink2
                             btn.btnOfChargedItem = true;
                         }
                     }
+                    else
+                    {
+                        btn.Quantity = "";
+                        btn.btnOfChargedItem = false;
+                    }
                 }
 			    else
 			    {
@@ -877,7 +882,7 @@ namespace IceBlink2
                 Item itA = gv.mod.getItemByResRef(pc.AmmoRefs.resref);
                 if ((itA != null) && (itMH != null))
                 {
-                    if ((itMH.category.Equals("Ranged")) && (!itMH.ammoType.Equals("none")) && (itMH.ammoType.Equals(itA.ammoType)))
+                    if ((itMH.category.Equals("Ranged")) && (!itMH.ammoType.Equals("none")) && (itA.ammoType.Equals(itMH.ammoType)))
                     {
                         //compatible ammo so leave as is
                     }
@@ -1006,7 +1011,92 @@ namespace IceBlink2
 
                 }
             }
+            //Gloves
+            else if (gv.cc.partyItemSlotIndex == 9) //Gloves
+            {
+                // if equip slot has an item, move it to inventory first
+                if (!pc.GlovesRefs.resref.Equals("none"))
+                {
+                    gv.mod.partyInventoryRefsList.Add(pc.GlovesRefs.DeepCopy());
+                    //get the item
+                    Item it = gv.mod.getItemByResRef(pc.GlovesRefs.resref);
+
+                    //remove item tags from p tags
+                    if (it.entriesForPcTags.Count > 0)
+                    {
+                        bool breakOuter = false;
+                        for (int i = it.entriesForPcTags.Count - 1; i >= 0; i--)
+                        {
+                            for (int j = pc.pcTags.Count - 1; j >= 0; j--)
+                            {
+                                if (it.entriesForPcTags[i].Value == pc.pcTags[j])
+                                {
+                                    pc.pcTags.RemoveAt(j);
+                                    breakOuter = true;
+                                    break;
+                                }
+                            }
+                            if (breakOuter)
+                            {
+                                break;
+                            }
+                        }
+                    }
+                    pc.GlovesRefs = GetCurrentlySelectedItemRefs().DeepCopy();
+                    //add item tags to pc tags
+                    //get the item
+                    it = gv.mod.getItemByResRef(pc.GlovesRefs.resref);
+                    if (it.entriesForPcTags.Count > 0)
+                    {
+                        for (int i = it.entriesForPcTags.Count - 1; i >= 0; i--)
+                        {
+                            pc.pcTags.Add(it.entriesForPcTags[i].Value);
+                        }
+                    }
+
+                    gv.mod.partyInventoryRefsList.Remove(GetCurrentlySelectedItemRefs());
+
+                    if (inCombat)
+                    {
+                        if (it.endTurnAfterEquipping)
+                        {
+                            callingScreen = "combat";
+                            gv.screenType = "combat";
+                            gv.screenCombat.endPcTurn(false);
+                        }
+                    }
+
+                }
+                else //equip slot was empty
+                {
+                    pc.GlovesRefs = GetCurrentlySelectedItemRefs().DeepCopy();
+                    //add item tags to pc tags
+                    //get the item
+                    Item it = gv.mod.getItemByResRef(pc.GlovesRefs.resref);
+                    if (it.entriesForPcTags.Count > 0)
+                    {
+                        for (int i = it.entriesForPcTags.Count - 1; i >= 0; i--)
+                        {
+                            pc.pcTags.Add(it.entriesForPcTags[i].Value);
+                        }
+                    }
+                    gv.mod.partyInventoryRefsList.Remove(GetCurrentlySelectedItemRefs());
+
+                    if (inCombat)
+                    {
+                        if (it.endTurnAfterEquipping)
+                        {
+                            callingScreen = "combat";
+                            gv.screenType = "combat";
+                            gv.screenCombat.endPcTurn(false);
+                        }
+                    }
+
+                }
+            }
+
             else if (gv.cc.partyItemSlotIndex == 2) //Neck
+                //schizo
             {
                 // if equip slot has an item, move it to inventory first
                 if (!pc.NeckRefs.resref.Equals("none"))
@@ -1590,6 +1680,11 @@ namespace IceBlink2
                 pc.HeadRefs = new ItemRefs();
             }
 
+            if (pc.GlovesRefs.tag == itr.tag)
+            {
+                pc.GlovesRefs = new ItemRefs();
+            }
+
             if (pc.NeckRefs.tag == itr.tag)
             {
                 pc.NeckRefs = new ItemRefs();
@@ -1678,6 +1773,39 @@ namespace IceBlink2
                         }
                     }
                     pc.HeadRefs = new ItemRefs();
+                }
+            }
+            else if (gv.cc.partyItemSlotIndex == 9) //Gloves
+            {
+                // if equip slot has an item, move it to inventory first
+                if (!pc.GlovesRefs.resref.Equals("none"))
+                {
+                    gv.mod.partyInventoryRefsList.Add(pc.GlovesRefs.DeepCopy());
+                    //get the item
+                    Item it = gv.mod.getItemByResRef(pc.GlovesRefs.resref);
+
+                    //remove item tags from p tags
+                    if (it.entriesForPcTags.Count > 0)
+                    {
+                        bool breakOuter = false;
+                        for (int i = it.entriesForPcTags.Count - 1; i >= 0; i--)
+                        {
+                            for (int j = pc.pcTags.Count - 1; j >= 0; j--)
+                            {
+                                if (it.entriesForPcTags[i].Value == pc.pcTags[j])
+                                {
+                                    pc.pcTags.RemoveAt(j);
+                                    breakOuter = true;
+                                    break;
+                                }
+                            }
+                            if (breakOuter)
+                            {
+                                break;
+                            }
+                        }
+                    }
+                    pc.GlovesRefs = new ItemRefs();
                 }
             }
             else if (gv.cc.partyItemSlotIndex == 2) //Neck

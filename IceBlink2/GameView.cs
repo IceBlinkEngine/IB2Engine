@@ -328,6 +328,9 @@ namespace IceBlink2
             cc.corner3 = cc.LoadBitmap("corner3");
             cc.entranceLightNorth2 = cc.LoadBitmap("entranceLightNorth2");
 
+            cc.tooHigh = cc.LoadBitmap("tooHigh");
+            cc.tooDeep = cc.LoadBitmap("tooDeep");
+
             cc.btnIni = cc.LoadBitmap("btn_ini");
             cc.btnIniGlow = cc.LoadBitmap("btn_ini_glow");
             cc.walkPass = cc.LoadBitmap("walk_pass");
@@ -390,6 +393,9 @@ namespace IceBlink2
 	    {
 		    //mod = new Module();
 		    mod = cc.LoadModule(mod.moduleName + ".mod", false);
+            log.tagStack.Clear();
+            log.logLinesList.Clear();
+            log.currentTopLineIndex = 0;
             if (mod.useSmoothMovement == true)
             {
                 //16 milliseconds a tick, equals - theoretically - about 60 FPS
@@ -432,6 +438,7 @@ namespace IceBlink2
 		    cc.LoadEffects();
 		    cc.LoadSpells();
 		    cc.LoadTraits();
+            cc.LoadFactions();
             cc.LoadWeathers();
             cc.LoadWeatherEffects();
 		    cc.LoadCreatures();
@@ -1644,8 +1651,8 @@ namespace IceBlink2
         {
             try 
             {
-                if (touchEnabled)
-                {
+                //if (touchEnabled)
+                //{
                     if (screenType.Equals("main"))
                     {
                         screenMainMap.onTouchMain(e, eventType);	
@@ -1728,11 +1735,17 @@ namespace IceBlink2
                     }
                     else if (screenType.Equals("combat"))
                     {
+                    if (touchEnabled)
+                    {
                         screenCombat.onTouchCombat(e, eventType);
+                    }
                     }
                     else if (screenType.Equals("combatCast"))
                     {
+                    if (touchEnabled)
+                    {
                         screenCastSelector.onTouchCastSelector(e, eventType, true);
+                    }
                     }
                     else if (screenType.Equals("mainMapCast"))
                     {
@@ -1740,7 +1753,10 @@ namespace IceBlink2
                     }
                     else if (screenType.Equals("combatTraitUse"))
                     {
+                    if (touchEnabled)
+                    {
                         screenTraitUseSelector.onTouchCastSelector(e, eventType, true);
+                    }
                     }
                     else if (screenType.Equals("mainMapTraitUse"))
                     {
@@ -1758,7 +1774,7 @@ namespace IceBlink2
                     {
                         screenPartyRoster.onTouchPartyRoster(e, eventType);
                     }
-                }
+                //}
             }
             catch (Exception ex) 
             {
@@ -1770,12 +1786,22 @@ namespace IceBlink2
         {
             try
             {
-                if (touchEnabled)
-                {
+                //if (touchEnabled)
+                //{
                     if (keyData == Keys.H)
                     {
                         if (showHotKeys) { showHotKeys = false; }
                         else { showHotKeys = true; }
+                        /*
+                        if (screenType.Equals("main"))
+                        {
+                            sf.MessageBoxHtml(cc.loadTextToString("MessageParty.txt"));
+                        }
+                        else if (screenType.Equals("combat"))
+                        {
+                            sf.MessageBoxHtml(cc.loadTextToString("MessageParty.txt"));
+                        }
+                        */
                     }
                     if (screenType.Equals("main"))
                     {
@@ -1783,7 +1809,10 @@ namespace IceBlink2
                     }
                     else if (screenType.Equals("combat"))
                     {
+                    if (touchEnabled)
+                    {
                         screenCombat.onKeyUp(keyData);
+                    }
                     }
                     else if (screenType.Equals("convo"))
                     {
@@ -1806,8 +1835,6 @@ namespace IceBlink2
                         }
                     }
                     */
-                    
-                }
             }
             catch (Exception ex)
             {
@@ -1824,6 +1851,7 @@ namespace IceBlink2
         //ON FORM CLOSING
         private void GameView_FormClosing(object sender, FormClosingEventArgs e)
         {
+            
             DialogResult dlg = IBMessageBox.Show(this, "Are you sure you wish to exit?", enumMessageButton.YesNo);
             if (dlg == DialogResult.Yes)
             {
@@ -1833,6 +1861,8 @@ namespace IceBlink2
             {
                 e.Cancel = true;
             }
+            
+            //if ()
         }
         private void GameView_FormClosed(object sender, FormClosedEventArgs e)
         {

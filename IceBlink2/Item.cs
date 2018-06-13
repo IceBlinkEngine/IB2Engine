@@ -34,7 +34,7 @@ namespace IceBlink2
         public string spriteEndingFilename = "none"; //sprite to use for end effect of projectiles
         public string itemOnUseSound = "none"; //Filename of sound to play when the item is used (no extension)
         public string itemEndSound = "none"; //Filename of sound to play upon end use of item like explosion from thrown grenade (no extension)
-        public string category = "Armor"; //catergory type (Armor, Ranged, Melee, General, Ring, Shield, Ammo)
+        public string category = "Armor"; //catergory type (Armor, Ranged, Melee, General, Ring, Shield, Ammo, Gloves)
 	    public bool plotItem = false;
 	    public int value = 0; //cost in credits
 	    public int quantity = 1; //useful for stacking and ammo
@@ -70,7 +70,12 @@ namespace IceBlink2
         public int attributeBonusModifierCon = 0;
         public int attributeBonusModifierWis = 0;
         public int attributeBonusModifierLuk = 0;
-	    public int savingThrowModifierReflex = 0;
+
+        public int maxStrengthBonusAllowedForWeapon = 100;
+        public int spCostPerAttack = 0;
+        public int hpCostPerAttack = 0;
+
+        public int savingThrowModifierReflex = 0;
 	    public int savingThrowModifierFortitude = 0;
 	    public int savingThrowModifierWill = 0;
         public int MovementPointModifier = 0;
@@ -116,6 +121,9 @@ namespace IceBlink2
 
         public int additionalAttacks = 0;
 
+        public string tagOfTraitInfluenced = "none";
+        public int traitSkillRollModifier = 0;
+
         //Not yet implemented
         public string labelForCastAction = "none";
         public string labelForSpellsButtonInCombat = "SPELL";
@@ -157,7 +165,7 @@ namespace IceBlink2
             copy.requiredTrait = this.requiredTrait;
             copy.requiredRace = this.requiredRace;
             copy.restrictedRace = this.restrictedRace;
-
+            copy.maxStrengthBonusAllowedForWeapon = this.maxStrengthBonusAllowedForWeapon;
             copy.quantity = this.quantity;
 		    copy.groupSizeForSellingStackableItems = this.groupSizeForSellingStackableItems;
 		    copy.charges = this.charges;
@@ -197,7 +205,10 @@ namespace IceBlink2
             copy.minutesPerHpRegenOutsideCombat = this.minutesPerHpRegenOutsideCombat;
 		    copy.onScoringHit = this.onScoringHit;
 		    copy.onScoringHitParms = this.onScoringHitParms;
-		    copy.onUseItem = this.onUseItem;
+            copy.tagOfTraitInfluenced = this.tagOfTraitInfluenced;
+            copy.traitSkillRollModifier = this.traitSkillRollModifier;
+            //test
+        copy.onUseItem = this.onUseItem;
 		    copy.onWhileEquipped = this.onWhileEquipped;
 		    copy.onUseItemIBScript = this.onUseItemIBScript;
             copy.onUseItemIBScriptParms = this.onUseItemIBScriptParms;

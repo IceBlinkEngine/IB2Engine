@@ -706,10 +706,38 @@ namespace IceBlink2
 		    if (isSelectedTraitSlotInKnownTraitsRange())
 		    {
                 Trait tr = GetCurrentlySelectedTrait();
+                Spell sp = new Spell();
+                if (tr.associatedSpellTag != "none" && tr.associatedSpellTag != "None" && tr.associatedSpellTag != "")
+                {
+                    sp = gv.mod.getSpellByTag(tr.associatedSpellTag);
+                }
                 //string textToSpan = "<u>Description</u>" + "<BR>" + "<BR>";
                 string textToSpan = "<b><big>" + tr.name + "</big></b><BR>";
                 textToSpan += "Available at Level: " + getLevelAvailable(tr.tag) + "<BR>";
-         
+                if (tr.associatedSpellTag != "none" && tr.associatedSpellTag != "None" && tr.associatedSpellTag != "")
+                {
+                    if (sp.isSwiftAction && !sp.usesTurnToActivate)
+                    {
+                        textToSpan += "Swift action" + "<BR>";
+                    }
+                    else if (sp.onlyOncePerTurn && !sp.usesTurnToActivate)
+                    {
+                        textToSpan += "Free action, not repeatable" + "<BR>";
+                    }
+                    else if (!sp.onlyOncePerTurn && !sp.usesTurnToActivate)
+                    {
+                        textToSpan += "Free action, repeatable" + "<BR>";
+                    }
+                    else if (sp.castTimeInTurns > 0)
+                    {
+                        textToSpan += "Takes " + sp.castTimeInTurns + " full turn(s)" + "<BR>";
+                    }
+                }
+                if (sp.coolDownTime > 0)
+                {
+                    textToSpan += "Cool down time: " + sp.coolDownTime + " turn(s)" + "<BR>";
+                }
+
                 if (tr.prerequisiteTrait != "none")
                 {
                     foreach (Trait t in gv.mod.moduleTraitsList)

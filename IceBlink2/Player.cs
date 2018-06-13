@@ -11,6 +11,10 @@ namespace IceBlink2
 {
     public class Player
     {
+        [JsonIgnore]
+        public List<String> tagsOfEffectsToRemoveOnMove = new List<String>();
+
+        public int powerOfThisPc = 0;
         public string tokenFilename = "blank.png";
         public string portraitFilename = "F0404_L";
         [JsonIgnore]
@@ -22,6 +26,8 @@ namespace IceBlink2
         [JsonIgnore]
         public int combatFacing = 4; //numpad directions (7,8,9,4,6,1,2,3)
         public bool steathModeOn = false;
+        public List<int> coolDownTimes = new List<int>();
+        public List<string> coolingSpellsByTag = new List<string>();
         public bool mainPc = false;
         public bool nonRemoveablePc = false;
         public int combatLocX = 0;
@@ -86,6 +92,7 @@ namespace IceBlink2
         public int spRegenTimePassedCounter = 0;
         public ItemRefs HeadRefs = new ItemRefs();
         public ItemRefs NeckRefs = new ItemRefs();
+        public ItemRefs GlovesRefs = new ItemRefs();
         public ItemRefs BodyRefs = new ItemRefs();
         public ItemRefs MainHandRefs = new ItemRefs();
         public ItemRefs OffHandRefs = new ItemRefs();
@@ -122,6 +129,11 @@ namespace IceBlink2
         public Player DeepCopy()
         {
             Player copy = new Player();
+            foreach (String et in this.tagsOfEffectsToRemoveOnMove)
+            {
+                copy.tagsOfEffectsToRemoveOnMove.Add(et);
+            }
+            copy.powerOfThisPc = this.powerOfThisPc;
             copy.stayDurationInTurns = this.stayDurationInTurns;
             copy.playerSize = this.playerSize;  //1=normal, 2=wide, 3=tall, 4=large  
             copy.isTemporaryAllyForThisEncounterOnly = this.isTemporaryAllyForThisEncounterOnly;
@@ -178,6 +190,7 @@ namespace IceBlink2
             copy.XPNeeded = this.XPNeeded;
             copy.HeadRefs = this.HeadRefs.DeepCopy();
             copy.NeckRefs = this.NeckRefs.DeepCopy();
+            copy.GlovesRefs = this.GlovesRefs.DeepCopy();
             copy.BodyRefs = this.BodyRefs.DeepCopy();
             copy.MainHandRefs = this.MainHandRefs.DeepCopy();
             copy.OffHandRefs = this.OffHandRefs.DeepCopy();
@@ -200,6 +213,18 @@ namespace IceBlink2
             foreach (string s in this.knownSpellsTags)
             {
                 copy.knownSpellsTags.Add(s);
+            }
+
+            copy.coolingSpellsByTag = new List<string>();
+            foreach (string s in this.coolingSpellsByTag)
+            {
+                copy.coolingSpellsByTag.Add(s);
+            }
+
+            copy.coolDownTimes = new List<int>();
+            foreach (int i in this.coolDownTimes)
+            {
+                copy.coolDownTimes.Add(i);
             }
 
             copy.replacedTraitsOrSpellsByTag = new List<string>();
@@ -305,7 +330,7 @@ namespace IceBlink2
                 }
             }
             return false;
-        }
+        }   
         public bool isImmobile()
         {
             foreach (Effect ef in this.effectsList)

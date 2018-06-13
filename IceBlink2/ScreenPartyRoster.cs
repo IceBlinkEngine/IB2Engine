@@ -418,6 +418,9 @@ namespace IceBlink2
             }
 	    }
 
+        //defaultPlayerFilename = "drin.json";
+        //public bool mustUsePreMadePC = false;
+
         public bool checkForMainPc()
         {
             foreach (Player pc in gv.mod.playerList)

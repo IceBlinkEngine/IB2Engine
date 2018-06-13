@@ -13,6 +13,8 @@ namespace IceBlink2
 {
     public class Effect 
     {
+        public bool triggeredEachStepToo = false;
+
         public int modifyShopBuyBackPrice = 0;//is in  
         public int modifyShopSellPrice = 0;//is in
 
@@ -27,10 +29,10 @@ namespace IceBlink2
 	    public int startingTimeInUnits = 0;//is in for player and creature
 
         public int babModifier = 0; //for Creatures modifies cr_att, for PCs modifies baseAttBonus
-        public int babModifierForRangedAttack = 0;//is in for player and creature
-        public int babModifierForMeleeAttack = 0;//is in for player and creature
-        public int damageModifierForMeleeAttack = 0;//is in for player and creature  
-        public int damageModifierForRangedAttack = 0;//is in for player and creature
+        public int babModifierForRangedAttack = 0;//is in for player only
+        public int babModifierForMeleeAttack = 0;//is in for player only
+        public int damageModifierForMeleeAttack = 0;//is in for player only  
+        public int damageModifierForRangedAttack = 0;//is in for player only
         public int acModifier = 0;////is in for player and creature
 
         public bool isStackableEffect = false;//is in for player and creature
@@ -145,6 +147,7 @@ namespace IceBlink2
 	    public Effect DeepCopy()
 	    {
 		    Effect copy = new Effect();
+            copy.triggeredEachStepToo = this.triggeredEachStepToo;
             copy.allowCastingWithoutRiskOfInterruption = this.allowCastingWithoutRiskOfInterruption;
             copy.allowCastingWithoutTriggeringAoO = this.allowCastingWithoutTriggeringAoO;
 		    copy.name = this.name;

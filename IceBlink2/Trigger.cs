@@ -10,9 +10,15 @@ namespace IceBlink2
 {
     public class Trigger 
     {
-	    public string TriggerTag = "newTrigger"; //must be unique
+        public string triggerImage = "none";
+        public bool encounterTriggerOnEveryStep = false;
+
+        public bool isBumpTrigger = false;
+
+        public string TriggerTag = "newTrigger"; //must be unique
 	    public bool Enabled = true;
 	    public bool DoOnceOnly = false;
+        public bool requiresActiveSearch = false;
         public bool conversationCannotBeAvoided = true;
 	    public List<Coordinate> TriggerSquaresList = new List<Coordinate>();
 
@@ -28,7 +34,8 @@ namespace IceBlink2
 	    public string Event1Parm4 = "none";
 
 	    public bool EnabledEvent2 = true;
-	    public bool DoOnceOnlyEvent2 = false;
+        public bool event2RequiresTrueReturnCheck = false;
+        public bool DoOnceOnlyEvent2 = false;
 	    public string Event2Type = "none";
 	    public string Event2FilenameOrTag = "none";
 	    public int Event2TransPointX = 0;
@@ -39,7 +46,8 @@ namespace IceBlink2
 	    public string Event2Parm4 = "none";
 
 	    public bool EnabledEvent3 = true;
-	    public bool DoOnceOnlyEvent3 = false;
+        public bool event3RequiresFalseReturnCheck = false;
+        public bool DoOnceOnlyEvent3 = false;
 	    public string Event3Type = "none";
 	    public string Event3FilenameOrTag = "none";
 	    public int Event3TransPointX = 0;

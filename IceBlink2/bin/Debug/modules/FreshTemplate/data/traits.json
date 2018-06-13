@@ -1,5 +1,7 @@
 [
   {
+    "methodOfChecking": "leader",
+    "showOnMainMap": false,
     "name": "Bluff (L1)",
     "traitEffectTagList": [],
     "traitWorksOnlyWhen": [],
@@ -17,10 +19,12 @@
     "requiredWisdom": 0,
     "requiredCharisma": 21,
     "skillModifierAttribute": "int",
-    "useableInSituation": "Always",
-    "traitScript": "none"
+    "traitToReplaceByTag": "none",
+    "useableInSituation": "Always"
   },
   {
+    "methodOfChecking": "leader",
+    "showOnMainMap": false,
     "name": "Bluff (L2)",
     "traitEffectTagList": [],
     "traitWorksOnlyWhen": [],
@@ -38,10 +42,12 @@
     "requiredWisdom": 0,
     "requiredCharisma": 0,
     "skillModifierAttribute": "int",
-    "useableInSituation": "Always",
-    "traitScript": "none"
+    "traitToReplaceByTag": "none",
+    "useableInSituation": "Always"
   },
   {
+    "methodOfChecking": "leader",
+    "showOnMainMap": false,
     "name": "Cleave",
     "traitEffectTagList": [],
     "traitWorksOnlyWhen": [],
@@ -59,10 +65,12 @@
     "requiredWisdom": 0,
     "requiredCharisma": 0,
     "skillModifierAttribute": "str",
-    "useableInSituation": "Always",
-    "traitScript": "none"
+    "traitToReplaceByTag": "none",
+    "useableInSituation": "Always"
   },
   {
+    "methodOfChecking": "leader",
+    "showOnMainMap": false,
     "name": "Critical Strike",
     "traitEffectTagList": [],
     "traitWorksOnlyWhen": [],
@@ -80,10 +88,12 @@
     "requiredWisdom": 0,
     "requiredCharisma": 0,
     "skillModifierAttribute": "dex",
-    "useableInSituation": "Always",
-    "traitScript": "none"
+    "traitToReplaceByTag": "none",
+    "useableInSituation": "Always"
   },
   {
+    "methodOfChecking": "leader",
+    "showOnMainMap": false,
     "name": "Diplomacy (L1)",
     "traitEffectTagList": [],
     "traitWorksOnlyWhen": [],
@@ -101,10 +111,12 @@
     "requiredWisdom": 0,
     "requiredCharisma": 0,
     "skillModifierAttribute": "cha",
-    "useableInSituation": "Always",
-    "traitScript": "none"
+    "traitToReplaceByTag": "none",
+    "useableInSituation": "Always"
   },
   {
+    "methodOfChecking": "leader",
+    "showOnMainMap": false,
     "name": "Diplomacy (L2)",
     "traitEffectTagList": [],
     "traitWorksOnlyWhen": [],
@@ -122,10 +134,12 @@
     "requiredWisdom": 0,
     "requiredCharisma": 0,
     "skillModifierAttribute": "cha",
-    "useableInSituation": "Always",
-    "traitScript": "none"
+    "traitToReplaceByTag": "none",
+    "useableInSituation": "Always"
   },
   {
+    "methodOfChecking": "leader",
+    "showOnMainMap": false,
     "name": "Disable Device (L1)",
     "traitEffectTagList": [],
     "traitWorksOnlyWhen": [],
@@ -143,10 +157,12 @@
     "requiredWisdom": 0,
     "requiredCharisma": 0,
     "skillModifierAttribute": "dex",
-    "useableInSituation": "Always",
-    "traitScript": "none"
+    "traitToReplaceByTag": "none",
+    "useableInSituation": "Always"
   },
   {
+    "methodOfChecking": "leader",
+    "showOnMainMap": false,
     "name": "Disable Device (L2)",
     "traitEffectTagList": [],
     "traitWorksOnlyWhen": [],
@@ -164,10 +180,12 @@
     "requiredWisdom": 0,
     "requiredCharisma": 0,
     "skillModifierAttribute": "dex",
-    "useableInSituation": "Always",
-    "traitScript": "none"
+    "traitToReplaceByTag": "none",
+    "useableInSituation": "Always"
   },
   {
+    "methodOfChecking": "leader",
+    "showOnMainMap": false,
     "name": "Evasion",
     "traitEffectTagList": [],
     "traitWorksOnlyWhen": [],
@@ -185,10 +203,12 @@
     "requiredWisdom": 0,
     "requiredCharisma": 0,
     "skillModifierAttribute": "dex",
-    "useableInSituation": "Always",
-    "traitScript": "none"
+    "traitToReplaceByTag": "none",
+    "useableInSituation": "Always"
   },
   {
+    "methodOfChecking": "leader",
+    "showOnMainMap": false,
     "name": "Intimidate (L1)",
     "traitEffectTagList": [],
     "traitWorksOnlyWhen": [],
@@ -206,10 +226,12 @@
     "requiredWisdom": 0,
     "requiredCharisma": 0,
     "skillModifierAttribute": "str",
-    "useableInSituation": "Always",
-    "traitScript": "none"
+    "traitToReplaceByTag": "none",
+    "useableInSituation": "Always"
   },
   {
+    "methodOfChecking": "leader",
+    "showOnMainMap": false,
     "name": "Intimidate (L2)",
     "traitEffectTagList": [],
     "traitWorksOnlyWhen": [],
@@ -227,10 +249,12 @@
     "requiredWisdom": 0,
     "requiredCharisma": 0,
     "skillModifierAttribute": "str",
-    "useableInSituation": "Always",
-    "traitScript": "none"
+    "traitToReplaceByTag": "none",
+    "useableInSituation": "Always"
   },
   {
+    "methodOfChecking": "leader",
+    "showOnMainMap": false,
     "name": "Pick Pocket (L1)",
     "traitEffectTagList": [],
     "traitWorksOnlyWhen": [],
@@ -248,10 +272,12 @@
     "requiredWisdom": 0,
     "requiredCharisma": 0,
     "skillModifierAttribute": "dex",
-    "useableInSituation": "Always",
-    "traitScript": "none"
+    "traitToReplaceByTag": "none",
+    "useableInSituation": "Always"
   },
   {
+    "methodOfChecking": "leader",
+    "showOnMainMap": false,
     "name": "Pick Pocket (L2)",
     "traitEffectTagList": [],
     "traitWorksOnlyWhen": [],
@@ -269,10 +295,12 @@
     "requiredWisdom": 0,
     "requiredCharisma": 0,
     "skillModifierAttribute": "dex",
-    "useableInSituation": "Always",
-    "traitScript": "none"
+    "traitToReplaceByTag": "none",
+    "useableInSituation": "Always"
   },
   {
+    "methodOfChecking": "leader",
+    "showOnMainMap": false,
     "name": "Point Blank Shot",
     "traitEffectTagList": [],
     "traitWorksOnlyWhen": [],
@@ -290,10 +318,12 @@
     "requiredWisdom": 0,
     "requiredCharisma": 0,
     "skillModifierAttribute": "str",
-    "useableInSituation": "Always",
-    "traitScript": "none"
+    "traitToReplaceByTag": "none",
+    "useableInSituation": "Always"
   },
   {
+    "methodOfChecking": "leader",
+    "showOnMainMap": false,
     "name": "Sneak Attack",
     "traitEffectTagList": [],
     "traitWorksOnlyWhen": [],
@@ -311,10 +341,12 @@
     "requiredWisdom": 0,
     "requiredCharisma": 0,
     "skillModifierAttribute": "dex",
-    "useableInSituation": "Always",
-    "traitScript": "none"
+    "traitToReplaceByTag": "none",
+    "useableInSituation": "Always"
   },
   {
+    "methodOfChecking": "leader",
+    "showOnMainMap": false,
     "name": "Spot (L1)",
     "traitEffectTagList": [],
     "traitWorksOnlyWhen": [],
@@ -332,10 +364,12 @@
     "requiredWisdom": 0,
     "requiredCharisma": 0,
     "skillModifierAttribute": "dex",
-    "useableInSituation": "Always",
-    "traitScript": "none"
+    "traitToReplaceByTag": "none",
+    "useableInSituation": "Always"
   },
   {
+    "methodOfChecking": "leader",
+    "showOnMainMap": false,
     "name": "Spot (L2)",
     "traitEffectTagList": [],
     "traitWorksOnlyWhen": [],
@@ -353,10 +387,12 @@
     "requiredWisdom": 0,
     "requiredCharisma": 0,
     "skillModifierAttribute": "dex",
-    "useableInSituation": "Always",
-    "traitScript": "none"
+    "traitToReplaceByTag": "none",
+    "useableInSituation": "Always"
   },
   {
+    "methodOfChecking": "leader",
+    "showOnMainMap": false,
     "name": "Stealth (L1)",
     "traitEffectTagList": [],
     "traitWorksOnlyWhen": [],
@@ -374,10 +410,12 @@
     "requiredWisdom": 0,
     "requiredCharisma": 0,
     "skillModifierAttribute": "dex",
-    "useableInSituation": "Always",
-    "traitScript": "none"
+    "traitToReplaceByTag": "none",
+    "useableInSituation": "Always"
   },
   {
+    "methodOfChecking": "leader",
+    "showOnMainMap": false,
     "name": "Stealth (L2)",
     "traitEffectTagList": [],
     "traitWorksOnlyWhen": [],
@@ -395,10 +433,12 @@
     "requiredWisdom": 0,
     "requiredCharisma": 0,
     "skillModifierAttribute": "dex",
-    "useableInSituation": "Always",
-    "traitScript": "none"
+    "traitToReplaceByTag": "none",
+    "useableInSituation": "Always"
   },
   {
+    "methodOfChecking": "leader",
+    "showOnMainMap": false,
     "name": "Two Attacks",
     "traitEffectTagList": [],
     "traitWorksOnlyWhen": [],
@@ -416,10 +456,12 @@
     "requiredWisdom": 0,
     "requiredCharisma": 0,
     "skillModifierAttribute": "str",
-    "useableInSituation": "Always",
-    "traitScript": "none"
+    "traitToReplaceByTag": "none",
+    "useableInSituation": "Always"
   },
   {
+    "methodOfChecking": "leader",
+    "showOnMainMap": false,
     "name": "Hard to Kill",
     "traitEffectTagList": [],
     "traitWorksOnlyWhen": [],
@@ -437,10 +479,12 @@
     "requiredWisdom": 0,
     "requiredCharisma": 0,
     "skillModifierAttribute": "str",
-    "useableInSituation": "Always",
-    "traitScript": "none"
+    "traitToReplaceByTag": "none",
+    "useableInSituation": "Always"
   },
   {
+    "methodOfChecking": "leader",
+    "showOnMainMap": false,
     "name": "Precise Shot (L1)",
     "traitEffectTagList": [],
     "traitWorksOnlyWhen": [],
@@ -458,10 +502,12 @@
     "requiredWisdom": 0,
     "requiredCharisma": 0,
     "skillModifierAttribute": "str",
-    "useableInSituation": "Always",
-    "traitScript": "none"
+    "traitToReplaceByTag": "none",
+    "useableInSituation": "Always"
   },
   {
+    "methodOfChecking": "leader",
+    "showOnMainMap": false,
     "name": "Precise Shot (L2)",
     "traitEffectTagList": [],
     "traitWorksOnlyWhen": [],
@@ -479,10 +525,12 @@
     "requiredWisdom": 0,
     "requiredCharisma": 0,
     "skillModifierAttribute": "str",
-    "useableInSituation": "Always",
-    "traitScript": "none"
+    "traitToReplaceByTag": "none",
+    "useableInSituation": "Always"
   },
   {
+    "methodOfChecking": "leader",
+    "showOnMainMap": false,
     "name": "Rapid Shot (L1)",
     "traitEffectTagList": [],
     "traitWorksOnlyWhen": [],
@@ -500,10 +548,12 @@
     "requiredWisdom": 0,
     "requiredCharisma": 0,
     "skillModifierAttribute": "str",
-    "useableInSituation": "Always",
-    "traitScript": "none"
+    "traitToReplaceByTag": "none",
+    "useableInSituation": "Always"
   },
   {
+    "methodOfChecking": "leader",
+    "showOnMainMap": false,
     "name": "Rapid Shot (L2)",
     "traitEffectTagList": [],
     "traitWorksOnlyWhen": [],
@@ -521,10 +571,12 @@
     "requiredWisdom": 0,
     "requiredCharisma": 0,
     "skillModifierAttribute": "str",
-    "useableInSituation": "Always",
-    "traitScript": "none"
+    "traitToReplaceByTag": "none",
+    "useableInSituation": "Always"
   },
   {
+    "methodOfChecking": "leader",
+    "showOnMainMap": false,
     "name": "Battle Regeneration",
     "traitEffectTagList": [],
     "traitWorksOnlyWhen": [],
@@ -542,10 +594,12 @@
     "requiredWisdom": 0,
     "requiredCharisma": 0,
     "skillModifierAttribute": "str",
-    "useableInSituation": "Always",
-    "traitScript": "none"
+    "traitToReplaceByTag": "none",
+    "useableInSituation": "Always"
   },
   {
+    "methodOfChecking": "leader",
+    "showOnMainMap": false,
     "name": "Super Strength",
     "traitEffectTagList": [
       {
@@ -567,10 +621,12 @@
     "requiredWisdom": 0,
     "requiredCharisma": 0,
     "skillModifierAttribute": "str",
-    "useableInSituation": "Passive",
-    "traitScript": "none"
+    "traitToReplaceByTag": "none",
+    "useableInSituation": "Passive"
   },
   {
+    "methodOfChecking": "leader",
+    "showOnMainMap": false,
     "name": "Fighter Ball",
     "traitEffectTagList": [],
     "traitWorksOnlyWhen": [],
@@ -588,10 +644,12 @@
     "requiredWisdom": 0,
     "requiredCharisma": 0,
     "skillModifierAttribute": "str",
-    "useableInSituation": "InCombat",
-    "traitScript": "none"
+    "traitToReplaceByTag": "none",
+    "useableInSituation": "InCombat"
   },
   {
+    "methodOfChecking": "leader",
+    "showOnMainMap": false,
     "name": "Fighter Ball 2",
     "traitEffectTagList": [],
     "traitWorksOnlyWhen": [],
@@ -609,10 +667,12 @@
     "requiredWisdom": 0,
     "requiredCharisma": 0,
     "skillModifierAttribute": "str",
-    "useableInSituation": "InCombat",
-    "traitScript": "none"
+    "traitToReplaceByTag": "none",
+    "useableInSituation": "InCombat"
   },
   {
+    "methodOfChecking": "leader",
+    "showOnMainMap": false,
     "name": "testTrait",
     "traitEffectTagList": [
       {
@@ -642,10 +702,12 @@
     "requiredWisdom": 0,
     "requiredCharisma": 0,
     "skillModifierAttribute": "str",
-    "useableInSituation": "Always",
-    "traitScript": "none"
+    "traitToReplaceByTag": "none",
+    "useableInSituation": "Always"
   },
   {
+    "methodOfChecking": "leader",
+    "showOnMainMap": false,
     "name": "Bloody Whirlwind",
     "traitEffectTagList": [],
     "traitWorksOnlyWhen": [
@@ -667,10 +729,12 @@
     "requiredWisdom": 0,
     "requiredCharisma": 0,
     "skillModifierAttribute": "str",
-    "useableInSituation": "InCombat",
-    "traitScript": "none"
+    "traitToReplaceByTag": "none",
+    "useableInSituation": "InCombat"
   },
   {
+    "methodOfChecking": "leader",
+    "showOnMainMap": false,
     "name": "Sweep",
     "traitEffectTagList": [
       {
@@ -692,10 +756,12 @@
     "requiredWisdom": 0,
     "requiredCharisma": 0,
     "skillModifierAttribute": "str",
-    "useableInSituation": "Passive",
-    "traitScript": "none"
+    "traitToReplaceByTag": "none",
+    "useableInSituation": "Passive"
   },
   {
+    "methodOfChecking": "leader",
+    "showOnMainMap": false,
     "name": "LightningWielder",
     "traitEffectTagList": [],
     "traitWorksOnlyWhen": [
@@ -717,7 +783,192 @@
     "requiredWisdom": 0,
     "requiredCharisma": 0,
     "skillModifierAttribute": "str",
-    "useableInSituation": "InCombat",
-    "traitScript": "none"
+    "traitToReplaceByTag": "none",
+    "useableInSituation": "InCombat"
+  },
+  {
+    "methodOfChecking": "leader",
+    "showOnMainMap": false,
+    "name": "Bear Strength",
+    "traitEffectTagList": [
+      {
+        "tag": "newEffectTag_11531"
+      }
+    ],
+    "traitWorksOnlyWhen": [],
+    "traitWorksNeverWhen": [],
+    "tag": "newTraitTag_11597",
+    "associatedSpellTag": "none",
+    "traitImage": "sp_magebolt",
+    "description": "",
+    "prerequisiteTrait": "none",
+    "skillModifier": 0,
+    "requiredStrength": 0,
+    "requiredDexterity": 0,
+    "requiredConstitution": 0,
+    "requiredIntelligence": 0,
+    "requiredWisdom": 0,
+    "requiredCharisma": 0,
+    "skillModifierAttribute": "str",
+    "traitToReplaceByTag": "none",
+    "useableInSituation": "Always"
+  },
+  {
+    "methodOfChecking": "leader",
+    "showOnMainMap": false,
+    "name": "Replace Me (L1)",
+    "traitEffectTagList": [
+      {
+        "tag": "Strength+2_12029"
+      }
+    ],
+    "traitWorksOnlyWhen": [],
+    "traitWorksNeverWhen": [],
+    "tag": "replaceMe1_tag",
+    "associatedSpellTag": "none",
+    "traitImage": "tr_bluff",
+    "description": "Useful in conversations for influencing others. Uses Intelligence as a modifier.",
+    "prerequisiteTrait": "none",
+    "skillModifier": 5,
+    "requiredStrength": 0,
+    "requiredDexterity": 0,
+    "requiredConstitution": 0,
+    "requiredIntelligence": 0,
+    "requiredWisdom": 0,
+    "requiredCharisma": 0,
+    "skillModifierAttribute": "int",
+    "traitToReplaceByTag": "none",
+    "useableInSituation": "Always"
+  },
+  {
+    "methodOfChecking": "leader",
+    "showOnMainMap": false,
+    "name": "Replace Me (L2)",
+    "traitEffectTagList": [
+      {
+        "tag": "Strength + 4_12030"
+      }
+    ],
+    "traitWorksOnlyWhen": [],
+    "traitWorksNeverWhen": [],
+    "tag": "replaceMe2_tag",
+    "associatedSpellTag": "none",
+    "traitImage": "tr_bluff",
+    "description": "Useful in conversations for influencing others. Uses Intelligence as a modifier.",
+    "prerequisiteTrait": "none",
+    "skillModifier": 5,
+    "requiredStrength": 0,
+    "requiredDexterity": 0,
+    "requiredConstitution": 0,
+    "requiredIntelligence": 0,
+    "requiredWisdom": 0,
+    "requiredCharisma": 0,
+    "skillModifierAttribute": "int",
+    "traitToReplaceByTag": "replaceMe1_tag",
+    "useableInSituation": "Always"
+  },
+  {
+    "methodOfChecking": "leader",
+    "showOnMainMap": false,
+    "name": "Melee Attack and Damage +10",
+    "traitEffectTagList": [
+      {
+        "tag": "melee _danage_+10_12122"
+      }
+    ],
+    "traitWorksOnlyWhen": [],
+    "traitWorksNeverWhen": [],
+    "tag": "melee_attack+10_12200",
+    "associatedSpellTag": "none",
+    "traitImage": "sp_magebolt",
+    "description": "Increase strength by +20.",
+    "prerequisiteTrait": "none",
+    "skillModifier": 0,
+    "requiredStrength": 0,
+    "requiredDexterity": 0,
+    "requiredConstitution": 0,
+    "requiredIntelligence": 0,
+    "requiredWisdom": 0,
+    "requiredCharisma": 0,
+    "skillModifierAttribute": "str",
+    "traitToReplaceByTag": "none",
+    "useableInSituation": "Passive"
+  },
+  {
+    "methodOfChecking": "leader",
+    "showOnMainMap": false,
+    "name": "Trip",
+    "traitEffectTagList": [],
+    "traitWorksOnlyWhen": [],
+    "traitWorksNeverWhen": [
+      {
+        "Value": "Large"
+      }
+    ],
+    "tag": "trip",
+    "associatedSpellTag": "spell_prone",
+    "traitImage": "tr_cleave",
+    "description": "Trip an opponent and cause him to become Prone for 2 turns.",
+    "prerequisiteTrait": "none",
+    "skillModifier": 0,
+    "requiredStrength": 0,
+    "requiredDexterity": 0,
+    "requiredConstitution": 0,
+    "requiredIntelligence": 0,
+    "requiredWisdom": 0,
+    "requiredCharisma": 0,
+    "skillModifierAttribute": "str",
+    "traitToReplaceByTag": "none",
+    "useableInSituation": "InCombat"
+  },
+  {
+    "methodOfChecking": "leader",
+    "showOnMainMap": false,
+    "name": "Sprint",
+    "traitEffectTagList": [
+      {
+        "tag": "melee _danage_+10_12122"
+      }
+    ],
+    "traitWorksOnlyWhen": [],
+    "traitWorksNeverWhen": [],
+    "tag": "newTraitTag_13667",
+    "associatedSpellTag": "newSpellTag_13668",
+    "traitImage": "sp_magebolt",
+    "description": "Increase strength by +20.",
+    "prerequisiteTrait": "none",
+    "skillModifier": 0,
+    "requiredStrength": 0,
+    "requiredDexterity": 0,
+    "requiredConstitution": 0,
+    "requiredIntelligence": 0,
+    "requiredWisdom": 0,
+    "requiredCharisma": 0,
+    "skillModifierAttribute": "str",
+    "traitToReplaceByTag": "none",
+    "useableInSituation": "InCombat"
+  },
+  {
+    "methodOfChecking": "leader",
+    "showOnMainMap": false,
+    "name": "Double Strike",
+    "traitEffectTagList": [],
+    "traitWorksOnlyWhen": [],
+    "traitWorksNeverWhen": [],
+    "tag": "trait_doubleStrike",
+    "associatedSpellTag": "spell_doubleStrike",
+    "traitImage": "sp_magebolt",
+    "description": "attacks and to hit",
+    "prerequisiteTrait": "none",
+    "skillModifier": 0,
+    "requiredStrength": 0,
+    "requiredDexterity": 0,
+    "requiredConstitution": 0,
+    "requiredIntelligence": 0,
+    "requiredWisdom": 0,
+    "requiredCharisma": 0,
+    "skillModifierAttribute": "str",
+    "traitToReplaceByTag": "none",
+    "useableInSituation": "InCombat"
   }
 ]

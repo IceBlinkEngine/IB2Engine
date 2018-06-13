@@ -273,7 +273,7 @@ namespace IceBlink2
             int leftStartY = 5 * gv.squareSize + (pH * 6);
             
             //Draw screen title name
-            string text = "Party Members [" + gv.mod.numberOfPlayerMadePcsAllowed + " player made PC(s) Allowed]";
+            string text = "Party Members [" + gv.mod.numberOfPlayerMadePcsAllowed + " player made PC(s) allowed, " + gv.mod.numberOfPlayerMadePcsRequired +  " required]";
             // Measure string.
             float stringSize = gv.cc.MeasureString(text, SharpDX.DirectWrite.FontWeight.Normal, SharpDX.DirectWrite.FontStyle.Normal, gv.drawFontRegHeight);
             int ulX = (gv.screenWidth / 2) - ((int)stringSize / 2);
@@ -539,11 +539,19 @@ namespace IceBlink2
                         else if (btnReturn.getImpact(x, y))
                         {
                             gv.PlaySound("btn_click");
-                            if (gv.mod.playerList.Count > 0)
+                            if (gv.mod.playerList.Count > 0 && gv.mod.playerList.Count >= gv.mod.numberOfPlayerMadePcsRequired && gv.mod.playerList.Count <= gv.mod.numberOfPlayerMadePcsAllowed)
                             {
                                 gv.mod.PlayerLocationX = gv.mod.startingPlayerPositionX;
                                 gv.mod.PlayerLocationY = gv.mod.startingPlayerPositionY;
                                 gv.mod.playerList[0].mainPc = true;
+                                gv.mod.playerList[0].nonRemoveablePc = true;
+                                foreach (Player p in gv.mod.playerList)
+                                {
+                                    gv.sf.UpdateStats(p);
+                                }
+                                gv.log.tagStack.Clear();
+                                gv.log.logLinesList.Clear();
+                                gv.log.currentTopLineIndex = 0;
                                 gv.cc.tutorialMessageMainMap();
                                 gv.screenType = "main";
                                 gv.cc.doUpdate();
