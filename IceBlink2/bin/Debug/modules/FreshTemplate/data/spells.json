@@ -1199,5 +1199,50 @@
         "tag": "flameSquare_14067"
       }
     ]
+  },
+  {
+    "traitWorksOnlyWhen": [],
+    "traitWorksNeverWhen": [],
+    "usesTurnToActivate": true,
+    "onlyOncePerTurn": true,
+    "coolDownTime": 0,
+    "isSwiftAction": false,
+    "isUsedForCombatSquareEffect": true,
+    "triggeredEachStepToo": true,
+    "name": "Grease",
+    "tag": "grease_14080",
+    "spellImage": "sp_magebolt",
+    "description": "",
+    "useableInSituation": "Always",
+    "spellToReplaceByTag": "none",
+    "spriteFilename": "none",
+    "spriteEndingFilename": "none",
+    "spellStartSound": "none",
+    "spellEndSound": "none",
+    "costSP": 1,
+    "costHP": 0,
+    "castTimeInTurns": 0,
+    "canBeInterrupted": true,
+    "triggersAoO": true,
+    "spellTargetType": "PointLocation",
+    "spellEffectType": "Damage",
+    "aoeShape": "Circle",
+    "aoeRadius": 3,
+    "range": 8,
+    "spellScript": "none",
+    "spellScriptParm1": "none",
+    "spellScriptParm2": "none",
+    "additionalCustomLogTextOnCast": "none",
+    "spellEffectTag": "none",
+    "removeEffectTagList": [
+      {
+        "tag": "none"
+      }
+    ],
+    "spellEffectTagList": [
+      {
+        "tag": "fx_prone"
+      }
+    ]
   }
 ]

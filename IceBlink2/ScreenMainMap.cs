@@ -36767,60 +36767,108 @@ namespace IceBlink2
 
             if (keyData == Keys.E)
             {
-                gv.mod.selectedPartyLeader++;
-                if (gv.mod.selectedPartyLeader >= gv.mod.playerList.Count)
+                bool leaderFound = false;
+                while (!leaderFound)
                 {
-                    gv.mod.selectedPartyLeader = 0;
+                    gv.mod.selectedPartyLeader++;
+                    if (gv.mod.selectedPartyLeader >= gv.mod.playerList.Count)
+                    {
+                        gv.mod.selectedPartyLeader = 0;
+                    }
+                    if (gv.mod.playerList[gv.mod.selectedPartyLeader].hp >= 0)
+                    {
+                        leaderFound = true;
+                    }
                 }
                 updateTraitsPanel();
             }
 
             if (keyData == Keys.Right && !showMoveKeys)
             {
-                gv.mod.selectedPartyLeader++;
-                if (gv.mod.selectedPartyLeader >= gv.mod.playerList.Count)
+                bool leaderFound = false;
+                while (!leaderFound)
                 {
-                    gv.mod.selectedPartyLeader = 0;
+                    gv.mod.selectedPartyLeader++;
+                    if (gv.mod.selectedPartyLeader >= gv.mod.playerList.Count)
+                    {
+                        gv.mod.selectedPartyLeader = 0;
+                    }
+                    if (gv.mod.playerList[gv.mod.selectedPartyLeader].hp >= 0)
+                    {
+                        leaderFound = true;
+                    }
                 }
                 updateTraitsPanel();
             }
 
             if (keyData == Keys.D && showMoveKeys)
             {
-                gv.mod.selectedPartyLeader++;
-                if (gv.mod.selectedPartyLeader >= gv.mod.playerList.Count)
+                bool leaderFound = false;
+                while (!leaderFound)
                 {
-                    gv.mod.selectedPartyLeader = 0;
+                    gv.mod.selectedPartyLeader++;
+                    if (gv.mod.selectedPartyLeader >= gv.mod.playerList.Count)
+                    {
+                        gv.mod.selectedPartyLeader = 0;
+                    }
+                    if (gv.mod.playerList[gv.mod.selectedPartyLeader].hp >= 0)
+                    {
+                        leaderFound = true;
+                    }
                 }
                 updateTraitsPanel();
             }
 
             if (keyData == Keys.Q)
             {
-                gv.mod.selectedPartyLeader--;
-                if (gv.mod.selectedPartyLeader < 0)
+                bool leaderFound = false;
+                while (!leaderFound)
                 {
-                    gv.mod.selectedPartyLeader = gv.mod.playerList.Count-1;
+                    gv.mod.selectedPartyLeader--;
+                    if (gv.mod.selectedPartyLeader < 0)
+                    {
+                        gv.mod.selectedPartyLeader = gv.mod.playerList.Count - 1; ;
+                    }
+                    if (gv.mod.playerList[gv.mod.selectedPartyLeader].hp >= 0)
+                    {
+                        leaderFound = true;
+                    }
                 }
                 updateTraitsPanel();
             }
 
             if (keyData == Keys.Left && !showMoveKeys)
             {
-                gv.mod.selectedPartyLeader--;
-                if (gv.mod.selectedPartyLeader < 0)
+                bool leaderFound = false;
+                while (!leaderFound)
                 {
-                    gv.mod.selectedPartyLeader = gv.mod.playerList.Count - 1;
+                    gv.mod.selectedPartyLeader--;
+                    if (gv.mod.selectedPartyLeader < 0)
+                    {
+                        gv.mod.selectedPartyLeader = gv.mod.playerList.Count - 1; ;
+                    }
+                    if (gv.mod.playerList[gv.mod.selectedPartyLeader].hp >= 0)
+                    {
+                        leaderFound = true;
+                    }
                 }
                 updateTraitsPanel();
             }
 
             if (keyData == Keys.A && showMoveKeys)
             {
-                gv.mod.selectedPartyLeader--;
-                if (gv.mod.selectedPartyLeader < 0)
+                bool leaderFound = false;
+                while (!leaderFound)
                 {
-                    gv.mod.selectedPartyLeader = gv.mod.playerList.Count - 1;
+                    gv.mod.selectedPartyLeader--;
+                    if (gv.mod.selectedPartyLeader < 0)
+                    {
+                        gv.mod.selectedPartyLeader = gv.mod.playerList.Count - 1; ;
+                    }
+                    if (gv.mod.playerList[gv.mod.selectedPartyLeader].hp >= 0)
+                    {
+                        leaderFound = true;
+                    }
                 }
                 updateTraitsPanel();
             }
@@ -36830,7 +36878,7 @@ namespace IceBlink2
             {
                 //scroll log up
                 //do same for combat screen
-                //wheel
+                //wheel 
                 //int numberOfTextLinesToMove = e.Delta * SystemInformation.MouseWheelScrollLines / 120;
                 int numberOfTextLinesToMove = 1;
                 gv.mod.logFadeCounter = 120;

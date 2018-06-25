@@ -24,7 +24,9 @@ namespace IceBlink2
         public int classLevelOfSender = 0;
         public string description = "";
 	    public string spriteFilename = "held";
-	    public int durationInUnits = 0;//this is in seconds
+        public string squareIndicatorFilename = "fx_webbed";
+        public int durationInUnits = 0;//this is in seconds
+        public int durationOnSquareInUnits = 0;//this is in seconds; this is used to determine hwo the effect can linger on a square
         public int currentDurationInUnits = 0;//likely redundant, used as a check against zero tohugh!
 	    public int startingTimeInUnits = 0;//is in for player and creature
 
@@ -147,6 +149,8 @@ namespace IceBlink2
 	    public Effect DeepCopy()
 	    {
 		    Effect copy = new Effect();
+            copy.squareIndicatorFilename = this.squareIndicatorFilename;
+            copy.durationOnSquareInUnits = this.durationOnSquareInUnits;
             copy.triggeredEachStepToo = this.triggeredEachStepToo;
             copy.allowCastingWithoutRiskOfInterruption = this.allowCastingWithoutRiskOfInterruption;
             copy.allowCastingWithoutTriggeringAoO = this.allowCastingWithoutTriggeringAoO;

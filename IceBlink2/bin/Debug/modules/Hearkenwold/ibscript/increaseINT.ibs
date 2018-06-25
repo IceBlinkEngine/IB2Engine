@@ -1,2 +1,0 @@
-~ogGetCurrentPlayerIndexUsingItem(ItemUserIndex,,,)
-~osSetPlayerBaseInt(,ItemUserIndex,+,parm(0))

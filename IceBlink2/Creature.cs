@@ -269,6 +269,13 @@ namespace IceBlink2
                     return true;
                 }
             }
+            /*
+            if (this.cr_status == "Held")
+            {
+                return true;
+            }
+            */
+
             return false;
         }
         public bool isImmobile()

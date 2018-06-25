@@ -1,2 +1,0 @@
-~gaSetGlobalInt(parm(0),parm(1))
-~gaAddJournalEntryByTag(parm(2),parm(3))

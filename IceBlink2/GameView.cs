@@ -1803,7 +1803,13 @@ namespace IceBlink2
                         }
                         */
                     }
-                    if (screenType.Equals("main"))
+
+                if (keyData == Keys.Escape)
+                {
+                    this.Close();
+                }
+
+                if (screenType.Equals("main"))
                     {
                         screenMainMap.onKeyUp(keyData);
                     }

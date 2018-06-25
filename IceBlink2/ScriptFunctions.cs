@@ -10653,7 +10653,7 @@ namespace IceBlink2
             if (src is Creature)
             {
                 Creature crt = (Creature)src;
-                if ((ef.doDamage) && (ef.durationInUnits != ef.currentDurationInUnits))
+                if ((ef.doDamage))
                 {
                     #region Do Damage
                     #region Get Resistances
@@ -10777,7 +10777,7 @@ namespace IceBlink2
                     gv.cc.addFloatyText(new Coordinate(crt.combatLocX, crt.combatLocY), damageTotal + "");
                     #endregion
                 }
-                if ((ef.doHeal) && (ef.durationInUnits != ef.currentDurationInUnits))
+                if ((ef.doHeal))
                 {
                     #region Do Heal
                     #region Calculate Heal
@@ -10870,7 +10870,7 @@ namespace IceBlink2
             else //target is Player
             {
                 Player pc = (Player)src;
-                if ((ef.doDamage) && (ef.durationInUnits != ef.currentDurationInUnits))
+                if ((ef.doDamage))
                 {
                     #region Do Damage
                     #region Get Resistances
@@ -10987,7 +10987,7 @@ namespace IceBlink2
                     gv.cc.addFloatyText(new Coordinate(pc.combatLocX, pc.combatLocY), damageTotal + "");
                     #endregion
                 }
-                if ((ef.doHeal) && (ef.durationInUnits != ef.currentDurationInUnits))
+                if ((ef.doHeal))
                 {
                     #region Do Heal
                     if (pc.hp <= -20)
@@ -12044,7 +12044,7 @@ namespace IceBlink2
                     startX2 = pnt.X * gv.squareSize + (gv.squareSize / 2);
                     startY2 = pnt.Y * gv.squareSize + (gv.squareSize / 2);
                 }
-            }
+             }
 
             foreach (Coordinate coor in AoeSquaresList)
             {
@@ -12245,8 +12245,15 @@ namespace IceBlink2
                 {
 
                     #region Iterate over squares and apply effect to them
-                    int numberOfRounds = thisSpellEffect.durationInUnits / gv.mod.TimePerRound;
-                    gv.cc.addLogText("<gn>" + thisSpellEffect.name + " is applied for " + numberOfRounds + " round(s)</gn><BR>");
+                    int numberOfRounds = thisSpellEffect.durationOnSquareInUnits / gv.mod.TimePerRound;
+                    if (numberOfRounds > 0)
+                    {
+                        gv.cc.addLogText("<gn>" + thisSpellEffect.name + " is applied on squares for this round and " + numberOfRounds + " more round(s)</gn><BR>");
+                    }
+                    else
+                    {
+                        gv.cc.addLogText("<gn>" + thisSpellEffect.name + " is applied on squares until end of this round only.</gn><BR>");
+                    }
                     foreach (object target in AoeTargetsList)
                     {
                         if (target is Coordinate)
@@ -13158,8 +13165,15 @@ namespace IceBlink2
                 {
                 
                     #region Iterate over squares and apply effect to them
-                    int numberOfRounds = thisSpellEffect.durationInUnits / gv.mod.TimePerRound;
-                    gv.cc.addLogText("<gn>" + thisSpellEffect.name + " is applied for " + numberOfRounds + " round(s)</gn><BR>");
+                    int numberOfRounds = thisSpellEffect.durationOnSquareInUnits / gv.mod.TimePerRound;
+                    if (numberOfRounds > 0)
+                    {
+                        gv.cc.addLogText("<gn>" + thisSpellEffect.name + " is applied on squares for this round and " + numberOfRounds + " more round(s)</gn><BR>");
+                    }
+                    else
+                    {
+                        gv.cc.addLogText("<gn>" + thisSpellEffect.name + " is applied on squares until end of this round only.</gn><BR>");
+                    }
                     foreach (object target in AoeTargetsList)
                     {
                         if (target is Coordinate)

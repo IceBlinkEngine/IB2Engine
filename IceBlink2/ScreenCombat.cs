@@ -1,13 +1,12 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.IO;
+using System.Linq;
 using System.Windows.Forms;
 using Bitmap = SharpDX.Direct2D1.Bitmap;
 using Color = SharpDX.Color;
-using Newtonsoft.Json;
 
 namespace IceBlink2
 {
@@ -1313,11 +1312,12 @@ namespace IceBlink2
                                 }
                             }
                         }
-                        //blubb
+                            //blubb
 
-                        //switching to a system where effects last from turn they are applied to start of the target creature's next turn (multiplied with duration of effect)
-                        applyEffectsCombat(pc);
-                        applyEffectsFromSquare(pc.combatLocX, pc.combatLocY);
+                            //switching to a system where effects last from turn they are applied to start of the target creature's next turn (multiplied with duration of effect)
+                            applyEffectsFromSquare(pc.combatLocX, pc.combatLocY);
+                            applyEffectsCombat(pc, false);
+                        //applyEffectsFromSquare(pc.combatLocX, pc.combatLocY);
 
                         //tiereimpark
                         checkEndEncounter();
@@ -1566,8 +1566,9 @@ namespace IceBlink2
                         //deathAnimationLocations.Clear();
                         gv.cc.addLogText("<font color='blue'>It's the turn of " + crt.cr_name + ". </font><BR>");
                         //switching to a system where effects last from turn they are applied to start of the target creature's next turn (multiplied with duration of effect)
-                        applyEffectsCombat(crt);
                         applyEffectsFromSquare(crt.combatLocX, crt.combatLocY);
+                        applyEffectsCombat(crt, false);
+                        //applyEffectsFromSquare(crt.combatLocX, crt.combatLocY);
                         //tiereimpark
                         checkEndEncounter();
                         //change creatureIndex or currentPlayerIndex
@@ -1698,8 +1699,8 @@ namespace IceBlink2
         {
             for (int i = gv.mod.currentEncounter.effectsList.Count; i > 0; i--)
             {
-                    gv.mod.currentEncounter.effectsList[i - 1].durationInUnits -= gv.mod.TimePerRound;
-                    if (gv.mod.currentEncounter.effectsList[i - 1].durationInUnits <= 0)
+                    gv.mod.currentEncounter.effectsList[i - 1].durationOnSquareInUnits -= gv.mod.TimePerRound;
+                    if (gv.mod.currentEncounter.effectsList[i - 1].durationOnSquareInUnits <= 0)
                     {
                         gv.mod.currentEncounter.effectsList.RemoveAt(i - 1);
                     }
@@ -1708,137 +1709,458 @@ namespace IceBlink2
 
         public void applyEffectsFromSquare(int x, int y)
         {
-            foreach (Effect ef in gv.mod.currentEncounter.effectsList)
+            if (gv.mod.currentEncounter.effectsList.Count > 0)
             {
-                if (ef.combatLocX == x && ef.combatLocY == y)
+                foreach (Effect ef in gv.mod.currentEncounter.effectsList)
                 {
-                    foreach (Player pc in gv.mod.playerList)
+                    if (ef.combatLocX == x && ef.combatLocY == y)
                     {
-                        if ((pc.combatLocX == x) && (pc.combatLocY == y))
+                        foreach (Player pc in gv.mod.playerList)
                         {
-                            if (!ef.usedForUpdateStats) //not used for stat updates
+                            if ((pc.combatLocX == x) && (pc.combatLocY == y) && pc.hp > 0)
                             {
-                                gv.cc.doEffectScript(pc, ef);
-                                //todo: ad eath/ending anmations here?
-                                //freedom
-                                //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-                                if (!isPlayerTurn)
-                                {
-                                    string filename = ef.spriteFilename;
-                                    AnimationSequence newSeq = new AnimationSequence();
-                                    gv.screenCombat.animationSeqStack.Add(newSeq);
-                                    AnimationStackGroup newGroup = new AnimationStackGroup();
-                                    gv.screenCombat.animationSeqStack[0].AnimationSeq.Add(newGroup);
-                                    foreach (Coordinate coor in gv.sf.AoeSquaresList)
-                                    {
-                                        //gv.screenCombat.addEndingAnimation(newGroup, new Coordinate(gv.screenCombat.getPixelLocX(coor.X), gv.screenCombat.getPixelLocY(coor.Y)), filename);
-                                    }
-
-                                    //add floaty text  
-                                    //add death animations
-
-                                    newGroup = new AnimationStackGroup();
-                                    gv.screenCombat.animationSeqStack[0].AnimationSeq.Add(newGroup);
-                                    gv.screenCombat.deathAnimationLocations.Clear();
-                                    gv.screenCombat.blockCreatureDrawLocations.Clear();
-
-                                    foreach (Creature c in gv.mod.currentEncounter.encounterCreatureList)
-                                    {
-                                        if (c.hp <= 0)
-                                        {
-                                            Coordinate coord = new Coordinate();
-                                            coord.X = c.combatLocX;
-                                            coord.Y = c.combatLocY;
-                                            gv.screenCombat.deathAnimationLocations.Add(coord);
-                                            gv.screenCombat.blockCreatureDrawLocations.Add(coord);
-                                        }
-                                    }
-                                    foreach (Coordinate coor in gv.screenCombat.deathAnimationLocations)
-                                    {
-                                        gv.screenCombat.addDeathAnimation(newGroup, new Coordinate(gv.screenCombat.getPixelLocX(coor.X), gv.screenCombat.getPixelLocY(coor.Y)));
-                                    }
-
-                                    //gv.screenCombat.animationsOn = true;
-                                    gv.screenCombat.stepAnimationsOn = true;
-                                }
-                                //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-                            }
-                        }
-                    }
-                    foreach (Creature crtr in gv.mod.currentEncounter.encounterCreatureList)
-                    {
-                        //foreach (Coordinate coord in crtr.tokenCoveredSquares)
-                        //{
-                        ///if ((coord.X == ef.combatLocX) && (coord.Y == ef.combatLocY))
-                        if ((crtr.combatLocX == x) && (crtr.combatLocY == y))
-                        {
                                 if (!ef.usedForUpdateStats) //not used for stat updates
                                 {
-                                    gv.cc.doEffectScript(crtr, ef);
-                                //break;
-                                //todo: ad eath/ending anmations here?
-                                //freedom
-                                //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-                                if (!isPlayerTurn)
-                                {
-                                    string filename = ef.spriteFilename;
-                                    AnimationSequence newSeq = new AnimationSequence();
-                                    gv.screenCombat.animationSeqStack.Add(newSeq);
-                                    AnimationStackGroup newGroup = new AnimationStackGroup();
-                                    gv.screenCombat.animationSeqStack[0].AnimationSeq.Add(newGroup);
-                                    foreach (Coordinate coor in gv.sf.AoeSquaresList)
+
+                                    bool skip = false;
+                                    //go through creature local vars and compare with this spellEffect's affectOnly and affectNever lists
+
+                                    //when finding a matching apply never, skip
+                                    foreach (LocalImmunityString s in ef.affectNeverList)
                                     {
-                                        //gv.screenCombat.addEndingAnimation(newGroup, new Coordinate(gv.screenCombat.getPixelLocX(coor.X), gv.screenCombat.getPixelLocY(coor.Y)), filename);
-                                    }
-
-                                    //add floaty text  
-                                    //add death animations
-
-                                    newGroup = new AnimationStackGroup();
-                                    gv.screenCombat.animationSeqStack[0].AnimationSeq.Add(newGroup);
-                                    gv.screenCombat.deathAnimationLocations.Clear();
-                                    gv.screenCombat.blockCreatureDrawLocations.Clear();
-
-                                    foreach (Creature c in gv.mod.currentEncounter.encounterCreatureList)
-                                    {
-                                        if (c.hp <= 0)
+                                        foreach (string ls in pc.knownTraitsTags)
                                         {
-                                            Coordinate coord = new Coordinate();
-                                            coord.X = c.combatLocX;
-                                            coord.Y = c.combatLocY;
-                                            gv.screenCombat.deathAnimationLocations.Add(coord);
-                                            gv.screenCombat.blockCreatureDrawLocations.Add(coord);
+                                            if (s.Value.Equals(ls))
+                                            {
+                                                skip = true;
+                                                gv.cc.addLogText("<font color='yellow'>" + pc.name + " is immune to " + ef.name + "</font><BR>");
+                                                break;
+                                            }
+                                        }
+
+                                        if (skip)
+                                        {
+                                            break;
                                         }
                                     }
-                                    foreach (Coordinate coor in gv.screenCombat.deathAnimationLocations)
+
+                                    //when finding an entry in affectOnlyList, skip unless it matches
+                                    if (!skip)
                                     {
-                                        gv.screenCombat.addDeathAnimation(newGroup, new Coordinate(gv.screenCombat.getPixelLocX(coor.X), gv.screenCombat.getPixelLocY(coor.Y)));
+                                        if (ef.affectOnlyList.Count > 0)
+                                        {
+                                            skip = true;
+
+                                            foreach (LocalImmunityString s in ef.affectOnlyList)
+                                            {
+                                                foreach (string ls in pc.knownTraitsTags)
+                                                {
+                                                    if (s.Value.Equals(ls))
+                                                    {
+                                                        skip = false;
+                                                        break;
+                                                    }
+                                                }
+                                                if (skip)
+                                                {
+                                                    break;
+                                                }
+                                            }
+                                        }
                                     }
 
-                                    //gv.screenCombat.animationsOn = true;
-                                    gv.screenCombat.stepAnimationsOn = true;
+                                    if (!skip)
+                                    {
+                                        //nerdlove
+                                        #region Do Calc Save and DC
+                                        int saveChkRoll = gv.sf.RandInt(20);
+                                        int saveChk = 0;
+                                        int DC = 0;
+                                        int saveChkAdder = 0;
+                                        if (ef.saveCheckType.Equals("will"))
+                                        {
+                                            saveChkAdder = pc.will;
+                                        }
+                                        else if (ef.saveCheckType.Equals("reflex"))
+                                        {
+                                            saveChkAdder = pc.reflex;
+                                        }
+                                        else if (ef.saveCheckType.Equals("fortitude"))
+                                        {
+                                            saveChkAdder = pc.fortitude;
+                                        }
+                                        else
+                                        {
+                                            saveChkAdder = -99;
+                                        }
+                                        saveChk = saveChkRoll + saveChkAdder;
+                                        DC = ef.saveCheckDC;
+                                        #endregion
+                                        if (saveChk >= DC) //passed save check
+                                        {
+                                            //if ((ef.doBuff || ef.doDeBuff) && (currentMoves == 0))
+                                            //{
+                                                //do notshow in log
+                                            //}
+                                            //else
+                                            //{
+                                                gv.cc.addLogText("<font color='yellow'>" + pc.name + " makes successful " + ef.saveCheckType + " saving roll (" + saveChkRoll.ToString() + "+" + saveChkAdder + ">=" + DC.ToString() + ")" + " and avoids " + ef.name + " </font><BR>");
+                                            //}
+                                        }
+                                        else//failed save roll or no roll allowed
+                                        {
+                                            //failed save roll
+                                            if (saveChkAdder > -99)
+                                            {
+                                                //if ((ef.doBuff || ef.doDeBuff) && (currentMoves == 0))
+                                                //{
+                                                    //do notshow in log
+                                                //}
+                                                //else
+                                                //{
+                                                    gv.cc.addLogText("<font color='yellow'>" + pc.name + " failed " + ef.saveCheckType + " saving roll for " + ef.name + "(" + saveChkRoll.ToString() + "+" + saveChkAdder + " < " + DC.ToString() + ")" + "</font><BR>");
+                                                //}
+                                                //gv.cc.addLogText("<font color='yellow'>" + pc.name + " failed " + thisSpellEffect.saveCheckType + " saving roll against " + thisSpellEffect.name + "</font><BR>");
+                                                //gv.cc.addLogText("<font color='yellow'>" + "(" + saveChkRoll.ToString() + "+" + saveChkAdder.ToString() + "<" + DC.ToString() + ")" + "</font><BR>");
+                                            }
+                                            else//no save roll allowed
+                                            {
+                                                //gv.cc.addLogText("<font color='yellow'>" + "No saving roll allowed against longer lasting effect of " + thisSpellEffect.name + "</font><BR>");
+                                            }
+                                            int numberOfRounds = ef.durationInUnits / gv.mod.TimePerRound;
+                                            //gv.cc.addLogText("<font color='lime'>" + thisSpellEffect.name + " is applied on " + pc.name + " for " + numberOfRounds + " round(s)</font><BR>");
+
+                                            if (ef.durationInUnits > 0 || ef.doBuff || ef.doDeBuff)
+                                            {
+                                                //if ((ef.doBuff || ef.doDeBuff) && (currentMoves == 0))
+                                                //{
+                                                    //do not add as it cannot be used
+                                                //}
+                                                //else
+                                                //{
+                                                    pc.AddEffectByObject(ef, ef.classLevelOfSender);
+                                                //}
+                                            }
+                                            else
+                                             {
+                                                //if ((ef.doBuff || ef.doDeBuff) && (currentMoves == 0))
+                                                //{
+                                                    //do not add as it cannot be used
+                                                //}
+                                                //else
+                                                //{
+                                                    gv.cc.doEffectScript(pc, ef);
+                                                //}
+                                            }
+                                            //gv.cc.doEffectScript(pc, ef);
+
+                                            /*
+                                            if (ef.statusType == "Held")
+                                            {
+                                                //currentMoveOrderIndex++;
+                                                //endPcTurn(true);
+                                                if (pc.hp > 0)
+                                                {
+                                                    pc.charStatus = "Held";
+                                                }
+                                            }
+
+                                            if (ef.statusType == "Immobile")
+                                            {
+                                                currentMoves = pc.moveDistance;
+                                            }
+                                            */
+                                            
+
+                                        }
+                                    }
+
+
+                                    //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXx
+                                    //gv.cc.doEffectScript(pc, ef);
+                                    //todo: ad eath/ending anmations here?
+                                    //freedom
+                                    //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                                    if (!isPlayerTurn)
+                                    {
+                                        string filename = ef.spriteFilename;
+                                        AnimationSequence newSeq = new AnimationSequence();
+                                        gv.screenCombat.animationSeqStack.Add(newSeq);
+                                        AnimationStackGroup newGroup = new AnimationStackGroup();
+                                        gv.screenCombat.animationSeqStack[0].AnimationSeq.Add(newGroup);
+                                        foreach (Coordinate coor in gv.sf.AoeSquaresList)
+                                        {
+                                            //gv.screenCombat.addEndingAnimation(newGroup, new Coordinate(gv.screenCombat.getPixelLocX(coor.X), gv.screenCombat.getPixelLocY(coor.Y)), filename);
+                                        }
+
+                                        //add floaty text  
+                                        //add death animations
+
+                                        newGroup = new AnimationStackGroup();
+                                        gv.screenCombat.animationSeqStack[0].AnimationSeq.Add(newGroup);
+                                        gv.screenCombat.deathAnimationLocations.Clear();
+                                        gv.screenCombat.blockCreatureDrawLocations.Clear();
+
+                                        foreach (Creature c in gv.mod.currentEncounter.encounterCreatureList)
+                                        {
+                                            if (c.hp <= 0)
+                                            {
+                                                Coordinate coord = new Coordinate();
+                                                coord.X = c.combatLocX;
+                                                coord.Y = c.combatLocY;
+                                                gv.screenCombat.deathAnimationLocations.Add(coord);
+                                                gv.screenCombat.blockCreatureDrawLocations.Add(coord);
+                                            }
+                                        }
+                                        foreach (Coordinate coor in gv.screenCombat.deathAnimationLocations)
+                                        {
+                                            gv.screenCombat.addDeathAnimation(newGroup, new Coordinate(gv.screenCombat.getPixelLocX(coor.X), gv.screenCombat.getPixelLocY(coor.Y)));
+                                        }
+
+                                        //gv.screenCombat.animationsOn = true;
+                                        gv.screenCombat.stepAnimationsOn = true;
+                                    }
+                                    //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
                                 }
-                                //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
                             }
                         }
-                        //}
+                        foreach (Creature crtr in gv.mod.currentEncounter.encounterCreatureList)
+                        {
+                            //foreach (Coordinate coord in crtr.tokenCoveredSquares)
+                            //{
+                            ///if ((coord.X == ef.combatLocX) && (coord.Y == ef.combatLocY))
+                            if ((crtr.combatLocX == x) && (crtr.combatLocY == y))
+                            {
+                                if (!ef.usedForUpdateStats) //not used for stat updates
+                                {
+                                    //to do: add immunities
+                                    bool skip = false;
+                                    //go through creature local vars and compare with this spellEffect's affectOnly and affectNever lists
+
+                                    //when finding a matching apply never, skip
+                                    foreach (LocalImmunityString s in ef.affectNeverList)
+                                    {
+                                        foreach (LocalString ls in crtr.CreatureLocalStrings)
+                                        {
+                                            if (s.Value.Equals(ls.Value))
+                                            {
+                                                skip = true;
+                                                gv.cc.addLogText("<font color='yellow'>" + crtr.cr_name + " is immune to " + ef.name + "</font><BR>");
+                                                break;
+                                            }
+                                        }
+
+                                        if (skip)
+                                        {
+                                            break;
+                                        }
+                                    }
+
+                                    //when finding an entry in affectOnlyList, skip unless it matches
+                                    if (!skip)
+                                    {
+                                        if (ef.affectOnlyList.Count > 0)
+                                        {
+                                            skip = true;
+
+                                            foreach (LocalImmunityString s in ef.affectOnlyList)
+                                            {
+                                                foreach (LocalString ls in crtr.CreatureLocalStrings)
+                                                {
+                                                    if (s.Value.Equals(ls.Value))
+                                                    {
+                                                        skip = false;
+                                                        break;
+                                                    }
+                                                }
+                                                if (skip)
+                                                {
+                                                    break;
+                                                }
+                                            }
+                                        }
+                                    }
+
+                                    if (!skip)
+                                    {
+                                        //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXx
+                                        #region Do Calc Save and DC
+                                        int saveChkRoll = gv.sf.RandInt(20);
+                                        int saveChk = 0;
+                                        int DC = 0;
+                                        int saveChkAdder = 0;
+                                        if (ef.saveCheckType.Equals("will"))
+                                        {
+                                            saveChkAdder = crtr.getWill();
+                                        }
+                                        else if (ef.saveCheckType.Equals("reflex"))
+                                        {
+                                            saveChkAdder = crtr.getReflex();
+                                        }
+                                        else if (ef.saveCheckType.Equals("fortitude"))
+                                        {
+                                            saveChkAdder = crtr.getFortitude();
+                                        }
+                                        else
+                                        {
+                                            saveChkAdder = -99;
+                                        }
+                                        saveChk = saveChkRoll + saveChkAdder;
+                                        DC = ef.saveCheckDC;
+                                        #endregion
+                                        //europa
+                                        if (saveChk >= DC) //passed save check
+                                        {
+                                            //if ((ef.doBuff || ef.doDeBuff) && (creatureMoves == 0))
+                                            //{
+                                                //do not show in log as it does not work
+                                            //}
+                                            //else
+                                            //{
+                                                gv.cc.addLogText("<font color='yellow'>" + crtr.cr_name + " makes successful " + ef.saveCheckType + " saving roll (" + saveChkRoll.ToString() + "+" + saveChkAdder + ">=" + DC.ToString() + ")" + " and avoids " + ef.name + " </font><BR>");
+                                            //}
+                                            //gv.cc.addLogText("<font color='yellow'>" + "(" + thisSpellEffect.saveCheckType + " saving roll (" + saveChkRoll.ToString() + "+" + saveChkAdder + ">=" + DC.ToString() + ")" + " and avoids the longer lasting effect of" + thisSpellEffect.name + " </font><BR>");
+                                            //gv.cc.addLogText("<font color='yellow'>" + "(" + saveChkRoll.ToString() + "+" + saveChkAdder + " < " + DC.ToString() + ")" + "</font><BR>");
+                                            //gv.cc.addLogText("<font color='yellow'>" + crt.cr_name + " avoids the " + thisSpellEffect.name + " effect.</font><BR>");
+                                        }
+                                        else//failed save roll or no roll allowed
+                                        {
+                                            //failed save roll 
+                                            if (saveChkAdder > -99)
+                                            {
+                                                //if ((ef.doBuff || ef.doDeBuff) && (creatureMoves == 0))
+                                                //{
+                                                    //do not show in log as it does not work
+                                                //}
+                                                //else
+                                                //{
+                                                    gv.cc.addLogText("<font color='yellow'>" + crtr.cr_name + " failed " + ef.saveCheckType + " saving roll for " + ef.name + "(" + saveChkRoll.ToString() + "+" + saveChkAdder + " < " + DC.ToString() + ")" + "</font><BR>");
+                                                //}
+                                            }
+                                            //else//no save roll allowed
+                                            //{
+                                            //gv.cc.addLogText("<font color='yellow'>" + "No save roll against longer lasting effect of " + thisSpellEffect.name + " allowed" + "</font><BR>");
+                                            //}
+                                            int numberOfRounds = ef.durationInUnits / gv.mod.TimePerRound;
+                                            //gv.cc.addLogText("<font color='lime'>" + ef.name + " is applied on " + crtr.cr_name + " for " + numberOfRounds + " round(s)</font><BR>");
+                                            // 
+                                            if (ef.durationInUnits > 0 || ef.doBuff || ef.doDeBuff)
+                                            {
+                                                //if ((ef.doBuff || ef.doDeBuff) && (creatureMoves == 0))
+                                                //{
+                                                    //do not add as it cannot be used
+                                                //}
+                                                //else
+                                                //{
+                                                    crtr.AddEffectByObject(ef, ef.classLevelOfSender);
+                                                //}
+                                            }
+                                            else
+                                            {
+                                                //if ((ef.doBuff || ef.doDeBuff) && (creatureMoves == 0))
+                                                //{
+                                                    //do not add as it cannot be used
+                                                //}
+                                                //else
+                                                //{
+                                                    gv.cc.doEffectScript(crtr, ef);
+                                                //}
+                                            }
+                                            
+                                            /*
+                                            if (ef.statusType == "Held")
+                                            {
+                                                //currentMoveOrderIndex++;
+                                                //endCreatureTurn(crtr);
+                                                if (crtr.hp > 0)
+                                                {
+                                                    crtr.cr_status = "Held";
+                                                }
+                                            }
+
+                                            if (ef.statusType == "Immobile")
+                                            {
+                                                creatureMoves = crtr.moveDistance;
+                                            }
+                                            */
+                                            
+
+                                        }
+
+                                    }
+
+
+                                    //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXx
+
+
+
+
+                                    //gv.cc.doEffectScript(crtr, ef);
+                                    //break;
+                                    //todo: ad eath/ending anmations here?
+                                    //freedom
+                                    //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                                    if (!isPlayerTurn)
+                                    {
+                                        string filename = ef.spriteFilename;
+                                        AnimationSequence newSeq = new AnimationSequence();
+                                        gv.screenCombat.animationSeqStack.Add(newSeq);
+                                        AnimationStackGroup newGroup = new AnimationStackGroup();
+                                        gv.screenCombat.animationSeqStack[0].AnimationSeq.Add(newGroup);
+                                        foreach (Coordinate coor in gv.sf.AoeSquaresList)
+                                        {
+                                            //gv.screenCombat.addEndingAnimation(newGroup, new Coordinate(gv.screenCombat.getPixelLocX(coor.X), gv.screenCombat.getPixelLocY(coor.Y)), filename);
+                                        }
+
+                                        //add floaty text  
+                                        //add death animations
+
+                                        newGroup = new AnimationStackGroup();
+                                        gv.screenCombat.animationSeqStack[0].AnimationSeq.Add(newGroup);
+                                        gv.screenCombat.deathAnimationLocations.Clear();
+                                        gv.screenCombat.blockCreatureDrawLocations.Clear();
+
+                                        foreach (Creature c in gv.mod.currentEncounter.encounterCreatureList)
+                                        {
+                                            if (c.hp <= 0)
+                                            {
+                                                Coordinate coord = new Coordinate();
+                                                coord.X = c.combatLocX;
+                                                coord.Y = c.combatLocY;
+                                                gv.screenCombat.deathAnimationLocations.Add(coord);
+                                                gv.screenCombat.blockCreatureDrawLocations.Add(coord);
+                                            }
+                                        }
+                                        foreach (Coordinate coor in gv.screenCombat.deathAnimationLocations)
+                                        {
+                                            gv.screenCombat.addDeathAnimation(newGroup, new Coordinate(gv.screenCombat.getPixelLocX(coor.X), gv.screenCombat.getPixelLocY(coor.Y)));
+                                        }
+
+                                        //gv.screenCombat.animationsOn = true;
+                                        gv.screenCombat.stepAnimationsOn = true;
+                                    }
+                                    //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                                }
+                            }
+                            //}
+                        }
                     }
                 }
-            }
-            /*
-            for (int i = gv.mod.currentEncounter.effectsList.Count; i > 0; i--)
-            {
-                //decrement duration of all effects on the encounter map squares
-                if (gv.mod.currentEncounter.effectsList[i - 1].combatLocX == x && gv.mod.currentEncounter.effectsList[i - 1].combatLocY == y)
+                /*
+                for (int i = gv.mod.currentEncounter.effectsList.Count; i > 0; i--)
                 {
-                    gv.mod.currentEncounter.effectsList[i - 1].durationInUnits -= gv.mod.TimePerRound;
-                    if (gv.mod.currentEncounter.effectsList[i - 1].durationInUnits <= 0)
+                    //decrement duration of all effects on the encounter map squares
+                    if (gv.mod.currentEncounter.effectsList[i - 1].combatLocX == x && gv.mod.currentEncounter.effectsList[i - 1].combatLocY == y)
                     {
-                        gv.mod.currentEncounter.effectsList.RemoveAt(i - 1);
+                        gv.mod.currentEncounter.effectsList[i - 1].durationInUnits -= gv.mod.TimePerRound;
+                        if (gv.mod.currentEncounter.effectsList[i - 1].durationInUnits <= 0)
+                        {
+                            gv.mod.currentEncounter.effectsList.RemoveAt(i - 1);
+                        }
                     }
                 }
+                */
             }
-            */
         }
 
         public void applyEffectsFromSquares()
@@ -2165,17 +2487,20 @@ namespace IceBlink2
         }
         */
 
-        public void applyEffectsCombat(Creature crtr)
+        public void applyEffectsCombat(Creature crtr, bool onlyStepBasedEffects)
         {
 
-            if (crtr.hp < crtr.hpLastTurn)
+            if (!onlyStepBasedEffects)
             {
-                for (int i = crtr.cr_effectsList.Count - 1; i >= 0; i--)
+                if (crtr.hp < crtr.hpLastTurn)
                 {
-                    if (crtr.cr_effectsList[i].endEffectWhenCarrierTakesDamage)
+                    for (int i = crtr.cr_effectsList.Count - 1; i >= 0; i--)
                     {
-                        gv.cc.addLogText("<font color='yellow'>" + crtr.cr_name + "took damage and is freed from" + crtr.cr_effectsList[i].name + "</font><BR>");
-                        crtr.cr_effectsList.Remove(crtr.cr_effectsList[i]);
+                        if (crtr.cr_effectsList[i].endEffectWhenCarrierTakesDamage)
+                        {
+                            gv.cc.addLogText("<font color='yellow'>" + crtr.cr_name + "took damage and is freed from" + crtr.cr_effectsList[i].name + "</font><BR>");
+                            crtr.cr_effectsList.Remove(crtr.cr_effectsList[i]);
+                        }
                     }
                 }
             }
@@ -2185,7 +2510,7 @@ namespace IceBlink2
 
                 for (int i = crtr.cr_effectsList.Count - 1; i >= 0; i--)
                 {
-                if (crtr.cr_effectsList[i].repeatTerminalSaveEachRound)
+                if (crtr.cr_effectsList[i].repeatTerminalSaveEachRound && !onlyStepBasedEffects)
                 {
                     //sean
                     #region Do Calc Save and DC
@@ -2225,18 +2550,37 @@ namespace IceBlink2
                 }
             }
 
-                //if remaining duration <= 0, remove from list
-                for (int i = crtr.cr_effectsList.Count-1; i >= 0; i--)
+                
+                if (!onlyStepBasedEffects)
                 {
-                    if (crtr.cr_effectsList[i].durationInUnits <= 0)
+                    //if remaining duration <= 0, remove from list
+                    for (int i = crtr.cr_effectsList.Count - 1; i >= 0; i--)
                     {
-                        if (!crtr.cr_effectsList[i].isPermanent)
+                        if (crtr.cr_effectsList[i].doBuff || crtr.cr_effectsList[i].doDeBuff)
                         {
-                            gv.cc.addLogText("<font color='yellow'>" + "The " + crtr.cr_effectsList[i].name + " effect on " + crtr.cr_name + " has just ended." + " </font><BR>");
-                            crtr.cr_effectsList.RemoveAt(i);
+                            if (crtr.cr_effectsList[i].durationInUnits <= -gv.mod.TimePerRound)
+                            {
+                                if (!crtr.cr_effectsList[i].isPermanent)
+                                {
+                                    gv.cc.addLogText("<font color='yellow'>" + "The " + crtr.cr_effectsList[i].name + " effect on " + crtr.cr_name + " has just ended." + " </font><BR>");
+                                    crtr.cr_effectsList.RemoveAt(i);
+                                }
+                            }
+                        }
+                        else
+                        {
+                            if (crtr.cr_effectsList[i].durationInUnits <= 0)
+                            {
+                                if (!crtr.cr_effectsList[i].isPermanent)
+                                {
+                                    gv.cc.addLogText("<font color='yellow'>" + "The " + crtr.cr_effectsList[i].name + " effect on " + crtr.cr_name + " has just ended." + " </font><BR>");
+                                    crtr.cr_effectsList.RemoveAt(i);
+                                }
+                            }
                         }
                     }
                 }
+                
 
                 //maybe reorder all based on their order property            
                 foreach (Effect ef in crtr.cr_effectsList)
@@ -2245,11 +2589,21 @@ namespace IceBlink2
                     //ef.durationInUnits -= gv.mod.TimePerRound;
                     if ((!ef.usedForUpdateStats) && (!ef.isPermanent)) //not used for stat updates
                     {
-                        //do script for each effect
-                        gv.cc.doEffectScript(crtr, ef);
+                            //do script for each effect
+                            if (onlyStepBasedEffects)
+                            {
+                                if (ef.triggeredEachStepToo)
+                                {
+                                    gv.cc.doEffectScript(crtr, ef);
+                                }
+                            }
+                            else
+                            {
+                                gv.cc.doEffectScript(crtr, ef);
+                            }
                     }
 
-                    if (!ef.isPermanent)
+                    if (!ef.isPermanent && !onlyStepBasedEffects)
                     {
                         ef.durationInUnits -= gv.mod.TimePerRound;
                     }
@@ -2264,27 +2618,29 @@ namespace IceBlink2
             checkEndEncounter();
         }
 
-        public void applyEffectsCombat(Player pc)
+        public void applyEffectsCombat(Player pc, bool onlyStepBasedEffects)
         {
-            if (pc.hp < pc.hpLastTurn)
+            if (!onlyStepBasedEffects)
             {
-                for (int i = pc.effectsList.Count - 1; i >= 0; i--)
+                if (pc.hp < pc.hpLastTurn)
                 {
-                    if (pc.effectsList[i].endEffectWhenCarrierTakesDamage)
+                    for (int i = pc.effectsList.Count - 1; i >= 0; i--)
                     {
-                        gv.cc.addLogText("<font color='yellow'>" + pc.name + "took damage and is freed from" + pc.effectsList[i].name + "</font><BR>");
-                        pc.effectsList.Remove(pc.effectsList[i]);
+                        if (pc.effectsList[i].endEffectWhenCarrierTakesDamage)
+                        {
+                            gv.cc.addLogText("<font color='yellow'>" + pc.name + "took damage and is freed from" + pc.effectsList[i].name + "</font><BR>");
+                            pc.effectsList.Remove(pc.effectsList[i]);
+                        }
                     }
                 }
             }
-
             try
             {
 
                 //**********************************************************
                 for (int i = pc.effectsList.Count-1; i >= 0; i--)
                 {
-                    if (pc.effectsList[i].repeatTerminalSaveEachRound)
+                    if (pc.effectsList[i].repeatTerminalSaveEachRound && !onlyStepBasedEffects)
                     {
                         //sean
                         #region Do Calc Save and DC
@@ -2327,17 +2683,38 @@ namespace IceBlink2
 
                 //**********************************************************
                 //europa3
-                for (int i = pc.effectsList.Count-1; i >= 0; i--)
+                
+                if (!onlyStepBasedEffects)
                 {
-                    if (pc.effectsList[i].durationInUnits <= 0)
+                    for (int i = pc.effectsList.Count - 1; i >= 0; i--)
                     {
-                        if (!pc.effectsList[i].isPermanent)
+                        //pc.effectsList[i].durationOnSquareInUnits
+                        if (pc.effectsList[i].doBuff || pc.effectsList[i].doDeBuff)
                         {
-                            gv.cc.addLogText("<font color='yellow'>" + "The " + pc.effectsList[i].name + " effect on " + pc.name + " has just ended." + " </font><BR>");
-                            pc.effectsList.RemoveAt(i);
+                            if (pc.effectsList[i].durationInUnits <= -gv.mod.TimePerRound)
+                            {
+                                if (!pc.effectsList[i].isPermanent)
+                                {
+                                    gv.cc.addLogText("<font color='yellow'>" + "The " + pc.effectsList[i].name + " effect on " + pc.name + " has just ended." + " </font><BR>");
+                                    pc.effectsList.RemoveAt(i);
+                                }
+                            }
+                        }
+                        else
+                        {
+                            if (pc.effectsList[i].durationInUnits <= 0)
+                            {
+                                if (!pc.effectsList[i].isPermanent)
+                                {
+                                    gv.cc.addLogText("<font color='yellow'>" + "The " + pc.effectsList[i].name + " effect on " + pc.name + " has just ended." + " </font><BR>");
+                                    pc.effectsList.RemoveAt(i);
+                                }
+                            }
                         }
                     }
                 }
+                
+                
 
                 //maybe reorder all based on their order property            
                 foreach (Effect ef in pc.effectsList)
@@ -2346,14 +2723,25 @@ namespace IceBlink2
                     //ef.durationInUnits -= gv.mod.TimePerRound;
                     if ((!ef.usedForUpdateStats) && (!ef.isPermanent)) //not used for stat updates
                     {
-                        gv.cc.doEffectScript(pc, ef);
+                        if (onlyStepBasedEffects)
+                        {
+                            if (ef.triggeredEachStepToo)
+                            {
+                                gv.cc.doEffectScript(pc, ef);
+                            }
+                        }
+                        else
+                        {
+                            gv.cc.doEffectScript(pc, ef);
+                        }
                     }
 
-                    if (!ef.isPermanent)
+                    if (!ef.isPermanent && !onlyStepBasedEffects)
                     {
                         ef.durationInUnits -= gv.mod.TimePerRound;
                     }
                 }
+               
 
             }
             catch (Exception ex)
@@ -2768,9 +3156,29 @@ namespace IceBlink2
             gv.screenCombat.TargetCastPressed(pc, it);
             //gv.cc.doSpellBasedOnScriptOrEffectTag(sp, it, trg, false, false);
         }
+
         public void endPcTurn(bool endStealthMode)
         {
+            /*
+            if (currentPlayerIndex <= gv.mod.playerList.Count - 1)
+            {
+                for (int i = gv.mod.playerList[currentPlayerIndex].effectsList.Count - 1; i >= 0; i--)
+                {
+                    //pc.effectsList[i].durationOnSquareInUnits
+                    if (gv.mod.playerList[currentPlayerIndex].effectsList[i].durationInUnits <= 0)
+                    {
+                        if (!gv.mod.playerList[currentPlayerIndex].effectsList[i].isPermanent)
+                        {
+                            gv.cc.addLogText("<font color='yellow'>" + "The " + gv.mod.playerList[currentPlayerIndex].effectsList[i].name + " effect on " + gv.mod.playerList[currentPlayerIndex].name + " has just ended." + " </font><BR>");
+                            gv.mod.playerList[currentPlayerIndex].effectsList.RemoveAt(i);
+                        }
+                    }
+                }
+            }
+            */
             updateStatsAllCreatures();
+            currentMoves = 0;
+            creatureMoves = 0;
             //if (currentCombatMode != "cast")
             if ((!gv.cc.currentSelectedSpell.usesTurnToActivate && currentCombatMode == "cast") || currentCombatMode != "cast")
             {
@@ -2791,6 +3199,12 @@ namespace IceBlink2
                 if (currentPlayerIndex <= gv.mod.playerList.Count - 1)
                 {
                     Player pc = gv.mod.playerList[currentPlayerIndex];
+                    /*
+                    if (pc.charStatus == "Held" && pc.hp > 0)
+                    {
+                        pc.charStatus = "Alive";
+                    }
+                    */
                     if (pc.hp >= 0)
                     {
                         pc.hpLastTurn = pc.hp;
@@ -5160,8 +5574,24 @@ namespace IceBlink2
 
         public void endCreatureTurn(Creature crt)
         {
+            /*
+            //if remaining duration <= 0, remove from list
+            for (int i = crt.cr_effectsList.Count - 1; i >= 0; i--)
+            {
+                if (crt.cr_effectsList[i].durationInUnits <= 0)
+                {
+                    if (!crt.cr_effectsList[i].isPermanent)
+                    {
+                        gv.cc.addLogText("<font color='yellow'>" + "The " + crt.cr_effectsList[i].name + " effect on " + crt.cr_name + " has just ended." + " </font><BR>");
+                        crt.cr_effectsList.RemoveAt(i);
+                    }
+                }
+            }
+            */
             crt.targetPcTag = "none";
             updateStatsAllCreatures();
+            creatureMoves = 0;
+            currentMoves = 0;
             //store current hp of cretaure, use it at start of creature next turn to see whether damage occured in the meantime
             //if it ccured, effet prone too breaking on damage are removed from the creature
             /*
@@ -5180,7 +5610,15 @@ namespace IceBlink2
             {
                 crt.hpLastTurn = crt.hp;
             }
-
+            /*
+            if (crt.hp > 0)
+            {
+                if (crt.cr_status == "Held")
+                {
+                    crt.cr_status = "Alive";
+                }
+            }
+            */
             //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
             //remove any dead creatures
             if (!stepAnimationsOn)
@@ -5922,9 +6360,10 @@ namespace IceBlink2
                 Player pc = gv.mod.playerList[currentPlayerIndex];
                 foreach (Effect e in gv.mod.currentEncounter.effectsList)
                 {
-                    if (e.combatLocX == pc.combatLocX && e.combatLocY == pc.combatLocY && e.triggeredEachStepToo)
+                    if ( e.combatLocX == pc.combatLocX && e.combatLocY == pc.combatLocY && e.triggeredEachStepToo)
                     {
                         applyEffectsFromSquare(pc.combatLocX, pc.combatLocY);
+                        applyEffectsCombat(pc,true);
                     }
                 }
             }
@@ -5945,12 +6384,23 @@ namespace IceBlink2
                     if (e.combatLocX == crt.combatLocX && e.combatLocY == crt.combatLocY && e.triggeredEachStepToo)
                     {
                         applyEffectsFromSquare(crt.combatLocX, crt.combatLocY);
+                        applyEffectsCombat(crt, true);
                     }
+                }
+                if (crt.isHeld())
+                {
+                    endCreatureTurn(crt);
+                }
+                if (crt.isImmobile())
+                {
+                    creatureMoves = crt.moveDistance;
                 }
             }
                 triggerIndexCombat = 0;
                 doPropTriggers();
             //tiereimpark
+            //schnecke
+            //endCreatureTurn(crt);
             checkEndEncounter();
             floatyTextOn = true;
             /*
@@ -7491,9 +7941,9 @@ namespace IceBlink2
         {
             foreach (Effect ef in gv.mod.currentEncounter.effectsList)
             {
-                IbRect src = new IbRect(0, 0, gv.cc.GetFromBitmapList(ef.spriteFilename).PixelSize.Width, gv.cc.GetFromBitmapList(ef.spriteFilename).PixelSize.Width);
+                IbRect src = new IbRect(0, 0, gv.cc.GetFromBitmapList(ef.squareIndicatorFilename).PixelSize.Width, gv.cc.GetFromBitmapList(ef.squareIndicatorFilename).PixelSize.Width);
                 IbRect dst = new IbRect(getPixelLocX(ef.combatLocX), getPixelLocY(ef.combatLocY), gv.squareSize, gv.squareSize);
-                gv.DrawBitmap(gv.cc.GetFromBitmapList(ef.spriteFilename), src, dst);
+                gv.DrawBitmap(gv.cc.GetFromBitmapList(ef.squareIndicatorFilename), src, dst);
             }
         }
 
