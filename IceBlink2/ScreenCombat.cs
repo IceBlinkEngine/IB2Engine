@@ -966,7 +966,11 @@ namespace IceBlink2
             else if (gv.mod.currentEncounter.showDefaultMessageBoxAtStartOfEncounter)
             {
                 //to do: adjust to victory/loss conditions and battlefield modifiers
-                gv.sf.MessageBox("Win this battle by defeating all enemies.");
+                //gv.sf.MessageBox("Win this battle by defeating all enemies.");
+                if (gv.mod.currentEncounter.assassinationVictory)
+                {
+                    gv.sf.MessageBox("Win this battle instantly by slaying " + gv.mod.currentEncounter.assassinationTargetName + ".");
+                }
             }
 
             if (gv.mod.currentEncounter.customTextforLogTextAtStartOfEncounter != "none" && gv.mod.currentEncounter.customTextforLogTextAtStartOfEncounter != "None" && gv.mod.currentEncounter.customTextforLogTextAtStartOfEncounter != "")
@@ -5304,6 +5308,16 @@ namespace IceBlink2
                                 isHPHealing = true;
                             }
 
+                            if (sp.spellEffectTag != "none" && sp.spellEffectTag != "None" && sp.spellEffectTag != "")
+                            {
+                                effectToCheck = gv.mod.getEffectByTag(sp.spellEffectTag);
+                                if (effectToCheck.doHeal == true && effectToCheck.healHP == true)
+                                {
+                                    isHPHealing = true;
+                                   // break;
+                                }
+                            }
+
                             //if not healing, let us see if sp restoring
                             if (!isHPHealing)
                             {
@@ -5314,6 +5328,16 @@ namespace IceBlink2
                                     {
                                         isSPRestoring = true;
                                         break;
+                                    }
+                                }
+
+                                if (sp.spellEffectTag != "none" && sp.spellEffectTag != "None" && sp.spellEffectTag != "")
+                                {
+                                    effectToCheck = gv.mod.getEffectByTag(sp.spellEffectTag);
+                                    if (effectToCheck.doHeal == true && effectToCheck.healHP == false)
+                                    {
+                                        isSPRestoring = true;
+                                        //break;
                                     }
                                 }
 
@@ -5378,7 +5402,7 @@ namespace IceBlink2
                             }
                             */
                         }
-                        else if (gv.sf.SpellToCast.spellTargetType.Equals("Self"))
+                        else if (sp.spellTargetType.Equals("Self"))
                         {
                             //target is self (currently assumed that spell is a heal spell)
                             Creature targetCrt = crt;
@@ -16084,7 +16108,7 @@ namespace IceBlink2
                     }
                     else if ((pc.moveDistance - currentMoves) >= 1.0f)
                     {
-                        LeaveThreatenedCheck(pc, pc.combatLocX, pc.combatLocY);
+                        LeaveThreatenedCheck(pc, pc.combatLocX - 1, pc.combatLocY);
                         doPlayerCombatFacing(pc, pc.combatLocX - 1, pc.combatLocY);
                         pc.combatLocX--;
                         if (!pc.combatFacingLeft)
@@ -17541,7 +17565,7 @@ namespace IceBlink2
                 gv.cc.addFloatyText(new Coordinate(pc.combatLocX, pc.combatLocY), "+" + situationalModifier + " att", "yellow");
             }
 
-            int attackMod = modifier + pc.baseAttBonus + gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref).attackBonus;
+            int attackMod = modifier + pc.baseAttBonus + gv.sf.CalcAttackBonusesNoAmmo(pc);
             Item it = gv.mod.getItemByResRefForInfo(pc.AmmoRefs.resref);
             if (it != null)
             {

@@ -506,7 +506,7 @@ namespace IceBlink2
                         {
                             gv.cc.DisposeOfBitmap(ref gv.cc.bmpMap);
                             gv.cc.bmpMap = gv.cc.LoadBitmap(this.currentArea.ImageFileName);
-                        
+                         
                             //TODO gv.cc.LoadTileBitmapList();
                         
                             foreach (Prop p in this.currentArea.Props)

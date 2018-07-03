@@ -569,6 +569,8 @@ namespace IceBlink2
                             btn.Img = gv.cc.LoadBitmap("btn_small");
                             gv.cc.DisposeOfBitmap(ref btn.Img2);
                             btn.Img2 = gv.cc.LoadBitmap(sp.spellImage);
+                            gv.cc.DisposeOfBitmap(ref btn.Img3);
+                            btn.Img3 = null;
                             //gv.cc.DisposeOfBitmap(ref btn.Img3);
                             //btn.Img3 = gv.cc.LoadBitmap("mandatory_conversation_indicator");
                         }
@@ -578,6 +580,8 @@ namespace IceBlink2
                             btn.Img = gv.cc.LoadBitmap("btn_small_off");
                             gv.cc.DisposeOfBitmap(ref btn.Img2);
                             btn.Img2 = gv.cc.LoadBitmap(sp.spellImage + "_off");
+                            gv.cc.DisposeOfBitmap(ref btn.Img3);
+                            btn.Img3 = null;
 
                             if (isAvailableToLearn(sp.tag))
                             {
@@ -610,6 +614,8 @@ namespace IceBlink2
                                 btn.Img = gv.cc.LoadBitmap("btn_small"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small);	
                                 gv.cc.DisposeOfBitmap(ref btn.Img2);
                                 btn.Img2 = gv.cc.LoadBitmap(sp.spellImage);
+                                gv.cc.DisposeOfBitmap(ref btn.Img3);
+                                btn.Img3 = null;
                             }
                             else //not available to learn, turn off button
                             {

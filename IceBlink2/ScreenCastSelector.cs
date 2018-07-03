@@ -696,7 +696,7 @@ namespace IceBlink2
                             //AoO code
                             foreach (Creature crt in gv.mod.currentEncounter.encounterCreatureList)
                             {
-                                if (gv.screenCombat.CalcDistance(crt, crt.combatLocX, crt.combatLocY, getCastingPlayer().combatLocX, getCastingPlayer().combatLocY) == 1)
+                                if (gv.screenCombat.CalcDistance(crt, crt.combatLocX, crt.combatLocY, getCastingPlayer().combatLocX, getCastingPlayer().combatLocY) == 1 && !crt.isHeld())
                                 {
                                     bool playerReceivesAoOWhileCasting = true;
                                     foreach (Effect ef in getCastingPlayer().effectsList)

@@ -52,7 +52,7 @@ namespace IceBlink2
 			    IbbButton btnNew = new IbbButton(gv, 1.0f);	
 			    btnNew.Img = gv.cc.LoadBitmap("item_slot"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.item_slot);
 			    btnNew.Glow = gv.cc.LoadBitmap("btn_small_glow"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_glow);
-			    btnNew.X = ((x+5) * gv.squareSize) + (padW * (x+1)) + gv.oXshift;
+			    btnNew.X = ((x+6) * gv.squareSize) + (padW * (x+1)) + gv.oXshift;
 			    btnNew.Y = 9 * gv.squareSize + (pH * 2);
                 btnNew.Height = (int)(gv.ibbheight * gv.screenDensity);
                 btnNew.Width = (int)(gv.ibbwidthR * gv.screenDensity);	
@@ -93,17 +93,19 @@ namespace IceBlink2
 		    int sX = gv.squareSize * 1;
 		    int sY = pH * 4;
             IbRect src = new IbRect(0, 0, convoBitmap.PixelSize.Width, convoBitmap.PixelSize.Height);
-            IbRect dst = new IbRect(sX, sY, (int)(convoBitmap.PixelSize.Width * 2 * gv.screenDensity), (int)(convoBitmap.PixelSize.Height * 2 * gv.screenDensity));
+            //IbRect dst = new IbRect(sX, sY, (int)(convoBitmap.PixelSize.Width * 2 * gv.screenDensity * 1.4), (int)(convoBitmap.PixelSize.Height * 2 * gv.screenDensity * 1.4));
+            IbRect dst = new IbRect(sX - (int)(gv.squareSize * 0.5f), sY - (int)(gv.squareSize * 0.5f), (int)(gv.squareSize * 3.5f), (int)(gv.squareSize *5));
+
 
             if (convoBitmap.PixelSize.Width == convoBitmap.PixelSize.Height)
             {
-                dst = new IbRect(sX, sY, (int)(gv.squareSize * 2), (int)(gv.squareSize * 2));
+                dst = new IbRect(sX, sY, (int)(gv.squareSize * 2 *1.4), (int)(gv.squareSize * 2 * 1.4));
             }
 		    if (currentConvo.Narration)
             {
                 if (!currentConvo.NpcPortraitBitmap.Equals("")) //Narration with image
                 {
-                    dst = new IbRect((gv.screenWidth / 2) - (gv.squareSize * 4), gv.squareSize / 2, gv.squareSize * 8, gv.squareSize * 4);
+                    dst = new IbRect((gv.screenWidth / 2) - (int)(gv.squareSize * 5.7f), gv.squareSize / 2, (int)(gv.squareSize * 8 * 1.4f), (int)(gv.squareSize * 4 * 1.4f));
                 }
                 else //Narration without image
                 {
@@ -128,8 +130,9 @@ namespace IceBlink2
 	    {
             int pW = (int)((float)gv.screenWidth / 100.0f);
             int pH = (int)((float)gv.screenHeight / 100.0f);
-            int startX = gv.squareSize * 3 + (pW * 3);
-            int startY = pH * 4;
+            //int startX = gv.squareSize * 3 + (pW * 3);
+            int startX = gv.squareSize * 4 + (pW * 4) - (int)(gv.squareSize * 0.5f);
+            int startY = pH * 3 - (int)(gv.squareSize * 0.5f);
             int width = gv.screenWidth - startX - (pW * 5);
 		
 		    if (currentConvo.Narration)
@@ -138,7 +141,8 @@ namespace IceBlink2
                 {
                     //do narration with image setup
                     startX = gv.squareSize * 1;
-                    startY = gv.squareSize * 5;
+                    //startY = gv.squareSize * 5;
+                    startY = (int)(gv.squareSize * 6.6f);
                     width = gv.screenWidth - startX - startX;
                 }
                 else //Narration without image
@@ -169,11 +173,14 @@ namespace IceBlink2
 		    currentPcNodeRectList.Clear();
 
             int pH = (int)((float)gv.screenHeight / 100.0f);
-		    int pad = (int)((float)gv.screenHeight / 100.0f);
-		    int startX = gv.squareSize * 1;
-		    int sY = (int)((float)gv.screenHeight / 100.0f) * 4;
-		    int startY = gv.squareSize * 4;		
-		    int width = gv.screenWidth - startX - startX;
+            int pW = (int)((float)gv.screenWidth / 100.0f);
+            int pad = (int)((float)gv.screenHeight / 100.0f);
+		    int startX = gv.squareSize * 1 - (int)(gv.squareSize * 0.5f);
+            //int startX = gv.squareSize * 4 + (pW * 3);
+            int sY = (int)((float)gv.screenHeight / 100.0f) * 4;
+		    //int startY = gv.squareSize * 4;
+            int startY = gv.squareSize * 5 + 4*pH - (int)(gv.squareSize * 0.5f);
+            int width = gv.screenWidth - startX - startX;
 
 		    if (currentConvo.Narration)
             {

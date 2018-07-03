@@ -608,7 +608,9 @@ namespace IceBlink2
                             btn.Img = gv.cc.LoadBitmap("btn_small");
                             gv.cc.DisposeOfBitmap(ref btn.Img2);
                             btn.Img2 = gv.cc.LoadBitmap(tr.traitImage);
+                            gv.cc.DisposeOfBitmap(ref btn.Img3);
                             btn.Img3 = null;
+                            //btn.Img3 = null;
 
                             //gv.cc.DisposeOfBitmap(ref btn.Img3);
                             //btn.Img3 = gv.cc.LoadBitmap("mandatory_conversation_indicator");
@@ -676,7 +678,9 @@ namespace IceBlink2
                                 btn.Img = gv.cc.LoadBitmap("btn_small");
                                 gv.cc.DisposeOfBitmap(ref btn.Img2);
                                 btn.Img2 = gv.cc.LoadBitmap(tr.traitImage);
+                                gv.cc.DisposeOfBitmap(ref btn.Img3);
                                 btn.Img3 = null;
+                                //btn.Img3 = null;
                             }
                             else //not available to learn, turn off button
                             {

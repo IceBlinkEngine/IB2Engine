@@ -10461,7 +10461,8 @@ namespace IceBlink2
             }
             else if (!spell.spellEffectTag.Equals("none"))
             {
-                gv.sf.spGenericUsingOldSingleEffectTag(spell, source, target, outsideCombat);
+                gv.sf.spGeneric(spell, source, target, outsideCombat, logTextForCastingAction);
+                //gv.sf.spGenericUsingOldSingleEffectTag(spell, source, target, outsideCombat);
             }
 
             //WIZARD SPELLS
@@ -10822,7 +10823,10 @@ namespace IceBlink2
             }
             else if (!spell.spellEffectTag.Equals("none"))
             {
-                gv.sf.spGenericUsingOldSingleEffectTag(spell, source, target, outsideCombat);
+                string logTextForCastAction = "none";
+                //gv.sf.spGeneric(spell, source, target, outsideCombat, logTextForCastAction);
+                gv.sf.spGeneric(spell, source, target, outsideCombat, logTextForCastAction);
+                //gv.sf.spGenericUsingOldSingleEffectTag(spell, source, target, outsideCombat);
             }
 
             //WIZARD SPELLS
@@ -10983,7 +10987,9 @@ namespace IceBlink2
             }
             else if (!spell.spellEffectTag.Equals("none"))
             {
-                gv.sf.spGenericUsingOldSingleEffectTag(spell, source, target, outsideCombat);
+                string logTextForCastAction = "none";
+                gv.sf.spGeneric(spell, source, target, outsideCombat, logTextForCastAction);
+                //gv.sf.spGenericUsingOldSingleEffectTag(spell, source, target, outsideCombat);
             }
 
             //WIZARD SPELLS

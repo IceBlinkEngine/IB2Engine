@@ -1474,7 +1474,7 @@ namespace IceBlink2
             try
             {
                 IbRect src = new IbRect(0, 0, cc.ui_bg_fullscreen.PixelSize.Width, cc.ui_bg_fullscreen.PixelSize.Height);
-                IbRect dst = new IbRect(0, 0, screenWidth, screenHeight - oYshift);
+                IbRect dst = new IbRect(0, -oYshift, screenWidth, screenHeight);
                 DrawBitmap(cc.ui_bg_fullscreen, src, dst);
             }
             catch

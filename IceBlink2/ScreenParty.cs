@@ -1130,7 +1130,7 @@ namespace IceBlink2
                 }
             }
 
-            attackMod = modifier + pc.baseAttBonus + gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref).attackBonus;
+            attackMod = modifier + pc.baseAttBonus + gv.sf.CalcAttackBonusesNoAmmo(pc);
 
             //3. Calculate damage with current weapon (numberOfDiceRolled, typeOfDieRolled, dammodifier)  
             int numberOfDiceRolled = 0;
