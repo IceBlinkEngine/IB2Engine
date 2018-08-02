@@ -12,6 +12,9 @@ namespace IceBlink2
     public class Player
     {
         [JsonIgnore]
+        public string convoCode = "";
+
+        [JsonIgnore]
         public List<String> tagsOfEffectsToRemoveOnMove = new List<String>();
 
         public int powerOfThisPc = 0;

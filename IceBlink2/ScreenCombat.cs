@@ -595,6 +595,9 @@ namespace IceBlink2
                 gv.startCombatMusic();
             }
             gv.screenType = "combat";
+            gv.mod.currentEncounter.isOver = false;
+            continueTurn = false;
+            allDone = false;
             roundCounter = 1;
             //langbein
             gv.screenCombat.animationSeqStack.Clear();
@@ -980,7 +983,14 @@ namespace IceBlink2
             else if (gv.mod.currentEncounter.showDefaultMessageBoxAtStartOfEncounter)
             {
                 //to do: adjust to victory/loss conditions and battlefield modifiers
-                gv.cc.addLogText("<font color='yellow'>" + "Win this battle by defeating all enemies." + "<BR></font>");
+                if (gv.mod.currentEncounter.assassinationVictory)
+                {
+                    gv.cc.addLogText("<font color='yellow'>" + "Win this battle instantly by slaying " + gv.mod.currentEncounter.assassinationTargetName + "." + "<BR></font>");
+                }
+                else
+                {
+                    gv.cc.addLogText("<font color='yellow'>" + "Win this battle by defeating all enemies." + "<BR></font>");
+                }
             }
 
             //IBScript Setup Combat Hook (run only once)
@@ -1101,6 +1111,7 @@ namespace IceBlink2
         {
             if ((animationSeqStack.Count == 0) && (!continueTurn) && !gv.mod.currentEncounter.isOver && !allDone)
             {
+                //zulaufen
                 recalculateCreaturesShownInInitiativeBar();
                 attackAnimationFrameCounter = 0;
                 attackAnimationDelayCounter = 0;
@@ -6087,6 +6098,7 @@ namespace IceBlink2
                     gv.mod.currentEncounter.encounterCreatureRefsList.Clear();
                 }
                 */
+                //zulaufen
 
                 gv.screenType = "main";
                 gv.mod.currentEncounter.isOver = true;
@@ -6095,6 +6107,14 @@ namespace IceBlink2
                 gv.touchEnabled = true;
                 animationsOn = false;
                 stepAnimationsOn = false;
+
+                //testing
+                attackAnimationFrameCounter = 0;
+                attackAnimationDelayCounter = 0;
+                idx = 0;
+                currentMoveOrderIndex = 0;
+                currentPlayerIndex = 0;
+                creatureIndex = 0;
 
                 gv.screenCombat.animationSeqStack.Clear();
                 gv.screenCombat.deathAnimationLocations.Clear();

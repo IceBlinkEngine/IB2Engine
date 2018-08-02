@@ -235,6 +235,33 @@
         "isLightSource": false,
         "isRation": false,
         "quantity": 1
+      },
+      {
+        "resref": "torch",
+        "tag": "newTag_9931_14202",
+        "name": "Torch",
+        "canNotBeUnequipped": false,
+        "isLightSource": true,
+        "isRation": false,
+        "quantity": 1
+      },
+      {
+        "resref": "torch",
+        "tag": "newTag_9931_14203",
+        "name": "Torch",
+        "canNotBeUnequipped": false,
+        "isLightSource": true,
+        "isRation": false,
+        "quantity": 1
+      },
+      {
+        "resref": "torch",
+        "tag": "newTag_9931_14204",
+        "name": "Torch",
+        "canNotBeUnequipped": false,
+        "isLightSource": true,
+        "isRation": false,
+        "quantity": 1
       }
     ]
   }

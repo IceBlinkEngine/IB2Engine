@@ -12,6 +12,8 @@ namespace IceBlink2
     {
 	    //publicgv.modulegv.mod;
 	    public GameView gv;
+
+        public int currentLineIndex = 1;
 	
 	    public List<IbbButton> btnPartyIndex = new List<IbbButton>();
 	
@@ -39,8 +41,10 @@ namespace IceBlink2
 	    }
 
 	    public void setControlsStart()
-	    {		
-    	    int pW = (int)((float)gv.screenWidth / 100.0f);
+	    {
+            currentLineIndex = 1;
+            pcNodeGlow = 1;
+            int pW = (int)((float)gv.screenWidth / 100.0f);
 		    int pH = (int)((float)gv.screenHeight / 100.0f);
 		    int padW = gv.squareSize/6;
 
@@ -94,7 +98,7 @@ namespace IceBlink2
 		    int sY = pH * 4;
             IbRect src = new IbRect(0, 0, convoBitmap.PixelSize.Width, convoBitmap.PixelSize.Height);
             //IbRect dst = new IbRect(sX, sY, (int)(convoBitmap.PixelSize.Width * 2 * gv.screenDensity * 1.4), (int)(convoBitmap.PixelSize.Height * 2 * gv.screenDensity * 1.4));
-            IbRect dst = new IbRect(sX - (int)(gv.squareSize * 0.5f), sY - (int)(gv.squareSize * 0.5f), (int)(gv.squareSize * 3.5f), (int)(gv.squareSize *5));
+            IbRect dst = new IbRect(sX - (int)(gv.squareSize * 0.5f), sY - (int)(gv.squareSize * 0.5f) + pH, (int)(gv.squareSize * 3.5f), (int)(gv.squareSize *5));
 
 
             if (convoBitmap.PixelSize.Width == convoBitmap.PixelSize.Height)
@@ -132,7 +136,7 @@ namespace IceBlink2
             int pH = (int)((float)gv.screenHeight / 100.0f);
             //int startX = gv.squareSize * 3 + (pW * 3);
             int startX = gv.squareSize * 4 + (pW * 4) - (int)(gv.squareSize * 0.5f);
-            int startY = pH * 3 - (int)(gv.squareSize * 0.5f);
+            int startY = pH * 4 - (int)(gv.squareSize * 0.5f);
             int width = gv.screenWidth - startX - (pW * 5);
 		
 		    if (currentConvo.Narration)
@@ -179,7 +183,7 @@ namespace IceBlink2
             //int startX = gv.squareSize * 4 + (pW * 3);
             int sY = (int)((float)gv.screenHeight / 100.0f) * 4;
 		    //int startY = gv.squareSize * 4;
-            int startY = gv.squareSize * 5 + 4*pH - (int)(gv.squareSize * 0.5f);
+            int startY = gv.squareSize * 5 + 5*pH - (int)(gv.squareSize * 0.5f);
             int width = gv.screenWidth - startX - startX;
 
 		    if (currentConvo.Narration)
@@ -235,7 +239,7 @@ namespace IceBlink2
 
 	    public void onTouchConvo(MouseEventArgs e, MouseEventType.EventType eventType)
 	    {
-		    pcNodeGlow = -1;
+		    //pcNodeGlow = -1;
 		
 		    switch (eventType)
 		    {
@@ -263,7 +267,7 @@ namespace IceBlink2
 			    x = (int) e.X;
 			    y = (int) e.Y;
 				
-			    pcNodeGlow = -1;
+			    //pcNodeGlow = -1;
 			
 			    cnt = 0;
 			    foreach (IbRect r in currentPcNodeRectList)
@@ -284,8 +288,11 @@ namespace IceBlink2
 				    {
 					    if (btnPartyIndex[j].getImpact(x, y))
 					    {
-						   gv.mod.selectedPartyLeader = j;
-                           gv.screenMainMap.updateTraitsPanel();
+                            gv.screenMainMap.updateTraitsPanel();
+                            gv.mod.selectedPartyLeader = j;
+                            currentLineIndex = 1;
+                            pcNodeGlow = 1;
+                            gv.screenMainMap.updateTraitsPanel();
                             doActions = false;
 			                doConvo(parentIdNum);
 					    }
@@ -300,44 +307,139 @@ namespace IceBlink2
             if (((KeyCode == Keys.D1) || (KeyCode == Keys.NumPad1)) && (1 <= nodeIndexList.Count))
             {
                 selectedLine(0);
+                currentLineIndex = 1;
             }
             else if (((KeyCode == Keys.D2) || (KeyCode == Keys.NumPad2)) && (2 <= nodeIndexList.Count))
             {
                 selectedLine(1);
+                currentLineIndex = 2;
             }
             else if (((KeyCode == Keys.D3) || (KeyCode == Keys.NumPad3)) && (3 <= nodeIndexList.Count))
             {
                 selectedLine(2);
+                currentLineIndex = 3;
             }
             else if (((KeyCode == Keys.D4) || (KeyCode == Keys.NumPad4)) && (4 <= nodeIndexList.Count))
             {
                 selectedLine(3);
+                currentLineIndex = 4;
             }
             else if (((KeyCode == Keys.D5) || (KeyCode == Keys.NumPad5)) && (5 <= nodeIndexList.Count))
             {
                 selectedLine(4);
+                currentLineIndex = 5;
             }
             else if (((KeyCode == Keys.D6) || (KeyCode == Keys.NumPad6)) && (6 <= nodeIndexList.Count))
             {
                 selectedLine(5);
+                currentLineIndex = 6;
             }
             else if (((KeyCode == Keys.D7) || (KeyCode == Keys.NumPad7)) && (7 <= nodeIndexList.Count))
             {
                 selectedLine(6);
+                currentLineIndex = 7;
             }
             else if (((KeyCode == Keys.D8) || (KeyCode == Keys.NumPad8)) && (8 <= nodeIndexList.Count))
             {
                 selectedLine(7);
+                currentLineIndex = 8;
             }
             else if (((KeyCode == Keys.D9) || (KeyCode == Keys.NumPad9)) && (9 <= nodeIndexList.Count))
             {
                 selectedLine(8);
+                currentLineIndex = 9;
+            }
+            else if (((KeyCode == Keys.Space) || (KeyCode == Keys.Return)))
+            {
+                selectedLine(currentLineIndex-1);
+                //currentLineIndex = 9;
+            }
+            else if ((KeyCode == Keys.S) || (KeyCode == Keys.Down))
+            {
+                currentLineIndex++;
+                if (currentLineIndex > currentPcNodeRectList.Count)
+                {
+                    currentLineIndex = 1;
+                }
+                pcNodeGlow = currentLineIndex;
+            }
+            else if ((KeyCode == Keys.W) || (KeyCode == Keys.Up))
+            {
+                currentLineIndex--;
+                if (currentLineIndex < 1)
+                {
+                    currentLineIndex = currentPcNodeRectList.Count;
+                }
+                pcNodeGlow = currentLineIndex;
+            }
+
+            /*
+            if (btnPartyIndex[j].getImpact(x, y))
+            {
+                gv.mod.selectedPartyLeader = j;
+                currentLineIndex = 1;
+                pcNodeGlow = 1;
+                gv.screenMainMap.updateTraitsPanel();
+                doActions = false;
+                doConvo(parentIdNum);
+            }
+            */
+            else if ((KeyCode == Keys.D) || (KeyCode == Keys.Right))
+            {
+                //to do: dead members / unconscious members
+                //gv.mod.selectedPartyLeader++;
+                //if (gv.mod.playerList[gv.mod.selectedPartyLeader].hp <= 0 )
+                //if (gv.mod.selectedPartyLeader)
+                bool leaderFound = false;
+                while (!leaderFound)
+                {
+                    gv.mod.selectedPartyLeader++;
+                    if (gv.mod.selectedPartyLeader >= gv.mod.playerList.Count)
+                    {
+                        gv.mod.selectedPartyLeader = 0;
+                    }
+                    if (gv.mod.playerList[gv.mod.selectedPartyLeader].hp >= 0)
+                    {
+                        leaderFound = true;
+                    }
+                }
+                gv.screenMainMap.updateTraitsPanel();
+                currentLineIndex = 1;
+                pcNodeGlow = 1;
+                gv.screenMainMap.updateTraitsPanel();
+                doActions = false;
+                doConvo(parentIdNum);
+            }
+            else if ((KeyCode == Keys.A) || (KeyCode == Keys.Left))
+            {
+                //gv.mod.selectedPartyLeader--;
+                bool leaderFound = false;
+                while (!leaderFound)
+                {
+                    gv.mod.selectedPartyLeader--;
+                    if (gv.mod.selectedPartyLeader < 0)
+                    {
+                        gv.mod.selectedPartyLeader = gv.mod.playerList.Count - 1; ;
+                    }
+                    if (gv.mod.playerList[gv.mod.selectedPartyLeader].hp >= 0)
+                    {
+                        leaderFound = true;
+                    }
+                }
+                gv.screenMainMap.updateTraitsPanel();
+                currentLineIndex = 1;
+                pcNodeGlow = 1;
+                gv.screenMainMap.updateTraitsPanel();
+                doActions = false;
+                doConvo(parentIdNum);
             }
         }
 
 	    //methods
 	    public void startConvo()
         {
+            currentLineIndex = 1;
+            pcNodeGlow = 1;
             if (currentConvo.SpeakToMainPcOnly)
 		    {
                 int x = 0;
@@ -550,10 +652,13 @@ namespace IceBlink2
         {
             String selectedPcOptions = "";
             String comparePcOptions = "";
+            List<string> existingDifferentAnswerCombinations = new List<string>();
             currentNpcNode = "";
             currentPcNodeList.Clear();        
             nodeIndexList.Clear();
-        
+            pcNodeGlow = 1;
+            currentLineIndex = 1;
+
             //NPC NODE STUFF
             //if the NPC node is a link, move to the actual node
             if (currentConvo.GetContentNodeById(prntIdNum).isLink)
@@ -570,78 +675,314 @@ namespace IceBlink2
                 }
             }
             currentNpcNode = replaceText(currentConvo.GetContentNodeById(prntIdNum).conversationText);
-        
-            //PC NODE STUFF
-            //Loop through all PC nodes and check to see if they should be visible
-            int cnt = 0; 
-            int trueCount = 1;
-            foreach (ContentNode pcNode in currentConvo.GetContentNodeById(prntIdNum).subNodes)
-            {        	
-        	    bool check = nodePassesConditional(pcNode);
-                if (check == true)
-                {            	
-                    selectedPcOptions += cnt + "";
-                    nodeIndexList.Add(cnt);
-            	    String pcNodeText = replaceText(pcNode.conversationText);
-            	    currentPcNodeList.Add("<font color='lime'>" + trueCount + ") "  + "</font>" + pcNodeText);
-            	    trueCount++;
-                }
-                cnt++;
-            }
-
-            //PARTY CHAT SYSTEM other PCs NODE STUFF
-            //Iterate through all other PCs and see what node options they have and indicate if different
-            int PcIndx = 0;
-            int originalPartyLeader =gv.mod.selectedPartyLeader; //remember who was the currently selected PC to check against for diffs
-        
-            //set all Img3 bitmaps to null to turn off convo plus bubble tag
-            int cntPCs = 0;
-		    foreach (IbbButton btn in btnPartyIndex)
-		    {
-			    if (cntPCs <gv.mod.playerList.Count)
-			    {
-				    btn.Img3 = null;						
-			    }
-			    cntPCs++;
-		    }
-		
-            foreach (Player pc in gv.mod.playerList)
+            //Alterntaive system for speech bubbles
+            if (gv.mod.useAlternativeSpeechBubbleSystem)
             {
-                comparePcOptions = "";
-                gv.mod.selectedPartyLeader = PcIndx;
-                gv.screenMainMap.updateTraitsPanel();
-                if (PcIndx != originalPartyLeader)
+
+                //have six strings for convo options (six bubble pos)
+
+                //go through each living pc and save its convo options code on the pc (new property), string
+
+                //go through pcs again
+                //go through all bubble groups (strings) for this pc
+                //check wheter pc convo option (string) matches any bubble pos string already
+                //if it is: next pc
+                //if it is not:
+                //go through bubble group strings again (not nested) and add pc's convo options to first empty "" bubble pos string , then next pc
+
+                //go through pc again
+                //go thorugh bubble groups strings
+                //if pc convo option matches first bubble group string found, draw img3 with the offset that is matching this bubble group string
+
+                string posRightDown = "";
+                string posRightMiddle = "";
+                string posRightUp = "";
+                string posLeftDown = "";
+                string posLeftMiddle = "";
+                string posLeftUp = "";
+
+                //PC NODE STUFF
+                 //Loop through all PC nodes and check to see if they should be visible
+                int cnt = 0;
+                int trueCount = 1;
+                foreach (ContentNode pcNode in currentConvo.GetContentNodeById(prntIdNum).subNodes)
                 {
-                    //loop through all nodes and check to see if they should be visible
-                    int cntr = 0;
-                    foreach (ContentNode pcNode in currentConvo.GetContentNodeById(prntIdNum).subNodes)
-                    {                	
-                	    bool check = nodePassesConditional(pcNode);
-                        if (check == true)
-                        {
-                            comparePcOptions += cntr + "";
-                        }
-                        cntr++;
-                    }
-                    //compare this PC to the selectedPartyLeader's options
-                    if ((comparePcOptions.Equals(selectedPcOptions)) || pc.hp < 0)
+                    bool check = nodePassesConditional(pcNode);
+                    if (check == true)
                     {
-                	    //no new options for this PC so no plus bubble marker 
-                        btnPartyIndex[PcIndx].btnNotificationOn = false;
-                	    btnPartyIndex[PcIndx].Img3 = null;
-                    } 
-                    else //new options available so show bubble plus marker
+                        selectedPcOptions += cnt + "";
+                        nodeIndexList.Add(cnt);
+                        String pcNodeText = replaceText(pcNode.conversationText);
+                        currentPcNodeList.Add("<font color='lime'>" + trueCount + ") " + "</font>" + pcNodeText);
+                        trueCount++;
+                    }
+                    cnt++;
+                }
+
+                //PARTY CHAT SYSTEM other PCs NODE STUFF
+                //Iterate through all other PCs and see what node options they have and indicate if different
+                //int PcIndx = 0;
+                int originalPartyLeader = gv.mod.selectedPartyLeader; //remember who was the currently selected PC to check against for diffs
+
+                //set all Img3 bitmaps to null to turn off convo plus bubble tag
+                int cntPCs = 0;
+                foreach (IbbButton btn in btnPartyIndex)
+                {
+                    if (cntPCs < gv.mod.playerList.Count)
+                    {
+                        btn.Img3 = null;
+                    }
+                    cntPCs++;
+                }
+
+                //score convoCodes for each pc
+                //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                int PcIndx = 0;
+                foreach (Player pc in gv.mod.playerList)
+                {
+                    comparePcOptions = "";
+                    gv.mod.selectedPartyLeader = PcIndx;
+                    //gv.screenMainMap.updateTraitsPanel();
+                   
+                        //loop through all nodes and check to see if they should be visible
+                        int cntr = 0;
+                        foreach (ContentNode pcNode in currentConvo.GetContentNodeById(prntIdNum).subNodes)
+                        {
+                            bool check = nodePassesConditional(pcNode);
+                            if (check == true)
+                            {
+                                comparePcOptions += cntr + "";
+                            }
+                            cntr++;
+                        }
+
+                    gv.mod.playerList[PcIndx].convoCode = comparePcOptions;
+                    PcIndx++;
+                }
+
+                //return back to original selected PC after making checks for different node options available
+                gv.mod.selectedPartyLeader = originalPartyLeader;
+
+
+                //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                bool allTheSame = true;
+
+                foreach (Player pc in gv.mod.playerList)
+                {
+                    foreach (Player pc2 in gv.mod.playerList)
+                    {
+                        if (pc.convoCode != pc2.convoCode)
+                        {
+                            allTheSame = false;
+                        }
+                    }
+                }
+
+                string shortestConvoCode = "none";
+                int shortestConvoCodeLength = 100000;
+                foreach (Player pc in gv.mod.playerList)
+                {
+                    if (pc.convoCode.Length < shortestConvoCodeLength)
+                    {
+                        shortestConvoCodeLength = pc.convoCode.Length;
+                        shortestConvoCode = pc.convoCode;
+                    }
+                }
+
+                foreach (Player pc in gv.mod.playerList)
+                {
+                   if (posRightDown == pc.convoCode)
+                   {
+                        continue;
+                   }
+                    if (posRightMiddle == pc.convoCode)
+                    {
+                        continue;
+                    }
+                    if (posRightUp == pc.convoCode)
+                    {
+                        continue;
+                    }
+                    if (posLeftDown == pc.convoCode)
+                    {
+                        continue;
+                    }
+                    if (posLeftMiddle == pc.convoCode)
+                    {
+                        continue;
+                    }
+                    if (posLeftUp == pc.convoCode)
+                    {
+                        continue;
+                    }
+
+                    if ((pc.convoCode.Length <= 1) || allTheSame || pc.convoCode == shortestConvoCode)
+                    {
+                        if (posRightDown == "")
+                        { 
+                            posRightDown = pc.convoCode;
+                            continue;
+                        }
+                    }
+
+                    if (posRightMiddle == "")
+                    {
+                        posRightMiddle = pc.convoCode;
+                        continue;
+                    }
+                    if (posRightUp == "")
+                    {
+                        posRightUp = pc.convoCode;
+                        continue;
+                    }
+                    if (posLeftDown == "")
+                    {
+                        posLeftDown = pc.convoCode;
+                        continue;
+                    }
+                    if (posLeftMiddle == "")
+                    {
+                        posLeftMiddle = pc.convoCode;
+                        continue;
+                    }
+                    if (posLeftUp == "")
+                    {
+                        posLeftUp = pc.convoCode;
+                        continue;
+                    }
+                }
+                PcIndx = 0;
+                foreach (Player pc in gv.mod.playerList)
+                {
+                    if (pc.hp >= 0)
                     {
                         btnPartyIndex[PcIndx].btnNotificationOn = true;
                         gv.cc.DisposeOfBitmap(ref btnPartyIndex[PcIndx].Img3);
                         btnPartyIndex[PcIndx].Img3 = gv.cc.LoadBitmap("convoplus");
+                        
                     }
+                    //btnPartyIndex[PcIndx].Image3YOffSet = (int)(-gv.squareSize / 4f);
+                    else
+                    {
+                        gv.cc.DisposeOfBitmap(ref btnPartyIndex[PcIndx].Img3);
+                        btnPartyIndex[PcIndx].Img3 = null;
+                    }
+
+
+                    if (gv.mod.playerList[PcIndx].convoCode == posRightDown)
+                    {
+                        gv.cc.DisposeOfBitmap(ref btnPartyIndex[PcIndx].Img3);
+                        btnPartyIndex[PcIndx].Img3 = null;
+                        ///btnPartyIndex[PcIndx].Image3YOffSet = 0;
+                        //btnPartyIndex[PcIndx].Image3XOffSet = 0;
+                    }
+                    if (gv.mod.playerList[PcIndx].convoCode == posRightMiddle)
+                    {
+                        btnPartyIndex[PcIndx].Image3YOffSet = 0;
+                        btnPartyIndex[PcIndx].Image3XOffSet = 0;
+                    }
+                    if (gv.mod.playerList[PcIndx].convoCode == posRightUp)
+                    {
+                        btnPartyIndex[PcIndx].Image3YOffSet = (int)(-gv.squareSize / 4f);
+                        btnPartyIndex[PcIndx].Image3XOffSet = 0;
+                    }
+                    if (gv.mod.playerList[PcIndx].convoCode == posLeftDown)
+                    {
+                        btnPartyIndex[PcIndx].Image3YOffSet = (int)(-gv.squareSize / 2f);
+                        btnPartyIndex[PcIndx].Image3XOffSet = 0;
+                    }
+                    if (gv.mod.playerList[PcIndx].convoCode == posLeftMiddle)
+                    {
+                        btnPartyIndex[PcIndx].Image3YOffSet = 0;
+                        btnPartyIndex[PcIndx].Image3XOffSet = (int)(-gv.squareSize / 2f);
+                    }
+                    if (gv.mod.playerList[PcIndx].convoCode == posLeftMiddle)
+                    {
+                        btnPartyIndex[PcIndx].Image3YOffSet = (int)(-gv.squareSize / 4f);
+                        btnPartyIndex[PcIndx].Image3XOffSet = (int)(-gv.squareSize / 2f);
+                    }
+                    PcIndx++;
                 }
-                PcIndx++;
+
+
             }
-        
-            //return back to original selected PC after making checks for different node options available
-           gv.mod.selectedPartyLeader = originalPartyLeader;
+            //Original speech bubble system
+            else
+            {
+                //PC NODE STUFF
+                //Loop through all PC nodes and check to see if they should be visible
+                int cnt = 0; 
+                int trueCount = 1;
+                foreach (ContentNode pcNode in currentConvo.GetContentNodeById(prntIdNum).subNodes)
+                {
+                    bool check = nodePassesConditional(pcNode);
+                    if (check == true)
+                    {
+                        selectedPcOptions += cnt + "";
+                        nodeIndexList.Add(cnt);
+                        String pcNodeText = replaceText(pcNode.conversationText);
+                        currentPcNodeList.Add("<font color='lime'>" + trueCount + ") " + "</font>" + pcNodeText);
+                        trueCount++;
+                    }
+                    cnt++;
+                }
+
+                //PARTY CHAT SYSTEM other PCs NODE STUFF
+                //Iterate through all other PCs and see what node options they have and indicate if different
+                int PcIndx = 0;
+                int originalPartyLeader = gv.mod.selectedPartyLeader; //remember who was the currently selected PC to check against for diffs
+
+                //set all Img3 bitmaps to null to turn off convo plus bubble tag
+                int cntPCs = 0;
+                foreach (IbbButton btn in btnPartyIndex)
+                {
+                    if (cntPCs < gv.mod.playerList.Count)
+                    {
+                        btn.Img3 = null;
+                    }
+                    cntPCs++;
+                }
+
+                foreach (Player pc in gv.mod.playerList)
+                {
+                    comparePcOptions = "";
+                    gv.mod.selectedPartyLeader = PcIndx;
+                    gv.screenMainMap.updateTraitsPanel();
+                    if (PcIndx != originalPartyLeader)
+                    {
+                        //loop through all nodes and check to see if they should be visible
+                        int cntr = 0;
+                        foreach (ContentNode pcNode in currentConvo.GetContentNodeById(prntIdNum).subNodes)
+                        {
+                            bool check = nodePassesConditional(pcNode);
+                            if (check == true)
+                             {
+                                comparePcOptions += cntr + "";
+                            }
+                            cntr++;
+                        }
+                        //compare this PC to the selectedPartyLeader's options
+                        if ((comparePcOptions.Equals(selectedPcOptions)) || pc.hp < 0)
+                        {
+                            //no new options for this PC so no plus bubble marker 
+                            btnPartyIndex[PcIndx].btnNotificationOn = false;
+                            btnPartyIndex[PcIndx].Img3 = null;
+                        }
+                        else //new options available so show bubble plus marker
+                        {
+                            btnPartyIndex[PcIndx].btnNotificationOn = true;
+                            gv.cc.DisposeOfBitmap(ref btnPartyIndex[PcIndx].Img3);
+                            btnPartyIndex[PcIndx].Img3 = gv.cc.LoadBitmap("convoplus");
+                            //btnPartyIndex[PcIndx].Image3YOffSet = (int)(-gv.squareSize / 4f);
+                        }
+                    }
+                    PcIndx++;
+                }
+
+                //return back to original selected PC after making checks for different node options available
+                gv.mod.selectedPartyLeader = originalPartyLeader;
+            }
+
             gv.screenMainMap.updateTraitsPanel();
 
             //load node portrait and play node sound

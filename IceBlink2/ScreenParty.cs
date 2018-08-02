@@ -65,10 +65,10 @@ namespace IceBlink2
                 btnPortrait = new IbbPortrait(gv, 1.0f);
                 btnPortrait.ImgBG = gv.cc.LoadBitmap("item_slot");
                 btnPortrait.Glow = gv.cc.LoadBitmap("btn_small_glow");
-                btnPortrait.X = 2 * gv.squareSize - (pW * 2);
-                btnPortrait.Y = 1 * gv.squareSize + pH * 2;
-                btnPortrait.Height = (int)(gv.ibpheight * gv.screenDensity);
-                btnPortrait.Width = (int)(gv.ibpwidth * gv.screenDensity);
+                btnPortrait.X = (int)(0.5f * gv.squareSize) + (int)(pW * 0.75f);
+                btnPortrait.Y = (int)(0f * gv.squareSize) + pH * 2;
+                btnPortrait.Height = (int)(gv.ibpheight * gv.screenDensity * 2);
+                btnPortrait.Width = (int)(gv.ibpwidth * gv.screenDensity * 2);
             }
             if (btnToken == null)
             {
@@ -76,8 +76,8 @@ namespace IceBlink2
                 btnToken.Img = gv.cc.LoadBitmap("item_slot");
                 //btnToken.Img2 = gv.cc.LoadBitmap(pc.tokenFilename);
                 btnToken.Glow = gv.cc.LoadBitmap("btn_small_glow");
-                btnToken.X = 2 * gv.squareSize - (pW * 2);
-                btnToken.Y = 3 * gv.squareSize + pH * 2;
+                btnToken.X = (int)(1.5f * gv.squareSize) - (int)(pW * 1.5f);
+                btnToken.Y = (int)(3.5f * gv.squareSize) + pH * 4;
                 btnToken.Height = (int)(gv.ibbheight * gv.screenDensity);
                 btnToken.Width = (int)(gv.ibbwidthR * gv.screenDensity);
             }

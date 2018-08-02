@@ -276,7 +276,7 @@ namespace IceBlink2
                     Item it = gv.mod.getItemByResRefForInfo(thisItemRefs[cntSlot + (inventoryPageIndex * slotsPerPage)].resref);
 				    btn.Img2 = gv.cc.LoadBitmap(it.itemImage);
                     ItemRefs itr = thisItemRefs[cntSlot + (inventoryPageIndex * slotsPerPage)];
-                    if ((it.onUseItemCastSpellTag == "none" || it.onUseItemCastSpellTag == "") && (it.onUseItemIBScript == "none" || it.onUseItemIBScript == "") && (it.onUseItem == "none" || it.onUseItem == ""))
+                    if (((it.onUseItemCastSpellTag == "none" || it.onUseItemCastSpellTag == "") && (it.onUseItemIBScript == "none" || it.onUseItemIBScript == "") && (it.onUseItem == "none" || it.onUseItem == "")) || (itr.isLightSource))
                     {
                         //if (it.onUseItemCastSpellTag == "none" || it.onUseItemCastSpellTag == "")
                     //{

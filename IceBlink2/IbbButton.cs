@@ -27,6 +27,8 @@ namespace IceBlink2
         public string HotKey = "";
         public int X = 0;
         public int Y = 0;
+        public int Image3XOffSet = 0;
+        public int Image3YOffSet = 0;
         public int Width = 0;
         public int Height = 0;
         public float scaler = 1.0f;
@@ -77,8 +79,8 @@ namespace IceBlink2
             {
                 src3 = new IbRect(0, 0, this.Img3.PixelSize.Width, this.Img3.PixelSize.Width);
             }
-            IbRect dst = new IbRect(this.X, this.Y, (int)((float)this.Img.PixelSize.Width * gv.screenDensity), (int)((float)this.Img.PixelSize.Height * gv.screenDensity));
 
+            IbRect dst = new IbRect(this.X, this.Y, (int)((float)this.Img.PixelSize.Width * gv.screenDensity), (int)((float)this.Img.PixelSize.Height * gv.screenDensity));
             IbRect srcGlow = new IbRect(0, 0, this.Glow.PixelSize.Width, this.Glow.PixelSize.Height);
             IbRect dstGlow = new IbRect(this.X - (int)(7 * gv.screenDensity), 
                                         this.Y - (int)(7 * gv.screenDensity), 
@@ -115,6 +117,8 @@ namespace IceBlink2
             //draw the notification image if turned on (like a level up or additional convo nodes image)
             if ((this.btnNotificationOn) && (this.Img3 != null))
             {
+                dst.Left += this.Image3XOffSet;
+                dst.Top += this.Image3YOffSet;
                 gv.DrawBitmap(this.Img3, src3, dst);
             }
 

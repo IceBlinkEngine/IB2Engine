@@ -100,6 +100,21 @@ namespace IceBlink2
 
         public void Draw(IB2Panel parentPanel)
         {
+            if (!gv.mod.useComplexCoordinateSystem && (this.tag == "btnZoom" || this.tag == "btnTorch" || this.tag == "btnRation"))
+            {
+                this.show = false;
+            }
+
+            if (!gv.mod.useRationSystem && this.tag == "btnRation")
+            {
+                this.show = false;
+            }
+
+            if (!gv.mod.useLightSystem && this.tag == "btnRation")
+            {
+                this.show = false;
+            }
+
             if (show)
             {
                 int pH = (int)((float)gv.screenHeight / 200.0f);
@@ -173,12 +188,43 @@ namespace IceBlink2
                     ulY = ((Height * gv.screenDensity));
                 }
 
-                for (int x = -2; x <= 2; x++)
+                if (this.tag == "btnZoom")
+                {
+                    if (gv.mod.currentArea.useSuperTinyProps)
+                    {
+                        Text = "Far";
+                    }
+                    else if (gv.mod.currentArea.useMiniProps)
+                    {
+                        Text = "Medium";
+                    }
+                    else
+                    {
+                        Text = "Close";
+                    }
+                }
+
+                if (this.tag == "btnTorch")
+                {
+                    int numberOfLightSources = 0;
+                    foreach (ItemRefs ir in gv.mod.partyInventoryRefsList)
+                    {
+                        if (ir.isLightSource)
+                        {
+                            numberOfLightSources += ir.quantity;
+                        }
+                    }
+
+                    Text = numberOfLightSources.ToString();
+                }
+
+                    for (int x = -2; x <= 2; x++)
                 {
                     for (int y = -2; y <= 2; y++)
                     {
                         int xLoc = (int)((parentPanel.currentLocX + this.X) * gv.screenDensity + ulX + x);
                         int yLoc = (int)((parentPanel.currentLocY + this.Y) * gv.screenDensity + ulY + y);
+                       
                         gv.DrawText(Text, xLoc, yLoc, scaler, Color.Black);
                     }
                 }
@@ -192,6 +238,18 @@ namespace IceBlink2
                 //place in the bottom right quadrant
                 ulX = (((Width * gv.screenDensity) - stringSize) / 8) * 7;
                 ulY = (((Height * gv.screenDensity) - thisFontHeight) / 8) * 7;
+                if (this.tag == "btnZoom")
+                {
+                    Quantity = gv.mod.currentArea.TimePerSquare + " min";
+                }
+                if (this.tag == "btnTorch")
+                {
+                    Quantity = gv.mod.currentLightUnitsLeft.ToString();
+                }
+                if (this.tag == "btnRation")
+                {
+                    Quantity = gv.mod.numberOfRationsRemaining.ToString();
+                }
 
                 for (int x = -2; x <= 2; x++)
                 {
@@ -204,7 +262,66 @@ namespace IceBlink2
                 }
                 int xLoc2 = (int)((parentPanel.currentLocX + this.X) * gv.screenDensity + ulX);
                 int yLoc2 = (int)((parentPanel.currentLocY + this.Y) * gv.screenDensity + ulY);
-                gv.DrawText(Quantity, xLoc2, yLoc2, scaler, Color.White);
+                if (this.tag == "btnTorch" && gv.mod.partyLightOn)
+                {
+                    int dawn = 5 * 60;
+                    int sunrise = 6 * 60;
+                    int day = 7 * 60;
+                    int sunset = 17 * 60;
+                    int dusk = 18 * 60;
+                    int night = 20 * 60;
+                    int time = gv.mod.WorldTime % 1440;
+
+                    bool consumeLightEnergy = false;
+                    if ((time >= dawn) && (time < sunrise))
+                    {
+                        //gv.DrawBitmap(gv.cc.tint_dawn, src, dst, 0, false, 1.0f / flickerReduction * flicker / 100f);
+                        //gv.DrawBitmap(gv.cc.tint_dawn, src, dst, 0, false, 1.0f);
+                    }
+                    else if ((time >= sunrise) && (time < day))
+                    {
+                        //gv.DrawBitmap(gv.cc.tint_sunrise, src, dst, 0, false, 1.0f);
+                    }
+                    else if ((time >= day) && (time < sunset))
+                    {
+                        //no tint for day
+                    }
+                    else if ((time >= sunset) && (time < dusk))
+                    {
+                        //gv.DrawBitmap(gv.cc.tint_sunset, src, dst, 0, false, 1.0f);
+                    }
+                    else if ((time >= dusk) && (time < night))
+                    {
+                        //gv.DrawBitmap(gv.cc.tint_dusk, src, dst, 0, false, 1.0f);
+                    }
+                    else if ((time >= night) || (time < dawn))
+                    {
+                        //berlin
+                        consumeLightEnergy = true;
+                    }
+
+                    if (!gv.mod.currentArea.UseDayNightCycle)
+                    {
+                        consumeLightEnergy = true;
+                    }
+
+                    if (!gv.mod.currentArea.useLightSystem)
+                    {
+                        consumeLightEnergy = false;
+                    }
+                    if (consumeLightEnergy)
+                    {
+                        gv.DrawText(Quantity, xLoc2, yLoc2, scaler, Color.Yellow);
+                    }
+                    else
+                    {
+                        gv.DrawText(Quantity, xLoc2, yLoc2, scaler, Color.White);
+                    }
+                }
+                else
+                {
+                    gv.DrawText(Quantity, xLoc2, yLoc2, scaler, Color.White);
+                }
 
                 // DRAW HOTKEY
                 if (gv.showHotKeys)

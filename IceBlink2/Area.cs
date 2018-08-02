@@ -13,10 +13,15 @@ namespace IceBlink2
 {
     public class Area 
     {
-        //public string rememberedWeatherName = "";
-        //public float rememberedWeatherDuration = 0;
-        //public float skyCoverCloudsChance = 0;
-        //public float skyCoverSeveriy
+        public string zoneMotherAreaName = "none";
+        public int zoneMotherAreaX = 0;
+        public int zoneMotherAreaY = 0;
+        //public int zoneMotherAreaFloorLevel = 0;
+
+        public string zoneName = "none";
+        public int zoneX = 0;
+        public int zoneY = 0;
+        public int zoneFloorLevel = 0;
 
         public int linkedAreasCounter = 0;
         public string masterOfThisArea = "none";
@@ -1131,7 +1136,7 @@ namespace IceBlink2
                 }
             }
             return false;
-        }
+        }   
         public Trigger getTriggerByLocation(int x, int y)
         {
             foreach (Trigger t in this.Triggers)

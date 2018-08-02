@@ -14,6 +14,12 @@ namespace IceBlink2
     public class Module
     {
 
+        public bool useLightSystem = true; 
+
+        public bool useComplexCoordinateSystem = false;
+
+        public bool useAlternativeSpeechBubbleSystem = true;
+
         public bool realTimeTimerStopped = false;
 
         public int poorVisionModifier = 0;

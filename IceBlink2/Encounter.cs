@@ -14,6 +14,9 @@ namespace IceBlink2
     public class Encounter 
     {
 
+        public int challengeLevel = 1;
+        public bool challengeHidden = false;
+
         //Victory conditions
         //Assassination
         public bool assassinationVictory = false;

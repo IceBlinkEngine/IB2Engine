@@ -28333,51 +28333,143 @@ namespace IceBlink2
                                 IbRect dst = new IbRect(x + gv.oXshift + mapStartLocXinPixels - dstXshift, y - dstYshift, dstW, dstH);
 
                                 //adjust size of props
-                                if (gv.mod.currentArea.useSuperTinyProps)
+                                if (gv.mod.currentArea.useSuperTinyProps && !p.alwaysDrawNormalSize)
                                 {
-                                    dst = new IbRect((int)p.currentPixelPositionX + (int)(gv.squareSize * 3 / 8) - dstXshift, (int)p.currentPixelPositionY + (int)(gv.squareSize * 3 / 8) - dstYshift, (int)(dstW / 4), (int)(dstH / 4));
+                                    //dst = new IbRect((int)p.currentPixelPositionX + (int)(gv.squareSize * 3 / 8) - dstXshift, (int)p.currentPixelPositionY + (int)(gv.squareSize * 3 / 8) - dstYshift, (int)(dstW / 4), (int)(dstH / 4));
+                                    dst = new IbRect(x + (int)(gv.squareSize * 5 / 8) - dstXshift - (int)(((dstW / 4) * 0.375f)), y + (int)(gv.squareSize * 3 / 8) - dstYshift - (int)(((dstH / 4) * 0.375f)), (int)((dstW / 4)*1.75f), (int)((dstH / 4)*1.75f));
+
                                 }
-                                else if (gv.mod.currentArea.useMiniProps)
+                                else if (gv.mod.currentArea.useMiniProps && !p.alwaysDrawNormalSize)
                                 {
-                                    dst = new IbRect((int)p.currentPixelPositionX + (int)(gv.squareSize / 4) - dstXshift, (int)p.currentPixelPositionY + (int)(gv.squareSize / 4) - dstYshift, (int)(dstW / 2), (int)(dstH / 2));
+                                    //dst = new IbRect((int)p.currentPixelPositionX + (int)(gv.squareSize / 4) - dstXshift, (int)p.currentPixelPositionY + (int)(gv.squareSize / 4) - dstYshift, (int)(dstW / 2), (int)(dstH / 2));
+                                    dst = new IbRect(x + (int)(gv.squareSize / 2 ) - dstXshift - (int)(((dstW / 2) * 0.15f)), y + (int)(gv.squareSize / 4) - dstYshift - (int)(((dstH / 2) * 0.15f)), (int)((dstW / 2)*1.3f), (int)((dstH / 2)*1.3f));
+
                                 }
 
                                 //draw the prop
                                 if (((p.maxNumberOfFrames == 1) || (p.drawAnimatedProp)) && ((!p.isMover) || relevantIndices[i] != currentAreaIndex))
                                 {
                                     gv.DrawBitmap(gv.mod.loadedTileBitmaps[indexOfLoadedTile], src, dst, !p.PropFacingLeft, p.opacity);
+                                    //}
+
+                                    //for shwoign whetehr prop is encounte,r optional or mandatory conversation
+                                    if (gv.mod.showInteractionState == true)
+                                    {//6
+                                        if (!p.EncounterWhenOnPartySquare.Equals("none"))
+                                        {
+                                            Bitmap interactionStateIndicator = gv.cc.LoadBitmap("encounter_indicator");
+                                            src = new IbRect(0, 0, interactionStateIndicator.PixelSize.Width, interactionStateIndicator.PixelSize.Height);
+                                            gv.DrawBitmap(interactionStateIndicator, src, dst);
+                                            gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
+                                            //continue;
+                                        }
+
+                                        else if (p.unavoidableConversation)
+                                        {
+                                            Bitmap interactionStateIndicator = gv.cc.LoadBitmap("mandatory_conversation_indicator");
+                                            src = new IbRect(0, 0, interactionStateIndicator.PixelSize.Width, interactionStateIndicator.PixelSize.Height);
+                                            gv.DrawBitmap(interactionStateIndicator, src, dst);
+                                            gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
+                                            //continue;
+                                        }
+
+                                        else if (!p.ConversationWhenOnPartySquare.Equals("none"))
+                                        {
+                                            Bitmap interactionStateIndicator = gv.cc.LoadBitmap("optional_conversation_indicator");
+                                            src = new IbRect(0, 0, interactionStateIndicator.PixelSize.Width, interactionStateIndicator.PixelSize.Height);
+                                            gv.DrawBitmap(interactionStateIndicator, src, dst);
+                                            gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
+                                            //continue;
+                                        }
+
+
+
+                                    }//6
+
+                                    int partyLevelAverage = 0;
+                                    foreach (Player pc in gv.mod.playerList)
+                                    {
+                                        partyLevelAverage += pc.classLevel;
+                                    }
+
+                                    partyLevelAverage = (int)(partyLevelAverage / gv.mod.playerList.Count);
+
+                                    int numberOfSkulls = 0;
+
+                                    if (p.EncounterWhenOnPartySquare != "none" && p.EncounterWhenOnPartySquare != "")
+                                    {
+                                        foreach (Encounter enc in gv.mod.moduleEncountersList)
+                                        {
+                                            if (enc.encounterName == p.EncounterWhenOnPartySquare)
+                                            {
+                                                if (enc.challengeLevel > (partyLevelAverage + 5))
+                                                {
+                                                    numberOfSkulls = 3;
+                                                }
+                                                else if (enc.challengeLevel > (partyLevelAverage + 3))
+                                                {
+                                                    numberOfSkulls = 2;
+                                                }
+                                                else if (enc.challengeLevel > (partyLevelAverage + 1))
+                                                {
+                                                    numberOfSkulls = 1;
+                                                }
+                                            }
+                                        }
+                                    }
+                                    bool drawChallengeHidden = false;
+                                    if (p.EncounterWhenOnPartySquare != "none" && p.EncounterWhenOnPartySquare != "")
+                                    {
+                                        foreach (Encounter enc in gv.mod.moduleEncountersList)
+                                        {
+                                            if (enc.encounterName == p.EncounterWhenOnPartySquare)
+                                            {
+                                                if (enc.challengeHidden)
+                                                {
+                                                    numberOfSkulls = 0;
+                                                    drawChallengeHidden = true;
+                                                }
+                                                break;
+                                            }
+                                        }
+                                    }
+
+                                    if (drawChallengeHidden)
+                                    {
+                                        int shift = 0;
+                                        Bitmap interactionStateIndicator = gv.cc.LoadBitmap("challengeHidden");
+                                        src = new IbRect(0, 0, interactionStateIndicator.PixelSize.Width, interactionStateIndicator.PixelSize.Height);
+                                        IbRect dstSkull = new IbRect();
+                                        dstSkull.Height = (int)(dst.Height / 2);
+                                        dstSkull.Width = (int)(dst.Width / 2);
+                                        dstSkull.Left = dst.Left;
+                                        dstSkull.Top = dst.Top - (int)(dst.Height / 3);
+                                        shift = 1 * (int)(dst.Width / 4);
+                                        dstSkull.Left += shift;
+                                        gv.DrawBitmap(interactionStateIndicator, src, dstSkull);
+                                        gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
+                                    }
+                                    if (numberOfSkulls > 0)
+                                    {
+                                        int shift = 0;
+                                        for (int i2 = 0; i2 < numberOfSkulls; i2++)
+                                        {
+
+                                            Bitmap interactionStateIndicator = gv.cc.LoadBitmap("challengeSkull");
+                                            src = new IbRect(0, 0, interactionStateIndicator.PixelSize.Width, interactionStateIndicator.PixelSize.Height);
+                                            IbRect dstSkull = new IbRect();
+                                            dstSkull.Height = (int)(dst.Height / 3);
+                                            dstSkull.Width = (int)(dst.Width / 3);
+                                            dstSkull.Left = dst.Left;
+                                            dstSkull.Top = dst.Top - (int)(dst.Height / 3 / 2);
+                                            shift = i2 * (int)(dst.Width / 3);
+                                            dstSkull.Left += shift;
+                                            gv.DrawBitmap(interactionStateIndicator, src, dstSkull);
+                                            gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
+                                        }
+                                    }
                                 }
 
-                                //for shwoign whetehr prop is encounte,r optional or mandatory conversation
-                                if (gv.mod.showInteractionState == true)
-                                {//6
-                                    if (!p.EncounterWhenOnPartySquare.Equals("none"))
-                                    {
-                                        Bitmap interactionStateIndicator = gv.cc.LoadBitmap("encounter_indicator");
-                                        src = new IbRect(0, 0, interactionStateIndicator.PixelSize.Width, interactionStateIndicator.PixelSize.Height);
-                                        gv.DrawBitmap(interactionStateIndicator, src, dst);
-                                        gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
-                                        //continue;
-                                    }
-
-                                    else if (p.unavoidableConversation)
-                                    {
-                                        Bitmap interactionStateIndicator = gv.cc.LoadBitmap("mandatory_conversation_indicator");
-                                        src = new IbRect(0, 0, interactionStateIndicator.PixelSize.Width, interactionStateIndicator.PixelSize.Height);
-                                        gv.DrawBitmap(interactionStateIndicator, src, dst);
-                                        gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
-                                        //continue;
-                                    }
-
-                                    else if (!p.ConversationWhenOnPartySquare.Equals("none"))
-                                    {
-                                        Bitmap interactionStateIndicator = gv.cc.LoadBitmap("optional_conversation_indicator");
-                                        src = new IbRect(0, 0, interactionStateIndicator.PixelSize.Width, interactionStateIndicator.PixelSize.Height);
-                                        gv.DrawBitmap(interactionStateIndicator, src, dst);
-                                        gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
-                                        //continue;
-                                    }
-                                }//6
                             }//5
 
                             p.LocationX = backupLocationX;
@@ -28495,13 +28587,15 @@ namespace IceBlink2
                             IbRect src = new IbRect(0, framePosition * p.propFrameHeight, p.token.PixelSize.Width, p.propFrameHeight);
                             IbRect dst = new IbRect(x + gv.oXshift + mapStartLocXinPixels - dstXshift, y - dstYshift, dstW, dstH);
 
-                            if (gv.mod.currentArea.useSuperTinyProps)
+                            if (gv.mod.currentArea.useSuperTinyProps && !p.alwaysDrawNormalSize)
                             {
-                                dst = new IbRect((int)p.currentPixelPositionX + (int)(gv.squareSize * 3 / 8) - dstXshift, (int)p.currentPixelPositionY + (int)(gv.squareSize * 3 / 8) - dstYshift, (int)(dstW / 4), (int)(dstH / 4));
+                                //dst = new IbRect((int)p.currentPixelPositionX + (int)(gv.squareSize * 3 / 8) - dstXshift, (int)p.currentPixelPositionY + (int)(gv.squareSize * 3 / 8) - dstYshift, (int)(dstW / 4), (int)(dstH / 4));
+                                dst = new IbRect(x + (int)(gv.squareSize * 5 / 8) - dstXshift - (int)(((dstW / 4) * 0.375f)), y + (int)(gv.squareSize * 3 / 8) - dstYshift - (int)(((dstH / 4) * 0.375f)), (int)((dstW / 4) * 1.75f), (int)((dstH / 4) * 1.75f));
+
                             }
-                            else if (gv.mod.currentArea.useMiniProps)
+                            else if (gv.mod.currentArea.useMiniProps && !p.alwaysDrawNormalSize)
                             {
-                                dst = new IbRect((int)p.currentPixelPositionX + (int)(gv.squareSize / 4) - dstXshift, (int)p.currentPixelPositionY + (int)(gv.squareSize / 4) - dstYshift, (int)(dstW / 2), (int)(dstH / 2));
+                                dst = new IbRect((int)p.currentPixelPositionX + (int)(gv.squareSize / 4) - dstXshift - (int)(((dstW / 2) * 0.15f)), (int)p.currentPixelPositionY + (int)(gv.squareSize / 4) - dstYshift - (int)(((dstH / 2) * 0.15f)), (int)((dstW / 2)*1.3f), (int)((dstH / 2)*1.3f));
                             }
                             if ((p.maxNumberOfFrames == 1) || (p.drawAnimatedProp))
                             {
@@ -28537,6 +28631,91 @@ namespace IceBlink2
                                     //continue;
                                 }
                             }
+
+                            
+                            int partyLevelAverage = 0;
+                            foreach (Player pc in gv.mod.playerList)
+                            {
+                                partyLevelAverage += pc.classLevel;
+                            }
+
+                            partyLevelAverage = (int)(partyLevelAverage / gv.mod.playerList.Count);
+
+                            int numberOfSkulls = 0;
+
+                            if (p.EncounterWhenOnPartySquare != "none" && p.EncounterWhenOnPartySquare != "")
+                            {
+                                foreach (Encounter enc in gv.mod.moduleEncountersList)
+                                {
+                                    if (enc.encounterName == p.EncounterWhenOnPartySquare)
+                                    {
+                                        if (enc.challengeLevel > (partyLevelAverage + 5))
+                                        {
+                                            numberOfSkulls = 3;
+                                        }
+                                        else if (enc.challengeLevel > (partyLevelAverage + 3))
+                                        {
+                                            numberOfSkulls = 2;
+                                        }
+                                        else if (enc.challengeLevel > (partyLevelAverage + 1))
+                                        {
+                                            numberOfSkulls = 1;
+                                        }
+                                    }
+                                }
+                            }
+                            bool drawChallengeHidden = false;
+                            if (p.EncounterWhenOnPartySquare != "none" && p.EncounterWhenOnPartySquare != "")
+                            {
+                                foreach (Encounter enc in gv.mod.moduleEncountersList)
+                                {
+                                    if (enc.encounterName == p.EncounterWhenOnPartySquare)
+                                    {
+                                        if (enc.challengeHidden)
+                                        {
+                                            numberOfSkulls = 0;
+                                            drawChallengeHidden = true;
+                                        }
+                                        break;
+                                    }
+                                }
+                            }
+
+                            if (drawChallengeHidden)
+                            {
+                                int shift = 0;
+                                Bitmap interactionStateIndicator = gv.cc.LoadBitmap("challengeHidden");
+                                src = new IbRect(0, 0, interactionStateIndicator.PixelSize.Width, interactionStateIndicator.PixelSize.Height);
+                                IbRect dstSkull = new IbRect();
+                                dstSkull.Height = (int)(dst.Height / 2);
+                                dstSkull.Width = (int)(dst.Width / 2);
+                                dstSkull.Left = dst.Left;
+                                dstSkull.Top = dst.Top - (int)(dst.Height / 3);
+                                shift = 1 * (int)(dst.Width / 4);
+                                dstSkull.Left += shift;
+                                gv.DrawBitmap(interactionStateIndicator, src, dstSkull);
+                                gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
+                            }
+                            if (numberOfSkulls > 0)
+                            {
+                                int shift = 0;
+                                for (int i = 0; i < numberOfSkulls; i++)
+                                {
+
+                                    Bitmap interactionStateIndicator = gv.cc.LoadBitmap("challengeSkull");
+                                    src = new IbRect(0, 0, interactionStateIndicator.PixelSize.Width, interactionStateIndicator.PixelSize.Height);
+                                    IbRect dstSkull = new IbRect(); 
+                                    dstSkull.Height = (int)(dst.Height / 3);
+                                    dstSkull.Width = (int)(dst.Width / 3);
+                                    dstSkull.Left = dst.Left;
+                                    dstSkull.Top = dst.Top - (int)(dst.Height / 3 / 2);
+                                    shift = i * (int)(dst.Width / 3);
+                                    dstSkull.Left += shift;
+                                    gv.DrawBitmap(interactionStateIndicator, src, dstSkull);
+                                    gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
+                                }
+                            }
+                            
                         }
                     }
                 }
@@ -28972,13 +29151,16 @@ namespace IceBlink2
                                     IbRect dst = new IbRect(x + gv.oXshift + mapStartLocXinPixels - dstXshift, y - dstYshift, dstW, dstH);
 
                                     //adjust size of props
-                                    if (gv.mod.currentArea.useSuperTinyProps)
+                                    if (gv.mod.currentArea.useSuperTinyProps && !p.alwaysDrawNormalSize)
                                     {
-                                        dst = new IbRect((int)p.currentPixelPositionX + (int)(gv.squareSize * 3 / 8) - dstXshift, (int)p.currentPixelPositionY + (int)(gv.squareSize * 3 / 8) - dstYshift, (int)(dstW / 4), (int)(dstH / 4));
+
+                                       //dst = new IbRect((int)p.currentPixelPositionX + (int)(gv.squareSize * 3 / 8) - dstXshift, (int)p.currentPixelPositionY + (int)(gv.squareSize * 3 / 8) - dstYshift, (int)(dstW / 4), (int)(dstH / 4));
+                                        dst = new IbRect((int)p.currentPixelPositionX + (int)(gv.squareSize * 3 / 8) - dstXshift + (int)p.roamDistanceX - (int)(((dstW / 4) * 0.3375f)), (int)p.currentPixelPositionY + (int)(gv.squareSize * 3 / 8) - dstYshift + +(int)p.roamDistanceY - (int)(((dstH / 4) * 0.3375f)), (int)((dstW / 4) * 1.675f), (int)((dstH / 4) * 1.675f));
+
                                     }
-                                    else if (gv.mod.currentArea.useMiniProps)
+                                    else if (gv.mod.currentArea.useMiniProps && !p.alwaysDrawNormalSize)
                                     {
-                                        dst = new IbRect((int)p.currentPixelPositionX + (int)(gv.squareSize / 4) - dstXshift, (int)p.currentPixelPositionY + (int)(gv.squareSize / 4) - dstYshift, (int)(dstW / 2), (int)(dstH / 2));
+                                        dst = new IbRect((int)p.currentPixelPositionX + (int)(gv.squareSize / 4) - dstXshift - (int)(((dstW / 2) * 0.15f)), (int)p.currentPixelPositionY + (int)(gv.squareSize / 4) - dstYshift - (int)(((dstH / 2) * 0.15f)), (int)((dstW / 2)*1.3f), (int)((dstH / 2)*1.3f));
                                     }
 
                                     //draw the prop
@@ -29017,6 +29199,88 @@ namespace IceBlink2
                                             //continue;
                                         }
                                     }//6
+                                    int partyLevelAverage = 0;
+                                    foreach (Player pc in gv.mod.playerList)
+                                    {
+                                        partyLevelAverage += pc.classLevel;
+                                    }
+
+                                    partyLevelAverage = (int)(partyLevelAverage / gv.mod.playerList.Count);
+
+                                    int numberOfSkulls = 0;
+
+                                    if (p.EncounterWhenOnPartySquare != "none" && p.EncounterWhenOnPartySquare != "")
+                                    {
+                                        foreach (Encounter enc in gv.mod.moduleEncountersList)
+                                        {
+                                            if (enc.encounterName == p.EncounterWhenOnPartySquare)
+                                            {
+                                                if (enc.challengeLevel > (partyLevelAverage + 5))
+                                                {
+                                                    numberOfSkulls = 3;
+                                                }
+                                                else if (enc.challengeLevel > (partyLevelAverage + 3))
+                                                {
+                                                    numberOfSkulls = 2;
+                                                }
+                                                else if (enc.challengeLevel > (partyLevelAverage + 1))
+                                                {
+                                                    numberOfSkulls = 1;
+                                                }
+                                            }
+                                        }
+                                    }
+                                    bool drawChallengeHidden = false;
+                                    if (p.EncounterWhenOnPartySquare != "none" && p.EncounterWhenOnPartySquare != "")
+                                    {
+                                        foreach (Encounter enc in gv.mod.moduleEncountersList)
+                                        {
+                                            if (enc.encounterName == p.EncounterWhenOnPartySquare)
+                                            {
+                                                if (enc.challengeHidden)
+                                                {
+                                                    numberOfSkulls = 0;
+                                                    drawChallengeHidden = true;
+                                                }
+                                                break;
+                                            }
+                                        }
+                                    }
+
+                                    if (drawChallengeHidden)
+                                    {
+                                        int shift = 0;
+                                        Bitmap interactionStateIndicator = gv.cc.LoadBitmap("challengeHidden");
+                                        src = new IbRect(0, 0, interactionStateIndicator.PixelSize.Width, interactionStateIndicator.PixelSize.Height);
+                                        IbRect dstSkull = new IbRect();
+                                        dstSkull.Height = (int)(dst.Height / 2);
+                                        dstSkull.Width = (int)(dst.Width / 2);
+                                        dstSkull.Left = dst.Left;
+                                        dstSkull.Top = dst.Top - (int)(dst.Height / 3);
+                                        shift = 1 * (int)(dst.Width / 4);
+                                        dstSkull.Left += shift;
+                                        gv.DrawBitmap(interactionStateIndicator, src, dstSkull);
+                                        gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
+                                    }
+                                    if (numberOfSkulls > 0)
+                                    {
+                                        int shift = 0;
+                                        for (int i2 = 0; i2 < numberOfSkulls; i2++)
+                                        {
+
+                                            Bitmap interactionStateIndicator = gv.cc.LoadBitmap("challengeSkull");
+                                            src = new IbRect(0, 0, interactionStateIndicator.PixelSize.Width, interactionStateIndicator.PixelSize.Height);
+                                            IbRect dstSkull = new IbRect();
+                                            dstSkull.Height = (int)(dst.Height / 3);
+                                            dstSkull.Width = (int)(dst.Width / 3);
+                                            dstSkull.Left = dst.Left;
+                                            dstSkull.Top = dst.Top - (int)(dst.Height / 3 / 2);
+                                            shift = i2 * (int)(dst.Width / 3);
+                                            dstSkull.Left += shift;
+                                            gv.DrawBitmap(interactionStateIndicator, src, dstSkull);
+                                            gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
+                                        }
+                                    }
                                 }//5
 
                                 p.LocationX = backupLocationX;
@@ -29057,13 +29321,15 @@ namespace IceBlink2
                                 IbRect dst = new IbRect(x + gv.oXshift + mapStartLocXinPixels - dstXshift, y - dstYshift, dstW, dstH);
 
                                 //adjust size of props
-                                if (gv.mod.currentArea.useSuperTinyProps)
+                                if (gv.mod.currentArea.useSuperTinyProps && !p.alwaysDrawNormalSize)
                                 {
-                                    dst = new IbRect((int)p.currentPixelPositionX + (int)(gv.squareSize * 3 / 8) - dstXshift, (int)p.currentPixelPositionY + (int)(gv.squareSize * 3 / 8) - dstYshift, (int)(dstW / 4), (int)(dstH / 4));
+                                    //dst = new IbRect((int)p.currentPixelPositionX + (int)(gv.squareSize * 3 / 8) - dstXshift, (int)p.currentPixelPositionY + (int)(gv.squareSize * 3 / 8) - dstYshift, (int)(dstW / 4), (int)(dstH / 4));
+                                    dst = new IbRect((int)p.currentPixelPositionX + (int)(gv.squareSize * 3 / 8) - dstXshift + (int)p.roamDistanceX - (int)(((dstW / 4) * 0.3375f)), (int)p.currentPixelPositionY + (int)(gv.squareSize * 3 / 8) - dstYshift + +(int)p.roamDistanceY - (int)(((dstH / 4) * 0.3375f)), (int)((dstW / 4) * 1.675f), (int)((dstH / 4) * 1.675f));
+
                                 }
-                                else if (gv.mod.currentArea.useMiniProps)
+                                else if (gv.mod.currentArea.useMiniProps && !p.alwaysDrawNormalSize)
                                 {
-                                    dst = new IbRect((int)p.currentPixelPositionX + (int)(gv.squareSize / 4) - dstXshift, (int)p.currentPixelPositionY + (int)(gv.squareSize / 4) - dstYshift, (int)(dstW / 2), (int)(dstH / 2));
+                                    dst = new IbRect((int)p.currentPixelPositionX + (int)(gv.squareSize / 4) - dstXshift - (int)(((dstW / 2) * 0.15f)), (int)p.currentPixelPositionY + (int)(gv.squareSize / 4) - dstYshift - (int)(((dstH / 2) * 0.15f)), (int)((dstW / 2)*1.3f), (int)((dstH / 2)*1.3f));
                                 }
 
                                 //draw the prop
@@ -29102,6 +29368,88 @@ namespace IceBlink2
                                         //continue;
                                     }
                                 }//6
+                                int partyLevelAverage = 0;
+                                foreach (Player pc in gv.mod.playerList)
+                                {
+                                    partyLevelAverage += pc.classLevel;
+                                }
+
+                                partyLevelAverage = (int)(partyLevelAverage / gv.mod.playerList.Count);
+
+                                int numberOfSkulls = 0;
+
+                                if (p.EncounterWhenOnPartySquare != "none" && p.EncounterWhenOnPartySquare != "")
+                                {
+                                    foreach (Encounter enc in gv.mod.moduleEncountersList)
+                                    {
+                                        if (enc.encounterName == p.EncounterWhenOnPartySquare)
+                                        {
+                                            if (enc.challengeLevel > (partyLevelAverage + 5))
+                                            {
+                                                numberOfSkulls = 3;
+                                            }
+                                            else if (enc.challengeLevel > (partyLevelAverage + 3))
+                                            {
+                                                numberOfSkulls = 2;
+                                            }
+                                            else if (enc.challengeLevel > (partyLevelAverage + 1))
+                                            {
+                                                numberOfSkulls = 1;
+                                            }
+                                        }
+                                    }
+                                }
+                                bool drawChallengeHidden = false;
+                                if (p.EncounterWhenOnPartySquare != "none" && p.EncounterWhenOnPartySquare != "")
+                                {
+                                    foreach (Encounter enc in gv.mod.moduleEncountersList)
+                                    {
+                                        if (enc.encounterName == p.EncounterWhenOnPartySquare)
+                                        {
+                                            if (enc.challengeHidden)
+                                            {
+                                                numberOfSkulls = 0;
+                                                drawChallengeHidden = true;
+                                            }
+                                            break;
+                                        }
+                                    }
+                                }
+
+                                if (drawChallengeHidden)
+                                {
+                                    int shift = 0;
+                                    Bitmap interactionStateIndicator = gv.cc.LoadBitmap("challengeHidden");
+                                    src = new IbRect(0, 0, interactionStateIndicator.PixelSize.Width, interactionStateIndicator.PixelSize.Height);
+                                    IbRect dstSkull = new IbRect();
+                                    dstSkull.Height = (int)(dst.Height / 2);
+                                    dstSkull.Width = (int)(dst.Width / 2);
+                                    dstSkull.Left = dst.Left;
+                                    dstSkull.Top = dst.Top - (int)(dst.Height / 3);
+                                    shift = 1 * (int)(dst.Width / 4);
+                                    dstSkull.Left += shift;
+                                    gv.DrawBitmap(interactionStateIndicator, src, dstSkull);
+                                    gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
+                                }
+                                if (numberOfSkulls > 0)
+                                {
+                                    int shift = 0;
+                                    for (int i2 = 0; i2 < numberOfSkulls; i2++)
+                                    {
+
+                                        Bitmap interactionStateIndicator = gv.cc.LoadBitmap("challengeSkull");
+                                        src = new IbRect(0, 0, interactionStateIndicator.PixelSize.Width, interactionStateIndicator.PixelSize.Height);
+                                        IbRect dstSkull = new IbRect();
+                                        dstSkull.Height = (int)(dst.Height / 3);
+                                        dstSkull.Width = (int)(dst.Width / 3);
+                                        dstSkull.Left = dst.Left;
+                                        dstSkull.Top = dst.Top - (int)(dst.Height / 3 / 2);
+                                        shift = i2 * (int)(dst.Width / 3);
+                                        dstSkull.Left += shift;
+                                        gv.DrawBitmap(interactionStateIndicator, src, dstSkull);
+                                        gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
+                                    }
+                                }
                             }//5
                         }//4
                     }//3
@@ -29133,13 +29481,15 @@ namespace IceBlink2
                                 IbRect src = new IbRect(0, framePosition * p.propFrameHeight, p.token.PixelSize.Width, p.propFrameHeight);
                                 IbRect dst = new IbRect(x + gv.oXshift + mapStartLocXinPixels - dstXshift, y - dstYshift, dstW, dstH);
 
-                                if (gv.mod.currentArea.useSuperTinyProps)
+                                if (gv.mod.currentArea.useSuperTinyProps && !p.alwaysDrawNormalSize)
                                 {
-                                    dst = new IbRect((int)p.currentPixelPositionX + (int)(gv.squareSize * 3 / 8) - dstXshift, (int)p.currentPixelPositionY + (int)(gv.squareSize * 3 / 8) - dstYshift, (int)(dstW / 4), (int)(dstH / 4));
+                                    //dst = new IbRect((int)p.currentPixelPositionX + (int)(gv.squareSize * 3 / 8) - dstXshift, (int)p.currentPixelPositionY + (int)(gv.squareSize * 3 / 8) - dstYshift, (int)(dstW / 4), (int)(dstH / 4));
+                                    dst = new IbRect((int)p.currentPixelPositionX + (int)(gv.squareSize * 3 / 8) - dstXshift + (int)p.roamDistanceX - (int)(((dstW / 4) * 0.3375f)), (int)p.currentPixelPositionY + (int)(gv.squareSize * 3 / 8) - dstYshift + +(int)p.roamDistanceY - (int)(((dstH / 4) * 0.3375f)), (int)((dstW / 4) * 1.675f), (int)((dstH / 4) * 1.675f));
+
                                 }
-                                else if (gv.mod.currentArea.useMiniProps)
+                                else if (gv.mod.currentArea.useMiniProps && !p.alwaysDrawNormalSize)
                                 {
-                                    dst = new IbRect((int)p.currentPixelPositionX + (int)(gv.squareSize / 4) - dstXshift, (int)p.currentPixelPositionY + (int)(gv.squareSize / 4) - dstYshift, (int)(dstW / 2), (int)(dstH / 2));
+                                    dst = new IbRect((int)p.currentPixelPositionX + (int)(gv.squareSize / 4) - dstXshift - (int)(((dstW / 2) * 0.15f)), (int)p.currentPixelPositionY + (int)(gv.squareSize / 4) - dstYshift - (int)(((dstH / 2) * 0.15f)), (int)((dstW / 2)*1.3f), (int)((dstH / 2)*1.3f));
                                 }
                                 if ((p.maxNumberOfFrames == 1) || (p.drawAnimatedProp))
                                 {
@@ -29404,13 +29754,16 @@ namespace IceBlink2
 
                                 IbRect dst = new IbRect((int)p.currentPixelPositionX - dstXshift + (int)p.roamDistanceX, (int)p.currentPixelPositionY - dstYshift + (int)p.roamDistanceY, dstW, dstH);
 
-                                if (gv.mod.currentArea.useSuperTinyProps)
+                                if (gv.mod.currentArea.useSuperTinyProps && !p.alwaysDrawNormalSize)
                                 {
-                                    dst = new IbRect((int)p.currentPixelPositionX + (int)(gv.squareSize * 3 / 8) - dstXshift + (int)p.roamDistanceX, (int)p.currentPixelPositionY + (int)(gv.squareSize * 3 / 8) - dstYshift + +(int)p.roamDistanceY, (int)(dstW / 4), (int)(dstH / 4));
+                                    //dst = new IbRect((int)p.currentPixelPositionX + (int)(gv.squareSize * 3 / 8) - dstXshift + (int)p.roamDistanceX, (int)p.currentPixelPositionY + (int)(gv.squareSize * 3 / 8) - dstYshift + +(int)p.roamDistanceY, (int)(dstW / 4), (int)(dstH / 4));
+                                    //dst = new IbRect(x + (int)(gv.squareSize * 5 / 8) - dstXshift - (int)(((dstW / 4) * 0.375f)), y + (int)(gv.squareSize * 3 / 8) - dstYshift - (int)(((dstH / 4) * 0.375f)), (int)((dstW / 4) * 1.75f), (int)((dstH / 4) * 1.75f));
+                                    dst = new IbRect((int)p.currentPixelPositionX + (int)(gv.squareSize * 3 / 8) - dstXshift + (int)p.roamDistanceX - (int)(((dstW / 4) * 0.3375f)), (int)p.currentPixelPositionY + (int)(gv.squareSize * 3 / 8) - dstYshift + +(int)p.roamDistanceY - (int)(((dstH / 4) * 0.3375f)), (int)((dstW / 4)*1.675f), (int)((dstH / 4)*1.675f));
+
                                 }
-                                else if (gv.mod.currentArea.useMiniProps)
+                                else if (gv.mod.currentArea.useMiniProps && !p.alwaysDrawNormalSize)
                                 {
-                                    dst = new IbRect((int)p.currentPixelPositionX + (int)(gv.squareSize / 4) - dstXshift + (int)p.roamDistanceX, (int)p.currentPixelPositionY + (int)(gv.squareSize / 4) - dstYshift + (int)p.roamDistanceY, (int)(dstW / 2), (int)(dstH / 2));
+                                    dst = new IbRect((int)p.currentPixelPositionX + (int)(gv.squareSize / 4) - dstXshift + (int)p.roamDistanceX - (int)(((dstW / 2) * 0.15f)), (int)p.currentPixelPositionY + (int)(gv.squareSize / 4) - dstYshift + (int)p.roamDistanceY - (int)(((dstH / 2) * 0.15f)), (int)((dstW / 2)*1.3f), (int)((dstH / 2)*1.3f));
                                 }
 
                                 if ((p.maxNumberOfFrames == 1) || (p.drawAnimatedProp))
@@ -29447,6 +29800,90 @@ namespace IceBlink2
                                         //continue;
                                     }
                                 }
+
+                                    int partyLevelAverage = 0;
+                                    foreach (Player pc in gv.mod.playerList)
+                                    {
+                                        partyLevelAverage += pc.classLevel;
+                                    }
+
+                                    partyLevelAverage = (int)(partyLevelAverage / gv.mod.playerList.Count);
+
+                                    int numberOfSkulls = 0;
+
+                                    if (p.EncounterWhenOnPartySquare != "none" && p.EncounterWhenOnPartySquare != "")
+                                    {
+                                        foreach (Encounter enc in gv.mod.moduleEncountersList)
+                                        {
+                                            if (enc.encounterName == p.EncounterWhenOnPartySquare)
+                                            {
+                                                if (enc.challengeLevel > (partyLevelAverage + 5))
+                                                {
+                                                    numberOfSkulls = 3;
+                                                }
+                                                else if (enc.challengeLevel > (partyLevelAverage + 3))
+                                                {
+                                                    numberOfSkulls = 2;
+                                                }
+                                                else if (enc.challengeLevel > (partyLevelAverage + 1))
+                                                {
+                                                    numberOfSkulls = 1;
+                                                }
+                                            }
+                                        }
+                                    }
+                                bool drawChallengeHidden = false;
+                                if (p.EncounterWhenOnPartySquare != "none" && p.EncounterWhenOnPartySquare != "")
+                                {
+                                    foreach (Encounter enc in gv.mod.moduleEncountersList)
+                                    {
+                                        if (enc.encounterName == p.EncounterWhenOnPartySquare)
+                                        {
+                                            if (enc.challengeHidden)
+                                            {
+                                                numberOfSkulls = 0;
+                                                drawChallengeHidden = true;
+                                            }
+                                            break;
+                                        }
+                                    }
+                                }
+
+                                if (drawChallengeHidden)
+                                {
+                                    int shift = 0;
+                                    Bitmap interactionStateIndicator = gv.cc.LoadBitmap("challengeHidden");
+                                    src = new IbRect(0, 0, interactionStateIndicator.PixelSize.Width, interactionStateIndicator.PixelSize.Height);
+                                    IbRect dstSkull = new IbRect();
+                                    dstSkull.Height = (int)(dst.Height / 2);
+                                    dstSkull.Width = (int)(dst.Width / 2);
+                                    dstSkull.Left = dst.Left;
+                                    dstSkull.Top = dst.Top - (int)(dst.Height / 3);
+                                    shift = 1 * (int)(dst.Width / 4);
+                                    dstSkull.Left += shift;
+                                    gv.DrawBitmap(interactionStateIndicator, src, dstSkull);
+                                    gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
+                                }
+                                if (numberOfSkulls > 0)
+                                    {
+                                        int shift = 0;
+                                        for (int i = 0; i < numberOfSkulls; i++)
+                                        {
+
+                                            Bitmap interactionStateIndicator = gv.cc.LoadBitmap("challengeSkull");
+                                            src = new IbRect(0, 0, interactionStateIndicator.PixelSize.Width, interactionStateIndicator.PixelSize.Height);
+                                            IbRect dstSkull = new IbRect();
+                                            dstSkull.Height = (int)(dst.Height / 3);
+                                            dstSkull.Width = (int)(dst.Width / 3);
+                                            dstSkull.Left = dst.Left;
+                                            dstSkull.Top = dst.Top - (int)(dst.Height / 3 / 2);
+                                            shift = i * (int)(dst.Width / 3);
+                                            dstSkull.Left += shift;
+                                            gv.DrawBitmap(interactionStateIndicator, src, dstSkull);
+                                            gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
+                                        }
+                                    }
+                                
                             }
 
                         }
@@ -29536,6 +29973,88 @@ namespace IceBlink2
                                     gv.DrawBitmap(interactionStateIndicator, src, dst);
                                     gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
                                     //continue;
+                                }
+                            }
+                            int partyLevelAverage = 0;
+                            foreach (Player pc in gv.mod.playerList)
+                            {
+                                partyLevelAverage += pc.classLevel;
+                            }
+
+                            partyLevelAverage = (int)(partyLevelAverage / gv.mod.playerList.Count);
+
+                            int numberOfSkulls = 0;
+
+                            if (p.EncounterWhenOnPartySquare != "none" && p.EncounterWhenOnPartySquare != "")
+                            {
+                                foreach (Encounter enc in gv.mod.moduleEncountersList)
+                                {
+                                    if (enc.encounterName == p.EncounterWhenOnPartySquare)
+                                    {
+                                        if (enc.challengeLevel > (partyLevelAverage + 5))
+                                        {
+                                            numberOfSkulls = 3;
+                                        }
+                                        else if (enc.challengeLevel > (partyLevelAverage + 3))
+                                        {
+                                            numberOfSkulls = 2;
+                                        }
+                                        else if (enc.challengeLevel > (partyLevelAverage + 1))
+                                        {
+                                            numberOfSkulls = 1;
+                                        }
+                                    }
+                                }
+                            }
+                            bool drawChallengeHidden = false;
+                            if (p.EncounterWhenOnPartySquare != "none" && p.EncounterWhenOnPartySquare != "")
+                            {
+                                foreach (Encounter enc in gv.mod.moduleEncountersList)
+                                {
+                                    if (enc.encounterName == p.EncounterWhenOnPartySquare)
+                                    {
+                                        if (enc.challengeHidden)
+                                        {
+                                            numberOfSkulls = 0;
+                                            drawChallengeHidden = true;
+                                        }
+                                        break;
+                                    }
+                                }
+                            }
+
+                            if (drawChallengeHidden)
+                            {
+                                int shift = 0;
+                                Bitmap interactionStateIndicator = gv.cc.LoadBitmap("challengeHidden");
+                                src = new IbRect(0, 0, interactionStateIndicator.PixelSize.Width, interactionStateIndicator.PixelSize.Height);
+                                IbRect dstSkull = new IbRect();
+                                dstSkull.Height = (int)(dst.Height / 2);
+                                dstSkull.Width = (int)(dst.Width / 2);
+                                dstSkull.Left = dst.Left;
+                                dstSkull.Top = dst.Top - (int)(dst.Height / 3);
+                                shift = 1 * (int)(dst.Width / 4);
+                                dstSkull.Left += shift;
+                                gv.DrawBitmap(interactionStateIndicator, src, dstSkull);
+                                gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
+                            }
+                            if (numberOfSkulls > 0)
+                            {
+                                int shift = 0;
+                                for (int i2 = 0; i2 < numberOfSkulls; i2++)
+                                {
+
+                                    Bitmap interactionStateIndicator = gv.cc.LoadBitmap("challengeSkull");
+                                    src = new IbRect(0, 0, interactionStateIndicator.PixelSize.Width, interactionStateIndicator.PixelSize.Height);
+                                    IbRect dstSkull = new IbRect();
+                                    dstSkull.Height = (int)(dst.Height / 3);
+                                    dstSkull.Width = (int)(dst.Width / 3);
+                                    dstSkull.Left = dst.Left;
+                                    dstSkull.Top = dst.Top - (int)(dst.Height / 3 / 2);
+                                    shift = i2 * (int)(dst.Width / 3);
+                                    dstSkull.Left += shift;
+                                    gv.DrawBitmap(interactionStateIndicator, src, dstSkull);
+                                    gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
                                 }
                             }
                         }
@@ -29792,13 +30311,15 @@ namespace IceBlink2
 
                                 IbRect dst = new IbRect((int)p.currentPixelPositionX - dstXshift + (int)p.roamDistanceX, (int)p.currentPixelPositionY - dstYshift + (int)p.roamDistanceY, dstW, dstH);
 
-                                if (gv.mod.currentArea.useSuperTinyProps)
+                                if (gv.mod.currentArea.useSuperTinyProps && !p.alwaysDrawNormalSize)
                                 {
-                                    dst = new IbRect((int)p.currentPixelPositionX + (int)(gv.squareSize * 3 / 8) - dstXshift + (int)p.roamDistanceX, (int)p.currentPixelPositionY + (int)(gv.squareSize * 3 / 8) - dstYshift + +(int)p.roamDistanceY, (int)(dstW / 4), (int)(dstH / 4));
+                                    //dst = new IbRect((int)p.currentPixelPositionX + (int)(gv.squareSize * 3 / 8) - dstXshift + (int)p.roamDistanceX, (int)p.currentPixelPositionY + (int)(gv.squareSize * 3 / 8) - dstYshift + +(int)p.roamDistanceY, (int)(dstW / 4), (int)(dstH / 4));
+                                    dst = new IbRect((int)p.currentPixelPositionX + (int)(gv.squareSize * 3 / 8) - dstXshift + (int)p.roamDistanceX - (int)(((dstW / 4) * 0.3375f)), (int)p.currentPixelPositionY + (int)(gv.squareSize * 3 / 8) - dstYshift + +(int)p.roamDistanceY - (int)(((dstH / 4) * 0.3375f)), (int)((dstW / 4) * 1.675f), (int)((dstH / 4) * 1.675f));
+
                                 }
-                                else if (gv.mod.currentArea.useMiniProps)
+                                else if (gv.mod.currentArea.useMiniProps && !p.alwaysDrawNormalSize)
                                 {
-                                    dst = new IbRect((int)p.currentPixelPositionX + (int)(gv.squareSize / 4) - dstXshift + (int)p.roamDistanceX, (int)p.currentPixelPositionY + (int)(gv.squareSize / 4) - dstYshift + (int)p.roamDistanceY, (int)(dstW / 2), (int)(dstH / 2));
+                                    dst = new IbRect((int)p.currentPixelPositionX + (int)(gv.squareSize / 4) - dstXshift + (int)p.roamDistanceX - (int)(((dstW / 2) * 0.15f)), (int)p.currentPixelPositionY + (int)(gv.squareSize / 4) - dstYshift + (int)p.roamDistanceY - (int)(((dstH / 2) * 0.15f)), (int)((dstW / 2)*1.3f), (int)((dstH / 2)*1.3f));
                                 }
 
                                 if ((p.maxNumberOfFrames == 1) || (p.drawAnimatedProp))
@@ -29833,6 +30354,88 @@ namespace IceBlink2
                                         gv.DrawBitmap(interactionStateIndicator, src, dst);
                                         gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
                                         //continue;
+                                    }
+                                }
+                                int partyLevelAverage = 0;
+                                foreach (Player pc in gv.mod.playerList)
+                                {
+                                    partyLevelAverage += pc.classLevel;
+                                }
+
+                                partyLevelAverage = (int)(partyLevelAverage / gv.mod.playerList.Count);
+
+                                int numberOfSkulls = 0;
+
+                                if (p.EncounterWhenOnPartySquare != "none" && p.EncounterWhenOnPartySquare != "")
+                                {
+                                    foreach (Encounter enc in gv.mod.moduleEncountersList)
+                                    {
+                                        if (enc.encounterName == p.EncounterWhenOnPartySquare)
+                                        {
+                                            if (enc.challengeLevel > (partyLevelAverage + 5))
+                                            {
+                                                numberOfSkulls = 3;
+                                            }
+                                            else if (enc.challengeLevel > (partyLevelAverage + 3))
+                                            {
+                                                numberOfSkulls = 2;
+                                            }
+                                            else if (enc.challengeLevel > (partyLevelAverage + 1))
+                                            {
+                                                numberOfSkulls = 1;
+                                            }
+                                        }
+                                    }
+                                }
+                                bool drawChallengeHidden = false;
+                                if (p.EncounterWhenOnPartySquare != "none" && p.EncounterWhenOnPartySquare != "")
+                                {
+                                    foreach (Encounter enc in gv.mod.moduleEncountersList)
+                                    {
+                                        if (enc.encounterName == p.EncounterWhenOnPartySquare)
+                                        {
+                                            if (enc.challengeHidden)
+                                            {
+                                                numberOfSkulls = 0;
+                                                drawChallengeHidden = true;
+                                            }
+                                            break;
+                                        }
+                                    }
+                                }
+
+                                if (drawChallengeHidden)
+                                {
+                                    int shift = 0;
+                                    Bitmap interactionStateIndicator = gv.cc.LoadBitmap("challengeHidden");
+                                    src = new IbRect(0, 0, interactionStateIndicator.PixelSize.Width, interactionStateIndicator.PixelSize.Height);
+                                    IbRect dstSkull = new IbRect();
+                                    dstSkull.Height = (int)(dst.Height / 2);
+                                    dstSkull.Width = (int)(dst.Width / 2);
+                                    dstSkull.Left = dst.Left;
+                                    dstSkull.Top = dst.Top - (int)(dst.Height / 3);
+                                    shift = 1 * (int)(dst.Width / 4);
+                                    dstSkull.Left += shift;
+                                    gv.DrawBitmap(interactionStateIndicator, src, dstSkull);
+                                    gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
+                                }
+                                if (numberOfSkulls > 0)
+                                {
+                                    int shift = 0;
+                                    for (int i2 = 0; i2 < numberOfSkulls; i2++)
+                                    {
+
+                                        Bitmap interactionStateIndicator = gv.cc.LoadBitmap("challengeSkull");
+                                        src = new IbRect(0, 0, interactionStateIndicator.PixelSize.Width, interactionStateIndicator.PixelSize.Height);
+                                        IbRect dstSkull = new IbRect();
+                                        dstSkull.Height = (int)(dst.Height / 3);
+                                        dstSkull.Width = (int)(dst.Width / 3);
+                                        dstSkull.Left = dst.Left;
+                                        dstSkull.Top = dst.Top - (int)(dst.Height / 3 / 2);
+                                        shift = i2 * (int)(dst.Width / 3);
+                                        dstSkull.Left += shift;
+                                        gv.DrawBitmap(interactionStateIndicator, src, dstSkull);
+                                        gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
                                     }
                                 }
                             }
@@ -29926,6 +30529,90 @@ namespace IceBlink2
                                     //continue;
                                 }
                             }
+                            int partyLevelAverage = 0;
+                            foreach (Player pc in gv.mod.playerList)
+                            {
+                                partyLevelAverage += pc.classLevel;
+                            }
+
+                            partyLevelAverage = (int)(partyLevelAverage / gv.mod.playerList.Count);
+
+                            int numberOfSkulls = 0;
+
+                            if (p.EncounterWhenOnPartySquare != "none" && p.EncounterWhenOnPartySquare != "")
+                            {
+                                foreach (Encounter enc in gv.mod.moduleEncountersList)
+                                {
+                                    if (enc.encounterName == p.EncounterWhenOnPartySquare)
+                                    {
+                                        if (enc.challengeLevel > (partyLevelAverage + 5))
+                                        {
+                                            numberOfSkulls = 3;
+                                        }
+                                        else if (enc.challengeLevel > (partyLevelAverage + 3))
+                                        {
+                                            numberOfSkulls = 2;
+                                        }
+                                        else if (enc.challengeLevel > (partyLevelAverage + 1))
+                                        {
+                                            numberOfSkulls = 1;
+                                        }
+                                    }
+                                }
+                            }
+
+                            bool drawChallengeHidden = false;
+                            if (p.EncounterWhenOnPartySquare != "none" && p.EncounterWhenOnPartySquare != "")
+                            {
+                                foreach (Encounter enc in gv.mod.moduleEncountersList)
+                                {
+                                    if (enc.encounterName == p.EncounterWhenOnPartySquare)
+                                    {
+                                        if (enc.challengeHidden)
+                                        {
+                                            numberOfSkulls = 0;
+                                            drawChallengeHidden = true;
+                                        }
+                                        break;
+                                    }
+                                }
+                            }
+
+                            if (drawChallengeHidden)
+                            {
+                                int shift = 0;
+                                Bitmap interactionStateIndicator = gv.cc.LoadBitmap("challengeHidden");
+                                src = new IbRect(0, 0, interactionStateIndicator.PixelSize.Width, interactionStateIndicator.PixelSize.Height);
+                                IbRect dstSkull = new IbRect();
+                                dstSkull.Height = (int)(dst.Height / 2);
+                                dstSkull.Width = (int)(dst.Width / 2);
+                                dstSkull.Left = dst.Left;
+                                dstSkull.Top = dst.Top - (int)(dst.Height / 3);
+                                shift = 1 * (int)(dst.Width / 4);
+                                dstSkull.Left += shift;
+                                gv.DrawBitmap(interactionStateIndicator, src, dstSkull);
+                                gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
+                            }
+
+                            if (numberOfSkulls > 0)
+                            {
+                                int shift = 0;
+                                for (int i2 = 0; i2 < numberOfSkulls; i2++)
+                                {
+
+                                    Bitmap interactionStateIndicator = gv.cc.LoadBitmap("challengeSkull");
+                                    src = new IbRect(0, 0, interactionStateIndicator.PixelSize.Width, interactionStateIndicator.PixelSize.Height);
+                                    IbRect dstSkull = new IbRect();
+                                    dstSkull.Height = (int)(dst.Height / 3);
+                                    dstSkull.Width = (int)(dst.Width / 3);
+                                    dstSkull.Left = dst.Left;
+                                    dstSkull.Top = dst.Top - (int)(dst.Height / 3 / 2);
+                                    shift = i2 * (int)(dst.Width / 3);
+                                    dstSkull.Left += shift;
+                                    gv.DrawBitmap(interactionStateIndicator, src, dstSkull);
+                                    gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
+                                }
+                            }
                         }
                     }
                 }
@@ -29997,10 +30684,10 @@ namespace IceBlink2
                 }
                 int x = gv.playerOffsetX * gv.squareSize;
                 int y = gv.playerOffsetY * gv.squareSize;
-                int shift = gv.squareSize / 3;
+                int shift = gv.squareSize / 5;
                 if (gv.mod.currentArea.useMiniProps)
                 {
-                    shift = (int)shift / 2;
+                    shift = (int)((shift / 2));
                 }
                 else if (gv.mod.currentArea.useSuperTinyProps)
                 {
@@ -30013,28 +30700,31 @@ namespace IceBlink2
 
                     if (gv.mod.currentArea.useMiniProps)
                     {
-                        dst.Top += (int)(gv.squareSize * 1 / 8);
+                        dst.Top += (int)(gv.squareSize * 1 / 8) - (int)(dst.Height * 0.050f);
                         if (gv.mod.playerList[gv.mod.selectedPartyLeader].combatFacingLeft == true)
                         {
-                            dst.Left += (int)(gv.squareSize / 4);
+                            dst.Left += (int)(gv.squareSize / 4) - (int)(dst.Width * 0.075f);
                         }
                         else
                         {
-                            dst.Left -= (int)(gv.squareSize / 4);
+                            dst.Left -= (int)(gv.squareSize / 4) + (int)(dst.Width * 0.075f);
                         }
+                        //-(int)(((dstW / 2) * 0.25f))
                         dst.Height -= (int)(dst.Height / 2);
+                        dst.Height = (int)(dst.Height * 1.5f);
                         dst.Width -= (int)(dst.Width / 2);
+                        dst.Width = (int)(dst.Width * 1.5f);
                     }
                     else if (gv.mod.currentArea.useSuperTinyProps)
                     {
-                        dst.Top += (int)(gv.squareSize * 1 / 8);
+                        dst.Top += (int)(gv.squareSize * 1 / 8) - (int)(dst.Height * 0.075f * 0.4f);
                         if (gv.mod.playerList[gv.mod.selectedPartyLeader].combatFacingLeft == true)
                         {
-                            dst.Left += (int)(gv.squareSize * 3 / 8);
+                            dst.Left += (int)(gv.squareSize * 3 / 8) - (int)(dst.Width * 0.075f * 0.4f);
                         }
                         else
                         {
-                            dst.Left -= (int)(gv.squareSize * 3 / 8);
+                            dst.Left -= (int)(gv.squareSize * 3 / 8) + (int)(dst.Width * 0.075f * 0.4f);
                         }
                         dst.Height -= (int)(dst.Height * 3 / 4);
                         dst.Width -= (int)(dst.Width * 3 / 4);
@@ -30073,33 +30763,37 @@ namespace IceBlink2
 
                                 if (gv.mod.currentArea.useMiniProps)
                                 {
-                                    dst.Top += (int)(gv.squareSize * 1 / 8);
+                                    dst.Top += (int)(gv.squareSize * 1 / 8) - (int)(dst.Height * 0.050f);
                                     if (gv.mod.playerList[gv.mod.selectedPartyLeader].combatFacingLeft == true)
                                     {
-                                        dst.Left += (int)(gv.squareSize / 4);
+                                        dst.Left += (int)(gv.squareSize / 4) - (int)(dst.Width * 0.075f);
                                     }
                                     else
                                     {
-                                        dst.Left -= (int)(gv.squareSize / 4 * 100 / 100);
+                                        dst.Left -= (int)(gv.squareSize / 4 * 100 / 100) + (int)(dst.Width * 0.075f);
                                         dst.Left += gv.squareSize * 2 / 4;
                                     }
                                     dst.Height -= (int)(dst.Height / 2);
+                                    dst.Height = (int)(dst.Height * 1.5f);
                                     dst.Width -= (int)(dst.Width / 2);
+                                    dst.Width = (int)(dst.Width  * 1.5f);
                                 }
                                 else if (gv.mod.currentArea.useSuperTinyProps)
                                 {
-                                    dst.Top += (int)(gv.squareSize * 1 / 8);
+                                    dst.Top += (int)(gv.squareSize * 1 / 8) - (int)(dst.Height * 0.075f * 0.4f);
                                     if (gv.mod.playerList[gv.mod.selectedPartyLeader].combatFacingLeft == true)
                                     {
-                                        dst.Left += (int)(gv.squareSize * 3 / 8);
+                                        dst.Left += (int)(gv.squareSize * 3 / 8) - (int)(dst.Width * 0.075f * 0.4f);
                                     }
                                     else
                                     {
-                                        dst.Left -= (int)(gv.squareSize * 3 / 8 * 100 / 100);
+                                        dst.Left -= (int)(gv.squareSize * 3 / 8 * 100 / 100) + (int)(dst.Width * 0.075f * 0.4f);
                                         dst.Left += gv.squareSize * 3 / 4;
                                     }
                                     dst.Height -= (int)(dst.Height * 3 / 4);
+                                    dst.Height = (int)(dst.Height * 1.4f);
                                     dst.Width -= (int)(dst.Width * 3 / 4);
+                                    dst.Width = (int)(dst.Width * 1.4f);
                                 }
 
                                 gv.DrawBitmap(gv.mod.playerList[i].token, src, dst, !gv.mod.playerList[i].combatFacingLeft);
@@ -30110,34 +30804,38 @@ namespace IceBlink2
 
                                 if (gv.mod.currentArea.useMiniProps)
                                 {
-                                    dst.Top += (int)(gv.squareSize * 1 / 8);
+                                    dst.Top += (int)(gv.squareSize * 1 / 8) - (int)(dst.Height * 0.050f);
                                     if (gv.mod.playerList[gv.mod.selectedPartyLeader].combatFacingLeft == true)
                                     {
-                                        dst.Left += (int)(gv.squareSize / 4);
+                                        dst.Left += (int)(gv.squareSize / 4) - (int)(dst.Width * 0.075f);
                                     }
                                     else
                                     {
-                                        dst.Left -= (int)(gv.squareSize / 4 * 100 / 100);
+                                        dst.Left -= (int)(gv.squareSize / 4 * 100 / 100) + (int)(dst.Height * 0.075f);
                                         dst.Left += gv.squareSize * 2 / 4;
                                     }
                                     dst.Height -= (int)(dst.Height / 2);
+                                    dst.Height = (int)(dst.Height * 1.5f);
                                     dst.Width -= (int)(dst.Width / 2);
+                                    dst.Width = (int)(dst.Width * 1.5f);
                                 }
 
                                 else if (gv.mod.currentArea.useSuperTinyProps)
                                 {
-                                    dst.Top += (int)(gv.squareSize * 1 / 8);
+                                    dst.Top += (int)(gv.squareSize * 1 / 8) - (int)(dst.Height * 0.075f * 0.4f);
                                     if (gv.mod.playerList[gv.mod.selectedPartyLeader].combatFacingLeft == true)
                                     {
-                                        dst.Left += (int)(gv.squareSize * 3 / 8);
+                                        dst.Left += (int)(gv.squareSize * 3 / 8) - (int)(dst.Width * 0.075f * 0.4f);
                                     }
                                     else
                                     {
-                                        dst.Left -= (int)(gv.squareSize * 3 / 8 * 100 / 100);
+                                        dst.Left -= (int)(gv.squareSize * 3 / 8 * 100 / 100) + (int)(dst.Width * 0.075f * 0.4f);
                                         dst.Left += gv.squareSize * 3 / 4;
                                     }
                                     dst.Height -= (int)(dst.Height * 3 / 4);
+                                    dst.Height = (int)(dst.Height * 1.4f);
                                     dst.Width -= (int)(dst.Width * 3 / 4);
+                                    dst.Width = (int)(dst.Width * 1.4f);
                                 }
 
                                 gv.DrawBitmap(gv.mod.playerList[i].token, src, dst, !gv.mod.playerList[i].combatFacingLeft);
@@ -30166,33 +30864,37 @@ namespace IceBlink2
 
                                 if (gv.mod.currentArea.useMiniProps)
                                 {
-                                    dst.Top += (int)(gv.squareSize * 1 / 8);
+                                    dst.Top += (int)(gv.squareSize * 1 / 8) - (int)(dst.Height * 0.050f);
                                     if (gv.mod.playerList[gv.mod.selectedPartyLeader].combatFacingLeft == true)
                                     {
-                                        dst.Left += (int)(gv.squareSize / 4);
+                                        dst.Left += (int)(gv.squareSize / 4) - (int)(dst.Width * 0.075f);
                                     }
                                     else
                                     {
-                                        dst.Left -= (int)(gv.squareSize / 4 * 100 / 100);
+                                        dst.Left -= (int)(gv.squareSize / 4 * 100 / 100) + (int)(dst.Width * 0.075f);
                                         dst.Left += gv.squareSize * 2 / 4;
                                     }
                                     dst.Height -= (int)(dst.Height / 2);
+                                    dst.Height = (int)(dst.Height * 1.5f);
                                     dst.Width -= (int)(dst.Width / 2);
+                                    dst.Width = (int)(dst.Width * 1.5f);
                                 }
                                 else if (gv.mod.currentArea.useSuperTinyProps)
                                 {
-                                    dst.Top += (int)(gv.squareSize * 1 / 8);
+                                    dst.Top += (int)(gv.squareSize * 1 / 8) - (int)(dst.Height * 0.075f * 0.4f);
                                     if (gv.mod.playerList[gv.mod.selectedPartyLeader].combatFacingLeft == true)
                                     {
-                                        dst.Left += (int)(gv.squareSize * 3 / 8);
+                                        dst.Left += (int)(gv.squareSize * 3 / 8) - (int)(dst.Width * 0.075f * 0.4f);
                                     }
                                     else
                                     {
-                                        dst.Left -= (int)(gv.squareSize * 3 / 8 * 100 / 100);
+                                        dst.Left -= (int)(gv.squareSize * 3 / 8 * 100 / 100) + (int)(dst.Width * 0.075f * 0.4f);
                                         dst.Left += gv.squareSize * 3 / 4;
                                     }
                                     dst.Height -= (int)(dst.Height * 3 / 4);
+                                    dst.Height = (int)(dst.Height * 1.4f);
                                     dst.Width -= (int)(dst.Width * 3 / 4);
+                                    dst.Width = (int)(dst.Width * 1.4f);
                                 }
 
                                 gv.DrawBitmap(gv.mod.playerList[i].token, src, dst, !gv.mod.playerList[i].combatFacingLeft);
@@ -30219,14 +30921,14 @@ namespace IceBlink2
 
                                 if (gv.mod.currentArea.useMiniProps)
                                 {
-                                    dst.Top += (int)(gv.squareSize * 1 / 8);
+                                    dst.Top += (int)(gv.squareSize * 1 / 8) - (int)(dst.Height * 0.050f);
                                     if (gv.mod.playerList[gv.mod.selectedPartyLeader].combatFacingLeft == true)
                                     {
-                                        dst.Left += (int)(gv.squareSize / 4);
+                                        dst.Left += (int)(gv.squareSize / 4) - (int)(dst.Width * 0.075f);
                                     }
                                     else
                                     {
-                                        dst.Left -= (int)(gv.squareSize / 4 * 100 / 100);
+                                        dst.Left -= (int)(gv.squareSize / 4 * 100 / 100) + (int)(dst.Width * 0.075f);
                                         dst.Left += gv.squareSize * 2 / 4;
                                     }
                                     dst.Height -= (int)(dst.Height / 2);
@@ -30234,18 +30936,20 @@ namespace IceBlink2
                                 }
                                 else if (gv.mod.currentArea.useSuperTinyProps)
                                 {
-                                    dst.Top += (int)(gv.squareSize * 1 / 8);
+                                    dst.Top += (int)(gv.squareSize * 1 / 8) - (int)(dst.Height * 0.075f * 0.4f);
                                     if (gv.mod.playerList[gv.mod.selectedPartyLeader].combatFacingLeft == true)
                                     {
-                                        dst.Left += (int)(gv.squareSize * 3 / 8);
+                                        dst.Left += (int)(gv.squareSize * 3 / 8) - (int)(dst.Width * 0.075f * 0.4f);
                                     }
                                     else
                                     {
-                                        dst.Left -= (int)(gv.squareSize * 3 / 8 * 100 / 100);
+                                        dst.Left -= (int)(gv.squareSize * 3 / 8 * 100 / 100) + (int)(dst.Width * 0.075f * 0.4f);
                                         dst.Left += gv.squareSize * 3 / 4;
                                     }
                                     dst.Height -= (int)(dst.Height * 3 / 4);
+                                    dst.Height = (int)(dst.Height * 1.4f);
                                     dst.Width -= (int)(dst.Width * 3 / 4);
+                                    dst.Width = (int)(dst.Width * 1.4f);
                                 }
 
                                 gv.DrawBitmap(gv.mod.playerList[i].token, src, dst, !gv.mod.playerList[i].combatFacingLeft);
@@ -30275,14 +30979,14 @@ namespace IceBlink2
 
                                 if (gv.mod.currentArea.useMiniProps)
                                 {
-                                    dst.Top += (int)(gv.squareSize * 1 / 8);
+                                    dst.Top += (int)(gv.squareSize * 1 / 8) - (int)(dst.Height * 0.050f);
                                     if (gv.mod.playerList[gv.mod.selectedPartyLeader].combatFacingLeft == true)
                                     {
-                                        dst.Left += (int)(gv.squareSize / 4);
+                                        dst.Left += (int)(gv.squareSize / 4) - (int)(dst.Width * 0.075f);
                                     }
                                     else
                                     {
-                                        dst.Left -= (int)(gv.squareSize / 4 * 100 / 100);
+                                        dst.Left -= (int)(gv.squareSize / 4 * 100 / 100) + (int)(dst.Width * 0.075f);
                                         dst.Left += gv.squareSize * 2 / 4;
                                     }
                                     dst.Height -= (int)(dst.Height / 2);
@@ -30290,18 +30994,20 @@ namespace IceBlink2
                                 }
                                 else if (gv.mod.currentArea.useSuperTinyProps)
                                 {
-                                    dst.Top += (int)(gv.squareSize * 1 / 8);
+                                    dst.Top += (int)(gv.squareSize * 1 / 8) - (int)(dst.Height * 0.075f * 0.4f);
                                     if (gv.mod.playerList[gv.mod.selectedPartyLeader].combatFacingLeft == true)
                                     {
-                                        dst.Left += (int)(gv.squareSize * 3 / 8);
+                                        dst.Left += (int)(gv.squareSize * 3 / 8) - (int)(dst.Width * 0.075f * 0.4f);
                                     }
                                     else
                                     {
-                                        dst.Left -= (int)(gv.squareSize * 3 / 8 * 100 / 100);
+                                        dst.Left -= (int)(gv.squareSize * 3 / 8 * 100 / 100) + (int)(dst.Width * 0.075f * 0.4f);
                                         dst.Left += gv.squareSize * 3 / 4;
                                     }
                                     dst.Height -= (int)(dst.Height * 3 / 4);
+                                    dst.Height = (int)(dst.Height * 1.4f);
                                     dst.Width -= (int)(dst.Width * 3 / 4);
+                                    dst.Width = (int)(dst.Width * 1.4f);
                                 }
 
                                 gv.DrawBitmap(gv.mod.playerList[i].token, src, dst, !gv.mod.playerList[i].combatFacingLeft);
@@ -30336,14 +31042,14 @@ namespace IceBlink2
 
                                 if (gv.mod.currentArea.useMiniProps)
                                 {
-                                    dst.Top += (int)(gv.squareSize * 1 / 8);
+                                    dst.Top += (int)(gv.squareSize * 1 / 8) - (int)(dst.Height * 0.050f);
                                     if (gv.mod.playerList[gv.mod.selectedPartyLeader].combatFacingLeft == true)
                                     {
-                                        dst.Left += (int)(gv.squareSize / 4);
+                                        dst.Left += (int)(gv.squareSize / 4) - (int)(dst.Width * 0.075f);
                                     }
                                     else
                                     {
-                                        dst.Left -= (int)(gv.squareSize / 4 * 100 / 100);
+                                        dst.Left -= (int)(gv.squareSize / 4 * 100 / 100) + (int)(dst.Width * 0.075f);
                                         dst.Left += gv.squareSize * 2 / 4;
                                     }
                                     dst.Height -= (int)(dst.Height / 2);
@@ -30351,18 +31057,20 @@ namespace IceBlink2
                                 }
                                 else if (gv.mod.currentArea.useSuperTinyProps)
                                 {
-                                    dst.Top += (int)(gv.squareSize * 1 / 8);
+                                    dst.Top += (int)(gv.squareSize * 1 / 8) - (int)(dst.Height * 0.075f * 0.4f);
                                     if (gv.mod.playerList[gv.mod.selectedPartyLeader].combatFacingLeft == true)
                                     {
-                                        dst.Left += (int)(gv.squareSize * 3 / 8);
+                                        dst.Left += (int)(gv.squareSize * 3 / 8) - (int)(dst.Width * 0.075f * 0.4f);
                                     }
                                     else
                                     {
-                                        dst.Left -= (int)(gv.squareSize * 3 / 8 * 100 / 100);
+                                        dst.Left -= (int)(gv.squareSize * 3 / 8 * 100 / 100) + (int)(dst.Width * 0.075f * 0.4f);
                                         dst.Left += gv.squareSize * 3 / 4;
                                     }
                                     dst.Height -= (int)(dst.Height * 3 / 4);
+                                    dst.Height = (int)(dst.Height * 1.4f);
                                     dst.Width -= (int)(dst.Width * 3 / 4);
+                                    dst.Width = (int)(dst.Width * 1.4f);
                                 }
 
                                 gv.DrawBitmap(gv.mod.playerList[i].token, src, dst, !gv.mod.playerList[i].combatFacingLeft);
@@ -30371,7 +31079,7 @@ namespace IceBlink2
 
                         if (gv.mod.playerList[0].combatFacingLeft == true)
                         {
-                            shift = gv.squareSize / 3;
+                            shift = gv.squareSize / 5; 
                             if (gv.mod.currentArea.useMiniProps)
                             {
                                 shift = (int)shift / 2;
@@ -30459,33 +31167,37 @@ namespace IceBlink2
 
                     if (gv.mod.currentArea.useMiniProps)
                     {
-                        dst.Top += (int)(gv.squareSize / 4);
+                        dst.Top += (int)(gv.squareSize / 4) - (int)(dst.Height * 0.050f);
                         if (gv.mod.playerList[gv.mod.selectedPartyLeader].combatFacingLeft == true)
                         {
-                            dst.Left += (int)(gv.squareSize / 4);
+                            dst.Left += (int)(gv.squareSize / 4) - (int)(dst.Width * 0.075f);
                         }
                         else
                         {
-                            dst.Left -= (int)(gv.squareSize / 4 * 100 / 100);
+                            dst.Left -= (int)(gv.squareSize / 4 * 100 / 100) + (int)(dst.Width * 0.075f);
                             dst.Left += gv.squareSize * 2 / 4;
                         }
                         dst.Height -= (int)(dst.Height / 2);
+                        dst.Height = (int)(dst.Height * 1.3f);
                         dst.Width -= (int)(dst.Width / 2);
+                        dst.Width = (int)(dst.Width * 1.3f);
                     }
                     else if (gv.mod.currentArea.useSuperTinyProps)
                     {
-                        dst.Top += (int)(gv.squareSize * 3 / 8);
+                        dst.Top += (int)(gv.squareSize * 3 / 8) - (int)(dst.Height * 0.075f * 0.4f);
                         if (gv.mod.playerList[gv.mod.selectedPartyLeader].combatFacingLeft == true)
                         {
-                            dst.Left += (int)(gv.squareSize * 3 / 8);
+                            dst.Left += (int)(gv.squareSize * 3 / 8) - (int)(dst.Width * 0.075f * 0.4f);
                         }
                         else
                         {
-                            dst.Left -= (int)(gv.squareSize * 3 / 8 * 100 / 100);
+                            dst.Left -= (int)(gv.squareSize * 3 / 8 * 100 / 100) + (int)(dst.Width * 0.075f * 0.4f);
                             dst.Left += gv.squareSize * 3 / 4;
                         }
                         dst.Height -= (int)(dst.Height * 3 / 4);
+                        dst.Height = (int)(dst.Height * 1.4f);
                         dst.Width -= (int)(dst.Width * 3 / 4);
+                        dst.Width = (int)(dst.Width * 1.4f);
                     }
                     gv.DrawBitmap(gv.mod.playerList[gv.mod.selectedPartyLeader].token, src, dst, !gv.mod.playerList[gv.mod.selectedPartyLeader].combatFacingLeft);
                     shift = storeShift;
@@ -30885,139 +31597,360 @@ namespace IceBlink2
             public string monthNameToDisplay = "";
             */
 
+            string coordText = " (" + gv.mod.PlayerLocationX + "," + gv.mod.PlayerLocationY + ")";
 
-
-            if (gv.mod.useMinimalisticUI)
+            if (gv.mod.useComplexCoordinateSystem)
             {
-                for (int x = -2; x <= 2; x++)
+                //start of NEW SYSTEM
+
+                //structure below:
+                //1. is party light on?
+                //2. has area an ingame name?
+                //3. is ration system used?
+                //results in 8 combinations
+                //all using a double draw rountine: one for the black letter border, one for the core color of the letter  
+
+                //in the new system we gonna split this into 2 sections:
+
+                //top section
+                //one for the top row three buttons showing: zoom level (with time passing per step as button text), rations (number as button text) and torches (light units as button text)
+                //zoom level button will show a different icon, depending on whether props is in the current area are drawn normal, small or tiny
+                //gonna have to shorten and move down the log by about half a square's size
+
+                //bottom section
+                //hour and minute, calendar date
+                //up to three rows of info for zone:area, zone:area, zone: area 
+                //the screen space taken should always be minimal, so when already on most zoomed out level only one row is used
+
+                //three potential strings for the location info lines
+                string zoom0Line = "";
+                string zoom1Line = "";
+                string zoom2Line = "";
+                int pushLinesUpBy = 0;
+
+                //determine zoom level
+                int zoomLevel = 2;
+                if (gv.mod.currentArea.useMiniProps)
                 {
-                    for (int y = -2; y <= 2; y++)
+                    zoomLevel = 1;
+                    pushLinesUpBy = 1;
+                }
+                else if (gv.mod.currentArea.useSuperTinyProps)
+                {
+                    zoomLevel = 0;
+                    pushLinesUpBy = 2;
+                }
+
+                //fully zoomed out (far)
+                if (zoomLevel == 0)
+                {
+                    //now we have to find out whether current area's zone name OR as current area's ingame name are different from none/"" 
+                    if (gv.mod.currentArea.zoneName != "none" && gv.mod.currentArea.zoneName != "")
                     {
-                        if (gv.mod.partyLightOn)
+                        zoom0Line += gv.mod.currentArea.zoneName + "[L" + gv.mod.currentArea.zoneFloorLevel + "," + gv.mod.currentArea.zoneX + "," + gv.mod.currentArea.zoneY + "]";
+                    }
+
+                    if (gv.mod.currentArea.inGameAreaName != "none" && gv.mod.currentArea.inGameAreaName != "")
+                    {
+                        if (gv.mod.currentArea.zoneName != "none" && gv.mod.currentArea.zoneName != "")
                         {
-                            gv.DrawText(hour + ":" + sMinute +", " + gv.mod.weekDayNameToDisplay + ", " + gv.mod.monthDayCounterNumberToDisplay + gv.mod.monthDayCounterAddendumToDisplay + " of " + gv.mod.monthNameToDisplay + " " + gv.mod.currentYear.ToString(), new IbRect(gv.oXshift + x + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH + y - gv.pS, 600, 100), 1.0f, Color.Black);
-                            if ((gv.mod.currentArea.inGameAreaName != "") && (gv.mod.currentArea.inGameAreaName != "newArea"))
+                            zoom0Line += ": ";
+                        }
+                        zoom0Line += gv.mod.currentArea.inGameAreaName + "(" + gv.mod.PlayerLocationX + "," + gv.mod.PlayerLocationY + ")";
+                    }
+                    //now draw the lines for date&time top and location info below 
+                    //two lines: date on top and current area's zone name as well as current area's ingame name
+                    if (gv.mod.useMinimalisticUI)
+                    {
+                        //draw black frames around font
+                        for (int x = -2; x <= 2; x++)
+                        {
+                            for (int y = -2; y <= 2; y++)
                             {
-                                if (gv.mod.useRationSystem)
+                                gv.DrawText(hour + ":" + sMinute + ", " + gv.mod.weekDayNameToDisplay + ", " + gv.mod.monthDayCounterNumberToDisplay + gv.mod.monthDayCounterAddendumToDisplay + " of " + gv.mod.monthNameToDisplay + " " + gv.mod.currentYear.ToString(), new IbRect(gv.oXshift + x + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH + y - gv.pS - (int)(2.5 * gv.pS * 0) + 2*gv.pS, 600, 100), 1.0f, Color.Black);
+                                gv.DrawText(zoom0Line, new IbRect(gv.oXshift + x + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH + y + (int)(2.5 * gv.pS) + (int)(2.5 * gv.pS * 0) + 2 * gv.pS, 600, 100), 1.0f, Color.Black);
+                            }
+                        }
+                        //draw font itself (white)
+                        gv.DrawText(hour + ":" + sMinute + ", " + gv.mod.weekDayNameToDisplay + ", " + gv.mod.monthDayCounterNumberToDisplay + gv.mod.monthDayCounterAddendumToDisplay + " of " + gv.mod.monthNameToDisplay + " " + gv.mod.currentYear.ToString(), new IbRect(gv.oXshift + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH - gv.pS - (int)(2.5 * gv.pS * 0) + 2 * gv.pS, 600, 100), 1.0f, Color.White);
+                        gv.DrawText(zoom0Line, new IbRect(gv.oXshift + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH + (int)(2.5 * gv.pS) + (int)(2.5 * gv.pS * 0) + 2 * gv.pS, 600, 100), 1.0f, Color.White);
+
+                    }
+                }
+
+                //zoomed one level in (middle)
+                if (zoomLevel == 1)
+                {
+                    //now we have to find out whether current area's zone name OR as current area's ingame name are different from none/"" 
+                    if (gv.mod.currentArea.zoneName != "none" && gv.mod.currentArea.zoneName != "")
+                    {
+                        zoom0Line += gv.mod.currentArea.zoneName + "[L" + gv.mod.currentArea.zoneFloorLevel + "," + gv.mod.currentArea.zoneX + "," + gv.mod.currentArea.zoneY + "]";
+                    }
+
+                    if (gv.mod.currentArea.inGameAreaName != "none" && gv.mod.currentArea.inGameAreaName != "")
+                    {
+                        if (gv.mod.currentArea.zoneName != "none" && gv.mod.currentArea.zoneName != "")
+                        { 
+                            zoom0Line += ": ";
+                        }
+                        zoom0Line += gv.mod.currentArea.inGameAreaName + "(" + gv.mod.PlayerLocationX + "," + gv.mod.PlayerLocationY + ")";
+                    }
+
+                    //now build info for zoom1Line (read in zoneMotherArea name from current area, then use motehr area to get zone of mother area 
+                    if (gv.mod.currentArea.zoneMotherAreaName != "none" && gv.mod.currentArea.zoneMotherAreaName != "")
+                    {
+                        foreach (Area a in gv.mod.moduleAreasObjects)
+                        {
+                            if (a.Filename == gv.mod.currentArea.zoneMotherAreaName)
+                            {
+                                if (a.zoneName != "none" && a.zoneName != "")
                                 {
-                                    gv.DrawText(gv.mod.currentArea.inGameAreaName + ", " + "Rations(" + gv.mod.numberOfRationsRemaining.ToString() + "), " + gv.mod.partyLightName + "(" + gv.mod.currentLightUnitsLeft.ToString() + ")", new IbRect(gv.oXshift + x + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH + y + (int)(2.5 * gv.pS), 600, 100), 1.0f, Color.Black);
+                                    zoom1Line += a.zoneName + "[L" + a.zoneFloorLevel + "," + a.zoneX + "," + a.zoneY + "]";
+                                    zoom1Line += ": ";
                                 }
-                                else 
+                                zoom1Line += a.inGameAreaName + "(" + gv.mod.currentArea.zoneMotherAreaX + "," + gv.mod.currentArea.zoneMotherAreaX + ")";
+                            }
+                        }
+
+                    }
+                    //now draw the lines for date&time top and location info below 
+                    //two lines: date on top and current area's zone name as well as current area's ingame name
+                    if (gv.mod.useMinimalisticUI)
+                    {
+                        //draw black frames around font
+                        for (int x = -2; x <= 2; x++)
+                        {
+                            for (int y = -2; y <= 2; y++)
+                            {
+                                gv.DrawText(hour + ":" + sMinute + ", " + gv.mod.weekDayNameToDisplay + ", " + gv.mod.monthDayCounterNumberToDisplay + gv.mod.monthDayCounterAddendumToDisplay + " of " + gv.mod.monthNameToDisplay + " " + gv.mod.currentYear.ToString(), new IbRect(gv.oXshift + x + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH + y - gv.pS - (int)(2.5 * gv.pS * 1)+ gv.pS + (int)0.0 * gv.pS, 600, 100), 1.0f, Color.Black);
+                                gv.DrawText(zoom1Line, new IbRect(gv.oXshift + x + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH + y + (int)(2.5 * gv.pS) - (int)(2.5 * gv.pS * 1)+gv.pS, 600, 100), 1.0f, Color.Black);
+                                gv.DrawText(zoom0Line, new IbRect(gv.oXshift + x + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH + y + (int)(2.5 * gv.pS) - (int)(2.5 * gv.pS * 0) + 2*gv.pS, 600, 100), 1.0f, Color.Black);
+                            }
+                        }
+                        //draw font itself (white)
+                        gv.DrawText(hour + ":" + sMinute + ", " + gv.mod.weekDayNameToDisplay + ", " + gv.mod.monthDayCounterNumberToDisplay + gv.mod.monthDayCounterAddendumToDisplay + " of " + gv.mod.monthNameToDisplay + " " + gv.mod.currentYear.ToString(), new IbRect(gv.oXshift + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH - gv.pS - (int)(2.5 * gv.pS * 1) + gv.pS + (int)0.0*gv.pS, 600, 100), 1.0f, Color.White);
+                        gv.DrawText(zoom1Line, new IbRect(gv.oXshift + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH + (int)(2.5 * gv.pS) - (int)(2.5 * gv.pS * 1)+gv.pS, 600, 100), 1.0f, Color.White);
+                        gv.DrawText(zoom0Line, new IbRect(gv.oXshift + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH + (int)(2.5 * gv.pS) - (int)(2.5 * gv.pS * 0) + 2*gv.pS, 600, 100), 1.0f, Color.White);
+                    }
+                }
+
+                //zoomed two levels in (close)
+                if (zoomLevel == 2)
+                {
+                    //now we have to find out whether current area's zone name OR as current area's ingame name are different from none/"" 
+                    if (gv.mod.currentArea.zoneName != "none" && gv.mod.currentArea.zoneName != "")
+                    {
+                        zoom0Line = gv.mod.currentArea.zoneName + "[L" + gv.mod.currentArea.zoneFloorLevel + "," + gv.mod.currentArea.zoneX + "," + gv.mod.currentArea.zoneY + "]";
+                    }
+
+                    if (gv.mod.currentArea.inGameAreaName != "none" && gv.mod.currentArea.inGameAreaName != "")
+                    {
+                        if (gv.mod.currentArea.zoneName != "none" && gv.mod.currentArea.zoneName != "")
+                        {
+                            zoom0Line += ": ";
+                        }
+                        zoom0Line += gv.mod.currentArea.inGameAreaName + "(" + gv.mod.PlayerLocationX + "," + gv.mod.PlayerLocationY + ")";
+                    }
+
+                    //now build info for zoom1Line (read in zoneMotherArea name from current area, then use motehr area to get zone of mother area 
+                    if (gv.mod.currentArea.zoneMotherAreaName != "none" && gv.mod.currentArea.zoneMotherAreaName != "")
+                    {
+                        foreach (Area a in gv.mod.moduleAreasObjects)
+                        {
+                            if (a.Filename == gv.mod.currentArea.zoneMotherAreaName)
+                            {
+                                if (a.zoneName != "none" && a.zoneName != "")
                                 {
-                                    gv.DrawText(gv.mod.currentArea.inGameAreaName + ", " + gv.mod.partyLightName + "(" + gv.mod.currentLightUnitsLeft.ToString() + ")", new IbRect(gv.oXshift + x + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH + y + (int)(2.5 * gv.pS), 600, 100), 1.0f, Color.Black);
+                                    zoom1Line = a.zoneName + "[L" + a.zoneFloorLevel + "," + a.zoneX + "," + a.zoneY + "]";
+                                    zoom1Line += ": ";
                                 }
+                                zoom1Line += a.inGameAreaName + "(" + gv.mod.currentArea.zoneMotherAreaX + "," + gv.mod.currentArea.zoneMotherAreaX + ")";
+
+
+
+                                //integrate grandma here, so we can work with a
+                                //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                                //now build info for zoom2Line (read in zoneMotherArea name from mother area, then use hits grandma area to get zone of grandma area 
+                                if (a.zoneMotherAreaName != "none" && a.zoneMotherAreaName != "")
+                                {
+                                    foreach (Area grandA in gv.mod.moduleAreasObjects)
+                                    {
+                                        if (grandA.Filename == a.zoneMotherAreaName)
+                                        {
+                                            if (grandA.zoneName != "none" && grandA.zoneName != "")
+                                            {
+                                                zoom2Line = grandA.zoneName + "[L" + grandA.zoneFloorLevel + "," + grandA.zoneX + "," + grandA.zoneY + "]";
+                                                zoom2Line += ": ";
+                                            }
+                                            zoom2Line += grandA.inGameAreaName + "(" + a.zoneMotherAreaX + "," + a.zoneMotherAreaX + ")";
+                                        }
+                                    }
+                                }
+                            }
+
+
+                            //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                        }
+                    }
+
+
+                    //now draw the lines for date&time top and location info below 
+                    //two lines: date on top and current area's zone name as well as current area's ingame name
+                    if (gv.mod.useMinimalisticUI)
+                    {
+                        //draw black frames around font
+                        for (int x = -2; x <= 2; x++)
+                        {
+                            for (int y = -2; y <= 2; y++)
+                            {
+                                gv.DrawText(hour + ":" + sMinute + ", " + gv.mod.weekDayNameToDisplay + ", " + gv.mod.monthDayCounterNumberToDisplay + gv.mod.monthDayCounterAddendumToDisplay + " of " + gv.mod.monthNameToDisplay + " " + gv.mod.currentYear.ToString(), new IbRect(gv.oXshift + x + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH + y - gv.pS - (int)(2.5 * gv.pS * 2 +0.5*gv.pS), 600, 100), 1.0f, Color.Black);
+                                gv.DrawText(zoom2Line, new IbRect(gv.oXshift + x + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH + y + (int)(2.5 * gv.pS) - (int)(2.5 * gv.pS * 2), 600, 100), 1.0f, Color.Black);
+                                gv.DrawText(zoom1Line, new IbRect(gv.oXshift + x + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH + y + (int)(2.5 * gv.pS) - (int)(2.5 * gv.pS * 1) + gv.pS, 600, 100), 1.0f, Color.Black);
+                                gv.DrawText(zoom0Line, new IbRect(gv.oXshift + x + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH + y + (int)(2.5 * gv.pS) - (int)(2.5 * gv.pS * 0) + 2*gv.pS, 600, 100), 1.0f, Color.Black);
+                            }
+                        }
+                        //draw font itself (white)
+                        gv.DrawText(hour + ":" + sMinute + ", " + gv.mod.weekDayNameToDisplay + ", " + gv.mod.monthDayCounterNumberToDisplay + gv.mod.monthDayCounterAddendumToDisplay + " of " + gv.mod.monthNameToDisplay + " " + gv.mod.currentYear.ToString(), new IbRect(gv.oXshift + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH - gv.pS - (int)(2.5 * gv.pS * 2 + 0.5*gv.pS), 600, 100), 1.0f, Color.White);
+                        gv.DrawText(zoom2Line, new IbRect(gv.oXshift + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH + (int)(2.5 * gv.pS) - (int)(2.5 * gv.pS * 2), 600, 100), 1.0f, Color.White);
+                        gv.DrawText(zoom1Line, new IbRect(gv.oXshift + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH + (int)(2.5 * gv.pS) - (int)(2.5 * gv.pS * 1) + gv.pS, 600, 100), 1.0f, Color.White);
+                        gv.DrawText(zoom0Line, new IbRect(gv.oXshift + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH + (int)(2.5 * gv.pS) - (int)(2.5 * gv.pS * 0) + 2*gv.pS, 600, 100), 1.0f, Color.White);
+                    }
+                }
+            }
+            else if (!gv.mod.useComplexCoordinateSystem)
+            {
+                //old system
+                if (gv.mod.useMinimalisticUI)
+                {
+                    for (int x = -2; x <= 2; x++)
+                    {
+                        for (int y = -2; y <= 2; y++)
+                        {
+                            if (gv.mod.partyLightOn)
+                            {
+                                gv.DrawText(hour + ":" + sMinute + ", " + gv.mod.weekDayNameToDisplay + ", " + gv.mod.monthDayCounterNumberToDisplay + gv.mod.monthDayCounterAddendumToDisplay + " of " + gv.mod.monthNameToDisplay + " " + gv.mod.currentYear.ToString(), new IbRect(gv.oXshift + x + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH + y - gv.pS, 600, 100), 1.0f, Color.Black);
+                                if ((gv.mod.currentArea.inGameAreaName != "") && (gv.mod.currentArea.inGameAreaName != "newArea"))
+                                {
+                                    if (gv.mod.useRationSystem)
+                                    {
+                                        gv.DrawText(gv.mod.currentArea.inGameAreaName + coordText + ", " + "R(" + gv.mod.numberOfRationsRemaining.ToString() + "), " + "T" + "(" + gv.mod.currentLightUnitsLeft.ToString() + ")", new IbRect(gv.oXshift + x + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH + y + (int)(2.5 * gv.pS), 600, 100), 1.0f, Color.Black);
+                                    }
+                                    else
+                                    {
+                                        gv.DrawText(gv.mod.currentArea.inGameAreaName + coordText + ", " + "T" + "(" + gv.mod.currentLightUnitsLeft.ToString() + ")", new IbRect(gv.oXshift + x + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH + y + (int)(2.5 * gv.pS), 600, 100), 1.0f, Color.Black);
+                                    }
+                                }
+                                else
+                                {
+                                    if (gv.mod.useRationSystem)
+                                    {
+                                        gv.DrawText("R(" + gv.mod.numberOfRationsRemaining.ToString() + "), " + "T" + "(" + gv.mod.currentLightUnitsLeft.ToString() + ")", new IbRect(gv.oXshift + x + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH + y + (int)(2.5 * gv.pS), 600, 100), 1.0f, Color.Black);
+                                    }
+                                    else
+                                    {
+                                        gv.DrawText("T" + "(" + gv.mod.currentLightUnitsLeft.ToString() + ")", new IbRect(gv.oXshift + x + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH + y + (int)(2.5 * gv.pS), 600, 100), 1.0f, Color.Black);
+                                    }
+                                }
+                                //gv.DrawText(hour + ":" + sMinute + ", " + gv.mod.partyLightName + "(" + gv.mod.currentLightUnitsLeft.ToString() + ")", new IbRect(gv.oXshift + x + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH + y - gv.pS, 600, 100), 1.0f, Color.Black);
                             }
                             else
                             {
-                                if (gv.mod.useRationSystem)
+                                gv.DrawText(hour + ":" + sMinute + ", " + gv.mod.weekDayNameToDisplay + ", " + gv.mod.monthDayCounterNumberToDisplay + gv.mod.monthDayCounterAddendumToDisplay + " of " + gv.mod.monthNameToDisplay + " " + gv.mod.currentYear.ToString(), new IbRect(gv.oXshift + x + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH + y - gv.pS, 600, 100), 1.0f, Color.Black);
+                                if ((gv.mod.currentArea.inGameAreaName != "") && (gv.mod.currentArea.inGameAreaName != "newArea"))
                                 {
-                                    gv.DrawText("Rations(" + gv.mod.numberOfRationsRemaining.ToString() + "), " + gv.mod.partyLightName + "(" + gv.mod.currentLightUnitsLeft.ToString() + ")", new IbRect(gv.oXshift + x + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH + y + (int)(2.5 * gv.pS), 600, 100), 1.0f, Color.Black);
+                                    if (gv.mod.useRationSystem)
+                                    {
+                                        gv.DrawText(gv.mod.currentArea.inGameAreaName + coordText + ", " + "R(" + gv.mod.numberOfRationsRemaining.ToString() + ")", new IbRect(gv.oXshift + x + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH + y + (int)(2.5 * gv.pS), 600, 100), 1.0f, Color.Black);
+                                    }
+                                    else
+                                    {
+                                        gv.DrawText(gv.mod.currentArea.inGameAreaName + coordText, new IbRect(gv.oXshift + x + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH + y + (int)(2.5 * gv.pS), 600, 100), 1.0f, Color.Black);
+                                    }
                                 }
-                                else 
+                                else
                                 {
-                                    gv.DrawText(gv.mod.partyLightName + "(" + gv.mod.currentLightUnitsLeft.ToString() + ")", new IbRect(gv.oXshift + x + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH + y + (int)(2.5 * gv.pS), 600, 100), 1.0f, Color.Black);
+                                    if (gv.mod.useRationSystem)
+                                    {
+                                        gv.DrawText("R(" + gv.mod.numberOfRationsRemaining.ToString() + ")", new IbRect(gv.oXshift + x + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH + y + (int)(2.5 * gv.pS), 600, 100), 1.0f, Color.Black);
+                                    }
+                                    else
+                                    {
+                                        //gv.DrawText("Rations(" + gv.mod.numberOfRationsRemaining.ToString() + ")", new IbRect(gv.oXshift + x + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH + y + (int)(2.5 * gv.pS), 600, 100), 1.0f, Color.Black);
+                                    }
                                 }
                             }
-                            //gv.DrawText(hour + ":" + sMinute + ", " + gv.mod.partyLightName + "(" + gv.mod.currentLightUnitsLeft.ToString() + ")", new IbRect(gv.oXshift + x + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH + y - gv.pS, 600, 100), 1.0f, Color.Black);
+                        }
+                    }
+                    if (gv.mod.partyLightOn)
+                    {
+                        gv.DrawText(hour + ":" + sMinute + ", " + gv.mod.weekDayNameToDisplay + ", " + gv.mod.monthDayCounterNumberToDisplay + gv.mod.monthDayCounterAddendumToDisplay + " of " + gv.mod.monthNameToDisplay + " " + gv.mod.currentYear.ToString(), new IbRect(gv.oXshift + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH - gv.pS, 600, 100), 1.0f, Color.White);
+                        if ((gv.mod.currentArea.inGameAreaName != "") && (gv.mod.currentArea.inGameAreaName != "newArea"))
+                        {
+                            if (gv.mod.useRationSystem)
+                            {
+                                gv.DrawText(gv.mod.currentArea.inGameAreaName + coordText + ", " + "R(" + gv.mod.numberOfRationsRemaining.ToString() + "), " + "T" + "(" + gv.mod.currentLightUnitsLeft.ToString() + ")", new IbRect(gv.oXshift + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH + (int)(2.5 * gv.pS), 600, 100), 1.0f, Color.White);
+                            }
+                            else
+                            {
+                                gv.DrawText(gv.mod.currentArea.inGameAreaName + coordText + ", " + "T" + "(" + gv.mod.currentLightUnitsLeft.ToString() + ")", new IbRect(gv.oXshift + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH + (int)(2.5 * gv.pS), 600, 100), 1.0f, Color.White);
+
+                            }
+
                         }
                         else
                         {
-                            gv.DrawText(hour + ":" + sMinute + ", " + gv.mod.weekDayNameToDisplay + ", " + gv.mod.monthDayCounterNumberToDisplay + gv.mod.monthDayCounterAddendumToDisplay + " of " + gv.mod.monthNameToDisplay + " " + gv.mod.currentYear.ToString(), new IbRect(gv.oXshift + x + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH + y - gv.pS, 600, 100), 1.0f, Color.Black);
-                            if ((gv.mod.currentArea.inGameAreaName != "") && (gv.mod.currentArea.inGameAreaName != "newArea"))
+                            if (gv.mod.useRationSystem)
                             {
-                                if (gv.mod.useRationSystem)
-                                {
-                                    gv.DrawText(gv.mod.currentArea.inGameAreaName + ", " + "Rations(" + gv.mod.numberOfRationsRemaining.ToString() + ")", new IbRect(gv.oXshift + x + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH + y + (int)(2.5 * gv.pS), 600, 100), 1.0f, Color.Black);
-                                }
-                                else 
-                                {
-                                    gv.DrawText(gv.mod.currentArea.inGameAreaName, new IbRect(gv.oXshift + x + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH + y + (int)(2.5 * gv.pS), 600, 100), 1.0f, Color.Black);
-                                }
+                                gv.DrawText("R(" + gv.mod.numberOfRationsRemaining.ToString() + "), " + "T" + "(" + gv.mod.currentLightUnitsLeft.ToString() + ")", new IbRect(gv.oXshift + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH + (int)(2.5 * gv.pS), 600, 100), 1.0f, Color.White);
                             }
                             else
                             {
-                                if (gv.mod.useRationSystem)
-                                {
-                                    gv.DrawText("Rations(" + gv.mod.numberOfRationsRemaining.ToString() + ")", new IbRect(gv.oXshift + x + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH + y + (int)(2.5 * gv.pS), 600, 100), 1.0f, Color.Black);
-                                }
-                                else 
-                                {
-                                    //gv.DrawText("Rations(" + gv.mod.numberOfRationsRemaining.ToString() + ")", new IbRect(gv.oXshift + x + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH + y + (int)(2.5 * gv.pS), 600, 100), 1.0f, Color.Black);
-                                }
+                                gv.DrawText("T" + "(" + gv.mod.currentLightUnitsLeft.ToString() + ")", new IbRect(gv.oXshift + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH + (int)(2.5 * gv.pS), 600, 100), 1.0f, Color.White);
+
                             }
                         }
-                    }
-                }
-                if (gv.mod.partyLightOn)
-                {
-                    gv.DrawText(hour + ":" + sMinute + ", " + gv.mod.weekDayNameToDisplay + ", " + gv.mod.monthDayCounterNumberToDisplay + gv.mod.monthDayCounterAddendumToDisplay + " of " + gv.mod.monthNameToDisplay + " " + gv.mod.currentYear.ToString(), new IbRect(gv.oXshift + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH - gv.pS, 600, 100), 1.0f, Color.White);
-                    if ((gv.mod.currentArea.inGameAreaName != "") && (gv.mod.currentArea.inGameAreaName != "newArea"))
-                    {
-                        if (gv.mod.useRationSystem)
-                        {
-                            gv.DrawText(gv.mod.currentArea.inGameAreaName + ", " + "Rations(" + gv.mod.numberOfRationsRemaining.ToString() + "), " + gv.mod.partyLightName + "(" + gv.mod.currentLightUnitsLeft.ToString() + ")", new IbRect(gv.oXshift + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH + (int)(2.5 * gv.pS), 600, 100), 1.0f, Color.White);
-                        }
-                        else 
-                        {
-                            gv.DrawText(gv.mod.currentArea.inGameAreaName + ", " + gv.mod.partyLightName + "(" + gv.mod.currentLightUnitsLeft.ToString() + ")", new IbRect(gv.oXshift + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH + (int)(2.5 * gv.pS), 600, 100), 1.0f, Color.White);
-
-                        }
-
+                        //gv.DrawText(hour + ":" + sMinute + ", " + gv.mod.partyLightName + "(" + gv.mod.currentLightUnitsLeft.ToString() + ")", new IbRect(gv.oXshift + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH - gv.pS, 600, 100), 1.0f, Color.White);
                     }
                     else
                     {
-                        if (gv.mod.useRationSystem)
+                        gv.DrawText(hour + ":" + sMinute + ", " + gv.mod.weekDayNameToDisplay + ", " + gv.mod.monthDayCounterNumberToDisplay + gv.mod.monthDayCounterAddendumToDisplay + " of " + gv.mod.monthNameToDisplay + " " + gv.mod.currentYear.ToString(), new IbRect(gv.oXshift + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH - gv.pS, 600, 100), 1.0f, Color.White);
+                        if ((gv.mod.currentArea.inGameAreaName != "") && (gv.mod.currentArea.inGameAreaName != "newArea"))
                         {
-                            gv.DrawText("Rations(" + gv.mod.numberOfRationsRemaining.ToString() + "), " + gv.mod.partyLightName + "(" + gv.mod.currentLightUnitsLeft.ToString() + ")", new IbRect(gv.oXshift + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH + (int)(2.5 * gv.pS), 600, 100), 1.0f, Color.White);
+                            if (gv.mod.useRationSystem)
+                            {
+                                gv.DrawText(gv.mod.currentArea.inGameAreaName + coordText + ", " + "R(" + gv.mod.numberOfRationsRemaining.ToString() + ")", new IbRect(gv.oXshift + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH + (int)(2.5f * gv.pS), 600, 100), 1.0f, Color.White);
+                            }
+                            else
+                            {
+                                gv.DrawText(gv.mod.currentArea.inGameAreaName + coordText, new IbRect(gv.oXshift + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH + (int)(2.5f * gv.pS), 600, 100), 1.0f, Color.White);
+
+                            }
                         }
-                        else 
+                        else
                         {
-                            gv.DrawText(gv.mod.partyLightName + "(" + gv.mod.currentLightUnitsLeft.ToString() + ")", new IbRect(gv.oXshift + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH + (int)(2.5 * gv.pS), 600, 100), 1.0f, Color.White);
+                            if (gv.mod.useRationSystem)
+                            {
+                                gv.DrawText("R(" + gv.mod.numberOfRationsRemaining.ToString() + ")", new IbRect(gv.oXshift + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH + (int)(2.5f * gv.pS), 600, 100), 1.0f, Color.White);
+                            }
 
                         }
+                        //gv.DrawText(hour + ":" + sMinute, new IbRect(gv.oXshift + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH - gv.pS, 600, 100), 1.0f, Color.White);
+
                     }
-                    //gv.DrawText(hour + ":" + sMinute + ", " + gv.mod.partyLightName + "(" + gv.mod.currentLightUnitsLeft.ToString() + ")", new IbRect(gv.oXshift + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH - gv.pS, 600, 100), 1.0f, Color.White);
                 }
                 else
                 {
-                    gv.DrawText(hour + ":" + sMinute + ", " + gv.mod.weekDayNameToDisplay + ", " + gv.mod.monthDayCounterNumberToDisplay + gv.mod.monthDayCounterAddendumToDisplay + " of " + gv.mod.monthNameToDisplay + " " + gv.mod.currentYear.ToString(), new IbRect(gv.oXshift + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH - gv.pS, 600, 100), 1.0f, Color.White);
-                    if ((gv.mod.currentArea.inGameAreaName != "") && (gv.mod.currentArea.inGameAreaName != "newArea"))
+                    for (int x = -2; x <= 2; x++)
                     {
-                        if (gv.mod.useRationSystem)
+                        for (int y = -2; y <= 2; y++)
                         {
-                            gv.DrawText(gv.mod.currentArea.inGameAreaName + ", " + "Rations(" + gv.mod.numberOfRationsRemaining.ToString() + ")", new IbRect(gv.oXshift + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH + (int)(2.5f * gv.pS), 600, 100), 1.0f, Color.White);
-                        }
-                        else 
-                        {
-                            gv.DrawText(gv.mod.currentArea.inGameAreaName, new IbRect(gv.oXshift + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH + (int)(2.5f * gv.pS), 600, 100), 1.0f, Color.White);
-
+                            gv.DrawText(hour + ":" + sMinute + ", " + gv.mod.weekDayNameToDisplay + ", " + gv.mod.monthDayCounterNumberToDisplay + gv.mod.monthDayCounterAddendumToDisplay + " of " + gv.mod.monthNameToDisplay + " " + gv.mod.currentYear.ToString(), new IbRect(gv.oXshift + x + (gv.playerOffsetY - 1) * gv.squareSize, gv.playerOffsetX * gv.squareSize - txtH + y - gv.pS, 100, 100), 1.0f, Color.Black);
                         }
                     }
-                    else
-                    {
-                        if (gv.mod.useRationSystem)
-                        {
-                            gv.DrawText("Rations(" + gv.mod.numberOfRationsRemaining.ToString() + ")", new IbRect(gv.oXshift + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH + (int)(2.5f * gv.pS), 600, 100), 1.0f, Color.White);
-                        }
-
-                    }
-                    //gv.DrawText(hour + ":" + sMinute, new IbRect(gv.oXshift + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH - gv.pS, 600, 100), 1.0f, Color.White);
+                    gv.DrawText(hour + ":" + sMinute + ", " + gv.mod.weekDayNameToDisplay + ", " + gv.mod.monthDayCounterNumberToDisplay + gv.mod.monthDayCounterAddendumToDisplay + " of " + gv.mod.monthNameToDisplay + " " + gv.mod.currentYear.ToString(), new IbRect(gv.oXshift + (gv.playerOffsetY - 1) * gv.squareSize, gv.playerOffsetX * gv.squareSize - txtH - gv.pS, 100, 100), 1.0f, Color.White);
 
                 }
-            }
-            else
-            {
-                for (int x = -2; x <= 2; x++)
-                {
-                    for (int y = -2; y <= 2; y++)
-                    {
-                        gv.DrawText(hour + ":" + sMinute + ", " + gv.mod.weekDayNameToDisplay + ", " + gv.mod.monthDayCounterNumberToDisplay + gv.mod.monthDayCounterAddendumToDisplay + " of " + gv.mod.monthNameToDisplay + " " + gv.mod.currentYear.ToString(), new IbRect(gv.oXshift + x + (gv.playerOffsetY - 1) * gv.squareSize, gv.playerOffsetX * gv.squareSize - txtH + y - gv.pS, 100, 100), 1.0f, Color.Black);
-                    }
-                }
-                gv.DrawText(hour + ":" + sMinute + ", " + gv.mod.weekDayNameToDisplay + ", " + gv.mod.monthDayCounterNumberToDisplay + gv.mod.monthDayCounterAddendumToDisplay + " of " + gv.mod.monthNameToDisplay + " " + gv.mod.currentYear.ToString(), new IbRect(gv.oXshift + (gv.playerOffsetY - 1) * gv.squareSize, gv.playerOffsetX * gv.squareSize - txtH - gv.pS, 100, 100), 1.0f, Color.White);
-
-            }
-
+            } 
         }
         public void drawFogOfWar()
         {

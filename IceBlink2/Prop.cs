@@ -15,6 +15,8 @@ namespace IceBlink2
     public class Prop 
     {
 
+        public bool alwaysDrawNormalSize = false;
+
         public bool encounterPropTriggerOnEveryStep = false;
 
         //new properties for faction and respawn system
@@ -208,7 +210,7 @@ namespace IceBlink2
         {
     	    Prop copy = new Prop();
             //copy.token = this.token;
-
+            copy.alwaysDrawNormalSize = this.alwaysDrawNormalSize;
             copy.encounterPropTriggerOnEveryStep = this.encounterPropTriggerOnEveryStep;
             copy.pendingFactionStrengthEffectReversal = this.pendingFactionStrengthEffectReversal;
             copy.spawnLocationX = this.spawnLocationX;

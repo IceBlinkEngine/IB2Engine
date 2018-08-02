@@ -311,7 +311,7 @@ namespace IceBlink2
                     //check shop: no sepaartwd selling of charges items
                     //check zero charges items - hopefully not deleted
 
-                    if ((it.onUseItemCastSpellTag == "none" || it.onUseItemCastSpellTag == "") && (it.onUseItemIBScript == "none" || it.onUseItemIBScript == "") && (it.onUseItem == "none" || it.onUseItem == ""))
+                    if (((it.onUseItemCastSpellTag == "none" || it.onUseItemCastSpellTag == "") && (it.onUseItemIBScript == "none" || it.onUseItemIBScript == "") && (it.onUseItem == "none" || it.onUseItem == "")) || itr.isLightSource)
                     {
                         if (itr.quantity > 1)
                         {
