@@ -208,7 +208,7 @@ namespace IceBlink2
             copy.tagOfTraitInfluenced = this.tagOfTraitInfluenced;
             copy.traitSkillRollModifier = this.traitSkillRollModifier;
             //test
-        copy.onUseItem = this.onUseItem;
+            copy.onUseItem = this.onUseItem;
 		    copy.onWhileEquipped = this.onWhileEquipped;
 		    copy.onUseItemIBScript = this.onUseItemIBScript;
             copy.onUseItemIBScriptParms = this.onUseItemIBScriptParms;

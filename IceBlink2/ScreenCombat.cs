@@ -962,6 +962,11 @@ namespace IceBlink2
                 }
             }
 
+            if (gv.mod.currentEncounter.standGroundVictory)
+            {
+                gv.mod.currentEncounter.standGroundInternalTimer = gv.mod.currentEncounter.standGroundTimer;
+            }
+
             if (gv.mod.currentEncounter.customTextforMessageBoxAtStartOfEncounter != "none" && gv.mod.currentEncounter.customTextforMessageBoxAtStartOfEncounter != "None" && gv.mod.currentEncounter.customTextforMessageBoxAtStartOfEncounter != "")
             {
                 gv.sf.MessageBox(gv.mod.currentEncounter.customTextforMessageBoxAtStartOfEncounter);
@@ -970,9 +975,25 @@ namespace IceBlink2
             {
                 //to do: adjust to victory/loss conditions and battlefield modifiers
                 //gv.sf.MessageBox("Win this battle by defeating all enemies.");
+                string battleStartMessage = "";
+
                 if (gv.mod.currentEncounter.assassinationVictory)
                 {
-                    gv.sf.MessageBox("Win this battle instantly by slaying " + gv.mod.currentEncounter.assassinationTargetName + ".");
+                    battleStartMessage += "Win this battle instantly by slaying " + gv.mod.currentEncounter.assassinationTargetName + ".<br>";
+                    //gv.sf.MessageBox("Win this battle instantly by slaying " + gv.mod.currentEncounter.assassinationTargetName + ".");
+                    ///gv.sf.MessageBox(battleStartMessage);
+                }
+
+                if (gv.mod.currentEncounter.standGroundVictory)
+                {
+                    battleStartMessage += "Win this battle instantly by surviving " + gv.mod.currentEncounter.standGroundInternalTimer + " rounds.<br>";
+                    //gv.sf.MessageBox("Win this battle instantly by slaying " + gv.mod.currentEncounter.assassinationTargetName + ".");
+                    ///gv.sf.MessageBox(battleStartMessage);
+                }
+
+                if (battleStartMessage != "")
+                {
+                    gv.sf.MessageBox(battleStartMessage);
                 }
             }
 
@@ -1004,6 +1025,10 @@ namespace IceBlink2
             floatyTextOn = false;
             gv.cc.addFloatyText(new Coordinate(0, 0), "Round " + roundCounter, "green");
             gv.cc.addLogText("<font color='lime'>" + "Round " + roundCounter + "</font><BR>");
+            if (gv.mod.currentEncounter.standGroundVictory)
+            {
+                gv.cc.addLogText("<font color='lime'>" + "Survive " + gv.mod.currentEncounter.standGroundInternalTimer + " more round(s).</font><BR>");
+            }
             floatyTextEnlargerOn = true;
             //floatyTextOn = true;
 
@@ -1644,11 +1669,21 @@ namespace IceBlink2
         public void startNextRoundStuff()
         {
 
-            //summe
-            //gv.sf.MessageBox("New round started.");
-            floatyTextOn = false;
+            if (gv.mod.currentEncounter.standGroundVictory)
+            {
+                gv.mod.currentEncounter.standGroundInternalTimer--;
+                checkEndEncounter();
+            }
+                //summe
+                //gv.sf.MessageBox("New round started.");
+                floatyTextOn = false;
             gv.cc.addFloatyText(new Coordinate(0, 0), "Round " + roundCounter, "green");
             gv.cc.addLogText("<font color='lime'>" + "Round " + roundCounter + "</font><BR>");
+            if (gv.mod.currentEncounter.standGroundVictory)
+            {
+                //gv.mod.currentEncounter.standGroundInternalTimer--;
+                gv.cc.addLogText("<font color='lime'>" + "Survive " + gv.mod.currentEncounter.standGroundInternalTimer + " more round(s).</font><BR>");
+            }
             floatyTextEnlargerOn = true;
             //floatyTextOn = true;
 
@@ -6083,8 +6118,13 @@ namespace IceBlink2
                     foundOneCrtr = 1;
                 }
             }
+            bool standGroundConditionMet = false;
+            if (gv.mod.currentEncounter.standGroundVictory && gv.mod.currentEncounter.standGroundInternalTimer <= 0)
+            {
+                standGroundConditionMet = true;
+            }
             //if ( ((foundOneCrtr == 0) && (gv.screenType.Equals("combat"))) || gv.mod.currentEncounter.assassinationConditionMet)
-            if (gv.screenType.Equals("combat") && (gv.mod.currentEncounter.assassinationConditionMet || foundOneCrtr == 0))
+            if (gv.screenType.Equals("combat") && (gv.mod.currentEncounter.assassinationConditionMet || foundOneCrtr == 0 || standGroundConditionMet))
                 {
 
                 /*
@@ -6183,6 +6223,10 @@ namespace IceBlink2
                 {
                     victoryText += "The main target, " + gv.mod.currentEncounter.assassinationTargetName + ", has been defeated. <BR>";
                 }
+                else if (standGroundConditionMet)
+                {
+                    victoryText += "The party survived " + gv.mod.currentEncounter.standGroundTimer + " rounds. <BR>";
+                }
 
                 //after all vicotry conditions...
                 victoryText += expText + goldText + itemsText;
@@ -6231,6 +6275,7 @@ namespace IceBlink2
 
                 //reset all conditions
                 gv.mod.currentEncounter.assassinationConditionMet = false;
+                gv.mod.currentEncounter.standGroundInternalTimer = gv.mod.currentEncounter.standGroundTimer;
 
                 //kill all creatures, check whether encounter is repeatable
                 gv.mod.currentEncounter.encounterCreatureList.Clear();

@@ -1468,7 +1468,7 @@ namespace IceBlink2
                                 pcNames.Add("cancel");
                                 foreach (Player p in gv.mod.playerList)
                                 {
-                                    pcNames.Add(p.name);
+                                    pcNames.Add(p.name + " (" + p.hp + "/" + p.hpMax + " HP)");
                                 }
 
                                 //If only one PC, do not show select PC dialog...just go to cast selector

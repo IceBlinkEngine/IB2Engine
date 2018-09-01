@@ -35495,7 +35495,8 @@ namespace IceBlink2
                         pnl.portraitList[index].TextHP = pc.hp + "/" + pc.hpMax;
                         pnl.portraitList[index].TextSP = pc.sp + "/" + pc.spMax;
                         pnl.portraitList[index].levelUpSymbol = "+";
-                        
+                        pnl.portraitList[index].chatSymbol = "Chat";
+
                         //DRAW LEVEL UP INDICATOR
                         if (pc.IsReadyToAdvanceLevel())
                         {
@@ -35504,6 +35505,16 @@ namespace IceBlink2
                         else
                         {
                             pnl.portraitList[index].levelUpSymbol = "";
+                        }
+
+                        //DRAW CHAT INDICATOR
+                        if (pc.hasNewChatOption.Count > 0)
+                        {
+                            pnl.portraitList[index].chatSymbol = "Chat";
+                        }
+                        else
+                        {
+                            pnl.portraitList[index].chatSymbol = "";
                         }
 
                         if (gv.mod.selectedPartyLeader == index)
@@ -36170,7 +36181,7 @@ namespace IceBlink2
                             {
                                 if (hasMainMapTypeSpell(p))
                                 {
-                                    pcNames.Add(p.name);
+                                    pcNames.Add(p.name + " (" + p.sp + "/" + p.spMax +" SP)");
                                     pcIndex.Add(cnt);
                                 }
                             }
@@ -36237,7 +36248,7 @@ namespace IceBlink2
                             {
                                 if (p.knownOutsideCombatUsableTraitsTags.Count > 0)
                                 {
-                                    pcNames.Add(p.name);
+                                    pcNames.Add(p.name + " (" + p.sp + "/" + p.spMax + " SP)");
                                     pcIndex.Add(cnt);
                                 }
                             }
@@ -38066,7 +38077,7 @@ namespace IceBlink2
                 {
                     if (hasMainMapTypeSpell(p))
                     {
-                        pcNames.Add(p.name);
+                        pcNames.Add(p.name + " (" + p.sp + "/" + p.spMax + " SP)");
                         pcIndex.Add(cnt);
                     }
                     cnt++;
@@ -38152,7 +38163,7 @@ namespace IceBlink2
                 {
                     if (p.knownOutsideCombatUsableTraitsTags.Count > 0)
                     {
-                        pcNames.Add(p.name);
+                        pcNames.Add(p.name + " (" + p.sp + "/" + p.spMax + " SP)");
                         pcIndex.Add(cnt);
                     }
                     cnt++;

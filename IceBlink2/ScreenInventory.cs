@@ -11,7 +11,16 @@ namespace IceBlink2
     {
 	    //public gv.module gv.mod;
 	    public GameView gv;
-	    private int inventoryPageIndex = 0;
+
+        private bool weaponFilterOn = false;
+        private bool armorFilterOn = false;
+        private bool generalFilterOn = false;
+        public List<ItemRefs> weaponRefs = new List<ItemRefs>();
+        public List<ItemRefs> armorRefs = new List<ItemRefs>();
+        public List<ItemRefs> generalRefs = new List<ItemRefs>();
+        //private bool noFilterOn = true;
+
+        private int inventoryPageIndex = 0;
 	    private int inventorySlotIndex = 0;
 	    private int slotsPerPage = 20;
 	    private List<IbbButton> btnInventorySlot = new List<IbbButton>();
@@ -20,7 +29,11 @@ namespace IceBlink2
 	    private IbbButton btnPageIndex = null;
 	    private IbbButton btnHelp = null;
 	    private IbbButton btnInfo = null;
-	    private IbbButton btnReturn = null;
+        private IbbButton btnAll = null;
+        private IbbButton btnWeapons = null;
+        private IbbButton btnArmors = null;
+        private IbbButton btnGeneral = null;
+        private IbbButton btnReturn = null;
 	    private IbbHtmlTextBox description;
 	
 	    public ScreenInventory(Module m, GameView g)
@@ -55,7 +68,7 @@ namespace IceBlink2
 			    btnPageIndex = new IbbButton(gv, 1.0f);
 			    btnPageIndex.Img = gv.cc.LoadBitmap("btn_small_off"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_off);
 			    btnPageIndex.Glow = gv.cc.LoadBitmap("btn_small_glow"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_glow);
-			    btnPageIndex.Text = "1/10";
+			    btnPageIndex.Text = "1/20";
 			    btnPageIndex.X = 9 * gv.squareSize;
 			    btnPageIndex.Y = (1 * gv.squareSize) - (pH * 2);
                 btnPageIndex.Height = (int)(gv.ibbheight * gv.screenDensity);
@@ -106,7 +119,57 @@ namespace IceBlink2
                 btnInfo.Height = (int)(gv.ibbheight * gv.screenDensity);
                 btnInfo.Width = (int)(gv.ibbwidthR * gv.screenDensity);			
 		    }
-		    for (int y = 0; y < slotsPerPage; y++)
+
+            if (btnAll == null)
+            {
+                btnAll = new IbbButton(gv, 0.8f);
+                btnAll.Text = "ALL";
+                btnAll.Img = gv.cc.LoadBitmap("btn_small"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small);
+                btnAll.Glow = gv.cc.LoadBitmap("btn_small_glow"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_glow);
+                btnAll.X = ((4) * gv.squareSize) + (padW * (1)) + gv.oXshift;
+                btnAll.Y = 2 * gv.squareSize; 
+                btnAll.Height = (int)(gv.ibbheight * gv.screenDensity);
+                btnAll.Width = (int)(gv.ibbwidthR * gv.screenDensity);
+                btnAll.glowOn = true;
+            }
+
+            if (btnWeapons == null)
+            {
+                btnWeapons = new IbbButton(gv, 0.8f);
+                btnWeapons.Text = "ARMS";
+                btnWeapons.Img = gv.cc.LoadBitmap("btn_small"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small);
+                btnWeapons.Glow = gv.cc.LoadBitmap("btn_small_glow"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_glow);
+                btnWeapons.X = ((4) * gv.squareSize) + (padW * (1)) + gv.oXshift;
+                btnWeapons.Y = 3 * gv.squareSize + padW;
+                btnWeapons.Height = (int)(gv.ibbheight * gv.screenDensity);
+                btnWeapons.Width = (int)(gv.ibbwidthR * gv.screenDensity);
+            }
+
+            if (btnArmors == null)
+            {
+                btnArmors = new IbbButton(gv, 0.8f);
+                btnArmors.Text = "WEAR";
+                btnArmors.Img = gv.cc.LoadBitmap("btn_small"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small);
+                btnArmors.Glow = gv.cc.LoadBitmap("btn_small_glow"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_glow);
+                btnArmors.X = ((4) * gv.squareSize) + (padW * (1)) + gv.oXshift;
+                btnArmors.Y = 4 * gv.squareSize + (padW * 2);
+                btnArmors.Height = (int)(gv.ibbheight * gv.screenDensity);
+                btnArmors.Width = (int)(gv.ibbwidthR * gv.screenDensity);
+            }
+
+            if (btnGeneral == null)
+            {
+                btnGeneral = new IbbButton(gv, 0.8f);
+                btnGeneral.Text = "GEN";
+                btnGeneral.Img = gv.cc.LoadBitmap("btn_small"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small);
+                btnGeneral.Glow = gv.cc.LoadBitmap("btn_small_glow"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_glow);
+                btnGeneral.X = ((4) * gv.squareSize) + (padW * (1)) + gv.oXshift;
+                btnGeneral.Y = 5 * gv.squareSize + (padW * 3);
+                btnGeneral.Height = (int)(gv.ibbheight * gv.screenDensity);
+                btnGeneral.Width = (int)(gv.ibbwidthR * gv.screenDensity);
+            }
+
+            for (int y = 0; y < slotsPerPage; y++)
 		    {
 			    IbbButton btnNew = new IbbButton(gv, 1.0f);	
 			    btnNew.Img = gv.cc.LoadBitmap("item_slot"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.item_slot);
@@ -139,9 +202,50 @@ namespace IceBlink2
 			    btnInventorySlot.Add(btnNew);
 		    }			
 	    }
-	
+
         public void resetInventory(bool inCombat)
         {
+            //do several separte lists for inventoryrefs: ALL (As is), WEAPON (Melee, Ranged), ARMOR (Melee, Ranged), MISC (General)
+            //List<ItemRefs> weaponRefs = new List<ItemRefs>();
+            //List<ItemRefs> armorRefs = new List<ItemRefs>();
+            //List<ItemRefs> generalRefs = new List<ItemRefs>();
+            weaponRefs.Clear();
+            armorRefs.Clear();
+            generalRefs.Clear();
+            //gv.mod.partyInventoryRefsList.Count)
+                //{
+                //Item it = gv.mod.getItemByResRefForInfo(gv.mod.partyInventoryRefsList[cntSlot + (inventoryPageIndex * slotsPerPage)].resref);
+
+            //weapons & ammo 
+            foreach (ItemRefs iR in gv.mod.partyInventoryRefsList)
+            {
+                Item it = gv.mod.getItemByResRefForInfo(iR.resref);
+                if (it.category == "Melee" || it.category == "Ranged" || it.category == "Ammo")
+                {
+                    weaponRefs.Add(iR);
+                }
+            }
+
+            //armor 
+            foreach (ItemRefs iR in gv.mod.partyInventoryRefsList)
+            {
+                Item it = gv.mod.getItemByResRefForInfo(iR.resref);
+                if (it.category == "Shield" || it.category == "Head" || it.category == "Neck" || it.category == "Gloves" || it.category == "Feet" || it.category == "Ring" || it.category == "Armor")
+                {
+                    armorRefs.Add(iR);
+                }
+            }
+
+            //general 
+            foreach (ItemRefs iR in gv.mod.partyInventoryRefsList)
+            {
+                Item it = gv.mod.getItemByResRefForInfo(iR.resref);
+                if (it.category == "General")
+                {
+                    generalRefs.Add(iR);
+                }
+            }
+
             if (btnReturn == null)
             {
                 setControlsStart();
@@ -152,7 +256,8 @@ namespace IceBlink2
                 btn.Quantity = "";
             }
 
-                for (int i = gv.mod.addedItemsRefs.Count - 1; i >= 0; i--)
+
+            for (int i = gv.mod.addedItemsRefs.Count - 1; i >= 0; i--)
             {
                 for (int j = gv.mod.partyInventoryRefsList.Count - 1; j >= 0; j--)
                 {
@@ -167,6 +272,60 @@ namespace IceBlink2
                         break;
                     }
                     
+                }
+            }
+
+            for (int i = gv.mod.addedItemsRefs.Count - 1; i >= 0; i--)
+            {
+                for (int j = weaponRefs.Count - 1; j >= 0; j--)
+                {
+
+                    if (gv.mod.addedItemsRefs[i] == weaponRefs[j].tag)
+                    {
+                        //krahn
+                        weaponRefs.RemoveAt(j);
+                        //btnInventorySlot
+                        //btn.Img3 = gv.cc.LoadBitmap("mandatory_conversation_indicator");
+                        //btnInventorySlot[i].Img3 = null;
+                        break;
+                    }
+
+                }
+            }
+
+            for (int i = gv.mod.addedItemsRefs.Count - 1; i >= 0; i--)
+            {
+                for (int j = armorRefs.Count - 1; j >= 0; j--)
+                {
+
+                    if (gv.mod.addedItemsRefs[i] == armorRefs[j].tag)
+                    { 
+                        //krahn
+                        armorRefs.RemoveAt(j);
+                        //btnInventorySlot
+                        //btn.Img3 = gv.cc.LoadBitmap("mandatory_conversation_indicator");
+                        //btnInventorySlot[i].Img3 = null;
+                        break;
+                    }
+
+                }
+            }
+
+            for (int i = gv.mod.addedItemsRefs.Count - 1; i >= 0; i--)
+            {
+                for (int j = generalRefs.Count - 1; j >= 0; j--)
+                {
+
+                    if (gv.mod.addedItemsRefs[i] == generalRefs[j].tag)
+                    {
+                        //krahn
+                        generalRefs.RemoveAt(j);
+                        //btnInventorySlot
+                        //btn.Img3 = gv.cc.LoadBitmap("mandatory_conversation_indicator");
+                        //btnInventorySlot[i].Img3 = null;
+                        break;
+                    }
+
                 }
             }
 
@@ -208,6 +367,9 @@ namespace IceBlink2
                 if (pc.BodyRefs.tag != "none" && pc.BodyRefs.tag != "")
                 {
                     gv.mod.partyInventoryRefsList.Insert(insertCounter, pc.BodyRefs);
+                    weaponRefs.Insert(insertCounter, pc.BodyRefs);
+                    armorRefs.Insert(insertCounter, pc.BodyRefs);
+                    generalRefs.Insert(insertCounter, pc.BodyRefs);
                     gv.mod.addedItemsRefs.Add(pc.BodyRefs.tag);
                     btnInventorySlot[insertCounter].Img3 = gv.cc.LoadBitmap("mandatory_conversation_indicator");
                     insertCounter++;
@@ -217,6 +379,9 @@ namespace IceBlink2
                 if (pc.MainHandRefs.tag != "none" && pc.MainHandRefs.tag != "")
                 {
                     gv.mod.partyInventoryRefsList.Insert(insertCounter, pc.MainHandRefs);
+                    weaponRefs.Insert(insertCounter, pc.MainHandRefs);
+                    armorRefs.Insert(insertCounter, pc.MainHandRefs);
+                    generalRefs.Insert(insertCounter, pc.MainHandRefs);
                     gv.mod.addedItemsRefs.Add(pc.MainHandRefs.tag);
                     btnInventorySlot[insertCounter].Img3 = gv.cc.LoadBitmap("mandatory_conversation_indicator");
                     insertCounter++;
@@ -226,6 +391,9 @@ namespace IceBlink2
                 if (pc.OffHandRefs.tag != "none" && pc.OffHandRefs.tag != "")
                 {
                     gv.mod.partyInventoryRefsList.Insert(insertCounter, pc.OffHandRefs);
+                    weaponRefs.Insert(insertCounter, pc.OffHandRefs);
+                    armorRefs.Insert(insertCounter, pc.OffHandRefs);
+                    generalRefs.Insert(insertCounter, pc.OffHandRefs);
                     gv.mod.addedItemsRefs.Add(pc.OffHandRefs.tag);
                     btnInventorySlot[insertCounter].Img3 = gv.cc.LoadBitmap("mandatory_conversation_indicator");
                     insertCounter++;
@@ -235,6 +403,9 @@ namespace IceBlink2
                 if (pc.HeadRefs.tag != "none" && pc.HeadRefs.tag != "")
                 {
                     gv.mod.partyInventoryRefsList.Insert(insertCounter, pc.HeadRefs);
+                    weaponRefs.Insert(insertCounter, pc.HeadRefs);
+                    armorRefs.Insert(insertCounter, pc.HeadRefs);
+                    generalRefs.Insert(insertCounter, pc.HeadRefs);
                     gv.mod.addedItemsRefs.Add(pc.HeadRefs.tag);
                     btnInventorySlot[insertCounter].Img3 = gv.cc.LoadBitmap("mandatory_conversation_indicator");
                     insertCounter++;
@@ -244,6 +415,9 @@ namespace IceBlink2
                 if (pc.RingRefs.tag != "none" && pc.RingRefs.tag != "")
                 {
                     gv.mod.partyInventoryRefsList.Insert(insertCounter, pc.RingRefs);
+                    weaponRefs.Insert(insertCounter, pc.RingRefs);
+                    armorRefs.Insert(insertCounter, pc.RingRefs);
+                    generalRefs.Insert(insertCounter, pc.RingRefs);
                     gv.mod.addedItemsRefs.Add(pc.RingRefs.tag);
                     btnInventorySlot[insertCounter].Img3 = gv.cc.LoadBitmap("mandatory_conversation_indicator");
                     insertCounter++;
@@ -254,6 +428,9 @@ namespace IceBlink2
                 if (pc.Ring2Refs.tag != "none" && pc.Ring2Refs.tag != "")
                 {
                     gv.mod.partyInventoryRefsList.Insert(insertCounter, pc.Ring2Refs);
+                    weaponRefs.Insert(insertCounter, pc.Ring2Refs);
+                    armorRefs.Insert(insertCounter, pc.Ring2Refs);
+                    generalRefs.Insert(insertCounter, pc.Ring2Refs);
                     gv.mod.addedItemsRefs.Add(pc.Ring2Refs.tag);
                     btnInventorySlot[insertCounter].Img3 = gv.cc.LoadBitmap("mandatory_conversation_indicator");
                     insertCounter++;
@@ -263,6 +440,9 @@ namespace IceBlink2
                 if (pc.GlovesRefs.tag != "none" && pc.GlovesRefs.tag != "")
                 {
                     gv.mod.partyInventoryRefsList.Insert(insertCounter, pc.GlovesRefs);
+                    weaponRefs.Insert(insertCounter, pc.GlovesRefs);
+                    armorRefs.Insert(insertCounter, pc.GlovesRefs);
+                    generalRefs.Insert(insertCounter, pc.GlovesRefs);
                     gv.mod.addedItemsRefs.Add(pc.GlovesRefs.tag);
                     btnInventorySlot[insertCounter].Img3 = gv.cc.LoadBitmap("mandatory_conversation_indicator");
                     insertCounter++;
@@ -272,6 +452,9 @@ namespace IceBlink2
                 if (pc.NeckRefs.tag != "none" && pc.NeckRefs.tag != "")
                 {
                     gv.mod.partyInventoryRefsList.Insert(insertCounter, pc.NeckRefs);
+                    weaponRefs.Insert(insertCounter, pc.NeckRefs);
+                    armorRefs.Insert(insertCounter, pc.NeckRefs);
+                    generalRefs.Insert(insertCounter, pc.NeckRefs);
                     gv.mod.addedItemsRefs.Add(pc.NeckRefs.tag);
                     btnInventorySlot[insertCounter].Img3 = gv.cc.LoadBitmap("mandatory_conversation_indicator");
                     insertCounter++;
@@ -281,6 +464,9 @@ namespace IceBlink2
                 if (pc.FeetRefs.tag != "none" && pc.FeetRefs.tag != "")
                 {
                     gv.mod.partyInventoryRefsList.Insert(insertCounter, pc.FeetRefs);
+                    weaponRefs.Insert(insertCounter, pc.FeetRefs);
+                    armorRefs.Insert(insertCounter, pc.FeetRefs);
+                    generalRefs.Insert(insertCounter, pc.FeetRefs);
                     gv.mod.addedItemsRefs.Add(pc.FeetRefs.tag);
                     btnInventorySlot[insertCounter].Img3 = gv.cc.LoadBitmap("mandatory_conversation_indicator");
                     insertCounter++;
@@ -295,68 +481,269 @@ namespace IceBlink2
             //}
 
             //foreach (IbbButton btn in btnInventorySlot)
+
             int startCounter = 0;
-            for (int i = startCounter; i < btnInventorySlot.Count; i++)
+
+            if (weaponFilterOn)
             {
-                if ((cntSlot + (inventoryPageIndex * slotsPerPage)) < gv.mod.partyInventoryRefsList.Count)
+                for (int i = startCounter; i < btnInventorySlot.Count; i++)
                 {
-                    Item it = gv.mod.getItemByResRefForInfo(gv.mod.partyInventoryRefsList[cntSlot + (inventoryPageIndex * slotsPerPage)].resref);
-                    gv.cc.DisposeOfBitmap(ref btnInventorySlot[i].Img2);
-                    btnInventorySlot[i].Img2 = gv.cc.LoadBitmap(it.itemImage);
-                    ItemRefs itr = gv.mod.partyInventoryRefsList[cntSlot + (inventoryPageIndex * slotsPerPage)];
-
-                    //if ()
-                    //bockauf
-                    //chargelogic
-                    //check shop: no sepaartwd selling of charges items
-                    //check zero charges items - hopefully not deleted
-
-                    if (((it.onUseItemCastSpellTag == "none" || it.onUseItemCastSpellTag == "") && (it.onUseItemIBScript == "none" || it.onUseItemIBScript == "") && (it.onUseItem == "none" || it.onUseItem == "")) || itr.isLightSource)
+                    if ((cntSlot + (inventoryPageIndex * slotsPerPage)) < weaponRefs.Count)
                     {
-                        if (itr.quantity > 1)
+                        Item it = gv.mod.getItemByResRefForInfo(weaponRefs[cntSlot + (inventoryPageIndex * slotsPerPage)].resref);
+                        gv.cc.DisposeOfBitmap(ref btnInventorySlot[i].Img2);
+                        btnInventorySlot[i].Img2 = gv.cc.LoadBitmap(it.itemImage);
+                        ItemRefs itr = weaponRefs[cntSlot + (inventoryPageIndex * slotsPerPage)];
+
+                        //if ()
+                        //bockauf
+                        //chargelogic
+                        //check shop: no sepaartwd selling of charges items
+                        //check zero charges items - hopefully not deleted
+
+                        if (((it.onUseItemCastSpellTag == "none" || it.onUseItemCastSpellTag == "") && (it.onUseItemIBScript == "none" || it.onUseItemIBScript == "") && (it.onUseItem == "none" || it.onUseItem == "")) || itr.isLightSource)
                         {
-                            btnInventorySlot[i].Quantity = itr.quantity + "";
-                            btnInventorySlot[i].btnOfChargedItem = false;
-                        }
-                        else
-                        {
-                            btnInventorySlot[i].Quantity = "";
-                            btnInventorySlot[i].btnOfChargedItem = false;
-                        }
-                    }
-                    //useable item
-                    else if (itr.quantity != 1)
-                    {
-                        if (itr.quantity > 1)
-                        {
-                            btnInventorySlot[i].Quantity = (itr.quantity-1) + "";
-                            //eg staff that can conjure three fireballs
-                            if (!it.isStackable)
+                            if (itr.quantity > 1)
                             {
-                                btnInventorySlot[i].btnOfChargedItem = true;
+                                btnInventorySlot[i].Quantity = itr.quantity + "";
+                                btnInventorySlot[i].btnOfChargedItem = false;
                             }
-                            //eg potion
                             else
                             {
+                                btnInventorySlot[i].Quantity = "";
                                 btnInventorySlot[i].btnOfChargedItem = false;
                             }
                         }
-                        else
+                        //useable item
+                        else if (itr.quantity != 1)
                         {
-                            btnInventorySlot[i].Quantity = "0";
-                            btnInventorySlot[i].btnOfChargedItem = true;
+                            if (itr.quantity > 1)
+                            {
+                                btnInventorySlot[i].Quantity = (itr.quantity - 1) + "";
+                                //eg staff that can conjure three fireballs
+                                if (!it.isStackable)
+                                {
+                                    btnInventorySlot[i].btnOfChargedItem = true;
+                                }
+                                //eg potion
+                                else
+                                {
+                                    btnInventorySlot[i].btnOfChargedItem = false;
+                                }
+                            }
+                            else
+                            {
+                                btnInventorySlot[i].Quantity = "0";
+                                btnInventorySlot[i].btnOfChargedItem = true;
+                            }
                         }
                     }
+                    //no item in on button
+                    else
+                    {
+                        btnInventorySlot[i].Img2 = null;
+                        btnInventorySlot[i].Quantity = "";
+                        btnInventorySlot[i].btnOfChargedItem = false;
+                    }
+                    cntSlot++;
                 }
-                //no item in on button
-                else
-                {
-                    btnInventorySlot[i].Img2 = null;
-                    btnInventorySlot[i].Quantity = "";
-                    btnInventorySlot[i].btnOfChargedItem = false;
-                }
-                cntSlot++;
             }
+
+            else if (armorFilterOn)
+            {
+                for (int i = startCounter; i < btnInventorySlot.Count; i++)
+                {
+                    if ((cntSlot + (inventoryPageIndex * slotsPerPage)) < armorRefs.Count)
+                    {
+                        Item it = gv.mod.getItemByResRefForInfo(armorRefs[cntSlot + (inventoryPageIndex * slotsPerPage)].resref);
+                        gv.cc.DisposeOfBitmap(ref btnInventorySlot[i].Img2);
+                        btnInventorySlot[i].Img2 = gv.cc.LoadBitmap(it.itemImage);
+                        ItemRefs itr = armorRefs[cntSlot + (inventoryPageIndex * slotsPerPage)];
+
+                        //if ()
+                        //bockauf
+                        //chargelogic
+                        //check shop: no sepaartwd selling of charges items
+                        //check zero charges items - hopefully not deleted
+
+                        if (((it.onUseItemCastSpellTag == "none" || it.onUseItemCastSpellTag == "") && (it.onUseItemIBScript == "none" || it.onUseItemIBScript == "") && (it.onUseItem == "none" || it.onUseItem == "")) || itr.isLightSource)
+                        {
+                            if (itr.quantity > 1)
+                            {
+                                btnInventorySlot[i].Quantity = itr.quantity + "";
+                                btnInventorySlot[i].btnOfChargedItem = false;
+                            }
+                            else
+                            {
+                                btnInventorySlot[i].Quantity = "";
+                                btnInventorySlot[i].btnOfChargedItem = false;
+                            }
+                        }
+                        //useable item
+                        else if (itr.quantity != 1)
+                        {
+                            if (itr.quantity > 1)
+                            {
+                                btnInventorySlot[i].Quantity = (itr.quantity - 1) + "";
+                                //eg staff that can conjure three fireballs
+                                if (!it.isStackable)
+                                {
+                                    btnInventorySlot[i].btnOfChargedItem = true;
+                                }
+                                //eg potion
+                                else
+                                {
+                                    btnInventorySlot[i].btnOfChargedItem = false;
+                                }
+                            }
+                            else
+                            {
+                                btnInventorySlot[i].Quantity = "0";
+                                btnInventorySlot[i].btnOfChargedItem = true;
+                            }
+                        }
+                    }
+                    //no item in on button
+                    else
+                    {
+                        btnInventorySlot[i].Img2 = null;
+                        btnInventorySlot[i].Quantity = "";
+                        btnInventorySlot[i].btnOfChargedItem = false;
+                    }
+                    cntSlot++;
+                }
+            }
+
+            else if (generalFilterOn)
+            {
+                for (int i = startCounter; i < btnInventorySlot.Count; i++)
+                {
+                    if ((cntSlot + (inventoryPageIndex * slotsPerPage)) < generalRefs.Count)
+                    {
+                        Item it = gv.mod.getItemByResRefForInfo(generalRefs[cntSlot + (inventoryPageIndex * slotsPerPage)].resref);
+                        gv.cc.DisposeOfBitmap(ref btnInventorySlot[i].Img2);
+                        btnInventorySlot[i].Img2 = gv.cc.LoadBitmap(it.itemImage);
+                        ItemRefs itr = generalRefs[cntSlot + (inventoryPageIndex * slotsPerPage)];
+
+                        //if ()
+                        //bockauf
+                        //chargelogic
+                        //check shop: no sepaartwd selling of charges items
+                        //check zero charges items - hopefully not deleted
+
+                        if (((it.onUseItemCastSpellTag == "none" || it.onUseItemCastSpellTag == "") && (it.onUseItemIBScript == "none" || it.onUseItemIBScript == "") && (it.onUseItem == "none" || it.onUseItem == "")) || itr.isLightSource)
+                        {
+                            if (itr.quantity > 1)
+                            {
+                                btnInventorySlot[i].Quantity = itr.quantity + "";
+                                btnInventorySlot[i].btnOfChargedItem = false;
+                            }
+                            else
+                            {
+                                btnInventorySlot[i].Quantity = "";
+                                btnInventorySlot[i].btnOfChargedItem = false;
+                            }
+                        }
+                        //useable item
+                        else if (itr.quantity != 1)
+                        {
+                            if (itr.quantity > 1)
+                            {
+                                btnInventorySlot[i].Quantity = (itr.quantity - 1) + "";
+                                //eg staff that can conjure three fireballs
+                                if (!it.isStackable)
+                                {
+                                    btnInventorySlot[i].btnOfChargedItem = true;
+                                }
+                                //eg potion
+                                else
+                                {
+                                    btnInventorySlot[i].btnOfChargedItem = false;
+                                }
+                            }
+                            else
+                            {
+                                btnInventorySlot[i].Quantity = "0";
+                                btnInventorySlot[i].btnOfChargedItem = true;
+                            }
+                        }
+                    }
+                    //no item in on button
+                    else
+                    {
+                        btnInventorySlot[i].Img2 = null;
+                        btnInventorySlot[i].Quantity = "";
+                        btnInventorySlot[i].btnOfChargedItem = false;
+                    }
+                    cntSlot++;
+                }
+            }
+
+            else
+            {
+                for (int i = startCounter; i < btnInventorySlot.Count; i++)
+                {
+                    if ((cntSlot + (inventoryPageIndex * slotsPerPage)) < gv.mod.partyInventoryRefsList.Count)
+                    {
+                        Item it = gv.mod.getItemByResRefForInfo(gv.mod.partyInventoryRefsList[cntSlot + (inventoryPageIndex * slotsPerPage)].resref);
+                        gv.cc.DisposeOfBitmap(ref btnInventorySlot[i].Img2);
+                        btnInventorySlot[i].Img2 = gv.cc.LoadBitmap(it.itemImage);
+                        ItemRefs itr = gv.mod.partyInventoryRefsList[cntSlot + (inventoryPageIndex * slotsPerPage)];
+
+                        //if () 
+                        //bockauf
+                        //chargelogic
+                        //check shop: no sepaartwd selling of charges items
+                        //check zero charges items - hopefully not deleted
+
+                        if (((it.onUseItemCastSpellTag == "none" || it.onUseItemCastSpellTag == "") && (it.onUseItemIBScript == "none" || it.onUseItemIBScript == "") && (it.onUseItem == "none" || it.onUseItem == "")) || itr.isLightSource)
+                        {
+                            if (itr.quantity > 1)
+                            {
+                                btnInventorySlot[i].Quantity = itr.quantity + "";
+                                btnInventorySlot[i].btnOfChargedItem = false;
+                            }
+                            else
+                            {
+                                btnInventorySlot[i].Quantity = "";
+                                btnInventorySlot[i].btnOfChargedItem = false;
+                            }
+                        }
+                        //useable item
+                        else if (itr.quantity != 1)
+                        {
+                            if (itr.quantity > 1)
+                            {
+                                btnInventorySlot[i].Quantity = (itr.quantity - 1) + "";
+                                //eg staff that can conjure three fireballs
+                                if (!it.isStackable)
+                                {
+                                    btnInventorySlot[i].btnOfChargedItem = true;
+                                }
+                                //eg potion
+                                else
+                                {
+                                    btnInventorySlot[i].btnOfChargedItem = false;
+                                }
+                            }
+                            else
+                            {
+                                btnInventorySlot[i].Quantity = "0";
+                                btnInventorySlot[i].btnOfChargedItem = true;
+                            }
+                        }
+                    }
+                    //no item in on button
+                    else
+                    {
+                        btnInventorySlot[i].Img2 = null;
+                        btnInventorySlot[i].Quantity = "";
+                        btnInventorySlot[i].btnOfChargedItem = false;
+                    }
+                    cntSlot++;
+                }
+            }
+            
         }
 	    //INVENTORY SCREEN (COMBAT and MAIN)
         public void redrawInventory()
@@ -449,8 +836,12 @@ namespace IceBlink2
                 description.onDrawLogBox();
 		    }
 		    btnHelp.Draw();	
-		    btnInfo.Draw();	
-		    btnReturn.Draw();
+		    btnInfo.Draw();
+            btnAll.Draw();
+            btnWeapons.Draw();
+            btnArmors.Draw();
+            btnGeneral.Draw();
+            btnReturn.Draw();
         }
         public string isUseableBy(Item it)
         {
@@ -476,6 +867,10 @@ namespace IceBlink2
                 btnInventoryRight.glowOn = false;
                 btnHelp.glowOn = false;
                 btnInfo.glowOn = false;
+                //btnAll.glowOn = false;
+                //btnWeapons.glowOn = false;
+                //btnArmors.glowOn = false;
+                //btnGeneral.glowOn = false;
                 btnReturn.glowOn = false;
 
                 //int eventAction = event.getAction();
@@ -501,6 +896,22 @@ namespace IceBlink2
                         {
                             btnInfo.glowOn = true;
                         }
+                        else if (btnAll.getImpact(x, y))
+                        {
+                            //btnAll.glowOn = true;
+                        }
+                        else if (btnWeapons.getImpact(x, y))
+                        {
+                            //btnWeapons.glowOn = true;
+                        }
+                        else if (btnArmors.getImpact(x, y))
+                        {
+                            //btnArmors.glowOn = true;
+                        }
+                        else if (btnGeneral.getImpact(x, y))
+                        {
+                            //btnGeneral.glowOn = true;
+                        }
                         else if (btnReturn.getImpact(x, y))
                         {
                             btnReturn.glowOn = true;
@@ -515,6 +926,10 @@ namespace IceBlink2
                         btnInventoryRight.glowOn = false;
                         btnHelp.glowOn = false;
                         btnInfo.glowOn = false;
+                        //btnAll.glowOn = false;
+                        //btnWeapons.glowOn = false;
+                        //btnArmors.glowOn = false;
+                        //btnGeneral.glowOn = false;
                         btnReturn.glowOn = false;
 
                         for (int j = 0; j < slotsPerPage; j++)
@@ -546,16 +961,16 @@ namespace IceBlink2
                             if (inventoryPageIndex > 0)
                             {
                                 inventoryPageIndex--;
-                                btnPageIndex.Text = (inventoryPageIndex + 1) + "/10";
+                                btnPageIndex.Text = (inventoryPageIndex + 1) + "/20";
                                 resetInventory(inCombat);
                             }
                         }
                         else if (btnInventoryRight.getImpact(x, y))
                         {
-                            if (inventoryPageIndex < 9)
+                            if (inventoryPageIndex < 19)
                             {
                                 inventoryPageIndex++;
-                                btnPageIndex.Text = (inventoryPageIndex + 1) + "/10";
+                                btnPageIndex.Text = (inventoryPageIndex + 1) + "/20";
                                 resetInventory(inCombat);
                             }
                         }
@@ -573,6 +988,62 @@ namespace IceBlink2
                                 if (it == null) { return; }
                                 gv.cc.buildItemInfoText(it, -100);
                             }
+                        }
+                        else if (btnAll.getImpact(x, y))
+                        {
+                            btnAll.glowOn = true;
+                            btnWeapons.glowOn = false;
+                            btnArmors.glowOn = false;
+                            btnGeneral.glowOn = false;
+                            armorFilterOn = false;
+                            generalFilterOn = false;
+                            weaponFilterOn = false;
+                            inventorySlotIndex = 0;
+                            inventoryPageIndex = 0;
+                            btnPageIndex.Text = "1/20";
+                            resetInventory(inCombat);
+                        }
+                        else if (btnWeapons.getImpact(x, y))
+                        {
+                            btnAll.glowOn = false;
+                            btnWeapons.glowOn = true;
+                            btnArmors.glowOn = false;
+                            btnGeneral.glowOn = false;
+                            armorFilterOn = false;
+                            generalFilterOn = false;
+                            weaponFilterOn = true;
+                            inventorySlotIndex = 0;
+                            inventoryPageIndex = 0;
+                            btnPageIndex.Text = "1/20";
+                            resetInventory(inCombat);
+                        }
+                        else if (btnArmors.getImpact(x, y))
+                        {
+                            btnAll.glowOn = false;
+                            btnWeapons.glowOn = false;
+                            btnArmors.glowOn = true;
+                            btnGeneral.glowOn = false;
+                            armorFilterOn = true;
+                            generalFilterOn = false;
+                            weaponFilterOn = false;
+                            inventorySlotIndex = 0;
+                            inventoryPageIndex = 0;
+                            btnPageIndex.Text = "1/20";
+                            resetInventory(inCombat);
+                        }
+                        else if (btnGeneral.getImpact(x, y))
+                        {
+                            btnAll.glowOn = false;
+                            btnWeapons.glowOn = false;
+                            btnArmors.glowOn = false;
+                            btnGeneral.glowOn = true;
+                            armorFilterOn = false;
+                            generalFilterOn = true;
+                            weaponFilterOn = false;
+                            inventorySlotIndex = 0;
+                            inventoryPageIndex = 0;
+                            btnPageIndex.Text = "1/20";
+                            resetInventory(inCombat);
                         }
                         else if (btnReturn.getImpact(x, y))
                         {
@@ -611,8 +1082,18 @@ namespace IceBlink2
 		    btnPageIndex = null;
 		    btnHelp = null;
 		    btnInfo = null;
-		    btnReturn = null;
-	    }
+            btnAll = null;
+            btnWeapons = null;
+            btnArmors = null;
+            btnGeneral = null;
+            btnReturn = null;
+            armorFilterOn = false;
+            generalFilterOn = false;
+            weaponFilterOn = false;
+            inventorySlotIndex = 0;
+            inventoryPageIndex = 0;
+            btnPageIndex.Text = "1/20";
+        }
 	
 	    public void doItemAction(bool inCombat)
 	    {
@@ -1281,13 +1762,63 @@ namespace IceBlink2
 			    }
 		    }
 	    }
+
 	    public ItemRefs GetCurrentlySelectedItemRefs()
 	    {
-		    return gv.mod.partyInventoryRefsList[GetIndex()];
+            
+            if (weaponFilterOn)
+            {
+                int counter = GetIndex();
+                if (counter >= weaponRefs.Count)
+                {
+                    counter = weaponRefs.Count - 1;
+                }
+                return weaponRefs[counter];
+            }
+
+
+            if (armorFilterOn)
+            {
+                int counter = GetIndex();
+                if (counter >= armorRefs.Count)
+                {
+                    counter = armorRefs.Count - 1;
+                }
+                return armorRefs[counter];
+            }
+
+            if (generalFilterOn)
+            {
+
+                int counter = GetIndex();
+                if (counter >= generalRefs.Count)
+                {
+                    counter = generalRefs.Count - 1;
+                }
+                return generalRefs[counter];
+            }
+
+            return gv.mod.partyInventoryRefsList[GetIndex()];
 	    }
 	    public bool isSelectedItemSlotInPartyInventoryRange()
 	    {
-		    return GetIndex() < gv.mod.partyInventoryRefsList.Count;
+           //Appell
+           if (armorFilterOn)
+           {
+                return GetIndex() < armorRefs.Count;
+           }
+
+           if (weaponFilterOn)
+           {
+                return GetIndex() < weaponRefs.Count;
+           }
+
+            if (generalFilterOn)
+            {
+                return GetIndex() < generalRefs.Count;
+            }
+
+            return GetIndex() < gv.mod.partyInventoryRefsList.Count;
 	    }
 	    public void tutorialMessageInventory(bool helpCall)
         {

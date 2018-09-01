@@ -18,9 +18,11 @@ namespace IceBlink2
         public string GlowFilename = "";
         public bool glowOn = false;
         public bool levelUpOn = false;
+
         public string TextHP = "";
         public string TextSP = "";
         public string levelUpSymbol = "";
+        public string chatSymbol = "";
         public int X = 0;
         public int Y = 0;
         public int Width = 0;
@@ -217,7 +219,25 @@ namespace IceBlink2
                 }
                 int xLoc3 = (int)((parentPanel.currentLocX + this.X) * gv.screenDensity + ulX - pW);
                 int yLoc3 = (int)((parentPanel.currentLocY + this.Y) * gv.screenDensity + ulY - pH);
-                gv.DrawText(levelUpSymbol, xLoc3, yLoc3, scaler*1.2f, Color.Azure);
+                gv.DrawText(levelUpSymbol, xLoc3, yLoc3, scaler*1.2f, Color.CornflowerBlue);
+
+                
+                //draw chat symbol
+                int ulX5 = (int)(110 * gv.screenDensity) - pW * 24;
+                int ulY5 = (int)(Height * gv.screenDensity) - ((int)thisFontHeight * 7) + 2*pH;
+
+                for (int x = -2; x <= 2; x++)
+                {
+                    for (int y = -2; y <= 2; y++)
+                    {
+                        int xLoc = (int)((parentPanel.currentLocX + this.X) * gv.screenDensity + ulX5 - pW + x);
+                        int yLoc = (int)((parentPanel.currentLocY + this.Y) * gv.screenDensity + ulY5 - pH + y);
+                        gv.DrawText(chatSymbol, xLoc, yLoc, scaler * 0.5f, Color.Black);
+                    }
+                }
+                int xLoc4 = (int)((parentPanel.currentLocX + this.X) * gv.screenDensity + ulX5 - pW);
+                int yLoc4 = (int)((parentPanel.currentLocY + this.Y) * gv.screenDensity + ulY5 - pH);
+                gv.DrawText(chatSymbol, xLoc4, yLoc4, scaler * 0.5f, Color.Azure);
             }
 
             //draw level up symbol

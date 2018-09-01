@@ -24,6 +24,10 @@ namespace IceBlink2
         public string assassinationTargetName = "none";
         public bool assassinationConditionMet = false;
 
+        public bool standGroundVictory = true;
+        public int standGroundTimer = 10;
+        public int standGroundInternalTimer = 10;
+
         //Loss conditions
 
         //Battlefield modifiers

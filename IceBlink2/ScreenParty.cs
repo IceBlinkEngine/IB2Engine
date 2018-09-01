@@ -29,6 +29,8 @@ namespace IceBlink2
         private IbbButton btnRing2 = null;
         private IbbButton btnFeet = null;
         private IbbButton btnAmmo = null;
+        public IbbButton btnChat = null;
+        public IbbButton btnOrder = null;
         private IbbButton btnHelp = null;
         private IbbButton btnInfo = null;
         private IbbButton btnReturn = null;
@@ -196,7 +198,7 @@ namespace IceBlink2
                 btnLevelUp.Text = "Level Up";
                 //btnLevelUp.X = 5 * gv.squareSize + padW * 1 + gv.oXshift;
                 //btnLevelUp.Y = 8 * gv.squareSize - pH * 2;
-                btnLevelUp.X = 10 * gv.squareSize + (padW * (7)) + gv.oXshift;
+                btnLevelUp.X = 12 * gv.squareSize + (padW * (10)) + gv.oXshift;
                 btnLevelUp.Y = pH * 2; ;
                 btnLevelUp.Height = (int)(gv.ibbheight * gv.screenDensity);
                 btnLevelUp.Width = (int)(gv.ibbwidthL * gv.screenDensity);
@@ -314,6 +316,31 @@ namespace IceBlink2
                 btnAmmo.Width = (int)(gv.ibbwidthR * gv.screenDensity);
             }
 
+            if (btnChat == null)
+            {
+                btnChat = new IbbButton(gv, 1.0f);
+                btnChat.Img = gv.cc.LoadBitmap("btn_small"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.item_slot);
+                btnChat.Glow = gv.cc.LoadBitmap("btn_small_glow"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_glow);
+                btnChat.X = ((7 + 3) * gv.squareSize) + (padW * (7 + 1)) + gv.oXshift;
+                btnChat.Y = pH * 2;
+                btnChat.Height = (int)(gv.ibbheight * gv.screenDensity);
+                btnChat.Width = (int)(gv.ibbwidthR * gv.screenDensity);
+                btnChat.Text = "CHAT";
+            }
+
+            if (btnOrder == null)
+            {
+                btnOrder = new IbbButton(gv, 1.0f);
+                btnOrder.Img = gv.cc.LoadBitmap("btn_small"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.item_slot);
+                btnOrder.Glow = gv.cc.LoadBitmap("btn_small_glow"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_glow);
+                btnOrder.X = ((8 + 3) * gv.squareSize) + (padW * (8 + 1)) + gv.oXshift;
+                btnOrder.Y = pH * 2;
+                btnOrder.Height = (int)(gv.ibbheight * gv.screenDensity);
+                btnOrder.Width = (int)(gv.ibbwidthR * gv.screenDensity);
+                btnOrder.Text = "ORDER";
+            }
+
+
             for (int x = 0; x < 6; x++)
             {
                 IbbButton btnNew = new IbbButton(gv, 1.0f);
@@ -384,6 +411,28 @@ namespace IceBlink2
                 {
                     if (cntPCs == gv.cc.partyScreenPcIndex) { btn.glowOn = true; }
                     else { btn.glowOn = false; }
+                    if (gv.mod.playerList[cntPCs].hasNewChatOption.Count > 0)
+                    {
+                        if (gv.mod.playerList[cntPCs].IsReadyToAdvanceLevel())
+                        {
+                            btn.Text = "Chat+";
+                        }
+                        else
+                        {
+                            btn.Text = "Chat";
+                        }
+                    }
+                    else
+                    {
+                        if (gv.mod.playerList[cntPCs].IsReadyToAdvanceLevel())
+                        {
+                            btn.Text = "+";
+                        }
+                        else
+                        {
+                            btn.Text = "";
+                        }
+                    }
                     btn.Draw();
                 }
                 cntPCs++;
@@ -993,6 +1042,14 @@ namespace IceBlink2
             btnFeet.Draw();
             btnRing2.Draw();
             btnAmmo.Draw();
+            if (gv.mod.allowIntraPartyConvos)
+            {
+                btnChat.Draw();
+            }
+            if (gv.mod.playerList.Count > 1)
+            {
+                btnOrder.Draw();
+            }
             btnSpells.Draw();
             btnTraits.Draw();
             btnEffects.Draw();
@@ -1251,6 +1308,8 @@ namespace IceBlink2
                 btnInfo.glowOn = false;
                 btnReturn.glowOn = false;
                 btnSpells.glowOn = false;
+                btnChat.glowOn = false;
+                btnOrder.glowOn = false;
                 btnTraits.glowOn = false;
                 btnEffects.glowOn = false;
                 btnOthers.glowOn = false;
@@ -1290,6 +1349,14 @@ namespace IceBlink2
                         {
                             btnSpells.glowOn = true;
                         }
+                        else if (btnChat.getImpact(x, y))
+                        {
+                            btnChat.glowOn = true;
+                        }
+                        else if (btnOrder.getImpact(x, y))
+                        {
+                            btnOrder.glowOn = true;
+                        }
                         else if (btnTraits.getImpact(x, y))
                         {
                             btnTraits.glowOn = true;
@@ -1314,6 +1381,8 @@ namespace IceBlink2
                         btnInfo.glowOn = false;
                         btnReturn.glowOn = false;
                         btnSpells.glowOn = false;
+                        btnChat.glowOn = false;
+                        btnOrder.glowOn = false;
                         btnTraits.glowOn = false;
                         btnEffects.glowOn = false;
                         btnOthers.glowOn = false;
@@ -1336,6 +1405,42 @@ namespace IceBlink2
                                 gv.screenType = "tokenSelector";
                                 gv.screenTokenSelector.resetTokenSelector("party", pc);
                             }
+                        }
+                        else if (btnChat.getImpact(x, y))
+                        {
+                            if (!inCombat)
+                            {
+                                gv.cc.doConversationBasedOnTag("chat");
+                            }
+                        }
+                        else if (btnOrder.getImpact(x, y))
+                        {
+                            if (!inCombat)
+                            {
+                                gv.cc.doConversationBasedOnTag("order");
+                            }
+                            /*
+                            if (gv.mod.playerList.Count > 5)
+                            {
+                                gv.cc.doConversationBasedOnTag("order6");
+                            }
+                            else if (gv.mod.playerList.Count > 4)
+                            {
+                                gv.cc.doConversationBasedOnTag("order5");
+                            }
+                            else if (gv.mod.playerList.Count > 3)
+                            {
+                                gv.cc.doConversationBasedOnTag("order4");
+                            }
+                            else if (gv.mod.playerList.Count > 2)
+                            {
+                                gv.cc.doConversationBasedOnTag("order3");
+                            }
+                            else if (gv.mod.playerList.Count > 1)
+                            {
+                                gv.cc.doConversationBasedOnTag("order2");
+                            }
+                            */
                         }
                         else if (btnSpells.getImpact(x, y))
                         {
@@ -1405,8 +1510,8 @@ namespace IceBlink2
                         {
                             //if (inCombat)
                             //{
-                                //gv.sf.MessageBoxHtml("Can't equip/unequip this item in combat.");
-                                //return;
+                            //gv.sf.MessageBoxHtml("Can't equip/unequip this item in combat.");
+                            //return;
                             //}
                             if (gv.cc.partyItemSlotIndex == 1)
                             {
@@ -1431,8 +1536,8 @@ namespace IceBlink2
                         {
                             //if (inCombat)
                             //{
-                                //gv.sf.MessageBoxHtml("Can't equip/unequip this item in combat.");
-                                //return;
+                            //gv.sf.MessageBoxHtml("Can't equip/unequip this item in combat.");
+                            //return;
                             //}
                             if (gv.cc.partyItemSlotIndex == 2)
                             {
@@ -1452,8 +1557,8 @@ namespace IceBlink2
                         {
                             //if (inCombat)
                             //{
-                                //gv.sf.MessageBoxHtml("Can't equip/unequip this item in combat.");
-                                //return;
+                            //gv.sf.MessageBoxHtml("Can't equip/unequip this item in combat.");
+                            //return;
                             //}
                             if (gv.cc.partyItemSlotIndex == 4)
                             {
@@ -1465,8 +1570,8 @@ namespace IceBlink2
                         {
                             //if (inCombat)
                             //{
-                                //gv.sf.MessageBoxHtml("Can't equip/unequip this item in combat.");
-                                //return;
+                            //gv.sf.MessageBoxHtml("Can't equip/unequip this item in combat.");
+                            //return;
                             //}
                             if (gv.cc.partyItemSlotIndex == 5)
                             {
@@ -1478,8 +1583,8 @@ namespace IceBlink2
                         {
                             //if (inCombat)
                             //{
-                                //gv.sf.MessageBoxHtml("Can't equip/unequip this item in combat.");
-                                //return;
+                            //gv.sf.MessageBoxHtml("Can't equip/unequip this item in combat.");
+                            //return;
                             //}
                             if (gv.cc.partyItemSlotIndex == 6)
                             {
@@ -1491,8 +1596,8 @@ namespace IceBlink2
                         {
                             //if (inCombat)
                             //{
-                                //gv.sf.MessageBoxHtml("Can't equip/unequip this item in combat.");
-                                //return;
+                            //gv.sf.MessageBoxHtml("Can't equip/unequip this item in combat.");
+                            //return;
                             //}
                             if (gv.cc.partyItemSlotIndex == 7)
                             {
@@ -1588,9 +1693,16 @@ namespace IceBlink2
                                     gv.mod.selectedPartyLeader = j;
                                     gv.screenMainMap.updateTraitsPanel();
                                     gv.cc.addLogText("lime", gv.mod.playerList[gv.mod.selectedPartyLeader].name + " is Party Leader");
+                                    /*
                                     if (gv.cc.partyScreenPcIndex == gv.mod.selectedPartyLeader)
                                     {
                                         doInterPartyConvo(); //not used in The Raventhal
+                                    }
+                                    */
+                                    //basics
+                                    if (gv.mod.allowIntraPartyConvos && gv.cc.partyScreenPcIndex == gv.mod.selectedPartyLeader)
+                                    {
+                                        gv.cc.doConversationBasedOnTag("chat");
                                     }
                                     gv.cc.partyScreenPcIndex = j;
                                     resetTokenAndPortrait();
@@ -1630,16 +1742,26 @@ namespace IceBlink2
         }
         public void doInterPartyConvo()
         {
-            if (gv.cc.partyScreenPcIndex == 0)
+            /*
+            if (gv.mod.allowIntraPartyConvos)
             {
-                return;
+                if (gv.cc.partyScreenPcIndex == 0)
+                {
+                    return;
+                }
+                if (gv.cc.partyScreenPcIndex >= gv.mod.playerList.Count)
+                {
+                    return;
+                }
+                Player pc = gv.mod.playerList[gv.cc.partyScreenPcIndex];
+                gv.cc.doConversationBasedOnTag(pc.name);
             }
-            if (gv.cc.partyScreenPcIndex >= gv.mod.playerList.Count)
+            else
             {
-                return;
+                gv.sf.MessageBox("This adventure has no special dialogue between party members.");
             }
-            Player pc = gv.mod.playerList[gv.cc.partyScreenPcIndex];
-            gv.cc.doConversationBasedOnTag(pc.name);
+            */
+            gv.cc.doConversationBasedOnTag("intraPartyDialogue");
         }
 
         public bool canNotBeUnequipped()

@@ -36,7 +36,8 @@
     "questStageCheckConvo",
     "launchEncounterFromConvo",
     "spellTrainer",
-    "traitTrainer"
+    "traitTrainer",
+    "order"
   ],
   "moduleLogicTreesList": [
     "doConvo",
@@ -163,11 +164,12 @@
   "goldLabelSingular": "Gold",
   "goldLabelPlural": "Gold",
   "numberOfPlayerMadePcsAllowed": 6,
+  "allowIntraPartyConvos": true,
   "numberOfPlayerMadePcsRequired": 1,
   "MaxPartySize": 6,
   "moduleDescription": "Short module tutorial on how to make a simple module.",
   "moduleCredits": "<big><b>Unwanted Guests</b></big><BR>\r\n<BR>\r\n-visit the forums for more info:<BR>\r\nwww.iceblinkengine.com/forums",
-  "nextIdNumber": 14221,
+  "nextIdNumber": 14276,
   "realTimeTimerLengthInMilliSeconds": 7000,
   "borderAreaSize": 0,
   "WorldTime": 626572800,

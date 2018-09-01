@@ -17,6 +17,8 @@ namespace IceBlink2
         [JsonIgnore]
         public List<String> tagsOfEffectsToRemoveOnMove = new List<String>();
 
+        public List<int> hasNewChatOption = new List<int>();
+       
         public int powerOfThisPc = 0;
         public string tokenFilename = "blank.png";
         public string portraitFilename = "F0404_L";
@@ -132,10 +134,46 @@ namespace IceBlink2
         public Player DeepCopy()
         {
             Player copy = new Player();
+
+            if (this.portrait != null)
+            {
+                copy.portrait = this.portrait;
+            }
+
+            if (this.token != null)
+            {
+                copy.token = this.token;
+            }
             foreach (String et in this.tagsOfEffectsToRemoveOnMove)
             {
                 copy.tagsOfEffectsToRemoveOnMove.Add(et);
             }
+
+            copy.learningSpellsTags.Clear();
+            foreach (String s in this.learningSpellsTags)
+            {
+                copy.learningSpellsTags.Add(s);
+            }
+
+            copy.learningTraitsTags.Clear();
+            foreach (String s in this.learningTraitsTags)
+            {
+                copy.learningTraitsTags.Add(s);
+            }
+
+            /*
+            copy.learningEffects.Clear();
+            foreach (String s in this.learningEffects)
+            {
+                copy.learningTraitsTags.Add(s);
+            }
+            */
+
+            //public List<string> learningSpellsTags = new List<string>();
+            //public List<string> learningTraitsTags = new List<string>();
+            //public List<Effect> learningEffects = new List<Effect>();
+
+
             copy.powerOfThisPc = this.powerOfThisPc;
             copy.stayDurationInTurns = this.stayDurationInTurns;
             copy.playerSize = this.playerSize;  //1=normal, 2=wide, 3=tall, 4=large  
@@ -150,7 +188,7 @@ namespace IceBlink2
             copy.combatLocX = this.combatLocX;
             copy.combatLocY = this.combatLocY;
             copy.moveDistance = this.moveDistance;
-            copy.mainPc = this.mainPc;
+            copy.mainPc = this.mainPc; 
             copy.nonRemoveablePc = this.nonRemoveablePc;
             copy.name = this.name;
             copy.tag = this.tag;
@@ -218,6 +256,12 @@ namespace IceBlink2
                 copy.knownSpellsTags.Add(s);
             }
 
+            copy.hasNewChatOption = new List<int>();
+            foreach (int i in this.hasNewChatOption)
+            {
+                copy.hasNewChatOption.Add(i);
+            }
+
             copy.coolingSpellsByTag = new List<string>();
             foreach (string s in this.coolingSpellsByTag)
             {
@@ -272,7 +316,9 @@ namespace IceBlink2
                 copy.knownUsableTraitsTags.Add(s);
             }
 
-            copy.effectsList = new List<Effect>();
+         
+
+        copy.effectsList = new List<Effect>();
             foreach (Effect ef in this.effectsList)
             {
                 copy.effectsList.Add(ef);
@@ -289,6 +335,35 @@ namespace IceBlink2
             }
             return false;
         }
+
+        public bool hasNewChatOptionMethod()
+        {
+            //add script for turning this on and off
+            //script - add: p1 (name of pc), p2 (identifier number for this chat option, unique for this pc)
+            //script - remove: p1 (name of pc), p2 (identifier number for this chat option, unique for this pc)
+            //bool openChatOption = false;
+            if (this.hasNewChatOption.Count > 0)
+            {
+                return true;
+            }
+            return false;
+            /*
+            foreach (int i in hasNewChatOption)
+            {
+                if (i != 0)
+                {
+                    openChatOption = true;
+                }
+            }
+            
+            if (openChatOption)
+            {
+                    return true;
+            }
+            return false;
+            */
+        }
+
         public void LevelUp()
         {
             // change level by one, level++

@@ -1025,7 +1025,10 @@ namespace IceBlink2
 	            if (currentConvo.GetContentNodeById(childIdNum).subNodes.Count < 1)
 	            {
                     gv.cc.addLogText("[end convo]<br><br>"); //add a blank line to main screen log at the end of a conversation
-	               gv.mod.selectedPartyLeader = originalSelectedPartyLeader;
+                    if (currentConvo.ConvoFileName != "order")
+                    {
+                        gv.mod.selectedPartyLeader = originalSelectedPartyLeader;
+                    }
                     gv.screenMainMap.updateTraitsPanel();
                     if ((gv.screenType.Equals("shop")) || (gv.screenType.Equals("title")) || (gv.screenType.Equals("combat")))
 	        	    {
@@ -1061,13 +1064,36 @@ namespace IceBlink2
             //for The Raventhal, always assumed that main PC is talking
             Player pc =gv.mod.playerList[gv.mod.selectedPartyLeader];
             string newString = originalText;
-        
+
+            if (gv.mod.playerList.Count > 5)
+            {
+                newString = newString.Replace("<player6>", gv.mod.playerList[5].name);
+            }
+            if (gv.mod.playerList.Count > 4)
+            {
+                newString = newString.Replace("<player5>", gv.mod.playerList[4].name);
+            }
+            if (gv.mod.playerList.Count > 3)
+            {
+                newString = newString.Replace("<player4>", gv.mod.playerList[3].name);
+            }
+            if (gv.mod.playerList.Count > 2)
+            {
+                newString = newString.Replace("<player3>", gv.mod.playerList[2].name);
+            }
+            if (gv.mod.playerList.Count > 1)
+            {
+                newString = newString.Replace("<player2>", gv.mod.playerList[1].name);
+            }
+            newString = newString.Replace("<player1>", gv.mod.playerList[0].name);
+
             newString = newString.Replace("<FirstName>", pc.name);
             newString = newString.Replace("<FullName>", pc.name);
             newString = newString.Replace("<Class>", pc.playerClass.name);
             newString = newString.Replace("<class>", pc.playerClass.name.ToLower());
             newString = newString.Replace("<Race>", pc.race.name);
             newString = newString.Replace("<race>", pc.race.name.ToLower());
+
             if (pc.isMale)
             {
                 newString = newString.Replace("<Sir/Madam>", "Sir");

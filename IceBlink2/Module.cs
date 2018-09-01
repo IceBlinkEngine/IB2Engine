@@ -14,6 +14,9 @@ namespace IceBlink2
     public class Module
     {
 
+
+        public bool allowIntraPartyConvos = false;
+
         public bool useLightSystem = true; 
 
         public bool useComplexCoordinateSystem = false;

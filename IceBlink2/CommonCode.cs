@@ -232,10 +232,23 @@ namespace IceBlink2
         }
         public void LoadCurrentConvo(string filename)
         {
-            using (StreamReader file = File.OpenText(GetModulePath() + "\\dialog\\" + filename + ".json"))
+            if (File.Exists(GetModulePath() + "\\dialog\\" + filename + ".json"))
             {
-                JsonSerializer serializer = new JsonSerializer();
-                gv.screenConvo.currentConvo = (Convo)serializer.Deserialize(file, typeof(Convo));
+                using (StreamReader file = File.OpenText(GetModulePath() + "\\dialog\\" + filename + ".json"))
+                {
+                    JsonSerializer serializer = new JsonSerializer();
+                    gv.screenConvo.currentConvo = (Convo)serializer.Deserialize(file, typeof(Convo));
+                }
+            }
+            else
+            { 
+                //chillen
+                //else if (File.Exists(gv.mainDirectory + "\\default\\NewModule\\music\\" + soundName))
+                using (StreamReader file = File.OpenText(gv.mainDirectory + "\\default\\NewModule\\dialog\\" + filename + ".json"))
+                {
+                    JsonSerializer serializer = new JsonSerializer();
+                    gv.screenConvo.currentConvo = (Convo)serializer.Deserialize(file, typeof(Convo));
+                }
             }
         }
         public void AutoSave()
@@ -1823,6 +1836,7 @@ namespace IceBlink2
                 ptrPc0.ImgBG = gv.cc.LoadBitmap("item_slot");
                 ptrPc0.Glow = gv.cc.LoadBitmap("btn_ptr_glow");
                 ptrPc0.ImgLU = gv.cc.LoadBitmap("btnLevelUpPlus");
+                ptrPc0.ImgChat = gv.cc.LoadBitmap("convoplus");//kvbkoeln add name of chat icon here
                 ptrPc0.X = tabX1;
                 ptrPc0.Y = tabY1;
                 ptrPc0.Height = ptrHeight;
@@ -1834,6 +1848,7 @@ namespace IceBlink2
                 ptrPc1.ImgBG = gv.cc.LoadBitmap("item_slot");
                 ptrPc1.Glow = gv.cc.LoadBitmap("btn_ptr_glow");
                 ptrPc1.ImgLU = gv.cc.LoadBitmap("btnLevelUpPlus");
+                ptrPc1.ImgChat = gv.cc.LoadBitmap("convoplus");
                 ptrPc1.X = tabX2;
                 ptrPc1.Y = tabY1;
                 ptrPc1.Height = ptrHeight;
@@ -1845,6 +1860,7 @@ namespace IceBlink2
                 ptrPc2.ImgBG = gv.cc.LoadBitmap("item_slot");
                 ptrPc2.Glow = gv.cc.LoadBitmap("btn_ptr_glow");
                 ptrPc2.ImgLU = gv.cc.LoadBitmap("btnLevelUpPlus");
+                ptrPc2.ImgChat = gv.cc.LoadBitmap("convoplus");
                 ptrPc2.X = tabX1;
                 ptrPc2.Y = tabY2;
                 ptrPc2.Height = ptrHeight;
@@ -1856,6 +1872,7 @@ namespace IceBlink2
                 ptrPc3.ImgBG = gv.cc.LoadBitmap("item_slot");
                 ptrPc3.Glow = gv.cc.LoadBitmap("btn_ptr_glow");
                 ptrPc3.ImgLU = gv.cc.LoadBitmap("btnLevelUpPlus");
+                ptrPc3.ImgChat = gv.cc.LoadBitmap("convoplus");
                 ptrPc3.X = tabX2;
                 ptrPc3.Y = tabY2;
                 ptrPc3.Height = ptrHeight;
@@ -1867,6 +1884,7 @@ namespace IceBlink2
                 ptrPc4.ImgBG = gv.cc.LoadBitmap("item_slot");
                 ptrPc4.Glow = gv.cc.LoadBitmap("btn_ptr_glow");
                 ptrPc4.ImgLU = gv.cc.LoadBitmap("btnLevelUpPlus");
+                ptrPc4.ImgChat = gv.cc.LoadBitmap("convoplus");
                 ptrPc4.X = tabX1;
                 ptrPc4.Y = tabY3;
                 ptrPc4.Height = ptrHeight;
@@ -1878,6 +1896,7 @@ namespace IceBlink2
                 ptrPc5.ImgBG = gv.cc.LoadBitmap("item_slot");
                 ptrPc5.Glow = gv.cc.LoadBitmap("btn_ptr_glow");
                 ptrPc5.ImgLU = gv.cc.LoadBitmap("btnLevelUpPlus");
+                ptrPc5.ImgChat = gv.cc.LoadBitmap("convoplus");
                 ptrPc5.X = tabX2;
                 ptrPc5.Y = tabY3;
                 ptrPc5.Height = ptrHeight;
@@ -2465,7 +2484,7 @@ namespace IceBlink2
 
         public void doUpdate()
         {
-
+            gv.mod.realTimeTimerStopped = false;
             gv.screenCombat.allDone = false;
             foreach (GlobalInt g in gv.mod.moduleGlobalInts)
             {
@@ -6967,31 +6986,50 @@ namespace IceBlink2
             {
                 if (gv.mod.playerList[0].IsReadyToAdvanceLevel()) { gv.cc.ptrPc0.levelUpOn = true; }
                 else { gv.cc.ptrPc0.levelUpOn = false; }
+
+                //kvbkoeln
+                if (gv.mod.playerList[0].hasNewChatOptionMethod()) { gv.cc.ptrPc0.newChatOptionOn = true; }
+                else { gv.cc.ptrPc0.newChatOptionOn = false; }
             }
             if (gv.mod.playerList.Count > 1)
             {
                 if (gv.mod.playerList[1].IsReadyToAdvanceLevel()) { gv.cc.ptrPc1.levelUpOn = true; }
                 else { gv.cc.ptrPc1.levelUpOn = false; }
+
+                if (gv.mod.playerList[1].hasNewChatOptionMethod()) { gv.cc.ptrPc1.newChatOptionOn = true; }
+                else { gv.cc.ptrPc1.newChatOptionOn = false; }
             }
             if (gv.mod.playerList.Count > 2)
             {
                 if (gv.mod.playerList[2].IsReadyToAdvanceLevel()) { gv.cc.ptrPc2.levelUpOn = true; }
                 else { gv.cc.ptrPc2.levelUpOn = false; }
+
+                if (gv.mod.playerList[2].hasNewChatOptionMethod()) { gv.cc.ptrPc2.newChatOptionOn = true; }
+                else { gv.cc.ptrPc2.newChatOptionOn = false; }
             }
             if (gv.mod.playerList.Count > 3)
             {
                 if (gv.mod.playerList[3].IsReadyToAdvanceLevel()) { gv.cc.ptrPc3.levelUpOn = true; }
                 else { gv.cc.ptrPc3.levelUpOn = false; }
+
+                if (gv.mod.playerList[3].hasNewChatOptionMethod()) { gv.cc.ptrPc3.newChatOptionOn = true; }
+                else { gv.cc.ptrPc3.newChatOptionOn = false; }
             }
             if (gv.mod.playerList.Count > 4)
             {
                 if (gv.mod.playerList[4].IsReadyToAdvanceLevel()) { gv.cc.ptrPc4.levelUpOn = true; }
                 else { gv.cc.ptrPc4.levelUpOn = false; }
+
+                if (gv.mod.playerList[4].hasNewChatOptionMethod()) { gv.cc.ptrPc4.newChatOptionOn = true; }
+                else { gv.cc.ptrPc4.newChatOptionOn = false; }
             }
             if (gv.mod.playerList.Count > 5)
             {
                 if (gv.mod.playerList[5].IsReadyToAdvanceLevel()) { gv.cc.ptrPc5.levelUpOn = true; }
                 else { gv.cc.ptrPc5.levelUpOn = false; }
+
+                if (gv.mod.playerList[5].hasNewChatOptionMethod()) { gv.cc.ptrPc5.newChatOptionOn = true; }
+                else { gv.cc.ptrPc5.newChatOptionOn = false; }
             }
         }
 

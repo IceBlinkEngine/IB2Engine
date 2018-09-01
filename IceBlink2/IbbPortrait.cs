@@ -15,9 +15,11 @@ namespace IceBlink2
         public Bitmap ImgBG = null;
         public Bitmap Img = null;
         public Bitmap ImgLU = null; //used for level up icon
+        public Bitmap ImgChat = null; //used for new chat option availabe indicator icon
         public Bitmap Glow = null;
         public bool glowOn = false;
         public bool levelUpOn = false;
+        public bool newChatOptionOn = false;
         public string TextHP = "";
         public string TextSP = "";
         public int X = 0;
@@ -61,7 +63,9 @@ namespace IceBlink2
             IbRect src = new IbRect(0, 0, this.ImgBG.PixelSize.Width, this.ImgBG.PixelSize.Height);
             IbRect src2 = new IbRect(0, 0, 0, 0);
             IbRect src3 = new IbRect(0, 0, 0, 0);
+            IbRect src4 = new IbRect(0, 0, 0, 0);
             IbRect dstLU = new IbRect(0, 0, 0, 0);
+            IbRect dstChat = new IbRect(0, 0, 0, 0);
 
             if (this.Img != null)
             {
@@ -71,6 +75,10 @@ namespace IceBlink2
             {
                 src3 = new IbRect(0, 0, this.ImgLU.PixelSize.Width, this.ImgLU.PixelSize.Height);
             }
+            if (this.ImgChat != null)
+            {
+                src4 = new IbRect(0, 0, this.ImgChat.PixelSize.Width, this.ImgChat.PixelSize.Height);
+            }
             IbRect dstBG = new IbRect(this.X - (int)(3 * gv.screenDensity),
                                         this.Y - (int)(3 * gv.screenDensity),
                                         (int)((float)this.Width) + (int)(6 * gv.screenDensity),
@@ -79,6 +87,10 @@ namespace IceBlink2
             if (this.ImgLU != null)
             {
                 dstLU = new IbRect(this.X, this.Y, this.ImgLU.PixelSize.Width, this.ImgLU.PixelSize.Height);
+            }
+            if (this.ImgChat != null)
+            {
+                dstChat = new IbRect(this.X, this.Y, this.ImgChat.PixelSize.Width, this.ImgChat.PixelSize.Height);
             }
             IbRect srcGlow = new IbRect(0, 0, this.Glow.PixelSize.Width, this.Glow.PixelSize.Height);
             IbRect dstGlow = new IbRect(this.X - (int)(7 * gv.screenDensity), 
@@ -104,6 +116,15 @@ namespace IceBlink2
                 {
                     gv.DrawBitmap(this.ImgLU, src3, dstLU);
                 }                
+            }
+
+            if (this.ImgChat != null)
+            {
+                 if (newChatOptionOn)
+                {
+                    //kvbkoeln 
+                    gv.DrawBitmap(this.ImgChat, src4, dstChat);
+                }
             }
 
             if (gv.mod.useUIBackground)

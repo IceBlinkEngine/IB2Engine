@@ -473,6 +473,80 @@ namespace IceBlink2
                         //p3 is amount of modification
                         ModifyFactionStrength(p1, prm2, p3);
                     }
+                    else if (filename.Equals("gaAddOpenChatOption.cs"))
+                    {
+                        //p1 is name of pc
+                        //parm2 is indifier number of this chat option
+                        int parm2 = Convert.ToInt32(p2);
+                        foreach (Player pc in gv.mod.playerList)
+                        {
+                            if (pc.name == p1)
+                            {
+                                pc.hasNewChatOption.Add(parm2);
+                                break;
+                            }
+                        }
+                    }
+                    else if (filename.Equals("gaRemoveOpenChatOption.cs"))
+                    {
+                        //p1 is name of pc
+                        //parm2 is indifier number of this chat option
+                        int parm2 = Convert.ToInt32(p2);
+                        foreach (Player pc in gv.mod.playerList)
+                        {
+                            if (pc.name == p1)
+                            {
+                                for (int i = pc.hasNewChatOption.Count-1; i >= 0; i--)
+                                {
+                                    if (pc.hasNewChatOption[i] == parm2)
+                                    {
+                                        pc.hasNewChatOption.RemoveAt(i);
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    else if (filename.Equals("gaSwitchPlayerOrderNumbers.cs"))
+                    {
+                        //p1 is old position of first char
+                        //p2 is old position of second char
+
+                        string nameOfLeader = gv.mod.playerList[gv.mod.selectedPartyLeader].name;
+
+                        int parm1 = Convert.ToInt32(p1);
+                        int parm2 = Convert.ToInt32(p2);
+
+                        //List<Player> tempList = new List<Player>();
+                        int lowerPosition = 0;
+                        int higherPosition = 0;
+                        if (parm1 < parm2)
+                        {
+                            lowerPosition = parm1;
+                            higherPosition = parm2;
+                        }
+                        else
+                        {
+                            lowerPosition = parm2;
+                            higherPosition = parm1;
+                        }
+
+                        gv.mod.playerList.Insert(higherPosition,gv.mod.playerList[lowerPosition]);
+                        gv.mod.playerList.RemoveAt(lowerPosition);
+                        gv.mod.playerList.Insert(lowerPosition, gv.mod.playerList[higherPosition]);
+                        gv.mod.playerList.RemoveAt(higherPosition+1);
+
+                        for (int i = 0; i < gv.mod.playerList.Count;i++)
+                        {
+                            if (gv.mod.playerList[i].name == nameOfLeader)
+                            {
+                                gv.mod.selectedPartyLeader = i;
+                                gv.cc.partyScreenPcIndex = i;
+                                gv.screenParty.resetTokenAndPortrait();
+                                break;
+                            }
+                        }
+                    }
                     else if (filename.Equals("gaModifyFactionGrowthRate.cs"))
                     {
                         //p1 is faction tag
@@ -982,6 +1056,87 @@ namespace IceBlink2
                     {
                         gv.screenShop.currentShopTag = p1;
                         gv.screenShop.currentShop = gv.mod.getShopByTag(p1);
+                        gv.screenShop.weaponRefs.Clear();
+                        gv.screenShop.armorRefs.Clear();
+                        gv.screenShop.generalRefs.Clear();
+                        gv.screenShop.btnAllShop.glowOn = true;
+                        gv.screenShop.btnAll.glowOn = true;
+
+                        //gv.screenShop.doItemStackingParty();
+                        //gv.screenShop.doItemStackingShop();
+                        //gv.mod.partyInventoryRefsList.Count)
+                        //{
+                        //Item it = gv.mod.getItemByResRefForInfo(gv.mod.partyInventoryRefsList[cntSlot + (inventoryPageIndex * slotsPerPage)].resref);
+
+                        //weapons & ammo 
+                        foreach (ItemRefs iR in gv.mod.partyInventoryRefsList)
+                        {
+                            Item it = gv.mod.getItemByResRefForInfo(iR.resref);
+                            if (it.category == "Melee" || it.category == "Ranged" || it.category == "Ammo")
+                            {
+                                gv.screenShop.weaponRefs.Add(iR);
+                            }
+                        }
+
+                        //armor 
+                        foreach (ItemRefs iR in gv.mod.partyInventoryRefsList)
+                        {
+                            Item it = gv.mod.getItemByResRefForInfo(iR.resref);
+                            if (it.category == "Shield" || it.category == "Head" || it.category == "Neck" || it.category == "Gloves" || it.category == "Feet" || it.category == "Ring" || it.category == "Armor")
+                            {
+                                gv.screenShop.armorRefs.Add(iR);
+                            }
+                        }
+
+                        //general 
+                        foreach (ItemRefs iR in gv.mod.partyInventoryRefsList)
+                        {
+                            Item it = gv.mod.getItemByResRefForInfo(iR.resref);
+                            if (it.category == "General")
+                            {
+                                gv.screenShop.generalRefs.Add(iR);
+                            }
+                        }
+
+
+
+
+                        gv.screenShop.weaponRefsShop.Clear();
+                        gv.screenShop.armorRefsShop.Clear();
+                        gv.screenShop.generalRefsShop.Clear();
+                        //gv.mod.partyInventoryRefsList.Count)
+                        //{
+                        //Item it = gv.mod.getItemByResRefForInfo(gv.mod.partyInventoryRefsList[cntSlot + (inventoryPageIndex * slotsPerPage)].resref);
+
+                        //weapons & ammo 
+                        foreach (ItemRefs iR in gv.screenShop.currentShop.shopItemRefs)
+                        {
+                            Item it = gv.mod.getItemByResRefForInfo(iR.resref);
+                            if (it.category == "Melee" || it.category == "Ranged" || it.category == "Ammo")
+                            {
+                                gv.screenShop.weaponRefsShop.Add(iR);
+                            }
+                        }
+
+                        //armor 
+                        foreach (ItemRefs iR in gv.screenShop.currentShop.shopItemRefs)
+                        {
+                            Item it = gv.mod.getItemByResRefForInfo(iR.resref);
+                            if (it.category == "Shield" || it.category == "Head" || it.category == "Neck" || it.category == "Gloves" || it.category == "Feet" || it.category == "Ring" || it.category == "Armor")
+                            {
+                                gv.screenShop.armorRefsShop.Add(iR);
+                            }
+                        }
+
+                        //general 
+                        foreach (ItemRefs iR in gv.screenShop.currentShop.shopItemRefs)
+                        {
+                            Item it = gv.mod.getItemByResRefForInfo(iR.resref);
+                            if (it.category == "General")
+                            {
+                                gv.screenShop.generalRefsShop.Add(iR);
+                            }
+                        }
                         gv.screenType = "shop";
                     }
                     else if (filename.Equals("gaModifiyShopBuyBackPercentage.cs"))
@@ -2058,6 +2213,15 @@ namespace IceBlink2
                             {
                                 gv.mod.returnCheck = true;
                             }
+                        }
+                    }
+                    else if (filename.Equals("gcCheckPartySize.cs"))
+                    {
+                        gv.mod.returnCheck = false;
+                        int parm1 = Convert.ToInt32(p1); 
+                        if (gv.mod.playerList.Count >= parm1)
+                        {
+                            gv.mod.returnCheck = true;
                         }
                     }
                     else if (filename.Equals("gcCheckSelectedPcName.cs"))
@@ -12515,8 +12679,15 @@ namespace IceBlink2
                                                             + damageAndResist + "</font>" + "<font color='white'>" + " damage)" + "</font><BR>");
                                         }
                                     }
-                                    crt.hp -= damageTotal;
+
+                                    bool wasDeadAlready = false;
                                     if (crt.hp <= 0)
+                                    {
+                                        wasDeadAlready = true;
+                                    }
+
+                                    crt.hp -= damageTotal;
+                                    if (crt.hp <= 0 && !wasDeadAlready)
                                     {
                                         //gv.screenCombat.deathAnimationLocations.Add(new Coordinate(crt.combatLocX, crt.combatLocY));
                                         //gv.screenCombat.deathAnimationLocations.Add(new Coordinate(crt.combatLocX, crt.combatLocY));  
@@ -13428,8 +13599,14 @@ namespace IceBlink2
                                                         + damageAndResist + "</font>" + "<font color='white'>" + " damage)" + "</font><BR>");
                                     }
                                 }
-                                crt.hp -= damageTotal;
+                                bool wasDeadAlready = false;
                                 if (crt.hp <= 0)
+                                {
+                                    wasDeadAlready = true;
+                                }
+
+                                crt.hp -= damageTotal;
+                                if (crt.hp <= 0 && !wasDeadAlready)
                                 {
                                         //gv.screenCombat.deathAnimationLocations.Add(new Coordinate(crt.combatLocX, crt.combatLocY));
                                         //gv.screenCombat.deathAnimationLocations.Add(new Coordinate(crt.combatLocX, crt.combatLocY));  
@@ -14218,8 +14395,14 @@ namespace IceBlink2
                                                             + damageAndResist + "</font>" + "<font color='white'>" + " damage)" + "</font><BR>");
                                         }
                                     }
-                                    crt.hp -= damageTotal;
+                                    bool wasDeadAlready = false;
                                     if (crt.hp <= 0)
+                                    {
+                                        wasDeadAlready = true;
+                                    }
+
+                                    crt.hp -= damageTotal;
+                                    if (crt.hp <= 0 && !wasDeadAlready)
                                     {
                                         //gv.screenCombat.deathAnimationLocations.Add(new Coordinate(crt.combatLocX, crt.combatLocY));
                                         //gv.screenCombat.deathAnimationLocations.Add(new Coordinate(crt.combatLocX, crt.combatLocY));  
@@ -15041,9 +15224,15 @@ namespace IceBlink2
                                                 + damageAndResist + "</font>" + "<font color='white'>" + " damage)" + "</font><BR>");
                             }
                         }
-                        crt.hp -= damageTotal;
-                        if (crt.hp <= 0)
-                        {
+                            bool wasDeadAlready = false;
+                            if (crt.hp <= 0)
+                            {
+                                wasDeadAlready = true;
+                            }
+
+                            crt.hp -= damageTotal;
+                            if (crt.hp <= 0 && !wasDeadAlready)
+                            {
                                 //gv.screenCombat.deathAnimationLocations.Add(new Coordinate(crt.combatLocX, crt.combatLocY));
                                 foreach (Coordinate coor in crt.tokenCoveredSquares)
                                 {
