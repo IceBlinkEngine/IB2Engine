@@ -629,203 +629,206 @@ namespace IceBlink2
                 {
                     if (crf.creatureResRef.Equals(c.cr_resref))
                     {
-                        //copy it and add to encounters creature object list
-                        try
+                        if (crf.spawnAtStartOfRoundX == 0 || crf.spawnAtStartOfRoundX == 1)
                         {
-                            Creature copy = c.DeepCopy();
-                            copy.cr_tag = crf.creatureTag;
-                            gv.cc.DisposeOfBitmap(ref copy.token);
-                            copy.token = gv.cc.LoadBitmap(copy.cr_tokenFilename);
-                            copy.combatLocX = crf.creatureStartLocationX;
-                            copy.combatLocY = crf.creatureStartLocationY;
-                            //factionsystem: faction buff
-                            if (copy.factionTag != null)
+                            //copy it and add to encounters creature object list
+                            try
                             {
-                                if (copy.factionTag != "none" && copy.factionTag != "None" && copy.factionTag != "")
+                                Creature copy = c.DeepCopy();
+                                copy.cr_tag = crf.creatureTag;
+                                gv.cc.DisposeOfBitmap(ref copy.token);
+                                copy.token = gv.cc.LoadBitmap(copy.cr_tokenFilename);
+                                copy.combatLocX = crf.creatureStartLocationX;
+                                copy.combatLocY = crf.creatureStartLocationY;
+                                //factionsystem: faction buff
+                                if (copy.factionTag != null)
                                 {
-                                    //Faction tempFaction = new Faction();
-
-                                    //creature's faction
-                                    foreach (Faction f in gv.mod.moduleFactionsList)
+                                    if (copy.factionTag != "none" && copy.factionTag != "None" && copy.factionTag != "")
                                     {
-                                        if (f.tag == copy.factionTag)
-                                        {
-                                            if (f.rank == 1)
-                                            {
-                                                copy.AC += f.accumulatedBuffStrengthRank1;
-                                                copy.cr_att += f.accumulatedBuffStrengthRank1;
-                                                copy.will += f.accumulatedBuffStrengthRank1;
-                                                copy.fortitude += f.accumulatedBuffStrengthRank1;
-                                                copy.reflex += f.accumulatedBuffStrengthRank1;
-                                                if (f.accumulatedBuffStrengthRank1 > 0)
-                                                {
-                                                    gv.cc.addLogText("<font color='blue'>" + copy.cr_name + " belongs to " + f.name + " and gets a +" + f.accumulatedBuffStrengthRank1.ToString() + " buff to AC, Hitroll and Saves" + "</font><BR>");
-                                                }
-                                                else if (f.accumulatedBuffStrengthRank1 < 0)
-                                                {
-                                                    gv.cc.addLogText("<font color='blue'>" + copy.cr_name + " belongs to " + f.name + " and gets a -" + f.accumulatedBuffStrengthRank1.ToString() + " debuff to AC, Hitroll and Saves" + "</font><BR>");
-                                                }
-                                                //birthday
-                                                //let's limit the faction buff effect a bit for starters
-                                                //copy.hpMax = copy.hpMax + copy.hpMax * (f.accumulatedBuffStrengthRank1 * 10 / 100);
-                                            }
-                                            if (f.rank == 2)
-                                            {
-                                                copy.AC += f.accumulatedBuffStrengthRank2;
-                                                copy.cr_att += f.accumulatedBuffStrengthRank2;
-                                                copy.will += f.accumulatedBuffStrengthRank2;
-                                                copy.fortitude += f.accumulatedBuffStrengthRank2;
-                                                copy.reflex += f.accumulatedBuffStrengthRank2;
-                                                if (f.accumulatedBuffStrengthRank2 > 0)
-                                                {
-                                                    gv.cc.addLogText("<font color='blue'>" + copy.cr_name + " belongs to " + f.name + " and gets a +" + f.accumulatedBuffStrengthRank2.ToString() + " buff to AC, Hitroll and Saves" + "</font><BR>");
-                                                }
-                                                else if (f.accumulatedBuffStrengthRank2 < 0)
-                                                {
-                                                    gv.cc.addLogText("<font color='blue'>" + copy.cr_name + " belongs to " + f.name + " and gets a -" + f.accumulatedBuffStrengthRank2.ToString() + " debuff to AC, Hitroll and Saves" + "</font><BR>");
-                                                }
-                                            }
-                                            if (f.rank == 3)
-                                            {
-                                                copy.AC += f.accumulatedBuffStrengthRank3;
-                                                copy.cr_att += f.accumulatedBuffStrengthRank3;
-                                                copy.will += f.accumulatedBuffStrengthRank3;
-                                                copy.fortitude += f.accumulatedBuffStrengthRank3;
-                                                copy.reflex += f.accumulatedBuffStrengthRank3;
-                                                if (f.accumulatedBuffStrengthRank3 > 0)
-                                                {
-                                                    gv.cc.addLogText("<font color='blue'>" + copy.cr_name + " belongs to " + f.name + " and gets a +" + f.accumulatedBuffStrengthRank3.ToString() + " buff to AC, Hitroll and Saves" + "</font><BR>");
-                                                }
-                                                else if (f.accumulatedBuffStrengthRank3 < 0)
-                                                {
-                                                    gv.cc.addLogText("<font color='blue'>" + copy.cr_name + " belongs to " + f.name + " and gets a -" + f.accumulatedBuffStrengthRank3.ToString() + " debuff to AC, Hitroll and Saves" + "</font><BR>");
-                                                }
-                                            }
-                                            if (f.rank == 4)
-                                            {
-                                                copy.AC += f.accumulatedBuffStrengthRank4;
-                                                copy.cr_att += f.accumulatedBuffStrengthRank4;
-                                                copy.will += f.accumulatedBuffStrengthRank4;
-                                                copy.fortitude += f.accumulatedBuffStrengthRank4;
-                                                copy.reflex += f.accumulatedBuffStrengthRank4;
-                                                if (f.accumulatedBuffStrengthRank4 > 0)
-                                                {
-                                                    gv.cc.addLogText("<font color='blue'>" + copy.cr_name + " belongs to " + f.name + " and gets a +" + f.accumulatedBuffStrengthRank4.ToString() + " buff to AC, Hitroll and Saves" + "</font><BR>");
-                                                }
-                                                else if (f.accumulatedBuffStrengthRank4 < 0)
-                                                {
-                                                    gv.cc.addLogText("<font color='blue'>" + copy.cr_name + " belongs to " + f.name + " and gets a -" + f.accumulatedBuffStrengthRank4.ToString() + " debuff to AC, Hitroll and Saves" + "</font><BR>");
-                                                }
-                                            }
-                                            if (f.rank == 5)
-                                            {
-                                                copy.AC += f.accumulatedBuffStrengthRank5;
-                                                copy.cr_att += f.accumulatedBuffStrengthRank5;
-                                                copy.will += f.accumulatedBuffStrengthRank5;
-                                                copy.fortitude += f.accumulatedBuffStrengthRank5;
-                                                copy.reflex += f.accumulatedBuffStrengthRank5;
-                                                if (f.accumulatedBuffStrengthRank5 > 0)
-                                                {
-                                                    gv.cc.addLogText("<font color='blue'>" + copy.cr_name + " belongs to " + f.name + " and gets a +" + f.accumulatedBuffStrengthRank5.ToString() + " buff to AC, Hitroll and Saves" + "</font><BR>");
-                                                }
-                                                else if (f.accumulatedBuffStrengthRank5 < 0)
-                                                {
-                                                    gv.cc.addLogText("<font color='blue'>" + copy.cr_name + " belongs to " + f.name + " and gets a -" + f.accumulatedBuffStrengthRank5.ToString() + " debuff to AC, Hitroll and Saves" + "</font><BR>");
-                                                }
-                                            }
-                                            if (f.rank == 6)
-                                            {
-                                                copy.AC += f.accumulatedBuffStrengthRank6;
-                                                copy.cr_att += f.accumulatedBuffStrengthRank6;
-                                                copy.will += f.accumulatedBuffStrengthRank6;
-                                                copy.fortitude += f.accumulatedBuffStrengthRank6;
-                                                copy.reflex += f.accumulatedBuffStrengthRank6;
-                                                if (f.accumulatedBuffStrengthRank6 > 0)
-                                                {
-                                                    gv.cc.addLogText("<font color='blue'>" + copy.cr_name + " belongs to " + f.name + " and gets a +" + f.accumulatedBuffStrengthRank6.ToString() + " buff to AC, Hitroll and Saves" + "</font><BR>");
-                                                }
-                                                else if (f.accumulatedBuffStrengthRank6 < 0)
-                                                {
-                                                    gv.cc.addLogText("<font color='blue'>" + copy.cr_name + " belongs to " + f.name + " and gets a -" + f.accumulatedBuffStrengthRank6.ToString() + " debuff to AC, Hitroll and Saves" + "</font><BR>");
-                                                }
-                                            }
-                                            if (f.rank == 7)
-                                            {
-                                                copy.AC += f.accumulatedBuffStrengthRank7;
-                                                copy.cr_att += f.accumulatedBuffStrengthRank7;
-                                                copy.will += f.accumulatedBuffStrengthRank7;
-                                                copy.fortitude += f.accumulatedBuffStrengthRank7;
-                                                copy.reflex += f.accumulatedBuffStrengthRank7;
-                                                if (f.accumulatedBuffStrengthRank7 > 0)
-                                                {
-                                                    gv.cc.addLogText("<font color='blue'>" + copy.cr_name + " belongs to " + f.name + " and gets a +" + f.accumulatedBuffStrengthRank7.ToString() + " buff to AC, Hitroll and Saves" + "</font><BR>");
-                                                }
-                                                else if (f.accumulatedBuffStrengthRank7 < 0)
-                                                {
-                                                    gv.cc.addLogText("<font color='blue'>" + copy.cr_name + " belongs to " + f.name + " and gets a -" + f.accumulatedBuffStrengthRank7.ToString() + " debuff to AC, Hitroll and Saves" + "</font><BR>");
-                                                }
-                                            }
-                                            if (f.rank == 8)
-                                            {
-                                                copy.AC += f.accumulatedBuffStrengthRank8;
-                                                copy.cr_att += f.accumulatedBuffStrengthRank8;
-                                                copy.will += f.accumulatedBuffStrengthRank8;
-                                                copy.fortitude += f.accumulatedBuffStrengthRank8;
-                                                copy.reflex += f.accumulatedBuffStrengthRank8;
-                                                if (f.accumulatedBuffStrengthRank8 > 0)
-                                                {
-                                                    gv.cc.addLogText("<font color='blue'>" + copy.cr_name + " belongs to " + f.name + " and gets a +" + f.accumulatedBuffStrengthRank8.ToString() + " buff to AC, Hitroll and Saves" + "</font><BR>");
-                                                }
-                                                else if (f.accumulatedBuffStrengthRank8 < 0)
-                                                {
-                                                    gv.cc.addLogText("<font color='blue'>" + copy.cr_name + " belongs to " + f.name + " and gets a -" + f.accumulatedBuffStrengthRank8.ToString() + " debuff to AC, Hitroll and Saves" + "</font><BR>");
-                                                }
-                                            }
-                                            if (f.rank == 9)
-                                            {
-                                                copy.AC += f.accumulatedBuffStrengthRank9;
-                                                copy.cr_att += f.accumulatedBuffStrengthRank9;
-                                                copy.will += f.accumulatedBuffStrengthRank9;
-                                                copy.fortitude += f.accumulatedBuffStrengthRank9;
-                                                copy.reflex += f.accumulatedBuffStrengthRank9;
-                                                if (f.accumulatedBuffStrengthRank9 > 0)
-                                                {
-                                                    gv.cc.addLogText("<font color='blue'>" + copy.cr_name + " belongs to " + f.name + " and gets a +" + f.accumulatedBuffStrengthRank9.ToString() + " buff to AC, Hitroll and Saves" + "</font><BR>");
-                                                }
-                                                else if (f.accumulatedBuffStrengthRank9 < 0)
-                                                {
-                                                    gv.cc.addLogText("<font color='blue'>" + copy.cr_name + " belongs to " + f.name + " and gets a -" + f.accumulatedBuffStrengthRank9.ToString() + " debuff to AC, Hitroll and Saves" + "</font><BR>");
-                                                }
-                                            }
-                                            if (f.rank == 10)
-                                            {
-                                                copy.AC += f.accumulatedBuffStrengthRank10;
-                                                copy.cr_att += f.accumulatedBuffStrengthRank10;
-                                                copy.will += f.accumulatedBuffStrengthRank10;
-                                                copy.fortitude += f.accumulatedBuffStrengthRank10;
-                                                copy.reflex += f.accumulatedBuffStrengthRank10;
-                                                if (f.accumulatedBuffStrengthRank10 > 0)
-                                                {
-                                                    gv.cc.addLogText("<font color='blue'>" + copy.cr_name + " belongs to " + f.name + " and gets a +" + f.accumulatedBuffStrengthRank10.ToString() + " buff to AC, Hitroll and Saves" + "</font><BR>");
-                                                }
-                                                else if (f.accumulatedBuffStrengthRank10 < 0)
-                                                {
-                                                    gv.cc.addLogText("<font color='blue'>" + copy.cr_name + " belongs to " + f.name + " and gets a -" + f.accumulatedBuffStrengthRank10.ToString() + " debuff to AC, Hitroll and Saves" + "</font><BR>");
-                                                }
-                                            }
+                                        //Faction tempFaction = new Faction();
 
-                                            break;
+                                        //creature's faction
+                                        foreach (Faction f in gv.mod.moduleFactionsList)
+                                        {
+                                            if (f.tag == copy.factionTag)
+                                            {
+                                                if (f.rank == 1)
+                                                {
+                                                    copy.AC += f.accumulatedBuffStrengthRank1;
+                                                    copy.cr_att += f.accumulatedBuffStrengthRank1;
+                                                    copy.will += f.accumulatedBuffStrengthRank1;
+                                                    copy.fortitude += f.accumulatedBuffStrengthRank1;
+                                                    copy.reflex += f.accumulatedBuffStrengthRank1;
+                                                    if (f.accumulatedBuffStrengthRank1 > 0)
+                                                    {
+                                                        gv.cc.addLogText("<font color='blue'>" + copy.cr_name + " belongs to " + f.name + " and gets a +" + f.accumulatedBuffStrengthRank1.ToString() + " buff to AC, Hitroll and Saves" + "</font><BR>");
+                                                    }
+                                                    else if (f.accumulatedBuffStrengthRank1 < 0)
+                                                    {
+                                                        gv.cc.addLogText("<font color='blue'>" + copy.cr_name + " belongs to " + f.name + " and gets a -" + f.accumulatedBuffStrengthRank1.ToString() + " debuff to AC, Hitroll and Saves" + "</font><BR>");
+                                                    }
+                                                    //birthday
+                                                    //let's limit the faction buff effect a bit for starters
+                                                    //copy.hpMax = copy.hpMax + copy.hpMax * (f.accumulatedBuffStrengthRank1 * 10 / 100);
+                                                }
+                                                if (f.rank == 2)
+                                                {
+                                                    copy.AC += f.accumulatedBuffStrengthRank2;
+                                                    copy.cr_att += f.accumulatedBuffStrengthRank2;
+                                                    copy.will += f.accumulatedBuffStrengthRank2;
+                                                    copy.fortitude += f.accumulatedBuffStrengthRank2;
+                                                    copy.reflex += f.accumulatedBuffStrengthRank2;
+                                                    if (f.accumulatedBuffStrengthRank2 > 0)
+                                                    {
+                                                        gv.cc.addLogText("<font color='blue'>" + copy.cr_name + " belongs to " + f.name + " and gets a +" + f.accumulatedBuffStrengthRank2.ToString() + " buff to AC, Hitroll and Saves" + "</font><BR>");
+                                                    }
+                                                    else if (f.accumulatedBuffStrengthRank2 < 0)
+                                                    {
+                                                        gv.cc.addLogText("<font color='blue'>" + copy.cr_name + " belongs to " + f.name + " and gets a -" + f.accumulatedBuffStrengthRank2.ToString() + " debuff to AC, Hitroll and Saves" + "</font><BR>");
+                                                    }
+                                                }
+                                                if (f.rank == 3)
+                                                {
+                                                    copy.AC += f.accumulatedBuffStrengthRank3;
+                                                    copy.cr_att += f.accumulatedBuffStrengthRank3;
+                                                    copy.will += f.accumulatedBuffStrengthRank3;
+                                                    copy.fortitude += f.accumulatedBuffStrengthRank3;
+                                                    copy.reflex += f.accumulatedBuffStrengthRank3;
+                                                    if (f.accumulatedBuffStrengthRank3 > 0)
+                                                    {
+                                                        gv.cc.addLogText("<font color='blue'>" + copy.cr_name + " belongs to " + f.name + " and gets a +" + f.accumulatedBuffStrengthRank3.ToString() + " buff to AC, Hitroll and Saves" + "</font><BR>");
+                                                    }
+                                                    else if (f.accumulatedBuffStrengthRank3 < 0)
+                                                    {
+                                                        gv.cc.addLogText("<font color='blue'>" + copy.cr_name + " belongs to " + f.name + " and gets a -" + f.accumulatedBuffStrengthRank3.ToString() + " debuff to AC, Hitroll and Saves" + "</font><BR>");
+                                                    }
+                                                }
+                                                if (f.rank == 4)
+                                                {
+                                                    copy.AC += f.accumulatedBuffStrengthRank4;
+                                                    copy.cr_att += f.accumulatedBuffStrengthRank4;
+                                                    copy.will += f.accumulatedBuffStrengthRank4;
+                                                    copy.fortitude += f.accumulatedBuffStrengthRank4;
+                                                    copy.reflex += f.accumulatedBuffStrengthRank4;
+                                                    if (f.accumulatedBuffStrengthRank4 > 0)
+                                                    {
+                                                        gv.cc.addLogText("<font color='blue'>" + copy.cr_name + " belongs to " + f.name + " and gets a +" + f.accumulatedBuffStrengthRank4.ToString() + " buff to AC, Hitroll and Saves" + "</font><BR>");
+                                                    }
+                                                    else if (f.accumulatedBuffStrengthRank4 < 0)
+                                                    {
+                                                        gv.cc.addLogText("<font color='blue'>" + copy.cr_name + " belongs to " + f.name + " and gets a -" + f.accumulatedBuffStrengthRank4.ToString() + " debuff to AC, Hitroll and Saves" + "</font><BR>");
+                                                    }
+                                                }
+                                                if (f.rank == 5)
+                                                {
+                                                    copy.AC += f.accumulatedBuffStrengthRank5;
+                                                    copy.cr_att += f.accumulatedBuffStrengthRank5;
+                                                    copy.will += f.accumulatedBuffStrengthRank5;
+                                                    copy.fortitude += f.accumulatedBuffStrengthRank5;
+                                                    copy.reflex += f.accumulatedBuffStrengthRank5;
+                                                    if (f.accumulatedBuffStrengthRank5 > 0)
+                                                    {
+                                                        gv.cc.addLogText("<font color='blue'>" + copy.cr_name + " belongs to " + f.name + " and gets a +" + f.accumulatedBuffStrengthRank5.ToString() + " buff to AC, Hitroll and Saves" + "</font><BR>");
+                                                    }
+                                                    else if (f.accumulatedBuffStrengthRank5 < 0)
+                                                    {
+                                                        gv.cc.addLogText("<font color='blue'>" + copy.cr_name + " belongs to " + f.name + " and gets a -" + f.accumulatedBuffStrengthRank5.ToString() + " debuff to AC, Hitroll and Saves" + "</font><BR>");
+                                                    }
+                                                }
+                                                if (f.rank == 6)
+                                                {
+                                                    copy.AC += f.accumulatedBuffStrengthRank6;
+                                                    copy.cr_att += f.accumulatedBuffStrengthRank6;
+                                                    copy.will += f.accumulatedBuffStrengthRank6;
+                                                    copy.fortitude += f.accumulatedBuffStrengthRank6;
+                                                    copy.reflex += f.accumulatedBuffStrengthRank6;
+                                                    if (f.accumulatedBuffStrengthRank6 > 0)
+                                                    {
+                                                        gv.cc.addLogText("<font color='blue'>" + copy.cr_name + " belongs to " + f.name + " and gets a +" + f.accumulatedBuffStrengthRank6.ToString() + " buff to AC, Hitroll and Saves" + "</font><BR>");
+                                                    }
+                                                    else if (f.accumulatedBuffStrengthRank6 < 0)
+                                                    {
+                                                        gv.cc.addLogText("<font color='blue'>" + copy.cr_name + " belongs to " + f.name + " and gets a -" + f.accumulatedBuffStrengthRank6.ToString() + " debuff to AC, Hitroll and Saves" + "</font><BR>");
+                                                    }
+                                                }
+                                                if (f.rank == 7)
+                                                {
+                                                    copy.AC += f.accumulatedBuffStrengthRank7;
+                                                    copy.cr_att += f.accumulatedBuffStrengthRank7;
+                                                    copy.will += f.accumulatedBuffStrengthRank7;
+                                                    copy.fortitude += f.accumulatedBuffStrengthRank7;
+                                                    copy.reflex += f.accumulatedBuffStrengthRank7;
+                                                    if (f.accumulatedBuffStrengthRank7 > 0)
+                                                    {
+                                                        gv.cc.addLogText("<font color='blue'>" + copy.cr_name + " belongs to " + f.name + " and gets a +" + f.accumulatedBuffStrengthRank7.ToString() + " buff to AC, Hitroll and Saves" + "</font><BR>");
+                                                    }
+                                                    else if (f.accumulatedBuffStrengthRank7 < 0)
+                                                    {
+                                                        gv.cc.addLogText("<font color='blue'>" + copy.cr_name + " belongs to " + f.name + " and gets a -" + f.accumulatedBuffStrengthRank7.ToString() + " debuff to AC, Hitroll and Saves" + "</font><BR>");
+                                                    }
+                                                }
+                                                if (f.rank == 8)
+                                                {
+                                                    copy.AC += f.accumulatedBuffStrengthRank8;
+                                                    copy.cr_att += f.accumulatedBuffStrengthRank8;
+                                                    copy.will += f.accumulatedBuffStrengthRank8;
+                                                    copy.fortitude += f.accumulatedBuffStrengthRank8;
+                                                    copy.reflex += f.accumulatedBuffStrengthRank8;
+                                                    if (f.accumulatedBuffStrengthRank8 > 0)
+                                                    {
+                                                        gv.cc.addLogText("<font color='blue'>" + copy.cr_name + " belongs to " + f.name + " and gets a +" + f.accumulatedBuffStrengthRank8.ToString() + " buff to AC, Hitroll and Saves" + "</font><BR>");
+                                                    }
+                                                    else if (f.accumulatedBuffStrengthRank8 < 0)
+                                                    {
+                                                        gv.cc.addLogText("<font color='blue'>" + copy.cr_name + " belongs to " + f.name + " and gets a -" + f.accumulatedBuffStrengthRank8.ToString() + " debuff to AC, Hitroll and Saves" + "</font><BR>");
+                                                    }
+                                                }
+                                                if (f.rank == 9)
+                                                {
+                                                    copy.AC += f.accumulatedBuffStrengthRank9;
+                                                    copy.cr_att += f.accumulatedBuffStrengthRank9;
+                                                    copy.will += f.accumulatedBuffStrengthRank9;
+                                                    copy.fortitude += f.accumulatedBuffStrengthRank9;
+                                                    copy.reflex += f.accumulatedBuffStrengthRank9;
+                                                    if (f.accumulatedBuffStrengthRank9 > 0)
+                                                    {
+                                                        gv.cc.addLogText("<font color='blue'>" + copy.cr_name + " belongs to " + f.name + " and gets a +" + f.accumulatedBuffStrengthRank9.ToString() + " buff to AC, Hitroll and Saves" + "</font><BR>");
+                                                    }
+                                                    else if (f.accumulatedBuffStrengthRank9 < 0)
+                                                    {
+                                                        gv.cc.addLogText("<font color='blue'>" + copy.cr_name + " belongs to " + f.name + " and gets a -" + f.accumulatedBuffStrengthRank9.ToString() + " debuff to AC, Hitroll and Saves" + "</font><BR>");
+                                                    }
+                                                }
+                                                if (f.rank == 10)
+                                                {
+                                                    copy.AC += f.accumulatedBuffStrengthRank10;
+                                                    copy.cr_att += f.accumulatedBuffStrengthRank10;
+                                                    copy.will += f.accumulatedBuffStrengthRank10;
+                                                    copy.fortitude += f.accumulatedBuffStrengthRank10;
+                                                    copy.reflex += f.accumulatedBuffStrengthRank10;
+                                                    if (f.accumulatedBuffStrengthRank10 > 0)
+                                                    {
+                                                        gv.cc.addLogText("<font color='blue'>" + copy.cr_name + " belongs to " + f.name + " and gets a +" + f.accumulatedBuffStrengthRank10.ToString() + " buff to AC, Hitroll and Saves" + "</font><BR>");
+                                                    }
+                                                    else if (f.accumulatedBuffStrengthRank10 < 0)
+                                                    {
+                                                        gv.cc.addLogText("<font color='blue'>" + copy.cr_name + " belongs to " + f.name + " and gets a -" + f.accumulatedBuffStrengthRank10.ToString() + " debuff to AC, Hitroll and Saves" + "</font><BR>");
+                                                    }
+                                                }
+
+                                                break;
+                                            }
                                         }
                                     }
                                 }
+
+
+                                gv.mod.currentEncounter.encounterCreatureList.Add(copy);
                             }
-
-
-                            gv.mod.currentEncounter.encounterCreatureList.Add(copy);
-                        }
-                        catch (Exception ex)
-                        {
-                            gv.errorLog(ex.ToString());
+                            catch (Exception ex)
+                            {
+                                gv.errorLog(ex.ToString());
+                            }
                         }
                     }
                 }
@@ -967,6 +970,12 @@ namespace IceBlink2
                 gv.mod.currentEncounter.standGroundInternalTimer = gv.mod.currentEncounter.standGroundTimer;
             }
 
+            if (gv.mod.currentEncounter.timeLimitDefeat)
+            {
+                gv.mod.currentEncounter.timeLimitInternalTimer = gv.mod.currentEncounter.timeLimitTimer;
+            }
+
+            string battleStartMessage = "";
             if (gv.mod.currentEncounter.customTextforMessageBoxAtStartOfEncounter != "none" && gv.mod.currentEncounter.customTextforMessageBoxAtStartOfEncounter != "None" && gv.mod.currentEncounter.customTextforMessageBoxAtStartOfEncounter != "")
             {
                 gv.sf.MessageBox(gv.mod.currentEncounter.customTextforMessageBoxAtStartOfEncounter);
@@ -975,18 +984,170 @@ namespace IceBlink2
             {
                 //to do: adjust to victory/loss conditions and battlefield modifiers
                 //gv.sf.MessageBox("Win this battle by defeating all enemies.");
-                string battleStartMessage = "";
+                //string battleStartMessage = "";
+
+                if (gv.mod.currentEncounter.assassinationVictory || gv.mod.currentEncounter.standGroundVictory || gv.mod.currentEncounter.conquerVictory)
+                {
+                    battleStartMessage += "Additional victory term(s):<br><br>";
+                }
 
                 if (gv.mod.currentEncounter.assassinationVictory)
                 {
-                    battleStartMessage += "Win this battle instantly by slaying " + gv.mod.currentEncounter.assassinationTargetName + ".<br>";
+                    battleStartMessage += "- win this battle instantly by slaying " + gv.mod.currentEncounter.assassinationTargetName + ".<br><br>";
                     //gv.sf.MessageBox("Win this battle instantly by slaying " + gv.mod.currentEncounter.assassinationTargetName + ".");
                     ///gv.sf.MessageBox(battleStartMessage);
                 }
 
                 if (gv.mod.currentEncounter.standGroundVictory)
                 {
-                    battleStartMessage += "Win this battle instantly by surviving " + gv.mod.currentEncounter.standGroundInternalTimer + " rounds.<br>";
+                    battleStartMessage += "- win this battle instantly by surviving " + gv.mod.currentEncounter.standGroundInternalTimer + " rounds.<br><br>";
+                    //gv.sf.MessageBox("Win this battle instantly by slaying " + gv.mod.currentEncounter.assassinationTargetName + ".");
+                    ///gv.sf.MessageBox(battleStartMessage);
+                }
+
+                if (gv.mod.currentEncounter.conquerVictory)
+                {
+                    if (gv.mod.currentEncounter.conquerTargetsCumulative)
+                    {
+                        //1 and 2 and 3
+                        if (gv.mod.currentEncounter.conquerTarget1Y != -1 && gv.mod.currentEncounter.conquerTarget2Y != -1 && gv.mod.currentEncounter.conquerTarget3Y != -1)
+                        {
+                            battleStartMessage += "- win this battle instantly by occupying ALL of the following locations simultaneously with a conscious pc at the start of a round: ";
+                            battleStartMessage +=  "[" + gv.mod.currentEncounter.conquerTarget1X + "," + gv.mod.currentEncounter.conquerTarget1Y + "]," + " [" + gv.mod.currentEncounter.conquerTarget2X + "," + gv.mod.currentEncounter.conquerTarget2Y + "]," + " [" + gv.mod.currentEncounter.conquerTarget3X + "," + gv.mod.currentEncounter.conquerTarget3Y + "]" + ".<br><br>";
+                        }
+                        //1+2
+                        else if (gv.mod.currentEncounter.conquerTarget1Y != -1 && gv.mod.currentEncounter.conquerTarget2Y != -1)
+                        {
+                            battleStartMessage += "- win this battle instantly by occupying ALL of the following locations simultaneously with a conscious pc at the start of a round: ";
+                            battleStartMessage += "[" + gv.mod.currentEncounter.conquerTarget1X + "," + gv.mod.currentEncounter.conquerTarget1Y + "]," + " [" + gv.mod.currentEncounter.conquerTarget2X + "," + gv.mod.currentEncounter.conquerTarget2Y + "]"  + ".<br><br>";
+                        }
+                        //1+3
+                        else if (gv.mod.currentEncounter.conquerTarget1Y != -1 && gv.mod.currentEncounter.conquerTarget3Y != -1)
+                        {
+                            battleStartMessage += "- win this battle instantly by occupying ALL of the following locations simultaneously with a conscious pc at the start of a round: ";
+                            battleStartMessage += "[" + gv.mod.currentEncounter.conquerTarget1X + "," + gv.mod.currentEncounter.conquerTarget1Y + "]," + " [" + gv.mod.currentEncounter.conquerTarget3X + "," + gv.mod.currentEncounter.conquerTarget3Y + "]" + ".<br><br>";
+                        }
+                        //2+3
+                        else if (gv.mod.currentEncounter.conquerTarget2Y != -1 && gv.mod.currentEncounter.conquerTarget3Y != -1)
+                        {
+                            battleStartMessage += "- win this battle instantly by occupying ALL of the following locations simultaneously with a conscious pc at the start of a round: ";
+                            battleStartMessage += "[" + gv.mod.currentEncounter.conquerTarget2X + "," + gv.mod.currentEncounter.conquerTarget2Y + "]," + " [" + gv.mod.currentEncounter.conquerTarget3X + "," + gv.mod.currentEncounter.conquerTarget3Y + "]" + ".<br><br>";
+                        }
+                        //1
+                        else if (gv.mod.currentEncounter.conquerTarget1Y != -1)
+                        {
+                            battleStartMessage += "- win this battle instantly by occupying the following location with a conscious pc at the start of a round: ";
+                            battleStartMessage += "[" + gv.mod.currentEncounter.conquerTarget1X + "," + gv.mod.currentEncounter.conquerTarget1Y + "]" + ".<br><br>";
+                        }
+                        //2
+                        else if (gv.mod.currentEncounter.conquerTarget2Y != -1)
+                        {
+                            battleStartMessage += "- win this battle instantly by occupying the following location with a conscious pc at the start of a round: ";
+                            battleStartMessage += "[" + gv.mod.currentEncounter.conquerTarget2X + "," + gv.mod.currentEncounter.conquerTarget2Y + "]" + ".<br><br>";
+                        }
+                        //3
+                        else if (gv.mod.currentEncounter.conquerTarget3Y != -1)
+                        {
+                            battleStartMessage += "- win this battle instantly by occupying the following location with a conscious pc at the start of a round: ";
+                            battleStartMessage += "[" + gv.mod.currentEncounter.conquerTarget3X + "," + gv.mod.currentEncounter.conquerTarget3Y + "]" + ".<br><br>";
+                        }
+                    }
+                    //alternative target locations
+                    else
+                    {
+                        //1 and 2 and 3
+                        if (gv.mod.currentEncounter.conquerTarget1Y != -1 && gv.mod.currentEncounter.conquerTarget2Y != -1 && gv.mod.currentEncounter.conquerTarget3Y != -1)
+                        {
+                            battleStartMessage += "- win this battle instantly by occupying at least ONE of the following locations with a conscious pc at the start of a round: ";
+                            battleStartMessage += "[" + gv.mod.currentEncounter.conquerTarget1X + "," + gv.mod.currentEncounter.conquerTarget1Y + "]," + " [" + gv.mod.currentEncounter.conquerTarget2X + "," + gv.mod.currentEncounter.conquerTarget2Y + "]," + " [" + gv.mod.currentEncounter.conquerTarget3X + "," + gv.mod.currentEncounter.conquerTarget3Y + "]" + ".<br><br>";
+                        }
+                        //1+2
+                        else if (gv.mod.currentEncounter.conquerTarget1Y != -1 && gv.mod.currentEncounter.conquerTarget2Y != -1)
+                        {
+                            battleStartMessage += "- win this battle instantly by occupying at least ONE of the following locations with a conscious pc at the start of a round: ";
+                            battleStartMessage += "[" + gv.mod.currentEncounter.conquerTarget1X + "," + gv.mod.currentEncounter.conquerTarget1Y + "]," + " [" + gv.mod.currentEncounter.conquerTarget2X + "," + gv.mod.currentEncounter.conquerTarget2Y + "]" + ".<br><br>";
+                        }
+                        //1+3
+                        else if (gv.mod.currentEncounter.conquerTarget1Y != -1 && gv.mod.currentEncounter.conquerTarget3Y != -1)
+                        {
+                            battleStartMessage += "- win this battle instantly by occupying at least ONE of the following locations with a conscious pc at the start of a round: ";
+                            battleStartMessage += "[" + gv.mod.currentEncounter.conquerTarget1X + "," + gv.mod.currentEncounter.conquerTarget1Y + "]," + " [" + gv.mod.currentEncounter.conquerTarget3X + "," + gv.mod.currentEncounter.conquerTarget3Y + "]" + ".<br><br>";
+                        }
+                        //2+3
+                        else if (gv.mod.currentEncounter.conquerTarget2Y != -1 && gv.mod.currentEncounter.conquerTarget3Y != -1)
+                        {
+                            battleStartMessage += "- win this battle instantly by occupying at least ONE of the following locations with a conscious pc at the start of a round: ";
+                            battleStartMessage += "[" + gv.mod.currentEncounter.conquerTarget2X + "," + gv.mod.currentEncounter.conquerTarget2Y + "]," + " [" + gv.mod.currentEncounter.conquerTarget3X + "," + gv.mod.currentEncounter.conquerTarget3Y + "]" + ".<br><br>";
+                        }
+                        //1
+                        else if (gv.mod.currentEncounter.conquerTarget1Y != -1)
+                        {
+                            battleStartMessage += "- win this battle instantly by occupying the following location with a conscious pc at the start of a round: ";
+                            battleStartMessage += "[" + gv.mod.currentEncounter.conquerTarget1X + "," + gv.mod.currentEncounter.conquerTarget1Y + "]" + ".<br><br>";
+                        }
+                        //2
+                        else if (gv.mod.currentEncounter.conquerTarget2Y != -1)
+                        {
+                            battleStartMessage += "- win this battle instantly by occupying the following location with a conscious pc at the start of a round: ";
+                            battleStartMessage += "[" + gv.mod.currentEncounter.conquerTarget2X + "," + gv.mod.currentEncounter.conquerTarget2Y + "]" + ".<br><br>";
+                        }
+                        //3
+                        else if (gv.mod.currentEncounter.conquerTarget3Y != -1)
+                        {
+                            battleStartMessage += "- win this battle instantly by occupying the following location with a conscious pc at the start of a round: ";
+                            battleStartMessage += "[" + gv.mod.currentEncounter.conquerTarget3X + "," + gv.mod.currentEncounter.conquerTarget3Y + "]" + ".<br><br>";
+                        }
+                    }
+                }
+
+                if (gv.mod.currentEncounter.timeLimitDefeat || gv.mod.currentEncounter.protectionDefeat)
+                {
+                    battleStartMessage += "Additional defeat term(s): <br><br>";
+                }
+
+                if (gv.mod.currentEncounter.timeLimitDefeat)
+                {
+                    battleStartMessage += "- loose this battle instantly after " + gv.mod.currentEncounter.timeLimitInternalTimer + " rounds.<br><br>";
+                    //gv.sf.MessageBox("Win this battle instantly by slaying " + gv.mod.currentEncounter.assassinationTargetName + ".");
+                    ///gv.sf.MessageBox(battleStartMessage);
+                }
+
+                if (gv.mod.currentEncounter.protectionDefeat)
+                {
+                    battleStartMessage += "- loose this battle instantly if " + gv.mod.currentEncounter.protectionTargetName + " drops to 0 or less hit points.<br><br>";
+                    //gv.sf.MessageBox("Win this battle instantly by slaying " + gv.mod.currentEncounter.assassinationTargetName + ".");
+                    ///gv.sf.MessageBox(battleStartMessage);
+                }
+
+                //battle modfiers
+                if (gv.mod.currentEncounter.noSpellCastModifier || gv.mod.currentEncounter.noTraitUseModifier || gv.mod.currentEncounter.noItemUseModifier || gv.mod.currentEncounter.onlyOneMoveModifier)
+                {
+                    battleStartMessage += "Additional battle rule(s): <br><br>";
+                }
+                if (gv.mod.currentEncounter.noSpellCastModifier)
+                {
+                    battleStartMessage += "- casting of spells not possible for the party in this encounter. <br><br>";
+                    //gv.sf.MessageBox("Win this battle instantly by slaying " + gv.mod.currentEncounter.assassinationTargetName + ".");
+                    ///gv.sf.MessageBox(battleStartMessage);
+                }
+
+                if (gv.mod.currentEncounter.noTraitUseModifier)
+                {
+                    battleStartMessage += "- using of traits not possible for the party in this encounter. <br><br>";
+                    //gv.sf.MessageBox("Win this battle instantly by slaying " + gv.mod.currentEncounter.assassinationTargetName + ".");
+                    ///gv.sf.MessageBox(battleStartMessage);
+                }
+
+                if (gv.mod.currentEncounter.noItemUseModifier)
+                {
+                    battleStartMessage += "- using of items not possible for the party in this encounter. <br><br>";
+                    //gv.sf.MessageBox("Win this battle instantly by slaying " + gv.mod.currentEncounter.assassinationTargetName + ".");
+                    ///gv.sf.MessageBox(battleStartMessage);
+                }
+
+                if (gv.mod.currentEncounter.onlyOneMoveModifier)
+                {
+                    battleStartMessage += "- every player character has only one move per turn in this encounter. <br><br>";
                     //gv.sf.MessageBox("Win this battle instantly by slaying " + gv.mod.currentEncounter.assassinationTargetName + ".");
                     ///gv.sf.MessageBox(battleStartMessage);
                 }
@@ -1003,6 +1164,7 @@ namespace IceBlink2
             }
             else if (gv.mod.currentEncounter.showDefaultMessageBoxAtStartOfEncounter)
             {
+                /*
                 //to do: adjust to victory/loss conditions and battlefield modifiers
                 if (gv.mod.currentEncounter.assassinationVictory)
                 {
@@ -1012,6 +1174,8 @@ namespace IceBlink2
                 {
                     gv.cc.addLogText("<font color='yellow'>" + "Win this battle by defeating all enemies." + "<BR></font>");
                 }
+                */
+                gv.cc.addLogText("<font color='yellow'>" + battleStartMessage + "<BR></font>");
             }
 
             //IBScript Setup Combat Hook (run only once)
@@ -1025,9 +1189,13 @@ namespace IceBlink2
             floatyTextOn = false;
             gv.cc.addFloatyText(new Coordinate(0, 0), "Round " + roundCounter, "green");
             gv.cc.addLogText("<font color='lime'>" + "Round " + roundCounter + "</font><BR>");
-            if (gv.mod.currentEncounter.standGroundVictory)
+            if (gv.mod.currentEncounter.standGroundVictory) 
             {
                 gv.cc.addLogText("<font color='lime'>" + "Survive " + gv.mod.currentEncounter.standGroundInternalTimer + " more round(s).</font><BR>");
+            }
+            if (gv.mod.currentEncounter.timeLimitDefeat)
+            {
+                gv.cc.addLogText("<font color='red'>" + "You have to win within " + gv.mod.currentEncounter.timeLimitInternalTimer + " round(s) or this battle is lost.</font><BR>");
             }
             floatyTextEnlargerOn = true;
             //floatyTextOn = true;
@@ -1191,6 +1359,7 @@ namespace IceBlink2
                             {
                                 gv.mod.currentEncounter.assassinationConditionMet = true;
                             }
+                            
                             gv.mod.currentEncounter.encounterCreatureList.RemoveAt(i);
                             }
                             else if (gv.mod.currentEncounter.encounterCreatureList[i].stayDurationInTurns < 10)
@@ -1199,6 +1368,16 @@ namespace IceBlink2
                             }   
                     }
 
+                    foreach (Player p in gv.mod.playerList)
+                    {
+                        if (gv.mod.currentEncounter.protectionDefeat && gv.mod.currentEncounter.protectionTargetName == p.name)
+                        {
+                            if (p.hp <= 0)
+                            {
+                                gv.mod.currentEncounter.protectionConditionMet = true;
+                            }
+                        }
+                    }
                     //hit the end so start the next round
                     startNextRoundStuff();
                     return;
@@ -1667,16 +1846,103 @@ namespace IceBlink2
         }
 
         public void startNextRoundStuff()
-        {
+        { 
+            if (gv.mod.currentEncounter.conquerVictory)
+            {
+                //bool conquerConditionMet = false;
+                if (gv.mod.currentEncounter.conquerVictory)
+                {
+                    int locationsConquered = 0;
+                    int locationsRequired = 0;
+
+                    foreach (Player p in gv.mod.playerList)
+                    {
+                        if (p.hp >= 0)
+                        {
+                            if (p.combatLocX == gv.mod.currentEncounter.conquerTarget1X && p.combatLocY == gv.mod.currentEncounter.conquerTarget1Y)
+                            {
+                                locationsConquered++;
+                            }
+                            if (p.combatLocX == gv.mod.currentEncounter.conquerTarget2X && p.combatLocY == gv.mod.currentEncounter.conquerTarget2Y)
+                            {
+                                locationsConquered++;
+                            }
+                            if (p.combatLocX == gv.mod.currentEncounter.conquerTarget3X && p.combatLocY == gv.mod.currentEncounter.conquerTarget3Y)
+                            {
+                                locationsConquered++;
+                            }
+
+                            //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                            if (gv.mod.currentEncounter.conquerTargetsCumulative)
+                            {
+                                //1 and 2 and 3
+                                if (gv.mod.currentEncounter.conquerTarget1Y != -1 && gv.mod.currentEncounter.conquerTarget2Y != -1 && gv.mod.currentEncounter.conquerTarget3Y != -1)
+                                {
+                                    locationsRequired = 3;
+                                }
+                                //1+2
+                                else if (gv.mod.currentEncounter.conquerTarget1Y != -1 && gv.mod.currentEncounter.conquerTarget2Y != -1)
+                                {
+                                    locationsRequired = 2;
+                                }
+                                //1+3
+                                else if (gv.mod.currentEncounter.conquerTarget1Y != -1 && gv.mod.currentEncounter.conquerTarget3Y != -1)
+                                {
+                                    locationsRequired = 2;
+                                }
+                                //2+3
+                                else if (gv.mod.currentEncounter.conquerTarget2Y != -1 && gv.mod.currentEncounter.conquerTarget3Y != -1)
+                                {
+                                    locationsRequired = 2;
+                                }
+                                //1
+                                else if (gv.mod.currentEncounter.conquerTarget1Y != -1)
+                                {
+                                    locationsRequired = 1;
+                                }
+                                //2
+                                else if (gv.mod.currentEncounter.conquerTarget2Y != -1)
+                                {
+                                    locationsRequired = 1;
+                                }
+                                //3
+                                else if (gv.mod.currentEncounter.conquerTarget3Y != -1)
+                                {
+                                    locationsRequired = 1;
+                                }
+                            }
+                            //alternative target locations
+                            else
+                            {
+                                locationsRequired = 1;
+                            }
+
+                            //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                        }
+                    }
+
+                    if (locationsConquered > 0 && locationsConquered >= locationsRequired)
+                    {
+                        gv.mod.currentEncounter.conquerConditionMet = true;
+                    }
+                }
+                checkEndEncounter();
+            }
 
             if (gv.mod.currentEncounter.standGroundVictory)
             {
                 gv.mod.currentEncounter.standGroundInternalTimer--;
                 checkEndEncounter();
             }
-                //summe
-                //gv.sf.MessageBox("New round started.");
-                floatyTextOn = false;
+
+            if (gv.mod.currentEncounter.timeLimitDefeat)
+            {
+                gv.mod.currentEncounter.timeLimitInternalTimer--;
+                checkEndEncounter();
+            }
+            //summe
+            //gv.sf.MessageBox("New round started.");
+            floatyTextOn = false;
             gv.cc.addFloatyText(new Coordinate(0, 0), "Round " + roundCounter, "green");
             gv.cc.addLogText("<font color='lime'>" + "Round " + roundCounter + "</font><BR>");
             if (gv.mod.currentEncounter.standGroundVictory)
@@ -1684,12 +1950,907 @@ namespace IceBlink2
                 //gv.mod.currentEncounter.standGroundInternalTimer--;
                 gv.cc.addLogText("<font color='lime'>" + "Survive " + gv.mod.currentEncounter.standGroundInternalTimer + " more round(s).</font><BR>");
             }
+            if (gv.mod.currentEncounter.timeLimitDefeat)
+            {
+                //gv.mod.currentEncounter.standGroundInternalTimer--;
+                gv.cc.addLogText("<font color='red'>" + "You have to win within " + gv.mod.currentEncounter.timeLimitInternalTimer + " round(s) or this battle is lost.</font><BR>");
+            }
             floatyTextEnlargerOn = true;
             //floatyTextOn = true;
 
-            roundCounter++;
             currentMoveOrderIndex = 0;
             //gv.sf.dsWorldTime();
+
+            //add new wave / delayed spawn here
+            foreach (CreatureRefs cr in gv.mod.currentEncounter.encounterCreatureRefsList)
+            {
+                if (roundCounter != 1)
+                {
+                    if (roundCounter == cr.spawnAtStartOfRoundX)
+                    {
+                        //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                        Coordinate target = new Coordinate();
+                        target.X = Convert.ToInt32(cr.creatureStartLocationX);
+                        target.Y = Convert.ToInt32(cr.creatureStartLocationY);
+
+                        bool foundPlace = true;
+
+                        //holla
+                        //we must determine the size of the summoned creature
+                        Creature summon = new Creature();
+                        foreach (Creature c in gv.mod.moduleCreaturesList)
+                        {
+                            if (c.cr_resref == cr.creatureResRef)
+                            {
+                                summon.creatureSize = c.creatureSize;
+                            }
+                        }
+
+                        Coordinate plusX = new Coordinate();
+                        plusX.X = target.X + 1;
+                        plusX.Y = target.Y;
+                        Coordinate plusY = new Coordinate();
+                        plusY.X = target.X;
+                        plusY.Y = target.Y + 1;
+                        Coordinate plusXandY = new Coordinate();
+                        plusXandY.X = target.X + 1;
+                        plusXandY.Y = target.Y + 1;
+
+                        if (summon.creatureSize == 1)
+                        {
+                            if (!gv.sf.IsSquareOpen(target))
+                            {
+                                foundPlace = false;
+                            }
+                        }
+
+                        if (summon.creatureSize == 2)
+                        {
+
+                            if (!gv.sf.IsSquareOpen(target))
+                            {
+                                foundPlace = false;
+                            }
+
+                            if (plusX.X < gv.mod.currentEncounter.MapSizeX)
+                            {
+                                if (!gv.sf.IsSquareOpen(plusX))
+                                {
+                                    foundPlace = false;
+                                }
+                            }
+                            else
+                            {
+                                foundPlace = false;
+                            }
+                        }
+
+                        if (summon.creatureSize == 3)
+                        {
+
+                            if (!gv.sf.IsSquareOpen(target))
+                            {
+                                foundPlace = false;
+                            }
+
+                            if (plusY.Y < gv.mod.currentEncounter.MapSizeY)
+                            {
+                                if (!gv.sf.IsSquareOpen(plusY))
+                                {
+                                    foundPlace = false;
+                                }
+                            }
+                            else
+                            {
+                                foundPlace = false;
+                            }
+                        }
+
+                        if (summon.creatureSize == 4)
+                        {
+
+                            if (!gv.sf.IsSquareOpen(target))
+                            {
+                                foundPlace = false;
+                            }
+
+                            if (plusX.X < gv.mod.currentEncounter.MapSizeX)
+                            {
+                                if (!gv.sf.IsSquareOpen(plusX))
+                                {
+                                    foundPlace = false;
+                                }
+                            }
+                            else
+                            {
+                                foundPlace = false;
+                            }
+
+                            if (plusY.Y < gv.mod.currentEncounter.MapSizeY)
+                            {
+                                if (!gv.sf.IsSquareOpen(plusY))
+                                {
+                                    foundPlace = false;
+                                }
+                            }
+                            else
+                            {
+                                foundPlace = false;
+                            }
+
+                            if (plusXandY.X < gv.mod.currentEncounter.MapSizeX && plusXandY.Y < gv.mod.currentEncounter.MapSizeY)
+                            {
+                                if (!gv.sf.IsSquareOpen(plusXandY))
+                                {
+                                    foundPlace = false;
+                                }
+                            }
+                            else
+                            {
+                                foundPlace = false;
+                            }
+                        }
+
+                        //try to find a nearby square
+                        if (foundPlace)
+                        {
+                            //AddCreatureToCurrentEncounter(p1, target.X.ToString(), target.Y.ToString(), p4);
+                            gv.sf.AddCreatureToCurrentEncounter(cr.creatureResRef, target.X.ToString(), target.Y.ToString(), "10000");
+                        }
+                        else
+                        {
+                            //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                            //find correct summon spot, replace with nearest location if neccessary  
+
+                            bool changeSummonLocation = false;// used as switch for cycling through all tiles in case the originally intended spot was occupied/not-walkable  
+                            int targetTile = target.Y * gv.mod.currentEncounter.MapSizeX + target.X;//the index of the original target spot in the encounter's tiles list  
+                            List<int> freeTilesByIndex = new List<int>();// a new list used to store the indices of all free tiles in the enocunter  
+                            int tileLocX = 0;//just temporary storage in for locations of tiles  
+                            int tileLocY = 0;//just temporary storage in for locations of tiles  
+                            double floatTileLocY = 0;//was uncertain about rounding and conversion details, therefore need this one (see below)  
+                            bool tileIsFree = true;//identify a tile suited as new summon loaction  
+                            int nearestTileByIndex = -1;//store the nearest tile by index; as the relevant loop runs this will be replaced several times likely with ever nearer tiles  
+                            int dist = 0;//distance between the orignally intended summon location and a free tile  
+                            int lowestDist = 10000;//this storest the lowest ditance found while the loop runs  
+                            int deltaX = 0;//temporary value used for distance calculation   
+                            int deltaY = 0;//temporary value used for distance calculation   
+
+                            //Check whether the target tile is free (then it's not neccessary to loop through any other tiles)  
+                            //three checks are done in the following: walkable, occupied by creature, occupied by pc  
+
+                            //TODO: for oversized cretaures
+                            //which squares will the cretaure cover
+
+                            //first check: check walkable  
+                            //if (gv.mod.currentEncounter.encounterTiles[targetTile].Walkable == false)
+                            /*
+                            if (gv.mod.currentEncounter.encounterTiles[targetTile].Walkable == false)
+                            {
+                                changeSummonLocation = true;
+                            }
+
+                            //second check: check occupied by creature (only necceessary if walkable)  
+                            if (changeSummonLocation == false)
+                            {
+                                foreach (Creature cr in gv.mod.currentEncounter.encounterCreatureList)
+                                {
+                                    if ((cr.combatLocX == target.X) && (cr.combatLocY == target.Y))
+                                    {
+                                        changeSummonLocation = true;
+                                        break;
+                                    }
+                                }
+                            }
+
+                            //third check: check occupied by pc (only necceessary if walkable and not occupied by creature)  
+                            if (changeSummonLocation == false)
+                            {
+                                foreach (Player pc in gv.mod.playerList)
+                                {
+                                    if ((pc.combatLocX == target.X) && (pc.combatLocY == target.Y))
+                                    {
+                                        changeSummonLocation = true;
+                                        break;
+                                    }
+                                }
+                            }
+                            */
+                            changeSummonLocation = true;
+                            Coordinate target2 = new Coordinate();
+                            //target square was already occupied/non-walkable, so all other tiles are searched for the NEAREST FREE tile to switch the summon location to  
+                            if (changeSummonLocation == true)
+                            {
+                                //FIRST PART: get all FREE tiles in the current encounter  
+                                for (int i = 0; i < gv.mod.currentEncounter.encounterTiles.Count; i++)
+                                {
+                                    //get the x and y location of current tile by calculation derived from index number, assuming that counting starts at top left corner of a map (0x, 0y)  
+                                    //and that each horizintal x-line is counted first, then counting next horizonal x-line starting from the left again  
+                                    tileIsFree = true;
+                                    //Note: When e.g. MapsizeY is 7, the y values range from 0 to 6  
+                                    //MODULO
+                                    tileLocX = i % gv.mod.currentEncounter.MapSizeX;
+                                    //Note: ensure rounding down here   
+                                    floatTileLocY = i / gv.mod.currentEncounter.MapSizeX;
+                                    tileLocY = (int)Math.Floor(floatTileLocY);
+                                    target2.X = tileLocX;
+                                    target2.Y = tileLocY;
+
+                                    //code for large summons goes here, see above
+                                    //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                                    plusX.X = target2.X + 1;
+                                    plusX.Y = target2.Y;
+                                    plusY.X = target2.X;
+                                    plusY.Y = target2.Y + 1;
+                                    plusXandY.X = target2.X + 1;
+                                    plusXandY.Y = target2.Y + 1;
+
+                                    foundPlace = true;
+
+                                    if (summon.creatureSize == 1)
+                                    {
+                                        if (!gv.sf.IsSquareOpen(target2))
+                                        {
+                                            foundPlace = false;
+                                        }
+                                    }
+
+                                    if (summon.creatureSize == 2)
+                                    {
+
+                                        if (!gv.sf.IsSquareOpen(target2))
+                                        {
+                                            foundPlace = false;
+                                        }
+
+                                        if (plusX.X < gv.mod.currentEncounter.MapSizeX)
+                                        {
+                                            if (!gv.sf.IsSquareOpen(plusX))
+                                            {
+                                                foundPlace = false;
+                                            }
+                                        }
+                                        else
+                                        {
+                                            foundPlace = false;
+                                        }
+                                    }
+
+                                    if (summon.creatureSize == 3)
+                                    {
+
+                                        if (!gv.sf.IsSquareOpen(target2))
+                                        {
+                                            foundPlace = false;
+                                        }
+
+                                        if (plusY.Y < gv.mod.currentEncounter.MapSizeY)
+                                        {
+                                            if (!gv.sf.IsSquareOpen(plusY))
+                                            {
+                                                foundPlace = false;
+                                            }
+                                        }
+                                        else
+                                        {
+                                            foundPlace = false;
+                                        }
+                                    }
+
+                                    if (summon.creatureSize == 4)
+                                    {
+
+                                        if (!gv.sf.IsSquareOpen(target2))
+                                        {
+                                            foundPlace = false;
+                                        }
+
+                                        if (plusX.X < gv.mod.currentEncounter.MapSizeX)
+                                        {
+                                            if (!gv.sf.IsSquareOpen(plusX))
+                                            {
+                                                foundPlace = false;
+                                            }
+                                        }
+                                        else
+                                        {
+                                            foundPlace = false;
+                                        }
+
+                                        if (plusY.Y < gv.mod.currentEncounter.MapSizeY)
+                                        {
+                                            if (!gv.sf.IsSquareOpen(plusY))
+                                            {
+                                                foundPlace = false;
+                                            }
+                                        }
+                                        else
+                                        {
+                                            foundPlace = false;
+                                        }
+
+                                        if (plusXandY.X < gv.mod.currentEncounter.MapSizeX && plusXandY.Y < gv.mod.currentEncounter.MapSizeY)
+                                        {
+                                            if (!gv.sf.IsSquareOpen(plusXandY))
+                                            {
+                                                foundPlace = false;
+                                            }
+                                        }
+                                        else
+                                        {
+                                            foundPlace = false;
+                                        }
+                                    }
+
+
+                                    //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+
+                                    if (foundPlace)
+                                    {
+                                        tileIsFree = true;
+                                    }
+                                    else
+                                    {
+                                        tileIsFree = false;
+                                    }
+                                    /*
+                                        //look at content of currently checked tile, again with three checks for walkable, occupied by creature, occupied by pc  
+                                        //walkbale check  
+                                        if (gv.mod.currentEncounter.encounterTiles[i].Walkable == false)
+                                    {
+                                        tileIsFree = false;
+                                    }
+
+                                    //creature occupied check  
+                                    if (tileIsFree == true)
+                                    {
+                                        foreach (Creature cr in gv.mod.currentEncounter.encounterCreatureList)
+                                        {
+                                            if ((cr.combatLocX == tileLocX) && (cr.combatLocY == tileLocY))
+                                            {
+                                                tileIsFree = false;
+                                                break;
+                                            }
+                                        }
+                                    }
+
+                                    //pc occupied check  
+                                    if (tileIsFree == true)
+                                    {
+                                        foreach (Player pc in gv.mod.playerList)
+                                        {
+                                            if ((pc.combatLocX == tileLocX) && (pc.combatLocY == tileLocY))
+                                            {
+                                                tileIsFree = false;
+                                                break;
+                                            }
+                                        }
+                                    }
+                                    */
+
+                                    //this writes all free tiles into a fresh list; please note that the values of the elements of this new list are our relevant index values  
+                                    //therefore it's not the index (which doesnt correalte to locations) in this list that's relevant, but the value of the element at that index  
+                                    if (tileIsFree == true)
+                                    {
+                                        freeTilesByIndex.Add(i);
+                                    }
+                                }
+
+                                //SECOND PART: find the free tile NEAREST to originally intended summon location  
+                                for (int i = 0; i < freeTilesByIndex.Count; i++)
+                                {
+                                    dist = 0;
+
+                                    //get location x and y of the tile stored at the index number i, i.e. get the value of elment indexed with i and transform to x and y location  
+                                    tileLocX = freeTilesByIndex[i] % gv.mod.currentEncounter.MapSizeX;
+                                    floatTileLocY = freeTilesByIndex[i] / gv.mod.currentEncounter.MapSizeX;
+                                    tileLocY = (int)Math.Floor(floatTileLocY);
+
+                                    //get distance between the current free tile and the originally intended summon location  
+                                    deltaX = (int)Math.Abs((tileLocX - target.X));
+                                    deltaY = (int)Math.Abs((tileLocY - target.Y));
+                                    if (deltaX > deltaY)
+                                    {
+                                        dist = deltaX;
+                                    }
+                                    else
+                                    {
+                                        dist = deltaY;
+                                    }
+
+                                    //filter out the nearest tile by remembering it and its distance for further comparison while the loop runs through all free tiles  
+                                    if (dist < lowestDist)
+                                    {
+                                        lowestDist = dist;
+                                        nearestTileByIndex = freeTilesByIndex[i];
+                                    }
+                                }
+
+                                if (nearestTileByIndex != -1)
+                                {
+                                    //get the nearest tile's x and y location and use it as creature summon coordinates  
+                                    tileLocX = nearestTileByIndex % gv.mod.currentEncounter.MapSizeX;
+                                    floatTileLocY = nearestTileByIndex / gv.mod.currentEncounter.MapSizeX;
+                                    tileLocY = (int)Math.Floor(floatTileLocY);
+
+                                    target.X = tileLocX;
+                                    target.Y = tileLocY;
+                                }
+
+                            }
+
+                            //just check whether a free squre does exist at all; if not, do not complete the summon  
+                            if ((nearestTileByIndex != -1) || (changeSummonLocation == false))
+                            {
+                                gv.sf.AddCreatureToCurrentEncounter(cr.creatureResRef, target.X.ToString(), target.Y.ToString(), "10000");
+                            }
+                            else
+                            {
+                                gv.cc.addLogText("<yl>" + "Creature fails to appear, no valid space.</yl><BR>");
+                            }
+
+                            //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                        }
+
+
+            //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+
+
+            //gv.sf.AddCreatureToCurrentEncounter(cr.creatureResRef, cr.creatureStartLocationX.ToString(), cr.creatureStartLocationY.ToString(), "10000");
+
+
+                        string name = "";
+                        foreach (Creature c in gv.mod.moduleCreaturesList)
+                        {
+                            if (cr.creatureResRef == c.cr_resref)
+                            {
+                                name = c.cr_name;
+                            }
+                        }
+                        gv.cc.addLogText("<font color='lime'>" + name + " has just appeared. </font><BR>");
+                    }
+
+                    else if ( cr.spawnAnotherEveryXRoundsAfterFirstSpawn != 0 && (roundCounter > cr.spawnAtStartOfRoundX) && (((roundCounter - cr.spawnAtStartOfRoundX) % cr.spawnAnotherEveryXRoundsAfterFirstSpawn) == 0))
+                    {
+                        //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                        Coordinate target = new Coordinate();
+                        target.X = Convert.ToInt32(cr.creatureStartLocationX);
+                        target.Y = Convert.ToInt32(cr.creatureStartLocationY);
+
+                        bool foundPlace = true;
+
+                        //holla
+                        //we must determine the size of the summoned creature
+                        Creature summon = new Creature();
+                        foreach (Creature c in gv.mod.moduleCreaturesList)
+                        {
+                            if (c.cr_resref == cr.creatureResRef)
+                            {
+                                summon.creatureSize = c.creatureSize;
+                            }
+                        }
+
+                        Coordinate plusX = new Coordinate();
+                        plusX.X = target.X + 1;
+                        plusX.Y = target.Y;
+                        Coordinate plusY = new Coordinate();
+                        plusY.X = target.X;
+                        plusY.Y = target.Y + 1;
+                        Coordinate plusXandY = new Coordinate();
+                        plusXandY.X = target.X + 1;
+                        plusXandY.Y = target.Y + 1;
+
+                        if (summon.creatureSize == 1)
+                        {
+                            if (!gv.sf.IsSquareOpen(target))
+                            {
+                                foundPlace = false;
+                            }
+                        }
+
+                        if (summon.creatureSize == 2)
+                        {
+
+                            if (!gv.sf.IsSquareOpen(target))
+                            {
+                                foundPlace = false;
+                            }
+
+                            if (plusX.X < gv.mod.currentEncounter.MapSizeX)
+                            {
+                                if (!gv.sf.IsSquareOpen(plusX))
+                                {
+                                    foundPlace = false;
+                                }
+                            }
+                            else
+                            {
+                                foundPlace = false;
+                            }
+                        }
+
+                        if (summon.creatureSize == 3)
+                        {
+
+                            if (!gv.sf.IsSquareOpen(target))
+                            {
+                                foundPlace = false;
+                            }
+
+                            if (plusY.Y < gv.mod.currentEncounter.MapSizeY)
+                            {
+                                if (!gv.sf.IsSquareOpen(plusY))
+                                {
+                                    foundPlace = false;
+                                }
+                            }
+                            else
+                            {
+                                foundPlace = false;
+                            }
+                        }
+
+                        if (summon.creatureSize == 4)
+                        {
+
+                            if (!gv.sf.IsSquareOpen(target))
+                            {
+                                foundPlace = false;
+                            }
+
+                            if (plusX.X < gv.mod.currentEncounter.MapSizeX)
+                            {
+                                if (!gv.sf.IsSquareOpen(plusX))
+                                {
+                                    foundPlace = false;
+                                }
+                            }
+                            else
+                            {
+                                foundPlace = false;
+                            }
+
+                            if (plusY.Y < gv.mod.currentEncounter.MapSizeY)
+                            {
+                                if (!gv.sf.IsSquareOpen(plusY))
+                                {
+                                    foundPlace = false;
+                                }
+                            }
+                            else
+                            {
+                                foundPlace = false;
+                            }
+
+                            if (plusXandY.X < gv.mod.currentEncounter.MapSizeX && plusXandY.Y < gv.mod.currentEncounter.MapSizeY)
+                            {
+                                if (!gv.sf.IsSquareOpen(plusXandY))
+                                {
+                                    foundPlace = false;
+                                }
+                            }
+                            else
+                            {
+                                foundPlace = false;
+                            }
+                        }
+
+                        //try to find a nearby square
+                        if (foundPlace)
+                        {
+                            //AddCreatureToCurrentEncounter(p1, target.X.ToString(), target.Y.ToString(), p4);
+                            gv.sf.AddCreatureToCurrentEncounter(cr.creatureResRef, target.X.ToString(), target.Y.ToString(), "10000");
+                        }
+                        else
+                        {
+                            //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                            //find correct summon spot, replace with nearest location if neccessary  
+
+                            bool changeSummonLocation = false;// used as switch for cycling through all tiles in case the originally intended spot was occupied/not-walkable  
+                            int targetTile = target.Y * gv.mod.currentEncounter.MapSizeX + target.X;//the index of the original target spot in the encounter's tiles list  
+                            List<int> freeTilesByIndex = new List<int>();// a new list used to store the indices of all free tiles in the enocunter  
+                            int tileLocX = 0;//just temporary storage in for locations of tiles  
+                            int tileLocY = 0;//just temporary storage in for locations of tiles  
+                            double floatTileLocY = 0;//was uncertain about rounding and conversion details, therefore need this one (see below)  
+                            bool tileIsFree = true;//identify a tile suited as new summon loaction  
+                            int nearestTileByIndex = -1;//store the nearest tile by index; as the relevant loop runs this will be replaced several times likely with ever nearer tiles  
+                            int dist = 0;//distance between the orignally intended summon location and a free tile  
+                            int lowestDist = 10000;//this storest the lowest ditance found while the loop runs  
+                            int deltaX = 0;//temporary value used for distance calculation   
+                            int deltaY = 0;//temporary value used for distance calculation   
+
+                            //Check whether the target tile is free (then it's not neccessary to loop through any other tiles)  
+                            //three checks are done in the following: walkable, occupied by creature, occupied by pc  
+
+                            //TODO: for oversized cretaures
+                            //which squares will the cretaure cover
+
+                            //first check: check walkable  
+                            //if (gv.mod.currentEncounter.encounterTiles[targetTile].Walkable == false)
+                            /*
+                            if (gv.mod.currentEncounter.encounterTiles[targetTile].Walkable == false)
+                            {
+                                changeSummonLocation = true;
+                            }
+
+                            //second check: check occupied by creature (only necceessary if walkable)  
+                            if (changeSummonLocation == false)
+                            {
+                                foreach (Creature cr in gv.mod.currentEncounter.encounterCreatureList)
+                                {
+                                    if ((cr.combatLocX == target.X) && (cr.combatLocY == target.Y))
+                                    {
+                                        changeSummonLocation = true;
+                                        break;
+                                    }
+                                }
+                            }
+
+                            //third check: check occupied by pc (only necceessary if walkable and not occupied by creature)  
+                            if (changeSummonLocation == false)
+                            {
+                                foreach (Player pc in gv.mod.playerList)
+                                {
+                                    if ((pc.combatLocX == target.X) && (pc.combatLocY == target.Y))
+                                    {
+                                        changeSummonLocation = true;
+                                        break;
+                                    }
+                                }
+                            }
+                            */
+                            changeSummonLocation = true;
+                            Coordinate target2 = new Coordinate();
+                            //target square was already occupied/non-walkable, so all other tiles are searched for the NEAREST FREE tile to switch the summon location to  
+                            if (changeSummonLocation == true)
+                            {
+                                //FIRST PART: get all FREE tiles in the current encounter  
+                                for (int i = 0; i < gv.mod.currentEncounter.encounterTiles.Count; i++)
+                                {
+                                    //get the x and y location of current tile by calculation derived from index number, assuming that counting starts at top left corner of a map (0x, 0y)  
+                                    //and that each horizintal x-line is counted first, then counting next horizonal x-line starting from the left again  
+                                    tileIsFree = true;
+                                    //Note: When e.g. MapsizeY is 7, the y values range from 0 to 6  
+                                    //MODULO
+                                    tileLocX = i % gv.mod.currentEncounter.MapSizeX;
+                                    //Note: ensure rounding down here   
+                                    floatTileLocY = i / gv.mod.currentEncounter.MapSizeX;
+                                    tileLocY = (int)Math.Floor(floatTileLocY);
+                                    target2.X = tileLocX;
+                                    target2.Y = tileLocY;
+
+                                    //code for large summons goes here, see above
+                                    //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                                    plusX.X = target2.X + 1;
+                                    plusX.Y = target2.Y;
+                                    plusY.X = target2.X;
+                                    plusY.Y = target2.Y + 1;
+                                    plusXandY.X = target2.X + 1;
+                                    plusXandY.Y = target2.Y + 1;
+
+                                    foundPlace = true;
+
+                                    if (summon.creatureSize == 1)
+                                    {
+                                        if (!gv.sf.IsSquareOpen(target2))
+                                        {
+                                            foundPlace = false;
+                                        }
+                                    }
+
+                                    if (summon.creatureSize == 2)
+                                    {
+
+                                        if (!gv.sf.IsSquareOpen(target2))
+                                        {
+                                            foundPlace = false;
+                                        }
+
+                                        if (plusX.X < gv.mod.currentEncounter.MapSizeX)
+                                        {
+                                            if (!gv.sf.IsSquareOpen(plusX))
+                                            {
+                                                foundPlace = false;
+                                            }
+                                        }
+                                        else
+                                        {
+                                            foundPlace = false;
+                                        }
+                                    }
+
+                                    if (summon.creatureSize == 3)
+                                    {
+
+                                        if (!gv.sf.IsSquareOpen(target2))
+                                        {
+                                            foundPlace = false;
+                                        }
+
+                                        if (plusY.Y < gv.mod.currentEncounter.MapSizeY)
+                                        {
+                                            if (!gv.sf.IsSquareOpen(plusY))
+                                            {
+                                                foundPlace = false;
+                                            }
+                                        }
+                                        else
+                                        {
+                                            foundPlace = false;
+                                        }
+                                    }
+
+                                    if (summon.creatureSize == 4)
+                                    {
+
+                                        if (!gv.sf.IsSquareOpen(target2))
+                                        {
+                                            foundPlace = false;
+                                        }
+
+                                        if (plusX.X < gv.mod.currentEncounter.MapSizeX)
+                                        {
+                                            if (!gv.sf.IsSquareOpen(plusX))
+                                            {
+                                                foundPlace = false;
+                                            }
+                                        }
+                                        else
+                                        {
+                                            foundPlace = false;
+                                        }
+
+                                        if (plusY.Y < gv.mod.currentEncounter.MapSizeY)
+                                        {
+                                            if (!gv.sf.IsSquareOpen(plusY))
+                                            {
+                                                foundPlace = false;
+                                            }
+                                        }
+                                        else
+                                        {
+                                            foundPlace = false;
+                                        }
+
+                                        if (plusXandY.X < gv.mod.currentEncounter.MapSizeX && plusXandY.Y < gv.mod.currentEncounter.MapSizeY)
+                                        {
+                                            if (!gv.sf.IsSquareOpen(plusXandY))
+                                            {
+                                                foundPlace = false;
+                                            }
+                                        }
+                                        else
+                                        {
+                                            foundPlace = false;
+                                        }
+                                    }
+
+
+                                    //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+
+                                    if (foundPlace)
+                                    {
+                                        tileIsFree = true;
+                                    }
+                                    else
+                                    {
+                                        tileIsFree = false;
+                                    }
+                                    /*
+                                        //look at content of currently checked tile, again with three checks for walkable, occupied by creature, occupied by pc  
+                                        //walkbale check  
+                                        if (gv.mod.currentEncounter.encounterTiles[i].Walkable == false)
+                                    {
+                                        tileIsFree = false;
+                                    }
+
+                                    //creature occupied check  
+                                    if (tileIsFree == true)
+                                    {
+                                        foreach (Creature cr in gv.mod.currentEncounter.encounterCreatureList)
+                                        {
+                                            if ((cr.combatLocX == tileLocX) && (cr.combatLocY == tileLocY))
+                                            {
+                                                tileIsFree = false;
+                                                break;
+                                            }
+                                        }
+                                    }
+
+                                    //pc occupied check  
+                                    if (tileIsFree == true)
+                                    {
+                                        foreach (Player pc in gv.mod.playerList)
+                                        {
+                                            if ((pc.combatLocX == tileLocX) && (pc.combatLocY == tileLocY))
+                                            {
+                                                tileIsFree = false;
+                                                break;
+                                            }
+                                        }
+                                    }
+                                    */
+
+                                    //this writes all free tiles into a fresh list; please note that the values of the elements of this new list are our relevant index values  
+                                    //therefore it's not the index (which doesnt correalte to locations) in this list that's relevant, but the value of the element at that index  
+                                    if (tileIsFree == true)
+                                    {
+                                        freeTilesByIndex.Add(i);
+                                    }
+                                }
+
+                                //SECOND PART: find the free tile NEAREST to originally intended summon location  
+                                for (int i = 0; i < freeTilesByIndex.Count; i++)
+                                {
+                                    dist = 0;
+
+                                    //get location x and y of the tile stored at the index number i, i.e. get the value of elment indexed with i and transform to x and y location  
+                                    tileLocX = freeTilesByIndex[i] % gv.mod.currentEncounter.MapSizeX;
+                                    floatTileLocY = freeTilesByIndex[i] / gv.mod.currentEncounter.MapSizeX;
+                                    tileLocY = (int)Math.Floor(floatTileLocY);
+
+                                    //get distance between the current free tile and the originally intended summon location  
+                                    deltaX = (int)Math.Abs((tileLocX - target.X));
+                                    deltaY = (int)Math.Abs((tileLocY - target.Y));
+                                    if (deltaX > deltaY)
+                                    {
+                                        dist = deltaX;
+                                    }
+                                    else
+                                    {
+                                        dist = deltaY;
+                                    }
+
+                                    //filter out the nearest tile by remembering it and its distance for further comparison while the loop runs through all free tiles  
+                                    if (dist < lowestDist)
+                                    {
+                                        lowestDist = dist;
+                                        nearestTileByIndex = freeTilesByIndex[i];
+                                    }
+                                }
+
+                                if (nearestTileByIndex != -1)
+                                {
+                                    //get the nearest tile's x and y location and use it as creature summon coordinates  
+                                    tileLocX = nearestTileByIndex % gv.mod.currentEncounter.MapSizeX;
+                                    floatTileLocY = nearestTileByIndex / gv.mod.currentEncounter.MapSizeX;
+                                    tileLocY = (int)Math.Floor(floatTileLocY);
+
+                                    target.X = tileLocX;
+                                    target.Y = tileLocY;
+                                }
+
+                            }
+
+                            //just check whether a free squre does exist at all; if not, do not complete the summon  
+                            if ((nearestTileByIndex != -1) || (changeSummonLocation == false))
+                            {
+                                gv.sf.AddCreatureToCurrentEncounter(cr.creatureResRef, target.X.ToString(), target.Y.ToString(), "10000");
+                            }
+                            else
+                            {
+                                gv.cc.addLogText("<yl>" + "Creature fails to appear, no valid space.</yl><BR>");
+                            }
+
+                            //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                        }
+
+
+                        //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                        //gv.sf.AddCreatureToCurrentEncounter(cr.creatureResRef, cr.creatureStartLocationX.ToString(), cr.creatureStartLocationY.ToString(), "10000");
+                        string name = "";
+                        foreach (Creature c in gv.mod.moduleCreaturesList)
+                        {
+                            if (cr.creatureResRef == c.cr_resref)
+                            {
+                                name = c.cr_name;
+                            }
+                        }
+                        gv.cc.addLogText("<font color='lime'>" + name + " has just appeared. </font><BR>");
+                    }
+                }
+            }
+            roundCounter++;
+
             doHardToKillTrait();
             doBattleRegenTrait();
             foreach (Player pc in gv.mod.playerList)
@@ -2887,6 +4048,10 @@ namespace IceBlink2
             Player pc = gv.mod.playerList[currentPlayerIndex];
             gv.sf.UpdateStats(pc);
             currentMoves = 0;
+            if(gv.mod.currentEncounter.onlyOneMoveModifier)
+            {
+                currentMoves = pc.moveDistance - 1.5f;
+            }
             //do onTurn IBScript
             gv.cc.doIBScriptBasedOnFilename(gv.mod.currentEncounter.OnStartCombatTurnIBScript, gv.mod.currentEncounter.OnStartCombatTurnIBScriptParms);
 
@@ -5718,12 +6883,22 @@ namespace IceBlink2
                             gv.mod.currentEncounter.encounterCreatureList.RemoveAt(x);
                             if (!gv.mod.currentEncounter.isRepeatable)
                             {
-                                gv.mod.currentEncounter.encounterCreatureRefsList.RemoveAt(x);
+                                //gv.mod.currentEncounter.encounterCreatureRefsList.RemoveAt(x);
                             }
                         }
                         catch (Exception ex)
                         {
                             gv.errorLog(ex.ToString());
+                        }
+                    }
+                }
+                foreach (Player p in gv.mod.playerList)
+                {
+                    if (gv.mod.currentEncounter.protectionDefeat && gv.mod.currentEncounter.protectionTargetName == p.name)
+                    {
+                        if (p.hp <= 0)
+                        {
+                            gv.mod.currentEncounter.protectionConditionMet = true;
                         }
                     }
                 }
@@ -6110,6 +7285,7 @@ namespace IceBlink2
         }
         public bool checkEndEncounter()
         {
+            //chaweng2
             int foundOneCrtr = 0;
             foreach (Creature crtr in gv.mod.currentEncounter.encounterCreatureList)
             {
@@ -6123,8 +7299,28 @@ namespace IceBlink2
             {
                 standGroundConditionMet = true;
             }
-            //if ( ((foundOneCrtr == 0) && (gv.screenType.Equals("combat"))) || gv.mod.currentEncounter.assassinationConditionMet)
-            if (gv.screenType.Equals("combat") && (gv.mod.currentEncounter.assassinationConditionMet || foundOneCrtr == 0 || standGroundConditionMet))
+
+            bool timeLimitConditionMet = false;
+            if (gv.mod.currentEncounter.timeLimitDefeat && gv.mod.currentEncounter.timeLimitInternalTimer <= 0)
+            {
+                timeLimitConditionMet = true;
+                gv.mod.currentEncounter.timeLimitInternalTimer = gv.mod.currentEncounter.timeLimitTimer;
+            }
+
+            foreach (Player p in gv.mod.playerList)
+            {
+                if (gv.mod.currentEncounter.protectionDefeat && gv.mod.currentEncounter.protectionTargetName == p.name)
+                {
+                    if (p.hp <= 0)
+                    {
+                        gv.mod.currentEncounter.protectionConditionMet = true;
+                    }
+                }
+            }
+
+            //Victory:
+
+            if (gv.screenType.Equals("combat") && (gv.mod.currentEncounter.assassinationConditionMet || foundOneCrtr == 0 || standGroundConditionMet) || gv.mod.currentEncounter.conquerConditionMet)
                 {
 
                 /*
@@ -6227,6 +7423,10 @@ namespace IceBlink2
                 {
                     victoryText += "The party survived " + gv.mod.currentEncounter.standGroundTimer + " rounds. <BR>";
                 }
+                else if (gv.mod.currentEncounter.conquerConditionMet)
+                {
+                    victoryText += "The party has occupied the required location(s). <BR>";
+                }
 
                 //after all vicotry conditions...
                 victoryText += expText + goldText + itemsText;
@@ -6276,6 +7476,7 @@ namespace IceBlink2
                 //reset all conditions
                 gv.mod.currentEncounter.assassinationConditionMet = false;
                 gv.mod.currentEncounter.standGroundInternalTimer = gv.mod.currentEncounter.standGroundTimer;
+                gv.mod.currentEncounter.conquerConditionMet = false; 
 
                 //kill all creatures, check whether encounter is repeatable
                 gv.mod.currentEncounter.encounterCreatureList.Clear();
@@ -6346,6 +7547,7 @@ namespace IceBlink2
                 return true;
             }
 
+            //lost battle
             int foundOnePc = 0;
             foreach (Player pc in gv.mod.playerList)
             {
@@ -6358,9 +7560,51 @@ namespace IceBlink2
                     }
                 }
             }
-            if (foundOnePc == 0)
+
+            if (gv.screenType.Equals("combat") && (foundOnePc == 0 || timeLimitConditionMet || gv.mod.currentEncounter.protectionConditionMet))
             {
+                //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXx
+                gv.mod.currentEncounter.isOver = true;
+                allDone = true;
                 roundCounter = 1;
+                gv.touchEnabled = true;
+                animationsOn = false;
+                stepAnimationsOn = false;
+
+                //testing
+                attackAnimationFrameCounter = 0;
+                attackAnimationDelayCounter = 0;
+                idx = 0;
+                currentMoveOrderIndex = 0;
+                currentPlayerIndex = 0;
+                creatureIndex = 0;
+
+                gv.screenCombat.animationSeqStack.Clear();
+                gv.screenCombat.deathAnimationLocations.Clear();
+                gv.screenCombat.hitAnimationLocation = null;
+                gv.screenCombat.endingAnimationLocation = null;
+                gv.cc.floatyTextList.Clear();
+
+
+                //remove night and nolight debuffs
+                gv.mod.poorVisionModifier = 0;
+                for (int index = 0; index < gv.mod.playerList.Count; index++)
+                {
+                    gv.sf.UpdateStats(gv.mod.playerList[index]);
+                }
+
+                //remove temporary allies
+                for (int i = gv.mod.playerList.Count - 1; i >= 0; i--)
+                {
+                    if (gv.mod.playerList[i].isTemporaryAllyForThisEncounterOnly)
+                    {
+                        gv.mod.playerList.RemoveAt(i);
+                    }
+                }
+
+                //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXx
+
+                //roundCounter = 1;
                 if (gv.mod.currentEncounter.isFriendlyContest)
                 {
 
@@ -6387,7 +7631,29 @@ namespace IceBlink2
                         }
                         pc.charStatus = "Alive";
                     }
-                    gv.sf.MessageBox("Your party has lost this contest - the knocked out characters recover a bit.");
+                    string defeatText = "";
+
+                    if (timeLimitConditionMet)
+                    {
+                        defeatText += "Time limit is over.<br>";
+                        timeLimitConditionMet = false;
+                        gv.mod.currentEncounter.timeLimitInternalTimer = gv.mod.currentEncounter.timeLimitTimer;
+                    }
+
+                    if (gv.mod.currentEncounter.protectionConditionMet)
+                    {
+                        defeatText += "Failed to protect " + gv.mod.currentEncounter.protectionTargetName + " from dropping to 0 or less hp.<br>";
+                        gv.mod.currentEncounter.protectionConditionMet = false;
+                    }
+
+                    defeatText += "Your party has lost this contest - the knocked out characters recover a bit.<br>";
+
+                    gv.sf.MessageBox(defeatText);
+                    //gv.cc.addLogText("red", defeatText);
+                    gv.cc.addLogText("<font color='red'>" + defeatText + "<BR></font>");
+
+                    //chaweng
+
                     gv.screenType = "main";
                     gv.screenCombat.animationSeqStack.Clear();
                     gv.screenCombat.deathAnimationLocations.Clear();
@@ -6421,12 +7687,35 @@ namespace IceBlink2
                     return true;
 
                 }
+
+                //no friendly contest, but real battle
                 else
                 {
                     animationsOn = false;
                     stepAnimationsOn = false;
                     gv.touchEnabled = true;
-                    gv.sf.MessageBox("Your party has been defeated!");
+                    string defeatText = "";
+
+                    if (timeLimitConditionMet)
+                    {
+                        defeatText += "Time limit is over.<br>";
+                        timeLimitConditionMet = false;
+                        gv.mod.currentEncounter.timeLimitInternalTimer = gv.mod.currentEncounter.timeLimitTimer;
+                    }
+
+                    if (gv.mod.currentEncounter.protectionConditionMet)
+                    {
+                        defeatText += "Failed to protect " + gv.mod.currentEncounter.protectionTargetName + " from dropping to 0 or less hp.<br>";
+                        gv.mod.currentEncounter.protectionConditionMet = false;
+                    }
+
+                    defeatText += "Your party has been defeated!<br>";
+
+                    gv.sf.MessageBox(defeatText);
+                    //gv.cc.addLogText("red", defeatText);
+                    gv.cc.addLogText("<font color='red'>" + defeatText + "<BR></font>");
+
+                    //gv.sf.MessageBox("Your party has been defeated!");
                     if (gv.mod.playMusic)
                     {
                         gv.stopCombatMusic();
@@ -6519,7 +7808,7 @@ namespace IceBlink2
                 Prop prp = gv.mod.currentEncounter.getPropByLocation(0, 0);
                 if (isPlayerTurn)
                 {
-                    Player pc = gv.mod.playerList[currentPlayerIndex];
+                    Player pc = gv.mod. playerList[currentPlayerIndex];
                     prp = gv.mod.currentEncounter.getPropByLocation(pc.combatLocX, pc.combatLocY);
                     ThisProp = prp;
                     gv.mod.currentEncounter.triggerScriptCalledFromSquareLocX = pc.combatLocX;
@@ -7035,12 +8324,22 @@ namespace IceBlink2
                                     gv.mod.currentEncounter.encounterCreatureList.RemoveAt(x);
                                     if (!gv.mod.currentEncounter.isRepeatable)
                                     {
-                                        gv.mod.currentEncounter.encounterCreatureRefsList.RemoveAt(x);
+                                        //gv.mod.currentEncounter.encounterCreatureRefsList.RemoveAt(x);
                                     }
                                 }
                                 catch (Exception ex)
                                 {
                                     gv.errorLog(ex.ToString());
+                                }
+                            }
+                        }
+                        foreach (Player p in gv.mod.playerList)
+                        {
+                            if (gv.mod.currentEncounter.protectionDefeat && gv.mod.currentEncounter.protectionTargetName == p.name)
+                            {
+                                if (p.hp <= 0)
+                                {
+                                    gv.mod.currentEncounter.protectionConditionMet = true;
                                 }
                             }
                         }
@@ -7269,12 +8568,22 @@ namespace IceBlink2
                                         gv.mod.currentEncounter.encounterCreatureList.RemoveAt(x);
                                         if (!gv.mod.currentEncounter.isRepeatable)
                                         {
-                                            gv.mod.currentEncounter.encounterCreatureRefsList.RemoveAt(x);
+                                            //gv.mod.currentEncounter.encounterCreatureRefsList.RemoveAt(x);
                                         }
                                     }
                                     catch (Exception ex)
                                     {
                                         gv.errorLog(ex.ToString());
+                                    }
+                                }
+                            }
+                            foreach (Player p in gv.mod.playerList)
+                            {
+                                if (gv.mod.currentEncounter.protectionDefeat && gv.mod.currentEncounter.protectionTargetName == p.name)
+                                {
+                                    if (p.hp <= 0)
+                                    {
+                                        gv.mod.currentEncounter.protectionConditionMet = true;
                                     }
                                 }
                             }
@@ -7364,12 +8673,22 @@ namespace IceBlink2
                                             gv.mod.currentEncounter.encounterCreatureList.RemoveAt(x);
                                             if (!gv.mod.currentEncounter.isRepeatable)
                                             {
-                                                gv.mod.currentEncounter.encounterCreatureRefsList.RemoveAt(x);
+                                                //gv.mod.currentEncounter.encounterCreatureRefsList.RemoveAt(x);
                                             }
                                         }
                                         catch (Exception ex)
                                         {
                                             gv.errorLog(ex.ToString());
+                                        }
+                                    }
+                                }
+                                foreach (Player p in gv.mod.playerList)
+                                {
+                                    if (gv.mod.currentEncounter.protectionDefeat && gv.mod.currentEncounter.protectionTargetName == p.name)
+                                    {
+                                        if (p.hp <= 0)
+                                        {
+                                            gv.mod.currentEncounter.protectionConditionMet = true;
                                         }
                                     }
                                 }
@@ -7622,7 +8941,7 @@ namespace IceBlink2
                                     gv.mod.currentEncounter.encounterCreatureList.RemoveAt(x);
                                     if (!gv.mod.currentEncounter.isRepeatable)
                                     {
-                                        gv.mod.currentEncounter.encounterCreatureRefsList.RemoveAt(x);
+                                        //gv.mod.currentEncounter.encounterCreatureRefsList.RemoveAt(x);
                                     }
                                 }
                                 catch (Exception ex)
@@ -8018,6 +9337,31 @@ namespace IceBlink2
 
         public void drawProps()
         {
+
+            //code for drawing conquer and hold locations
+            if (gv.mod.currentEncounter.conquerVictory)
+            {
+                if (gv.mod.currentEncounter.conquerTarget1X != -1 && gv.mod.currentEncounter.conquerTarget1Y != -1)
+                {
+                    IbRect src = new IbRect(0, 0, gv.cc.GetFromBitmapList("conquerLocation").PixelSize.Width, gv.cc.GetFromBitmapList("conquerLocation").PixelSize.Width);
+                    IbRect dst = new IbRect(getPixelLocX(gv.mod.currentEncounter.conquerTarget1X), getPixelLocY(gv.mod.currentEncounter.conquerTarget1Y), gv.squareSize, gv.squareSize);
+                    gv.DrawBitmap(gv.cc.GetFromBitmapList("conquerLocation"), src, dst);
+                }
+                /*
+                if (x == gv.mod.currentEncounter.conquerTarget2X && y == gv.mod.currentEncounter.conquerTarget2Y)
+                {
+                    IbRect src = new IbRect(0, 0, gv.cc.GetFromBitmapList(prp.ImageFileName).PixelSize.Width, gv.cc.GetFromBitmapList(prp.ImageFileName).PixelSize.Width);
+                    IbRect dst = new IbRect(getPixelLocX(prp.LocationX), getPixelLocY(prp.LocationY), gv.squareSize, gv.squareSize);
+                    gv.DrawBitmap(gv.cc.GetFromBitmapList(prp.ImageFileName), src, dst);
+                }
+
+                if (x == gv.mod.currentEncounter.conquerTarget3X && y == gv.mod.currentEncounter.conquerTarget3Y)
+                {
+
+                }
+                */
+            }
+
             foreach (Prop prp in gv.mod.currentEncounter.propsList)
             {
                 IbRect src = new IbRect(0, 0, gv.cc.GetFromBitmapList(prp.ImageFileName).PixelSize.Width, gv.cc.GetFromBitmapList(prp.ImageFileName).PixelSize.Width);
@@ -9456,6 +10800,7 @@ namespace IceBlink2
                                 continue;
                             }
                             TileEnc tile = gv.mod.currentEncounter.encounterTiles[y * gv.mod.currentEncounter.MapSizeX + x];
+
                             try
                             {
                                 //insert1                        
@@ -9530,6 +10875,26 @@ namespace IceBlink2
                             }
                             catch
                             { }
+                            /*
+                            //code for drawing conquer and hold locations
+                            if (gv.mod.currentEncounter.conquerVictory)
+                            {
+                                if (x == gv.mod.currentEncounter.conquerTarget1X && y == gv.mod.currentEncounter.conquerTarget1Y)
+                                {
+                                    //trainieren
+                                }
+
+                                if (x == gv.mod.currentEncounter.conquerTarget2X && y == gv.mod.currentEncounter.conquerTarget2Y)
+                                {
+
+                                }
+
+                                if (x == gv.mod.currentEncounter.conquerTarget3X && y == gv.mod.currentEncounter.conquerTarget3Y)
+                                {
+
+                                }
+                            }
+                            */
                         }
                     }
                     #endregion
@@ -11317,7 +12682,7 @@ namespace IceBlink2
             }
             else if (keyData == Keys.I)
             {
-                if ((isPlayerTurn) && (!gv.mod.playerList[currentPlayerIndex].isTemporaryAllyForThisEncounterOnly))
+                if ((isPlayerTurn) && (!gv.mod.playerList[currentPlayerIndex].isTemporaryAllyForThisEncounterOnly) && !gv.mod.currentEncounter.noItemUseModifier)
                 {
                     gv.mod.playerList[currentPlayerIndex].thisCastIsFreeOfCost = false;
                     gv.mod.playerList[currentPlayerIndex].isPreparingSpell = false;
@@ -11345,7 +12710,7 @@ namespace IceBlink2
             }
             else if (keyData == Keys.O)
             {
-                if (isPlayerTurn)
+                if (isPlayerTurn && !gv.mod.currentEncounter.noSpellCastModifier)
                 {
                     continueTurn = false;
                     gv.mod.playerList[currentPlayerIndex].thisCastIsFreeOfCost = false;
@@ -11370,7 +12735,7 @@ namespace IceBlink2
             }
             else if (keyData == Keys.U)
             {
-                if (isPlayerTurn)
+                if (isPlayerTurn && !gv.mod.currentEncounter.noTraitUseModifier)
                 {
                     continueTurn = false;
                     gv.mod.playerList[currentPlayerIndex].thisCastIsFreeOfCost = false;
@@ -13044,7 +14409,7 @@ namespace IceBlink2
                     if ((rtn.Equals("tglKill")) && (gv.mod.debugMode))
                     {
                         gv.mod.currentEncounter.encounterCreatureList.Clear();
-                        gv.mod.currentEncounter.encounterCreatureRefsList.Clear();
+                        //gv.mod.currentEncounter.encounterCreatureRefsList.Clear();
                         checkEndEncounter();
                     }
                     #endregion
@@ -13280,7 +14645,7 @@ namespace IceBlink2
                     }
                     else if (rtn.Equals("btnInventory"))
                     {
-                        if (isPlayerTurn)
+                        if (isPlayerTurn && !gv.mod.currentEncounter.noItemUseModifier)
                         {
                             gv.mod.playerList[currentPlayerIndex].thisCastIsFreeOfCost = false;
                             gv.mod.playerList[currentPlayerIndex].isPreparingSpell = false;
@@ -15685,7 +17050,7 @@ namespace IceBlink2
                     }
                     else if (rtn.Equals("btnCast"))
                     {
-                        if (isPlayerTurn)
+                        if (isPlayerTurn && !gv.mod.currentEncounter.noSpellCastModifier)
                         {
                             continueTurn = false;
                             gv.mod.playerList[currentPlayerIndex].thisCastIsFreeOfCost = false;
@@ -15709,7 +17074,7 @@ namespace IceBlink2
                     }
                     else if (rtn.Equals("btnTraitUse"))
                     {
-                        if (isPlayerTurn)
+                        if (isPlayerTurn && !gv.mod.currentEncounter.noTraitUseModifier)
                         {
                             continueTurn = false;
                             gv.mod.playerList[currentPlayerIndex].thisCastIsFreeOfCost = false;

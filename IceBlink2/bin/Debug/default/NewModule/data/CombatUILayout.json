@@ -21,7 +21,7 @@
       "logList": [
         {
           "tag": "",
-          "numberOfLinesToShow": 24,
+          "numberOfLinesToShow": 20,
           "xLoc": 0.0,
           "startY": 0,
           "moveDeltaY": 0,
@@ -79,13 +79,13 @@
         {
           "tag": "port0",
           "ImgBGFilename": "item_slot",
-          "ImgFilename": "ptr_adela",
+          "ImgFilename": "ElfArcherMale_L",
           "ImgLUFilename": "btnLevelUpPlus",
           "GlowFilename": "btn_ptr_glow",
-          "glowOn": false,
+          "glowOn": true,
           "levelUpOn": false,
-          "TextHP": "",
-          "TextSP": "",
+          "TextHP": "13/13",
+          "TextSP": "10/10",
           "levelUpSymbol": "",
           "X": 13,
           "Y": 15,
@@ -93,18 +93,18 @@
           "Height": 140,
           "scaler": 0.8,
           "playedHoverSound": false,
-          "show": false
+          "show": true
         },
         {
           "tag": "port1",
           "ImgBGFilename": "item_slot",
-          "ImgFilename": "ptr_adela",
+          "ImgFilename": "DwarfFighterMale_L",
           "ImgLUFilename": "btnLevelUpPlus",
           "GlowFilename": "btn_ptr_glow",
           "glowOn": false,
           "levelUpOn": false,
-          "TextHP": "",
-          "TextSP": "",
+          "TextHP": "10/10",
+          "TextSP": "12/12",
           "levelUpSymbol": "",
           "X": 13,
           "Y": 165,
@@ -112,18 +112,18 @@
           "Height": 140,
           "scaler": 0.8,
           "playedHoverSound": false,
-          "show": false
+          "show": true
         },
         {
           "tag": "port2",
           "ImgBGFilename": "item_slot",
-          "ImgFilename": "ptr_adela",
+          "ImgFilename": "DwarfFemaleThief_L",
           "ImgLUFilename": "btnLevelUpPlus",
           "GlowFilename": "btn_ptr_glow",
           "glowOn": false,
           "levelUpOn": false,
-          "TextHP": "",
-          "TextSP": "",
+          "TextHP": "3/3",
+          "TextSP": "23/23",
           "levelUpSymbol": "",
           "X": 13,
           "Y": 315,
@@ -131,18 +131,18 @@
           "Height": 140,
           "scaler": 0.6,
           "playedHoverSound": false,
-          "show": false
+          "show": true
         },
         {
           "tag": "port3",
           "ImgBGFilename": "item_slot",
-          "ImgFilename": "ptr_adela",
+          "ImgFilename": "DwarfFemaleThief_L",
           "ImgLUFilename": "btnLevelUpPlus",
           "GlowFilename": "btn_ptr_glow",
           "glowOn": false,
           "levelUpOn": false,
-          "TextHP": "",
-          "TextSP": "",
+          "TextHP": "12/12",
+          "TextSP": "14/14",
           "levelUpSymbol": "",
           "X": 13,
           "Y": 465,
@@ -150,18 +150,18 @@
           "Height": 140,
           "scaler": 0.8,
           "playedHoverSound": false,
-          "show": false
+          "show": true
         },
         {
           "tag": "port4",
           "ImgBGFilename": "item_slot",
-          "ImgFilename": "ptr_adela",
+          "ImgFilename": "DwarfThiefMale2_L",
           "ImgLUFilename": "btnLevelUpPlus",
           "GlowFilename": "btn_ptr_glow",
           "glowOn": false,
           "levelUpOn": false,
-          "TextHP": "",
-          "TextSP": "",
+          "TextHP": "6/8",
+          "TextSP": "10/10",
           "levelUpSymbol": "",
           "X": 13,
           "Y": 615,
@@ -169,18 +169,18 @@
           "Height": 140,
           "scaler": 0.8,
           "playedHoverSound": false,
-          "show": false
+          "show": true
         },
         {
           "tag": "port5",
           "ImgBGFilename": "item_slot",
-          "ImgFilename": "ptr_adela",
+          "ImgFilename": "DwarfFighterMale_L",
           "ImgLUFilename": "btnLevelUpPlus",
           "GlowFilename": "btn_ptr_glow",
           "glowOn": false,
           "levelUpOn": false,
-          "TextHP": "",
-          "TextSP": "",
+          "TextHP": "9/19",
+          "TextSP": "11/11",
           "levelUpSymbol": "",
           "X": 13,
           "Y": 765,
@@ -188,7 +188,7 @@
           "Height": 140,
           "scaler": 0.8,
           "playedHoverSound": false,
-          "show": false
+          "show": true
         }
       ],
       "logList": []
@@ -314,7 +314,7 @@
           "Img2OffFilename": "",
           "Img3Filename": "",
           "GlowFilename": "btn_small_glow",
-          "btnState": "Normal",
+          "btnState": "On",
           "btnNotificationOn": false,
           "glowOn": false,
           "Text": "ATTACK",
@@ -389,7 +389,7 @@
           "btnState": "Normal",
           "btnNotificationOn": false,
           "glowOn": false,
-          "Text": "0",
+          "Text": "3",
           "Quantity": "",
           "HotKey": "",
           "X": 1390,
@@ -401,7 +401,7 @@
           "playedHoverSound": false,
           "show": true
         },
-{
+        {
           "tag": "btnExit",
           "ImgFilename": "btn_small_off",
           "ImgOffFilename": "btn_small_off",
@@ -612,7 +612,7 @@
           "Height": 120,
           "scaler": 0.8,
           "playedHoverSound": false,
-          "show": false
+          "show": true
         },
         {
           "tag": "btnIni2",
@@ -636,7 +636,7 @@
           "Height": 120,
           "scaler": 0.8,
           "playedHoverSound": false,
-          "show": false
+          "show": true
         },
         {
           "tag": "btnIni3",
@@ -660,7 +660,7 @@
           "Height": 120,
           "scaler": 0.8,
           "playedHoverSound": false,
-          "show": false
+          "show": true
         },
         {
           "tag": "btnIni4",
@@ -684,7 +684,7 @@
           "Height": 120,
           "scaler": 0.8,
           "playedHoverSound": false,
-          "show": false
+          "show": true
         },
         {
           "tag": "btnIni5",
@@ -708,7 +708,7 @@
           "Height": 120,
           "scaler": 0.8,
           "playedHoverSound": false,
-          "show": false
+          "show": true
         },
         {
           "tag": "btnIni6",
@@ -732,7 +732,7 @@
           "Height": 120,
           "scaler": 0.8,
           "playedHoverSound": false,
-          "show": false
+          "show": true
         },
         {
           "tag": "btnIni7",
@@ -756,7 +756,7 @@
           "Height": 120,
           "scaler": 0.8,
           "playedHoverSound": false,
-          "show": false
+          "show": true
         },
         {
           "tag": "btnIni8",
@@ -780,7 +780,7 @@
           "Height": 120,
           "scaler": 0.8,
           "playedHoverSound": false,
-          "show": false
+          "show": true
         },
         {
           "tag": "btnIni9",
@@ -804,7 +804,7 @@
           "Height": 120,
           "scaler": 0.8,
           "playedHoverSound": false,
-          "show": false
+          "show": true
         },
         {
           "tag": "btnIni10",
@@ -1465,9 +1465,9 @@
       "hiding": true,
       "showing": false,
       "shownLocX": 1490,
-      "shownLocY": 720,
+      "shownLocY": 600,
       "currentLocX": 1490,
-      "currentLocY": 719,
+      "currentLocY": 599,
       "hiddenLocX": 1500,
       "hiddenLocY": 1080,
       "hidingXIncrement": 0,
@@ -1679,7 +1679,7 @@
           "btnState": "Normal",
           "btnNotificationOn": false,
           "glowOn": false,
-          "Text": "SELECT",
+          "Text": "TARGET",
           "Quantity": "",
           "HotKey": "",
           "X": 105,

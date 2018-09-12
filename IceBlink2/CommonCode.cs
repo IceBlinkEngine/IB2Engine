@@ -3774,7 +3774,9 @@ namespace IceBlink2
                     }
                     if (!foundRation)
                     {
+                        //deprived
                         gv.screenMainMap.addFloatyText(gv.mod.PlayerLocationX, gv.mod.PlayerLocationY, "Very deprived by lack of supplies... HP & SP lost", "red", 4000);
+                        gv.cc.addLogText("red", "Very deprived by lack of supplies... HP & SP lost");
                         foreach (Player p in gv.mod.playerList)
                         {
                             int healthReduction = (int)(p.hpMax / (100f/gv.mod.maxHPandSPPercentageLostOnHunger));

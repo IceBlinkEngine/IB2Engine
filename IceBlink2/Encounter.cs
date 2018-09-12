@@ -24,13 +24,34 @@ namespace IceBlink2
         public string assassinationTargetName = "none";
         public bool assassinationConditionMet = false;
 
-        public bool standGroundVictory = true;
+        public bool standGroundVictory = false;
         public int standGroundTimer = 10;
         public int standGroundInternalTimer = 10;
 
+        public bool conquerVictory = true;
+        public bool conquerTargetsCumulative = true;
+        public bool conquerConditionMet = false ;
+        public int conquerTarget1X = 8;
+        public int conquerTarget1Y = 8;
+        public int conquerTarget2X = -1;
+        public int conquerTarget2Y = -1;
+        public int conquerTarget3X = -1;
+        public int conquerTarget3Y = -1;
+
         //Loss conditions
+        public bool timeLimitDefeat = false;
+        public int timeLimitTimer = 10;
+        public int timeLimitInternalTimer = 10;
+
+        public bool protectionDefeat = false; 
+        public string protectionTargetName = "none";
+        public bool protectionConditionMet = false;
 
         //Battlefield modifiers
+        public bool noSpellCastModifier = false;
+        public bool noTraitUseModifier = false;
+        public bool noItemUseModifier = false;
+        public bool onlyOneMoveModifier = false;
 
         //texts at start and ned (win) of battle
         public bool showDefaultMessageBoxAtStartOfEncounter = true;

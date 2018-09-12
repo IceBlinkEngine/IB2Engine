@@ -384,54 +384,60 @@ namespace IceBlink2
                 doConvo(parentIdNum);
             }
             */
-            else if ((KeyCode == Keys.D) || (KeyCode == Keys.Right))
+            else if ((KeyCode == Keys.D) || (KeyCode == Keys.Right) || (KeyCode == Keys.E))
             {
-                //to do: dead members / unconscious members
-                //gv.mod.selectedPartyLeader++;
-                //if (gv.mod.playerList[gv.mod.selectedPartyLeader].hp <= 0 )
-                //if (gv.mod.selectedPartyLeader)
-                bool leaderFound = false;
-                while (!leaderFound)
+                if (!currentConvo.SpeakToMainPcOnly)
                 {
-                    gv.mod.selectedPartyLeader++;
-                    if (gv.mod.selectedPartyLeader >= gv.mod.playerList.Count)
+                    //to do: dead members / unconscious members
+                    //gv.mod.selectedPartyLeader++;
+                    //if (gv.mod.playerList[gv.mod.selectedPartyLeader].hp <= 0 )
+                    //if (gv.mod.selectedPartyLeader)
+                    bool leaderFound = false;
+                    while (!leaderFound)
                     {
-                        gv.mod.selectedPartyLeader = 0;
+                        gv.mod.selectedPartyLeader++;
+                        if (gv.mod.selectedPartyLeader >= gv.mod.playerList.Count)
+                        {
+                            gv.mod.selectedPartyLeader = 0;
+                        }
+                        if (gv.mod.playerList[gv.mod.selectedPartyLeader].hp >= 0)
+                        {
+                            leaderFound = true;
+                        }
                     }
-                    if (gv.mod.playerList[gv.mod.selectedPartyLeader].hp >= 0)
-                    {
-                        leaderFound = true;
-                    }
+                    gv.screenMainMap.updateTraitsPanel();
+                    currentLineIndex = 1;
+                    pcNodeGlow = 1;
+                    gv.screenMainMap.updateTraitsPanel();
+                    doActions = false;
+                    doConvo(parentIdNum);
                 }
-                gv.screenMainMap.updateTraitsPanel();
-                currentLineIndex = 1;
-                pcNodeGlow = 1;
-                gv.screenMainMap.updateTraitsPanel();
-                doActions = false;
-                doConvo(parentIdNum);
             }
-            else if ((KeyCode == Keys.A) || (KeyCode == Keys.Left))
+            else if ((KeyCode == Keys.A) || (KeyCode == Keys.Left) || (KeyCode == Keys.Q))
             {
-                //gv.mod.selectedPartyLeader--;
-                bool leaderFound = false;
-                while (!leaderFound)
+                if (!currentConvo.SpeakToMainPcOnly)
                 {
-                    gv.mod.selectedPartyLeader--;
-                    if (gv.mod.selectedPartyLeader < 0)
+                    //gv.mod.selectedPartyLeader--;
+                    bool leaderFound = false;
+                    while (!leaderFound)
                     {
-                        gv.mod.selectedPartyLeader = gv.mod.playerList.Count - 1; ;
+                        gv.mod.selectedPartyLeader--;
+                        if (gv.mod.selectedPartyLeader < 0)
+                        {
+                            gv.mod.selectedPartyLeader = gv.mod.playerList.Count - 1; ;
+                        }
+                        if (gv.mod.playerList[gv.mod.selectedPartyLeader].hp >= 0)
+                        {
+                            leaderFound = true;
+                        }
                     }
-                    if (gv.mod.playerList[gv.mod.selectedPartyLeader].hp >= 0)
-                    {
-                        leaderFound = true;
-                    }
+                    gv.screenMainMap.updateTraitsPanel();
+                    currentLineIndex = 1;
+                    pcNodeGlow = 1;
+                    gv.screenMainMap.updateTraitsPanel();
+                    doActions = false;
+                    doConvo(parentIdNum);
                 }
-                gv.screenMainMap.updateTraitsPanel();
-                currentLineIndex = 1;
-                pcNodeGlow = 1;
-                gv.screenMainMap.updateTraitsPanel();
-                doActions = false;
-                doConvo(parentIdNum);
             }
         }
 
