@@ -28,15 +28,25 @@ namespace IceBlink2
         public int standGroundTimer = 10;
         public int standGroundInternalTimer = 10;
 
-        public bool conquerVictory = true;
+        public bool conquerVictory = false;
         public bool conquerTargetsCumulative = true;
         public bool conquerConditionMet = false ;
-        public int conquerTarget1X = 8;
-        public int conquerTarget1Y = 8;
+        public int conquerTarget1X = -1;
+        public int conquerTarget1Y = -1;
         public int conquerTarget2X = -1;
         public int conquerTarget2Y = -1;
         public int conquerTarget3X = -1;
         public int conquerTarget3Y = -1;
+
+        public bool holdDefeat = false;
+        public bool holdTargetsCumulative = true;
+        public bool holdConditionMet = false;
+        public int holdTarget1X = -1;
+        public int holdTarget1Y = -1;
+        public int holdTarget2X = -1;
+        public int holdTarget2Y = -1;
+        public int holdTarget3X = -1;
+        public int holdTarget3Y = -1;
 
         //Loss conditions
         public bool timeLimitDefeat = false;
@@ -52,6 +62,15 @@ namespace IceBlink2
         public bool noTraitUseModifier = false;
         public bool noItemUseModifier = false;
         public bool onlyOneMoveModifier = false;
+        public bool reducedDamageofPcMeleeAttack = false;
+        public bool reducedDamageofPcRangedAttack = false;
+        public bool allSpellsWithoutAoE = false;
+        public List<int> originalAoEofSpells = new List<int>();
+        public bool allSpellsSPCostDoubled = false;
+        public bool noHealingAllowed = false;
+        public int hpDamageEachRound = 0;
+        public int spDamageEachRound = 0;
+
 
         //texts at start and ned (win) of battle
         public bool showDefaultMessageBoxAtStartOfEncounter = true;

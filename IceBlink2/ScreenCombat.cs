@@ -15,6 +15,7 @@ namespace IceBlink2
         //public Module gv.mod;
         public GameView gv;
 
+        //public List<int> originalAoEofSpells = new List<int>(); 
         public List<Coordinate> blockCreatureDrawLocations = new List<Coordinate>();
 
         public bool allDone = false;
@@ -587,8 +588,32 @@ namespace IceBlink2
 
         public void doCombatSetup()
         {
+            if (gv.mod.currentEncounter.allSpellsSPCostDoubled)
+            {
+                foreach (Spell sp in gv.mod.moduleSpellsList)
+                {
+                    sp.costSP *= 2;
+                }
+            } 
 
-            if (gv.mod.playMusic)
+            if (gv.mod.currentEncounter.allSpellsWithoutAoE)
+            {
+                //1. clear list with backup AoE of Spells
+                gv.mod.currentEncounter.originalAoEofSpells.Clear();
+                //2. fill list with backup AoE of Spells, readin in all spells
+                foreach (Spell sp in gv.mod.moduleSpellsList)
+                {
+                    gv.mod.currentEncounter.originalAoEofSpells.Add(sp.aoeRadius);
+                }
+                //3. set all spples AoE to 0
+                foreach (Spell sp in gv.mod.moduleSpellsList)
+                {
+                    sp.aoeRadius = 0;
+                }
+            }
+            //4. restore original AoE of Spells from checkendencounter
+
+                if (gv.mod.playMusic)
             {
                 gv.stopMusic();
                 gv.stopAmbient();
@@ -1100,7 +1125,7 @@ namespace IceBlink2
                     }
                 }
 
-                if (gv.mod.currentEncounter.timeLimitDefeat || gv.mod.currentEncounter.protectionDefeat)
+                if (gv.mod.currentEncounter.timeLimitDefeat || gv.mod.currentEncounter.protectionDefeat || gv.mod.currentEncounter.holdDefeat)
                 {
                     battleStartMessage += "Additional defeat term(s): <br><br>";
                 }
@@ -1119,11 +1144,137 @@ namespace IceBlink2
                     ///gv.sf.MessageBox(battleStartMessage);
                 }
 
+                if (gv.mod.currentEncounter.holdDefeat)
+                {
+                    //battleStartMessage += "- loose this battle instantly if " + gv.mod.currentEncounter.protectionTargetName + " drops to 0 or less hit points.<br><br>";
+                    //gv.sf.MessageBox("Win this battle instantly by slaying " + gv.mod.currentEncounter.assassinationTargetName + ".");
+                    //gv.sf.MessageBox(battleStartMessage);
+                    if (gv.mod.currentEncounter.holdTargetsCumulative)
+                    {
+                        //1 and 2 and 3
+                        if (gv.mod.currentEncounter.holdTarget1Y != -1 && gv.mod.currentEncounter.holdTarget2Y != -1 && gv.mod.currentEncounter.holdTarget3Y != -1)
+                        {
+                            battleStartMessage += "- loose this battle instantly by failing to occupy ANY of the following locations simultaneously with a conscious pc at the start of a round: ";
+                            battleStartMessage += "[" + gv.mod.currentEncounter.holdTarget1X + "," + gv.mod.currentEncounter.holdTarget1Y + "]," + " [" + gv.mod.currentEncounter.holdTarget2X + "," + gv.mod.currentEncounter.holdTarget2Y + "]," + " [" + gv.mod.currentEncounter.holdTarget3X + "," + gv.mod.currentEncounter.holdTarget3Y + "]" + ".<br><br>";
+                        }
+                        //1+2
+                        else if (gv.mod.currentEncounter.holdTarget1Y != -1 && gv.mod.currentEncounter.holdTarget2Y != -1)
+                        {
+                            battleStartMessage += "- loose this battle instantly by failing to occupy ANY of the following locations simultaneously with a conscious pc at the start of a round: ";
+                            battleStartMessage += "[" + gv.mod.currentEncounter.holdTarget1X + "," + gv.mod.currentEncounter.holdTarget1Y + "]," + " [" + gv.mod.currentEncounter.holdTarget2X + "," + gv.mod.currentEncounter.holdTarget2Y + "]" + ".<br><br>";
+                        }
+                        //1+3
+                        else if (gv.mod.currentEncounter.holdTarget1Y != -1 && gv.mod.currentEncounter.holdTarget3Y != -1)
+                        {
+                            battleStartMessage += "- loose this battle instantly by failing to occupy ANY of the following locations simultaneously with a conscious pc at the start of a round: ";
+                            battleStartMessage += "[" + gv.mod.currentEncounter.holdTarget1X + "," + gv.mod.currentEncounter.holdTarget1Y + "]," + " [" + gv.mod.currentEncounter.holdTarget3X + "," + gv.mod.currentEncounter.holdTarget3Y + "]" + ".<br><br>";
+                        }
+                        //2+3
+                        else if (gv.mod.currentEncounter.holdTarget2Y != -1 && gv.mod.currentEncounter.holdTarget3Y != -1)
+                        {
+                            battleStartMessage += "- loose this battle instantly by failing to occupy ANY of the following locations simultaneously with a conscious pc at the start of a round: ";
+                            battleStartMessage += "[" + gv.mod.currentEncounter.holdTarget2X + "," + gv.mod.currentEncounter.holdTarget2Y + "]," + " [" + gv.mod.currentEncounter.holdTarget3X + "," + gv.mod.currentEncounter.holdTarget3Y + "]" + ".<br><br>";
+                        }
+                        //1
+                        else if (gv.mod.currentEncounter.holdTarget1Y != -1)
+                        {
+                            battleStartMessage += "- loose this battle instantly by failing to occupy the following location with a conscious pc at the start of a round: ";
+                            battleStartMessage += "[" + gv.mod.currentEncounter.holdTarget1X + "," + gv.mod.currentEncounter.holdTarget1Y + "]" + ".<br><br>";
+                        }
+                        //2
+                        else if (gv.mod.currentEncounter.holdTarget2Y != -1)
+                        {
+                            battleStartMessage += "- loose this battle instantly by failing to occupy the following location with a conscious pc at the start of a round: ";
+                            battleStartMessage += "[" + gv.mod.currentEncounter.holdTarget2X + "," + gv.mod.currentEncounter.holdTarget2Y + "]" + ".<br><br>";
+                        }
+                        //3
+                        else if (gv.mod.currentEncounter.holdTarget3Y != -1)
+                        {
+                            battleStartMessage += "- loose this battle instantly by failing to occupy the following location with a conscious pc at the start of a round: ";
+                            battleStartMessage += "[" + gv.mod.currentEncounter.holdTarget3X + "," + gv.mod.currentEncounter.holdTarget3Y + "]" + ".<br><br>";
+                        }
+                    }
+                    //alternative target locations
+                    else
+                    {
+                        //1 and 2 and 3
+                        if (gv.mod.currentEncounter.holdTarget1Y != -1 && gv.mod.currentEncounter.holdTarget2Y != -1 && gv.mod.currentEncounter.holdTarget3Y != -1)
+                        {
+                            battleStartMessage += "- loose this battle instantly if not occupying least ONE of the following locations with a conscious pc at the start of a round: ";
+                            battleStartMessage += "[" + gv.mod.currentEncounter.holdTarget1X + "," + gv.mod.currentEncounter.holdTarget1Y + "]," + " [" + gv.mod.currentEncounter.holdTarget2X + "," + gv.mod.currentEncounter.holdTarget2Y + "]," + " [" + gv.mod.currentEncounter.holdTarget3X + "," + gv.mod.currentEncounter.holdTarget3Y + "]" + ".<br><br>";
+                        }
+                        //1+2
+                        else if (gv.mod.currentEncounter.holdTarget1Y != -1 && gv.mod.currentEncounter.holdTarget2Y != -1)
+                        {
+                            battleStartMessage += "- loose this battle instantly if not occupying least ONE of the following locations with a conscious pc at the start of a round: ";
+                            battleStartMessage += "[" + gv.mod.currentEncounter.holdTarget1X + "," + gv.mod.currentEncounter.holdTarget1Y + "]," + " [" + gv.mod.currentEncounter.holdTarget2X + "," + gv.mod.currentEncounter.holdTarget2Y + "]" + ".<br><br>";
+                        }
+                        //1+3
+                        else if (gv.mod.currentEncounter.holdTarget1Y != -1 && gv.mod.currentEncounter.holdTarget3Y != -1)
+                        {
+                            battleStartMessage += "- loose this battle instantly if not occupying least ONE of the following locations with a conscious pc at the start of a round: ";
+                            battleStartMessage += "[" + gv.mod.currentEncounter.holdTarget1X + "," + gv.mod.currentEncounter.holdTarget1Y + "]," + " [" + gv.mod.currentEncounter.holdTarget3X + "," + gv.mod.currentEncounter.holdTarget3Y + "]" + ".<br><br>";
+                        }
+                        //2+3
+                        else if (gv.mod.currentEncounter.holdTarget2Y != -1 && gv.mod.currentEncounter.holdTarget3Y != -1)
+                        {
+                            battleStartMessage += "- loose this battle instantly if not occupying least ONE of the following locations with a conscious pc at the start of a round: ";
+                            battleStartMessage += "[" + gv.mod.currentEncounter.holdTarget2X + "," + gv.mod.currentEncounter.holdTarget2Y + "]," + " [" + gv.mod.currentEncounter.holdTarget3X + "," + gv.mod.currentEncounter.holdTarget3Y + "]" + ".<br><br>";
+                        }
+                        //1
+                        else if (gv.mod.currentEncounter.holdTarget1Y != -1)
+                        {
+                            battleStartMessage += "- loose this battle instantly if not occupying the following location with a conscious pc at the start of a round: ";
+                            battleStartMessage += "[" + gv.mod.currentEncounter.holdTarget1X + "," + gv.mod.currentEncounter.holdTarget1Y + "]" + ".<br><br>";
+                        }
+                        //2
+                        else if (gv.mod.currentEncounter.holdTarget2Y != -1)
+                        {
+                            battleStartMessage += "- loose this battle instantly if not occupying the following location with a conscious pc at the start of a round: ";
+                            battleStartMessage += "[" + gv.mod.currentEncounter.holdTarget2X + "," + gv.mod.currentEncounter.holdTarget2Y + "]" + ".<br><br>";
+                        }
+                        //3
+                        else if (gv.mod.currentEncounter.holdTarget3Y != -1)
+                        {
+                            battleStartMessage += "- loose this battle instantly if not occupying the following location with a conscious pc at the start of a round: ";
+                            battleStartMessage += "[" + gv.mod.currentEncounter.holdTarget3X + "," + gv.mod.currentEncounter.holdTarget3Y + "]" + ".<br><br>";
+                        }
+                    }
+                }
+               
                 //battle modfiers
-                if (gv.mod.currentEncounter.noSpellCastModifier || gv.mod.currentEncounter.noTraitUseModifier || gv.mod.currentEncounter.noItemUseModifier || gv.mod.currentEncounter.onlyOneMoveModifier)
+                if (gv.mod.currentEncounter.noSpellCastModifier || gv.mod.currentEncounter.noTraitUseModifier || gv.mod.currentEncounter.noItemUseModifier || gv.mod.currentEncounter.onlyOneMoveModifier || gv.mod.currentEncounter.reducedDamageofPcMeleeAttack || gv.mod.currentEncounter.reducedDamageofPcRangedAttack || gv.mod.currentEncounter.allSpellsWithoutAoE || gv.mod.currentEncounter.allSpellsSPCostDoubled || gv.mod.currentEncounter.noHealingAllowed || gv.mod.currentEncounter.hpDamageEachRound > 0 || gv.mod.currentEncounter.spDamageEachRound > 0)
                 {
                     battleStartMessage += "Additional battle rule(s): <br><br>";
                 }
+                if (gv.mod.currentEncounter.spDamageEachRound > 0)
+                {
+                    battleStartMessage += "- player characters are drained by " + gv.mod.currentEncounter.spDamageEachRound + " sp each round. <br><br>";
+                }
+                if (gv.mod.currentEncounter.hpDamageEachRound > 0)
+                {
+                    battleStartMessage += "- player characters are damaged for " + gv.mod.currentEncounter.hpDamageEachRound + " hp each round. <br><br>";
+                }
+                if (gv.mod.currentEncounter.noHealingAllowed)
+                {
+                    battleStartMessage += "- player characters cannot be healed by spell, trait or item. <br><br>";
+                }
+                if (gv.mod.currentEncounter.allSpellsSPCostDoubled)
+                {
+                    battleStartMessage += "- all spells and traits cost twice the amount of sp than usually. <br><br>";
+                }
+                if (gv.mod.currentEncounter.allSpellsWithoutAoE)
+                {
+                    battleStartMessage += "- all spells and traits have their area of effect reduced to a single target square. <br><br>";
+                }
+                if (gv.mod.currentEncounter.reducedDamageofPcRangedAttack)
+                {
+                    battleStartMessage += "- all player characters do only 1/3 of their normal damage with ranged weapons. <br><br>";
+                }
+                if (gv.mod.currentEncounter.reducedDamageofPcMeleeAttack)
+                {
+                    battleStartMessage += "- all player characters do only 1/3 of their normal damage with melee weapons. <br><br>";
+                } 
                 if (gv.mod.currentEncounter.noSpellCastModifier)
                 {
                     battleStartMessage += "- casting of spells not possible for the party in this encounter. <br><br>";
@@ -1924,6 +2075,88 @@ namespace IceBlink2
                     if (locationsConquered > 0 && locationsConquered >= locationsRequired)
                     {
                         gv.mod.currentEncounter.conquerConditionMet = true;
+                    }
+                }
+                checkEndEncounter();
+            }
+
+            if (gv.mod.currentEncounter.holdDefeat)
+            {
+                //bool holdConditionMet = false;
+                if (gv.mod.currentEncounter.holdDefeat)
+                {
+                    int locationsholded = 0;
+                    int locationsRequired = 0;
+
+                    foreach (Player p in gv.mod.playerList)
+                    {
+                        if (p.hp >= 0)
+                        {
+                            if (p.combatLocX == gv.mod.currentEncounter.holdTarget1X && p.combatLocY == gv.mod.currentEncounter.holdTarget1Y)
+                            {
+                                locationsholded++;
+                            }
+                            if (p.combatLocX == gv.mod.currentEncounter.holdTarget2X && p.combatLocY == gv.mod.currentEncounter.holdTarget2Y)
+                            {
+                                locationsholded++;
+                            }
+                            if (p.combatLocX == gv.mod.currentEncounter.holdTarget3X && p.combatLocY == gv.mod.currentEncounter.holdTarget3Y)
+                            {
+                                locationsholded++;
+                            }
+
+                            //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                            if (gv.mod.currentEncounter.holdTargetsCumulative)
+                            {
+                                //1 and 2 and 3
+                                if (gv.mod.currentEncounter.holdTarget1Y != -1 && gv.mod.currentEncounter.holdTarget2Y != -1 && gv.mod.currentEncounter.holdTarget3Y != -1)
+                                {
+                                    locationsRequired = 3;
+                                }
+                                //1+2
+                                else if (gv.mod.currentEncounter.holdTarget1Y != -1 && gv.mod.currentEncounter.holdTarget2Y != -1)
+                                {
+                                    locationsRequired = 2;
+                                }
+                                //1+3
+                                else if (gv.mod.currentEncounter.holdTarget1Y != -1 && gv.mod.currentEncounter.holdTarget3Y != -1)
+                                {
+                                    locationsRequired = 2;
+                                }
+                                //2+3
+                                else if (gv.mod.currentEncounter.holdTarget2Y != -1 && gv.mod.currentEncounter.holdTarget3Y != -1)
+                                {
+                                    locationsRequired = 2;
+                                }
+                                //1
+                                else if (gv.mod.currentEncounter.holdTarget1Y != -1)
+                                {
+                                    locationsRequired = 1;
+                                }
+                                //2
+                                else if (gv.mod.currentEncounter.holdTarget2Y != -1)
+                                {
+                                    locationsRequired = 1;
+                                }
+                                //3
+                                else if (gv.mod.currentEncounter.holdTarget3Y != -1)
+                                {
+                                    locationsRequired = 1;
+                                }
+                            }
+                            //alternative target locations
+                            else
+                            {
+                                locationsRequired = 1;
+                            }
+
+                            //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                        }
+                    }
+
+                    if (locationsholded < locationsRequired)
+                    {
+                        gv.mod.currentEncounter.holdConditionMet = true;
                     }
                 }
                 checkEndEncounter();
@@ -4051,9 +4284,32 @@ namespace IceBlink2
             if(gv.mod.currentEncounter.onlyOneMoveModifier)
             {
                 currentMoves = pc.moveDistance - 1.5f;
-            }
+            } 
             //do onTurn IBScript
             gv.cc.doIBScriptBasedOnFilename(gv.mod.currentEncounter.OnStartCombatTurnIBScript, gv.mod.currentEncounter.OnStartCombatTurnIBScriptParms);
+
+            //damage battle conditions
+            if (gv.mod.currentEncounter.hpDamageEachRound > 0)
+            {
+                if (pc.hp > -20)
+                {
+                    pc.hp -= gv.mod.currentEncounter.hpDamageEachRound;
+                    gv.cc.addLogText("<font color='red'>" + pc.name + " lost " + gv.mod.currentEncounter.hpDamageEachRound + " hp.</font><BR>");
+                }
+            }
+
+            if (gv.mod.currentEncounter.spDamageEachRound > 0)
+            {
+                if (pc.sp > 0)
+                {
+                    pc.sp -= gv.mod.currentEncounter.spDamageEachRound;
+                    gv.cc.addLogText("<font color='red'>" + pc.name + " lost " + gv.mod.currentEncounter.spDamageEachRound + " sp.</font><BR>");
+                    if (pc.sp < 0)
+                    {
+                        pc.sp = 0;
+                    }
+                }
+            }
 
             if ((pc.isHeld()) || (pc.isDead()) || (pc.isUnconcious()))
             {
@@ -7323,6 +7579,22 @@ namespace IceBlink2
             if (gv.screenType.Equals("combat") && (gv.mod.currentEncounter.assassinationConditionMet || foundOneCrtr == 0 || standGroundConditionMet) || gv.mod.currentEncounter.conquerConditionMet)
                 {
 
+                if (gv.mod.currentEncounter.allSpellsWithoutAoE)
+                {
+                    for (int i = 0; i < gv.mod.moduleSpellsList.Count; i++)
+                    {
+                        gv.mod.moduleSpellsList[i].aoeRadius = gv.mod.currentEncounter.originalAoEofSpells[i];
+                    }
+                }
+
+                if (gv.mod.currentEncounter.allSpellsSPCostDoubled)
+                {
+                    foreach (Spell sp in gv.mod.moduleSpellsList)
+                    {
+                        sp.costSP /= 2;
+                    }
+                }
+
                 /*
                 //reset all conditions
                 gv.mod.currentEncounter.assassinationConditionMet = false;
@@ -7561,8 +7833,25 @@ namespace IceBlink2
                 }
             }
 
-            if (gv.screenType.Equals("combat") && (foundOnePc == 0 || timeLimitConditionMet || gv.mod.currentEncounter.protectionConditionMet))
+            if (gv.screenType.Equals("combat") && (foundOnePc == 0 || timeLimitConditionMet || gv.mod.currentEncounter.protectionConditionMet || gv.mod.currentEncounter.holdConditionMet))
             {
+
+                if (gv.mod.currentEncounter.allSpellsSPCostDoubled)
+                {
+                    foreach (Spell sp in gv.mod.moduleSpellsList)
+                    {
+                        sp.costSP /= 2;
+                    }
+                }
+
+                if (gv.mod.currentEncounter.allSpellsWithoutAoE)
+                {
+                    for (int i = 0; i < gv.mod.moduleSpellsList.Count; i++)
+                    {
+                        gv.mod.moduleSpellsList[i].aoeRadius = gv.mod.currentEncounter.originalAoEofSpells[i];
+                    }
+                }
+
                 //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXx
                 gv.mod.currentEncounter.isOver = true;
                 allDone = true;
@@ -7646,6 +7935,12 @@ namespace IceBlink2
                         gv.mod.currentEncounter.protectionConditionMet = false;
                     }
 
+                    if (gv.mod.currentEncounter.holdConditionMet)
+                    {
+                        defeatText += "The party has failed to hold the required location(s). <BR>";
+                        gv.mod.currentEncounter.holdConditionMet = false;
+                    }
+
                     defeatText += "Your party has lost this contest - the knocked out characters recover a bit.<br>";
 
                     gv.sf.MessageBox(defeatText);
@@ -7707,6 +8002,12 @@ namespace IceBlink2
                     {
                         defeatText += "Failed to protect " + gv.mod.currentEncounter.protectionTargetName + " from dropping to 0 or less hp.<br>";
                         gv.mod.currentEncounter.protectionConditionMet = false;
+                    }
+
+                    if (gv.mod.currentEncounter.holdConditionMet)
+                    {
+                        defeatText += "The party has failed to hold the required location(s). <BR>";
+                        gv.mod.currentEncounter.holdConditionMet = false;
                     }
 
                     defeatText += "Your party has been defeated!<br>";
@@ -9347,19 +9648,16 @@ namespace IceBlink2
                     IbRect dst = new IbRect(getPixelLocX(gv.mod.currentEncounter.conquerTarget1X), getPixelLocY(gv.mod.currentEncounter.conquerTarget1Y), gv.squareSize, gv.squareSize);
                     gv.DrawBitmap(gv.cc.GetFromBitmapList("conquerLocation"), src, dst);
                 }
-                /*
-                if (x == gv.mod.currentEncounter.conquerTarget2X && y == gv.mod.currentEncounter.conquerTarget2Y)
-                {
-                    IbRect src = new IbRect(0, 0, gv.cc.GetFromBitmapList(prp.ImageFileName).PixelSize.Width, gv.cc.GetFromBitmapList(prp.ImageFileName).PixelSize.Width);
-                    IbRect dst = new IbRect(getPixelLocX(prp.LocationX), getPixelLocY(prp.LocationY), gv.squareSize, gv.squareSize);
-                    gv.DrawBitmap(gv.cc.GetFromBitmapList(prp.ImageFileName), src, dst);
-                }
+            }
 
-                if (x == gv.mod.currentEncounter.conquerTarget3X && y == gv.mod.currentEncounter.conquerTarget3Y)
+            if (gv.mod.currentEncounter.holdDefeat)
+            {
+                if (gv.mod.currentEncounter.holdTarget1X != -1 && gv.mod.currentEncounter.holdTarget1Y != -1)
                 {
-
+                    IbRect src = new IbRect(0, 0, gv.cc.GetFromBitmapList("holdLocation").PixelSize.Width, gv.cc.GetFromBitmapList("holdLocation").PixelSize.Width);
+                    IbRect dst = new IbRect(getPixelLocX(gv.mod.currentEncounter.holdTarget1X), getPixelLocY(gv.mod.currentEncounter.holdTarget1Y), gv.squareSize, gv.squareSize);
+                    gv.DrawBitmap(gv.cc.GetFromBitmapList("holdLocation"), src, dst);
                 }
-                */
             }
 
             foreach (Prop prp in gv.mod.currentEncounter.propsList)
@@ -19176,7 +19474,31 @@ namespace IceBlink2
                     gv.cc.addLogText("<font color='lime'> sneak attack: +" + adding + " damage</font><BR>");
                 }
             }
-            return totalDam;
+
+            if (melee)
+            {
+                if (gv.mod.currentEncounter.reducedDamageofPcMeleeAttack)
+                {
+                    totalDam /= 3;
+                    return totalDam;
+                }
+                else
+                {
+                    return totalDam;
+                }
+            }
+            else
+            {
+                if (gv.mod.currentEncounter.reducedDamageofPcRangedAttack)
+                {
+                    totalDam /= 3;
+                    return totalDam;
+                }
+                else
+                {
+                    return totalDam;
+                }
+            }
         }
         public int CalcCreatureAttackModifier(Creature crt, Player pc)
         {

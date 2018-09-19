@@ -10629,24 +10629,27 @@ namespace IceBlink2
         //ITEM ON USE
         public void itHeal(Player pc, Item it, int healAmount)
         {
-            if (pc.hp <= -20)
+            if (!gv.mod.currentEncounter.noHealingAllowed)
             {
-                MessageBox("Can't heal a dead character!");
-                gv.cc.addLogText("<font color='red'>" + "Can't heal a dead character!" + "</font><BR>");
-            }
-            else
-            {
-                pc.hp += healAmount;
-                if (pc.hp > pc.hpMax)
+                if (pc.hp <= -20)
                 {
-                    pc.hp = pc.hpMax;
+                    MessageBox("Can't heal a dead character!");
+                    gv.cc.addLogText("<font color='red'>" + "Can't heal a dead character!" + "</font><BR>");
                 }
-                if (pc.hp > 0)
+                else
                 {
-                    pc.charStatus = "Alive";
+                    pc.hp += healAmount;
+                    if (pc.hp > pc.hpMax)
+                    {
+                        pc.hp = pc.hpMax;
+                    }
+                    if (pc.hp > 0)
+                    {
+                        pc.charStatus = "Alive";
+                    }
+                    MessageBox(pc.name + " gains " + healAmount + " HPs, now has " + pc.hp + "/" + pc.hpMax + "HPs");
+                    gv.cc.addLogText("<font color='lime'>" + pc.name + " gains " + healAmount + " HPs" + "</font><BR>");
                 }
-                MessageBox(pc.name + " gains " + healAmount + " HPs, now has " + pc.hp + "/" + pc.hpMax + "HPs");
-                gv.cc.addLogText("<font color='lime'>" + pc.name + " gains " + healAmount + " HPs" + "</font><BR>");
             }
         }
 
@@ -10818,13 +10821,16 @@ namespace IceBlink2
 
         public void itSpHeal(Player pc, Item it, int healAmount)
         {
-            pc.sp += healAmount;
-            if (pc.sp > pc.spMax)
+            if (!gv.mod.currentEncounter.noHealingAllowed)
             {
-                pc.sp = pc.spMax;
+                pc.sp += healAmount;
+                if (pc.sp > pc.spMax)
+                {
+                    pc.sp = pc.spMax;
+                }
+                MessageBox(pc.name + " regains " + healAmount + " SPs, now has " + pc.sp + "/" + pc.spMax + "SPs");
+                gv.cc.addLogText("<font color='lime'>" + pc.name + " regains " + healAmount + " SPs" + "</font><BR>");
             }
-            MessageBox(pc.name + " regains " + healAmount + " SPs, now has " + pc.sp + "/" + pc.spMax + "SPs");
-            gv.cc.addLogText("<font color='lime'>" + pc.name + " regains " + healAmount + " SPs" + "</font><BR>");
         }
 
         //Effects
@@ -11175,7 +11181,7 @@ namespace IceBlink2
                     gv.cc.addFloatyText(new Coordinate(pc.combatLocX, pc.combatLocY), damageTotal + "");
                     #endregion
                 }
-                if ((ef.doHeal))
+                if ((ef.doHeal) && !gv.mod.currentEncounter.noHealingAllowed)
                 {
                     #region Do Heal
                     if (pc.hp <= -20)
@@ -13075,7 +13081,7 @@ namespace IceBlink2
                                     gv.cc.addFloatyText(new Coordinate(pc.combatLocX, pc.combatLocY), damageTotal + "");
                                     #endregion
                                 }
-                                if ((thisSpellEffect.doHeal) && (thisSpellEffect.durationInUnits == 0))
+                                if ((thisSpellEffect.doHeal) && (thisSpellEffect.durationInUnits == 0) && !gv.mod.currentEncounter.noHealingAllowed)
                                 {
                                     #region Do Heal
                                     if (pc.hp <= -20)
@@ -13976,7 +13982,7 @@ namespace IceBlink2
                                 gv.cc.addFloatyText(new Coordinate(pc.combatLocX, pc.combatLocY), damageTotal + "");
                                 #endregion
                             }
-                            if ((thisSpellEffect.doHeal) && (thisSpellEffect.durationInUnits == 0))
+                            if ((thisSpellEffect.doHeal) && (thisSpellEffect.durationInUnits == 0) && !gv.mod.currentEncounter.noHealingAllowed)
                             {
                                 #region Do Heal
                                 if (pc.hp <= -20)
@@ -14772,7 +14778,7 @@ namespace IceBlink2
                                     gv.cc.addFloatyText(new Coordinate(pc.combatLocX, pc.combatLocY), damageTotal + "");
                                     #endregion
                                 }
-                                if ((thisSpellEffect.doHeal) && (thisSpellEffect.durationInUnits == 0))
+                                if ((thisSpellEffect.doHeal) && (thisSpellEffect.durationInUnits == 0) && !gv.mod.currentEncounter.noHealingAllowed)
                                 {
                                     #region Do Heal
                                     if (pc.hp <= -20)
@@ -15586,7 +15592,7 @@ namespace IceBlink2
                             gv.cc.addFloatyText(new Coordinate(pc.combatLocX, pc.combatLocY), damageTotal + "");
                             #endregion
                         }
-                        if ((thisSpellEffect.doHeal) && (thisSpellEffect.durationInUnits == 0))
+                        if ((thisSpellEffect.doHeal) && (thisSpellEffect.durationInUnits == 0) && !gv.mod.currentEncounter.noHealingAllowed)
                         {
                             #region Do Heal
                             if (pc.hp <= -20)
@@ -17001,19 +17007,22 @@ namespace IceBlink2
 
             if (src is Player) //player casting
             {
-                Player source = (Player)src;
-                Player target = (Player)trg;
-
-                Effect ef = mod.getEffectByTag("minorRegen");
-                gv.cc.addLogText("<font color='lime'>" + "Minor Regeneration is applied on " + target.name + "</font><BR>");
-                target.AddEffectByObject(ef, source.classLevel);
-                if (!source.thisCastIsFreeOfCost)
+                if (!gv.mod.currentEncounter.noHealingAllowed)
                 {
-                    source.sp -= gv.cc.currentSelectedSpell.costSP;
-                    if (source.sp < 0) { source.sp = 0; }
-                    if (source.hp > gv.cc.currentSelectedSpell.costHP)
+                    Player source = (Player)src;
+                    Player target = (Player)trg;
+
+                    Effect ef = mod.getEffectByTag("minorRegen");
+                    gv.cc.addLogText("<font color='lime'>" + "Minor Regeneration is applied on " + target.name + "</font><BR>");
+                    target.AddEffectByObject(ef, source.classLevel);
+                    if (!source.thisCastIsFreeOfCost)
                     {
-                        source.hp -= gv.cc.currentSelectedSpell.costHP;
+                        source.sp -= gv.cc.currentSelectedSpell.costSP;
+                        if (source.sp < 0) { source.sp = 0; }
+                        if (source.hp > gv.cc.currentSelectedSpell.costHP)
+                        {
+                            source.hp -= gv.cc.currentSelectedSpell.costHP;
+                        }
                     }
                 }
             }
@@ -17582,61 +17591,67 @@ namespace IceBlink2
 
             if (src is Player) //player casting
             {
-                Player source = (Player)src;
-                Player target = (Player)trg;
+                if (!gv.mod.currentEncounter.noHealingAllowed)
+                {
+                    Player source = (Player)src;
+                    Player target = (Player)trg;
 
-                if (target.hp <= -20)
-                {
-                    //MessageBox("Can't heal a dead character!");
-                    gv.cc.addLogText("<font color='red'>" + "Can't heal a dead character!" + "</font><BR>");
-                }
-                else
-                {
-                    target.hp += healAmount;
-                    if (target.hp > target.hpMax)
+                    if (target.hp <= -20)
                     {
-                        target.hp = target.hpMax;
+                        //MessageBox("Can't heal a dead character!");
+                        gv.cc.addLogText("<font color='red'>" + "Can't heal a dead character!" + "</font><BR>");
                     }
-                    if (target.hp > 0)
+                    else
                     {
-                        target.charStatus = "Alive";
+                        target.hp += healAmount;
+                        if (target.hp > target.hpMax)
+                        {
+                            target.hp = target.hpMax;
+                        }
+                        if (target.hp > 0)
+                        {
+                            target.charStatus = "Alive";
+                        }
+                        //MessageBox(pc.name + " gains " + healAmount + " HPs");
+                        gv.cc.addLogText("<font color='lime'>" + target.name + " gains " + healAmount + " HPs" + "</font><BR>");
                     }
-                    //MessageBox(pc.name + " gains " + healAmount + " HPs");
-                    gv.cc.addLogText("<font color='lime'>" + target.name + " gains " + healAmount + " HPs" + "</font><BR>");
-                }
-                if (!source.thisCastIsFreeOfCost)
-                {
-                    source.sp -= gv.cc.currentSelectedSpell.costSP;
-                    if (source.sp < 0) { source.sp = 0; }
-                    if (source.hp > gv.cc.currentSelectedSpell.costHP)
+                    if (!source.thisCastIsFreeOfCost)
                     {
-                        source.hp -= gv.cc.currentSelectedSpell.costHP;
+                        source.sp -= gv.cc.currentSelectedSpell.costSP;
+                        if (source.sp < 0) { source.sp = 0; }
+                        if (source.hp > gv.cc.currentSelectedSpell.costHP)
+                        {
+                            source.hp -= gv.cc.currentSelectedSpell.costHP;
+                        }
                     }
                 }
             }
             if (src is Item) //player casting
             {
-                Player target = (Player)trg;
+                if (!gv.mod.currentEncounter.noHealingAllowed)
+                {
+                    Player target = (Player)trg;
 
-                if (target.hp <= -20)
-                {
-                    //MessageBox("Can't heal a dead character!");
-                    gv.cc.addLogText("<font color='red'>" + "Can't heal a dead character!" + "</font><BR>");
-                }
-                else
-                {
-                    target.hp += healAmount;
-                    if (target.hp > target.hpMax)
+                    if (target.hp <= -20)
                     {
-                        target.hp = target.hpMax;
+                        //MessageBox("Can't heal a dead character!");
+                        gv.cc.addLogText("<font color='red'>" + "Can't heal a dead character!" + "</font><BR>");
                     }
-                    if (target.hp > 0)
+                    else
                     {
-                        target.charStatus = "Alive";
+                        target.hp += healAmount;
+                        if (target.hp > target.hpMax)
+                        {
+                            target.hp = target.hpMax;
+                        }
+                        if (target.hp > 0)
+                        {
+                            target.charStatus = "Alive";
+                        }
+                        //MessageBox(pc.name + " gains " + healAmount + " HPs");
+                        MessageBoxHtml(target.name + " gains " + healAmount + " HPs, now has " + target.hp + "/" + target.hpMax + "HPs");
+                        gv.cc.addLogText("<font color='lime'>" + target.name + " gains " + healAmount + " HPs" + "</font><BR>");
                     }
-                    //MessageBox(pc.name + " gains " + healAmount + " HPs");
-                    MessageBoxHtml(target.name + " gains " + healAmount + " HPs, now has " + target.hp + "/" + target.hpMax + "HPs");
-                    gv.cc.addLogText("<font color='lime'>" + target.name + " gains " + healAmount + " HPs" + "</font><BR>");
                 }
             }
             else if (src is Creature) //creature casting
@@ -17669,37 +17684,40 @@ namespace IceBlink2
 
             if (src is Player) //player casting
             {
-                Player source = (Player)src;
-                //Player target = (Player)trg;
+                if (!gv.mod.currentEncounter.noHealingAllowed)
+                {
+                    Player source = (Player)src;
+                    //Player target = (Player)trg;
 
-                foreach (Player pc in mod.playerList)
-                {
-                    if (pc.hp <= -20)
+                    foreach (Player pc in mod.playerList)
                     {
-                        gv.cc.addLogText("<font color='red'>" + "Can't heal a dead character!" + "</font><BR>");
-                    }
-                    else
-                    {
-                        pc.hp += healAmount;
-                        if (pc.hp > pc.hpMax)
+                        if (pc.hp <= -20)
                         {
-                            pc.hp = pc.hpMax;
+                            gv.cc.addLogText("<font color='red'>" + "Can't heal a dead character!" + "</font><BR>");
                         }
-                        if (pc.hp > 0)
+                        else
                         {
-                            pc.charStatus = "Alive";
+                            pc.hp += healAmount;
+                            if (pc.hp > pc.hpMax)
+                            {
+                                pc.hp = pc.hpMax;
+                            }
+                            if (pc.hp > 0)
+                            {
+                                pc.charStatus = "Alive";
+                            }
+                            //MessageBox(pc.name + " gains " + healAmount + " HPs");
+                            gv.cc.addLogText("<font color='lime'>" + pc.name + " gains " + healAmount + " HPs" + "</font><BR>");
                         }
-                        //MessageBox(pc.name + " gains " + healAmount + " HPs");
-                        gv.cc.addLogText("<font color='lime'>" + pc.name + " gains " + healAmount + " HPs" + "</font><BR>");
                     }
-                }
-                if (!source.thisCastIsFreeOfCost)
-                {
-                    source.sp -= gv.cc.currentSelectedSpell.costSP;
-                    if (source.sp < 0) { source.sp = 0; }
-                    if (source.hp > gv.cc.currentSelectedSpell.costHP)
+                    if (!source.thisCastIsFreeOfCost)
                     {
-                        source.hp -= gv.cc.currentSelectedSpell.costHP;
+                        source.sp -= gv.cc.currentSelectedSpell.costSP;
+                        if (source.sp < 0) { source.sp = 0; }
+                        if (source.hp > gv.cc.currentSelectedSpell.costHP)
+                        {
+                            source.hp -= gv.cc.currentSelectedSpell.costHP;
+                        }
                     }
                 }
             }
