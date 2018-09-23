@@ -2989,18 +2989,40 @@ namespace IceBlink2
                      {  
                          gv.cc.addLogText("<bu>Added Creature tag is: " + copy.cr_tag + "</bu>");  
                      }
-                       
-                    copy.moveOrder = gv.screenCombat.moveOrderList.Count;
+
+                    int highestMoveOrderFound = 0;
+
+                    foreach (Creature c2 in gv.mod.currentEncounter.encounterCreatureList)
+                    {
+                        if (c2.moveOrder > highestMoveOrderFound)
+                        {
+                            highestMoveOrderFound = c2.moveOrder;
+                        }
+                    }
+
+                    foreach (Player p in gv.mod.playerList)
+                    {
+                        if (p.moveOrder > highestMoveOrderFound)
+                        {
+                            highestMoveOrderFound = p.moveOrder;
+                        }
+                    }
+
+                    //copy.moveOrder = gv.screenCombat.moveOrderList.Count;
+                    copy.moveOrder = highestMoveOrderFound + 1;
                     copy.combatLocX = Convert.ToInt32(p2);
                     copy.combatLocY = Convert.ToInt32(p3);
-
+                    
+                    //rainfalling
+                    
                     //finally add creature  
                     mod.currentEncounter.encounterCreatureList.Add(copy);
                         //add to end of move order  
                         MoveOrder newMO = new MoveOrder();
                         newMO.PcOrCreature = copy;
-                        newMO.rank = 1000;
-                        gv.screenCombat.moveOrderList.Add(newMO);
+                    //newMO.rank = 1000;
+                    newMO.rank = highestMoveOrderFound + 1;
+                    gv.screenCombat.moveOrderList.Add(newMO);
                         //increment the number of initial move order objects
                         //note: check how ini bar system will interact with creatures added while battle is running  
                         gv.screenCombat.initialMoveOrderListSize++;
@@ -5255,13 +5277,33 @@ namespace IceBlink2
                         GiveItem(newPc.AmmoRefs.resref, 1);
                     }
 
-                newPc.moveOrder = gv.screenCombat.moveOrderList.Count;
+                int highestMoveOrderFound = 0;
+
+                foreach (Creature c in gv.mod.currentEncounter.encounterCreatureList)
+                {
+                    if (c.moveOrder > highestMoveOrderFound)
+                    {
+                        highestMoveOrderFound = c.moveOrder;
+                    }
+                }
+
+                foreach (Player p in gv.mod.playerList)
+                {
+                    if (p.moveOrder > highestMoveOrderFound)
+                    {
+                        highestMoveOrderFound = p.moveOrder;
+                    }
+                }
+
+                //newPc.moveOrder = gv.screenCombat.moveOrderList.Count;
+                newPc.moveOrder = highestMoveOrderFound + 1;
                 //finally add creature  
                 //mod.currentEncounter.encounterCreatureList.Add(copy);
                 //add to end of move order  
                 MoveOrder newMO = new MoveOrder();
                 newMO.PcOrCreature = newPc;
-                newMO.rank = 100;
+                //newMO.rank = 100;
+                newMO.rank = highestMoveOrderFound + 1;
                 gv.screenCombat.moveOrderList.Add(newMO);
                 //increment the number of initial move order objects
                 //note: check how ini bar system will interact with creatures added while battle is running  

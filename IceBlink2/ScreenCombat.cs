@@ -1479,8 +1479,9 @@ namespace IceBlink2
                             {
                                 gv.cc.addLogText("<font color='blue'>" + gv.mod.playerList[i].name + " vanishes." + "</font><BR>");
                                 gv.mod.playerList[i].hp = -20;
-                                recalculateCreaturesShownInInitiativeBar();
+                                //recalculateCreaturesShownInInitiativeBar();
                                 gv.mod.playerList.RemoveAt(i);
+                                recalculateCreaturesShownInInitiativeBar();
                             }
                             else if (gv.mod.playerList[i].stayDurationInTurns < 10)
                             {
@@ -1550,7 +1551,7 @@ namespace IceBlink2
                                 gv.cc.addLogText("<font color='blue'>It's the turn of " + pc.name + ". </font><BR>");
                             }
 
-                        if ((pc.hp <= 0) && (pc.hp > -20))
+                        if ((pc.hp <= 0) && (pc.hp > -20) && !pc.hasDelayedAlready)
                         {
                             pc.hp -= 1;
                             gv.cc.addLogText("<font color='red'>" + pc.name + " bleeds 1 HP, dead at -20 HP!" + "</font><BR>");
@@ -1685,26 +1686,32 @@ namespace IceBlink2
                             //blubb
 
                             //switching to a system where effects last from turn they are applied to start of the target creature's next turn (multiplied with duration of effect)
-                            applyEffectsFromSquare(pc.combatLocX, pc.combatLocY);
-                            applyEffectsCombat(pc, false);
+                            if (!pc.hasDelayedAlready)
+                            {
+                                applyEffectsFromSquare(pc.combatLocX, pc.combatLocY);
+                                applyEffectsCombat(pc, false);
+                            }
                         //applyEffectsFromSquare(pc.combatLocX, pc.combatLocY);
 
                         //tiereimpark
                         checkEndEncounter();
 
-                        //reduce existing cooldown times
-                        if (pc.coolingSpellsByTag.Count > 0)
-                        {
-                            for (int i = pc.coolingSpellsByTag.Count - 1; i >= 0; i--)
+                            //reduce existing cooldown times
+                            if (!pc.hasDelayedAlready)
                             {
-                                pc.coolDownTimes[i]--;
-                                if (pc.coolDownTimes[i] <= -1)
+                                if (pc.coolingSpellsByTag.Count > 0)
                                 {
-                                    pc.coolDownTimes.RemoveAt(i);
-                                    pc.coolingSpellsByTag.RemoveAt(i);
+                                    for (int i = pc.coolingSpellsByTag.Count - 1; i >= 0; i--)
+                                    {
+                                        pc.coolDownTimes[i]--;
+                                        if (pc.coolDownTimes[i] <= -1)
+                                        {
+                                            pc.coolDownTimes.RemoveAt(i);
+                                            pc.coolingSpellsByTag.RemoveAt(i);
+                                        }
+                                    }
                                 }
                             }
-                        }
 
                         //change creatureIndex or currentPlayerIndex
                         currentPlayerIndex = idx;
@@ -1716,7 +1723,10 @@ namespace IceBlink2
                         tagsOfTriggersAndPropTriggersCalledThisTurn.Clear();
                         triggerIndexCombat = 0;
                         CalculateUpperLeft();
-                        doPropTriggers();
+                        if (!pc.hasDelayedAlready)
+                        {
+                           doPropTriggers();
+                        }
                         //tiereimpark
                         checkEndEncounter();
                         floatyTextOn = true;
@@ -1997,7 +2007,11 @@ namespace IceBlink2
         }
 
         public void startNextRoundStuff()
-        { 
+        {
+            foreach (Player p in gv.mod.playerList)
+            {
+                p.hasDelayedAlready = false;
+            }
             if (gv.mod.currentEncounter.conquerVictory)
             {
                 //bool conquerConditionMet = false;
@@ -4284,29 +4298,34 @@ namespace IceBlink2
             if(gv.mod.currentEncounter.onlyOneMoveModifier)
             {
                 currentMoves = pc.moveDistance - 1.5f;
-            } 
-            //do onTurn IBScript
-            gv.cc.doIBScriptBasedOnFilename(gv.mod.currentEncounter.OnStartCombatTurnIBScript, gv.mod.currentEncounter.OnStartCombatTurnIBScriptParms);
-
-            //damage battle conditions
-            if (gv.mod.currentEncounter.hpDamageEachRound > 0)
-            {
-                if (pc.hp > -20)
-                {
-                    pc.hp -= gv.mod.currentEncounter.hpDamageEachRound;
-                    gv.cc.addLogText("<font color='red'>" + pc.name + " lost " + gv.mod.currentEncounter.hpDamageEachRound + " hp.</font><BR>");
-                }
             }
-
-            if (gv.mod.currentEncounter.spDamageEachRound > 0)
+            //do onTurn IBScript
+            if (!pc.hasDelayedAlready)
             {
-                if (pc.sp > 0)
+                gv.cc.doIBScriptBasedOnFilename(gv.mod.currentEncounter.OnStartCombatTurnIBScript, gv.mod.currentEncounter.OnStartCombatTurnIBScriptParms);
+            }
+            //damage battle conditions
+            if (!pc.hasDelayedAlready)
+            {
+                if (gv.mod.currentEncounter.hpDamageEachRound > 0)
                 {
-                    pc.sp -= gv.mod.currentEncounter.spDamageEachRound;
-                    gv.cc.addLogText("<font color='red'>" + pc.name + " lost " + gv.mod.currentEncounter.spDamageEachRound + " sp.</font><BR>");
-                    if (pc.sp < 0)
+                    if (pc.hp > -20)
                     {
-                        pc.sp = 0;
+                        pc.hp -= gv.mod.currentEncounter.hpDamageEachRound;
+                        gv.cc.addLogText("<font color='red'>" + pc.name + " lost " + gv.mod.currentEncounter.hpDamageEachRound + " hp.</font><BR>");
+                    }
+                }
+
+                if (gv.mod.currentEncounter.spDamageEachRound > 0)
+                {
+                    if (pc.sp > 0)
+                    {
+                        pc.sp -= gv.mod.currentEncounter.spDamageEachRound;
+                        gv.cc.addLogText("<font color='red'>" + pc.name + " lost " + gv.mod.currentEncounter.spDamageEachRound + " sp.</font><BR>");
+                        if (pc.sp < 0)
+                        {
+                            pc.sp = 0;
+                        }
                     }
                 }
             }
@@ -9408,8 +9427,9 @@ namespace IceBlink2
             {
                 drawMovingCombatCreatures();
             }
-            //drawCombatPlayers();
             drawSprites();
+            drawHeightShadows();
+           
             if (gv.mod.currentEncounter.UseDayNightCycle)
             {
                 drawOverlayTints();
@@ -9450,6 +9470,59 @@ namespace IceBlink2
             drawUiLayout();
         }
 
+        public void drawHeightShadows()
+        {
+            for (int y = 0; y < gv.mod.currentEncounter.MapSizeY; y++)
+            {
+                for (int x = 0; x < gv.mod.currentEncounter.MapSizeX; x++)
+                {
+
+                    TileEnc tile = gv.mod.currentEncounter.encounterTiles[y * gv.mod.currentEncounter.MapSizeX + x];
+                    SharpDX.RectangleF src = new SharpDX.RectangleF(0, 0, gv.cc.GetFromBitmapList("longShadow").PixelSize.Width, gv.cc.GetFromBitmapList("longShadow").PixelSize.Height);
+                    SharpDX.RectangleF dst = new SharpDX.RectangleF(getPixelLocX(x), getPixelLocY(y) + (float)(gv.squareSize * 0.5f), (gv.squareSize), (gv.squareSize));
+
+                    if (tile.isInShortShadeN)
+                    {
+                        gv.DrawD2DBitmap(gv.cc.GetFromBitmapList("shortShadow"), src, dst, 180, false);
+                    }
+
+                    if (tile.isInShortShadeE)
+                    {
+                        gv.DrawD2DBitmap(gv.cc.GetFromBitmapList("shortShadow"), src, dst, 270, false);
+                    }
+
+                    if (tile.isInShortShadeS)
+                    {
+                        gv.DrawD2DBitmap(gv.cc.GetFromBitmapList("shortShadow"), src, dst, 0, false);
+                    }
+
+                    if (tile.isInShortShadeW)
+                    {
+                        gv.DrawD2DBitmap(gv.cc.GetFromBitmapList("shortShadow"), src, dst, 90, false);
+                    }
+
+                    if (tile.isInShortShadeNW && !tile.isInShortShadeN && !tile.isInShortShadeW)
+                    {
+                        gv.DrawD2DBitmap(gv.cc.GetFromBitmapList("shortShadowCorner"), src, dst, 180, false);
+                    }
+
+                    if (tile.isInShortShadeNE && !tile.isInShortShadeN && !tile.isInShortShadeE)
+                    {
+                        gv.DrawD2DBitmap(gv.cc.GetFromBitmapList("shortShadowCorner"), src, dst, 270, false);
+                    }
+
+                    if (tile.isInShortShadeSW && !tile.isInShortShadeS && !tile.isInShortShadeW)
+                    {
+                        gv.DrawD2DBitmap(gv.cc.GetFromBitmapList("shortShadowCorner"), src, dst, 90, false);
+                    }
+
+                    if (tile.isInShortShadeSE && !tile.isInShortShadeS && !tile.isInShortShadeE)
+                    {
+                        gv.DrawD2DBitmap(gv.cc.GetFromBitmapList("shortShadowCorner"), src, dst, 0, false);
+                    }
+                }
+            }
+        }
         public void drawCombatHotKeys()
         {
             int txtH = (int)gv.drawFontRegHeight;
@@ -10816,7 +10889,7 @@ namespace IceBlink2
         public void drawCombatMap()
         {
             if (gv.mod.useAllTileSystem)
-            {
+            { 
                 //row = y
                 //col = x
                 if (gv.mod.currentEncounter.UseMapImage)
@@ -13010,6 +13083,7 @@ namespace IceBlink2
             {
                 if (isPlayerTurn && !gv.mod.currentEncounter.noSpellCastModifier)
                 {
+                    gv.mod.playerList[currentPlayerIndex].hasDelayedAlready = true;
                     continueTurn = false;
                     gv.mod.playerList[currentPlayerIndex].thisCastIsFreeOfCost = false;
                     gv.mod.playerList[currentPlayerIndex].isPreparingSpell = false;
@@ -13031,10 +13105,81 @@ namespace IceBlink2
                     }
                 }
             }
+            else if (keyData == Keys.L)
+            {
+                if (isPlayerTurn)
+                {
+                    int highestMoveOrderFound = 0;
+
+                    foreach (Creature c in gv.mod.currentEncounter.encounterCreatureList)
+                    {
+                        if (c.moveOrder > highestMoveOrderFound)
+                        {
+                            highestMoveOrderFound = c.moveOrder;
+                        }
+                    }
+
+                    foreach (Player p in gv.mod.playerList)
+                    {
+                        if (p.moveOrder > highestMoveOrderFound)
+                        {
+                            highestMoveOrderFound = p.moveOrder;
+                        }
+                    }
+
+                    if (highestMoveOrderFound != gv.mod.playerList[currentPlayerIndex].moveOrder && !gv.mod.playerList[currentPlayerIndex].hasDelayedAlready)
+                    {
+                        gv.mod.playerList[currentPlayerIndex].hasDelayedAlready = true;
+                        gv.mod.playerList[currentPlayerIndex].moveOrder = highestMoveOrderFound + 1;
+                        /*
+                        foreach (Creature c in gv.mod.currentEncounter.encounterCreatureList)
+                        {
+                            if (c.moveOrder == gv.mod.playerList[currentPlayerIndex].moveOrder)
+                            {
+                                gv.mod.playerList[currentPlayerIndex].moveOrder++;
+                            }
+                        }
+                        foreach (Player p in gv.mod.playerList)
+                        {
+                            if (p.moveOrder == gv.mod.playerList[currentPlayerIndex].moveOrder && p != gv.mod.playerList[currentPlayerIndex])
+                            {
+                                gv.mod.playerList[currentPlayerIndex].moveOrder++;
+                            }
+                        }
+                        */
+
+                        //add to end of move order  
+                        MoveOrder newMO = new MoveOrder();
+                        newMO.PcOrCreature = gv.mod.playerList[currentPlayerIndex];
+                        newMO.rank = highestMoveOrderFound + 1;
+                        gv.screenCombat.moveOrderList.Add(newMO);
+                        for (int i = gv.screenCombat.moveOrderList.Count - 2; i >= 0; i--)
+                        {
+                            if (gv.screenCombat.moveOrderList[i].PcOrCreature == newMO.PcOrCreature)
+                            {
+                                gv.screenCombat.moveOrderList.RemoveAt(i);
+                            }
+                        }
+
+                        //increment the number of initial move order objects
+                        //note: check how ini bar system will interact with creatures added while battle is running  
+                        gv.screenCombat.initialMoveOrderListSize++;
+
+                        recalculateCreaturesShownInInitiativeBar();
+
+                        endPcTurn(false);
+                    }
+                    else
+                    {
+                        gv.cc.addLogText("red", "Delaying not possible for this character this turn.");
+                    }
+                }
+            }
             else if (keyData == Keys.U)
             {
                 if (isPlayerTurn && !gv.mod.currentEncounter.noTraitUseModifier)
                 {
+                    gv.mod.playerList[currentPlayerIndex].hasDelayedAlready = true;
                     continueTurn = false;
                     gv.mod.playerList[currentPlayerIndex].thisCastIsFreeOfCost = false;
                     gv.mod.playerList[currentPlayerIndex].isPreparingSpell = false;
@@ -14919,7 +15064,7 @@ namespace IceBlink2
                     }
                     else if (rtn.Equals("btnMove"))
                     {
-                     
+
                         if (canMove)
                         {
                             if (currentCombatMode.Equals("move"))
@@ -17335,6 +17480,7 @@ namespace IceBlink2
                             }
                             else
                             {
+                                gv.mod.playerList[currentPlayerIndex].hasDelayedAlready = true;
                                 gv.mod.playerList[currentPlayerIndex].thisCastIsFreeOfCost = false;
                                 gv.mod.playerList[currentPlayerIndex].isPreparingSpell = false;
                                 gv.mod.playerList[currentPlayerIndex].doCastActionInXFullTurns = 0;
@@ -17350,6 +17496,7 @@ namespace IceBlink2
                     {
                         if (isPlayerTurn && !gv.mod.currentEncounter.noSpellCastModifier)
                         {
+                            gv.mod.playerList[currentPlayerIndex].hasDelayedAlready = true;
                             continueTurn = false;
                             gv.mod.playerList[currentPlayerIndex].thisCastIsFreeOfCost = false;
                             gv.mod.playerList[currentPlayerIndex].isPreparingSpell = false;
@@ -17374,6 +17521,7 @@ namespace IceBlink2
                     {
                         if (isPlayerTurn && !gv.mod.currentEncounter.noTraitUseModifier)
                         {
+                            gv.mod.playerList[currentPlayerIndex].hasDelayedAlready = true;
                             continueTurn = false;
                             gv.mod.playerList[currentPlayerIndex].thisCastIsFreeOfCost = false;
                             gv.mod.playerList[currentPlayerIndex].isPreparingSpell = false;
@@ -17406,6 +17554,76 @@ namespace IceBlink2
                             gv.mod.playerList[currentPlayerIndex].thisCasterCanBeInterrupted = true;
                             gv.screenType = "combat";
                             endPcTurn(false);
+                        }
+                    }
+                    else if (rtn.Equals("btnDelay"))
+                    {
+                        if (isPlayerTurn)
+                        {
+                            int highestMoveOrderFound = 0;
+
+                            foreach (Creature c in gv.mod.currentEncounter.encounterCreatureList)
+                            {
+                                if (c.moveOrder > highestMoveOrderFound)
+                                {
+                                    highestMoveOrderFound = c.moveOrder;
+                                }
+                            }
+
+                            foreach (Player p in gv.mod.playerList)
+                            {
+                                if (p.moveOrder > highestMoveOrderFound)
+                                {
+                                    highestMoveOrderFound = p.moveOrder;
+                                }
+                            }
+
+                            if (highestMoveOrderFound != gv.mod.playerList[currentPlayerIndex].moveOrder && !gv.mod.playerList[currentPlayerIndex].hasDelayedAlready)
+                            {
+                                gv.mod.playerList[currentPlayerIndex].hasDelayedAlready = true;
+                                gv.mod.playerList[currentPlayerIndex].moveOrder = highestMoveOrderFound + 1;
+                                /*
+                                foreach (Creature c in gv.mod.currentEncounter.encounterCreatureList)
+                                {
+                                    if (c.moveOrder == gv.mod.playerList[currentPlayerIndex].moveOrder)
+                                    {
+                                        gv.mod.playerList[currentPlayerIndex].moveOrder++;
+                                    }
+                                }
+                                foreach (Player p in gv.mod.playerList)
+                                {
+                                    if (p.moveOrder == gv.mod.playerList[currentPlayerIndex].moveOrder && p != gv.mod.playerList[currentPlayerIndex])
+                                    {
+                                        gv.mod.playerList[currentPlayerIndex].moveOrder++;
+                                    }
+                                }
+                                */
+
+                                //add to end of move order  
+                                MoveOrder newMO = new MoveOrder();
+                                newMO.PcOrCreature = gv.mod.playerList[currentPlayerIndex];
+                                newMO.rank = highestMoveOrderFound + 1;
+                                gv.screenCombat.moveOrderList.Add(newMO);
+                                for (int i = gv.screenCombat.moveOrderList.Count - 2; i >= 0; i--)
+                                {
+                                    if (gv.screenCombat.moveOrderList[i].PcOrCreature == newMO.PcOrCreature)
+                                    {
+                                        gv.screenCombat.moveOrderList.RemoveAt(i);
+                                    }
+                                }
+
+                                //increment the number of initial move order objects
+                                //note: check how ini bar system will interact with creatures added while battle is running  
+                                gv.screenCombat.initialMoveOrderListSize++;
+
+                                recalculateCreaturesShownInInitiativeBar();
+
+                                endPcTurn(false);
+                            }
+                            else
+                            {
+                                gv.cc.addLogText("red", "Delaying not possible for this character this turn.");
+                            }
                         }
                     }
                     else if (rtn.Equals("btnExit"))
@@ -17590,6 +17808,7 @@ namespace IceBlink2
                     if (c != null)
                     {
                         //attack creature
+                        gv.mod.playerList[currentPlayerIndex].hasDelayedAlready = true;
                         dontEndTurn = false;
                         targetHighlightCenterLocation.X = pc.combatLocX;
                         targetHighlightCenterLocation.Y = pc.combatLocY - 1;
@@ -17598,6 +17817,7 @@ namespace IceBlink2
                     }
                     else if ((pc.moveDistance - currentMoves) >= 1.0f)
                     {
+                        gv.mod.playerList[currentPlayerIndex].hasDelayedAlready = true;
                         LeaveThreatenedCheck(pc, pc.combatLocX, pc.combatLocY - 1);
                         doPlayerCombatFacing(pc, pc.combatLocX, pc.combatLocY - 1);
                         pc.combatLocY--;
@@ -17620,6 +17840,7 @@ namespace IceBlink2
                     Creature c = isBumpIntoCreature(pc.combatLocX + 1, pc.combatLocY - 1);
                     if (c != null)
                     {
+                        gv.mod.playerList[currentPlayerIndex].hasDelayedAlready = true;
                         dontEndTurn = false;
                         targetHighlightCenterLocation.X = pc.combatLocX + 1;
                         targetHighlightCenterLocation.Y = pc.combatLocY - 1;
@@ -17628,6 +17849,7 @@ namespace IceBlink2
                     }
                     else if ((pc.moveDistance - currentMoves) >= gv.mod.diagonalMoveCost)
                     {
+                        gv.mod.playerList[currentPlayerIndex].hasDelayedAlready = true;
                         LeaveThreatenedCheck(pc, pc.combatLocX + 1, pc.combatLocY - 1);
                         doPlayerCombatFacing(pc, pc.combatLocX + 1, pc.combatLocY - 1);
                         pc.combatLocX++;
@@ -17656,6 +17878,7 @@ namespace IceBlink2
                     Creature c = isBumpIntoCreature(pc.combatLocX - 1, pc.combatLocY - 1);
                     if (c != null)
                     {
+                        gv.mod.playerList[currentPlayerIndex].hasDelayedAlready = true;
                         dontEndTurn = false;
                         targetHighlightCenterLocation.X = pc.combatLocX - 1;
                         targetHighlightCenterLocation.Y = pc.combatLocY - 1;
@@ -17664,6 +17887,7 @@ namespace IceBlink2
                     }
                     else if ((pc.moveDistance - currentMoves) >= gv.mod.diagonalMoveCost)
                     {
+                        gv.mod.playerList[currentPlayerIndex].hasDelayedAlready = true;
                         LeaveThreatenedCheck(pc, pc.combatLocX - 1, pc.combatLocY - 1);
                         doPlayerCombatFacing(pc, pc.combatLocX - 1, pc.combatLocY - 1);
                         pc.combatLocX--;
@@ -17692,6 +17916,7 @@ namespace IceBlink2
                     Creature c = isBumpIntoCreature(pc.combatLocX, pc.combatLocY + 1);
                     if (c != null)
                     {
+                        gv.mod.playerList[currentPlayerIndex].hasDelayedAlready = true;
                         dontEndTurn = false;
                         targetHighlightCenterLocation.X = pc.combatLocX;
                         targetHighlightCenterLocation.Y = pc.combatLocY + 1;
@@ -17700,6 +17925,7 @@ namespace IceBlink2
                     }
                     else if ((pc.moveDistance - currentMoves) >= 1.0f)
                     {
+                        gv.mod.playerList[currentPlayerIndex].hasDelayedAlready = true;
                         LeaveThreatenedCheck(pc, pc.combatLocX, pc.combatLocY + 1);
                         doPlayerCombatFacing(pc, pc.combatLocX, pc.combatLocY + 1);
                         pc.combatLocY++;
@@ -17722,6 +17948,7 @@ namespace IceBlink2
                     Creature c = isBumpIntoCreature(pc.combatLocX + 1, pc.combatLocY + 1);
                     if (c != null)
                     {
+                        gv.mod.playerList[currentPlayerIndex].hasDelayedAlready = true;
                         dontEndTurn = false;
                         targetHighlightCenterLocation.X = pc.combatLocX + 1;
                         targetHighlightCenterLocation.Y = pc.combatLocY + 1;
@@ -17730,6 +17957,7 @@ namespace IceBlink2
                     }
                     else if ((pc.moveDistance - currentMoves) >= gv.mod.diagonalMoveCost)
                     {
+                        gv.mod.playerList[currentPlayerIndex].hasDelayedAlready = true;
                         LeaveThreatenedCheck(pc, pc.combatLocX + 1, pc.combatLocY + 1);
                         doPlayerCombatFacing(pc, pc.combatLocX + 1, pc.combatLocY + 1);
                         pc.combatLocX++;
@@ -17758,6 +17986,7 @@ namespace IceBlink2
                     Creature c = isBumpIntoCreature(pc.combatLocX - 1, pc.combatLocY + 1);
                     if (c != null)
                     {
+                        gv.mod.playerList[currentPlayerIndex].hasDelayedAlready = true;
                         dontEndTurn = false;
                         targetHighlightCenterLocation.X = pc.combatLocX - 1;
                         targetHighlightCenterLocation.Y = pc.combatLocY + 1;
@@ -17766,6 +17995,7 @@ namespace IceBlink2
                     }
                     else if ((pc.moveDistance - currentMoves) >= gv.mod.diagonalMoveCost)
                     {
+                        gv.mod.playerList[currentPlayerIndex].hasDelayedAlready = true;
                         LeaveThreatenedCheck(pc, pc.combatLocX - 1, pc.combatLocY + 1);
                         doPlayerCombatFacing(pc, pc.combatLocX - 1, pc.combatLocY + 1);
                         pc.combatLocX--;
@@ -17794,6 +18024,7 @@ namespace IceBlink2
                     Creature c = isBumpIntoCreature(pc.combatLocX + 1, pc.combatLocY);
                     if (c != null)
                     {
+                        gv.mod.playerList[currentPlayerIndex].hasDelayedAlready = true;
                         dontEndTurn = false;
                         targetHighlightCenterLocation.X = pc.combatLocX + 1;
                         targetHighlightCenterLocation.Y = pc.combatLocY;
@@ -17802,6 +18033,7 @@ namespace IceBlink2
                     }
                     else if ((pc.moveDistance - currentMoves) >= 1.0f)
                     {
+                        gv.mod.playerList[currentPlayerIndex].hasDelayedAlready = true;
                         LeaveThreatenedCheck(pc, pc.combatLocX + 1, pc.combatLocY);
                         doPlayerCombatFacing(pc, pc.combatLocX + 1, pc.combatLocY);
                         pc.combatLocX++;
@@ -17828,6 +18060,7 @@ namespace IceBlink2
                     Creature c = isBumpIntoCreature(pc.combatLocX - 1, pc.combatLocY);
                     if (c != null)
                     {
+                        gv.mod.playerList[currentPlayerIndex].hasDelayedAlready = true;
                         dontEndTurn = false;
                         targetHighlightCenterLocation.X = pc.combatLocX - 1;
                         targetHighlightCenterLocation.Y = pc.combatLocY;
@@ -17836,6 +18069,7 @@ namespace IceBlink2
                     }
                     else if ((pc.moveDistance - currentMoves) >= 1.0f)
                     {
+                        gv.mod.playerList[currentPlayerIndex].hasDelayedAlready = true;
                         LeaveThreatenedCheck(pc, pc.combatLocX - 1, pc.combatLocY);
                         doPlayerCombatFacing(pc, pc.combatLocX - 1, pc.combatLocY);
                         pc.combatLocX--;
@@ -17854,7 +18088,7 @@ namespace IceBlink2
             //{
             //CenterScreenOnPC();
             //}
-
+            gv.mod.playerList[currentPlayerIndex].hasDelayedAlready = true;
             if (isValidAttackTarget(pc))
             {
                 if ((targetHighlightCenterLocation.X < pc.combatLocX) && (!pc.combatFacingLeft)) //attack left
@@ -17938,7 +18172,7 @@ namespace IceBlink2
             //{
             //CenterScreenOnPC();
             //}
-
+            gv.mod.playerList[currentPlayerIndex].hasDelayedAlready = true;
             //Uses Map Pixel Locations
             int endX = targetHighlightCenterLocation.X * gv.squareSize + (gv.squareSize / 2);
             int endY = targetHighlightCenterLocation.Y * gv.squareSize + (gv.squareSize / 2);

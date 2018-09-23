@@ -15,6 +15,9 @@ namespace IceBlink2
         public string convoCode = "";
 
         [JsonIgnore]
+        public bool hasDelayedAlready = false;
+
+        [JsonIgnore]
         public List<String> tagsOfEffectsToRemoveOnMove = new List<String>();
 
         public List<int> hasNewChatOption = new List<int>();

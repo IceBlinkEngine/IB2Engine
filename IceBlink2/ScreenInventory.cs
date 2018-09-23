@@ -942,6 +942,7 @@ namespace IceBlink2
                                     {
                                         if (isSelectedItemSlotInPartyInventoryRange())
                                         {
+                                            gv.mod.playerList[gv.screenCombat.currentPlayerIndex].hasDelayedAlready = true;
                                             doItemAction(true);
                                         }
                                     }

@@ -9,6 +9,14 @@ namespace IceBlink2
 {
     public class TileEnc 
     {
+        public bool isInShortShadeN = false;
+        public bool isInShortShadeE = false;
+        public bool isInShortShadeS = false;
+        public bool isInShortShadeW = false;
+        public bool isInShortShadeNE = false;
+        public bool isInShortShadeNW = false;
+        public bool isInShortShadeSE = false;
+        public bool isInShortShadeSW = false;
         //[JsonIgnore]
         public string Layer1Filename = "t_grass";
         //[JsonIgnore]
