@@ -13,15 +13,39 @@ namespace IceBlink2
 {
     public class Area 
     {
+       public bool isOverviewMap = false;
+        
+       public bool overviewOwnZoneMapExists = false;
+       public bool overviewMotherZoneMapExists = false;
+       public bool overviewGrandMotherZoneMapExists = false;
+
+        //button tags: btnOwnZoneMap, btnMotherZoneMap, btnGrandMotherZoneMap   
+        public bool showOverviewButtonOwnZoneMap = false;
+       public bool showOverviewButtonMotherZoneMap = false;
+       public bool showOverviewButtonGrandMotherZoneMap = false;
+
+       public string filenameOfOwnZoneMap = "none";
+       public string filenameOfMotherZoneMap = "none";
+       public string filenameOfGrandMotherZoneMap = "none";
+
+       public int partyPositionMarkerOnOwnZoneMapX = -1;
+       public int partyPositionMarkerOnOwnZoneMapY = -1;
+       public int partyPositionMarkerOnMotherZoneMapX = -1;
+       public int partyPositionMarkerOnMotherZoneMapY = -1;
+       public int partyPositionMarkerOnGrandMotherZoneMapX = -1;
+       public int partyPositionMarkerOnGrandMotherZoneMapY = -1;
+       
+
+        //not used anymore
         public string zoneMotherAreaName = "none";
         public int zoneMotherAreaX = 0;
         public int zoneMotherAreaY = 0;
-        //public int zoneMotherAreaFloorLevel = 0;
-
         public string zoneName = "none";
         public int zoneX = 0;
         public int zoneY = 0;
         public int zoneFloorLevel = 0;
+        //public string overviewMapName = "none";
+
 
         public int linkedAreasCounter = 0;
         public string masterOfThisArea = "none";
@@ -34,6 +58,25 @@ namespace IceBlink2
         public List<Coordinate> toggledSquaresWalkableFalse = new List<Coordinate>();
         public List<Coordinate> toggledSquaresLoSFalse = new List<Coordinate>();
         public List<Coordinate> toggledSquaresIsSecretPassageFalse = new List<Coordinate>();
+
+        //public List<Tile> changedHeightTiles = new List<Tile>();
+        public List<int> newHeights = new List<int>();
+        public List<int> changedHeightTilesCoordX = new List<int>();
+        public List<int> changedHeightTilesCoordY = new List<int>();
+
+        public List<bool> newEWBridgeState = new List<bool>();
+        public List<int> changedEWBridgeTilesCoordX = new List<int>();
+        public List<int> changedEWBridgeTilesCoordY = new List<int>();
+
+        public List<bool> newNSBridgeState = new List<bool>();
+        public List<int> changedNSBridgeTilesCoordX = new List<int>();
+        public List<int> changedNSBridgeTilesCoordY = new List<int>();
+
+        //N,S,E,W,Off
+        public List<string> newRampState = new List<string>();
+        public List<bool> drawRampSymbol = new List<bool>();
+        public List<int> changedRampTilesCoordX = new List<int>();
+        public List<int> changedRampTilesCoordY = new List<int>();
 
         //todo: updateAreas method needs reading these in and add ga controlelr type or os manipualtion script
         public List<Coordinate> toggledSquaresLayer0FilenameCoords = new List<Coordinate>();

@@ -100,6 +100,80 @@ namespace IceBlink2
 
         public void Draw(IB2Panel parentPanel)
         {
+            if (!gv.mod.currentArea.isOverviewMap)
+            {
+                if (gv.mod.currentArea.overviewOwnZoneMapExists && gv.mod.currentArea.showOverviewButtonOwnZoneMap && this.tag == "btnOwnZoneMap")
+                {
+                    this.show = true;
+                }
+                else if (this.tag == "btnOwnZoneMap")
+                {
+                    this.show = false;
+                }
+
+                if (gv.mod.currentArea.overviewMotherZoneMapExists && gv.mod.currentArea.showOverviewButtonMotherZoneMap && this.tag == "btnMotherZoneMap")
+                {
+                    this.show = true;
+                }
+                else if (this.tag == "btnMotherZoneMap")
+                {
+                    this.show = false;
+                }
+
+                if (gv.mod.currentArea.overviewGrandMotherZoneMapExists && gv.mod.currentArea.showOverviewButtonGrandMotherZoneMap && this.tag == "btnGrandMotherZoneMap")
+                {
+                    this.show = true;
+                }
+                else if (this.tag == "btnGrandMotherZoneMap")
+                {
+                    this.show = false;
+                }
+            }
+            else
+            {
+                foreach (Area a in gv.mod.moduleAreasObjects)
+                {
+                    if (a.filenameOfGrandMotherZoneMap == gv.mod.overviewReturnAreaName)
+                    {
+                        if (a.overviewOwnZoneMapExists && a.showOverviewButtonOwnZoneMap && this.tag == "btnOwnZoneMap")
+                        {
+                            this.show = true;
+                        }
+                        else if (this.tag == "btnOwnZoneMap")
+                        {
+                            this.show = false;
+                        }
+
+                        if (a.overviewMotherZoneMapExists && a.showOverviewButtonMotherZoneMap && this.tag == "btnMotherZoneMap")
+                        {
+                            this.show = true;
+                        }
+                        else if (this.tag == "btnMotherZoneMap")
+                        {
+                            this.show = false;
+                        }
+
+                        if (a.overviewGrandMotherZoneMapExists && a.showOverviewButtonGrandMotherZoneMap && this.tag == "btnGrandMotherZoneMap")
+                        {
+                            this.show = true;
+                        }
+                        else if (this.tag == "btnGrandMotherZoneMap")
+                        {
+                            this.show = false;
+                        }
+                    }
+                }
+            }
+
+            if (gv.mod.currentArea.isOverviewMap && (this.tag == "btnRation" || this.tag == "btnTorch" || this.tag == "btnZoom"))
+            {
+                this.show = false;
+            }
+            else if (this.tag == "btnRation" || this.tag == "btnTorch" || this.tag == "btnZoom")
+            {
+                this.show = true;
+            }
+
             if (!gv.mod.useComplexCoordinateSystem && (this.tag == "btnZoom" || this.tag == "btnTorch" || this.tag == "btnRation"))
             {
                 this.show = false;
@@ -110,11 +184,21 @@ namespace IceBlink2
                 this.show = false;
             }
 
-            if (!gv.mod.useLightSystem && this.tag == "btnRation")
+            if (!gv.mod.useLightSystem && this.tag == "btnTorch")
             {
                 this.show = false;
             }
 
+            /*
+            if (gv.mod.currentArea.isOverviewMap && (this.tag == "btnRation" || this.tag == "btnTorch"|| this.tag == "btnZoom"))
+            {
+                this.show = false;
+            }
+            else if (this.tag == "btnRation" || this.tag == "btnTorch" || this.tag == "btnZoom")
+            {
+                this.show = true;
+            }
+            */
             if (show)
             {
                 int pH = (int)((float)gv.screenHeight / 200.0f);
@@ -193,14 +277,17 @@ namespace IceBlink2
                     if (gv.mod.currentArea.useSuperTinyProps)
                     {
                         Text = "Far";
+                        //Text = "Speed: " + gv.mod.partySpeed; 
                     }
                     else if (gv.mod.currentArea.useMiniProps)
                     {
                         Text = "Medium";
+                        //Text = "Speed: " + gv.mod.partySpeed;
                     }
                     else
                     {
                         Text = "Close";
+                        //Text = "Speed: " + gv.mod.partySpeed;
                     }
                 }
 
@@ -240,7 +327,7 @@ namespace IceBlink2
                 ulY = (((Height * gv.screenDensity) - thisFontHeight) / 8) * 7;
                 if (this.tag == "btnZoom")
                 {
-                    Quantity = gv.mod.currentArea.TimePerSquare + " min";
+                    Quantity = gv.mod.timePerStepAfterSpeedCalc + " min";
                 }
                 if (this.tag == "btnTorch")
                 {

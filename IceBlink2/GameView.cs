@@ -236,7 +236,7 @@ namespace IceBlink2
             animationTimer.Tick += new System.EventHandler(this.AnimationTimer_Tick);
 
             log = new IB2HtmlLogBox(this);
-            log.numberOfLinesToShow = 20;
+            log.numberOfLinesToShow = 22;
             cc.addLogText("red", "screenDensity: " + screenDensity);
             cc.addLogText("fuchsia", "screenWidth: " + screenWidth);
             cc.addLogText("lime", "screenHeight: " + screenHeight);
@@ -415,9 +415,10 @@ namespace IceBlink2
             ResetGDIFont();
             ResetDirect2DFont();
             //reset log number of lines based on the value from the Module's mod file
-            log.numberOfLinesToShow = mod.logNumberOfLines;            
-                        
-		    mod.debugMode = false;
+            log.numberOfLinesToShow = mod.logNumberOfLines;
+            //log.numberOfLinesToShow = 24;
+
+            mod.debugMode = false;
 		    mod.loadAreas(this);
 		    //mod.setCurrentArea(mod.startingArea, this);
             bool foundArea = mod.setCurrentArea(mod.startingArea, this);
@@ -1076,6 +1077,55 @@ namespace IceBlink2
         {
             DrawText(text, rect, FontWeight.Normal, SharpDX.DirectWrite.FontStyle.Normal, scaler, fontColor);
         }
+        public void DrawTextCenter(string text, IbRect rect, float scaler, SharpDX.Color fontColor)
+        {
+            DrawTextCenter(text, rect, FontWeight.Normal, SharpDX.DirectWrite.FontStyle.Normal, scaler, fontColor);
+        }
+        public void DrawTextEndBound(string text, IbRect rect, float scaler, SharpDX.Color fontColor)
+        {
+            DrawTextEndBound(text, rect, FontWeight.Normal, SharpDX.DirectWrite.FontStyle.Normal, scaler, fontColor);
+        }
+
+        public void DrawTextEndBound(string text, IbRect rect, FontWeight fw, SharpDX.DirectWrite.FontStyle fs, float scaler, SharpDX.Color fontColor)
+        {
+            CleanUpDrawTextResources();
+            float thisFontHeight = drawFontRegHeight;
+            if (scaler > 1.05f)
+            {
+                thisFontHeight = drawFontLargeHeight;
+            }
+            else if (scaler < 0.95f)
+            {
+                thisFontHeight = drawFontSmallHeight;
+            }
+            //RectangleF rectF = new RectangleF(rect.Left, rect.Top + oYshift, rect.Width, rect.Height);
+            using (SolidColorBrush scb = new SolidColorBrush(renderTarget2D, fontColor))
+            {
+                textFormat = new TextFormat(factoryDWrite, FontFamilyName, CurrentFontCollection, fw, fs, FontStretch.Normal, thisFontHeight) { TextAlignment = TextAlignment.Trailing, ParagraphAlignment = ParagraphAlignment.Near };
+                textLayout = new TextLayout(factoryDWrite, text, textFormat, rect.Width, rect.Height);
+                renderTarget2D.DrawTextLayout(new Vector2(rect.Left, rect.Top + oYshift), textLayout, scb, DrawTextOptions.None);
+            }
+        }
+        public void DrawTextCenter(string text, IbRect rect, FontWeight fw, SharpDX.DirectWrite.FontStyle fs, float scaler, SharpDX.Color fontColor)
+        {
+            CleanUpDrawTextResources();
+            float thisFontHeight = drawFontRegHeight;
+            if (scaler > 1.05f)
+            {
+                thisFontHeight = drawFontLargeHeight;
+            }
+            else if (scaler < 0.95f)
+            {
+                thisFontHeight = drawFontSmallHeight;
+            }
+            //RectangleF rectF = new RectangleF(rect.Left, rect.Top + oYshift, rect.Width, rect.Height);
+            using (SolidColorBrush scb = new SolidColorBrush(renderTarget2D, fontColor))
+            {
+                textFormat = new TextFormat(factoryDWrite, FontFamilyName, CurrentFontCollection, fw, fs, FontStretch.Normal, thisFontHeight) { TextAlignment = TextAlignment.Center, ParagraphAlignment = ParagraphAlignment.Near };
+                textLayout = new TextLayout(factoryDWrite, text, textFormat, rect.Width, rect.Height);
+                renderTarget2D.DrawTextLayout(new Vector2(rect.Left, rect.Top + oYshift), textLayout, scb, DrawTextOptions.None);
+            }
+        }
         public void DrawText(string text, IbRect rect, FontWeight fw, SharpDX.DirectWrite.FontStyle fs, float scaler, SharpDX.Color fontColor)
         {
             CleanUpDrawTextResources();
@@ -1088,10 +1138,10 @@ namespace IceBlink2
             {
                 thisFontHeight = drawFontSmallHeight;
             }
-            RectangleF rectF = new RectangleF(rect.Left, rect.Top + oYshift, rect.Width, rect.Height);
+            //RectangleF rectF = new RectangleF(rect.Left, rect.Top + oYshift, rect.Width, rect.Height);
             using (SolidColorBrush scb = new SolidColorBrush(renderTarget2D, fontColor))
             {
-                textFormat = new TextFormat(factoryDWrite, FontFamilyName, CurrentFontCollection, fw, fs, FontStretch.Normal, thisFontHeight) { TextAlignment = TextAlignment.Leading, ParagraphAlignment = ParagraphAlignment.Near };
+                textFormat = new TextFormat(factoryDWrite, FontFamilyName, CurrentFontCollection, fw, fs, FontStretch.Normal, thisFontHeight) { TextAlignment = TextAlignment.Center, ParagraphAlignment = ParagraphAlignment.Near };
                 textLayout = new TextLayout(factoryDWrite, text, textFormat, rect.Width, rect.Height);
                 renderTarget2D.DrawTextLayout(new Vector2(rect.Left, rect.Top + oYshift), textLayout, scb, DrawTextOptions.None);
             }

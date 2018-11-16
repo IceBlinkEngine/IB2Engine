@@ -450,6 +450,4136 @@ namespace IceBlink2
             return roll;
         }
 
+        public void calculateHeightShadows(int centerX, int centerY)
+        {
+            //string filePath = prntForm._mainDirectory + "\\modules\\" + prntForm.mod.moduleName + "\\areas\\";
+            //mod.loadAreas(filePath, area);
+
+            #region Calculate Height Shadows
+
+            int indexOfNorthernNeighbour = -1;
+            int indexOfSouthernNeighbour = -1;
+            int indexOfEasternNeighbour = -1;
+            int indexOfWesternNeighbour = -1;
+            int indexOfNorthEasternNeighbour = -1;
+            int indexOfNorthWesternNeighbour = -1;
+            int indexOfSouthEasternNeighbour = -1;
+            int indexOfSouthWesternNeighbour = -1;
+
+            #region neighbours
+            if ((gv.mod.currentArea.northernNeighbourArea != ""))
+            {
+                for (int i = 0; i < mod.moduleAreasObjects.Count; i++)
+                {
+                    if (mod.moduleAreasObjects[i].Filename == gv.mod.currentArea.northernNeighbourArea)
+                    {
+                        indexOfNorthernNeighbour = i;
+                    }
+                }
+
+                if (mod.moduleAreasObjects[indexOfNorthernNeighbour].easternNeighbourArea != "")
+                {
+                    for (int i = 0; i < mod.moduleAreasObjects.Count; i++)
+                    {
+                        if (mod.moduleAreasObjects[i].Filename == mod.moduleAreasObjects[indexOfNorthernNeighbour].easternNeighbourArea)
+                        {
+                            indexOfNorthEasternNeighbour = i;
+                        }
+                    }
+                }
+
+                if (mod.moduleAreasObjects[indexOfNorthernNeighbour].westernNeighbourArea != "")
+                {
+                    for (int i = 0; i < mod.moduleAreasObjects.Count; i++)
+                    {
+                        if (mod.moduleAreasObjects[i].Filename == mod.moduleAreasObjects[indexOfNorthernNeighbour].westernNeighbourArea)
+                        {
+                            indexOfNorthWesternNeighbour = i;
+                        }
+                    }
+                }
+            }
+
+            if ((gv.mod.currentArea.southernNeighbourArea != ""))
+            {
+                for (int i = 0; i < mod.moduleAreasObjects.Count; i++)
+                {
+                    if (mod.moduleAreasObjects[i].Filename == gv.mod.currentArea.southernNeighbourArea)
+                    {
+                        indexOfSouthernNeighbour = i;
+                    }
+                }
+
+                if (mod.moduleAreasObjects[indexOfSouthernNeighbour].easternNeighbourArea != "")
+                {
+                    for (int i = 0; i < mod.moduleAreasObjects.Count; i++)
+                    {
+                        if (mod.moduleAreasObjects[i].Filename == mod.moduleAreasObjects[indexOfSouthernNeighbour].easternNeighbourArea)
+                        {
+                            indexOfSouthEasternNeighbour = i;
+                        }
+                    }
+                }
+
+                if (mod.moduleAreasObjects[indexOfSouthernNeighbour].westernNeighbourArea != "")
+                {
+
+                    for (int i = 0; i < mod.moduleAreasObjects.Count; i++)
+                    {
+                        if (mod.moduleAreasObjects[i].Filename == mod.moduleAreasObjects[indexOfSouthernNeighbour].westernNeighbourArea)
+                        {
+                            indexOfSouthWesternNeighbour = i;
+                        }
+                    }
+                }
+            }
+
+            if ((gv.mod.currentArea.westernNeighbourArea != ""))
+            {
+                for (int i = 0; i < mod.moduleAreasObjects.Count; i++)
+                {
+                    if (mod.moduleAreasObjects[i].Filename == gv.mod.currentArea.westernNeighbourArea)
+                    {
+                        indexOfWesternNeighbour = i;
+                    }
+                }
+
+                if (mod.moduleAreasObjects[indexOfWesternNeighbour].northernNeighbourArea != "")
+                {
+                    for (int i = 0; i < mod.moduleAreasObjects.Count; i++)
+                    {
+                        if (mod.moduleAreasObjects[i].Filename == mod.moduleAreasObjects[indexOfWesternNeighbour].northernNeighbourArea)
+                        {
+                            indexOfNorthWesternNeighbour = i;
+                        }
+                    }
+                }
+
+                if (mod.moduleAreasObjects[indexOfWesternNeighbour].southernNeighbourArea != "")
+                {
+ 
+                    for (int i = 0; i < mod.moduleAreasObjects.Count; i++)
+                    {
+                        if (mod.moduleAreasObjects[i].Filename == mod.moduleAreasObjects[indexOfWesternNeighbour].southernNeighbourArea)
+                        {
+                            indexOfSouthWesternNeighbour = i;
+                        }
+                    }
+                }
+            }
+
+            if ((gv.mod.currentArea.easternNeighbourArea != ""))
+            {
+                for (int i = 0; i < mod.moduleAreasObjects.Count; i++)
+                {
+                    if (mod.moduleAreasObjects[i].Filename == gv.mod.currentArea.easternNeighbourArea)
+                    {
+                        indexOfEasternNeighbour = i;
+                    }
+                }
+
+                if (mod.moduleAreasObjects[indexOfEasternNeighbour].northernNeighbourArea != "")
+                {
+                    for (int i = 0; i < mod.moduleAreasObjects.Count; i++)
+                    {
+                        if (mod.moduleAreasObjects[i].Filename == mod.moduleAreasObjects[indexOfEasternNeighbour].northernNeighbourArea)
+                        {
+                            indexOfNorthEasternNeighbour = i;
+                        }
+                    }
+                }
+
+                if (mod.moduleAreasObjects[indexOfEasternNeighbour].southernNeighbourArea != "")
+                {
+                    for (int i = 0; i < mod.moduleAreasObjects.Count; i++)
+                    {
+                        if (mod.moduleAreasObjects[i].Filename == mod.moduleAreasObjects[indexOfEasternNeighbour].southernNeighbourArea)
+                        {
+                            indexOfSouthEasternNeighbour = i;
+                        }
+                    }
+                }
+            }
+            #endregion
+
+            //reset the highlights on this map
+            for (int y = 0; y < gv.mod.currentArea.MapSizeY; y++)
+            {
+                for (int x = 0; x < gv.mod.currentArea.MapSizeX; x++)
+                {
+                    Tile tile = gv.mod.currentArea.Tiles[y * gv.mod.currentArea.MapSizeX + x];
+                    tile.hasHighlightN = false;
+                    tile.hasHighlightE = false;
+                    tile.hasHighlightS = false;
+                    tile.hasHighlightW = false;
+                }
+            }
+
+            if (indexOfNorthernNeighbour != -1)
+            {
+                for (int y = 0; y < mod.moduleAreasObjects[indexOfNorthernNeighbour].MapSizeY; y++)
+                {
+                    for (int x = 0; x < mod.moduleAreasObjects[indexOfNorthernNeighbour].MapSizeX; x++)
+                    {
+                        if (y == mod.moduleAreasObjects[indexOfNorthernNeighbour].MapSizeY - 1)
+                        {
+                            Tile tile = gv.mod.currentArea.Tiles[y * gv.mod.currentArea.MapSizeX + x];
+                            tile.hasHighlightS = false;
+                        }
+                    }
+                }
+            }
+
+            if (indexOfSouthernNeighbour != -1)
+            {
+                for (int y = 0; y < mod.moduleAreasObjects[indexOfSouthernNeighbour].MapSizeY; y++)
+                {
+                    for (int x = 0; x < mod.moduleAreasObjects[indexOfSouthernNeighbour].MapSizeX; x++)
+                    {
+                        if (y == 0)
+                        {
+                            Tile tile = gv.mod.currentArea.Tiles[y * gv.mod.currentArea.MapSizeX + x];
+                            tile.hasHighlightN = false;
+                        }
+                    }
+                }
+            }
+
+            if (indexOfEasternNeighbour != -1)
+            {
+                for (int y = 0; y < mod.moduleAreasObjects[indexOfEasternNeighbour].MapSizeY; y++)
+                {
+                    for (int x = 0; x < mod.moduleAreasObjects[indexOfEasternNeighbour].MapSizeX; x++)
+                    {
+                        if (x == 0)
+                        {
+                            Tile tile = gv.mod.currentArea.Tiles[y * gv.mod.currentArea.MapSizeX + x];
+                            tile.hasHighlightW = false;
+                        }
+                    }
+                }
+            }
+
+            if (indexOfWesternNeighbour != -1)
+            {
+                for (int y = 0; y < mod.moduleAreasObjects[indexOfWesternNeighbour].MapSizeY; y++)
+                {
+                    for (int x = 0; x < mod.moduleAreasObjects[indexOfWesternNeighbour].MapSizeX; x++)
+                    {
+                        if (x == mod.moduleAreasObjects[indexOfWesternNeighbour].MapSizeX - 1)
+                        {
+                            Tile tile = gv.mod.currentArea.Tiles[y * gv.mod.currentArea.MapSizeX + x];
+                            tile.hasHighlightE = false;
+                        }
+                    }
+                }
+            }
+            /*
+            //calculate height level differences
+            for (int y = 0; y < gv.mod.currentArea.MapSizeY; y++)
+            {
+                for (int x = 0; x < gv.mod.currentArea.MapSizeX; x++)
+                {
+                    Tile tile = gv.mod.currentArea.Tiles[y * gv.mod.currentArea.MapSizeX + x];
+                    for (int yS = -1; yS < 2; yS++)
+                    {
+                        for (int xS = -1; xS < 2; xS++)
+                        {
+
+
+                        }
+                    }
+                }
+            }
+            */
+            int heightSum = 0;
+            //go through tiles potentially in shade
+            for (int y = centerY - 1; y <= centerY + 1; y++)
+            {
+                for (int x = centerX - 1; x <= centerX + 1; x++)
+                {
+                    Tile tile = gv.mod.currentArea.Tiles[y * gv.mod.currentArea.MapSizeX + x];
+
+                    heightSum += tile.heightLevel;
+                    if (!tile.linkedToMasterMap || tile.linkedToMasterMap)
+                    {
+                        tile.isInShortShadeN = false;
+                        tile.isInShortShadeE = false;
+                        tile.isInShortShadeS = false;
+                        tile.isInShortShadeW = false;
+                        tile.isInShortShadeNE = false;
+                        tile.isInShortShadeSE = false;
+                        tile.isInShortShadeSW = false;
+                        tile.isInShortShadeNW = false;
+                        tile.isInLongShadeN = false;
+                        tile.isInLongShadeE = false;
+                        tile.isInLongShadeS = false;
+                        tile.isInLongShadeW = false;
+                        tile.isInLongShadeNE = false;
+                        tile.isInLongShadeSE = false;
+                        tile.isInLongShadeSW = false;
+                        tile.isInLongShadeNW = false;
+
+                        /*
+                        tile.hasEntranceLightNorth = false;
+                        tile.hasEntranceLightEast = false;
+                        tile.hasEntranceLightSouth = false;
+                        tile.hasEntranceLightWest = false;
+                        */
+
+                        tile.isInMaxShadeN = false;
+                        tile.isInMaxShadeE = false;
+                        tile.isInMaxShadeS = false;
+                        tile.isInMaxShadeW = false;
+                        tile.isInMaxShadeNE = false;
+                        tile.isInMaxShadeSE = false;
+                        tile.isInMaxShadeSW = false;
+                        tile.isInMaxShadeNW = false;
+
+                        tile.inRampShadowWest1Long = false;
+                        tile.inRampShadowWest1Short = false;
+                        tile.inRampShadowWest2Long = false;
+                        tile.inRampShadowWest2Short = false;
+                        tile.inRampShadowEast3Long = false;
+                        tile.inRampShadowEast3Short = false;
+                        tile.inRampShadowEast4Long = false;
+                        tile.inRampShadowEast4Short = false;
+                        tile.inRampShadowNorth5Long = false;
+                        tile.inRampShadowNorth5Short = false;
+                        tile.inRampShadowNorth6Long = false;
+                        tile.inRampShadowNorth6Short = false;
+                        tile.inRampShadowSouth7Long = false;
+                        tile.inRampShadowSouth7Short = false;
+                        tile.inRampShadowSouth8Long = false;
+                        tile.inRampShadowSouth8Short = false;
+
+                        tile.inSmallStairNEVertical = false;
+                        tile.inSmallStairNEHorizontal = false;
+                        tile.inSmallStairSEVertical = false;
+                        tile.inSmallStairSEHorizontal = false;
+                        tile.inSmallStairSWVertical = false;
+                        tile.inSmallStairSWHorizontal = false;
+                        tile.inSmallStairNWVertical = false;
+                        tile.inSmallStairNWHorizontal = false;
+
+
+                        //go through each potential shadow caster tile surrounding the potentially shaded tile
+                        for (int yS = -1; yS < 2; yS++)
+                        {
+                            for (int xS = -1; xS < 2; xS++)
+                            {
+                                //**********************************************************************************
+                                //int index = -1;
+                                Tile tileCaster = new Tile();
+
+                                //nine situations where a caster tile can be:
+                                //caster tile on north-western map (diagonal situation)
+                                if ((x + xS < 0) && (y + yS < 0))
+                                {
+                                    if (indexOfNorthWesternNeighbour != -1)
+                                    {
+                                        int transformedX = mod.moduleAreasObjects[indexOfNorthWesternNeighbour].MapSizeX + x + xS;
+                                        int transformedY = mod.moduleAreasObjects[indexOfNorthWesternNeighbour].MapSizeY + y + yS;
+                                        tileCaster = mod.moduleAreasObjects[indexOfNorthWesternNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfNorthWesternNeighbour].MapSizeX + transformedX];
+                                        /*
+                                        //casts shadow and is no ramp
+                                        if ((tileCaster.isShadowCaster) && (!tileCaster.isRamp))
+                                        {
+                                            //check for long shadows
+                                            if (tileCaster.heightLevel == tile.heightLevel + 2)
+                                            {
+                                                tile.isInLongShadeNW = true;
+                                            }
+
+                                            //check for short shadows
+                                            else if (tileCaster.heightLevel == tile.heightLevel + 1)
+                                            {
+                                                tile.isInShortShadeNW = true;
+                                            }
+
+                                        }
+                                        else if ((tileCaster.isShadowCaster) && (tileCaster.isRamp))
+                                        {
+                                            if (tileCaster.heightLevel == tile.heightLevel + 2)
+                                            {
+                                                tile.isInShortShadeNW = true;
+                                            }
+                                        }
+                                        */
+                                    }
+                                }
+
+                                //caster tile on south-western map (diagonal situation)
+                                if ((x + xS < 0) && (y + yS > gv.mod.currentArea.MapSizeY - 1))
+                                {
+                                    if (indexOfSouthWesternNeighbour != -1)
+                                    {
+                                        int transformedX = mod.moduleAreasObjects[indexOfSouthWesternNeighbour].MapSizeX + x + xS;
+                                        int transformedY = y + yS - gv.mod.currentArea.MapSizeY;
+                                        tileCaster = mod.moduleAreasObjects[indexOfSouthWesternNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfSouthWesternNeighbour].MapSizeX + transformedX];
+                                        /*
+                                        //casts shadow and is no ramp
+                                        if ((tileCaster.isShadowCaster) && (!tileCaster.isRamp))
+                                        {
+                                            //check for long shadows
+                                            if (tileCaster.heightLevel == tile.heightLevel + 2)
+                                            {
+                                                tile.isInLongShadeSW = true;
+                                            }
+
+                                            //check for short shadows
+                                            else if (tileCaster.heightLevel == tile.heightLevel + 1)
+                                            {
+                                                tile.isInShortShadeSW = true;
+                                            }
+                                        }
+                                        else if ((tileCaster.isShadowCaster) && (tileCaster.isRamp))
+                                        {
+                                            if (tileCaster.heightLevel == tile.heightLevel + 2)
+                                            {
+                                                tile.isInShortShadeSW = true;
+                                            }
+                                        }
+                                        /*
+                                        else if ((tileCaster.isShadowCaster) && (tileCaster.hasDownStairShadowE || tileCaster.hasDownStairShadowN))
+                                        {
+                                            if (tileCaster.heightLevel == tile.heightLevel + 2)
+                                            {
+                                                tile.isInShortShadeSW = true;
+                                            }
+                                        }
+                                        else if ((tileCaster.isShadowCaster) && (tileCaster.hasDownStairShadowE || tileCaster.hasDownStairShadowN))
+                                        {
+                                            if (tileCaster.heightLevel == tile.heightLevel + 2)
+                                            {
+                                                tile.isInLongShadeSW = true;
+                                            }
+                                            if (tileCaster.heightLevel == tile.heightLevel + 1)
+                                            {
+                                                tile.isInShortShadeSW = true;
+                                            }
+                                        }
+                                        */
+                                    }
+                                }
+
+
+                                //***********************
+                                //caster tile on south-eastern map (diagonal situation)
+                                if ((x + xS > gv.mod.currentArea.MapSizeX - 1) && (y + yS > gv.mod.currentArea.MapSizeY - 1))
+                                {
+                                    if (indexOfSouthEasternNeighbour != -1)
+                                    {
+                                        int transformedX = x + xS - gv.mod.currentArea.MapSizeX;
+                                        int transformedY = y + yS - gv.mod.currentArea.MapSizeY;
+                                        tileCaster = mod.moduleAreasObjects[indexOfSouthEasternNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfSouthEasternNeighbour].MapSizeX + transformedX];
+                                        /*
+                                        //casts shadow and is no ramp
+                                        if ((tileCaster.isShadowCaster) && (!tileCaster.isRamp))
+                                        {
+                                            //check for long shadows
+                                            if (tileCaster.heightLevel == tile.heightLevel + 2)
+                                            {
+                                                tile.isInLongShadeSE = true;
+                                            }
+
+                                            //check for short shadows
+                                            else if (tileCaster.heightLevel == tile.heightLevel + 1)
+                                            {
+                                                tile.isInShortShadeSE = true;
+                                            }
+
+                                        }
+                                        else if ((tileCaster.isShadowCaster) && (tileCaster.isRamp))
+                                        {
+                                            if (tileCaster.heightLevel == tile.heightLevel + 2)
+                                            {
+                                                tile.isInShortShadeSE = true;
+                                            }
+                                        }
+                                        */
+                                    }
+                                }
+
+                                //caster tile on north-eastern map (diagonal situation)
+                                if ((x + xS > gv.mod.currentArea.MapSizeX - 1) && (y + yS < 0))
+                                {
+                                    if (indexOfNorthEasternNeighbour != -1)
+                                    {
+                                        int transformedX = x + xS - gv.mod.currentArea.MapSizeX;
+                                        int transformedY = mod.moduleAreasObjects[indexOfNorthEasternNeighbour].MapSizeY + y + yS; ;
+                                        tileCaster = mod.moduleAreasObjects[indexOfNorthEasternNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfNorthEasternNeighbour].MapSizeX + transformedX];
+                                        /*
+                                        //casts shadow and is no ramp
+                                        if ((tileCaster.isShadowCaster) && (!tileCaster.isRamp))
+                                        {
+                                            //check for long shadows
+                                            if (tileCaster.heightLevel == tile.heightLevel + 2)
+                                            {
+                                                tile.isInLongShadeNE = true;
+                                            }
+
+                                            //check for short shadows
+                                            else if (tileCaster.heightLevel == tile.heightLevel + 1)
+                                            {
+                                                tile.isInShortShadeNE = true;
+                                            }
+
+                                        }
+                                        else if ((tileCaster.isShadowCaster) && (tileCaster.isRamp))
+                                        {
+                                            if (tileCaster.heightLevel == tile.heightLevel + 2)
+                                            {
+                                                tile.isInShortShadeNE = true;
+                                            }
+                                        }
+                                        */
+                                    }
+                                }
+
+                                //caster tile on western map (non-diagonal)
+                                if ((x + xS < 0) && (y + yS >= 0) && (y + yS < gv.mod.currentArea.MapSizeY))
+                                {
+                                    if (indexOfWesternNeighbour != -1)
+                                    {
+                                        int transformedX = mod.moduleAreasObjects[indexOfWesternNeighbour].MapSizeX + x + xS;
+                                        int transformedY = y + yS;
+                                        tileCaster = mod.moduleAreasObjects[indexOfWesternNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfWesternNeighbour].MapSizeX + transformedX];
+
+                                        //tile.numberOfHeightLevelsThisTileisHigherThanNeighbourE = tileCaster.heightLevel - tile.heightLevel;
+                                        //casts shadow and is no ramp
+                                        /*
+                                        if ((tileCaster.isShadowCaster) && (!tileCaster.isRamp))
+                                        {
+                                            //check for long shadows
+                                            if (tileCaster.heightLevel == tile.heightLevel + 2)
+                                            {
+                                                if (yS == -1)
+                                                {
+                                                    tile.isInLongShadeNW = true;
+                                                }
+                                                if (yS == 0)
+                                                {
+                                                    tile.isInLongShadeW = true;
+                                                    tileCaster.hasHighlightE = true;
+                                                }
+                                                if (yS == 1)
+                                                {
+                                                    tile.isInLongShadeSW = true;
+                                                }
+                                            }
+
+                                            //check for short shadows
+                                            else if (tileCaster.heightLevel == tile.heightLevel + 1)
+                                            {
+                                                if (yS == -1)
+                                                {
+                                                    tile.isInShortShadeNW = true;
+                                                }
+                                                if (yS == 0)
+                                                {
+                                                    tile.isInShortShadeW = true;
+                                                    tileCaster.hasHighlightE = true;
+                                                }
+                                                if (yS == 1)
+                                                {
+                                                    tile.isInShortShadeSW = true;
+                                                }
+                                            }
+
+                                            /*
+                                            //check if caster tile is bottom of this ramp/tile
+                                            else if ((tileCaster.heightLevel == tile.heightLevel - 1) && (tile.isRamp))
+                                            {
+                                                if (yS == 0)
+                                                {
+                                                    tile.hasDownStairShadowW = true;
+                                                }
+                                            }
+
+
+                                        }
+                                        else if ((tileCaster.isShadowCaster) && (tileCaster.isRamp))
+                                        {
+                                            if (tileCaster.heightLevel == tile.heightLevel + 2)
+                                            {
+                                                if (yS == -1)
+                                                {
+                                                    tile.isInShortShadeNW = true;
+                                                }
+                                                if (yS == 0)
+                                                {
+                                                    //casting ramp is on western map here
+                                                    //so ramp has to be to either north or south
+                                                    if (tileCaster.hasDownStairShadowN)
+                                                    {
+                                                        tile.inRampShadowWest1Long = true;
+                                                    }
+                                                    if (tileCaster.hasDownStairShadowS)
+                                                    {
+                                                        tile.inRampShadowWest2Long = true;
+                                                    }
+                                                    if (tileCaster.hasDownStairShadowE)
+                                                    {
+                                                        tile.isInShortShadeW = true;
+                                                    }
+                                                    if (tileCaster.hasDownStairShadowW)
+                                                    {
+                                                        tile.isInLongShadeW = true;
+                                                    }
+                                                    tileCaster.hasHighlightE = true;
+                                                }
+                                                if (yS == 1)
+                                                {
+                                                    tile.isInShortShadeSW = true;
+                                                }
+                                            }
+
+                                            if (tileCaster.heightLevel == tile.heightLevel + 1)
+                                            {
+                                                if (yS == 0)
+                                                {
+                                                    //casting ramp is on western map here
+                                                    //so ramp has to be to either north or south
+                                                    if (tileCaster.hasDownStairShadowN)
+                                                    {
+                                                        tile.inRampShadowWest1Short = true;
+                                                    }
+                                                    if (tileCaster.hasDownStairShadowS)
+                                                    {
+                                                        tile.inRampShadowWest2Short = true;
+                                                    }
+                                                    tileCaster.hasHighlightE = true;
+                                                    //below constellation should not be allowed to build with new diretional ramps
+                                                    /*
+                                                    if (tileCaster.hasDownStairShadowW)
+                                                    {
+                                                        tile.isInShortShadeW = true;
+                                                        tileCaster.hasHighlightE = true;
+                                                    }
+
+
+                                                }
+                                            }
+                                        }
+                                        */
+                                    }
+                                }
+
+                                //caster tile on eastern map (non-diagonal)
+                                if ((x + xS >= gv.mod.currentArea.MapSizeX) && (y + yS >= 0) && (y + yS < gv.mod.currentArea.MapSizeY))
+                                {
+                                    if (indexOfEasternNeighbour != -1)
+                                    {
+                                        int transformedX = x + xS - gv.mod.currentArea.MapSizeX;
+                                        int transformedY = y + yS;
+                                        tileCaster = mod.moduleAreasObjects[indexOfEasternNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfEasternNeighbour].MapSizeX + transformedX];
+
+                                        //tile.numberOfHeightLevelsThisTileisHigherThanNeighbourW = tileCaster.heightLevel - tile.heightLevel;
+                                        /*
+                                        //casts shadow and is no ramp
+                                        if ((tileCaster.isShadowCaster) && (!tileCaster.isRamp))
+                                        {
+                                            //check for long shadows
+                                            if (tileCaster.heightLevel == tile.heightLevel + 2)
+                                            {
+                                                if (yS == -1)
+                                                {
+                                                    tile.isInLongShadeNE = true;
+                                                }
+                                                if (yS == 0)
+                                                {
+                                                    tile.isInLongShadeE = true;
+                                                    tileCaster.hasHighlightW = true;
+                                                }
+                                                if (yS == 1)
+                                                {
+                                                    tile.isInLongShadeSE = true;
+                                                }
+                                            }
+
+                                            //check for short shadows
+                                            else if (tileCaster.heightLevel == tile.heightLevel + 1)
+                                            {
+                                                if (yS == -1)
+                                                {
+                                                    tile.isInShortShadeNE = true;
+                                                }
+                                                if (yS == 0)
+                                                {
+                                                    tile.isInShortShadeE = true;
+                                                    tileCaster.hasHighlightW = true;
+                                                }
+                                                if (yS == 1)
+                                                {
+                                                    tile.isInShortShadeSE = true;
+                                                }
+                                            }
+
+                                            /*
+                                            //check if caster tile is bottom of this ramp/tile
+                                            else if ((tileCaster.heightLevel == tile.heightLevel - 1) && (tile.isRamp))
+                                            {
+                                                if (yS == 0)
+                                                {
+                                                    tile.hasDownStairShadowE = true;
+                                                }
+                                            }
+
+
+                                        }
+                                        else if ((tileCaster.isShadowCaster) && (tileCaster.isRamp))
+                                        {
+                                            if (tileCaster.heightLevel == tile.heightLevel + 2)
+                                            {
+                                                if (yS == -1)
+                                                {
+                                                    tile.isInShortShadeNE = true;
+                                                }
+                                                if (yS == 0)
+                                                {
+                                                    //casting ramp is on eastern map here
+                                                    //so ramp has to be to either north or south
+                                                    if (tileCaster.hasDownStairShadowN)
+                                                    {
+                                                        tile.inRampShadowEast3Long = true;
+                                                    }
+                                                    if (tileCaster.hasDownStairShadowS)
+                                                    {
+                                                        tile.inRampShadowEast4Long = true;
+                                                    }
+                                                    if (tileCaster.hasDownStairShadowW)
+                                                    {
+                                                        tile.isInShortShadeE = true;
+                                                    }
+                                                    if (tileCaster.hasDownStairShadowE)
+                                                    {
+                                                        tile.isInLongShadeE = true;
+                                                    }
+                                                    tileCaster.hasHighlightW = true;
+                                                }
+
+                                                if (yS == 1)
+                                                {
+                                                    tile.isInShortShadeSE = true;
+                                                }
+                                            }
+                                        }
+
+                                        if (tileCaster.heightLevel == tile.heightLevel + 1)
+                                        {
+                                            if (yS == 0)
+                                            {
+                                                //casting ramp is on western map here
+                                                //so ramp has to be to either north or south
+                                                if (tileCaster.hasDownStairShadowN)
+                                                {
+                                                    tile.inRampShadowEast3Short = true;
+                                                }
+                                                if (tileCaster.hasDownStairShadowS)
+                                                {
+                                                    tile.inRampShadowEast4Short = true;
+                                                }
+                                                tileCaster.hasHighlightW = true;
+                                            }
+                                        }
+                                        */
+                                    }
+                                }
+
+                                //caster tile on southern map (non-diagonal)
+                                if ((y + yS >= gv.mod.currentArea.MapSizeY) && (x + xS >= 0) && (x + xS < gv.mod.currentArea.MapSizeX))
+                                {
+                                    if (indexOfSouthernNeighbour != -1)
+                                    {
+                                        int transformedX = x + xS;
+                                        int transformedY = y + yS - gv.mod.currentArea.MapSizeY;
+                                        tileCaster = mod.moduleAreasObjects[indexOfSouthernNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfSouthernNeighbour].MapSizeX + transformedX];
+
+                                        /*
+                                        //tile.numberOfHeightLevelsThisTileisHigherThanNeighbourN = tileCaster.heightLevel - tile.heightLevel;
+                                        //casts shadow and is no ramp
+                                        if ((tileCaster.isShadowCaster) && (!tileCaster.isRamp))
+                                        {
+                                            //check for long shadows
+                                            if (tileCaster.heightLevel == tile.heightLevel + 2)
+                                            {
+                                                if (xS == -1)
+                                                {
+                                                    tile.isInLongShadeSW = true;
+                                                }
+                                                if (yS == 0)
+                                                {
+                                                    tile.isInLongShadeS = true;
+                                                    tileCaster.hasHighlightN = true;
+                                                }
+                                                if (xS == 1)
+                                                {
+                                                    tile.isInLongShadeSE = true;
+                                                }
+                                            }
+
+                                            //check for short shadows
+                                            else if (tileCaster.heightLevel == tile.heightLevel + 1)
+                                            {
+                                                if (xS == -1)
+                                                {
+                                                    tile.isInShortShadeSW = true;
+                                                }
+                                                if (xS == 0)
+                                                {
+                                                    tile.isInShortShadeS = true;
+                                                    tileCaster.hasHighlightN = true;
+                                                }
+                                                if (xS == 1)
+                                                {
+                                                    tile.isInShortShadeSE = true;
+                                                }
+                                            }
+
+                                            /*
+                                            //check if caster tile is bottom of this ramp/tile
+                                            else if ((tileCaster.heightLevel == tile.heightLevel - 1) && (tile.isRamp))
+                                            {
+                                                if (xS == 0)
+                                                {
+                                                    tile.hasDownStairShadowS = true;
+                                                }
+                                            }
+
+
+                                        }
+                                        else if ((tileCaster.isShadowCaster) && (tileCaster.isRamp))
+                                        {
+                                            if (tileCaster.heightLevel == tile.heightLevel + 2)
+                                            {
+                                                if (xS == -1)
+                                                {
+                                                    tile.isInShortShadeSW = true;
+                                                }
+                                                if (xS == 0)
+                                                {
+                                                    //casting ramp is on southern map here
+                                                    //so ramp has to be to either east or west
+                                                    if (tileCaster.hasDownStairShadowE)
+                                                    {
+                                                        tile.inRampShadowSouth7Long = true;
+                                                    }
+                                                    if (tileCaster.hasDownStairShadowW)
+                                                    {
+                                                        tile.inRampShadowSouth8Long = true;
+                                                    }
+                                                    if (tileCaster.hasDownStairShadowN)
+                                                    {
+                                                        tile.isInShortShadeS = true;
+                                                    }
+                                                    if (tileCaster.hasDownStairShadowS)
+                                                    {
+                                                        tile.isInLongShadeS = true;
+                                                    }
+                                                    tileCaster.hasHighlightN = true;
+                                                }
+                                                if (xS == 1)
+                                                {
+                                                    tile.isInShortShadeSE = true;
+                                                }
+                                            }
+
+                                            if (tileCaster.heightLevel == tile.heightLevel + 1)
+                                            {
+                                                if (xS == 0)
+                                                {
+                                                    //casting ramp is on western map here
+                                                    //so ramp has to be to either north or south
+                                                    if (tileCaster.hasDownStairShadowE)
+                                                    {
+                                                        tile.inRampShadowSouth7Short = true;
+                                                    }
+                                                    if (tileCaster.hasDownStairShadowW)
+                                                    {
+                                                        tile.inRampShadowSouth8Short = true;
+                                                    }
+                                                    tileCaster.hasHighlightN = true;
+                                                }
+                                            }
+                                        }
+
+                                    */
+                                    }
+                                }
+
+                                //caster tile on northern map (non-diagonal)
+                                if ((y + yS < 0) && (x + xS >= 0) && (x + xS < gv.mod.currentArea.MapSizeX))
+                                {
+                                    if (indexOfNorthernNeighbour != -1)
+                                    {
+                                        int transformedX = x + xS;
+                                        int transformedY = mod.moduleAreasObjects[indexOfNorthernNeighbour].MapSizeY + y + yS; ;
+                                        tileCaster = mod.moduleAreasObjects[indexOfNorthernNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfNorthernNeighbour].MapSizeX + transformedX];
+                                        //tile.numberOfHeightLevelsThisTileisHigherThanNeighbourS = tileCaster.heightLevel - tile.heightLevel;
+                                        /*
+                                        //casts shadow and is no ramp
+                                        if ((tileCaster.isShadowCaster) && (!tileCaster.isRamp))
+                                        {
+                                            //check for long shadows
+                                            if (tileCaster.heightLevel == tile.heightLevel + 2)
+                                            {
+                                                if (xS == -1)
+                                                {
+                                                    tile.isInLongShadeNW = true;
+                                                    //tile.isInShortShadeNW = false;
+                                                }
+                                                if (xS == 0)
+                                                {
+                                                    tile.isInLongShadeN = true;
+                                                    tileCaster.hasHighlightS = true;
+                                                    //tile.isInShortShadeN = false;
+                                                }
+                                                if (xS == 1)
+                                                {
+                                                    tile.isInLongShadeNE = true;
+                                                    //tile.isInShortShadeNE = false;
+                                                }
+                                            }
+
+                                            //check for short shadows
+                                            else if (tileCaster.heightLevel == tile.heightLevel + 1)
+                                            {
+                                                if (xS == -1)
+                                                {
+                                                    tile.isInShortShadeNW = true;
+                                                    //tile.isInLongShadeNW = false;
+                                                }
+                                                if (xS == 0)
+                                                {
+                                                    tile.isInShortShadeN = true;
+                                                    tileCaster.hasHighlightS = true;
+                                                    //tile.isInLongShadeN = false;
+                                                }
+                                                if (xS == 1)
+                                                {
+                                                    tile.isInShortShadeNE = true;
+                                                    //tile.isInLongShadeNE = false;
+                                                }
+                                            }
+
+                                            /*
+                                            //check if caster tile is bottom of this ramp/tile
+                                            else if ((tileCaster.heightLevel == tile.heightLevel - 1) && (tile.isRamp))
+                                            {
+                                                if (xS == 0)
+                                                {
+                                                    tile.hasDownStairShadowN = true;
+                                                }
+                                            }
+
+
+                                        }
+                                        else if ((tileCaster.isShadowCaster) && (tileCaster.isRamp))
+                                        {
+                                            if (tileCaster.heightLevel == tile.heightLevel + 2)
+                                            {
+                                                if (xS == -1)
+                                                {
+                                                    tile.isInShortShadeNW = true;
+                                                    //tile.isInShortShadeNW = false;
+                                                }
+                                                if (xS == 0)
+                                                {
+                                                    //casting ramp is on northern map here
+                                                    //so ramp has to be to either east or west
+                                                    if (tileCaster.hasDownStairShadowE)
+                                                    {
+                                                        tile.inRampShadowNorth5Long = true;
+                                                    }
+                                                    if (tileCaster.hasDownStairShadowW)
+                                                    {
+                                                        tile.inRampShadowNorth6Long = true;
+                                                    }
+                                                    if (tileCaster.hasDownStairShadowS)
+                                                    {
+                                                        tile.isInShortShadeN = true;
+                                                    }
+                                                    if (tileCaster.hasDownStairShadowN)
+                                                    {
+                                                        tile.isInLongShadeN = true;
+                                                    }
+
+                                                    tileCaster.hasHighlightS = true;
+                                                }
+                                                if (xS == 1)
+                                                {
+                                                    tile.isInShortShadeNE = true;
+                                                    //tile.isInShortShadeNE = false;
+                                                }
+                                            }
+
+                                            if (tileCaster.heightLevel == tile.heightLevel + 1)
+                                            {
+                                                if (xS == 0)
+                                                {
+                                                    //casting ramp is on western map here
+                                                    //so ramp has to be to either north or south
+                                                    if (tileCaster.hasDownStairShadowE)
+                                                    {
+                                                        tile.inRampShadowNorth5Short = true;
+                                                    }
+                                                    if (tileCaster.hasDownStairShadowW)
+                                                    {
+                                                        tile.inRampShadowNorth6Short = true;
+                                                    }
+                                                    tileCaster.hasHighlightS = true;
+                                                }
+                                            }
+                                        }
+                                        */
+                                    }
+                                }
+
+                                //caster tile is on this map
+                                //godorf
+
+                                if ((y + yS >= 0) && (y + yS < gv.mod.currentArea.MapSizeY) && (x + xS >= 0) && (x + xS < gv.mod.currentArea.MapSizeX))
+                                {
+                                    int transformedX = x + xS;
+                                    int transformedY = y + yS; ;
+                                    tileCaster = gv.mod.currentArea.Tiles[transformedY * gv.mod.currentArea.MapSizeX + transformedX];
+                                }
+
+                                int placebo = 0;
+                                if (placebo == 0)
+                                {
+                                    //int transformedX = x + xS;
+                                    //int transformedY = y + yS; ;
+                                    //tileCaster = gv.mod.currentArea.Tiles[transformedY * gv.mod.currentArea.MapSizeX + transformedX];
+
+                                    //get height level difference
+                                    if ((xS == 0) && (yS == -1))
+                                    {
+
+                                        tile.numberOfHeightLevelsThisTileisHigherThanNeighbourN = tile.heightLevel - tileCaster.heightLevel;
+                                    }
+
+                                    if ((xS == 1) && (yS == 0))
+                                    {
+
+                                        tile.numberOfHeightLevelsThisTileisHigherThanNeighbourE = tile.heightLevel - tileCaster.heightLevel;
+                                    }
+
+                                    if ((xS == 0) && (yS == 1))
+                                    {
+
+                                        tile.numberOfHeightLevelsThisTileisHigherThanNeighbourS = tile.heightLevel - tileCaster.heightLevel;
+                                    }
+
+                                    if ((xS == -1) && (yS == 0))
+                                    {
+
+                                        tile.numberOfHeightLevelsThisTileisHigherThanNeighbourW = tile.heightLevel - tileCaster.heightLevel;
+                                    }
+
+                                    //entrancelights: bridges, same height indoors
+                                    /*
+                                    if (tile.isEWBridge)
+                                    {
+                                        //north
+                                        if ((xS == 0) && (yS == -1))
+                                        {
+                                            tile.hasEntranceLightNorth = true;
+                                        }
+
+                                        //south
+                                        if ((xS == 0) && (yS == 1))
+                                        {
+                                            tile.hasEntranceLightSouth = true;
+                                        }
+                                    }
+
+                                    if (tile.isNSBridge)
+                                    {
+                                        //west
+                                        if ((xS == -1) && (yS == 0))
+                                        {
+                                            tile.hasEntranceLightWest = true;
+                                        }
+
+                                        //east
+                                        if ((xS == 1) && (yS == 0))
+                                        {
+                                            tile.hasEntranceLightEast = true;
+                                        }
+                                    }
+                                    */
+
+                                    //TODO: Add maxShade
+                                    //check max shades for all
+                                    if (tileCaster.heightLevel > tile.heightLevel + 2)
+                                    {
+                                        if ((xS == -1) && (yS == -1))
+                                        {
+                                            tile.isInMaxShadeNW = true;
+                                        }
+                                        if ((xS == 0) && (yS == -1))
+                                        {
+                                            tile.isInMaxShadeN = true;
+                                            tileCaster.hasHighlightS = true;
+                                            //tile.numberOfHeightLevelsThisTileisHigherThanNeighbourN = tile.heightLevel - tileCaster.heightLevel;
+                                        }
+                                        if ((xS == 1) && (yS == -1))
+                                        {
+                                            tile.isInMaxShadeNE = true;
+                                        }
+                                        if ((xS == 1) && (yS == 0))
+                                        {
+                                            tile.isInMaxShadeE = true;
+                                            tileCaster.hasHighlightW = true;
+                                            //tile.numberOfHeightLevelsThisTileisHigherThanNeighbourE = tile.heightLevel - tileCaster.heightLevel;
+                                        }
+                                        if ((xS == 1) && (yS == 1))
+                                        {
+                                            tile.isInMaxShadeSE = true;
+                                        }
+                                        if ((xS == 0) && (yS == 1))
+                                        {
+                                            tile.isInMaxShadeS = true;
+                                            tileCaster.hasHighlightN = true;
+                                            //tile.numberOfHeightLevelsThisTileisHigherThanNeighbourS = tile.heightLevel - tileCaster.heightLevel;
+                                        }
+                                        if ((xS == -1) && (yS == 1))
+                                        {
+                                            tile.isInMaxShadeSW = true;
+                                        }
+                                        if ((xS == -1) && (yS == 0))
+                                        {
+                                            tile.isInMaxShadeW = true;
+                                            tileCaster.hasHighlightE = true;
+                                            //tile.numberOfHeightLevelsThisTileisHigherThanNeighbourW = tile.heightLevel - tileCaster.heightLevel;
+                                        }
+                                    }
+
+
+                                    //casts shadow and is no ramp
+                                    if ((tileCaster.isShadowCaster) && (!tileCaster.isRamp))
+                                    {
+                                        //check for linked map and allow deep shadows even if height level difference is greater than 2
+                                        bool linkedMapException = false;
+
+                                        if ((tileCaster.heightLevel >= tile.heightLevel + 2) && gv.mod.currentArea.masterOfThisArea != "none")
+                                        {
+                                            linkedMapException = true;
+                                        }
+
+                                        //check for long shadows
+                                        if (tileCaster.heightLevel == tile.heightLevel + 2 || linkedMapException)
+                                        {
+                                            if ((xS == -1) && (yS == -1))
+                                            {
+                                                tile.isInLongShadeNW = true;
+                                            }
+                                            if ((xS == 0) && (yS == -1))
+                                            {
+                                                tile.isInLongShadeN = true;
+                                                tileCaster.hasHighlightS = true;
+                                                //tile.numberOfHeightLevelsThisTileisHigherThanNeighbourN = tile.heightLevel - tileCaster.heightLevel;
+                                            }
+                                            if ((xS == 1) && (yS == -1))
+                                            {
+                                                tile.isInLongShadeNE = true;
+                                            }
+                                            if ((xS == 1) && (yS == 0))
+                                            {
+                                                tile.isInLongShadeE = true;
+                                                tileCaster.hasHighlightW = true;
+                                                //tile.numberOfHeightLevelsThisTileisHigherThanNeighbourE = tile.heightLevel - tileCaster.heightLevel;
+                                            }
+                                            if ((xS == 1) && (yS == 1))
+                                            {
+                                                tile.isInLongShadeSE = true;
+                                            }
+                                            if ((xS == 0) && (yS == 1))
+                                            {
+                                                tile.isInLongShadeS = true;
+                                                tileCaster.hasHighlightN = true;
+                                                //tile.numberOfHeightLevelsThisTileisHigherThanNeighbourS = tile.heightLevel - tileCaster.heightLevel;
+                                            }
+                                            if ((xS == -1) && (yS == 1))
+                                            {
+                                                tile.isInLongShadeSW = true;
+                                            }
+                                            if ((xS == -1) && (yS == 0))
+                                            {
+                                                tile.isInLongShadeW = true;
+                                                tileCaster.hasHighlightE = true;
+                                                //tile.numberOfHeightLevelsThisTileisHigherThanNeighbourW = tile.heightLevel - tileCaster.heightLevel;
+                                            }
+                                        }
+
+                                        //check for short shadows
+                                        else if (tileCaster.heightLevel == tile.heightLevel + 1)
+                                        {
+                                            if ((xS == -1) && (yS == -1))
+                                            {
+                                                if ((tile.hasDownStairShadowN) || (tile.hasDownStairShadowW))
+                                                {
+                                                    tile.isInLongShadeNW = true;
+                                                    //tileCaster.hasHighlightS = true;
+                                                    //tile.numberOfHeightLevelsThisTileisHigherThanNeighbourN = tile.heightLevel - tileCaster.heightLevel;
+                                                }
+                                                else
+                                                {
+                                                    //if ((tile.hasDownStairShadowN) || (tile.hasDownStairShadowW))
+                                                    //{
+                                                    tile.isInShortShadeNW = true;
+                                                    //}
+                                                }
+                                            }
+                                            if ((xS == 0) && (yS == -1))
+                                            {
+                                                if (tile.hasDownStairShadowN)
+                                                {
+                                                    tile.isInLongShadeN = true;
+                                                    tileCaster.hasHighlightS = true;
+                                                    //tile.numberOfHeightLevelsThisTileisHigherThanNeighbourN = tile.heightLevel - tileCaster.heightLevel;
+                                                }
+                                                else
+                                                {
+                                                    tile.isInShortShadeN = true;
+                                                    tileCaster.hasHighlightS = true;
+                                                }
+                                            }
+                                            if ((xS == 1) && (yS == -1))
+                                            {
+                                                if ((tile.hasDownStairShadowN) || (tile.hasDownStairShadowE))
+                                                {
+                                                    tile.isInLongShadeNE = true;
+                                                    //tileCaster.hasHighlightS = true;
+                                                    //tile.numberOfHeightLevelsThisTileisHigherThanNeighbourN = tile.heightLevel - tileCaster.heightLevel;
+                                                }
+                                                else
+                                                {
+                                                    tile.isInShortShadeNE = true;
+                                                }
+                                            }
+                                            if ((xS == 1) && (yS == 0))
+                                            {
+                                                if (tile.hasDownStairShadowE)
+                                                {
+                                                    tile.isInLongShadeE = true;
+                                                    tileCaster.hasHighlightW = true;
+                                                    //tile.numberOfHeightLevelsThisTileisHigherThanNeighbourN = tile.heightLevel - tileCaster.heightLevel;
+                                                }
+                                                else
+                                                {
+                                                    tile.isInShortShadeE = true;
+                                                    tileCaster.hasHighlightW = true;
+                                                }
+                                                //tile.numberOfHeightLevelsThisTileisHigherThanNeighbourE = tile.heightLevel - tileCaster.heightLevel;
+                                            }
+                                            if ((xS == 1) && (yS == 1))
+                                            {
+                                                if ((tile.hasDownStairShadowS) || (tile.hasDownStairShadowE))
+                                                {
+                                                    tile.isInLongShadeSE = true;
+                                                    //tileCaster.hasHighlightS = true;
+                                                    //tile.numberOfHeightLevelsThisTileisHigherThanNeighbourN = tile.heightLevel - tileCaster.heightLevel;
+                                                }
+                                                else
+                                                {
+                                                    tile.isInShortShadeSE = true;
+                                                }
+                                            }
+                                            if ((xS == 0) && (yS == 1))
+                                            {
+                                                if (tile.hasDownStairShadowS)
+                                                {
+                                                    tile.isInLongShadeS = true;
+                                                    tileCaster.hasHighlightN = true;
+                                                    //tile.numberOfHeightLevelsThisTileisHigherThanNeighbourN = tile.heightLevel - tileCaster.heightLevel;
+                                                }
+                                                else
+                                                {
+                                                    tile.isInShortShadeS = true;
+                                                    tileCaster.hasHighlightN = true;
+                                                }
+                                                //tile.numberOfHeightLevelsThisTileisHigherThanNeighbourS = tile.heightLevel - tileCaster.heightLevel;
+                                            }
+                                            if ((xS == -1) && (yS == 1))
+                                            {
+                                                if ((tile.hasDownStairShadowS) || (tile.hasDownStairShadowW))
+                                                {
+                                                    tile.isInLongShadeSW = true;
+                                                    //tileCaster.hasHighlightS = true;
+                                                    //tile.numberOfHeightLevelsThisTileisHigherThanNeighbourN = tile.heightLevel - tileCaster.heightLevel;
+                                                }
+                                                else
+                                                {
+                                                    tile.isInShortShadeSW = true;
+                                                }
+                                            }
+                                            if ((xS == -1) && (yS == 0))
+                                            {
+                                                if (tile.hasDownStairShadowW)
+                                                {
+                                                    tile.isInLongShadeW = true;
+                                                    tileCaster.hasHighlightE = true;
+                                                    //tile.numberOfHeightLevelsThisTileisHigherThanNeighbourN = tile.heightLevel - tileCaster.heightLevel;
+                                                }
+                                                else
+                                                {
+                                                    tile.isInShortShadeW = true;
+                                                    tileCaster.hasHighlightE = true;
+                                                }
+                                                //tile.numberOfHeightLevelsThisTileisHigherThanNeighbourW = tile.heightLevel - tileCaster.heightLevel;
+                                            }
+                                        }
+
+                                        //check for shadows on low ramp parts of same height
+                                        else if (tileCaster.heightLevel == tile.heightLevel)
+                                        {
+                                            if ((xS == -1) && (yS == -1))
+                                            {
+                                                //tile.isInShortShadeNW = true;
+                                                //AddingNewEventArgs HERE
+                                                //breslauer
+                                                if (!tileCaster.isRamp)
+                                                {
+                                                    if (tile.hasDownStairShadowN || tile.hasDownStairShadowW)
+                                                    {
+                                                        tile.isInShortShadeNW = true;
+                                                    }
+                                                }
+                                            }
+                                            if ((xS == 0) && (yS == -1))
+                                            {
+                                                if (tile.hasDownStairShadowN)
+                                                {
+                                                    tile.isInShortShadeN = true;
+                                                    tileCaster.hasHighlightS = true;
+                                                }
+
+                                                if (!tileCaster.isRamp)
+                                                {
+                                                    if (tile.hasDownStairShadowN || tile.hasDownStairShadowW)
+                                                    {
+                                                        tile.isInShortShadeNW = true;
+                                                    }
+                                                }
+                                                //tile.numberOfHeightLevelsThisTileisHigherThanNeighbourN = tile.heightLevel - tileCaster.heightLevel;
+                                            }
+                                            if ((xS == 1) && (yS == -1))
+                                            {
+                                                if (!tileCaster.isRamp)
+                                                {
+                                                    if (tile.hasDownStairShadowN || tile.hasDownStairShadowE)
+                                                    {
+                                                        tile.isInShortShadeNE = true;
+                                                    }
+                                                }
+                                                //tile.isInShortShadeNE = true;
+                                            }
+                                            if ((xS == 1) && (yS == 0))
+                                            {
+                                                if (tile.hasDownStairShadowE)
+                                                {
+                                                    tile.isInShortShadeE = true;
+                                                    tileCaster.hasHighlightW = true;
+                                                }
+                                                //tile.numberOfHeightLevelsThisTileisHigherThanNeighbourE = tile.heightLevel - tileCaster.heightLevel;
+                                            }
+                                            if ((xS == 1) && (yS == 1))
+                                            {
+                                                //tile.isInShortShadeSE = true;
+                                                if (!tileCaster.isRamp)
+                                                {
+                                                    if (tile.hasDownStairShadowS || tile.hasDownStairShadowE)
+                                                    {
+                                                        tile.isInShortShadeSE = true;
+                                                    }
+                                                }
+                                            }
+                                            if ((xS == 0) && (yS == 1))
+                                            {
+                                                if (tile.hasDownStairShadowS)
+                                                {
+                                                    tile.isInShortShadeS = true;
+                                                    tileCaster.hasHighlightN = true;
+                                                    //tile.numberOfHeightLevelsThisTileisHigherThanNeighbourS = tile.heightLevel - tileCaster.heightLevel;
+                                                }
+                                            }
+                                            if ((xS == -1) && (yS == 1))
+                                            {
+                                                //tile.isInShortShadeSW = true;
+                                                if (!tileCaster.isRamp)
+                                                {
+                                                    if (tile.hasDownStairShadowS || tile.hasDownStairShadowW)
+                                                    {
+                                                        tile.isInShortShadeSW = true;
+                                                    }
+                                                }
+                                            }
+                                            if ((xS == -1) && (yS == 0))
+                                            {
+                                                if (tile.hasDownStairShadowW)
+                                                {
+                                                    tile.isInShortShadeW = true;
+                                                    tileCaster.hasHighlightE = true;
+                                                    //tile.numberOfHeightLevelsThisTileisHigherThanNeighbourW = tile.heightLevel - tileCaster.heightLevel;
+                                                }
+                                            }
+                                        }
+
+
+
+
+                                        /*
+                                        //check if caster tile is bottom of this ramp/tile
+                                        else if ((tileCaster.heightLevel == tile.heightLevel - 1) && (tile.isRamp))
+                                        {
+                                            if ((xS == 0) && (yS == -1))
+                                            {
+                                                tile.hasDownStairShadowN = true;
+                                            }
+                                            if ((xS == 1) && (yS == 0))
+                                            {
+                                                tile.hasDownStairShadowE = true;
+                                            }
+                                            if ((xS == 0) && (yS == 1))
+                                            {
+                                                tile.hasDownStairShadowS = true;
+                                            }
+                                            if ((xS == -1) && (yS == 0))
+                                            {
+                                                tile.hasDownStairShadowW = true;
+                                            }
+                                        }
+                                        */
+                                    }
+
+                                    //this is for the ramp casting shadow
+                                    //harmonie
+                                    else if ((tileCaster.isShadowCaster) && (tileCaster.isRamp))
+                                    {
+
+                                        //check for linked map and allow deep shadows even if height level difference is greater than 2
+                                        bool linkedMapException = false;
+
+                                        if ((tileCaster.heightLevel >= tile.heightLevel + 2) && gv.mod.currentArea.masterOfThisArea != "none")
+                                        {
+                                            linkedMapException = true;
+                                        }
+
+                                        if (tileCaster.heightLevel == tile.heightLevel + 2 || linkedMapException)
+                                        {
+                                            if ((xS == -1) && (yS == -1))
+                                            {
+                                                if (tileCaster.hasDownStairShadowN || tileCaster.hasDownStairShadowW)
+                                                {
+                                                    tile.isInLongShadeNW = true;
+                                                }
+                                                else
+                                                {
+                                                    tile.isInShortShadeNW = true;
+                                                }
+                                            }
+                                            if ((xS == 0) && (yS == -1))
+                                            {
+                                                //tile.isInShortShadeN = true;
+                                                tileCaster.hasHighlightS = true;
+                                                tileCaster.numberOfHeightLevelsThisTileisHigherThanNeighbourS = tileCaster.heightLevel - tile.heightLevel;
+                                                //enter northern map code from above here: 
+                                                if (tileCaster.hasDownStairShadowE)
+                                                {
+                                                    tile.inRampShadowNorth5Long = true;
+                                                }
+                                                if (tileCaster.hasDownStairShadowW)
+                                                {
+                                                    tile.inRampShadowNorth6Long = true;
+                                                }
+                                                if (tileCaster.hasDownStairShadowS)
+                                                {
+                                                    tile.isInShortShadeN = true;
+                                                }
+                                                if (tileCaster.hasDownStairShadowN)
+                                                {
+                                                    tile.isInLongShadeN = true;
+                                                }
+
+                                            }
+                                            if ((xS == 1) && (yS == -1))
+                                            {
+                                                if (tileCaster.hasDownStairShadowN || tileCaster.hasDownStairShadowE)
+                                                {
+                                                    tile.isInLongShadeNE = true;
+                                                }
+                                                else
+                                                {
+                                                    tile.isInShortShadeNE = true;
+                                                }
+                                            }
+                                            if ((xS == 1) && (yS == 0))
+                                            {
+                                                //tile.isInShortShadeE = true;
+                                                tileCaster.hasHighlightW = true;
+                                                tileCaster.numberOfHeightLevelsThisTileisHigherThanNeighbourW = tileCaster.heightLevel - tile.heightLevel;
+                                                //look for eastern map code above
+                                                if (tileCaster.hasDownStairShadowN)
+                                                {
+                                                    tile.inRampShadowEast3Long = true;
+                                                }
+                                                if (tileCaster.hasDownStairShadowS)
+                                                {
+                                                    tile.inRampShadowEast4Long = true;
+                                                }
+                                                if (tileCaster.hasDownStairShadowW)
+                                                {
+                                                    tile.isInShortShadeE = true;
+                                                }
+                                                if (tileCaster.hasDownStairShadowE)
+                                                {
+                                                    tile.isInLongShadeE = true;
+                                                }
+                                            }
+                                            if ((xS == 1) && (yS == 1))
+                                            {
+                                                if (tileCaster.hasDownStairShadowS || tileCaster.hasDownStairShadowE)
+                                                {
+                                                    tile.isInLongShadeSE = true;
+                                                }
+                                                else
+                                                {
+                                                    tile.isInShortShadeSE = true;
+                                                }
+                                            }
+                                            if ((xS == 0) && (yS == 1))
+                                            {
+                                                //tile.isInShortShadeS = true;
+                                                tileCaster.hasHighlightN = true;
+                                                tileCaster.numberOfHeightLevelsThisTileisHigherThanNeighbourN = tileCaster.heightLevel - tile.heightLevel;
+                                                //add southern map code here
+                                                if (tileCaster.hasDownStairShadowE)
+                                                {
+                                                    tile.inRampShadowSouth7Long = true;
+                                                }
+                                                if (tileCaster.hasDownStairShadowW)
+                                                {
+                                                    tile.inRampShadowSouth8Long = true;
+                                                }
+                                                if (tileCaster.hasDownStairShadowN)
+                                                {
+                                                    tile.isInShortShadeS = true;
+                                                }
+                                                if (tileCaster.hasDownStairShadowS)
+                                                {
+                                                    tile.isInLongShadeS = true;
+                                                }
+                                            }
+                                            if ((xS == -1) && (yS == 1))
+                                            {
+                                                if (tileCaster.hasDownStairShadowS || tileCaster.hasDownStairShadowW)
+                                                {
+                                                    tile.isInLongShadeSW = true;
+                                                }
+                                                else
+                                                {
+                                                    tile.isInShortShadeSW = true;
+                                                }
+                                            }
+                                            if ((xS == -1) && (yS == 0))
+                                            {
+                                                //tile.isInShortShadeW = true;
+                                                tileCaster.hasHighlightE = true;
+                                                tileCaster.numberOfHeightLevelsThisTileisHigherThanNeighbourE = tileCaster.heightLevel - tile.heightLevel;
+                                                //add western map code here
+                                                if (tileCaster.hasDownStairShadowN)
+                                                {
+                                                    tile.inRampShadowWest1Long = true;
+                                                }
+                                                if (tileCaster.hasDownStairShadowS)
+                                                {
+                                                    tile.inRampShadowWest2Long = true;
+                                                }
+                                                if (tileCaster.hasDownStairShadowE)
+                                                {
+                                                    tile.isInShortShadeW = true;
+                                                }
+                                                if (tileCaster.hasDownStairShadowW)
+                                                {
+                                                    tile.isInLongShadeW = true;
+                                                }
+                                            }
+                                        }
+
+                                        if (tileCaster.heightLevel == tile.heightLevel + 1)
+                                        {
+                                            if ((xS == -1) && (yS == -1))
+                                            {
+                                                if (tileCaster.hasDownStairShadowN || tileCaster.hasDownStairShadowW)
+                                                {
+                                                    tile.isInShortShadeNW = true;
+                                                }
+                                            }
+                                            if ((xS == 0) && (yS == -1))
+                                            {
+                                                //tile.isInShortShadeN = true;
+                                                //tileCaster.hasHighlightS = true;
+                                                tileCaster.numberOfHeightLevelsThisTileisHigherThanNeighbourS = tileCaster.heightLevel - tile.heightLevel;
+                                                //enter southern map code from above here: 
+                                                if (tileCaster.hasDownStairShadowE)
+                                                {
+                                                    tile.inRampShadowNorth5Short = true;
+                                                }
+                                                if (tileCaster.hasDownStairShadowW)
+                                                {
+                                                    tile.inRampShadowNorth6Short = true;
+                                                }
+                                                if (tileCaster.hasDownStairShadowN)
+                                                {
+                                                    tile.isInShortShadeN = true;
+                                                    tileCaster.hasHighlightS = true;
+                                                }
+                                                if (tileCaster.hasDownStairShadowS)
+                                                {
+                                                    if (tile.hasDownStairShadowN)
+                                                    {
+                                                        tile.isInShortShadeN = true;
+                                                    }
+                                                    if (tile.hasDownStairShadowE)
+                                                    {
+                                                        tile.inRampShadowNorth6Short = true;
+                                                    }
+                                                    if (tile.hasDownStairShadowW)
+                                                    {
+                                                        tile.inRampShadowNorth5Short = true;
+                                                    }
+                                                }
+                                            }
+                                            if ((xS == 1) && (yS == -1))
+                                            {
+                                                if (tileCaster.hasDownStairShadowN || tileCaster.hasDownStairShadowE)
+                                                {
+                                                    tile.isInShortShadeNE = true;
+                                                }
+                                            }
+                                            if ((xS == 1) && (yS == 0))
+                                            {
+                                                //tile.isInShortShadeE = true;
+                                                //tileCaster.hasHighlightW = true;
+                                                tileCaster.numberOfHeightLevelsThisTileisHigherThanNeighbourW = tileCaster.heightLevel - tile.heightLevel;
+                                                //look for eastern map code above
+
+                                                if (tileCaster.hasDownStairShadowN)
+                                                {
+                                                    if (tile.hasDownStairShadowE)
+                                                    {
+                                                        tile.inRampShadowEast3Long = true;
+                                                    }
+                                                    else
+                                                    {
+                                                        tile.inRampShadowEast3Short = true;
+                                                    }
+                                                }
+
+                                                if (tileCaster.hasDownStairShadowS)
+                                                {
+                                                    tile.inRampShadowEast4Short = true;
+                                                }
+                                                if (tileCaster.hasDownStairShadowE)
+                                                {
+                                                    tile.isInShortShadeE = true;
+                                                    tileCaster.hasHighlightW = true;
+                                                }
+
+                                                if (tileCaster.hasDownStairShadowW)
+                                                {
+                                                    if (tile.hasDownStairShadowE)
+                                                    {
+                                                        tile.isInShortShadeE = true;
+                                                    }
+                                                    if (tile.hasDownStairShadowN)
+                                                    {
+                                                        tile.inRampShadowEast4Short = true;
+                                                    }
+                                                    if (tile.hasDownStairShadowS)
+                                                    {
+                                                        tile.inRampShadowEast3Short = true;
+                                                    }
+                                                }
+
+                                                /*
+                                            //tile is ramp and 1 level higher
+                                            else
+                                            {
+                                                if (tileCaster.hasDownStairShadowN)
+                                                {
+                                                    if (tile.hasDownStairShadowE)
+                                                    {
+                                                        tile.inRampShadowEast3Long = true;
+                                                    }
+                                                    else
+                                                    {
+                                                        tile.inRampShadowEast3Short = true;
+                                                    }
+                                                }
+
+
+                                                if (tileCaster.hasDownStairShadowS)
+                                                {
+                                                    tile.inRampShadowEast4Short = true;
+                                                }
+                                                if (tileCaster.hasDownStairShadowE)
+                                                {
+                                                    tile.isInShortShadeE = true;
+                                                }
+                                            }
+                                            //gtx1080 add tile is ramp sitauations here, smae likely for two height levels difference an same height, too
+                                            */
+                                            }
+                                            if ((xS == 1) && (yS == 1))
+                                            {
+                                                if (tileCaster.hasDownStairShadowS || tileCaster.hasDownStairShadowE)
+                                                {
+                                                    tile.isInShortShadeSE = true;
+                                                }
+                                            }
+                                            if ((xS == 0) && (yS == 1))
+                                            {
+                                                //tile.isInShortShadeS = true;
+                                                //tileCaster.hasHighlightN = true;
+                                                tileCaster.numberOfHeightLevelsThisTileisHigherThanNeighbourN = tileCaster.heightLevel - tile.heightLevel;
+                                                //add southern map code here
+                                                //azraeli
+                                                if (tileCaster.hasDownStairShadowE)
+                                                {
+                                                    tile.inRampShadowSouth7Short = true;
+                                                }
+                                                if (tileCaster.hasDownStairShadowW)
+                                                {
+                                                    tile.inRampShadowSouth8Short = true;
+                                                }
+                                                if (tileCaster.hasDownStairShadowS)
+                                                {
+                                                    tile.isInShortShadeS = true;
+                                                    tileCaster.hasHighlightN = true;
+                                                }
+                                                if (tileCaster.hasDownStairShadowN)
+                                                {
+                                                    if (tile.hasDownStairShadowS)
+                                                    {
+                                                        tile.isInShortShadeS = true;
+                                                    }
+                                                    if (tile.hasDownStairShadowW)
+                                                    {
+                                                        tile.inRampShadowSouth7Short = true;
+                                                    }
+                                                    if (tile.hasDownStairShadowE)
+                                                    {
+                                                        tile.inRampShadowSouth8Short = true;
+                                                    }
+                                                }
+                                            }
+                                            if ((xS == -1) && (yS == 1))
+                                            {
+                                                if (tileCaster.hasDownStairShadowS || tileCaster.hasDownStairShadowW)
+                                                {
+                                                    tile.isInShortShadeSW = true;
+                                                }
+                                            }
+                                            if ((xS == -1) && (yS == 0))
+                                            {
+                                                //tile.isInShortShadeW = true;
+                                                //tileCaster.hasHighlightE = true;
+                                                tileCaster.numberOfHeightLevelsThisTileisHigherThanNeighbourE = tileCaster.heightLevel - tile.heightLevel;
+                                                //add western map code here
+                                                if (tileCaster.hasDownStairShadowN)
+                                                {
+                                                    tile.inRampShadowWest1Short = true;
+                                                }
+                                                if (tileCaster.hasDownStairShadowS)
+                                                {
+                                                    tile.inRampShadowWest2Short = true;
+                                                }
+                                                if (tileCaster.hasDownStairShadowW)
+                                                {
+                                                    tile.isInShortShadeW = true;
+                                                    tileCaster.hasHighlightE = true;
+                                                }
+                                                if (tileCaster.hasDownStairShadowE)
+                                                {
+                                                    if (tile.hasDownStairShadowW)
+                                                    {
+                                                        tile.isInShortShadeW = true;
+                                                    }
+                                                    if (tile.hasDownStairShadowN)
+                                                    {
+                                                        tile.inRampShadowWest2Short = true;
+                                                    }
+                                                    if (tile.hasDownStairShadowS)
+                                                    {
+                                                        tile.inRampShadowWest1Short = true;
+                                                    }
+                                                }
+                                            }
+                                        }
+
+                                        //upper RAMP part of neighbouring square casting on same level lower RAMP part of this square
+                                        //adding also other ramp to ramp shadows now
+                                        if (tileCaster.heightLevel == tile.heightLevel)
+                                        {
+                                            if (tile.isRamp)
+                                            {
+                                                //caster from the northwest
+                                                if ((xS == -1) && (yS == -1))
+                                                {
+
+                                                    if (tileCaster.hasDownStairShadowN || tileCaster.hasDownStairShadowW)
+                                                    {
+                                                        if (tile.hasDownStairShadowN || tile.hasDownStairShadowW)
+                                                        {
+                                                            tile.isInShortShadeNW = true;
+                                                        }
+                                                    }
+                                                }
+                                                //north
+                                                if ((xS == 0) && (yS == -1))
+                                                {
+                                                    //freedom
+                                                    //tile.isInShortShadeN = true;
+                                                    //tileCaster.hasHighlightS = true;
+                                                    //tileCaster.numberOfHeightLevelsThisTileisHigherThanNeighbourS = tileCaster.heightLevel - tile.heightLevel + 1;
+                                                    tile.numberOfHeightLevelsThisTileisHigherThanNeighbourN = -1;
+
+                                                    if (tileCaster.hasDownStairShadowN)
+                                                    {
+                                                        if (tile.hasDownStairShadowN)
+                                                        {
+                                                            tile.isInShortShadeN = true;
+                                                            tileCaster.hasHighlightS = true;
+                                                        }
+                                                        if (tile.hasDownStairShadowE || tile.hasDownStairShadowW)
+                                                        {
+                                                            tile.numberOfHeightLevelsThisTileisHigherThanNeighbourN = 0;
+                                                        }
+                                                    }
+
+                                                    if (tileCaster.hasDownStairShadowE)
+                                                    {
+                                                        if (tile.hasDownStairShadowN)
+                                                        {
+                                                            tile.numberOfHeightLevelsThisTileisHigherThanNeighbourN = -2;
+                                                        }
+
+                                                        if (tile.hasDownStairShadowW)
+                                                        {
+                                                            tile.inSmallStairNWHorizontal = true;
+                                                        }
+                                                    }
+                                                    if (tileCaster.hasDownStairShadowW)
+                                                    {
+                                                        if (tile.hasDownStairShadowN)
+                                                        {
+                                                            tile.numberOfHeightLevelsThisTileisHigherThanNeighbourN = -3;
+                                                        }
+
+                                                        if (tile.hasDownStairShadowE)
+                                                        {
+                                                            tile.inSmallStairNEHorizontal = true;
+                                                        }
+                                                    }
+
+                                                }
+
+                                                //NE
+                                                if ((xS == 1) && (yS == -1))
+                                                {
+                                                    if (tileCaster.hasDownStairShadowE || tileCaster.hasDownStairShadowN)
+                                                    {
+                                                        if (tile.hasDownStairShadowE || tile.hasDownStairShadowN)
+                                                        {
+                                                            tile.isInShortShadeNE = true;
+                                                        }
+                                                    }
+
+
+
+                                                    /*
+                                                    if (tileCaster.hasDownStairShadowE || tileCaster.hasDownStairShadowN)
+                                                    {
+                                                        if (tile.hasDownStairShadowN || tileCaster.hasDownStairShadowE)
+                                                        {
+                                                            tile.isInLongShadeNE = true;
+                                                        }
+                                                    }
+                                                    */
+
+                                                }
+
+                                                //E
+                                                if ((xS == 1) && (yS == 0))
+                                                {
+                                                    //tile.isInShortShadeE = true;
+                                                    //tileCaster.hasHighlightW = true;
+                                                    //tileCaster.numberOfHeightLevelsThisTileisHigherThanNeighbourW = tileCaster.heightLevel - tile.heightLevel + 1;
+                                                    tile.numberOfHeightLevelsThisTileisHigherThanNeighbourE = -1;
+                                                    if (tileCaster.hasDownStairShadowE)
+                                                    {
+                                                        if (tile.hasDownStairShadowE)
+                                                        {
+                                                            tile.isInShortShadeE = true;
+                                                            tileCaster.hasHighlightW = true;
+                                                        }
+                                                        if (tile.hasDownStairShadowN || tile.hasDownStairShadowS)
+                                                        {
+                                                            tile.numberOfHeightLevelsThisTileisHigherThanNeighbourE = 0;
+                                                        }
+                                                    }
+
+                                                    if (tileCaster.hasDownStairShadowN)
+                                                    {
+                                                        if (tile.hasDownStairShadowE)
+                                                        {
+                                                            tile.numberOfHeightLevelsThisTileisHigherThanNeighbourE = -2;
+                                                        }
+
+                                                        if (tile.hasDownStairShadowS)
+                                                        {
+                                                            tile.inSmallStairSEVertical = true;
+                                                        }
+                                                    }
+
+                                                    if (tileCaster.hasDownStairShadowS)
+                                                    {
+                                                        if (tile.hasDownStairShadowE)
+                                                        {
+                                                            tile.numberOfHeightLevelsThisTileisHigherThanNeighbourE = -3;
+                                                        }
+
+                                                        if (tile.hasDownStairShadowN)
+                                                        {
+                                                            tile.inSmallStairNEVertical = true;
+                                                        }
+
+                                                    }
+                                                }
+                                                //SE
+                                                if ((xS == 1) && (yS == 1))
+                                                {
+                                                    if (tileCaster.hasDownStairShadowE || tileCaster.hasDownStairShadowS)
+                                                    {
+                                                        if (tile.hasDownStairShadowE || tile.hasDownStairShadowS)
+                                                        {
+                                                            tile.isInShortShadeSE = true;
+                                                        }
+                                                    }
+
+                                                    /*
+                                                    if (tileCaster.hasDownStairShadowE || tileCaster.hasDownStairShadowS)
+                                                    {
+                                                        if (tile.hasDownStairShadowS || tileCaster.hasDownStairShadowE)
+                                                        {
+                                                            tile.isInLongShadeNE = true;
+                                                        }
+                                                    }
+                                                    */
+                                                    //tile.isInShortShadeSE = true;
+                                                }
+
+                                                //S
+                                                if ((xS == 0) && (yS == 1))
+                                                {
+                                                    //tile.isInShortShadeS = true;
+                                                    //tileCaster.hasHighlightN = true;
+                                                    //tileCaster.numberOfHeightLevelsThisTileisHigherThanNeighbourN = tileCaster.heightLevel - tile.heightLevel+1;
+                                                    tile.numberOfHeightLevelsThisTileisHigherThanNeighbourS = -1;
+                                                    if (tileCaster.hasDownStairShadowS)
+                                                    {
+                                                        if (tile.hasDownStairShadowS)
+                                                        {
+                                                            tile.isInShortShadeS = true;
+                                                            tileCaster.hasHighlightN = true;
+                                                        }
+                                                        if (tile.hasDownStairShadowE || tile.hasDownStairShadowW)
+                                                        {
+                                                            tile.numberOfHeightLevelsThisTileisHigherThanNeighbourS = 0;
+                                                        }
+                                                    }
+                                                    if (tileCaster.hasDownStairShadowE)
+                                                    {
+                                                        if (tile.hasDownStairShadowS)
+                                                        {
+                                                            tile.numberOfHeightLevelsThisTileisHigherThanNeighbourS = -2;
+                                                        }
+                                                        if (tile.hasDownStairShadowW)
+                                                        {
+                                                            tile.inSmallStairSWHorizontal = true;
+                                                        }
+                                                    }
+
+                                                    if (tileCaster.hasDownStairShadowW)
+                                                    {
+                                                        if (tile.hasDownStairShadowS)
+                                                        {
+                                                            tile.numberOfHeightLevelsThisTileisHigherThanNeighbourS = -3;
+                                                        }
+                                                        if (tile.hasDownStairShadowE)
+                                                        {
+                                                            tile.inSmallStairSEHorizontal = true;
+                                                        }
+                                                    }
+                                                }
+
+                                                //SW
+                                                if ((xS == -1) && (yS == 1))
+                                                {
+                                                    if (tileCaster.hasDownStairShadowW || tileCaster.hasDownStairShadowS)
+                                                    {
+                                                        if (tile.hasDownStairShadowW || tile.hasDownStairShadowS)
+                                                        {
+                                                            tile.isInShortShadeSW = true;
+                                                        }
+                                                    }
+
+                                                    /*
+                                                    if (tileCaster.hasDownStairShadowW || tileCaster.hasDownStairShadowS)
+                                                    {
+                                                        if (tile.hasDownStairShadowS || tileCaster.hasDownStairShadowW)
+                                                        {
+                                                            tile.isInLongShadeNE = true;
+                                                        }
+                                                    }
+                                                    */
+                                                    //tile.isInShortShadeSW = true;
+                                                }
+
+                                                //W
+                                                if ((xS == -1) && (yS == 0))
+                                                {
+                                                    //tile.isInShortShadeW = true;
+                                                    //tileCaster.hasHighlightE = true;
+                                                    //tileCaster.numberOfHeightLevelsThisTileisHigherThanNeighbourE = tileCaster.heightLevel - tile.heightLevel + 1;
+                                                    tile.numberOfHeightLevelsThisTileisHigherThanNeighbourW = -1;
+                                                    if (tileCaster.hasDownStairShadowW)
+                                                    {
+                                                        if (tile.hasDownStairShadowW)
+                                                        {
+                                                            tile.isInShortShadeW = true;
+                                                            tileCaster.hasHighlightE = true;
+                                                        }
+                                                        if (tile.hasDownStairShadowN || tile.hasDownStairShadowS)
+                                                        {
+                                                            tile.numberOfHeightLevelsThisTileisHigherThanNeighbourW = 0;
+                                                        }
+                                                    }
+
+                                                    if (tileCaster.hasDownStairShadowN)
+                                                    {
+                                                        if (tile.hasDownStairShadowW)
+                                                        {
+                                                            tile.numberOfHeightLevelsThisTileisHigherThanNeighbourW = -2;
+                                                        }
+
+                                                        if (tile.hasDownStairShadowS)
+                                                        {
+                                                            tile.inSmallStairSWVertical = true;
+                                                        }
+                                                    }
+
+                                                    if (tileCaster.hasDownStairShadowS)
+                                                    {
+                                                        if (tile.hasDownStairShadowW)
+                                                        {
+                                                            tile.numberOfHeightLevelsThisTileisHigherThanNeighbourW = -3;
+                                                        }
+
+                                                        if (tile.hasDownStairShadowN)
+                                                        {
+                                                            tile.inSmallStairNWVertical = true;
+                                                        }
+                                                    }
+                                                }
+                                            }
+
+                                        }//end
+
+                                    }
+
+                                }
+
+                            }
+                        }//try  
+                    }
+                }
+            }
+            #endregion
+            gv.mod.currentArea.averageHeightOnThisMap = heightSum / (gv.mod.currentArea.Tiles.Count);
+
+            //mod.moduleAreasObjects.Clear();
+        }
+
+        public void calculateHeightShadows(int centerX, int centerY, Area reshadowedArea)
+        {
+            //string filePath = prntForm._mainDirectory + "\\modules\\" + prntForm.mod.moduleName + "\\areas\\";
+            //mod.loadAreas(filePath, area);
+
+            #region Calculate Height Shadows
+
+            int indexOfNorthernNeighbour = -1;
+            int indexOfSouthernNeighbour = -1;
+            int indexOfEasternNeighbour = -1;
+            int indexOfWesternNeighbour = -1;
+            int indexOfNorthEasternNeighbour = -1;
+            int indexOfNorthWesternNeighbour = -1;
+            int indexOfSouthEasternNeighbour = -1;
+            int indexOfSouthWesternNeighbour = -1;
+
+            #region neighbours
+            if ((reshadowedArea.northernNeighbourArea != ""))
+            {
+                for (int i = 0; i < mod.moduleAreasObjects.Count; i++)
+                {
+                    if (mod.moduleAreasObjects[i].Filename == reshadowedArea.northernNeighbourArea)
+                    {
+                        indexOfNorthernNeighbour = i;
+                    }
+                }
+
+                if (mod.moduleAreasObjects[indexOfNorthernNeighbour].easternNeighbourArea != "")
+                {
+                    for (int i = 0; i < mod.moduleAreasObjects.Count; i++)
+                    {
+                        if (mod.moduleAreasObjects[i].Filename == mod.moduleAreasObjects[indexOfNorthernNeighbour].easternNeighbourArea)
+                        {
+                            indexOfNorthEasternNeighbour = i;
+                        }
+                    }
+                }
+
+                if (mod.moduleAreasObjects[indexOfNorthernNeighbour].westernNeighbourArea != "")
+                {
+                    for (int i = 0; i < mod.moduleAreasObjects.Count; i++)
+                    {
+                        if (mod.moduleAreasObjects[i].Filename == mod.moduleAreasObjects[indexOfNorthernNeighbour].westernNeighbourArea)
+                        {
+                            indexOfNorthWesternNeighbour = i;
+                        }
+                    }
+                }
+            }
+
+            if ((reshadowedArea.southernNeighbourArea != ""))
+            {
+                for (int i = 0; i < mod.moduleAreasObjects.Count; i++)
+                {
+                    if (mod.moduleAreasObjects[i].Filename == reshadowedArea.southernNeighbourArea)
+                    {
+                        indexOfSouthernNeighbour = i;
+                    }
+                }
+
+                if (mod.moduleAreasObjects[indexOfSouthernNeighbour].easternNeighbourArea != "")
+                {
+                    for (int i = 0; i < mod.moduleAreasObjects.Count; i++)
+                    {
+                        if (mod.moduleAreasObjects[i].Filename == mod.moduleAreasObjects[indexOfSouthernNeighbour].easternNeighbourArea)
+                        {
+                            indexOfSouthEasternNeighbour = i;
+                        }
+                    }
+                }
+
+                if (mod.moduleAreasObjects[indexOfSouthernNeighbour].westernNeighbourArea != "")
+                {
+
+                    for (int i = 0; i < mod.moduleAreasObjects.Count; i++)
+                    {
+                        if (mod.moduleAreasObjects[i].Filename == mod.moduleAreasObjects[indexOfSouthernNeighbour].westernNeighbourArea)
+                        {
+                            indexOfSouthWesternNeighbour = i;
+                        }
+                    }
+                }
+            }
+
+            if ((reshadowedArea.westernNeighbourArea != ""))
+            {
+                for (int i = 0; i < mod.moduleAreasObjects.Count; i++)
+                {
+                    if (mod.moduleAreasObjects[i].Filename == reshadowedArea.westernNeighbourArea)
+                    {
+                        indexOfWesternNeighbour = i;
+                    }
+                }
+
+                if (mod.moduleAreasObjects[indexOfWesternNeighbour].northernNeighbourArea != "")
+                {
+                    for (int i = 0; i < mod.moduleAreasObjects.Count; i++)
+                    {
+                        if (mod.moduleAreasObjects[i].Filename == mod.moduleAreasObjects[indexOfWesternNeighbour].northernNeighbourArea)
+                        {
+                            indexOfNorthWesternNeighbour = i;
+                        }
+                    }
+                }
+
+                if (mod.moduleAreasObjects[indexOfWesternNeighbour].southernNeighbourArea != "")
+                {
+
+                    for (int i = 0; i < mod.moduleAreasObjects.Count; i++)
+                    {
+                        if (mod.moduleAreasObjects[i].Filename == mod.moduleAreasObjects[indexOfWesternNeighbour].southernNeighbourArea)
+                        {
+                            indexOfSouthWesternNeighbour = i;
+                        }
+                    }
+                }
+            }
+
+            if ((reshadowedArea.easternNeighbourArea != ""))
+            {
+                for (int i = 0; i < mod.moduleAreasObjects.Count; i++)
+                {
+                    if (mod.moduleAreasObjects[i].Filename == reshadowedArea.easternNeighbourArea)
+                    {
+                        indexOfEasternNeighbour = i;
+                    }
+                }
+
+                if (mod.moduleAreasObjects[indexOfEasternNeighbour].northernNeighbourArea != "")
+                {
+                    for (int i = 0; i < mod.moduleAreasObjects.Count; i++)
+                    {
+                        if (mod.moduleAreasObjects[i].Filename == mod.moduleAreasObjects[indexOfEasternNeighbour].northernNeighbourArea)
+                        {
+                            indexOfNorthEasternNeighbour = i;
+                        }
+                    }
+                }
+
+                if (mod.moduleAreasObjects[indexOfEasternNeighbour].southernNeighbourArea != "")
+                {
+                    for (int i = 0; i < mod.moduleAreasObjects.Count; i++)
+                    {
+                        if (mod.moduleAreasObjects[i].Filename == mod.moduleAreasObjects[indexOfEasternNeighbour].southernNeighbourArea)
+                        {
+                            indexOfSouthEasternNeighbour = i;
+                        }
+                    }
+                }
+            }
+            #endregion
+
+            //reset the highlights on this map
+            for (int y = 0; y < reshadowedArea.MapSizeY; y++)
+            {
+                for (int x = 0; x < reshadowedArea.MapSizeX; x++)
+                {
+                    Tile tile = reshadowedArea.Tiles[y * reshadowedArea.MapSizeX + x];
+                    tile.hasHighlightN = false;
+                    tile.hasHighlightE = false;
+                    tile.hasHighlightS = false;
+                    tile.hasHighlightW = false;
+                }
+            }
+
+            if (indexOfNorthernNeighbour != -1)
+            {
+                for (int y = 0; y < mod.moduleAreasObjects[indexOfNorthernNeighbour].MapSizeY; y++)
+                {
+                    for (int x = 0; x < mod.moduleAreasObjects[indexOfNorthernNeighbour].MapSizeX; x++)
+                    {
+                        if (y == mod.moduleAreasObjects[indexOfNorthernNeighbour].MapSizeY - 1)
+                        {
+                            Tile tile = reshadowedArea.Tiles[y * reshadowedArea.MapSizeX + x];
+                            tile.hasHighlightS = false;
+                        }
+                    }
+                }
+            }
+
+            if (indexOfSouthernNeighbour != -1)
+            {
+                for (int y = 0; y < mod.moduleAreasObjects[indexOfSouthernNeighbour].MapSizeY; y++)
+                {
+                    for (int x = 0; x < mod.moduleAreasObjects[indexOfSouthernNeighbour].MapSizeX; x++)
+                    {
+                        if (y == 0)
+                        {
+                            Tile tile = reshadowedArea.Tiles[y * reshadowedArea.MapSizeX + x];
+                            tile.hasHighlightN = false;
+                        }
+                    }
+                }
+            }
+
+            if (indexOfEasternNeighbour != -1)
+            {
+                for (int y = 0; y < mod.moduleAreasObjects[indexOfEasternNeighbour].MapSizeY; y++)
+                {
+                    for (int x = 0; x < mod.moduleAreasObjects[indexOfEasternNeighbour].MapSizeX; x++)
+                    {
+                        if (x == 0)
+                        {
+                            Tile tile = reshadowedArea.Tiles[y * reshadowedArea.MapSizeX + x];
+                            tile.hasHighlightW = false;
+                        }
+                    }
+                }
+            }
+
+            if (indexOfWesternNeighbour != -1)
+            {
+                for (int y = 0; y < mod.moduleAreasObjects[indexOfWesternNeighbour].MapSizeY; y++)
+                {
+                    for (int x = 0; x < mod.moduleAreasObjects[indexOfWesternNeighbour].MapSizeX; x++)
+                    {
+                        if (x == mod.moduleAreasObjects[indexOfWesternNeighbour].MapSizeX - 1)
+                        {
+                            Tile tile = reshadowedArea.Tiles[y * reshadowedArea.MapSizeX + x];
+                            tile.hasHighlightE = false;
+                        }
+                    }
+                }
+            }
+            /*
+            //calculate height level differences
+            for (int y = 0; y < reshadowedArea.MapSizeY; y++)
+            {
+                for (int x = 0; x < reshadowedArea.MapSizeX; x++)
+                {
+                    Tile tile = reshadowedArea.Tiles[y * reshadowedArea.MapSizeX + x];
+                    for (int yS = -1; yS < 2; yS++)
+                    {
+                        for (int xS = -1; xS < 2; xS++)
+                        {
+
+
+                        }
+                    }
+                }
+            }
+            */
+            int heightSum = 0;
+            //go through tiles potentially in shade
+            for (int y = centerY - 1; y <= centerY + 1; y++)
+            {
+                for (int x = centerX - 1; x <= centerX + 1; x++)
+                {
+                    Tile tile = reshadowedArea.Tiles[y * reshadowedArea.MapSizeX + x];
+
+                    heightSum += tile.heightLevel;
+                    if (!tile.linkedToMasterMap || tile.linkedToMasterMap)
+                    {
+                        tile.isInShortShadeN = false;
+                        tile.isInShortShadeE = false;
+                        tile.isInShortShadeS = false;
+                        tile.isInShortShadeW = false;
+                        tile.isInShortShadeNE = false;
+                        tile.isInShortShadeSE = false;
+                        tile.isInShortShadeSW = false;
+                        tile.isInShortShadeNW = false;
+                        tile.isInLongShadeN = false;
+                        tile.isInLongShadeE = false;
+                        tile.isInLongShadeS = false;
+                        tile.isInLongShadeW = false;
+                        tile.isInLongShadeNE = false;
+                        tile.isInLongShadeSE = false;
+                        tile.isInLongShadeSW = false;
+                        tile.isInLongShadeNW = false;
+
+                        /*
+                        tile.hasEntranceLightNorth = false;
+                        tile.hasEntranceLightEast = false;
+                        tile.hasEntranceLightSouth = false;
+                        tile.hasEntranceLightWest = false;
+                        */
+
+                        tile.isInMaxShadeN = false;
+                        tile.isInMaxShadeE = false;
+                        tile.isInMaxShadeS = false;
+                        tile.isInMaxShadeW = false;
+                        tile.isInMaxShadeNE = false;
+                        tile.isInMaxShadeSE = false;
+                        tile.isInMaxShadeSW = false;
+                        tile.isInMaxShadeNW = false;
+
+                        tile.inRampShadowWest1Long = false;
+                        tile.inRampShadowWest1Short = false;
+                        tile.inRampShadowWest2Long = false;
+                        tile.inRampShadowWest2Short = false;
+                        tile.inRampShadowEast3Long = false;
+                        tile.inRampShadowEast3Short = false;
+                        tile.inRampShadowEast4Long = false;
+                        tile.inRampShadowEast4Short = false;
+                        tile.inRampShadowNorth5Long = false;
+                        tile.inRampShadowNorth5Short = false;
+                        tile.inRampShadowNorth6Long = false;
+                        tile.inRampShadowNorth6Short = false;
+                        tile.inRampShadowSouth7Long = false;
+                        tile.inRampShadowSouth7Short = false;
+                        tile.inRampShadowSouth8Long = false;
+                        tile.inRampShadowSouth8Short = false;
+
+                        tile.inSmallStairNEVertical = false;
+                        tile.inSmallStairNEHorizontal = false;
+                        tile.inSmallStairSEVertical = false;
+                        tile.inSmallStairSEHorizontal = false;
+                        tile.inSmallStairSWVertical = false;
+                        tile.inSmallStairSWHorizontal = false;
+                        tile.inSmallStairNWVertical = false;
+                        tile.inSmallStairNWHorizontal = false;
+
+
+                        //go through each potential shadow caster tile surrounding the potentially shaded tile
+                        for (int yS = -1; yS < 2; yS++)
+                        {
+                            for (int xS = -1; xS < 2; xS++)
+                            {
+                                //**********************************************************************************
+                                //int index = -1;
+                                Tile tileCaster = new Tile();
+
+                                //nine situations where a caster tile can be:
+                                //caster tile on north-western map (diagonal situation)
+                                if ((x + xS < 0) && (y + yS < 0))
+                                {
+                                    if (indexOfNorthWesternNeighbour != -1)
+                                    {
+                                        int transformedX = mod.moduleAreasObjects[indexOfNorthWesternNeighbour].MapSizeX + x + xS;
+                                        int transformedY = mod.moduleAreasObjects[indexOfNorthWesternNeighbour].MapSizeY + y + yS;
+                                        tileCaster = mod.moduleAreasObjects[indexOfNorthWesternNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfNorthWesternNeighbour].MapSizeX + transformedX];
+                                        /*
+                                        //casts shadow and is no ramp
+                                        if ((tileCaster.isShadowCaster) && (!tileCaster.isRamp))
+                                        {
+                                            //check for long shadows
+                                            if (tileCaster.heightLevel == tile.heightLevel + 2)
+                                            {
+                                                tile.isInLongShadeNW = true;
+                                            }
+
+                                            //check for short shadows
+                                            else if (tileCaster.heightLevel == tile.heightLevel + 1)
+                                            {
+                                                tile.isInShortShadeNW = true;
+                                            }
+
+                                        }
+                                        else if ((tileCaster.isShadowCaster) && (tileCaster.isRamp))
+                                        {
+                                            if (tileCaster.heightLevel == tile.heightLevel + 2)
+                                            {
+                                                tile.isInShortShadeNW = true;
+                                            }
+                                        }
+                                        */
+                                    }
+                                }
+
+                                //caster tile on south-western map (diagonal situation)
+                                if ((x + xS < 0) && (y + yS > reshadowedArea.MapSizeY - 1))
+                                {
+                                    if (indexOfSouthWesternNeighbour != -1)
+                                    {
+                                        int transformedX = mod.moduleAreasObjects[indexOfSouthWesternNeighbour].MapSizeX + x + xS;
+                                        int transformedY = y + yS - reshadowedArea.MapSizeY;
+                                        tileCaster = mod.moduleAreasObjects[indexOfSouthWesternNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfSouthWesternNeighbour].MapSizeX + transformedX];
+                                        /*
+                                        //casts shadow and is no ramp
+                                        if ((tileCaster.isShadowCaster) && (!tileCaster.isRamp))
+                                        {
+                                            //check for long shadows
+                                            if (tileCaster.heightLevel == tile.heightLevel + 2)
+                                            {
+                                                tile.isInLongShadeSW = true;
+                                            }
+
+                                            //check for short shadows
+                                            else if (tileCaster.heightLevel == tile.heightLevel + 1)
+                                            {
+                                                tile.isInShortShadeSW = true;
+                                            }
+                                        }
+                                        else if ((tileCaster.isShadowCaster) && (tileCaster.isRamp))
+                                        {
+                                            if (tileCaster.heightLevel == tile.heightLevel + 2)
+                                            {
+                                                tile.isInShortShadeSW = true;
+                                            }
+                                        }
+                                        /*
+                                        else if ((tileCaster.isShadowCaster) && (tileCaster.hasDownStairShadowE || tileCaster.hasDownStairShadowN))
+                                        {
+                                            if (tileCaster.heightLevel == tile.heightLevel + 2)
+                                            {
+                                                tile.isInShortShadeSW = true;
+                                            }
+                                        }
+                                        else if ((tileCaster.isShadowCaster) && (tileCaster.hasDownStairShadowE || tileCaster.hasDownStairShadowN))
+                                        {
+                                            if (tileCaster.heightLevel == tile.heightLevel + 2)
+                                            {
+                                                tile.isInLongShadeSW = true;
+                                            }
+                                            if (tileCaster.heightLevel == tile.heightLevel + 1)
+                                            {
+                                                tile.isInShortShadeSW = true;
+                                            }
+                                        }
+                                        */
+                                    }
+                                }
+
+
+                                //***********************
+                                //caster tile on south-eastern map (diagonal situation)
+                                if ((x + xS > reshadowedArea.MapSizeX - 1) && (y + yS > reshadowedArea.MapSizeY - 1))
+                                {
+                                    if (indexOfSouthEasternNeighbour != -1)
+                                    {
+                                        int transformedX = x + xS - reshadowedArea.MapSizeX;
+                                        int transformedY = y + yS - reshadowedArea.MapSizeY;
+                                        tileCaster = mod.moduleAreasObjects[indexOfSouthEasternNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfSouthEasternNeighbour].MapSizeX + transformedX];
+                                        /*
+                                        //casts shadow and is no ramp
+                                        if ((tileCaster.isShadowCaster) && (!tileCaster.isRamp))
+                                        {
+                                            //check for long shadows
+                                            if (tileCaster.heightLevel == tile.heightLevel + 2)
+                                            {
+                                                tile.isInLongShadeSE = true;
+                                            }
+
+                                            //check for short shadows
+                                            else if (tileCaster.heightLevel == tile.heightLevel + 1)
+                                            {
+                                                tile.isInShortShadeSE = true;
+                                            }
+
+                                        }
+                                        else if ((tileCaster.isShadowCaster) && (tileCaster.isRamp))
+                                        {
+                                            if (tileCaster.heightLevel == tile.heightLevel + 2)
+                                            {
+                                                tile.isInShortShadeSE = true;
+                                            }
+                                        }
+                                        */
+                                    }
+                                }
+
+                                //caster tile on north-eastern map (diagonal situation)
+                                if ((x + xS > reshadowedArea.MapSizeX - 1) && (y + yS < 0))
+                                {
+                                    if (indexOfNorthEasternNeighbour != -1)
+                                    {
+                                        int transformedX = x + xS - reshadowedArea.MapSizeX;
+                                        int transformedY = mod.moduleAreasObjects[indexOfNorthEasternNeighbour].MapSizeY + y + yS; ;
+                                        tileCaster = mod.moduleAreasObjects[indexOfNorthEasternNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfNorthEasternNeighbour].MapSizeX + transformedX];
+                                        /*
+                                        //casts shadow and is no ramp
+                                        if ((tileCaster.isShadowCaster) && (!tileCaster.isRamp))
+                                        {
+                                            //check for long shadows
+                                            if (tileCaster.heightLevel == tile.heightLevel + 2)
+                                            {
+                                                tile.isInLongShadeNE = true;
+                                            }
+
+                                            //check for short shadows
+                                            else if (tileCaster.heightLevel == tile.heightLevel + 1)
+                                            {
+                                                tile.isInShortShadeNE = true;
+                                            }
+
+                                        }
+                                        else if ((tileCaster.isShadowCaster) && (tileCaster.isRamp))
+                                        {
+                                            if (tileCaster.heightLevel == tile.heightLevel + 2)
+                                            {
+                                                tile.isInShortShadeNE = true;
+                                            }
+                                        }
+                                        */
+                                    }
+                                }
+
+                                //caster tile on western map (non-diagonal)
+                                if ((x + xS < 0) && (y + yS >= 0) && (y + yS < reshadowedArea.MapSizeY))
+                                {
+                                    if (indexOfWesternNeighbour != -1)
+                                    {
+                                        int transformedX = mod.moduleAreasObjects[indexOfWesternNeighbour].MapSizeX + x + xS;
+                                        int transformedY = y + yS;
+                                        tileCaster = mod.moduleAreasObjects[indexOfWesternNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfWesternNeighbour].MapSizeX + transformedX];
+
+                                        //tile.numberOfHeightLevelsThisTileisHigherThanNeighbourE = tileCaster.heightLevel - tile.heightLevel;
+                                        //casts shadow and is no ramp
+                                        /*
+                                        if ((tileCaster.isShadowCaster) && (!tileCaster.isRamp))
+                                        {
+                                            //check for long shadows
+                                            if (tileCaster.heightLevel == tile.heightLevel + 2)
+                                            {
+                                                if (yS == -1)
+                                                {
+                                                    tile.isInLongShadeNW = true;
+                                                }
+                                                if (yS == 0)
+                                                {
+                                                    tile.isInLongShadeW = true;
+                                                    tileCaster.hasHighlightE = true;
+                                                }
+                                                if (yS == 1)
+                                                {
+                                                    tile.isInLongShadeSW = true;
+                                                }
+                                            }
+
+                                            //check for short shadows
+                                            else if (tileCaster.heightLevel == tile.heightLevel + 1)
+                                            {
+                                                if (yS == -1)
+                                                {
+                                                    tile.isInShortShadeNW = true;
+                                                }
+                                                if (yS == 0)
+                                                {
+                                                    tile.isInShortShadeW = true;
+                                                    tileCaster.hasHighlightE = true;
+                                                }
+                                                if (yS == 1)
+                                                {
+                                                    tile.isInShortShadeSW = true;
+                                                }
+                                            }
+
+                                            /*
+                                            //check if caster tile is bottom of this ramp/tile
+                                            else if ((tileCaster.heightLevel == tile.heightLevel - 1) && (tile.isRamp))
+                                            {
+                                                if (yS == 0)
+                                                {
+                                                    tile.hasDownStairShadowW = true;
+                                                }
+                                            }
+
+
+                                        }
+                                        else if ((tileCaster.isShadowCaster) && (tileCaster.isRamp))
+                                        {
+                                            if (tileCaster.heightLevel == tile.heightLevel + 2)
+                                            {
+                                                if (yS == -1)
+                                                {
+                                                    tile.isInShortShadeNW = true;
+                                                }
+                                                if (yS == 0)
+                                                {
+                                                    //casting ramp is on western map here
+                                                    //so ramp has to be to either north or south
+                                                    if (tileCaster.hasDownStairShadowN)
+                                                    {
+                                                        tile.inRampShadowWest1Long = true;
+                                                    }
+                                                    if (tileCaster.hasDownStairShadowS)
+                                                    {
+                                                        tile.inRampShadowWest2Long = true;
+                                                    }
+                                                    if (tileCaster.hasDownStairShadowE)
+                                                    {
+                                                        tile.isInShortShadeW = true;
+                                                    }
+                                                    if (tileCaster.hasDownStairShadowW)
+                                                    {
+                                                        tile.isInLongShadeW = true;
+                                                    }
+                                                    tileCaster.hasHighlightE = true;
+                                                }
+                                                if (yS == 1)
+                                                {
+                                                    tile.isInShortShadeSW = true;
+                                                }
+                                            }
+
+                                            if (tileCaster.heightLevel == tile.heightLevel + 1)
+                                            {
+                                                if (yS == 0)
+                                                {
+                                                    //casting ramp is on western map here
+                                                    //so ramp has to be to either north or south
+                                                    if (tileCaster.hasDownStairShadowN)
+                                                    {
+                                                        tile.inRampShadowWest1Short = true;
+                                                    }
+                                                    if (tileCaster.hasDownStairShadowS)
+                                                    {
+                                                        tile.inRampShadowWest2Short = true;
+                                                    }
+                                                    tileCaster.hasHighlightE = true;
+                                                    //below constellation should not be allowed to build with new diretional ramps
+                                                    /*
+                                                    if (tileCaster.hasDownStairShadowW)
+                                                    {
+                                                        tile.isInShortShadeW = true;
+                                                        tileCaster.hasHighlightE = true;
+                                                    }
+
+
+                                                }
+                                            }
+                                        }
+                                        */
+                                    }
+                                }
+
+                                //caster tile on eastern map (non-diagonal)
+                                if ((x + xS >= reshadowedArea.MapSizeX) && (y + yS >= 0) && (y + yS < reshadowedArea.MapSizeY))
+                                {
+                                    if (indexOfEasternNeighbour != -1)
+                                    {
+                                        int transformedX = x + xS - reshadowedArea.MapSizeX;
+                                        int transformedY = y + yS;
+                                        tileCaster = mod.moduleAreasObjects[indexOfEasternNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfEasternNeighbour].MapSizeX + transformedX];
+
+                                        //tile.numberOfHeightLevelsThisTileisHigherThanNeighbourW = tileCaster.heightLevel - tile.heightLevel;
+                                        /*
+                                        //casts shadow and is no ramp
+                                        if ((tileCaster.isShadowCaster) && (!tileCaster.isRamp))
+                                        {
+                                            //check for long shadows
+                                            if (tileCaster.heightLevel == tile.heightLevel + 2)
+                                            {
+                                                if (yS == -1)
+                                                {
+                                                    tile.isInLongShadeNE = true;
+                                                }
+                                                if (yS == 0)
+                                                {
+                                                    tile.isInLongShadeE = true;
+                                                    tileCaster.hasHighlightW = true;
+                                                }
+                                                if (yS == 1)
+                                                {
+                                                    tile.isInLongShadeSE = true;
+                                                }
+                                            }
+
+                                            //check for short shadows
+                                            else if (tileCaster.heightLevel == tile.heightLevel + 1)
+                                            {
+                                                if (yS == -1)
+                                                {
+                                                    tile.isInShortShadeNE = true;
+                                                }
+                                                if (yS == 0)
+                                                {
+                                                    tile.isInShortShadeE = true;
+                                                    tileCaster.hasHighlightW = true;
+                                                }
+                                                if (yS == 1)
+                                                {
+                                                    tile.isInShortShadeSE = true;
+                                                }
+                                            }
+
+                                            /*
+                                            //check if caster tile is bottom of this ramp/tile
+                                            else if ((tileCaster.heightLevel == tile.heightLevel - 1) && (tile.isRamp))
+                                            {
+                                                if (yS == 0)
+                                                {
+                                                    tile.hasDownStairShadowE = true;
+                                                }
+                                            }
+
+
+                                        }
+                                        else if ((tileCaster.isShadowCaster) && (tileCaster.isRamp))
+                                        {
+                                            if (tileCaster.heightLevel == tile.heightLevel + 2)
+                                            {
+                                                if (yS == -1)
+                                                {
+                                                    tile.isInShortShadeNE = true;
+                                                }
+                                                if (yS == 0)
+                                                {
+                                                    //casting ramp is on eastern map here
+                                                    //so ramp has to be to either north or south
+                                                    if (tileCaster.hasDownStairShadowN)
+                                                    {
+                                                        tile.inRampShadowEast3Long = true;
+                                                    }
+                                                    if (tileCaster.hasDownStairShadowS)
+                                                    {
+                                                        tile.inRampShadowEast4Long = true;
+                                                    }
+                                                    if (tileCaster.hasDownStairShadowW)
+                                                    {
+                                                        tile.isInShortShadeE = true;
+                                                    }
+                                                    if (tileCaster.hasDownStairShadowE)
+                                                    {
+                                                        tile.isInLongShadeE = true;
+                                                    }
+                                                    tileCaster.hasHighlightW = true;
+                                                }
+
+                                                if (yS == 1)
+                                                {
+                                                    tile.isInShortShadeSE = true;
+                                                }
+                                            }
+                                        }
+
+                                        if (tileCaster.heightLevel == tile.heightLevel + 1)
+                                        {
+                                            if (yS == 0)
+                                            {
+                                                //casting ramp is on western map here
+                                                //so ramp has to be to either north or south
+                                                if (tileCaster.hasDownStairShadowN)
+                                                {
+                                                    tile.inRampShadowEast3Short = true;
+                                                }
+                                                if (tileCaster.hasDownStairShadowS)
+                                                {
+                                                    tile.inRampShadowEast4Short = true;
+                                                }
+                                                tileCaster.hasHighlightW = true;
+                                            }
+                                        }
+                                        */
+                                    }
+                                }
+
+                                //caster tile on southern map (non-diagonal)
+                                if ((y + yS >= reshadowedArea.MapSizeY) && (x + xS >= 0) && (x + xS < reshadowedArea.MapSizeX))
+                                {
+                                    if (indexOfSouthernNeighbour != -1)
+                                    {
+                                        int transformedX = x + xS;
+                                        int transformedY = y + yS - reshadowedArea.MapSizeY;
+                                        tileCaster = mod.moduleAreasObjects[indexOfSouthernNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfSouthernNeighbour].MapSizeX + transformedX];
+
+                                        /*
+                                        //tile.numberOfHeightLevelsThisTileisHigherThanNeighbourN = tileCaster.heightLevel - tile.heightLevel;
+                                        //casts shadow and is no ramp
+                                        if ((tileCaster.isShadowCaster) && (!tileCaster.isRamp))
+                                        {
+                                            //check for long shadows
+                                            if (tileCaster.heightLevel == tile.heightLevel + 2)
+                                            {
+                                                if (xS == -1)
+                                                {
+                                                    tile.isInLongShadeSW = true;
+                                                }
+                                                if (yS == 0)
+                                                {
+                                                    tile.isInLongShadeS = true;
+                                                    tileCaster.hasHighlightN = true;
+                                                }
+                                                if (xS == 1)
+                                                {
+                                                    tile.isInLongShadeSE = true;
+                                                }
+                                            }
+
+                                            //check for short shadows
+                                            else if (tileCaster.heightLevel == tile.heightLevel + 1)
+                                            {
+                                                if (xS == -1)
+                                                {
+                                                    tile.isInShortShadeSW = true;
+                                                }
+                                                if (xS == 0)
+                                                {
+                                                    tile.isInShortShadeS = true;
+                                                    tileCaster.hasHighlightN = true;
+                                                }
+                                                if (xS == 1)
+                                                {
+                                                    tile.isInShortShadeSE = true;
+                                                }
+                                            }
+
+                                            /*
+                                            //check if caster tile is bottom of this ramp/tile
+                                            else if ((tileCaster.heightLevel == tile.heightLevel - 1) && (tile.isRamp))
+                                            {
+                                                if (xS == 0)
+                                                {
+                                                    tile.hasDownStairShadowS = true;
+                                                }
+                                            }
+
+
+                                        }
+                                        else if ((tileCaster.isShadowCaster) && (tileCaster.isRamp))
+                                        {
+                                            if (tileCaster.heightLevel == tile.heightLevel + 2)
+                                            {
+                                                if (xS == -1)
+                                                {
+                                                    tile.isInShortShadeSW = true;
+                                                }
+                                                if (xS == 0)
+                                                {
+                                                    //casting ramp is on southern map here
+                                                    //so ramp has to be to either east or west
+                                                    if (tileCaster.hasDownStairShadowE)
+                                                    {
+                                                        tile.inRampShadowSouth7Long = true;
+                                                    }
+                                                    if (tileCaster.hasDownStairShadowW)
+                                                    {
+                                                        tile.inRampShadowSouth8Long = true;
+                                                    }
+                                                    if (tileCaster.hasDownStairShadowN)
+                                                    {
+                                                        tile.isInShortShadeS = true;
+                                                    }
+                                                    if (tileCaster.hasDownStairShadowS)
+                                                    {
+                                                        tile.isInLongShadeS = true;
+                                                    }
+                                                    tileCaster.hasHighlightN = true;
+                                                }
+                                                if (xS == 1)
+                                                {
+                                                    tile.isInShortShadeSE = true;
+                                                }
+                                            }
+
+                                            if (tileCaster.heightLevel == tile.heightLevel + 1)
+                                            {
+                                                if (xS == 0)
+                                                {
+                                                    //casting ramp is on western map here
+                                                    //so ramp has to be to either north or south
+                                                    if (tileCaster.hasDownStairShadowE)
+                                                    {
+                                                        tile.inRampShadowSouth7Short = true;
+                                                    }
+                                                    if (tileCaster.hasDownStairShadowW)
+                                                    {
+                                                        tile.inRampShadowSouth8Short = true;
+                                                    }
+                                                    tileCaster.hasHighlightN = true;
+                                                }
+                                            }
+                                        }
+
+                                    */
+                                    }
+                                }
+
+                                //caster tile on northern map (non-diagonal)
+                                if ((y + yS < 0) && (x + xS >= 0) && (x + xS < reshadowedArea.MapSizeX))
+                                {
+                                    if (indexOfNorthernNeighbour != -1)
+                                    {
+                                        int transformedX = x + xS;
+                                        int transformedY = mod.moduleAreasObjects[indexOfNorthernNeighbour].MapSizeY + y + yS; ;
+                                        tileCaster = mod.moduleAreasObjects[indexOfNorthernNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfNorthernNeighbour].MapSizeX + transformedX];
+                                        //tile.numberOfHeightLevelsThisTileisHigherThanNeighbourS = tileCaster.heightLevel - tile.heightLevel;
+                                        /*
+                                        //casts shadow and is no ramp
+                                        if ((tileCaster.isShadowCaster) && (!tileCaster.isRamp))
+                                        {
+                                            //check for long shadows
+                                            if (tileCaster.heightLevel == tile.heightLevel + 2)
+                                            {
+                                                if (xS == -1)
+                                                {
+                                                    tile.isInLongShadeNW = true;
+                                                    //tile.isInShortShadeNW = false;
+                                                }
+                                                if (xS == 0)
+                                                {
+                                                    tile.isInLongShadeN = true;
+                                                    tileCaster.hasHighlightS = true;
+                                                    //tile.isInShortShadeN = false;
+                                                }
+                                                if (xS == 1)
+                                                {
+                                                    tile.isInLongShadeNE = true;
+                                                    //tile.isInShortShadeNE = false;
+                                                }
+                                            }
+
+                                            //check for short shadows
+                                            else if (tileCaster.heightLevel == tile.heightLevel + 1)
+                                            {
+                                                if (xS == -1)
+                                                {
+                                                    tile.isInShortShadeNW = true;
+                                                    //tile.isInLongShadeNW = false;
+                                                }
+                                                if (xS == 0)
+                                                {
+                                                    tile.isInShortShadeN = true;
+                                                    tileCaster.hasHighlightS = true;
+                                                    //tile.isInLongShadeN = false;
+                                                }
+                                                if (xS == 1)
+                                                {
+                                                    tile.isInShortShadeNE = true;
+                                                    //tile.isInLongShadeNE = false;
+                                                }
+                                            }
+
+                                            /*
+                                            //check if caster tile is bottom of this ramp/tile
+                                            else if ((tileCaster.heightLevel == tile.heightLevel - 1) && (tile.isRamp))
+                                            {
+                                                if (xS == 0)
+                                                {
+                                                    tile.hasDownStairShadowN = true;
+                                                }
+                                            }
+
+
+                                        }
+                                        else if ((tileCaster.isShadowCaster) && (tileCaster.isRamp))
+                                        {
+                                            if (tileCaster.heightLevel == tile.heightLevel + 2)
+                                            {
+                                                if (xS == -1)
+                                                {
+                                                    tile.isInShortShadeNW = true;
+                                                    //tile.isInShortShadeNW = false;
+                                                }
+                                                if (xS == 0)
+                                                {
+                                                    //casting ramp is on northern map here
+                                                    //so ramp has to be to either east or west
+                                                    if (tileCaster.hasDownStairShadowE)
+                                                    {
+                                                        tile.inRampShadowNorth5Long = true;
+                                                    }
+                                                    if (tileCaster.hasDownStairShadowW)
+                                                    {
+                                                        tile.inRampShadowNorth6Long = true;
+                                                    }
+                                                    if (tileCaster.hasDownStairShadowS)
+                                                    {
+                                                        tile.isInShortShadeN = true;
+                                                    }
+                                                    if (tileCaster.hasDownStairShadowN)
+                                                    {
+                                                        tile.isInLongShadeN = true;
+                                                    }
+
+                                                    tileCaster.hasHighlightS = true;
+                                                }
+                                                if (xS == 1)
+                                                {
+                                                    tile.isInShortShadeNE = true;
+                                                    //tile.isInShortShadeNE = false;
+                                                }
+                                            }
+
+                                            if (tileCaster.heightLevel == tile.heightLevel + 1)
+                                            {
+                                                if (xS == 0)
+                                                {
+                                                    //casting ramp is on western map here
+                                                    //so ramp has to be to either north or south
+                                                    if (tileCaster.hasDownStairShadowE)
+                                                    {
+                                                        tile.inRampShadowNorth5Short = true;
+                                                    }
+                                                    if (tileCaster.hasDownStairShadowW)
+                                                    {
+                                                        tile.inRampShadowNorth6Short = true;
+                                                    }
+                                                    tileCaster.hasHighlightS = true;
+                                                }
+                                            }
+                                        }
+                                        */
+                                    }
+                                }
+
+                                //caster tile is on this map
+                                //godorf
+
+                                if ((y + yS >= 0) && (y + yS < reshadowedArea.MapSizeY) && (x + xS >= 0) && (x + xS < reshadowedArea.MapSizeX))
+                                {
+                                    int transformedX = x + xS;
+                                    int transformedY = y + yS; ;
+                                    tileCaster = reshadowedArea.Tiles[transformedY * reshadowedArea.MapSizeX + transformedX];
+                                }
+
+                                int placebo = 0;
+                                if (placebo == 0)
+                                {
+                                    //int transformedX = x + xS;
+                                    //int transformedY = y + yS; ;
+                                    //tileCaster = reshadowedArea.Tiles[transformedY * reshadowedArea.MapSizeX + transformedX];
+
+                                    //get height level difference
+                                    if ((xS == 0) && (yS == -1))
+                                    {
+
+                                        tile.numberOfHeightLevelsThisTileisHigherThanNeighbourN = tile.heightLevel - tileCaster.heightLevel;
+                                    }
+
+                                    if ((xS == 1) && (yS == 0))
+                                    {
+
+                                        tile.numberOfHeightLevelsThisTileisHigherThanNeighbourE = tile.heightLevel - tileCaster.heightLevel;
+                                    }
+
+                                    if ((xS == 0) && (yS == 1))
+                                    {
+
+                                        tile.numberOfHeightLevelsThisTileisHigherThanNeighbourS = tile.heightLevel - tileCaster.heightLevel;
+                                    }
+
+                                    if ((xS == -1) && (yS == 0))
+                                    {
+
+                                        tile.numberOfHeightLevelsThisTileisHigherThanNeighbourW = tile.heightLevel - tileCaster.heightLevel;
+                                    }
+
+                                    //entrancelights: bridges, same height indoors
+                                    /*
+                                    if (tile.isEWBridge)
+                                    {
+                                        //north
+                                        if ((xS == 0) && (yS == -1))
+                                        {
+                                            tile.hasEntranceLightNorth = true;
+                                        }
+
+                                        //south
+                                        if ((xS == 0) && (yS == 1))
+                                        {
+                                            tile.hasEntranceLightSouth = true;
+                                        }
+                                    }
+
+                                    if (tile.isNSBridge)
+                                    {
+                                        //west
+                                        if ((xS == -1) && (yS == 0))
+                                        {
+                                            tile.hasEntranceLightWest = true;
+                                        }
+
+                                        //east
+                                        if ((xS == 1) && (yS == 0))
+                                        {
+                                            tile.hasEntranceLightEast = true;
+                                        }
+                                    }
+                                    */
+
+                                    //TODO: Add maxShade
+                                    //check max shades for all
+                                    if (tileCaster.heightLevel > tile.heightLevel + 2)
+                                    {
+                                        if ((xS == -1) && (yS == -1))
+                                        {
+                                            tile.isInMaxShadeNW = true;
+                                        }
+                                        if ((xS == 0) && (yS == -1))
+                                        {
+                                            tile.isInMaxShadeN = true;
+                                            tileCaster.hasHighlightS = true;
+                                            //tile.numberOfHeightLevelsThisTileisHigherThanNeighbourN = tile.heightLevel - tileCaster.heightLevel;
+                                        }
+                                        if ((xS == 1) && (yS == -1))
+                                        {
+                                            tile.isInMaxShadeNE = true;
+                                        }
+                                        if ((xS == 1) && (yS == 0))
+                                        {
+                                            tile.isInMaxShadeE = true;
+                                            tileCaster.hasHighlightW = true;
+                                            //tile.numberOfHeightLevelsThisTileisHigherThanNeighbourE = tile.heightLevel - tileCaster.heightLevel;
+                                        }
+                                        if ((xS == 1) && (yS == 1))
+                                        {
+                                            tile.isInMaxShadeSE = true;
+                                        }
+                                        if ((xS == 0) && (yS == 1))
+                                        {
+                                            tile.isInMaxShadeS = true;
+                                            tileCaster.hasHighlightN = true;
+                                            //tile.numberOfHeightLevelsThisTileisHigherThanNeighbourS = tile.heightLevel - tileCaster.heightLevel;
+                                        }
+                                        if ((xS == -1) && (yS == 1))
+                                        {
+                                            tile.isInMaxShadeSW = true;
+                                        }
+                                        if ((xS == -1) && (yS == 0))
+                                        {
+                                            tile.isInMaxShadeW = true;
+                                            tileCaster.hasHighlightE = true;
+                                            //tile.numberOfHeightLevelsThisTileisHigherThanNeighbourW = tile.heightLevel - tileCaster.heightLevel;
+                                        }
+                                    }
+
+
+                                    //casts shadow and is no ramp
+                                    if ((tileCaster.isShadowCaster) && (!tileCaster.isRamp))
+                                    {
+                                        //check for linked map and allow deep shadows even if height level difference is greater than 2
+                                        bool linkedMapException = false;
+
+                                        if ((tileCaster.heightLevel >= tile.heightLevel + 2) && reshadowedArea.masterOfThisArea != "none")
+                                        {
+                                            linkedMapException = true;
+                                        }
+
+                                        //check for long shadows
+                                        if (tileCaster.heightLevel == tile.heightLevel + 2 || linkedMapException)
+                                        {
+                                            if ((xS == -1) && (yS == -1))
+                                            {
+                                                tile.isInLongShadeNW = true;
+                                            }
+                                            if ((xS == 0) && (yS == -1))
+                                            {
+                                                tile.isInLongShadeN = true;
+                                                tileCaster.hasHighlightS = true;
+                                                //tile.numberOfHeightLevelsThisTileisHigherThanNeighbourN = tile.heightLevel - tileCaster.heightLevel;
+                                            }
+                                            if ((xS == 1) && (yS == -1))
+                                            {
+                                                tile.isInLongShadeNE = true;
+                                            }
+                                            if ((xS == 1) && (yS == 0))
+                                            {
+                                                tile.isInLongShadeE = true;
+                                                tileCaster.hasHighlightW = true;
+                                                //tile.numberOfHeightLevelsThisTileisHigherThanNeighbourE = tile.heightLevel - tileCaster.heightLevel;
+                                            }
+                                            if ((xS == 1) && (yS == 1))
+                                            {
+                                                tile.isInLongShadeSE = true;
+                                            }
+                                            if ((xS == 0) && (yS == 1))
+                                            {
+                                                tile.isInLongShadeS = true;
+                                                tileCaster.hasHighlightN = true;
+                                                //tile.numberOfHeightLevelsThisTileisHigherThanNeighbourS = tile.heightLevel - tileCaster.heightLevel;
+                                            }
+                                            if ((xS == -1) && (yS == 1))
+                                            {
+                                                tile.isInLongShadeSW = true;
+                                            }
+                                            if ((xS == -1) && (yS == 0))
+                                            {
+                                                tile.isInLongShadeW = true;
+                                                tileCaster.hasHighlightE = true;
+                                                //tile.numberOfHeightLevelsThisTileisHigherThanNeighbourW = tile.heightLevel - tileCaster.heightLevel;
+                                            }
+                                        }
+
+                                        //check for short shadows
+                                        else if (tileCaster.heightLevel == tile.heightLevel + 1)
+                                        {
+                                            if ((xS == -1) && (yS == -1))
+                                            {
+                                                if ((tile.hasDownStairShadowN) || (tile.hasDownStairShadowW))
+                                                {
+                                                    tile.isInLongShadeNW = true;
+                                                    //tileCaster.hasHighlightS = true;
+                                                    //tile.numberOfHeightLevelsThisTileisHigherThanNeighbourN = tile.heightLevel - tileCaster.heightLevel;
+                                                }
+                                                else
+                                                {
+                                                    //if ((tile.hasDownStairShadowN) || (tile.hasDownStairShadowW))
+                                                    //{
+                                                    tile.isInShortShadeNW = true;
+                                                    //}
+                                                }
+                                            }
+                                            if ((xS == 0) && (yS == -1))
+                                            {
+                                                if (tile.hasDownStairShadowN)
+                                                {
+                                                    tile.isInLongShadeN = true;
+                                                    tileCaster.hasHighlightS = true;
+                                                    //tile.numberOfHeightLevelsThisTileisHigherThanNeighbourN = tile.heightLevel - tileCaster.heightLevel;
+                                                }
+                                                else
+                                                {
+                                                    tile.isInShortShadeN = true;
+                                                    tileCaster.hasHighlightS = true;
+                                                }
+                                            }
+                                            if ((xS == 1) && (yS == -1))
+                                            {
+                                                if ((tile.hasDownStairShadowN) || (tile.hasDownStairShadowE))
+                                                {
+                                                    tile.isInLongShadeNE = true;
+                                                    //tileCaster.hasHighlightS = true;
+                                                    //tile.numberOfHeightLevelsThisTileisHigherThanNeighbourN = tile.heightLevel - tileCaster.heightLevel;
+                                                }
+                                                else
+                                                {
+                                                    tile.isInShortShadeNE = true;
+                                                }
+                                            }
+                                            if ((xS == 1) && (yS == 0))
+                                            {
+                                                if (tile.hasDownStairShadowE)
+                                                {
+                                                    tile.isInLongShadeE = true;
+                                                    tileCaster.hasHighlightW = true;
+                                                    //tile.numberOfHeightLevelsThisTileisHigherThanNeighbourN = tile.heightLevel - tileCaster.heightLevel;
+                                                }
+                                                else
+                                                {
+                                                    tile.isInShortShadeE = true;
+                                                    tileCaster.hasHighlightW = true;
+                                                }
+                                                //tile.numberOfHeightLevelsThisTileisHigherThanNeighbourE = tile.heightLevel - tileCaster.heightLevel;
+                                            }
+                                            if ((xS == 1) && (yS == 1))
+                                            {
+                                                if ((tile.hasDownStairShadowS) || (tile.hasDownStairShadowE))
+                                                {
+                                                    tile.isInLongShadeSE = true;
+                                                    //tileCaster.hasHighlightS = true;
+                                                    //tile.numberOfHeightLevelsThisTileisHigherThanNeighbourN = tile.heightLevel - tileCaster.heightLevel;
+                                                }
+                                                else
+                                                {
+                                                    tile.isInShortShadeSE = true;
+                                                }
+                                            }
+                                            if ((xS == 0) && (yS == 1))
+                                            {
+                                                if (tile.hasDownStairShadowS)
+                                                {
+                                                    tile.isInLongShadeS = true;
+                                                    tileCaster.hasHighlightN = true;
+                                                    //tile.numberOfHeightLevelsThisTileisHigherThanNeighbourN = tile.heightLevel - tileCaster.heightLevel;
+                                                }
+                                                else
+                                                {
+                                                    tile.isInShortShadeS = true;
+                                                    tileCaster.hasHighlightN = true;
+                                                }
+                                                //tile.numberOfHeightLevelsThisTileisHigherThanNeighbourS = tile.heightLevel - tileCaster.heightLevel;
+                                            }
+                                            if ((xS == -1) && (yS == 1))
+                                            {
+                                                if ((tile.hasDownStairShadowS) || (tile.hasDownStairShadowW))
+                                                {
+                                                    tile.isInLongShadeSW = true;
+                                                    //tileCaster.hasHighlightS = true;
+                                                    //tile.numberOfHeightLevelsThisTileisHigherThanNeighbourN = tile.heightLevel - tileCaster.heightLevel;
+                                                }
+                                                else
+                                                {
+                                                    tile.isInShortShadeSW = true;
+                                                }
+                                            }
+                                            if ((xS == -1) && (yS == 0))
+                                            {
+                                                if (tile.hasDownStairShadowW)
+                                                {
+                                                    tile.isInLongShadeW = true;
+                                                    tileCaster.hasHighlightE = true;
+                                                    //tile.numberOfHeightLevelsThisTileisHigherThanNeighbourN = tile.heightLevel - tileCaster.heightLevel;
+                                                }
+                                                else
+                                                {
+                                                    tile.isInShortShadeW = true;
+                                                    tileCaster.hasHighlightE = true;
+                                                }
+                                                //tile.numberOfHeightLevelsThisTileisHigherThanNeighbourW = tile.heightLevel - tileCaster.heightLevel;
+                                            }
+                                        }
+
+                                        //check for shadows on low ramp parts of same height
+                                        else if (tileCaster.heightLevel == tile.heightLevel)
+                                        {
+                                            if ((xS == -1) && (yS == -1))
+                                            {
+                                                //tile.isInShortShadeNW = true;
+                                                //AddingNewEventArgs HERE
+                                                //breslauer
+                                                if (!tileCaster.isRamp)
+                                                {
+                                                    if (tile.hasDownStairShadowN || tile.hasDownStairShadowW)
+                                                    {
+                                                        tile.isInShortShadeNW = true;
+                                                    }
+                                                }
+                                            }
+                                            if ((xS == 0) && (yS == -1))
+                                            {
+                                                if (tile.hasDownStairShadowN)
+                                                {
+                                                    tile.isInShortShadeN = true;
+                                                    tileCaster.hasHighlightS = true;
+                                                }
+
+                                                if (!tileCaster.isRamp)
+                                                {
+                                                    if (tile.hasDownStairShadowN || tile.hasDownStairShadowW)
+                                                    {
+                                                        tile.isInShortShadeNW = true;
+                                                    }
+                                                }
+                                                //tile.numberOfHeightLevelsThisTileisHigherThanNeighbourN = tile.heightLevel - tileCaster.heightLevel;
+                                            }
+                                            if ((xS == 1) && (yS == -1))
+                                            {
+                                                if (!tileCaster.isRamp)
+                                                {
+                                                    if (tile.hasDownStairShadowN || tile.hasDownStairShadowE)
+                                                    {
+                                                        tile.isInShortShadeNE = true;
+                                                    }
+                                                }
+                                                //tile.isInShortShadeNE = true;
+                                            }
+                                            if ((xS == 1) && (yS == 0))
+                                            {
+                                                if (tile.hasDownStairShadowE)
+                                                {
+                                                    tile.isInShortShadeE = true;
+                                                    tileCaster.hasHighlightW = true;
+                                                }
+                                                //tile.numberOfHeightLevelsThisTileisHigherThanNeighbourE = tile.heightLevel - tileCaster.heightLevel;
+                                            }
+                                            if ((xS == 1) && (yS == 1))
+                                            {
+                                                //tile.isInShortShadeSE = true;
+                                                if (!tileCaster.isRamp)
+                                                {
+                                                    if (tile.hasDownStairShadowS || tile.hasDownStairShadowE)
+                                                    {
+                                                        tile.isInShortShadeSE = true;
+                                                    }
+                                                }
+                                            }
+                                            if ((xS == 0) && (yS == 1))
+                                            {
+                                                if (tile.hasDownStairShadowS)
+                                                {
+                                                    tile.isInShortShadeS = true;
+                                                    tileCaster.hasHighlightN = true;
+                                                    //tile.numberOfHeightLevelsThisTileisHigherThanNeighbourS = tile.heightLevel - tileCaster.heightLevel;
+                                                }
+                                            }
+                                            if ((xS == -1) && (yS == 1))
+                                            {
+                                                //tile.isInShortShadeSW = true;
+                                                if (!tileCaster.isRamp)
+                                                {
+                                                    if (tile.hasDownStairShadowS || tile.hasDownStairShadowW)
+                                                    {
+                                                        tile.isInShortShadeSW = true;
+                                                    }
+                                                }
+                                            }
+                                            if ((xS == -1) && (yS == 0))
+                                            {
+                                                if (tile.hasDownStairShadowW)
+                                                {
+                                                    tile.isInShortShadeW = true;
+                                                    tileCaster.hasHighlightE = true;
+                                                    //tile.numberOfHeightLevelsThisTileisHigherThanNeighbourW = tile.heightLevel - tileCaster.heightLevel;
+                                                }
+                                            }
+                                        }
+
+
+
+
+                                        /*
+                                        //check if caster tile is bottom of this ramp/tile
+                                        else if ((tileCaster.heightLevel == tile.heightLevel - 1) && (tile.isRamp))
+                                        {
+                                            if ((xS == 0) && (yS == -1))
+                                            {
+                                                tile.hasDownStairShadowN = true;
+                                            }
+                                            if ((xS == 1) && (yS == 0))
+                                            {
+                                                tile.hasDownStairShadowE = true;
+                                            }
+                                            if ((xS == 0) && (yS == 1))
+                                            {
+                                                tile.hasDownStairShadowS = true;
+                                            }
+                                            if ((xS == -1) && (yS == 0))
+                                            {
+                                                tile.hasDownStairShadowW = true;
+                                            }
+                                        }
+                                        */
+                                    }
+
+                                    //this is for the ramp casting shadow
+                                    //harmonie
+                                    else if ((tileCaster.isShadowCaster) && (tileCaster.isRamp))
+                                    {
+
+                                        //check for linked map and allow deep shadows even if height level difference is greater than 2
+                                        bool linkedMapException = false;
+
+                                        if ((tileCaster.heightLevel >= tile.heightLevel + 2) && reshadowedArea.masterOfThisArea != "none")
+                                        {
+                                            linkedMapException = true;
+                                        }
+
+                                        if (tileCaster.heightLevel == tile.heightLevel + 2 || linkedMapException)
+                                        {
+                                            if ((xS == -1) && (yS == -1))
+                                            {
+                                                if (tileCaster.hasDownStairShadowN || tileCaster.hasDownStairShadowW)
+                                                {
+                                                    tile.isInLongShadeNW = true;
+                                                }
+                                                else
+                                                {
+                                                    tile.isInShortShadeNW = true;
+                                                }
+                                            }
+                                            if ((xS == 0) && (yS == -1))
+                                            {
+                                                //tile.isInShortShadeN = true;
+                                                tileCaster.hasHighlightS = true;
+                                                tileCaster.numberOfHeightLevelsThisTileisHigherThanNeighbourS = tileCaster.heightLevel - tile.heightLevel;
+                                                //enter northern map code from above here: 
+                                                if (tileCaster.hasDownStairShadowE)
+                                                {
+                                                    tile.inRampShadowNorth5Long = true;
+                                                }
+                                                if (tileCaster.hasDownStairShadowW)
+                                                {
+                                                    tile.inRampShadowNorth6Long = true;
+                                                }
+                                                if (tileCaster.hasDownStairShadowS)
+                                                {
+                                                    tile.isInShortShadeN = true;
+                                                }
+                                                if (tileCaster.hasDownStairShadowN)
+                                                {
+                                                    tile.isInLongShadeN = true;
+                                                }
+
+                                            }
+                                            if ((xS == 1) && (yS == -1))
+                                            {
+                                                if (tileCaster.hasDownStairShadowN || tileCaster.hasDownStairShadowE)
+                                                {
+                                                    tile.isInLongShadeNE = true;
+                                                }
+                                                else
+                                                {
+                                                    tile.isInShortShadeNE = true;
+                                                }
+                                            }
+                                            if ((xS == 1) && (yS == 0))
+                                            {
+                                                //tile.isInShortShadeE = true;
+                                                tileCaster.hasHighlightW = true;
+                                                tileCaster.numberOfHeightLevelsThisTileisHigherThanNeighbourW = tileCaster.heightLevel - tile.heightLevel;
+                                                //look for eastern map code above
+                                                if (tileCaster.hasDownStairShadowN)
+                                                {
+                                                    tile.inRampShadowEast3Long = true;
+                                                }
+                                                if (tileCaster.hasDownStairShadowS)
+                                                {
+                                                    tile.inRampShadowEast4Long = true;
+                                                }
+                                                if (tileCaster.hasDownStairShadowW)
+                                                {
+                                                    tile.isInShortShadeE = true;
+                                                }
+                                                if (tileCaster.hasDownStairShadowE)
+                                                {
+                                                    tile.isInLongShadeE = true;
+                                                }
+                                            }
+                                            if ((xS == 1) && (yS == 1))
+                                            {
+                                                if (tileCaster.hasDownStairShadowS || tileCaster.hasDownStairShadowE)
+                                                {
+                                                    tile.isInLongShadeSE = true;
+                                                }
+                                                else
+                                                {
+                                                    tile.isInShortShadeSE = true;
+                                                }
+                                            }
+                                            if ((xS == 0) && (yS == 1))
+                                            {
+                                                //tile.isInShortShadeS = true;
+                                                tileCaster.hasHighlightN = true;
+                                                tileCaster.numberOfHeightLevelsThisTileisHigherThanNeighbourN = tileCaster.heightLevel - tile.heightLevel;
+                                                //add southern map code here
+                                                if (tileCaster.hasDownStairShadowE)
+                                                {
+                                                    tile.inRampShadowSouth7Long = true;
+                                                }
+                                                if (tileCaster.hasDownStairShadowW)
+                                                {
+                                                    tile.inRampShadowSouth8Long = true;
+                                                }
+                                                if (tileCaster.hasDownStairShadowN)
+                                                {
+                                                    tile.isInShortShadeS = true;
+                                                }
+                                                if (tileCaster.hasDownStairShadowS)
+                                                {
+                                                    tile.isInLongShadeS = true;
+                                                }
+                                            }
+                                            if ((xS == -1) && (yS == 1))
+                                            {
+                                                if (tileCaster.hasDownStairShadowS || tileCaster.hasDownStairShadowW)
+                                                {
+                                                    tile.isInLongShadeSW = true;
+                                                }
+                                                else
+                                                {
+                                                    tile.isInShortShadeSW = true;
+                                                }
+                                            }
+                                            if ((xS == -1) && (yS == 0))
+                                            {
+                                                //tile.isInShortShadeW = true;
+                                                tileCaster.hasHighlightE = true;
+                                                tileCaster.numberOfHeightLevelsThisTileisHigherThanNeighbourE = tileCaster.heightLevel - tile.heightLevel;
+                                                //add western map code here
+                                                if (tileCaster.hasDownStairShadowN)
+                                                {
+                                                    tile.inRampShadowWest1Long = true;
+                                                }
+                                                if (tileCaster.hasDownStairShadowS)
+                                                {
+                                                    tile.inRampShadowWest2Long = true;
+                                                }
+                                                if (tileCaster.hasDownStairShadowE)
+                                                {
+                                                    tile.isInShortShadeW = true;
+                                                }
+                                                if (tileCaster.hasDownStairShadowW)
+                                                {
+                                                    tile.isInLongShadeW = true;
+                                                }
+                                            }
+                                        }
+
+                                        if (tileCaster.heightLevel == tile.heightLevel + 1)
+                                        {
+                                            if ((xS == -1) && (yS == -1))
+                                            {
+                                                if (tileCaster.hasDownStairShadowN || tileCaster.hasDownStairShadowW)
+                                                {
+                                                    tile.isInShortShadeNW = true;
+                                                }
+                                            }
+                                            if ((xS == 0) && (yS == -1))
+                                            {
+                                                //tile.isInShortShadeN = true;
+                                                //tileCaster.hasHighlightS = true;
+                                                tileCaster.numberOfHeightLevelsThisTileisHigherThanNeighbourS = tileCaster.heightLevel - tile.heightLevel;
+                                                //enter southern map code from above here: 
+                                                if (tileCaster.hasDownStairShadowE)
+                                                {
+                                                    tile.inRampShadowNorth5Short = true;
+                                                }
+                                                if (tileCaster.hasDownStairShadowW)
+                                                {
+                                                    tile.inRampShadowNorth6Short = true;
+                                                }
+                                                if (tileCaster.hasDownStairShadowN)
+                                                {
+                                                    tile.isInShortShadeN = true;
+                                                    tileCaster.hasHighlightS = true;
+                                                }
+                                                if (tileCaster.hasDownStairShadowS)
+                                                {
+                                                    if (tile.hasDownStairShadowN)
+                                                    {
+                                                        tile.isInShortShadeN = true;
+                                                    }
+                                                    if (tile.hasDownStairShadowE)
+                                                    {
+                                                        tile.inRampShadowNorth6Short = true;
+                                                    }
+                                                    if (tile.hasDownStairShadowW)
+                                                    {
+                                                        tile.inRampShadowNorth5Short = true;
+                                                    }
+                                                }
+                                            }
+                                            if ((xS == 1) && (yS == -1))
+                                            {
+                                                if (tileCaster.hasDownStairShadowN || tileCaster.hasDownStairShadowE)
+                                                {
+                                                    tile.isInShortShadeNE = true;
+                                                }
+                                            }
+                                            if ((xS == 1) && (yS == 0))
+                                            {
+                                                //tile.isInShortShadeE = true;
+                                                //tileCaster.hasHighlightW = true;
+                                                tileCaster.numberOfHeightLevelsThisTileisHigherThanNeighbourW = tileCaster.heightLevel - tile.heightLevel;
+                                                //look for eastern map code above
+
+                                                if (tileCaster.hasDownStairShadowN)
+                                                {
+                                                    if (tile.hasDownStairShadowE)
+                                                    {
+                                                        tile.inRampShadowEast3Long = true;
+                                                    }
+                                                    else
+                                                    {
+                                                        tile.inRampShadowEast3Short = true;
+                                                    }
+                                                }
+
+                                                if (tileCaster.hasDownStairShadowS)
+                                                {
+                                                    tile.inRampShadowEast4Short = true;
+                                                }
+                                                if (tileCaster.hasDownStairShadowE)
+                                                {
+                                                    tile.isInShortShadeE = true;
+                                                    tileCaster.hasHighlightW = true;
+                                                }
+
+                                                if (tileCaster.hasDownStairShadowW)
+                                                {
+                                                    if (tile.hasDownStairShadowE)
+                                                    {
+                                                        tile.isInShortShadeE = true;
+                                                    }
+                                                    if (tile.hasDownStairShadowN)
+                                                    {
+                                                        tile.inRampShadowEast4Short = true;
+                                                    }
+                                                    if (tile.hasDownStairShadowS)
+                                                    {
+                                                        tile.inRampShadowEast3Short = true;
+                                                    }
+                                                }
+
+                                                /*
+                                            //tile is ramp and 1 level higher
+                                            else
+                                            {
+                                                if (tileCaster.hasDownStairShadowN)
+                                                {
+                                                    if (tile.hasDownStairShadowE)
+                                                    {
+                                                        tile.inRampShadowEast3Long = true;
+                                                    }
+                                                    else
+                                                    {
+                                                        tile.inRampShadowEast3Short = true;
+                                                    }
+                                                }
+
+
+                                                if (tileCaster.hasDownStairShadowS)
+                                                {
+                                                    tile.inRampShadowEast4Short = true;
+                                                }
+                                                if (tileCaster.hasDownStairShadowE)
+                                                {
+                                                    tile.isInShortShadeE = true;
+                                                }
+                                            }
+                                            //gtx1080 add tile is ramp sitauations here, smae likely for two height levels difference an same height, too
+                                            */
+                                            }
+                                            if ((xS == 1) && (yS == 1))
+                                            {
+                                                if (tileCaster.hasDownStairShadowS || tileCaster.hasDownStairShadowE)
+                                                {
+                                                    tile.isInShortShadeSE = true;
+                                                }
+                                            }
+                                            if ((xS == 0) && (yS == 1))
+                                            {
+                                                //tile.isInShortShadeS = true;
+                                                //tileCaster.hasHighlightN = true;
+                                                tileCaster.numberOfHeightLevelsThisTileisHigherThanNeighbourN = tileCaster.heightLevel - tile.heightLevel;
+                                                //add southern map code here
+                                                //azraeli
+                                                if (tileCaster.hasDownStairShadowE)
+                                                {
+                                                    tile.inRampShadowSouth7Short = true;
+                                                }
+                                                if (tileCaster.hasDownStairShadowW)
+                                                {
+                                                    tile.inRampShadowSouth8Short = true;
+                                                }
+                                                if (tileCaster.hasDownStairShadowS)
+                                                {
+                                                    tile.isInShortShadeS = true;
+                                                    tileCaster.hasHighlightN = true;
+                                                }
+                                                if (tileCaster.hasDownStairShadowN)
+                                                {
+                                                    if (tile.hasDownStairShadowS)
+                                                    {
+                                                        tile.isInShortShadeS = true;
+                                                    }
+                                                    if (tile.hasDownStairShadowW)
+                                                    {
+                                                        tile.inRampShadowSouth7Short = true;
+                                                    }
+                                                    if (tile.hasDownStairShadowE)
+                                                    {
+                                                        tile.inRampShadowSouth8Short = true;
+                                                    }
+                                                }
+                                            }
+                                            if ((xS == -1) && (yS == 1))
+                                            {
+                                                if (tileCaster.hasDownStairShadowS || tileCaster.hasDownStairShadowW)
+                                                {
+                                                    tile.isInShortShadeSW = true;
+                                                }
+                                            }
+                                            if ((xS == -1) && (yS == 0))
+                                            {
+                                                //tile.isInShortShadeW = true;
+                                                //tileCaster.hasHighlightE = true;
+                                                tileCaster.numberOfHeightLevelsThisTileisHigherThanNeighbourE = tileCaster.heightLevel - tile.heightLevel;
+                                                //add western map code here
+                                                if (tileCaster.hasDownStairShadowN)
+                                                {
+                                                    tile.inRampShadowWest1Short = true;
+                                                }
+                                                if (tileCaster.hasDownStairShadowS)
+                                                {
+                                                    tile.inRampShadowWest2Short = true;
+                                                }
+                                                if (tileCaster.hasDownStairShadowW)
+                                                {
+                                                    tile.isInShortShadeW = true;
+                                                    tileCaster.hasHighlightE = true;
+                                                }
+                                                if (tileCaster.hasDownStairShadowE)
+                                                {
+                                                    if (tile.hasDownStairShadowW)
+                                                    {
+                                                        tile.isInShortShadeW = true;
+                                                    }
+                                                    if (tile.hasDownStairShadowN)
+                                                    {
+                                                        tile.inRampShadowWest2Short = true;
+                                                    }
+                                                    if (tile.hasDownStairShadowS)
+                                                    {
+                                                        tile.inRampShadowWest1Short = true;
+                                                    }
+                                                }
+                                            }
+                                        }
+
+                                        //upper RAMP part of neighbouring square casting on same level lower RAMP part of this square
+                                        //adding also other ramp to ramp shadows now
+                                        if (tileCaster.heightLevel == tile.heightLevel)
+                                        {
+                                            if (tile.isRamp)
+                                            {
+                                                //caster from the northwest
+                                                if ((xS == -1) && (yS == -1))
+                                                {
+
+                                                    if (tileCaster.hasDownStairShadowN || tileCaster.hasDownStairShadowW)
+                                                    {
+                                                        if (tile.hasDownStairShadowN || tile.hasDownStairShadowW)
+                                                        {
+                                                            tile.isInShortShadeNW = true;
+                                                        }
+                                                    }
+                                                }
+                                                //north
+                                                if ((xS == 0) && (yS == -1))
+                                                {
+                                                    //freedom
+                                                    //tile.isInShortShadeN = true;
+                                                    //tileCaster.hasHighlightS = true;
+                                                    //tileCaster.numberOfHeightLevelsThisTileisHigherThanNeighbourS = tileCaster.heightLevel - tile.heightLevel + 1;
+                                                    tile.numberOfHeightLevelsThisTileisHigherThanNeighbourN = -1;
+
+                                                    if (tileCaster.hasDownStairShadowN)
+                                                    {
+                                                        if (tile.hasDownStairShadowN)
+                                                        {
+                                                            tile.isInShortShadeN = true;
+                                                            tileCaster.hasHighlightS = true;
+                                                        }
+                                                        if (tile.hasDownStairShadowE || tile.hasDownStairShadowW)
+                                                        {
+                                                            tile.numberOfHeightLevelsThisTileisHigherThanNeighbourN = 0;
+                                                        }
+                                                    }
+
+                                                    if (tileCaster.hasDownStairShadowE)
+                                                    {
+                                                        if (tile.hasDownStairShadowN)
+                                                        {
+                                                            tile.numberOfHeightLevelsThisTileisHigherThanNeighbourN = -2;
+                                                        }
+
+                                                        if (tile.hasDownStairShadowW)
+                                                        {
+                                                            tile.inSmallStairNWHorizontal = true;
+                                                        }
+                                                    }
+                                                    if (tileCaster.hasDownStairShadowW)
+                                                    {
+                                                        if (tile.hasDownStairShadowN)
+                                                        {
+                                                            tile.numberOfHeightLevelsThisTileisHigherThanNeighbourN = -3;
+                                                        }
+
+                                                        if (tile.hasDownStairShadowE)
+                                                        {
+                                                            tile.inSmallStairNEHorizontal = true;
+                                                        }
+                                                    }
+
+                                                }
+
+                                                //NE
+                                                if ((xS == 1) && (yS == -1))
+                                                {
+                                                    if (tileCaster.hasDownStairShadowE || tileCaster.hasDownStairShadowN)
+                                                    {
+                                                        if (tile.hasDownStairShadowE || tile.hasDownStairShadowN)
+                                                        {
+                                                            tile.isInShortShadeNE = true;
+                                                        }
+                                                    }
+
+
+
+                                                    /*
+                                                    if (tileCaster.hasDownStairShadowE || tileCaster.hasDownStairShadowN)
+                                                    {
+                                                        if (tile.hasDownStairShadowN || tileCaster.hasDownStairShadowE)
+                                                        {
+                                                            tile.isInLongShadeNE = true;
+                                                        }
+                                                    }
+                                                    */
+
+                                                }
+
+                                                //E
+                                                if ((xS == 1) && (yS == 0))
+                                                {
+                                                    //tile.isInShortShadeE = true;
+                                                    //tileCaster.hasHighlightW = true;
+                                                    //tileCaster.numberOfHeightLevelsThisTileisHigherThanNeighbourW = tileCaster.heightLevel - tile.heightLevel + 1;
+                                                    tile.numberOfHeightLevelsThisTileisHigherThanNeighbourE = -1;
+                                                    if (tileCaster.hasDownStairShadowE)
+                                                    {
+                                                        if (tile.hasDownStairShadowE)
+                                                        {
+                                                            tile.isInShortShadeE = true;
+                                                            tileCaster.hasHighlightW = true;
+                                                        }
+                                                        if (tile.hasDownStairShadowN || tile.hasDownStairShadowS)
+                                                        {
+                                                            tile.numberOfHeightLevelsThisTileisHigherThanNeighbourE = 0;
+                                                        }
+                                                    }
+
+                                                    if (tileCaster.hasDownStairShadowN)
+                                                    {
+                                                        if (tile.hasDownStairShadowE)
+                                                        {
+                                                            tile.numberOfHeightLevelsThisTileisHigherThanNeighbourE = -2;
+                                                        }
+
+                                                        if (tile.hasDownStairShadowS)
+                                                        {
+                                                            tile.inSmallStairSEVertical = true;
+                                                        }
+                                                    }
+
+                                                    if (tileCaster.hasDownStairShadowS)
+                                                    {
+                                                        if (tile.hasDownStairShadowE)
+                                                        {
+                                                            tile.numberOfHeightLevelsThisTileisHigherThanNeighbourE = -3;
+                                                        }
+
+                                                        if (tile.hasDownStairShadowN)
+                                                        {
+                                                            tile.inSmallStairNEVertical = true;
+                                                        }
+
+                                                    }
+                                                }
+                                                //SE
+                                                if ((xS == 1) && (yS == 1))
+                                                {
+                                                    if (tileCaster.hasDownStairShadowE || tileCaster.hasDownStairShadowS)
+                                                    {
+                                                        if (tile.hasDownStairShadowE || tile.hasDownStairShadowS)
+                                                        {
+                                                            tile.isInShortShadeSE = true;
+                                                        }
+                                                    }
+
+                                                    /*
+                                                    if (tileCaster.hasDownStairShadowE || tileCaster.hasDownStairShadowS)
+                                                    {
+                                                        if (tile.hasDownStairShadowS || tileCaster.hasDownStairShadowE)
+                                                        {
+                                                            tile.isInLongShadeNE = true;
+                                                        }
+                                                    }
+                                                    */
+                                                    //tile.isInShortShadeSE = true;
+                                                }
+
+                                                //S
+                                                if ((xS == 0) && (yS == 1))
+                                                {
+                                                    //tile.isInShortShadeS = true;
+                                                    //tileCaster.hasHighlightN = true;
+                                                    //tileCaster.numberOfHeightLevelsThisTileisHigherThanNeighbourN = tileCaster.heightLevel - tile.heightLevel+1;
+                                                    tile.numberOfHeightLevelsThisTileisHigherThanNeighbourS = -1;
+                                                    if (tileCaster.hasDownStairShadowS)
+                                                    {
+                                                        if (tile.hasDownStairShadowS)
+                                                        {
+                                                            tile.isInShortShadeS = true;
+                                                            tileCaster.hasHighlightN = true;
+                                                        }
+                                                        if (tile.hasDownStairShadowE || tile.hasDownStairShadowW)
+                                                        {
+                                                            tile.numberOfHeightLevelsThisTileisHigherThanNeighbourS = 0;
+                                                        }
+                                                    }
+                                                    if (tileCaster.hasDownStairShadowE)
+                                                    {
+                                                        if (tile.hasDownStairShadowS)
+                                                        {
+                                                            tile.numberOfHeightLevelsThisTileisHigherThanNeighbourS = -2;
+                                                        }
+                                                        if (tile.hasDownStairShadowW)
+                                                        {
+                                                            tile.inSmallStairSWHorizontal = true;
+                                                        }
+                                                    }
+
+                                                    if (tileCaster.hasDownStairShadowW)
+                                                    {
+                                                        if (tile.hasDownStairShadowS)
+                                                        {
+                                                            tile.numberOfHeightLevelsThisTileisHigherThanNeighbourS = -3;
+                                                        }
+                                                        if (tile.hasDownStairShadowE)
+                                                        {
+                                                            tile.inSmallStairSEHorizontal = true;
+                                                        }
+                                                    }
+                                                }
+
+                                                //SW
+                                                if ((xS == -1) && (yS == 1))
+                                                {
+                                                    if (tileCaster.hasDownStairShadowW || tileCaster.hasDownStairShadowS)
+                                                    {
+                                                        if (tile.hasDownStairShadowW || tile.hasDownStairShadowS)
+                                                        {
+                                                            tile.isInShortShadeSW = true;
+                                                        }
+                                                    }
+
+                                                    /*
+                                                    if (tileCaster.hasDownStairShadowW || tileCaster.hasDownStairShadowS)
+                                                    {
+                                                        if (tile.hasDownStairShadowS || tileCaster.hasDownStairShadowW)
+                                                        {
+                                                            tile.isInLongShadeNE = true;
+                                                        }
+                                                    }
+                                                    */
+                                                    //tile.isInShortShadeSW = true;
+                                                }
+
+                                                //W
+                                                if ((xS == -1) && (yS == 0))
+                                                {
+                                                    //tile.isInShortShadeW = true;
+                                                    //tileCaster.hasHighlightE = true;
+                                                    //tileCaster.numberOfHeightLevelsThisTileisHigherThanNeighbourE = tileCaster.heightLevel - tile.heightLevel + 1;
+                                                    tile.numberOfHeightLevelsThisTileisHigherThanNeighbourW = -1;
+                                                    if (tileCaster.hasDownStairShadowW)
+                                                    {
+                                                        if (tile.hasDownStairShadowW)
+                                                        {
+                                                            tile.isInShortShadeW = true;
+                                                            tileCaster.hasHighlightE = true;
+                                                        }
+                                                        if (tile.hasDownStairShadowN || tile.hasDownStairShadowS)
+                                                        {
+                                                            tile.numberOfHeightLevelsThisTileisHigherThanNeighbourW = 0;
+                                                        }
+                                                    }
+
+                                                    if (tileCaster.hasDownStairShadowN)
+                                                    {
+                                                        if (tile.hasDownStairShadowW)
+                                                        {
+                                                            tile.numberOfHeightLevelsThisTileisHigherThanNeighbourW = -2;
+                                                        }
+
+                                                        if (tile.hasDownStairShadowS)
+                                                        {
+                                                            tile.inSmallStairSWVertical = true;
+                                                        }
+                                                    }
+
+                                                    if (tileCaster.hasDownStairShadowS)
+                                                    {
+                                                        if (tile.hasDownStairShadowW)
+                                                        {
+                                                            tile.numberOfHeightLevelsThisTileisHigherThanNeighbourW = -3;
+                                                        }
+
+                                                        if (tile.hasDownStairShadowN)
+                                                        {
+                                                            tile.inSmallStairNWVertical = true;
+                                                        }
+                                                    }
+                                                }
+                                            }
+
+                                        }//end
+
+                                    }
+
+                                }
+
+                            }
+                        }//try  
+                    }
+                }
+            }
+            #endregion
+            reshadowedArea.averageHeightOnThisMap = heightSum / (reshadowedArea.Tiles.Count);
+
+            //mod.moduleAreasObjects.Clear();
+        }
+
         public void gaController(string filename, string prm1, string prm2, string prm3, string prm4)
         {
             if (!filename.Equals("none"))
@@ -487,6 +4617,51 @@ namespace IceBlink2
                             }
                         }
                     }
+                    else if (filename.Equals("gaToggleOverviewMap.cs"))
+                    {
+                        //p1 is filename of overview map
+                        //p2 is bool: true for show button of overview map, false for hide button of overview map
+                        bool enable = Boolean.Parse(p2);
+
+                        foreach (Area a in gv.mod.moduleAreasObjects)
+                        {
+                            if (a.filenameOfOwnZoneMap == p1)
+                            {
+                                if (enable)
+                                {
+                                    a.showOverviewButtonOwnZoneMap = true;
+                                }
+                                else
+                                {
+                                    a.showOverviewButtonOwnZoneMap = false;
+                                }
+                            }
+
+                            if (a.filenameOfMotherZoneMap == p1)
+                            {
+                                if (enable)
+                                {
+                                    a.showOverviewButtonMotherZoneMap = true;
+                                }
+                                else
+                                {
+                                    a.showOverviewButtonMotherZoneMap = false;
+                                }
+                            }
+
+                            if (a.filenameOfGrandMotherZoneMap == p1)
+                            {
+                                if (enable)
+                                {
+                                    a.showOverviewButtonGrandMotherZoneMap = true;
+                                }
+                                else
+                                {
+                                    a.showOverviewButtonGrandMotherZoneMap = false;
+                                }
+                            }
+                        }
+                    }
                     else if (filename.Equals("gaRemoveOpenChatOption.cs"))
                     {
                         //p1 is name of pc
@@ -496,7 +4671,7 @@ namespace IceBlink2
                         {
                             if (pc.name == p1)
                             {
-                                for (int i = pc.hasNewChatOption.Count-1; i >= 0; i--)
+                                for (int i = pc.hasNewChatOption.Count - 1; i >= 0; i--)
                                 {
                                     if (pc.hasNewChatOption[i] == parm2)
                                     {
@@ -531,12 +4706,12 @@ namespace IceBlink2
                             higherPosition = parm1;
                         }
 
-                        gv.mod.playerList.Insert(higherPosition,gv.mod.playerList[lowerPosition]);
+                        gv.mod.playerList.Insert(higherPosition, gv.mod.playerList[lowerPosition]);
                         gv.mod.playerList.RemoveAt(lowerPosition);
                         gv.mod.playerList.Insert(lowerPosition, gv.mod.playerList[higherPosition]);
-                        gv.mod.playerList.RemoveAt(higherPosition+1);
+                        gv.mod.playerList.RemoveAt(higherPosition + 1);
 
-                        for (int i = 0; i < gv.mod.playerList.Count;i++)
+                        for (int i = 0; i < gv.mod.playerList.Count; i++)
                         {
                             if (gv.mod.playerList[i].name == nameOfLeader)
                             {
@@ -660,7 +4835,7 @@ namespace IceBlink2
                         //int parm1 = Convert.ToInt32(p2);
                         //GiveXP(parm1, p2);
                         //public void doSpellCalledFromScript(Spell spell, Player player, int casterLevel, string logTextForCastingAction)
-                        castSpell(p1,p2,p3,p4);
+                        castSpell(p1, p2, p3, p4);
                     }
                     else if (filename.Equals("gaCastSpellEncounterTrigger.cs"))
                     {
@@ -684,7 +4859,7 @@ namespace IceBlink2
                         gv.cc.doSpellEncounterTrigger(p1, p2, p3, p4);
 
 
-                
+
 
 
                     }
@@ -705,7 +4880,7 @@ namespace IceBlink2
                     else if (filename.Equals("gaForceRestNoRations.cs"))
                     {
                         itForceRestNoRations();
-                    }  
+                    }
                     else if (filename.Equals("gaForceRestAndRaiseDead.cs"))
                     {
                         itForceRestAndRaiseDead();
@@ -787,7 +4962,7 @@ namespace IceBlink2
                             {
                                 gv.mod.partyLightEnergyName.Add(gv.mod.partyLightName);
                                 gv.mod.partyLightEnergyUnitsLeft.Add(gv.mod.durationInStepsOfPartyLightItems);
-                                gv.mod.currentLightUnitsLeft = gv.mod.durationInStepsOfPartyLightItems; 
+                                gv.mod.currentLightUnitsLeft = gv.mod.durationInStepsOfPartyLightItems;
                             }
                             if (p2 != "" && p2 != "none")
                             {
@@ -857,13 +5032,13 @@ namespace IceBlink2
                         target.Y = y;
                         bool foundPlace = true;
 
-                            if (!IsSquareOpen(target))
-                            {
-                                foundPlace = false;
-                            }
-                       
+                        if (!IsSquareOpen(target))
+                        {
+                            foundPlace = false;
+                        }
 
-                       
+
+
 
                         //try to find a nearby square
                         if (foundPlace)
@@ -888,7 +5063,7 @@ namespace IceBlink2
                             int deltaX = 0;//temporary value used for distance calculation   
                             int deltaY = 0;//temporary value used for distance calculation   
 
-                            
+
                             changeSummonLocation = true;
                             Coordinate target2 = new Coordinate();
                             //target square was already occupied/non-walkable, so all other tiles are searched for the NEAREST FREE tile to switch the summon location to  
@@ -914,10 +5089,10 @@ namespace IceBlink2
 
                                     foundPlace = true;
 
-                                        if (!IsSquareOpen(target2))
-                                        {
-                                            foundPlace = false;
-                                        }
+                                    if (!IsSquareOpen(target2))
+                                    {
+                                        foundPlace = false;
+                                    }
 
                                     //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
@@ -929,7 +5104,7 @@ namespace IceBlink2
                                     {
                                         tileIsFree = false;
                                     }
-                                   
+
                                     //this writes all free tiles into a fresh list; please note that the values of the elements of this new list are our relevant index values  
                                     //therefore it's not the index (which doesnt correalte to locations) in this list that's relevant, but the value of the element at that index  
                                     if (tileIsFree == true)
@@ -1015,6 +5190,10 @@ namespace IceBlink2
                     else if (filename.Equals("gaTogglePartyToken.cs"))
                     {
                         TogglePartyToken(p1, p2);
+                    }
+                    else if (filename.Equals("gaToggleZoneMapButton.cs"))
+                    {
+                        ToggleZoneMapButton(p1, p2);
                     }
                     else if (filename.Equals("gaEnableDisableTriggerAtCurrentLocation.cs"))
                     {
@@ -1146,7 +5325,7 @@ namespace IceBlink2
                     else if (filename.Equals("gaModifiyShopSellPercentage.cs"))
                     {
                         ModifySellPrice(p1, prm2, p3);
-                    }  
+                    }
 
                     else if (filename.Equals("gaGetPlayerIndexThatIsUsingItem.cs"))
                     {
@@ -1225,6 +5404,534 @@ namespace IceBlink2
                         }
 
                     }
+                    else if (filename.Equals("gaChangeTileHeight.cs"))
+                    {
+                        //p1 is x coord
+                        //p2 is y coord
+                        //p3 is new height level to be set
+                        //p4 is optional floaty text
+
+                        int x = Convert.ToInt32(p1);
+                        int y = Convert.ToInt32(p2);
+                        int newHeight = Convert.ToInt32(p3);
+
+                        //not on borders
+                        if (x < gv.mod.currentArea.MapSizeX - 1 && x > 0 && y < gv.mod.currentArea.MapSizeY - 1 && y > 0)
+                        {
+
+                            gv.mod.currentArea.Tiles[y * gv.mod.currentArea.MapSizeX + x].heightLevel = newHeight;
+                            //add call for new calculation here!
+                            //we need the method from toolset for calcualting height shadows on main map
+                            //maybe even call it as whole or save time and just call it for our special group of squares here
+
+                            calculateHeightShadows(x, y);
+
+                            //remember to update this first on loading (and walkable/LoS afterwards)
+                            //generally dont forget the load code part :-)
+
+                            //center
+                            bool centerIn = false;
+                            for (int i = 0; i < gv.mod.currentArea.newHeights.Count; i++)
+                            {
+                                if (x == gv.mod.currentArea.changedHeightTilesCoordX[i] && y == gv.mod.currentArea.changedHeightTilesCoordY[i])
+                                {
+                                    centerIn = true;
+                                    gv.mod.currentArea.newHeights[i] = gv.mod.currentArea.Tiles[y * gv.mod.currentArea.MapSizeX + x].heightLevel;
+                                }
+                            }
+
+                            if (!centerIn)
+                            {
+                                gv.mod.currentArea.newHeights.Add(gv.mod.currentArea.Tiles[y * gv.mod.currentArea.MapSizeX + x].heightLevel);
+                                gv.mod.currentArea.changedHeightTilesCoordX.Add(x);
+                                gv.mod.currentArea.changedHeightTilesCoordY.Add(y);
+
+                            }
+
+                            /*
+
+                            //center
+                            bool centerIn = false;
+                            for (int i = 0; i < gv.mod.currentArea.changedHeightTiles.Count; i++)
+                            {
+                                if (gv.mod.currentArea.Tiles[y * gv.mod.currentArea.MapSizeX + x] == gv.mod.currentArea.changedHeightTiles[i])
+                                {
+                                    centerIn = true;
+                                }
+                            }
+                            if (!centerIn)
+                            {
+                                gv.mod.currentArea.changedHeightTiles.Add(gv.mod.currentArea.Tiles[y * gv.mod.currentArea.MapSizeX + x]);
+                                gv.mod.currentArea.changedHeightTilesCoordX.Add(x);
+                                gv.mod.currentArea.changedHeightTilesCoordY.Add(y);
+
+                            }
+
+                            //8 more surrounding center
+                            //NE
+                            bool NEIn = false;
+                            for (int i = 0; i < gv.mod.currentArea.changedHeightTiles.Count; i++)
+                            {
+                                if (gv.mod.currentArea.Tiles[(y - 1) * gv.mod.currentArea.MapSizeX + (x + 1)] == gv.mod.currentArea.changedHeightTiles[i])
+                                {
+                                    NEIn = true;
+                                }
+                            }
+                            if (!NEIn)
+                            {
+                                gv.mod.currentArea.changedHeightTiles.Add(gv.mod.currentArea.Tiles[(y - 1) * gv.mod.currentArea.MapSizeX + (x + 1)]);
+                                gv.mod.currentArea.changedHeightTilesCoordX.Add(x + 1);
+                                gv.mod.currentArea.changedHeightTilesCoordY.Add(y - 1);
+                            }
+                            //}
+                            //E
+                            bool EIn = false;
+                            for (int i = 0; i < gv.mod.currentArea.changedHeightTiles.Count; i++)
+                            {
+                                if (gv.mod.currentArea.Tiles[(y - 0) * gv.mod.currentArea.MapSizeX + (x + 1)] == gv.mod.currentArea.changedHeightTiles[i])
+                                {
+                                    EIn = true;
+                                }
+                            }
+                            if (!EIn)
+                            {
+                                gv.mod.currentArea.changedHeightTiles.Add(gv.mod.currentArea.Tiles[(y - 0) * gv.mod.currentArea.MapSizeX + (x + 1)]);
+                                gv.mod.currentArea.changedHeightTilesCoordX.Add(x + 1);
+                                gv.mod.currentArea.changedHeightTilesCoordY.Add(y);
+                            }
+                            //}
+                            //SE
+                            bool SEIn = false;
+                            for (int i = 0; i < gv.mod.currentArea.changedHeightTiles.Count; i++)
+                            {
+                                if (gv.mod.currentArea.Tiles[(y + 1) * gv.mod.currentArea.MapSizeX + (x + 1)] == gv.mod.currentArea.changedHeightTiles[i])
+                                {
+                                    SEIn = true;
+                                }
+                            }
+                            if (!SEIn)
+                            {
+                                gv.mod.currentArea.changedHeightTiles.Add(gv.mod.currentArea.Tiles[(y + 1) * gv.mod.currentArea.MapSizeX + (x + 1)]);
+                                gv.mod.currentArea.changedHeightTilesCoordX.Add(x + 1);
+                                gv.mod.currentArea.changedHeightTilesCoordY.Add(y + 1);
+                            }
+                            //}
+                            //S
+                            bool SIn = false;
+                            for (int i = 0; i < gv.mod.currentArea.changedHeightTiles.Count; i++)
+                            {
+                                if (gv.mod.currentArea.Tiles[(y + 1) * gv.mod.currentArea.MapSizeX + (x + 0)] == gv.mod.currentArea.changedHeightTiles[i])
+                                {
+                                    SIn = true;
+                                }
+                            }
+                            if (!SIn)
+                            {
+                                gv.mod.currentArea.changedHeightTiles.Add(gv.mod.currentArea.Tiles[(y + 1) * gv.mod.currentArea.MapSizeX + (x + 0)]);
+                                gv.mod.currentArea.changedHeightTilesCoordX.Add(x);
+                                gv.mod.currentArea.changedHeightTilesCoordY.Add(y + 1);
+                            }
+                            //}
+                            //SW
+                            bool SWIn = false;
+                            for (int i = 0; i < gv.mod.currentArea.changedHeightTiles.Count; i++)
+                            {
+                                if (gv.mod.currentArea.Tiles[(y + 1) * gv.mod.currentArea.MapSizeX + (x - 1)] == gv.mod.currentArea.changedHeightTiles[i])
+                                {
+                                    SWIn = true;
+                                }
+                            }
+                            if (!SWIn)
+                            {
+                                gv.mod.currentArea.changedHeightTiles.Add(gv.mod.currentArea.Tiles[(y + 1) * gv.mod.currentArea.MapSizeX + (x - 1)]);
+                                gv.mod.currentArea.changedHeightTilesCoordX.Add(x - 1);
+                                gv.mod.currentArea.changedHeightTilesCoordY.Add(y + 1);
+                            }
+                            //}
+                            //W
+                            bool WIn = false;
+                            for (int i = 0; i < gv.mod.currentArea.changedHeightTiles.Count; i++)
+                            {
+                                if (gv.mod.currentArea.Tiles[(y - 0) * gv.mod.currentArea.MapSizeX + (x - 1)] == gv.mod.currentArea.changedHeightTiles[i])
+                                {
+                                    WIn = true;
+                                }
+                            }
+                            if (!WIn)
+                            {
+                                gv.mod.currentArea.changedHeightTiles.Add(gv.mod.currentArea.Tiles[(y - 0) * gv.mod.currentArea.MapSizeX + (x - 1)]);
+                                gv.mod.currentArea.changedHeightTilesCoordX.Add(x - 1);
+                                gv.mod.currentArea.changedHeightTilesCoordY.Add(y);
+                            }
+                            //}
+                            //NW
+                            bool NWIn = false;
+                            for (int i = 0; i < gv.mod.currentArea.changedHeightTiles.Count; i++)
+                            {
+                                if (gv.mod.currentArea.Tiles[(y - 1) * gv.mod.currentArea.MapSizeX + (x - 1)] == gv.mod.currentArea.changedHeightTiles[i])
+                                {
+                                    NWIn = true;
+                                }
+                            }
+                            if (!NWIn)
+                            {
+                                gv.mod.currentArea.changedHeightTiles.Add(gv.mod.currentArea.Tiles[(y - 1) * gv.mod.currentArea.MapSizeX + (x - 1)]);
+                                gv.mod.currentArea.changedHeightTilesCoordX.Add(x - 1);
+                                gv.mod.currentArea.changedHeightTilesCoordY.Add(y - 1);
+                            }
+                            //}
+                            //N
+                            bool NIn = false;
+                            for (int i = 0; i < gv.mod.currentArea.changedHeightTiles.Count; i++)
+                            {
+                                if (gv.mod.currentArea.Tiles[(y - 1) * gv.mod.currentArea.MapSizeX + (x + 0)] == gv.mod.currentArea.changedHeightTiles[i])
+                                {
+                                    NIn = true;
+                                }
+                            }
+                            if (!NIn)
+                            {
+                                gv.mod.currentArea.changedHeightTiles.Add(gv.mod.currentArea.Tiles[(y - 1) * gv.mod.currentArea.MapSizeX + (x + 0)]);
+                                gv.mod.currentArea.changedHeightTilesCoordX.Add(x);
+                                gv.mod.currentArea.changedHeightTilesCoordY.Add(y - 1);
+                            }
+                            //}
+                            */
+
+                            //floaty in case tile gets transparent
+                            if ((p4 != null && p4 != "none" && p4 != ""))
+                            {
+                                //gv.cc.addFloatyText(new Coordinate(coord.X, coord.Y), p4, "green");
+                                gv.screenMainMap.addFloatyText(x, y, p4, "green", 4000);
+                            }
+                        }
+                    }
+                    else if (filename.Equals("gaChangeTileRamp.cs"))
+                    {
+                        //todo
+                        //direction on p3
+                        //stair shadow show setting on p4
+                        /*
+                        isRamp and then for direction:
+                        area.Tiles[selectedTile.index].hasDownStairShadowE = false;
+                        area.Tiles[selectedTile.index].hasDownStairShadowS = false;
+                        area.Tiles[selectedTile.index].hasDownStairShadowW = false;
+                        area.Tiles[selectedTile.index].hasDownStairShadowN = true;
+                        */
+
+                        int x = Convert.ToInt32(p1);
+                        int y = Convert.ToInt32(p2);
+                        //int newHeight = Convert.ToInt32(p3);
+
+                        //not on borders
+                        if (x < gv.mod.currentArea.MapSizeX - 1 && x > 0 && y < gv.mod.currentArea.MapSizeY - 1 && y > 0)
+                        {
+                            if (p3 == "S" || p3 == "s")
+                            {
+                                if (!gv.mod.currentArea.Tiles[y * gv.mod.currentArea.MapSizeX + x].hasDownStairShadowN)
+                                {
+                                    gv.mod.currentArea.Tiles[y * gv.mod.currentArea.MapSizeX + x].isRamp = true;
+                                    gv.mod.currentArea.Tiles[y * gv.mod.currentArea.MapSizeX + x].hasDownStairShadowE = false;
+                                    gv.mod.currentArea.Tiles[y * gv.mod.currentArea.MapSizeX + x].hasDownStairShadowS = false;
+                                    gv.mod.currentArea.Tiles[y * gv.mod.currentArea.MapSizeX + x].hasDownStairShadowW = false;
+                                    gv.mod.currentArea.Tiles[y * gv.mod.currentArea.MapSizeX + x].hasDownStairShadowN = true;
+                                    if (p4 == "true" || p4 == "True")
+                                    {
+                                        gv.mod.currentArea.Tiles[y * gv.mod.currentArea.MapSizeX + x].drawDownStairShadows = true;
+                                    }
+                                    else
+                                    {
+                                        gv.mod.currentArea.Tiles[y * gv.mod.currentArea.MapSizeX + x].drawDownStairShadows = false;
+                                    }
+                                }
+                                else
+                                {
+                                    //TODO: p3 must be set to OFF!
+                                    p3 = "Off";
+                                    gv.mod.currentArea.Tiles[y * gv.mod.currentArea.MapSizeX + x].isRamp = false;
+                                    gv.mod.currentArea.Tiles[y * gv.mod.currentArea.MapSizeX + x].hasDownStairShadowE = false;
+                                    gv.mod.currentArea.Tiles[y * gv.mod.currentArea.MapSizeX + x].hasDownStairShadowS = false;
+                                    gv.mod.currentArea.Tiles[y * gv.mod.currentArea.MapSizeX + x].hasDownStairShadowW = false;
+                                    gv.mod.currentArea.Tiles[y * gv.mod.currentArea.MapSizeX + x].hasDownStairShadowN = false;
+                                    //gv.mod.currentArea.Tiles[y * gv.mod.currentArea.MapSizeX + x].drawDownStairShadows = false;
+                                    if (p4 == "true" || p4 == "True")
+                                    {
+                                        gv.mod.currentArea.Tiles[y * gv.mod.currentArea.MapSizeX + x].drawDownStairShadows = true;
+                                    }
+                                    else
+                                    {
+                                        gv.mod.currentArea.Tiles[y * gv.mod.currentArea.MapSizeX + x].drawDownStairShadows = false;
+                                    }
+                                }
+                            }
+                        }
+
+                        if (p3 == "N" || p3 == "n")
+                        {
+                            if (!gv.mod.currentArea.Tiles[y * gv.mod.currentArea.MapSizeX + x].hasDownStairShadowS)
+                            {
+                                gv.mod.currentArea.Tiles[y * gv.mod.currentArea.MapSizeX + x].isRamp = true;
+                                gv.mod.currentArea.Tiles[y * gv.mod.currentArea.MapSizeX + x].hasDownStairShadowE = false;
+                                gv.mod.currentArea.Tiles[y * gv.mod.currentArea.MapSizeX + x].hasDownStairShadowS = true;
+                                gv.mod.currentArea.Tiles[y * gv.mod.currentArea.MapSizeX + x].hasDownStairShadowW = false;
+                                gv.mod.currentArea.Tiles[y * gv.mod.currentArea.MapSizeX + x].hasDownStairShadowN = false;
+                                if (p4 == "true" || p4 == "True")
+                                {
+                                    gv.mod.currentArea.Tiles[y * gv.mod.currentArea.MapSizeX + x].drawDownStairShadows = true;
+                                }
+                                else
+                                {
+                                    gv.mod.currentArea.Tiles[y * gv.mod.currentArea.MapSizeX + x].drawDownStairShadows = false;
+                                }
+                            }
+                            else
+                            {
+                                p3 = "Off";
+                                gv.mod.currentArea.Tiles[y * gv.mod.currentArea.MapSizeX + x].isRamp = false;
+                                gv.mod.currentArea.Tiles[y * gv.mod.currentArea.MapSizeX + x].hasDownStairShadowE = false;
+                                gv.mod.currentArea.Tiles[y * gv.mod.currentArea.MapSizeX + x].hasDownStairShadowS = false;
+                                gv.mod.currentArea.Tiles[y * gv.mod.currentArea.MapSizeX + x].hasDownStairShadowW = false;
+                                gv.mod.currentArea.Tiles[y * gv.mod.currentArea.MapSizeX + x].hasDownStairShadowN = false;
+                                //gv.mod.currentArea.Tiles[y * gv.mod.currentArea.MapSizeX + x].drawDownStairShadows = false;
+                                if (p4 == "true" || p4 == "True")
+                                {
+                                    gv.mod.currentArea.Tiles[y * gv.mod.currentArea.MapSizeX + x].drawDownStairShadows = true;
+                                }
+                                else
+                                {
+                                    gv.mod.currentArea.Tiles[y * gv.mod.currentArea.MapSizeX + x].drawDownStairShadows = false;
+                                }
+                            }
+                        }
+
+                        if (p3 == "E" || p3 == "e")
+                        {
+                            if (!gv.mod.currentArea.Tiles[y * gv.mod.currentArea.MapSizeX + x].hasDownStairShadowW)
+                            {
+                                gv.mod.currentArea.Tiles[y * gv.mod.currentArea.MapSizeX + x].isRamp = true;
+                                gv.mod.currentArea.Tiles[y * gv.mod.currentArea.MapSizeX + x].hasDownStairShadowE = false;
+                                gv.mod.currentArea.Tiles[y * gv.mod.currentArea.MapSizeX + x].hasDownStairShadowS = false;
+                                gv.mod.currentArea.Tiles[y * gv.mod.currentArea.MapSizeX + x].hasDownStairShadowW = true;
+                                gv.mod.currentArea.Tiles[y * gv.mod.currentArea.MapSizeX + x].hasDownStairShadowN = false;
+                                if (p4 == "true" || p4 == "True")
+                                {
+                                    gv.mod.currentArea.Tiles[y * gv.mod.currentArea.MapSizeX + x].drawDownStairShadows = true;
+                                }
+                                else
+                                {
+                                    gv.mod.currentArea.Tiles[y * gv.mod.currentArea.MapSizeX + x].drawDownStairShadows = false;
+                                }
+                            }
+                            else
+                            {
+                                p3 = "Off";
+                                gv.mod.currentArea.Tiles[y * gv.mod.currentArea.MapSizeX + x].isRamp = false;
+                                gv.mod.currentArea.Tiles[y * gv.mod.currentArea.MapSizeX + x].hasDownStairShadowE = false;
+                                gv.mod.currentArea.Tiles[y * gv.mod.currentArea.MapSizeX + x].hasDownStairShadowS = false;
+                                gv.mod.currentArea.Tiles[y * gv.mod.currentArea.MapSizeX + x].hasDownStairShadowW = false;
+                                gv.mod.currentArea.Tiles[y * gv.mod.currentArea.MapSizeX + x].hasDownStairShadowN = false;
+                                //gv.mod.currentArea.Tiles[y * gv.mod.currentArea.MapSizeX + x].drawDownStairShadows = false;
+                                if (p4 == "true" || p4 == "True")
+                                {
+                                    gv.mod.currentArea.Tiles[y * gv.mod.currentArea.MapSizeX + x].drawDownStairShadows = true;
+                                }
+                                else
+                                {
+                                    gv.mod.currentArea.Tiles[y * gv.mod.currentArea.MapSizeX + x].drawDownStairShadows = false;
+                                }
+                            }
+                        }
+                        if (p3 == "W" || p3 == "w")
+                        {
+                            if (!gv.mod.currentArea.Tiles[y * gv.mod.currentArea.MapSizeX + x].hasDownStairShadowE)
+                            {
+                                gv.mod.currentArea.Tiles[y * gv.mod.currentArea.MapSizeX + x].isRamp = true;
+                                gv.mod.currentArea.Tiles[y * gv.mod.currentArea.MapSizeX + x].hasDownStairShadowE = true;
+                                gv.mod.currentArea.Tiles[y * gv.mod.currentArea.MapSizeX + x].hasDownStairShadowS = false;
+                                gv.mod.currentArea.Tiles[y * gv.mod.currentArea.MapSizeX + x].hasDownStairShadowW = false;
+                                gv.mod.currentArea.Tiles[y * gv.mod.currentArea.MapSizeX + x].hasDownStairShadowN = false;
+                                if (p4 == "true" || p4 == "True")
+                                {
+                                    gv.mod.currentArea.Tiles[y * gv.mod.currentArea.MapSizeX + x].drawDownStairShadows = true;
+                                }
+                                else
+                                {
+                                    gv.mod.currentArea.Tiles[y * gv.mod.currentArea.MapSizeX + x].drawDownStairShadows = false;
+                                }
+                            }
+                            else
+                            {
+                                p3 = "Off";
+                                gv.mod.currentArea.Tiles[y * gv.mod.currentArea.MapSizeX + x].isRamp = false;
+                                gv.mod.currentArea.Tiles[y * gv.mod.currentArea.MapSizeX + x].hasDownStairShadowE = false;
+                                gv.mod.currentArea.Tiles[y * gv.mod.currentArea.MapSizeX + x].hasDownStairShadowS = false;
+                                gv.mod.currentArea.Tiles[y * gv.mod.currentArea.MapSizeX + x].hasDownStairShadowW = false;
+                                gv.mod.currentArea.Tiles[y * gv.mod.currentArea.MapSizeX + x].hasDownStairShadowN = false;
+                                //gv.mod.currentArea.Tiles[y * gv.mod.currentArea.MapSizeX + x].drawDownStairShadows = false;
+                                if (p4 == "true" || p4 == "True")
+                                {
+                                    gv.mod.currentArea.Tiles[y * gv.mod.currentArea.MapSizeX + x].drawDownStairShadows = true;
+                                }
+                                else
+                                {
+                                    gv.mod.currentArea.Tiles[y * gv.mod.currentArea.MapSizeX + x].drawDownStairShadows = false;
+                                }
+                            }
+                        }
+                        if (p3 == "Off" || p3 == "off")
+                        {
+                            gv.mod.currentArea.Tiles[y * gv.mod.currentArea.MapSizeX + x].isRamp = false;
+                            gv.mod.currentArea.Tiles[y * gv.mod.currentArea.MapSizeX + x].hasDownStairShadowE = false;
+                            gv.mod.currentArea.Tiles[y * gv.mod.currentArea.MapSizeX + x].hasDownStairShadowS = false;
+                            gv.mod.currentArea.Tiles[y * gv.mod.currentArea.MapSizeX + x].hasDownStairShadowW = false;
+                            gv.mod.currentArea.Tiles[y * gv.mod.currentArea.MapSizeX + x].hasDownStairShadowN = false;
+                            //gv.mod.currentArea.Tiles[y * gv.mod.currentArea.MapSizeX + x].drawDownStairShadows = false;
+                            if (p4 == "true" || p4 == "True")
+                            {
+                                gv.mod.currentArea.Tiles[y * gv.mod.currentArea.MapSizeX + x].drawDownStairShadows = true;
+                            }
+                            else
+                            {
+                                gv.mod.currentArea.Tiles[y * gv.mod.currentArea.MapSizeX + x].drawDownStairShadows = false;
+                            }
+                        }
+
+                        calculateHeightShadows(x, y);
+
+                        bool centerIn = false;
+                        for (int i = 0; i < gv.mod.currentArea.newRampState.Count; i++)
+                        {
+                            if (x == gv.mod.currentArea.changedRampTilesCoordX[i] && y == gv.mod.currentArea.changedRampTilesCoordY[i])
+                            {
+                                centerIn = true;
+                                gv.mod.currentArea.newRampState[i] = p3;
+                                if (p4 == "true" || p4 == "True")
+                                {
+                                    gv.mod.currentArea.drawRampSymbol[i] = true;
+                                }
+                                else
+                                {
+                                    gv.mod.currentArea.drawRampSymbol[i] = false;
+                                }
+                            }
+                        }
+
+                        if (!centerIn)
+                        {
+                            gv.mod.currentArea.newRampState.Add(p3);
+                            gv.mod.currentArea.changedRampTilesCoordX.Add(x);
+                            gv.mod.currentArea.changedRampTilesCoordY.Add(y);
+                            if (p4 == "true" || p4 == "True")
+                            {
+                                gv.mod.currentArea.drawRampSymbol.Add(true);
+                            }
+                            else
+                            {
+                                gv.mod.currentArea.drawRampSymbol.Add(false);
+                            }
+
+                        }
+                    }
+
+                    else if (filename.Equals("gaChangeTileBridge.cs"))
+                    {
+                        //p1 is x coord
+                        //p2 is y coord
+                        //p3 is is either "EW" or "NS"
+                        //p4 is optional floaty text
+
+                        int x = Convert.ToInt32(p1);
+                        int y = Convert.ToInt32(p2);
+                        //int newHeight = Convert.ToInt32(p3);
+
+                        //not on borders
+                        if (x < gv.mod.currentArea.MapSizeX - 1 && x > 0 && y < gv.mod.currentArea.MapSizeY - 1 && y > 0)
+                        {
+
+                            if (p3 == "NS")
+                            {
+                                if (gv.mod.currentArea.Tiles[y * gv.mod.currentArea.MapSizeX + x].isNSBridge == false)
+                                {
+                                    gv.mod.currentArea.Tiles[y * gv.mod.currentArea.MapSizeX + x].isNSBridge = true;
+                                }
+                                else
+                                {
+                                    gv.mod.currentArea.Tiles[y * gv.mod.currentArea.MapSizeX + x].isNSBridge = false;
+                                }
+                            }
+                            else if (p3 == "EW")
+                            {
+                                if (gv.mod.currentArea.Tiles[y * gv.mod.currentArea.MapSizeX + x].isEWBridge == false)
+                                {
+                                    gv.mod.currentArea.Tiles[y * gv.mod.currentArea.MapSizeX + x].isEWBridge = true;
+                                }
+                                else
+                                {
+                                    gv.mod.currentArea.Tiles[y * gv.mod.currentArea.MapSizeX + x].isEWBridge = false;
+                                }
+                            }
+                            //add call for new calculation here!
+                            //we need the method from toolset for calcualting height shadows on main map
+                            //maybe even call it as whole or save time and just call it for our special group of squares here
+
+                            calculateHeightShadows(x, y);
+
+                            //remember to update this first on loading (and walkable/LoS afterwards)
+                            //generally dont forget the load code part :-)
+
+                            //center
+                            if (p3 == "EW")
+                            {
+                                bool centerIn = false;
+                                for (int i = 0; i < gv.mod.currentArea.newEWBridgeState.Count; i++)
+                                {
+                                    if (x == gv.mod.currentArea.changedEWBridgeTilesCoordX[i] && y == gv.mod.currentArea.changedEWBridgeTilesCoordY[i])
+                                    {
+                                        centerIn = true;
+                                        gv.mod.currentArea.newEWBridgeState[i] = gv.mod.currentArea.Tiles[y * gv.mod.currentArea.MapSizeX + x].isEWBridge;
+                                    }
+                                }
+
+                                if (!centerIn)
+                                {
+                                    gv.mod.currentArea.newEWBridgeState.Add(gv.mod.currentArea.Tiles[y * gv.mod.currentArea.MapSizeX + x].isEWBridge);
+                                    gv.mod.currentArea.changedEWBridgeTilesCoordX.Add(x);
+                                    gv.mod.currentArea.changedEWBridgeTilesCoordY.Add(y);
+
+                                }
+                            }
+
+                            if (p3 == "NS")
+                            {
+                                bool centerIn = false;
+                                for (int i = 0; i < gv.mod.currentArea.newNSBridgeState.Count; i++)
+                                {
+                                    if (x == gv.mod.currentArea.changedNSBridgeTilesCoordX[i] && y == gv.mod.currentArea.changedNSBridgeTilesCoordY[i])
+                                    {
+                                        centerIn = true;
+                                        gv.mod.currentArea.newNSBridgeState[i] = gv.mod.currentArea.Tiles[y * gv.mod.currentArea.MapSizeX + x].isNSBridge;
+                                    }
+                                }
+
+                                if (!centerIn)
+                                {
+                                    gv.mod.currentArea.newNSBridgeState.Add(gv.mod.currentArea.Tiles[y * gv.mod.currentArea.MapSizeX + x].isNSBridge);
+                                    gv.mod.currentArea.changedNSBridgeTilesCoordX.Add(x);
+                                    gv.mod.currentArea.changedNSBridgeTilesCoordY.Add(y);
+
+                                }
+                            }
+                          
+
+                            //floaty in case tile gets transparent
+                            if ((p4 != null && p4 != "none" && p4 != ""))
+                            {
+                                //gv.cc.addFloatyText(new Coordinate(coord.X, coord.Y), p4, "green");
+                                gv.screenMainMap.addFloatyText(x, y, p4, "green", 4000);
+                            }
+                        }
+                    }
+                   
                     else if (filename.Equals("gaToggleAreaSquareWalkable.cs"))
                     {
                         int x = Convert.ToInt32(p1);
@@ -3970,6 +8677,131 @@ namespace IceBlink2
             return false;
         }
 
+        public bool CheckPropByTagIsInDarknessPerArea(string identifier, string darkMode, string areaFilename)
+        {
+            //the area does not use the light system, nothing is in darkness
+            foreach (Area a in gv.mod.moduleAreasObjects)
+            {
+                if (a.Filename == areaFilename)
+                {
+                    if (!a.useLightSystem)
+                    {
+                        return false;
+                    }
+
+                    #region PropByTag
+                    else
+                    {
+                        bool isLit = false;
+                        Prop tempProp = new Prop();
+                        bool foundProp = false;
+                        foreach (Prop p in a.Props)
+                        {
+                            if (p.PropTag == identifier)
+                            {
+                                tempProp = p;
+                                foundProp = true;
+                                break;
+                            }
+                        }
+
+                        if (foundProp)
+                        {
+
+                            foreach (bool litState in a.Tiles[tempProp.LocationY * a.MapSizeX + tempProp.LocationX].isLit)
+                            {
+                                if (litState)
+                                {
+                                    isLit = true;
+                                    break;
+                                }
+                            }
+
+                            //outdoor area, using day&night
+                            if (a.UseDayNightCycle && a.useLightSystem)
+                            {
+                                //mode wil need utter dark, so this outdoor si always false
+                                if (darkMode == "noLight" || darkMode == "NoLight")
+                                {
+                                    return false;
+                                }
+                                // mode is cheking for ngith state
+                                else
+                                {
+                                    if (isLit)
+                                    {
+                                        return false;
+                                    }
+                                    //not lit
+                                    else
+                                    {
+                                        int dawn = 5 * 60;
+                                        int sunrise = 6 * 60;
+                                        int day = 7 * 60;
+                                        int sunset = 17 * 60;
+                                        int dusk = 18 * 60;
+                                        int night = 20 * 60;
+                                        int time = gv.mod.WorldTime % 1440;
+
+                                        if ((time >= dawn) && (time < sunrise))
+                                        {
+                                            return false;
+                                        }
+                                        else if ((time >= sunrise) && (time < day))
+                                        {
+                                            return false;
+                                        }
+                                        else if ((time >= day) && (time < sunset))
+                                        {
+                                            return false;
+                                        }
+                                        else if ((time >= sunset) && (time < dusk))
+                                        {
+                                            return false;
+                                        }
+                                        else if ((time >= dusk) && (time < night))
+                                        {
+                                            return false;
+                                        }
+                                        else if ((time >= night) || (time < dawn))
+                                        {
+                                            return true;
+                                        }
+
+                                    }//tile was not lit
+                                }//mode was looking for night state
+                            }// end of outdoor, & lightSystem
+
+                            //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                            //inddor area, using light system
+                            else if (!a.UseDayNightCycle && a.useLightSystem)
+                            {
+                                //mode will need outdoor night, so this indoor dark
+                                if (darkMode == "night")
+                                {
+                                    return false;
+                                }
+                                // mode is checking for indoor dark state
+                                else
+                                {
+                                    if (isLit)
+                                    {
+                                        return false;
+                                    }
+                                    //not lit
+                                    else
+                                    {
+                                        return true;
+                                    }//tile was not lit
+                                }//mode was looking for indoor dark state
+                            }// end of indoor & lightSystem
+                        }//found a prop             
+                    }//end of "party" identifier
+                    #endregion
+                }
+            }
+            return false;
+        }
 
         public bool CheckIsInFactionStrengthWindow(string factionTag, int minFactionStrength,int maxFactionStrength)
         {
@@ -5772,6 +10604,55 @@ namespace IceBlink2
                 gv.errorLog(ex.ToString());
             }
         }
+
+        public void ToggleZoneMapButton (string typeOfZone, string enabl)
+        {
+            //own, mother, grandMother
+            bool enable = Boolean.Parse(enabl);
+
+            //enable button
+            if (enable)
+            {
+                if (typeOfZone == "own" || typeOfZone == "Own")
+                {
+                    if (gv.mod.currentArea.overviewOwnZoneMapExists)
+                    {
+                        gv.mod.showOverviewButtonOwnZoneMap = true;
+                    }
+                }
+                if (typeOfZone == "mother" || typeOfZone == "Mother")
+                {
+                    if (gv.mod.currentArea.overviewMotherZoneMapExists)
+                    {
+                        gv.mod.showOverviewButtonMotherZoneMap = true;
+                    }
+                }
+                if (typeOfZone == "grandmother" || typeOfZone == "grandMother" || typeOfZone == "Grandmother" || typeOfZone == "GrandMother")
+                {
+                    if (gv.mod.currentArea.overviewGrandMotherZoneMapExists)
+                    {
+                        gv.mod.showOverviewButtonGrandMotherZoneMap = true;
+                    }
+                }
+            }
+            //disable  button
+            else
+            {
+                if (typeOfZone == "own" || typeOfZone == "Own")
+                {
+                        gv.mod.showOverviewButtonOwnZoneMap = false;
+                }
+                if (typeOfZone == "mother" || typeOfZone == "Mother")
+                {
+                        gv.mod.showOverviewButtonMotherZoneMap = false;
+                }
+                if (typeOfZone == "grandmother" || typeOfZone == "grandMother" || typeOfZone == "Grandmother" || typeOfZone == "GrandMother")
+                {
+                        gv.mod.showOverviewButtonGrandMotherZoneMap = false;
+                }
+            }
+        }
+
         public void TogglePartyToken(string filename, string enabl)
         {
             bool enable = Boolean.Parse(enabl);
@@ -8018,13 +12899,19 @@ namespace IceBlink2
 
         public void castSpell(string spellString, string pcIdentifier, string casterLevelString, string logTextForCastingAction)
         {
-           
+
+            //Coordinate partyPos = new Coordinate();
+            //partyPos.X = gv.mod.PlayerLocationX;
+            //partyPos.Y = gv.mod.PlayerLocationY;
+            //gv.sf.addFloatyText(partyPos, logTextForCastingAction, "red");
+            gv.screenMainMap.addFloatyText(gv.mod.PlayerLocationX, gv.mod.PlayerLocationY, logTextForCastingAction, "red", 4000);
             Spell spell = new Spell();
             foreach (Spell sp in gv.mod.moduleSpellsList)
             {
                 if (sp.tag == spellString)
                 {
                     spell = sp;
+                    SpellToCast = sp;
                     break;
                 }
             }
@@ -10418,16 +15305,25 @@ namespace IceBlink2
             */
 
             //XXX
-            mod.WorldTime += mod.currentArea.TimePerSquare;
+            if (!gv.mod.currentArea.isOverviewMap)
+            {
+                mod.WorldTime += mod.timePerStepAfterSpeedCalc;
+            }
 
             foreach (Prop p in gv.mod.propsWaitingForRespawn)
             {
-                p.respawnTimeInMinutesPassedAlready += mod.currentArea.TimePerSquare;
+                if (!gv.mod.currentArea.isOverviewMap)
+                {
+                    p.respawnTimeInMinutesPassedAlready += mod.timePerStepAfterSpeedCalc;
+                }
             }
 
             foreach (Faction f in gv.mod.moduleFactionsList)
             {
-                f.timePassedInThisInterval += mod.currentArea.TimePerSquare;
+                if (!gv.mod.currentArea.isOverviewMap)
+                {
+                    f.timePassedInThisInterval += mod.timePerStepAfterSpeedCalc;
+                }
                 if (f.timePassedInThisInterval >= (f.intervalOfFactionStrengthChangeInHours * 60))
                 {
                     f.timePassedInThisInterval = 0;
@@ -10485,7 +15381,10 @@ namespace IceBlink2
                 {
                     if (pc.hp > -20 && pc.hp < pc.hpMax) //do not regen if truely dead
                     {
-                        pc.hpRegenTimePassedCounter += mod.currentArea.TimePerSquare;
+                        if (!gv.mod.currentArea.isOverviewMap)
+                        {
+                            pc.hpRegenTimePassedCounter += mod.timePerStepAfterSpeedCalc;
+                        } 
                         if (pc.hpRegenTimePassedCounter >= mod.getPlayerClass(pc.classTag).hpRegenTimeNeeded)
                         {
                             int hpGained = 0;
@@ -10508,7 +15407,10 @@ namespace IceBlink2
                 {
                     if (pc.hp > -20 && pc.sp < pc.spMax) //do not regen if truely dead
                     {
-                        pc.spRegenTimePassedCounter += mod.currentArea.TimePerSquare;
+                        if (!gv.mod.currentArea.isOverviewMap)
+                        {
+                            pc.spRegenTimePassedCounter += mod.timePerStepAfterSpeedCalc;
+                        }
                         if (pc.spRegenTimePassedCounter >= mod.getPlayerClass(pc.classTag).spRegenTimeNeeded)
                         {
                             int spGained = 0;
@@ -10640,7 +15542,10 @@ namespace IceBlink2
         {
             if ((minutesNeeded > 0) && (pc.hp > -20) && (pc.sp < pc.spMax))
             {
-                itRef.spRegenTimer += mod.currentArea.TimePerSquare;
+                if (!gv.mod.currentArea.isOverviewMap)
+                {
+                    itRef.spRegenTimer += mod.timePerStepAfterSpeedCalc;
+                }
                 if (itRef.spRegenTimer >= minutesNeeded)
                 {
                     int spGained = 0;
@@ -10656,7 +15561,10 @@ namespace IceBlink2
         {
             if ((minutesNeeded > 0) && (pc.hp > -20) && (pc.hp < pc.hpMax))
             {
-                itRef.hpRegenTimer += mod.currentArea.TimePerSquare;
+                if (!gv.mod.currentArea.isOverviewMap)
+                {
+                    itRef.hpRegenTimer += mod.timePerStepAfterSpeedCalc;
+                }
                 if (itRef.hpRegenTimer >= minutesNeeded)
                 {
                     int hpGained = 0;
@@ -16888,15 +21796,24 @@ namespace IceBlink2
                     {
                         if (target.hp <= -20)
                         {
-                            gv.screenCombat.deathAnimationLocations.Add(new Coordinate(target.combatLocX, target.combatLocY));
+                            if (gv.screenType == "combat")
+                            {
+                                gv.screenCombat.deathAnimationLocations.Add(new Coordinate(target.combatLocX, target.combatLocY));
+                            }
+                            }
+                        if (gv.screenType == "combat")
+                        {
+                            gv.cc.addLogText("<font color='red'>" + target.name + " is unconscious!" + "</font><BR>");
                         }
-                        gv.cc.addLogText("<font color='red'>" + target.name + " is unconscious!" + "</font><BR>");
-                        target.charStatus = "Dead";
+                            target.charStatus = "Dead";
                     }
                 }
                 //Do floaty text damage
                 //gv.screenCombat.floatyTextOn = true;
-                gv.cc.addFloatyText(new Coordinate(target.combatLocX, target.combatLocY), damageTotal + "");
+                if (gv.screenType == "combat")
+                {
+                    gv.cc.addFloatyText(new Coordinate(target.combatLocX, target.combatLocY), damageTotal + "");
+                }
 //                gv.postDelayed("doFloatyText", 100);
 
                 source.sp -= SpellToCast.costSP;

@@ -11314,29 +11314,29 @@ namespace IceBlink2
                 int val = (int)CalcualteNumberEquation(element[2]);
                 if (element[1] == "=")
                 {
-                    gv.mod.currentArea.TimePerSquare = val;
+                    gv.mod.timePerStepAfterSpeedCalc = val;
                 }
                 else if (element[1] == "+=")
                 {
-                    gv.mod.currentArea.TimePerSquare += val;
+                    gv.mod.timePerStepAfterSpeedCalc += val;
                 }
                 else if (element[1] == "-=")
                 {
-                    gv.mod.currentArea.TimePerSquare -= val;
+                    gv.mod.timePerStepAfterSpeedCalc -= val;
                 }
                 else if (element[1] == "*=")
                 {
-                    gv.mod.currentArea.TimePerSquare *= val;
+                    gv.mod.timePerStepAfterSpeedCalc *= val;
                 }
                 else if (element[1] == "/=")
                 {
-                    helpResult = gv.mod.currentArea.TimePerSquare;
+                    helpResult = gv.mod.timePerStepAfterSpeedCalc;
                     helpResult /= val;
-                    gv.mod.currentArea.TimePerSquare = (int)helpResult;
+                    gv.mod.timePerStepAfterSpeedCalc = (int)helpResult;
                 }
                 else if (element[1] == "./.=")
                 {
-                    gv.mod.currentArea.TimePerSquare %= val;
+                    gv.mod.timePerStepAfterSpeedCalc %= val;
                 }
             }
 
@@ -21158,7 +21158,7 @@ namespace IceBlink2
                     }
                     else if (parm.EndsWith("TimePerSquare"))
                     {
-                        return gv.mod.currentArea.TimePerSquare.ToString();
+                        return gv.mod.timePerStepAfterSpeedCalc.ToString();
                     }
                     else if (parm.EndsWith("MusicFileName"))
                     {

@@ -1686,6 +1686,8 @@ namespace IceBlink2
                         }
                         if (!inCombat)
                         {
+                            if (!gv.mod.showPartyToken)
+                            {
                             for (int j = 0; j < gv.mod.playerList.Count; j++)
                             {
                                 if (btnPartyIndex[j].getImpact(x, y))
@@ -1709,6 +1711,7 @@ namespace IceBlink2
                                 }
                             }
                         }
+                }
                         break;
                 }
             }

@@ -13,13 +13,54 @@ namespace IceBlink2
 {
     public class Module
     {
+        public bool partyIsSearching = false;
+        public int timePerStepAfterSpeedCalc = 6; //in minutes
 
+        public int partySpeed = 100; //default speed is 100; max is 199, min is 1
+        public int vehicleAdditionalSpeed = 0;//ís added to party speed, always caps at 199 though (min 1 in case of negative additional vehicle speed)
+        public int absoluteVehicleSpeed = 0; //The his replaces the normal party speed, use values from 1 to 199;
+
+
+        public string oldPartyTokenFilename = "none";
+        public bool oldPartyTokenEnabledState = false;
+
+        public bool currentlyOnOwnZone = false;
+        public bool currentlyOnMotherZone = false;
+        public bool currentlyOnGrandMotherZone = false;
+
+
+        public bool overviewOwnZoneMapExists = false;
+        public bool overviewMotherZoneMapExists = false;
+        public bool overviewGrandMotherZoneMapExists = false;
+
+        public bool showOverviewButtonOwnZoneMap = false;
+        public bool showOverviewButtonMotherZoneMap = false;
+        public bool showOverviewButtonGrandMotherZoneMap = false;
+
+        public string filenameOfOwnZoneMap = "none";
+        public string filenameOfMotherZoneMap = "none";
+        public string filenameOfGrandMotherZoneMap = "none";
+
+        public string ingameNameOfOwnZoneMap = "none";
+        public string ingameNameOfMotherZoneMap = "none";
+        public string ingameNameOfGrandMotherZoneMap = "none";
+
+        public int partyPositionMarkerOnOwnZoneMapX = -1;
+        public int partyPositionMarkerOnOwnZoneMapY = -1;
+        public int partyPositionMarkerOnMotherZoneMapX = -1;
+        public int partyPositionMarkerOnMotherZoneMapY = -1;
+        public int partyPositionMarkerOnGrandMotherZoneMapX = -1;
+        public int partyPositionMarkerOnGrandMotherZoneMapY = -1;
+
+        public string overviewReturnAreaName = "none";
+        public int overviewReturnLocationX = 0;
+        public int overviewReturnLocationY = 0; 
 
         public bool allowIntraPartyConvos = false;
 
         public bool useLightSystem = true; 
 
-        public bool useComplexCoordinateSystem = false;
+        public bool useComplexCoordinateSystem = true;
 
         public bool useAlternativeSpeechBubbleSystem = true;
 

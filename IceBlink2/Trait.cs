@@ -18,7 +18,7 @@ namespace IceBlink2
 	    public string traitImage = "sp_magebolt";
 	    public string description = "";
         public bool showOnMainMap = false;
-        public string methodOfChecking = "leader";  //leader, highest (best suited for oneMustSuccceed, too), lowest (best suited for allMustSucceéd, too)), average 
+        public string methodOfChecking = "leader";  //leader (>=0), highest (-2; best suited for oneMustSuccceed, too), lowest(-3; (best suited for allMustSucceéd, too)), average (-4), allMustSucced (-5),  
 	    public string prerequisiteTrait = "none";
 	    public int skillModifier = 0;
 	    public string skillModifierAttribute = "str";

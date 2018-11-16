@@ -117,6 +117,12 @@ namespace IceBlink2
                 numberOfLinesToShow = 26;
             }
 
+            if (!gv.screenType.Equals("combat"))
+            {
+                numberOfLinesToShow = 22;
+            }
+
+
             maxLines = currentTopLineIndex + numberOfLinesToShow;
             
             if (maxLines > logLinesList.Count) { maxLines = logLinesList.Count; }
@@ -148,10 +154,12 @@ namespace IceBlink2
                     int logOpac = (int)(255f * gv.mod.logOpacity);
                     word.color.A = (byte)(logOpac);
                     int yPositionModifier = 0;
+                    
                     if (gv.mod.useComplexCoordinateSystem && !gv.screenType.Equals("combat"))
                     {
                         yPositionModifier = gv.squareSize - gv.pS;
                     }
+                    
                     if (gv.screenType.Equals("combat") && (!gv.mod.useMinimalisticUI) && (gv.screenCombat.showIniBar))
                     {
                         yPositionModifier = gv.squareSize + 4 * gv.pS;

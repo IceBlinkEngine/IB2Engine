@@ -7820,10 +7820,12 @@ namespace IceBlink2
                 }
                 //do END ENCOUNTER IBScript
                 gv.cc.doIBScriptBasedOnFilename(gv.mod.currentEncounter.OnEndCombatIBScript, gv.mod.currentEncounter.OnEndCombatIBScriptParms);
+                gv.sf.ThisProp.wasKilled = true;
                 if (gv.cc.calledEncounterFromProp)
                 {
                     //gv.mod.isRecursiveDoTriggerCallMovingProp = true;
                     //gv.mod.isRecursiveCall = true;
+                    //gv.sf.ThisProp.wasKilled = true; 
                     gv.mod.EncounterOfTurnDone = false;
                     //gv.triggerPropIndex = 4;
                     gv.cc.doPropTriggers();
@@ -12726,6 +12728,8 @@ namespace IceBlink2
                 }
             }
         }
+
+
         public void drawFloatyText()
         {
             int txtH = (int)gv.drawFontRegHeight;
@@ -14579,6 +14583,7 @@ namespace IceBlink2
                     gv.cc.floatyText = "";
                     gv.cc.floatyText2 = "";
                     gv.cc.floatyText3 = "";
+                    gv.cc.floatyText4 = "";
                     foreach (Creature crt in gv.mod.currentEncounter.encounterCreatureList)
                     {
                         //if ((crt.combatLocX == gridx + UpperLeftSquare.X) && (crt.combatLocY == gridy + UpperLeftSquare.Y))
@@ -14868,6 +14873,7 @@ namespace IceBlink2
                         gv.cc.floatyText = "";
                         gv.cc.floatyText2 = "";
                         gv.cc.floatyText3 = "";
+                        gv.cc.floatyText4  = "";
                         if ((currentCombatMode.Equals("attack")) || (currentCombatMode.Equals("cast")))
                         {
                             //Check for second tap so TARGET

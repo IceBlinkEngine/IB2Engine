@@ -9,6 +9,9 @@ namespace IceBlink2
 {
     public class Tile
     {
+        public int stealthModifier = 0; //highrt makes hiding/stealthing easier
+        public int speedModifier = 0;
+
         public string Layer0Filename = "";
         public string Layer1Filename = "t_blank";
         public string Layer2Filename = "t_blank";

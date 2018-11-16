@@ -14,6 +14,20 @@ namespace IceBlink2
 {
     public class Prop 
     {
+        public bool isSecretDoor = false;
+        public int secretDoorDC = 10;
+        //public bool secretDoorDirectionEW = true;
+
+        public bool wasKilled = false;
+
+        public bool stealthSkipsPropTriggers = false;
+        public bool isStealthed = false;
+
+        public int movementSpeed = -1; //-1 denotes a prop taht moves at default speed 50% chance of zero moves, 0% chance of double moves
+                                       //otherwise, use positive vlues will compred to party speed; party speed is detemrioned by its leader (5 per trait level + DEX + items)
+                                       //10 feels like a normal party speed with someone who has bit expertise in it, 20 is quite fast alreday, 30 is really fast
+        public int spotEnemy = -1;
+        public int stealth = -1;
 
         public bool alwaysDrawNormalSize = false;
 
@@ -194,6 +208,8 @@ namespace IceBlink2
         public bool isTrap = false;  
         public int trapDCforDisableCheck = 10;
 
+        public string permanentText = "none";
+
 
 
         public Prop()
@@ -209,7 +225,17 @@ namespace IceBlink2
         public Prop DeepCopy()
         {
     	    Prop copy = new Prop();
+            copy.isSecretDoor = this.isSecretDoor;
+            copy.secretDoorDC = this.secretDoorDC;
+            //copy.secretDoorDirectionEW = this.secretDoorDirectionEW;
+            copy.wasKilled = this.wasKilled;
+            copy.stealthSkipsPropTriggers = this.stealthSkipsPropTriggers;
+            copy.isStealthed = this.isStealthed;
             //copy.token = this.token;
+            copy.spotEnemy = this.spotEnemy;
+            copy.stealth = this.stealth;
+            copy.movementSpeed = this.movementSpeed;
+            copy.permanentText = this.permanentText;
             copy.alwaysDrawNormalSize = this.alwaysDrawNormalSize;
             copy.encounterPropTriggerOnEveryStep = this.encounterPropTriggerOnEveryStep;
             copy.pendingFactionStrengthEffectReversal = this.pendingFactionStrengthEffectReversal;
