@@ -12899,12 +12899,10 @@ namespace IceBlink2
 
         public void castSpell(string spellString, string pcIdentifier, string casterLevelString, string logTextForCastingAction)
         {
-
-            //Coordinate partyPos = new Coordinate();
-            //partyPos.X = gv.mod.PlayerLocationX;
-            //partyPos.Y = gv.mod.PlayerLocationY;
-            //gv.sf.addFloatyText(partyPos, logTextForCastingAction, "red");
-            gv.screenMainMap.addFloatyText(gv.mod.PlayerLocationX, gv.mod.PlayerLocationY, logTextForCastingAction, "red", 4000);
+            if (logTextForCastingAction != "none" && logTextForCastingAction != "None" && logTextForCastingAction != "")
+            {
+                gv.screenMainMap.addFloatyText(gv.mod.PlayerLocationX, gv.mod.PlayerLocationY, logTextForCastingAction, "red", 4000);
+            }
             Spell spell = new Spell();
             foreach (Spell sp in gv.mod.moduleSpellsList)
             {

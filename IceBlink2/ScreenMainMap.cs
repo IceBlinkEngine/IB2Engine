@@ -439,7 +439,7 @@ namespace IceBlink2
 
                                 foreach (Prop p in gv.mod.currentArea.Props)
                                 {
-                                    if (p.isActive && (p.ConversationWhenOnPartySquare != "none" || p.EncounterWhenOnPartySquare != "none"))
+                                    if (p.isActive && (p.ConversationWhenOnPartySquare != "none" || p.EncounterWhenOnPartySquare != "none" || p.scriptFilename != "none"))
                                     {
                                         if ((p.LocationX == gv.mod.PlayerLocationX) && (p.LocationY == gv.mod.PlayerLocationY - 1))
                                         {
@@ -478,7 +478,7 @@ namespace IceBlink2
                                     if (bumpPropExists)
                                     {
                                         if (bumpProp.ConversationWhenOnPartySquare != "none")
-                                        {
+                                        { 
                                             //called from prop add?
                                             gv.sf.ThisProp = bumpProp;
                                             gv.cc.doConversationBasedOnTag(bumpProp.ConversationWhenOnPartySquare);
@@ -489,6 +489,30 @@ namespace IceBlink2
                                             gv.mod.EncounterOfTurnDone = true;
                                             gv.sf.ThisProp = bumpProp;
                                             gv.cc.doEncounterBasedOnTag(bumpProp.EncounterWhenOnPartySquare);
+                                        }
+
+                                        if (bumpProp.scriptFilename != "none")
+                                        {
+                                            gv.sf.ThisProp = bumpProp;
+                                            gv.cc.doScriptBasedOnFilename(bumpProp.scriptFilename, bumpProp.parm1, bumpProp.parm2, bumpProp.parm3, bumpProp.parm4);
+
+                                            //code for floaty shown on prop upon script activation
+                                            if (bumpProp.scriptActivationFloaty != "none" && bumpProp.scriptActivationFloaty != "None" && bumpProp.scriptActivationFloaty != "")
+                                            {
+                                                gv.screenMainMap.addFloatyText(bumpProp.LocationX, bumpProp.LocationY, bumpProp.scriptActivationFloaty, "red", 2000);
+                                            }
+
+                                            //code for log, to do
+                                            if (bumpProp.scriptActivationLogEntry != "none" && bumpProp.scriptActivationLogEntry != "None" && bumpProp.scriptActivationLogEntry != "")
+                                            {
+                                                gv.cc.addLogText("red", bumpProp.scriptActivationLogEntry);
+                                            }
+
+                                            if (bumpProp.onlyOnce)
+                                            {
+                                                bumpProp.isShown = false;
+                                                bumpProp.isActive = false;
+                                            }                                            
                                         }
                                     }
                                     else if (bumpTriggerExists)
@@ -533,7 +557,7 @@ namespace IceBlink2
 
                                 foreach (Prop p in gv.mod.currentArea.Props)
                                 {
-                                    if (p.isActive && (p.ConversationWhenOnPartySquare != "none" || p.EncounterWhenOnPartySquare != "none"))
+                                    if (p.isActive && (p.ConversationWhenOnPartySquare != "none" || p.EncounterWhenOnPartySquare != "none" || p.scriptFilename != "none"))
                                     {
                                         if ((p.LocationX == gv.mod.PlayerLocationX) && (p.LocationY == gv.mod.PlayerLocationY+1))
                                         {
@@ -584,6 +608,30 @@ namespace IceBlink2
                                             gv.sf.ThisProp = bumpProp;
                                             gv.cc.doEncounterBasedOnTag(bumpProp.EncounterWhenOnPartySquare);
                                         }
+
+                                        if (bumpProp.scriptFilename != "none")
+                                        {
+                                            gv.sf.ThisProp = bumpProp;
+                                            gv.cc.doScriptBasedOnFilename(bumpProp.scriptFilename, bumpProp.parm1, bumpProp.parm2, bumpProp.parm3, bumpProp.parm4);
+
+                                            //code for floaty shown on prop upon script activation
+                                            if (bumpProp.scriptActivationFloaty != "none" && bumpProp.scriptActivationFloaty != "None" && bumpProp.scriptActivationFloaty != "")
+                                            {
+                                                gv.screenMainMap.addFloatyText(bumpProp.LocationX, bumpProp.LocationY, bumpProp.scriptActivationFloaty, "red", 2000);
+                                            }
+
+                                            //code for log, to do
+                                            if (bumpProp.scriptActivationLogEntry != "none" && bumpProp.scriptActivationLogEntry != "None" && bumpProp.scriptActivationLogEntry != "")
+                                            {
+                                                gv.cc.addLogText("red", bumpProp.scriptActivationLogEntry);
+                                            }
+
+                                            if (bumpProp.onlyOnce)
+                                            {
+                                                bumpProp.isShown = false;
+                                                bumpProp.isActive = false;
+                                            }
+                                        }
                                     }
                                     else if (bumpTriggerExists)
                                     {
@@ -625,7 +673,7 @@ namespace IceBlink2
 
                                 foreach (Prop p in gv.mod.currentArea.Props)
                                 {
-                                    if (p.isActive && (p.ConversationWhenOnPartySquare != "none" || p.EncounterWhenOnPartySquare != "none"))
+                                    if (p.isActive && (p.ConversationWhenOnPartySquare != "none" || p.EncounterWhenOnPartySquare != "none" || p.scriptFilename != "none"))
                                     {
                                         if ((p.LocationX == gv.mod.PlayerLocationX - 1) && (p.LocationY == gv.mod.PlayerLocationY))
                                         {
@@ -691,6 +739,30 @@ namespace IceBlink2
                                             gv.sf.ThisProp = bumpProp;
                                             gv.cc.doEncounterBasedOnTag(bumpProp.EncounterWhenOnPartySquare);
                                         }
+
+                                        if (bumpProp.scriptFilename != "none")
+                                        {
+                                            gv.sf.ThisProp = bumpProp;
+                                            gv.cc.doScriptBasedOnFilename(bumpProp.scriptFilename, bumpProp.parm1, bumpProp.parm2, bumpProp.parm3, bumpProp.parm4);
+
+                                            //code for floaty shown on prop upon script activation
+                                            if (bumpProp.scriptActivationFloaty != "none" && bumpProp.scriptActivationFloaty != "None" && bumpProp.scriptActivationFloaty != "")
+                                            {
+                                                gv.screenMainMap.addFloatyText(bumpProp.LocationX, bumpProp.LocationY, bumpProp.scriptActivationFloaty, "red", 2000);
+                                            }
+
+                                            //code for log, to do
+                                            if (bumpProp.scriptActivationLogEntry != "none" && bumpProp.scriptActivationLogEntry != "None" && bumpProp.scriptActivationLogEntry != "")
+                                            {
+                                                gv.cc.addLogText("red", bumpProp.scriptActivationLogEntry);
+                                            }
+
+                                            if (bumpProp.onlyOnce)
+                                            {
+                                                bumpProp.isShown = false;
+                                                bumpProp.isActive = false;
+                                            }
+                                        }
                                     }
                                     else if (bumpTriggerExists)
                                     {
@@ -736,7 +808,7 @@ namespace IceBlink2
 
                                 foreach (Prop p in gv.mod.currentArea.Props)
                                 {
-                                    if (p.isActive && (p.ConversationWhenOnPartySquare != "none" || p.EncounterWhenOnPartySquare != "none"))
+                                    if (p.isActive && (p.ConversationWhenOnPartySquare != "none" || p.EncounterWhenOnPartySquare != "none" || p.scriptFilename != "none"))
                                     {
                                         if ((p.LocationX == gv.mod.PlayerLocationX + 1) && (p.LocationY == gv.mod.PlayerLocationY))
                                         {
@@ -801,6 +873,30 @@ namespace IceBlink2
                                             gv.mod.EncounterOfTurnDone = true;
                                             gv.sf.ThisProp = bumpProp;
                                             gv.cc.doEncounterBasedOnTag(bumpProp.EncounterWhenOnPartySquare);
+                                        }
+
+                                        if (bumpProp.scriptFilename != "none")
+                                        {
+                                            gv.sf.ThisProp = bumpProp;
+                                            gv.cc.doScriptBasedOnFilename(bumpProp.scriptFilename, bumpProp.parm1, bumpProp.parm2, bumpProp.parm3, bumpProp.parm4);
+
+                                            //code for floaty shown on prop upon script activation
+                                            if (bumpProp.scriptActivationFloaty != "none" && bumpProp.scriptActivationFloaty != "None" && bumpProp.scriptActivationFloaty != "")
+                                            {
+                                                gv.screenMainMap.addFloatyText(bumpProp.LocationX, bumpProp.LocationY, bumpProp.scriptActivationFloaty, "red", 2000);
+                                            }
+
+                                            //code for log, to do
+                                            if (bumpProp.scriptActivationLogEntry != "none" && bumpProp.scriptActivationLogEntry != "None" && bumpProp.scriptActivationLogEntry != "")
+                                            {
+                                                gv.cc.addLogText("red", bumpProp.scriptActivationLogEntry);
+                                            }
+
+                                            if (bumpProp.onlyOnce)
+                                            {
+                                                bumpProp.isShown = false;
+                                                bumpProp.isActive = false;
+                                            }
                                         }
                                     }
                                     else if (bumpTriggerExists)
@@ -36830,7 +36926,7 @@ namespace IceBlink2
                                     gv.cc.doUpdate();
                                     gv.mod.activeSearchDoneThisMove = false;
 
-                                    //interctvie props that ereast to search (secert doors, traps, hidden info, i´hidden treasure)
+                                    //interactive props that react to search (secret doors, traps, hidden info, hidden treasure)
                                     //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXx
                                     //get diagonal neighbours
                                     NeighbourNE = "";
@@ -36900,14 +36996,19 @@ namespace IceBlink2
                                             foreach (Prop p in a.Props)
                                             {
                                                 //add all the other types here
-                                                if (p.isSecretDoor)
+                                                if (p.isSecretDoor || p.isTrapMain)
                                                 {
                                                     //skill roll script
                                                     //visible state
                                                     string traitMethod = "leader";
                                                     foreach (Trait t in gv.mod.moduleTraitsList)
                                                     {
-                                                         if (t.tag == "searchSecretDoors")
+                                                         if (t.tag == p.secretDoorTraitTag)
+                                                        {
+                                                            traitMethod = t.methodOfChecking;
+                                                        }
+
+                                                        if (t.tag == p.trapTraitTag)
                                                         {
                                                             traitMethod = t.methodOfChecking;
                                                         }
@@ -37071,18 +37172,32 @@ namespace IceBlink2
 
                                                     int x3 = p.LocationX;
                                                     int y3 = p.LocationY;
-                                                    //within distance and not on border
-
-                                                    if ((gv.cc.getDistance(pcCoord, propCoord) <= 1)  && (x3 < a.MapSizeX - 1 && x3 > 0 && y3 < a.MapSizeY - 1 && y3 > 0))
+                                                    
+                                                    //within distance and not on border and active
+                                                    if ((gv.cc.getDistance(pcCoord, propCoord) <= 1)  && (x3 < a.MapSizeX - 1 && x3 > 0 && y3 < a.MapSizeY - 1 && y3 > 0) && p.isActive)
                                                     {
+                                                        //get trait name
+                                                        string traitName = "none";
+                                                        foreach (Trait t in gv.mod.moduleTraitsList)
+                                                        {
+                                                            if (t.tag == p.secretDoorTraitTag)
+                                                            {
+                                                                traitName = t.name;
+                                                            }
+
+                                                            if (t.tag == p.trapTraitTag)
+                                                            {
+                                                                traitName = t.name;
+                                                            }
+                                                        }
                                                         noPropHere = false;
                                                         //secret door section
                                                         if (p.isSecretDoor)
                                                         {
                                                         
-                                                            if (gv.sf.CheckPassSkill(parm1, "mechanics", p.secretDoorDC + darkAdder, true, false))
+                                                            if (gv.sf.CheckPassSkill(parm1, p.secretDoorTraitTag, p.secretDoorDC + darkAdder, true, false))
                                                             {
-                                                                //ew direction of secret door
+                                                                //EW direction of secret door
                                                                 if (gv.mod.currentArea.Tiles[p.LocationY * gv.mod.currentArea.MapSizeX + p.LocationX].heightLevel == gv.mod.currentArea.Tiles[(p.LocationY + 1) * gv.mod.currentArea.MapSizeX + p.LocationX].heightLevel)
                                                                 {
                                                                     if (a.Tiles[y3 * a.MapSizeX + x3].isNSBridge == false)
@@ -37109,11 +37224,8 @@ namespace IceBlink2
                                                                    
                                                                     gv.sf.calculateHeightShadows(x3, y3);
 
-                                                                //remember to update this first on loading (and walkable/LoS afterwards)
-                                                                //generally dont forget the load code part :-)
-
                                                                 //center
-                                                                //if (!p.secretDoorDirectionEW)
+                                                              
                                                                 //NS direction of secret door
                                                                 if (gv.mod.currentArea.Tiles[p.LocationY * gv.mod.currentArea.MapSizeX + p.LocationX].heightLevel == gv.mod.currentArea.Tiles[p.LocationY * gv.mod.currentArea.MapSizeX + p.LocationX + 1].heightLevel)
                                                                 {
@@ -37137,7 +37249,6 @@ namespace IceBlink2
                                                                         }
                                                                     }
 
-                                                                //if (p.secretDoorDirectionEW)
                                                                 //EW direction of secret door
                                                                 if (gv.mod.currentArea.Tiles[p.LocationY * gv.mod.currentArea.MapSizeX + p.LocationX].heightLevel == gv.mod.currentArea.Tiles[(p.LocationY + 1) * gv.mod.currentArea.MapSizeX + p.LocationX].heightLevel)
                                                                 {
@@ -37161,28 +37272,52 @@ namespace IceBlink2
                                                                     }
                                                                     //secret door has been opened, normal tile now
                                                                     p.isSecretDoor = false;
-                                                                //Coordinate floatCoord = new Coordinate();
-                                                                //floatCoord.X = x3;
-                                                                //floatCoord.Y = y3;
-
+                                                               
                                                                 //skill roll success message (A)
-                                                                gv.screenMainMap.addFloatyText(x3, y3, "Success!" + " (" + (p.secretDoorDC).ToString() + ")", "green", 2000);
-                                                                gv.cc.addLogText("green", "Opened secret passage (" + (p.secretDoorDC).ToString() + ") and " + gv.mod.playerList[gv.mod.selectedPartyLeader].name + " loses " + gv.mod.activeSearchSPCost + " SP");
+                                                                gv.screenMainMap.addFloatyText(x3, y3, traitName + " (" + (p.secretDoorDC).ToString() + ")", "green", 2000);
+                                                                gv.cc.addLogText("green", traitName + " (" + (p.secretDoorDC).ToString() + ") and " + gv.mod.playerList[gv.mod.selectedPartyLeader].name + " loses " + gv.mod.activeSearchSPCost + " SP");
                                                             }//skill check
 
                                                             //skill roll failed message (B)
                                                             else
                                                             {
-                                                                gv.screenMainMap.addFloatyText(x3, y3, "Failure!" + " (" + (p.secretDoorDC).ToString() + ")", "red", 2000);
-                                                                gv.cc.addLogText("red", "Failed to open secret passage (" + (p.secretDoorDC ).ToString() + ") and " + gv.mod.playerList[gv.mod.selectedPartyLeader].name + " loses " + gv.mod.activeSearchSPCost + " SP");
+                                                                gv.screenMainMap.addFloatyText(x3, y3, traitName + " (" + (p.secretDoorDC).ToString() + ")", "red", 2000);
+                                                                gv.cc.addLogText("red", traitName + " (" + (p.secretDoorDC ).ToString() + ") and " + gv.mod.playerList[gv.mod.selectedPartyLeader].name + " loses " + gv.mod.activeSearchSPCost + " SP");
                                                             }
 
                                                         }//secret door subsection end 
+
+                                                        //trap subsection start
+                                                        if (p.isTrapMain)
+                                                        {
+
+                                                            if (gv.sf.CheckPassSkill(parm1, p.trapTraitTag, p.trapDC + darkAdder, true, false))
+                                                            {
+
+                                                                //trap has been disarmed, normal tile now
+                                                                //p.isTrapMain = false;
+                                                                p.isShown = false;
+                                                                p.isActive = false;
+
+                                                                //skill roll success message (A)
+                                                                gv.screenMainMap.addFloatyText(x3, y3, traitName + " (" + (p.trapDC).ToString() + ")", "green", 2000);
+                                                                gv.cc.addLogText("green", traitName + " (" + (p.trapDC).ToString() + ") and " + gv.mod.playerList[gv.mod.selectedPartyLeader].name + " loses " + gv.mod.activeSearchSPCost + " SP");
+                                                            }//skill check
+
+                                                            //skill roll failed message (B)
+                                                            else
+                                                            {
+                                                                gv.screenMainMap.addFloatyText(x3, y3, traitName + " (" + (p.trapDC).ToString() + ")", "red", 2000);
+                                                                gv.cc.addLogText("red", traitName + " (" + (p.trapDC).ToString() + ") and " + gv.mod.playerList[gv.mod.selectedPartyLeader].name + " loses " + gv.mod.activeSearchSPCost + " SP");
+                                                            }
+
+                                                        }//trap subsection end 
+
                                                     }//distance and not on border
                                                 }// all SPACE props end
                                             }//loop for all props in area
                                         }//check for this or neighbouring areas
-                                    }//loop  for all areas
+                                    }//loop for all areas
 
                                     //no qualified prop nearby message (C) 
                                     if(noPropHere)
@@ -37403,7 +37538,7 @@ namespace IceBlink2
 
                                     foreach (Prop p in gv.mod.currentArea.Props)
                                     {
-                                        if (p.isActive && (p.ConversationWhenOnPartySquare != "none" || p.EncounterWhenOnPartySquare != "none"))
+                                        if (p.isActive && (p.ConversationWhenOnPartySquare != "none" || p.EncounterWhenOnPartySquare != "none" || p.scriptFilename != "none"))
                                         {
                                             if ((p.LocationX == gv.mod.PlayerLocationX) && (p.LocationY == gv.mod.PlayerLocationY - 1))
                                             {
@@ -37452,6 +37587,30 @@ namespace IceBlink2
                                                 gv.mod.EncounterOfTurnDone = true;
                                                 gv.sf.ThisProp = bumpProp;
                                                 gv.cc.doEncounterBasedOnTag(bumpProp.EncounterWhenOnPartySquare);
+                                            }
+
+                                            if (bumpProp.scriptFilename != "none")
+                                            {
+                                                gv.sf.ThisProp = bumpProp;
+                                                gv.cc.doScriptBasedOnFilename(bumpProp.scriptFilename, bumpProp.parm1, bumpProp.parm2, bumpProp.parm3, bumpProp.parm4);
+
+                                                //code for floaty shown on prop upon script activation
+                                                if (bumpProp.scriptActivationFloaty != "none" && bumpProp.scriptActivationFloaty != "None" && bumpProp.scriptActivationFloaty != "")
+                                                {
+                                                    gv.screenMainMap.addFloatyText(bumpProp.LocationX, bumpProp.LocationY, bumpProp.scriptActivationFloaty, "red", 2000);
+                                                }
+
+                                                //code for log, to do
+                                                if (bumpProp.scriptActivationLogEntry != "none" && bumpProp.scriptActivationLogEntry != "None" && bumpProp.scriptActivationLogEntry != "")
+                                                {
+                                                    gv.cc.addLogText("red", bumpProp.scriptActivationLogEntry);
+                                                }
+
+                                                if (bumpProp.onlyOnce)
+                                                {
+                                                    bumpProp.isShown = false;
+                                                    bumpProp.isActive = false;
+                                                }
                                             }
                                         }
                                         else if (bumpTriggerExists)
@@ -37502,7 +37661,7 @@ namespace IceBlink2
 
                                     foreach (Prop p in gv.mod.currentArea.Props)
                                     {
-                                        if (p.isActive && (p.ConversationWhenOnPartySquare != "none" || p.EncounterWhenOnPartySquare != "none"))
+                                        if (p.isActive && (p.ConversationWhenOnPartySquare != "none" || p.EncounterWhenOnPartySquare != "none" || p.scriptFilename != "none"))
                                         {
                                             if ((p.LocationX == gv.mod.PlayerLocationX) && (p.LocationY == gv.mod.PlayerLocationY + 1))
                                             {
@@ -37552,7 +37711,31 @@ namespace IceBlink2
                                                 gv.sf.ThisProp = bumpProp;
                                                 gv.cc.doEncounterBasedOnTag(bumpProp.EncounterWhenOnPartySquare);
                                             }
-                                        }
+
+                                                if (bumpProp.scriptFilename != "none")
+                                                {
+                                                    gv.sf.ThisProp = bumpProp;
+                                                    gv.cc.doScriptBasedOnFilename(bumpProp.scriptFilename, bumpProp.parm1, bumpProp.parm2, bumpProp.parm3, bumpProp.parm4);
+
+                                                    //code for floaty shown on prop upon script activation
+                                                    if (bumpProp.scriptActivationFloaty != "none" && bumpProp.scriptActivationFloaty != "None" && bumpProp.scriptActivationFloaty != "")
+                                                    {
+                                                        gv.screenMainMap.addFloatyText(bumpProp.LocationX, bumpProp.LocationY, bumpProp.scriptActivationFloaty, "red", 2000);
+                                                    }
+
+                                                    //code for log, to do
+                                                    if (bumpProp.scriptActivationLogEntry != "none" && bumpProp.scriptActivationLogEntry != "None" && bumpProp.scriptActivationLogEntry != "")
+                                                    {
+                                                        gv.cc.addLogText("red", bumpProp.scriptActivationLogEntry);
+                                                    }
+
+                                                    if (bumpProp.onlyOnce)
+                                                    {
+                                                        bumpProp.isShown = false;
+                                                        bumpProp.isActive = false;
+                                                    }
+                                                }
+                                            }
                                         else if (bumpTriggerExists)
                                         {
                                             gv.cc.doBumpTrigger(bumpTrigger);
@@ -37600,7 +37783,7 @@ namespace IceBlink2
 
                                     foreach (Prop p in gv.mod.currentArea.Props)
                                     {
-                                        if (p.isActive && (p.ConversationWhenOnPartySquare != "none" || p.EncounterWhenOnPartySquare != "none"))
+                                        if (p.isActive && (p.ConversationWhenOnPartySquare != "none" || p.EncounterWhenOnPartySquare != "none" || p.scriptFilename != "none"))
                                         {
                                             if ((p.LocationX == gv.mod.PlayerLocationX - 1) && (p.LocationY == gv.mod.PlayerLocationY))
                                             {
@@ -37664,6 +37847,29 @@ namespace IceBlink2
                                                 gv.sf.ThisProp = bumpProp;
                                                 gv.cc.doEncounterBasedOnTag(bumpProp.EncounterWhenOnPartySquare);
                                             }
+                                            if (bumpProp.scriptFilename != "none")
+                                            {
+                                                gv.sf.ThisProp = bumpProp;
+                                                gv.cc.doScriptBasedOnFilename(bumpProp.scriptFilename, bumpProp.parm1, bumpProp.parm2, bumpProp.parm3, bumpProp.parm4);
+
+                                                //code for floaty shown on prop upon script activation
+                                                if (bumpProp.scriptActivationFloaty != "none" && bumpProp.scriptActivationFloaty != "None" && bumpProp.scriptActivationFloaty != "")
+                                                {
+                                                    gv.screenMainMap.addFloatyText(bumpProp.LocationX, bumpProp.LocationY, bumpProp.scriptActivationFloaty, "red", 2000);
+                                                }
+
+                                                //code for log, to do
+                                                if (bumpProp.scriptActivationLogEntry != "none" && bumpProp.scriptActivationLogEntry != "None" && bumpProp.scriptActivationLogEntry != "")
+                                                {
+                                                    gv.cc.addLogText("red", bumpProp.scriptActivationLogEntry);
+                                                }
+
+                                                if (bumpProp.onlyOnce)
+                                                {
+                                                    bumpProp.isShown = false;
+                                                    bumpProp.isActive = false;
+                                                }
+                                            }
                                         }
                                         else if (bumpTriggerExists)
                                         {
@@ -37713,7 +37919,7 @@ namespace IceBlink2
 
                                     foreach (Prop p in gv.mod.currentArea.Props)
                                     {
-                                        if (p.isActive && (p.ConversationWhenOnPartySquare != "none" || p.EncounterWhenOnPartySquare != "none"))
+                                        if (p.isActive && (p.ConversationWhenOnPartySquare != "none" || p.EncounterWhenOnPartySquare != "none" || p.scriptFilename != "none"))
                                         {
                                             if ((p.LocationX == gv.mod.PlayerLocationX + 1) && (p.LocationY == gv.mod.PlayerLocationY))
                                             {
@@ -37776,6 +37982,29 @@ namespace IceBlink2
                                                 gv.mod.EncounterOfTurnDone = true;
                                                 gv.sf.ThisProp = bumpProp;
                                                 gv.cc.doEncounterBasedOnTag(bumpProp.EncounterWhenOnPartySquare);
+                                            }
+                                            if (bumpProp.scriptFilename != "none")
+                                            {
+                                                gv.sf.ThisProp = bumpProp;
+                                                gv.cc.doScriptBasedOnFilename(bumpProp.scriptFilename, bumpProp.parm1, bumpProp.parm2, bumpProp.parm3, bumpProp.parm4);
+
+                                                //code for floaty shown on prop upon script activation
+                                                if (bumpProp.scriptActivationFloaty != "none" && bumpProp.scriptActivationFloaty != "None" && bumpProp.scriptActivationFloaty != "")
+                                                {
+                                                    gv.screenMainMap.addFloatyText(bumpProp.LocationX, bumpProp.LocationY, bumpProp.scriptActivationFloaty, "red", 2000);
+                                                }
+
+                                                //code for log, to do
+                                                if (bumpProp.scriptActivationLogEntry != "none" && bumpProp.scriptActivationLogEntry != "None" && bumpProp.scriptActivationLogEntry != "")
+                                                {
+                                                    gv.cc.addLogText("red", bumpProp.scriptActivationLogEntry);
+                                                }
+
+                                                if (bumpProp.onlyOnce)
+                                                {
+                                                    bumpProp.isShown = false;
+                                                    bumpProp.isActive = false;
+                                                }
                                             }
                                         }
                                         else if (bumpTriggerExists)
@@ -39003,25 +39232,422 @@ namespace IceBlink2
                         }
                         if (costPaid)
                         {
-                            //reinstecken
-                            if (gv.mod.activeSearchSPCostPaidByByLeaderOnly)
-                            {
-                                //addFloatyText(gv.mod.PlayerLocationX, gv.mod.PlayerLocationY, "Searching... time passes and "+ gv.mod.playerList[gv.mod.selectedPartyLeader].name + " loses " + gv.mod.activeSearchSPCost + " SP" , "white", 3000);
-                                addFloatyText(gv.mod.PlayerLocationX, gv.mod.PlayerLocationY, "Searching...", "white", 1500);
-                                gv.cc.addLogText("white", "Searching... time passes and " + gv.mod.playerList[gv.mod.selectedPartyLeader].name + " loses " + gv.mod.activeSearchSPCost + " SP");
-                            }
-                            else
-                            {
-                                //addFloatyText(gv.mod.PlayerLocationX, gv.mod.PlayerLocationY, "Searching... time passes and" + "everybody loses " + gv.mod.activeSearchSPCost + " SP", "white", 3000);
-                                addFloatyText(gv.mod.PlayerLocationX, gv.mod.PlayerLocationY, "Searching...", "white", 1500);
-                                gv.cc.addLogText("white", "Searching... time passes and everybody loses " + gv.mod.activeSearchSPCost + " SP");
-
-                            }
-                            //add log text, to do
                             gv.mod.activeSearchDoneThisMove = true;
                             gv.cc.doUpdate();
                             gv.mod.activeSearchDoneThisMove = false;
-                        }
+
+                            //interactive props that react to search (secret doors, traps, hidden info, hidden treasure)
+                            //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXx
+                            //get diagonal neighbours
+                            string NeighbourNE = "";
+                            string NeighbourNW = "";
+                            string NeighbourSE = "";
+                            string NeighbourSW = "";
+                            foreach (Area a in gv.mod.moduleAreasObjects)
+                            {
+                                if (a.Filename == gv.mod.currentArea.northernNeighbourArea)
+                                {
+                                    if (a.easternNeighbourArea != "none" && a.easternNeighbourArea != "" && a.easternNeighbourArea != "None")
+                                    {
+                                        NeighbourNE = a.easternNeighbourArea;
+                                    }
+
+                                    if (a.westernNeighbourArea != "none" && a.westernNeighbourArea != "" && a.westernNeighbourArea != "None")
+                                    {
+                                        NeighbourNW = a.westernNeighbourArea;
+                                    }
+                                }
+
+                                if (a.Filename == gv.mod.currentArea.easternNeighbourArea)
+                                {
+                                    if (a.northernNeighbourArea != "none" && a.northernNeighbourArea != "" && a.northernNeighbourArea != "None")
+                                    {
+                                        NeighbourNE = a.northernNeighbourArea;
+                                    }
+
+                                    if (a.southernNeighbourArea != "none" && a.southernNeighbourArea != "" && a.southernNeighbourArea != "None")
+                                    {
+                                        NeighbourSE = a.southernNeighbourArea;
+                                    }
+                                }
+
+                                if (a.Filename == gv.mod.currentArea.southernNeighbourArea)
+                                {
+                                    if (a.easternNeighbourArea != "none" && a.easternNeighbourArea != "" && a.easternNeighbourArea != "None")
+                                    {
+                                        NeighbourSE = a.easternNeighbourArea;
+                                    }
+
+                                    if (a.westernNeighbourArea != "none" && a.westernNeighbourArea != "" && a.westernNeighbourArea != "None")
+                                    {
+                                        NeighbourSW = a.westernNeighbourArea;
+                                    }
+                                }
+
+                                if (a.Filename == gv.mod.currentArea.westernNeighbourArea)
+                                {
+                                    if (a.northernNeighbourArea != "none" && a.northernNeighbourArea != "" && a.northernNeighbourArea != "None")
+                                    {
+                                        NeighbourNW = a.northernNeighbourArea;
+                                    }
+
+                                    if (a.southernNeighbourArea != "none" && a.southernNeighbourArea != "" && a.southernNeighbourArea != "None")
+                                    {
+                                        NeighbourSW = a.southernNeighbourArea;
+                                    }
+                                }
+                            }
+
+                            bool noPropHere = true;
+                            foreach (Area a in gv.mod.moduleAreasObjects)
+                            {
+                                if (a.Filename == gv.mod.currentArea.Filename || a.Filename == gv.mod.currentArea.easternNeighbourArea || a.Filename == gv.mod.currentArea.westernNeighbourArea || a.Filename == gv.mod.currentArea.northernNeighbourArea || a.Filename == gv.mod.currentArea.southernNeighbourArea || a.Filename == NeighbourNE || a.Filename == NeighbourNW || a.Filename == NeighbourSE || a.Filename == NeighbourSW)
+                                {
+                                    foreach (Prop p in a.Props)
+                                    {
+                                        //add all the other types here
+                                        if (p.isSecretDoor || p.isTrapMain)
+                                        {
+                                            //skill roll script
+                                            //visible state
+                                            string traitMethod = "leader";
+                                            foreach (Trait t in gv.mod.moduleTraitsList)
+                                            {
+                                                if (t.tag == p.secretDoorTraitTag)
+                                                {
+                                                    traitMethod = t.methodOfChecking;
+                                                }
+
+                                                if (t.tag == p.trapTraitTag)
+                                                 {
+                                                    traitMethod = t.methodOfChecking;
+                                                }
+                                            }
+                                            int parm1 = gv.mod.selectedPartyLeader;
+                                            if (traitMethod.Equals("-1") || traitMethod.Equals("leader") || traitMethod.Equals("Leader"))
+                                            {
+                                                parm1 = gv.mod.selectedPartyLeader;
+                                            }
+                                            else if (traitMethod.Equals("-2") || traitMethod.Equals("highest") || traitMethod.Equals("Highest"))
+                                            {
+                                                parm1 = -2;
+                                            }
+                                            else if (traitMethod.Equals("-3") || traitMethod.Equals("lowest") || traitMethod.Equals("Lowest"))
+                                            {
+                                                parm1 = -3;
+                                            }
+                                            else if (traitMethod.Equals("-4") || traitMethod.Equals("average") || traitMethod.Equals("Average"))
+                                            {
+                                                parm1 = -4;
+                                            }
+                                            else if (traitMethod.Equals("-5") || traitMethod.Equals("allMustSucceed") || traitMethod.Equals("AllMustSucceed"))
+                                            {
+                                                parm1 = -5;
+                                            }
+                                            else if (traitMethod.Equals("-6") || traitMethod.Equals("oneMustSucceed") || traitMethod.Equals("OneMustSucceed"))
+                                            {
+                                                parm1 = -6;
+                                            }
+
+                                            int darkAdder = 0;
+                                            Coordinate pcCoord = new Coordinate();
+                                            Coordinate propCoord = new Coordinate();
+                                            pcCoord.X = gv.mod.PlayerLocationX;
+                                            pcCoord.Y = gv.mod.PlayerLocationY;
+                                            if (a.Filename == gv.mod.currentArea.Filename)
+                                            {
+                                                propCoord.X = p.LocationX;
+                                                propCoord.Y = p.LocationY;
+                                                if (gv.sf.CheckPropByTagIsInDarknessPerArea(p.PropTag, "night", gv.mod.currentArea.Filename))
+                                                {
+                                                    darkAdder = 4;
+                                                }
+                                                if (gv.sf.CheckPropByTagIsInDarknessPerArea(p.PropTag, "noLight", a.Filename))
+                                                {
+                                                    darkAdder = 400;
+                                                }
+                                            }
+
+                                            if (a.Filename == gv.mod.currentArea.northernNeighbourArea)
+                                            {
+                                                propCoord.X = p.LocationX;
+                                                propCoord.Y = p.LocationY - a.MapSizeY;
+                                                if (gv.sf.CheckPropByTagIsInDarknessPerArea(p.PropTag, "night", a.Filename))
+                                                {
+                                                    darkAdder = 4;
+                                                }
+                                                if (gv.sf.CheckPropByTagIsInDarknessPerArea(p.PropTag, "noLight", a.Filename))
+                                                {
+                                                    darkAdder = 400;
+                                                }
+                                            }
+
+                                            if (a.Filename == NeighbourNE)
+                                            {
+                                                propCoord.X = gv.mod.currentArea.MapSizeX + p.LocationX;
+                                                propCoord.Y = p.LocationY - a.MapSizeY;
+                                                if (gv.sf.CheckPropByTagIsInDarknessPerArea(p.PropTag, "night", a.Filename))
+                                                {
+                                                    darkAdder = 4;
+                                                }
+                                                if (gv.sf.CheckPropByTagIsInDarknessPerArea(p.PropTag, "noLight", a.Filename))
+                                                {
+                                                    darkAdder = 400;
+                                                }
+                                            }
+
+                                            if (a.Filename == gv.mod.currentArea.easternNeighbourArea)
+                                            {
+                                                propCoord.X = gv.mod.currentArea.MapSizeX + p.LocationX;
+                                                propCoord.Y = p.LocationY;
+                                                if (gv.sf.CheckPropByTagIsInDarknessPerArea(p.PropTag, "night", a.Filename))
+                                                {
+                                                    darkAdder = 4;
+                                                }
+                                                if (gv.sf.CheckPropByTagIsInDarknessPerArea(p.PropTag, "noLight", a.Filename))
+                                                {
+                                                    darkAdder = 400;
+                                                }
+                                            }
+
+                                            if (a.Filename == NeighbourSE)
+                                            {
+                                                propCoord.X = gv.mod.currentArea.MapSizeX + p.LocationX;
+                                                propCoord.Y = gv.mod.currentArea.MapSizeY + p.LocationY;
+                                                if (gv.sf.CheckPropByTagIsInDarknessPerArea(p.PropTag, "night", a.Filename))
+                                                {
+                                                    darkAdder = 4;
+                                                }
+                                                if (gv.sf.CheckPropByTagIsInDarknessPerArea(p.PropTag, "noLight", a.Filename))
+                                                {
+                                                    darkAdder = 400;
+                                                }
+                                            }
+
+                                            if (a.Filename == gv.mod.currentArea.southernNeighbourArea)
+                                            {
+                                                propCoord.X = p.LocationX;
+                                                propCoord.Y = gv.mod.currentArea.MapSizeY + p.LocationY;
+                                                if (gv.sf.CheckPropByTagIsInDarknessPerArea(p.PropTag, "night", a.Filename))
+                                                {
+                                                    darkAdder = 4;
+                                                }
+                                                if (gv.sf.CheckPropByTagIsInDarknessPerArea(p.PropTag, "noLight", a.Filename))
+                                                {
+                                                    darkAdder = 400;
+                                                }
+                                            }
+
+                                            if (a.Filename == NeighbourSW)
+                                            {
+                                                propCoord.X = p.LocationX - a.MapSizeX;
+                                                propCoord.Y = gv.mod.currentArea.MapSizeY + p.LocationY;
+                                                if (gv.sf.CheckPropByTagIsInDarknessPerArea(p.PropTag, "night", a.Filename))
+                                                {
+                                                    darkAdder = 4;
+                                                }
+                                                if (gv.sf.CheckPropByTagIsInDarknessPerArea(p.PropTag, "noLight", a.Filename))
+                                                {
+                                                    darkAdder = 400;
+                                                }
+                                            }
+
+                                            if (a.Filename == gv.mod.currentArea.westernNeighbourArea)
+                                            {
+                                                propCoord.X = p.LocationX - a.MapSizeX; ;
+                                                propCoord.Y = p.LocationY;
+                                                if (gv.sf.CheckPropByTagIsInDarknessPerArea(p.PropTag, "night", a.Filename))
+                                                {
+                                                    darkAdder = 4;
+                                                }
+                                                if (gv.sf.CheckPropByTagIsInDarknessPerArea(p.PropTag, "noLight", a.Filename))
+                                                {
+                                                    darkAdder = 400;
+                                                }
+                                            }
+
+                                            if (a.Filename == NeighbourNW)
+                                            {
+                                                propCoord.X = p.LocationX - a.MapSizeX;
+                                                propCoord.Y = p.LocationY - a.MapSizeY; ;
+                                                if (gv.sf.CheckPropByTagIsInDarknessPerArea(p.PropTag, "night", a.Filename))
+                                                {
+                                                    darkAdder = 4;
+                                                }
+                                                if (gv.sf.CheckPropByTagIsInDarknessPerArea(p.PropTag, "noLight", a.Filename))
+                                                {
+                                                    darkAdder = 400;
+                                                }
+                                            }
+
+                                            int x3 = p.LocationX;
+                                            int y3 = p.LocationY;
+
+                                            //1) within distance and 2) not on border and 3) active
+                                            if ((gv.cc.getDistance(pcCoord, propCoord) <= 1) && (x3 < a.MapSizeX - 1 && x3 > 0 && y3 < a.MapSizeY - 1 && y3 > 0) && p.isActive)
+                                            {
+
+                                                //get trait name
+                                                string traitName = "none";
+                                                foreach (Trait t in gv.mod.moduleTraitsList)
+                                                {
+                                                    if (t.tag == p.secretDoorTraitTag)
+                                                    {
+                                                        traitName = t.name;
+                                                    }
+
+                                                    if (t.tag == p.trapTraitTag)
+                                                    {
+                                                        traitName = t.name;
+                                                    }
+                                                }
+
+                                                noPropHere = false;
+                                                
+                                                //secret door section
+                                                if (p.isSecretDoor)
+                                                {
+
+                                                    if (gv.sf.CheckPassSkill(parm1, p.secretDoorTraitTag, p.secretDoorDC + darkAdder, true, false))
+                                                    {
+                                                        //EW direction of secret door 
+                                                        if (gv.mod.currentArea.Tiles[p.LocationY * gv.mod.currentArea.MapSizeX + p.LocationX].heightLevel == gv.mod.currentArea.Tiles[(p.LocationY + 1) * gv.mod.currentArea.MapSizeX + p.LocationX].heightLevel)
+                                                        {
+                                                            if (a.Tiles[y3 * a.MapSizeX + x3].isNSBridge == false)
+                                                            {
+                                                                a.Tiles[y3 * a.MapSizeX + x3].isNSBridge = true;
+                                                            }
+                                                            else
+                                                            {
+                                                                a.Tiles[y3 * a.MapSizeX + x3].isNSBridge = false;
+                                                            }
+                                                        }
+                                                        //NS direction of secret door
+                                                        else if (gv.mod.currentArea.Tiles[p.LocationY * gv.mod.currentArea.MapSizeX + p.LocationX].heightLevel == gv.mod.currentArea.Tiles[p.LocationY * gv.mod.currentArea.MapSizeX + p.LocationX + 1].heightLevel)
+                                                        {
+                                                            if (a.Tiles[y3 * a.MapSizeX + x3].isEWBridge == false)
+                                                            {
+                                                                a.Tiles[y3 * a.MapSizeX + x3].isEWBridge = true;
+                                                            }
+                                                            else
+                                                            {
+                                                                a.Tiles[y3 * a.MapSizeX + x3].isEWBridge = false;
+                                                            }
+                                                        }
+
+                                                        gv.sf.calculateHeightShadows(x3, y3);
+
+                                                        //center
+
+                                                        //NS direction of secret door
+                                                        if (gv.mod.currentArea.Tiles[p.LocationY * gv.mod.currentArea.MapSizeX + p.LocationX].heightLevel == gv.mod.currentArea.Tiles[p.LocationY * gv.mod.currentArea.MapSizeX + p.LocationX + 1].heightLevel)
+                                                        {
+
+                                                            bool centerIn = false;
+                                                            for (int i = 0; i < a.newEWBridgeState.Count; i++)
+                                                            {
+                                                                if (x3 == a.changedEWBridgeTilesCoordX[i] && y3 == a.changedEWBridgeTilesCoordY[i])
+                                                                {
+                                                                    centerIn = true;
+                                                                    a.newEWBridgeState[i] = a.Tiles[y3 * a.MapSizeX + x3].isEWBridge;
+                                                                }
+                                                            }
+
+                                                            if (!centerIn)
+                                                            {
+                                                                a.newEWBridgeState.Add(gv.mod.currentArea.Tiles[y3 * a.MapSizeX + x3].isEWBridge);
+                                                                a.changedEWBridgeTilesCoordX.Add(x3);
+                                                                a.changedEWBridgeTilesCoordY.Add(y3);
+
+                                                            }
+                                                        }
+
+                                                        //EW direction of secret door
+                                                        if (gv.mod.currentArea.Tiles[p.LocationY * gv.mod.currentArea.MapSizeX + p.LocationX].heightLevel == gv.mod.currentArea.Tiles[(p.LocationY + 1) * gv.mod.currentArea.MapSizeX + p.LocationX].heightLevel)
+                                                        {
+                                                            bool centerIn = false;
+                                                            for (int i = 0; i < a.newNSBridgeState.Count; i++)
+                                                            {
+                                                                if (x3 == a.changedNSBridgeTilesCoordX[i] && y3 == a.changedNSBridgeTilesCoordY[i])
+                                                                {
+                                                                    centerIn = true;
+                                                                    a.newNSBridgeState[i] = a.Tiles[y3 * a.MapSizeX + x3].isNSBridge;
+                                                                }
+                                                            }
+
+                                                            if (!centerIn)
+                                                            {
+                                                                a.newNSBridgeState.Add(a.Tiles[y3 * a.MapSizeX + x3].isNSBridge);
+                                                                a.changedNSBridgeTilesCoordX.Add(x3);
+                                                                a.changedNSBridgeTilesCoordY.Add(y3);
+
+                                                            }
+                                                        }
+                                                        //secret door has been opened, normal tile now
+                                                        p.isSecretDoor = false;
+
+                                                        //skill roll success message (A)
+                                                        gv.screenMainMap.addFloatyText(x3, y3, traitName + " (" + (p.secretDoorDC).ToString() + ")", "green", 2000);
+                                                        gv.cc.addLogText("green", traitName + " (" + (p.secretDoorDC).ToString() + ") and " + gv.mod.playerList[gv.mod.selectedPartyLeader].name + " loses " + gv.mod.activeSearchSPCost + " SP");
+                                                    }//skill check
+
+                                                    //skill roll failed message (B)
+                                                    else
+                                                    {
+                                                        gv.screenMainMap.addFloatyText(x3, y3, traitName + " (" + (p.secretDoorDC).ToString() + ")", "red", 2000);
+                                                        gv.cc.addLogText("red", traitName + " (" + (p.secretDoorDC).ToString() + ") and " + gv.mod.playerList[gv.mod.selectedPartyLeader].name + " loses " + gv.mod.activeSearchSPCost + " SP");
+                                                    }
+
+                                                }//secret door subsection end
+                                                 
+                                                //trap subsection start
+                                                if (p.isTrapMain)
+                                                {
+
+                                                    if (gv.sf.CheckPassSkill(parm1, p.trapTraitTag, p.trapDC + darkAdder, true, false))
+                                                    {
+                                                        
+                                                        //trap has been disarmed, normal tile now
+                                                        //p.isTrapMain = false;
+                                                        p.isShown = false;
+                                                        p.isActive = false;
+
+                                                        //skill roll success message (A)
+                                                        gv.screenMainMap.addFloatyText(x3, y3, traitName + " (" + (p.trapDC).ToString() + ")", "green", 2000);
+                                                        gv.cc.addLogText("green", traitName + " (" + (p.trapDC).ToString() + ") and " + gv.mod.playerList[gv.mod.selectedPartyLeader].name + " loses " + gv.mod.activeSearchSPCost + " SP");
+                                                    }//skill check
+
+                                                    //skill roll failed message (B)
+                                                    else
+                                                    {
+                                                        gv.screenMainMap.addFloatyText(x3, y3, traitName + " (" + (p.trapDC).ToString() + ")", "red", 2000);
+                                                        gv.cc.addLogText("red", traitName + " (" + (p.trapDC).ToString() + ") and " + gv.mod.playerList[gv.mod.selectedPartyLeader].name + " loses " + gv.mod.activeSearchSPCost + " SP");
+                                                    }
+
+                                                }//trap subsection end 
+
+                                            }//distance and not on border
+                                        }// all SPACE props end
+                                    }//loop for all props in area
+                                }//check for this or neighbouring areas
+                            }//loop for all areas
+
+                            //no qualified prop nearby message (C) 
+                            if (noPropHere)
+                            {
+                                if (gv.mod.activeSearchSPCostPaidByByLeaderOnly)
+                                {
+                                    addFloatyText(gv.mod.PlayerLocationX, gv.mod.PlayerLocationY, "Searching...", "white", 1500);
+                                    gv.cc.addLogText("white", "Searching... time passes and " + gv.mod.playerList[gv.mod.selectedPartyLeader].name + " loses " + gv.mod.activeSearchSPCost + " SP");
+                                }
+                                else
+                                {
+                                    addFloatyText(gv.mod.PlayerLocationX, gv.mod.PlayerLocationY, "Searching...", "white", 1500);
+                                    gv.cc.addLogText("white", "Searching... time passes and everybody loses " + gv.mod.activeSearchSPCost + " SP");
+
+                                }
+                            }
+                        }// sp cost could not be paid
                         else
                         {
                             addFloatyText(gv.mod.PlayerLocationX, gv.mod.PlayerLocationY, "Too exhausted to search...", "red", 3000);
@@ -39408,7 +40034,7 @@ namespace IceBlink2
 
                 foreach (Prop p in gv.mod.currentArea.Props)
                 {
-                    if (p.isActive && (p.ConversationWhenOnPartySquare != "none" || p.EncounterWhenOnPartySquare != "none"))
+                    if (p.isActive && (p.ConversationWhenOnPartySquare != "none" || p.EncounterWhenOnPartySquare != "none" || p.scriptFilename != "none"))
                     {
                         if ((p.LocationX == gv.mod.PlayerLocationX - 1) && (p.LocationY == gv.mod.PlayerLocationY))
                         {
@@ -39474,6 +40100,29 @@ namespace IceBlink2
                             gv.sf.ThisProp = bumpProp;
                             gv.cc.doEncounterBasedOnTag(bumpProp.EncounterWhenOnPartySquare);
                         }
+                        if (bumpProp.scriptFilename != "none")
+                        {
+                            gv.sf.ThisProp = bumpProp;
+                            gv.cc.doScriptBasedOnFilename(bumpProp.scriptFilename, bumpProp.parm1, bumpProp.parm2, bumpProp.parm3, bumpProp.parm4);
+
+                            //code for floaty shown on prop upon script activation
+                            if (bumpProp.scriptActivationFloaty != "none" && bumpProp.scriptActivationFloaty != "None" && bumpProp.scriptActivationFloaty != "")
+                            {
+                                gv.screenMainMap.addFloatyText(bumpProp.LocationX, bumpProp.LocationY, bumpProp.scriptActivationFloaty, "red", 2000);
+                            }
+
+                            //code for log, to do
+                            if (bumpProp.scriptActivationLogEntry != "none" && bumpProp.scriptActivationLogEntry != "None" && bumpProp.scriptActivationLogEntry != "")
+                            {
+                                gv.cc.addLogText("red", bumpProp.scriptActivationLogEntry);
+                            }
+
+                            if (bumpProp.onlyOnce)
+                            {
+                                bumpProp.isShown = false;
+                                bumpProp.isActive = false;
+                            }
+                        }
                     }
                     else if (bumpTriggerExists)
                     {
@@ -39517,7 +40166,7 @@ namespace IceBlink2
 
                 foreach (Prop p in gv.mod.currentArea.Props)
                 {
-                    if (p.isActive && (p.ConversationWhenOnPartySquare != "none" || p.EncounterWhenOnPartySquare != "none"))
+                    if (p.isActive && (p.ConversationWhenOnPartySquare != "none" || p.EncounterWhenOnPartySquare != "none" || p.scriptFilename != "none"))
                     {
                         if ((p.LocationX == gv.mod.PlayerLocationX + 1) && (p.LocationY == gv.mod.PlayerLocationY))
                         {
@@ -39585,6 +40234,31 @@ namespace IceBlink2
                             gv.sf.ThisProp = bumpProp;
                             gv.cc.doEncounterBasedOnTag(bumpProp.EncounterWhenOnPartySquare);
                         }
+
+                        if (bumpProp.scriptFilename != "none")
+                        {
+                            gv.sf.ThisProp = bumpProp;
+                            gv.cc.doScriptBasedOnFilename(bumpProp.scriptFilename, bumpProp.parm1, bumpProp.parm2, bumpProp.parm3, bumpProp.parm4);
+
+                            //code for floaty shown on prop upon script activation
+                            if (bumpProp.scriptActivationFloaty != "none" && bumpProp.scriptActivationFloaty != "None" && bumpProp.scriptActivationFloaty != "")
+                            {
+                                gv.screenMainMap.addFloatyText(bumpProp.LocationX, bumpProp.LocationY, bumpProp.scriptActivationFloaty, "red", 2000);
+                            }
+
+                            //code for log, to do
+                            if (bumpProp.scriptActivationLogEntry != "none" && bumpProp.scriptActivationLogEntry != "None" && bumpProp.scriptActivationLogEntry != "")
+                            {
+                                gv.cc.addLogText("red", bumpProp.scriptActivationLogEntry);
+                            }
+
+                            if (bumpProp.onlyOnce)
+                            {
+                                bumpProp.isShown = false;
+                                bumpProp.isActive = false;
+                            }
+                        }
+
                     }
                     else if (bumpTriggerExists)
                     {
@@ -39627,7 +40301,7 @@ namespace IceBlink2
 
                 foreach (Prop p in gv.mod.currentArea.Props)
                 {
-                    if (p.isActive && (p.ConversationWhenOnPartySquare != "none" || p.EncounterWhenOnPartySquare != "none"))
+                    if (p.isActive && (p.ConversationWhenOnPartySquare != "none" || p.EncounterWhenOnPartySquare != "none" || p.scriptFilename != "none"))
                     {
                         if ((p.LocationX == gv.mod.PlayerLocationX) && (p.LocationY == gv.mod.PlayerLocationY - 1))
                         {
@@ -39680,6 +40354,30 @@ namespace IceBlink2
                             gv.sf.ThisProp = bumpProp;
                             gv.cc.doEncounterBasedOnTag(bumpProp.EncounterWhenOnPartySquare);
                         }
+
+                        if (bumpProp.scriptFilename != "none")
+                        {
+                            gv.sf.ThisProp = bumpProp;
+                            gv.cc.doScriptBasedOnFilename(bumpProp.scriptFilename, bumpProp.parm1, bumpProp.parm2, bumpProp.parm3, bumpProp.parm4);
+
+                            //code for floaty shown on prop upon script activation
+                            if (bumpProp.scriptActivationFloaty != "none" && bumpProp.scriptActivationFloaty != "None" && bumpProp.scriptActivationFloaty != "")
+                            {
+                                gv.screenMainMap.addFloatyText(bumpProp.LocationX, bumpProp.LocationY, bumpProp.scriptActivationFloaty, "red", 2000);
+                            }
+
+                            //code for log, to do
+                            if (bumpProp.scriptActivationLogEntry != "none" && bumpProp.scriptActivationLogEntry != "None" && bumpProp.scriptActivationLogEntry != "")
+                            {
+                                gv.cc.addLogText("red", bumpProp.scriptActivationLogEntry);
+                            }
+
+                            if (bumpProp.onlyOnce)
+                            {
+                                bumpProp.isShown = false;
+                                bumpProp.isActive = false;
+                            }
+                        }
                     }
                     else if (bumpTriggerExists)
                     {
@@ -39723,7 +40421,7 @@ namespace IceBlink2
 
                 foreach (Prop p in gv.mod.currentArea.Props)
                 {
-                    if (p.isActive && (p.ConversationWhenOnPartySquare != "none" || p.EncounterWhenOnPartySquare != "none"))
+                    if (p.isActive && (p.ConversationWhenOnPartySquare != "none" || p.EncounterWhenOnPartySquare != "none" || p.scriptFilename != "none"))
                     {
                         if ((p.LocationX == gv.mod.PlayerLocationX) && (p.LocationY == gv.mod.PlayerLocationY + 1))
                         {
@@ -39774,6 +40472,30 @@ namespace IceBlink2
                             gv.mod.EncounterOfTurnDone = true;
                             gv.sf.ThisProp = bumpProp;
                             gv.cc.doEncounterBasedOnTag(bumpProp.EncounterWhenOnPartySquare);
+                        }
+
+                        if (bumpProp.scriptFilename != "none")
+                        {
+                            gv.sf.ThisProp = bumpProp;
+                            gv.cc.doScriptBasedOnFilename(bumpProp.scriptFilename, bumpProp.parm1, bumpProp.parm2, bumpProp.parm3, bumpProp.parm4);
+
+                            //code for floaty shown on prop upon script activation
+                            if (bumpProp.scriptActivationFloaty != "none" && bumpProp.scriptActivationFloaty != "None" && bumpProp.scriptActivationFloaty != "")
+                            {
+                                gv.screenMainMap.addFloatyText(bumpProp.LocationX, bumpProp.LocationY, bumpProp.scriptActivationFloaty, "red", 2000);
+                            }
+
+                            //code for log, to do
+                            if (bumpProp.scriptActivationLogEntry != "none" && bumpProp.scriptActivationLogEntry != "None" && bumpProp.scriptActivationLogEntry != "")
+                            {
+                                gv.cc.addLogText("red", bumpProp.scriptActivationLogEntry);
+                            }
+
+                            if (bumpProp.onlyOnce)
+                            {
+                                bumpProp.isShown = false;
+                                bumpProp.isActive = false;
+                            }
                         }
                     }
                     else if (bumpTriggerExists)

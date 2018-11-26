@@ -10989,9 +10989,38 @@ namespace IceBlink2
                                 //gv.mod.EncounterOfTurnDone = true;
                             }
                             //continue;
+
                             break;
                         }
-                        else if (gv.triggerPropIndex < 3)
+                        //trap
+                        else if ((gv.triggerPropIndex == 3) && (gv.mod.currentArea.Props[i].scriptFilename != "none" && gv.mod.currentArea.Props[i].scriptFilename != "None" && gv.mod.currentArea.Props[i].scriptFilename != ""))
+                        { 
+    
+                            gv.sf.ThisProp = gv.mod.currentArea.Props[i];
+                            doScriptBasedOnFilename(gv.mod.currentArea.Props[i].scriptFilename, gv.mod.currentArea.Props[i].parm1, gv.mod.currentArea.Props[i].parm2, gv.mod.currentArea.Props[i].parm3, gv.mod.currentArea.Props[i].parm4);
+                            
+                            //code for floaty shown on prop upon script activation
+                            if (gv.mod.currentArea.Props[i].scriptActivationFloaty != "none" && gv.mod.currentArea.Props[i].scriptActivationFloaty != "None" && gv.mod.currentArea.Props[i].scriptActivationFloaty != "")
+                            {
+                                gv.screenMainMap.addFloatyText(gv.mod.currentArea.Props[i].LocationX, gv.mod.currentArea.Props[i].LocationY, gv.mod.currentArea.Props[i].scriptActivationFloaty, "red", 2000);
+                            }
+
+                            //code for log, to do
+                            if (gv.mod.currentArea.Props[i].scriptActivationLogEntry != "none" && gv.mod.currentArea.Props[i].scriptActivationLogEntry != "None" && gv.mod.currentArea.Props[i].scriptActivationLogEntry != "")
+                            {
+                                gv.cc.addLogText("red", gv.mod.currentArea.Props[i].scriptActivationLogEntry);
+                            }
+
+                            if (gv.mod.currentArea.Props[i].onlyOnce)
+                            {
+                                gv.mod.currentArea.Props[i].isShown = false;
+                                gv.mod.currentArea.Props[i].isActive = false;
+                            }
+
+                            gv.mod.breakActiveSearch = true;
+                            break;
+                        }
+                        else if (gv.triggerPropIndex < 4)
                         {
                             gv.mod.isRecursiveCall = true;
                             doPropTriggers();
@@ -10999,7 +11028,7 @@ namespace IceBlink2
                             //continue;
                             break;
                         }
-                        if (gv.triggerPropIndex > 2)
+                        if (gv.triggerPropIndex > 3)
                         {
                             gv.triggerPropIndex = 0;
                             //set flags back to false
@@ -11702,9 +11731,11 @@ namespace IceBlink2
         //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
         public void doSpellCalledFromScript (Spell spell, Player player, int casterLevel, string logTextForCastingAction)
         {
-            
-           gv.cc.addLogText("<font color='yellow'>" + logTextForCastingAction + "</font><BR>");
-          
+
+            if (logTextForCastingAction != "none" && logTextForCastingAction != "None" && logTextForCastingAction != "")
+            {
+                gv.cc.addLogText("<font color='yellow'>" + logTextForCastingAction + "</font><BR>");
+            }
 
             Creature source = new Creature();
             source.cr_level = casterLevel;

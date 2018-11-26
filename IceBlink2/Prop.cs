@@ -14,10 +14,30 @@ namespace IceBlink2
 {
     public class Prop 
     {
+        public bool isTrapMain = false;
+        public int trapDC = 10;
+        public string trapTraitTag = "mechanics";
+        //public string trapSearchFloaty = "none";
+        
+        public string scriptFilename = "none";
+        public string parm1 = "none";
+        public string parm2 = "none";
+        public string parm3 = "none";
+        public string parm4 = "none";
+        public bool onlyOnce = false;
+        public string scriptActivationFloaty = "none";
+        public string scriptActivationLogEntry = "none";
+
+        ///public string trapSpellTag = "none";
+        //public string trapSpellTarget = "party";
+        //public int trapSpellPower = 1;
+        //public string trapName = "Spike Trap";
+
         public bool isSecretDoor = false;
         public int secretDoorDC = 10;
+        public string secretDoorTraitTag = "mechanics";
         //public bool secretDoorDirectionEW = true;
-
+         
         public bool wasKilled = false;
 
         public bool stealthSkipsPropTriggers = false;
@@ -225,8 +245,26 @@ namespace IceBlink2
         public Prop DeepCopy()
         {
     	    Prop copy = new Prop();
+
+            copy.scriptFilename = this.scriptFilename;
+            copy.parm1 = this.parm1;
+            copy.parm2 = this.parm2;
+            copy.parm3 = this.parm3;
+            copy.parm4 = this.parm4;
+            copy.onlyOnce = this.onlyOnce;
+            copy.scriptActivationFloaty = this.scriptActivationFloaty;
+            copy.scriptActivationLogEntry = this.scriptActivationLogEntry;
+
+            copy.isTrapMain = this.isTrapMain;
+            copy.trapDC = this.trapDC;
+            copy.trapTraitTag = this.trapTraitTag;
+            //copy.trapSearchFloaty = this.trapSearchFloaty;
+
             copy.isSecretDoor = this.isSecretDoor;
             copy.secretDoorDC = this.secretDoorDC;
+            copy.secretDoorTraitTag = this.secretDoorTraitTag;
+
+
             //copy.secretDoorDirectionEW = this.secretDoorDirectionEW;
             copy.wasKilled = this.wasKilled;
             copy.stealthSkipsPropTriggers = this.stealthSkipsPropTriggers;
