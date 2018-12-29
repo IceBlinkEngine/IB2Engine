@@ -14,11 +14,43 @@ namespace IceBlink2
 {
     public class Prop 
     {
+        //script firing situations:
+
+        //trap: step on/bump, no skill roll for firing it, can be disarmed
+        //none: step on/bump, no skill roll for firing it, cannot be disarmed
+        //hiddenInfo: search, skill roll required, cannot be disarmed
+
+        //doors are props with collision
+        //all ACTIVE door props make their own square los blocking
+        //all must carry a gaOpenObject script that checks for a customizable tratit (eg Pick Lock) or even requires a customized key item, that is optinally rmeoved upon contact with door 
+        //if an active door prop has a gaOpenObject script attached with scriptname "unlocked", it will (1) show an opened floaty on contact, (2) be set to non-active, (3) have collission set to off and (4) optionally change its sprite
+        //a door with a gaOpenObject script attached other than "unlocked", will do the same only on successful gaOpenObject script call
+        //on a failed call it will display a red floaty showing the requirement(s): key name and/or trait eith DC
+
+        //chests, chasms, climbale obstacles, destructible walls and pushable objects will work the same way (via gc scripts) 
+
+        //place in trap section, using the script options there 
+        public bool isDoor = false;
+        //png when opened
+        public string differentSpriteWhenOpen = "none";
+
+        public bool isContainer = false;
+        public string containerTag = "none";
+
+        public bool isHiddenInfo = false;
+        public string floatyAndLogText = "none";
+        public string conversationName = "none";
+        public string boxText = "none";
+        public int infoDC = 15;
+        public string infoTraitTag = "mechanics";
+        public bool showOnlyOnce = false;
+        public string globalStringKey = "none";
+        public string globalStringValue = "none";
+
         public bool isTrapMain = false;
-        public int trapDC = 10;
-        public string trapTraitTag = "mechanics";
-        //public string trapSearchFloaty = "none";
-        
+        //public bool canBeDisarmed = true;
+        public int trapDC = 15;
+        public string trapTraitTag = "mechanics";        
         public string scriptFilename = "none";
         public string parm1 = "none";
         public string parm2 = "none";
@@ -28,15 +60,9 @@ namespace IceBlink2
         public string scriptActivationFloaty = "none";
         public string scriptActivationLogEntry = "none";
 
-        ///public string trapSpellTag = "none";
-        //public string trapSpellTarget = "party";
-        //public int trapSpellPower = 1;
-        //public string trapName = "Spike Trap";
-
         public bool isSecretDoor = false;
-        public int secretDoorDC = 10;
+        public int secretDoorDC = 15;
         public string secretDoorTraitTag = "mechanics";
-        //public bool secretDoorDirectionEW = true;
          
         public bool wasKilled = false;
 
@@ -246,6 +272,22 @@ namespace IceBlink2
         {
     	    Prop copy = new Prop();
 
+            copy.isDoor = this.isDoor;
+            copy.differentSpriteWhenOpen = this.differentSpriteWhenOpen;
+
+            copy.isContainer = this.isContainer;
+            copy.containerTag = this.containerTag;
+
+            copy.isHiddenInfo = this.isHiddenInfo;
+            copy.floatyAndLogText = this.floatyAndLogText;
+            copy.conversationName = this.conversationName;
+            copy.boxText = this.boxText;
+            copy.infoDC = this.infoDC;
+            copy.infoTraitTag = this.infoTraitTag;
+            copy.showOnlyOnce = this.showOnlyOnce;
+            copy.globalStringKey = this.globalStringKey;
+            copy.globalStringValue = this.globalStringValue;
+
             copy.scriptFilename = this.scriptFilename;
             copy.parm1 = this.parm1;
             copy.parm2 = this.parm2;
@@ -254,11 +296,10 @@ namespace IceBlink2
             copy.onlyOnce = this.onlyOnce;
             copy.scriptActivationFloaty = this.scriptActivationFloaty;
             copy.scriptActivationLogEntry = this.scriptActivationLogEntry;
-
+             
             copy.isTrapMain = this.isTrapMain;
             copy.trapDC = this.trapDC;
             copy.trapTraitTag = this.trapTraitTag;
-            //copy.trapSearchFloaty = this.trapSearchFloaty;
 
             copy.isSecretDoor = this.isSecretDoor;
             copy.secretDoorDC = this.secretDoorDC;

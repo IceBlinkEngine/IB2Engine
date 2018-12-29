@@ -1,6 +1,7 @@
 [
   {
     "methodOfChecking": "leader",
+    "nameOfTraitGroup": "none",
     "showOnMainMap": false,
     "name": "Bluff (L1)",
     "traitEffectTagList": [],
@@ -24,6 +25,7 @@
   },
   {
     "methodOfChecking": "leader",
+    "nameOfTraitGroup": "none",
     "showOnMainMap": false,
     "name": "Bluff (L2)",
     "traitEffectTagList": [],
@@ -47,6 +49,7 @@
   },
   {
     "methodOfChecking": "leader",
+    "nameOfTraitGroup": "none",
     "showOnMainMap": false,
     "name": "Cleave",
     "traitEffectTagList": [],
@@ -70,6 +73,7 @@
   },
   {
     "methodOfChecking": "leader",
+    "nameOfTraitGroup": "none",
     "showOnMainMap": false,
     "name": "Critical Strike",
     "traitEffectTagList": [],
@@ -93,6 +97,7 @@
   },
   {
     "methodOfChecking": "leader",
+    "nameOfTraitGroup": "none",
     "showOnMainMap": false,
     "name": "Diplomacy (L1)",
     "traitEffectTagList": [],
@@ -116,6 +121,7 @@
   },
   {
     "methodOfChecking": "leader",
+    "nameOfTraitGroup": "none",
     "showOnMainMap": false,
     "name": "Diplomacy (L2)",
     "traitEffectTagList": [],
@@ -139,6 +145,7 @@
   },
   {
     "methodOfChecking": "leader",
+    "nameOfTraitGroup": "none",
     "showOnMainMap": false,
     "name": "Disable Device (L1)",
     "traitEffectTagList": [],
@@ -162,6 +169,7 @@
   },
   {
     "methodOfChecking": "leader",
+    "nameOfTraitGroup": "none",
     "showOnMainMap": false,
     "name": "Disable Device (L2)",
     "traitEffectTagList": [],
@@ -185,6 +193,7 @@
   },
   {
     "methodOfChecking": "leader",
+    "nameOfTraitGroup": "none",
     "showOnMainMap": false,
     "name": "Evasion",
     "traitEffectTagList": [],
@@ -208,6 +217,7 @@
   },
   {
     "methodOfChecking": "leader",
+    "nameOfTraitGroup": "none",
     "showOnMainMap": false,
     "name": "Intimidate (L1)",
     "traitEffectTagList": [],
@@ -231,6 +241,7 @@
   },
   {
     "methodOfChecking": "leader",
+    "nameOfTraitGroup": "none",
     "showOnMainMap": false,
     "name": "Intimidate (L2)",
     "traitEffectTagList": [],
@@ -254,6 +265,7 @@
   },
   {
     "methodOfChecking": "leader",
+    "nameOfTraitGroup": "none",
     "showOnMainMap": false,
     "name": "Pick Pocket (L1)",
     "traitEffectTagList": [],
@@ -277,6 +289,7 @@
   },
   {
     "methodOfChecking": "leader",
+    "nameOfTraitGroup": "none",
     "showOnMainMap": false,
     "name": "Pick Pocket (L2)",
     "traitEffectTagList": [],
@@ -300,6 +313,7 @@
   },
   {
     "methodOfChecking": "leader",
+    "nameOfTraitGroup": "none",
     "showOnMainMap": false,
     "name": "Point Blank Shot",
     "traitEffectTagList": [],
@@ -323,6 +337,7 @@
   },
   {
     "methodOfChecking": "leader",
+    "nameOfTraitGroup": "none",
     "showOnMainMap": false,
     "name": "Sneak Attack",
     "traitEffectTagList": [],
@@ -346,6 +361,7 @@
   },
   {
     "methodOfChecking": "leader",
+    "nameOfTraitGroup": "none",
     "showOnMainMap": false,
     "name": "Spot (L1)",
     "traitEffectTagList": [],
@@ -369,6 +385,7 @@
   },
   {
     "methodOfChecking": "leader",
+    "nameOfTraitGroup": "none",
     "showOnMainMap": false,
     "name": "Spot (L2)",
     "traitEffectTagList": [],
@@ -392,6 +409,7 @@
   },
   {
     "methodOfChecking": "leader",
+    "nameOfTraitGroup": "none",
     "showOnMainMap": true,
     "name": "Stealth (L1)",
     "traitEffectTagList": [],
@@ -415,6 +433,7 @@
   },
   {
     "methodOfChecking": "leader",
+    "nameOfTraitGroup": "none",
     "showOnMainMap": false,
     "name": "Stealth (L2)",
     "traitEffectTagList": [],
@@ -438,6 +457,7 @@
   },
   {
     "methodOfChecking": "leader",
+    "nameOfTraitGroup": "none",
     "showOnMainMap": false,
     "name": "Two Attacks",
     "traitEffectTagList": [],
@@ -461,6 +481,7 @@
   },
   {
     "methodOfChecking": "leader",
+    "nameOfTraitGroup": "none",
     "showOnMainMap": false,
     "name": "Hard to Kill",
     "traitEffectTagList": [],
@@ -484,6 +505,7 @@
   },
   {
     "methodOfChecking": "leader",
+    "nameOfTraitGroup": "none",
     "showOnMainMap": false,
     "name": "Precise Shot (L1)",
     "traitEffectTagList": [],
@@ -507,6 +529,7 @@
   },
   {
     "methodOfChecking": "leader",
+    "nameOfTraitGroup": "none",
     "showOnMainMap": false,
     "name": "Precise Shot (L2)",
     "traitEffectTagList": [],
@@ -530,6 +553,7 @@
   },
   {
     "methodOfChecking": "leader",
+    "nameOfTraitGroup": "none",
     "showOnMainMap": false,
     "name": "Rapid Shot (L1)",
     "traitEffectTagList": [],
@@ -553,6 +577,7 @@
   },
   {
     "methodOfChecking": "leader",
+    "nameOfTraitGroup": "none",
     "showOnMainMap": false,
     "name": "Rapid Shot (L2)",
     "traitEffectTagList": [],
@@ -576,6 +601,7 @@
   },
   {
     "methodOfChecking": "leader",
+    "nameOfTraitGroup": "none",
     "showOnMainMap": false,
     "name": "Battle Regeneration",
     "traitEffectTagList": [],
@@ -599,6 +625,7 @@
   },
   {
     "methodOfChecking": "leader",
+    "nameOfTraitGroup": "none",
     "showOnMainMap": false,
     "name": "Super Strength",
     "traitEffectTagList": [
@@ -626,6 +653,7 @@
   },
   {
     "methodOfChecking": "leader",
+    "nameOfTraitGroup": "none",
     "showOnMainMap": false,
     "name": "Fighter Ball",
     "traitEffectTagList": [],
@@ -649,6 +677,7 @@
   },
   {
     "methodOfChecking": "leader",
+    "nameOfTraitGroup": "none",
     "showOnMainMap": false,
     "name": "Fighter Ball 2",
     "traitEffectTagList": [],
@@ -672,6 +701,7 @@
   },
   {
     "methodOfChecking": "leader",
+    "nameOfTraitGroup": "none",
     "showOnMainMap": false,
     "name": "testTrait",
     "traitEffectTagList": [
@@ -707,6 +737,7 @@
   },
   {
     "methodOfChecking": "leader",
+    "nameOfTraitGroup": "none",
     "showOnMainMap": false,
     "name": "Bloody Whirlwind",
     "traitEffectTagList": [],
@@ -734,6 +765,7 @@
   },
   {
     "methodOfChecking": "leader",
+    "nameOfTraitGroup": "none",
     "showOnMainMap": false,
     "name": "Sweep",
     "traitEffectTagList": [
@@ -761,6 +793,7 @@
   },
   {
     "methodOfChecking": "leader",
+    "nameOfTraitGroup": "none",
     "showOnMainMap": false,
     "name": "LightningWielder",
     "traitEffectTagList": [],
@@ -788,6 +821,7 @@
   },
   {
     "methodOfChecking": "leader",
+    "nameOfTraitGroup": "none",
     "showOnMainMap": false,
     "name": "Bear Strength",
     "traitEffectTagList": [
@@ -815,6 +849,7 @@
   },
   {
     "methodOfChecking": "leader",
+    "nameOfTraitGroup": "none",
     "showOnMainMap": false,
     "name": "Replace Me (L1)",
     "traitEffectTagList": [
@@ -842,6 +877,7 @@
   },
   {
     "methodOfChecking": "leader",
+    "nameOfTraitGroup": "none",
     "showOnMainMap": false,
     "name": "Replace Me (L2)",
     "traitEffectTagList": [
@@ -869,6 +905,7 @@
   },
   {
     "methodOfChecking": "leader",
+    "nameOfTraitGroup": "none",
     "showOnMainMap": false,
     "name": "Melee Attack and Damage +10",
     "traitEffectTagList": [
@@ -896,6 +933,7 @@
   },
   {
     "methodOfChecking": "leader",
+    "nameOfTraitGroup": "none",
     "showOnMainMap": false,
     "name": "Trip",
     "traitEffectTagList": [],
@@ -923,6 +961,7 @@
   },
   {
     "methodOfChecking": "leader",
+    "nameOfTraitGroup": "none",
     "showOnMainMap": false,
     "name": "Sprint",
     "traitEffectTagList": [
@@ -950,6 +989,7 @@
   },
   {
     "methodOfChecking": "leader",
+    "nameOfTraitGroup": "none",
     "showOnMainMap": false,
     "name": "Double Strike",
     "traitEffectTagList": [],
@@ -973,6 +1013,7 @@
   },
   {
     "methodOfChecking": "leader",
+    "nameOfTraitGroup": "none",
     "showOnMainMap": true,
     "name": "Spot Enemy (L1)",
     "traitEffectTagList": [],
@@ -996,6 +1037,7 @@
   },
   {
     "methodOfChecking": "leader",
+    "nameOfTraitGroup": "none",
     "showOnMainMap": true,
     "name": "Movement Speed (L1)",
     "traitEffectTagList": [],
@@ -1019,6 +1061,7 @@
   },
   {
     "methodOfChecking": "leader",
+    "nameOfTraitGroup": "none",
     "showOnMainMap": true,
     "name": "Search (L1)",
     "traitEffectTagList": [],
@@ -1042,6 +1085,7 @@
   },
   {
     "methodOfChecking": "leader",
+    "nameOfTraitGroup": "none",
     "showOnMainMap": true,
     "name": "Mechanics (L1)",
     "traitEffectTagList": [],
@@ -1050,6 +1094,30 @@
     "tag": "mechanics",
     "associatedSpellTag": "none",
     "traitImage": "sp_fireball",
+    "description": "",
+    "prerequisiteTrait": "none",
+    "skillModifier": 5,
+    "requiredStrength": 0,
+    "requiredDexterity": 0,
+    "requiredConstitution": 0,
+    "requiredIntelligence": 0,
+    "requiredWisdom": 0,
+    "requiredCharisma": 0,
+    "skillModifierAttribute": "dex",
+    "traitToReplaceByTag": "none",
+    "useableInSituation": "Always"
+  },
+  {
+    "methodOfChecking": "leader",
+    "nameOfTraitGroup": "none",
+    "showOnMainMap": true,
+    "name": "Pick Lock (L1)",
+    "traitEffectTagList": [],
+    "traitWorksOnlyWhen": [],
+    "traitWorksNeverWhen": [],
+    "tag": "pickLock",
+    "associatedSpellTag": "none",
+    "traitImage": "tr_disabledevice",
     "description": "",
     "prerequisiteTrait": "none",
     "skillModifier": 5,

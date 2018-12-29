@@ -4603,6 +4603,309 @@ namespace IceBlink2
                         //p3 is amount of modification
                         ModifyFactionStrength(p1, prm2, p3);
                     }
+                    else if (filename.Equals("gaOpenObject.cs"))
+                    {
+                        //p1: key resref, p2: true/false for removing key, p3 trait for pick lock, p4 dc for pick lock 
+                        int parm4 = 0;
+                        if (p4 != "none" && p4 != "None" && p4 != "")
+                        {
+                            parm4 = Convert.ToInt32(p4);
+                        }
+
+                        bool unlockedDoor = false;
+                        bool lockedDoorKeyOrPick = false;
+                        bool lockedDoorKeyOnly = false;
+
+                        if ((p1 != "none" && p1 != "None" && p1 != "") && (p3 == "none" || p1 == "None" || p1 == ""))
+                        {
+                            lockedDoorKeyOnly = true;
+                        }
+                        else if ((p1 != "none" && p1 != "None" && p1 != "") || (p3 != "none" && p3 != "None" && p3 != ""))
+                        {
+                            lockedDoorKeyOrPick = true;
+                        }
+                        else
+                        {
+                            unlockedDoor = true;
+                        }
+
+                        if (lockedDoorKeyOnly)
+                        {
+                            bool keyFound = CheckForItem(p1, 1);
+                            if (keyFound)
+                            {
+
+                                //this handles LoS and prevents another triggering
+                                if (!gv.sf.ThisProp.isContainer)
+                                {
+                                    gv.sf.ThisProp.isActive = false;
+                                }
+
+                                //allow to pass through the prop
+                                gv.sf.ThisProp.HasCollision = false;
+
+                                //change sprite graphic
+                                if (gv.sf.ThisProp.differentSpriteWhenOpen != "none" && gv.sf.ThisProp.differentSpriteWhenOpen != "None" && gv.sf.ThisProp.differentSpriteWhenOpen != "")
+                                {
+                                    SetProp(gv.sf.ThisProp.PropTag, "", "i", gv.sf.ThisProp.differentSpriteWhenOpen);
+                                }
+
+                                //floaty for opening the door, also log entry: name of the key used in green
+                                //get item name
+                                string itemName = "none";
+                                foreach (Item it in mod.moduleItemsList)
+                                {
+                                    if (it.resref == p1)
+                                    {
+                                        itemName = it.name;
+                                    }
+                                }
+
+                                if (p2 == "true" || p2 == "True")
+                                {
+                                    if (!gv.sf.ThisProp.isContainer)
+                                    {
+                                        TakeItem(p1, 1);
+                                    }
+                                }
+                                gv.screenMainMap.addFloatyText(gv.sf.ThisProp.LocationX, gv.sf.ThisProp.LocationY, itemName + " used", "green", 2000);
+                                gv.cc.addLogText("lime", itemName + " used.");
+
+                                if (gv.sf.ThisProp.isContainer)
+                                {
+                                    if (gv.sf.ThisProp.containerTag != "none")
+                                    {
+                                        gv.cc.doContainerBasedOnTag(gv.sf.ThisProp.containerTag);
+                                    }
+                                }
+                            }
+                            //no key found, remains closed
+                            else
+                            {
+                                //gv.mod.returnCheck = false;
+                                //get item name
+                                string itemName = "none";
+                                foreach (Item it in mod.moduleItemsList)
+                                {
+                                    if (it.resref == p1)
+                                    {
+                                        itemName = it.name;
+                                    }
+                                }
+                                gv.screenMainMap.addFloatyText(gv.sf.ThisProp.LocationX, gv.sf.ThisProp.LocationY, itemName + " required", "red", 2000);
+                                gv.cc.addLogText("red", itemName + " required.");
+                            }
+                        }
+                        else if (lockedDoorKeyOrPick)
+                        {
+                            bool keyFound = CheckForItem(p1, 1);
+                            string traitName = "";
+
+                            string traitMethod = "leader";
+                            foreach (Trait t in gv.mod.moduleTraitsList)
+                            {
+                                if (t.tag.Contains(p3))
+                                {
+                                    traitMethod = t.methodOfChecking;
+                                    traitName = t.nameOfTraitGroup;
+                                }
+                            }
+                            int parm1 = gv.mod.selectedPartyLeader;
+                            if (traitMethod.Equals("-1") || traitMethod.Equals("leader") || traitMethod.Equals("Leader"))
+                            {
+                                parm1 = gv.mod.selectedPartyLeader;
+                            }
+                            else if (traitMethod.Equals("-2") || traitMethod.Equals("highest") || traitMethod.Equals("Highest"))
+                            {
+                                parm1 = -2;
+                            }
+                            else if (traitMethod.Equals("-3") || traitMethod.Equals("lowest") || traitMethod.Equals("Lowest"))
+                            {
+                                parm1 = -3;
+                            }
+                            else if (traitMethod.Equals("-4") || traitMethod.Equals("average") || traitMethod.Equals("Average"))
+                            {
+                                parm1 = -4;
+                            }
+                            else if (traitMethod.Equals("-5") || traitMethod.Equals("allMustSucceed") || traitMethod.Equals("AllMustSucceed"))
+                            {
+                                parm1 = -5;
+                            }
+                            else if (traitMethod.Equals("-6") || traitMethod.Equals("oneMustSucceed") || traitMethod.Equals("OneMustSucceed"))
+                            {
+                                parm1 = -6;
+                            }
+
+                            int darkAdder = 0;
+
+                            if (gv.sf.CheckPropByTagIsInDarknessPerArea(gv.sf.ThisProp.PropTag, "night", gv.mod.currentArea.Filename))
+                            {
+                                darkAdder = 4;
+                            }
+                            if (gv.sf.CheckPropByTagIsInDarknessPerArea(gv.sf.ThisProp.PropTag, "noLight", gv.mod.currentArea.Filename))
+                            {
+                                darkAdder = 12;
+                            }
+
+                            if (keyFound)
+                            {
+                                //likely not needed?
+                                //gv.mod.returnCheck = true;
+
+                                if (p2 == "true" || p2 == "True")
+                                {
+                                    if (!gv.sf.ThisProp.isContainer)
+                                    {
+                                        TakeItem(p1, 1);
+                                    }
+                                }
+
+                                //this handles LoS and prevents another triggering
+                                if (!gv.sf.ThisProp.isContainer)
+                                {
+                                    gv.sf.ThisProp.isActive = false;
+                                }
+
+                                //allow to pass through the prop
+                                gv.sf.ThisProp.HasCollision = false;
+
+                                //change sprite graphic
+                                if (gv.sf.ThisProp.differentSpriteWhenOpen != "none" && gv.sf.ThisProp.differentSpriteWhenOpen != "None" && gv.sf.ThisProp.differentSpriteWhenOpen != "")
+                                {
+                                    SetProp(gv.sf.ThisProp.PropTag, "", "i", gv.sf.ThisProp.differentSpriteWhenOpen);
+                                }
+
+                                //floaty for opening the door, also log entry: name of the key used in green
+                                //get item name
+                                string itemName = "none";
+                                foreach (Item it in mod.moduleItemsList)
+                                {
+                                    if (it.resref == p1)
+                                    {
+                                        itemName = it.name;
+                                    }
+                                }
+                                gv.screenMainMap.addFloatyText(gv.sf.ThisProp.LocationX, gv.sf.ThisProp.LocationY, itemName + " used", "green", 2000);
+                                gv.cc.addLogText("lime", itemName + " used.");
+
+                                if (gv.sf.ThisProp.isContainer)
+                                {
+                                    if (gv.sf.ThisProp.containerTag != "none")
+                                    {
+                                        gv.cc.doContainerBasedOnTag(gv.sf.ThisProp.containerTag);
+                                    }
+                                }
+                            }
+                            //no key found, try picking the lock
+                            else if (gv.sf.CheckPassSkill(parm1, p3, parm4 + darkAdder, true, true))
+                            {
+                                //if (gv.sf.CheckPassSkill(parm1, p3, parm4, true, false))
+                                //{
+                                //unlocked and opened
+                                //likely not needed?
+                                //gv.mod.returnCheck = true;
+
+                                //this handles LoS and prevents another triggering
+                                if (!gv.sf.ThisProp.isContainer)
+                                {
+                                    gv.sf.ThisProp.isActive = false;
+                                }
+
+                                //allow to pass through the prop
+                                gv.sf.ThisProp.HasCollision = false;
+
+                                //change sprite graphic
+                                if (gv.sf.ThisProp.differentSpriteWhenOpen != "none" && gv.sf.ThisProp.differentSpriteWhenOpen != "None" && gv.sf.ThisProp.differentSpriteWhenOpen != "")
+                                {
+                                    SetProp(gv.sf.ThisProp.PropTag, "", "i", gv.sf.ThisProp.differentSpriteWhenOpen);
+                                }
+
+                                gv.screenMainMap.addFloatyText(gv.sf.ThisProp.LocationX, gv.sf.ThisProp.LocationY, "Success: " + traitName + " level " + (parm4 + darkAdder - 10).ToString() + " matched", "green", 2000);
+                                gv.cc.addLogText("lime", "Success: " + traitName + " level " + (parm4 + darkAdder - 10).ToString() + " matched");
+
+                                if (gv.sf.ThisProp.isContainer)
+                                {
+                                    if (gv.sf.ThisProp.containerTag != "none")
+                                    {
+                                        gv.cc.doContainerBasedOnTag(gv.sf.ThisProp.containerTag);
+                                    }
+                                }
+                            }
+                            //no key and pick lock failed
+                            else
+                            {
+                                //pick only, no key requirement
+                                if (p1 == "none" || p1 == "None" || p1 == "")
+                                {
+                                    gv.screenMainMap.addFloatyText(gv.sf.ThisProp.LocationX, gv.sf.ThisProp.LocationY, "Failure: " + traitName + " level " + (parm4 + darkAdder - 10).ToString() + " required", "red", 2000);
+                                    gv.cc.addLogText("red", "Failure: " + traitName + " level " + (parm4 + darkAdder - 10).ToString() + " required");
+                                }
+                                //pick and key requiremnt
+                                else
+                                {
+                                    string itemName = "none";
+                                    foreach (Item it in mod.moduleItemsList)
+                                    {
+                                        if (it.resref == p1)
+                                        {
+                                            itemName = it.name;
+                                        }
+                                    }
+                                    gv.screenMainMap.addFloatyText(gv.sf.ThisProp.LocationX, gv.sf.ThisProp.LocationY, itemName + " required or " + traitName + " (Skill level " + (parm4 + darkAdder).ToString() + " required)", "red", 2000);
+                                    gv.cc.addLogText("red", itemName + " required and failure:" + traitName + " level " + (parm4 + darkAdder - 10).ToString() + " required");
+                                }
+                            }
+                        }
+                        else if (unlockedDoor)
+                        {
+                            //likely not needed?
+                            //gv.mod.returnCheck = true;
+
+                            //this handles LoS and prevents another triggering
+                            if (!gv.sf.ThisProp.isContainer)
+                            {
+                                gv.sf.ThisProp.isActive = false;
+                            } 
+
+                            //allow to pass through the prop
+                            gv.sf.ThisProp.HasCollision = false;
+
+                            //change sprite graphic
+                            if (gv.sf.ThisProp.differentSpriteWhenOpen != "none" && gv.sf.ThisProp.differentSpriteWhenOpen != "None" && gv.sf.ThisProp.differentSpriteWhenOpen != "")
+                            {
+                                SetProp(gv.sf.ThisProp.PropTag, "", "i", gv.sf.ThisProp.differentSpriteWhenOpen);
+                            }
+
+                            bool displayOpened = false;
+                            bool isContainer = false;
+                            foreach (Container c in gv.mod.moduleContainersList)
+                            {
+                                if (c.containerTag == gv.sf.ThisProp.containerTag)
+                                {
+                                    isContainer = true;
+                                    if (c.containerItemRefs.Count > 0)
+                                    {
+                                        displayOpened = true;
+                                    }
+                                    //count titems, only when 0, dispaly open
+                                }
+                            }
+                            if (displayOpened || !isContainer)
+                            {
+                                gv.screenMainMap.addFloatyText(gv.sf.ThisProp.LocationX, gv.sf.ThisProp.LocationY, "Opened", "green", 2000);
+                                gv.cc.addLogText("green", "Opened");
+                            }
+
+                            if (gv.sf.ThisProp.isContainer)
+                            {
+                                if (gv.sf.ThisProp.containerTag != "none")
+                                {
+                                    gv.cc.doContainerBasedOnTag(gv.sf.ThisProp.containerTag);
+                                }
+                            }
+                        }
+
+                    }
                     else if (filename.Equals("gaAddOpenChatOption.cs"))
                     {
                         //p1 is name of pc
@@ -6455,7 +6758,7 @@ namespace IceBlink2
                         gv.mod.returnCheck = CheckGlobalInt(prm1, prm2, parm3);
                     }
                     else if (filename.Equals("gcCheckIsInDarkness.cs"))
-                    { 
+                    {
                         gv.mod.returnCheck = CheckIsInDarkness(p1, p2);
                     }
                     else if (filename.Equals("gcCheckManualKeyboardInput.cs"))
@@ -6583,7 +6886,7 @@ namespace IceBlink2
                     }
                     else if (filename.Equals("gcCheckHasTrait.cs"))
                     {
-                       
+
                         int parm1 = 0;
                         if (p1.Equals("") || p1.Equals("-1") || p1.Equals("leader") || p1.Equals("Leader"))
                         {
@@ -6634,7 +6937,7 @@ namespace IceBlink2
                             parm1 = gv.mod.selectedPartyLeader;
                         }
                         //directly selected
-                        else 
+                        else
                         {
                             parm1 = Convert.ToInt32(p1);
                             if (parm1 < 0 || parm1 > 5)
@@ -6650,12 +6953,12 @@ namespace IceBlink2
                         string traitMethod = "";
                         foreach (Trait t in gv.mod.moduleTraitsList)
                         {
-                            if (t.tag == p2)
+                            if (t.tag.Contains(p2))
                             {
                                 traitMethod = t.methodOfChecking;
                             }
                         }
-                        
+
                         if (p1 == null)
                         {
                             if (traitMethod.Equals("-1") || traitMethod.Equals("leader") || traitMethod.Equals("Leader"))
@@ -6710,17 +7013,17 @@ namespace IceBlink2
                                 parm1 = -6;
                             }
                         }
-                        else if (p1.Equals("-1") || p1.Equals("leader")  || p1.Equals("Leader") )
+                        else if (p1.Equals("-1") || p1.Equals("leader") || p1.Equals("Leader"))
                         {
                             parm1 = gv.mod.selectedPartyLeader;
                         }
                         //highest
-                        else if ( p1.Equals("-2") || p1.Equals("highest") || p1.Equals("Highest")) 
+                        else if (p1.Equals("-2") || p1.Equals("highest") || p1.Equals("Highest"))
                         {
                             parm1 = -2;
                         }
                         //lowest
-                        else if ( p1.Equals("-3") || p1.Equals("lowest") || p1.Equals("Lowest")) 
+                        else if (p1.Equals("-3") || p1.Equals("lowest") || p1.Equals("Lowest"))
                         {
                             parm1 = -3;
                         }
@@ -6730,7 +7033,7 @@ namespace IceBlink2
                             parm1 = -4;
                         }
                         //allMustSucceed
-                        else if ( p1.Equals("-5") || p1.Equals("allMustSucceed") || p1.Equals("AllMustSucceed")) 
+                        else if (p1.Equals("-5") || p1.Equals("allMustSucceed") || p1.Equals("AllMustSucceed"))
                         {
                             parm1 = -5;
                         }
@@ -6770,7 +7073,7 @@ namespace IceBlink2
                         string traitMethod = "";
                         foreach (Trait t in gv.mod.moduleTraitsList)
                         {
-                            if (t.tag == p2)
+                            if (t.tag.Contains(p2))
                             {
                                 traitMethod = t.methodOfChecking;
                             }
@@ -6925,7 +7228,7 @@ namespace IceBlink2
                     else if (filename.Equals("gcCheckPartySize.cs"))
                     {
                         gv.mod.returnCheck = false;
-                        int parm1 = Convert.ToInt32(p1); 
+                        int parm1 = Convert.ToInt32(p1);
                         if (gv.mod.playerList.Count >= parm1)
                         {
                             gv.mod.returnCheck = true;
@@ -11850,6 +12153,11 @@ namespace IceBlink2
 
         public bool CheckForItem(string resref, int quantity)
         {
+            if (resref == "none" || resref == "None" || resref =="")
+            {
+                return false;
+            }
+            
             //check if item is on any of the party members
             if (mod.debugMode) //SD_20131102
             {
@@ -15639,9 +15947,15 @@ namespace IceBlink2
                     }
                 }
                 else 
-                { 
-                    MessageBox("Party cannot rest without rations.");
-                    gv.cc.addLogText("<font color='red'>" + "Party cannot rest without rations." + "</font><BR>");
+                {
+                    if (gv.mod.showRestMessagesInBox)
+                    {
+                        MessageBox("Party cannot rest without rations.");
+                    }
+                    if (gv.mod.showRestMessagesInLog)
+                    {
+                        gv.cc.addLogText("<font color='red'>" + "Party cannot rest without rations." + "</font><BR>");
+                    }
                 }
             }
             else
@@ -20735,7 +21049,7 @@ namespace IceBlink2
                                     break;
                                 }
                             }
-                            gv.mod.returnCheck = CheckPassSkill(PCIndex, "disabledevice", prp.trapDCforDisableCheck, false, false);
+                            gv.mod.returnCheck = CheckPassSkill(PCIndex, gv.mod.tagOfDisarmTrapCombatTrait, prp.trapDCforDisableCheck, false, false);
                             if (gv.mod.returnCheck)
                             {
                                 gv.mod.currentEncounter.propsList.Remove(prp);

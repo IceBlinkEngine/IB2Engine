@@ -15,6 +15,10 @@ namespace IceBlink2
         //public Module gv.mod;
         public GameView gv;
 
+        public bool creaturesHaveUpperHand = false;
+        public bool partyHasUpperHand = false;
+
+
         //public List<int> originalAoEofSpells = new List<int>(); 
         public List<Coordinate> blockCreatureDrawLocations = new List<Coordinate>();
 
@@ -588,6 +592,151 @@ namespace IceBlink2
 
         public void doCombatSetup()
         {
+            //surprise round system
+            creaturesHaveUpperHand = false;
+            partyHasUpperHand = false;
+            bool advantageCreatures = false;
+            bool advantageParty = false;
+
+            //comparisons between two upperhand potentials
+            //1. get party upperhand potential
+            //make party roll spot enemy against DC: prop stealth + 10 + 5
+            //if successful, party has upperhand
+            //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+            if (gv.mod.useFlatFootedSystem)
+            {
+                string traitMethod = "leader";
+                foreach (Trait t in gv.mod.moduleTraitsList)
+                {
+                    if (t.tag.Contains(gv.mod.tagOfStealthMainTrait))
+                    {
+                        traitMethod = t.methodOfChecking;
+                    }
+                }
+                int parm1 = gv.mod.selectedPartyLeader;
+                if (traitMethod.Equals("-1") || traitMethod.Equals("leader") || traitMethod.Equals("Leader"))
+                {
+                    parm1 = gv.mod.selectedPartyLeader;
+                }
+                else if (traitMethod.Equals("-2") || traitMethod.Equals("highest") || traitMethod.Equals("Highest"))
+                {
+                    parm1 = -2;
+                }
+                else if (traitMethod.Equals("-3") || traitMethod.Equals("lowest") || traitMethod.Equals("Lowest"))
+                {
+                    parm1 = -3;
+                }
+                else if (traitMethod.Equals("-4") || traitMethod.Equals("average") || traitMethod.Equals("Average"))
+                {
+                    parm1 = -4;
+                }
+                else if (traitMethod.Equals("-5") || traitMethod.Equals("allMustSucceed") || traitMethod.Equals("AllMustSucceed"))
+                {
+                    parm1 = -5;
+                }
+                else if (traitMethod.Equals("-6") || traitMethod.Equals("oneMustSucceed") || traitMethod.Equals("OneMustSucceed"))
+                {
+                    parm1 = -6;
+                }
+
+                int propEncSpot = 0;
+                if (gv.sf.ThisProp != null)
+                {
+                    if (gv.sf.ThisProp.spotEnemy != -1)
+                    {
+                        propEncSpot = gv.sf.ThisProp.spotEnemy;
+                    }
+                    else
+                    {
+                        propEncSpot = gv.mod.currentEncounter.encSpotEnemy;
+                    }
+                }
+                else
+                {
+                    propEncSpot = gv.mod.currentEncounter.encSpotEnemy;
+                }
+
+                if (gv.sf.CheckPassSkill(parm1, gv.mod.tagOfStealthMainTrait, propEncSpot, false, true))
+                {
+                    advantageParty = true;
+                }
+
+                //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                //do same excercise for prop
+
+                int propEncStealth = 0;
+                if (gv.sf.ThisProp != null)
+                {
+                    if (gv.sf.ThisProp.stealth != -1)
+                    {
+                        propEncStealth = gv.sf.ThisProp.stealth;
+                    }
+                    else
+                    {
+                        propEncStealth = gv.mod.currentEncounter.encStealth;
+                    }
+                }
+                else
+                {
+                    propEncStealth = gv.mod.currentEncounter.encStealth;
+                }
+
+
+                foreach (Trait t in gv.mod.moduleTraitsList)
+                {
+                    if (t.tag.Contains(gv.mod.tagOfSpotEnemyTrait))
+                    {
+                        traitMethod = t.methodOfChecking;
+                    }
+                }
+                parm1 = gv.mod.selectedPartyLeader;
+                if (traitMethod.Equals("-1") || traitMethod.Equals("leader") || traitMethod.Equals("Leader"))
+                {
+                    parm1 = gv.mod.selectedPartyLeader;
+                }
+                else if (traitMethod.Equals("-2") || traitMethod.Equals("highest") || traitMethod.Equals("Highest"))
+                {
+                    parm1 = -2;
+                }
+                else if (traitMethod.Equals("-3") || traitMethod.Equals("lowest") || traitMethod.Equals("Lowest"))
+                {
+                    parm1 = -3;
+                }
+                else if (traitMethod.Equals("-4") || traitMethod.Equals("average") || traitMethod.Equals("Average"))
+                {
+                    parm1 = -4;
+                }
+                else if (traitMethod.Equals("-5") || traitMethod.Equals("allMustSucceed") || traitMethod.Equals("AllMustSucceed"))
+                {
+                    parm1 = -5;
+                }
+                else if (traitMethod.Equals("-6") || traitMethod.Equals("oneMustSucceed") || traitMethod.Equals("OneMustSucceed"))
+                {
+                    parm1 = -6;
+                }
+
+                if (!gv.sf.CheckPassSkill(parm1, gv.mod.tagOfSpotEnemyTrait, propEncStealth, false, true))
+                {
+                    advantageCreatures = true;
+                }
+
+
+                if ((advantageCreatures && advantageParty) || (!advantageCreatures && !advantageParty))
+                {
+                    //no advantage in summ, ie no surprise round
+                }
+                else if (advantageCreatures && !advantageParty)
+                {
+                    creaturesHaveUpperHand = true;
+                    gv.cc.addLogText("<font color='red'>" + "The enemy has caught the party flat-footed (based on rolls in Stealth and Spot Enemy)! Free first round for the enemy." + "</font><BR>");
+                }
+                else if (!advantageCreatures && advantageParty)
+                {
+                    partyHasUpperHand = true;
+                    gv.cc.addLogText("<font color='blue'>" + "The party has caught the enemy flat-footed (based on rolls in Stealth and Spot Enemy)! Free first round for the party." + "</font><BR>");
+                }
+            }
+            
             if (gv.mod.currentEncounter.allSpellsSPCostDoubled)
             {
                 foreach (Spell sp in gv.mod.moduleSpellsList)
@@ -1731,10 +1880,24 @@ namespace IceBlink2
                         checkEndEncounter();
                         floatyTextOn = true;
                         gv.mod.enteredFirstTime = false;
-                        //Karl
-                        //gv.Render();
-                        //go to start PlayerTurn or start CreatureTurn
-                        if ((pc.isHeld()) || (pc.isDead()))
+                            //Karl
+                            //gv.Render();
+                            //go to start PlayerTurn or start CreatureTurn
+
+                         //surprise round
+                       
+                            bool partySkipDueToSurprise = false;
+                            if (roundCounter <= 2 && creaturesHaveUpperHand)
+                            {
+                                gv.cc.addLogText("<font color='red'>" + pc.name + " skips this turn (flat-footed)." + "</font><BR>");
+                                partySkipDueToSurprise = true;
+                            }
+                            if (roundCounter > 2)
+                            {
+                                partySkipDueToSurprise = false;
+                            }
+                            //partySkipDueToSurprise = true;
+                            if ((pc.isHeld()) || (pc.isDead()) || partySkipDueToSurprise)
                         {
                             pc.thisCastIsFreeOfCost = false;
                             pc.isPreparingSpell = false;
@@ -1973,7 +2136,18 @@ namespace IceBlink2
                         //Karl
                         //gv.Render();
                         //go to start PlayerTurn or start CreatureTurn
-                        if ((crt.hp > 0) && (!crt.isHeld()))
+                        bool skipDueToSurprise = false;
+                        if (roundCounter <= 2 && partyHasUpperHand)
+                        {
+                            gv.cc.addLogText("<font color='blue'>" + crt.cr_name + " skips this turn (flat-footed)." + "</font><BR>");
+                            skipDueToSurprise = true;
+                        }
+                        if (roundCounter > 2)
+                        {
+                            skipDueToSurprise = false;
+                        }
+                        //skipDueToSurprise = false;
+                        if ((crt.hp > 0) && (!crt.isHeld()) && !skipDueToSurprise)
                         {
                             //upperLeftInFastForwardX = -100;
                             //upperLeftInFastForwardY = -100;
@@ -4705,7 +4879,14 @@ namespace IceBlink2
                     }
                     else //else test to see if enter/stay in stealth gv.mode if has trait
                     {
-                        doStealthModeCheck(pc);
+                        if (roundCounter <= 2 && creaturesHaveUpperHand)
+                        {
+                            //no stealthing during surprise round of creatures
+                        }
+                        else
+                        {
+                            doStealthModeCheck(pc);
+                        }
                     }
                     canMove = true;
                 }
@@ -4724,24 +4905,34 @@ namespace IceBlink2
         public void doStealthModeCheck(Player pc)
         {
             int skillMod = 0;
-            if (pc.knownTraitsTags.Contains("stealth4"))
+            if (pc.knownTraitsTags.Contains(gv.mod.tagOfStealthCombatTrait + "6"))
             {
-                Trait tr = gv.mod.getTraitByTag("stealth4");
+                Trait tr = gv.mod.getTraitByTag(gv.mod.tagOfStealthCombatTrait + "6");
                 skillMod = tr.skillModifier;
             }
-            else if (pc.knownTraitsTags.Contains("stealth3"))
+            else if (pc.knownTraitsTags.Contains(gv.mod.tagOfStealthCombatTrait + "5"))
             {
-                Trait tr = gv.mod.getTraitByTag("stealth3");
+                Trait tr = gv.mod.getTraitByTag(gv.mod.tagOfStealthCombatTrait + "5");
                 skillMod = tr.skillModifier;
             }
-            else if (pc.knownTraitsTags.Contains("stealth2"))
+            else if (pc.knownTraitsTags.Contains(gv.mod.tagOfStealthCombatTrait + "4"))
             {
-                Trait tr = gv.mod.getTraitByTag("stealth2");
+                Trait tr = gv.mod.getTraitByTag(gv.mod.tagOfStealthCombatTrait +"4");
                 skillMod = tr.skillModifier;
             }
-            else if (pc.knownTraitsTags.Contains("stealth"))
+            else if (pc.knownTraitsTags.Contains(gv.mod.tagOfStealthCombatTrait + "3"))
             {
-                Trait tr = gv.mod.getTraitByTag("stealth");
+                Trait tr = gv.mod.getTraitByTag(gv.mod.tagOfStealthCombatTrait + "3");
+                skillMod = tr.skillModifier;
+            }
+            else if (pc.knownTraitsTags.Contains(gv.mod.tagOfStealthCombatTrait + "2"))
+            {
+                Trait tr = gv.mod.getTraitByTag(gv.mod.tagOfStealthCombatTrait + "2");
+                skillMod = tr.skillModifier;
+            }
+            else if (pc.knownTraitsTags.Contains(gv.mod.tagOfStealthCombatTrait))
+            {
+                Trait tr = gv.mod.getTraitByTag(gv.mod.tagOfStealthCombatTrait);
                 skillMod = tr.skillModifier;
             }
             else
@@ -7820,9 +8011,13 @@ namespace IceBlink2
                 }
                 //do END ENCOUNTER IBScript
                 gv.cc.doIBScriptBasedOnFilename(gv.mod.currentEncounter.OnEndCombatIBScript, gv.mod.currentEncounter.OnEndCombatIBScriptParms);
-                gv.sf.ThisProp.wasKilled = true;
+               
                 if (gv.cc.calledEncounterFromProp)
                 {
+                    if (gv.sf.ThisProp != null)
+                    {
+                        gv.sf.ThisProp.wasKilled = true;
+                    }
                     //gv.mod.isRecursiveDoTriggerCallMovingProp = true;
                     //gv.mod.isRecursiveCall = true;
                     //gv.sf.ThisProp.wasKilled = true; 

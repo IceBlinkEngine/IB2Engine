@@ -14,7 +14,8 @@ namespace IceBlink2
     public class Trait 
     {
 	    public string name = "newTrait";
-	    public string tag = "newTraitTag";
+        public string nameOfTraitGroup = "none";
+        public string tag = "newTraitTag";
 	    public string traitImage = "sp_magebolt";
 	    public string description = "";
         public bool showOnMainMap = false;
@@ -52,6 +53,7 @@ namespace IceBlink2
 	    public Trait DeepCopy()
 	    {
 		    Trait copy = new Trait();
+            copy.nameOfTraitGroup = this.nameOfTraitGroup;
             copy.traitToReplaceByTag = this.traitToReplaceByTag;
 		    copy.name = this.name;
 		    copy.tag = this.tag;

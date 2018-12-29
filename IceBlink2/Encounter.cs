@@ -14,6 +14,9 @@ namespace IceBlink2
     public class Encounter 
     {
 
+        public int encSpotEnemy = 0;// is not used if prop with encounter has spot != -1
+        public int encStealth = 0;// is not used if prop with encounter has stealth != -1
+
         public int challengeLevel = 1;
         public bool challengeHidden = false;
 

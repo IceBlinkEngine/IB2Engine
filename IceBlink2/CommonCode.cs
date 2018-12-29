@@ -2250,11 +2250,16 @@ namespace IceBlink2
 
         public void addLogText(string color, string text)
         {
+            if (!text.Contains("<BR>"))
+            {
+                text += "<BR>";
+            }
+            
             if (color.Equals("red"))
             {
                 gv.log.AddHtmlTextToLog("<font color='red'>" + text + "</font>");
             }
-            else if (color.Equals("lime"))
+            else if (color.Equals("lime") || color.Equals("green"))
             {
                 gv.log.AddHtmlTextToLog("<font color='lime'>" + text + "</font>");
             }
@@ -3001,12 +3006,12 @@ namespace IceBlink2
             string method = "leader";
             foreach (Trait t in gv.mod.moduleTraitsList)
             {
-                if (t.tag == "moevementSpeed")
+                if (t.tag.Contains(gv.mod.tagOfMovementSpeedTrait))
                 {
                     method = t.methodOfChecking;
                 }
             }
-            int speed = gv.cc.getTraitPower("movementSpeed", method);
+            int speed = gv.cc.getTraitPower(gv.mod.tagOfMovementSpeedTrait, method);
             speed += gv.mod.vehicleAdditionalSpeed;
             
             if (gv.mod.absoluteVehicleSpeed != 0)
@@ -4285,7 +4290,7 @@ namespace IceBlink2
                             string traitMethod = "leader";
                             foreach (Trait t in gv.mod.moduleTraitsList)
                             {
-                                if (t.tag == "spotEnemy")
+                                if (t.tag.Contains(gv.mod.tagOfSpotEnemyTrait))
                                 {
                                     traitMethod = t.methodOfChecking;
                                 }
@@ -4424,7 +4429,7 @@ namespace IceBlink2
                             //factor in lit state and tile stealtModifier
                             int checkModifier = (gv.cc.getDistance(pcCoord, propCoord)-1)*2 + darkAdder + tileAdder;
 
-                            if (gv.sf.CheckPassSkill(parm1, "spotEnemy", p.stealth + checkModifier, true, false))
+                            if (gv.sf.CheckPassSkill(parm1, gv.mod.tagOfSpotEnemyTrait, p.stealth + checkModifier, true, true))
                             {
                                 p.isStealthed = false;
                             }
@@ -4898,6 +4903,20 @@ namespace IceBlink2
                             int transformedY = gv.mod.moduleAreasObjects[indexOfNorthWesternNeighbour].MapSizeY + yy;
                             tile = gv.mod.moduleAreasObjects[indexOfNorthWesternNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfNorthWesternNeighbour].MapSizeX + transformedX];
                             index = indexOfNorthWesternNeighbour;
+                            foreach (Prop p in gv.mod.moduleAreasObjects[index].Props)
+                            {
+                                if (p.isDoor && p.LocationX == transformedX && p.LocationY == transformedY)
+                                {
+                                    if (p.isActive)
+                                    {
+                                        tile.LoSBlocked = true;
+                                    }
+                                    else
+                                    {
+                                        tile.LoSBlocked = false;
+                                    }
+                                }
+                            }
                         }
                         else
                         {
@@ -4914,6 +4933,20 @@ namespace IceBlink2
                             int transformedY = yy - gv.mod.currentArea.MapSizeY;
                             tile = gv.mod.moduleAreasObjects[indexOfSouthWesternNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfSouthWesternNeighbour].MapSizeX + transformedX];
                             index = indexOfSouthWesternNeighbour;
+                            foreach (Prop p in gv.mod.moduleAreasObjects[index].Props)
+                            {
+                                if (p.isDoor && p.LocationX == transformedX && p.LocationY == transformedY)
+                                {
+                                    if (p.isActive)
+                                    {
+                                        tile.LoSBlocked = true;
+                                    }
+                                    else
+                                    {
+                                        tile.LoSBlocked = false;
+                                    }
+                                }
+                            }
                         }
                         else
                         {
@@ -4930,6 +4963,20 @@ namespace IceBlink2
                             int transformedY = yy - gv.mod.currentArea.MapSizeY;
                             tile = gv.mod.moduleAreasObjects[indexOfSouthEasternNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfSouthEasternNeighbour].MapSizeX + transformedX];
                             index = indexOfSouthEasternNeighbour;
+                            foreach (Prop p in gv.mod.moduleAreasObjects[index].Props)
+                            {
+                                if (p.isDoor && p.LocationX == transformedX && p.LocationY == transformedY)
+                                {
+                                    if (p.isActive)
+                                    {
+                                        tile.LoSBlocked = true;
+                                    }
+                                    else
+                                    {
+                                        tile.LoSBlocked = false;
+                                    }
+                                }
+                            }
                         }
                         else
                         {
@@ -4946,6 +4993,20 @@ namespace IceBlink2
                             int transformedY = gv.mod.moduleAreasObjects[indexOfNorthEasternNeighbour].MapSizeY + yy;
                             tile = gv.mod.moduleAreasObjects[indexOfNorthEasternNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfNorthEasternNeighbour].MapSizeX + transformedX];
                             index = indexOfNorthEasternNeighbour;
+                            foreach (Prop p in gv.mod.moduleAreasObjects[index].Props)
+                            {
+                                if (p.isDoor && p.LocationX == transformedX && p.LocationY == transformedY)
+                                {
+                                    if (p.isActive)
+                                    {
+                                        tile.LoSBlocked = true;
+                                    }
+                                    else
+                                    {
+                                        tile.LoSBlocked = false;
+                                    }
+                                }
+                            }
                         }
                         else
                         {
@@ -4962,6 +5023,20 @@ namespace IceBlink2
                             int transformedY = yy;
                             tile = gv.mod.moduleAreasObjects[indexOfWesternNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfWesternNeighbour].MapSizeX + transformedX];
                             index = indexOfWesternNeighbour;
+                            foreach (Prop p in gv.mod.moduleAreasObjects[index].Props)
+                            {
+                                if (p.isDoor && p.LocationX == transformedX && p.LocationY == transformedY)
+                                {
+                                    if (p.isActive)
+                                    {
+                                        tile.LoSBlocked = true;
+                                    }
+                                    else
+                                    {
+                                        tile.LoSBlocked = false;
+                                    }
+                                }
+                            }
                         }
                         else
                         {
@@ -4978,6 +5053,20 @@ namespace IceBlink2
                             int transformedY = yy - gv.mod.currentArea.MapSizeY;
                             tile = gv.mod.moduleAreasObjects[indexOfSouthernNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfSouthernNeighbour].MapSizeX + transformedX];
                             index = indexOfSouthernNeighbour;
+                            foreach (Prop p in gv.mod.moduleAreasObjects[index].Props)
+                            {
+                                if (p.isDoor && p.LocationX == transformedX && p.LocationY == transformedY)
+                                {
+                                    if (p.isActive)
+                                    {
+                                        tile.LoSBlocked = true;
+                                    }
+                                    else
+                                    {
+                                        tile.LoSBlocked = false;
+                                    }
+                                }
+                            }
                         }
                         else
                         {
@@ -4994,6 +5083,20 @@ namespace IceBlink2
                             int transformedY = yy;
                             tile = gv.mod.moduleAreasObjects[indexOfEasternNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfEasternNeighbour].MapSizeX + transformedX];
                             index = indexOfEasternNeighbour;
+                            foreach (Prop p in gv.mod.moduleAreasObjects[index].Props)
+                            {
+                                if (p.isDoor && p.LocationX == transformedX && p.LocationY == transformedY)
+                                {
+                                    if (p.isActive)
+                                    {
+                                        tile.LoSBlocked = true;
+                                    }
+                                    else
+                                    {
+                                        tile.LoSBlocked = false;
+                                    }
+                                }
+                            }
                         }
                         else
                         {
@@ -5010,6 +5113,20 @@ namespace IceBlink2
                             int transformedY = gv.mod.moduleAreasObjects[indexOfNorthernNeighbour].MapSizeY + yy;
                             tile = gv.mod.moduleAreasObjects[indexOfNorthernNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[indexOfNorthernNeighbour].MapSizeX + transformedX];
                             index = indexOfNorthernNeighbour;
+                            foreach (Prop p in gv.mod.moduleAreasObjects[index].Props)
+                            {
+                                if (p.isDoor && p.LocationX == transformedX && p.LocationY == transformedY)
+                                {
+                                    if (p.isActive)
+                                    {
+                                        tile.LoSBlocked = true;
+                                    }
+                                    else
+                                    {
+                                        tile.LoSBlocked = false;
+                                    }
+                                }
+                            }
                         }
                         else
                         {
@@ -5020,7 +5137,20 @@ namespace IceBlink2
                     if (!situationFound)
                     {
                         tile = gv.mod.currentArea.Tiles[yy * gv.mod.currentArea.MapSizeX + xx];
-                        //mod.currentArea.Tiles[yy * mod.currentArea.MapSizeX + xx].Visible = true;
+                        foreach (Prop p in gv.mod.currentArea.Props)
+                        {
+                            if (p.isDoor && p.LocationX == xx && p.LocationY == yy)
+                            {
+                                if (p.isActive)
+                                {
+                                    tile.LoSBlocked = true;
+                                }
+                                else
+                                {
+                                    tile.LoSBlocked = false;
+                                }
+                            }
+                        }
                     }
 
                     if (drawTile)
@@ -9344,7 +9474,7 @@ namespace IceBlink2
                             string traitMethod = "leader";
                             foreach (Trait t in gv.mod.moduleTraitsList)
                             {
-                                if (t.tag == "stealth")
+                                if (t.tag.Contains(gv.mod.tagOfStealthMainTrait))
                                 {
                                     traitMethod = t.methodOfChecking;
                                 }
@@ -9392,7 +9522,7 @@ namespace IceBlink2
                             //factor in lit state and tile stealtModifier
                             int checkModifier = (gv.cc.getDistance(pcCoord, propCoord) - 1) * 2 + darkAdder + tileAdder;
 
-                            if (gv.sf.CheckPassSkill(parm1, "stealth", gv.mod.currentArea.Props[i].spotEnemy - checkModifier, true, false))
+                            if (gv.sf.CheckPassSkill(parm1, gv.mod.tagOfStealthMainTrait, gv.mod.currentArea.Props[i].spotEnemy - checkModifier, true, true))
                             {
                                 isFooled = true;
                             }
@@ -10852,7 +10982,7 @@ namespace IceBlink2
                         string traitMethod = "leader";
                         foreach (Trait t in gv.mod.moduleTraitsList)
                         {
-                            if (t.tag == "stealth")
+                            if (t.tag.Contains(gv.mod.tagOfStealthMainTrait))
                             {
                                 traitMethod = t.methodOfChecking;
                             }
@@ -10900,7 +11030,7 @@ namespace IceBlink2
                         //factor in lit state and tile stealtModifier
                         int checkModifier = (gv.cc.getDistance(pcCoord, propCoord) - 1) * 2 + darkAdder + tileAdder;
 
-                        if (gv.sf.CheckPassSkill(parm1, "stealth", gv.mod.currentArea.Props[i].spotEnemy - checkModifier, true, false))
+                        if (gv.sf.CheckPassSkill(parm1, gv.mod.tagOfStealthMainTrait, gv.mod.currentArea.Props[i].spotEnemy - checkModifier, true, true))
                         {
                             isFooled = true;
                         }
@@ -10992,10 +11122,11 @@ namespace IceBlink2
 
                             break;
                         }
-                        //trap
+                        //script
                         else if ((gv.triggerPropIndex == 3) && (gv.mod.currentArea.Props[i].scriptFilename != "none" && gv.mod.currentArea.Props[i].scriptFilename != "None" && gv.mod.currentArea.Props[i].scriptFilename != ""))
-                        { 
-    
+                        {
+
+                            //gv.mod.currentArea.Props[i]
                             gv.sf.ThisProp = gv.mod.currentArea.Props[i];
                             doScriptBasedOnFilename(gv.mod.currentArea.Props[i].scriptFilename, gv.mod.currentArea.Props[i].parm1, gv.mod.currentArea.Props[i].parm2, gv.mod.currentArea.Props[i].parm3, gv.mod.currentArea.Props[i].parm4);
                             
@@ -12748,7 +12879,7 @@ namespace IceBlink2
                     {
                         if (t.tag == it.tagOfTraitInfluenced)
                         {
-                            traitName = t.tag.Substring(0, t.tag.Length-2);
+                            traitName = t.nameOfTraitGroup;
                             //traitName = t.name;
                             break;
                         }

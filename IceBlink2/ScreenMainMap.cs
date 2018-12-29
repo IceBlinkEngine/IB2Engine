@@ -445,6 +445,7 @@ namespace IceBlink2
                                         {
                                             bumpPropExists = true;
                                             bumpProp = p;
+                                            gv.sf.ThisProp = bumpProp;
                                             break;
                                         }
                                     }
@@ -563,6 +564,7 @@ namespace IceBlink2
                                         {
                                             bumpPropExists = true;
                                             bumpProp = p;
+                                            gv.sf.ThisProp = bumpProp;
                                             break;
                                         }
                                     }
@@ -679,6 +681,7 @@ namespace IceBlink2
                                         {
                                             bumpPropExists = true;
                                             bumpProp = p;
+                                            gv.sf.ThisProp = bumpProp;
                                             break;
                                         }
                                     }
@@ -814,6 +817,7 @@ namespace IceBlink2
                                         {
                                             bumpPropExists = true;
                                             bumpProp = p;
+                                            gv.sf.ThisProp = bumpProp;
                                             break;
                                         }
                                     }
@@ -31904,13 +31908,6 @@ namespace IceBlink2
             //assuming 28 days in 12 Months, ie 336 days a year
             //notation example: 13:17, Tuesday, 9th of March 1213
 
-            /*
-            public string weekDayNameToDisplay = "";
-            public string monthDayCounterNumberToDisplay = "";
-            public string monthDayCounterAddendumToDisplay = "";
-            public string monthNameToDisplay = "";
-            */
-
             string coordText = " (" + gv.mod.PlayerLocationX + "," + gv.mod.PlayerLocationY + ")";
 
             if (gv.mod.useComplexCoordinateSystem)
@@ -31955,30 +31952,6 @@ namespace IceBlink2
                     pushLinesUpBy = 2;
                 }
 
-                /*
-       private bool _isOverViewMap = false;
-
-       private bool _overviewOwnZoneMapExists = false;
-       private bool _overviewMotherZoneMapExists = false;
-       private bool _overviewGrandMotherZoneMapExists = false;
-
-       private bool _showOverviewButtonOwnZoneMap = false;
-       private bool _showOverviewButtonMotherZoneMap = false;
-       private bool _showOverviewButtonGrandMotherZoneMap = false;
-
-       private string _filenameOfOwnZoneMap = "none";
-       private string _filenameOfMotherZoneMap = "none";
-       private string _filenameOfGrandMotherZoneMap = "none";
-
-       private int _partyPositionMarkerOnOwnZoneMapX = -1;
-       private int _partyPositionMarkerOnOwnZoneMapY = -1;
-       private int _partyPositionMarkerOnMotherZoneMapX = -1;
-       private int _partyPositionMarkerOnMotherZoneMapY = -1;
-       private int _partyPositionMarkerOnGrandMotherZoneMapX = -1;
-       private int _partyPositionMarkerOnGrandMotherZoneMapY = -1;
-       */
-
-
                 zoomLevel = 0;
                 //fully zoomed out (far)
                 if (zoomLevel == 0)
@@ -32006,13 +31979,13 @@ namespace IceBlink2
                         {
                             for (int y = -2; y <= 2; y++)
                             {
-                                gv.DrawText(hour + ":" + sMinute + ", " + gv.mod.weekDayNameToDisplay + ", " + gv.mod.monthDayCounterNumberToDisplay + gv.mod.monthDayCounterAddendumToDisplay + " of " + gv.mod.monthNameToDisplay + " " + gv.mod.currentYear.ToString(), new IbRect(gv.oXshift + x + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH + y - gv.pS - (int)(2.5 * gv.pS * 0) + 2*gv.pS, 600, 100), 1.0f, Color.Black);
-                                gv.DrawText(zoom0Line, new IbRect(gv.oXshift + x + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH + y + (int)(2.5 * gv.pS) + (int)(2.5 * gv.pS * 0) + 2 * gv.pS, 600, 100), 1.0f, Color.Black);
+                                gv.DrawTextLeft(hour + ":" + sMinute + ", " + gv.mod.weekDayNameToDisplay + ", " + gv.mod.monthDayCounterNumberToDisplay + gv.mod.monthDayCounterAddendumToDisplay + " of " + gv.mod.monthNameToDisplay + " " + gv.mod.currentYear.ToString(), new IbRect(gv.oXshift + x + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH + y - gv.pS - (int)(2.5 * gv.pS * 0) + 2*gv.pS, 600, 100), 1.0f, Color.Black);
+                                gv.DrawTextLeft(zoom0Line, new IbRect(gv.oXshift + x + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH + y + (int)(2.5 * gv.pS) + (int)(2.5 * gv.pS * 0) + 2 * gv.pS, 600, 100), 1.0f, Color.Black);
                             }
                         }
                         //draw font itself (white)
-                        gv.DrawText(hour + ":" + sMinute + ", " + gv.mod.weekDayNameToDisplay + ", " + gv.mod.monthDayCounterNumberToDisplay + gv.mod.monthDayCounterAddendumToDisplay + " of " + gv.mod.monthNameToDisplay + " " + gv.mod.currentYear.ToString(), new IbRect(gv.oXshift + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH - gv.pS - (int)(2.5 * gv.pS * 0) + 2 * gv.pS, 600, 100), 1.0f, Color.White);
-                        gv.DrawText(zoom0Line, new IbRect(gv.oXshift + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH + (int)(2.5 * gv.pS) + (int)(2.5 * gv.pS * 0) + 2 * gv.pS, 600, 100), 1.0f, Color.White);
+                        gv.DrawTextLeft(hour + ":" + sMinute + ", " + gv.mod.weekDayNameToDisplay + ", " + gv.mod.monthDayCounterNumberToDisplay + gv.mod.monthDayCounterAddendumToDisplay + " of " + gv.mod.monthNameToDisplay + " " + gv.mod.currentYear.ToString(), new IbRect(gv.oXshift + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH - gv.pS - (int)(2.5 * gv.pS * 0) + 2 * gv.pS, 600, 100), 1.0f, Color.White);
+                        gv.DrawTextLeft(zoom0Line, new IbRect(gv.oXshift + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH + (int)(2.5 * gv.pS) + (int)(2.5 * gv.pS * 0) + 2 * gv.pS, 600, 100), 1.0f, Color.White);
 
                     }
                 }
@@ -32061,15 +32034,15 @@ namespace IceBlink2
                         {
                             for (int y = -2; y <= 2; y++)
                             {
-                                gv.DrawText(hour + ":" + sMinute + ", " + gv.mod.weekDayNameToDisplay + ", " + gv.mod.monthDayCounterNumberToDisplay + gv.mod.monthDayCounterAddendumToDisplay + " of " + gv.mod.monthNameToDisplay + " " + gv.mod.currentYear.ToString(), new IbRect(gv.oXshift + x + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH + y - gv.pS - (int)(2.5 * gv.pS * 1)+ gv.pS + (int)0.0 * gv.pS, 600, 100), 1.0f, Color.Black);
-                                gv.DrawText(zoom1Line, new IbRect(gv.oXshift + x + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH + y + (int)(2.5 * gv.pS) - (int)(2.5 * gv.pS * 1)+gv.pS, 600, 100), 1.0f, Color.Black);
-                                gv.DrawText(zoom0Line, new IbRect(gv.oXshift + x + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH + y + (int)(2.5 * gv.pS) - (int)(2.5 * gv.pS * 0) + 2*gv.pS, 600, 100), 1.0f, Color.Black);
+                                gv.DrawTextLeft(hour + ":" + sMinute + ", " + gv.mod.weekDayNameToDisplay + ", " + gv.mod.monthDayCounterNumberToDisplay + gv.mod.monthDayCounterAddendumToDisplay + " of " + gv.mod.monthNameToDisplay + " " + gv.mod.currentYear.ToString(), new IbRect(gv.oXshift + x + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH + y - gv.pS - (int)(2.5 * gv.pS * 1)+ gv.pS + (int)0.0 * gv.pS, 600, 100), 1.0f, Color.Black);
+                                gv.DrawTextLeft(zoom1Line, new IbRect(gv.oXshift + x + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH + y + (int)(2.5 * gv.pS) - (int)(2.5 * gv.pS * 1)+gv.pS, 600, 100), 1.0f, Color.Black);
+                                gv.DrawTextLeft(zoom0Line, new IbRect(gv.oXshift + x + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH + y + (int)(2.5 * gv.pS) - (int)(2.5 * gv.pS * 0) + 2*gv.pS, 600, 100), 1.0f, Color.Black);
                             }
                         }
                         //draw font itself (white)
-                        gv.DrawText(hour + ":" + sMinute + ", " + gv.mod.weekDayNameToDisplay + ", " + gv.mod.monthDayCounterNumberToDisplay + gv.mod.monthDayCounterAddendumToDisplay + " of " + gv.mod.monthNameToDisplay + " " + gv.mod.currentYear.ToString(), new IbRect(gv.oXshift + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH - gv.pS - (int)(2.5 * gv.pS * 1) + gv.pS + (int)0.0*gv.pS, 600, 100), 1.0f, Color.White);
-                        gv.DrawText(zoom1Line, new IbRect(gv.oXshift + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH + (int)(2.5 * gv.pS) - (int)(2.5 * gv.pS * 1)+gv.pS, 600, 100), 1.0f, Color.White);
-                        gv.DrawText(zoom0Line, new IbRect(gv.oXshift + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH + (int)(2.5 * gv.pS) - (int)(2.5 * gv.pS * 0) + 2*gv.pS, 600, 100), 1.0f, Color.White);
+                        gv.DrawTextLeft(hour + ":" + sMinute + ", " + gv.mod.weekDayNameToDisplay + ", " + gv.mod.monthDayCounterNumberToDisplay + gv.mod.monthDayCounterAddendumToDisplay + " of " + gv.mod.monthNameToDisplay + " " + gv.mod.currentYear.ToString(), new IbRect(gv.oXshift + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH - gv.pS - (int)(2.5 * gv.pS * 1) + gv.pS + (int)0.0*gv.pS, 600, 100), 1.0f, Color.White);
+                        gv.DrawTextLeft(zoom1Line, new IbRect(gv.oXshift + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH + (int)(2.5 * gv.pS) - (int)(2.5 * gv.pS * 1)+gv.pS, 600, 100), 1.0f, Color.White);
+                        gv.DrawTextLeft(zoom0Line, new IbRect(gv.oXshift + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH + (int)(2.5 * gv.pS) - (int)(2.5 * gv.pS * 0) + 2*gv.pS, 600, 100), 1.0f, Color.White);
                     }
                 }
 
@@ -32142,17 +32115,17 @@ namespace IceBlink2
                         {
                             for (int y = -2; y <= 2; y++)
                             {
-                                gv.DrawText(hour + ":" + sMinute + ", " + gv.mod.weekDayNameToDisplay + ", " + gv.mod.monthDayCounterNumberToDisplay + gv.mod.monthDayCounterAddendumToDisplay + " of " + gv.mod.monthNameToDisplay + " " + gv.mod.currentYear.ToString(), new IbRect(gv.oXshift + x + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH + y - gv.pS - (int)(2.5 * gv.pS * 2 +0.5*gv.pS), 600, 100), 1.0f, Color.Black);
-                                gv.DrawText(zoom2Line, new IbRect(gv.oXshift + x + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH + y + (int)(2.5 * gv.pS) - (int)(2.5 * gv.pS * 2), 600, 100), 1.0f, Color.Black);
-                                gv.DrawText(zoom1Line, new IbRect(gv.oXshift + x + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH + y + (int)(2.5 * gv.pS) - (int)(2.5 * gv.pS * 1) + gv.pS, 600, 100), 1.0f, Color.Black);
-                                gv.DrawText(zoom0Line, new IbRect(gv.oXshift + x + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH + y + (int)(2.5 * gv.pS) - (int)(2.5 * gv.pS * 0) + 2*gv.pS, 600, 100), 1.0f, Color.Black);
+                                gv.DrawTextLeft(hour + ":" + sMinute + ", " + gv.mod.weekDayNameToDisplay + ", " + gv.mod.monthDayCounterNumberToDisplay + gv.mod.monthDayCounterAddendumToDisplay + " of " + gv.mod.monthNameToDisplay + " " + gv.mod.currentYear.ToString(), new IbRect(gv.oXshift + x + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH + y - gv.pS - (int)(2.5 * gv.pS * 2 +0.5*gv.pS), 600, 100), 1.0f, Color.Black);
+                                gv.DrawTextLeft(zoom2Line, new IbRect(gv.oXshift + x + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH + y + (int)(2.5 * gv.pS) - (int)(2.5 * gv.pS * 2), 600, 100), 1.0f, Color.Black);
+                                gv.DrawTextLeft(zoom1Line, new IbRect(gv.oXshift + x + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH + y + (int)(2.5 * gv.pS) - (int)(2.5 * gv.pS * 1) + gv.pS, 600, 100), 1.0f, Color.Black);
+                                gv.DrawTextLeft(zoom0Line, new IbRect(gv.oXshift + x + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH + y + (int)(2.5 * gv.pS) - (int)(2.5 * gv.pS * 0) + 2*gv.pS, 600, 100), 1.0f, Color.Black);
                             }
                         }
                         //draw font itself (white)
-                        gv.DrawText(hour + ":" + sMinute + ", " + gv.mod.weekDayNameToDisplay + ", " + gv.mod.monthDayCounterNumberToDisplay + gv.mod.monthDayCounterAddendumToDisplay + " of " + gv.mod.monthNameToDisplay + " " + gv.mod.currentYear.ToString(), new IbRect(gv.oXshift + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH - gv.pS - (int)(2.5 * gv.pS * 2 + 0.5*gv.pS), 600, 100), 1.0f, Color.White);
-                        gv.DrawText(zoom2Line, new IbRect(gv.oXshift + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH + (int)(2.5 * gv.pS) - (int)(2.5 * gv.pS * 2), 600, 100), 1.0f, Color.White);
-                        gv.DrawText(zoom1Line, new IbRect(gv.oXshift + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH + (int)(2.5 * gv.pS) - (int)(2.5 * gv.pS * 1) + gv.pS, 600, 100), 1.0f, Color.White);
-                        gv.DrawText(zoom0Line, new IbRect(gv.oXshift + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH + (int)(2.5 * gv.pS) - (int)(2.5 * gv.pS * 0) + 2*gv.pS, 600, 100), 1.0f, Color.White);
+                        gv.DrawTextLeft(hour + ":" + sMinute + ", " + gv.mod.weekDayNameToDisplay + ", " + gv.mod.monthDayCounterNumberToDisplay + gv.mod.monthDayCounterAddendumToDisplay + " of " + gv.mod.monthNameToDisplay + " " + gv.mod.currentYear.ToString(), new IbRect(gv.oXshift + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH - gv.pS - (int)(2.5 * gv.pS * 2 + 0.5*gv.pS), 600, 100), 1.0f, Color.White);
+                        gv.DrawTextLeft(zoom2Line, new IbRect(gv.oXshift + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH + (int)(2.5 * gv.pS) - (int)(2.5 * gv.pS * 2), 600, 100), 1.0f, Color.White);
+                        gv.DrawTextLeft(zoom1Line, new IbRect(gv.oXshift + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH + (int)(2.5 * gv.pS) - (int)(2.5 * gv.pS * 1) + gv.pS, 600, 100), 1.0f, Color.White);
+                        gv.DrawTextLeft(zoom0Line, new IbRect(gv.oXshift + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH + (int)(2.5 * gv.pS) - (int)(2.5 * gv.pS * 0) + 2*gv.pS, 600, 100), 1.0f, Color.White);
                     }
                 }
             }
@@ -32172,45 +32145,45 @@ namespace IceBlink2
                                 {
                                     if (gv.mod.useRationSystem)
                                     {
-                                        gv.DrawText(gv.mod.currentArea.inGameAreaName + coordText + ", " + "R(" + gv.mod.numberOfRationsRemaining.ToString() + "), " + "T" + "(" + gv.mod.currentLightUnitsLeft.ToString() + ")", new IbRect(gv.oXshift + x + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH + y + (int)(2.5 * gv.pS), 600, 100), 1.0f, Color.Black);
+                                        gv.DrawTextLeft(gv.mod.currentArea.inGameAreaName + coordText + ", " + "R(" + gv.mod.numberOfRationsRemaining.ToString() + "), " + "T" + "(" + gv.mod.currentLightUnitsLeft.ToString() + ")", new IbRect(gv.oXshift + x + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH + y + (int)(2.5 * gv.pS), 600, 100), 1.0f, Color.Black);
                                     }
                                     else
                                     {
-                                        gv.DrawText(gv.mod.currentArea.inGameAreaName + coordText + ", " + "T" + "(" + gv.mod.currentLightUnitsLeft.ToString() + ")", new IbRect(gv.oXshift + x + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH + y + (int)(2.5 * gv.pS), 600, 100), 1.0f, Color.Black);
+                                        gv.DrawTextLeft(gv.mod.currentArea.inGameAreaName + coordText + ", " + "T" + "(" + gv.mod.currentLightUnitsLeft.ToString() + ")", new IbRect(gv.oXshift + x + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH + y + (int)(2.5 * gv.pS), 600, 100), 1.0f, Color.Black);
                                     }
                                 }
                                 else
                                 {
                                     if (gv.mod.useRationSystem)
                                     {
-                                        gv.DrawText("R(" + gv.mod.numberOfRationsRemaining.ToString() + "), " + "T" + "(" + gv.mod.currentLightUnitsLeft.ToString() + ")", new IbRect(gv.oXshift + x + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH + y + (int)(2.5 * gv.pS), 600, 100), 1.0f, Color.Black);
+                                        gv.DrawTextLeft("R(" + gv.mod.numberOfRationsRemaining.ToString() + "), " + "T" + "(" + gv.mod.currentLightUnitsLeft.ToString() + ")", new IbRect(gv.oXshift + x + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH + y + (int)(2.5 * gv.pS), 600, 100), 1.0f, Color.Black);
                                     }
                                     else
                                     {
-                                        gv.DrawText("T" + "(" + gv.mod.currentLightUnitsLeft.ToString() + ")", new IbRect(gv.oXshift + x + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH + y + (int)(2.5 * gv.pS), 600, 100), 1.0f, Color.Black);
+                                        gv.DrawTextLeft("T" + "(" + gv.mod.currentLightUnitsLeft.ToString() + ")", new IbRect(gv.oXshift + x + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH + y + (int)(2.5 * gv.pS), 600, 100), 1.0f, Color.Black);
                                     }
                                 }
                                 //gv.DrawText(hour + ":" + sMinute + ", " + gv.mod.partyLightName + "(" + gv.mod.currentLightUnitsLeft.ToString() + ")", new IbRect(gv.oXshift + x + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH + y - gv.pS, 600, 100), 1.0f, Color.Black);
                             }
                             else
                             {
-                                gv.DrawText(hour + ":" + sMinute + ", " + gv.mod.weekDayNameToDisplay + ", " + gv.mod.monthDayCounterNumberToDisplay + gv.mod.monthDayCounterAddendumToDisplay + " of " + gv.mod.monthNameToDisplay + " " + gv.mod.currentYear.ToString(), new IbRect(gv.oXshift + x + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH + y - gv.pS, 600, 100), 1.0f, Color.Black);
+                                gv.DrawTextLeft(hour + ":" + sMinute + ", " + gv.mod.weekDayNameToDisplay + ", " + gv.mod.monthDayCounterNumberToDisplay + gv.mod.monthDayCounterAddendumToDisplay + " of " + gv.mod.monthNameToDisplay + " " + gv.mod.currentYear.ToString(), new IbRect(gv.oXshift + x + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH + y - gv.pS, 600, 100), 1.0f, Color.Black);
                                 if ((gv.mod.currentArea.inGameAreaName != "") && (gv.mod.currentArea.inGameAreaName != "newArea"))
                                 {
                                     if (gv.mod.useRationSystem)
                                     {
-                                        gv.DrawText(gv.mod.currentArea.inGameAreaName + coordText + ", " + "R(" + gv.mod.numberOfRationsRemaining.ToString() + ")", new IbRect(gv.oXshift + x + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH + y + (int)(2.5 * gv.pS), 600, 100), 1.0f, Color.Black);
+                                        gv.DrawTextLeft(gv.mod.currentArea.inGameAreaName + coordText + ", " + "R(" + gv.mod.numberOfRationsRemaining.ToString() + ")", new IbRect(gv.oXshift + x + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH + y + (int)(2.5 * gv.pS), 600, 100), 1.0f, Color.Black);
                                     }
                                     else
                                     {
-                                        gv.DrawText(gv.mod.currentArea.inGameAreaName + coordText, new IbRect(gv.oXshift + x + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH + y + (int)(2.5 * gv.pS), 600, 100), 1.0f, Color.Black);
+                                        gv.DrawTextLeft(gv.mod.currentArea.inGameAreaName + coordText, new IbRect(gv.oXshift + x + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH + y + (int)(2.5 * gv.pS), 600, 100), 1.0f, Color.Black);
                                     }
                                 }
                                 else
                                 {
                                     if (gv.mod.useRationSystem)
                                     {
-                                        gv.DrawText("R(" + gv.mod.numberOfRationsRemaining.ToString() + ")", new IbRect(gv.oXshift + x + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH + y + (int)(2.5 * gv.pS), 600, 100), 1.0f, Color.Black);
+                                        gv.DrawTextLeft("R(" + gv.mod.numberOfRationsRemaining.ToString() + ")", new IbRect(gv.oXshift + x + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH + y + (int)(2.5 * gv.pS), 600, 100), 1.0f, Color.Black);
                                     }
                                     else
                                     {
@@ -32227,11 +32200,11 @@ namespace IceBlink2
                         {
                             if (gv.mod.useRationSystem)
                             {
-                                gv.DrawText(gv.mod.currentArea.inGameAreaName + coordText + ", " + "R(" + gv.mod.numberOfRationsRemaining.ToString() + "), " + "T" + "(" + gv.mod.currentLightUnitsLeft.ToString() + ")", new IbRect(gv.oXshift + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH + (int)(2.5 * gv.pS), 600, 100), 1.0f, Color.White);
+                                gv.DrawTextLeft(gv.mod.currentArea.inGameAreaName + coordText + ", " + "R(" + gv.mod.numberOfRationsRemaining.ToString() + "), " + "T" + "(" + gv.mod.currentLightUnitsLeft.ToString() + ")", new IbRect(gv.oXshift + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH + (int)(2.5 * gv.pS), 600, 100), 1.0f, Color.White);
                             }
                             else
                             {
-                                gv.DrawText(gv.mod.currentArea.inGameAreaName + coordText + ", " + "T" + "(" + gv.mod.currentLightUnitsLeft.ToString() + ")", new IbRect(gv.oXshift + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH + (int)(2.5 * gv.pS), 600, 100), 1.0f, Color.White);
+                                gv.DrawTextLeft(gv.mod.currentArea.inGameAreaName + coordText + ", " + "T" + "(" + gv.mod.currentLightUnitsLeft.ToString() + ")", new IbRect(gv.oXshift + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH + (int)(2.5 * gv.pS), 600, 100), 1.0f, Color.White);
 
                             }
 
@@ -32240,11 +32213,11 @@ namespace IceBlink2
                         {
                             if (gv.mod.useRationSystem)
                             {
-                                gv.DrawText("R(" + gv.mod.numberOfRationsRemaining.ToString() + "), " + "T" + "(" + gv.mod.currentLightUnitsLeft.ToString() + ")", new IbRect(gv.oXshift + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH + (int)(2.5 * gv.pS), 600, 100), 1.0f, Color.White);
+                                gv.DrawTextLeft("R(" + gv.mod.numberOfRationsRemaining.ToString() + "), " + "T" + "(" + gv.mod.currentLightUnitsLeft.ToString() + ")", new IbRect(gv.oXshift + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH + (int)(2.5 * gv.pS), 600, 100), 1.0f, Color.White);
                             }
                             else
                             {
-                                gv.DrawText("T" + "(" + gv.mod.currentLightUnitsLeft.ToString() + ")", new IbRect(gv.oXshift + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH + (int)(2.5 * gv.pS), 600, 100), 1.0f, Color.White);
+                                gv.DrawTextLeft("T" + "(" + gv.mod.currentLightUnitsLeft.ToString() + ")", new IbRect(gv.oXshift + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH + (int)(2.5 * gv.pS), 600, 100), 1.0f, Color.White);
 
                             }
                         }
@@ -32252,16 +32225,16 @@ namespace IceBlink2
                     }
                     else
                     {
-                        gv.DrawText(hour + ":" + sMinute + ", " + gv.mod.weekDayNameToDisplay + ", " + gv.mod.monthDayCounterNumberToDisplay + gv.mod.monthDayCounterAddendumToDisplay + " of " + gv.mod.monthNameToDisplay + " " + gv.mod.currentYear.ToString(), new IbRect(gv.oXshift + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH - gv.pS, 600, 100), 1.0f, Color.White);
+                        gv.DrawTextLeft(hour + ":" + sMinute + ", " + gv.mod.weekDayNameToDisplay + ", " + gv.mod.monthDayCounterNumberToDisplay + gv.mod.monthDayCounterAddendumToDisplay + " of " + gv.mod.monthNameToDisplay + " " + gv.mod.currentYear.ToString(), new IbRect(gv.oXshift + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH - gv.pS, 600, 100), 1.0f, Color.White);
                         if ((gv.mod.currentArea.inGameAreaName != "") && (gv.mod.currentArea.inGameAreaName != "newArea"))
                         {
                             if (gv.mod.useRationSystem)
                             {
-                                gv.DrawText(gv.mod.currentArea.inGameAreaName + coordText + ", " + "R(" + gv.mod.numberOfRationsRemaining.ToString() + ")", new IbRect(gv.oXshift + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH + (int)(2.5f * gv.pS), 600, 100), 1.0f, Color.White);
+                                gv.DrawTextLeft(gv.mod.currentArea.inGameAreaName + coordText + ", " + "R(" + gv.mod.numberOfRationsRemaining.ToString() + ")", new IbRect(gv.oXshift + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH + (int)(2.5f * gv.pS), 600, 100), 1.0f, Color.White);
                             }
                             else
                             {
-                                gv.DrawText(gv.mod.currentArea.inGameAreaName + coordText, new IbRect(gv.oXshift + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH + (int)(2.5f * gv.pS), 600, 100), 1.0f, Color.White);
+                                gv.DrawTextLeft(gv.mod.currentArea.inGameAreaName + coordText, new IbRect(gv.oXshift + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH + (int)(2.5f * gv.pS), 600, 100), 1.0f, Color.White);
 
                             }
                         }
@@ -32269,7 +32242,7 @@ namespace IceBlink2
                         {
                             if (gv.mod.useRationSystem)
                             {
-                                gv.DrawText("R(" + gv.mod.numberOfRationsRemaining.ToString() + ")", new IbRect(gv.oXshift + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH + (int)(2.5f * gv.pS), 600, 100), 1.0f, Color.White);
+                                gv.DrawTextLeft("R(" + gv.mod.numberOfRationsRemaining.ToString() + ")", new IbRect(gv.oXshift + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH + (int)(2.5f * gv.pS), 600, 100), 1.0f, Color.White);
                             }
 
                         }
@@ -32283,10 +32256,10 @@ namespace IceBlink2
                     {
                         for (int y = -2; y <= 2; y++)
                         {
-                            gv.DrawText(hour + ":" + sMinute + ", " + gv.mod.weekDayNameToDisplay + ", " + gv.mod.monthDayCounterNumberToDisplay + gv.mod.monthDayCounterAddendumToDisplay + " of " + gv.mod.monthNameToDisplay + " " + gv.mod.currentYear.ToString(), new IbRect(gv.oXshift + x + (gv.playerOffsetY - 1) * gv.squareSize, gv.playerOffsetX * gv.squareSize - txtH + y - gv.pS, 100, 100), 1.0f, Color.Black);
+                            gv.DrawTextLeft(hour + ":" + sMinute + ", " + gv.mod.weekDayNameToDisplay + ", " + gv.mod.monthDayCounterNumberToDisplay + gv.mod.monthDayCounterAddendumToDisplay + " of " + gv.mod.monthNameToDisplay + " " + gv.mod.currentYear.ToString(), new IbRect(gv.oXshift + x + (gv.playerOffsetY - 1) * gv.squareSize, gv.playerOffsetX * gv.squareSize - txtH + y - gv.pS, 100, 100), 1.0f, Color.Black);
                         }
                     }
-                    gv.DrawText(hour + ":" + sMinute + ", " + gv.mod.weekDayNameToDisplay + ", " + gv.mod.monthDayCounterNumberToDisplay + gv.mod.monthDayCounterAddendumToDisplay + " of " + gv.mod.monthNameToDisplay + " " + gv.mod.currentYear.ToString(), new IbRect(gv.oXshift + (gv.playerOffsetY - 1) * gv.squareSize, gv.playerOffsetX * gv.squareSize - txtH - gv.pS, 100, 100), 1.0f, Color.White);
+                    gv.DrawTextLeft(hour + ":" + sMinute + ", " + gv.mod.weekDayNameToDisplay + ", " + gv.mod.monthDayCounterNumberToDisplay + gv.mod.monthDayCounterAddendumToDisplay + " of " + gv.mod.monthNameToDisplay + " " + gv.mod.currentYear.ToString(), new IbRect(gv.oXshift + (gv.playerOffsetY - 1) * gv.squareSize, gv.playerOffsetX * gv.squareSize - txtH - gv.pS, 100, 100), 1.0f, Color.White);
 
                 }
             } 
@@ -35483,10 +35456,20 @@ namespace IceBlink2
                 {
                     int relevantTraitsCounter = 0;
                     string method = "";
+                    List<string> traitTypesShownAlready = new List<string>();
                     foreach (Trait t in gv.mod.moduleTraitsList)
                     {
                         if (t.showOnMainMap)
                         {
+                            foreach (string type in traitTypesShownAlready)
+                            {
+                                if (type.Contains(t.tag))
+                                {
+                                    continue;
+                                }
+                            }
+                            traitTypesShownAlready.Add(t.tag);
+
                             int power = gv.cc.getTraitPower(t.tag, t.methodOfChecking);
                             if ((t.methodOfChecking == "leader") ||(t.methodOfChecking == "Leader") || (t.methodOfChecking == "-1"))
                             {
@@ -35516,13 +35499,13 @@ namespace IceBlink2
 
                             if (!gv.mod.hideZeroPowerTraits)
                             {
-                                if (power > 0)
-                                {
+                                //if (power > 0)
+                                //{
                                     pnl.buttonList[relevantTraitsCounter].tag = t.tag;
                                     pnl.buttonList[relevantTraitsCounter].show = true;
                                     pnl.buttonList[relevantTraitsCounter].btnState = buttonState.Normal;
                                     pnl.buttonList[relevantTraitsCounter].scaler = 0.4f;
-                                    if (t.tag == "movementSpeed")
+                                    if (t.tag.Contains(gv.mod.tagOfMovementSpeedTrait))
                                     {
                                         int speedSum = power + gv.mod.currentArea.Tiles[gv.mod.PlayerLocationY * gv.mod.currentArea.MapSizeX + gv.mod.PlayerLocationX].speedModifier;
                                         pnl.buttonList[relevantTraitsCounter].Text = speedSum.ToString() + method;
@@ -35533,14 +35516,15 @@ namespace IceBlink2
                                     }
                                     pnl.buttonList[relevantTraitsCounter].Img2Filename = t.traitImage;
                                     pnl.buttonList[relevantTraitsCounter].Img2OffFilename = t.traitImage + "_off";
-                                }
+                                //}
+                                /*
                                 else
                                 {
                                     pnl.buttonList[relevantTraitsCounter].tag = t.tag;
                                     pnl.buttonList[relevantTraitsCounter].show = true;
                                     pnl.buttonList[relevantTraitsCounter].btnState = buttonState.Off;
                                     pnl.buttonList[relevantTraitsCounter].scaler = 0.4f;
-                                    if (t.tag == "movementSpeed")
+                                    if (t.tag.Contains(gv.mod.tagOfMovementSpeedTrait))
                                     {
                                         int speedSum = power + gv.mod.currentArea.Tiles[gv.mod.PlayerLocationY * gv.mod.currentArea.MapSizeX + gv.mod.PlayerLocationX].speedModifier;
                                         pnl.buttonList[relevantTraitsCounter].Text = speedSum.ToString() + method;
@@ -35552,6 +35536,7 @@ namespace IceBlink2
                                     pnl.buttonList[relevantTraitsCounter].Img2Filename = t.traitImage;
                                     pnl.buttonList[relevantTraitsCounter].Img2OffFilename = t.traitImage + "_off";
                                 }
+                                */
                             }
                             //hide zero power traits
                             else
@@ -36996,22 +36981,28 @@ namespace IceBlink2
                                             foreach (Prop p in a.Props)
                                             {
                                                 //add all the other types here
-                                                if (p.isSecretDoor || p.isTrapMain)
+                                                if (p.isSecretDoor || p.isTrapMain || p.isHiddenInfo)
                                                 {
                                                     //skill roll script
                                                     //visible state
                                                     string traitMethod = "leader";
                                                     foreach (Trait t in gv.mod.moduleTraitsList)
                                                     {
-                                                         if (t.tag == p.secretDoorTraitTag)
+                                                         if (t.tag.Contains(p.secretDoorTraitTag))
                                                         {
                                                             traitMethod = t.methodOfChecking;
                                                         }
 
-                                                        if (t.tag == p.trapTraitTag)
+                                                        if (t.tag.Contains(p.trapTraitTag))
                                                         {
                                                             traitMethod = t.methodOfChecking;
                                                         }
+
+                                                        if (t.tag.Contains(p.infoTraitTag))
+                                                        {
+                                                            traitMethod = t.methodOfChecking;
+                                                        }
+
                                                     }
                                                     int parm1 = gv.mod.selectedPartyLeader;
                                                     if (traitMethod.Equals("-1") || traitMethod.Equals("leader") || traitMethod.Equals("Leader"))
@@ -37054,7 +37045,7 @@ namespace IceBlink2
                                                         }
                                                         if (gv.sf.CheckPropByTagIsInDarknessPerArea(p.PropTag, "noLight", a.Filename))
                                                         {
-                                                            darkAdder = 400;
+                                                            darkAdder = 12;
                                                         }
                                                     }
 
@@ -37068,7 +37059,7 @@ namespace IceBlink2
                                                         }
                                                         if (gv.sf.CheckPropByTagIsInDarknessPerArea(p.PropTag, "noLight", a.Filename))
                                                         {
-                                                            darkAdder = 400;
+                                                            darkAdder = 12;
                                                         }
                                                     }
 
@@ -37082,7 +37073,7 @@ namespace IceBlink2
                                                         }
                                                         if (gv.sf.CheckPropByTagIsInDarknessPerArea(p.PropTag, "noLight", a.Filename))
                                                         {
-                                                            darkAdder = 400;
+                                                            darkAdder = 12;
                                                         }
                                                     }
 
@@ -37096,7 +37087,7 @@ namespace IceBlink2
                                                         }
                                                         if (gv.sf.CheckPropByTagIsInDarknessPerArea(p.PropTag, "noLight", a.Filename))
                                                         {
-                                                            darkAdder = 400;
+                                                            darkAdder = 12;
                                                         }
                                                     }
 
@@ -37110,7 +37101,7 @@ namespace IceBlink2
                                                         }
                                                         if (gv.sf.CheckPropByTagIsInDarknessPerArea(p.PropTag, "noLight", a.Filename))
                                                         {
-                                                            darkAdder = 400;
+                                                            darkAdder = 12;
                                                         }
                                                     }
 
@@ -37124,7 +37115,7 @@ namespace IceBlink2
                                                         }
                                                         if (gv.sf.CheckPropByTagIsInDarknessPerArea(p.PropTag, "noLight", a.Filename))
                                                         {
-                                                            darkAdder = 400;
+                                                            darkAdder = 12;
                                                         }
                                                     }
 
@@ -37138,7 +37129,7 @@ namespace IceBlink2
                                                         }
                                                         if (gv.sf.CheckPropByTagIsInDarknessPerArea(p.PropTag, "noLight", a.Filename))
                                                         {
-                                                            darkAdder = 400;
+                                                            darkAdder = 12;
                                                         }
                                                     }
 
@@ -37152,7 +37143,7 @@ namespace IceBlink2
                                                         }
                                                         if (gv.sf.CheckPropByTagIsInDarknessPerArea(p.PropTag, "noLight", a.Filename))
                                                         {
-                                                            darkAdder = 400;
+                                                            darkAdder = 12;
                                                         }
                                                     }
 
@@ -37166,7 +37157,7 @@ namespace IceBlink2
                                                         }
                                                         if (gv.sf.CheckPropByTagIsInDarknessPerArea(p.PropTag, "noLight", a.Filename))
                                                         {
-                                                            darkAdder = 400;
+                                                            darkAdder = 12;
                                                         }
                                                     }
 
@@ -37180,14 +37171,19 @@ namespace IceBlink2
                                                         string traitName = "none";
                                                         foreach (Trait t in gv.mod.moduleTraitsList)
                                                         {
-                                                            if (t.tag == p.secretDoorTraitTag)
+                                                            if (t.tag.Contains(p.secretDoorTraitTag))
                                                             {
-                                                                traitName = t.name;
+                                                                traitName = t.nameOfTraitGroup;
                                                             }
 
-                                                            if (t.tag == p.trapTraitTag)
+                                                            if (t.tag.Contains(p.trapTraitTag))
                                                             {
-                                                                traitName = t.name;
+                                                                traitName = t.nameOfTraitGroup;
+                                                            }
+                                                             
+                                                            if (t.tag.Contains(p.infoTraitTag))
+                                                            {
+                                                                traitName = t.nameOfTraitGroup;
                                                             }
                                                         }
                                                         noPropHere = false;
@@ -37195,7 +37191,7 @@ namespace IceBlink2
                                                         if (p.isSecretDoor)
                                                         {
                                                         
-                                                            if (gv.sf.CheckPassSkill(parm1, p.secretDoorTraitTag, p.secretDoorDC + darkAdder, true, false))
+                                                            if (gv.sf.CheckPassSkill(parm1, p.secretDoorTraitTag, p.secretDoorDC + darkAdder, true, true))
                                                             {
                                                                 //EW direction of secret door
                                                                 if (gv.mod.currentArea.Tiles[p.LocationY * gv.mod.currentArea.MapSizeX + p.LocationX].heightLevel == gv.mod.currentArea.Tiles[(p.LocationY + 1) * gv.mod.currentArea.MapSizeX + p.LocationX].heightLevel)
@@ -37274,15 +37270,15 @@ namespace IceBlink2
                                                                     p.isSecretDoor = false;
                                                                
                                                                 //skill roll success message (A)
-                                                                gv.screenMainMap.addFloatyText(x3, y3, traitName + " (" + (p.secretDoorDC).ToString() + ")", "green", 2000);
-                                                                gv.cc.addLogText("green", traitName + " (" + (p.secretDoorDC).ToString() + ") and " + gv.mod.playerList[gv.mod.selectedPartyLeader].name + " loses " + gv.mod.activeSearchSPCost + " SP");
+                                                                gv.screenMainMap.addFloatyText(x3, y3, "Success: " + traitName + " level " + (p.secretDoorDC+darkAdder-10).ToString() + " matched", "green", 2000);
+                                                                gv.cc.addLogText("green", "Success: " + traitName + " level " + (p.secretDoorDC+darkAdder-10).ToString() + " matched, " + gv.mod.playerList[gv.mod.selectedPartyLeader].name + " loses " + gv.mod.activeSearchSPCost + " SP");
                                                             }//skill check
 
                                                             //skill roll failed message (B)
                                                             else
                                                             {
-                                                                gv.screenMainMap.addFloatyText(x3, y3, traitName + " (" + (p.secretDoorDC).ToString() + ")", "red", 2000);
-                                                                gv.cc.addLogText("red", traitName + " (" + (p.secretDoorDC ).ToString() + ") and " + gv.mod.playerList[gv.mod.selectedPartyLeader].name + " loses " + gv.mod.activeSearchSPCost + " SP");
+                                                                gv.screenMainMap.addFloatyText(x3, y3, "Failure: " + traitName + " level " + (p.secretDoorDC+darkAdder-10).ToString() + " required", "red", 2000);
+                                                                gv.cc.addLogText("red", "Failure: " + traitName + " level " + (p.secretDoorDC+darkAdder-10).ToString() + " required, " + gv.mod.playerList[gv.mod.selectedPartyLeader].name + " loses " + gv.mod.activeSearchSPCost + " SP");
                                                             }
 
                                                         }//secret door subsection end 
@@ -37291,7 +37287,7 @@ namespace IceBlink2
                                                         if (p.isTrapMain)
                                                         {
 
-                                                            if (gv.sf.CheckPassSkill(parm1, p.trapTraitTag, p.trapDC + darkAdder, true, false))
+                                                            if (gv.sf.CheckPassSkill(parm1, p.trapTraitTag, p.trapDC + darkAdder, true, true))
                                                             {
 
                                                                 //trap has been disarmed, normal tile now
@@ -37299,19 +37295,67 @@ namespace IceBlink2
                                                                 p.isShown = false;
                                                                 p.isActive = false;
 
-                                                                //skill roll success message (A)
-                                                                gv.screenMainMap.addFloatyText(x3, y3, traitName + " (" + (p.trapDC).ToString() + ")", "green", 2000);
-                                                                gv.cc.addLogText("green", traitName + " (" + (p.trapDC).ToString() + ") and " + gv.mod.playerList[gv.mod.selectedPartyLeader].name + " loses " + gv.mod.activeSearchSPCost + " SP");
+                                                                //skill roll succes s message (A)
+                                                                gv.screenMainMap.addFloatyText(x3, y3, "Success: " + traitName + " level " + (p.trapDC +darkAdder-10).ToString() + " matched", "green", 2000);
+                                                                gv.cc.addLogText("green", "Success: " + traitName + " level " + (p.trapDC+darkAdder-10).ToString() + " matched, " + gv.mod.playerList[gv.mod.selectedPartyLeader].name + " loses " + gv.mod.activeSearchSPCost + " SP");
                                                             }//skill check
 
                                                             //skill roll failed message (B)
                                                             else
                                                             {
-                                                                gv.screenMainMap.addFloatyText(x3, y3, traitName + " (" + (p.trapDC).ToString() + ")", "red", 2000);
-                                                                gv.cc.addLogText("red", traitName + " (" + (p.trapDC).ToString() + ") and " + gv.mod.playerList[gv.mod.selectedPartyLeader].name + " loses " + gv.mod.activeSearchSPCost + " SP");
+                                                                gv.screenMainMap.addFloatyText(x3, y3, "Failure: " + traitName + " level " + (p.trapDC+darkAdder-10).ToString() + " required", "red", 2000);
+                                                                gv.cc.addLogText("red", "Failure: " + traitName + " level" + (p.trapDC+darkAdder-10).ToString() + " required, " + gv.mod.playerList[gv.mod.selectedPartyLeader].name + " loses " + gv.mod.activeSearchSPCost + " SP");
                                                             }
 
-                                                        }//trap subsection end 
+                                                        }//trap subsection end
+                                                        
+                                                        //hidden info
+                                                        if (p.isHiddenInfo)
+                                                        {
+                                                            if (gv.sf.CheckPassSkill(parm1, p.infoTraitTag, p.infoDC + darkAdder, true, true))
+                                                            {
+                                                                //display the info
+                                                                if (p.floatyAndLogText != "none")
+                                                                {
+                                                                    gv.screenMainMap.addFloatyText(x3, y3, p.floatyAndLogText, "green", 2000);
+                                                                    gv.cc.addLogText("lime", p.floatyAndLogText);
+                                                                    gv.cc.addLogText("white", " Success: " + traitName + " level " + (p.infoDC + darkAdder - 10).ToString() + " matched, " + gv.mod.playerList[gv.mod.selectedPartyLeader].name + " loses " + gv.mod.activeSearchSPCost + " SP."); 
+                                                                }
+
+                                                                if (p.boxText != "none")
+                                                                {
+                                                                    gv.sf.MessageBox(p.boxText);
+                                                                    gv.cc.addLogText("white", "Success: " + traitName + " level " + (p.infoDC + darkAdder - 10).ToString() + " matched, " + gv.mod.playerList[gv.mod.selectedPartyLeader].name + " loses " + gv.mod.activeSearchSPCost + " SP.");
+                                                                }
+
+                                                                if (p.conversationName != "none")
+                                                                {
+                                                                    gv.mod.breakActiveSearch = true;
+                                                                    gv.cc.calledConvoFromProp = true;
+                                                                    gv.sf.ThisProp = p;
+                                                                    gv.cc.doConversationBasedOnTag(p.conversationName);
+                                                                    gv.cc.addLogText("white", "Success: " + traitName + " level " + (p.infoDC + darkAdder - 10).ToString() + " matched, " + gv.mod.playerList[gv.mod.selectedPartyLeader].name + " loses " + gv.mod.activeSearchSPCost + " SP.");
+                                                                }
+
+                                                                //set global
+                                                                if (p.globalStringKey != "none")
+                                                                {
+                                                                    gv.sf.SetGlobalString(p.globalStringKey, p.globalStringValue);
+                                                                }
+
+                                                                //disable if show only once
+                                                                if (p.showOnlyOnce)
+                                                                {
+                                                                    //note: the prop graphic itself shall remian visible
+                                                                    p.isActive = false;
+                                                                }
+                                                            }
+                                                            else
+                                                            {
+                                                                gv.screenMainMap.addFloatyText(x3, y3,"Failure: " + traitName + " level " + (p.infoDC + darkAdder -10).ToString() + " required", "red", 2000);
+                                                                gv.cc.addLogText("red","Failure: " + traitName + " level " + (p.infoDC + darkAdder -10).ToString() + " required, " + gv.mod.playerList[gv.mod.selectedPartyLeader].name + " loses " + gv.mod.activeSearchSPCost + " SP");
+                                                            }
+                                                        }//hidden info subsection end
 
                                                     }//distance and not on border
                                                 }// all SPACE props end
@@ -37331,7 +37375,6 @@ namespace IceBlink2
                                         {
                                             addFloatyText(gv.mod.PlayerLocationX, gv.mod.PlayerLocationY, "Searching...", "white", 1500);
                                             gv.cc.addLogText("white", "Searching... time passes and everybody loses " + gv.mod.activeSearchSPCost + " SP");
-
                                         }
                                     }
                                 }// sp cost could not be paid
@@ -37544,6 +37587,7 @@ namespace IceBlink2
                                             {
                                                 bumpPropExists = true;
                                                 bumpProp = p;
+                                                gv.sf.ThisProp = bumpProp;
                                                 break;
                                             }
                                         }
@@ -37667,6 +37711,7 @@ namespace IceBlink2
                                             {
                                                 bumpPropExists = true;
                                                 bumpProp = p;
+                                                gv.sf.ThisProp = bumpProp;
                                                 break;
                                             }
                                         }
@@ -37789,6 +37834,7 @@ namespace IceBlink2
                                             {
                                                 bumpPropExists = true;
                                                 bumpProp = p;
+                                                gv.sf.ThisProp = bumpProp;
                                                 break;
                                             }
                                         }
@@ -37925,6 +37971,7 @@ namespace IceBlink2
                                             {
                                                 bumpPropExists = true;
                                                 bumpProp = p;
+                                                gv.sf.ThisProp = bumpProp;
                                                 break;
                                             }
                                         }
@@ -39306,20 +39353,25 @@ namespace IceBlink2
                                     foreach (Prop p in a.Props)
                                     {
                                         //add all the other types here
-                                        if (p.isSecretDoor || p.isTrapMain)
+                                        if (p.isSecretDoor || p.isTrapMain || p.isHiddenInfo)
                                         {
                                             //skill roll script
                                             //visible state
                                             string traitMethod = "leader";
                                             foreach (Trait t in gv.mod.moduleTraitsList)
                                             {
-                                                if (t.tag == p.secretDoorTraitTag)
+                                                if (t.tag.Contains(p.secretDoorTraitTag))
                                                 {
                                                     traitMethod = t.methodOfChecking;
                                                 }
 
-                                                if (t.tag == p.trapTraitTag)
+                                                if (t.tag.Contains(p.trapTraitTag))
                                                  {
+                                                    traitMethod = t.methodOfChecking;
+                                                }
+
+                                                if (t.tag.Contains(p.infoTraitTag))
+                                                {
                                                     traitMethod = t.methodOfChecking;
                                                 }
                                             }
@@ -39364,7 +39416,7 @@ namespace IceBlink2
                                                 }
                                                 if (gv.sf.CheckPropByTagIsInDarknessPerArea(p.PropTag, "noLight", a.Filename))
                                                 {
-                                                    darkAdder = 400;
+                                                    darkAdder = 12;
                                                 }
                                             }
 
@@ -39378,7 +39430,7 @@ namespace IceBlink2
                                                 }
                                                 if (gv.sf.CheckPropByTagIsInDarknessPerArea(p.PropTag, "noLight", a.Filename))
                                                 {
-                                                    darkAdder = 400;
+                                                    darkAdder = 12;
                                                 }
                                             }
 
@@ -39392,7 +39444,7 @@ namespace IceBlink2
                                                 }
                                                 if (gv.sf.CheckPropByTagIsInDarknessPerArea(p.PropTag, "noLight", a.Filename))
                                                 {
-                                                    darkAdder = 400;
+                                                    darkAdder = 12;
                                                 }
                                             }
 
@@ -39406,7 +39458,7 @@ namespace IceBlink2
                                                 }
                                                 if (gv.sf.CheckPropByTagIsInDarknessPerArea(p.PropTag, "noLight", a.Filename))
                                                 {
-                                                    darkAdder = 400;
+                                                    darkAdder = 12;
                                                 }
                                             }
 
@@ -39420,7 +39472,7 @@ namespace IceBlink2
                                                 }
                                                 if (gv.sf.CheckPropByTagIsInDarknessPerArea(p.PropTag, "noLight", a.Filename))
                                                 {
-                                                    darkAdder = 400;
+                                                    darkAdder = 12;
                                                 }
                                             }
 
@@ -39434,7 +39486,7 @@ namespace IceBlink2
                                                 }
                                                 if (gv.sf.CheckPropByTagIsInDarknessPerArea(p.PropTag, "noLight", a.Filename))
                                                 {
-                                                    darkAdder = 400;
+                                                    darkAdder = 12;
                                                 }
                                             }
 
@@ -39448,7 +39500,7 @@ namespace IceBlink2
                                                 }
                                                 if (gv.sf.CheckPropByTagIsInDarknessPerArea(p.PropTag, "noLight", a.Filename))
                                                 {
-                                                    darkAdder = 400;
+                                                    darkAdder = 12;
                                                 }
                                             }
 
@@ -39462,7 +39514,7 @@ namespace IceBlink2
                                                 }
                                                 if (gv.sf.CheckPropByTagIsInDarknessPerArea(p.PropTag, "noLight", a.Filename))
                                                 {
-                                                    darkAdder = 400;
+                                                    darkAdder = 12;
                                                 }
                                             }
 
@@ -39476,7 +39528,7 @@ namespace IceBlink2
                                                 }
                                                 if (gv.sf.CheckPropByTagIsInDarknessPerArea(p.PropTag, "noLight", a.Filename))
                                                 {
-                                                    darkAdder = 400;
+                                                    darkAdder = 12;
                                                 }
                                             }
 
@@ -39491,14 +39543,19 @@ namespace IceBlink2
                                                 string traitName = "none";
                                                 foreach (Trait t in gv.mod.moduleTraitsList)
                                                 {
-                                                    if (t.tag == p.secretDoorTraitTag)
+                                                    if (t.tag.Contains(p.secretDoorTraitTag))
                                                     {
-                                                        traitName = t.name;
+                                                        traitName = t.nameOfTraitGroup;
                                                     }
 
-                                                    if (t.tag == p.trapTraitTag)
+                                                    if (t.tag.Contains(p.trapTraitTag))
                                                     {
-                                                        traitName = t.name;
+                                                        traitName = t.nameOfTraitGroup;
+                                                    }
+
+                                                    if (t.tag.Contains(p.infoTraitTag))
+                                                    {
+                                                        traitName = t.nameOfTraitGroup;
                                                     }
                                                 }
 
@@ -39508,7 +39565,7 @@ namespace IceBlink2
                                                 if (p.isSecretDoor)
                                                 {
 
-                                                    if (gv.sf.CheckPassSkill(parm1, p.secretDoorTraitTag, p.secretDoorDC + darkAdder, true, false))
+                                                    if (gv.sf.CheckPassSkill(parm1, p.secretDoorTraitTag, p.secretDoorDC + darkAdder, true, true))
                                                     {
                                                         //EW direction of secret door 
                                                         if (gv.mod.currentArea.Tiles[p.LocationY * gv.mod.currentArea.MapSizeX + p.LocationX].heightLevel == gv.mod.currentArea.Tiles[(p.LocationY + 1) * gv.mod.currentArea.MapSizeX + p.LocationX].heightLevel)
@@ -39587,15 +39644,15 @@ namespace IceBlink2
                                                         p.isSecretDoor = false;
 
                                                         //skill roll success message (A)
-                                                        gv.screenMainMap.addFloatyText(x3, y3, traitName + " (" + (p.secretDoorDC).ToString() + ")", "green", 2000);
-                                                        gv.cc.addLogText("green", traitName + " (" + (p.secretDoorDC).ToString() + ") and " + gv.mod.playerList[gv.mod.selectedPartyLeader].name + " loses " + gv.mod.activeSearchSPCost + " SP");
+                                                        gv.screenMainMap.addFloatyText(x3, y3, "Success: " + traitName + " level " + (p.secretDoorDC+darkAdder-10).ToString() + " matched", "green", 2000);
+                                                        gv.cc.addLogText("green", "Success: " + traitName + " level " + (p.secretDoorDC+darkAdder-10).ToString() + " matched, " + gv.mod.playerList[gv.mod.selectedPartyLeader].name + " loses " + gv.mod.activeSearchSPCost + " SP");
                                                     }//skill check
 
                                                     //skill roll failed message (B)
                                                     else
                                                     {
-                                                        gv.screenMainMap.addFloatyText(x3, y3, traitName + " (" + (p.secretDoorDC).ToString() + ")", "red", 2000);
-                                                        gv.cc.addLogText("red", traitName + " (" + (p.secretDoorDC).ToString() + ") and " + gv.mod.playerList[gv.mod.selectedPartyLeader].name + " loses " + gv.mod.activeSearchSPCost + " SP");
+                                                        gv.screenMainMap.addFloatyText(x3, y3, "Failure: " + traitName + " level " + (p.secretDoorDC+darkAdder-10).ToString() + " required", "red", 2000);
+                                                        gv.cc.addLogText("red", "Failure: " + traitName + " level " + (p.secretDoorDC+darkAdder-10).ToString() + " required, " + gv.mod.playerList[gv.mod.selectedPartyLeader].name + " loses " + gv.mod.activeSearchSPCost + " SP");
                                                     }
 
                                                 }//secret door subsection end
@@ -39604,7 +39661,7 @@ namespace IceBlink2
                                                 if (p.isTrapMain)
                                                 {
 
-                                                    if (gv.sf.CheckPassSkill(parm1, p.trapTraitTag, p.trapDC + darkAdder, true, false))
+                                                    if (gv.sf.CheckPassSkill(parm1, p.trapTraitTag, p.trapDC + darkAdder, true, true))
                                                     {
                                                         
                                                         //trap has been disarmed, normal tile now
@@ -39613,18 +39670,68 @@ namespace IceBlink2
                                                         p.isActive = false;
 
                                                         //skill roll success message (A)
-                                                        gv.screenMainMap.addFloatyText(x3, y3, traitName + " (" + (p.trapDC).ToString() + ")", "green", 2000);
-                                                        gv.cc.addLogText("green", traitName + " (" + (p.trapDC).ToString() + ") and " + gv.mod.playerList[gv.mod.selectedPartyLeader].name + " loses " + gv.mod.activeSearchSPCost + " SP");
+                                                        gv.screenMainMap.addFloatyText(x3, y3, "Success: "+ traitName + " level " + (p.trapDC+darkAdder-10).ToString() + " matched", "green", 2000);
+                                                        gv.cc.addLogText("green", "Success: " + traitName + " level " + (p.trapDC+darkAdder-10).ToString() + " matched, " + gv.mod.playerList[gv.mod.selectedPartyLeader].name + " loses " + gv.mod.activeSearchSPCost + " SP");
                                                     }//skill check
 
                                                     //skill roll failed message (B)
                                                     else
                                                     {
-                                                        gv.screenMainMap.addFloatyText(x3, y3, traitName + " (" + (p.trapDC).ToString() + ")", "red", 2000);
-                                                        gv.cc.addLogText("red", traitName + " (" + (p.trapDC).ToString() + ") and " + gv.mod.playerList[gv.mod.selectedPartyLeader].name + " loses " + gv.mod.activeSearchSPCost + " SP");
+                                                        gv.screenMainMap.addFloatyText(x3, y3, "Failure: " + traitName + " level " + (p.trapDC+darkAdder-10).ToString() + " required", "red", 2000);
+                                                        gv.cc.addLogText("red", "Failure: " + traitName + " level " + (p.trapDC+darkAdder-10).ToString() + " required, " + gv.mod.playerList[gv.mod.selectedPartyLeader].name + " loses " + gv.mod.activeSearchSPCost + " SP");
                                                     }
 
-                                                }//trap subsection end 
+                                                }//trap subsection end
+
+                                                //hidden info
+                                                if (p.isHiddenInfo)
+                                                {
+                                                    if (gv.sf.CheckPassSkill(parm1, p.infoTraitTag, p.infoDC + darkAdder, true, true))
+                                                    {
+                                                        //display the info
+                                                        if (p.floatyAndLogText != "none")
+                                                        {
+                                                            gv.screenMainMap.addFloatyText(x3, y3, p.floatyAndLogText, "green", 2000);
+                                                            gv.cc.addLogText("lime", p.floatyAndLogText);
+                                                             gv.cc.addLogText("white", "Success: " + traitName + " level " + (p.infoDC + darkAdder - 10).ToString() + " matched, " + gv.mod.playerList[gv.mod.selectedPartyLeader].name + " loses " + gv.mod.activeSearchSPCost + " SP.");
+                                                        }
+
+                                                        if (p.boxText != "none")
+                                                        {
+                                                            gv.sf.MessageBox(p.boxText);
+                                                            gv.cc.addLogText("white", "Success: " + traitName + " level " + (p.infoDC + darkAdder - 10).ToString() + " matched, " + gv.mod.playerList[gv.mod.selectedPartyLeader].name + " loses " + gv.mod.activeSearchSPCost + " SP.");
+
+                                                        }
+
+                                                        if (p.conversationName != "none")
+                                                        {
+                                                            gv.mod.breakActiveSearch = true;
+                                                            gv.cc.calledConvoFromProp = true;
+                                                            gv.sf.ThisProp = p;
+                                                            gv.cc.doConversationBasedOnTag(p.conversationName);
+                                                            gv.cc.addLogText("white", "Success: " + traitName + " level " + (p.infoDC + darkAdder - 10).ToString() + " matched, " + gv.mod.playerList[gv.mod.selectedPartyLeader].name + " loses " + gv.mod.activeSearchSPCost + " SP.");
+
+                                                        }
+
+                                                        //set global
+                                                        if (p.globalStringKey != "none")
+                                                        {
+                                                            gv.sf.SetGlobalString(p.globalStringKey, p.globalStringValue);
+                                                        }
+
+                                                        //disable if show only once
+                                                        if (p.showOnlyOnce)
+                                                        {
+                                                            //note: the prop graphic itself shall remian visible
+                                                            p.isActive = false;
+                                                        }
+                                                    }
+                                                    else
+                                                    {
+                                                        gv.screenMainMap.addFloatyText(x3, y3,"Failure: " + traitName + " level " + (p.infoDC+darkAdder-10).ToString() + " required ", "red", 2000);
+                                                        gv.cc.addLogText("red", "Failure: " + traitName + " level " + (p.infoDC + darkAdder -10).ToString() + " required, " + gv.mod.playerList[gv.mod.selectedPartyLeader].name + " loses " + gv.mod.activeSearchSPCost + " SP");
+                                                    }
+                                                }//hidden info subsection end
 
                                             }//distance and not on border
                                         }// all SPACE props end
@@ -40040,6 +40147,7 @@ namespace IceBlink2
                         {
                             bumpPropExists = true;
                             bumpProp = p;
+                            gv.sf.ThisProp = bumpProp;
                             break;
                         }
                     }
@@ -40172,6 +40280,7 @@ namespace IceBlink2
                         {
                             bumpPropExists = true;
                             bumpProp = p;
+                            gv.sf.ThisProp = bumpProp;
                             break;
                         }
                     }
@@ -40307,6 +40416,7 @@ namespace IceBlink2
                         {
                             bumpPropExists = true;
                             bumpProp = p;
+                            gv.sf.ThisProp = bumpProp;
                             break;
                         }
                     }
@@ -40427,6 +40537,7 @@ namespace IceBlink2
                         {
                             bumpPropExists = true;
                             bumpProp = p;
+                            gv.sf.ThisProp = bumpProp;
                             break;
                         }
                     }

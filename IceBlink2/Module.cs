@@ -13,6 +13,15 @@ namespace IceBlink2
 {
     public class Module
     {
+        public string tagOfStealthMainTrait = "shadow";
+        public string tagOfStealthCombatTrait = "stealth";
+        public string tagOfMovementSpeedTrait = "traveller";
+        public string tagOfSpotEnemyTrait = "lookout";
+        public string tagOfDisarmTrapCombatTrait = "disabledevice";
+
+
+        public bool useFlatFootedSystem = true; 
+
         public bool partyIsSearching = false;
         public int timePerStepAfterSpeedCalc = 6; //in minutes
 

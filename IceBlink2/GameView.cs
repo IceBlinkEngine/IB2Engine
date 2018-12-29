@@ -1077,6 +1077,10 @@ namespace IceBlink2
         {
             DrawText(text, rect, FontWeight.Normal, SharpDX.DirectWrite.FontStyle.Normal, scaler, fontColor);
         }
+        public void DrawTextLeft(string text, IbRect rect, float scaler, SharpDX.Color fontColor)
+        {
+            DrawTextLeft(text, rect, FontWeight.Normal, SharpDX.DirectWrite.FontStyle.Normal, scaler, fontColor);
+        }
         public void DrawTextCenter(string text, IbRect rect, float scaler, SharpDX.Color fontColor)
         {
             DrawTextCenter(text, rect, FontWeight.Normal, SharpDX.DirectWrite.FontStyle.Normal, scaler, fontColor);
@@ -1146,6 +1150,29 @@ namespace IceBlink2
                 renderTarget2D.DrawTextLayout(new Vector2(rect.Left, rect.Top + oYshift), textLayout, scb, DrawTextOptions.None);
             }
         }
+        //XXXXXXXXXXXXx
+        public void DrawTextLeft(string text, IbRect rect, FontWeight fw, SharpDX.DirectWrite.FontStyle fs, float scaler, SharpDX.Color fontColor)
+        {
+            CleanUpDrawTextResources();
+            float thisFontHeight = drawFontRegHeight;
+            if (scaler > 1.05f)
+            {
+                thisFontHeight = drawFontLargeHeight;
+            }
+            else if (scaler < 0.95f)
+            {
+                thisFontHeight = drawFontSmallHeight;
+            }
+            //RectangleF rectF = new RectangleF(rect.Left, rect.Top + oYshift, rect.Width, rect.Height);
+            using (SolidColorBrush scb = new SolidColorBrush(renderTarget2D, fontColor))
+            {
+                textFormat = new TextFormat(factoryDWrite, FontFamilyName, CurrentFontCollection, fw, fs, FontStretch.Normal, thisFontHeight) { TextAlignment = TextAlignment.Leading, ParagraphAlignment = ParagraphAlignment.Near };
+                textLayout = new TextLayout(factoryDWrite, text, textFormat, rect.Width, rect.Height);
+                renderTarget2D.DrawTextLayout(new Vector2(rect.Left, rect.Top + oYshift), textLayout, scb, DrawTextOptions.None);
+            }
+        }
+
+
         public void DrawText(string text, float x, float y, FontWeight fw, SharpDX.DirectWrite.FontStyle fs, float scaler, SharpDX.Color fontColor, bool isUnderlined)
         {
             CleanUpDrawTextResources();

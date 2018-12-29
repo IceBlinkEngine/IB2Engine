@@ -1,0 +1,109 @@
+{
+  "tokenFilename": "tkn_miki",
+  "portraitFilename": "F0165_L",
+  "combatFacingLeft": true,
+  "combatLocX": 0,
+  "combatLocY": 0,
+  "knownSpellsTags": [
+    "mageBolt"
+  ],
+  "knownSpellsList": [],
+  "knownTraitsTags": [],
+  "knownTraitsList": [],
+  "effectsList": [],
+  "charStatus": "Alive",
+  "fortitude": 0,
+  "will": 2,
+  "reflex": 0,
+  "strength": 10,
+  "dexterity": 20,
+  "intelligence": 14,
+  "charisma": 12,
+  "AC": 10,
+  "classBonus": 0,
+  "baseAttBonus": 1,
+  "baseAttBonusAdders": 0,
+  "hp": 4,
+  "hpMax": 4,
+  "sp": 22,
+  "spMax": 22,
+  "XPNeeded": 250,
+  "HeadRefs": {
+    "resref": "none",
+    "tag": "none",
+    "name": "none",
+    "canNotBeUnequipped": false,
+    "quantity": 1
+  },
+  "NeckRefs": {
+    "resref": "none",
+    "tag": "none",
+    "name": "none",
+    "canNotBeUnequipped": false,
+    "quantity": 1
+  },
+  "BodyRefs": {
+    "resref": "robes",
+    "tag": "robes_2151",
+    "name": "Robes",
+    "canNotBeUnequipped": false,
+    "quantity": 1
+  },
+  "MainHandRefs": {
+    "resref": "sling",
+    "tag": "sling_2164",
+    "name": "Sling",
+    "canNotBeUnequipped": false,
+    "quantity": 1
+  },
+  "OffHandRefs": {
+    "resref": "none",
+    "tag": "none",
+    "name": "none",
+    "canNotBeUnequipped": false,
+    "quantity": 1
+  },
+  "RingRefs": {
+    "resref": "none",
+    "tag": "none",
+    "name": "none",
+    "canNotBeUnequipped": false,
+    "quantity": 1
+  },
+  "Ring2Refs": {
+    "resref": "none",
+    "tag": "none",
+    "name": "none",
+    "canNotBeUnequipped": false,
+    "quantity": 1
+  },
+  "FeetRefs": {
+    "resref": "none",
+    "tag": "none",
+    "name": "none",
+    "canNotBeUnequipped": false,
+    "quantity": 1
+  },
+  "damageTypeResistanceTotalAcid": 0,
+  "damageTypeResistanceTotalCold": 0,
+  "damageTypeResistanceTotalNormal": 0,
+  "damageTypeResistanceTotalElectricity": 0,
+  "damageTypeResistanceTotalFire": 0,
+  "damageTypeResistanceTotalMagic": 0,
+  "damageTypeResistanceTotalPoison": 0,
+  "name": "Miki",
+  "tag": "miki",
+  "raceTag": "elf",
+  "classTag": "wizard",
+  "classLevel": 1,
+  "isMale": false,
+  "baseFortitude": 0,
+  "baseWill": 2,
+  "baseReflex": 0,
+  "baseStr": 12,
+  "baseDex": 18,
+  "baseInt": 14,
+  "baseCha": 12,
+  "ACBase": 10,
+  "XP": 200
+}
