@@ -62,7 +62,7 @@
                       "NodePortraitBitmap": "",
                       "NodeNpcName": "",
                       "NodeSound": "none",
-                      "conversationText": "I could sure use your skills in healing. Shall we head out?",
+                      "conversationText": "I could sure use your skills as Shadow and Mechanist. Shall we head out?",
                       "IsExpanded": true,
                       "subNodes": [
                         {

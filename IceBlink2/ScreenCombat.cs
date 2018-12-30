@@ -728,12 +728,12 @@ namespace IceBlink2
                 else if (advantageCreatures && !advantageParty)
                 {
                     creaturesHaveUpperHand = true;
-                    gv.cc.addLogText("<font color='red'>" + "The enemy has caught the party flat-footed (based on rolls in Stealth and Spot Enemy)! Free first round for the enemy." + "</font><BR>");
+                    gv.cc.addLogText("<font color='red'>" + "The enemy has caught the party flat-footed (based on rolls in " + gv.mod.tagOfStealthMainTrait + " and " + gv.mod.tagOfSpotEnemyTrait + ")! Free first round for the enemy." + "</font><BR>");
                 }
                 else if (!advantageCreatures && advantageParty)
                 {
                     partyHasUpperHand = true;
-                    gv.cc.addLogText("<font color='blue'>" + "The party has caught the enemy flat-footed (based on rolls in Stealth and Spot Enemy)! Free first round for the party." + "</font><BR>");
+                    gv.cc.addLogText("<font color='blue'>" + "The party has caught the enemy flat-footed (based on rolls in " + gv.mod.tagOfStealthMainTrait + " and " + gv.mod.tagOfSpotEnemyTrait + ")! Free first round for the party." + "</font><BR>");
                 }
             }
             
