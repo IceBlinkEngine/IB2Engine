@@ -459,7 +459,7 @@
     "requiredIntelligence": 0,
     "requiredWisdom": 0,
     "requiredCharisma": 0,
-    "skillModifierAttribute": "dex",
+    "skillModifierAttribute": "con",
     "traitToReplaceByTag": "none",
     "useableInSituation": "Always"
   },
@@ -555,7 +555,7 @@
     "requiredIntelligence": 0,
     "requiredWisdom": 0,
     "requiredCharisma": 0,
-    "skillModifierAttribute": "dex",
+    "skillModifierAttribute": "str",
     "traitToReplaceByTag": "none",
     "useableInSituation": "Always"
   },

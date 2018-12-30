@@ -62,7 +62,7 @@
                       "NodePortraitBitmap": "",
                       "NodeNpcName": "",
                       "NodeSound": "none",
-                      "conversationText": "I could sure use your skills in healing. Shall we head out?",
+                      "conversationText": "I could sure use your skills in mechanics and stealth. Shall we head out?",
                       "IsExpanded": true,
                       "subNodes": [
                         {
@@ -94,15 +94,8 @@
                               "actions": [
                                 {
                                   "a_script": "gaAddPartyMember.cs",
-                                  "a_parameter_1": "balen.json",
+                                  "a_parameter_1": "roger.json",
                                   "a_parameter_2": null,
-                                  "a_parameter_3": null,
-                                  "a_parameter_4": null
-                                },
-                                {
-                                  "a_script": "gaEnableDisableTrigger.cs",
-                                  "a_parameter_1": "balenTrig",
-                                  "a_parameter_2": "false",
                                   "a_parameter_3": null,
                                   "a_parameter_4": null
                                 }
@@ -114,7 +107,7 @@
                           "actions": [
                             {
                               "a_script": "gaRemovePropByTag.cs",
-                              "a_parameter_1": "balen",
+                              "a_parameter_1": "roger",
                               "a_parameter_2": null,
                               "a_parameter_3": null,
                               "a_parameter_4": null

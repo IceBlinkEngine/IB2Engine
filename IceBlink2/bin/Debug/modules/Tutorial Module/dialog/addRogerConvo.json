@@ -1,0 +1,275 @@
+{
+  "subNodes": [
+    {
+      "idNum": 0,
+      "orderNum": 0,
+      "pcNode": true,
+      "linkTo": 0,
+      "ShowOnlyOnce": false,
+      "NodeIsActive": true,
+      "NodePortraitBitmap": "",
+      "NodeNpcName": "",
+      "NodeSound": "none",
+      "conversationText": "root",
+      "IsExpanded": true,
+      "subNodes": [
+        {
+          "idNum": 1,
+          "orderNum": 0,
+          "pcNode": false,
+          "linkTo": 0,
+          "ShowOnlyOnce": true,
+          "NodeIsActive": true,
+          "NodePortraitBitmap": "",
+          "NodeNpcName": "",
+          "NodeSound": "none",
+          "conversationText": "Hello, <FirstName>.  How are you?",
+          "IsExpanded": true,
+          "subNodes": [
+            {
+              "idNum": 3,
+              "orderNum": 0,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "Fine, thank you. I'm heading out on an adventure.",
+              "IsExpanded": true,
+              "subNodes": [
+                {
+                  "idNum": 6,
+                  "orderNum": 0,
+                  "pcNode": false,
+                  "linkTo": 0,
+                  "ShowOnlyOnce": false,
+                  "NodeIsActive": true,
+                  "NodePortraitBitmap": "",
+                  "NodeNpcName": "",
+                  "NodeSound": "none",
+                  "conversationText": "May I join you?",
+                  "IsExpanded": true,
+                  "subNodes": [
+                    {
+                      "idNum": 7,
+                      "orderNum": 0,
+                      "pcNode": true,
+                      "linkTo": 0,
+                      "ShowOnlyOnce": false,
+                      "NodeIsActive": true,
+                      "NodePortraitBitmap": "",
+                      "NodeNpcName": "",
+                      "NodeSound": "none",
+                      "conversationText": "I could sure use your skills in healing. Shall we head out?",
+                      "IsExpanded": true,
+                      "subNodes": [
+                        {
+                          "idNum": 8,
+                          "orderNum": 0,
+                          "pcNode": false,
+                          "linkTo": 0,
+                          "ShowOnlyOnce": false,
+                          "NodeIsActive": true,
+                          "NodePortraitBitmap": "",
+                          "NodeNpcName": "",
+                          "NodeSound": "none",
+                          "conversationText": "Let's go...",
+                          "IsExpanded": true,
+                          "subNodes": [
+                            {
+                              "idNum": 35,
+                              "orderNum": 0,
+                              "pcNode": true,
+                              "linkTo": 0,
+                              "ShowOnlyOnce": false,
+                              "NodeIsActive": true,
+                              "NodePortraitBitmap": "",
+                              "NodeNpcName": "",
+                              "NodeSound": "none",
+                              "conversationText": "End Dialog",
+                              "IsExpanded": true,
+                              "subNodes": [],
+                              "actions": [
+                                {
+                                  "a_script": "gaAddPartyMember.cs",
+                                  "a_parameter_1": "roger",
+                                  "a_parameter_2": null,
+                                  "a_parameter_3": null,
+                                  "a_parameter_4": null
+                                }
+                              ],
+                              "conditions": [],
+                              "isLink": false
+                            }
+                          ],
+                          "actions": [
+                            {
+                              "a_script": "gaRemovePropByTag.cs",
+                              "a_parameter_1": "roger",
+                              "a_parameter_2": null,
+                              "a_parameter_3": null,
+                              "a_parameter_4": null
+                            }
+                          ],
+                          "conditions": [],
+                          "isLink": false
+                        }
+                      ],
+                      "actions": [],
+                      "conditions": [],
+                      "isLink": false
+                    },
+                    {
+                      "idNum": 23,
+                      "orderNum": 1,
+                      "pcNode": true,
+                      "linkTo": 0,
+                      "ShowOnlyOnce": false,
+                      "NodeIsActive": true,
+                      "NodePortraitBitmap": "",
+                      "NodeNpcName": "",
+                      "NodeSound": "none",
+                      "conversationText": "Not right now.",
+                      "IsExpanded": true,
+                      "subNodes": [
+                        {
+                          "idNum": 24,
+                          "orderNum": 0,
+                          "pcNode": false,
+                          "linkTo": 0,
+                          "ShowOnlyOnce": false,
+                          "NodeIsActive": true,
+                          "NodePortraitBitmap": "",
+                          "NodeNpcName": "",
+                          "NodeSound": "none",
+                          "conversationText": "Alright <FirstName>, take care.",
+                          "IsExpanded": true,
+                          "subNodes": [
+                            {
+                              "idNum": 25,
+                              "orderNum": 0,
+                              "pcNode": true,
+                              "linkTo": 0,
+                              "ShowOnlyOnce": false,
+                              "NodeIsActive": true,
+                              "NodePortraitBitmap": "",
+                              "NodeNpcName": "",
+                              "NodeSound": "none",
+                              "conversationText": "End Dialog",
+                              "IsExpanded": true,
+                              "subNodes": [],
+                              "actions": [],
+                              "conditions": [],
+                              "isLink": false
+                            }
+                          ],
+                          "actions": [],
+                          "conditions": [],
+                          "isLink": false
+                        }
+                      ],
+                      "actions": [],
+                      "conditions": [],
+                      "isLink": false
+                    }
+                  ],
+                  "actions": [],
+                  "conditions": [],
+                  "isLink": false
+                }
+              ],
+              "actions": [],
+              "conditions": [],
+              "isLink": false
+            }
+          ],
+          "actions": [],
+          "conditions": [],
+          "isLink": false
+        },
+        {
+          "idNum": 2,
+          "orderNum": 1,
+          "pcNode": false,
+          "linkTo": 0,
+          "ShowOnlyOnce": false,
+          "NodeIsActive": true,
+          "NodePortraitBitmap": "",
+          "NodeNpcName": "",
+          "NodeSound": "none",
+          "conversationText": "Have you reconsidered having me join the party?",
+          "IsExpanded": true,
+          "subNodes": [
+            {
+              "idNum": 19,
+              "orderNum": 0,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "Yes, will you please join?",
+              "IsExpanded": true,
+              "subNodes": [
+                {
+                  "idNum": 33,
+                  "orderNum": 0,
+                  "pcNode": true,
+                  "linkTo": 8,
+                  "ShowOnlyOnce": false,
+                  "NodeIsActive": true,
+                  "NodePortraitBitmap": "",
+                  "NodeNpcName": "",
+                  "NodeSound": "none",
+                  "conversationText": "Let's go...",
+                  "IsExpanded": true,
+                  "subNodes": [],
+                  "actions": [],
+                  "conditions": [],
+                  "isLink": true
+                }
+              ],
+              "actions": [],
+              "conditions": [],
+              "isLink": false
+            },
+            {
+              "idNum": 34,
+              "orderNum": 1,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "No thank you, Balen.",
+              "IsExpanded": true,
+              "subNodes": [],
+              "actions": [],
+              "conditions": [],
+              "isLink": false
+            }
+          ],
+          "actions": [],
+          "conditions": [],
+          "isLink": false
+        }
+      ],
+      "actions": [],
+      "conditions": [],
+      "isLink": false
+    }
+  ],
+  "ConvoFileName": "addRogerConvo",
+  "Narration": false,
+  "PartyChat": false,
+  "SpeakToMainPcOnly": true,
+  "NpcPortraitBitmap": "prp_balen.png",
+  "DefaultNpcName": "Balen",
+  "NextIdNum": 35
+}
