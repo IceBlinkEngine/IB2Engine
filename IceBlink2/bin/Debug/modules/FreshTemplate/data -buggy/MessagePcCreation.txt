@@ -1,0 +1,22 @@
+<big><b>CHARACTER CREATION</b></big><br>
+<br>
+<small><i>(<b>Note:</b> The 'HELP' button will display this message box again)</i></small><br>
+<br>
+<u><b>Create Your Character</b></u><br>
+<b>1. Image:</b> Select your character's Image by pressing left or right arrows<br><small><i>(use down key to move to next step.)</i></small><br>
+<i>If you would like more image (token) options, you can download additional tokens from links on our website for free. Then place the tokens into the 'PlayerTokens' folder in the 'IceBlinkRPG' folder on your device (restart the app to see them show up).</i><br>
+<br>
+<b>2. Name:</b> When 'Name' is highlighted green, type in your character's Name by pressing left or right arrows to bring up a text box to input name.<br><small><i>(use down key to move to next step.)</i></small><br>
+<br>
+<b>3. Race:</b> When 'Race' is highlighted green, select a Race by pressing left or right arrows<br>
+<small><b>Note:</b>The Player's Guide (press the Player's Guide button) provides an in-depth explaination of the Races and Classes.</small><br>
+<small><i>(use down key to move to next step.)</i></small><br>
+<br>
+<b>4. Gender:</b> When 'Gender' is highlighted green, select Gender by pressing left or right arrows<br><small><i>(use down key to move to next step.)</i></small><br>
+<br>
+<b>5. Class:</b> When 'Class' is highlighted green, select a Class by pressing left or right arrows<br>
+<small><b>Note:</b>The Player's Guide (press the Player's Guide button) provides an in-depth explaination of the Races and Classes.</small><br>
+<br>
+<b>6. Roll Stats:</b> To re-roll attributes, press the 'Roll Stats' button to randomly generate new attribute scores for strength, dexterity, intelligence and charisma.<br><small><i>(Note: the numbers after the '+' are bonus modifiers to your attributes based on the Race you selected.)</i></small><br>
+<br>
+7. Press <b>'Finished'</b> when completed.  <i>You cannot go back to this page and change your character once you press 'Finished'.</i>

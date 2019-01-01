@@ -1,0 +1,7 @@
+<big><b>SPELL SELECTION SCREEN</b></big><br>
+<br>
+<b>1. Spell Selection:</b> Tap on a spell once to select it.<br>
+<br>
+<b>2. Learn Selected Spell:</b> Tap on the "LEARN SELECTED SPELL" button to learn the currently selected spell.<br>
+<br>
+<small><b>Note:</b> Also, check out the 'Player's Guide' in the settings menu (the rusty gear looking button)</small>

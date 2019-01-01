@@ -1224,7 +1224,7 @@
     "castTimeInTurns": 0,
     "canBeInterrupted": true,
     "triggersAoO": true,
-    "spellTargetType": "PointLocation",
+    "spellTargetType": "Enemy",
     "spellEffectType": "Damage",
     "aoeShape": "Circle",
     "aoeRadius": 3,

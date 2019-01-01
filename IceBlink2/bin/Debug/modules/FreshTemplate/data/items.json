@@ -1430,7 +1430,7 @@
     "destroyItemAfterOnUseItemLogicTree": false,
     "onUseItemIBScript": "none",
     "onUseItemIBScriptParms": "",
-    "destroyItemAfterOnUseItemIBScript": false,
+    "destroyItemAfterOnUseItemIBScript": true,
     "onUseItem": "itRegenSPLight.cs",
     "onWhileEquipped": "none",
     "onScoringHitCastSpellTag": "none",

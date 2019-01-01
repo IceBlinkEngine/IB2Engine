@@ -13549,7 +13549,7 @@ namespace IceBlink2
                     if (((gv.mod.moduleAreasObjects[indexOfNeighbourMap].MapSizeY - 1) >= gv.mod.PlayerLocationY))
                     {
                         //check for block on other side
-                        if (gv.mod.moduleAreasObjects[indexOfNeighbourMap].GetBlocked(gv.mod.moduleAreasObjects[indexOfNeighbourMap].MapSizeX - 1 - gv.mod.borderAreaSize, gv.mod.PlayerLocationY, gv.mod.PlayerLocationX, gv.mod.PlayerLocationY, gv.mod.PlayerLastLocationX, gv.mod.PlayerLastLocationY) == false)
+                        if (gv.mod.moduleAreasObjects[indexOfNeighbourMap].GetBlocked(gv.mod.currentArea, gv.mod.moduleAreasObjects[indexOfNeighbourMap].MapSizeX - 1 - gv.mod.borderAreaSize, gv.mod.PlayerLocationY, gv.mod.PlayerLocationX, gv.mod.PlayerLocationY, gv.mod.PlayerLastLocationX, gv.mod.PlayerLastLocationY) == false)
                         {
                            // if (gv.mod.moduleAreasObjects[indexOfNeighbourMap].Tiles[gv.mod.moduleAreasObjects[indexOfNeighbourMap].MapSizeX
                             int xTargetCoordinate = gv.mod.moduleAreasObjects[indexOfNeighbourMap].MapSizeX - 1 - gv.mod.borderAreaSize;
@@ -13560,7 +13560,7 @@ namespace IceBlink2
                         }
                         else
                         {
-                            gv.cc.addLogText("red", "Something blocks the path from the other side.");
+                            //gv.cc.addLogText("red", "Something blocks the path from the other side.");
                         }
                     }
                     else
@@ -13611,7 +13611,7 @@ namespace IceBlink2
                     if (((gv.mod.moduleAreasObjects[indexOfNeighbourMap].MapSizeY - 1) >= gv.mod.PlayerLocationY))
                     {
                         //check for block on other side
-                        if (gv.mod.moduleAreasObjects[indexOfNeighbourMap].GetBlocked(gv.mod.borderAreaSize, gv.mod.PlayerLocationY, gv.mod.PlayerLocationX, gv.mod.PlayerLocationY, gv.mod.PlayerLastLocationX, gv.mod.PlayerLastLocationY) == false)
+                        if (gv.mod.moduleAreasObjects[indexOfNeighbourMap].GetBlocked(gv.mod.currentArea, gv.mod.borderAreaSize, gv.mod.PlayerLocationY, gv.mod.PlayerLocationX, gv.mod.PlayerLocationY, gv.mod.PlayerLastLocationX, gv.mod.PlayerLastLocationY) == false)
                         {
                             int xTargetCoordinate = gv.mod.borderAreaSize;
                             int yTargetCoordinate = gv.mod.PlayerLocationY;
@@ -13621,7 +13621,7 @@ namespace IceBlink2
                         }
                         else
                         {
-                            gv.cc.addLogText("red", "Something blocks the path from the other side.");
+                            //gv.cc.addLogText("red", "Something blocks the path from the other side.");
                         }
                     }
                     else
@@ -13673,7 +13673,7 @@ namespace IceBlink2
                     if (((gv.mod.moduleAreasObjects[indexOfNeighbourMap].MapSizeX - 1) >= gv.mod.PlayerLocationX))
                     {
                         //check for block on other side
-                        if (gv.mod.moduleAreasObjects[indexOfNeighbourMap].GetBlocked(gv.mod.PlayerLocationX, gv.mod.moduleAreasObjects[indexOfNeighbourMap].MapSizeY - 1 - gv.mod.borderAreaSize, gv.mod.PlayerLocationX, gv.mod.PlayerLocationY, gv.mod.PlayerLastLocationX, gv.mod.PlayerLastLocationY) == false)
+                        if (gv.mod.moduleAreasObjects[indexOfNeighbourMap].GetBlocked(gv.mod.currentArea, gv.mod.PlayerLocationX, gv.mod.moduleAreasObjects[indexOfNeighbourMap].MapSizeY - 1 - gv.mod.borderAreaSize, gv.mod.PlayerLocationX, gv.mod.PlayerLocationY, gv.mod.PlayerLastLocationX, gv.mod.PlayerLastLocationY) == false)
                         {
                             int xTargetCoordinate = gv.mod.PlayerLocationX;
                             int yTargetCoordinate = gv.mod.moduleAreasObjects[indexOfNeighbourMap].MapSizeY - 1 - gv.mod.borderAreaSize;
@@ -13683,7 +13683,7 @@ namespace IceBlink2
                         }
                         else
                         {
-                            gv.cc.addLogText("red", "Something blocks the path from the other side.");
+                            //gv.cc.addLogText("red", "Something blocks the path from the other side.");
                         }
                     }
                     else
@@ -13734,7 +13734,7 @@ namespace IceBlink2
                     if (((gv.mod.moduleAreasObjects[indexOfNeighbourMap].MapSizeX - 1) >= gv.mod.PlayerLocationX))
                     {
                         //check for block on other side
-                        if (gv.mod.moduleAreasObjects[indexOfNeighbourMap].GetBlocked(gv.mod.PlayerLocationX, gv.mod.borderAreaSize, gv.mod.PlayerLocationX, gv.mod.PlayerLocationY, gv.mod.PlayerLastLocationX, gv.mod.PlayerLastLocationY) == false)
+                        if (gv.mod.moduleAreasObjects[indexOfNeighbourMap].GetBlocked(gv.mod.currentArea, gv.mod.PlayerLocationX, gv.mod.borderAreaSize, gv.mod.PlayerLocationX, gv.mod.PlayerLocationY, gv.mod.PlayerLastLocationX, gv.mod.PlayerLastLocationY) == false)
                         {
                             int xTargetCoordinate = gv.mod.PlayerLocationX;
                             int yTargetCoordinate = gv.mod.borderAreaSize;
@@ -13744,7 +13744,7 @@ namespace IceBlink2
                         }
                         else
                         {
-                            gv.cc.addLogText("red", "Something blocks the path from the other side.");
+                            //gv.cc.addLogText("red", "Something blocks the path from the other side.");
                         }
                     }
                     else

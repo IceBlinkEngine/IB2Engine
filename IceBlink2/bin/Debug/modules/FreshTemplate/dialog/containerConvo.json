@@ -37,7 +37,7 @@
               "NodeNpcName": "",
               "NodeSound": "none",
               "conversationText": "Search for traps",
-              "IsExpanded": true,
+              "IsExpanded": false,
               "subNodes": [
                 {
                   "idNum": 7,
@@ -119,7 +119,7 @@
               "NodeNpcName": "",
               "NodeSound": "none",
               "conversationText": "Pick the lock",
-              "IsExpanded": true,
+              "IsExpanded": false,
               "subNodes": [
                 {
                   "idNum": 12,
@@ -273,7 +273,7 @@
               "NodeNpcName": "",
               "NodeSound": "none",
               "conversationText": "Bash open the container",
-              "IsExpanded": true,
+              "IsExpanded": false,
               "subNodes": [
                 {
                   "idNum": 13,

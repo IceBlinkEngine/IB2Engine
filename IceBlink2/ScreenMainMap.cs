@@ -36105,14 +36105,14 @@ namespace IceBlink2
                                 if (p.stealth != -1 && (gv.mod.currentArea.Tiles[actualY * gv.mod.currentArea.MapSizeX + actualX].Visible) && lightIsNoProblem)
                                 {
 
-                                    gv.cc.floatyText3 = "Stealth: " + p.stealth.ToString();
+                                    gv.cc.floatyText3 = "Stealth: " + (p.stealth-10).ToString();
                                     gv.cc.floatyTextLoc = new Coordinate(gridx * gv.squareSize, gridy * gv.squareSize);
                                 }
 
                                 if (p.spotEnemy != -1 && (gv.mod.currentArea.Tiles[actualY * gv.mod.currentArea.MapSizeX + actualX].Visible) && lightIsNoProblem)
                                 {
 
-                                    gv.cc.floatyText4 = "Spot: " + p.spotEnemy.ToString();
+                                    gv.cc.floatyText4 = "Spot: " + (p.spotEnemy-10).ToString();
                                     gv.cc.floatyTextLoc = new Coordinate(gridx * gv.squareSize, gridy * gv.squareSize);
                                 }
                             }

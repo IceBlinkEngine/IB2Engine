@@ -25,7 +25,9 @@
     "exampleArea",
     "exampleArea_0_",
     "northernReaches",
-    "Stitchland"
+    "Stitchland",
+    "planky",
+    "stony"
   ],
   "moduleConvosList": [
     "addCompanionConvo",
@@ -102,6 +104,10 @@
   "attackFromBehindToHitModifier": 2,
   "attackFromBehindDamageModifier": 0,
   "moduleName": "FreshTemplate",
+  "useFlatFootedSystem": true,
+  "tagOfStealthMainTrait": "stealth",
+  "tagOfMovementSpeedTrait": "movementSpeed",
+  "tagOfSpotEnemyTrait": "spotEnemy",
   "useAlternativeSpeechBubbleSystem": true,
   "encounterSingleImageAutoScale": true,
   "noRimLights": true,
@@ -169,7 +175,7 @@
   "MaxPartySize": 6,
   "moduleDescription": "Short module tutorial on how to make a simple module.",
   "moduleCredits": "<big><b>Unwanted Guests</b></big><BR>\r\n<BR>\r\n-visit the forums for more info:<BR>\r\nwww.iceblinkengine.com/forums",
-  "nextIdNumber": 14276,
+  "nextIdNumber": 15166,
   "realTimeTimerLengthInMilliSeconds": 7000,
   "borderAreaSize": 0,
   "WorldTime": 626572800,

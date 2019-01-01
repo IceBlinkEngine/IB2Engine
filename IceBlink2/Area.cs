@@ -651,8 +651,492 @@ namespace IceBlink2
         public Area()
 	    {	
 	    }
-	
-	    public bool GetBlocked(int playerXPosition, int playerYPosition, int lastPlayerXPosition, int lastPlayerYPosition, int lastLastPlayerXPosition, int lastLastPlayerYPosition)
+
+        public bool GetBlocked(Area areaFromLastPosition, int playerXPosition, int playerYPosition, int lastPlayerXPosition, int lastPlayerYPosition, int lastLastPlayerXPosition, int lastLastPlayerYPosition)
+        {
+            
+            if ((areaFromLastPosition.Tiles[lastPlayerYPosition * areaFromLastPosition.MapSizeX + lastPlayerXPosition].isEWBridge) || (areaFromLastPosition.Tiles[lastPlayerYPosition * areaFromLastPosition.MapSizeX + lastPlayerXPosition].isNSBridge))
+            {
+                if ((this.Tiles[playerYPosition * this.MapSizeX + playerXPosition].heightLevel) < (this.Tiles[lastPlayerYPosition * this.MapSizeX + lastPlayerXPosition].heightLevel))
+                {
+                    this.PlayerIsUnderBridge = false;
+                }
+            }
+            else
+            {
+                this.PlayerIsUnderBridge = false;
+            }
+
+            if (this.Tiles[playerYPosition * this.MapSizeX + playerXPosition].Walkable == false)
+            {
+                return true;
+            }
+
+
+            foreach (Prop p in this.Props)
+            {
+                if ((p.LocationX == playerXPosition) && (p.LocationY == playerYPosition))
+                {
+                    if (p.HasCollision)
+                    {
+                        return true;
+                    }
+                }
+            }
+
+            if (this.Tiles[playerYPosition * this.MapSizeX + playerXPosition].isSecretPassage == true)
+            {
+                return false;
+            }
+
+            if (this.Tiles[playerYPosition * this.MapSizeX + playerXPosition].heightLevel != areaFromLastPosition.Tiles[lastPlayerYPosition * areaFromLastPosition.MapSizeX + lastPlayerXPosition].heightLevel)
+            {
+                bool allowMove = false;
+
+                //enter transition to link from master section
+                if ((this.Tiles[playerYPosition * this.MapSizeX + playerXPosition].transitionToMasterDirection != "none") && (this.masterOfThisArea == "none"))
+                {
+                    //let us first sort by intended direction of palyer move
+
+                    //stepping toward north square
+                    if (lastPlayerYPosition - 1 == playerYPosition)
+                    {
+                        if (this.Tiles[playerYPosition * this.MapSizeX + playerXPosition].transitionToMasterDirection == "S")
+                        {
+                            if (areaFromLastPosition.Tiles[lastPlayerYPosition * areaFromLastPosition.MapSizeX + lastPlayerXPosition].heightLevel + 1 == this.Tiles[playerYPosition * this.MapSizeX + playerXPosition].heightLevel)
+                            {
+                                allowMove = true;
+                            }
+                        }
+                    }
+
+                    //stepping toward south square
+                    if (lastPlayerYPosition + 1 == playerYPosition)
+                    {
+                        if (this.Tiles[playerYPosition * this.MapSizeX + playerXPosition].transitionToMasterDirection == "N")
+                        {
+                            if (areaFromLastPosition.Tiles[lastPlayerYPosition * areaFromLastPosition.MapSizeX + lastPlayerXPosition].heightLevel + 1 == this.Tiles[playerYPosition * this.MapSizeX + playerXPosition].heightLevel)
+                            {
+                                allowMove = true;
+                            }
+                        }
+                    }
+
+                    //stepping toward east square
+                    if (lastPlayerXPosition + 1 == playerXPosition)
+                    {
+                        if (this.Tiles[playerYPosition * this.MapSizeX + playerXPosition].transitionToMasterDirection == "W")
+                        {
+                            if (areaFromLastPosition.Tiles[lastPlayerYPosition * areaFromLastPosition.MapSizeX + lastPlayerXPosition].heightLevel + 1 == this.Tiles[playerYPosition * this.MapSizeX + playerXPosition].heightLevel)
+                            {
+                                allowMove = true;
+                            }
+                        }
+                    }
+
+                    //stepping toward west square
+                    if (lastPlayerXPosition - 1 == playerXPosition)
+                    {
+                        if (this.Tiles[playerYPosition * this.MapSizeX + playerXPosition].transitionToMasterDirection == "E")
+                        {
+                            if (areaFromLastPosition.Tiles[lastPlayerYPosition * areaFromLastPosition.MapSizeX + lastPlayerXPosition].heightLevel + 1 == this.Tiles[playerYPosition * this.MapSizeX + playerXPosition].heightLevel)
+                            {
+                                allowMove = true;
+                            }
+                        }
+                    }
+
+                }
+
+                //ramp section
+                //bool allowMove = false;
+                //player is on ramp and climbs down
+                if ((areaFromLastPosition.Tiles[lastPlayerYPosition * areaFromLastPosition.MapSizeX + lastPlayerXPosition].isRamp) && (this.Tiles[playerYPosition * this.MapSizeX + playerXPosition].heightLevel + 1 == areaFromLastPosition.Tiles[lastPlayerYPosition * areaFromLastPosition.MapSizeX + lastPlayerXPosition].heightLevel))
+                {
+                    //only allow if the player is not rying to climb down via high end of ramp
+                    //let us first sort by intended direction of palyer move
+
+                    //stepping toward north square
+                    if (lastPlayerYPosition - 1 == playerYPosition)
+                    {
+                        //make sure north end of current ramp squre is not high
+                        if (areaFromLastPosition.Tiles[lastPlayerYPosition * areaFromLastPosition.MapSizeX + lastPlayerXPosition].hasDownStairShadowS)
+                        {
+
+                        }
+                        else
+                        {
+                            allowMove = true;
+                        }
+                    }
+
+                    //stepping toward south square
+                    if (lastPlayerYPosition + 1 == playerYPosition)
+                    {
+                        //make sure south end of current ramp squre is not high
+                        if (areaFromLastPosition.Tiles[lastPlayerYPosition * areaFromLastPosition.MapSizeX + lastPlayerXPosition].hasDownStairShadowN)
+                        {
+
+                        }
+                        else
+                        {
+                            allowMove = true;
+                        }
+                    }
+
+
+                    //stepping toward east square
+                    if (lastPlayerXPosition + 1 == playerXPosition)
+                    {
+                        //make sure east end of current ramp squre is not high
+                        if (areaFromLastPosition.Tiles[lastPlayerYPosition * areaFromLastPosition.MapSizeX + lastPlayerXPosition].hasDownStairShadowW)
+                        {
+
+                        }
+                        else
+                        {
+                            allowMove = true;
+                        }
+                    }
+
+                    //stepping toward west square
+                    if (lastPlayerXPosition - 1 == playerXPosition)
+                    {
+                        //make sure west end of current ramp squre is not high
+                        if (areaFromLastPosition.Tiles[lastPlayerYPosition * areaFromLastPosition.MapSizeX + lastPlayerXPosition].hasDownStairShadowE)
+                        {
+
+                        }
+                        else
+                        {
+                            allowMove = true;
+                        }
+                    }
+                }
+
+                //player enters ramp and climbs up
+                if ((this.Tiles[playerYPosition * this.MapSizeX + playerXPosition].isRamp) && (this.Tiles[playerYPosition * this.MapSizeX + playerXPosition].heightLevel - 1 == areaFromLastPosition.Tiles[lastPlayerYPosition * areaFromLastPosition.MapSizeX + lastPlayerXPosition].heightLevel))
+                {
+                    //we must check that target ramp is not facing toward player with high side
+                    //stepping toward north square
+                    if (lastPlayerYPosition - 1 == playerYPosition)
+                    {
+                        //make sure north end of target ramp squre is not high
+                        if (this.Tiles[playerYPosition * this.MapSizeX + playerXPosition].hasDownStairShadowN)
+                        {
+
+                        }
+                        else
+                        {
+                            allowMove = true;
+                        }
+                    }
+
+                    //stepping toward south square
+                    if (lastPlayerYPosition + 1 == playerYPosition)
+                    {
+                        //make sure north end of target ramp squre is not high
+                        if (this.Tiles[playerYPosition * this.MapSizeX + playerXPosition].hasDownStairShadowS)
+                        {
+
+                        }
+                        else
+                        {
+                            allowMove = true;
+                        }
+                    }
+
+
+                    //stepping toward east square
+                    if (lastPlayerXPosition + 1 == playerXPosition)
+                    {
+                        //make sure west end of target ramp squre is not high
+                        if (this.Tiles[playerYPosition * this.MapSizeX + playerXPosition].hasDownStairShadowE)
+                        {
+
+                        }
+                        else
+                        {
+                            allowMove = true;
+                        }
+                    }
+
+                    //stepping toward west square
+                    if (lastPlayerXPosition - 1 == playerXPosition)
+                    {
+                        //make sure east end of target ramp squre is not high
+                        if (this.Tiles[playerYPosition * this.MapSizeX + playerXPosition].hasDownStairShadowW)
+                        {
+
+                        }
+                        else
+                        {
+                            allowMove = true;
+                        }
+                    }
+
+                    //allowMove = true;
+                }
+
+                //EW bridge: player tries to leave bridge to NS side
+                if ((areaFromLastPosition.Tiles[lastPlayerYPosition * areaFromLastPosition.MapSizeX + lastPlayerXPosition].isEWBridge))
+                {
+                    //this.PlayerIsUnderBridge = true;
+                    //stepping toward north square
+                    if (lastPlayerYPosition - 1 == playerYPosition)
+                    {
+                        //came from north or south and is under bridge now
+                        if ((lastLastPlayerYPosition - 1 == lastPlayerYPosition) || (lastLastPlayerYPosition + 1 == lastPlayerYPosition))
+                        {
+                            //allow the move under the bridge (which is a move to one height level lower)
+                            allowMove = true;
+                        }
+                    }
+
+                    //stepping toward south square
+                    if (lastPlayerYPosition + 1 == playerYPosition)
+                    {
+                        //came from north and is under bridge now
+                        if ((lastLastPlayerYPosition - 1 == lastPlayerYPosition) || (lastLastPlayerYPosition + 1 == lastPlayerYPosition))
+                        {
+                            //allow the move under the bridge (which is a move to one height level lower)
+                            allowMove = true;
+                        }
+                    }
+                }
+
+                //NS bridge: player tries to leave bridge to EW side
+                if ((areaFromLastPosition.Tiles[lastPlayerYPosition * areaFromLastPosition.MapSizeX + lastPlayerXPosition].isNSBridge))
+                {
+                    //this.PlayerIsUnderBridge = true;
+                    //stepping toward western square
+                    if (lastPlayerXPosition - 1 == playerXPosition)
+                    {
+                        //came from west or east and is under bridge now
+                        if ((lastLastPlayerXPosition - 1 == lastPlayerXPosition) || (lastLastPlayerXPosition + 1 == lastPlayerXPosition))
+                        {
+                            //allow the move under the bridge (which is a move to one height level lower)
+                            allowMove = true;
+                        }
+                    }
+
+                    //stepping toward eastern square
+                    if (lastPlayerXPosition + 1 == playerXPosition)
+                    {
+                        //came from west or east and is under bridge now
+                        if ((lastLastPlayerXPosition - 1 == lastPlayerXPosition) || (lastLastPlayerXPosition + 1 == lastPlayerXPosition))
+                        {
+                            //allow the move under the bridge (which is a move to one height level lower)
+                            allowMove = true;
+                        }
+                    }
+                }
+
+                //Player tries to go under a bridge (with strict map building rules always possible)
+                //note: on top of bridge scenario is filtered out by beginning condition of height level difference
+                if (this.Tiles[playerYPosition * this.MapSizeX + playerXPosition].isEWBridge || this.Tiles[playerYPosition * this.MapSizeX + playerXPosition].isNSBridge)
+                {
+                    this.PlayerIsUnderBridge = true;
+                    allowMove = true;
+                }
+
+                if (!allowMove)
+                {
+                    return true;
+                }
+            }
+
+            //same height
+            else
+            {
+                bool allowMove = true;
+
+                //NS bridge: player tries to leave bridge to NS side
+                if ((areaFromLastPosition.Tiles[lastPlayerYPosition * areaFromLastPosition.MapSizeX + lastPlayerXPosition].isNSBridge))
+                {
+                    //stepping toward northern square
+                    if (lastPlayerYPosition - 1 == playerYPosition)
+                    {
+                        //came from west or east and is under bridge now
+                        if ((lastLastPlayerXPosition - 1 == lastPlayerXPosition) || (lastLastPlayerXPosition + 1 == lastPlayerXPosition))
+                        {
+                            //prevent bridge climbing from under the bridge
+                            allowMove = false;
+                        }
+                    }
+
+                    //stepping toward southern square
+                    if (lastPlayerYPosition + 1 == playerYPosition)
+                    {
+                        //came from west or east and is under bridge now
+                        if ((lastLastPlayerXPosition - 1 == lastPlayerXPosition) || (lastLastPlayerXPosition + 1 == lastPlayerXPosition))
+                        {
+                            //prevent bridge climbing from under the bridge
+                            allowMove = false;
+                        }
+                    }
+                }
+
+                //EW bridge: player tries to leave bridge to EW side
+                if ((areaFromLastPosition.Tiles[lastPlayerYPosition * areaFromLastPosition.MapSizeX + lastPlayerXPosition].isEWBridge))
+                {
+                    //stepping toward western square
+                    if (lastPlayerXPosition - 1 == playerXPosition)
+                    {
+                        //came from north or south and is under bridge now
+                        if ((lastLastPlayerYPosition - 1 == lastPlayerYPosition) || (lastLastPlayerYPosition + 1 == lastPlayerYPosition))
+                        {
+                            //prevent bridge climbing from under the bridge
+                            allowMove = false;
+                        }
+                    }
+
+                    //stepping toward eastern square
+                    if (lastPlayerXPosition + 1 == playerXPosition)
+                    {
+                        //came from north or south and is under bridge now
+                        if ((lastLastPlayerYPosition - 1 == lastPlayerYPosition) || (lastLastPlayerYPosition + 1 == lastPlayerYPosition))
+                        {
+                            //prevent bridge climbing from under the bridge
+                            allowMove = false;
+                        }
+                    }
+                }
+
+                //cannot enter same height square when leaving over botttom end of current ramp square
+                if (areaFromLastPosition.Tiles[lastPlayerYPosition * areaFromLastPosition.MapSizeX + lastPlayerXPosition].isRamp)
+                {
+                    //stepping toward north square
+                    if (lastPlayerYPosition - 1 == playerYPosition)
+                    {
+                        //make sure north end of target ramp squre is not high
+                        if (areaFromLastPosition.Tiles[lastPlayerYPosition * areaFromLastPosition.MapSizeX + lastPlayerXPosition].hasDownStairShadowN)
+                        {
+
+                        }
+                        else
+                        {
+                            allowMove = true;
+                        }
+                    }
+
+                    //stepping toward south square
+                    if (lastPlayerYPosition + 1 == playerYPosition)
+                    {
+                        //make sure north end of target ramp squre is not high
+                        if (areaFromLastPosition.Tiles[lastPlayerYPosition * areaFromLastPosition.MapSizeX + lastPlayerXPosition].hasDownStairShadowS)
+                        {
+
+                        }
+                        else
+                        {
+                            allowMove = true;
+                        }
+                    }
+
+
+                    //stepping toward east square
+                    if (lastPlayerXPosition + 1 == playerXPosition)
+                    {
+                        //make sure west end of target ramp squre is not high
+                        if (areaFromLastPosition.Tiles[lastPlayerYPosition * areaFromLastPosition.MapSizeX + lastPlayerXPosition].hasDownStairShadowE)
+                        {
+
+                        }
+                        else
+                        {
+                            allowMove = true;
+                        }
+                    }
+
+                    //stepping toward west square
+                    if (lastPlayerXPosition - 1 == playerXPosition)
+                    {
+                        //make sure east end of target ramp squre is not high
+                        if (areaFromLastPosition.Tiles[lastPlayerYPosition * areaFromLastPosition.MapSizeX + lastPlayerXPosition].hasDownStairShadowW)
+                        {
+
+                        }
+                        else
+                        {
+                            allowMove = true;
+                        }
+                    }
+                }
+
+                //cannot enter same height square when entering over botttom end of target ramp square
+                if (this.Tiles[playerYPosition * this.MapSizeX + playerXPosition].isRamp)
+                {
+                    //stepping toward north square
+                    if (lastPlayerYPosition - 1 == playerYPosition)
+                    {
+                        //make sure north end of target ramp squre is not high
+                        if (this.Tiles[playerYPosition * this.MapSizeX + playerXPosition].hasDownStairShadowS)
+                        {
+
+                        }
+                        else
+                        {
+                            allowMove = true;
+                        }
+                    }
+
+                    //stepping toward south square
+                    if (lastPlayerYPosition + 1 == playerYPosition)
+                    {
+                        //make sure north end of target ramp squre is not high
+                        if (this.Tiles[playerYPosition * this.MapSizeX + playerXPosition].hasDownStairShadowN)
+                        {
+
+                        }
+                        else
+                        {
+                            allowMove = true;
+                        }
+                    }
+
+
+                    //stepping toward east square
+                    if (lastPlayerXPosition + 1 == playerXPosition)
+                    {
+                        //make sure west end of target ramp squre is not high
+                        if (this.Tiles[playerYPosition * this.MapSizeX + playerXPosition].hasDownStairShadowW)
+                        {
+
+                        }
+                        else
+                        {
+                            allowMove = true;
+                        }
+                    }
+
+                    //stepping toward west square
+                    if (lastPlayerXPosition - 1 == playerXPosition)
+                    {
+                        //make sure east end of target ramp squre is not high
+                        if (this.Tiles[playerYPosition * this.MapSizeX + playerXPosition].hasDownStairShadowE)
+                        {
+
+                        }
+                        else
+                        {
+                            allowMove = true;
+                        }
+                    }
+                }
+
+                if (!allowMove)
+                {
+                    //block
+                    return true;
+                }
+            }
+
+
+            return false;
+        }
+
+        public bool GetBlocked(int playerXPosition, int playerYPosition, int lastPlayerXPosition, int lastPlayerYPosition, int lastLastPlayerXPosition, int lastLastPlayerYPosition)
         {
             if ((this.Tiles[lastPlayerYPosition * this.MapSizeX + lastPlayerXPosition].isEWBridge) || (this.Tiles[lastPlayerYPosition * this.MapSizeX + lastPlayerXPosition].isNSBridge))
             {

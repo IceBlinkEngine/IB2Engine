@@ -54,7 +54,7 @@
   },
   "BodyRefs": {
     "resref": "chainmail",
-    "tag": "chainmail_11487",
+    "tag": "chainmail_14318",
     "name": "Chainmail Armor",
     "canNotBeUnequipped": false,
     "isLightSource": false,
@@ -63,7 +63,7 @@
   },
   "MainHandRefs": {
     "resref": "dagger01",
-    "tag": "dagger01_11494",
+    "tag": "dagger01_14325",
     "name": "Dagger",
     "canNotBeUnequipped": false,
     "isLightSource": false,
@@ -126,7 +126,7 @@
   "knownOutsideCombatUsableTraitsTags": [],
   "knownInCombatUsableTraitsTags": [],
   "pcTags": [],
-  "name": "newPlayer",
+  "name": "bearAlly",
   "tag": "bearAlly",
   "nonRemoveablePc": false,
   "raceTag": "human",
