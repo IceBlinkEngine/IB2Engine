@@ -1901,23 +1901,27 @@ namespace IceBlink2
                     {
                         screenConvo.onKeyUp(keyData);
                     }
-                    /*
-                    else
+                    else if (screenType.Equals("itemSelector"))
                     {
-                        if (keyData == Keys.Up | keyData == Keys.D8)
-                        {
-                            int i = 1;
-                            //IBHtmlMessageBox.SetCurrentTopLineIndex(-12);
-                            //this.Invalidate();
-                        }
-
-                        if (keyData == Keys.Down | keyData == Keys.D2)
-                        {
-                            //SetCurrentTopLineIndex(12);
-                            //this.Invalidate();
-                        }
+                        screenItemSelector.onKeyUp(keyData);
                     }
-                    */
+                /*
+                else
+                {
+                    if (keyData == Keys.Up | keyData == Keys.D8)
+                    {
+                        int i = 1;
+                        //IBHtmlMessageBox.SetCurrentTopLineIndex(-12);
+                        //this.Invalidate();
+                    }
+
+                    if (keyData == Keys.Down | keyData == Keys.D2)
+                    {
+                        //SetCurrentTopLineIndex(12);
+                        //this.Invalidate();
+                    }
+                }
+                */
             }
             catch (Exception ex)
             {

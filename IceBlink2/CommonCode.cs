@@ -5270,23 +5270,8 @@ namespace IceBlink2
                         }
                     }
                 }
-                //gv.mod.partyLightEnergyName.Add(gv.mod.partyLightName);
-                //gv.mod.partyLightEnergyUnitsLeft.Add(250);
             }
             
-            
-            /*
-            int backupPlayerLocationX = gv.mod.PlayerLocationX;
-            int backupPlayerLocationY = gv.mod.PlayerLocationY;
-
-            if (gv.mod.justTransitioned)
-            {
-                gv.mod.PlayerLocationX = gv.mod.arrivalSquareX;
-                gv.mod.PlayerLocationY = gv.mod.arrivalSquareY;
-            }
-            */
-
-            //XXXXXXXXXXXXXXXXXXXXXXXXX
             int indexOfNorthernNeighbour = -1;
             int indexOfSouthernNeighbour = -1;
             int indexOfEasternNeighbour = -1;
@@ -5301,10 +5286,6 @@ namespace IceBlink2
             int seamlessModififierMaxX = 0;
             int seamlessModififierMinY = 0;
             int seamlessModififierMaxY = 0;
-
-            
-
-            //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
             
             for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
             {
@@ -5313,7 +5294,6 @@ namespace IceBlink2
                     indexOfCurrentArea = i;
                 }
             }
-
 
             if ((gv.mod.currentArea.northernNeighbourArea != ""))
             {
@@ -6526,6 +6506,7 @@ namespace IceBlink2
                                     if ((xx >= 0) && (yy >= 0) && (xx <= gv.mod.moduleAreasObjects[relevantIndices[h]].MapSizeX - 1) && (yy <= gv.mod.moduleAreasObjects[relevantIndices[h]].MapSizeY - 1))
                                     {
                                         addedTileToListAlready = true;
+                                        //ubierring
                                         tilesOfThisLightSource.Add(gv.mod.moduleAreasObjects[relevantIndices[h]].Tiles[yy * gv.mod.moduleAreasObjects[relevantIndices[h]].MapSizeX + xx]);
                                          gv.mod.moduleAreasObjects[relevantIndices[h]].Tiles[yy * gv.mod.moduleAreasObjects[relevantIndices[h]].MapSizeX + xx].tileLightSourceTag.Add(p.PropTag);
                                         gv.mod.moduleAreasObjects[relevantIndices[h]].Tiles[yy * gv.mod.moduleAreasObjects[relevantIndices[h]].MapSizeX + xx].lightSourceFocalHaloIntensity.Add(p.focalIntensity);
@@ -6581,7 +6562,7 @@ namespace IceBlink2
                         //4: NE,NW,SE,SW
                         //5: N,S,E,W
                         //6: center
-
+                        //ubierring
                         for (int tCount = 0; tCount <= 24; tCount++)
                         {
                             if (tCount == 0)
@@ -11056,6 +11037,12 @@ namespace IceBlink2
                                         
                     if ((gv.mod.currentArea.Props[i].LocationX == gv.mod.PlayerLocationX) && (gv.mod.currentArea.Props[i].LocationY == gv.mod.PlayerLocationY) && (gv.mod.currentArea.Props[i].isActive) && (doNotTriggerProp == false))
                     {
+
+                        if ((!gv.mod.currentArea.Props[i].MouseOverText.Equals("none")) && (gv.mod.currentArea.Tiles[gv.mod.currentArea.Props[i].LocationY * gv.mod.currentArea.MapSizeX + gv.mod.currentArea.Props[i].LocationX].Visible))
+                        {
+                            showFloatyStepOrBumpPropInfo(i);
+                        }
+
                         //prp.wasTriggeredLastUpdate = true;
                         foundOne = true;
                         blockSecondPropTriggersCall = true;
@@ -11129,7 +11116,7 @@ namespace IceBlink2
                             //gv.mod.currentArea.Props[i]
                             gv.sf.ThisProp = gv.mod.currentArea.Props[i];
                             doScriptBasedOnFilename(gv.mod.currentArea.Props[i].scriptFilename, gv.mod.currentArea.Props[i].parm1, gv.mod.currentArea.Props[i].parm2, gv.mod.currentArea.Props[i].parm3, gv.mod.currentArea.Props[i].parm4);
-                            
+
                             //code for floaty shown on prop upon script activation
                             if (gv.mod.currentArea.Props[i].scriptActivationFloaty != "none" && gv.mod.currentArea.Props[i].scriptActivationFloaty != "None" && gv.mod.currentArea.Props[i].scriptActivationFloaty != "")
                             {
@@ -11244,6 +11231,192 @@ namespace IceBlink2
                 }
             }
         }
+
+        public void showFloatyStepOrBumpPropInfo (int i)
+        {
+            bool lightIsNoProblem = false;
+            if ((!gv.mod.currentArea.useLightSystem) || (gv.mod.currentArea.UseDayNightCycle))
+            {
+                lightIsNoProblem = true;
+            }
+            else
+            {
+                bool foundTrue = false;
+
+                /*
+                if (gv.mod.currentArea.Tiles[actualY * gv.mod.currentArea.MapSizeX + actualX].isLit.Count > 0)
+                {
+                    lightIsNoProblem = true;
+                }
+                */
+                foreach (bool state in gv.mod.currentArea.Tiles[gv.mod.currentArea.Props[i].LocationY * gv.mod.currentArea.MapSizeX + gv.mod.currentArea.Props[i].LocationX].isLit)
+                {
+                    if (state)
+                    {
+                        foundTrue = true;
+                        break;
+                    }
+                }
+                if (foundTrue)
+                {
+                    lightIsNoProblem = true;
+                }
+            }
+
+            if (lightIsNoProblem)
+            {
+                int x = gv.playerOffsetX * gv.squareSize;
+                int y = gv.playerOffsetY * gv.squareSize;
+                gv.cc.floatyText = gv.mod.currentArea.Props[i].MouseOverText;
+                float floatyPushUp = 0;
+
+                if (gv.cc.floatyText.Length <= 20)
+                {
+                    floatyPushUp = 0.0f;
+                }
+                else if (gv.cc.floatyText.Length <= 35)
+                {
+                    floatyPushUp = 0.25f;
+                }
+                else if (gv.cc.floatyText.Length <= 52)
+                {
+                    floatyPushUp = 0.5f;
+                }
+                /*
+                if (gv.cc.floatyText.Length <= 20)
+                {
+                    floatyPushUp = 0.25f;
+                }
+                else if (gv.cc.floatyText.Length <= 35)
+                {
+                    floatyPushUp = 0.5f;
+                }
+                else if (gv.cc.floatyText.Length <= 52)
+                {
+                    floatyPushUp = 0.65f;
+                }
+                */
+                else if (gv.cc.floatyText.Length <= 70)
+                {
+                    floatyPushUp = 0.8f;
+                }
+                else if (gv.cc.floatyText.Length <= 87)
+                {
+                    floatyPushUp = 1.05f;
+                }
+                else if (gv.cc.floatyText.Length <= 105)
+                {
+                    floatyPushUp = 1.25f;
+                }
+                else if (gv.cc.floatyText.Length <= 122)
+                {
+                    floatyPushUp = 1.6f;
+                }
+                else if (gv.cc.floatyText.Length <= 140)
+                {
+                    floatyPushUp = 1.75f;
+                }
+                else if (gv.cc.floatyText.Length <= 157)
+                {
+                    floatyPushUp = 1.87f;
+                }
+                else if (gv.cc.floatyText.Length <= 175)
+                {
+                    floatyPushUp = 2.0f;
+                }
+                else
+                {
+                    floatyPushUp = 2.25f;
+                }
+                gv.cc.floatyTextLoc = new Coordinate(x + gv.oXshift + gv.screenMainMap.mapStartLocXinPixels, y - (int)(floatyPushUp * gv.squareSize));
+            }
+        }
+
+        public void showFloatyStepOrBumpPropInfo(Prop p)
+        {
+            bool lightIsNoProblem = false;
+            if ((!gv.mod.currentArea.useLightSystem) || (gv.mod.currentArea.UseDayNightCycle))
+            {
+                lightIsNoProblem = true;
+            }
+            else
+            {
+                bool foundTrue = false;
+
+                /*
+                if (gv.mod.currentArea.Tiles[actualY * gv.mod.currentArea.MapSizeX + actualX].isLit.Count > 0)
+                {
+                    lightIsNoProblem = true;
+                }
+                */
+                foreach (bool state in gv.mod.currentArea.Tiles[p.LocationY * gv.mod.currentArea.MapSizeX + p.LocationX].isLit)
+                {
+                    if (state)
+                    {
+                        foundTrue = true;
+                        break;
+                    }
+                }
+                if (foundTrue)
+                {
+                    lightIsNoProblem = true;
+                }
+            }
+
+            if (lightIsNoProblem)
+            {
+                int x = gv.playerOffsetX * gv.squareSize;
+                int y = gv.playerOffsetY * gv.squareSize;
+                gv.cc.floatyText = p.MouseOverText;
+                float floatyPushUp = 0;
+                if (gv.cc.floatyText.Length <= 20)
+                {
+                    floatyPushUp = 0.0f;
+                }
+                else if (gv.cc.floatyText.Length <= 35)
+                {
+                    floatyPushUp = 0.25f;
+                }
+                else if (gv.cc.floatyText.Length <= 52)
+                {
+                    floatyPushUp = 0.5f;
+                }
+                else if (gv.cc.floatyText.Length <= 70)
+                {
+                    floatyPushUp = 0.8f;
+                }
+                else if (gv.cc.floatyText.Length <= 87)
+                {
+                    floatyPushUp = 1.05f;
+                }
+                else if (gv.cc.floatyText.Length <= 105)
+                {
+                    floatyPushUp = 1.25f;
+                }
+                else if (gv.cc.floatyText.Length <= 122)
+                {
+                    floatyPushUp = 1.6f;
+                }
+                else if (gv.cc.floatyText.Length <= 140)
+                {
+                    floatyPushUp = 1.75f;
+                }
+                else if (gv.cc.floatyText.Length <= 157)
+                {
+                    floatyPushUp = 1.87f;
+                }
+                else if (gv.cc.floatyText.Length <= 175)
+                {
+                    floatyPushUp = 2.0f;
+                }
+                else
+                {
+                    floatyPushUp = 2.25f;
+                }
+                gv.cc.floatyTextLoc = new Coordinate(x + gv.oXshift + gv.screenMainMap.mapStartLocXinPixels, y - (int)(floatyPushUp * gv.squareSize));
+            }
+        }
+
         public void doTrigger()
         {
             bool allowTrigger = true;

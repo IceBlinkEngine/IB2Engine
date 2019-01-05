@@ -439,7 +439,7 @@ namespace IceBlink2
 
                                 foreach (Prop p in gv.mod.currentArea.Props)
                                 {
-                                    if (p.isActive && (p.ConversationWhenOnPartySquare != "none" || p.EncounterWhenOnPartySquare != "none" || p.scriptFilename != "none"))
+                                    if (p.isActive && (p.ConversationWhenOnPartySquare != "none" || p.EncounterWhenOnPartySquare != "none" || p.scriptFilename != "none" || p.MouseOverText != "none"))
                                     {
                                         if ((p.LocationX == gv.mod.PlayerLocationX) && (p.LocationY == gv.mod.PlayerLocationY - 1))
                                         {
@@ -478,6 +478,11 @@ namespace IceBlink2
                                 {
                                     if (bumpPropExists)
                                     {
+                                        if ((!bumpProp.MouseOverText.Equals("none")) && (gv.mod.currentArea.Tiles[bumpProp.LocationY * gv.mod.currentArea.MapSizeX + bumpProp.LocationX].Visible))
+                                        {
+                                            gv.cc.showFloatyStepOrBumpPropInfo(bumpProp);
+                                        }
+
                                         if (bumpProp.ConversationWhenOnPartySquare != "none")
                                         { 
                                             //called from prop add?
@@ -558,7 +563,7 @@ namespace IceBlink2
 
                                 foreach (Prop p in gv.mod.currentArea.Props)
                                 {
-                                    if (p.isActive && (p.ConversationWhenOnPartySquare != "none" || p.EncounterWhenOnPartySquare != "none" || p.scriptFilename != "none"))
+                                    if (p.isActive && (p.ConversationWhenOnPartySquare != "none" || p.EncounterWhenOnPartySquare != "none" || p.scriptFilename != "none" || p.MouseOverText != "none"))
                                     {
                                         if ((p.LocationX == gv.mod.PlayerLocationX) && (p.LocationY == gv.mod.PlayerLocationY+1))
                                         {
@@ -597,6 +602,11 @@ namespace IceBlink2
                                 {
                                     if (bumpPropExists)
                                     {
+                                        if ((!bumpProp.MouseOverText.Equals("none")) && (gv.mod.currentArea.Tiles[bumpProp.LocationY * gv.mod.currentArea.MapSizeX + bumpProp.LocationX].Visible))
+                                        {
+                                            gv.cc.showFloatyStepOrBumpPropInfo(bumpProp);
+                                        }
+
                                         if (bumpProp.ConversationWhenOnPartySquare != "none")
                                         {
                                             //called from prop add?
@@ -675,7 +685,7 @@ namespace IceBlink2
 
                                 foreach (Prop p in gv.mod.currentArea.Props)
                                 {
-                                    if (p.isActive && (p.ConversationWhenOnPartySquare != "none" || p.EncounterWhenOnPartySquare != "none" || p.scriptFilename != "none"))
+                                    if (p.isActive && (p.ConversationWhenOnPartySquare != "none" || p.EncounterWhenOnPartySquare != "none" || p.scriptFilename != "none" || p.MouseOverText != "none"))
                                     {
                                         if ((p.LocationX == gv.mod.PlayerLocationX - 1) && (p.LocationY == gv.mod.PlayerLocationY))
                                         {
@@ -729,6 +739,11 @@ namespace IceBlink2
                                 {
                                     if (bumpPropExists)
                                     {
+                                        if ((!bumpProp.MouseOverText.Equals("none")) && (gv.mod.currentArea.Tiles[bumpProp.LocationY * gv.mod.currentArea.MapSizeX + bumpProp.LocationX].Visible))
+                                        {
+                                            gv.cc.showFloatyStepOrBumpPropInfo(bumpProp);
+                                        }
+
                                         if (bumpProp.ConversationWhenOnPartySquare != "none")
                                         {
                                             //called from prop add?
@@ -811,7 +826,7 @@ namespace IceBlink2
 
                                 foreach (Prop p in gv.mod.currentArea.Props)
                                 {
-                                    if (p.isActive && (p.ConversationWhenOnPartySquare != "none" || p.EncounterWhenOnPartySquare != "none" || p.scriptFilename != "none"))
+                                    if (p.isActive && (p.ConversationWhenOnPartySquare != "none" || p.EncounterWhenOnPartySquare != "none" || p.scriptFilename != "none" || p.MouseOverText != "none"))
                                     {
                                         if ((p.LocationX == gv.mod.PlayerLocationX + 1) && (p.LocationY == gv.mod.PlayerLocationY))
                                         {
@@ -863,6 +878,11 @@ namespace IceBlink2
                                 //dodo: code ok here,too?
                                 else if (bumpPropExists || bumpTriggerExists)
                                 {
+                                    if ((!bumpProp.MouseOverText.Equals("none")) && (gv.mod.currentArea.Tiles[bumpProp.LocationY * gv.mod.currentArea.MapSizeX + bumpProp.LocationX].Visible))
+                                    {
+                                        gv.cc.showFloatyStepOrBumpPropInfo(bumpProp);
+                                    }
+
                                     if (bumpPropExists)
                                     {
                                         if (bumpProp.ConversationWhenOnPartySquare != "none")
@@ -36050,10 +36070,10 @@ namespace IceBlink2
                     gv.cc.floatyText2 = "";
                     gv.cc.floatyText3 = "";
                     gv.cc.floatyText4 = "";
-                    //if (IsTouchInMapWindow(gridx, gridy))
-                    //{
 
-                    //current area
+                    //karmasutra: other areas
+                   
+                            //current area
                         foreach (Prop p in gv.mod.currentArea.Props)
                         {
                         if (!p.isStealthed)
@@ -36073,11 +36093,22 @@ namespace IceBlink2
                                 bool lightIsNoProblem = false;
                                 if ((!gv.mod.currentArea.useLightSystem) || (gv.mod.currentArea.UseDayNightCycle))
                                 {
-                                    lightIsNoProblem = true;
+                                     lightIsNoProblem = true;
                                 }
                                 else
                                 {
-                                    if (gv.mod.currentArea.Tiles[actualY * gv.mod.currentArea.MapSizeX + actualX].isLit.Count > 0)
+                                    bool foundTrue = false;
+
+                                   
+                                    foreach (bool state in gv.mod.currentArea.Tiles[actualY * gv.mod.currentArea.MapSizeX + actualX].isLit)
+                                    {
+                                        if (state)
+                                        {
+                                            foundTrue = true;
+                                            break;
+                                        }
+                                    }
+                                    if (foundTrue)
                                     {
                                         lightIsNoProblem = true;
                                     }
@@ -36198,21 +36229,40 @@ namespace IceBlink2
                                     }
                                 }
                                 if ((e.X - 1 >= p.currentPixelPositionX && e.X <= p.currentPixelPositionX + gv.squareSize) && (e.Y - 1 >= p.currentPixelPositionY + (gv.squareSize / 2) && e.Y <= p.currentPixelPositionY + gv.squareSize + (gv.squareSize / 2)) && !tooMuchHeightDifference)
-                                {
-                                    bool lightIsNoProblem = false;
-                                    if ((!a.useLightSystem) || (a.UseDayNightCycle))
-                                    {
-                                        lightIsNoProblem = true;
-                                    }
-                                    else
-                                    {
-                                        if (a.Tiles[p.LocationY * a.MapSizeX + p.LocationX].isLit.Count > 0)
+                                { 
+                                        actualX = p.LocationX;
+                                        actualY = p.LocationY;
+
+                                        bool lightIsNoProblem = false;
+                                        if ((!a.useLightSystem) || (a.UseDayNightCycle))
                                         {
                                             lightIsNoProblem = true;
                                         }
-                                    }
+                                        else
+                                        {
+                                            bool foundTrue = false;
 
-                                    if ((!p.MouseOverText.Equals("none")) && (a.Tiles[p.LocationY * a.MapSizeX + p.LocationX].Visible) && lightIsNoProblem)
+                                            /*
+                                            if (gv.mod.currentArea.Tiles[actualY * gv.mod.currentArea.MapSizeX + actualX].isLit.Count > 0)
+                                            {
+                                                lightIsNoProblem = true;
+                                            }
+                                            */
+                                            foreach (bool state in a.Tiles[actualY * a.MapSizeX + actualX].isLit)
+                                            {
+                                                if (state)
+                                                {
+                                                    foundTrue = true;
+                                                    break;
+                                                }
+                                            }
+                                            if (foundTrue)
+                                            {
+                                                lightIsNoProblem = true;
+                                            }
+                                        }
+
+                                        if ((!p.MouseOverText.Equals("none")) && (a.Tiles[p.LocationY * a.MapSizeX + p.LocationX].Visible) && lightIsNoProblem)
                                     {
                                         gv.cc.floatyText = p.MouseOverText;
                                         gv.cc.floatyTextLoc = new Coordinate(gridx * gv.squareSize, gridy * gv.squareSize);
@@ -37268,7 +37318,10 @@ namespace IceBlink2
                                                                     }
                                                                     //secret door has been opened, normal tile now
                                                                     p.isSecretDoor = false;
-                                                               
+
+                                                                //disable any shown message connected
+                                                                p.MouseOverText = "none";
+
                                                                 //skill roll success message (A)
                                                                 gv.screenMainMap.addFloatyText(x3, y3, "Success: " + traitName + " level " + (p.secretDoorDC+darkAdder-10).ToString() + " matched", "green", 2000);
                                                                 gv.cc.addLogText("green", "Success: " + traitName + " level " + (p.secretDoorDC+darkAdder-10).ToString() + " matched, " + gv.mod.playerList[gv.mod.selectedPartyLeader].name + " loses " + gv.mod.activeSearchSPCost + " SP");
@@ -37581,7 +37634,7 @@ namespace IceBlink2
 
                                     foreach (Prop p in gv.mod.currentArea.Props)
                                     {
-                                        if (p.isActive && (p.ConversationWhenOnPartySquare != "none" || p.EncounterWhenOnPartySquare != "none" || p.scriptFilename != "none"))
+                                        if (p.isActive && (p.ConversationWhenOnPartySquare != "none" || p.EncounterWhenOnPartySquare != "none" || p.scriptFilename != "none" || p.MouseOverText != "none"))
                                         {
                                             if ((p.LocationX == gv.mod.PlayerLocationX) && (p.LocationY == gv.mod.PlayerLocationY - 1))
                                             {
@@ -37619,6 +37672,11 @@ namespace IceBlink2
                                     {
                                         if (bumpPropExists)
                                         {
+                                            if ((!bumpProp.MouseOverText.Equals("none")) && (gv.mod.currentArea.Tiles[bumpProp.LocationY * gv.mod.currentArea.MapSizeX + bumpProp.LocationX].Visible))
+                                            {
+                                                gv.cc.showFloatyStepOrBumpPropInfo(bumpProp);
+                                            }
+
                                             if (bumpProp.ConversationWhenOnPartySquare != "none")
                                             {
                                                 //called from prop add?
@@ -37705,7 +37763,7 @@ namespace IceBlink2
 
                                     foreach (Prop p in gv.mod.currentArea.Props)
                                     {
-                                        if (p.isActive && (p.ConversationWhenOnPartySquare != "none" || p.EncounterWhenOnPartySquare != "none" || p.scriptFilename != "none"))
+                                        if (p.isActive && (p.ConversationWhenOnPartySquare != "none" || p.EncounterWhenOnPartySquare != "none" || p.scriptFilename != "none" || p.MouseOverText != "none"))
                                         {
                                             if ((p.LocationX == gv.mod.PlayerLocationX) && (p.LocationY == gv.mod.PlayerLocationY + 1))
                                             {
@@ -37743,6 +37801,11 @@ namespace IceBlink2
                                     {
                                         if (bumpPropExists)
                                         {
+                                            if ((!bumpProp.MouseOverText.Equals("none")) && (gv.mod.currentArea.Tiles[bumpProp.LocationY * gv.mod.currentArea.MapSizeX + bumpProp.LocationX].Visible))
+                                            {
+                                                gv.cc.showFloatyStepOrBumpPropInfo(bumpProp);
+                                            }
+
                                             if (bumpProp.ConversationWhenOnPartySquare != "none")
                                             {
                                                 //called from prop add?
@@ -37828,7 +37891,7 @@ namespace IceBlink2
 
                                     foreach (Prop p in gv.mod.currentArea.Props)
                                     {
-                                        if (p.isActive && (p.ConversationWhenOnPartySquare != "none" || p.EncounterWhenOnPartySquare != "none" || p.scriptFilename != "none"))
+                                        if (p.isActive && (p.ConversationWhenOnPartySquare != "none" || p.EncounterWhenOnPartySquare != "none" || p.scriptFilename != "none" || p.MouseOverText != "none"))
                                         {
                                             if ((p.LocationX == gv.mod.PlayerLocationX - 1) && (p.LocationY == gv.mod.PlayerLocationY))
                                             {
@@ -37880,6 +37943,11 @@ namespace IceBlink2
                                     {
                                         if (bumpPropExists)
                                         {
+                                            if ((!bumpProp.MouseOverText.Equals("none")) && (gv.mod.currentArea.Tiles[bumpProp.LocationY * gv.mod.currentArea.MapSizeX + bumpProp.LocationX].Visible))
+                                            {
+                                                gv.cc.showFloatyStepOrBumpPropInfo(bumpProp);
+                                            }
+
                                             if (bumpProp.ConversationWhenOnPartySquare != "none")
                                             {
                                                 //called from prop add?
@@ -37965,7 +38033,7 @@ namespace IceBlink2
 
                                     foreach (Prop p in gv.mod.currentArea.Props)
                                     {
-                                        if (p.isActive && (p.ConversationWhenOnPartySquare != "none" || p.EncounterWhenOnPartySquare != "none" || p.scriptFilename != "none"))
+                                        if (p.isActive && (p.ConversationWhenOnPartySquare != "none" || p.EncounterWhenOnPartySquare != "none" || p.scriptFilename != "none" || p.MouseOverText != "none"))
                                         {
                                             if ((p.LocationX == gv.mod.PlayerLocationX + 1) && (p.LocationY == gv.mod.PlayerLocationY))
                                             {
@@ -38017,6 +38085,11 @@ namespace IceBlink2
                                     {
                                         if (bumpPropExists)
                                         {
+                                            if ((!bumpProp.MouseOverText.Equals("none")) && (gv.mod.currentArea.Tiles[bumpProp.LocationY * gv.mod.currentArea.MapSizeX + bumpProp.LocationX].Visible))
+                                            {
+                                                gv.cc.showFloatyStepOrBumpPropInfo(bumpProp);
+                                            }
+
                                             if (bumpProp.ConversationWhenOnPartySquare != "none")
                                             {
                                                 //called from prop add?
@@ -39643,6 +39716,9 @@ namespace IceBlink2
                                                         //secret door has been opened, normal tile now
                                                         p.isSecretDoor = false;
 
+                                                        //disable any shown message connected
+                                                        p.MouseOverText = "none";
+
                                                         //skill roll success message (A)
                                                         gv.screenMainMap.addFloatyText(x3, y3, "Success: " + traitName + " level " + (p.secretDoorDC+darkAdder-10).ToString() + " matched", "green", 2000);
                                                         gv.cc.addLogText("green", "Success: " + traitName + " level " + (p.secretDoorDC+darkAdder-10).ToString() + " matched, " + gv.mod.playerList[gv.mod.selectedPartyLeader].name + " loses " + gv.mod.activeSearchSPCost + " SP");
@@ -40141,7 +40217,7 @@ namespace IceBlink2
 
                 foreach (Prop p in gv.mod.currentArea.Props)
                 {
-                    if (p.isActive && (p.ConversationWhenOnPartySquare != "none" || p.EncounterWhenOnPartySquare != "none" || p.scriptFilename != "none"))
+                    if (p.isActive && (p.ConversationWhenOnPartySquare != "none" || p.EncounterWhenOnPartySquare != "none" || p.scriptFilename != "none" || p.MouseOverText != "none"))
                     {
                         if ((p.LocationX == gv.mod.PlayerLocationX - 1) && (p.LocationY == gv.mod.PlayerLocationY))
                         {
@@ -40194,6 +40270,11 @@ namespace IceBlink2
                 {
                     if (bumpPropExists)
                     {
+                        if ((!bumpProp.MouseOverText.Equals("none")) && (gv.mod.currentArea.Tiles[bumpProp.LocationY * gv.mod.currentArea.MapSizeX + bumpProp.LocationX].Visible))
+                        {
+                            gv.cc.showFloatyStepOrBumpPropInfo(bumpProp);
+                        }
+
                         if (bumpProp.ConversationWhenOnPartySquare != "none")
                         {
                             //called from prop add?
@@ -40274,7 +40355,7 @@ namespace IceBlink2
 
                 foreach (Prop p in gv.mod.currentArea.Props)
                 {
-                    if (p.isActive && (p.ConversationWhenOnPartySquare != "none" || p.EncounterWhenOnPartySquare != "none" || p.scriptFilename != "none"))
+                    if (p.isActive && (p.ConversationWhenOnPartySquare != "none" || p.EncounterWhenOnPartySquare != "none" || p.scriptFilename != "none" || p.MouseOverText != "none"))
                     {
                         if ((p.LocationX == gv.mod.PlayerLocationX + 1) && (p.LocationY == gv.mod.PlayerLocationY))
                         {
@@ -40330,6 +40411,11 @@ namespace IceBlink2
                 {
                     if (bumpPropExists)
                     {
+                        if ((!bumpProp.MouseOverText.Equals("none")) && (gv.mod.currentArea.Tiles[bumpProp.LocationY * gv.mod.currentArea.MapSizeX + bumpProp.LocationX].Visible))
+                        {
+                            gv.cc.showFloatyStepOrBumpPropInfo(bumpProp);
+                        }
+
                         if (bumpProp.ConversationWhenOnPartySquare != "none")
                         {
                             //called from prop add?
@@ -40410,7 +40496,7 @@ namespace IceBlink2
 
                 foreach (Prop p in gv.mod.currentArea.Props)
                 {
-                    if (p.isActive && (p.ConversationWhenOnPartySquare != "none" || p.EncounterWhenOnPartySquare != "none" || p.scriptFilename != "none"))
+                    if (p.isActive && (p.ConversationWhenOnPartySquare != "none" || p.EncounterWhenOnPartySquare != "none" || p.scriptFilename != "none" || p.MouseOverText != "none"))
                     {
                         if ((p.LocationX == gv.mod.PlayerLocationX) && (p.LocationY == gv.mod.PlayerLocationY - 1))
                         {
@@ -40451,6 +40537,11 @@ namespace IceBlink2
                 {
                     if (bumpPropExists)
                     {
+                        if ((!bumpProp.MouseOverText.Equals("none")) && (gv.mod.currentArea.Tiles[bumpProp.LocationY * gv.mod.currentArea.MapSizeX + bumpProp.LocationX].Visible))
+                        {
+                            gv.cc.showFloatyStepOrBumpPropInfo(bumpProp);
+                        }
+
                         if (bumpProp.ConversationWhenOnPartySquare != "none")
                         {
                             //called from prop add?
@@ -40531,7 +40622,7 @@ namespace IceBlink2
 
                 foreach (Prop p in gv.mod.currentArea.Props)
                 {
-                    if (p.isActive && (p.ConversationWhenOnPartySquare != "none" || p.EncounterWhenOnPartySquare != "none" || p.scriptFilename != "none"))
+                    if (p.isActive && (p.ConversationWhenOnPartySquare != "none" || p.EncounterWhenOnPartySquare != "none" || p.scriptFilename != "none" || p.MouseOverText != "none"))
                     {
                         if ((p.LocationX == gv.mod.PlayerLocationX) && (p.LocationY == gv.mod.PlayerLocationY + 1))
                         {
@@ -40571,6 +40662,11 @@ namespace IceBlink2
                 {
                     if(bumpPropExists)
                     {
+                        if ((!bumpProp.MouseOverText.Equals("none")) && (gv.mod.currentArea.Tiles[bumpProp.LocationY * gv.mod.currentArea.MapSizeX + bumpProp.LocationX].Visible))
+                        {
+                            gv.cc.showFloatyStepOrBumpPropInfo(bumpProp);
+                        }
+
                         if (bumpProp.ConversationWhenOnPartySquare != "none")
                         {
                             //called from prop add?
