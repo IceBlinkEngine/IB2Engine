@@ -28384,6 +28384,7 @@ namespace IceBlink2
                                     }
                                 }
 
+                                //gehörtdiewelt
                                 //insert2
                                 if (!tileBitmapIsLoadedAlready)
                                 {
@@ -28556,28 +28557,28 @@ namespace IceBlink2
                                     {//6
                                         if (!p.EncounterWhenOnPartySquare.Equals("none"))
                                         {
-                                            Bitmap interactionStateIndicator = gv.cc.LoadBitmap("encounter_indicator");
-                                            src = new IbRect(0, 0, interactionStateIndicator.PixelSize.Width, interactionStateIndicator.PixelSize.Height);
-                                            gv.DrawBitmap(interactionStateIndicator, src, dst);
-                                            gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
+                                            //Bitmap interactionStateIndicator = gv.cc.LoadBitmap("encounter_indicator");
+                                            src = new IbRect(0, 0, gv.cc.encounter_indicator.PixelSize.Width, gv.cc.encounter_indicator.PixelSize.Height);
+                                            gv.DrawBitmap(gv.cc.encounter_indicator, src, dst);
+                                            //gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
                                             //continue;
                                         }
 
                                         else if (p.unavoidableConversation)
                                         {
-                                            Bitmap interactionStateIndicator = gv.cc.LoadBitmap("mandatory_conversation_indicator");
-                                            src = new IbRect(0, 0, interactionStateIndicator.PixelSize.Width, interactionStateIndicator.PixelSize.Height);
-                                            gv.DrawBitmap(interactionStateIndicator, src, dst);
-                                            gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
+                                            //Bitmap interactionStateIndicator = gv.cc.LoadBitmap("mandatory_conversation_indicator");
+                                            src = new IbRect(0, 0, gv.cc.mandatory_conversation_indicator.PixelSize.Width, gv.cc.mandatory_conversation_indicator.PixelSize.Height);
+                                            gv.DrawBitmap(gv.cc.mandatory_conversation_indicator, src, dst);
+                                            //gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
                                             //continue;
                                         }
 
                                         else if (!p.ConversationWhenOnPartySquare.Equals("none"))
                                         {
-                                            Bitmap interactionStateIndicator = gv.cc.LoadBitmap("optional_conversation_indicator");
-                                            src = new IbRect(0, 0, interactionStateIndicator.PixelSize.Width, interactionStateIndicator.PixelSize.Height);
-                                            gv.DrawBitmap(interactionStateIndicator, src, dst);
-                                            gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
+                                            //Bitmap interactionStateIndicator = gv.cc.LoadBitmap("optional_conversation_indicator");
+                                            src = new IbRect(0, 0, gv.cc.optional_conversation_indicator.PixelSize.Width, gv.cc.optional_conversation_indicator.PixelSize.Height);
+                                            gv.DrawBitmap(gv.cc.optional_conversation_indicator, src, dst);
+                                            //gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
                                             //continue;
                                         }
 
@@ -28649,8 +28650,8 @@ namespace IceBlink2
                                     if (drawChallengeHidden && !p.isStealthed && !p.wasKilled)
                                     {
                                         int shift = 0;
-                                        Bitmap interactionStateIndicator = gv.cc.LoadBitmap("challengeHidden");
-                                        src = new IbRect(0, 0, interactionStateIndicator.PixelSize.Width, interactionStateIndicator.PixelSize.Height);
+                                        //Bitmap interactionStateIndicator = gv.cc.LoadBitmap("challengeHidden");
+                                        src = new IbRect(0, 0, gv.cc.challengeHidden.PixelSize.Width, gv.cc.challengeHidden.PixelSize.Height);
                                         IbRect dstSkull = new IbRect();
                                         dstSkull.Height = (int)(dst.Height / 2);
                                         dstSkull.Width = (int)(dst.Width / 2);
@@ -28658,8 +28659,8 @@ namespace IceBlink2
                                         dstSkull.Top = dst.Top - (int)(dst.Height / 3);
                                         shift = 1 * (int)(dst.Width / 4);
                                         dstSkull.Left += shift;
-                                        gv.DrawBitmap(interactionStateIndicator, src, dstSkull);
-                                        gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
+                                        gv.DrawBitmap(gv.cc.challengeHidden, src, dstSkull);
+                                        //gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
                                         
                                     }
                                     if (numberOfSkulls > 0 && !p.isStealthed && !p.wasKilled)
@@ -28668,17 +28669,17 @@ namespace IceBlink2
                                         for (int i2 = 0; i2 < numberOfSkulls; i2++)
                                         {
 
-                                            Bitmap interactionStateIndicator = gv.cc.LoadBitmap("challengeSkull");
-                                            src = new IbRect(0, 0, interactionStateIndicator.PixelSize.Width, interactionStateIndicator.PixelSize.Height);
+                                            //Bitmap interactionStateIndicator = gv.cc.LoadBitmap("challengeSkull");
+                                            src = new IbRect(0, 0, gv.cc.challengeSkull.PixelSize.Width, gv.cc.challengeSkull.PixelSize.Height);
                                             IbRect dstSkull = new IbRect();
                                             dstSkull.Height = (int)(dst.Height / 3);
                                             dstSkull.Width = (int)(dst.Width / 3);
                                             dstSkull.Left = dst.Left;
-                                            dstSkull.Top = dst.Top - (int)(dst.Height / 3 / 2);
+                                            dstSkull.Top = dst.Top - (int)(dst.Height / 3);
                                             shift = i2 * (int)(dst.Width / 3);
                                             dstSkull.Left += shift;
-                                            gv.DrawBitmap(interactionStateIndicator, src, dstSkull);
-                                            gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
+                                            gv.DrawBitmap(gv.cc.challengeSkull, src, dstSkull);
+                                            //gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
                                         }
                                     }
                                 }
@@ -28819,28 +28820,28 @@ namespace IceBlink2
                             {
                                 if (!p.EncounterWhenOnPartySquare.Equals("none"))
                                 {
-                                    Bitmap interactionStateIndicator = gv.cc.LoadBitmap("encounter_indicator");
-                                    src = new IbRect(0, 0, interactionStateIndicator.PixelSize.Width, interactionStateIndicator.PixelSize.Height);
-                                    gv.DrawBitmap(interactionStateIndicator, src, dst);
-                                    gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
+                                    //Bitmap interactionStateIndicator = gv.cc.LoadBitmap("encounter_indicator");
+                                    src = new IbRect(0, 0, gv.cc.encounter_indicator.PixelSize.Width, gv.cc.encounter_indicator.PixelSize.Height);
+                                    gv.DrawBitmap(gv.cc.encounter_indicator, src, dst);
+                                    //gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
                                     //continue;
                                 }
 
                                 else if (p.unavoidableConversation)
                                 {
-                                    Bitmap interactionStateIndicator = gv.cc.LoadBitmap("mandatory_conversation_indicator");
-                                    src = new IbRect(0, 0, interactionStateIndicator.PixelSize.Width, interactionStateIndicator.PixelSize.Height);
-                                    gv.DrawBitmap(interactionStateIndicator, src, dst);
-                                    gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
+                                    //Bitmap interactionStateIndicator = gv.cc.LoadBitmap("mandatory_conversation_indicator");
+                                    src = new IbRect(0, 0, gv.cc.mandatory_conversation_indicator.PixelSize.Width, gv.cc.mandatory_conversation_indicator.PixelSize.Height);
+                                    gv.DrawBitmap(gv.cc.mandatory_conversation_indicator, src, dst);
+                                    //gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
                                     //continue;
                                 }
 
                                 else if (!p.ConversationWhenOnPartySquare.Equals("none"))
                                 {
-                                    Bitmap interactionStateIndicator = gv.cc.LoadBitmap("optional_conversation_indicator");
-                                    src = new IbRect(0, 0, interactionStateIndicator.PixelSize.Width, interactionStateIndicator.PixelSize.Height);
-                                    gv.DrawBitmap(interactionStateIndicator, src, dst);
-                                    gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
+                                    //Bitmap interactionStateIndicator = gv.cc.LoadBitmap("optional_conversation_indicator");
+                                    src = new IbRect(0, 0, gv.cc.optional_conversation_indicator.PixelSize.Width, gv.cc.optional_conversation_indicator.PixelSize.Height);
+                                    gv.DrawBitmap(gv.cc.optional_conversation_indicator, src, dst);
+                                    //gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
                                     //continue;
                                 }
                             }
@@ -28911,8 +28912,8 @@ namespace IceBlink2
                             if (drawChallengeHidden && !p.isStealthed && !p.wasKilled)
                             {
                                 int shift = 0;
-                                Bitmap interactionStateIndicator = gv.cc.LoadBitmap("challengeHidden");
-                                src = new IbRect(0, 0, interactionStateIndicator.PixelSize.Width, interactionStateIndicator.PixelSize.Height);
+                                //Bitmap interactionStateIndicator = gv.cc.LoadBitmap("challengeHidden");
+                                src = new IbRect(0, 0, gv.cc.challengeHidden.PixelSize.Width, gv.cc.challengeHidden.PixelSize.Height);
                                 IbRect dstSkull = new IbRect();
                                 dstSkull.Height = (int)(dst.Height / 2);
                                 dstSkull.Width = (int)(dst.Width / 2);
@@ -28920,29 +28921,30 @@ namespace IceBlink2
                                 dstSkull.Top = dst.Top - (int)(dst.Height / 3);
                                 shift = 1 * (int)(dst.Width / 4);
                                 dstSkull.Left += shift;
-                                gv.DrawBitmap(interactionStateIndicator, src, dstSkull);
-                                gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
+                                gv.DrawBitmap(gv.cc.challengeHidden, src, dstSkull);
+                                //gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
+
                             }
                             if (numberOfSkulls > 0 && !p.isStealthed && !p.wasKilled)
                             {
                                 int shift = 0;
-                                for (int i = 0; i < numberOfSkulls; i++)
+                                for (int i2 = 0; i2 < numberOfSkulls; i2++)
                                 {
 
-                                    Bitmap interactionStateIndicator = gv.cc.LoadBitmap("challengeSkull");
-                                    src = new IbRect(0, 0, interactionStateIndicator.PixelSize.Width, interactionStateIndicator.PixelSize.Height);
-                                    IbRect dstSkull = new IbRect(); 
+                                    //Bitmap interactionStateIndicator = gv.cc.LoadBitmap("challengeSkull");
+                                    src = new IbRect(0, 0, gv.cc.challengeSkull.PixelSize.Width, gv.cc.challengeSkull.PixelSize.Height);
+                                    IbRect dstSkull = new IbRect();
                                     dstSkull.Height = (int)(dst.Height / 3);
                                     dstSkull.Width = (int)(dst.Width / 3);
                                     dstSkull.Left = dst.Left;
-                                    dstSkull.Top = dst.Top - (int)(dst.Height / 3 / 2);
-                                    shift = i * (int)(dst.Width / 3);
+                                    dstSkull.Top = dst.Top - (int)(dst.Height / 3);
+                                    shift = i2 * (int)(dst.Width / 3);
                                     dstSkull.Left += shift;
-                                    gv.DrawBitmap(interactionStateIndicator, src, dstSkull);
-                                    gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
+                                    gv.DrawBitmap(gv.cc.challengeSkull, src, dstSkull);
+                                    //gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
                                 }
                             }
-                            
+
                         }
                     }
                 }
@@ -29401,28 +29403,28 @@ namespace IceBlink2
                                     {//6
                                         if (!p.EncounterWhenOnPartySquare.Equals("none"))
                                         {
-                                            Bitmap interactionStateIndicator = gv.cc.LoadBitmap("encounter_indicator");
-                                            src = new IbRect(0, 0, interactionStateIndicator.PixelSize.Width, interactionStateIndicator.PixelSize.Height);
-                                            gv.DrawBitmap(interactionStateIndicator, src, dst);
-                                            gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
+                                            //Bitmap interactionStateIndicator = gv.cc.LoadBitmap("encounter_indicator");
+                                            src = new IbRect(0, 0, gv.cc.encounter_indicator.PixelSize.Width, gv.cc.encounter_indicator.PixelSize.Height);
+                                            gv.DrawBitmap(gv.cc.encounter_indicator, src, dst);
+                                            //gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
                                             //continue;
                                         }
 
                                         else if (p.unavoidableConversation)
                                         {
-                                            Bitmap interactionStateIndicator = gv.cc.LoadBitmap("mandatory_conversation_indicator");
-                                            src = new IbRect(0, 0, interactionStateIndicator.PixelSize.Width, interactionStateIndicator.PixelSize.Height);
-                                            gv.DrawBitmap(interactionStateIndicator, src, dst);
-                                            gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
+                                            //Bitmap interactionStateIndicator = gv.cc.LoadBitmap("mandatory_conversation_indicator");
+                                            src = new IbRect(0, 0, gv.cc.mandatory_conversation_indicator.PixelSize.Width, gv.cc.mandatory_conversation_indicator.PixelSize.Height);
+                                            gv.DrawBitmap(gv.cc.mandatory_conversation_indicator, src, dst);
+                                            //gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
                                             //continue;
                                         }
 
                                         else if (!p.ConversationWhenOnPartySquare.Equals("none"))
                                         {
-                                            Bitmap interactionStateIndicator = gv.cc.LoadBitmap("optional_conversation_indicator");
-                                            src = new IbRect(0, 0, interactionStateIndicator.PixelSize.Width, interactionStateIndicator.PixelSize.Height);
-                                            gv.DrawBitmap(interactionStateIndicator, src, dst);
-                                            gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
+                                            //Bitmap interactionStateIndicator = gv.cc.LoadBitmap("optional_conversation_indicator");
+                                            src = new IbRect(0, 0, gv.cc.optional_conversation_indicator.PixelSize.Width, gv.cc.optional_conversation_indicator.PixelSize.Height);
+                                            gv.DrawBitmap(gv.cc.optional_conversation_indicator, src, dst);
+                                            //gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
                                             //continue;
                                         }
                                     }//6
@@ -29477,8 +29479,8 @@ namespace IceBlink2
                                     if (drawChallengeHidden)
                                     {
                                         int shift = 0;
-                                        Bitmap interactionStateIndicator = gv.cc.LoadBitmap("challengeHidden");
-                                        src = new IbRect(0, 0, interactionStateIndicator.PixelSize.Width, interactionStateIndicator.PixelSize.Height);
+                                        //Bitmap interactionStateIndicator = gv.cc.LoadBitmap("challengeHidden");
+                                        src = new IbRect(0, 0, gv.cc.challengeHidden.PixelSize.Width, gv.cc.challengeHidden.PixelSize.Height);
                                         IbRect dstSkull = new IbRect();
                                         dstSkull.Height = (int)(dst.Height / 2);
                                         dstSkull.Width = (int)(dst.Width / 2);
@@ -29486,26 +29488,27 @@ namespace IceBlink2
                                         dstSkull.Top = dst.Top - (int)(dst.Height / 3);
                                         shift = 1 * (int)(dst.Width / 4);
                                         dstSkull.Left += shift;
-                                        gv.DrawBitmap(interactionStateIndicator, src, dstSkull);
-                                        gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
+                                        gv.DrawBitmap(gv.cc.challengeHidden, src, dstSkull);
+                                        //gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
+
                                     }
-                                    if (numberOfSkulls > 0)
+                                    if (numberOfSkulls >0)
                                     {
                                         int shift = 0;
                                         for (int i2 = 0; i2 < numberOfSkulls; i2++)
                                         {
 
-                                            Bitmap interactionStateIndicator = gv.cc.LoadBitmap("challengeSkull");
-                                            src = new IbRect(0, 0, interactionStateIndicator.PixelSize.Width, interactionStateIndicator.PixelSize.Height);
+                                            //Bitmap interactionStateIndicator = gv.cc.LoadBitmap("challengeSkull");
+                                            src = new IbRect(0, 0, gv.cc.challengeSkull.PixelSize.Width, gv.cc.challengeSkull.PixelSize.Height);
                                             IbRect dstSkull = new IbRect();
                                             dstSkull.Height = (int)(dst.Height / 3);
                                             dstSkull.Width = (int)(dst.Width / 3);
                                             dstSkull.Left = dst.Left;
-                                            dstSkull.Top = dst.Top - (int)(dst.Height / 3 / 2);
+                                            dstSkull.Top = dst.Top - (int)(dst.Height / 3);
                                             shift = i2 * (int)(dst.Width / 3);
                                             dstSkull.Left += shift;
-                                            gv.DrawBitmap(interactionStateIndicator, src, dstSkull);
-                                            gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
+                                            gv.DrawBitmap(gv.cc.challengeSkull, src, dstSkull);
+                                            //gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
                                         }
                                     }
                                 }//5
@@ -29570,28 +29573,28 @@ namespace IceBlink2
                                 {//6
                                     if (!p.EncounterWhenOnPartySquare.Equals("none"))
                                     {
-                                        Bitmap interactionStateIndicator = gv.cc.LoadBitmap("encounter_indicator");
-                                        src = new IbRect(0, 0, interactionStateIndicator.PixelSize.Width, interactionStateIndicator.PixelSize.Height);
-                                        gv.DrawBitmap(interactionStateIndicator, src, dst);
-                                        gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
+                                        //Bitmap interactionStateIndicator = gv.cc.LoadBitmap("encounter_indicator");
+                                        src = new IbRect(0, 0, gv.cc.encounter_indicator.PixelSize.Width, gv.cc.encounter_indicator.PixelSize.Height);
+                                        gv.DrawBitmap(gv.cc.encounter_indicator, src, dst);
+                                        //gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
                                         //continue;
                                     }
 
                                     else if (p.unavoidableConversation)
                                     {
-                                        Bitmap interactionStateIndicator = gv.cc.LoadBitmap("mandatory_conversation_indicator");
-                                        src = new IbRect(0, 0, interactionStateIndicator.PixelSize.Width, interactionStateIndicator.PixelSize.Height);
-                                        gv.DrawBitmap(interactionStateIndicator, src, dst);
-                                        gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
+                                        //Bitmap interactionStateIndicator = gv.cc.LoadBitmap("mandatory_conversation_indicator");
+                                        src = new IbRect(0, 0, gv.cc.mandatory_conversation_indicator.PixelSize.Width, gv.cc.mandatory_conversation_indicator.PixelSize.Height);
+                                        gv.DrawBitmap(gv.cc.mandatory_conversation_indicator, src, dst);
+                                        //gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
                                         //continue;
                                     }
 
                                     else if (!p.ConversationWhenOnPartySquare.Equals("none"))
                                     {
-                                        Bitmap interactionStateIndicator = gv.cc.LoadBitmap("optional_conversation_indicator");
-                                        src = new IbRect(0, 0, interactionStateIndicator.PixelSize.Width, interactionStateIndicator.PixelSize.Height);
-                                        gv.DrawBitmap(interactionStateIndicator, src, dst);
-                                        gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
+                                        //Bitmap interactionStateIndicator = gv.cc.LoadBitmap("optional_conversation_indicator");
+                                        src = new IbRect(0, 0, gv.cc.optional_conversation_indicator.PixelSize.Width, gv.cc.optional_conversation_indicator.PixelSize.Height);
+                                        gv.DrawBitmap(gv.cc.optional_conversation_indicator, src, dst);
+                                        //gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
                                         //continue;
                                     }
                                 }//6
@@ -29646,8 +29649,8 @@ namespace IceBlink2
                                 if (drawChallengeHidden)
                                 {
                                     int shift = 0;
-                                    Bitmap interactionStateIndicator = gv.cc.LoadBitmap("challengeHidden");
-                                    src = new IbRect(0, 0, interactionStateIndicator.PixelSize.Width, interactionStateIndicator.PixelSize.Height);
+                                    //Bitmap interactionStateIndicator = gv.cc.LoadBitmap("challengeHidden");
+                                    src = new IbRect(0, 0, gv.cc.challengeHidden.PixelSize.Width, gv.cc.challengeHidden.PixelSize.Height);
                                     IbRect dstSkull = new IbRect();
                                     dstSkull.Height = (int)(dst.Height / 2);
                                     dstSkull.Width = (int)(dst.Width / 2);
@@ -29655,8 +29658,9 @@ namespace IceBlink2
                                     dstSkull.Top = dst.Top - (int)(dst.Height / 3);
                                     shift = 1 * (int)(dst.Width / 4);
                                     dstSkull.Left += shift;
-                                    gv.DrawBitmap(interactionStateIndicator, src, dstSkull);
-                                    gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
+                                    gv.DrawBitmap(gv.cc.challengeHidden, src, dstSkull);
+                                    //gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
+
                                 }
                                 if (numberOfSkulls > 0)
                                 {
@@ -29664,17 +29668,17 @@ namespace IceBlink2
                                     for (int i2 = 0; i2 < numberOfSkulls; i2++)
                                     {
 
-                                        Bitmap interactionStateIndicator = gv.cc.LoadBitmap("challengeSkull");
-                                        src = new IbRect(0, 0, interactionStateIndicator.PixelSize.Width, interactionStateIndicator.PixelSize.Height);
+                                        //Bitmap interactionStateIndicator = gv.cc.LoadBitmap("challengeSkull");
+                                        src = new IbRect(0, 0, gv.cc.challengeSkull.PixelSize.Width, gv.cc.challengeSkull.PixelSize.Height);
                                         IbRect dstSkull = new IbRect();
                                         dstSkull.Height = (int)(dst.Height / 3);
                                         dstSkull.Width = (int)(dst.Width / 3);
                                         dstSkull.Left = dst.Left;
-                                        dstSkull.Top = dst.Top - (int)(dst.Height / 3 / 2);
+                                        dstSkull.Top = dst.Top - (int)(dst.Height / 3);
                                         shift = i2 * (int)(dst.Width / 3);
                                         dstSkull.Left += shift;
-                                        gv.DrawBitmap(interactionStateIndicator, src, dstSkull);
-                                        gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
+                                        gv.DrawBitmap(gv.cc.challengeSkull, src, dstSkull);
+                                        //gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
                                     }
                                 }
                             }//5
@@ -29727,28 +29731,28 @@ namespace IceBlink2
                                 {
                                     if (!p.EncounterWhenOnPartySquare.Equals("none"))
                                     {
-                                        Bitmap interactionStateIndicator = gv.cc.LoadBitmap("encounter_indicator");
-                                        src = new IbRect(0, 0, interactionStateIndicator.PixelSize.Width, interactionStateIndicator.PixelSize.Height);
-                                        gv.DrawBitmap(interactionStateIndicator, src, dst);
-                                        gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
+                                        //Bitmap interactionStateIndicator = gv.cc.LoadBitmap("encounter_indicator");
+                                        src = new IbRect(0, 0, gv.cc.encounter_indicator.PixelSize.Width, gv.cc.encounter_indicator.PixelSize.Height);
+                                        gv.DrawBitmap(gv.cc.encounter_indicator, src, dst);
+                                        //gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
                                         //continue;
                                     }
 
                                     else if (p.unavoidableConversation)
                                     {
-                                        Bitmap interactionStateIndicator = gv.cc.LoadBitmap("mandatory_conversation_indicator");
-                                        src = new IbRect(0, 0, interactionStateIndicator.PixelSize.Width, interactionStateIndicator.PixelSize.Height);
-                                        gv.DrawBitmap(interactionStateIndicator, src, dst);
-                                        gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
+                                        //Bitmap interactionStateIndicator = gv.cc.LoadBitmap("mandatory_conversation_indicator");
+                                        src = new IbRect(0, 0, gv.cc.mandatory_conversation_indicator.PixelSize.Width, gv.cc.mandatory_conversation_indicator.PixelSize.Height);
+                                        gv.DrawBitmap(gv.cc.mandatory_conversation_indicator, src, dst);
+                                        //gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
                                         //continue;
                                     }
 
                                     else if (!p.ConversationWhenOnPartySquare.Equals("none"))
                                     {
-                                        Bitmap interactionStateIndicator = gv.cc.LoadBitmap("optional_conversation_indicator");
-                                        src = new IbRect(0, 0, interactionStateIndicator.PixelSize.Width, interactionStateIndicator.PixelSize.Height);
-                                        gv.DrawBitmap(interactionStateIndicator, src, dst);
-                                        gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
+                                        //Bitmap interactionStateIndicator = gv.cc.LoadBitmap("optional_conversation_indicator");
+                                        src = new IbRect(0, 0, gv.cc.optional_conversation_indicator.PixelSize.Width, gv.cc.optional_conversation_indicator.PixelSize.Height);
+                                        gv.DrawBitmap(gv.cc.optional_conversation_indicator, src, dst);
+                                        //gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
                                         //continue;
                                     }
                                 }
@@ -30002,28 +30006,28 @@ namespace IceBlink2
                                 {
                                     if (!p.EncounterWhenOnPartySquare.Equals("none"))
                                     {
-                                        Bitmap interactionStateIndicator = gv.cc.LoadBitmap("encounter_indicator");
-                                        src = new IbRect(0, 0, interactionStateIndicator.PixelSize.Width, interactionStateIndicator.PixelSize.Height);
-                                        gv.DrawBitmap(interactionStateIndicator, src, dst);
-                                        gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
+                                        //Bitmap interactionStateIndicator = gv.cc.LoadBitmap("encounter_indicator");
+                                        src = new IbRect(0, 0, gv.cc.encounter_indicator.PixelSize.Width, gv.cc.encounter_indicator.PixelSize.Height);
+                                        gv.DrawBitmap(gv.cc.encounter_indicator, src, dst);
+                                        //gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
                                         //continue;
                                     }
 
                                     else if (p.unavoidableConversation)
                                     {
-                                        Bitmap interactionStateIndicator = gv.cc.LoadBitmap("mandatory_conversation_indicator");
-                                        src = new IbRect(0, 0, interactionStateIndicator.PixelSize.Width, interactionStateIndicator.PixelSize.Height);
-                                        gv.DrawBitmap(interactionStateIndicator, src, dst);
-                                        gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
+                                        //Bitmap interactionStateIndicator = gv.cc.LoadBitmap("mandatory_conversation_indicator");
+                                        src = new IbRect(0, 0, gv.cc.mandatory_conversation_indicator.PixelSize.Width, gv.cc.mandatory_conversation_indicator.PixelSize.Height);
+                                        gv.DrawBitmap(gv.cc.mandatory_conversation_indicator, src, dst);
+                                        //gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
                                         //continue;
                                     }
 
                                     else if (!p.ConversationWhenOnPartySquare.Equals("none"))
                                     {
-                                        Bitmap interactionStateIndicator = gv.cc.LoadBitmap("optional_conversation_indicator");
-                                        src = new IbRect(0, 0, interactionStateIndicator.PixelSize.Width, interactionStateIndicator.PixelSize.Height);
-                                        gv.DrawBitmap(interactionStateIndicator, src, dst);
-                                        gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
+                                        //Bitmap interactionStateIndicator = gv.cc.LoadBitmap("optional_conversation_indicator");
+                                        src = new IbRect(0, 0, gv.cc.optional_conversation_indicator.PixelSize.Width, gv.cc.optional_conversation_indicator.PixelSize.Height);
+                                        gv.DrawBitmap(gv.cc.optional_conversation_indicator, src, dst);
+                                        //gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
                                         //continue;
                                     }
                                 }
@@ -30092,8 +30096,8 @@ namespace IceBlink2
                                 if (drawChallengeHidden && !p.isStealthed && !p.wasKilled)
                                 {
                                     int shift = 0;
-                                    Bitmap interactionStateIndicator = gv.cc.LoadBitmap("challengeHidden");
-                                    src = new IbRect(0, 0, interactionStateIndicator.PixelSize.Width, interactionStateIndicator.PixelSize.Height);
+                                    //Bitmap interactionStateIndicator = gv.cc.LoadBitmap("challengeHidden");
+                                    src = new IbRect(0, 0, gv.cc.challengeHidden.PixelSize.Width, gv.cc.challengeHidden.PixelSize.Height);
                                     IbRect dstSkull = new IbRect();
                                     dstSkull.Height = (int)(dst.Height / 2);
                                     dstSkull.Width = (int)(dst.Width / 2);
@@ -30101,29 +30105,30 @@ namespace IceBlink2
                                     dstSkull.Top = dst.Top - (int)(dst.Height / 3);
                                     shift = 1 * (int)(dst.Width / 4);
                                     dstSkull.Left += shift;
-                                    gv.DrawBitmap(interactionStateIndicator, src, dstSkull);
-                                    gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
+                                    gv.DrawBitmap(gv.cc.challengeHidden, src, dstSkull);
+                                    //gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
+
                                 }
                                 if (numberOfSkulls > 0 && !p.isStealthed && !p.wasKilled)
+                                {
+                                    int shift = 0;
+                                    for (int i2 = 0; i2 < numberOfSkulls; i2++)
                                     {
-                                        int shift = 0;
-                                        for (int i = 0; i < numberOfSkulls; i++)
-                                        {
 
-                                            Bitmap interactionStateIndicator = gv.cc.LoadBitmap("challengeSkull");
-                                            src = new IbRect(0, 0, interactionStateIndicator.PixelSize.Width, interactionStateIndicator.PixelSize.Height);
-                                            IbRect dstSkull = new IbRect();
-                                            dstSkull.Height = (int)(dst.Height / 3);
-                                            dstSkull.Width = (int)(dst.Width / 3);
-                                            dstSkull.Left = dst.Left;
-                                            dstSkull.Top = dst.Top - (int)(dst.Height / 3 / 2);
-                                            shift = i * (int)(dst.Width / 3);
-                                            dstSkull.Left += shift;
-                                            gv.DrawBitmap(interactionStateIndicator, src, dstSkull);
-                                            gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
-                                        }
+                                        //Bitmap interactionStateIndicator = gv.cc.LoadBitmap("challengeSkull");
+                                        src = new IbRect(0, 0, gv.cc.challengeSkull.PixelSize.Width, gv.cc.challengeSkull.PixelSize.Height);
+                                        IbRect dstSkull = new IbRect();
+                                        dstSkull.Height = (int)(dst.Height / 3);
+                                        dstSkull.Width = (int)(dst.Width / 3);
+                                        dstSkull.Left = dst.Left;
+                                        dstSkull.Top = dst.Top - (int)(dst.Height / 3);
+                                        shift = i2 * (int)(dst.Width / 3);
+                                        dstSkull.Left += shift;
+                                        gv.DrawBitmap(gv.cc.challengeSkull, src, dstSkull);
+                                        //gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
                                     }
-                                
+                                }
+
                             }
 
                         }
@@ -30190,28 +30195,28 @@ namespace IceBlink2
                             {
                                 if (!p.EncounterWhenOnPartySquare.Equals("none"))
                                 {
-                                    Bitmap interactionStateIndicator = gv.cc.LoadBitmap("encounter_indicator");
-                                    src = new IbRect(0, 0, interactionStateIndicator.PixelSize.Width, interactionStateIndicator.PixelSize.Height);
-                                    gv.DrawBitmap(interactionStateIndicator, src, dst);
-                                    gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
+                                    //Bitmap interactionStateIndicator = gv.cc.LoadBitmap("encounter_indicator");
+                                    src = new IbRect(0, 0, gv.cc.encounter_indicator.PixelSize.Width, gv.cc.encounter_indicator.PixelSize.Height);
+                                    gv.DrawBitmap(gv.cc.encounter_indicator, src, dst);
+                                    //gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
                                     //continue;
                                 }
 
                                 else if (p.unavoidableConversation)
                                 {
-                                    Bitmap interactionStateIndicator = gv.cc.LoadBitmap("mandatory_conversation_indicator");
-                                    src = new IbRect(0, 0, interactionStateIndicator.PixelSize.Width, interactionStateIndicator.PixelSize.Height);
-                                    gv.DrawBitmap(interactionStateIndicator, src, dst);
-                                    gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
+                                    //Bitmap interactionStateIndicator = gv.cc.LoadBitmap("mandatory_conversation_indicator");
+                                    src = new IbRect(0, 0, gv.cc.mandatory_conversation_indicator.PixelSize.Width, gv.cc.mandatory_conversation_indicator.PixelSize.Height);
+                                    gv.DrawBitmap(gv.cc.mandatory_conversation_indicator, src, dst);
+                                    //gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
                                     //continue;
                                 }
 
                                 else if (!p.ConversationWhenOnPartySquare.Equals("none"))
                                 {
-                                    Bitmap interactionStateIndicator = gv.cc.LoadBitmap("optional_conversation_indicator");
-                                    src = new IbRect(0, 0, interactionStateIndicator.PixelSize.Width, interactionStateIndicator.PixelSize.Height);
-                                    gv.DrawBitmap(interactionStateIndicator, src, dst);
-                                    gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
+                                    //Bitmap interactionStateIndicator = gv.cc.LoadBitmap("optional_conversation_indicator");
+                                    src = new IbRect(0, 0, gv.cc.optional_conversation_indicator.PixelSize.Width, gv.cc.optional_conversation_indicator.PixelSize.Height);
+                                    gv.DrawBitmap(gv.cc.optional_conversation_indicator, src, dst);
+                                    //gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
                                     //continue;
                                 }
                             }
@@ -30279,8 +30284,8 @@ namespace IceBlink2
                             if (drawChallengeHidden && !p.isStealthed && !p.wasKilled)
                             {
                                 int shift = 0;
-                                Bitmap interactionStateIndicator = gv.cc.LoadBitmap("challengeHidden");
-                                src = new IbRect(0, 0, interactionStateIndicator.PixelSize.Width, interactionStateIndicator.PixelSize.Height);
+                                //Bitmap interactionStateIndicator = gv.cc.LoadBitmap("challengeHidden");
+                                src = new IbRect(0, 0, gv.cc.challengeHidden.PixelSize.Width, gv.cc.challengeHidden.PixelSize.Height);
                                 IbRect dstSkull = new IbRect();
                                 dstSkull.Height = (int)(dst.Height / 2);
                                 dstSkull.Width = (int)(dst.Width / 2);
@@ -30288,8 +30293,9 @@ namespace IceBlink2
                                 dstSkull.Top = dst.Top - (int)(dst.Height / 3);
                                 shift = 1 * (int)(dst.Width / 4);
                                 dstSkull.Left += shift;
-                                gv.DrawBitmap(interactionStateIndicator, src, dstSkull);
-                                gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
+                                gv.DrawBitmap(gv.cc.challengeHidden, src, dstSkull);
+                                //gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
+
                             }
                             if (numberOfSkulls > 0 && !p.isStealthed && !p.wasKilled)
                             {
@@ -30297,17 +30303,17 @@ namespace IceBlink2
                                 for (int i2 = 0; i2 < numberOfSkulls; i2++)
                                 {
 
-                                    Bitmap interactionStateIndicator = gv.cc.LoadBitmap("challengeSkull");
-                                    src = new IbRect(0, 0, interactionStateIndicator.PixelSize.Width, interactionStateIndicator.PixelSize.Height);
+                                    //Bitmap interactionStateIndicator = gv.cc.LoadBitmap("challengeSkull");
+                                    src = new IbRect(0, 0, gv.cc.challengeSkull.PixelSize.Width, gv.cc.challengeSkull.PixelSize.Height);
                                     IbRect dstSkull = new IbRect();
                                     dstSkull.Height = (int)(dst.Height / 3);
                                     dstSkull.Width = (int)(dst.Width / 3);
                                     dstSkull.Left = dst.Left;
-                                    dstSkull.Top = dst.Top - (int)(dst.Height / 3 / 2);
+                                    dstSkull.Top = dst.Top - (int)(dst.Height / 3);
                                     shift = i2 * (int)(dst.Width / 3);
                                     dstSkull.Left += shift;
-                                    gv.DrawBitmap(interactionStateIndicator, src, dstSkull);
-                                    gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
+                                    gv.DrawBitmap(gv.cc.challengeSkull, src, dstSkull);
+                                    //gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
                                 }
                             }
                         }
@@ -30584,28 +30590,28 @@ namespace IceBlink2
                                 {
                                     if (!p.EncounterWhenOnPartySquare.Equals("none"))
                                     {
-                                        Bitmap interactionStateIndicator = gv.cc.LoadBitmap("encounter_indicator");
-                                        src = new IbRect(0, 0, interactionStateIndicator.PixelSize.Width, interactionStateIndicator.PixelSize.Height);
-                                        gv.DrawBitmap(interactionStateIndicator, src, dst);
-                                        gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
+                                        //Bitmap interactionStateIndicator = gv.cc.LoadBitmap("encounter_indicator");
+                                        src = new IbRect(0, 0, gv.cc.encounter_indicator.PixelSize.Width, gv.cc.encounter_indicator.PixelSize.Height);
+                                        gv.DrawBitmap(gv.cc.encounter_indicator, src, dst);
+                                        //gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
                                         //continue;
                                     }
 
                                     else if (p.unavoidableConversation)
                                     {
-                                        Bitmap interactionStateIndicator = gv.cc.LoadBitmap("mandatory_conversation_indicator");
-                                        src = new IbRect(0, 0, interactionStateIndicator.PixelSize.Width, interactionStateIndicator.PixelSize.Height);
-                                        gv.DrawBitmap(interactionStateIndicator, src, dst);
-                                        gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
+                                        //Bitmap interactionStateIndicator = gv.cc.LoadBitmap("mandatory_conversation_indicator");
+                                        src = new IbRect(0, 0, gv.cc.mandatory_conversation_indicator.PixelSize.Width, gv.cc.mandatory_conversation_indicator.PixelSize.Height);
+                                        gv.DrawBitmap(gv.cc.mandatory_conversation_indicator, src, dst);
+                                        //gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
                                         //continue;
                                     }
 
                                     else if (!p.ConversationWhenOnPartySquare.Equals("none"))
                                     {
-                                        Bitmap interactionStateIndicator = gv.cc.LoadBitmap("optional_conversation_indicator");
-                                        src = new IbRect(0, 0, interactionStateIndicator.PixelSize.Width, interactionStateIndicator.PixelSize.Height);
-                                        gv.DrawBitmap(interactionStateIndicator, src, dst);
-                                        gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
+                                        //Bitmap interactionStateIndicator = gv.cc.LoadBitmap("optional_conversation_indicator");
+                                        src = new IbRect(0, 0, gv.cc.optional_conversation_indicator.PixelSize.Width, gv.cc.optional_conversation_indicator.PixelSize.Height);
+                                        gv.DrawBitmap(gv.cc.optional_conversation_indicator, src, dst);
+                                        //gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
                                         //continue;
                                     }
                                 }
@@ -30660,8 +30666,8 @@ namespace IceBlink2
                                 if (drawChallengeHidden && !p.isStealthed && !p.wasKilled)
                                 {
                                     int shift = 0;
-                                    Bitmap interactionStateIndicator = gv.cc.LoadBitmap("challengeHidden");
-                                    src = new IbRect(0, 0, interactionStateIndicator.PixelSize.Width, interactionStateIndicator.PixelSize.Height);
+                                    //Bitmap interactionStateIndicator = gv.cc.LoadBitmap("challengeHidden");
+                                    src = new IbRect(0, 0, gv.cc.challengeHidden.PixelSize.Width, gv.cc.challengeHidden.PixelSize.Height);
                                     IbRect dstSkull = new IbRect();
                                     dstSkull.Height = (int)(dst.Height / 2);
                                     dstSkull.Width = (int)(dst.Width / 2);
@@ -30669,8 +30675,9 @@ namespace IceBlink2
                                     dstSkull.Top = dst.Top - (int)(dst.Height / 3);
                                     shift = 1 * (int)(dst.Width / 4);
                                     dstSkull.Left += shift;
-                                    gv.DrawBitmap(interactionStateIndicator, src, dstSkull);
-                                    gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
+                                    gv.DrawBitmap(gv.cc.challengeHidden, src, dstSkull);
+                                    //gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
+
                                 }
                                 if (numberOfSkulls > 0 && !p.isStealthed && !p.wasKilled)
                                 {
@@ -30678,17 +30685,17 @@ namespace IceBlink2
                                     for (int i2 = 0; i2 < numberOfSkulls; i2++)
                                     {
 
-                                        Bitmap interactionStateIndicator = gv.cc.LoadBitmap("challengeSkull");
-                                        src = new IbRect(0, 0, interactionStateIndicator.PixelSize.Width, interactionStateIndicator.PixelSize.Height);
+                                        //Bitmap interactionStateIndicator = gv.cc.LoadBitmap("challengeSkull");
+                                        src = new IbRect(0, 0, gv.cc.challengeSkull.PixelSize.Width, gv.cc.challengeSkull.PixelSize.Height);
                                         IbRect dstSkull = new IbRect();
                                         dstSkull.Height = (int)(dst.Height / 3);
                                         dstSkull.Width = (int)(dst.Width / 3);
                                         dstSkull.Left = dst.Left;
-                                        dstSkull.Top = dst.Top - (int)(dst.Height / 3 / 2);
+                                        dstSkull.Top = dst.Top - (int)(dst.Height / 3);
                                         shift = i2 * (int)(dst.Width / 3);
                                         dstSkull.Left += shift;
-                                        gv.DrawBitmap(interactionStateIndicator, src, dstSkull);
-                                        gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
+                                        gv.DrawBitmap(gv.cc.challengeSkull, src, dstSkull);
+                                        //gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
                                     }
                                 }
                             }
@@ -30757,28 +30764,28 @@ namespace IceBlink2
                             {
                                 if (!p.EncounterWhenOnPartySquare.Equals("none"))
                                 {
-                                    Bitmap interactionStateIndicator = gv.cc.LoadBitmap("encounter_indicator");
-                                    src = new IbRect(0, 0, interactionStateIndicator.PixelSize.Width, interactionStateIndicator.PixelSize.Height);
-                                    gv.DrawBitmap(interactionStateIndicator, src, dst);
-                                    gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
+                                    //Bitmap interactionStateIndicator = gv.cc.LoadBitmap("encounter_indicator");
+                                    src = new IbRect(0, 0, gv.cc.encounter_indicator.PixelSize.Width, gv.cc.encounter_indicator.PixelSize.Height);
+                                    gv.DrawBitmap(gv.cc.encounter_indicator, src, dst);
+                                    //gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
                                     //continue;
                                 }
 
                                 else if (p.unavoidableConversation)
                                 {
-                                    Bitmap interactionStateIndicator = gv.cc.LoadBitmap("mandatory_conversation_indicator");
-                                    src = new IbRect(0, 0, interactionStateIndicator.PixelSize.Width, interactionStateIndicator.PixelSize.Height);
-                                    gv.DrawBitmap(interactionStateIndicator, src, dst);
-                                    gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
+                                    //Bitmap interactionStateIndicator = gv.cc.LoadBitmap("mandatory_conversation_indicator");
+                                    src = new IbRect(0, 0, gv.cc.mandatory_conversation_indicator.PixelSize.Width, gv.cc.mandatory_conversation_indicator.PixelSize.Height);
+                                    gv.DrawBitmap(gv.cc.mandatory_conversation_indicator, src, dst);
+                                    //gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
                                     //continue;
                                 }
 
                                 else if (!p.ConversationWhenOnPartySquare.Equals("none"))
                                 {
-                                    Bitmap interactionStateIndicator = gv.cc.LoadBitmap("optional_conversation_indicator");
-                                    src = new IbRect(0, 0, interactionStateIndicator.PixelSize.Width, interactionStateIndicator.PixelSize.Height);
-                                    gv.DrawBitmap(interactionStateIndicator, src, dst);
-                                    gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
+                                    //Bitmap interactionStateIndicator = gv.cc.LoadBitmap("optional_conversation_indicator");
+                                    src = new IbRect(0, 0, gv.cc.optional_conversation_indicator.PixelSize.Width, gv.cc.optional_conversation_indicator.PixelSize.Height);
+                                    gv.DrawBitmap(gv.cc.optional_conversation_indicator, src, dst);
+                                    //gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
                                     //continue;
                                 }
                             }
@@ -30834,8 +30841,8 @@ namespace IceBlink2
                             if (drawChallengeHidden && !p.isStealthed && !p.wasKilled)
                             {
                                 int shift = 0;
-                                Bitmap interactionStateIndicator = gv.cc.LoadBitmap("challengeHidden");
-                                src = new IbRect(0, 0, interactionStateIndicator.PixelSize.Width, interactionStateIndicator.PixelSize.Height);
+                                //Bitmap interactionStateIndicator = gv.cc.LoadBitmap("challengeHidden");
+                                src = new IbRect(0, 0, gv.cc.challengeHidden.PixelSize.Width, gv.cc.challengeHidden.PixelSize.Height);
                                 IbRect dstSkull = new IbRect();
                                 dstSkull.Height = (int)(dst.Height / 2);
                                 dstSkull.Width = (int)(dst.Width / 2);
@@ -30843,27 +30850,27 @@ namespace IceBlink2
                                 dstSkull.Top = dst.Top - (int)(dst.Height / 3);
                                 shift = 1 * (int)(dst.Width / 4);
                                 dstSkull.Left += shift;
-                                gv.DrawBitmap(interactionStateIndicator, src, dstSkull);
-                                gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
-                            }
+                                gv.DrawBitmap(gv.cc.challengeHidden, src, dstSkull);
+                                //gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
 
+                            }
                             if (numberOfSkulls > 0 && !p.isStealthed && !p.wasKilled)
                             {
                                 int shift = 0;
                                 for (int i2 = 0; i2 < numberOfSkulls; i2++)
                                 {
 
-                                    Bitmap interactionStateIndicator = gv.cc.LoadBitmap("challengeSkull");
-                                    src = new IbRect(0, 0, interactionStateIndicator.PixelSize.Width, interactionStateIndicator.PixelSize.Height);
+                                    //Bitmap interactionStateIndicator = gv.cc.LoadBitmap("challengeSkull");
+                                    src = new IbRect(0, 0, gv.cc.challengeSkull.PixelSize.Width, gv.cc.challengeSkull.PixelSize.Height);
                                     IbRect dstSkull = new IbRect();
                                     dstSkull.Height = (int)(dst.Height / 3);
                                     dstSkull.Width = (int)(dst.Width / 3);
                                     dstSkull.Left = dst.Left;
-                                    dstSkull.Top = dst.Top - (int)(dst.Height / 3 / 2);
+                                    dstSkull.Top = dst.Top - (int)(dst.Height / 3);
                                     shift = i2 * (int)(dst.Width / 3);
                                     dstSkull.Left += shift;
-                                    gv.DrawBitmap(interactionStateIndicator, src, dstSkull);
-                                    gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
+                                    gv.DrawBitmap(gv.cc.challengeSkull, src, dstSkull);
+                                    //gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
                                 }
                             }
                         }
@@ -31593,6 +31600,19 @@ namespace IceBlink2
                 }
 
                 gv.DrawTextCenter(gv.cc.floatyText4, new IbRect(gv.cc.floatyTextLoc.X + gv.oXshift + mapStartLocXinPixels - (int)(gv.squareSize * 0.75f), gv.cc.floatyTextLoc.Y + txtH * 3, (int)(gv.squareSize * 2.5f), 1000), 0.8f, Color.Yellow);
+            }
+
+            if (gv.cc.floatyText0 != "none" && gv.cc.floatyText0 != "")
+            {
+                for (int x = -2; x <= 2; x++)
+                {
+                    for (int y = -2; y <= 2; y++)
+                    {
+                        gv.DrawTextCenter(gv.cc.floatyText0, new IbRect(gv.cc.floatyTextLoc.X + x + gv.oXshift + mapStartLocXinPixels - (int)(gv.squareSize * 0.75f), gv.cc.floatyTextLoc.Y + y, (int)(gv.squareSize * 2.5f), 1000), 0.8f, Color.Black);
+                    }
+                }
+
+                gv.DrawTextCenter(gv.cc.floatyText0, new IbRect(gv.cc.floatyTextLoc.X + gv.oXshift + mapStartLocXinPixels - (int)(gv.squareSize * 0.75f), gv.cc.floatyTextLoc.Y, (int)(gv.squareSize * 2.5f), 1000), 0.8f, Color.Yellow);
             }
         }
         public void drawOverlayTints()
@@ -36070,11 +36090,12 @@ namespace IceBlink2
                     gv.cc.floatyText2 = "";
                     gv.cc.floatyText3 = "";
                     gv.cc.floatyText4 = "";
+                    gv.cc.floatyText0 = "";
 
                     //karmasutra: other areas
-                   
-                            //current area
-                        foreach (Prop p in gv.mod.currentArea.Props)
+
+                    //current area
+                    foreach (Prop p in gv.mod.currentArea.Props)
                         {
                         if (!p.isStealthed)
                         {
@@ -36117,34 +36138,174 @@ namespace IceBlink2
                                 if ((!p.MouseOverText.Equals("none")) && (gv.mod.currentArea.Tiles[actualY * gv.mod.currentArea.MapSizeX + actualX].Visible) && lightIsNoProblem)
                                 {
                                     gv.cc.floatyText = p.MouseOverText;
-                                    gv.cc.floatyTextLoc = new Coordinate(gridx * gv.squareSize, gridy * gv.squareSize);
-                                }
+                                    float floatyPushUp = 0;
 
-                                if (p.isMover && (gv.mod.currentArea.Tiles[actualY * gv.mod.currentArea.MapSizeX + actualX].Visible) && lightIsNoProblem)
-                                {
-                                    if (p.movementSpeed != -1)
+                                    if (gv.cc.floatyText.Length <= 20)
                                     {
-                                        gv.cc.floatyText2 = "Speed: " + p.movementSpeed.ToString();
+                                        floatyPushUp = 0.0f;
+                                    }
+                                    else if (gv.cc.floatyText.Length <= 35)
+                                    {
+                                        floatyPushUp = 0.0f;
+                                    }
+                                    else if (gv.cc.floatyText.Length <= 52)
+                                    {
+                                        floatyPushUp = 0.12f;
+                                    }
+                                    else if (gv.cc.floatyText.Length <= 70)
+                                    {
+                                        floatyPushUp = 0.3f;
+                                    }
+                                    else if (gv.cc.floatyText.Length <= 87)
+                                    {
+                                        floatyPushUp = 0.7f;
+                                    }
+                                    else if (gv.cc.floatyText.Length <= 105)
+                                    {
+                                        floatyPushUp = 1.0f;
+                                    }
+                                    else if (gv.cc.floatyText.Length <= 122)
+                                    {
+                                        floatyPushUp = 1.35f;
+                                    }
+                                    else if (gv.cc.floatyText.Length <= 140)
+                                    {
+                                        floatyPushUp = 1.5f;
+                                    }
+                                    else if (gv.cc.floatyText.Length <= 157)
+                                    {
+                                        floatyPushUp = 1.62f;
+                                    }
+                                    else if (gv.cc.floatyText.Length <= 175)
+                                    {
+                                        floatyPushUp = 1.75f;
                                     }
                                     else
                                     {
-                                        gv.cc.floatyText2 = "Slow mover";
+                                        floatyPushUp = 2.0f;
                                     }
-                                    gv.cc.floatyTextLoc = new Coordinate(gridx * gv.squareSize, gridy * gv.squareSize);
+                                    gv.cc.floatyTextLoc = new Coordinate(gridx * gv.squareSize, gridy * gv.squareSize - (int)(floatyPushUp * gv.squareSize));
                                 }
 
-                                if (p.stealth != -1 && (gv.mod.currentArea.Tiles[actualY * gv.mod.currentArea.MapSizeX + actualX].Visible) && lightIsNoProblem)
+                                if (p.EncounterWhenOnPartySquare != "none" && (gv.mod.currentArea.Tiles[actualY * gv.mod.currentArea.MapSizeX + actualX].Visible) && lightIsNoProblem)
                                 {
-
-                                    gv.cc.floatyText3 = "Stealth: " + (p.stealth-10).ToString();
-                                    gv.cc.floatyTextLoc = new Coordinate(gridx * gv.squareSize, gridy * gv.squareSize);
+                                    if (p.ingameShownEncName != "none")
+                                    {
+                                        gv.cc.floatyText0 = p.ingameShownEncName;
+                                        gv.cc.floatyTextLoc = new Coordinate(gridx * gv.squareSize, (int)((gridy - 1.2) * gv.squareSize));
+                                    }
                                 }
 
-                                if (p.spotEnemy != -1 && (gv.mod.currentArea.Tiles[actualY * gv.mod.currentArea.MapSizeX + actualX].Visible) && lightIsNoProblem)
+                                if (p.EncounterWhenOnPartySquare != "none" && (gv.mod.currentArea.Tiles[actualY * gv.mod.currentArea.MapSizeX + actualX].Visible) && lightIsNoProblem)
+                                {
+                                    if (p.isMover)
+                                    {
+                                        if (p.movementSpeed != -1)
+                                        {
+                                            //speed comparison
+                                            //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                                            int Move0Chance = 0;
+                                            int Move2Chance = 0;
+
+                                            int relativeSpeed = gv.mod.partySpeed - p.movementSpeed;
+
+                                            //prop is lightning fast (<= -13); Double:75% , None:0% 
+                                            if (relativeSpeed <= -13)
+                                            {
+                                                Move0Chance = 0;
+                                                Move2Chance = 75;
+                                            }
+                                            //prop is very fast (-8 til -12); Double:50% , None:5%
+                                            if (relativeSpeed <= -8 && relativeSpeed >= -12)
+                                            {
+                                                Move0Chance = 5;
+                                                Move2Chance = 50;
+                                            }
+                                            //prop is fast (-3 til -7); Double:30% , None:10%
+                                            if (relativeSpeed <= -3 && relativeSpeed >= -7)
+                                            {
+                                                Move0Chance = 10;
+                                                Move2Chance = 30;
+                                            }
+                                            //prop at default (-2 til +2); Double:15% , None:15%
+                                            if (relativeSpeed <= 2 && relativeSpeed >= -2)
+                                            {
+                                                Move0Chance = 15;
+                                                Move2Chance = 15;
+                                            }
+                                            //prop is slow (+3 til +7); Double:10% , None:30%
+                                            if (relativeSpeed <= 7 && relativeSpeed >= 3)
+                                            {
+                                                Move0Chance = 30;
+                                                Move2Chance = 10;
+                                            }
+                                            //prop is very slow (+8 til +12); Double:5% , None:50%
+                                            if (relativeSpeed <= 12 && relativeSpeed >= 8)
+                                            {
+                                                Move0Chance = 50;
+                                                Move2Chance = 5;
+                                            }
+                                            //prop is almost standing (>= +13); Double:0% , None:75%
+                                            if (relativeSpeed >= 13)
+                                            {
+                                                Move0Chance = 75;
+                                                Move2Chance = 0;
+                                            }
+
+                                            //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                                            gv.cc.floatyText2 = "Speed " + p.movementSpeed.ToString() + ", 0:" + Move0Chance.ToString() + "%, 2:" + Move2Chance.ToString() + "%";
+                                        }
+                                        else
+                                        {
+                                            //Move0Chance = 40;
+                                            //Move2Chance = 0;
+
+                                            gv.cc.floatyText2 = "Slow, 0:40%, 2:0%";
+                                        }
+                                        gv.cc.floatyTextLoc = new Coordinate(gridx * gv.squareSize, (int)((gridy - 1.2) * gv.squareSize));
+                                    }
+                                    else
+                                    {
+                                        gv.cc.floatyText2 = "Stationary";
+                                        gv.cc.floatyTextLoc = new Coordinate(gridx * gv.squareSize, (int)((gridy - 1.2) * gv.squareSize));
+
+                                    }
+                                }
+
+                                if ((gv.mod.currentArea.Tiles[actualY * gv.mod.currentArea.MapSizeX + actualX].Visible) && lightIsNoProblem && p.EncounterWhenOnPartySquare != "none")
                                 {
 
-                                    gv.cc.floatyText4 = "Spot: " + (p.spotEnemy-10).ToString();
-                                    gv.cc.floatyTextLoc = new Coordinate(gridx * gv.squareSize, gridy * gv.squareSize);
+                                    if (p.stealth != -1)
+                                    {
+                                        gv.cc.floatyText3 = "Stealth: " + (p.stealth - 10).ToString();
+                                    }
+                                    else
+                                    {
+                                        gv.cc.floatyText3 = "No Stealther";
+                                    }
+                                    gv.cc.floatyTextLoc = new Coordinate(gridx * gv.squareSize, (int) ((gridy - 1.2) * gv.squareSize));
+                                }
+
+                                if (p.EncounterWhenOnPartySquare != "none")
+                                {
+                                    if (p.isChaser && (gv.mod.currentArea.Tiles[actualY * gv.mod.currentArea.MapSizeX + actualX].Visible) && lightIsNoProblem)
+                                    {
+                                        if (p.spotEnemy != -1)
+                                        {
+                                            gv.cc.floatyText4 = "Chaser, Spot: " + (p.spotEnemy - 10).ToString();
+                                            gv.cc.floatyTextLoc = new Coordinate(gridx * gv.squareSize, (int) ((gridy - 1.2) * gv.squareSize));
+                                        }
+                                        else
+                                        {
+                                            gv.cc.floatyText4 = "Cannot be fooled";
+                                            gv.cc.floatyTextLoc = new Coordinate(gridx * gv.squareSize, (int) ((gridy - 1.2) * gv.squareSize));
+                                        }
+                                    }
+                                    else if (gv.mod.currentArea.Tiles[actualY * gv.mod.currentArea.MapSizeX + actualX].Visible && lightIsNoProblem)
+                                    {
+                                        gv.cc.floatyText4 = "No Chaser";
+                                        gv.cc.floatyTextLoc = new Coordinate(gridx * gv.squareSize, (int) ((gridy - 1.2) * gv.squareSize));
+                                    }
                                 }
                             }
                         }
@@ -36262,39 +36423,179 @@ namespace IceBlink2
                                             }
                                         }
 
-                                        if ((!p.MouseOverText.Equals("none")) && (a.Tiles[p.LocationY * a.MapSizeX + p.LocationX].Visible) && lightIsNoProblem)
-                                    {
-                                        gv.cc.floatyText = p.MouseOverText;
-                                        gv.cc.floatyTextLoc = new Coordinate(gridx * gv.squareSize, gridy * gv.squareSize);
-                                    }
-
-                                    if (p.isMover && (a.Tiles[p.LocationY * a.MapSizeX + p.LocationX].Visible) && lightIsNoProblem)
-                                    {
-                                        if (p.movementSpeed != -1)
+                                        if ((!p.MouseOverText.Equals("none")) && (a.Tiles[actualY * a.MapSizeX + actualX].Visible) && lightIsNoProblem)
                                         {
-                                            gv.cc.floatyText2 = "Speed: " + p.movementSpeed.ToString();
+                                            gv.cc.floatyText = p.MouseOverText;
+                                            float floatyPushUp = 0;
+
+                                            if (gv.cc.floatyText.Length <= 20)
+                                            {
+                                                floatyPushUp = 0.0f;
+                                            }
+                                            else if (gv.cc.floatyText.Length <= 35)
+                                            {
+                                                floatyPushUp = 0.0f;
+                                            }
+                                            else if (gv.cc.floatyText.Length <= 52)
+                                            {
+                                                floatyPushUp = 0.12f;
+                                            }
+                                            else if (gv.cc.floatyText.Length <= 70)
+                                            {
+                                                floatyPushUp = 0.3f;
+                                            }
+                                            else if (gv.cc.floatyText.Length <= 87)
+                                            {
+                                                floatyPushUp = 0.7f;
+                                            }
+                                            else if (gv.cc.floatyText.Length <= 105)
+                                            {
+                                                floatyPushUp = 1.0f;
+                                            }
+                                            else if (gv.cc.floatyText.Length <= 122)
+                                            {
+                                                floatyPushUp = 1.35f;
+                                            }
+                                            else if (gv.cc.floatyText.Length <= 140)
+                                            {
+                                                floatyPushUp = 1.5f;
+                                            }
+                                            else if (gv.cc.floatyText.Length <= 157)
+                                            {
+                                                floatyPushUp = 1.62f;
+                                            }
+                                            else if (gv.cc.floatyText.Length <= 175)
+                                            {
+                                                floatyPushUp = 1.75f;
+                                            }
+                                            else
+                                            {
+                                                floatyPushUp = 2.0f;
+                                            }
+                                            gv.cc.floatyTextLoc = new Coordinate(gridx * gv.squareSize, gridy * gv.squareSize - (int)(floatyPushUp * gv.squareSize));
                                         }
-                                        else
+
+                                        if (p.EncounterWhenOnPartySquare != "none" && (a.Tiles[actualY * a.MapSizeX + actualX].Visible) && lightIsNoProblem)
                                         {
-                                            gv.cc.floatyText2 = "Slow mover";
+                                            if (p.ingameShownEncName != "none")
+                                            {
+                                                gv.cc.floatyText0 = p.ingameShownEncName;
+                                                gv.cc.floatyTextLoc = new Coordinate(gridx * gv.squareSize, (int)((gridy - 1.2) * gv.squareSize));
+                                            }
                                         }
-                                        gv.cc.floatyTextLoc = new Coordinate(gridx * gv.squareSize, gridy * gv.squareSize);
+
+                                        if (p.EncounterWhenOnPartySquare != "none" && (a.Tiles[actualY * a.MapSizeX + actualX].Visible) && lightIsNoProblem)
+                                        {
+                                            if (p.isMover)
+                                            {
+                                                if (p.movementSpeed != -1)
+                                                {
+                                                    //speed comparison
+                                                    //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                                                    int Move0Chance = 0;
+                                                    int Move2Chance = 0;
+
+                                                    int relativeSpeed = gv.mod.partySpeed - p.movementSpeed;
+
+                                                    //prop is lightning fast (<= -13); Double:75% , None:0% 
+                                                    if (relativeSpeed <= -13)
+                                                    {
+                                                        Move0Chance = 0;
+                                                        Move2Chance = 75;
+                                                    }
+                                                    //prop is very fast (-8 til -12); Double:50% , None:5%
+                                                    if (relativeSpeed <= -8 && relativeSpeed >= -12)
+                                                    {
+                                                        Move0Chance = 5;
+                                                        Move2Chance = 50;
+                                                    }
+                                                    //prop is fast (-3 til -7); Double:30% , None:10%
+                                                    if (relativeSpeed <= -3 && relativeSpeed >= -7)
+                                                    {
+                                                        Move0Chance = 10;
+                                                        Move2Chance = 30;
+                                                    }
+                                                    //prop at default (-2 til +2); Double:15% , None:15%
+                                                    if (relativeSpeed <= 2 && relativeSpeed >= -2)
+                                                    {
+                                                        Move0Chance = 15;
+                                                        Move2Chance = 15;
+                                                    }
+                                                    //prop is slow (+3 til +7); Double:10% , None:30%
+                                                    if (relativeSpeed <= 7 && relativeSpeed >= 3)
+                                                    {
+                                                        Move0Chance = 30;
+                                                        Move2Chance = 10;
+                                                    }
+                                                    //prop is very slow (+8 til +12); Double:5% , None:50%
+                                                    if (relativeSpeed <= 12 && relativeSpeed >= 8)
+                                                    {
+                                                        Move0Chance = 50;
+                                                        Move2Chance = 5;
+                                                    }
+                                                    //prop is almost standing (>= +13); Double:0% , None:75%
+                                                    if (relativeSpeed >= 13)
+                                                    {
+                                                        Move0Chance = 75;
+                                                        Move2Chance = 0;
+                                                    }
+
+                                                    //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                                                    gv.cc.floatyText2 = "Speed " + p.movementSpeed.ToString() + ", 0:" + Move0Chance.ToString() + "%, 2:" + Move2Chance.ToString() + "%";
+                                                }
+                                                else
+                                                {
+                                                    //Move0Chance = 40;
+                                                    //Move2Chance = 0;
+
+                                                    gv.cc.floatyText2 = "Slow, 0:40%, 2:0%";
+                                                }
+                                                gv.cc.floatyTextLoc = new Coordinate(gridx * gv.squareSize, (int)((gridy - 1.2) * gv.squareSize));
+                                            }
+                                            else
+                                            {
+                                                gv.cc.floatyText2 = "Stationary";
+                                                gv.cc.floatyTextLoc = new Coordinate(gridx * gv.squareSize, (int)((gridy - 1.2) * gv.squareSize));
+
+                                            }
+                                        }
+
+                                        if ((a.Tiles[actualY * a.MapSizeX + actualX].Visible) && lightIsNoProblem && p.EncounterWhenOnPartySquare != "none")
+                                        {
+
+                                            if (p.stealth != -1)
+                                            {
+                                                gv.cc.floatyText3 = "Stealth: " + (p.stealth - 10).ToString();
+                                            }
+                                            else
+                                            {
+                                                gv.cc.floatyText3 = "No Stealther";
+                                            }
+                                            gv.cc.floatyTextLoc = new Coordinate(gridx * gv.squareSize, (int)((gridy - 1.2) * gv.squareSize));
+                                        }
+
+                                        if (p.EncounterWhenOnPartySquare != "none")
+                                        {
+                                            if (p.isChaser && (a.Tiles[actualY * gv.mod.currentArea.MapSizeX + actualX].Visible) && lightIsNoProblem)
+                                            {
+                                                if (p.spotEnemy != -1)
+                                                {
+                                                    gv.cc.floatyText4 = "Chaser, Spot: " + (p.spotEnemy - 10).ToString();
+                                                    gv.cc.floatyTextLoc = new Coordinate(gridx * gv.squareSize, (int)((gridy - 1.2) * gv.squareSize));
+                                                }
+                                                else
+                                                {
+                                                    gv.cc.floatyText4 = "Cannot be fooled";
+                                                    gv.cc.floatyTextLoc = new Coordinate(gridx * gv.squareSize, (int)((gridy - 1.2) * gv.squareSize));
+                                                }
+                                            }
+                                            else if (a.Tiles[actualY * a.MapSizeX + actualX].Visible && lightIsNoProblem)
+                                            {
+                                                gv.cc.floatyText4 = "No Chaser";
+                                                gv.cc.floatyTextLoc = new Coordinate(gridx * gv.squareSize, (int)((gridy - 1.2) * gv.squareSize));
+                                            }
+                                        }
                                     }
-
-                                    if (p.stealth != -1 && (a.Tiles[p.LocationY * a.MapSizeX + p.LocationX].Visible) && lightIsNoProblem)
-                                    {
-
-                                        gv.cc.floatyText3 = "Stealth: " + p.stealth.ToString();
-                                        gv.cc.floatyTextLoc = new Coordinate(gridx * gv.squareSize, gridy * gv.squareSize);
-                                    }
-
-                                    if (p.spotEnemy != -1 && (a.Tiles[p.LocationY * a.MapSizeX + p.LocationX].Visible) && lightIsNoProblem)
-                                    {
-
-                                        gv.cc.floatyText4 = "Spot: " + p.spotEnemy.ToString();
-                                        gv.cc.floatyTextLoc = new Coordinate(gridx * gv.squareSize, gridy * gv.squareSize);
-                                    }
-                                }
                             }
                                 }
                             }

@@ -335,6 +335,13 @@ namespace IceBlink2
             cc.btnIniGlow = cc.LoadBitmap("btn_ini_glow");
             cc.walkPass = cc.LoadBitmap("walk_pass");
             cc.walkBlocked = cc.LoadBitmap("walk_block");
+            //gehörtdiewelt
+            cc.encounter_indicator = cc.LoadBitmap("encounter_indicator");
+            cc.mandatory_conversation_indicator = cc.LoadBitmap("mandatory_conversation_indicator");
+            cc.optional_conversation_indicator = cc.LoadBitmap("optional_conversation_indicator");
+            cc.challengeHidden = cc.LoadBitmap("challengeHidden");
+            cc.challengeSkull = cc.LoadBitmap("challengeSkull");
+
             cc.losBlocked = cc.LoadBitmap("los_block");
             cc.black_tile = cc.LoadBitmap("black_tile");
             cc.black_tile_NE = cc.LoadBitmap("black_tile_NE");

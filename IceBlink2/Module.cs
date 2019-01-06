@@ -289,7 +289,7 @@ namespace IceBlink2
         public float soundVolume = 1.0f;
         public string OnHeartBeatIBScript = "none";
         public string OnHeartBeatIBScriptParms = "";
-        public bool showInteractionState = false;
+        public bool showInteractionState = true;
         public bool avoidInteraction = false;
         public bool useRealTimeTimer = false;
         public bool useSmoothMovement = true;

@@ -14,6 +14,8 @@ namespace IceBlink2
 {
     public class Prop 
     {
+
+        public string ingameShownEncName = "none";
         //script firing situations:
 
         //trap: step on/bump, no skill roll for firing it, can be disarmed
@@ -272,6 +274,7 @@ namespace IceBlink2
         {
     	    Prop copy = new Prop();
 
+            copy.ingameShownEncName = this.ingameShownEncName;
             copy.isDoor = this.isDoor;
             copy.differentSpriteWhenOpen = this.differentSpriteWhenOpen;
 

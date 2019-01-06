@@ -67,6 +67,12 @@ namespace IceBlink2
         public string slot4 = "";
         public string slot5 = "";
 
+        public Bitmap encounter_indicator;
+        public Bitmap mandatory_conversation_indicator;
+        public Bitmap optional_conversation_indicator;
+        public Bitmap challengeHidden;
+        public Bitmap challengeSkull;
+
         public Bitmap title;
         public Bitmap bmpMap;
         public Bitmap walkPass;
@@ -164,6 +170,8 @@ namespace IceBlink2
         public string floatyText2 = "";
         public string floatyText3 = "";
         public string floatyText4 = "";
+        public string floatyText0 = "";
+
         public Coordinate floatyTextLoc = new Coordinate();
         public int creatureIndex = 0;
         public bool calledConvoFromProp = false;
@@ -11282,20 +11290,6 @@ namespace IceBlink2
                 {
                     floatyPushUp = 0.5f;
                 }
-                /*
-                if (gv.cc.floatyText.Length <= 20)
-                {
-                    floatyPushUp = 0.25f;
-                }
-                else if (gv.cc.floatyText.Length <= 35)
-                {
-                    floatyPushUp = 0.5f;
-                }
-                else if (gv.cc.floatyText.Length <= 52)
-                {
-                    floatyPushUp = 0.65f;
-                }
-                */
                 else if (gv.cc.floatyText.Length <= 70)
                 {
                     floatyPushUp = 0.8f;
@@ -13695,6 +13689,7 @@ namespace IceBlink2
             gv.cc.floatyText3 = "";
             gv.cc.floatyText4 = "";
             gv.cc.floatyText4 = "";
+            gv.cc.floatyText0 = "";
             bool doTransition = false;
 
             bool foundNeighbourArea = false;
@@ -13757,6 +13752,7 @@ namespace IceBlink2
             gv.cc.floatyText2 = "";
             gv.cc.floatyText3 = "";
             gv.cc.floatyText4 = "";
+            gv.cc.floatyText0 = "";
             bool doTransition = false;
 
             bool foundNeighbourArea = false;
@@ -13818,6 +13814,7 @@ namespace IceBlink2
             gv.cc.floatyText2 = "";
             gv.cc.floatyText3 = "";
             gv.cc.floatyText4 = "";
+            gv.cc.floatyText0 = "";
 
             bool doTransition = false;
 
@@ -13880,6 +13877,7 @@ namespace IceBlink2
             gv.cc.floatyText2 = "";
             gv.cc.floatyText3 = "";
             gv.cc.floatyText4 = "";
+            gv.cc.floatyText0 = ""; 
             bool doTransition = false;
 
             bool foundNeighbourArea = false;
@@ -13942,6 +13940,7 @@ namespace IceBlink2
             gv.cc.floatyText2 = "";
             gv.cc.floatyText3 = "";
             gv.cc.floatyText4 = "";
+            gv.cc.floatyText0 = "";
 
 
             try

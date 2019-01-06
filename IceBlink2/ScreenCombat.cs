@@ -14779,6 +14779,7 @@ namespace IceBlink2
                     gv.cc.floatyText2 = "";
                     gv.cc.floatyText3 = "";
                     gv.cc.floatyText4 = "";
+                    gv.cc.floatyText0 = "";
                     foreach (Creature crt in gv.mod.currentEncounter.encounterCreatureList)
                     {
                         //if ((crt.combatLocX == gridx + UpperLeftSquare.X) && (crt.combatLocY == gridy + UpperLeftSquare.Y))
@@ -15069,6 +15070,7 @@ namespace IceBlink2
                         gv.cc.floatyText2 = "";
                         gv.cc.floatyText3 = "";
                         gv.cc.floatyText4  = "";
+                        gv.cc.floatyText0 = "";
                         if ((currentCombatMode.Equals("attack")) || (currentCombatMode.Equals("cast")))
                         {
                             //Check for second tap so TARGET
