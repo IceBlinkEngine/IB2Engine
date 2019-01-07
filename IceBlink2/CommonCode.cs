@@ -4344,6 +4344,10 @@ namespace IceBlink2
                                 {
                                     darkAdder = 4;
                                 }
+                                if (gv.sf.CheckPropByTagIsInDarknessPerArea(p.PropTag, "noLight", gv.mod.currentArea.Filename))
+                                {
+                                    darkAdder = 12;
+                                }
                             }
 
                             if (a.Filename == gv.mod.currentArea.northernNeighbourArea)
@@ -4354,6 +4358,10 @@ namespace IceBlink2
                                 if (gv.sf.CheckPropByTagIsInDarknessPerArea(p.PropTag, "night", a.Filename))
                                 {
                                     darkAdder = 4;
+                                }
+                                if (gv.sf.CheckPropByTagIsInDarknessPerArea(p.PropTag, "noLight", a.Filename))
+                                {
+                                    darkAdder = 12;
                                 }
                             }
 
@@ -4366,6 +4374,10 @@ namespace IceBlink2
                                 {
                                     darkAdder = 4;
                                 }
+                                if (gv.sf.CheckPropByTagIsInDarknessPerArea(p.PropTag, "noLight", a.Filename))
+                                {
+                                    darkAdder = 12;
+                                }
                             }
 
                             if (a.Filename == gv.mod.currentArea.easternNeighbourArea)
@@ -4376,6 +4388,10 @@ namespace IceBlink2
                                 if (gv.sf.CheckPropByTagIsInDarknessPerArea(p.PropTag, "night", a.Filename))
                                 {
                                     darkAdder = 4;
+                                }
+                                if (gv.sf.CheckPropByTagIsInDarknessPerArea(p.PropTag, "noLight", a.Filename))
+                                {
+                                    darkAdder = 12;
                                 }
                             }
 
@@ -4388,6 +4404,10 @@ namespace IceBlink2
                                 {
                                     darkAdder = 4;
                                 }
+                                if (gv.sf.CheckPropByTagIsInDarknessPerArea(p.PropTag, "noLight", a.Filename))
+                                {
+                                    darkAdder = 12;
+                                }
                             }
 
                             if (a.Filename == gv.mod.currentArea.southernNeighbourArea)
@@ -4398,6 +4418,10 @@ namespace IceBlink2
                                 if (gv.sf.CheckPropByTagIsInDarknessPerArea(p.PropTag, "night", a.Filename))
                                 {
                                     darkAdder = 4;
+                                }
+                                if (gv.sf.CheckPropByTagIsInDarknessPerArea(p.PropTag, "noLight", a.Filename))
+                                {
+                                    darkAdder = 12;
                                 }
                             }
 
@@ -4410,6 +4434,10 @@ namespace IceBlink2
                                 {
                                     darkAdder = 4;
                                 }
+                                if (gv.sf.CheckPropByTagIsInDarknessPerArea(p.PropTag, "noLight", a.Filename))
+                                {
+                                    darkAdder = 12;
+                                }
                             }
 
                             if (a.Filename == gv.mod.currentArea.westernNeighbourArea)
@@ -4421,6 +4449,10 @@ namespace IceBlink2
                                 {
                                     darkAdder = 4;
                                 }
+                                if (gv.sf.CheckPropByTagIsInDarknessPerArea(p.PropTag, "noLight", a.Filename))
+                                {
+                                    darkAdder = 12;
+                                }
                             }
 
                             if (a.Filename == NeighbourNW)
@@ -4431,6 +4463,10 @@ namespace IceBlink2
                                 if (gv.sf.CheckPropByTagIsInDarknessPerArea(p.PropTag, "night", a.Filename))
                                 {
                                     darkAdder = 4;
+                                }
+                                if (gv.sf.CheckPropByTagIsInDarknessPerArea(p.PropTag, "noLight", a.Filename))
+                                {
+                                    darkAdder = 12;
                                 }
                             }
 
@@ -9501,6 +9537,10 @@ namespace IceBlink2
                             {
                                 darkAdder = 4;
                             }
+                            if (gv.sf.CheckIsInDarkness("party", "noLight"))
+                            {
+                                darkAdder = 12;
+                            }
                             Coordinate pcCoord = new Coordinate();
                             Coordinate propCoord = new Coordinate();
                             pcCoord.X = gv.mod.PlayerLocationX;
@@ -11008,7 +11048,11 @@ namespace IceBlink2
                         if (gv.sf.CheckIsInDarkness("party", "night"))
                         {
                             darkAdder = 4;
-                         }
+                        }
+                        if (gv.sf.CheckIsInDarkness("party", "noLight"))
+                        {
+                            darkAdder = 12;
+                        }
                         Coordinate pcCoord = new Coordinate();
                         Coordinate propCoord = new Coordinate();
                         pcCoord.X = gv.mod.PlayerLocationX;

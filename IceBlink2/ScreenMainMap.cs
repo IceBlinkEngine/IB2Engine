@@ -36638,6 +36638,22 @@ namespace IceBlink2
                         {
                             //no IBScript so move on
                         }
+                        else if (btnScript.IBScript.Equals("traitdescription"))
+                        {
+                            string text = "";
+                            foreach (Trait t in gv.mod.moduleTraitsList)
+                            {
+                                if (btnScript.tag == t.tag)
+                                {
+                                    text = t.description;
+                                    break;
+                                }
+                            }
+                            //vitamind
+                            //gv.sf.MessageBox(text);
+                            gv.sf.MessageBoxHtml(text);
+                            
+                        }
                         else
                         {
                             gv.cc.doIBScriptBasedOnFilename(btnScript.IBScript, "");

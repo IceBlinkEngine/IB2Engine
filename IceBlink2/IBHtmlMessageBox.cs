@@ -53,6 +53,7 @@ namespace IceBlink2
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.form_onKeyDown);
             //InitializeHtmlLogBox(10, 30,580 * (int)(100f/gv.squareSize), 400 * (int)(100f/gv.squareSize));
             InitializeHtmlLogBox(10, 30, 780 * (int)(100f / gv.squareSize), 540 * (int)(100f / gv.squareSize));
+            //InitializeHtmlLogBox(10, 30, 780 * (int)(100f / gv.squareSize), 400 * (int)(100f / gv.squareSize));
 
             //tried to adjust the size of the HtmlLogBox for my laptop resolution, tried to do in a dynamic wa
             //this one is still used when calling the info/tutorial ingame texts
@@ -95,7 +96,8 @@ namespace IceBlink2
                     float mod = (gv.screenHeight / 1080);
                     pageLength -= (int)mod;
                 }
-                SetCurrentTopLineIndex(-(int)pageLength);
+                SetCurrentTopLineIndex((int)(-0.75f * 1080f / gv.screenHeight));
+                //SetCurrentTopLineIndex(-(int)pageLength);
                 this.Invalidate();
                 return true;
             }
@@ -108,7 +110,9 @@ namespace IceBlink2
                     float mod = (gv.screenHeight / 1080);
                     pageLength -= (int)mod;
                 }
-                SetCurrentTopLineIndex((int)pageLength);
+                //SetCurrentTopLineIndex((int)(pageLength));
+                SetCurrentTopLineIndex((int)(0.75f*1080f / gv.screenHeight));
+                //gv.Font.Height
                 this.Invalidate();
                 return true;
             }

@@ -1487,8 +1487,21 @@ namespace IceBlink2
             //do turn controller
             recalculateCreaturesShownInInitiativeBar();
             floatyTextOn = false;
-            gv.cc.addFloatyText(new Coordinate(0, 0), "Round " + roundCounter, "green");
-            gv.cc.addLogText("<font color='lime'>" + "Round " + roundCounter + "</font><BR>");
+            if (!creaturesHaveUpperHand && !partyHasUpperHand)
+            {
+                gv.cc.addFloatyText(new Coordinate(0, 0), "Round " + roundCounter, "yellow");
+                gv.cc.addLogText("<font color='yellow'>" + "Round " + roundCounter + "</font><BR>");
+            }
+            else if (partyHasUpperHand)
+            {
+                gv.cc.addFloatyText(new Coordinate(0, 0), "Enemy is caught flat-footed, Round " + roundCounter, "green");
+                gv.cc.addLogText("<font color='lime'>" + "Round " + roundCounter + "</font><BR>");
+            }
+            else if (creaturesHaveUpperHand)
+            {
+                gv.cc.addFloatyText(new Coordinate(0, 0), "Party is caught flat-footed, Round " + roundCounter, "red");
+                gv.cc.addLogText("<font color='red'>" + "Round " + roundCounter + "</font><BR>");
+            }
             if (gv.mod.currentEncounter.standGroundVictory) 
             {
                 gv.cc.addLogText("<font color='lime'>" + "Survive " + gv.mod.currentEncounter.standGroundInternalTimer + " more round(s).</font><BR>");
