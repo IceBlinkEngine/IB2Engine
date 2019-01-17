@@ -1,5 +1,7 @@
 [
   {
+    "_challengeLevelAssignedForEncounterInConvo": 0,
+    "_alwaysFlagAsEncounter": false,
     "spawnArea": "",
     "spawnLocationX": 0,
     "spawnLocationY": 0,
@@ -101,6 +103,8 @@
     "permanentText": "none",
     "MouseOverText": "none",
     "ConversationWhenOnPartySquare": "none",
+    "challengeLevelAssignedForEncounterInConvo": 0,
+    "alwaysFlagAsEncounter": false,
     "unavoidableConversation": false,
     "EncounterWhenOnPartySquare": "none",
     "DeletePropWhenThisEncounterIsWon": false,
@@ -137,6 +141,8 @@
     "OnHeartBeatIBScriptParms": ""
   },
   {
+    "_challengeLevelAssignedForEncounterInConvo": 0,
+    "_alwaysFlagAsEncounter": false,
     "spawnArea": "",
     "spawnLocationX": 0,
     "spawnLocationY": 0,
@@ -238,6 +244,8 @@
     "permanentText": "none",
     "MouseOverText": "none",
     "ConversationWhenOnPartySquare": "none",
+    "challengeLevelAssignedForEncounterInConvo": 0,
+    "alwaysFlagAsEncounter": false,
     "unavoidableConversation": false,
     "EncounterWhenOnPartySquare": "none",
     "DeletePropWhenThisEncounterIsWon": false,
@@ -274,6 +282,8 @@
     "OnHeartBeatIBScriptParms": ""
   },
   {
+    "_challengeLevelAssignedForEncounterInConvo": 0,
+    "_alwaysFlagAsEncounter": false,
     "spawnArea": "",
     "spawnLocationX": 0,
     "spawnLocationY": 0,
@@ -375,6 +385,8 @@
     "permanentText": "none",
     "MouseOverText": "none",
     "ConversationWhenOnPartySquare": "none",
+    "challengeLevelAssignedForEncounterInConvo": 0,
+    "alwaysFlagAsEncounter": false,
     "unavoidableConversation": false,
     "EncounterWhenOnPartySquare": "none",
     "DeletePropWhenThisEncounterIsWon": false,
@@ -411,6 +423,8 @@
     "OnHeartBeatIBScriptParms": ""
   },
   {
+    "_challengeLevelAssignedForEncounterInConvo": 0,
+    "_alwaysFlagAsEncounter": false,
     "spawnArea": "",
     "spawnLocationX": 0,
     "spawnLocationY": 0,
@@ -512,6 +526,8 @@
     "permanentText": "none",
     "MouseOverText": "",
     "ConversationWhenOnPartySquare": "none",
+    "challengeLevelAssignedForEncounterInConvo": 0,
+    "alwaysFlagAsEncounter": false,
     "unavoidableConversation": false,
     "EncounterWhenOnPartySquare": "none",
     "DeletePropWhenThisEncounterIsWon": false,
@@ -548,6 +564,8 @@
     "OnHeartBeatIBScriptParms": ""
   },
   {
+    "_challengeLevelAssignedForEncounterInConvo": 0,
+    "_alwaysFlagAsEncounter": false,
     "spawnArea": "",
     "spawnLocationX": 0,
     "spawnLocationY": 0,
@@ -649,6 +667,8 @@
     "permanentText": "none",
     "MouseOverText": "",
     "ConversationWhenOnPartySquare": "none",
+    "challengeLevelAssignedForEncounterInConvo": 0,
+    "alwaysFlagAsEncounter": false,
     "unavoidableConversation": false,
     "EncounterWhenOnPartySquare": "none",
     "DeletePropWhenThisEncounterIsWon": false,
@@ -685,6 +705,8 @@
     "OnHeartBeatIBScriptParms": ""
   },
   {
+    "_challengeLevelAssignedForEncounterInConvo": 0,
+    "_alwaysFlagAsEncounter": false,
     "spawnArea": "",
     "spawnLocationX": 0,
     "spawnLocationY": 0,
@@ -786,6 +808,8 @@
     "permanentText": "none",
     "MouseOverText": "",
     "ConversationWhenOnPartySquare": "none",
+    "challengeLevelAssignedForEncounterInConvo": 0,
+    "alwaysFlagAsEncounter": false,
     "unavoidableConversation": false,
     "EncounterWhenOnPartySquare": "none",
     "DeletePropWhenThisEncounterIsWon": false,
@@ -822,6 +846,8 @@
     "OnHeartBeatIBScriptParms": ""
   },
   {
+    "_challengeLevelAssignedForEncounterInConvo": 0,
+    "_alwaysFlagAsEncounter": false,
     "spawnArea": "",
     "spawnLocationX": 0,
     "spawnLocationY": 0,
@@ -923,6 +949,8 @@
     "permanentText": "none",
     "MouseOverText": "",
     "ConversationWhenOnPartySquare": "none",
+    "challengeLevelAssignedForEncounterInConvo": 0,
+    "alwaysFlagAsEncounter": false,
     "unavoidableConversation": false,
     "EncounterWhenOnPartySquare": "none",
     "DeletePropWhenThisEncounterIsWon": false,
@@ -959,6 +987,8 @@
     "OnHeartBeatIBScriptParms": ""
   },
   {
+    "_challengeLevelAssignedForEncounterInConvo": 0,
+    "_alwaysFlagAsEncounter": false,
     "spawnArea": "",
     "spawnLocationX": 0,
     "spawnLocationY": 0,
@@ -1060,6 +1090,8 @@
     "permanentText": "none",
     "MouseOverText": "",
     "ConversationWhenOnPartySquare": "none",
+    "challengeLevelAssignedForEncounterInConvo": 0,
+    "alwaysFlagAsEncounter": false,
     "unavoidableConversation": false,
     "EncounterWhenOnPartySquare": "none",
     "DeletePropWhenThisEncounterIsWon": false,
@@ -1096,6 +1128,8 @@
     "OnHeartBeatIBScriptParms": ""
   },
   {
+    "_challengeLevelAssignedForEncounterInConvo": 0,
+    "_alwaysFlagAsEncounter": false,
     "spawnArea": "",
     "spawnLocationX": 0,
     "spawnLocationY": 0,
@@ -1197,6 +1231,8 @@
     "permanentText": "none",
     "MouseOverText": "",
     "ConversationWhenOnPartySquare": "none",
+    "challengeLevelAssignedForEncounterInConvo": 0,
+    "alwaysFlagAsEncounter": false,
     "unavoidableConversation": false,
     "EncounterWhenOnPartySquare": "none",
     "DeletePropWhenThisEncounterIsWon": false,
@@ -1233,6 +1269,8 @@
     "OnHeartBeatIBScriptParms": ""
   },
   {
+    "_challengeLevelAssignedForEncounterInConvo": 0,
+    "_alwaysFlagAsEncounter": false,
     "spawnArea": "",
     "spawnLocationX": 0,
     "spawnLocationY": 0,
@@ -1334,6 +1372,8 @@
     "permanentText": "none",
     "MouseOverText": "",
     "ConversationWhenOnPartySquare": "none",
+    "challengeLevelAssignedForEncounterInConvo": 0,
+    "alwaysFlagAsEncounter": false,
     "unavoidableConversation": false,
     "EncounterWhenOnPartySquare": "none",
     "DeletePropWhenThisEncounterIsWon": false,
@@ -1370,6 +1410,8 @@
     "OnHeartBeatIBScriptParms": ""
   },
   {
+    "_challengeLevelAssignedForEncounterInConvo": 0,
+    "_alwaysFlagAsEncounter": false,
     "spawnArea": "",
     "spawnLocationX": 0,
     "spawnLocationY": 0,
@@ -1471,6 +1513,8 @@
     "permanentText": "none",
     "MouseOverText": "",
     "ConversationWhenOnPartySquare": "none",
+    "challengeLevelAssignedForEncounterInConvo": 0,
+    "alwaysFlagAsEncounter": false,
     "unavoidableConversation": false,
     "EncounterWhenOnPartySquare": "none",
     "DeletePropWhenThisEncounterIsWon": false,
@@ -1507,6 +1551,8 @@
     "OnHeartBeatIBScriptParms": ""
   },
   {
+    "_challengeLevelAssignedForEncounterInConvo": 0,
+    "_alwaysFlagAsEncounter": false,
     "spawnArea": "",
     "spawnLocationX": 0,
     "spawnLocationY": 0,
@@ -1608,6 +1654,8 @@
     "permanentText": "none",
     "MouseOverText": "",
     "ConversationWhenOnPartySquare": "none",
+    "challengeLevelAssignedForEncounterInConvo": 0,
+    "alwaysFlagAsEncounter": false,
     "unavoidableConversation": false,
     "EncounterWhenOnPartySquare": "none",
     "DeletePropWhenThisEncounterIsWon": false,
@@ -1644,6 +1692,8 @@
     "OnHeartBeatIBScriptParms": ""
   },
   {
+    "_challengeLevelAssignedForEncounterInConvo": 0,
+    "_alwaysFlagAsEncounter": false,
     "spawnArea": "",
     "spawnLocationX": 0,
     "spawnLocationY": 0,
@@ -1745,6 +1795,8 @@
     "permanentText": "none",
     "MouseOverText": "none",
     "ConversationWhenOnPartySquare": "none",
+    "challengeLevelAssignedForEncounterInConvo": 0,
+    "alwaysFlagAsEncounter": false,
     "unavoidableConversation": false,
     "EncounterWhenOnPartySquare": "none",
     "DeletePropWhenThisEncounterIsWon": false,
@@ -1781,6 +1833,8 @@
     "OnHeartBeatIBScriptParms": ""
   },
   {
+    "_challengeLevelAssignedForEncounterInConvo": 0,
+    "_alwaysFlagAsEncounter": false,
     "spawnArea": "",
     "spawnLocationX": 0,
     "spawnLocationY": 0,
@@ -1882,6 +1936,8 @@
     "permanentText": "none",
     "MouseOverText": "none",
     "ConversationWhenOnPartySquare": "none",
+    "challengeLevelAssignedForEncounterInConvo": 0,
+    "alwaysFlagAsEncounter": false,
     "unavoidableConversation": false,
     "EncounterWhenOnPartySquare": "none",
     "DeletePropWhenThisEncounterIsWon": false,
@@ -1918,6 +1974,8 @@
     "OnHeartBeatIBScriptParms": ""
   },
   {
+    "_challengeLevelAssignedForEncounterInConvo": 0,
+    "_alwaysFlagAsEncounter": false,
     "spawnArea": "",
     "spawnLocationX": 0,
     "spawnLocationY": 0,
@@ -2019,6 +2077,8 @@
     "permanentText": "none",
     "MouseOverText": "none",
     "ConversationWhenOnPartySquare": "none",
+    "challengeLevelAssignedForEncounterInConvo": 0,
+    "alwaysFlagAsEncounter": false,
     "unavoidableConversation": false,
     "EncounterWhenOnPartySquare": "none",
     "DeletePropWhenThisEncounterIsWon": false,
@@ -2045,8 +2105,8 @@
     "isChaser": false,
     "isLight": true,
     "hasHalo": false,
-    "focalIntensity": 1.0,
-    "ringIntensity": 1.0,
+    "focalIntensity": 0.0,
+    "ringIntensity": 0.0,
     "ChaserDetectRangeRadius": 2,
     "ChaserGiveUpChasingRangeRadius": 3,
     "ChaserChaseDuration": 24,
@@ -2055,6 +2115,8 @@
     "OnHeartBeatIBScriptParms": ""
   },
   {
+    "_challengeLevelAssignedForEncounterInConvo": 0,
+    "_alwaysFlagAsEncounter": false,
     "spawnArea": "",
     "spawnLocationX": 0,
     "spawnLocationY": 0,
@@ -2156,6 +2218,8 @@
     "permanentText": "none",
     "MouseOverText": "none",
     "ConversationWhenOnPartySquare": "none",
+    "challengeLevelAssignedForEncounterInConvo": 0,
+    "alwaysFlagAsEncounter": false,
     "unavoidableConversation": false,
     "EncounterWhenOnPartySquare": "none",
     "DeletePropWhenThisEncounterIsWon": false,
@@ -2192,6 +2256,8 @@
     "OnHeartBeatIBScriptParms": ""
   },
   {
+    "_challengeLevelAssignedForEncounterInConvo": 0,
+    "_alwaysFlagAsEncounter": false,
     "spawnArea": "",
     "spawnLocationX": 0,
     "spawnLocationY": 0,
@@ -2293,6 +2359,8 @@
     "permanentText": "none",
     "MouseOverText": "none",
     "ConversationWhenOnPartySquare": "none",
+    "challengeLevelAssignedForEncounterInConvo": 0,
+    "alwaysFlagAsEncounter": false,
     "unavoidableConversation": false,
     "EncounterWhenOnPartySquare": "none",
     "DeletePropWhenThisEncounterIsWon": false,
@@ -2329,6 +2397,8 @@
     "OnHeartBeatIBScriptParms": ""
   },
   {
+    "_challengeLevelAssignedForEncounterInConvo": 0,
+    "_alwaysFlagAsEncounter": false,
     "spawnArea": "",
     "spawnLocationX": 0,
     "spawnLocationY": 0,
@@ -2430,6 +2500,8 @@
     "permanentText": "none",
     "MouseOverText": "none",
     "ConversationWhenOnPartySquare": "none",
+    "challengeLevelAssignedForEncounterInConvo": 0,
+    "alwaysFlagAsEncounter": false,
     "unavoidableConversation": false,
     "EncounterWhenOnPartySquare": "none",
     "DeletePropWhenThisEncounterIsWon": false,
@@ -2466,6 +2538,8 @@
     "OnHeartBeatIBScriptParms": ""
   },
   {
+    "_challengeLevelAssignedForEncounterInConvo": 0,
+    "_alwaysFlagAsEncounter": false,
     "spawnArea": "",
     "spawnLocationX": 0,
     "spawnLocationY": 0,
@@ -2567,6 +2641,8 @@
     "permanentText": "none",
     "MouseOverText": "none",
     "ConversationWhenOnPartySquare": "none",
+    "challengeLevelAssignedForEncounterInConvo": 0,
+    "alwaysFlagAsEncounter": false,
     "unavoidableConversation": false,
     "EncounterWhenOnPartySquare": "none",
     "DeletePropWhenThisEncounterIsWon": false,
@@ -2603,6 +2679,8 @@
     "OnHeartBeatIBScriptParms": ""
   },
   {
+    "_challengeLevelAssignedForEncounterInConvo": 0,
+    "_alwaysFlagAsEncounter": false,
     "spawnArea": "",
     "spawnLocationX": 0,
     "spawnLocationY": 0,
@@ -2704,6 +2782,8 @@
     "permanentText": "Vandal Wood",
     "MouseOverText": "none",
     "ConversationWhenOnPartySquare": "none",
+    "challengeLevelAssignedForEncounterInConvo": 0,
+    "alwaysFlagAsEncounter": false,
     "unavoidableConversation": false,
     "EncounterWhenOnPartySquare": "none",
     "DeletePropWhenThisEncounterIsWon": false,
@@ -2740,6 +2820,8 @@
     "OnHeartBeatIBScriptParms": ""
   },
   {
+    "_challengeLevelAssignedForEncounterInConvo": 0,
+    "_alwaysFlagAsEncounter": false,
     "spawnArea": "",
     "spawnLocationX": 0,
     "spawnLocationY": 0,
@@ -2841,6 +2923,8 @@
     "permanentText": "none",
     "MouseOverText": "none",
     "ConversationWhenOnPartySquare": "none",
+    "challengeLevelAssignedForEncounterInConvo": 0,
+    "alwaysFlagAsEncounter": false,
     "unavoidableConversation": false,
     "EncounterWhenOnPartySquare": "none",
     "DeletePropWhenThisEncounterIsWon": false,
@@ -2877,6 +2961,8 @@
     "OnHeartBeatIBScriptParms": ""
   },
   {
+    "_challengeLevelAssignedForEncounterInConvo": 0,
+    "_alwaysFlagAsEncounter": false,
     "spawnArea": "",
     "spawnLocationX": 0,
     "spawnLocationY": 0,
@@ -2978,6 +3064,8 @@
     "permanentText": "none",
     "MouseOverText": "none",
     "ConversationWhenOnPartySquare": "none",
+    "challengeLevelAssignedForEncounterInConvo": 0,
+    "alwaysFlagAsEncounter": false,
     "unavoidableConversation": false,
     "EncounterWhenOnPartySquare": "none",
     "DeletePropWhenThisEncounterIsWon": false,
@@ -3014,6 +3102,8 @@
     "OnHeartBeatIBScriptParms": ""
   },
   {
+    "_challengeLevelAssignedForEncounterInConvo": 0,
+    "_alwaysFlagAsEncounter": false,
     "spawnArea": "",
     "spawnLocationX": 0,
     "spawnLocationY": 0,
@@ -3115,6 +3205,8 @@
     "permanentText": "none",
     "MouseOverText": "none",
     "ConversationWhenOnPartySquare": "none",
+    "challengeLevelAssignedForEncounterInConvo": 0,
+    "alwaysFlagAsEncounter": false,
     "unavoidableConversation": false,
     "EncounterWhenOnPartySquare": "none",
     "DeletePropWhenThisEncounterIsWon": false,
@@ -3151,6 +3243,8 @@
     "OnHeartBeatIBScriptParms": ""
   },
   {
+    "_challengeLevelAssignedForEncounterInConvo": 0,
+    "_alwaysFlagAsEncounter": false,
     "spawnArea": "",
     "spawnLocationX": 0,
     "spawnLocationY": 0,
@@ -3252,6 +3346,8 @@
     "permanentText": "none",
     "MouseOverText": "none",
     "ConversationWhenOnPartySquare": "none",
+    "challengeLevelAssignedForEncounterInConvo": 0,
+    "alwaysFlagAsEncounter": false,
     "unavoidableConversation": false,
     "EncounterWhenOnPartySquare": "none",
     "DeletePropWhenThisEncounterIsWon": false,
@@ -3288,6 +3384,8 @@
     "OnHeartBeatIBScriptParms": ""
   },
   {
+    "_challengeLevelAssignedForEncounterInConvo": 0,
+    "_alwaysFlagAsEncounter": false,
     "spawnArea": "",
     "spawnLocationX": 0,
     "spawnLocationY": 0,
@@ -3389,6 +3487,8 @@
     "permanentText": "none",
     "MouseOverText": "none",
     "ConversationWhenOnPartySquare": "none",
+    "challengeLevelAssignedForEncounterInConvo": 0,
+    "alwaysFlagAsEncounter": false,
     "unavoidableConversation": false,
     "EncounterWhenOnPartySquare": "none",
     "DeletePropWhenThisEncounterIsWon": false,
@@ -3425,6 +3525,8 @@
     "OnHeartBeatIBScriptParms": ""
   },
   {
+    "_challengeLevelAssignedForEncounterInConvo": 0,
+    "_alwaysFlagAsEncounter": false,
     "spawnArea": "",
     "spawnLocationX": 0,
     "spawnLocationY": 0,
@@ -3526,6 +3628,8 @@
     "permanentText": "none",
     "MouseOverText": "none",
     "ConversationWhenOnPartySquare": "none",
+    "challengeLevelAssignedForEncounterInConvo": 0,
+    "alwaysFlagAsEncounter": false,
     "unavoidableConversation": false,
     "EncounterWhenOnPartySquare": "none",
     "DeletePropWhenThisEncounterIsWon": false,
@@ -3562,6 +3666,8 @@
     "OnHeartBeatIBScriptParms": ""
   },
   {
+    "_challengeLevelAssignedForEncounterInConvo": 0,
+    "_alwaysFlagAsEncounter": false,
     "spawnArea": "",
     "spawnLocationX": 0,
     "spawnLocationY": 0,
@@ -3663,6 +3769,8 @@
     "permanentText": "none",
     "MouseOverText": "none",
     "ConversationWhenOnPartySquare": "spellTrainer",
+    "challengeLevelAssignedForEncounterInConvo": 0,
+    "alwaysFlagAsEncounter": false,
     "unavoidableConversation": false,
     "EncounterWhenOnPartySquare": "none",
     "DeletePropWhenThisEncounterIsWon": false,
@@ -3699,6 +3807,8 @@
     "OnHeartBeatIBScriptParms": ""
   },
   {
+    "_challengeLevelAssignedForEncounterInConvo": 0,
+    "_alwaysFlagAsEncounter": false,
     "spawnArea": "",
     "spawnLocationX": 0,
     "spawnLocationY": 0,
@@ -3800,6 +3910,8 @@
     "permanentText": "none",
     "MouseOverText": "",
     "ConversationWhenOnPartySquare": "none",
+    "challengeLevelAssignedForEncounterInConvo": 0,
+    "alwaysFlagAsEncounter": false,
     "unavoidableConversation": false,
     "EncounterWhenOnPartySquare": "none",
     "DeletePropWhenThisEncounterIsWon": false,
@@ -3836,6 +3948,8 @@
     "OnHeartBeatIBScriptParms": ""
   },
   {
+    "_challengeLevelAssignedForEncounterInConvo": 0,
+    "_alwaysFlagAsEncounter": false,
     "spawnArea": "",
     "spawnLocationX": 0,
     "spawnLocationY": 0,
@@ -3937,6 +4051,8 @@
     "permanentText": "none",
     "MouseOverText": "",
     "ConversationWhenOnPartySquare": "none",
+    "challengeLevelAssignedForEncounterInConvo": 0,
+    "alwaysFlagAsEncounter": false,
     "unavoidableConversation": false,
     "EncounterWhenOnPartySquare": "none",
     "DeletePropWhenThisEncounterIsWon": false,
@@ -3973,6 +4089,8 @@
     "OnHeartBeatIBScriptParms": ""
   },
   {
+    "_challengeLevelAssignedForEncounterInConvo": 0,
+    "_alwaysFlagAsEncounter": false,
     "spawnArea": "",
     "spawnLocationX": 0,
     "spawnLocationY": 0,
@@ -4074,6 +4192,8 @@
     "permanentText": "none",
     "MouseOverText": "",
     "ConversationWhenOnPartySquare": "none",
+    "challengeLevelAssignedForEncounterInConvo": 0,
+    "alwaysFlagAsEncounter": false,
     "unavoidableConversation": false,
     "EncounterWhenOnPartySquare": "none",
     "DeletePropWhenThisEncounterIsWon": false,
@@ -4110,6 +4230,8 @@
     "OnHeartBeatIBScriptParms": ""
   },
   {
+    "_challengeLevelAssignedForEncounterInConvo": 0,
+    "_alwaysFlagAsEncounter": false,
     "spawnArea": "",
     "spawnLocationX": 0,
     "spawnLocationY": 0,
@@ -4211,6 +4333,8 @@
     "permanentText": "none",
     "MouseOverText": "none",
     "ConversationWhenOnPartySquare": "addRogerConvo",
+    "challengeLevelAssignedForEncounterInConvo": 0,
+    "alwaysFlagAsEncounter": false,
     "unavoidableConversation": false,
     "EncounterWhenOnPartySquare": "none",
     "DeletePropWhenThisEncounterIsWon": false,
@@ -4247,6 +4371,8 @@
     "OnHeartBeatIBScriptParms": ""
   },
   {
+    "_challengeLevelAssignedForEncounterInConvo": 0,
+    "_alwaysFlagAsEncounter": false,
     "spawnArea": "",
     "spawnLocationX": 0,
     "spawnLocationY": 0,
@@ -4348,6 +4474,8 @@
     "permanentText": "none",
     "MouseOverText": "none",
     "ConversationWhenOnPartySquare": "none",
+    "challengeLevelAssignedForEncounterInConvo": 0,
+    "alwaysFlagAsEncounter": false,
     "unavoidableConversation": false,
     "EncounterWhenOnPartySquare": "DeadlyStealtherEnc",
     "DeletePropWhenThisEncounterIsWon": true,
@@ -4384,6 +4512,8 @@
     "OnHeartBeatIBScriptParms": ""
   },
   {
+    "_challengeLevelAssignedForEncounterInConvo": 0,
+    "_alwaysFlagAsEncounter": false,
     "spawnArea": "",
     "spawnLocationX": 0,
     "spawnLocationY": 0,
@@ -4485,6 +4615,8 @@
     "permanentText": "none",
     "MouseOverText": "none",
     "ConversationWhenOnPartySquare": "none",
+    "challengeLevelAssignedForEncounterInConvo": 0,
+    "alwaysFlagAsEncounter": false,
     "unavoidableConversation": false,
     "EncounterWhenOnPartySquare": "BloodHunterEnc",
     "DeletePropWhenThisEncounterIsWon": true,
@@ -4521,6 +4653,8 @@
     "OnHeartBeatIBScriptParms": ""
   },
   {
+    "_challengeLevelAssignedForEncounterInConvo": 0,
+    "_alwaysFlagAsEncounter": false,
     "spawnArea": "",
     "spawnLocationX": 0,
     "spawnLocationY": 0,
@@ -4622,6 +4756,8 @@
     "permanentText": "none",
     "MouseOverText": "none",
     "ConversationWhenOnPartySquare": "addAthelasConvo",
+    "challengeLevelAssignedForEncounterInConvo": 0,
+    "alwaysFlagAsEncounter": false,
     "unavoidableConversation": false,
     "EncounterWhenOnPartySquare": "none",
     "DeletePropWhenThisEncounterIsWon": false,
@@ -4658,6 +4794,8 @@
     "OnHeartBeatIBScriptParms": ""
   },
   {
+    "_challengeLevelAssignedForEncounterInConvo": 0,
+    "_alwaysFlagAsEncounter": false,
     "spawnArea": "",
     "spawnLocationX": 0,
     "spawnLocationY": 0,
@@ -4759,6 +4897,8 @@
     "permanentText": "none",
     "MouseOverText": "none",
     "ConversationWhenOnPartySquare": "forlornConvo",
+    "challengeLevelAssignedForEncounterInConvo": 0,
+    "alwaysFlagAsEncounter": false,
     "unavoidableConversation": false,
     "EncounterWhenOnPartySquare": "none",
     "DeletePropWhenThisEncounterIsWon": false,
@@ -4795,6 +4935,8 @@
     "OnHeartBeatIBScriptParms": ""
   },
   {
+    "_challengeLevelAssignedForEncounterInConvo": 0,
+    "_alwaysFlagAsEncounter": false,
     "spawnArea": "",
     "spawnLocationX": 0,
     "spawnLocationY": 0,
@@ -4896,6 +5038,8 @@
     "permanentText": "none",
     "MouseOverText": "Hello World!",
     "ConversationWhenOnPartySquare": "none",
+    "challengeLevelAssignedForEncounterInConvo": 0,
+    "alwaysFlagAsEncounter": false,
     "unavoidableConversation": false,
     "EncounterWhenOnPartySquare": "none",
     "DeletePropWhenThisEncounterIsWon": false,

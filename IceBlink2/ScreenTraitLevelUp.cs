@@ -31,7 +31,8 @@ namespace IceBlink2
 
         private IbbButton btnHelp = null;
 	    private IbbButton btnSelect = null;
-	    private IbbButton btnExit = null;
+        private IbbButton btnInfo = null;
+        private IbbButton btnExit = null;
 	    List<string> traitsToLearnTagsList = new List<string>();
 	    private Player pc;
         public bool infoOnly = false; //set to true when called for info only
@@ -426,7 +427,20 @@ namespace IceBlink2
                 btnSelect.Height = (int)(gv.ibbheight * gv.screenDensity);
                 btnSelect.Width = (int)(gv.ibbwidthL * gv.screenDensity);			
 		    }
-		    if (btnHelp == null)
+
+            if (btnInfo == null)
+            {
+                btnInfo = new IbbButton(gv, 0.8f);
+                btnInfo.Text = "MORE";
+                btnInfo.Img = gv.cc.LoadBitmap("btn_small"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small);
+                btnInfo.Glow = gv.cc.LoadBitmap("btn_small_glow"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_glow);
+                btnInfo.X = (15 * gv.squareSize) - padW * 1 + gv.oXshift;
+                btnInfo.Y = 9 * gv.squareSize + pH * 2;
+                btnInfo.Height = (int)(gv.ibbheight * gv.screenDensity);
+                btnInfo.Width = (int)(gv.ibbwidthR * gv.screenDensity);
+            }
+
+            if (btnHelp == null)
 		    {
 			    btnHelp = new IbbButton(gv, 0.8f);	
 			    btnHelp.Text = "HELP";
@@ -638,7 +652,7 @@ namespace IceBlink2
                                 gv.cc.DisposeOfBitmap(ref btn.Img2);
                                 btn.Img2 = gv.cc.LoadBitmap(tr.traitImage + "_off");
                                 gv.cc.DisposeOfBitmap(ref btn.Img3);
-                                btn.Img3 = gv.cc.LoadBitmap("mandatory_conversation_indicator");
+                                btn.Img3 = gv.cc.LoadBitmap("yellow_frame");
                             }
                             else //not available to learn, turn off button
                             {
@@ -647,7 +661,7 @@ namespace IceBlink2
                                 gv.cc.DisposeOfBitmap(ref btn.Img2);
                                 btn.Img2 = gv.cc.LoadBitmap(tr.traitImage + "_off");
                                 gv.cc.DisposeOfBitmap(ref btn.Img3);
-                                btn.Img3 = gv.cc.LoadBitmap("encounter_indicator");
+                                btn.Img3 = gv.cc.LoadBitmap("red_frame");
                             }
 
                             //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
@@ -662,7 +676,7 @@ namespace IceBlink2
                             gv.cc.DisposeOfBitmap(ref btn.Img2);
                             btn.Img2 = gv.cc.LoadBitmap(tr.traitImage + "_off");
                             gv.cc.DisposeOfBitmap(ref btn.Img3);
-                            btn.Img3 = gv.cc.LoadBitmap("mandatory_conversation_indicator");
+                            btn.Img3 = gv.cc.LoadBitmap("yellow_frame");
                         }
                         else //trait not known yet
                         {
@@ -689,7 +703,7 @@ namespace IceBlink2
                                 gv.cc.DisposeOfBitmap(ref btn.Img2);
                                 btn.Img2 = gv.cc.LoadBitmap(tr.traitImage + "_off");
                                 gv.cc.DisposeOfBitmap(ref btn.Img3);
-                                btn.Img3 = gv.cc.LoadBitmap("encounter_indicator");
+                                btn.Img3 = gv.cc.LoadBitmap("red_frame");
                             }
                         }
                     }				
@@ -792,7 +806,9 @@ namespace IceBlink2
 
             if (infoOnly)
             {
+                btnInfo.Text = "MORE";
                 btnSelect.Text = "RETURN";
+                btnInfo.Draw();
                 btnSelect.Draw();
                 btnTokensLeft.Draw();
                 btnTokensRight.Draw(); 
@@ -806,6 +822,7 @@ namespace IceBlink2
                 btnHelp.Draw();
                 btnExit.Draw();
                 btnSelect.Draw();
+                btnInfo.Draw();
                 //todo draw other buttons
                 btnTokensLeft.Draw();
                 btnTokensRight.Draw();
@@ -816,6 +833,7 @@ namespace IceBlink2
 	    {
             try
             {
+                btnInfo.glowOn = false;
                 btnHelp.glowOn = false;
                 btnExit.glowOn = false;
                 btnSelect.glowOn = false;
@@ -836,6 +854,10 @@ namespace IceBlink2
                         else if (btnSelect.getImpact(x, y))
                         {
                             btnSelect.glowOn = true;
+                        }
+                        else if (btnInfo.getImpact(x, y))
+                        {
+                            btnInfo.glowOn = true;
                         }
                         else if (btnExit.getImpact(x, y))
                         {
@@ -864,6 +886,7 @@ namespace IceBlink2
                         btnHelp.glowOn = false;
                         btnExit.glowOn = false;
                         btnSelect.glowOn = false;
+                        btnInfo.glowOn = false;
 
                         for (int j = 0; j < slotsPerPage; j++)
                         {
@@ -915,6 +938,11 @@ namespace IceBlink2
                             {
                                 doSelectedTraitToLearn(inPcCreation);
                             }
+                        }
+                        else if (btnInfo.getImpact(x, y))
+                        {
+                            string textToSpan = GetCurrentlySelectedTrait().description;
+                            gv.sf.MessageBoxHtml(textToSpan);
                         }
                         else if (btnExit.getImpact(x, y))
                         {

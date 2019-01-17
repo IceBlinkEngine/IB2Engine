@@ -21,7 +21,7 @@
       "logList": [
         {
           "tag": "",
-          "numberOfLinesToShow": 20,
+          "numberOfLinesToShow": 22,
           "xLoc": 0.0,
           "startY": 0,
           "moveDeltaY": 0,
@@ -561,7 +561,7 @@
           "ImgOnFilename": "tgl_kill_on",
           "ImgOffFilename": "tgl_kill_on",
           "toggleOn": false,
-          "X": 1635,
+          "X": 1735,
           "Y": 25,
           "Width": 50,
           "Height": 50,

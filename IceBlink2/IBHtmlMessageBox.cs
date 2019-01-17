@@ -345,7 +345,7 @@ namespace IceBlink2
             //only draw lines needed to fill textbox
             int xLoc = 0;
             int yLoc = 0;
-            int maxLines = currentTopLineIndex + numberOfLinesToShow;
+            int maxLines = currentTopLineIndex + numberOfLinesToShow + 5;
             if (maxLines > logLinesList.Count) { maxLines = logLinesList.Count; }
             for (int i = currentTopLineIndex; i < maxLines; i++)
             {
@@ -404,10 +404,10 @@ namespace IceBlink2
         public void SetCurrentTopLineIndex(int changeValue)
         {
             currentTopLineIndex += changeValue;
-            if (currentTopLineIndex > logLinesList.Count - 12)
+            if (currentTopLineIndex > logLinesList.Count - numberOfLinesToShow - 2)
             {
                 //currentTopLineIndex = logLinesList.Count - numberOfLinesToShow;
-                currentTopLineIndex = logLinesList.Count - 12;
+                currentTopLineIndex = logLinesList.Count - numberOfLinesToShow - 2;
             }
             if (currentTopLineIndex < 0)
             {
@@ -421,10 +421,10 @@ namespace IceBlink2
             {
                 currentTopLineIndex = 0;
             }
-            if (currentTopLineIndex > logLinesList.Count - 12)
+            if (currentTopLineIndex > logLinesList.Count - numberOfLinesToShow - 2)
             {
                 //currentTopLineIndex = logLinesList.Count - numberOfLinesToShow;
-                currentTopLineIndex = logLinesList.Count - 12;
+                currentTopLineIndex = logLinesList.Count - numberOfLinesToShow - 2;
             }
         }
         

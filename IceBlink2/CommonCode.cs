@@ -171,6 +171,8 @@ namespace IceBlink2
         public string floatyText3 = "";
         public string floatyText4 = "";
         public string floatyText0 = "";
+        public string floatyTextA = "";
+        public string floatyTextB = "";
 
         public Coordinate floatyTextLoc = new Coordinate();
         public int creatureIndex = 0;
@@ -9600,7 +9602,7 @@ namespace IceBlink2
 
                                         if (!tooMuchHeightDifference && !gv.mod.currentArea.Props[i].isStealthed)
                                         {
-                                            gv.screenMainMap.addFloatyText(gv.mod.currentArea.Props[i], "Fooled!", "green", 1500);
+                                            //gv.screenMainMap.addFloatyText(gv.mod.currentArea.Props[i], "Fooled!", "green", 1500);
                                         }
 
                                     }
@@ -9614,7 +9616,7 @@ namespace IceBlink2
                             }
                             else //is chasing so see if out of follow range and set to false
                             {
-                                if (getDistance(new Coordinate(gv.mod.PlayerLocationX, gv.mod.PlayerLocationY), new Coordinate(gv.mod.currentArea.Props[i].LocationX, gv.mod.currentArea.Props[i].LocationY)) >= gv.mod.currentArea.Props[i].ChaserGiveUpChasingRangeRadius)
+                                if (getDistance(new Coordinate(gv.mod.PlayerLocationX, gv.mod.PlayerLocationY), new Coordinate(gv.mod.currentArea.Props[i].LocationX, gv.mod.currentArea.Props[i].LocationY)) >= gv.mod.currentArea.Props[i].ChaserGiveUpChasingRangeRadius || isFooled)
                                 {
                                     gv.mod.currentArea.Props[i].isCurrentlyChasing = false;
                                     gv.mod.currentArea.Props[i].ReturningToPost = true;
@@ -11079,7 +11081,7 @@ namespace IceBlink2
                     }
 
                     bool doNotTriggerProp = false;
-                    if ((gv.mod.currentArea.Props[i].isMover == false) || ((gv.mod.currentArea.Props[i].MoverType == "Post") && (gv.mod.currentArea.Props[i].isChaser == false)))
+                    if ((gv.mod.currentArea.Props[i].isMover == false) || ((gv.mod.currentArea.Props[i].MoverType == "post") && (gv.mod.currentArea.Props[i].isChaser == false)))
                     {
                         if (gv.realTimeTimerMilliSecondsEllapsed >= gv.mod.realTimeTimerLengthInMilliSeconds)
                         {
@@ -13734,6 +13736,8 @@ namespace IceBlink2
             gv.cc.floatyText4 = "";
             gv.cc.floatyText4 = "";
             gv.cc.floatyText0 = "";
+            gv.cc.floatyTextA = "";
+            gv.cc.floatyTextB = "";
             bool doTransition = false;
 
             bool foundNeighbourArea = false;
@@ -13766,6 +13770,14 @@ namespace IceBlink2
                            // if (gv.mod.moduleAreasObjects[indexOfNeighbourMap].Tiles[gv.mod.moduleAreasObjects[indexOfNeighbourMap].MapSizeX
                             int xTargetCoordinate = gv.mod.moduleAreasObjects[indexOfNeighbourMap].MapSizeX - 1 - gv.mod.borderAreaSize;
                             int yTargetCoordinate = gv.mod.PlayerLocationY;
+                            foreach (Player pc in gv.mod.playerList)
+                            {
+                                if (!pc.combatFacingLeft)
+                                {
+                                    pc.combatFacingLeft = true;
+                                }
+                            }
+                            gv.mod.drawPartyDirection = "right";
                             gv.mod.allowImmediateRetransition = true;
                             gv.cc.doTransitionBasedOnAreaLocation(gv.mod.moduleAreasObjects[indexOfNeighbourMap].Filename, xTargetCoordinate, yTargetCoordinate);
                             doTransition = true;
@@ -13797,6 +13809,8 @@ namespace IceBlink2
             gv.cc.floatyText3 = "";
             gv.cc.floatyText4 = "";
             gv.cc.floatyText0 = "";
+            gv.cc.floatyTextA = "";
+            gv.cc.floatyTextB = "";
             bool doTransition = false;
 
             bool foundNeighbourArea = false;
@@ -13828,6 +13842,14 @@ namespace IceBlink2
                         {
                             int xTargetCoordinate = gv.mod.borderAreaSize;
                             int yTargetCoordinate = gv.mod.PlayerLocationY;
+                            gv.mod.drawPartyDirection = "left";
+                            foreach (Player pc in gv.mod.playerList)
+                            {
+                                if (pc.combatFacingLeft)
+                                {
+                                    pc.combatFacingLeft = false;
+                                }
+                            }
                             gv.mod.allowImmediateRetransition = true;
                             gv.cc.doTransitionBasedOnAreaLocation(gv.mod.moduleAreasObjects[indexOfNeighbourMap].Filename, xTargetCoordinate, yTargetCoordinate);
                             doTransition = true;
@@ -13859,6 +13881,8 @@ namespace IceBlink2
             gv.cc.floatyText3 = "";
             gv.cc.floatyText4 = "";
             gv.cc.floatyText0 = "";
+            gv.cc.floatyTextA = "";
+            gv.cc.floatyTextB = "";
 
             bool doTransition = false;
 
@@ -13892,6 +13916,7 @@ namespace IceBlink2
                             int xTargetCoordinate = gv.mod.PlayerLocationX;
                             int yTargetCoordinate = gv.mod.moduleAreasObjects[indexOfNeighbourMap].MapSizeY - 1 - gv.mod.borderAreaSize;
                             gv.mod.allowImmediateRetransition = true;
+                            gv.mod.drawPartyDirection = "down";
                             gv.cc.doTransitionBasedOnAreaLocation(gv.mod.moduleAreasObjects[indexOfNeighbourMap].Filename, xTargetCoordinate, yTargetCoordinate);
                             doTransition = true;
                         }
@@ -13921,7 +13946,9 @@ namespace IceBlink2
             gv.cc.floatyText2 = "";
             gv.cc.floatyText3 = "";
             gv.cc.floatyText4 = "";
-            gv.cc.floatyText0 = ""; 
+            gv.cc.floatyText0 = "";
+            gv.cc.floatyTextA = "";
+            gv.cc.floatyTextB = "";
             bool doTransition = false;
 
             bool foundNeighbourArea = false;
@@ -13954,6 +13981,7 @@ namespace IceBlink2
                             int xTargetCoordinate = gv.mod.PlayerLocationX;
                             int yTargetCoordinate = gv.mod.borderAreaSize;
                             gv.mod.allowImmediateRetransition = true;
+                            gv.mod.drawPartyDirection = "up";
                             gv.cc.doTransitionBasedOnAreaLocation(gv.mod.moduleAreasObjects[indexOfNeighbourMap].Filename, xTargetCoordinate, yTargetCoordinate);
                             doTransition = true;
                         }
@@ -13985,6 +14013,8 @@ namespace IceBlink2
             gv.cc.floatyText3 = "";
             gv.cc.floatyText4 = "";
             gv.cc.floatyText0 = "";
+            gv.cc.floatyTextA = "";
+            gv.cc.floatyTextB = "";
 
 
             try

@@ -5277,6 +5277,10 @@ namespace IceBlink2
                         float parm4 = (float)Convert.ToDouble(p4);
 
                         gv.mod.partyFocalHaloIntensity = parm3;
+                        //if (gv.mod.noHaloForParty)
+                        //{
+                            //gv.mod.partyFocalHaloIntensity = 0;
+                        //}
                         gv.mod.partyRingHaloIntensity = parm4;
                         gv.cc.doUpdate();
                         gv.screenType = ("main");

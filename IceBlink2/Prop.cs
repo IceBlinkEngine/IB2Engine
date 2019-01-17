@@ -15,6 +15,8 @@ namespace IceBlink2
     public class Prop 
     {
 
+        public int challengeLevelAssignedForEncounterInConvo = 0; 
+        public bool alwaysFlagAsEncounter = false;
         public string ingameShownEncName = "none";
         //script firing situations:
 
@@ -274,6 +276,8 @@ namespace IceBlink2
         {
     	    Prop copy = new Prop();
 
+            copy.challengeLevelAssignedForEncounterInConvo = this.challengeLevelAssignedForEncounterInConvo;
+            copy.alwaysFlagAsEncounter = this.alwaysFlagAsEncounter;
             copy.ingameShownEncName = this.ingameShownEncName;
             copy.isDoor = this.isDoor;
             copy.differentSpriteWhenOpen = this.differentSpriteWhenOpen;

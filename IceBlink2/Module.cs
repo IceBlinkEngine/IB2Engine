@@ -13,6 +13,9 @@ namespace IceBlink2
 {
     public class Module
     {
+        //public bool noHaloForParty = false;
+        //public bool noHaloAddToParty = false;
+        public string drawPartyDirection = "none"; //left, right, up, down
         public string tagOfStealthMainTrait = "shadow";
         public string tagOfStealthCombatTrait = "stealth";
         public string tagOfMovementSpeedTrait = "traveller";
@@ -289,7 +292,7 @@ namespace IceBlink2
         public float soundVolume = 1.0f;
         public string OnHeartBeatIBScript = "none";
         public string OnHeartBeatIBScriptParms = "";
-        public bool showInteractionState = true;
+        public bool showInteractionState = false;
         public bool avoidInteraction = false;
         public bool useRealTimeTimer = false;
         public bool useSmoothMovement = true;

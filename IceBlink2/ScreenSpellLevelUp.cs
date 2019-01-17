@@ -586,12 +586,12 @@ namespace IceBlink2
                             if (isAvailableToLearn(sp.tag))
                             {
                                 gv.cc.DisposeOfBitmap(ref btn.Img3);
-                                btn.Img3 = gv.cc.LoadBitmap("mandatory_conversation_indicator");
+                                btn.Img3 = gv.cc.LoadBitmap("yellow_frame");
                             }
                             else
                             {
                                 gv.cc.DisposeOfBitmap(ref btn.Img3);
-                                btn.Img3 = gv.cc.LoadBitmap("encounter_indicator");
+                                btn.Img3 = gv.cc.LoadBitmap("red_frame");
                             }
                         }
                     }
@@ -604,7 +604,7 @@ namespace IceBlink2
                             gv.cc.DisposeOfBitmap(ref btn.Img2);
                             btn.Img2 = gv.cc.LoadBitmap(sp.spellImage + "_off");
                             gv.cc.DisposeOfBitmap(ref btn.Img3);
-                            btn.Img3 = gv.cc.LoadBitmap("mandatory_conversation_indicator");
+                            btn.Img3 = gv.cc.LoadBitmap("yellow_frame");
                         }
                         else //spell not known yet
                         {
@@ -624,7 +624,7 @@ namespace IceBlink2
                                 gv.cc.DisposeOfBitmap(ref btn.Img2);
                                 btn.Img2 = gv.cc.LoadBitmap(sp.spellImage + "_off");
                                 gv.cc.DisposeOfBitmap(ref btn.Img3);
-                                btn.Img3 = gv.cc.LoadBitmap("encounter_indicator");
+                                btn.Img3 = gv.cc.LoadBitmap("red_frame");
                             }
                         }
                     }				
