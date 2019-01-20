@@ -72,6 +72,7 @@ namespace IceBlink2
         public Bitmap optional_conversation_indicator;
         public Bitmap challengeHidden;
         public Bitmap challengeSkull;
+        public Bitmap isChasingSymbol;
 
         public Bitmap title;
         public Bitmap bmpMap;
@@ -4182,7 +4183,7 @@ namespace IceBlink2
             //stealtehd prop will be invisbel this way, but can stioll ahrm the party, move, trigger interaction etc.
             //use stealth value -*1 for no participation in stealth system, ie always visible
             //dont forget to this properly for neighbouring maps
-            doPropStealth();
+            // doPropStealth();
 
             doPropTriggers();
 
@@ -4199,6 +4200,7 @@ namespace IceBlink2
             {
                 doIllumination();
             }
+            doPropStealth();
             //do Conversation and/or Encounter if on Prop (check after props move)
             if (!blockSecondPropTriggersCall)
             {
@@ -9551,9 +9553,9 @@ namespace IceBlink2
                             propCoord.Y = gv.mod.currentArea.Props[i].LocationY;
 
                             //factor in lit state and tile stealtModifier
-                            int checkModifier = (gv.cc.getDistance(pcCoord, propCoord) - 1) * 2 + darkAdder + tileAdder;
+                            int checkModifier = (gv.cc.getDistance(pcCoord, propCoord) - 1) * 2 - 4 + darkAdder + tileAdder;
 
-                            if (gv.sf.CheckPassSkill(parm1, gv.mod.tagOfStealthMainTrait, gv.mod.currentArea.Props[i].spotEnemy - checkModifier, true, true))
+                            if (gv.sf.CheckPassSkill(parm1, gv.mod.tagOfStealthMainTrait, gv.mod.currentArea.Props[i].spotEnemy - checkModifier + 1, true, true))
                             {
                                 isFooled = true;
                             }
@@ -9632,7 +9634,14 @@ namespace IceBlink2
                                         }
                                         if (!tooMuchHeightDifference)
                                         {
-                                            gv.screenMainMap.addFloatyText(gv.mod.currentArea.Props[i], "Lost interest...", "green", 1500);
+                                            if (isFooled)
+                                            {
+                                                gv.screenMainMap.addFloatyText(gv.mod.currentArea.Props[i], "Lost sight...", "green", 1500);
+                                            }
+                                            else
+                                            {
+                                                gv.screenMainMap.addFloatyText(gv.mod.currentArea.Props[i], "Lost interest...", "green", 1500);
+                                            }
                                         }
                                     }
                                     if (gv.mod.debugMode)
@@ -11063,22 +11072,28 @@ namespace IceBlink2
                         propCoord.Y = gv.mod.currentArea.Props[i].LocationY;
 
                         //factor in lit state and tile stealtModifier
-                        int checkModifier = (gv.cc.getDistance(pcCoord, propCoord) - 1) * 2 + darkAdder + tileAdder;
+                        //this way a sneak through is 5 points more diffcult than a direct sneak by
+
+                        //spot dc 13, sneak dc 27 
+                        //allows sneak through
+                        int checkModifier = (gv.cc.getDistance(pcCoord, propCoord) - 1) * 2 - 4 + darkAdder + tileAdder + 3;
 
                         if (gv.sf.CheckPassSkill(parm1, gv.mod.tagOfStealthMainTrait, gv.mod.currentArea.Props[i].spotEnemy - checkModifier, true, true))
                         {
                             isFooled = true;
+                            gv.mod.currentArea.Props[i].showSneakThroughSymbol = true;
                         }
                         else
                         {
                             isFooled = false;
+                            gv.mod.currentArea.Props[i].showSneakThroughSymbol = false;
                         }
 
                         if (isFooled)
                         {
                             continue;
                         }
-                    }
+                    }//up to here
 
                     bool doNotTriggerProp = false;
                     if ((gv.mod.currentArea.Props[i].isMover == false) || ((gv.mod.currentArea.Props[i].MoverType == "post") && (gv.mod.currentArea.Props[i].isChaser == false)))
@@ -11091,6 +11106,7 @@ namespace IceBlink2
                                         
                     if ((gv.mod.currentArea.Props[i].LocationX == gv.mod.PlayerLocationX) && (gv.mod.currentArea.Props[i].LocationY == gv.mod.PlayerLocationY) && (gv.mod.currentArea.Props[i].isActive) && (doNotTriggerProp == false))
                     {
+                       
 
                         if ((!gv.mod.currentArea.Props[i].MouseOverText.Equals("none")) && (gv.mod.currentArea.Tiles[gv.mod.currentArea.Props[i].LocationY * gv.mod.currentArea.MapSizeX + gv.mod.currentArea.Props[i].LocationX].Visible))
                         {

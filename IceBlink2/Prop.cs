@@ -15,6 +15,7 @@ namespace IceBlink2
     public class Prop 
     {
 
+        public bool showSneakThroughSymbol = false;
         public int challengeLevelAssignedForEncounterInConvo = 0; 
         public bool alwaysFlagAsEncounter = false;
         public string ingameShownEncName = "none";
@@ -276,6 +277,7 @@ namespace IceBlink2
         {
     	    Prop copy = new Prop();
 
+            copy.showSneakThroughSymbol = this.showSneakThroughSymbol;
             copy.challengeLevelAssignedForEncounterInConvo = this.challengeLevelAssignedForEncounterInConvo;
             copy.alwaysFlagAsEncounter = this.alwaysFlagAsEncounter;
             copy.ingameShownEncName = this.ingameShownEncName;

@@ -341,6 +341,7 @@ namespace IceBlink2
             cc.optional_conversation_indicator = cc.LoadBitmap("optional_conversation_indicator");
             cc.challengeHidden = cc.LoadBitmap("challengeHidden");
             cc.challengeSkull = cc.LoadBitmap("challengeSkull");
+            cc.isChasingSymbol = cc.LoadBitmap("chasing");
 
             cc.losBlocked = cc.LoadBitmap("los_block");
             cc.black_tile = cc.LoadBitmap("black_tile");

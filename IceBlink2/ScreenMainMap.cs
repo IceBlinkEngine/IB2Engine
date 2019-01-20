@@ -28596,86 +28596,110 @@ namespace IceBlink2
 
 
                                     }//6
-                                    /*
-                                    int partyLevelAverage = 0;
-                                    foreach (Player pc in gv.mod.playerList)
-                                    {
-                                        partyLevelAverage += pc.classLevel;
-                                    }
+                                     /*
+                                     int partyLevelAverage = 0;
+                                     foreach (Player pc in gv.mod.playerList)
+                                     {
+                                         partyLevelAverage += pc.classLevel;
+                                     }
 
-                                    partyLevelAverage = (int)(partyLevelAverage / gv.mod.playerList.Count);
+                                     partyLevelAverage = (int)(partyLevelAverage / gv.mod.playerList.Count);
 
-                                    int numberOfSkulls = 0;
+                                     int numberOfSkulls = 0;
 
-                                    if (p.EncounterWhenOnPartySquare != "none" && p.EncounterWhenOnPartySquare != "")
+                                     if (p.EncounterWhenOnPartySquare != "none" && p.EncounterWhenOnPartySquare != "")
+                                     {
+                                         foreach (Encounter enc in gv.mod.moduleEncountersList)
+                                         {
+                                             if (enc.encounterName == p.EncounterWhenOnPartySquare)
+                                             {
+                                                 if (enc.challengeLevel > (partyLevelAverage + 5))
+                                                 {
+                                                     numberOfSkulls = 3;
+                                                 }
+                                                 else if (enc.challengeLevel > (partyLevelAverage + 3))
+                                                 {
+                                                     numberOfSkulls = 2;
+                                                 }
+                                                 else if (enc.challengeLevel > (partyLevelAverage + 1))
+                                                 {
+                                                     numberOfSkulls = 1;
+                                                 }
+                                             }
+                                         }
+                                     }
+                                     bool drawChallengeHidden = false;
+                                     if (p.EncounterWhenOnPartySquare != "none" && p.EncounterWhenOnPartySquare != "")
+                                     {
+                                         foreach (Encounter enc in gv.mod.moduleEncountersList)
+                                         {
+                                             if (enc.encounterName == p.EncounterWhenOnPartySquare)
+                                             {
+                                                 if (enc.challengeHidden)
+                                                 {
+                                                     numberOfSkulls = 0;
+                                                     drawChallengeHidden = true;
+                                                 }
+                                                 break;
+                                             }
+                                         }
+                                     }
+                                     /*
+                                     if (gv.mod.currentArea.Props[i].movementSpeed != -1)
+                                     {
+                                         IbRect dstSkull = new IbRect();
+                                         dstSkull.Height = (int)(dst.Height / 2);
+                                         dstSkull.Width = (int)(dst.Width / 2);
+                                         dstSkull.Left = dst.Left + src.Width / 2; 
+                                         dstSkull.Top = dst.Top - (int)(dst.Height / 3) + src.Height / 2;
+                                         int shift = 1 * (int)(dst.Width / 4);
+                                         //shift = 1 * (int)(dst.Width / 4);
+                                         dstSkull.Left += shift;
+                                         gv.DrawText(gv.mod.currentArea.Props[i].movementSpeed.ToString(), dstSkull.Left, dstSkull.Top);
+                                     }
+
+                                     if (drawChallengeHidden && !p.isStealthed && !p.wasKilled)
+                                     {
+                                         int shift = 0;
+                                         //Bitmap interactionStateIndicator = gv.cc.LoadBitmap("challengeHidden");
+                                         src = new IbRect(0, 0, gv.cc.challengeHidden.PixelSize.Width, gv.cc.challengeHidden.PixelSize.Height);
+                                         IbRect dstSkull = new IbRect();
+                                         dstSkull.Height = (int)(dst.Height / 2);
+                                         dstSkull.Width = (int)(dst.Width / 2);
+                                         dstSkull.Left = dst.Left;
+                                         dstSkull.Top = dst.Top - (int)(dst.Height / 3);
+                                         shift = 1 * (int)(dst.Width / 4);
+                                         dstSkull.Left += shift;
+                                         gv.DrawBitmap(gv.cc.challengeHidden, src, dstSkull);
+                                         //gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
+
+                                     }
+                                     if (numberOfSkulls > 0 && !p.isStealthed && !p.wasKilled)
+                                     {
+                                         int shift = 0;
+                                         for (int i2 = 0; i2 < numberOfSkulls; i2++)
+                                         {
+
+                                             //Bitmap interactionStateIndicator = gv.cc.LoadBitmap("challengeSkull");
+                                             src = new IbRect(0, 0, gv.cc.challengeSkull.PixelSize.Width, gv.cc.challengeSkull.PixelSize.Height);
+                                             IbRect dstSkull = new IbRect();
+                                             dstSkull.Height = (int)(dst.Height / 3);
+                                             dstSkull.Width = (int)(dst.Width / 3);
+                                             dstSkull.Left = dst.Left;
+                                             dstSkull.Top = dst.Top - (int)(dst.Height / 3);
+                                             shift = i2 * (int)(dst.Width / 3);
+                                             dstSkull.Left += shift;
+                                             gv.DrawBitmap(gv.cc.challengeSkull, src, dstSkull);
+                                             //gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
+                                         }
+                                     }//this
+                                     */
+
+                                    //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                                    //enter code for skipping triggers of prop here
+                                    if (p.showSneakThroughSymbol)
                                     {
-                                        foreach (Encounter enc in gv.mod.moduleEncountersList)
-                                        {
-                                            if (enc.encounterName == p.EncounterWhenOnPartySquare)
-                                            {
-                                                if (enc.challengeLevel > (partyLevelAverage + 5))
-                                                {
-                                                    numberOfSkulls = 3;
-                                                }
-                                                else if (enc.challengeLevel > (partyLevelAverage + 3))
-                                                {
-                                                    numberOfSkulls = 2;
-                                                }
-                                                else if (enc.challengeLevel > (partyLevelAverage + 1))
-                                                {
-                                                    numberOfSkulls = 1;
-                                                }
-                                            }
-                                        }
-                                    }
-                                    bool drawChallengeHidden = false;
-                                    if (p.EncounterWhenOnPartySquare != "none" && p.EncounterWhenOnPartySquare != "")
-                                    {
-                                        foreach (Encounter enc in gv.mod.moduleEncountersList)
-                                        {
-                                            if (enc.encounterName == p.EncounterWhenOnPartySquare)
-                                            {
-                                                if (enc.challengeHidden)
-                                                {
-                                                    numberOfSkulls = 0;
-                                                    drawChallengeHidden = true;
-                                                }
-                                                break;
-                                            }
-                                        }
-                                    }
-                                    /*
-                                    if (gv.mod.currentArea.Props[i].movementSpeed != -1)
-                                    {
-                                        IbRect dstSkull = new IbRect();
-                                        dstSkull.Height = (int)(dst.Height / 2);
-                                        dstSkull.Width = (int)(dst.Width / 2);
-                                        dstSkull.Left = dst.Left + src.Width / 2; 
-                                        dstSkull.Top = dst.Top - (int)(dst.Height / 3) + src.Height / 2;
-                                        int shift = 1 * (int)(dst.Width / 4);
-                                        //shift = 1 * (int)(dst.Width / 4);
-                                        dstSkull.Left += shift;
-                                        gv.DrawText(gv.mod.currentArea.Props[i].movementSpeed.ToString(), dstSkull.Left, dstSkull.Top);
-                                    }
-                                    
-                                    if (drawChallengeHidden && !p.isStealthed && !p.wasKilled)
-                                    {
-                                        int shift = 0;
-                                        //Bitmap interactionStateIndicator = gv.cc.LoadBitmap("challengeHidden");
-                                        src = new IbRect(0, 0, gv.cc.challengeHidden.PixelSize.Width, gv.cc.challengeHidden.PixelSize.Height);
-                                        IbRect dstSkull = new IbRect();
-                                        dstSkull.Height = (int)(dst.Height / 2);
-                                        dstSkull.Width = (int)(dst.Width / 2);
-                                        dstSkull.Left = dst.Left;
-                                        dstSkull.Top = dst.Top - (int)(dst.Height / 3);
-                                        shift = 1 * (int)(dst.Width / 4);
-                                        dstSkull.Left += shift;
-                                        gv.DrawBitmap(gv.cc.challengeHidden, src, dstSkull);
-                                        //gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
-                                        
-                                    }
-                                    if (numberOfSkulls > 0 && !p.isStealthed && !p.wasKilled)
-                                    {
+                                        int numberOfSkulls = 1;
                                         int shift = 0;
                                         for (int i2 = 0; i2 < numberOfSkulls; i2++)
                                         {
@@ -28686,14 +28710,37 @@ namespace IceBlink2
                                             dstSkull.Height = (int)(dst.Height / 3);
                                             dstSkull.Width = (int)(dst.Width / 3);
                                             dstSkull.Left = dst.Left;
-                                            dstSkull.Top = dst.Top - (int)(dst.Height / 3);
+                                            dstSkull.Top = dst.Top;
                                             shift = i2 * (int)(dst.Width / 3);
                                             dstSkull.Left += shift;
                                             gv.DrawBitmap(gv.cc.challengeSkull, src, dstSkull);
                                             //gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
                                         }
-                                    }//this
-                                    */
+                                    }
+
+                                    if (p.isCurrentlyChasing)
+                                    {
+                                        int numberOfSkulls = 2;
+                                        int shift = 0;
+                                        for (int i2 = 1; i2 < numberOfSkulls; i2++)
+                                        {
+
+                                            //Bitmap interactionStateIndicator = gv.cc.LoadBitmap("challengeSkull");
+                                            src = new IbRect(0, 0, gv.cc.isChasingSymbol.PixelSize.Width, gv.cc.isChasingSymbol.PixelSize.Height);
+                                            IbRect dstSkull = new IbRect();
+                                            dstSkull.Height = (int)(dst.Height / 3 * 2.0f);
+                                            dstSkull.Width = (int)(dst.Width / 3 * 2.0f);
+                                            dstSkull.Left = dst.Left - 2*(int)(dst.Height / 3);
+                                            dstSkull.Top = dst.Top - (int)(dst.Height / 3);
+                                            shift = (int)((i2 + 0.5f) * (dst.Width / 3f)); dstSkull.Left += shift;
+                                            //großvater
+                                            gv.DrawBitmap(gv.cc.isChasingSymbol, src, dstSkull);
+                                            //gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
+                                        }
+                                    }
+
+                                    //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+
                                 }
 
                             }//5
@@ -28858,6 +28905,46 @@ namespace IceBlink2
                                 }
                             }
 
+                            if (p.showSneakThroughSymbol)
+                            {
+                                int numberOfSkulls = 1;
+                                int shift = 0;
+                                for (int i2 = 0; i2 < numberOfSkulls; i2++)
+                                {
+
+                                    //Bitmap interactionStateIndicator = gv.cc.LoadBitmap("challengeSkull");
+                                    src = new IbRect(0, 0, gv.cc.challengeSkull.PixelSize.Width, gv.cc.challengeSkull.PixelSize.Height);
+                                    IbRect dstSkull = new IbRect();
+                                    dstSkull.Height = (int)(dst.Height / 3);
+                                    dstSkull.Width = (int)(dst.Width / 3);
+                                    dstSkull.Left = dst.Left;
+                                    dstSkull.Top = dst.Top;
+                                    shift = i2 * (int)(dst.Width / 3);
+                                    dstSkull.Left += shift;
+                                    gv.DrawBitmap(gv.cc.challengeSkull, src, dstSkull);
+                                    //gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
+                                }
+                            }
+                            if (p.isCurrentlyChasing)
+                            {
+                                int numberOfSkulls = 2;
+                                int shift = 0;
+                                for (int i2 = 1; i2 < numberOfSkulls; i2++)
+                                {
+
+                                    //Bitmap interactionStateIndicator = gv.cc.LoadBitmap("challengeSkull");
+                                    src = new IbRect(0, 0, gv.cc.isChasingSymbol.PixelSize.Width, gv.cc.isChasingSymbol.PixelSize.Height);
+                                    IbRect dstSkull = new IbRect();
+                                    dstSkull.Height = (int)(dst.Height / 3 * 2.0f);
+                                    dstSkull.Width = (int)(dst.Width / 3 * 2.0f);
+                                    dstSkull.Left = dst.Left - 2*(int)(dst.Height / 3);
+                                    dstSkull.Top = dst.Top - (int)(dst.Height / 3);
+                                    shift = (int)((i2 + 0.5f) * (dst.Width / 3f)); dstSkull.Left += shift;
+                                    //großvater
+                                    gv.DrawBitmap(gv.cc.isChasingSymbol, src, dstSkull);
+                                    //gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
+                                }
+                            }
                             /*
                             int partyLevelAverage = 0;
                             foreach (Player pc in gv.mod.playerList)
@@ -29965,6 +30052,45 @@ namespace IceBlink2
                                         //continue;
                                     }
                                 }
+                                if (p.showSneakThroughSymbol)
+                                {
+                                    int numberOfSkulls = 1;
+                                    int shift = 0;
+                                    for (int i2 = 0; i2 < numberOfSkulls; i2++)
+                                    {
+
+                                        //Bitmap interactionStateIndicator = gv.cc.LoadBitmap("challengeSkull");
+                                        src = new IbRect(0, 0, gv.cc.challengeSkull.PixelSize.Width, gv.cc.challengeSkull.PixelSize.Height);
+                                        IbRect dstSkull = new IbRect();
+                                        dstSkull.Height = (int)(dst.Height / 3);
+                                        dstSkull.Width = (int)(dst.Width / 3);
+                                        dstSkull.Left = dst.Left;
+                                        dstSkull.Top = dst.Top;
+                                        shift = i2 * (int)(dst.Width / 3);
+                                        dstSkull.Left += shift;
+                                        gv.DrawBitmap(gv.cc.challengeSkull, src, dstSkull);
+                                        //gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
+                                    }
+                                }
+                                if (p.isCurrentlyChasing)
+                                {
+                                    int numberOfSkulls = 2;
+                                    int shift = 0;
+                                    for (int i2 = 1; i2 < numberOfSkulls; i2++)
+                                    {
+                                        //Bitmap interactionStateIndicator = gv.cc.LoadBitmap("challengeSkull");
+                                        src = new IbRect(0, 0, gv.cc.isChasingSymbol.PixelSize.Width, gv.cc.isChasingSymbol.PixelSize.Height);
+                                        IbRect dstSkull = new IbRect();
+                                        dstSkull.Height = (int)(dst.Height / 3 * 2.0f);
+                                        dstSkull.Width = (int)(dst.Width / 3 * 2.0f);
+                                        dstSkull.Left = dst.Left - 2*(int)(dst.Height / 3);
+                                        dstSkull.Top = dst.Top - (int)(dst.Height / 3);
+                                        shift = (int)((i2 + 0.5f) * (dst.Width / 3f)); dstSkull.Left += shift;
+                                        //großvater
+                                        gv.DrawBitmap(gv.cc.isChasingSymbol, src, dstSkull);
+                                        //gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
+                                    }
+                                }
                                 /*
                                     int partyLevelAverage = 0;
                                     foreach (Player pc in gv.mod.playerList)
@@ -30152,6 +30278,45 @@ namespace IceBlink2
                                     gv.DrawBitmap(gv.cc.optional_conversation_indicator, src, dst);
                                     //gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
                                     //continue;
+                                }
+                            }
+                            if (p.showSneakThroughSymbol)
+                            {
+                                int numberOfSkulls = 1;
+                                int shift = 0;
+                                for (int i2 = 0; i2 < numberOfSkulls; i2++)
+                                {
+
+                                    //Bitmap interactionStateIndicator = gv.cc.LoadBitmap("challengeSkull");
+                                    src = new IbRect(0, 0, gv.cc.challengeSkull.PixelSize.Width, gv.cc.challengeSkull.PixelSize.Height);
+                                    IbRect dstSkull = new IbRect();
+                                    dstSkull.Height = (int)(dst.Height / 3);
+                                    dstSkull.Width = (int)(dst.Width / 3);
+                                    dstSkull.Left = dst.Left;
+                                    dstSkull.Top = dst.Top;
+                                    shift = i2 * (int)(dst.Width / 3);
+                                    dstSkull.Left += shift;
+                                    gv.DrawBitmap(gv.cc.challengeSkull, src, dstSkull);
+                                    //gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
+                                }
+                            }
+                            if (p.isCurrentlyChasing)
+                            {
+                                int numberOfSkulls = 2;
+                                int shift = 0;
+                                for (int i2 = 1; i2 < numberOfSkulls; i2++)
+                                {
+                                    //Bitmap interactionStateIndicator = gv.cc.LoadBitmap("challengeSkull");
+                                    src = new IbRect(0, 0, gv.cc.isChasingSymbol.PixelSize.Width, gv.cc.isChasingSymbol.PixelSize.Height);
+                                    IbRect dstSkull = new IbRect();
+                                    dstSkull.Height = (int)(dst.Height / 3 * 2.0f);
+                                    dstSkull.Width = (int)(dst.Width / 3 * 2.0f);
+                                    dstSkull.Left = dst.Left - 2*(int)(dst.Height / 3);
+                                    dstSkull.Top = dst.Top -(int)(dst.Height / 3);
+                                    shift = (int)((i2 + 0.5f) * (dst.Width / 3f)); dstSkull.Left += shift;
+                                    //großvater
+                                    gv.DrawBitmap(gv.cc.isChasingSymbol, src, dstSkull);
+                                    //gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
                                 }
                             }
                             /*
@@ -36700,21 +36865,68 @@ namespace IceBlink2
 
                                     //2 Hide & Seek: "Stealth 14, Spot 13"(white) (No Stealther(green), All seeing(red))
                                     //block stealth (3)
+                                    int checkModifier = 0;
                                     string textBlock = "";
                                     if ((p.stealth != -1))
                                     {
-                                        textBlock += "Stealth " + (p.stealth - 10).ToString() + ", ";
+                                        //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXx
+                                                        int darkAdder = 0;
+                                                        int tileAdder = 0;
+                                                        Coordinate pcCoord = new Coordinate();
+                                                        Coordinate propCoord = new Coordinate();
+                                                        pcCoord.X = gv.mod.PlayerLocationX;
+                                                        pcCoord.Y = gv.mod.PlayerLocationY;
+                                                       
+                                                            propCoord.X = p.LocationX;
+                                                            propCoord.Y = p.LocationY;
+                                                            tileAdder = gv.mod.currentArea.Tiles[p.LocationY * gv.mod.currentArea.MapSizeX + p.LocationX].stealthModifier;
+                                                            if (gv.sf.CheckPropByTagIsInDarknessPerArea(p.PropTag, "night", gv.mod.currentArea.Filename))
+                                                            {
+                                                                darkAdder = 4;
+                                                            }
+                                                            if (gv.sf.CheckPropByTagIsInDarknessPerArea(p.PropTag, "noLight", gv.mod.currentArea.Filename))
+                                                            {
+                                                                darkAdder = 12;
+                                                            }
+                                                       
+                                                        //factor in lit state and tile stealtModifier
+                                                        checkModifier = (gv.cc.getDistance(pcCoord, propCoord) - 1) * 2 + darkAdder + tileAdder;
+
+                                                        //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+
+                                                        textBlock += "Stealth " + (p.stealth - 10 + checkModifier).ToString() + ", ";
                                     }
                                     else
                                     {
                                         textBlock += "No Stealther, ";
                                     }
-
+                                   
                                     if (p.spotEnemy != -1)
                                     {
                                         if (p.isChaser || p.stealthSkipsPropTriggers)
                                         {
-                                            textBlock += "Spot " + (p.spotEnemy - 10).ToString();
+                                            int tileAdder = 0;
+                                            int darkAdder = 0;
+                                            tileAdder = gv.mod.currentArea.Tiles[gv.mod.PlayerLocationY * gv.mod.currentArea.MapSizeX + gv.mod.PlayerLocationY].stealthModifier;
+                                            if (gv.sf.CheckIsInDarkness("party", "night"))
+                                            {
+                                                darkAdder = 4;
+                                            }
+                                            if (gv.sf.CheckIsInDarkness("party", "noLight"))
+                                            {
+                                                darkAdder = 12;
+                                            }
+                                            Coordinate pcCoord = new Coordinate();
+                                            Coordinate propCoord = new Coordinate();
+                                            pcCoord.X = gv.mod.PlayerLocationX;
+                                            pcCoord.Y = gv.mod.PlayerLocationY;
+                                            propCoord.X = p.LocationX;
+                                            propCoord.Y = p.LocationY;
+
+                                            //factor in lit state and tile stealtModifier
+                                            checkModifier = (gv.cc.getDistance(pcCoord, propCoord) - 1) * 2 - 4 + darkAdder + tileAdder;
+                                            textBlock += "Spot " + (p.spotEnemy - 10 - checkModifier).ToString();
+                                            checkModifier = - 4 + darkAdder + tileAdder;
                                         }
                                         else
                                         {
@@ -36738,7 +36950,8 @@ namespace IceBlink2
                                     //3 Can be bypassed by Shadow? "Allows sneak through" (green), "No sneak through" (red)
                                     if (p.stealthSkipsPropTriggers)
                                     {
-                                        gv.cc.floatyText3 = "Allows sneak through";
+                                        //gv.cc.floatyText3 = "Allows sneak through";
+                                        gv.cc.floatyText3 = "Sneak through DC " + (p.spotEnemy - 10 - checkModifier +5 ).ToString() ;
                                         gv.cc.floatyTextLoc = new Coordinate(gridx * gv.squareSize, (int)((gridy - 1) * gv.squareSize));
 
                                     }
@@ -37217,10 +37430,36 @@ namespace IceBlink2
 
                                             //2 Hide & Seek: "Stealth 14, Spot 13"(white) (No Stealther(green), All seeing(red))
                                             //block stealth (3)
+                                            int checkModifier = 0;
                                             string textBlock = "";
                                             if ((p.stealth != -1))
                                             {
-                                                textBlock += "Stealth " + (p.stealth - 10).ToString() + ", ";
+                                                //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXx
+                                                int darkAdder = 0;
+                                                int tileAdder = 0;
+                                                Coordinate pcCoord = new Coordinate();
+                                                Coordinate propCoord = new Coordinate();
+                                                pcCoord.X = gv.mod.PlayerLocationX;
+                                                pcCoord.Y = gv.mod.PlayerLocationY;
+
+                                                propCoord.X = p.LocationX;
+                                                propCoord.Y = p.LocationY;
+                                                tileAdder = gv.mod.currentArea.Tiles[p.LocationY * gv.mod.currentArea.MapSizeX + p.LocationX].stealthModifier;
+                                                if (gv.sf.CheckPropByTagIsInDarknessPerArea(p.PropTag, "night", gv.mod.currentArea.Filename))
+                                                {
+                                                    darkAdder = 4;
+                                                }
+                                                if (gv.sf.CheckPropByTagIsInDarknessPerArea(p.PropTag, "noLight", gv.mod.currentArea.Filename))
+                                                {
+                                                    darkAdder = 12;
+                                                }
+
+                                                //factor in lit state and tile stealtModifier
+                                                checkModifier = (gv.cc.getDistance(pcCoord, propCoord) - 1) * 2 + darkAdder + tileAdder;
+
+                                                //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+
+                                                textBlock += "Stealth " + (p.stealth - 10 + checkModifier).ToString() + ", ";
                                             }
                                             else
                                             {
@@ -37231,7 +37470,28 @@ namespace IceBlink2
                                             {
                                                 if (p.isChaser || p.stealthSkipsPropTriggers)
                                                 {
-                                                    textBlock += "Spot " + (p.spotEnemy - 10).ToString();
+                                                    int tileAdder = 0;
+                                                    int darkAdder = 0;
+                                                    tileAdder = gv.mod.currentArea.Tiles[gv.mod.PlayerLocationY * gv.mod.currentArea.MapSizeX + gv.mod.PlayerLocationY].stealthModifier;
+                                                    if (gv.sf.CheckIsInDarkness("party", "night"))
+                                                    {
+                                                        darkAdder = 4;
+                                                    }
+                                                    if (gv.sf.CheckIsInDarkness("party", "noLight"))
+                                                    {
+                                                        darkAdder = 12;
+                                                    }
+                                                    Coordinate pcCoord = new Coordinate();
+                                                    Coordinate propCoord = new Coordinate();
+                                                    pcCoord.X = gv.mod.PlayerLocationX;
+                                                    pcCoord.Y = gv.mod.PlayerLocationY;
+                                                    propCoord.X = p.LocationX;
+                                                    propCoord.Y = p.LocationY;
+
+                                                    //factor in lit state and tile stealtModifier
+                                                    checkModifier = (gv.cc.getDistance(pcCoord, propCoord) - 1) * 2 - 4 + darkAdder + tileAdder;
+                                                    textBlock += "Spot " + (p.spotEnemy - 10 - checkModifier).ToString();
+                                                    checkModifier = -4 + darkAdder + tileAdder;
                                                 }
                                                 else
                                                 {
@@ -37255,7 +37515,8 @@ namespace IceBlink2
                                             //3 Can be bypassed by Shadow? "Allows sneak through" (green), "No sneak through" (red)
                                             if (p.stealthSkipsPropTriggers)
                                             {
-                                                gv.cc.floatyText3 = "Allows sneak through";
+                                                //gv.cc.floatyText3 = "Allows sneak through";
+                                                gv.cc.floatyText3 = "Sneak through DC " + (p.spotEnemy - 10 - checkModifier + 5).ToString();
                                                 gv.cc.floatyTextLoc = new Coordinate(gridx * gv.squareSize, (int)((gridy - 1) * gv.squareSize));
 
                                             }
@@ -40191,6 +40452,9 @@ namespace IceBlink2
                         }
                     }
                     //addFloatyText(gv.mod.PlayerLocationX, gv.mod.PlayerLocationY, gv.mod.playerList[gv.mod.selectedPartyLeader].name, "green", 700);
+
+                    gv.cc.doPropStealth();
+
                     updateTraitsPanel();
                 }
             }
@@ -40213,6 +40477,7 @@ namespace IceBlink2
                         }
                     }
                     //addFloatyText(gv.mod.PlayerLocationX, gv.mod.PlayerLocationY, gv.mod.playerList[gv.mod.selectedPartyLeader].name, "green", 700);
+                    gv.cc.doPropStealth();
                     updateTraitsPanel();
                 }
             }
@@ -40235,6 +40500,7 @@ namespace IceBlink2
                         }
                     }
                     //addFloatyText(gv.mod.PlayerLocationX, gv.mod.PlayerLocationY, gv.mod.playerList[gv.mod.selectedPartyLeader].name, "green", 700);
+                    gv.cc.doPropStealth();
                     updateTraitsPanel();
                 }
             }
@@ -40257,6 +40523,7 @@ namespace IceBlink2
                         }
                     }
                     //addFloatyText(gv.mod.PlayerLocationX, gv.mod.PlayerLocationY, gv.mod.playerList[gv.mod.selectedPartyLeader].name, "green", 700);
+                    gv.cc.doPropStealth();
                     updateTraitsPanel();
                 }
             }
@@ -40279,6 +40546,7 @@ namespace IceBlink2
                         }
                     }
                     //addFloatyText(gv.mod.PlayerLocationX, gv.mod.PlayerLocationY, gv.mod.playerList[gv.mod.selectedPartyLeader].name, "green", 700);
+                    gv.cc.doPropStealth();
                     updateTraitsPanel();
                 }
             }
@@ -40301,6 +40569,7 @@ namespace IceBlink2
                         }
                     }
                     //addFloatyText(gv.mod.PlayerLocationX, gv.mod.PlayerLocationY, gv.mod.playerList[gv.mod.selectedPartyLeader].name, "green", 700);
+                    gv.cc.doPropStealth();
                     updateTraitsPanel();
                 }
             }
