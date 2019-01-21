@@ -13,6 +13,8 @@ namespace IceBlink2
 {
     public class Module
     {
+
+        public bool stopMoves = false;
         //public bool noHaloForParty = false;
         //public bool noHaloAddToParty = false;
         public string drawPartyDirection = "none"; //left, right, up, down

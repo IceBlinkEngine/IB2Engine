@@ -4190,6 +4190,11 @@ namespace IceBlink2
             //move any props that are active and only if they are not on the party location
             doPropMoves();
 
+            foreach (Prop p in gv.mod.currentArea.Props)
+            {
+                p.moved2 = false;
+            }
+
             if (gv.mod.useAllTileSystem)
             {
                 resetLightAndDarkness();
@@ -4200,6 +4205,13 @@ namespace IceBlink2
             {
                 doIllumination();
             }
+
+            //doPropTriggers();
+
+            //move any props that are active and only if they are not on the party location
+            //doPropMoves();
+
+
             doPropStealth();
             //do Conversation and/or Encounter if on Prop (check after props move)
             if (!blockSecondPropTriggersCall)
@@ -9690,21 +9702,34 @@ namespace IceBlink2
                         if ((gv.mod.currentArea.Props[i].isChaser) && (gv.mod.currentArea.Props[i].isCurrentlyChasing))
                         {
                             Coordinate newCoor2 = new Coordinate();
-                            newCoor2.X = gv.mod.currentArea.Props[i].CurrentMoveToTarget.X;
-                            newCoor2.Y = gv.mod.currentArea.Props[i].CurrentMoveToTarget.Y;
+                            //newCoor2.X = gv.mod.currentArea.Props[i].CurrentMoveToTarget.X;
+                            //newCoor2.Y = gv.mod.currentArea.Props[i].CurrentMoveToTarget.Y;
+                            newCoor2.X = gv.mod.PlayerLocationX;
+                            newCoor2.Y = gv.mod.PlayerLocationY;
                             Coordinate newCoor3 = new Coordinate();
                             newCoor3.X = gv.mod.currentArea.Props[i].LocationX;
                             newCoor3.Y = gv.mod.currentArea.Props[i].LocationY;
                             //move the distance
-                            if (getDistance(newCoor2, newCoor3) <= 1)
+                            //müde2
+                            //if (getDistance(newCoor2, newCoor3) <= 1 && moveDist > 0)
+                            //{
+                                //moveDist = 1;
+                                //gv.mod.currentArea.Props[i].moved2 = false;
+                            //}
+                            if (moveDist > 0)
                             {
-                                moveDist = 1;
+                                this.moveToTarget(gv.mod.PlayerLocationX, gv.mod.PlayerLocationY, gv.mod.currentArea.Props[i], moveDist);
+                                //eisschraube
+                                //if (gv.mod.stopMoves)
+                                //{
+                                    //gv.mod.stopMoves = false;
+                                    //return;
+                                //}
                             }
-                            this.moveToTarget(gv.mod.PlayerLocationX, gv.mod.PlayerLocationY, gv.mod.currentArea.Props[i], moveDist);
-                            if (moveDist > 1)
-                            {
+                            //if (moveDist > 1)
+                            //{
                                 //gv.screenMainMap.addFloatyText(gv.mod.currentArea.Props[i], "Double move", "yellow", 1500);
-                            }
+                            //}
                             doPropBarkString(gv.mod.currentArea.Props[i]);
                             if (gv.mod.debugMode)
                             {
@@ -9734,11 +9759,15 @@ namespace IceBlink2
                                 newCoor3.X = gv.mod.currentArea.Props[i].LocationX;
                                 newCoor3.Y = gv.mod.currentArea.Props[i].LocationY;
                                 //move the distance
-                                if (getDistance(newCoor2, newCoor3) <= 1)
+                                if (getDistance(newCoor2, newCoor3) <= 1 && moveDist > 0)
                                 {
                                     moveDist = 1;
+                                    gv.mod.currentArea.Props[i].moved2 = false;
                                 }
-                                this.moveToTarget(gv.mod.currentArea.Props[i].PostLocationX, gv.mod.currentArea.Props[i].PostLocationY, gv.mod.currentArea.Props[i], moveDist);
+                                if (moveDist > 0)
+                                {
+                                    this.moveToTarget(gv.mod.currentArea.Props[i].PostLocationX, gv.mod.currentArea.Props[i].PostLocationY, gv.mod.currentArea.Props[i], moveDist);
+                                }
                                 if (moveDist > 1)
                                 {
                                     //gv.screenMainMap.addFloatyText(gv.mod.currentArea.Props[i], "Double move", "yellow", 1500);
@@ -9779,13 +9808,15 @@ namespace IceBlink2
                             Coordinate newCoor3 = new Coordinate();
                             newCoor3.X = gv.mod.currentArea.Props[i].LocationX;
                             newCoor3.Y = gv.mod.currentArea.Props[i].LocationY;
-                            if (getDistance (newCoor2, newCoor3) <= 1)
+                            if (getDistance (newCoor2, newCoor3) <= 1 && moveDist > 0)
                             {
                                 moveDist = 1;
+                                gv.mod.currentArea.Props[i].moved2 = false;
                             }
-
-                            this.moveToTarget(gv.mod.currentArea.Props[i].CurrentMoveToTarget.X, gv.mod.currentArea.Props[i].CurrentMoveToTarget.Y, gv.mod.currentArea.Props[i], moveDist);
-
+                            if (moveDist > 0)
+                            {
+                                this.moveToTarget(gv.mod.currentArea.Props[i].CurrentMoveToTarget.X, gv.mod.currentArea.Props[i].CurrentMoveToTarget.Y, gv.mod.currentArea.Props[i], moveDist);
+                            }
                             
                             if (moveDist > 1)
                             {
@@ -9843,11 +9874,15 @@ namespace IceBlink2
                                     newCoor3.X = gv.mod.currentArea.Props[i].LocationX;
                                     newCoor3.Y = gv.mod.currentArea.Props[i].LocationY;
                                     //move the distance
-                                    if (getDistance(newCoor2, newCoor3) <= 1)
+                                    if (getDistance(newCoor2, newCoor3) <= 1 && moveDist > 0)
                                     {
                                         moveDist = 1;
+                                        gv.mod.currentArea.Props[i].moved2 = false;
                                     }
-                                    this.moveToTarget(gv.mod.currentArea.Props[i].CurrentMoveToTarget.X, gv.mod.currentArea.Props[i].CurrentMoveToTarget.Y, gv.mod.currentArea.Props[i], moveDist);
+                                    if (moveDist > 0)
+                                    {
+                                        this.moveToTarget(gv.mod.currentArea.Props[i].CurrentMoveToTarget.X, gv.mod.currentArea.Props[i].CurrentMoveToTarget.Y, gv.mod.currentArea.Props[i], moveDist);
+                                    }
                                     if (moveDist > 1)
                                     {
                                         //gv.screenMainMap.addFloatyText(gv.mod.currentArea.Props[i], "Double move", "yellow", 1500);
@@ -10016,12 +10051,16 @@ namespace IceBlink2
                                         newCoor3.X = gv.mod.currentArea.Props[i].LocationX;
                                         newCoor3.Y = gv.mod.currentArea.Props[i].LocationY;
                                         //move the distance
-                                        if (getDistance(newCoor2, newCoor3) <= 1)
+                                        if (getDistance(newCoor2, newCoor3) <= 1 && moveDist > 0)
                                         {
                                             moveDist = 1;
+                                            gv.mod.currentArea.Props[i].moved2 = false;
                                         }
-                                        this.moveToTarget(gv.mod.currentArea.Props[i].CurrentMoveToTarget.X, gv.mod.currentArea.Props[i].CurrentMoveToTarget.Y, gv.mod.currentArea.Props[i], moveDist);
-                                        if (moveDist > 1)
+                                        if (moveDist > 0)
+                                        {
+                                            this.moveToTarget(gv.mod.currentArea.Props[i].CurrentMoveToTarget.X, gv.mod.currentArea.Props[i].CurrentMoveToTarget.Y, gv.mod.currentArea.Props[i], moveDist);
+                                        }
+                                            if (moveDist > 1)
                                         {
                                             //gv.screenMainMap.addFloatyText(gv.mod.currentArea.Props[i], "Double move", "yellow", 1500);
                                         }
@@ -10224,16 +10263,19 @@ namespace IceBlink2
                 }
             }
 
-            if (gv.sf.RandInt(100) <= Move2Chance)
+                if (gv.sf.RandInt(100) <= Move2Chance)
                 {
+                    prp.moved2 = true;
                     return 2;
                 }
                 else if (gv.sf.RandInt(100) <= Move0Chance)
                 {
+                    prp.moved2 = false;
                     return 0;
                 }
                 else
                 {
+                    prp.moved2 = false;
                     return 1;
                 }
             
@@ -10296,6 +10338,7 @@ namespace IceBlink2
                     {
                         gv.mod.EncounterOfTurnDone = true;
                         gv.sf.ThisProp = prp;
+                        gv.mod.stopMoves = true;
                         doEncounterBasedOnTag(prp.EncounterWhenOnPartySquare);
                         gv.mod.breakActiveSearch = true;
                         //gv.mod.EncounterOfTurnDone = true;
@@ -10467,6 +10510,7 @@ namespace IceBlink2
                                             {
                                                 gv.mod.EncounterOfTurnDone = true;
                                                 gv.sf.ThisProp = prp;
+                                                gv.mod.stopMoves = true;
                                                 doEncounterBasedOnTag(prp.EncounterWhenOnPartySquare);
                                                 gv.mod.breakActiveSearch = true;
                                                 //gv.mod.EncounterOfTurnDone = true;
@@ -10541,6 +10585,7 @@ namespace IceBlink2
                                 {
                                     gv.mod.EncounterOfTurnDone = true;
                                     gv.sf.ThisProp = prp;
+                                    gv.mod.stopMoves = true;
                                     doEncounterBasedOnTag(prp.EncounterWhenOnPartySquare);
                                     gv.mod.breakActiveSearch = true;
                                     //gv.mod.EncounterOfTurnDone = true;
@@ -10761,6 +10806,7 @@ namespace IceBlink2
                                             {
                                                 gv.mod.EncounterOfTurnDone = true;
                                                 gv.sf.ThisProp = prp;
+                                                gv.mod.stopMoves = true;
                                                 doEncounterBasedOnTag(prp.EncounterWhenOnPartySquare);
                                                 gv.mod.breakActiveSearch = true;
                                                 //gv.mod.EncounterOfTurnDone = true;
@@ -10802,6 +10848,7 @@ namespace IceBlink2
                                         {
                                             gv.mod.EncounterOfTurnDone = true;
                                             gv.sf.ThisProp = prp;
+                                            gv.mod.stopMoves = true;
                                             doEncounterBasedOnTag(prp.EncounterWhenOnPartySquare);
                                             gv.mod.breakActiveSearch = true;
                                             //gv.mod.EncounterOfTurnDone = true;
@@ -10865,6 +10912,7 @@ namespace IceBlink2
                                     {
                                         gv.mod.EncounterOfTurnDone = true;
                                         gv.sf.ThisProp = prp;
+                                        gv.mod.stopMoves = true;
                                         doEncounterBasedOnTag(prp.EncounterWhenOnPartySquare);
                                         gv.mod.breakActiveSearch = true;
                                     }
@@ -10959,7 +11007,7 @@ namespace IceBlink2
                 //foreach (Prop prp in gv.mod.currentArea.Props)
                 {
                    
-
+                    /*
                     bool delProp = false;
                     if (gv.mod.currentArea.Props[i].EncounterWhenOnPartySquare != "" && gv.mod.currentArea.Props[i].EncounterWhenOnPartySquare != "none")
                     {
@@ -10978,8 +11026,10 @@ namespace IceBlink2
                             }
                         }
                     }
+                    */
 
-                    if (delProp)
+                    //if (delProp)
+                    if(gv.mod.currentArea.Props[i].wasKilled)
                     {
                         if ((gv.mod.currentArea.Props[i].respawnTimeInHours > 0) && ((gv.mod.currentArea.Props[i].numberOfRespawnsThatHappenedAlready < gv.mod.currentArea.Props[i].maxNumberOfRespawns) || (gv.mod.currentArea.Props[i].maxNumberOfRespawns == -1)))
                         {
@@ -11076,7 +11126,8 @@ namespace IceBlink2
 
                         //spot dc 13, sneak dc 27 
                         //allows sneak through
-                        int checkModifier = (gv.cc.getDistance(pcCoord, propCoord) - 1) * 2 - 4 + darkAdder + tileAdder + 3;
+                        //entlastungsa
+                        int checkModifier = - 4 + darkAdder + tileAdder - 5;
 
                         if (gv.sf.CheckPassSkill(parm1, gv.mod.tagOfStealthMainTrait, gv.mod.currentArea.Props[i].spotEnemy - checkModifier, true, true))
                         {
@@ -11225,7 +11276,9 @@ namespace IceBlink2
                             foundOne = false;
                             //factionsystem
                             //delete prop if flag is set to do so and break foreach loop
-                            if (gv.mod.currentArea.Props[i].DeletePropWhenThisEncounterIsWon)
+                            //crozier
+                            
+                            if (gv.mod.currentArea.Props[i].DeletePropWhenThisEncounterIsWon && gv.mod.currentArea.Props[i].wasKilled)
                             {
                                 if ((gv.mod.currentArea.Props[i].respawnTimeInHours > 0) && ((gv.mod.currentArea.Props[i].numberOfRespawnsThatHappenedAlready < gv.mod.currentArea.Props[i].maxNumberOfRespawns) || (gv.mod.currentArea.Props[i].maxNumberOfRespawns == -1) ) )
                                 {
@@ -11282,6 +11335,7 @@ namespace IceBlink2
                                 //grant cretaures a faction property, too, and implement system for buffs and debuffs based on the relevant faction'sstrength
                                 //maybe use effect system for this and make it all configurable in the faction editor
                             }
+                            
                             //continue;
                             break;
                         }

@@ -1150,9 +1150,19 @@ namespace IceBlink2
             }
 
             string battleStartMessage = "";
+            if (gv.sf.ThisProp.moved2)
+            {
+                battleStartMessage = "A very fast moving enemy (double move) has caught the party. <br><br>";
+            }
+
+            if (gv.sf.ThisProp.isStealthed)
+            {
+                battleStartMessage += "An stealthy enemy steps out of the shadows. <br><br>";
+            }
+
             if (gv.mod.currentEncounter.customTextforMessageBoxAtStartOfEncounter != "none" && gv.mod.currentEncounter.customTextforMessageBoxAtStartOfEncounter != "None" && gv.mod.currentEncounter.customTextforMessageBoxAtStartOfEncounter != "")
             {
-                gv.sf.MessageBox(gv.mod.currentEncounter.customTextforMessageBoxAtStartOfEncounter);
+                gv.sf.MessageBox(battleStartMessage + gv.mod.currentEncounter.customTextforMessageBoxAtStartOfEncounter);
             }
             else if (gv.mod.currentEncounter.showDefaultMessageBoxAtStartOfEncounter)
             {

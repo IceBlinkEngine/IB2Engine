@@ -31886,11 +31886,11 @@ namespace IceBlink2
                 {
                     for (int y = -2; y <= 2; y++)
                     {
-                        gv.DrawTextCenter(gv.cc.floatyText, new IbRect(gv.cc.floatyTextLoc.X + x + gv.oXshift + mapStartLocXinPixels - (int)(gv.squareSize*0.75f), gv.cc.floatyTextLoc.Y + y - txtH, (int)(gv.squareSize * 2.5f), 1000), 0.8f, Color.Black);
+                        gv.DrawTextCenter(gv.cc.floatyText, new IbRect(gv.cc.floatyTextLoc.X + x + gv.oXshift + mapStartLocXinPixels - (int)(gv.squareSize*1f), gv.cc.floatyTextLoc.Y + y - txtH, (int)(gv.squareSize * 3f), 1000), 0.8f, Color.Black);
                     }
                 }
 
-                gv.DrawTextCenter(gv.cc.floatyText, new IbRect(gv.cc.floatyTextLoc.X + gv.oXshift + mapStartLocXinPixels - (int)(gv.squareSize * 0.75f), gv.cc.floatyTextLoc.Y - txtH, (int)(gv.squareSize * 2.5f), 1000), 0.8f, Color.White);
+                gv.DrawTextCenter(gv.cc.floatyText, new IbRect(gv.cc.floatyTextLoc.X + gv.oXshift + mapStartLocXinPixels - (int)(gv.squareSize * 1f), gv.cc.floatyTextLoc.Y - txtH, (int)(gv.squareSize * 3f), 1000), 0.8f, Color.White);
             }
 
             if (gv.cc.floatyText2 != "none" && gv.cc.floatyText2 != "")
@@ -31899,11 +31899,11 @@ namespace IceBlink2
                 {
                     for (int y = -2; y <= 2; y++)
                     {
-                        gv.DrawTextCenter(gv.cc.floatyText2, new IbRect(gv.cc.floatyTextLoc.X + x + gv.oXshift + mapStartLocXinPixels - (int)(gv.squareSize * 0.75f), gv.cc.floatyTextLoc.Y + y + txtH, (int)(gv.squareSize * 2.5f), 1000), 0.8f, Color.Black);
+                        gv.DrawTextCenter(gv.cc.floatyText2, new IbRect(gv.cc.floatyTextLoc.X + x + gv.oXshift + mapStartLocXinPixels - (int)(gv.squareSize * 1f), gv.cc.floatyTextLoc.Y + y + txtH, (int)(gv.squareSize * 3f), 1000), 0.8f, Color.Black);
                     }
                 }
 
-                gv.DrawTextCenter(gv.cc.floatyText2, new IbRect(gv.cc.floatyTextLoc.X + gv.oXshift + mapStartLocXinPixels - (int)(gv.squareSize * 0.75f), gv.cc.floatyTextLoc.Y + txtH, (int)(gv.squareSize * 2.5f), 1000), 0.8f, Color.White);
+                gv.DrawTextCenter(gv.cc.floatyText2, new IbRect(gv.cc.floatyTextLoc.X + gv.oXshift + mapStartLocXinPixels - (int)(gv.squareSize * 1f), gv.cc.floatyTextLoc.Y + txtH, (int)(gv.squareSize * 3f), 1000), 0.8f, Color.White);
             }
 
             if (gv.cc.floatyText3 != "none" && gv.cc.floatyText3 != "")
@@ -31912,11 +31912,11 @@ namespace IceBlink2
                 {
                     for (int y = -2; y <= 2; y++)
                     {
-                        gv.DrawTextCenter(gv.cc.floatyText3, new IbRect(gv.cc.floatyTextLoc.X + x + gv.oXshift + mapStartLocXinPixels - (int)(gv.squareSize * 0.75f), gv.cc.floatyTextLoc.Y + y + txtH*2, (int)(gv.squareSize * 2.5f), 1000), 0.8f, Color.Black);
+                        gv.DrawTextCenter(gv.cc.floatyText3, new IbRect(gv.cc.floatyTextLoc.X + x + gv.oXshift + mapStartLocXinPixels - (int)(gv.squareSize * 1f), gv.cc.floatyTextLoc.Y + y + txtH*2, (int)(gv.squareSize * 3f), 1000), 0.8f, Color.Black);
                     }
                 }
 
-                gv.DrawTextCenter(gv.cc.floatyText3, new IbRect(gv.cc.floatyTextLoc.X + gv.oXshift + mapStartLocXinPixels - (int)(gv.squareSize * 0.75f), gv.cc.floatyTextLoc.Y + txtH*2, (int)(gv.squareSize * 2.5f), 1000), 0.8f, Color.White);
+                gv.DrawTextCenter(gv.cc.floatyText3, new IbRect(gv.cc.floatyTextLoc.X + gv.oXshift + mapStartLocXinPixels - (int)(gv.squareSize * 1f), gv.cc.floatyTextLoc.Y + txtH*2, (int)(gv.squareSize * 3f), 1000), 0.8f, Color.White);
             }
 
             if (gv.cc.floatyText4 != "none" && gv.cc.floatyText4 != "")
@@ -31925,11 +31925,11 @@ namespace IceBlink2
                 {
                     for (int y = -2; y <= 2; y++)
                     {
-                        gv.DrawTextCenter(gv.cc.floatyText4, new IbRect(gv.cc.floatyTextLoc.X + x + gv.oXshift + mapStartLocXinPixels - (int)(gv.squareSize * 0.75f), gv.cc.floatyTextLoc.Y + y + txtH * 3, (int)(gv.squareSize * 2.5f), 1000), 0.8f, Color.Black);
+                        gv.DrawTextCenter(gv.cc.floatyText4, new IbRect(gv.cc.floatyTextLoc.X + x + gv.oXshift + mapStartLocXinPixels - (int)(gv.squareSize * 1f), gv.cc.floatyTextLoc.Y + y + txtH * 3, (int)(gv.squareSize * 3f), 1000), 0.8f, Color.Black);
                     }
                 }
 
-                gv.DrawTextCenter(gv.cc.floatyText4, new IbRect(gv.cc.floatyTextLoc.X + gv.oXshift + mapStartLocXinPixels - (int)(gv.squareSize * 0.75f), gv.cc.floatyTextLoc.Y + txtH * 3, (int)(gv.squareSize * 2.5f), 1000), 0.8f, Color.White);
+                gv.DrawTextCenter(gv.cc.floatyText4, new IbRect(gv.cc.floatyTextLoc.X + gv.oXshift + mapStartLocXinPixels - (int)(gv.squareSize * 1f), gv.cc.floatyTextLoc.Y + txtH * 3, (int)(gv.squareSize * 3f), 1000), 0.8f, Color.White);
             }
 
             if (gv.cc.floatyText0 != "none" && gv.cc.floatyText0 != "")
@@ -31938,11 +31938,11 @@ namespace IceBlink2
                 {
                     for (int y = -2; y <= 2; y++)
                     {
-                        gv.DrawTextCenter(gv.cc.floatyText0, new IbRect(gv.cc.floatyTextLoc.X + x + gv.oXshift + mapStartLocXinPixels - (int)(gv.squareSize * 0.75f), gv.cc.floatyTextLoc.Y + y, (int)(gv.squareSize * 2.5f), 1000), 0.8f, Color.Black);
+                        gv.DrawTextCenter(gv.cc.floatyText0, new IbRect(gv.cc.floatyTextLoc.X + x + gv.oXshift + mapStartLocXinPixels - (int)(gv.squareSize * 1f), gv.cc.floatyTextLoc.Y + y, (int)(gv.squareSize * 3f), 1000), 0.8f, Color.Black);
                     }
                 }
 
-                gv.DrawTextCenter(gv.cc.floatyText0, new IbRect(gv.cc.floatyTextLoc.X + gv.oXshift + mapStartLocXinPixels - (int)(gv.squareSize * 0.75f), gv.cc.floatyTextLoc.Y, (int)(gv.squareSize * 2.5f), 1000), 0.8f, Color.White);
+                gv.DrawTextCenter(gv.cc.floatyText0, new IbRect(gv.cc.floatyTextLoc.X + gv.oXshift + mapStartLocXinPixels - (int)(gv.squareSize * 1f), gv.cc.floatyTextLoc.Y, (int)(gv.squareSize * 3f), 1000), 0.8f, Color.White);
             }
 
             if (gv.cc.floatyTextA != "none" && gv.cc.floatyTextA != "")
@@ -31951,11 +31951,11 @@ namespace IceBlink2
                 {
                     for (int y = -2; y <= 2; y++)
                     {
-                        gv.DrawTextCenter(gv.cc.floatyTextA, new IbRect(gv.cc.floatyTextLoc.X + x + gv.oXshift + mapStartLocXinPixels - (int)(gv.squareSize * 0.75f), gv.cc.floatyTextLoc.Y + y - txtH*2, (int)(gv.squareSize * 2.5f), 1000), 0.8f, Color.Black);
+                        gv.DrawTextCenter(gv.cc.floatyTextA, new IbRect(gv.cc.floatyTextLoc.X + x + gv.oXshift + mapStartLocXinPixels - (int)(gv.squareSize * 1f), gv.cc.floatyTextLoc.Y + y - txtH*2, (int)(gv.squareSize * 3f), 1000), 0.8f, Color.Black);
                     }
                 }
 
-                gv.DrawTextCenter(gv.cc.floatyTextA, new IbRect(gv.cc.floatyTextLoc.X + gv.oXshift + mapStartLocXinPixels - (int)(gv.squareSize * 0.75f), gv.cc.floatyTextLoc.Y - txtH * 2, (int)(gv.squareSize * 2.5f), 1000), 0.8f, Color.White);
+                gv.DrawTextCenter(gv.cc.floatyTextA, new IbRect(gv.cc.floatyTextLoc.X + gv.oXshift + mapStartLocXinPixels - (int)(gv.squareSize * 1f), gv.cc.floatyTextLoc.Y - txtH * 2, (int)(gv.squareSize * 3f), 1000), 0.8f, Color.White);
             }
 
             if (gv.cc.floatyTextB != "none" && gv.cc.floatyTextB != "")
@@ -31964,37 +31964,37 @@ namespace IceBlink2
                 {
                     for (int y = -2; y <= 2; y++)
                     {
-                        gv.DrawTextCenter(gv.cc.floatyTextB, new IbRect(gv.cc.floatyTextLoc.X + x + gv.oXshift + mapStartLocXinPixels - (int)(gv.squareSize * 0.75f), gv.cc.floatyTextLoc.Y + y - txtH, (int)(gv.squareSize * 2.5f), 1000), 0.8f, Color.Black);
+                        gv.DrawTextCenter(gv.cc.floatyTextB, new IbRect(gv.cc.floatyTextLoc.X + x + gv.oXshift + mapStartLocXinPixels - (int)(gv.squareSize * 1f), gv.cc.floatyTextLoc.Y + y - txtH, (int)(gv.squareSize * 3f), 1000), 0.8f, Color.Black);
                     }
                 }
 
                 if (gv.cc.floatyTextB.Contains("Mandatory"))
                 {
-                    gv.DrawTextCenter(gv.cc.floatyTextB, new IbRect(gv.cc.floatyTextLoc.X + gv.oXshift + mapStartLocXinPixels - (int)(gv.squareSize * 0.75f), gv.cc.floatyTextLoc.Y - txtH, (int)(gv.squareSize * 2.5f), 1000), 0.8f, Color.Yellow);
+                    gv.DrawTextCenter(gv.cc.floatyTextB, new IbRect(gv.cc.floatyTextLoc.X + gv.oXshift + mapStartLocXinPixels - (int)(gv.squareSize * 1f), gv.cc.floatyTextLoc.Y - txtH, (int)(gv.squareSize * 3f), 1000), 0.8f, Color.Yellow);
                 }
                 else if (gv.cc.floatyTextB.Contains("Optional"))
                 {
-                    gv.DrawTextCenter(gv.cc.floatyTextB, new IbRect(gv.cc.floatyTextLoc.X + gv.oXshift + mapStartLocXinPixels - (int)(gv.squareSize * 0.75f), gv.cc.floatyTextLoc.Y - txtH, (int)(gv.squareSize * 2.5f), 1000), 0.8f, Color.Lime);
+                    gv.DrawTextCenter(gv.cc.floatyTextB, new IbRect(gv.cc.floatyTextLoc.X + gv.oXshift + mapStartLocXinPixels - (int)(gv.squareSize * 1f), gv.cc.floatyTextLoc.Y - txtH, (int)(gv.squareSize * 3f), 1000), 0.8f, Color.Lime);
                 }
                 else if (gv.cc.floatyTextB.Contains("Very Hard"))
                 {
-                    gv.DrawTextCenter(gv.cc.floatyTextB, new IbRect(gv.cc.floatyTextLoc.X + gv.oXshift + mapStartLocXinPixels - (int)(gv.squareSize * 0.75f), gv.cc.floatyTextLoc.Y - txtH, (int)(gv.squareSize * 2.5f), 1000), 0.8f, Color.Orange);
+                    gv.DrawTextCenter(gv.cc.floatyTextB, new IbRect(gv.cc.floatyTextLoc.X + gv.oXshift + mapStartLocXinPixels - (int)(gv.squareSize * 1f), gv.cc.floatyTextLoc.Y - txtH, (int)(gv.squareSize * 3f), 1000), 0.8f, Color.Orange);
                 }
                 else if (gv.cc.floatyTextB.Contains("Hard"))
                 {
-                    gv.DrawTextCenter(gv.cc.floatyTextB, new IbRect(gv.cc.floatyTextLoc.X + gv.oXshift + mapStartLocXinPixels - (int)(gv.squareSize * 0.75f), gv.cc.floatyTextLoc.Y - txtH, (int)(gv.squareSize * 2.5f), 1000), 0.8f, Color.Yellow);
+                    gv.DrawTextCenter(gv.cc.floatyTextB, new IbRect(gv.cc.floatyTextLoc.X + gv.oXshift + mapStartLocXinPixels - (int)(gv.squareSize * 1f), gv.cc.floatyTextLoc.Y - txtH, (int)(gv.squareSize * 3f), 1000), 0.8f, Color.Yellow);
                 }
                 else if (gv.cc.floatyTextB.Contains("Easy"))
                 {
-                    gv.DrawTextCenter(gv.cc.floatyTextB, new IbRect(gv.cc.floatyTextLoc.X + gv.oXshift + mapStartLocXinPixels - (int)(gv.squareSize * 0.75f), gv.cc.floatyTextLoc.Y - txtH, (int)(gv.squareSize * 2.5f), 1000), 0.8f, Color.Lime);
+                    gv.DrawTextCenter(gv.cc.floatyTextB, new IbRect(gv.cc.floatyTextLoc.X + gv.oXshift + mapStartLocXinPixels - (int)(gv.squareSize * 1f), gv.cc.floatyTextLoc.Y - txtH, (int)(gv.squareSize * 3f), 1000), 0.8f, Color.Lime);
                 }
                 else if (gv.cc.floatyTextB.Contains("Normal"))
                 {
-                    gv.DrawTextCenter(gv.cc.floatyTextB, new IbRect(gv.cc.floatyTextLoc.X + gv.oXshift + mapStartLocXinPixels - (int)(gv.squareSize * 0.75f), gv.cc.floatyTextLoc.Y - txtH, (int)(gv.squareSize * 2.5f), 1000), 0.8f, Color.White);
+                    gv.DrawTextCenter(gv.cc.floatyTextB, new IbRect(gv.cc.floatyTextLoc.X + gv.oXshift + mapStartLocXinPixels - (int)(gv.squareSize * 1f), gv.cc.floatyTextLoc.Y - txtH, (int)(gv.squareSize * 3f), 1000), 0.8f, Color.White);
                 }
                 else if (gv.cc.floatyTextB.Contains("Deadly"))
                 {
-                    gv.DrawTextCenter(gv.cc.floatyTextB, new IbRect(gv.cc.floatyTextLoc.X + gv.oXshift + mapStartLocXinPixels - (int)(gv.squareSize * 0.75f), gv.cc.floatyTextLoc.Y - txtH, (int)(gv.squareSize * 2.5f), 1000), 0.8f, Color.Red);
+                    gv.DrawTextCenter(gv.cc.floatyTextB, new IbRect(gv.cc.floatyTextLoc.X + gv.oXshift + mapStartLocXinPixels - (int)(gv.squareSize * 1f), gv.cc.floatyTextLoc.Y - txtH, (int)(gv.squareSize * 3f), 1000), 0.8f, Color.Red);
                 }
             }
         }
@@ -33331,8 +33331,29 @@ namespace IceBlink2
 
         public void drawPartyHalo(float elapsed)
         {
-            //if (gv.mod.currentArea.Tiles[gv.mod.PlayerLocationY * gv.mod.currentArea.MapSizeX + gv.mod.PlayerLocationX].isLit.Count <= 1)
-            //{
+            bool underBridge = false;
+            /*
+            if (gv.mod.currentArea.Tiles[gv.mod.PlayerLocationY * gv.mod.currentArea.MapSizeX + gv.mod.PlayerLocationX].isNSBridge && (gv.mod.currentArea.Tiles[gv.mod.PlayerLastLocationY * gv.mod.currentArea.MapSizeX + gv.mod.PlayerLastLocationX].heightLevel != gv.mod.currentArea.Tiles[gv.mod.PlayerLocationY * gv.mod.currentArea.MapSizeX + gv.mod.PlayerLocationX].heightLevel))
+            {
+                underBridge = true;
+            }
+            if (gv.mod.currentArea.Tiles[gv.mod.PlayerLocationY * gv.mod.currentArea.MapSizeX + gv.mod.PlayerLocationX].isEWBridge && (gv.mod.currentArea.Tiles[(gv.mod.PlayerLocationY) * gv.mod.currentArea.MapSizeX + gv.mod.PlayerLocationX-1].heightLevel != gv.mod.currentArea.Tiles[gv.mod.PlayerLocationY * gv.mod.currentArea.MapSizeX + gv.mod.PlayerLocationX].heightLevel))
+            {
+                underBridge = true;
+            }
+            */
+            if (gv.mod.currentArea.Tiles[gv.mod.PlayerLastLocationY * gv.mod.currentArea.MapSizeX + gv.mod.PlayerLastLocationX].heightLevel != gv.mod.currentArea.Tiles[gv.mod.PlayerLocationY * gv.mod.currentArea.MapSizeX + gv.mod.PlayerLocationX].heightLevel)
+            {
+                if (!gv.mod.currentArea.Tiles[gv.mod.PlayerLastLocationY * gv.mod.currentArea.MapSizeX + gv.mod.PlayerLastLocationX].isNSBridge && !gv.mod.currentArea.Tiles[gv.mod.PlayerLastLocationY * gv.mod.currentArea.MapSizeX + gv.mod.PlayerLastLocationX].isEWBridge)
+                {
+                    underBridge = true;
+                }
+            }
+
+            if (!underBridge)
+            {
+                //if (gv.mod.currentArea.Tiles[gv.mod.PlayerLocationY * gv.mod.currentArea.MapSizeX + gv.mod.PlayerLocationX].isLit.Count <= 1)
+                //{
                 #region halo pass: go through tiles only for halos
                 int minX = gv.mod.PlayerLocationX;
                 int minY = gv.mod.PlayerLocationY;
@@ -33425,20 +33446,20 @@ namespace IceBlink2
                                     {
                                         drawLightHalo = false;
                                     }
-                                // is only count hwen isLit and intensity > 0, catch 0, make 1
+                                    // is only count hwen isLit and intensity > 0, catch 0, make 1
 
-                                float opacityDivider = 1.3f;
-                                //int focalCounter = 0;
-                                for (int i = 0; i < tile.lightSourceFocalHaloIntensity.Count; i++)
-                                {
-                                    if (tile.isLit[i])
+                                    float opacityDivider = 1.3f;
+                                    //int focalCounter = 0;
+                                    for (int i = 0; i < tile.lightSourceFocalHaloIntensity.Count; i++)
                                     {
-                                        if (tile.lightSourceFocalHaloIntensity[i] > 0)
+                                        if (tile.isLit[i])
                                         {
-                                            opacityDivider++;
+                                            if (tile.lightSourceFocalHaloIntensity[i] > 0)
+                                            {
+                                                opacityDivider++;
+                                            }
                                         }
                                     }
-                                }
                                     //opacityDivider = 2;
                                     if (drawLightHalo)
                                     {
@@ -33462,108 +33483,108 @@ namespace IceBlink2
                                                 gv.DrawBitmap(gv.cc.prp_lightBlue, src, dst, 0, false, gv.mod.partyRingHaloIntensity * 0.45f * 0.75f * (0.425f - flicker / 200f) / opacityDivider);
                                                 dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f) - extension2, tlY + shifterY - (int)((scaler - 1) * brY * 0.5f) - extension2, (int)(brX * scaler) + 2 * extension2, (int)(brY * scaler) + 2 * extension2);
                                                 gv.DrawBitmap(gv.cc.prp_lightBlue, src, dst, 0, false, ((0.25f * gv.mod.partyFocalHaloIntensity) + (gv.mod.partyFocalHaloIntensity) * (2.25f * 0.75f * (0.425f - flicker / 200f))) / opacityDivider);
-        }
+                                            }
                                             else if (gv.mod.partyLightColor.Contains("green"))
                                             {
                                                 gv.DrawBitmap(gv.cc.prp_lightGreen, src, dst, 0, false, gv.mod.partyRingHaloIntensity * 0.45f * 0.75f * (0.425f - flicker / 200f) / opacityDivider);
                                                 dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f) - extension2, tlY + shifterY - (int)((scaler - 1) * brY * 0.5f) - extension2, (int)(brX * scaler) + 2 * extension2, (int)(brY * scaler) + 2 * extension2);
                                                 gv.DrawBitmap(gv.cc.prp_lightGreen, src, dst, 0, false, ((0.25f * gv.mod.partyFocalHaloIntensity) + (gv.mod.partyFocalHaloIntensity) * (2.25f * 0.75f * (0.425f - flicker / 200f))) / opacityDivider);
-        }
+                                            }
                                             else if (gv.mod.partyLightColor.Contains("red"))
                                             {
                                                 gv.DrawBitmap(gv.cc.prp_lightRed, src, dst, 0, false, gv.mod.partyRingHaloIntensity * 0.45f * 0.75f * (0.425f - flicker / 200f) / opacityDivider);
                                                 dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f) - extension2, tlY + shifterY - (int)((scaler - 1) * brY * 0.5f) - extension2, (int)(brX * scaler) + 2 * extension2, (int)(brY * scaler) + 2 * extension2);
                                                 gv.DrawBitmap(gv.cc.prp_lightRed, src, dst, 0, false, ((0.25f * gv.mod.partyFocalHaloIntensity) + (gv.mod.partyFocalHaloIntensity) * (2.25f * 0.75f * (0.425f - flicker / 200f))) / opacityDivider);
-        }
+                                            }
                                             else if (gv.mod.partyLightColor.Contains("orange"))
                                             {
                                                 gv.DrawBitmap(gv.cc.prp_lightOrange, src, dst, 0, false, gv.mod.partyRingHaloIntensity * 0.45f * 0.75f * (0.425f - flicker / 200f) / opacityDivider);
                                                 dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f) - extension2, tlY + shifterY - (int)((scaler - 1) * brY * 0.5f) - extension2, (int)(brX * scaler) + 2 * extension2, (int)(brY * scaler) + 2 * extension2);
                                                 gv.DrawBitmap(gv.cc.prp_lightOrange, src, dst, 0, false, ((0.25f * gv.mod.partyFocalHaloIntensity) + (gv.mod.partyFocalHaloIntensity) * (2.25f * 0.75f * (0.425f - flicker / 200f))) / opacityDivider);
-        }
+                                            }
                                             else if (gv.mod.partyLightColor.Contains("purple"))
                                             {
                                                 gv.DrawBitmap(gv.cc.prp_lightPurple, src, dst, 0, false, gv.mod.partyRingHaloIntensity * 0.45f * 0.75f * (0.425f - flicker / 200f) / opacityDivider);
                                                 dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f) - extension2, tlY + shifterY - (int)((scaler - 1) * brY * 0.5f) - extension2, (int)(brX * scaler) + 2 * extension2, (int)(brY * scaler) + 2 * extension2);
                                                 gv.DrawBitmap(gv.cc.prp_lightPurple, src, dst, 0, false, ((0.25f * gv.mod.partyFocalHaloIntensity) + (gv.mod.partyFocalHaloIntensity) * (2.25f * 0.75f * (0.425f - flicker / 200f))) / opacityDivider);
-        }
+                                            }
                                         }
 
                                         //if (!gv.mod.noHaloAddToParty)
                                         //{
-                                            //for (int z = 0; z < tile.tileLightSourceTag.Count; z++)
-                                            for (int z = 0; z < tile.lightSourceFocalHaloIntensity.Count; z++)
-                                            //foreach (string s in tile.tileLightSourceTag)
+                                        //for (int z = 0; z < tile.tileLightSourceTag.Count; z++)
+                                        for (int z = 0; z < tile.lightSourceFocalHaloIntensity.Count; z++)
+                                        //foreach (string s in tile.tileLightSourceTag)
+                                        {
+
+                                            if (tile.isLit[z])
                                             {
-
-                                                if (tile.isLit[z])
+                                                if (tile.tileLightSourceTag[z].Contains("prp_lightYellow"))
                                                 {
-                                                    if (tile.tileLightSourceTag[z].Contains("prp_lightYellow"))
-                                                    {
-                                                        int extension = 6 - (int)(flicker / 7f);
-                                                        int extension2 = 13 - (int)(flicker / 3f);
-                                                        dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f) - extension + 5 - 2 * gv.squareSize, tlY + shifterY - (int)((scaler - 1) * brY * 0.5f) - extension + 5 - 2 * gv.squareSize, (int)(brX * scaler) + 2 * extension - 10 + 4 * gv.squareSize, (int)(brY * scaler) + 2 * extension - 10 + 4 * gv.squareSize);
-                                                        gv.DrawBitmap(gv.cc.prp_lightYellow, src, dst, 0, false, tile.lightSourceRingHaloIntensity[z] * 0.7f * 0.45f * 0.75f * (0.425f - flicker / 200f) / opacityDivider);
-                                                        dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f) + extension2, tlY + shifterY - (int)((scaler - 1) * brY * 0.5f) + extension2, (int)(brX * scaler) - 2 * extension2, (int)(brY * scaler) - 2 * extension2);
-                                                        gv.DrawBitmap(gv.cc.prp_lightYellow, src, dst, 0, false, ((0.10f * tile.lightSourceFocalHaloIntensity[z]) + (tile.lightSourceFocalHaloIntensity[z]) * (2.25f * 0.3f * (0.425f - flicker / 200f))) / opacityDivider);
+                                                    int extension = 6 - (int)(flicker / 7f);
+                                                    int extension2 = 13 - (int)(flicker / 3f);
+                                                    dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f) - extension + 5 - 2 * gv.squareSize, tlY + shifterY - (int)((scaler - 1) * brY * 0.5f) - extension + 5 - 2 * gv.squareSize, (int)(brX * scaler) + 2 * extension - 10 + 4 * gv.squareSize, (int)(brY * scaler) + 2 * extension - 10 + 4 * gv.squareSize);
+                                                    gv.DrawBitmap(gv.cc.prp_lightYellow, src, dst, 0, false, tile.lightSourceRingHaloIntensity[z] * 0.7f * 0.45f * 0.75f * (0.425f - flicker / 200f) / opacityDivider);
+                                                    dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f) + extension2, tlY + shifterY - (int)((scaler - 1) * brY * 0.5f) + extension2, (int)(brX * scaler) - 2 * extension2, (int)(brY * scaler) - 2 * extension2);
+                                                    gv.DrawBitmap(gv.cc.prp_lightYellow, src, dst, 0, false, ((0.10f * tile.lightSourceFocalHaloIntensity[z]) + (tile.lightSourceFocalHaloIntensity[z]) * (2.25f * 0.3f * (0.425f - flicker / 200f))) / opacityDivider);
 
-                                                        //gv.DrawBitmap(gv.cc.prp_lightGreen, src, dst, 0, false, 0.15f + 1.75f * 0.7f * 0.45f * 0.75f * (0.425f - flicker / 200f));
-                                                        //dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f), tlY + shifterY - (int)((scaler - 1) * brY * 0.5f), (int)(brX * scaler), (int)(brY * scaler));
-                                                        //gv.DrawBitmap(gv.cc.prp_lightGreen, src, dst, 0, false, 0.15f + 1.75f * 0.10f + 2.25f * 0.3f * (0.425f - flicker / 200f));
+                                                    //gv.DrawBitmap(gv.cc.prp_lightGreen, src, dst, 0, false, 0.15f + 1.75f * 0.7f * 0.45f * 0.75f * (0.425f - flicker / 200f));
+                                                    //dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f), tlY + shifterY - (int)((scaler - 1) * brY * 0.5f), (int)(brX * scaler), (int)(brY * scaler));
+                                                    //gv.DrawBitmap(gv.cc.prp_lightGreen, src, dst, 0, false, 0.15f + 1.75f * 0.10f + 2.25f * 0.3f * (0.425f - flicker / 200f));
 
-                                                    }
+                                                }
 
-                                                    if (tile.tileLightSourceTag[z].Contains("prp_lightGreen"))
-                                                    {
-                                                        int extension = 6 - (int)(flicker / 7f);
-                                                        int extension2 = 13 - (int)(flicker / 3f);
-                                                        dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f) - extension + 5 - 2 * gv.squareSize, tlY + shifterY - (int)((scaler - 1) * brY * 0.5f) - extension + 5 - 2 * gv.squareSize, (int)(brX * scaler) + 2 * extension - 10 + 4 * gv.squareSize, (int)(brY * scaler) + 2 * extension - 10 + 4 * gv.squareSize);
-                                                        gv.DrawBitmap(gv.cc.prp_lightGreen, src, dst, 0, false, (0.15f * tile.lightSourceFocalHaloIntensity[z]) + (tile.lightSourceRingHaloIntensity[z]) * 1.75f * 0.7f * 0.45f * 0.75f * (0.425f - flicker / 200f) / opacityDivider);
-                                                        dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f) + extension2, tlY + shifterY - (int)((scaler - 1) * brY * 0.5f) + extension2, (int)(brX * scaler) - 2 * extension2, (int)(brY * scaler) - 2 * extension2);
-                                                        gv.DrawBitmap(gv.cc.prp_lightGreen, src, dst, 0, false, ((0.325f * tile.lightSourceFocalHaloIntensity[z]) + (tile.lightSourceFocalHaloIntensity[z]) * (2.25f * 0.3f * (0.425f - flicker / 200f))) / opacityDivider);
-        }
+                                                if (tile.tileLightSourceTag[z].Contains("prp_lightGreen"))
+                                                {
+                                                    int extension = 6 - (int)(flicker / 7f);
+                                                    int extension2 = 13 - (int)(flicker / 3f);
+                                                    dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f) - extension + 5 - 2 * gv.squareSize, tlY + shifterY - (int)((scaler - 1) * brY * 0.5f) - extension + 5 - 2 * gv.squareSize, (int)(brX * scaler) + 2 * extension - 10 + 4 * gv.squareSize, (int)(brY * scaler) + 2 * extension - 10 + 4 * gv.squareSize);
+                                                    gv.DrawBitmap(gv.cc.prp_lightGreen, src, dst, 0, false, (0.15f * tile.lightSourceFocalHaloIntensity[z]) + (tile.lightSourceRingHaloIntensity[z]) * 1.75f * 0.7f * 0.45f * 0.75f * (0.425f - flicker / 200f) / opacityDivider);
+                                                    dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f) + extension2, tlY + shifterY - (int)((scaler - 1) * brY * 0.5f) + extension2, (int)(brX * scaler) - 2 * extension2, (int)(brY * scaler) - 2 * extension2);
+                                                    gv.DrawBitmap(gv.cc.prp_lightGreen, src, dst, 0, false, ((0.325f * tile.lightSourceFocalHaloIntensity[z]) + (tile.lightSourceFocalHaloIntensity[z]) * (2.25f * 0.3f * (0.425f - flicker / 200f))) / opacityDivider);
+                                                }
 
-                                                    if (tile.tileLightSourceTag[z].Contains("prp_lightRed"))
-                                                    {
-                                                        int extension = 6 - (int)(flicker / 7f);
-                                                        int extension2 = 13 - (int)(flicker / 3f);
-                                                        dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f) - extension + 5 - 2 * gv.squareSize, tlY + shifterY - (int)((scaler - 1) * brY * 0.5f) - extension + 5 - 2 * gv.squareSize, (int)(brX * scaler) + 2 * extension - 10 + 4 * gv.squareSize, (int)(brY * scaler) + 2 * extension - 10 + 4 * gv.squareSize);
-                                                        gv.DrawBitmap(gv.cc.prp_lightRed, src, dst, 0, false, (0.15f * tile.lightSourceFocalHaloIntensity[z]) + (tile.lightSourceRingHaloIntensity[z]) * 1.75f * 0.7f * 0.45f * 0.75f * (0.425f - flicker / 200f) / opacityDivider);
-                                                        dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f) + extension2, tlY + shifterY - (int)((scaler - 1) * brY * 0.5f) + extension2, (int)(brX * scaler) - 2 * extension2, (int)(brY * scaler) - 2 * extension2);
-                                                        gv.DrawBitmap(gv.cc.prp_lightRed, src, dst, 0, false, ((0.325f * tile.lightSourceFocalHaloIntensity[z]) + (tile.lightSourceFocalHaloIntensity[z]) * (2.25f * 0.3f * (0.425f - flicker / 200f))) / opacityDivider);
-        }
+                                                if (tile.tileLightSourceTag[z].Contains("prp_lightRed"))
+                                                {
+                                                    int extension = 6 - (int)(flicker / 7f);
+                                                    int extension2 = 13 - (int)(flicker / 3f);
+                                                    dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f) - extension + 5 - 2 * gv.squareSize, tlY + shifterY - (int)((scaler - 1) * brY * 0.5f) - extension + 5 - 2 * gv.squareSize, (int)(brX * scaler) + 2 * extension - 10 + 4 * gv.squareSize, (int)(brY * scaler) + 2 * extension - 10 + 4 * gv.squareSize);
+                                                    gv.DrawBitmap(gv.cc.prp_lightRed, src, dst, 0, false, (0.15f * tile.lightSourceFocalHaloIntensity[z]) + (tile.lightSourceRingHaloIntensity[z]) * 1.75f * 0.7f * 0.45f * 0.75f * (0.425f - flicker / 200f) / opacityDivider);
+                                                    dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f) + extension2, tlY + shifterY - (int)((scaler - 1) * brY * 0.5f) + extension2, (int)(brX * scaler) - 2 * extension2, (int)(brY * scaler) - 2 * extension2);
+                                                    gv.DrawBitmap(gv.cc.prp_lightRed, src, dst, 0, false, ((0.325f * tile.lightSourceFocalHaloIntensity[z]) + (tile.lightSourceFocalHaloIntensity[z]) * (2.25f * 0.3f * (0.425f - flicker / 200f))) / opacityDivider);
+                                                }
 
-                                                    if (tile.tileLightSourceTag[z].Contains("prp_lightBlue"))
-                                                    {
-                                                        int extension = 6 - (int)(flicker / 7f);
-                                                        int extension2 = 13 - (int)(flicker / 3f);
-                                                        dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f) - extension + 5 - 2 * gv.squareSize, tlY + shifterY - (int)((scaler - 1) * brY * 0.5f) - extension + 5 - 2 * gv.squareSize, (int)(brX * scaler) + 2 * extension - 10 + 4 * gv.squareSize, (int)(brY * scaler) + 2 * extension - 10 + 4 * gv.squareSize);
-                                                        gv.DrawBitmap(gv.cc.prp_lightBlue, src, dst, 0, false, (0.15f * tile.lightSourceFocalHaloIntensity[z]) + (tile.lightSourceRingHaloIntensity[z]) * 1.75f * 0.7f * 0.45f * 0.75f * (0.425f - flicker / 200f) / opacityDivider);
-                                                        dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f) + extension2, tlY + shifterY - (int)((scaler - 1) * brY * 0.5f) + extension2, (int)(brX * scaler) - 2 * extension2, (int)(brY * scaler) - 2 * extension2);
-                                                        gv.DrawBitmap(gv.cc.prp_lightBlue, src, dst, 0, false, ((0.325f * tile.lightSourceFocalHaloIntensity[z]) + (tile.lightSourceFocalHaloIntensity[z]) * (2.25f * 0.3f * (0.425f - flicker / 200f))) / opacityDivider);
-        }
+                                                if (tile.tileLightSourceTag[z].Contains("prp_lightBlue"))
+                                                {
+                                                    int extension = 6 - (int)(flicker / 7f);
+                                                    int extension2 = 13 - (int)(flicker / 3f);
+                                                    dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f) - extension + 5 - 2 * gv.squareSize, tlY + shifterY - (int)((scaler - 1) * brY * 0.5f) - extension + 5 - 2 * gv.squareSize, (int)(brX * scaler) + 2 * extension - 10 + 4 * gv.squareSize, (int)(brY * scaler) + 2 * extension - 10 + 4 * gv.squareSize);
+                                                    gv.DrawBitmap(gv.cc.prp_lightBlue, src, dst, 0, false, (0.15f * tile.lightSourceFocalHaloIntensity[z]) + (tile.lightSourceRingHaloIntensity[z]) * 1.75f * 0.7f * 0.45f * 0.75f * (0.425f - flicker / 200f) / opacityDivider);
+                                                    dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f) + extension2, tlY + shifterY - (int)((scaler - 1) * brY * 0.5f) + extension2, (int)(brX * scaler) - 2 * extension2, (int)(brY * scaler) - 2 * extension2);
+                                                    gv.DrawBitmap(gv.cc.prp_lightBlue, src, dst, 0, false, ((0.325f * tile.lightSourceFocalHaloIntensity[z]) + (tile.lightSourceFocalHaloIntensity[z]) * (2.25f * 0.3f * (0.425f - flicker / 200f))) / opacityDivider);
+                                                }
 
-                                                    if (tile.tileLightSourceTag[z].Contains("prp_lightPurple"))
-                                                    {
-                                                        int extension = 6 - (int)(flicker / 7f);
-                                                        int extension2 = 13 - (int)(flicker / 3f);
-                                                        dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f) - extension + 5 - 2 * gv.squareSize, tlY + shifterY - (int)((scaler - 1) * brY * 0.5f) - extension + 5 - 2 * gv.squareSize, (int)(brX * scaler) + 2 * extension - 10 + 4 * gv.squareSize, (int)(brY * scaler) + 2 * extension - 10 + 4 * gv.squareSize);
-                                                        gv.DrawBitmap(gv.cc.prp_lightPurple, src, dst, 0, false, (0.15f * tile.lightSourceFocalHaloIntensity[z]) + (tile.lightSourceRingHaloIntensity[z]) * 1.75f * 0.7f * 0.45f * 0.75f * (0.425f - flicker / 200f) / opacityDivider);
-                                                        dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f) + extension2, tlY + shifterY - (int)((scaler - 1) * brY * 0.5f) + extension2, (int)(brX * scaler) - 2 * extension2, (int)(brY * scaler) - 2 * extension2);
-                                                        gv.DrawBitmap(gv.cc.prp_lightPurple, src, dst, 0, false, ((0.325f * tile.lightSourceFocalHaloIntensity[z]) + (tile.lightSourceFocalHaloIntensity[z]) * (2.25f * 0.3f * (0.425f - flicker / 200f))) / opacityDivider);
-        }
+                                                if (tile.tileLightSourceTag[z].Contains("prp_lightPurple"))
+                                                {
+                                                    int extension = 6 - (int)(flicker / 7f);
+                                                    int extension2 = 13 - (int)(flicker / 3f);
+                                                    dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f) - extension + 5 - 2 * gv.squareSize, tlY + shifterY - (int)((scaler - 1) * brY * 0.5f) - extension + 5 - 2 * gv.squareSize, (int)(brX * scaler) + 2 * extension - 10 + 4 * gv.squareSize, (int)(brY * scaler) + 2 * extension - 10 + 4 * gv.squareSize);
+                                                    gv.DrawBitmap(gv.cc.prp_lightPurple, src, dst, 0, false, (0.15f * tile.lightSourceFocalHaloIntensity[z]) + (tile.lightSourceRingHaloIntensity[z]) * 1.75f * 0.7f * 0.45f * 0.75f * (0.425f - flicker / 200f) / opacityDivider);
+                                                    dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f) + extension2, tlY + shifterY - (int)((scaler - 1) * brY * 0.5f) + extension2, (int)(brX * scaler) - 2 * extension2, (int)(brY * scaler) - 2 * extension2);
+                                                    gv.DrawBitmap(gv.cc.prp_lightPurple, src, dst, 0, false, ((0.325f * tile.lightSourceFocalHaloIntensity[z]) + (tile.lightSourceFocalHaloIntensity[z]) * (2.25f * 0.3f * (0.425f - flicker / 200f))) / opacityDivider);
+                                                }
 
-                                                    if (tile.tileLightSourceTag[z].Contains("prp_lightOrange"))
-                                                    {
-                                                        int extension = 6 - (int)(flicker / 7f);
-                                                        int extension2 = 13 - (int)(flicker / 3f);
-                                                        dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f) - extension + 5 - 2 * gv.squareSize, tlY + shifterY - (int)((scaler - 1) * brY * 0.5f) - extension + 5 - 2 * gv.squareSize, (int)(brX * scaler) + 2 * extension - 10 + 4 * gv.squareSize, (int)(brY * scaler) + 2 * extension - 10 + 4 * gv.squareSize);
-                                                        gv.DrawBitmap(gv.cc.prp_lightOrange, src, dst, 0, false, (0.15f * tile.lightSourceFocalHaloIntensity[z]) + (tile.lightSourceRingHaloIntensity[z]) * 1.75f * 0.7f * 0.45f * 0.75f * (0.425f - flicker / 200f) / opacityDivider);
-                                                        dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f) + extension2, tlY + shifterY - (int)((scaler - 1) * brY * 0.5f) + extension2, (int)(brX * scaler) - 2 * extension2, (int)(brY * scaler) - 2 * extension2);
-                                                        gv.DrawBitmap(gv.cc.prp_lightOrange, src, dst, 0, false, ((0.325f * tile.lightSourceFocalHaloIntensity[z]) + (tile.lightSourceFocalHaloIntensity[z]) * (2.25f * 0.3f * (0.425f - flicker / 200f))) / opacityDivider);
-        }
+                                                if (tile.tileLightSourceTag[z].Contains("prp_lightOrange"))
+                                                {
+                                                    int extension = 6 - (int)(flicker / 7f);
+                                                    int extension2 = 13 - (int)(flicker / 3f);
+                                                    dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f) - extension + 5 - 2 * gv.squareSize, tlY + shifterY - (int)((scaler - 1) * brY * 0.5f) - extension + 5 - 2 * gv.squareSize, (int)(brX * scaler) + 2 * extension - 10 + 4 * gv.squareSize, (int)(brY * scaler) + 2 * extension - 10 + 4 * gv.squareSize);
+                                                    gv.DrawBitmap(gv.cc.prp_lightOrange, src, dst, 0, false, (0.15f * tile.lightSourceFocalHaloIntensity[z]) + (tile.lightSourceRingHaloIntensity[z]) * 1.75f * 0.7f * 0.45f * 0.75f * (0.425f - flicker / 200f) / opacityDivider);
+                                                    dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f) + extension2, tlY + shifterY - (int)((scaler - 1) * brY * 0.5f) + extension2, (int)(brX * scaler) - 2 * extension2, (int)(brY * scaler) - 2 * extension2);
+                                                    gv.DrawBitmap(gv.cc.prp_lightOrange, src, dst, 0, false, ((0.325f * tile.lightSourceFocalHaloIntensity[z]) + (tile.lightSourceFocalHaloIntensity[z]) * (2.25f * 0.3f * (0.425f - flicker / 200f))) / opacityDivider);
                                                 }
                                             }
+                                        }
                                         //}
 
                                     }
@@ -33576,6 +33597,7 @@ namespace IceBlink2
                 }//clsoe outer tile loop
 
                 #endregion
+            }
         }
         public void drawLightAndDarkness(float elapsed)
         {
@@ -35568,8 +35590,9 @@ namespace IceBlink2
                                     //dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels, tlY, (int)(brX * scaler), (int)(brY * scaler));
                                     if (!gv.mod.currentArea.UseDayNightCycle)
                                     {
-                                        /*
+
                                         //entführt
+                                        /*
                                         if (gv.mod.blendOutTooHighAndTooDeepTiles)
                                         {
                                             if (tile.heightLevel > gv.mod.currentArea.Tiles[gv.mod.PlayerLocationY * gv.mod.currentArea.MapSizeX + gv.mod.PlayerLocationX].heightLevel + 2)
@@ -36659,14 +36682,14 @@ namespace IceBlink2
 
                                     //int numberOfSkulls = 0;
                                     bool showAsEncounter = false;
-                                    
-                                        if (p.ConversationWhenOnPartySquare != "none" && p.ConversationWhenOnPartySquare != "None" && p.ConversationWhenOnPartySquare != "")
+
+                                    if (p.ConversationWhenOnPartySquare != "none" && p.ConversationWhenOnPartySquare != "None" && p.ConversationWhenOnPartySquare != "")
+                                    {
+                                        if (p.alwaysFlagAsEncounter)
                                         {
-                                            if (p.alwaysFlagAsEncounter)
-                                            {
-                                                showAsEncounter = true;
-                                            }
+                                            showAsEncounter = true;
                                         }
+                                    }
 
                                     if ((p.EncounterWhenOnPartySquare != "none" && p.EncounterWhenOnPartySquare != "None" && p.EncounterWhenOnPartySquare != "") && ((p.ConversationWhenOnPartySquare == "none" || p.ConversationWhenOnPartySquare == "None" || p.ConversationWhenOnPartySquare == "")))
                                     {
@@ -36786,7 +36809,7 @@ namespace IceBlink2
                                             }
                                         }
                                     }
-                                    else if (p.unavoidableConversation && p.ConversationWhenOnPartySquare != "none" && p.ConversationWhenOnPartySquare != "None" && p.ConversationWhenOnPartySquare !="")
+                                    else if (p.unavoidableConversation && p.ConversationWhenOnPartySquare != "none" && p.ConversationWhenOnPartySquare != "None" && p.ConversationWhenOnPartySquare != "")
                                     {
                                         gv.cc.floatyTextB = "Mandatory Convo";
                                         gv.cc.floatyTextLoc = new Coordinate(gridx * gv.squareSize, (int)((gridy - 1) * gv.squareSize));
@@ -36870,40 +36893,53 @@ namespace IceBlink2
                                     if ((p.stealth != -1))
                                     {
                                         //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXx
-                                                        int darkAdder = 0;
-                                                        int tileAdder = 0;
-                                                        Coordinate pcCoord = new Coordinate();
-                                                        Coordinate propCoord = new Coordinate();
-                                                        pcCoord.X = gv.mod.PlayerLocationX;
-                                                        pcCoord.Y = gv.mod.PlayerLocationY;
-                                                       
-                                                            propCoord.X = p.LocationX;
-                                                            propCoord.Y = p.LocationY;
-                                                            tileAdder = gv.mod.currentArea.Tiles[p.LocationY * gv.mod.currentArea.MapSizeX + p.LocationX].stealthModifier;
-                                                            if (gv.sf.CheckPropByTagIsInDarknessPerArea(p.PropTag, "night", gv.mod.currentArea.Filename))
-                                                            {
-                                                                darkAdder = 4;
-                                                            }
-                                                            if (gv.sf.CheckPropByTagIsInDarknessPerArea(p.PropTag, "noLight", gv.mod.currentArea.Filename))
-                                                            {
-                                                                darkAdder = 12;
-                                                            }
-                                                       
-                                                        //factor in lit state and tile stealtModifier
-                                                        checkModifier = (gv.cc.getDistance(pcCoord, propCoord) - 1) * 2 + darkAdder + tileAdder;
+                                        int darkAdder = 0;
+                                        int tileAdder = 0;
+                                        Coordinate pcCoord = new Coordinate();
+                                        Coordinate propCoord = new Coordinate();
+                                        pcCoord.X = gv.mod.PlayerLocationX;
+                                        pcCoord.Y = gv.mod.PlayerLocationY;
 
-                                                        //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                                        propCoord.X = p.LocationX;
+                                        propCoord.Y = p.LocationY;
+                                        tileAdder = gv.mod.currentArea.Tiles[p.LocationY * gv.mod.currentArea.MapSizeX + p.LocationX].stealthModifier;
+                                        if (gv.sf.CheckPropByTagIsInDarknessPerArea(p.PropTag, "night", gv.mod.currentArea.Filename))
+                                        {
+                                            darkAdder = 4;
+                                        }
+                                        if (gv.sf.CheckPropByTagIsInDarknessPerArea(p.PropTag, "noLight", gv.mod.currentArea.Filename))
+                                        {
+                                            darkAdder = 12;
+                                        }
 
-                                                        textBlock += "Stealth " + (p.stealth - 10 + checkModifier).ToString() + ", ";
+                                        //factor in lit state and tile stealtModifier
+                                        checkModifier = (gv.cc.getDistance(pcCoord, propCoord) - 1) * 2 + darkAdder + tileAdder;
+
+                                        //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+
+                                        // textBlock += "Stealth " + (p.stealth - 10 + checkModifier).ToString() + ", ";
+                                        textBlock += "Stealth " + (p.stealth - 10).ToString();
+                                        if (checkModifier < 0)
+                                        {
+                                            textBlock += checkModifier.ToString() + ", ";
+                                        }
+                                        if (checkModifier > 0)
+                                        {
+                                            textBlock += "+" + checkModifier.ToString() + ", ";
+                                        }
+                                        if (checkModifier == 0)
+                                        {
+                                            textBlock += ", ";
+                                        }
                                     }
                                     else
                                     {
                                         textBlock += "No Stealther, ";
                                     }
-                                   
+
                                     if (p.spotEnemy != -1)
                                     {
-                                        if (p.isChaser || p.stealthSkipsPropTriggers)
+                                        if (p.isChaser)
                                         {
                                             int tileAdder = 0;
                                             int darkAdder = 0;
@@ -36925,17 +36961,38 @@ namespace IceBlink2
 
                                             //factor in lit state and tile stealtModifier
                                             checkModifier = (gv.cc.getDistance(pcCoord, propCoord) - 1) * 2 - 4 + darkAdder + tileAdder;
-                                            textBlock += "Spot " + (p.spotEnemy - 10 - checkModifier).ToString();
-                                            checkModifier = - 4 + darkAdder + tileAdder;
+                                            //textBlock += "Spot " + (p.spotEnemy - 10 - checkModifier).ToString();
+                                            textBlock += "Spot " + (p.spotEnemy - 10).ToString();
+                                            if (checkModifier < 0)
+                                            {
+                                                textBlock += "+" + (checkModifier * -1).ToString();
+                                            }
+                                            if (checkModifier > 0)
+                                            {
+                                                textBlock += "-" + checkModifier.ToString();
+                                            }
+                                            //checkModifier = -4 + darkAdder + tileAdder;
                                         }
                                         else
                                         {
                                             textBlock += "No Spot";
+                                            int tileAdder = 0;
+                                            int darkAdder = 0;
+                                            tileAdder = gv.mod.currentArea.Tiles[gv.mod.PlayerLocationY * gv.mod.currentArea.MapSizeX + gv.mod.PlayerLocationY].stealthModifier;
+                                            if (gv.sf.CheckIsInDarkness("party", "night"))
+                                            {
+                                                darkAdder = 4;
+                                            }
+                                            if (gv.sf.CheckIsInDarkness("party", "noLight"))
+                                            {
+                                                darkAdder = 12;
+                                            }
+                                            checkModifier = -4 + darkAdder + tileAdder;
                                         }
                                     }
                                     else
                                     {
-                                        if (p.isChaser || p.stealthSkipsPropTriggers)
+                                        if (p.isChaser)
                                         {
                                             textBlock += "All seeing";
                                         }
@@ -36951,7 +37008,7 @@ namespace IceBlink2
                                     if (p.stealthSkipsPropTriggers)
                                     {
                                         //gv.cc.floatyText3 = "Allows sneak through";
-                                        gv.cc.floatyText3 = "Sneak through DC " + (p.spotEnemy - 10 - checkModifier +5 ).ToString() ;
+                                        gv.cc.floatyText3 = "Sneak through DC " + (p.spotEnemy - 10 - checkModifier + 5).ToString();
                                         gv.cc.floatyTextLoc = new Coordinate(gridx * gv.squareSize, (int)((gridy - 1) * gv.squareSize));
 
                                     }
@@ -37033,10 +37090,10 @@ namespace IceBlink2
                                         gv.cc.floatyTextLoc = new Coordinate(gridx * gv.squareSize, (int)((gridy - 1) * gv.squareSize));
 
                                     }
-                                
-                                }  
-                            }//up to here
-                        }
+
+                                    }
+                                }//up to here
+                            }
                        }
 
                     //get diagonal neighbours
@@ -37459,7 +37516,20 @@ namespace IceBlink2
 
                                                 //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
-                                                textBlock += "Stealth " + (p.stealth - 10 + checkModifier).ToString() + ", ";
+                                                // textBlock += "Stealth " + (p.stealth - 10 + checkModifier).ToString() + ", ";
+                                                textBlock += "Stealth " + (p.stealth - 10).ToString();
+                                                if (checkModifier < 0)
+                                                {
+                                                    textBlock += checkModifier.ToString() + ", ";
+                                                }
+                                                if (checkModifier > 0)
+                                                {
+                                                    textBlock += "+" + checkModifier.ToString() + ", ";
+                                                }
+                                                if (checkModifier == 0)
+                                                {
+                                                    textBlock += ", ";
+                                                }
                                             }
                                             else
                                             {
@@ -37468,7 +37538,7 @@ namespace IceBlink2
 
                                             if (p.spotEnemy != -1)
                                             {
-                                                if (p.isChaser || p.stealthSkipsPropTriggers)
+                                                if (p.isChaser)
                                                 {
                                                     int tileAdder = 0;
                                                     int darkAdder = 0;
@@ -37490,17 +37560,38 @@ namespace IceBlink2
 
                                                     //factor in lit state and tile stealtModifier
                                                     checkModifier = (gv.cc.getDistance(pcCoord, propCoord) - 1) * 2 - 4 + darkAdder + tileAdder;
-                                                    textBlock += "Spot " + (p.spotEnemy - 10 - checkModifier).ToString();
-                                                    checkModifier = -4 + darkAdder + tileAdder;
+                                                    //textBlock += "Spot " + (p.spotEnemy - 10 - checkModifier).ToString();
+                                                    textBlock += "Spot " + (p.spotEnemy - 10).ToString();
+                                                    if (checkModifier < 0)
+                                                    {
+                                                        textBlock += "+" + (checkModifier*-1).ToString();
+                                                    }
+                                                    if (checkModifier > 0)
+                                                    {
+                                                        textBlock += "-" + checkModifier.ToString();
+                                                    }
+                                                    //checkModifier = -4 + darkAdder + tileAdder;
                                                 }
                                                 else
                                                 {
                                                     textBlock += "No Spot";
+                                                    int tileAdder = 0;
+                                                    int darkAdder = 0;
+                                                    tileAdder = gv.mod.currentArea.Tiles[gv.mod.PlayerLocationY * gv.mod.currentArea.MapSizeX + gv.mod.PlayerLocationY].stealthModifier;
+                                                    if (gv.sf.CheckIsInDarkness("party", "night"))
+                                                    {
+                                                        darkAdder = 4;
+                                                    }
+                                                    if (gv.sf.CheckIsInDarkness("party", "noLight"))
+                                                    {
+                                                        darkAdder = 12;
+                                                    }
+                                                    checkModifier = -4 + darkAdder + tileAdder;
                                                 }
                                             }
                                             else
                                             {
-                                                if (p.isChaser || p.stealthSkipsPropTriggers)
+                                                if (p.isChaser)
                                                 {
                                                     textBlock += "All seeing";
                                                 }
