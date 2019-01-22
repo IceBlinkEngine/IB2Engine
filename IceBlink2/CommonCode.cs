@@ -9720,11 +9720,11 @@ namespace IceBlink2
                             {
                                 this.moveToTarget(gv.mod.PlayerLocationX, gv.mod.PlayerLocationY, gv.mod.currentArea.Props[i], moveDist);
                                 //eisschraube
-                                //if (gv.mod.stopMoves)
-                                //{
-                                    //gv.mod.stopMoves = false;
-                                    //return;
-                                //}
+                                if (gv.mod.stopMoves)
+                                {
+                                    gv.mod.stopMoves = false;
+                                    return;
+                                }
                             }
                             //if (moveDist > 1)
                             //{
@@ -12121,10 +12121,95 @@ namespace IceBlink2
         }
         public void doConversationBasedOnTag(string tag)
         {
-           
-            //if (gv.mod.doConvo)
+
+            bool isFooled = false;
+            //enter code for skipping triggers of prop here
+            //if (calledEncounterFromProp)
             //{
-                try
+            if (gv.sf.ThisProp.stealthSkipsPropTriggers)
+            {
+                //add missing check
+                //bool isFooled = false;
+                string traitMethod = "leader";
+                foreach (Trait t in gv.mod.moduleTraitsList)
+                {
+                    if (t.tag.Contains(gv.mod.tagOfStealthMainTrait))
+                    {
+                        traitMethod = t.methodOfChecking;
+                    }
+                }
+                int parm1 = gv.mod.selectedPartyLeader;
+                if (traitMethod.Equals("-1") || traitMethod.Equals("leader") || traitMethod.Equals("Leader"))
+                {
+                    parm1 = gv.mod.selectedPartyLeader;
+                }
+                else if (traitMethod.Equals("-2") || traitMethod.Equals("highest") || traitMethod.Equals("Highest"))
+                {
+                    parm1 = -2;
+                }
+                else if (traitMethod.Equals("-3") || traitMethod.Equals("lowest") || traitMethod.Equals("Lowest"))
+                {
+                    parm1 = -3;
+                }
+                else if (traitMethod.Equals("-4") || traitMethod.Equals("average") || traitMethod.Equals("Average"))
+                {
+                    parm1 = -4;
+                }
+                else if (traitMethod.Equals("-5") || traitMethod.Equals("allMustSucceed") || traitMethod.Equals("AllMustSucceed"))
+                {
+                    parm1 = -5;
+                }
+                else if (traitMethod.Equals("-6") || traitMethod.Equals("oneMustSucceed") || traitMethod.Equals("OneMustSucceed"))
+                {
+                    parm1 = -6;
+                }
+
+                int tileAdder = 0;
+                int darkAdder = 0;
+                tileAdder = gv.mod.currentArea.Tiles[gv.mod.PlayerLocationY * gv.mod.currentArea.MapSizeX + gv.mod.PlayerLocationY].stealthModifier;
+                if (gv.sf.CheckIsInDarkness("party", "night"))
+                {
+                    darkAdder = 4;
+                }
+                if (gv.sf.CheckIsInDarkness("party", "noLight"))
+                {
+                    darkAdder = 12;
+                }
+                Coordinate pcCoord = new Coordinate();
+                Coordinate propCoord = new Coordinate();
+                pcCoord.X = gv.mod.PlayerLocationX;
+                pcCoord.Y = gv.mod.PlayerLocationY;
+                propCoord.X = gv.sf.ThisProp.LocationX;
+                propCoord.Y = gv.sf.ThisProp.LocationY;
+
+                //factor in lit state and tile stealtModifier
+                //this way a sneak through is 5 points more diffcult than a direct sneak by
+
+                //spot dc 13, sneak dc 27 
+                //allows sneak through
+                //entlastungsa
+                int checkModifier = -4 + darkAdder + tileAdder - 5;
+
+                if (gv.sf.CheckPassSkill(parm1, gv.mod.tagOfStealthMainTrait, gv.sf.ThisProp.spotEnemy - checkModifier, true, true))
+                {
+                    isFooled = true;
+                    gv.sf.ThisProp.showSneakThroughSymbol = true;
+                }
+                else
+                {
+                    isFooled = false;
+                    gv.sf.ThisProp.showSneakThroughSymbol = false;
+                }
+
+                if (isFooled)
+                {
+                    return;
+                }
+                //}
+            }//up to here
+             //if (gv.mod.doConvo)
+             //{
+            try
                 {
                     gv.mod.allowImmediateRetransition = true;
                     LoadCurrentConvo(tag);
@@ -13764,10 +13849,97 @@ namespace IceBlink2
 
         public void doEncounterBasedOnTag(string name)
         {
+
+            bool isFooled = false;
+            //enter code for skipping triggers of prop here
+            //if (calledEncounterFromProp)
+            //{
+                if (gv.sf.ThisProp.stealthSkipsPropTriggers)
+                {
+                    //add missing check
+                    //bool isFooled = false;
+                    string traitMethod = "leader";
+                    foreach (Trait t in gv.mod.moduleTraitsList)
+                    {
+                        if (t.tag.Contains(gv.mod.tagOfStealthMainTrait))
+                        {
+                            traitMethod = t.methodOfChecking;
+                        }
+                    }
+                    int parm1 = gv.mod.selectedPartyLeader;
+                    if (traitMethod.Equals("-1") || traitMethod.Equals("leader") || traitMethod.Equals("Leader"))
+                    {
+                        parm1 = gv.mod.selectedPartyLeader;
+                    }
+                    else if (traitMethod.Equals("-2") || traitMethod.Equals("highest") || traitMethod.Equals("Highest"))
+                    {
+                        parm1 = -2;
+                    }
+                    else if (traitMethod.Equals("-3") || traitMethod.Equals("lowest") || traitMethod.Equals("Lowest"))
+                    {
+                        parm1 = -3;
+                    }
+                    else if (traitMethod.Equals("-4") || traitMethod.Equals("average") || traitMethod.Equals("Average"))
+                    {
+                        parm1 = -4;
+                    }
+                    else if (traitMethod.Equals("-5") || traitMethod.Equals("allMustSucceed") || traitMethod.Equals("AllMustSucceed"))
+                    {
+                        parm1 = -5;
+                    }
+                    else if (traitMethod.Equals("-6") || traitMethod.Equals("oneMustSucceed") || traitMethod.Equals("OneMustSucceed"))
+                    {
+                        parm1 = -6;
+                    }
+
+                    int tileAdder = 0;
+                    int darkAdder = 0;
+                    tileAdder = gv.mod.currentArea.Tiles[gv.mod.PlayerLocationY * gv.mod.currentArea.MapSizeX + gv.mod.PlayerLocationY].stealthModifier;
+                    if (gv.sf.CheckIsInDarkness("party", "night"))
+                    {
+                        darkAdder = 4;
+                    }
+                    if (gv.sf.CheckIsInDarkness("party", "noLight"))
+                    {
+                        darkAdder = 12;
+                    }
+                    Coordinate pcCoord = new Coordinate();
+                    Coordinate propCoord = new Coordinate();
+                    pcCoord.X = gv.mod.PlayerLocationX;
+                    pcCoord.Y = gv.mod.PlayerLocationY;
+                    propCoord.X = gv.sf.ThisProp.LocationX;
+                    propCoord.Y = gv.sf.ThisProp.LocationY;
+
+                    //factor in lit state and tile stealtModifier
+                    //this way a sneak through is 5 points more diffcult than a direct sneak by
+
+                    //spot dc 13, sneak dc 27 
+                    //allows sneak through
+                    //entlastungsa
+                    int checkModifier = -4 + darkAdder + tileAdder - 5;
+
+                    if (gv.sf.CheckPassSkill(parm1, gv.mod.tagOfStealthMainTrait, gv.sf.ThisProp.spotEnemy - checkModifier, true, true))
+                    {
+                        isFooled = true;
+                        gv.sf.ThisProp.showSneakThroughSymbol = true;
+                    }
+                    else
+                    {
+                        isFooled = false;
+                        gv.sf.ThisProp.showSneakThroughSymbol = false;
+                    }
+
+                    if (isFooled)
+                    {
+                        return;
+                    }
+                //}
+            }//up to here
+
             //if (gv.mod.breakActiveSearch == false)
             //{
-                //project repeatable
-                try
+            //project repeatable
+            try
                 {
                     gv.mod.currentEncounter = gv.mod.getEncounter(name);
                     if (gv.mod.currentEncounter.encounterCreatureRefsList.Count > 0)
