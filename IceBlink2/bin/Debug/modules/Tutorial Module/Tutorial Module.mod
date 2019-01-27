@@ -30,7 +30,8 @@
     "stony",
     "Tutorial_01",
     "Tutorial_02",
-    "Outdoor_01"
+    "Outdoor_01",
+    "Outdoor_02"
   ],
   "moduleConvosList": [
     "addCompanionConvo",
@@ -184,7 +185,7 @@
   "MaxPartySize": 6,
   "moduleDescription": "Short module tutorial on how to make a simple module.",
   "moduleCredits": "<big><b>Unwanted Guests</b></big><BR>\r\n<BR>\r\n-visit the forums for more info:<BR>\r\nwww.iceblinkengine.com/forums",
-  "nextIdNumber": 16485,
+  "nextIdNumber": 16489,
   "realTimeTimerLengthInMilliSeconds": 7000,
   "borderAreaSize": 0,
   "WorldTime": 626572800,

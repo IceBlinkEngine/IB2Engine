@@ -1745,7 +1745,7 @@ namespace IceBlink2
                                                 {
                                                     if (tile.hasDownStairShadowN || tile.hasDownStairShadowW)
                                                     {
-                                                        tile.isInShortShadeNW = true;
+                                                        //tile.isInShortShadeNW = true;
                                                     }
                                                 }
                                             }
@@ -1761,7 +1761,7 @@ namespace IceBlink2
                                                 {
                                                     if (tile.hasDownStairShadowN || tile.hasDownStairShadowW)
                                                     {
-                                                        tile.isInShortShadeNW = true;
+                                                        //tile.isInShortShadeNW = true;
                                                     }
                                                 }
                                                 //tile.numberOfHeightLevelsThisTileisHigherThanNeighbourN = tile.heightLevel - tileCaster.heightLevel;
@@ -1772,7 +1772,7 @@ namespace IceBlink2
                                                 {
                                                     if (tile.hasDownStairShadowN || tile.hasDownStairShadowE)
                                                     {
-                                                        tile.isInShortShadeNE = true;
+                                                        //tile.isInShortShadeNE = true;
                                                     }
                                                 }
                                                 //tile.isInShortShadeNE = true;
@@ -1793,7 +1793,7 @@ namespace IceBlink2
                                                 {
                                                     if (tile.hasDownStairShadowS || tile.hasDownStairShadowE)
                                                     {
-                                                        tile.isInShortShadeSE = true;
+                                                        //tile.isInShortShadeSE = true;
                                                     }
                                                 }
                                             }
@@ -1813,7 +1813,7 @@ namespace IceBlink2
                                                 {
                                                     if (tile.hasDownStairShadowS || tile.hasDownStairShadowW)
                                                     {
-                                                        tile.isInShortShadeSW = true;
+                                                        //tile.isInShortShadeSW = true;
                                                     }
                                                 }
                                             }
@@ -3810,7 +3810,7 @@ namespace IceBlink2
                                                 {
                                                     if (tile.hasDownStairShadowN || tile.hasDownStairShadowW)
                                                     {
-                                                        tile.isInShortShadeNW = true;
+                                                        //tile.isInShortShadeNW = true;
                                                     }
                                                 }
                                             }
@@ -3826,7 +3826,7 @@ namespace IceBlink2
                                                 {
                                                     if (tile.hasDownStairShadowN || tile.hasDownStairShadowW)
                                                     {
-                                                        tile.isInShortShadeNW = true;
+                                                        //tile.isInShortShadeNW = true;
                                                     }
                                                 }
                                                 //tile.numberOfHeightLevelsThisTileisHigherThanNeighbourN = tile.heightLevel - tileCaster.heightLevel;
@@ -3837,7 +3837,7 @@ namespace IceBlink2
                                                 {
                                                     if (tile.hasDownStairShadowN || tile.hasDownStairShadowE)
                                                     {
-                                                        tile.isInShortShadeNE = true;
+                                                        //tile.isInShortShadeNE = true;
                                                     }
                                                 }
                                                 //tile.isInShortShadeNE = true;
@@ -3858,7 +3858,7 @@ namespace IceBlink2
                                                 {
                                                     if (tile.hasDownStairShadowS || tile.hasDownStairShadowE)
                                                     {
-                                                        tile.isInShortShadeSE = true;
+                                                        //tile.isInShortShadeSE = true;
                                                     }
                                                 }
                                             }
@@ -3878,7 +3878,7 @@ namespace IceBlink2
                                                 {
                                                     if (tile.hasDownStairShadowS || tile.hasDownStairShadowW)
                                                     {
-                                                        tile.isInShortShadeSW = true;
+                                                        //tile.isInShortShadeSW = true;
                                                     }
                                                 }
                                             }

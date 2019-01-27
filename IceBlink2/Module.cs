@@ -14,6 +14,7 @@ namespace IceBlink2
     public class Module
     {
 
+        public float nightTimeDarkness = 0.65f;
         public bool stopMoves = false;
         //public bool noHaloForParty = false;
         //public bool noHaloAddToParty = false;
@@ -136,7 +137,7 @@ namespace IceBlink2
         public bool isSandstorm = false;
         public float logOpacity = 1f;
         public int logFadeCounter = 120;
-        
+        public bool hideInterfaceNextMove = true;
 
         public float pixDistanceToBorderWest = 0;
         public float pixDistanceToBorderEast = 0;

@@ -12389,6 +12389,1113 @@ namespace IceBlink2
                     crt.roamDistanceX += randX;
                     crt.roamDistanceY += randY;
                 }
+
+                //stopmichael
+
+                //north on map for nomral and tall creatures
+                if ((crt.creatureSize == 1 || crt.creatureSize == 3) && crt.roamDistanceY < 0)
+                {
+                    if ((crt.combatLocY - 1) > 0)
+                    {
+                        //north not walkable
+                        bool lookForOthers = true;
+                        foreach (Coordinate coord in crt.tokenCoveredSquares)
+                        {
+                            if (!gv.mod.currentEncounter.encounterTiles[(coord.Y - 1) * gv.mod.currentEncounter.MapSizeX + coord.X].Walkable)
+                            {
+                                crt.roamDistanceY = 0;
+                                lookForOthers = false;
+                                break;
+                            }
+                        }
+
+                        //north occupied by player or creature
+                        if (lookForOthers)
+                        {
+                            //player
+                            bool lookForCreatures = true;
+                            bool foundPlayer = false;
+                            foreach (Coordinate coord in crt.tokenCoveredSquares)
+                            {
+                                foreach (Player p in gv.mod.playerList)
+                                {
+                                    if (p.hp > 0 && coord.X == p.combatLocX && (coord.Y - 1) == p.combatLocY)
+                                    {
+                                        crt.roamDistanceY = 0;
+                                        lookForCreatures = false;
+                                        foundPlayer = true;
+                                        break;
+                                    }
+                                }
+                                if (foundPlayer)
+                                {
+                                    break;
+                                }
+                            }
+
+                            //creature
+                            if (lookForCreatures)
+                            {
+                                bool breakAllNested = false;
+                                foreach (Coordinate coord in crt.tokenCoveredSquares)
+                                {
+                                    foreach (Creature cOther in gv.mod.currentEncounter.encounterCreatureList)
+                                    {
+                                        if (cOther != crt && cOther.hp > 0)
+                                        {
+                                            foreach (Coordinate coordOther in cOther.tokenCoveredSquares)
+                                            {
+                                                if (coord.X == coordOther.X && (coord.Y - 1) == coordOther.Y)
+                                                {
+                                                    crt.roamDistanceY = 0;
+                                                    breakAllNested = true;
+                                                    break;
+                                                }
+                                            }
+                                        }
+                                        if (breakAllNested)
+                                        {
+                                            break;
+                                        }
+                                    }
+                                    if (breakAllNested)
+                                    {
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    //north not on map
+                    else
+                    {
+                        crt.roamDistanceY = 0;
+                    }
+                }
+                //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                //north for wide(2) and large(4) creatures
+                if ((crt.creatureSize == 2 || crt.creatureSize == 4)  && crt.roamDistanceY < 0)
+                {
+                    if ((crt.combatLocY - 1) > 0)
+                    {
+                        //north not walkable
+                        bool lookForOthers = true;
+                        foreach (Coordinate coord in crt.tokenCoveredSquares)
+                        {
+                            if (!gv.mod.currentEncounter.encounterTiles[(coord.Y - 1) * gv.mod.currentEncounter.MapSizeX + coord.X].Walkable)
+                            {
+                                crt.roamDistanceY = 0;
+                                lookForOthers = false;
+                                break;
+                            }
+                            if (!gv.mod.currentEncounter.encounterTiles[(coord.Y - 1) * gv.mod.currentEncounter.MapSizeX + (coord.X+1)].Walkable)
+                            {
+                                crt.roamDistanceY = 0;
+                                lookForOthers = false;
+                                break;
+                            }
+                        }
+
+                        //north occupied by player or creature
+                        if (lookForOthers)
+                        {
+                            //player
+                            bool lookForCreatures = true;
+                            bool foundPlayer = false;
+                            foreach (Coordinate coord in crt.tokenCoveredSquares)
+                            {
+                                foreach (Player p in gv.mod.playerList)
+                                {
+                                    if (p.hp > 0 && coord.X == p.combatLocX && (coord.Y - 1) == p.combatLocY)
+                                    {
+                                        crt.roamDistanceY = 0;
+                                        lookForCreatures = false;
+                                        foundPlayer = true;
+                                        break;
+                                    }
+                                    if (p.hp > 0 && (coord.X+1) == p.combatLocX && (coord.Y - 1) == p.combatLocY)
+                                    {
+                                        crt.roamDistanceY = 0;
+                                        lookForCreatures = false;
+                                        foundPlayer = true;
+                                        break;
+                                    }
+                                }
+                                if (foundPlayer)
+                                {
+                                    break;
+                                }
+                            }
+
+                            //creature
+                            if (lookForCreatures)
+                            {
+                                bool breakAllNested = false;
+                                foreach (Coordinate coord in crt.tokenCoveredSquares)
+                                {
+                                    foreach (Creature cOther in gv.mod.currentEncounter.encounterCreatureList)
+                                    {
+                                        if (cOther != crt && cOther.hp > 0)
+                                        {
+                                            foreach (Coordinate coordOther in cOther.tokenCoveredSquares)
+                                            {
+                                                if (coord.X == coordOther.X && (coord.Y - 1) == coordOther.Y)
+                                                {
+                                                    crt.roamDistanceY = 0;
+                                                    breakAllNested = true;
+                                                    break;
+                                                }
+
+                                                if ((coord.X+1) == coordOther.X && (coord.Y - 1) == coordOther.Y)
+                                                {
+                                                    crt.roamDistanceY = 0;
+                                                    breakAllNested = true;
+                                                    break;
+                                                }
+                                            }
+                                        }
+                                        if (breakAllNested)
+                                        {
+                                            break;
+                                        }
+                                    }
+                                    if (breakAllNested)
+                                    {
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    //north not on map
+                    else
+                    {
+                        crt.roamDistanceY = 0;
+                    }
+                }
+
+                //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXxx
+
+                //west on map: for normal(1) and wide creatures (2)
+                if ((crt.creatureSize == 1 || crt.creatureSize == 2) && crt.roamDistanceX < 0)
+                {
+                    if ((crt.combatLocX - 1) > 0)
+                    {
+                        //north not walkable
+                        bool lookForOthers = true;
+                        foreach (Coordinate coord in crt.tokenCoveredSquares)
+                        {
+                            if (!gv.mod.currentEncounter.encounterTiles[(coord.Y) * gv.mod.currentEncounter.MapSizeX + (coord.X - 1)].Walkable)
+                            {
+                                crt.roamDistanceX = 0;
+                                lookForOthers = false;
+                                break;
+                            }
+                        }
+
+                        //north occupied by player or creature
+                        if (lookForOthers)
+                        {
+                            //player
+                            bool lookForCreatures = true;
+                            bool foundPlayer = false;
+                            foreach (Coordinate coord in crt.tokenCoveredSquares)
+                            {
+                                foreach (Player p in gv.mod.playerList)
+                                {
+                                    if (p.hp > 0 && (coord.X - 1) == p.combatLocX && (coord.Y) == p.combatLocY)
+                                    {
+                                        crt.roamDistanceX = 0;
+                                        lookForCreatures = false;
+                                        foundPlayer = true;
+                                        break;
+                                    }
+                                }
+                                if (foundPlayer)
+                                {
+                                    break;
+                                }
+                            }
+
+                            //creature
+                            if (lookForCreatures)
+                            {
+                                bool breakAllNested = false;
+                                foreach (Coordinate coord in crt.tokenCoveredSquares)
+                                {
+                                    foreach (Creature cOther in gv.mod.currentEncounter.encounterCreatureList)
+                                    {
+                                        if (cOther != crt && cOther.hp > 0)
+                                        {
+                                            foreach (Coordinate coordOther in cOther.tokenCoveredSquares)
+                                            {
+                                                if ((coord.X - 1) == coordOther.X && (coord.Y) == coordOther.Y)
+                                                {
+                                                    crt.roamDistanceX = 0;
+                                                    breakAllNested = true;
+                                                    break;
+                                                }
+                                            }
+                                        }
+                                        if (breakAllNested)
+                                        {
+                                            break;
+                                        }
+                                    }
+                                    if (breakAllNested)
+                                    {
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    //west not on map
+                    else
+                    {
+                        crt.roamDistanceX = 0;
+                    }
+                }
+
+                //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                //west on map: for  tall (3) and large creatures (4)
+                if ((crt.creatureSize == 3 || crt.creatureSize == 4)  && crt.roamDistanceX < 0)
+                {
+                    if ((crt.combatLocX - 1) > 0)
+                    {
+                        //west not walkable
+                        bool lookForOthers = true;
+                        foreach (Coordinate coord in crt.tokenCoveredSquares)
+                        {
+                            if (!gv.mod.currentEncounter.encounterTiles[(coord.Y) * gv.mod.currentEncounter.MapSizeX + (coord.X - 1)].Walkable)
+                            {
+                                crt.roamDistanceX = 0;
+                                lookForOthers = false;
+                                break;
+                            }
+
+                            if (!gv.mod.currentEncounter.encounterTiles[(coord.Y+1) * gv.mod.currentEncounter.MapSizeX + (coord.X - 1)].Walkable)
+                            {
+                                crt.roamDistanceX = 0;
+                                lookForOthers = false;
+                                break;
+                            }
+                        }
+
+                        //west occupied by player or creature
+                        if (lookForOthers)
+                        {
+                            //player
+                            bool lookForCreatures = true;
+                            bool foundPlayer = false;
+                            foreach (Coordinate coord in crt.tokenCoveredSquares)
+                            {
+                                foreach (Player p in gv.mod.playerList)
+                                {
+                                    if (p.hp > 0 && (coord.X - 1) == p.combatLocX && (coord.Y) == p.combatLocY)
+                                    {
+                                        crt.roamDistanceX = 0;
+                                        lookForCreatures = false;
+                                        foundPlayer = true;
+                                        break;
+                                    }
+                                    if (p.hp > 0 && (coord.X - 1) == p.combatLocX && (coord.Y+1) == p.combatLocY)
+                                    {
+                                        crt.roamDistanceX = 0;
+                                        lookForCreatures = false;
+                                        foundPlayer = true;
+                                        break;
+                                    }
+                                }
+                                if (foundPlayer)
+                                {
+                                    break;
+                                }
+                            }
+
+                            //creature
+                            if (lookForCreatures)
+                            {
+                                bool breakAllNested = false;
+                                foreach (Coordinate coord in crt.tokenCoveredSquares)
+                                {
+                                    foreach (Creature cOther in gv.mod.currentEncounter.encounterCreatureList)
+                                    {
+                                        if (cOther != crt && cOther.hp > 0)
+                                        {
+                                            foreach (Coordinate coordOther in cOther.tokenCoveredSquares)
+                                            {
+                                                if ((coord.X - 1) == coordOther.X && (coord.Y) == coordOther.Y)
+                                                {
+                                                    crt.roamDistanceX = 0;
+                                                    breakAllNested = true;
+                                                    break;
+                                                }
+                                                if ((coord.X - 1) == coordOther.X && (coord.Y+1) == coordOther.Y)
+                                                {
+                                                    crt.roamDistanceX = 0;
+                                                    breakAllNested = true;
+                                                    break;
+                                                }
+                                            }
+                                        }
+                                        if (breakAllNested)
+                                        {
+                                            break;
+                                        }
+                                    }
+                                    if (breakAllNested)
+                                    {
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    //west not on map
+                    else
+                    {
+                        crt.roamDistanceX = 0;
+                    }
+                }
+                //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                
+                //south and east will require four different cases each
+
+                //south on map (for normal)
+                if ((crt.creatureSize == 1) && crt.roamDistanceY > 0)
+                {
+                    if ((crt.combatLocY + 1 < gv.mod.currentEncounter.MapSizeY))
+                    {
+                        //south not walkable
+                        bool lookForOthers = true;
+                        foreach (Coordinate coord in crt.tokenCoveredSquares)
+                        {
+                            if (!gv.mod.currentEncounter.encounterTiles[(coord.Y + 1) * gv.mod.currentEncounter.MapSizeX + coord.X].Walkable)
+                            {
+                                crt.roamDistanceY = 0;
+                                lookForOthers = false;
+                                break;
+                            }
+                        }
+
+                        //north occupied by player or creature
+                        if (lookForOthers)
+                        {
+                            //player
+                            bool lookForCreatures = true;
+                            bool foundPlayer = false;
+                            foreach (Coordinate coord in crt.tokenCoveredSquares)
+                            {
+                                foreach (Player p in gv.mod.playerList)
+                                {
+                                    if (p.hp > 0 && coord.X == p.combatLocX && (coord.Y + 1) == p.combatLocY)
+                                    {
+                                        crt.roamDistanceY = 0;
+                                        lookForCreatures = false;
+                                        foundPlayer = true;
+                                        break;
+                                    }
+                                }
+                                if (foundPlayer)
+                                {
+                                    break;
+                                }
+                            }
+
+                            //creature
+                            if (lookForCreatures)
+                            {
+                                bool breakAllNested = false;
+                                foreach (Coordinate coord in crt.tokenCoveredSquares)
+                                {
+                                    foreach (Creature cOther in gv.mod.currentEncounter.encounterCreatureList)
+                                    {
+                                        if (cOther != crt && cOther.hp > 0)
+                                        {
+                                            foreach (Coordinate coordOther in cOther.tokenCoveredSquares)
+                                            {
+                                                if (coord.X == coordOther.X && (coord.Y + 1) == coordOther.Y)
+                                                {
+                                                    crt.roamDistanceY = 0;
+                                                    breakAllNested = true;
+                                                    break;
+                                                }
+                                            }
+                                        }
+                                        if (breakAllNested)
+                                        {
+                                            break;
+                                        }
+                                    }
+                                    if (breakAllNested)
+                                    {
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    //south not on map
+                    else
+                    {
+                        crt.roamDistanceY = 0;
+                    }
+                }
+                //south on map for tall (Size 3) tall creatures - the relevant y is one higher
+                else if ((crt.creatureSize == 3) && crt.roamDistanceY > 0)
+                {
+                    if ((crt.combatLocY + 2 < gv.mod.currentEncounter.MapSizeY)) 
+                    {
+                        //south not walkable
+                        bool lookForOthers = true;
+                        foreach (Coordinate coord in crt.tokenCoveredSquares)
+                        {
+                            if (!gv.mod.currentEncounter.encounterTiles[(coord.Y + 2) * gv.mod.currentEncounter.MapSizeX + coord.X].Walkable)
+                            {
+                                crt.roamDistanceY = 0;
+                                lookForOthers = false;
+                                break;
+                            }
+                        }
+
+                        //south occupied by player or creature
+                        if (lookForOthers)
+                        {
+                            //player
+                            bool lookForCreatures = true;
+                            bool foundPlayer = false;
+                            foreach (Coordinate coord in crt.tokenCoveredSquares)
+                            {
+                                foreach (Player p in gv.mod.playerList)
+                                {
+                                    if (p.hp > 0 && coord.X == p.combatLocX && (coord.Y + 2) == p.combatLocY)
+                                    {
+                                        crt.roamDistanceY = 0;
+                                        lookForCreatures = false;
+                                        foundPlayer = true;
+                                        break;
+                                    }
+                                }
+                                if (foundPlayer)
+                                {
+                                    break;
+                                }
+                            }
+
+                            //creature
+                            if (lookForCreatures)
+                            {
+                                bool breakAllNested = false;
+                                foreach (Coordinate coord in crt.tokenCoveredSquares)
+                                {
+                                    foreach (Creature cOther in gv.mod.currentEncounter.encounterCreatureList)
+                                    {
+                                        if (cOther != crt && cOther.hp > 0)
+                                        {
+                                            foreach (Coordinate coordOther in cOther.tokenCoveredSquares)
+                                            {
+                                                if (coord.X == coordOther.X && (coord.Y + 2) == coordOther.Y)
+                                                {
+                                                    crt.roamDistanceY = 0;
+                                                    breakAllNested = true;
+                                                    break;
+                                                }
+                                            }
+                                        }
+                                        if (breakAllNested)
+                                        {
+                                            break;
+                                        }
+                                    }
+                                    if (breakAllNested)
+                                    {
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    //south not on map
+                    else
+                    {
+                        crt.roamDistanceY = 0;
+                    }
+                }
+
+                //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXxx
+                //south on map (for wide, 2)
+                else if ((crt.creatureSize == 2) && crt.roamDistanceY > 0)
+                {
+                    if ((crt.combatLocY + 1 < gv.mod.currentEncounter.MapSizeY))
+                    {
+                        //south not walkable
+                        bool lookForOthers = true;
+                        foreach (Coordinate coord in crt.tokenCoveredSquares)
+                        {
+                            if (!gv.mod.currentEncounter.encounterTiles[(coord.Y + 1) * gv.mod.currentEncounter.MapSizeX + coord.X].Walkable)
+                            {
+                                crt.roamDistanceY = 0;
+                                lookForOthers = false;
+                                break;
+                            }
+
+                            if (!gv.mod.currentEncounter.encounterTiles[(coord.Y + 1) * gv.mod.currentEncounter.MapSizeX + (coord.X+1)].Walkable)
+                            {
+                                crt.roamDistanceY = 0;
+                                lookForOthers = false;
+                                break;
+                            }
+                        }
+
+                        //north occupied by player or creature
+                        if (lookForOthers)
+                        {
+                            //player
+                            bool lookForCreatures = true;
+                            bool foundPlayer = false;
+                            foreach (Coordinate coord in crt.tokenCoveredSquares)
+                            {
+                                foreach (Player p in gv.mod.playerList)
+                                {
+                                    if (p.hp > 0 && coord.X == p.combatLocX && (coord.Y + 1) == p.combatLocY)
+                                    {
+                                        crt.roamDistanceY = 0;
+                                        lookForCreatures = false;
+                                        foundPlayer = true;
+                                        break;
+                                    }
+
+                                    if (p.hp > 0 && (coord.X+1) == p.combatLocX && (coord.Y + 1) == p.combatLocY)
+                                    {
+                                        crt.roamDistanceY = 0;
+                                        lookForCreatures = false;
+                                        foundPlayer = true;
+                                        break;
+                                    }
+                                }
+                                if (foundPlayer)
+                                {
+                                    break;
+                                }
+                            }
+
+                            //creature
+                            if (lookForCreatures)
+                            {
+                                bool breakAllNested = false;
+                                foreach (Coordinate coord in crt.tokenCoveredSquares)
+                                {
+                                    foreach (Creature cOther in gv.mod.currentEncounter.encounterCreatureList)
+                                    {
+                                        if (cOther != crt && cOther.hp > 0)
+                                        {
+                                            foreach (Coordinate coordOther in cOther.tokenCoveredSquares)
+                                            {
+                                                if (coord.X == coordOther.X && (coord.Y + 1) == coordOther.Y)
+                                                {
+                                                    crt.roamDistanceY = 0;
+                                                    breakAllNested = true;
+                                                    break;
+                                                }
+
+                                                if ((coord.X+1) == coordOther.X && (coord.Y + 1) == coordOther.Y)
+                                                {
+                                                    crt.roamDistanceY = 0;
+                                                    breakAllNested = true;
+                                                    break;
+                                                }
+                                            }
+                                        }
+                                        if (breakAllNested)
+                                        {
+                                            break;
+                                        }
+                                    }
+                                    if (breakAllNested)
+                                    {
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    //south not on map
+                    else
+                    {
+                        crt.roamDistanceY = 0;
+                    }
+                }
+
+                //souht for large cretaures (4)
+                else if ((crt.creatureSize == 4)&& crt.roamDistanceY > 0)
+                {
+                    if ((crt.combatLocY + 2 < gv.mod.currentEncounter.MapSizeY))
+                    {
+                        //south not walkable
+                        bool lookForOthers = true;
+                        foreach (Coordinate coord in crt.tokenCoveredSquares)
+                        {
+                            if (!gv.mod.currentEncounter.encounterTiles[(coord.Y + 2) * gv.mod.currentEncounter.MapSizeX + coord.X].Walkable)
+                            {
+                                crt.roamDistanceY = 0;
+                                lookForOthers = false;
+                                break;
+                            }
+                            if (!gv.mod.currentEncounter.encounterTiles[(coord.Y + 2) * gv.mod.currentEncounter.MapSizeX + (coord.X+1)].Walkable)
+                            {
+                                crt.roamDistanceY = 0;
+                                lookForOthers = false;
+                                break;
+                            }
+                        }
+
+                        //south occupied by player or creature
+                        if (lookForOthers)
+                        {
+                            //player
+                            bool lookForCreatures = true;
+                            bool foundPlayer = false;
+                            foreach (Coordinate coord in crt.tokenCoveredSquares)
+                            {
+                                foreach (Player p in gv.mod.playerList)
+                                {
+                                    if (p.hp > 0 && coord.X == p.combatLocX && (coord.Y + 2) == p.combatLocY)
+                                    {
+                                        crt.roamDistanceY = 0;
+                                        lookForCreatures = false;
+                                        foundPlayer = true;
+                                        break;
+                                    }
+                                    if (p.hp > 0 && (coord.X+1) == p.combatLocX && (coord.Y + 2) == p.combatLocY)
+                                    {
+                                        crt.roamDistanceY = 0;
+                                        lookForCreatures = false;
+                                        foundPlayer = true;
+                                        break;
+                                    }
+                                }
+                                if (foundPlayer)
+                                {
+                                    break;
+                                }
+                            }
+
+                            //creature
+                            if (lookForCreatures)
+                            {
+                                bool breakAllNested = false;
+                                foreach (Coordinate coord in crt.tokenCoveredSquares)
+                                {
+                                    foreach (Creature cOther in gv.mod.currentEncounter.encounterCreatureList)
+                                    {
+                                        if (cOther != crt && cOther.hp > 0)
+                                        {
+                                            foreach (Coordinate coordOther in cOther.tokenCoveredSquares)
+                                            {
+                                                if (coord.X == coordOther.X && (coord.Y + 2) == coordOther.Y)
+                                                {
+                                                    crt.roamDistanceY = 0;
+                                                    breakAllNested = true;
+                                                    break;
+                                                }
+                                                if ((coord.X+1) == coordOther.X && (coord.Y + 2) == coordOther.Y)
+                                                {
+                                                    crt.roamDistanceY = 0;
+                                                    breakAllNested = true;
+                                                    break;
+                                                }
+                                            }
+                                        }
+                                        if (breakAllNested)
+                                        {
+                                            break;
+                                        }
+                                    }
+                                    if (breakAllNested)
+                                    {
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    //south not on map
+                    else
+                    {
+                        crt.roamDistanceY = 0;
+                    }
+                }
+                //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXxx
+                //Now finally the four east (right) cases
+                //east on map (for normal)
+                if ((crt.creatureSize == 1) && crt.roamDistanceX > 0)
+                {
+                    if ((crt.combatLocX + 1 < gv.mod.currentEncounter.MapSizeX))
+                    {
+                        //east not walkable
+                        bool lookForOthers = true;
+                        foreach (Coordinate coord in crt.tokenCoveredSquares)
+                        {
+                            if (!gv.mod.currentEncounter.encounterTiles[(coord.Y) * gv.mod.currentEncounter.MapSizeX + (coord.X+1)].Walkable)
+                            {
+                                crt.roamDistanceX = 0;
+                                lookForOthers = false;
+                                break;
+                            }
+                        }
+
+                        //east occupied by player or creature
+                        if (lookForOthers)
+                        {
+                            //player
+                            bool lookForCreatures = true;
+                            bool foundPlayer = false;
+                            foreach (Coordinate coord in crt.tokenCoveredSquares)
+                            {
+                                foreach (Player p in gv.mod.playerList)
+                                {
+                                    if (p.hp > 0 && (coord.X+1) == p.combatLocX && (coord.Y) == p.combatLocY)
+                                    {
+                                        crt.roamDistanceX = 0;
+                                        lookForCreatures = false;
+                                        foundPlayer = true;
+                                        break;
+                                    }
+                                }
+                                if (foundPlayer)
+                                {
+                                    break;
+                                }
+                            }
+
+                            //creature
+                            if (lookForCreatures)
+                            {
+                                bool breakAllNested = false;
+                                foreach (Coordinate coord in crt.tokenCoveredSquares)
+                                {
+                                    foreach (Creature cOther in gv.mod.currentEncounter.encounterCreatureList)
+                                    {
+                                        if (cOther != crt && cOther.hp > 0)
+                                        {
+                                            foreach (Coordinate coordOther in cOther.tokenCoveredSquares)
+                                            {
+                                                if ((coord.X+1) == coordOther.X && (coord.Y) == coordOther.Y)
+                                                {
+                                                    crt.roamDistanceX = 0;
+                                                    breakAllNested = true;
+                                                    break;
+                                                }
+                                            }
+                                        }
+                                        if (breakAllNested)
+                                        {
+                                            break;
+                                        }
+                                    }
+                                    if (breakAllNested)
+                                    {
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    //east not on map
+                    else
+                    {
+                        crt.roamDistanceX = 0;
+                    }
+                }
+                //TODO from here; think aboiut purley diagonal obstacles???
+                //east on map for wide (Size 2) creatures - the relevant x is one higher
+                else if ((crt.creatureSize == 2) && crt.roamDistanceX > 0)
+                {
+                    if ((crt.combatLocX + 2 < gv.mod.currentEncounter.MapSizeX))
+                    {
+                        //south not walkable
+                        bool lookForOthers = true;
+                        foreach (Coordinate coord in crt.tokenCoveredSquares)
+                        {
+                            if (!gv.mod.currentEncounter.encounterTiles[(coord.Y) * gv.mod.currentEncounter.MapSizeX + (coord.X+2)].Walkable)
+                            {
+                                crt.roamDistanceX = 0;
+                                lookForOthers = false;
+                                break;
+                            }
+                        }
+
+                        //south occupied by player or creature
+                        if (lookForOthers)
+                        {
+                            //player
+                            bool lookForCreatures = true;
+                            bool foundPlayer = false;
+                            foreach (Coordinate coord in crt.tokenCoveredSquares)
+                            {
+                                foreach (Player p in gv.mod.playerList)
+                                {
+                                    if (p.hp > 0 && (coord.X+2) == p.combatLocX && (coord.Y) == p.combatLocY)
+                                    {
+                                        crt.roamDistanceX = 0;
+                                        lookForCreatures = false;
+                                        foundPlayer = true;
+                                        break;
+                                    }
+                                }
+                                if (foundPlayer)
+                                {
+                                    break;
+                                }
+                            }
+
+                            //creature
+                            if (lookForCreatures)
+                            {
+                                bool breakAllNested = false;
+                                foreach (Coordinate coord in crt.tokenCoveredSquares)
+                                {
+                                    foreach (Creature cOther in gv.mod.currentEncounter.encounterCreatureList)
+                                    {
+                                        if (cOther != crt && cOther.hp > 0)
+                                        {
+                                            foreach (Coordinate coordOther in cOther.tokenCoveredSquares)
+                                            {
+                                                if ((coord.X+2) == coordOther.X && (coord.Y) == coordOther.Y)
+                                                {
+                                                    crt.roamDistanceX = 0;
+                                                    breakAllNested = true;
+                                                    break;
+                                                }
+                                            }
+                                        }
+                                        if (breakAllNested)
+                                        {
+                                            break;
+                                        }
+                                    }
+                                    if (breakAllNested)
+                                    {
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    //east not on map
+                    else
+                    {
+                        crt.roamDistanceX = 0;
+                    }
+                }
+
+                //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXxx
+                //east on map (for tall, 3)
+                else if ((crt.creatureSize == 3)&& crt.roamDistanceX > 0)
+                {
+                    if ((crt.combatLocX + 1 < gv.mod.currentEncounter.MapSizeX))
+                    {
+                        //south not walkable
+                        bool lookForOthers = true;
+                        foreach (Coordinate coord in crt.tokenCoveredSquares)
+                        {
+                            if (!gv.mod.currentEncounter.encounterTiles[(coord.Y) * gv.mod.currentEncounter.MapSizeX + (coord.X+1)].Walkable)
+                            {
+                                crt.roamDistanceX = 0;
+                                lookForOthers = false;
+                                break;
+                            }
+
+                            if (!gv.mod.currentEncounter.encounterTiles[(coord.Y + 1) * gv.mod.currentEncounter.MapSizeX + (coord.X + 1)].Walkable)
+                            {
+                                crt.roamDistanceX = 0;
+                                lookForOthers = false;
+                                break;
+                            }
+                        }
+
+                        //east occupied by player or creature
+                        if (lookForOthers)
+                        {
+                            //player
+                            bool lookForCreatures = true;
+                            bool foundPlayer = false;
+                            foreach (Coordinate coord in crt.tokenCoveredSquares)
+                            {
+                                foreach (Player p in gv.mod.playerList)
+                                {
+                                    if (p.hp > 0 && (coord.X+1) == p.combatLocX && (coord.Y) == p.combatLocY)
+                                    {
+                                        crt.roamDistanceX = 0;
+                                        lookForCreatures = false;
+                                        foundPlayer = true;
+                                        break;
+                                    }
+
+                                    if (p.hp > 0 && (coord.X + 1) == p.combatLocX && (coord.Y + 1) == p.combatLocY)
+                                    {
+                                        crt.roamDistanceX = 0;
+                                        lookForCreatures = false;
+                                        foundPlayer = true;
+                                        break;
+                                    }
+                                }
+                                if (foundPlayer)
+                                {
+                                    break;
+                                }
+                            }
+
+                            //creature
+                            if (lookForCreatures)
+                            {
+                                bool breakAllNested = false;
+                                foreach (Coordinate coord in crt.tokenCoveredSquares)
+                                {
+                                    foreach (Creature cOther in gv.mod.currentEncounter.encounterCreatureList)
+                                    {
+                                        if (cOther != crt && cOther.hp > 0)
+                                        {
+                                            foreach (Coordinate coordOther in cOther.tokenCoveredSquares)
+                                            {
+                                                if ((coord.X+1) == coordOther.X && (coord.Y) == coordOther.Y)
+                                                {
+                                                    crt.roamDistanceX = 0;
+                                                    breakAllNested = true;
+                                                    break;
+                                                }
+
+                                                if ((coord.X + 1) == coordOther.X && (coord.Y + 1) == coordOther.Y)
+                                                {
+                                                    crt.roamDistanceX = 0;
+                                                    breakAllNested = true;
+                                                    break;
+                                                }
+                                            }
+                                        }
+                                        if (breakAllNested)
+                                        {
+                                            break;
+                                        }
+                                    }
+                                    if (breakAllNested)
+                                    {
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    //east not on map
+                    else
+                    {
+                        crt.roamDistanceX = 0;
+                    }
+                }
+
+                //east for large cretaures (4)
+                else if ((crt.creatureSize == 4)&& crt.roamDistanceX > 0)
+                {
+                    if ((crt.combatLocX + 2 < gv.mod.currentEncounter.MapSizeX))
+                    {
+                        //east not walkable
+                        bool lookForOthers = true;
+                        foreach (Coordinate coord in crt.tokenCoveredSquares)
+                        {
+                            if (!gv.mod.currentEncounter.encounterTiles[(coord.Y) * gv.mod.currentEncounter.MapSizeX + (coord.X+2)].Walkable)
+                            {
+                                crt.roamDistanceX = 0;
+                                lookForOthers = false;
+                                break;
+                            }
+                            if (!gv.mod.currentEncounter.encounterTiles[(coord.Y + 1) * gv.mod.currentEncounter.MapSizeX + (coord.X + 2)].Walkable)
+                            {
+                                crt.roamDistanceX = 0;
+                                lookForOthers = false;
+                                break;
+                            }
+                        }
+
+                        //south occupied by player or creature
+                        if (lookForOthers)
+                        {
+                            //player
+                            bool lookForCreatures = true;
+                            bool foundPlayer = false;
+                            foreach (Coordinate coord in crt.tokenCoveredSquares)
+                            {
+                                foreach (Player p in gv.mod.playerList)
+                                {
+                                    if (p.hp > 0 && (coord.X+2) == p.combatLocX && (coord.Y) == p.combatLocY)
+                                    {
+                                        crt.roamDistanceX = 0;
+                                        lookForCreatures = false;
+                                        foundPlayer = true;
+                                        break;
+                                    }
+                                    if (p.hp > 0 && (coord.X + 2) == p.combatLocX && (coord.Y + 1) == p.combatLocY)
+                                    {
+                                        crt.roamDistanceX = 0;
+                                        lookForCreatures = false;
+                                        foundPlayer = true;
+                                        break;
+                                    }
+                                }
+                                if (foundPlayer)
+                                {
+                                    break;
+                                }
+                            }
+
+                            //creature
+                            if (lookForCreatures)
+                            {
+                                bool breakAllNested = false;
+                                foreach (Coordinate coord in crt.tokenCoveredSquares)
+                                {
+                                    foreach (Creature cOther in gv.mod.currentEncounter.encounterCreatureList)
+                                    {
+                                        if (cOther != crt && cOther.hp > 0)
+                                        {
+                                            foreach (Coordinate coordOther in cOther.tokenCoveredSquares)
+                                            {
+                                                if ((coord.X+2) == coordOther.X && (coord.Y) == coordOther.Y)
+                                                {
+                                                    crt.roamDistanceX = 0;
+                                                    breakAllNested = true;
+                                                    break;
+                                                }
+                                                if ((coord.X + 2) == coordOther.X && (coord.Y + 1) == coordOther.Y)
+                                                {
+                                                    crt.roamDistanceX = 0;
+                                                    breakAllNested = true;
+                                                    break;
+                                                }
+                                            }
+                                        }
+                                        if (breakAllNested)
+                                        {
+                                            break;
+                                        }
+                                    }
+                                    if (breakAllNested)
+                                    {
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    //east not on map
+                    else
+                    {
+                        crt.roamDistanceX = 0;
+                    }
+                }
+
+                //XXXXXXXXXXXXXXXXXXXXXXXXXXXXx
+                //XXXXXXXXXXXXXXXXXXXXXx
                 //IbRect dst = new IbRect((int)this.position.X, (int)(this.position.Y + randY), (int)((gv.squareSize * this.scaleX) + randX), (int)(gv.squareSize * this.scaleY));
 
                 int width = gv.cc.GetFromBitmapList(crt.cr_tokenFilename).PixelSize.Width;

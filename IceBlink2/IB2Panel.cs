@@ -238,8 +238,8 @@ namespace IceBlink2
             //animate hiding panel
             if (hiding)
             {
-                currentLocX += hidingXIncrement * elapsed;
-                currentLocY += hidingYIncrement * elapsed;
+                currentLocX += (hidingXIncrement * elapsed/2);
+                currentLocY += (hidingYIncrement * elapsed/2);
                 //hiding left and passed
                 if ((hidingXIncrement < 0) && (currentLocX < hiddenLocX))
                 {
@@ -267,8 +267,8 @@ namespace IceBlink2
             }
             else if (showing)
             {
-                currentLocX -= hidingXIncrement * elapsed;
-                currentLocY -= hidingYIncrement * elapsed;
+                currentLocX -= (hidingXIncrement * elapsed);
+                currentLocY -= (hidingYIncrement * elapsed);
                 //showing right and passed
                 if ((hidingXIncrement < 0) && (currentLocX > shownLocX))
                 {

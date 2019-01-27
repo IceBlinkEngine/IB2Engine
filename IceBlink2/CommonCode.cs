@@ -94,6 +94,8 @@ namespace IceBlink2
         public Bitmap longShadowCorner;
         public Bitmap shortShadow;
         public Bitmap shortShadowCorner;
+        public Bitmap longShadowCornerHalf;
+        public Bitmap longShadowCornerHalfMirror;
         public Bitmap shortShadowCorner2;
         public Bitmap smallStairNEMirror;
         public Bitmap smallStairNENormal;
@@ -12124,88 +12126,91 @@ namespace IceBlink2
 
             bool isFooled = false;
             //enter code for skipping triggers of prop here
-            //if (calledEncounterFromProp)
-            //{
-            if (gv.sf.ThisProp.stealthSkipsPropTriggers)
+            if (calledConvoFromProp)
             {
-                //add missing check
-                //bool isFooled = false;
-                string traitMethod = "leader";
-                foreach (Trait t in gv.mod.moduleTraitsList)
+                if (gv.sf.ThisProp != null)
                 {
-                    if (t.tag.Contains(gv.mod.tagOfStealthMainTrait))
+                    if (gv.sf.ThisProp.stealthSkipsPropTriggers)
                     {
-                        traitMethod = t.methodOfChecking;
+                        //add missing check
+                        //bool isFooled = false;
+                        string traitMethod = "leader";
+                        foreach (Trait t in gv.mod.moduleTraitsList)
+                        {
+                            if (t.tag.Contains(gv.mod.tagOfStealthMainTrait))
+                            {
+                                traitMethod = t.methodOfChecking;
+                            }
+                        }
+                        int parm1 = gv.mod.selectedPartyLeader;
+                        if (traitMethod.Equals("-1") || traitMethod.Equals("leader") || traitMethod.Equals("Leader"))
+                        {
+                            parm1 = gv.mod.selectedPartyLeader;
+                        }
+                        else if (traitMethod.Equals("-2") || traitMethod.Equals("highest") || traitMethod.Equals("Highest"))
+                        {
+                            parm1 = -2;
+                        }
+                        else if (traitMethod.Equals("-3") || traitMethod.Equals("lowest") || traitMethod.Equals("Lowest"))
+                        {
+                            parm1 = -3;
+                        }
+                        else if (traitMethod.Equals("-4") || traitMethod.Equals("average") || traitMethod.Equals("Average"))
+                        {
+                            parm1 = -4;
+                        }
+                        else if (traitMethod.Equals("-5") || traitMethod.Equals("allMustSucceed") || traitMethod.Equals("AllMustSucceed"))
+                        {
+                            parm1 = -5;
+                        }
+                        else if (traitMethod.Equals("-6") || traitMethod.Equals("oneMustSucceed") || traitMethod.Equals("OneMustSucceed"))
+                        {
+                            parm1 = -6;
+                        }
+
+                        int tileAdder = 0;
+                        int darkAdder = 0;
+                        tileAdder = gv.mod.currentArea.Tiles[gv.mod.PlayerLocationY * gv.mod.currentArea.MapSizeX + gv.mod.PlayerLocationY].stealthModifier;
+                        if (gv.sf.CheckIsInDarkness("party", "night"))
+                        {
+                            darkAdder = 4;
+                        }
+                        if (gv.sf.CheckIsInDarkness("party", "noLight"))
+                        {
+                            darkAdder = 12;
+                        }
+                        Coordinate pcCoord = new Coordinate();
+                        Coordinate propCoord = new Coordinate();
+                        pcCoord.X = gv.mod.PlayerLocationX;
+                        pcCoord.Y = gv.mod.PlayerLocationY;
+                        propCoord.X = gv.sf.ThisProp.LocationX;
+                        propCoord.Y = gv.sf.ThisProp.LocationY;
+
+                        //factor in lit state and tile stealtModifier
+                        //this way a sneak through is 5 points more diffcult than a direct sneak by
+
+                        //spot dc 13, sneak dc 27 
+                        //allows sneak through
+                        //entlastungsa
+                        int checkModifier = -4 + darkAdder + tileAdder - 5;
+
+                        if (gv.sf.CheckPassSkill(parm1, gv.mod.tagOfStealthMainTrait, gv.sf.ThisProp.spotEnemy - checkModifier, true, true))
+                        {
+                            isFooled = true;
+                            gv.sf.ThisProp.showSneakThroughSymbol = true;
+                        }
+                        else
+                        {
+                            isFooled = false;
+                            gv.sf.ThisProp.showSneakThroughSymbol = false;
+                        }
+
+                        if (isFooled)
+                        {
+                            return;
+                        }
                     }
                 }
-                int parm1 = gv.mod.selectedPartyLeader;
-                if (traitMethod.Equals("-1") || traitMethod.Equals("leader") || traitMethod.Equals("Leader"))
-                {
-                    parm1 = gv.mod.selectedPartyLeader;
-                }
-                else if (traitMethod.Equals("-2") || traitMethod.Equals("highest") || traitMethod.Equals("Highest"))
-                {
-                    parm1 = -2;
-                }
-                else if (traitMethod.Equals("-3") || traitMethod.Equals("lowest") || traitMethod.Equals("Lowest"))
-                {
-                    parm1 = -3;
-                }
-                else if (traitMethod.Equals("-4") || traitMethod.Equals("average") || traitMethod.Equals("Average"))
-                {
-                    parm1 = -4;
-                }
-                else if (traitMethod.Equals("-5") || traitMethod.Equals("allMustSucceed") || traitMethod.Equals("AllMustSucceed"))
-                {
-                    parm1 = -5;
-                }
-                else if (traitMethod.Equals("-6") || traitMethod.Equals("oneMustSucceed") || traitMethod.Equals("OneMustSucceed"))
-                {
-                    parm1 = -6;
-                }
-
-                int tileAdder = 0;
-                int darkAdder = 0;
-                tileAdder = gv.mod.currentArea.Tiles[gv.mod.PlayerLocationY * gv.mod.currentArea.MapSizeX + gv.mod.PlayerLocationY].stealthModifier;
-                if (gv.sf.CheckIsInDarkness("party", "night"))
-                {
-                    darkAdder = 4;
-                }
-                if (gv.sf.CheckIsInDarkness("party", "noLight"))
-                {
-                    darkAdder = 12;
-                }
-                Coordinate pcCoord = new Coordinate();
-                Coordinate propCoord = new Coordinate();
-                pcCoord.X = gv.mod.PlayerLocationX;
-                pcCoord.Y = gv.mod.PlayerLocationY;
-                propCoord.X = gv.sf.ThisProp.LocationX;
-                propCoord.Y = gv.sf.ThisProp.LocationY;
-
-                //factor in lit state and tile stealtModifier
-                //this way a sneak through is 5 points more diffcult than a direct sneak by
-
-                //spot dc 13, sneak dc 27 
-                //allows sneak through
-                //entlastungsa
-                int checkModifier = -4 + darkAdder + tileAdder - 5;
-
-                if (gv.sf.CheckPassSkill(parm1, gv.mod.tagOfStealthMainTrait, gv.sf.ThisProp.spotEnemy - checkModifier, true, true))
-                {
-                    isFooled = true;
-                    gv.sf.ThisProp.showSneakThroughSymbol = true;
-                }
-                else
-                {
-                    isFooled = false;
-                    gv.sf.ThisProp.showSneakThroughSymbol = false;
-                }
-
-                if (isFooled)
-                {
-                    return;
-                }
-                //}
             }//up to here
              //if (gv.mod.doConvo)
              //{
@@ -13972,6 +13977,63 @@ namespace IceBlink2
 
         public bool goWest()
         {
+            if (gv.mod.hideInterfaceNextMove)
+            {
+                if (!gv.screenMainMap.hideClock)
+                {
+                    gv.screenMainMap.hideClock = true;
+                }
+                else
+                {
+                    //gv.screenMainMap.hideClock = false;
+                }
+                foreach (IB2Panel pnl in gv.screenMainMap.mainUiLayout.panelList)
+                {
+                    if (pnl.tag != "arrowPanel")
+                    {
+                        //hides right
+                        if (pnl.hidingXIncrement > 0)
+                        {
+                            if (pnl.currentLocX > pnl.shownLocX)
+                            {
+                                //pnl.showing = true;
+                            }
+                            else
+                            {
+                                pnl.hiding = true;
+                            }
+                        }
+                        //hides down
+                        else if (pnl.hidingYIncrement > 0)
+                        {
+                            if (pnl.currentLocY > pnl.shownLocY)
+                            {
+                                if ((pnl.tag.Equals("arrowPanel")) && (!gv.screenMainMap.showArrows)) //don't show arrows
+                                {
+                                    continue;
+                                }
+                                //pnl.showing = true;
+                            }
+                            else
+                            {
+                                pnl.hiding = true;
+                            }
+                        }
+                        //hides up
+                        else if (pnl.hidingYIncrement < 0)
+                        {
+                            if (pnl.currentLocY < pnl.shownLocY)
+                            {
+                                //pnl.showing = true;
+                            }
+                            else
+                            {
+                                pnl.hiding = true;
+                            }
+                        }
+                    }
+                }
+            }
             gv.cc.floatyText = "";
             gv.cc.floatyText2 = "";
             gv.cc.floatyText3 = "";
@@ -14046,6 +14108,63 @@ namespace IceBlink2
 
         public bool goEast()
         {
+            if (gv.mod.hideInterfaceNextMove)
+            {
+                if (!gv.screenMainMap.hideClock)
+                {
+                    gv.screenMainMap.hideClock = true;
+                }
+                else
+                {
+                    //gv.screenMainMap.hideClock = false;
+                }
+                foreach (IB2Panel pnl in gv.screenMainMap.mainUiLayout.panelList)
+                {
+                    if (pnl.tag != "arrowPanel")
+                    {
+                        //hides right
+                        if (pnl.hidingXIncrement > 0)
+                        {
+                            if (pnl.currentLocX > pnl.shownLocX)
+                            {
+                                //pnl.showing = true;
+                            }
+                            else
+                            {
+                                pnl.hiding = true;
+                            }
+                        }
+                        //hides down
+                        else if (pnl.hidingYIncrement > 0)
+                        {
+                            if (pnl.currentLocY > pnl.shownLocY)
+                            {
+                                if ((pnl.tag.Equals("arrowPanel")) && (!gv.screenMainMap.showArrows)) //don't show arrows
+                                {
+                                    continue;
+                                }
+                                //pnl.showing = true;
+                            }
+                            else
+                            {
+                                pnl.hiding = true;
+                            }
+                        }
+                        //hides up
+                        else if (pnl.hidingYIncrement < 0)
+                        {
+                            if (pnl.currentLocY < pnl.shownLocY)
+                            {
+                                //pnl.showing = true;
+                            }
+                            else
+                            {
+                                pnl.hiding = true;
+                            }
+                        }
+                    }
+                }
+            }
             gv.cc.floatyText = "";
             gv.cc.floatyText2 = "";
             gv.cc.floatyText3 = "";
@@ -14115,9 +14234,67 @@ namespace IceBlink2
 
             return doTransition;
         }
-
+         
         public bool goNorth()
         {
+            if (gv.mod.hideInterfaceNextMove)
+            {
+                if (!gv.screenMainMap.hideClock)
+                {
+                    gv.screenMainMap.hideClock = true;
+                }
+                else
+                {
+                    //gv.screenMainMap.hideClock = false;
+                }
+                foreach (IB2Panel pnl in gv.screenMainMap.mainUiLayout.panelList)
+                {
+                    if (pnl.tag != "arrowPanel")
+                    {
+                        //hides right
+                        if (pnl.hidingXIncrement > 0)
+                        {
+                            if (pnl.currentLocX > pnl.shownLocX)
+                            {
+                                //pnl.showing = true;
+                            }
+                            else
+                            {
+                                pnl.hiding = true;
+                            }
+                        }
+                        //hides down
+                        else if (pnl.hidingYIncrement > 0)
+                        {
+                            if (pnl.currentLocY > pnl.shownLocY)
+                            {
+                                if ((pnl.tag.Equals("arrowPanel")) && (!gv.screenMainMap.showArrows)) //don't show arrows
+                                {
+                                    continue;
+                                }
+                                //pnl.showing = true;
+                            }
+                            else
+                            {
+                                pnl.hiding = true;
+                            }
+                        }
+                        //hides up
+                        else if (pnl.hidingYIncrement < 0)
+                        {
+                            if (pnl.currentLocY < pnl.shownLocY)
+                            {
+                                //pnl.showing = true;
+                            }
+                            else
+                            {
+                                pnl.hiding = true;
+                            }
+                        }
+                    }
+                }
+            }
+
             gv.cc.floatyText = "";
             gv.cc.floatyText2 = "";
             gv.cc.floatyText3 = "";
@@ -14184,6 +14361,63 @@ namespace IceBlink2
 
         public bool goSouth()
         {
+            if (gv.mod.hideInterfaceNextMove)
+            {
+                if (!gv.screenMainMap.hideClock)
+                {
+                    gv.screenMainMap.hideClock = true;
+                }
+                else
+                {
+                    //gv.screenMainMap.hideClock = false;
+                }
+                foreach (IB2Panel pnl in gv.screenMainMap.mainUiLayout.panelList)
+                {
+                    if (pnl.tag != "arrowPanel")
+                    {
+                        //hides right
+                        if (pnl.hidingXIncrement > 0)
+                        {
+                            if (pnl.currentLocX > pnl.shownLocX)
+                            {
+                                //pnl.showing = true;
+                            }
+                            else
+                            {
+                                pnl.hiding = true;
+                            }
+                        }
+                        //hides down
+                        else if (pnl.hidingYIncrement > 0)
+                        {
+                            if (pnl.currentLocY > pnl.shownLocY)
+                            {
+                                if ((pnl.tag.Equals("arrowPanel")) && (!gv.screenMainMap.showArrows)) //don't show arrows
+                                {
+                                    continue;
+                                }
+                                //pnl.showing = true;
+                            }
+                            else
+                            {
+                                pnl.hiding = true;
+                            }
+                        }
+                        //hides up
+                        else if (pnl.hidingYIncrement < 0)
+                        {
+                            if (pnl.currentLocY < pnl.shownLocY)
+                            {
+                                //pnl.showing = true;
+                            }
+                            else
+                            {
+                                pnl.hiding = true;
+                            }
+                        }
+                    }
+                }
+            }
             gv.cc.floatyText = "";
             gv.cc.floatyText2 = "";
             gv.cc.floatyText3 = "";
@@ -14735,7 +14969,7 @@ namespace IceBlink2
                     storedIncrement += increment;
                     if (gv.sf.RandInt(100) < rainChance)
                     {
-                        Sprite spr = new Sprite(gv, "rainDrop", storedIncrement - (gv.squareSize/2), -(float)(gv.sf.RandInt(10)), (float)(gv.sf.RandInt(5) + 35) / 650f, (float)(gv.sf.RandInt(80) + 170) / 500f, 0, 0, 0.18f* 0.65f, 0.335f * 0.73f, gv.sf.RandInt(10000) + 6000, false, 100, gv.mod.fullScreenEffectOpacityWeather, 0, "rain", false, 0);
+                        Sprite spr = new Sprite(gv, "rainDrop", storedIncrement - (gv.squareSize/2), -(float)(gv.sf.RandInt(10)), (float)(gv.sf.RandInt(5) + 35) / 650f, (float)(gv.sf.RandInt(80) + 170) / 500f, 0, 0, 0.18f* 0.649f, 0.335f * 0.73f, gv.sf.RandInt(10000) + 6000, false, 100, gv.mod.fullScreenEffectOpacityWeather, 0, "rain", false, 0);
                         gv.screenMainMap.spriteList.Add(spr);
                     }
                 }

@@ -176,6 +176,7 @@ namespace IceBlink2
 
             
             this.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.GameView_MouseWheel);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.GameView_onKeyDown);
             mainDirectory = Directory.GetCurrentDirectory();
 
             this.IceBlinkButtonClose.setupAll(this);
@@ -322,6 +323,8 @@ namespace IceBlink2
             cc.longShadowCorner = cc.LoadBitmap("longShadowCorner");
             cc.shortShadow = cc.LoadBitmap("shortShadow");
             cc.shortShadowCorner = cc.LoadBitmap("shortShadowCorner");
+            cc.longShadowCornerHalf = cc.LoadBitmap("longShadowCornerHalf");
+            cc.longShadowCornerHalfMirror = cc.LoadBitmap("longShadowCornerHalfMirror");
             cc.shortShadowCorner2 = cc.LoadBitmap("shortShadowCorner2");
             cc.smallStairNEMirror = cc.LoadBitmap("smallStairNEMirror");
             cc.smallStairNENormal = cc.LoadBitmap("smallStairNENormal");
@@ -1275,6 +1278,10 @@ namespace IceBlink2
         public void DrawBitmap(SharpDX.Direct2D1.Bitmap bitmap, IbRect source, IbRect target, float angleInRadians, bool mirror, float opacity)
         {
             //test
+            if (bitmap == cc.night_tile_NE || bitmap == cc.night_tile_NW|| bitmap == cc.night_tile_SW || bitmap == cc.night_tile_SE || bitmap == cc.tint_night)
+            {
+                opacity *= 0.6f;
+            }
             SharpDX.RectangleF tar = new SharpDX.RectangleF(target.Left, target.Top + oYshift, target.Width, target.Height);
             SharpDX.RectangleF src = new SharpDX.RectangleF(source.Left, source.Top, source.Width, source.Height);
             DrawD2DBitmap(bitmap, src, tar, angleInRadians, mirror, opacity);
@@ -1693,6 +1700,19 @@ namespace IceBlink2
         }
     */
         //INPUT STUFF
+        //private void form_onKeyDown(object sender, KeyEventArgs e)
+        //{
+            //onKeyDown(sender, e);
+        //}
+        private void GameView_onKeyDown(object sender, KeyEventArgs e)
+        {
+            if (screenType.Equals("main"))
+            {
+                screenMainMap.onKeyDown(e);
+                //krah krah
+            }
+        }
+
         private void GameView_MouseWheel(object sender, MouseEventArgs e)
         {
             if ((screenType.Equals("main")) || (screenType.Equals("combat")))
@@ -1897,7 +1917,8 @@ namespace IceBlink2
                 if (screenType.Equals("main"))
                     {
                         screenMainMap.onKeyUp(keyData);
-                    }
+                        //krah krah
+                }
                     else if (screenType.Equals("combat"))
                     {
                     if (touchEnabled)
