@@ -1060,12 +1060,56 @@ namespace IceBlink2
                     {
                         layerType = "LayerC";
                     }
+                    //ausweichstrecken
+                    string backupCloudType = gv.cloudType;
+                    bool exchangeDone = false;
+                    if (gv.cloudType == "lightCloud")
+                    {
+                        exchangeDone = true;
+                        decider = gv.sf.RandInt(5);
+                        if (decider == 4)
+                        {
+                            gv.cloudType = "cloud";
+                        }
+                        else if (decider == 5)
+                        {
+                            gv.cloudType = "heavyCloud";
+                        }
+                    }
+                    else if (gv.cloudType == "cloud" && !exchangeDone)
+                    {
+                        exchangeDone = true;
+                        decider = gv.sf.RandInt(5);
+                        if (decider == 4)
+                        {
+                            gv.cloudType = "lightCloud";
+                        }
+                        else if (decider == 5)
+                        {
+                            gv.cloudType = "heavyCloud";
+                        }
+                    }
+                    else if (gv.cloudType == "heavyCloud" && !exchangeDone)
+                    {
+                        exchangeDone = true;
+                        decider = gv.sf.RandInt(5);
+                        if (decider == 4)
+                        {
+                            gv.cloudType = "lightCloud";
+                        }
+                        else if (decider == 5)
+                        {
+                            gv.cloudType = "cloud";
+                        }
+                    }
+
                     speedMultiplier = 0.39f + (i * 0.1f);
                     decider = gv.sf.RandInt(15);
                     positionmodifierX = (-7 + decider) * gv.squareSize;
                     decider = gv.sf.RandInt(9);
                     positionmodifierY = (-4 + decider) * gv.squareSize;
                     gv.cc.createClouds(gv.cloudType + layerType, speedMultiplier, positionmodifierX, positionmodifierY);
+                    gv.cloudType = backupCloudType;
                     gv.mod.blockCloudCreation = true;
 
                 }
@@ -2521,7 +2565,7 @@ namespace IceBlink2
                                 }
                                 else
                                 {
-                                    gv.DrawBitmap(gv.cc.highlight90, src, dst, 0, false, 0, -1, 1, 1, (0.5f + relativeTileHeight)*0.2f);
+                                    gv.DrawBitmap(gv.cc.highlight90, src, dst, 0, false, 0, -1, 1, 1, (0.5f + relativeTileHeight)*0.15f);
                                     //gv.DrawBitmap(gv.cc.highlight90, src, dst, 0, false, 0, 0, 0, 0, (0.5f + relativeTileHeight) * 0.18f);
                                 }
                                 //DrawD2DBitmap
@@ -2539,7 +2583,7 @@ namespace IceBlink2
                                 }
                                 else
                                 {
-                                    gv.DrawBitmap(gv.cc.highlight90, src, dst, 180, false, 0, 0, 1, 1, (0.5f + relativeTileHeight) * 0.2f);
+                                    gv.DrawBitmap(gv.cc.highlight90, src, dst, 180, false, 0, 0, 1, 1, (0.5f + relativeTileHeight) * 0.15f);
                                     //gv.DrawBitmap(gv.cc.highlight90, src, dst, 180, false, 0, 0, 0, 0, (0.5f + relativeTileHeight) * 0.18f);
                                 }
                             }
@@ -2556,7 +2600,7 @@ namespace IceBlink2
                                 }
                                 else
                                 {
-                                    gv.DrawBitmap(gv.cc.highlight90, src, dst, 90, false, 0, 0, 1, 1, (0.5f + relativeTileHeight) * 0.2f);
+                                    gv.DrawBitmap(gv.cc.highlight90, src, dst, 90, false, 0, 0, 1, 1, (0.5f + relativeTileHeight) * 0.15f);
                                     //gv.DrawBitmap(gv.cc.highlight90, src, dst, 90, false, 0, 0, 0, 0, (0.5f + relativeTileHeight) * 0.18f);
                                 }
                             }
@@ -2573,7 +2617,7 @@ namespace IceBlink2
                                 }
                                 else
                                 {
-                                    gv.DrawBitmap(gv.cc.highlight90, src, dst, 270, false, -1, 0, 1, 1, (0.5f + relativeTileHeight) * 0.2f);
+                                    gv.DrawBitmap(gv.cc.highlight90, src, dst, 270, false, -1, 0, 1, 1, (0.5f + relativeTileHeight) * 0.15f);
                                     //gv.DrawBitmap(gv.cc.highlight90, src, dst, 270, false, 0, 0, 0, 0, (0.5f + relativeTileHeight) * 0.18f);
                                 }
                             }
@@ -31744,7 +31788,7 @@ namespace IceBlink2
                     bool propOnTail = false;
                     foreach (Prop p in gv.mod.currentArea.Props)
                     {
-                        if (p.isMover && p.LocationX == gv.mod.PlayerLastLocationX && p.LocationY == gv.mod.PlayerLastLocationY)
+                        if (!p.isStealthed && (p.isMover || p.stealthSkipsPropTriggers) && p.LocationX == gv.mod.PlayerLastLocationX && p.LocationY == gv.mod.PlayerLastLocationY)
                         {
                             if (!drawBecauseSteppedOnNeighbour)
                             {
@@ -32410,20 +32454,20 @@ namespace IceBlink2
             {
                 for (int y = -2; y <= 2; y++)
                 {
-                    gv.DrawText("Always show interface mode: X", new IbRect(x + gv.oXshift + (gv.playerOffsetY) * gv.squareSize - 4 * gv.pS, y + (gv.playerOffsetX - 8) * gv.squareSize + (int)(3 * gv.pS), 1000, 100), 1.0f, Color.Black);
+                    gv.DrawText("Hide/Show HUD (HUD visibility unaffected by movement): X", new IbRect(x + gv.oXshift + (gv.playerOffsetY) * gv.squareSize - 4 * gv.pS, y + (gv.playerOffsetX - 8) * gv.squareSize + (int)(3 * gv.pS), 1000, 100), 1.0f, Color.Black);
                 }
             }
-            gv.DrawText("Always show interface mode: X", new IbRect(gv.oXshift + (gv.playerOffsetY) * gv.squareSize - 4 * gv.pS, (gv.playerOffsetX - 8) * gv.squareSize + (int)(3 * gv.pS), 1000, 100), 1.0f, Color.Red);
+            gv.DrawText("Hide/Show HUD (Mode: HUD visibility unaffected by movement): X", new IbRect(gv.oXshift + (gv.playerOffsetY) * gv.squareSize - 4 * gv.pS, (gv.playerOffsetX - 8) * gv.squareSize + (int)(3 * gv.pS), 1000, 100), 1.0f, Color.Red);
             lineCounter++;
 
             for (int x = -2; x <= 2; x++)
             {
                 for (int y = -2; y <= 2; y++)
                 {
-                    gv.DrawText("Show interface and hide after moves mode: F / NumBlock 0 / Insert", new IbRect(x + gv.oXshift + (gv.playerOffsetY) * gv.squareSize - 4 * gv.pS, y + (gv.playerOffsetX - 8) * gv.squareSize + (int)(txtH * 1.25f * lineCounter) + (int)(3 * gv.pS), 1000, 100), 1.0f, Color.Black);
+                    gv.DrawText("Hide/Show HUD (Mode: HUD hidden each move): F / NumBlock 0 / Insert", new IbRect(x + gv.oXshift + (gv.playerOffsetY) * gv.squareSize - 4 * gv.pS, y + (gv.playerOffsetX - 8) * gv.squareSize + (int)(txtH * 1.25f * lineCounter) + (int)(3 * gv.pS), 1000, 100), 1.0f, Color.Black);
                 }
             }
-            gv.DrawText("Show interface and hide after moves mode: F / NumBlock 0 / Insert", new IbRect(gv.oXshift + (gv.playerOffsetY) * gv.squareSize - 4 * gv.pS, (gv.playerOffsetX - 8) * gv.squareSize + (int)(txtH * 1.25f * lineCounter) + (int)(3 * gv.pS), 1000, 100), 1.0f, Color.Red);
+            gv.DrawText("Hide/Show HUD (Mode: HUD hidden each move): F / NumBlock 0 / Insert", new IbRect(gv.oXshift + (gv.playerOffsetY) * gv.squareSize - 4 * gv.pS, (gv.playerOffsetX - 8) * gv.squareSize + (int)(txtH * 1.25f * lineCounter) + (int)(3 * gv.pS), 1000, 100), 1.0f, Color.Red);
             lineCounter++;
 
             for (int x = -2; x <= 2; x++)
@@ -41648,7 +41692,7 @@ namespace IceBlink2
                 gv.mod.hideInterfaceNextMove = true;
                 if (!hideClock)
                 {
-                    //hideClock = true;
+                    hideClock = true;
                 }
                 else
                 {
@@ -41656,45 +41700,47 @@ namespace IceBlink2
                 }
                 foreach (IB2Panel pnl in mainUiLayout.panelList)
                 {
-
-                    //hides right
-                    if (pnl.hidingXIncrement > 0)
+                    if (pnl.tag != "arrowPanel")
                     {
-                        if (pnl.currentLocX > pnl.shownLocX)
+                        //hides right
+                        if (pnl.hidingXIncrement > 0)
                         {
-                            pnl.showing = true;
-                        }
-                        else
-                        {
-                            //pnl.hiding = true;
-                        }
-                    }
-                    //hides down
-                    else if (pnl.hidingYIncrement > 0)
-                    {
-                        if (pnl.currentLocY > pnl.shownLocY)
-                        {
-                            if ((pnl.tag.Equals("arrowPanel")) && (!showArrows)) //don't show arrows
+                            if (pnl.currentLocX > pnl.shownLocX)
                             {
-                                continue;
+                                pnl.showing = true;
                             }
-                            pnl.showing = true;
+                            else
+                            {
+                                pnl.hiding = true;
+                            }
                         }
-                        else
+                        //hides down
+                        else if (pnl.hidingYIncrement > 0)
                         {
-                            //pnl.hiding = true;
+                            if (pnl.currentLocY > pnl.shownLocY)
+                            {
+                                if ((pnl.tag.Equals("arrowPanel")) && (!showArrows)) //don't show arrows
+                                {
+                                    continue;
+                                }
+                                pnl.showing = true;
+                            }
+                            else
+                            {
+                                pnl.hiding = true;
+                            }
                         }
-                    }
-                    //hides up
-                    else if (pnl.hidingYIncrement < 0)
-                    {
-                        if (pnl.currentLocY < pnl.shownLocY)
+                        //hides up
+                        else if (pnl.hidingYIncrement < 0)
                         {
-                            pnl.showing = true;
-                        }
-                        else
-                        {
-                            //pnl.hiding = true;
+                            if (pnl.currentLocY < pnl.shownLocY)
+                            {
+                                pnl.showing = true;
+                            }
+                            else
+                            {
+                                pnl.hiding = true;
+                            }
                         }
                     }
                 }
@@ -41958,7 +42004,7 @@ namespace IceBlink2
                 gv.mod.hideInterfaceNextMove = false;
                 if (!hideClock)
                 {
-                    //hideClock = true;
+                    hideClock = true;
                 }
                 else
                 {
@@ -41991,7 +42037,7 @@ namespace IceBlink2
                             }
                             else
                             {
-                                //pnl.hiding = true;
+                                pnl.hiding = true;
                             }
                         }
                         //hides down
@@ -42007,7 +42053,7 @@ namespace IceBlink2
                             }
                             else
                             {
-                                //pnl.hiding = true;
+                                pnl.hiding = true;
                             }
                         }
                         //hides up
@@ -42019,7 +42065,7 @@ namespace IceBlink2
                             }
                             else
                             {
-                                //pnl.hiding = true;
+                                pnl.hiding = true;
                             }
                         }
                     }

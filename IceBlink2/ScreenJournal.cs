@@ -847,6 +847,17 @@ namespace IceBlink2
             }//2
             catch
             { }
-        }	    
+        }	
+        
+        public void journalCleanup()
+        {
+            //gv.screenType = "main";
+            journalBack = null;
+            btnReturnJournal = null;
+            ctrlUpArrow = null;
+            ctrlDownArrow = null;
+            ctrlLeftArrow = null;
+            ctrlRightArrow = null;
+        }
     }
 }

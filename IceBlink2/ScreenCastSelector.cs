@@ -219,7 +219,7 @@ namespace IceBlink2
             if (btnExit == null)
             {
                 btnExit = new IbbButton(gv, 0.8f);
-                btnExit.Text = "EXIT";
+                btnExit.Text = "RETURN";
                 btnExit.Img = gv.cc.LoadBitmap("btn_small"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small);
                 btnExit.Glow = gv.cc.LoadBitmap("btn_small_glow"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_glow);
                 btnExit.X = (15 * gv.squareSize) - padW * 1 + gv.oXshift;

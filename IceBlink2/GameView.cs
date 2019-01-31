@@ -1909,6 +1909,145 @@ namespace IceBlink2
                         */
                     }
 
+                if (keyData == Keys.Return)
+                {
+                    //flach
+                    if (screenType == "combatInventory")
+                    {
+                        //bool inCombat = false;
+                        if (mod.currentEncounter != null)
+                        {
+                            if (!mod.currentEncounter.isOver)
+                            {
+                                //inCombat = true;
+                                if (screenCombat.canMove)
+                                {
+                                    screenCombat.currentCombatMode = "move";
+                                }
+                                else
+                                {
+                                    screenCombat.currentCombatMode = "attack";
+                                }
+                                screenType = "combat";
+                                screenInventory.doCleanUp();
+                            }
+                        }
+                    }
+
+                    if (screenType == "inventory")
+                    {
+                        screenType = "main";
+                        screenInventory.doCleanUp();
+                    }
+
+                    if (screenType == "itemSelector")
+                    {
+                        if (screenItemSelector.itemSelectorType.Equals("container"))
+                        {
+                            screenType = "main";
+                        }
+                        else if (screenItemSelector.itemSelectorType.Equals("equip"))
+                        {
+                            if (screenItemSelector.callingScreen.Equals("party"))
+                            {
+                                screenType = "party";
+                            }
+                            else if (screenItemSelector.callingScreen.Equals("combatParty"))
+                            {
+                                screenType = "combatParty";
+                            }
+                        }
+                        screenItemSelector.doCleanUp();
+                    }
+
+                    if (screenType == "journal")
+                    {
+                        screenType = "main";
+                        screenJournal.journalCleanup();
+                    }
+
+                    if (screenType == "party")
+                    {
+                        screenType = "main";
+                    }
+
+                    if (screenType == "combatParty")
+                    {
+                        if (screenCombat.canMove)
+                        {
+                            screenCombat.currentCombatMode = "move";
+                        }
+                        else
+                        {
+                            screenCombat.currentCombatMode = "attack";
+                        }
+                        screenType = "combat";
+                    }
+
+                    //vorschlag
+                    /*
+                      else if (screenType.Equals("combatCast"))
+            {
+                screenCastSelector.redrawCastSelector(true);
+            }
+            else if (screenType.Equals("mainMapCast"))
+            {
+                screenCastSelector.redrawCastSelector(false);
+            }
+            else if (screenType.Equals("combatTraitUse"))
+            {
+                screenTraitUseSelector.redrawTraitUseSelector(true);
+            }
+            else if (screenType.Equals("mainMapTraitUse"))
+            {
+                screenTraitUseSelector.redrawTraitUseSelector(false);
+            } 
+                     
+                     */
+                    if (screenType.Equals("combatCast"))
+                    {
+                        if (screenCombat.canMove)
+                        {
+                            screenCombat.currentCombatMode = "move";
+                        }
+                        else
+                        {
+                            screenCombat.currentCombatMode = "attack";
+                        }
+                        screenType = "combat";
+                        screenCastSelector.doCleanUp();
+                    }
+
+
+                    if (screenType.Equals("mainMapCast"))
+                    {
+                        screenType = "main";
+                        screenCastSelector.doCleanUp();
+                    }
+
+                    if (screenType.Equals("combatTraitUse"))
+                    {
+                        if (screenCombat.canMove)
+                        {
+                            screenCombat.currentCombatMode = "move";
+                        }
+                        else
+                        {
+                            screenCombat.currentCombatMode = "attack";
+                        }
+                        screenType = "combat";
+                        screenTraitUseSelector.doCleanUp();
+                    }
+
+                    if (screenType.Equals("mainMapTraitUse"))
+                    {
+                        screenType = "main";
+                        screenTraitUseSelector.doCleanUp();
+                    }
+
+
+                }
+
                 if (keyData == Keys.Escape)
                 {
                     this.Close();
@@ -1968,7 +2107,7 @@ namespace IceBlink2
         private void GameView_FormClosing(object sender, FormClosingEventArgs e)
         {
             
-            DialogResult dlg = IBMessageBox.Show(this, "Are you sure you wish to exit?", enumMessageButton.YesNo);
+            DialogResult dlg = IBMessageBox.Show(this, "Are you sure you wish to exit the game?", enumMessageButton.YesNo);
             if (dlg == DialogResult.Yes)
             {
                 e.Cancel = false;

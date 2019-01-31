@@ -788,7 +788,33 @@ namespace IceBlink2
             gv.mod.arrivalSquareY = saveMod.arrivalSquareY;
             gv.mod.currentLightUnitsLeft = saveMod.currentLightUnitsLeft;
 
-        //U  "playerList": [], (use all save)  Update PCs later further down
+            gv.mod.stopMoves = saveMod.stopMoves;
+            gv.mod.drawPartyDirection = saveMod.drawPartyDirection;
+
+            gv.mod.currentlyOnOwnZone = saveMod.currentlyOnOwnZone;
+            gv.mod.currentlyOnMotherZone = saveMod.currentlyOnMotherZone;
+            gv.mod.currentlyOnGrandMotherZone = saveMod.currentlyOnGrandMotherZone;
+
+            gv.mod.showOverviewButtonOwnZoneMap = saveMod.showOverviewButtonOwnZoneMap;
+            gv.mod.showOverviewButtonMotherZoneMap = saveMod.showOverviewButtonMotherZoneMap;
+            gv.mod.showOverviewButtonGrandMotherZoneMap = saveMod.showOverviewButtonGrandMotherZoneMap;
+
+            gv.mod.alreadyDeleted = saveMod.alreadyDeleted;
+            gv.mod.currentPropTag = saveMod.currentPropTag;
+
+        //public List<String> partyLightEnergyName = new List<String>();
+        //public List<int> partyLightEnergyUnitsLeft = new List<int>();
+        gv.mod.partyLightEnergyName.Clear();
+            foreach (string s in saveMod.partyLightEnergyName)
+            {
+                gv.mod.partyLightEnergyName.Add(s);
+            }
+            gv.mod.partyLightEnergyUnitsLeft.Clear();
+            foreach (int s in saveMod.partyLightEnergyUnitsLeft)
+            {
+                gv.mod.partyLightEnergyUnitsLeft.Add(s);
+            }
+            //U  "playerList": [], (use all save)  Update PCs later further down
             gv.mod.playerList = new List<Player>();
             foreach (Player pc in saveMod.playerList)
             {
@@ -1838,7 +1864,7 @@ namespace IceBlink2
             {
                 JsonSerializer serializer = new JsonSerializer();
                 gv.mod.moduleTraitsList = (List<Trait>)serializer.Deserialize(file, typeof(List<Trait>));
-                //int i = 0;
+                int i = 0;
             }
         }
 
@@ -7785,8 +7811,12 @@ namespace IceBlink2
                 {
                     if (spr.movesIndependentlyFromPlayerPosition)
                     {
-                        spr.position.X += horizontalAdjustment;
-                        spr.position.Y += verticalAdjustment;
+
+                      
+                        
+                            spr.position.X += horizontalAdjustment;     
+                            spr.position.Y += verticalAdjustment;
+                            
                     }
                 }
             }
@@ -14994,15 +15024,17 @@ namespace IceBlink2
                     snowChance = gv.sf.RandInt(12) + 7;
                 }
 
+                //snowshift
                 float storedIncrement = 0;
-                for (int i = 1; i < 61; i++)
+                for (int i = 1; i < 66; i++)
                 {
                     float increment = gv.screenWidth / 60;
                     storedIncrement += increment;
                     if (gv.sf.RandInt(100) < snowChance)
                     {
                         int scaleMulti = gv.sf.RandInt(50) + 75;
-                        Sprite spr = new Sprite(gv, "snowFlake", storedIncrement - (gv.squareSize / 2), -(float)(gv.sf.RandInt(10)), 0, (float)(gv.sf.RandInt(80) + 170) / 6000f, 0, 0, 0.425f * scaleMulti/100f, 0.425f * scaleMulti/100f, gv.sf.RandInt(10000) + 15000, false, 100, gv.mod.fullScreenEffectOpacityWeather, 0, "snow", false, 0);
+                        Sprite spr = new Sprite(gv, "snowFlake", storedIncrement - (gv.squareSize *0.5f), -(float)(gv.sf.RandInt(10)) - gv.oYshift*2, 0, (float)(gv.sf.RandInt(80) + 170) / 6000f, 0, 0, 0.325f * scaleMulti/100f, 0.325f * scaleMulti/100f, gv.sf.RandInt(10000) + 20000, false, 100, gv.mod.fullScreenEffectOpacityWeather, 0, "snow", false, 0);
+                        //spr.movesIndependentlyFromPlayerPosition = false;
                         gv.screenMainMap.spriteList.Add(spr);
                     }
                 }
@@ -15212,7 +15244,7 @@ namespace IceBlink2
                 veloY = -1f / 50f;
             }
 
-            Sprite spr = new Sprite(gv, cloudType, gv.screenWidth/2 - gv.screenHeight/2 + positionModifierX, gv.screenHeight/2 - gv.screenHeight/2 + positionModifierY, veloX * speedMultiplier, veloY * speedMultiplier, 0, 0, gv.sf.RandInt(60)/10f + 7.5f, gv.sf.RandInt(60)/10f + 7.5f, gv.sf.RandInt(80000) + 48000, false, 100,gv.mod.fullScreenEffectOpacityWeather,0,"clouds",true,0);
+            Sprite spr = new Sprite(gv, cloudType, gv.screenWidth/2 - gv.screenHeight/2 + positionModifierX, gv.screenHeight/2 - gv.screenHeight/2 + positionModifierY, veloX * speedMultiplier, veloY * speedMultiplier, 0, 0, (gv.sf.RandInt(60)/10f + 7.5f)/1.5f, (gv.sf.RandInt(60)/10f + 7.5f)/1.5f, gv.sf.RandInt(80000) + 48000, false, 100,gv.mod.fullScreenEffectOpacityWeather*1.5f,0,"clouds",true,0);
             gv.screenMainMap.spriteList.Add(spr);   
         }
 

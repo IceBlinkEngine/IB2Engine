@@ -14,6 +14,7 @@ namespace IceBlink2
     public class Module
     {
 
+        public bool hudIsShown = true;
         public float nightTimeDarkness = 0.65f;
         public bool stopMoves = false;
         //public bool noHaloForParty = false;
@@ -59,13 +60,6 @@ namespace IceBlink2
         public string ingameNameOfOwnZoneMap = "none";
         public string ingameNameOfMotherZoneMap = "none";
         public string ingameNameOfGrandMotherZoneMap = "none";
-
-        public int partyPositionMarkerOnOwnZoneMapX = -1;
-        public int partyPositionMarkerOnOwnZoneMapY = -1;
-        public int partyPositionMarkerOnMotherZoneMapX = -1;
-        public int partyPositionMarkerOnMotherZoneMapY = -1;
-        public int partyPositionMarkerOnGrandMotherZoneMapX = -1;
-        public int partyPositionMarkerOnGrandMotherZoneMapY = -1;
 
         public string overviewReturnAreaName = "none";
         public int overviewReturnLocationX = 0;
@@ -137,7 +131,7 @@ namespace IceBlink2
         public bool isSandstorm = false;
         public float logOpacity = 1f;
         public int logFadeCounter = 120;
-        public bool hideInterfaceNextMove = true;
+        public bool hideInterfaceNextMove = false;
 
         public float pixDistanceToBorderWest = 0;
         public float pixDistanceToBorderEast = 0;

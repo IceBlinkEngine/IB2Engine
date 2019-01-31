@@ -115,7 +115,7 @@ namespace IceBlink2
                     {
                         foreach (TraitAllowed ta in pc.playerClass.traitsAllowed)
                         {
-                            if (ta.associatedSpellTag == traitsForLearningTags[i])
+                            if (ta.associatedSpellTag != "none" && ta.associatedSpellTag == traitsForLearningTags[i])
                             {
                                 tempTA = ta.DeepCopy();
                                 break;
@@ -123,8 +123,11 @@ namespace IceBlink2
                         }
                         if (levelCounter == tempTA.atWhatLevelIsAvailable)
                         {
-                            backupKnownInCombatUsableTraitsTags.Add(traitsForLearningTags[i]);
-                            traitsForLearningTags.RemoveAt(i);
+                            if (tempTA.useableInSituation == "Always" || tempTA.useableInSituation == "InCombat")
+                            {
+                                backupKnownInCombatUsableTraitsTags.Add(traitsForLearningTags[i]);
+                                traitsForLearningTags.RemoveAt(i);
+                            }
                         }
                     }
                     levelCounter++;
@@ -207,7 +210,7 @@ namespace IceBlink2
 		    if (btnExit == null)
 		    {
 			    btnExit = new IbbButton(gv, 0.8f);	
-			    btnExit.Text = "EXIT";
+			    btnExit.Text = "Return";
 			    btnExit.Img = gv.cc.LoadBitmap("btn_small"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small);
 			    btnExit.Glow = gv.cc.LoadBitmap("btn_small_glow"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_glow);
 			    btnExit.X = (15 * gv.squareSize) - padW * 1 + gv.oXshift;
@@ -360,9 +363,12 @@ namespace IceBlink2
                         string image = "";
                         foreach (Trait t in gv.mod.moduleTraitsList)
                         {
-                            if (t.associatedSpellTag == backupKnownInCombatUsableTraitsTags[cntSlot + (tknPageIndex * slotsPerPage)])
+                            if (backupKnownInCombatUsableTraitsTags.Count > 0)
                             {
-                                image = t.traitImage;
+                                if (t.associatedSpellTag == backupKnownInCombatUsableTraitsTags[cntSlot + (tknPageIndex * slotsPerPage)])
+                                {
+                                    image = t.traitImage;
+                                }
                             }
                         }
 
@@ -854,9 +860,12 @@ namespace IceBlink2
                         string image = "";
                         foreach (Trait t in gv.mod.moduleTraitsList)
                         {
-                            if (t.associatedSpellTag == backupKnownInCombatUsableTraitsTags[cntSlot + (tknPageIndex * slotsPerPage)])
+                            if (backupKnownInCombatUsableTraitsTags.Count > 0)
                             {
-                                image = t.traitImage;
+                                if (t.associatedSpellTag == backupKnownInCombatUsableTraitsTags[cntSlot + (tknPageIndex * slotsPerPage)])
+                                {
+                                    image = t.traitImage;
+                                }
                             }
                         }
 

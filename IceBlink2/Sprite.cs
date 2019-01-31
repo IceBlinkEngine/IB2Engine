@@ -214,6 +214,7 @@ namespace IceBlink2
             else
             {
             */
+            //snowshift
                 dst = new IbRect((int)this.position.X, (int)this.position.Y, (int)(gv.squareSize * this.scaleX), (int)(gv.squareSize * this.scaleY));
             //}
             float opacityMulti = 1;

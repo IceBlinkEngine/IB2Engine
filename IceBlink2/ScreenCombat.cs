@@ -9699,8 +9699,10 @@ namespace IceBlink2
 
                     TileEnc tile = gv.mod.currentEncounter.encounterTiles[y * gv.mod.currentEncounter.MapSizeX + x];
                     SharpDX.RectangleF src = new SharpDX.RectangleF(0, 0, gv.cc.GetFromBitmapList("longShadow").PixelSize.Width, gv.cc.GetFromBitmapList("longShadow").PixelSize.Height);
-                    SharpDX.RectangleF dst = new SharpDX.RectangleF(getPixelLocX(x), getPixelLocY(y) + (float)(gv.squareSize * 0.5f), (gv.squareSize), (gv.squareSize));
+                    //SharpDX.RectangleF dst = new SharpDX.RectangleF(getPixelLocX(x), getPixelLocY(y) + (float)(gv.squareSize * 0.5f), (gv.squareSize), (gv.squareSize));
+                    SharpDX.RectangleF dst = new SharpDX.RectangleF(getPixelLocX(x), getPixelLocY(y) + gv.oYshift, (gv.squareSize), (gv.squareSize));
 
+                    //gv.oYshift
                     if (tile.isInShortShadeN)
                     {
                         gv.DrawD2DBitmap(gv.cc.GetFromBitmapList("shortShadow"), src, dst, 180, false);
