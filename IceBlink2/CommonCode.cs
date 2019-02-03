@@ -2918,6 +2918,10 @@ namespace IceBlink2
 
         public void doUpdate()
         {
+
+            gv.sf.ThisProp = null;
+            gv.cc.calledEncounterFromProp = false;
+            gv.cc.calledConvoFromProp = false;
             //to do?: update states of overview map buttons (show/no show)?
             //or will just adding the script functionality be enough? Likely...
 
@@ -10373,6 +10377,7 @@ namespace IceBlink2
                     {
                         gv.mod.EncounterOfTurnDone = true;
                         gv.sf.ThisProp = prp;
+                        gv.cc.calledEncounterFromProp = true;
                         gv.mod.stopMoves = true;
                         doEncounterBasedOnTag(prp.EncounterWhenOnPartySquare);
                         gv.mod.breakActiveSearch = true;
@@ -10545,6 +10550,7 @@ namespace IceBlink2
                                             {
                                                 gv.mod.EncounterOfTurnDone = true;
                                                 gv.sf.ThisProp = prp;
+                                                gv.cc.calledEncounterFromProp = true;
                                                 gv.mod.stopMoves = true;
                                                 doEncounterBasedOnTag(prp.EncounterWhenOnPartySquare);
                                                 gv.mod.breakActiveSearch = true;
@@ -10620,6 +10626,7 @@ namespace IceBlink2
                                 {
                                     gv.mod.EncounterOfTurnDone = true;
                                     gv.sf.ThisProp = prp;
+                                    gv.cc.calledEncounterFromProp = true;
                                     gv.mod.stopMoves = true;
                                     doEncounterBasedOnTag(prp.EncounterWhenOnPartySquare);
                                     gv.mod.breakActiveSearch = true;
@@ -10841,6 +10848,7 @@ namespace IceBlink2
                                             {
                                                 gv.mod.EncounterOfTurnDone = true;
                                                 gv.sf.ThisProp = prp;
+                                                gv.cc.calledEncounterFromProp = true;
                                                 gv.mod.stopMoves = true;
                                                 doEncounterBasedOnTag(prp.EncounterWhenOnPartySquare);
                                                 gv.mod.breakActiveSearch = true;
@@ -10883,6 +10891,7 @@ namespace IceBlink2
                                         {
                                             gv.mod.EncounterOfTurnDone = true;
                                             gv.sf.ThisProp = prp;
+                                            gv.cc.calledEncounterFromProp = true;
                                             gv.mod.stopMoves = true;
                                             doEncounterBasedOnTag(prp.EncounterWhenOnPartySquare);
                                             gv.mod.breakActiveSearch = true;
@@ -10947,6 +10956,7 @@ namespace IceBlink2
                                     {
                                         gv.mod.EncounterOfTurnDone = true;
                                         gv.sf.ThisProp = prp;
+                                        gv.cc.calledEncounterFromProp = true;
                                         gv.mod.stopMoves = true;
                                         doEncounterBasedOnTag(prp.EncounterWhenOnPartySquare);
                                         gv.mod.breakActiveSearch = true;

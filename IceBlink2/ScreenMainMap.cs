@@ -495,6 +495,7 @@ namespace IceBlink2
                                         {
                                             gv.mod.EncounterOfTurnDone = true;
                                             gv.sf.ThisProp = bumpProp;
+                                            gv.cc.calledEncounterFromProp = true;
                                             gv.cc.doEncounterBasedOnTag(bumpProp.EncounterWhenOnPartySquare);
                                         }
 
@@ -621,6 +622,7 @@ namespace IceBlink2
                                         {
                                             gv.mod.EncounterOfTurnDone = true;
                                             gv.sf.ThisProp = bumpProp;
+                                            gv.cc.calledEncounterFromProp = true;
                                             gv.cc.doEncounterBasedOnTag(bumpProp.EncounterWhenOnPartySquare);
                                         }
 
@@ -760,6 +762,7 @@ namespace IceBlink2
                                         {
                                             gv.mod.EncounterOfTurnDone = true;
                                             gv.sf.ThisProp = bumpProp;
+                                            gv.cc.calledEncounterFromProp = true;
                                             gv.cc.doEncounterBasedOnTag(bumpProp.EncounterWhenOnPartySquare);
                                         }
 
@@ -903,6 +906,7 @@ namespace IceBlink2
                                         {
                                             gv.mod.EncounterOfTurnDone = true;
                                             gv.sf.ThisProp = bumpProp;
+                                            gv.cc.calledEncounterFromProp = true;
                                             gv.cc.doEncounterBasedOnTag(bumpProp.EncounterWhenOnPartySquare);
                                         }
 
@@ -3415,7 +3419,7 @@ namespace IceBlink2
                 if (gv.mod.spritesUnderOverlays)
                 {
                     drawOtherSprites();
-                    drawTopFullScreenEffects();
+                    //drawTopFullScreenEffects();
                 }
 
                 /*
@@ -3445,7 +3449,7 @@ namespace IceBlink2
                     drawSprites();
                     if (!gv.mod.currentArea.isOverviewMap)
                     {
-                        drawTopFullScreenEffects();
+                        //drawTopFullScreenEffects();
                     }
                 }
 
@@ -42195,6 +42199,7 @@ namespace IceBlink2
                         {
                             gv.mod.EncounterOfTurnDone = true;
                             gv.sf.ThisProp = bumpProp;
+                            gv.cc.calledEncounterFromProp = true;
                             gv.cc.doEncounterBasedOnTag(bumpProp.EncounterWhenOnPartySquare);
                         }
                         if (bumpProp.scriptFilename != "none")
@@ -42337,6 +42342,7 @@ namespace IceBlink2
                         {
                             gv.mod.EncounterOfTurnDone = true;
                             gv.sf.ThisProp = bumpProp;
+                            gv.cc.calledEncounterFromProp = true;
                             gv.cc.doEncounterBasedOnTag(bumpProp.EncounterWhenOnPartySquare);
                         }
 
@@ -42465,6 +42471,7 @@ namespace IceBlink2
                         {
                             gv.mod.EncounterOfTurnDone = true;
                             gv.sf.ThisProp = bumpProp;
+                            gv.cc.calledEncounterFromProp = true;
                             gv.cc.doEncounterBasedOnTag(bumpProp.EncounterWhenOnPartySquare);
                         }
 
@@ -42592,6 +42599,7 @@ namespace IceBlink2
                         {
                             gv.mod.EncounterOfTurnDone = true;
                             gv.sf.ThisProp = bumpProp;
+                            gv.cc.calledEncounterFromProp = true;
                             gv.cc.doEncounterBasedOnTag(bumpProp.EncounterWhenOnPartySquare);
                         }
 
