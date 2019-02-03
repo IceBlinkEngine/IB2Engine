@@ -3593,7 +3593,10 @@ namespace IceBlink2
             */
             //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
-#region tile loading on demand
+            gv.screenMainMap.setExplored();
+            gv.screenMainMap.setExploredForConnectedDiscoveryTriggers();
+
+            #region tile loading on demand
             if (gv.mod.useAllTileSystem)
             {
                 //addLogText("yellow", "Number of tiles, before cull:" + gv.mod.loadedTileBitmaps.Count.ToString());
@@ -13884,11 +13887,12 @@ namespace IceBlink2
 
         public void doEncounterBasedOnTag(string name)
         {
-
-            bool isFooled = false;
-            //enter code for skipping triggers of prop here
-            //if (calledEncounterFromProp)
-            //{
+            if (calledEncounterFromProp && gv.sf.ThisProp != null)
+            {
+                bool isFooled = false;
+                //enter code for skipping triggers of prop here
+                //if (calledEncounterFromProp)
+                //{
                 if (gv.sf.ThisProp.stealthSkipsPropTriggers)
                 {
                     //add missing check
@@ -13968,8 +13972,9 @@ namespace IceBlink2
                     {
                         return;
                     }
-                //}
-            }//up to here
+                    //}
+                }//up to here
+            }
 
             //if (gv.mod.breakActiveSearch == false)
             //{
@@ -15198,7 +15203,7 @@ namespace IceBlink2
             }
         }
 
-        public void createClouds(string cloudType, float speedMultiplier, float positionModifierX, float positionModifierY)
+        public void createClouds(string cloudType, float speedMultiplier, float positionModifierX, float positionModifierY, int mass, float angle)
         {
                 float veloX = 0;
                 float veloY = 0;
@@ -15244,7 +15249,7 @@ namespace IceBlink2
                 veloY = -1f / 50f;
             }
 
-            Sprite spr = new Sprite(gv, cloudType, gv.screenWidth/2 - gv.screenHeight/2 + positionModifierX, gv.screenHeight/2 - gv.screenHeight/2 + positionModifierY, veloX * speedMultiplier, veloY * speedMultiplier, 0, 0, (gv.sf.RandInt(60)/10f + 7.5f)/1.5f, (gv.sf.RandInt(60)/10f + 7.5f)/1.5f, gv.sf.RandInt(80000) + 48000, false, 100,gv.mod.fullScreenEffectOpacityWeather*1.5f,0,"clouds",true,0);
+            Sprite spr = new Sprite(gv, cloudType, gv.screenWidth/2 - gv.screenHeight/2 + positionModifierX, gv.screenHeight/2 - gv.screenHeight/2 + positionModifierY, veloX * speedMultiplier, veloY * speedMultiplier, angle, 0, (gv.sf.RandInt(60)/10f + 7.5f)/1.5f, (gv.sf.RandInt(60)/10f + 7.5f)/1.5f, gv.sf.RandInt(80000) + 48000, false, 100,gv.mod.fullScreenEffectOpacityWeather*1.5f, mass ,"clouds",true,0);
             gv.screenMainMap.spriteList.Add(spr);   
         }
 

@@ -225,7 +225,19 @@ namespace IceBlink2
 
                 if (numberOFFramesForAnimationsMadeFromSeveralBitmaps == 0)
             {
-                gv.DrawBitmap(gv.cc.GetFromBitmapList(bitmap), src, dst, angle, false, this.opacity * opacityMulti);
+                if (this.movementMethod == "clouds")
+                {
+                    bool mirror = false;
+                    if (this.mass == 1)
+                    {
+                        mirror = true;
+                    }
+                    gv.DrawBitmap(gv.cc.GetFromBitmapList(bitmap), src, dst, angle, mirror, this.opacity * opacityMulti);
+                }
+                else
+                {
+                    gv.DrawBitmap(gv.cc.GetFromBitmapList(bitmap), src, dst, angle, false, this.opacity * opacityMulti);
+                }
             }
             else
             {

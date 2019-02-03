@@ -1102,13 +1102,25 @@ namespace IceBlink2
                             gv.cloudType = "cloud";
                         }
                     }
+                    decider = gv.sf.RandInt(2);
+                    int mass = 0;
+                    if (decider == 1)
+                    {
+                        mass = 1;
+                    }
 
                     speedMultiplier = 0.39f + (i * 0.1f);
                     decider = gv.sf.RandInt(15);
                     positionmodifierX = (-7 + decider) * gv.squareSize;
                     decider = gv.sf.RandInt(9);
                     positionmodifierY = (-4 + decider) * gv.squareSize;
-                    gv.cc.createClouds(gv.cloudType + layerType, speedMultiplier, positionmodifierX, positionmodifierY);
+                    float angle = 362;
+                    decider = gv.sf.RandInt(2);
+                    if (decider == 2)
+                    {
+                        angle = 361;
+                    }
+                    gv.cc.createClouds(gv.cloudType + layerType, speedMultiplier, positionmodifierX, positionmodifierY, mass, angle);
                     gv.cloudType = backupCloudType;
                     gv.mod.blockCloudCreation = true;
 
@@ -3305,7 +3317,8 @@ namespace IceBlink2
                 gv.weatherSounds3.controls.stop();
             }
             setBridgeStateForMovingProps();
-            setExplored();
+            //setExplored();
+            //setExploredForConnectedDiscoveryTriggers();
             if (!gv.mod.currentArea.areaDark)
             {
                 drawBottomFullScreenEffects();
@@ -42671,7 +42684,49 @@ namespace IceBlink2
             return returnList;
         }
         
-        private void setExplored()
+        public void setExploredForConnectedDiscoveryTriggers()
+        {   
+                foreach (Trigger t in gv.mod.currentArea.Triggers)
+                {
+                    if (t.connectedDiscovery)
+                    {
+                        bool oneDiscovered = false;
+                    foreach (Coordinate c in t.TriggerSquaresList)
+                    {
+                        for (int i = 0; i < gv.mod.currentArea.Tiles.Count; i++)
+                        {
+                            int iX = i % gv.mod.currentArea.MapSizeX;
+                            int iY = i / gv.mod.currentArea.MapSizeX;
+                            if (c.X == iX && c.Y == iY)
+                            {
+                                if (gv.mod.currentArea.Tiles[i].Visible)
+                                {
+                                    oneDiscovered = true;
+                                    break;
+                                }
+                            }
+                        }
+
+                        if (oneDiscovered)
+                        {
+                            break;
+                        }
+                    }
+
+                        if (oneDiscovered)
+                        {
+
+                            foreach (Coordinate c2 in t.TriggerSquaresList)
+                            {
+                                gv.mod.currentArea.Tiles[c2.Y * gv.mod.currentArea.MapSizeX + c2.X].Visible = true;
+                            }
+                        }
+                            
+                        }
+                    }
+                }
+
+        public void setExplored()
         {
             if (gv.mod.useAllTileSystem)
             {
@@ -43008,6 +43063,7 @@ namespace IceBlink2
                         if (drawTile)
                         {
                             tile.Visible = true;
+                            
                             //tile.lightRadius = 0;
                             //tile.isCentreOfLightCircle = false;
                             //tile.isOtherPartOfLightCircle = false;

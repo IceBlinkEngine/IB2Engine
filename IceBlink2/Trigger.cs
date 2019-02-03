@@ -10,6 +10,8 @@ namespace IceBlink2
 {
     public class Trigger 
     {
+
+        public bool connectedDiscovery = false;
         public string triggerImage = "none";
         public bool encounterTriggerOnEveryStep = false;
 
