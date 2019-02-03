@@ -52,7 +52,14 @@ namespace IceBlink2
             this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.form_MouseMove);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.form_onKeyDown);
             //InitializeHtmlLogBox(10, 30,580 * (int)(100f/gv.squareSize), 400 * (int)(100f/gv.squareSize));
-            InitializeHtmlLogBox(10, 30, 780 * (int)(100f / gv.squareSize), 540 * (int)(100f / gv.squareSize));
+
+            //old teufel
+            InitializeHtmlLogBox(10, 30, 780, 540);
+            //int i = gv.screenWidth; //1366
+            //int t = gv.screenHeight; //768
+            //InitializeHtmlLogBox(10, 30, 13 * gv.squareSize, 10 *gv.squareSize);
+
+
             //InitializeHtmlLogBox(10, 30, 780 * (int)(100f / gv.squareSize), 400 * (int)(100f / gv.squareSize));
 
             //tried to adjust the size of the HtmlLogBox for my laptop resolution, tried to do in a dynamic wa
@@ -96,7 +103,8 @@ namespace IceBlink2
                     float mod = (gv.screenHeight / 1080);
                     pageLength -= (int)mod;
                 }
-                SetCurrentTopLineIndex((int)(-0.75f * 1080f / gv.screenHeight));
+                //SetCurrentTopLineIndex((int)(-0.75f * 1080f / gv.screenHeight));
+                SetCurrentTopLineIndex(-1);
                 //SetCurrentTopLineIndex(-(int)pageLength);
                 this.Invalidate();
                 return true;
@@ -111,7 +119,8 @@ namespace IceBlink2
                     pageLength -= (int)mod;
                 }
                 //SetCurrentTopLineIndex((int)(pageLength));
-                SetCurrentTopLineIndex((int)(0.75f*1080f / gv.screenHeight));
+                //SetCurrentTopLineIndex((int)(0.75f*1080f / gv.screenHeight));
+                SetCurrentTopLineIndex(1);
                 //gv.Font.Height
                 this.Invalidate();
                 return true;
@@ -154,7 +163,7 @@ namespace IceBlink2
             btn_scroll = gv.cc.LoadBitmapGDI("btn_scroll.png");
             bg_scroll = gv.cc.LoadBitmapGDI("bg_scroll.png");
             fontfamily = gv.family;
-            font = new Font(fontfamily, 20.0f * (float)gv.squareSize / 100.0f);
+            font = new Font(fontfamily, 20.0f * (float)71f / 100.0f);
             tbXloc = locX;
             tbYloc = locY;
             tbWidth = width;
@@ -404,10 +413,10 @@ namespace IceBlink2
         public void SetCurrentTopLineIndex(int changeValue)
         {
             currentTopLineIndex += changeValue;
-            if (currentTopLineIndex > logLinesList.Count - numberOfLinesToShow - 2)
+            if (currentTopLineIndex > logLinesList.Count - numberOfLinesToShow -2)
             {
                 //currentTopLineIndex = logLinesList.Count - numberOfLinesToShow;
-                currentTopLineIndex = logLinesList.Count - numberOfLinesToShow - 2;
+                currentTopLineIndex = logLinesList.Count - numberOfLinesToShow -2;
             }
             if (currentTopLineIndex < 0)
             {
@@ -421,10 +430,10 @@ namespace IceBlink2
             {
                 currentTopLineIndex = 0;
             }
-            if (currentTopLineIndex > logLinesList.Count - numberOfLinesToShow - 2)
+            if (currentTopLineIndex > logLinesList.Count - numberOfLinesToShow -2)
             {
                 //currentTopLineIndex = logLinesList.Count - numberOfLinesToShow;
-                currentTopLineIndex = logLinesList.Count - numberOfLinesToShow - 2;
+                currentTopLineIndex = logLinesList.Count - numberOfLinesToShow -2;
             }
         }
         
@@ -503,16 +512,17 @@ namespace IceBlink2
         }
         private float GetFontSizeInPixels()
         {
-            float fSize = 20.0f * (float)gv.squareSize / 100.0f;
+            //float fSize = 20.0f * (float)gv.squareSize / 100.0f;
+            float fSize = 20.0f * (float)71f / 100.0f;
             foreach (string s in tagStack)
             {
                 if (s == "big")
                 {
-                    fSize = 24.0f * (float)gv.squareSize / 100.0f;
+                    fSize = 24.0f * (float)71f / 100.0f;
                 }
                 else if (s == "small")
                 {
-                    fSize = 16.0f * (float)gv.squareSize / 100.0f;
+                    fSize = 16.0f * (float)71f  / 100.0f;
                 }
             }
             return fSize;
@@ -542,9 +552,14 @@ namespace IceBlink2
                 // Update the drawing based upon the mouse wheel scrolling. 
                 int numberOfTextLinesToMove = e.Delta * SystemInformation.MouseWheelScrollLines / 120;
 
-                if (numberOfTextLinesToMove != 0)
+                if (numberOfTextLinesToMove > 0)
                 {
-                    SetCurrentTopLineIndex(-numberOfTextLinesToMove);
+                    SetCurrentTopLineIndex(-1 );
+                    this.Invalidate();
+                }
+                if (numberOfTextLinesToMove < 0)
+                {
+                    SetCurrentTopLineIndex(1);
                     this.Invalidate();
                 }
             }
