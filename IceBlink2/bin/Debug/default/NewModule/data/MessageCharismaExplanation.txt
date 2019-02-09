@@ -1,0 +1,2 @@
+<b>Charisma (CHA):</b> Your ability to have successful interactions with others. This attribute impacts how NPCs perceive your character.<br>
+<br>

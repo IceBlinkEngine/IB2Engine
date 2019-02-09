@@ -429,7 +429,7 @@
           "Height": 100,
           "scaler": 0.8,
           "playedHoverSound": false,
-          "show": true
+          "show": false
         },
         {
           "tag": "btnDelay",

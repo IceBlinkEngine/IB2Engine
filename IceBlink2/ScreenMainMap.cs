@@ -1721,9 +1721,10 @@ namespace IceBlink2
                             //p.drawAnimatedProp = true;
                             if ((p.maxNumberOfFrames > 1) && (!p.animationComplete))
                             {
-                                p.animationDelayCounter += (300 / elapsed);
+                                //p.animationDelayCounter += (300f / elapsed);
+                                p.animationDelayCounter += (elapsed/2f);
 
-                                if (p.animationDelayCounter >= p.updateTicksNeededTillNextFrame)
+                            if (p.animationDelayCounter >= p.updateTicksNeededTillNextFrame)
                                 {
 
                                 #region forwardDirection

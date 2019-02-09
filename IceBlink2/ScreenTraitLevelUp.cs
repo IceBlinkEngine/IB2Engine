@@ -11,11 +11,14 @@ namespace IceBlink2
     public class ScreenTraitLevelUp 
     {
 
-	    //private gv.module gv.mod;
-	    private GameView gv;
+        //private gv.module gv.mod;
+        //public bool screenInPcCreation = false;
+        //public bool screenInCombat = false;
+
+        private GameView gv;
 	
 	    private int traitSlotIndex = 0;
-        private int traitToLearnIndex = 1;
+        public int traitToLearnIndex = 1;
         private int slotsPerPage = 20;
         
         //added(1)
@@ -34,7 +37,7 @@ namespace IceBlink2
         private IbbButton btnInfo = null;
         private IbbButton btnExit = null;
 	    List<string> traitsToLearnTagsList = new List<string>();
-	    private Player pc;
+	    public Player pc;
         public bool infoOnly = false; //set to true when called for info only
         private string stringMessageTraitLevelUp = "";
         private IbbHtmlTextBox description;

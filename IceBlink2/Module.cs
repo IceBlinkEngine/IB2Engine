@@ -14,6 +14,7 @@ namespace IceBlink2
     public class Module
     {
 
+        public bool playFootstepSound = true;
         public bool hudIsShown = true;
         public float nightTimeDarkness = 0.65f;
         public bool stopMoves = false;
@@ -167,6 +168,25 @@ namespace IceBlink2
         public bool useLuck = false;
         public bool hideRoster = false;
         public bool use3d6 = false;
+
+        //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+        public bool useManualPointDistribution = true;
+        public int attributeBaseValue = 10;
+        public int attributeMinValue = 6;
+        public int attributeMaxValue = 18;
+        public int pointPoolSize = 15;
+        public int twoPointThreshold = 14;
+        public int threePointThreshold = 16;
+        public int fourPointThreshold = 18;
+        public int numberOfMentalAtttributesBelowBaseAllowed = 2;
+        public int numberOfPhysicalAtttributesBelowBaseAllowed = 2;
+
+        public int counterMentalAttributesBelowTen = 0;
+        public int counterPhysicalAttributesBelowTen = 0;
+        public int counterPointsToDistributeLeft = 0;
+        
+        //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+
         public bool useUIBackground = true;
         public string fontName = "Metamorphous";
         public string fontFilename = "Metamorphous-Regular.ttf";

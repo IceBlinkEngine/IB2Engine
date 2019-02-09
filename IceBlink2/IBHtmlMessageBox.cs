@@ -95,6 +95,12 @@ namespace IceBlink2
 
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
+
+            if (keyData == Keys.Escape)            {
+                this.DialogResult = System.Windows.Forms.DialogResult.OK;
+                this.Close();
+            }
+
             if ((keyData == Keys.Up) || (keyData == Keys.NumPad8))
             {
                 float pageLength = 12f * (1080f / gv.screenHeight) + 1;

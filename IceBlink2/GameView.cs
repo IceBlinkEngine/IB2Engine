@@ -505,7 +505,13 @@ namespace IceBlink2
 		    cc.LoadTestParty();
 		
 		    //load all the message box helps/tutorials
-		    cc.stringBeginnersGuide = cc.loadTextToString("MessageBeginnersGuide.txt");
+            cc.stringStrength = cc.loadTextToString("MessageStrengthExplanation.txt");
+            cc.stringDexterity = cc.loadTextToString("MessageDexterityExplanation.txt");
+            cc.stringConstitution = cc.loadTextToString("MessageConstitutionExplanation.txt");
+            cc.stringIntelligence = cc.loadTextToString("MessageIntelligenceExplanation.txt");
+            cc.stringWisdom = cc.loadTextToString("MessageWisdomExplanation.txt");
+            cc.stringCharisma = cc.loadTextToString("MessageCharismaExplanation.txt");
+            cc.stringBeginnersGuide = cc.loadTextToString("MessageBeginnersGuide.txt");
 		    cc.stringPlayersGuide = cc.loadTextToString("MessagePlayersGuide.txt");
 		    cc.stringPcCreation = cc.loadTextToString("MessagePcCreation.txt");
 		    cc.stringMessageCombat = cc.loadTextToString("MessageCombat.txt");
@@ -1074,7 +1080,18 @@ namespace IceBlink2
         }
         public void DrawText(string text, float xLoc, float yLoc)
         {
-            DrawText(text, xLoc, yLoc, FontWeight.Normal, SharpDX.DirectWrite.FontStyle.Normal, 1.0f, SharpDX.Color.White, false);
+            if (text == "NA")
+            {
+                DrawText(text, xLoc, yLoc, FontWeight.Normal, SharpDX.DirectWrite.FontStyle.Normal, 1.0f, SharpDX.Color.Red, false);
+            }
+            else if (text.Contains("Points available"))
+            {
+                DrawText(text, xLoc, yLoc, FontWeight.Normal, SharpDX.DirectWrite.FontStyle.Normal, 1.0f, SharpDX.Color.Lime, false);
+            }
+            else
+            {
+                DrawText(text, xLoc, yLoc, FontWeight.Normal, SharpDX.DirectWrite.FontStyle.Normal, 1.0f, SharpDX.Color.White, false);
+            }
         }
         public void DrawText(string text, float x, float y, FontWeight fw, SharpDX.DirectWrite.FontStyle fs, SharpDX.Color fontColor)
         {
@@ -1821,6 +1838,7 @@ namespace IceBlink2
                     {
                         screenTraitLevelUp.onTouchTraitLevelUp(e, eventType, false, false);     	
                     }
+                    //allscreentypes
                     else if (screenType.Equals("learnTraitLevelUpCombat"))
                     {
                         screenTraitLevelUp.onTouchTraitLevelUp(e, eventType, false, true);
@@ -1939,10 +1957,18 @@ namespace IceBlink2
                         }
                         */
                     }
-
-                if (keyData == Keys.Return)
+                    //meins
+                if (keyData == Keys.Return || keyData == Keys.Escape)
                 {
-                    //flach
+
+                    if ((screenType == "combat" || screenType == "main" || screenType == "partyBuild" || screenType == "launcher" || screenType == "title" || screenType == "partyBuild") && (keyData == Keys.Escape))
+                    {
+                        this.Close();
+                    }
+                    if (screenType == "pcCreation" && keyData == Keys.Escape)
+                    {
+                        screenType = "partyBuild";
+                    }
                     if (screenType == "combatInventory")
                     {
                         //bool inCombat = false;
@@ -2015,26 +2041,6 @@ namespace IceBlink2
                         screenType = "combat";
                     }
 
-                    //vorschlag
-                    /*
-                      else if (screenType.Equals("combatCast"))
-            {
-                screenCastSelector.redrawCastSelector(true);
-            }
-            else if (screenType.Equals("mainMapCast"))
-            {
-                screenCastSelector.redrawCastSelector(false);
-            }
-            else if (screenType.Equals("combatTraitUse"))
-            {
-                screenTraitUseSelector.redrawTraitUseSelector(true);
-            }
-            else if (screenType.Equals("mainMapTraitUse"))
-            {
-                screenTraitUseSelector.redrawTraitUseSelector(false);
-            } 
-                     
-                     */
                     if (screenType.Equals("combatCast"))
                     {
                         if (screenCombat.canMove)
@@ -2076,13 +2082,268 @@ namespace IceBlink2
                         screenTraitUseSelector.doCleanUp();
                     }
 
+                    //shop
+                    if (screenType.Equals("shop"))
+                    {
+                        screenShop.armorFilterOn = false;
+                        screenShop.generalFilterOn = false;
+                        screenShop.weaponFilterOn = false;
+                        screenShop.inventorySlotIndex = 0;
+                        screenShop.inventoryPageIndex = 0;
+                        screenShop.btnPageIndex.Text = "1/40";
+                        screenShop.btnAll.glowOn = false;
+                        screenShop.btnWeapons.glowOn = false;
+                        screenShop.btnArmors.glowOn = false;
+                        screenShop.btnGeneral.glowOn = false;
+
+                        screenShop.armorFilterOnShop = false;
+                        screenShop.generalFilterOnShop = false;
+                        screenShop.weaponFilterOnShop = false;
+                        screenShop.shopSlotIndex = 0;
+                        screenShop.shopPageIndex = 0;
+                        screenShop.btnShopPageIndex.Text = "1/40";
+                        screenShop.btnAllShop.glowOn = false;
+                        screenShop.btnWeaponsShop.glowOn = false;
+                        screenShop.btnArmorsShop.glowOn = false;
+                        screenShop.btnGeneralShop.glowOn = false;
+                        screenType = "main";
+                    }
+
+                    if (screenType == "portraitSelector")
+                    {
+                        if (keyData == Keys.Return)
+                        {
+                            //return to calling screen
+                            if (screenPortraitSelector.callingScreen.Equals("party"))
+                            {
+                                screenParty.gv.mod.playerList[cc.partyScreenPcIndex].portraitFilename = screenPortraitSelector.playerPortraitList[screenPortraitSelector.GetIndex()];
+                                screenType = "party";
+                                screenParty.portraitLoad(screenParty.gv.mod.playerList[cc.partyScreenPcIndex]);
+                            }
+                            else if (screenPortraitSelector.callingScreen.Equals("pcCreation"))
+                            {
+                                //set PC portrait filename to the currently selected image
+                                screenPcCreation.pc.portraitFilename = screenPortraitSelector.playerPortraitList[screenPortraitSelector.GetIndex()];
+                                screenType = "pcCreation";
+                                screenPcCreation.portraitLoad(screenPcCreation.pc);
+                            }
+                            screenPortraitSelector.doCleanUp();
+                        }
+
+                        if (keyData == Keys.Escape)
+                        {
+                            //do nothing, return to calling screen
+                            if (screenPortraitSelector.callingScreen.Equals("party"))
+                            {
+                                screenType = "party";
+                            }
+                            else if (screenPortraitSelector.callingScreen.Equals("pcCreation"))
+                            {
+                                screenType = "pcCreation";
+                            }
+                            screenPortraitSelector.doCleanUp();
+                        }
+
+
+                    }
+
+                    if (screenType == "tokenSelector")
+                    {
+                        if (keyData == Keys.Return)
+                        {
+                            //return to calling screen
+                            if (screenTokenSelector.callingScreen.Equals("party"))
+                            {
+                                screenParty.gv.mod.playerList[cc.partyScreenPcIndex].tokenFilename = screenTokenSelector.playerTokenList[screenTokenSelector.GetIndex()];
+                                screenType = "party";
+                                screenParty.tokenLoad(screenParty.gv.mod.playerList[cc.partyScreenPcIndex]);
+                            }
+                            else if (screenTokenSelector.callingScreen.Equals("pcCreation"))
+                            {
+                                //set PC portrait filename to the currently selected image
+                                screenPcCreation.pc.tokenFilename = screenTokenSelector.playerTokenList[screenTokenSelector.GetIndex()];
+                                screenType = "pcCreation";
+                                screenPcCreation.tokenLoad(screenPcCreation.pc);
+                            }
+                            screenTokenSelector.doCleanUp();
+                        }
+
+                        if (keyData == Keys.Escape)
+                        {
+                            //do nothing, return to calling screen
+                            if (screenTokenSelector.callingScreen.Equals("party"))
+                            {
+                                screenType = "party";
+                            }
+                            else if (screenTokenSelector.callingScreen.Equals("pcCreation"))
+                            {
+                                screenType = "pcCreation";
+                            }
+                            screenTokenSelector.doCleanUp();
+                        }
+                    }
+                    if (screenType == "partyRoster")
+                    {
+                        if (mod.playerList.Count > 0)
+                        {
+                            //check to see if any non-removeable PCs are in roster
+                            if (screenPartyRoster.checkForNoneRemovablePcInRoster())
+                            {
+                                return;
+                            }
+                            //check to see if mainPc is in party
+                            if (screenPartyRoster.checkForMainPc())
+                            {
+                                screenType = "main";
+                            }
+                            else
+                            {
+                                sf.MessageBoxHtml("You must have the Main PC (the first PC you created) in your party before exiting this screen");
+                            }
+                        }
+                    }
+                    //todo
+                    // "learnSpellLevelUpCombat", always info only (single return button, btnselect, esc and return)
+                    //"learnTraitLevelUpCombat", always info only (single return button, btnselect, esc and return)
+                    //"learnSpellLevelUp", can be inof only
+                    //"learnTraitLevelUp", can be info only
+                    //"learnTraitCreation", never info only
+                    //"learnSpellCreation", never info only
+                    /*
+                    else if (screenType.Equals("learnTraitCreation"))
+                    {
+                        screenTraitLevelUp.onTouchTraitLevelUp(e, eventType, true, false);
+                    }
+                    else if (screenType.Equals("learnTraitLevelUp"))
+                    {
+                        screenTraitLevelUp.onTouchTraitLevelUp(e, eventType, false, false);
+                    }
+                    else if (screenType.Equals("learnTraitLevelUpCombat"))
+                    */
+
+                    if (screenType == "learnTraitLevelUp")
+                    {
+                        if (screenTraitLevelUp.infoOnly)
+                        {
+                                screenType = "party";
+                        }
+                        else
+                        {
+                            if (keyData == Keys.Return)
+                            {
+                                screenTraitLevelUp.doSelectedTraitToLearn(false);
+                            }
+
+                            if (keyData == Keys.Escape)
+                            {
+                                screenParty.traitGained = "";
+                                screenParty.spellGained = "";
+                                screenTraitLevelUp.pc.learningTraitsTags.Clear();
+                                screenTraitLevelUp.pc.learningEffects.Clear();
+                                screenTraitLevelUp.pc.learningSpellsTags.Clear();
+                                screenTraitLevelUp.traitToLearnIndex = 1;
+                                screenTraitLevelUp.pc.classLevel--;
+                                screenType = "party";
+                            }
+
+                        }
+
+                    }
+
+                    if (screenType == "learnTraitLevelUpCombat")
+                    {
+                        if (screenTraitLevelUp.infoOnly)
+                        {
+                            screenType = "combatParty";
+                        }
+                    }
+
+                    if (screenType == "learnTraitCreation")
+                    {
+                            if (keyData == Keys.Return)
+                            {
+                                screenTraitLevelUp.doSelectedTraitToLearn(true);
+                            }
+
+                            if (keyData == Keys.Escape)
+                            {
+                                screenParty.traitGained = "";
+                                screenParty.spellGained = "";
+                                screenTraitLevelUp.pc.learningTraitsTags.Clear();
+                                screenTraitLevelUp.pc.learningEffects.Clear();
+                                screenTraitLevelUp.pc.learningSpellsTags.Clear();
+                                screenTraitLevelUp.traitToLearnIndex = 1;
+                                screenType = "pcCreation";
+                        }
+                    }
+
+
+                    //for spells
+                    if (screenType == "learnSpellLevelUp")
+                    {
+                        if (screenSpellLevelUp.infoOnly)
+                        {
+                            screenType = "party";
+                        }
+                        else
+                        {
+                            if (keyData == Keys.Return)
+                            {
+                                screenSpellLevelUp.doSelectedSpellToLearn(false);
+                            }
+
+                            if (keyData == Keys.Escape)
+                            {
+                                screenParty.traitGained = "";
+                                screenParty.spellGained = "";
+                                screenSpellLevelUp.pc.learningTraitsTags.Clear();
+                                screenSpellLevelUp.pc.learningEffects.Clear();
+                                screenSpellLevelUp.pc.learningSpellsTags.Clear();
+                                screenSpellLevelUp.spellToLearnIndex = 1;
+                                screenSpellLevelUp.pc.classLevel--;
+                                screenType = "party";
+                            }
+                        }
+
+                    }
+
+                    if (screenType == "learnSpellLevelUpCombat")
+                    {
+                        if (screenSpellLevelUp.infoOnly)
+                        {
+                            screenType = "combatParty";
+                        }
+                    }
+
+                    if (screenType == "learnSpellCreation")
+                    {
+                        if (keyData == Keys.Return)
+                        {
+                            screenSpellLevelUp.doSelectedSpellToLearn(true);
+                        }
+
+                        if (keyData == Keys.Escape)
+                        {
+                            screenParty.traitGained = "";
+                            screenParty.spellGained = "";
+                            screenSpellLevelUp.pc.learningTraitsTags.Clear();
+                            screenSpellLevelUp.pc.learningEffects.Clear();
+                            screenSpellLevelUp.pc.learningSpellsTags.Clear();
+                            screenSpellLevelUp.spellToLearnIndex = 1;
+                            screenType = "pcCreation";
+                        }
+                    }
+
+
 
                 }
 
+                /*
                 if (keyData == Keys.Escape)
                 {
                     this.Close();
                 }
+                */
 
                 if (screenType.Equals("main"))
                     {

@@ -1,0 +1,2 @@
+<b>Dexterity (DEX):</b> How quick and coordinated your character is. This gives you bonuses to your attack rolls (when using ranged weapons) and your defense (Armor Class (AC)). For example, if your PC has a DEX of 14, the bonus for attack and AC is +2 [(14 - 10) / 2].<br>
+<br>

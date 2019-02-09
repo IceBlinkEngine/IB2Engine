@@ -1,0 +1,2 @@
+<b>Intelligence (INT):</b> How smart your character is. This impacts how many Spell Points (SP) you gain per level. This is useful for PCs that can cast spells.<br>
+<br>

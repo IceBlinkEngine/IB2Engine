@@ -24,15 +24,32 @@ namespace IceBlink2
             this.IceBlinkButtonClose.Enabled = false;
             this.IceBlinkButtonResize.Visible = false;
             this.IceBlinkButtonResize.Enabled = false;
+            //this.Activate();
+            
             gv = g;
             btnReturn.Text = "RETURN";
             btnReturn.Font = gv.drawFontReg;
             HeaderText = headertxt;
             this.label1.Font = gv.drawFontReg;
             this.label1.Text = headertxt;
+            //txtInput.BringToFront();
+            //txtInput.Enabled = true;
+            //txtInput.Focus();
             txtInput.Font = gv.drawFontReg;
+            txtInput.AcceptsReturn = true;
         }
-                        
+
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+
+            if (keyData == Keys.Return)
+            {
+                this.DialogResult = System.Windows.Forms.DialogResult.OK;
+                this.Close();
+            }
+            return base.ProcessCmdKey(ref msg, keyData);
+        }
+
         private void btn_Click(object sender, EventArgs e)
         {
             this.DialogResult = System.Windows.Forms.DialogResult.OK;

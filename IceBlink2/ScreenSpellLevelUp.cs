@@ -33,7 +33,7 @@ namespace IceBlink2
 	    private IbbButton btnSelect = null;
 	    private IbbButton btnExit = null;
 	    List<string> spellsToLearnTagsList = new List<string>();
-	    private Player pc;
+	    public Player pc;
         public bool infoOnly = false; //set to true when called for info only
         public bool isInCombat = false;
         private string stringMessageSpellLevelUp = "";

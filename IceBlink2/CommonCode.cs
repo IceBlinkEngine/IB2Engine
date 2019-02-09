@@ -183,6 +183,12 @@ namespace IceBlink2
         public bool calledEncounterFromProp = false;
         public int currentPlayerIndexUsingItem = 0;
 
+        public string stringStrength = "";
+        public string stringDexterity = "";
+        public string stringConstitution = "";
+        public string stringIntelligence = "";
+        public string stringWisdom = "";
+        public string stringCharisma = "";
         public string stringBeginnersGuide = "";
         public string stringPlayersGuide = "";
         public string stringPcCreation = "";
@@ -14022,6 +14028,10 @@ namespace IceBlink2
 
         public bool goWest()
         {
+            if (gv.mod.playFootstepSound)
+            {
+                gv.PlaySound("footstep");
+            }
             if (gv.mod.hideInterfaceNextMove)
             {
                 if (!gv.screenMainMap.hideClock)
@@ -14153,6 +14163,10 @@ namespace IceBlink2
 
         public bool goEast()
         {
+            if (gv.mod.playFootstepSound)
+            {
+                gv.PlaySound("footstep");
+            }
             if (gv.mod.hideInterfaceNextMove)
             {
                 if (!gv.screenMainMap.hideClock)
@@ -14282,6 +14296,10 @@ namespace IceBlink2
          
         public bool goNorth()
         {
+            if (gv.mod.playFootstepSound)
+            {
+                gv.PlaySound("footstep");
+            }
             if (gv.mod.hideInterfaceNextMove)
             {
                 if (!gv.screenMainMap.hideClock)
@@ -14406,6 +14424,10 @@ namespace IceBlink2
 
         public bool goSouth()
         {
+            if (gv.mod.playFootstepSound)
+            {
+                gv.PlaySound("footstep");
+            }
             if (gv.mod.hideInterfaceNextMove)
             {
                 if (!gv.screenMainMap.hideClock)

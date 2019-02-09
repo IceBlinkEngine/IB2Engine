@@ -148,7 +148,14 @@ namespace IceBlink2
             }
             if (!this.btnWithGold)
             {
-                gv.DrawText(Text, this.X + ulX, this.Y + ulY, scaler, Color.White);
+                if (Text == "NA")
+                {
+                    gv.DrawText(Text, this.X + ulX, this.Y + ulY, scaler, Color.Red);
+                }
+                else
+                {
+                    gv.DrawText(Text, this.X + ulX, this.Y + ulY, scaler, Color.White);
+                }
             }
             else
             {

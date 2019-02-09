@@ -1,0 +1,2 @@
+<b>Strength (STR):</b> How strong your character is. This gives you bonuses to your attack rolls (when using melee weapons), damage and increases your health (known as Hit Points). For example, if your PC has a STR of 16, the bonus for attack, damage and health is +3 [(16 - 10) / 2].<br>
+<br>
