@@ -3312,6 +3312,46 @@ namespace IceBlink2
             }
         }
 
+        public void drawPermanentTextOnParty()
+        {
+            
+                if (gv.mod.permanentPartyText != "none")
+                {
+                    int txtH = 0;
+                    if (gv.mod.currentArea.useSuperTinyProps)
+                    {
+                        txtH = (int)(gv.drawFontRegHeight * 1.5f);
+                    }
+                    else if (gv.mod.currentArea.useMiniProps)
+                    {
+                        txtH = (int)(gv.drawFontRegHeight * 1.5f);
+                    }
+                    else
+                    {
+                        txtH = (int)(gv.drawFontRegHeight * 1.0f);
+                    }
+                    int xPos = ((gv.mod.PlayerLocationX - gv.mod.PlayerLocationX) * gv.squareSize) + (gv.playerOffsetX * gv.squareSize);
+                    int yPos = ((gv.mod.PlayerLocationY - gv.mod.PlayerLocationY) * gv.squareSize) + (gv.playerOffsetY * gv.squareSize);
+                    //frei
+                    if (gv.mod.drawPartyDirection == "up" && !gv.mod.currentArea.useSuperTinyProps && !gv.mod.currentArea.useMiniProps)
+                    {
+                        yPos += gv.squareSize + 1 * txtH;
+                    }
+                    else if (gv.mod.drawPartyDirection == "up")
+                    {
+                        yPos += gv.squareSize;
+                    }
+                        for (int x = -2; x <= 2; x++)
+                    {
+                        for (int y = -2; y <= 2; y++)
+                        {
+                            gv.DrawText(gv.mod.permanentPartyText, xPos + x, yPos + txtH + y - gv.squareSize / 2, 0.5f, Color.Black);
+                        }
+                    }
+                    gv.DrawText(gv.mod.permanentPartyText, xPos, yPos + txtH - gv.squareSize / 2, 0.5f, Color.Yellow);
+                }
+            
+        }
         public void redrawMain(float elapsed)
         {
 
@@ -3369,12 +3409,14 @@ namespace IceBlink2
                 drawProps();
                 drawMovingProps(elapsed);
                 drawPermanentTextOnProps();
+               
                 if ((!gv.mod.currentArea.useLightSystem) || (!gv.mod.partyLightOn))
                 {
                     //drawProps();
                     //drawMovingProps();
                     drawPlayer();
                     drawHeightShadows();
+                    drawPropsOverParty();
                     //new method for drawing shade for linked tiles on links
                     //drawLinkShades();
                     //drawBrigdePropsOverPlayer();
@@ -3396,10 +3438,13 @@ namespace IceBlink2
                     //}
                     drawPlayer();
                     drawHeightShadows();
+                    drawPropsOverParty();
                     //new method for drawing shade for linked tiles on links
                     //drawLinkShades();
                     //drawBrigdePropsOverPlayer();
                 }
+
+                //drawPermanentTextOnParty();
 
                 if (gv.mod.spritesUnderOverlays)
                 {
@@ -3438,6 +3483,7 @@ namespace IceBlink2
                 drawFogOfWar();
                 drawMainMapFloatyText();
                 drawFloatyTextPool();
+                //drawPermanentTextOnParty();
                 if (gv.mod.useSmoothMovement)
                 {
                     drawFloatyTextByPixelPool();
@@ -3473,7 +3519,7 @@ namespace IceBlink2
 
             //drawSprites();
             //drawTopFullScreenEffects();
-
+            drawPermanentTextOnParty();
             if ((showClock) && (!hideClock))
             {
                 drawMainMapClockText();
@@ -28474,6 +28520,943 @@ namespace IceBlink2
                 //if (!situationFound)
                 //{
                 int currentAreaIndex = 0;
+                for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
+                {
+                    if (gv.mod.currentArea.Filename == gv.mod.moduleAreasObjects[i].Filename)
+                    {
+                        currentAreaIndex = i;
+                        relevantIndices.Add(i);
+                    }
+                }
+                //}
+
+
+                //XXXXXXXXXXXXXXXXXXXXXXXX
+                for (int i = 0; i < relevantIndices.Count; i++)
+                {//2
+
+                    int backupLocationX = -1;
+                    int backupLocationY = -1;
+
+                    foreach (Prop p in gv.mod.moduleAreasObjects[relevantIndices[i]].Props)
+                    {//3
+                     //only for on-movers (the movers use drawMovingProps below)
+                     //if ((p.isShown) && (!p.isMover) && (p.token != null))
+                        bool nonTimeDriven = true;
+                        if (p.MoverType == "daily" || p.MoverType == "weekly" || p.MoverType == "monthly" || p.MoverType == "yearly")
+                        {
+                            nonTimeDriven = false;
+                        }
+                        int indexOfLoadedTile = -1;
+                        if ((p.isShown) && (nonTimeDriven == true) && p.scriptFilename != "gaJumpChasm.cs")
+                        {//hurghkarl
+
+                            //try
+                            //{
+                            //gv.cc.DisposeOfBitmap(ref p.token);
+                            //}
+                            //catch { }
+
+                            //p.token = gv.cc.LoadBitmap(p.ImageFileName);
+
+                            try
+                            {
+                                //insert1                        
+                                bool tileBitmapIsLoadedAlready = false;
+                                //int indexOfLoadedTile = -1;
+                                for (int j = 0; j < gv.mod.loadedTileBitmapsNames.Count; j++)
+                                {
+                                    if ((gv.mod.loadedTileBitmapsNames[j] == p.ImageFileName) && (!gv.mod.loadedTileBitmaps[j].IsDisposed))
+                                    {
+                                        tileBitmapIsLoadedAlready = true;
+                                        indexOfLoadedTile = j;
+                                        p.token = gv.mod.loadedTileBitmaps[j];
+                                        break;
+                                    }
+                                }
+
+                                //gehörtdiewelt
+                                //insert2
+                                if (!tileBitmapIsLoadedAlready)
+                                {
+                                    gv.mod.loadedTileBitmapsNames.Add(p.ImageFileName);
+                                    p.token = gv.cc.LoadBitmap(p.ImageFileName);
+                                    gv.mod.loadedTileBitmaps.Add(p.token);
+                                    indexOfLoadedTile = gv.mod.loadedTileBitmaps.Count - 1;
+                                }
+                            }
+                            catch
+                            { }
+
+
+
+                            backupLocationX = p.LocationX;
+                            backupLocationY = p.LocationY;
+
+                            //XXXXXXXXXXXXXXXXXXX
+                            situationFound = false;
+
+                            //northwest
+                            if (indexOfNorthWesternNeighbour != -1)
+                            {
+                                if (gv.mod.moduleAreasObjects[relevantIndices[i]].Filename.Contains(gv.mod.moduleAreasObjects[indexOfNorthWesternNeighbour].Filename))
+                                //if ((seamlessModififierMinX > 0) && (seamlessModififierMinY > 0) && !situationFound)
+                                {
+                                    situationFound = true;
+                                    p.LocationX = p.LocationX - gv.mod.moduleAreasObjects[relevantIndices[i]].MapSizeX;
+                                    p.LocationY = p.LocationY - gv.mod.moduleAreasObjects[relevantIndices[i]].MapSizeY;
+
+                                }
+                            }
+
+                            //northeast
+                            if (indexOfNorthEasternNeighbour != -1)
+                            {
+                                if (gv.mod.moduleAreasObjects[relevantIndices[i]].Filename.Contains(gv.mod.moduleAreasObjects[indexOfNorthEasternNeighbour].Filename))
+
+                                //if ((seamlessModififierMaxX > 0) && (seamlessModififierMinY > 0) && !situationFound)
+                                {
+                                    situationFound = true;
+                                    p.LocationX = p.LocationX + gv.mod.currentArea.MapSizeX;
+                                    p.LocationY = p.LocationY - gv.mod.moduleAreasObjects[relevantIndices[i]].MapSizeY;
+
+                                }
+                            }
+
+                            //southwest
+                            if (indexOfSouthWesternNeighbour != -1)
+                            {
+                                if (gv.mod.moduleAreasObjects[relevantIndices[i]].Filename.Contains(gv.mod.moduleAreasObjects[indexOfSouthWesternNeighbour].Filename))
+
+                                //if ((seamlessModififierMinX > 0) && (seamlessModififierMaxY > 0) && !situationFound)
+                                {
+                                    situationFound = true;
+                                    p.LocationX = p.LocationX - gv.mod.moduleAreasObjects[relevantIndices[i]].MapSizeX;
+                                    p.LocationY = p.LocationY + gv.mod.currentArea.MapSizeY;
+
+                                }
+                            }
+
+                            //southeast
+                            if (indexOfSouthEasternNeighbour != -1)
+                            {
+                                if (gv.mod.moduleAreasObjects[relevantIndices[i]].Filename.Contains(gv.mod.moduleAreasObjects[indexOfSouthEasternNeighbour].Filename))
+
+                                //if ((seamlessModififierMaxX > 0) && (seamlessModififierMaxY > 0) && !situationFound)
+                                {
+                                    situationFound = true;
+                                    p.LocationX = p.LocationX + gv.mod.currentArea.MapSizeX;
+                                    p.LocationY = p.LocationY + gv.mod.currentArea.MapSizeY;
+
+                                }
+                            }
+
+                            //north
+                            if (indexOfNorthernNeighbour != -1)
+                            {
+                                if (gv.mod.moduleAreasObjects[relevantIndices[i]].Filename.Contains(gv.mod.moduleAreasObjects[indexOfNorthernNeighbour].Filename))
+
+                                //if ((seamlessModififierMinY > 0) && !situationFound)
+                                {
+                                    situationFound = true;
+                                    p.LocationY = p.LocationY - gv.mod.moduleAreasObjects[relevantIndices[i]].MapSizeY;
+
+                                }
+                            }
+
+                            //south
+                            if (indexOfSouthernNeighbour != -1)
+                            {
+                                if (gv.mod.moduleAreasObjects[relevantIndices[i]].Filename.Contains(gv.mod.moduleAreasObjects[indexOfSouthernNeighbour].Filename))
+
+                                //if ((seamlessModififierMaxY > 0) && !situationFound)
+                                {
+                                    situationFound = true;
+                                    p.LocationY = p.LocationY + gv.mod.currentArea.MapSizeY;
+
+                                }
+                            }
+
+                            //west
+                            if (indexOfWesternNeighbour != -1)
+                            {
+                                if (gv.mod.moduleAreasObjects[relevantIndices[i]].Filename.Contains(gv.mod.moduleAreasObjects[indexOfWesternNeighbour].Filename))
+
+                                //if ((seamlessModififierMinX > 0) && !situationFound)
+                                {
+                                    situationFound = true;
+                                    p.LocationX = p.LocationX - gv.mod.moduleAreasObjects[relevantIndices[i]].MapSizeX;
+                                }
+                            }
+
+                            //east
+                            if (indexOfEasternNeighbour != -1)
+                            {
+                                if (gv.mod.moduleAreasObjects[relevantIndices[i]].Filename.Contains(gv.mod.moduleAreasObjects[indexOfEasternNeighbour].Filename))
+
+                                //if ((seamlessModififierMaxX > 0) && !situationFound)
+                                {
+                                    situationFound = true;
+                                    p.LocationX = p.LocationX + gv.mod.currentArea.MapSizeX;
+                                }
+                            }
+
+                            //XXXXXXXXXXXXXXXXXXXXXXXX
+
+                            //distance check
+                            if ((p.LocationX >= gv.mod.PlayerLocationX - gv.playerOffsetX) && (p.LocationX <= gv.mod.PlayerLocationX + gv.playerOffsetX)
+                                && (p.LocationY >= gv.mod.PlayerLocationY - gv.playerOffsetY) && (p.LocationY <= gv.mod.PlayerLocationY + gv.playerOffsetY))
+                            {//5
+                             //prop X - playerX
+                             //get dst rct based on distance of prop to  palyer
+                                int x = ((p.LocationX - gv.mod.PlayerLocationX) * gv.squareSize) + (gv.playerOffsetX * gv.squareSize);
+                                int y = ((p.LocationY - gv.mod.PlayerLocationY) * gv.squareSize) + (gv.playerOffsetY * gv.squareSize);
+                                int dstW = (int)((((float)gv.mod.loadedTileBitmaps[indexOfLoadedTile].PixelSize.Width / (float)gv.squareSizeInPixels) * (float)gv.squareSize) * (p.sizeFactor / 100f));
+                                int dstH = (int)((((float)(gv.mod.loadedTileBitmaps[indexOfLoadedTile].PixelSize.Height / p.maxNumberOfFrames) / (float)gv.squareSizeInPixels) * (float)gv.squareSize) * (p.sizeFactor / 100f));
+                                int dstXshift = (dstW - gv.squareSize) / 2;
+                                int dstYshift = (dstH - gv.squareSize) / 2;
+                                int framePosition = p.currentFrameNumber;
+                                if (p.inverseAnimationDirection)
+                                {
+                                    framePosition = (p.maxNumberOfFrames - 1) - p.currentFrameNumber;
+                                }
+                                IbRect src = new IbRect(0, framePosition * p.propFrameHeight, gv.mod.loadedTileBitmaps[indexOfLoadedTile].PixelSize.Width, p.propFrameHeight);
+                                IbRect dst = new IbRect(x + gv.oXshift + mapStartLocXinPixels - dstXshift, y - dstYshift, dstW, dstH);
+
+                                //adjust size of props
+                                if (gv.mod.currentArea.useSuperTinyProps && !p.alwaysDrawNormalSize)
+                                {
+                                    //dst = new IbRect((int)p.currentPixelPositionX + (int)(gv.squareSize * 3 / 8) - dstXshift, (int)p.currentPixelPositionY + (int)(gv.squareSize * 3 / 8) - dstYshift, (int)(dstW / 4), (int)(dstH / 4));
+                                    dst = new IbRect(x + (int)(gv.squareSize * 5 / 8) - dstXshift - (int)(((dstW / 4) * 0.375f)), y + (int)(gv.squareSize * 3 / 8) - dstYshift - (int)(((dstH / 4) * 0.375f)), (int)((dstW / 4) * 1.75f), (int)((dstH / 4) * 1.75f));
+
+                                }
+                                else if (gv.mod.currentArea.useMiniProps && !p.alwaysDrawNormalSize)
+                                {
+                                    //dst = new IbRect((int)p.currentPixelPositionX + (int)(gv.squareSize / 4) - dstXshift, (int)p.currentPixelPositionY + (int)(gv.squareSize / 4) - dstYshift, (int)(dstW / 2), (int)(dstH / 2));
+                                    dst = new IbRect(x + (int)(gv.squareSize / 2) - dstXshift - (int)(((dstW / 2) * 0.15f)), y + (int)(gv.squareSize / 4) - dstYshift - (int)(((dstH / 2) * 0.15f)), (int)((dstW / 2) * 1.3f), (int)((dstH / 2) * 1.3f));
+
+                                }
+
+                                //draw the prop
+                                if (((p.maxNumberOfFrames == 1) || (p.drawAnimatedProp)) && ((!p.isMover) || relevantIndices[i] != currentAreaIndex) && !p.isStealthed && !p.wasKilled)
+                                {
+                                    gv.DrawBitmap(gv.mod.loadedTileBitmaps[indexOfLoadedTile], src, dst, !p.PropFacingLeft, p.opacity);
+                                    //}
+
+                                    //for shwoign whetehr prop is encounte,r optional or mandatory conversation
+                                    if (gv.mod.showInteractionState == true)
+                                    {//6
+                                        if (!p.EncounterWhenOnPartySquare.Equals("none"))
+                                        {
+                                            //Bitmap interactionStateIndicator = gv.cc.LoadBitmap("encounter_indicator");
+                                            src = new IbRect(0, 0, gv.cc.encounter_indicator.PixelSize.Width, gv.cc.encounter_indicator.PixelSize.Height);
+                                            gv.DrawBitmap(gv.cc.encounter_indicator, src, dst);
+                                            //gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
+                                            //continue;
+                                        }
+
+                                        else if (p.unavoidableConversation)
+                                        {
+                                            //Bitmap interactionStateIndicator = gv.cc.LoadBitmap("mandatory_conversation_indicator");
+                                            src = new IbRect(0, 0, gv.cc.mandatory_conversation_indicator.PixelSize.Width, gv.cc.mandatory_conversation_indicator.PixelSize.Height);
+                                            gv.DrawBitmap(gv.cc.mandatory_conversation_indicator, src, dst);
+                                            //gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
+                                            //continue;
+                                        }
+
+                                        else if (!p.ConversationWhenOnPartySquare.Equals("none"))
+                                        {
+                                            //Bitmap interactionStateIndicator = gv.cc.LoadBitmap("optional_conversation_indicator");
+                                            src = new IbRect(0, 0, gv.cc.optional_conversation_indicator.PixelSize.Width, gv.cc.optional_conversation_indicator.PixelSize.Height);
+                                            gv.DrawBitmap(gv.cc.optional_conversation_indicator, src, dst);
+                                            //gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
+                                            //continue;
+                                        }
+
+
+
+                                    }//6
+                                     /*
+                                     int partyLevelAverage = 0;
+                                     foreach (Player pc in gv.mod.playerList)
+                                     {
+                                         partyLevelAverage += pc.classLevel;
+                                     }
+
+                                     partyLevelAverage = (int)(partyLevelAverage / gv.mod.playerList.Count);
+
+                                     int numberOfSkulls = 0;
+
+                                     if (p.EncounterWhenOnPartySquare != "none" && p.EncounterWhenOnPartySquare != "")
+                                     {
+                                         foreach (Encounter enc in gv.mod.moduleEncountersList)
+                                         {
+                                             if (enc.encounterName == p.EncounterWhenOnPartySquare)
+                                             {
+                                                 if (enc.challengeLevel > (partyLevelAverage + 5))
+                                                 {
+                                                     numberOfSkulls = 3;
+                                                 }
+                                                 else if (enc.challengeLevel > (partyLevelAverage + 3))
+                                                 {
+                                                     numberOfSkulls = 2;
+                                                 }
+                                                 else if (enc.challengeLevel > (partyLevelAverage + 1))
+                                                 {
+                                                     numberOfSkulls = 1;
+                                                 }
+                                             }
+                                         }
+                                     }
+                                     bool drawChallengeHidden = false;
+                                     if (p.EncounterWhenOnPartySquare != "none" && p.EncounterWhenOnPartySquare != "")
+                                     {
+                                         foreach (Encounter enc in gv.mod.moduleEncountersList)
+                                         {
+                                             if (enc.encounterName == p.EncounterWhenOnPartySquare)
+                                             {
+                                                 if (enc.challengeHidden)
+                                                 {
+                                                     numberOfSkulls = 0;
+                                                     drawChallengeHidden = true;
+                                                 }
+                                                 break;
+                                             }
+                                         }
+                                     }
+                                     /*
+                                     if (gv.mod.currentArea.Props[i].movementSpeed != -1)
+                                     {
+                                         IbRect dstSkull = new IbRect();
+                                         dstSkull.Height = (int)(dst.Height / 2);
+                                         dstSkull.Width = (int)(dst.Width / 2);
+                                         dstSkull.Left = dst.Left + src.Width / 2; 
+                                         dstSkull.Top = dst.Top - (int)(dst.Height / 3) + src.Height / 2;
+                                         int shift = 1 * (int)(dst.Width / 4);
+                                         //shift = 1 * (int)(dst.Width / 4);
+                                         dstSkull.Left += shift;
+                                         gv.DrawText(gv.mod.currentArea.Props[i].movementSpeed.ToString(), dstSkull.Left, dstSkull.Top);
+                                     }
+
+                                     if (drawChallengeHidden && !p.isStealthed && !p.wasKilled)
+                                     {
+                                         int shift = 0;
+                                         //Bitmap interactionStateIndicator = gv.cc.LoadBitmap("challengeHidden");
+                                         src = new IbRect(0, 0, gv.cc.challengeHidden.PixelSize.Width, gv.cc.challengeHidden.PixelSize.Height);
+                                         IbRect dstSkull = new IbRect();
+                                         dstSkull.Height = (int)(dst.Height / 2);
+                                         dstSkull.Width = (int)(dst.Width / 2);
+                                         dstSkull.Left = dst.Left;
+                                         dstSkull.Top = dst.Top - (int)(dst.Height / 3);
+                                         shift = 1 * (int)(dst.Width / 4);
+                                         dstSkull.Left += shift;
+                                         gv.DrawBitmap(gv.cc.challengeHidden, src, dstSkull);
+                                         //gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
+
+                                     }
+                                     if (numberOfSkulls > 0 && !p.isStealthed && !p.wasKilled)
+                                     {
+                                         int shift = 0;
+                                         for (int i2 = 0; i2 < numberOfSkulls; i2++)
+                                         {
+
+                                             //Bitmap interactionStateIndicator = gv.cc.LoadBitmap("challengeSkull");
+                                             src = new IbRect(0, 0, gv.cc.challengeSkull.PixelSize.Width, gv.cc.challengeSkull.PixelSize.Height);
+                                             IbRect dstSkull = new IbRect();
+                                             dstSkull.Height = (int)(dst.Height / 3);
+                                             dstSkull.Width = (int)(dst.Width / 3);
+                                             dstSkull.Left = dst.Left;
+                                             dstSkull.Top = dst.Top - (int)(dst.Height / 3);
+                                             shift = i2 * (int)(dst.Width / 3);
+                                             dstSkull.Left += shift;
+                                             gv.DrawBitmap(gv.cc.challengeSkull, src, dstSkull);
+                                             //gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
+                                         }
+                                     }//this
+                                     */
+
+                                    //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                                    //enter code for skipping triggers of prop here
+                                    if (p.showSneakThroughSymbol)
+                                    {
+                                        int numberOfSkulls = 1;
+                                        int shift = 0;
+                                        for (int i2 = 0; i2 < numberOfSkulls; i2++)
+                                        {
+
+                                            //Bitmap interactionStateIndicator = gv.cc.LoadBitmap("challengeSkull");
+                                            src = new IbRect(0, 0, gv.cc.challengeSkull.PixelSize.Width, gv.cc.challengeSkull.PixelSize.Height);
+                                            IbRect dstSkull = new IbRect();
+                                            dstSkull.Height = (int)(dst.Height / 3);
+                                            dstSkull.Width = (int)(dst.Width / 3);
+                                            dstSkull.Left = dst.Left;
+                                            dstSkull.Top = dst.Top;
+                                            shift = i2 * (int)(dst.Width / 3);
+                                            dstSkull.Left += shift;
+                                            gv.DrawBitmap(gv.cc.challengeSkull, src, dstSkull);
+                                            //gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
+                                        }
+                                    }
+
+                                    if (p.isCurrentlyChasing)
+                                    {
+                                        int numberOfSkulls = 2;
+                                        int shift = 0;
+                                        for (int i2 = 1; i2 < numberOfSkulls; i2++)
+                                        {
+
+                                            //Bitmap interactionStateIndicator = gv.cc.LoadBitmap("challengeSkull");
+                                            src = new IbRect(0, 0, gv.cc.isChasingSymbol.PixelSize.Width, gv.cc.isChasingSymbol.PixelSize.Height);
+                                            IbRect dstSkull = new IbRect();
+                                            dstSkull.Height = (int)(dst.Height / 3 * 2.0f);
+                                            dstSkull.Width = (int)(dst.Width / 3 * 2.0f);
+                                            dstSkull.Left = dst.Left - 2 * (int)(dst.Height / 3);
+                                            dstSkull.Top = dst.Top - (int)(dst.Height / 3);
+                                            shift = (int)((i2 + 0.5f) * (dst.Width / 3f)); dstSkull.Left += shift;
+                                            //großvater
+                                            gv.DrawBitmap(gv.cc.isChasingSymbol, src, dstSkull);
+                                            //gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
+                                        }
+                                    }
+
+                                    //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+
+                                }
+
+                            }//5
+
+                            p.LocationX = backupLocationX;
+                            p.LocationY = backupLocationY;
+
+                        }//4
+                    }//3
+
+
+                }//2
+                /*
+                //normal prop draw routine
+                foreach (Prop p in gv.mod.currentArea.Props)
+                {//3
+                 //only for non-movers (the movers use drawMovingProps below)
+                    if ((p.isShown) && (!p.isMover) && (p.token != null))
+                    {//4
+
+                        //distance check
+                        if ((p.LocationX >= gv.mod.PlayerLocationX - gv.playerOffsetX) && (p.LocationX <= gv.mod.PlayerLocationX + gv.playerOffsetX)
+                            && (p.LocationY >= gv.mod.PlayerLocationY - gv.playerOffsetY) && (p.LocationY <= gv.mod.PlayerLocationY + gv.playerOffsetY))
+                        {//5
+                         //prop X - playerX
+                         //get dst rct based on distance of prop to  palyer
+                            int x = ((p.LocationX - gv.mod.PlayerLocationX) * gv.squareSize) + (gv.playerOffsetX * gv.squareSize);
+                            int y = ((p.LocationY - gv.mod.PlayerLocationY) * gv.squareSize) + (gv.playerOffsetY * gv.squareSize);
+                            int dstW = (int)((((float)p.token.PixelSize.Width / (float)gv.squareSizeInPixels) * (float)gv.squareSize) * (p.sizeFactor / 100f));
+                            int dstH = (int)((((float)(p.token.PixelSize.Height / p.maxNumberOfFrames) / (float)gv.squareSizeInPixels) * (float)gv.squareSize) * (p.sizeFactor / 100f));
+                            int dstXshift = (dstW - gv.squareSize) / 2;
+                            int dstYshift = (dstH - gv.squareSize) / 2;
+                            //IbRect src = new IbRect(0, 0, p.token.PixelSize.Width, p.token.PixelSize.Width);
+                            int framePosition = p.currentFrameNumber;
+                            if (p.inverseAnimationDirection)
+                            {
+                                framePosition = (p.maxNumberOfFrames - 1) - p.currentFrameNumber;
+                            }
+                            IbRect src = new IbRect(0, framePosition * p.propFrameHeight, p.token.PixelSize.Width, p.propFrameHeight);
+                            IbRect dst = new IbRect(x + gv.oXshift + mapStartLocXinPixels - dstXshift, y - dstYshift, dstW, dstH);
+
+                            //adjust size of props
+                            if (gv.mod.currentArea.useSuperTinyProps)
+                            {
+                                dst = new IbRect((int)p.currentPixelPositionX + (int)(gv.squareSize * 3 / 8) - dstXshift, (int)p.currentPixelPositionY + (int)(gv.squareSize * 3 / 8) - dstYshift, (int)(dstW / 4), (int)(dstH / 4));
+                            }
+                            else if (gv.mod.currentArea.useMiniProps)
+                            {
+                                dst = new IbRect((int)p.currentPixelPositionX + (int)(gv.squareSize / 4) - dstXshift, (int)p.currentPixelPositionY + (int)(gv.squareSize / 4) - dstYshift, (int)(dstW / 2), (int)(dstH / 2));
+                            }
+
+                            //draw the prop
+                            if ((p.maxNumberOfFrames == 1) || (p.drawAnimatedProp))
+                            {
+                                gv.DrawBitmap(p.token, src, dst, !p.PropFacingLeft, p.opacity);
+                            }
+
+                            //for shwoign whetehr prop is encounte,r optional or mandatory conversation
+                            if (gv.mod.showInteractionState == true)
+                            {//6
+                                if (!p.EncounterWhenOnPartySquare.Equals("none"))
+                                {
+                                    Bitmap interactionStateIndicator = gv.cc.LoadBitmap("encounter_indicator");
+                                    src = new IbRect(0, 0, interactionStateIndicator.PixelSize.Width, interactionStateIndicator.PixelSize.Height);
+                                    gv.DrawBitmap(interactionStateIndicator, src, dst);
+                                    gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
+                                    //continue;
+                                }
+
+                                else if (p.unavoidableConversation)
+                                {
+                                    Bitmap interactionStateIndicator = gv.cc.LoadBitmap("mandatory_conversation_indicator");
+                                    src = new IbRect(0, 0, interactionStateIndicator.PixelSize.Width, interactionStateIndicator.PixelSize.Height);
+                                    gv.DrawBitmap(interactionStateIndicator, src, dst);
+                                    gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
+                                    //continue;
+                                }
+
+                                else if (!p.ConversationWhenOnPartySquare.Equals("none"))
+                                {
+                                    Bitmap interactionStateIndicator = gv.cc.LoadBitmap("optional_conversation_indicator");
+                                    src = new IbRect(0, 0, interactionStateIndicator.PixelSize.Width, interactionStateIndicator.PixelSize.Height);
+                                    gv.DrawBitmap(interactionStateIndicator, src, dst);
+                                    gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
+                                    //continue;
+                                }
+                            }//6
+                        }//5
+                    }//4
+                }//3
+                */
+                #endregion
+            }
+            else //old system
+            {
+                #region old system
+                foreach (Prop p in gv.mod.currentArea.Props)
+                {
+                    if ((p.isShown) && (!p.isMover) && p.scriptFilename != "gaJumpChasm.cs")
+                    {
+                        if ((p.LocationX >= gv.mod.PlayerLocationX - gv.playerOffsetX) && (p.LocationX <= gv.mod.PlayerLocationX + gv.playerOffsetX)
+                            && (p.LocationY >= gv.mod.PlayerLocationY - gv.playerOffsetY) && (p.LocationY <= gv.mod.PlayerLocationY + gv.playerOffsetY))
+                        {
+                            //prop X - playerX
+                            int x = ((p.LocationX - gv.mod.PlayerLocationX) * gv.squareSize) + (gv.playerOffsetX * gv.squareSize);
+                            int y = ((p.LocationY - gv.mod.PlayerLocationY) * gv.squareSize) + (gv.playerOffsetY * gv.squareSize);
+                            int dstW = (int)((((float)p.token.PixelSize.Width / (float)gv.squareSizeInPixels) * (float)gv.squareSize) * (p.sizeFactor / 100f));
+                            int dstH = (int)((((float)(p.token.PixelSize.Height / p.maxNumberOfFrames) / (float)gv.squareSizeInPixels) * (float)gv.squareSize) * (p.sizeFactor / 100f));
+                            int dstXshift = (dstW - gv.squareSize) / 2;
+                            int dstYshift = (dstH - gv.squareSize) / 2;
+                            //IbRect src = new IbRect(0, 0, p.token.PixelSize.Width, p.token.PixelSize.Width);
+                            int framePosition = p.currentFrameNumber;
+                            if (p.inverseAnimationDirection)
+                            {
+                                framePosition = (p.maxNumberOfFrames - 1) - p.currentFrameNumber;
+                            }
+                            IbRect src = new IbRect(0, framePosition * p.propFrameHeight, p.token.PixelSize.Width, p.propFrameHeight);
+                            IbRect dst = new IbRect(x + gv.oXshift + mapStartLocXinPixels - dstXshift, y - dstYshift, dstW, dstH);
+
+                            if (gv.mod.currentArea.useSuperTinyProps && !p.alwaysDrawNormalSize)
+                            {
+                                //dst = new IbRect((int)p.currentPixelPositionX + (int)(gv.squareSize * 3 / 8) - dstXshift, (int)p.currentPixelPositionY + (int)(gv.squareSize * 3 / 8) - dstYshift, (int)(dstW / 4), (int)(dstH / 4));
+                                dst = new IbRect(x + (int)(gv.squareSize * 5 / 8) - dstXshift - (int)(((dstW / 4) * 0.375f)), y + (int)(gv.squareSize * 3 / 8) - dstYshift - (int)(((dstH / 4) * 0.375f)), (int)((dstW / 4) * 1.75f), (int)((dstH / 4) * 1.75f));
+
+                            }
+                            else if (gv.mod.currentArea.useMiniProps && !p.alwaysDrawNormalSize)
+                            {
+                                dst = new IbRect((int)p.currentPixelPositionX + (int)(gv.squareSize / 4) - dstXshift - (int)(((dstW / 2) * 0.15f)), (int)p.currentPixelPositionY + (int)(gv.squareSize / 4) - dstYshift - (int)(((dstH / 2) * 0.15f)), (int)((dstW / 2) * 1.3f), (int)((dstH / 2) * 1.3f));
+                            }
+                            if ((p.maxNumberOfFrames == 1) || (p.drawAnimatedProp) && !p.isStealthed && !p.wasKilled)
+                            {
+                                gv.DrawBitmap(p.token, src, dst, !p.PropFacingLeft, p.opacity);
+                            }
+
+                            if (gv.mod.showInteractionState == true && !p.isStealthed && !p.wasKilled)
+                            {
+                                if (!p.EncounterWhenOnPartySquare.Equals("none"))
+                                {
+                                    //Bitmap interactionStateIndicator = gv.cc.LoadBitmap("encounter_indicator");
+                                    src = new IbRect(0, 0, gv.cc.encounter_indicator.PixelSize.Width, gv.cc.encounter_indicator.PixelSize.Height);
+                                    gv.DrawBitmap(gv.cc.encounter_indicator, src, dst);
+                                    //gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
+                                    //continue;
+                                }
+
+                                else if (p.unavoidableConversation)
+                                {
+                                    //Bitmap interactionStateIndicator = gv.cc.LoadBitmap("mandatory_conversation_indicator");
+                                    src = new IbRect(0, 0, gv.cc.mandatory_conversation_indicator.PixelSize.Width, gv.cc.mandatory_conversation_indicator.PixelSize.Height);
+                                    gv.DrawBitmap(gv.cc.mandatory_conversation_indicator, src, dst);
+                                    //gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
+                                    //continue;
+                                }
+
+                                else if (!p.ConversationWhenOnPartySquare.Equals("none"))
+                                {
+                                    //Bitmap interactionStateIndicator = gv.cc.LoadBitmap("optional_conversation_indicator");
+                                    src = new IbRect(0, 0, gv.cc.optional_conversation_indicator.PixelSize.Width, gv.cc.optional_conversation_indicator.PixelSize.Height);
+                                    gv.DrawBitmap(gv.cc.optional_conversation_indicator, src, dst);
+                                    //gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
+                                    //continue;
+                                }
+                            }
+
+                            if (p.showSneakThroughSymbol)
+                            {
+                                int numberOfSkulls = 1;
+                                int shift = 0;
+                                for (int i2 = 0; i2 < numberOfSkulls; i2++)
+                                {
+
+                                    //Bitmap interactionStateIndicator = gv.cc.LoadBitmap("challengeSkull");
+                                    src = new IbRect(0, 0, gv.cc.challengeSkull.PixelSize.Width, gv.cc.challengeSkull.PixelSize.Height);
+                                    IbRect dstSkull = new IbRect();
+                                    dstSkull.Height = (int)(dst.Height / 3);
+                                    dstSkull.Width = (int)(dst.Width / 3);
+                                    dstSkull.Left = dst.Left;
+                                    dstSkull.Top = dst.Top;
+                                    shift = i2 * (int)(dst.Width / 3);
+                                    dstSkull.Left += shift;
+                                    gv.DrawBitmap(gv.cc.challengeSkull, src, dstSkull);
+                                    //gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
+                                }
+                            }
+                            if (p.isCurrentlyChasing)
+                            {
+                                int numberOfSkulls = 2;
+                                int shift = 0;
+                                for (int i2 = 1; i2 < numberOfSkulls; i2++)
+                                {
+
+                                    //Bitmap interactionStateIndicator = gv.cc.LoadBitmap("challengeSkull");
+                                    src = new IbRect(0, 0, gv.cc.isChasingSymbol.PixelSize.Width, gv.cc.isChasingSymbol.PixelSize.Height);
+                                    IbRect dstSkull = new IbRect();
+                                    dstSkull.Height = (int)(dst.Height / 3 * 2.0f);
+                                    dstSkull.Width = (int)(dst.Width / 3 * 2.0f);
+                                    dstSkull.Left = dst.Left - 2 * (int)(dst.Height / 3);
+                                    dstSkull.Top = dst.Top - (int)(dst.Height / 3);
+                                    shift = (int)((i2 + 0.5f) * (dst.Width / 3f)); dstSkull.Left += shift;
+                                    //großvater
+                                    gv.DrawBitmap(gv.cc.isChasingSymbol, src, dstSkull);
+                                    //gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
+                                }
+                            }
+                            /*
+                            int partyLevelAverage = 0;
+                            foreach (Player pc in gv.mod.playerList)
+                            {
+                                partyLevelAverage += pc.classLevel;
+                            }
+
+                            partyLevelAverage = (int)(partyLevelAverage / gv.mod.playerList.Count);
+
+                            int numberOfSkulls = 0;
+
+                            if (p.EncounterWhenOnPartySquare != "none" && p.EncounterWhenOnPartySquare != "")
+                            {
+                                foreach (Encounter enc in gv.mod.moduleEncountersList)
+                                {
+                                    if (enc.encounterName == p.EncounterWhenOnPartySquare)
+                                    {
+                                        if (enc.challengeLevel > (partyLevelAverage + 5))
+                                        {
+                                            numberOfSkulls = 3;
+                                        }
+                                        else if (enc.challengeLevel > (partyLevelAverage + 3))
+                                        {
+                                            numberOfSkulls = 2;
+                                        }
+                                        else if (enc.challengeLevel > (partyLevelAverage + 1))
+                                        {
+                                            numberOfSkulls = 1;
+                                        }
+                                    }
+                                }
+                            }
+                            bool drawChallengeHidden = false;
+                            if (p.EncounterWhenOnPartySquare != "none" && p.EncounterWhenOnPartySquare != "")
+                            {
+                                foreach (Encounter enc in gv.mod.moduleEncountersList)
+                                {
+                                    if (enc.encounterName == p.EncounterWhenOnPartySquare)
+                                    {
+                                        if (enc.challengeHidden)
+                                        {
+                                            numberOfSkulls = 0;
+                                            drawChallengeHidden = true;
+                                        }
+                                        break;
+                                    }
+                                }
+                            }
+                            /*
+                            if (gv.mod.currentArea.Props[i].movementSpeed != -1)
+                            {
+                                IbRect dstSkull = new IbRect();
+                                dstSkull.Height = (int)(dst.Height / 2);
+                                dstSkull.Width = (int)(dst.Width / 2);
+                                dstSkull.Left = dst.Left + src.Width / 2;
+                                dstSkull.Top = dst.Top - (int)(dst.Height / 3) + src.Height / 2;
+                                int shift = 1 * (int)(dst.Width / 4);
+                                //shift = 1 * (int)(dst.Width / 4);
+                                dstSkull.Left += shift;
+                                gv.DrawText(gv.mod.currentArea.Props[i].movementSpeed.ToString(), dstSkull.Left, dstSkull.Top);
+                            }
+                            
+
+                            if (drawChallengeHidden && !p.isStealthed && !p.wasKilled)
+                            {
+                                int shift = 0;
+                                //Bitmap interactionStateIndicator = gv.cc.LoadBitmap("challengeHidden");
+                                src = new IbRect(0, 0, gv.cc.challengeHidden.PixelSize.Width, gv.cc.challengeHidden.PixelSize.Height);
+                                IbRect dstSkull = new IbRect();
+                                dstSkull.Height = (int)(dst.Height / 2);
+                                dstSkull.Width = (int)(dst.Width / 2);
+                                dstSkull.Left = dst.Left;
+                                dstSkull.Top = dst.Top - (int)(dst.Height / 3);
+                                shift = 1 * (int)(dst.Width / 4);
+                                dstSkull.Left += shift;
+                                gv.DrawBitmap(gv.cc.challengeHidden, src, dstSkull);
+                                //gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
+
+                            }
+                            if (numberOfSkulls > 0 && !p.isStealthed && !p.wasKilled)
+                            {
+                                int shift = 0;
+                                for (int i2 = 0; i2 < numberOfSkulls; i2++)
+                                {
+
+                                    //Bitmap interactionStateIndicator = gv.cc.LoadBitmap("challengeSkull");
+                                    src = new IbRect(0, 0, gv.cc.challengeSkull.PixelSize.Width, gv.cc.challengeSkull.PixelSize.Height);
+                                    IbRect dstSkull = new IbRect();
+                                    dstSkull.Height = (int)(dst.Height / 3);
+                                    dstSkull.Width = (int)(dst.Width / 3);
+                                    dstSkull.Left = dst.Left;
+                                    dstSkull.Top = dst.Top - (int)(dst.Height / 3);
+                                    shift = i2 * (int)(dst.Width / 3);
+                                    dstSkull.Left += shift;
+                                    gv.DrawBitmap(gv.cc.challengeSkull, src, dstSkull);
+                                    //gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
+                                }
+                            }//this
+                            */
+                        }
+                    }
+                }
+                #endregion
+            }
+        }
+
+        public void drawPropsOverParty()
+        {
+            if (gv.mod.useAllTileSystem)
+            {
+                #region new system
+                //1
+                //think I am gonna use the drawworldmap routines here, too
+
+                //XXXXXXXXXXXXXXXXXXXXXXXX
+                int indexOfNorthernNeighbour = -1;
+                int indexOfSouthernNeighbour = -1;
+                int indexOfEasternNeighbour = -1;
+                int indexOfWesternNeighbour = -1;
+                int indexOfNorthEasternNeighbour = -1;
+                int indexOfNorthWesternNeighbour = -1;
+                int indexOfSouthEasternNeighbour = -1;
+                int indexOfSouthWesternNeighbour = -1;
+
+                int seamlessModififierMinX = 0;
+                int seamlessModififierMaxX = 0;
+                int seamlessModififierMinY = 0;
+                int seamlessModififierMaxY = 0;
+
+                //player near northern border
+                if ((gv.mod.currentArea.northernNeighbourArea != "") && (gv.mod.PlayerLocationY < gv.playerOffsetY))
+                {
+                    seamlessModififierMinY = gv.playerOffsetY - gv.mod.PlayerLocationY;
+                    for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
+                    {
+                        if (gv.mod.moduleAreasObjects[i].Filename == gv.mod.currentArea.northernNeighbourArea)
+                        {
+                            indexOfNorthernNeighbour = i;
+                        }
+                    }
+
+                    if (gv.mod.moduleAreasObjects[indexOfNorthernNeighbour].easternNeighbourArea != "")
+                    {
+                        for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
+                        {
+                            if (gv.mod.moduleAreasObjects[i].Filename == gv.mod.moduleAreasObjects[indexOfNorthernNeighbour].easternNeighbourArea)
+                            {
+                                indexOfNorthEasternNeighbour = i;
+                            }
+                        }
+                    }
+
+                    if (gv.mod.moduleAreasObjects[indexOfNorthernNeighbour].westernNeighbourArea != "")
+                    {
+                        for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
+                        {
+                            if (gv.mod.moduleAreasObjects[i].Filename == gv.mod.moduleAreasObjects[indexOfNorthernNeighbour].westernNeighbourArea)
+                            {
+                                indexOfNorthWesternNeighbour = i;
+                            }
+                        }
+                    }
+                }
+
+                //player near southern  border
+                if ((gv.mod.currentArea.southernNeighbourArea != "") && (gv.mod.PlayerLocationY > (gv.mod.currentArea.MapSizeY - gv.playerOffsetY - 1)))
+                {
+
+                    seamlessModififierMaxY = gv.mod.PlayerLocationY - (gv.mod.currentArea.MapSizeY - gv.playerOffsetY - 1);
+                    for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
+                    {
+                        if (gv.mod.moduleAreasObjects[i].Filename == gv.mod.currentArea.southernNeighbourArea)
+                        {
+                            indexOfSouthernNeighbour = i;
+                        }
+                    }
+
+                    if (gv.mod.moduleAreasObjects[indexOfSouthernNeighbour].easternNeighbourArea != "")
+                    {
+                        for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
+                        {
+                            if (gv.mod.moduleAreasObjects[i].Filename == gv.mod.moduleAreasObjects[indexOfSouthernNeighbour].easternNeighbourArea)
+                            {
+                                indexOfSouthEasternNeighbour = i;
+                            }
+                        }
+                    }
+
+                    if (gv.mod.moduleAreasObjects[indexOfSouthernNeighbour].westernNeighbourArea != "")
+                    {
+                        for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
+                        {
+                            if (gv.mod.moduleAreasObjects[i].Filename == gv.mod.moduleAreasObjects[indexOfSouthernNeighbour].westernNeighbourArea)
+                            {
+                                indexOfSouthWesternNeighbour = i;
+                            }
+                        }
+                    }
+                }
+
+                //player near western border
+                if ((gv.mod.currentArea.westernNeighbourArea != "") && (gv.mod.PlayerLocationX < gv.playerOffsetX))
+                {
+                    seamlessModififierMinX = gv.playerOffsetX - gv.mod.PlayerLocationX;
+                    for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
+                    {
+                        if (gv.mod.moduleAreasObjects[i].Filename == gv.mod.currentArea.westernNeighbourArea)
+                        {
+                            indexOfWesternNeighbour = i;
+                        }
+                    }
+
+                    if (gv.mod.moduleAreasObjects[indexOfWesternNeighbour].northernNeighbourArea != "")
+                    {
+                        for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
+                        {
+                            if (gv.mod.moduleAreasObjects[i].Filename == gv.mod.moduleAreasObjects[indexOfWesternNeighbour].northernNeighbourArea)
+                            {
+                                indexOfNorthWesternNeighbour = i;
+                            }
+                        }
+                    }
+
+                    if (gv.mod.moduleAreasObjects[indexOfWesternNeighbour].southernNeighbourArea != "")
+                    {
+                        for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
+                        {
+                            if (gv.mod.moduleAreasObjects[i].Filename == gv.mod.moduleAreasObjects[indexOfWesternNeighbour].southernNeighbourArea)
+                            {
+                                indexOfSouthWesternNeighbour = i;
+                            }
+                        }
+                    }
+                }
+
+                //player near eastern border
+                if ((gv.mod.currentArea.easternNeighbourArea != "") && (gv.mod.PlayerLocationX > (gv.mod.currentArea.MapSizeX - gv.playerOffsetX - 1)))
+                {
+                    seamlessModififierMaxX = gv.mod.PlayerLocationX - (gv.mod.currentArea.MapSizeX - gv.playerOffsetX - 1);
+                    for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
+                    {
+                        if (gv.mod.moduleAreasObjects[i].Filename == gv.mod.currentArea.easternNeighbourArea)
+                        {
+                            indexOfEasternNeighbour = i;
+                        }
+                    }
+
+                    if (gv.mod.moduleAreasObjects[indexOfEasternNeighbour].northernNeighbourArea != "")
+                    {
+                        for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
+                        {
+                            if (gv.mod.moduleAreasObjects[i].Filename == gv.mod.moduleAreasObjects[indexOfEasternNeighbour].northernNeighbourArea)
+                            {
+                                indexOfNorthEasternNeighbour = i;
+                            }
+                        }
+                    }
+
+                    if (gv.mod.moduleAreasObjects[indexOfEasternNeighbour].southernNeighbourArea != "")
+                    {
+                        for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
+                        {
+                            if (gv.mod.moduleAreasObjects[i].Filename == gv.mod.moduleAreasObjects[indexOfEasternNeighbour].southernNeighbourArea)
+                            {
+                                indexOfSouthEasternNeighbour = i;
+                            }
+                        }
+                    }
+                }
+
+                bool situationFound = false;
+                //int relevantIndex = -1;
+                List<int> relevantIndices = new List<int>();
+                int northernmodifier = 0;
+                int easternmodifier = 0;
+                int westernmodifier = 0;
+                int southernmodifier = 0;
+
+                //northwest
+                if ((seamlessModififierMinX > 0) && (seamlessModififierMinY > 0) && (indexOfNorthWesternNeighbour != -1))
+                {
+                    situationFound = true;
+                    relevantIndices.Add(indexOfNorthWesternNeighbour);
+                }
+                //northeast
+                if ((seamlessModififierMaxX > 0) && (seamlessModififierMinY > 0) && (indexOfNorthEasternNeighbour != -1))
+                {
+                    situationFound = true;
+                    relevantIndices.Add(indexOfNorthEasternNeighbour);
+                }
+                //southwest
+                if ((seamlessModififierMinX > 0) && (seamlessModififierMaxY > 0) && (indexOfSouthWesternNeighbour != -1))
+                {
+                    situationFound = true;
+                    relevantIndices.Add(indexOfSouthWesternNeighbour);
+                }
+                //southeast
+                if ((seamlessModififierMaxX > 0) && (seamlessModififierMaxY > 0) && (indexOfSouthEasternNeighbour != -1))
+                {
+                    situationFound = true;
+                    relevantIndices.Add(indexOfSouthEasternNeighbour);
+                }
+                //north
+                if ((seamlessModififierMinY > 0) && (indexOfNorthernNeighbour != -1))
+                {
+                    situationFound = true;
+                    relevantIndices.Add(indexOfNorthernNeighbour);
+                }
+                //south
+                if ((seamlessModififierMaxY > 0) && (indexOfSouthernNeighbour != -1))
+                {
+                    situationFound = true;
+                    relevantIndices.Add(indexOfSouthernNeighbour);
+                }
+                //west
+                if ((seamlessModififierMinX > 0) && (indexOfWesternNeighbour != -1))
+                {
+                    situationFound = true;
+                    relevantIndices.Add(indexOfWesternNeighbour);
+                }
+                //east
+                if ((seamlessModififierMaxX > 0) && (indexOfEasternNeighbour != -1))
+                {
+                    situationFound = true;
+                    relevantIndices.Add(indexOfEasternNeighbour);
+                }
+
+
+                //current map
+                //if (!situationFound)
+                //{
+                int currentAreaIndex = 0;
                     for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
                     {
                         if (gv.mod.currentArea.Filename == gv.mod.moduleAreasObjects[i].Filename)
@@ -28502,7 +29485,7 @@ namespace IceBlink2
                             nonTimeDriven = false;
                         }
                         int indexOfLoadedTile = -1;
-                        if ((p.isShown) && (nonTimeDriven == true))
+                        if ((p.isShown) && (nonTimeDriven == true) && p.scriptFilename == "gaJumpChasm.cs")
                         {//hurghkarl
 
                             //try
@@ -28973,7 +29956,7 @@ namespace IceBlink2
                 #region old system
                 foreach (Prop p in gv.mod.currentArea.Props)
                 {
-                    if ((p.isShown) && (!p.isMover))
+                    if ((p.isShown) && (!p.isMover) && p.scriptFilename == "gaJumpChasm.cs")
                     {
                         if ((p.LocationX >= gv.mod.PlayerLocationX - gv.playerOffsetX) && (p.LocationX <= gv.mod.PlayerLocationX + gv.playerOffsetX)
                             && (p.LocationY >= gv.mod.PlayerLocationY - gv.playerOffsetY) && (p.LocationY <= gv.mod.PlayerLocationY + gv.playerOffsetY))
@@ -32017,7 +33000,12 @@ namespace IceBlink2
                                             dst.Left += (tailXChange - (int)(0.3f * gv.squareSize));
                                         }
                                     }
-                                    gv.DrawBitmap(p.token, src, dst, !gv.mod.playerList[gv.mod.selectedPartyLeader].combatFacingLeft);
+
+                                    if (gv.mod.drawPartyDirection != "none")
+                                    {
+                                        gv.DrawBitmap(p.token, src, dst, !gv.mod.playerList[gv.mod.selectedPartyLeader].combatFacingLeft);
+                                    }
+
                                     drawCounter++;
                                 }
                             }
@@ -32472,20 +33460,20 @@ namespace IceBlink2
             {
                 for (int y = -2; y <= 2; y++)
                 {
-                    gv.DrawText("Hide/Show HUD (HUD visibility unaffected by movement): X", new IbRect(x + gv.oXshift + (gv.playerOffsetY) * gv.squareSize - 4 * gv.pS, y + (gv.playerOffsetX - 8) * gv.squareSize + (int)(3 * gv.pS), 1000, 100), 1.0f, Color.Black);
+                    gv.DrawText("Hide/Show HUD (Mode: Static): X", new IbRect(x + gv.oXshift + (gv.playerOffsetY) * gv.squareSize - 4 * gv.pS, y + (gv.playerOffsetX - 8) * gv.squareSize + (int)(3 * gv.pS), 1000, 100), 1.0f, Color.Black);
                 }
             }
-            gv.DrawText("Hide/Show HUD (Mode: HUD visibility unaffected by movement): X", new IbRect(gv.oXshift + (gv.playerOffsetY) * gv.squareSize - 4 * gv.pS, (gv.playerOffsetX - 8) * gv.squareSize + (int)(3 * gv.pS), 1000, 100), 1.0f, Color.Red);
+            gv.DrawText("Hide/Show HUD (Mode: Static): X", new IbRect(gv.oXshift + (gv.playerOffsetY) * gv.squareSize - 4 * gv.pS, (gv.playerOffsetX - 8) * gv.squareSize + (int)(3 * gv.pS), 1000, 100), 1.0f, Color.Red);
             lineCounter++;
 
             for (int x = -2; x <= 2; x++)
             {
                 for (int y = -2; y <= 2; y++)
                 {
-                    gv.DrawText("Hide/Show HUD (Mode: HUD hidden each move): F / NumBlock 0 / Insert", new IbRect(x + gv.oXshift + (gv.playerOffsetY) * gv.squareSize - 4 * gv.pS, y + (gv.playerOffsetX - 8) * gv.squareSize + (int)(txtH * 1.25f * lineCounter) + (int)(3 * gv.pS), 1000, 100), 1.0f, Color.Black);
+                    gv.DrawText("Hide/Show HUD (Mode: Dynamic): F / NumBlock 0 / Insert", new IbRect(x + gv.oXshift + (gv.playerOffsetY) * gv.squareSize - 4 * gv.pS, y + (gv.playerOffsetX - 8) * gv.squareSize + (int)(txtH * 1.25f * lineCounter) + (int)(3 * gv.pS), 1000, 100), 1.0f, Color.Black);
                 }
             }
-            gv.DrawText("Hide/Show HUD (Mode: HUD hidden each move): F / NumBlock 0 / Insert", new IbRect(gv.oXshift + (gv.playerOffsetY) * gv.squareSize - 4 * gv.pS, (gv.playerOffsetX - 8) * gv.squareSize + (int)(txtH * 1.25f * lineCounter) + (int)(3 * gv.pS), 1000, 100), 1.0f, Color.Red);
+            gv.DrawText("Hide/Show HUD (Mode: Dynamic): F / NumBlock 0 / Insert", new IbRect(gv.oXshift + (gv.playerOffsetY) * gv.squareSize - 4 * gv.pS, (gv.playerOffsetX - 8) * gv.squareSize + (int)(txtH * 1.25f * lineCounter) + (int)(3 * gv.pS), 1000, 100), 1.0f, Color.Red);
             lineCounter++;
 
             for (int x = -2; x <= 2; x++)
@@ -32622,6 +33610,7 @@ namespace IceBlink2
 
         public void drawMainMapClockText()
         {
+            //gegenstände
             int timeofday = gv.mod.WorldTime % (24 * 60);
             int hour = timeofday / 60;
             int minute = timeofday % 60;
@@ -32632,6 +33621,7 @@ namespace IceBlink2
             }
 
             int txtH = (int)gv.drawFontRegHeight;
+
 
             //assuming 28 days in 12 Months, ie 336 days a year
             //notation example: 13:17, Tuesday, 9th of March 1213
@@ -32707,12 +33697,26 @@ namespace IceBlink2
                         {
                             for (int y = -2; y <= 2; y++)
                             {
-                                gv.DrawTextLeft(hour + ":" + sMinute + ", " + gv.mod.weekDayNameToDisplay + ", " + gv.mod.monthDayCounterNumberToDisplay + gv.mod.monthDayCounterAddendumToDisplay + " of " + gv.mod.monthNameToDisplay + " " + gv.mod.currentYear.ToString(), new IbRect(gv.oXshift + x + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH + y - gv.pS - (int)(2.5 * gv.pS * 0) + 2*gv.pS, 600, 100), 1.0f, Color.Black);
+                                if (!gv.mod.useComplexCoordinateSystem)
+                                {
+                                    gv.DrawTextLeft(hour + ":" + sMinute + ", " + gv.mod.weekDayNameToDisplay + ", " + gv.mod.monthDayCounterNumberToDisplay + gv.mod.monthDayCounterAddendumToDisplay + " of " + gv.mod.monthNameToDisplay + " " + gv.mod.currentYear.ToString(), new IbRect(gv.oXshift + x + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH + y - gv.pS - (int)(2.5 * gv.pS * 0) + 2 * gv.pS, 600, 100), 1.0f, Color.Black);
+                                }
+                                else
+                                {
+                                    gv.DrawTextLeft(gv.mod.weekDayNameToDisplay + ", " + gv.mod.monthDayCounterNumberToDisplay + gv.mod.monthDayCounterAddendumToDisplay + " of " + gv.mod.monthNameToDisplay + " " + gv.mod.currentYear.ToString(), new IbRect(gv.oXshift + x + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH + y - gv.pS - (int)(2.5 * gv.pS * 0) + 2 * gv.pS, 600, 100), 1.0f, Color.Black);
+                                }
                                 gv.DrawTextLeft(zoom0Line, new IbRect(gv.oXshift + x + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH + y + (int)(2.5 * gv.pS) + (int)(2.5 * gv.pS * 0) + 2 * gv.pS, 600, 100), 1.0f, Color.Black);
                             }
                         }
                         //draw font itself (white)
-                        gv.DrawTextLeft(hour + ":" + sMinute + ", " + gv.mod.weekDayNameToDisplay + ", " + gv.mod.monthDayCounterNumberToDisplay + gv.mod.monthDayCounterAddendumToDisplay + " of " + gv.mod.monthNameToDisplay + " " + gv.mod.currentYear.ToString(), new IbRect(gv.oXshift + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH - gv.pS - (int)(2.5 * gv.pS * 0) + 2 * gv.pS, 600, 100), 1.0f, Color.White);
+                        if (!gv.mod.useComplexCoordinateSystem)
+                        {
+                            gv.DrawTextLeft(hour + ":" + sMinute + ", " + gv.mod.weekDayNameToDisplay + ", " + gv.mod.monthDayCounterNumberToDisplay + gv.mod.monthDayCounterAddendumToDisplay + " of " + gv.mod.monthNameToDisplay + " " + gv.mod.currentYear.ToString(), new IbRect(gv.oXshift + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH - gv.pS - (int)(2.5 * gv.pS * 0) + 2 * gv.pS, 600, 100), 1.0f, Color.White);
+                        }
+                        else
+                        {
+                            gv.DrawTextLeft(gv.mod.weekDayNameToDisplay + ", " + gv.mod.monthDayCounterNumberToDisplay + gv.mod.monthDayCounterAddendumToDisplay + " of " + gv.mod.monthNameToDisplay + " " + gv.mod.currentYear.ToString(), new IbRect(gv.oXshift + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH - gv.pS - (int)(2.5 * gv.pS * 0) + 2 * gv.pS, 600, 100), 1.0f, Color.White);
+                        }
                         gv.DrawTextLeft(zoom0Line, new IbRect(gv.oXshift + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH + (int)(2.5 * gv.pS) + (int)(2.5 * gv.pS * 0) + 2 * gv.pS, 600, 100), 1.0f, Color.White);
 
                     }
@@ -32873,7 +33877,7 @@ namespace IceBlink2
                                 {
                                     if (gv.mod.useRationSystem)
                                     {
-                                        gv.DrawTextLeft(gv.mod.currentArea.inGameAreaName + coordText + ", " + "R(" + gv.mod.numberOfRationsRemaining.ToString() + "), " + "T" + "(" + gv.mod.currentLightUnitsLeft.ToString() + ")", new IbRect(gv.oXshift + x + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH + y + (int)(2.5 * gv.pS), 600, 100), 1.0f, Color.Black);
+                                        gv.DrawTextLeft(gv.mod.currentArea.inGameAreaName + coordText + ", " + "R(" + gv.mod.numberOfRationsRemaining.ToString() + "), " + "T" + "(" + gv.mod.currentLightUnitsLeft.ToString() + ")", new IbRect(gv.oXshift + x + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS +3, gv.playerOffsetX * gv.squareSize - txtH + y + (int)(2.5 * gv.pS), 600, 100), 1.0f, Color.Black);
                                     }
                                     else
                                     {
@@ -36258,6 +37262,12 @@ namespace IceBlink2
                             traitTypesShownAlready.Add(t.tag);
 
                             int power = gv.cc.getTraitPower(t.tag, t.methodOfChecking);
+                            bool isHighest = false;
+                            int power2 = gv.cc.getTraitPower(t.tag, "highest");
+                            if (power >= power2)
+                            {
+                                isHighest = true;
+                            }
                             if ((t.methodOfChecking == "leader") ||(t.methodOfChecking == "Leader") || (t.methodOfChecking == "-1"))
                             {
                                 method = " Ld";
@@ -36295,11 +37305,25 @@ namespace IceBlink2
                                     if (t.tag.Contains(gv.mod.tagOfMovementSpeedTrait))
                                     {
                                         int speedSum = power + gv.mod.currentArea.Tiles[gv.mod.PlayerLocationY * gv.mod.currentArea.MapSizeX + gv.mod.PlayerLocationX].speedModifier;
-                                        pnl.buttonList[relevantTraitsCounter].Text = speedSum.ToString() + method;
+                                        if (isHighest)
+                                        {
+                                            pnl.buttonList[relevantTraitsCounter].Text = speedSum.ToString() + method + "green";
+                                        }
+                                        else
+                                        {
+                                            pnl.buttonList[relevantTraitsCounter].Text = speedSum.ToString() + method;
+                                        }
+                                    }
+                                    else
+                                    {
+                                    if (isHighest)
+                                    {
+                                        pnl.buttonList[relevantTraitsCounter].Text = power.ToString() + method + "green";
                                     }
                                     else
                                     {
                                         pnl.buttonList[relevantTraitsCounter].Text = power.ToString() + method;
+                                    }
                                     }
                                     pnl.buttonList[relevantTraitsCounter].Img2Filename = t.traitImage;
                                     pnl.buttonList[relevantTraitsCounter].Img2OffFilename = t.traitImage + "_off";
@@ -39052,8 +40076,23 @@ namespace IceBlink2
                                                             //skill roll failed message (B)
                                                             else
                                                             {
-                                                                gv.screenMainMap.addFloatyText(x3, y3, "Failure: " + traitName + " level " + (p.secretDoorDC+darkAdder-10).ToString() + " required", "red", 2000);
-                                                                gv.cc.addLogText("red", "Failure: " + traitName + " level " + (p.secretDoorDC+darkAdder-10).ToString() + " required, " + gv.mod.playerList[gv.mod.selectedPartyLeader].name + " loses " + gv.mod.activeSearchSPCost + " SP");
+                                                                if (darkAdder == 4)
+                                                                {
+                                                                    gv.screenMainMap.addFloatyText(x3, y3, "Failure: " + traitName + " level " + (p.secretDoorDC + darkAdder - 10).ToString() + " required (+4 for poor visibility)", "red", 2000);
+                                                                    gv.cc.addLogText("red", "Failure: " + traitName + " level " + (p.secretDoorDC + darkAdder - 10).ToString() + " required (+4 for poor visibility), " + gv.mod.playerList[gv.mod.selectedPartyLeader].name + " loses " + gv.mod.activeSearchSPCost + " SP");
+                                                                }
+                                                                else if (darkAdder == 12)
+                                                                {
+                                                                    gv.screenMainMap.addFloatyText(x3, y3, "Failure: " + traitName + " level " + (p.secretDoorDC + darkAdder - 10).ToString() + " required (+12 for poor visibility)", "red", 2000);
+                                                                    gv.cc.addLogText("red", "Failure: " + traitName + " level " + (p.secretDoorDC + darkAdder - 10).ToString() + " required (+12 for poor visibility), " + gv.mod.playerList[gv.mod.selectedPartyLeader].name + " loses " + gv.mod.activeSearchSPCost + " SP");
+
+                                                                }
+                                                                else
+                                                                {
+                                                                    gv.screenMainMap.addFloatyText(x3, y3, "Failure: " + traitName + " level " + (p.secretDoorDC + darkAdder - 10).ToString() + " required", "red", 2000);
+                                                                    gv.cc.addLogText("red", "Failure: " + traitName + " level " + (p.secretDoorDC + darkAdder - 10).ToString() + " required, " + gv.mod.playerList[gv.mod.selectedPartyLeader].name + " loses " + gv.mod.activeSearchSPCost + " SP");
+
+                                                                }
                                                             }
 
                                                         }//secret door subsection end 
@@ -39078,8 +40117,26 @@ namespace IceBlink2
                                                             //skill roll failed message (B)
                                                             else
                                                             {
-                                                                gv.screenMainMap.addFloatyText(x3, y3, "Failure: " + traitName + " level " + (p.trapDC+darkAdder-10).ToString() + " required", "red", 2000);
-                                                                gv.cc.addLogText("red", "Failure: " + traitName + " level" + (p.trapDC+darkAdder-10).ToString() + " required, " + gv.mod.playerList[gv.mod.selectedPartyLeader].name + " loses " + gv.mod.activeSearchSPCost + " SP");
+
+                                                                if (darkAdder == 4)
+                                                                {
+                                                                    gv.screenMainMap.addFloatyText(x3, y3, "Failure: " + traitName + " level " + (p.trapDC + darkAdder - 10).ToString() + " required (+4 for poor visibility)", "red", 2000);
+                                                                    gv.cc.addLogText("red", "Failure: " + traitName + " level " + (p.trapDC + darkAdder - 10).ToString() + " required (+4 for poor visibility), " + gv.mod.playerList[gv.mod.selectedPartyLeader].name + " loses " + gv.mod.activeSearchSPCost + " SP");
+                                                                }
+                                                                else if (darkAdder == 12)
+                                                                {
+                                                                    gv.screenMainMap.addFloatyText(x3, y3, "Failure: " + traitName + " level " + (p.trapDC + darkAdder - 10).ToString() + " required (+12 for poor visibility)", "red", 2000);
+                                                                    gv.cc.addLogText("red", "Failure: " + traitName + " level " + (p.trapDC + darkAdder - 10).ToString() + " required (+12 for poor visibility), " + gv.mod.playerList[gv.mod.selectedPartyLeader].name + " loses " + gv.mod.activeSearchSPCost + " SP");
+
+                                                                }
+                                                                else
+                                                                {
+                                                                    gv.screenMainMap.addFloatyText(x3, y3, "Failure: " + traitName + " level " + (p.trapDC + darkAdder - 10).ToString() + " required", "red", 2000);
+                                                                    gv.cc.addLogText("red", "Failure: " + traitName + " level " + (p.trapDC + darkAdder - 10).ToString() + " required, " + gv.mod.playerList[gv.mod.selectedPartyLeader].name + " loses " + gv.mod.activeSearchSPCost + " SP");
+
+                                                                }
+                                                                //gv.screenMainMap.addFloatyText(x3, y3, "Failure: " + traitName + " level " + (p.trapDC+darkAdder-10).ToString() + " required", "red", 2000);
+                                                                //gv.cc.addLogText("red", "Failure: " + traitName + " level" + (p.trapDC+darkAdder-10).ToString() + " required, " + gv.mod.playerList[gv.mod.selectedPartyLeader].name + " loses " + gv.mod.activeSearchSPCost + " SP");
                                                             }
 
                                                         }//trap subsection end
@@ -39127,8 +40184,25 @@ namespace IceBlink2
                                                             }
                                                             else
                                                             {
-                                                                gv.screenMainMap.addFloatyText(x3, y3,"Failure: " + traitName + " level " + (p.infoDC + darkAdder -10).ToString() + " required", "red", 2000);
-                                                                gv.cc.addLogText("red","Failure: " + traitName + " level " + (p.infoDC + darkAdder -10).ToString() + " required, " + gv.mod.playerList[gv.mod.selectedPartyLeader].name + " loses " + gv.mod.activeSearchSPCost + " SP");
+                                                                if (darkAdder == 4)
+                                                                {
+                                                                    gv.screenMainMap.addFloatyText(x3, y3, "Failure: " + traitName + " level " + (p.infoDC + darkAdder - 10).ToString() + " required (+4 for poor visibility)", "red", 2000);
+                                                                    gv.cc.addLogText("red", "Failure: " + traitName + " level " + (p.infoDC + darkAdder - 10).ToString() + " required (+4 for poor visibility), " + gv.mod.playerList[gv.mod.selectedPartyLeader].name + " loses " + gv.mod.activeSearchSPCost + " SP");
+                                                                }
+                                                                else if (darkAdder == 12)
+                                                                {
+                                                                    gv.screenMainMap.addFloatyText(x3, y3, "Failure: " + traitName + " level " + (p.infoDC + darkAdder - 10).ToString() + " required (+12 for poor visibility)", "red", 2000);
+                                                                    gv.cc.addLogText("red", "Failure: " + traitName + " level " + (p.infoDC + darkAdder - 10).ToString() + " required (+12 for poor visibility), " + gv.mod.playerList[gv.mod.selectedPartyLeader].name + " loses " + gv.mod.activeSearchSPCost + " SP");
+
+                                                                }
+                                                                else
+                                                                {
+                                                                    gv.screenMainMap.addFloatyText(x3, y3, "Failure: " + traitName + " level " + (p.infoDC + darkAdder - 10).ToString() + " required", "red", 2000);
+                                                                    gv.cc.addLogText("red", "Failure: " + traitName + " level " + (p.infoDC + darkAdder - 10).ToString() + " required, " + gv.mod.playerList[gv.mod.selectedPartyLeader].name + " loses " + gv.mod.activeSearchSPCost + " SP");
+
+                                                                }
+                                                                //gv.screenMainMap.addFloatyText(x3, y3,"Failure: " + traitName + " level " + (p.infoDC + darkAdder -10).ToString() + " required", "red", 2000);
+                                                                //gv.cc.addLogText("red","Failure: " + traitName + " level " + (p.infoDC + darkAdder -10).ToString() + " required, " + gv.mod.playerList[gv.mod.selectedPartyLeader].name + " loses " + gv.mod.activeSearchSPCost + " SP");
                                                             }
                                                         }//hidden info subsection end
 
@@ -40938,6 +42012,29 @@ namespace IceBlink2
             if (keyData == Keys.E)
             {
 
+                if (gv.mod.hideInterfaceNextMove)
+                {
+                    foreach (IB2Panel pnl in mainUiLayout.panelList)
+                    {
+                        if (pnl.tag != "arrowPanel")
+                        {
+                            
+                            //hides up
+                            if (pnl.hidingYIncrement < 0)
+                            {
+                                if (pnl.currentLocY < pnl.shownLocY)
+                                {
+                                    pnl.showing = true;
+                                }
+                                else
+                                {
+                                    //pnl.hiding = true;
+                                }
+                            }
+                        }
+                    }
+                }
+
                 if (!gv.mod.showPartyToken)
                 {
                     bool leaderFound = false;
@@ -40953,6 +42050,7 @@ namespace IceBlink2
                             leaderFound = true;
                         }
                     }
+                    gv.mod.permanentPartyText = gv.mod.playerList[gv.mod.selectedPartyLeader].name + " (" + gv.mod.playerList[gv.mod.selectedPartyLeader].sp + " SP)";
                     //addFloatyText(gv.mod.PlayerLocationX, gv.mod.PlayerLocationY, gv.mod.playerList[gv.mod.selectedPartyLeader].name, "green", 700);
 
                     gv.cc.doPropStealth();
@@ -40963,6 +42061,28 @@ namespace IceBlink2
 
             if (keyData == Keys.Right && !showMoveKeys)
             {
+                if (gv.mod.hideInterfaceNextMove)
+                {
+                    foreach (IB2Panel pnl in mainUiLayout.panelList)
+                    {
+                        if (pnl.tag != "arrowPanel")
+                        {
+
+                            //hides up
+                            if (pnl.hidingYIncrement < 0)
+                            {
+                                if (pnl.currentLocY < pnl.shownLocY)
+                                {
+                                    pnl.showing = true;
+                                }
+                                else
+                                {
+                                    //pnl.hiding = true;
+                                }
+                            }
+                        }
+                    }
+                }
                 if (!gv.mod.showPartyToken)
                 {
                     bool leaderFound = false;
@@ -40979,6 +42099,7 @@ namespace IceBlink2
                         }
                     }
                     //addFloatyText(gv.mod.PlayerLocationX, gv.mod.PlayerLocationY, gv.mod.playerList[gv.mod.selectedPartyLeader].name, "green", 700);
+                    gv.mod.permanentPartyText = gv.mod.playerList[gv.mod.selectedPartyLeader].name + " (" + gv.mod.playerList[gv.mod.selectedPartyLeader].sp + " SP)";
                     gv.cc.doPropStealth();
                     updateTraitsPanel();
                 }
@@ -40986,6 +42107,28 @@ namespace IceBlink2
 
             if (keyData == Keys.D && showMoveKeys)
             {
+                if (gv.mod.hideInterfaceNextMove)
+                {
+                    foreach (IB2Panel pnl in mainUiLayout.panelList)
+                    {
+                        if (pnl.tag != "arrowPanel")
+                        {
+
+                            //hides up
+                            if (pnl.hidingYIncrement < 0)
+                            {
+                                if (pnl.currentLocY < pnl.shownLocY)
+                                {
+                                    pnl.showing = true;
+                                }
+                                else
+                                {
+                                    //pnl.hiding = true;
+                                }
+                            }
+                        }
+                    }
+                }
                 if (!gv.mod.showPartyToken)
                 {
                     bool leaderFound = false;
@@ -41002,6 +42145,7 @@ namespace IceBlink2
                         }
                     }
                     //addFloatyText(gv.mod.PlayerLocationX, gv.mod.PlayerLocationY, gv.mod.playerList[gv.mod.selectedPartyLeader].name, "green", 700);
+                    gv.mod.permanentPartyText = gv.mod.playerList[gv.mod.selectedPartyLeader].name + " (" + gv.mod.playerList[gv.mod.selectedPartyLeader].sp + " SP)";
                     gv.cc.doPropStealth();
                     updateTraitsPanel();
                 }
@@ -41009,7 +42153,29 @@ namespace IceBlink2
 
             if (keyData == Keys.Q)
             {
-                
+                if (gv.mod.hideInterfaceNextMove)
+                {
+                    foreach (IB2Panel pnl in mainUiLayout.panelList)
+                    {
+                        if (pnl.tag != "arrowPanel")
+                        {
+
+                            //hides up
+                            if (pnl.hidingYIncrement < 0)
+                            {
+                                if (pnl.currentLocY < pnl.shownLocY)
+                                {
+                                    pnl.showing = true;
+                                }
+                                else
+                                {
+                                    //pnl.hiding = true;
+                                }
+                            }
+                        }
+                    }
+                }
+
                 if (!gv.mod.showPartyToken)
                 {
                     bool leaderFound = false;
@@ -41025,6 +42191,8 @@ namespace IceBlink2
                             leaderFound = true;
                         }
                     }
+                    gv.mod.permanentPartyText = gv.mod.playerList[gv.mod.selectedPartyLeader].name + " (" + gv.mod.playerList[gv.mod.selectedPartyLeader].sp + " SP)";
+
                     //addFloatyText(gv.mod.PlayerLocationX, gv.mod.PlayerLocationY, gv.mod.playerList[gv.mod.selectedPartyLeader].name, "green", 700);
                     gv.cc.doPropStealth();
                     updateTraitsPanel();
@@ -41033,6 +42201,28 @@ namespace IceBlink2
 
             if (keyData == Keys.Left && !showMoveKeys)
             {
+                if (gv.mod.hideInterfaceNextMove)
+                {
+                    foreach (IB2Panel pnl in mainUiLayout.panelList)
+                    {
+                        if (pnl.tag != "arrowPanel")
+                        {
+
+                            //hides up
+                            if (pnl.hidingYIncrement < 0)
+                            {
+                                if (pnl.currentLocY < pnl.shownLocY)
+                                {
+                                    pnl.showing = true;
+                                }
+                                else
+                                {
+                                    //pnl.hiding = true;
+                                }
+                            }
+                        }
+                    }
+                }
                 if (!gv.mod.showPartyToken)
                 {
                     bool leaderFound = false;
@@ -41049,6 +42239,7 @@ namespace IceBlink2
                         }
                     }
                     //addFloatyText(gv.mod.PlayerLocationX, gv.mod.PlayerLocationY, gv.mod.playerList[gv.mod.selectedPartyLeader].name, "green", 700);
+                    gv.mod.permanentPartyText = gv.mod.playerList[gv.mod.selectedPartyLeader].name + " (" + gv.mod.playerList[gv.mod.selectedPartyLeader].sp + " SP)";
                     gv.cc.doPropStealth();
                     updateTraitsPanel();
                 }
@@ -41056,6 +42247,28 @@ namespace IceBlink2
 
             if (keyData == Keys.A && showMoveKeys)
             {
+                if (gv.mod.hideInterfaceNextMove)
+                {
+                    foreach (IB2Panel pnl in mainUiLayout.panelList)
+                    {
+                        if (pnl.tag != "arrowPanel")
+                        {
+
+                            //hides up
+                            if (pnl.hidingYIncrement < 0)
+                            {
+                                if (pnl.currentLocY < pnl.shownLocY)
+                                {
+                                    pnl.showing = true;
+                                }
+                                else
+                                {
+                                    //pnl.hiding = true;
+                                }
+                            }
+                        }
+                    }
+                }
                 if (!gv.mod.showPartyToken)
                 {
                     bool leaderFound = false;
@@ -41072,6 +42285,7 @@ namespace IceBlink2
                         }
                     }
                     //addFloatyText(gv.mod.PlayerLocationX, gv.mod.PlayerLocationY, gv.mod.playerList[gv.mod.selectedPartyLeader].name, "green", 700);
+                    gv.mod.permanentPartyText = gv.mod.playerList[gv.mod.selectedPartyLeader].name + " (" + gv.mod.playerList[gv.mod.selectedPartyLeader].sp + " SP)";
                     gv.cc.doPropStealth();
                     updateTraitsPanel();
                 }
@@ -41567,8 +42781,25 @@ namespace IceBlink2
                                                     //skill roll failed message (B)
                                                     else
                                                     {
-                                                        gv.screenMainMap.addFloatyText(x3, y3, "Failure: " + traitName + " level " + (p.secretDoorDC+darkAdder-10).ToString() + " required", "red", 2000);
-                                                        gv.cc.addLogText("red", "Failure: " + traitName + " level " + (p.secretDoorDC+darkAdder-10).ToString() + " required, " + gv.mod.playerList[gv.mod.selectedPartyLeader].name + " loses " + gv.mod.activeSearchSPCost + " SP");
+                                                        if (darkAdder == 4)
+                                                        {
+                                                            gv.screenMainMap.addFloatyText(x3, y3, "Failure: " + traitName + " level " + (p.secretDoorDC + darkAdder - 10).ToString() + " required (+4 for poor visibility)", "red", 2000);
+                                                            gv.cc.addLogText("red", "Failure: " + traitName + " level " + (p.secretDoorDC + darkAdder - 10).ToString() + " required (+4 for poor visibility), " + gv.mod.playerList[gv.mod.selectedPartyLeader].name + " loses " + gv.mod.activeSearchSPCost + " SP");
+                                                        }
+                                                        else if (darkAdder == 12)
+                                                        {
+                                                            gv.screenMainMap.addFloatyText(x3, y3, "Failure: " + traitName + " level " + (p.secretDoorDC + darkAdder - 10).ToString() + " required (+12 for poor visibility)", "red", 2000);
+                                                            gv.cc.addLogText("red", "Failure: " + traitName + " level " + (p.secretDoorDC + darkAdder - 10).ToString() + " required (+12 for poor visibility), " + gv.mod.playerList[gv.mod.selectedPartyLeader].name + " loses " + gv.mod.activeSearchSPCost + " SP");
+
+                                                        }
+                                                        else
+                                                        {
+                                                            gv.screenMainMap.addFloatyText(x3, y3, "Failure: " + traitName + " level " + (p.secretDoorDC + darkAdder - 10).ToString() + " required", "red", 2000);
+                                                            gv.cc.addLogText("red", "Failure: " + traitName + " level " + (p.secretDoorDC + darkAdder - 10).ToString() + " required, " + gv.mod.playerList[gv.mod.selectedPartyLeader].name + " loses " + gv.mod.activeSearchSPCost + " SP");
+
+                                                        }
+                                                        //gv.screenMainMap.addFloatyText(x3, y3, "Failure: " + traitName + " level " + (p.secretDoorDC+darkAdder-10).ToString() + " required", "red", 2000);
+                                                        //gv.cc.addLogText("red", "Failure: " + traitName + " level " + (p.secretDoorDC+darkAdder-10).ToString() + " required, " + gv.mod.playerList[gv.mod.selectedPartyLeader].name + " loses " + gv.mod.activeSearchSPCost + " SP");
                                                     }
 
                                                 }//secret door subsection end
@@ -41593,8 +42824,25 @@ namespace IceBlink2
                                                     //skill roll failed message (B)
                                                     else
                                                     {
-                                                        gv.screenMainMap.addFloatyText(x3, y3, "Failure: " + traitName + " level " + (p.trapDC+darkAdder-10).ToString() + " required", "red", 2000);
-                                                        gv.cc.addLogText("red", "Failure: " + traitName + " level " + (p.trapDC+darkAdder-10).ToString() + " required, " + gv.mod.playerList[gv.mod.selectedPartyLeader].name + " loses " + gv.mod.activeSearchSPCost + " SP");
+                                                        if (darkAdder == 4)
+                                                        {
+                                                            gv.screenMainMap.addFloatyText(x3, y3, "Failure: " + traitName + " level " + (p.trapDC + darkAdder - 10).ToString() + " required (+4 for poor visibility)", "red", 2000);
+                                                            gv.cc.addLogText("red", "Failure: " + traitName + " level " + (p.trapDC + darkAdder - 10).ToString() + " required (+4 for poor visibility), " + gv.mod.playerList[gv.mod.selectedPartyLeader].name + " loses " + gv.mod.activeSearchSPCost + " SP");
+                                                        }
+                                                        else if (darkAdder == 12)
+                                                        {
+                                                            gv.screenMainMap.addFloatyText(x3, y3, "Failure: " + traitName + " level " + (p.trapDC + darkAdder - 10).ToString() + " required (+12 for poor visibility)", "red", 2000);
+                                                            gv.cc.addLogText("red", "Failure: " + traitName + " level " + (p.trapDC + darkAdder - 10).ToString() + " required (+12 for poor visibility), " + gv.mod.playerList[gv.mod.selectedPartyLeader].name + " loses " + gv.mod.activeSearchSPCost + " SP");
+
+                                                        }
+                                                        else
+                                                        {
+                                                            gv.screenMainMap.addFloatyText(x3, y3, "Failure: " + traitName + " level " + (p.trapDC + darkAdder - 10).ToString() + " required", "red", 2000);
+                                                            gv.cc.addLogText("red", "Failure: " + traitName + " level " + (p.trapDC + darkAdder - 10).ToString() + " required, " + gv.mod.playerList[gv.mod.selectedPartyLeader].name + " loses " + gv.mod.activeSearchSPCost + " SP");
+
+                                                        }
+                                                        //gv.screenMainMap.addFloatyText(x3, y3, "Failure: " + traitName + " level " + (p.trapDC+darkAdder-10).ToString() + " required", "red", 2000);
+                                                        //gv.cc.addLogText("red", "Failure: " + traitName + " level " + (p.trapDC+darkAdder-10).ToString() + " required, " + gv.mod.playerList[gv.mod.selectedPartyLeader].name + " loses " + gv.mod.activeSearchSPCost + " SP");
                                                     }
 
                                                 }//trap subsection end
@@ -41644,8 +42892,25 @@ namespace IceBlink2
                                                     }
                                                     else
                                                     {
-                                                        gv.screenMainMap.addFloatyText(x3, y3,"Failure: " + traitName + " level " + (p.infoDC+darkAdder-10).ToString() + " required ", "red", 2000);
-                                                        gv.cc.addLogText("red", "Failure: " + traitName + " level " + (p.infoDC + darkAdder -10).ToString() + " required, " + gv.mod.playerList[gv.mod.selectedPartyLeader].name + " loses " + gv.mod.activeSearchSPCost + " SP");
+                                                        if (darkAdder == 4)
+                                                        {
+                                                            gv.screenMainMap.addFloatyText(x3, y3, "Failure: " + traitName + " level " + (p.infoDC + darkAdder - 10).ToString() + " required (+4 for poor visibility)", "red", 2000);
+                                                            gv.cc.addLogText("red", "Failure: " + traitName + " level " + (p.infoDC + darkAdder - 10).ToString() + " required (+4 for poor visibility), " + gv.mod.playerList[gv.mod.selectedPartyLeader].name + " loses " + gv.mod.activeSearchSPCost + " SP");
+                                                        }
+                                                        else if (darkAdder == 12)
+                                                        {
+                                                            gv.screenMainMap.addFloatyText(x3, y3, "Failure: " + traitName + " level " + (p.infoDC + darkAdder - 10).ToString() + " required (+12 for poor visibility)", "red", 2000);
+                                                            gv.cc.addLogText("red", "Failure: " + traitName + " level " + (p.infoDC + darkAdder - 10).ToString() + " required (+12 for poor visibility), " + gv.mod.playerList[gv.mod.selectedPartyLeader].name + " loses " + gv.mod.activeSearchSPCost + " SP");
+
+                                                        }
+                                                        else
+                                                        {
+                                                            gv.screenMainMap.addFloatyText(x3, y3, "Failure: " + traitName + " level " + (p.infoDC + darkAdder - 10).ToString() + " required", "red", 2000);
+                                                            gv.cc.addLogText("red", "Failure: " + traitName + " level " + (p.infoDC + darkAdder - 10).ToString() + " required, " + gv.mod.playerList[gv.mod.selectedPartyLeader].name + " loses " + gv.mod.activeSearchSPCost + " SP");
+
+                                                        }
+                                                        //gv.screenMainMap.addFloatyText(x3, y3,"Failure: " + traitName + " level " + (p.infoDC+darkAdder-10).ToString() + " required ", "red", 2000);
+                                                        //gv.cc.addLogText("red", "Failure: " + traitName + " level " + (p.infoDC + darkAdder -10).ToString() + " required, " + gv.mod.playerList[gv.mod.selectedPartyLeader].name + " loses " + gv.mod.activeSearchSPCost + " SP");
                                                     }
                                                 }//hidden info subsection end
 
@@ -41710,7 +42975,7 @@ namespace IceBlink2
                 gv.mod.hideInterfaceNextMove = true;
                 if (!hideClock)
                 {
-                    hideClock = true;
+                    //hideClock = true;
                 }
                 else
                 {
@@ -41729,7 +42994,7 @@ namespace IceBlink2
                             }
                             else
                             {
-                                pnl.hiding = true;
+                                //pnl.hiding = true;
                             }
                         }
                         //hides down
@@ -41745,7 +43010,7 @@ namespace IceBlink2
                             }
                             else
                             {
-                                pnl.hiding = true;
+                                //pnl.hiding = true;
                             }
                         }
                         //hides up
@@ -41757,7 +43022,7 @@ namespace IceBlink2
                             }
                             else
                             {
-                                pnl.hiding = true;
+                                //pnl.hiding = true;
                             }
                         }
                     }
@@ -42018,78 +43283,154 @@ namespace IceBlink2
 
             else if (keyData == Keys.X)
             {
-               
-                gv.mod.hideInterfaceNextMove = false;
-                if (!hideClock)
+
+                if (gv.mod.hideInterfaceNextMove == false)
                 {
-                    hideClock = true;
-                }
-                else
-                {
-                    hideClock = false;
-                }
-                foreach (IB2Panel pnl in mainUiLayout.panelList)
-                {
-                    if (pnl.tag != "arrowPanel")
+                    if (!hideClock)
                     {
-                        /*
-                        //hides left
-                        if (pnl.hidingXIncrement < 0)
+                        hideClock = true;
+                    }
+                    else
+                    {
+                        hideClock = false;
+                    }
+                    foreach (IB2Panel pnl in mainUiLayout.panelList)
+                    {
+                        if (pnl.tag != "arrowPanel")
                         {
-                            if (pnl.currentLocX < pnl.shownLocX)
+                            /*
+                            //hides left
+                            if (pnl.hidingXIncrement < 0)
                             {
-                                pnl.showing = true;
-                            }
-                            else
-                            {
-                                pnl.hiding = true;
-                            }
-                        }
-                        */
-                        //hides right
-                        if (pnl.hidingXIncrement > 0)
-                        {
-                            if (pnl.currentLocX > pnl.shownLocX)
-                            {
-                                pnl.showing = true;
-                            }
-                            else
-                            {
-                                pnl.hiding = true;
-                            }
-                        }
-                        //hides down
-                        else if (pnl.hidingYIncrement > 0)
-                        {
-                            if (pnl.currentLocY > pnl.shownLocY)
-                            {
-                                if ((pnl.tag.Equals("arrowPanel")) && (!showArrows)) //don't show arrows
+                                if (pnl.currentLocX < pnl.shownLocX)
                                 {
-                                    continue;
+                                    pnl.showing = true;
                                 }
-                                pnl.showing = true;
+                                else
+                                {
+                                    pnl.hiding = true;
+                                }
                             }
-                            else
+                            */
+                            //hides right
+                            if (pnl.hidingXIncrement > 0)
                             {
-                                pnl.hiding = true;
+                                if (pnl.currentLocX > pnl.shownLocX)
+                                {
+                                    pnl.showing = true;
+                                }
+                                else
+                                {
+                                    pnl.hiding = true;
+                                }
                             }
-                        }
-                        //hides up
-                        else if (pnl.hidingYIncrement < 0)
-                        {
-                            if (pnl.currentLocY < pnl.shownLocY)
+                            //hides down
+                            else if (pnl.hidingYIncrement > 0)
                             {
-                                pnl.showing = true;
+                                if (pnl.currentLocY > pnl.shownLocY)
+                                {
+                                    if ((pnl.tag.Equals("arrowPanel")) && (!showArrows)) //don't show arrows
+                                    {
+                                        continue;
+                                    }
+                                    pnl.showing = true;
+                                }
+                                else
+                                {
+                                    pnl.hiding = true;
+                                }
                             }
-                            else
+                            //hides up
+                            else if (pnl.hidingYIncrement < 0)
                             {
-                                pnl.hiding = true;
+                                if (pnl.currentLocY < pnl.shownLocY || gv.mod.hideInterfaceNextMove)
+                                {
+                                    pnl.showing = true;
+                                }
+                                else
+                                {
+                                    pnl.hiding = true;
+                                }
                             }
                         }
                     }
                 }
+                //coming from dynamic mode
+                else
+                {
+                    if (!hideClock)
+                    {
+                        //hideClock = true;
+                    }
+                    else
+                    {
+                        hideClock = false;
+                    }
+                    foreach (IB2Panel pnl in mainUiLayout.panelList)
+                    {
+                        if (pnl.tag != "arrowPanel")
+                        {
+                            /*
+                            //hides left
+                            if (pnl.hidingXIncrement < 0)
+                            {
+                                if (pnl.currentLocX < pnl.shownLocX)
+                                {
+                                    pnl.showing = true;
+                                }
+                                else
+                                {
+                                    pnl.hiding = true;
+                                }
+                            }
+                            */
+                            //hides right
+                            if (pnl.hidingXIncrement > 0)
+                            {
+                                if (pnl.currentLocX > pnl.shownLocX)
+                                {
+                                    pnl.showing = true;
+                                }
+                                else
+                                {
+                                    //pnl.hiding = true;
+                                }
+                            }
+                            //hides down
+                            else if (pnl.hidingYIncrement > 0)
+                            {
+                                if (pnl.currentLocY > pnl.shownLocY)
+                                {
+                                    if ((pnl.tag.Equals("arrowPanel")) && (!showArrows)) //don't show arrows
+                                    {
+                                        continue;
+                                    }
+                                    pnl.showing = true;
+                                }
+                                else
+                                {
+                                    //pnl.hiding = true;
+                                }
+                            }
+                            //hides up
+                            else if (pnl.hidingYIncrement < 0)
+                            {
+                                if (pnl.currentLocY < pnl.shownLocY || gv.mod.hideInterfaceNextMove)
+                                {
+                                    pnl.showing = true;
+                                }
+                                else
+                                {
+                                    //pnl.hiding = true;
+                                }
+                            }
+                        }
+                    }
+                }
+                gv.mod.hideInterfaceNextMove = false;
             }
         }
+
         private bool moveDelay()
         {
             long elapsed = DateTime.Now.Ticks - timeStamp;

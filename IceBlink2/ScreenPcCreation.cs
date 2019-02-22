@@ -84,6 +84,7 @@ namespace IceBlink2
             pcCreationIndex = 0;
             if (gv.mod.useManualPointDistribution)
             {
+                gv.mod.counterPointsToDistributeLeft = gv.mod.pointPoolSize;
                 pc.baseStr = gv.mod.attributeBaseValue;
                 pc.baseDex = gv.mod.attributeBaseValue;
                 pc.baseInt = gv.mod.attributeBaseValue;
@@ -96,6 +97,10 @@ namespace IceBlink2
             }
             else
             {
+                if (gv.mod.useHybridRollPointDistribution)
+                {
+                    gv.mod.counterPointsToDistributeLeft = 0;
+                }
                 reRollStats(pc);
             }
         }
@@ -972,8 +977,13 @@ namespace IceBlink2
             {
                 if (gv.mod.useManualPointDistribution)
                 {
-                    string infoText = "Points available: " + gv.mod.counterPointsToDistributeLeft;
-                    infoText += ", Min: " + gv.mod.attributeMinValue;
+                    int backupLocY = locY;
+                    string infoText2 = "Points available: " + gv.mod.counterPointsToDistributeLeft;
+                    gv.DrawText(infoText2, locX + pW - 3 * gv.squareSize - 2 * pW, locY = (spacing) + locY - 2 * gv.squareSize - 4 * pH);
+                    locY = backupLocY;
+
+                    //string infoText = ", Points available: " + gv.mod.counterPointsToDistributeLeft;
+                    string infoText = "Min: " + gv.mod.attributeMinValue;
                     infoText += ", Max: " + gv.mod.attributeMaxValue;
                     if (gv.mod.numberOfPhysicalAtttributesBelowBaseAllowed < 3)
                     {
@@ -983,6 +993,47 @@ namespace IceBlink2
                     {
                         infoText += ", Mental below " + gv.mod.attributeBaseValue + " allowed: " + gv.mod.numberOfMentalAtttributesBelowBaseAllowed;
                     }
+
+                    gv.DrawText(infoText, locX + pW, locY += (spacing));
+                }
+                else if (gv.mod.useHybridRollPointDistribution)
+                {
+                    int backupLocY = locY;
+                    string infoText2 = "Points available: " + gv.mod.counterPointsToDistributeLeft;
+                    gv.DrawText(infoText2, locX + pW - 3 * gv.squareSize - 2 * pW, locY = (spacing) + locY - 2 * gv.squareSize - 4 * pH);
+                    locY = backupLocY;
+
+                    string infoText = "";
+                    if (gv.mod.use3d6 && gv.mod.useLuck)
+                    {
+                        infoText += "Rolling: 3d6, Luck is high for those who need it";
+                    }
+                    else if (gv.mod.use3d6 && !gv.mod.useLuck)
+                    {
+                        infoText += "Rolling: 3d6";
+                    }
+                    else if (!gv.mod.use3d6 && gv.mod.useLuck)
+                    {
+                        infoText += "Rolling: 6 + d12, Luck is high for those who need it";
+                    }
+                    else if (!gv.mod.use3d6 && !gv.mod.useLuck)
+                    {
+                        infoText += "Rolling: 6 + d12";
+
+                    }
+                    //infoText += "Points available: " + gv.mod.counterPointsToDistributeLeft;
+                    infoText += ", Min: " + gv.mod.attributeMinValue;
+                    infoText += ", Max: " + gv.mod.attributeMaxValue;
+                    /*
+                    if (gv.mod.numberOfPhysicalAtttributesBelowBaseAllowed < 3)
+                    {
+                        infoText += ", Physical below " + gv.mod.attributeBaseValue + " allowed: " + gv.mod.numberOfPhysicalAtttributesBelowBaseAllowed;
+                    }
+                    if (gv.mod.numberOfMentalAtttributesBelowBaseAllowed < 3)
+                    {
+                        infoText += ", Mental below " + gv.mod.attributeBaseValue + " allowed: " + gv.mod.numberOfMentalAtttributesBelowBaseAllowed;
+                    }
+                    */
 
                     gv.DrawText(infoText, locX + pW, locY += (spacing));
                 }
@@ -1193,8 +1244,13 @@ namespace IceBlink2
             {
                 if (gv.mod.useManualPointDistribution)
                 {
-                    string infoText = "Points available: " + gv.mod.counterPointsToDistributeLeft;
-                    infoText += ", Min: " + gv.mod.attributeMinValue;
+                    int backupLocY = locY;
+                    string infoText2 = "Points available: " + gv.mod.counterPointsToDistributeLeft;
+                    gv.DrawText(infoText2, locX + pW - 3 * gv.squareSize - 2 * pW, locY = (spacing) + locY - 2 * gv.squareSize - 4 * pH);
+                    locY = backupLocY;
+
+                    //string infoText = "Points available: " + gv.mod.counterPointsToDistributeLeft;
+                    string infoText = "Min: " + gv.mod.attributeMinValue;
                     infoText += ", Max: " + gv.mod.attributeMaxValue;
                     if (gv.mod.numberOfPhysicalAtttributesBelowBaseAllowed < 3)
                     {
@@ -1204,6 +1260,47 @@ namespace IceBlink2
                     {
                         infoText += ", Mental below " + gv.mod.attributeBaseValue + ": " + gv.mod.numberOfMentalAtttributesBelowBaseAllowed;
                     }
+
+                    gv.DrawText(infoText, locX + pW, locY += (spacing));
+                }
+                else if (gv.mod.useHybridRollPointDistribution)
+                {
+                    int backupLocY = locY;
+                    string infoText2 = "Points available: " + gv.mod.counterPointsToDistributeLeft;
+                    gv.DrawText(infoText2, locX + pW - 3*gv.squareSize - 2*pW, locY = (spacing) + locY - 2*gv.squareSize - 4*pH);
+                    locY = backupLocY;
+
+                    string infoText = "";
+                    if (gv.mod.use3d6 && gv.mod.useLuck)
+                    { 
+                        infoText += "Rolling: 3d6, Luck is high for those who need it";
+                    }
+                    else if (gv.mod.use3d6 && !gv.mod.useLuck)
+                    {
+                        infoText += "Rolling: 3d6";
+                    }
+                    else if (!gv.mod.use3d6 && gv.mod.useLuck)
+                    {
+                        infoText += "Rolling: 6 + d12, Luck is high for those who need it";
+                    }
+                    else if (!gv.mod.use3d6 && !gv.mod.useLuck)
+                    {
+                        infoText += "Rolling: 6 + d12";
+
+                    }
+                    //infoText += ", Points available: " + gv.mod.counterPointsToDistributeLeft;
+                    infoText += ", Min: " + gv.mod.attributeMinValue;
+                    infoText += ", Max: " + gv.mod.attributeMaxValue;
+                    /*
+                    if (gv.mod.numberOfPhysicalAtttributesBelowBaseAllowed < 3)
+                    {
+                        infoText += ", Physical below " + gv.mod.attributeBaseValue + ": " + gv.mod.numberOfPhysicalAtttributesBelowBaseAllowed;
+                    }
+                    if (gv.mod.numberOfMentalAtttributesBelowBaseAllowed < 3)
+                    {
+                        infoText += ", Mental below " + gv.mod.attributeBaseValue + ": " + gv.mod.numberOfMentalAtttributesBelowBaseAllowed;
+                    }
+                    */
 
                     gv.DrawText(infoText, locX + pW, locY += (spacing));
                 }
@@ -1471,7 +1568,7 @@ namespace IceBlink2
                 btnGender.Text = "Female";
             }
             btnGender.Draw();
-            if (gv.mod.useManualPointDistribution)
+            if (gv.mod.useManualPointDistribution || gv.mod.useHybridRollPointDistribution)
             {
                 if (checkPhysical("Str"))
                 {
@@ -1591,8 +1688,10 @@ namespace IceBlink2
             }
             btnClass.Text = pc.playerClass.name;
             btnClass.Draw();
-
-            btnRollStats.Draw();
+            if (!gv.mod.useManualPointDistribution)
+            {
+                btnRollStats.Draw();
+            }
             btnFinished.Draw();
             gv.cc.btnHelp.Draw();
             btnAbort.Draw();
@@ -1638,11 +1737,14 @@ namespace IceBlink2
                     case MouseEventType.EventType.MouseMove:
                         int x = (int)e.X;
                         int y = (int)e.Y;
-                        if (btnRollStats.getImpact(x, y))
+                        if (!gv.mod.useManualPointDistribution)
                         {
-                            btnRollStats.glowOn = true;
+                                if (btnRollStats.getImpact(x, y))
+                                {
+                                    btnRollStats.glowOn = true;
+                                }   
                         }
-                        else if (btnFinished.getImpact(x, y))
+                        if (btnFinished.getImpact(x, y))
                         {
                             btnFinished.glowOn = true;
                         }
@@ -1670,79 +1772,83 @@ namespace IceBlink2
                         {
                             btnGender.glowOn = true;
                         }
-                        else if (btnStrMinus.getImpact(x, y))
+
+                        if (gv.mod.useManualPointDistribution)
                         {
-                            btnStrMinus.glowOn = true;
+                            if (btnStrMinus.getImpact(x, y))
+                            {
+                                btnStrMinus.glowOn = true;
+                            }
+                            else if (btnStrPlus.getImpact(x, y))
+                            {
+                                btnStrPlus.glowOn = true;
+                            }
+                            else if (btnStr.getImpact(x, y))
+                            {
+                                btnStr.glowOn = true;
+                            }
+                            else if (btnDexMinus.getImpact(x, y))
+                            {
+                                btnDexMinus.glowOn = true;
+                            }
+                            else if (btnDex.getImpact(x, y))
+                            {
+                                btnDex.glowOn = true;
+                            }
+                            else if (btnDexPlus.getImpact(x, y))
+                            {
+                                btnDexPlus.glowOn = true;
+                            }
+                            else if (btnConMinus.getImpact(x, y))
+                            {
+                                btnConMinus.glowOn = true;
+                            }
+                            else if (btnCon.getImpact(x, y))
+                            {
+                                btnCon.glowOn = true;
+                            }
+                            else if (btnConPlus.getImpact(x, y))
+                            {
+                                btnConPlus.glowOn = true;
+                            }
+                            else if (btnIntMinus.getImpact(x, y))
+                            {
+                                btnIntMinus.glowOn = true;
+                            }
+                            else if (btnInt.getImpact(x, y))
+                            {
+                                btnInt.glowOn = true;
+                            }
+                            else if (btnIntPlus.getImpact(x, y))
+                            {
+                                btnIntPlus.glowOn = true;
+                            }
+                            else if (btnWisMinus.getImpact(x, y))
+                            {
+                                btnWisMinus.glowOn = true;
+                            }
+                            else if (btnWis.getImpact(x, y))
+                            {
+                                btnWis.glowOn = true;
+                            }
+                            else if (btnWisPlus.getImpact(x, y))
+                            {
+                                btnWisPlus.glowOn = true;
+                            }
+                            else if (btnChaMinus.getImpact(x, y))
+                            {
+                                btnChaMinus.glowOn = true;
+                            }
+                            else if (btnCha.getImpact(x, y))
+                            {
+                                btnCha.glowOn = true;
+                            }
+                            else if (btnChaPlus.getImpact(x, y))
+                            {
+                                btnChaPlus.glowOn = true;
+                            }
                         }
-                        else if (btnStrPlus.getImpact(x, y))
-                        {
-                            btnStrPlus.glowOn = true;
-                        }
-                        else if (btnStr.getImpact(x, y))
-                        {
-                            btnStr.glowOn = true;
-                        }
-                        else if (btnDexMinus.getImpact(x, y))
-                        {
-                            btnDexMinus.glowOn = true;
-                        }
-                        else if (btnDex.getImpact(x, y))
-                        {
-                            btnDex.glowOn = true;
-                        }
-                        else if (btnDexPlus.getImpact(x, y))
-                        {
-                            btnDexPlus.glowOn = true;
-                        }
-                        else if (btnConMinus.getImpact(x, y))
-                        {
-                            btnConMinus.glowOn = true;
-                        }
-                        else if (btnCon.getImpact(x, y))
-                        {
-                            btnCon.glowOn = true;
-                        }
-                        else if (btnConPlus.getImpact(x, y))
-                        {
-                            btnConPlus.glowOn = true;
-                        }
-                        else if (btnIntMinus.getImpact(x, y))
-                        {
-                            btnIntMinus.glowOn = true;
-                        }
-                        else if (btnInt.getImpact(x, y))
-                        {
-                            btnInt.glowOn = true;
-                        }
-                        else if (btnIntPlus.getImpact(x, y))
-                        {
-                            btnIntPlus.glowOn = true;
-                        }
-                        else if (btnWisMinus.getImpact(x, y))
-                        {
-                            btnWisMinus.glowOn = true;
-                        }
-                        else if (btnWis.getImpact(x, y))
-                        {
-                            btnWis.glowOn = true;
-                        }
-                        else if (btnWisPlus.getImpact(x, y))
-                        {
-                            btnWisPlus.glowOn = true;
-                        }
-                        else if (btnChaMinus.getImpact(x, y))
-                        {
-                            btnChaMinus.glowOn = true;
-                        }
-                        else if (btnCha.getImpact(x, y))
-                        {
-                            btnCha.glowOn = true;
-                        }
-                        else if (btnChaPlus.getImpact(x, y))
-                        {
-                            btnChaPlus.glowOn = true;
-                        }
-                        else if (btnName.getImpact(x, y))
+                        if (btnName.getImpact(x, y))
                         {
                             btnName.glowOn = true;
                         }
@@ -1820,97 +1926,100 @@ namespace IceBlink2
                                 pc.isMale = true;
                             }
                         }
-                        else if (btnStrMinus.getImpact(x, y))
+                        if ( gv.mod.useManualPointDistribution || gv.mod.useHybridRollPointDistribution)
                         {
-                            lowerAttribute("Str");
-                            gv.PlaySound("btn_click");
+                            if (btnStrMinus.getImpact(x, y))
+                            {
+                                lowerAttribute("Str");
+                                gv.PlaySound("btn_click");
+                            }
+                            else if (btnStr.getImpact(x, y))
+                            {
+                                gv.sf.MessageBoxHtml(gv.cc.stringStrength);
+                                gv.PlaySound("btn_click");
+                            }
+                            else if (btnStrPlus.getImpact(x, y))
+                            {
+                                raiseAttribute("Str");
+                                gv.PlaySound("btn_click");
+                            }
+                            else if (btnDexMinus.getImpact(x, y))
+                            {
+                                lowerAttribute("Dex");
+                                gv.PlaySound("btn_click");
+                            }
+                            else if (btnDex.getImpact(x, y))
+                            {
+                                gv.sf.MessageBoxHtml(gv.cc.stringDexterity);
+                                gv.PlaySound("btn_click");
+                            }
+                            else if (btnDexPlus.getImpact(x, y))
+                            {
+                                raiseAttribute("Dex");
+                                gv.PlaySound("btn_click");
+                            }
+                            else if (btnConMinus.getImpact(x, y))
+                            {
+                                lowerAttribute("Con");
+                                gv.PlaySound("btn_click");
+                            }
+                            else if (btnCon.getImpact(x, y))
+                            {
+                                gv.sf.MessageBoxHtml(gv.cc.stringConstitution);
+                                gv.PlaySound("btn_click");
+                            }
+                            else if (btnConPlus.getImpact(x, y))
+                            {
+                                raiseAttribute("Con");
+                                gv.PlaySound("btn_click");
+                            }
+                            else if (btnIntMinus.getImpact(x, y))
+                            {
+                                lowerAttribute("Int");
+                                gv.PlaySound("btn_click");
+                            }
+                            else if (btnInt.getImpact(x, y))
+                            {
+                                gv.sf.MessageBoxHtml(gv.cc.stringIntelligence);
+                                gv.PlaySound("btn_click");
+                            }
+                            else if (btnIntPlus.getImpact(x, y))
+                            {
+                                raiseAttribute("Int");
+                                gv.PlaySound("btn_click");
+                            }
+                            else if (btnWisMinus.getImpact(x, y))
+                            {
+                                lowerAttribute("Wis");
+                                gv.PlaySound("btn_click");
+                            }
+                            else if (btnWis.getImpact(x, y))
+                            {
+                                gv.sf.MessageBoxHtml(gv.cc.stringWisdom);
+                                gv.PlaySound("btn_click");
+                            }
+                            else if (btnWisPlus.getImpact(x, y))
+                            {
+                                raiseAttribute("Wis");
+                                gv.PlaySound("btn_click");
+                            }
+                            else if (btnChaMinus.getImpact(x, y))
+                            {
+                                lowerAttribute("Cha");
+                                gv.PlaySound("btn_click");
+                            }
+                            else if (btnCha.getImpact(x, y))
+                            {
+                                gv.sf.MessageBoxHtml(gv.cc.stringCharisma);
+                                gv.PlaySound("btn_click");
+                            }
+                            else if (btnChaPlus.getImpact(x, y))
+                            {
+                                raiseAttribute("Cha");
+                                gv.PlaySound("btn_click");
+                            }
                         }
-                        else if (btnStr.getImpact(x, y))
-                        {
-                            gv.sf.MessageBoxHtml(gv.cc.stringStrength);
-                            gv.PlaySound("btn_click");
-                        }
-                        else if (btnStrPlus.getImpact(x, y))
-                        {
-                            raiseAttribute("Str");
-                            gv.PlaySound("btn_click");
-                        }
-                        else if (btnDexMinus.getImpact(x, y))
-                        {
-                            lowerAttribute("Dex");
-                            gv.PlaySound("btn_click");
-                        }
-                        else if (btnDex.getImpact(x, y))
-                        {
-                            gv.sf.MessageBoxHtml(gv.cc.stringDexterity);
-                            gv.PlaySound("btn_click");
-                        }
-                        else if (btnDexPlus.getImpact(x, y))
-                        {
-                            raiseAttribute("Dex");
-                            gv.PlaySound("btn_click");
-                        }
-                        else if (btnConMinus.getImpact(x, y))
-                        {
-                            lowerAttribute("Con");
-                            gv.PlaySound("btn_click");
-                        }
-                        else if (btnCon.getImpact(x, y))
-                        {
-                            gv.sf.MessageBoxHtml(gv.cc.stringConstitution);
-                            gv.PlaySound("btn_click");
-                        }
-                        else if (btnConPlus.getImpact(x, y))
-                        {
-                            raiseAttribute("Con");
-                            gv.PlaySound("btn_click");
-                        }
-                        else if (btnIntMinus.getImpact(x, y))
-                        {
-                            lowerAttribute("Int");
-                            gv.PlaySound("btn_click");
-                        }
-                        else if (btnInt.getImpact(x, y))
-                        {
-                            gv.sf.MessageBoxHtml(gv.cc.stringIntelligence);
-                            gv.PlaySound("btn_click");
-                        }
-                        else if (btnIntPlus.getImpact(x, y))
-                        {
-                            raiseAttribute("Int");
-                            gv.PlaySound("btn_click");
-                        }
-                        else if (btnWisMinus.getImpact(x, y))
-                        {
-                            lowerAttribute("Wis");
-                            gv.PlaySound("btn_click");
-                        }
-                        else if (btnWis.getImpact(x, y))
-                        {
-                            gv.sf.MessageBoxHtml(gv.cc.stringWisdom);
-                            gv.PlaySound("btn_click");
-                        }
-                        else if (btnWisPlus.getImpact(x, y))
-                        {
-                            raiseAttribute("Wis");
-                            gv.PlaySound("btn_click");
-                        }
-                        else if (btnChaMinus.getImpact(x, y))
-                        {
-                            lowerAttribute("Cha");
-                            gv.PlaySound("btn_click");
-                        }
-                        else if (btnCha.getImpact(x, y))
-                        {
-                            gv.sf.MessageBoxHtml(gv.cc.stringCharisma);
-                            gv.PlaySound("btn_click");
-                        }
-                        else if (btnChaPlus.getImpact(x, y))
-                        {
-                            raiseAttribute("Cha");
-                            gv.PlaySound("btn_click");
-                        }
-                        else if (btnClass.getImpact(x, y))
+                        if (btnClass.getImpact(x, y))
                         {
                             gv.PlaySound("btn_click");
                             pcCreationIndex = 4;
@@ -1937,10 +2046,14 @@ namespace IceBlink2
                             gv.screenTokenSelector.resetTokenSelector("pcCreation", pc);
                         }
 
-                        else if (btnRollStats.getImpact(x, y))
+                        if (!gv.mod.useManualPointDistribution)
                         {
-                            gv.PlaySound("btn_click");
-                            reRollStats(pc);
+                            if (btnRollStats.getImpact(x, y))
+                            {
+                                gv.PlaySound("btn_click");
+                                reRollStats(pc);
+                            }
+                            
                         }
                         else if (btnFinished.getImpact(x, y))
                         {
@@ -2324,6 +2437,10 @@ namespace IceBlink2
         {
             if (attribute == "Int" && pc.baseInt > gv.mod.attributeMinValue)
             {
+                if (gv.mod.useHybridRollPointDistribution)
+                {
+                    return true;
+                }
                 if (gv.mod.numberOfMentalAtttributesBelowBaseAllowed == 2)
                 {
                     if (pc.baseCha >= gv.mod.attributeBaseValue || pc.baseWis >= gv.mod.attributeBaseValue || pc.baseInt > gv.mod.attributeBaseValue)
@@ -2365,6 +2482,10 @@ namespace IceBlink2
 
             if (attribute == "Wis" && pc.baseWis > gv.mod.attributeMinValue)
             {
+                if (gv.mod.useHybridRollPointDistribution)
+                {
+                    return true;
+                }
                 if (gv.mod.numberOfMentalAtttributesBelowBaseAllowed == 2)
                 {
                     if (pc.baseCha >= gv.mod.attributeBaseValue || pc.baseWis > gv.mod.attributeBaseValue || pc.baseInt >= gv.mod.attributeBaseValue)
@@ -2406,6 +2527,10 @@ namespace IceBlink2
 
             if (attribute == "Cha" && pc.baseCha > gv.mod.attributeMinValue)
             {
+                if (gv.mod.useHybridRollPointDistribution)
+                {
+                    return true;
+                }
                 if (gv.mod.numberOfMentalAtttributesBelowBaseAllowed == 2)
                 {
                     if (pc.baseCha > gv.mod.attributeBaseValue || pc.baseWis >= gv.mod.attributeBaseValue || pc.baseInt >= gv.mod.attributeBaseValue)
@@ -2451,6 +2576,10 @@ namespace IceBlink2
         {
             if (attribute == "Str" && pc.baseStr > gv.mod.attributeMinValue)
             {
+                if (gv.mod.useHybridRollPointDistribution)
+                {
+                    return true;
+                }
                 if (gv.mod.numberOfPhysicalAtttributesBelowBaseAllowed == 2)
                 {
                     if (pc.baseStr > gv.mod.attributeBaseValue || pc.baseDex >= gv.mod.attributeBaseValue || pc.baseCon >= gv.mod.attributeBaseValue)
@@ -2493,6 +2622,10 @@ namespace IceBlink2
 
             if (attribute == "Dex" && pc.baseDex > gv.mod.attributeMinValue)
             {
+                if (gv.mod.useHybridRollPointDistribution)
+                {
+                    return true;
+                }
                 if (gv.mod.numberOfPhysicalAtttributesBelowBaseAllowed == 2)
                 {
                     if (pc.baseStr >= gv.mod.attributeBaseValue || pc.baseDex > gv.mod.attributeBaseValue || pc.baseCon >= gv.mod.attributeBaseValue)
@@ -2536,6 +2669,10 @@ namespace IceBlink2
 
             if (attribute == "Con" && pc.baseCon > gv.mod.attributeMinValue)
             {
+                if (gv.mod.useHybridRollPointDistribution)
+                {
+                    return true;
+                }
                 if (gv.mod.numberOfPhysicalAtttributesBelowBaseAllowed == 2)
                 {
                     if (pc.baseStr >= gv.mod.attributeBaseValue || pc.baseDex >= gv.mod.attributeBaseValue || pc.baseCon > gv.mod.attributeBaseValue)
@@ -2725,6 +2862,7 @@ namespace IceBlink2
 
         public void reRollStats(Player p)
         {
+            gv.mod.counterPointsToDistributeLeft = 0;
             if (gv.mod.use3d6 == true)
             {
                 p.baseStr = gv.sf.RandInt(6) + gv.sf.RandInt(6) + gv.sf.RandInt(6);
@@ -2733,6 +2871,63 @@ namespace IceBlink2
                 p.baseCha = gv.sf.RandInt(6) + gv.sf.RandInt(6) + gv.sf.RandInt(6);
                 p.baseCon = gv.sf.RandInt(6) + gv.sf.RandInt(6) + gv.sf.RandInt(6);
                 p.baseWis = gv.sf.RandInt(6) + gv.sf.RandInt(6) + gv.sf.RandInt(6);
+
+                if (gv.mod.useHybridRollPointDistribution)
+                {
+                    if (p.baseStr < gv.mod.attributeMinValue)
+                    {
+                        p.baseStr = gv.mod.attributeMinValue;
+                    }
+                    if (p.baseStr > gv.mod.attributeMaxValue)
+                    {
+                        p.baseStr = gv.mod.attributeMaxValue;
+                    }
+
+                    if (p.baseDex < gv.mod.attributeMinValue)
+                    {
+                        p.baseDex = gv.mod.attributeMinValue;
+                    }
+                    if (p.baseDex > gv.mod.attributeMaxValue)
+                    {
+                        p.baseDex = gv.mod.attributeMaxValue;
+                    }
+
+                    if (p.baseCon < gv.mod.attributeMinValue)
+                    {
+                        p.baseCon = gv.mod.attributeMinValue;
+                    }
+                    if (p.baseCon > gv.mod.attributeMaxValue)
+                    {
+                        p.baseCon = gv.mod.attributeMaxValue;
+                    }
+
+                    if (p.baseInt < gv.mod.attributeMinValue)
+                    {
+                        p.baseInt = gv.mod.attributeMinValue;
+                    }
+                    if (p.baseInt > gv.mod.attributeMaxValue)
+                    {
+                        p.baseInt = gv.mod.attributeMaxValue;
+                    }
+
+                    if (p.baseWis < gv.mod.attributeMinValue)
+                    {
+                        p.baseWis = gv.mod.attributeMinValue;
+                    }
+                    if (p.baseWis > gv.mod.attributeMaxValue)
+                    {
+                        p.baseWis = gv.mod.attributeMaxValue;
+                    }
+
+                    if (p.baseCha < gv.mod.attributeMinValue)
+                    {
+                        p.baseCha = gv.mod.attributeMinValue;
+                    }
+                    if (p.baseCha > gv.mod.attributeMaxValue)
+                    {
+                        p.baseCha = gv.mod.attributeMaxValue;
+                    }
+                }
                 int sumOfAttributeBoni = ((p.baseStr - 10) / 2) + ((p.baseDex - 10) / 2) + ((p.baseCon - 10) / 2) + ((p.baseInt - 10) / 2) + ((p.baseWis - 10) / 2) + ((p.baseCha - 10) / 2);
                 if (sumOfAttributeBoni > 6)
                 {

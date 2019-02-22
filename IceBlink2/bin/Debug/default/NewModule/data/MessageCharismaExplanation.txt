@@ -1,2 +1,28 @@
-<b>Charisma (CHA):</b> Your ability to have successful interactions with others. This attribute impacts how NPCs perceive your character.<br>
+<b>Charisma (CHA):</b> How charming, diplomatic and emotionally intelligent a player character is. This is helpful for getting good prices in shops when buying or selling. In conversations, CHA is the key atttribute for steering the outcome towards the direction the player wants to. Rumour has it that charismatic player characters tend to be more lucky than others while those lacking severely in charisma often have streaks of bad luck.   
+<br>
+<br>
+The attribute boni/mali are calculated as follows:
+<br>
+<br>
+20-21: +5
+<br>
+18-19: +4
+<br>
+16-17: +3
+<br>
+14-15: +2
+<br>
+12-13: +1
+<br>
+9-11: 0
+<br>
+7-8: -1
+<br>
+5-6: -2
+<br>
+3-4: -3
+<br>
+1-2: -4
+<br>
+less than 1: -5
 <br>

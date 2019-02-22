@@ -41668,6 +41668,7 @@
       "conversationCannotBeAvoided": true,
       "DoOnceOnly": false,
       "RequiresActiveSearch": false,
+      "ConnectedDiscovery": false,
       "TriggerSquaresList": [
         {
           "X": 7,
@@ -41721,6 +41722,7 @@
       "conversationCannotBeAvoided": true,
       "DoOnceOnly": false,
       "RequiresActiveSearch": false,
+      "ConnectedDiscovery": false,
       "TriggerSquaresList": [
         {
           "X": 1,
@@ -41774,6 +41776,7 @@
       "conversationCannotBeAvoided": true,
       "DoOnceOnly": false,
       "RequiresActiveSearch": false,
+      "ConnectedDiscovery": false,
       "TriggerSquaresList": [
         {
           "X": 6,
@@ -41827,6 +41830,7 @@
       "conversationCannotBeAvoided": true,
       "DoOnceOnly": false,
       "RequiresActiveSearch": false,
+      "ConnectedDiscovery": false,
       "TriggerSquaresList": [
         {
           "X": 4,
@@ -41880,6 +41884,7 @@
       "conversationCannotBeAvoided": true,
       "DoOnceOnly": false,
       "RequiresActiveSearch": false,
+      "ConnectedDiscovery": false,
       "TriggerSquaresList": [
         {
           "X": 3,
@@ -41933,6 +41938,7 @@
       "conversationCannotBeAvoided": true,
       "DoOnceOnly": false,
       "RequiresActiveSearch": false,
+      "ConnectedDiscovery": false,
       "TriggerSquaresList": [
         {
           "X": 7,
@@ -41986,6 +41992,7 @@
       "conversationCannotBeAvoided": true,
       "DoOnceOnly": false,
       "RequiresActiveSearch": false,
+      "ConnectedDiscovery": false,
       "TriggerSquaresList": [
         {
           "X": 6,
@@ -42039,6 +42046,7 @@
       "conversationCannotBeAvoided": true,
       "DoOnceOnly": false,
       "RequiresActiveSearch": false,
+      "ConnectedDiscovery": false,
       "TriggerSquaresList": [],
       "DoOnceOnlyEvent1": false,
       "EnabledEvent1": true,
@@ -42087,6 +42095,7 @@
       "conversationCannotBeAvoided": true,
       "DoOnceOnly": false,
       "RequiresActiveSearch": false,
+      "ConnectedDiscovery": false,
       "TriggerSquaresList": [
         {
           "X": 9,
@@ -42140,6 +42149,7 @@
       "conversationCannotBeAvoided": true,
       "DoOnceOnly": false,
       "RequiresActiveSearch": false,
+      "ConnectedDiscovery": false,
       "TriggerSquaresList": [
         {
           "X": 9,
@@ -42193,6 +42203,7 @@
       "conversationCannotBeAvoided": true,
       "DoOnceOnly": false,
       "RequiresActiveSearch": false,
+      "ConnectedDiscovery": false,
       "TriggerSquaresList": [],
       "DoOnceOnlyEvent1": false,
       "EnabledEvent1": true,
@@ -42241,6 +42252,7 @@
       "conversationCannotBeAvoided": true,
       "DoOnceOnly": false,
       "RequiresActiveSearch": true,
+      "ConnectedDiscovery": false,
       "TriggerSquaresList": [
         {
           "X": 11,
@@ -42294,6 +42306,7 @@
       "conversationCannotBeAvoided": true,
       "DoOnceOnly": false,
       "RequiresActiveSearch": false,
+      "ConnectedDiscovery": false,
       "TriggerSquaresList": [
         {
           "X": 1,
@@ -42347,6 +42360,7 @@
       "conversationCannotBeAvoided": true,
       "DoOnceOnly": false,
       "RequiresActiveSearch": false,
+      "ConnectedDiscovery": false,
       "TriggerSquaresList": [
         {
           "X": 4,
@@ -42400,6 +42414,7 @@
       "conversationCannotBeAvoided": true,
       "DoOnceOnly": false,
       "RequiresActiveSearch": false,
+      "ConnectedDiscovery": false,
       "TriggerSquaresList": [
         {
           "X": 3,
@@ -42453,6 +42468,7 @@
       "conversationCannotBeAvoided": true,
       "DoOnceOnly": false,
       "RequiresActiveSearch": false,
+      "ConnectedDiscovery": false,
       "TriggerSquaresList": [
         {
           "X": 2,
@@ -42506,6 +42522,7 @@
       "conversationCannotBeAvoided": true,
       "DoOnceOnly": false,
       "RequiresActiveSearch": false,
+      "ConnectedDiscovery": false,
       "TriggerSquaresList": [
         {
           "X": 2,
@@ -42559,6 +42576,7 @@
       "conversationCannotBeAvoided": true,
       "DoOnceOnly": false,
       "RequiresActiveSearch": false,
+      "ConnectedDiscovery": false,
       "TriggerSquaresList": [
         {
           "X": 14,
@@ -42605,7 +42623,7 @@
   "AreaSounds": "none",
   "AreaSoundsDelay": 0,
   "AreaSoundsDelayRandomAdder": 0,
-  "NextIdNumber": 1154,
+  "NextIdNumber": 1163,
   "OnHeartBeatIBScript": "none",
   "OnHeartBeatIBScriptParms": "",
   "AreaLocalInts": [],

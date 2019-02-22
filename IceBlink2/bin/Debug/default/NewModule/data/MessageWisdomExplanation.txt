@@ -1,1 +1,28 @@
-Text still to do
+<b>Wisdom (WIS):</b> How intuitive, observant and wise a character is. WIS is used for Will saving rolls. It is helpful for spotting stealthing enemies, secret doors and hidden information on the main map. Classes that cast spells from the divine realm often determine their SP per level by using WIS.  
+<br>
+<br>
+The attribute boni/mali are calculated as follows:
+<br>
+<br>
+20-21: +5
+<br>
+18-19: +4
+<br>
+16-17: +3
+<br>
+14-15: +2
+<br>
+12-13: +1
+<br>
+9-11: 0
+<br>
+7-8: -1
+<br>
+5-6: -2
+<br>
+3-4: -3
+<br>
+1-2: -4
+<br>
+less than 1: -5
+<br>

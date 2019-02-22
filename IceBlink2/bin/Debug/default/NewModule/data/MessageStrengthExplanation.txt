@@ -1,2 +1,29 @@
-<b>Strength (STR):</b> How strong your character is. This gives you bonuses to your attack rolls (when using melee weapons), damage and increases your health (known as Hit Points). For example, if your PC has a STR of 16, the bonus for attack, damage and health is +3 [(16 - 10) / 2].<br>
+<b>Strength (STR):</b> How strong a player character is. This influences melee attack and damage rolls. It is also helpful when trying to bully others in conversations or when climbing walls, jumping chasms, smashing breakables or pushing objects on the main map.  
 <br>
+<br>
+The attribute boni/mali are calculated as follows:
+<br>
+<br>
+20-21: +5
+<br>
+18-19: +4
+<br>
+16-17: +3
+<br>
+14-15: +2
+<br>
+12-13: +1
+<br>
+9-11: 0
+<br>
+7-8: -1
+<br>
+5-6: -2
+<br>
+3-4: -3
+<br>
+1-2: -4
+<br>
+less than 1: -5
+<br>
+

@@ -1,2 +1,28 @@
-<b>Intelligence (INT):</b> How smart your character is. This impacts how many Spell Points (SP) you gain per level. This is useful for PCs that can cast spells.<br>
+<b>Intelligence (INT):</b> How clever and analytical a player character is. This is helpful for using arcane knowledge, opening magical portals or disenchanting arcane seals and traps on the main map. In conversations, intelligence is helpful for various subjects mundane and arcane. Classes that cast spells from the arcane realm often determine their SP per level by using INT.  
+<br>
+<br>
+The attribute boni/mali are calculated as follows:
+<br>
+<br>
+20-21: +5
+<br>
+18-19: +4
+<br>
+16-17: +3
+<br>
+14-15: +2
+<br>
+12-13: +1
+<br>
+9-11: 0
+<br>
+7-8: -1
+<br>
+5-6: -2
+<br>
+3-4: -3
+<br>
+1-2: -4
+<br>
+less than 1: -5
 <br>

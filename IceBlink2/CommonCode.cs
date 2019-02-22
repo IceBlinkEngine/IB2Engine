@@ -2790,10 +2790,13 @@ namespace IceBlink2
                 int highestFound = -100;
                 foreach (Player p in gv.mod.playerList)
                 {
-                    if (p.powerOfThisPc > highestFound)
+                    if (p.hp > 0)
                     {
-                        power = p.powerOfThisPc;
-                        highestFound = p.powerOfThisPc;
+                        if (p.powerOfThisPc > highestFound)
+                        {
+                            power = p.powerOfThisPc;
+                            highestFound = p.powerOfThisPc;
+                        }
                     }
                 }
             }
@@ -2924,7 +2927,57 @@ namespace IceBlink2
 
         public void doUpdate()
         {
+           
+            //bool showPortrtaitsThisUpdate = false;
+            foreach (Player p in gv.mod.playerList)
+            {
+                if (p.hp != p.hpLastUpdate)
+                {
+                    gv.mod.showPortrtaitsThisUpdate = true;
+                    break;
+                }
 
+                if (p.sp != p.spLastUpdate)
+                {
+                    gv.mod.showPortrtaitsThisUpdate = true;
+                    break;
+                }
+            }
+
+            if (gv.mod.showPortrtaitsThisUpdate)
+            {
+                //todo: code for showing portraits (hiding should happen on move in f mode)
+                foreach (IB2Panel pnl in gv.screenMainMap.mainUiLayout.panelList)
+                {
+                    if (pnl.tag != "arrowPanel")
+                    {
+                        //hides right
+                        if (pnl.hidingXIncrement > 0)
+                        {
+                            if (pnl.currentLocX > pnl.shownLocX)
+                            {
+                                pnl.showing = true;
+                            }
+                            else
+                            {
+                                //pnl.hiding = true;
+                            }
+                        }
+                    }
+                }
+            }
+            else
+            {
+                int i = 1;
+            }
+
+            foreach (Player p in gv.mod.playerList)
+            {
+                p.hpLastUpdate = p.hp;
+                p.spLastUpdate = p.sp;
+            }
+
+            gv.mod.permanentPartyText = "none";
             gv.sf.ThisProp = null;
             gv.cc.calledEncounterFromProp = false;
             gv.cc.calledConvoFromProp = false;
@@ -14047,7 +14100,7 @@ namespace IceBlink2
                     if (pnl.tag != "arrowPanel")
                     {
                         //hides right
-                        if (pnl.hidingXIncrement > 0)
+                        if (pnl.hidingXIncrement > 0 && !gv.mod.showPortrtaitsThisUpdate)
                         {
                             if (pnl.currentLocX > pnl.shownLocX)
                             {
@@ -14089,6 +14142,7 @@ namespace IceBlink2
                     }
                 }
             }
+            gv.mod.showPortrtaitsThisUpdate = false;
             gv.cc.floatyText = "";
             gv.cc.floatyText2 = "";
             gv.cc.floatyText3 = "";
@@ -14182,7 +14236,7 @@ namespace IceBlink2
                     if (pnl.tag != "arrowPanel")
                     {
                         //hides right
-                        if (pnl.hidingXIncrement > 0)
+                        if (pnl.hidingXIncrement > 0 && !gv.mod.showPortrtaitsThisUpdate)
                         {
                             if (pnl.currentLocX > pnl.shownLocX)
                             {
@@ -14224,6 +14278,7 @@ namespace IceBlink2
                     }
                 }
             }
+            gv.mod.showPortrtaitsThisUpdate = false;
             gv.cc.floatyText = "";
             gv.cc.floatyText2 = "";
             gv.cc.floatyText3 = "";
@@ -14315,7 +14370,7 @@ namespace IceBlink2
                     if (pnl.tag != "arrowPanel")
                     {
                         //hides right
-                        if (pnl.hidingXIncrement > 0)
+                        if (pnl.hidingXIncrement > 0 && !gv.mod.showPortrtaitsThisUpdate)
                         {
                             if (pnl.currentLocX > pnl.shownLocX)
                             {
@@ -14357,7 +14412,7 @@ namespace IceBlink2
                     }
                 }
             }
-
+            gv.mod.showPortrtaitsThisUpdate = false;
             gv.cc.floatyText = "";
             gv.cc.floatyText2 = "";
             gv.cc.floatyText3 = "";
@@ -14443,7 +14498,7 @@ namespace IceBlink2
                     if (pnl.tag != "arrowPanel")
                     {
                         //hides right
-                        if (pnl.hidingXIncrement > 0)
+                        if (pnl.hidingXIncrement > 0 && !gv.mod.showPortrtaitsThisUpdate)
                         {
                             if (pnl.currentLocX > pnl.shownLocX)
                             {
@@ -14485,6 +14540,7 @@ namespace IceBlink2
                     }
                 }
             }
+            gv.mod.showPortrtaitsThisUpdate = false;
             gv.cc.floatyText = "";
             gv.cc.floatyText2 = "";
             gv.cc.floatyText3 = "";

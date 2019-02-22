@@ -720,20 +720,45 @@ namespace IceBlink2
                     advantageCreatures = true;
                 }
 
-
-                if ((advantageCreatures && advantageParty) || (!advantageCreatures && !advantageParty))
+                if (gv.sf.ThisProp != null)
                 {
-                    //no advantage in summ, ie no surprise round
+                    if (gv.sf.ThisProp.isStealthed)
+                    {
+                        creaturesHaveUpperHand = true;
+                        gv.cc.addLogText("<font color='red'>" + "Ambush! The enemy has caught the party flat-footed. Free first round for the enemy." + "</font><BR>");
+                    }
+                    else if ((advantageCreatures && advantageParty) || (!advantageCreatures && !advantageParty))
+                    {
+                        //no advantage in summ, ie no surprise round
+                    }
+                    else if (advantageCreatures && !advantageParty)
+                    {
+                        creaturesHaveUpperHand = true;
+                        gv.cc.addLogText("<font color='red'>" + "The enemy has caught the party flat-footed (based on rolls in " + gv.mod.tagOfStealthMainTrait + " and " + gv.mod.tagOfSpotEnemyTrait + ")! Free first round for the enemy." + "</font><BR>");
+                    }
+                    else if (!advantageCreatures && advantageParty)
+                    {
+                        partyHasUpperHand = true;
+                        gv.cc.addLogText("<font color='blue'>" + "The party has caught the enemy flat-footed (based on rolls in " + gv.mod.tagOfStealthMainTrait + " and " + gv.mod.tagOfSpotEnemyTrait + ")! Free first round for the party." + "</font><BR>");
+                    }
                 }
-                else if (advantageCreatures && !advantageParty)
+                //not called from prop
+                else
                 {
-                    creaturesHaveUpperHand = true;
-                    gv.cc.addLogText("<font color='red'>" + "The enemy has caught the party flat-footed (based on rolls in " + gv.mod.tagOfStealthMainTrait + " and " + gv.mod.tagOfSpotEnemyTrait + ")! Free first round for the enemy." + "</font><BR>");
-                }
-                else if (!advantageCreatures && advantageParty)
-                {
-                    partyHasUpperHand = true;
-                    gv.cc.addLogText("<font color='blue'>" + "The party has caught the enemy flat-footed (based on rolls in " + gv.mod.tagOfStealthMainTrait + " and " + gv.mod.tagOfSpotEnemyTrait + ")! Free first round for the party." + "</font><BR>");
+                    if ((advantageCreatures && advantageParty) || (!advantageCreatures && !advantageParty))
+                    {
+                        //no advantage in summ, ie no surprise round
+                    }
+                    else if (advantageCreatures && !advantageParty)
+                    {
+                        creaturesHaveUpperHand = true;
+                        gv.cc.addLogText("<font color='red'>" + "The enemy has caught the party flat-footed (based on rolls in " + gv.mod.tagOfStealthMainTrait + " and " + gv.mod.tagOfSpotEnemyTrait + ")! Free first round for the enemy." + "</font><BR>");
+                    }
+                    else if (!advantageCreatures && advantageParty)
+                    {
+                        partyHasUpperHand = true;
+                        gv.cc.addLogText("<font color='blue'>" + "The party has caught the enemy flat-footed (based on rolls in " + gv.mod.tagOfStealthMainTrait + " and " + gv.mod.tagOfSpotEnemyTrait + ")! Free first round for the party." + "</font><BR>");
+                    }
                 }
             }
             
@@ -1150,14 +1175,17 @@ namespace IceBlink2
             }
 
             string battleStartMessage = "";
-            if (gv.sf.ThisProp.moved2)
+            if (gv.sf.ThisProp != null)
             {
-                battleStartMessage = "A very fast moving enemy (double move) has caught the party. <br><br>";
-            }
+                if (gv.sf.ThisProp.moved2)
+                {
+                    battleStartMessage = "A very fast moving enemy (double move) has caught the party. <br><br>";
+                }
 
-            if (gv.sf.ThisProp.isStealthed)
-            {
-                battleStartMessage += "An stealthy enemy steps out of the shadows. <br><br>";
+                if (gv.sf.ThisProp.isStealthed)
+                {
+                    battleStartMessage += "A stealthy enemy steps out of the shadows. <br><br>";
+                }
             }
 
             if (gv.mod.currentEncounter.customTextforMessageBoxAtStartOfEncounter != "none" && gv.mod.currentEncounter.customTextforMessageBoxAtStartOfEncounter != "None" && gv.mod.currentEncounter.customTextforMessageBoxAtStartOfEncounter != "")
@@ -18867,6 +18895,7 @@ namespace IceBlink2
                             gv.mod.playerList[currentPlayerIndex].doCastActionInXFullTurns = 0;
                             gv.mod.playerList[currentPlayerIndex].tagOfSpellToBeCastAfterCastTimeIsDone = "none";
                             gv.mod.playerList[currentPlayerIndex].thisCasterCanBeInterrupted = true;
+                            //potential reason
                             if (pc.knownInCombatUsableTraitsTags.Count > 0)
                             {
                                 currentCombatMode = "traitUseSelector";

@@ -21,7 +21,12 @@ namespace IceBlink2
         public List<String> tagsOfEffectsToRemoveOnMove = new List<String>();
 
         public List<int> hasNewChatOption = new List<int>();
-       
+
+        public int hpThisUpdate = 0;
+        public int hpLastUpdate = 0;
+        public int spThisUpdate = 0;
+        public int spLastUpdate = 0;
+
         public int powerOfThisPc = 0;
         public string tokenFilename = "blank.png";
         public string portraitFilename = "F0404_L";
@@ -137,6 +142,11 @@ namespace IceBlink2
         public Player DeepCopy()
         {
             Player copy = new Player();
+
+            copy.hpThisUpdate = this.hpThisUpdate;
+            copy.hpLastUpdate = this.hpLastUpdate;
+            copy.spThisUpdate = this.spThisUpdate;
+            copy.spLastUpdate = this.spLastUpdate;
 
             if (this.portrait != null)
             {

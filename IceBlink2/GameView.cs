@@ -1099,6 +1099,7 @@ namespace IceBlink2
         }
         public void DrawText(string text, float xLoc, float yLoc, float scaler, SharpDX.Color fontColor)
         {
+            //tr
             DrawText(text, xLoc, yLoc, FontWeight.Normal, SharpDX.DirectWrite.FontStyle.Normal, scaler, fontColor, false);
         }
         public void DrawText(string text, IbRect rect, float scaler, SharpDX.Color fontColor)

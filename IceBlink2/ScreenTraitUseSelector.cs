@@ -121,13 +121,14 @@ namespace IceBlink2
                                 break;
                             }
                         }
+                        //Zach
                         if (levelCounter == tempTA.atWhatLevelIsAvailable)
                         {
-                            if (tempTA.useableInSituation == "Always" || tempTA.useableInSituation == "InCombat")
-                            {
+                            //if (tempTA.useableInSituation == "Always" || tempTA.useableInSituation == "InCombat")
+                            //{
                                 backupKnownInCombatUsableTraitsTags.Add(traitsForLearningTags[i]);
                                 traitsForLearningTags.RemoveAt(i);
-                            }
+                            //}
                         }
                     }
                     levelCounter++;

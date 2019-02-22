@@ -199,6 +199,70 @@ namespace IceBlink2
                 this.show = true;
             }
             */
+            string timeOfDay = "none";
+            //iddo
+            if (this.tag == "btnZoom")
+            {
+                //int timeofday = gv.mod.WorldTime % (24 * 60);
+                //int hour = timeofday / 60;
+                //int minute = timeofday % 60;
+                //string sMinute = minute + "";
+                //if (minute < 10)
+                //{
+                    //sMinute = "0" + minute;
+                //}
+
+                int dawn = 5 * 60;
+                int sunrise = 6 * 60;
+                int day = 7 * 60;
+                int sunset = 17 * 60;
+                int dusk = 18 * 60;
+                int night = 20 * 60;
+                int time = gv.mod.WorldTime % 1440;
+
+                //bool consumeLightEnergy = false;
+                if ((time >= dawn) && (time < sunrise))
+                {
+                    timeOfDay = "dawnButton";
+                    //gv.DrawBitmap(gv.cc.tint_dawn, src, dst, 0, false, 1.0f / flickerReduction * flicker / 100f);
+                    //gv.DrawBitmap(gv.cc.tint_dawn, src, dst, 0, false, 1.0f);
+                }
+                else if ((time >= sunrise) && (time < day))
+                {
+                    timeOfDay = "sunriseButton";
+                    //gv.DrawBitmap(gv.cc.tint_sunrise, src, dst, 0, false, 1.0f);
+                }
+                else if ((time >= day) && (time < sunset))
+                {
+                    timeOfDay = "dayButton";
+                    //no tint for day
+                }
+                else if ((time >= sunset) && (time < dusk))
+                {
+                    timeOfDay = "sunsetButton";
+                    //gv.DrawBitmap(gv.cc.tint_sunset, src, dst, 0, false, 1.0f);
+                }
+                else if ((time >= dusk) && (time < night))
+                { 
+                    timeOfDay = "duskButton";
+                    //gv.DrawBitmap(gv.cc.tint_dusk, src, dst, 0, false, 1.0f);
+                }
+                else if ((time >= night) || (time < dawn))
+                {
+                    timeOfDay = "nightButton";
+                    //berlin
+                    //consumeLightEnergy = true;
+                }
+                this.ImgFilename = timeOfDay;
+                ImgFilename = timeOfDay;
+                ImgOnFilename = timeOfDay;
+                Img2Filename = timeOfDay;
+                Img2OffFilename = timeOfDay;
+                Img3Filename = timeOfDay;
+                ImgOffFilename = timeOfDay;
+            }
+
+
             if (show)
             {
                 int pH = (int)((float)gv.screenHeight / 200.0f);
@@ -274,21 +338,19 @@ namespace IceBlink2
 
                 if (this.tag == "btnZoom")
                 {
-                    if (gv.mod.currentArea.useSuperTinyProps)
+                    int timeofday = gv.mod.WorldTime % (24 * 60);
+                    int hour = timeofday / 60;
+                    int minute = timeofday % 60;
+                    string sMinute = minute + "";
+                    if (minute < 10)
                     {
-                        Text = "Far";
-                        //Text = "Speed: " + gv.mod.partySpeed; 
+                        sMinute = "0" + minute;
                     }
-                    else if (gv.mod.currentArea.useMiniProps)
-                    {
-                        Text = "Medium";
-                        //Text = "Speed: " + gv.mod.partySpeed;
-                    }
-                    else
-                    {
-                        Text = "Close";
-                        //Text = "Speed: " + gv.mod.partySpeed;
-                    }
+
+                    int txtH = (int)gv.drawFontRegHeight;
+                    //Text = hour + ":" + sMinute;
+                    Text = "";
+                    
                 }
 
                 if (this.tag == "btnTorch")
@@ -311,13 +373,78 @@ namespace IceBlink2
                     {
                         int xLoc = (int)((parentPanel.currentLocX + this.X) * gv.screenDensity + ulX + x);
                         int yLoc = (int)((parentPanel.currentLocY + this.Y) * gv.screenDensity + ulY + y);
-                       
-                        gv.DrawText(Text, xLoc, yLoc, scaler, Color.Black);
+                        if (Text.Contains("green") && Text.Contains("Ld"))
+                        {
+                            int length = Text.Length;
+                            string text2 = "";
+                            //Ld 13green:10
+                            //ld 7green:9
+                            if (length == 10)
+                            {
+                                text2 = Text.Remove(5);
+                            }
+                            if (length == 9)
+                            {
+                                text2 = Text.Remove(4);
+                            }
+                            // DRAW TEXT
+                            stringSize = gv.cc.MeasureString(text2, SharpDX.DirectWrite.FontWeight.Normal, SharpDX.DirectWrite.FontStyle.Normal, thisFontHeight);
+
+                            //place in the center
+                            ulX = ((Width * gv.screenDensity) - stringSize) / 2;
+                            ulY = ((Height * gv.screenDensity) - thisFontHeight) / 2;
+
+                            if (scaler == 0.4f)
+                            {
+                                ulY = ((Height * gv.screenDensity));
+                            }
+                            xLoc = (int)((parentPanel.currentLocX + this.X) * gv.screenDensity + ulX + x);
+                            yLoc = (int)((parentPanel.currentLocY + this.Y) * gv.screenDensity + ulY + y);
+                            //int test = text2.Length;
+                            gv.DrawText(text2, xLoc, yLoc, scaler, Color.Black);
+                        }
+                        else
+                        {
+                            gv.DrawText(Text, xLoc, yLoc, scaler, Color.Black);
+                        }
+                        //gv.DrawText(Text, xLoc, yLoc, scaler, Color.Black);
                     }
                 }
                 int xLoc1 = (int)((parentPanel.currentLocX + this.X) * gv.screenDensity + ulX);
                 int yLoc1 = (int)((parentPanel.currentLocY + this.Y) * gv.screenDensity + ulY);
-                gv.DrawText(Text, xLoc1, yLoc1, scaler, Color.White);
+                if (Text.Contains("green") && Text.Contains("Ld"))
+                {
+                    int length = Text.Length;
+                    string text2 = "";
+                    //Ld 13green:10
+                    //ld 7green:9
+                    if (length == 10)
+                    {
+                        text2 = Text.Remove(5);
+                    }
+                    if (length == 9)
+                    {
+                        text2 = Text.Remove(4);
+                    }
+                    // DRAW TEXT
+                    stringSize = gv.cc.MeasureString(text2, SharpDX.DirectWrite.FontWeight.Normal, SharpDX.DirectWrite.FontStyle.Normal, thisFontHeight);
+
+                    //place in the center
+                    ulX = ((Width * gv.screenDensity) - stringSize) / 2;
+                    ulY = ((Height * gv.screenDensity) - thisFontHeight) / 2;
+
+                    if (scaler == 0.4f)
+                    {
+                        ulY = ((Height * gv.screenDensity));
+                    }
+                    xLoc1 = (int)((parentPanel.currentLocX + this.X) * gv.screenDensity + ulX);
+                    yLoc1 = (int)((parentPanel.currentLocY + this.Y) * gv.screenDensity + ulY);
+                    gv.DrawText(text2, xLoc1, yLoc1, scaler, Color.Lime);
+                }
+                else
+                {
+                    gv.DrawText(Text, xLoc1, yLoc1, scaler, Color.White);
+                }
 
                 // DRAW QUANTITY
                 stringSize = gv.cc.MeasureString(Quantity, SharpDX.DirectWrite.FontWeight.Normal, SharpDX.DirectWrite.FontStyle.Normal, thisFontHeight);
@@ -327,7 +454,19 @@ namespace IceBlink2
                 ulY = (((Height * gv.screenDensity) - thisFontHeight) / 8) * 7;
                 if (this.tag == "btnZoom")
                 {
-                    Quantity = gv.mod.timePerStepAfterSpeedCalc + " min";
+                    //Quantity = gv.mod.timePerStepAfterSpeedCalc + " min";
+                    int timeofday = gv.mod.WorldTime % (24 * 60);
+                    int hour = timeofday / 60;
+                    int minute = timeofday % 60;
+                    string sMinute = minute + "";
+                    if (minute < 10)
+                    {
+                        sMinute = "0" + minute;
+                    }
+
+                    int txtH = (int)gv.drawFontRegHeight;
+                    //Text = hour + ":" + sMinute;
+                    Quantity = hour + ":" + sMinute + "  ";
                 }
                 if (this.tag == "btnTorch")
                 {
@@ -343,12 +482,32 @@ namespace IceBlink2
                     for (int y = -2; y <= 2; y++)
                     {
                         int xLoc = (int)((parentPanel.currentLocX + this.X) * gv.screenDensity + ulX + x);
-                        int yLoc = (int)((parentPanel.currentLocY + this.Y) * gv.screenDensity + ulY + y);
+                        int yLoc = 0;
+                        if (this.tag == "btnZoom")
+                        {
+                            xLoc = (int)((parentPanel.currentLocX + this.X) * gv.screenDensity + ulX + x - 3*pW);
+                            yLoc = (int)((parentPanel.currentLocY + this.Y) * gv.screenDensity + ulY + y) - pW;
+                        }
+                        else
+                        {
+                            yLoc = (int)((parentPanel.currentLocY + this.Y) * gv.screenDensity + ulY + y);
+                        }
+                        //int yLoc = (int)((parentPanel.currentLocY + this.Y) * gv.screenDensity + ulY + y);
                         gv.DrawText(Quantity, xLoc, yLoc, scaler, Color.Black);
                     }
                 }
                 int xLoc2 = (int)((parentPanel.currentLocX + this.X) * gv.screenDensity + ulX);
-                int yLoc2 = (int)((parentPanel.currentLocY + this.Y) * gv.screenDensity + ulY);
+                int yLoc2 = 0;
+                if (this.tag == "btnZoom")
+                {
+                    xLoc2 = (int)((parentPanel.currentLocX + this.X) * gv.screenDensity + ulX - 3*pW);
+                    yLoc2 = (int)((parentPanel.currentLocY + this.Y) * gv.screenDensity + ulY) - pW;
+                }
+                else
+                {
+                    yLoc2 = (int)((parentPanel.currentLocY + this.Y) * gv.screenDensity + ulY);
+                }
+                //int yLoc2 = (int)((parentPanel.currentLocY + this.Y) * gv.screenDensity + ulY);
                 if (this.tag == "btnTorch" && gv.mod.partyLightOn)
                 {
                     int dawn = 5 * 60;

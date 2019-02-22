@@ -14,6 +14,8 @@ namespace IceBlink2
     public class Module
     {
 
+        public bool showPortrtaitsThisUpdate = false;
+        public string permanentPartyText = "none";
         public bool playFootstepSound = true;
         public bool hudIsShown = true;
         public float nightTimeDarkness = 0.65f;
@@ -132,7 +134,7 @@ namespace IceBlink2
         public bool isSandstorm = false;
         public float logOpacity = 1f;
         public int logFadeCounter = 120;
-        public bool hideInterfaceNextMove = false;
+        public bool hideInterfaceNextMove = true;
 
         public float pixDistanceToBorderWest = 0;
         public float pixDistanceToBorderEast = 0;
@@ -170,6 +172,7 @@ namespace IceBlink2
         public bool use3d6 = false;
 
         //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+        public bool useHybridRollPointDistribution = false;
         public bool useManualPointDistribution = true;
         public int attributeBaseValue = 10;
         public int attributeMinValue = 6;

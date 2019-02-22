@@ -4603,6 +4603,204 @@ namespace IceBlink2
                         //p3 is amount of modification
                         ModifyFactionStrength(p1, prm2, p3);
                     }
+                    else if (filename.Equals("gaJumpChasm.cs"))
+                    {
+                        //p1: trait for jumping, p2 dc for jump
+                        int parm2 = 0;
+                        if (p2 != "none" && p2 != "None" && p2 != "")
+                        {
+                            parm2 = Convert.ToInt32(p2);
+                        }
+
+                        bool onBottom = false;
+                        bool onTop = false;
+                        bool jumpToNorth = false;
+                        bool jumpToEast = false;
+                        bool jumpToSouth = false;
+                        bool jumpToWest = false;
+
+                        if (gv.mod.currentArea.Tiles[gv.sf.ThisProp.LocationY * gv.mod.currentArea.MapSizeX + gv.sf.ThisProp.LocationX].heightLevel >= gv.mod.currentArea.Tiles[gv.mod.PlayerLocationY * gv.mod.currentArea.MapSizeX + gv.mod.PlayerLocationX].heightLevel)
+                        {
+                            onBottom = true;
+                        }
+                        else
+                        {
+                            onTop = true;
+                        }
+
+                        if (onTop)
+                        {
+                            //party south of chasm
+                            if (gv.mod.PlayerLocationX == gv.sf.ThisProp.LocationX && gv.mod.PlayerLocationY - 1 == gv.sf.ThisProp.LocationY)
+                            {
+                                jumpToNorth = true;
+                            }
+
+                            //party west of chasm
+                            if (gv.mod.PlayerLocationX + 1 == gv.sf.ThisProp.LocationX && gv.mod.PlayerLocationY == gv.sf.ThisProp.LocationY)
+                            {
+                                jumpToEast = true;
+                            }
+
+                            //party north of chasm
+                            if (gv.mod.PlayerLocationX == gv.sf.ThisProp.LocationX && gv.mod.PlayerLocationY + 1 == gv.sf.ThisProp.LocationY)
+                            {
+                                jumpToSouth = true;
+                            }
+
+                            //party east of chasm
+                            if (gv.mod.PlayerLocationX - 1 == gv.sf.ThisProp.LocationX && gv.mod.PlayerLocationY == gv.sf.ThisProp.LocationY)
+                            {
+                                jumpToWest = true;
+                            }
+
+                            //prepare skill check
+                            string traitName = "";
+                            string traitMethod = "leader";
+                            foreach (Trait t in gv.mod.moduleTraitsList)
+                            {
+                                if (t.tag.Contains(p1))
+                                {
+                                    traitMethod = t.methodOfChecking;
+                                    traitName = t.nameOfTraitGroup;
+                                }
+                            }
+                            int parm1 = gv.mod.selectedPartyLeader;
+                            if (traitMethod.Equals("-1") || traitMethod.Equals("leader") || traitMethod.Equals("Leader"))
+                            {
+                                parm1 = gv.mod.selectedPartyLeader;
+                            }
+                            else if (traitMethod.Equals("-2") || traitMethod.Equals("highest") || traitMethod.Equals("Highest"))
+                            {
+                                parm1 = -2;
+                            }
+                            else if (traitMethod.Equals("-3") || traitMethod.Equals("lowest") || traitMethod.Equals("Lowest"))
+                            {
+                                parm1 = -3;
+                            }
+                            else if (traitMethod.Equals("-4") || traitMethod.Equals("average") || traitMethod.Equals("Average"))
+                            {
+                                parm1 = -4;
+                            }
+                            else if (traitMethod.Equals("-5") || traitMethod.Equals("allMustSucceed") || traitMethod.Equals("AllMustSucceed"))
+                            {
+                                parm1 = -5;
+                            }
+                            else if (traitMethod.Equals("-6") || traitMethod.Equals("oneMustSucceed") || traitMethod.Equals("OneMustSucceed"))
+                            {
+                                parm1 = -6;
+                            }
+
+                            int darkAdder = 0;
+
+                            if (gv.sf.CheckPropByTagIsInDarknessPerArea(gv.sf.ThisProp.PropTag, "night", gv.mod.currentArea.Filename))
+                            {
+                                darkAdder = 4;
+                            }
+                            if (gv.sf.CheckPropByTagIsInDarknessPerArea(gv.sf.ThisProp.PropTag, "noLight", gv.mod.currentArea.Filename))
+                            {
+                                darkAdder = 12;
+                            }
+
+                            if (gv.sf.CheckPassSkill(parm1, p1, parm2 + darkAdder, true, true))
+                            {
+                                gv.mod.drawPartyDirection = "none";
+                              
+                                //north
+                                if (jumpToNorth)
+                                {
+                                    if (gv.sf.ThisProp.LocationY - 1 >= 0)
+                                    {
+                                        if (gv.mod.currentArea.Tiles[(gv.sf.ThisProp.LocationY - 1) * gv.mod.currentArea.MapSizeX + gv.sf.ThisProp.LocationX].Walkable && (gv.mod.currentArea.Tiles[(gv.sf.ThisProp.LocationY - 1) * gv.mod.currentArea.MapSizeX + gv.sf.ThisProp.LocationX].heightLevel <= gv.mod.currentArea.Tiles[(gv.mod.PlayerLocationY) * gv.mod.currentArea.MapSizeX + gv.mod.PlayerLocationX].heightLevel))
+                                        {
+                                            gv.mod.PlayerLocationX = gv.sf.ThisProp.LocationX;
+                                            gv.mod.PlayerLocationY = gv.sf.ThisProp.LocationY - 1;
+                                            gv.screenMainMap.addFloatyText(gv.sf.ThisProp.LocationX, gv.sf.ThisProp.LocationY, "Success: " + traitName + " level " + (parm2 + darkAdder - 10).ToString() + " matched", "green", 2000);
+                                            gv.cc.addLogText("lime", "Success: " + traitName + " level " + (parm2 + darkAdder - 10).ToString() + " matched");
+                                        }
+                                    }
+                                }
+
+                                //south
+                                if (jumpToSouth)
+                                {
+                                    if (gv.sf.ThisProp.LocationY + 1 < gv.mod.currentArea.MapSizeY)
+                                    {
+                                        if (gv.mod.currentArea.Tiles[(gv.sf.ThisProp.LocationY + 1) * gv.mod.currentArea.MapSizeX + gv.sf.ThisProp.LocationX].Walkable && (gv.mod.currentArea.Tiles[(gv.sf.ThisProp.LocationY + 1) * gv.mod.currentArea.MapSizeX + gv.sf.ThisProp.LocationX].heightLevel <= gv.mod.currentArea.Tiles[(gv.mod.PlayerLocationY) * gv.mod.currentArea.MapSizeX + gv.mod.PlayerLocationX].heightLevel))
+                                        {
+                                            gv.mod.PlayerLocationX = gv.sf.ThisProp.LocationX;
+                                            gv.mod.PlayerLocationY = gv.sf.ThisProp.LocationY + 1;
+                                            gv.screenMainMap.addFloatyText(gv.sf.ThisProp.LocationX, gv.sf.ThisProp.LocationY, "Success: " + traitName + " level " + (parm2 + darkAdder - 10).ToString() + " matched", "green", 2000);
+                                            gv.cc.addLogText("lime", "Success: " + traitName + " level " + (parm2 + darkAdder - 10).ToString() + " matched");
+                                        }
+                                    }
+                                }
+
+                                //west
+                                if (jumpToWest)
+                                {
+                                    if (gv.sf.ThisProp.LocationX - 1 >= 0)
+                                    {
+                                        if (gv.mod.currentArea.Tiles[(gv.sf.ThisProp.LocationY) * gv.mod.currentArea.MapSizeX + gv.sf.ThisProp.LocationX-1].Walkable && (gv.mod.currentArea.Tiles[(gv.sf.ThisProp.LocationY) * gv.mod.currentArea.MapSizeX + gv.sf.ThisProp.LocationX -1].heightLevel <= gv.mod.currentArea.Tiles[(gv.mod.PlayerLocationY) * gv.mod.currentArea.MapSizeX + gv.mod.PlayerLocationX].heightLevel))
+                                        {
+                                            gv.mod.PlayerLocationX = gv.sf.ThisProp.LocationX-1;
+                                            gv.mod.PlayerLocationY = gv.sf.ThisProp.LocationY;
+                                            //gv.mod.PlayerFacingLeft = true;
+                                            foreach (Player pc in gv.mod.playerList)
+                                            {
+                                                pc.combatFacingLeft = true;
+                                            }
+                                            gv.screenMainMap.addFloatyText(gv.sf.ThisProp.LocationX, gv.sf.ThisProp.LocationY, "Success: " + traitName + " level " + (parm2 + darkAdder - 10).ToString() + " matched", "green", 2000);
+                                            gv.cc.addLogText("lime", "Success: " + traitName + " level " + (parm2 + darkAdder - 10).ToString() + " matched");
+                                        }
+                                    }
+                                }
+
+                                //east
+                                if (jumpToEast)
+                                {
+                                    if (gv.sf.ThisProp.LocationX + 1 < gv.mod.currentArea.MapSizeX)
+                                    {
+                                        if (gv.mod.currentArea.Tiles[(gv.sf.ThisProp.LocationY) * gv.mod.currentArea.MapSizeX + gv.sf.ThisProp.LocationX+1].Walkable && (gv.mod.currentArea.Tiles[(gv.sf.ThisProp.LocationY) * gv.mod.currentArea.MapSizeX + gv.sf.ThisProp.LocationX+1].heightLevel <= gv.mod.currentArea.Tiles[(gv.mod.PlayerLocationY) * gv.mod.currentArea.MapSizeX + gv.mod.PlayerLocationX].heightLevel))
+                                        {
+                                            gv.mod.PlayerLocationX = gv.sf.ThisProp.LocationX+1;
+                                            gv.mod.PlayerLocationY = gv.sf.ThisProp.LocationY;
+                                            //gv.mod.PlayerFacingLeft = false;
+                                            foreach (Player pc in gv.mod.playerList)
+                                            {
+                                                pc.combatFacingLeft = false;
+                                            }
+                                            gv.screenMainMap.addFloatyText(gv.sf.ThisProp.LocationX, gv.sf.ThisProp.LocationY, "Success: " + traitName + " level " + (parm2 + darkAdder - 10).ToString() + " matched", "green", 2000);
+                                            gv.cc.addLogText("lime", "Success: " + traitName + " level " + (parm2 + darkAdder - 10).ToString() + " matched");
+                                        }
+                                    }
+                                }
+                            }
+                            //fail
+                            else
+                            {
+                                if (darkAdder == 4)
+                                {
+                                    gv.screenMainMap.addFloatyText(gv.sf.ThisProp.LocationX, gv.sf.ThisProp.LocationY, "Failure: " + traitName + " level " + (parm2 + darkAdder - 10).ToString() + " required (+4 for poor visibility)", "red", 2000);
+                                    gv.cc.addLogText("red", "Failure: " + traitName + " level " + (parm2 + darkAdder - 10).ToString() + " required (+4 for poor visibility)");
+                                }
+                                else if (darkAdder == 12)
+                                {
+                                    gv.screenMainMap.addFloatyText(gv.sf.ThisProp.LocationX, gv.sf.ThisProp.LocationY, "Failure: " + traitName + " level " + (parm2 + darkAdder - 10).ToString() + " required (+12 for poor visibility)", "red", 2000);
+                                    gv.cc.addLogText("red", "Failure: " + traitName + " level " + (parm2 + darkAdder - 10).ToString() + " required (+12 for poor visibility)");
+
+                                }
+                                else
+                                {
+                                    gv.screenMainMap.addFloatyText(gv.sf.ThisProp.LocationX, gv.sf.ThisProp.LocationY, "Failure: " + traitName + " level " + (parm2 + darkAdder - 10).ToString() + " required", "red", 2000);
+                                    gv.cc.addLogText("red", "Failure: " + traitName + " level " + (parm2 + darkAdder - 10).ToString() + " required");
+                                }
+                                //gv.screenMainMap.addFloatyText(gv.sf.ThisProp.LocationX, gv.sf.ThisProp.LocationY, "Failure: " + traitName + " level " + (parm2 + darkAdder - 10).ToString() + " required", "red", 2000);
+                                //gv.cc.addLogText("red", "Failure: " + traitName + " level " + (parm2 + darkAdder - 10).ToString() + " required");
+                            }
+
+                        }//end of ontop
+                    }
                     else if (filename.Equals("gaOpenObject.cs"))
                     {
                         //p1: key resref, p2: true/false for removing key, p3 trait for pick lock, p4 dc for pick lock 
@@ -4837,8 +5035,24 @@ namespace IceBlink2
                                 //pick only, no key requirement
                                 if (p1 == "none" || p1 == "None" || p1 == "")
                                 {
-                                    gv.screenMainMap.addFloatyText(gv.sf.ThisProp.LocationX, gv.sf.ThisProp.LocationY, "Failure: " + traitName + " level " + (parm4 + darkAdder - 10).ToString() + " required", "red", 2000);
-                                    gv.cc.addLogText("red", "Failure: " + traitName + " level " + (parm4 + darkAdder - 10).ToString() + " required");
+                                    if (darkAdder == 4)
+                                    {
+                                        gv.screenMainMap.addFloatyText(gv.sf.ThisProp.LocationX, gv.sf.ThisProp.LocationY, "Failure: " + traitName + " level " + (parm4 + darkAdder - 10).ToString() + " required (+4 for poor visibility)", "red", 2000);
+                                        gv.cc.addLogText("red", "Failure: " + traitName + " level " + (parm4 + darkAdder - 10).ToString() + " required (+4 for poor visibility)");
+                                    }
+                                    else if (darkAdder == 12)
+                                    {
+                                        gv.screenMainMap.addFloatyText(gv.sf.ThisProp.LocationX, gv.sf.ThisProp.LocationY, "Failure: " + traitName + " level " + (parm4 + darkAdder - 10).ToString() + " required (+12 for poor visibility)", "red", 2000);
+                                        gv.cc.addLogText("red", "Failure: " + traitName + " level " + (parm4 + darkAdder - 10).ToString() + " required (+12 for poor visibility)");
+
+                                    }
+                                    else
+                                    {
+                                        gv.screenMainMap.addFloatyText(gv.sf.ThisProp.LocationX, gv.sf.ThisProp.LocationY, "Failure: " + traitName + " level " + (parm4 + darkAdder - 10).ToString() + " required", "red", 2000);
+                                        gv.cc.addLogText("red", "Failure: " + traitName + " level " + (parm4 + darkAdder - 10).ToString() + " required");
+                                    }
+                                    //gv.screenMainMap.addFloatyText(gv.sf.ThisProp.LocationX, gv.sf.ThisProp.LocationY, "Failure: " + traitName + " level " + (parm4 + darkAdder - 10).ToString() + " required", "red", 2000);
+                                    //gv.cc.addLogText("red", "Failure: " + traitName + " level " + (parm4 + darkAdder - 10).ToString() + " required");
                                 }
                                 //pick and key requiremnt
                                 else
@@ -4851,8 +5065,24 @@ namespace IceBlink2
                                             itemName = it.name;
                                         }
                                     }
-                                    gv.screenMainMap.addFloatyText(gv.sf.ThisProp.LocationX, gv.sf.ThisProp.LocationY, itemName + " required or " + traitName + " (Skill level " + (parm4 + darkAdder).ToString() + " required)", "red", 2000);
-                                    gv.cc.addLogText("red", itemName + " required and failure:" + traitName + " level " + (parm4 + darkAdder - 10).ToString() + " required");
+                                    if (darkAdder == 4)
+                                    {
+                                        gv.screenMainMap.addFloatyText(gv.sf.ThisProp.LocationX, gv.sf.ThisProp.LocationY, itemName + " required or " + traitName + " (Skill level " + (parm4 + darkAdder).ToString() + " required, +4 for poor visibility)", "red", 2000);
+                                        gv.cc.addLogText("red", itemName + " required and failure:" + traitName + " level " + (parm4 + darkAdder - 10).ToString() + " required (+4 for poor visibility)");
+                                    }
+                                    else if (darkAdder == 12)
+                                    {
+                                        gv.screenMainMap.addFloatyText(gv.sf.ThisProp.LocationX, gv.sf.ThisProp.LocationY, itemName + " required or " + traitName + " (Skill level " + (parm4 + darkAdder).ToString() + " required, +12 for poor visibility)", "red", 2000);
+                                        gv.cc.addLogText("red", itemName + " required and failure:" + traitName + " level " + (parm4 + darkAdder - 10).ToString() + " required (+12 for poor visibility)");
+
+                                    }
+                                    else
+                                    {
+                                        gv.screenMainMap.addFloatyText(gv.sf.ThisProp.LocationX, gv.sf.ThisProp.LocationY, itemName + " required or " + traitName + " (Skill level " + (parm4 + darkAdder).ToString() + " required)", "red", 2000);
+                                        gv.cc.addLogText("red", itemName + " required and failure:" + traitName + " level " + (parm4 + darkAdder - 10).ToString() + " required");
+                                    }
+                                    //gv.screenMainMap.addFloatyText(gv.sf.ThisProp.LocationX, gv.sf.ThisProp.LocationY, itemName + " required or " + traitName + " (Skill level " + (parm4 + darkAdder).ToString() + " required)", "red", 2000);
+                                    //gv.cc.addLogText("red", itemName + " required and failure:" + traitName + " level " + (parm4 + darkAdder - 10).ToString() + " required");
                                 }
                             }
                         }
