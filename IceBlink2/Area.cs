@@ -1361,6 +1361,10 @@ namespace IceBlink2
                     //allowMove = true;
                 }
 
+               
+
+
+
                 //EW bridge: player tries to leave bridge to NS side
                 if ((this.Tiles[lastPlayerYPosition * this.MapSizeX + lastPlayerXPosition].isEWBridge))
                 {

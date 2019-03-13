@@ -14,6 +14,8 @@ namespace IceBlink2
     public class Module
     {
 
+        public bool isInitialParticleWave = false;
+        public bool wasSuccessfulPush = false;
         public bool showPortrtaitsThisUpdate = false;
         public string permanentPartyText = "none";
         public bool playFootstepSound = true;

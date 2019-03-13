@@ -10,10 +10,49 @@ using System.ComponentModel;
 using Newtonsoft.Json;
 using Bitmap = SharpDX.Direct2D1.Bitmap;
 
-namespace IceBlink2
+namespace IceBlink2 
 {
     public class Prop 
     {
+
+        //alos need to adda gaPushObjectScript as nezry point bump registration)
+        //pushable props
+        //1.pushable grid properties (04f - STEP: Pushable grid)
+        //public bool isGridForPushableObject = false;
+        //public bool showPushableGridOutline = true;
+        public bool pushableGridCanBeResetViaHotkey = true;
+        public bool pushableGridCanBeResetEvenAfterCompletion = false;
+        public int partyDefaultPushableGridPositionX = 0;
+        public int partyDefaultPushableGridPositionY = 0;
+        public bool allPushableGridTargetPositionsAreShared = true;
+
+        public string keyOfGlobalIntToChangeUponPushableGridCompletion = "none";
+        public int valueOfGlobalIntToChangeUponPushableGridCompletion = 0;
+        public bool lockGridOnCompletion = false;
+        public bool removeGridOnCompletion = false;
+        public string messageOnCompletion = "none";
+
+        public string keyOfGlobalIntToChangeUponPushableGridFailure = "none";
+        public int valueOfGlobalIntToChangeUponPushableGridFailure = 0;
+        public bool lockGridOnFailure = false;
+        public bool removeGridOnFailure = false;
+        public string messageOnFailure = "none";
+        public bool pushableGridIsResetOnEachFailure = false;
+
+        //2.pushable object properties (04f - STEP: Pushable object)
+        public bool isPushable = false;
+        public string pushableGridTriggerTag = "none";
+        public int pushableStartPositionX = 0;
+        public int pushableStartPositionY = 0;
+        public int pushableTargetPositionX = 0;
+        public int pushableTargetPositionY = 0;
+        public string pushableTraitTag = "strongman";
+        public int pushableDC = 10;
+
+        public bool isClimbable = false;
+        public string climbDirection = "north"; //north, east, south, west 
+        public int climbDC = 0;
+        public string climbTrait = "athlete";
         public bool moved2 = false;
         public bool showSneakThroughSymbol = false;
         public int challengeLevelAssignedForEncounterInConvo = 0; 
@@ -277,6 +316,40 @@ namespace IceBlink2
         {
     	    Prop copy = new Prop();
 
+            //1.pushable grid properties (04f - STEP: Pushable grid)
+            //copy.isGridForPushableObject = isGridForPushableObject;
+            //copy.showPushableGridOutline = showPushableGridOutline;
+            copy.pushableGridCanBeResetViaHotkey = pushableGridCanBeResetViaHotkey;
+            copy.pushableGridCanBeResetEvenAfterCompletion = pushableGridCanBeResetEvenAfterCompletion;
+            copy.partyDefaultPushableGridPositionX = partyDefaultPushableGridPositionX;
+            copy.partyDefaultPushableGridPositionY = partyDefaultPushableGridPositionY;
+            copy.allPushableGridTargetPositionsAreShared = allPushableGridTargetPositionsAreShared;
+            copy.keyOfGlobalIntToChangeUponPushableGridCompletion = keyOfGlobalIntToChangeUponPushableGridCompletion;
+            copy.valueOfGlobalIntToChangeUponPushableGridCompletion = valueOfGlobalIntToChangeUponPushableGridCompletion;
+            copy.keyOfGlobalIntToChangeUponPushableGridFailure = keyOfGlobalIntToChangeUponPushableGridFailure;
+            copy.valueOfGlobalIntToChangeUponPushableGridFailure = valueOfGlobalIntToChangeUponPushableGridFailure;
+            copy.pushableGridIsResetOnEachFailure = pushableGridIsResetOnEachFailure;
+            copy.lockGridOnCompletion = lockGridOnCompletion;
+            copy.removeGridOnCompletion = removeGridOnCompletion;
+            copy.messageOnCompletion = messageOnCompletion;
+            copy.lockGridOnFailure = lockGridOnFailure;
+            copy.removeGridOnFailure = removeGridOnFailure;
+            copy.messageOnFailure = messageOnFailure;
+
+            //2.pushable object properties (04f - STEP: Pushable object)
+            copy.isPushable = isPushable;
+            copy.pushableGridTriggerTag = pushableGridTriggerTag;
+            copy.pushableStartPositionX = pushableStartPositionX;
+            copy.pushableStartPositionY = pushableStartPositionY;
+            copy.pushableTargetPositionX = pushableTargetPositionX;
+            copy.pushableTargetPositionY = pushableTargetPositionY;
+            copy.pushableTraitTag = pushableTraitTag;
+            copy.pushableDC = pushableDC;
+
+            copy.isClimbable = this.isClimbable;
+            copy.climbDirection = this.climbDirection;
+            copy.climbDC = this.climbDC;
+            copy.climbTrait = this.climbTrait;
             copy.moved2 = this.moved2;
             copy.showSneakThroughSymbol = this.showSneakThroughSymbol;
             copy.challengeLevelAssignedForEncounterInConvo = this.challengeLevelAssignedForEncounterInConvo;

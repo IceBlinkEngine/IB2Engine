@@ -2927,7 +2927,10 @@ namespace IceBlink2
 
         public void doUpdate()
         {
-           
+
+            //gv.mod.PlayerLastLocationX = gv.mod.PlayerLocationX;
+            //gv.mod.PlayerLastLocationY = gv.mod.PlayerLocationY;
+
             //bool showPortrtaitsThisUpdate = false;
             foreach (Player p in gv.mod.playerList)
             {
@@ -3674,7 +3677,8 @@ namespace IceBlink2
                 }
                 */
                 //cull all down if too high value is reached (last resort)
-                if (gv.mod.loadedTileBitmaps.Count > 400)
+                //400
+                if (gv.mod.loadedTileBitmaps.Count > 1000)
                 {
                     try
                     {
@@ -3689,14 +3693,18 @@ namespace IceBlink2
                     }
                     catch
                     {
-
+                        int i = 10;
                     }
 
                 }
-                if (gv.mod.loadedTileBitmaps.Count > 250)
+                //250
+                //gut 1000
+                if (gv.mod.loadedTileBitmaps.Count > 500)
                 {
                     //addLogText("yellow", "Disposing tiles.");
-                    int cullNumber = ((gv.mod.loadedTileBitmaps.Count / 10) + 2);
+                    //divided by 10
+                    //gut 10
+                    int cullNumber = ((gv.mod.loadedTileBitmaps.Count / 5) + 2);
                     try
                     {
                         if (gv.mod.loadedTileBitmaps != null)
@@ -3719,6 +3727,7 @@ namespace IceBlink2
                     catch
                     {
                         //addLogText("red", "caught error");
+                        int i = 10;
                     }
                 }
 
@@ -7843,6 +7852,43 @@ namespace IceBlink2
         {
             float horizontalAdjustment = 0;
             float verticalAdjustment = 0;
+            //todo: maybe limit thsi when enar true map border?
+            /*
+            bool tooNear = false;
+            //north
+            if (gv.mod.currentArea.northernNeighbourArea == "none" || gv.mod.currentArea.northernNeighbourArea == "None" || gv.mod.currentArea.northernNeighbourArea == "")
+            {
+                if (gv.mod.PlayerLocationY - gv.playerOffsetY <= 0)
+                {
+                    tooNear = true;
+                }
+            }
+            //west
+            if (gv.mod.currentArea.westernNeighbourArea == "none" || gv.mod.currentArea.westernNeighbourArea == "None" || gv.mod.currentArea.westernNeighbourArea == "")
+            {
+                if (gv.mod.PlayerLocationX - gv.playerOffsetX <= 0)
+                {
+                    tooNear = true;
+                }
+            }
+            //south
+            if (gv.mod.currentArea.southernNeighbourArea == "none" || gv.mod.currentArea.southernNeighbourArea == "None" || gv.mod.currentArea.southernNeighbourArea == "")
+            {
+                if (gv.mod.PlayerLocationY + gv.playerOffsetY >= gv.mod.currentArea.MapSizeY)
+                {
+                    tooNear = true;
+                }
+            }
+
+            //east
+            if (gv.mod.currentArea.easternNeighbourArea == "none" || gv.mod.currentArea.easternNeighbourArea == "None" || gv.mod.currentArea.easternNeighbourArea == "")
+            {
+                if (gv.mod.PlayerLocationX + gv.playerOffsetX >= gv.mod.currentArea.MapSizeX)
+                {
+                    tooNear = true;
+                }
+            }
+            */
 
             if ((gv.mod.PlayerLocationX != gv.mod.PlayerLastLocationX) || (gv.mod.PlayerLocationY != gv.mod.PlayerLastLocationY))
             {
@@ -7878,10 +7924,13 @@ namespace IceBlink2
                     if (spr.movesIndependentlyFromPlayerPosition)
                     {
 
-                      
-                        
-                            spr.position.X += horizontalAdjustment;     
-                            spr.position.Y += verticalAdjustment;
+                        if (gv.mod.PlayerLastLocationX != gv.mod.PlayerLocationX || gv.mod.PlayerLastLocationY != gv.mod.PlayerLocationY)
+                        {
+                           
+                                spr.position.X += horizontalAdjustment;
+                                spr.position.Y += verticalAdjustment;
+                             
+                        }
                             
                     }
                 }
@@ -8768,6 +8817,12 @@ namespace IceBlink2
                                     gv.mod.sandStormBlowingTo = "SE";
                                 }
                             }
+                        if (gv.mod.currentWeatherName.Contains("snow") || gv.mod.currentWeatherName.Contains("Snow") || gv.mod.currentWeatherName.Contains("rain") || gv.mod.currentWeatherName.Contains("Rain") || gv.mod.currentWeatherName.Contains("sand") || gv.mod.currentWeatherName.Contains("Sand"))
+                        {
+                            gv.mod.isInitialParticleWave = true;
+                        }
+
+
 
                             gv.mod.currentWeatherDuration = gv.mod.listOfEntryWeatherDurations[i];
                             float rollRandom2 = gv.sf.RandInt(100);
@@ -8890,7 +8945,12 @@ namespace IceBlink2
 
 
                             }
-                            gv.mod.currentWeatherDuration = gv.mod.listOfExitWeatherDurations[i];
+                        if (gv.mod.currentWeatherName.Contains("snow") || gv.mod.currentWeatherName.Contains("Snow") || gv.mod.currentWeatherName.Contains("rain") || gv.mod.currentWeatherName.Contains("Rain") || gv.mod.currentWeatherName.Contains("sand") || gv.mod.currentWeatherName.Contains("Sand"))
+                        {
+                            gv.mod.isInitialParticleWave = true;
+                        }
+
+                        gv.mod.currentWeatherDuration = gv.mod.listOfExitWeatherDurations[i];
                             float rollRandom2 = gv.sf.RandInt(100);
                             gv.mod.currentWeatherDuration = (int)(gv.mod.currentWeatherDuration * ((50f + rollRandom2) / 100f));
                             doesCurrentWeatherExistHere = true;
@@ -14221,6 +14281,9 @@ namespace IceBlink2
             {
                 gv.PlaySound("footstep");
             }
+
+            //if (gv.mod.currentArea.Tiles[gv.mod.PlayerLocationY * gv.mod.currentArea.MapSizeX + gv.mod.PlayerLocationX] < gv.mod.currentArea.MapSizeX)
+            if (gv.mod.PlayerLocationX < gv.mod.currentArea.MapSizeX-1)
             if (gv.mod.hideInterfaceNextMove)
             {
                 if (!gv.screenMainMap.hideClock)
@@ -14355,6 +14418,7 @@ namespace IceBlink2
             {
                 gv.PlaySound("footstep");
             }
+
             if (gv.mod.hideInterfaceNextMove)
             {
                 if (!gv.screenMainMap.hideClock)
@@ -15084,16 +15148,52 @@ namespace IceBlink2
                 {
                     rainChance = gv.sf.RandInt(20) + 15;
                 }
-
-                float storedIncrement = 0;
-                for (int i = 1; i < 61; i++)
+                //XXXXXXXXXXXXXXXXXXXXXXXXXXX
+                if (gv.mod.isInitialParticleWave)
                 {
-                    float increment = gv.screenWidth / 60;
-                    storedIncrement += increment;
-                    if (gv.sf.RandInt(100) < rainChance)
+                    float storedIncrement = 0;
+                    float storedIncrementVert = 0;
+                    int lifeTimeReduction = 0;
+                    for (int h = 1; h < 66; h++)
                     {
-                        Sprite spr = new Sprite(gv, "rainDrop", storedIncrement - (gv.squareSize/2), -(float)(gv.sf.RandInt(10)), (float)(gv.sf.RandInt(5) + 35) / 650f, (float)(gv.sf.RandInt(80) + 170) / 500f, 0, 0, 0.18f* 0.649f, 0.335f * 0.73f, gv.sf.RandInt(10000) + 6000, false, 100, gv.mod.fullScreenEffectOpacityWeather, 0, "rain", false, 0);
-                        gv.screenMainMap.spriteList.Add(spr);
+                        float incrementVert = gv.screenHeight / 60;
+                        storedIncrementVert += incrementVert;
+                        storedIncrement = 0;
+                        lifeTimeReduction += 133;
+
+                        for (int i = 1; i < 66; i++)
+                        {
+                            float increment = gv.screenWidth / 60;
+                            storedIncrement += increment;
+
+                            //float incrementVert = gv.screenHeight / 60;
+                            //storedIncrementVert += incrementVert;
+
+                            if (gv.sf.RandInt(100) < rainChance)
+                            {
+                                //int scaleMulti = gv.sf.RandInt(50) + 75;
+                                Sprite spr = new Sprite(gv, "rainDrop", storedIncrement - (gv.squareSize / 2), -(float)(gv.sf.RandInt(10)) + storedIncrementVert, (float)(gv.sf.RandInt(5) + 35) / 650f, (float)(gv.sf.RandInt(80) + 170) / 500f, 0, 0, 0.18f * 0.649f, 0.335f * 0.73f, gv.sf.RandInt(10000) + 6000, false, 100, gv.mod.fullScreenEffectOpacityWeather, 0, "rain", false, 0);
+                                //spr.movesIndependentlyFromPlayerPosition = false;
+                                gv.screenMainMap.spriteList.Add(spr);
+                            }
+                        }
+                    }
+                }
+
+                //XXXXXXXXXXXXXXXXXXXXXXXxxx
+
+                else
+                {
+                    float storedIncrement = 0;
+                    for (int i = 1; i < 61; i++)
+                    {
+                        float increment = gv.screenWidth / 60;
+                        storedIncrement += increment;
+                        if (gv.sf.RandInt(100) < rainChance)
+                        {
+                            Sprite spr = new Sprite(gv, "rainDrop", storedIncrement - (gv.squareSize / 2), -(float)(gv.sf.RandInt(10)), (float)(gv.sf.RandInt(5) + 35) / 650f, (float)(gv.sf.RandInt(80) + 170) / 500f, 0, 0, 0.18f * 0.649f, 0.335f * 0.73f, gv.sf.RandInt(10000) + 6000, false, 100, gv.mod.fullScreenEffectOpacityWeather, 0, "rain", false, 0);
+                            gv.screenMainMap.spriteList.Add(spr);
+                        }
                     }
                 }
             }
@@ -15118,17 +15218,50 @@ namespace IceBlink2
                 }
 
                 //snowshift
-                float storedIncrement = 0;
-                for (int i = 1; i < 66; i++)
+                if (gv.mod.isInitialParticleWave)
                 {
-                    float increment = gv.screenWidth / 60;
-                    storedIncrement += increment;
-                    if (gv.sf.RandInt(100) < snowChance)
+                    float storedIncrement = 0;
+                    float storedIncrementVert = 0;
+                    int lifeTimeReduction = 0;
+                    for (int h = 1; h < 66; h++)
                     {
-                        int scaleMulti = gv.sf.RandInt(50) + 75;
-                        Sprite spr = new Sprite(gv, "snowFlake", storedIncrement - (gv.squareSize *0.5f), -(float)(gv.sf.RandInt(10)) - gv.oYshift*2, 0, (float)(gv.sf.RandInt(80) + 170) / 6000f, 0, 0, 0.325f * scaleMulti/100f, 0.325f * scaleMulti/100f, gv.sf.RandInt(10000) + 20000, false, 100, gv.mod.fullScreenEffectOpacityWeather, 0, "snow", false, 0);
-                        //spr.movesIndependentlyFromPlayerPosition = false;
-                        gv.screenMainMap.spriteList.Add(spr);
+                        float incrementVert = gv.screenHeight / 60;
+                        storedIncrementVert += incrementVert;
+                        storedIncrement = 0;
+                        lifeTimeReduction += 400;
+
+                        for (int i = 1; i < 66; i++)
+                        {
+                            float increment = gv.screenWidth / 60;
+                            storedIncrement += increment;
+
+                            //float incrementVert = gv.screenHeight / 60;
+                            //storedIncrementVert += incrementVert;
+
+                            if (gv.sf.RandInt(100) < snowChance)
+                            {
+                                int scaleMulti = gv.sf.RandInt(50) + 75;
+                                Sprite spr = new Sprite(gv, "snowFlake", storedIncrement - (gv.squareSize * 0.5f), -(float)(gv.sf.RandInt(10)) - gv.oYshift * 2 + storedIncrementVert, 0, (float)(gv.sf.RandInt(80) + 170) / 6000f, 0, 0, 0.325f * scaleMulti / 100f, 0.325f * scaleMulti / 100f, gv.sf.RandInt(10000) + 20000 - lifeTimeReduction, false, 100, gv.mod.fullScreenEffectOpacityWeather, 0, "snow", false, 0);
+                                //spr.movesIndependentlyFromPlayerPosition = false;
+                                gv.screenMainMap.spriteList.Add(spr);
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    float storedIncrement = 0;
+                    for (int i = 1; i < 66; i++)
+                    {
+                        float increment = gv.screenWidth / 60;
+                        storedIncrement += increment;
+                        if (gv.sf.RandInt(100) < snowChance)
+                        {
+                            int scaleMulti = gv.sf.RandInt(50) + 75;
+                            Sprite spr = new Sprite(gv, "snowFlake", storedIncrement - (gv.squareSize * 0.5f), -(float)(gv.sf.RandInt(10)) - gv.oYshift * 2, 0, (float)(gv.sf.RandInt(80) + 170) / 6000f, 0, 0, 0.325f * scaleMulti / 100f, 0.325f * scaleMulti / 100f, gv.sf.RandInt(10000) + 20000, false, 100, gv.mod.fullScreenEffectOpacityWeather, 0, "snow", false, 0);
+                            //spr.movesIndependentlyFromPlayerPosition = false;
+                            gv.screenMainMap.spriteList.Add(spr);
+                        }
                     }
                 }
             }
@@ -15191,7 +15324,7 @@ namespace IceBlink2
                     for (int i = 1; i < 61; i++)
                     {
                         float increment = (gv.screenHeight) / 60;
-                        storedIncrement += increment;
+                         storedIncrement += increment;
                         if (gv.sf.RandInt(100) < sandstormChance)
                         {
                             int scaleMulti = gv.sf.RandInt(50) + 75;

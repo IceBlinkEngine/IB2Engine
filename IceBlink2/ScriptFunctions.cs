@@ -4705,7 +4705,7 @@ namespace IceBlink2
                             if (gv.sf.CheckPassSkill(parm1, p1, parm2 + darkAdder, true, true))
                             {
                                 gv.mod.drawPartyDirection = "none";
-                              
+
                                 //north
                                 if (jumpToNorth)
                                 {
@@ -4741,9 +4741,9 @@ namespace IceBlink2
                                 {
                                     if (gv.sf.ThisProp.LocationX - 1 >= 0)
                                     {
-                                        if (gv.mod.currentArea.Tiles[(gv.sf.ThisProp.LocationY) * gv.mod.currentArea.MapSizeX + gv.sf.ThisProp.LocationX-1].Walkable && (gv.mod.currentArea.Tiles[(gv.sf.ThisProp.LocationY) * gv.mod.currentArea.MapSizeX + gv.sf.ThisProp.LocationX -1].heightLevel <= gv.mod.currentArea.Tiles[(gv.mod.PlayerLocationY) * gv.mod.currentArea.MapSizeX + gv.mod.PlayerLocationX].heightLevel))
+                                        if (gv.mod.currentArea.Tiles[(gv.sf.ThisProp.LocationY) * gv.mod.currentArea.MapSizeX + gv.sf.ThisProp.LocationX - 1].Walkable && (gv.mod.currentArea.Tiles[(gv.sf.ThisProp.LocationY) * gv.mod.currentArea.MapSizeX + gv.sf.ThisProp.LocationX - 1].heightLevel <= gv.mod.currentArea.Tiles[(gv.mod.PlayerLocationY) * gv.mod.currentArea.MapSizeX + gv.mod.PlayerLocationX].heightLevel))
                                         {
-                                            gv.mod.PlayerLocationX = gv.sf.ThisProp.LocationX-1;
+                                            gv.mod.PlayerLocationX = gv.sf.ThisProp.LocationX - 1;
                                             gv.mod.PlayerLocationY = gv.sf.ThisProp.LocationY;
                                             //gv.mod.PlayerFacingLeft = true;
                                             foreach (Player pc in gv.mod.playerList)
@@ -4761,9 +4761,9 @@ namespace IceBlink2
                                 {
                                     if (gv.sf.ThisProp.LocationX + 1 < gv.mod.currentArea.MapSizeX)
                                     {
-                                        if (gv.mod.currentArea.Tiles[(gv.sf.ThisProp.LocationY) * gv.mod.currentArea.MapSizeX + gv.sf.ThisProp.LocationX+1].Walkable && (gv.mod.currentArea.Tiles[(gv.sf.ThisProp.LocationY) * gv.mod.currentArea.MapSizeX + gv.sf.ThisProp.LocationX+1].heightLevel <= gv.mod.currentArea.Tiles[(gv.mod.PlayerLocationY) * gv.mod.currentArea.MapSizeX + gv.mod.PlayerLocationX].heightLevel))
+                                        if (gv.mod.currentArea.Tiles[(gv.sf.ThisProp.LocationY) * gv.mod.currentArea.MapSizeX + gv.sf.ThisProp.LocationX + 1].Walkable && (gv.mod.currentArea.Tiles[(gv.sf.ThisProp.LocationY) * gv.mod.currentArea.MapSizeX + gv.sf.ThisProp.LocationX + 1].heightLevel <= gv.mod.currentArea.Tiles[(gv.mod.PlayerLocationY) * gv.mod.currentArea.MapSizeX + gv.mod.PlayerLocationX].heightLevel))
                                         {
-                                            gv.mod.PlayerLocationX = gv.sf.ThisProp.LocationX+1;
+                                            gv.mod.PlayerLocationX = gv.sf.ThisProp.LocationX + 1;
                                             gv.mod.PlayerLocationY = gv.sf.ThisProp.LocationY;
                                             //gv.mod.PlayerFacingLeft = false;
                                             foreach (Player pc in gv.mod.playerList)
@@ -4800,6 +4800,11 @@ namespace IceBlink2
                             }
 
                         }//end of ontop
+                    }
+                    else if (filename.Equals("gaPushObject.cs"))
+                    {
+                        //todo 
+                        pushObject();
                     }
                     else if (filename.Equals("gaOpenObject.cs"))
                     {
@@ -5095,7 +5100,7 @@ namespace IceBlink2
                             if (!gv.sf.ThisProp.isContainer)
                             {
                                 gv.sf.ThisProp.isActive = false;
-                            } 
+                            }
 
                             //allow to pass through the prop
                             gv.sf.ThisProp.HasCollision = false;
@@ -5509,7 +5514,7 @@ namespace IceBlink2
                         gv.mod.partyFocalHaloIntensity = parm3;
                         //if (gv.mod.noHaloForParty)
                         //{
-                            //gv.mod.partyFocalHaloIntensity = 0;
+                        //gv.mod.partyFocalHaloIntensity = 0;
                         //}
                         gv.mod.partyRingHaloIntensity = parm4;
                         gv.cc.doUpdate();
@@ -6458,7 +6463,7 @@ namespace IceBlink2
 
                                 }
                             }
-                          
+
 
                             //floaty in case tile gets transparent
                             if ((p4 != null && p4 != "none" && p4 != ""))
@@ -6468,7 +6473,7 @@ namespace IceBlink2
                             }
                         }
                     }
-                   
+
                     else if (filename.Equals("gaToggleAreaSquareWalkable.cs"))
                     {
                         int x = Convert.ToInt32(p1);
@@ -8389,6 +8394,872 @@ namespace IceBlink2
                 }
             }
         }
+
+
+        public void pushObject()
+        {
+            Trigger tTemp = new Trigger();
+            foreach (Trigger t in gv.mod.currentArea.Triggers)
+            {
+                if (t.TriggerTag == gv.sf.ThisProp.pushableGridTriggerTag)
+                {
+                    tTemp = t;
+                }
+            }
+
+            //pushing upwards
+            if (ThisProp.LocationY < gv.mod.PlayerLocationY && ThisProp.LocationX == gv.mod.PlayerLocationX)
+            { 
+                bool insideGrid = false;
+                foreach (Coordinate c in tTemp.TriggerSquaresList)
+                {
+                    if (c.Y == (ThisProp.LocationY - 1) && c.X == ThisProp.LocationX)
+                    {
+                        insideGrid = true;
+                        if (!gv.mod.currentArea.GetBlocked(gv.mod.currentArea, ThisProp.LocationX, ThisProp.LocationY - 1, ThisProp.LocationX, ThisProp.LocationY, ThisProp.LocationX, ThisProp.LocationY + 1))
+                        {
+                            //skill check
+                            //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                            string traitName = "";
+
+                            string traitMethod = "leader";
+                            foreach (Trait t in gv.mod.moduleTraitsList)
+                            {
+                                if (t.tag.Contains(ThisProp.pushableTraitTag))
+                                {
+                                    traitMethod = t.methodOfChecking;
+                                    traitName = t.nameOfTraitGroup;
+                                }
+                            }
+                            int parm1 = gv.mod.selectedPartyLeader;
+                            if (traitMethod.Equals("-1") || traitMethod.Equals("leader") || traitMethod.Equals("Leader"))
+                            {
+                                parm1 = gv.mod.selectedPartyLeader;
+                            }
+                            else if (traitMethod.Equals("-2") || traitMethod.Equals("highest") || traitMethod.Equals("Highest"))
+                            {
+                                parm1 = -2;
+                            }
+                            else if (traitMethod.Equals("-3") || traitMethod.Equals("lowest") || traitMethod.Equals("Lowest"))
+                            {
+                                parm1 = -3;
+                            }
+                            else if (traitMethod.Equals("-4") || traitMethod.Equals("average") || traitMethod.Equals("Average"))
+                            {
+                                parm1 = -4;
+                            }
+                            else if (traitMethod.Equals("-5") || traitMethod.Equals("allMustSucceed") || traitMethod.Equals("AllMustSucceed"))
+                            {
+                                parm1 = -5;
+                            }
+                            else if (traitMethod.Equals("-6") || traitMethod.Equals("oneMustSucceed") || traitMethod.Equals("OneMustSucceed"))
+                            {
+                                parm1 = -6;
+                            }
+
+                            int darkAdder = 0;
+                            /*
+                            if (CheckPropByTagIsInDarknessPerArea(ThisProp.PropTag, "night", gv.mod.currentArea.Filename))
+                            {
+                                darkAdder = 4;
+                            }
+                            if (CheckPropByTagIsInDarknessPerArea(ThisProp.PropTag, "noLight", gv.mod.currentArea.Filename))
+                            {
+                                darkAdder = 12;
+                            }
+                            */
+                            if (CheckPassSkill(parm1, ThisProp.pushableTraitTag, ThisProp.pushableDC + darkAdder, true, true))
+                            {
+
+                                //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+
+                                 //move object
+                                ThisProp.LocationY--;
+
+                                //move party after object
+                                //gv.screenMainMap.moveUp();
+
+                                //create list with all target coordinates
+                                List<Coordinate> targets = new List<Coordinate>();
+                                foreach (Prop p in gv.mod.currentArea.Props)
+                                {
+                                    if (p.isPushable && p.pushableGridTriggerTag == tTemp.TriggerTag)
+                                    {
+                                        Coordinate tCoord = new Coordinate();
+                                        tCoord.X = p.pushableTargetPositionX;
+                                        tCoord.Y = p.pushableTargetPositionY;
+                                        targets.Add(tCoord);
+                                    }
+                                }
+                                //check for error (with specific targte squaeres)
+                                //todo
+                                if (!ThisProp.allPushableGridTargetPositionsAreShared)
+                                {
+                                    foreach (Coordinate tCoord in targets)
+                                    {
+                                        if (ThisProp.LocationX == tCoord.X && ThisProp.LocationY == tCoord.Y)
+                                        {
+                                            if (ThisProp.LocationX != ThisProp.pushableTargetPositionX && ThisProp.LocationY != ThisProp.pushableTargetPositionY)
+                                            {
+                                                doPushableFailure();
+                                                break;
+                                            }
+                                        }
+                                    }
+                                }
+                                //check for success
+                                //todo
+                                //all reached their specific psotion
+                                if (!ThisProp.allPushableGridTargetPositionsAreShared)
+                                {
+                                    bool allArrived = true;
+                                    foreach (Prop p in gv.mod.currentArea.Props)
+                                    {
+                                        if (p.isPushable && p.pushableGridTriggerTag == tTemp.TriggerTag)
+                                        {
+                                            if (p.pushableTargetPositionX == p.LocationX && p.pushableTargetPositionY == p.LocationY)
+                                            {
+
+                                            }
+                                            else
+                                            {
+                                                allArrived = false;
+                                                break;
+                                            }
+                                        }
+                                    }
+                                    if (allArrived)
+                                    {
+                                        doPushableSuccess();
+                                    }
+                                }
+                                //all reached one of the target squares
+                                else
+                                {
+                                    bool allArrived = true;
+                                    foreach (Prop p in gv.mod.currentArea.Props)
+                                    {
+                                        if (p.isPushable && p.pushableGridTriggerTag == tTemp.TriggerTag)
+                                        {
+                                            bool thisOneArrived = false;
+                                            foreach (Coordinate Coord in targets)
+                                            {
+                                                if (Coord.X == p.LocationX && Coord.Y == p.LocationY)
+                                                {
+                                                    thisOneArrived = true;
+                                                }
+                                            }
+                                            if (thisOneArrived == false)
+                                            {
+                                                allArrived = false;
+                                                break;
+                                            }
+                                        }
+                                    }
+
+                                    if (allArrived)
+                                    {
+                                        doPushableSuccess();
+                                    }
+                                }
+
+                                //move party after object
+                                gv.mod.wasSuccessfulPush = true;
+                                gv.screenMainMap.moveUp();
+                                //gv.mod.PlayerLocationY--;
+                                //partytail
+                            }
+                            //failed ckill check
+                            else
+                            {
+                                //anthem
+                                gv.screenMainMap.addFloatyText(ThisProp.LocationX, ThisProp.LocationY, "Failure: " + ThisProp.pushableTraitTag + " level " + (ThisProp.pushableDC + darkAdder - 10).ToString() + " required", "red", 2000);
+                                gv.cc.addLogText("red", "Failure: " + ThisProp.pushableTraitTag + " level " + (ThisProp.pushableDC + darkAdder - 10).ToString() + " required");
+
+                                //gv.screenMainMap.addFloatyText(gv.mod.PlayerLocationX, gv.mod.PlayerLocationY, "Not possible to push it further...", "red", 2000);
+                                //gv.cc.addLogText("red", "Not possible to push it further...");
+
+                            }
+                        }
+                        break;
+                    }
+                }
+                //outside grid attempt message
+                if (!insideGrid)
+                {
+                    gv.screenMainMap.addFloatyText(gv.mod.PlayerLocationX, gv.mod.PlayerLocationY, "Not possible to push it further...", "red", 2000);
+                    gv.cc.addLogText("red", "Not possible to push it further...");
+
+                }
+                //}
+            }
+            //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+            //pushing left (west)
+            if (ThisProp.LocationX < gv.mod.PlayerLocationX && ThisProp.LocationY == gv.mod.PlayerLocationY)
+            {
+                bool insideGrid = false;
+                foreach (Coordinate c in tTemp.TriggerSquaresList)
+                {
+                    if (c.Y == (ThisProp.LocationY) && c.X == (ThisProp.LocationX-1))
+                    {
+                        insideGrid = true;
+                        if (!gv.mod.currentArea.GetBlocked(gv.mod.currentArea, ThisProp.LocationX, ThisProp.LocationY, ThisProp.LocationX-1, ThisProp.LocationY, ThisProp.LocationX+1, ThisProp.LocationY))
+                        {
+                            //skill check
+                            //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                            string traitName = "";
+
+                            string traitMethod = "leader";
+                            foreach (Trait t in gv.mod.moduleTraitsList)
+                            {
+                                if (t.tag.Contains(ThisProp.pushableTraitTag))
+                                {
+                                    traitMethod = t.methodOfChecking;
+                                    traitName = t.nameOfTraitGroup;
+                                }
+                            }
+                            int parm1 = gv.mod.selectedPartyLeader;
+                            if (traitMethod.Equals("-1") || traitMethod.Equals("leader") || traitMethod.Equals("Leader"))
+                            {
+                                parm1 = gv.mod.selectedPartyLeader;
+                            }
+                            else if (traitMethod.Equals("-2") || traitMethod.Equals("highest") || traitMethod.Equals("Highest"))
+                            {
+                                parm1 = -2;
+                            }
+                            else if (traitMethod.Equals("-3") || traitMethod.Equals("lowest") || traitMethod.Equals("Lowest"))
+                            {
+                                parm1 = -3;
+                            }
+                            else if (traitMethod.Equals("-4") || traitMethod.Equals("average") || traitMethod.Equals("Average"))
+                            {
+                                parm1 = -4;
+                            }
+                            else if (traitMethod.Equals("-5") || traitMethod.Equals("allMustSucceed") || traitMethod.Equals("AllMustSucceed"))
+                            {
+                                parm1 = -5;
+                            }
+                            else if (traitMethod.Equals("-6") || traitMethod.Equals("oneMustSucceed") || traitMethod.Equals("OneMustSucceed"))
+                            {
+                                parm1 = -6;
+                            }
+
+                            int darkAdder = 0;
+                            /*
+                            if (CheckPropByTagIsInDarknessPerArea(ThisProp.PropTag, "night", gv.mod.currentArea.Filename))
+                            {
+                                darkAdder = 4;
+                            }
+                            if (CheckPropByTagIsInDarknessPerArea(ThisProp.PropTag, "noLight", gv.mod.currentArea.Filename))
+                            {
+                                darkAdder = 12;
+                            }
+                            */
+                            if (CheckPassSkill(parm1, ThisProp.pushableTraitTag, ThisProp.pushableDC + darkAdder, true, true))
+                            {
+
+                                //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+
+                                //move object
+                                ThisProp.LocationX--;
+
+                                //move party after object
+                                //gv.screenMainMap.moveUp();
+
+                                //create list with all target coordinates
+                                List<Coordinate> targets = new List<Coordinate>();
+                                foreach (Prop p in gv.mod.currentArea.Props)
+                                {
+                                    if (p.isPushable && p.pushableGridTriggerTag == tTemp.TriggerTag)
+                                    {
+                                        Coordinate tCoord = new Coordinate();
+                                        tCoord.X = p.pushableTargetPositionX;
+                                        tCoord.Y = p.pushableTargetPositionY;
+                                        targets.Add(tCoord);
+                                    }
+                                }
+                                //check for error (with specific targte squaeres)
+                                //todo
+                                if (!ThisProp.allPushableGridTargetPositionsAreShared)
+                                {
+                                    foreach (Coordinate tCoord in targets)
+                                    {
+                                        if (ThisProp.LocationX == tCoord.X && ThisProp.LocationY == tCoord.Y)
+                                        {
+                                            if (ThisProp.LocationX != ThisProp.pushableTargetPositionX && ThisProp.LocationY != ThisProp.pushableTargetPositionY)
+                                            {
+                                                doPushableFailure();
+                                                break;
+                                            }
+                                        }
+                                    }
+                                }
+                                //check for success
+                                //todo
+                                //all reached their specific psotion
+                                if (!ThisProp.allPushableGridTargetPositionsAreShared)
+                                {
+                                    bool allArrived = true;
+                                    foreach (Prop p in gv.mod.currentArea.Props)
+                                    {
+                                        if (p.isPushable && p.pushableGridTriggerTag == tTemp.TriggerTag)
+                                        {
+                                            if (p.pushableTargetPositionX == p.LocationX && p.pushableTargetPositionY == p.LocationY)
+                                            {
+
+                                            }
+                                            else
+                                            {
+                                                allArrived = false;
+                                                break;
+                                            }
+                                        }
+                                    }
+                                    if (allArrived)
+                                    {
+                                        doPushableSuccess();
+                                    }
+                                }
+                                //all reached one of the target squares
+                                else
+                                {
+                                    bool allArrived = true;
+                                    foreach (Prop p in gv.mod.currentArea.Props)
+                                    {
+                                        if (p.isPushable && p.pushableGridTriggerTag == tTemp.TriggerTag)
+                                        {
+                                            bool thisOneArrived = false;
+                                            foreach (Coordinate Coord in targets)
+                                            {
+                                                if (Coord.X == p.LocationX && Coord.Y == p.LocationY)
+                                                {
+                                                    thisOneArrived = true;
+                                                }
+                                            }
+                                            if (thisOneArrived == false)
+                                            {
+                                                allArrived = false;
+                                                break;
+                                            }
+                                        }
+                                    }
+
+                                    if (allArrived)
+                                    {
+                                        doPushableSuccess();
+                                    }
+                                }
+
+                                //move party after object
+                                gv.mod.wasSuccessfulPush = true;
+                                gv.screenMainMap.moveLeft();
+                                //gv.mod.PlayerLocationY--;
+                                //partytail
+                            }
+                            //failed ckill check
+                            else
+                            {
+                                //anthem
+                                gv.screenMainMap.addFloatyText(ThisProp.LocationX, ThisProp.LocationY, "Failure: " + ThisProp.pushableTraitTag + " level " + (ThisProp.pushableDC + darkAdder - 10).ToString() + " required", "red", 2000);
+                                gv.cc.addLogText("red", "Failure: " + ThisProp.pushableTraitTag + " level " + (ThisProp.pushableDC + darkAdder - 10).ToString() + " required");
+
+                                //gv.screenMainMap.addFloatyText(gv.mod.PlayerLocationX, gv.mod.PlayerLocationY, "Not possible to push it further...", "red", 2000);
+                                //gv.cc.addLogText("red", "Not possible to push it further...");
+
+                            }
+                        }
+                        break;
+                    }
+                }
+                //outside grid attempt message
+                if (!insideGrid)
+                {
+                    gv.screenMainMap.addFloatyText(gv.mod.PlayerLocationX, gv.mod.PlayerLocationY, "Not possible to push it further...", "red", 2000);
+                    gv.cc.addLogText("red", "Not possible to push it further...");
+
+                }
+                //}
+            }
+            //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+            //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+            //pushing right (east)
+            if (ThisProp.LocationX > gv.mod.PlayerLocationX && ThisProp.LocationY == gv.mod.PlayerLocationY)
+            {
+                bool insideGrid = false;
+                foreach (Coordinate c in tTemp.TriggerSquaresList)
+                {
+                    if (c.Y == (ThisProp.LocationY) && c.X == (ThisProp.LocationX + 1))
+                    {
+                        insideGrid = true;
+                        if (!gv.mod.currentArea.GetBlocked(gv.mod.currentArea, ThisProp.LocationX, ThisProp.LocationY, ThisProp.LocationX + 1, ThisProp.LocationY, ThisProp.LocationX - 1, ThisProp.LocationY))
+                        {
+                            //skill check
+                            //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                            string traitName = "";
+
+                            string traitMethod = "leader";
+                            foreach (Trait t in gv.mod.moduleTraitsList)
+                            {
+                                if (t.tag.Contains(ThisProp.pushableTraitTag))
+                                {
+                                    traitMethod = t.methodOfChecking;
+                                    traitName = t.nameOfTraitGroup;
+                                }
+                            }
+                            int parm1 = gv.mod.selectedPartyLeader;
+                            if (traitMethod.Equals("-1") || traitMethod.Equals("leader") || traitMethod.Equals("Leader"))
+                            {
+                                parm1 = gv.mod.selectedPartyLeader;
+                            }
+                            else if (traitMethod.Equals("-2") || traitMethod.Equals("highest") || traitMethod.Equals("Highest"))
+                            {
+                                parm1 = -2;
+                            }
+                            else if (traitMethod.Equals("-3") || traitMethod.Equals("lowest") || traitMethod.Equals("Lowest"))
+                            {
+                                parm1 = -3;
+                            }
+                            else if (traitMethod.Equals("-4") || traitMethod.Equals("average") || traitMethod.Equals("Average"))
+                            {
+                                parm1 = -4;
+                            }
+                            else if (traitMethod.Equals("-5") || traitMethod.Equals("allMustSucceed") || traitMethod.Equals("AllMustSucceed"))
+                            {
+                                parm1 = -5;
+                            }
+                            else if (traitMethod.Equals("-6") || traitMethod.Equals("oneMustSucceed") || traitMethod.Equals("OneMustSucceed"))
+                            {
+                                parm1 = -6;
+                            }
+
+                            int darkAdder = 0;
+                            /*
+                            if (CheckPropByTagIsInDarknessPerArea(ThisProp.PropTag, "night", gv.mod.currentArea.Filename))
+                            {
+                                darkAdder = 4;
+                            }
+                            if (CheckPropByTagIsInDarknessPerArea(ThisProp.PropTag, "noLight", gv.mod.currentArea.Filename))
+                            {
+                                darkAdder = 12;
+                            }
+                            */
+                            if (CheckPassSkill(parm1, ThisProp.pushableTraitTag, ThisProp.pushableDC + darkAdder, true, true))
+                            {
+
+                                //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+
+                                //move object
+                                ThisProp.LocationX++;
+
+                                //move party after object
+                                //gv.screenMainMap.moveUp();
+
+                                //create list with all target coordinates
+                                List<Coordinate> targets = new List<Coordinate>();
+                                foreach (Prop p in gv.mod.currentArea.Props)
+                                {
+                                    if (p.isPushable && p.pushableGridTriggerTag == tTemp.TriggerTag)
+                                    {
+                                        Coordinate tCoord = new Coordinate();
+                                        tCoord.X = p.pushableTargetPositionX;
+                                        tCoord.Y = p.pushableTargetPositionY;
+                                        targets.Add(tCoord);
+                                    }
+                                }
+                                //check for error (with specific targte squaeres)
+                                //todo
+                                if (!ThisProp.allPushableGridTargetPositionsAreShared)
+                                {
+                                    foreach (Coordinate tCoord in targets)
+                                    {
+                                        if (ThisProp.LocationX == tCoord.X && ThisProp.LocationY == tCoord.Y)
+                                        {
+                                            if (ThisProp.LocationX != ThisProp.pushableTargetPositionX && ThisProp.LocationY != ThisProp.pushableTargetPositionY)
+                                            {
+                                                doPushableFailure();
+                                                break;
+                                            }
+                                        }
+                                    }
+                                }
+                                //check for success
+                                //todo
+                                //all reached their specific psotion
+                                if (!ThisProp.allPushableGridTargetPositionsAreShared)
+                                {
+                                    bool allArrived = true;
+                                    foreach (Prop p in gv.mod.currentArea.Props)
+                                    {
+                                        if (p.isPushable && p.pushableGridTriggerTag == tTemp.TriggerTag)
+                                        {
+                                            if (p.pushableTargetPositionX == p.LocationX && p.pushableTargetPositionY == p.LocationY)
+                                            {
+
+                                            }
+                                            else
+                                            {
+                                                allArrived = false;
+                                                break;
+                                            }
+                                        }
+                                    }
+                                    if (allArrived)
+                                    {
+                                        doPushableSuccess();
+                                    }
+                                }
+                                //all reached one of the target squares
+                                else
+                                {
+                                    bool allArrived = true;
+                                    foreach (Prop p in gv.mod.currentArea.Props)
+                                    {
+                                        if (p.isPushable && p.pushableGridTriggerTag == tTemp.TriggerTag)
+                                        {
+                                            bool thisOneArrived = false;
+                                            foreach (Coordinate Coord in targets)
+                                            {
+                                                if (Coord.X == p.LocationX && Coord.Y == p.LocationY)
+                                                {
+                                                    thisOneArrived = true;
+                                                }
+                                            }
+                                            if (thisOneArrived == false)
+                                            {
+                                                allArrived = false;
+                                                break;
+                                            }
+                                        }
+                                    }
+
+                                    if (allArrived)
+                                    {
+                                        doPushableSuccess();
+                                    }
+                                }
+
+                                //move party after object
+                                gv.mod.wasSuccessfulPush = true;
+                                gv.screenMainMap.moveRight();
+                                //gv.mod.PlayerLocationY--;
+                                //partytail
+                            }
+                            //failed ckill check
+                            else
+                            {
+                                //anthem
+                                gv.screenMainMap.addFloatyText(ThisProp.LocationX, ThisProp.LocationY, "Failure: " + ThisProp.pushableTraitTag + " level " + (ThisProp.pushableDC + darkAdder - 10).ToString() + " required", "red", 2000);
+                                gv.cc.addLogText("red", "Failure: " + ThisProp.pushableTraitTag + " level " + (ThisProp.pushableDC + darkAdder - 10).ToString() + " required");
+
+                                //gv.screenMainMap.addFloatyText(gv.mod.PlayerLocationX, gv.mod.PlayerLocationY, "Not possible to push it further...", "red", 2000);
+                                //gv.cc.addLogText("red", "Not possible to push it further...");
+
+                            }
+                        }
+                        break;
+                    }
+                }
+                //outside grid attempt message
+                if (!insideGrid)
+                {
+                    gv.screenMainMap.addFloatyText(gv.mod.PlayerLocationX, gv.mod.PlayerLocationY, "Not possible to push it further...", "red", 2000);
+                    gv.cc.addLogText("red", "Not possible to push it further...");
+
+                }
+                //}
+            }
+
+            //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+            //pushing downards
+            if (ThisProp.LocationY > gv.mod.PlayerLocationY && ThisProp.LocationX == gv.mod.PlayerLocationX)
+            {
+                bool insideGrid = false;
+                foreach (Coordinate c in tTemp.TriggerSquaresList)
+                {
+                    if (c.Y == (ThisProp.LocationY + 1) && c.X == ThisProp.LocationX)
+                    {
+                        insideGrid = true;
+                        if (!gv.mod.currentArea.GetBlocked(gv.mod.currentArea, ThisProp.LocationX, ThisProp.LocationY + 1, ThisProp.LocationX, ThisProp.LocationY, ThisProp.LocationX, ThisProp.LocationY - 1))
+                        {
+                            //skill check
+                            //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                            string traitName = "";
+
+                            string traitMethod = "leader";
+                            foreach (Trait t in gv.mod.moduleTraitsList)
+                            {
+                                if (t.tag.Contains(ThisProp.pushableTraitTag))
+                                {
+                                    traitMethod = t.methodOfChecking;
+                                    traitName = t.nameOfTraitGroup;
+                                }
+                            }
+                            int parm1 = gv.mod.selectedPartyLeader;
+                            if (traitMethod.Equals("-1") || traitMethod.Equals("leader") || traitMethod.Equals("Leader"))
+                            {
+                                parm1 = gv.mod.selectedPartyLeader;
+                            }
+                            else if (traitMethod.Equals("-2") || traitMethod.Equals("highest") || traitMethod.Equals("Highest"))
+                            {
+                                parm1 = -2;
+                            }
+                            else if (traitMethod.Equals("-3") || traitMethod.Equals("lowest") || traitMethod.Equals("Lowest"))
+                            {
+                                parm1 = -3;
+                            }
+                            else if (traitMethod.Equals("-4") || traitMethod.Equals("average") || traitMethod.Equals("Average"))
+                            {
+                                parm1 = -4;
+                            }
+                            else if (traitMethod.Equals("-5") || traitMethod.Equals("allMustSucceed") || traitMethod.Equals("AllMustSucceed"))
+                            {
+                                parm1 = -5;
+                            }
+                            else if (traitMethod.Equals("-6") || traitMethod.Equals("oneMustSucceed") || traitMethod.Equals("OneMustSucceed"))
+                            {
+                                parm1 = -6;
+                            }
+
+                            int darkAdder = 0;
+                            /*
+                            if (CheckPropByTagIsInDarknessPerArea(ThisProp.PropTag, "night", gv.mod.currentArea.Filename))
+                            {
+                                darkAdder = 4;
+                            }
+                            if (CheckPropByTagIsInDarknessPerArea(ThisProp.PropTag, "noLight", gv.mod.currentArea.Filename))
+                            {
+                                darkAdder = 12;
+                            }
+                            */
+                            if (CheckPassSkill(parm1, ThisProp.pushableTraitTag, ThisProp.pushableDC + darkAdder, true, true))
+                            {
+
+                                //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+
+                                //move object
+                                ThisProp.LocationY++;
+
+                                //move party after object
+                                //gv.screenMainMap.moveUp();
+
+                                //create list with all target coordinates
+                                List<Coordinate> targets = new List<Coordinate>();
+                                foreach (Prop p in gv.mod.currentArea.Props)
+                                {
+                                    if (p.isPushable && p.pushableGridTriggerTag == tTemp.TriggerTag)
+                                    {
+                                        Coordinate tCoord = new Coordinate();
+                                        tCoord.X = p.pushableTargetPositionX;
+                                        tCoord.Y = p.pushableTargetPositionY;
+                                        targets.Add(tCoord);
+                                    }
+                                }
+                                //check for error (with specific targte squaeres)
+                                //todo
+                                if (!ThisProp.allPushableGridTargetPositionsAreShared)
+                                {
+                                    foreach (Coordinate tCoord in targets)
+                                    {
+                                        if (ThisProp.LocationX == tCoord.X && ThisProp.LocationY == tCoord.Y)
+                                        {
+                                            if (ThisProp.LocationX != ThisProp.pushableTargetPositionX && ThisProp.LocationY != ThisProp.pushableTargetPositionY)
+                                            {
+                                                doPushableFailure();
+                                                break;
+                                            }
+                                        }
+                                    }
+                                }
+                                //check for success
+                                //todo
+                                //all reached their specific psotion
+                                if (!ThisProp.allPushableGridTargetPositionsAreShared)
+                                {
+                                    bool allArrived = true;
+                                    foreach (Prop p in gv.mod.currentArea.Props)
+                                    {
+                                        if (p.isPushable && p.pushableGridTriggerTag == tTemp.TriggerTag)
+                                        {
+                                            if (p.pushableTargetPositionX == p.LocationX && p.pushableTargetPositionY == p.LocationY)
+                                            {
+
+                                            }
+                                            else
+                                            {
+                                                allArrived = false;
+                                                break;
+                                            }
+                                        }
+                                    }
+                                    if (allArrived)
+                                    {
+                                        doPushableSuccess();
+                                    }
+                                }
+                                //all reached one of the target squares
+                                else
+                                {
+                                    bool allArrived = true;
+                                    foreach (Prop p in gv.mod.currentArea.Props)
+                                    {
+                                        if (p.isPushable && p.pushableGridTriggerTag == tTemp.TriggerTag)
+                                        {
+                                            bool thisOneArrived = false;
+                                            foreach (Coordinate Coord in targets)
+                                            {
+                                                if (Coord.X == p.LocationX && Coord.Y == p.LocationY)
+                                                {
+                                                    thisOneArrived = true;
+                                                }
+                                            }
+                                            if (thisOneArrived == false)
+                                            {
+                                                allArrived = false;
+                                                break;
+                                            }
+                                        }
+                                    }
+
+                                    if (allArrived)
+                                    {
+                                        doPushableSuccess();
+                                    }
+                                }
+
+                                //move party after object
+                                gv.mod.wasSuccessfulPush = true;
+                                gv.screenMainMap.moveDown();
+                                //gv.mod.PlayerLocationY--;
+                                //partytail
+                            }
+                            //failed ckill check
+                            else
+                            {
+                                //anthem
+                                gv.screenMainMap.addFloatyText(ThisProp.LocationX, ThisProp.LocationY, "Failure: " + ThisProp.pushableTraitTag + " level " + (ThisProp.pushableDC + darkAdder - 10).ToString() + " required", "red", 2000);
+                                gv.cc.addLogText("red", "Failure: " + ThisProp.pushableTraitTag + " level " + (ThisProp.pushableDC + darkAdder - 10).ToString() + " required");
+
+                                //gv.screenMainMap.addFloatyText(gv.mod.PlayerLocationX, gv.mod.PlayerLocationY, "Not possible to push it further...", "red", 2000);
+                                //gv.cc.addLogText("red", "Not possible to push it further...");
+
+                            }
+                        }
+                        break;
+                    }
+                }
+                //outside grid attempt message
+                if (!insideGrid)
+                {
+                    gv.screenMainMap.addFloatyText(gv.mod.PlayerLocationX, gv.mod.PlayerLocationY, "Not possible to push it further...", "red", 2000);
+                    gv.cc.addLogText("red", "Not possible to push it further...");
+
+                }
+                //}
+            }
+            //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+        }
+
+        public void doPushableSuccess()
+        {
+            //lock grid?
+            if (ThisProp.lockGridOnCompletion)
+            {
+                foreach (Prop p in gv.mod.currentArea.Props)
+                {
+                    if (p.pushableGridTriggerTag == ThisProp.pushableGridTriggerTag)
+                    {
+                        p.isPushable = false;
+                        //p.showPushableGridOutline = false;
+                    }
+                }
+            }
+
+            //remove props?
+            if (ThisProp.removeGridOnCompletion)
+            {
+                foreach (Prop p in gv.mod.currentArea.Props)
+                {
+                    if (p.pushableGridTriggerTag == ThisProp.pushableGridTriggerTag)
+                    {
+                        p.isPushable = false;
+                        p.isShown = false;
+                        p.isActive = false;
+                        p.HasCollision = false;
+                        //p.showPushableGridOutline = false;
+                    }
+                }
+            }
+
+            //messaging?
+            if (ThisProp.messageOnCompletion != "none")
+            {
+                gv.screenMainMap.addFloatyText(gv.mod.PlayerLocationX, gv.mod.PlayerLocationY, ThisProp.messageOnCompletion, "green", 3000);
+                gv.cc.addLogText("lime", ThisProp.messageOnCompletion);
+            }
+
+            //global key and value
+            if (ThisProp.keyOfGlobalIntToChangeUponPushableGridCompletion != "none")
+            {
+                SetGlobalInt(ThisProp.keyOfGlobalIntToChangeUponPushableGridCompletion, ThisProp.valueOfGlobalIntToChangeUponPushableGridCompletion.ToString());
+            }
+
+            if (!ThisProp.pushableGridCanBeResetEvenAfterCompletion)
+            {
+                foreach (Prop p in gv.mod.currentArea.Props)
+                {
+                    if (p.pushableGridTriggerTag == ThisProp.pushableGridTriggerTag)
+                    {
+                        p.pushableGridCanBeResetViaHotkey = false;
+                    }
+                }
+            }
+        }
+
+        public void doPushableFailure()
+        {
+
+            //lock grid?
+            if (ThisProp.lockGridOnFailure)
+            {
+                foreach (Prop p in gv.mod.currentArea.Props)
+                {
+                    if (p.pushableGridTriggerTag == ThisProp.pushableGridTriggerTag)
+                    {
+                        p.isPushable = false;
+                        //p.showPushableGridOutline = false;
+                    }
+                }
+            }
+            //remove props?
+            if (ThisProp.removeGridOnFailure)
+            {
+                foreach (Prop p in gv.mod.currentArea.Props)
+                {
+                    if (p.pushableGridTriggerTag == ThisProp.pushableGridTriggerTag)
+                    {
+                        p.isPushable = false;
+                        p.isShown = false;
+                        p.isActive = false;
+                        p.HasCollision = false;
+                        //p.showPushableGridOutline = false;
+                    }
+                }
+            }
+
+            //messaging?
+            if (ThisProp.messageOnFailure != "none")
+            {
+                gv.screenMainMap.addFloatyText(gv.mod.PlayerLocationX, gv.mod.PlayerLocationY, ThisProp.messageOnFailure, "red", 3000);
+                gv.cc.addLogText("red", ThisProp.messageOnFailure);
+            }
+
+            //global key and value
+            if (ThisProp.keyOfGlobalIntToChangeUponPushableGridFailure != "none")
+            {
+                SetGlobalInt(ThisProp.keyOfGlobalIntToChangeUponPushableGridFailure, ThisProp.valueOfGlobalIntToChangeUponPushableGridFailure.ToString());
+            }
+        }
+
         public void SetLocalInt(string objectTag, string variableName, string val)
         {
             int value = 0;
