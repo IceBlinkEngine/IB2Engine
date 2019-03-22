@@ -4806,6 +4806,64 @@ namespace IceBlink2
                         //todo 
                         pushObject();
                     }
+                    else if (filename.Equals("gaUseLever.cs"))
+                    {
+                        //key of glabal int to change
+                        //value of global to int when ON
+                        //value of global int when OFF
+                        //todo: multi lever state riddles?
+                        //could be using an ibscript that will set the one and only opening global int based on a combination of the global ints addressed by multiple levers
+                        //pushObject();
+
+                        //p1: string key of global int to affect
+                        //p2: int value OFF
+                        //p3: int value ON
+                        //p4: string alterntaive graphics when ON
+                        //All switches start OFF.
+
+                        /*
+                                      public bool isLever = false;
+                    public bool isOn = false;
+                    public string nameOfBitmapON = "none";
+                    public string nameOfBitmapOFF = "none";
+                    public string keyOFGlobalIntToChange = "none";
+                    public int valueOfGlobalIntOFF = 0;
+                    public int valueOfGlobalIntON = 0;
+                    */
+                        if (ThisProp.isLever)
+                        {
+                            //state was on
+                            if (ThisProp.isOn)
+                            {
+                                ThisProp.isOn = false;
+                                SetGlobalInt(ThisProp.keyOFGlobalIntToChange, ThisProp.valueOfGlobalIntOFF.ToString());
+                                //change sprite graphic
+                                if (gv.sf.ThisProp.nameOfBitmapOFF != "none" && gv.sf.ThisProp.nameOfBitmapOFF != "None" && gv.sf.ThisProp.nameOfBitmapOFF != "")
+                                {
+                                    SetProp(gv.sf.ThisProp.PropTag, "", "i", gv.sf.ThisProp.nameOfBitmapOFF);
+                                }
+
+                                gv.screenMainMap.addFloatyText(gv.sf.ThisProp.LocationX, gv.sf.ThisProp.LocationY, "Something changed back...", "green", 2000);
+                                gv.cc.addLogText("lime", "Something changed back...");
+
+                            }
+                            //state was off
+                            else
+                            {
+                                ThisProp.isOn = true;
+                                SetGlobalInt(ThisProp.keyOFGlobalIntToChange, ThisProp.valueOfGlobalIntON.ToString());
+                                //change sprite graphic
+                                if (gv.sf.ThisProp.nameOfBitmapON != "none" && gv.sf.ThisProp.nameOfBitmapON != "None" && gv.sf.ThisProp.nameOfBitmapON != "")
+                                {
+                                    SetProp(gv.sf.ThisProp.PropTag, "", "i", gv.sf.ThisProp.nameOfBitmapON);
+                                }
+
+                                gv.screenMainMap.addFloatyText(gv.sf.ThisProp.LocationX, gv.sf.ThisProp.LocationY, "Something changed...", "green", 2000);
+                                gv.cc.addLogText("lime", "Something changed...");
+                            }
+                        }
+       
+                    }
                     else if (filename.Equals("gaOpenObject.cs"))
                     {
                         //p1: key resref, p2: true/false for removing key, p3 trait for pick lock, p4 dc for pick lock 
@@ -4818,6 +4876,7 @@ namespace IceBlink2
                         bool unlockedDoor = false;
                         bool lockedDoorKeyOrPick = false;
                         bool lockedDoorKeyOnly = false;
+                        bool mechanismTriggeredObject = false;
 
                         if ((p1 != "none" && p1 != "None" && p1 != "") && (p3 == "none" || p1 == "None" || p1 == ""))
                         {
@@ -4830,6 +4889,169 @@ namespace IceBlink2
                         else
                         {
                             unlockedDoor = true;
+                        }
+
+                        if (ThisProp.isDoor)
+                        {
+                            if (ThisProp.keyOfFirstGlobalIntThatControllsDoor != "none" || ThisProp.keyOfSecondGlobalIntThatControllsDoor != "none" || ThisProp.keyOfThirdGlobalIntThatControllsDoor != "none" || ThisProp.keyOfFourthGlobalIntThatControllsDoor != "none" || ThisProp.keyOfFifthGlobalIntThatControllsDoor != "none")
+                            {
+                                mechanismTriggeredObject = true;
+                                bool isMissingNeccessaryCondition = false;
+
+                                if (ThisProp.keyOfFirstGlobalIntThatControllsDoor != "none")
+                                {
+                                    if (!CheckGlobalInt(ThisProp.keyOfFirstGlobalIntThatControllsDoor, "=", ThisProp.valueOfFirstGlobalIntThatOpensDoor))
+                                    {
+                                        isMissingNeccessaryCondition = true;
+                                    }
+                                 }
+
+                                if (ThisProp.keyOfSecondGlobalIntThatControllsDoor != "none")
+                                {
+                                    if (!CheckGlobalInt(ThisProp.keyOfSecondGlobalIntThatControllsDoor, "=", ThisProp.valueOfSecondGlobalIntThatOpensDoor))
+                                    {
+                                        isMissingNeccessaryCondition = true;
+                                    }
+                                }
+
+                                if (ThisProp.keyOfThirdGlobalIntThatControllsDoor != "none")
+                                {
+                                    if (!CheckGlobalInt(ThisProp.keyOfThirdGlobalIntThatControllsDoor, "=", ThisProp.valueOfThirdGlobalIntThatOpensDoor))
+                                    {
+                                        isMissingNeccessaryCondition = true;
+                                    }
+                                }
+
+                                if (ThisProp.keyOfFourthGlobalIntThatControllsDoor != "none")
+                                {
+                                    if (!CheckGlobalInt(ThisProp.keyOfFourthGlobalIntThatControllsDoor, "=", ThisProp.valueOfFourthGlobalIntThatOpensDoor))
+                                    {
+                                        isMissingNeccessaryCondition = true;
+                                    }
+                                }
+
+                                if (ThisProp.keyOfFifthGlobalIntThatControllsDoor != "none")
+                                {
+                                    if (!CheckGlobalInt(ThisProp.keyOfFifthGlobalIntThatControllsDoor, "=", ThisProp.valueOfFifthGlobalIntThatOpensDoor))
+                                    {
+                                        isMissingNeccessaryCondition = true;
+                                    }
+                                }
+
+                                if (!isMissingNeccessaryCondition)
+                                {
+                                    lockedDoorKeyOnly = false;
+                                    lockedDoorKeyOrPick = false;
+                                    unlockedDoor = true;
+                                }
+                                else
+                                {
+                                    unlockedDoor = false;
+                                }
+                            }
+                        } 
+
+                        if (ThisProp.isContainer)
+                        {
+                            if (ThisProp.keyOfFirstGlobalIntThatControllsChest != "none" || ThisProp.keyOfSecondGlobalIntThatControllsChest != "none" || ThisProp.keyOfThirdGlobalIntThatControllsChest != "none" || ThisProp.keyOfFourthGlobalIntThatControllsChest != "none" || ThisProp.keyOfFifthGlobalIntThatControllsChest != "none")
+                            {
+                                mechanismTriggeredObject = true;
+                                bool isMissingNeccessaryCondition = false;
+
+                                if (ThisProp.keyOfFirstGlobalIntThatControllsChest != "none")
+                                {
+                                    if (!CheckGlobalInt(ThisProp.keyOfFirstGlobalIntThatControllsChest, "=", ThisProp.valueOfFirstGlobalIntThatOpensChest))
+                                    {
+                                        isMissingNeccessaryCondition = true;
+                                    }
+                                }
+
+                                if (ThisProp.keyOfSecondGlobalIntThatControllsChest != "none")
+                                {
+                                    if (!CheckGlobalInt(ThisProp.keyOfSecondGlobalIntThatControllsChest, "=", ThisProp.valueOfSecondGlobalIntThatOpensChest))
+                                    {
+                                        isMissingNeccessaryCondition = true;
+                                    }
+                                }
+
+                                if (ThisProp.keyOfThirdGlobalIntThatControllsChest != "none")
+                                {
+                                    if (!CheckGlobalInt(ThisProp.keyOfThirdGlobalIntThatControllsChest, "=", ThisProp.valueOfThirdGlobalIntThatOpensChest))
+                                    {
+                                        isMissingNeccessaryCondition = true;
+                                    }
+                                }
+
+                                if (ThisProp.keyOfFourthGlobalIntThatControllsChest != "none")
+                                {
+                                    if (!CheckGlobalInt(ThisProp.keyOfFourthGlobalIntThatControllsChest, "=", ThisProp.valueOfFourthGlobalIntThatOpensChest))
+                                    {
+                                        isMissingNeccessaryCondition = true;
+                                    }
+                                }
+
+                                if (ThisProp.keyOfFifthGlobalIntThatControllsChest != "none")
+                                {
+                                    if (!CheckGlobalInt(ThisProp.keyOfFifthGlobalIntThatControllsChest, "=", ThisProp.valueOfFifthGlobalIntThatOpensChest))
+                                    {
+                                        isMissingNeccessaryCondition = true;
+                                    }
+                                }
+
+                                if (!isMissingNeccessaryCondition)
+                                {
+                                    lockedDoorKeyOnly = false;
+                                    lockedDoorKeyOrPick = false;
+                                    unlockedDoor = true;
+                                }
+                                else
+                                {
+                                    unlockedDoor = false;
+                                }
+                            }
+                        }
+
+                        if (mechanismTriggeredObject)
+                        {
+                            //mechanism not correctly triggered
+                            if (!unlockedDoor)
+                            {
+                                gv.screenMainMap.addFloatyText(gv.sf.ThisProp.LocationX, gv.sf.ThisProp.LocationY, "Some external mechanism locks this", "red", 2000);
+                                gv.cc.addLogText("red", "Some external mechanism locks this");
+                            }
+                            //mechanism correctly triggered
+                            else
+                            {
+                                //this handles LoS and prevents another triggering
+                                if (!gv.sf.ThisProp.isContainer)
+                                {
+                                    gv.sf.ThisProp.isActive = false;
+                                }
+
+                                //allow to pass through the prop
+                                if (!gv.sf.ThisProp.isContainer)
+                                {
+                                    gv.sf.ThisProp.HasCollision = false;
+                                }
+
+                                //change sprite graphic
+                                if (gv.sf.ThisProp.differentSpriteWhenOpen != "none" && gv.sf.ThisProp.differentSpriteWhenOpen != "None" && gv.sf.ThisProp.differentSpriteWhenOpen != "")
+                                {
+                                    SetProp(gv.sf.ThisProp.PropTag, "", "i", gv.sf.ThisProp.differentSpriteWhenOpen);
+                                }
+
+                               
+                                gv.screenMainMap.addFloatyText(gv.sf.ThisProp.LocationX, gv.sf.ThisProp.LocationY, "Unlocked by a connected mechanism", "green", 2000);
+                                gv.cc.addLogText("lime", "Unlocked by a connected mechanism");
+
+                                if (gv.sf.ThisProp.isContainer)
+                                {
+                                    if (gv.sf.ThisProp.containerTag != "none")
+                                    {
+                                        gv.cc.doContainerBasedOnTag(gv.sf.ThisProp.containerTag);
+                                    }
+                                }
+                            }
                         }
 
                         if (lockedDoorKeyOnly)
@@ -4884,7 +5106,7 @@ namespace IceBlink2
                             }
                             //no key found, remains closed
                             else
-                            {
+                            { 
                                 //gv.mod.returnCheck = false;
                                 //get item name
                                 string itemName = "none";
@@ -5091,7 +5313,7 @@ namespace IceBlink2
                                 }
                             }
                         }
-                        else if (unlockedDoor)
+                        else if (unlockedDoor && !mechanismTriggeredObject)
                         {
                             //likely not needed?
                             //gv.mod.returnCheck = true;
@@ -5103,7 +5325,10 @@ namespace IceBlink2
                             }
 
                             //allow to pass through the prop
-                            gv.sf.ThisProp.HasCollision = false;
+                            if (!gv.sf.ThisProp.isContainer)
+                            {
+                                gv.sf.ThisProp.HasCollision = false;
+                            }
 
                             //change sprite graphic
                             if (gv.sf.ThisProp.differentSpriteWhenOpen != "none" && gv.sf.ThisProp.differentSpriteWhenOpen != "None" && gv.sf.ThisProp.differentSpriteWhenOpen != "")
@@ -8528,9 +8753,31 @@ namespace IceBlink2
                                             }
                                         }
                                     }
+
                                     if (allArrived)
                                     {
-                                        doPushableSuccess();
+                                        if (!ThisProp.gridIsCompleted)
+                                        {
+                                            doPushableSuccess();
+                                        }
+                                    }
+                                    else if (ThisProp.gridIsCompleted)
+                                    {
+                                        if (ThisProp.completionStateCanBeLostAgain)
+                                        {
+                                            ThisProp.gridIsCompleted = false;
+                                            if (ThisProp.messageOnCompletion != "none")
+                                            {
+                                                gv.screenMainMap.addFloatyText(gv.mod.PlayerLocationX, gv.mod.PlayerLocationY, "Something changed again...", "red", 2000);
+                                                gv.cc.addLogText("red", "Something changed again...");
+                                            }
+
+                                            //global key and value
+                                            if (ThisProp.keyOfGlobalIntToChangeUponPushableGridCompletion != "none")
+                                            {
+                                                SetGlobalInt(ThisProp.keyOfGlobalIntToChangeUponPushableGridCompletion, "0");
+                                            }
+                                        }
                                     }
                                 }
                                 //all reached one of the target squares
@@ -8557,9 +8804,32 @@ namespace IceBlink2
                                         }
                                     }
 
+
                                     if (allArrived)
                                     {
-                                        doPushableSuccess();
+                                        if (!ThisProp.gridIsCompleted)
+                                        {
+                                            doPushableSuccess();
+                                        }
+                                    }
+                                    else if (ThisProp.gridIsCompleted)
+                                    {
+                                        if (ThisProp.completionStateCanBeLostAgain)
+                                        {
+                                            ThisProp.gridIsCompleted = false;
+                                            if (ThisProp.messageOnCompletion != "none")
+                                            {
+                                                gv.screenMainMap.addFloatyText(gv.mod.PlayerLocationX, gv.mod.PlayerLocationY, "Something changed again...", "red", 2000);
+                                                gv.cc.addLogText("red", "Something changed again...");
+                                            }
+
+                                            //global key and value
+                                            if (ThisProp.keyOfGlobalIntToChangeUponPushableGridCompletion != "none")
+                                            {
+                                                SetGlobalInt(ThisProp.keyOfGlobalIntToChangeUponPushableGridCompletion, "0");
+                                            }
+
+                                        }
                                     }
                                 }
 
@@ -8603,7 +8873,7 @@ namespace IceBlink2
                     if (c.Y == (ThisProp.LocationY) && c.X == (ThisProp.LocationX-1))
                     {
                         insideGrid = true;
-                        if (!gv.mod.currentArea.GetBlocked(gv.mod.currentArea, ThisProp.LocationX, ThisProp.LocationY, ThisProp.LocationX-1, ThisProp.LocationY, ThisProp.LocationX+1, ThisProp.LocationY))
+                        if (!gv.mod.currentArea.GetBlocked(gv.mod.currentArea, ThisProp.LocationX - 1, ThisProp.LocationY, ThisProp.LocationX, ThisProp.LocationY, ThisProp.LocationX + 1, ThisProp.LocationY))
                         {
                             //skill check
                             //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
@@ -8715,9 +8985,32 @@ namespace IceBlink2
                                             }
                                         }
                                     }
+
                                     if (allArrived)
                                     {
-                                        doPushableSuccess();
+                                        if (!ThisProp.gridIsCompleted)
+                                        {
+                                            doPushableSuccess();
+                                        }
+                                    }
+                                    else if (ThisProp.gridIsCompleted)
+                                    {
+                                        if (ThisProp.completionStateCanBeLostAgain)
+                                        {
+                                            ThisProp.gridIsCompleted = false;
+                                            if (ThisProp.messageOnCompletion != "none")
+                                            {
+                                                gv.screenMainMap.addFloatyText(gv.mod.PlayerLocationX, gv.mod.PlayerLocationY, "Something changed again...", "red", 2000);
+                                                gv.cc.addLogText("red", "Something changed again...");
+                                            }
+
+                                            //global key and value
+                                            if (ThisProp.keyOfGlobalIntToChangeUponPushableGridCompletion != "none")
+                                            {
+                                                SetGlobalInt(ThisProp.keyOfGlobalIntToChangeUponPushableGridCompletion, "0");
+                                            }
+
+                                        }
                                     }
                                 }
                                 //all reached one of the target squares
@@ -8744,9 +9037,32 @@ namespace IceBlink2
                                         }
                                     }
 
+
                                     if (allArrived)
                                     {
-                                        doPushableSuccess();
+                                        if (!ThisProp.gridIsCompleted)
+                                        {
+                                            doPushableSuccess();
+                                        }
+                                    }
+                                    else if (ThisProp.gridIsCompleted)
+                                    {
+                                        if (ThisProp.completionStateCanBeLostAgain)
+                                        {
+                                            ThisProp.gridIsCompleted = false;
+                                            if (ThisProp.messageOnCompletion != "none")
+                                            {
+                                                gv.screenMainMap.addFloatyText(gv.mod.PlayerLocationX, gv.mod.PlayerLocationY, "Something changed again...", "red", 2000);
+                                                gv.cc.addLogText("red", "Something changed again...");
+                                            }
+
+                                            //global key and value
+                                            if (ThisProp.keyOfGlobalIntToChangeUponPushableGridCompletion != "none")
+                                            {
+                                                SetGlobalInt(ThisProp.keyOfGlobalIntToChangeUponPushableGridCompletion, "0");
+                                            }
+
+                                        }
                                     }
                                 }
 
@@ -8791,7 +9107,9 @@ namespace IceBlink2
                     if (c.Y == (ThisProp.LocationY) && c.X == (ThisProp.LocationX + 1))
                     {
                         insideGrid = true;
-                        if (!gv.mod.currentArea.GetBlocked(gv.mod.currentArea, ThisProp.LocationX, ThisProp.LocationY, ThisProp.LocationX + 1, ThisProp.LocationY, ThisProp.LocationX - 1, ThisProp.LocationY))
+                        //if (!gv.mod.currentArea.GetBlocked(gv.mod.currentArea, ThisProp.LocationX, ThisProp.LocationY + 1, ThisProp.LocationX, ThisProp.LocationY, ThisProp.LocationX, ThisProp.LocationY - 1))
+
+                            if (!gv.mod.currentArea.GetBlocked(gv.mod.currentArea, ThisProp.LocationX+1, ThisProp.LocationY, ThisProp.LocationX, ThisProp.LocationY, ThisProp.LocationX - 1, ThisProp.LocationY))
                         {
                             //skill check
                             //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
@@ -8903,9 +9221,32 @@ namespace IceBlink2
                                             }
                                         }
                                     }
+
                                     if (allArrived)
                                     {
-                                        doPushableSuccess();
+                                        if (!ThisProp.gridIsCompleted)
+                                        {
+                                            doPushableSuccess();
+                                        }
+                                    }
+                                    else if (ThisProp.gridIsCompleted)
+                                    {
+                                        if (ThisProp.completionStateCanBeLostAgain)
+                                        {
+                                            ThisProp.gridIsCompleted = false;
+                                            if (ThisProp.messageOnCompletion != "none")
+                                            {
+                                                gv.screenMainMap.addFloatyText(gv.mod.PlayerLocationX, gv.mod.PlayerLocationY, "Something changed again...", "red", 2000);
+                                                gv.cc.addLogText("red", "Something changed again...");
+                                            }
+
+                                            //global key and value
+                                            if (ThisProp.keyOfGlobalIntToChangeUponPushableGridCompletion != "none")
+                                            {
+                                                SetGlobalInt(ThisProp.keyOfGlobalIntToChangeUponPushableGridCompletion, "0");
+                                            }
+
+                                        }
                                     }
                                 }
                                 //all reached one of the target squares
@@ -8932,9 +9273,32 @@ namespace IceBlink2
                                         }
                                     }
 
+
                                     if (allArrived)
                                     {
-                                        doPushableSuccess();
+                                        if (!ThisProp.gridIsCompleted)
+                                        {
+                                            doPushableSuccess();
+                                        }
+                                    }
+                                    else if (ThisProp.gridIsCompleted)
+                                    {
+                                        if (ThisProp.completionStateCanBeLostAgain)
+                                        {
+                                            ThisProp.gridIsCompleted = false;
+                                            if (ThisProp.messageOnCompletion != "none")
+                                            {
+                                                gv.screenMainMap.addFloatyText(gv.mod.PlayerLocationX, gv.mod.PlayerLocationY, "Something changed again...", "red", 2000);
+                                                gv.cc.addLogText("red", "Something changed again...");
+                                            }
+
+                                            //global key and value
+                                            if (ThisProp.keyOfGlobalIntToChangeUponPushableGridCompletion != "none")
+                                            {
+                                                SetGlobalInt(ThisProp.keyOfGlobalIntToChangeUponPushableGridCompletion, "0");
+                                            }
+
+                                        }
                                     }
                                 }
 
@@ -9091,9 +9455,32 @@ namespace IceBlink2
                                             }
                                         }
                                     }
+
                                     if (allArrived)
                                     {
-                                        doPushableSuccess();
+                                        if (!ThisProp.gridIsCompleted)
+                                        {
+                                            doPushableSuccess();
+                                        }
+                                    }
+                                    else if (ThisProp.gridIsCompleted)
+                                    {
+                                        if (ThisProp.completionStateCanBeLostAgain)
+                                        {
+                                            ThisProp.gridIsCompleted = false;
+                                            if (ThisProp.messageOnCompletion != "none")
+                                            {
+                                                gv.screenMainMap.addFloatyText(gv.mod.PlayerLocationX, gv.mod.PlayerLocationY, "Something changed again...", "red", 2000);
+                                                gv.cc.addLogText("red", "Something changed again...");
+                                            }
+
+                                            //global key and value
+                                            if (ThisProp.keyOfGlobalIntToChangeUponPushableGridCompletion != "none")
+                                            {
+                                                SetGlobalInt(ThisProp.keyOfGlobalIntToChangeUponPushableGridCompletion, "0");
+                                            }
+
+                                        }
                                     }
                                 }
                                 //all reached one of the target squares
@@ -9122,7 +9509,29 @@ namespace IceBlink2
 
                                     if (allArrived)
                                     {
-                                        doPushableSuccess();
+                                        if (!ThisProp.gridIsCompleted)
+                                        {
+                                            doPushableSuccess();
+                                        }
+                                    }
+                                    else if (ThisProp.gridIsCompleted)
+                                    {
+                                        if (ThisProp.completionStateCanBeLostAgain)
+                                        {
+                                            ThisProp.gridIsCompleted = false;
+                                            if (ThisProp.messageOnCompletion != "none")
+                                            {
+                                                gv.screenMainMap.addFloatyText(gv.mod.PlayerLocationX, gv.mod.PlayerLocationY, "Something changed again...", "red", 2000);
+                                                gv.cc.addLogText("red", "Something changed again...");
+                                            }
+
+                                            //global key and value
+                                            if (ThisProp.keyOfGlobalIntToChangeUponPushableGridCompletion != "none")
+                                            {
+                                                SetGlobalInt(ThisProp.keyOfGlobalIntToChangeUponPushableGridCompletion, "0");
+                                            }
+
+                                        }
                                     }
                                 }
 
@@ -9161,6 +9570,9 @@ namespace IceBlink2
 
         public void doPushableSuccess()
         {
+            //register completion
+            ThisProp.gridIsCompleted = true;
+            
             //lock grid?
             if (ThisProp.lockGridOnCompletion)
             {

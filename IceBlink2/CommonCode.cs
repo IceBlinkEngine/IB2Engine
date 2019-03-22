@@ -8763,7 +8763,11 @@ namespace IceBlink2
                             gv.mod.currentWeatherDuration = (int)gv.mod.maintainWeatherFromLastAreaTimer;
                         }
                     }
+                if (gv.mod.currentWeatherName.Contains("snow") || gv.mod.currentWeatherName.Contains("Snow") || gv.mod.currentWeatherName.Contains("rain") || gv.mod.currentWeatherName.Contains("Rain") || gv.mod.currentWeatherName.Contains("sand") || gv.mod.currentWeatherName.Contains("Sand"))
+                {
+                    gv.mod.isInitialParticleWave = true;
                 }
+            }
 #endregion
 
                 //if (gv.mod.currentArea.areaWeatherName == "")
@@ -8817,6 +8821,7 @@ namespace IceBlink2
                                     gv.mod.sandStormBlowingTo = "SE";
                                 }
                             }
+
                         if (gv.mod.currentWeatherName.Contains("snow") || gv.mod.currentWeatherName.Contains("Snow") || gv.mod.currentWeatherName.Contains("rain") || gv.mod.currentWeatherName.Contains("Rain") || gv.mod.currentWeatherName.Contains("sand") || gv.mod.currentWeatherName.Contains("Sand"))
                         {
                             gv.mod.isInitialParticleWave = true;

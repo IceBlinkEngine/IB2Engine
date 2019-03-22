@@ -15,15 +15,27 @@ namespace IceBlink2
     public class Prop 
     {
 
-        //alos need to adda gaPushObjectScript as nezry point bump registration)
+        public bool isLever = false;
+        public bool isOn = false;
+        public string nameOfBitmapON = "none";
+        public string nameOfBitmapOFF = "none";
+        public string keyOFGlobalIntToChange = "none";
+        public int valueOfGlobalIntOFF = 0;
+        public int valueOfGlobalIntON = 0;
+
+        //also need to add gaPushObjectScript as nezry point bump registration)
         //pushable props
         //1.pushable grid properties (04f - STEP: Pushable grid)
         //public bool isGridForPushableObject = false;
         //public bool showPushableGridOutline = true;
+        public bool gridIsCompleted = false;
+        public bool completionStateCanBeLostAgain = false;
         public bool pushableGridCanBeResetViaHotkey = true;
         public bool pushableGridCanBeResetEvenAfterCompletion = false;
         public int partyDefaultPushableGridPositionX = 0;
         public int partyDefaultPushableGridPositionY = 0;
+        //public string drawPartyDirection = "none";
+        public string partyDefaultDrawDirection = "down";
         public bool allPushableGridTargetPositionsAreShared = true;
 
         public string keyOfGlobalIntToChangeUponPushableGridCompletion = "none";
@@ -77,9 +89,30 @@ namespace IceBlink2
         public bool isDoor = false;
         //png when opened
         public string differentSpriteWhenOpen = "none";
+        //for ia pushable gridconnection
+        public string keyOfFirstGlobalIntThatControllsDoor = "none";
+        public int valueOfFirstGlobalIntThatOpensDoor = 1;
+        public string keyOfSecondGlobalIntThatControllsDoor = "none";
+        public int valueOfSecondGlobalIntThatOpensDoor = 1;
+        public string keyOfThirdGlobalIntThatControllsDoor = "none";
+        public int valueOfThirdGlobalIntThatOpensDoor = 1;
+        public string keyOfFourthGlobalIntThatControllsDoor = "none";
+        public int valueOfFourthGlobalIntThatOpensDoor = 1;
+        public string keyOfFifthGlobalIntThatControllsDoor = "none";
+        public int valueOfFifthGlobalIntThatOpensDoor = 1;
 
         public bool isContainer = false;
         public string containerTag = "none";
+        public string keyOfFirstGlobalIntThatControllsChest = "none";
+        public int valueOfFirstGlobalIntThatOpensChest = 1;
+        public string keyOfSecondGlobalIntThatControllsChest = "none";
+        public int valueOfSecondGlobalIntThatOpensChest = 1;
+        public string keyOfThirdGlobalIntThatControllsChest = "none";
+        public int valueOfThirdGlobalIntThatOpensChest = 1;
+        public string keyOfFourthGlobalIntThatControllsChest = "none";
+        public int valueOfFourthGlobalIntThatOpensChest = 1;
+        public string keyOfFifthGlobalIntThatControllsChest = "none";
+        public int valueOfFifthGlobalIntThatOpensChest = 1;
 
         public bool isHiddenInfo = false;
         public string floatyAndLogText = "none";
@@ -316,9 +349,44 @@ namespace IceBlink2
         {
     	    Prop copy = new Prop();
 
+            //TODO
+            copy.gridIsCompleted = gridIsCompleted;
+            copy.isLever = isLever;
+            copy.isOn = isOn;
+            copy.nameOfBitmapON = nameOfBitmapON;
+            copy.nameOfBitmapOFF = nameOfBitmapOFF;
+            copy.keyOFGlobalIntToChange = keyOFGlobalIntToChange;
+            copy.valueOfGlobalIntOFF = valueOfGlobalIntOFF;
+            copy.valueOfGlobalIntON = valueOfGlobalIntON;
+
             //1.pushable grid properties (04f - STEP: Pushable grid)
             //copy.isGridForPushableObject = isGridForPushableObject;
             //copy.showPushableGridOutline = showPushableGridOutline;
+            copy.completionStateCanBeLostAgain = completionStateCanBeLostAgain;
+            copy.keyOfFirstGlobalIntThatControllsDoor = keyOfFirstGlobalIntThatControllsDoor;
+            copy.valueOfFirstGlobalIntThatOpensDoor = valueOfFirstGlobalIntThatOpensDoor;
+            copy.keyOfSecondGlobalIntThatControllsDoor = keyOfSecondGlobalIntThatControllsDoor;
+            copy.valueOfSecondGlobalIntThatOpensDoor = valueOfSecondGlobalIntThatOpensDoor;
+            copy.keyOfThirdGlobalIntThatControllsDoor = keyOfThirdGlobalIntThatControllsDoor;
+            copy.valueOfThirdGlobalIntThatOpensDoor = valueOfThirdGlobalIntThatOpensDoor;
+            copy.keyOfFourthGlobalIntThatControllsDoor = keyOfFourthGlobalIntThatControllsDoor;
+            copy.valueOfFourthGlobalIntThatOpensDoor = valueOfFourthGlobalIntThatOpensDoor;
+            copy.keyOfFifthGlobalIntThatControllsDoor = keyOfFifthGlobalIntThatControllsDoor;
+            copy.valueOfFifthGlobalIntThatOpensDoor = valueOfFifthGlobalIntThatOpensDoor;
+
+            copy.keyOfFirstGlobalIntThatControllsChest = keyOfFirstGlobalIntThatControllsChest;
+            copy.valueOfFirstGlobalIntThatOpensChest = valueOfFirstGlobalIntThatOpensChest;
+
+            copy.keyOfSecondGlobalIntThatControllsChest = keyOfSecondGlobalIntThatControllsChest;
+            copy.valueOfSecondGlobalIntThatOpensChest = valueOfSecondGlobalIntThatOpensChest;
+            copy.keyOfThirdGlobalIntThatControllsChest = keyOfThirdGlobalIntThatControllsChest;
+            copy.valueOfThirdGlobalIntThatOpensChest = valueOfThirdGlobalIntThatOpensChest;
+            copy.keyOfFourthGlobalIntThatControllsChest = keyOfFourthGlobalIntThatControllsChest;
+            copy.valueOfFourthGlobalIntThatOpensChest = valueOfFourthGlobalIntThatOpensChest;
+            copy.keyOfFifthGlobalIntThatControllsChest = keyOfFifthGlobalIntThatControllsChest;
+            copy.valueOfFifthGlobalIntThatOpensChest = valueOfFifthGlobalIntThatOpensChest;
+
+            copy.partyDefaultDrawDirection = partyDefaultDrawDirection;
             copy.pushableGridCanBeResetViaHotkey = pushableGridCanBeResetViaHotkey;
             copy.pushableGridCanBeResetEvenAfterCompletion = pushableGridCanBeResetEvenAfterCompletion;
             copy.partyDefaultPushableGridPositionX = partyDefaultPushableGridPositionX;

@@ -43020,6 +43020,7 @@ namespace IceBlink2
                     bool resetParty = false;
                     int resetLocX = 0;
                     int resetLocY = 0;
+                    string resetDrawDirection = "left";
                     foreach (Prop p in gv.mod.currentArea.Props)
                     {
                         if (p.pushableGridTriggerTag == relevantGridTag && p.pushableGridCanBeResetViaHotkey)
@@ -43027,6 +43028,7 @@ namespace IceBlink2
                             resetParty = true;
                             resetLocX = p.partyDefaultPushableGridPositionX;
                             resetLocY = p.partyDefaultPushableGridPositionY;
+                            resetDrawDirection = p.partyDefaultDrawDirection;
                             p.LocationX = p.pushableStartPositionX;
                             p.LocationY = p.pushableStartPositionY;
                         }
@@ -43036,6 +43038,7 @@ namespace IceBlink2
                     {
                         gv.mod.PlayerLocationX = resetLocX;
                         gv.mod.PlayerLocationY = resetLocY;
+                        gv.mod.drawPartyDirection = resetDrawDirection;
                         //messaging
                         gv.screenMainMap.addFloatyText(gv.mod.PlayerLocationX, gv.mod.PlayerLocationY, "A sense of déjà-vu overcomes the party...", "green", 3000);
                         gv.cc.addLogText("lime", "A sense of déjà-vu overcomes the party...");
