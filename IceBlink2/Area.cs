@@ -651,8 +651,7 @@ namespace IceBlink2
         public Area()
 	    {	
 	    }
-
-        public bool GetBlocked(Area areaFromLastPosition, int playerXPosition, int playerYPosition, int lastPlayerXPosition, int lastPlayerYPosition, int lastLastPlayerXPosition, int lastLastPlayerYPosition)
+               public bool GetBlocked(Area areaFromLastPosition, int playerXPosition, int playerYPosition, int lastPlayerXPosition, int lastPlayerYPosition, int lastLastPlayerXPosition, int lastLastPlayerYPosition)
         {
             
             if ((areaFromLastPosition.Tiles[lastPlayerYPosition * areaFromLastPosition.MapSizeX + lastPlayerXPosition].isEWBridge) || (areaFromLastPosition.Tiles[lastPlayerYPosition * areaFromLastPosition.MapSizeX + lastPlayerXPosition].isNSBridge))
@@ -1135,19 +1134,23 @@ namespace IceBlink2
 
             return false;
         }
+        
 
         public bool GetBlocked(int playerXPosition, int playerYPosition, int lastPlayerXPosition, int lastPlayerYPosition, int lastLastPlayerXPosition, int lastLastPlayerYPosition)
         {
-            if ((this.Tiles[lastPlayerYPosition * this.MapSizeX + lastPlayerXPosition].isEWBridge) || (this.Tiles[lastPlayerYPosition * this.MapSizeX + lastPlayerXPosition].isNSBridge))
+            if ((!this.Tiles[lastPlayerYPosition * this.MapSizeX + lastPlayerXPosition].isEWBridge) && (!this.Tiles[lastPlayerYPosition * this.MapSizeX + lastPlayerXPosition].isNSBridge))
             {
-                if ((this.Tiles[playerYPosition * this.MapSizeX + playerXPosition].heightLevel) < (this.Tiles[lastPlayerYPosition * this.MapSizeX + lastPlayerXPosition].heightLevel))
+                if ((this.Tiles[lastPlayerYPosition * this.MapSizeX + lastPlayerXPosition].isEWBridge) || (this.Tiles[lastPlayerYPosition * this.MapSizeX + lastPlayerXPosition].isNSBridge))
+                {
+                    if ((this.Tiles[playerYPosition * this.MapSizeX + playerXPosition].heightLevel) < (this.Tiles[lastPlayerYPosition * this.MapSizeX + lastPlayerXPosition].heightLevel))
+                    {
+                        this.PlayerIsUnderBridge = false;
+                    }
+                }
+                else
                 {
                     this.PlayerIsUnderBridge = false;
                 }
-            }
-            else
-            {
-                this.PlayerIsUnderBridge = false;
             }
 
             if (this.Tiles[playerYPosition * this.MapSizeX + playerXPosition].Walkable == false)
@@ -1362,21 +1365,21 @@ namespace IceBlink2
                 }
 
                
-
-
-
                 //EW bridge: player tries to leave bridge to NS side
                 if ((this.Tiles[lastPlayerYPosition * this.MapSizeX + lastPlayerXPosition].isEWBridge))
                 {
+                    
                     //this.PlayerIsUnderBridge = true;
                     //stepping toward north square
                     if (lastPlayerYPosition - 1 == playerYPosition)
                     {
                         //came from north or south and is under bridge now
-                        if ((lastLastPlayerYPosition - 1 == lastPlayerYPosition) || (lastLastPlayerYPosition + 1 == lastPlayerYPosition))
+                        //if ((lastLastPlayerYPosition - 1 == lastPlayerYPosition) || (lastLastPlayerYPosition + 1 == lastPlayerYPosition))
+                        if ((lastLastPlayerYPosition == lastPlayerYPosition) && this.PlayerIsUnderBridge)
                         {
                             //allow the move under the bridge (which is a move to one height level lower)
                             allowMove = true;
+                            this.PlayerIsUnderBridge = false;
                         }
                     }
 
@@ -1384,12 +1387,37 @@ namespace IceBlink2
                     if (lastPlayerYPosition + 1 == playerYPosition)
                     {
                         //came from north and is under bridge now
-                        if ((lastLastPlayerYPosition - 1 == lastPlayerYPosition) || (lastLastPlayerYPosition + 1 == lastPlayerYPosition))
+                        //if ((lastLastPlayerYPosition - 1 == lastPlayerYPosition) || (lastLastPlayerYPosition + 1 == lastPlayerYPosition))
+                        if ((lastLastPlayerYPosition == lastPlayerYPosition) && this.PlayerIsUnderBridge)
+
                         {
                             //allow the move under the bridge (which is a move to one height level lower)
                             allowMove = true;
+                            this.PlayerIsUnderBridge = false;
                         }
                     }
+                    
+                    /*
+                    //new approach
+                    if (this.PlayerIsUnderBridge)
+                    {
+                        //stepping toward north square
+                        if (lastPlayerYPosition - 1 == playerYPosition)
+                        {
+                            allowMove = true;
+                        }
+                        //stepping toward south square
+                        if (lastPlayerYPosition + 1 == playerYPosition)
+                        {
+                            allowMove = true;
+                        }
+
+                        }
+                    else
+                    {
+
+                    }
+                    */
                 }
 
                 //NS bridge: player tries to leave bridge to EW side
@@ -1400,10 +1428,14 @@ namespace IceBlink2
                     if (lastPlayerXPosition - 1 == playerXPosition)
                     {
                         //came from west or east and is under bridge now
-                        if ((lastLastPlayerXPosition - 1 == lastPlayerXPosition) || (lastLastPlayerXPosition + 1 == lastPlayerXPosition))
-                        {
-                            //allow the move under the bridge (which is a move to one height level lower)
-                            allowMove = true;
+                        //if ((lastLastPlayerXPosition - 1 == lastPlayerXPosition) || (lastLastPlayerXPosition + 1 == lastPlayerXPosition))
+                            if ((lastLastPlayerXPosition == lastPlayerXPosition) && this.PlayerIsUnderBridge)
+                            //salome
+
+                            {
+                                //allow the move under the bridge (which is a move to one height level lower)
+                                allowMove = true;
+                            this.PlayerIsUnderBridge = false;
                         }
                     }
 
@@ -1411,12 +1443,21 @@ namespace IceBlink2
                     if (lastPlayerXPosition + 1 == playerXPosition)
                     {
                         //came from west or east and is under bridge now
-                        if ((lastLastPlayerXPosition - 1 == lastPlayerXPosition) || (lastLastPlayerXPosition + 1 == lastPlayerXPosition))
+                        //if ((lastLastPlayerXPosition - 1 == lastPlayerXPosition) || (lastLastPlayerXPosition + 1 == lastPlayerXPosition))
+                        if ((lastLastPlayerXPosition == lastPlayerXPosition) && this.PlayerIsUnderBridge)
                         {
                             //allow the move under the bridge (which is a move to one height level lower)
                             allowMove = true;
+                            this.PlayerIsUnderBridge = false;
                         }
                     }
+
+                    /*
+                    else
+                    {
+                        allowMove = true;
+                    }
+                    */
                 }
 
                 //Player tries to go under a bridge (with strict map building rules always possible)
@@ -1445,7 +1486,8 @@ namespace IceBlink2
                     if (lastPlayerYPosition - 1 == playerYPosition)
                     {
                         //came from west or east and is under bridge now
-                        if ((lastLastPlayerXPosition - 1 == lastPlayerXPosition) || (lastLastPlayerXPosition + 1 == lastPlayerXPosition))
+                        //if ((lastLastPlayerXPosition - 1 == lastPlayerXPosition) || (lastLastPlayerXPosition + 1 == lastPlayerXPosition))
+                        if ((lastLastPlayerXPosition == lastPlayerXPosition) && this.PlayerIsUnderBridge)
                         {
                             //prevent bridge climbing from under the bridge
                             allowMove = false;
@@ -1456,7 +1498,8 @@ namespace IceBlink2
                     if (lastPlayerYPosition + 1 == playerYPosition)
                     {
                         //came from west or east and is under bridge now
-                        if ((lastLastPlayerXPosition - 1 == lastPlayerXPosition) || (lastLastPlayerXPosition + 1 == lastPlayerXPosition))
+                        //if ((lastLastPlayerXPosition - 1 == lastPlayerXPosition) || (lastLastPlayerXPosition + 1 == lastPlayerXPosition))
+                         if ((lastLastPlayerXPosition == lastPlayerXPosition) && this.PlayerIsUnderBridge)
                         {
                             //prevent bridge climbing from under the bridge
                             allowMove = false;
@@ -1471,7 +1514,8 @@ namespace IceBlink2
                     if (lastPlayerXPosition - 1 == playerXPosition)
                     {
                         //came from north or south and is under bridge now
-                        if ((lastLastPlayerYPosition - 1 == lastPlayerYPosition) || (lastLastPlayerYPosition + 1 == lastPlayerYPosition))
+                        //if ((lastLastPlayerYPosition - 1 == lastPlayerYPosition) || (lastLastPlayerYPosition + 1 == lastPlayerYPosition))
+                        if ((lastLastPlayerYPosition == lastPlayerYPosition) && this.PlayerIsUnderBridge)
                         {
                             //prevent bridge climbing from under the bridge
                             allowMove = false;
@@ -1482,7 +1526,8 @@ namespace IceBlink2
                     if (lastPlayerXPosition + 1 == playerXPosition)
                     {
                         //came from north or south and is under bridge now
-                        if ((lastLastPlayerYPosition - 1 == lastPlayerYPosition) || (lastLastPlayerYPosition + 1 == lastPlayerYPosition))
+                        //if ((lastLastPlayerYPosition - 1 == lastPlayerYPosition) || (lastLastPlayerYPosition + 1 == lastPlayerYPosition))
+                        if ((lastLastPlayerYPosition == lastPlayerYPosition) && this.PlayerIsUnderBridge)
                         {
                             //prevent bridge climbing from under the bridge
                             allowMove = false;

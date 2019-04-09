@@ -367,9 +367,9 @@ namespace IceBlink2
                     Text = numberOfLightSources.ToString();
                 }
 
-                    for (int x = -2; x <= 2; x++)
+                    for (int x = -1; x <= 1; x++)
                 {
-                    for (int y = -2; y <= 2; y++)
+                    for (int y = -1; y <= 1; y++)
                     {
                         int xLoc = (int)((parentPanel.currentLocX + this.X) * gv.screenDensity + ulX + x);
                         int yLoc = (int)((parentPanel.currentLocY + this.Y) * gv.screenDensity + ulY + y);
@@ -477,9 +477,9 @@ namespace IceBlink2
                     Quantity = gv.mod.numberOfRationsRemaining.ToString();
                 }
 
-                for (int x = -2; x <= 2; x++)
+                for (int x = -1; x <= 1; x++)
                 {
-                    for (int y = -2; y <= 2; y++)
+                    for (int y = -1; y <= 1; y++)
                     {
                         int xLoc = (int)((parentPanel.currentLocX + this.X) * gv.screenDensity + ulX + x);
                         int yLoc = 0;
@@ -578,9 +578,9 @@ namespace IceBlink2
                     ulX = ((Width * gv.screenDensity) - stringSize) / 2;
                     ulY = (((Height * gv.screenDensity) - thisFontHeight) / 4) * 3;
 
-                    for (int x = -2; x <= 2; x++)
+                    for (int x = -1; x <= 1; x++)
                     {
-                        for (int y = -2; y <= 2; y++)
+                        for (int y = -1; y <= 1; y++)
                         {
                             int xLoc = (int)((parentPanel.currentLocX + this.X) * gv.screenDensity + ulX + x);
                             int yLoc = (int)((parentPanel.currentLocY + this.Y) * gv.screenDensity + ulY + y);

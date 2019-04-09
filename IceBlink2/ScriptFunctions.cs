@@ -4715,7 +4715,7 @@ namespace IceBlink2
                                         {
                                             gv.mod.PlayerLocationX = gv.sf.ThisProp.LocationX;
                                             gv.mod.PlayerLocationY = gv.sf.ThisProp.LocationY - 1;
-                                            gv.screenMainMap.addFloatyText(gv.sf.ThisProp.LocationX, gv.sf.ThisProp.LocationY, "Success: " + traitName + " level " + (parm2 + darkAdder - 10).ToString() + " matched", "green", 2000);
+                                            //gv.screenMainMap.addFloatyText(gv.sf.ThisProp.LocationX, gv.sf.ThisProp.LocationY, "Success: " + traitName + " level " + (parm2 + darkAdder - 10).ToString() + " matched", "green", 2000);
                                             gv.cc.addLogText("lime", "Success: " + traitName + " level " + (parm2 + darkAdder - 10).ToString() + " matched");
                                         }
                                     }
@@ -4730,7 +4730,7 @@ namespace IceBlink2
                                         {
                                             gv.mod.PlayerLocationX = gv.sf.ThisProp.LocationX;
                                             gv.mod.PlayerLocationY = gv.sf.ThisProp.LocationY + 1;
-                                            gv.screenMainMap.addFloatyText(gv.sf.ThisProp.LocationX, gv.sf.ThisProp.LocationY, "Success: " + traitName + " level " + (parm2 + darkAdder - 10).ToString() + " matched", "green", 2000);
+                                            //gv.screenMainMap.addFloatyText(gv.sf.ThisProp.LocationX, gv.sf.ThisProp.LocationY, "Success: " + traitName + " level " + (parm2 + darkAdder - 10).ToString() + " matched", "green", 2000);
                                             gv.cc.addLogText("lime", "Success: " + traitName + " level " + (parm2 + darkAdder - 10).ToString() + " matched");
                                         }
                                     }
@@ -4750,7 +4750,7 @@ namespace IceBlink2
                                             {
                                                 pc.combatFacingLeft = true;
                                             }
-                                            gv.screenMainMap.addFloatyText(gv.sf.ThisProp.LocationX, gv.sf.ThisProp.LocationY, "Success: " + traitName + " level " + (parm2 + darkAdder - 10).ToString() + " matched", "green", 2000);
+                                            //gv.screenMainMap.addFloatyText(gv.sf.ThisProp.LocationX, gv.sf.ThisProp.LocationY, "Success: " + traitName + " level " + (parm2 + darkAdder - 10).ToString() + " matched", "green", 2000);
                                             gv.cc.addLogText("lime", "Success: " + traitName + " level " + (parm2 + darkAdder - 10).ToString() + " matched");
                                         }
                                     }
@@ -4770,7 +4770,7 @@ namespace IceBlink2
                                             {
                                                 pc.combatFacingLeft = false;
                                             }
-                                            gv.screenMainMap.addFloatyText(gv.sf.ThisProp.LocationX, gv.sf.ThisProp.LocationY, "Success: " + traitName + " level " + (parm2 + darkAdder - 10).ToString() + " matched", "green", 2000);
+                                            //gv.screenMainMap.addFloatyText(gv.sf.ThisProp.LocationX, gv.sf.ThisProp.LocationY, "Success: " + traitName + " level " + (parm2 + darkAdder - 10).ToString() + " matched", "green", 2000);
                                             gv.cc.addLogText("lime", "Success: " + traitName + " level " + (parm2 + darkAdder - 10).ToString() + " matched");
                                         }
                                     }
@@ -4805,6 +4805,10 @@ namespace IceBlink2
                     {
                         //todo 
                         pushObject();
+                    }
+                    else if (filename.Equals("gaBreakObject.cs"))
+                    {
+                        breakObject();
                     }
                     else if (filename.Equals("gaUseLever.cs"))
                     {
@@ -8620,8 +8624,806 @@ namespace IceBlink2
             }
         }
 
+        public void breakObject()
+        {
+            //todo
+            //skill check
+            //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+            string traitName = "";
 
-        public void pushObject()
+            string traitMethod = "leader";
+            foreach (Trait t in gv.mod.moduleTraitsList)
+            {
+                if (t.tag.Contains(ThisProp.breakableTraitTag))
+                {
+                    traitMethod = t.methodOfChecking;
+                    traitName = t.nameOfTraitGroup;
+                }
+            }
+            int parm1 = gv.mod.selectedPartyLeader;
+            if (traitMethod.Equals("-1") || traitMethod.Equals("leader") || traitMethod.Equals("Leader"))
+            {
+                parm1 = gv.mod.selectedPartyLeader;
+            }
+            else if (traitMethod.Equals("-2") || traitMethod.Equals("highest") || traitMethod.Equals("Highest"))
+            {
+                parm1 = -2;
+            }
+            else if (traitMethod.Equals("-3") || traitMethod.Equals("lowest") || traitMethod.Equals("Lowest"))
+            {
+                parm1 = -3;
+            }
+            else if (traitMethod.Equals("-4") || traitMethod.Equals("average") || traitMethod.Equals("Average"))
+            {
+                parm1 = -4;
+            }
+            else if (traitMethod.Equals("-5") || traitMethod.Equals("allMustSucceed") || traitMethod.Equals("AllMustSucceed"))
+            {
+                parm1 = -5;
+            }
+            else if (traitMethod.Equals("-6") || traitMethod.Equals("oneMustSucceed") || traitMethod.Equals("OneMustSucceed"))
+            {
+                parm1 = -6;
+            }
+
+            int darkAdder = 0;
+            //item
+
+            bool itemAndSkillRequired = false;
+            bool itemOnlyRequired = false;
+            bool skillOnlyRequired = false;
+            bool noRequirement = false;
+
+            if (ThisProp.breakableTraitTag != "none" && ThisProp.requiredItemInInventory != "none")
+            {
+                itemAndSkillRequired = true;
+            }
+            else if (ThisProp.breakableTraitTag != "none" && ThisProp.requiredItemInInventory == "none")
+            {
+                skillOnlyRequired = true;
+            }
+            else if (ThisProp.breakableTraitTag == "none" && ThisProp.requiredItemInInventory != "none")
+            {
+                itemOnlyRequired = true;
+            }
+            else if  (ThisProp.breakableTraitTag == "none" && ThisProp.requiredItemInInventory == "none")
+            {
+                noRequirement = true;
+            }
+
+            bool hasItem = false;
+            bool passedCheck = false;
+            string itemName = "none";
+            if (ThisProp.requiredItemInInventory != "none")
+            {
+                Item it = mod.getItemByResRef(ThisProp.requiredItemInInventory);
+                if (it != null)
+                {
+                    itemName = it.name;
+                }
+            }
+
+            if (itemAndSkillRequired || skillOnlyRequired)
+            {
+                if (CheckPassSkill(parm1, ThisProp.breakableTraitTag, ThisProp.breakableDC + darkAdder, true, true))
+                {
+                    passedCheck = true;
+                }
+                else
+                {
+                    passedCheck = false;
+                }
+            }
+
+            if (itemAndSkillRequired || itemOnlyRequired)
+            {
+                //katzer
+                hasItem = CheckForItem(ThisProp.requiredItemInInventory, 1);
+            }
+
+            if (itemAndSkillRequired)
+            {
+                //success
+                if (hasItem && passedCheck)
+                {
+                    /*
+                     //1.minable tile/digging (eg some ore vein or collapsed tunnels):
+
+        //a. upon success (all requirements met: skill level, required item):
+
+        //if stage counter number higher than 0
+        //exchange prop graphic to stage graphic with the same number as stage counter number
+        //reduce stage counter number by 1
+        //play sound file for bumping into prop
+        //messaging only to log
+
+        //if stage counter number 0
+        //exchange prop graphic against debris graphic (if existent) or blank out prop
+        //adjust height of target tile to height level of tile the party is on right now
+        //set all tile layer graphics higher than 1 to blank (revealing the ground floor)
+        //play sound file for breaking the object
+        //set isDiggableIndicatorProp to false for this prop
+        //give out item connected if existent (eg ore)
+        //messaging only to log
+
+        //b. upon failure
+        //messaging to log and as floaty
+                    */
+
+                if (ThisProp.counterStages > 0)
+                {
+                        if (ThisProp.counterStages == 1 && ThisProp.stageGraphic1 != "none")
+                        {
+                            SetProp("thisProp", "", "i", ThisProp.stageGraphic1);
+                        }
+                        if (ThisProp.counterStages == 2 && ThisProp.stageGraphic2 != "none")
+                        {
+                            SetProp("thisProp", "", "i", ThisProp.stageGraphic2);
+                        }
+                        if (ThisProp.counterStages == 3 && ThisProp.stageGraphic3 != "none")
+                        {
+                            SetProp("thisProp", "", "i", ThisProp.stageGraphic3);
+                        }
+                        ThisProp.counterStages--;
+                        
+                        //sound
+                        if (ThisProp.nameOfSoundFileBump != "none")
+                        {
+                            //katzer2
+                            gv.PlaySound(ThisProp.nameOfSoundFileBump);
+                        }
+                        //messaging
+                        //gv.screenMainMap.addFloatyText(gv.mod.PlayerLocationX, gv.mod.PlayerLocationY, "Something changed again...", "red", 2000);
+                        gv.cc.addLogText("green", "That was effective...");
+
+                    }
+
+                    //smash to debris
+                else if (!ThisProp.isBroken)
+                {
+                        ThisProp.isBroken = true;
+
+                        if (ThisProp.debrisGraphic != "none")
+                        {
+                            SetProp("thisProp", "", "i", ThisProp.debrisGraphic);
+                        }
+                        else
+                        {
+                            SetProp("thisProp", "", "i", "blank");
+                        }
+
+                        //give item
+                        if (ThisProp.resRefOfItemGained != "none")
+                        {
+                            GiveItem(ThisProp.resRefOfItemGained, 1);
+                        }
+                        //adjust height level and graphic
+
+                        if (!ThisProp.isPureBreakableProp)
+                        {
+                            int x = ThisProp.LocationX;
+                            int y = ThisProp.LocationY;
+                            int newHeight = gv.mod.currentArea.Tiles[gv.mod.PlayerLocationY * gv.mod.currentArea.MapSizeX + gv.mod.PlayerLocationX].heightLevel;
+
+                            if (x < gv.mod.currentArea.MapSizeX - 1 && x > 0 && y < gv.mod.currentArea.MapSizeY - 1 && y > 0)
+                            {
+
+                                gv.mod.currentArea.Tiles[y * gv.mod.currentArea.MapSizeX + x].heightLevel = newHeight;
+                                calculateHeightShadows(x, y);
+
+                                //todo: tile graphic layer2
+                                //katzer4
+                                //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXx
+                                //int x = Convert.ToInt32(p1);
+                                //int y = Convert.ToInt32(p2);
+                                Coordinate coord = new Coordinate();
+                                coord.X = x;
+                                coord.Y = y;
+                                string p4 = "blank";
+                                for (int layerNumber = 2; layerNumber <= 5; layerNumber++)
+                                {
+
+                                    if (layerNumber == 2)
+                                    {
+                                        gv.mod.currentArea.Tiles[y * gv.mod.currentArea.MapSizeX + x].Layer2Filename = p4;
+                                        gv.mod.currentArea.toggledSquaresLayer2FilenameCoords.Add(coord);
+                                        gv.mod.currentArea.toggledSquaresLayer2FilenameNames.Add(p4);
+                                    }
+                                    if (layerNumber == 3)
+                                    {
+                                        gv.mod.currentArea.Tiles[y * gv.mod.currentArea.MapSizeX + x].Layer3Filename = p4;
+                                        gv.mod.currentArea.toggledSquaresLayer3FilenameCoords.Add(coord);
+                                        gv.mod.currentArea.toggledSquaresLayer3FilenameNames.Add(p4);
+                                    }
+                                    if (layerNumber == 4)
+                                    {
+                                        gv.mod.currentArea.Tiles[y * gv.mod.currentArea.MapSizeX + x].Layer4Filename = p4;
+                                        gv.mod.currentArea.toggledSquaresLayer4FilenameCoords.Add(coord);
+                                        gv.mod.currentArea.toggledSquaresLayer4FilenameNames.Add(p4);
+                                    }
+                                    if (layerNumber == 5)
+                                    {
+                                        gv.mod.currentArea.Tiles[y * gv.mod.currentArea.MapSizeX + x].Layer5Filename = p4;
+                                        gv.mod.currentArea.toggledSquaresLayer5FilenameCoords.Add(coord);
+                                        gv.mod.currentArea.toggledSquaresLayer5FilenameNames.Add(p4);
+                                    }
+                                }
+
+
+                                //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+
+                                //center
+                                bool centerIn = false;
+                                for (int i = 0; i < gv.mod.currentArea.newHeights.Count; i++)
+                                {
+                                    if (x == gv.mod.currentArea.changedHeightTilesCoordX[i] && y == gv.mod.currentArea.changedHeightTilesCoordY[i])
+                                    {
+                                        centerIn = true;
+                                        gv.mod.currentArea.newHeights[i] = gv.mod.currentArea.Tiles[y * gv.mod.currentArea.MapSizeX + x].heightLevel;
+                                    }
+                                }
+
+                                if (!centerIn)
+                                {
+                                    gv.mod.currentArea.newHeights.Add(gv.mod.currentArea.Tiles[y * gv.mod.currentArea.MapSizeX + x].heightLevel);
+                                    gv.mod.currentArea.changedHeightTilesCoordX.Add(x);
+                                    gv.mod.currentArea.changedHeightTilesCoordY.Add(y);
+                                }
+                            }
+                        }
+
+                            //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXxx
+                            //katzer3
+
+                            //sound
+                            if (ThisProp.nameOfSoundFileBreak != "none")
+                        {
+                            //katzer2
+                            gv.PlaySound(ThisProp.nameOfSoundFileBreak);
+                        }
+                        //messaging
+                        //gv.screenMainMap.addFloatyText(gv.mod.PlayerLocationX, gv.mod.PlayerLocationY, "Something changed again...", "red", 2000);
+                        //gv.cc.addLogText("green", "That did it...");
+                    }
+
+                }
+
+                //failure
+                else
+                {
+                    gv.screenMainMap.addFloatyText(gv.sf.ThisProp.LocationX, gv.sf.ThisProp.LocationY, "Failure: " + traitName + " level " + (ThisProp.breakableDC + darkAdder - 10).ToString() + " and " + itemName + " required", "red", 2000);
+                    gv.cc.addLogText("red", "Failure: " + traitName + " level " + (ThisProp.breakableDC + darkAdder - 10).ToString() + " and " + itemName + " required");
+                }
+            }
+
+            if (itemOnlyRequired)
+            {
+                //success
+                if (hasItem)
+                {
+                    //if (hasItem && passedCheck)
+                    //{
+                        /*
+                         //1.minable tile/digging (eg some ore vein or collapsed tunnels):
+
+            //a. upon success (all requirements met: skill level, required item):
+
+            //if stage counter number higher than 0
+            //exchange prop graphic to stage graphic with the same number as stage counter number
+            //reduce stage counter number by 1
+            //play sound file for bumping into prop
+            //messaging only to log
+
+            //if stage counter number 0
+            //exchange prop graphic against debris graphic (if existent) or blank out prop
+            //adjust height of target tile to height level of tile the party is on right now
+            //set all tile layer graphics higher than 1 to blank (revealing the ground floor)
+            //play sound file for breaking the object
+            //set isDiggableIndicatorProp to false for this prop
+            //give out item connected if existent (eg ore)
+            //messaging only to log
+
+            //b. upon failure
+            //messaging to log and as floaty
+                        */
+
+                        if (ThisProp.counterStages > 0)
+                        {
+                            if (ThisProp.counterStages == 1 && ThisProp.stageGraphic1 != "none")
+                            {
+                                SetProp("thisProp", "", "i", ThisProp.stageGraphic1);
+                            }
+                            if (ThisProp.counterStages == 2 && ThisProp.stageGraphic2 != "none")
+                            {
+                                SetProp("thisProp", "", "i", ThisProp.stageGraphic2);
+                            }
+                            if (ThisProp.counterStages == 3 && ThisProp.stageGraphic3 != "none")
+                            {
+                                SetProp("thisProp", "", "i", ThisProp.stageGraphic3);
+                            }
+                            ThisProp.counterStages--;
+
+                            //sound
+                            if (ThisProp.nameOfSoundFileBump != "none")
+                            {
+                                //katzer2
+                                gv.PlaySound(ThisProp.nameOfSoundFileBump);
+                            }
+                            //messaging
+                            //gv.screenMainMap.addFloatyText(gv.mod.PlayerLocationX, gv.mod.PlayerLocationY, "Something changed again...", "red", 2000);
+                            gv.cc.addLogText("green", "That was effective...");
+
+                        }
+
+                        //smash to debris
+                        else if (!ThisProp.isBroken)
+                        {
+                            ThisProp.isBroken = true;
+
+                            if (ThisProp.debrisGraphic != "none")
+                            {
+                                SetProp("thisProp", "", "i", ThisProp.debrisGraphic);
+                            }
+                            else
+                            {
+                                SetProp("thisProp", "", "i", "blank");
+                            }
+
+                            //give item
+                            if (ThisProp.resRefOfItemGained != "none")
+                            {
+                                GiveItem(ThisProp.resRefOfItemGained, 1);
+                            }
+                            //adjust height level and graphic
+
+                            if (!ThisProp.isPureBreakableProp)
+                            {
+                                int x = ThisProp.LocationX;
+                                int y = ThisProp.LocationY;
+                                int newHeight = gv.mod.currentArea.Tiles[gv.mod.PlayerLocationY * gv.mod.currentArea.MapSizeX + gv.mod.PlayerLocationX].heightLevel;
+
+                                if (x < gv.mod.currentArea.MapSizeX - 1 && x > 0 && y < gv.mod.currentArea.MapSizeY - 1 && y > 0)
+                                {
+
+                                    gv.mod.currentArea.Tiles[y * gv.mod.currentArea.MapSizeX + x].heightLevel = newHeight;
+                                    calculateHeightShadows(x, y);
+
+                                    //todo: tile graphic layer2
+                                    //katzer4
+                                    //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXx
+                                    //int x = Convert.ToInt32(p1);
+                                    //int y = Convert.ToInt32(p2);
+                                    Coordinate coord = new Coordinate();
+                                    coord.X = x;
+                                    coord.Y = y;
+                                    string p4 = "blank";
+                                    for (int layerNumber = 2; layerNumber <= 5; layerNumber++)
+                                    {
+
+                                        if (layerNumber == 2)
+                                        {
+                                            gv.mod.currentArea.Tiles[y * gv.mod.currentArea.MapSizeX + x].Layer2Filename = p4;
+                                            gv.mod.currentArea.toggledSquaresLayer2FilenameCoords.Add(coord);
+                                            gv.mod.currentArea.toggledSquaresLayer2FilenameNames.Add(p4);
+                                        }
+                                        if (layerNumber == 3)
+                                        {
+                                            gv.mod.currentArea.Tiles[y * gv.mod.currentArea.MapSizeX + x].Layer3Filename = p4;
+                                            gv.mod.currentArea.toggledSquaresLayer3FilenameCoords.Add(coord);
+                                            gv.mod.currentArea.toggledSquaresLayer3FilenameNames.Add(p4);
+                                        }
+                                        if (layerNumber == 4)
+                                        {
+                                            gv.mod.currentArea.Tiles[y * gv.mod.currentArea.MapSizeX + x].Layer4Filename = p4;
+                                            gv.mod.currentArea.toggledSquaresLayer4FilenameCoords.Add(coord);
+                                            gv.mod.currentArea.toggledSquaresLayer4FilenameNames.Add(p4);
+                                        }
+                                        if (layerNumber == 5)
+                                        {
+                                            gv.mod.currentArea.Tiles[y * gv.mod.currentArea.MapSizeX + x].Layer5Filename = p4;
+                                            gv.mod.currentArea.toggledSquaresLayer5FilenameCoords.Add(coord);
+                                            gv.mod.currentArea.toggledSquaresLayer5FilenameNames.Add(p4);
+                                        }
+                                    }
+
+
+                                    //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+
+                                    //center
+                                    bool centerIn = false;
+                                    for (int i = 0; i < gv.mod.currentArea.newHeights.Count; i++)
+                                    {
+                                        if (x == gv.mod.currentArea.changedHeightTilesCoordX[i] && y == gv.mod.currentArea.changedHeightTilesCoordY[i])
+                                        {
+                                            centerIn = true;
+                                            gv.mod.currentArea.newHeights[i] = gv.mod.currentArea.Tiles[y * gv.mod.currentArea.MapSizeX + x].heightLevel;
+                                        }
+                                    }
+
+                                    if (!centerIn)
+                                    {
+                                        gv.mod.currentArea.newHeights.Add(gv.mod.currentArea.Tiles[y * gv.mod.currentArea.MapSizeX + x].heightLevel);
+                                        gv.mod.currentArea.changedHeightTilesCoordX.Add(x);
+                                        gv.mod.currentArea.changedHeightTilesCoordY.Add(y);
+                                    }
+                                }
+                            }
+
+                            //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXxx
+                            //katzer3
+
+                            //sound
+                            if (ThisProp.nameOfSoundFileBreak != "none")
+                            {
+                                //katzer2
+                                gv.PlaySound(ThisProp.nameOfSoundFileBreak);
+                            }
+                            //messaging
+                            //gv.screenMainMap.addFloatyText(gv.mod.PlayerLocationX, gv.mod.PlayerLocationY, "Something changed again...", "red", 2000);
+                            //gv.cc.addLogText("green", "That did it...");
+                        }
+
+                    //}
+                }
+
+                //failure
+                else
+                {
+                    gv.screenMainMap.addFloatyText(gv.sf.ThisProp.LocationX, gv.sf.ThisProp.LocationY, "Failure: " + traitName + " level " + (ThisProp.breakableDC + darkAdder - 10).ToString() + " and " + itemName + " required", "red", 2000);
+                    gv.cc.addLogText("red", "Failure: " + itemName + " required");
+
+                }
+            }
+
+            if (skillOnlyRequired)
+            {
+                //success
+                if (passedCheck)
+                {
+                    //if (hasItem && passedCheck)
+                    //{
+                        /*
+                         //1.minable tile/digging (eg some ore vein or collapsed tunnels):
+
+            //a. upon success (all requirements met: skill level, required item):
+
+            //if stage counter number higher than 0
+            //exchange prop graphic to stage graphic with the same number as stage counter number
+            //reduce stage counter number by 1
+            //play sound file for bumping into prop
+            //messaging only to log
+
+            //if stage counter number 0
+            //exchange prop graphic against debris graphic (if existent) or blank out prop
+            //adjust height of target tile to height level of tile the party is on right now
+            //set all tile layer graphics higher than 1 to blank (revealing the ground floor)
+            //play sound file for breaking the object
+            //set isDiggableIndicatorProp to false for this prop
+            //give out item connected if existent (eg ore)
+            //messaging only to log
+
+            //b. upon failure
+            //messaging to log and as floaty
+                        */
+
+                        if (ThisProp.counterStages > 0)
+                        {
+                            if (ThisProp.counterStages == 1 && ThisProp.stageGraphic1 != "none")
+                            {
+                                SetProp("thisProp", "", "i", ThisProp.stageGraphic1);
+                            }
+                            if (ThisProp.counterStages == 2 && ThisProp.stageGraphic2 != "none")
+                            {
+                                SetProp("thisProp", "", "i", ThisProp.stageGraphic2);
+                            }
+                            if (ThisProp.counterStages == 3 && ThisProp.stageGraphic3 != "none")
+                            {
+                                SetProp("thisProp", "", "i", ThisProp.stageGraphic3);
+                            }
+                            ThisProp.counterStages--;
+
+                            //sound
+                            if (ThisProp.nameOfSoundFileBump != "none")
+                            {
+                                //katzer2
+                                gv.PlaySound(ThisProp.nameOfSoundFileBump);
+                            }
+                            //messaging
+                            //gv.screenMainMap.addFloatyText(gv.mod.PlayerLocationX, gv.mod.PlayerLocationY, "Something changed again...", "red", 2000);
+                            gv.cc.addLogText("green", "That was effective...");
+
+                        }
+
+                        //smash to debris
+                        else if (!ThisProp.isBroken)
+                        {
+                            ThisProp.isBroken = true;
+
+                            if (ThisProp.debrisGraphic != "none")
+                            {
+                                SetProp("thisProp", "", "i", ThisProp.debrisGraphic);
+                            }
+                            else
+                            {
+                                SetProp("thisProp", "", "i", "blank");
+                            }
+
+                            //give item
+                            if (ThisProp.resRefOfItemGained != "none")
+                            {
+                                GiveItem(ThisProp.resRefOfItemGained, 1);
+                            }
+                            //adjust height level and graphic
+
+                            if (!ThisProp.isPureBreakableProp)
+                            {
+                                int x = ThisProp.LocationX;
+                                int y = ThisProp.LocationY;
+                                int newHeight = gv.mod.currentArea.Tiles[gv.mod.PlayerLocationY * gv.mod.currentArea.MapSizeX + gv.mod.PlayerLocationX].heightLevel;
+
+                                if (x < gv.mod.currentArea.MapSizeX - 1 && x > 0 && y < gv.mod.currentArea.MapSizeY - 1 && y > 0)
+                                {
+
+                                    gv.mod.currentArea.Tiles[y * gv.mod.currentArea.MapSizeX + x].heightLevel = newHeight;
+                                    calculateHeightShadows(x, y);
+
+                                    //todo: tile graphic layer2
+                                    //katzer4
+                                    //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXx
+                                    //int x = Convert.ToInt32(p1);
+                                    //int y = Convert.ToInt32(p2);
+                                    Coordinate coord = new Coordinate();
+                                    coord.X = x;
+                                    coord.Y = y;
+                                    string p4 = "blank";
+                                    for (int layerNumber = 2; layerNumber <= 5; layerNumber++)
+                                    {
+
+                                        if (layerNumber == 2)
+                                        {
+                                            gv.mod.currentArea.Tiles[y * gv.mod.currentArea.MapSizeX + x].Layer2Filename = p4;
+                                            gv.mod.currentArea.toggledSquaresLayer2FilenameCoords.Add(coord);
+                                            gv.mod.currentArea.toggledSquaresLayer2FilenameNames.Add(p4);
+                                        }
+                                        if (layerNumber == 3)
+                                        {
+                                            gv.mod.currentArea.Tiles[y * gv.mod.currentArea.MapSizeX + x].Layer3Filename = p4;
+                                            gv.mod.currentArea.toggledSquaresLayer3FilenameCoords.Add(coord);
+                                            gv.mod.currentArea.toggledSquaresLayer3FilenameNames.Add(p4);
+                                        }
+                                        if (layerNumber == 4)
+                                        {
+                                            gv.mod.currentArea.Tiles[y * gv.mod.currentArea.MapSizeX + x].Layer4Filename = p4;
+                                            gv.mod.currentArea.toggledSquaresLayer4FilenameCoords.Add(coord);
+                                            gv.mod.currentArea.toggledSquaresLayer4FilenameNames.Add(p4);
+                                        }
+                                        if (layerNumber == 5)
+                                        {
+                                            gv.mod.currentArea.Tiles[y * gv.mod.currentArea.MapSizeX + x].Layer5Filename = p4;
+                                            gv.mod.currentArea.toggledSquaresLayer5FilenameCoords.Add(coord);
+                                            gv.mod.currentArea.toggledSquaresLayer5FilenameNames.Add(p4);
+                                        }
+                                    }
+
+
+                                    //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+
+                                    //center
+                                    bool centerIn = false;
+                                    for (int i = 0; i < gv.mod.currentArea.newHeights.Count; i++)
+                                    {
+                                        if (x == gv.mod.currentArea.changedHeightTilesCoordX[i] && y == gv.mod.currentArea.changedHeightTilesCoordY[i])
+                                        {
+                                            centerIn = true;
+                                            gv.mod.currentArea.newHeights[i] = gv.mod.currentArea.Tiles[y * gv.mod.currentArea.MapSizeX + x].heightLevel;
+                                        }
+                                    }
+
+                                    if (!centerIn)
+                                    {
+                                        gv.mod.currentArea.newHeights.Add(gv.mod.currentArea.Tiles[y * gv.mod.currentArea.MapSizeX + x].heightLevel);
+                                        gv.mod.currentArea.changedHeightTilesCoordX.Add(x);
+                                        gv.mod.currentArea.changedHeightTilesCoordY.Add(y);
+                                    }
+                                }
+                            }
+
+                            //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXxx
+                            //katzer3
+
+                            //sound
+                            if (ThisProp.nameOfSoundFileBreak != "none")
+                            {
+                                //katzer2
+                                gv.PlaySound(ThisProp.nameOfSoundFileBreak);
+                            }
+                            //messaging
+                            //gv.screenMainMap.addFloatyText(gv.mod.PlayerLocationX, gv.mod.PlayerLocationY, "Something changed again...", "red", 2000);
+                            //gv.cc.addLogText("green", "That did it...");
+                        }
+
+                    //}
+                }
+
+                //failure
+                else
+                {
+                    gv.screenMainMap.addFloatyText(gv.sf.ThisProp.LocationX, gv.sf.ThisProp.LocationY, "Failure: " + traitName + " level " + (ThisProp.breakableDC + darkAdder - 10).ToString() + " required", "red", 2000);
+                    gv.cc.addLogText("red", "Failure: " + traitName + " level " + (ThisProp.breakableDC + darkAdder - 10).ToString() + " required");
+                }
+            }
+
+            if (noRequirement)
+            {
+                //success
+                //if (hasItem && passedCheck)
+                //{
+                    /*
+                     //1.minable tile/digging (eg some ore vein or collapsed tunnels):
+
+        //a. upon success (all requirements met: skill level, required item):
+
+        //if stage counter number higher than 0
+        //exchange prop graphic to stage graphic with the same number as stage counter number
+        //reduce stage counter number by 1
+        //play sound file for bumping into prop
+        //messaging only to log
+
+        //if stage counter number 0
+        //exchange prop graphic against debris graphic (if existent) or blank out prop
+        //adjust height of target tile to height level of tile the party is on right now
+        //set all tile layer graphics higher than 1 to blank (revealing the ground floor)
+        //play sound file for breaking the object
+        //set isDiggableIndicatorProp to false for this prop
+        //give out item connected if existent (eg ore)
+        //messaging only to log
+
+        //b. upon failure
+        //messaging to log and as floaty
+                    */
+
+                    if (ThisProp.counterStages > 0)
+                    {
+                        if (ThisProp.counterStages == 1 && ThisProp.stageGraphic1 != "none")
+                        {
+                            SetProp("thisProp", "", "i", ThisProp.stageGraphic1);
+                        }
+                        if (ThisProp.counterStages == 2 && ThisProp.stageGraphic2 != "none")
+                        {
+                            SetProp("thisProp", "", "i", ThisProp.stageGraphic2);
+                        }
+                        if (ThisProp.counterStages == 3 && ThisProp.stageGraphic3 != "none")
+                        {
+                            SetProp("thisProp", "", "i", ThisProp.stageGraphic3);
+                        }
+                        ThisProp.counterStages--;
+
+                        //sound
+                        if (ThisProp.nameOfSoundFileBump != "none")
+                        {
+                            //katzer2
+                            gv.PlaySound(ThisProp.nameOfSoundFileBump);
+                        }
+                        //messaging
+                        //gv.screenMainMap.addFloatyText(gv.mod.PlayerLocationX, gv.mod.PlayerLocationY, "Something changed again...", "red", 2000);
+                        gv.cc.addLogText("green", "That was effective...");
+
+                    }
+
+                    //smash to debris
+                    else if (!ThisProp.isBroken)
+                    {
+                        ThisProp.isBroken = true;
+
+                        if (ThisProp.debrisGraphic != "none")
+                        {
+                            SetProp("thisProp", "", "i", ThisProp.debrisGraphic);
+                        }
+                        else
+                        {
+                            SetProp("thisProp", "", "i", "blank");
+                        }
+
+                        //give item
+                        if (ThisProp.resRefOfItemGained != "none")
+                        {
+                            GiveItem(ThisProp.resRefOfItemGained, 1);
+                        }
+                        //adjust height level and graphic
+
+                        if (!ThisProp.isPureBreakableProp)
+                        {
+                            int x = ThisProp.LocationX;
+                            int y = ThisProp.LocationY;
+                            int newHeight = gv.mod.currentArea.Tiles[gv.mod.PlayerLocationY * gv.mod.currentArea.MapSizeX + gv.mod.PlayerLocationX].heightLevel;
+
+                            if (x < gv.mod.currentArea.MapSizeX - 1 && x > 0 && y < gv.mod.currentArea.MapSizeY - 1 && y > 0)
+                            {
+
+                                gv.mod.currentArea.Tiles[y * gv.mod.currentArea.MapSizeX + x].heightLevel = newHeight;
+                                calculateHeightShadows(x, y);
+
+                                //todo: tile graphic layer2
+                                //katzer4
+                                //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXx
+                                //int x = Convert.ToInt32(p1);
+                                //int y = Convert.ToInt32(p2);
+                                Coordinate coord = new Coordinate();
+                                coord.X = x;
+                                coord.Y = y;
+                                string p4 = "blank";
+                                for (int layerNumber = 2; layerNumber <= 5; layerNumber++)
+                                {
+
+                                    if (layerNumber == 2)
+                                    {
+                                        gv.mod.currentArea.Tiles[y * gv.mod.currentArea.MapSizeX + x].Layer2Filename = p4;
+                                        gv.mod.currentArea.toggledSquaresLayer2FilenameCoords.Add(coord);
+                                        gv.mod.currentArea.toggledSquaresLayer2FilenameNames.Add(p4);
+                                    }
+                                    if (layerNumber == 3)
+                                    {
+                                        gv.mod.currentArea.Tiles[y * gv.mod.currentArea.MapSizeX + x].Layer3Filename = p4;
+                                        gv.mod.currentArea.toggledSquaresLayer3FilenameCoords.Add(coord);
+                                        gv.mod.currentArea.toggledSquaresLayer3FilenameNames.Add(p4);
+                                    }
+                                    if (layerNumber == 4)
+                                    {
+                                        gv.mod.currentArea.Tiles[y * gv.mod.currentArea.MapSizeX + x].Layer4Filename = p4;
+                                        gv.mod.currentArea.toggledSquaresLayer4FilenameCoords.Add(coord);
+                                        gv.mod.currentArea.toggledSquaresLayer4FilenameNames.Add(p4);
+                                    }
+                                    if (layerNumber == 5)
+                                    {
+                                        gv.mod.currentArea.Tiles[y * gv.mod.currentArea.MapSizeX + x].Layer5Filename = p4;
+                                        gv.mod.currentArea.toggledSquaresLayer5FilenameCoords.Add(coord);
+                                        gv.mod.currentArea.toggledSquaresLayer5FilenameNames.Add(p4);
+                                    }
+                                }
+
+
+                                //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+
+                                //center
+                                bool centerIn = false;
+                                for (int i = 0; i < gv.mod.currentArea.newHeights.Count; i++)
+                                {
+                                    if (x == gv.mod.currentArea.changedHeightTilesCoordX[i] && y == gv.mod.currentArea.changedHeightTilesCoordY[i])
+                                    {
+                                        centerIn = true;
+                                        gv.mod.currentArea.newHeights[i] = gv.mod.currentArea.Tiles[y * gv.mod.currentArea.MapSizeX + x].heightLevel;
+                                    }
+                                }
+
+                                if (!centerIn)
+                                {
+                                    gv.mod.currentArea.newHeights.Add(gv.mod.currentArea.Tiles[y * gv.mod.currentArea.MapSizeX + x].heightLevel);
+                                    gv.mod.currentArea.changedHeightTilesCoordX.Add(x);
+                                    gv.mod.currentArea.changedHeightTilesCoordY.Add(y);
+                                }
+                            }
+                        }
+
+                        //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXxx
+                        //katzer3
+
+                        //sound
+                        if (ThisProp.nameOfSoundFileBreak != "none")
+                        {
+                            //katzer2
+                            gv.PlaySound(ThisProp.nameOfSoundFileBreak);
+                        }
+                        //messaging
+                        //gv.screenMainMap.addFloatyText(gv.mod.PlayerLocationX, gv.mod.PlayerLocationY, "Something changed again...", "red", 2000);
+                        //gv.cc.addLogText("green", "That did it...");
+                    }
+
+                //}
+            }
+
+        }
+
+            public void pushObject()
         {
             Trigger tTemp = new Trigger();
             foreach (Trigger t in gv.mod.currentArea.Triggers)
@@ -8835,7 +9637,7 @@ namespace IceBlink2
 
                                 //move party after object
                                 gv.mod.wasSuccessfulPush = true;
-                                gv.screenMainMap.moveUp();
+                                gv.screenMainMap.moveUp(false);
                                 //gv.mod.PlayerLocationY--;
                                 //partytail
                             }
@@ -9068,7 +9870,7 @@ namespace IceBlink2
 
                                 //move party after object
                                 gv.mod.wasSuccessfulPush = true;
-                                gv.screenMainMap.moveLeft();
+                                gv.screenMainMap.moveLeft(false);
                                 //gv.mod.PlayerLocationY--;
                                 //partytail
                             }
@@ -9304,7 +10106,7 @@ namespace IceBlink2
 
                                 //move party after object
                                 gv.mod.wasSuccessfulPush = true;
-                                gv.screenMainMap.moveRight();
+                                gv.screenMainMap.moveRight(false);
                                 //gv.mod.PlayerLocationY--;
                                 //partytail
                             }
@@ -9537,7 +10339,7 @@ namespace IceBlink2
 
                                 //move party after object
                                 gv.mod.wasSuccessfulPush = true;
-                                gv.screenMainMap.moveDown();
+                                gv.screenMainMap.moveDown(false);
                                 //gv.mod.PlayerLocationY--;
                                 //partytail
                             }
@@ -9570,6 +10372,15 @@ namespace IceBlink2
 
         public void doPushableSuccess()
         {
+            //turn off timers
+            foreach(Prop p in gv.mod.currentArea.Props)
+            {
+                if (p.pushableGridTriggerTag == ThisProp.pushableGridTriggerTag)
+                {
+                    p.turnsBeforeGridResets = 0;
+                }
+            }
+            
             //register completion
             ThisProp.gridIsCompleted = true;
             
@@ -9630,6 +10441,33 @@ namespace IceBlink2
         public void doPushableFailure()
         {
 
+            if (ThisProp.pushableGridIsResetOnEachFailure)
+            {
+                bool resetParty = false;
+                int resetLocX = 0;
+                int resetLocY = 0;
+                string resetDrawDirection = "left";
+                foreach (Prop p in gv.mod.currentArea.Props)
+                {
+                    if (p.pushableGridTriggerTag == ThisProp.pushableGridTriggerTag)
+                    {
+                                resetLocX = p.partyDefaultPushableGridPositionX;
+                                resetLocY = p.partyDefaultPushableGridPositionY;
+                                resetDrawDirection = p.partyDefaultDrawDirection;
+                                p.LocationX = p.pushableStartPositionX;
+                                p.LocationY = p.pushableStartPositionY;
+                                p.timerTurnsBeforeGridResets = p.turnsBeforeGridResets;
+
+
+                            gv.mod.PlayerLocationX = resetLocX;
+                            gv.mod.PlayerLocationY = resetLocY;
+                            gv.mod.drawPartyDirection = resetDrawDirection;
+                    }
+                }
+                gv.screenMainMap.addFloatyText(gv.mod.PlayerLocationX, gv.mod.PlayerLocationY, "A sense of déjà-vu overcomes the party...", "green", 3000);
+                gv.cc.addLogText("lime", "A sense of déjà-vu overcomes the party...");
+            }
+
             //lock grid?
             if (ThisProp.lockGridOnFailure)
             {
@@ -9642,6 +10480,7 @@ namespace IceBlink2
                     }
                 }
             }
+
             //remove props?
             if (ThisProp.removeGridOnFailure)
             {

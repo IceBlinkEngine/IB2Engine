@@ -2995,61 +2995,66 @@ namespace IceBlink2
             string NeighbourNW = "";
             string NeighbourSE = "";
             string NeighbourSW = "";
-            foreach (Area a in gv.mod.moduleAreasObjects)
+            
+            if (gv.mod.currentArea.northernNeighbourArea != "none" || gv.mod.currentArea.easternNeighbourArea != "none" || gv.mod.currentArea.westernNeighbourArea != "none" || gv.mod.currentArea.southernNeighbourArea != "none")
             {
-                if (a.Filename == gv.mod.currentArea.northernNeighbourArea)
+                foreach (Area a in gv.mod.moduleAreasObjects)
                 {
-                    if (a.easternNeighbourArea != "none" && a.easternNeighbourArea != "" && a.easternNeighbourArea != "None")
+                    if (a.Filename == gv.mod.currentArea.northernNeighbourArea)
                     {
-                        NeighbourNE = a.easternNeighbourArea;
+                        if (a.easternNeighbourArea != "none" && a.easternNeighbourArea != "" && a.easternNeighbourArea != "None")
+                        {
+                            NeighbourNE = a.easternNeighbourArea;
+                        }
+
+                        if (a.westernNeighbourArea != "none" && a.westernNeighbourArea != "" && a.westernNeighbourArea != "None")
+                        {
+                            NeighbourNW = a.westernNeighbourArea;
+                        }
                     }
 
-                    if (a.westernNeighbourArea != "none" && a.westernNeighbourArea != "" && a.westernNeighbourArea != "None")
+                    if (a.Filename == gv.mod.currentArea.easternNeighbourArea)
                     {
-                        NeighbourNW = a.westernNeighbourArea;
-                    }
-                }
+                        if (a.northernNeighbourArea != "none" && a.northernNeighbourArea != "" && a.northernNeighbourArea != "None")
+                        {
+                            NeighbourNE = a.northernNeighbourArea;
+                        }
 
-                if (a.Filename == gv.mod.currentArea.easternNeighbourArea)
-                {
-                    if (a.northernNeighbourArea != "none" && a.northernNeighbourArea != "" && a.northernNeighbourArea != "None")
-                    {
-                        NeighbourNE = a.northernNeighbourArea;
-                    }
-
-                    if (a.southernNeighbourArea != "none" && a.southernNeighbourArea != "" && a.southernNeighbourArea != "None")
-                    {
-                        NeighbourSE = a.southernNeighbourArea;
-                    }
-                }
-
-                if (a.Filename == gv.mod.currentArea.southernNeighbourArea)
-                {
-                    if (a.easternNeighbourArea != "none" && a.easternNeighbourArea != "" && a.easternNeighbourArea != "None")
-                    {
-                        NeighbourSE = a.easternNeighbourArea;
+                        if (a.southernNeighbourArea != "none" && a.southernNeighbourArea != "" && a.southernNeighbourArea != "None")
+                        {
+                            NeighbourSE = a.southernNeighbourArea;
+                        }
                     }
 
-                    if (a.westernNeighbourArea != "none" && a.westernNeighbourArea != "" && a.westernNeighbourArea != "None")
+                    if (a.Filename == gv.mod.currentArea.southernNeighbourArea)
                     {
-                        NeighbourSW = a.westernNeighbourArea;
-                    }
-                }
+                        if (a.easternNeighbourArea != "none" && a.easternNeighbourArea != "" && a.easternNeighbourArea != "None")
+                        {
+                            NeighbourSE = a.easternNeighbourArea;
+                        }
 
-                if (a.Filename == gv.mod.currentArea.westernNeighbourArea)
-                {
-                    if (a.northernNeighbourArea != "none" && a.northernNeighbourArea != "" && a.northernNeighbourArea != "None")
-                    {
-                        NeighbourNW = a.northernNeighbourArea;
+                        if (a.westernNeighbourArea != "none" && a.westernNeighbourArea != "" && a.westernNeighbourArea != "None")
+                        {
+                            NeighbourSW = a.westernNeighbourArea;
+                        }
                     }
 
-                    if (a.southernNeighbourArea != "none" && a.southernNeighbourArea != "" && a.southernNeighbourArea != "None")
+                    if (a.Filename == gv.mod.currentArea.westernNeighbourArea)
                     {
-                        NeighbourSW = a.southernNeighbourArea;
+                        if (a.northernNeighbourArea != "none" && a.northernNeighbourArea != "" && a.northernNeighbourArea != "None")
+                        {
+                            NeighbourNW = a.northernNeighbourArea;
+                        }
+
+                        if (a.southernNeighbourArea != "none" && a.southernNeighbourArea != "" && a.southernNeighbourArea != "None")
+                        {
+                            NeighbourSW = a.southernNeighbourArea;
+                        }
                     }
                 }
             }
-            foreach (Area a in gv.mod.moduleAreasObjects)
+          
+                foreach (Area a in gv.mod.moduleAreasObjects)
             {
                 if (a.Filename == gv.mod.currentArea.easternNeighbourArea || a.Filename == gv.mod.currentArea.westernNeighbourArea || a.Filename == gv.mod.currentArea.northernNeighbourArea || a.Filename == gv.mod.currentArea.southernNeighbourArea || a.Filename == NeighbourNE || a.Filename == NeighbourNW || a.Filename == NeighbourSE || a.Filename == NeighbourSW)
                 {
@@ -3663,22 +3668,36 @@ namespace IceBlink2
             gv.screenMainMap.setExploredForConnectedDiscoveryTriggers();
 
             #region tile loading on demand
+            
             if (gv.mod.useAllTileSystem)
             {
-                //addLogText("yellow", "Number of tiles, before cull:" + gv.mod.loadedTileBitmaps.Count.ToString());
                 /*
-                if ((gv.mod.PlayerLastLocationX == gv.mod.PlayerLocationX) && (gv.mod.PlayerLastLocationY == gv.mod.PlayerLocationY))
+                if (gv.mod.loadedTileBitmaps.Count > 2000)
                 {
-                    gv.mod.blockTrigger = true;
-                }
-                else
-                {
-                    gv.mod.blockTrigger = false;
+                    try
+                    {
+                        foreach (Bitmap bm in gv.mod.loadedTileBitmaps)
+                        {
+                            bm.Dispose();
+                        }
+
+                        //these two lists keep an exact order so each bitmap stored in one corrsponds with a name in the other
+                        gv.mod.loadedTileBitmaps.Clear();
+                        gv.mod.loadedTileBitmapsNames.Clear();
+                    }
+                    catch
+                    {
+                        int i = 10;
+                    }
+
                 }
                 */
+
+                //gv.mod.loadedTileBitmaps.Clear();
+                // restore old
                 //cull all down if too high value is reached (last resort)
                 //400
-                if (gv.mod.loadedTileBitmaps.Count > 1000)
+                if (gv.mod.loadedTileBitmaps.Count > 2000)
                 {
                     try
                     {
@@ -3704,7 +3723,7 @@ namespace IceBlink2
                     //addLogText("yellow", "Disposing tiles.");
                     //divided by 10
                     //gut 10
-                    int cullNumber = ((gv.mod.loadedTileBitmaps.Count / 5) + 2);
+                    int cullNumber = ((gv.mod.loadedTileBitmaps.Count / 15) + 2);
                     try
                     {
                         if (gv.mod.loadedTileBitmaps != null)
@@ -3733,7 +3752,9 @@ namespace IceBlink2
 
                 //addLogText("red", "number of tiles in cache, after cull:" + gv.mod.loadedTileBitmaps.Count);
                 //normal cleanup while moving
+            //restoreold
             }
+            
 #endregion
 
             //reset the timer interval, important for synching with party move
@@ -3761,7 +3782,7 @@ namespace IceBlink2
                 IBMessageBox.Show(gv, "Everybody is unconscious and bleeding - your party has been defeated!");
                 return;
             }
-
+/*
 #region handling chances for full screen animation effects, edit: for all 10 channels now
             if ((gv.mod.currentArea.fullScreenEffectLayerIsActive1 == false) && (gv.mod.currentArea.numberOfCyclesPerOccurence1 != 0))
             {
@@ -4235,7 +4256,7 @@ namespace IceBlink2
                 }
             }
 #endregion
-           
+  */         
             //CLEAN UP START SCREENS IF DONE WITH THEM
             if (gv.screenLauncher != null)
             {

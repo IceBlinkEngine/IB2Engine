@@ -157,17 +157,43 @@ namespace IceBlink2
             //gv.DrawBitmap(gv.cc.GetFromBitmapList(backgroundImageFilename), src, dst, 0, false, 0.75f);
 
             //iterate over all controls and draw
-            foreach (IB2Button btn in buttonList)
+            //backwerk
+            //currentLocX = hiddenLocX;
+            bool stopDrawing = false;
+
+            if (this.hidingXIncrement != 0 && this.currentLocX == this.hiddenLocX)
             {
-                btn.Draw(this);
+                stopDrawing = true;
             }
-            foreach (IB2ToggleButton btn in toggleList)
+
+            if (this.hidingYIncrement != 0 && this.currentLocY == this.hiddenLocY)
             {
-                btn.Draw(this);
+                stopDrawing = true;
             }
-            foreach (IB2Portrait btn in portraitList)
-            {
-                btn.Draw(this);
+
+            if (!stopDrawing)
+            { 
+                 foreach (IB2Button btn in buttonList)
+                {
+                    //if ((btn.X > -gv.squareSize && btn.Y > -gv.squareSize) || (btn.X < gv.screenWidth + gv.squareSize && btn.Y < gv.screenHeight + gv.squareSize))
+                    //{
+                        btn.Draw(this);
+                    //}
+                }
+                foreach (IB2ToggleButton btn in toggleList)
+                {
+                    //if ((btn.X > -gv.squareSize && btn.Y > -gv.squareSize) || (btn.X < gv.screenWidth + gv.squareSize && btn.Y < gv.screenHeight + gv.squareSize))
+                    //{
+                        btn.Draw(this);
+                    //}
+                }
+                foreach (IB2Portrait btn in portraitList)
+                {
+                    //if ((btn.X > -gv.squareSize && btn.Y > -gv.squareSize) || (btn.X < gv.screenWidth + gv.squareSize && btn.Y < gv.screenHeight + gv.squareSize))
+                    //{
+                        btn.Draw(this);
+                    //}
+                }
             }
 
             if (!gv.mod.useMinimalisticUI)
@@ -183,26 +209,29 @@ namespace IceBlink2
         {
             //if (gv.screenType.Equals("main") )
             //{
-                //IbRect src = new IbRect(0, 0, gv.cc.GetFromBitmapList(backgroundImageFilename).PixelSize.Width, gv.cc.GetFromBitmapList(backgroundImageFilename).PixelSize.Height);
-                //IbRect dst = new IbRect((int)(currentLocX * gv.screenDensity), (int)(currentLocY * gv.screenDensity - 3 * gv.pS), (int)(Width * gv.screenDensity + 2 * gv.pS), (int)(Height * gv.screenDensity - gv.squareSize + 7 * gv.pS));
-                //gv.DrawBitmap(gv.cc.GetFromBitmapList(backgroundImageFilename), src, dst, 0, false, 0.8f * gv.mod.logOpacity);
+            //IbRect src = new IbRect(0, 0, gv.cc.GetFromBitmapList(backgroundImageFilename).PixelSize.Width, gv.cc.GetFromBitmapList(backgroundImageFilename).PixelSize.Height);
+            //IbRect dst = new IbRect((int)(currentLocX * gv.screenDensity), (int)(currentLocY * gv.screenDensity - 3 * gv.pS), (int)(Width * gv.screenDensity + 2 * gv.pS), (int)(Height * gv.screenDensity - gv.squareSize + 7 * gv.pS));
+            //gv.DrawBitmap(gv.cc.GetFromBitmapList(backgroundImageFilename), src, dst, 0, false, 0.8f * gv.mod.logOpacity);
             //}
             //else
             //{
-            IbRect src = new IbRect(0, 0, gv.cc.GetFromBitmapList(backgroundImageFilename).PixelSize.Width, gv.cc.GetFromBitmapList(backgroundImageFilename).PixelSize.Height);
-            IbRect dst = new IbRect((int)(currentLocX * gv.screenDensity + gv.oXshift - 2.5 * gv.pS), (int)(currentLocY * gv.screenDensity) - 3 * gv.pS, (int)(Width * gv.screenDensity + 6.5 * gv.pS), (int)(Height * gv.screenDensity - 1 * gv.squareSize + 12 * gv.pS - 0*gv.pS));
-            
-            if (gv.mod.useComplexCoordinateSystem && gv.screenType != "combat")
+            if (gv.mod.logOpacity > 0)
             {
-                dst = new IbRect((int)(currentLocX * gv.screenDensity + gv.oXshift - 2.5 * gv.pS), (int)(currentLocY * gv.screenDensity) + 5 * gv.pS, (int)(Width * gv.screenDensity + 6.5 * gv.pS), (int)(Height * gv.screenDensity - 1 * gv.squareSize + 12 * gv.pS - 2 * gv.pS));
-            }
-            
-            gv.DrawBitmap(gv.cc.GetFromBitmapList(backgroundImageFilename), src, dst, 0, false, 0.575f * gv.mod.logOpacity);
-            //}
+                IbRect src = new IbRect(0, 0, gv.cc.GetFromBitmapList(backgroundImageFilename).PixelSize.Width, gv.cc.GetFromBitmapList(backgroundImageFilename).PixelSize.Height);
+                IbRect dst = new IbRect((int)(currentLocX * gv.screenDensity + gv.oXshift - 2.5 * gv.pS), (int)(currentLocY * gv.screenDensity) - 3 * gv.pS, (int)(Width * gv.screenDensity + 6.5 * gv.pS), (int)(Height * gv.screenDensity - 1 * gv.squareSize + 12 * gv.pS - 0 * gv.pS));
 
-            foreach (IB2HtmlLogBox log in logList)
-            {
-                log.onDrawLogBox(this);
+                if (gv.mod.useComplexCoordinateSystem && gv.screenType != "combat")
+                {
+                    dst = new IbRect((int)(currentLocX * gv.screenDensity + gv.oXshift - 2.5 * gv.pS), (int)(currentLocY * gv.screenDensity) + 5 * gv.pS, (int)(Width * gv.screenDensity + 6.5 * gv.pS), (int)(Height * gv.screenDensity - 1 * gv.squareSize + 12 * gv.pS - 2 * gv.pS));
+                }
+
+                gv.DrawBitmap(gv.cc.GetFromBitmapList(backgroundImageFilename), src, dst, 0, false, 0.575f * gv.mod.logOpacity);
+                //}
+
+                foreach (IB2HtmlLogBox log in logList)
+                {
+                    log.onDrawLogBox(this);
+                }
             }
 
             //foreach (IB2ToggleButton btn in toggleList)

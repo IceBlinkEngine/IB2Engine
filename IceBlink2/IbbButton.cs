@@ -139,9 +139,9 @@ namespace IceBlink2
             float ulX = ((this.Width) - stringSize) / 2;
             float ulY = ((this.Height) - thisFontHeight) / 2;
 
-            for (int x = -2; x <= 2; x++)
+            for (int x = -1; x <= 1; x++)
             {
-                for (int y = -2; y <= 2; y++)
+                for (int y = -1; y <= 1; y++)
                 {
                     gv.DrawText(Text, this.X + ulX + x, this.Y + ulY + y , scaler, Color.Black);
                 }
@@ -169,9 +169,9 @@ namespace IceBlink2
             ulX = (((this.Width) - stringSize) / 8) * 7;
             ulY = (((this.Height) - thisFontHeight) / 8) * 7;
 
-            for (int x = -2; x <= 2; x++)
+            for (int x = -1; x <= 1; x++)
             {
-                for (int y = -2; y <= 2; y++)
+                for (int y = -1; y <= 1; y++)
                 {
                     gv.DrawText(Quantity, this.X + ulX + x, this.Y + ulY + y, scaler, Color.Black);
                 }
@@ -194,9 +194,9 @@ namespace IceBlink2
                 ulX = ((this.Width) - stringSize) / 2;
                 ulY = (((this.Height) - thisFontHeight) / 4) * 3;
 
-                for (int x = -2; x <= 2; x++)
+                for (int x = -1; x <= 1; x++)
                 {
-                    for (int y = -2; y <= 2; y++)
+                    for (int y = -1; y <= 1; y++)
                     {
                         gv.DrawText(HotKey, this.X + ulX + x, this.Y + ulY + y, scaler, Color.Black);
                     }

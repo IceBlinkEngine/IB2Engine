@@ -1048,7 +1048,8 @@ namespace IceBlink2
                 reportFPScount++;
                 previousTime = current; //remember the current time at the beginning of this tick call for the next time through the game loop to calculate elapsed time
                 stillProcessingGameLoop = false; //finished game loop so okay to let the next tick call enter the game loop      
-            }  
+            }
+            int i = 0;
         }
         private void Update(int elapsed)
         {
@@ -1062,6 +1063,7 @@ namespace IceBlink2
             {
                 screenCombat.Update(elapsed);
             }
+            int i = 1;
         }
 
         //DRAW ROUTINES
@@ -1204,6 +1206,7 @@ namespace IceBlink2
 
         public void DrawText(string text, float x, float y, FontWeight fw, SharpDX.DirectWrite.FontStyle fs, float scaler, SharpDX.Color fontColor, bool isUnderlined)
         {
+            
             CleanUpDrawTextResources();
             float thisFontHeight = drawFontRegHeight;
             if (scaler > 1.05f)
@@ -1224,6 +1227,7 @@ namespace IceBlink2
                 }
                 renderTarget2D.DrawTextLayout(new Vector2(x, y + oYshift), textLayout, scb, DrawTextOptions.None);
             }
+            
         }
         public void DrawRoundRectangle(IbRect rect, int rad, SharpDX.Color penColor, int penWidth)
         {
@@ -1563,9 +1567,9 @@ namespace IceBlink2
             if (mod.debugMode)
             {
                 int txtH = (int)drawFontRegHeight;
-                for (int x = -2; x <= 2; x++)
+                for (int x = -1; x <= 1; x++)
                 {
-                    for (int y = -2; y <= 2; y++)
+                    for (int y = -1; y <= 1; y++)
                     {
                         DrawText("FPS:" + fps.ToString(), new IbRect(x + 5, screenHeight - txtH - 5 + y - oYshift, 100, 100), 1.0f, SharpDX.Color.Black);
                     }

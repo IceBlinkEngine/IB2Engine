@@ -167,9 +167,9 @@ namespace IceBlink2
                 int ulX = pW * 0;
                 int ulY = (int)(Height * gv.screenDensity) - ((int)thisFontHeight * 2);
 
-                for (int x = -2; x <= 2; x++)
+                for (int x = -1; x <= 1; x++)
                 {
-                    for (int y = -2; y <= 2; y++)
+                    for (int y = -1; y <= 1; y++)
                     {
                         int xLoc = (int)((parentPanel.currentLocX + this.X) * gv.screenDensity + ulX + x);
                         int yLoc = (int)((parentPanel.currentLocY + this.Y) * gv.screenDensity + ulY - pH + y);
@@ -190,9 +190,9 @@ namespace IceBlink2
                 ulX = pW * 1;
                 ulY = (int)(Height * gv.screenDensity) - ((int)thisFontHeight * 1);
 
-                for (int x = -2; x <= 2; x++)
+                for (int x = -1; x <= 1; x++)
                 {
-                    for (int y = -2; y <= 2; y++)
+                    for (int y = -1; y <= 1; y++)
                     {
                         int xLoc = (int)((parentPanel.currentLocX + this.X) * gv.screenDensity + ulX - pW + x);
                         int yLoc = (int)((parentPanel.currentLocY + this.Y) * gv.screenDensity + ulY - pH + y);
@@ -208,9 +208,9 @@ namespace IceBlink2
                 ulX = (int)(110 * gv.screenDensity) - pW * 9;
                 ulY = (int)(Height * gv.screenDensity) - ((int)thisFontHeight * 7) + pH;
 
-                for (int x = -2; x <= 2; x++)
+                for (int x = -1; x <= 1; x++)
                 {
-                    for (int y = -2; y <= 2; y++)
+                    for (int y = -1; y <= 1; y++)
                     {
                         int xLoc = (int)((parentPanel.currentLocX + this.X) * gv.screenDensity + ulX - pW + x);
                         int yLoc = (int)((parentPanel.currentLocY + this.Y) * gv.screenDensity + ulY - pH + y);
@@ -226,9 +226,9 @@ namespace IceBlink2
                 int ulX5 = (int)(110 * gv.screenDensity) - pW * 24;
                 int ulY5 = (int)(Height * gv.screenDensity) - ((int)thisFontHeight * 7) + 2*pH;
 
-                for (int x = -2; x <= 2; x++)
+                for (int x = -1; x <= 1; x++)
                 {
-                    for (int y = -2; y <= 2; y++)
+                    for (int y = -1; y <= 1; y++)
                     {
                         int xLoc = (int)((parentPanel.currentLocX + this.X) * gv.screenDensity + ulX5 - pW + x);
                         int yLoc = (int)((parentPanel.currentLocY + this.Y) * gv.screenDensity + ulY5 - pH + y);

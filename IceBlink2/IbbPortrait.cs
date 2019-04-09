@@ -157,9 +157,9 @@ namespace IceBlink2
             int ulX = pW * 0;
             int ulY = this.Height - ((int)thisFontHeight * 2);
 
-            for (int x = -2; x <= 2; x++)
+            for (int x = -1; x <= 1; x++)
             {
-                for (int y = -2; y <= 2; y++)
+                for (int y = -1; y <= 1; y++)
                 {
                     gv.DrawText(TextHP, this.X + ulX + x, this.Y + ulY - pH + y , scaler, Color.Black);
                 }
@@ -176,9 +176,9 @@ namespace IceBlink2
             ulX = pW * 1;
             ulY = this.Height - ((int)thisFontHeight * 1);
 
-            for (int x = -2; x <= 2; x++)
+            for (int x = -1; x <= 1; x++)
             {
-                for (int y = -2; y <= 2; y++)
+                for (int y = -1; y <= 1; y++)
                 {
                     gv.DrawText(TextSP, this.X + ulX - pW + x, this.Y + ulY - pH + y, scaler, Color.Black);
                 }

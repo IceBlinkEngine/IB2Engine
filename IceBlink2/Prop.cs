@@ -14,6 +14,76 @@ namespace IceBlink2
 {
     public class Prop 
     {
+        //A. Concept
+
+        //I.minable tile/digging (eg some ore vein or collapsed tunnels):
+
+        //mining/digging is simply done by bumping (walking) into a minable/diggable prop
+        //preparation in toolset: tile layer 1 is ground floor, tile layer 2 is material on top 
+        //when minning/digging layer 2 is turned blank, revealing layer 1
+        //this way authors can inspect their tunnel network simply by setting show layer to 2 to off in toolset
+        //place the tile with rock to mine/dig one level higher than ground level (for shadow play in the to be revealed tunnels)
+        //when mining/digging the height level of the mined square is lowered to party height level
+        //prop default graphic is likely some mostly transparent green indicator for breakability/mining (customizable, might also be a very subtle crack overlay if authors want players to spot the breakbales actively)
+        //this prop graphic is (as all props) drawn on top the layer 2 for the top material (see above)
+        //(optional) stages 1 to 3 graphics could be intensifying cracked lines, drawn on top the tile 
+        //(optional) debris graphic could be some stone rubble
+        //(optional) sound file to play when bumping into the prop
+        //(optional) sound file to play when the object breaks 
+
+        //II.pure breakbale objects (eg a statue, a crate):
+
+        //height and tile layer 2 graphic are not affcted when bumping into a pure breakable object
+        //the rest (stage graphcis, debris) work the same as for minable tiles/digging above (though they will likely be individualized by authors for the affected objects)
+
+        //B.Mechanics in code:
+
+        //I.Toolset
+
+        //stage counter is set to number of stages upon placement of the prop in toolset
+        //design as decribed above (using layer one as ground floor, hidden by layer 2 to 5 above)
+        //new properties added into new section of prop's properties
+
+        //II.Engine
+
+        //1.minable tile/digging (eg some ore vein or collapsed tunnels):
+
+        //a. upon success (all requirements met: skill level, required item):
+
+        //if stage counter number higher than 0
+        //exchange prop graphic to stage graphic with the same number as stage counter number
+        //reduce stage counter number by 1
+        //play sound file for bumping into prop
+        //messaging only to log
+
+        //if stage counter number 0
+        //exchange prop graphic against debris graphic (if existent) or blank out prop
+        //adjust height of target tile to height level of tile the party is on right now
+        //set all tile layer graphics higher than 1 to blank (revealing the ground floor)
+        //play sound file for breaking the object
+        //set isDiggableIndicatorProp to false for this prop
+        //give out item connected if existent (eg ore)
+        //messaging only to log
+
+        //b. upon failure
+        //messaging to log and as floaty
+
+        public bool isPureBreakableProp = false;
+        //public bool isDiggableIndicatorProp = false;
+        public string requiredItemInInventory = "none"; //like eg pick axes of varying qualities
+        public string breakableTraitTag = "none";
+        public int breakableDC = 10;
+        public int numberOfStages = 0;
+        public string debrisGraphic = "none";
+        public string stageGraphic1 = "none";
+        public string stageGraphic2 = "none";
+        public string stageGraphic3 = "none";
+        public string resRefOfItemGained = "none";
+        public string nameOfSoundFileBump = "none";
+        public string nameOfSoundFileBreak = "break";
+
+        public int counterStages = 0;
+        public bool isBroken = false;
 
         public bool isLever = false;
         public bool isOn = false;
@@ -28,6 +98,9 @@ namespace IceBlink2
         //1.pushable grid properties (04f - STEP: Pushable grid)
         //public bool isGridForPushableObject = false;
         //public bool showPushableGridOutline = true;
+        public bool gridHasTimeLimit = false;
+        public int turnsBeforeGridResets = 0;
+        public int timerTurnsBeforeGridResets = 0;
         public bool gridIsCompleted = false;
         public bool completionStateCanBeLostAgain = false;
         public bool pushableGridCanBeResetViaHotkey = true;
@@ -350,6 +423,27 @@ namespace IceBlink2
     	    Prop copy = new Prop();
 
             //TODO
+        copy.isBroken = isBroken;
+        copy.isPureBreakableProp = isPureBreakableProp;
+        //copy.isDiggableIndicatorProp = isDiggableIndicatorProp;
+        copy.requiredItemInInventory = requiredItemInInventory; //like eg pick axes of varying qualities
+        copy.breakableTraitTag = breakableTraitTag;
+        copy.breakableDC = breakableDC;
+        copy.numberOfStages = numberOfStages;
+        copy.debrisGraphic = debrisGraphic;
+        copy.stageGraphic1 = stageGraphic1;
+        copy.stageGraphic2 = stageGraphic2;
+        copy.stageGraphic3 = stageGraphic3;
+        copy.resRefOfItemGained = resRefOfItemGained;
+        copy.nameOfSoundFileBump = nameOfSoundFileBump;
+        copy.nameOfSoundFileBreak = nameOfSoundFileBreak;
+
+        copy.counterStages = counterStages;
+
+
+            copy.gridHasTimeLimit = gridHasTimeLimit;
+            copy.turnsBeforeGridResets = turnsBeforeGridResets;
+            copy.timerTurnsBeforeGridResets = timerTurnsBeforeGridResets;
             copy.gridIsCompleted = gridIsCompleted;
             copy.isLever = isLever;
             copy.isOn = isOn;

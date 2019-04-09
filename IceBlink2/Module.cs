@@ -14,6 +14,7 @@ namespace IceBlink2
     public class Module
     {
 
+        public bool useFastRender = true;
         public bool isInitialParticleWave = false;
         public bool wasSuccessfulPush = false;
         public bool showPortrtaitsThisUpdate = false;
