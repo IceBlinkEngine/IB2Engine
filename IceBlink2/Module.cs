@@ -14,7 +14,14 @@ namespace IceBlink2
     public class Module
     {
 
-        public bool useFastRender = true;
+        public float nightTimeDarknessOpacity = 0.6f;
+
+        public bool useScrollingSystem = true;
+        public float scrollingTimer = 100; //runs from 100 to 0
+        public bool isScrollingNow = false;
+        public string scrollingDirection = "up"; //up, right, down, left
+
+        public bool useFastRender = false;
         public bool isInitialParticleWave = false;
         public bool wasSuccessfulPush = false;
         public bool showPortrtaitsThisUpdate = false;

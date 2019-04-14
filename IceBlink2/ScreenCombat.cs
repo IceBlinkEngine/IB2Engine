@@ -10454,7 +10454,7 @@ namespace IceBlink2
                 int targetSizeY = gv.squareSize;
                 IbRect src = new IbRect(0, 0, 100, 100);
                 IbRect dst = new IbRect(startBarX + i * gv.squareSize - (int)(targetSizeX * 0.1), startBarY - (int)(targetSizeY * 0.1), (int)(targetSizeX * 1.2f), (int)(targetSizeY * 1.2f));
-                gv.DrawBitmap(gv.cc.offScreen, src, dst, false);
+                gv.DrawBitmap(gv.cc.offScreen, src, dst, false, false);
             }
 
             //draw creature in current bar
@@ -10499,10 +10499,10 @@ namespace IceBlink2
                             IbRect dst = new IbRect(startBarX + creatureSpacesUsed * gv.squareSize / 2, startBarY + marchingLineHeight, targetSizeX, targetSizeY);
                             if (crt.moveOrder + 1 == currentMoveOrderIndex)
                             {
-                                gv.DrawBitmap(gv.cc.turn_marker, src, dst, false);
+                                gv.DrawBitmap(gv.cc.turn_marker, src, dst, false, false);
                             }
 
-                            gv.DrawBitmap(crt.token, src, dst, false);
+                            gv.DrawBitmap(crt.token, src, dst, false, false);
                             int mo = crt.moveOrder + 1;
                             if (crt.token.PixelSize.Width <= 100)
                             {
@@ -10535,10 +10535,10 @@ namespace IceBlink2
                             IbRect dst = new IbRect(startBarX + creatureSpacesUsed * gv.squareSize / 2, startBarY + marchingLineHeight, targetSizeX, targetSizeY);
                             if (ply.moveOrder + 1 == currentMoveOrderIndex)
                             {
-                                gv.DrawBitmap(gv.cc.turn_marker, src, dst, false);
+                                gv.DrawBitmap(gv.cc.turn_marker, src, dst, false, false);
                             }
 
-                            gv.DrawBitmap(ply.token, src, dst, false);
+                            gv.DrawBitmap(ply.token, src, dst, false, false);
                             int mo = ply.moveOrder + 1;
                             if (ply.token.PixelSize.Width <= 100)
                             {
@@ -11986,7 +11986,7 @@ namespace IceBlink2
                             src = new IbRect(0, pc.token.PixelSize.Width * attackAnimationFrameCounter, pc.token.PixelSize.Width, pc.token.PixelSize.Width);
                         }
                         IbRect dst = new IbRect(getPixelLocX(pc.combatLocX), getPixelLocY(pc.combatLocY), gv.squareSize, gv.squareSize);
-                        gv.DrawBitmap(pc.token, src, dst, !pc.combatFacingLeft);
+                        gv.DrawBitmap(pc.token, src, dst, !pc.combatFacingLeft, false);
                         src = new IbRect(0, 0, pc.token.PixelSize.Width, pc.token.PixelSize.Width);
                         if (!animationsOn)
                         {
@@ -12061,7 +12061,7 @@ namespace IceBlink2
                             src = new IbRect(0, pc.token.PixelSize.Width * attackAnimationFrameCounter, pc.token.PixelSize.Width, pc.token.PixelSize.Width);
                         }
                         IbRect dst = new IbRect(getPixelLocX(pc.combatLocX), getPixelLocY(pc.combatLocY), gv.squareSize, gv.squareSize);
-                        gv.DrawBitmap(pc.token, src, dst, !pc.combatFacingLeft);
+                        gv.DrawBitmap(pc.token, src, dst, !pc.combatFacingLeft, false);
                         src = new IbRect(0, 0, pc.token.PixelSize.Width, pc.token.PixelSize.Width);
                         if (!animationsOn)
                         {
@@ -13894,7 +13894,7 @@ namespace IceBlink2
                 //dst = new IbRect(getPixelLocX(crt.combatLocX) - (gv.squareSize / 2), getPixelLocY(crt.combatLocY) - (gv.squareSize / 2), gv.squareSize * 2, gv.squareSize * 2);
                 //}
 
-                gv.DrawBitmap(crt.token, src, dst, !crt.combatFacingLeft);
+                gv.DrawBitmap(crt.token, src, dst, !crt.combatFacingLeft, false);
 
 
 
@@ -14354,7 +14354,8 @@ namespace IceBlink2
                 {
                     gv.log.SetCurrentTopLineIndex(-numberOfTextLinesToMove);
                     //gv.Invalidate();
-                    gv.Render(0);
+                    //bloodbus
+                    //gv.Render(0);
                 }
             }
             else if (keyData == Keys.F)
@@ -14371,7 +14372,8 @@ namespace IceBlink2
                 {
                     gv.log.SetCurrentTopLineIndex(+numberOfTextLinesToMove);
                     //gv.Invalidate();
-                    gv.Render(0);
+                    //bloodbus
+                    //gv.Render(0);
                 }
             }
             else if (keyData == Keys.K)

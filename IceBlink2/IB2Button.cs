@@ -283,35 +283,35 @@ namespace IceBlink2
                 //draw glow first if on
                 if (glowOn)
                 {
-                    gv.DrawBitmap(gv.cc.GetFromBitmapList(GlowFilename), srcGlow, dstGlow);
+                    gv.DrawBitmap(gv.cc.GetFromBitmapList(GlowFilename), srcGlow, dstGlow, true);
                 }
 
                 //draw the proper button State
                 if (btnState == buttonState.On)
                 {
-                    gv.DrawBitmap(gv.cc.GetFromBitmapList(ImgOnFilename), src, dst);
+                    gv.DrawBitmap(gv.cc.GetFromBitmapList(ImgOnFilename), src, dst,true);
                 }
                 else if (btnState == buttonState.Off)
                 {
-                    gv.DrawBitmap(gv.cc.GetFromBitmapList(ImgOffFilename), src, dst);
+                    gv.DrawBitmap(gv.cc.GetFromBitmapList(ImgOffFilename), src, dst, true);
                 }
                 else
                 {
-                    gv.DrawBitmap(gv.cc.GetFromBitmapList(ImgFilename), src, dst);
+                    gv.DrawBitmap(gv.cc.GetFromBitmapList(ImgFilename), src, dst,true);
                 }
                 //draw the standard overlay image if has one
                 if ((btnState == buttonState.Off) && (!Img2OffFilename.Equals("")))
                 {
-                    gv.DrawBitmap(gv.cc.GetFromBitmapList(Img2OffFilename), src, dst);
+                    gv.DrawBitmap(gv.cc.GetFromBitmapList(Img2OffFilename), src, dst,true);
                 }
                 else if (!Img2Filename.Equals(""))
                 {
-                    gv.DrawBitmap(gv.cc.GetFromBitmapList(Img2Filename), src, dst);
+                    gv.DrawBitmap(gv.cc.GetFromBitmapList(Img2Filename), src, dst, true);
                 }
                 //draw the notification image if turned on (like a level up or additional convo nodes image)
                 if ((btnNotificationOn) && (!Img3Filename.Equals("")))
                 {
-                    gv.DrawBitmap(gv.cc.GetFromBitmapList(Img3Filename), src, dst);
+                    gv.DrawBitmap(gv.cc.GetFromBitmapList(Img3Filename), src, dst, true);
                 }
 
                 float thisFontHeight = gv.drawFontRegHeight;

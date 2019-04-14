@@ -117,23 +117,23 @@ namespace IceBlink2
                                             (int)((float)Width * gv.screenDensity) + (int)(15 * gv.screenDensity),
                                             (int)((float)Height * gv.screenDensity) + (int)(15 * gv.screenDensity));
 
-                gv.DrawBitmap(gv.cc.GetFromBitmapList(ImgBGFilename), src, dstBG);
+                gv.DrawBitmap(gv.cc.GetFromBitmapList(ImgBGFilename), src, dstBG, true);
 
                 if (glowOn)
                 {
-                    gv.DrawBitmap(gv.cc.GetFromBitmapList(GlowFilename), srcGlow, dstGlow);
+                    gv.DrawBitmap(gv.cc.GetFromBitmapList(GlowFilename), srcGlow, dstGlow,true);
                 }
 
                 if (!ImgFilename.Equals(""))
                 {
-                    gv.DrawBitmap(gv.cc.GetFromBitmapList(ImgFilename), src, dst);
+                    gv.DrawBitmap(gv.cc.GetFromBitmapList(ImgFilename), src, dst,true);
                 }
 
                 if (!ImgLUFilename.Equals(""))
                 {
                     if (levelUpOn)
                     {
-                        gv.DrawBitmap(gv.cc.GetFromBitmapList(ImgLUFilename), src, dst);
+                        gv.DrawBitmap(gv.cc.GetFromBitmapList(ImgLUFilename), src, dst,true);
                     }
                 }
 
@@ -144,7 +144,7 @@ namespace IceBlink2
                                             (int)((parentPanel.currentLocY + this.Y) * gv.screenDensity) - (int)(5 * gv.screenDensity),
                                             (int)((float)Width * gv.screenDensity) + (int)(10 * gv.screenDensity),
                                             (int)((float)Height * gv.screenDensity) + (int)(10 * gv.screenDensity));
-                    gv.DrawBitmap(gv.cc.ui_portrait_frame, srcFrame, dstFrame);
+                    gv.DrawBitmap(gv.cc.ui_portrait_frame, srcFrame, dstFrame,true);
                 }
 
                 float thisFontHeight = gv.drawFontRegHeight;

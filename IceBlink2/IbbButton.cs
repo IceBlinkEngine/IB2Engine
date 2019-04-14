@@ -90,36 +90,36 @@ namespace IceBlink2
             //draw glow first if on
             if ((this.glowOn) && (this.Glow != null))
             {
-                gv.DrawBitmap(this.Glow, srcGlow, dstGlow);
+                gv.DrawBitmap(this.Glow, srcGlow, dstGlow, true);
             }
             //draw the proper button State
             if ((this.btnState == buttonState.On) && (this.ImgOn != null))
             {
-                gv.DrawBitmap(this.ImgOn, src, dst);
+                gv.DrawBitmap(this.ImgOn, src, dst, true);
             }
             else if ((this.btnState == buttonState.Off) && (this.ImgOff != null))
             {
-                gv.DrawBitmap(this.ImgOff, src, dst);
+                gv.DrawBitmap(this.ImgOff, src, dst, true);
             }
             else
             {
-                gv.DrawBitmap(this.Img, src, dst);
+                gv.DrawBitmap(this.Img, src, dst, true);
             }
             //draw the standard overlay image if has one
             if ((this.btnState == buttonState.Off) && (this.Img2Off != null))
             {
-                gv.DrawBitmap(this.Img2Off, src2, dst);
+                gv.DrawBitmap(this.Img2Off, src2, dst,true);
             }
             else if (this.Img2 != null)
             {
-                gv.DrawBitmap(this.Img2, src2, dst);
+                gv.DrawBitmap(this.Img2, src2, dst,true);
             }
             //draw the notification image if turned on (like a level up or additional convo nodes image)
             if ((this.btnNotificationOn) && (this.Img3 != null))
             {
                 dst.Left += this.Image3XOffSet;
                 dst.Top += this.Image3YOffSet;
-                gv.DrawBitmap(this.Img3, src3, dst);
+                gv.DrawBitmap(this.Img3, src3, dst, true);
             }
 
             float thisFontHeight = gv.drawFontRegHeight;

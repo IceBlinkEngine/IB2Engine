@@ -225,7 +225,8 @@ namespace IceBlink2
                 {
                     SetCurrentTopLineIndex(-numberOfTextLinesToMove);
                     //gv.Invalidate();
-                    gv.Render(0);
+                    //bloodbus
+                    //gv.Render(0);
                 }
             }
         }        

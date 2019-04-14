@@ -1668,6 +1668,7 @@ namespace IceBlink2
             return false;
         }
 
+       
         public bool GetBlocked(int playerXPosition, int playerYPosition)
         {
             if (this.Tiles[playerYPosition * this.MapSizeX + playerXPosition].Walkable == false)

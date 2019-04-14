@@ -352,9 +352,28 @@ namespace IceBlink2
                 tglAvoidConversation.toggleOn = false;
             }
         }*/
+
+        public void StopScrollingOnBlocked()
+        {
+            if (gv.mod.useScrollingSystem)
+            {
+                gv.mod.isScrollingNow = false;
+                gv.mod.scrollingTimer = 0;
+            }
+        }
+
         //MAIN SCREEN UPDATE
         public void Update(int elapsed)
         {
+            //scrollingSystem
+            if (gv.mod.useScrollingSystem)
+            {
+                if (gv.mod.isScrollingNow)
+                {
+                    doScrolling(elapsed);
+                }
+            }
+            
             //prop animation code
             doPropAnimations(elapsed);
 
@@ -487,6 +506,8 @@ namespace IceBlink2
                                 }
                                 else if (bumpPropExists || bumpTriggerExists)
                                 {
+                                    StopScrollingOnBlocked();
+
                                     if (bumpPropExists)
                                     {
                                         if ((!bumpProp.MouseOverText.Equals("none")) && (gv.mod.currentArea.Tiles[bumpProp.LocationY * gv.mod.currentArea.MapSizeX + bumpProp.LocationX].Visible))
@@ -538,6 +559,10 @@ namespace IceBlink2
                                         gv.cc.doBumpTrigger(bumpTrigger);
                                     }
                                     gv.cc.doUpdate();
+                                }
+                                else
+                                {
+                                    StopScrollingOnBlocked();
                                 }
                             }
                         }
@@ -622,6 +647,7 @@ namespace IceBlink2
                                 }
                                 else if (bumpPropExists || bumpTriggerExists)
                                 {
+                                    StopScrollingOnBlocked();
                                     if (bumpPropExists)
                                     {
                                         if ((!bumpProp.MouseOverText.Equals("none")) && (gv.mod.currentArea.Tiles[bumpProp.LocationY * gv.mod.currentArea.MapSizeX + bumpProp.LocationX].Visible))
@@ -673,6 +699,10 @@ namespace IceBlink2
                                         gv.cc.doBumpTrigger(bumpTrigger);
                                     }
                                     gv.cc.doUpdate();
+                                }
+                                else
+                                {
+                                    StopScrollingOnBlocked();
                                 }
                             }
                         }
@@ -769,6 +799,7 @@ namespace IceBlink2
                                 //dodo: code ok here,too?
                                 else if (bumpPropExists || bumpTriggerExists)
                                 {
+                                    StopScrollingOnBlocked();
                                     if (bumpPropExists)
                                     {
                                         if ((!bumpProp.MouseOverText.Equals("none")) && (gv.mod.currentArea.Tiles[bumpProp.LocationY * gv.mod.currentArea.MapSizeX + bumpProp.LocationX].Visible))
@@ -821,6 +852,10 @@ namespace IceBlink2
                                     }
 
                                     gv.cc.doUpdate();
+                                }
+                                else
+                                {
+                                    StopScrollingOnBlocked();
                                 }
 
                             }
@@ -920,6 +955,7 @@ namespace IceBlink2
                                 //dodo: code ok here,too?
                                 else if (bumpPropExists || bumpTriggerExists)
                                 {
+                                    StopScrollingOnBlocked();
                                     if ((!bumpProp.MouseOverText.Equals("none")) && (gv.mod.currentArea.Tiles[bumpProp.LocationY * gv.mod.currentArea.MapSizeX + bumpProp.LocationX].Visible))
                                     {
                                         gv.cc.showFloatyStepOrBumpPropInfo(bumpProp);
@@ -973,6 +1009,10 @@ namespace IceBlink2
 
                                     //update could be wrong here?
                                     gv.cc.doUpdate();
+                                }
+                                else
+                                {
+                                    StopScrollingOnBlocked();
                                 }
 
                             }
@@ -1476,6 +1516,26 @@ namespace IceBlink2
 
             }
             #endregion
+        }
+
+        public void doScrolling(float elapsed)
+        {
+            //3500
+            //20ms
+            //25 call consume it (half second for square)
+            //decrease by 4
+            gv.mod.scrollingTimer = gv.mod.scrollingTimer - (4f*(elapsed/3.5f));
+
+
+            if (gv.mod.scrollingTimer <= 0)
+            {
+                gv.mod.isScrollingNow = false;
+                gv.mod.scrollingTimer = 0;
+                gv.cc.doPropTriggers();
+                //gv.mod.scrollingTimer = 100;
+            }
+                
+
         }
 
         public void doPropAnimations(float elapsed)
@@ -4053,13 +4113,13 @@ namespace IceBlink2
                 gv.mod.indexOfSouthEasternNeighbour = -1;
                 gv.mod.indexOfSouthWesternNeighbour = -1;
 
-                gv.mod.seamlessModififierMinX = 0;
+                gv.mod.seamlessModififierMinX = -3;
                 gv.mod.seamlessModififierMaxX = 0;
-                gv.mod.seamlessModififierMinY = 0;
+                gv.mod.seamlessModififierMinY = -3;
                 gv.mod.seamlessModififierMaxY = 0;
 
                 #region neighbours
-                if ((gv.mod.currentArea.northernNeighbourArea != "") && (gv.mod.PlayerLocationY <= gv.playerOffsetY))
+                if ((gv.mod.currentArea.northernNeighbourArea != "" && gv.mod.currentArea.northernNeighbourArea != "none") && (gv.mod.PlayerLocationY <= gv.playerOffsetY))
                 {
                     gv.mod.seamlessModififierMinY = gv.playerOffsetY - gv.mod.PlayerLocationY;
                     for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
@@ -4070,7 +4130,7 @@ namespace IceBlink2
                         }
                     }
 
-                    if (gv.mod.moduleAreasObjects[gv.mod.indexOfNorthernNeighbour].easternNeighbourArea != "")
+                    if (gv.mod.moduleAreasObjects[gv.mod.indexOfNorthernNeighbour].easternNeighbourArea != "" && gv.mod.moduleAreasObjects[gv.mod.indexOfNorthernNeighbour].easternNeighbourArea != "none")
                     {
                         if (gv.mod.PlayerLocationX > (gv.mod.currentArea.MapSizeX - gv.playerOffsetX - 1))
                         {
@@ -4085,7 +4145,7 @@ namespace IceBlink2
                         }
                     }
 
-                    if (gv.mod.moduleAreasObjects[gv.mod.indexOfNorthernNeighbour].westernNeighbourArea != "")
+                    if (gv.mod.moduleAreasObjects[gv.mod.indexOfNorthernNeighbour].westernNeighbourArea != "" && gv.mod.moduleAreasObjects[gv.mod.indexOfNorthernNeighbour].westernNeighbourArea != "none")
                     {
                         if (gv.mod.PlayerLocationX <= gv.playerOffsetX)
                         {
@@ -4102,7 +4162,7 @@ namespace IceBlink2
                     }
                 }
 
-                if ((gv.mod.currentArea.southernNeighbourArea != "") && (gv.mod.PlayerLocationY > (gv.mod.currentArea.MapSizeY - gv.playerOffsetY - 1)))
+                if ((gv.mod.currentArea.southernNeighbourArea != "" && gv.mod.currentArea.southernNeighbourArea != "none") && (gv.mod.PlayerLocationY > (gv.mod.currentArea.MapSizeY - gv.playerOffsetY - 1)))
                 {
 
                     gv.mod.seamlessModififierMaxY = gv.mod.PlayerLocationY - (gv.mod.currentArea.MapSizeY - gv.playerOffsetY - 1);
@@ -4114,7 +4174,7 @@ namespace IceBlink2
                         }
                     }
 
-                    if (gv.mod.moduleAreasObjects[gv.mod.indexOfSouthernNeighbour].easternNeighbourArea != "")
+                    if (gv.mod.moduleAreasObjects[gv.mod.indexOfSouthernNeighbour].easternNeighbourArea != "" && gv.mod.moduleAreasObjects[gv.mod.indexOfSouthernNeighbour].easternNeighbourArea != "none")
                     {
                         if (gv.mod.PlayerLocationX > (gv.mod.currentArea.MapSizeX - gv.playerOffsetX - 1))
                         {
@@ -4129,7 +4189,7 @@ namespace IceBlink2
                         }
                     }
 
-                    if (gv.mod.moduleAreasObjects[gv.mod.indexOfSouthernNeighbour].westernNeighbourArea != "")
+                    if (gv.mod.moduleAreasObjects[gv.mod.indexOfSouthernNeighbour].westernNeighbourArea != "" && gv.mod.moduleAreasObjects[gv.mod.indexOfSouthernNeighbour].westernNeighbourArea != "none")
                     {
                         if (gv.mod.PlayerLocationX <= gv.playerOffsetX)
                         {
@@ -4145,7 +4205,7 @@ namespace IceBlink2
                     }
                 }
 
-                if ((gv.mod.currentArea.westernNeighbourArea != "") && (gv.mod.PlayerLocationX <= gv.playerOffsetX))
+                if ((gv.mod.currentArea.westernNeighbourArea != "" && gv.mod.currentArea.westernNeighbourArea != "none") && (gv.mod.PlayerLocationX <= gv.playerOffsetX))
                 {
                     gv.mod.seamlessModififierMinX = gv.playerOffsetX - gv.mod.PlayerLocationX;
                     for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
@@ -4156,7 +4216,7 @@ namespace IceBlink2
                         }
                     }
 
-                    if (gv.mod.moduleAreasObjects[gv.mod.indexOfWesternNeighbour].northernNeighbourArea != "")
+                    if (gv.mod.moduleAreasObjects[gv.mod.indexOfWesternNeighbour].northernNeighbourArea != "" && gv.mod.moduleAreasObjects[gv.mod.indexOfWesternNeighbour].northernNeighbourArea != "none")
                     {
 
                         if (gv.mod.PlayerLocationY <= gv.playerOffsetY)
@@ -4173,7 +4233,7 @@ namespace IceBlink2
                         }
                     }
 
-                    if (gv.mod.moduleAreasObjects[gv.mod.indexOfWesternNeighbour].southernNeighbourArea != "")
+                    if (gv.mod.moduleAreasObjects[gv.mod.indexOfWesternNeighbour].southernNeighbourArea != "" && gv.mod.moduleAreasObjects[gv.mod.indexOfWesternNeighbour].southernNeighbourArea != "none")
                     {
 
                         if (gv.mod.PlayerLocationY > (gv.mod.currentArea.MapSizeY - gv.playerOffsetY - 1))
@@ -4191,7 +4251,7 @@ namespace IceBlink2
                     }
                 }
 
-                if ((gv.mod.currentArea.easternNeighbourArea != "") && (gv.mod.PlayerLocationX > (gv.mod.currentArea.MapSizeX - gv.playerOffsetX - 1)))
+                if ((gv.mod.currentArea.easternNeighbourArea != "" && gv.mod.currentArea.easternNeighbourArea != "none") && (gv.mod.PlayerLocationX > (gv.mod.currentArea.MapSizeX - gv.playerOffsetX - 1)))
                 {
                     gv.mod.seamlessModififierMaxX = gv.mod.PlayerLocationX - (gv.mod.currentArea.MapSizeX - gv.playerOffsetX - 1);
                     for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
@@ -4202,7 +4262,7 @@ namespace IceBlink2
                         }
                     }
 
-                    if (gv.mod.moduleAreasObjects[gv.mod.indexOfEasternNeighbour].northernNeighbourArea != "")
+                    if (gv.mod.moduleAreasObjects[gv.mod.indexOfEasternNeighbour].northernNeighbourArea != "" && gv.mod.moduleAreasObjects[gv.mod.indexOfEasternNeighbour].northernNeighbourArea != "none")
                     {
                         if (gv.mod.PlayerLocationY <= gv.playerOffsetY)
                         {
@@ -4218,7 +4278,7 @@ namespace IceBlink2
                         }
                     }
 
-                    if (gv.mod.moduleAreasObjects[gv.mod.indexOfEasternNeighbour].southernNeighbourArea != "")
+                    if (gv.mod.moduleAreasObjects[gv.mod.indexOfEasternNeighbour].southernNeighbourArea != "" && gv.mod.moduleAreasObjects[gv.mod.indexOfEasternNeighbour].southernNeighbourArea != "none")
                     {
                         if (gv.mod.PlayerLocationY > (gv.mod.currentArea.MapSizeY - gv.playerOffsetY - 1))
                         {
@@ -4236,13 +4296,18 @@ namespace IceBlink2
                 #endregion
                 //foreach (Area a in gv.mod.moduleAreasObjects)
                 //mins were -3
-                int minX = gv.mod.PlayerLocationX - gv.playerOffsetX - 1; //using -2 in case a large tile (3x3) needs to start off the visible map space to be seen
-                if (minX < -gv.mod.seamlessModififierMinX - 1) { minX = -gv.mod.seamlessModififierMinX - 1; }
-                int minY = gv.mod.PlayerLocationY - gv.playerOffsetY - 1; //using -2 in case a large tile (3x3) needs to start off the visible map space to be seen
-                if (minY < -gv.mod.seamlessModififierMinY - 1) { minY = -gv.mod.seamlessModififierMinY - 1; }
+                int minX = gv.mod.PlayerLocationX - gv.playerOffsetX - 3; //using -2 in case a large tile (3x3) needs to start off the visible map space to be seen
+                //was -1
+                if (minX < -gv.mod.seamlessModififierMinX - 3)
+                {
+                    minX = -gv.mod.seamlessModififierMinX - 3;
+                }
+                //was -1
+                int minY = gv.mod.PlayerLocationY - gv.playerOffsetY - 3; //using -2 in case a large tile (3x3) needs to start off the visible map space to be seen
+                if (minY < -gv.mod.seamlessModififierMinY - 3) { minY = -gv.mod.seamlessModififierMinY - 3; }
 
-                int maxX = gv.mod.PlayerLocationX + gv.playerOffsetX + 1;
-                if (maxX > this.gv.mod.currentArea.MapSizeX + gv.mod.seamlessModififierMaxX) { maxX = this.gv.mod.currentArea.MapSizeX + gv.mod.seamlessModififierMaxX; }
+                int maxX = gv.mod.PlayerLocationX + gv.playerOffsetX + 2;
+                if (maxX > this.gv.mod.currentArea.MapSizeX + gv.mod.seamlessModififierMaxX+1) { maxX = this.gv.mod.currentArea.MapSizeX + gv.mod.seamlessModififierMaxX+1; }
                 int maxY = gv.mod.PlayerLocationY + gv.playerOffsetY + 1;
                 if (maxY > this.gv.mod.currentArea.MapSizeY + gv.mod.seamlessModififierMaxY) { maxY = this.gv.mod.currentArea.MapSizeY + gv.mod.seamlessModififierMaxY; }
 
@@ -4954,6 +5019,10 @@ namespace IceBlink2
                                         int transformedY = gv.mod.moduleAreasObjects[gv.mod.indexOfNorthWesternNeighbour].MapSizeY + y;
                                         tile = gv.mod.moduleAreasObjects[gv.mod.indexOfNorthWesternNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[gv.mod.indexOfNorthWesternNeighbour].MapSizeX + transformedX];
                                         index = gv.mod.indexOfNorthWesternNeighbour;
+                                        if (tile.Layer0Filename == "t_a_blank")
+                                        {
+                                            drawTile = false;
+                                        }
                                     }
                                     else
                                     {
@@ -4970,6 +5039,10 @@ namespace IceBlink2
                                         int transformedY = y - gv.mod.currentArea.MapSizeY;
                                         tile = gv.mod.moduleAreasObjects[gv.mod.indexOfSouthWesternNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[gv.mod.indexOfSouthWesternNeighbour].MapSizeX + transformedX];
                                         index = gv.mod.indexOfSouthWesternNeighbour;
+                                        if (tile.Layer0Filename == "t_a_blank")
+                                        {
+                                            drawTile = false;
+                                        }
                                     }
                                     else
                                     {
@@ -4986,6 +5059,10 @@ namespace IceBlink2
                                         int transformedY = y - gv.mod.currentArea.MapSizeY;
                                         tile = gv.mod.moduleAreasObjects[gv.mod.indexOfSouthEasternNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[gv.mod.indexOfSouthEasternNeighbour].MapSizeX + transformedX];
                                         index = gv.mod.indexOfSouthEasternNeighbour;
+                                        if (tile.Layer0Filename == "t_a_blank")
+                                        {
+                                            drawTile = false;
+                                        }
                                     }
                                     else
                                     {
@@ -5002,6 +5079,10 @@ namespace IceBlink2
                                         int transformedY = gv.mod.moduleAreasObjects[gv.mod.indexOfNorthEasternNeighbour].MapSizeY + y;
                                         tile = gv.mod.moduleAreasObjects[gv.mod.indexOfNorthEasternNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[gv.mod.indexOfNorthEasternNeighbour].MapSizeX + transformedX];
                                         index = gv.mod.indexOfNorthEasternNeighbour;
+                                        if (tile.Layer0Filename == "t_a_blank")
+                                        {
+                                            drawTile = false;
+                                        }
                                     }
                                     else
                                     {
@@ -5018,6 +5099,10 @@ namespace IceBlink2
                                         int transformedY = y;
                                         tile = gv.mod.moduleAreasObjects[gv.mod.indexOfWesternNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[gv.mod.indexOfWesternNeighbour].MapSizeX + transformedX];
                                         index = gv.mod.indexOfWesternNeighbour;
+                                        if (tile.Layer0Filename == "t_a_blank")
+                                        {
+                                            drawTile = false;
+                                        }
                                     }
                                     else
                                     {
@@ -5034,6 +5119,10 @@ namespace IceBlink2
                                         int transformedY = y - gv.mod.currentArea.MapSizeY;
                                         tile = gv.mod.moduleAreasObjects[gv.mod.indexOfSouthernNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[gv.mod.indexOfSouthernNeighbour].MapSizeX + transformedX];
                                         index = gv.mod.indexOfSouthernNeighbour;
+                                        if (tile.Layer0Filename == "t_a_blank")
+                                        {
+                                            drawTile = false;
+                                        }
                                     }
                                     else
                                     {
@@ -5050,6 +5139,10 @@ namespace IceBlink2
                                         int transformedY = y;
                                         tile = gv.mod.moduleAreasObjects[gv.mod.indexOfEasternNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[gv.mod.indexOfEasternNeighbour].MapSizeX + transformedX];
                                         index = gv.mod.indexOfEasternNeighbour;
+                                        if (tile.Layer0Filename == "t_a_blank")
+                                        {
+                                            drawTile = false;
+                                        }
                                     }
                                     else
                                     {
@@ -5066,6 +5159,10 @@ namespace IceBlink2
                                         int transformedY = gv.mod.moduleAreasObjects[gv.mod.indexOfNorthernNeighbour].MapSizeY + y;
                                         tile = gv.mod.moduleAreasObjects[gv.mod.indexOfNorthernNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[gv.mod.indexOfNorthernNeighbour].MapSizeX + transformedX];
                                         index = gv.mod.indexOfNorthernNeighbour;
+                                        if (tile.Layer0Filename == "t_a_blank")
+                                        {
+                                            drawTile = false;
+                                        }
                                     }
                                     else
                                     {
@@ -5194,6 +5291,7 @@ namespace IceBlink2
                                     int transformedY = gv.mod.moduleAreasObjects[gv.mod.indexOfNorthWesternNeighbour].MapSizeY + y;
                                     tile = gv.mod.moduleAreasObjects[gv.mod.indexOfNorthWesternNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[gv.mod.indexOfNorthWesternNeighbour].MapSizeX + transformedX];
                                     index = gv.mod.indexOfNorthWesternNeighbour;
+                                   
                                 }
                                 else
                                 {
@@ -5317,8 +5415,8 @@ namespace IceBlink2
                             {
                                 tile = gv.mod.currentArea.Tiles[y * gv.mod.currentArea.MapSizeX + x];
                             }
-
-                            if (drawTile)
+                          
+                            if (drawTile && tile.Layer1Filename != "t_a_blank")
                             {
                                 try
                                 {
@@ -5532,7 +5630,7 @@ namespace IceBlink2
                                 tile = gv.mod.currentArea.Tiles[y * gv.mod.currentArea.MapSizeX + x];
                             }
 
-                            if (drawTile)
+                            if (drawTile && tile.Layer2Filename != "t_a_blank")
                             {
                                 try
                                 {
@@ -5746,7 +5844,7 @@ namespace IceBlink2
                                 tile = gv.mod.currentArea.Tiles[y * gv.mod.currentArea.MapSizeX + x];
                             }
 
-                            if (drawTile)
+                            if (drawTile && tile.Layer3Filename != "t_a_blank")
                             {
                                 try
                                 {
@@ -5959,7 +6057,7 @@ namespace IceBlink2
                                 tile = gv.mod.currentArea.Tiles[y * gv.mod.currentArea.MapSizeX + x];
                             }
 
-                            if (drawTile)
+                            if (drawTile && tile.Layer4Filename != "t_a_blank")
                             {
                                 try
                                 {
@@ -6460,7 +6558,7 @@ namespace IceBlink2
                                 tile = gv.mod.currentArea.Tiles[y * gv.mod.currentArea.MapSizeX + x];
                             }
 
-                            if (drawTile)
+                            if (drawTile && tile.Layer5Filename != "t_a_blank")
                             {
                                 try
                                 {
@@ -33041,7 +33139,7 @@ namespace IceBlink2
                 }
                 if (!gv.mod.currentArea.PlayerIsUnderBridge)
                 {
-                    gv.DrawBitmap(gv.mod.partyTokenBitmap, src, dst, !gv.mod.playerList[0].combatFacingLeft);
+                    gv.DrawBitmap(gv.mod.partyTokenBitmap, src, dst, !gv.mod.playerList[0].combatFacingLeft, true);
                 }
 
                 //shift = storeShift;
@@ -33721,7 +33819,7 @@ namespace IceBlink2
                                 {
                                     //if (!gv.mod.currentArea.PlayerIsUnderBridge)
                                     //{
-                                        gv.DrawBitmap(p.token, src, dst, !gv.mod.playerList[gv.mod.selectedPartyLeader].combatFacingLeft);
+                                        gv.DrawBitmap(p.token, src, dst, !gv.mod.playerList[gv.mod.selectedPartyLeader].combatFacingLeft, true);
                                     //}
                                 }
 
@@ -33836,7 +33934,7 @@ namespace IceBlink2
                 }
                 if (!gv.mod.currentArea.PlayerIsUnderBridge)
                 {
-                    gv.DrawBitmap(gv.mod.playerList[gv.mod.selectedPartyLeader].token, src, dst, !gv.mod.playerList[gv.mod.selectedPartyLeader].combatFacingLeft);
+                    gv.DrawBitmap(gv.mod.playerList[gv.mod.selectedPartyLeader].token, src, dst, !gv.mod.playerList[gv.mod.selectedPartyLeader].combatFacingLeft, true);
                 }
                     shift = storeShift;
             }
@@ -35502,39 +35600,39 @@ namespace IceBlink2
                                             dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f) - extension + 5 - 2 * gv.squareSize, tlY + shifterY - (int)((scaler - 1) * brY * 0.5f) - extension + 5 - 2 * gv.squareSize, (int)(brX * scaler) + 2 * extension - 10 + 4 * gv.squareSize, (int)(brY * scaler) + 2 * extension - 10 + 4 * gv.squareSize);
                                             if (gv.mod.partyLightColor.Contains("yellow"))
                                             {
-                                                gv.DrawBitmap(gv.cc.prp_lightYellow, src, dst, 0, false, gv.mod.partyRingHaloIntensity * 0.45f * 0.75f * (0.425f - flicker / 200f) / opacityDivider);
+                                                gv.DrawBitmap(gv.cc.prp_lightYellow, src, dst, 0, false, gv.mod.partyRingHaloIntensity * 0.45f * 0.75f * (0.425f - flicker / 200f) / opacityDivider,true);
                                                 dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f) - extension2, tlY + shifterY - (int)((scaler - 1) * brY * 0.5f) - extension2, (int)(brX * scaler) + 2 * extension2, (int)(brY * scaler) + 2 * extension2);
-                                                gv.DrawBitmap(gv.cc.prp_lightYellow, src, dst, 0, false, ((0.25f * gv.mod.partyFocalHaloIntensity) + (gv.mod.partyFocalHaloIntensity) * (2.25f * 0.75f * (0.425f - flicker / 200f))) / opacityDivider);
+                                                gv.DrawBitmap(gv.cc.prp_lightYellow, src, dst, 0, false, ((0.25f * gv.mod.partyFocalHaloIntensity) + (gv.mod.partyFocalHaloIntensity) * (2.25f * 0.75f * (0.425f - flicker / 200f))) / opacityDivider, true);
                                             }
                                             else if (gv.mod.partyLightColor.Contains("blue"))
                                             {
-                                                gv.DrawBitmap(gv.cc.prp_lightBlue, src, dst, 0, false, gv.mod.partyRingHaloIntensity * 0.45f * 0.75f * (0.425f - flicker / 200f) / opacityDivider);
+                                                gv.DrawBitmap(gv.cc.prp_lightBlue, src, dst, 0, false, gv.mod.partyRingHaloIntensity * 0.45f * 0.75f * (0.425f - flicker / 200f) / opacityDivider, true);
                                                 dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f) - extension2, tlY + shifterY - (int)((scaler - 1) * brY * 0.5f) - extension2, (int)(brX * scaler) + 2 * extension2, (int)(brY * scaler) + 2 * extension2);
-                                                gv.DrawBitmap(gv.cc.prp_lightBlue, src, dst, 0, false, ((0.25f * gv.mod.partyFocalHaloIntensity) + (gv.mod.partyFocalHaloIntensity) * (2.25f * 0.75f * (0.425f - flicker / 200f))) / opacityDivider);
+                                                gv.DrawBitmap(gv.cc.prp_lightBlue, src, dst, 0, false, ((0.25f * gv.mod.partyFocalHaloIntensity) + (gv.mod.partyFocalHaloIntensity) * (2.25f * 0.75f * (0.425f - flicker / 200f))) / opacityDivider, true);
                                             }
                                             else if (gv.mod.partyLightColor.Contains("green"))
                                             {
-                                                gv.DrawBitmap(gv.cc.prp_lightGreen, src, dst, 0, false, gv.mod.partyRingHaloIntensity * 0.45f * 0.75f * (0.425f - flicker / 200f) / opacityDivider);
+                                                gv.DrawBitmap(gv.cc.prp_lightGreen, src, dst, 0, false, gv.mod.partyRingHaloIntensity * 0.45f * 0.75f * (0.425f - flicker / 200f) / opacityDivider, true);
                                                 dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f) - extension2, tlY + shifterY - (int)((scaler - 1) * brY * 0.5f) - extension2, (int)(brX * scaler) + 2 * extension2, (int)(brY * scaler) + 2 * extension2);
-                                                gv.DrawBitmap(gv.cc.prp_lightGreen, src, dst, 0, false, ((0.25f * gv.mod.partyFocalHaloIntensity) + (gv.mod.partyFocalHaloIntensity) * (2.25f * 0.75f * (0.425f - flicker / 200f))) / opacityDivider);
+                                                gv.DrawBitmap(gv.cc.prp_lightGreen, src, dst, 0, false, ((0.25f * gv.mod.partyFocalHaloIntensity) + (gv.mod.partyFocalHaloIntensity) * (2.25f * 0.75f * (0.425f - flicker / 200f))) / opacityDivider, true);
                                             }
                                             else if (gv.mod.partyLightColor.Contains("red"))
                                             {
-                                                gv.DrawBitmap(gv.cc.prp_lightRed, src, dst, 0, false, gv.mod.partyRingHaloIntensity * 0.45f * 0.75f * (0.425f - flicker / 200f) / opacityDivider);
+                                                gv.DrawBitmap(gv.cc.prp_lightRed, src, dst, 0, false, gv.mod.partyRingHaloIntensity * 0.45f * 0.75f * (0.425f - flicker / 200f) / opacityDivider, true);
                                                 dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f) - extension2, tlY + shifterY - (int)((scaler - 1) * brY * 0.5f) - extension2, (int)(brX * scaler) + 2 * extension2, (int)(brY * scaler) + 2 * extension2);
-                                                gv.DrawBitmap(gv.cc.prp_lightRed, src, dst, 0, false, ((0.25f * gv.mod.partyFocalHaloIntensity) + (gv.mod.partyFocalHaloIntensity) * (2.25f * 0.75f * (0.425f - flicker / 200f))) / opacityDivider);
+                                                gv.DrawBitmap(gv.cc.prp_lightRed, src, dst, 0, false, ((0.25f * gv.mod.partyFocalHaloIntensity) + (gv.mod.partyFocalHaloIntensity) * (2.25f * 0.75f * (0.425f - flicker / 200f))) / opacityDivider, true);
                                             }
                                             else if (gv.mod.partyLightColor.Contains("orange"))
                                             {
-                                                gv.DrawBitmap(gv.cc.prp_lightOrange, src, dst, 0, false, gv.mod.partyRingHaloIntensity * 0.45f * 0.75f * (0.425f - flicker / 200f) / opacityDivider);
+                                                gv.DrawBitmap(gv.cc.prp_lightOrange, src, dst, 0, false, gv.mod.partyRingHaloIntensity * 0.45f * 0.75f * (0.425f - flicker / 200f) / opacityDivider, true);
                                                 dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f) - extension2, tlY + shifterY - (int)((scaler - 1) * brY * 0.5f) - extension2, (int)(brX * scaler) + 2 * extension2, (int)(brY * scaler) + 2 * extension2);
-                                                gv.DrawBitmap(gv.cc.prp_lightOrange, src, dst, 0, false, ((0.25f * gv.mod.partyFocalHaloIntensity) + (gv.mod.partyFocalHaloIntensity) * (2.25f * 0.75f * (0.425f - flicker / 200f))) / opacityDivider);
+                                                gv.DrawBitmap(gv.cc.prp_lightOrange, src, dst, 0, false, ((0.25f * gv.mod.partyFocalHaloIntensity) + (gv.mod.partyFocalHaloIntensity) * (2.25f * 0.75f * (0.425f - flicker / 200f))) / opacityDivider, true);
                                             }
                                             else if (gv.mod.partyLightColor.Contains("purple"))
                                             {
-                                                gv.DrawBitmap(gv.cc.prp_lightPurple, src, dst, 0, false, gv.mod.partyRingHaloIntensity * 0.45f * 0.75f * (0.425f - flicker / 200f) / opacityDivider);
+                                                gv.DrawBitmap(gv.cc.prp_lightPurple, src, dst, 0, false, gv.mod.partyRingHaloIntensity * 0.45f * 0.75f * (0.425f - flicker / 200f) / opacityDivider, true);
                                                 dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f) - extension2, tlY + shifterY - (int)((scaler - 1) * brY * 0.5f) - extension2, (int)(brX * scaler) + 2 * extension2, (int)(brY * scaler) + 2 * extension2);
-                                                gv.DrawBitmap(gv.cc.prp_lightPurple, src, dst, 0, false, ((0.25f * gv.mod.partyFocalHaloIntensity) + (gv.mod.partyFocalHaloIntensity) * (2.25f * 0.75f * (0.425f - flicker / 200f))) / opacityDivider);
+                                                gv.DrawBitmap(gv.cc.prp_lightPurple, src, dst, 0, false, ((0.25f * gv.mod.partyFocalHaloIntensity) + (gv.mod.partyFocalHaloIntensity) * (2.25f * 0.75f * (0.425f - flicker / 200f))) / opacityDivider,true);
                                             }
                                         }
 
@@ -35552,9 +35650,9 @@ namespace IceBlink2
                                                     int extension = 6 - (int)(flicker / 7f);
                                                     int extension2 = 13 - (int)(flicker / 3f);
                                                     dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f) - extension + 5 - 2 * gv.squareSize, tlY + shifterY - (int)((scaler - 1) * brY * 0.5f) - extension + 5 - 2 * gv.squareSize, (int)(brX * scaler) + 2 * extension - 10 + 4 * gv.squareSize, (int)(brY * scaler) + 2 * extension - 10 + 4 * gv.squareSize);
-                                                    gv.DrawBitmap(gv.cc.prp_lightYellow, src, dst, 0, false, tile.lightSourceRingHaloIntensity[z] * 0.7f * 0.45f * 0.75f * (0.425f - flicker / 200f) / opacityDivider);
+                                                    gv.DrawBitmap(gv.cc.prp_lightYellow, src, dst, 0, false, tile.lightSourceRingHaloIntensity[z] * 0.7f * 0.45f * 0.75f * (0.425f - flicker / 200f) / opacityDivider,true);
                                                     dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f) + extension2, tlY + shifterY - (int)((scaler - 1) * brY * 0.5f) + extension2, (int)(brX * scaler) - 2 * extension2, (int)(brY * scaler) - 2 * extension2);
-                                                    gv.DrawBitmap(gv.cc.prp_lightYellow, src, dst, 0, false, ((0.10f * tile.lightSourceFocalHaloIntensity[z]) + (tile.lightSourceFocalHaloIntensity[z]) * (2.25f * 0.3f * (0.425f - flicker / 200f))) / opacityDivider);
+                                                    gv.DrawBitmap(gv.cc.prp_lightYellow, src, dst, 0, false, ((0.10f * tile.lightSourceFocalHaloIntensity[z]) + (tile.lightSourceFocalHaloIntensity[z]) * (2.25f * 0.3f * (0.425f - flicker / 200f))) / opacityDivider,true);
 
                                                     //gv.DrawBitmap(gv.cc.prp_lightGreen, src, dst, 0, false, 0.15f + 1.75f * 0.7f * 0.45f * 0.75f * (0.425f - flicker / 200f));
                                                     //dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f), tlY + shifterY - (int)((scaler - 1) * brY * 0.5f), (int)(brX * scaler), (int)(brY * scaler));
@@ -35567,9 +35665,9 @@ namespace IceBlink2
                                                     int extension = 6 - (int)(flicker / 7f);
                                                     int extension2 = 13 - (int)(flicker / 3f);
                                                     dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f) - extension + 5 - 2 * gv.squareSize, tlY + shifterY - (int)((scaler - 1) * brY * 0.5f) - extension + 5 - 2 * gv.squareSize, (int)(brX * scaler) + 2 * extension - 10 + 4 * gv.squareSize, (int)(brY * scaler) + 2 * extension - 10 + 4 * gv.squareSize);
-                                                    gv.DrawBitmap(gv.cc.prp_lightGreen, src, dst, 0, false, (0.15f * tile.lightSourceFocalHaloIntensity[z]) + (tile.lightSourceRingHaloIntensity[z]) * 1.75f * 0.7f * 0.45f * 0.75f * (0.425f - flicker / 200f) / opacityDivider);
+                                                    gv.DrawBitmap(gv.cc.prp_lightGreen, src, dst, 0, false, (0.15f * tile.lightSourceFocalHaloIntensity[z]) + (tile.lightSourceRingHaloIntensity[z]) * 1.75f * 0.7f * 0.45f * 0.75f * (0.425f - flicker / 200f) / opacityDivider, true);
                                                     dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f) + extension2, tlY + shifterY - (int)((scaler - 1) * brY * 0.5f) + extension2, (int)(brX * scaler) - 2 * extension2, (int)(brY * scaler) - 2 * extension2);
-                                                    gv.DrawBitmap(gv.cc.prp_lightGreen, src, dst, 0, false, ((0.325f * tile.lightSourceFocalHaloIntensity[z]) + (tile.lightSourceFocalHaloIntensity[z]) * (2.25f * 0.3f * (0.425f - flicker / 200f))) / opacityDivider);
+                                                    gv.DrawBitmap(gv.cc.prp_lightGreen, src, dst, 0, false, ((0.325f * tile.lightSourceFocalHaloIntensity[z]) + (tile.lightSourceFocalHaloIntensity[z]) * (2.25f * 0.3f * (0.425f - flicker / 200f))) / opacityDivider,true);
                                                 }
 
                                                 if (tile.tileLightSourceTag[z].Contains("prp_lightRed"))
@@ -35577,9 +35675,9 @@ namespace IceBlink2
                                                     int extension = 6 - (int)(flicker / 7f);
                                                     int extension2 = 13 - (int)(flicker / 3f);
                                                     dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f) - extension + 5 - 2 * gv.squareSize, tlY + shifterY - (int)((scaler - 1) * brY * 0.5f) - extension + 5 - 2 * gv.squareSize, (int)(brX * scaler) + 2 * extension - 10 + 4 * gv.squareSize, (int)(brY * scaler) + 2 * extension - 10 + 4 * gv.squareSize);
-                                                    gv.DrawBitmap(gv.cc.prp_lightRed, src, dst, 0, false, (0.15f * tile.lightSourceFocalHaloIntensity[z]) + (tile.lightSourceRingHaloIntensity[z]) * 1.75f * 0.7f * 0.45f * 0.75f * (0.425f - flicker / 200f) / opacityDivider);
+                                                    gv.DrawBitmap(gv.cc.prp_lightRed, src, dst, 0, false, (0.15f * tile.lightSourceFocalHaloIntensity[z]) + (tile.lightSourceRingHaloIntensity[z]) * 1.75f * 0.7f * 0.45f * 0.75f * (0.425f - flicker / 200f) / opacityDivider,true);
                                                     dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f) + extension2, tlY + shifterY - (int)((scaler - 1) * brY * 0.5f) + extension2, (int)(brX * scaler) - 2 * extension2, (int)(brY * scaler) - 2 * extension2);
-                                                    gv.DrawBitmap(gv.cc.prp_lightRed, src, dst, 0, false, ((0.325f * tile.lightSourceFocalHaloIntensity[z]) + (tile.lightSourceFocalHaloIntensity[z]) * (2.25f * 0.3f * (0.425f - flicker / 200f))) / opacityDivider);
+                                                    gv.DrawBitmap(gv.cc.prp_lightRed, src, dst, 0, false, ((0.325f * tile.lightSourceFocalHaloIntensity[z]) + (tile.lightSourceFocalHaloIntensity[z]) * (2.25f * 0.3f * (0.425f - flicker / 200f))) / opacityDivider,true);
                                                 }
 
                                                 if (tile.tileLightSourceTag[z].Contains("prp_lightBlue"))
@@ -35587,9 +35685,9 @@ namespace IceBlink2
                                                     int extension = 6 - (int)(flicker / 7f);
                                                     int extension2 = 13 - (int)(flicker / 3f);
                                                     dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f) - extension + 5 - 2 * gv.squareSize, tlY + shifterY - (int)((scaler - 1) * brY * 0.5f) - extension + 5 - 2 * gv.squareSize, (int)(brX * scaler) + 2 * extension - 10 + 4 * gv.squareSize, (int)(brY * scaler) + 2 * extension - 10 + 4 * gv.squareSize);
-                                                    gv.DrawBitmap(gv.cc.prp_lightBlue, src, dst, 0, false, (0.15f * tile.lightSourceFocalHaloIntensity[z]) + (tile.lightSourceRingHaloIntensity[z]) * 1.75f * 0.7f * 0.45f * 0.75f * (0.425f - flicker / 200f) / opacityDivider);
+                                                    gv.DrawBitmap(gv.cc.prp_lightBlue, src, dst, 0, false, (0.15f * tile.lightSourceFocalHaloIntensity[z]) + (tile.lightSourceRingHaloIntensity[z]) * 1.75f * 0.7f * 0.45f * 0.75f * (0.425f - flicker / 200f) / opacityDivider,true);
                                                     dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f) + extension2, tlY + shifterY - (int)((scaler - 1) * brY * 0.5f) + extension2, (int)(brX * scaler) - 2 * extension2, (int)(brY * scaler) - 2 * extension2);
-                                                    gv.DrawBitmap(gv.cc.prp_lightBlue, src, dst, 0, false, ((0.325f * tile.lightSourceFocalHaloIntensity[z]) + (tile.lightSourceFocalHaloIntensity[z]) * (2.25f * 0.3f * (0.425f - flicker / 200f))) / opacityDivider);
+                                                    gv.DrawBitmap(gv.cc.prp_lightBlue, src, dst, 0, false, ((0.325f * tile.lightSourceFocalHaloIntensity[z]) + (tile.lightSourceFocalHaloIntensity[z]) * (2.25f * 0.3f * (0.425f - flicker / 200f))) / opacityDivider,true);
                                                 }
 
                                                 if (tile.tileLightSourceTag[z].Contains("prp_lightPurple"))
@@ -35597,9 +35695,9 @@ namespace IceBlink2
                                                     int extension = 6 - (int)(flicker / 7f);
                                                     int extension2 = 13 - (int)(flicker / 3f);
                                                     dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f) - extension + 5 - 2 * gv.squareSize, tlY + shifterY - (int)((scaler - 1) * brY * 0.5f) - extension + 5 - 2 * gv.squareSize, (int)(brX * scaler) + 2 * extension - 10 + 4 * gv.squareSize, (int)(brY * scaler) + 2 * extension - 10 + 4 * gv.squareSize);
-                                                    gv.DrawBitmap(gv.cc.prp_lightPurple, src, dst, 0, false, (0.15f * tile.lightSourceFocalHaloIntensity[z]) + (tile.lightSourceRingHaloIntensity[z]) * 1.75f * 0.7f * 0.45f * 0.75f * (0.425f - flicker / 200f) / opacityDivider);
+                                                    gv.DrawBitmap(gv.cc.prp_lightPurple, src, dst, 0, false, (0.15f * tile.lightSourceFocalHaloIntensity[z]) + (tile.lightSourceRingHaloIntensity[z]) * 1.75f * 0.7f * 0.45f * 0.75f * (0.425f - flicker / 200f) / opacityDivider,true);
                                                     dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f) + extension2, tlY + shifterY - (int)((scaler - 1) * brY * 0.5f) + extension2, (int)(brX * scaler) - 2 * extension2, (int)(brY * scaler) - 2 * extension2);
-                                                    gv.DrawBitmap(gv.cc.prp_lightPurple, src, dst, 0, false, ((0.325f * tile.lightSourceFocalHaloIntensity[z]) + (tile.lightSourceFocalHaloIntensity[z]) * (2.25f * 0.3f * (0.425f - flicker / 200f))) / opacityDivider);
+                                                    gv.DrawBitmap(gv.cc.prp_lightPurple, src, dst, 0, false, ((0.325f * tile.lightSourceFocalHaloIntensity[z]) + (tile.lightSourceFocalHaloIntensity[z]) * (2.25f * 0.3f * (0.425f - flicker / 200f))) / opacityDivider,true);
                                                 }
 
                                                 if (tile.tileLightSourceTag[z].Contains("prp_lightOrange"))
@@ -35607,9 +35705,9 @@ namespace IceBlink2
                                                     int extension = 6 - (int)(flicker / 7f);
                                                     int extension2 = 13 - (int)(flicker / 3f);
                                                     dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f) - extension + 5 - 2 * gv.squareSize, tlY + shifterY - (int)((scaler - 1) * brY * 0.5f) - extension + 5 - 2 * gv.squareSize, (int)(brX * scaler) + 2 * extension - 10 + 4 * gv.squareSize, (int)(brY * scaler) + 2 * extension - 10 + 4 * gv.squareSize);
-                                                    gv.DrawBitmap(gv.cc.prp_lightOrange, src, dst, 0, false, (0.15f * tile.lightSourceFocalHaloIntensity[z]) + (tile.lightSourceRingHaloIntensity[z]) * 1.75f * 0.7f * 0.45f * 0.75f * (0.425f - flicker / 200f) / opacityDivider);
+                                                    gv.DrawBitmap(gv.cc.prp_lightOrange, src, dst, 0, false, (0.15f * tile.lightSourceFocalHaloIntensity[z]) + (tile.lightSourceRingHaloIntensity[z]) * 1.75f * 0.7f * 0.45f * 0.75f * (0.425f - flicker / 200f) / opacityDivider,true);
                                                     dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f) + extension2, tlY + shifterY - (int)((scaler - 1) * brY * 0.5f) + extension2, (int)(brX * scaler) - 2 * extension2, (int)(brY * scaler) - 2 * extension2);
-                                                    gv.DrawBitmap(gv.cc.prp_lightOrange, src, dst, 0, false, ((0.325f * tile.lightSourceFocalHaloIntensity[z]) + (tile.lightSourceFocalHaloIntensity[z]) * (2.25f * 0.3f * (0.425f - flicker / 200f))) / opacityDivider);
+                                                    gv.DrawBitmap(gv.cc.prp_lightOrange, src, dst, 0, false, ((0.325f * tile.lightSourceFocalHaloIntensity[z]) + (tile.lightSourceFocalHaloIntensity[z]) * (2.25f * 0.3f * (0.425f - flicker / 200f))) / opacityDivider,true);
                                                 }
                                             }
                                         }
@@ -35627,6 +35725,7 @@ namespace IceBlink2
                 #endregion
             }
         }
+
         public void drawLightAndDarkness(float elapsed)
         {
             #region new system
@@ -36417,39 +36516,39 @@ namespace IceBlink2
                                                 dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f) - extension + 5 - 2 * gv.squareSize, tlY + shifterY - (int)((scaler - 1) * brY * 0.5f) - extension + 5 - 2 * gv.squareSize, (int)(brX * scaler) + 2 * extension - 10 + 4 * gv.squareSize, (int)(brY * scaler) + 2 * extension - 10 + 4 * gv.squareSize);
                                                 if (gv.mod.partyLightColor.Contains("yellow"))
                                                 {
-                                                    gv.DrawBitmap(gv.cc.prp_lightYellow, src, dst, 0, false, gv.mod.partyRingHaloIntensity * 0.45f * 0.75f * (0.425f - flicker / 200f));
+                                                    gv.DrawBitmap(gv.cc.prp_lightYellow, src, dst, 0, false, gv.mod.partyRingHaloIntensity * 0.45f * 0.75f * (0.425f - flicker / 200f),true);
                                                     dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f) - extension2, tlY + shifterY - (int)((scaler - 1) * brY * 0.5f) - extension2, (int)(brX * scaler) + 2 * extension2, (int)(brY * scaler) + 2 * extension2);
-                                                    gv.DrawBitmap(gv.cc.prp_lightYellow, src, dst, 0, false, (0.25f * gv.mod.partyFocalHaloIntensity) + (gv.mod.partyFocalHaloIntensity) * (2.25f * 0.75f * (0.425f - flicker / 200f)));
+                                                    gv.DrawBitmap(gv.cc.prp_lightYellow, src, dst, 0, false, (0.25f * gv.mod.partyFocalHaloIntensity) + (gv.mod.partyFocalHaloIntensity) * (2.25f * 0.75f * (0.425f - flicker / 200f)),true);
                                                 }
                                                 else if (gv.mod.partyLightColor.Contains("blue"))
                                                 {
-                                                    gv.DrawBitmap(gv.cc.prp_lightBlue, src, dst, 0, false, gv.mod.partyRingHaloIntensity * 0.45f * 0.75f * (0.425f - flicker / 200f));
+                                                    gv.DrawBitmap(gv.cc.prp_lightBlue, src, dst, 0, false, gv.mod.partyRingHaloIntensity * 0.45f * 0.75f * (0.425f - flicker / 200f),true);
                                                     dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f) - extension2, tlY + shifterY - (int)((scaler - 1) * brY * 0.5f) - extension2, (int)(brX * scaler) + 2 * extension2, (int)(brY * scaler) + 2 * extension2);
-                                                    gv.DrawBitmap(gv.cc.prp_lightBlue, src, dst, 0, false, (0.25f * gv.mod.partyFocalHaloIntensity) + (gv.mod.partyFocalHaloIntensity) * (2.25f * 0.75f * (0.425f - flicker / 200f)));
+                                                    gv.DrawBitmap(gv.cc.prp_lightBlue, src, dst, 0, false, (0.25f * gv.mod.partyFocalHaloIntensity) + (gv.mod.partyFocalHaloIntensity) * (2.25f * 0.75f * (0.425f - flicker / 200f)),true);
                                                 }
                                                 else if (gv.mod.partyLightColor.Contains("green"))
                                                 {
-                                                    gv.DrawBitmap(gv.cc.prp_lightGreen, src, dst, 0, false, gv.mod.partyRingHaloIntensity * 0.45f * 0.75f * (0.425f - flicker / 200f));
+                                                    gv.DrawBitmap(gv.cc.prp_lightGreen, src, dst, 0, false, gv.mod.partyRingHaloIntensity * 0.45f * 0.75f * (0.425f - flicker / 200f),true);
                                                     dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f) - extension2, tlY + shifterY - (int)((scaler - 1) * brY * 0.5f) - extension2, (int)(brX * scaler) + 2 * extension2, (int)(brY * scaler) + 2 * extension2);
-                                                    gv.DrawBitmap(gv.cc.prp_lightGreen, src, dst, 0, false, (0.25f * gv.mod.partyFocalHaloIntensity) + (gv.mod.partyFocalHaloIntensity) * (2.25f * 0.75f * (0.425f - flicker / 200f)));
+                                                    gv.DrawBitmap(gv.cc.prp_lightGreen, src, dst, 0, false, (0.25f * gv.mod.partyFocalHaloIntensity) + (gv.mod.partyFocalHaloIntensity) * (2.25f * 0.75f * (0.425f - flicker / 200f)),true);
                                                 }
                                                 else if (gv.mod.partyLightColor.Contains("red"))
                                                 {
-                                                    gv.DrawBitmap(gv.cc.prp_lightRed, src, dst, 0, false, gv.mod.partyRingHaloIntensity * 0.45f * 0.75f * (0.425f - flicker / 200f));
+                                                    gv.DrawBitmap(gv.cc.prp_lightRed, src, dst, 0, false, gv.mod.partyRingHaloIntensity * 0.45f * 0.75f * (0.425f - flicker / 200f),true);
                                                     dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f) - extension2, tlY + shifterY - (int)((scaler - 1) * brY * 0.5f) - extension2, (int)(brX * scaler) + 2 * extension2, (int)(brY * scaler) + 2 * extension2);
-                                                    gv.DrawBitmap(gv.cc.prp_lightRed, src, dst, 0, false, (0.25f * gv.mod.partyFocalHaloIntensity) + (gv.mod.partyFocalHaloIntensity) * (2.25f * 0.75f * (0.425f - flicker / 200f)));
+                                                    gv.DrawBitmap(gv.cc.prp_lightRed, src, dst, 0, false, (0.25f * gv.mod.partyFocalHaloIntensity) + (gv.mod.partyFocalHaloIntensity) * (2.25f * 0.75f * (0.425f - flicker / 200f)),true);
                                                 }
                                                 else if (gv.mod.partyLightColor.Contains("orange"))
                                                 {
-                                                    gv.DrawBitmap(gv.cc.prp_lightOrange, src, dst, 0, false, gv.mod.partyRingHaloIntensity * 0.45f * 0.75f * (0.425f - flicker / 200f));
+                                                    gv.DrawBitmap(gv.cc.prp_lightOrange, src, dst, 0, false, gv.mod.partyRingHaloIntensity * 0.45f * 0.75f * (0.425f - flicker / 200f),true);
                                                     dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f) - extension2, tlY + shifterY - (int)((scaler - 1) * brY * 0.5f) - extension2, (int)(brX * scaler) + 2 * extension2, (int)(brY * scaler) + 2 * extension2);
-                                                    gv.DrawBitmap(gv.cc.prp_lightOrange, src, dst, 0, false, (0.25f * gv.mod.partyFocalHaloIntensity) + (gv.mod.partyFocalHaloIntensity) * (2.25f * 0.75f * (0.425f - flicker / 200f)));
+                                                    gv.DrawBitmap(gv.cc.prp_lightOrange, src, dst, 0, false, (0.25f * gv.mod.partyFocalHaloIntensity) + (gv.mod.partyFocalHaloIntensity) * (2.25f * 0.75f * (0.425f - flicker / 200f)),true);
                                                 }
                                                 else if (gv.mod.partyLightColor.Contains("purple"))
                                                 {
-                                                    gv.DrawBitmap(gv.cc.prp_lightPurple, src, dst, 0, false, gv.mod.partyRingHaloIntensity * 0.45f * 0.75f * (0.425f - flicker / 200f));
+                                                    gv.DrawBitmap(gv.cc.prp_lightPurple, src, dst, 0, false, gv.mod.partyRingHaloIntensity * 0.45f * 0.75f * (0.425f - flicker / 200f),true);
                                                     dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f) - extension2, tlY + shifterY - (int)((scaler - 1) * brY * 0.5f) - extension2, (int)(brX * scaler) + 2 * extension2, (int)(brY * scaler) + 2 * extension2);
-                                                    gv.DrawBitmap(gv.cc.prp_lightPurple, src, dst, 0, false, (0.25f * gv.mod.partyFocalHaloIntensity) + (gv.mod.partyFocalHaloIntensity) * (2.25f * 0.75f * (0.425f - flicker / 200f)));
+                                                    gv.DrawBitmap(gv.cc.prp_lightPurple, src, dst, 0, false, (0.25f * gv.mod.partyFocalHaloIntensity) + (gv.mod.partyFocalHaloIntensity) * (2.25f * 0.75f * (0.425f - flicker / 200f)),true);
                                                 }
                                             }
 
@@ -41119,11 +41218,28 @@ namespace IceBlink2
                         {
 
                             //maunzzz
-                            bool isTransition = gv.cc.goNorth();
-                            if (!isTransition)
+                            bool blockMoveBecausOfCurrentScrolling = false;
+                            if (gv.mod.useScrollingSystem)
                             {
-                                gv.mod.breakActiveSearch = false;
-                                moveUp(true);
+                                if (gv.mod.isScrollingNow)
+                                {
+                                    blockMoveBecausOfCurrentScrolling = true;
+                                }
+                            }
+                            if (!blockMoveBecausOfCurrentScrolling)
+                            {
+                                if (gv.mod.useScrollingSystem)
+                                {
+                                    gv.mod.isScrollingNow = true;
+                                    gv.mod.scrollingTimer = 100;
+                                    gv.mod.scrollingDirection = "up";
+                                }
+                                bool isTransition = gv.cc.goNorth();
+                                if (!isTransition)
+                                {
+                                    gv.mod.breakActiveSearch = false;
+                                    moveUp(true);
+                                }
                             }
 
                             /*
@@ -41255,11 +41371,28 @@ namespace IceBlink2
                     {
                         if (!gv.moveTimerRuns)
                         {
-                            bool isTransition = gv.cc.goSouth();
-                            if (!isTransition)
+                            bool blockMoveBecausOfCurrentScrolling = false;
+                            if (gv.mod.useScrollingSystem)
                             {
-                                gv.mod.breakActiveSearch = false;
-                                moveDown(true);
+                                if (gv.mod.isScrollingNow)
+                                {
+                                    blockMoveBecausOfCurrentScrolling = true;
+                                }
+                            }
+                            if (!blockMoveBecausOfCurrentScrolling)
+                            {
+                                if (gv.mod.useScrollingSystem)
+                                {
+                                    gv.mod.isScrollingNow = true;
+                                    gv.mod.scrollingTimer = 100;
+                                    gv.mod.scrollingDirection = "down";
+                                }
+                                bool isTransition = gv.cc.goSouth();
+                                if (!isTransition)
+                                {
+                                    gv.mod.breakActiveSearch = false;
+                                    moveDown(true);
+                                }
                             }
                             /*
                             bool isTransition = gv.cc.goSouth();
@@ -41391,11 +41524,28 @@ namespace IceBlink2
                     {
                         if (!gv.moveTimerRuns)
                         {
-                            bool isTransition = gv.cc.goWest();
-                            if (!isTransition)
+                            bool blockMoveBecausOfCurrentScrolling = false;
+                            if (gv.mod.useScrollingSystem)
                             {
-                                gv.mod.breakActiveSearch = false;
-                                moveLeft(true);
+                                if (gv.mod.isScrollingNow)
+                                {
+                                    blockMoveBecausOfCurrentScrolling = true;
+                                }
+                            }
+                            if (!blockMoveBecausOfCurrentScrolling)
+                            {
+                                if (gv.mod.useScrollingSystem)
+                                {
+                                    gv.mod.isScrollingNow = true;
+                                    gv.mod.scrollingTimer = 100;
+                                    gv.mod.scrollingDirection = "left";
+                                }
+                                bool isTransition = gv.cc.goWest();
+                                if (!isTransition)
+                                {
+                                    gv.mod.breakActiveSearch = false;
+                                    moveLeft(true);
+                                }
                             }
                             /*
                             bool isTransition = gv.cc.goWest();
@@ -41539,11 +41689,28 @@ namespace IceBlink2
                     {
                         if (!gv.moveTimerRuns)
                         {
-                            bool isTransition = gv.cc.goEast();
-                            if (!isTransition)
+                            bool blockMoveBecausOfCurrentScrolling = false;
+                            if (gv.mod.useScrollingSystem)
                             {
-                                gv.mod.breakActiveSearch = false;
-                                moveRight(true);
+                                if (gv.mod.isScrollingNow)
+                                {
+                                    blockMoveBecausOfCurrentScrolling = true;
+                                }
+                            }
+                            if (!blockMoveBecausOfCurrentScrolling)
+                            {
+                                if (gv.mod.useScrollingSystem)
+                                {
+                                    gv.mod.isScrollingNow = true;
+                                    gv.mod.scrollingTimer = 100;
+                                    gv.mod.scrollingDirection = "right";
+                                }
+                                bool isTransition = gv.cc.goEast();
+                                if (!isTransition)
+                                {
+                                    gv.mod.breakActiveSearch = false;
+                                    moveRight(true);
+                                }
                             }
                             /*
                             bool isTransition = gv.cc.goEast();
@@ -42604,11 +42771,28 @@ namespace IceBlink2
             {
                 if (keyData == Keys.D4 | keyData == Keys.NumPad4)
                 {
-                    bool isTransition = gv.cc.goWest();
-                    if (!isTransition)
+                    bool blockMoveBecausOfCurrentScrolling = false;
+                    if (gv.mod.useScrollingSystem)
                     {
-                        gv.mod.breakActiveSearch = false;
-                        moveLeft(true);
+                        if (gv.mod.isScrollingNow)
+                        {
+                            blockMoveBecausOfCurrentScrolling = true;
+                        }
+                    }
+                    if (!blockMoveBecausOfCurrentScrolling)
+                    {
+                        if (gv.mod.useScrollingSystem)
+                        {
+                            gv.mod.isScrollingNow = true;
+                            gv.mod.scrollingTimer = 100;
+                            gv.mod.scrollingDirection = "left";
+                        }
+                        bool isTransition = gv.cc.goWest();
+                        if (!isTransition)
+                        {
+                            gv.mod.breakActiveSearch = false;
+                            moveLeft(true);
+                        }
                     }
                 }
                 else if (keyData == Keys.ShiftKey)
@@ -42618,11 +42802,28 @@ namespace IceBlink2
                 }
                 else if (keyData == Keys.Left && showMoveKeys)
                 {
-                    bool isTransition = gv.cc.goWest();
-                    if (!isTransition)
+                    bool blockMoveBecausOfCurrentScrolling = false;
+                    if (gv.mod.useScrollingSystem)
                     {
-                        gv.mod.breakActiveSearch = false;
-                        moveLeft(true);
+                        if (gv.mod.isScrollingNow)
+                        {
+                            blockMoveBecausOfCurrentScrolling = true;
+                        }
+                    }
+                    if (!blockMoveBecausOfCurrentScrolling)
+                    {
+                        if (gv.mod.useScrollingSystem)
+                        {
+                            gv.mod.isScrollingNow = true;
+                            gv.mod.scrollingTimer = 100;
+                            gv.mod.scrollingDirection = "left";
+                        }
+                        bool isTransition = gv.cc.goWest();
+                        if (!isTransition)
+                        {
+                            gv.mod.breakActiveSearch = false;
+                            moveLeft(true);
+                        }
                     }
                 }
                 else if (keyData == Keys.M)
@@ -42634,92 +42835,262 @@ namespace IceBlink2
                 }
                 else if (keyData == Keys.A && !showMoveKeys)
                 {
-                    bool isTransition = gv.cc.goWest();
-                    if (!isTransition)
+                    bool blockMoveBecausOfCurrentScrolling = false;
+                    if (gv.mod.useScrollingSystem)
                     {
-                        gv.mod.breakActiveSearch = false;
-                        moveLeft(true);
+                        if (gv.mod.isScrollingNow)
+                        {
+                            blockMoveBecausOfCurrentScrolling = true;
+                        }
+                    }
+                    if (!blockMoveBecausOfCurrentScrolling)
+                    {
+                        if (gv.mod.useScrollingSystem)
+                        {
+                            gv.mod.isScrollingNow = true;
+                            gv.mod.scrollingTimer = 100;
+                            gv.mod.scrollingDirection = "left";
+                        }
+                        bool isTransition = gv.cc.goWest();
+                        if (!isTransition)
+                        {
+                            gv.mod.breakActiveSearch = false;
+                            moveLeft(true);
+                        }
                     }
                 }
                 else if (keyData == Keys.D6 | keyData == Keys.NumPad6)
                 {
-                    bool isTransition = gv.cc.goEast();
-                    if (!isTransition)
+                    bool blockMoveBecausOfCurrentScrolling = false;
+                    if (gv.mod.useScrollingSystem)
                     {
-                        gv.mod.breakActiveSearch = false;
-                        moveRight(true);
+                        if (gv.mod.isScrollingNow)
+                        {
+                            blockMoveBecausOfCurrentScrolling = true;
+                        }
+                    }
+                    if (!blockMoveBecausOfCurrentScrolling)
+                    {
+                        if (gv.mod.useScrollingSystem)
+                        {
+                            gv.mod.isScrollingNow = true;
+                            gv.mod.scrollingTimer = 100;
+                            gv.mod.scrollingDirection = "right";
+                        }
+                        bool isTransition = gv.cc.goEast();
+                        if (!isTransition)
+                        {
+                            gv.mod.breakActiveSearch = false;
+                            moveRight(true);
+                        }
                     }
                 }
                 else if (keyData == Keys.Right && showMoveKeys)
                 {
-                    bool isTransition = gv.cc.goEast();
-                    if (!isTransition)
+                    bool blockMoveBecausOfCurrentScrolling = false;
+                    if (gv.mod.useScrollingSystem)
                     {
-                        gv.mod.breakActiveSearch = false;
-                        moveRight(true);
+                        if (gv.mod.isScrollingNow)
+                        {
+                            blockMoveBecausOfCurrentScrolling = true;
+                        }
+                    }
+                    if (!blockMoveBecausOfCurrentScrolling)
+                    {
+                        if (gv.mod.useScrollingSystem)
+                        {
+                            gv.mod.isScrollingNow = true;
+                            gv.mod.scrollingTimer = 100;
+                            gv.mod.scrollingDirection = "right";
+                        }
+                        bool isTransition = gv.cc.goEast();
+                        if (!isTransition)
+                        {
+                            gv.mod.breakActiveSearch = false;
+                            moveRight(true);
+                        }
                     }
                 }
                 else if (keyData == Keys.D && !showMoveKeys)
                 {
-                    bool isTransition = gv.cc.goEast();
-                    if (!isTransition)
+                    bool blockMoveBecausOfCurrentScrolling = false;
+                    if (gv.mod.useScrollingSystem)
                     {
-                        gv.mod.breakActiveSearch = false;
-                        moveRight(true);
+                        if (gv.mod.isScrollingNow)
+                        {
+                            blockMoveBecausOfCurrentScrolling = true;
+                        }
+                    }
+                    if (!blockMoveBecausOfCurrentScrolling)
+                    {
+                        if (gv.mod.useScrollingSystem)
+                        {
+                            gv.mod.isScrollingNow = true;
+                            gv.mod.scrollingTimer = 100;
+                            gv.mod.scrollingDirection = "right";
+                        }
+                        bool isTransition = gv.cc.goEast();
+                        if (!isTransition)
+                        {
+                            gv.mod.breakActiveSearch = false;
+                            moveRight(true);
+                        }
                     }
                 }
                 else if (keyData == Keys.D8 | keyData == Keys.NumPad8)
                 {
-                    bool isTransition = gv.cc.goNorth();
-                    if (!isTransition)
+                    bool blockMoveBecausOfCurrentScrolling = false;
+                    if (gv.mod.useScrollingSystem)
                     {
-                        gv.mod.breakActiveSearch = false;
-                        moveUp(true);
+                        if (gv.mod.isScrollingNow)
+                        {
+                            blockMoveBecausOfCurrentScrolling = true;
+                        }
+                    }
+                    if (!blockMoveBecausOfCurrentScrolling)
+                    {
+                        if (gv.mod.useScrollingSystem)
+                        {
+                            gv.mod.isScrollingNow = true;
+                            gv.mod.scrollingTimer = 100;
+                            gv.mod.scrollingDirection = "up";
+                        }
+                        bool isTransition = gv.cc.goNorth();
+                        if (!isTransition)
+                        {
+                            gv.mod.breakActiveSearch = false;
+                            moveUp(true);
+                        }
                     }
                 }
                 else if (keyData == Keys.Up && showMoveKeys)
                 {
-                    bool isTransition = gv.cc.goNorth();
-                    if (!isTransition)
+                    bool blockMoveBecausOfCurrentScrolling = false;
+                    if (gv.mod.useScrollingSystem)
                     {
-                        gv.mod.breakActiveSearch = false;
-                        moveUp(true);
+                        if (gv.mod.isScrollingNow)
+                        {
+                            blockMoveBecausOfCurrentScrolling = true;
+                        }
+                    }
+                    if (!blockMoveBecausOfCurrentScrolling)
+                    {
+                        if (gv.mod.useScrollingSystem)
+                        {
+                            gv.mod.isScrollingNow = true;
+                            gv.mod.scrollingTimer = 100;
+                            gv.mod.scrollingDirection = "up";
+                        }
+                        bool isTransition = gv.cc.goNorth();
+                        if (!isTransition)
+                        {
+                            gv.mod.breakActiveSearch = false;
+                            moveUp(true);
+                        }
                     }
                 }
                 else if (keyData == Keys.W && !showMoveKeys)
                 {
-                    bool isTransition = gv.cc.goNorth();
-                    if (!isTransition)
+                    bool blockMoveBecausOfCurrentScrolling = false;
+                    if (gv.mod.useScrollingSystem)
                     {
-                        gv.mod.breakActiveSearch = false;
-                        moveUp(true);
+                        if (gv.mod.isScrollingNow)
+                        {
+                            blockMoveBecausOfCurrentScrolling = true;
+                        }
+                    }
+                    if (!blockMoveBecausOfCurrentScrolling)
+                    {
+                        if (gv.mod.useScrollingSystem)
+                        {
+                            gv.mod.isScrollingNow = true;
+                            gv.mod.scrollingTimer = 100;
+                            gv.mod.scrollingDirection = "up";
+                        }
+                        bool isTransition = gv.cc.goNorth();
+                        if (!isTransition)
+                        {
+                            gv.mod.breakActiveSearch = false;
+                            moveUp(true);
+                        }
                     }
                 }
                 else if (keyData == Keys.D2 | keyData == Keys.NumPad2)
                 {
-                    bool isTransition = gv.cc.goSouth();
-                    if (!isTransition)
+                    bool blockMoveBecausOfCurrentScrolling = false;
+                    if (gv.mod.useScrollingSystem)
                     {
-                        gv.mod.breakActiveSearch = false;
-                        moveDown(true);
+                        if (gv.mod.isScrollingNow)
+                        {
+                            blockMoveBecausOfCurrentScrolling = true;
+                        }
+                    }
+                    if (!blockMoveBecausOfCurrentScrolling)
+                    {
+                        if (gv.mod.useScrollingSystem)
+                        {
+                            gv.mod.isScrollingNow = true;
+                            gv.mod.scrollingTimer = 100;
+                            gv.mod.scrollingDirection = "down";
+                        }
+                        bool isTransition = gv.cc.goSouth();
+                        if (!isTransition)
+                        {
+                            gv.mod.breakActiveSearch = false;
+                            moveDown(true);
+                        }
                     }
                 }
                 else if (keyData == Keys.Down && showMoveKeys)
                 {
-                    bool isTransition = gv.cc.goSouth();
-                    if (!isTransition)
+                    bool blockMoveBecausOfCurrentScrolling = false;
+                    if (gv.mod.useScrollingSystem)
                     {
-                        gv.mod.breakActiveSearch = false;
-                        moveDown(true);
+                        if (gv.mod.isScrollingNow)
+                        {
+                            blockMoveBecausOfCurrentScrolling = true;
+                        }
+                    }
+                    if (!blockMoveBecausOfCurrentScrolling)
+                    {
+                        if (gv.mod.useScrollingSystem)
+                        {
+                            gv.mod.isScrollingNow = true;
+                            gv.mod.scrollingTimer = 100;
+                            gv.mod.scrollingDirection = "down";
+                        }
+                        bool isTransition = gv.cc.goSouth();
+                        if (!isTransition)
+                        {
+                            gv.mod.breakActiveSearch = false;
+                            moveDown(true);
+                        }
                     }
                 }
                 else if (keyData == Keys.S && !showMoveKeys)
                 {
-                    bool isTransition = gv.cc.goSouth();
-                    if (!isTransition)
+                    bool blockMoveBecausOfCurrentScrolling = false;
+                    if (gv.mod.useScrollingSystem)
                     {
-                        gv.mod.breakActiveSearch = false;
-                        moveDown(true);
+                        if (gv.mod.isScrollingNow)
+                        {
+                            blockMoveBecausOfCurrentScrolling = true;
+                        }
+                    }
+                    if (!blockMoveBecausOfCurrentScrolling)
+                    {
+                        if (gv.mod.useScrollingSystem)
+                        {
+                            gv.mod.isScrollingNow = true;
+                            gv.mod.scrollingTimer = 100;
+                            gv.mod.scrollingDirection = "down";
+                        }
+                        bool isTransition = gv.cc.goSouth();
+                        if (!isTransition)
+                        {
+                            gv.mod.breakActiveSearch = false;
+                            moveDown(true);
+                        }
                     }
                 }
                 //else { }
@@ -43022,7 +43393,8 @@ namespace IceBlink2
                 {
                     gv.log.SetCurrentTopLineIndex(-numberOfTextLinesToMove);
                     //gv.Invalidate();
-                    gv.Render(0);
+                    //bloodbus
+                    //gv.Render(0);
                 }
             }
 
@@ -43040,7 +43412,8 @@ namespace IceBlink2
                 {
                     gv.log.SetCurrentTopLineIndex(-numberOfTextLinesToMove);
                     //gv.Invalidate();
-                    gv.Render(0);
+                    //bloodbus
+                    //gv.Render(0);
                 }
             }
 
@@ -43678,7 +44051,8 @@ namespace IceBlink2
                 {
                     gv.log.SetCurrentTopLineIndex(-numberOfTextLinesToMove);
                     //gv.Invalidate();
-                    gv.Render(0);
+                    //bloodbus
+                    //gv.Render(0);
                 }
             }
 
@@ -43801,7 +44175,8 @@ namespace IceBlink2
                 {
                     gv.log.SetCurrentTopLineIndex(+numberOfTextLinesToMove);
                     //gv.Invalidate();
-                    gv.Render(0);
+                    //bloodbus
+                    //gv.Render(0);
                 }
             }
 
@@ -43817,7 +44192,8 @@ namespace IceBlink2
                 {
                     gv.log.SetCurrentTopLineIndex(+numberOfTextLinesToMove);
                     //gv.Invalidate();
-                    gv.Render(0);
+                    //bloodbus
+                    //gv.Render(0);
                 }
             }
 
@@ -43832,7 +44208,8 @@ namespace IceBlink2
                 {
                     gv.log.SetCurrentTopLineIndex(+numberOfTextLinesToMove);
                     //gv.Invalidate();
-                    gv.Render(0);
+                    //bloodbus
+                    //gv.Render(0);
                 }
             }
 
@@ -44518,6 +44895,7 @@ namespace IceBlink2
                 }
                 else if (bumpPropExists || bumpTriggerExists)
                 {
+                    StopScrollingOnBlocked();
                     if (bumpPropExists)
                     {
                         if ((!bumpProp.MouseOverText.Equals("none")) && (gv.mod.currentArea.Tiles[bumpProp.LocationY * gv.mod.currentArea.MapSizeX + bumpProp.LocationX].Visible))
@@ -44573,6 +44951,7 @@ namespace IceBlink2
                 }
                 else
                 {
+                    StopScrollingOnBlocked();
                     gv.cc.doUpdate();
                 }
             }
@@ -44898,6 +45277,7 @@ namespace IceBlink2
                 }
                 else if (bumpPropExists || bumpTriggerExists)
                 {
+                    StopScrollingOnBlocked();
                     if (bumpPropExists)
                     {
                         if ((!bumpProp.MouseOverText.Equals("none")) && (gv.mod.currentArea.Tiles[bumpProp.LocationY * gv.mod.currentArea.MapSizeX + bumpProp.LocationX].Visible))
@@ -44954,6 +45334,7 @@ namespace IceBlink2
                 }
                 else
                 {
+                    StopScrollingOnBlocked();
                     gv.cc.doUpdate();
                 }
             }
@@ -45279,6 +45660,7 @@ namespace IceBlink2
                 }
                 else if (bumpPropExists || bumpTriggerExists)
                 {
+                    StopScrollingOnBlocked();
                     if (bumpPropExists)
                     {
                         if ((!bumpProp.MouseOverText.Equals("none")) && (gv.mod.currentArea.Tiles[bumpProp.LocationY * gv.mod.currentArea.MapSizeX + bumpProp.LocationX].Visible))
@@ -45334,6 +45716,7 @@ namespace IceBlink2
                 }
                 else
                 {
+                    StopScrollingOnBlocked();
                     gv.cc.doUpdate();
                 }
             }
@@ -45654,7 +46037,8 @@ namespace IceBlink2
                 }
                 else if (bumpPropExists || bumpTriggerExists)
                 {
-                    if(bumpPropExists)
+                    StopScrollingOnBlocked();
+                    if (bumpPropExists)
                     {
                         if ((!bumpProp.MouseOverText.Equals("none")) && (gv.mod.currentArea.Tiles[bumpProp.LocationY * gv.mod.currentArea.MapSizeX + bumpProp.LocationX].Visible))
                         {
@@ -45709,6 +46093,7 @@ namespace IceBlink2
                 }
                 else
                 {
+                    StopScrollingOnBlocked();
                     gv.cc.doUpdate();
                 }
             }

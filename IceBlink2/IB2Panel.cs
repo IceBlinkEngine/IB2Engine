@@ -225,7 +225,7 @@ namespace IceBlink2
                     dst = new IbRect((int)(currentLocX * gv.screenDensity + gv.oXshift - 2.5 * gv.pS), (int)(currentLocY * gv.screenDensity) + 5 * gv.pS, (int)(Width * gv.screenDensity + 6.5 * gv.pS), (int)(Height * gv.screenDensity - 1 * gv.squareSize + 12 * gv.pS - 2 * gv.pS));
                 }
 
-                gv.DrawBitmap(gv.cc.GetFromBitmapList(backgroundImageFilename), src, dst, 0, false, 0.575f * gv.mod.logOpacity);
+                gv.DrawBitmap(gv.cc.GetFromBitmapList(backgroundImageFilename), src, dst, 0, false, 0.575f * gv.mod.logOpacity, true);
                 //}
 
                 foreach (IB2HtmlLogBox log in logList)

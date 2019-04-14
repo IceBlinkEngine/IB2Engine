@@ -2928,7 +2928,7 @@ namespace IceBlink2
         public void doUpdate()
         {
 
-            //gv.mod.PlayerLastLocationX = gv.mod.PlayerLocationX;
+            //gv.mod.PlayerLastLoca tionX = gv.mod.PlayerLocationX;
             //gv.mod.PlayerLastLocationY = gv.mod.PlayerLocationY;
 
             //bool showPortrtaitsThisUpdate = false;
@@ -4309,7 +4309,8 @@ namespace IceBlink2
             //dont forget to this properly for neighbouring maps
             // doPropStealth();
 
-            doPropTriggers();
+            //scrollingWystem: removed one line below
+            //doPropTriggers();
 
             //move any props that are active and only if they are not on the party location
             doPropMoves();
@@ -4338,14 +4339,35 @@ namespace IceBlink2
 
             doPropStealth();
             //do Conversation and/or Encounter if on Prop (check after props move)
+
+            //scrollingSystem: removed 6 lines below
+            /*
             if (!blockSecondPropTriggersCall)
             {
                 gv.triggerPropIndex = 0;
                 gv.triggerIndex = 0;
                 doPropTriggers();
             }
+            */
+            //scrollingSystem: added 1 line below
+            /*
+            if (gv.mod.useScrollingSystem)
+            {
+                while (gv.mod.isScrollingNow)
+                {
+                    int i = 0;
+                    //halt update progress while scrolling
+                    //todo: stop real tiem timer?
+                }
+            }
+            */
+            if (!gv.mod.useScrollingSystem)
+            {
+                doPropTriggers();
+            }
+            
 
-            //move any props that are active and only if they are not on the party location
+            //move any  props that are active and only if they are not on the party location
             //doPropMoves();
 
             //check for levelup available and switch button image
@@ -14283,6 +14305,7 @@ namespace IceBlink2
                         }
                         else
                         {
+                            gv.screenMainMap.StopScrollingOnBlocked();
                             //gv.cc.addLogText("red", "Something blocks the path from the other side.");
                         }
                     }
@@ -14420,6 +14443,7 @@ namespace IceBlink2
                         }
                         else
                         {
+                            gv.screenMainMap.StopScrollingOnBlocked();
                             //gv.cc.addLogText("red", "Something blocks the path from the other side.");
                         }
                     }
@@ -14549,6 +14573,7 @@ namespace IceBlink2
                         }
                         else
                         {
+                            gv.screenMainMap.StopScrollingOnBlocked();
                             //gv.cc.addLogText("red", "Something blocks the path from the other side.");
                         }
                     }
@@ -14676,6 +14701,7 @@ namespace IceBlink2
                         }
                         else
                         {
+                            gv.screenMainMap.StopScrollingOnBlocked();
                             //gv.cc.addLogText("red", "Something blocks the path from the other side.");
                         }
                     }

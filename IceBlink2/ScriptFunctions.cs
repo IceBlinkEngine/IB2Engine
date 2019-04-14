@@ -9653,6 +9653,10 @@ namespace IceBlink2
 
                             }
                         }
+                        else
+                        {
+                            gv.screenMainMap.StopScrollingOnBlocked();
+                        }
                         break;
                     }
                 }
@@ -9885,6 +9889,10 @@ namespace IceBlink2
                                 //gv.cc.addLogText("red", "Not possible to push it further...");
 
                             }
+                        }
+                        else
+                        {
+                            gv.screenMainMap.StopScrollingOnBlocked();
                         }
                         break;
                     }
@@ -10122,6 +10130,10 @@ namespace IceBlink2
 
                             }
                         }
+                        else
+                        {
+                            gv.screenMainMap.StopScrollingOnBlocked();
+                        }
                         break;
                     }
                 }
@@ -10354,6 +10366,10 @@ namespace IceBlink2
                                 //gv.cc.addLogText("red", "Not possible to push it further...");
 
                             }
+                        }
+                        else
+                        {
+                            gv.screenMainMap.StopScrollingOnBlocked();
                         }
                         break;
                     }
