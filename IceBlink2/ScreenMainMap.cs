@@ -1524,7 +1524,7 @@ namespace IceBlink2
             //20ms
             //25 call consume it (half second for square)
             //decrease by 4
-            gv.mod.scrollingTimer = gv.mod.scrollingTimer - (4f*(elapsed/3.5f));
+            gv.mod.scrollingTimer = gv.mod.scrollingTimer - (4f*(elapsed/gv.mod.scrollingSpeed));
 
 
             if (gv.mod.scrollingTimer <= 0)
@@ -6699,14 +6699,14 @@ namespace IceBlink2
             else //old system using single image background and no load tile images on demand
             {
                 #region old system
-                int minX = gv.mod.PlayerLocationX - gv.playerOffsetX - 2; //using -2 in case a large tile (3x3) needs to start off the visible map space to be seen
+                int minX = gv.mod.PlayerLocationX - gv.playerOffsetX - 3; //using -2 in case a large tile (3x3) needs to start off the visible map space to be seen
                 if (minX < 0) { minX = 0; }
-                int minY = gv.mod.PlayerLocationY - gv.playerOffsetY - 2; //using -2 in case a large tile (3x3) needs to start off the visible map space to be seen
+                int minY = gv.mod.PlayerLocationY - gv.playerOffsetY - 3; //using -2 in case a large tile (3x3) needs to start off the visible map space to be seen
                 if (minY < 0) { minY = 0; }
 
-                int maxX = gv.mod.PlayerLocationX + gv.playerOffsetX + 1;
+                int maxX = gv.mod.PlayerLocationX + gv.playerOffsetX + 2;
                 if (maxX > this.gv.mod.currentArea.MapSizeX) { maxX = this.gv.mod.currentArea.MapSizeX; }
-                int maxY = gv.mod.PlayerLocationY + gv.playerOffsetY + 2; // use 2 so that extends down to bottom of screen
+                int maxY = gv.mod.PlayerLocationY + gv.playerOffsetY + 3; // use 2 so that extends down to bottom of screen
                 if (maxY > this.gv.mod.currentArea.MapSizeY) { maxY = this.gv.mod.currentArea.MapSizeY; }
 
                 #region Draw Layer 1
@@ -29092,9 +29092,10 @@ namespace IceBlink2
             IbRect dst = new IbRect(dstX + gv.oXshift + mapStartLocXinPixels, dstY, dstWidth, dstHeight);
             gv.DrawBitmap(gv.cc.bmpMap, src, dst);
 
-            drawColumnOfBlack(-1);
+            //drawColumnOfBlack(-1);
             drawColumnOfBlack(-2);
-            drawRowOfBlack(-1);
+            //drawRowOfBlack(-1);
+            
             drawColumnOfBlack(gv.playerOffsetX * 2 + 1);
             drawColumnOfBlack(gv.playerOffsetX * 2 + 2);
             //hurgh16
@@ -35430,7 +35431,7 @@ namespace IceBlink2
             {
                 int minX = gv.mod.PlayerLocationX - gv.playerOffsetX-1;
                 if (minX < 0) { minX = 0; }
-                int minY = gv.mod.PlayerLocationY - gv.playerOffsetY-1;
+                int minY = gv.mod.PlayerLocationY - gv.playerOffsetY-2;
                 if (minY < 0) { minY = 0; }
 
                 int maxX = gv.mod.PlayerLocationX + gv.playerOffsetX + 2;
@@ -35452,6 +35453,7 @@ namespace IceBlink2
                         {
                             gv.DrawBitmap(gv.cc.black_tile, src, dst);
                         }
+                       
                     }
                 }
             }
@@ -37852,7 +37854,7 @@ namespace IceBlink2
             #region new system
             if (gv.mod.useAllTileSystem)
             {
-                int width = gv.playerOffsetX * 2 + 1;
+                int width = gv.playerOffsetX * 2 + 2;
                 int height = gv.playerOffsetY * 2 + 1;
 
                 //if (gv.mod.currentArea.westernNeighbourArea == "")
@@ -37867,7 +37869,7 @@ namespace IceBlink2
                 //if (gv.mod.currentArea.northernNeighbourArea == "")
                 //{
                     //at top edge
-                    for (int i = -1; i < gv.playerOffsetY - gv.mod.PlayerLocationY; i++)
+                    for (int i = -2; i < gv.playerOffsetY - gv.mod.PlayerLocationY; i++)
                     {
                         drawRowOfBlack(i);
                     }
@@ -37875,7 +37877,7 @@ namespace IceBlink2
                 //if (gv.mod.currentArea.easternNeighbourArea == "")
                 //{
                     //at right edge
-                    for (int i = 0; i <= gv.playerOffsetX + gv.mod.PlayerLocationX - gv.mod.currentArea.MapSizeX; i++)
+                    for (int i = 0; i <= gv.playerOffsetX + gv.mod.PlayerLocationX - gv.mod.currentArea.MapSizeX+1; i++)
                     {
                         drawColumnOfBlack(width - i);
                     }
@@ -37893,6 +37895,7 @@ namespace IceBlink2
             #region old system
             else //old system using single image background and no load tile images on demand
             {
+                
                 int width = gv.playerOffsetX * 2 + 1;
                 int height = gv.playerOffsetY * 2 + 1;
 
@@ -37919,6 +37922,7 @@ namespace IceBlink2
                 {
                     drawRowOfBlack(height - i);
                 }
+                
             }
             #endregion
         }
@@ -38807,7 +38811,7 @@ namespace IceBlink2
                                 //3 Can be bypassed by Shadow? "Allows sneak through" (green), "No sneak through" (red)
                                 //4 Speed, with chances: "Speed 7, 0:15%, 2:15% (speed value, including move chances)(white), or "slow" in green
 
-                                if (((p.EncounterWhenOnPartySquare != "none") || (p.ConversationWhenOnPartySquare != "none")) && (gv.mod.currentArea.Tiles[actualY * gv.mod.currentArea.MapSizeX + actualX].Visible) && lightIsNoProblem && !p.isStealthed && (p.MouseOverText != "none" || p.MouseOverText != "None" || p.MouseOverText != ""))
+                                if (((p.EncounterWhenOnPartySquare != "none") || (p.ConversationWhenOnPartySquare != "none")) && (gv.mod.currentArea.Tiles[actualY * gv.mod.currentArea.MapSizeX + actualX].Visible) && lightIsNoProblem && !p.isStealthed && (p.MouseOverText == "none" || p.MouseOverText == "None" || p.MouseOverText == ""))
                                 {
 
                                     //gv.cc.floatyTextA
@@ -39406,7 +39410,7 @@ namespace IceBlink2
                                             }
                                             gv.cc.floatyTextLoc = new Coordinate(gridx * gv.squareSize, gridy * gv.squareSize - (int)(floatyPushUp * gv.squareSize));
                                         }
-                                        if (((p.EncounterWhenOnPartySquare != "none") || (p.ConversationWhenOnPartySquare != "none")) && (gv.mod.currentArea.Tiles[actualY * gv.mod.currentArea.MapSizeX + actualX].Visible) && lightIsNoProblem && !p.isStealthed && (p.MouseOverText != "none" || p.MouseOverText != "None" || p.MouseOverText != ""))
+                                        if (((p.EncounterWhenOnPartySquare != "none") || (p.ConversationWhenOnPartySquare != "none")) && (gv.mod.currentArea.Tiles[actualY * gv.mod.currentArea.MapSizeX + actualX].Visible) && lightIsNoProblem && !p.isStealthed && (p.MouseOverText == "none" || p.MouseOverText == "None" || p.MouseOverText != ""))
                                         {
 
                                             //gv.cc.floatyTextA

@@ -14975,6 +14975,10 @@ namespace IceBlink2
 
                     gv.screenMainMap.resetMiniMapBitmap();
 
+                    //if (gv.mod.useAllTileSystem)
+                    gv.screenMainMap.setExplored();
+                    gv.screenMainMap.setExploredForConnectedDiscoveryTriggers();
+
                     doOnEnterAreaUpdate = true;
                     doPropMoves();
                     doOnEnterAreaUpdate = false;

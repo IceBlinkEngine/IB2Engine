@@ -20,6 +20,7 @@ namespace IceBlink2
         public float scrollingTimer = 100; //runs from 100 to 0
         public bool isScrollingNow = false;
         public string scrollingDirection = "up"; //up, right, down, left
+        public float scrollingSpeed = 4f;//default 4f, lower is faster
 
         public bool useFastRender = false;
         public bool isInitialParticleWave = false;

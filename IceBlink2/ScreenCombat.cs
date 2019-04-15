@@ -4509,59 +4509,62 @@ namespace IceBlink2
 
         public void startPcTurn()
         {
-            gv.mod.nonRepeatableFreeActionsUsedThisTurnBySpellTag.Clear();
-            gv.mod.swiftActionHasBeenUsedThisTurn = false;
-            CalculateUpperLeft();
-            //karl
-            //gv.Render();
-            isPlayerTurn = true;
-            gv.touchEnabled = true;
-            currentCombatMode = "move";
-            Player pc = gv.mod.playerList[currentPlayerIndex];
-            gv.sf.UpdateStats(pc);
-            currentMoves = 0;
-            if(gv.mod.currentEncounter.onlyOneMoveModifier)
+            if (gv.mod.playerList.Count > 0)
             {
-                currentMoves = pc.moveDistance - 1.5f;
-            }
-            //do onTurn IBScript
-            if (!pc.hasDelayedAlready)
-            {
-                gv.cc.doIBScriptBasedOnFilename(gv.mod.currentEncounter.OnStartCombatTurnIBScript, gv.mod.currentEncounter.OnStartCombatTurnIBScriptParms);
-            }
-            //damage battle conditions
-            if (!pc.hasDelayedAlready)
-            {
-                if (gv.mod.currentEncounter.hpDamageEachRound > 0)
+                gv.mod.nonRepeatableFreeActionsUsedThisTurnBySpellTag.Clear();
+                gv.mod.swiftActionHasBeenUsedThisTurn = false;
+                CalculateUpperLeft();
+                //karl
+                //gv.Render();
+                isPlayerTurn = true;
+                gv.touchEnabled = true;
+                currentCombatMode = "move";
+                Player pc = gv.mod.playerList[currentPlayerIndex];
+                gv.sf.UpdateStats(pc);
+                currentMoves = 0;
+                if (gv.mod.currentEncounter.onlyOneMoveModifier)
                 {
-                    if (pc.hp > -20)
-                    {
-                        pc.hp -= gv.mod.currentEncounter.hpDamageEachRound;
-                        gv.cc.addLogText("<font color='red'>" + pc.name + " lost " + gv.mod.currentEncounter.hpDamageEachRound + " hp.</font><BR>");
-                    }
+                    currentMoves = pc.moveDistance - 1.5f;
                 }
-
-                if (gv.mod.currentEncounter.spDamageEachRound > 0)
+                //do onTurn IBScript
+                if (!pc.hasDelayedAlready)
                 {
-                    if (pc.sp > 0)
+                    gv.cc.doIBScriptBasedOnFilename(gv.mod.currentEncounter.OnStartCombatTurnIBScript, gv.mod.currentEncounter.OnStartCombatTurnIBScriptParms);
+                }
+                //damage battle conditions
+                if (!pc.hasDelayedAlready)
+                {
+                    if (gv.mod.currentEncounter.hpDamageEachRound > 0)
                     {
-                        pc.sp -= gv.mod.currentEncounter.spDamageEachRound;
-                        gv.cc.addLogText("<font color='red'>" + pc.name + " lost " + gv.mod.currentEncounter.spDamageEachRound + " sp.</font><BR>");
-                        if (pc.sp < 0)
+                        if (pc.hp > -20)
                         {
-                            pc.sp = 0;
+                            pc.hp -= gv.mod.currentEncounter.hpDamageEachRound;
+                            gv.cc.addLogText("<font color='red'>" + pc.name + " lost " + gv.mod.currentEncounter.hpDamageEachRound + " hp.</font><BR>");
+                        }
+                    }
+
+                    if (gv.mod.currentEncounter.spDamageEachRound > 0)
+                    {
+                        if (pc.sp > 0)
+                        {
+                            pc.sp -= gv.mod.currentEncounter.spDamageEachRound;
+                            gv.cc.addLogText("<font color='red'>" + pc.name + " lost " + gv.mod.currentEncounter.spDamageEachRound + " sp.</font><BR>");
+                            if (pc.sp < 0)
+                            {
+                                pc.sp = 0;
+                            }
                         }
                     }
                 }
-            }
 
-            if ((pc.isHeld()) || (pc.isDead()) || (pc.isUnconcious()))
-            {
-                endPcTurn(false);
-            }
-            if (pc.isImmobile())
-            {
-                currentMoves = 99;
+                if ((pc.isHeld()) || (pc.isDead()) || (pc.isUnconcious()))
+                {
+                    endPcTurn(false);
+                }
+                if (pc.isImmobile())
+                {
+                    currentMoves = 99;
+                }
             }
         }
         public void doCombatAttack(Player pc)
