@@ -176,7 +176,8 @@ namespace IceBlink2
 
             
             this.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.GameView_MouseWheel);
-            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.GameView_onKeyDown);
+            //this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.GameView_onKeyDown);
+            //this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.GameView_onKeyUp);
             mainDirectory = Directory.GetCurrentDirectory();
 
             this.IceBlinkButtonClose.setupAll(this);
@@ -266,7 +267,7 @@ namespace IceBlink2
                 cc.LoadSaveListItems();
                 screenType = "title";
             }
-            gameTimer.Interval = 16; //~60 fps
+            gameTimer.Interval = 1; //~60 fps
             gameTimer.Tick += new System.EventHandler(this.gameTimer_Tick);
             gameTimerStopwatch.Start();
             previousTime = gameTimerStopwatch.ElapsedMilliseconds;
@@ -1046,10 +1047,9 @@ namespace IceBlink2
                     fps = 1000 / (current - previousTime);
                 }
                 reportFPScount++;
-                previousTime = current; //remember the current time at the beginning of this tick call for the next time through the game loop to calculate elapsed time
+                previousTime = current; //remember the current time at the beginning of this tick call for the next time through the game loop to calculate elapsed ti
                 stillProcessingGameLoop = false; //finished game loop so okay to let the next tick call enter the game loop      
             }
-            int i = 0;
         }
         private void Update(int elapsed)
         {
@@ -1063,7 +1063,7 @@ namespace IceBlink2
             {
                 screenCombat.Update(elapsed);
             }
-            int i = 1;
+      
         }
 
         //DRAW ROUTINES
@@ -1853,6 +1853,17 @@ namespace IceBlink2
             }
         }
 
+        private void GameView_onKeyUp(object sender, KeyEventArgs e)
+        {
+            if (screenType.Equals("main"))
+            {
+                //mod.runMulti = 1.0f;
+                
+                //screenMainMap.onKeyUp(e);
+                //krah krah
+            }
+        } 
+
         private void GameView_MouseWheel(object sender, MouseEventArgs e)
         {
             if ((screenType.Equals("main")) || (screenType.Equals("combat")))
@@ -2436,7 +2447,7 @@ namespace IceBlink2
                     this.Close();
                 }
                 */
-
+                
                 if (screenType.Equals("main"))
                     {
                         screenMainMap.onKeyUp(keyData);
@@ -2479,10 +2490,18 @@ namespace IceBlink2
             {
                 errorLog(ex.ToString());
             }
-        }        
+        }
+
+       
+
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
-            onKeyboardEvent(keyData);
+
+            //if (screenType != "main")
+            //{
+                onKeyboardEvent(keyData);
+            //}
+            //mod.keyIsHeld = true;
                 
             return base.ProcessCmdKey(ref msg, keyData);
         }

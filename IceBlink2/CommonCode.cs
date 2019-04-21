@@ -4322,13 +4322,19 @@ namespace IceBlink2
 
             if (gv.mod.useAllTileSystem)
             {
-                resetLightAndDarkness();
+                //if (!gv.mod.useScrollingSystem || !gv.mod.partyLightOn)
+                //{
+                    resetLightAndDarkness();
+                //}
             }
 
             //set illumination level of tiles based on party and prop position
             if (gv.mod.useAllTileSystem)
             {
-                doIllumination();
+                //if (!gv.mod.useScrollingSystem || !gv.mod.partyLightOn)
+                //{
+                    doIllumination();
+                //}
             }
 
             //doPropTriggers();
@@ -5382,6 +5388,11 @@ namespace IceBlink2
             }
 
         }
+
+        //walkedaway
+        //maybe intgrate resetligthanddarkness
+        //do extar call of doillumiantion and reset lightanddarkenss after half of scrollign timer has run (instaed of directly after move)
+        //thsi midway shift migth look more smoothly
 
         public void doIllumination()
         {

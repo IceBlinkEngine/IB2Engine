@@ -13,14 +13,14 @@ namespace IceBlink2
 {
     public class Module
     {
-
+        public bool doThisScrollingsLightShift = true;
         public float nightTimeDarknessOpacity = 0.6f;
 
         public bool useScrollingSystem = true;
         public float scrollingTimer = 100; //runs from 100 to 0
         public bool isScrollingNow = false;
         public string scrollingDirection = "up"; //up, right, down, left
-        public float scrollingSpeed = 4f;//default 4f, lower is faster
+        public float scrollingSpeed = 4.0f;//default 4f, lower is faster
 
         public bool useFastRender = false;
         public bool isInitialParticleWave = false;
