@@ -32,6 +32,7 @@ namespace IceBlink2
     {
         //this class is handled differently than Android version
         public int elapsed = 0;
+        public int elapsed2 = 0;
         public float screenDensity;
         public int screenWidth;
         public int screenHeight;
@@ -139,6 +140,7 @@ namespace IceBlink2
         //public Timer moveTimer = new Timer();
         public Stopwatch gameTimerStopwatch = new Stopwatch();
         public long previousTime = 0;
+        public long previousTime2 = 0;
         public bool stillProcessingGameLoop = false;
         public float fps = 0;
         public int reportFPScount = 0;
@@ -1039,6 +1041,15 @@ namespace IceBlink2
                 stillProcessingGameLoop = true; //starting the game loop so do not allow another tick call to run until finished with this tick call.
                 long current = gameTimerStopwatch.ElapsedMilliseconds; //get the current total amount of ms since the game launched
                 elapsed = (int)(current - previousTime); //calculate the total ms elapsed since the last time through the game loop
+                //if (elapsed > 50)
+                //{
+                    //int i = 0;
+                //}
+                //mod.scrollingOverhang = mod.scrollingOverhang + 3f*(elapsed/20f);
+                //if (mod.scrollingOverhang > 0)
+                //{
+                    //mod.scrollingOverhang = 0;
+                //}
                 Update(elapsed); //runs AI and physics
                 Render(elapsed); //draw the screen frame
                 if (reportFPScount >= 10)
@@ -2450,7 +2461,15 @@ namespace IceBlink2
                 
                 if (screenType.Equals("main"))
                     {
+                    //if (!mod.blockMainKeyboard)
+                    //{
                         screenMainMap.onKeyUp(keyData);
+                    //}
+                   
+                    //else
+                    //{
+                        //int hghg = 1;
+                    //}
                         //krah krah
                 }
                     else if (screenType.Equals("combat"))

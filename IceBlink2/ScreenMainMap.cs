@@ -368,9 +368,17 @@ namespace IceBlink2
             //scrollingSystem
             if (gv.mod.useScrollingSystem)
             {
-                if (gv.mod.isScrollingNow)
+                if (gv.screenType == "main")
                 {
-                    doScrolling(elapsed);
+                    if (gv.mod.isScrollingNow)
+                    {
+                        doScrolling(elapsed);
+                    }
+                }
+                else
+                {
+                    gv.mod.isScrollingNow = false;
+                    gv.mod.scrollingTimer = 0;
                 }
             }
             
@@ -709,7 +717,9 @@ namespace IceBlink2
                     }
                     else if (gv.mod.PlayerLocationX - 1 >= actualx && gv.mod.PlayerLocationY == actualy)
                     {
+                       
                         bool isTransition = gv.cc.goWest();
+                           
                         if (!isTransition)
                         {
                             bool bumpPropExists = false;
@@ -1548,7 +1558,7 @@ namespace IceBlink2
             //float multi = elapsed / 66.4f;
 
 
-            
+
             if (multi > 1.5f)
             {
                 multi = 1.5f;
@@ -1565,7 +1575,26 @@ namespace IceBlink2
                 multi = 2f;
             }
             */
-
+            /*
+            int decreasePerCall = (int)(7.5f * multi * gv.mod.scrollingSpeed);
+            int roundedDecrease = 0;
+            if (decreasePerCall < 15)
+            {
+                roundedDecrease = 10;
+            }
+            else if (decreasePerCall < 30)
+            {
+                roundedDecrease = 20;
+            }
+            else if (decreasePerCall < 45)
+            {
+                roundedDecrease = 30;
+            }
+            else if (decreasePerCall < 60)
+            {
+                roundedDecrease = 40;
+            }
+            */
             gv.mod.scrollingTimer = gv.mod.scrollingTimer - (7.5f * multi * gv.mod.scrollingSpeed);
             //gv.mod.scrollingTimer = gv.mod.scrollingTimer - (7.5f * multi);
             //gv.mod.scrollingTimer -= 25f * multi;
@@ -1587,14 +1616,19 @@ namespace IceBlink2
 
             if (gv.mod.scrollingTimer <= 0)
             {
+                //mühlheim
+                
                 gv.mod.isScrollingNow = false;
-                //gv.mod.doThisScrollingsLightShift = true;
-                gv.mod.scrollingTimer = 100+ gv.mod.scrollingTimer;
+                //was flawless with = 100
+                gv.mod.scrollingOverhang2 = gv.mod.scrollingTimer;
+
+                gv.mod.scrollingTimer = 100;
+                
                 gv.cc.doPropTriggers();
                 //gv.mod.scrollingTimer = 100;
             }
-                
 
+           
         }
 
         public void doPropAnimations(float elapsed)
@@ -2371,10 +2405,10 @@ namespace IceBlink2
             int minY = gv.mod.PlayerLocationY - gv.playerOffsetY - 3; //using -2 in case a large tile (3x3) needs to start off the visible map space to be seen
             if (minY < -gv.mod.seamlessModififierMinY - 1) { minY = -gv.mod.seamlessModififierMinY - 1; }
 
-            int maxX = gv.mod.PlayerLocationX + gv.playerOffsetX + 1;
-            if (maxX > this.gv.mod.currentArea.MapSizeX + gv.mod.seamlessModififierMaxX) { maxX = this.gv.mod.currentArea.MapSizeX + gv.mod.seamlessModififierMaxX; }
-            int maxY = gv.mod.PlayerLocationY + gv.playerOffsetY + 1;
-            if (maxY > this.gv.mod.currentArea.MapSizeY + gv.mod.seamlessModififierMaxY) { maxY = this.gv.mod.currentArea.MapSizeY + gv.mod.seamlessModififierMaxY; }
+            int maxX = gv.mod.PlayerLocationX + gv.playerOffsetX + 2;
+            if (maxX > this.gv.mod.currentArea.MapSizeX + gv.mod.seamlessModififierMaxX+1) { maxX = this.gv.mod.currentArea.MapSizeX + gv.mod.seamlessModififierMaxX+1; }
+            int maxY = gv.mod.PlayerLocationY + gv.playerOffsetY + 2;
+            if (maxY > this.gv.mod.currentArea.MapSizeY + gv.mod.seamlessModififierMaxY+1) { maxY = this.gv.mod.currentArea.MapSizeY + gv.mod.seamlessModififierMaxY+1; }
 
             /*
             if (gv.mod.currentArea.sourceBitmapName != "")
@@ -3613,6 +3647,7 @@ namespace IceBlink2
                     //if (gv.mod.fogOfWarOpacity == 1.0f)
                     //{
                     //wiederan 1line
+                    //greenwhich
                     drawLightAndDarkness(elapsed);
                     //}
                 }
@@ -29578,8 +29613,8 @@ namespace IceBlink2
                             //XXXXXXXXXXXXXXXXXXXXXXXX
 
                             //distance check
-                            if ((p.LocationX >= gv.mod.PlayerLocationX - gv.playerOffsetX) && (p.LocationX <= gv.mod.PlayerLocationX + gv.playerOffsetX)
-                                && (p.LocationY >= gv.mod.PlayerLocationY - gv.playerOffsetY) && (p.LocationY <= gv.mod.PlayerLocationY + gv.playerOffsetY))
+                            if ((p.LocationX >= gv.mod.PlayerLocationX - gv.playerOffsetX-1) && (p.LocationX <= gv.mod.PlayerLocationX + gv.playerOffsetX+1)
+                                && (p.LocationY >= gv.mod.PlayerLocationY - gv.playerOffsetY-1) && (p.LocationY <= gv.mod.PlayerLocationY + gv.playerOffsetY+1))
                             {//5
                              //prop X - playerX
                              //get dst rct based on distance of prop to  palyer
@@ -29751,6 +29786,8 @@ namespace IceBlink2
 
                                     //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
                                     //enter code for skipping triggers of prop here
+                                    //greenwhich
+                                    /*
                                     if (p.showSneakThroughSymbol)
                                     {
                                         int numberOfSkulls = 1;
@@ -29771,6 +29808,7 @@ namespace IceBlink2
                                             //gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
                                         }
                                     }
+                                    */
 
                                     if (p.isCurrentlyChasing)
                                     {
@@ -34909,7 +34947,7 @@ namespace IceBlink2
                 //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
                 #region neighbours
-                if ((gv.mod.currentArea.northernNeighbourArea != "") && (gv.mod.PlayerLocationY <= gv.playerOffsetY))
+                if ((gv.mod.currentArea.northernNeighbourArea != "") && (gv.mod.PlayerLocationY <= gv.playerOffsetY+1))
                 {
                     gv.mod.seamlessModififierMinY = gv.playerOffsetY - gv.mod.PlayerLocationY;
                     for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
@@ -34952,7 +34990,7 @@ namespace IceBlink2
                     }
                 }
 
-                if ((gv.mod.currentArea.southernNeighbourArea != "") && (gv.mod.PlayerLocationY > (gv.mod.currentArea.MapSizeY - gv.playerOffsetY - 1)))
+                if ((gv.mod.currentArea.southernNeighbourArea != "") && (gv.mod.PlayerLocationY >= (gv.mod.currentArea.MapSizeY - gv.playerOffsetY - 1)))
                 {
 
                     gv.mod.seamlessModififierMaxY = gv.mod.PlayerLocationY - (gv.mod.currentArea.MapSizeY - gv.playerOffsetY - 1);
@@ -34995,7 +35033,7 @@ namespace IceBlink2
                     }
                 }
 
-                if ((gv.mod.currentArea.westernNeighbourArea != "") && (gv.mod.PlayerLocationX <= gv.playerOffsetX))
+                if ((gv.mod.currentArea.westernNeighbourArea != "") && (gv.mod.PlayerLocationX <= gv.playerOffsetX+1))
                 {
                     gv.mod.seamlessModififierMinX = gv.playerOffsetX - gv.mod.PlayerLocationX;
                     for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
@@ -35041,7 +35079,7 @@ namespace IceBlink2
                     }
                 }
 
-                if ((gv.mod.currentArea.easternNeighbourArea != "") && (gv.mod.PlayerLocationX > (gv.mod.currentArea.MapSizeX - gv.playerOffsetX - 1)))
+                if ((gv.mod.currentArea.easternNeighbourArea != "") && (gv.mod.PlayerLocationX >= (gv.mod.currentArea.MapSizeX - gv.playerOffsetX - 1)))
                 {
                     gv.mod.seamlessModififierMaxX = gv.mod.PlayerLocationX - (gv.mod.currentArea.MapSizeX - gv.playerOffsetX - 1);
                     for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
@@ -35108,8 +35146,8 @@ namespace IceBlink2
 
                 int maxX = gv.mod.PlayerLocationX + gv.playerOffsetX + 2;
                 if (maxX > this.gv.mod.currentArea.MapSizeX + gv.mod.seamlessModififierMaxX + 1) { maxX = this.gv.mod.currentArea.MapSizeX + gv.mod.seamlessModififierMaxX + 1; }
-                int maxY = gv.mod.PlayerLocationY + gv.playerOffsetY + 1;
-                if (maxY > this.gv.mod.currentArea.MapSizeY + gv.mod.seamlessModififierMaxY) { maxY = this.gv.mod.currentArea.MapSizeY + gv.mod.seamlessModififierMaxY; }
+                int maxY = gv.mod.PlayerLocationY + gv.playerOffsetY + 2;
+                if (maxY > this.gv.mod.currentArea.MapSizeY + gv.mod.seamlessModififierMaxY+1) { maxY = this.gv.mod.currentArea.MapSizeY + gv.mod.seamlessModififierMaxY+1; }
 
                 #region go through tiles
                 for (int x = minX; x < maxX; x++)
@@ -35816,7 +35854,7 @@ namespace IceBlink2
             if (gv.mod.useAllTileSystem)
             {
                 #region neighbours
-                if ((gv.mod.currentArea.northernNeighbourArea != "") && (gv.mod.PlayerLocationY <= gv.playerOffsetY))
+                if ((gv.mod.currentArea.northernNeighbourArea != "") && (gv.mod.PlayerLocationY <= gv.playerOffsetY+1))
                 {
                     gv.mod.seamlessModififierMinY = gv.playerOffsetY - gv.mod.PlayerLocationY;
                     for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
@@ -35859,7 +35897,7 @@ namespace IceBlink2
                     }
                 }
 
-                if ((gv.mod.currentArea.southernNeighbourArea != "") && (gv.mod.PlayerLocationY > (gv.mod.currentArea.MapSizeY - gv.playerOffsetY - 1)))
+                if ((gv.mod.currentArea.southernNeighbourArea != "") && (gv.mod.PlayerLocationY >= (gv.mod.currentArea.MapSizeY - gv.playerOffsetY - 1)))
                 {
 
                     gv.mod.seamlessModififierMaxY = gv.mod.PlayerLocationY - (gv.mod.currentArea.MapSizeY - gv.playerOffsetY - 1);
@@ -35902,7 +35940,7 @@ namespace IceBlink2
                     }
                 }
 
-                if ((gv.mod.currentArea.westernNeighbourArea != "") && (gv.mod.PlayerLocationX <= gv.playerOffsetX))
+                if ((gv.mod.currentArea.westernNeighbourArea != "") && (gv.mod.PlayerLocationX <= gv.playerOffsetX+1))
                 {
                     gv.mod.seamlessModififierMinX = gv.playerOffsetX - gv.mod.PlayerLocationX;
                     for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
@@ -35948,7 +35986,7 @@ namespace IceBlink2
                     }
                 }
 
-                if ((gv.mod.currentArea.easternNeighbourArea != "") && (gv.mod.PlayerLocationX > (gv.mod.currentArea.MapSizeX - gv.playerOffsetX - 1)))
+                if ((gv.mod.currentArea.easternNeighbourArea != "") && (gv.mod.PlayerLocationX >= (gv.mod.currentArea.MapSizeX - gv.playerOffsetX - 1)))
                 {
                     gv.mod.seamlessModififierMaxX = gv.mod.PlayerLocationX - (gv.mod.currentArea.MapSizeX - gv.playerOffsetX - 1);
                     for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
@@ -35992,15 +36030,15 @@ namespace IceBlink2
                 }
                 #endregion
 
-                int minX = gv.mod.PlayerLocationX - gv.playerOffsetX - 3; //using -2 in case a large tile (3x3) needs to start off the visible map space to be seen
-                if (minX < -gv.mod.seamlessModififierMinX - 1) { minX = -gv.mod.seamlessModififierMinX - 1; }
-                int minY = gv.mod.PlayerLocationY - gv.playerOffsetY - 3; //using -2 in case a large tile (3x3) needs to start off the visible map space to be seen
-                if (minY < -gv.mod.seamlessModififierMinY - 1) { minY = -gv.mod.seamlessModififierMinY - 1; }
+                int minX = gv.mod.PlayerLocationX - gv.playerOffsetX - 4; //using -2 in case a large tile (3x3) needs to start off the visible map space to be seen
+                if (minX < -gv.mod.seamlessModififierMinX - 2) { minX = -gv.mod.seamlessModififierMinX - 2; }
+                int minY = gv.mod.PlayerLocationY - gv.playerOffsetY - 4; //using -2 in case a large tile (3x3) needs to start off the visible map space to be seen
+                if (minY < -gv.mod.seamlessModififierMinY - 2) { minY = -gv.mod.seamlessModififierMinY - 2; }
 
-                int maxX = gv.mod.PlayerLocationX + gv.playerOffsetX + 1;
-                if (maxX > this.gv.mod.currentArea.MapSizeX + gv.mod.seamlessModififierMaxX) { maxX = this.gv.mod.currentArea.MapSizeX + gv.mod.seamlessModififierMaxX; }
-                int maxY = gv.mod.PlayerLocationY + gv.playerOffsetY + 1;
-                if (maxY > this.gv.mod.currentArea.MapSizeY + gv.mod.seamlessModififierMaxY) { maxY = this.gv.mod.currentArea.MapSizeY + gv.mod.seamlessModififierMaxY; }
+                int maxX = gv.mod.PlayerLocationX + gv.playerOffsetX + 2;
+                if (maxX > this.gv.mod.currentArea.MapSizeX + gv.mod.seamlessModififierMaxX+1) { maxX = this.gv.mod.currentArea.MapSizeX + gv.mod.seamlessModififierMaxX+1; }
+                int maxY = gv.mod.PlayerLocationY + gv.playerOffsetY + 2;
+                if (maxY > this.gv.mod.currentArea.MapSizeY + gv.mod.seamlessModififierMaxY+1) { maxY = this.gv.mod.currentArea.MapSizeY + gv.mod.seamlessModififierMaxY+1; }
 
                 flickerDelayCounter += elapsed / 1000f * 30f;
 
@@ -41541,9 +41579,16 @@ namespace IceBlink2
                             {
                                 if (gv.mod.useScrollingSystem)
                                 {
-                                    gv.mod.isScrollingNow = true;
-                                    gv.mod.scrollingTimer = 100;
-                                    gv.mod.scrollingDirection = "up";
+                                    if (!gv.mod.isScrollingNow)
+                                    {
+                                        gv.mod.isScrollingNow = true;
+                                        gv.mod.scrollingTimer = 100;
+                                        gv.mod.scrollingDirection = "up";
+                                    }
+                                    else
+                                    {
+                                        gv.cc.doPropTriggers();
+                                    }
                                 }
                                 bool isTransition = gv.cc.goNorth();
                                 if (!isTransition)
@@ -41694,9 +41739,16 @@ namespace IceBlink2
                             {
                                 if (gv.mod.useScrollingSystem)
                                 {
-                                    gv.mod.isScrollingNow = true;
-                                    gv.mod.scrollingTimer = 100;
-                                    gv.mod.scrollingDirection = "down";
+                                    if (!gv.mod.isScrollingNow)
+                                    {
+                                        gv.mod.isScrollingNow = true;
+                                        gv.mod.scrollingTimer = 100;
+                                        gv.mod.scrollingDirection = "down";
+                                    }
+                                    else
+                                    {
+                                        gv.cc.doPropTriggers();
+                                    }
                                 }
                                 bool isTransition = gv.cc.goSouth();
                                 if (!isTransition)
@@ -41849,9 +41901,16 @@ namespace IceBlink2
                             {
                                 if (gv.mod.useScrollingSystem)
                                 {
-                                    gv.mod.isScrollingNow = true;
-                                    gv.mod.scrollingTimer = 100;
-                                    gv.mod.scrollingDirection = "left";
+                                    if (!gv.mod.isScrollingNow)
+                                    {
+                                        gv.mod.isScrollingNow = true;
+                                        gv.mod.scrollingTimer = 100;
+                                        gv.mod.scrollingDirection = "left";
+                                    }
+                                    else
+                                    {
+                                        gv.cc.doPropTriggers();
+                                    }
                                 }
                                 bool isTransition = gv.cc.goWest();
                                 if (!isTransition)
@@ -42014,9 +42073,16 @@ namespace IceBlink2
                             {
                                 if (gv.mod.useScrollingSystem)
                                 {
-                                    gv.mod.isScrollingNow = true;
-                                    gv.mod.scrollingTimer = 100;
-                                    gv.mod.scrollingDirection = "right";
+                                    if (!gv.mod.isScrollingNow)
+                                    {
+                                        gv.mod.isScrollingNow = true;
+                                        gv.mod.scrollingTimer = 100;
+                                        gv.mod.scrollingDirection = "right";
+                                    }
+                                    else
+                                    {
+                                        gv.cc.doPropTriggers();
+                                    }
                                 }
                                 bool isTransition = gv.cc.goEast();
                                 if (!isTransition)
@@ -43098,9 +43164,16 @@ namespace IceBlink2
                     {
                         if (gv.mod.useScrollingSystem)
                         {
-                            gv.mod.isScrollingNow = true;
-                            gv.mod.scrollingTimer = 100;
-                            gv.mod.scrollingDirection = "left";
+                            if (!gv.mod.isScrollingNow)
+                            {
+                                gv.mod.isScrollingNow = true;
+                                gv.mod.scrollingTimer = 100;
+                                gv.mod.scrollingDirection = "left";
+                            }
+                            else
+                            {
+                                gv.cc.doPropTriggers();
+                            }
                         }
                         bool isTransition = gv.cc.goWest();
                         if (!isTransition)
@@ -43129,9 +43202,16 @@ namespace IceBlink2
                     {
                         if (gv.mod.useScrollingSystem)
                         {
-                            gv.mod.isScrollingNow = true;
-                            gv.mod.scrollingTimer = 100;
-                            gv.mod.scrollingDirection = "left";
+                            if (!gv.mod.isScrollingNow)
+                            {
+                                gv.mod.isScrollingNow = true;
+                                gv.mod.scrollingTimer = 100;
+                                gv.mod.scrollingDirection = "left";
+                            }
+                            else
+                            {
+                                gv.cc.doPropTriggers();
+                            }
                         }
                         bool isTransition = gv.cc.goWest();
                         if (!isTransition)
@@ -43162,9 +43242,16 @@ namespace IceBlink2
                     {
                         if (gv.mod.useScrollingSystem)
                         {
-                            gv.mod.isScrollingNow = true;
-                            gv.mod.scrollingTimer = 100;
-                            gv.mod.scrollingDirection = "left";
+                            if (!gv.mod.isScrollingNow)
+                            {
+                                gv.mod.isScrollingNow = true;
+                                gv.mod.scrollingTimer = 100;
+                                gv.mod.scrollingDirection = "left";
+                            }
+                            else
+                            {
+                                gv.cc.doPropTriggers();
+                            }
                         }
                         bool isTransition = gv.cc.goWest();
                         if (!isTransition)
@@ -43188,9 +43275,16 @@ namespace IceBlink2
                     {
                         if (gv.mod.useScrollingSystem)
                         {
-                            gv.mod.isScrollingNow = true;
-                            gv.mod.scrollingTimer = 100;
-                            gv.mod.scrollingDirection = "right";
+                            if (!gv.mod.isScrollingNow)
+                            {
+                                gv.mod.isScrollingNow = true;
+                                gv.mod.scrollingTimer = 100;
+                                gv.mod.scrollingDirection = "right";
+                            }
+                            else
+                            {
+                                gv.cc.doPropTriggers();
+                            }
                         }
                         bool isTransition = gv.cc.goEast();
                         if (!isTransition)
@@ -43214,9 +43308,16 @@ namespace IceBlink2
                     {
                         if (gv.mod.useScrollingSystem)
                         {
-                            gv.mod.isScrollingNow = true;
-                            gv.mod.scrollingTimer = 100;
-                            gv.mod.scrollingDirection = "right";
+                            if (!gv.mod.isScrollingNow)
+                            {
+                                gv.mod.isScrollingNow = true;
+                                gv.mod.scrollingTimer = 100;
+                                gv.mod.scrollingDirection = "right";
+                            }
+                            else
+                            {
+                                gv.cc.doPropTriggers();
+                            }
                         }
                         bool isTransition = gv.cc.goEast();
                         if (!isTransition)
@@ -43240,9 +43341,16 @@ namespace IceBlink2
                     {
                         if (gv.mod.useScrollingSystem)
                         {
-                            gv.mod.isScrollingNow = true;
-                            gv.mod.scrollingTimer = 100;
-                            gv.mod.scrollingDirection = "right";
+                            if (!gv.mod.isScrollingNow)
+                            {
+                                gv.mod.isScrollingNow = true;
+                                gv.mod.scrollingTimer = 100;
+                                gv.mod.scrollingDirection = "right";
+                            }
+                            else
+                            {
+                                gv.cc.doPropTriggers();
+                            }
                         }
                         bool isTransition = gv.cc.goEast();
                         if (!isTransition)
@@ -43266,9 +43374,16 @@ namespace IceBlink2
                     {
                         if (gv.mod.useScrollingSystem)
                         {
-                            gv.mod.isScrollingNow = true;
-                            gv.mod.scrollingTimer = 100;
-                            gv.mod.scrollingDirection = "up";
+                            if (!gv.mod.isScrollingNow)
+                            {
+                                gv.mod.isScrollingNow = true;
+                                gv.mod.scrollingTimer = 100;
+                                gv.mod.scrollingDirection = "up";
+                            }
+                            else
+                            {
+                                gv.cc.doPropTriggers();
+                            }
                         }
                         bool isTransition = gv.cc.goNorth();
                         if (!isTransition)
@@ -43280,33 +43395,102 @@ namespace IceBlink2
                 }
                 else if (keyData == Keys.Up && showMoveKeys)
                 {
-                   
+                    //gv.mod.blockMainKeyboard = true;
+                    gv.mod.doTriggerInspiteOfScrolling = false;
                     bool blockMoveBecausOfCurrentScrolling = false;
-                    /*
+
                     if (gv.mod.useScrollingSystem)
                     {
-                        if (gv.mod.isScrollingNow)
+                        //was >
+                        //!= 100 worked flawlessy
+                        if (gv.mod.scrollingTimer != 100 && gv.mod.scrollingTimer != 0)
                         {
                             blockMoveBecausOfCurrentScrolling = true;
+                            //gv.mod.scrollingOverhang -= 5;
+                            //if (gv.mod.scrollingOverhang < -5)
+                            //{
+                                //int g = 7;
+                            //}
                         }
+                        //might be a compromise, test (3 line sbelow)
+                        //if (gv.mod.scrollingTimer < 50)
+                        //{
+                            //blockMoveBecausOfCurrentScrolling = false;
+                        //}
                     }
-                    */
-               
+                    //fluid with no block, but trigger problem
+                    blockMoveBecausOfCurrentScrolling = false;
+                    //bool cameFromCont = false;
+                    //if (gv.mod.comningFromBattle)
+                    //{
+                        //blockMoveBecausOfCurrentScrolling = true;
+                    //}
                     if (!blockMoveBecausOfCurrentScrolling)
                     {
                         if (gv.mod.useScrollingSystem)
                         {
-                            gv.mod.isScrollingNow = true;
-                            gv.mod.scrollingTimer = 100;
-                            gv.mod.scrollingDirection = "up";
+                            //single press
+                            if (!gv.mod.isScrollingNow)
+                            { 
+                                gv.mod.isScrollingNow = true;
+                                //worked flawlessly when commented out
+                                //gv.mod.scrollingTimer += 100;
+                                //mühlheim
+                                gv.mod.scrollingTimer = 100 + gv.mod.scrollingOverhang2;
+                                //gv.mod.scrollingTimer = 100 + gv.mod.scrollingOverhang2;
+                                gv.mod.scrollingDirection = "up";
+                             
+                                //gv.mod.scrollingOverhang = 0;
+                            }
+                            //continued press
+                            else
+                            {
+                            
+
+                                //daysgone down
+                                gv.mod.isScrollingNow = true;
+
+
+                                //was +=
+                                //daysgone down
+                                gv.mod.scrollingTimer = 100 + gv.mod.scrollingOverhang2;
+                                gv.mod.scrollingOverhang2 = 0;
+                                //gv.mod.scrollingTimer++;
+
+                                //daysgone down
+                                gv.mod.scrollingDirection = "up";
+                                //gv.mod.scrollingOverhang = 0;
+
+
+                                //daysgone down
+                                //was commentzed out for flawless
+                                //gv.cc.doPropTriggers();
+                                gv.mod.doTriggerInspiteOfScrolling = true;
+
+                            }
                         }
+
+
+                    //if (blockMoveBecausOfCurrentScrolling == false)
+                    //{
                         bool isTransition = gv.cc.goNorth();
                         if (!isTransition)
                         {
                             gv.mod.breakActiveSearch = false;
-                            moveUp(true);
+                            //gv.mod.blockMainKeyboard = true;
+                            gv.mod.wasJustCalled = false;
+                            if (!gv.mod.wasJustCalled)
+                            {
+                                moveUp(true);
+                                gv.mod.wasJustCalled = true;
+                            }
+                            //gv.mod.blockMainKeyboard = false;
                         }
-                    }
+                    //}
+                    //blockscrllling bracket below
+                        }
+                
+                    //gv.mod.blockMainKeyboard = false;
                 }
                 else if (keyData == Keys.W && !showMoveKeys)
                 {
@@ -43322,9 +43506,16 @@ namespace IceBlink2
                     {
                         if (gv.mod.useScrollingSystem)
                         {
-                            gv.mod.isScrollingNow = true;
-                            gv.mod.scrollingTimer = 100;
-                            gv.mod.scrollingDirection = "up";
+                            if (!gv.mod.isScrollingNow)
+                            {
+                                gv.mod.isScrollingNow = true;
+                                gv.mod.scrollingTimer = 100;
+                                gv.mod.scrollingDirection = "up";
+                            }
+                            else
+                            {
+                                gv.cc.doPropTriggers();
+                            }
                         }
                         bool isTransition = gv.cc.goNorth();
                         if (!isTransition)
@@ -43348,9 +43539,16 @@ namespace IceBlink2
                     {
                         if (gv.mod.useScrollingSystem)
                         {
-                            gv.mod.isScrollingNow = true;
-                            gv.mod.scrollingTimer = 100;
-                            gv.mod.scrollingDirection = "down";
+                            if (!gv.mod.isScrollingNow)
+                            {
+                                gv.mod.isScrollingNow = true;
+                                gv.mod.scrollingTimer = 100;
+                                gv.mod.scrollingDirection = "down";
+                            }
+                            else
+                            {
+                                gv.cc.doPropTriggers();
+                            }
                         }
                         bool isTransition = gv.cc.goSouth();
                         if (!isTransition)
@@ -43374,9 +43572,16 @@ namespace IceBlink2
                     {
                         if (gv.mod.useScrollingSystem)
                         {
-                            gv.mod.isScrollingNow = true;
-                            gv.mod.scrollingTimer = 100;
-                            gv.mod.scrollingDirection = "down";
+                            if (!gv.mod.isScrollingNow)
+                            {
+                                gv.mod.isScrollingNow = true;
+                                gv.mod.scrollingTimer = 100;
+                                gv.mod.scrollingDirection = "down";
+                            }
+                            else
+                            {
+                                gv.cc.doPropTriggers();
+                            }
                         }
                         bool isTransition = gv.cc.goSouth();
                         if (!isTransition)
@@ -43400,9 +43605,16 @@ namespace IceBlink2
                     {
                         if (gv.mod.useScrollingSystem)
                         {
-                            gv.mod.isScrollingNow = true;
-                            gv.mod.scrollingTimer = 100;
-                            gv.mod.scrollingDirection = "down";
+                            if (!gv.mod.isScrollingNow)
+                            {
+                                gv.mod.isScrollingNow = true;
+                                gv.mod.scrollingTimer = 100;
+                                gv.mod.scrollingDirection = "down";
+                            }
+                            else
+                            {
+                                gv.cc.doPropTriggers();
+                            }
                         }
                         bool isTransition = gv.cc.goSouth();
                         if (!isTransition)
@@ -44907,9 +45119,16 @@ namespace IceBlink2
                     {
                         if (gv.mod.useScrollingSystem)
                         {
-                            gv.mod.isScrollingNow = true;
-                            gv.mod.scrollingTimer = 100;
-                            gv.mod.scrollingDirection = "left";
+                            if (!gv.mod.isScrollingNow)
+                            {
+                                gv.mod.isScrollingNow = true;
+                                gv.mod.scrollingTimer = 100;
+                                gv.mod.scrollingDirection = "left";
+                            }
+                            else
+                            {
+                                gv.cc.doPropTriggers();
+                            }
                         }
                         bool isTransition = gv.cc.goWest();
                         if (!isTransition)
@@ -44938,9 +45157,16 @@ namespace IceBlink2
                     {
                         if (gv.mod.useScrollingSystem)
                         {
-                            gv.mod.isScrollingNow = true;
-                            gv.mod.scrollingTimer = 100;
-                            gv.mod.scrollingDirection = "left";
+                            if (!gv.mod.isScrollingNow)
+                            {
+                                gv.mod.isScrollingNow = true;
+                                gv.mod.scrollingTimer = 100;
+                                gv.mod.scrollingDirection = "left";
+                            }
+                            else
+                            {
+                                gv.cc.doPropTriggers();
+                            }
                         }
                         bool isTransition = gv.cc.goWest();
                         if (!isTransition)
@@ -44971,9 +45197,16 @@ namespace IceBlink2
                     {
                         if (gv.mod.useScrollingSystem)
                         {
-                            gv.mod.isScrollingNow = true;
-                            gv.mod.scrollingTimer = 100;
-                            gv.mod.scrollingDirection = "left";
+                            if (!gv.mod.isScrollingNow)
+                            {
+                                gv.mod.isScrollingNow = true;
+                                gv.mod.scrollingTimer = 100;
+                                gv.mod.scrollingDirection = "left";
+                            }
+                            else
+                            {
+                                gv.cc.doPropTriggers();
+                            }
                         }
                         bool isTransition = gv.cc.goWest();
                         if (!isTransition)
@@ -44997,9 +45230,16 @@ namespace IceBlink2
                     {
                         if (gv.mod.useScrollingSystem)
                         {
-                            gv.mod.isScrollingNow = true;
-                            gv.mod.scrollingTimer = 100;
-                            gv.mod.scrollingDirection = "right";
+                            if (!gv.mod.isScrollingNow)
+                            {
+                                gv.mod.isScrollingNow = true;
+                                gv.mod.scrollingTimer = 100;
+                                gv.mod.scrollingDirection = "right";
+                            }
+                            else
+                            {
+                                gv.cc.doPropTriggers();
+                            }
                         }
                         bool isTransition = gv.cc.goEast();
                         if (!isTransition)
@@ -45023,9 +45263,16 @@ namespace IceBlink2
                     {
                         if (gv.mod.useScrollingSystem)
                         {
-                            gv.mod.isScrollingNow = true;
-                            gv.mod.scrollingTimer = 100;
-                            gv.mod.scrollingDirection = "right";
+                            if (!gv.mod.isScrollingNow)
+                            {
+                                gv.mod.isScrollingNow = true;
+                                gv.mod.scrollingTimer = 100;
+                                gv.mod.scrollingDirection = "right";
+                            }
+                            else
+                            {
+                                gv.cc.doPropTriggers();
+                            }
                         }
                         bool isTransition = gv.cc.goEast();
                         if (!isTransition)
@@ -45049,9 +45296,16 @@ namespace IceBlink2
                     {
                         if (gv.mod.useScrollingSystem)
                         {
-                            gv.mod.isScrollingNow = true;
-                            gv.mod.scrollingTimer = 100;
-                            gv.mod.scrollingDirection = "right";
+                            if (!gv.mod.isScrollingNow)
+                            {
+                                gv.mod.isScrollingNow = true;
+                                gv.mod.scrollingTimer = 100;
+                                gv.mod.scrollingDirection = "right";
+                            }
+                            else
+                            {
+                                gv.cc.doPropTriggers();
+                            }
                         }
                         bool isTransition = gv.cc.goEast();
                         if (!isTransition)
@@ -45075,9 +45329,16 @@ namespace IceBlink2
                     {
                         if (gv.mod.useScrollingSystem)
                         {
-                            gv.mod.isScrollingNow = true;
-                            gv.mod.scrollingTimer = 100;
-                            gv.mod.scrollingDirection = "up";
+                            if (!gv.mod.isScrollingNow)
+                            {
+                                gv.mod.isScrollingNow = true;
+                                gv.mod.scrollingTimer = 100;
+                                gv.mod.scrollingDirection = "up";
+                            }
+                            else
+                            {
+                                gv.cc.doPropTriggers();
+                            }
                         }
                         bool isTransition = gv.cc.goNorth();
                         if (!isTransition)
@@ -45102,9 +45363,16 @@ namespace IceBlink2
                     {
                         if (gv.mod.useScrollingSystem)
                         {
-                            gv.mod.isScrollingNow = true;
-                            gv.mod.scrollingTimer = 100;
-                            gv.mod.scrollingDirection = "up";
+                            if (!gv.mod.isScrollingNow)
+                            {
+                                gv.mod.isScrollingNow = true;
+                                gv.mod.scrollingTimer = 100;
+                                gv.mod.scrollingDirection = "up";
+                            }
+                            else
+                            {
+                                gv.cc.doPropTriggers();
+                            }
                         }
                         bool isTransition = gv.cc.goNorth();
                         if (!isTransition)
@@ -45128,9 +45396,16 @@ namespace IceBlink2
                     {
                         if (gv.mod.useScrollingSystem)
                         {
-                            gv.mod.isScrollingNow = true;
-                            gv.mod.scrollingTimer = 100;
-                            gv.mod.scrollingDirection = "up";
+                            if (!gv.mod.isScrollingNow)
+                            {
+                                gv.mod.isScrollingNow = true;
+                                gv.mod.scrollingTimer = 100;
+                                gv.mod.scrollingDirection = "up";
+                            }
+                            else
+                            {
+                                gv.cc.doPropTriggers();
+                            }
                         }
                         bool isTransition = gv.cc.goNorth();
                         if (!isTransition)
@@ -45154,9 +45429,16 @@ namespace IceBlink2
                     {
                         if (gv.mod.useScrollingSystem)
                         {
-                            gv.mod.isScrollingNow = true;
-                            gv.mod.scrollingTimer = 100;
-                            gv.mod.scrollingDirection = "down";
+                            if (!gv.mod.isScrollingNow)
+                            {
+                                gv.mod.isScrollingNow = true;
+                                gv.mod.scrollingTimer = 100;
+                                gv.mod.scrollingDirection = "down";
+                            }
+                            else
+                            {
+                                gv.cc.doPropTriggers();
+                            }
                         }
                         bool isTransition = gv.cc.goSouth();
                         if (!isTransition)
@@ -45180,9 +45462,16 @@ namespace IceBlink2
                     {
                         if (gv.mod.useScrollingSystem)
                         {
-                            gv.mod.isScrollingNow = true;
-                            gv.mod.scrollingTimer = 100;
-                            gv.mod.scrollingDirection = "down";
+                            if (!gv.mod.isScrollingNow)
+                            {
+                                gv.mod.isScrollingNow = true;
+                                gv.mod.scrollingTimer = 100;
+                                gv.mod.scrollingDirection = "down";
+                            }
+                            else
+                            {
+                                gv.cc.doPropTriggers();
+                            }
                         }
                         bool isTransition = gv.cc.goSouth();
                         if (!isTransition)
@@ -45206,9 +45495,16 @@ namespace IceBlink2
                     {
                         if (gv.mod.useScrollingSystem)
                         {
-                            gv.mod.isScrollingNow = true;
-                            gv.mod.scrollingTimer = 100;
-                            gv.mod.scrollingDirection = "down";
+                            if (!gv.mod.isScrollingNow)
+                            {
+                                gv.mod.isScrollingNow = true;
+                                gv.mod.scrollingTimer = 100;
+                                gv.mod.scrollingDirection = "down";
+                            }
+                            else
+                            {
+                                gv.cc.doPropTriggers();
+                            }
                         }
                         bool isTransition = gv.cc.goSouth();
                         if (!isTransition)
@@ -47772,6 +48068,7 @@ namespace IceBlink2
                         //gv.mod.PlayerLastLocationX = gv.mod.PlayerLocationX;
                         //gv.mod.PlayerLastLocationY = gv.mod.PlayerLocationY;
                         gv.mod.PlayerLocationY--;
+                        gv.mod.counterUpMoves++;
                         gv.mod.drawPartyDirection = "down";
                         if (!gv.mod.wasSuccessfulPush)
                         {
@@ -47845,6 +48142,7 @@ namespace IceBlink2
                     gv.cc.doUpdate();
                 }
             }
+            gv.mod.wasJustCalled = false;
         }
         public void moveDown(bool affectTimer)
         {

@@ -13,9 +13,22 @@ namespace IceBlink2
 {
     public class Module
     {
+        public bool doTriggerInspiteOfScrolling = false;
+
+        public bool comningFromBattle = false;
+        public float preRenderDistance = 0;
+        public float postUpdateAdjustmentDistance = 0;
+
+        public float scrollingOverhang = 0;
+        public float scrollingOverhang2 = 0;
+
+        public bool blockMainKeyboard = false;
+        public bool wasJustCalled = false;
+
         public bool doThisScrollingsLightShift = true;
         public float nightTimeDarknessOpacity = 0.6f;
 
+        public int counterUpMoves = 0;
         public bool useScrollingSystem = true;
         public float scrollingTimer = 100; //runs from 100 to 0
         public bool isScrollingNow = false;
@@ -145,7 +158,7 @@ namespace IceBlink2
         public bool isSandstorm = false;
         public float logOpacity = 1f;
         public int logFadeCounter = 120;
-        public bool hideInterfaceNextMove = true;
+        public bool hideInterfaceNextMove = false;
 
         public float pixDistanceToBorderWest = 0;
         public float pixDistanceToBorderEast = 0;

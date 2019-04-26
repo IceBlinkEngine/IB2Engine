@@ -8065,12 +8065,26 @@ namespace IceBlink2
                 }
                 //do END ENCOUNTER IBScript
                 gv.cc.doIBScriptBasedOnFilename(gv.mod.currentEncounter.OnEndCombatIBScript, gv.mod.currentEncounter.OnEndCombatIBScriptParms);
-               
-                if (gv.cc.calledEncounterFromProp)
-                {
-                    if (gv.sf.ThisProp != null)
+
+                gv.mod.comningFromBattle = true;
+                //aegon2
+                //if (gv.cc.calledEncounterFromProp)
+                //{
+                    //if (gv.sf.ThisProp != null)
+                    //{
+                    if (gv.cc.EncCalled)
                     {
-                        gv.sf.ThisProp.wasKilled = true;
+                    foreach (Prop pKill in gv.mod.currentArea.Props)
+                    {
+                        if (pKill.PropTag == gv.cc.TagOFPropToKill)
+                        {
+                            //aegon2
+                            //gv.sf.ThisProp.wasKilled = true;
+                            pKill.wasKilled = true;
+                            gv.mod.PlayerLocationX = pKill.LocationX;
+                            gv.mod.PlayerLocationY = pKill.LocationY;
+                            
+                        }
                     }
                     //gv.mod.isRecursiveDoTriggerCallMovingProp = true;
                     //gv.mod.isRecursiveCall = true;
