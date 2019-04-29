@@ -1053,7 +1053,11 @@ namespace IceBlink2
                         }
 	        		    else
 	        		    {
-	        			    gv.cc.doTrigger();
+                            //gv.cc.doPropTriggers();
+                            if (!gv.cc.blockSecondPropTriggersCall)
+                            {
+                                gv.cc.doTrigger();
+                            }
 	        		    }
 	        	    }
 	            }

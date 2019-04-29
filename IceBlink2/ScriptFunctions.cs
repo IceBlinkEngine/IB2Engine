@@ -10937,6 +10937,7 @@ namespace IceBlink2
             else if (identifier == "partyLast" || identifier == "PartyLast")
             {
                 bool isLit = false;
+                //sherlock
                 foreach (bool litState in gv.mod.currentArea.Tiles[gv.mod.PlayerLastLocationY * gv.mod.currentArea.MapSizeX + gv.mod.PlayerLastLocationX].isLit)
                 {
                     if (litState)
@@ -12217,6 +12218,7 @@ namespace IceBlink2
         */
         public void MovePartyToLastLocation(string message)
         {
+            //sherlock
             gv.mod.PlayerLocationX = gv.mod.PlayerLastLocationX;
             gv.mod.PlayerLocationY = gv.mod.PlayerLastLocationY;
             if (message != null)

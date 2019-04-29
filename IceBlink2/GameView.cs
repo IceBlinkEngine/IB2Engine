@@ -1855,14 +1855,7 @@ namespace IceBlink2
         //{
             //onKeyDown(sender, e);
         //}
-        private void GameView_onKeyDown(object sender, KeyEventArgs e)
-        {
-            if (screenType.Equals("main"))
-            {
-                screenMainMap.onKeyDown(e);
-                //krah krah
-            }
-        }
+      
 
         private void GameView_onKeyUp(object sender, KeyEventArgs e)
         {

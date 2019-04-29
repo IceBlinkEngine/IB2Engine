@@ -8068,11 +8068,23 @@ namespace IceBlink2
 
                 gv.mod.comningFromBattle = true;
                 //aegon2
-                //if (gv.cc.calledEncounterFromProp)
-                //{
-                    //if (gv.sf.ThisProp != null)
-                    //{
-                    if (gv.cc.EncCalled)
+                /*
+                if (gv.cc.calledEncounterFromProp)
+                {
+                    if (gv.sf.ThisProp != null)
+                    {
+                        gv.sf.ThisProp.wasKilled = true;
+                        gv.mod.PlayerLocationX = gv.sf.ThisProp.LocationX;
+                        gv.mod.PlayerLocationY = gv.sf.ThisProp.LocationY;
+                        gv.mod.EncounterOfTurnDone = false;
+                        gv.cc.doPropTriggers();
+                    }
+                }
+                */
+                
+                //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXxxx
+                //was running good (minus chest)
+                if (gv.cc.EncCalled)
                     {
                     foreach (Prop pKill in gv.mod.currentArea.Props)
                     {
@@ -8094,6 +8106,8 @@ namespace IceBlink2
                     gv.cc.doPropTriggers();
                     //gv.mod.isRecursiveCall = false;
                 }
+                //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXx
+                
                 else
                 {
                     gv.mod.EncounterOfTurnDone = false;

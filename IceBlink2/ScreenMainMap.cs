@@ -1624,7 +1624,7 @@ namespace IceBlink2
 
                 gv.mod.scrollingTimer = 100;
                 
-                gv.cc.doPropTriggers();
+                //gv.cc.doPropTriggers();
                 //gv.mod.scrollingTimer = 100;
             }
 
@@ -41566,35 +41566,56 @@ namespace IceBlink2
                         if (!gv.moveTimerRuns)
                         {
 
-                            //maunzzz
+                            gv.mod.doTriggerInspiteOfScrolling = false;
                             bool blockMoveBecausOfCurrentScrolling = false;
-                            /* if (gv.mod.useScrollingSystem)
+
+                            if (gv.mod.useScrollingSystem)
                             {
-                                if (gv.mod.isScrollingNow)
+                                if (gv.mod.scrollingTimer != 100 && gv.mod.scrollingTimer != 0)
                                 {
                                     blockMoveBecausOfCurrentScrolling = true;
                                 }
-                            }*/
+                            }
+
+                            blockMoveBecausOfCurrentScrolling = false;
+
                             if (!blockMoveBecausOfCurrentScrolling)
                             {
                                 if (gv.mod.useScrollingSystem)
                                 {
+                                    //single press
                                     if (!gv.mod.isScrollingNow)
                                     {
                                         gv.mod.isScrollingNow = true;
+                                        //gv.mod.scrollingTimer = 100 + gv.mod.scrollingOverhang2;
                                         gv.mod.scrollingTimer = 100;
                                         gv.mod.scrollingDirection = "up";
+                                        gv.mod.doTriggerInspiteOfScrolling = true;
                                     }
+                                    //continued press
                                     else
                                     {
-                                        gv.cc.doPropTriggers();
+                                        gv.mod.isScrollingNow = true;
+                                        gv.mod.scrollingTimer = 100 + gv.mod.scrollingOverhang2;
+                                        gv.mod.scrollingOverhang2 = 0;
+                                        gv.mod.scrollingDirection = "up";
+                                        gv.mod.doTriggerInspiteOfScrolling = true;
                                     }
                                 }
+
                                 bool isTransition = gv.cc.goNorth();
                                 if (!isTransition)
                                 {
                                     gv.mod.breakActiveSearch = false;
-                                    moveUp(true);
+                                    gv.mod.wasJustCalled = false;
+                                    if (!gv.mod.wasJustCalled)
+                                    {
+                                        if (gv.screenType == "main")
+                                        {
+                                            moveUp(true);
+                                        }
+                                        gv.mod.wasJustCalled = true;
+                                    }
                                 }
                             }
 
@@ -41727,34 +41748,56 @@ namespace IceBlink2
                     {
                         if (!gv.moveTimerRuns)
                         {
+                            gv.mod.doTriggerInspiteOfScrolling = false;
                             bool blockMoveBecausOfCurrentScrolling = false;
-                            /*if (gv.mod.useScrollingSystem)
+
+                            if (gv.mod.useScrollingSystem)
                             {
-                                if (gv.mod.isScrollingNow)
+                                if (gv.mod.scrollingTimer != 100 && gv.mod.scrollingTimer != 0)
                                 {
                                     blockMoveBecausOfCurrentScrolling = true;
                                 }
-                            }*/
+                            }
+
+                            blockMoveBecausOfCurrentScrolling = false;
+
                             if (!blockMoveBecausOfCurrentScrolling)
                             {
                                 if (gv.mod.useScrollingSystem)
                                 {
+                                    //single press
                                     if (!gv.mod.isScrollingNow)
                                     {
                                         gv.mod.isScrollingNow = true;
+                                        //gv.mod.scrollingTimer = 100 + gv.mod.scrollingOverhang2;
                                         gv.mod.scrollingTimer = 100;
                                         gv.mod.scrollingDirection = "down";
+                                        gv.mod.doTriggerInspiteOfScrolling = true;
                                     }
+                                    //continued press
                                     else
                                     {
-                                        gv.cc.doPropTriggers();
+                                        gv.mod.isScrollingNow = true;
+                                        gv.mod.scrollingTimer = 100 + gv.mod.scrollingOverhang2;
+                                        gv.mod.scrollingOverhang2 = 0;
+                                        gv.mod.scrollingDirection = "down";
+                                        gv.mod.doTriggerInspiteOfScrolling = true;
                                     }
                                 }
+
                                 bool isTransition = gv.cc.goSouth();
                                 if (!isTransition)
                                 {
                                     gv.mod.breakActiveSearch = false;
-                                    moveDown(true);
+                                    gv.mod.wasJustCalled = false;
+                                    if (!gv.mod.wasJustCalled)
+                                    {
+                                        if (gv.screenType == "main")
+                                        {
+                                            moveDown(true);
+                                        }
+                                        gv.mod.wasJustCalled = true;
+                                    }
                                 }
                             }
                             /*
@@ -41887,36 +41930,56 @@ namespace IceBlink2
                     {
                         if (!gv.moveTimerRuns)
                         {
+                            gv.mod.doTriggerInspiteOfScrolling = false;
                             bool blockMoveBecausOfCurrentScrolling = false;
-                            /*
+
                             if (gv.mod.useScrollingSystem)
                             {
-                                if (gv.mod.isScrollingNow)
+                                if (gv.mod.scrollingTimer != 100 && gv.mod.scrollingTimer != 0)
                                 {
                                     blockMoveBecausOfCurrentScrolling = true;
                                 }
                             }
-                            */
+
+                            blockMoveBecausOfCurrentScrolling = false;
+
                             if (!blockMoveBecausOfCurrentScrolling)
                             {
                                 if (gv.mod.useScrollingSystem)
                                 {
+                                    //single press
                                     if (!gv.mod.isScrollingNow)
                                     {
                                         gv.mod.isScrollingNow = true;
+                                        //gv.mod.scrollingTimer = 100 + gv.mod.scrollingOverhang2;
                                         gv.mod.scrollingTimer = 100;
                                         gv.mod.scrollingDirection = "left";
+                                        gv.mod.doTriggerInspiteOfScrolling = true;
                                     }
+                                    //continued press
                                     else
                                     {
-                                        gv.cc.doPropTriggers();
+                                        gv.mod.isScrollingNow = true;
+                                        gv.mod.scrollingTimer = 100 + gv.mod.scrollingOverhang2;
+                                        gv.mod.scrollingOverhang2 = 0;
+                                        gv.mod.scrollingDirection = "left";
+                                        gv.mod.doTriggerInspiteOfScrolling = true;
                                     }
                                 }
+
                                 bool isTransition = gv.cc.goWest();
                                 if (!isTransition)
                                 {
                                     gv.mod.breakActiveSearch = false;
-                                    moveLeft(true);
+                                    gv.mod.wasJustCalled = false;
+                                    if (!gv.mod.wasJustCalled)
+                                    {
+                                        if (gv.screenType == "main")
+                                        {
+                                            moveLeft(true);
+                                        }
+                                        gv.mod.wasJustCalled = true;
+                                    }
                                 }
                             }
                             /*
@@ -42061,34 +42124,56 @@ namespace IceBlink2
                     {
                         if (!gv.moveTimerRuns)
                         {
+                            gv.mod.doTriggerInspiteOfScrolling = false;
                             bool blockMoveBecausOfCurrentScrolling = false;
-                            /*if (gv.mod.useScrollingSystem)
+
+                            if (gv.mod.useScrollingSystem)
                             {
-                                if (gv.mod.isScrollingNow)
+                                if (gv.mod.scrollingTimer != 100 && gv.mod.scrollingTimer != 0)
                                 {
                                     blockMoveBecausOfCurrentScrolling = true;
                                 }
-                            }*/
+                            }
+
+                            blockMoveBecausOfCurrentScrolling = false;
+
                             if (!blockMoveBecausOfCurrentScrolling)
                             {
                                 if (gv.mod.useScrollingSystem)
                                 {
+                                    //single press
                                     if (!gv.mod.isScrollingNow)
                                     {
                                         gv.mod.isScrollingNow = true;
+                                        //gv.mod.scrollingTimer = 100 + gv.mod.scrollingOverhang2;
                                         gv.mod.scrollingTimer = 100;
                                         gv.mod.scrollingDirection = "right";
+                                        gv.mod.doTriggerInspiteOfScrolling = true;
                                     }
+                                    //continued press
                                     else
                                     {
-                                        gv.cc.doPropTriggers();
+                                        gv.mod.isScrollingNow = true;
+                                        gv.mod.scrollingTimer = 100 + gv.mod.scrollingOverhang2;
+                                        gv.mod.scrollingOverhang2 = 0;
+                                        gv.mod.scrollingDirection = "right";
+                                        gv.mod.doTriggerInspiteOfScrolling = true;
                                     }
                                 }
+
                                 bool isTransition = gv.cc.goEast();
                                 if (!isTransition)
                                 {
                                     gv.mod.breakActiveSearch = false;
-                                    moveRight(true);
+                                    gv.mod.wasJustCalled = false;
+                                    if (!gv.mod.wasJustCalled)
+                                    {
+                                        if (gv.screenType == "main")
+                                        {
+                                            moveRight(true);
+                                        }
+                                        gv.mod.wasJustCalled = true;
+                                    }
                                 }
                             }
                             /*
@@ -43152,34 +43237,56 @@ namespace IceBlink2
             {
                 if (keyData == Keys.D4 | keyData == Keys.NumPad4)
                 {
+                    gv.mod.doTriggerInspiteOfScrolling = false;
                     bool blockMoveBecausOfCurrentScrolling = false;
-                    /*if (gv.mod.useScrollingSystem)
+
+                    if (gv.mod.useScrollingSystem)
                     {
-                        if (gv.mod.isScrollingNow)
+                        if (gv.mod.scrollingTimer != 100 && gv.mod.scrollingTimer != 0)
                         {
                             blockMoveBecausOfCurrentScrolling = true;
                         }
-                    }*/
+                    }
+
+                    blockMoveBecausOfCurrentScrolling = false;
+
                     if (!blockMoveBecausOfCurrentScrolling)
                     {
                         if (gv.mod.useScrollingSystem)
                         {
+                            //single press
                             if (!gv.mod.isScrollingNow)
                             {
                                 gv.mod.isScrollingNow = true;
+                                //gv.mod.scrollingTimer = 100 + gv.mod.scrollingOverhang2;
                                 gv.mod.scrollingTimer = 100;
                                 gv.mod.scrollingDirection = "left";
+                                gv.mod.doTriggerInspiteOfScrolling = true;
                             }
+                            //continued press
                             else
                             {
-                                gv.cc.doPropTriggers();
+                                gv.mod.isScrollingNow = true;
+                                gv.mod.scrollingTimer = 100 + gv.mod.scrollingOverhang2;
+                                gv.mod.scrollingOverhang2 = 0;
+                                gv.mod.scrollingDirection = "left";
+                                gv.mod.doTriggerInspiteOfScrolling = true;
                             }
                         }
+
                         bool isTransition = gv.cc.goWest();
                         if (!isTransition)
                         {
                             gv.mod.breakActiveSearch = false;
-                            moveLeft(true);
+                            gv.mod.wasJustCalled = false;
+                            if (!gv.mod.wasJustCalled)
+                            {
+                                if (gv.screenType == "main")
+                                {
+                                    moveLeft(true);
+                                }
+                                gv.mod.wasJustCalled = true;
+                            }
                         }
                     }
                 }
@@ -43190,34 +43297,56 @@ namespace IceBlink2
                 }
                 else if (keyData == Keys.Left && showMoveKeys)
                 {
+                    gv.mod.doTriggerInspiteOfScrolling = false;
                     bool blockMoveBecausOfCurrentScrolling = false;
-                    /*if (gv.mod.useScrollingSystem)
+
+                    if (gv.mod.useScrollingSystem)
                     {
-                        if (gv.mod.isScrollingNow)
+                        if (gv.mod.scrollingTimer != 100 && gv.mod.scrollingTimer != 0)
                         {
                             blockMoveBecausOfCurrentScrolling = true;
                         }
-                    }*/
+                    }
+
+                    blockMoveBecausOfCurrentScrolling = false;
+
                     if (!blockMoveBecausOfCurrentScrolling)
                     {
                         if (gv.mod.useScrollingSystem)
                         {
+                            //single press
                             if (!gv.mod.isScrollingNow)
                             {
                                 gv.mod.isScrollingNow = true;
+                                //gv.mod.scrollingTimer = 100 + gv.mod.scrollingOverhang2;
                                 gv.mod.scrollingTimer = 100;
                                 gv.mod.scrollingDirection = "left";
+                                gv.mod.doTriggerInspiteOfScrolling = true;
                             }
+                            //continued press
                             else
                             {
-                                gv.cc.doPropTriggers();
+                                gv.mod.isScrollingNow = true;
+                                gv.mod.scrollingTimer = 100 + gv.mod.scrollingOverhang2;
+                                gv.mod.scrollingOverhang2 = 0;
+                                gv.mod.scrollingDirection = "left";
+                                gv.mod.doTriggerInspiteOfScrolling = true;
                             }
                         }
+
                         bool isTransition = gv.cc.goWest();
                         if (!isTransition)
                         {
                             gv.mod.breakActiveSearch = false;
-                            moveLeft(true);
+                            gv.mod.wasJustCalled = false;
+                            if (!gv.mod.wasJustCalled)
+                            {
+                                if (gv.screenType == "main")
+                                {
+                                    moveLeft(true);
+                                }
+                                gv.mod.wasJustCalled = true;
+                            }
                         }
                     }
                 }
@@ -43228,203 +43357,296 @@ namespace IceBlink2
                         gv.cc.doSavesDialog();
                     }
                 }
-                else if (keyData == Keys.A && !showMoveKeys)
-                {
-                    bool blockMoveBecausOfCurrentScrolling = false;
-                    /*if (gv.mod.useScrollingSystem)
-                    {
-                        if (gv.mod.isScrollingNow)
-                        {
-                            blockMoveBecausOfCurrentScrolling = true;
-                        }
-                    }*/
-                    if (!blockMoveBecausOfCurrentScrolling)
-                    {
-                        if (gv.mod.useScrollingSystem)
-                        {
-                            if (!gv.mod.isScrollingNow)
-                            {
-                                gv.mod.isScrollingNow = true;
-                                gv.mod.scrollingTimer = 100;
-                                gv.mod.scrollingDirection = "left";
-                            }
-                            else
-                            {
-                                gv.cc.doPropTriggers();
-                            }
-                        }
-                        bool isTransition = gv.cc.goWest();
-                        if (!isTransition)
-                        {
-                            gv.mod.breakActiveSearch = false;
-                            moveLeft(true);
-                        }
-                    }
-                }
-                else if (keyData == Keys.D6 | keyData == Keys.NumPad6)
-                {
-                    bool blockMoveBecausOfCurrentScrolling = false;
-                    /*if (gv.mod.useScrollingSystem)
-                    {
-                        if (gv.mod.isScrollingNow)
-                        {
-                            blockMoveBecausOfCurrentScrolling = true;
-                        }
-                    }*/
-                    if (!blockMoveBecausOfCurrentScrolling)
-                    {
-                        if (gv.mod.useScrollingSystem)
-                        {
-                            if (!gv.mod.isScrollingNow)
-                            {
-                                gv.mod.isScrollingNow = true;
-                                gv.mod.scrollingTimer = 100;
-                                gv.mod.scrollingDirection = "right";
-                            }
-                            else
-                            {
-                                gv.cc.doPropTriggers();
-                            }
-                        }
-                        bool isTransition = gv.cc.goEast();
-                        if (!isTransition)
-                        {
-                            gv.mod.breakActiveSearch = false;
-                            moveRight(true);
-                        }
-                    }
-                }
-                else if (keyData == Keys.Right && showMoveKeys)
-                {
-                    bool blockMoveBecausOfCurrentScrolling = false;
-                    /*if (gv.mod.useScrollingSystem)
-                    {
-                        if (gv.mod.isScrollingNow)
-                        {
-                            blockMoveBecausOfCurrentScrolling = true;
-                        }
-                    }*/
-                    if (!blockMoveBecausOfCurrentScrolling)
-                    {
-                        if (gv.mod.useScrollingSystem)
-                        {
-                            if (!gv.mod.isScrollingNow)
-                            {
-                                gv.mod.isScrollingNow = true;
-                                gv.mod.scrollingTimer = 100;
-                                gv.mod.scrollingDirection = "right";
-                            }
-                            else
-                            {
-                                gv.cc.doPropTriggers();
-                            }
-                        }
-                        bool isTransition = gv.cc.goEast();
-                        if (!isTransition)
-                        {
-                            gv.mod.breakActiveSearch = false;
-                            moveRight(true);
-                        }
-                    }
-                }
                 else if (keyData == Keys.D && !showMoveKeys)
                 {
-                    bool blockMoveBecausOfCurrentScrolling = false;
-                    /*if (gv.mod.useScrollingSystem)
-                    {
-                        if (gv.mod.isScrollingNow)
-                        {
-                            blockMoveBecausOfCurrentScrolling = true;
-                        }
-                    }*/
-                    if (!blockMoveBecausOfCurrentScrolling)
-                    {
-                        if (gv.mod.useScrollingSystem)
-                        {
-                            if (!gv.mod.isScrollingNow)
-                            {
-                                gv.mod.isScrollingNow = true;
-                                gv.mod.scrollingTimer = 100;
-                                gv.mod.scrollingDirection = "right";
-                            }
-                            else
-                            {
-                                gv.cc.doPropTriggers();
-                            }
-                        }
-                        bool isTransition = gv.cc.goEast();
-                        if (!isTransition)
-                        {
-                            gv.mod.breakActiveSearch = false;
-                            moveRight(true);
-                        }
-                    }
-                }
-                else if (keyData == Keys.D8 | keyData == Keys.NumPad8)
-                {
-                    bool blockMoveBecausOfCurrentScrolling = false;
-                    /*if (gv.mod.useScrollingSystem)
-                    {
-                        if (gv.mod.isScrollingNow)
-                        {
-                            blockMoveBecausOfCurrentScrolling = true;
-                        }
-                    }*/
-                    if (!blockMoveBecausOfCurrentScrolling)
-                    {
-                        if (gv.mod.useScrollingSystem)
-                        {
-                            if (!gv.mod.isScrollingNow)
-                            {
-                                gv.mod.isScrollingNow = true;
-                                gv.mod.scrollingTimer = 100;
-                                gv.mod.scrollingDirection = "up";
-                            }
-                            else
-                            {
-                                gv.cc.doPropTriggers();
-                            }
-                        }
-                        bool isTransition = gv.cc.goNorth();
-                        if (!isTransition)
-                        {
-                            gv.mod.breakActiveSearch = false;
-                            moveUp(true);
-                        }
-                    }
-                }
-                else if (keyData == Keys.Up && showMoveKeys)
-                {
-                    //gv.mod.blockMainKeyboard = true;
                     gv.mod.doTriggerInspiteOfScrolling = false;
                     bool blockMoveBecausOfCurrentScrolling = false;
 
                     if (gv.mod.useScrollingSystem)
                     {
-                        //was >
-                        //!= 100 worked flawlessy
                         if (gv.mod.scrollingTimer != 100 && gv.mod.scrollingTimer != 0)
                         {
                             blockMoveBecausOfCurrentScrolling = true;
-                            //gv.mod.scrollingOverhang -= 5;
-                            //if (gv.mod.scrollingOverhang < -5)
-                            //{
-                                //int g = 7;
-                            //}
                         }
-                        //might be a compromise, test (3 line sbelow)
-                        //if (gv.mod.scrollingTimer < 50)
-                        //{
-                            //blockMoveBecausOfCurrentScrolling = false;
-                        //}
                     }
-                    //fluid with no block, but trigger problem
+
                     blockMoveBecausOfCurrentScrolling = false;
-                    //bool cameFromCont = false;
-                    //if (gv.mod.comningFromBattle)
-                    //{
-                        //blockMoveBecausOfCurrentScrolling = true;
-                    //}
+
+                    if (!blockMoveBecausOfCurrentScrolling)
+                    {
+                        if (gv.mod.useScrollingSystem)
+                        {
+                            //single press
+                            if (!gv.mod.isScrollingNow)
+                            {
+                                gv.mod.isScrollingNow = true;
+                                //gv.mod.scrollingTimer = 100 + gv.mod.scrollingOverhang2;
+                                gv.mod.scrollingTimer = 100;
+                                gv.mod.scrollingDirection = "right";
+                                gv.mod.doTriggerInspiteOfScrolling = true;
+                            }
+                            //continued press
+                            else
+                            {
+                                gv.mod.isScrollingNow = true;
+                                gv.mod.scrollingTimer = 100 + gv.mod.scrollingOverhang2;
+                                gv.mod.scrollingOverhang2 = 0;
+                                gv.mod.scrollingDirection = "right";
+                                gv.mod.doTriggerInspiteOfScrolling = true;
+                            }
+                        }
+
+                        bool isTransition = gv.cc.goEast();
+                        if (!isTransition)
+                        {
+                            gv.mod.breakActiveSearch = false;
+                            gv.mod.wasJustCalled = false;
+                            if (!gv.mod.wasJustCalled)
+                            {
+                                if (gv.screenType == "main")
+                                {
+                                    moveRight(true);
+                                }
+                                gv.mod.wasJustCalled = true;
+                            }
+                        }
+                    }
+                }
+                else if (keyData == Keys.A && !showMoveKeys)
+                {
+                    gv.mod.doTriggerInspiteOfScrolling = false;
+                    bool blockMoveBecausOfCurrentScrolling = false;
+
+                    if (gv.mod.useScrollingSystem)
+                    {
+                        if (gv.mod.scrollingTimer != 100 && gv.mod.scrollingTimer != 0)
+                        {
+                            blockMoveBecausOfCurrentScrolling = true;
+                        }
+                    }
+
+                    blockMoveBecausOfCurrentScrolling = false;
+
+                    if (!blockMoveBecausOfCurrentScrolling)
+                    {
+                        if (gv.mod.useScrollingSystem)
+                        {
+                            //single press
+                            if (!gv.mod.isScrollingNow)
+                            {
+                                gv.mod.isScrollingNow = true;
+                                //gv.mod.scrollingTimer = 100 + gv.mod.scrollingOverhang2;
+                                gv.mod.scrollingTimer = 100;
+                                gv.mod.scrollingDirection = "left";
+                                gv.mod.doTriggerInspiteOfScrolling = true;
+                            }
+                            //continued press
+                            else
+                            {
+                                gv.mod.isScrollingNow = true;
+                                gv.mod.scrollingTimer = 100 + gv.mod.scrollingOverhang2;
+                                gv.mod.scrollingOverhang2 = 0;
+                                gv.mod.scrollingDirection = "left";
+                                gv.mod.doTriggerInspiteOfScrolling = true;
+                            }
+                        }
+
+                        bool isTransition = gv.cc.goWest();
+                        if (!isTransition)
+                        {
+                            gv.mod.breakActiveSearch = false;
+                            gv.mod.wasJustCalled = false;
+                            if (!gv.mod.wasJustCalled)
+                            {
+                                if (gv.screenType == "main")
+                                {
+                                    moveLeft(true);
+                                }
+                                gv.mod.wasJustCalled = true;
+                            }
+                        }
+                    }
+                }
+                else if (keyData == Keys.D6 | keyData == Keys.NumPad6)
+                {
+                    gv.mod.doTriggerInspiteOfScrolling = false;
+                    bool blockMoveBecausOfCurrentScrolling = false;
+
+                    if (gv.mod.useScrollingSystem)
+                    {
+                        if (gv.mod.scrollingTimer != 100 && gv.mod.scrollingTimer != 0)
+                        {
+                            blockMoveBecausOfCurrentScrolling = true;
+                        }
+                    }
+
+                    blockMoveBecausOfCurrentScrolling = false;
+
+                    if (!blockMoveBecausOfCurrentScrolling)
+                    {
+                        if (gv.mod.useScrollingSystem)
+                        {
+                            //single press
+                            if (!gv.mod.isScrollingNow)
+                            {
+                                gv.mod.isScrollingNow = true;
+                                //gv.mod.scrollingTimer = 100 + gv.mod.scrollingOverhang2;
+                                gv.mod.scrollingTimer = 100;
+                                gv.mod.scrollingDirection = "right";
+                                gv.mod.doTriggerInspiteOfScrolling = true;
+                            }
+                            //continued press
+                            else
+                            {
+                                gv.mod.isScrollingNow = true;
+                                gv.mod.scrollingTimer = 100 + gv.mod.scrollingOverhang2;
+                                gv.mod.scrollingOverhang2 = 0;
+                                gv.mod.scrollingDirection = "right";
+                                gv.mod.doTriggerInspiteOfScrolling = true;
+                            }
+                        }
+
+                        bool isTransition = gv.cc.goEast();
+                        if (!isTransition)
+                        {
+                            gv.mod.breakActiveSearch = false;
+                            gv.mod.wasJustCalled = false;
+                            if (!gv.mod.wasJustCalled)
+                            {
+                                if (gv.screenType == "main")
+                                {
+                                    moveRight(true);
+                                }
+                                gv.mod.wasJustCalled = true;
+                            }
+                        }
+                    }
+                }
+                else if (keyData == Keys.Right && showMoveKeys)
+                {
+                    gv.mod.doTriggerInspiteOfScrolling = false;
+                    bool blockMoveBecausOfCurrentScrolling = false;
+
+                    if (gv.mod.useScrollingSystem)
+                    {
+                        if (gv.mod.scrollingTimer != 100 && gv.mod.scrollingTimer != 0)
+                        {
+                            blockMoveBecausOfCurrentScrolling = true;
+                        }
+                    }
+
+                    blockMoveBecausOfCurrentScrolling = false;
+
+                    if (!blockMoveBecausOfCurrentScrolling)
+                    {
+                        if (gv.mod.useScrollingSystem)
+                        {
+                            //single press
+                            if (!gv.mod.isScrollingNow)
+                            {
+                                gv.mod.isScrollingNow = true;
+                                //gv.mod.scrollingTimer = 100 + gv.mod.scrollingOverhang2;
+                                gv.mod.scrollingTimer = 100;
+                                gv.mod.scrollingDirection = "right";
+                                gv.mod.doTriggerInspiteOfScrolling = true;
+                            }
+                            //continued press
+                            else
+                            {
+                                gv.mod.isScrollingNow = true;
+                                gv.mod.scrollingTimer = 100 + gv.mod.scrollingOverhang2;
+                                gv.mod.scrollingOverhang2 = 0;
+                                gv.mod.scrollingDirection = "right";
+                                gv.mod.doTriggerInspiteOfScrolling = true;
+                            }
+                        }
+
+                        bool isTransition = gv.cc.goEast();
+                        if (!isTransition)
+                        {
+                            gv.mod.breakActiveSearch = false;
+                            gv.mod.wasJustCalled = false;
+                            if (!gv.mod.wasJustCalled)
+                            {
+                                if (gv.screenType == "main")
+                                {
+                                    moveRight(true);
+                                }
+                                gv.mod.wasJustCalled = true;
+                            }
+                        }
+                    }
+                }
+                else if (keyData == Keys.D8 | keyData == Keys.NumPad8)
+                {
+                    gv.mod.doTriggerInspiteOfScrolling = false;
+                    bool blockMoveBecausOfCurrentScrolling = false;
+
+                    if (gv.mod.useScrollingSystem)
+                    {
+                        if (gv.mod.scrollingTimer != 100 && gv.mod.scrollingTimer != 0)
+                        {
+                            blockMoveBecausOfCurrentScrolling = true;
+                        }
+                    }
+
+                    blockMoveBecausOfCurrentScrolling = false;
+
+                    if (!blockMoveBecausOfCurrentScrolling)
+                    {
+                        if (gv.mod.useScrollingSystem)
+                        {
+                            //single press
+                            if (!gv.mod.isScrollingNow)
+                            {
+                                gv.mod.isScrollingNow = true;
+                                //gv.mod.scrollingTimer = 100 + gv.mod.scrollingOverhang2;
+                                gv.mod.scrollingTimer = 100;
+                                gv.mod.scrollingDirection = "up";
+                                gv.mod.doTriggerInspiteOfScrolling = true;
+                            }
+                            //continued press
+                            else
+                            {
+                                gv.mod.isScrollingNow = true;
+                                gv.mod.scrollingTimer = 100 + gv.mod.scrollingOverhang2;
+                                gv.mod.scrollingOverhang2 = 0;
+                                gv.mod.scrollingDirection = "up";
+                                gv.mod.doTriggerInspiteOfScrolling = true;
+                            }
+                        }
+
+                        bool isTransition = gv.cc.goNorth();
+                        if (!isTransition)
+                        {
+                            gv.mod.breakActiveSearch = false;
+                            gv.mod.wasJustCalled = false;
+                            if (!gv.mod.wasJustCalled)
+                            {
+                                if (gv.screenType == "main")
+                                {
+                                    moveUp(true);
+                                }
+                                gv.mod.wasJustCalled = true;
+                            }
+                        }
+                    }
+                }
+                else if (keyData == Keys.Up && showMoveKeys)
+                {
+                    gv.mod.doTriggerInspiteOfScrolling = false;
+                    bool blockMoveBecausOfCurrentScrolling = false;
+
+                    if (gv.mod.useScrollingSystem)
+                    {
+                        if (gv.mod.scrollingTimer != 100 && gv.mod.scrollingTimer != 0)
+                        {
+                            blockMoveBecausOfCurrentScrolling = true;
+                        }
+                    }
+
+                    blockMoveBecausOfCurrentScrolling = false;
+ 
                     if (!blockMoveBecausOfCurrentScrolling)
                     {
                         if (gv.mod.useScrollingSystem)
@@ -43433,194 +43655,255 @@ namespace IceBlink2
                             if (!gv.mod.isScrollingNow)
                             { 
                                 gv.mod.isScrollingNow = true;
-                                //worked flawlessly when commented out
-                                //gv.mod.scrollingTimer += 100;
-                                //mühlheim
-                                gv.mod.scrollingTimer = 100 + gv.mod.scrollingOverhang2;
                                 //gv.mod.scrollingTimer = 100 + gv.mod.scrollingOverhang2;
+                                gv.mod.scrollingTimer = 100;
                                 gv.mod.scrollingDirection = "up";
-                             
-                                //gv.mod.scrollingOverhang = 0;
+                                gv.mod.doTriggerInspiteOfScrolling = true;
                             }
                             //continued press
                             else
                             {
-                            
-
-                                //daysgone down
                                 gv.mod.isScrollingNow = true;
-
-
-                                //was +=
-                                //daysgone down
                                 gv.mod.scrollingTimer = 100 + gv.mod.scrollingOverhang2;
                                 gv.mod.scrollingOverhang2 = 0;
-                                //gv.mod.scrollingTimer++;
-
-                                //daysgone down
                                 gv.mod.scrollingDirection = "up";
-                                //gv.mod.scrollingOverhang = 0;
-
-
-                                //daysgone down
-                                //was commentzed out for flawless
-                                //gv.cc.doPropTriggers();
                                 gv.mod.doTriggerInspiteOfScrolling = true;
-
                             }
                         }
 
-
-                    //if (blockMoveBecausOfCurrentScrolling == false)
-                    //{
                         bool isTransition = gv.cc.goNorth();
                         if (!isTransition)
                         {
                             gv.mod.breakActiveSearch = false;
-                            //gv.mod.blockMainKeyboard = true;
                             gv.mod.wasJustCalled = false;
                             if (!gv.mod.wasJustCalled)
                             {
-                                moveUp(true);
+                                if (gv.screenType == "main")
+                                {
+                                    moveUp(true);
+                                }
                                 gv.mod.wasJustCalled = true;
                             }
-                            //gv.mod.blockMainKeyboard = false;
                         }
-                    //}
-                    //blockscrllling bracket below
-                        }
-                
-                    //gv.mod.blockMainKeyboard = false;
+                    }
                 }
                 else if (keyData == Keys.W && !showMoveKeys)
                 {
+                    gv.mod.doTriggerInspiteOfScrolling = false;
                     bool blockMoveBecausOfCurrentScrolling = false;
-                    /*if (gv.mod.useScrollingSystem)
+
+                    if (gv.mod.useScrollingSystem)
                     {
-                        if (gv.mod.isScrollingNow)
+                        if (gv.mod.scrollingTimer != 100 && gv.mod.scrollingTimer != 0)
                         {
                             blockMoveBecausOfCurrentScrolling = true;
                         }
-                    }*/
+                    }
+
+                    blockMoveBecausOfCurrentScrolling = false;
+
                     if (!blockMoveBecausOfCurrentScrolling)
                     {
                         if (gv.mod.useScrollingSystem)
                         {
+                            //single press
                             if (!gv.mod.isScrollingNow)
                             {
                                 gv.mod.isScrollingNow = true;
+                                //gv.mod.scrollingTimer = 100 + gv.mod.scrollingOverhang2;
                                 gv.mod.scrollingTimer = 100;
                                 gv.mod.scrollingDirection = "up";
+                                gv.mod.doTriggerInspiteOfScrolling = true;
                             }
+                            //continued press
                             else
                             {
-                                gv.cc.doPropTriggers();
+                                gv.mod.isScrollingNow = true;
+                                gv.mod.scrollingTimer = 100 + gv.mod.scrollingOverhang2;
+                                gv.mod.scrollingOverhang2 = 0;
+                                gv.mod.scrollingDirection = "up";
+                                gv.mod.doTriggerInspiteOfScrolling = true;
                             }
                         }
+
                         bool isTransition = gv.cc.goNorth();
                         if (!isTransition)
                         {
                             gv.mod.breakActiveSearch = false;
-                            moveUp(true);
+                            gv.mod.wasJustCalled = false;
+                            if (!gv.mod.wasJustCalled)
+                            {
+                                if (gv.screenType == "main")
+                                {
+                                    moveUp(true);
+                                }
+                                gv.mod.wasJustCalled = true;
+                            }
                         }
                     }
                 }
                 else if (keyData == Keys.D2 | keyData == Keys.NumPad2)
                 {
+                    gv.mod.doTriggerInspiteOfScrolling = false;
                     bool blockMoveBecausOfCurrentScrolling = false;
-                    /*if (gv.mod.useScrollingSystem)
+
+                    if (gv.mod.useScrollingSystem)
                     {
-                        if (gv.mod.isScrollingNow)
+                        if (gv.mod.scrollingTimer != 100 && gv.mod.scrollingTimer != 0)
                         {
                             blockMoveBecausOfCurrentScrolling = true;
                         }
-                    }*/
+                    }
+
+                    blockMoveBecausOfCurrentScrolling = false;
+
                     if (!blockMoveBecausOfCurrentScrolling)
                     {
                         if (gv.mod.useScrollingSystem)
                         {
+                            //single press
                             if (!gv.mod.isScrollingNow)
                             {
                                 gv.mod.isScrollingNow = true;
+                                //gv.mod.scrollingTimer = 100 + gv.mod.scrollingOverhang2;
                                 gv.mod.scrollingTimer = 100;
                                 gv.mod.scrollingDirection = "down";
+                                gv.mod.doTriggerInspiteOfScrolling = true;
                             }
+                            //continued press
                             else
                             {
-                                gv.cc.doPropTriggers();
+                                gv.mod.isScrollingNow = true;
+                                gv.mod.scrollingTimer = 100 + gv.mod.scrollingOverhang2;
+                                gv.mod.scrollingOverhang2 = 0;
+                                gv.mod.scrollingDirection = "down";
+                                gv.mod.doTriggerInspiteOfScrolling = true;
                             }
                         }
+
                         bool isTransition = gv.cc.goSouth();
                         if (!isTransition)
                         {
                             gv.mod.breakActiveSearch = false;
-                            moveDown(true);
+                            gv.mod.wasJustCalled = false;
+                            if (!gv.mod.wasJustCalled)
+                            {
+                                if (gv.screenType == "main")
+                                {
+                                    moveDown(true);
+                                }
+                                gv.mod.wasJustCalled = true;
+                            }
                         }
                     }
                 }
                 else if (keyData == Keys.Down && showMoveKeys)
                 {
+                    gv.mod.doTriggerInspiteOfScrolling = false;
                     bool blockMoveBecausOfCurrentScrolling = false;
-                    /*if (gv.mod.useScrollingSystem)
+
+                    if (gv.mod.useScrollingSystem)
                     {
-                        if (gv.mod.isScrollingNow)
+                        if (gv.mod.scrollingTimer != 100 && gv.mod.scrollingTimer != 0)
                         {
                             blockMoveBecausOfCurrentScrolling = true;
                         }
-                    }*/
+                    }
+
+                    blockMoveBecausOfCurrentScrolling = false;
+
                     if (!blockMoveBecausOfCurrentScrolling)
                     {
                         if (gv.mod.useScrollingSystem)
                         {
+                            //single press
                             if (!gv.mod.isScrollingNow)
                             {
                                 gv.mod.isScrollingNow = true;
+                                //gv.mod.scrollingTimer = 100 + gv.mod.scrollingOverhang2;
                                 gv.mod.scrollingTimer = 100;
                                 gv.mod.scrollingDirection = "down";
+                                gv.mod.doTriggerInspiteOfScrolling = true;
                             }
+                            //continued press
                             else
                             {
-                                gv.cc.doPropTriggers();
+                                gv.mod.isScrollingNow = true;
+                                gv.mod.scrollingTimer = 100 + gv.mod.scrollingOverhang2;
+                                gv.mod.scrollingOverhang2 = 0;
+                                gv.mod.scrollingDirection = "down";
+                                gv.mod.doTriggerInspiteOfScrolling = true;
                             }
                         }
+
                         bool isTransition = gv.cc.goSouth();
                         if (!isTransition)
                         {
                             gv.mod.breakActiveSearch = false;
-                            moveDown(true);
+                            gv.mod.wasJustCalled = false;
+                            if (!gv.mod.wasJustCalled)
+                            {
+                                if (gv.screenType == "main")
+                                {
+                                    moveDown(true);
+                                }
+                                gv.mod.wasJustCalled = true;
+                            }
                         }
                     }
                 }
                 else if (keyData == Keys.S && !showMoveKeys)
                 {
+                    gv.mod.doTriggerInspiteOfScrolling = false;
                     bool blockMoveBecausOfCurrentScrolling = false;
-                    /*if (gv.mod.useScrollingSystem)
+
+                    if (gv.mod.useScrollingSystem)
                     {
-                        if (gv.mod.isScrollingNow)
+                        if (gv.mod.scrollingTimer != 100 && gv.mod.scrollingTimer != 0)
                         {
                             blockMoveBecausOfCurrentScrolling = true;
                         }
-                    }*/
+                    }
+
+                    blockMoveBecausOfCurrentScrolling = false;
+
                     if (!blockMoveBecausOfCurrentScrolling)
                     {
                         if (gv.mod.useScrollingSystem)
                         {
+                            //single press
                             if (!gv.mod.isScrollingNow)
                             {
                                 gv.mod.isScrollingNow = true;
+                                //gv.mod.scrollingTimer = 100 + gv.mod.scrollingOverhang2;
                                 gv.mod.scrollingTimer = 100;
                                 gv.mod.scrollingDirection = "down";
+                                gv.mod.doTriggerInspiteOfScrolling = true;
                             }
+                            //continued press
                             else
                             {
-                                gv.cc.doPropTriggers();
+                                gv.mod.isScrollingNow = true;
+                                gv.mod.scrollingTimer = 100 + gv.mod.scrollingOverhang2;
+                                gv.mod.scrollingOverhang2 = 0;
+                                gv.mod.scrollingDirection = "down";
+                                gv.mod.doTriggerInspiteOfScrolling = true;
                             }
                         }
+
                         bool isTransition = gv.cc.goSouth();
                         if (!isTransition)
                         {
                             gv.mod.breakActiveSearch = false;
-                            moveDown(true);
+                            gv.mod.wasJustCalled = false;
+                            if (!gv.mod.wasJustCalled)
+                            {
+                                if (gv.screenType == "main")
+                                {
+                                    moveDown(true);
+                                }
+                                gv.mod.wasJustCalled = true;
+                            }
                         }
                     }
                 }
@@ -45101,1894 +45384,7 @@ namespace IceBlink2
         }
         //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
-        public void onKeyDown(KeyEventArgs e)
-        {
-            if ((moveDelay()) && (finishedMove))
-            {
-                if (e.KeyCode == Keys.D4 | e.KeyCode == Keys.NumPad4)
-                {
-                    bool blockMoveBecausOfCurrentScrolling = false;
-                    /*if (gv.mod.useScrollingSystem)
-                    {
-                        if (gv.mod.isScrollingNow)
-                        {
-                            blockMoveBecausOfCurrentScrolling = true;
-                        }
-                    }*/
-                    if (!blockMoveBecausOfCurrentScrolling)
-                    {
-                        if (gv.mod.useScrollingSystem)
-                        {
-                            if (!gv.mod.isScrollingNow)
-                            {
-                                gv.mod.isScrollingNow = true;
-                                gv.mod.scrollingTimer = 100;
-                                gv.mod.scrollingDirection = "left";
-                            }
-                            else
-                            {
-                                gv.cc.doPropTriggers();
-                            }
-                        }
-                        bool isTransition = gv.cc.goWest();
-                        if (!isTransition)
-                        {
-                            gv.mod.breakActiveSearch = false;
-                            moveLeft(true);
-                        }
-                    }
-                }
-                else if (e.KeyCode == Keys.ShiftKey)
-                {
-                    //krah krah
-                    //gv.mod.interfaceFadeCounter = 0;
-                }
-                else if (e.KeyCode == Keys.Left && showMoveKeys)
-                {
-                    bool blockMoveBecausOfCurrentScrolling = false;
-                    /*if (gv.mod.useScrollingSystem)
-                    {
-                        if (gv.mod.isScrollingNow)
-                        {
-                            blockMoveBecausOfCurrentScrolling = true;
-                        }
-                    }*/
-                    if (!blockMoveBecausOfCurrentScrolling)
-                    {
-                        if (gv.mod.useScrollingSystem)
-                        {
-                            if (!gv.mod.isScrollingNow)
-                            {
-                                gv.mod.isScrollingNow = true;
-                                gv.mod.scrollingTimer = 100;
-                                gv.mod.scrollingDirection = "left";
-                            }
-                            else
-                            {
-                                gv.cc.doPropTriggers();
-                            }
-                        }
-                        bool isTransition = gv.cc.goWest();
-                        if (!isTransition)
-                        {
-                            gv.mod.breakActiveSearch = false;
-                            moveLeft(true);
-                        }
-                    }
-                }
-                else if (e.KeyCode == Keys.M)
-                {
-                    if (gv.mod.allowSave)
-                    {
-                        gv.cc.doSavesDialog();
-                    }
-                }
-                else if (e.KeyCode == Keys.A && !showMoveKeys)
-                {
-                    bool blockMoveBecausOfCurrentScrolling = false;
-                    /*if (gv.mod.useScrollingSystem)
-                    {
-                        if (gv.mod.isScrollingNow)
-                        {
-                            blockMoveBecausOfCurrentScrolling = true;
-                        }
-                    }*/
-                    if (!blockMoveBecausOfCurrentScrolling)
-                    {
-                        if (gv.mod.useScrollingSystem)
-                        {
-                            if (!gv.mod.isScrollingNow)
-                            {
-                                gv.mod.isScrollingNow = true;
-                                gv.mod.scrollingTimer = 100;
-                                gv.mod.scrollingDirection = "left";
-                            }
-                            else
-                            {
-                                gv.cc.doPropTriggers();
-                            }
-                        }
-                        bool isTransition = gv.cc.goWest();
-                        if (!isTransition)
-                        {
-                            gv.mod.breakActiveSearch = false;
-                            moveLeft(true);
-                        }
-                    }
-                }
-                else if (e.KeyCode == Keys.D6 | e.KeyCode == Keys.NumPad6)
-                {
-                    bool blockMoveBecausOfCurrentScrolling = false;
-                    /*if (gv.mod.useScrollingSystem)
-                    {
-                        if (gv.mod.isScrollingNow)
-                        {
-                            blockMoveBecausOfCurrentScrolling = true;
-                        }
-                    }*/
-                    if (!blockMoveBecausOfCurrentScrolling)
-                    {
-                        if (gv.mod.useScrollingSystem)
-                        {
-                            if (!gv.mod.isScrollingNow)
-                            {
-                                gv.mod.isScrollingNow = true;
-                                gv.mod.scrollingTimer = 100;
-                                gv.mod.scrollingDirection = "right";
-                            }
-                            else
-                            {
-                                gv.cc.doPropTriggers();
-                            }
-                        }
-                        bool isTransition = gv.cc.goEast();
-                        if (!isTransition)
-                        {
-                            gv.mod.breakActiveSearch = false;
-                            moveRight(true);
-                        }
-                    }
-                }
-                else if (e.KeyCode == Keys.Right && showMoveKeys)
-                {
-                    bool blockMoveBecausOfCurrentScrolling = false;
-                    /*if (gv.mod.useScrollingSystem)
-                    {
-                        if (gv.mod.isScrollingNow)
-                        {
-                            blockMoveBecausOfCurrentScrolling = true;
-                        }
-                    }*/
-                    if (!blockMoveBecausOfCurrentScrolling)
-                    {
-                        if (gv.mod.useScrollingSystem)
-                        {
-                            if (!gv.mod.isScrollingNow)
-                            {
-                                gv.mod.isScrollingNow = true;
-                                gv.mod.scrollingTimer = 100;
-                                gv.mod.scrollingDirection = "right";
-                            }
-                            else
-                            {
-                                gv.cc.doPropTriggers();
-                            }
-                        }
-                        bool isTransition = gv.cc.goEast();
-                        if (!isTransition)
-                        {
-                            gv.mod.breakActiveSearch = false;
-                            moveRight(true);
-                        }
-                    }
-                }
-                else if (e.KeyCode == Keys.D && !showMoveKeys)
-                {
-                    bool blockMoveBecausOfCurrentScrolling = false;
-                    /*if (gv.mod.useScrollingSystem)
-                    {
-                        if (gv.mod.isScrollingNow)
-                        {
-                            blockMoveBecausOfCurrentScrolling = true;
-                        }
-                    }*/
-                    if (!blockMoveBecausOfCurrentScrolling)
-                    {
-                        if (gv.mod.useScrollingSystem)
-                        {
-                            if (!gv.mod.isScrollingNow)
-                            {
-                                gv.mod.isScrollingNow = true;
-                                gv.mod.scrollingTimer = 100;
-                                gv.mod.scrollingDirection = "right";
-                            }
-                            else
-                            {
-                                gv.cc.doPropTriggers();
-                            }
-                        }
-                        bool isTransition = gv.cc.goEast();
-                        if (!isTransition)
-                        {
-                            gv.mod.breakActiveSearch = false;
-                            moveRight(true);
-                        }
-                    }
-                }
-                else if (e.KeyCode == Keys.D8 | e.KeyCode == Keys.NumPad8)
-                {
-                    bool blockMoveBecausOfCurrentScrolling = false;
-                    /*if (gv.mod.useScrollingSystem)
-                    {
-                        if (gv.mod.isScrollingNow)
-                        {
-                            blockMoveBecausOfCurrentScrolling = true;
-                        }
-                    }*/
-                    if (!blockMoveBecausOfCurrentScrolling)
-                    {
-                        if (gv.mod.useScrollingSystem)
-                        {
-                            if (!gv.mod.isScrollingNow)
-                            {
-                                gv.mod.isScrollingNow = true;
-                                gv.mod.scrollingTimer = 100;
-                                gv.mod.scrollingDirection = "up";
-                            }
-                            else
-                            {
-                                gv.cc.doPropTriggers();
-                            }
-                        }
-                        bool isTransition = gv.cc.goNorth();
-                        if (!isTransition)
-                        {
-                            gv.mod.breakActiveSearch = false;
-                            moveUp(true);
-                        }
-                    }
-                }
-                else if (e.KeyCode == Keys.Up && showMoveKeys)
-                {
-                   
-                    bool blockMoveBecausOfCurrentScrolling = false;
-                    /*if (gv.mod.useScrollingSystem)
-                    {
-                        if (gv.mod.isScrollingNow)
-                        {
-                            blockMoveBecausOfCurrentScrolling = true;
-                        }
-                    }*/
-                    if (!blockMoveBecausOfCurrentScrolling)
-                    {
-                        if (gv.mod.useScrollingSystem)
-                        {
-                            if (!gv.mod.isScrollingNow)
-                            {
-                                gv.mod.isScrollingNow = true;
-                                gv.mod.scrollingTimer = 100;
-                                gv.mod.scrollingDirection = "up";
-                            }
-                            else
-                            {
-                                gv.cc.doPropTriggers();
-                            }
-                        }
-                        bool isTransition = gv.cc.goNorth();
-                        if (!isTransition)
-                        {
-                            gv.mod.breakActiveSearch = false;
-                            moveUp(true);
-                        }
-                    }
-                }
-                else if (e.KeyCode == Keys.W && !showMoveKeys)
-                {
-                    bool blockMoveBecausOfCurrentScrolling = false;
-                    /*if (gv.mod.useScrollingSystem)
-                    {
-                        if (gv.mod.isScrollingNow)
-                        {
-                            blockMoveBecausOfCurrentScrolling = true;
-                        }
-                    }*/
-                    if (!blockMoveBecausOfCurrentScrolling)
-                    {
-                        if (gv.mod.useScrollingSystem)
-                        {
-                            if (!gv.mod.isScrollingNow)
-                            {
-                                gv.mod.isScrollingNow = true;
-                                gv.mod.scrollingTimer = 100;
-                                gv.mod.scrollingDirection = "up";
-                            }
-                            else
-                            {
-                                gv.cc.doPropTriggers();
-                            }
-                        }
-                        bool isTransition = gv.cc.goNorth();
-                        if (!isTransition)
-                        {
-                            gv.mod.breakActiveSearch = false;
-                            moveUp(true);
-                        }
-                    }
-                }
-                else if (e.KeyCode == Keys.D2 | e.KeyCode == Keys.NumPad2)
-                {
-                    bool blockMoveBecausOfCurrentScrolling = false;
-                    /*if (gv.mod.useScrollingSystem)
-                    {
-                        if (gv.mod.isScrollingNow)
-                        {
-                            blockMoveBecausOfCurrentScrolling = true;
-                        }
-                    }*/
-                    if (!blockMoveBecausOfCurrentScrolling)
-                    {
-                        if (gv.mod.useScrollingSystem)
-                        {
-                            if (!gv.mod.isScrollingNow)
-                            {
-                                gv.mod.isScrollingNow = true;
-                                gv.mod.scrollingTimer = 100;
-                                gv.mod.scrollingDirection = "down";
-                            }
-                            else
-                            {
-                                gv.cc.doPropTriggers();
-                            }
-                        }
-                        bool isTransition = gv.cc.goSouth();
-                        if (!isTransition)
-                        {
-                            gv.mod.breakActiveSearch = false;
-                            moveDown(true);
-                        }
-                    }
-                }
-                else if (e.KeyCode == Keys.Down && showMoveKeys)
-                {
-                    bool blockMoveBecausOfCurrentScrolling = false;
-                    /*if (gv.mod.useScrollingSystem)
-                    {
-                        if (gv.mod.isScrollingNow)
-                        {
-                            blockMoveBecausOfCurrentScrolling = true;
-                        }
-                    }*/
-                    if (!blockMoveBecausOfCurrentScrolling)
-                    {
-                        if (gv.mod.useScrollingSystem)
-                        {
-                            if (!gv.mod.isScrollingNow)
-                            {
-                                gv.mod.isScrollingNow = true;
-                                gv.mod.scrollingTimer = 100;
-                                gv.mod.scrollingDirection = "down";
-                            }
-                            else
-                            {
-                                gv.cc.doPropTriggers();
-                            }
-                        }
-                        bool isTransition = gv.cc.goSouth();
-                        if (!isTransition)
-                        {
-                            gv.mod.breakActiveSearch = false;
-                            moveDown(true);
-                        }
-                    }
-                }
-                else if (e.KeyCode == Keys.S && !showMoveKeys)
-                {
-                    bool blockMoveBecausOfCurrentScrolling = false;
-                    /*if (gv.mod.useScrollingSystem)
-                    {
-                        if (gv.mod.isScrollingNow)
-                        {
-                            blockMoveBecausOfCurrentScrolling = true;
-                        }
-                    }*/
-                    if (!blockMoveBecausOfCurrentScrolling)
-                    {
-                        if (gv.mod.useScrollingSystem)
-                        {
-                            if (!gv.mod.isScrollingNow)
-                            {
-                                gv.mod.isScrollingNow = true;
-                                gv.mod.scrollingTimer = 100;
-                                gv.mod.scrollingDirection = "down";
-                            }
-                            else
-                            {
-                                gv.cc.doPropTriggers();
-                            }
-                        }
-                        bool isTransition = gv.cc.goSouth();
-                        if (!isTransition)
-                        {
-                            gv.mod.breakActiveSearch = false;
-                            moveDown(true);
-                        }
-                    }
-                }
-                //else { }
-            }
-
-            if (e.KeyCode == Keys.E)
-            {
-
-                if (gv.mod.hideInterfaceNextMove)
-                {
-                    foreach (IB2Panel pnl in mainUiLayout.panelList)
-                    {
-                        if (pnl.tag != "arrowPanel")
-                        {
-                            
-                            //hides up
-                            if (pnl.hidingYIncrement < 0)
-                            {
-                                if (pnl.currentLocY < pnl.shownLocY)
-                                {
-                                    pnl.showing = true;
-                                }
-                                else
-                                {
-                                    //pnl.hiding = true;
-                                }
-                            }
-                        }
-                    }
-                }
-
-                if (!gv.mod.showPartyToken)
-                {
-                    bool leaderFound = false;
-                    while (!leaderFound)
-                    {
-                        gv.mod.selectedPartyLeader++;
-                        if (gv.mod.selectedPartyLeader >= gv.mod.playerList.Count)
-                        {
-                            gv.mod.selectedPartyLeader = 0;
-                        }
-                        if (gv.mod.playerList[gv.mod.selectedPartyLeader].hp >= 0)
-                        {
-                            leaderFound = true;
-                        }
-                    }
-                    gv.mod.permanentPartyText = gv.mod.playerList[gv.mod.selectedPartyLeader].name + " (" + gv.mod.playerList[gv.mod.selectedPartyLeader].sp + " SP)";
-                    //addFloatyText(gv.mod.PlayerLocationX, gv.mod.PlayerLocationY, gv.mod.playerList[gv.mod.selectedPartyLeader].name, "green", 700);
-
-                    gv.cc.doPropStealth();
-
-                    updateTraitsPanel();
-                }
-            }
-
-            if (e.KeyCode == Keys.Right && !showMoveKeys)
-            {
-                if (gv.mod.hideInterfaceNextMove)
-                {
-                    foreach (IB2Panel pnl in mainUiLayout.panelList)
-                    {
-                        if (pnl.tag != "arrowPanel")
-                        {
-
-                            //hides up
-                            if (pnl.hidingYIncrement < 0)
-                            {
-                                if (pnl.currentLocY < pnl.shownLocY)
-                                {
-                                    pnl.showing = true;
-                                }
-                                else
-                                {
-                                    //pnl.hiding = true;
-                                }
-                            }
-                        }
-                    }
-                }
-                if (!gv.mod.showPartyToken)
-                {
-                    bool leaderFound = false;
-                    while (!leaderFound)
-                    {
-                        gv.mod.selectedPartyLeader++;
-                        if (gv.mod.selectedPartyLeader >= gv.mod.playerList.Count)
-                        {
-                            gv.mod.selectedPartyLeader = 0;
-                        }
-                        if (gv.mod.playerList[gv.mod.selectedPartyLeader].hp >= 0)
-                         {
-                            leaderFound = true;
-                        }
-                    }
-                    //addFloatyText(gv.mod.PlayerLocationX, gv.mod.PlayerLocationY, gv.mod.playerList[gv.mod.selectedPartyLeader].name, "green", 700);
-                    gv.mod.permanentPartyText = gv.mod.playerList[gv.mod.selectedPartyLeader].name + " (" + gv.mod.playerList[gv.mod.selectedPartyLeader].sp + " SP)";
-                    gv.cc.doPropStealth();
-                    updateTraitsPanel();
-                }
-            }
-
-            if (e.KeyCode == Keys.D && showMoveKeys)
-            {
-                if (gv.mod.hideInterfaceNextMove)
-                {
-                    foreach (IB2Panel pnl in mainUiLayout.panelList)
-                    {
-                        if (pnl.tag != "arrowPanel")
-                        {
-
-                            //hides up
-                            if (pnl.hidingYIncrement < 0)
-                            {
-                                if (pnl.currentLocY < pnl.shownLocY)
-                                {
-                                    pnl.showing = true;
-                                }
-                                else
-                                {
-                                    //pnl.hiding = true;
-                                }
-                            }
-                        }
-                    }
-                }
-                if (!gv.mod.showPartyToken)
-                {
-                    bool leaderFound = false;
-                    while (!leaderFound)
-                    {
-                        gv.mod.selectedPartyLeader++;
-                        if (gv.mod.selectedPartyLeader >= gv.mod.playerList.Count)
-                        {
-                            gv.mod.selectedPartyLeader = 0;
-                        }
-                        if (gv.mod.playerList[gv.mod.selectedPartyLeader].hp >= 0)
-                        {
-                            leaderFound = true;
-                        }
-                    }
-                    //addFloatyText(gv.mod.PlayerLocationX, gv.mod.PlayerLocationY, gv.mod.playerList[gv.mod.selectedPartyLeader].name, "green", 700);
-                    gv.mod.permanentPartyText = gv.mod.playerList[gv.mod.selectedPartyLeader].name + " (" + gv.mod.playerList[gv.mod.selectedPartyLeader].sp + " SP)";
-                    gv.cc.doPropStealth();
-                    updateTraitsPanel();
-                }
-            }
-
-            if (e.KeyCode == Keys.Q)
-            {
-                if (gv.mod.hideInterfaceNextMove)
-                {
-                    foreach (IB2Panel pnl in mainUiLayout.panelList)
-                    {
-                        if (pnl.tag != "arrowPanel")
-                        {
-
-                            //hides up
-                            if (pnl.hidingYIncrement < 0)
-                            {
-                                if (pnl.currentLocY < pnl.shownLocY)
-                                {
-                                    pnl.showing = true;
-                                }
-                                else
-                                {
-                                    //pnl.hiding = true;
-                                }
-                            }
-                        }
-                    }
-                }
-
-                if (!gv.mod.showPartyToken)
-                {
-                    bool leaderFound = false;
-                    while (!leaderFound)
-                    {
-                        gv.mod.selectedPartyLeader--;
-                        if (gv.mod.selectedPartyLeader < 0)
-                        {
-                            gv.mod.selectedPartyLeader = gv.mod.playerList.Count - 1; ;
-                        }
-                        if (gv.mod.playerList[gv.mod.selectedPartyLeader].hp >= 0)
-                        {
-                            leaderFound = true;
-                        }
-                    }
-                    gv.mod.permanentPartyText = gv.mod.playerList[gv.mod.selectedPartyLeader].name + " (" + gv.mod.playerList[gv.mod.selectedPartyLeader].sp + " SP)";
-
-                    //addFloatyText(gv.mod.PlayerLocationX, gv.mod.PlayerLocationY, gv.mod.playerList[gv.mod.selectedPartyLeader].name, "green", 700);
-                    gv.cc.doPropStealth();
-                    updateTraitsPanel();
-                }
-            }
-
-            if (e.KeyCode == Keys.Left && !showMoveKeys)
-            {
-                if (gv.mod.hideInterfaceNextMove)
-                {
-                    foreach (IB2Panel pnl in mainUiLayout.panelList)
-                    {
-                        if (pnl.tag != "arrowPanel")
-                        {
-
-                            //hides up
-                            if (pnl.hidingYIncrement < 0)
-                            {
-                                if (pnl.currentLocY < pnl.shownLocY)
-                                {
-                                    pnl.showing = true;
-                                }
-                                else
-                                {
-                                    //pnl.hiding = true;
-                                }
-                            }
-                        }
-                    }
-                }
-                if (!gv.mod.showPartyToken)
-                {
-                    bool leaderFound = false;
-                    while (!leaderFound)
-                    {
-                        gv.mod.selectedPartyLeader--;
-                        if (gv.mod.selectedPartyLeader < 0)
-                        {
-                            gv.mod.selectedPartyLeader = gv.mod.playerList.Count - 1; ;
-                        }
-                        if (gv.mod.playerList[gv.mod.selectedPartyLeader].hp >= 0)
-                        {
-                            leaderFound = true;
-                        }
-                    }
-                    //addFloatyText(gv.mod.PlayerLocationX, gv.mod.PlayerLocationY, gv.mod.playerList[gv.mod.selectedPartyLeader].name, "green", 700);
-                    gv.mod.permanentPartyText = gv.mod.playerList[gv.mod.selectedPartyLeader].name + " (" + gv.mod.playerList[gv.mod.selectedPartyLeader].sp + " SP)";
-                    gv.cc.doPropStealth();
-                    updateTraitsPanel();
-                }
-            }
-
-            if (e.KeyCode == Keys.A && showMoveKeys)
-            {
-                if (gv.mod.hideInterfaceNextMove)
-                {
-                    foreach (IB2Panel pnl in mainUiLayout.panelList)
-                    {
-                        if (pnl.tag != "arrowPanel")
-                        {
-
-                            //hides up
-                            if (pnl.hidingYIncrement < 0)
-                            {
-                                if (pnl.currentLocY < pnl.shownLocY)
-                                {
-                                    pnl.showing = true;
-                                }
-                                else
-                                {
-                                    //pnl.hiding = true;
-                                }
-                            }
-                        }
-                    }
-                }
-                if (!gv.mod.showPartyToken)
-                {
-                    bool leaderFound = false;
-                    while (!leaderFound)
-                    {
-                        gv.mod.selectedPartyLeader--;
-                        if (gv.mod.selectedPartyLeader < 0)
-                        {
-                            gv.mod.selectedPartyLeader = gv.mod.playerList.Count - 1; ;
-                        }
-                        if (gv.mod.playerList[gv.mod.selectedPartyLeader].hp >= 0)
-                        {
-                            leaderFound = true;
-                        }
-                    }
-                    //addFloatyText(gv.mod.PlayerLocationX, gv.mod.PlayerLocationY, gv.mod.playerList[gv.mod.selectedPartyLeader].name, "green", 700);
-                    gv.mod.permanentPartyText = gv.mod.playerList[gv.mod.selectedPartyLeader].name + " (" + gv.mod.playerList[gv.mod.selectedPartyLeader].sp + " SP)";
-                    gv.cc.doPropStealth();
-                    updateTraitsPanel();
-                }
-            }
-
-
-            if (e.KeyCode == Keys.R)
-            {
-                //scroll log up
-                //do same for combat screen
-                //wheel 
-                //int numberOfTextLinesToMove = e.Delta * SystemInformation.MouseWheelScrollLines / 120;
-                int numberOfTextLinesToMove = 1;
-                gv.mod.logFadeCounter = 120;
-                gv.mod.logOpacity = 1f;
-
-                if (numberOfTextLinesToMove != 0)
-                {
-                    gv.log.SetCurrentTopLineIndex(-numberOfTextLinesToMove);
-                    //gv.Invalidate();
-                    //bloodbus
-                    //gv.Render(0);
-                }
-            }
-
-            if (e.KeyCode == Keys.Up && !showMoveKeys)
-            {
-                //scroll log up
-                //do same for combat screen
-                //wheel
-                //int numberOfTextLinesToMove = e.Delta * SystemInformation.MouseWheelScrollLines / 120;
-                int numberOfTextLinesToMove = 1;
-                gv.mod.logFadeCounter = 120;
-                gv.mod.logOpacity = 1f;
-
-                if (numberOfTextLinesToMove != 0)
-                {
-                    gv.log.SetCurrentTopLineIndex(-numberOfTextLinesToMove);
-                    //gv.Invalidate();
-                    //bloodbus
-                    //gv.Render(0);
-                }
-            }
-
-            if (e.KeyCode == Keys.Space)
-            {
-                if (!gv.mod.currentArea.isOverviewMap)
-                {
-                    gv.mod.breakActiveSearch = false;
-                    gv.mod.partyIsSearching = true;
-
-                    //active search
-                    if (!gv.mod.breakActiveSearch)
-                    {
-                        gv.cc.doUpdate();
-                    }
-                    if (!gv.mod.breakActiveSearch)
-                    {
-                        gv.cc.doUpdate();
-                    }
-                    if (!gv.mod.breakActiveSearch)
-                    {
-                        gv.cc.doUpdate();
-                    }
-                    if (!gv.mod.breakActiveSearch)
-                    {
-                        gv.cc.doUpdate();
-                    }
-                    if (!gv.mod.breakActiveSearch)
-                    {
-                        gv.cc.doUpdate();
-                    }
-                    if (!gv.mod.breakActiveSearch)
-                    {
-                        gv.cc.doUpdate();
-                    }
-                    if (!gv.mod.breakActiveSearch)
-                    {
-                        gv.cc.doUpdate();
-                    }
-                    if (!gv.mod.breakActiveSearch)
-                    {
-                        gv.cc.doUpdate();
-                    }
-                    if (!gv.mod.breakActiveSearch)
-                    {
-                        gv.cc.doUpdate();
-                    }
-                    if (!gv.mod.breakActiveSearch)
-                    {
-                        bool costPaid = false;
-                        if (gv.mod.activeSearchSPCostPaidByByLeaderOnly)
-                        {
-                            if (gv.mod.playerList[gv.mod.selectedPartyLeader].sp >= gv.mod.activeSearchSPCost)
-                            {
-                                gv.mod.playerList[gv.mod.selectedPartyLeader].sp -= gv.mod.activeSearchSPCost;
-                                costPaid = true;
-                            }
-                        }
-                        else
-                        {
-                            costPaid = true;
-
-                            foreach (Player p in gv.mod.playerList)
-                            {
-                                if (p.sp < gv.mod.activeSearchSPCost)
-                                {
-                                    costPaid = false;
-                                    break;
-                                }
-                            }
-
-                            if (costPaid)
-                            {
-                                foreach (Player p in gv.mod.playerList)
-                                {
-                                    p.sp -= gv.mod.activeSearchSPCost;
-                                }
-                            }
-                        }
-                        if (costPaid)
-                        {
-                            gv.mod.activeSearchDoneThisMove = true;
-                            gv.cc.doUpdate();
-                            gv.mod.activeSearchDoneThisMove = false;
-
-                            //interactive props that react to search (secret doors, traps, hidden info, hidden treasure)
-                            //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXx
-                            //get diagonal neighbours
-                            string NeighbourNE = "";
-                            string NeighbourNW = "";
-                            string NeighbourSE = "";
-                            string NeighbourSW = "";
-                            foreach (Area a in gv.mod.moduleAreasObjects)
-                            {
-                                if (a.Filename == gv.mod.currentArea.northernNeighbourArea)
-                                {
-                                    if (a.easternNeighbourArea != "none" && a.easternNeighbourArea != "" && a.easternNeighbourArea != "None")
-                                    {
-                                        NeighbourNE = a.easternNeighbourArea;
-                                    }
-
-                                    if (a.westernNeighbourArea != "none" && a.westernNeighbourArea != "" && a.westernNeighbourArea != "None")
-                                    {
-                                        NeighbourNW = a.westernNeighbourArea;
-                                    }
-                                }
-
-                                if (a.Filename == gv.mod.currentArea.easternNeighbourArea)
-                                {
-                                    if (a.northernNeighbourArea != "none" && a.northernNeighbourArea != "" && a.northernNeighbourArea != "None")
-                                    {
-                                        NeighbourNE = a.northernNeighbourArea;
-                                    }
-
-                                    if (a.southernNeighbourArea != "none" && a.southernNeighbourArea != "" && a.southernNeighbourArea != "None")
-                                    {
-                                        NeighbourSE = a.southernNeighbourArea;
-                                    }
-                                }
-
-                                if (a.Filename == gv.mod.currentArea.southernNeighbourArea)
-                                {
-                                    if (a.easternNeighbourArea != "none" && a.easternNeighbourArea != "" && a.easternNeighbourArea != "None")
-                                    {
-                                        NeighbourSE = a.easternNeighbourArea;
-                                    }
-
-                                    if (a.westernNeighbourArea != "none" && a.westernNeighbourArea != "" && a.westernNeighbourArea != "None")
-                                    {
-                                        NeighbourSW = a.westernNeighbourArea;
-                                    }
-                                }
-
-                                if (a.Filename == gv.mod.currentArea.westernNeighbourArea)
-                                {
-                                    if (a.northernNeighbourArea != "none" && a.northernNeighbourArea != "" && a.northernNeighbourArea != "None")
-                                    {
-                                        NeighbourNW = a.northernNeighbourArea;
-                                    }
-
-                                    if (a.southernNeighbourArea != "none" && a.southernNeighbourArea != "" && a.southernNeighbourArea != "None")
-                                    {
-                                        NeighbourSW = a.southernNeighbourArea;
-                                    }
-                                }
-                            }
-
-                            bool noPropHere = true;
-                            foreach (Area a in gv.mod.moduleAreasObjects)
-                            {
-                                if (a.Filename == gv.mod.currentArea.Filename || a.Filename == gv.mod.currentArea.easternNeighbourArea || a.Filename == gv.mod.currentArea.westernNeighbourArea || a.Filename == gv.mod.currentArea.northernNeighbourArea || a.Filename == gv.mod.currentArea.southernNeighbourArea || a.Filename == NeighbourNE || a.Filename == NeighbourNW || a.Filename == NeighbourSE || a.Filename == NeighbourSW)
-                                {
-                                    foreach (Prop p in a.Props)
-                                    {
-                                        //add all the other types here
-                                        if (p.isSecretDoor || p.isTrapMain || p.isHiddenInfo)
-                                        {
-                                            //skill roll script
-                                            //visible state
-                                            string traitMethod = "leader";
-                                            foreach (Trait t in gv.mod.moduleTraitsList)
-                                            {
-                                                if (t.tag.Contains(p.secretDoorTraitTag))
-                                                {
-                                                    traitMethod = t.methodOfChecking;
-                                                }
-
-                                                if (t.tag.Contains(p.trapTraitTag))
-                                                 {
-                                                    traitMethod = t.methodOfChecking;
-                                                }
-
-                                                if (t.tag.Contains(p.infoTraitTag))
-                                                {
-                                                    traitMethod = t.methodOfChecking;
-                                                }
-                                            }
-                                            int parm1 = gv.mod.selectedPartyLeader;
-                                            if (traitMethod.Equals("-1") || traitMethod.Equals("leader") || traitMethod.Equals("Leader"))
-                                            {
-                                                parm1 = gv.mod.selectedPartyLeader;
-                                            }
-                                            else if (traitMethod.Equals("-2") || traitMethod.Equals("highest") || traitMethod.Equals("Highest"))
-                                            {
-                                                parm1 = -2;
-                                            }
-                                            else if (traitMethod.Equals("-3") || traitMethod.Equals("lowest") || traitMethod.Equals("Lowest"))
-                                            {
-                                                parm1 = -3;
-                                            }
-                                            else if (traitMethod.Equals("-4") || traitMethod.Equals("average") || traitMethod.Equals("Average"))
-                                            {
-                                                parm1 = -4;
-                                            }
-                                            else if (traitMethod.Equals("-5") || traitMethod.Equals("allMustSucceed") || traitMethod.Equals("AllMustSucceed"))
-                                            {
-                                                parm1 = -5;
-                                            }
-                                            else if (traitMethod.Equals("-6") || traitMethod.Equals("oneMustSucceed") || traitMethod.Equals("OneMustSucceed"))
-                                            {
-                                                parm1 = -6;
-                                            }
-
-                                            int darkAdder = 0;
-                                            Coordinate pcCoord = new Coordinate();
-                                            Coordinate propCoord = new Coordinate();
-                                            pcCoord.X = gv.mod.PlayerLocationX;
-                                            pcCoord.Y = gv.mod.PlayerLocationY;
-                                            if (a.Filename == gv.mod.currentArea.Filename)
-                                            {
-                                                propCoord.X = p.LocationX;
-                                                propCoord.Y = p.LocationY;
-                                                if (gv.sf.CheckPropByTagIsInDarknessPerArea(p.PropTag, "night", gv.mod.currentArea.Filename))
-                                                {
-                                                    darkAdder = 4;
-                                                }
-                                                if (gv.sf.CheckPropByTagIsInDarknessPerArea(p.PropTag, "noLight", a.Filename))
-                                                {
-                                                    darkAdder = 12;
-                                                }
-                                            }
-
-                                            if (a.Filename == gv.mod.currentArea.northernNeighbourArea)
-                                            {
-                                                propCoord.X = p.LocationX;
-                                                propCoord.Y = p.LocationY - a.MapSizeY;
-                                                if (gv.sf.CheckPropByTagIsInDarknessPerArea(p.PropTag, "night", a.Filename))
-                                                {
-                                                    darkAdder = 4;
-                                                }
-                                                if (gv.sf.CheckPropByTagIsInDarknessPerArea(p.PropTag, "noLight", a.Filename))
-                                                {
-                                                    darkAdder = 12;
-                                                }
-                                            }
-
-                                            if (a.Filename == NeighbourNE)
-                                            {
-                                                propCoord.X = gv.mod.currentArea.MapSizeX + p.LocationX;
-                                                propCoord.Y = p.LocationY - a.MapSizeY;
-                                                if (gv.sf.CheckPropByTagIsInDarknessPerArea(p.PropTag, "night", a.Filename))
-                                                {
-                                                    darkAdder = 4;
-                                                }
-                                                if (gv.sf.CheckPropByTagIsInDarknessPerArea(p.PropTag, "noLight", a.Filename))
-                                                {
-                                                    darkAdder = 12;
-                                                }
-                                            }
-
-                                            if (a.Filename == gv.mod.currentArea.easternNeighbourArea)
-                                            {
-                                                propCoord.X = gv.mod.currentArea.MapSizeX + p.LocationX;
-                                                propCoord.Y = p.LocationY;
-                                                if (gv.sf.CheckPropByTagIsInDarknessPerArea(p.PropTag, "night", a.Filename))
-                                                {
-                                                    darkAdder = 4;
-                                                }
-                                                if (gv.sf.CheckPropByTagIsInDarknessPerArea(p.PropTag, "noLight", a.Filename))
-                                                {
-                                                    darkAdder = 12;
-                                                }
-                                            }
-
-                                            if (a.Filename == NeighbourSE)
-                                            {
-                                                propCoord.X = gv.mod.currentArea.MapSizeX + p.LocationX;
-                                                propCoord.Y = gv.mod.currentArea.MapSizeY + p.LocationY;
-                                                if (gv.sf.CheckPropByTagIsInDarknessPerArea(p.PropTag, "night", a.Filename))
-                                                {
-                                                    darkAdder = 4;
-                                                }
-                                                if (gv.sf.CheckPropByTagIsInDarknessPerArea(p.PropTag, "noLight", a.Filename))
-                                                {
-                                                    darkAdder = 12;
-                                                }
-                                            }
-
-                                            if (a.Filename == gv.mod.currentArea.southernNeighbourArea)
-                                            {
-                                                propCoord.X = p.LocationX;
-                                                propCoord.Y = gv.mod.currentArea.MapSizeY + p.LocationY;
-                                                if (gv.sf.CheckPropByTagIsInDarknessPerArea(p.PropTag, "night", a.Filename))
-                                                {
-                                                    darkAdder = 4;
-                                                }
-                                                if (gv.sf.CheckPropByTagIsInDarknessPerArea(p.PropTag, "noLight", a.Filename))
-                                                {
-                                                    darkAdder = 12;
-                                                }
-                                            }
-
-                                            if (a.Filename == NeighbourSW)
-                                            {
-                                                propCoord.X = p.LocationX - a.MapSizeX;
-                                                propCoord.Y = gv.mod.currentArea.MapSizeY + p.LocationY;
-                                                if (gv.sf.CheckPropByTagIsInDarknessPerArea(p.PropTag, "night", a.Filename))
-                                                {
-                                                    darkAdder = 4;
-                                                }
-                                                if (gv.sf.CheckPropByTagIsInDarknessPerArea(p.PropTag, "noLight", a.Filename))
-                                                {
-                                                    darkAdder = 12;
-                                                }
-                                            }
-
-                                            if (a.Filename == gv.mod.currentArea.westernNeighbourArea)
-                                            {
-                                                propCoord.X = p.LocationX - a.MapSizeX; ;
-                                                propCoord.Y = p.LocationY;
-                                                if (gv.sf.CheckPropByTagIsInDarknessPerArea(p.PropTag, "night", a.Filename))
-                                                {
-                                                    darkAdder = 4;
-                                                }
-                                                if (gv.sf.CheckPropByTagIsInDarknessPerArea(p.PropTag, "noLight", a.Filename))
-                                                {
-                                                    darkAdder = 12;
-                                                }
-                                            }
-
-                                            if (a.Filename == NeighbourNW)
-                                            {
-                                                propCoord.X = p.LocationX - a.MapSizeX;
-                                                propCoord.Y = p.LocationY - a.MapSizeY; ;
-                                                if (gv.sf.CheckPropByTagIsInDarknessPerArea(p.PropTag, "night", a.Filename))
-                                                {
-                                                    darkAdder = 4;
-                                                }
-                                                if (gv.sf.CheckPropByTagIsInDarknessPerArea(p.PropTag, "noLight", a.Filename))
-                                                {
-                                                    darkAdder = 12;
-                                                }
-                                            }
-
-                                            int x3 = p.LocationX;
-                                            int y3 = p.LocationY;
-
-                                            //1) within distance and 2) not on border and 3) active
-                                            if ((gv.cc.getDistance(pcCoord, propCoord) <= 1) && (x3 < a.MapSizeX - 1 && x3 > 0 && y3 < a.MapSizeY - 1 && y3 > 0) && p.isActive)
-                                            {
-
-                                                //get trait name
-                                                string traitName = "none";
-                                                foreach (Trait t in gv.mod.moduleTraitsList)
-                                                {
-                                                    if (t.tag.Contains(p.secretDoorTraitTag))
-                                                    {
-                                                        traitName = t.nameOfTraitGroup;
-                                                    }
-
-                                                    if (t.tag.Contains(p.trapTraitTag))
-                                                    {
-                                                        traitName = t.nameOfTraitGroup;
-                                                    }
-
-                                                    if (t.tag.Contains(p.infoTraitTag))
-                                                    {
-                                                        traitName = t.nameOfTraitGroup;
-                                                    }
-                                                }
-
-                                                noPropHere = false;
-                                                
-                                                //secret door section
-                                                if (p.isSecretDoor)
-                                                {
-
-                                                    if (gv.sf.CheckPassSkill(parm1, p.secretDoorTraitTag, p.secretDoorDC + darkAdder, true, true))
-                                                    {
-                                                        //EW direction of secret door 
-                                                        if (gv.mod.currentArea.Tiles[p.LocationY * gv.mod.currentArea.MapSizeX + p.LocationX].heightLevel == gv.mod.currentArea.Tiles[(p.LocationY + 1) * gv.mod.currentArea.MapSizeX + p.LocationX].heightLevel)
-                                                        {
-                                                            if (a.Tiles[y3 * a.MapSizeX + x3].isNSBridge == false)
-                                                            {
-                                                                a.Tiles[y3 * a.MapSizeX + x3].isNSBridge = true;
-                                                            }
-                                                            else
-                                                            {
-                                                                a.Tiles[y3 * a.MapSizeX + x3].isNSBridge = false;
-                                                            }
-                                                        }
-                                                        //NS direction of secret door
-                                                        else if (gv.mod.currentArea.Tiles[p.LocationY * gv.mod.currentArea.MapSizeX + p.LocationX].heightLevel == gv.mod.currentArea.Tiles[p.LocationY * gv.mod.currentArea.MapSizeX + p.LocationX + 1].heightLevel)
-                                                        {
-                                                            if (a.Tiles[y3 * a.MapSizeX + x3].isEWBridge == false)
-                                                            {
-                                                                a.Tiles[y3 * a.MapSizeX + x3].isEWBridge = true;
-                                                            }
-                                                            else
-                                                            {
-                                                                a.Tiles[y3 * a.MapSizeX + x3].isEWBridge = false;
-                                                            }
-                                                        }
-
-                                                        gv.sf.calculateHeightShadows(x3, y3);
-
-                                                        //center
-
-                                                        //NS direction of secret door
-                                                        if (gv.mod.currentArea.Tiles[p.LocationY * gv.mod.currentArea.MapSizeX + p.LocationX].heightLevel == gv.mod.currentArea.Tiles[p.LocationY * gv.mod.currentArea.MapSizeX + p.LocationX + 1].heightLevel)
-                                                        {
-
-                                                            bool centerIn = false;
-                                                            for (int i = 0; i < a.newEWBridgeState.Count; i++)
-                                                            {
-                                                                if (x3 == a.changedEWBridgeTilesCoordX[i] && y3 == a.changedEWBridgeTilesCoordY[i])
-                                                                {
-                                                                    centerIn = true;
-                                                                    a.newEWBridgeState[i] = a.Tiles[y3 * a.MapSizeX + x3].isEWBridge;
-                                                                }
-                                                            }
-
-                                                            if (!centerIn)
-                                                            {
-                                                                a.newEWBridgeState.Add(gv.mod.currentArea.Tiles[y3 * a.MapSizeX + x3].isEWBridge);
-                                                                a.changedEWBridgeTilesCoordX.Add(x3);
-                                                                a.changedEWBridgeTilesCoordY.Add(y3);
-
-                                                            }
-                                                        }
-
-                                                        //EW direction of secret door
-                                                        if (gv.mod.currentArea.Tiles[p.LocationY * gv.mod.currentArea.MapSizeX + p.LocationX].heightLevel == gv.mod.currentArea.Tiles[(p.LocationY + 1) * gv.mod.currentArea.MapSizeX + p.LocationX].heightLevel)
-                                                        {
-                                                            bool centerIn = false;
-                                                            for (int i = 0; i < a.newNSBridgeState.Count; i++)
-                                                            {
-                                                                if (x3 == a.changedNSBridgeTilesCoordX[i] && y3 == a.changedNSBridgeTilesCoordY[i])
-                                                                {
-                                                                    centerIn = true;
-                                                                    a.newNSBridgeState[i] = a.Tiles[y3 * a.MapSizeX + x3].isNSBridge;
-                                                                }
-                                                            }
-
-                                                            if (!centerIn)
-                                                            {
-                                                                a.newNSBridgeState.Add(a.Tiles[y3 * a.MapSizeX + x3].isNSBridge);
-                                                                a.changedNSBridgeTilesCoordX.Add(x3);
-                                                                a.changedNSBridgeTilesCoordY.Add(y3);
-
-                                                            }
-                                                        }
-                                                        //secret door has been opened, normal tile now
-                                                        p.isSecretDoor = false;
-
-                                                        //disable any shown message connected
-                                                        p.MouseOverText = "none";
-
-                                                        //skill roll success message (A)
-                                                        gv.screenMainMap.addFloatyText(x3, y3, "Success: " + traitName + " level " + (p.secretDoorDC+darkAdder-10).ToString() + " matched", "green", 2000);
-                                                        gv.cc.addLogText("green", "Success: " + traitName + " level " + (p.secretDoorDC+darkAdder-10).ToString() + " matched, " + gv.mod.playerList[gv.mod.selectedPartyLeader].name + " loses " + gv.mod.activeSearchSPCost + " SP");
-                                                    }//skill check
-
-                                                    //skill roll failed message (B)
-                                                    else
-                                                    {
-                                                        if (darkAdder == 4)
-                                                        {
-                                                            gv.screenMainMap.addFloatyText(x3, y3, "Failure: " + traitName + " level " + (p.secretDoorDC + darkAdder - 10).ToString() + " required (+4 for poor visibility)", "red", 2000);
-                                                            gv.cc.addLogText("red", "Failure: " + traitName + " level " + (p.secretDoorDC + darkAdder - 10).ToString() + " required (+4 for poor visibility), " + gv.mod.playerList[gv.mod.selectedPartyLeader].name + " loses " + gv.mod.activeSearchSPCost + " SP");
-                                                        }
-                                                        else if (darkAdder == 12)
-                                                        {
-                                                            gv.screenMainMap.addFloatyText(x3, y3, "Failure: " + traitName + " level " + (p.secretDoorDC + darkAdder - 10).ToString() + " required (+12 for poor visibility)", "red", 2000);
-                                                            gv.cc.addLogText("red", "Failure: " + traitName + " level " + (p.secretDoorDC + darkAdder - 10).ToString() + " required (+12 for poor visibility), " + gv.mod.playerList[gv.mod.selectedPartyLeader].name + " loses " + gv.mod.activeSearchSPCost + " SP");
-
-                                                        }
-                                                        else
-                                                        {
-                                                            gv.screenMainMap.addFloatyText(x3, y3, "Failure: " + traitName + " level " + (p.secretDoorDC + darkAdder - 10).ToString() + " required", "red", 2000);
-                                                            gv.cc.addLogText("red", "Failure: " + traitName + " level " + (p.secretDoorDC + darkAdder - 10).ToString() + " required, " + gv.mod.playerList[gv.mod.selectedPartyLeader].name + " loses " + gv.mod.activeSearchSPCost + " SP");
-
-                                                        }
-                                                        //gv.screenMainMap.addFloatyText(x3, y3, "Failure: " + traitName + " level " + (p.secretDoorDC+darkAdder-10).ToString() + " required", "red", 2000);
-                                                        //gv.cc.addLogText("red", "Failure: " + traitName + " level " + (p.secretDoorDC+darkAdder-10).ToString() + " required, " + gv.mod.playerList[gv.mod.selectedPartyLeader].name + " loses " + gv.mod.activeSearchSPCost + " SP");
-                                                    }
-
-                                                }//secret door subsection end
-                                                 
-                                                //trap subsection start
-                                                if (p.isTrapMain)
-                                                {
-
-                                                    if (gv.sf.CheckPassSkill(parm1, p.trapTraitTag, p.trapDC + darkAdder, true, true))
-                                                    {
-                                                        
-                                                        //trap has been disarmed, normal tile now
-                                                        //p.isTrapMain = false;
-                                                        p.isShown = false;
-                                                        p.isActive = false;
-
-                                                        //skill roll success message (A)
-                                                        gv.screenMainMap.addFloatyText(x3, y3, "Success: "+ traitName + " level " + (p.trapDC+darkAdder-10).ToString() + " matched", "green", 2000);
-                                                        gv.cc.addLogText("green", "Success: " + traitName + " level " + (p.trapDC+darkAdder-10).ToString() + " matched, " + gv.mod.playerList[gv.mod.selectedPartyLeader].name + " loses " + gv.mod.activeSearchSPCost + " SP");
-                                                    }//skill check
-
-                                                    //skill roll failed message (B)
-                                                    else
-                                                    {
-                                                        if (darkAdder == 4)
-                                                        {
-                                                            gv.screenMainMap.addFloatyText(x3, y3, "Failure: " + traitName + " level " + (p.trapDC + darkAdder - 10).ToString() + " required (+4 for poor visibility)", "red", 2000);
-                                                            gv.cc.addLogText("red", "Failure: " + traitName + " level " + (p.trapDC + darkAdder - 10).ToString() + " required (+4 for poor visibility), " + gv.mod.playerList[gv.mod.selectedPartyLeader].name + " loses " + gv.mod.activeSearchSPCost + " SP");
-                                                        }
-                                                        else if (darkAdder == 12)
-                                                        {
-                                                            gv.screenMainMap.addFloatyText(x3, y3, "Failure: " + traitName + " level " + (p.trapDC + darkAdder - 10).ToString() + " required (+12 for poor visibility)", "red", 2000);
-                                                            gv.cc.addLogText("red", "Failure: " + traitName + " level " + (p.trapDC + darkAdder - 10).ToString() + " required (+12 for poor visibility), " + gv.mod.playerList[gv.mod.selectedPartyLeader].name + " loses " + gv.mod.activeSearchSPCost + " SP");
-
-                                                        }
-                                                        else
-                                                        {
-                                                            gv.screenMainMap.addFloatyText(x3, y3, "Failure: " + traitName + " level " + (p.trapDC + darkAdder - 10).ToString() + " required", "red", 2000);
-                                                            gv.cc.addLogText("red", "Failure: " + traitName + " level " + (p.trapDC + darkAdder - 10).ToString() + " required, " + gv.mod.playerList[gv.mod.selectedPartyLeader].name + " loses " + gv.mod.activeSearchSPCost + " SP");
-
-                                                        }
-                                                        //gv.screenMainMap.addFloatyText(x3, y3, "Failure: " + traitName + " level " + (p.trapDC+darkAdder-10).ToString() + " required", "red", 2000);
-                                                        //gv.cc.addLogText("red", "Failure: " + traitName + " level " + (p.trapDC+darkAdder-10).ToString() + " required, " + gv.mod.playerList[gv.mod.selectedPartyLeader].name + " loses " + gv.mod.activeSearchSPCost + " SP");
-                                                    }
-
-                                                }//trap subsection end
-
-                                                //hidden info
-                                                if (p.isHiddenInfo)
-                                                {
-                                                    if (gv.sf.CheckPassSkill(parm1, p.infoTraitTag, p.infoDC + darkAdder, true, true))
-                                                    {
-                                                        //display the info
-                                                        if (p.floatyAndLogText != "none")
-                                                        {
-                                                            gv.screenMainMap.addFloatyText(x3, y3, p.floatyAndLogText, "green", 2000);
-                                                            gv.cc.addLogText("lime", p.floatyAndLogText);
-                                                             gv.cc.addLogText("white", "Success: " + traitName + " level " + (p.infoDC + darkAdder - 10).ToString() + " matched, " + gv.mod.playerList[gv.mod.selectedPartyLeader].name + " loses " + gv.mod.activeSearchSPCost + " SP.");
-                                                        }
-
-                                                        if (p.boxText != "none")
-                                                        {
-                                                            gv.sf.MessageBox(p.boxText);
-                                                            gv.cc.addLogText("white", "Success: " + traitName + " level " + (p.infoDC + darkAdder - 10).ToString() + " matched, " + gv.mod.playerList[gv.mod.selectedPartyLeader].name + " loses " + gv.mod.activeSearchSPCost + " SP.");
-
-                                                        }
-
-                                                        if (p.conversationName != "none")
-                                                        {
-                                                            gv.mod.breakActiveSearch = true;
-                                                            gv.cc.calledConvoFromProp = true;
-                                                            gv.sf.ThisProp = p;
-                                                            gv.cc.doConversationBasedOnTag(p.conversationName);
-                                                            gv.cc.addLogText("white", "Success: " + traitName + " level " + (p.infoDC + darkAdder - 10).ToString() + " matched, " + gv.mod.playerList[gv.mod.selectedPartyLeader].name + " loses " + gv.mod.activeSearchSPCost + " SP.");
-
-                                                        }
-
-                                                        //set global
-                                                        if (p.globalStringKey != "none")
-                                                        {
-                                                            gv.sf.SetGlobalString(p.globalStringKey, p.globalStringValue);
-                                                        }
-
-                                                        //disable if show only once
-                                                        if (p.showOnlyOnce)
-                                                        {
-                                                            //note: the prop graphic itself shall remian visible
-                                                            p.isActive = false;
-                                                        }
-                                                    }
-                                                    else
-                                                    {
-                                                        if (darkAdder == 4)
-                                                        {
-                                                            gv.screenMainMap.addFloatyText(x3, y3, "Failure: " + traitName + " level " + (p.infoDC + darkAdder - 10).ToString() + " required (+4 for poor visibility)", "red", 2000);
-                                                            gv.cc.addLogText("red", "Failure: " + traitName + " level " + (p.infoDC + darkAdder - 10).ToString() + " required (+4 for poor visibility), " + gv.mod.playerList[gv.mod.selectedPartyLeader].name + " loses " + gv.mod.activeSearchSPCost + " SP");
-                                                        }
-                                                        else if (darkAdder == 12)
-                                                        {
-                                                            gv.screenMainMap.addFloatyText(x3, y3, "Failure: " + traitName + " level " + (p.infoDC + darkAdder - 10).ToString() + " required (+12 for poor visibility)", "red", 2000);
-                                                            gv.cc.addLogText("red", "Failure: " + traitName + " level " + (p.infoDC + darkAdder - 10).ToString() + " required (+12 for poor visibility), " + gv.mod.playerList[gv.mod.selectedPartyLeader].name + " loses " + gv.mod.activeSearchSPCost + " SP");
-
-                                                        }
-                                                        else
-                                                        {
-                                                            gv.screenMainMap.addFloatyText(x3, y3, "Failure: " + traitName + " level " + (p.infoDC + darkAdder - 10).ToString() + " required", "red", 2000);
-                                                            gv.cc.addLogText("red", "Failure: " + traitName + " level " + (p.infoDC + darkAdder - 10).ToString() + " required, " + gv.mod.playerList[gv.mod.selectedPartyLeader].name + " loses " + gv.mod.activeSearchSPCost + " SP");
-
-                                                        }
-                                                        //gv.screenMainMap.addFloatyText(x3, y3,"Failure: " + traitName + " level " + (p.infoDC+darkAdder-10).ToString() + " required ", "red", 2000);
-                                                        //gv.cc.addLogText("red", "Failure: " + traitName + " level " + (p.infoDC + darkAdder -10).ToString() + " required, " + gv.mod.playerList[gv.mod.selectedPartyLeader].name + " loses " + gv.mod.activeSearchSPCost + " SP");
-                                                    }
-                                                }//hidden info subsection end
-
-                                            }//distance and not on border
-                                        }// all SPACE props end
-                                    }//loop for all props in area
-                                }//check for this or neighbouring areas
-                            }//loop for all areas
-
-                            //no qualified prop nearby message (C) 
-                            if (noPropHere)
-                            {
-                                if (gv.mod.activeSearchSPCostPaidByByLeaderOnly)
-                                {
-                                    addFloatyText(gv.mod.PlayerLocationX, gv.mod.PlayerLocationY, "Searching...", "white", 1500);
-                                    gv.cc.addLogText("white", "Searching... time passes and " + gv.mod.playerList[gv.mod.selectedPartyLeader].name + " loses " + gv.mod.activeSearchSPCost + " SP");
-                                }
-                                else
-                                {
-                                    addFloatyText(gv.mod.PlayerLocationX, gv.mod.PlayerLocationY, "Searching...", "white", 1500);
-                                    gv.cc.addLogText("white", "Searching... time passes and everybody loses " + gv.mod.activeSearchSPCost + " SP");
-
-                                }
-                            }
-                        }// sp cost could not be paid
-                        else
-                        {
-                            addFloatyText(gv.mod.PlayerLocationX, gv.mod.PlayerLocationY, "Too exhausted to search...", "red", 3000);
-                            gv.cc.addLogText("red", "Too exhausted to search...");
-                        }
-                    }
-
-                    gv.mod.breakActiveSearch = false;
-                    gv.mod.partyIsSearching = false;
-                }
-            }
-
-            if (e.KeyCode == Keys.W && showMoveKeys)
-            {
-                //scroll log up
-                //do same for combat screen
-                //wheel
-                //int numberOfTextLinesToMove = e.Delta * SystemInformation.MouseWheelScrollLines / 120;
-                int numberOfTextLinesToMove = 1;
-                gv.mod.logFadeCounter = 120;
-                gv.mod.logOpacity = 1f;
-
-                if (numberOfTextLinesToMove != 0)
-                {
-                    gv.log.SetCurrentTopLineIndex(-numberOfTextLinesToMove);
-                    //gv.Invalidate();
-                    //bloodbus
-                    //gv.Render(0);
-                }
-            }
-
-            if (e.KeyCode == Keys.G)
-            {
-                string relevantGridTag = "none";
-                foreach (Trigger t in gv.mod.currentArea.Triggers)
-                {
-                    foreach (Coordinate coord in t.TriggerSquaresList)
-                    {
-                        if (coord.X == gv.mod.PlayerLocationX && coord.Y == gv.mod.PlayerLocationY)
-                        {
-                            relevantGridTag = t.TriggerTag;
-                        }
-                    }
-                }
-                
-                if (relevantGridTag != "none")
-                {
-                    bool resetParty = false;
-                    int resetLocX = 0;
-                    int resetLocY = 0;
-                    string resetDrawDirection = "left";
-                    foreach (Prop p in gv.mod.currentArea.Props)
-                    {
-                        if (p.pushableGridTriggerTag == relevantGridTag && p.pushableGridCanBeResetViaHotkey)
-                        {
-                            resetParty = true;
-                            resetLocX = p.partyDefaultPushableGridPositionX;
-                            resetLocY = p.partyDefaultPushableGridPositionY;
-                            resetDrawDirection = p.partyDefaultDrawDirection;
-                            p.LocationX = p.pushableStartPositionX;
-                            p.LocationY = p.pushableStartPositionY;
-                            p.timerTurnsBeforeGridResets = p.turnsBeforeGridResets;
-                        }
-                    }
-
-                    if (resetParty)
-                    {
-                        gv.mod.PlayerLocationX = resetLocX;
-                        gv.mod.PlayerLocationY = resetLocY;
-                        gv.mod.drawPartyDirection = resetDrawDirection;
-                        //messaging
-                        gv.screenMainMap.addFloatyText(gv.mod.PlayerLocationX, gv.mod.PlayerLocationY, "A sense of déjà-vu overcomes the party...", "green", 3000);
-                        gv.cc.addLogText("lime", "A sense of déjà-vu overcomes the party...");
-                    }
-                }
-            }
-
-            if (e.KeyCode == Keys.F || e.KeyCode == Keys.NumPad0 || e.KeyCode == Keys.Insert)
-            {
-                //krah krah
-                //gv.mod.interfaceFadeCounter = 20;
-                //gv.mod.interfaceCounterHalted = true;
-                gv.mod.hideInterfaceNextMove = true;
-                if (!hideClock)
-                {
-                    //hideClock = true;
-                }
-                else
-                {
-                    hideClock = false;
-                }
-                foreach (IB2Panel pnl in mainUiLayout.panelList)
-                {
-                    if (pnl.tag != "arrowPanel")
-                    {
-                        //hides right
-                        if (pnl.hidingXIncrement > 0)
-                        {
-                            if (pnl.currentLocX > pnl.shownLocX)
-                            {
-                                pnl.showing = true;
-                            }
-                            else
-                            {
-                                //pnl.hiding = true;
-                            }
-                        }
-                        //hides down
-                        else if (pnl.hidingYIncrement > 0)
-                        {
-                            if (pnl.currentLocY > pnl.shownLocY)
-                            {
-                                if ((pnl.tag.Equals("arrowPanel")) && (!showArrows)) //don't show arrows
-                                {
-                                    continue;
-                                }
-                                pnl.showing = true;
-                            }
-                            else
-                            {
-                                //pnl.hiding = true;
-                            }
-                        }
-                        //hides up
-                        else if (pnl.hidingYIncrement < 0)
-                        {
-                            if (pnl.currentLocY < pnl.shownLocY)
-                            {
-                                pnl.showing = true;
-                            }
-                            else
-                            {
-                                //pnl.hiding = true;
-                            }
-                        }
-                    }
-                }
-            }
-
-            if (e.KeyCode == Keys.V)
-            {
-                //scroll log down
-                int numberOfTextLinesToMove = 1;
-                gv.mod.logFadeCounter = 120;
-                gv.mod.logOpacity = 1f;
-
-                if (numberOfTextLinesToMove != 0)
-                {
-                    gv.log.SetCurrentTopLineIndex(+numberOfTextLinesToMove);
-                    //gv.Invalidate();
-                    //bloodbus
-                    //gv.Render(0);
-                }
-            }
-
-
-            if (e.KeyCode == Keys.Down && !showMoveKeys)
-            {
-                //scroll log down
-                int numberOfTextLinesToMove = 1;
-                gv.mod.logFadeCounter = 120;
-                gv.mod.logOpacity = 1f;
-
-                if (numberOfTextLinesToMove != 0)
-                {
-                    gv.log.SetCurrentTopLineIndex(+numberOfTextLinesToMove);
-                    //gv.Invalidate();
-                    //bloodbus
-                    //gv.Render(0);
-                }
-            }
-
-            if (e.KeyCode == Keys.S && showMoveKeys)
-            {
-                //scroll log down
-                int numberOfTextLinesToMove = 1;
-                gv.mod.logFadeCounter = 120;
-                gv.mod.logOpacity = 1f;
-
-                if (numberOfTextLinesToMove != 0)
-                {
-                    gv.log.SetCurrentTopLineIndex(+numberOfTextLinesToMove);
-                    //gv.Invalidate();
-                    //bloodbus
-                    //gv.Render(0);
-                }
-            }
-
-            if (e.KeyCode == Keys.F5)
-            {
-                if (gv.mod.allowSave)
-                {
-                    gv.cc.QuickSave();
-                    gv.cc.addLogText("lime", "Quicksave Completed");
-                }
-                else
-                {
-                    gv.cc.addLogText("red", "No save allowed at this time.");
-                }
-            }
-            else if (e.KeyCode == Keys.B)
-            //gv.mod.KeyDebug = Keys.B;
-            //if (e.KeyCode == gv.mod.KeyDebug)
-
-            {
-                if (gv.mod.debugMode)
-                {
-                    gv.mod.debugMode = false;
-                    gv.cc.addLogText("lime", "debugMode Turned Off");
-                }
-                else
-                {
-                    gv.mod.debugMode = true;
-                    gv.cc.addLogText("lime", "debugMode Turned On");
-                }
-            }
-            else if (e.KeyCode == Keys.I)
-            {
-                if (!gv.mod.currentArea.isOverviewMap)
-                {
-                    gv.screenType = "inventory";
-                    gv.screenInventory.resetInventory(false);
-                    gv.cc.tutorialMessageInventory(false);
-                }
-            }
-            else if (e.KeyCode == Keys.J)
-            {
-                gv.screenType = "journal";
-            }
-            else if (e.KeyCode == Keys.P)
-            {
-                if (!gv.mod.currentArea.isOverviewMap)
-                {
-                    gv.screenParty.resetPartyScreen();
-                    gv.screenType = "party";
-                    gv.cc.tutorialMessageParty(false);
-                }
-            }
-            else if (e.KeyCode == Keys.C)
-            {
-                if (!gv.mod.currentArea.isOverviewMap)
-                {
-                    List<string> pcNames = new List<string>();
-                    List<int> pcIndex = new List<int>();
-                    pcNames.Add("cancel");
-
-                    int cnt = 0;
-                    foreach (Player p in gv.mod.playerList)
-                    {
-                        if (hasMainMapTypeSpell(p))
-                        {
-                            pcNames.Add(p.name + " (" + p.sp + "/" + p.spMax + " SP)");
-                            pcIndex.Add(cnt);
-                        }
-                        cnt++;
-                    }
-
-                    //If only one PC, do not show select PC dialog...just go to cast selector
-                    if (pcIndex.Count == 1)
-                    {
-                        try
-                        {
-                            gv.screenCastSelector.castingPlayerIndex = pcIndex[0];
-                            gv.screenCombat.spellSelectorIndex = 0;
-                            gv.screenType = "mainMapCast";
-                            return;
-                        }
-                        catch (Exception ex)
-                        {
-                            //print error
-                            IBMessageBox.Show(gv, "error with Pc Selector screen: " + ex.ToString());
-                            gv.errorLog(ex.ToString());
-                            return;
-                        }
-                    }
-
-                    using (ItemListSelector pcSel = new ItemListSelector(gv, pcNames, "Select Caster"))
-                    {
-                        pcSel.ShowDialog();
-
-                        if (pcSel.selectedIndex > 0)
-                        {
-                            try
-                            {
-                                gv.screenCastSelector.castingPlayerIndex = pcIndex[pcSel.selectedIndex - 1]; // pcIndex.get(item - 1);
-                                gv.screenCombat.spellSelectorIndex = 0;
-                                gv.screenType = "mainMapCast";
-                            }
-                            catch (Exception ex)
-                            {
-                                IBMessageBox.Show(gv, "error with Pc Selector screen: " + ex.ToString());
-                                gv.errorLog(ex.ToString());
-                                //print error
-                            }
-                        }
-                        else if (pcSel.selectedIndex == 0) // selected "cancel"
-                        {
-                            //do nothing
-                        }
-                    }
-                }
-            }
-            //wait one turn
-            else if ((e.KeyCode == Keys.Z) || (e.KeyCode == Keys.Y))
-            {
-                gv.cc.doUpdate();
-            }
-            else if (e.KeyCode == Keys.T)
-            {
-                //todo: add this to torch button
-                foreach (ItemRefs ir in gv.mod.partyInventoryRefsList)
-                {
-                    if (ir.isLightSource)
-                    {
-                        foreach (Item it in gv.mod.moduleItemsList)
-                        {
-                            if (it.resref == ir.resref)
-                            {
-                                gv.cc.doIBScriptBasedOnFilename(it.onUseItemIBScript, it.onUseItemIBScriptParms);
-                                break;
-                            }
-
-                        }
-                        break;
-                    }
-                }
-            }
-            //adding lines for trait use via hotkey on main map
-            else if (e.KeyCode == Keys.U)
-            {
-                if (!gv.mod.currentArea.isOverviewMap)
-                {
-                    List<string> pcNames = new List<string>();
-                    List<int> pcIndex = new List<int>();
-                    pcNames.Add("cancel");
-
-                    int cnt = 0;
-                    foreach (Player p in gv.mod.playerList)
-                    {
-                        if (p.knownOutsideCombatUsableTraitsTags.Count > 0)
-                        {
-                            pcNames.Add(p.name + " (" + p.sp + "/" + p.spMax + " SP)");
-                            pcIndex.Add(cnt);
-                        }
-                        cnt++;
-                    }
-
-                    //If only one PC, do not show select PC dialog...just go to cast selector
-                    if (pcIndex.Count == 1)
-                    {
-                        try
-                        {
-                            gv.screenCastSelector.castingPlayerIndex = pcIndex[0];
-                            gv.screenCombat.spellSelectorIndex = 0;
-                            gv.screenType = "mainMapTraitUse";
-                            return;
-                        }
-                        catch (Exception ex)
-                        {
-                            //print error
-                            IBMessageBox.Show(gv, "error with Pc Selector screen: " + ex.ToString());
-                            gv.errorLog(ex.ToString());
-                            return;
-                        }
-                    }
-
-                    using (ItemListSelector pcSel = new ItemListSelector(gv, pcNames, "Select Character"))
-                    {
-                        pcSel.ShowDialog();
-
-                        if (pcSel.selectedIndex > 0)
-                        {
-                            try
-                            {
-                                gv.screenCastSelector.castingPlayerIndex = pcIndex[pcSel.selectedIndex - 1]; // pcIndex.get(item - 1);
-                                gv.screenCombat.spellSelectorIndex = 0;
-                                gv.screenType = "mainMapTraitUse";
-                            }
-                            catch (Exception ex)
-                            {
-                                IBMessageBox.Show(gv, "error with Pc Selector screen: " + ex.ToString());
-                                gv.errorLog(ex.ToString());
-                                //print error
-                            }
-                        }
-                        else if (pcSel.selectedIndex == 0) // selected "cancel"
-                        {
-                            //do nothing
-                        }
-                    }
-                }
-            }
-
-
-            else if (e.KeyCode == Keys.X)
-            {
-
-                if (gv.mod.hideInterfaceNextMove == false)
-                {
-                    if (!hideClock)
-                    {
-                        hideClock = true;
-                    }
-                    else
-                    {
-                        hideClock = false;
-                    }
-                    foreach (IB2Panel pnl in mainUiLayout.panelList)
-                    {
-                        if (pnl.tag != "arrowPanel")
-                        {
-                            /*
-                            //hides left
-                            if (pnl.hidingXIncrement < 0)
-                            {
-                                if (pnl.currentLocX < pnl.shownLocX)
-                                {
-                                    pnl.showing = true;
-                                }
-                                else
-                                {
-                                    pnl.hiding = true;
-                                }
-                            }
-                            */
-                            //hides right
-                            if (pnl.hidingXIncrement > 0)
-                            {
-                                if (pnl.currentLocX > pnl.shownLocX)
-                                {
-                                    pnl.showing = true;
-                                }
-                                else
-                                {
-                                    pnl.hiding = true;
-                                }
-                            }
-                            //hides down
-                            else if (pnl.hidingYIncrement > 0)
-                            {
-                                if (pnl.currentLocY > pnl.shownLocY)
-                                {
-                                    if ((pnl.tag.Equals("arrowPanel")) && (!showArrows)) //don't show arrows
-                                    {
-                                        continue;
-                                    }
-                                    pnl.showing = true;
-                                }
-                                else
-                                {
-                                    pnl.hiding = true;
-                                }
-                            }
-                            //hides up
-                            else if (pnl.hidingYIncrement < 0)
-                            {
-                                if (pnl.currentLocY < pnl.shownLocY || gv.mod.hideInterfaceNextMove)
-                                {
-                                    pnl.showing = true;
-                                }
-                                else
-                                {
-                                    pnl.hiding = true;
-                                }
-                            }
-                        }
-                    }
-                }
-                //coming from dynamic mode
-                else
-                {
-                    if (!hideClock)
-                    {
-                        //hideClock = true;
-                    }
-                    else
-                    {
-                        hideClock = false;
-                    }
-                    foreach (IB2Panel pnl in mainUiLayout.panelList)
-                    {
-                        if (pnl.tag != "arrowPanel")
-                        {
-                            /*
-                            //hides left
-                            if (pnl.hidingXIncrement < 0)
-                            {
-                                if (pnl.currentLocX < pnl.shownLocX)
-                                {
-                                    pnl.showing = true;
-                                }
-                                else
-                                {
-                                    pnl.hiding = true;
-                                }
-                            }
-                            */
-                            //hides right
-                            if (pnl.hidingXIncrement > 0)
-                            {
-                                if (pnl.currentLocX > pnl.shownLocX)
-                                {
-                                    pnl.showing = true;
-                                }
-                                else
-                                {
-                                    //pnl.hiding = true;
-                                }
-                            }
-                            //hides down
-                            else if (pnl.hidingYIncrement > 0)
-                            {
-                                if (pnl.currentLocY > pnl.shownLocY)
-                                {
-                                    if ((pnl.tag.Equals("arrowPanel")) && (!showArrows)) //don't show arrows
-                                    {
-                                        continue;
-                                    }
-                                    pnl.showing = true;
-                                }
-                                else
-                                {
-                                    //pnl.hiding = true;
-                                }
-                            }
-                            //hides up
-                            else if (pnl.hidingYIncrement < 0)
-                            {
-                                if (pnl.currentLocY < pnl.shownLocY || gv.mod.hideInterfaceNextMove)
-                                {
-                                    pnl.showing = true;
-                                }
-                                else
-                                {
-                                    //pnl.hiding = true;
-                                }
-                            }
-                        }
-                    }
-                }
-                gv.mod.hideInterfaceNextMove = false;
-            }
-        }
+      
 
         private bool moveDelay()
         {
@@ -47002,8 +45398,16 @@ namespace IceBlink2
         }
         public void moveLeft(bool affectTimer)
         {
-            gv.mod.PlayerLastLocationX = gv.mod.PlayerLocationX;
-            gv.mod.PlayerLastLocationY = gv.mod.PlayerLocationY;
+            if (gv.mod.PlayerLocationX != gv.mod.PlayerLastLocationX || gv.mod.PlayerLocationY != gv.mod.PlayerLastLocationY)
+            {
+                gv.mod.lastYadjustment = gv.mod.PlayerLocationY - gv.mod.PlayerLastLocationY;
+                gv.mod.lastXadjustment = gv.mod.PlayerLocationX - gv.mod.PlayerLastLocationX;
+            }
+          
+                gv.mod.PlayerLastLocationX = gv.mod.PlayerLocationX;
+                gv.mod.PlayerLastLocationY = gv.mod.PlayerLocationY;
+           
+             
             bool bumpPropExists = false;
             bool bumpTriggerExists = false;
             Trigger bumpTrigger = new Trigger();
@@ -47270,8 +45674,9 @@ namespace IceBlink2
                     gv.mod.drawPartyDirection = "right";
                     gv.cc.doUpdate();
                 }
+                ///else if (gv.mod.currentArea.GetBlocked(gv.mod.PlayerLocationX + 1, gv.mod.PlayerLocationY, gv.mod.PlayerLocationX, gv.mod.PlayerLocationY, gv.mod.PlayerLastLocationX, gv.mod.PlayerLastLocationY) == false || gv.mod.currentArea.isOverviewMap)
 
-                else if (gv.mod.currentArea.GetBlocked(gv.mod.PlayerLocationX - 1, gv.mod.PlayerLocationY, gv.mod.PlayerLocationX, gv.mod.PlayerLocationY, gv.mod.PlayerLastLocationX, gv.mod.PlayerLastLocationY) == false || gv.mod.currentArea.isOverviewMap)
+                else if (gv.mod.currentArea.GetBlocked(gv.mod.PlayerLocationX - 1, gv.mod.PlayerLocationY, gv.mod.PlayerLocationX, gv.mod.PlayerLocationY, gv.mod.PlayerLastLocationX + gv.mod.lastXadjustment, gv.mod.PlayerLastLocationY + gv.mod.lastYadjustment) == false || gv.mod.currentArea.isOverviewMap)
                 {
                     //gv.mod.blockTrigger = false;
                     //gv.mod.blockTriggerMovingProp = false;
@@ -47379,8 +45784,16 @@ namespace IceBlink2
         }
         public void moveRight(bool affectTimer)
         {
+            if (gv.mod.PlayerLocationX != gv.mod.PlayerLastLocationX || gv.mod.PlayerLocationY != gv.mod.PlayerLastLocationY)
+            {
+                gv.mod.lastYadjustment = gv.mod.PlayerLocationY - gv.mod.PlayerLastLocationY;
+                gv.mod.lastXadjustment = gv.mod.PlayerLocationX - gv.mod.PlayerLastLocationX;
+            }
+
             gv.mod.PlayerLastLocationX = gv.mod.PlayerLocationX;
             gv.mod.PlayerLastLocationY = gv.mod.PlayerLocationY;
+            //gv.mod.PlayerLastLocationX = gv.mod.PlayerLocationX;
+            //gv.mod.PlayerLastLocationY = gv.mod.PlayerLocationY;
 
             int mapwidth = gv.mod.currentArea.MapSizeX;
             bool bumpPropExists = false;
@@ -47652,7 +46065,7 @@ namespace IceBlink2
                     gv.cc.doUpdate();
                 }
 
-                else if (gv.mod.currentArea.GetBlocked(gv.mod.PlayerLocationX + 1, gv.mod.PlayerLocationY, gv.mod.PlayerLocationX, gv.mod.PlayerLocationY, gv.mod.PlayerLastLocationX, gv.mod.PlayerLastLocationY) == false || gv.mod.currentArea.isOverviewMap)
+                else if (gv.mod.currentArea.GetBlocked(gv.mod.PlayerLocationX + 1, gv.mod.PlayerLocationY, gv.mod.PlayerLocationX, gv.mod.PlayerLocationY, gv.mod.PlayerLastLocationX + gv.mod.lastXadjustment, gv.mod.PlayerLastLocationY + gv.mod.lastYadjustment) == false || gv.mod.currentArea.isOverviewMap)
                 {
 
                     //gv.mod.blockTrigger = false;
@@ -47763,8 +46176,16 @@ namespace IceBlink2
         public void moveUp(bool affectTimer)
         {
 
+            if (gv.mod.PlayerLocationX != gv.mod.PlayerLastLocationX || gv.mod.PlayerLocationY != gv.mod.PlayerLastLocationY)
+            {
+                gv.mod.lastYadjustment = gv.mod.PlayerLocationY - gv.mod.PlayerLastLocationY;
+                gv.mod.lastXadjustment = gv.mod.PlayerLocationX - gv.mod.PlayerLastLocationX;
+            }
+
             gv.mod.PlayerLastLocationX = gv.mod.PlayerLocationX;
             gv.mod.PlayerLastLocationY = gv.mod.PlayerLocationY;
+            //gv.mod.PlayerLastLocationX = gv.mod.PlayerLocationX;
+            //gv.mod.PlayerLastLocationY = gv.mod.PlayerLocationY;
 
             bool bumpPropExists = false;
             bool bumpTriggerExists = false;
@@ -48037,7 +46458,7 @@ namespace IceBlink2
                     gv.mod.drawPartyDirection = "down";
                     gv.cc.doUpdate();
                 }
-                else if (gv.mod.currentArea.GetBlocked(gv.mod.PlayerLocationX, gv.mod.PlayerLocationY - 1, gv.mod.PlayerLocationX, gv.mod.PlayerLocationY, gv.mod.PlayerLastLocationX, gv.mod.PlayerLastLocationY) == false || gv.mod.currentArea.isOverviewMap)
+                else if (gv.mod.currentArea.GetBlocked(gv.mod.PlayerLocationX, gv.mod.PlayerLocationY - 1, gv.mod.PlayerLocationX, gv.mod.PlayerLocationY, gv.mod.PlayerLastLocationX + gv.mod.lastXadjustment, gv.mod.PlayerLastLocationY + gv.mod.lastYadjustment) == false || gv.mod.currentArea.isOverviewMap)
                 {
 
                     //gv.mod.blockTrigger = false;
@@ -48146,8 +46567,16 @@ namespace IceBlink2
         }
         public void moveDown(bool affectTimer)
         {
+            if (gv.mod.PlayerLocationX != gv.mod.PlayerLastLocationX || gv.mod.PlayerLocationY != gv.mod.PlayerLastLocationY)
+            {
+                gv.mod.lastYadjustment = gv.mod.PlayerLocationY - gv.mod.PlayerLastLocationY;
+                gv.mod.lastXadjustment = gv.mod.PlayerLocationX - gv.mod.PlayerLastLocationX;
+            }
+
             gv.mod.PlayerLastLocationX = gv.mod.PlayerLocationX;
             gv.mod.PlayerLastLocationY = gv.mod.PlayerLocationY;
+            //gv.mod.PlayerLastLocationX = gv.mod.PlayerLocationX;
+            //gv.mod.PlayerLastLocationY = gv.mod.PlayerLocationY;
 
             int mapheight = gv.mod.currentArea.MapSizeY;
             bool bumpPropExists = false;
@@ -48427,7 +46856,7 @@ namespace IceBlink2
                     }
                 }
 
-                else if(gv.mod.currentArea.GetBlocked(gv.mod.PlayerLocationX, gv.mod.PlayerLocationY + 1, gv.mod.PlayerLocationX, gv.mod.PlayerLocationY, gv.mod.PlayerLastLocationX, gv.mod.PlayerLastLocationY) == false || gv.mod.currentArea.isOverviewMap)
+                else if(gv.mod.currentArea.GetBlocked(gv.mod.PlayerLocationX, gv.mod.PlayerLocationY + 1, gv.mod.PlayerLocationX, gv.mod.PlayerLocationY, gv.mod.PlayerLastLocationX + gv.mod.lastXadjustment, gv.mod.PlayerLastLocationY + gv.mod.lastYadjustment) == false || gv.mod.currentArea.isOverviewMap)
                 {
 
                     //gv.mod.blockTrigger = false;

@@ -4369,7 +4369,9 @@ namespace IceBlink2
                 //move any props that are active and only if they are not on the party location
                 doPropMoves();
 
-                foreach (Prop p in gv.mod.currentArea.Props)
+            doPropTriggersMovers();
+
+            foreach (Prop p in gv.mod.currentArea.Props)
                 {
                     p.moved2 = false;
                 }
@@ -11351,7 +11353,10 @@ namespace IceBlink2
                                 f.strength += gv.mod.currentArea.Props[i].effectOnOtherFactionOnDeath4;
                             }
                         }
-                        gv.sf.SetGlobalInt(gv.mod.currentArea.Props[i].keyOfGlobalVarToSetTo1OnDeathOrInactivity, "1");
+                        if (gv.mod.currentArea.Props[i].keyOfGlobalVarToSetTo1OnDeathOrInactivity != "none")
+                        {
+                            gv.sf.SetGlobalInt(gv.mod.currentArea.Props[i].keyOfGlobalVarToSetTo1OnDeathOrInactivity, "1");
+                        }
                         gv.mod.currentArea.Props.Remove(gv.mod.currentArea.Props[i]);
                         continue;
                     }
@@ -11645,7 +11650,389 @@ namespace IceBlink2
                 }
                 if (!foundOne)
                 {
-                    doTrigger();
+                    if (gv.realTimeTimerMilliSecondsEllapsed < gv.mod.realTimeTimerLengthInMilliSeconds)
+                    {
+                        blockSecondPropTriggersCall = true;
+                        doTrigger();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                if (gv.mod.debugMode)
+                {
+                    gv.sf.MessageBox("failed to do prop trigger: " + ex.ToString());
+                    gv.errorLog(ex.ToString());
+                }
+            }
+            //gv.mod.blockMainKeyboard = false;
+        }
+
+        public void doPropTriggersMovers()
+        {
+            //gv.mod.blockMainKeyboard = true;
+            try
+            {
+                //search area for any props that share the party location
+                bool foundOne = false;
+                for (int i = gv.mod.currentArea.Props.Count - 1; i >= 0; i--)
+                //foreach (Prop prp in gv.mod.currentArea.Props)
+                {
+                    if (gv.mod.currentArea.Props[i].isMover)
+                    {
+                        /*
+                        bool delProp = false;
+                        if (gv.mod.currentArea.Props[i].EncounterWhenOnPartySquare != "" && gv.mod.currentArea.Props[i].EncounterWhenOnPartySquare != "none")
+                        {
+                            //delProp = true;
+                            foreach (Encounter e in gv.mod.moduleEncountersList)
+                            {
+                                if (e.encounterName == gv.mod.currentArea.Props[i].EncounterWhenOnPartySquare)
+                                {
+                                        if (e.isOver)
+                                        {
+                                            e.isOver = false;
+                                            delProp = true;
+                                            break;
+                                        }
+
+                                }
+                            }
+                        }
+                        */
+
+                        //if (delProp)
+                        if (gv.mod.currentArea.Props[i].wasKilled)
+                        {
+                            if ((gv.mod.currentArea.Props[i].respawnTimeInHours > 0) && ((gv.mod.currentArea.Props[i].numberOfRespawnsThatHappenedAlready < gv.mod.currentArea.Props[i].maxNumberOfRespawns) || (gv.mod.currentArea.Props[i].maxNumberOfRespawns == -1)))
+                            {
+                                gv.mod.propsWaitingForRespawn.Add(gv.mod.currentArea.Props[i]);
+                            }
+
+                            foreach (Faction f in gv.mod.moduleFactionsList)
+                            {
+                                if (f.tag == gv.mod.currentArea.Props[i].factionTag)
+                                {
+                                    f.strength -= gv.mod.currentArea.Props[i].worthForOwnFaction;
+                                }
+                                if (f.tag == gv.mod.currentArea.Props[i].otherFactionAffectedOnDeath1)
+                                {
+                                    f.strength += gv.mod.currentArea.Props[i].effectOnOtherFactionOnDeath1;
+                                }
+                                if (f.tag == gv.mod.currentArea.Props[i].otherFactionAffectedOnDeath2)
+                                {
+                                    f.strength += gv.mod.currentArea.Props[i].effectOnOtherFactionOnDeath2;
+                                }
+                                if (f.tag == gv.mod.currentArea.Props[i].otherFactionAffectedOnDeath3)
+                                {
+                                    f.strength += gv.mod.currentArea.Props[i].effectOnOtherFactionOnDeath3;
+                                }
+                                if (f.tag == gv.mod.currentArea.Props[i].otherFactionAffectedOnDeath4)
+                                {
+                                    f.strength += gv.mod.currentArea.Props[i].effectOnOtherFactionOnDeath4;
+                                }
+                            }
+                            if (gv.mod.currentArea.Props[i].keyOfGlobalVarToSetTo1OnDeathOrInactivity != "none")
+                            {
+                                gv.sf.SetGlobalInt(gv.mod.currentArea.Props[i].keyOfGlobalVarToSetTo1OnDeathOrInactivity, "1");
+                            }
+                            gv.mod.currentArea.Props.Remove(gv.mod.currentArea.Props[i]);
+                            continue;
+                        }
+
+                        //enter code for skipping triggers of prop here
+                        if (gv.mod.currentArea.Props[i].stealthSkipsPropTriggers)
+                        {
+                            //add missing check
+                            bool isFooled = false;
+                            string traitMethod = "leader";
+                            foreach (Trait t in gv.mod.moduleTraitsList)
+                            {
+                                if (t.tag.Contains(gv.mod.tagOfStealthMainTrait))
+                                {
+                                    traitMethod = t.methodOfChecking;
+                                }
+                            }
+                            int parm1 = gv.mod.selectedPartyLeader;
+                            if (traitMethod.Equals("-1") || traitMethod.Equals("leader") || traitMethod.Equals("Leader"))
+                            {
+                                parm1 = gv.mod.selectedPartyLeader;
+                            }
+                            else if (traitMethod.Equals("-2") || traitMethod.Equals("highest") || traitMethod.Equals("Highest"))
+                            {
+                                parm1 = -2;
+                            }
+                            else if (traitMethod.Equals("-3") || traitMethod.Equals("lowest") || traitMethod.Equals("Lowest"))
+                            {
+                                parm1 = -3;
+                            }
+                            else if (traitMethod.Equals("-4") || traitMethod.Equals("average") || traitMethod.Equals("Average"))
+                            {
+                                parm1 = -4;
+                            }
+                            else if (traitMethod.Equals("-5") || traitMethod.Equals("allMustSucceed") || traitMethod.Equals("AllMustSucceed"))
+                            {
+                                parm1 = -5;
+                            }
+                            else if (traitMethod.Equals("-6") || traitMethod.Equals("oneMustSucceed") || traitMethod.Equals("OneMustSucceed"))
+                            {
+                                parm1 = -6;
+                            }
+
+                            int tileAdder = 0;
+                            int darkAdder = 0;
+                            tileAdder = gv.mod.currentArea.Tiles[gv.mod.PlayerLocationY * gv.mod.currentArea.MapSizeX + gv.mod.PlayerLocationY].stealthModifier;
+                            if (gv.sf.CheckIsInDarkness("party", "night"))
+                            {
+                                darkAdder = 4;
+                            }
+                            if (gv.sf.CheckIsInDarkness("party", "noLight"))
+                            {
+                                darkAdder = 12;
+                            }
+                            Coordinate pcCoord = new Coordinate();
+                            Coordinate propCoord = new Coordinate();
+                            pcCoord.X = gv.mod.PlayerLocationX;
+                            pcCoord.Y = gv.mod.PlayerLocationY;
+                            propCoord.X = gv.mod.currentArea.Props[i].LocationX;
+                            propCoord.Y = gv.mod.currentArea.Props[i].LocationY;
+
+                            //factor in lit state and tile stealtModifier
+                            //this way a sneak through is 5 points more diffcult than a direct sneak by
+
+                            //spot dc 13, sneak dc 27 
+                            //allows sneak through
+                            //entlastungsa
+                            int checkModifier = -4 + darkAdder + tileAdder - 5;
+
+                            if (gv.sf.CheckPassSkill(parm1, gv.mod.tagOfStealthMainTrait, gv.mod.currentArea.Props[i].spotEnemy - checkModifier, true, true))
+                            {
+                                isFooled = true;
+                                gv.mod.currentArea.Props[i].showSneakThroughSymbol = true;
+                            }
+                            else
+                            {
+                                isFooled = false;
+                                gv.mod.currentArea.Props[i].showSneakThroughSymbol = false;
+                            }
+
+                            if (isFooled)
+                            {
+                                continue;
+                            }
+                        }//up to here
+
+                        bool doNotTriggerProp = false;
+                        if ((gv.mod.currentArea.Props[i].isMover == false) || ((gv.mod.currentArea.Props[i].MoverType == "post") && (gv.mod.currentArea.Props[i].isChaser == false)))
+                        {
+                            if (gv.realTimeTimerMilliSecondsEllapsed >= gv.mod.realTimeTimerLengthInMilliSeconds)
+                            {
+                                doNotTriggerProp = true;
+                            }
+                        }
+
+                        if ((gv.mod.currentArea.Props[i].LocationX == gv.mod.PlayerLocationX) && (gv.mod.currentArea.Props[i].LocationY == gv.mod.PlayerLocationY) && (gv.mod.currentArea.Props[i].isActive) && (doNotTriggerProp == false))
+                        {
+
+
+                            if ((!gv.mod.currentArea.Props[i].MouseOverText.Equals("none")) && (gv.mod.currentArea.Tiles[gv.mod.currentArea.Props[i].LocationY * gv.mod.currentArea.MapSizeX + gv.mod.currentArea.Props[i].LocationX].Visible))
+                            {
+                                showFloatyStepOrBumpPropInfo(i);
+                            }
+
+                            /*
+                            gv.sf.ThisProp = gv.mod.currentArea.Props[i];
+                            if (gv.sf.ThisProp.EncounterWhenOnPartySquare != "none" || gv.sf.ThisProp.EncounterWhenOnPartySquare != "None" || gv.sf.ThisProp.EncounterWhenOnPartySquare != "")
+                            {
+                                gv.cc.calledEncounterFromProp = true;
+                            }
+                            */
+
+
+                            //prp.wasTriggeredLastUpdate = true;
+                            foundOne = true;
+                            blockSecondPropTriggersCall = true;
+                            gv.triggerPropIndex++;
+                            if ((gv.triggerPropIndex == 1) && (!gv.mod.currentArea.Props[i].ConversationWhenOnPartySquare.Equals("none")))
+                            {
+
+                                if (gv.mod.currentArea.Props[i].unavoidableConversation == true)
+                                {
+                                    gv.mod.breakActiveSearch = true;
+                                    calledConvoFromProp = true;
+                                    gv.sf.ThisProp = gv.mod.currentArea.Props[i];
+                                    if ((gv.mod.useSmoothMovement) && (gv.mod.currentArea.Props[i].isMover))
+                                    {
+                                        //for (int i = 0; i < 30; i++)
+                                        //{
+                                        //gv.Render(0);
+                                        //}
+                                    }
+                                    doConversationBasedOnTag(gv.mod.currentArea.Props[i].ConversationWhenOnPartySquare);
+                                    //continue;
+                                    break;
+                                }
+                                else if (gv.mod.avoidInteraction == false)
+                                {
+                                    gv.mod.breakActiveSearch = true;
+                                    calledConvoFromProp = true;
+                                    gv.sf.ThisProp = gv.mod.currentArea.Props[i];
+
+                                    if ((gv.mod.useSmoothMovement) && (gv.mod.currentArea.Props[i].isMover))
+                                    {
+                                        //for (int i = 0; i < 30; i++)
+                                        //{
+                                        //gv.Render(0);
+                                        //}
+                                    }
+
+                                    doConversationBasedOnTag(gv.mod.currentArea.Props[i].ConversationWhenOnPartySquare);
+                                    //continue;
+                                    break;
+                                }
+                                else
+                                {
+                                    foundOne = false;
+                                    //continue;
+                                    break;
+                                }
+
+                            }
+                            else if ((gv.triggerPropIndex == 2) && (!gv.mod.currentArea.Props[i].EncounterWhenOnPartySquare.Equals("none")))
+                            {
+                                calledEncounterFromProp = true;
+                                gv.sf.ThisProp = gv.mod.currentArea.Props[i];
+
+                                if (!gv.mod.EncounterOfTurnDone)
+                                {
+                                    gv.mod.EncounterOfTurnDone = true;
+                                    doEncounterBasedOnTag(gv.mod.currentArea.Props[i].EncounterWhenOnPartySquare);
+                                    gv.mod.breakActiveSearch = true;
+
+                                    //gv.mod.EncounterOfTurnDone = true;
+                                }
+                                //continue;
+
+                                break;
+                            }
+                            //script
+                            else if ((gv.triggerPropIndex == 3) && (gv.mod.currentArea.Props[i].scriptFilename != "none" && gv.mod.currentArea.Props[i].scriptFilename != "None" && gv.mod.currentArea.Props[i].scriptFilename != ""))
+                            {
+
+                                //gv.mod.currentArea.Props[i]
+                                gv.sf.ThisProp = gv.mod.currentArea.Props[i];
+                                doScriptBasedOnFilename(gv.mod.currentArea.Props[i].scriptFilename, gv.mod.currentArea.Props[i].parm1, gv.mod.currentArea.Props[i].parm2, gv.mod.currentArea.Props[i].parm3, gv.mod.currentArea.Props[i].parm4);
+
+                                //code for floaty shown on prop upon script activation
+                                if (gv.mod.currentArea.Props[i].scriptActivationFloaty != "none" && gv.mod.currentArea.Props[i].scriptActivationFloaty != "None" && gv.mod.currentArea.Props[i].scriptActivationFloaty != "")
+                                {
+                                    gv.screenMainMap.addFloatyText(gv.mod.currentArea.Props[i].LocationX, gv.mod.currentArea.Props[i].LocationY, gv.mod.currentArea.Props[i].scriptActivationFloaty, "red", 2000);
+                                }
+
+                                //code for log, to do
+                                if (gv.mod.currentArea.Props[i].scriptActivationLogEntry != "none" && gv.mod.currentArea.Props[i].scriptActivationLogEntry != "None" && gv.mod.currentArea.Props[i].scriptActivationLogEntry != "")
+                                {
+                                    gv.cc.addLogText("red", gv.mod.currentArea.Props[i].scriptActivationLogEntry);
+                                }
+
+                                if (gv.mod.currentArea.Props[i].onlyOnce)
+                                {
+                                    gv.mod.currentArea.Props[i].isShown = false;
+                                    gv.mod.currentArea.Props[i].isActive = false;
+                                }
+
+                                gv.mod.breakActiveSearch = true;
+                                break;
+                            }
+                            else if (gv.triggerPropIndex < 4)
+                            {
+                                gv.mod.isRecursiveCall = true;
+                                doPropTriggers();
+                                gv.mod.isRecursiveCall = false;
+                                //continue;
+                                break;
+                            }
+                            if (gv.triggerPropIndex > 3)
+                            {
+                                gv.triggerPropIndex = 0;
+                                //set flags back to false
+                                calledConvoFromProp = false;
+                                //aegon2
+                                calledEncounterFromProp = false;
+                                foundOne = false;
+                                //factionsystem
+                                //delete prop if flag is set to do so and break foreach loop
+                                //crozier
+
+                                if (gv.mod.currentArea.Props[i].DeletePropWhenThisEncounterIsWon && gv.mod.currentArea.Props[i].wasKilled)
+                                {
+                                    if ((gv.mod.currentArea.Props[i].respawnTimeInHours > 0) && ((gv.mod.currentArea.Props[i].numberOfRespawnsThatHappenedAlready < gv.mod.currentArea.Props[i].maxNumberOfRespawns) || (gv.mod.currentArea.Props[i].maxNumberOfRespawns == -1)))
+                                    {
+                                        gv.mod.propsWaitingForRespawn.Add(gv.mod.currentArea.Props[i]);
+                                    }
+
+                                    foreach (Faction f in gv.mod.moduleFactionsList)
+                                    {
+                                        if (f.tag == gv.mod.currentArea.Props[i].factionTag)
+                                        {
+                                            f.strength -= gv.mod.currentArea.Props[i].worthForOwnFaction;
+                                        }
+                                        if (f.tag == gv.mod.currentArea.Props[i].otherFactionAffectedOnDeath1)
+                                        {
+                                            f.strength += gv.mod.currentArea.Props[i].effectOnOtherFactionOnDeath1;
+                                        }
+                                        if (f.tag == gv.mod.currentArea.Props[i].otherFactionAffectedOnDeath2)
+                                        {
+                                            f.strength += gv.mod.currentArea.Props[i].effectOnOtherFactionOnDeath2;
+                                        }
+                                        if (f.tag == gv.mod.currentArea.Props[i].otherFactionAffectedOnDeath3)
+                                        {
+                                            f.strength += gv.mod.currentArea.Props[i].effectOnOtherFactionOnDeath3;
+                                        }
+                                        if (f.tag == gv.mod.currentArea.Props[i].otherFactionAffectedOnDeath4)
+                                        {
+                                            f.strength += gv.mod.currentArea.Props[i].effectOnOtherFactionOnDeath4;
+                                        }
+                                    }
+                                    gv.sf.SetGlobalInt(gv.mod.currentArea.Props[i].keyOfGlobalVarToSetTo1OnDeathOrInactivity, "1");
+                                    gv.mod.currentArea.Props.Remove(gv.mod.currentArea.Props[i]);
+
+                                    //two checks on update function: 1. Respawn check (adds back to areas prop lsit from propsWaitingForRespawn) and 2. faction limit check (sets is isAcive and isShown)
+
+                                    //add another third check (afterwards) to doupdate that kills off props whose master is inactive or whose master is on propsWaitingForRespawn 
+
+                                    //on worldtim emethod for each prop in propsWaitingForRespawn the wait time is increased accordingly 
+
+                                    //here (doPropTriggers, deletepropwhenenciunteriswon): add killed - respawing props, when max number of respawn is not reached - to the new list <prop> propsWaitingForRespawn list of module
+                                    //this is done regardless of master death (Can change: master respawn) or min-max faction strength requirement (faction strength changes all the time)
+
+                                    //props are only returned from propsWaitingForRespawn (during respawn check on doupdate) when:
+                                    //1. respawn time is reached AND
+                                    //2. target square on home area can be found (free or look for sqaure around it) AND
+                                    //3. master lives: lives means is himself in prop list (not killed) and also isActive
+                                    //upon retun the props wait time is set to zero again
+
+                                    //isActive and isShown are set to false for props outside faction strength min max (called: faction limit check)
+                                    //and to true if inside, check on every update (faction limit check)
+                                    //this means they can respawn when outside faction str min max, but will do so inactive
+
+                                    //question: do respawn for current map or for all maps? Pending! Best for all areas (both respawn and faction limit check), so world time driven movers work with the system
+
+                                    //grant cretaures a faction property, too, and implement system for buffs and debuffs based on the relevant faction'sstrength
+                                    //maybe use effect system for this and make it all configurable in the faction editor
+                                }
+
+                                //continue;
+                                break;
+                            }
+                        }
+
+                        if (!foundOne)
+                        {
+                            //chamber
+                            doTrigger();
+                        }
+                    }
                 }
             }
             catch (Exception ex)
@@ -11895,7 +12282,8 @@ namespace IceBlink2
                                 Trigger trig = gv.mod.currentArea.getTriggerByLocation(gv.mod.PlayerLocationX, gv.mod.PlayerLocationY);
                                 if ((trig != null) && (trig.Enabled))
                                 {
-                                    blockSecondPropTriggersCall = true;
+                                    blockSecondPropTriggersCall = false;
+
                                     //iterate through each event                  
                                     //#region Event1 stuff
                                     //check to see if enabled and parm not "none"
@@ -12093,7 +12481,8 @@ namespace IceBlink2
                                         //#endregion
                                         if (gv.triggerIndex > 3)
                                         {
-                                            gv.triggerIndex = 0;
+                                        blockSecondPropTriggersCall = true;
+                                        gv.triggerIndex = 0;
                                             if (trig.DoOnceOnly)
                                             {
                                                 trig.Enabled = false;

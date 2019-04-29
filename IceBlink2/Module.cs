@@ -277,6 +277,9 @@ namespace IceBlink2
         
         public List<Area> moduleAreasObjects = new List<Area>();
 
+        public int lastYadjustment = 0;
+        public int lastXadjustment = 0;
+
         public List<GlobalInt> moduleGlobalInts = new List<GlobalInt>();
         public List<GlobalString> moduleGlobalStrings = new List<GlobalString>();
         public List<ConvoSavedValues> moduleConvoSavedValuesList = new List<ConvoSavedValues>();
