@@ -178,7 +178,7 @@ namespace IceBlink2
 
             
             this.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.GameView_MouseWheel);
-            //this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.GameView_onKeyDown);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.GameView_onKeyDown);
             //this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.GameView_onKeyUp);
             mainDirectory = Directory.GetCurrentDirectory();
 
@@ -1857,7 +1857,7 @@ namespace IceBlink2
         //}
       
 
-        private void GameView_onKeyUp(object sender, KeyEventArgs e)
+        private void GameView_onKeyDown(object sender, KeyEventArgs e)
         {
             if (screenType.Equals("main"))
             {

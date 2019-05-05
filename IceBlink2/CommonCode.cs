@@ -809,9 +809,11 @@ namespace IceBlink2
             gv.mod.alreadyDeleted = saveMod.alreadyDeleted;
             gv.mod.currentPropTag = saveMod.currentPropTag;
 
-        //public List<String> partyLightEnergyName = new List<String>();
-        //public List<int> partyLightEnergyUnitsLeft = new List<int>();
-        gv.mod.partyLightEnergyName.Clear();
+            //public List<String> partyLightEnergyName = new List<String>();
+            //public List<int> partyLightEnergyUnitsLeft = new List<int>();
+            gv.mod.partyLightOn = saveMod.partyLightOn;
+            gv.mod.partyLightName = saveMod.partyLightName;
+            gv.mod.partyLightEnergyName.Clear();
             foreach (string s in saveMod.partyLightEnergyName)
             {
                 gv.mod.partyLightEnergyName.Add(s);
@@ -1094,6 +1096,8 @@ namespace IceBlink2
 
             gv.createScreens();
             gv.screenMainMap.resetMiniMapBitmap();
+            gv.cc.resetLightAndDarkness();
+            gv.cc.doIllumination();
             return true;
         }
         public Module LoadSaveGameModule(string filename)
@@ -4378,19 +4382,23 @@ namespace IceBlink2
 
                 if (gv.mod.useAllTileSystem)
                 {
-                    //if (!gv.mod.useScrollingSystem || !gv.mod.partyLightOn)
-                    //{
+                    if (!gv.mod.useScrollingSystem || !gv.mod.partyLightOn)
+                    {
                     resetLightAndDarkness();
-                    //}
+                    }
                 }
 
                 //set illumination level of tiles based on party and prop position
                 if (gv.mod.useAllTileSystem)
                 {
-                    //if (!gv.mod.useScrollingSystem || !gv.mod.partyLightOn)
-                    //{
+                    if (gv.mod.useScrollingSystem)
+                    {
+                        consumePartyLightEnergy();
+                    }
+                    if (!gv.mod.useScrollingSystem || !gv.mod.partyLightOn)
+                    {
                     doIllumination();
-                    //}
+                    }
                 }
 
                 //doPropTriggers();
@@ -4460,6 +4468,100 @@ namespace IceBlink2
 
         //Problem: diagonal neighbours- here and for the recent mosue over code  
         //aegon
+        public void consumePartyLightEnergy()
+        {
+            int dawn = 5 * 60;
+            int sunrise = 6 * 60;
+            int day = 7 * 60;
+            int sunset = 17 * 60;
+            int dusk = 18 * 60;
+            int night = 20 * 60;
+            int time = gv.mod.WorldTime % 1440;
+
+            bool consumeLightEnergy = false;
+            if ((time >= dawn) && (time < sunrise))
+            {
+                //gv.DrawBitmap(gv.cc.tint_dawn, src, dst, 0, false, 1.0f / flickerReduction * flicker / 100f);
+                //gv.DrawBitmap(gv.cc.tint_dawn, src, dst, 0, false, 1.0f);
+            }
+            else if ((time >= sunrise) && (time < day))
+            {
+                //gv.DrawBitmap(gv.cc.tint_sunrise, src, dst, 0, false, 1.0f);
+            }
+            else if ((time >= day) && (time < sunset))
+            {
+                //no tint for day
+            }
+            else if ((time >= sunset) && (time < dusk))
+            {
+                //gv.DrawBitmap(gv.cc.tint_sunset, src, dst, 0, false, 1.0f);
+            }
+            else if ((time >= dusk) && (time < night))
+            {
+                //gv.DrawBitmap(gv.cc.tint_dusk, src, dst, 0, false, 1.0f);
+            }
+            else if ((time >= night) || (time < dawn))
+            {
+                //berlin
+                consumeLightEnergy = true;
+            }
+
+            if (!gv.mod.currentArea.UseDayNightCycle)
+            {
+                consumeLightEnergy = true;
+            }
+
+            if (!gv.mod.currentArea.useLightSystem)
+            {
+                consumeLightEnergy = false;
+            }
+
+            if (consumeLightEnergy && gv.mod.partyLightEnergyName.Count >= 1 && gv.mod.partyLightOn)
+            {
+                for (int i = gv.mod.partyLightEnergyName.Count - 1; i >= 0; i--)
+                {
+                    if (gv.mod.partyLightEnergyName[i] == gv.mod.partyLightName)
+                    {
+                        if (gv.mod.partyLightEnergyUnitsLeft[i] > 0)
+                        {
+                            if (!gv.mod.currentArea.isOverviewMap)
+                            {
+                                gv.mod.partyLightEnergyUnitsLeft[i]--;
+                            }
+                            gv.mod.currentLightUnitsLeft = gv.mod.partyLightEnergyUnitsLeft[i];
+                        }
+                        else
+                        {
+                            foreach (ItemRefs it in gv.mod.partyInventoryRefsList)
+                            {
+                                if (it.name == gv.mod.partyLightName)
+                                {
+                                    if (it.quantity > 1)
+                                    {
+                                        if (!gv.mod.currentArea.isOverviewMap)
+                                        {
+                                            it.quantity--;
+                                        }
+                                    }
+                                    else
+                                    {
+                                        gv.mod.partyInventoryRefsList.Remove(it);
+                                    }
+                                    break;
+                                }
+                            }
+
+                            gv.mod.partyLightEnergyName.RemoveAt(i);
+                            gv.mod.partyLightEnergyUnitsLeft.RemoveAt(i);
+                            gv.mod.partyLightOn = false;
+                            gv.mod.partyLightColor = "";
+                            gv.mod.partyLightName = "";
+                        }
+                    }
+                }
+            }
+        }
+
         public void doPropStealth()
         {
             //get diagonal neighbours
@@ -5466,7 +5568,7 @@ namespace IceBlink2
         public void doIllumination()
             {
 
-
+            /*
                 int dawn = 5 * 60;
                 int sunrise = 6 * 60;
                 int day = 7 * 60;
@@ -5557,6 +5659,7 @@ namespace IceBlink2
                         }
                     }
                 }
+                */
 
                 int indexOfNorthernNeighbour = -1;
                 int indexOfSouthernNeighbour = -1;
@@ -14884,7 +14987,7 @@ namespace IceBlink2
             }
             
             gv.mod.showPortrtaitsThisUpdate = false;
-            if (gv.mod.PlayerLocationX > (gv.mod.currentArea.MapSizeX - 1))
+            if (gv.mod.PlayerLocationX < (gv.mod.currentArea.MapSizeX - 1))
             {
                 if (gv.mod.currentArea.GetBlocked(gv.mod.PlayerLocationX, gv.mod.PlayerLocationY, gv.mod.PlayerLocationX + 1, gv.mod.PlayerLocationY, gv.mod.PlayerLastLocationX, gv.mod.PlayerLastLocationY) == false)
                 {
@@ -15828,7 +15931,8 @@ namespace IceBlink2
                         {
                             int scaleMulti = gv.sf.RandInt(50) + 75;
                             Sprite spr = new Sprite(gv, "snowFlake", storedIncrement - (gv.squareSize * 0.5f), -(float)(gv.sf.RandInt(10)) - gv.oYshift * 2, 0, (float)(gv.sf.RandInt(80) + 170) / 6000f, 0, 0, 0.325f * scaleMulti / 100f, 0.325f * scaleMulti / 100f, gv.sf.RandInt(10000) + 20000, false, 100, gv.mod.fullScreenEffectOpacityWeather, 0, "snow", false, 0);
-                            //spr.movesIndependentlyFromPlayerPosition = false;
+                            //calli
+                            //spr.movesIndependentlyFromPlayerPosition = true;
                             gv.screenMainMap.spriteList.Add(spr);
                         }
                     }

@@ -49,8 +49,9 @@ namespace IceBlink2
         public List<FloatyText> floatyTextPool = new List<FloatyText>();
         public List<FloatyTextByPixel> floatyTextByPixelPool = new List<FloatyTextByPixel>();
         public int mapStartLocXinPixels;
-        public int movementDelayInMiliseconds = 100;
+        public int movementDelayInMiliseconds = 10;
         private long timeStamp = 0;
+        private long timeStamp2 = 0;
         private bool finishedMove = true;
         public Bitmap minimap = null;
         public Bitmap fullScreenEffect1 = null;
@@ -371,6 +372,7 @@ namespace IceBlink2
                 if (gv.screenType == "main")
                 {
                     if (gv.mod.isScrollingNow)
+                    //if (gv.mod.scrollingTimer >= 0)
                     {
                         doScrolling(elapsed);
                     }
@@ -384,6 +386,9 @@ namespace IceBlink2
             
             //prop animation code
             doPropAnimations(elapsed);
+
+            //party animation code
+            doPartyAnimations(elapsed);
 
             if (gv.moveTimerRuns)
             {
@@ -1558,11 +1563,13 @@ namespace IceBlink2
             //float multi = elapsed / 66.4f;
 
 
-
+            
             if (multi > 1.5f)
             {
                 multi = 1.5f;
             }
+            
+
             /*
             if (multi < 0.5f)
             {
@@ -1595,40 +1602,62 @@ namespace IceBlink2
                 roundedDecrease = 40;
             }
             */
-            gv.mod.scrollingTimer = gv.mod.scrollingTimer - (7.5f * multi * gv.mod.scrollingSpeed);
+            //adjusting speed: 7.5f was good
+            //speedo2
+            //0.2 was nice slowly
+            //0.8 for good measure
+            //0.75 for slowly, nicely still
+
+            gv.mod.lastScrollStep = (7.5f * multi * gv.mod.scrollingSpeed * 1.0f);
+            gv.mod.scrollingTimer = gv.mod.scrollingTimer - (7.5f * multi * gv.mod.scrollingSpeed * 1.0f);
+            //gv.mod.distances.Add(gv.mod.scrollingTimer);
             //gv.mod.scrollingTimer = gv.mod.scrollingTimer - (7.5f * multi);
             //gv.mod.scrollingTimer -= 25f * multi;
             //int scrollingIntervall = (int)(5.5f * multi * gv.mod.scrollingSpeed);
             //gv.mod.scrollingTimer -= scrollingIntervall;
 
-            /*
-            if (gv.mod.scrollingTimer < 50 && gv.mod.doThisScrollingsLightShift)
-            {
+            
+            //if (gv.mod.scrollingTimer <= 50 && gv.mod.doThisScrollingsLightShift)
+            if (gv.mod.scrollingTimer <= 50)
+                {
                 if (gv.mod.partyLightOn)
                 {
                     gv.cc.resetLightAndDarkness();
                     gv.cc.doIllumination();
-                    gv.mod.doThisScrollingsLightShift = false;
+                    //gv.mod.doThisScrollingsLightShift = false;
                 }
 
             }
-            */
+            
 
             if (gv.mod.scrollingTimer <= 0)
             {
                 //mühlheim
-                
+                //gv.mod.stopScrollCounter++;
+
                 gv.mod.isScrollingNow = false;
+
                 //was flawless with = 100
                 gv.mod.scrollingOverhang2 = gv.mod.scrollingTimer;
 
                 gv.mod.scrollingTimer = 100;
+                //gv.mod.doThisScrollingsLightShift = true;
                 
                 //gv.cc.doPropTriggers();
                 //gv.mod.scrollingTimer = 100;
             }
+            else
+            {
+                //timer without key
+                //gv.mod.frozenPressedKey = gv.mod.lastPressedKey;
+            }
 
            
+        }
+
+        public void doPartyAnimations(float elapsed)
+        {
+            //todo
         }
 
         public void doPropAnimations(float elapsed)
@@ -2760,6 +2789,11 @@ namespace IceBlink2
 
                         //highlights
                         //if (gv.mod.currentArea.Tiles[(y + yAdder) * gv.mod.currentArea.MapSizeX + x].transitionToMasterDirection != "S")
+                        if (tile.isEWBridge || tile.isNSBridge)
+                        {
+                            int geek = 0;
+                        }
+
                         if (tile.transitionToMasterDirection != "S")
                         {
                             if (tile.hasHighlightS)
@@ -35631,10 +35665,21 @@ namespace IceBlink2
                                 }
                             }
 
+                            if (!lightOn)
+                            {
+                                int ghg = 0;
+                            }
+
                             try
                             {
                                 int tlX = (x - gv.mod.PlayerLocationX + gv.playerOffsetX) * (gv.squareSize);
                                 int tlY = (y - gv.mod.PlayerLocationY + gv.playerOffsetY) * (gv.squareSize);
+
+                                //if (gv.mod.useScrollingSystem && gv.mod.scrollingTimer >= 50 && gv.mod.isScrollingNow)
+                                //{
+                                    //tlX = (x - gv.mod.PlayerLastLocationX + gv.playerOffsetX) * (gv.squareSize);
+                                    //tlY = (y - gv.mod.PlayerLastLocationY + gv.playerOffsetY) * (gv.squareSize);
+                                //}
                                 //float scalerX = tile.tileBitmap0.PixelSize.Width / 100;
                                 //float scalerY = tile.tileBitmap0.PixelSize.Height / 100;
                                 //the tiles0 arrive as 50x50px but we want to have them 100% square size, therefore scaler to 1, ie 100%
@@ -35661,7 +35706,8 @@ namespace IceBlink2
                                     flickerReduction = 1.5f;
                                 }
 
-                                if ((tile.isFocalPoint) && (lightOn))
+                                //if ((tile.isFocalPoint) && (lightOn))
+                                if ((lightOn))
                                 {
                                     //color of light source
                                     //if (!gv.mod.currentArea.UseDayNightCycle)
@@ -35690,7 +35736,8 @@ namespace IceBlink2
                                         drawLightHalo = true;
                                     }
 
-                                    if ((!gv.mod.currentArea.useLightSystem) || (!tile.hasHalo))
+                                    //if ((!gv.mod.currentArea.useLightSystem) || (!tile.hasHalo))
+                                    if (!gv.mod.currentArea.useLightSystem)
                                     {
                                         drawLightHalo = false;
                                     }
@@ -36697,9 +36744,9 @@ namespace IceBlink2
                                                 bool draw = false;
                                                 //determine whether tile is onscreen
                                                 //(x - gv.mod.PlayerLocationX + gv.playerOffsetX)
-                                                if ((x <= gv.mod.PlayerLocationX + gv.playerOffsetX) && (x >= gv.mod.PlayerLocationX - gv.playerOffsetX))
+                                                if ((x <= gv.mod.PlayerLocationX + gv.playerOffsetX-1) && (x >= gv.mod.PlayerLocationX - gv.playerOffsetX+1))
                                                 {
-                                                    if ((y <= gv.mod.PlayerLocationY + gv.playerOffsetY) && (y >= gv.mod.PlayerLocationY - gv.playerOffsetY))
+                                                    if ((y <= gv.mod.PlayerLocationY + gv.playerOffsetY-1) && (y >= gv.mod.PlayerLocationY - gv.playerOffsetY+1))
                                                     {
                                                         draw = true;
                                                     }
@@ -41591,32 +41638,48 @@ namespace IceBlink2
                                         gv.mod.scrollingTimer = 100;
                                         gv.mod.scrollingDirection = "up";
                                         gv.mod.doTriggerInspiteOfScrolling = true;
+                                        bool isTransition = gv.cc.goNorth();
+                                        if (!isTransition)
+                                        {
+                                            gv.mod.breakActiveSearch = false;
+                                            //gv.mod.wasJustCalled = false;
+                                            //if (!gv.mod.wasJustCalled)
+                                            //{
+                                                //if (gv.screenType == "main")
+                                                //{
+                                                    moveUp(true);
+                                                //}
+                                                //gv.mod.wasJustCalled = true;
+                                            //}
+                                        }
                                     }
                                     //continued press
-                                    else
+                                    //else if (moveDelay2())
+                                    else if (gv.mod.scrollingTimer <= gv.mod.lastScrollStep || gv.mod.scrollingTimer >= 100)
                                     {
                                         gv.mod.isScrollingNow = true;
                                         gv.mod.scrollingTimer = 100 + gv.mod.scrollingOverhang2;
                                         gv.mod.scrollingOverhang2 = 0;
                                         gv.mod.scrollingDirection = "up";
                                         gv.mod.doTriggerInspiteOfScrolling = true;
+                                        bool isTransition = gv.cc.goNorth();
+                                        if (!isTransition)
+                                        {
+                                            gv.mod.breakActiveSearch = false;
+                                            //gv.mod.wasJustCalled = false;
+                                            //if (!gv.mod.wasJustCalled)
+                                            //{
+                                                //if (gv.screenType == "main")
+                                                //{
+                                                    moveUp(true);
+                                                //}
+                                                //gv.mod.wasJustCalled = true;
+                                            //}
+                                        }
                                     }
                                 }
 
-                                bool isTransition = gv.cc.goNorth();
-                                if (!isTransition)
-                                {
-                                    gv.mod.breakActiveSearch = false;
-                                    gv.mod.wasJustCalled = false;
-                                    if (!gv.mod.wasJustCalled)
-                                    {
-                                        if (gv.screenType == "main")
-                                        {
-                                            moveUp(true);
-                                        }
-                                        gv.mod.wasJustCalled = true;
-                                    }
-                                }
+                               
                             }
 
                             /*
@@ -41773,32 +41836,48 @@ namespace IceBlink2
                                         gv.mod.scrollingTimer = 100;
                                         gv.mod.scrollingDirection = "down";
                                         gv.mod.doTriggerInspiteOfScrolling = true;
+                                        bool isTransition = gv.cc.goSouth();
+                                        if (!isTransition)
+                                        {
+                                            gv.mod.breakActiveSearch = false;
+                                            //gv.mod.wasJustCalled = false;
+                                            //if (!gv.mod.wasJustCalled)
+                                            //{
+                                                //if (gv.screenType == "main")
+                                                //{
+                                                    moveDown(true);
+                                                //}
+                                                //gv.mod.wasJustCalled = true;
+                                            //}
+                                        }
                                     }
                                     //continued press
-                                    else
+                                    //else if (moveDelay2())
+                                    else if (gv.mod.scrollingTimer <= gv.mod.lastScrollStep || gv.mod.scrollingTimer >= 100)
                                     {
                                         gv.mod.isScrollingNow = true;
                                         gv.mod.scrollingTimer = 100 + gv.mod.scrollingOverhang2;
                                         gv.mod.scrollingOverhang2 = 0;
                                         gv.mod.scrollingDirection = "down";
                                         gv.mod.doTriggerInspiteOfScrolling = true;
+                                        bool isTransition = gv.cc.goSouth();
+                                        if (!isTransition)
+                                        {
+                                            gv.mod.breakActiveSearch = false;
+                                            //gv.mod.wasJustCalled = false;
+                                            //if (!gv.mod.wasJustCalled)
+                                            //{
+                                                //if (gv.screenType == "main")
+                                                //{
+                                                    moveDown(true);
+                                                //}
+                                                //gv.mod.wasJustCalled = true;
+                                            //}
+                                        }
                                     }
                                 }
 
-                                bool isTransition = gv.cc.goSouth();
-                                if (!isTransition)
-                                {
-                                    gv.mod.breakActiveSearch = false;
-                                    gv.mod.wasJustCalled = false;
-                                    if (!gv.mod.wasJustCalled)
-                                    {
-                                        if (gv.screenType == "main")
-                                        {
-                                            moveDown(true);
-                                        }
-                                        gv.mod.wasJustCalled = true;
-                                    }
-                                }
+                               
                             }
                             /*
                             bool isTransition = gv.cc.goSouth();
@@ -41955,32 +42034,48 @@ namespace IceBlink2
                                         gv.mod.scrollingTimer = 100;
                                         gv.mod.scrollingDirection = "left";
                                         gv.mod.doTriggerInspiteOfScrolling = true;
+                                        bool isTransition = gv.cc.goWest();
+                                        if (!isTransition)
+                                        {
+                                            gv.mod.breakActiveSearch = false;
+                                            //gv.mod.wasJustCalled = false;
+                                            //if (!gv.mod.wasJustCalled)
+                                            //{
+                                                //if (gv.screenType == "main")
+                                                //{
+                                                    moveLeft(true);
+                                                //}
+                                                //gv.mod.wasJustCalled = true;
+                                            //}
+                                        }
                                     }
                                     //continued press
-                                    else
+                                    //else if (moveDelay2())
+                                    else if (gv.mod.scrollingTimer <= gv.mod.lastScrollStep || gv.mod.scrollingTimer >= 100)
                                     {
                                         gv.mod.isScrollingNow = true;
                                         gv.mod.scrollingTimer = 100 + gv.mod.scrollingOverhang2;
                                         gv.mod.scrollingOverhang2 = 0;
                                         gv.mod.scrollingDirection = "left";
                                         gv.mod.doTriggerInspiteOfScrolling = true;
+                                        bool isTransition = gv.cc.goWest();
+                                        if (!isTransition)
+                                        {
+                                            gv.mod.breakActiveSearch = false;
+                                            //gv.mod.wasJustCalled = false;
+                                            //if (!gv.mod.wasJustCalled)
+                                            //{
+                                                //if (gv.screenType == "main")
+                                                //{
+                                                    moveLeft(true);
+                                                //}
+                                                //gv.mod.wasJustCalled = true;
+                                            //}
+                                        }
                                     }
                                 }
 
-                                bool isTransition = gv.cc.goWest();
-                                if (!isTransition)
-                                {
-                                    gv.mod.breakActiveSearch = false;
-                                    gv.mod.wasJustCalled = false;
-                                    if (!gv.mod.wasJustCalled)
-                                    {
-                                        if (gv.screenType == "main")
-                                        {
-                                            moveLeft(true);
-                                        }
-                                        gv.mod.wasJustCalled = true;
-                                    }
-                                }
+                               
                             }
                             /*
                             bool isTransition = gv.cc.goWest();
@@ -42149,32 +42244,48 @@ namespace IceBlink2
                                         gv.mod.scrollingTimer = 100;
                                         gv.mod.scrollingDirection = "right";
                                         gv.mod.doTriggerInspiteOfScrolling = true;
+                                        bool isTransition = gv.cc.goEast();
+                                        if (!isTransition)
+                                        {
+                                            gv.mod.breakActiveSearch = false;
+                                            //gv.mod.wasJustCalled = false;
+                                            //if (!gv.mod.wasJustCalled)
+                                            //{
+                                                //if (gv.screenType == "main")
+                                                //{
+                                                    moveRight(true);
+                                                //}
+                                                //gv.mod.wasJustCalled = true;
+                                            //}
+                                        }
                                     }
                                     //continued press
-                                    else
+                                    //else if (moveDelay2())
+                                    else if (gv.mod.scrollingTimer <= gv.mod.lastScrollStep || gv.mod.scrollingTimer >= 100)
                                     {
                                         gv.mod.isScrollingNow = true;
                                         gv.mod.scrollingTimer = 100 + gv.mod.scrollingOverhang2;
                                         gv.mod.scrollingOverhang2 = 0;
                                         gv.mod.scrollingDirection = "right";
                                         gv.mod.doTriggerInspiteOfScrolling = true;
+                                        bool isTransition = gv.cc.goEast();
+                                        if (!isTransition)
+                                        {
+                                            gv.mod.breakActiveSearch = false;
+                                            //gv.mod.wasJustCalled = false;
+                                            //if (!gv.mod.wasJustCalled)
+                                            //{
+                                                //if (gv.screenType == "main")
+                                                //{
+                                                    moveRight(true);
+                                                //}
+                                                //gv.mod.wasJustCalled = true;
+                                            //}
+                                        }
                                     }
                                 }
 
-                                bool isTransition = gv.cc.goEast();
-                                if (!isTransition)
-                                {
-                                    gv.mod.breakActiveSearch = false;
-                                    gv.mod.wasJustCalled = false;
-                                    if (!gv.mod.wasJustCalled)
-                                    {
-                                        if (gv.screenType == "main")
-                                        {
-                                            moveRight(true);
-                                        }
-                                        gv.mod.wasJustCalled = true;
-                                    }
-                                }
+                               
                             }
                             /*
                             bool isTransition = gv.cc.goEast();
@@ -43235,6 +43346,12 @@ namespace IceBlink2
         {
             if ((moveDelay()) && (finishedMove))
             {
+                //if (keyData == Keys.None)
+                //{
+                    //int hgh = 0;
+                //}
+                
+
                 if (keyData == Keys.D4 | keyData == Keys.NumPad4)
                 {
                     gv.mod.doTriggerInspiteOfScrolling = false;
@@ -43262,32 +43379,48 @@ namespace IceBlink2
                                 gv.mod.scrollingTimer = 100;
                                 gv.mod.scrollingDirection = "left";
                                 gv.mod.doTriggerInspiteOfScrolling = true;
+                                bool isTransition = gv.cc.goWest();
+                                if (!isTransition)
+                                {
+                                    gv.mod.breakActiveSearch = false;
+                                    //gv.mod.wasJustCalled = false;
+                                    //if (!gv.mod.wasJustCalled)
+                                    //{
+                                        //if (gv.screenType == "main")
+                                        //{
+                                            moveLeft(true);
+                                        //}
+                                        //gv.mod.wasJustCalled = true;
+                                    //}
+                                }
                             }
                             //continued press
-                            else
+                            //else if (moveDelay2())
+                            else if ((gv.mod.scrollingTimer <= gv.mod.lastScrollStep || gv.mod.scrollingTimer >= 100) ||(keyData.ToString() != gv.mod.lastPressedKey))
                             {
                                 gv.mod.isScrollingNow = true;
                                 gv.mod.scrollingTimer = 100 + gv.mod.scrollingOverhang2;
                                 gv.mod.scrollingOverhang2 = 0;
                                 gv.mod.scrollingDirection = "left";
                                 gv.mod.doTriggerInspiteOfScrolling = true;
+                                bool isTransition = gv.cc.goWest();
+                                if (!isTransition)
+                                {
+                                    gv.mod.breakActiveSearch = false;
+                                    //gv.mod.wasJustCalled = false;
+                                    //if (!gv.mod.wasJustCalled)
+                                    //{
+                                        //if (gv.screenType == "main")
+                                        //{
+                                            moveLeft(true);
+                                        //}
+                                        //gv.mod.wasJustCalled = true;
+                                    //}
+                                }
                             }
                         }
 
-                        bool isTransition = gv.cc.goWest();
-                        if (!isTransition)
-                        {
-                            gv.mod.breakActiveSearch = false;
-                            gv.mod.wasJustCalled = false;
-                            if (!gv.mod.wasJustCalled)
-                            {
-                                if (gv.screenType == "main")
-                                {
-                                    moveLeft(true);
-                                }
-                                gv.mod.wasJustCalled = true;
-                            }
-                        }
+                       
                     }
                 }
                 else if (keyData == Keys.ShiftKey)
@@ -43314,6 +43447,7 @@ namespace IceBlink2
                     {
                         if (gv.mod.useScrollingSystem)
                         {
+                            
                             //single press
                             if (!gv.mod.isScrollingNow)
                             {
@@ -43322,32 +43456,49 @@ namespace IceBlink2
                                 gv.mod.scrollingTimer = 100;
                                 gv.mod.scrollingDirection = "left";
                                 gv.mod.doTriggerInspiteOfScrolling = true;
+                                bool isTransition = gv.cc.goWest();
+                                if (!isTransition)
+                                {
+                                    gv.mod.breakActiveSearch = false;
+                                    //gv.mod.wasJustCalled = false;
+                                    //if (!gv.mod.wasJustCalled)
+                                    //{
+                                        //if (gv.screenType == "main")
+                                        //{
+                                            moveLeft(true);
+                                        //}
+                                        //gv.mod.wasJustCalled = true;
+                                    //}
+                                }
                             }
+                            
                             //continued press
-                            else
+                            //else if (moveDelay2())
+                            else if ((gv.mod.scrollingTimer <= gv.mod.lastScrollStep || gv.mod.scrollingTimer >= 100) ||(keyData.ToString() != gv.mod.lastPressedKey))
                             {
                                 gv.mod.isScrollingNow = true;
                                 gv.mod.scrollingTimer = 100 + gv.mod.scrollingOverhang2;
                                 gv.mod.scrollingOverhang2 = 0;
                                 gv.mod.scrollingDirection = "left";
                                 gv.mod.doTriggerInspiteOfScrolling = true;
+                                bool isTransition = gv.cc.goWest();
+                                if (!isTransition)
+                                {
+                                    gv.mod.breakActiveSearch = false;
+                                    //gv.mod.wasJustCalled = false;
+                                    //if (!gv.mod.wasJustCalled)
+                                    //{
+                                        //if (gv.screenType == "main")
+                                        //{
+                                            moveLeft(true);
+                                        //}
+                                        //gv.mod.wasJustCalled = true;
+                                    //}
+                                }
                             }
                         }
 
-                        bool isTransition = gv.cc.goWest();
-                        if (!isTransition)
-                        {
-                            gv.mod.breakActiveSearch = false;
-                            gv.mod.wasJustCalled = false;
-                            if (!gv.mod.wasJustCalled)
-                            {
-                                if (gv.screenType == "main")
-                                {
-                                    moveLeft(true);
-                                }
-                                gv.mod.wasJustCalled = true;
-                            }
-                        }
+                        
                     }
                 }
                 else if (keyData == Keys.M)
@@ -43384,32 +43535,49 @@ namespace IceBlink2
                                 gv.mod.scrollingTimer = 100;
                                 gv.mod.scrollingDirection = "right";
                                 gv.mod.doTriggerInspiteOfScrolling = true;
+
+                                bool isTransition = gv.cc.goEast();
+                                if (!isTransition)
+                                {
+                                    gv.mod.breakActiveSearch = false;
+                                    //gv.mod.wasJustCalled = false;
+                                    //if (!gv.mod.wasJustCalled)
+                                    //{
+                                        //if (gv.screenType == "main")
+                                        //{
+                                            moveRight(true);
+                                        //}
+                                        //gv.mod.wasJustCalled = true;
+                                    //}
+                                }
                             }
                             //continued press
-                            else
+                            //else if (moveDelay2())
+                            else if ((gv.mod.scrollingTimer <= gv.mod.lastScrollStep || gv.mod.scrollingTimer >= 100) ||(keyData.ToString() != gv.mod.lastPressedKey))
                             {
                                 gv.mod.isScrollingNow = true;
                                 gv.mod.scrollingTimer = 100 + gv.mod.scrollingOverhang2;
                                 gv.mod.scrollingOverhang2 = 0;
                                 gv.mod.scrollingDirection = "right";
                                 gv.mod.doTriggerInspiteOfScrolling = true;
+
+                                bool isTransition = gv.cc.goEast();
+                                if (!isTransition)
+                                {
+                                    gv.mod.breakActiveSearch = false;
+                                    //gv.mod.wasJustCalled = false;
+                                    //if (!gv.mod.wasJustCalled)
+                                    //{
+                                        //if (gv.screenType == "main")
+                                        //{
+                                            moveRight(true);
+                                        //}
+                                        //gv.mod.wasJustCalled = true;
+                                    //}
+                                }
                             }
                         }
 
-                        bool isTransition = gv.cc.goEast();
-                        if (!isTransition)
-                        {
-                            gv.mod.breakActiveSearch = false;
-                            gv.mod.wasJustCalled = false;
-                            if (!gv.mod.wasJustCalled)
-                            {
-                                if (gv.screenType == "main")
-                                {
-                                    moveRight(true);
-                                }
-                                gv.mod.wasJustCalled = true;
-                            }
-                        }
                     }
                 }
                 else if (keyData == Keys.A && !showMoveKeys)
@@ -43439,32 +43607,48 @@ namespace IceBlink2
                                 gv.mod.scrollingTimer = 100;
                                 gv.mod.scrollingDirection = "left";
                                 gv.mod.doTriggerInspiteOfScrolling = true;
+                                bool isTransition = gv.cc.goWest();
+                                if (!isTransition)
+                                {
+                                    gv.mod.breakActiveSearch = false;
+                                    //gv.mod.wasJustCalled = false;
+                                    //if (!gv.mod.wasJustCalled)
+                                    //{
+                                        //if (gv.screenType == "main")
+                                        //{
+                                            moveLeft(true);
+                                        //}
+                                        //gv.mod.wasJustCalled = true;
+                                    //}
+                                }
                             }
                             //continued press
-                            else
+                            //else if (moveDelay2())
+                            else if ((gv.mod.scrollingTimer <= gv.mod.lastScrollStep || gv.mod.scrollingTimer >= 100) ||(keyData.ToString() != gv.mod.lastPressedKey))
                             {
                                 gv.mod.isScrollingNow = true;
                                 gv.mod.scrollingTimer = 100 + gv.mod.scrollingOverhang2;
                                 gv.mod.scrollingOverhang2 = 0;
                                 gv.mod.scrollingDirection = "left";
                                 gv.mod.doTriggerInspiteOfScrolling = true;
+                                bool isTransition = gv.cc.goWest();
+                                if (!isTransition)
+                                {
+                                    gv.mod.breakActiveSearch = false;
+                                    //gv.mod.wasJustCalled = false;
+                                    //if (!gv.mod.wasJustCalled)
+                                    //{
+                                        //if (gv.screenType == "main")
+                                        //{
+                                            moveLeft(true);
+                                        //}
+                                        //gv.mod.wasJustCalled = true;
+                                    //}
+                                }
                             }
                         }
 
-                        bool isTransition = gv.cc.goWest();
-                        if (!isTransition)
-                        {
-                            gv.mod.breakActiveSearch = false;
-                            gv.mod.wasJustCalled = false;
-                            if (!gv.mod.wasJustCalled)
-                            {
-                                if (gv.screenType == "main")
-                                {
-                                    moveLeft(true);
-                                }
-                                gv.mod.wasJustCalled = true;
-                            }
-                        }
+                      
                     }
                 }
                 else if (keyData == Keys.D6 | keyData == Keys.NumPad6)
@@ -43494,32 +43678,48 @@ namespace IceBlink2
                                 gv.mod.scrollingTimer = 100;
                                 gv.mod.scrollingDirection = "right";
                                 gv.mod.doTriggerInspiteOfScrolling = true;
+                                bool isTransition = gv.cc.goEast();
+                                if (!isTransition)
+                                {
+                                    gv.mod.breakActiveSearch = false;
+                                    //gv.mod.wasJustCalled = false;
+                                    //if (!gv.mod.wasJustCalled)
+                                    //{
+                                        //if (gv.screenType == "main")
+                                        //{
+                                            moveRight(true);
+                                        //}
+                                        //gv.mod.wasJustCalled = true;
+                                    //}
+                                }
                             }
                             //continued press
-                            else
+                            //else if (moveDelay2())
+                            else if ((gv.mod.scrollingTimer <= gv.mod.lastScrollStep || gv.mod.scrollingTimer >= 100) ||(keyData.ToString() != gv.mod.lastPressedKey))
                             {
                                 gv.mod.isScrollingNow = true;
                                 gv.mod.scrollingTimer = 100 + gv.mod.scrollingOverhang2;
                                 gv.mod.scrollingOverhang2 = 0;
                                 gv.mod.scrollingDirection = "right";
                                 gv.mod.doTriggerInspiteOfScrolling = true;
+                                bool isTransition = gv.cc.goEast();
+                                if (!isTransition)
+                                {
+                                    gv.mod.breakActiveSearch = false;
+                                    //gv.mod.wasJustCalled = false;
+                                    //if (!gv.mod.wasJustCalled)
+                                    //{
+                                        //if (gv.screenType == "main")
+                                        //{
+                                            moveRight(true);
+                                        //}
+                                        //gv.mod.wasJustCalled = true;
+                                    //}
+                                }
                             }
                         }
 
-                        bool isTransition = gv.cc.goEast();
-                        if (!isTransition)
-                        {
-                            gv.mod.breakActiveSearch = false;
-                            gv.mod.wasJustCalled = false;
-                            if (!gv.mod.wasJustCalled)
-                            {
-                                if (gv.screenType == "main")
-                                {
-                                    moveRight(true);
-                                }
-                                gv.mod.wasJustCalled = true;
-                            }
-                        }
+                       
                     }
                 }
                 else if (keyData == Keys.Right && showMoveKeys)
@@ -43542,6 +43742,7 @@ namespace IceBlink2
                         if (gv.mod.useScrollingSystem)
                         {
                             //single press
+                            
                             if (!gv.mod.isScrollingNow)
                             {
                                 gv.mod.isScrollingNow = true;
@@ -43549,32 +43750,50 @@ namespace IceBlink2
                                 gv.mod.scrollingTimer = 100;
                                 gv.mod.scrollingDirection = "right";
                                 gv.mod.doTriggerInspiteOfScrolling = true;
+                                bool isTransition = gv.cc.goEast();
+                                if (!isTransition)
+                                {
+                                    gv.mod.breakActiveSearch = false;
+                                    //gv.mod.wasJustCalled = false;
+                                    //if (!gv.mod.wasJustCalled)
+                                    //{
+                                        //if (gv.screenType == "main")
+                                        //{
+                                            moveRight(true);
+                                        //}
+                                        //gv.mod.wasJustCalled = true;
+                                    //}
+                                }
                             }
+                            
                             //continued press
-                            else
+                            //else if (moveDelay2())
+                            else if ( (gv.mod.scrollingTimer <= gv.mod.lastScrollStep || gv.mod.scrollingTimer >= 100) || (keyData.ToString() != gv.mod.lastPressedKey))
+                            //else 
                             {
                                 gv.mod.isScrollingNow = true;
                                 gv.mod.scrollingTimer = 100 + gv.mod.scrollingOverhang2;
                                 gv.mod.scrollingOverhang2 = 0;
                                 gv.mod.scrollingDirection = "right";
                                 gv.mod.doTriggerInspiteOfScrolling = true;
+                                bool isTransition = gv.cc.goEast();
+                                if (!isTransition)
+                                {
+                                    gv.mod.breakActiveSearch = false;
+                                    //gv.mod.wasJustCalled = false;
+                                    //if (!gv.mod.wasJustCalled)
+                                    //{
+                                        //if (gv.screenType == "main")
+                                        //{
+                                            moveRight(true);
+                                        //}
+                                        //gv.mod.wasJustCalled = true;
+                                    //}
+                                }
                             }
                         }
 
-                        bool isTransition = gv.cc.goEast();
-                        if (!isTransition)
-                        {
-                            gv.mod.breakActiveSearch = false;
-                            gv.mod.wasJustCalled = false;
-                            if (!gv.mod.wasJustCalled)
-                            {
-                                if (gv.screenType == "main")
-                                {
-                                    moveRight(true);
-                                }
-                                gv.mod.wasJustCalled = true;
-                            }
-                        }
+                       
                     }
                 }
                 else if (keyData == Keys.D8 | keyData == Keys.NumPad8)
@@ -43604,32 +43823,48 @@ namespace IceBlink2
                                 gv.mod.scrollingTimer = 100;
                                 gv.mod.scrollingDirection = "up";
                                 gv.mod.doTriggerInspiteOfScrolling = true;
+                                bool isTransition = gv.cc.goNorth();
+                                if (!isTransition)
+                                {
+                                    gv.mod.breakActiveSearch = false;
+                                    //gv.mod.wasJustCalled = false;
+                                    //if (!gv.mod.wasJustCalled)
+                                    //{
+                                        //if (gv.screenType == "main")
+                                        //{
+                                            moveUp(true);
+                                        //}
+                                        //gv.mod.wasJustCalled = true;
+                                    //}
+                                }
                             }
                             //continued press
-                            else
+                            //else if (moveDelay2())
+                            else if ((gv.mod.scrollingTimer <= gv.mod.lastScrollStep || gv.mod.scrollingTimer >= 100) ||(keyData.ToString() != gv.mod.lastPressedKey))
                             {
                                 gv.mod.isScrollingNow = true;
                                 gv.mod.scrollingTimer = 100 + gv.mod.scrollingOverhang2;
                                 gv.mod.scrollingOverhang2 = 0;
                                 gv.mod.scrollingDirection = "up";
                                 gv.mod.doTriggerInspiteOfScrolling = true;
+                                bool isTransition = gv.cc.goNorth();
+                                if (!isTransition)
+                                {
+                                    gv.mod.breakActiveSearch = false;
+                                    //gv.mod.wasJustCalled = false;
+                                    //if (!gv.mod.wasJustCalled)
+                                    //{
+                                        //if (gv.screenType == "main")
+                                        //{
+                                            moveUp(true);
+                                        //}
+                                        //gv.mod.wasJustCalled = true;
+                                    //}
+                                }
                             }
                         }
 
-                        bool isTransition = gv.cc.goNorth();
-                        if (!isTransition)
-                        {
-                            gv.mod.breakActiveSearch = false;
-                            gv.mod.wasJustCalled = false;
-                            if (!gv.mod.wasJustCalled)
-                            {
-                                if (gv.screenType == "main")
-                                {
-                                    moveUp(true);
-                                }
-                                gv.mod.wasJustCalled = true;
-                            }
-                        }
+                       
                     }
                 }
                 else if (keyData == Keys.Up && showMoveKeys)
@@ -43646,46 +43881,135 @@ namespace IceBlink2
                     }
 
                     blockMoveBecausOfCurrentScrolling = false;
- 
+
                     if (!blockMoveBecausOfCurrentScrolling)
                     {
                         if (gv.mod.useScrollingSystem)
                         {
+                            
                             //single press
                             if (!gv.mod.isScrollingNow)
-                            { 
+                            {
                                 gv.mod.isScrollingNow = true;
                                 //gv.mod.scrollingTimer = 100 + gv.mod.scrollingOverhang2;
                                 gv.mod.scrollingTimer = 100;
                                 gv.mod.scrollingDirection = "up";
                                 gv.mod.doTriggerInspiteOfScrolling = true;
+                                bool isTransition = gv.cc.goNorth();
+                                if (!isTransition)
+                                {
+                                    gv.mod.breakActiveSearch = false;
+                                    //gv.mod.wasJustCalled = false;
+                                    //if (!gv.mod.wasJustCalled)
+                                    //{
+                                    //if (gv.screenType == "main")
+                                    //{
+                                    moveUp(true);
+                                    //}
+                                    //gv.mod.wasJustCalled = true;
+                                    //}
+                                }
                             }
+                            
                             //continued press
-                            else
+                            //else if (moveDelay2())
+                            else if ((gv.mod.scrollingTimer <= gv.mod.lastScrollStep || gv.mod.scrollingTimer >= 100) || (keyData.ToString() != gv.mod.lastPressedKey))
                             {
                                 gv.mod.isScrollingNow = true;
                                 gv.mod.scrollingTimer = 100 + gv.mod.scrollingOverhang2;
                                 gv.mod.scrollingOverhang2 = 0;
                                 gv.mod.scrollingDirection = "up";
                                 gv.mod.doTriggerInspiteOfScrolling = true;
+                                bool isTransition = gv.cc.goNorth();
+                                if (!isTransition)
+                                {
+                                    gv.mod.breakActiveSearch = false;
+                                    //gv.mod.wasJustCalled = false;
+                                    //if (!gv.mod.wasJustCalled)
+                                    //{
+                                    //if (gv.screenType == "main")
+                                    //{
+                                    moveUp(true);
+                                    //}
+                                    //gv.mod.wasJustCalled = true;
+                                    //}
+                                }
                             }
                         }
 
-                        bool isTransition = gv.cc.goNorth();
-                        if (!isTransition)
+
+                    }
+
+                    /*
+                    //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                    //gv.mod.keyPressCounter++;
+                    gv.mod.doTriggerInspiteOfScrolling = false;
+                    bool blockMoveBecausOfCurrentScrolling = false;
+
+                    if (gv.mod.useScrollingSystem)
+                    {
+                        if (gv.mod.scrollingTimer != 100 && gv.mod.scrollingTimer != 0)
                         {
-                            gv.mod.breakActiveSearch = false;
-                            gv.mod.wasJustCalled = false;
-                            if (!gv.mod.wasJustCalled)
-                            {
-                                if (gv.screenType == "main")
-                                {
-                                    moveUp(true);
-                                }
-                                gv.mod.wasJustCalled = true;
-                            }
+                            blockMoveBecausOfCurrentScrolling = true;
                         }
                     }
+                    
+                    blockMoveBecausOfCurrentScrolling = false;
+
+                    if (!blockMoveBecausOfCurrentScrolling)
+                    {
+                        if (gv.mod.useScrollingSystem)
+                        {
+                            
+                            //continued press
+                            //10 was awesome
+                            //moveDelay();
+                            //gv.mod.lastScrollStep
+
+                            //doScrolling(gv.elapsed);
+                            //gv.mod.isScrollingNow = true;
+                            if ((gv.mod.scrollingTimer <= gv.mod.lastScrollStep || gv.mod.scrollingTimer >= 100) ||(keyData.ToString() != gv.mod.lastPressedKey))
+                            {
+                                //gv.mod.counterUpMoves++;
+                                gv.mod.isScrollingNow = true;
+                                //++ gv.mod.scrollingOverhang2 was good;
+                                gv.mod.scrollingTimer = 100 + gv.mod.scrollingOverhang2;
+                                //if (gv.mod.scrollingTimer <= 35 && (keyData.ToString() == gv.mod.lastPressedKey))
+                                //{
+                                    //gv.mod.scrollingTimer = 100 + gv.mod.scrollingTimer;
+                                //}
+                                //else
+                                //{
+                                    //gv.mod.scrollingTimer = 100;
+                                //}
+                                gv.mod.scrollingOverhang2 = 0;
+                                gv.mod.scrollingDirection = "up";
+                                gv.mod.doTriggerInspiteOfScrolling = true;
+                                bool isTransition = gv.cc.goNorth();
+                                if (!isTransition)
+                                {
+                                    gv.mod.breakActiveSearch = false;
+                                    //gv.mod.wasJustCalled = false;
+                                    //if (!gv.mod.wasJustCalled)
+                                    //{
+                                        //if (gv.screenType == "main")
+                                        //{
+                                            moveUp(true);
+                                        //}
+                                        //gv.mod.wasJustCalled = true;
+                                    //}
+                                }
+                            }
+                            else
+                            {
+                                int ghg = 0;
+                            }
+                        }
+
+
+                    }
+                    //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXx
+                    */
                 }
                 else if (keyData == Keys.W && !showMoveKeys)
                 {
@@ -43699,7 +44023,7 @@ namespace IceBlink2
                             blockMoveBecausOfCurrentScrolling = true;
                         }
                     }
-
+                    
                     blockMoveBecausOfCurrentScrolling = false;
 
                     if (!blockMoveBecausOfCurrentScrolling)
@@ -43714,32 +44038,48 @@ namespace IceBlink2
                                 gv.mod.scrollingTimer = 100;
                                 gv.mod.scrollingDirection = "up";
                                 gv.mod.doTriggerInspiteOfScrolling = true;
+                                bool isTransition = gv.cc.goNorth();
+                                if (!isTransition)
+                                {
+                                    gv.mod.breakActiveSearch = false;
+                                    //gv.mod.wasJustCalled = false;
+                                    //if (!gv.mod.wasJustCalled)
+                                    //{
+                                        //if (gv.screenType == "main")
+                                        //{
+                                            moveUp(true);
+                                        //}
+                                        //gv.mod.wasJustCalled = true;
+                                    //}
+                                }
                             }
                             //continued press
-                            else
+                            //else if (moveDelay2())
+                            else if ((gv.mod.scrollingTimer <= gv.mod.lastScrollStep || gv.mod.scrollingTimer >= 100) ||(keyData.ToString() != gv.mod.lastPressedKey))
                             {
                                 gv.mod.isScrollingNow = true;
                                 gv.mod.scrollingTimer = 100 + gv.mod.scrollingOverhang2;
                                 gv.mod.scrollingOverhang2 = 0;
                                 gv.mod.scrollingDirection = "up";
                                 gv.mod.doTriggerInspiteOfScrolling = true;
+                                bool isTransition = gv.cc.goNorth();
+                                if (!isTransition)
+                                {
+                                    gv.mod.breakActiveSearch = false;
+                                    //gv.mod.wasJustCalled = false;
+                                    //if (!gv.mod.wasJustCalled)
+                                    //{
+                                        //if (gv.screenType == "main")
+                                        //{
+                                            moveUp(true);
+                                        //}
+                                        //gv.mod.wasJustCalled = true;
+                                    //}
+                                }
                             }
                         }
 
-                        bool isTransition = gv.cc.goNorth();
-                        if (!isTransition)
-                        {
-                            gv.mod.breakActiveSearch = false;
-                            gv.mod.wasJustCalled = false;
-                            if (!gv.mod.wasJustCalled)
-                            {
-                                if (gv.screenType == "main")
-                                {
-                                    moveUp(true);
-                                }
-                                gv.mod.wasJustCalled = true;
-                            }
-                        }
+                       
                     }
                 }
                 else if (keyData == Keys.D2 | keyData == Keys.NumPad2)
@@ -43769,32 +44109,48 @@ namespace IceBlink2
                                 gv.mod.scrollingTimer = 100;
                                 gv.mod.scrollingDirection = "down";
                                 gv.mod.doTriggerInspiteOfScrolling = true;
+                                bool isTransition = gv.cc.goSouth();
+                                if (!isTransition)
+                                {
+                                    gv.mod.breakActiveSearch = false;
+                                    //gv.mod.wasJustCalled = false;
+                                    //if (!gv.mod.wasJustCalled)
+                                    //{
+                                        //if (gv.screenType == "main")
+                                        //{
+                                            moveDown(true);
+                                        //}
+                                        //gv.mod.wasJustCalled = true;
+                                    //}
+                                }
                             }
                             //continued press
-                            else
+                            //else if (moveDelay2())
+                            else if ((gv.mod.scrollingTimer <= gv.mod.lastScrollStep || gv.mod.scrollingTimer >= 100) ||(keyData.ToString() != gv.mod.lastPressedKey))
                             {
                                 gv.mod.isScrollingNow = true;
                                 gv.mod.scrollingTimer = 100 + gv.mod.scrollingOverhang2;
                                 gv.mod.scrollingOverhang2 = 0;
                                 gv.mod.scrollingDirection = "down";
                                 gv.mod.doTriggerInspiteOfScrolling = true;
+                                bool isTransition = gv.cc.goSouth();
+                                if (!isTransition)
+                                {
+                                    gv.mod.breakActiveSearch = false;
+                                    //gv.mod.wasJustCalled = false;
+                                    //if (!gv.mod.wasJustCalled)
+                                    //{
+                                        //if (gv.screenType == "main")
+                                        //{
+                                            moveDown(true);
+                                        //}
+                                        //gv.mod.wasJustCalled = true;
+                                    //}
+                                }
                             }
                         }
 
-                        bool isTransition = gv.cc.goSouth();
-                        if (!isTransition)
-                        {
-                            gv.mod.breakActiveSearch = false;
-                            gv.mod.wasJustCalled = false;
-                            if (!gv.mod.wasJustCalled)
-                            {
-                                if (gv.screenType == "main")
-                                {
-                                    moveDown(true);
-                                }
-                                gv.mod.wasJustCalled = true;
-                            }
-                        }
+                       
                     }
                 }
                 else if (keyData == Keys.Down && showMoveKeys)
@@ -43816,6 +44172,7 @@ namespace IceBlink2
                     {
                         if (gv.mod.useScrollingSystem)
                         {
+                            
                             //single press
                             if (!gv.mod.isScrollingNow)
                             {
@@ -43824,32 +44181,49 @@ namespace IceBlink2
                                 gv.mod.scrollingTimer = 100;
                                 gv.mod.scrollingDirection = "down";
                                 gv.mod.doTriggerInspiteOfScrolling = true;
+                                bool isTransition = gv.cc.goSouth();
+                                if (!isTransition)
+                                {
+                                    gv.mod.breakActiveSearch = false;
+                                    //gv.mod.wasJustCalled = false;
+                                    //if (!gv.mod.wasJustCalled)
+                                    //{
+                                        //if (gv.screenType == "main")
+                                        //{
+                                            moveDown(true);
+                                        //}
+                                        //gv.mod.wasJustCalled = true;
+                                    //}
+                                }
                             }
+                            
                             //continued press
-                            else
+                            //else if (moveDelay2())
+                            else if ((gv.mod.scrollingTimer <= gv.mod.lastScrollStep || gv.mod.scrollingTimer >= 100) ||(keyData.ToString() != gv.mod.lastPressedKey))
                             {
                                 gv.mod.isScrollingNow = true;
                                 gv.mod.scrollingTimer = 100 + gv.mod.scrollingOverhang2;
                                 gv.mod.scrollingOverhang2 = 0;
                                 gv.mod.scrollingDirection = "down";
                                 gv.mod.doTriggerInspiteOfScrolling = true;
+                                bool isTransition = gv.cc.goSouth();
+                                if (!isTransition)
+                                {
+                                    gv.mod.breakActiveSearch = false;
+                                    //gv.mod.wasJustCalled = false;
+                                    //if (!gv.mod.wasJustCalled)
+                                    //{
+                                        //if (gv.screenType == "main")
+                                        //{
+                                            moveDown(true);
+                                        //}
+                                        //gv.mod.wasJustCalled = true;
+                                    //}
+                                }
                             }
                         }
 
-                        bool isTransition = gv.cc.goSouth();
-                        if (!isTransition)
-                        {
-                            gv.mod.breakActiveSearch = false;
-                            gv.mod.wasJustCalled = false;
-                            if (!gv.mod.wasJustCalled)
-                            {
-                                if (gv.screenType == "main")
-                                {
-                                    moveDown(true);
-                                }
-                                gv.mod.wasJustCalled = true;
-                            }
-                        }
+                        
                     }
                 }
                 else if (keyData == Keys.S && !showMoveKeys)
@@ -43879,32 +44253,48 @@ namespace IceBlink2
                                 gv.mod.scrollingTimer = 100;
                                 gv.mod.scrollingDirection = "down";
                                 gv.mod.doTriggerInspiteOfScrolling = true;
+                                bool isTransition = gv.cc.goSouth();
+                                if (!isTransition)
+                                {
+                                    gv.mod.breakActiveSearch = false;
+                                    //gv.mod.wasJustCalled = false;
+                                    //if (!gv.mod.wasJustCalled)
+                                    //{
+                                        //if (gv.screenType == "main")
+                                        //{
+                                            moveDown(true);
+                                        //}
+                                        //gv.mod.wasJustCalled = true;
+                                    //}
+                                }
                             }
                             //continued press
-                            else
+                            //else if (moveDelay2())
+                            else if ((gv.mod.scrollingTimer <= gv.mod.lastScrollStep || gv.mod.scrollingTimer >= 100) ||(keyData.ToString() != gv.mod.lastPressedKey))
                             {
                                 gv.mod.isScrollingNow = true;
                                 gv.mod.scrollingTimer = 100 + gv.mod.scrollingOverhang2;
                                 gv.mod.scrollingOverhang2 = 0;
                                 gv.mod.scrollingDirection = "down";
                                 gv.mod.doTriggerInspiteOfScrolling = true;
+                                bool isTransition = gv.cc.goSouth();
+                                if (!isTransition)
+                                {
+                                    gv.mod.breakActiveSearch = false;
+                                    //gv.mod.wasJustCalled = false;
+                                    //if (!gv.mod.wasJustCalled)
+                                    //{
+                                        //if (gv.screenType == "main")
+                                        //{
+                                            moveDown(true);
+                                        //}
+                                        //gv.mod.wasJustCalled = true;
+                                    //}
+                                }
                             }
                         }
 
-                        bool isTransition = gv.cc.goSouth();
-                        if (!isTransition)
-                        {
-                            gv.mod.breakActiveSearch = false;
-                            gv.mod.wasJustCalled = false;
-                            if (!gv.mod.wasJustCalled)
-                            {
-                                if (gv.screenType == "main")
-                                {
-                                    moveDown(true);
-                                }
-                                gv.mod.wasJustCalled = true;
-                            }
-                        }
+                       
                     }
                 }
                 //else { }
@@ -45158,6 +45548,8 @@ namespace IceBlink2
                             if (it.resref == ir.resref)
                             {
                                 gv.cc.doIBScriptBasedOnFilename(it.onUseItemIBScript, it.onUseItemIBScriptParms);
+                                gv.cc.resetLightAndDarkness();
+                                gv.cc.doIllumination();
                                 break;
                             }
 
@@ -45381,10 +45773,24 @@ namespace IceBlink2
                 }
                 gv.mod.hideInterfaceNextMove = false;
             }
+            gv.mod.lastPressedKey = keyData.ToString();
         }
         //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
-      
+        private bool moveDelay2()
+        {
+            gv.mod.elapsed2 = DateTime.Now.Ticks - timeStamp2;
+            //15 slow
+            //10 normal
+            //current experimental
+            //speedo1
+            if (gv.mod.elapsed2 > 10000 * movementDelayInMiliseconds * 1) //10,000 ticks in 1 ms
+            {
+                timeStamp2 = DateTime.Now.Ticks;
+                return true;
+            }
+            return false;
+        }
 
         private bool moveDelay()
         {
@@ -46489,7 +46895,6 @@ namespace IceBlink2
                         //gv.mod.PlayerLastLocationX = gv.mod.PlayerLocationX;
                         //gv.mod.PlayerLastLocationY = gv.mod.PlayerLocationY;
                         gv.mod.PlayerLocationY--;
-                        gv.mod.counterUpMoves++;
                         gv.mod.drawPartyDirection = "down";
                         if (!gv.mod.wasSuccessfulPush)
                         {
@@ -46563,7 +46968,7 @@ namespace IceBlink2
                     gv.cc.doUpdate();
                 }
             }
-            gv.mod.wasJustCalled = false;
+            //gv.mod.wasJustCalled = false;
         }
         public void moveDown(bool affectTimer)
         {

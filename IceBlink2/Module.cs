@@ -13,6 +13,15 @@ namespace IceBlink2
 {
     public class Module
     {
+        public long elapsed2 = 0;
+        public int keyPressCounter = 0;
+        public List<float> distances = new List<float>();
+        public int stopScrollCounter = 0;
+        //public Keys LastPressKeyData = new Keys();
+        public string lastPressedKey = "none";
+        public string frozenPressedKey = "none";
+        public float lastScrollStep = 10;
+        public float scrollingSpeedReduction = 1f;
         public bool doTriggerInspiteOfScrolling = false;
 
         public bool comningFromBattle = false;
