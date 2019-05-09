@@ -15,6 +15,9 @@ namespace IceBlink2
     {
 
         public bool blockUpKey = false;
+        public bool blockDownKey = false;
+        public bool blockLeftKey = false;
+        public bool blockRightKey = false;
 
         public bool calledByWaiting = false;
         public float scrollModeSpeed = 1.0f;

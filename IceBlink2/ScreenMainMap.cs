@@ -43501,6 +43501,7 @@ namespace IceBlink2
                     //krah krah
                     //gv.mod.interfaceFadeCounter = 0;
                 }
+                /*
                 else if (keyData == Keys.Left && showMoveKeys)
                 {
                     gv.mod.doTriggerInspiteOfScrolling = false;
@@ -43574,6 +43575,7 @@ namespace IceBlink2
                         
                     }
                 }
+                */
                 else if (keyData == Keys.M)
                 {
                     if (gv.mod.allowSave)
@@ -43795,6 +43797,7 @@ namespace IceBlink2
                        
                     }
                 }
+                /*
                 else if (keyData == Keys.Right && showMoveKeys)
                 {
                     gv.mod.doTriggerInspiteOfScrolling = false;
@@ -43869,6 +43872,7 @@ namespace IceBlink2
                        
                     }
                 }
+                */
                 else if (keyData == Keys.D8 | keyData == Keys.NumPad8)
                 {
                     gv.mod.doTriggerInspiteOfScrolling = false;
@@ -44159,6 +44163,7 @@ namespace IceBlink2
                        
                     }
                 }
+                /*
                 else if (keyData == Keys.Down && showMoveKeys)
                 {
                     gv.mod.doTriggerInspiteOfScrolling = false;
@@ -44232,6 +44237,7 @@ namespace IceBlink2
                         
                     }
                 }
+                */
                 else if (keyData == Keys.S && !showMoveKeys)
                 {
                     gv.mod.doTriggerInspiteOfScrolling = false;

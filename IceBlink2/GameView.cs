@@ -2209,18 +2209,30 @@ namespace IceBlink2
         {
             if (screenType.Equals("main"))
             {
-                aTimer.Stop();
-                mod.scrollModeSpeed = 1.0f;
+               
                 if (e.KeyCode == Keys.Up && this.screenMainMap.showMoveKeys && mod.blockUpKey)
                 {
                     mod.blockUpKey = false;
                 }
-
-                    //mod.runMulti = 1.0f;
-                    //int i = 1;
-                    //screenMainMap.onKeyUp(e);
-                    //krah krah
+                if (e.KeyCode == Keys.Down && this.screenMainMap.showMoveKeys && mod.blockDownKey)
+                {
+                    mod.blockDownKey = false;
                 }
+                if (e.KeyCode == Keys.Left && this.screenMainMap.showMoveKeys && mod.blockLeftKey)
+                {
+                    mod.blockLeftKey = false;
+                }
+                if (e.KeyCode == Keys.Right && this.screenMainMap.showMoveKeys && mod.blockRightKey)
+                {
+                    mod.blockRightKey = false;
+                }
+
+                if (!mod.blockRightKey && !mod.blockLeftKey && !mod.blockUpKey && !mod.blockDownKey)
+                {
+                    aTimer.Stop();
+                    mod.scrollModeSpeed = 1.0f;
+                }              
+            }
         }
 
         private void GameView_onKeyDown(object sender, KeyEventArgs e)
@@ -2307,17 +2319,242 @@ namespace IceBlink2
                     aTimer.Start();
                     mod.scrollModeSpeed = 0.45f;
                 }
-                else if (e.KeyCode == Keys.Down && this.screenMainMap.showMoveKeys)
+                else if (e.KeyCode == Keys.Down && this.screenMainMap.showMoveKeys && !mod.blockDownKey)
                 {
+                    mod.blockDownKey = true;
+                    aTimer.Stop();
+                    if (!moveTimerRuns)
+                    {
 
+                        mod.doTriggerInspiteOfScrolling = false;
+                        bool blockMoveBecausOfCurrentScrolling = false;
+
+                        if (mod.useScrollingSystem)
+                        {
+                            if (mod.scrollingTimer != 100 && mod.scrollingTimer != 0)
+                            {
+                                blockMoveBecausOfCurrentScrolling = true;
+                            }
+                        }
+
+                        blockMoveBecausOfCurrentScrolling = false;
+
+                        if (!blockMoveBecausOfCurrentScrolling)
+                        {
+                            if (mod.useScrollingSystem)
+                            {
+                                //single press
+                                if (mod.isScrollingNow)
+                                {
+                                    mod.isScrollingNow = true;
+                                    //gv.mod.scrollingTimer = 100 + gv.mod.scrollingOverhang2;
+                                    mod.scrollingTimer = 100;
+                                    mod.scrollingDirection = "down";
+                                    mod.doTriggerInspiteOfScrolling = true;
+                                    bool isTransition = cc.goSouth();
+                                    if (!isTransition)
+                                    {
+                                        mod.breakActiveSearch = false;
+                                        //gv.mod.wasJustCalled = false;
+                                        //if (!gv.mod.wasJustCalled)
+                                        //{
+                                        //if (gv.screenType == "main")
+                                        //{
+                                        screenMainMap.moveDown(true);
+                                        //}
+                                        //gv.mod.wasJustCalled = true;
+                                        //}
+                                    }
+                                }
+                                //continued press
+                                //else if (moveDelay2())
+                                else if (mod.scrollingTimer <= mod.lastScrollStep || mod.scrollingTimer >= 100)
+                                {
+                                    mod.isScrollingNow = true;
+                                    mod.scrollingTimer = 100 + mod.scrollingOverhang2;
+                                    mod.scrollingOverhang2 = 0;
+                                    mod.scrollingDirection = "down";
+                                    mod.doTriggerInspiteOfScrolling = true;
+                                    bool isTransition = cc.goSouth();
+                                    if (!isTransition)
+                                    {
+                                        mod.breakActiveSearch = false;
+                                        //gv.mod.wasJustCalled = false;
+                                        //if (!gv.mod.wasJustCalled)
+                                        //{
+                                        //if (gv.screenType == "main")
+                                        //{
+                                        screenMainMap.moveDown(true);
+                                        //}
+                                        //gv.mod.wasJustCalled = true;
+                                        //}
+                                    }
+                                }
+                            }
+
+
+                        }
+                    }
+                    aTimer.Start();
+                    mod.scrollModeSpeed = 0.45f;
                 }
-                else if (e.KeyCode == Keys.Right && this.screenMainMap.showMoveKeys)
+                else if (e.KeyCode == Keys.Right && this.screenMainMap.showMoveKeys && !mod.blockRightKey)
                 {
+                    mod.blockRightKey = true;
+                    aTimer.Stop();
+                    if (!moveTimerRuns)
+                    {
 
+                        mod.doTriggerInspiteOfScrolling = false;
+                        bool blockMoveBecausOfCurrentScrolling = false;
+
+                        if (mod.useScrollingSystem)
+                        {
+                            if (mod.scrollingTimer != 100 && mod.scrollingTimer != 0)
+                            {
+                                blockMoveBecausOfCurrentScrolling = true;
+                            }
+                        }
+
+                        blockMoveBecausOfCurrentScrolling = false;
+
+                        if (!blockMoveBecausOfCurrentScrolling)
+                        {
+                            if (mod.useScrollingSystem)
+                            {
+                                //single press
+                                if (mod.isScrollingNow)
+                                {
+                                    mod.isScrollingNow = true;
+                                    //gv.mod.scrollingTimer = 100 + gv.mod.scrollingOverhang2;
+                                    mod.scrollingTimer = 100;
+                                    mod.scrollingDirection = "right";
+                                    mod.doTriggerInspiteOfScrolling = true;
+                                    bool isTransition = cc.goEast();
+                                    if (!isTransition)
+                                    {
+                                        mod.breakActiveSearch = false;
+                                        //gv.mod.wasJustCalled = false;
+                                        //if (!gv.mod.wasJustCalled)
+                                        //{
+                                        //if (gv.screenType == "main")
+                                        //{
+                                        screenMainMap.moveRight(true);
+                                        //}
+                                        //gv.mod.wasJustCalled = true;
+                                        //}
+                                    }
+                                }
+                                //continued press
+                                //else if (moveDelay2())
+                                else if (mod.scrollingTimer <= mod.lastScrollStep || mod.scrollingTimer >= 100)
+                                {
+                                    mod.isScrollingNow = true;
+                                    mod.scrollingTimer = 100 + mod.scrollingOverhang2;
+                                    mod.scrollingOverhang2 = 0;
+                                    mod.scrollingDirection = "right";
+                                    mod.doTriggerInspiteOfScrolling = true;
+                                    bool isTransition = cc.goEast();
+                                    if (!isTransition)
+                                    {
+                                        mod.breakActiveSearch = false;
+                                        //gv.mod.wasJustCalled = false;
+                                        //if (!gv.mod.wasJustCalled)
+                                        //{
+                                        //if (gv.screenType == "main")
+                                        //{
+                                        screenMainMap.moveRight(true);
+                                        //}
+                                        //gv.mod.wasJustCalled = true;
+                                        //}
+                                    }
+                                }
+                            }
+
+
+                        }
+                    }
+                    aTimer.Start();
+                    mod.scrollModeSpeed = 0.45f;
                 }
-                else if (e.KeyCode == Keys.Left && this.screenMainMap.showMoveKeys)
+                else if (e.KeyCode == Keys.Left && this.screenMainMap.showMoveKeys && !mod.blockLeftKey)
                 {
+                    mod.blockLeftKey = true;
+                    aTimer.Stop();
+                    if (!moveTimerRuns)
+                    {
 
+                        mod.doTriggerInspiteOfScrolling = false;
+                        bool blockMoveBecausOfCurrentScrolling = false;
+
+                        if (mod.useScrollingSystem)
+                        {
+                            if (mod.scrollingTimer != 100 && mod.scrollingTimer != 0)
+                            {
+                                blockMoveBecausOfCurrentScrolling = true;
+                            }
+                        }
+
+                        blockMoveBecausOfCurrentScrolling = false;
+
+                        if (!blockMoveBecausOfCurrentScrolling)
+                        {
+                            if (mod.useScrollingSystem)
+                            {
+                                //single press
+                                if (mod.isScrollingNow)
+                                {
+                                    mod.isScrollingNow = true;
+                                    //gv.mod.scrollingTimer = 100 + gv.mod.scrollingOverhang2;
+                                    mod.scrollingTimer = 100;
+                                    mod.scrollingDirection = "left";
+                                    mod.doTriggerInspiteOfScrolling = true;
+                                    bool isTransition = cc.goWest();
+                                    if (!isTransition)
+                                    {
+                                        mod.breakActiveSearch = false;
+                                        //gv.mod.wasJustCalled = false;
+                                        //if (!gv.mod.wasJustCalled)
+                                        //{
+                                        //if (gv.screenType == "main")
+                                        //{
+                                        screenMainMap.moveLeft(true);
+                                        //}
+                                        //gv.mod.wasJustCalled = true;
+                                        //}
+                                    }
+                                }
+                                //continued press
+                                //else if (moveDelay2())
+                                else if (mod.scrollingTimer <= mod.lastScrollStep || mod.scrollingTimer >= 100)
+                                {
+                                    mod.isScrollingNow = true;
+                                    mod.scrollingTimer = 100 + mod.scrollingOverhang2;
+                                    mod.scrollingOverhang2 = 0;
+                                    mod.scrollingDirection = "left";
+                                    mod.doTriggerInspiteOfScrolling = true;
+                                    bool isTransition = cc.goWest();
+                                    if (!isTransition)
+                                    {
+                                        mod.breakActiveSearch = false;
+                                        //gv.mod.wasJustCalled = false;
+                                        //if (!gv.mod.wasJustCalled)
+                                        //{
+                                        //if (gv.screenType == "main")
+                                        //{
+                                        screenMainMap.moveLeft(true);
+                                        //}
+                                        //gv.mod.wasJustCalled = true;
+                                        //}
+                                    }
+                                }
+                            }
+
+
+                        }
+                    }
+                    aTimer.Start();
+                    mod.scrollModeSpeed = 0.45f;
                 }
             }
         } 
