@@ -2933,46 +2933,58 @@ namespace IceBlink2
         public void doUpdate()
         {
 
-            /*
-            long current2 = gv.gameTimerStopwatch.ElapsedMilliseconds; //get the current total amount of ms since the game launched
+            if ((gv.mod.PlayerLastLocationX != gv.mod.PlayerLocationX || gv.mod.PlayerLastLocationY != gv.mod.PlayerLocationY) || gv.mod.calledByRealTimeTimer || gv.mod.calledByWaiting)
+            {
+                gv.mod.calledByWaiting = false;
+                /*
+                gv.cc.floatyText = "";
+                gv.cc.floatyText2 = "";
+                gv.cc.floatyText3 = "";
+                gv.cc.floatyText4 = "";
+                gv.cc.floatyText0 = "";
+                gv.cc.floatyTextA = "";
+                gv.cc.floatyTextB = "";
+                */
+                /*
+                long current2 = gv.gameTimerStopwatch.ElapsedMilliseconds; //get the current total amount of ms since the game launched
 
-            //mühlheim
-            
-            gv.elapsed2 = (int)(current2 - gv.previousTime2); //calculate the total ms elapsed since the last time through the game loop
-            if (gv.elapsed2 <750)
-            {
-                gv.mod.scrollingOverhang = (7.5f * gv.elapsed2 / 250f);
-            }
-            else
-            {
-                gv.mod.scrollingOverhang = 0;
-            }
-            */
-            
-           
-            
-            //if (gv.mod.scrollingOverhang > 50)
-            //{
+                //mühlheim
+
+                gv.elapsed2 = (int)(current2 - gv.previousTime2); //calculate the total ms elapsed since the last time through the game loop
+                if (gv.elapsed2 <750)
+                {
+                    gv.mod.scrollingOverhang = (7.5f * gv.elapsed2 / 250f);
+                }
+                else
+                {
+                    gv.mod.scrollingOverhang = 0;
+                }
+                */
+
+
+
+                //if (gv.mod.scrollingOverhang > 50)
+                //{
                 //gv.mod.scrollingOverhang = 50;
-            //}
+                //}
 
-            //if (gv.mod.scrollingOverhang < -199)
-            //{
+                //if (gv.mod.scrollingOverhang < -199)
+                //{
                 //gv.mod.scrollingOverhang = -199;
-            //}
-            //gv.mod.blockMainKeyboard = true;
-            //bool blockUpdate = false;
-            //if (gv.mod.useScrollingSystem && gv.mod.isScrollingNow)
-            //{
+                //}
+                //gv.mod.blockMainKeyboard = true;
+                //bool blockUpdate = false;
+                //if (gv.mod.useScrollingSystem && gv.mod.isScrollingNow)
+                //{
                 //blockUpdate = true;
-            //}
-            //blockUpdate = false;
-            //gv.mod.PlayerLastLoca tionX = gv.mod.PlayerLocationX;
-            //gv.mod.PlayerLastLocationY = gv.mod.PlayerLocationY;
+                //}
+                //blockUpdate = false;
+                //gv.mod.PlayerLastLoca tionX = gv.mod.PlayerLocationX;
+                //gv.mod.PlayerLastLocationY = gv.mod.PlayerLocationY;
 
-            //bool showPortrtaitsThisUpdate = false;
-            //if (!blockUpdate)
-            //{
+                //bool showPortrtaitsThisUpdate = false;
+                //if (!blockUpdate)
+                //{
                 foreach (Player p in gv.mod.playerList)
                 {
                     if (p.hp != p.hpLastUpdate)
@@ -3022,13 +3034,13 @@ namespace IceBlink2
                 }
 
                 gv.mod.permanentPartyText = "none";
-            //if (!blockUpdate)
-            //{
+                //if (!blockUpdate)
+                //{
                 //aegon2
                 gv.sf.ThisProp = null;
                 gv.cc.calledEncounterFromProp = false;
                 gv.cc.calledConvoFromProp = false;
-            //}
+                //}
                 //to do?: update states of overview map buttons (show/no show)?
                 //or will just adding the script functionality be enough? Likely...
 
@@ -4347,35 +4359,35 @@ namespace IceBlink2
                 gv.triggerPropIndex = 0;
                 gv.triggerIndex = 0;
 
-            //enter code for stealthing props here; using their isVisible state (might be buggy as sued in otehr contexts a lot)
-            //do a compaartive roll between  spot enemy skill of party and steath value of prop (use taht as dc number, so make it 10 higher than expected party spot enemy skill)?
-            //stealtehd prop will be invisbel this way, but can stioll ahrm the party, move, trigger interaction etc.
-            //use stealth value -*1 for no participation in stealth system, ie always visible
-            //dont forget to this properly for neighbouring maps
-            // doPropStealth();
+                //enter code for stealthing props here; using their isVisible state (might be buggy as sued in otehr contexts a lot)
+                //do a compaartive roll between  spot enemy skill of party and steath value of prop (use taht as dc number, so make it 10 higher than expected party spot enemy skill)?
+                //stealtehd prop will be invisbel this way, but can stioll ahrm the party, move, trigger interaction etc.
+                //use stealth value -*1 for no participation in stealth system, ie always visible
+                //dont forget to this properly for neighbouring maps
+                // doPropStealth();
 
-            //scrollingWystem: removed one line below
-            if (gv.mod.useScrollingSystem)
-            {
-                if (gv.mod.doTriggerInspiteOfScrolling)
+                //scrollingWystem: removed one line below
+                if (gv.mod.useScrollingSystem)
                 {
-                    if (gv.screenType == "main")
+                    if (gv.mod.doTriggerInspiteOfScrolling)
                     {
-                        doPropTriggers();
+                        if (gv.screenType == "main")
+                        {
+                            doPropTriggers();
+                        }
                     }
                 }
-            }
-            else
-            {
-                doPropTriggers();
-            }
+                else
+                {
+                    doPropTriggers();
+                }
 
                 //move any props that are active and only if they are not on the party location
                 doPropMoves();
 
-            doPropTriggersMovers();
+                doPropTriggersMovers();
 
-            foreach (Prop p in gv.mod.currentArea.Props)
+                foreach (Prop p in gv.mod.currentArea.Props)
                 {
                     p.moved2 = false;
                 }
@@ -4384,7 +4396,7 @@ namespace IceBlink2
                 {
                     if (!gv.mod.useScrollingSystem || !gv.mod.partyLightOn)
                     {
-                    resetLightAndDarkness();
+                        resetLightAndDarkness();
                     }
                 }
 
@@ -4397,7 +4409,7 @@ namespace IceBlink2
                     }
                     if (!gv.mod.useScrollingSystem || !gv.mod.partyLightOn)
                     {
-                    doIllumination();
+                        doIllumination();
                     }
                 }
 
@@ -4446,18 +4458,19 @@ namespace IceBlink2
                 {
                     adjustSpriteMainMapPositionToMakeItMoveIdependentlyFromPlayer();
                 }
-            //}
-            //gv.mod.blockMainKeyboard = false;
+                //}
+                //gv.mod.blockMainKeyboard = false;
 
-            //mühlheim
-            //gv.previousTime2 = current2;
+                //mühlheim
+                //gv.previousTime2 = current2;
 
-          
-            //if (gv.mod.scrollingTimer < 0)
-            //{
 
-            //}
+                //if (gv.mod.scrollingTimer < 0)
+                //{
 
+                //}
+
+            }
         }
 
         //enter code for stealthing props here; using their isVisible state (might be buggy as sued in otehr contexts a lot)
@@ -14844,14 +14857,20 @@ namespace IceBlink2
             {
                 if (gv.mod.currentArea.GetBlocked(gv.mod.PlayerLocationX, gv.mod.PlayerLocationY, gv.mod.PlayerLocationX-1, gv.mod.PlayerLocationY, gv.mod.PlayerLastLocationX, gv.mod.PlayerLastLocationY) == false)
                 {
-                    gv.cc.floatyText = "";
-                    gv.cc.floatyText2 = "";
-                    gv.cc.floatyText3 = "";
-                    gv.cc.floatyText4 = "";
-                    gv.cc.floatyText4 = "";
-                    gv.cc.floatyText0 = "";
-                    gv.cc.floatyTextA = "";
-                    gv.cc.floatyTextB = "";
+                    if (gv.mod.PlayerLocationX != gv.mod.PlayerLastLocationX || gv.mod.PlayerLocationY != gv.mod.PlayerLastLocationY)
+                    {
+                        if (!gv.mod.isScrollingNow)
+                        {
+                            gv.cc.floatyText = "";
+                            gv.cc.floatyText2 = "";
+                            gv.cc.floatyText3 = "";
+                            gv.cc.floatyText4 = "";
+                            gv.cc.floatyText4 = "";
+                            gv.cc.floatyText0 = "";
+                            gv.cc.floatyTextA = "";
+                            gv.cc.floatyTextB = "";
+                        }
+                    }
                 }
             }
             bool doTransition = false;
@@ -14861,7 +14880,7 @@ namespace IceBlink2
 
             if ((gv.mod.PlayerLocationX == gv.mod.borderAreaSize) && (gv.mod.currentArea.westernNeighbourArea == ""))
             {
-                gv.cc.addLogText("red", "No neigbhbouring area existent.");
+                gv.cc.addLogText("red", "No neighbouring area existent.");
             }
 
             if ((gv.mod.PlayerLocationX == gv.mod.borderAreaSize) && (gv.mod.currentArea.westernNeighbourArea != ""))
@@ -14991,13 +15010,19 @@ namespace IceBlink2
             {
                 if (gv.mod.currentArea.GetBlocked(gv.mod.PlayerLocationX, gv.mod.PlayerLocationY, gv.mod.PlayerLocationX + 1, gv.mod.PlayerLocationY, gv.mod.PlayerLastLocationX, gv.mod.PlayerLastLocationY) == false)
                 {
-                    gv.cc.floatyText = "";
-                    gv.cc.floatyText2 = "";
-                    gv.cc.floatyText3 = "";
-                    gv.cc.floatyText4 = "";
-                    gv.cc.floatyText0 = "";
-                    gv.cc.floatyTextA = "";
-                    gv.cc.floatyTextB = "";
+                    if (gv.mod.PlayerLocationX != gv.mod.PlayerLastLocationX || gv.mod.PlayerLocationY != gv.mod.PlayerLastLocationY)
+                    {
+                        if (!gv.mod.isScrollingNow)
+                        {
+                            gv.cc.floatyText = "";
+                            gv.cc.floatyText2 = "";
+                            gv.cc.floatyText3 = "";
+                            gv.cc.floatyText4 = "";
+                            gv.cc.floatyText0 = "";
+                            gv.cc.floatyTextA = "";
+                            gv.cc.floatyTextB = "";
+                        }
+                    }
                 }
             }
             bool doTransition = false;
@@ -15007,7 +15032,7 @@ namespace IceBlink2
 
             if ((gv.mod.PlayerLocationX == (gv.mod.currentArea.MapSizeX - 1 - gv.mod.borderAreaSize)) && (gv.mod.currentArea.easternNeighbourArea == ""))
             {
-                gv.cc.addLogText("red", "No neigbhbouring area existent.");
+                gv.cc.addLogText("red", "No neighbouring area existent.");
             }
 
             if ((gv.mod.PlayerLocationX == (gv.mod.currentArea.MapSizeX - 1 - gv.mod.borderAreaSize)) && (gv.mod.currentArea.easternNeighbourArea != ""))
@@ -15133,13 +15158,19 @@ namespace IceBlink2
             {
                 if (gv.mod.currentArea.GetBlocked(gv.mod.PlayerLocationX, gv.mod.PlayerLocationY, gv.mod.PlayerLocationX, gv.mod.PlayerLocationY-1, gv.mod.PlayerLastLocationX, gv.mod.PlayerLastLocationY) == false)
                 {
-                    gv.cc.floatyText = "";
-                    gv.cc.floatyText2 = "";
-                    gv.cc.floatyText3 = "";
-                    gv.cc.floatyText4 = "";
-                    gv.cc.floatyText0 = "";
-                    gv.cc.floatyTextA = "";
-                    gv.cc.floatyTextB = "";
+                    if (gv.mod.PlayerLocationX != gv.mod.PlayerLastLocationX || gv.mod.PlayerLocationY != gv.mod.PlayerLastLocationY)
+                    {
+                        if (!gv.mod.isScrollingNow)
+                        {
+                            gv.cc.floatyText = "";
+                            gv.cc.floatyText2 = "";
+                            gv.cc.floatyText3 = "";
+                            gv.cc.floatyText4 = "";
+                            gv.cc.floatyText0 = "";
+                            gv.cc.floatyTextA = "";
+                            gv.cc.floatyTextB = "";
+                        }
+                    }
                 }
             }
 
@@ -15150,7 +15181,7 @@ namespace IceBlink2
 
             if ((gv.mod.PlayerLocationY == gv.mod.borderAreaSize) && (gv.mod.currentArea.northernNeighbourArea == ""))
             {
-                gv.cc.addLogText("red", "No neigbhbouring area existent.");
+                gv.cc.addLogText("red", "No neighbouring area existent.");
             }
 
             if ((gv.mod.PlayerLocationY == gv.mod.borderAreaSize) && (gv.mod.currentArea.northernNeighbourArea != ""))
@@ -15270,13 +15301,19 @@ namespace IceBlink2
             {
                 if (gv.mod.currentArea.GetBlocked(gv.mod.PlayerLocationX, gv.mod.PlayerLocationY, gv.mod.PlayerLocationX, gv.mod.PlayerLocationY+1, gv.mod.PlayerLastLocationX, gv.mod.PlayerLastLocationY) == false)
                 {
-                    gv.cc.floatyText = "";
-                    gv.cc.floatyText2 = "";
-                    gv.cc.floatyText3 = "";
-                    gv.cc.floatyText4 = "";
-                    gv.cc.floatyText0 = "";
-                    gv.cc.floatyTextA = "";
-                    gv.cc.floatyTextB = "";
+                    if (gv.mod.PlayerLocationX != gv.mod.PlayerLastLocationX || gv.mod.PlayerLocationY != gv.mod.PlayerLastLocationY)
+                    {
+                        if (!gv.mod.isScrollingNow)
+                        {
+                            gv.cc.floatyText = "";
+                            gv.cc.floatyText2 = "";
+                            gv.cc.floatyText3 = "";
+                            gv.cc.floatyText4 = "";
+                            gv.cc.floatyText0 = "";
+                            gv.cc.floatyTextA = "";
+                            gv.cc.floatyTextB = "";
+                        }
+                    }
                 }
             }
             bool doTransition = false;
@@ -15286,7 +15323,7 @@ namespace IceBlink2
 
             if ((gv.mod.PlayerLocationY == (gv.mod.currentArea.MapSizeY - 1 - gv.mod.borderAreaSize)) && (gv.mod.currentArea.southernNeighbourArea == ""))
             {
-                gv.cc.addLogText("red", "No neigbhbouring area existent.");
+                gv.cc.addLogText("red", "No neighbouring area existent.");
             }
 
             if ((gv.mod.PlayerLocationY == (gv.mod.currentArea.MapSizeY - 1 - gv.mod.borderAreaSize)) && (gv.mod.currentArea.southernNeighbourArea != ""))

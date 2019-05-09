@@ -1139,7 +1139,10 @@ namespace IceBlink2
         public bool GetBlocked(int playerXPosition, int playerYPosition, int lastPlayerXPosition, int lastPlayerYPosition, int lastLastPlayerXPosition, int lastLastPlayerYPosition)
         {
 
-
+            if (playerXPosition < 0 || playerYPosition < 0 || playerXPosition >= this.MapSizeX || playerYPosition >= this.MapSizeY)
+            {
+                return true;
+            }
             /*
             if ((this.Tiles[lastPlayerYPosition * this.MapSizeX + lastPlayerXPosition].isEWBridge) || (this.Tiles[lastPlayerYPosition * this.MapSizeX + lastPlayerXPosition].isNSBridge))
             {

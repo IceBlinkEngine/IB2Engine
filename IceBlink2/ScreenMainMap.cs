@@ -376,6 +376,10 @@ namespace IceBlink2
                     {
                         doScrolling(elapsed);
                     }
+                    else
+                    {
+                        //gv.mod.scrollModeSpeed = 1.0f;
+                    }
                 }
                 else
                 {
@@ -1608,8 +1612,8 @@ namespace IceBlink2
             //0.8 for good measure
             //0.75 for slowly, nicely still
 
-            gv.mod.lastScrollStep = (7.5f * multi * gv.mod.scrollingSpeed * 1.0f);
-            gv.mod.scrollingTimer = gv.mod.scrollingTimer - (7.5f * multi * gv.mod.scrollingSpeed * 1.0f);
+            gv.mod.lastScrollStep = (7.5f * multi * gv.mod.scrollingSpeed * 1.0f * gv.mod.scrollModeSpeed);
+            gv.mod.scrollingTimer = gv.mod.scrollingTimer - (7.5f * multi * gv.mod.scrollingSpeed * 1.0f * gv.mod.scrollModeSpeed);
             //gv.mod.distances.Add(gv.mod.scrollingTimer);
             //gv.mod.scrollingTimer = gv.mod.scrollingTimer - (7.5f * multi);
             //gv.mod.scrollingTimer -= 25f * multi;
@@ -36678,6 +36682,7 @@ namespace IceBlink2
                                         //gv.DrawBitmap(gv.cc.light_torch, src, dst, 0, false, 2f * 0.75f * (0.425f - flicker / 200f));
                                         //dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f), tlY + shifterY - (int)((scaler - 1) * brY * 0.5f), (int)(brX * scaler), (int)(brY * scaler));
                                         //schönhauserstraße
+                                        
                                         if ((x == gv.mod.PlayerLocationX) && (y == gv.mod.PlayerLocationY) && gv.mod.partyLightOn)
                                             {
                                                 int extension = 6 - (int)(flicker / 7f);
@@ -36720,7 +36725,7 @@ namespace IceBlink2
                                                     gv.DrawBitmap(gv.cc.prp_lightPurple, src, dst, 0, false, (0.25f * gv.mod.partyFocalHaloIntensity) + (gv.mod.partyFocalHaloIntensity) * (2.25f * 0.75f * (0.425f - flicker / 200f)),true);
                                                 }
                                             }
-
+                                        
                                         //entführt
                                         bool tileIsTooExtreme = false;
                                         if (gv.mod.blendOutTooHighAndTooDeepTiles)
@@ -36742,6 +36747,7 @@ namespace IceBlink2
                                             //foreach (string s in tile.tileLightSourceTag)
                                             {
                                                 bool draw = false;
+                                                bool drawHalo = true;
                                                 //determine whether tile is onscreen
                                                 //(x - gv.mod.PlayerLocationX + gv.playerOffsetX)
                                                 if ((x <= gv.mod.PlayerLocationX + gv.playerOffsetX-1) && (x >= gv.mod.PlayerLocationX - gv.playerOffsetX+1))
@@ -36751,6 +36757,10 @@ namespace IceBlink2
                                                         draw = true;
                                                     }
 
+                                                    if (gv.mod.partyLightOn && x == gv.mod.PlayerLastLocationX && y == gv.mod.PlayerLastLocationY)
+                                                    {
+                                                        drawLightHalo = false;
+                                                    }
                                                     /*
                                                     if (gv.mod.noHaloAddToParty)
                                                     {
@@ -36768,7 +36778,7 @@ namespace IceBlink2
                                                 }
 
 
-                                                if ((tile.isLit[z]) && (draw) && !tileIsTooExtreme)
+                                                if ((tile.isLit[z]) && (draw) && !tileIsTooExtreme && drawLightHalo)
                                                 {
                                                     if (tile.tileLightSourceTag[z].Contains("prp_lightYellow"))
                                                     {
@@ -36777,7 +36787,10 @@ namespace IceBlink2
                                                         dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f) - extension + 5 - 2 * gv.squareSize, tlY + shifterY - (int)((scaler - 1) * brY * 0.5f) - extension + 5 - 2 * gv.squareSize, (int)(brX * scaler) + 2 * extension - 10 + 4 * gv.squareSize, (int)(brY * scaler) + 2 * extension - 10 + 4 * gv.squareSize);
                                                         gv.DrawBitmap(gv.cc.prp_lightYellow, src, dst, 0, false, tile.lightSourceRingHaloIntensity[z] * 0.7f * 0.45f * 0.75f * (0.425f - flicker / 200f));
                                                         dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f) + extension2, tlY + shifterY - (int)((scaler - 1) * brY * 0.5f) + extension2, (int)(brX * scaler) - 2 * extension2, (int)(brY * scaler) - 2 * extension2);
+                                                    //if (drawLightHalo)
+                                                    //{
                                                         gv.DrawBitmap(gv.cc.prp_lightYellow, src, dst, 0, false, (0.10f * tile.lightSourceFocalHaloIntensity[z]) + (tile.lightSourceFocalHaloIntensity[z]) * (2.25f * 0.3f * (0.425f - flicker / 200f)));
+                                                    //}
 
                                                         //gv.DrawBitmap(gv.cc.prp_lightGreen, src, dst, 0, false, 0.15f + 1.75f * 0.7f * 0.45f * 0.75f * (0.425f - flicker / 200f));
                                                         //dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f), tlY + shifterY - (int)((scaler - 1) * brY * 0.5f), (int)(brX * scaler), (int)(brY * scaler));
@@ -36802,7 +36815,10 @@ namespace IceBlink2
                                                         dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f) - extension + 5 - 2 * gv.squareSize, tlY + shifterY - (int)((scaler - 1) * brY * 0.5f) - extension + 5 - 2 * gv.squareSize, (int)(brX * scaler) + 2 * extension - 10 + 4 * gv.squareSize, (int)(brY * scaler) + 2 * extension - 10 + 4 * gv.squareSize);
                                                         gv.DrawBitmap(gv.cc.prp_lightRed, src, dst, 0, false, (0.15f * tile.lightSourceFocalHaloIntensity[z]) + (tile.lightSourceRingHaloIntensity[z]) * 1.75f * 0.7f * 0.45f * 0.75f * (0.425f - flicker / 200f));
                                                         dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f) + extension2, tlY + shifterY - (int)((scaler - 1) * brY * 0.5f) + extension2, (int)(brX * scaler) - 2 * extension2, (int)(brY * scaler) - 2 * extension2);
+                                                    //if (drawLightHalo)
+                                                    //{
                                                         gv.DrawBitmap(gv.cc.prp_lightRed, src, dst, 0, false, (0.325f * tile.lightSourceFocalHaloIntensity[z]) + (tile.lightSourceFocalHaloIntensity[z]) * (2.25f * 0.3f * (0.425f - flicker / 200f)));
+                                                    //}
                                                     }
 
                                                     if (tile.tileLightSourceTag[z].Contains("prp_lightBlue"))
@@ -39049,15 +39065,23 @@ namespace IceBlink2
         {
             switch (eventType)
             {
+                /*
                 case MouseEventType.EventType.MouseDown:
                     int x2 = (int)e.X;
                     int y2 = (int)e.Y;
+                    //int x = (int)e.X;
+                    //int y= (int)e.Y;
                     if (y2 < (gv.screenHeight - 2 * gv.squareSize) && x2 < (gv.screenWidth - 2 * gv.squareSize))
                     {
                         gv.moveTimerRuns = true;
                     }
-                    //isMoving = true;
+                  
+
+                    //lübbke2
+                  
+                    //lübbke2
                     break;
+                    */
 
                 case MouseEventType.EventType.MouseMove:
                     int x = (int)e.X;
@@ -39071,14 +39095,29 @@ namespace IceBlink2
                     int gridy = (int)(e.Y - gv.oYshift - 1) / gv.squareSize;
                     int actualX = gv.mod.PlayerLocationX + (gridx - gv.playerOffsetX);
                     int actualY = gv.mod.PlayerLocationY + (gridy - gv.playerOffsetY);
-                    gv.cc.floatyText = "";
-                    gv.cc.floatyText2 = "";
-                    gv.cc.floatyText3 = "";
-                    gv.cc.floatyText4 = "";
-                    gv.cc.floatyText0 = "";
-                    gv.cc.floatyTextA = "";
-                    gv.cc.floatyTextB = "";
 
+                    bool resetFloaties = true;
+                    foreach (IB2Panel p in mainUiLayout.panelList)
+                    {
+                        foreach (IB2Button b in p.buttonList)
+                        {
+                            if (b.glowOn)
+                            {
+                                resetFloaties = false;
+                            }
+                        }
+                    }
+
+                    if (resetFloaties)
+                    {
+                        gv.cc.floatyText = "";
+                        gv.cc.floatyText2 = "";
+                        gv.cc.floatyText3 = "";
+                        gv.cc.floatyText4 = "";
+                        gv.cc.floatyText0 = "";
+                        gv.cc.floatyTextA = "";
+                        gv.cc.floatyTextB = "";
+                    }
 
                     //karmasutra: other areas
 
@@ -40239,18 +40278,36 @@ namespace IceBlink2
                             }
                                 }
                             }
-                        }
+                    }
+                    //lübbke4
+                    
+                       //lübbke4
 
-                                //}
+                    //}
                     break;
 
                 case MouseEventType.EventType.MouseUp:
+                    int x4 = (int)e.X;
+                    int y4 = (int)e.Y;
+
+
+                    //NEW SYSTEM
+                    String rtn4 = mainUiLayout.getImpact(x4, y4);
+                    if (rtn4.Equals("ctrlUpArrow") || rtn4.Equals("ctrlDownArrow") || rtn4.Equals("ctrlLeftArrow") || rtn4.Equals("ctrlRightArrow"))
+                    {
+                        gv.aTimer.Stop();
+                        gv.mod.scrollModeSpeed = 1.0f;
+                    }
+                break;
+
+                case MouseEventType.EventType.MouseDown:
+                    
                     gv.moveTimerRuns = false;
                     gv.moveTimerCounter = 0;
                     int actualx = -1000;
                     int actualy = -1000;
                     if (!isMoving)
-                    {
+                    { 
                         x = gv.mousePositionX - (int)(gv.squareSize * 15f / 100f);
                         y = gv.mousePositionY - (int)(gv.squareSize * 55f / 100f);
 
@@ -40268,7 +40325,7 @@ namespace IceBlink2
 
 
                     //NEW SYSTEM
-                    string rtn = mainUiLayout.getImpact(x, y);
+                    String rtn = mainUiLayout.getImpact(x, y);
 
                     //check to see if toggle or button is using IBScript and do script
                     IB2Button btnScript = mainUiLayout.GetButtonByTag(rtn);
@@ -41606,10 +41663,12 @@ namespace IceBlink2
                             }
                         }
                     }
+                    //lübbke3
                     else if ((rtn.Equals("ctrlUpArrow")) || ((gv.mod.PlayerLocationX == actualx) && ((gv.mod.PlayerLocationY - 1) >= actualy)))
-                    //if (rtn.Equals("ctrlUpArrow"))
+                    //if (rtn5.Equals("ctrlUpArrow"))
 
                     {
+                        gv.aTimer.Stop();
                         if (!gv.moveTimerRuns)
                         {
 
@@ -41645,11 +41704,11 @@ namespace IceBlink2
                                             //gv.mod.wasJustCalled = false;
                                             //if (!gv.mod.wasJustCalled)
                                             //{
-                                                //if (gv.screenType == "main")
-                                                //{
-                                                    moveUp(true);
-                                                //}
-                                                //gv.mod.wasJustCalled = true;
+                                            //if (gv.screenType == "main")
+                                            //{
+                                            moveUp(true);
+                                            //}
+                                            //gv.mod.wasJustCalled = true;
                                             //}
                                         }
                                     }
@@ -41669,17 +41728,17 @@ namespace IceBlink2
                                             //gv.mod.wasJustCalled = false;
                                             //if (!gv.mod.wasJustCalled)
                                             //{
-                                                //if (gv.screenType == "main")
-                                                //{
-                                                    moveUp(true);
-                                                //}
-                                                //gv.mod.wasJustCalled = true;
+                                            //if (gv.screenType == "main")
+                                            //{
+                                            moveUp(true);
+                                            //}
+                                            //gv.mod.wasJustCalled = true;
                                             //}
                                         }
                                     }
                                 }
 
-                               
+
                             }
 
                             /*
@@ -41804,11 +41863,14 @@ namespace IceBlink2
                                 }
                             }*/
                         }
+                        gv.aTimer.Start();
+                        gv.mod.scrollModeSpeed = 0.45f;
                     }
                     else if ((rtn.Equals("ctrlDownArrow")) || ((gv.mod.PlayerLocationX == actualx) && ((gv.mod.PlayerLocationY + 1) <= actualy)))
-                    //else if (rtn.Equals("ctrlDownArrow"))
+                    //else if (rtn5.Equals("ctrlDownArrow"))
 
                     {
+                        gv.aTimer.Stop();
                         if (!gv.moveTimerRuns)
                         {
                             gv.mod.doTriggerInspiteOfScrolling = false;
@@ -41843,11 +41905,11 @@ namespace IceBlink2
                                             //gv.mod.wasJustCalled = false;
                                             //if (!gv.mod.wasJustCalled)
                                             //{
-                                                //if (gv.screenType == "main")
-                                                //{
-                                                    moveDown(true);
-                                                //}
-                                                //gv.mod.wasJustCalled = true;
+                                            //if (gv.screenType == "main")
+                                            //{
+                                            moveDown(true);
+                                            //}
+                                            //gv.mod.wasJustCalled = true;
                                             //}
                                         }
                                     }
@@ -41867,17 +41929,17 @@ namespace IceBlink2
                                             //gv.mod.wasJustCalled = false;
                                             //if (!gv.mod.wasJustCalled)
                                             //{
-                                                //if (gv.screenType == "main")
-                                                //{
-                                                    moveDown(true);
-                                                //}
-                                                //gv.mod.wasJustCalled = true;
+                                            //if (gv.screenType == "main")
+                                            //{
+                                            moveDown(true);
+                                            //}
+                                            //gv.mod.wasJustCalled = true;
                                             //}
                                         }
                                     }
                                 }
 
-                               
+
                             }
                             /*
                             bool isTransition = gv.cc.goSouth();
@@ -42002,11 +42064,14 @@ namespace IceBlink2
                                 }
                             }*/
                         }
+                        gv.aTimer.Start();
+                        gv.mod.scrollModeSpeed = 0.45f;
                     }
                     else if ((rtn.Equals("ctrlLeftArrow")) || (((gv.mod.PlayerLocationX - 1) >= actualx) && (gv.mod.PlayerLocationY == actualy)))
                     //else if (rtn.Equals("ctrlLeftArrow"))
 
                     {
+                        gv.aTimer.Stop();
                         if (!gv.moveTimerRuns)
                         {
                             gv.mod.doTriggerInspiteOfScrolling = false;
@@ -42041,11 +42106,11 @@ namespace IceBlink2
                                             //gv.mod.wasJustCalled = false;
                                             //if (!gv.mod.wasJustCalled)
                                             //{
-                                                //if (gv.screenType == "main")
-                                                //{
-                                                    moveLeft(true);
-                                                //}
-                                                //gv.mod.wasJustCalled = true;
+                                            //if (gv.screenType == "main")
+                                            //{
+                                            moveLeft(true);
+                                            //}
+                                            //gv.mod.wasJustCalled = true;
                                             //}
                                         }
                                     }
@@ -42065,17 +42130,17 @@ namespace IceBlink2
                                             //gv.mod.wasJustCalled = false;
                                             //if (!gv.mod.wasJustCalled)
                                             //{
-                                                //if (gv.screenType == "main")
-                                                //{
-                                                    moveLeft(true);
-                                                //}
-                                                //gv.mod.wasJustCalled = true;
+                                            //if (gv.screenType == "main")
+                                            //{
+                                            moveLeft(true);
+                                            //}
+                                            //gv.mod.wasJustCalled = true;
                                             //}
                                         }
                                     }
                                 }
 
-                               
+
                             }
                             /*
                             bool isTransition = gv.cc.goWest();
@@ -42212,11 +42277,14 @@ namespace IceBlink2
                                 }
                             }*/
                         }
+                        gv.aTimer.Start();
+                        gv.mod.scrollModeSpeed = 0.45f;
                     }
                     else if ((rtn.Equals("ctrlRightArrow")) || (((gv.mod.PlayerLocationX + 1) <= actualx) && (gv.mod.PlayerLocationY == actualy)))
                     //else if (rtn.Equals("ctrlRightArrow"))
 
                     {
+                        gv.aTimer.Stop();
                         if (!gv.moveTimerRuns)
                         {
                             gv.mod.doTriggerInspiteOfScrolling = false;
@@ -42251,11 +42319,11 @@ namespace IceBlink2
                                             //gv.mod.wasJustCalled = false;
                                             //if (!gv.mod.wasJustCalled)
                                             //{
-                                                //if (gv.screenType == "main")
-                                                //{
-                                                    moveRight(true);
-                                                //}
-                                                //gv.mod.wasJustCalled = true;
+                                            //if (gv.screenType == "main")
+                                            //{
+                                            moveRight(true);
+                                            //}
+                                            //gv.mod.wasJustCalled = true;
                                             //}
                                         }
                                     }
@@ -42275,17 +42343,17 @@ namespace IceBlink2
                                             //gv.mod.wasJustCalled = false;
                                             //if (!gv.mod.wasJustCalled)
                                             //{
-                                                //if (gv.screenType == "main")
-                                                //{
-                                                    moveRight(true);
-                                                //}
-                                                //gv.mod.wasJustCalled = true;
+                                            //if (gv.screenType == "main")
+                                            //{
+                                            moveRight(true);
+                                            //}
+                                            //gv.mod.wasJustCalled = true;
                                             //}
                                         }
                                     }
                                 }
 
-                               
+
                             }
                             /*
                             bool isTransition = gv.cc.goEast();
@@ -42423,7 +42491,12 @@ namespace IceBlink2
                                 }
                             }*/
                         }
+                        gv.aTimer.Start();
+                        gv.mod.scrollModeSpeed = 0.45f;
                     }
+
+
+                    //lübbke3
                     break;
             }
         }
@@ -43867,6 +43940,8 @@ namespace IceBlink2
                        
                     }
                 }
+                //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXx
+                /*
                 else if (keyData == Keys.Up && showMoveKeys)
                 {
                     gv.mod.doTriggerInspiteOfScrolling = false;
@@ -43939,78 +44014,9 @@ namespace IceBlink2
 
 
                     }
-
-                    /*
-                    //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-                    //gv.mod.keyPressCounter++;
-                    gv.mod.doTriggerInspiteOfScrolling = false;
-                    bool blockMoveBecausOfCurrentScrolling = false;
-
-                    if (gv.mod.useScrollingSystem)
-                    {
-                        if (gv.mod.scrollingTimer != 100 && gv.mod.scrollingTimer != 0)
-                        {
-                            blockMoveBecausOfCurrentScrolling = true;
-                        }
-                    }
-                    
-                    blockMoveBecausOfCurrentScrolling = false;
-
-                    if (!blockMoveBecausOfCurrentScrolling)
-                    {
-                        if (gv.mod.useScrollingSystem)
-                        {
-                            
-                            //continued press
-                            //10 was awesome
-                            //moveDelay();
-                            //gv.mod.lastScrollStep
-
-                            //doScrolling(gv.elapsed);
-                            //gv.mod.isScrollingNow = true;
-                            if ((gv.mod.scrollingTimer <= gv.mod.lastScrollStep || gv.mod.scrollingTimer >= 100) ||(keyData.ToString() != gv.mod.lastPressedKey))
-                            {
-                                //gv.mod.counterUpMoves++;
-                                gv.mod.isScrollingNow = true;
-                                //++ gv.mod.scrollingOverhang2 was good;
-                                gv.mod.scrollingTimer = 100 + gv.mod.scrollingOverhang2;
-                                //if (gv.mod.scrollingTimer <= 35 && (keyData.ToString() == gv.mod.lastPressedKey))
-                                //{
-                                    //gv.mod.scrollingTimer = 100 + gv.mod.scrollingTimer;
-                                //}
-                                //else
-                                //{
-                                    //gv.mod.scrollingTimer = 100;
-                                //}
-                                gv.mod.scrollingOverhang2 = 0;
-                                gv.mod.scrollingDirection = "up";
-                                gv.mod.doTriggerInspiteOfScrolling = true;
-                                bool isTransition = gv.cc.goNorth();
-                                if (!isTransition)
-                                {
-                                    gv.mod.breakActiveSearch = false;
-                                    //gv.mod.wasJustCalled = false;
-                                    //if (!gv.mod.wasJustCalled)
-                                    //{
-                                        //if (gv.screenType == "main")
-                                        //{
-                                            moveUp(true);
-                                        //}
-                                        //gv.mod.wasJustCalled = true;
-                                    //}
-                                }
-                            }
-                            else
-                            {
-                                int ghg = 0;
-                            }
-                        }
-
-
-                    }
-                    //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXx
-                    */
                 }
+                */
+                //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
                 else if (keyData == Keys.W && !showMoveKeys)
                 {
                     gv.mod.doTriggerInspiteOfScrolling = false;
@@ -45534,6 +45540,7 @@ namespace IceBlink2
             //wait one turn
             else if ((keyData == Keys.Z) || (keyData == Keys.Y))
             {
+                gv.mod.calledByWaiting = true;
                 gv.cc.doUpdate();
             }
             else if (keyData == Keys.T)
@@ -45776,6 +45783,7 @@ namespace IceBlink2
             gv.mod.lastPressedKey = keyData.ToString();
         }
         //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+
 
         private bool moveDelay2()
         {
@@ -46090,6 +46098,13 @@ namespace IceBlink2
                     {
                         //gv.mod.PlayerLastLocationX = gv.mod.PlayerLocationX;
                         //gv.mod.PlayerLastLocationY = gv.mod.PlayerLocationY;
+                        gv.cc.floatyText = "";
+                        gv.cc.floatyText2 = "";
+                        gv.cc.floatyText3 = "";
+                        gv.cc.floatyText4 = "";
+                        gv.cc.floatyText0 = "";
+                        gv.cc.floatyTextA = "";
+                        gv.cc.floatyTextB = "";
                         gv.mod.PlayerLocationX--;
                         gv.mod.PlayerLocationX--;
                         gv.mod.drawPartyDirection = "right";
@@ -46106,6 +46121,13 @@ namespace IceBlink2
                     {
                         //gv.mod.PlayerLastLocationX = gv.mod.PlayerLocationX;
                         //gv.mod.PlayerLastLocationY = gv.mod.PlayerLocationY;
+                        gv.cc.floatyText = "";
+                        gv.cc.floatyText2 = "";
+                        gv.cc.floatyText3 = "";
+                        gv.cc.floatyText4 = "";
+                        gv.cc.floatyText0 = "";
+                        gv.cc.floatyTextA = "";
+                        gv.cc.floatyTextB = "";
                         gv.mod.PlayerLocationX--;
                         gv.mod.drawPartyDirection = "right";
                         foreach (Player pc in gv.mod.playerList)
@@ -46480,6 +46502,13 @@ namespace IceBlink2
                     {
                         //gv.mod.PlayerLastLocationX = gv.mod.PlayerLocationX;
                         //gv.mod.PlayerLastLocationY = gv.mod.PlayerLocationY;
+                        gv.cc.floatyText = "";
+                        gv.cc.floatyText2 = "";
+                        gv.cc.floatyText3 = "";
+                        gv.cc.floatyText4 = "";
+                        gv.cc.floatyText0 = "";
+                        gv.cc.floatyTextA = "";
+                        gv.cc.floatyTextB = "";
                         gv.mod.PlayerLocationX++;
                         gv.mod.PlayerLocationX++;
                         gv.mod.drawPartyDirection = "left";
@@ -46496,6 +46525,13 @@ namespace IceBlink2
                     {
                         //gv.mod.PlayerLastLocationX = gv.mod.PlayerLocationX;
                         //gv.mod.PlayerLastLocationY = gv.mod.PlayerLocationY;
+                        gv.cc.floatyText = "";
+                        gv.cc.floatyText2 = "";
+                        gv.cc.floatyText3 = "";
+                        gv.cc.floatyText4 = "";
+                        gv.cc.floatyText0 = "";
+                        gv.cc.floatyTextA = "";
+                        gv.cc.floatyTextB = "";
                         gv.mod.PlayerLocationX++;
                         gv.mod.drawPartyDirection = "left";
                         foreach (Player pc in gv.mod.playerList)
@@ -46875,6 +46911,13 @@ namespace IceBlink2
                     {
                         //gv.mod.PlayerLastLocationX = gv.mod.PlayerLocationX;
                         //gv.mod.PlayerLastLocationY = gv.mod.PlayerLocationY;
+                        gv.cc.floatyText = "";
+                        gv.cc.floatyText2 = "";
+                        gv.cc.floatyText3 = "";
+                        gv.cc.floatyText4 = "";
+                        gv.cc.floatyText0 = "";
+                        gv.cc.floatyTextA = "";
+                        gv.cc.floatyTextB = "";
                         gv.mod.PlayerLocationY--;
                         gv.mod.PlayerLocationY--;
                         gv.mod.drawPartyDirection = "down";
@@ -46894,6 +46937,13 @@ namespace IceBlink2
                     {
                         //gv.mod.PlayerLastLocationX = gv.mod.PlayerLocationX;
                         //gv.mod.PlayerLastLocationY = gv.mod.PlayerLocationY;
+                        gv.cc.floatyText = "";
+                        gv.cc.floatyText2 = "";
+                        gv.cc.floatyText3 = "";
+                        gv.cc.floatyText4 = "";
+                        gv.cc.floatyText0 = "";
+                        gv.cc.floatyTextA = "";
+                        gv.cc.floatyTextB = "";
                         gv.mod.PlayerLocationY--;
                         gv.mod.drawPartyDirection = "down";
                         if (!gv.mod.wasSuccessfulPush)
@@ -47270,6 +47320,13 @@ namespace IceBlink2
                     {
                         //gv.mod.PlayerLastLocationX = gv.mod.PlayerLocationX;
                         //gv.mod.PlayerLastLocationY = gv.mod.PlayerLocationY;
+                        gv.cc.floatyText = "";
+                        gv.cc.floatyText2 = "";
+                        gv.cc.floatyText3 = "";
+                        gv.cc.floatyText4 = "";
+                        gv.cc.floatyText0 = "";
+                        gv.cc.floatyTextA = "";
+                        gv.cc.floatyTextB = "";
                         gv.mod.PlayerLocationY++;
                         gv.mod.PlayerLocationY++;
                         gv.mod.drawPartyDirection = "up";
@@ -47279,6 +47336,13 @@ namespace IceBlink2
                     {
                         //gv.mod.PlayerLastLocationX = gv.mod.PlayerLocationX;
                         //gv.mod.PlayerLastLocationY = gv.mod.PlayerLocationY;
+                        gv.cc.floatyText = "";
+                        gv.cc.floatyText2 = "";
+                        gv.cc.floatyText3 = "";
+                        gv.cc.floatyText4 = "";
+                        gv.cc.floatyText0 = "";
+                        gv.cc.floatyTextA = "";
+                        gv.cc.floatyTextB = "";
                         gv.mod.PlayerLocationY++;
                         gv.mod.drawPartyDirection = "up";
                         //gv.cc.doUpdate();

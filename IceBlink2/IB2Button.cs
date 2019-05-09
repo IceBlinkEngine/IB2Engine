@@ -8,6 +8,8 @@ using Color = SharpDX.Color;
 
 namespace IceBlink2
 {
+
+    //public class IB2Button : System.Windows.Forms.ButtonBase
     public class IB2Button
     {
         [JsonIgnore]
@@ -510,6 +512,7 @@ namespace IceBlink2
                 //int yLoc2 = (int)((parentPanel.currentLocY + this.Y) * gv.screenDensity + ulY);
                 if (this.tag == "btnTorch" && gv.mod.partyLightOn)
                 {
+                    
                     int dawn = 5 * 60;
                     int sunrise = 6 * 60;
                     int day = 7 * 60;
@@ -593,6 +596,8 @@ namespace IceBlink2
                 }
             }
         }
+
+       
 
         public void Update(int elapsed, IB2Panel parentPanel)
         {

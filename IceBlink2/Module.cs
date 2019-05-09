@@ -13,6 +13,11 @@ namespace IceBlink2
 {
     public class Module
     {
+
+        public bool blockUpKey = false;
+
+        public bool calledByWaiting = false;
+        public float scrollModeSpeed = 1.0f;
         public long elapsed2 = 0;
         public int keyPressCounter = 0;
         public List<float> distances = new List<float>();
