@@ -20,7 +20,7 @@ namespace IceBlink2
         public bool blockRightKey = false;
 
         public bool calledByWaiting = false;
-        public float scrollModeSpeed = 1.0f;
+        public float scrollModeSpeed = 1.1f;
         public long elapsed2 = 0;
         public int keyPressCounter = 0;
         public List<float> distances = new List<float>();

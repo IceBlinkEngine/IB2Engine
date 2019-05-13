@@ -394,6 +394,7 @@ namespace IceBlink2
             //party animation code
             doPartyAnimations(elapsed);
 
+            //teatomorrow
             if (gv.moveTimerRuns)
             {
                 int x = gv.mousePositionX - (int)(gv.squareSize * 15f / 100f);
@@ -1482,6 +1483,10 @@ namespace IceBlink2
                 if (floatyTextByPixelPool.Count > 0)
                 {
                     int shiftUp = (int)(0.05f * elapsed);
+                    if (shiftUp < 1)
+                    {
+                        shiftUp = 1;
+                    }
                     foreach (FloatyTextByPixel ft in floatyTextByPixelPool)
                     {
                         ft.z += shiftUp;
@@ -1509,6 +1514,10 @@ namespace IceBlink2
             if (floatyTextPool.Count > 0)
             {
                 int shiftUp = (int)(0.05f * elapsed);
+                if (shiftUp < 1)
+                {
+                    shiftUp = 1;
+                }
                 foreach (FloatyText ft in floatyTextPool)
                 {
                     ft.z += shiftUp;
@@ -29651,8 +29660,8 @@ namespace IceBlink2
                             //XXXXXXXXXXXXXXXXXXXXXXXX
 
                             //distance check
-                            if ((p.LocationX >= gv.mod.PlayerLocationX - gv.playerOffsetX-1) && (p.LocationX <= gv.mod.PlayerLocationX + gv.playerOffsetX+1)
-                                && (p.LocationY >= gv.mod.PlayerLocationY - gv.playerOffsetY-1) && (p.LocationY <= gv.mod.PlayerLocationY + gv.playerOffsetY+1))
+                            if ((p.LocationX >= gv.mod.PlayerLocationX - gv.playerOffsetX-3) && (p.LocationX <= gv.mod.PlayerLocationX + gv.playerOffsetX+1)
+                                && (p.LocationY >= gv.mod.PlayerLocationY - gv.playerOffsetY-3) && (p.LocationY <= gv.mod.PlayerLocationY + gv.playerOffsetY+1))
                             {//5
                              //prop X - playerX
                              //get dst rct based on distance of prop to  palyer
@@ -30591,8 +30600,8 @@ namespace IceBlink2
                             //XXXXXXXXXXXXXXXXXXXXXXXX
 
                             //distance check
-                            if ((p.LocationX >= gv.mod.PlayerLocationX - gv.playerOffsetX) && (p.LocationX <= gv.mod.PlayerLocationX + gv.playerOffsetX)
-                                && (p.LocationY >= gv.mod.PlayerLocationY - gv.playerOffsetY) && (p.LocationY <= gv.mod.PlayerLocationY + gv.playerOffsetY))
+                            if ((p.LocationX >= gv.mod.PlayerLocationX - gv.playerOffsetX-2) && (p.LocationX <= gv.mod.PlayerLocationX + gv.playerOffsetX+2)
+                                && (p.LocationY >= gv.mod.PlayerLocationY - gv.playerOffsetY-2) && (p.LocationY <= gv.mod.PlayerLocationY + gv.playerOffsetY+2))
                             {//5
                              //prop X - playerX
                              //get dst rct based on distance of prop to  palyer
@@ -36080,16 +36089,17 @@ namespace IceBlink2
                     }
                 }
                 #endregion
-
-                int minX = gv.mod.PlayerLocationX - gv.playerOffsetX - 4; //using -2 in case a large tile (3x3) needs to start off the visible map space to be seen
-                if (minX < -gv.mod.seamlessModififierMinX - 2) { minX = -gv.mod.seamlessModififierMinX - 2; }
-                int minY = gv.mod.PlayerLocationY - gv.playerOffsetY - 4; //using -2 in case a large tile (3x3) needs to start off the visible map space to be seen
-                if (minY < -gv.mod.seamlessModififierMinY - 2) { minY = -gv.mod.seamlessModififierMinY - 2; }
+                //2 easier
+                
+                int minX = gv.mod.PlayerLocationX - gv.playerOffsetX - 3; //using -2 in case a large tile (3x3) needs to start off the visible map space to be seen
+                if (minX < -gv.mod.seamlessModififierMinX - 3) { minX = -gv.mod.seamlessModififierMinX - 3; }
+                int minY = gv.mod.PlayerLocationY - gv.playerOffsetY - 3; //using -2 in case a large tile (3x3) needs to start off the visible map space to be seen
+                if (minY < -gv.mod.seamlessModififierMinY - 3) { minY = -gv.mod.seamlessModififierMinY - 3; }
 
                 int maxX = gv.mod.PlayerLocationX + gv.playerOffsetX + 2;
-                if (maxX > this.gv.mod.currentArea.MapSizeX + gv.mod.seamlessModififierMaxX+1) { maxX = this.gv.mod.currentArea.MapSizeX + gv.mod.seamlessModififierMaxX+1; }
+                if (maxX > this.gv.mod.currentArea.MapSizeX + gv.mod.seamlessModififierMaxX+2) { maxX = this.gv.mod.currentArea.MapSizeX + gv.mod.seamlessModififierMaxX+2; }
                 int maxY = gv.mod.PlayerLocationY + gv.playerOffsetY + 2;
-                if (maxY > this.gv.mod.currentArea.MapSizeY + gv.mod.seamlessModififierMaxY+1) { maxY = this.gv.mod.currentArea.MapSizeY + gv.mod.seamlessModififierMaxY+1; }
+                if (maxY > this.gv.mod.currentArea.MapSizeY + gv.mod.seamlessModififierMaxY+2) { maxY = this.gv.mod.currentArea.MapSizeY + gv.mod.seamlessModififierMaxY+2; }
 
                 flickerDelayCounter += elapsed / 1000f * 30f;
 
@@ -36671,6 +36681,7 @@ namespace IceBlink2
                                         }
 
                                         if ((!gv.mod.currentArea.useLightSystem) || (!tile.hasHalo))
+                                        //if ((!gv.mod.currentArea.useLightSystem))
                                         {
                                             drawLightHalo = false;
                                         }
@@ -36741,18 +36752,25 @@ namespace IceBlink2
                                                 //gv.DrawBitmap(gv.cc.tooDeep, src, dst, 0, false, 0, 0);
                                             }
                                         }
-
+                                        //ossenbrock
                                         //for (int z = 0; z < tile.tileLightSourceTag.Count; z++)
-                                        for (int z = 0; z < tile.lightSourceFocalHaloIntensity.Count; z++)
+                                        int limit = tile.lightSourceFocalHaloIntensity.Count;
+                                        //if (limit > 3)
+                                        //{
+                                            //limit = 3;
+                                        //}
+                                        for (int z = 0; z < limit; z++)
                                             //foreach (string s in tile.tileLightSourceTag)
                                             {
                                                 bool draw = false;
                                                 bool drawHalo = true;
                                                 //determine whether tile is onscreen
                                                 //(x - gv.mod.PlayerLocationX + gv.playerOffsetX)
-                                                if ((x <= gv.mod.PlayerLocationX + gv.playerOffsetX-1) && (x >= gv.mod.PlayerLocationX - gv.playerOffsetX+1))
+                                                //alleasier by 3
+                                                //ossenbrock
+                                                if ((x <= gv.mod.PlayerLocationX + gv.playerOffsetX+2) && (x >= gv.mod.PlayerLocationX - gv.playerOffsetX-2))
                                                 {
-                                                    if ((y <= gv.mod.PlayerLocationY + gv.playerOffsetY-1) && (y >= gv.mod.PlayerLocationY - gv.playerOffsetY+1))
+                                                    if ((y <= gv.mod.PlayerLocationY + gv.playerOffsetY+2) && (y >= gv.mod.PlayerLocationY - gv.playerOffsetY-2))
                                                     {
                                                         draw = true;
                                                     }
@@ -36820,7 +36838,7 @@ namespace IceBlink2
                                                         gv.DrawBitmap(gv.cc.prp_lightRed, src, dst, 0, false, (0.325f * tile.lightSourceFocalHaloIntensity[z]) + (tile.lightSourceFocalHaloIntensity[z]) * (2.25f * 0.3f * (0.425f - flicker / 200f)));
                                                     //}
                                                     }
-
+                                                    //osenbrock
                                                     if (tile.tileLightSourceTag[z].Contains("prp_lightBlue"))
                                                     {
                                                         int extension = 6 - (int)(flicker / 7f);
@@ -40290,13 +40308,19 @@ namespace IceBlink2
                     int x4 = (int)e.X;
                     int y4 = (int)e.Y;
 
+                 
 
                     //NEW SYSTEM
                     String rtn4 = mainUiLayout.getImpact(x4, y4);
                     if (rtn4.Equals("ctrlUpArrow") || rtn4.Equals("ctrlDownArrow") || rtn4.Equals("ctrlLeftArrow") || rtn4.Equals("ctrlRightArrow"))
                     {
                         gv.aTimer.Stop();
-                        gv.mod.scrollModeSpeed = 1.0f;
+                        gv.mod.scrollModeSpeed = 1.05f;
+                    }
+                    else
+                    {
+                        gv.a2Timer.Stop();
+                        gv.mod.scrollModeSpeed = 1.05f;
                     }
                 break;
 
@@ -41664,7 +41688,7 @@ namespace IceBlink2
                         }
                     }
                     //lübbke3
-                    else if ((rtn.Equals("ctrlUpArrow")) || ((gv.mod.PlayerLocationX == actualx) && ((gv.mod.PlayerLocationY - 1) >= actualy)))
+                    else if (rtn.Equals("ctrlUpArrow"))
                     //if (rtn5.Equals("ctrlUpArrow"))
 
                     {
@@ -41741,132 +41765,12 @@ namespace IceBlink2
 
                             }
 
-                            /*
-                            bool isTransition = gv.cc.goNorth();
-                            if (!isTransition)
-                            {
-                                bool bumpPropExists = false;
-                                bool bumpTriggerExists = false;
-                                Trigger bumpTrigger = new Trigger();
-                                Prop bumpProp = new Prop();
-
-                                if (gv.mod.PlayerLocationY > 0)
-                                {
-                                    foreach (Trigger t in gv.mod.currentArea.Triggers)
-                                    {
-                                        //migh add isBumpTRigger requirement here
-                                        if (t.Enabled)
-                                        {
-                                            foreach (Coordinate p in t.TriggerSquaresList)
-                                            {
-                                                if ((p.X == gv.mod.PlayerLocationX) && (p.Y == gv.mod.PlayerLocationY - 1))
-                                                {
-                                                    bumpTriggerExists = true;
-                                                    bumpTrigger = t;
-                                                    break;
-                                                }
-                                            }
-                                        }
-                                    }
-
-                                    foreach (Prop p in gv.mod.currentArea.Props)
-                                    {
-                                        if (p.isActive && (p.ConversationWhenOnPartySquare != "none" || p.EncounterWhenOnPartySquare != "none" || p.scriptFilename != "none" || p.MouseOverText != "none"))
-                                        {
-                                            if ((p.LocationX == gv.mod.PlayerLocationX) && (p.LocationY == gv.mod.PlayerLocationY - 1))
-                                            {
-                                                bumpPropExists = true;
-                                                bumpProp = p;
-                                                gv.sf.ThisProp = bumpProp;
-                                                break;
-                                            }
-                                        }
-                                    }
-                                }
-                                if (gv.mod.PlayerLocationY > 0)
-                                {
-                                    if (gv.mod.currentArea.GetBlocked(gv.mod.PlayerLocationX, gv.mod.PlayerLocationY - 1, gv.mod.PlayerLocationX, gv.mod.PlayerLocationY, gv.mod.PlayerLastLocationX, gv.mod.PlayerLastLocationY) == false)
-                                    {
-                                        if (gv.mod.currentArea.Tiles[(gv.mod.PlayerLocationY - 1) * gv.mod.currentArea.MapSizeX + gv.mod.PlayerLocationX].isSecretPassage)
-                                        {
-                                            gv.mod.PlayerLastLocationX = gv.mod.PlayerLocationX;
-                                            gv.mod.PlayerLastLocationY = gv.mod.PlayerLocationY;
-                                            gv.mod.PlayerLocationY--;
-                                            gv.mod.PlayerLocationY--;
-                                            gv.mod.breakActiveSearch = false;
-                                            gv.cc.doUpdate();
-                                        }
-                                        else
-                                        {
-                                            gv.mod.PlayerLastLocationX = gv.mod.PlayerLocationX;
-                                            gv.mod.PlayerLastLocationY = gv.mod.PlayerLocationY;
-                                            gv.mod.PlayerLocationY--;
-                                            gv.mod.breakActiveSearch = false;
-                                            gv.cc.doUpdate();
-                                        }
-                                    }
-                                    else if (bumpPropExists || bumpTriggerExists)
-                                    {
-                                        if (bumpPropExists)
-                                        {
-                                            if ((!bumpProp.MouseOverText.Equals("none")) && (gv.mod.currentArea.Tiles[bumpProp.LocationY * gv.mod.currentArea.MapSizeX + bumpProp.LocationX].Visible))
-                                            {
-                                                gv.cc.showFloatyStepOrBumpPropInfo(bumpProp);
-                                            }
-
-                                            if (bumpProp.ConversationWhenOnPartySquare != "none")
-                                            {
-                                                //called from prop add?
-                                                gv.sf.ThisProp = bumpProp;
-                                                gv.cc.doConversationBasedOnTag(bumpProp.ConversationWhenOnPartySquare);
-                                            }
-
-                                            if (bumpProp.EncounterWhenOnPartySquare != "none")
-                                            {
-                                                gv.mod.EncounterOfTurnDone = true;
-                                                gv.sf.ThisProp = bumpProp;
-                                                gv.cc.doEncounterBasedOnTag(bumpProp.EncounterWhenOnPartySquare);
-                                            }
-
-                                            if (bumpProp.scriptFilename != "none")
-                                            {
-                                                gv.sf.ThisProp = bumpProp;
-                                                gv.cc.doScriptBasedOnFilename(bumpProp.scriptFilename, bumpProp.parm1, bumpProp.parm2, bumpProp.parm3, bumpProp.parm4);
-
-                                                //code for floaty shown on prop upon script activation
-                                                if (bumpProp.scriptActivationFloaty != "none" && bumpProp.scriptActivationFloaty != "None" && bumpProp.scriptActivationFloaty != "")
-                                                {
-                                                    gv.screenMainMap.addFloatyText(bumpProp.LocationX, bumpProp.LocationY, bumpProp.scriptActivationFloaty, "red", 2000);
-                                                }
-
-                                                //code for log, to do
-                                                if (bumpProp.scriptActivationLogEntry != "none" && bumpProp.scriptActivationLogEntry != "None" && bumpProp.scriptActivationLogEntry != "")
-                                                {
-                                                    gv.cc.addLogText("red", bumpProp.scriptActivationLogEntry);
-                                                }
-
-                                                if (bumpProp.onlyOnce)
-                                                {
-                                                    bumpProp.isShown = false;
-                                                    bumpProp.isActive = false;
-                                                }
-                                            }
-                                        }
-                                        else if (bumpTriggerExists)
-                                        {
-                                            gv.cc.doBumpTrigger(bumpTrigger);
-                                        }
-
-                                        //update could be wrong here?
-                                        gv.cc.doUpdate();
-                                    }
-                                }
-                            }*/
+                       
                         }
                         gv.aTimer.Start();
-                        gv.mod.scrollModeSpeed = 0.45f;
+                        gv.mod.scrollModeSpeed = 0.5f;
                     }
-                    else if ((rtn.Equals("ctrlDownArrow")) || ((gv.mod.PlayerLocationX == actualx) && ((gv.mod.PlayerLocationY + 1) <= actualy)))
+                    else if (rtn.Equals("ctrlDownArrow"))
                     //else if (rtn5.Equals("ctrlDownArrow"))
 
                     {
@@ -41941,133 +41845,12 @@ namespace IceBlink2
 
 
                             }
-                            /*
-                            bool isTransition = gv.cc.goSouth();
-                            if (!isTransition)
-                            {
-                                int mapheight = gv.mod.currentArea.MapSizeY;
-                                bool bumpPropExists = false;
-                                bool bumpTriggerExists = false;
-                                Trigger bumpTrigger = new Trigger();
-                                Prop bumpProp = new Prop();
-
-                                if (gv.mod.PlayerLocationY < (mapheight - 1))
-                                {
-                                    foreach (Trigger t in gv.mod.currentArea.Triggers)
-                                    {
-                                        //migh add isBumpTRigger requirement here
-                                        if (t.Enabled)
-                                        {
-                                            foreach (Coordinate p in t.TriggerSquaresList)
-                                            {
-                                                if ((p.X == gv.mod.PlayerLocationX) && (p.Y == gv.mod.PlayerLocationY + 1))
-                                                {
-                                                    bumpTriggerExists = true;
-                                                    bumpTrigger = t;
-                                                    break;
-                                                }
-                                            }
-                                        }
-                                    }
-
-                                    foreach (Prop p in gv.mod.currentArea.Props)
-                                    {
-                                        if (p.isActive && (p.ConversationWhenOnPartySquare != "none" || p.EncounterWhenOnPartySquare != "none" || p.scriptFilename != "none" || p.MouseOverText != "none"))
-                                        {
-                                            if ((p.LocationX == gv.mod.PlayerLocationX) && (p.LocationY == gv.mod.PlayerLocationY + 1))
-                                            {
-                                                bumpPropExists = true;
-                                                bumpProp = p;
-                                                gv.sf.ThisProp = bumpProp;
-                                                break;
-                                            }
-                                        }
-                                    }
-                                }
-                                if (gv.mod.PlayerLocationY < (mapheight - 1))
-                                {
-                                    if (gv.mod.currentArea.GetBlocked(gv.mod.PlayerLocationX, gv.mod.PlayerLocationY + 1, gv.mod.PlayerLocationX, gv.mod.PlayerLocationY, gv.mod.PlayerLastLocationX, gv.mod.PlayerLastLocationY) == false)
-                                    {
-                                        if (gv.mod.currentArea.Tiles[(gv.mod.PlayerLocationY + 1) * gv.mod.currentArea.MapSizeX + gv.mod.PlayerLocationX].isSecretPassage)
-                                        {
-                                            gv.mod.PlayerLastLocationX = gv.mod.PlayerLocationX;
-                                            gv.mod.PlayerLastLocationY = gv.mod.PlayerLocationY;
-                                            gv.mod.PlayerLocationY++;
-                                            gv.mod.PlayerLocationY++;
-                                            gv.mod.breakActiveSearch = false;
-                                            gv.cc.doUpdate();
-                                        }
-                                        else
-                                        {
-                                            gv.mod.PlayerLastLocationX = gv.mod.PlayerLocationX;
-                                            gv.mod.PlayerLastLocationY = gv.mod.PlayerLocationY;
-                                            gv.mod.PlayerLocationY++;
-                                            gv.mod.breakActiveSearch = false;
-                                            gv.cc.doUpdate();
-                                        }
-                                    }
-                                    else if (bumpPropExists || bumpTriggerExists)
-                                    {
-                                        if (bumpPropExists)
-                                        {
-                                            if ((!bumpProp.MouseOverText.Equals("none")) && (gv.mod.currentArea.Tiles[bumpProp.LocationY * gv.mod.currentArea.MapSizeX + bumpProp.LocationX].Visible))
-                                            {
-                                                gv.cc.showFloatyStepOrBumpPropInfo(bumpProp);
-                                            }
-
-                                            if (bumpProp.ConversationWhenOnPartySquare != "none")
-                                            {
-                                                //called from prop add?
-                                                gv.sf.ThisProp = bumpProp;
-                                                gv.cc.doConversationBasedOnTag(bumpProp.ConversationWhenOnPartySquare);
-                                            }
-
-                                            if (bumpProp.EncounterWhenOnPartySquare != "none")
-                                            {
-                                                gv.mod.EncounterOfTurnDone = true;
-                                                gv.sf.ThisProp = bumpProp;
-                                                gv.cc.doEncounterBasedOnTag(bumpProp.EncounterWhenOnPartySquare);
-                                            }
-
-                                                if (bumpProp.scriptFilename != "none")
-                                                {
-                                                    gv.sf.ThisProp = bumpProp;
-                                                    gv.cc.doScriptBasedOnFilename(bumpProp.scriptFilename, bumpProp.parm1, bumpProp.parm2, bumpProp.parm3, bumpProp.parm4);
-
-                                                    //code for floaty shown on prop upon script activation
-                                                    if (bumpProp.scriptActivationFloaty != "none" && bumpProp.scriptActivationFloaty != "None" && bumpProp.scriptActivationFloaty != "")
-                                                    {
-                                                        gv.screenMainMap.addFloatyText(bumpProp.LocationX, bumpProp.LocationY, bumpProp.scriptActivationFloaty, "red", 2000);
-                                                    }
-
-                                                    //code for log, to do
-                                                    if (bumpProp.scriptActivationLogEntry != "none" && bumpProp.scriptActivationLogEntry != "None" && bumpProp.scriptActivationLogEntry != "")
-                                                    {
-                                                        gv.cc.addLogText("red", bumpProp.scriptActivationLogEntry);
-                                                    }
-
-                                                    if (bumpProp.onlyOnce)
-                                                    {
-                                                        bumpProp.isShown = false;
-                                                        bumpProp.isActive = false;
-                                                    }
-                                                }
-                                            }
-                                        else if (bumpTriggerExists)
-                                        {
-                                            gv.cc.doBumpTrigger(bumpTrigger);
-                                        }
-
-                                        //update could be wrong here?
-                                        gv.cc.doUpdate();
-                                    }
-                                }
-                            }*/
+                        
                         }
                         gv.aTimer.Start();
-                        gv.mod.scrollModeSpeed = 0.45f;
+                        gv.mod.scrollModeSpeed = 0.5f;
                     }
-                    else if ((rtn.Equals("ctrlLeftArrow")) || (((gv.mod.PlayerLocationX - 1) >= actualx) && (gv.mod.PlayerLocationY == actualy)))
+                    else if (rtn.Equals("ctrlLeftArrow"))
                     //else if (rtn.Equals("ctrlLeftArrow"))
 
                     {
@@ -42142,145 +41925,12 @@ namespace IceBlink2
 
 
                             }
-                            /*
-                            bool isTransition = gv.cc.goWest();
-                            if (!isTransition)
-                            {
-                                bool bumpPropExists = false;
-                                bool bumpTriggerExists = false;
-                                Trigger bumpTrigger = new Trigger();
-                                Prop bumpProp = new Prop();
-
-                                if (gv.mod.PlayerLocationX > 0)
-                                {
-                                    foreach (Trigger t in gv.mod.currentArea.Triggers)
-                                    {
-                                        //migh add isBumpTRigger requirement here
-                                        if (t.Enabled)
-                                        {
-                                            foreach (Coordinate p in t.TriggerSquaresList)
-                                            {
-                                                if ((p.X == gv.mod.PlayerLocationX - 1) && (p.Y == gv.mod.PlayerLocationY))
-                                                {
-                                                    bumpTriggerExists = true;
-                                                    bumpTrigger = t;
-                                                    break;
-                                                }
-                                            }
-                                        }
-                                    }
-
-                                    foreach (Prop p in gv.mod.currentArea.Props)
-                                    {
-                                        if (p.isActive && (p.ConversationWhenOnPartySquare != "none" || p.EncounterWhenOnPartySquare != "none" || p.scriptFilename != "none" || p.MouseOverText != "none"))
-                                        {
-                                            if ((p.LocationX == gv.mod.PlayerLocationX - 1) && (p.LocationY == gv.mod.PlayerLocationY))
-                                            {
-                                                bumpPropExists = true;
-                                                bumpProp = p;
-                                                gv.sf.ThisProp = bumpProp;
-                                                break;
-                                            }
-                                        }
-                                    }
-                                }
-                                if (gv.mod.PlayerLocationX > 0)
-                                {
-                                    if (gv.mod.currentArea.GetBlocked(gv.mod.PlayerLocationX - 1, gv.mod.PlayerLocationY, gv.mod.PlayerLocationX, gv.mod.PlayerLocationY, gv.mod.PlayerLastLocationX, gv.mod.PlayerLastLocationY) == false)
-                                    {
-                                        if (gv.mod.currentArea.Tiles[(gv.mod.PlayerLocationY) * gv.mod.currentArea.MapSizeX + gv.mod.PlayerLocationX - 1].isSecretPassage)
-                                        {
-                                            gv.mod.PlayerLastLocationX = gv.mod.PlayerLocationX;
-                                            gv.mod.PlayerLastLocationY = gv.mod.PlayerLocationY;
-                                            gv.mod.PlayerLocationX--;
-                                            gv.mod.PlayerLocationX--;
-                                            foreach (Player pc in gv.mod.playerList)
-                                            {
-                                                if (!pc.combatFacingLeft)
-                                                {
-                                                    pc.combatFacingLeft = true;
-                                                }
-                                            }
-                                            gv.mod.breakActiveSearch = false;
-                                            gv.cc.doUpdate();
-                                        }
-                                        else
-                                        {
-                                            gv.mod.PlayerLastLocationX = gv.mod.PlayerLocationX;
-                                            gv.mod.PlayerLastLocationY = gv.mod.PlayerLocationY;
-                                            gv.mod.PlayerLocationX--;
-                                            foreach (Player pc in gv.mod.playerList)
-                                            {
-                                                if (!pc.combatFacingLeft)
-                                                {
-                                                    pc.combatFacingLeft = true;
-                                                }
-                                            }
-                                            gv.mod.breakActiveSearch = false;
-                                            gv.cc.doUpdate();
-                                        }
-                                    }
-                                    else if (bumpPropExists || bumpTriggerExists)
-                                    {
-                                        if (bumpPropExists)
-                                        {
-                                            if ((!bumpProp.MouseOverText.Equals("none")) && (gv.mod.currentArea.Tiles[bumpProp.LocationY * gv.mod.currentArea.MapSizeX + bumpProp.LocationX].Visible))
-                                            {
-                                                gv.cc.showFloatyStepOrBumpPropInfo(bumpProp);
-                                            }
-
-                                            if (bumpProp.ConversationWhenOnPartySquare != "none")
-                                            {
-                                                //called from prop add?
-                                                gv.sf.ThisProp = bumpProp;
-                                                gv.cc.doConversationBasedOnTag(bumpProp.ConversationWhenOnPartySquare);
-                                            }
-
-                                            if (bumpProp.EncounterWhenOnPartySquare != "none")
-                                            {
-                                                gv.mod.EncounterOfTurnDone = true;
-                                                gv.sf.ThisProp = bumpProp;
-                                                gv.cc.doEncounterBasedOnTag(bumpProp.EncounterWhenOnPartySquare);
-                                            }
-                                            if (bumpProp.scriptFilename != "none")
-                                            {
-                                                gv.sf.ThisProp = bumpProp;
-                                                gv.cc.doScriptBasedOnFilename(bumpProp.scriptFilename, bumpProp.parm1, bumpProp.parm2, bumpProp.parm3, bumpProp.parm4);
-
-                                                //code for floaty shown on prop upon script activation
-                                                if (bumpProp.scriptActivationFloaty != "none" && bumpProp.scriptActivationFloaty != "None" && bumpProp.scriptActivationFloaty != "")
-                                                {
-                                                    gv.screenMainMap.addFloatyText(bumpProp.LocationX, bumpProp.LocationY, bumpProp.scriptActivationFloaty, "red", 2000);
-                                                }
-
-                                                //code for log, to do
-                                                if (bumpProp.scriptActivationLogEntry != "none" && bumpProp.scriptActivationLogEntry != "None" && bumpProp.scriptActivationLogEntry != "")
-                                                {
-                                                    gv.cc.addLogText("red", bumpProp.scriptActivationLogEntry);
-                                                }
-
-                                                if (bumpProp.onlyOnce)
-                                                {
-                                                    bumpProp.isShown = false;
-                                                    bumpProp.isActive = false;
-                                                }
-                                            }
-                                        }
-                                        else if (bumpTriggerExists)
-                                        {
-                                            gv.cc.doBumpTrigger(bumpTrigger);
-                                        }
-
-                                        //update could be wrong here?
-                                        gv.cc.doUpdate();
-                                    }
-                                }
-                            }*/
+            
                         }
                         gv.aTimer.Start();
-                        gv.mod.scrollModeSpeed = 0.45f;
+                        gv.mod.scrollModeSpeed = 0.5f;
                     }
-                    else if ((rtn.Equals("ctrlRightArrow")) || (((gv.mod.PlayerLocationX + 1) <= actualx) && (gv.mod.PlayerLocationY == actualy)))
+                    else if (rtn.Equals("ctrlRightArrow"))
                     //else if (rtn.Equals("ctrlRightArrow"))
 
                     {
@@ -42355,146 +42005,467 @@ namespace IceBlink2
 
 
                             }
-                            /*
-                            bool isTransition = gv.cc.goEast();
-                            if (!isTransition)
-                            {
-                                int mapwidth = gv.mod.currentArea.MapSizeX;
-                                bool bumpPropExists = false;
-                                bool bumpTriggerExists = false;
-                                Trigger bumpTrigger = new Trigger();
-                                Prop bumpProp = new Prop();
-
-                                if (gv.mod.PlayerLocationX < (mapwidth - 1))
-                                {
-                                    foreach (Trigger t in gv.mod.currentArea.Triggers)
-                                    {
-                                        //migh add isBumpTRigger requirement here
-                                        if (t.Enabled)
-                                        {
-                                            foreach (Coordinate p in t.TriggerSquaresList)
-                                            {
-                                                if ((p.X == gv.mod.PlayerLocationX + 1) && (p.Y == gv.mod.PlayerLocationY))
-                                                {
-                                                    bumpTriggerExists = true;
-                                                    bumpTrigger = t;
-                                                    break;
-                                                }
-                                            }
-                                        }
-                                    }
-
-                                    foreach (Prop p in gv.mod.currentArea.Props)
-                                    {
-                                        if (p.isActive && (p.ConversationWhenOnPartySquare != "none" || p.EncounterWhenOnPartySquare != "none" || p.scriptFilename != "none" || p.MouseOverText != "none"))
-                                        {
-                                            if ((p.LocationX == gv.mod.PlayerLocationX + 1) && (p.LocationY == gv.mod.PlayerLocationY))
-                                            {
-                                                bumpPropExists = true;
-                                                bumpProp = p;
-                                                gv.sf.ThisProp = bumpProp;
-                                                break;
-                                            }
-                                        }
-                                    }
-                                }
-                                if (gv.mod.PlayerLocationX < (mapwidth - 1))
-                                {
-                                    if (gv.mod.currentArea.GetBlocked(gv.mod.PlayerLocationX + 1, gv.mod.PlayerLocationY, gv.mod.PlayerLocationX, gv.mod.PlayerLocationY, gv.mod.PlayerLastLocationX, gv.mod.PlayerLastLocationY) == false)
-                                    {
-                                        if (gv.mod.currentArea.Tiles[(gv.mod.PlayerLocationY) * gv.mod.currentArea.MapSizeX + gv.mod.PlayerLocationX + 1].isSecretPassage)
-                                        {
-                                            gv.mod.PlayerLastLocationX = gv.mod.PlayerLocationX;
-                                            gv.mod.PlayerLastLocationY = gv.mod.PlayerLocationY;
-                                            gv.mod.PlayerLocationX++;
-                                            gv.mod.PlayerLocationX++;
-                                            foreach (Player pc in gv.mod.playerList)
-                                            {
-                                                if (pc.combatFacingLeft)
-                                                {
-                                                    pc.combatFacingLeft = false;
-                                                }
-                                            }
-                                            gv.mod.breakActiveSearch = false;
-                                            gv.cc.doUpdate();
-                                        }
-                                        else
-                                        {
-                                            gv.mod.PlayerLastLocationX = gv.mod.PlayerLocationX;
-                                            gv.mod.PlayerLastLocationY = gv.mod.PlayerLocationY;
-                                            gv.mod.PlayerLocationX++;
-                                            foreach (Player pc in gv.mod.playerList)
-                                            {
-                                                if (pc.combatFacingLeft)
-                                                {
-                                                    pc.combatFacingLeft = false;
-                                                }
-                                            }
-                                            gv.mod.breakActiveSearch = false;
-                                            gv.cc.doUpdate();
-                                        }
-                                    }
-                                    else if (bumpPropExists || bumpTriggerExists)
-                                    {
-                                        if (bumpPropExists)
-                                        {
-                                            if ((!bumpProp.MouseOverText.Equals("none")) && (gv.mod.currentArea.Tiles[bumpProp.LocationY * gv.mod.currentArea.MapSizeX + bumpProp.LocationX].Visible))
-                                            {
-                                                gv.cc.showFloatyStepOrBumpPropInfo(bumpProp);
-                                            }
-
-                                            if (bumpProp.ConversationWhenOnPartySquare != "none")
-                                            {
-                                                //called from prop add?
-                                                gv.sf.ThisProp = bumpProp;
-                                                gv.cc.doConversationBasedOnTag(bumpProp.ConversationWhenOnPartySquare);
-                                            }
-
-                                            if (bumpProp.EncounterWhenOnPartySquare != "none")
-                                            {
-                                                gv.mod.EncounterOfTurnDone = true;
-                                                gv.sf.ThisProp = bumpProp;
-                                                gv.cc.doEncounterBasedOnTag(bumpProp.EncounterWhenOnPartySquare);
-                                            }
-                                            if (bumpProp.scriptFilename != "none")
-                                            {
-                                                gv.sf.ThisProp = bumpProp;
-                                                gv.cc.doScriptBasedOnFilename(bumpProp.scriptFilename, bumpProp.parm1, bumpProp.parm2, bumpProp.parm3, bumpProp.parm4);
-
-                                                //code for floaty shown on prop upon script activation
-                                                if (bumpProp.scriptActivationFloaty != "none" && bumpProp.scriptActivationFloaty != "None" && bumpProp.scriptActivationFloaty != "")
-                                                {
-                                                    gv.screenMainMap.addFloatyText(bumpProp.LocationX, bumpProp.LocationY, bumpProp.scriptActivationFloaty, "red", 2000);
-                                                }
-
-                                                //code for log, to do
-                                                if (bumpProp.scriptActivationLogEntry != "none" && bumpProp.scriptActivationLogEntry != "None" && bumpProp.scriptActivationLogEntry != "")
-                                                {
-                                                    gv.cc.addLogText("red", bumpProp.scriptActivationLogEntry);
-                                                }
-
-                                                if (bumpProp.onlyOnce)
-                                                {
-                                                    bumpProp.isShown = false;
-                                                    bumpProp.isActive = false;
-                                                }
-                                            }
-                                        }
-                                        else if (bumpTriggerExists)
-                                        {
-                                            gv.cc.doBumpTrigger(bumpTrigger);
-                                        }
-
-                                        //update could be wrong here?
-                                        gv.cc.doUpdate();
-                                    }
-                                }
-                            }*/
+                           
                         }
                         gv.aTimer.Start();
-                        gv.mod.scrollModeSpeed = 0.45f;
+                        gv.mod.scrollModeSpeed = 0.5f;
                     }
 
+                    else if (rtn.Equals(""))
+                    {
+
+                        bool isLeftSlice = false;
+                        bool isRightSlice = false;
+                        bool isTopSlice = false;
+                        bool isBottomSlice = false;
+
+                        if (gv.mousePositionX <= (gv.screenWidth / 2 + (int)(gv.squareSize * 10f / 100f)))
+                        {
+                            if (gv.mousePositionY <= (gv.screenHeight / 2 + (int)(gv.squareSize * 55f / 100f)))
+                            {
+                                if (((gv.screenWidth / 2 + (int)(gv.squareSize * 10f / 100f)) - gv.mousePositionX) >= ((gv.screenHeight / 2 + (int)(gv.squareSize * 55f / 100f)) - gv.mousePositionY))
+                                {
+                                    isLeftSlice = true;
+                                }
+                            }
+                            else
+                            {
+                                if (((gv.screenWidth / 2 + (int)(gv.squareSize * 10f / 100f)) - gv.mousePositionX) >= ((-1) * ((gv.screenHeight / 2 + (int)(gv.squareSize * 55f / 100f)) - gv.mousePositionY)))
+                                {
+                                    isLeftSlice = true;
+                                }
+                             }
+                        }
+
+                        //top slice
+                        if (!isLeftSlice)
+                        {
+                            if (gv.mousePositionY <= (gv.screenHeight / 2 + (int)(gv.squareSize * 55f / 100f)))
+                            {
+                                if (gv.mousePositionX <= (gv.screenWidth / 2 + (int)(gv.squareSize * 10f / 100f)))
+                                {
+                                    if (((gv.screenHeight / 2 + (int)(gv.squareSize * 55f / 100f)) - gv.mousePositionY) >= ((gv.screenWidth / 2 + (int)(gv.squareSize * 10f / 100f)) - gv.mousePositionX))
+                                    {
+                                        isTopSlice = true;
+                                    }
+                                }
+                                else
+                                {
+                                    if (((gv.screenHeight / 2 + (int)(gv.squareSize * 55f / 100f)) - gv.mousePositionY) >= ((-1) * ((gv.screenWidth / 2 + (int)(gv.squareSize * 10f / 100f)) - gv.mousePositionX)))
+                                    {
+                                        isTopSlice = true;
+                                    }
+                                }
+                            }
+                        }
+
+                        //right slice
+                        if (!isLeftSlice && !isTopSlice)
+                        {
+                            if (gv.mousePositionX > (gv.screenWidth / 2 + (int)(gv.squareSize * 10f / 100f)))
+                            {
+                                if (gv.mousePositionY <= (gv.screenHeight / 2 + (int)(gv.squareSize * 55f / 100f)))
+                                {
+                                    if ((((gv.screenWidth / 2 + (int)(gv.squareSize * 10f / 100f)) - gv.mousePositionX) * (-1)) >= ((gv.screenHeight / 2 + (int)(gv.squareSize * 55f / 100f)) - gv.mousePositionY))
+                                    {
+                                        isRightSlice = true;
+                                    }
+                                }
+                                else
+                                {
+                                    if ((((gv.screenWidth / 2 + (int)(gv.squareSize * 10f / 100f)) - gv.mousePositionX) * (-1)) >= ((-1) * ((gv.screenHeight / 2 + (int)(gv.squareSize * 55f / 100f)) - gv.mousePositionY)))
+                                    {
+                                        isRightSlice = true;
+                                    }
+                                }
+                            }
+                        }
+
+                        //botttom slice
+                        if (!isLeftSlice && !isRightSlice && !isTopSlice)
+                        {
+                            isBottomSlice = true;
+                        }
+
+                        int x2 = gv.mousePositionX - (int)(gv.squareSize * 10f / 100f);
+                        int y2 = gv.mousePositionY - (int)(gv.squareSize * 55f / 100f);
+
+                        int xDistanceFromCenter = x2 - (int)(gv.screenWidth / 2f);
+                        if (xDistanceFromCenter < 0)
+                        {
+                            xDistanceFromCenter = xDistanceFromCenter * -1;
+                        }
+
+                        int yDistanceFromCenter = y2 - (int)(gv.screenHeight / 2f);
+                        if (yDistanceFromCenter < 0)
+                        {
+                            yDistanceFromCenter = yDistanceFromCenter * -1;
+                        }
+
+                        float moveSpeed = 1;
+                        int rawValue = 0;
+                        if (yDistanceFromCenter >= xDistanceFromCenter)
+                        {
+                            rawValue = (int)(yDistanceFromCenter);
+                        }
+                        else
+                        {
+                            rawValue = (int)(xDistanceFromCenter);
+                        }
+                        /*
+                        if (rawValue <= 0.75f*gv.squareSize)
+                        {
+                            moveSpeed = 0.4f;
+                        }
+                        if (rawValue >= 2.25 * gv.squareSize)
+                        {
+                            moveSpeed = 1.75f;
+                        }
+                        gv.mod.scrollModeSpeed = 0.5f * moveSpeed;
+                        */
+                        float disQ = (rawValue * 0.4f) / gv.squareSize;
+                        if (disQ > 1.4f)
+                        {
+                            disQ = 1.4f;
+                        }
+                        gv.mod.scrollModeSpeed = 0.5f * (0.15f + disQ);
+                        int gridX = x2 / gv.squareSize;
+                        int gridY = y2 / gv.squareSize;
+                        int actualx2 = gv.mod.PlayerLocationX + (gridX - gv.playerOffsetX);
+                        int actualy2 = gv.mod.PlayerLocationY + (gridY - gv.playerOffsetY);
+
+                        //up/north
+                        if (isTopSlice)
+                        //if (gv.mod.PlayerLocationX == actualx2 && gv.mod.PlayerLocationY - 1 >= actualy2)
+                        {
+                            gv.a2Timer.Stop();
+                            if (!gv.moveTimerRuns)
+                            {
+
+                                gv.mod.doTriggerInspiteOfScrolling = false;
+                                bool blockMoveBecausOfCurrentScrolling = false;
+
+                                if (gv.mod.useScrollingSystem)
+                                {
+                                    if (gv.mod.scrollingTimer != 100 && gv.mod.scrollingTimer != 0)
+                                    {
+                                        blockMoveBecausOfCurrentScrolling = true;
+                                    }
+                                }
+
+                                blockMoveBecausOfCurrentScrolling = false;
+
+                                if (!blockMoveBecausOfCurrentScrolling)
+                                {
+                                    if (gv.mod.useScrollingSystem)
+                                    {
+                                        //single press
+                                        if (!gv.mod.isScrollingNow)
+                                        {
+                                            gv.mod.isScrollingNow = true;
+                                            //gv.mod.scrollingTimer = 100 + gv.mod.scrollingOverhang2;
+                                            gv.mod.scrollingTimer = 100;
+                                            gv.mod.scrollingDirection = "up";
+                                            gv.mod.doTriggerInspiteOfScrolling = true;
+                                            bool isTransition = gv.cc.goNorth();
+                                            if (!isTransition)
+                                            {
+                                                gv.mod.breakActiveSearch = false;
+                                                //gv.mod.wasJustCalled = false;
+                                                //if (!gv.mod.wasJustCalled)
+                                                //{
+                                                //if (gv.screenType == "main")
+                                                //{
+                                                moveUp(true);
+                                                //}
+                                                //gv.mod.wasJustCalled = true;
+                                                //}
+                                            }
+                                        }
+                                        //continued press
+                                        //else if (moveDelay2())
+                                        else if (gv.mod.scrollingTimer <= gv.mod.lastScrollStep || gv.mod.scrollingTimer >= 100)
+                                        {
+                                            gv.mod.isScrollingNow = true;
+                                            gv.mod.scrollingTimer = 100 + gv.mod.scrollingOverhang2;
+                                            gv.mod.scrollingOverhang2 = 0;
+                                            gv.mod.scrollingDirection = "up";
+                                            gv.mod.doTriggerInspiteOfScrolling = true;
+                                            bool isTransition = gv.cc.goNorth();
+                                            if (!isTransition)
+                                            {
+                                                gv.mod.breakActiveSearch = false;
+                                                //gv.mod.wasJustCalled = false;
+                                                //if (!gv.mod.wasJustCalled)
+                                                //{
+                                                //if (gv.screenType == "main")
+                                                //{
+                                                moveUp(true);
+                                                //}
+                                                //gv.mod.wasJustCalled = true;
+                                                //}
+                                            }
+                                        }
+                                    }
+
+
+                                }
+
+
+                            }
+                            gv.a2Timer.Start();
+                            gv.mod.scrollModeSpeed = 0.5f * moveSpeed;
+                        }
+
+                        //down/south
+                        else if (isBottomSlice)
+                        //else if (gv.mod.PlayerLocationX == actualx2 && gv.mod.PlayerLocationY + 1 <= actualy2)
+                        //else if (rtn5.Equals("ctrlDownArrow"))
+
+                        {
+                            gv.a2Timer.Stop();
+                            if (!gv.moveTimerRuns)
+                            {
+                                gv.mod.doTriggerInspiteOfScrolling = false;
+                                bool blockMoveBecausOfCurrentScrolling = false;
+
+                                if (gv.mod.useScrollingSystem)
+                                {
+                                    if (gv.mod.scrollingTimer != 100 && gv.mod.scrollingTimer != 0)
+                                    {
+                                        blockMoveBecausOfCurrentScrolling = true;
+                                    }
+                                }
+
+                                blockMoveBecausOfCurrentScrolling = false;
+
+                                if (!blockMoveBecausOfCurrentScrolling)
+                                {
+                                    if (gv.mod.useScrollingSystem)
+                                    {
+                                        //single press
+                                        if (!gv.mod.isScrollingNow)
+                                        {
+                                            gv.mod.isScrollingNow = true;
+                                            //gv.mod.scrollingTimer = 100 + gv.mod.scrollingOverhang2;
+                                            gv.mod.scrollingTimer = 100;
+                                            gv.mod.scrollingDirection = "down";
+                                            gv.mod.doTriggerInspiteOfScrolling = true;
+                                            bool isTransition = gv.cc.goSouth();
+                                            if (!isTransition)
+                                            {
+                                                gv.mod.breakActiveSearch = false;
+                                                //gv.mod.wasJustCalled = false;
+                                                //if (!gv.mod.wasJustCalled)
+                                                //{
+                                                //if (gv.screenType == "main")
+                                                //{
+                                                moveDown(true);
+                                                //}
+                                                //gv.mod.wasJustCalled = true;
+                                                //}
+                                            }
+                                        }
+                                        //continued press
+                                        //else if (moveDelay2())
+                                        else if (gv.mod.scrollingTimer <= gv.mod.lastScrollStep || gv.mod.scrollingTimer >= 100)
+                                        {
+                                            gv.mod.isScrollingNow = true;
+                                            gv.mod.scrollingTimer = 100 + gv.mod.scrollingOverhang2;
+                                            gv.mod.scrollingOverhang2 = 0;
+                                            gv.mod.scrollingDirection = "down";
+                                            gv.mod.doTriggerInspiteOfScrolling = true;
+                                            bool isTransition = gv.cc.goSouth();
+                                            if (!isTransition)
+                                            {
+                                                gv.mod.breakActiveSearch = false;
+                                                //gv.mod.wasJustCalled = false;
+                                                //if (!gv.mod.wasJustCalled)
+                                                //{
+                                                //if (gv.screenType == "main")
+                                                //{
+                                                moveDown(true);
+                                                //}
+                                                //gv.mod.wasJustCalled = true;
+                                                //}
+                                            }
+                                        }
+                                    }
+
+
+                                }
+
+                            }
+                            gv.a2Timer.Start();
+                            gv.mod.scrollModeSpeed = 0.5f * moveSpeed;
+                        }
+
+                        //left/west
+                        else if (isLeftSlice)
+                        //else if (gv.mod.PlayerLocationX - 1 >= actualx2 && gv.mod.PlayerLocationY == actualy2)
+                        //else if (rtn.Equals("ctrlLeftArrow"))
+
+                        {
+                            gv.a2Timer.Stop();
+                            if (!gv.moveTimerRuns)
+                            {
+                                gv.mod.doTriggerInspiteOfScrolling = false;
+                                bool blockMoveBecausOfCurrentScrolling = false;
+
+                                if (gv.mod.useScrollingSystem)
+                                {
+                                    if (gv.mod.scrollingTimer != 100 && gv.mod.scrollingTimer != 0)
+                                    {
+                                        blockMoveBecausOfCurrentScrolling = true;
+                                    }
+                                }
+
+                                blockMoveBecausOfCurrentScrolling = false;
+
+                                if (!blockMoveBecausOfCurrentScrolling)
+                                {
+                                    if (gv.mod.useScrollingSystem)
+                                    {
+                                        //single press
+                                        if (!gv.mod.isScrollingNow)
+                                        {
+                                            gv.mod.isScrollingNow = true;
+                                            //gv.mod.scrollingTimer = 100 + gv.mod.scrollingOverhang2;
+                                            gv.mod.scrollingTimer = 100;
+                                            gv.mod.scrollingDirection = "left";
+                                            gv.mod.doTriggerInspiteOfScrolling = true;
+                                            bool isTransition = gv.cc.goWest();
+                                            if (!isTransition)
+                                            {
+                                                gv.mod.breakActiveSearch = false;
+                                                //gv.mod.wasJustCalled = false;
+                                                //if (!gv.mod.wasJustCalled)
+                                                //{
+                                                //if (gv.screenType == "main")
+                                                //{
+                                                moveLeft(true);
+                                                //}
+                                                //gv.mod.wasJustCalled = true;
+                                                //}
+                                            }
+                                        }
+                                        //continued press
+                                        //else if (moveDelay2())
+                                        else if (gv.mod.scrollingTimer <= gv.mod.lastScrollStep || gv.mod.scrollingTimer >= 100)
+                                        {
+                                            gv.mod.isScrollingNow = true;
+                                            gv.mod.scrollingTimer = 100 + gv.mod.scrollingOverhang2;
+                                            gv.mod.scrollingOverhang2 = 0;
+                                            gv.mod.scrollingDirection = "left";
+                                            gv.mod.doTriggerInspiteOfScrolling = true;
+                                            bool isTransition = gv.cc.goWest();
+                                            if (!isTransition)
+                                            {
+                                                gv.mod.breakActiveSearch = false;
+                                                //gv.mod.wasJustCalled = false;
+                                                //if (!gv.mod.wasJustCalled)
+                                                //{
+                                                //if (gv.screenType == "main")
+                                                //{
+                                                moveLeft(true);
+                                                //}
+                                                //gv.mod.wasJustCalled = true;
+                                                //}
+                                            }
+                                        }
+                                    }
+
+
+                                }
+
+                            }
+                            gv.a2Timer.Start();
+                            gv.mod.scrollModeSpeed = 0.5f * moveSpeed;
+                        }
+                        else if (isRightSlice)
+                        //else if (gv.mod.PlayerLocationX + 1 <= actualx2 && gv.mod.PlayerLocationY == actualy2)
+                        //else if (rtn.Equals("ctrlRightArrow"))
+
+                        {
+                            gv.a2Timer.Stop();
+                            if (!gv.moveTimerRuns)
+                            {
+                                gv.mod.doTriggerInspiteOfScrolling = false;
+                                bool blockMoveBecausOfCurrentScrolling = false;
+
+                                if (gv.mod.useScrollingSystem)
+                                {
+                                    if (gv.mod.scrollingTimer != 100 && gv.mod.scrollingTimer != 0)
+                                    {
+                                        blockMoveBecausOfCurrentScrolling = true;
+                                    }
+                                }
+
+                                blockMoveBecausOfCurrentScrolling = false;
+
+                                if (!blockMoveBecausOfCurrentScrolling)
+                                {
+                                    if (gv.mod.useScrollingSystem)
+                                    {
+                                        //single press
+                                        if (!gv.mod.isScrollingNow)
+                                        {
+                                            gv.mod.isScrollingNow = true;
+                                            //gv.mod.scrollingTimer = 100 + gv.mod.scrollingOverhang2;
+                                            gv.mod.scrollingTimer = 100;
+                                            gv.mod.scrollingDirection = "right";
+                                            gv.mod.doTriggerInspiteOfScrolling = true;
+                                            bool isTransition = gv.cc.goEast();
+                                            if (!isTransition)
+                                            {
+                                                gv.mod.breakActiveSearch = false;
+                                                //gv.mod.wasJustCalled = false;
+                                                //if (!gv.mod.wasJustCalled)
+                                                //{
+                                                //if (gv.screenType == "main")
+                                                //{
+                                                moveRight(true);
+                                                //}
+                                                //gv.mod.wasJustCalled = true;
+                                                //}
+                                            }
+                                        }
+                                        //continued press
+                                        //else if (moveDelay2())
+                                        else if (gv.mod.scrollingTimer <= gv.mod.lastScrollStep || gv.mod.scrollingTimer >= 100)
+                                        {
+                                            gv.mod.isScrollingNow = true;
+                                            gv.mod.scrollingTimer = 100 + gv.mod.scrollingOverhang2;
+                                            gv.mod.scrollingOverhang2 = 0;
+                                            gv.mod.scrollingDirection = "right";
+                                            gv.mod.doTriggerInspiteOfScrolling = true;
+                                            bool isTransition = gv.cc.goEast();
+                                            if (!isTransition)
+                                            {
+                                                gv.mod.breakActiveSearch = false;
+                                                //gv.mod.wasJustCalled = false;
+                                                //if (!gv.mod.wasJustCalled)
+                                                //{
+                                                //if (gv.screenType == "main")
+                                                //{
+                                                moveRight(true);
+                                                //}
+                                                //gv.mod.wasJustCalled = true;
+                                                //}
+                                            }
+                                        }
+                                    }
+
+
+                                }
+
+                            }
+                            gv.a2Timer.Start();
+                            gv.mod.scrollModeSpeed = 0.5f * moveSpeed;
+                        }
+
+                        //teatomorrow
+                    }
 
                     //lübbke3
                     break;
@@ -43424,7 +43395,7 @@ namespace IceBlink2
                     //int hgh = 0;
                 //}
                 
-
+                /*
                 if (keyData == Keys.D4 | keyData == Keys.NumPad4)
                 {
                     gv.mod.doTriggerInspiteOfScrolling = false;
@@ -43496,7 +43467,8 @@ namespace IceBlink2
                        
                     }
                 }
-                else if (keyData == Keys.ShiftKey)
+                */
+                if (keyData == Keys.ShiftKey)
                 {
                     //krah krah
                     //gv.mod.interfaceFadeCounter = 0;
@@ -43583,6 +43555,7 @@ namespace IceBlink2
                         gv.cc.doSavesDialog();
                     }
                 }
+                /*
                 else if (keyData == Keys.D && !showMoveKeys)
                 {
                     gv.mod.doTriggerInspiteOfScrolling = false;
@@ -43655,6 +43628,8 @@ namespace IceBlink2
 
                     }
                 }
+                */
+                /*
                 else if (keyData == Keys.A && !showMoveKeys)
                 {
                     gv.mod.doTriggerInspiteOfScrolling = false;
@@ -43726,6 +43701,8 @@ namespace IceBlink2
                       
                     }
                 }
+                */
+                /*
                 else if (keyData == Keys.D6 | keyData == Keys.NumPad6)
                 {
                     gv.mod.doTriggerInspiteOfScrolling = false;
@@ -43797,6 +43774,7 @@ namespace IceBlink2
                        
                     }
                 }
+                */
                 /*
                 else if (keyData == Keys.Right && showMoveKeys)
                 {
@@ -43873,6 +43851,7 @@ namespace IceBlink2
                     }
                 }
                 */
+                /*
                 else if (keyData == Keys.D8 | keyData == Keys.NumPad8)
                 {
                     gv.mod.doTriggerInspiteOfScrolling = false;
@@ -43944,6 +43923,7 @@ namespace IceBlink2
                        
                     }
                 }
+                */
                 //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXx
                 /*
                 else if (keyData == Keys.Up && showMoveKeys)
@@ -44021,6 +44001,7 @@ namespace IceBlink2
                 }
                 */
                 //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                /*
                 else if (keyData == Keys.W && !showMoveKeys)
                 {
                     gv.mod.doTriggerInspiteOfScrolling = false;
@@ -44092,6 +44073,8 @@ namespace IceBlink2
                        
                     }
                 }
+                */
+                /*
                 else if (keyData == Keys.D2 | keyData == Keys.NumPad2)
                 {
                     gv.mod.doTriggerInspiteOfScrolling = false;
@@ -44163,6 +44146,7 @@ namespace IceBlink2
                        
                     }
                 }
+                */
                 /*
                 else if (keyData == Keys.Down && showMoveKeys)
                 {
@@ -44238,6 +44222,7 @@ namespace IceBlink2
                     }
                 }
                 */
+                /*
                 else if (keyData == Keys.S && !showMoveKeys)
                 {
                     gv.mod.doTriggerInspiteOfScrolling = false;
@@ -44309,7 +44294,7 @@ namespace IceBlink2
                        
                     }
                 }
-                //else { }
+                */
             }
 
             if (keyData == Keys.E)

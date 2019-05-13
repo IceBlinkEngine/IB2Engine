@@ -5278,9 +5278,9 @@ namespace IceBlink2
             int maxY = gv.mod.PlayerLocationY + gv.playerOffsetY;
             if (maxY > this.gv.mod.currentArea.MapSizeY - 1 + seamlessModififierMaxY) { maxY = this.gv.mod.currentArea.MapSizeY - 1 + seamlessModififierMaxY; }
 
-            for (int xx = minX; xx <= maxX; xx++)
+            for (int xx = minX-3; xx <= maxX+3; xx++)
             {
-                for (int yy = minY; yy <= maxY; yy++)
+                for (int yy = minY-3; yy <= maxY+3; yy++)
                 {
                     //YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY
                     bool situationFound = false;
@@ -12930,6 +12930,7 @@ namespace IceBlink2
         public void doConversationBasedOnTag(string tag)
         {
 
+
             bool isFooled = false;
             //enter code for skipping triggers of prop here
             if (calledConvoFromProp)
@@ -13022,7 +13023,15 @@ namespace IceBlink2
              //{
             try
                 {
-                    gv.mod.allowImmediateRetransition = true;
+                gv.mod.blockRightKey = false;
+                gv.mod.blockLeftKey = false;
+                gv.mod.blockUpKey = false;
+                gv.mod.blockDownKey = false;
+                
+                    gv.aTimer.Stop();
+                    gv.mod.scrollModeSpeed = 1.05f;
+                
+                gv.mod.allowImmediateRetransition = true;
                     LoadCurrentConvo(tag);
                     gv.screenType = "convo";
                     gv.screenConvo.startConvo();
@@ -14760,7 +14769,15 @@ namespace IceBlink2
             //project repeatable
             try
                 {
-                    gv.mod.currentEncounter = gv.mod.getEncounter(name);
+                gv.mod.blockRightKey = false;
+                gv.mod.blockLeftKey = false;
+                gv.mod.blockUpKey = false;
+                gv.mod.blockDownKey = false;
+
+                gv.aTimer.Stop();
+                gv.mod.scrollModeSpeed = 1.05f;
+
+                gv.mod.currentEncounter = gv.mod.getEncounter(name);
                     if (gv.mod.currentEncounter.encounterCreatureRefsList.Count > 0)
                     {
                         gv.screenCombat.doCombatSetup();
