@@ -4631,6 +4631,17 @@ namespace IceBlink2
                     }
                     else if (filename.Equals("gaJumpChasm.cs"))
                     {
+
+                        /*
+                        if (ThisProp.isActive)
+                        {
+                            gv.mod.doNotStartScrolling = true;
+                        }
+                        gv.aTimer.Stop();
+                        gv.a2Timer.Stop();
+                        gv.mod.scrollModeSpeed = 1.15f;
+                        */
+
                         //p1: trait for jumping, p2 dc for jump
                         int parm2 = 0;
                         if (p2 != "none" && p2 != "None" && p2 != "")
@@ -4652,6 +4663,17 @@ namespace IceBlink2
                         else
                         {
                             onTop = true;
+                        }
+
+                        if (onTop)
+                        {
+                            if (ThisProp.isActive)
+                            {
+                                gv.mod.doNotStartScrolling = true;
+                            }
+                            gv.aTimer.Stop();
+                            gv.a2Timer.Stop();
+                            gv.mod.scrollModeSpeed = 1.15f;
                         }
 
                         if (onTop)
@@ -4860,8 +4882,34 @@ namespace IceBlink2
                     public int valueOfGlobalIntOFF = 0;
                     public int valueOfGlobalIntON = 0;
                     */
-                        if (ThisProp.isLever)
+                        if (ThisProp.isLever && gv.mod.keyUpPressedAgain)
                         {
+                            gv.mod.keyUpPressedAgain = false;
+                            gv.aTimer.Stop();
+                            gv.a2Timer.Stop();
+                            gv.mod.scrollModeSpeed = 1.15f;
+                            
+                            /*
+                            if (gv.mod.scrollingDirection == "up")
+                            {
+                                gv.mod.blockUpKey = true;
+                            }
+                            if (gv.mod.scrollingDirection == "down")
+                            {
+                                gv.mod.blockDownKey = true;
+                            }
+                            if (gv.mod.scrollingDirection == "left")
+                            {
+                                gv.mod.blockLeftKey = true;
+                            }
+                            if (gv.mod.scrollingDirection == "right")
+                            {
+                                gv.mod.blockRightKey = true;
+                            }
+                            */
+                           
+
+
                             //state was on
                             if (ThisProp.isOn)
                             {
@@ -8652,6 +8700,13 @@ namespace IceBlink2
 
         public void breakObject()
         {
+            if (ThisProp.isActive && !ThisProp.isBroken)
+            {
+                gv.mod.doNotStartScrolling = true;
+            }
+            //gv.aTimer.Stop();
+            //gv.a2Timer.Stop();
+            //mod.scrollModeSpeed = 1.15f;
             //todo
             //skill check
             //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
@@ -9449,8 +9504,15 @@ namespace IceBlink2
 
         }
 
-            public void pushObject()
+        public void pushObject()
         {
+            if (ThisProp.isActive)
+            {
+                gv.mod.doNotStartScrolling = true;
+            }
+            gv.aTimer.Stop();
+            gv.a2Timer.Stop();
+            mod.scrollModeSpeed = 1.15f;
             Trigger tTemp = new Trigger();
             foreach (Trigger t in gv.mod.currentArea.Triggers)
             {

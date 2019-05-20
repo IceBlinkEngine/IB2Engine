@@ -425,7 +425,8 @@ namespace IceBlink2
             {
                 disQ = 1.4f;
             }
-            mod.scrollModeSpeed = 0.5f * (0.15f + disQ);
+            //mod.scrollModeSpeed = 0.5f * (0.15f + disQ);
+            mod.scrollModeSpeed = 0.7f * (0.15f + disQ);
 
             int gridX = x2 / squareSize;
             int gridY = y2 / squareSize;
@@ -1844,7 +1845,7 @@ namespace IceBlink2
                 {
                     this.aTimer.Stop();
                     this.a2Timer.Stop();
-                    mod.scrollModeSpeed = 1.05f;
+                    mod.scrollModeSpeed = 1.15f;
                 }
                 stillProcessingGameLoop = true; //starting the game loop so do not allow another tick call to run until finished with this tick call.
                 long current = gameTimerStopwatch.ElapsedMilliseconds; //get the current total amount of ms since the game launched
@@ -1879,6 +1880,7 @@ namespace IceBlink2
         }
         private void Update(int elapsed)
         {
+            
             
             //iterate through spriteList and handle any sprite location and animation frame calculations
             if (screenType.Equals("main"))
@@ -2673,32 +2675,44 @@ namespace IceBlink2
 
         private void GameView_onKeyUp(object sender, KeyEventArgs e)
         {
-            if (screenType.Equals("main"))
+            //if (screenType.Equals("main"))
+            //{
+        
+            
+                mod.doNotStartScrolling = false;
+            
+            if (e.KeyCode == Keys.ShiftKey || screenType != "main")
             {
-               
-                if ((e.KeyCode == Keys.Up && this.screenMainMap.showMoveKeys && mod.blockUpKey) || (e.KeyCode == Keys.W && !this.screenMainMap.showMoveKeys && mod.blockUpKey) || e.KeyCode == Keys.D8 || e.KeyCode == Keys.NumPad8)
+                mod.sprintModifier = 1.0f;
+            }
+
+            if ((e.KeyCode == Keys.Up && this.screenMainMap.showMoveKeys && mod.blockUpKey) || (e.KeyCode == Keys.W && !this.screenMainMap.showMoveKeys && mod.blockUpKey) || e.KeyCode == Keys.D8 || e.KeyCode == Keys.NumPad8)
                 {
                     mod.blockUpKey = false;
+                    mod.keyUpPressedAgain = true;
                 }
                 if ((e.KeyCode == Keys.Down && this.screenMainMap.showMoveKeys && mod.blockDownKey) || (e.KeyCode == Keys.S && !this.screenMainMap.showMoveKeys && mod.blockDownKey) || e.KeyCode == Keys.D2 || e.KeyCode == Keys.NumPad2)
                 {
                     mod.blockDownKey = false;
+                    mod.keyUpPressedAgain = true;
                 }
                 if ((e.KeyCode == Keys.Left && this.screenMainMap.showMoveKeys && mod.blockLeftKey) || (e.KeyCode == Keys.A && !this.screenMainMap.showMoveKeys && mod.blockLeftKey) || e.KeyCode == Keys.D4 || e.KeyCode == Keys.NumPad4)
                 {
                     mod.blockLeftKey = false;
+                    mod.keyUpPressedAgain = true;
                 }
                 if ((e.KeyCode == Keys.Right && this.screenMainMap.showMoveKeys && mod.blockRightKey) || (e.KeyCode == Keys.D && !this.screenMainMap.showMoveKeys && mod.blockRightKey) || e.KeyCode == Keys.D6 || e.KeyCode == Keys.NumPad6)
                 {
                     mod.blockRightKey = false;
+                    mod.keyUpPressedAgain = true;
                 }
 
                 if (!mod.blockRightKey && !mod.blockLeftKey && !mod.blockUpKey && !mod.blockDownKey)
                 {
                     aTimer.Stop();
-                    mod.scrollModeSpeed = 1.05f;
+                    mod.scrollModeSpeed = 1.15f;
                 }              
-            }
+            //}
         }
 
         private void GameView_onKeyDown(object sender, KeyEventArgs e)
@@ -2706,6 +2720,11 @@ namespace IceBlink2
             //superscroll
             if (screenType.Equals("main"))
             {
+                if (e.KeyCode == Keys.ShiftKey)
+                {
+                    mod.sprintModifier = 2.0f;
+                }
+
                 if ((e.KeyCode == Keys.Up && this.screenMainMap.showMoveKeys && !mod.blockUpKey) || (e.KeyCode == Keys.W && !this.screenMainMap.showMoveKeys && !mod.blockUpKey) || ((e.KeyCode == Keys.NumPad8) && !mod.blockUpKey))
                 {
                     mod.blockUpKey = true;
@@ -2716,7 +2735,7 @@ namespace IceBlink2
                         mod.doTriggerInspiteOfScrolling = false;
                         bool blockMoveBecausOfCurrentScrolling = false;
 
-                        if (mod.useScrollingSystem)
+                        if (mod.useScrollingSystem) 
                         {
                             if (mod.scrollingTimer != 100 && mod.scrollingTimer != 0)
                             {
@@ -2757,6 +2776,9 @@ namespace IceBlink2
                                 //else if (moveDelay2())
                                 else if (mod.scrollingTimer <= mod.lastScrollStep || mod.scrollingTimer >= 100)
                                 {
+                                    //mod.scrollingDirection = "up";
+                                    //mod.isScrollingNow = true;
+                                    
                                     mod.isScrollingNow = true;
                                     mod.scrollingTimer = 100 + mod.scrollingOverhang2;
                                     mod.scrollingOverhang2 = 0;
@@ -2776,17 +2798,24 @@ namespace IceBlink2
                                         //gv.mod.wasJustCalled = true;
                                         //}
                                     }
+                                    
                                 }
                             }
 
 
                         }
                     }
-                    aTimer.Start();
-                    mod.scrollModeSpeed = 0.5f;
+                    //mod.scrollingDirection = "up";
+                    if (!mod.doNotStartScrolling)
+                    {
+                        aTimer.Start();
+                        mod.scrollModeSpeed = 0.5f;
+                    }
+                    mod.doNotStartScrolling = false;
                 }
                 else if ((e.KeyCode == Keys.Down && this.screenMainMap.showMoveKeys && !mod.blockDownKey) || (e.KeyCode == Keys.S && !this.screenMainMap.showMoveKeys && !mod.blockDownKey) || ((e.KeyCode == Keys.NumPad2) && !mod.blockDownKey))
                 {
+                    
                     mod.blockDownKey = true;
                     aTimer.Stop();
                     if (!moveTimerRuns)
@@ -2861,11 +2890,17 @@ namespace IceBlink2
 
                         }
                     }
-                    aTimer.Start();
-                    mod.scrollModeSpeed = 0.5f;
+
+                    if (!mod.doNotStartScrolling)
+                    {
+                        aTimer.Start();
+                        mod.scrollModeSpeed = 0.5f;
+                    }
+                    mod.doNotStartScrolling = false;
                 }
                 else if ((e.KeyCode == Keys.Right && this.screenMainMap.showMoveKeys && !mod.blockRightKey) || (e.KeyCode == Keys.D && !this.screenMainMap.showMoveKeys && !mod.blockRightKey) || ((e.KeyCode == Keys.NumPad6) && !mod.blockRightKey))
                 {
+                    
                     mod.blockRightKey = true;
                     aTimer.Stop();
                     if (!moveTimerRuns)
@@ -2940,8 +2975,12 @@ namespace IceBlink2
 
                         }
                     }
-                    aTimer.Start();
-                    mod.scrollModeSpeed = 0.5f;
+                    if (!mod.doNotStartScrolling)
+                    {
+                        aTimer.Start();
+                        mod.scrollModeSpeed = 0.5f;
+                    }
+                    mod.doNotStartScrolling = false;
                 }
                 else if ((e.KeyCode == Keys.Left && this.screenMainMap.showMoveKeys && !mod.blockLeftKey) || (e.KeyCode == Keys.A && !this.screenMainMap.showMoveKeys && !mod.blockLeftKey) || ((e.KeyCode == Keys.NumPad4) && !mod.blockLeftKey))
                 {
@@ -3019,8 +3058,12 @@ namespace IceBlink2
 
                         }
                     }
-                    aTimer.Start();
-                    mod.scrollModeSpeed = 0.5f;
+                    if (!mod.doNotStartScrolling)
+                    {
+                        aTimer.Start();
+                        mod.scrollModeSpeed = 0.5f;
+                    }
+                    mod.doNotStartScrolling = false;
                 }
             }
         } 
@@ -3224,7 +3267,9 @@ namespace IceBlink2
                     //meins
                 if (keyData == Keys.Return || keyData == Keys.Escape)
                 {
-
+                    aTimer.Stop();
+                    a2Timer.Stop();
+                    mod.scrollModeSpeed = 1.15f;
                     if ((screenType == "combat" || screenType == "main" || screenType == "partyBuild" || screenType == "launcher" || screenType == "title" || screenType == "partyBuild") && (keyData == Keys.Escape))
                     {
                         this.Close();

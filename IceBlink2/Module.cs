@@ -13,6 +13,14 @@ namespace IceBlink2
 {
     public class Module
     {
+        public float sprintModifier = 1.0f;
+        public int oldTailPositionX = 0;
+        public int oldTailPositionY = 0;
+        public string tailScrollDirection = "none"; //up, down, left, right
+
+        public bool doNotStartScrolling = false;
+        public bool keyUpPressedAgain = true;
+        //public bool mouseUpPressedAgain = true;
 
         public bool blockUpKey = false;
         public bool blockDownKey = false;
@@ -46,6 +54,7 @@ namespace IceBlink2
         public float nightTimeDarknessOpacity = 0.6f;
 
         public int counterUpMoves = 0;
+        public int uCounter = 0;
         public bool useScrollingSystem = true;
         public float scrollingTimer = 100; //runs from 100 to 0
         public bool isScrollingNow = false;
@@ -205,6 +214,7 @@ namespace IceBlink2
         public string moduleCredits = "";
         public int nextIdNumber = 100;
         public int WorldTime = 0;
+        public int lastWorldTime = 0;
         public int TimePerRound = 6;
         public bool debugMode = false;
         public bool allowSave = true;

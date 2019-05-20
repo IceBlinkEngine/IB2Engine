@@ -2932,7 +2932,8 @@ namespace IceBlink2
 
         public void doUpdate()
         {
-
+            //gv.mod.uCounter++;
+            gv.mod.lastWorldTime = gv.mod.WorldTime;
             if ((gv.mod.PlayerLastLocationX != gv.mod.PlayerLocationX || gv.mod.PlayerLastLocationY != gv.mod.PlayerLocationY) || gv.mod.calledByRealTimeTimer || gv.mod.calledByWaiting)
             {
                 gv.mod.calledByWaiting = false;
@@ -8161,8 +8162,8 @@ namespace IceBlink2
             {
                 foreach (Sprite spr in gv.screenMainMap.spriteList)
                 {
-                    if (spr.movesIndependentlyFromPlayerPosition)
-                    {
+                    //if (spr.movesIndependentlyFromPlayerPosition)
+                    //{
 
                         if (gv.mod.PlayerLastLocationX != gv.mod.PlayerLocationX || gv.mod.PlayerLastLocationY != gv.mod.PlayerLocationY)
                         {
@@ -8172,7 +8173,7 @@ namespace IceBlink2
                              
                         }
                             
-                    }
+                    //}
                 }
             }
         }
@@ -13029,7 +13030,8 @@ namespace IceBlink2
                 gv.mod.blockDownKey = false;
                 
                     gv.aTimer.Stop();
-                    gv.mod.scrollModeSpeed = 1.05f;
+                    gv.a2Timer.Stop();
+                    gv.mod.scrollModeSpeed = 1.15f;
                 
                 gv.mod.allowImmediateRetransition = true;
                     LoadCurrentConvo(tag);
@@ -14775,7 +14777,8 @@ namespace IceBlink2
                 gv.mod.blockDownKey = false;
 
                 gv.aTimer.Stop();
-                gv.mod.scrollModeSpeed = 1.05f;
+                gv.a2Timer.Stop();
+                gv.mod.scrollModeSpeed = 1.15f;
 
                 gv.mod.currentEncounter = gv.mod.getEncounter(name);
                     if (gv.mod.currentEncounter.encounterCreatureRefsList.Count > 0)
@@ -15898,7 +15901,7 @@ namespace IceBlink2
                             if (gv.sf.RandInt(100) < rainChance)
                             {
                                 //int scaleMulti = gv.sf.RandInt(50) + 75;
-                                Sprite spr = new Sprite(gv, "rainDrop", storedIncrement - (gv.squareSize / 2), -(float)(gv.sf.RandInt(10)) + storedIncrementVert, (float)(gv.sf.RandInt(5) + 35) / 650f, (float)(gv.sf.RandInt(80) + 170) / 500f, 0, 0, 0.18f * 0.649f, 0.335f * 0.73f, gv.sf.RandInt(10000) + 6000, false, 100, gv.mod.fullScreenEffectOpacityWeather, 0, "rain", false, 0);
+                                Sprite spr = new Sprite(gv, "rainDrop", storedIncrement - (gv.squareSize / 2), -(float)(gv.sf.RandInt(10)) + storedIncrementVert, (float)(gv.sf.RandInt(5) + 35) / 650f, (float)(gv.sf.RandInt(80) + 170) / 500f, 0, 0, 0.18f * 0.649f*1.05f, 0.335f * 0.73f*2.0f, gv.sf.RandInt(10000) + 6000, false, 100, gv.mod.fullScreenEffectOpacityWeather, 0, "rain", false, 0);
                                 //spr.movesIndependentlyFromPlayerPosition = false;
                                 gv.screenMainMap.spriteList.Add(spr);
                             }
@@ -15917,7 +15920,7 @@ namespace IceBlink2
                         storedIncrement += increment;
                         if (gv.sf.RandInt(100) < rainChance)
                         {
-                            Sprite spr = new Sprite(gv, "rainDrop", storedIncrement - (gv.squareSize / 2), -(float)(gv.sf.RandInt(10)), (float)(gv.sf.RandInt(5) + 35) / 650f, (float)(gv.sf.RandInt(80) + 170) / 500f, 0, 0, 0.18f * 0.649f, 0.335f * 0.73f, gv.sf.RandInt(10000) + 6000, false, 100, gv.mod.fullScreenEffectOpacityWeather, 0, "rain", false, 0);
+                            Sprite spr = new Sprite(gv, "rainDrop", storedIncrement - (gv.squareSize / 2), -(float)(gv.sf.RandInt(10)), (float)(gv.sf.RandInt(5) + 35) / 650f, (float)(gv.sf.RandInt(80) + 170) / 500f, 0, 0, 0.18f * 0.649f*1.05f, 0.335f * 0.73f*2.0f, gv.sf.RandInt(10000) + 6000, false, 100, gv.mod.fullScreenEffectOpacityWeather, 0, "rain", false, 0);
                             gv.screenMainMap.spriteList.Add(spr);
                         }
                     }

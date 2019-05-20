@@ -1063,6 +1063,9 @@ namespace IceBlink2
                             }
                             else
                             {
+                                gv.aTimer.Stop();
+                                gv.a2Timer.Stop();
+                                gv.mod.scrollModeSpeed = 1.15f;
                                 gv.screenType = "main";
                                 doCleanUp();
                             }
