@@ -3639,7 +3639,7 @@ namespace IceBlink2
             if (gv.mod.currentArea.areaDark)
             {
                 drawProps();
-                drawPlayer();
+                drawPlayer(elapsed);
                 drawHeightShadows();
                 //new method for drawing shade for linked tiles on links
                 drawLinkShades();
@@ -3669,7 +3669,7 @@ namespace IceBlink2
                 {
                     //drawProps();
                     //drawMovingProps();
-                    drawPlayer();
+                    drawPlayer(elapsed);
                     drawHeightShadows();
                     drawPropsOverParty();
                     //new method for drawing shade for linked tiles on links
@@ -3691,7 +3691,7 @@ namespace IceBlink2
                     //{
                     drawPartyHalo(elapsed);
                     //}
-                    drawPlayer();
+                    drawPlayer(elapsed);
                     drawHeightShadows();
                     drawPropsOverParty();
                     //new method for drawing shade for linked tiles on links
@@ -33212,7 +33212,7 @@ namespace IceBlink2
             }
         }
 
-        public void drawPlayer()
+        public void drawPlayer(float elapsed)
         {
             //if (!gv.mod.currentArea.PlayerIsUnderBridge)
             //{
@@ -34117,11 +34117,40 @@ namespace IceBlink2
                                         }
                                     }
                                     //- x/y here
-                                   // if (!gv.mod.isScrollingNow && gv.aTimer.Enabled)
+                                    // if (!gv.mod.isScrollingNow && gv.aTimer.Enabled)
                                     //{ }
                                     //else
                                     //{
-                                        gv.DrawBitmap(p.token, src, dst, !gv.mod.playerList[gv.mod.selectedPartyLeader].combatFacingLeft, true);
+
+                                    //code for animation of tail memebers
+                                    //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXx
+                                    /*
+                                    IbRect src = new IbRect(0, 0, pc.token.PixelSize.Width, pc.token.PixelSize.Width);
+                                    //check if drawing animation of player
+                                    if ((playerToAnimate != null) && (playerToAnimate == pc))
+                                    {
+                                        attackAnimationDelayCounter++;
+                                        if (attackAnimationDelayCounter >= (int)(pc.token.PixelSize.Height / 100f - 1))
+                                        {
+                                            attackAnimationFrameCounter++;
+                                            attackAnimationDelayCounter = 0;
+                                        }
+                                        //maxUsableCounterValue = (int)(pc.token.PixelSize.Height / 100f - 1);
+                                        maxUsableCounterValue = 1;
+                                        if (attackAnimationFrameCounter >= maxUsableCounterValue)
+                                        {
+                                            attackAnimationFrameCounter = maxUsableCounterValue;
+                                            blockAnimationBridge = false;
+                                        }
+                                        src = new IbRect(0, pc.token.PixelSize.Width * attackAnimationFrameCounter, pc.token.PixelSize.Width, pc.token.PixelSize.Width);
+                                    }
+                                    IbRect dst = new IbRect(getPixelLocX(pc.combatLocX), getPixelLocY(pc.combatLocY), gv.squareSize, gv.squareSize);
+                                    gv.DrawBitmap(pc.token, src, dst, !pc.combatFacingLeft, false);
+                                    */
+
+                                    //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+
+                                    gv.DrawBitmap(p.token, src, dst, !gv.mod.playerList[gv.mod.selectedPartyLeader].combatFacingLeft, true);
                                     //}
                                     //}
                                 }
@@ -34237,6 +34266,94 @@ namespace IceBlink2
                 }
                 if (!gv.mod.currentArea.PlayerIsUnderBridge)
                 {
+
+                    //code for animation of party leader
+                    //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                    
+                    src = new IbRect(0, 0, gv.mod.playerList[gv.mod.selectedPartyLeader].token.PixelSize.Width, gv.mod.playerList[gv.mod.selectedPartyLeader].token.PixelSize.Width);
+                    if (gv.mod.isScrollingNow || gv.mod.scrollingTimer != 100 || gv.a2Timer.Enabled || gv.aTimer.Enabled)
+                    {
+                        gv.mod.showIdlingFrame = false;
+                        gv.mod.idleAnimationDelayCounter = 0;
+
+                        if (gv.mod.playerList[gv.mod.selectedPartyLeader].token.PixelSize.Height >= 300)
+                        {
+                            gv.mod.walkAnimationDelayCounter += (1f* elapsed/30f * ((gv.mod.scrollModeSpeed* gv.mod.sprintModifier)/0.5f));
+                            if (gv.mod.walkAnimationDelayCounter >= 5f)
+                            {
+                                //osgosg
+                                if (!gv.mod.showWalkingFrame)
+                                {
+                                    gv.mod.showWalkingFrame = true;
+                                }
+                                else
+                                {
+                                    gv.mod.showWalkingFrame = false;
+                                }
+                                gv.mod.walkAnimationDelayCounter = 0;
+                            }
+                        }
+                        else
+                        {
+                            gv.mod.showWalkingFrame = false;
+                        }
+                    }
+                    //not walking, maybe idling?
+                    else
+                    {
+                        //reset counters
+                        gv.mod.walkAnimationDelayCounter = 0;
+                        //show default sprite when not scrolling in any case
+                        gv.mod.showWalkingFrame = false;
+
+                        //add idling code
+                        if (gv.mod.playerList[gv.mod.selectedPartyLeader].token.PixelSize.Height >= 400)
+                        {
+                            //TODO:
+                            //add idle frequency property in
+                            //randomize idlign a bit for different pc
+                            gv.mod.idleAnimationDelayCounter += (1f * elapsed / 30f * gv.mod.idleAnimationFrequency / 100f);
+                            if (gv.mod.idleAnimationDelayCounter >= 5f)
+                            {
+                                //osgosg
+                                if (!gv.mod.showIdlingFrame)
+                                {
+                                    gv.mod.showIdlingFrame = true;
+                                }
+                                else
+                                {
+                                    gv.mod.showIdlingFrame = false;
+                                }
+                                gv.mod.idleAnimationDelayCounter = 0;
+                            }
+                        }
+                        else
+                        {
+                            gv.mod.showIdlingFrame = false;
+                        }
+                    }
+
+                    //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                    //walking
+                    if (gv.mod.showWalkingFrame)
+                    {
+                        src = new IbRect(0, 2*gv.mod.playerList[gv.mod.selectedPartyLeader].token.PixelSize.Width, gv.mod.playerList[gv.mod.selectedPartyLeader].token.PixelSize.Width, gv.mod.playerList[gv.mod.selectedPartyLeader].token.PixelSize.Width);
+
+                        //src = new IbRect(0, gv.mod.selectedPartyLeader].token.PixelSize.Width * attackAnimationFrameCounter, pc.token.PixelSize.Width, pc.token.PixelSize.Width);
+                    }
+                    //idling
+                    else if (gv.mod.showIdlingFrame)
+                    {
+                        src = new IbRect(0, 3 * gv.mod.playerList[gv.mod.selectedPartyLeader].token.PixelSize.Width, gv.mod.playerList[gv.mod.selectedPartyLeader].token.PixelSize.Width, gv.mod.playerList[gv.mod.selectedPartyLeader].token.PixelSize.Width);
+
+                    }
+                    //default
+                    else
+                    {
+                        src = new IbRect(0, 0, gv.mod.playerList[gv.mod.selectedPartyLeader].token.PixelSize.Width, gv.mod.playerList[gv.mod.selectedPartyLeader].token.PixelSize.Width);
+
+                    }
+
                     gv.DrawBitmap(gv.mod.playerList[gv.mod.selectedPartyLeader].token, src, dst, !gv.mod.playerList[gv.mod.selectedPartyLeader].combatFacingLeft, true);
                 }
                     shift = storeShift;
@@ -38414,7 +38531,7 @@ namespace IceBlink2
                 //if (gv.mod.currentArea.westernNeighbourArea == "")
                 //{
                     //at left edge
-                    for (int i = 0; i < gv.playerOffsetX - gv.mod.PlayerLocationX + 1; i++)
+                    for (int i = -1; i < gv.playerOffsetX - gv.mod.PlayerLocationX + 1; i++)
                     {
                          drawColumnOfBlack(i);
                     }

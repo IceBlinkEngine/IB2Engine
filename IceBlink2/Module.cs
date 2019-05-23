@@ -13,6 +13,13 @@ namespace IceBlink2
 {
     public class Module
     {
+        public float walkAnimationDelayCounter = 0;
+        public bool showWalkingFrame = false;
+
+        public float idleAnimationDelayCounter = 0;
+        public bool showIdlingFrame = false;
+        public int idleAnimationFrequency = 10;
+
         public float sprintModifier = 1.0f;
         public int oldTailPositionX = 0;
         public int oldTailPositionY = 0;
