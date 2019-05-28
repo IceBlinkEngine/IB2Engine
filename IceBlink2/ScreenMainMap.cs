@@ -360,7 +360,8 @@ namespace IceBlink2
             if (gv.mod.useScrollingSystem)
             {
                 gv.mod.isScrollingNow = false;
-                gv.mod.scrollingTimer = 0;
+                //sherlock
+                gv.mod.scrollingTimer = 100;
                 //gv.aTimer.Stop();
                 //gv.a2Timer.Stop();
             }
@@ -388,7 +389,8 @@ namespace IceBlink2
                 else
                 {
                     gv.mod.isScrollingNow = false;
-                    gv.mod.scrollingTimer = 0;
+                    //sherlock
+                    gv.mod.scrollingTimer = 100;
                 }
             }
             
@@ -33994,13 +33996,13 @@ namespace IceBlink2
 
                                     //dst.Top -= tailYChange;
                                     //dst.Left -= tailXChange;
-                                    
+
                                     //new code for sepaarte tail scroll direction
                                     int tailScrollTargetX = 0;
                                     int tailScrollTargetY = 0;
                                     if (gv.mod.drawPartyDirection == "up")
                                     {
-                                        tailScrollTargetX = gv.mod.PlayerLocationX; 
+                                        tailScrollTargetX = gv.mod.PlayerLocationX;
                                         tailScrollTargetY = gv.mod.PlayerLocationY - 1;
                                     }
                                     if (gv.mod.drawPartyDirection == "down")
@@ -34066,7 +34068,7 @@ namespace IceBlink2
                                     }
                                     */
                                     //gv.mod.isScrollingNow = true;
-                                    if ((gv.mod.tailScrollDirection == "down" && gv.mod.isScrollingNow && gv.mod.drawPartyDirection != "up") || isReverseTurn) 
+                                    if ((gv.mod.tailScrollDirection == "down" && gv.mod.isScrollingNow && gv.mod.drawPartyDirection != "up") || isReverseTurn)
                                     {
                                         //discovery spock
                                         //target.Y = target.Y - (int)(squareSize * (mod.scrollingTimer/100f));
@@ -34092,7 +34094,7 @@ namespace IceBlink2
                                             dst.Left += (int)(gv.squareSize * (gv.mod.scrollingTimer / 100f));
                                         }
                                     }
-                                    if ((gv.mod.tailScrollDirection == "right" && gv.mod.isScrollingNow &&  gv.mod.drawPartyDirection != "left") || isReverseTurn)
+                                    if ((gv.mod.tailScrollDirection == "right" && gv.mod.isScrollingNow && gv.mod.drawPartyDirection != "left") || isReverseTurn)
                                     {
                                         dst.Left -= (int)(gv.squareSize * (gv.mod.scrollingTimer / 100f));
                                         if (gv.mod.drawPartyDirection == "up")
@@ -34104,7 +34106,7 @@ namespace IceBlink2
                                             dst.Top -= (int)(gv.squareSize * (gv.mod.scrollingTimer / 100f));
                                         }
                                     }
-                                    if ((gv.mod.tailScrollDirection == "left" && gv.mod.isScrollingNow && gv.mod.drawPartyDirection != "right") || isReverseTurn) 
+                                    if ((gv.mod.tailScrollDirection == "left" && gv.mod.isScrollingNow && gv.mod.drawPartyDirection != "right") || isReverseTurn)
                                     {
                                         dst.Left += (int)(gv.squareSize * (gv.mod.scrollingTimer / 100f));
                                         if (gv.mod.drawPartyDirection == "up")
@@ -34116,51 +34118,802 @@ namespace IceBlink2
                                             dst.Top -= (int)(gv.squareSize * (gv.mod.scrollingTimer / 100f));
                                         }
                                     }
-                                    //- x/y here
-                                    // if (!gv.mod.isScrollingNow && gv.aTimer.Enabled)
-                                    //{ }
-                                    //else
-                                    //{
 
-                                    //code for animation of tail memebers
-                                    //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXx
-                                    /*
-                                    IbRect src = new IbRect(0, 0, pc.token.PixelSize.Width, pc.token.PixelSize.Width);
-                                    //check if drawing animation of player
-                                    if ((playerToAnimate != null) && (playerToAnimate == pc))
-                                    {
-                                        attackAnimationDelayCounter++;
-                                        if (attackAnimationDelayCounter >= (int)(pc.token.PixelSize.Height / 100f - 1))
-                                        {
-                                            attackAnimationFrameCounter++;
-                                            attackAnimationDelayCounter = 0;
-                                        }
-                                        //maxUsableCounterValue = (int)(pc.token.PixelSize.Height / 100f - 1);
-                                        maxUsableCounterValue = 1;
-                                        if (attackAnimationFrameCounter >= maxUsableCounterValue)
-                                        {
-                                            attackAnimationFrameCounter = maxUsableCounterValue;
-                                            blockAnimationBridge = false;
-                                        }
-                                        src = new IbRect(0, pc.token.PixelSize.Width * attackAnimationFrameCounter, pc.token.PixelSize.Width, pc.token.PixelSize.Width);
-                                    }
-                                    IbRect dst = new IbRect(getPixelLocX(pc.combatLocX), getPixelLocY(pc.combatLocY), gv.squareSize, gv.squareSize);
-                                    gv.DrawBitmap(pc.token, src, dst, !pc.combatFacingLeft, false);
-                                    */
 
                                     //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                                    src = new IbRect(0, 0, p.token.PixelSize.Width, p.token.PixelSize.Width);
 
+                                    //todo!
+                                    if (drawCounter == 0)
+                                    {
+                                        if (gv.mod.isScrollingNow || gv.a2Timer.Enabled || gv.aTimer.Enabled)
+                                        {
+                                            gv.mod.showIdlingFrame0 = false;
+                                            gv.mod.idleAnimationDelayCounter0 = 0;
+                                            gv.mod.showBreathingFrame0 = false;
+                                            gv.mod.breathAnimationDelayCounter0 = 0;
+
+                                            if (p.token.PixelSize.Height >= 300)
+                                            {
+                                                gv.mod.walkAnimationDelayCounter0 += (1f * elapsed / 30f * ((gv.mod.scrollModeSpeed * gv.mod.sprintModifier) / 0.5f));
+                                                if (gv.mod.walkAnimationDelayCounter0 >= 5f)
+                                                {
+                                                    //osgosg
+                                                    if (!gv.mod.showWalkingFrame0)
+                                                    {
+                                                        gv.mod.showWalkingFrame0 = true;
+                                                    }
+                                                    else
+                                                    {
+                                                        gv.mod.showWalkingFrame0 = false;
+                                                    }
+                                                    gv.mod.walkAnimationDelayCounter0 = 0;
+                                                }
+                                            }
+                                            else
+                                            {
+                                                gv.mod.showWalkingFrame0 = false;
+                                            }
+                                        }
+                                        //not walking, maybe idling or breathing?
+                                        else
+                                        {
+                                            //reset counters
+                                            gv.mod.walkAnimationDelayCounter0 = 0;
+                                            //show default sprite when not scrolling in any case
+                                            gv.mod.showWalkingFrame0 = false;
+
+                                            //add idling code
+                                            if (p.token.PixelSize.Height >= 400)
+                                            {
+                                                //TODO:
+                                                //add idle frequency property in
+                                                //randomize idlign a bit for different pc
+                                                gv.mod.idleAnimationDelayCounter0 += (1f * elapsed / 30f * gv.mod.idleAnimationFrequency / 100f);
+                                                //gv.mod.hurdle = 3f + (float)gv.sf.RandInt(700) / 100f;
+                                                if (gv.mod.idleAnimationDelayCounter0 >= gv.mod.hurdle0)
+                                                {
+                                                    //osgosg
+                                                    if (!gv.mod.showIdlingFrame0)
+                                                    {
+                                                        gv.mod.showIdlingFrame0 = true;
+                                                        gv.mod.hurdle0 = 2f + (float)gv.sf.RandInt(300) / 100f;
+                                                    }
+                                                    else
+                                                    {
+                                                        gv.mod.showIdlingFrame0 = false;
+                                                        gv.mod.hurdle0 = 25f + (float)gv.sf.RandInt(2250) / 100f;
+                                                    }
+                                                    gv.mod.idleAnimationDelayCounter0 = 0;
+                                                    //gv.mod.hurdle = 3f + (float)gv.sf.RandInt(700) / 100f;
+                                                }
+                                                //breathing code, hurdle for idle not reached
+                                                else
+                                                {
+                                                    if (p.token.PixelSize.Height >= 500)
+                                                    {
+                                                        gv.mod.breathAnimationDelayCounter0 += (1f * elapsed / 30f * gv.mod.breathAnimationFrequency / 100f);
+                                                        if (gv.mod.breathAnimationDelayCounter0 >= (4.0f + (float)gv.sf.RandInt(250) / 100f))
+                                                        {
+                                                            //osgosg
+                                                            if (!gv.mod.showBreathingFrame0)
+                                                            {
+                                                                gv.mod.showBreathingFrame0 = true;
+                                                                //gv.mod.hurdle = 2f + (float)gv.sf.RandInt(300) / 100f;
+                                                            }
+                                                            else
+                                                            {
+                                                                gv.mod.showBreathingFrame0 = false;
+                                                                //gv.mod.hurdle = 10f + (float)gv.sf.RandInt(1500) / 100f;
+                                                            }
+                                                            gv.mod.breathAnimationDelayCounter0 = 0;
+                                                        }
+                                                    }
+                                                    else
+                                                    {
+                                                        gv.mod.showBreathingFrame0 = false;
+                                                    }
+                                                }
+                                            }
+                                            else
+                                            {
+                                                gv.mod.showIdlingFrame0 = false;
+                                            }
+                                        }
+
+                                        //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                                        //walking
+                                        if (gv.mod.showWalkingFrame0)
+                                        {
+                                            src = new IbRect(0, 2 * p.token.PixelSize.Width, p.token.PixelSize.Width, p.token.PixelSize.Width);
+
+                                            //src = new IbRect(0, gv.mod.selectedPartyLeader].token.PixelSize.Width * attackAnimationFrameCounter, pc.token.PixelSize.Width, pc.token.PixelSize.Width);
+                                        }
+                                        //idling
+                                        else if (gv.mod.showIdlingFrame0)
+                                        {
+                                            src = new IbRect(0, 3 * p.token.PixelSize.Width, p.token.PixelSize.Width, p.token.PixelSize.Width);
+
+                                        }
+                                        //breathing
+                                        else if (gv.mod.showBreathingFrame0)
+                                        {
+                                            src = new IbRect(0, 4 * p.token.PixelSize.Width, p.token.PixelSize.Width, p.token.PixelSize.Width);
+
+                                        }
+                                        //default
+                                        else
+                                        {
+                                            src = new IbRect(0, 0, p.token.PixelSize.Width, p.token.PixelSize.Width);
+
+                                        }
+
+                                        //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                                        gv.DrawBitmap(p.token, src, dst, !gv.mod.playerList[gv.mod.selectedPartyLeader].combatFacingLeft, true);
+                                        //}
+                                        //}
+                                    }
+
+                                    if (drawCounter == 1)
+                                    {
+                                        if (gv.mod.isScrollingNow || gv.a2Timer.Enabled || gv.aTimer.Enabled)
+                                        {
+                                            gv.mod.showIdlingFrame1 = false;
+                                            gv.mod.idleAnimationDelayCounter1 = 0;
+                                            gv.mod.showBreathingFrame1 = false;
+                                            gv.mod.breathAnimationDelayCounter1 = 0;
+
+                                            if (p.token.PixelSize.Height >= 300)
+                                            {
+                                                gv.mod.walkAnimationDelayCounter1 += (1f * elapsed / 30f * ((gv.mod.scrollModeSpeed * gv.mod.sprintModifier) / 0.5f));
+                                                if (gv.mod.walkAnimationDelayCounter1 >= 5f)
+                                                {
+                                                    //osgosg
+                                                    if (!gv.mod.showWalkingFrame1)
+                                                    {
+                                                        gv.mod.showWalkingFrame1 = true;
+                                                    }
+                                                    else
+                                                    {
+                                                        gv.mod.showWalkingFrame1 = false;
+                                                    }
+                                                    gv.mod.walkAnimationDelayCounter1 = 0;
+                                                }
+                                            }
+                                            else
+                                            {
+                                                gv.mod.showWalkingFrame1 = false;
+                                            }
+                                        }
+                                        //not walking, maybe idling or breathing?
+                                        else
+                                        {
+                                            //reset counters
+                                            gv.mod.walkAnimationDelayCounter1 = 0;
+                                            //show default sprite when not scrolling in any case
+                                            gv.mod.showWalkingFrame1 = false;
+
+                                            //add idling code
+                                            if (p.token.PixelSize.Height >= 400)
+                                            {
+                                                //TODO:
+                                                //add idle frequency property in
+                                                //randomize idlign a bit for different pc
+                                                gv.mod.idleAnimationDelayCounter1 += (1f * elapsed / 30f * gv.mod.idleAnimationFrequency / 100f);
+                                                //gv.mod.hurdle = 3f + (float)gv.sf.RandInt(700) / 100f;
+                                                if (gv.mod.idleAnimationDelayCounter1 >= gv.mod.hurdle1)
+                                                {
+                                                    //osgosg
+                                                    if (!gv.mod.showIdlingFrame1)
+                                                    {
+                                                        gv.mod.showIdlingFrame1 = true;
+                                                        gv.mod.hurdle1 = 2f + (float)gv.sf.RandInt(300) / 100f;
+                                                    }
+                                                    else
+                                                    {
+                                                        gv.mod.showIdlingFrame1 = false;
+                                                        gv.mod.hurdle1 = 25f + (float)gv.sf.RandInt(2250) / 100f;
+                                                    }
+                                                    gv.mod.idleAnimationDelayCounter1 = 0;
+                                                    //gv.mod.hurdle = 3f + (float)gv.sf.RandInt(700) / 100f;
+                                                }
+                                                //breathing code, hurdle for idle not reached
+                                                else
+                                                {
+                                                    if (p.token.PixelSize.Height >= 500)
+                                                    {
+                                                        gv.mod.breathAnimationDelayCounter1 += (1f * elapsed / 30f * gv.mod.breathAnimationFrequency / 100f);
+                                                        if (gv.mod.breathAnimationDelayCounter1 >= (4.0f + (float)gv.sf.RandInt(250) / 100f))
+                                                        {
+                                                            //osgosg
+                                                            if (!gv.mod.showBreathingFrame1)
+                                                            {
+                                                                gv.mod.showBreathingFrame1 = true;
+                                                                //gv.mod.hurdle = 2f + (float)gv.sf.RandInt(300) / 100f;
+                                                            }
+                                                            else
+                                                            {
+                                                                gv.mod.showBreathingFrame1 = false;
+                                                                //gv.mod.hurdle = 10f + (float)gv.sf.RandInt(1500) / 100f;
+                                                            }
+                                                            gv.mod.breathAnimationDelayCounter1 = 0;
+                                                        }
+                                                    }
+                                                    else
+                                                    {
+                                                        gv.mod.showBreathingFrame1 = false;
+                                                    }
+                                                }
+                                            }
+                                            else
+                                            {
+                                                gv.mod.showIdlingFrame1 = false;
+                                            }
+                                        }
+
+                                        //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                                        //walking
+                                        if (gv.mod.showWalkingFrame1)
+                                        {
+                                            src = new IbRect(0, 2 * p.token.PixelSize.Width, p.token.PixelSize.Width, p.token.PixelSize.Width);
+
+                                            //src = new IbRect(0, gv.mod.selectedPartyLeader].token.PixelSize.Width * attackAnimationFrameCounter, pc.token.PixelSize.Width, pc.token.PixelSize.Width);
+                                        }
+                                        //idling
+                                        else if (gv.mod.showIdlingFrame1)
+                                        {
+                                            src = new IbRect(0, 3 * p.token.PixelSize.Width, p.token.PixelSize.Width, p.token.PixelSize.Width);
+
+                                        }
+                                        //breathing
+                                        else if (gv.mod.showBreathingFrame1)
+                                        {
+                                            src = new IbRect(0, 4 * p.token.PixelSize.Width, p.token.PixelSize.Width, p.token.PixelSize.Width);
+
+                                        }
+                                        //default
+                                        else
+                                        {
+                                            src = new IbRect(0, 0, p.token.PixelSize.Width, p.token.PixelSize.Width);
+
+                                        }
+
+                                        //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                                        gv.DrawBitmap(p.token, src, dst, !gv.mod.playerList[gv.mod.selectedPartyLeader].combatFacingLeft, true);
+                                        //}
+                                        //}
+                                    }
+
+                                    if (drawCounter == 2)
+                                    {
+                                        if (gv.mod.isScrollingNow || gv.a2Timer.Enabled || gv.aTimer.Enabled)
+                                        {
+                                            gv.mod.showIdlingFrame2 = false;
+                                            gv.mod.idleAnimationDelayCounter2 = 0;
+                                            gv.mod.showBreathingFrame2 = false;
+                                            gv.mod.breathAnimationDelayCounter2 = 0;
+
+                                            if (p.token.PixelSize.Height >= 300)
+                                            {
+                                                gv.mod.walkAnimationDelayCounter2 += (1f * elapsed / 30f * ((gv.mod.scrollModeSpeed * gv.mod.sprintModifier) / 0.5f));
+                                                if (gv.mod.walkAnimationDelayCounter2 >= 5f)
+                                                {
+                                                    //osgosg
+                                                    if (!gv.mod.showWalkingFrame2)
+                                                    {
+                                                        gv.mod.showWalkingFrame2 = true;
+                                                    }
+                                                    else
+                                                    {
+                                                        gv.mod.showWalkingFrame2 = false;
+                                                    }
+                                                    gv.mod.walkAnimationDelayCounter2 = 0;
+                                                }
+                                            }
+                                            else
+                                            {
+                                                gv.mod.showWalkingFrame2 = false;
+                                            }
+                                        }
+                                        //not walking, maybe idling or breathing?
+                                        else
+                                        {
+                                            //reset counters
+                                            gv.mod.walkAnimationDelayCounter2 = 0;
+                                            //show default sprite when not scrolling in any case
+                                            gv.mod.showWalkingFrame2 = false;
+
+                                            //add idling code
+                                            if (p.token.PixelSize.Height >= 400)
+                                            {
+                                                //TODO:
+                                                //add idle frequency property in
+                                                //randomize idlign a bit for different pc
+                                                gv.mod.idleAnimationDelayCounter2 += (1f * elapsed / 30f * gv.mod.idleAnimationFrequency / 100f);
+                                                //gv.mod.hurdle = 3f + (float)gv.sf.RandInt(700) / 100f;
+                                                if (gv.mod.idleAnimationDelayCounter2 >= gv.mod.hurdle2)
+                                                {
+                                                    //osgosg
+                                                    if (!gv.mod.showIdlingFrame2)
+                                                    {
+                                                        gv.mod.showIdlingFrame2 = true;
+                                                        gv.mod.hurdle2 = 2f + (float)gv.sf.RandInt(300) / 100f;
+                                                    }
+                                                    else
+                                                    {
+                                                        gv.mod.showIdlingFrame2 = false;
+                                                        gv.mod.hurdle2 = 25f + (float)gv.sf.RandInt(2250) / 100f;
+                                                    }
+                                                    gv.mod.idleAnimationDelayCounter2 = 0;
+                                                    //gv.mod.hurdle = 3f + (float)gv.sf.RandInt(700) / 100f;
+                                                }
+                                                //breathing code, hurdle for idle not reached
+                                                else
+                                                {
+                                                    if (p.token.PixelSize.Height >= 500)
+                                                    {
+                                                        gv.mod.breathAnimationDelayCounter2 += (1f * elapsed / 30f * gv.mod.breathAnimationFrequency / 100f);
+                                                        if (gv.mod.breathAnimationDelayCounter2 >= (4.0f + (float)gv.sf.RandInt(250) / 100f))
+                                                        {
+                                                            //osgosg
+                                                            if (!gv.mod.showBreathingFrame2)
+                                                            {
+                                                                gv.mod.showBreathingFrame2 = true;
+                                                                //gv.mod.hurdle = 2f + (float)gv.sf.RandInt(300) / 100f;
+                                                            }
+                                                            else
+                                                            {
+                                                                gv.mod.showBreathingFrame2 = false;
+                                                                //gv.mod.hurdle = 10f + (float)gv.sf.RandInt(1500) / 100f;
+                                                            }
+                                                            gv.mod.breathAnimationDelayCounter2 = 0;
+                                                        }
+                                                    }
+                                                    else
+                                                    {
+                                                        gv.mod.showBreathingFrame2 = false;
+                                                    }
+                                                }
+                                            }
+                                            else
+                                            {
+                                                gv.mod.showIdlingFrame2 = false;
+                                            }
+                                        }
+
+                                        //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                                        //walking
+                                        if (gv.mod.showWalkingFrame2)
+                                        {
+                                            src = new IbRect(0, 2 * p.token.PixelSize.Width, p.token.PixelSize.Width, p.token.PixelSize.Width);
+
+                                            //src = new IbRect(0, gv.mod.selectedPartyLeader].token.PixelSize.Width * attackAnimationFrameCounter, pc.token.PixelSize.Width, pc.token.PixelSize.Width);
+                                        }
+                                        //idling
+                                        else if (gv.mod.showIdlingFrame2)
+                                        {
+                                            src = new IbRect(0, 3 * p.token.PixelSize.Width, p.token.PixelSize.Width, p.token.PixelSize.Width);
+
+                                        }
+                                        //breathing
+                                        else if (gv.mod.showBreathingFrame2)
+                                        {
+                                            src = new IbRect(0, 4 * p.token.PixelSize.Width, p.token.PixelSize.Width, p.token.PixelSize.Width);
+
+                                        }
+                                        //default
+                                        else
+                                        {
+                                            src = new IbRect(0, 0, p.token.PixelSize.Width, p.token.PixelSize.Width);
+
+                                        }
+
+                                        //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                                        gv.DrawBitmap(p.token, src, dst, !gv.mod.playerList[gv.mod.selectedPartyLeader].combatFacingLeft, true);
+                                        //}
+                                        //}
+                                    }
+
+                                    if (drawCounter == 3)
+                                    {
+                                        if (gv.mod.isScrollingNow || gv.a2Timer.Enabled || gv.aTimer.Enabled)
+                                        {
+                                            gv.mod.showIdlingFrame3 = false;
+                                            gv.mod.idleAnimationDelayCounter3 = 0;
+                                            gv.mod.showBreathingFrame3 = false;
+                                            gv.mod.breathAnimationDelayCounter3 = 0;
+
+                                            if (p.token.PixelSize.Height >= 300)
+                                            {
+                                                gv.mod.walkAnimationDelayCounter3 += (1f * elapsed / 30f * ((gv.mod.scrollModeSpeed * gv.mod.sprintModifier) / 0.5f));
+                                                if (gv.mod.walkAnimationDelayCounter3 >= 5f)
+                                                {
+                                                    //osgosg
+                                                    if (!gv.mod.showWalkingFrame3)
+                                                    {
+                                                        gv.mod.showWalkingFrame3 = true;
+                                                    }
+                                                    else
+                                                    {
+                                                        gv.mod.showWalkingFrame3 = false;
+                                                    }
+                                                    gv.mod.walkAnimationDelayCounter3 = 0;
+                                                }
+                                            }
+                                            else
+                                            {
+                                                gv.mod.showWalkingFrame3 = false;
+                                            }
+                                        }
+                                        //not walking, maybe idling or breathing?
+                                        else
+                                        {
+                                            //reset counters
+                                            gv.mod.walkAnimationDelayCounter3 = 0;
+                                            //show default sprite when not scrolling in any case
+                                            gv.mod.showWalkingFrame3 = false;
+
+                                            //add idling code
+                                            if (p.token.PixelSize.Height >= 400)
+                                            {
+                                                //TODO:
+                                                //add idle frequency property in
+                                                //randomize idlign a bit for different pc
+                                                gv.mod.idleAnimationDelayCounter3 += (1f * elapsed / 30f * gv.mod.idleAnimationFrequency / 100f);
+                                                //gv.mod.hurdle = 3f + (float)gv.sf.RandInt(700) / 100f;
+                                                if (gv.mod.idleAnimationDelayCounter3 >= gv.mod.hurdle3)
+                                                {
+                                                    //osgosg
+                                                    if (!gv.mod.showIdlingFrame3)
+                                                    {
+                                                        gv.mod.showIdlingFrame3 = true;
+                                                        gv.mod.hurdle3 = 2f + (float)gv.sf.RandInt(300) / 100f;
+                                                    }
+                                                    else
+                                                    {
+                                                        gv.mod.showIdlingFrame3 = false;
+                                                        gv.mod.hurdle3 = 25f + (float)gv.sf.RandInt(2250) / 100f;
+                                                    }
+                                                    gv.mod.idleAnimationDelayCounter3 = 0;
+                                                    //gv.mod.hurdle = 3f + (float)gv.sf.RandInt(700) / 100f;
+                                                }
+                                                //breathing code, hurdle for idle not reached
+                                                else
+                                                {
+                                                    if (p.token.PixelSize.Height >= 500)
+                                                    {
+                                                        gv.mod.breathAnimationDelayCounter3 += (1f * elapsed / 30f * gv.mod.breathAnimationFrequency / 100f);
+                                                        if (gv.mod.breathAnimationDelayCounter3 >= (4.0f + (float)gv.sf.RandInt(250) / 100f))
+                                                        {
+                                                            //osgosg
+                                                            if (!gv.mod.showBreathingFrame3)
+                                                            {
+                                                                gv.mod.showBreathingFrame3 = true;
+                                                                //gv.mod.hurdle = 2f + (float)gv.sf.RandInt(300) / 100f;
+                                                            }
+                                                            else
+                                                            {
+                                                                gv.mod.showBreathingFrame3 = false;
+                                                                //gv.mod.hurdle = 10f + (float)gv.sf.RandInt(1500) / 100f;
+                                                            }
+                                                            gv.mod.breathAnimationDelayCounter3 = 0;
+                                                        }
+                                                    }
+                                                    else
+                                                    {
+                                                        gv.mod.showBreathingFrame3 = false;
+                                                    }
+                                                }
+                                            }
+                                            else
+                                            {
+                                                gv.mod.showIdlingFrame3 = false;
+                                            }
+                                        }
+
+                                        //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                                        //walking
+                                        if (gv.mod.showWalkingFrame3)
+                                        {
+                                            src = new IbRect(0, 2 * p.token.PixelSize.Width, p.token.PixelSize.Width, p.token.PixelSize.Width);
+
+                                            //src = new IbRect(0, gv.mod.selectedPartyLeader].token.PixelSize.Width * attackAnimationFrameCounter, pc.token.PixelSize.Width, pc.token.PixelSize.Width);
+                                        }
+                                        //idling
+                                        else if (gv.mod.showIdlingFrame3)
+                                        {
+                                            src = new IbRect(0, 3 * p.token.PixelSize.Width, p.token.PixelSize.Width, p.token.PixelSize.Width);
+
+                                        }
+                                        //breathing
+                                        else if (gv.mod.showBreathingFrame3)
+                                        {
+                                            src = new IbRect(0, 4 * p.token.PixelSize.Width, p.token.PixelSize.Width, p.token.PixelSize.Width);
+
+                                        }
+                                        //default
+                                        else
+                                        {
+                                            src = new IbRect(0, 0, p.token.PixelSize.Width, p.token.PixelSize.Width);
+
+                                        }
+
+                                        //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                                        gv.DrawBitmap(p.token, src, dst, !gv.mod.playerList[gv.mod.selectedPartyLeader].combatFacingLeft, true);
+                                        //}
+                                        //}
+                                    }
+                                //}
+
+                                if (drawCounter == 4)
+                                {
+                                    if (gv.mod.isScrollingNow || gv.a2Timer.Enabled || gv.aTimer.Enabled)
+                                    {
+                                        gv.mod.showIdlingFrame4 = false;
+                                        gv.mod.idleAnimationDelayCounter4 = 0;
+                                        gv.mod.showBreathingFrame4 = false;
+                                        gv.mod.breathAnimationDelayCounter4 = 0;
+
+                                        if (p.token.PixelSize.Height >= 300)
+                                        {
+                                            gv.mod.walkAnimationDelayCounter4 += (1f * elapsed / 30f * ((gv.mod.scrollModeSpeed * gv.mod.sprintModifier) / 0.5f));
+                                            if (gv.mod.walkAnimationDelayCounter4 >= 5f)
+                                            {
+                                                //osgosg
+                                                if (!gv.mod.showWalkingFrame4)
+                                                {
+                                                    gv.mod.showWalkingFrame4 = true;
+                                                }
+                                                else
+                                                {
+                                                    gv.mod.showWalkingFrame4 = false;
+                                                }
+                                                gv.mod.walkAnimationDelayCounter4 = 0;
+                                            }
+                                        }
+                                        else
+                                        {
+                                            gv.mod.showWalkingFrame4 = false;
+                                        }
+                                    }
+                                    //not walking, maybe idling or breathing?
+                                    else
+                                    {
+                                        //reset counters
+                                        gv.mod.walkAnimationDelayCounter4 = 0;
+                                        //show default sprite when not scrolling in any case
+                                        gv.mod.showWalkingFrame4 = false;
+
+                                        //add idling code
+                                        if (p.token.PixelSize.Height >= 400)
+                                        {
+                                            //TODO:
+                                            //add idle frequency property in
+                                            //randomize idlign a bit for different pc
+                                            gv.mod.idleAnimationDelayCounter4 += (1f * elapsed / 30f * gv.mod.idleAnimationFrequency / 100f);
+                                            //gv.mod.hurdle = 3f + (float)gv.sf.RandInt(700) / 100f;
+                                            if (gv.mod.idleAnimationDelayCounter4 >= gv.mod.hurdle4)
+                                            {
+                                                //osgosg
+                                                if (!gv.mod.showIdlingFrame4)
+                                                {
+                                                    gv.mod.showIdlingFrame4 = true;
+                                                    gv.mod.hurdle4 = 2f + (float)gv.sf.RandInt(300) / 100f;
+                                                }
+                                                else
+                                                {
+                                                    gv.mod.showIdlingFrame4 = false;
+                                                    gv.mod.hurdle4 = 25f + (float)gv.sf.RandInt(2250) / 100f;
+                                                }
+                                                gv.mod.idleAnimationDelayCounter4 = 0;
+                                                //gv.mod.hurdle = 3f + (float)gv.sf.RandInt(700) / 100f;
+                                            }
+                                            //breathing code, hurdle for idle not reached
+                                            else
+                                            {
+                                                if (p.token.PixelSize.Height >= 500)
+                                                {
+                                                    gv.mod.breathAnimationDelayCounter4 += (1f * elapsed / 30f * gv.mod.breathAnimationFrequency / 100f);
+                                                    if (gv.mod.breathAnimationDelayCounter4 >= (4.0f + (float)gv.sf.RandInt(250) / 100f))
+                                                    {
+                                                        //osgosg
+                                                        if (!gv.mod.showBreathingFrame4)
+                                                        {
+                                                            gv.mod.showBreathingFrame4 = true;
+                                                            //gv.mod.hurdle = 2f + (float)gv.sf.RandInt(300) / 100f;
+                                                        }
+                                                        else
+                                                        {
+                                                            gv.mod.showBreathingFrame4 = false;
+                                                            //gv.mod.hurdle = 10f + (float)gv.sf.RandInt(1500) / 100f;
+                                                        }
+                                                        gv.mod.breathAnimationDelayCounter4 = 0;
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    gv.mod.showBreathingFrame4 = false;
+                                                }
+                                            }
+                                        }
+                                        else
+                                        {
+                                            gv.mod.showIdlingFrame4 = false;
+                                        }
+                                    }
+
+                                    //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                                    //walking
+                                    if (gv.mod.showWalkingFrame4)
+                                    {
+                                        src = new IbRect(0, 2 * p.token.PixelSize.Width, p.token.PixelSize.Width, p.token.PixelSize.Width);
+
+                                        //src = new IbRect(0, gv.mod.selectedPartyLeader].token.PixelSize.Width * attackAnimationFrameCounter, pc.token.PixelSize.Width, pc.token.PixelSize.Width);
+                                    }
+                                    //idling
+                                    else if (gv.mod.showIdlingFrame4)
+                                    {
+                                        src = new IbRect(0, 3 * p.token.PixelSize.Width, p.token.PixelSize.Width, p.token.PixelSize.Width);
+
+                                    }
+                                    //breathing
+                                    else if (gv.mod.showBreathingFrame4)
+                                    {
+                                        src = new IbRect(0, 4 * p.token.PixelSize.Width, p.token.PixelSize.Width, p.token.PixelSize.Width);
+
+                                    }
+                                    //default
+                                    else
+                                    {
+                                        src = new IbRect(0, 0, p.token.PixelSize.Width, p.token.PixelSize.Width);
+
+                                    }
+
+                                    //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
                                     gv.DrawBitmap(p.token, src, dst, !gv.mod.playerList[gv.mod.selectedPartyLeader].combatFacingLeft, true);
                                     //}
                                     //}
                                 }
 
-                                drawCounter++;
+                                    if (drawCounter == 5)
+                                    {
+                                        if (gv.mod.isScrollingNow || gv.a2Timer.Enabled || gv.aTimer.Enabled)
+                                        {
+                                            gv.mod.showIdlingFrame5 = false;
+                                            gv.mod.idleAnimationDelayCounter5 = 0;
+                                            gv.mod.showBreathingFrame5 = false;
+                                            gv.mod.breathAnimationDelayCounter5 = 0;
+
+                                            if (p.token.PixelSize.Height >= 300)
+                                            {
+                                                gv.mod.walkAnimationDelayCounter5 += (1f * elapsed / 30f * ((gv.mod.scrollModeSpeed * gv.mod.sprintModifier) / 0.5f));
+                                                if (gv.mod.walkAnimationDelayCounter5 >= 5f)
+                                                {
+                                                    //osgosg
+                                                    if (!gv.mod.showWalkingFrame5)
+                                                    {
+                                                        gv.mod.showWalkingFrame5 = true;
+                                                    }
+                                                    else
+                                                    {
+                                                        gv.mod.showWalkingFrame5 = false;
+                                                    }
+                                                    gv.mod.walkAnimationDelayCounter5 = 0;
+                                                }
+                                            }
+                                            else
+                                            {
+                                                gv.mod.showWalkingFrame5 = false;
+                                            }
+                                        }
+                                        //not walking, maybe idling or breathing?
+                                        else
+                                        {
+                                            //reset counters
+                                            gv.mod.walkAnimationDelayCounter5 = 0;
+                                            //show default sprite when not scrolling in any case
+                                            gv.mod.showWalkingFrame5 = false;
+
+                                            //add idling code
+                                            if (p.token.PixelSize.Height >= 400)
+                                            {
+                                                //TODO:
+                                                //add idle frequency property in
+                                                //randomize idlign a bit for different pc
+                                                gv.mod.idleAnimationDelayCounter5 += (1f * elapsed / 30f * gv.mod.idleAnimationFrequency / 100f);
+                                                //gv.mod.hurdle = 3f + (float)gv.sf.RandInt(700) / 100f;
+                                                if (gv.mod.idleAnimationDelayCounter5 >= gv.mod.hurdle5)
+                                                {
+                                                    //osgosg
+                                                    if (!gv.mod.showIdlingFrame5)
+                                                    {
+                                                        gv.mod.showIdlingFrame5 = true;
+                                                        gv.mod.hurdle5 = 2f + (float)gv.sf.RandInt(300) / 100f;
+                                                    }
+                                                    else
+                                                    {
+                                                        gv.mod.showIdlingFrame5 = false;
+                                                        gv.mod.hurdle5 = 25f + (float)gv.sf.RandInt(2250) / 100f;
+                                                    }
+                                                    gv.mod.idleAnimationDelayCounter5 = 0;
+                                                    //gv.mod.hurdle = 3f + (float)gv.sf.RandInt(700) / 100f;
+                                                }
+                                                //breathing code, hurdle for idle not reached
+                                                else
+                                                {
+                                                    if (p.token.PixelSize.Height >= 500)
+                                                    {
+                                                        gv.mod.breathAnimationDelayCounter5 += (1f * elapsed / 30f * gv.mod.breathAnimationFrequency / 100f);
+                                                        if (gv.mod.breathAnimationDelayCounter5 >= (4.0f + (float)gv.sf.RandInt(250) / 100f))
+                                                        {
+                                                            //osgosg
+                                                            if (!gv.mod.showBreathingFrame5)
+                                                            {
+                                                                gv.mod.showBreathingFrame5 = true;
+                                                                //gv.mod.hurdle = 2f + (float)gv.sf.RandInt(300) / 100f;
+                                                            }
+                                                            else
+                                                            {
+                                                                gv.mod.showBreathingFrame5 = false;
+                                                                //gv.mod.hurdle = 10f + (float)gv.sf.RandInt(1500) / 100f;
+                                                            }
+                                                            gv.mod.breathAnimationDelayCounter5 = 0;
+                                                        }
+                                                    }
+                                                    else
+                                                    {
+                                                        gv.mod.showBreathingFrame5 = false;
+                                                    }
+                                                }
+                                            }
+                                            else
+                                            {
+                                                gv.mod.showIdlingFrame5 = false;
+                                            }
+                                        }
+
+                                        //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                                        //walking
+                                        if (gv.mod.showWalkingFrame5)
+                                        {
+                                            src = new IbRect(0, 2 * p.token.PixelSize.Width, p.token.PixelSize.Width, p.token.PixelSize.Width);
+
+                                            //src = new IbRect(0, gv.mod.selectedPartyLeader].token.PixelSize.Width * attackAnimationFrameCounter, pc.token.PixelSize.Width, pc.token.PixelSize.Width);
+                                        }
+                                        //idling
+                                        else if (gv.mod.showIdlingFrame5)
+                                        {
+                                            src = new IbRect(0, 3 * p.token.PixelSize.Width, p.token.PixelSize.Width, p.token.PixelSize.Width);
+
+                                        }
+                                        //breathing
+                                        else if (gv.mod.showBreathingFrame5)
+                                        {
+                                            src = new IbRect(0, 4 * p.token.PixelSize.Width, p.token.PixelSize.Width, p.token.PixelSize.Width);
+
+                                        }
+                                        //default
+                                        else
+                                        {
+                                            src = new IbRect(0, 0, p.token.PixelSize.Width, p.token.PixelSize.Width);
+
+                                        }
+
+                                        //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                                        gv.DrawBitmap(p.token, src, dst, !gv.mod.playerList[gv.mod.selectedPartyLeader].combatFacingLeft, true);
+                                        //}
+                                        //}
+                                    }
+                                //}
+
+                            }
+
+                            drawCounter++;
                             }
                         }
                     }
                 } 
-                //always draw party leader on top
+                //always draw party lead,er on top
                 int storeShift = shift;
                 shift = 0;
                 if (gv.mod.selectedPartyLeader == 0)
@@ -34271,10 +35024,12 @@ namespace IceBlink2
                     //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
                     
                     src = new IbRect(0, 0, gv.mod.playerList[gv.mod.selectedPartyLeader].token.PixelSize.Width, gv.mod.playerList[gv.mod.selectedPartyLeader].token.PixelSize.Width);
-                    if (gv.mod.isScrollingNow || gv.mod.scrollingTimer != 100 || gv.a2Timer.Enabled || gv.aTimer.Enabled)
+                    if (gv.mod.isScrollingNow || gv.a2Timer.Enabled || gv.aTimer.Enabled)
                     {
                         gv.mod.showIdlingFrame = false;
                         gv.mod.idleAnimationDelayCounter = 0;
+                        gv.mod.showBreathingFrame = false;
+                        gv.mod.breathAnimationDelayCounter = 0;
 
                         if (gv.mod.playerList[gv.mod.selectedPartyLeader].token.PixelSize.Height >= 300)
                         {
@@ -34298,7 +35053,7 @@ namespace IceBlink2
                             gv.mod.showWalkingFrame = false;
                         }
                     }
-                    //not walking, maybe idling?
+                    //not walking, maybe idling or breathing?
                     else
                     {
                         //reset counters
@@ -34313,18 +35068,49 @@ namespace IceBlink2
                             //add idle frequency property in
                             //randomize idlign a bit for different pc
                             gv.mod.idleAnimationDelayCounter += (1f * elapsed / 30f * gv.mod.idleAnimationFrequency / 100f);
-                            if (gv.mod.idleAnimationDelayCounter >= 5f)
+                            //gv.mod.hurdle = 3f + (float)gv.sf.RandInt(700) / 100f;
+                            if (gv.mod.idleAnimationDelayCounter >= gv.mod.hurdle)
                             {
                                 //osgosg
                                 if (!gv.mod.showIdlingFrame)
                                 {
                                     gv.mod.showIdlingFrame = true;
+                                    gv.mod.hurdle = 2f + (float)gv.sf.RandInt(300) / 100f;
                                 }
                                 else
                                 {
                                     gv.mod.showIdlingFrame = false;
+                                    gv.mod.hurdle = 25f + (float)gv.sf.RandInt(2250) / 100f;
                                 }
                                 gv.mod.idleAnimationDelayCounter = 0;
+                                //gv.mod.hurdle = 3f + (float)gv.sf.RandInt(700) / 100f;
+                            }
+                            //breathing code, hurdle for idle not reached
+                            else
+                            {
+                                if (gv.mod.playerList[gv.mod.selectedPartyLeader].token.PixelSize.Height >= 500)
+                                {
+                                    gv.mod.breathAnimationDelayCounter += (1f * elapsed / 30f * gv.mod.breathAnimationFrequency / 100f);
+                                    if (gv.mod.breathAnimationDelayCounter >= (4.0f + (float)gv.sf.RandInt(250) / 100f))
+                                    {
+                                        //osgosg
+                                        if (!gv.mod.showBreathingFrame)
+                                        {
+                                            gv.mod.showBreathingFrame = true;
+                                            //gv.mod.hurdle = 2f + (float)gv.sf.RandInt(300) / 100f;
+                                        }
+                                        else
+                                        {
+                                            gv.mod.showBreathingFrame = false;
+                                            //gv.mod.hurdle = 10f + (float)gv.sf.RandInt(1500) / 100f;
+                                        }
+                                        gv.mod.breathAnimationDelayCounter = 0;
+                                    }
+                                }
+                                else
+                                {
+                                    gv.mod.showBreathingFrame = false;
+                                }
                             }
                         }
                         else
@@ -34345,6 +35131,12 @@ namespace IceBlink2
                     else if (gv.mod.showIdlingFrame)
                     {
                         src = new IbRect(0, 3 * gv.mod.playerList[gv.mod.selectedPartyLeader].token.PixelSize.Width, gv.mod.playerList[gv.mod.selectedPartyLeader].token.PixelSize.Width, gv.mod.playerList[gv.mod.selectedPartyLeader].token.PixelSize.Width);
+
+                    }
+                    //breathing
+                    else if (gv.mod.showBreathingFrame)
+                    {
+                        src = new IbRect(0, 4 * gv.mod.playerList[gv.mod.selectedPartyLeader].token.PixelSize.Width, gv.mod.playerList[gv.mod.selectedPartyLeader].token.PixelSize.Width, gv.mod.playerList[gv.mod.selectedPartyLeader].token.PixelSize.Width);
 
                     }
                     //default
@@ -38715,6 +39507,42 @@ namespace IceBlink2
 
         public void updateTraitsPanel()
         {
+            gv.mod.showIdlingFrame = false;
+            gv.mod.idleAnimationDelayCounter = 0;
+            gv.mod.showBreathingFrame = false;
+            gv.mod.breathAnimationDelayCounter = 0;
+
+
+            gv.mod.showIdlingFrame0 = false;
+            gv.mod.idleAnimationDelayCounter0 = 0;
+            gv.mod.showBreathingFrame0 = false;
+            gv.mod.breathAnimationDelayCounter0 = 0;
+
+            gv.mod.showIdlingFrame1 = false;
+            gv.mod.idleAnimationDelayCounter1 = 0;
+            gv.mod.showBreathingFrame1 = false;
+            gv.mod.breathAnimationDelayCounter1 = 0;
+
+            gv.mod.showIdlingFrame2 = false;
+            gv.mod.idleAnimationDelayCounter2 = 0;
+            gv.mod.showBreathingFrame2 = false;
+            gv.mod.breathAnimationDelayCounter2 = 0;
+
+            gv.mod.showIdlingFrame3 = false;
+            gv.mod.idleAnimationDelayCounter3 = 0;
+            gv.mod.showBreathingFrame3 = false;
+            gv.mod.breathAnimationDelayCounter3 = 0;
+
+            gv.mod.showIdlingFrame4 = false;
+            gv.mod.idleAnimationDelayCounter4 = 0;
+            gv.mod.showBreathingFrame4 = false;
+            gv.mod.breathAnimationDelayCounter4 = 0;
+
+            gv.mod.showIdlingFrame5 = false;
+            gv.mod.idleAnimationDelayCounter5 = 0;
+            gv.mod.showBreathingFrame5 = false;
+            gv.mod.breathAnimationDelayCounter5 = 0;
+
             for (int i = 0; i <= gv.mod.playerList.Count - 1; i++)
             {
                 if (gv.mod.playerList[gv.mod.selectedPartyLeader].hp <= 0)
@@ -44614,6 +45442,10 @@ namespace IceBlink2
 
             if (keyData == Keys.E)
             {
+                gv.mod.showIdlingFrame = false;
+                gv.mod.idleAnimationDelayCounter = 0;
+                gv.mod.showBreathingFrame = false;
+                gv.mod.breathAnimationDelayCounter = 0;
 
                 if (gv.mod.hideInterfaceNextMove)
                 {
@@ -44664,6 +45496,11 @@ namespace IceBlink2
 
             if (keyData == Keys.Right && !showMoveKeys)
             {
+                gv.mod.showIdlingFrame = false;
+                gv.mod.idleAnimationDelayCounter = 0;
+                gv.mod.showBreathingFrame = false;
+                gv.mod.breathAnimationDelayCounter = 0;
+
                 if (gv.mod.hideInterfaceNextMove)
                 {
                     foreach (IB2Panel pnl in mainUiLayout.panelList)
@@ -44710,6 +45547,11 @@ namespace IceBlink2
 
             if (keyData == Keys.D && showMoveKeys)
             {
+                gv.mod.showIdlingFrame = false;
+                gv.mod.idleAnimationDelayCounter = 0;
+                gv.mod.showBreathingFrame = false;
+                gv.mod.breathAnimationDelayCounter = 0;
+
                 if (gv.mod.hideInterfaceNextMove)
                 {
                     foreach (IB2Panel pnl in mainUiLayout.panelList)
@@ -44756,6 +45598,11 @@ namespace IceBlink2
 
             if (keyData == Keys.Q)
             {
+                gv.mod.showIdlingFrame = false;
+                gv.mod.idleAnimationDelayCounter = 0;
+                gv.mod.showBreathingFrame = false;
+                gv.mod.breathAnimationDelayCounter = 0;
+                 
                 if (gv.mod.hideInterfaceNextMove)
                 {
                     foreach (IB2Panel pnl in mainUiLayout.panelList)
@@ -44804,6 +45651,11 @@ namespace IceBlink2
 
             if (keyData == Keys.Left && !showMoveKeys)
             {
+                gv.mod.showIdlingFrame = false;
+                gv.mod.idleAnimationDelayCounter = 0;
+                gv.mod.showBreathingFrame = false;
+                gv.mod.breathAnimationDelayCounter = 0;
+
                 if (gv.mod.hideInterfaceNextMove)
                 {
                     foreach (IB2Panel pnl in mainUiLayout.panelList)
@@ -44850,6 +45702,11 @@ namespace IceBlink2
 
             if (keyData == Keys.A && showMoveKeys)
             {
+                gv.mod.showIdlingFrame = false;
+                gv.mod.idleAnimationDelayCounter = 0;
+                gv.mod.showBreathingFrame = false;
+                gv.mod.breathAnimationDelayCounter = 0;
+
                 if (gv.mod.hideInterfaceNextMove)
                 {
                     foreach (IB2Panel pnl in mainUiLayout.panelList)
@@ -46123,9 +46980,11 @@ namespace IceBlink2
                 gv.mod.lastYadjustment = gv.mod.PlayerLocationY - gv.mod.PlayerLastLocationY;
                 gv.mod.lastXadjustment = gv.mod.PlayerLocationX - gv.mod.PlayerLastLocationX;
             }
-
-            gv.mod.oldTailPositionX = gv.mod.PlayerLastLocationX;
-            gv.mod.oldTailPositionY = gv.mod.PlayerLastLocationY;
+            if (gv.mod.PlayerLastLocationX != gv.mod.PlayerLocationX || gv.mod.PlayerLastLocationY != gv.mod.PlayerLocationY)
+            {
+                gv.mod.oldTailPositionX = gv.mod.PlayerLastLocationX;
+                gv.mod.oldTailPositionY = gv.mod.PlayerLastLocationY;
+            }
             gv.mod.PlayerLastLocationX = gv.mod.PlayerLocationX;
                 gv.mod.PlayerLastLocationY = gv.mod.PlayerLocationY;
            
@@ -46566,8 +47425,11 @@ namespace IceBlink2
                 gv.mod.lastXadjustment = gv.mod.PlayerLocationX - gv.mod.PlayerLastLocationX;
             }
 
-            gv.mod.oldTailPositionX = gv.mod.PlayerLastLocationX;
-            gv.mod.oldTailPositionY = gv.mod.PlayerLastLocationY;
+            if (gv.mod.PlayerLastLocationX != gv.mod.PlayerLocationX || gv.mod.PlayerLastLocationY != gv.mod.PlayerLocationY)
+            {
+                gv.mod.oldTailPositionX = gv.mod.PlayerLastLocationX;
+                gv.mod.oldTailPositionY = gv.mod.PlayerLastLocationY;
+            }
             gv.mod.PlayerLastLocationX = gv.mod.PlayerLocationX;
             gv.mod.PlayerLastLocationY = gv.mod.PlayerLocationY;
             //gv.mod.PlayerLastLocationX = gv.mod.PlayerLocationX;
@@ -47006,6 +47868,13 @@ namespace IceBlink2
         }
         public void moveUp(bool affectTimer)
         {
+            /*
+            if (gv.mod.PlayerLocationX != gv.mod.PlayerLastLocationX + gv.mod.lastXadjustment || gv.mod.PlayerLocationY != gv.mod.PlayerLastLocationY + gv.mod.lastYadjustment)
+            {
+                gv.mod.oldTailPositionX = gv.mod.PlayerLastLocationX;
+                gv.mod.oldTailPositionY = gv.mod.PlayerLastLocationY;
+            }
+            */
 
             if (gv.mod.PlayerLocationX != gv.mod.PlayerLastLocationX || gv.mod.PlayerLocationY != gv.mod.PlayerLastLocationY)
             {
@@ -47013,10 +47882,19 @@ namespace IceBlink2
                 gv.mod.lastXadjustment = gv.mod.PlayerLocationX - gv.mod.PlayerLastLocationX;
             }
 
-            gv.mod.oldTailPositionX = gv.mod.PlayerLastLocationX;
-            gv.mod.oldTailPositionY = gv.mod.PlayerLastLocationY;
+            //todo if adjustment != 0
+            //if (gv.mod.lastYadjustment != 0 || gv.mod.lastXadjustment != 0)
+            //{
+            if (gv.mod.PlayerLastLocationX != gv.mod.PlayerLocationX || gv.mod.PlayerLastLocationY != gv.mod.PlayerLocationY)
+            {
+                gv.mod.oldTailPositionX = gv.mod.PlayerLastLocationX;
+                gv.mod.oldTailPositionY = gv.mod.PlayerLastLocationY;
+            }
+            //}
             gv.mod.PlayerLastLocationX = gv.mod.PlayerLocationX;
             gv.mod.PlayerLastLocationY = gv.mod.PlayerLocationY;
+            //gv.mod.PlayerLastLocationX = gv.mod.PlayerLocationX;
+            //gv.mod.PlayerLastLocationY = gv.mod.PlayerLocationY;
             //gv.mod.PlayerLastLocationX = gv.mod.PlayerLocationX;
             //gv.mod.PlayerLastLocationY = gv.mod.PlayerLocationY;
 
@@ -47282,7 +48160,9 @@ namespace IceBlink2
                         }
                     }
                 }
-                
+
+                //gv.mod.drawPartyDirection = "down";
+
                 if (isSuccesfulClimbAction)
                 {
                     //gv.mod.PlayerLastLocationX = gv.mod.PlayerLocationX;
@@ -47293,7 +48173,7 @@ namespace IceBlink2
                 }
                 else if (gv.mod.currentArea.GetBlocked(gv.mod.PlayerLocationX, gv.mod.PlayerLocationY - 1, gv.mod.PlayerLocationX, gv.mod.PlayerLocationY, gv.mod.PlayerLastLocationX + gv.mod.lastXadjustment, gv.mod.PlayerLastLocationY + gv.mod.lastYadjustment) == false || gv.mod.currentArea.isOverviewMap)
                 {
-
+                    //StopScrollingOnBlocked();
                     //gv.mod.blockTrigger = false;
                     //gv.mod.blockTriggerMovingProp = false;
 
@@ -47458,8 +48338,12 @@ namespace IceBlink2
                 gv.mod.lastXadjustment = gv.mod.PlayerLocationX - gv.mod.PlayerLastLocationX;
             }
 
-            gv.mod.oldTailPositionX = gv.mod.PlayerLastLocationX;
-            gv.mod.oldTailPositionY = gv.mod.PlayerLastLocationY;
+            if (gv.mod.PlayerLastLocationX != gv.mod.PlayerLocationX || gv.mod.PlayerLastLocationY != gv.mod.PlayerLocationY)
+            {
+                gv.mod.oldTailPositionX = gv.mod.PlayerLastLocationX;
+                gv.mod.oldTailPositionY = gv.mod.PlayerLastLocationY;
+            }
+
             gv.mod.PlayerLastLocationX = gv.mod.PlayerLocationX;
             gv.mod.PlayerLastLocationY = gv.mod.PlayerLocationY;
             //gv.mod.PlayerLastLocationX = gv.mod.PlayerLocationX;

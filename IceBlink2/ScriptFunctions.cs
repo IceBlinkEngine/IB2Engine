@@ -12307,6 +12307,17 @@ namespace IceBlink2
         public void MovePartyToLastLocation(string message)
         {
             //sherlock
+            if (gv.mod.useScrollingSystem)
+            {
+                gv.mod.isScrollingNow = false;
+                gv.mod.scrollingTimer = 100;
+                //gv.aTimer.Stop();
+                //gv.a2Timer.Stop();
+            }
+            //gv.aTimer.Stop();
+            //gv.a2Timer.Stop();
+            //gv.mod.scrollingSpeed = 1.15f;
+
             gv.mod.PlayerLocationX = gv.mod.PlayerLastLocationX;
             gv.mod.PlayerLocationY = gv.mod.PlayerLastLocationY;
             if (message != null)

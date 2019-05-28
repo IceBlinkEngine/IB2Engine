@@ -13,14 +13,82 @@ namespace IceBlink2
 {
     public class Module
     {
+        //leader
+        public float breathAnimationDelayCounter = 0;
+        public bool showBreathingFrame = false;
         public float walkAnimationDelayCounter = 0;
         public bool showWalkingFrame = false;
-
         public float idleAnimationDelayCounter = 0;
         public bool showIdlingFrame = false;
+        public float hurdle = 10f;
+
+        //0
+        public float breathAnimationDelayCounter0 = 0;
+        public bool showBreathingFrame0 = false;
+        public float walkAnimationDelayCounter0 = 0;
+        public bool showWalkingFrame0 = false;
+        public float idleAnimationDelayCounter0 = 0;
+        public bool showIdlingFrame0 = false;
+        public float hurdle0 = 10f;
+
+        //1
+        public float breathAnimationDelayCounter1 = 0;
+        public bool showBreathingFrame1 = false;
+        public float walkAnimationDelayCounter1 = 0;
+        public bool showWalkingFrame1 = false;
+        public float idleAnimationDelayCounter1 = 0;
+        public bool showIdlingFrame1 = false;
+        public float hurdle1 = 10f;
+
+        //2
+        public float breathAnimationDelayCounter2 = 0;
+        public bool showBreathingFrame2 = false;
+        public float walkAnimationDelayCounter2 = 0;
+        public bool showWalkingFrame2 = false;
+        public float idleAnimationDelayCounter2 = 0;
+        public bool showIdlingFrame2 = false;
+        public float hurdle2 = 10f;
+
+        //3
+        public float breathAnimationDelayCounter3 = 0;
+        public bool showBreathingFrame3 = false;
+        public float walkAnimationDelayCounter3 = 0;
+        public bool showWalkingFrame3 = false;
+        public float idleAnimationDelayCounter3 = 0;
+        public bool showIdlingFrame3 = false;
+        public float hurdle3 = 10f;
+
+        //4
+        public float breathAnimationDelayCounter4 = 0;
+        public bool showBreathingFrame4 = false;
+        public float walkAnimationDelayCounter4 = 0;
+        public bool showWalkingFrame4 = false;
+        public float idleAnimationDelayCounter4 = 0;
+        public bool showIdlingFrame4 = false;
+        public float hurdle4 = 10f;
+
+        //5
+        public float breathAnimationDelayCounter5 = 0;
+        public bool showBreathingFrame5 = false;
+        public float walkAnimationDelayCounter5 = 0;
+        public bool showWalkingFrame5 = false;
+        public float idleAnimationDelayCounter5 = 0;
+        public bool showIdlingFrame5 = false;
+        public float hurdle5 = 10f;
+
+
+        //walking
+        //public float hurdle = 10f;
+
+        public int breathAnimationFrequency = 10;
         public int idleAnimationFrequency = 10;
 
-        public float sprintModifier = 1.0f;
+
+
+
+     
+
+        public float sprintModifier = 1.0f; 
         public int oldTailPositionX = 0;
         public int oldTailPositionY = 0;
         public string tailScrollDirection = "none"; //up, down, left, right

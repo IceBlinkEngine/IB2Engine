@@ -14811,7 +14811,7 @@ namespace IceBlink2
 
         public bool goWest()
         {
-            if (gv.mod.playFootstepSound)
+            if ((gv.mod.playFootstepSound) && (gv.mod.isScrollingNow || gv.a2Timer.Enabled || gv.aTimer.Enabled))
             {
                 gv.PlaySound("footstep");
             }
@@ -14960,7 +14960,7 @@ namespace IceBlink2
 
         public bool goEast()
         {
-            if (gv.mod.playFootstepSound)
+            if ((gv.mod.playFootstepSound) && (gv.mod.isScrollingNow || gv.a2Timer.Enabled || gv.aTimer.Enabled))
             {
                 gv.PlaySound("footstep");
             }
@@ -15111,7 +15111,7 @@ namespace IceBlink2
          
         public bool goNorth()
         {
-            if (gv.mod.playFootstepSound)
+            if ((gv.mod.playFootstepSound) && (gv.mod.isScrollingNow || gv.a2Timer.Enabled || gv.aTimer.Enabled))
             {
                 gv.PlaySound("footstep");
             }
@@ -15253,7 +15253,7 @@ namespace IceBlink2
 
         public bool goSouth()
         {
-            if (gv.mod.playFootstepSound)
+            if ((gv.mod.playFootstepSound) && (gv.mod.isScrollingNow || gv.a2Timer.Enabled || gv.aTimer.Enabled))
             {
                 gv.PlaySound("footstep");
             }
