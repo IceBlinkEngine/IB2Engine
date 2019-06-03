@@ -31909,7 +31909,28 @@ namespace IceBlink2
                                 {
                                     if (p.destinationPixelPositionYList[0] > p.currentPixelPositionY)
                                     {
-                                        p.currentPixelPositionY += (gv.floatPixMovedPerTick * p.pixelMoveSpeed);
+
+                                        //new code wolfwood2
+                                        //p.currentPixelPositionY += (gv.floatPixMovedPerTick * p.pixelMoveSpeed);
+                                        //number of calls: 30 per second
+                                        //7 seconds
+                                        //210 calls
+                                        //each
+                                        //(7.5f * multi * gv.mod.scrollingSpeed * 1.0f * gv.mod.scrollModeSpeed * gv.mod.sprintModifier);
+                                        if (gv.mod.isScrollingNow || gv.a2Timer.Enabled || gv.aTimer.Enabled)
+                                        {
+                                            float multi = elapsed / 45f;
+                                            if (multi > 1.5f)
+                                            {
+                                                multi = 1.5f;
+                                            }
+                                            p.currentPixelPositionY += (7.5f * multi * gv.mod.scrollingSpeed * 1.0f * gv.mod.scrollModeSpeed * gv.mod.sprintModifier) * (float)p.pixelMoveSpeed;
+
+                                        }
+                                        else
+                                        {
+                                            p.currentPixelPositionY += elapsed / 30f * ((float)gv.squareSize / ((float)gv.mod.realTimeTimerLengthInMilliSeconds * 0.03f)) * (float)p.pixelMoveSpeed * 0.9f;
+                                        }
                                         if (p.currentPixelPositionY >= p.destinationPixelPositionYList[0])
                                         {
                                             p.currentPixelPositionY = p.destinationPixelPositionYList[0];
@@ -31920,7 +31941,21 @@ namespace IceBlink2
                                     }
                                     else
                                     {
-                                        p.currentPixelPositionY -= (gv.floatPixMovedPerTick * p.pixelMoveSpeed);
+                                        //p.currentPixelPositionY -= (gv.floatPixMovedPerTick * p.pixelMoveSpeed);
+                                        if (gv.mod.isScrollingNow || gv.a2Timer.Enabled || gv.aTimer.Enabled)
+                                        {
+                                            float multi = elapsed / 45f;
+                                            if (multi > 1.5f)
+                                            {
+                                                multi = 1.5f;
+                                            }
+                                            p.currentPixelPositionY -= (7.5f * multi * gv.mod.scrollingSpeed * 1.0f * gv.mod.scrollModeSpeed * gv.mod.sprintModifier) * (float)p.pixelMoveSpeed;
+
+                                        }
+                                        else
+                                        {
+                                            p.currentPixelPositionY -= elapsed / 30f * ((float)gv.squareSize / ((float)gv.mod.realTimeTimerLengthInMilliSeconds * 0.03f)) * (float)p.pixelMoveSpeed * 0.9f;
+                                        }
                                         if (p.currentPixelPositionY <= p.destinationPixelPositionYList[0])
                                         {
                                             p.currentPixelPositionY = p.destinationPixelPositionYList[0];
@@ -31935,9 +31970,27 @@ namespace IceBlink2
                                     {
                                         if (p.destinationPixelPositionXList[0] > p.currentPixelPositionX)
                                         {
-                                            p.currentPixelPositionX += (gv.floatPixMovedPerTick * p.pixelMoveSpeed);
+                                            //p.currentPixelPositionX += (gv.floatPixMovedPerTick * p.pixelMoveSpeed);
+                                            if (gv.mod.isScrollingNow || gv.a2Timer.Enabled || gv.aTimer.Enabled)
+                                            {
+                                                float multi = elapsed / 45f;
+                                                if (multi > 1.5f)
+                                                {
+                                                    multi = 1.5f;
+                                                }
+                                                p.currentPixelPositionX += (7.5f * multi * gv.mod.scrollingSpeed * 1.0f * gv.mod.scrollModeSpeed * gv.mod.sprintModifier) * (float)p.pixelMoveSpeed * 0.7f;
+
+                                            }
+                                            else
+                                            {
+                                                p.currentPixelPositionX += elapsed / 30f * ((float)gv.squareSize / ((float)gv.mod.realTimeTimerLengthInMilliSeconds * 0.03f)) * (float)p.pixelMoveSpeed * 0.9f;
+                                            }
+                                                //wolfwood
+                                            //p.isCurrentlyScrolling = true;
                                             if (p.currentPixelPositionX >= p.destinationPixelPositionXList[0])
                                             {
+                                                //wolfwood
+                                                //p.isCurrentlyScrolling = false;
                                                 p.currentPixelPositionX = p.destinationPixelPositionXList[0];
                                                 p.destinationPixelPositionXList.RemoveAt(0);
                                                 p.destinationPixelPositionYList.RemoveAt(0);
@@ -31945,9 +31998,27 @@ namespace IceBlink2
                                         }
                                         else
                                         {
-                                            p.currentPixelPositionX -= (gv.floatPixMovedPerTick * p.pixelMoveSpeed);
+                                            //p.currentPixelPositionX -= (gv.floatPixMovedPerTick * p.pixelMoveSpeed);
+                                            if (gv.mod.isScrollingNow || gv.a2Timer.Enabled || gv.aTimer.Enabled)
+                                            {
+                                                float multi = elapsed / 45f;
+                                                if (multi > 1.5f)
+                                                {
+                                                    multi = 1.5f;
+                                                }
+                                                p.currentPixelPositionX -= (7.5f * multi * gv.mod.scrollingSpeed * 1.0f * gv.mod.scrollModeSpeed * gv.mod.sprintModifier) * (float)p.pixelMoveSpeed * 0.7f;
+
+                                            }
+                                            else
+                                            {
+                                                p.currentPixelPositionX -= elapsed / 30f * ((float)gv.squareSize / ((float)gv.mod.realTimeTimerLengthInMilliSeconds * 0.03f)) * (float)p.pixelMoveSpeed * 0.9f;
+                                            }
+                                                //wolfwood
+                                            //p.isCurrentlyScrolling = true;
                                             if (p.currentPixelPositionX <= p.destinationPixelPositionXList[0])
                                             {
+                                                //wolfwood
+                                                //p.isCurrentlyScrolling = false;
                                                 p.currentPixelPositionX = p.destinationPixelPositionXList[0];
                                                 p.destinationPixelPositionXList.RemoveAt(0);
                                                 p.destinationPixelPositionYList.RemoveAt(0);
@@ -32735,7 +32806,9 @@ namespace IceBlink2
                                 {
                                     if (p.destinationPixelPositionYList[0] > p.currentPixelPositionY)
                                     {
-                                        p.currentPixelPositionY += (gv.floatPixMovedPerTick * p.pixelMoveSpeed);
+                                        //p.currentPixelPositionY += (gv.floatPixMovedPerTick * p.pixelMoveSpeed);
+                                        //wolfwood
+                                        p.currentPixelPositionY += elapsed / 30f * ((float)gv.squareSize / ((float)gv.mod.realTimeTimerLengthInMilliSeconds * 0.03f)) * (float)p.pixelMoveSpeed * 0.9f;
                                         if (p.currentPixelPositionY >= p.destinationPixelPositionYList[0])
                                         {
                                             p.currentPixelPositionY = p.destinationPixelPositionYList[0];
@@ -32746,7 +32819,9 @@ namespace IceBlink2
                                     }
                                     else
                                     {
-                                        p.currentPixelPositionY -= (gv.floatPixMovedPerTick * p.pixelMoveSpeed);
+                                        //p.currentPixelPositionY -= (gv.floatPixMovedPerTick * p.pixelMoveSpeed);
+                                        //wolfwood
+                                        p.currentPixelPositionY -= elapsed / 30f * ((float)gv.squareSize / ((float)gv.mod.realTimeTimerLengthInMilliSeconds * 0.03f)) * (float)p.pixelMoveSpeed * 0.9f;
                                         if (p.currentPixelPositionY <= p.destinationPixelPositionYList[0])
                                         {
                                             p.currentPixelPositionY = p.destinationPixelPositionYList[0];
@@ -32761,7 +32836,9 @@ namespace IceBlink2
                                     {
                                         if (p.destinationPixelPositionXList[0] > p.currentPixelPositionX)
                                         {
-                                            p.currentPixelPositionX += (gv.floatPixMovedPerTick * p.pixelMoveSpeed);
+                                            //p.currentPixelPositionX += (gv.floatPixMovedPerTick * p.pixelMoveSpeed);
+                                            //wolfwood
+                                            p.currentPixelPositionX += elapsed / 30f * ((float)gv.squareSize / ((float)gv.mod.realTimeTimerLengthInMilliSeconds * 0.03f)) * (float)p.pixelMoveSpeed * 0.9f;
                                             if (p.currentPixelPositionX >= p.destinationPixelPositionXList[0])
                                             {
                                                 p.currentPixelPositionX = p.destinationPixelPositionXList[0];
@@ -32771,7 +32848,9 @@ namespace IceBlink2
                                         }
                                         else
                                         {
-                                            p.currentPixelPositionX -= (gv.floatPixMovedPerTick * p.pixelMoveSpeed);
+                                            //p.currentPixelPositionX -= (gv.floatPixMovedPerTick * p.pixelMoveSpeed);
+                                            //wolfwood
+                                            p.currentPixelPositionX -= elapsed / 30f * ((float)gv.squareSize / ((float)gv.mod.realTimeTimerLengthInMilliSeconds * 0.03f)) * (float)p.pixelMoveSpeed * 0.9f;
                                             if (p.currentPixelPositionX <= p.destinationPixelPositionXList[0])
                                             {
                                                 p.currentPixelPositionX = p.destinationPixelPositionXList[0];

@@ -68,6 +68,8 @@ namespace IceBlink2
         //b. upon failure
         //messaging to log and as floaty
 
+        public bool isCurrentlyScrolling = false;
+
         public bool isPureBreakableProp = false;
         //public bool isDiggableIndicatorProp = false;
         public string requiredItemInInventory = "none"; //like eg pick axes of varying qualities

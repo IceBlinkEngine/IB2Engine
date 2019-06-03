@@ -5070,7 +5070,7 @@
     "WayPointList": [],
     "Schedules": [],
     "isMover": true,
-    "MoverType": "post",
+    "MoverType": "patrol",
     "spotEnemy": -1,
     "stealth": -1,
     "stealthSkipsPropTriggers": false,

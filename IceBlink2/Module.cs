@@ -113,7 +113,7 @@ namespace IceBlink2
         public string frozenPressedKey = "none";
         public float lastScrollStep = 10;
         public float scrollingSpeedReduction = 1f;
-        public bool doTriggerInspiteOfScrolling = false;
+        public bool doTriggerInspiteOfScrolling = true;
 
         public bool comningFromBattle = false;
         public float preRenderDistance = 0;

@@ -3708,7 +3708,8 @@ namespace IceBlink2
                 }
 
                 gv.realTimeTimerMilliSecondsEllapsed = 0;
-                gv.screenMainMap.updateTraitsPanel();
+                //wolfwood
+                //gv.screenMainMap.updateTraitsPanel();
                 handleRationsAndLightSources();
                 //setBridgeStateForMovingProps();
                 gv.mod.EncounterOfTurnDone = false;
@@ -9858,8 +9859,12 @@ namespace IceBlink2
                 int playerPositionXInPix = gv.oXshift + gv.screenMainMap.mapStartLocXinPixels + (gv.playerOffsetX * gv.squareSize);
                 int playerPositionYInPix = gv.playerOffsetY * gv.squareSize;
 
-                gv.mod.currentArea.Props[i].currentPixelPositionX = playerPositionXInPix + (xOffSetInSquares * gv.squareSize);
-                gv.mod.currentArea.Props[i].currentPixelPositionY = playerPositionYInPix + (yOffSetInSquares * gv.squareSize);
+                //wolfwood
+                //if (!gv.mod.currentArea.Props[i].isCurrentlyScrolling)
+                //{
+                    gv.mod.currentArea.Props[i].currentPixelPositionX = playerPositionXInPix + (xOffSetInSquares * gv.squareSize);
+                    gv.mod.currentArea.Props[i].currentPixelPositionY = playerPositionYInPix + (yOffSetInSquares * gv.squareSize);
+                //}
 
                 if (1 == 1)
                 {
@@ -10667,7 +10672,11 @@ namespace IceBlink2
                 }
             }
 
-                if (gv.sf.RandInt(100) <= Move2Chance)
+            //wolfwood
+            //Move0Chance = -1;
+            //Move2Chance = -1;
+
+            if (gv.sf.RandInt(100) <= Move2Chance)
                 {
                     prp.moved2 = true;
                     return 2;
@@ -10886,7 +10895,9 @@ namespace IceBlink2
                                 int playerPositionXInPix = gv.oXshift + gv.screenMainMap.mapStartLocXinPixels + (gv.playerOffsetX * gv.squareSize);
                                 int playerPositionYInPix = gv.playerOffsetY * gv.squareSize;
 
-                                if ((xOffSetInSquares <= 10) && (xOffSetInSquares >= -10) && (yOffSetInSquares <= 10) && (yOffSetInSquares >= -10))
+                                //wolfwood
+                                //was 10
+                                if ((xOffSetInSquares <= 14) && (xOffSetInSquares >= -14) && (yOffSetInSquares <= 8) && (yOffSetInSquares >= -8))
                                 {
                                     prp.destinationPixelPositionXList.Add(playerPositionXInPix + (xOffSetInSquares * gv.squareSize));
                                     prp.destinationPixelPositionYList.Add(playerPositionYInPix + (yOffSetInSquares * gv.squareSize));
@@ -10946,7 +10957,9 @@ namespace IceBlink2
                                     int playerPositionXInPix = gv.oXshift + gv.screenMainMap.mapStartLocXinPixels + (gv.playerOffsetX * gv.squareSize);
                                     int playerPositionYInPix = gv.playerOffsetY * gv.squareSize;
 
-                                    if ((xOffSetInSquares <= 5) && (xOffSetInSquares >= -5) && (yOffSetInSquares <= 5) && (yOffSetInSquares >= -5))
+                                    //wolfwood
+                                    //was 5
+                                    if ((xOffSetInSquares <= 14) && (xOffSetInSquares >= -14) && (yOffSetInSquares <= 8) && (yOffSetInSquares >= -8))
                                     {
                                         prp.destinationPixelPositionXList.Add(playerPositionXInPix + (xOffSetInSquares * gv.squareSize));
                                         prp.destinationPixelPositionYList.Add(playerPositionYInPix + (yOffSetInSquares * gv.squareSize));
@@ -11021,8 +11034,9 @@ namespace IceBlink2
                         }
                         int playerPositionXInPix = gv.oXshift + gv.screenMainMap.mapStartLocXinPixels + (gv.playerOffsetX * gv.squareSize);
                         int playerPositionYInPix = gv.playerOffsetY * gv.squareSize;
-
-                        if ((xOffSetInSquares <= 5) && (xOffSetInSquares >= -5) && (yOffSetInSquares <= 5) && (yOffSetInSquares >= -5))
+                        //wolfwood
+                        //was 5
+                        if ((xOffSetInSquares <= 14) && (xOffSetInSquares >= -14) && (yOffSetInSquares <= 8) && (yOffSetInSquares >= -8))
                         {
                             prp.destinationPixelPositionXList.Add(playerPositionXInPix + (xOffSetInSquares * gv.squareSize));
                             prp.destinationPixelPositionYList.Add(playerPositionYInPix + (yOffSetInSquares * gv.squareSize));
@@ -15396,6 +15410,7 @@ namespace IceBlink2
         public void doTransitionBasedOnAreaLocation(string areaFilename, int x, int y)
         {
 
+            gv.mod.doTriggerInspiteOfScrolling = true;
             gv.cc.floatyText = "";
             gv.cc.floatyText2 = "";
             gv.cc.floatyText3 = "";
