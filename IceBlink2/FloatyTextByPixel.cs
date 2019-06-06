@@ -38,6 +38,10 @@ namespace IceBlink2
             color = clr;
             timerLength = length;
             timeToLive = length;
+            if (timeToLive > 1750)
+            {
+                timeToLive = 1750;
+            }
             tagOfCallingProp = floatyCarrier.PropTag;
             floatyCarrier2 = floatyCarrier;
         }

@@ -68,6 +68,19 @@ namespace IceBlink2
         //b. upon failure
         //messaging to log and as floaty
 
+        public float timeSinceLastFloaty = 0;
+
+
+        //make copy
+        public float currentWalkingSpeed = 0;
+        public float breathAnimationDelayCounter = 0;
+        public bool showBreathingFrame = false;
+        public float walkAnimationDelayCounter = 0;
+        public bool showWalkingFrame = false;
+        public float idleAnimationDelayCounter = 0;
+        public bool showIdlingFrame = false;
+        public float hurdle = 10f;
+
         public bool isCurrentlyScrolling = false;
 
         public bool isPureBreakableProp = false;
@@ -425,6 +438,17 @@ namespace IceBlink2
     	    Prop copy = new Prop();
 
             //TODO
+        copy.timeSinceLastFloaty = timeSinceLastFloaty;
+
+        copy.currentWalkingSpeed = currentWalkingSpeed;
+        copy.breathAnimationDelayCounter = breathAnimationDelayCounter;
+        copy.showBreathingFrame = showBreathingFrame;
+        copy.walkAnimationDelayCounter = walkAnimationDelayCounter;
+        copy.showWalkingFrame = showWalkingFrame;
+        copy.idleAnimationDelayCounter = idleAnimationDelayCounter;
+        copy.showIdlingFrame = showIdlingFrame;
+        copy.hurdle = hurdle;
+
         copy.isBroken = isBroken;
         copy.isPureBreakableProp = isPureBreakableProp;
         //copy.isDiggableIndicatorProp = isDiggableIndicatorProp;
@@ -634,6 +658,16 @@ namespace IceBlink2
                 c.Y = coor.Y;
                 c.areaName = coor.areaName;
                 c.departureTime = coor.departureTime;
+                //List<BarkString> blAT = new List<BarkString>();
+                //List<BarkString> blON = new List<BarkString>();
+                foreach (BarkString bAT in coor.BarkStringsAtWayPoint)
+                {
+                    c.BarkStringsAtWayPoint.Add(bAT.DeepCopy());
+                }
+                foreach (BarkString bON in coor.BarkStringsOnTheWayToNextWayPoint)
+                {
+                    c.BarkStringsOnTheWayToNextWayPoint.Add(bON.DeepCopy());
+                }
                 copy.WayPointList.Add(c);
             }
             copy.WayPointListCurrentIndex = this.WayPointListCurrentIndex;

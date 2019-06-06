@@ -10545,7 +10545,11 @@ namespace IceBlink2
                             }
                             else
                             {
-                                gv.screenMainMap.addFloatyText(prp, chosenBarks[decider].FloatyTextOneLiner, chosenBarks[decider].Color, chosenBarks[decider].LengthOfTimeToShowInMilliSeconds);
+                                if (prp.timeSinceLastFloaty > 30f)
+                                {
+                                    prp.timeSinceLastFloaty = 0;
+                                    gv.screenMainMap.addFloatyText(prp, chosenBarks[decider].FloatyTextOneLiner, chosenBarks[decider].Color, chosenBarks[decider].LengthOfTimeToShowInMilliSeconds);
+                                }
 
                             }
 
@@ -10576,7 +10580,11 @@ namespace IceBlink2
                                 }
                                 else
                                 {
-                                    gv.screenMainMap.addFloatyText(prp, chosenBarks[decider].FloatyTextOneLiner, chosenBarks[decider].Color, chosenBarks[decider].LengthOfTimeToShowInMilliSeconds);
+                                    if (prp.timeSinceLastFloaty > 30f)
+                                    {
+                                        prp.timeSinceLastFloaty = 0;
+                                        gv.screenMainMap.addFloatyText(prp, chosenBarks[decider].FloatyTextOneLiner, chosenBarks[decider].Color, chosenBarks[decider].LengthOfTimeToShowInMilliSeconds);
+                                    }
 
                                 }
 
@@ -10604,7 +10612,11 @@ namespace IceBlink2
                                 }
                                 else
                                 {
-                                    gv.screenMainMap.addFloatyText(prp, chosenBarks[decider].FloatyTextOneLiner, chosenBarks[decider].Color, chosenBarks[decider].LengthOfTimeToShowInMilliSeconds);
+                                    if (prp.timeSinceLastFloaty > 30f)
+                                    {
+                                        prp.timeSinceLastFloaty = 0;
+                                        gv.screenMainMap.addFloatyText(prp, chosenBarks[decider].FloatyTextOneLiner, chosenBarks[decider].Color, chosenBarks[decider].LengthOfTimeToShowInMilliSeconds);
+                                    }
 
                                 }
                             }
