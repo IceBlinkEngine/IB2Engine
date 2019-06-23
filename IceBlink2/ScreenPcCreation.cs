@@ -2046,15 +2046,18 @@ namespace IceBlink2
                             gv.screenTokenSelector.resetTokenSelector("pcCreation", pc);
                         }
 
-                        if (!gv.mod.useManualPointDistribution)
-                        {
-                            if (btnRollStats.getImpact(x, y))
+                        //if (!gv.mod.useManualPointDistribution)
+                        //{
+                            else if (btnRollStats.getImpact(x, y))
                             {
-                                gv.PlaySound("btn_click");
-                                reRollStats(pc);
+                                if (!gv.mod.useManualPointDistribution)
+                                {
+                                    gv.PlaySound("btn_click");
+                                    reRollStats(pc);
+                                }
                             }
                             
-                        }
+                        //}
                         else if (btnFinished.getImpact(x, y))
                         {
                             //hurghxxx

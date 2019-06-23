@@ -68,6 +68,16 @@ namespace IceBlink2
         //b. upon failure
         //messaging to log and as floaty
 
+        public int relocX = 0;
+        public int relocY = 0;
+
+        public string lastAreaFilenameOfProp = "none";
+        public bool isPausing = false;
+        public int pauseCounter = 0;
+
+        public bool skipNavigationThisTurn = false;
+
+        public float propMovingHalfSpeedMulti = 1;
         public float timeSinceLastFloaty = 0;
 
 
@@ -438,6 +448,13 @@ namespace IceBlink2
     	    Prop copy = new Prop();
 
             //TODO
+            copy.relocX = relocX;
+            copy.relocY = relocY;
+            copy.lastAreaFilenameOfProp = lastAreaFilenameOfProp;
+            copy.isPausing = isPausing;
+            copy.pauseCounter = pauseCounter;
+        copy.skipNavigationThisTurn = skipNavigationThisTurn;
+        copy.propMovingHalfSpeedMulti = propMovingHalfSpeedMulti;
         copy.timeSinceLastFloaty = timeSinceLastFloaty;
 
         copy.currentWalkingSpeed = currentWalkingSpeed;

@@ -371,12 +371,19 @@ namespace IceBlink2
         //MAIN SCREEN UPDATE
         public void Update(int elapsed)
         {
-            foreach (Prop p in gv.mod.currentArea.Props)
+            //to do: must be done for nearbys
+            //flöti
+            foreach (int i in gv.cc.getNearbyAreas())
             {
-                p.timeSinceLastFloaty += (elapsed/30f);
-                if (p.timeSinceLastFloaty > 100000)
+                foreach (Prop p in gv.mod.moduleAreasObjects[i].Props)
                 {
-                    p.timeSinceLastFloaty = 0;
+                    //foreach (Prop p in gv.mod.currentArea.Props)
+                    //{
+                    p.timeSinceLastFloaty += (elapsed / 30f);
+                    if (p.timeSinceLastFloaty > 100000)
+                    {
+                        p.timeSinceLastFloaty = 0;
+                    }
                 }
             }
             
@@ -387,7 +394,7 @@ namespace IceBlink2
                 {
                     if (gv.mod.isScrollingNow)
                     //if (gv.mod.scrollingTimer >= 0)
-                    {
+                    { 
                         doScrolling(elapsed);
                     }
                     else
@@ -1657,8 +1664,8 @@ namespace IceBlink2
             //0.8 for good measure
             //0.75 for slowly, nicely still
 
-            gv.mod.lastScrollStep = (7.5f * multi * gv.mod.scrollingSpeed * 1.0f * gv.mod.scrollModeSpeed * gv.mod.sprintModifier);
-            gv.mod.scrollingTimer = gv.mod.scrollingTimer - (7.5f * multi * gv.mod.scrollingSpeed * 1.0f * gv.mod.scrollModeSpeed * gv.mod.sprintModifier);
+            gv.mod.lastScrollStep = (0.7f *7.5f * multi * gv.mod.scrollingSpeed * 1.0f * gv.mod.scrollModeSpeed * gv.mod.sprintModifier);
+            gv.mod.scrollingTimer = gv.mod.scrollingTimer - (0.65f* 7.5f * multi * gv.mod.scrollingSpeed * 1.0f * gv.mod.scrollModeSpeed * gv.mod.sprintModifier);
             //gv.mod.distances.Add(gv.mod.scrollingTimer);
             //gv.mod.scrollingTimer = gv.mod.scrollingTimer - (7.5f * multi);
             //gv.mod.scrollingTimer -= 25f * multi;
@@ -29714,12 +29721,23 @@ namespace IceBlink2
                     {//3
                      //only for on-movers (the movers use drawMovingProps below)
                      //if ((p.isShown) && (!p.isMover) && (p.token != null))
+                     { 
                         bool nonTimeDriven = true;
                         if (p.MoverType == "daily" || p.MoverType == "weekly" || p.MoverType == "monthly" || p.MoverType == "yearly")
                         {
                             nonTimeDriven = false;
                         }
                         int indexOfLoadedTile = -1;
+                            
+                            if (!gv.mod.currentArea.Props.Contains(p))
+                            {
+                                if (p.isMover)
+                                {
+                                    nonTimeDriven = false;
+                                }
+                            }
+                            
+
                         if ((p.isShown) && (nonTimeDriven == true) && p.scriptFilename != "gaJumpChasm.cs")
                         {//hurghkarl
 
@@ -29876,15 +29894,19 @@ namespace IceBlink2
                             //XXXXXXXXXXXXXXXXXXXXXXXX
 
                             //distance check
-                            if ((p.LocationX >= gv.mod.PlayerLocationX - gv.playerOffsetX-3) && (p.LocationX <= gv.mod.PlayerLocationX + gv.playerOffsetX+1)
-                                && (p.LocationY >= gv.mod.PlayerLocationY - gv.playerOffsetY-3) && (p.LocationY <= gv.mod.PlayerLocationY + gv.playerOffsetY+1))
+                            if ((p.LocationX >= gv.mod.PlayerLocationX - gv.playerOffsetX - 3) && (p.LocationX <= gv.mod.PlayerLocationX + gv.playerOffsetX + 1)
+                                && (p.LocationY >= gv.mod.PlayerLocationY - gv.playerOffsetY - 3) && (p.LocationY <= gv.mod.PlayerLocationY + gv.playerOffsetY + 1))
                             {//5
                              //prop X - playerX
                              //get dst rct based on distance of prop to  palyer
                                 int x = ((p.LocationX - gv.mod.PlayerLocationX) * gv.squareSize) + (gv.playerOffsetX * gv.squareSize);
                                 int y = ((p.LocationY - gv.mod.PlayerLocationY) * gv.squareSize) + (gv.playerOffsetY * gv.squareSize);
                                 int dstW = (int)((((float)gv.mod.loadedTileBitmaps[indexOfLoadedTile].PixelSize.Width / (float)gv.squareSizeInPixels) * (float)gv.squareSize) * (p.sizeFactor / 100f));
-                                int dstH = (int)((((float)(gv.mod.loadedTileBitmaps[indexOfLoadedTile].PixelSize.Height / p.maxNumberOfFrames) / (float)gv.squareSizeInPixels) * (float)gv.squareSize) * (p. sizeFactor / 100f));
+                                int dstH = (int)((((float)(gv.mod.loadedTileBitmaps[indexOfLoadedTile].PixelSize.Height / p.maxNumberOfFrames) / (float)gv.squareSizeInPixels) * (float)gv.squareSize) * (p.sizeFactor / 100f));
+                                if (p.maxNumberOfFrames == 1 && p.isMover)
+                                {
+                                    dstH = (int)((((float)(100f) / (float)gv.squareSizeInPixels) * (float)gv.squareSize) * (p.sizeFactor / 100f));
+                                }
                                 int dstXshift = (dstW - gv.squareSize) / 2;
                                 int dstYshift = (dstH - gv.squareSize) / 2;
                                 int framePosition = p.currentFrameNumber;
@@ -30105,6 +30127,7 @@ namespace IceBlink2
 
                         }//4
                     }//3
+                }
 
 
                 }//2
@@ -32080,21 +32103,57 @@ namespace IceBlink2
         public void drawMovingProps(float elapsed)
         {
             if (gv.mod.useSmoothMovement == true)
-            { 
-                foreach (Prop p in gv.mod.currentArea.Props)
+            {
+                foreach (int i in gv.cc.getNearbyAreas())
                 {
+                    foreach (Prop p in gv.mod.moduleAreasObjects[i].Props)
+                    {
+                        //foreach (Prop p in gv.mod.currentArea.Props)
+                //{
                     if ((p.isShown) && (p.isMover) && (!p.isUnderBridge) && (p.token != null))
                     {
-                        if ((p.LocationX + 1 >= gv.mod.PlayerLocationX - gv.playerOffsetX) && (p.LocationX - 1 <= gv.mod.PlayerLocationX + gv.playerOffsetX)
-                            && (p.LocationY + 1 >= gv.mod.PlayerLocationY - gv.playerOffsetY) && (p.LocationY - 1 <= gv.mod.PlayerLocationY + gv.playerOffsetY))
+                        if ((p.relocX + 1 >= gv.mod.PlayerLocationX - gv.playerOffsetX) && (p.relocX - 1 <= gv.mod.PlayerLocationX + gv.playerOffsetX)
+                           && (p.relocY + 1 >= gv.mod.PlayerLocationY - gv.playerOffsetY) && (p.relocY - 1 <= gv.mod.PlayerLocationY + gv.playerOffsetY))
                         {
-                            //IbRect src = new IbRect(0, 0, p.token.PixelSize.Width, p.token.PixelSize.Width);
-                            //float xDimension = p.token.PixelSize.Width * p.sizeFactor;
-                            //float yDimension = p.propFrameHeight * p.sizeFactor;
-                            int framePosition = p.currentFrameNumber;
+
+
+                                //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX    
+                                try
+                                {
+                                    //insert1                        
+                                    bool tileBitmapIsLoadedAlready = false;
+                                    int indexOfLoadedTile = -1;
+                                    for (int j = 0; j < gv.mod.loadedTileBitmapsNames.Count; j++)
+                                    {
+                                        if ((gv.mod.loadedTileBitmapsNames[j] == p.ImageFileName) && (!gv.mod.loadedTileBitmaps[j].IsDisposed))
+                                        {
+                                            tileBitmapIsLoadedAlready = true;
+                                            indexOfLoadedTile = j;
+                                            p.token = gv.mod.loadedTileBitmaps[j];
+                                            break;
+                                        }
+                                    }
+
+                                    //gehörtdiewelt
+                                    //insert2
+                                    if (!tileBitmapIsLoadedAlready)
+                                    {
+                                        gv.mod.loadedTileBitmapsNames.Add(p.ImageFileName);
+                                        p.token = gv.cc.LoadBitmap(p.ImageFileName);
+                                        gv.mod.loadedTileBitmaps.Add(p.token);
+                                        indexOfLoadedTile = gv.mod.loadedTileBitmaps.Count - 1;
+                                    }
+                                }
+                                catch
+                                { }
+                                //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                                //IbRect src = new IbRect(0, 0, p.token.PixelSize.Width, p.token.PixelSize.Width);
+                                //float xDimension = p.token.PixelSize.Width * p.sizeFactor;
+                                //float yDimension = p.propFrameHeight * p.sizeFactor;
+                                int framePosition = p.currentFrameNumber;
                             //if (framePosition != 0)
                             //{
-                                //int ihi = 0;
+                            //int ihi = 0;
                             //}
                             if (p.inverseAnimationDirection)
                             {
@@ -32121,7 +32180,7 @@ namespace IceBlink2
                                         //210 calls
                                         //each
                                         //(7.5f * multi * gv.mod.scrollingSpeed * 1.0f * gv.mod.scrollModeSpeed * gv.mod.sprintModifier);
-                                        if (gv.mod.isScrollingNow || gv.a2Timer.Enabled || gv.aTimer.Enabled)
+                                        if ((gv.mod.isScrollingNow || gv.a2Timer.Enabled || gv.aTimer.Enabled) && !gv.mod.newPropMoveSystem)
                                         {
                                             float multi = elapsed / 45f;
                                             if (multi > 1.5f)
@@ -32129,13 +32188,13 @@ namespace IceBlink2
                                                 multi = 1.5f;
                                             }
                                             //aegh
-                                            p.currentPixelPositionY += 1f * (7.5f * multi * gv.mod.scrollingSpeed * 1.0f * gv.mod.scrollModeSpeed * gv.mod.sprintModifier) * (float)p.pixelMoveSpeed;
-                                            p.currentWalkingSpeed = 0.3f*(7.5f * multi * gv.mod.scrollingSpeed * 1.0f * gv.mod.scrollModeSpeed * gv.mod.sprintModifier) * (float)p.pixelMoveSpeed;
+                                            p.currentPixelPositionY += 0.7f * (7.5f * multi * gv.mod.scrollingSpeed * 1.0f * gv.mod.scrollModeSpeed * gv.mod.sprintModifier) * (float)p.pixelMoveSpeed * p.propMovingHalfSpeedMulti * 0.7f;
+                                            p.currentWalkingSpeed = 0.3f * (7.5f * multi * gv.mod.scrollingSpeed * 1.0f * gv.mod.scrollModeSpeed * gv.mod.sprintModifier) * (float)p.pixelMoveSpeed * p.propMovingHalfSpeedMulti;
                                         }
                                         else
                                         {
-                                            p.currentPixelPositionY += elapsed / 30f * ((float)gv.squareSize / ((float)gv.mod.realTimeTimerLengthInMilliSeconds * 0.03f)) * (float)p.pixelMoveSpeed * 0.9f;
-                                            p.currentWalkingSpeed = elapsed / 30f * ((float)gv.squareSize / ((float)gv.mod.realTimeTimerLengthInMilliSeconds * 0.03f)) * (float)p.pixelMoveSpeed * 0.9f;
+                                            p.currentPixelPositionY += elapsed / 30f * ((float)gv.squareSize / ((float)gv.mod.realTimeTimerLengthInMilliSeconds * 0.03f)) * (float)p.pixelMoveSpeed * 0.9f * p.propMovingHalfSpeedMulti;
+                                            p.currentWalkingSpeed = elapsed / 30f * ((float)gv.squareSize / ((float)gv.mod.realTimeTimerLengthInMilliSeconds * 0.03f)) * (float)p.pixelMoveSpeed * 0.9f * p.propMovingHalfSpeedMulti;
                                         }
                                         if (p.currentPixelPositionY >= p.destinationPixelPositionYList[0])
                                         {
@@ -32148,21 +32207,21 @@ namespace IceBlink2
                                     else
                                     {
                                         //p.currentPixelPositionY -= (gv.floatPixMovedPerTick * p.pixelMoveSpeed);
-                                        if (gv.mod.isScrollingNow || gv.a2Timer.Enabled || gv.aTimer.Enabled)
+                                        if ((gv.mod.isScrollingNow || gv.a2Timer.Enabled || gv.aTimer.Enabled) && !gv.mod.newPropMoveSystem)
                                         {
                                             float multi = elapsed / 45f;
                                             if (multi > 1.5f)
                                             {
                                                 multi = 1.5f;
                                             }
-                                            p.currentPixelPositionY -= 1f * (7.5f * multi * gv.mod.scrollingSpeed * 1.0f * gv.mod.scrollModeSpeed * gv.mod.sprintModifier) * (float)p.pixelMoveSpeed;
-                                            p.currentWalkingSpeed = 0.3f*(7.5f * multi * gv.mod.scrollingSpeed * 1.0f * gv.mod.scrollModeSpeed * gv.mod.sprintModifier) * (float)p.pixelMoveSpeed;
+                                            p.currentPixelPositionY -= 0.7f * 1f * (7.5f * multi * gv.mod.scrollingSpeed * 1.0f * gv.mod.scrollModeSpeed * gv.mod.sprintModifier) * (float)p.pixelMoveSpeed * p.propMovingHalfSpeedMulti * 0.7f;
+                                            p.currentWalkingSpeed = 0.3f * (7.5f * multi * gv.mod.scrollingSpeed * 1.0f * gv.mod.scrollModeSpeed * gv.mod.sprintModifier) * (float)p.pixelMoveSpeed * p.propMovingHalfSpeedMulti;
 
                                         }
                                         else
                                         {
-                                            p.currentPixelPositionY -= elapsed / 30f * ((float)gv.squareSize / ((float)gv.mod.realTimeTimerLengthInMilliSeconds * 0.03f)) * (float)p.pixelMoveSpeed * 0.9f;
-                                            p.currentWalkingSpeed = elapsed / 30f * ((float)gv.squareSize / ((float)gv.mod.realTimeTimerLengthInMilliSeconds * 0.03f)) * (float)p.pixelMoveSpeed * 0.9f;
+                                            p.currentPixelPositionY -= elapsed / 30f * ((float)gv.squareSize / ((float)gv.mod.realTimeTimerLengthInMilliSeconds * 0.03f)) * (float)p.pixelMoveSpeed * 0.9f * p.propMovingHalfSpeedMulti;
+                                            p.currentWalkingSpeed = elapsed / 30f * ((float)gv.squareSize / ((float)gv.mod.realTimeTimerLengthInMilliSeconds * 0.03f)) * (float)p.pixelMoveSpeed * 0.9f * p.propMovingHalfSpeedMulti;
                                         }
                                         if (p.currentPixelPositionY <= p.destinationPixelPositionYList[0])
                                         {
@@ -32175,73 +32234,74 @@ namespace IceBlink2
                                 }
                                 else if ((p.destinationPixelPositionYList[0] >= (p.currentPixelPositionY - 0)) && (p.destinationPixelPositionYList[0] <= (p.currentPixelPositionY + 0)))
                                 {
+
+                                    if (p.destinationPixelPositionXList[0] > p.currentPixelPositionX)
                                     {
-                                        if (p.destinationPixelPositionXList[0] > p.currentPixelPositionX)
+                                        //p.currentPixelPositionX += (gv.floatPixMovedPerTick * p.pixelMoveSpeed);
+                                        if ((gv.mod.isScrollingNow || gv.a2Timer.Enabled || gv.aTimer.Enabled) && !gv.mod.newPropMoveSystem)
                                         {
-                                            //p.currentPixelPositionX += (gv.floatPixMovedPerTick * p.pixelMoveSpeed);
-                                            if (gv.mod.isScrollingNow || gv.a2Timer.Enabled || gv.aTimer.Enabled)
+                                            float multi = elapsed / 45f;
+                                            if (multi > 1.5f)
                                             {
-                                                float multi = elapsed / 45f;
-                                                if (multi > 1.5f)
-                                                {
-                                                    multi = 1.5f;
-                                                }
-                                                p.currentPixelPositionX += 1f * (7.5f * multi * gv.mod.scrollingSpeed * 1.0f * gv.mod.scrollModeSpeed * gv.mod.sprintModifier) * (float)p.pixelMoveSpeed * 0.7f;
-                                                p.currentWalkingSpeed = 0.3f*(7.5f * multi * gv.mod.scrollingSpeed * 1.0f * gv.mod.scrollModeSpeed * gv.mod.sprintModifier) * (float)p.pixelMoveSpeed * 0.7f;
+                                                multi = 1.5f;
                                             }
-                                            else
-                                            {
-                                                p.currentPixelPositionX += elapsed / 30f * ((float)gv.squareSize / ((float)gv.mod.realTimeTimerLengthInMilliSeconds * 0.03f)) * (float)p.pixelMoveSpeed * 0.9f;
-                                                p.currentWalkingSpeed = elapsed / 30f * ((float)gv.squareSize / ((float)gv.mod.realTimeTimerLengthInMilliSeconds * 0.03f)) * (float)p.pixelMoveSpeed * 0.9f;
-                                            }
-                                                //wolfwood
-                                            //p.isCurrentlyScrolling = true;
-                                            if (p.currentPixelPositionX >= p.destinationPixelPositionXList[0])
-                                            {
-                                                //wolfwood
-                                                //p.isCurrentlyScrolling = false;
-                                                p.currentPixelPositionX = p.destinationPixelPositionXList[0];
-                                                p.destinationPixelPositionXList.RemoveAt(0);
-                                                p.destinationPixelPositionYList.RemoveAt(0);
-                                            }
+                                            p.currentPixelPositionX += 0.7f * 1f * (7.5f * multi * gv.mod.scrollingSpeed * 1.0f * gv.mod.scrollModeSpeed * gv.mod.sprintModifier) * (float)p.pixelMoveSpeed * 0.7f * p.propMovingHalfSpeedMulti;
+                                            p.currentWalkingSpeed = 0.3f * (7.5f * multi * gv.mod.scrollingSpeed * 1.0f * gv.mod.scrollModeSpeed * gv.mod.sprintModifier) * (float)p.pixelMoveSpeed * 0.7f * p.propMovingHalfSpeedMulti;
                                         }
                                         else
                                         {
-                                            //p.currentPixelPositionX -= (gv.floatPixMovedPerTick * p.pixelMoveSpeed);
-                                            if (gv.mod.isScrollingNow || gv.a2Timer.Enabled || gv.aTimer.Enabled)
-                                            {
-                                                float multi = elapsed / 45f;
-                                                if (multi > 1.5f)
-                                                {
-                                                    multi = 1.5f;
-                                                }
-                                                p.currentPixelPositionX -= 1f*(7.5f * multi * gv.mod.scrollingSpeed * 1.0f * gv.mod.scrollModeSpeed * gv.mod.sprintModifier) * (float)p.pixelMoveSpeed * 0.7f;
-                                                p.currentWalkingSpeed = 0.3f*(7.5f * multi * gv.mod.scrollingSpeed * 1.0f * gv.mod.scrollModeSpeed * gv.mod.sprintModifier) * (float)p.pixelMoveSpeed * 0.7f;
-                                            }
-                                            else
-                                            {
-                                                p.currentPixelPositionX -= elapsed / 30f * ((float)gv.squareSize / ((float)gv.mod.realTimeTimerLengthInMilliSeconds * 0.03f)) * (float)p.pixelMoveSpeed * 0.9f;
-                                                p.currentWalkingSpeed = elapsed / 30f * ((float)gv.squareSize / ((float)gv.mod.realTimeTimerLengthInMilliSeconds * 0.03f)) * (float)p.pixelMoveSpeed * 0.9f;
-                                            }
-                                                //wolfwood
-                                            //p.isCurrentlyScrolling = true;
-                                            if (p.currentPixelPositionX <= p.destinationPixelPositionXList[0])
-                                            {
-                                                //wolfwood
-                                                //p.isCurrentlyScrolling = false;
-                                                p.currentPixelPositionX = p.destinationPixelPositionXList[0];
-                                                p.destinationPixelPositionXList.RemoveAt(0);
-                                                p.destinationPixelPositionYList.RemoveAt(0);
-                                            }
+                                            p.currentPixelPositionX += elapsed / 30f * ((float)gv.squareSize / ((float)gv.mod.realTimeTimerLengthInMilliSeconds * 0.03f)) * (float)p.pixelMoveSpeed * 0.9f * p.propMovingHalfSpeedMulti;
+                                            p.currentWalkingSpeed = elapsed / 30f * ((float)gv.squareSize / ((float)gv.mod.realTimeTimerLengthInMilliSeconds * 0.03f)) * (float)p.pixelMoveSpeed * 0.9f * p.propMovingHalfSpeedMulti;
+                                        }
+                                        //wolfwood
+                                        //p.isCurrentlyScrolling = true;
+                                        if (p.currentPixelPositionX >= p.destinationPixelPositionXList[0])
+                                        {
+                                            //wolfwood
+                                            //p.isCurrentlyScrolling = false;
+                                            p.currentPixelPositionX = p.destinationPixelPositionXList[0];
+                                            p.destinationPixelPositionXList.RemoveAt(0);
+                                            p.destinationPixelPositionYList.RemoveAt(0);
                                         }
                                     }
+                                    else
+                                    {
+                                        //p.currentPixelPositionX -= (gv.floatPixMovedPerTick * p.pixelMoveSpeed);
+                                        if ((gv.mod.isScrollingNow || gv.a2Timer.Enabled || gv.aTimer.Enabled) && !gv.mod.newPropMoveSystem)
+                                        {
+                                            float multi = elapsed / 45f;
+                                            if (multi > 1.5f)
+                                            {
+                                                multi = 1.5f;
+                                            }
+                                            p.currentPixelPositionX -= 0.7f * 1f * (7.5f * multi * gv.mod.scrollingSpeed * 1.0f * gv.mod.scrollModeSpeed * gv.mod.sprintModifier) * (float)p.pixelMoveSpeed * 0.7f * p.propMovingHalfSpeedMulti;
+                                            p.currentWalkingSpeed = 0.3f * (7.5f * multi * gv.mod.scrollingSpeed * 1.0f * gv.mod.scrollModeSpeed * gv.mod.sprintModifier) * (float)p.pixelMoveSpeed * 0.7f * p.propMovingHalfSpeedMulti;
+                                        }
+                                        else
+                                        {
+                                            p.currentPixelPositionX -= elapsed / 30f * ((float)gv.squareSize / ((float)gv.mod.realTimeTimerLengthInMilliSeconds * 0.03f)) * (float)p.pixelMoveSpeed * 0.9f * p.propMovingHalfSpeedMulti;
+                                            p.currentWalkingSpeed = elapsed / 30f * ((float)gv.squareSize / ((float)gv.mod.realTimeTimerLengthInMilliSeconds * 0.03f)) * (float)p.pixelMoveSpeed * 0.9f * p.propMovingHalfSpeedMulti;
+                                        }
+                                        //wolfwood
+                                        //p.isCurrentlyScrolling = true;
+                                        if (p.currentPixelPositionX <= p.destinationPixelPositionXList[0])
+                                        {
+                                            //wolfwood
+                                            //p.isCurrentlyScrolling = false;
+                                            p.currentPixelPositionX = p.destinationPixelPositionXList[0];
+                                            p.destinationPixelPositionXList.RemoveAt(0);
+                                            p.destinationPixelPositionYList.RemoveAt(0);
+                                        }
+                                    }
+
                                 }
 
                             }//end, set dst
 
                             int playerPositionXInPix = 0;
                             int playerPositionYInPix = 0;
-
+                            //wolfwood4
+                            /*
                             if (p.destinationPixelPositionXList.Count <= 0)
                             {
                                 p.destinationPixelPositionXList.Clear();
@@ -32258,7 +32318,7 @@ namespace IceBlink2
                                 p.currentPixelPositionX = playerPositionXInPix + (xOffSetInSquares * gv.squareSize);
                                 p.currentPixelPositionY = playerPositionYInPix + (yOffSetInSquares * gv.squareSize);
                             }
-
+                            */
 
                             playerPositionXInPix = gv.oXshift + gv.screenMainMap.mapStartLocXinPixels + (gv.playerOffsetX * gv.squareSize);
                             playerPositionYInPix = gv.playerOffsetY * gv.squareSize + gv.oYshift;
@@ -32406,7 +32466,7 @@ namespace IceBlink2
                                                 p.currentWalkingSpeed = elapsed / 30f * ((float)gv.squareSize / ((float)gv.mod.realTimeTimerLengthInMilliSeconds * 0.03f)) * (float)p.pixelMoveSpeed * 0.9f;
                                             }
                                      */
-                                     //härter
+                                    //härter
                                     p.roamDistanceX += (randX);
                                     p.roamDistanceY += (randY);
                                     if ((randX != 0 || randY != 0) && (!gv.mod.isScrollingNow && !gv.a2Timer.Enabled && !gv.aTimer.Enabled))
@@ -32470,19 +32530,19 @@ namespace IceBlink2
                                     if ((p.LocationX - 1) > 0)
                                     {
                                         //west not walkable             
-                                        if (!gv.mod.currentArea.Tiles[(p.LocationY) * gv.mod.currentArea.MapSizeX + (p.LocationX-1)].Walkable)
+                                        if (!gv.mod.currentArea.Tiles[(p.LocationY) * gv.mod.currentArea.MapSizeX + (p.LocationX - 1)].Walkable)
                                         {
                                             p.roamDistanceX = 0;
                                         }
 
                                         //west has different height
-                                        else if (gv.mod.currentArea.Tiles[(p.LocationY) * gv.mod.currentArea.MapSizeX + (p.LocationX-1)].heightLevel != gv.mod.currentArea.Tiles[(p.LocationY) * gv.mod.currentArea.MapSizeX + p.LocationX].heightLevel)
+                                        else if (gv.mod.currentArea.Tiles[(p.LocationY) * gv.mod.currentArea.MapSizeX + (p.LocationX - 1)].heightLevel != gv.mod.currentArea.Tiles[(p.LocationY) * gv.mod.currentArea.MapSizeX + p.LocationX].heightLevel)
                                         {
                                             p.roamDistanceX = 0;
                                         }
 
                                         //party is west of prop
-                                        else if ((p.LocationX-1) == gv.mod.PlayerLocationX && (p.LocationY) == (gv.mod.PlayerLocationY))
+                                        else if ((p.LocationX - 1) == gv.mod.PlayerLocationX && (p.LocationY) == (gv.mod.PlayerLocationY))
                                         {
                                             p.roamDistanceX = 0;
                                         }
@@ -32492,7 +32552,7 @@ namespace IceBlink2
                                         {
                                             foreach (Prop Obstacle in gv.mod.currentArea.Props)
                                             {
-                                                if ((p.LocationY) == Obstacle.LocationY && (p.LocationX-1) == Obstacle.LocationX)
+                                                if ((p.LocationY) == Obstacle.LocationY && (p.LocationX - 1) == Obstacle.LocationX)
                                                 {
                                                     p.roamDistanceX = 0;
                                                     break;
@@ -32558,7 +32618,7 @@ namespace IceBlink2
                                         }
 
                                         //party is east of prop
-                                        else if ((p.LocationX+1) == gv.mod.PlayerLocationX && (p.LocationY) == (gv.mod.PlayerLocationY ))
+                                        else if ((p.LocationX + 1) == gv.mod.PlayerLocationX && (p.LocationY) == (gv.mod.PlayerLocationY))
                                         {
                                             p.roamDistanceX = 0;
                                         }
@@ -32588,15 +32648,15 @@ namespace IceBlink2
                                 {
                                     //dst = new IbRect((int)p.currentPixelPositionX + (int)(gv.squareSize * 3 / 8) - dstXshift + (int)p.roamDistanceX, (int)p.currentPixelPositionY + (int)(gv.squareSize * 3 / 8) - dstYshift + +(int)p.roamDistanceY, (int)(dstW / 4), (int)(dstH / 4));
                                     //dst = new IbRect(x + (int)(gv.squareSize * 5 / 8) - dstXshift - (int)(((dstW / 4) * 0.375f)), y + (int)(gv.squareSize * 3 / 8) - dstYshift - (int)(((dstH / 4) * 0.375f)), (int)((dstW / 4) * 1.75f), (int)((dstH / 4) * 1.75f));
-                                    dst = new IbRect((int)p.currentPixelPositionX + (int)(gv.squareSize * 3 / 8) - dstXshift + (int)p.roamDistanceX - (int)(((dstW / 4) * 0.3375f)), (int)p.currentPixelPositionY + (int)(gv.squareSize * 3 / 8) - dstYshift + +(int)p.roamDistanceY - (int)(((dstH / 4) * 0.3375f)), (int)((dstW / 4)*1.675f), (int)((dstH / 4)*1.675f));
+                                    dst = new IbRect((int)p.currentPixelPositionX + (int)(gv.squareSize * 3 / 8) - dstXshift + (int)p.roamDistanceX - (int)(((dstW / 4) * 0.3375f)), (int)p.currentPixelPositionY + (int)(gv.squareSize * 3 / 8) - dstYshift + +(int)p.roamDistanceY - (int)(((dstH / 4) * 0.3375f)), (int)((dstW / 4) * 1.675f), (int)((dstH / 4) * 1.675f));
 
                                 }
                                 else if (gv.mod.currentArea.useMiniProps && !p.alwaysDrawNormalSize)
                                 {
-                                    dst = new IbRect((int)p.currentPixelPositionX + (int)(gv.squareSize / 4) - dstXshift + (int)p.roamDistanceX - (int)(((dstW / 2) * 0.15f)), (int)p.currentPixelPositionY + (int)(gv.squareSize / 4) - dstYshift + (int)p.roamDistanceY - (int)(((dstH / 2) * 0.15f)), (int)((dstW / 2)*1.3f), (int)((dstH / 2)*1.3f));
+                                    dst = new IbRect((int)p.currentPixelPositionX + (int)(gv.squareSize / 4) - dstXshift + (int)p.roamDistanceX - (int)(((dstW / 2) * 0.15f)), (int)p.currentPixelPositionY + (int)(gv.squareSize / 4) - dstYshift + (int)p.roamDistanceY - (int)(((dstH / 2) * 0.15f)), (int)((dstW / 2) * 1.3f), (int)((dstH / 2) * 1.3f));
                                 }
 
-                                if ( ((p.maxNumberOfFrames == 1) || (p.drawAnimatedProp)) && !p.isStealthed && !p.wasKilled)
+                                if (((p.maxNumberOfFrames == 1) || (p.drawAnimatedProp)) && !p.isStealthed && !p.wasKilled)
                                 {
                                     gv.DrawBitmap(p.token, src, dst, !p.PropFacingLeft, p.opacity);
                                 }
@@ -32661,7 +32721,7 @@ namespace IceBlink2
                                         IbRect dstSkull = new IbRect();
                                         dstSkull.Height = (int)(dst.Height / 3 * 2.0f);
                                         dstSkull.Width = (int)(dst.Width / 3 * 2.0f);
-                                        dstSkull.Left = dst.Left - 2*(int)(dst.Height / 3);
+                                        dstSkull.Left = dst.Left - 2 * (int)(dst.Height / 3);
                                         dstSkull.Top = dst.Top - (int)(dst.Height / 3);
                                         shift = (int)((i2 + 0.5f) * (dst.Width / 3f)); dstSkull.Left += shift;
                                         //großvater
@@ -32772,6 +32832,7 @@ namespace IceBlink2
                         }
                     }
                 }
+            }
                 for (int i = 0; i < gv.mod.currentArea.Tiles.Count; i++)
                 {
 
@@ -34108,7 +34169,11 @@ namespace IceBlink2
                         }
                     }
                 }
-
+                float sprintMod = 1;
+                if (gv.mod.sprintModifier > 1)
+                {
+                    sprintMod = 0.8f * gv.mod.sprintModifier;
+                }
                 if ((gv.mod.justTransitioned == false && !hideUnderBridge && !propOnTail) || drawBecauseSteppedOnNeighbour)
                 {
                     if ((showFullParty) && (gv.mod.playerList.Count > 1) && gv.mod.drawPartyDirection != "none")
@@ -34450,6 +34515,7 @@ namespace IceBlink2
                                     //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
                                     src = new IbRect(0, 0, p.token.PixelSize.Width, p.token.PixelSize.Width);
 
+                                   
                                     //todo!
                                     if (drawCounter == 0)
                                     {
@@ -34462,7 +34528,7 @@ namespace IceBlink2
 
                                             if (p.token.PixelSize.Height >= 300)
                                             {
-                                                gv.mod.walkAnimationDelayCounter0 += (1f * elapsed / 30f * ((gv.mod.scrollModeSpeed * gv.mod.sprintModifier) / 0.5f));
+                                                gv.mod.walkAnimationDelayCounter0 += (0.9f * elapsed / 30f * ((gv.mod.scrollModeSpeed * sprintMod) / 0.5f));
                                                 if (gv.mod.walkAnimationDelayCounter0 >= 5f)
                                                 {
                                                     //osgosg
@@ -34592,7 +34658,7 @@ namespace IceBlink2
 
                                             if (p.token.PixelSize.Height >= 300)
                                             {
-                                                gv.mod.walkAnimationDelayCounter1 += (1f * elapsed / 30f * ((gv.mod.scrollModeSpeed * gv.mod.sprintModifier) / 0.5f));
+                                                gv.mod.walkAnimationDelayCounter1 += (0.9f * elapsed / 30f * ((gv.mod.scrollModeSpeed * sprintMod) / 0.5f));
                                                 if (gv.mod.walkAnimationDelayCounter1 >= 5f)
                                                 {
                                                     //osgosg
@@ -34722,7 +34788,7 @@ namespace IceBlink2
 
                                             if (p.token.PixelSize.Height >= 300)
                                             {
-                                                gv.mod.walkAnimationDelayCounter2 += (1f * elapsed / 30f * ((gv.mod.scrollModeSpeed * gv.mod.sprintModifier) / 0.5f));
+                                                gv.mod.walkAnimationDelayCounter2 += (0.9f * elapsed / 30f * ((gv.mod.scrollModeSpeed * sprintMod) / 0.5f));
                                                 if (gv.mod.walkAnimationDelayCounter2 >= 5f)
                                                 {
                                                     //osgosg
@@ -34852,7 +34918,7 @@ namespace IceBlink2
 
                                             if (p.token.PixelSize.Height >= 300)
                                             {
-                                                gv.mod.walkAnimationDelayCounter3 += (1f * elapsed / 30f * ((gv.mod.scrollModeSpeed * gv.mod.sprintModifier) / 0.5f));
+                                                gv.mod.walkAnimationDelayCounter3 += (0.9f * elapsed / 30f * ((gv.mod.scrollModeSpeed * sprintMod) / 0.5f));
                                                 if (gv.mod.walkAnimationDelayCounter3 >= 5f)
                                                 {
                                                     //osgosg
@@ -34983,7 +35049,7 @@ namespace IceBlink2
 
                                         if (p.token.PixelSize.Height >= 300)
                                         {
-                                            gv.mod.walkAnimationDelayCounter4 += (1f * elapsed / 30f * ((gv.mod.scrollModeSpeed * gv.mod.sprintModifier) / 0.5f));
+                                            gv.mod.walkAnimationDelayCounter4 += (0.9f * elapsed / 30f * ((gv.mod.scrollModeSpeed * sprintMod) / 0.5f));
                                             if (gv.mod.walkAnimationDelayCounter4 >= 5f)
                                             {
                                                 //osgosg
@@ -35113,7 +35179,7 @@ namespace IceBlink2
 
                                             if (p.token.PixelSize.Height >= 300)
                                             {
-                                                gv.mod.walkAnimationDelayCounter5 += (1f * elapsed / 30f * ((gv.mod.scrollModeSpeed * gv.mod.sprintModifier) / 0.5f));
+                                                gv.mod.walkAnimationDelayCounter5 += (0.9f * elapsed / 30f * ((gv.mod.scrollModeSpeed * sprintMod) / 0.5f));
                                                 if (gv.mod.walkAnimationDelayCounter5 >= 5f)
                                                 {
                                                     //osgosg
@@ -35360,7 +35426,9 @@ namespace IceBlink2
 
                         if (gv.mod.playerList[gv.mod.selectedPartyLeader].token.PixelSize.Height >= 300)
                         {
-                            gv.mod.walkAnimationDelayCounter += (1f* elapsed/30f * ((gv.mod.scrollModeSpeed* gv.mod.sprintModifier)/0.5f));
+                             
+                        
+                            gv.mod.walkAnimationDelayCounter += (0.9f* elapsed/30f * ((gv.mod.scrollModeSpeed* sprintMod)/0.5f));
                             if (gv.mod.walkAnimationDelayCounter >= 5f)
                             {
                                 //osgosg
@@ -39818,7 +39886,7 @@ namespace IceBlink2
                     int SquareThatPixIsOnY = gv.mod.PlayerLocationY + ConvertedToSquareDistanceY;
 
 
-                    if (gv.cc.getDistance(new Coordinate (SquareThatPixIsOnX, SquareThatPixIsOnY), new Coordinate(gv.mod.PlayerLastLocationX, gv.mod.PlayerLocationY)) > 5)
+                    if (gv.cc.getDistance(new Coordinate (SquareThatPixIsOnX, SquareThatPixIsOnY), new Coordinate(gv.mod.PlayerLocationX, gv.mod.PlayerLocationY)) > 7)
                     {
                         continue; //out of range from view so skip drawing floaty message
                     }
@@ -41136,8 +41204,8 @@ namespace IceBlink2
                                             //prop at default (-2 til +2); Double:15% , None:15%
                                             if (relativeSpeed <= 2 && relativeSpeed >= -2)
                                             {
-                                                Move0Chance = 15;
-                                                Move2Chance = 15;
+                                                Move0Chance = 10;
+                                                Move2Chance = 10;
                                             }
                                             //prop is slow (+3 til +7); Double:10% , None:30%
                                             if (relativeSpeed <= 7 && relativeSpeed >= 3)
@@ -41166,7 +41234,7 @@ namespace IceBlink2
                                             //Move0Chance = 40;
                                             //Move2Chance = 0;
 
-                                            gv.cc.floatyText4 = "Slow, 0:40%, 2:0%";
+                                            gv.cc.floatyText4 = "Slow, 0:15%, 2:0%";
                                         }
                                         gv.cc.floatyTextLoc = new Coordinate(gridx * gv.squareSize, (int)((gridy - 1) * gv.squareSize));
                                     }
@@ -41741,19 +41809,19 @@ namespace IceBlink2
                                                     //prop is slow (+3 til +7); Double:10% , None:30%
                                                     if (relativeSpeed <= 7 && relativeSpeed >= 3)
                                                     {
-                                                        Move0Chance = 30;
-                                                        Move2Chance = 10;
+                                                        Move0Chance = 15;
+                                                        Move2Chance = 5;
                                                     }
                                                     //prop is very slow (+8 til +12); Double:5% , None:50%
                                                     if (relativeSpeed <= 12 && relativeSpeed >= 8)
                                                     {
-                                                        Move0Chance = 50;
-                                                        Move2Chance = 5;
+                                                        Move0Chance = 20;
+                                                        Move2Chance = 0;
                                                     }
                                                     //prop is almost standing (>= +13); Double:0% , None:75%
                                                     if (relativeSpeed >= 13)
                                                     {
-                                                        Move0Chance = 75;
+                                                        Move0Chance = 30;
                                                         Move2Chance = 0;
                                                     }
 

@@ -2722,7 +2722,7 @@ namespace IceBlink2
             {
                 if (e.KeyCode == Keys.ShiftKey)
                 {
-                    mod.sprintModifier = 2.0f;
+                    mod.sprintModifier = 1.75f;
                 }
 
                 if ((e.KeyCode == Keys.Up && this.screenMainMap.showMoveKeys && !mod.blockUpKey) || (e.KeyCode == Keys.W && !this.screenMainMap.showMoveKeys && !mod.blockUpKey) || ((e.KeyCode == Keys.NumPad8) && !mod.blockUpKey))

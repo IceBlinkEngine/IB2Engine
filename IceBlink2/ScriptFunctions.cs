@@ -8430,7 +8430,140 @@ namespace IceBlink2
 
                     else if (filename.Equals("osSetPropLocationAnyArea.cs"))
                     {
+                        //todo: root code for having time driven props scroll "between" areas smoothly here? MAyhaps iwth the pixeldisatnces?
+                        /*
+                         //careful, watch for infinite loop, recursive calling here
+                                prp.LocationX = newCoor.X;
+                                prp.LocationY = newCoor.Y;
+
+                                int xOffSetInSquares = 0;
+                                int yOffSetInSquares = 0;
+                                if (gv.mod.PlayerLocationX >= prp.LocationX)
+                                {
+                                    xOffSetInSquares = prp.relocX - gv.mod.PlayerLocationX;
+                                }
+                                else
+                                {
+                                    xOffSetInSquares = prp.relocX - gv.mod.PlayerLocationX;
+                                }
+                                if (gv.mod.PlayerLocationY >= prp.LocationY)
+                                {
+                                    yOffSetInSquares = prp.relocY - gv.mod.PlayerLocationY;
+                                }
+                                else
+                                {
+                                    yOffSetInSquares = prp.relocY - gv.mod.PlayerLocationY;
+                                }
+                                int playerPositionXInPix = gv.oXshift + gv.screenMainMap.mapStartLocXinPixels + (gv.playerOffsetX * gv.squareSize);
+                                int playerPositionYInPix = gv.playerOffsetY * gv.squareSize;
+                                
+                          if ((xOffSetInSquares <= 14) && (xOffSetInSquares >= -14) && (yOffSetInSquares <= 8) && (yOffSetInSquares >= -8))
+                                {
+                                    prp.destinationPixelPositionXList.Add(playerPositionXInPix + (xOffSetInSquares * gv.squareSize));
+                                    prp.destinationPixelPositionYList.Add(playerPositionYInPix + (yOffSetInSquares * gv.squareSize));
+                                }
+                         */
+
+                        //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                        //clear the lists with pixel destination coordinates of props
+                        /*
+                        a.Props[i].destinationPixelPositionXList.Clear();
+                        a.Props[i].destinationPixelPositionXList = new List<int>();
+                        a.Props[i].destinationPixelPositionYList.Clear();
+                        a.Props[i].destinationPixelPositionYList = new List<int>();
+                        a.Props[i].pixelMoveSpeed = 1;
+
+                        //we need to use modified x and y posiitons
+                        int modX = 0;
+                        int modY = 0;
+
+                        if (a.Filename == gv.mod.currentArea.northernNeighbourArea)
+                        {
+                            modX = a.Props[i].LocationX;
+                            //modY = a.Props[i].LocationY - (gv.mod.currentArea.MapSizeY - gv.mod.PlayerLocationY);
+                            //modY = a.Props[i].LocationY - (gv.mod.currentArea.MapSizeY - gv.mod.PlayerLocationY);
+                            modY = a.Props[i].LocationY - a.MapSizeY;
+                        }
+
+                        if (a.Filename == gv.mod.currentArea.southernNeighbourArea)
+                        {
+                            modX = a.Props[i].LocationX;
+                            modY = a.Props[i].LocationY + a.MapSizeY;
+                        }
+
+                        if (a.Filename == gv.mod.currentArea.westernNeighbourArea)
+                        {
+                            modY = a.Props[i].LocationY;
+                            //modY = a.Props[i].LocationY - (gv.mod.currentArea.MapSizeY - gv.mod.PlayerLocationY);
+                            //modY = a.Props[i].LocationY - (gv.mod.currentArea.MapSizeY - gv.mod.PlayerLocationY);
+                            modX = a.Props[i].LocationX - a.MapSizeX;
+                        }
+
+                        if (a.Filename == gv.mod.currentArea.easternNeighbourArea)
+                        {
+                            modY = a.Props[i].LocationY;
+                            modX = a.Props[i].LocationX + a.MapSizeX;
+                        }
+
+                        //a.Props[i].LocationY
+                        //set the currentPixel position of the props
+                        int xOffSetInSquares = modX - gv.mod.PlayerLocationX;
+                        int yOffSetInSquares = modY - gv.mod.PlayerLocationY;
+                        int playerPositionXInPix = gv.oXshift + gv.screenMainMap.mapStartLocXinPixels + (gv.playerOffsetX * gv.squareSize);
+                        int playerPositionYInPix = gv.playerOffsetY * gv.squareSize;
+
+                        a.Props[i].currentPixelPositionX = playerPositionXInPix + (xOffSetInSquares * gv.squareSize);
+                        a.Props[i].currentPixelPositionY = playerPositionYInPix + (yOffSetInSquares * gv.squareSize);
+                        */
+                        //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+
+                        //p1 is prop tag
+                        //p2 is filename of target area
+                        //p3 is location x
+                        //p4 is location y
+
                         Prop prp = GetPropByUniqueTag(p1);
+                        float oldPixPosX = prp.currentPixelPositionX;
+                        float oldPixPosY = prp.currentPixelPositionY;
+
+                        string oldArea = "none";
+                        int oldAreaSizeX = 0;
+                        int oldAreaSizeY = 0;
+                        int newAreaSizeX = 0;
+                        int newAreaSizeY = 0;
+
+                        foreach (Area a in gv.mod.moduleAreasObjects)
+                        {
+                            if (a.Props.Contains(prp))
+                            {
+                                oldArea = a.Filename;
+                                oldAreaSizeX = a.MapSizeX;
+                                oldAreaSizeY = a.MapSizeY;
+                                break;
+                            }
+                        }
+
+                        foreach (Area a in gv.mod.moduleAreasObjects)
+                        {
+                            if (a.Filename == p2)
+                            {
+                                newAreaSizeX = a.MapSizeX;
+                                newAreaSizeY = a.MapSizeY;
+                            }
+                        }
+
+                                bool isBetweenNearbysMover = false;
+
+                        if (gv.mod.currentArea.northernNeighbourArea == oldArea || gv.mod.currentArea.easternNeighbourArea == oldArea || gv.mod.currentArea.southernNeighbourArea == oldArea || gv.mod.currentArea.westernNeighbourArea == oldArea)
+                        {
+                            if (gv.mod.isBreathingWorld)
+                            {
+                                isBetweenNearbysMover = true;
+                            }
+                        }
+                        //sort out whether the target area is neigbhour of teh area that teh prop comes from
+
+                        //Prop prp = GetPropByUniqueTag(p1);
                         int added = 0;
                         if (prp == null)
                         {
@@ -8446,6 +8579,66 @@ namespace IceBlink2
                             prp2.LocationY = Convert.ToInt32(p4);
                             gv.cc.DisposeOfBitmap(ref prp2.token);
                             prp2.token = gv.cc.LoadBitmap(prp.ImageFileName);
+                            if (isBetweenNearbysMover)
+                            {
+                                //wolfwood12
+                                //clear current pix destinations / positions
+                                prp2.destinationPixelPositionXList.Clear();
+                                prp2.destinationPixelPositionXList = new List<int>();
+                                prp2.destinationPixelPositionYList.Clear();
+                                prp2.destinationPixelPositionYList = new List<int>();
+                                //a.Props[i].pixelMoveSpeed = 1;
+
+
+                                prp2.currentPixelPositionX = oldPixPosX;
+                                prp2.currentPixelPositionY = oldPixPosY;
+                               
+                                
+                                //we need to use modified x and y posiitons
+                                int modX = prp2.LocationX;
+                                int modY = prp2.LocationY;
+
+                                if (p2 == gv.mod.currentArea.northernNeighbourArea)
+                                {
+                                    modX = prp2.LocationX;
+                                    //modY = a.Props[i].LocationY - (gv.mod.currentArea.MapSizeY - gv.mod.PlayerLocationY);
+                                    //modY = a.Props[i].LocationY - (gv.mod.currentArea.MapSizeY - gv.mod.PlayerLocationY);
+                                    modY = prp2.LocationY - newAreaSizeY;
+                                }
+
+                                if (p2 == gv.mod.currentArea.southernNeighbourArea)
+                                {
+                                    modX = prp2.LocationX;
+                                    modY = prp2.LocationY + newAreaSizeY;
+                                }
+
+                                if (p2 == gv.mod.currentArea.westernNeighbourArea)
+                                {
+                                    modY = prp2.LocationY;
+                                    //modY = a.Props[i].LocationY - (gv.mod.currentArea.MapSizeY - gv.mod.PlayerLocationY);
+                                    //modY = a.Props[i].LocationY - (gv.mod.currentArea.MapSizeY - gv.mod.PlayerLocationY);
+                                    modX = prp2.LocationX - newAreaSizeX;
+                                }
+
+                                if (p2 == gv.mod.currentArea.easternNeighbourArea)
+                                {
+                                    modY = prp2.LocationY;
+                                    modX = prp2.LocationX + newAreaSizeX;
+                                }
+
+                                //prp2.destinationPixelPositionXList
+                                //set the current the asigend loxX, locy as destination pix pos
+                                //calcualte it first
+
+                                int xOffSetInSquares = modX - gv.mod.PlayerLocationX;
+                                int yOffSetInSquares = modY - gv.mod.PlayerLocationY;
+                                int playerPositionXInPix = gv.oXshift + gv.screenMainMap.mapStartLocXinPixels + (gv.playerOffsetX * gv.squareSize);
+                                int playerPositionYInPix = gv.playerOffsetY * gv.squareSize;
+
+                                prp2.destinationPixelPositionXList.Add(playerPositionXInPix + (xOffSetInSquares * gv.squareSize));
+                                prp2.destinationPixelPositionYList.Add(playerPositionYInPix + (yOffSetInSquares * gv.squareSize));
+
+                            }
                            
                             for (int i2 = 0; i2 < gv.mod.moduleAreasObjects.Count; i2++)
                             {
@@ -8831,7 +9024,7 @@ namespace IceBlink2
         //messaging to log and as floaty
                     */
 
-                if (ThisProp.counterStages > 0)
+                        if (ThisProp.counterStages > 0)
                 {
                         if (ThisProp.counterStages == 1 && ThisProp.stageGraphic1 != "none")
                         {

@@ -13,6 +13,16 @@ namespace IceBlink2
 {
     public class Module
     {
+
+        public bool partyJustCameFromNeighbouringArea = false;
+        public bool isBreathingWorld = true;
+
+        public bool newPropMoveSystem = false;
+        public bool justWentSouth = false;
+        public bool justWentNorth = false;
+        public bool justWentEast = false;
+        public bool justWentWest = false;
+
         //leader
         public float breathAnimationDelayCounter = 0;
         public bool showBreathingFrame = false;
@@ -446,7 +456,7 @@ namespace IceBlink2
         public bool useRealTimeTimer = false;
         public bool useSmoothMovement = true;
         public bool useAllTileSystem = true;
-        public int realTimeTimerLengthInMilliSeconds = 7000;
+        public int realTimeTimerLengthInMilliSeconds = 1500;
         public int attackFromBehindToHitModifier = 2;
         public int attackFromBehindDamageModifier = 0;
         public bool EncounterOfTurnDone = false;
