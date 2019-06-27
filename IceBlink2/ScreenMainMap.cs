@@ -32108,44 +32108,61 @@ namespace IceBlink2
                 {
                     foreach (Prop p in gv.mod.moduleAreasObjects[i].Props)
                     {
+                        try
+                        {
+                            
+                            
+                            //insert1                        
+                            bool tileBitmapIsLoadedAlready = false;
+                            int indexOfLoadedTile = -1;
+                            for (int j = 0; j < gv.mod.loadedTileBitmapsNames.Count; j++)
+                            {
+                                if ((gv.mod.loadedTileBitmapsNames[j] == p.ImageFileName) && (!gv.mod.loadedTileBitmaps[j].IsDisposed))
+                                {
+                                    tileBitmapIsLoadedAlready = true;
+                                    indexOfLoadedTile = j;
+                                    p.token = gv.mod.loadedTileBitmaps[j];
+                                    break;
+                                }
+                            }
+
+                            //gehörtdiewelt
+                            //insert2
+                            if (!tileBitmapIsLoadedAlready)
+                            {
+                                gv.mod.loadedTileBitmapsNames.Add(p.ImageFileName);
+                                p.token = gv.cc.LoadBitmap(p.ImageFileName);
+                                gv.mod.loadedTileBitmaps.Add(p.token);
+                                indexOfLoadedTile = gv.mod.loadedTileBitmaps.Count - 1;
+                            }
+                        }
+                        catch
+                        {
+                            int dgfj = 0;
+                        }
                         //foreach (Prop p in gv.mod.currentArea.Props)
-                //{
-                    if ((p.isShown) && (p.isMover) && (!p.isUnderBridge) && (p.token != null))
-                    {
-                        if ((p.relocX + 1 >= gv.mod.PlayerLocationX - gv.playerOffsetX) && (p.relocX - 1 <= gv.mod.PlayerLocationX + gv.playerOffsetX)
+                        //{
+
+                     if (p.MoverType == "daily")
+                        {
+                            int gfdgdf = 0;
+                        }
+                        if ((p.isShown) && (p.isMover) && (!p.isUnderBridge) && (p.token != null))
+                        {
+                            if (p.MoverType == "daily")
+                            {
+                                int gfdgdf = 0;
+                            }
+                            if ((p.relocX + 1 >= gv.mod.PlayerLocationX - gv.playerOffsetX) && (p.relocX - 1 <= gv.mod.PlayerLocationX + gv.playerOffsetX)
                            && (p.relocY + 1 >= gv.mod.PlayerLocationY - gv.playerOffsetY) && (p.relocY - 1 <= gv.mod.PlayerLocationY + gv.playerOffsetY))
                         {
 
-
-                                //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX    
-                                try
+                                if (p.MoverType == "daily")
                                 {
-                                    //insert1                        
-                                    bool tileBitmapIsLoadedAlready = false;
-                                    int indexOfLoadedTile = -1;
-                                    for (int j = 0; j < gv.mod.loadedTileBitmapsNames.Count; j++)
-                                    {
-                                        if ((gv.mod.loadedTileBitmapsNames[j] == p.ImageFileName) && (!gv.mod.loadedTileBitmaps[j].IsDisposed))
-                                        {
-                                            tileBitmapIsLoadedAlready = true;
-                                            indexOfLoadedTile = j;
-                                            p.token = gv.mod.loadedTileBitmaps[j];
-                                            break;
-                                        }
-                                    }
-
-                                    //gehörtdiewelt
-                                    //insert2
-                                    if (!tileBitmapIsLoadedAlready)
-                                    {
-                                        gv.mod.loadedTileBitmapsNames.Add(p.ImageFileName);
-                                        p.token = gv.cc.LoadBitmap(p.ImageFileName);
-                                        gv.mod.loadedTileBitmaps.Add(p.token);
-                                        indexOfLoadedTile = gv.mod.loadedTileBitmaps.Count - 1;
-                                    }
+                                    int gfdgdf = 0;
                                 }
-                                catch
-                                { }
+                                //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX    
+
                                 //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
                                 //IbRect src = new IbRect(0, 0, p.token.PixelSize.Width, p.token.PixelSize.Width);
                                 //float xDimension = p.token.PixelSize.Width * p.sizeFactor;
@@ -32346,7 +32363,7 @@ namespace IceBlink2
                                 pixDistanceOfPropToPlayerY *= -1;
                             }
 
-                            if ((pixDistanceOfPropToPlayerX <= ((gv.playerOffsetX + 1) * gv.squareSize)) && (pixDistanceOfPropToPlayerY <= ((gv.playerOffsetY + 1) * gv.squareSize)))
+                            if ((pixDistanceOfPropToPlayerX <= ((gv.playerOffsetX + 3) * gv.squareSize)) && (pixDistanceOfPropToPlayerY <= ((gv.playerOffsetY + 3) * gv.squareSize)))
                             {
                                 int dstW = (int)((((float)p.token.PixelSize.Width / (float)gv.squareSizeInPixels) * (float)gv.squareSize) * (p.sizeFactor / 100f));
                                 int dstH = (int)((((float)(p.token.PixelSize.Height / p.maxNumberOfFrames) / (float)gv.squareSizeInPixels) * (float)gv.squareSize) * (p.sizeFactor / 100f));
@@ -35550,12 +35567,12 @@ namespace IceBlink2
 
         public void drawGrid()
         {
-            int minX = gv.mod.PlayerLocationX - gv.playerOffsetX;
+            int minX = gv.mod.PlayerLocationX - gv.playerOffsetX - 2;
             if (minX < 0) { minX = 0; }
-            int minY = gv.mod.PlayerLocationY - gv.playerOffsetY;
+            int minY = gv.mod.PlayerLocationY - gv.playerOffsetY - 2;
             if (minY < 0) { minY = 0; }
 
-            int maxX = gv.mod.PlayerLocationX + gv.playerOffsetX + 1;
+            int maxX = gv.mod.PlayerLocationX + gv.playerOffsetX + 2;
             if (maxX > this.gv.mod.currentArea.MapSizeX) { maxX = this.gv.mod.currentArea.MapSizeX; }
             int maxY = gv.mod.PlayerLocationY + gv.playerOffsetY + 1;
             if (maxY > this.gv.mod.currentArea.MapSizeY) { maxY = this.gv.mod.currentArea.MapSizeY; }

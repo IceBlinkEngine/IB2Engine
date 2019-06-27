@@ -1110,6 +1110,17 @@ namespace IceBlink2
                 JsonSerializer serializer = new JsonSerializer();
                 toReturn = (Module)serializer.Deserialize(file, typeof(Module));
             }
+
+            foreach (Area a  in toReturn.moduleAreasObjects)
+            {
+                foreach (Prop p in a.Props)
+                {
+                    if (p.MoverType == "daily")
+                    {
+                        int gkg = 1;
+                    }
+                }
+            }
             return toReturn;
         }
 
@@ -1238,6 +1249,14 @@ namespace IceBlink2
             {
                 foreach (Area sar in saveMod.moduleAreasObjects)
                 {
+                    foreach (Prop p in sar.Props)
+                    {
+                        if (p.MoverType == "daily")
+                        {
+                            int jhk = 0;
+                        }
+                    }
+
                     if (sar.Filename.Equals(ar.Filename)) //sar is saved game, ar is new game from toolset version
                     {
                         //locals
@@ -1689,24 +1708,53 @@ namespace IceBlink2
                         for (int index = ar.Props.Count - 1; index >= 0; index--)
                         {
                             Prop prp = ar.Props[index];
+                            if (prp.MoverType == "daily")
+                            {
+                                int ggk = 0;
+                            }
                             bool foundOne = false;
                             foreach (Prop sprp in sar.Props) //sprp is the saved game prop
                             {
+                                if (sprp.MoverType =="daily")
+                                {
+                                    int ggk = 0;
+                                }
+
+                                //if prop is found in any savegame area, do remove it from any toolset mod area
+
+
                                 if (prp.PropTag.Equals(sprp.PropTag))
                                 {
+                                    //louis
                                     foundOne = true; //the prop tag exists in the saved game
                                     //replace the one in the toolset with the one from the saved game
                                     ar.Props.RemoveAt(index);
+                                    /*
+                                    for (int i = gv.mod.moduleAreasObjects.Count - 1; i >= 0; i--)
+                                    {
+                                        for (int j = gv.mod.moduleAreasObjects[i].Props.Count - 1; j >= 0; j--)
+                                        {
+                                            if (gv.mod.moduleAreasObjects[i].Props[j].PropTag == prp.PropTag)
+                                            {
+                                                if (gv.mod.moduleAreasObjects[i].Props[j].MoverType == "daily")
+                                                {
+                                                    gv.mod.moduleAreasObjects[i].Props.RemoveAt(j);
+                                                }
+                                            }
+                                        }
+                                    } 
+                                    */
                                     ar.Props.Add(sprp.DeepCopy());
                                     //prp = sprp.DeepCopy();
                                     break;
                                 }
                             }
-                            if (!foundOne) //didn't find the prop tag in the saved game
+                            if (!foundOne) //didn't find the prop tag in this AREA of saved game
                             {
                                 if (sar.InitialAreaPropTagsList.Contains(prp.PropTag))
                                 {
                                     //was once on the map, but was deleted so remove from the newMod prop list
+                                    //also deletes time driven mover props on other areas
                                     ar.Props.RemoveAt(index);
                                 }
                                 else
@@ -1715,6 +1763,28 @@ namespace IceBlink2
                                 }
                             }
                         }
+
+                        //new routine for adding props that only exist in savegame, but not in toolset version of mod
+                        //like newly spawned props or time rdivne movers who have chnaged maps
+                        for (int index = sar.Props.Count - 1; index >= 0; index--)
+                        {
+                            Prop sprp = sar.Props[index];
+                         
+                            bool foundOne = false;
+                            foreach (Prop prp in ar.Props) //sprp is the saved game prop
+                            {
+                                if (sprp.PropTag.Equals(prp.PropTag))
+                                {
+                                    foundOne = true;
+                                    break;
+                                }
+                            }
+                            if (!foundOne)
+                            {
+                                ar.Props.Add(sprp.DeepCopy());
+                            }
+                        }
+                                    
                         //triggers
                         foreach (Trigger tr in ar.Triggers)
                         {
@@ -3126,6 +3196,7 @@ namespace IceBlink2
                             //if (!gv.mod.isBreathingWorld || !a.Props[i].isMover)
                             //{
                                 //clear the lists with pixel destination coordinates of props
+                                //suspect1
                                 a.Props[i].destinationPixelPositionXList.Clear();
                                 a.Props[i].destinationPixelPositionXList = new List<int>();
                                 a.Props[i].destinationPixelPositionYList.Clear();
@@ -9512,8 +9583,10 @@ namespace IceBlink2
             //using this for pathfinding now, especially bridge situation
             foreach (int i in getNearbyAreas())
             {
+
                 foreach (Prop p in gv.mod.moduleAreasObjects[i].Props)
                 {
+                    recalcReloc(p);
                     if (propIsWithinRelevantDistance(p, i))
                     {
                         if ((p.lastLocationX != p.LocationX) || (p.lastLocationY != p.LocationY))
@@ -9521,6 +9594,10 @@ namespace IceBlink2
                             p.lastLocationZ = p.LocationZ;
                         }
                         p.LocationZ = gv.mod.moduleAreasObjects[i].Tiles[p.LocationY * gv.mod.moduleAreasObjects[i].MapSizeX + p.LocationX].heightLevel;
+                    }
+                    if (p.MoverType == "daily")
+                    {
+                        int ghg = 0;
                     }
                 }
             }
@@ -9941,21 +10018,32 @@ namespace IceBlink2
             //{
                 if ((!gv.mod.moduleAreasObjects[h].Props[i].skipNavigationThisTurn || gv.mod.isScrollingNow || gv.a2Timer.Enabled || gv.aTimer.Enabled))
                 {
-                    //clear the lists with pixel destination coordinates of props
+                            //clear the lists with pixel destination coordinates of props
+                            //suspect2, this might be it: prop is first called on old area, but then again on new area, killing its destinations!
+                            if (!gv.mod.moduleAreasObjects[h].Props[i].justJumpedBetweenAreas)
+                            {
+                                gv.mod.moduleAreasObjects[h].Props[i].destinationPixelPositionXList.Clear();
+                                gv.mod.moduleAreasObjects[h].Props[i].destinationPixelPositionXList = new List<int>();
+                                gv.mod.moduleAreasObjects[h].Props[i].destinationPixelPositionYList.Clear();
+                                gv.mod.moduleAreasObjects[h].Props[i].destinationPixelPositionYList = new List<int>();
+                                gv.mod.moduleAreasObjects[h].Props[i].pixelMoveSpeed = 1;
+                            }
+                            else
+                            {
+                                gv.mod.moduleAreasObjects[h].Props[i].justJumpedBetweenAreas = false;
+                            }
+                    
+                            //}
 
-                    gv.mod.moduleAreasObjects[h].Props[i].destinationPixelPositionXList.Clear();
-                    gv.mod.moduleAreasObjects[h].Props[i].destinationPixelPositionXList = new List<int>();
-                    gv.mod.moduleAreasObjects[h].Props[i].destinationPixelPositionYList.Clear();
-                    gv.mod.moduleAreasObjects[h].Props[i].destinationPixelPositionYList = new List<int>();
-                    gv.mod.moduleAreasObjects[h].Props[i].pixelMoveSpeed = 1;
-                    //}
-
-
+                            if (gv.mod.moduleAreasObjects[h].Props[i].MoverType == "daily")
+                            {
+                                int ggj = 1;
+                            }
                     //set the currentPixel position of the props
                     //this needs to be adjusted for tose nearby areas other than current
                     //crowley
 
-                    int xOffSetInSquares = gv.mod.moduleAreasObjects[h].Props[i].relocX - gv.mod.PlayerLocationX;
+                            int xOffSetInSquares = gv.mod.moduleAreasObjects[h].Props[i].relocX - gv.mod.PlayerLocationX;
                     int yOffSetInSquares = gv.mod.moduleAreasObjects[h].Props[i].relocY - gv.mod.PlayerLocationY;
                             //int xOffSetInSquares = gv.mod.currentArea.Props[i].LocationX - gv.mod.PlayerLocationX;
                             //int yOffSetInSquares = gv.mod.currentArea.Props[i].LocationY - gv.mod.PlayerLocationY;
@@ -10514,11 +10602,29 @@ namespace IceBlink2
                                                         shownAreaName = gv.mod.moduleAreasObjects[a].inGameAreaName;
                                                     }
                                                 }
+                                                        bool oldIsNearby = false;
+                                                        bool NewIsNearby = false;
 
-                                                gv.screenMainMap.addFloatyText(gv.mod.moduleAreasObjects[h].Props[i].LocationX, gv.mod.moduleAreasObjects[h].Props[i].LocationY, "Heading off towards " + shownAreaName, "white", 4000);
+                                                        foreach (int k in gv.cc.getNearbyAreas())
+                                                        {
+                                                            if (gv.mod.moduleAreasObjects[k].Filename == gv.mod.moduleAreasObjects[h].Props[i].WayPointList[gv.mod.moduleAreasObjects[h].Props[i].WayPointListCurrentIndex].areaName)
+                                                            {
+                                                                NewIsNearby = true;
+                                                            }
+                                                            if (gv.mod.moduleAreasObjects[k].Filename == gv.mod.moduleAreasObjects[h].Filename)
+                                                            {
+                                                                oldIsNearby = true;
+                                                            }
+                                                        }
+
+                                                        //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXxxx
+                                                        if (!oldIsNearby || !NewIsNearby)
+                                                        {
+                                                            gv.screenMainMap.addFloatyText(gv.mod.moduleAreasObjects[h].Props[i].LocationX, gv.mod.moduleAreasObjects[h].Props[i].LocationY, "Heading off towards " + shownAreaName, "white", 4000);
+                                                        }
                                                 gv.sf.osController("osSetPropLocationAnyArea.cs", gv.mod.moduleAreasObjects[h].Props[i].PropTag, gv.mod.moduleAreasObjects[h].Props[i].WayPointList[gv.mod.moduleAreasObjects[h].Props[i].WayPointListCurrentIndex].areaName, gv.mod.moduleAreasObjects[h].Props[i].WayPointList[gv.mod.moduleAreasObjects[h].Props[i].WayPointListCurrentIndex].X.ToString(), gv.mod.moduleAreasObjects[h].Props[i].WayPointList[gv.mod.moduleAreasObjects[h].Props[i].WayPointListCurrentIndex].Y.ToString());
                                                 registerRemoval = true;
-                                            }
+                                            } 
                                         }
                                         else
                                         {
@@ -10537,8 +10643,29 @@ namespace IceBlink2
                                                         shownAreaName = gv.mod.moduleAreasObjects[a].inGameAreaName;
                                                     }
                                                 }
+                                                        //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
-                                                gv.screenMainMap.addFloatyText(gv.mod.moduleAreasObjects[h].Props[i].LocationX, gv.mod.moduleAreasObjects[h].Props[i].LocationY, "Heading off towards " + shownAreaName, "white", 4000);
+                                                        bool oldIsNearby = false;
+                                                        bool NewIsNearby = false;
+
+                                                        foreach (int k in gv.cc.getNearbyAreas())
+                                                        {
+                                                            if (gv.mod.moduleAreasObjects[k].Filename == gv.mod.moduleAreasObjects[h].Props[i].WayPointList[gv.mod.moduleAreasObjects[h].Props[i].WayPointListCurrentIndex].areaName)
+                                                            {
+                                                                NewIsNearby = true;
+                                                            }
+                                                            if (gv.mod.moduleAreasObjects[k].Filename == gv.mod.moduleAreasObjects[h].Filename)
+                                                            {
+                                                                oldIsNearby = true;
+                                                            }
+                                                        }
+
+                                                        //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXxxx
+                                                        if (!oldIsNearby || !NewIsNearby)
+                                                        {
+                                                            gv.screenMainMap.addFloatyText(gv.mod.moduleAreasObjects[h].Props[i].LocationX, gv.mod.moduleAreasObjects[h].Props[i].LocationY, "Heading off towards " + shownAreaName, "white", 4000);
+                                                        }
+                                                        //neuefreunde
                                                 gv.sf.osController("osSetPropLocationAnyArea.cs", gv.mod.moduleAreasObjects[h].Props[i].PropTag, gv.mod.moduleAreasObjects[h].Props[i].WayPointList[gv.mod.moduleAreasObjects[h].Props[i].WayPointListCurrentIndex].areaName, gv.mod.moduleAreasObjects[h].Props[i].WayPointList[gv.mod.moduleAreasObjects[h].Props[i].WayPointListCurrentIndex].X.ToString(), gv.mod.moduleAreasObjects[h].Props[i].WayPointList[gv.mod.moduleAreasObjects[h].Props[i].WayPointListCurrentIndex].Y.ToString());
                                                 registerRemoval = true;
                                             }

@@ -68,6 +68,8 @@ namespace IceBlink2
         //b. upon failure
         //messaging to log and as floaty
 
+        public bool justJumpedBetweenAreas = false;
+
         public int relocX = 0;
         public int relocY = 0;
 
@@ -448,6 +450,7 @@ namespace IceBlink2
     	    Prop copy = new Prop();
 
             //TODO
+            copy.justJumpedBetweenAreas = justJumpedBetweenAreas;
             copy.relocX = relocX;
             copy.relocY = relocY;
             copy.lastAreaFilenameOfProp = lastAreaFilenameOfProp;

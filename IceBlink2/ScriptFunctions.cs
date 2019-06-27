@@ -8543,18 +8543,43 @@ namespace IceBlink2
                             }
                         }
 
+                        string northernNeighbourArea = "none";
+                        string southernNeighbourArea = "none";
+                        string easternNeighbourArea = "none";
+                        string westernNeighbourArea = "none";
                         foreach (Area a in gv.mod.moduleAreasObjects)
                         {
                             if (a.Filename == p2)
                             {
                                 newAreaSizeX = a.MapSizeX;
                                 newAreaSizeY = a.MapSizeY;
+                                northernNeighbourArea = a.northernNeighbourArea;
+                                southernNeighbourArea = a.southernNeighbourArea;
+                                easternNeighbourArea = a.easternNeighbourArea;
+                                westernNeighbourArea = a.westernNeighbourArea;
                             }
                         }
 
-                                bool isBetweenNearbysMover = false;
+                        bool oldIsNearby = false;
+                        bool NewIsNearby = false;
 
-                        if (gv.mod.currentArea.northernNeighbourArea == oldArea || gv.mod.currentArea.easternNeighbourArea == oldArea || gv.mod.currentArea.southernNeighbourArea == oldArea || gv.mod.currentArea.westernNeighbourArea == oldArea)
+                      foreach (int i in gv.cc.getNearbyAreas())
+                      {
+                            if (gv.mod.moduleAreasObjects[i].Filename == oldArea)
+                            {
+                                oldIsNearby = true;
+                            }
+
+                            if (gv.mod.moduleAreasObjects[i].Filename == p2)
+                            {
+                                NewIsNearby = true;
+                            }
+                        }
+                       
+
+                        bool isBetweenNearbysMover = false;
+
+                        if ((oldIsNearby && NewIsNearby) && (northernNeighbourArea == oldArea || easternNeighbourArea == oldArea || southernNeighbourArea == oldArea || westernNeighbourArea == oldArea))
                         {
                             if (gv.mod.isBreathingWorld)
                             {
@@ -8645,7 +8670,8 @@ namespace IceBlink2
                                 if (gv.mod.moduleAreasObjects[i2].Filename == p2)
                                 {
                                     added = 1;
-                                    gv.mod.moduleAreasObjects[i2].Props.Add(prp2);   
+                                    gv.mod.moduleAreasObjects[i2].Props.Add(prp2);
+                                    prp2.justJumpedBetweenAreas = true;
                                     break;
                                 }
                             }
