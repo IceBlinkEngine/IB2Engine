@@ -8523,6 +8523,7 @@ namespace IceBlink2
                         //p4 is location y
 
                         Prop prp = GetPropByUniqueTag(p1);
+                        prp.oldPath.Clear();
                         float oldPixPosX = prp.currentPixelPositionX;
                         float oldPixPosY = prp.currentPixelPositionY;
 
@@ -8581,7 +8582,7 @@ namespace IceBlink2
 
                         if ((oldIsNearby && NewIsNearby) && (northernNeighbourArea == oldArea || easternNeighbourArea == oldArea || southernNeighbourArea == oldArea || westernNeighbourArea == oldArea))
                         {
-                            if (gv.mod.isBreathingWorld)
+                             if (gv.mod.isBreathingWorld)
                             {
                                 isBetweenNearbysMover = true;
                             }
@@ -8683,7 +8684,7 @@ namespace IceBlink2
                                     for (int k2 = gv.mod.moduleAreasObjects[j2].Props.Count -1; k2 > -1; k2--)
                                     {
                                         //prevent removing the prop from the area it was just addded to
-                                        if (gv.mod.moduleAreasObjects[j2].Props[k2].PropTag.Equals(p1) && (gv.mod.moduleAreasObjects[j2].Filename != p2))
+                                        if ((gv.mod.moduleAreasObjects[j2].Props[k2].PropTag.Equals(p1) && (gv.mod.moduleAreasObjects[j2].Filename != p2)) || (oldArea == p2))
                                         {
                                             gv.mod.moduleAreasObjects[j2].Props.RemoveAt(k2);
                                             break;

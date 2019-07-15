@@ -74,6 +74,8 @@ namespace IceBlink2
         public Bitmap challengeHidden;
         public Bitmap challengeSkull;
         public Bitmap isChasingSymbol;
+        public Bitmap slowSymbol;
+        public Bitmap swiftSymbol;
 
         public Bitmap title;
         public Bitmap bmpMap;
@@ -3003,6 +3005,14 @@ namespace IceBlink2
         public void doUpdate()
         {
             //gv.mod.uCounter++;
+            gv.mod.findNewPointCounter = 0;
+            foreach (Prop p in gv.mod.currentArea.Props)
+            {
+                //if (p.LocationX != gv.mod.PlayerLocationX || p.LocationY != gv.mod.PlayerLocationY)
+                {
+                    p.blockConvoForOneTurn = false;
+                }
+            }
             gv.mod.lastWorldTime = gv.mod.WorldTime;
             if ((gv.mod.PlayerLastLocationX != gv.mod.PlayerLocationX || gv.mod.PlayerLastLocationY != gv.mod.PlayerLocationY) || gv.mod.calledByRealTimeTimer || gv.mod.calledByWaiting)
             {
@@ -3197,6 +3207,12 @@ namespace IceBlink2
                             //{
                                 //clear the lists with pixel destination coordinates of props
                                 //suspect1
+
+                            //diagdebug
+                            //if (a.Filename == "Outdoor_16")
+                            //{
+                                //int fsdsdas = 1;
+                            //}
                                 a.Props[i].destinationPixelPositionXList.Clear();
                                 a.Props[i].destinationPixelPositionXList = new List<int>();
                                 a.Props[i].destinationPixelPositionYList.Clear();
@@ -3235,9 +3251,32 @@ namespace IceBlink2
                                     modX = a.Props[i].LocationX + a.MapSizeX;
                                 }
 
-                                //a.Props[i].LocationY
-                                //set the currentPixel position of the props
-                                int xOffSetInSquares = modX - gv.mod.PlayerLocationX;
+                            if (a.Filename == NeighbourNE)
+                            {
+                                modY = a.Props[i].LocationY - a.MapSizeY;
+                                modX = a.Props[i].LocationX + a.MapSizeX;
+                            }
+
+                            if (a.Filename == NeighbourNW)
+                            {
+                                modY = a.Props[i].LocationY - a.MapSizeY;
+                                modX = a.Props[i].LocationX - a.MapSizeX;
+                            }
+                            if (a.Filename == NeighbourSE)
+                            {
+                                modY = a.Props[i].LocationY + a.MapSizeY;
+                                modX = a.Props[i].LocationX + a.MapSizeX;
+                            }
+                            if (a.Filename == NeighbourSW)
+                            {
+                                modY = a.Props[i].LocationY + a.MapSizeY;
+                                modX = a.Props[i].LocationX - a.MapSizeX;
+                            }
+                            //hooray
+
+                            //a.Props[i].LocationY
+                            //set the currentPixel position of the props
+                            int xOffSetInSquares = modX - gv.mod.PlayerLocationX;
                                 int yOffSetInSquares = modY - gv.mod.PlayerLocationY;
                                 int playerPositionXInPix = gv.oXshift + gv.screenMainMap.mapStartLocXinPixels + (gv.playerOffsetX * gv.squareSize);
                                 int playerPositionYInPix = gv.playerOffsetY * gv.squareSize;
@@ -3835,7 +3874,7 @@ namespace IceBlink2
                     // restore old
                     //cull all down if too high value is reached (last resort)
                     //400
-                    if (gv.mod.loadedTileBitmaps.Count > 2000)
+                    if (gv.mod.loadedTileBitmaps.Count > 2500)
                     {
                         try
                         {
@@ -3856,12 +3895,119 @@ namespace IceBlink2
                     }
                     //250
                     //gut 1000
-                    if (gv.mod.loadedTileBitmaps.Count > 500)
+                    if (gv.mod.loadedTileBitmaps.Count < 750)
+                    {
+
+                    }
+                    else if (gv.mod.loadedTileBitmaps.Count < 1000)
+                    //if (gv.mod.loadedTileBitmaps.Count > 500)
                     {
                         //addLogText("yellow", "Disposing tiles.");
                         //divided by 10
                         //gut 10
-                        int cullNumber = ((gv.mod.loadedTileBitmaps.Count / 15) + 2);
+                        int cullNumber = ((90 / 15) + 2);
+                        //int cullNumber = ((gv.mod.loadedTileBitmaps.Count / 15) + 2);
+                        try
+                        {
+                            if (gv.mod.loadedTileBitmaps != null)
+                            {
+                                //remove 12 entries per move, 3 more than usual 9 squares uncovered
+                                for (int i = 0; i < cullNumber; i++)
+                                {
+                                    gv.mod.loadedTileBitmaps[i].Dispose();
+                                    gv.mod.loadedTileBitmaps.RemoveAt(i);
+                                    gv.mod.loadedTileBitmapsNames.RemoveAt(i);
+
+                                    //addLogText("red", "Removal Counter is:" + i.ToString());
+
+                                }
+
+                            }
+
+                            //these two lists keep an exact order so each bitmap stored in one corresponds with a name in the other
+                        }
+                        catch
+                        {
+                            //addLogText("red", "caught error");
+                            int i = 10;
+                        }
+                    }
+                    else if (gv.mod.loadedTileBitmaps.Count < 1500)
+                    //if (gv.mod.loadedTileBitmaps.Count > 500)
+                    {
+                        //addLogText("yellow", "Disposing tiles.");
+                        //divided by 10
+                        //gut 10
+                        int cullNumber = ((150 / 15) + 2);
+                        //int cullNumber = ((gv.mod.loadedTileBitmaps.Count / 15) + 2);
+                        try
+                        {
+                            if (gv.mod.loadedTileBitmaps != null)
+                            {
+                                //remove 12 entries per move, 3 more than usual 9 squares uncovered
+                                for (int i = 0; i < cullNumber; i++)
+                                {
+                                    gv.mod.loadedTileBitmaps[i].Dispose();
+                                    gv.mod.loadedTileBitmaps.RemoveAt(i);
+                                    gv.mod.loadedTileBitmapsNames.RemoveAt(i);
+
+                                    //addLogText("red", "Removal Counter is:" + i.ToString());
+
+                                }
+
+                            }
+
+                            //these two lists keep an exact order so each bitmap stored in one corresponds with a name in the other
+                        }
+                        catch
+                        {
+                            //addLogText("red", "caught error");
+                            int i = 10;
+                        }
+                    }
+
+                    else if (gv.mod.loadedTileBitmaps.Count < 2000)
+                        //if (gv.mod.loadedTileBitmaps.Count > 500)
+                    {
+                        //addLogText("yellow", "Disposing tiles.");
+                        //divided by 10
+                        //gut 10
+                        int cullNumber = ((250 / 15) + 2);
+                        //int cullNumber = ((gv.mod.loadedTileBitmaps.Count / 15) + 2);
+                        try
+                        {
+                            if (gv.mod.loadedTileBitmaps != null)
+                            {
+                                //remove 12 entries per move, 3 more than usual 9 squares uncovered
+                                for (int i = 0; i < cullNumber; i++)
+                                {
+                                    gv.mod.loadedTileBitmaps[i].Dispose();
+                                    gv.mod.loadedTileBitmaps.RemoveAt(i);
+                                    gv.mod.loadedTileBitmapsNames.RemoveAt(i);
+
+                                    //addLogText("red", "Removal Counter is:" + i.ToString());
+
+                                }
+
+                            }
+
+                            //these two lists keep an exact order so each bitmap stored in one corresponds with a name in the other
+                        }
+                        catch
+                        {
+                            //addLogText("red", "caught error");
+                            int i = 10;
+                        }
+                    }
+
+                    else if (gv.mod.loadedTileBitmaps.Count < 2500)
+                    //if (gv.mod.loadedTileBitmaps.Count > 500)
+                    {
+                        //addLogText("yellow", "Disposing tiles.");
+                        //divided by 10
+                        //gut 10
+                        int cullNumber = ((400 / 15) + 2);
+                        //int cullNumber = ((gv.mod.loadedTileBitmaps.Count / 15) + 2);
                         try
                         {
                             if (gv.mod.loadedTileBitmaps != null)
@@ -4464,6 +4610,7 @@ namespace IceBlink2
                 }
 
                 //move any props that are active and only if they are not on the party location
+                doPropTriggersMovers();
                 if (!gv.mod.isBreathingWorld)
                 {
                     doPropMoves();
@@ -4473,7 +4620,10 @@ namespace IceBlink2
                     doPropMovesNearby();
                 }
 
-                doPropTriggersMovers();
+                //if (gv.mod.PlayerLocationX != gv.mod.PlayerLastLocationX || gv.mod.PlayerLocationY != gv.mod.PlayerLastLocationY)
+                //{
+                    //doPropTriggersMovers();
+                //}
 
                 foreach (Prop p in gv.mod.currentArea.Props)
                 {
@@ -10035,10 +10185,6 @@ namespace IceBlink2
                     
                             //}
 
-                            if (gv.mod.moduleAreasObjects[h].Props[i].MoverType == "daily")
-                            {
-                                int ggj = 1;
-                            }
                     //set the currentPixel position of the props
                     //this needs to be adjusted for tose nearby areas other than current
                     //crowley
@@ -10169,7 +10315,7 @@ namespace IceBlink2
                                 //factor in lit state and tile stealtModifier
                                 int checkModifier = (gv.cc.getDistance(pcCoord, propCoord) - 1) * 2 - 4 + darkAdder + tileAdder;
 
-                                if (gv.sf.CheckPassSkill(parm1, gv.mod.tagOfStealthMainTrait, gv.mod.moduleAreasObjects[h].Props[i].spotEnemy - checkModifier + 1, true, true))
+                                if ((gv.mod.moduleAreasObjects[h].Props[i].spotEnemy != -1) && (gv.sf.CheckPassSkill(parm1, gv.mod.tagOfStealthMainTrait, gv.mod.moduleAreasObjects[h].Props[i].spotEnemy - checkModifier + 1, true, true)))
                                 {
                                     isFooled = true;
                                 }
@@ -10188,8 +10334,9 @@ namespace IceBlink2
                                 //determine if start chasing or stop chasing (set isCurrentlyChasing to true or false)
                                 if (!gv.mod.moduleAreasObjects[h].Props[i].isCurrentlyChasing)
                                 {
-                                    //not chasing so see if in detect distance and set to true
-                                    if (getDistance(new Coordinate(gv.mod.PlayerLocationX, gv.mod.PlayerLocationY), new Coordinate(gv.mod.moduleAreasObjects[h].Props[i].relocX, gv.mod.moduleAreasObjects[h].Props[i].relocY)) <= gv.mod.moduleAreasObjects[h].Props[i].ChaserDetectRangeRadius)
+
+                                //not chasing so see if in detect distance and set to true
+                                if (getDistance(new Coordinate(gv.mod.PlayerLocationX, gv.mod.PlayerLocationY), new Coordinate(gv.mod.moduleAreasObjects[h].Props[i].relocX, gv.mod.moduleAreasObjects[h].Props[i].relocY)) <= gv.mod.moduleAreasObjects[h].Props[i].ChaserDetectRangeRadius && gv.mod.moduleAreasObjects[h].Props.Contains(gv.mod.moduleAreasObjects[h].Props[i]))
                                     {
                                         bool tooMuchHeightDifference = false;
                                         if (gv.mod.blendOutTooHighAndTooDeepTiles)
@@ -10232,7 +10379,7 @@ namespace IceBlink2
                                 }
                                 else //is chasing so see if out of follow range and set to false
                                 {
-                                    if (getDistance(new Coordinate(gv.mod.PlayerLocationX, gv.mod.PlayerLocationY), new Coordinate(gv.mod.moduleAreasObjects[h].Props[i].relocX, gv.mod.moduleAreasObjects[h].Props[i].relocY)) >= gv.mod.moduleAreasObjects[h].Props[i].ChaserGiveUpChasingRangeRadius || isFooled)
+                                    if (getDistance(new Coordinate(gv.mod.PlayerLocationX, gv.mod.PlayerLocationY), new Coordinate(gv.mod.moduleAreasObjects[h].Props[i].relocX, gv.mod.moduleAreasObjects[h].Props[i].relocY)) >= gv.mod.moduleAreasObjects[h].Props[i].ChaserGiveUpChasingRangeRadius || isFooled || !gv.mod.currentArea.Props.Contains(gv.mod.moduleAreasObjects[h].Props[i]))
                                     {
                                         gv.mod.moduleAreasObjects[h].Props[i].isCurrentlyChasing = false;
                                         gv.mod.moduleAreasObjects[h].Props[i].ReturningToPost = true;
@@ -10300,9 +10447,15 @@ namespace IceBlink2
                                     }
                                 }
                             }
-                            //check to see if currently chasing, if so, chase
+                                    //check to see if currently chasing, if so, chase
+                                    if (!gv.mod.currentArea.Props.Contains(gv.mod.moduleAreasObjects[h].Props[i]))
+                                    {
+                                        gv.mod.moduleAreasObjects[h].Props[i].isCurrentlyChasing = false;
+                                        gv.mod.moduleAreasObjects[h].Props[i].ReturningToPost = true;
+                                    }
                             if ((gv.mod.moduleAreasObjects[h].Props[i].isChaser) && (gv.mod.moduleAreasObjects[h].Props[i].isCurrentlyChasing))
                             {
+
                                 Coordinate newCoor2 = new Coordinate();
                                 //newCoor2.X = gv.mod.currentArea.Props[i].CurrentMoveToTarget.X;
                                 //newCoor2.Y = gv.mod.currentArea.Props[i].CurrentMoveToTarget.Y;
@@ -10337,7 +10490,7 @@ namespace IceBlink2
                                 if (gv.mod.debugMode)
                                 {
                                     gv.cc.addLogText("<font color='yellow'>" + gv.mod.moduleAreasObjects[h].Props[i].PropTag + " moves " + moveDist + "</font><BR>");
-                                    gv.screenMainMap.addFloatyText(gv.mod.moduleAreasObjects[h].Props[i].LocationX, gv.mod.moduleAreasObjects[h].Props[i].LocationY, "(" + gv.mod.moduleAreasObjects[h].Props[i].LocationX + "," + gv.mod.moduleAreasObjects[h].Props[i].LocationY + ")", "yellow", 4000);
+                                    gv.screenMainMap.addFloatyText(gv.mod.moduleAreasObjects[h].Props[i], "(" + gv.mod.moduleAreasObjects[h].Props[i].LocationX + "," + gv.mod.moduleAreasObjects[h].Props[i].LocationY + ")", "yellow", 4000);
                                 }
                             }
                             #endregion
@@ -10392,7 +10545,8 @@ namespace IceBlink2
                                 //check to see if at target square already and if so, change target
                                 if (((gv.mod.moduleAreasObjects[h].Props[i].LocationX == gv.mod.moduleAreasObjects[h].Props[i].CurrentMoveToTarget.X) && (gv.mod.moduleAreasObjects[h].Props[i].LocationY == gv.mod.moduleAreasObjects[h].Props[i].CurrentMoveToTarget.Y)) || (gv.mod.moduleAreasObjects[h].Props[i].randomMoverTimerForNextTarget >= 20))
                                 {
-                                    gv.mod.moduleAreasObjects[h].Props[i].randomMoverTimerForNextTarget = 0;
+                                            gv.mod.moduleAreasObjects[h].Props[i].oldPath.Clear();
+                                            gv.mod.moduleAreasObjects[h].Props[i].randomMoverTimerForNextTarget = 0;
                                     //wolfwood7
                                     Coordinate newCoor = this.getNewRandomTarget(gv.mod.moduleAreasObjects[h].Props[i], h);
                                     //gv.screenMainMap.addFloatyText(prp.LocationX, prp.LocationY, "(" + newCoor.X + "," + newCoor.Y + ")", "blue", 4000);
@@ -10445,6 +10599,7 @@ namespace IceBlink2
                                     //move towards next waypoint location if not already there
                                     if ((gv.mod.moduleAreasObjects[h].Props[i].LocationX == gv.mod.moduleAreasObjects[h].Props[i].CurrentMoveToTarget.X) && (gv.mod.moduleAreasObjects[h].Props[i].LocationY == gv.mod.moduleAreasObjects[h].Props[i].CurrentMoveToTarget.Y))
                                     {
+                                        gv.mod.moduleAreasObjects[h].Props[i].ReturningToPost = false;
                                         if ((gv.mod.moduleAreasObjects[h].Props[i].WayPointList[gv.mod.moduleAreasObjects[h].Props[i].WayPointListCurrentIndex].WaitDuration > 0) && (gv.mod.moduleAreasObjects[h].Props[i].WayPointList[gv.mod.moduleAreasObjects[h].Props[i].WayPointListCurrentIndex].turnsAlreadyWaited <= gv.mod.moduleAreasObjects[h].Props[i].WayPointList[gv.mod.moduleAreasObjects[h].Props[i].WayPointListCurrentIndex].WaitDuration))
                                         {
                                             gv.mod.moduleAreasObjects[h].Props[i].WayPointList[gv.mod.moduleAreasObjects[h].Props[i].WayPointListCurrentIndex].turnsAlreadyWaited += 1;
@@ -10477,7 +10632,9 @@ namespace IceBlink2
                                         Coordinate newCoor3 = new Coordinate();
                                         newCoor3.X = gv.mod.moduleAreasObjects[h].Props[i].LocationX;
                                         newCoor3.Y = gv.mod.moduleAreasObjects[h].Props[i].LocationY;
-                                        //move the distance
+                                                //move the distance
+                                                //richard
+                                               
                                         if (getDistance(newCoor2, newCoor3) <= 1 && moveDist > 0)
                                         {
                                             moveDist = 1;
@@ -10489,13 +10646,15 @@ namespace IceBlink2
                                         }
                                         if (moveDist > 1)
                                         {
-                                            //gv.screenMainMap.addFloatyText(gv.mod.currentArea.Props[i], "Double move", "yellow", 1500);
+                                                    int fdfds = 0;
+                                                    //gv.screenMainMap.addFloatyText(gv.mod.currentArea.Props[i], "Double move", "yellow", 1500);
                                         }
                                     }
                                     if (gv.mod.debugMode)
                                     {
                                         gv.cc.addLogText("<font color='yellow'>" + gv.mod.moduleAreasObjects[h].Props[i].PropTag + " moves " + moveDist + "</font><BR>");
-                                        gv.screenMainMap.addFloatyText(gv.mod.moduleAreasObjects[h].Props[i].LocationX, gv.mod.moduleAreasObjects[h].Props[i].LocationY, "(" + gv.mod.moduleAreasObjects[h].Props[i].LocationX + "," + gv.mod.moduleAreasObjects[h].Props[i].LocationY + ")", "yellow", 4000);
+                                        //gv.screenMainMap.addFloatyText(gv.mod.moduleAreasObjects[h].Props[i], "(" + gv.mod.moduleAreasObjects[h].Props[i].LocationX + "," + gv.mod.moduleAreasObjects[h].Props[i].LocationY + ")", "yellow", 4000);
+                                        gv.screenMainMap.addFloatyText(gv.mod.moduleAreasObjects[h].Props[i], "(" + gv.mod.moduleAreasObjects[h].Props[i].currentPixelPositionX + "," + gv.mod.moduleAreasObjects[h].Props[i].currentPixelPositionY + ")", "yellow", 4000);
                                     }
                                 }
                                 doPropBarkString(gv.mod.moduleAreasObjects[h].Props[i]);
@@ -10582,7 +10741,8 @@ namespace IceBlink2
 
                                     if (departureTimeReached)
                                     {
-                                        //already there so set next way point location (revert to index 0 if at last way point)
+                                                gv.mod.moduleAreasObjects[h].Props[i].oldPath.Clear();
+                                                //already there so set next way point location (revert to index 0 if at last way point)
                                         if (gv.mod.moduleAreasObjects[h].Props[i].WayPointListCurrentIndex >= gv.mod.moduleAreasObjects[h].Props[i].WayPointList.Count - 1)
                                         {
                                             gv.mod.moduleAreasObjects[h].Props[i].WayPointListCurrentIndex = 0;
@@ -10685,7 +10845,7 @@ namespace IceBlink2
                                         //wolfwood9
                                         if ((gv.mod.moduleAreasObjects[h].Props[i].LocationX == gv.mod.moduleAreasObjects[h].Props[i].CurrentMoveToTarget.X) && (gv.mod.moduleAreasObjects[h].Props[i].LocationY == gv.mod.moduleAreasObjects[h].Props[i].CurrentMoveToTarget.Y))
                                         {
-
+                                                    gv.mod.moduleAreasObjects[h].Props[i].ReturningToPost = false;
                                         }
                                         else
                                         {
@@ -11297,7 +11457,7 @@ namespace IceBlink2
                                 }
                                 else //is chasing so see if out of follow range and set to false
                                 {
-                                    if (getDistance(new Coordinate(gv.mod.PlayerLocationX, gv.mod.PlayerLocationY), new Coordinate(gv.mod.currentArea.Props[i].LocationX, gv.mod.currentArea.Props[i].LocationY)) >= gv.mod.currentArea.Props[i].ChaserGiveUpChasingRangeRadius || isFooled)
+                                    if (getDistance(new Coordinate(gv.mod.PlayerLocationX, gv.mod.PlayerLocationY), new Coordinate(gv.mod.currentArea.Props[i].LocationX, gv.mod.currentArea.Props[i].LocationY)) >= gv.mod.currentArea.Props[i].ChaserGiveUpChasingRangeRadius || isFooled || !gv.mod.currentArea.Props.Contains(gv.mod.currentArea.Props[i]))
                                     {
                                         gv.mod.currentArea.Props[i].isCurrentlyChasing = false;
                                         gv.mod.currentArea.Props[i].ReturningToPost = true;
@@ -11404,6 +11564,29 @@ namespace IceBlink2
                                     gv.screenMainMap.addFloatyText(gv.mod.currentArea.Props[i].LocationX, gv.mod.currentArea.Props[i].LocationY, "(" + gv.mod.currentArea.Props[i].LocationX + "," + gv.mod.currentArea.Props[i].LocationY + ")", "yellow", 4000);
                                 }
                             }
+
+                            if (gv.mod.currentArea.Props[i].ReturningToPost)
+                            {
+                                
+                                //move the distance
+                                //müde2
+                                //if (getDistance(newCoor2, newCoor3) <= 1 && moveDist > 0)
+                                //{
+                                //moveDist = 1;
+                                //gv.mod.currentArea.Props[i].moved2 = false;
+                                //}
+                                if (moveDist > 0)
+                                {
+                                    this.moveToTarget(gv.mod.currentArea.Props[i].PostLocationX, gv.mod.currentArea.Props[i].PostLocationY, gv.mod.currentArea.Props[i], moveDist);
+                                    //eisschraube
+                                    if (gv.mod.stopMoves)
+                                    {
+                                        gv.mod.stopMoves = false;
+                                        return;
+                                    }
+                                }
+                            }
+                            
                             #endregion
 
                             #region Mover type: post
@@ -11968,20 +12151,26 @@ namespace IceBlink2
                 //Move0Chance = 0;
             }
 
-            if (prp.pauseCounter <= 0)
+            if (prp.pauseCounter <= 0 || prp.isCurrentlyChasing)
             {
                 prp.isPausing = false;
             }
-
+            //three lines added for diagdebug
+            //prp.isPausing = false;
+            //Move2Chance = -1;
+            //Move0Chance = -1;
+            //Move2Chance = 100;
             if (prp.isPausing)
             {
                 prp.pauseCounter--;
                 prp.moved2 = false;
                 return 0;
             }
-                else if (gv.sf.RandInt(100) <= Move2Chance)
+            
+             else if (gv.sf.RandInt(100) <= Move2Chance)
                 {
                 prp.moved2 = true;
+                //prp.oldPath.Clear();
                 //smoothman
                 //prp.propMovingHalfSpeedMulti = 1f;
                 return 2;
@@ -11990,8 +12179,12 @@ namespace IceBlink2
                 {
                 //smoothman
                 prp.moved2 = false;
-                prp.isPausing = true;
-                prp.pauseCounter = 2 + gv.sf.RandInt(2);
+                if (!prp.isCurrentlyChasing)
+                {
+                    prp.isPausing = true;
+                    //prp.pauseCounter = 2 + gv.sf.RandInt(2);
+                    prp.pauseCounter = 1;
+                }
                 return 0;
 
                 //prp.moved2 = false;
@@ -12120,6 +12313,54 @@ namespace IceBlink2
                         gv.sf.ThisProp = prp;
                         gv.cc.calledEncounterFromProp = true;
                         gv.mod.stopMoves = true;
+                        //sportness
+                        if (!gv.sf.ThisProp.HasCollision)
+                        {
+                            gv.screenMainMap.timeStamp2 = DateTime.Now.Ticks;
+                            while (!gv.screenMainMap.moveDelay2())
+                            {
+                                //new System.EventHandler(gv.gameTimer_Tick);
+                                //gv.screenMainMap.Update(gv.screenMainMap.elapsed);
+                                if (!gv.stillProcessingGameLoop)
+                                {
+                                    if (gv.screenType != "main")
+                                    {
+                                        gv.aTimer.Stop();
+                                        gv.a2Timer.Stop();
+                                        gv.mod.scrollModeSpeed = 1.15f;
+                                    }
+                                    gv.stillProcessingGameLoop = true; //starting the game loop so do not allow another tick call to run until finished with this tick call.
+                                    long current = gv.gameTimerStopwatch.ElapsedMilliseconds; //get the current total amount of ms since the game launched
+                                    gv.elapsed = (int)(current - gv.previousTime); //calculate the total ms elapsed since the last time through the game loop
+                                                                             /*
+                                                                             while (elapsed < 16)
+                                                                             {
+                                                                                 current = gameTimerStopwatch.ElapsedMilliseconds;
+                                                                                 elapsed = (int)(current - previousTime);
+                                                                             }
+                                                                             */
+                                                                             //if (elapsed > 50)
+                                                                             //{
+                                                                             //int i = 0;
+                                                                             //}
+                                                                             //mod.scrollingOverhang = mod.scrollingOverhang + 3f*(elapsed/20f);
+                                                                             //if (mod.scrollingOverhang > 0)
+                                                                             //{
+                                                                             //mod.scrollingOverhang = 0;
+                                                                             //}
+                                    gv.Update(gv.elapsed); //runs AI and physics
+                                    gv.Render(gv.elapsed); //draw the screen frame
+                                    if (gv.reportFPScount >= 10)
+                                    {
+                                        gv.reportFPScount = 0;
+                                        gv.fps = 1000 / (current - gv.previousTime);
+                                    }
+                                    gv.reportFPScount++;
+                                    gv.previousTime = current; //remember the current time at the beginning of this tick call for the next time through the game loop to calculate elapsed ti
+                                    gv.stillProcessingGameLoop = false; //finished game loop so okay to let the next tick call enter the game loop      
+                                }
+                            }
+                        }
                         doEncounterBasedOnTag(prp.EncounterWhenOnPartySquare);
                         gv.mod.breakActiveSearch = true;
                         //gv.mod.EncounterOfTurnDone = true;
@@ -12147,8 +12388,103 @@ namespace IceBlink2
                         //}
                     //}
                     gv.pfa.resetGrid(propAreaIndex);
-                    Coordinate newCoor = gv.pfa.findNewPoint(new Coordinate(prp.LocationX, prp.LocationY), new Coordinate(targetX, targetY), prp, propAreaIndex);
+                    Coordinate newCoor = new Coordinate();
+                    bool findNewPath = false;
+                    //for (int l = prp.oldPath.Count-2; i >)
+                    //if (prp.oldPath.Count >= 2 && !prp.moved2)
+                    if (prp.oldPath.Count >= 2)
+                    {
+                        //pendel
+                        if (gv.mod.moduleAreasObjects[propAreaIndex].GetBlocked(prp.oldPath[prp.oldPath.Count - 2].X, prp.oldPath[prp.oldPath.Count - 2].Y))
+                        {
+                            findNewPath = true;
+                        }
+                        //(prp.oldPath[prp.oldPath.Count-2].X)
+                    }
+                    /*
+                    else if (prp.oldPath.Count >= 3 && prp.moved2)
+                    {
+                        //pendel
+                        if (gv.mod.moduleAreasObjects[propAreaIndex].GetBlocked(prp.oldPath[prp.oldPath.Count - 2].X, prp.oldPath[prp.oldPath.Count - 2].Y))
+                        {
+                            findNewPath = true;
+                        }
+
+                        if (gv.mod.moduleAreasObjects[propAreaIndex].GetBlocked(prp.oldPath[prp.oldPath.Count - 3].X, prp.oldPath[prp.oldPath.Count - 3].Y))
+                        {
+                            findNewPath = true;
+                        }
+                    }
+                    */
+                    else
+                    {
+                        findNewPath = true;
+                    }
+
+                    //lumina
+                    if (prp.isCurrentlyChasing)
+                    {
+                        prp.oldPath.Clear();
+                        findNewPath = true;
+                    }
+
+                    if (prp.oldPath.Count >= 2)
+                    {
+                        foreach (Prop p in gv.mod.moduleAreasObjects[propAreaIndex].Props)
+                        {
+                            if (p.isMover && propIsWithinRelevantDistance(p, propAreaIndex))
+                            {
+                                if (p.LocationX == prp.oldPath[prp.oldPath.Count - 2].X && p.LocationY == prp.oldPath[prp.oldPath.Count - 2].Y)
+                                {
+                                    findNewPath = true;
+                                    break;
+                                }
+                            }
+                        }
+                    }
+
+                    /*
+                    //findNewPath = true;
+                    if (findNewPath)
+                    {
+                        newCoor = gv.pfa.findNewPoint(new Coordinate(prp.LocationX, prp.LocationY), new Coordinate(targetX, targetY), prp, propAreaIndex);
+                        gv.mod.findNewPointCounter++;
+                    }
+                    else
+                    {
+                        newCoor = prp.oldPath[prp.oldPath.Count - 2];
+                        prp.oldPath.RemoveAt(prp.oldPath.Count - 1);
+                    }
+
                     if ((newCoor.X == -1) && (newCoor.Y == -1))
+                    {
+                    */
+                    bool returnCauseSkip = false;
+                    if (findNewPath && (gv.mod.findNewPointCounter <= 10 || prp.skippedPathfinding || prp.isCurrentlyChasing))
+                    {
+                        newCoor = gv.pfa.findNewPoint(new Coordinate(prp.LocationX, prp.LocationY), new Coordinate(targetX, targetY), prp, propAreaIndex);
+                        gv.mod.findNewPointCounter++;
+                        prp.skippedPathfinding = false;
+
+                        //newCoor = gv.pfa.findNewPoint(new Coordinate(prp.LocationX, prp.LocationY), new Coordinate(targetX, targetY), prp, propAreaIndex);
+                    }
+
+                    if (!findNewPath)
+                    {
+                        newCoor = prp.oldPath[prp.oldPath.Count - 2];
+                        prp.oldPath.RemoveAt(prp.oldPath.Count - 1);
+                    }
+
+                    if (gv.mod.findNewPointCounter > 10 && !prp.skippedPathfinding && findNewPath && !prp.isCurrentlyChasing)
+                    {
+                        prp.skippedPathfinding = true;
+                        prp.isPausing = true;
+                        prp.pauseCounter = 1;
+                        returnCauseSkip = true;
+                    }
+
+                    //Coordinate newCoor = gv.pfa.findNewPoint(new Coordinate(prp.LocationX, prp.LocationY), new Coordinate(targetX, targetY), prp, propAreaIndex);
+                    if ((newCoor.X == -1 && newCoor.Y == -1) || returnCauseSkip)
                     {
                         //didn't find a path, don't move
                         //why do we eliminate the moveto target here? Was fitting for a static world (that would never open a new path anyway). In a dynamic world I think we better keep the moveto information?
@@ -12343,6 +12679,54 @@ namespace IceBlink2
                                                 gv.sf.ThisProp = prp;
                                                 gv.cc.calledEncounterFromProp = true;
                                                 gv.mod.stopMoves = true;
+                                                //sportness
+                                                if (!gv.sf.ThisProp.HasCollision)
+                                                {
+                                                    gv.screenMainMap.timeStamp2 = DateTime.Now.Ticks;
+                                                    while (!gv.screenMainMap.moveDelay2())
+                                                    {
+                                                        //new System.EventHandler(gv.gameTimer_Tick);
+                                                        //gv.screenMainMap.Update(gv.screenMainMap.elapsed);
+                                                        if (!gv.stillProcessingGameLoop)
+                                                        {
+                                                            if (gv.screenType != "main")
+                                                            {
+                                                                gv.aTimer.Stop();
+                                                                gv.a2Timer.Stop();
+                                                                gv.mod.scrollModeSpeed = 1.15f;
+                                                            }
+                                                            gv.stillProcessingGameLoop = true; //starting the game loop so do not allow another tick call to run until finished with this tick call.
+                                                            long current = gv.gameTimerStopwatch.ElapsedMilliseconds; //get the current total amount of ms since the game launched
+                                                            gv.elapsed = (int)(current - gv.previousTime); //calculate the total ms elapsed since the last time through the game loop
+                                                                                                           /*
+                                                                                                           while (elapsed < 16)
+                                                                                                           {
+                                                                                                               current = gameTimerStopwatch.ElapsedMilliseconds;
+                                                                                                               elapsed = (int)(current - previousTime);
+                                                                                                           }
+                                                                                                           */
+                                                                                                           //if (elapsed > 50)
+                                                                                                           //{
+                                                                                                           //int i = 0;
+                                                                                                           //}
+                                                                                                           //mod.scrollingOverhang = mod.scrollingOverhang + 3f*(elapsed/20f);
+                                                                                                           //if (mod.scrollingOverhang > 0)
+                                                                                                           //{
+                                                                                                           //mod.scrollingOverhang = 0;
+                                                                                                           //}
+                                                            gv.Update(gv.elapsed); //runs AI and physics
+                                                            gv.Render(gv.elapsed); //draw the screen frame
+                                                            if (gv.reportFPScount >= 10)
+                                                            {
+                                                                gv.reportFPScount = 0;
+                                                                gv.fps = 1000 / (current - gv.previousTime);
+                                                            }
+                                                            gv.reportFPScount++;
+                                                            gv.previousTime = current; //remember the current time at the beginning of this tick call for the next time through the game loop to calculate elapsed ti
+                                                            gv.stillProcessingGameLoop = false; //finished game loop so okay to let the next tick call enter the game loop      
+                                                        }
+                                                    }
+                                                }
                                                 doEncounterBasedOnTag(prp.EncounterWhenOnPartySquare);
                                                 gv.mod.breakActiveSearch = true;
                                                 //gv.mod.EncounterOfTurnDone = true;
@@ -12448,6 +12832,54 @@ namespace IceBlink2
                                     gv.sf.ThisProp = prp;
                                     gv.cc.calledEncounterFromProp = true;
                                     gv.mod.stopMoves = true;
+                                    //sportness
+                                    if (!gv.sf.ThisProp.HasCollision)
+                                    {
+                                        gv.screenMainMap.timeStamp2 = DateTime.Now.Ticks;
+                                        while (!gv.screenMainMap.moveDelay2())
+                                        {
+                                            //new System.EventHandler(gv.gameTimer_Tick);
+                                            //gv.screenMainMap.Update(gv.screenMainMap.elapsed);
+                                            if (!gv.stillProcessingGameLoop)
+                                            {
+                                                if (gv.screenType != "main")
+                                                {
+                                                    gv.aTimer.Stop();
+                                                    gv.a2Timer.Stop();
+                                                    gv.mod.scrollModeSpeed = 1.15f;
+                                                }
+                                                gv.stillProcessingGameLoop = true; //starting the game loop so do not allow another tick call to run until finished with this tick call.
+                                                long current = gv.gameTimerStopwatch.ElapsedMilliseconds; //get the current total amount of ms since the game launched
+                                                gv.elapsed = (int)(current - gv.previousTime); //calculate the total ms elapsed since the last time through the game loop
+                                                                                               /*
+                                                                                               while (elapsed < 16)
+                                                                                               {
+                                                                                                   current = gameTimerStopwatch.ElapsedMilliseconds;
+                                                                                                   elapsed = (int)(current - previousTime);
+                                                                                               }
+                                                                                               */
+                                                                                               //if (elapsed > 50)
+                                                                                               //{
+                                                                                               //int i = 0;
+                                                                                               //}
+                                                                                               //mod.scrollingOverhang = mod.scrollingOverhang + 3f*(elapsed/20f);
+                                                                                               //if (mod.scrollingOverhang > 0)
+                                                                                               //{
+                                                                                               //mod.scrollingOverhang = 0;
+                                                                                               //}
+                                                gv.Update(gv.elapsed); //runs AI and physics
+                                                gv.Render(gv.elapsed); //draw the screen frame
+                                                if (gv.reportFPScount >= 10)
+                                                {
+                                                    gv.reportFPScount = 0;
+                                                    gv.fps = 1000 / (current - gv.previousTime);
+                                                }
+                                                gv.reportFPScount++;
+                                                gv.previousTime = current; //remember the current time at the beginning of this tick call for the next time through the game loop to calculate elapsed ti
+                                                gv.stillProcessingGameLoop = false; //finished game loop so okay to let the next tick call enter the game loop      
+                                            }
+                                        }
+                                    }
                                     doEncounterBasedOnTag(prp.EncounterWhenOnPartySquare);
                                     gv.mod.breakActiveSearch = true;
                                     //gv.mod.EncounterOfTurnDone = true;
@@ -12504,8 +12936,68 @@ namespace IceBlink2
                 for (int i = 0; i < moveDistance; i++)
                 {
                     gv.pfa.resetGrid(propAreaIndex);
-                    Coordinate newCoor = gv.pfa.findNewPoint(new Coordinate(prp.LocationX, prp.LocationY), new Coordinate(targetX, targetY), prp, propAreaIndex);
-                    if ((newCoor.X == -1) && (newCoor.Y == -1))
+                    Coordinate newCoor = new Coordinate();
+                    bool findNewPath = false;
+                    //for (int l = prp.oldPath.Count-2; i >)
+                    if (prp.oldPath.Count >= 2 && !prp.moved2)
+                    {
+                        //pendel
+                        if (gv.mod.moduleAreasObjects[propAreaIndex].GetBlocked(prp.oldPath[prp.oldPath.Count - 2].X, prp.oldPath[prp.oldPath.Count - 2].Y))
+                        {
+                            findNewPath = true;
+                        }
+                        //(prp.oldPath[prp.oldPath.Count-2].X)
+                    }
+                    else if (prp.oldPath.Count >= 3 && prp.moved2)
+                    {
+                        //pendel
+                        if (gv.mod.moduleAreasObjects[propAreaIndex].GetBlocked(prp.oldPath[prp.oldPath.Count - 2].X, prp.oldPath[prp.oldPath.Count - 2].Y))
+                        {
+                            findNewPath = true;
+                        }
+
+                        if (gv.mod.moduleAreasObjects[propAreaIndex].GetBlocked(prp.oldPath[prp.oldPath.Count - 3].X, prp.oldPath[prp.oldPath.Count - 3].Y))
+                        {
+                            findNewPath = true;
+                        }
+                    }
+                    else
+                    {
+                        findNewPath = true;
+                    }
+
+                    //lumina
+                    if (prp.isCurrentlyChasing)
+                    {
+                        prp.oldPath.Clear();
+                        findNewPath = true;
+                    }
+                    bool returnCauseSkip = false;
+                    if (findNewPath && (gv.mod.findNewPointCounter <= 10 || prp.skippedPathfinding || prp.isCurrentlyChasing))
+                    {
+                        newCoor = gv.pfa.findNewPoint(new Coordinate(prp.LocationX, prp.LocationY), new Coordinate(targetX, targetY), prp, propAreaIndex);
+                        gv.mod.findNewPointCounter++;
+                        prp.skippedPathfinding = false;
+
+                        //newCoor = gv.pfa.findNewPoint(new Coordinate(prp.LocationX, prp.LocationY), new Coordinate(targetX, targetY), prp, propAreaIndex);
+                    }
+
+                    if (!findNewPath)
+                    {
+                        newCoor = prp.oldPath[prp.oldPath.Count - 2];
+                        prp.oldPath.RemoveAt(prp.oldPath.Count - 1);
+                    }
+
+                    if (gv.mod.findNewPointCounter > 10 && !prp.skippedPathfinding && findNewPath && !prp.isCurrentlyChasing)
+                    {
+                        prp.skippedPathfinding = true;
+                        prp.isPausing = true;
+                        prp.pauseCounter = 1;
+                        returnCauseSkip = true;
+                    }
+
+                    //Coordinate newCoor = gv.pfa.findNewPoint(new Coordinate(prp.LocationX, prp.LocationY), new Coordinate(targetX, targetY), prp, propAreaIndex);
+                        if ( (newCoor.X == -1 && newCoor.Y == -1) || returnCauseSkip)
                     {
                         //didn't find a path, don't move
                         //why do we eliminate the moveto target here? Was fitting for a static world (that would never open a new path anyway). In a dynamic world I think we better keep the moveto information?
@@ -12681,6 +13173,54 @@ namespace IceBlink2
                                                 gv.sf.ThisProp = prp;
                                                 gv.cc.calledEncounterFromProp = true;
                                                 gv.mod.stopMoves = true;
+                                                //sportness
+                                                if (!gv.sf.ThisProp.HasCollision)
+                                                {
+                                                    gv.screenMainMap.timeStamp2 = DateTime.Now.Ticks;
+                                                    while (!gv.screenMainMap.moveDelay2())
+                                                    {
+                                                        //new System.EventHandler(gv.gameTimer_Tick);
+                                                        //gv.screenMainMap.Update(gv.screenMainMap.elapsed);
+                                                        if (!gv.stillProcessingGameLoop)
+                                                        {
+                                                            if (gv.screenType != "main")
+                                                            {
+                                                                gv.aTimer.Stop();
+                                                                gv.a2Timer.Stop();
+                                                                gv.mod.scrollModeSpeed = 1.15f;
+                                                            }
+                                                            gv.stillProcessingGameLoop = true; //starting the game loop so do not allow another tick call to run until finished with this tick call.
+                                                            long current = gv.gameTimerStopwatch.ElapsedMilliseconds; //get the current total amount of ms since the game launched
+                                                            gv.elapsed = (int)(current - gv.previousTime); //calculate the total ms elapsed since the last time through the game loop
+                                                                                                           /*
+                                                                                                           while (elapsed < 16)
+                                                                                                           {
+                                                                                                               current = gameTimerStopwatch.ElapsedMilliseconds;
+                                                                                                               elapsed = (int)(current - previousTime);
+                                                                                                           }
+                                                                                                           */
+                                                                                                           //if (elapsed > 50)
+                                                                                                           //{
+                                                                                                           //int i = 0;
+                                                                                                           //}
+                                                                                                           //mod.scrollingOverhang = mod.scrollingOverhang + 3f*(elapsed/20f);
+                                                                                                           //if (mod.scrollingOverhang > 0)
+                                                                                                           //{
+                                                                                                           //mod.scrollingOverhang = 0;
+                                                                                                           //}
+                                                            gv.Update(gv.elapsed); //runs AI and physics
+                                                            gv.Render(gv.elapsed); //draw the screen frame
+                                                            if (gv.reportFPScount >= 10)
+                                                            {
+                                                                gv.reportFPScount = 0;
+                                                                gv.fps = 1000 / (current - gv.previousTime);
+                                                            }
+                                                            gv.reportFPScount++;
+                                                            gv.previousTime = current; //remember the current time at the beginning of this tick call for the next time through the game loop to calculate elapsed ti
+                                                            gv.stillProcessingGameLoop = false; //finished game loop so okay to let the next tick call enter the game loop      
+                                                        }
+                                                    }
+                                                }
                                                 doEncounterBasedOnTag(prp.EncounterWhenOnPartySquare);
                                                 gv.mod.breakActiveSearch = true;
                                                 //gv.mod.EncounterOfTurnDone = true;
@@ -12724,6 +13264,54 @@ namespace IceBlink2
                                             gv.sf.ThisProp = prp;
                                             gv.cc.calledEncounterFromProp = true;
                                             gv.mod.stopMoves = true;
+                                            //sportness
+                                            if (!gv.sf.ThisProp.HasCollision)
+                                            {
+                                                gv.screenMainMap.timeStamp2 = DateTime.Now.Ticks;
+                                                while (!gv.screenMainMap.moveDelay2())
+                                                {
+                                                    //new System.EventHandler(gv.gameTimer_Tick);
+                                                    //gv.screenMainMap.Update(gv.screenMainMap.elapsed);
+                                                    if (!gv.stillProcessingGameLoop)
+                                                    {
+                                                        if (gv.screenType != "main")
+                                                        {
+                                                            gv.aTimer.Stop();
+                                                            gv.a2Timer.Stop();
+                                                            gv.mod.scrollModeSpeed = 1.15f;
+                                                        }
+                                                        gv.stillProcessingGameLoop = true; //starting the game loop so do not allow another tick call to run until finished with this tick call.
+                                                        long current = gv.gameTimerStopwatch.ElapsedMilliseconds; //get the current total amount of ms since the game launched
+                                                        gv.elapsed = (int)(current - gv.previousTime); //calculate the total ms elapsed since the last time through the game loop
+                                                                                                       /*
+                                                                                                       while (elapsed < 16)
+                                                                                                       {
+                                                                                                           current = gameTimerStopwatch.ElapsedMilliseconds;
+                                                                                                           elapsed = (int)(current - previousTime);
+                                                                                                       }
+                                                                                                       */
+                                                                                                       //if (elapsed > 50)
+                                                                                                       //{
+                                                                                                       //int i = 0;
+                                                                                                       //}
+                                                                                                       //mod.scrollingOverhang = mod.scrollingOverhang + 3f*(elapsed/20f);
+                                                                                                       //if (mod.scrollingOverhang > 0)
+                                                                                                       //{
+                                                                                                       //mod.scrollingOverhang = 0;
+                                                                                                       //}
+                                                        gv.Update(gv.elapsed); //runs AI and physics
+                                                        gv.Render(gv.elapsed); //draw the screen frame
+                                                        if (gv.reportFPScount >= 10)
+                                                        {
+                                                            gv.reportFPScount = 0;
+                                                            gv.fps = 1000 / (current - gv.previousTime);
+                                                        }
+                                                        gv.reportFPScount++;
+                                                        gv.previousTime = current; //remember the current time at the beginning of this tick call for the next time through the game loop to calculate elapsed ti
+                                                        gv.stillProcessingGameLoop = false; //finished game loop so okay to let the next tick call enter the game loop      
+                                                    }
+                                                }
+                                            }
                                             doEncounterBasedOnTag(prp.EncounterWhenOnPartySquare);
                                             gv.mod.breakActiveSearch = true;
                                             //gv.mod.EncounterOfTurnDone = true;
@@ -12789,6 +13377,54 @@ namespace IceBlink2
                                         gv.sf.ThisProp = prp;
                                         gv.cc.calledEncounterFromProp = true;
                                         gv.mod.stopMoves = true;
+                                        //sportness
+                                        if (!gv.sf.ThisProp.HasCollision)
+                                        {
+                                            gv.screenMainMap.timeStamp2 = DateTime.Now.Ticks;
+                                            while (!gv.screenMainMap.moveDelay2())
+                                            {
+                                                //new System.EventHandler(gv.gameTimer_Tick);
+                                                //gv.screenMainMap.Update(gv.screenMainMap.elapsed);
+                                                if (!gv.stillProcessingGameLoop)
+                                                {
+                                                    if (gv.screenType != "main")
+                                                    {
+                                                        gv.aTimer.Stop();
+                                                        gv.a2Timer.Stop();
+                                                        gv.mod.scrollModeSpeed = 1.15f;
+                                                    }
+                                                    gv.stillProcessingGameLoop = true; //starting the game loop so do not allow another tick call to run until finished with this tick call.
+                                                    long current = gv.gameTimerStopwatch.ElapsedMilliseconds; //get the current total amount of ms since the game launched
+                                                    gv.elapsed = (int)(current - gv.previousTime); //calculate the total ms elapsed since the last time through the game loop
+                                                                                                   /*
+                                                                                                   while (elapsed < 16)
+                                                                                                   {
+                                                                                                       current = gameTimerStopwatch.ElapsedMilliseconds;
+                                                                                                       elapsed = (int)(current - previousTime);
+                                                                                                   }
+                                                                                                   */
+                                                                                                   //if (elapsed > 50)
+                                                                                                   //{
+                                                                                                   //int i = 0;
+                                                                                                   //}
+                                                                                                   //mod.scrollingOverhang = mod.scrollingOverhang + 3f*(elapsed/20f);
+                                                                                                   //if (mod.scrollingOverhang > 0)
+                                                                                                   //{
+                                                                                                   //mod.scrollingOverhang = 0;
+                                                                                                   //}
+                                                    gv.Update(gv.elapsed); //runs AI and physics
+                                                    gv.Render(gv.elapsed); //draw the screen frame
+                                                    if (gv.reportFPScount >= 10)
+                                                    {
+                                                        gv.reportFPScount = 0;
+                                                        gv.fps = 1000 / (current - gv.previousTime);
+                                                    }
+                                                    gv.reportFPScount++;
+                                                    gv.previousTime = current; //remember the current time at the beginning of this tick call for the next time through the game loop to calculate elapsed ti
+                                                    gv.stillProcessingGameLoop = false; //finished game loop so okay to let the next tick call enter the game loop      
+                                                }
+                                            }
+                                        }
                                         doEncounterBasedOnTag(prp.EncounterWhenOnPartySquare);
                                         gv.mod.breakActiveSearch = true;
                                     }
@@ -13050,6 +13686,8 @@ namespace IceBlink2
                 return false;
             }
 
+            //return true;
+
             if (p.MoverType.Equals("daily") || p.MoverType.Equals("weekly") || p.MoverType.Equals("monthly") || p.MoverType.Equals("yearly"))
             {
                 return true;
@@ -13225,7 +13863,7 @@ namespace IceBlink2
                 distanceY *= -1;
             }
 
-            if (distanceY <= 8 && distanceX <= 13)
+            if (distanceY <= 10 && distanceX <= 15)
             {
                 return true;
             }
@@ -13328,6 +13966,7 @@ namespace IceBlink2
                     {
                         nearbyAreasIndices.Add(i);
                     }
+                    
                 }
                 else if (NWCorner)
                 {
@@ -13363,6 +14002,162 @@ namespace IceBlink2
                     }
                 }
 
+            }
+
+            if (NECorner)
+            {
+                bool cornerFound = false;
+                foreach (Area a in gv.mod.moduleAreasObjects)
+                {
+                    //bool cornerFound = false;
+                    if (!cornerFound)
+                    {
+                        if (a.Filename == gv.mod.currentArea.easternNeighbourArea)
+                        {
+                            for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
+                            {
+                                if (gv.mod.moduleAreasObjects[i].Filename == a.northernNeighbourArea)
+                                {
+                                    nearbyAreasIndices.Add(i);
+                                    cornerFound = true;
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                    if (!cornerFound)
+                    {
+                        if (a.Filename == gv.mod.currentArea.northernNeighbourArea)
+                        {
+                            for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
+                            {
+                                if (gv.mod.moduleAreasObjects[i].Filename == a.easternNeighbourArea)
+                                {
+                                    nearbyAreasIndices.Add(i);
+                                    cornerFound = true;
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            if (NWCorner)
+            {
+                bool cornerFound = false;
+                foreach (Area a in gv.mod.moduleAreasObjects)
+                {
+                    //bool cornerFound = false;
+                    if (!cornerFound)
+                    {
+                        if (a.Filename == gv.mod.currentArea.westernNeighbourArea)
+                        {
+                            for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
+                            {
+                                if (gv.mod.moduleAreasObjects[i].Filename == a.northernNeighbourArea)
+                                {
+                                    nearbyAreasIndices.Add(i);
+                                    cornerFound = true;
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                    if (!cornerFound)
+                    {
+                        if (a.Filename == gv.mod.currentArea.northernNeighbourArea)
+                        {
+                            for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
+                            {
+                                if (gv.mod.moduleAreasObjects[i].Filename == a.westernNeighbourArea)
+                                {
+                                    nearbyAreasIndices.Add(i);
+                                    cornerFound = true;
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            if (SWCorner)
+            {
+                bool cornerFound = false;
+               
+                    foreach (Area a in gv.mod.moduleAreasObjects)
+                    {
+                    //bool cornerFound = false;
+                    if (!cornerFound)
+                    {
+                        if (a.Filename == gv.mod.currentArea.westernNeighbourArea)
+                        {
+                            for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
+                            {
+                                if (gv.mod.moduleAreasObjects[i].Filename == a.southernNeighbourArea)
+                                {
+                                    nearbyAreasIndices.Add(i);
+                                    cornerFound = true;
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                    if (!cornerFound)
+                    {
+                        if (a.Filename == gv.mod.currentArea.southernNeighbourArea)
+                        {
+                            for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
+                            {
+                                if (gv.mod.moduleAreasObjects[i].Filename == a.westernNeighbourArea)
+                                {
+                                    nearbyAreasIndices.Add(i);
+                                    cornerFound = true;
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            if (SECorner)
+            {
+                bool cornerFound = false;
+                foreach (Area a in gv.mod.moduleAreasObjects)
+                {
+                    //bool cornerFound = false;
+                    if (!cornerFound)
+                    {
+                        if (a.Filename == gv.mod.currentArea.easternNeighbourArea)
+                        {
+                            for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
+                            {
+                                if (gv.mod.moduleAreasObjects[i].Filename == a.southernNeighbourArea)
+                                {
+                                    nearbyAreasIndices.Add(i);
+                                    cornerFound = true;
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                    if (!cornerFound)
+                    {
+                        if (a.Filename == gv.mod.currentArea.southernNeighbourArea)
+                        {
+                            for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
+                            {
+                                if (gv.mod.moduleAreasObjects[i].Filename == a.easternNeighbourArea)
+                                {
+                                    nearbyAreasIndices.Add(i);
+                                    cornerFound = true;
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }
             }
             return nearbyAreasIndices;
         }
@@ -13604,7 +14399,55 @@ namespace IceBlink2
                             if (!gv.mod.EncounterOfTurnDone)
                             {
                                     gv.mod.EncounterOfTurnDone = true;
-                                    doEncounterBasedOnTag(gv.mod.currentArea.Props[i].EncounterWhenOnPartySquare);
+                                //sportness
+                                if (!gv.sf.ThisProp.HasCollision)
+                                {
+                                    gv.screenMainMap.timeStamp2 = DateTime.Now.Ticks;
+                                    while (!gv.screenMainMap.moveDelay2())
+                                    {
+                                        //new System.EventHandler(gv.gameTimer_Tick);
+                                        //gv.screenMainMap.Update(gv.screenMainMap.elapsed);
+                                        if (!gv.stillProcessingGameLoop)
+                                        {
+                                            if (gv.screenType != "main")
+                                            {
+                                                gv.aTimer.Stop();
+                                                gv.a2Timer.Stop();
+                                                gv.mod.scrollModeSpeed = 1.15f;
+                                            }
+                                            gv.stillProcessingGameLoop = true; //starting the game loop so do not allow another tick call to run until finished with this tick call.
+                                            long current = gv.gameTimerStopwatch.ElapsedMilliseconds; //get the current total amount of ms since the game launched
+                                            gv.elapsed = (int)(current - gv.previousTime); //calculate the total ms elapsed since the last time through the game loop
+                                                                                           /*
+                                                                                           while (elapsed < 16)
+                                                                                           {
+                                                                                               current = gameTimerStopwatch.ElapsedMilliseconds;
+                                                                                               elapsed = (int)(current - previousTime);
+                                                                                           }
+                                                                                           */
+                                                                                           //if (elapsed > 50)
+                                                                                           //{
+                                                                                           //int i = 0;
+                                                                                           //}
+                                                                                           //mod.scrollingOverhang = mod.scrollingOverhang + 3f*(elapsed/20f);
+                                                                                           //if (mod.scrollingOverhang > 0)
+                                                                                           //{
+                                                                                           //mod.scrollingOverhang = 0;
+                                                                                           //}
+                                            gv.Update(gv.elapsed); //runs AI and physics
+                                            gv.Render(gv.elapsed); //draw the screen frame
+                                            if (gv.reportFPScount >= 10)
+                                            {
+                                                gv.reportFPScount = 0;
+                                                gv.fps = 1000 / (current - gv.previousTime);
+                                            }
+                                            gv.reportFPScount++;
+                                            gv.previousTime = current; //remember the current time at the beginning of this tick call for the next time through the game loop to calculate elapsed ti
+                                            gv.stillProcessingGameLoop = false; //finished game loop so okay to let the next tick call enter the game loop      
+                                        }
+                                    }
+                                }
+                                doEncounterBasedOnTag(gv.mod.currentArea.Props[i].EncounterWhenOnPartySquare);
                                     gv.mod.breakActiveSearch = true;
 
                                 //gv.mod.EncounterOfTurnDone = true;
@@ -13982,7 +14825,56 @@ namespace IceBlink2
 
                                 if (!gv.mod.EncounterOfTurnDone)
                                 {
+                                    
                                     gv.mod.EncounterOfTurnDone = true;
+                                    //sportness
+                                    if (!gv.sf.ThisProp.HasCollision)
+                                    {
+                                        gv.screenMainMap.timeStamp2 = DateTime.Now.Ticks;
+                                        while (!gv.screenMainMap.moveDelay2())
+                                        {
+                                            //new System.EventHandler(gv.gameTimer_Tick);
+                                            //gv.screenMainMap.Update(gv.screenMainMap.elapsed);
+                                            if (!gv.stillProcessingGameLoop)
+                                            {
+                                                if (gv.screenType != "main")
+                                                {
+                                                    gv.aTimer.Stop();
+                                                    gv.a2Timer.Stop();
+                                                    gv.mod.scrollModeSpeed = 1.15f;
+                                                }
+                                                gv.stillProcessingGameLoop = true; //starting the game loop so do not allow another tick call to run until finished with this tick call.
+                                                long current = gv.gameTimerStopwatch.ElapsedMilliseconds; //get the current total amount of ms since the game launched
+                                                gv.elapsed = (int)(current - gv.previousTime); //calculate the total ms elapsed since the last time through the game loop
+                                                                                               /*
+                                                                                               while (elapsed < 16)
+                                                                                               {
+                                                                                                   current = gameTimerStopwatch.ElapsedMilliseconds;
+                                                                                                   elapsed = (int)(current - previousTime);
+                                                                                               }
+                                                                                               */
+                                                                                               //if (elapsed > 50)
+                                                                                               //{
+                                                                                               //int i = 0;
+                                                                                               //}
+                                                                                               //mod.scrollingOverhang = mod.scrollingOverhang + 3f*(elapsed/20f);
+                                                                                               //if (mod.scrollingOverhang > 0)
+                                                                                               //{
+                                                                                               //mod.scrollingOverhang = 0;
+                                                                                               //}
+                                                gv.Update(gv.elapsed); //runs AI and physics
+                                                gv.Render(gv.elapsed); //draw the screen frame
+                                                if (gv.reportFPScount >= 10)
+                                                {
+                                                    gv.reportFPScount = 0;
+                                                    gv.fps = 1000 / (current - gv.previousTime);
+                                                }
+                                                gv.reportFPScount++;
+                                                gv.previousTime = current; //remember the current time at the beginning of this tick call for the next time through the game loop to calculate elapsed ti
+                                                gv.stillProcessingGameLoop = false; //finished game loop so okay to let the next tick call enter the game loop      
+                                            }
+                                        }
+                                    }
                                     doEncounterBasedOnTag(gv.mod.currentArea.Props[i].EncounterWhenOnPartySquare);
                                     gv.mod.breakActiveSearch = true;
 
@@ -14755,6 +15647,54 @@ namespace IceBlink2
                                                 {
                                                     gv.mod.breakActiveSearch = true;
                                                     gv.mod.EncounterOfTurnDone = true;
+                                                    //sportness
+                                                    if (!gv.sf.ThisProp.HasCollision)
+                                                    {
+                                                        gv.screenMainMap.timeStamp2 = DateTime.Now.Ticks;
+                                                        while (!gv.screenMainMap.moveDelay2())
+                                                        {
+                                                            //new System.EventHandler(gv.gameTimer_Tick);
+                                                            //gv.screenMainMap.Update(gv.screenMainMap.elapsed);
+                                                            if (!gv.stillProcessingGameLoop)
+                                                            {
+                                                                if (gv.screenType != "main")
+                                                                {
+                                                                    gv.aTimer.Stop();
+                                                                    gv.a2Timer.Stop();
+                                                                    gv.mod.scrollModeSpeed = 1.15f;
+                                                                }
+                                                                gv.stillProcessingGameLoop = true; //starting the game loop so do not allow another tick call to run until finished with this tick call.
+                                                                long current = gv.gameTimerStopwatch.ElapsedMilliseconds; //get the current total amount of ms since the game launched
+                                                                gv.elapsed = (int)(current - gv.previousTime); //calculate the total ms elapsed since the last time through the game loop
+                                                                                                               /*
+                                                                                                               while (elapsed < 16)
+                                                                                                               {
+                                                                                                                   current = gameTimerStopwatch.ElapsedMilliseconds;
+                                                                                                                   elapsed = (int)(current - previousTime);
+                                                                                                               }
+                                                                                                               */
+                                                                                                               //if (elapsed > 50)
+                                                                                                               //{
+                                                                                                               //int i = 0;
+                                                                                                               //}
+                                                                                                               //mod.scrollingOverhang = mod.scrollingOverhang + 3f*(elapsed/20f);
+                                                                                                               //if (mod.scrollingOverhang > 0)
+                                                                                                               //{
+                                                                                                               //mod.scrollingOverhang = 0;
+                                                                                                               //}
+                                                                gv.Update(gv.elapsed); //runs AI and physics
+                                                                gv.Render(gv.elapsed); //draw the screen frame
+                                                                if (gv.reportFPScount >= 10)
+                                                                {
+                                                                    gv.reportFPScount = 0;
+                                                                    gv.fps = 1000 / (current - gv.previousTime);
+                                                                }
+                                                                gv.reportFPScount++;
+                                                                gv.previousTime = current; //remember the current time at the beginning of this tick call for the next time through the game loop to calculate elapsed ti
+                                                                gv.stillProcessingGameLoop = false; //finished game loop so okay to let the next tick call enter the game loop      
+                                                            }
+                                                        }
+                                                    }
                                                     doEncounterBasedOnTag(trig.Event2FilenameOrTag);
                                                     //gv.mod.EncounterOfTurnDone = true;
                                                 }
@@ -14818,6 +15758,7 @@ namespace IceBlink2
                                                 {
                                                     gv.mod.breakActiveSearch = true;
                                                     gv.mod.EncounterOfTurnDone = true;
+                                                  
                                                     doEncounterBasedOnTag(trig.Event3FilenameOrTag);
                                                     //gv.mod.EncounterOfTurnDone = true;
                                                 }
@@ -14875,6 +15816,18 @@ namespace IceBlink2
         public void doContainerBasedOnTag(string tag)
         {
 
+            //gv.aTimer.Stop();
+            //gv.a2Timer.Stop();
+            //gv.mod.scrollModeSpeed = 1.15f;
+            gv.mod.blockRightKey = false;
+            gv.mod.blockLeftKey = false;
+            gv.mod.blockUpKey = false;
+            gv.mod.blockDownKey = false;
+
+            gv.aTimer.Stop();
+            gv.a2Timer.Stop();
+            gv.mod.scrollModeSpeed = 1.15f;
+
             try
             {
                 Container container = gv.mod.getContainerByTag(tag);
@@ -14891,13 +15844,20 @@ namespace IceBlink2
         public void doConversationBasedOnTag(string tag)
         {
 
-
+            
             bool isFooled = false;
             //enter code for skipping triggers of prop here
             if (calledConvoFromProp)
             {
                 if (gv.sf.ThisProp != null)
                 {
+                    if (gv.sf.ThisProp.blockConvoForOneTurn)
+                    {
+                        return;
+                    }
+                    gv.sf.ThisProp.blockConvoForOneTurn = true;
+
+
                     if (gv.sf.ThisProp.stealthSkipsPropTriggers)
                     {
                         //add missing check
@@ -14984,6 +15944,19 @@ namespace IceBlink2
              //{
             try
                 {
+
+                if (calledConvoFromProp)
+                {
+                    if (gv.sf.ThisProp != null)
+                    {
+                        if (gv.sf.ThisProp.isMover)
+                        {
+                            gv.sf.ThisProp.ReturningToPost = true;
+                            gv.sf.ThisProp.isCurrentlyChasing = false;
+                        }
+                    }
+                }
+
                 gv.mod.blockRightKey = false;
                 gv.mod.blockLeftKey = false;
                 gv.mod.blockUpKey = false;
@@ -16634,6 +17607,7 @@ namespace IceBlink2
             //aegon2
             //gv.mod.scrollingTimer = 0;
             //gv.mod.isScrollingNow = false;
+            //if (gv.mod.currentEncounter.isOver)
             EncCalled = calledEncounterFromProp;
 
             if (calledEncounterFromProp && gv.sf.ThisProp != null)
@@ -16731,6 +17705,17 @@ namespace IceBlink2
             //project repeatable
             try
                 {
+                if (calledConvoFromProp)
+                {
+                    if (gv.sf.ThisProp != null)
+                    {
+                        if (gv.sf.ThisProp.isMover)
+                        {
+                            gv.sf.ThisProp.ReturningToPost = true;
+                            gv.sf.ThisProp.isCurrentlyChasing = false;
+                        }
+                    }
+                }
                 gv.mod.blockRightKey = false;
                 gv.mod.blockLeftKey = false;
                 gv.mod.blockUpKey = false;
@@ -16743,7 +17728,15 @@ namespace IceBlink2
                 gv.mod.currentEncounter = gv.mod.getEncounter(name);
                     if (gv.mod.currentEncounter.encounterCreatureRefsList.Count > 0)
                     {
+                    bool isDoubleCall = false;
+                    foreach (Creature c in gv.mod.currentEncounter.encounterCreatureList)
+                    {
+                        isDoubleCall = true;
+                    }
+                    if (!isDoubleCall)
+                    {
                         gv.screenCombat.doCombatSetup();
+                    }
                         int foundOnePc = 0;
                         foreach (Player chr in gv.mod.playerList)
                         {

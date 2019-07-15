@@ -7814,6 +7814,10 @@ namespace IceBlink2
                     foundOneCrtr = 1;
                 }
             }
+            if (foundOneCrtr  == 0)
+            {
+                gv.mod.currentEncounter.encounterCreatureList.Clear();
+            }
             bool standGroundConditionMet = false;
             if (gv.mod.currentEncounter.standGroundVictory && gv.mod.currentEncounter.standGroundInternalTimer <= 0)
             {
@@ -7842,6 +7846,12 @@ namespace IceBlink2
 
             if (gv.screenType.Equals("combat") && (gv.mod.currentEncounter.assassinationConditionMet || foundOneCrtr == 0 || standGroundConditionMet) || gv.mod.currentEncounter.conquerConditionMet)
                 {
+
+                for (int i = gv.mod.currentEncounter.encounterCreatureList.Count-1; i >= 0; i--)
+                {
+                    gv.mod.currentEncounter.encounterCreatureList.RemoveAt(i);
+                }
+                gv.mod.currentEncounter.encounterCreatureList.Clear();
 
                 if (gv.mod.currentEncounter.allSpellsWithoutAoE)
                 {
@@ -7872,7 +7882,7 @@ namespace IceBlink2
                 */
                 //zulaufen
 
-                gv.screenType = "main";
+                //gv.screenType = "main";
                 gv.mod.currentEncounter.isOver = true;
                 allDone = true;
                 roundCounter = 1;
@@ -8021,6 +8031,7 @@ namespace IceBlink2
                     gv.mod.currentEncounter.encounterCreatureRefsList.Clear();
                 }
 
+                gv.screenType = "main";
 
                 /*
                 // give gold drop

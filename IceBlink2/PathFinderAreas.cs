@@ -61,6 +61,14 @@ namespace IceBlink2
                 //}
             }
             callingProp.lengthOfLastPath = pathNodes.Count;
+            callingProp.oldPath.Clear();
+            foreach (Coordinate c in pathNodes)
+            {
+                if (!callingProp.isCurrentlyChasing)
+                {
+                    callingProp.oldPath.Add(c);
+                }
+            }
             pathNodes.Clear();
 
             /*
@@ -301,51 +309,59 @@ namespace IceBlink2
         //build path for limited area
         public void buildPath(Coordinate start, int centerPointX, int centerPointY, int radius, Prop callingProp, int index)
         {
-            int minX = centerPointX - radius;
-            if (minX < 0) { minX = 0; };
-            int minY = centerPointY - radius;
-            if (minY < 0) { minY = 0; };
-            int maxX = centerPointX + radius + 1;
-            if (maxX > mod.moduleAreasObjects[index].MapSizeX - 1) { maxX = mod.moduleAreasObjects[index].MapSizeX - 1; }
-            int maxY = centerPointY + radius + 1;
-            if (maxY > mod.moduleAreasObjects[index].MapSizeY - 1) { maxY = mod.moduleAreasObjects[index].MapSizeY - 1; }
-            int numberOfSquaresInArea = (2 * radius + 1) * (2 * radius + 1);
-
-            //iterate through all values for next number and evaluate neighbors
-            int next = 0;
-            for (int cnt = 0; cnt < numberOfSquaresInArea; cnt++)
+            try
             {
-                //1100 is used because 32*32=1024 and rounded up to 1100, NOTE; old explanation, delete then
-                for (int x = minX; x < maxX; x++)
+                int minX = centerPointX - radius;
+                if (minX < 0) { minX = 0; };
+                int minY = centerPointY - radius;
+                if (minY < 0) { minY = 0; };
+                int maxX = centerPointX + radius + 1;
+                if (maxX > mod.moduleAreasObjects[index].MapSizeX - 1) { maxX = mod.moduleAreasObjects[index].MapSizeX - 1; }
+                int maxY = centerPointY + radius + 1;
+                if (maxY > mod.moduleAreasObjects[index].MapSizeY - 1) { maxY = mod.moduleAreasObjects[index].MapSizeY - 1; }
+                int numberOfSquaresInArea = (2 * radius + 1) * (2 * radius + 1);
+
+                //iterate through all values for next number and evaluate neighbors
+                int next = 0;
+                for (int cnt = 0; cnt < numberOfSquaresInArea; cnt++)
                 {
-                    for (int y = minY; y < maxY; y++)
+                    //1100 is used because 32*32=1024 and rounded up to 1100, NOTE; old explanation, delete then
+                    for (int x = minX; x < maxX; x++)
                     {
-                        if (values[x, y] == next)
+                        for (int y = minY; y < maxY; y++)
                         {
-                            if ((x + 1 < maxX) && (evaluateValue(x + 1, y, next, callingProp, x, y, index)))
+                            if (values[x, y] == next)
                             {
-                                foundEnd = true;
-                                return;
-                            }
-                            if ((x - 1 >= minX) && (evaluateValue(x - 1, y, next, callingProp, x, y, index)))
-                            {
-                                foundEnd = true;
-                                return;
-                            }
-                            if ((y + 1 < maxY) && (evaluateValue(x, y + 1, next, callingProp, x, y, index)))
-                            {
-                                foundEnd = true;
-                                return;
-                            }
-                            if ((y - 1 >= minY) && (evaluateValue(x, y - 1, next, callingProp,x ,y, index)))
-                            {
-                                foundEnd = true;
-                                return;
+                                if ((x + 1 < maxX) && (evaluateValue(x + 1, y, next, callingProp, x, y, index)))
+                                {
+                                    foundEnd = true;
+                                    return;
+                                }
+                                if ((x - 1 >= minX) && (evaluateValue(x - 1, y, next, callingProp, x, y, index)))
+                                {
+                                    foundEnd = true;
+                                    return;
+                                }
+                                if ((y + 1 < maxY) && (evaluateValue(x, y + 1, next, callingProp, x, y, index)))
+                                {
+                                    foundEnd = true;
+                                    return;
+                                }
+                                if ((y - 1 >= minY) && (evaluateValue(x, y - 1, next, callingProp, x, y, index)))
+                                {
+                                    foundEnd = true;
+                                    return;
+                                }
                             }
                         }
                     }
+                    next++;
                 }
-                next++;
+            }
+            catch
+            {
+                int gfhhf = 0;
+                gv.cc.addLogText("<font color='yellow'>" + "CRASH in buildPath limited area " + "</font><BR>");
             }
         }
 
@@ -417,54 +433,63 @@ namespace IceBlink2
         //helper functions
         public void buildPath(Coordinate start, Prop callingProp, int index)
         {
-            int minX = 0;
-            int minY = 0;
-            int maxX = mod.moduleAreasObjects[index].MapSizeX;
-            int maxY = mod.moduleAreasObjects[index].MapSizeY;
-            int numberOfSquaresInArea = mod.moduleAreasObjects[index].MapSizeX * mod.moduleAreasObjects[index].MapSizeY;
-
-            //iterate through all values for next number and evaluate neighbors
-            int next = 0;
-            for (int cnt = 0; cnt < numberOfSquaresInArea; cnt++)
+            try
             {
-                //1100 is used because 32*32=1024 and rounded up to 1100, NOTE; old explanation, delete then
-                for (int x = minX; x < maxX; x++)
-                {            
-                    for (int y = minY; y < maxY; y++)
+                int minX = 0;
+                int minY = 0;
+                int maxX = mod.moduleAreasObjects[index].MapSizeX;
+                int maxY = mod.moduleAreasObjects[index].MapSizeY;
+                int numberOfSquaresInArea = mod.moduleAreasObjects[index].MapSizeX * mod.moduleAreasObjects[index].MapSizeY;
+
+                //iterate through all values for next number and evaluate neighbors
+                int next = 0;
+                for (int cnt = 0; cnt < numberOfSquaresInArea; cnt++)
+                {
+                    //1100 is used because 32*32=1024 and rounded up to 1100, NOTE; old explanation, delete then
+                    for (int x = minX; x < maxX; x++)
                     {
-                        if (values[x,y] == next)
+                        for (int y = minY; y < maxY; y++)
                         {
-                            if ((x + 1 < maxX) && (evaluateValue(x + 1, y, next, callingProp, x, y, index)))
+                            if (values[x, y] == next)
                             {
-                                foundEnd = true;
-                                return;
-                            }
-                            if ((x - 1 >= minX) && (evaluateValue(x - 1, y, next, callingProp, x, y, index)))
-                            {
-                                foundEnd = true;
-                                return;
-                            }
-                            if ((y + 1 < maxY) && (evaluateValue(x, y + 1, next, callingProp, x, y, index)))
-                            {
-                                foundEnd = true;
-                                return;
-                            }
-                            if ((y - 1 >= minY) && (evaluateValue(x, y - 1, next, callingProp, x, y, index)))
-                            {
-                                foundEnd = true;
-                                return;
+                                if ((x + 1 < maxX) && (evaluateValue(x + 1, y, next, callingProp, x, y, index)))
+                                {
+                                    foundEnd = true;
+                                    return;
+                                }
+                                if ((x - 1 >= minX) && (evaluateValue(x - 1, y, next, callingProp, x, y, index)))
+                                {
+                                    foundEnd = true;
+                                    return;
+                                }
+                                if ((y + 1 < maxY) && (evaluateValue(x, y + 1, next, callingProp, x, y, index)))
+                                {
+                                    foundEnd = true;
+                                    return;
+                                }
+                                if ((y - 1 >= minY) && (evaluateValue(x, y - 1, next, callingProp, x, y, index)))
+                                {
+                                    foundEnd = true;
+                                    return;
+                                }
                             }
                         }
                     }
+                    next++;
                 }
-                next++;
+            }
+            catch
+            {
+                int dhdh = 0;
+                gv.cc.addLogText("<font color='yellow'>"  + "CRASH in buildPath " +  "</font><BR>");
+
             }
         }
         public bool evaluateValue(int x, int y, int next, Prop callingProp, int originX, int originY, int index)
         {
             //if ((originX == 1 && originY == 3 ) && (x == 2 && y == 3))
             //{
-                //int i = 0;
+            //int i = 0;
             //}
             //this will be set to true if currently checked square (next+1) can be reached
             //we will not need to care for walkable as this was handled already beforehand (setting grid[x,y] to 1, ie closed)
@@ -499,8 +524,9 @@ RULES:
 
             //get the next -1 squares
             //List<Tile> formerTiles = new List<Tile>();
-            
-            Tile easternTile =  new Tile();
+            try
+            { 
+            Tile easternTile = new Tile();
             Tile westernTile = new Tile();
             Tile southernTile = new Tile();
             Tile northernTile = new Tile();
@@ -510,11 +536,11 @@ RULES:
             bool southernTileIsPriorTile = false;
 
             bool allowAssignment = false;
-            
-            
-                //former to east
-                if (originX + 1 <= mod.moduleAreasObjects[index].MapSizeX - 1)
-                {
+
+
+            //former to east
+            if (originX + 1 <= mod.moduleAreasObjects[index].MapSizeX - 1)
+            {
                 if (next == 0)
                 {
                     if ((callingProp.lastLocationX == (originX + 1)) && (callingProp.lastLocationY == originY))
@@ -525,15 +551,15 @@ RULES:
                 }
                 //wrog to assume former here as the bridge woudl not have allow this "jump" move!
                 else if (values[originX + 1, originY] == next - 1)
-                    {
-                        easternTile = mod.moduleAreasObjects[index].Tiles[originY * mod.moduleAreasObjects[index].MapSizeX + originX + 1];
-                        easternTileIsPriorTile = true;
-                    }
-                }
-
-                //former to west
-                if (originX - 1 >= 0)
                 {
+                    easternTile = mod.moduleAreasObjects[index].Tiles[originY * mod.moduleAreasObjects[index].MapSizeX + originX + 1];
+                    easternTileIsPriorTile = true;
+                }
+            }
+
+            //former to west
+            if (originX - 1 >= 0)
+            {
                 if (next == 0)
                 {
                     if ((callingProp.lastLocationX == (originX - 1)) && (callingProp.lastLocationY == originY))
@@ -543,15 +569,15 @@ RULES:
                     }
                 }
                 else if (values[originX - 1, originY] == next - 1)
-                    {
-                        westernTile = mod.moduleAreasObjects[index].Tiles[originY * mod.moduleAreasObjects[index].MapSizeX + originX - 1];
-                        westernTileIsPriorTile = true;
-                    }
-                }
-
-                //former to south
-                if (originY + 1 <= mod.moduleAreasObjects[index].MapSizeY - 1)
                 {
+                    westernTile = mod.moduleAreasObjects[index].Tiles[originY * mod.moduleAreasObjects[index].MapSizeX + originX - 1];
+                    westernTileIsPriorTile = true;
+                }
+            }
+
+            //former to south
+            if (originY + 1 <= mod.moduleAreasObjects[index].MapSizeY - 1)
+            {
                 if (next == 0)
                 {
                     if ((callingProp.lastLocationX == originX) && (callingProp.lastLocationY == (originY + 1)))
@@ -561,52 +587,52 @@ RULES:
                     }
                 }
                 else if (values[originX, originY + 1] == next - 1)
-                    {
-                        southernTile = mod.moduleAreasObjects[index].Tiles[(originY + 1) * mod.moduleAreasObjects[index].MapSizeX + originX];
-                        southernTileIsPriorTile = true;
-                    }
-                }
-
-                //former to north
-                if (originY - 1 >= 0)
                 {
-                    if (next == 0)
-                    {
-                        if ((callingProp.lastLocationX == originX) && (callingProp.lastLocationY == (originY - 1)))
-                        {
-                            northernTile = mod.moduleAreasObjects[index].Tiles[(originY - 1) * mod.moduleAreasObjects[index].MapSizeX + originX];
-                            northernTileIsPriorTile = true;
-                        }
-                    }
-                    else if (values[originX, originY - 1] == next - 1)
+                    southernTile = mod.moduleAreasObjects[index].Tiles[(originY + 1) * mod.moduleAreasObjects[index].MapSizeX + originX];
+                    southernTileIsPriorTile = true;
+                }
+            }
+
+            //former to north
+            if (originY - 1 >= 0)
+            {
+                if (next == 0)
+                {
+                    if ((callingProp.lastLocationX == originX) && (callingProp.lastLocationY == (originY - 1)))
                     {
                         northernTile = mod.moduleAreasObjects[index].Tiles[(originY - 1) * mod.moduleAreasObjects[index].MapSizeX + originX];
                         northernTileIsPriorTile = true;
                     }
                 }
-
-                //Which square are we on? Branch from here.
-
-                //1. Current tile (next, orifinX, originY) is normal tile
-                if (!mod.moduleAreasObjects[index].Tiles[(originY) * mod.moduleAreasObjects[index].MapSizeX + originX].isRamp && !mod.moduleAreasObjects[index].Tiles[(originY) * mod.moduleAreasObjects[index].MapSizeX + originX].isEWBridge && !mod.moduleAreasObjects[index].Tiles[(originY) * mod.moduleAreasObjects[index].MapSizeX + originX].isNSBridge)
+                else if (values[originX, originY - 1] == next - 1)
                 {
-                    //has same height level as target square?
-                    if (mod.moduleAreasObjects[index].Tiles[originY * mod.moduleAreasObjects[index].MapSizeX + originX].heightLevel == mod.moduleAreasObjects[index].Tiles[y * mod.moduleAreasObjects[index].MapSizeX + x].heightLevel)
+                    northernTile = mod.moduleAreasObjects[index].Tiles[(originY - 1) * mod.moduleAreasObjects[index].MapSizeX + originX];
+                    northernTileIsPriorTile = true;
+                }
+            }
+
+            //Which square are we on? Branch from here.
+
+            //1. Current tile (next, orifinX, originY) is normal tile
+            if (!mod.moduleAreasObjects[index].Tiles[(originY) * mod.moduleAreasObjects[index].MapSizeX + originX].isRamp && !mod.moduleAreasObjects[index].Tiles[(originY) * mod.moduleAreasObjects[index].MapSizeX + originX].isEWBridge && !mod.moduleAreasObjects[index].Tiles[(originY) * mod.moduleAreasObjects[index].MapSizeX + originX].isNSBridge)
+            {
+                //has same height level as target square?
+                if (mod.moduleAreasObjects[index].Tiles[originY * mod.moduleAreasObjects[index].MapSizeX + originX].heightLevel == mod.moduleAreasObjects[index].Tiles[y * mod.moduleAreasObjects[index].MapSizeX + x].heightLevel)
+                {
+                    //division
+                    if (!mod.moduleAreasObjects[index].Tiles[y * mod.moduleAreasObjects[index].MapSizeX + x].isRamp)
                     {
-                        //division
-                        if (!mod.moduleAreasObjects[index].Tiles[y * mod.moduleAreasObjects[index].MapSizeX + x].isRamp)
+                        allowAssignment = true;
+                    }
+
+                    //Coming from north division
+                    else if ((originY == y - 1) && (originX == x))
+                    {
+                        //ramp has bottom end facing to north
+                        if (mod.moduleAreasObjects[index].Tiles[y * mod.moduleAreasObjects[index].MapSizeX + x].hasDownStairShadowS)
                         {
                             allowAssignment = true;
                         }
-                        
-                        //Coming from north division
-                        else if ((originY == y - 1) && (originX == x))
-                        {
-                            //ramp has bottom end facing to north
-                            if (mod.moduleAreasObjects[index].Tiles[y * mod.moduleAreasObjects[index].MapSizeX + x].hasDownStairShadowS)
-                            {
-                                allowAssignment = true;
-                            }
                         if (mod.moduleAreasObjects[index].Tiles[y * mod.moduleAreasObjects[index].MapSizeX + x].hasDownStairShadowE)
                         {
                             allowAssignment = true;
@@ -673,25 +699,25 @@ RULES:
 
                 }
 
-                    //target is ramp, then additionally entering from one height level lower (climb up ramp) works
-                    else if ((mod.moduleAreasObjects[index].Tiles[originY * mod.moduleAreasObjects[index].MapSizeX + originX].heightLevel + 1 == mod.moduleAreasObjects[index].Tiles[y * mod.moduleAreasObjects[index].MapSizeX + x].heightLevel) && mod.moduleAreasObjects[index].Tiles[y * mod.moduleAreasObjects[index].MapSizeX + x].isRamp)
+                //target is ramp, then additionally entering from one height level lower (climb up ramp) works
+                else if ((mod.moduleAreasObjects[index].Tiles[originY * mod.moduleAreasObjects[index].MapSizeX + originX].heightLevel + 1 == mod.moduleAreasObjects[index].Tiles[y * mod.moduleAreasObjects[index].MapSizeX + x].heightLevel) && mod.moduleAreasObjects[index].Tiles[y * mod.moduleAreasObjects[index].MapSizeX + x].isRamp)
+                {
+                    //Coming from north division
+                    if ((originY == y - 1) && (originX == x))
                     {
-                        //Coming from north division
-                        if ((originY == y-1) && (originX == x))
+                        //ramp has bottom end facing to north
+                        if (mod.moduleAreasObjects[index].Tiles[y * mod.moduleAreasObjects[index].MapSizeX + x].hasDownStairShadowN)
                         {
-                            //ramp has bottom end facing to north
-                            if (mod.moduleAreasObjects[index].Tiles[y * mod.moduleAreasObjects[index].MapSizeX + x].hasDownStairShadowN)
-                            {
-                                allowAssignment = true;
-                            }
-                            if (mod.moduleAreasObjects[index].Tiles[y * mod.moduleAreasObjects[index].MapSizeX + x].hasDownStairShadowE)
-                            {
-                                allowAssignment = true;
-                            }
-                            if (mod.moduleAreasObjects[index].Tiles[y * mod.moduleAreasObjects[index].MapSizeX + x].hasDownStairShadowW)
-                            {
-                                allowAssignment = true;
-                            }
+                            allowAssignment = true;
+                        }
+                        if (mod.moduleAreasObjects[index].Tiles[y * mod.moduleAreasObjects[index].MapSizeX + x].hasDownStairShadowE)
+                        {
+                            allowAssignment = true;
+                        }
+                        if (mod.moduleAreasObjects[index].Tiles[y * mod.moduleAreasObjects[index].MapSizeX + x].hasDownStairShadowW)
+                        {
+                            allowAssignment = true;
+                        }
                     }
 
                     //Coming from south division
@@ -749,34 +775,34 @@ RULES:
                     }
                 }
 
-                    //target is EW-Bridge and origin square is north or south of bridge , then additionally entering from one height level lower works
-                    else if ((mod.moduleAreasObjects[index].Tiles[originY * mod.moduleAreasObjects[index].MapSizeX + originX].heightLevel + 1 == mod.moduleAreasObjects[index].Tiles[y * mod.moduleAreasObjects[index].MapSizeX + x].heightLevel) && mod.moduleAreasObjects[index].Tiles[y * mod.moduleAreasObjects[index].MapSizeX + x].isEWBridge)
+                //target is EW-Bridge and origin square is north or south of bridge , then additionally entering from one height level lower works
+                else if ((mod.moduleAreasObjects[index].Tiles[originY * mod.moduleAreasObjects[index].MapSizeX + originX].heightLevel + 1 == mod.moduleAreasObjects[index].Tiles[y * mod.moduleAreasObjects[index].MapSizeX + x].heightLevel) && mod.moduleAreasObjects[index].Tiles[y * mod.moduleAreasObjects[index].MapSizeX + x].isEWBridge)
+                {
+                    //checking northern or southern square as target
+                    if ((originY > y) || (originY < y))
                     {
-                        //checking northern or southern square as target
-                        if ((originY > y) || (originY < y))
-                        {
-                            allowAssignment = true;
-                        }
-                    }
-
-                    //target is NS-Bridge and origin square is east or west of bridge , then additionally entering from one height level lower works
-                    else if ((mod.moduleAreasObjects[index].Tiles[originY * mod.moduleAreasObjects[index].MapSizeX + originX].heightLevel + 1 == mod.moduleAreasObjects[index].Tiles[y * mod.moduleAreasObjects[index].MapSizeX + x].heightLevel) && mod.moduleAreasObjects[index].Tiles[y * mod.moduleAreasObjects[index].MapSizeX + x].isNSBridge)
-                    {
-                        //checking eastern or western square as target
-                        if ((originX > x) || (originX < x))
-                        {
-                            allowAssignment = true;
-                        }
+                        allowAssignment = true;
                     }
                 }
 
-                //2.Current tile is ramp
-                else if (mod.moduleAreasObjects[index].Tiles[(originY) * mod.moduleAreasObjects[index].MapSizeX + originX].isRamp)
+                //target is NS-Bridge and origin square is east or west of bridge , then additionally entering from one height level lower works
+                else if ((mod.moduleAreasObjects[index].Tiles[originY * mod.moduleAreasObjects[index].MapSizeX + originX].heightLevel + 1 == mod.moduleAreasObjects[index].Tiles[y * mod.moduleAreasObjects[index].MapSizeX + x].heightLevel) && mod.moduleAreasObjects[index].Tiles[y * mod.moduleAreasObjects[index].MapSizeX + x].isNSBridge)
                 {
-                    //target has same or one height level higher (two subbrackets)
-                    //same height (plain)
-                    if (mod.moduleAreasObjects[index].Tiles[originY * mod.moduleAreasObjects[index].MapSizeX + originX].heightLevel == mod.moduleAreasObjects[index].Tiles[y * mod.moduleAreasObjects[index].MapSizeX + x].heightLevel)
+                    //checking eastern or western square as target
+                    if ((originX > x) || (originX < x))
                     {
+                        allowAssignment = true;
+                    }
+                }
+            }
+
+            //2.Current tile is ramp
+            else if (mod.moduleAreasObjects[index].Tiles[(originY) * mod.moduleAreasObjects[index].MapSizeX + originX].isRamp)
+            {
+                //target has same or one height level higher (two subbrackets)
+                //same height (plain)
+                if (mod.moduleAreasObjects[index].Tiles[originY * mod.moduleAreasObjects[index].MapSizeX + originX].heightLevel == mod.moduleAreasObjects[index].Tiles[y * mod.moduleAreasObjects[index].MapSizeX + x].heightLevel)
+                {
                     //division
                     //going towards north
                     if ((originY == y + 1) && (originX == x))
@@ -784,7 +810,7 @@ RULES:
                         //ORIGIN ramp has bottom end facing to north
                         if (mod.moduleAreasObjects[index].Tiles[originY * mod.moduleAreasObjects[index].MapSizeX + originX].hasDownStairShadowN)
                         {
-                           
+
                         }
                         else
                         {
@@ -793,7 +819,7 @@ RULES:
                     }
 
                     //going towards south
-                    else if ((originY == y -1) && (originX == x))
+                    else if ((originY == y - 1) && (originX == x))
                     {
                         //ORIGIN ramp has bottom end facing to south
                         if (mod.moduleAreasObjects[index].Tiles[originY * mod.moduleAreasObjects[index].MapSizeX + originX].hasDownStairShadowS)
@@ -807,7 +833,7 @@ RULES:
                     }
 
                     //going towards east
-                    else if ((originY == y) && (originX == x-1))
+                    else if ((originY == y) && (originX == x - 1))
                     {
                         //ORIGIN ramp has bottom end facing to east
                         if (mod.moduleAreasObjects[index].Tiles[originY * mod.moduleAreasObjects[index].MapSizeX + originX].hasDownStairShadowE)
@@ -839,10 +865,10 @@ RULES:
                         allowAssignment = true;
                     }
 
-                   }
-                    //target lower (walk down)
-                    else if (mod.moduleAreasObjects[index].Tiles[originY * mod.moduleAreasObjects[index].MapSizeX + originX].heightLevel - 1 == mod.moduleAreasObjects[index].Tiles[y * mod.moduleAreasObjects[index].MapSizeX + x].heightLevel)
-                    {
+                }
+                //target lower (walk down)
+                else if (mod.moduleAreasObjects[index].Tiles[originY * mod.moduleAreasObjects[index].MapSizeX + originX].heightLevel - 1 == mod.moduleAreasObjects[index].Tiles[y * mod.moduleAreasObjects[index].MapSizeX + x].heightLevel)
+                {
                     //division
                     //allowAssignment = true;
                     //going towards north
@@ -907,29 +933,29 @@ RULES:
                     }
                 }
 
-                    //target is EW-Bridge and origin square is north or south of bridge , then additionally entering from one height level lower (climb up ramp) works
-                    else if ((mod.moduleAreasObjects[index].Tiles[originY * mod.moduleAreasObjects[index].MapSizeX + originX].heightLevel + 1 == mod.moduleAreasObjects[index].Tiles[y * mod.moduleAreasObjects[index].MapSizeX + x].heightLevel) && mod.moduleAreasObjects[index].Tiles[y * mod.moduleAreasObjects[index].MapSizeX + x].isEWBridge)
+                //target is EW-Bridge and origin square is north or south of bridge , then additionally entering from one height level lower (climb up ramp) works
+                else if ((mod.moduleAreasObjects[index].Tiles[originY * mod.moduleAreasObjects[index].MapSizeX + originX].heightLevel + 1 == mod.moduleAreasObjects[index].Tiles[y * mod.moduleAreasObjects[index].MapSizeX + x].heightLevel) && mod.moduleAreasObjects[index].Tiles[y * mod.moduleAreasObjects[index].MapSizeX + x].isEWBridge)
+                {
+                    //checking northern or southern square as target
+                    if ((originY > y) || (originY < y))
                     {
-                        //checking northern or southern square as target
-                        if ((originY > y) || (originY < y))
-                        {
-                            allowAssignment = true;
-                        }
+                        allowAssignment = true;
                     }
+                }
 
-                    //target is NS-Bridge and origin square is east or west of bridge , then additionally entering from one height level lower (climb up ramp) works
-                    else if ((mod.moduleAreasObjects[index].Tiles[originY * mod.moduleAreasObjects[index].MapSizeX + originX].heightLevel + 1 == mod.moduleAreasObjects[index].Tiles[y * mod.moduleAreasObjects[index].MapSizeX + x].heightLevel) && mod.moduleAreasObjects[index].Tiles[y * mod.moduleAreasObjects[index].MapSizeX + x].isNSBridge)
+                //target is NS-Bridge and origin square is east or west of bridge , then additionally entering from one height level lower (climb up ramp) works
+                else if ((mod.moduleAreasObjects[index].Tiles[originY * mod.moduleAreasObjects[index].MapSizeX + originX].heightLevel + 1 == mod.moduleAreasObjects[index].Tiles[y * mod.moduleAreasObjects[index].MapSizeX + x].heightLevel) && mod.moduleAreasObjects[index].Tiles[y * mod.moduleAreasObjects[index].MapSizeX + x].isNSBridge)
+                {
+                    //checking eastern or western square as target
+                    if ((originX > x) || (originX < x))
                     {
-                        //checking eastern or western square as target
-                        if ((originX > x) || (originX < x))
-                        {
-                            allowAssignment = true;
-                        }
+                        allowAssignment = true;
                     }
+                }
 
-                    //target is  ramp: we were missing ramp-ramp here and we are walking upward by one square (same or lower height is already caught above)
-                    else if ((mod.moduleAreasObjects[index].Tiles[y * mod.moduleAreasObjects[index].MapSizeX + x].isRamp) && (mod.moduleAreasObjects[index].Tiles[originY * mod.moduleAreasObjects[index].MapSizeX + originX].heightLevel + 1 == mod.moduleAreasObjects[index].Tiles[y * mod.moduleAreasObjects[index].MapSizeX + x].heightLevel))
-                    {
+                //target is  ramp: we were missing ramp-ramp here and we are walking upward by one square (same or lower height is already caught above)
+                else if ((mod.moduleAreasObjects[index].Tiles[y * mod.moduleAreasObjects[index].MapSizeX + x].isRamp) && (mod.moduleAreasObjects[index].Tiles[originY * mod.moduleAreasObjects[index].MapSizeX + originX].heightLevel + 1 == mod.moduleAreasObjects[index].Tiles[y * mod.moduleAreasObjects[index].MapSizeX + x].heightLevel))
+                {
                     //division
                     //ADJUST BELOW
                     //going towards north
@@ -988,98 +1014,105 @@ RULES:
                         }
                     }
                 }
-                }
+            }
 
-                //3. Current tile is EW-bridge
-                else if (mod.moduleAreasObjects[index].Tiles[(originY) * mod.moduleAreasObjects[index].MapSizeX + originX].isEWBridge)
+            //3. Current tile is EW-bridge
+            else if (mod.moduleAreasObjects[index].Tiles[(originY) * mod.moduleAreasObjects[index].MapSizeX + originX].isEWBridge)
+            {
+                //a. check west or east
+                if ((originX > x) || (originX < x))
                 {
-                    //a. check west or east
-                    if ((originX > x) || (originX < x))
+                    //must move OVER bridge in western or eastern direction
+                    if ((easternTileIsPriorTile) || (westernTileIsPriorTile))
                     {
-                        //must move OVER bridge in western or eastern direction
-                        if ((easternTileIsPriorTile) || (westernTileIsPriorTile))
+                        //has same height level as target square?
+                        if (mod.moduleAreasObjects[index].Tiles[originY * mod.moduleAreasObjects[index].MapSizeX + originX].heightLevel == mod.moduleAreasObjects[index].Tiles[y * mod.moduleAreasObjects[index].MapSizeX + x].heightLevel)
                         {
-                            //has same height level as target square?
-                            if (mod.moduleAreasObjects[index].Tiles[originY * mod.moduleAreasObjects[index].MapSizeX + originX].heightLevel == mod.moduleAreasObjects[index].Tiles[y * mod.moduleAreasObjects[index].MapSizeX + x].heightLevel)
-                            {
-                                allowAssignment = true;
-                            }
-                        }
-                    }
-
-                    //b. check north or south
-                    if ((originY > y) || (originY < y))
-                    {
-                        //must move UNDER bridge in northern or southern direction
-                        if ((southernTileIsPriorTile) || (northernTileIsPriorTile))
-                        {
-                            //has height level of target square - 1?
-                            if (mod.moduleAreasObjects[index].Tiles[originY * mod.moduleAreasObjects[index].MapSizeX + originX].heightLevel - 1 == mod.moduleAreasObjects[index].Tiles[y * mod.moduleAreasObjects[index].MapSizeX + x].heightLevel)
-                            {
-                                allowAssignment = true;
-                            }
+                            allowAssignment = true;
                         }
                     }
                 }
 
-                //4. Current tile is NS-bridge, 
-                else if (mod.moduleAreasObjects[index].Tiles[(originY) * mod.moduleAreasObjects[index].MapSizeX + originX].isNSBridge)
+                //b. check north or south
+                if ((originY > y) || (originY < y))
                 {
-                    //a. check north or south
-                    if ((originY > y) || (originY < y))
+                    //must move UNDER bridge in northern or southern direction
+                    if ((southernTileIsPriorTile) || (northernTileIsPriorTile))
                     {
-                        //must move OVER bridge in northern or southern direction
-                        if ((northernTileIsPriorTile) || (southernTileIsPriorTile))
+                        //has height level of target square - 1?
+                        if (mod.moduleAreasObjects[index].Tiles[originY * mod.moduleAreasObjects[index].MapSizeX + originX].heightLevel - 1 == mod.moduleAreasObjects[index].Tiles[y * mod.moduleAreasObjects[index].MapSizeX + x].heightLevel)
                         {
-                            //has same height level as target square?
-                            if (mod.moduleAreasObjects[index].Tiles[originY * mod.moduleAreasObjects[index].MapSizeX + originX].heightLevel == mod.moduleAreasObjects[index].Tiles[y * mod.moduleAreasObjects[index].MapSizeX + x].heightLevel)
-                            {  
-                                allowAssignment = true;
-                            }
+                            allowAssignment = true;
                         }
                     }
+                }
+            }
 
-                    //b. check east or west
-                    if ((originX > x) || (originX < x))
+            //4. Current tile is NS-bridge, 
+            else if (mod.moduleAreasObjects[index].Tiles[(originY) * mod.moduleAreasObjects[index].MapSizeX + originX].isNSBridge)
+            {
+                //a. check north or south
+                if ((originY > y) || (originY < y))
+                {
+                    //must move OVER bridge in northern or southern direction
+                    if ((northernTileIsPriorTile) || (southernTileIsPriorTile))
                     {
-                        //must move UNDER bridge in eastern or western direction
-                        if ((easternTileIsPriorTile) || (westernTileIsPriorTile))
+                        //has same height level as target square?
+                        if (mod.moduleAreasObjects[index].Tiles[originY * mod.moduleAreasObjects[index].MapSizeX + originX].heightLevel == mod.moduleAreasObjects[index].Tiles[y * mod.moduleAreasObjects[index].MapSizeX + x].heightLevel)
                         {
-                            //has height level of target square - 1?
-                            if (mod.moduleAreasObjects[index].Tiles[originY * mod.moduleAreasObjects[index].MapSizeX + originX].heightLevel - 1 == mod.moduleAreasObjects[index].Tiles[y * mod.moduleAreasObjects[index].MapSizeX + x].heightLevel)
-                            {
-                                allowAssignment = true;
-                            }
+                            allowAssignment = true;
                         }
                     }
                 }
 
-
-                if (allowAssignment)
+                //b. check east or west
+                if ((originX > x) || (originX < x))
                 {
-                    //evaluate each surrounding node and replace if greater than next number + 1
-                    //check for end           
-                    if (grid[x, y] == 3)
+                    //must move UNDER bridge in eastern or western direction
+                    if ((easternTileIsPriorTile) || (westernTileIsPriorTile))
+                    {
+                        //has height level of target square - 1?
+                        if (mod.moduleAreasObjects[index].Tiles[originY * mod.moduleAreasObjects[index].MapSizeX + originX].heightLevel - 1 == mod.moduleAreasObjects[index].Tiles[y * mod.moduleAreasObjects[index].MapSizeX + x].heightLevel)
+                        {
+                            allowAssignment = true;
+                        }
+                    }
+                }
+            }
+
+
+            if (allowAssignment)
+            {
+                //evaluate each surrounding node and replace if greater than next number + 1
+                //check for end           
+                if (grid[x, y] == 3)
+                {
+                    values[x, y] = next + 1;
+                    return true; //found end
+                }
+                //check if open and replace if lower
+                //this is our walkable check
+                if (grid[x, y] == 0)
+                {
+                    if (values[x, y] > next + 1)
                     {
                         values[x, y] = next + 1;
-                        return true; //found end
                     }
-                    //check if open and replace if lower
-                    //this is our walkable check
-                    if (grid[x, y] == 0)
-                    {
-                        if (values[x, y] > next + 1)
-                        {
-                            values[x, y] = next + 1;
-                        }
-                    }
+                }
 
-                    return false; //didn't find end
-                }
-                else
-                {
-                    return false;
-                }
+                return false; //didn't find end
+            }
+            else
+            {
+                return false;
+            }
+        }
+        catch
+        {
+        int gfhf = 0;
+                gv.cc.addLogText("<font color='yellow'>" + "CRASH in evaluateValue " + "</font><BR>");
+                return false;
+        }
         }
         public Coordinate getLowestNeighbor(Coordinate p, Prop callingProp, int pathLength, int index)
         {

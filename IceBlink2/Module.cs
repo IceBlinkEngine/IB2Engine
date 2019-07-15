@@ -14,6 +14,8 @@ namespace IceBlink2
     public class Module
     {
 
+        public int findNewPointCounter = 0;
+
         public bool partyJustCameFromNeighbouringArea = false;
         public bool isBreathingWorld = true;
 

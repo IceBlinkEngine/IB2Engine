@@ -51,7 +51,7 @@ namespace IceBlink2
         public int mapStartLocXinPixels;
         public int movementDelayInMiliseconds = 10;
         private long timeStamp = 0;
-        private long timeStamp2 = 0;
+        public long timeStamp2 = 0;
         private bool finishedMove = true;
         public Bitmap minimap = null;
         public Bitmap fullScreenEffect1 = null;
@@ -571,6 +571,54 @@ namespace IceBlink2
                                             gv.mod.EncounterOfTurnDone = true;
                                             gv.sf.ThisProp = bumpProp;
                                             gv.cc.calledEncounterFromProp = true;
+                                            //sportness
+                                            if (!gv.sf.ThisProp.HasCollision)
+                                            {
+                                                gv.screenMainMap.timeStamp2 = DateTime.Now.Ticks;
+                                                while (!gv.screenMainMap.moveDelay2())
+                                                {
+                                                    //new System.EventHandler(gv.gameTimer_Tick);
+                                                    //gv.screenMainMap.Update(gv.screenMainMap.elapsed);
+                                                    if (!gv.stillProcessingGameLoop)
+                                                    {
+                                                        if (gv.screenType != "main")
+                                                        {
+                                                            gv.aTimer.Stop();
+                                                            gv.a2Timer.Stop();
+                                                            gv.mod.scrollModeSpeed = 1.15f;
+                                                        }
+                                                        gv.stillProcessingGameLoop = true; //starting the game loop so do not allow another tick call to run until finished with this tick call.
+                                                        long current = gv.gameTimerStopwatch.ElapsedMilliseconds; //get the current total amount of ms since the game launched
+                                                        gv.elapsed = (int)(current - gv.previousTime); //calculate the total ms elapsed since the last time through the game loop
+                                                                                                       /*
+                                                                                                       while (elapsed < 16)
+                                                                                                       {
+                                                                                                           current = gameTimerStopwatch.ElapsedMilliseconds;
+                                                                                                           elapsed = (int)(current - previousTime);
+                                                                                                       }
+                                                                                                       */
+                                                                                                       //if (elapsed > 50)
+                                                                                                       //{
+                                                                                                       //int i = 0;
+                                                                                                       //}
+                                                                                                       //mod.scrollingOverhang = mod.scrollingOverhang + 3f*(elapsed/20f);
+                                                                                                       //if (mod.scrollingOverhang > 0)
+                                                                                                       //{
+                                                                                                       //mod.scrollingOverhang = 0;
+                                                                                                       //}
+                                                        gv.Update(gv.elapsed); //runs AI and physics
+                                                        gv.Render(gv.elapsed); //draw the screen frame
+                                                        if (gv.reportFPScount >= 10)
+                                                        {
+                                                            gv.reportFPScount = 0;
+                                                            gv.fps = 1000 / (current - gv.previousTime);
+                                                        }
+                                                        gv.reportFPScount++;
+                                                        gv.previousTime = current; //remember the current time at the beginning of this tick call for the next time through the game loop to calculate elapsed ti
+                                                        gv.stillProcessingGameLoop = false; //finished game loop so okay to let the next tick call enter the game loop      
+                                                    }
+                                                }
+                                            }
                                             gv.cc.doEncounterBasedOnTag(bumpProp.EncounterWhenOnPartySquare);
                                         }
 
@@ -715,6 +763,54 @@ namespace IceBlink2
                                             gv.mod.EncounterOfTurnDone = true;
                                             gv.sf.ThisProp = bumpProp;
                                             gv.cc.calledEncounterFromProp = true;
+                                            //sportness
+                                            if (!gv.sf.ThisProp.HasCollision)
+                                            {
+                                                gv.screenMainMap.timeStamp2 = DateTime.Now.Ticks;
+                                                while (!gv.screenMainMap.moveDelay2())
+                                                {
+                                                    //new System.EventHandler(gv.gameTimer_Tick);
+                                                    //gv.screenMainMap.Update(gv.screenMainMap.elapsed);
+                                                    if (!gv.stillProcessingGameLoop)
+                                                    {
+                                                        if (gv.screenType != "main")
+                                                        {
+                                                            gv.aTimer.Stop();
+                                                            gv.a2Timer.Stop();
+                                                            gv.mod.scrollModeSpeed = 1.15f;
+                                                        }
+                                                        gv.stillProcessingGameLoop = true; //starting the game loop so do not allow another tick call to run until finished with this tick call.
+                                                        long current = gv.gameTimerStopwatch.ElapsedMilliseconds; //get the current total amount of ms since the game launched
+                                                        gv.elapsed = (int)(current - gv.previousTime); //calculate the total ms elapsed since the last time through the game loop
+                                                                                                       /*
+                                                                                                       while (elapsed < 16)
+                                                                                                       {
+                                                                                                           current = gameTimerStopwatch.ElapsedMilliseconds;
+                                                                                                           elapsed = (int)(current - previousTime);
+                                                                                                       }
+                                                                                                       */
+                                                                                                       //if (elapsed > 50)
+                                                                                                       //{
+                                                                                                       //int i = 0;
+                                                                                                       //}
+                                                                                                       //mod.scrollingOverhang = mod.scrollingOverhang + 3f*(elapsed/20f);
+                                                                                                       //if (mod.scrollingOverhang > 0)
+                                                                                                       //{
+                                                                                                       //mod.scrollingOverhang = 0;
+                                                                                                       //}
+                                                        gv.Update(gv.elapsed); //runs AI and physics
+                                                        gv.Render(gv.elapsed); //draw the screen frame
+                                                        if (gv.reportFPScount >= 10)
+                                                        {
+                                                            gv.reportFPScount = 0;
+                                                            gv.fps = 1000 / (current - gv.previousTime);
+                                                        }
+                                                        gv.reportFPScount++;
+                                                        gv.previousTime = current; //remember the current time at the beginning of this tick call for the next time through the game loop to calculate elapsed ti
+                                                        gv.stillProcessingGameLoop = false; //finished game loop so okay to let the next tick call enter the game loop      
+                                                    }
+                                                }
+                                            }
                                             gv.cc.doEncounterBasedOnTag(bumpProp.EncounterWhenOnPartySquare);
                                         }
 
@@ -873,6 +969,54 @@ namespace IceBlink2
                                             gv.mod.EncounterOfTurnDone = true;
                                             gv.sf.ThisProp = bumpProp;
                                             gv.cc.calledEncounterFromProp = true;
+                                            //sportness
+                                            if (!gv.sf.ThisProp.HasCollision)
+                                            {
+                                                gv.screenMainMap.timeStamp2 = DateTime.Now.Ticks;
+                                                while (!gv.screenMainMap.moveDelay2())
+                                                {
+                                                    //new System.EventHandler(gv.gameTimer_Tick);
+                                                    //gv.screenMainMap.Update(gv.screenMainMap.elapsed);
+                                                    if (!gv.stillProcessingGameLoop)
+                                                    {
+                                                        if (gv.screenType != "main")
+                                                        {
+                                                            gv.aTimer.Stop();
+                                                            gv.a2Timer.Stop();
+                                                            gv.mod.scrollModeSpeed = 1.15f;
+                                                        }
+                                                        gv.stillProcessingGameLoop = true; //starting the game loop so do not allow another tick call to run until finished with this tick call.
+                                                        long current = gv.gameTimerStopwatch.ElapsedMilliseconds; //get the current total amount of ms since the game launched
+                                                        gv.elapsed = (int)(current - gv.previousTime); //calculate the total ms elapsed since the last time through the game loop
+                                                                                                       /*
+                                                                                                       while (elapsed < 16)
+                                                                                                       {
+                                                                                                           current = gameTimerStopwatch.ElapsedMilliseconds;
+                                                                                                           elapsed = (int)(current - previousTime);
+                                                                                                       }
+                                                                                                       */
+                                                                                                       //if (elapsed > 50)
+                                                                                                       //{
+                                                                                                       //int i = 0;
+                                                                                                       //}
+                                                                                                       //mod.scrollingOverhang = mod.scrollingOverhang + 3f*(elapsed/20f);
+                                                                                                       //if (mod.scrollingOverhang > 0)
+                                                                                                       //{
+                                                                                                       //mod.scrollingOverhang = 0;
+                                                                                                       //}
+                                                        gv.Update(gv.elapsed); //runs AI and physics
+                                                        gv.Render(gv.elapsed); //draw the screen frame
+                                                        if (gv.reportFPScount >= 10)
+                                                        {
+                                                            gv.reportFPScount = 0;
+                                                            gv.fps = 1000 / (current - gv.previousTime);
+                                                        }
+                                                        gv.reportFPScount++;
+                                                        gv.previousTime = current; //remember the current time at the beginning of this tick call for the next time through the game loop to calculate elapsed ti
+                                                        gv.stillProcessingGameLoop = false; //finished game loop so okay to let the next tick call enter the game loop      
+                                                    }
+                                                }
+                                            }
                                             gv.cc.doEncounterBasedOnTag(bumpProp.EncounterWhenOnPartySquare);
                                         }
 
@@ -1033,6 +1177,54 @@ namespace IceBlink2
                                             gv.mod.EncounterOfTurnDone = true;
                                             gv.sf.ThisProp = bumpProp;
                                             gv.cc.calledEncounterFromProp = true;
+                                            //sportness
+                                            if (!gv.sf.ThisProp.HasCollision)
+                                            {
+                                                gv.screenMainMap.timeStamp2 = DateTime.Now.Ticks;
+                                                while (!gv.screenMainMap.moveDelay2())
+                                                {
+                                                    //new System.EventHandler(gv.gameTimer_Tick);
+                                                    //gv.screenMainMap.Update(gv.screenMainMap.elapsed);
+                                                    if (!gv.stillProcessingGameLoop)
+                                                    {
+                                                        if (gv.screenType != "main")
+                                                        {
+                                                            gv.aTimer.Stop();
+                                                            gv.a2Timer.Stop();
+                                                            gv.mod.scrollModeSpeed = 1.15f;
+                                                        }
+                                                        gv.stillProcessingGameLoop = true; //starting the game loop so do not allow another tick call to run until finished with this tick call.
+                                                        long current = gv.gameTimerStopwatch.ElapsedMilliseconds; //get the current total amount of ms since the game launched
+                                                        gv.elapsed = (int)(current - gv.previousTime); //calculate the total ms elapsed since the last time through the game loop
+                                                                                                       /*
+                                                                                                       while (elapsed < 16)
+                                                                                                       {
+                                                                                                           current = gameTimerStopwatch.ElapsedMilliseconds;
+                                                                                                           elapsed = (int)(current - previousTime);
+                                                                                                       }
+                                                                                                       */
+                                                                                                       //if (elapsed > 50)
+                                                                                                       //{
+                                                                                                       //int i = 0;
+                                                                                                       //}
+                                                                                                       //mod.scrollingOverhang = mod.scrollingOverhang + 3f*(elapsed/20f);
+                                                                                                       //if (mod.scrollingOverhang > 0)
+                                                                                                       //{
+                                                                                                       //mod.scrollingOverhang = 0;
+                                                                                                       //}
+                                                        gv.Update(gv.elapsed); //runs AI and physics
+                                                        gv.Render(gv.elapsed); //draw the screen frame
+                                                        if (gv.reportFPScount >= 10)
+                                                        {
+                                                            gv.reportFPScount = 0;
+                                                            gv.fps = 1000 / (current - gv.previousTime);
+                                                        }
+                                                        gv.reportFPScount++;
+                                                        gv.previousTime = current; //remember the current time at the beginning of this tick call for the next time through the game loop to calculate elapsed ti
+                                                        gv.stillProcessingGameLoop = false; //finished game loop so okay to let the next tick call enter the game loop      
+                                                    }
+                                                }
+                                            }
                                             gv.cc.doEncounterBasedOnTag(bumpProp.EncounterWhenOnPartySquare);
                                         }
 
@@ -2457,7 +2649,7 @@ namespace IceBlink2
                 }
             }
 
-            if ((gv.mod.currentArea.northernNeighbourArea != "") && (gv.mod.PlayerLocationY <= gv.playerOffsetY))
+            if ((gv.mod.currentArea.northernNeighbourArea != "") && (gv.mod.PlayerLocationY <= gv.playerOffsetY+1))
             {
                 gv.mod.seamlessModififierMinY = gv.playerOffsetY - gv.mod.PlayerLocationY;
                 for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
@@ -2500,7 +2692,7 @@ namespace IceBlink2
                 }
             }
 
-            if ((gv.mod.currentArea.southernNeighbourArea != "") && (gv.mod.PlayerLocationY > (gv.mod.currentArea.MapSizeY - gv.playerOffsetY - 1)))
+            if ((gv.mod.currentArea.southernNeighbourArea != "") && (gv.mod.PlayerLocationY >= (gv.mod.currentArea.MapSizeY - gv.playerOffsetY - 1)))
             {
 
                 gv.mod.seamlessModififierMaxY = gv.mod.PlayerLocationY - (gv.mod.currentArea.MapSizeY - gv.playerOffsetY - 1);
@@ -2543,7 +2735,7 @@ namespace IceBlink2
                 }
             }
 
-            if ((gv.mod.currentArea.westernNeighbourArea != "") && (gv.mod.PlayerLocationX <= gv.playerOffsetX))
+            if ((gv.mod.currentArea.westernNeighbourArea != "") && (gv.mod.PlayerLocationX <= gv.playerOffsetX+1))
             {
                 gv.mod.seamlessModififierMinX = gv.playerOffsetX - gv.mod.PlayerLocationX;
                 for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
@@ -2589,7 +2781,7 @@ namespace IceBlink2
                 }
             }
 
-            if ((gv.mod.currentArea.easternNeighbourArea != "") && (gv.mod.PlayerLocationX > (gv.mod.currentArea.MapSizeX - gv.playerOffsetX - 1)))
+            if ((gv.mod.currentArea.easternNeighbourArea != "") && (gv.mod.PlayerLocationX >= (gv.mod.currentArea.MapSizeX - gv.playerOffsetX - 1)))
             {
                 gv.mod.seamlessModififierMaxX = gv.mod.PlayerLocationX - (gv.mod.currentArea.MapSizeX - gv.playerOffsetX - 1);
                 for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
@@ -2634,15 +2826,15 @@ namespace IceBlink2
             #endregion
             //foreach (Area a in gv.mod.moduleAreasObjects)
 
-            int minX = gv.mod.PlayerLocationX - gv.playerOffsetX - 3; //using -2 in case a large tile (3x3) needs to start off the visible map space to be seen
-            if (minX < -gv.mod.seamlessModififierMinX - 1) { minX = -gv.mod.seamlessModififierMinX - 1; }
-            int minY = gv.mod.PlayerLocationY - gv.playerOffsetY - 3; //using -2 in case a large tile (3x3) needs to start off the visible map space to be seen
-            if (minY < -gv.mod.seamlessModififierMinY - 1) { minY = -gv.mod.seamlessModififierMinY - 1; }
+            int minX = gv.mod.PlayerLocationX - gv.playerOffsetX - 3 -1; //using -2 in case a large tile (3x3) needs to start off the visible map space to be seen
+            if (minX < -gv.mod.seamlessModififierMinX - 1 -1) { minX = -gv.mod.seamlessModififierMinX - 1 -1; }
+            int minY = gv.mod.PlayerLocationY - gv.playerOffsetY - 3 -1; //using -2 in case a large tile (3x3) needs to start off the visible map space to be seen
+            if (minY < -gv.mod.seamlessModififierMinY - 1 -1) { minY = -gv.mod.seamlessModififierMinY - 1 -1; }
 
-            int maxX = gv.mod.PlayerLocationX + gv.playerOffsetX + 2;
-            if (maxX > this.gv.mod.currentArea.MapSizeX + gv.mod.seamlessModififierMaxX+1) { maxX = this.gv.mod.currentArea.MapSizeX + gv.mod.seamlessModififierMaxX+1; }
-            int maxY = gv.mod.PlayerLocationY + gv.playerOffsetY + 2;
-            if (maxY > this.gv.mod.currentArea.MapSizeY + gv.mod.seamlessModififierMaxY+1) { maxY = this.gv.mod.currentArea.MapSizeY + gv.mod.seamlessModififierMaxY+1; }
+            int maxX = gv.mod.PlayerLocationX + gv.playerOffsetX + 2 +1;
+            if (maxX > this.gv.mod.currentArea.MapSizeX + gv.mod.seamlessModififierMaxX+1 +1) { maxX = this.gv.mod.currentArea.MapSizeX + gv.mod.seamlessModififierMaxX+1 +1; }
+            int maxY = gv.mod.PlayerLocationY + gv.playerOffsetY + 2 +1;
+            if (maxY > this.gv.mod.currentArea.MapSizeY + gv.mod.seamlessModififierMaxY+1+1) { maxY = this.gv.mod.currentArea.MapSizeY + gv.mod.seamlessModififierMaxY+1+1; }
 
             /*
             if (gv.mod.currentArea.sourceBitmapName != "")
@@ -4486,7 +4678,7 @@ namespace IceBlink2
                 gv.mod.seamlessModififierMaxY = 0;
 
                 #region neighbours
-                if ((gv.mod.currentArea.northernNeighbourArea != "" && gv.mod.currentArea.northernNeighbourArea != "none") && (gv.mod.PlayerLocationY <= gv.playerOffsetY))
+                if ((gv.mod.currentArea.northernNeighbourArea != "" && gv.mod.currentArea.northernNeighbourArea != "none") && (gv.mod.PlayerLocationY <= gv.playerOffsetY+1))
                 {
                     gv.mod.seamlessModififierMinY = gv.playerOffsetY - gv.mod.PlayerLocationY;
                     for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
@@ -4572,7 +4764,7 @@ namespace IceBlink2
                     }
                 }
 
-                if ((gv.mod.currentArea.westernNeighbourArea != "" && gv.mod.currentArea.westernNeighbourArea != "none") && (gv.mod.PlayerLocationX <= gv.playerOffsetX))
+                if ((gv.mod.currentArea.westernNeighbourArea != "" && gv.mod.currentArea.westernNeighbourArea != "none") && (gv.mod.PlayerLocationX <= gv.playerOffsetX+1))
                 {
                     gv.mod.seamlessModififierMinX = gv.playerOffsetX - gv.mod.PlayerLocationX;
                     for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
@@ -5599,6 +5791,10 @@ namespace IceBlink2
                                         }
                                         else
                                         {
+                                            if (x == -1)
+                                            {
+                                                int dsdsad = 0; 
+                                            }
                                             int tlX = (x - gv.mod.PlayerLocationX + gv.playerOffsetX) * gv.squareSize;
                                             int tlY = (y - gv.mod.PlayerLocationY + gv.playerOffsetY) * gv.squareSize;
                                             //float scalerX = tile.tileBitmap0.PixelSize.Width / 100;
@@ -32143,24 +32339,15 @@ namespace IceBlink2
                         //foreach (Prop p in gv.mod.currentArea.Props)
                         //{
 
-                     if (p.MoverType == "daily")
-                        {
-                            int gfdgdf = 0;
-                        }
+                    
                         if ((p.isShown) && (p.isMover) && (!p.isUnderBridge) && (p.token != null))
                         {
-                            if (p.MoverType == "daily")
-                            {
-                                int gfdgdf = 0;
-                            }
+                           
                             if ((p.relocX + 1 >= gv.mod.PlayerLocationX - gv.playerOffsetX) && (p.relocX - 1 <= gv.mod.PlayerLocationX + gv.playerOffsetX)
-                           && (p.relocY + 1 >= gv.mod.PlayerLocationY - gv.playerOffsetY) && (p.relocY - 1 <= gv.mod.PlayerLocationY + gv.playerOffsetY))
+                           && (p.relocY + 2 >= gv.mod.PlayerLocationY - gv.playerOffsetY) && (p.relocY - 2 <= gv.mod.PlayerLocationY + gv.playerOffsetY))
                         {
 
-                                if (p.MoverType == "daily")
-                                {
-                                    int gfdgdf = 0;
-                                }
+
                                 //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX    
 
                                 //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
@@ -32183,137 +32370,141 @@ namespace IceBlink2
                                 p.currentWalkingSpeed = 0;
                             }
 
-                            if (p.destinationPixelPositionXList.Count > 0)
-                            {
-                                if ((p.destinationPixelPositionXList[0] >= (p.currentPixelPositionX - 0)) && (p.destinationPixelPositionXList[0] <= (p.currentPixelPositionX + 0)))
+                                if (p.destinationPixelPositionXList.Count > 0)
                                 {
-                                    if (p.destinationPixelPositionYList[0] > p.currentPixelPositionY)
+                                    if ((p.destinationPixelPositionXList[0] >= (p.currentPixelPositionX - 0)) && (p.destinationPixelPositionXList[0] <= (p.currentPixelPositionX + 0)))
                                     {
-
-                                        //new code wolfwood2
-                                        //p.currentPixelPositionY += (gv.floatPixMovedPerTick * p.pixelMoveSpeed);
-                                        //number of calls: 30 per second
-                                        //7 seconds
-                                        //210 calls
-                                        //each
-                                        //(7.5f * multi * gv.mod.scrollingSpeed * 1.0f * gv.mod.scrollModeSpeed * gv.mod.sprintModifier);
-                                        if ((gv.mod.isScrollingNow || gv.a2Timer.Enabled || gv.aTimer.Enabled) && !gv.mod.newPropMoveSystem)
+                                        if (p.destinationPixelPositionYList[0] > p.currentPixelPositionY)
                                         {
-                                            float multi = elapsed / 45f;
-                                            if (multi > 1.5f)
+
+                                            //new code wolfwood2
+                                            //p.currentPixelPositionY += (gv.floatPixMovedPerTick * p.pixelMoveSpeed);
+                                            //number of calls: 30 per second
+                                            //7 seconds
+                                            //210 calls
+                                            //each
+                                            //(7.5f * multi * gv.mod.scrollingSpeed * 1.0f * gv.mod.scrollModeSpeed * gv.mod.sprintModifier);
+                                            if ((gv.mod.isScrollingNow || gv.a2Timer.Enabled || gv.aTimer.Enabled) && !gv.mod.newPropMoveSystem)
                                             {
-                                                multi = 1.5f;
+                                                float multi = elapsed / 45f;
+                                                if (multi > 1.5f)
+                                                {
+                                                    multi = 1.5f;
+                                                }
+                                                //aegh
+                                                p.currentPixelPositionY += 0.7f * (7.5f * multi * gv.mod.scrollingSpeed * 1.0f * gv.mod.scrollModeSpeed * gv.mod.sprintModifier) * (float)p.pixelMoveSpeed * p.propMovingHalfSpeedMulti * 0.7f;
+                                                p.currentWalkingSpeed = 0.3f * (7.5f * multi * gv.mod.scrollingSpeed * 1.0f * gv.mod.scrollModeSpeed * gv.mod.sprintModifier) * (float)p.pixelMoveSpeed * p.propMovingHalfSpeedMulti;
                                             }
-                                            //aegh
-                                            p.currentPixelPositionY += 0.7f * (7.5f * multi * gv.mod.scrollingSpeed * 1.0f * gv.mod.scrollModeSpeed * gv.mod.sprintModifier) * (float)p.pixelMoveSpeed * p.propMovingHalfSpeedMulti * 0.7f;
-                                            p.currentWalkingSpeed = 0.3f * (7.5f * multi * gv.mod.scrollingSpeed * 1.0f * gv.mod.scrollModeSpeed * gv.mod.sprintModifier) * (float)p.pixelMoveSpeed * p.propMovingHalfSpeedMulti;
+                                            else
+                                            {
+                                                p.currentPixelPositionY += elapsed / 30f * ((float)gv.squareSize / ((float)gv.mod.realTimeTimerLengthInMilliSeconds * 0.03f)) * (float)p.pixelMoveSpeed * 0.9f * p.propMovingHalfSpeedMulti;
+                                                p.currentWalkingSpeed = elapsed / 30f * ((float)gv.squareSize / ((float)gv.mod.realTimeTimerLengthInMilliSeconds * 0.03f)) * (float)p.pixelMoveSpeed * 0.9f * p.propMovingHalfSpeedMulti;
+                                            }
+                                            if (p.currentPixelPositionY >= p.destinationPixelPositionYList[0])
+                                            {
+                                                p.currentPixelPositionY = p.destinationPixelPositionYList[0];
+                                                p.destinationPixelPositionYList.RemoveAt(0);
+                                                p.destinationPixelPositionXList.RemoveAt(0);
+
+                                            }
                                         }
                                         else
                                         {
-                                            p.currentPixelPositionY += elapsed / 30f * ((float)gv.squareSize / ((float)gv.mod.realTimeTimerLengthInMilliSeconds * 0.03f)) * (float)p.pixelMoveSpeed * 0.9f * p.propMovingHalfSpeedMulti;
-                                            p.currentWalkingSpeed = elapsed / 30f * ((float)gv.squareSize / ((float)gv.mod.realTimeTimerLengthInMilliSeconds * 0.03f)) * (float)p.pixelMoveSpeed * 0.9f * p.propMovingHalfSpeedMulti;
-                                        }
-                                        if (p.currentPixelPositionY >= p.destinationPixelPositionYList[0])
-                                        {
-                                            p.currentPixelPositionY = p.destinationPixelPositionYList[0];
-                                            p.destinationPixelPositionYList.RemoveAt(0);
-                                            p.destinationPixelPositionXList.RemoveAt(0);
+                                            //p.currentPixelPositionY -= (gv.floatPixMovedPerTick * p.pixelMoveSpeed);
+                                            if ((gv.mod.isScrollingNow || gv.a2Timer.Enabled || gv.aTimer.Enabled) && !gv.mod.newPropMoveSystem)
+                                            {
+                                                float multi = elapsed / 45f;
+                                                if (multi > 1.5f)
+                                                {
+                                                    multi = 1.5f;
+                                                }
+                                                p.currentPixelPositionY -= 0.7f * 1f * (7.5f * multi * gv.mod.scrollingSpeed * 1.0f * gv.mod.scrollModeSpeed * gv.mod.sprintModifier) * (float)p.pixelMoveSpeed * p.propMovingHalfSpeedMulti * 0.7f;
+                                                p.currentWalkingSpeed = 0.3f * (7.5f * multi * gv.mod.scrollingSpeed * 1.0f * gv.mod.scrollModeSpeed * gv.mod.sprintModifier) * (float)p.pixelMoveSpeed * p.propMovingHalfSpeedMulti;
+
+                                            }
+                                            else
+                                            {
+                                                p.currentPixelPositionY -= elapsed / 30f * ((float)gv.squareSize / ((float)gv.mod.realTimeTimerLengthInMilliSeconds * 0.03f)) * (float)p.pixelMoveSpeed * 0.9f * p.propMovingHalfSpeedMulti;
+                                                p.currentWalkingSpeed = elapsed / 30f * ((float)gv.squareSize / ((float)gv.mod.realTimeTimerLengthInMilliSeconds * 0.03f)) * (float)p.pixelMoveSpeed * 0.9f * p.propMovingHalfSpeedMulti;
+                                            }
+                                            if (p.currentPixelPositionY <= p.destinationPixelPositionYList[0])
+                                            {
+                                                p.currentPixelPositionY = p.destinationPixelPositionYList[0];
+                                                p.destinationPixelPositionYList.RemoveAt(0);
+                                                p.destinationPixelPositionXList.RemoveAt(0);
+                                            }
 
                                         }
                                     }
-                                    else
+                                    else if ((p.destinationPixelPositionYList[0] >= (p.currentPixelPositionY - 0)) && (p.destinationPixelPositionYList[0] <= (p.currentPixelPositionY + 0)))
                                     {
-                                        //p.currentPixelPositionY -= (gv.floatPixMovedPerTick * p.pixelMoveSpeed);
-                                        if ((gv.mod.isScrollingNow || gv.a2Timer.Enabled || gv.aTimer.Enabled) && !gv.mod.newPropMoveSystem)
-                                        {
-                                            float multi = elapsed / 45f;
-                                            if (multi > 1.5f)
-                                            {
-                                                multi = 1.5f;
-                                            }
-                                            p.currentPixelPositionY -= 0.7f * 1f * (7.5f * multi * gv.mod.scrollingSpeed * 1.0f * gv.mod.scrollModeSpeed * gv.mod.sprintModifier) * (float)p.pixelMoveSpeed * p.propMovingHalfSpeedMulti * 0.7f;
-                                            p.currentWalkingSpeed = 0.3f * (7.5f * multi * gv.mod.scrollingSpeed * 1.0f * gv.mod.scrollModeSpeed * gv.mod.sprintModifier) * (float)p.pixelMoveSpeed * p.propMovingHalfSpeedMulti;
 
+                                        if (p.destinationPixelPositionXList[0] > p.currentPixelPositionX)
+                                        {
+                                            //p.currentPixelPositionX += (gv.floatPixMovedPerTick * p.pixelMoveSpeed);
+                                            if ((gv.mod.isScrollingNow || gv.a2Timer.Enabled || gv.aTimer.Enabled) && !gv.mod.newPropMoveSystem)
+                                            {
+                                                float multi = elapsed / 45f;
+                                                if (multi > 1.5f)
+                                                {
+                                                    multi = 1.5f;
+                                                }
+                                                p.currentPixelPositionX += 0.7f * 1f * (7.5f * multi * gv.mod.scrollingSpeed * 1.0f * gv.mod.scrollModeSpeed * gv.mod.sprintModifier) * (float)p.pixelMoveSpeed * 0.7f * p.propMovingHalfSpeedMulti;
+                                                p.currentWalkingSpeed = 0.3f * (7.5f * multi * gv.mod.scrollingSpeed * 1.0f * gv.mod.scrollModeSpeed * gv.mod.sprintModifier) * (float)p.pixelMoveSpeed * 0.7f * p.propMovingHalfSpeedMulti;
+                                            }
+                                            else
+                                            {
+                                                p.currentPixelPositionX += elapsed / 30f * ((float)gv.squareSize / ((float)gv.mod.realTimeTimerLengthInMilliSeconds * 0.03f)) * (float)p.pixelMoveSpeed * 0.9f * p.propMovingHalfSpeedMulti;
+                                                p.currentWalkingSpeed = elapsed / 30f * ((float)gv.squareSize / ((float)gv.mod.realTimeTimerLengthInMilliSeconds * 0.03f)) * (float)p.pixelMoveSpeed * 0.9f * p.propMovingHalfSpeedMulti;
+                                            }
+                                            //wolfwood
+                                            //p.isCurrentlyScrolling = true;
+                                            if (p.currentPixelPositionX >= p.destinationPixelPositionXList[0])
+                                            {
+                                                //wolfwood
+                                                //p.isCurrentlyScrolling = false;
+                                                p.currentPixelPositionX = p.destinationPixelPositionXList[0];
+                                                p.destinationPixelPositionXList.RemoveAt(0);
+                                                p.destinationPixelPositionYList.RemoveAt(0);
+                                            }
                                         }
                                         else
                                         {
-                                            p.currentPixelPositionY -= elapsed / 30f * ((float)gv.squareSize / ((float)gv.mod.realTimeTimerLengthInMilliSeconds * 0.03f)) * (float)p.pixelMoveSpeed * 0.9f * p.propMovingHalfSpeedMulti;
-                                            p.currentWalkingSpeed = elapsed / 30f * ((float)gv.squareSize / ((float)gv.mod.realTimeTimerLengthInMilliSeconds * 0.03f)) * (float)p.pixelMoveSpeed * 0.9f * p.propMovingHalfSpeedMulti;
-                                        }
-                                        if (p.currentPixelPositionY <= p.destinationPixelPositionYList[0])
-                                        {
-                                            p.currentPixelPositionY = p.destinationPixelPositionYList[0];
-                                            p.destinationPixelPositionYList.RemoveAt(0);
-                                            p.destinationPixelPositionXList.RemoveAt(0);
+                                            //p.currentPixelPositionX -= (gv.floatPixMovedPerTick * p.pixelMoveSpeed);
+                                            if ((gv.mod.isScrollingNow || gv.a2Timer.Enabled || gv.aTimer.Enabled) && !gv.mod.newPropMoveSystem)
+                                            {
+                                                float multi = elapsed / 45f;
+                                                if (multi > 1.5f)
+                                                {
+                                                    multi = 1.5f;
+                                                }
+                                                p.currentPixelPositionX -= 0.7f * 1f * (7.5f * multi * gv.mod.scrollingSpeed * 1.0f * gv.mod.scrollModeSpeed * gv.mod.sprintModifier) * (float)p.pixelMoveSpeed * 0.7f * p.propMovingHalfSpeedMulti;
+                                                p.currentWalkingSpeed = 0.3f * (7.5f * multi * gv.mod.scrollingSpeed * 1.0f * gv.mod.scrollModeSpeed * gv.mod.sprintModifier) * (float)p.pixelMoveSpeed * 0.7f * p.propMovingHalfSpeedMulti;
+                                            }
+                                            else
+                                            {
+                                                p.currentPixelPositionX -= elapsed / 30f * ((float)gv.squareSize / ((float)gv.mod.realTimeTimerLengthInMilliSeconds * 0.03f)) * (float)p.pixelMoveSpeed * 0.9f * p.propMovingHalfSpeedMulti;
+                                                p.currentWalkingSpeed = elapsed / 30f * ((float)gv.squareSize / ((float)gv.mod.realTimeTimerLengthInMilliSeconds * 0.03f)) * (float)p.pixelMoveSpeed * 0.9f * p.propMovingHalfSpeedMulti;
+                                            }
+                                            //wolfwood
+                                            //p.isCurrentlyScrolling = true;
+                                            if (p.currentPixelPositionX <= p.destinationPixelPositionXList[0])
+                                            {
+                                                //wolfwood
+                                                //p.isCurrentlyScrolling = false;
+                                                p.currentPixelPositionX = p.destinationPixelPositionXList[0];
+                                                p.destinationPixelPositionXList.RemoveAt(0);
+                                                p.destinationPixelPositionYList.RemoveAt(0);
+                                            }
                                         }
 
                                     }
+
                                 }
-                                else if ((p.destinationPixelPositionYList[0] >= (p.currentPixelPositionY - 0)) && (p.destinationPixelPositionYList[0] <= (p.currentPixelPositionY + 0)))
+                                else
                                 {
-
-                                    if (p.destinationPixelPositionXList[0] > p.currentPixelPositionX)
-                                    {
-                                        //p.currentPixelPositionX += (gv.floatPixMovedPerTick * p.pixelMoveSpeed);
-                                        if ((gv.mod.isScrollingNow || gv.a2Timer.Enabled || gv.aTimer.Enabled) && !gv.mod.newPropMoveSystem)
-                                        {
-                                            float multi = elapsed / 45f;
-                                            if (multi > 1.5f)
-                                            {
-                                                multi = 1.5f;
-                                            }
-                                            p.currentPixelPositionX += 0.7f * 1f * (7.5f * multi * gv.mod.scrollingSpeed * 1.0f * gv.mod.scrollModeSpeed * gv.mod.sprintModifier) * (float)p.pixelMoveSpeed * 0.7f * p.propMovingHalfSpeedMulti;
-                                            p.currentWalkingSpeed = 0.3f * (7.5f * multi * gv.mod.scrollingSpeed * 1.0f * gv.mod.scrollModeSpeed * gv.mod.sprintModifier) * (float)p.pixelMoveSpeed * 0.7f * p.propMovingHalfSpeedMulti;
-                                        }
-                                        else
-                                        {
-                                            p.currentPixelPositionX += elapsed / 30f * ((float)gv.squareSize / ((float)gv.mod.realTimeTimerLengthInMilliSeconds * 0.03f)) * (float)p.pixelMoveSpeed * 0.9f * p.propMovingHalfSpeedMulti;
-                                            p.currentWalkingSpeed = elapsed / 30f * ((float)gv.squareSize / ((float)gv.mod.realTimeTimerLengthInMilliSeconds * 0.03f)) * (float)p.pixelMoveSpeed * 0.9f * p.propMovingHalfSpeedMulti;
-                                        }
-                                        //wolfwood
-                                        //p.isCurrentlyScrolling = true;
-                                        if (p.currentPixelPositionX >= p.destinationPixelPositionXList[0])
-                                        {
-                                            //wolfwood
-                                            //p.isCurrentlyScrolling = false;
-                                            p.currentPixelPositionX = p.destinationPixelPositionXList[0];
-                                            p.destinationPixelPositionXList.RemoveAt(0);
-                                            p.destinationPixelPositionYList.RemoveAt(0);
-                                        }
-                                    }
-                                    else
-                                    {
-                                        //p.currentPixelPositionX -= (gv.floatPixMovedPerTick * p.pixelMoveSpeed);
-                                        if ((gv.mod.isScrollingNow || gv.a2Timer.Enabled || gv.aTimer.Enabled) && !gv.mod.newPropMoveSystem)
-                                        {
-                                            float multi = elapsed / 45f;
-                                            if (multi > 1.5f)
-                                            {
-                                                multi = 1.5f;
-                                            }
-                                            p.currentPixelPositionX -= 0.7f * 1f * (7.5f * multi * gv.mod.scrollingSpeed * 1.0f * gv.mod.scrollModeSpeed * gv.mod.sprintModifier) * (float)p.pixelMoveSpeed * 0.7f * p.propMovingHalfSpeedMulti;
-                                            p.currentWalkingSpeed = 0.3f * (7.5f * multi * gv.mod.scrollingSpeed * 1.0f * gv.mod.scrollModeSpeed * gv.mod.sprintModifier) * (float)p.pixelMoveSpeed * 0.7f * p.propMovingHalfSpeedMulti;
-                                        }
-                                        else
-                                        {
-                                            p.currentPixelPositionX -= elapsed / 30f * ((float)gv.squareSize / ((float)gv.mod.realTimeTimerLengthInMilliSeconds * 0.03f)) * (float)p.pixelMoveSpeed * 0.9f * p.propMovingHalfSpeedMulti;
-                                            p.currentWalkingSpeed = elapsed / 30f * ((float)gv.squareSize / ((float)gv.mod.realTimeTimerLengthInMilliSeconds * 0.03f)) * (float)p.pixelMoveSpeed * 0.9f * p.propMovingHalfSpeedMulti;
-                                        }
-                                        //wolfwood
-                                        //p.isCurrentlyScrolling = true;
-                                        if (p.currentPixelPositionX <= p.destinationPixelPositionXList[0])
-                                        {
-                                            //wolfwood
-                                            //p.isCurrentlyScrolling = false;
-                                            p.currentPixelPositionX = p.destinationPixelPositionXList[0];
-                                            p.destinationPixelPositionXList.RemoveAt(0);
-                                            p.destinationPixelPositionYList.RemoveAt(0);
-                                        }
-                                    }
-
-                                }
-
-                            }//end, set dst
+                                    int ghg = 0;
+                                }//end, set dst
 
                             int playerPositionXInPix = 0;
                             int playerPositionYInPix = 0;
@@ -32727,7 +32918,7 @@ namespace IceBlink2
                                         //gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
                                     }
                                 }
-                                if (p.isCurrentlyChasing)
+                                if (p.isCurrentlyChasing && gv.mod.currentArea.Props.Contains(p))
                                 {
                                     int numberOfSkulls = 2;
                                     int shift = 0;
@@ -32746,107 +32937,148 @@ namespace IceBlink2
                                         //gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
                                     }
                                 }
-                                /*
-                                    int partyLevelAverage = 0;
-                                    foreach (Player pc in gv.mod.playerList)
-                                    {
-                                        partyLevelAverage += pc.classLevel;
+                                //siradam
+                                //routines fpor drawing swift (double move) and slow (wait) indicators
+                                if (p.moved2)
+                                {
+                                        int i2 = 1;
+                                        int shift = 0;
+                                      
+                                            //Bitmap interactionStateIndicator = gv.cc.LoadBitmap("challengeSkull");
+                                            src = new IbRect(0, 0, gv.cc.isChasingSymbol.PixelSize.Width, gv.cc.isChasingSymbol.PixelSize.Height);
+                                            IbRect dstSkull = new IbRect();
+                                            dstSkull.Height = (int)(dst.Height / 3 * 2.0f);
+                                            dstSkull.Width = (int)(dst.Width / 3 * 2.0f);
+                                            dstSkull.Left = dst.Left - 2 * (int)(dst.Height / 3);
+                                            dstSkull.Top = dst.Top - (int)(dst.Height / 3);
+                                            shift = (int)((i2 + 0.5f) * (dst.Width / 3f)); dstSkull.Left += shift;
+                                            //großvater
+                                            gv.DrawBitmap(gv.cc.swiftSymbol, src, dstSkull);
+                                            //gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
+                                        
                                     }
+                                    if (p.isPausing)
+                                    {
+                                        int i2 = 1;
+                                        int shift = 0;
 
-                                    partyLevelAverage = (int)(partyLevelAverage / gv.mod.playerList.Count);
+                                        //Bitmap interactionStateIndicator = gv.cc.LoadBitmap("challengeSkull");
+                                        src = new IbRect(0, 0, gv.cc.isChasingSymbol.PixelSize.Width, gv.cc.isChasingSymbol.PixelSize.Height);
+                                        IbRect dstSkull = new IbRect();
+                                        dstSkull.Height = (int)(dst.Height / 3 * 2.0f) * 2;
+                                        dstSkull.Width = (int)(dst.Width / 3 * 2.0f) * 2;
+                                        dstSkull.Left = dst.Left - 2 * (int)(dst.Height / 3);
+                                        dstSkull.Top = dst.Top - 4* (int)(dst.Height / 3); ;
+                                        shift = (int)((i2 + 0.5f) * (dst.Width / 3f)); dstSkull.Left += shift;
+                                        //großvater
+                                        gv.DrawBitmap(gv.cc.slowSymbol, src, dstSkull);
+                                        //gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
+                                    }
+                                    /*
+                                        int partyLevelAverage = 0;
+                                        foreach (Player pc in gv.mod.playerList)
+                                        {
+                                            partyLevelAverage += pc.classLevel;
+                                        }
 
-                                    int numberOfSkulls = 0;
+                                        partyLevelAverage = (int)(partyLevelAverage / gv.mod.playerList.Count);
 
+                                        int numberOfSkulls = 0;
+
+                                        if (p.EncounterWhenOnPartySquare != "none" && p.EncounterWhenOnPartySquare != "")
+                                        {
+                                            foreach (Encounter enc in gv.mod.moduleEncountersList)
+                                            {
+                                                if (enc.encounterName == p.EncounterWhenOnPartySquare)
+                                                {
+                                                    if (enc.challengeLevel > (partyLevelAverage + 5))
+                                                    {
+                                                        numberOfSkulls = 3;
+                                                    }
+                                                    else if (enc.challengeLevel > (partyLevelAverage + 3))
+                                                    {
+                                                        numberOfSkulls = 2;
+                                                    }
+                                                    else if (enc.challengeLevel > (partyLevelAverage + 1))
+                                                    {
+                                                        numberOfSkulls = 1;
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    bool drawChallengeHidden = false;
                                     if (p.EncounterWhenOnPartySquare != "none" && p.EncounterWhenOnPartySquare != "")
                                     {
                                         foreach (Encounter enc in gv.mod.moduleEncountersList)
                                         {
                                             if (enc.encounterName == p.EncounterWhenOnPartySquare)
                                             {
-                                                if (enc.challengeLevel > (partyLevelAverage + 5))
+                                                if (enc.challengeHidden)
                                                 {
-                                                    numberOfSkulls = 3;
+                                                    numberOfSkulls = 0;
+                                                    drawChallengeHidden = true;
                                                 }
-                                                else if (enc.challengeLevel > (partyLevelAverage + 3))
-                                                {
-                                                    numberOfSkulls = 2;
-                                                }
-                                                else if (enc.challengeLevel > (partyLevelAverage + 1))
-                                                {
-                                                    numberOfSkulls = 1;
-                                                }
+                                                break;
                                             }
                                         }
                                     }
-                                bool drawChallengeHidden = false;
-                                if (p.EncounterWhenOnPartySquare != "none" && p.EncounterWhenOnPartySquare != "")
-                                {
-                                    foreach (Encounter enc in gv.mod.moduleEncountersList)
+                                    /*
+                                    if (gv.mod.currentArea.Props[i].movementSpeed != -1)
                                     {
-                                        if (enc.encounterName == p.EncounterWhenOnPartySquare)
-                                        {
-                                            if (enc.challengeHidden)
-                                            {
-                                                numberOfSkulls = 0;
-                                                drawChallengeHidden = true;
-                                            }
-                                            break;
-                                        }
-                                    }
-                                }
-                                /*
-                                if (gv.mod.currentArea.Props[i].movementSpeed != -1)
-                                {
-                                    IbRect dstSkull = new IbRect();
-                                    dstSkull.Height = (int)(dst.Height / 2);
-                                    dstSkull.Width = (int)(dst.Width / 2);
-                                    dstSkull.Left = dst.Left + src.Width / 2;
-                                    dstSkull.Top = dst.Top - (int)(dst.Height / 3) + src.Height / 2;
-                                    int shift = 1 * (int)(dst.Width / 4);
-                                    //shift = 1 * (int)(dst.Width / 4);
-                                    dstSkull.Left += shift;
-                                    gv.DrawText(gv.mod.currentArea.Props[i].movementSpeed.ToString(), dstSkull.Left, dstSkull.Top);
-                                }
-                                
-                                if (drawChallengeHidden && !p.isStealthed && !p.wasKilled)
-                                {
-                                    int shift = 0;
-                                    //Bitmap interactionStateIndicator = gv.cc.LoadBitmap("challengeHidden");
-                                    src = new IbRect(0, 0, gv.cc.challengeHidden.PixelSize.Width, gv.cc.challengeHidden.PixelSize.Height);
-                                    IbRect dstSkull = new IbRect();
-                                    dstSkull.Height = (int)(dst.Height / 2);
-                                    dstSkull.Width = (int)(dst.Width / 2);
-                                    dstSkull.Left = dst.Left;
-                                    dstSkull.Top = dst.Top - (int)(dst.Height / 3);
-                                    shift = 1 * (int)(dst.Width / 4);
-                                    dstSkull.Left += shift;
-                                    gv.DrawBitmap(gv.cc.challengeHidden, src, dstSkull);
-                                    //gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
-
-                                }
-                                if (numberOfSkulls > 0 && !p.isStealthed && !p.wasKilled)
-                                {
-                                    int shift = 0;
-                                    for (int i2 = 0; i2 < numberOfSkulls; i2++)
-                                    {
-
-                                        //Bitmap interactionStateIndicator = gv.cc.LoadBitmap("challengeSkull");
-                                        src = new IbRect(0, 0, gv.cc.challengeSkull.PixelSize.Width, gv.cc.challengeSkull.PixelSize.Height);
                                         IbRect dstSkull = new IbRect();
-                                        dstSkull.Height = (int)(dst.Height / 3);
-                                        dstSkull.Width = (int)(dst.Width / 3);
+                                        dstSkull.Height = (int)(dst.Height / 2);
+                                        dstSkull.Width = (int)(dst.Width / 2);
+                                        dstSkull.Left = dst.Left + src.Width / 2;
+                                        dstSkull.Top = dst.Top - (int)(dst.Height / 3) + src.Height / 2;
+                                        int shift = 1 * (int)(dst.Width / 4);
+                                        //shift = 1 * (int)(dst.Width / 4);
+                                        dstSkull.Left += shift;
+                                        gv.DrawText(gv.mod.currentArea.Props[i].movementSpeed.ToString(), dstSkull.Left, dstSkull.Top);
+                                    }
+
+                                    if (drawChallengeHidden && !p.isStealthed && !p.wasKilled)
+                                    {
+                                        int shift = 0;
+                                        //Bitmap interactionStateIndicator = gv.cc.LoadBitmap("challengeHidden");
+                                        src = new IbRect(0, 0, gv.cc.challengeHidden.PixelSize.Width, gv.cc.challengeHidden.PixelSize.Height);
+                                        IbRect dstSkull = new IbRect();
+                                        dstSkull.Height = (int)(dst.Height / 2);
+                                        dstSkull.Width = (int)(dst.Width / 2);
                                         dstSkull.Left = dst.Left;
                                         dstSkull.Top = dst.Top - (int)(dst.Height / 3);
-                                        shift = i2 * (int)(dst.Width / 3);
+                                        shift = 1 * (int)(dst.Width / 4);
                                         dstSkull.Left += shift;
-                                        gv.DrawBitmap(gv.cc.challengeSkull, src, dstSkull);
+                                        gv.DrawBitmap(gv.cc.challengeHidden, src, dstSkull);
                                         //gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
+
                                     }
+                                    if (numberOfSkulls > 0 && !p.isStealthed && !p.wasKilled)
+                                    {
+                                        int shift = 0;
+                                        for (int i2 = 0; i2 < numberOfSkulls; i2++)
+                                        {
+
+                                            //Bitmap interactionStateIndicator = gv.cc.LoadBitmap("challengeSkull");
+                                            src = new IbRect(0, 0, gv.cc.challengeSkull.PixelSize.Width, gv.cc.challengeSkull.PixelSize.Height);
+                                            IbRect dstSkull = new IbRect();
+                                            dstSkull.Height = (int)(dst.Height / 3);
+                                            dstSkull.Width = (int)(dst.Width / 3);
+                                            dstSkull.Left = dst.Left;
+                                            dstSkull.Top = dst.Top - (int)(dst.Height / 3);
+                                            shift = i2 * (int)(dst.Width / 3);
+                                            dstSkull.Left += shift;
+                                            gv.DrawBitmap(gv.cc.challengeSkull, src, dstSkull);
+                                            //gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
+                                        }
+                                    }
+                                    */
                                 }
-                                */
-                            }
 
                         }
+                            else
+                            {
+                                int fdsf = 0;
+                            }
                     }
                 }
             }
@@ -32956,7 +33188,7 @@ namespace IceBlink2
                                     //gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
                                 }
                             }
-                            if (p.isCurrentlyChasing)
+                            if (p.isCurrentlyChasing && gv.mod.currentArea.Props.Contains(p))
                             {
                                 int numberOfSkulls = 2;
                                 int shift = 0;
@@ -39723,10 +39955,7 @@ namespace IceBlink2
                     }
                 }
 
-                if (gv.mod.indexOfWesternNeighbour == -1)
-                {
-                    int ghgh = 0;
-                }
+              
                 //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
                 int width = gv.playerOffsetX * 2 + 2;
@@ -39735,7 +39964,7 @@ namespace IceBlink2
                 //if (gv.mod.currentArea.westernNeighbourArea == "")
                 //{
                     //at left edge
-                    for (int i = -1; i < gv.playerOffsetX - gv.mod.PlayerLocationX + 1; i++)
+                    for (int i = -1; i < gv.playerOffsetX - gv.mod.PlayerLocationX+1; i++)
                     {
                          drawColumnOfBlack(i);
                     }
@@ -40180,7 +40409,7 @@ namespace IceBlink2
                 bool isRightCall = false;
 
                 //left side
-                if (gv.mod.PlayerLocationX < gv.playerOffsetX + 1)
+                if (gv.mod.PlayerLocationX <= gv.playerOffsetX + 1)
                 {
                     isLeftCall = true;
                     if ((gv.mod.indexOfNorthWesternNeighbour != -1) && (gv.mod.seamlessModififierMinY > 0) && (gv.mod.seamlessModififierMinX > 0))
@@ -40313,15 +40542,18 @@ namespace IceBlink2
                 bool isDownCall = false;
 
                 //top side
-                 if (gv.mod.PlayerLocationY < gv.playerOffsetY + 1)
+                 if (gv.mod.PlayerLocationY <= gv.playerOffsetY + 1)
                 {
                     isTopCall = true;
-                    if ((gv.mod.indexOfNorthWesternNeighbour != -1) && (gv.mod.seamlessModififierMinY > 0) && (gv.mod.seamlessModififierMinX > 0))
+                    //fixxer
+                    //>minx was 0
+                    if ((gv.mod.indexOfNorthWesternNeighbour != -1) && (gv.mod.seamlessModififierMinY >= -1) && (gv.mod.seamlessModififierMinX > -1))
                     {
                         delayedStart = gv.mod.seamlessModififierMinX + 1;
                     }
-
-                    if ((gv.mod.indexOfNorthEasternNeighbour != -1) && (gv.mod.seamlessModififierMinY > 0) && (gv.mod.seamlessModififierMaxX > 0))
+                    //fixxer
+                    //>minx was 0
+                    if ((gv.mod.indexOfNorthEasternNeighbour != -1) && (gv.mod.seamlessModififierMinY >= -1) && (gv.mod.seamlessModififierMaxX > -1))
                     {
                         earlyEnd = gv.mod.seamlessModififierMaxX + 2;
                     }
@@ -40341,15 +40573,15 @@ namespace IceBlink2
                 }
 
                 //down side
-                else if (gv.mod.PlayerLocationY > (gv.mod.currentArea.MapSizeY - gv.playerOffsetY - 1))
+                else if (gv.mod.PlayerLocationY >= (gv.mod.currentArea.MapSizeY - gv.playerOffsetY - 1))
                 {
                     isDownCall = true;
-                    if ((gv.mod.indexOfSouthWesternNeighbour != -1) && (gv.mod.seamlessModififierMaxY > 0) && (gv.mod.seamlessModififierMinX > 0))
+                    if ((gv.mod.indexOfSouthWesternNeighbour != -1) && (gv.mod.seamlessModififierMaxY >= 0) && (gv.mod.seamlessModififierMinX > -1))
                     {
                         delayedStart = gv.mod.seamlessModififierMinX + 1;
                     }
 
-                    if ((gv.mod.indexOfSouthEasternNeighbour != -1) && (gv.mod.seamlessModififierMaxY > 0) && (gv.mod.seamlessModififierMaxX > 0))
+                    if ((gv.mod.indexOfSouthEasternNeighbour != -1) && (gv.mod.seamlessModififierMaxY >= 0) && (gv.mod.seamlessModififierMaxX > -1))
                     {
                         earlyEnd = gv.mod.seamlessModififierMaxX + 2;
                     }
@@ -40385,7 +40617,9 @@ namespace IceBlink2
 
                     if ((isTopCall) && (gv.mod.indexOfNorthernNeighbour != -1))
                     {
-                        if ((x * gv.squareSize >= (((gv.playerOffsetX+1) * gv.squareSize) - pixDistanceToBorderOfThisAreaWest)) && ((x+2) * gv.squareSize <= gv.screenWidth / 2 + pixDistanceToBorderOfThisAreaEast))
+                        //fixxer
+                        //first x was 0
+                        if (((x+1) * gv.squareSize >= (((gv.playerOffsetX+1) * gv.squareSize) - pixDistanceToBorderOfThisAreaWest)) && ((x+1) * gv.squareSize <= gv.screenWidth / 2 + pixDistanceToBorderOfThisAreaEast))
                         {
                             if (row <= gv.playerOffsetY)
                             {
@@ -40396,7 +40630,7 @@ namespace IceBlink2
 
                     if ((isDownCall) && (gv.mod.indexOfSouthernNeighbour != -1))
                     {
-                        if ((x * gv.squareSize >= (((gv.playerOffsetX+1) * gv.squareSize) - pixDistanceToBorderOfThisAreaWest)) && ((x+2) * gv.squareSize <= gv.screenWidth / 2 + pixDistanceToBorderOfThisAreaEast))
+                        if (((x+1) * gv.squareSize >= (((gv.playerOffsetX+1) * gv.squareSize) - pixDistanceToBorderOfThisAreaWest)) && ((x+2) * gv.squareSize <= gv.screenWidth / 2 + pixDistanceToBorderOfThisAreaEast))
                         {
                             if (row > gv.playerOffsetY)
                             {
@@ -40407,6 +40641,10 @@ namespace IceBlink2
 
                     if (!skipDraw)
                     {
+                        if (row == 0)
+                        {
+                            int dfdsfd = 1;
+                        }
                         gv.DrawBitmap(gv.cc.black_tile2, src, dst);
                         //gv.DrawBitmap(gv.cc.hitSymbol, src, dst);
                     }
@@ -47419,19 +47657,22 @@ namespace IceBlink2
         //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
 
-        private bool moveDelay2()
+        public bool moveDelay2()
         {
+            return true;
+            /*
             gv.mod.elapsed2 = DateTime.Now.Ticks - timeStamp2;
             //15 slow
             //10 normal
             //current experimental
             //speedo1
-            if (gv.mod.elapsed2 > 10000 * movementDelayInMiliseconds * 1) //10,000 ticks in 1 ms
+            if (gv.mod.elapsed2 > 10000 * movementDelayInMiliseconds * 200) //10,000 ticks in 1 ms
             {
-                timeStamp2 = DateTime.Now.Ticks;
+                //timeStamp2 = DateTime.Now.Ticks;
                 return true;
             }
             return false;
+            */
         }
 
         private bool moveDelay()
@@ -47446,6 +47687,7 @@ namespace IceBlink2
         }
         public void moveLeft(bool affectTimer)
         {
+            gv.cc.doPropTriggersMovers();
             if (gv.mod.PlayerLocationX != gv.mod.PlayerLastLocationX || gv.mod.PlayerLocationY != gv.mod.PlayerLastLocationY)
             {
                 gv.mod.lastYadjustment = gv.mod.PlayerLocationY - gv.mod.PlayerLastLocationY;
@@ -47723,6 +47965,7 @@ namespace IceBlink2
                     //gv.mod.PlayerLastLocationX = gv.mod.PlayerLocationX;
                     //gv.mod.PlayerLastLocationY = gv.mod.PlayerLocationY;
                     gv.mod.PlayerLocationX--;
+                    gv.cc.doPropTriggersMovers();
                     gv.mod.drawPartyDirection = "right";
                     gv.cc.doUpdate();
                 }
@@ -47745,6 +47988,7 @@ namespace IceBlink2
                         gv.cc.floatyTextB = "";
                         gv.mod.PlayerLocationX--;
                         gv.mod.PlayerLocationX--;
+                        gv.cc.doPropTriggersMovers();
                         gv.mod.drawPartyDirection = "right";
                         foreach (Player pc in gv.mod.playerList)
                         {
@@ -47767,6 +48011,7 @@ namespace IceBlink2
                         gv.cc.floatyTextA = "";
                         gv.cc.floatyTextB = "";
                         gv.mod.PlayerLocationX--;
+                        gv.cc.doPropTriggersMovers();
                         gv.mod.drawPartyDirection = "right";
                         foreach (Player pc in gv.mod.playerList)
                         {
@@ -47847,6 +48092,54 @@ namespace IceBlink2
                                 gv.mod.EncounterOfTurnDone = true;
                                 gv.sf.ThisProp = bumpProp;
                                 gv.cc.calledEncounterFromProp = true;
+                                //sportness
+                                if (!gv.sf.ThisProp.HasCollision)
+                                {
+                                    gv.screenMainMap.timeStamp2 = DateTime.Now.Ticks;
+                                    while (!gv.screenMainMap.moveDelay2())
+                                    {
+                                        //new System.EventHandler(gv.gameTimer_Tick);
+                                        //gv.screenMainMap.Update(gv.screenMainMap.elapsed);
+                                        if (!gv.stillProcessingGameLoop)
+                                        {
+                                            if (gv.screenType != "main")
+                                            {
+                                                gv.aTimer.Stop();
+                                                gv.a2Timer.Stop();
+                                                gv.mod.scrollModeSpeed = 1.15f;
+                                            }
+                                            gv.stillProcessingGameLoop = true; //starting the game loop so do not allow another tick call to run until finished with this tick call.
+                                            long current = gv.gameTimerStopwatch.ElapsedMilliseconds; //get the current total amount of ms since the game launched
+                                            gv.elapsed = (int)(current - gv.previousTime); //calculate the total ms elapsed since the last time through the game loop
+                                                                                           /*
+                                                                                           while (elapsed < 16)
+                                                                                           {
+                                                                                               current = gameTimerStopwatch.ElapsedMilliseconds;
+                                                                                               elapsed = (int)(current - previousTime);
+                                                                                           }
+                                                                                           */
+                                                                                           //if (elapsed > 50)
+                                                                                           //{
+                                                                                           //int i = 0;
+                                                                                           //}
+                                                                                           //mod.scrollingOverhang = mod.scrollingOverhang + 3f*(elapsed/20f);
+                                                                                           //if (mod.scrollingOverhang > 0)
+                                                                                           //{
+                                                                                           //mod.scrollingOverhang = 0;
+                                                                                           //}
+                                            gv.Update(gv.elapsed); //runs AI and physics
+                                            gv.Render(gv.elapsed); //draw the screen frame
+                                            if (gv.reportFPScount >= 10)
+                                            {
+                                                gv.reportFPScount = 0;
+                                                gv.fps = 1000 / (current - gv.previousTime);
+                                            }
+                                            gv.reportFPScount++;
+                                            gv.previousTime = current; //remember the current time at the beginning of this tick call for the next time through the game loop to calculate elapsed ti
+                                            gv.stillProcessingGameLoop = false; //finished game loop so okay to let the next tick call enter the game loop      
+                                        }
+                                    }
+                                }
                                 gv.cc.doEncounterBasedOnTag(bumpProp.EncounterWhenOnPartySquare);
                             }
                         }
@@ -47890,6 +48183,7 @@ namespace IceBlink2
         }
         public void moveRight(bool affectTimer)
         {
+            gv.cc.doPropTriggersMovers();
             if (gv.mod.PlayerLocationX != gv.mod.PlayerLastLocationX || gv.mod.PlayerLocationY != gv.mod.PlayerLastLocationY)
             {
                 gv.mod.lastYadjustment = gv.mod.PlayerLocationY - gv.mod.PlayerLastLocationY;
@@ -48172,6 +48466,7 @@ namespace IceBlink2
                     //gv.mod.PlayerLastLocationX = gv.mod.PlayerLocationX;
                     //gv.mod.PlayerLastLocationY = gv.mod.PlayerLocationY;
                     gv.mod.PlayerLocationX++;
+                    gv.cc.doPropTriggersMovers();
                     gv.mod.drawPartyDirection = "left";
                     gv.cc.doUpdate();
                 }
@@ -48194,6 +48489,7 @@ namespace IceBlink2
                         gv.cc.floatyTextB = "";
                         gv.mod.PlayerLocationX++;
                         gv.mod.PlayerLocationX++;
+                        gv.cc.doPropTriggersMovers();
                         gv.mod.drawPartyDirection = "left";
                         foreach (Player pc in gv.mod.playerList)
                         {
@@ -48216,6 +48512,7 @@ namespace IceBlink2
                         gv.cc.floatyTextA = "";
                         gv.cc.floatyTextB = "";
                         gv.mod.PlayerLocationX++;
+                        gv.cc.doPropTriggersMovers();
                         gv.mod.drawPartyDirection = "left";
                         foreach (Player pc in gv.mod.playerList)
                         {
@@ -48294,6 +48591,54 @@ namespace IceBlink2
                                 gv.mod.EncounterOfTurnDone = true;
                                 gv.sf.ThisProp = bumpProp;
                                 gv.cc.calledEncounterFromProp = true;
+                                //sportness
+                                if (!gv.sf.ThisProp.HasCollision)
+                                {
+                                    gv.screenMainMap.timeStamp2 = DateTime.Now.Ticks;
+                                    while (!gv.screenMainMap.moveDelay2())
+                                    {
+                                        //new System.EventHandler(gv.gameTimer_Tick);
+                                        //gv.screenMainMap.Update(gv.screenMainMap.elapsed);
+                                        if (!gv.stillProcessingGameLoop)
+                                        {
+                                            if (gv.screenType != "main")
+                                            {
+                                                gv.aTimer.Stop();
+                                                gv.a2Timer.Stop();
+                                                gv.mod.scrollModeSpeed = 1.15f;
+                                            }
+                                            gv.stillProcessingGameLoop = true; //starting the game loop so do not allow another tick call to run until finished with this tick call.
+                                            long current = gv.gameTimerStopwatch.ElapsedMilliseconds; //get the current total amount of ms since the game launched
+                                            gv.elapsed = (int)(current - gv.previousTime); //calculate the total ms elapsed since the last time through the game loop
+                                                                                           /*
+                                                                                           while (elapsed < 16)
+                                                                                           {
+                                                                                               current = gameTimerStopwatch.ElapsedMilliseconds;
+                                                                                               elapsed = (int)(current - previousTime);
+                                                                                           }
+                                                                                           */
+                                                                                           //if (elapsed > 50)
+                                                                                           //{
+                                                                                           //int i = 0;
+                                                                                           //}
+                                                                                           //mod.scrollingOverhang = mod.scrollingOverhang + 3f*(elapsed/20f);
+                                                                                           //if (mod.scrollingOverhang > 0)
+                                                                                           //{
+                                                                                           //mod.scrollingOverhang = 0;
+                                                                                           //}
+                                            gv.Update(gv.elapsed); //runs AI and physics
+                                            gv.Render(gv.elapsed); //draw the screen frame
+                                            if (gv.reportFPScount >= 10)
+                                            {
+                                                gv.reportFPScount = 0;
+                                                gv.fps = 1000 / (current - gv.previousTime);
+                                            }
+                                            gv.reportFPScount++;
+                                            gv.previousTime = current; //remember the current time at the beginning of this tick call for the next time through the game loop to calculate elapsed ti
+                                            gv.stillProcessingGameLoop = false; //finished game loop so okay to let the next tick call enter the game loop      
+                                        }
+                                    }
+                                }
                                 gv.cc.doEncounterBasedOnTag(bumpProp.EncounterWhenOnPartySquare);
                             }
                         }
@@ -48339,6 +48684,7 @@ namespace IceBlink2
         }
         public void moveUp(bool affectTimer)
         {
+            gv.cc.doPropTriggersMovers();
             /*
             if (gv.mod.PlayerLocationX != gv.mod.PlayerLastLocationX + gv.mod.lastXadjustment || gv.mod.PlayerLocationY != gv.mod.PlayerLastLocationY + gv.mod.lastYadjustment)
             {
@@ -48639,6 +48985,7 @@ namespace IceBlink2
                     //gv.mod.PlayerLastLocationX = gv.mod.PlayerLocationX;
                     //gv.mod.PlayerLastLocationY = gv.mod.PlayerLocationY;
                     gv.mod.PlayerLocationY--;
+                    gv.cc.doPropTriggersMovers();
                     gv.mod.drawPartyDirection = "down";
                     gv.cc.doUpdate();
                 }
@@ -48662,6 +49009,7 @@ namespace IceBlink2
                         gv.cc.floatyTextB = "";
                         gv.mod.PlayerLocationY--;
                         gv.mod.PlayerLocationY--;
+                        gv.cc.doPropTriggersMovers();
                         gv.mod.drawPartyDirection = "down";
                         gv.cc.doUpdate();
                         /*
@@ -48687,6 +49035,7 @@ namespace IceBlink2
                         gv.cc.floatyTextA = "";
                         gv.cc.floatyTextB = "";
                         gv.mod.PlayerLocationY--;
+                        gv.cc.doPropTriggersMovers();
                         gv.mod.drawPartyDirection = "down";
                         if (!gv.mod.wasSuccessfulPush)
                         {
@@ -48699,7 +49048,7 @@ namespace IceBlink2
                     }
                 }
                 else if (bumpPropExists || bumpTriggerExists)
-                {
+                { 
                     StopScrollingOnBlocked();
                     if (bumpPropExists)
                     {
@@ -48758,6 +49107,54 @@ namespace IceBlink2
                                 gv.mod.EncounterOfTurnDone = true;
                                 gv.sf.ThisProp = bumpProp;
                                 gv.cc.calledEncounterFromProp = true;
+                                //sportness
+                                if (!gv.sf.ThisProp.HasCollision)
+                                {
+                                    gv.screenMainMap.timeStamp2 = DateTime.Now.Ticks;
+                                    while (!gv.screenMainMap.moveDelay2())
+                                    {
+                                        //new System.EventHandler(gv.gameTimer_Tick);
+                                        //gv.screenMainMap.Update(gv.screenMainMap.elapsed);
+                                        if (!gv.stillProcessingGameLoop)
+                                        {
+                                            if (gv.screenType != "main")
+                                            {
+                                                gv.aTimer.Stop();
+                                                gv.a2Timer.Stop();
+                                                gv.mod.scrollModeSpeed = 1.15f;
+                                            }
+                                            gv.stillProcessingGameLoop = true; //starting the game loop so do not allow another tick call to run until finished with this tick call.
+                                            long current = gv.gameTimerStopwatch.ElapsedMilliseconds; //get the current total amount of ms since the game launched
+                                            gv.elapsed = (int)(current - gv.previousTime); //calculate the total ms elapsed since the last time through the game loop
+                                                                                           /*
+                                                                                           while (elapsed < 16)
+                                                                                           {
+                                                                                               current = gameTimerStopwatch.ElapsedMilliseconds;
+                                                                                               elapsed = (int)(current - previousTime);
+                                                                                           }
+                                                                                           */
+                                                                                           //if (elapsed > 50)
+                                                                                           //{
+                                                                                           //int i = 0;
+                                                                                           //}
+                                                                                           //mod.scrollingOverhang = mod.scrollingOverhang + 3f*(elapsed/20f);
+                                                                                           //if (mod.scrollingOverhang > 0)
+                                                                                           //{
+                                                                                           //mod.scrollingOverhang = 0;
+                                                                                           //}
+                                            gv.Update(gv.elapsed); //runs AI and physics
+                                            gv.Render(gv.elapsed); //draw the screen frame
+                                            if (gv.reportFPScount >= 10)
+                                            {
+                                                gv.reportFPScount = 0;
+                                                gv.fps = 1000 / (current - gv.previousTime);
+                                            }
+                                            gv.reportFPScount++;
+                                            gv.previousTime = current; //remember the current time at the beginning of this tick call for the next time through the game loop to calculate elapsed ti
+                                            gv.stillProcessingGameLoop = false; //finished game loop so okay to let the next tick call enter the game loop      
+                                        }
+                                    }
+                                }
                                 gv.cc.doEncounterBasedOnTag(bumpProp.EncounterWhenOnPartySquare);
                             }
                         }
@@ -48803,6 +49200,7 @@ namespace IceBlink2
         }
         public void moveDown(bool affectTimer)
         {
+            gv.cc.doPropTriggersMovers();
             if (gv.mod.PlayerLocationX != gv.mod.PlayerLastLocationX || gv.mod.PlayerLocationY != gv.mod.PlayerLastLocationY)
             {
                 gv.mod.lastYadjustment = gv.mod.PlayerLocationY - gv.mod.PlayerLastLocationY;
@@ -49085,6 +49483,7 @@ namespace IceBlink2
                     //gv.mod.PlayerLastLocationX = gv.mod.PlayerLocationX;
                     //gv.mod.PlayerLastLocationY = gv.mod.PlayerLocationY;
                     gv.mod.PlayerLocationY++;
+                    gv.cc.doPropTriggersMovers();
                     gv.mod.drawPartyDirection = "up";
                     //gv.cc.doUpdate();
 
@@ -49116,6 +49515,7 @@ namespace IceBlink2
                         gv.cc.floatyTextB = "";
                         gv.mod.PlayerLocationY++;
                         gv.mod.PlayerLocationY++;
+                        gv.cc.doPropTriggersMovers();
                         gv.mod.drawPartyDirection = "up";
                         gv.cc.doUpdate();
                     }
@@ -49131,6 +49531,7 @@ namespace IceBlink2
                         gv.cc.floatyTextA = "";
                         gv.cc.floatyTextB = "";
                         gv.mod.PlayerLocationY++;
+                        gv.cc.doPropTriggersMovers();
                         gv.mod.drawPartyDirection = "up";
                         //gv.cc.doUpdate();
                         if (!gv.mod.wasSuccessfulPush)
@@ -49203,6 +49604,55 @@ namespace IceBlink2
                                 gv.mod.EncounterOfTurnDone = true;
                                 gv.sf.ThisProp = bumpProp;
                                 gv.cc.calledEncounterFromProp = true;
+                                //sportness
+                                if (!gv.sf.ThisProp.HasCollision)
+                                {
+                                    gv.screenMainMap.timeStamp2 = DateTime.Now.Ticks;
+                                    //gv.mod.elapsed2 = DateTime.Now.Ticks - timeStamp2;
+                                    while (!gv.screenMainMap.moveDelay2())
+                                    {
+                                        //new System.EventHandler(gv.gameTimer_Tick);
+                                        //gv.screenMainMap.Update(gv.screenMainMap.elapsed);
+                                        if (!gv.stillProcessingGameLoop)
+                                        {
+                                            if (gv.screenType != "main")
+                                            {
+                                                gv.aTimer.Stop();
+                                                gv.a2Timer.Stop();
+                                                gv.mod.scrollModeSpeed = 1.15f;
+                                            }
+                                            gv.stillProcessingGameLoop = true; //starting the game loop so do not allow another tick call to run until finished with this tick call.
+                                            long current = gv.gameTimerStopwatch.ElapsedMilliseconds; //get the current total amount of ms since the game launched
+                                            gv.elapsed = (int)(current - gv.previousTime); //calculate the total ms elapsed since the last time through the game loop
+                                                                                           /*
+                                                                                           while (elapsed < 16)
+                                                                                           {
+                                                                                               current = gameTimerStopwatch.ElapsedMilliseconds;
+                                                                                               elapsed = (int)(current - previousTime);
+                                                                                           }
+                                                                                           */
+                                                                                           //if (elapsed > 50)
+                                                                                           //{
+                                                                                           //int i = 0;
+                                                                                           //}
+                                                                                           //mod.scrollingOverhang = mod.scrollingOverhang + 3f*(elapsed/20f);
+                                                                                           //if (mod.scrollingOverhang > 0)
+                                                                                           //{
+                                                                                           //mod.scrollingOverhang = 0;
+                                                                                           //}
+                                            gv.Update(gv.elapsed); //runs AI and physics
+                                            gv.Render(gv.elapsed); //draw the screen frame
+                                            if (gv.reportFPScount >= 10)
+                                            {
+                                                gv.reportFPScount = 0;
+                                                gv.fps = 1000 / (current - gv.previousTime);
+                                            }
+                                            gv.reportFPScount++;
+                                            gv.previousTime = current; //remember the current time at the beginning of this tick call for the next time through the game loop to calculate elapsed ti
+                                            gv.stillProcessingGameLoop = false; //finished game loop so okay to let the next tick call enter the game loop      
+                                        }
+                                    }
+                                }
                                 gv.cc.doEncounterBasedOnTag(bumpProp.EncounterWhenOnPartySquare);
                             }
                         }

@@ -68,6 +68,11 @@ namespace IceBlink2
         //b. upon failure
         //messaging to log and as floaty
 
+        public bool skippedPathfinding = false;
+
+        public bool blockConvoForOneTurn = false;
+
+        public List<Coordinate> oldPath = new List<Coordinate>(); 
         public bool justJumpedBetweenAreas = false;
 
         public int relocX = 0;
@@ -450,6 +455,8 @@ namespace IceBlink2
     	    Prop copy = new Prop();
 
             //TODO
+            copy.skippedPathfinding = skippedPathfinding;
+            copy.blockConvoForOneTurn = blockConvoForOneTurn;
             copy.justJumpedBetweenAreas = justJumpedBetweenAreas;
             copy.relocX = relocX;
             copy.relocY = relocY;
@@ -670,6 +677,14 @@ namespace IceBlink2
             //PROJECT LIVING WORLD STUFF
             copy.PostLocationX = this.PostLocationX;
             copy.PostLocationY = this.PostLocationY;
+            copy.oldPath = new List<Coordinate>();
+            foreach (Coordinate Coor in this.oldPath)
+            {
+                Coordinate c = new Coordinate();
+                c.X = Coor.X;
+                c.Y = Coor.Y;
+                copy.oldPath.Add(c);
+            }
             copy.WayPointList = new List<WayPoint>();
             foreach (WayPoint coor in this.WayPointList)
             {

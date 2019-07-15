@@ -1151,6 +1151,8 @@ namespace IceBlink2
             cc.challengeHidden = cc.LoadBitmap("challengeHidden");
             cc.challengeSkull = cc.LoadBitmap("challengeSkull");
             cc.isChasingSymbol = cc.LoadBitmap("chasing");
+            cc.swiftSymbol = cc.LoadBitmap("swift");
+            cc.slowSymbol = cc.LoadBitmap("slow");
 
             cc.losBlocked = cc.LoadBitmap("los_block");
             cc.black_tile = cc.LoadBitmap("black_tile");
@@ -1837,7 +1839,7 @@ namespace IceBlink2
         }
         */
         
-        private void gameTimer_Tick(object sender, EventArgs e)
+        public void gameTimer_Tick(object sender, EventArgs e)
         {
             if (!stillProcessingGameLoop)
             {
@@ -1878,7 +1880,7 @@ namespace IceBlink2
                 stillProcessingGameLoop = false; //finished game loop so okay to let the next tick call enter the game loop      
             }
         }
-        private void Update(int elapsed)
+        public void Update(int elapsed)
         {
             
             
@@ -2686,7 +2688,9 @@ namespace IceBlink2
                 mod.sprintModifier = 1.0f;
             }
 
-            if ((e.KeyCode == Keys.Up && this.screenMainMap.showMoveKeys && mod.blockUpKey) || (e.KeyCode == Keys.W && !this.screenMainMap.showMoveKeys && mod.blockUpKey) || e.KeyCode == Keys.D8 || e.KeyCode == Keys.NumPad8)
+            if (screenType == "main")
+            {
+                if ((e.KeyCode == Keys.Up && this.screenMainMap.showMoveKeys && mod.blockUpKey) || (e.KeyCode == Keys.W && !this.screenMainMap.showMoveKeys && mod.blockUpKey) || e.KeyCode == Keys.D8 || e.KeyCode == Keys.NumPad8)
                 {
                     mod.blockUpKey = false;
                     mod.keyUpPressedAgain = true;
@@ -2711,7 +2715,8 @@ namespace IceBlink2
                 {
                     aTimer.Stop();
                     mod.scrollModeSpeed = 1.15f;
-                }              
+                }
+            }
             //}
         }
 
