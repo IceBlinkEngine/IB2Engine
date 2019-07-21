@@ -3949,7 +3949,7 @@ namespace IceBlink2
                             }
                         }
                     }
-
+                    /*
                     for (int x = -1; x <= 1; x++)
                     {
                         for (int y = -1; y <= 1; y++)
@@ -3957,7 +3957,8 @@ namespace IceBlink2
                             gv.DrawText(p.permanentText, xPos + x, yPos + txtH + y -gv.squareSize/2, 1.0f, Color.Black);
                         }
                     }
-                    gv.DrawText(p.permanentText, xPos, yPos + txtH -gv.squareSize/2, 1.0f, Color.Yellow);
+                    */
+                    gv.DrawTextOutlined(p.permanentText, xPos, yPos + txtH -gv.squareSize/2, 1.0f, Color.Yellow);
                 }
             }
         }
@@ -3991,6 +3992,7 @@ namespace IceBlink2
                     {
                         yPos += gv.squareSize;
                     }
+                    /*
                         for (int x = -1; x <= 1; x++)
                     {
                         for (int y = -1; y <= 1; y++)
@@ -3998,7 +4000,8 @@ namespace IceBlink2
                             gv.DrawText(gv.mod.permanentPartyText, xPos + x, yPos + txtH + y - gv.squareSize / 2, 0.5f, Color.Black);
                         }
                     }
-                    gv.DrawText(gv.mod.permanentPartyText, xPos, yPos + txtH - gv.squareSize / 2, 0.5f, Color.Yellow);
+                    */
+                    gv.DrawTextOutlined(gv.mod.permanentPartyText, xPos, yPos + txtH - gv.squareSize / 2, 0.5f, Color.Yellow);
                 }
             
         }
@@ -4016,7 +4019,8 @@ namespace IceBlink2
             //setExploredForConnectedDiscoveryTriggers();
             if (!gv.mod.currentArea.areaDark)
             {
-                drawBottomFullScreenEffects();
+                //eva
+                //drawBottomFullScreenEffects();
                 if ((!gv.mod.currentArea.ImageFileName.Equals("none")) && (gv.cc.bmpMap != null))
                 {
                     drawMap();
@@ -4110,6 +4114,7 @@ namespace IceBlink2
                     //{
                     //wiederan 1line
                     //greenwhich
+                    
                     drawLightAndDarkness(elapsed);
                     //}
                 }
@@ -4133,6 +4138,7 @@ namespace IceBlink2
                 //new method for drawing shade for linked tiles on links
                 drawLinkShades();
                 //wiederan 1line
+                //eva
                 drawFogOfWar();
                 drawMainMapFloatyText();
                 drawFloatyTextPool();
@@ -4184,7 +4190,9 @@ namespace IceBlink2
             }
             //finalBlackenOffMapScreen();
             drawUiLayout();//ressource heavy
-            drawMiniMap();
+            //eva
+            //drawMiniMap();
+
             if (gv.mod.useMinimalisticUI)
             {
                 if (gv.mod.logFadeCounter > 0)
@@ -29656,10 +29664,12 @@ namespace IceBlink2
             gv.DrawBitmap(gv.cc.bmpMap, src, dst);
 
             //drawColumnOfBlack(-1);
+            //removed
             drawColumnOfBlack(-2);
             //drawRowOfBlack(-1);
-            
-            drawColumnOfBlack(gv.playerOffsetX * 2 + 1);
+
+            //removed
+            //drawColumnOfBlack(gv.playerOffsetX * 2 + 1);
             drawColumnOfBlack(gv.playerOffsetX * 2 + 2);
             //hurgh16
             //drawColumnOfBlack(gv.playerOffsetX * 2 + 3);
@@ -30415,8 +30425,8 @@ namespace IceBlink2
                 {
                     if ((p.isShown) && (!p.isMover) && p.scriptFilename != "gaJumpChasm.cs")
                     {
-                        if ((p.LocationX >= gv.mod.PlayerLocationX - gv.playerOffsetX) && (p.LocationX <= gv.mod.PlayerLocationX + gv.playerOffsetX)
-                            && (p.LocationY >= gv.mod.PlayerLocationY - gv.playerOffsetY) && (p.LocationY <= gv.mod.PlayerLocationY + gv.playerOffsetY))
+                        if ((p.LocationX >= gv.mod.PlayerLocationX - gv.playerOffsetX-2) && (p.LocationX <= gv.mod.PlayerLocationX + gv.playerOffsetX+2)
+                            && (p.LocationY >= gv.mod.PlayerLocationY - gv.playerOffsetY-1) && (p.LocationY <= gv.mod.PlayerLocationY + gv.playerOffsetY+1))
                         {
                             //prop X - playerX
                             int x = ((p.LocationX - gv.mod.PlayerLocationX) * gv.squareSize) + (gv.playerOffsetX * gv.squareSize);
@@ -35841,6 +35851,7 @@ namespace IceBlink2
 
             if (gv.cc.floatyText != "none" && gv.cc.floatyText != "")
             {
+                /*
                 for (int x = -1; x <= 1; x++)
                 {
                     for (int y = -1; y <= 1; y++)
@@ -35848,12 +35859,14 @@ namespace IceBlink2
                         gv.DrawTextCenter(gv.cc.floatyText, new IbRect(gv.cc.floatyTextLoc.X + x + gv.oXshift + mapStartLocXinPixels - (int)(gv.squareSize*1f), gv.cc.floatyTextLoc.Y + y - txtH, (int)(gv.squareSize * 3f), 1000), 0.8f, Color.Black);
                     }
                 }
+                */
 
-                gv.DrawTextCenter(gv.cc.floatyText, new IbRect(gv.cc.floatyTextLoc.X + gv.oXshift + mapStartLocXinPixels - (int)(gv.squareSize * 1f), gv.cc.floatyTextLoc.Y - txtH, (int)(gv.squareSize * 3f), 1000), 0.8f, Color.White);
+                gv.DrawTextCenterOutlinedRect(gv.cc.floatyText, new IbRect(gv.cc.floatyTextLoc.X + gv.oXshift + mapStartLocXinPixels - (int)(gv.squareSize * 1f), gv.cc.floatyTextLoc.Y - txtH, (int)(gv.squareSize * 3f), 1000), 0.8f, Color.White);
             }
 
             if (gv.cc.floatyText2 != "none" && gv.cc.floatyText2 != "")
             {
+                /*
                 for (int x = -1; x <= 1; x++)
                 {
                     for (int y = -1; y <= 1; y++)
@@ -35861,12 +35874,14 @@ namespace IceBlink2
                         gv.DrawTextCenter(gv.cc.floatyText2, new IbRect(gv.cc.floatyTextLoc.X + x + gv.oXshift + mapStartLocXinPixels - (int)(gv.squareSize * 1f), gv.cc.floatyTextLoc.Y + y + txtH, (int)(gv.squareSize * 3f), 1000), 0.8f, Color.Black);
                     }
                 }
+                */
 
-                gv.DrawTextCenter(gv.cc.floatyText2, new IbRect(gv.cc.floatyTextLoc.X + gv.oXshift + mapStartLocXinPixels - (int)(gv.squareSize * 1f), gv.cc.floatyTextLoc.Y + txtH, (int)(gv.squareSize * 3f), 1000), 0.8f, Color.White);
+                gv.DrawTextCenterOutlinedRect(gv.cc.floatyText2, new IbRect(gv.cc.floatyTextLoc.X + gv.oXshift + mapStartLocXinPixels - (int)(gv.squareSize * 1f), gv.cc.floatyTextLoc.Y + txtH, (int)(gv.squareSize * 3f), 1000), 0.8f, Color.White);
             }
 
             if (gv.cc.floatyText3 != "none" && gv.cc.floatyText3 != "")
             {
+                /*
                 for (int x = -1; x <= 1; x++)
                 {
                     for (int y = -1; y <= 1; y++)
@@ -35874,12 +35889,14 @@ namespace IceBlink2
                         gv.DrawTextCenter(gv.cc.floatyText3, new IbRect(gv.cc.floatyTextLoc.X + x + gv.oXshift + mapStartLocXinPixels - (int)(gv.squareSize * 1f), gv.cc.floatyTextLoc.Y + y + txtH*2, (int)(gv.squareSize * 3f), 1000), 0.8f, Color.Black);
                     }
                 }
+                */
 
-                gv.DrawTextCenter(gv.cc.floatyText3, new IbRect(gv.cc.floatyTextLoc.X + gv.oXshift + mapStartLocXinPixels - (int)(gv.squareSize * 1f), gv.cc.floatyTextLoc.Y + txtH*2, (int)(gv.squareSize * 3f), 1000), 0.8f, Color.White);
+                gv.DrawTextCenterOutlinedRect(gv.cc.floatyText3, new IbRect(gv.cc.floatyTextLoc.X + gv.oXshift + mapStartLocXinPixels - (int)(gv.squareSize * 1f), gv.cc.floatyTextLoc.Y + txtH*2, (int)(gv.squareSize * 3f), 1000), 0.8f, Color.White);
             }
 
             if (gv.cc.floatyText4 != "none" && gv.cc.floatyText4 != "")
             {
+                /*
                 for (int x = -1; x <= 1; x++)
                 {
                     for (int y = -1; y <= 1; y++)
@@ -35887,12 +35904,14 @@ namespace IceBlink2
                         gv.DrawTextCenter(gv.cc.floatyText4, new IbRect(gv.cc.floatyTextLoc.X + x + gv.oXshift + mapStartLocXinPixels - (int)(gv.squareSize * 1f), gv.cc.floatyTextLoc.Y + y + txtH * 3, (int)(gv.squareSize * 3f), 1000), 0.8f, Color.Black);
                     }
                 }
+                */
 
-                gv.DrawTextCenter(gv.cc.floatyText4, new IbRect(gv.cc.floatyTextLoc.X + gv.oXshift + mapStartLocXinPixels - (int)(gv.squareSize * 1f), gv.cc.floatyTextLoc.Y + txtH * 3, (int)(gv.squareSize * 3f), 1000), 0.8f, Color.White);
+                gv.DrawTextCenterOutlinedRect(gv.cc.floatyText4, new IbRect(gv.cc.floatyTextLoc.X + gv.oXshift + mapStartLocXinPixels - (int)(gv.squareSize * 1f), gv.cc.floatyTextLoc.Y + txtH * 3, (int)(gv.squareSize * 3f), 1000), 0.8f, Color.White);
             }
 
             if (gv.cc.floatyText0 != "none" && gv.cc.floatyText0 != "")
             {
+                /*
                 for (int x = -1; x <= 1; x++)
                 {
                     for (int y = -1; y <= 1; y++)
@@ -35900,12 +35919,14 @@ namespace IceBlink2
                         gv.DrawTextCenter(gv.cc.floatyText0, new IbRect(gv.cc.floatyTextLoc.X + x + gv.oXshift + mapStartLocXinPixels - (int)(gv.squareSize * 1f), gv.cc.floatyTextLoc.Y + y, (int)(gv.squareSize * 3f), 1000), 0.8f, Color.Black);
                     }
                 }
+                */
 
-                gv.DrawTextCenter(gv.cc.floatyText0, new IbRect(gv.cc.floatyTextLoc.X + gv.oXshift + mapStartLocXinPixels - (int)(gv.squareSize * 1f), gv.cc.floatyTextLoc.Y, (int)(gv.squareSize * 3f), 1000), 0.8f, Color.White);
+                gv.DrawTextCenterOutlinedRect(gv.cc.floatyText0, new IbRect(gv.cc.floatyTextLoc.X + gv.oXshift + mapStartLocXinPixels - (int)(gv.squareSize * 1f), gv.cc.floatyTextLoc.Y, (int)(gv.squareSize * 3f), 1000), 0.8f, Color.White);
             }
 
             if (gv.cc.floatyTextA != "none" && gv.cc.floatyTextA != "")
             {
+                /*
                 for (int x = -1; x <= 1; x++)
                 {
                     for (int y = -1; y <= 1; y++)
@@ -35913,12 +35934,13 @@ namespace IceBlink2
                         gv.DrawTextCenter(gv.cc.floatyTextA, new IbRect(gv.cc.floatyTextLoc.X + x + gv.oXshift + mapStartLocXinPixels - (int)(gv.squareSize * 1f), gv.cc.floatyTextLoc.Y + y - txtH*2, (int)(gv.squareSize * 3f), 1000), 0.8f, Color.Black);
                     }
                 }
-
-                gv.DrawTextCenter(gv.cc.floatyTextA, new IbRect(gv.cc.floatyTextLoc.X + gv.oXshift + mapStartLocXinPixels - (int)(gv.squareSize * 1f), gv.cc.floatyTextLoc.Y - txtH * 2, (int)(gv.squareSize * 3f), 1000), 0.8f, Color.White);
+                */
+                gv.DrawTextCenterOutlinedRect(gv.cc.floatyTextA, new IbRect(gv.cc.floatyTextLoc.X + gv.oXshift + mapStartLocXinPixels - (int)(gv.squareSize * 1f), gv.cc.floatyTextLoc.Y - txtH * 2, (int)(gv.squareSize * 3f), 1000), 0.8f, Color.White);
             }
 
             if (gv.cc.floatyTextB != "none" && gv.cc.floatyTextB != "")
             {
+                /*
                 for (int x = -1; x <= 1; x++)
                 {
                     for (int y = -1; y <= 1; y++)
@@ -35926,34 +35948,35 @@ namespace IceBlink2
                         gv.DrawTextCenter(gv.cc.floatyTextB, new IbRect(gv.cc.floatyTextLoc.X + x + gv.oXshift + mapStartLocXinPixels - (int)(gv.squareSize * 1f), gv.cc.floatyTextLoc.Y + y - txtH, (int)(gv.squareSize * 3f), 1000), 0.8f, Color.Black);
                     }
                 }
+                */
 
                 if (gv.cc.floatyTextB.Contains("Mandatory"))
                 {
-                    gv.DrawTextCenter(gv.cc.floatyTextB, new IbRect(gv.cc.floatyTextLoc.X + gv.oXshift + mapStartLocXinPixels - (int)(gv.squareSize * 1f), gv.cc.floatyTextLoc.Y - txtH, (int)(gv.squareSize * 3f), 1000), 0.8f, Color.Yellow);
+                    gv.DrawTextCenterOutlinedRect(gv.cc.floatyTextB, new IbRect(gv.cc.floatyTextLoc.X + gv.oXshift + mapStartLocXinPixels - (int)(gv.squareSize * 1f), gv.cc.floatyTextLoc.Y - txtH, (int)(gv.squareSize * 3f), 1000), 0.8f, Color.Yellow);
                 }
                 else if (gv.cc.floatyTextB.Contains("Optional"))
                 {
-                    gv.DrawTextCenter(gv.cc.floatyTextB, new IbRect(gv.cc.floatyTextLoc.X + gv.oXshift + mapStartLocXinPixels - (int)(gv.squareSize * 1f), gv.cc.floatyTextLoc.Y - txtH, (int)(gv.squareSize * 3f), 1000), 0.8f, Color.Lime);
+                    gv.DrawTextCenterOutlinedRect(gv.cc.floatyTextB, new IbRect(gv.cc.floatyTextLoc.X + gv.oXshift + mapStartLocXinPixels - (int)(gv.squareSize * 1f), gv.cc.floatyTextLoc.Y - txtH, (int)(gv.squareSize * 3f), 1000), 0.8f, Color.Lime);
                 }
                 else if (gv.cc.floatyTextB.Contains("Very Hard"))
                 {
-                    gv.DrawTextCenter(gv.cc.floatyTextB, new IbRect(gv.cc.floatyTextLoc.X + gv.oXshift + mapStartLocXinPixels - (int)(gv.squareSize * 1f), gv.cc.floatyTextLoc.Y - txtH, (int)(gv.squareSize * 3f), 1000), 0.8f, Color.Orange);
+                    gv.DrawTextCenterOutlinedRect(gv.cc.floatyTextB, new IbRect(gv.cc.floatyTextLoc.X + gv.oXshift + mapStartLocXinPixels - (int)(gv.squareSize * 1f), gv.cc.floatyTextLoc.Y - txtH, (int)(gv.squareSize * 3f), 1000), 0.8f, Color.Orange);
                 }
                 else if (gv.cc.floatyTextB.Contains("Hard"))
                 {
-                    gv.DrawTextCenter(gv.cc.floatyTextB, new IbRect(gv.cc.floatyTextLoc.X + gv.oXshift + mapStartLocXinPixels - (int)(gv.squareSize * 1f), gv.cc.floatyTextLoc.Y - txtH, (int)(gv.squareSize * 3f), 1000), 0.8f, Color.Yellow);
+                    gv.DrawTextCenterOutlinedRect(gv.cc.floatyTextB, new IbRect(gv.cc.floatyTextLoc.X + gv.oXshift + mapStartLocXinPixels - (int)(gv.squareSize * 1f), gv.cc.floatyTextLoc.Y - txtH, (int)(gv.squareSize * 3f), 1000), 0.8f, Color.Yellow);
                 }
                 else if (gv.cc.floatyTextB.Contains("Easy"))
                 {
-                    gv.DrawTextCenter(gv.cc.floatyTextB, new IbRect(gv.cc.floatyTextLoc.X + gv.oXshift + mapStartLocXinPixels - (int)(gv.squareSize * 1f), gv.cc.floatyTextLoc.Y - txtH, (int)(gv.squareSize * 3f), 1000), 0.8f, Color.Lime);
+                    gv.DrawTextCenterOutlinedRect(gv.cc.floatyTextB, new IbRect(gv.cc.floatyTextLoc.X + gv.oXshift + mapStartLocXinPixels - (int)(gv.squareSize * 1f), gv.cc.floatyTextLoc.Y - txtH, (int)(gv.squareSize * 3f), 1000), 0.8f, Color.Lime);
                 }
                 else if (gv.cc.floatyTextB.Contains("Normal"))
                 {
-                    gv.DrawTextCenter(gv.cc.floatyTextB, new IbRect(gv.cc.floatyTextLoc.X + gv.oXshift + mapStartLocXinPixels - (int)(gv.squareSize * 1f), gv.cc.floatyTextLoc.Y - txtH, (int)(gv.squareSize * 3f), 1000), 0.8f, Color.White);
+                    gv.DrawTextCenterOutlinedRect(gv.cc.floatyTextB, new IbRect(gv.cc.floatyTextLoc.X + gv.oXshift + mapStartLocXinPixels - (int)(gv.squareSize * 1f), gv.cc.floatyTextLoc.Y - txtH, (int)(gv.squareSize * 3f), 1000), 0.8f, Color.White);
                 }
                 else if (gv.cc.floatyTextB.Contains("Deadly"))
                 {
-                    gv.DrawTextCenter(gv.cc.floatyTextB, new IbRect(gv.cc.floatyTextLoc.X + gv.oXshift + mapStartLocXinPixels - (int)(gv.squareSize * 1f), gv.cc.floatyTextLoc.Y - txtH, (int)(gv.squareSize * 3f), 1000), 0.8f, Color.Red);
+                    gv.DrawTextCenterOutlinedRect(gv.cc.floatyTextB, new IbRect(gv.cc.floatyTextLoc.X + gv.oXshift + mapStartLocXinPixels - (int)(gv.squareSize * 1f), gv.cc.floatyTextLoc.Y - txtH, (int)(gv.squareSize * 3f), 1000), 0.8f, Color.Red);
                 }
             }
         }
@@ -36122,6 +36145,7 @@ namespace IceBlink2
         {
             int txtH = (int)gv.drawFontRegHeight;
             int lineCounter = -1;
+            /*
             for (int x = -1; x <= 1; x++)
             {
                 for (int y = -1; y <= 1; y++)
@@ -36129,9 +36153,10 @@ namespace IceBlink2
                     gv.DrawText("Show/Hide Hotkeys: H", new IbRect(x+gv.oXshift + (gv.playerOffsetY) * gv.squareSize - 4 * gv.pS, y+(gv.playerOffsetX - 8) * gv.squareSize + (int)(txtH * 1.25f * lineCounter) + (int)(3 * gv.pS), 1000, 100), 1.0f, Color.Black);
                 }
             }
-            gv.DrawText("Show/Hide Hotkeys: H", new IbRect(gv.oXshift + (gv.playerOffsetY) * gv.squareSize - 4*gv.pS, (gv.playerOffsetX-8) * gv.squareSize + (int)(txtH * 1.25f * lineCounter) + (int)(3 * gv.pS), 1000, 100), 1.0f, Color.Red);
+            */
+            gv.DrawTextOutlinedRect("Show/Hide Hotkeys: H", new IbRect(gv.oXshift + (gv.playerOffsetY) * gv.squareSize - 4*gv.pS, (gv.playerOffsetX-8) * gv.squareSize + (int)(txtH * 1.25f * lineCounter) + (int)(3 * gv.pS), 1000, 100), 1.0f, Color.Red);
             lineCounter++;
-
+            /*
             for (int x = -1; x <= 1; x++)
             {
                 for (int y = -1; y <= 1; y++)
@@ -36139,9 +36164,10 @@ namespace IceBlink2
                     gv.DrawText("Hide/Show HUD (Mode: Static): X", new IbRect(x + gv.oXshift + (gv.playerOffsetY) * gv.squareSize - 4 * gv.pS, y + (gv.playerOffsetX - 8) * gv.squareSize + (int)(3 * gv.pS), 1000, 100), 1.0f, Color.Black);
                 }
             }
-            gv.DrawText("Hide/Show HUD (Mode: Static): X", new IbRect(gv.oXshift + (gv.playerOffsetY) * gv.squareSize - 4 * gv.pS, (gv.playerOffsetX - 8) * gv.squareSize + (int)(3 * gv.pS), 1000, 100), 1.0f, Color.Red);
+            */
+            gv.DrawTextOutlinedRect("Hide/Show HUD (Mode: Static): X", new IbRect(gv.oXshift + (gv.playerOffsetY) * gv.squareSize - 4 * gv.pS, (gv.playerOffsetX - 8) * gv.squareSize + (int)(3 * gv.pS), 1000, 100), 1.0f, Color.Red);
             lineCounter++;
-
+            /*
             for (int x = -1; x <= 1; x++)
             {
                 for (int y = -1; y <= 1; y++)
@@ -36149,9 +36175,11 @@ namespace IceBlink2
                     gv.DrawText("Hide/Show HUD (Mode: Dynamic): F / NumBlock 0 / Insert", new IbRect(x + gv.oXshift + (gv.playerOffsetY) * gv.squareSize - 4 * gv.pS, y + (gv.playerOffsetX - 8) * gv.squareSize + (int)(txtH * 1.25f * lineCounter) + (int)(3 * gv.pS), 1000, 100), 1.0f, Color.Black);
                 }
             }
-            gv.DrawText("Hide/Show HUD (Mode: Dynamic): F / NumBlock 0 / Insert", new IbRect(gv.oXshift + (gv.playerOffsetY) * gv.squareSize - 4 * gv.pS, (gv.playerOffsetX - 8) * gv.squareSize + (int)(txtH * 1.25f * lineCounter) + (int)(3 * gv.pS), 1000, 100), 1.0f, Color.Red);
+            */
+            gv.DrawTextOutlinedRect("Hide/Show HUD (Mode: Dynamic): F / NumBlock 0 / Insert", new IbRect(gv.oXshift + (gv.playerOffsetY) * gv.squareSize - 4 * gv.pS, (gv.playerOffsetX - 8) * gv.squareSize + (int)(txtH * 1.25f * lineCounter) + (int)(3 * gv.pS), 1000, 100), 1.0f, Color.Red);
             lineCounter++;
 
+            /*
             for (int x = -1; x <= 1; x++)
             {
                 for (int y = -1; y <= 1; y++)
@@ -36159,9 +36187,11 @@ namespace IceBlink2
                     gv.DrawText("Party Light on/off (using first light source in inventory): T", new IbRect(x + gv.oXshift + (gv.playerOffsetY) * gv.squareSize - 4 * gv.pS, y + (gv.playerOffsetX - 8) * gv.squareSize + (int)(txtH * 1.25f * lineCounter) + (int)(3 * gv.pS), 1000, 100), 1.0f, Color.Black);
                 }
             }
-            gv.DrawText("Party Light on/off (using first light source in inventory): T", new IbRect(gv.oXshift + (gv.playerOffsetY) * gv.squareSize - 4 * gv.pS, (gv.playerOffsetX - 8) * gv.squareSize + (int)(txtH * 1.25f * lineCounter) + (int)(3 * gv.pS), 1000, 100), 1.0f, Color.Red);
+            */
+            gv.DrawTextOutlinedRect("Party Light on/off (using first light source in inventory): T", new IbRect(gv.oXshift + (gv.playerOffsetY) * gv.squareSize - 4 * gv.pS, (gv.playerOffsetX - 8) * gv.squareSize + (int)(txtH * 1.25f * lineCounter) + (int)(3 * gv.pS), 1000, 100), 1.0f, Color.Red);
             lineCounter++;
 
+            /*
             for (int x = -1; x <= 1; x++)
             {
                 for (int y = -1; y <= 1; y++)
@@ -36169,9 +36199,10 @@ namespace IceBlink2
                     gv.DrawText("Active search: SPACE", new IbRect(x + gv.oXshift + (gv.playerOffsetY) * gv.squareSize - 4 * gv.pS, y + (gv.playerOffsetX - 8) * gv.squareSize + (int)(txtH * 1.25f * lineCounter) + (int)(3 * gv.pS), 1000, 100), 1.0f, Color.Black);
                 }
             }
-            gv.DrawText("Active search: SPACE", new IbRect(gv.oXshift + (gv.playerOffsetY) * gv.squareSize - 4 * gv.pS, (gv.playerOffsetX - 8) * gv.squareSize + (int)(txtH * 1.25f * lineCounter) + (int)(3 * gv.pS), 1000, 100), 1.0f, Color.Red);
+            */
+            gv.DrawTextOutlinedRect("Active search: SPACE", new IbRect(gv.oXshift + (gv.playerOffsetY) * gv.squareSize - 4 * gv.pS, (gv.playerOffsetX - 8) * gv.squareSize + (int)(txtH * 1.25f * lineCounter) + (int)(3 * gv.pS), 1000, 100), 1.0f, Color.Red);
             lineCounter++;
-
+            /*
             for (int x = -1; x <= 1; x++)
             {
                 for (int y = -1; y <= 1; y++)
@@ -36179,9 +36210,10 @@ namespace IceBlink2
                     gv.DrawText("Wait one step: Y / Z", new IbRect(x + gv.oXshift + (gv.playerOffsetY) * gv.squareSize - 4 * gv.pS, y + (gv.playerOffsetX - 8) * gv.squareSize + (int)(txtH * 1.25f * lineCounter) + (int)(3 * gv.pS), 1000, 100), 1.0f, Color.Black);
                 }
             }
-            gv.DrawText("Wait one step: Y / Z", new IbRect(gv.oXshift + (gv.playerOffsetY) * gv.squareSize - 4 * gv.pS, (gv.playerOffsetX - 8) * gv.squareSize + (int)(txtH * 1.25f * lineCounter) + (int)(3 * gv.pS), 1000, 100), 1.0f, Color.Red);
+            */
+            gv.DrawTextOutlinedRect("Wait one step: Y / Z", new IbRect(gv.oXshift + (gv.playerOffsetY) * gv.squareSize - 4 * gv.pS, (gv.playerOffsetX - 8) * gv.squareSize + (int)(txtH * 1.25f * lineCounter) + (int)(3 * gv.pS), 1000, 100), 1.0f, Color.Red);
             lineCounter++;
-
+            /*
             for (int x = -1; x <= 1; x++)
             {
                 for (int y = -1; y <= 1; y++)
@@ -36189,9 +36221,10 @@ namespace IceBlink2
                     gv.DrawText("Quick save: F5", new IbRect(x + gv.oXshift + (gv.playerOffsetY) * gv.squareSize - 4 * gv.pS, y + (gv.playerOffsetX - 8) * gv.squareSize + (int)(txtH * 1.25f * lineCounter) + (int)(3 * gv.pS), 1000, 100), 1.0f, Color.Black);
                 }
             }
-            gv.DrawText("Quick save: F5", new IbRect(gv.oXshift + (gv.playerOffsetY) * gv.squareSize - 4 * gv.pS, (gv.playerOffsetX - 8) * gv.squareSize + (int)(txtH * 1.25f * lineCounter) + (int)(3 * gv.pS), 1000, 100), 1.0f, Color.Red);
+            */
+            gv.DrawTextOutlinedRect("Quick save: F5", new IbRect(gv.oXshift + (gv.playerOffsetY) * gv.squareSize - 4 * gv.pS, (gv.playerOffsetX - 8) * gv.squareSize + (int)(txtH * 1.25f * lineCounter) + (int)(3 * gv.pS), 1000, 100), 1.0f, Color.Red);
             lineCounter++;
-
+            /*
             for (int x = -1; x <= 1; x++)
             {
                 for (int y = -1; y <= 1; y++)
@@ -36199,9 +36232,10 @@ namespace IceBlink2
                     gv.DrawText("Change Party Leader: E / (D or arrow right) / right MB click on portrait", new IbRect(x + gv.oXshift + (gv.playerOffsetY) * gv.squareSize - 4 * gv.pS, y + (gv.playerOffsetX - 8) * gv.squareSize + (int)(txtH * 1.25f * lineCounter) + (int)(3 * gv.pS), 1000, 100), 1.0f, Color.Black);
                 }
             }
-            gv.DrawText("Change Party Leader: E / (D or arrow right) / right MB click on portrait", new IbRect(gv.oXshift + (gv.playerOffsetY) * gv.squareSize - 4 * gv.pS, (gv.playerOffsetX - 8) * gv.squareSize + (int)(txtH * 1.25f * lineCounter) + (int)(3 * gv.pS), 1000, 100), 1.0f, Color.Red);
+            */
+            gv.DrawTextOutlinedRect("Change Party Leader: E / (D or arrow right) / right MB click on portrait", new IbRect(gv.oXshift + (gv.playerOffsetY) * gv.squareSize - 4 * gv.pS, (gv.playerOffsetX - 8) * gv.squareSize + (int)(txtH * 1.25f * lineCounter) + (int)(3 * gv.pS), 1000, 100), 1.0f, Color.Red);
             lineCounter++;
-
+            /*
             for (int x = -1; x <= 1; x++)
             {
                 for (int y = -1; y <= 1; y++)
@@ -36209,9 +36243,11 @@ namespace IceBlink2
                     gv.DrawText("Change Party Leader reverse: Q / (A or arrow left) / right MB click on portrait", new IbRect(x + gv.oXshift + (gv.playerOffsetY) * gv.squareSize - 4 * gv.pS, y + (gv.playerOffsetX - 8) * gv.squareSize + (int)(txtH * 1.25f * lineCounter) + (int)(3 * gv.pS), 1000, 100), 1.0f, Color.Black);
                 }
             }
-            gv.DrawText("Change Party Leader reverse: Q / (A or arrow left) / right MB click on portrait", new IbRect(gv.oXshift + (gv.playerOffsetY) * gv.squareSize - 4 * gv.pS, (gv.playerOffsetX - 8) * gv.squareSize + (int)(txtH * 1.25f * lineCounter) + (int)(3 * gv.pS), 1000, 100), 1.0f, Color.Red);
+            */
+            gv.DrawTextOutlinedRect("Change Party Leader reverse: Q / (A or arrow left) / right MB click on portrait", new IbRect(gv.oXshift + (gv.playerOffsetY) * gv.squareSize - 4 * gv.pS, (gv.playerOffsetX - 8) * gv.squareSize + (int)(txtH * 1.25f * lineCounter) + (int)(3 * gv.pS), 1000, 100), 1.0f, Color.Red);
             lineCounter++;
 
+            /*
             for (int x = -1; x <= 1; x++)
             {
                 for (int y = -1; y <= 1; y++)
@@ -36219,9 +36255,11 @@ namespace IceBlink2
                     gv.DrawText("Scroll log up: R / (W or arrow up) / mouse wheel up", new IbRect(x + gv.oXshift + (gv.playerOffsetY) * gv.squareSize - 4 * gv.pS, y + (gv.playerOffsetX - 8) * gv.squareSize + (int)(txtH * 1.25f * lineCounter) + (int)(3 * gv.pS), 1000, 100), 1.0f, Color.Black);
                 }
             }
-            gv.DrawText("Scroll log up: R / (W or arrow up) / mouse wheel up", new IbRect(gv.oXshift + (gv.playerOffsetY) * gv.squareSize - 4 * gv.pS, (gv.playerOffsetX - 8) * gv.squareSize + (int)(txtH * 1.25f * lineCounter) + (int)(3 * gv.pS), 1000, 100), 1.0f, Color.Red);
+            */
+            gv.DrawTextOutlinedRect("Scroll log up: R / (W or arrow up) / mouse wheel up", new IbRect(gv.oXshift + (gv.playerOffsetY) * gv.squareSize - 4 * gv.pS, (gv.playerOffsetX - 8) * gv.squareSize + (int)(txtH * 1.25f * lineCounter) + (int)(3 * gv.pS), 1000, 100), 1.0f, Color.Red);
             lineCounter++;
 
+            /*
             for (int x = -1; x <= 1; x++)
             {
                 for (int y = -1; y <= 1; y++)
@@ -36229,9 +36267,11 @@ namespace IceBlink2
                     gv.DrawText("Scroll log down: V / (S or arrow down) / mouse wheel down", new IbRect(x + gv.oXshift + (gv.playerOffsetY) * gv.squareSize - 4 * gv.pS, y + (gv.playerOffsetX - 8) * gv.squareSize + (int)(txtH * 1.25f * lineCounter) + (int)(3 * gv.pS), 1000, 100), 1.0f, Color.Black);
                 }
             }
-            gv.DrawText("Scroll log down: V / (S or arrow down) / mouse wheel down", new IbRect(gv.oXshift + (gv.playerOffsetY) * gv.squareSize - 4 * gv.pS, (gv.playerOffsetX - 8) * gv.squareSize + (int)(txtH * 1.25f * lineCounter) + (int)(3 * gv.pS), 1000, 100), 1.0f, Color.Red);
+            */
+            gv.DrawTextOutlinedRect("Scroll log down: V / (S or arrow down) / mouse wheel down", new IbRect(gv.oXshift + (gv.playerOffsetY) * gv.squareSize - 4 * gv.pS, (gv.playerOffsetX - 8) * gv.squareSize + (int)(txtH * 1.25f * lineCounter) + (int)(3 * gv.pS), 1000, 100), 1.0f, Color.Red);
             lineCounter++;
 
+            /*
             for (int x = -1; x <= 1; x++)
             {
                 for (int y = -1; y <= 1; y++)
@@ -36239,9 +36279,11 @@ namespace IceBlink2
                     gv.DrawText("Move up: Keypad8 / (W or arrow up)", new IbRect(x + gv.oXshift + (gv.playerOffsetY) * gv.squareSize - 4 * gv.pS, y + (gv.playerOffsetX - 8) * gv.squareSize + (int)(txtH * 1.25f * lineCounter) + (int)(3 * gv.pS), 1000, 100), 1.0f, Color.Black);
                 }
             }
-            gv.DrawText("Move up: Keypad8 / (W or arrow up)", new IbRect(gv.oXshift + (gv.playerOffsetY) * gv.squareSize - 4 * gv.pS, (gv.playerOffsetX - 8) * gv.squareSize + (int)(txtH * 1.25f * lineCounter) + (int)(3 * gv.pS), 1000, 100), 1.0f, Color.Red);
+            */
+            gv.DrawTextOutlinedRect("Move up: Keypad8 / (W or arrow up)", new IbRect(gv.oXshift + (gv.playerOffsetY) * gv.squareSize - 4 * gv.pS, (gv.playerOffsetX - 8) * gv.squareSize + (int)(txtH * 1.25f * lineCounter) + (int)(3 * gv.pS), 1000, 100), 1.0f, Color.Red);
             lineCounter++;
 
+            /*
             for (int x = -1; x <= 1; x++)
             {
                 for (int y = -1; y <= 1; y++)
@@ -36249,9 +36291,11 @@ namespace IceBlink2
                     gv.DrawText("Move down: Keypad2 / (S or arrow down)", new IbRect(x + gv.oXshift + (gv.playerOffsetY) * gv.squareSize - 4 * gv.pS, y + (gv.playerOffsetX - 8) * gv.squareSize + (int)(txtH * 1.25f * lineCounter) + (int)(3 * gv.pS), 1000, 100), 1.0f, Color.Black);
                 }
             }
-            gv.DrawText("Move down: Keypad2 / (S or arrow down)", new IbRect(gv.oXshift + (gv.playerOffsetY) * gv.squareSize - 4 * gv.pS, (gv.playerOffsetX - 8) * gv.squareSize + (int)(txtH * 1.25f * lineCounter) + (int)(3 * gv.pS), 1000, 100), 1.0f, Color.Red);
+            */
+            gv.DrawTextOutlinedRect("Move down: Keypad2 / (S or arrow down)", new IbRect(gv.oXshift + (gv.playerOffsetY) * gv.squareSize - 4 * gv.pS, (gv.playerOffsetX - 8) * gv.squareSize + (int)(txtH * 1.25f * lineCounter) + (int)(3 * gv.pS), 1000, 100), 1.0f, Color.Red);
             lineCounter++;
 
+            /*
             for (int x = -1; x <= 1; x++)
             {
                 for (int y = -1; y <= 1; y++)
@@ -36259,9 +36303,11 @@ namespace IceBlink2
                     gv.DrawText("Move right: Keypad6 / (D or arrow right)", new IbRect(x + gv.oXshift + (gv.playerOffsetY) * gv.squareSize - 4 * gv.pS, y + (gv.playerOffsetX - 8) * gv.squareSize + (int)(txtH * 1.25f * lineCounter) + (int)(3 * gv.pS), 1000, 100), 1.0f, Color.Black);
                 }
             }
-            gv.DrawText("Move right: Keypad6 / (D or arrow right)", new IbRect(gv.oXshift + (gv.playerOffsetY) * gv.squareSize - 4 * gv.pS, (gv.playerOffsetX - 8) * gv.squareSize + (int)(txtH * 1.25f * lineCounter) + (int)(3 * gv.pS), 1000, 100), 1.0f, Color.Red);
+            */
+            gv.DrawTextOutlinedRect("Move right: Keypad6 / (D or arrow right)", new IbRect(gv.oXshift + (gv.playerOffsetY) * gv.squareSize - 4 * gv.pS, (gv.playerOffsetX - 8) * gv.squareSize + (int)(txtH * 1.25f * lineCounter) + (int)(3 * gv.pS), 1000, 100), 1.0f, Color.Red);
             lineCounter++;
 
+            /*
             for (int x = -1; x <= 1; x++)
             {
                 for (int y = -1; y <= 1; y++)
@@ -36269,9 +36315,11 @@ namespace IceBlink2
                     gv.DrawText("Move left: Keypad4 / (A or arrow left)", new IbRect(x + gv.oXshift + (gv.playerOffsetY) * gv.squareSize - 4 * gv.pS, y + (gv.playerOffsetX - 8) * gv.squareSize + (int)(txtH * 1.25f * lineCounter) + (int)(3 * gv.pS), 1000, 100), 1.0f, Color.Black);
                 }
             }
-            gv.DrawText("Move left: Keypad4 / (A or arrow left)", new IbRect(gv.oXshift + (gv.playerOffsetY) * gv.squareSize - 4 * gv.pS, (gv.playerOffsetX - 8) * gv.squareSize + (int)(txtH * 1.25f * lineCounter) + (int)(3 * gv.pS), 1000, 100), 1.0f, Color.Red);
+            */
+            gv.DrawTextOutlinedRect("Move left: Keypad4 / (A or arrow left)", new IbRect(gv.oXshift + (gv.playerOffsetY) * gv.squareSize - 4 * gv.pS, (gv.playerOffsetX - 8) * gv.squareSize + (int)(txtH * 1.25f * lineCounter) + (int)(3 * gv.pS), 1000, 100), 1.0f, Color.Red);
             lineCounter++;
 
+            /*
             for (int x = -1; x <= 1; x++)
             {
                 for (int y = -1; y <= 1; y++)
@@ -36279,7 +36327,8 @@ namespace IceBlink2
                     gv.DrawText("Debug mode: B", new IbRect(x + gv.oXshift + (gv.playerOffsetY) * gv.squareSize - 4 * gv.pS, y + (gv.playerOffsetX - 8) * gv.squareSize + (int)(txtH * 1.25f * lineCounter) + (int)(3 * gv.pS), 1000, 100), 1.0f, Color.Black);
                 }
             }
-            gv.DrawText("Debug mode: B", new IbRect(gv.oXshift + (gv.playerOffsetY) * gv.squareSize - 4 * gv.pS, (gv.playerOffsetX - 8) * gv.squareSize + (int)(txtH * 1.25f * lineCounter) + (int)(3 * gv.pS), 1000, 100), 1.0f, Color.Red);
+            */
+            gv.DrawTextOutlinedRect("Debug mode: B", new IbRect(gv.oXshift + (gv.playerOffsetY) * gv.squareSize - 4 * gv.pS, (gv.playerOffsetX - 8) * gv.squareSize + (int)(txtH * 1.25f * lineCounter) + (int)(3 * gv.pS), 1000, 100), 1.0f, Color.Red);
             lineCounter++;
         }
 
@@ -36369,6 +36418,7 @@ namespace IceBlink2
                     if (gv.mod.useMinimalisticUI)
                     {
                         //draw black frames around font
+                        /*
                         for (int x = -1; x <= 1; x++)
                         {
                             for (int y = -1; y <= 1; y++)
@@ -36384,16 +36434,17 @@ namespace IceBlink2
                                 gv.DrawTextLeft(zoom0Line, new IbRect(gv.oXshift + x + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH + y + (int)(2.5 * gv.pS) + (int)(2.5 * gv.pS * 0) + 2 * gv.pS, 600, 100), 1.0f, Color.Black);
                             }
                         }
+                        */
                         //draw font itself (white)
                         if (!gv.mod.useComplexCoordinateSystem)
                         {
-                            gv.DrawTextLeft(hour + ":" + sMinute + ", " + gv.mod.weekDayNameToDisplay + ", " + gv.mod.monthDayCounterNumberToDisplay + gv.mod.monthDayCounterAddendumToDisplay + " of " + gv.mod.monthNameToDisplay + " " + gv.mod.currentYear.ToString(), new IbRect(gv.oXshift + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH - gv.pS - (int)(2.5 * gv.pS * 0) + 2 * gv.pS, 600, 100), 1.0f, Color.White);
+                            gv.DrawTextLeftOutlinedRect(hour + ":" + sMinute + ", " + gv.mod.weekDayNameToDisplay + ", " + gv.mod.monthDayCounterNumberToDisplay + gv.mod.monthDayCounterAddendumToDisplay + " of " + gv.mod.monthNameToDisplay + " " + gv.mod.currentYear.ToString(), new IbRect(gv.oXshift + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH - gv.pS - (int)(2.5 * gv.pS * 0) + 2 * gv.pS, 600, 100), 1.0f, Color.White);
                         }
                         else
                         {
-                            gv.DrawTextLeft(gv.mod.weekDayNameToDisplay + ", " + gv.mod.monthDayCounterNumberToDisplay + gv.mod.monthDayCounterAddendumToDisplay + " of " + gv.mod.monthNameToDisplay + " " + gv.mod.currentYear.ToString(), new IbRect(gv.oXshift + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH - gv.pS - (int)(2.5 * gv.pS * 0) + 2 * gv.pS, 600, 100), 1.0f, Color.White);
+                            gv.DrawTextLeftOutlinedRect(gv.mod.weekDayNameToDisplay + ", " + gv.mod.monthDayCounterNumberToDisplay + gv.mod.monthDayCounterAddendumToDisplay + " of " + gv.mod.monthNameToDisplay + " " + gv.mod.currentYear.ToString(), new IbRect(gv.oXshift + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH - gv.pS - (int)(2.5 * gv.pS * 0) + 2 * gv.pS, 600, 100), 1.0f, Color.White);
                         }
-                        gv.DrawTextLeft(zoom0Line, new IbRect(gv.oXshift + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH + (int)(2.5 * gv.pS) + (int)(2.5 * gv.pS * 0) + 2 * gv.pS, 600, 100), 1.0f, Color.White);
+                        gv.DrawTextLeftOutlinedRect(zoom0Line, new IbRect(gv.oXshift + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH + (int)(2.5 * gv.pS) + (int)(2.5 * gv.pS * 0) + 2 * gv.pS, 600, 100), 1.0f, Color.White);
 
                     }
                 }
@@ -36437,6 +36488,7 @@ namespace IceBlink2
                     //two lines: date on top and current area's zone name as well as current area's ingame name
                     if (gv.mod.useMinimalisticUI)
                     {
+                        /*
                         //draw black frames around font
                         for (int x = -1; x <= 1; x++)
                         {
@@ -36447,10 +36499,11 @@ namespace IceBlink2
                                 gv.DrawTextLeft(zoom0Line, new IbRect(gv.oXshift + x + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH + y + (int)(2.5 * gv.pS) - (int)(2.5 * gv.pS * 0) + 2*gv.pS, 600, 100), 1.0f, Color.Black);
                             }
                         }
+                        */
                         //draw font itself (white)
-                        gv.DrawTextLeft(hour + ":" + sMinute + ", " + gv.mod.weekDayNameToDisplay + ", " + gv.mod.monthDayCounterNumberToDisplay + gv.mod.monthDayCounterAddendumToDisplay + " of " + gv.mod.monthNameToDisplay + " " + gv.mod.currentYear.ToString(), new IbRect(gv.oXshift + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH - gv.pS - (int)(2.5 * gv.pS * 1) + gv.pS + (int)0.0*gv.pS, 600, 100), 1.0f, Color.White);
-                        gv.DrawTextLeft(zoom1Line, new IbRect(gv.oXshift + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH + (int)(2.5 * gv.pS) - (int)(2.5 * gv.pS * 1)+gv.pS, 600, 100), 1.0f, Color.White);
-                        gv.DrawTextLeft(zoom0Line, new IbRect(gv.oXshift + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH + (int)(2.5 * gv.pS) - (int)(2.5 * gv.pS * 0) + 2*gv.pS, 600, 100), 1.0f, Color.White);
+                        gv.DrawTextLeftOutlinedRect(hour + ":" + sMinute + ", " + gv.mod.weekDayNameToDisplay + ", " + gv.mod.monthDayCounterNumberToDisplay + gv.mod.monthDayCounterAddendumToDisplay + " of " + gv.mod.monthNameToDisplay + " " + gv.mod.currentYear.ToString(), new IbRect(gv.oXshift + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH - gv.pS - (int)(2.5 * gv.pS * 1) + gv.pS + (int)0.0*gv.pS, 600, 100), 1.0f, Color.White);
+                        gv.DrawTextLeftOutlinedRect(zoom1Line, new IbRect(gv.oXshift + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH + (int)(2.5 * gv.pS) - (int)(2.5 * gv.pS * 1)+gv.pS, 600, 100), 1.0f, Color.White);
+                        gv.DrawTextLeftOutlinedRect(zoom0Line, new IbRect(gv.oXshift + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH + (int)(2.5 * gv.pS) - (int)(2.5 * gv.pS * 0) + 2*gv.pS, 600, 100), 1.0f, Color.White);
                     }
                 }
 
@@ -36519,6 +36572,7 @@ namespace IceBlink2
                     if (gv.mod.useMinimalisticUI)
                     {
                         //draw black frames around font
+                        /*
                         for (int x = -1; x <= 1; x++)
                         {
                             for (int y = -1; y <= 1; y++)
@@ -36529,19 +36583,22 @@ namespace IceBlink2
                                 gv.DrawTextLeft(zoom0Line, new IbRect(gv.oXshift + x + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH + y + (int)(2.5 * gv.pS) - (int)(2.5 * gv.pS * 0) + 2*gv.pS, 600, 100), 1.0f, Color.Black);
                             }
                         }
+                        */
                         //draw font itself (white)
-                        gv.DrawTextLeft(hour + ":" + sMinute + ", " + gv.mod.weekDayNameToDisplay + ", " + gv.mod.monthDayCounterNumberToDisplay + gv.mod.monthDayCounterAddendumToDisplay + " of " + gv.mod.monthNameToDisplay + " " + gv.mod.currentYear.ToString(), new IbRect(gv.oXshift + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH - gv.pS - (int)(2.5 * gv.pS * 2 + 0.5*gv.pS), 600, 100), 1.0f, Color.White);
-                        gv.DrawTextLeft(zoom2Line, new IbRect(gv.oXshift + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH + (int)(2.5 * gv.pS) - (int)(2.5 * gv.pS * 2), 600, 100), 1.0f, Color.White);
-                        gv.DrawTextLeft(zoom1Line, new IbRect(gv.oXshift + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH + (int)(2.5 * gv.pS) - (int)(2.5 * gv.pS * 1) + gv.pS, 600, 100), 1.0f, Color.White);
-                        gv.DrawTextLeft(zoom0Line, new IbRect(gv.oXshift + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH + (int)(2.5 * gv.pS) - (int)(2.5 * gv.pS * 0) + 2*gv.pS, 600, 100), 1.0f, Color.White);
+                        gv.DrawTextLeftOutlinedRect(hour + ":" + sMinute + ", " + gv.mod.weekDayNameToDisplay + ", " + gv.mod.monthDayCounterNumberToDisplay + gv.mod.monthDayCounterAddendumToDisplay + " of " + gv.mod.monthNameToDisplay + " " + gv.mod.currentYear.ToString(), new IbRect(gv.oXshift + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH - gv.pS - (int)(2.5 * gv.pS * 2 + 0.5*gv.pS), 600, 100), 1.0f, Color.White);
+                        gv.DrawTextLeftOutlinedRect(zoom2Line, new IbRect(gv.oXshift + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH + (int)(2.5 * gv.pS) - (int)(2.5 * gv.pS * 2), 600, 100), 1.0f, Color.White);
+                        gv.DrawTextLeftOutlinedRect(zoom1Line, new IbRect(gv.oXshift + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH + (int)(2.5 * gv.pS) - (int)(2.5 * gv.pS * 1) + gv.pS, 600, 100), 1.0f, Color.White);
+                        gv.DrawTextLeftOutlinedRect(zoom0Line, new IbRect(gv.oXshift + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH + (int)(2.5 * gv.pS) - (int)(2.5 * gv.pS * 0) + 2*gv.pS, 600, 100), 1.0f, Color.White);
                     }
                 }
+                
             }
             else if (!gv.mod.useComplexCoordinateSystem)
             {
                 //old system
                 if (gv.mod.useMinimalisticUI)
                 {
+                    /*
                     for (int x = -1; x <= 1; x++)
                     {
                         for (int y = -1; y <= 1; y++)
@@ -36601,18 +36658,19 @@ namespace IceBlink2
                             }
                         }
                     }
+                    */
                     if (gv.mod.partyLightOn)
                     {
-                        gv.DrawText(hour + ":" + sMinute + ", " + gv.mod.weekDayNameToDisplay + ", " + gv.mod.monthDayCounterNumberToDisplay + gv.mod.monthDayCounterAddendumToDisplay + " of " + gv.mod.monthNameToDisplay + " " + gv.mod.currentYear.ToString(), new IbRect(gv.oXshift + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH - gv.pS, 600, 100), 1.0f, Color.White);
+                        gv.DrawTextOutlinedRect(hour + ":" + sMinute + ", " + gv.mod.weekDayNameToDisplay + ", " + gv.mod.monthDayCounterNumberToDisplay + gv.mod.monthDayCounterAddendumToDisplay + " of " + gv.mod.monthNameToDisplay + " " + gv.mod.currentYear.ToString(), new IbRect(gv.oXshift + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH - gv.pS, 600, 100), 1.0f, Color.White);
                         if ((gv.mod.currentArea.inGameAreaName != "") && (gv.mod.currentArea.inGameAreaName != "newArea"))
                         {
                             if (gv.mod.useRationSystem)
                             {
-                                gv.DrawTextLeft(gv.mod.currentArea.inGameAreaName + coordText + ", " + "R(" + gv.mod.numberOfRationsRemaining.ToString() + "), " + "T" + "(" + gv.mod.currentLightUnitsLeft.ToString() + ")", new IbRect(gv.oXshift + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH + (int)(2.5 * gv.pS), 600, 100), 1.0f, Color.White);
+                                gv.DrawTextLeftOutlinedRect(gv.mod.currentArea.inGameAreaName + coordText + ", " + "R(" + gv.mod.numberOfRationsRemaining.ToString() + "), " + "T" + "(" + gv.mod.currentLightUnitsLeft.ToString() + ")", new IbRect(gv.oXshift + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH + (int)(2.5 * gv.pS), 600, 100), 1.0f, Color.White);
                             }
                             else
                             {
-                                gv.DrawTextLeft(gv.mod.currentArea.inGameAreaName + coordText + ", " + "T" + "(" + gv.mod.currentLightUnitsLeft.ToString() + ")", new IbRect(gv.oXshift + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH + (int)(2.5 * gv.pS), 600, 100), 1.0f, Color.White);
+                                gv.DrawTextLeftOutlinedRect(gv.mod.currentArea.inGameAreaName + coordText + ", " + "T" + "(" + gv.mod.currentLightUnitsLeft.ToString() + ")", new IbRect(gv.oXshift + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH + (int)(2.5 * gv.pS), 600, 100), 1.0f, Color.White);
 
                             }
 
@@ -36621,11 +36679,11 @@ namespace IceBlink2
                         {
                             if (gv.mod.useRationSystem)
                             {
-                                gv.DrawTextLeft("R(" + gv.mod.numberOfRationsRemaining.ToString() + "), " + "T" + "(" + gv.mod.currentLightUnitsLeft.ToString() + ")", new IbRect(gv.oXshift + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH + (int)(2.5 * gv.pS), 600, 100), 1.0f, Color.White);
+                                gv.DrawTextLeftOutlinedRect("R(" + gv.mod.numberOfRationsRemaining.ToString() + "), " + "T" + "(" + gv.mod.currentLightUnitsLeft.ToString() + ")", new IbRect(gv.oXshift + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH + (int)(2.5 * gv.pS), 600, 100), 1.0f, Color.White);
                             }
                             else
                             {
-                                gv.DrawTextLeft("T" + "(" + gv.mod.currentLightUnitsLeft.ToString() + ")", new IbRect(gv.oXshift + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH + (int)(2.5 * gv.pS), 600, 100), 1.0f, Color.White);
+                                gv.DrawTextLeftOutlinedRect("T" + "(" + gv.mod.currentLightUnitsLeft.ToString() + ")", new IbRect(gv.oXshift + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH + (int)(2.5 * gv.pS), 600, 100), 1.0f, Color.White);
 
                             }
                         }
@@ -36633,16 +36691,16 @@ namespace IceBlink2
                     }
                     else
                     {
-                        gv.DrawTextLeft(hour + ":" + sMinute + ", " + gv.mod.weekDayNameToDisplay + ", " + gv.mod.monthDayCounterNumberToDisplay + gv.mod.monthDayCounterAddendumToDisplay + " of " + gv.mod.monthNameToDisplay + " " + gv.mod.currentYear.ToString(), new IbRect(gv.oXshift + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH - gv.pS, 600, 100), 1.0f, Color.White);
+                        gv.DrawTextLeftOutlinedRect(hour + ":" + sMinute + ", " + gv.mod.weekDayNameToDisplay + ", " + gv.mod.monthDayCounterNumberToDisplay + gv.mod.monthDayCounterAddendumToDisplay + " of " + gv.mod.monthNameToDisplay + " " + gv.mod.currentYear.ToString(), new IbRect(gv.oXshift + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH - gv.pS, 600, 100), 1.0f, Color.White);
                         if ((gv.mod.currentArea.inGameAreaName != "") && (gv.mod.currentArea.inGameAreaName != "newArea"))
                         {
                             if (gv.mod.useRationSystem)
                             {
-                                gv.DrawTextLeft(gv.mod.currentArea.inGameAreaName + coordText + ", " + "R(" + gv.mod.numberOfRationsRemaining.ToString() + ")", new IbRect(gv.oXshift + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH + (int)(2.5f * gv.pS), 600, 100), 1.0f, Color.White);
+                                gv.DrawTextLeftOutlinedRect(gv.mod.currentArea.inGameAreaName + coordText + ", " + "R(" + gv.mod.numberOfRationsRemaining.ToString() + ")", new IbRect(gv.oXshift + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH + (int)(2.5f * gv.pS), 600, 100), 1.0f, Color.White);
                             }
                             else
                             {
-                                gv.DrawTextLeft(gv.mod.currentArea.inGameAreaName + coordText, new IbRect(gv.oXshift + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH + (int)(2.5f * gv.pS), 600, 100), 1.0f, Color.White);
+                                gv.DrawTextLeftOutlinedRect(gv.mod.currentArea.inGameAreaName + coordText, new IbRect(gv.oXshift + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH + (int)(2.5f * gv.pS), 600, 100), 1.0f, Color.White);
 
                             }
                         }
@@ -36650,7 +36708,7 @@ namespace IceBlink2
                         {
                             if (gv.mod.useRationSystem)
                             {
-                                gv.DrawTextLeft("R(" + gv.mod.numberOfRationsRemaining.ToString() + ")", new IbRect(gv.oXshift + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH + (int)(2.5f * gv.pS), 600, 100), 1.0f, Color.White);
+                                gv.DrawTextLeftOutlinedRect("R(" + gv.mod.numberOfRationsRemaining.ToString() + ")", new IbRect(gv.oXshift + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH + (int)(2.5f * gv.pS), 600, 100), 1.0f, Color.White);
                             }
 
                         }
@@ -36660,6 +36718,7 @@ namespace IceBlink2
                 }
                 else
                 {
+                    /*
                     for (int x = -1; x <= 1; x++)
                     {
                         for (int y = -1; y <= 1; y++)
@@ -36667,7 +36726,8 @@ namespace IceBlink2
                             gv.DrawTextLeft(hour + ":" + sMinute + ", " + gv.mod.weekDayNameToDisplay + ", " + gv.mod.monthDayCounterNumberToDisplay + gv.mod.monthDayCounterAddendumToDisplay + " of " + gv.mod.monthNameToDisplay + " " + gv.mod.currentYear.ToString(), new IbRect(gv.oXshift + x + (gv.playerOffsetY - 1) * gv.squareSize, gv.playerOffsetX * gv.squareSize - txtH + y - gv.pS, 100, 100), 1.0f, Color.Black);
                         }
                     }
-                    gv.DrawTextLeft(hour + ":" + sMinute + ", " + gv.mod.weekDayNameToDisplay + ", " + gv.mod.monthDayCounterNumberToDisplay + gv.mod.monthDayCounterAddendumToDisplay + " of " + gv.mod.monthNameToDisplay + " " + gv.mod.currentYear.ToString(), new IbRect(gv.oXshift + (gv.playerOffsetY - 1) * gv.squareSize, gv.playerOffsetX * gv.squareSize - txtH - gv.pS, 100, 100), 1.0f, Color.White);
+                    */
+                    gv.DrawTextLeftOutlinedRect(hour + ":" + sMinute + ", " + gv.mod.weekDayNameToDisplay + ", " + gv.mod.monthDayCounterNumberToDisplay + gv.mod.monthDayCounterAddendumToDisplay + " of " + gv.mod.monthNameToDisplay + " " + gv.mod.currentYear.ToString(), new IbRect(gv.oXshift + (gv.playerOffsetY - 1) * gv.squareSize, gv.playerOffsetX * gv.squareSize - txtH - gv.pS, 100, 100), 1.0f, Color.White);
 
                 }
             } 
@@ -37816,7 +37876,7 @@ namespace IceBlink2
 
                 //tile.flicker = 0;
                 //flicker = 1.15f;
-                if (flickerDelayCounter > (0.635f * gv.mod.currentArea.flickerSlowDownFactor))
+                if (flickerDelayCounter > (0.635f * gv.mod.currentArea.flickerSlowDownFactor * 3))
                 {
                     if (flickerRise)
                     {
@@ -38048,7 +38108,7 @@ namespace IceBlink2
                     //dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels, tlY, brX, brY);
 
                     //tile.flicker = 0;
-                    if (shifterYDelayCounter > (1.75f * gv.mod.currentArea.flickerSlowDownFactor))
+                    if (shifterYDelayCounter > (1.75f * gv.mod.currentArea.flickerSlowDownFactor * 3))
                     {
                         if (shifterYRise)
                         {
@@ -40076,14 +40136,18 @@ namespace IceBlink2
                             }
                         }
                     }
-
+                    /*
                     for (int x = -1; x <= 1; x++)
                     {
                         for (int y = -1; y <= 1; y++)
                         {
-                            gv.DrawText(ft.value, new IbRect(xLoc + x + gv.oXshift + mapStartLocXinPixels - (int)(1.5f *gv.squareSize), yLoc + y + txtH, gv.squareSize * 4, 1000), 0.8f, Color.Black);
+                            if (x != 0 || y != 0)
+                            {
+                                gv.DrawText(ft.value, new IbRect(xLoc + x + gv.oXshift + mapStartLocXinPixels - (int)(1.5f * gv.squareSize), yLoc + y + txtH, gv.squareSize * 4, 1000), 0.8f, Color.Black);
+                            }
                         }
                     }
+                    */
                     Color colr = Color.Yellow;
                     if (ft.color.Equals("yellow"))
                     {
@@ -40105,7 +40169,7 @@ namespace IceBlink2
                     {
                         colr = Color.White;
                     }
-                    gv.DrawText(ft.value, new IbRect(xLoc + gv.oXshift + mapStartLocXinPixels - (int)(1.5f * gv.squareSize), yLoc + txtH, gv.squareSize * 4, 1000), 0.8f, colr);
+                    gv.DrawTextCenterOutlinedRect(ft.value, new IbRect(xLoc + gv.oXshift + mapStartLocXinPixels - (int)(1.5f * gv.squareSize), yLoc + txtH, gv.squareSize * 4, 1000), 0.8f, colr);
                 }
             }
         }
@@ -40172,13 +40236,18 @@ namespace IceBlink2
                         }
                     }
 
+                    /*
                     for (int x = -1; x <= 1; x++)
                     {
                         for (int y = -1; y <= 1; y++)
                         {
-                            gv.DrawText(ft.value, new IbRect(xLoc + x, yLoc + y + txtH, gv.squareSize * 2, 1000), 0.8f, Color.Black);
+                            if (x != 0 || y != 0)
+                            {
+                                gv.DrawText(ft.value, new IbRect(xLoc + x, yLoc + y + txtH, gv.squareSize * 2, 1000), 0.8f, Color.Black);
+                            }
                         }
                     }
+                    */
                     Color colr = Color.Yellow;
                     if (ft.color.Equals("yellow"))
                     {
@@ -40200,7 +40269,7 @@ namespace IceBlink2
                     {
                         colr = Color.White;
                     }
-                    gv.DrawText(ft.value, new IbRect(xLoc, yLoc + txtH, gv.squareSize * 2, 1000), 0.8f, colr);
+                    gv.DrawTextOutlinedRect(ft.value, new IbRect(xLoc, yLoc + txtH, gv.squareSize * 2, 1000), 0.8f, colr);
                 }
             }
         }
@@ -40961,11 +41030,13 @@ namespace IceBlink2
                                     tooMuchHeightDifference = true;
                                 }
                             }
-                            //if ((p.LocationX == actualX) && (p.LocationY == actualY))
+                            if ((p.LocationX == actualX) && (p.LocationY == actualY))
                             //if ((p.currentPixelPositionX - gv.oXshift >= e.X && p.currentPixelPositionX - gv.oXshift <= (e.X + gv.squareSize)) && (p.currentPixelPositionY >= e.Y && p.currentPixelPositionY <= (e.Y + gv.squareSize)))
-                            if ((e.X - 1 >= p.currentPixelPositionX && e.X <= p.currentPixelPositionX + gv.squareSize) && (e.Y - 1 >= p.currentPixelPositionY + (gv.squareSize / 2) && e.Y <= p.currentPixelPositionY + gv.squareSize + (gv.squareSize / 2)) && !tooMuchHeightDifference)
-                            {
-                                bool lightIsNoProblem = false;
+                            //if ((e.X - 1 >= p.currentPixelPositionX && e.X <= p.currentPixelPositionX + gv.squareSize) && (e.Y - 1 >= p.currentPixelPositionY + (gv.squareSize / 2) && e.Y <= p.currentPixelPositionY + gv.squareSize + (gv.squareSize / 2)) && !tooMuchHeightDifference)
+                            //if ((e.X - 1 >= p.currentPixelPositionX && e.X <= p.currentPixelPositionX + gv.squareSize) && (e.Y - 1 >= p.currentPixelPositionY + (gv.squareSize / 2) && e.Y <= p.currentPixelPositionY + gv.squareSize + (gv.squareSize / 2)) && !tooMuchHeightDifference)
+
+                                {
+                                    bool lightIsNoProblem = false;
                                 if ((!gv.mod.currentArea.useLightSystem) || (gv.mod.currentArea.UseDayNightCycle))
                                 {
                                      lightIsNoProblem = true;

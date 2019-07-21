@@ -31,9 +31,12 @@ namespace IceBlink2
 {
     public partial class GameView : IBForm
     {
+        public SolidColorBrush scb;
+        public bool textFormatSet = false;
         //this class is handled differently than Android version
         public int elapsed = 0;
         public int elapsed2 = 0;
+        public int elapsed3 = 30;
         public float screenDensity;
         public int screenWidth;
         public int screenHeight;
@@ -142,6 +145,7 @@ namespace IceBlink2
         public Stopwatch gameTimerStopwatch = new Stopwatch();
         public long previousTime = 0;
         public long previousTime2 = 0;
+        public long previousTime3 = 0;
         public bool stillProcessingGameLoop = false;
         public float fps = 0;
         public int reportFPScount = 0;
@@ -178,17 +182,18 @@ namespace IceBlink2
 
             cc = new CommonCode(this);
             mod = new Module();
+    
 
-            //timer for ouer scrolling when held system
-            //it will simulate clicks in reglaur intervalls
-            //timer is started on key down and stopped on key down
-            //the interval will dterine teh frequnecy
-            //nebaled might start and stop it (or start/stop), reset with enabled, too?
-            //interval lenght will be crucial to get the speed feel right
-            //will be curcial to get it feel right
+                //timer for ouer scrolling when held system
+                //it will simulate clicks in reglaur intervalls
+                //timer is started on key down and stopped on key down
+                //the interval will dterine teh frequnecy
+                //nebaled might start and stop it (or start/stop), reset with enabled, too?
+                //interval lenght will be crucial to get the speed feel right
+                //will be curcial to get it feel right
 
-            //public Timer aTimer = new Timer();
-            aTimer.Tick += new System.EventHandler(onTimedEvent);
+                //public Timer aTimer = new Timer();
+                aTimer.Tick += new System.EventHandler(onTimedEvent);
             aTimer.Interval = 1;
             aTimer.Enabled = false;
 
@@ -256,6 +261,12 @@ namespace IceBlink2
             ResetGDIFont();
             ResetDirect2DFont();
             
+            //deiter2
+            //Color4 colorini = new Color4();
+            //colorini.
+            //using (SolidColorBrush scb = new SolidColorBrush(renderTarget2D, colorini))
+            //scb = new SolidColorBrush(renderTarget2D, colorini);
+
             animationTimer.Tick += new System.EventHandler(this.AnimationTimer_Tick);
 
             log = new IB2HtmlLogBox(this);
@@ -1852,24 +1863,32 @@ namespace IceBlink2
                 stillProcessingGameLoop = true; //starting the game loop so do not allow another tick call to run until finished with this tick call.
                 long current = gameTimerStopwatch.ElapsedMilliseconds; //get the current total amount of ms since the game launched
                 elapsed = (int)(current - previousTime); //calculate the total ms elapsed since the last time through the game loop
-                /*
-                while (elapsed < 16)
-                {
-                    current = gameTimerStopwatch.ElapsedMilliseconds;
-                    elapsed = (int)(current - previousTime);
-                }
-                */
-                //if (elapsed > 50)
-                //{
-                    //int i = 0;
-                //}
-                //mod.scrollingOverhang = mod.scrollingOverhang + 3f*(elapsed/20f);
-                //if (mod.scrollingOverhang > 0)
-                //{
-                    //mod.scrollingOverhang = 0;
-                //}
+                                                         /*
+                                                         while (elapsed < 16)
+                                                         {
+                                                             current = gameTimerStopwatch.ElapsedMilliseconds;
+                                                             elapsed = (int)(current - previousTime);
+                                                         }
+                                                         */
+                                                         //if (elapsed > 50)
+                                                         //{
+                                                         //int i = 0;
+                                                         //}
+                                                         //mod.scrollingOverhang = mod.scrollingOverhang + 3f*(elapsed/20f);
+                                                         //if (mod.scrollingOverhang > 0)
+                                                         //{
+                                                         //mod.scrollingOverhang = 0;
+                                                         //}
+                //long current2 = gameTimerStopwatch.ElapsedMilliseconds; //get the current total amount of ms since the game launched
+                //elapsed3 = (int)(current2 - previousTime3); //calculate the total ms elapsed since the last time through the game loop
+
                 Update(elapsed); //runs AI and physics
+                //previousTime3 = current2;
+                long current2 = gameTimerStopwatch.ElapsedMilliseconds; //get the current total amount of ms since the game launched
+                elapsed3 = (int)(current2 - previousTime3); //calculate the total ms elapsed since the last time through the game loop
+
                 Render(elapsed); //draw the screen frame
+                previousTime3 = current2;
                 if (reportFPScount >= 10)
                 {
                     reportFPScount = 0;
@@ -1899,17 +1918,24 @@ namespace IceBlink2
         //DRAW ROUTINES
         public void CleanUpDrawTextResources()
         {
+
+            
             if (textFormat != null)
             {
                 textFormat.Dispose();
                 textFormat = null;
             }
+            
+            
+            
             if (textLayout != null)
             {
                 textLayout.Dispose();
                 textLayout = null;
             }
         }
+
+        //not used on main or combat screen
         public void DrawText(string text, float xLoc, float yLoc)
         {
             if (text == "NA")
@@ -1925,32 +1951,79 @@ namespace IceBlink2
                 DrawText(text, xLoc, yLoc, FontWeight.Normal, SharpDX.DirectWrite.FontStyle.Normal, 1.0f, SharpDX.Color.White, false);
             }
         }
+
+        //not used
+        /*
         public void DrawText(string text, float x, float y, FontWeight fw, SharpDX.DirectWrite.FontStyle fs, SharpDX.Color fontColor)
         {
             DrawText(text, x, y, FontWeight.Normal, SharpDX.DirectWrite.FontStyle.Normal, 1.0f, fontColor, false);
         }
+        */
+
+        //new, for all stuff outlined using rect
+        public void DrawTextOutlinedRect(string text, IbRect rect, float scaler, SharpDX.Color fontColor)
+        {
+            DrawTextOutlined(text, rect.Left, rect.Top, FontWeight.Normal, SharpDX.DirectWrite.FontStyle.Normal, scaler, fontColor, false);
+        }
+
+        //new, for all stuff outlined using locx, locy
+        public void DrawTextOutlined(string text, float xLoc, float yLoc, float scaler, SharpDX.Color fontColor)
+        {
+            DrawTextOutlined(text, xLoc, yLoc, FontWeight.Normal, SharpDX.DirectWrite.FontStyle.Normal, scaler, fontColor, false);
+        }
+
+        //button texts everywhere, including main and combat; DONE
         public void DrawText(string text, float xLoc, float yLoc, float scaler, SharpDX.Color fontColor)
         {
             //tr
             DrawText(text, xLoc, yLoc, FontWeight.Normal, SharpDX.DirectWrite.FontStyle.Normal, scaler, fontColor, false);
+            //IbRect rect = new IbRect();
+            //rect.Top = (int)yLoc;
+            //rect.Left = (int)xLoc;
+            //DrawText(text, rect, FontWeight.Normal, SharpDX.DirectWrite.FontStyle.Normal, scaler, fontColor);
         }
+
+        //hotkeys, time...; DONE
         public void DrawText(string text, IbRect rect, float scaler, SharpDX.Color fontColor)
         {
+            //hotkeys
             DrawText(text, rect, FontWeight.Normal, SharpDX.DirectWrite.FontStyle.Normal, scaler, fontColor);
         }
+
+        //hour stuff, map stuff?; DONE
         public void DrawTextLeft(string text, IbRect rect, float scaler, SharpDX.Color fontColor)
         {
             DrawTextLeft(text, rect, FontWeight.Normal, SharpDX.DirectWrite.FontStyle.Normal, scaler, fontColor);
         }
+
+        //hour stuff, map stuff?
+        public void DrawTextLeftOutlinedRect(string text, IbRect rect, float scaler, SharpDX.Color fontColor)
+        {
+            DrawTextLeftOutlined(text, rect.Left, rect.Top, FontWeight.Normal, SharpDX.DirectWrite.FontStyle.Normal, scaler, fontColor);
+        }
+
+        //floaty texts on main map
         public void DrawTextCenter(string text, IbRect rect, float scaler, SharpDX.Color fontColor)
         {
             DrawTextCenter(text, rect, FontWeight.Normal, SharpDX.DirectWrite.FontStyle.Normal, scaler, fontColor);
         }
+
+        //floaty texts on main map
+        public void DrawTextCenterOutlinedRect(string text, IbRect rect, float scaler, SharpDX.Color fontColor)
+        {
+            DrawTextCenterOutlined(text, rect, FontWeight.Normal, SharpDX.DirectWrite.FontStyle.Normal, scaler, fontColor);
+        }
+
+        //not used
+        /*
         public void DrawTextEndBound(string text, IbRect rect, float scaler, SharpDX.Color fontColor)
         {
             DrawTextEndBound(text, rect, FontWeight.Normal, SharpDX.DirectWrite.FontStyle.Normal, scaler, fontColor);
         }
+        */
 
+        //not used
+        /*
         public void DrawTextEndBound(string text, IbRect rect, FontWeight fw, SharpDX.DirectWrite.FontStyle fs, float scaler, SharpDX.Color fontColor)
         {
             CleanUpDrawTextResources();
@@ -1971,6 +2044,8 @@ namespace IceBlink2
                 renderTarget2D.DrawTextLayout(new Vector2(rect.Left, rect.Top + oYshift), textLayout, scb, DrawTextOptions.None);
             }
         }
+        */
+        //used by "floaty texts on main map" (drawTextCenter, too, above)
         public void DrawTextCenter(string text, IbRect rect, FontWeight fw, SharpDX.DirectWrite.FontStyle fs, float scaler, SharpDX.Color fontColor)
         {
             CleanUpDrawTextResources();
@@ -1991,6 +2066,8 @@ namespace IceBlink2
                 renderTarget2D.DrawTextLayout(new Vector2(rect.Left, rect.Top + oYshift), textLayout, scb, DrawTextOptions.None);
             }
         }
+
+        //used by "hotkeys, time" above (also drawText)
         public void DrawText(string text, IbRect rect, FontWeight fw, SharpDX.DirectWrite.FontStyle fs, float scaler, SharpDX.Color fontColor)
         {
             CleanUpDrawTextResources();
@@ -2008,10 +2085,27 @@ namespace IceBlink2
             {
                 textFormat = new TextFormat(factoryDWrite, FontFamilyName, CurrentFontCollection, fw, fs, FontStretch.Normal, thisFontHeight) { TextAlignment = TextAlignment.Center, ParagraphAlignment = ParagraphAlignment.Near };
                 textLayout = new TextLayout(factoryDWrite, text, textFormat, rect.Width, rect.Height);
+                //deiter3
                 renderTarget2D.DrawTextLayout(new Vector2(rect.Left, rect.Top + oYshift), textLayout, scb, DrawTextOptions.None);
+
+                /*
+                    using (SolidColorBrush scb = new SolidColorBrush(renderTarget2D, fontColor))
+            {
+             
+                    textFormat = new TextFormat(factoryDWrite, FontFamilyName, CurrentFontCollection, fw, fs, FontStretch.Normal, thisFontHeight) { TextAlignment = TextAlignment.Leading, ParagraphAlignment = ParagraphAlignment.Near };      
+                textLayout = new TextLayout(factoryDWrite, text, textFormat, this.Width, this.Height);
+                if (isUnderlined)
+                {
+                    textLayout.SetUnderline(true, new TextRange(0, text.Length - 1));
+                }
+                //deiter3
+                renderTarget2D.DrawTextLayout(new Vector2(x, y + oYshift), textLayout, scb, DrawTextOptions.None);
+            }
+                 */
             }
         }
-        //XXXXXXXXXXXXx
+        
+        //used by "hours tuff, map stuff" above (also drawTextLeft)
         public void DrawTextLeft(string text, IbRect rect, FontWeight fw, SharpDX.DirectWrite.FontStyle fs, float scaler, SharpDX.Color fontColor)
         {
             CleanUpDrawTextResources();
@@ -2033,9 +2127,92 @@ namespace IceBlink2
             }
         }
 
+        public void DrawTextLeftOutlined(string text, float x, float y, FontWeight fw, SharpDX.DirectWrite.FontStyle fs, float scaler, SharpDX.Color fontColor)
+        {
+            CleanUpDrawTextResources();
+            float thisFontHeight = drawFontRegHeight;
+            if (scaler > 1.05f)
+            {
+                thisFontHeight = drawFontLargeHeight;
+            }
+            else if (scaler < 0.95f)
+            {
+                thisFontHeight = drawFontSmallHeight;
+            }
 
+            textFormat = new TextFormat(factoryDWrite, FontFamilyName, CurrentFontCollection, fw, fs, FontStretch.Normal, thisFontHeight) { TextAlignment = TextAlignment.Leading, ParagraphAlignment = ParagraphAlignment.Near };
+            textLayout = new TextLayout(factoryDWrite, text, textFormat, this.Width, this.Height);
+
+            using (SolidColorBrush scb = new SolidColorBrush(renderTarget2D, SharpDX.Color.Black))
+            {
+                //Outline
+                renderTarget2D.DrawTextLayout(new Vector2(x + 1, y + oYshift), textLayout, scb, DrawTextOptions.None);
+                renderTarget2D.DrawTextLayout(new Vector2(x - 1, y + oYshift), textLayout, scb, DrawTextOptions.None);
+                renderTarget2D.DrawTextLayout(new Vector2(x, y + oYshift + 1), textLayout, scb, DrawTextOptions.None);
+                renderTarget2D.DrawTextLayout(new Vector2(x, y + oYshift - 1), textLayout, scb, DrawTextOptions.None);
+                renderTarget2D.DrawTextLayout(new Vector2(x + 1, y + oYshift + 1), textLayout, scb, DrawTextOptions.None);
+                renderTarget2D.DrawTextLayout(new Vector2(x + 1, y + oYshift - 1), textLayout, scb, DrawTextOptions.None);
+                renderTarget2D.DrawTextLayout(new Vector2(x - 1, y + oYshift + 1), textLayout, scb, DrawTextOptions.None);
+                renderTarget2D.DrawTextLayout(new Vector2(x - 1, y + oYshift - 1), textLayout, scb, DrawTextOptions.None);
+
+                //Inner (coloured)
+                scb.Color = fontColor;
+                renderTarget2D.DrawTextLayout(new Vector2(x, y + oYshift), textLayout, scb, DrawTextOptions.None);
+            }
+        }
+
+        public void DrawTextCenterOutlined(string text, IbRect rect, FontWeight fw, SharpDX.DirectWrite.FontStyle fs, float scaler, SharpDX.Color fontColor)
+        {
+            CleanUpDrawTextResources();
+            float thisFontHeight = drawFontRegHeight;
+            if (scaler > 1.05f)
+            {
+                thisFontHeight = drawFontLargeHeight;
+            }
+            else if (scaler < 0.95f)
+            {
+                thisFontHeight = drawFontSmallHeight;
+            }
+
+            //textFormat = new TextFormat(factoryDWrite, FontFamilyName, CurrentFontCollection, fw, fs, FontStretch.Normal, thisFontHeight) { TextAlignment = TextAlignment.Center, ParagraphAlignment = ParagraphAlignment.Near };
+            //textLayout = new TextLayout(factoryDWrite, text, textFormat, rect.Width, rect.Height);
+            //renderTarget2D.DrawTextLayout(new Vector2(rect.Left, rect.Top + oYshift), textLayout, scb, DrawTextOptions.None);
+
+
+            textFormat = new TextFormat(factoryDWrite, FontFamilyName, CurrentFontCollection, fw, fs, FontStretch.Normal, thisFontHeight) { TextAlignment = TextAlignment.Center, ParagraphAlignment = ParagraphAlignment.Near };
+            textLayout = new TextLayout(factoryDWrite, text, textFormat, rect.Width, rect.Height);
+            int x = rect.Left;
+            int y = rect.Top;
+
+            using (SolidColorBrush scb = new SolidColorBrush(renderTarget2D, SharpDX.Color.Black))
+            {
+                //Outline
+                renderTarget2D.DrawTextLayout(new Vector2(x + 1, y + oYshift), textLayout, scb, DrawTextOptions.None);
+                renderTarget2D.DrawTextLayout(new Vector2(x - 1, y + oYshift), textLayout, scb, DrawTextOptions.None);
+                renderTarget2D.DrawTextLayout(new Vector2(x, y + oYshift + 1), textLayout, scb, DrawTextOptions.None);
+                renderTarget2D.DrawTextLayout(new Vector2(x, y + oYshift - 1), textLayout, scb, DrawTextOptions.None);
+                renderTarget2D.DrawTextLayout(new Vector2(x + 1, y + oYshift + 1), textLayout, scb, DrawTextOptions.None);
+                renderTarget2D.DrawTextLayout(new Vector2(x + 1, y + oYshift - 1), textLayout, scb, DrawTextOptions.None);
+                renderTarget2D.DrawTextLayout(new Vector2(x - 1, y + oYshift + 1), textLayout, scb, DrawTextOptions.None);
+                renderTarget2D.DrawTextLayout(new Vector2(x - 1, y + oYshift - 1), textLayout, scb, DrawTextOptions.None);
+
+                //Inner (coloured)
+                scb.Color = fontColor;
+                renderTarget2D.DrawTextLayout(new Vector2(x, y + oYshift), textLayout, scb, DrawTextOptions.None);
+            }
+        }
+
+        //8 calls for this one:
+        //4 from html log box stuff
+        //3 from "not used on main or combat screen" (also DrawText)
+        //1 from "button texts everywhere, including main and combat" (also DrawText)
         public void DrawText(string text, float x, float y, FontWeight fw, SharpDX.DirectWrite.FontStyle fs, float scaler, SharpDX.Color fontColor, bool isUnderlined)
         {
+
+            //gv.textFormat = new SharpDX.DirectWrite.TextFormat(gv.factoryDWrite, gv.family.Name, gv.CurrentFontCollection, word.fontWeight, word.fontStyle, FontStretch.Normal, word.fontSize) { TextAlignment = TextAlignment.Leading, ParagraphAlignment = ParagraphAlignment.Near };
+            //gv.textLayout = new SharpDX.DirectWrite.TextLayout(gv.factoryDWrite, word.text + " ", gv.textFormat, gv.Width, gv.Height);
+
+            bool drawOldText = false;
             
             CleanUpDrawTextResources();
             float thisFontHeight = drawFontRegHeight;
@@ -2047,18 +2224,70 @@ namespace IceBlink2
             {
                 thisFontHeight = drawFontSmallHeight;
             }
+            //deiter2
             using (SolidColorBrush scb = new SolidColorBrush(renderTarget2D, fontColor))
             {
+               
+
                 textFormat = new TextFormat(factoryDWrite, FontFamilyName, CurrentFontCollection, fw, fs, FontStretch.Normal, thisFontHeight) { TextAlignment = TextAlignment.Leading, ParagraphAlignment = ParagraphAlignment.Near };
+
+                
                 textLayout = new TextLayout(factoryDWrite, text, textFormat, this.Width, this.Height);
+                
+               
+                //textLayout
                 if (isUnderlined)
                 {
                     textLayout.SetUnderline(true, new TextRange(0, text.Length - 1));
                 }
+                //deiter3
                 renderTarget2D.DrawTextLayout(new Vector2(x, y + oYshift), textLayout, scb, DrawTextOptions.None);
+                //renderTarget2D.DrawText
             }
             
         }
+
+        //our new method for everything outlined
+        public void DrawTextOutlined(string text, float x, float y, FontWeight fw, SharpDX.DirectWrite.FontStyle fs, float scaler, SharpDX.Color fontColor, bool isUnderlined)
+        {
+            CleanUpDrawTextResources();
+            float thisFontHeight = drawFontRegHeight;
+            if (scaler > 1.05f)
+            {
+                thisFontHeight = drawFontLargeHeight;
+            }
+            else if (scaler < 0.95f)
+            {
+                thisFontHeight = drawFontSmallHeight;
+            }
+
+            textFormat = new TextFormat(factoryDWrite, FontFamilyName, CurrentFontCollection, fw, fs, FontStretch.Normal, thisFontHeight) { TextAlignment = TextAlignment.Leading, ParagraphAlignment = ParagraphAlignment.Near };
+            textLayout = new TextLayout(factoryDWrite, text, textFormat, this.Width, this.Height);
+
+            //textLayout
+            if (isUnderlined)
+            {
+                textLayout.SetUnderline(true, new TextRange(0, text.Length - 1));
+            }
+        
+            using (SolidColorBrush scb = new SolidColorBrush(renderTarget2D, SharpDX.Color.Black))
+            {
+                //Outline
+                renderTarget2D.DrawTextLayout(new Vector2(x+1, y + oYshift), textLayout, scb, DrawTextOptions.None);
+                renderTarget2D.DrawTextLayout(new Vector2(x - 1, y + oYshift), textLayout, scb, DrawTextOptions.None);
+                renderTarget2D.DrawTextLayout(new Vector2(x, y + oYshift + 1), textLayout, scb, DrawTextOptions.None);
+                renderTarget2D.DrawTextLayout(new Vector2(x, y + oYshift - 1), textLayout, scb, DrawTextOptions.None);
+                renderTarget2D.DrawTextLayout(new Vector2(x + 1, y + oYshift + 1), textLayout, scb, DrawTextOptions.None);
+                renderTarget2D.DrawTextLayout(new Vector2(x + 1, y + oYshift - 1), textLayout, scb, DrawTextOptions.None);
+                renderTarget2D.DrawTextLayout(new Vector2(x - 1, y + oYshift + 1), textLayout, scb, DrawTextOptions.None);
+                renderTarget2D.DrawTextLayout(new Vector2(x - 1, y + oYshift - 1), textLayout, scb, DrawTextOptions.None);
+
+                //Inner (coloured)
+                scb.Color = fontColor;
+                renderTarget2D.DrawTextLayout(new Vector2(x, y + oYshift), textLayout, scb, DrawTextOptions.None);
+            }
+        }
+
         public void DrawRoundRectangle(IbRect rect, int rad, SharpDX.Color penColor, int penWidth)
         {
             RoundedRectangle r = new RoundedRectangle();
@@ -2425,6 +2654,7 @@ namespace IceBlink2
             if (mod.debugMode)
             {
                 int txtH = (int)drawFontRegHeight;
+                /*
                 for (int x = -1; x <= 1; x++)
                 {
                     for (int y = -1; y <= 1; y++)
@@ -2432,7 +2662,8 @@ namespace IceBlink2
                         DrawText("FPS:" + fps.ToString(), new IbRect(x + 5, screenHeight - txtH - 5 + y - oYshift, 100, 100), 1.0f, SharpDX.Color.Black);
                     }
                 }
-                DrawText("FPS:" + fps.ToString(), new IbRect(5, screenHeight - txtH - 5 - oYshift, 100, 100), 1.0f, SharpDX.Color.White);
+                */
+                DrawTextOutlinedRect("FPS:" + fps.ToString(), new IbRect(5, screenHeight - txtH - 5 - oYshift, 100, 100), 1.0f, SharpDX.Color.White);
             }
 
             EndDraw(); //uncomment this for DIRECT2D ADDITIONS

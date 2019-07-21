@@ -156,7 +156,7 @@ namespace IceBlink2
             //int ulY = ((int)(this.Height / 2) / 2) + ((int)thisFontHeight / 2);
             int ulX = pW * 0;
             int ulY = this.Height - ((int)thisFontHeight * 2);
-
+            /*
             for (int x = -1; x <= 1; x++)
             {
                 for (int y = -1; y <= 1; y++)
@@ -164,7 +164,8 @@ namespace IceBlink2
                     gv.DrawText(TextHP, this.X + ulX + x, this.Y + ulY - pH + y , scaler, Color.Black);
                 }
             }
-            gv.DrawText(TextHP, this.X + ulX, this.Y + ulY - pH, scaler, Color.Lime);
+            */
+            gv.DrawTextOutlined(TextHP, this.X + ulX, this.Y + ulY - pH, scaler, Color.Lime);
             
             //DRAW SP/SPmax
             // Measure string.
@@ -175,7 +176,7 @@ namespace IceBlink2
             //ulY = ((int)(this.Height / 2));
             ulX = pW * 1;
             ulY = this.Height - ((int)thisFontHeight * 1);
-
+            /*
             for (int x = -1; x <= 1; x++)
             {
                 for (int y = -1; y <= 1; y++)
@@ -183,7 +184,8 @@ namespace IceBlink2
                     gv.DrawText(TextSP, this.X + ulX - pW + x, this.Y + ulY - pH + y, scaler, Color.Black);
                 }
             }
-            gv.DrawText(TextSP, this.X + ulX - pW, this.Y + ulY - pH, scaler, Color.Yellow);
+            */
+            gv.DrawTextOutlined(TextSP, this.X + ulX - pW, this.Y + ulY - pH, scaler, Color.Yellow);
         }
     }
 }

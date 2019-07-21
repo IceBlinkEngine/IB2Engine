@@ -14,6 +14,9 @@ namespace IceBlink2
     public class Module
     {
 
+
+        public int overrideVisibilityRange = 2;
+        public bool skipTextRender = false;
         public int findNewPointCounter = 0;
 
         public bool partyJustCameFromNeighbouringArea = false;

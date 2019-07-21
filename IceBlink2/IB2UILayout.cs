@@ -57,28 +57,42 @@ namespace IceBlink2
         public void Draw()
         {
             //iterate over all controls and draw
-            if (gv.mod.useMinimalisticUI)
+            if (!gv.mod.skipTextRender)
             {
-                foreach (IB2Panel pnl in panelList)
+                gv.mod.skipTextRender = true;
+            }
+            else
+            {
+                gv.mod.skipTextRender = false;
+            }
+                if (gv.mod.useMinimalisticUI)
                 {
-
-                    if (pnl.tag.Equals("logPanel"))
+                    foreach (IB2Panel pnl in panelList)
                     {
-                        pnl.DrawLogBackground();
+
+                        if (pnl.tag.Equals("logPanel"))
+                        {
+                            pnl.DrawLogBackground();
+                        }
+                        else
+                        {
+                        //if (pnl.tag != "TraitsPanel")
+                        //{
+                            pnl.Draw();
+                        //}
+                        }
                     }
-                    else
+                }
+                else
+                {
+                    foreach (IB2Panel pnl in panelList)
                     {
                         pnl.Draw();
                     }
                 }
-            }
-            else
-            {
-                foreach (IB2Panel pnl in panelList)
-                {
-                    pnl.Draw();
-                }
-            }
+            
+           
+            
         }
 
         public void Update(int elapsed)

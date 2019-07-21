@@ -14,6 +14,9 @@ namespace IceBlink2
     {
         [JsonIgnore]
         public GameView gv;
+
+        //public TextFormat textFormat;
+        //public TextLayout textLayout;
         public string tag = "";
         public string ImgFilename = "";    //this is the normal button and color intensity
         public string ImgOffFilename = ""; //this is usually a grayed out button
@@ -368,50 +371,55 @@ namespace IceBlink2
 
                     Text = numberOfLightSources.ToString();
                 }
-
+                /*
                     for (int x = -1; x <= 1; x++)
                 {
                     for (int y = -1; y <= 1; y++)
                     {
-                        int xLoc = (int)((parentPanel.currentLocX + this.X) * gv.screenDensity + ulX + x);
-                        int yLoc = (int)((parentPanel.currentLocY + this.Y) * gv.screenDensity + ulY + y);
-                        if (Text.Contains("green") && Text.Contains("Ld"))
+                        if (x != 0 || y != 0)
                         {
-                            int length = Text.Length;
-                            string text2 = "";
-                            //Ld 13green:10
-                            //ld 7green:9
-                            if (length == 10)
+                            int xLoc = (int)((parentPanel.currentLocX + this.X) * gv.screenDensity + ulX + x);
+                            int yLoc = (int)((parentPanel.currentLocY + this.Y) * gv.screenDensity + ulY + y);
+                            if (Text.Contains("green") && Text.Contains("Ld"))
                             {
-                                text2 = Text.Remove(5);
-                            }
-                            if (length == 9)
-                            {
-                                text2 = Text.Remove(4);
-                            }
-                            // DRAW TEXT
-                            stringSize = gv.cc.MeasureString(text2, SharpDX.DirectWrite.FontWeight.Normal, SharpDX.DirectWrite.FontStyle.Normal, thisFontHeight);
+                                int length = Text.Length;
+                                string text2 = "";
+                                //Ld 13green:10
+                                //ld 7green:9
+                                if (length == 10)
+                                {
+                                    text2 = Text.Remove(5);
+                                }
+                                if (length == 9)
+                                {
+                                    text2 = Text.Remove(4);
+                                }
+                                // DRAW TEXT
+                                stringSize = gv.cc.MeasureString(text2, SharpDX.DirectWrite.FontWeight.Normal, SharpDX.DirectWrite.FontStyle.Normal, thisFontHeight);
 
-                            //place in the center
-                            ulX = ((Width * gv.screenDensity) - stringSize) / 2;
-                            ulY = ((Height * gv.screenDensity) - thisFontHeight) / 2;
+                                //place in the center
+                                ulX = ((Width * gv.screenDensity) - stringSize) / 2;
+                                ulY = ((Height * gv.screenDensity) - thisFontHeight) / 2;
 
-                            if (scaler == 0.4f)
-                            {
-                                ulY = ((Height * gv.screenDensity));
+                                if (scaler == 0.4f)
+                                {
+                                    ulY = ((Height * gv.screenDensity));
+                                }
+                                xLoc = (int)((parentPanel.currentLocX + this.X) * gv.screenDensity + ulX + x);
+                                yLoc = (int)((parentPanel.currentLocY + this.Y) * gv.screenDensity + ulY + y);
+                                //int test = text2.Length;
+                                gv.DrawTextOutlined(text2, xLoc, yLoc, scaler, Color.Black);
                             }
-                            xLoc = (int)((parentPanel.currentLocX + this.X) * gv.screenDensity + ulX + x);
-                            yLoc = (int)((parentPanel.currentLocY + this.Y) * gv.screenDensity + ulY + y);
-                            //int test = text2.Length;
-                            gv.DrawText(text2, xLoc, yLoc, scaler, Color.Black);
+                            else
+                            {
+                                gv.DrawTextOutlined(Text, xLoc, yLoc, scaler, Color.Black);
+
+                            }
+                            //gv.DrawText(Text, xLoc, yLoc, scaler, Color.Black);
                         }
-                        else
-                        {
-                            gv.DrawText(Text, xLoc, yLoc, scaler, Color.Black);
-                        }
-                        //gv.DrawText(Text, xLoc, yLoc, scaler, Color.Black);
                     }
                 }
+                */
                 int xLoc1 = (int)((parentPanel.currentLocX + this.X) * gv.screenDensity + ulX);
                 int yLoc1 = (int)((parentPanel.currentLocY + this.Y) * gv.screenDensity + ulY);
                 if (Text.Contains("green") && Text.Contains("Ld"))
@@ -441,11 +449,11 @@ namespace IceBlink2
                     }
                     xLoc1 = (int)((parentPanel.currentLocX + this.X) * gv.screenDensity + ulX);
                     yLoc1 = (int)((parentPanel.currentLocY + this.Y) * gv.screenDensity + ulY);
-                    gv.DrawText(text2, xLoc1, yLoc1, scaler, Color.Lime);
+                    gv.DrawTextOutlined(text2, xLoc1, yLoc1, scaler, Color.Lime);
                 }
                 else
                 {
-                    gv.DrawText(Text, xLoc1, yLoc1, scaler, Color.White);
+                    gv.DrawTextOutlined(Text, xLoc1, yLoc1, scaler, Color.White);
                 }
 
                 // DRAW QUANTITY
@@ -479,25 +487,30 @@ namespace IceBlink2
                     Quantity = gv.mod.numberOfRationsRemaining.ToString();
                 }
 
+                /*
                 for (int x = -1; x <= 1; x++)
                 {
                     for (int y = -1; y <= 1; y++)
                     {
-                        int xLoc = (int)((parentPanel.currentLocX + this.X) * gv.screenDensity + ulX + x);
-                        int yLoc = 0;
-                        if (this.tag == "btnZoom")
+                        if (x != 0 || y != 0)
                         {
-                            xLoc = (int)((parentPanel.currentLocX + this.X) * gv.screenDensity + ulX + x - 3*pW);
-                            yLoc = (int)((parentPanel.currentLocY + this.Y) * gv.screenDensity + ulY + y) - pW;
+                            int xLoc = (int)((parentPanel.currentLocX + this.X) * gv.screenDensity + ulX + x);
+                            int yLoc = 0;
+                            if (this.tag == "btnZoom")
+                            {
+                                xLoc = (int)((parentPanel.currentLocX + this.X) * gv.screenDensity + ulX + x - 3 * pW);
+                                yLoc = (int)((parentPanel.currentLocY + this.Y) * gv.screenDensity + ulY + y) - pW;
+                            }
+                            else
+                            {
+                                yLoc = (int)((parentPanel.currentLocY + this.Y) * gv.screenDensity + ulY + y);
+                            }
+                            //int yLoc = (int)((parentPanel.currentLocY + this.Y) * gv.screenDensity + ulY + y);
+                            gv.DrawText(Quantity, xLoc, yLoc, scaler, Color.Black);
                         }
-                        else
-                        {
-                            yLoc = (int)((parentPanel.currentLocY + this.Y) * gv.screenDensity + ulY + y);
                         }
-                        //int yLoc = (int)((parentPanel.currentLocY + this.Y) * gv.screenDensity + ulY + y);
-                        gv.DrawText(Quantity, xLoc, yLoc, scaler, Color.Black);
-                    }
                 }
+                */
                 int xLoc2 = (int)((parentPanel.currentLocX + this.X) * gv.screenDensity + ulX);
                 int yLoc2 = 0;
                 if (this.tag == "btnZoom")
@@ -560,16 +573,16 @@ namespace IceBlink2
                     }
                     if (consumeLightEnergy)
                     {
-                        gv.DrawText(Quantity, xLoc2, yLoc2, scaler, Color.Yellow);
+                        gv.DrawTextOutlined(Quantity, xLoc2, yLoc2, scaler, Color.Yellow);
                     }
                     else
                     {
-                        gv.DrawText(Quantity, xLoc2, yLoc2, scaler, Color.White);
+                        gv.DrawTextOutlined(Quantity, xLoc2, yLoc2, scaler, Color.White);
                     }
                 }
                 else
                 {
-                    gv.DrawText(Quantity, xLoc2, yLoc2, scaler, Color.White);
+                    gv.DrawTextOutlined(Quantity, xLoc2, yLoc2, scaler, Color.White);
                 }
 
                 // DRAW HOTKEY
@@ -581,18 +594,23 @@ namespace IceBlink2
                     ulX = ((Width * gv.screenDensity) - stringSize) / 2;
                     ulY = (((Height * gv.screenDensity) - thisFontHeight) / 4) * 3;
 
+                    /*
                     for (int x = -1; x <= 1; x++)
                     {
                         for (int y = -1; y <= 1; y++)
                         {
-                            int xLoc = (int)((parentPanel.currentLocX + this.X) * gv.screenDensity + ulX + x);
-                            int yLoc = (int)((parentPanel.currentLocY + this.Y) * gv.screenDensity + ulY + y);
-                            gv.DrawText(HotKey, xLoc, yLoc, scaler, Color.Black);
+                            if (x != 0 || y != 0)
+                            {
+                                int xLoc = (int)((parentPanel.currentLocX + this.X) * gv.screenDensity + ulX + x);
+                                int yLoc = (int)((parentPanel.currentLocY + this.Y) * gv.screenDensity + ulY + y);
+                                gv.DrawText(HotKey, xLoc, yLoc, scaler, Color.Black);
+                            }
                         }
                     }
+                    */
                     int xLoc3 = (int)((parentPanel.currentLocX + this.X) * gv.screenDensity + ulX);
                     int yLoc3 = (int)((parentPanel.currentLocY + this.Y) * gv.screenDensity + ulY);
-                    gv.DrawText(HotKey, xLoc3, yLoc3, scaler, Color.Red);
+                    gv.DrawTextOutlined(HotKey, xLoc3, yLoc3, scaler, Color.Red);
                 }
             }
         }

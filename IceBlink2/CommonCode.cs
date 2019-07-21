@@ -3004,6 +3004,10 @@ namespace IceBlink2
 
         public void doUpdate()
         {
+            if (gv.mod.overrideVisibilityRange != -1)
+            {
+                gv.mod.currentArea.AreaVisibleDistance = gv.mod.overrideVisibilityRange;
+            }
             //gv.mod.uCounter++;
             gv.mod.findNewPointCounter = 0;
             foreach (Prop p in gv.mod.currentArea.Props)
@@ -3914,6 +3918,10 @@ namespace IceBlink2
                                 //remove 12 entries per move, 3 more than usual 9 squares uncovered
                                 for (int i = 0; i < cullNumber; i++)
                                 {
+                                    //gv.mod.loadedTileBitmaps[i].Dispose();
+                                    //gv.mod.loadedTileBitmaps.RemoveAt(i);
+                                    //gv.mod.loadedTileBitmapsNames.RemoveAt(i);
+
                                     gv.mod.loadedTileBitmaps[i].Dispose();
                                     gv.mod.loadedTileBitmaps.RemoveAt(i);
                                     gv.mod.loadedTileBitmapsNames.RemoveAt(i);
@@ -10137,8 +10145,20 @@ namespace IceBlink2
                                         //}
                                         //}
                                         //IBMessageBox.Show(gv, "Prop just appeared");
-                                        gv.screenMainMap.addFloatyText(xLocForFloaty, yLocForFloaty, "Just arrived here", "white", 4000);
-
+                                        //Platz/HBF
+                                        //gv.screenMainMap.addFloatyText(xLocForFloaty, yLocForFloaty, "Just arrived here", "white", 4000);
+                                        foreach (Area a in gv.mod.moduleAreasObjects)
+                                        {
+                                            if (gv.mod.moduleAreasObjects[relevantAreaIndex].Props.Count > relevantPropIndex)
+                                            {
+                                                if (a.Filename == gv.mod.moduleAreasObjects[relevantAreaIndex].Props[relevantPropIndex].WayPointList[listEndCheckedIndexOfNextWaypoint].areaName)
+                                                {
+                                                    gv.screenMainMap.addFloatyText(a.Props[a.Props.Count - 1], "Just arrived here", "white", 4000);
+                                                    break;
+                                                }
+                                            }
+                                        }
+                                        //gv.screenMainMap.addFloatyText(gv.mod.moduleAreasObjects[relevantAreaIndex].Props[relevantPropIndex], "Just arrived here", "white", 4000);
                                     }
                                 }
                             }
@@ -10531,7 +10551,7 @@ namespace IceBlink2
                                     if (gv.mod.debugMode)
                                     {
                                         gv.cc.addLogText("<font color='yellow'>" + gv.mod.moduleAreasObjects[h].Props[i].PropTag + " moves " + moveDist + "</font><BR>");
-                                        gv.screenMainMap.addFloatyText(gv.mod.moduleAreasObjects[h].Props[i].LocationX, gv.mod.moduleAreasObjects[h].Props[i].LocationY, "(" + gv.mod.moduleAreasObjects[h].Props[i].LocationX + "," + gv.mod.moduleAreasObjects[h].Props[i].LocationY + ")", "yellow", 4000);
+                                        gv.screenMainMap.addFloatyText(gv.mod.moduleAreasObjects[h].Props[i], "(" + gv.mod.moduleAreasObjects[h].Props[i].LocationX + "," + gv.mod.moduleAreasObjects[h].Props[i].LocationY + ")", "yellow", 4000);
                                     }
                                 }
                                 doPropBarkString(gv.mod.moduleAreasObjects[h].Props[i]);
@@ -10584,7 +10604,7 @@ namespace IceBlink2
                                 if (gv.mod.debugMode)
                                 {
                                     gv.cc.addLogText("<font color='yellow'>" + gv.mod.moduleAreasObjects[h].Props[i].PropTag + " moves " + moveDist + "</font><BR>");
-                                    gv.screenMainMap.addFloatyText(gv.mod.moduleAreasObjects[h].Props[i].LocationX, gv.mod.moduleAreasObjects[h].Props[i].LocationY, "(" + gv.mod.moduleAreasObjects[h].Props[i].LocationX + "," + gv.mod.moduleAreasObjects[h].Props[i].LocationY + ")", "yellow", 4000);
+                                    gv.screenMainMap.addFloatyText(gv.mod.moduleAreasObjects[h].Props[i], "(" + gv.mod.moduleAreasObjects[h].Props[i].LocationX + "," + gv.mod.moduleAreasObjects[h].Props[i].LocationY + ")", "yellow", 4000);
                                 }
                                 doPropBarkString(gv.mod.moduleAreasObjects[h].Props[i]);
                             }
@@ -10780,9 +10800,11 @@ namespace IceBlink2
                                                         //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXxxx
                                                         if (!oldIsNearby || !NewIsNearby)
                                                         {
-                                                            gv.screenMainMap.addFloatyText(gv.mod.moduleAreasObjects[h].Props[i].LocationX, gv.mod.moduleAreasObjects[h].Props[i].LocationY, "Heading off towards " + shownAreaName, "white", 4000);
+                                                            //gv.screenMainMap.addFloatyText(gv.mod.moduleAreasObjects[h].Props[i].LocationX, gv.mod.moduleAreasObjects[h].Props[i].LocationY, "Heading off towards " + shownAreaName, "white", 4000);
+                                                            gv.screenMainMap.addFloatyText(gv.mod.moduleAreasObjects[h].Props[i], "Heading off towards " + shownAreaName, "white", 4000);
+
                                                         }
-                                                gv.sf.osController("osSetPropLocationAnyArea.cs", gv.mod.moduleAreasObjects[h].Props[i].PropTag, gv.mod.moduleAreasObjects[h].Props[i].WayPointList[gv.mod.moduleAreasObjects[h].Props[i].WayPointListCurrentIndex].areaName, gv.mod.moduleAreasObjects[h].Props[i].WayPointList[gv.mod.moduleAreasObjects[h].Props[i].WayPointListCurrentIndex].X.ToString(), gv.mod.moduleAreasObjects[h].Props[i].WayPointList[gv.mod.moduleAreasObjects[h].Props[i].WayPointListCurrentIndex].Y.ToString());
+                                                        gv.sf.osController("osSetPropLocationAnyArea.cs", gv.mod.moduleAreasObjects[h].Props[i].PropTag, gv.mod.moduleAreasObjects[h].Props[i].WayPointList[gv.mod.moduleAreasObjects[h].Props[i].WayPointListCurrentIndex].areaName, gv.mod.moduleAreasObjects[h].Props[i].WayPointList[gv.mod.moduleAreasObjects[h].Props[i].WayPointListCurrentIndex].X.ToString(), gv.mod.moduleAreasObjects[h].Props[i].WayPointList[gv.mod.moduleAreasObjects[h].Props[i].WayPointListCurrentIndex].Y.ToString());
                                                 registerRemoval = true;
                                             } 
                                         }
@@ -10823,7 +10845,7 @@ namespace IceBlink2
                                                         //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXxxx
                                                         if (!oldIsNearby || !NewIsNearby)
                                                         {
-                                                            gv.screenMainMap.addFloatyText(gv.mod.moduleAreasObjects[h].Props[i].LocationX, gv.mod.moduleAreasObjects[h].Props[i].LocationY, "Heading off towards " + shownAreaName, "white", 4000);
+                                                            gv.screenMainMap.addFloatyText(gv.mod.moduleAreasObjects[h].Props[i], "Heading off towards " + shownAreaName, "white", 4000);
                                                         }
                                                         //neuefreunde
                                                 gv.sf.osController("osSetPropLocationAnyArea.cs", gv.mod.moduleAreasObjects[h].Props[i].PropTag, gv.mod.moduleAreasObjects[h].Props[i].WayPointList[gv.mod.moduleAreasObjects[h].Props[i].WayPointListCurrentIndex].areaName, gv.mod.moduleAreasObjects[h].Props[i].WayPointList[gv.mod.moduleAreasObjects[h].Props[i].WayPointListCurrentIndex].X.ToString(), gv.mod.moduleAreasObjects[h].Props[i].WayPointList[gv.mod.moduleAreasObjects[h].Props[i].WayPointListCurrentIndex].Y.ToString());
@@ -10875,7 +10897,7 @@ namespace IceBlink2
                                     if ((gv.mod.debugMode) && (!registerRemoval))
                                     {
                                         gv.cc.addLogText("<font color='yellow'>" + gv.mod.moduleAreasObjects[h].Props[i].PropTag + " moves " + moveDist + "</font><BR>");
-                                        gv.screenMainMap.addFloatyText(gv.mod.moduleAreasObjects[h].Props[i].LocationX, gv.mod.moduleAreasObjects[h].Props[i].LocationY, "(" + gv.mod.moduleAreasObjects[h].Props[i].LocationX + "," + gv.mod.moduleAreasObjects[h].Props[i].LocationY + ")", "yellow", 4000);
+                                        gv.screenMainMap.addFloatyText(gv.mod.moduleAreasObjects[h].Props[i], "(" + gv.mod.moduleAreasObjects[h].Props[i].LocationX + "," + gv.mod.moduleAreasObjects[h].Props[i].LocationY + ")", "yellow", 4000);
                                     }
                                 }
                                 if (!registerRemoval)
@@ -11212,7 +11234,7 @@ namespace IceBlink2
                                         //}
                                         //}
                                         //IBMessageBox.Show(gv, "Prop just appeared");
-                                        gv.screenMainMap.addFloatyText(xLocForFloaty, yLocForFloaty, "Just arrived here", "white", 4000);
+                                        gv.screenMainMap.addFloatyText(gv.mod.moduleAreasObjects[relevantAreaIndex].Props[relevantPropIndex], "Just arrived here", "white", 4000);
 
                                     }
                                 }
@@ -11561,7 +11583,7 @@ namespace IceBlink2
                                 if (gv.mod.debugMode)
                                 {
                                     gv.cc.addLogText("<font color='yellow'>" + gv.mod.currentArea.Props[i].PropTag + " moves " + moveDist + "</font><BR>");
-                                    gv.screenMainMap.addFloatyText(gv.mod.currentArea.Props[i].LocationX, gv.mod.currentArea.Props[i].LocationY, "(" + gv.mod.currentArea.Props[i].LocationX + "," + gv.mod.currentArea.Props[i].LocationY + ")", "yellow", 4000);
+                                    gv.screenMainMap.addFloatyText(gv.mod.currentArea.Props[i], "(" + gv.mod.currentArea.Props[i].LocationX + "," + gv.mod.currentArea.Props[i].LocationY + ")", "yellow", 4000);
                                 }
                             }
 
@@ -12422,7 +12444,13 @@ namespace IceBlink2
                     }
 
                     //lumina
-                    if (prp.isCurrentlyChasing)
+                    Coordinate partyCoord = new Coordinate();
+                    Coordinate propCoord = new Coordinate();
+                    partyCoord.X = gv.mod.PlayerLocationX;
+                    partyCoord.Y = gv.mod.PlayerLocationY;
+                    propCoord.X = prp.relocX;
+                    propCoord.Y = prp.relocY;
+                    if (prp.isCurrentlyChasing || gv.cc.getDistance(partyCoord, propCoord) <= 8)
                     {
                         prp.oldPath.Clear();
                         findNewPath = true;
@@ -12459,8 +12487,10 @@ namespace IceBlink2
                     if ((newCoor.X == -1) && (newCoor.Y == -1))
                     {
                     */
+                   
+
                     bool returnCauseSkip = false;
-                    if (findNewPath && (gv.mod.findNewPointCounter <= 10 || prp.skippedPathfinding || prp.isCurrentlyChasing))
+                    if (findNewPath && (gv.mod.findNewPointCounter <= (int)(150f / gv.elapsed3) || prp.skippedPathfinding || prp.isCurrentlyChasing || gv.cc.getDistance(partyCoord, propCoord) <= 8))
                     {
                         newCoor = gv.pfa.findNewPoint(new Coordinate(prp.LocationX, prp.LocationY), new Coordinate(targetX, targetY), prp, propAreaIndex);
                         gv.mod.findNewPointCounter++;
@@ -12475,7 +12505,7 @@ namespace IceBlink2
                         prp.oldPath.RemoveAt(prp.oldPath.Count - 1);
                     }
 
-                    if (gv.mod.findNewPointCounter > 10 && !prp.skippedPathfinding && findNewPath && !prp.isCurrentlyChasing)
+                    if (gv.mod.findNewPointCounter > (int)(150f/gv.elapsed3)&& !prp.skippedPathfinding && findNewPath && !prp.isCurrentlyChasing && gv.cc.getDistance(partyCoord, propCoord) > 8)
                     {
                         prp.skippedPathfinding = true;
                         prp.isPausing = true;
@@ -12967,13 +12997,20 @@ namespace IceBlink2
                     }
 
                     //lumina
-                    if (prp.isCurrentlyChasing)
+                    Coordinate partyCoord = new Coordinate();
+                    Coordinate propCoord = new Coordinate();
+                    partyCoord.X = gv.mod.PlayerLocationX;
+                    partyCoord.Y = gv.mod.PlayerLocationY;
+                    propCoord.X = prp.relocX;
+                    propCoord.Y = prp.relocY;
+                    if (prp.isCurrentlyChasing || gv.cc.getDistance(partyCoord, propCoord) <= 8)
                     {
                         prp.oldPath.Clear();
                         findNewPath = true;
                     }
                     bool returnCauseSkip = false;
-                    if (findNewPath && (gv.mod.findNewPointCounter <= 10 || prp.skippedPathfinding || prp.isCurrentlyChasing))
+                   
+                    if (findNewPath && (gv.mod.findNewPointCounter <= (int)(150f / gv.elapsed3) || prp.skippedPathfinding || prp.isCurrentlyChasing || gv.cc.getDistance(partyCoord, propCoord) <= 8))
                     {
                         newCoor = gv.pfa.findNewPoint(new Coordinate(prp.LocationX, prp.LocationY), new Coordinate(targetX, targetY), prp, propAreaIndex);
                         gv.mod.findNewPointCounter++;
@@ -12988,7 +13025,7 @@ namespace IceBlink2
                         prp.oldPath.RemoveAt(prp.oldPath.Count - 1);
                     }
 
-                    if (gv.mod.findNewPointCounter > 10 && !prp.skippedPathfinding && findNewPath && !prp.isCurrentlyChasing)
+                    if (gv.mod.findNewPointCounter > (int)(150f / gv.elapsed3) && !prp.skippedPathfinding && findNewPath && !prp.isCurrentlyChasing && gv.cc.getDistance(partyCoord, propCoord) > 8)
                     {
                         prp.skippedPathfinding = true;
                         prp.isPausing = true;

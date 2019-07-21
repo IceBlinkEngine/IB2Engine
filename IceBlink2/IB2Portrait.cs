@@ -166,19 +166,23 @@ namespace IceBlink2
                 //int ulY = ((int)(this.Height / 2) / 2) + ((int)thisFontHeight / 2);
                 int ulX = pW * 0;
                 int ulY = (int)(Height * gv.screenDensity) - ((int)thisFontHeight * 2);
-
+                /*
                 for (int x = -1; x <= 1; x++)
                 {
                     for (int y = -1; y <= 1; y++)
                     {
-                        int xLoc = (int)((parentPanel.currentLocX + this.X) * gv.screenDensity + ulX + x);
-                        int yLoc = (int)((parentPanel.currentLocY + this.Y) * gv.screenDensity + ulY - pH + y);
-                        gv.DrawText(TextHP, xLoc, yLoc, scaler, Color.Black);
+                        if (x != 0 || y != 0)
+                        {
+                            int xLoc = (int)((parentPanel.currentLocX + this.X) * gv.screenDensity + ulX + x);
+                            int yLoc = (int)((parentPanel.currentLocY + this.Y) * gv.screenDensity + ulY - pH + y);
+                            gv.DrawText(TextHP, xLoc, yLoc, scaler, Color.Black);
+                        }
                     }
                 }
+                */
                 int xLoc1 = (int)((parentPanel.currentLocX + this.X) * gv.screenDensity + ulX);
                 int yLoc1 = (int)((parentPanel.currentLocY + this.Y) * gv.screenDensity + ulY - pH);
-                gv.DrawText(TextHP, xLoc1, yLoc1, scaler, Color.Lime);
+                gv.DrawTextOutlined(TextHP, xLoc1, yLoc1, scaler, Color.Lime);
 
                 //DRAW SP/SPmax
                 // Measure string.
@@ -190,54 +194,70 @@ namespace IceBlink2
                 ulX = pW * 1;
                 ulY = (int)(Height * gv.screenDensity) - ((int)thisFontHeight * 1);
 
+                /*
                 for (int x = -1; x <= 1; x++)
                 {
                     for (int y = -1; y <= 1; y++)
                     {
-                        int xLoc = (int)((parentPanel.currentLocX + this.X) * gv.screenDensity + ulX - pW + x);
-                        int yLoc = (int)((parentPanel.currentLocY + this.Y) * gv.screenDensity + ulY - pH + y);
-                        gv.DrawText(TextSP, xLoc, yLoc, scaler, Color.Black);
+                        if (x != 0 || y != 0)
+                        {
+                            int xLoc = (int)((parentPanel.currentLocX + this.X) * gv.screenDensity + ulX - pW + x);
+                            int yLoc = (int)((parentPanel.currentLocY + this.Y) * gv.screenDensity + ulY - pH + y);
+                            gv.DrawText(TextSP, xLoc, yLoc, scaler, Color.Black);
+                        }
                     }
                 }
+                */
                 int xLoc2 = (int)((parentPanel.currentLocX + this.X) * gv.screenDensity + ulX - pW);
                 int yLoc2 = (int)((parentPanel.currentLocY + this.Y) * gv.screenDensity + ulY - pH);
-                gv.DrawText(TextSP, xLoc2, yLoc2, scaler, Color.Yellow);
-
+                gv.DrawTextOutlined(TextSP, xLoc2, yLoc2, scaler, Color.Yellow);
+                //gv.DrawTextOutlined(TextSP, xLoc2, yLoc2, gv.FontWeight.Normal, scaler, Color.Yellow);
+                //DrawText(text, xLoc, yLoc, FontWeight.Normal, SharpDX.DirectWrite.FontStyle.Normal, scaler, fontColor, false);
+                //better reoute all to drawtext and from the to draw outlined
 
                 //draw level up symbol
                 ulX = (int)(110 * gv.screenDensity) - pW * 9;
                 ulY = (int)(Height * gv.screenDensity) - ((int)thisFontHeight * 7) + pH;
 
+                /*
                 for (int x = -1; x <= 1; x++)
                 {
                     for (int y = -1; y <= 1; y++)
                     {
-                        int xLoc = (int)((parentPanel.currentLocX + this.X) * gv.screenDensity + ulX - pW + x);
-                        int yLoc = (int)((parentPanel.currentLocY + this.Y) * gv.screenDensity + ulY - pH + y);
-                        gv.DrawText(levelUpSymbol, xLoc, yLoc, scaler*1.2f, Color.Black);
+                        if (x != 0 || y != 0)
+                        {
+                            int xLoc = (int)((parentPanel.currentLocX + this.X) * gv.screenDensity + ulX - pW + x);
+                            int yLoc = (int)((parentPanel.currentLocY + this.Y) * gv.screenDensity + ulY - pH + y);
+                            gv.DrawText(levelUpSymbol, xLoc, yLoc, scaler * 1.2f, Color.Black);
+                        }
                     }
                 }
+                */
                 int xLoc3 = (int)((parentPanel.currentLocX + this.X) * gv.screenDensity + ulX - pW);
                 int yLoc3 = (int)((parentPanel.currentLocY + this.Y) * gv.screenDensity + ulY - pH);
-                gv.DrawText(levelUpSymbol, xLoc3, yLoc3, scaler*1.2f, Color.CornflowerBlue);
+                gv.DrawTextOutlined(levelUpSymbol, xLoc3, yLoc3, scaler*1.2f, Color.CornflowerBlue);
 
                 
                 //draw chat symbol
                 int ulX5 = (int)(110 * gv.screenDensity) - pW * 24;
                 int ulY5 = (int)(Height * gv.screenDensity) - ((int)thisFontHeight * 7) + 2*pH;
-
+                /*
                 for (int x = -1; x <= 1; x++)
                 {
                     for (int y = -1; y <= 1; y++)
                     {
-                        int xLoc = (int)((parentPanel.currentLocX + this.X) * gv.screenDensity + ulX5 - pW + x);
-                        int yLoc = (int)((parentPanel.currentLocY + this.Y) * gv.screenDensity + ulY5 - pH + y);
-                        gv.DrawText(chatSymbol, xLoc, yLoc, scaler * 0.5f, Color.Black);
+                        if (x != 0 || y != 0)
+                        {
+                            int xLoc = (int)((parentPanel.currentLocX + this.X) * gv.screenDensity + ulX5 - pW + x);
+                            int yLoc = (int)((parentPanel.currentLocY + this.Y) * gv.screenDensity + ulY5 - pH + y);
+                            gv.DrawText(chatSymbol, xLoc, yLoc, scaler * 0.5f, Color.Black);
+                        }
                     }
                 }
+                */
                 int xLoc4 = (int)((parentPanel.currentLocX + this.X) * gv.screenDensity + ulX5 - pW);
                 int yLoc4 = (int)((parentPanel.currentLocY + this.Y) * gv.screenDensity + ulY5 - pH);
-                gv.DrawText(chatSymbol, xLoc4, yLoc4, scaler * 0.5f, Color.Azure);
+                gv.DrawTextOutlined(chatSymbol, xLoc4, yLoc4, scaler * 0.5f, Color.Azure);
             }
 
             //draw level up symbol

@@ -138,7 +138,7 @@ namespace IceBlink2
             //place in the center
             float ulX = ((this.Width) - stringSize) / 2;
             float ulY = ((this.Height) - thisFontHeight) / 2;
-
+            /*
             for (int x = -1; x <= 1; x++)
             {
                 for (int y = -1; y <= 1; y++)
@@ -146,20 +146,21 @@ namespace IceBlink2
                     gv.DrawText(Text, this.X + ulX + x, this.Y + ulY + y , scaler, Color.Black);
                 }
             }
+            */
             if (!this.btnWithGold)
             {
                 if (Text == "NA")
                 {
-                    gv.DrawText(Text, this.X + ulX, this.Y + ulY, scaler, Color.Red);
+                    gv.DrawTextOutlined(Text, this.X + ulX, this.Y + ulY, scaler, Color.Red);
                 }
                 else
                 {
-                    gv.DrawText(Text, this.X + ulX, this.Y + ulY, scaler, Color.White);
+                    gv.DrawTextOutlined(Text, this.X + ulX, this.Y + ulY, scaler, Color.White);
                 }
             }
             else
             {
-                gv.DrawText(Text, this.X + ulX, this.Y + ulY, scaler, Color.Gold);
+                gv.DrawTextOutlined(Text, this.X + ulX, this.Y + ulY, scaler, Color.Gold);
             }
             
             // DRAW QUANTITY
@@ -168,7 +169,7 @@ namespace IceBlink2
             //place in the bottom right quadrant
             ulX = (((this.Width) - stringSize) / 8) * 7;
             ulY = (((this.Height) - thisFontHeight) / 8) * 7;
-
+            /*
             for (int x = -1; x <= 1; x++)
             {
                 for (int y = -1; y <= 1; y++)
@@ -176,13 +177,14 @@ namespace IceBlink2
                     gv.DrawText(Quantity, this.X + ulX + x, this.Y + ulY + y, scaler, Color.Black);
                 }
             }
+            */
             if (!this.btnOfChargedItem)
             {
-                gv.DrawText(Quantity, this.X + ulX, this.Y + ulY, scaler, Color.White);
+                gv.DrawTextOutlined(Quantity, this.X + ulX, this.Y + ulY, scaler, Color.White);
             }
             else
             {
-                gv.DrawText(Quantity, this.X + ulX, this.Y + ulY, scaler, Color.Green);
+                gv.DrawTextOutlined(Quantity, this.X + ulX, this.Y + ulY, scaler, Color.Green);
             }
 
             // DRAW HOTKEY
@@ -193,7 +195,7 @@ namespace IceBlink2
                 //place in the bottom center
                 ulX = ((this.Width) - stringSize) / 2;
                 ulY = (((this.Height) - thisFontHeight) / 4) * 3;
-
+                /*
                 for (int x = -1; x <= 1; x++)
                 {
                     for (int y = -1; y <= 1; y++)
@@ -201,7 +203,8 @@ namespace IceBlink2
                         gv.DrawText(HotKey, this.X + ulX + x, this.Y + ulY + y, scaler, Color.Black);
                     }
                 }
-                gv.DrawText(HotKey, this.X + ulX, this.Y + ulY, scaler, Color.Red);
+                */
+                gv.DrawTextOutlined(HotKey, this.X + ulX, this.Y + ulY, scaler, Color.Red);
             }
         }
     }
