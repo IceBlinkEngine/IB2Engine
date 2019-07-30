@@ -1856,15 +1856,27 @@ namespace IceBlink2
             //0.8 for good measure
             //0.75 for slowly, nicely still
 
-            gv.mod.lastScrollStep = (0.7f *7.5f * multi * gv.mod.scrollingSpeed * 1.0f * gv.mod.scrollModeSpeed * gv.mod.sprintModifier);
-            gv.mod.scrollingTimer = gv.mod.scrollingTimer - (0.65f* 7.5f * multi * gv.mod.scrollingSpeed * 1.0f * gv.mod.scrollModeSpeed * gv.mod.sprintModifier);
+            //gv.mod.lastScrollStep = (0.7f *7.5f * multi * gv.mod.scrollingSpeed * 1.0f * gv.mod.scrollModeSpeed * gv.mod.sprintModifier);
+            //gv.mod.scrollingTimer = gv.mod.scrollingTimer - (0.65f* 7.5f * multi * gv.mod.scrollingSpeed * 1.0f * gv.mod.scrollModeSpeed * gv.mod.sprintModifier);
+            if (gv.mod.currentArea.isOverviewMap)
+            {
+                gv.mod.lastScrollStep = (0.7f * 7.5f * multi * gv.mod.scrollingSpeed * 2.0f * 1.0f * gv.mod.scrollModeSpeed * gv.mod.sprintModifier);
+                gv.mod.scrollingTimer = gv.mod.scrollingTimer - (0.65f * 7.5f * multi * gv.mod.scrollingSpeed * 2.0f * 1.0f * gv.mod.scrollModeSpeed * gv.mod.sprintModifier);
+
+            }
+            else
+            {
+                gv.mod.lastScrollStep = (0.7f * 7.5f * multi * gv.mod.scrollingSpeed * 1.0f * gv.mod.scrollModeSpeed * gv.mod.sprintModifier);
+                gv.mod.scrollingTimer = gv.mod.scrollingTimer - (0.65f * 7.5f * multi * gv.mod.scrollingSpeed * 1.0f * gv.mod.scrollModeSpeed * gv.mod.sprintModifier);
+
+            }
             //gv.mod.distances.Add(gv.mod.scrollingTimer);
             //gv.mod.scrollingTimer = gv.mod.scrollingTimer - (7.5f * multi);
             //gv.mod.scrollingTimer -= 25f * multi;
             //int scrollingIntervall = (int)(5.5f * multi * gv.mod.scrollingSpeed);
             //gv.mod.scrollingTimer -= scrollingIntervall;
 
-            
+
             //if (gv.mod.scrollingTimer <= 50 && gv.mod.doThisScrollingsLightShift)
             if (gv.mod.scrollingTimer <= 50)
                 {
@@ -4864,697 +4876,32 @@ namespace IceBlink2
                 //foreach (Area a in gv.mod.moduleAreasObjects)
                 //mins were -3
                 int minX = gv.mod.PlayerLocationX - gv.playerOffsetX - 3; //using -2 in case a large tile (3x3) needs to start off the visible map space to be seen
+                if (minX < -gv.mod.seamlessModififierMinX - 3) { minX = -gv.mod.seamlessModififierMinX - 3;}
+                int LimitMinX = gv.mod.PlayerLocationX - gv.playerOffsetX - 3; //using -2 in case a large tile (3x3) needs to start off the visible map space to be seen
+                if (LimitMinX < -gv.mod.seamlessModififierMinX - 3) { LimitMinX = -gv.mod.seamlessModififierMinX - 3; }
+
                 //was -1
-                if (minX < -gv.mod.seamlessModififierMinX - 3)
-                {
-                    minX = -gv.mod.seamlessModififierMinX - 3;
-                }
-                //was -1
+                //idea: extend the x,y range by 2 min/max, but only draw if under/equal drawLimit
                 int minY = gv.mod.PlayerLocationY - gv.playerOffsetY - 3; //using -2 in case a large tile (3x3) needs to start off the visible map space to be seen
                 if (minY < -gv.mod.seamlessModififierMinY - 3) { minY = -gv.mod.seamlessModififierMinY - 3; }
+                int LimitMinY = gv.mod.PlayerLocationY - gv.playerOffsetY - 3; //using -2 in case a large tile (3x3) needs to start off the visible map space to be seen
+                if (LimitMinY < -gv.mod.seamlessModififierMinY - 3) { LimitMinY = -gv.mod.seamlessModififierMinY - 3; }
+
 
                 int maxX = gv.mod.PlayerLocationX + gv.playerOffsetX + 2;
                 if (maxX > this.gv.mod.currentArea.MapSizeX + gv.mod.seamlessModififierMaxX+1) { maxX = this.gv.mod.currentArea.MapSizeX + gv.mod.seamlessModififierMaxX+1; }
+                int LimitMaxX = gv.mod.PlayerLocationX + gv.playerOffsetX + 2;
+                if (LimitMaxX > this.gv.mod.currentArea.MapSizeX + gv.mod.seamlessModififierMaxX + 1) { LimitMaxX = this.gv.mod.currentArea.MapSizeX + gv.mod.seamlessModififierMaxX + 1; }
+
                 int maxY = gv.mod.PlayerLocationY + gv.playerOffsetY + 2;
                 if (maxY > this.gv.mod.currentArea.MapSizeY + gv.mod.seamlessModififierMaxY+1) { maxY = this.gv.mod.currentArea.MapSizeY + gv.mod.seamlessModififierMaxY+1; }
+                int LimitMaxY = gv.mod.PlayerLocationY + gv.playerOffsetY + 2;
+                if (LimitMaxY > this.gv.mod.currentArea.MapSizeY + gv.mod.seamlessModififierMaxY + 1) { LimitMaxY = this.gv.mod.currentArea.MapSizeY + gv.mod.seamlessModififierMaxY + 1; }
 
                 //new system, FAILURE, not used
-                if (gv.mod.useFastRender)
-                {
-                    for (int x = minX; x < maxX; x++)
-                    {
-                        for (int y = minY; y < maxY; y++)
-                        {
-                            //check whether x or y extreme, use tile from neighbour then
-                            //loop thruogh are with neigbhour names and find index
-                            //adjust black tile for border
-                            //this is inside layer 0, adjust for all
-                            //handle corner, ie draw to two side situations
-                            //use tile 1 and tile2 in this case, to draw in two directions
-                            //IMPORTANT NOTE:  disable cache cleaning on area change
-                            bool situationFound = false;
-                            bool drawTile = true;
-                            int index = -1;
-                            Tile tile = new Tile();
-
-                            //nine situations where a tile can be:
-                            //tile on north-western map (diagonal situation)
-                            if ((x < 0) && (y < 0) && (!situationFound))
-                            {
-                                situationFound = true;
-                                if (gv.mod.indexOfNorthWesternNeighbour != -1)
-                                {
-                                    int transformedX = gv.mod.moduleAreasObjects[gv.mod.indexOfNorthWesternNeighbour].MapSizeX + x;
-                                    int transformedY = gv.mod.moduleAreasObjects[gv.mod.indexOfNorthWesternNeighbour].MapSizeY + y;
-                                    tile = gv.mod.moduleAreasObjects[gv.mod.indexOfNorthWesternNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[gv.mod.indexOfNorthWesternNeighbour].MapSizeX + transformedX];
-                                    index = gv.mod.indexOfNorthWesternNeighbour;
-                                }
-                                else
-                                {
-                                    drawTile = false;
-                                }
-                            }
-                            //tile on south-westernmap (diagonal situation)
-                            if ((x < 0) && (y > (gv.mod.currentArea.MapSizeY - 1)) && (!situationFound))
-                            {
-                                situationFound = true;
-                                if (gv.mod.indexOfSouthWesternNeighbour != -1)
-                                {
-                                    int transformedX = gv.mod.moduleAreasObjects[gv.mod.indexOfSouthWesternNeighbour].MapSizeX + x;
-                                    int transformedY = y - gv.mod.currentArea.MapSizeY;
-                                    tile = gv.mod.moduleAreasObjects[gv.mod.indexOfSouthWesternNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[gv.mod.indexOfSouthWesternNeighbour].MapSizeX + transformedX];
-                                    index = gv.mod.indexOfSouthWesternNeighbour;
-                                }
-                                else
-                                {
-                                    drawTile = false;
-                                }
-                            }
-                            //tile on south-easternmap (diagonal situation)
-                            if ((x > (gv.mod.currentArea.MapSizeX - 1)) && (y > (gv.mod.currentArea.MapSizeY - 1)) && (!situationFound))
-                            {
-                                situationFound = true;
-                                if (gv.mod.indexOfSouthEasternNeighbour != -1)
-                                {
-                                    int transformedX = x - gv.mod.currentArea.MapSizeX;
-                                    int transformedY = y - gv.mod.currentArea.MapSizeY;
-                                    tile = gv.mod.moduleAreasObjects[gv.mod.indexOfSouthEasternNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[gv.mod.indexOfSouthEasternNeighbour].MapSizeX + transformedX];
-                                    index = gv.mod.indexOfSouthEasternNeighbour;
-                                }
-                                else
-                                {
-                                    drawTile = false;
-                                }
-                            }
-                            //tile on north-easternmap (diagonal situation)
-                            if ((x > (gv.mod.currentArea.MapSizeX - 1)) && (y < 0) && (!situationFound))
-                            {
-                                situationFound = true;
-                                if (gv.mod.indexOfNorthEasternNeighbour != -1)
-                                {
-                                    int transformedX = x - gv.mod.currentArea.MapSizeX;
-                                    int transformedY = gv.mod.moduleAreasObjects[gv.mod.indexOfNorthEasternNeighbour].MapSizeY + y;
-                                    tile = gv.mod.moduleAreasObjects[gv.mod.indexOfNorthEasternNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[gv.mod.indexOfNorthEasternNeighbour].MapSizeX + transformedX];
-                                    index = gv.mod.indexOfNorthEasternNeighbour;
-                                }
-                                else
-                                {
-                                    drawTile = false;
-                                }
-                            }
-                            //tile on western map
-                            if ((x < 0) && (!situationFound))
-                            {
-                                situationFound = true;
-                                if (gv.mod.indexOfWesternNeighbour != -1)
-                                {
-                                    int transformedX = gv.mod.moduleAreasObjects[gv.mod.indexOfWesternNeighbour].MapSizeX + x;
-                                    int transformedY = y;
-                                    tile = gv.mod.moduleAreasObjects[gv.mod.indexOfWesternNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[gv.mod.indexOfWesternNeighbour].MapSizeX + transformedX];
-                                    index = gv.mod.indexOfWesternNeighbour;
-                                }
-                                else
-                                {
-                                    drawTile = false;
-                                }
-                            }
-                            //tile on southern map
-                            if ((y > (gv.mod.currentArea.MapSizeY - 1)) && (!situationFound))
-                            {
-                                situationFound = true;
-                                if (gv.mod.indexOfSouthernNeighbour != -1)
-                                {
-                                    int transformedX = x;
-                                    int transformedY = y - gv.mod.currentArea.MapSizeY;
-                                    tile = gv.mod.moduleAreasObjects[gv.mod.indexOfSouthernNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[gv.mod.indexOfSouthernNeighbour].MapSizeX + transformedX];
-                                    index = gv.mod.indexOfSouthernNeighbour;
-                                }
-                                else
-                                {
-                                    drawTile = false;
-                                }
-                            }
-                            //tile on eastern map
-                            if ((x > (gv.mod.currentArea.MapSizeX - 1)) && (!situationFound))
-                            {
-                                situationFound = true;
-                                if (gv.mod.indexOfEasternNeighbour != -1)
-                                {
-                                    int transformedX = x - gv.mod.currentArea.MapSizeX;
-                                    int transformedY = y;
-                                    tile = gv.mod.moduleAreasObjects[gv.mod.indexOfEasternNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[gv.mod.indexOfEasternNeighbour].MapSizeX + transformedX];
-                                    index = gv.mod.indexOfEasternNeighbour;
-                                }
-                                else
-                                {
-                                    drawTile = false;
-                                }
-                            }
-                            //tile on northern map
-                            if ((y < 0) && (!situationFound))
-                            {
-                                situationFound = true;
-                                if (gv.mod.indexOfNorthernNeighbour != -1)
-                                {
-                                    int transformedX = x;
-                                    int transformedY = gv.mod.moduleAreasObjects[gv.mod.indexOfNorthernNeighbour].MapSizeY + y;
-                                    tile = gv.mod.moduleAreasObjects[gv.mod.indexOfNorthernNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[gv.mod.indexOfNorthernNeighbour].MapSizeX + transformedX];
-                                    index = gv.mod.indexOfNorthernNeighbour;
-                                }
-                                else
-                                {
-                                    drawTile = false;
-                                }
-                            }
-                            //tile is on current map
-                            if (!situationFound)
-                            {
-                                tile = gv.mod.currentArea.Tiles[y * gv.mod.currentArea.MapSizeX + x];
-                            }
-
-                            if (drawTile)
-                            {
-
-                                //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-                                //layer 0
-                                for (int layerCounter = 0; layerCounter <= 6; layerCounter++)
-                                {
-                                   
-                                       
-                                    
-                                    //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXx
-                                    bool tileBitmapIsLoadedAlready = false;
-                                    int indexOfLoadedTile = -1;
-
-                                    if (layerCounter == 0 && tile.Layer0Filename != "blank")
-                                    {
-                                        for (int i = 0; i < gv.mod.loadedTileBitmapsNames.Count; i++)
-                                        {
-                                            if (gv.mod.loadedTileBitmapsNames[i] == tile.Layer0Filename)
-                                            {
-                                                tileBitmapIsLoadedAlready = true;
-                                                indexOfLoadedTile = i;
-                                                break;
-                                            }
-                                        }
-
-                                        //hurghx
-                                        if (!tileBitmapIsLoadedAlready)
-                                        {
-                                            gv.mod.loadedTileBitmapsNames.Add(tile.Layer0Filename);
-                                            string backup = gv.mod.currentArea.sourceBitmapName;
-                                            if (index != -1)
-                                            {
-                                                gv.mod.currentArea.sourceBitmapName = gv.mod.moduleAreasObjects[index].sourceBitmapName;
-                                            }
-                                            tile.tileBitmap0 = gv.cc.LoadBitmap(tile.Layer0Filename);
-                                            //tile.tileBitmap0 = gv.cc.LoadBitmapSubdirectory(tile.Layer0Filename, gv.mod.currentArea);
-                                            gv.mod.currentArea.sourceBitmapName = backup;
-
-                                            int tlX = (x - gv.mod.PlayerLocationX + gv.playerOffsetX) * gv.squareSize;
-                                            int tlY = (y - gv.mod.PlayerLocationY + gv.playerOffsetY) * gv.squareSize;
-                                            //float scalerX = tile.tileBitmap0.PixelSize.Width / 100;
-                                            //float scalerY = tile.tileBitmap0.PixelSize.Height / 100;
-                                            //the tiles0 arrive as 50x50px but we want to have them 100% square size, therefore scaler to 1, ie 100%
-                                            float scalerX = 1;
-                                            float scalerY = 1;
-                                            int brX = (int)(gv.squareSize * scalerX);
-                                            int brY = (int)(gv.squareSize * scalerY);
-                                            IbRect src = new IbRect(0, 0, tile.tileBitmap0.PixelSize.Width, tile.tileBitmap0.PixelSize.Height);
-                                            IbRect dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels, tlY, brX, brY);
-                                            gv.mod.loadedTileBitmaps.Add(tile.tileBitmap0);
-                                            //gv.DrawBitmap(tile.tileBitmap0, src, dst); 
-
-                                            //gv.mod.currentArea.drawWithLessVisibleSeamsButMorePixelated = true;
-                                            if (gv.mod.currentArea.drawWithLessVisibleSeamsButMorePixelated)
-                                            {
-                                                gv.DrawBitmap(tile.tileBitmap0, src, dst, false, 1f, true);
-                                            }
-                                            else
-                                            {
-                                                gv.DrawBitmap(tile.tileBitmap0, src, dst, false, 1f, false);
-                                            }
-
-                                        }
-                                        else
-                                        {
-                                            int tlX = (x - gv.mod.PlayerLocationX + gv.playerOffsetX) * gv.squareSize;
-                                            int tlY = (y - gv.mod.PlayerLocationY + gv.playerOffsetY) * gv.squareSize;
-                                            //float scalerX = tile.tileBitmap0.PixelSize.Width / 100;
-                                            //float scalerY = tile.tileBitmap0.PixelSize.Height / 100;
-                                            //the tiles0 arrive as 50x50px but we want to have them 100% square size, therefore scaler to 1, ie 100%
-                                            float scalerX = 1;
-                                            float scalerY = 1;
-                                            int brX = (int)(gv.squareSize * scalerX);
-                                            int brY = (int)(gv.squareSize * scalerY);
-                                            IbRect src = new IbRect(0, 0, gv.mod.loadedTileBitmaps[indexOfLoadedTile].PixelSize.Width, gv.mod.loadedTileBitmaps[indexOfLoadedTile].PixelSize.Height);
-                                            IbRect dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels, tlY, brX, brY);
-                                            //gv.DrawBitmap(gv.mod.loadedTileBitmaps[indexOfLoadedTile], src, dst);
-
-                                            //gv.mod.currentArea.drawWithLessVisibleSeamsButMorePixelated = true;
-                                            if (gv.mod.currentArea.drawWithLessVisibleSeamsButMorePixelated)
-                                            {
-                                                gv.DrawBitmap(gv.mod.loadedTileBitmaps[indexOfLoadedTile], src, dst, false, 1f, true);
-                                            }
-                                            else
-                                            {
-                                                gv.DrawBitmap(gv.mod.loadedTileBitmaps[indexOfLoadedTile], src, dst, false, 1f, false);
-                                            }
-                                            
-                                        }
-                                        
-                                    }
-                                    
-                                    //layercounter 1
-                                    if (layerCounter == 1 && tile.Layer1Filename != "blank")
-                                    {
-                                        for (int i = 0; i < gv.mod.loadedTileBitmapsNames.Count; i++)
-                                        {
-                                            if (gv.mod.loadedTileBitmapsNames[i] == tile.Layer1Filename)
-                                            {
-                                                tileBitmapIsLoadedAlready = true;
-                                                indexOfLoadedTile = i;
-                                                break;
-                                            }
-                                        }
-
-                                        //hurghx
-                                        if (!tileBitmapIsLoadedAlready)
-                                        {
-                                            gv.mod.loadedTileBitmapsNames.Add(tile.Layer1Filename);
-                                            string backup = gv.mod.currentArea.sourceBitmapName;
-                                            if (index != -1)
-                                            {
-                                                gv.mod.currentArea.sourceBitmapName = gv.mod.moduleAreasObjects[index].sourceBitmapName;
-                                            }
-                                            tile.tileBitmap1 = gv.cc.LoadBitmap(tile.Layer1Filename);
-                                            //tile.tileBitmap0 = gv.cc.LoadBitmapSubdirectory(tile.Layer0Filename, gv.mod.currentArea);
-                                            gv.mod.currentArea.sourceBitmapName = backup;
-
-                                            //tile.tileBitmap1 = gv.cc.LoadBitmap(tile.Layer1Filename);
-
-                                            int tlX = (x - gv.mod.PlayerLocationX + gv.playerOffsetX) * gv.squareSize;
-                                            int tlY = (y - gv.mod.PlayerLocationY + gv.playerOffsetY) * gv.squareSize;
-                                            float scalerX = tile.tileBitmap1.PixelSize.Width / 100;
-                                            float scalerY = tile.tileBitmap1.PixelSize.Height / 100;
-                                            int brX = (int)(gv.squareSize * scalerX);
-                                            int brY = (int)(gv.squareSize * scalerY);
-                                            IbRect src = new IbRect(0, 0, tile.tileBitmap1.PixelSize.Width, tile.tileBitmap1.PixelSize.Height);
-                                            IbRect dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels, tlY, brX, brY);
-
-                                            gv.mod.loadedTileBitmaps.Add(tile.tileBitmap1);
-                                            //gv.DrawBitmap(tile.tileBitmap1, src, dst);
-                                            gv.DrawBitmap(tile.tileBitmap1, src, dst, tile.Layer1Rotate, tile.Layer1Mirror, tile.Layer1Xshift, tile.Layer1Yshift, tile.Layer1Xscale, tile.Layer1Yscale, tile.Layer1Opacity);
-                                        }
-                                        else
-                                        {
-                                            int tlX = (x - gv.mod.PlayerLocationX + gv.playerOffsetX) * gv.squareSize;
-                                            int tlY = (y - gv.mod.PlayerLocationY + gv.playerOffsetY) * gv.squareSize;
-                                            float scalerX = gv.mod.loadedTileBitmaps[indexOfLoadedTile].PixelSize.Width / 100;
-                                            float scalerY = gv.mod.loadedTileBitmaps[indexOfLoadedTile].PixelSize.Height / 100;
-                                            int brX = (int)(gv.squareSize * scalerX);
-                                            int brY = (int)(gv.squareSize * scalerY);
-                                            IbRect src = new IbRect(0, 0, gv.mod.loadedTileBitmaps[indexOfLoadedTile].PixelSize.Width, gv.mod.loadedTileBitmaps[indexOfLoadedTile].PixelSize.Height);
-                                            IbRect dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels, tlY, brX, brY);
-
-                                            //gv.DrawBitmap(gv.mod.loadedTileBitmaps[indexOfLoadedTile], src, dst);
-                                            gv.DrawBitmap(gv.mod.loadedTileBitmaps[indexOfLoadedTile], src, dst, tile.Layer1Rotate, tile.Layer1Mirror, tile.Layer1Xshift, tile.Layer1Yshift, tile.Layer1Xscale, tile.Layer1Yscale, tile.Layer1Opacity);
-
-                                        }
-
-                                    }
-
-                                    //layerCounter2
-                                    if (layerCounter == 2 && tile.Layer2Filename != "blank")
-                                    {
-                                        for (int i = 0; i < gv.mod.loadedTileBitmapsNames.Count; i++)
-                                        {
-                                            if (gv.mod.loadedTileBitmapsNames[i] == tile.Layer2Filename)
-                                            {
-                                                tileBitmapIsLoadedAlready = true;
-                                                indexOfLoadedTile = i;
-                                                break;
-                                            }
-                                        }
-
-                                        //hurghx
-                                        if (!tileBitmapIsLoadedAlready)
-                                        {
-                                            gv.mod.loadedTileBitmapsNames.Add(tile.Layer2Filename);
-                                            string backup = gv.mod.currentArea.sourceBitmapName;
-                                            if (index != -1)
-                                            {
-                                                gv.mod.currentArea.sourceBitmapName = gv.mod.moduleAreasObjects[index].sourceBitmapName;
-                                            }
-                                            tile.tileBitmap2 = gv.cc.LoadBitmap(tile.Layer2Filename);
-                                            //tile.tileBitmap0 = gv.cc.LoadBitmapSubdirectory(tile.Layer0Filename, gv.mod.currentArea);
-                                            gv.mod.currentArea.sourceBitmapName = backup;
-
-                                            //tile.tileBitmap2 = gv.cc.LoadBitmap(tile.Layer2Filename);
-
-                                            int tlX = (x - gv.mod.PlayerLocationX + gv.playerOffsetX) * gv.squareSize;
-                                            int tlY = (y - gv.mod.PlayerLocationY + gv.playerOffsetY) * gv.squareSize;
-                                            float scalerX = tile.tileBitmap2.PixelSize.Width / 100;
-                                            float scalerY = tile.tileBitmap2.PixelSize.Height / 100;
-                                            int brX = (int)(gv.squareSize * scalerX);
-                                            int brY = (int)(gv.squareSize * scalerY);
-                                            IbRect src = new IbRect(0, 0, tile.tileBitmap2.PixelSize.Width, tile.tileBitmap2.PixelSize.Height);
-                                            IbRect dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels, tlY, brX, brY);
-
-                                            gv.mod.loadedTileBitmaps.Add(tile.tileBitmap2);
-                                            //gv.DrawBitmap(tile.tileBitmap2, src, dst);
-                                            gv.DrawBitmap(tile.tileBitmap2, src, dst, tile.Layer2Rotate, tile.Layer2Mirror, tile.Layer2Xshift, tile.Layer2Yshift, tile.Layer2Xscale, tile.Layer2Yscale, tile.Layer2Opacity);
-                                        }
-                                        else
-                                        {
-                                            int tlX = (x - gv.mod.PlayerLocationX + gv.playerOffsetX) * gv.squareSize;
-                                            int tlY = (y - gv.mod.PlayerLocationY + gv.playerOffsetY) * gv.squareSize;
-                                            float scalerX = gv.mod.loadedTileBitmaps[indexOfLoadedTile].PixelSize.Width / 100;
-                                            float scalerY = gv.mod.loadedTileBitmaps[indexOfLoadedTile].PixelSize.Height / 100;
-                                            int brX = (int)(gv.squareSize * scalerX);
-                                            int brY = (int)(gv.squareSize * scalerY);
-                                            IbRect src = new IbRect(0, 0, gv.mod.loadedTileBitmaps[indexOfLoadedTile].PixelSize.Width, gv.mod.loadedTileBitmaps[indexOfLoadedTile].PixelSize.Height);
-                                            IbRect dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels, tlY, brX, brY);
-
-                                            //gv.DrawBitmap(gv.mod.loadedTileBitmaps[indexOfLoadedTile], src, dst);
-                                            gv.DrawBitmap(gv.mod.loadedTileBitmaps[indexOfLoadedTile], src, dst, tile.Layer2Rotate, tile.Layer2Mirror, tile.Layer2Xshift, tile.Layer2Yshift, tile.Layer2Xscale, tile.Layer2Yscale, tile.Layer2Opacity);
-
-                                        }
-                                    }
-
-                                    //layerCounter3
-                                    if (layerCounter == 3 && tile.Layer3Filename != "blank")
-                                    {
-                                        for (int i = 0; i < gv.mod.loadedTileBitmapsNames.Count; i++)
-                                        {
-                                            if (gv.mod.loadedTileBitmapsNames[i] == tile.Layer3Filename)
-                                            {
-                                                tileBitmapIsLoadedAlready = true;
-                                                indexOfLoadedTile = i;
-                                                break;
-                                            }
-                                        }
-
-                                        //hurghx
-                                        if (!tileBitmapIsLoadedAlready)
-                                        {
-                                            gv.mod.loadedTileBitmapsNames.Add(tile.Layer3Filename);
-                                            string backup = gv.mod.currentArea.sourceBitmapName;
-                                            if (index != -1)
-                                            {
-                                                gv.mod.currentArea.sourceBitmapName = gv.mod.moduleAreasObjects[index].sourceBitmapName;
-                                            }
-                                            tile.tileBitmap3 = gv.cc.LoadBitmap(tile.Layer3Filename);
-                                            //tile.tileBitmap0 = gv.cc.LoadBitmapSubdirectory(tile.Layer0Filename, gv.mod.currentArea);
-                                            gv.mod.currentArea.sourceBitmapName = backup;
-
-                                            //tile.tileBitmap3 = gv.cc.LoadBitmap(tile.Layer3Filename);
-
-                                            int tlX = (x - gv.mod.PlayerLocationX + gv.playerOffsetX) * gv.squareSize;
-                                            int tlY = (y - gv.mod.PlayerLocationY + gv.playerOffsetY) * gv.squareSize;
-                                            float scalerX = tile.tileBitmap3.PixelSize.Width / 100;
-                                            float scalerY = tile.tileBitmap3.PixelSize.Height / 100;
-                                            int brX = (int)(gv.squareSize * scalerX);
-                                            int brY = (int)(gv.squareSize * scalerY);
-                                            IbRect src = new IbRect(0, 0, tile.tileBitmap3.PixelSize.Width, tile.tileBitmap3.PixelSize.Height);
-                                            IbRect dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels, tlY, brX, brY);
-
-                                            gv.mod.loadedTileBitmaps.Add(tile.tileBitmap3);
-                                            //gv.DrawBitmap(tile.tileBitmap3, src, dst);
-                                            gv.DrawBitmap(tile.tileBitmap3, src, dst, tile.Layer3Rotate, tile.Layer3Mirror, tile.Layer3Xshift, tile.Layer3Yshift, tile.Layer3Xscale, tile.Layer3Yscale, tile.Layer3Opacity);
-                                        }
-                                        else
-                                        {
-                                            int tlX = (x - gv.mod.PlayerLocationX + gv.playerOffsetX) * gv.squareSize;
-                                            int tlY = (y - gv.mod.PlayerLocationY + gv.playerOffsetY) * gv.squareSize;
-                                            float scalerX = gv.mod.loadedTileBitmaps[indexOfLoadedTile].PixelSize.Width / 100;
-                                            float scalerY = gv.mod.loadedTileBitmaps[indexOfLoadedTile].PixelSize.Height / 100;
-                                            int brX = (int)(gv.squareSize * scalerX);
-                                            int brY = (int)(gv.squareSize * scalerY);
-                                            IbRect src = new IbRect(0, 0, gv.mod.loadedTileBitmaps[indexOfLoadedTile].PixelSize.Width, gv.mod.loadedTileBitmaps[indexOfLoadedTile].PixelSize.Height);
-                                            IbRect dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels, tlY, brX, brY);
-
-                                            //gv.DrawBitmap(gv.mod.loadedTileBitmaps[indexOfLoadedTile], src, dst);
-                                            gv.DrawBitmap(gv.mod.loadedTileBitmaps[indexOfLoadedTile], src, dst, tile.Layer3Rotate, tile.Layer3Mirror, tile.Layer3Xshift, tile.Layer3Yshift, tile.Layer3Xscale, tile.Layer3Yscale, tile.Layer3Opacity);
-
-                                        }
-                                    }
-
-                                    if (layerCounter == 4 && tile.Layer4Filename != "blank")
-                                    {
-                                        for (int i = 0; i < gv.mod.loadedTileBitmapsNames.Count; i++)
-                                        {
-                                            if (gv.mod.loadedTileBitmapsNames[i] == tile.Layer4Filename)
-                                            {
-                                                tileBitmapIsLoadedAlready = true;
-                                                indexOfLoadedTile = i;
-                                                break;
-                                            }
-                                        }
-
-                                        //hurghx
-                                        if (!tileBitmapIsLoadedAlready)
-                                        {
-                                            gv.mod.loadedTileBitmapsNames.Add(tile.Layer4Filename);
-                                            string backup = gv.mod.currentArea.sourceBitmapName;
-                                            if (index != -1)
-                                            {
-                                                gv.mod.currentArea.sourceBitmapName = gv.mod.moduleAreasObjects[index].sourceBitmapName;
-                                            }
-                                            tile.tileBitmap4 = gv.cc.LoadBitmap(tile.Layer4Filename);
-                                            //tile.tileBitmap0 = gv.cc.LoadBitmapSubdirectory(tile.Layer0Filename, gv.mod.currentArea);
-                                            gv.mod.currentArea.sourceBitmapName = backup;
-
-                                            //tile.tileBitmap4 = gv.cc.LoadBitmap(tile.Layer4Filename);
-
-                                            int tlX = (x - gv.mod.PlayerLocationX + gv.playerOffsetX) * gv.squareSize;
-                                            int tlY = (y - gv.mod.PlayerLocationY + gv.playerOffsetY) * gv.squareSize;
-                                            float scalerX = tile.tileBitmap4.PixelSize.Width / 100;
-                                            float scalerY = tile.tileBitmap4.PixelSize.Height / 100;
-                                            int brX = (int)(gv.squareSize * scalerX);
-                                            int brY = (int)(gv.squareSize * scalerY);
-                                            IbRect src = new IbRect(0, 0, tile.tileBitmap4.PixelSize.Width, tile.tileBitmap4.PixelSize.Height);
-                                            IbRect dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels, tlY, brX, brY);
-
-                                            gv.mod.loadedTileBitmaps.Add(tile.tileBitmap4);
-                                            //gv.DrawBitmap(tile.tileBitmap4, src, dst);
-                                            gv.DrawBitmap(tile.tileBitmap4, src, dst, tile.Layer4Rotate, tile.Layer4Mirror, tile.Layer4Xshift, tile.Layer4Yshift, tile.Layer4Xscale, tile.Layer4Yscale, tile.Layer4Opacity);
-                                        }
-                                        else
-                                        {
-                                            int tlX = (x - gv.mod.PlayerLocationX + gv.playerOffsetX) * gv.squareSize;
-                                            int tlY = (y - gv.mod.PlayerLocationY + gv.playerOffsetY) * gv.squareSize;
-                                            float scalerX = gv.mod.loadedTileBitmaps[indexOfLoadedTile].PixelSize.Width / 100;
-                                            float scalerY = gv.mod.loadedTileBitmaps[indexOfLoadedTile].PixelSize.Height / 100;
-                                            int brX = (int)(gv.squareSize * scalerX);
-                                            int brY = (int)(gv.squareSize * scalerY);
-                                            IbRect src = new IbRect(0, 0, gv.mod.loadedTileBitmaps[indexOfLoadedTile].PixelSize.Width, gv.mod.loadedTileBitmaps[indexOfLoadedTile].PixelSize.Height);
-                                            IbRect dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels, tlY, brX, brY);
-
-                                            //gv.DrawBitmap(gv.mod.loadedTileBitmaps[indexOfLoadedTile], src, dst);
-                                            gv.DrawBitmap(gv.mod.loadedTileBitmaps[indexOfLoadedTile], src, dst, tile.Layer4Rotate, tile.Layer4Mirror, tile.Layer4Xshift, tile.Layer4Yshift, tile.Layer4Xscale, tile.Layer4Yscale, tile.Layer4Opacity);
-
-                                        }
-
-                                    }
-
-                                    //entrance lights
-                                    if (layerCounter == 5)
-                                    {
-                                        int tlX = (x - gv.mod.PlayerLocationX + gv.playerOffsetX) * gv.squareSize;
-                                        int tlY = (y - gv.mod.PlayerLocationY + gv.playerOffsetY) * gv.squareSize;
-                                        float scalerX = gv.cc.longShadow.PixelSize.Width / 100;
-                                        float scalerY = gv.cc.longShadow.PixelSize.Height / 100;
-                                        int brX = (int)(gv.squareSize * scalerX);
-                                        int brY = (int)(gv.squareSize * scalerY);
-
-                                        IbRect src = new IbRect(0, 0, gv.cc.longShadow.PixelSize.Width, gv.cc.longShadow.PixelSize.Height);
-
-                                        IbRect dstNorth = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels, tlY - gv.squareSize, brX, brY);
-                                        IbRect dstEast = new IbRect(tlX + gv.squareSize + gv.oXshift + mapStartLocXinPixels, tlY, brX, brY);
-                                        IbRect dstSouth = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels, tlY + gv.squareSize, brX, brY);
-                                        IbRect dstWest = new IbRect(tlX - gv.squareSize + gv.oXshift + mapStartLocXinPixels, tlY, brX, brY);
-                                        IbRect dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels, tlY, brX, brY);
-
-                                        //**********************************
-                                        if (tile.transitionToMasterDirection == "E")
-                                        {
-                                            if (gv.mod.currentArea.masterOfThisArea != "none")
-                                            {
-                                                //krah
-                                                // gv.DrawBitmap(gv.cc.entranceLightNorth2, src, dstNorth, 0, false, 0, 0, 1, 1, 0.25f);
-                                                gv.DrawBitmap(gv.cc.black_tile, src, dst, 0, false, 0, 0, 0, 0, 0.5f);
-
-                                                gv.DrawBitmap(gv.cc.entranceLightNorth2, src, dst, 90, false, 0, 0, 1, 1, 0.3f);
-                                                //gv.DrawBitmap()
-                                            }
-                                            else
-                                            {
-                                                gv.DrawBitmap(gv.cc.entranceLightNorth2, src, dstEast, 90, false, 0, 0, 1, 1, 0.3f);
-                                            }
-
-                                        }
-                                        if (tile.transitionToMasterDirection == "W")
-                                        {
-                                            if (gv.mod.currentArea.masterOfThisArea != "none")
-                                            {
-                                                //krah
-                                                gv.DrawBitmap(gv.cc.black_tile, src, dst, 0, false, 0, 0, 0, 0, 0.5f);
-
-                                                gv.DrawBitmap(gv.cc.entranceLightNorth2, src, dst, 270, false, 0, 0, 1, 1, 0.3f);
-                                            }
-                                            else
-                                            {
-                                                gv.DrawBitmap(gv.cc.entranceLightNorth2, src, dstWest, 270, false, 0, 0, 1, 1, 0.3f);
-                                            }
-                                        }
-                                        if (tile.transitionToMasterDirection == "N")
-                                        {
-                                            if (gv.mod.currentArea.masterOfThisArea != "none")
-                                            {
-                                                //krah
-                                                gv.DrawBitmap(gv.cc.black_tile, src, dst, 0, false, 0, 0, 0, 0, 0.5f);
-
-                                                gv.DrawBitmap(gv.cc.entranceLightNorth2, src, dst, 0, false, 0, 0, 1, 1, 0.3f);
-                                            }
-                                            else
-                                            {
-                                                gv.DrawBitmap(gv.cc.entranceLightNorth2, src, dstNorth, 0, false, 0, 0, 1, 1, 0.3f);
-                                            }
-                                        }
-                                        if (tile.transitionToMasterDirection == "S")
-                                        {
-                                            if (gv.mod.currentArea.masterOfThisArea != "none")
-                                            {
-                                                //krah
-                                                gv.DrawBitmap(gv.cc.black_tile, src, dst, 0, false, 0, 0, 0, 0, 0.5f);
-
-                                                gv.DrawBitmap(gv.cc.entranceLightNorth2, src, dst, 180, false, 0, 0, 1, 1, 0.3f);
-                                            }
-                                            else
-                                            {
-                                                gv.DrawBitmap(gv.cc.entranceLightNorth2, src, dstSouth, 180, false, 0, 0, 1, 1, 0.3f);
-                                            }
-                                        }
-
-                                        //**********************************
-
-                                        if (tile.isEWBridge)
-                                        {
-                                            if (tile.drawEntranceLights)
-                                            {
-                                                gv.DrawBitmap(gv.cc.entranceLightNorth2, src, dstNorth, 0, false, 0, 0, 1, 1, 0.25f);
-                                                gv.DrawBitmap(gv.cc.entranceLightNorth2, src, dstSouth, 180, false, 0, 0, 1, 1, 0.25f);
-                                            }
-                                            //DrawD2DBitmap(GetFromBitmapList("shortShadow"), src, dst, 180, false, 0, 0, 1, 1, 0.6f);
-                                            //gv.mod.currentArea.PlayerIsUnderBridge = 
-
-                                        }
-
-                                        if (tile.isNSBridge)
-                                        {
-                                            if (tile.drawEntranceLights)
-                                            {
-                                                gv.DrawBitmap(gv.cc.entranceLightNorth2, src, dstWest, 270, false, 0, 0, 1, 1, 0.25f);
-                                                gv.DrawBitmap(gv.cc.entranceLightNorth2, src, dstEast, 90, false, 0, 0, 1, 1, 0.25f);
-                                            }
-                                        }
-
-                                        if (tile.drawDownStairShadows)
-                                        {
-                                            if (tile.hasDownStairShadowS)
-                                            {
-                                                gv.DrawBitmap(gv.cc.downStairShadow, src, dst, 0, false, 0, 0);
-                                            }
-
-                                            if (tile.hasDownStairShadowW)
-                                            {
-                                                gv.DrawBitmap(gv.cc.downStairShadow, src, dst, 90, false, 0, 0);
-                                            }
-
-                                            if (tile.hasDownStairShadowN)
-                                            {
-                                                gv.DrawBitmap(gv.cc.downStairShadow, src, dst, 180, false, 0, 0);
-                                            }
-
-                                            if (tile.hasDownStairShadowE)
-                                            {
-                                                gv.DrawBitmap(gv.cc.downStairShadow, src, dst, 270, false, 0, 0);
-                                            }
-                                        }
-
-                                    }
-                                
-                                    //layerCounter5
-                                    if (layerCounter == 6 && tile.Layer5Filename != "blank")
-                                    {
-                                        for (int i = 0; i < gv.mod.loadedTileBitmapsNames.Count; i++)
-                                        {
-                                            if (gv.mod.loadedTileBitmapsNames[i] == tile.Layer5Filename)
-                                            {
-                                                tileBitmapIsLoadedAlready = true;
-                                                indexOfLoadedTile = i;
-                                                break;
-                                            }
-                                        }
-
-                                        //hurghx
-                                        if (!tileBitmapIsLoadedAlready)
-                                        {
-                                            gv.mod.loadedTileBitmapsNames.Add(tile.Layer5Filename);
-                                            string backup = gv.mod.currentArea.sourceBitmapName;
-                                            if (index != -1)
-                                            {
-                                                gv.mod.currentArea.sourceBitmapName = gv.mod.moduleAreasObjects[index].sourceBitmapName;
-                                            }
-                                            tile.tileBitmap5 = gv.cc.LoadBitmap(tile.Layer5Filename);
-                                            //tile.tileBitmap0 = gv.cc.LoadBitmapSubdirectory(tile.Layer0Filename, gv.mod.currentArea);
-                                            gv.mod.currentArea.sourceBitmapName = backup;
-
-                                            //tile.tileBitmap5 = gv.cc.LoadBitmap(tile.Layer5Filename);
-
-                                            int tlX = (x - gv.mod.PlayerLocationX + gv.playerOffsetX) * gv.squareSize;
-                                            int tlY = (y - gv.mod.PlayerLocationY + gv.playerOffsetY) * gv.squareSize;
-                                            float scalerX = tile.tileBitmap5.PixelSize.Width / 100;
-                                            float scalerY = tile.tileBitmap5.PixelSize.Height / 100;
-                                            int brX = (int)(gv.squareSize * scalerX);
-                                            int brY = (int)(gv.squareSize * scalerY);
-                                            IbRect src = new IbRect(0, 0, tile.tileBitmap5.PixelSize.Width, tile.tileBitmap5.PixelSize.Height);
-                                            IbRect dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels, tlY, brX, brY);
-
-                                            gv.mod.loadedTileBitmaps.Add(tile.tileBitmap5);
-                                            //gv.DrawBitmap(tile.tileBitmap5, src, dst);
-                                            gv.DrawBitmap(tile.tileBitmap5, src, dst, tile.Layer5Rotate, tile.Layer5Mirror, tile.Layer5Xshift, tile.Layer5Yshift, tile.Layer5Xscale, tile.Layer5Yscale, tile.Layer5Opacity);
-                                        }
-                                        else
-                                        {
-                                            int tlX = (x - gv.mod.PlayerLocationX + gv.playerOffsetX) * gv.squareSize;
-                                            int tlY = (y - gv.mod.PlayerLocationY + gv.playerOffsetY) * gv.squareSize;
-                                            float scalerX = gv.mod.loadedTileBitmaps[indexOfLoadedTile].PixelSize.Width / 100;
-                                            float scalerY = gv.mod.loadedTileBitmaps[indexOfLoadedTile].PixelSize.Height / 100;
-                                            int brX = (int)(gv.squareSize * scalerX);
-                                            int brY = (int)(gv.squareSize * scalerY);
-                                            IbRect src = new IbRect(0, 0, gv.mod.loadedTileBitmaps[indexOfLoadedTile].PixelSize.Width, gv.mod.loadedTileBitmaps[indexOfLoadedTile].PixelSize.Height);
-                                            IbRect dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels, tlY, brX, brY);
-
-                                            //gv.DrawBitmap(gv.mod.loadedTileBitmaps[indexOfLoadedTile], src, dst);
-                                            gv.DrawBitmap(gv.mod.loadedTileBitmaps[indexOfLoadedTile], src, dst, tile.Layer5Rotate, tile.Layer5Mirror, tile.Layer5Xshift, tile.Layer5Yshift, tile.Layer5Xscale, tile.Layer5Yscale, tile.Layer5Opacity);
-
-                                        }
-                                    }
-
-                                   
-
-
-                                    //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXxx
-                                }
-                            }
-                        }
-                    }
-                }
+              
                 //CURRENT SYSTEM, safe
-                else
-                {
+                
 
                     if (gv.mod.currentArea.sourceBitmapName != "")
                     {
@@ -5748,6 +5095,23 @@ namespace IceBlink2
                                     {
 
                                         bool tileBitmapIsLoadedAlready = false;
+
+                                        int indexOfLoadedTile = -1;
+                                        for (int i = gv.mod.loadedTileBitmapsNames.Count - 1; i >= 0; i--)
+                                        {
+                                            if (gv.mod.loadedTileBitmapsNames[i] == tile.Layer0Filename)
+                                            {
+
+                                                gv.mod.loadedTileBitmapsNames.Add(tile.Layer0Filename);
+                                                gv.mod.loadedTileBitmaps.Add(gv.mod.loadedTileBitmaps[i]);
+                                                gv.mod.loadedTileBitmapsNames.RemoveAt(i);
+                                                gv.mod.loadedTileBitmaps.RemoveAt(i);
+                                                tileBitmapIsLoadedAlready = true;
+                                                indexOfLoadedTile = gv.mod.loadedTileBitmapsNames.Count - 1;
+                                                break;
+                                            }
+                                        }
+                                        /*
                                         int indexOfLoadedTile = -1;
                                         for (int i = 0; i < gv.mod.loadedTileBitmapsNames.Count; i++)
                                         {
@@ -5758,17 +5122,25 @@ namespace IceBlink2
                                                 break;
                                             }
                                         }
+                                        */
 
                                         //hurghx
                                         if (!tileBitmapIsLoadedAlready)
                                         {
-                                            gv.mod.loadedTileBitmapsNames.Add(tile.Layer0Filename);
+
+                                      
+
+                                        
+                                        gv.mod.loadedTileBitmapsNames.Add(tile.Layer0Filename);
                                             string backup = gv.mod.currentArea.sourceBitmapName;
                                             if (index != -1)
                                             {
                                                 gv.mod.currentArea.sourceBitmapName = gv.mod.moduleAreasObjects[index].sourceBitmapName;
                                             }
+
+                                            //chnange one below
                                             tile.tileBitmap0 = gv.cc.LoadBitmap(tile.Layer0Filename);
+                                            
                                             //tile.tileBitmap0 = gv.cc.LoadBitmapSubdirectory(tile.Layer0Filename, gv.mod.currentArea);
                                             gv.mod.currentArea.sourceBitmapName = backup;
 
@@ -5783,26 +5155,34 @@ namespace IceBlink2
                                             int brY = (int)(gv.squareSize * scalerY);
                                             IbRect src = new IbRect(0, 0, tile.tileBitmap0.PixelSize.Width, tile.tileBitmap0.PixelSize.Height);
                                             IbRect dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels, tlY, brX, brY);
-                                            gv.mod.loadedTileBitmaps.Add(tile.tileBitmap0);
-                                            //gv.DrawBitmap(tile.tileBitmap0, src, dst); 
 
-                                            //gv.mod.currentArea.drawWithLessVisibleSeamsButMorePixelated = true;
-                                            if (gv.mod.currentArea.drawWithLessVisibleSeamsButMorePixelated)
+                                        //chnage one below
+                                        gv.mod.loadedTileBitmaps.Add(tile.tileBitmap0);
+
+                                        //rechange two below
+                                        //gv.mod.loadedTileBitmaps.Add(gv.cc.LoadBitmap(tile.Layer0Filename));
+                                        //tile.tileBitmap0 = gv.mod.loadedTileBitmaps[gv.mod.loadedTileBitmaps.Count -1];
+
+                                        //gv.DrawBitmap(tile.tileBitmap0, src, dst); 
+
+                                        //gv.mod.currentArea.drawWithLessVisibleSeamsButMorePixelated = true;
+                                        if (x <= LimitMaxX && x >= LimitMinX && y <= LimitMaxY && y >= LimitMinY)
                                             {
-                                                gv.DrawBitmap(tile.tileBitmap0, src, dst, false, 1f, true);
-                                            }
-                                            else
-                                            {
-                                                gv.DrawBitmap(tile.tileBitmap0, src, dst, false, 1f, false);
+                                                if (gv.mod.currentArea.drawWithLessVisibleSeamsButMorePixelated)
+                                                {
+                                                    gv.DrawBitmap(tile.tileBitmap0, src, dst, false, 1f, true);
+                                                }
+                                                else
+                                                {
+                                                    gv.DrawBitmap(tile.tileBitmap0, src, dst, false, 1f, false);
+                                                }
                                             }
 
-                                        }
+                                      
+
+                                    }
                                         else
                                         {
-                                            if (x == -1)
-                                            {
-                                                int dsdsad = 0; 
-                                            }
                                             int tlX = (x - gv.mod.PlayerLocationX + gv.playerOffsetX) * gv.squareSize;
                                             int tlY = (y - gv.mod.PlayerLocationY + gv.playerOffsetY) * gv.squareSize;
                                             //float scalerX = tile.tileBitmap0.PixelSize.Width / 100;
@@ -5817,13 +5197,16 @@ namespace IceBlink2
                                             //gv.DrawBitmap(gv.mod.loadedTileBitmaps[indexOfLoadedTile], src, dst);
 
                                             //gv.mod.currentArea.drawWithLessVisibleSeamsButMorePixelated = true;
-                                            if (gv.mod.currentArea.drawWithLessVisibleSeamsButMorePixelated)
+                                            if (x <= LimitMaxX && x >= LimitMinX && y <= LimitMaxY && y >= LimitMinY)
                                             {
-                                                gv.DrawBitmap(gv.mod.loadedTileBitmaps[indexOfLoadedTile], src, dst, false, 1f, true);
-                                            }
-                                            else
-                                            {
-                                                gv.DrawBitmap(gv.mod.loadedTileBitmaps[indexOfLoadedTile], src, dst, false, 1f, false);
+                                                if (gv.mod.currentArea.drawWithLessVisibleSeamsButMorePixelated)
+                                                {
+                                                    gv.DrawBitmap(gv.mod.loadedTileBitmaps[indexOfLoadedTile], src, dst, false, 1f, true);
+                                                }
+                                                else
+                                                {
+                                                    gv.DrawBitmap(gv.mod.loadedTileBitmaps[indexOfLoadedTile], src, dst, false, 1f, false);
+                                                }
                                             }
 
 
@@ -5993,6 +5376,23 @@ namespace IceBlink2
                                 {
 
                                     bool tileBitmapIsLoadedAlready = false;
+
+                                    int indexOfLoadedTile = -1;
+                                    for (int i = gv.mod.loadedTileBitmapsNames.Count - 1; i >= 0; i--)
+                                    {
+                                        if (gv.mod.loadedTileBitmapsNames[i] == tile.Layer1Filename)
+                                        {
+
+                                            gv.mod.loadedTileBitmapsNames.Add(tile.Layer1Filename);
+                                            gv.mod.loadedTileBitmaps.Add(gv.mod.loadedTileBitmaps[i]);
+                                            gv.mod.loadedTileBitmapsNames.RemoveAt(i);
+                                            gv.mod.loadedTileBitmaps.RemoveAt(i);
+                                            tileBitmapIsLoadedAlready = true;
+                                            indexOfLoadedTile = gv.mod.loadedTileBitmapsNames.Count - 1;
+                                            break;
+                                        }
+                                    }
+                                    /*
                                     int indexOfLoadedTile = -1;
                                     for (int i = 0; i < gv.mod.loadedTileBitmapsNames.Count; i++)
                                     {
@@ -6003,6 +5403,7 @@ namespace IceBlink2
                                             break;
                                         }
                                     }
+                                    */
 
                                     //hurghx
                                     if (!tileBitmapIsLoadedAlready)
@@ -6030,7 +5431,10 @@ namespace IceBlink2
 
                                         gv.mod.loadedTileBitmaps.Add(tile.tileBitmap1);
                                         //gv.DrawBitmap(tile.tileBitmap1, src, dst);
-                                        gv.DrawBitmap(tile.tileBitmap1, src, dst, tile.Layer1Rotate, tile.Layer1Mirror, tile.Layer1Xshift, tile.Layer1Yshift, tile.Layer1Xscale, tile.Layer1Yscale, tile.Layer1Opacity);
+                                        if (x <= LimitMaxX && x >= LimitMinX && y <= LimitMaxY && y >= LimitMinY)
+                                        {
+                                            gv.DrawBitmap(tile.tileBitmap1, src, dst, tile.Layer1Rotate, tile.Layer1Mirror, tile.Layer1Xshift, tile.Layer1Yshift, tile.Layer1Xscale, tile.Layer1Yscale, tile.Layer1Opacity);
+                                        }
                                     }
                                     else
                                     {
@@ -6044,8 +5448,10 @@ namespace IceBlink2
                                         IbRect dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels, tlY, brX, brY);
 
                                         //gv.DrawBitmap(gv.mod.loadedTileBitmaps[indexOfLoadedTile], src, dst);
-                                        gv.DrawBitmap(gv.mod.loadedTileBitmaps[indexOfLoadedTile], src, dst, tile.Layer1Rotate, tile.Layer1Mirror, tile.Layer1Xshift, tile.Layer1Yshift, tile.Layer1Xscale, tile.Layer1Yscale, tile.Layer1Opacity);
-
+                                        if (x <= LimitMaxX && x >= LimitMinX && y <= LimitMaxY && y >= LimitMinY)
+                                        {
+                                            gv.DrawBitmap(gv.mod.loadedTileBitmaps[indexOfLoadedTile], src, dst, tile.Layer1Rotate, tile.Layer1Mirror, tile.Layer1Xshift, tile.Layer1Yshift, tile.Layer1Xscale, tile.Layer1Yscale, tile.Layer1Opacity);
+                                        }
                                     }
 
                                     //gv.DrawBitmap(gv.cc.tileBitmapList[tile.Layer1Filename], src, dst);
@@ -6208,12 +5614,17 @@ namespace IceBlink2
 
                                     bool tileBitmapIsLoadedAlready = false;
                                     int indexOfLoadedTile = -1;
-                                    for (int i = 0; i < gv.mod.loadedTileBitmapsNames.Count; i++)
+                                    for (int i = gv.mod.loadedTileBitmapsNames.Count - 1; i >= 0; i--)
                                     {
                                         if (gv.mod.loadedTileBitmapsNames[i] == tile.Layer2Filename)
                                         {
+
+                                            gv.mod.loadedTileBitmapsNames.Add(tile.Layer2Filename);
+                                            gv.mod.loadedTileBitmaps.Add(gv.mod.loadedTileBitmaps[i]);
+                                            gv.mod.loadedTileBitmapsNames.RemoveAt(i);
+                                            gv.mod.loadedTileBitmaps.RemoveAt(i);
                                             tileBitmapIsLoadedAlready = true;
-                                            indexOfLoadedTile = i;
+                                            indexOfLoadedTile = gv.mod.loadedTileBitmapsNames.Count - 1;
                                             break;
                                         }
                                     }
@@ -6422,12 +5833,17 @@ namespace IceBlink2
 
                                     bool tileBitmapIsLoadedAlready = false;
                                     int indexOfLoadedTile = -1;
-                                    for (int i = 0; i < gv.mod.loadedTileBitmapsNames.Count; i++)
+                                    for (int i = gv.mod.loadedTileBitmapsNames.Count - 1; i >= 0; i--)
                                     {
                                         if (gv.mod.loadedTileBitmapsNames[i] == tile.Layer3Filename)
                                         {
+
+                                            gv.mod.loadedTileBitmapsNames.Add(tile.Layer3Filename);
+                                            gv.mod.loadedTileBitmaps.Add(gv.mod.loadedTileBitmaps[i]);
+                                            gv.mod.loadedTileBitmapsNames.RemoveAt(i);
+                                            gv.mod.loadedTileBitmaps.RemoveAt(i);
                                             tileBitmapIsLoadedAlready = true;
-                                            indexOfLoadedTile = i;
+                                            indexOfLoadedTile = gv.mod.loadedTileBitmapsNames.Count - 1;
                                             break;
                                         }
                                     }
@@ -6635,12 +6051,17 @@ namespace IceBlink2
 
                                     bool tileBitmapIsLoadedAlready = false;
                                     int indexOfLoadedTile = -1;
-                                    for (int i = 0; i < gv.mod.loadedTileBitmapsNames.Count; i++)
+                                    for (int i = gv.mod.loadedTileBitmapsNames.Count - 1; i >= 0; i--)
                                     {
                                         if (gv.mod.loadedTileBitmapsNames[i] == tile.Layer4Filename)
                                         {
+
+                                            gv.mod.loadedTileBitmapsNames.Add(tile.Layer4Filename);
+                                            gv.mod.loadedTileBitmaps.Add(gv.mod.loadedTileBitmaps[i]);
+                                            gv.mod.loadedTileBitmapsNames.RemoveAt(i);
+                                            gv.mod.loadedTileBitmaps.RemoveAt(i);
                                             tileBitmapIsLoadedAlready = true;
-                                            indexOfLoadedTile = i;
+                                            indexOfLoadedTile = gv.mod.loadedTileBitmapsNames.Count - 1;
                                             break;
                                         }
                                     }
@@ -7136,12 +6557,17 @@ namespace IceBlink2
 
                                     bool tileBitmapIsLoadedAlready = false;
                                     int indexOfLoadedTile = -1;
-                                    for (int i = 0; i < gv.mod.loadedTileBitmapsNames.Count; i++)
+                                    for (int i = gv.mod.loadedTileBitmapsNames.Count - 1; i >= 0; i--)
                                     {
                                         if (gv.mod.loadedTileBitmapsNames[i] == tile.Layer5Filename)
                                         {
+
+                                            gv.mod.loadedTileBitmapsNames.Add(tile.Layer5Filename);
+                                            gv.mod.loadedTileBitmaps.Add(gv.mod.loadedTileBitmaps[i]);
+                                            gv.mod.loadedTileBitmapsNames.RemoveAt(i);
+                                            gv.mod.loadedTileBitmaps.RemoveAt(i);
                                             tileBitmapIsLoadedAlready = true;
-                                            indexOfLoadedTile = i;
+                                            indexOfLoadedTile = gv.mod.loadedTileBitmapsNames.Count - 1;
                                             break;
                                         }
                                     }
@@ -7265,7 +6691,7 @@ namespace IceBlink2
                     #endregion
 
                     #endregion
-                }
+                //}
             }
             else //old system using single image background and no load tile images on demand
             {
@@ -29960,20 +29386,27 @@ namespace IceBlink2
                                 //insert1                        
                                 bool tileBitmapIsLoadedAlready = false;
                                 //int indexOfLoadedTile = -1;
-                                for (int j = 0; j < gv.mod.loadedTileBitmapsNames.Count; j++)
+                                for (int j = gv.mod.loadedTileBitmapsNames.Count-1; j >= 0; j--)
                                 {
                                     if ((gv.mod.loadedTileBitmapsNames[j] == p.ImageFileName) && (!gv.mod.loadedTileBitmaps[j].IsDisposed))
                                     {
-                                        tileBitmapIsLoadedAlready = true;
-                                        indexOfLoadedTile = j;
-                                        p.token = gv.mod.loadedTileBitmaps[j];
-                                        break;
+
+                                            gv.mod.loadedTileBitmapsNames.Add(p.ImageFileName);
+                                            gv.mod.loadedTileBitmaps.Add(gv.mod.loadedTileBitmaps[j]);
+                                            gv.mod.loadedTileBitmapsNames.RemoveAt(j);
+                                            gv.mod.loadedTileBitmaps.RemoveAt(j);
+                                            tileBitmapIsLoadedAlready = true;
+                                        indexOfLoadedTile = gv.mod.loadedTileBitmapsNames.Count - 1;
+                                            p.token = gv.mod.loadedTileBitmaps[gv.mod.loadedTileBitmaps.Count - 1];
+                                            break;
                                     }
                                 }
 
-                                //gehörtdiewelt
-                                //insert2
-                                if (!tileBitmapIsLoadedAlready)
+                                   
+
+                                    //gehörtdiewelt
+                                    //insert2
+                                    if (!tileBitmapIsLoadedAlready)
                                 {
                                     gv.mod.loadedTileBitmapsNames.Add(p.ImageFileName);
                                     p.token = gv.cc.LoadBitmap(p.ImageFileName);
@@ -30905,13 +30338,18 @@ namespace IceBlink2
                                 //insert1                        
                                 bool tileBitmapIsLoadedAlready = false;
                                 //int indexOfLoadedTile = -1;
-                                for (int j = 0; j < gv.mod.loadedTileBitmapsNames.Count; j++)
+                                for (int j = gv.mod.loadedTileBitmapsNames.Count - 1; j >= 0; j--)
                                 {
                                     if ((gv.mod.loadedTileBitmapsNames[j] == p.ImageFileName) && (!gv.mod.loadedTileBitmaps[j].IsDisposed))
                                     {
+
+                                        gv.mod.loadedTileBitmapsNames.Add(p.ImageFileName);
+                                        gv.mod.loadedTileBitmaps.Add(gv.mod.loadedTileBitmaps[j]);
+                                        gv.mod.loadedTileBitmapsNames.RemoveAt(j);
+                                        gv.mod.loadedTileBitmaps.RemoveAt(j);
                                         tileBitmapIsLoadedAlready = true;
-                                        indexOfLoadedTile = j;
-                                        p.token = gv.mod.loadedTileBitmaps[j];
+                                        indexOfLoadedTile = gv.mod.loadedTileBitmapsNames.Count - 1;
+                                        p.token = gv.mod.loadedTileBitmaps[gv.mod.loadedTileBitmaps.Count - 1];
                                         break;
                                     }
                                 }
@@ -31841,12 +31279,18 @@ namespace IceBlink2
                                     //insert1                        
                                     bool tileBitmapIsLoadedAlready = false;
                                     //int indexOfLoadedTile = -1;
-                                    for (int j = 0; j < gv.mod.loadedTileBitmapsNames.Count; j++)
+                                    for (int j = gv.mod.loadedTileBitmapsNames.Count - 1; j >= 0; j--)
                                     {
                                         if ((gv.mod.loadedTileBitmapsNames[j] == p.ImageFileName) && (!gv.mod.loadedTileBitmaps[j].IsDisposed))
                                         {
+
+                                            gv.mod.loadedTileBitmapsNames.Add(p.ImageFileName);
+                                            gv.mod.loadedTileBitmaps.Add(gv.mod.loadedTileBitmaps[j]);
+                                            gv.mod.loadedTileBitmapsNames.RemoveAt(j);
+                                            gv.mod.loadedTileBitmaps.RemoveAt(j);
                                             tileBitmapIsLoadedAlready = true;
-                                            indexOfLoadedTile = j;
+                                            indexOfLoadedTile = gv.mod.loadedTileBitmapsNames.Count - 1;
+                                            p.token = gv.mod.loadedTileBitmaps[gv.mod.loadedTileBitmaps.Count - 1];
                                             break;
                                         }
                                     }
@@ -32321,13 +31765,18 @@ namespace IceBlink2
                             //insert1                        
                             bool tileBitmapIsLoadedAlready = false;
                             int indexOfLoadedTile = -1;
-                            for (int j = 0; j < gv.mod.loadedTileBitmapsNames.Count; j++)
+                            for (int j = gv.mod.loadedTileBitmapsNames.Count - 1; j >= 0; j--)
                             {
                                 if ((gv.mod.loadedTileBitmapsNames[j] == p.ImageFileName) && (!gv.mod.loadedTileBitmaps[j].IsDisposed))
                                 {
+
+                                    gv.mod.loadedTileBitmapsNames.Add(p.ImageFileName);
+                                    gv.mod.loadedTileBitmaps.Add(gv.mod.loadedTileBitmaps[j]);
+                                    gv.mod.loadedTileBitmapsNames.RemoveAt(j);
+                                    gv.mod.loadedTileBitmaps.RemoveAt(j);
                                     tileBitmapIsLoadedAlready = true;
-                                    indexOfLoadedTile = j;
-                                    p.token = gv.mod.loadedTileBitmaps[j];
+                                    indexOfLoadedTile = gv.mod.loadedTileBitmapsNames.Count - 1;
+                                    p.token = gv.mod.loadedTileBitmaps[gv.mod.loadedTileBitmaps.Count-1];
                                     break;
                                 }
                             }
@@ -36438,13 +35887,37 @@ namespace IceBlink2
                         //draw font itself (white)
                         if (!gv.mod.useComplexCoordinateSystem)
                         {
-                            gv.DrawTextLeftOutlinedRect(hour + ":" + sMinute + ", " + gv.mod.weekDayNameToDisplay + ", " + gv.mod.monthDayCounterNumberToDisplay + gv.mod.monthDayCounterAddendumToDisplay + " of " + gv.mod.monthNameToDisplay + " " + gv.mod.currentYear.ToString(), new IbRect(gv.oXshift + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH - gv.pS - (int)(2.5 * gv.pS * 0) + 2 * gv.pS, 600, 100), 1.0f, Color.White);
+                            if (!gv.mod.currentArea.isOverviewMap)
+                            {
+                                gv.DrawTextLeftOutlinedRect(hour + ":" + sMinute + ", " + gv.mod.weekDayNameToDisplay + ", " + gv.mod.monthDayCounterNumberToDisplay + gv.mod.monthDayCounterAddendumToDisplay + " of " + gv.mod.monthNameToDisplay + " " + gv.mod.currentYear.ToString(), new IbRect(gv.oXshift + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH - gv.pS - (int)(2.5 * gv.pS * 0) + 2 * gv.pS, 600, 100), 1.0f, Color.White);
+                            }
+                            else
+                            {
+                                gv.DrawTextLeftOutlinedRect(hour + ":" + sMinute + ", " + gv.mod.weekDayNameToDisplay + ", " + gv.mod.monthDayCounterNumberToDisplay + gv.mod.monthDayCounterAddendumToDisplay + " of " + gv.mod.monthNameToDisplay + " " + gv.mod.currentYear.ToString(), new IbRect(gv.oXshift + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH - gv.pS - (int)(2.5 * gv.pS * 0) + 2 * gv.pS + (int)(gv.squareSize/2f), 600, 100), 1.0f, Color.White);
+
+                            }
                         }
                         else
                         {
-                            gv.DrawTextLeftOutlinedRect(gv.mod.weekDayNameToDisplay + ", " + gv.mod.monthDayCounterNumberToDisplay + gv.mod.monthDayCounterAddendumToDisplay + " of " + gv.mod.monthNameToDisplay + " " + gv.mod.currentYear.ToString(), new IbRect(gv.oXshift + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH - gv.pS - (int)(2.5 * gv.pS * 0) + 2 * gv.pS, 600, 100), 1.0f, Color.White);
+                            if (!gv.mod.currentArea.isOverviewMap)
+                            {
+                                gv.DrawTextLeftOutlinedRect(gv.mod.weekDayNameToDisplay + ", " + gv.mod.monthDayCounterNumberToDisplay + gv.mod.monthDayCounterAddendumToDisplay + " of " + gv.mod.monthNameToDisplay + " " + gv.mod.currentYear.ToString(), new IbRect(gv.oXshift + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH - gv.pS - (int)(2.5 * gv.pS * 0) + 2 * gv.pS, 600, 100), 1.0f, Color.White);
+                            }
+                            else
+                            {
+                                gv.DrawTextLeftOutlinedRect(gv.mod.weekDayNameToDisplay + ", " + gv.mod.monthDayCounterNumberToDisplay + gv.mod.monthDayCounterAddendumToDisplay + " of " + gv.mod.monthNameToDisplay + " " + gv.mod.currentYear.ToString(), new IbRect(gv.oXshift + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH - gv.pS - (int)(2.5 * gv.pS * 0) + 2 * gv.pS + (int)(gv.squareSize / 2f), 600, 100), 1.0f, Color.White);
+
+                            }
                         }
-                        gv.DrawTextLeftOutlinedRect(zoom0Line, new IbRect(gv.oXshift + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH + (int)(2.5 * gv.pS) + (int)(2.5 * gv.pS * 0) + 2 * gv.pS, 600, 100), 1.0f, Color.White);
+                        if (!gv.mod.currentArea.isOverviewMap)
+                        {
+                            gv.DrawTextLeftOutlinedRect(zoom0Line, new IbRect(gv.oXshift + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH + (int)(2.5 * gv.pS) + (int)(2.5 * gv.pS * 0) + 2 * gv.pS, 600, 100), 1.0f, Color.White);
+                        }
+                        else
+                        {
+                            gv.DrawTextLeftOutlinedRect(zoom0Line, new IbRect(gv.oXshift + (gv.playerOffsetY - 5) * gv.squareSize + 2 * gv.pS, gv.playerOffsetX * gv.squareSize - txtH + (int)(2.5 * gv.pS) + (int)(2.5 * gv.pS * 0) + 2 * gv.pS + (int)(gv.squareSize / 2f), 600, 100), 1.0f, Color.White);
+
+                        }
 
                     }
                 }
@@ -40699,7 +40172,7 @@ namespace IceBlink2
 
                     if ((isDownCall) && (gv.mod.indexOfSouthernNeighbour != -1))
                     {
-                        if (((x+1) * gv.squareSize >= (((gv.playerOffsetX+1) * gv.squareSize) - pixDistanceToBorderOfThisAreaWest)) && ((x+2) * gv.squareSize <= gv.screenWidth / 2 + pixDistanceToBorderOfThisAreaEast))
+                        if (((x+1) * gv.squareSize >= (((gv.playerOffsetX+1) * gv.squareSize) - pixDistanceToBorderOfThisAreaWest)) && ((x+1) * gv.squareSize <= gv.screenWidth / 2 + pixDistanceToBorderOfThisAreaEast))
                         {
                             if (row > gv.playerOffsetY)
                             {

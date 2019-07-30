@@ -3002,8 +3002,97 @@ namespace IceBlink2
         }
         */
 
+            public void writeBmpNearbyNameList()
+            {
+
+            Coordinate targetCoord = new Coordinate();
+            Coordinate partyCoord = new Coordinate();
+            partyCoord.X = gv.mod.PlayerLocationX;
+            partyCoord.Y = gv.mod.PlayerLocationY;
+            //sebastian2
+            //todo long range version
+            foreach (int i in gv.cc.getNearbyAreasLongRange())
+                {
+                    //if (gv.mod.moduleAreasObjects[i].Filename == gv.mod.currentArea.Filename)
+                    //{
+                        
+                        //tile graphics
+                        for (int j = 0; j < gv.mod.moduleAreasObjects[i].Tiles.Count; j++)
+                        {
+                            targetCoord = recalcTileCoord(i, j % gv.mod.moduleAreasObjects[i].MapSizeX, j / gv.mod.moduleAreasObjects[i].MapSizeY);
+                            //targetCoord.Y = j / gv.mod.moduleAreasObjects[i].MapSizeY;
+                            if (getDistance(partyCoord, targetCoord) <= 13)
+                            {
+                                if (!gv.mod.bmpNearbyNameList.Contains(gv.mod.moduleAreasObjects[i].Tiles[j].Layer0Filename))
+                                {
+                                    gv.mod.bmpNearbyNameList.Add(gv.mod.moduleAreasObjects[i].Tiles[j].Layer0Filename);
+                                }
+                                if (!gv.mod.bmpNearbyNameList.Contains(gv.mod.moduleAreasObjects[i].Tiles[j].Layer1Filename))
+                                {
+                                    gv.mod.bmpNearbyNameList.Add(gv.mod.moduleAreasObjects[i].Tiles[j].Layer1Filename);
+                                }
+                                if (!gv.mod.bmpNearbyNameList.Contains(gv.mod.moduleAreasObjects[i].Tiles[j].Layer2Filename))
+                                {
+                                    gv.mod.bmpNearbyNameList.Add(gv.mod.moduleAreasObjects[i].Tiles[j].Layer2Filename);
+                                }
+                                if (!gv.mod.bmpNearbyNameList.Contains(gv.mod.moduleAreasObjects[i].Tiles[j].Layer3Filename))
+                                {
+                                    gv.mod.bmpNearbyNameList.Add(gv.mod.moduleAreasObjects[i].Tiles[j].Layer3Filename);
+                                }
+                                if (!gv.mod.bmpNearbyNameList.Contains(gv.mod.moduleAreasObjects[i].Tiles[j].Layer4Filename))
+                                {
+                                    gv.mod.bmpNearbyNameList.Add(gv.mod.moduleAreasObjects[i].Tiles[j].Layer4Filename);
+                                }
+                                if (!gv.mod.bmpNearbyNameList.Contains(gv.mod.moduleAreasObjects[i].Tiles[j].Layer5Filename))
+                                {
+                                    gv.mod.bmpNearbyNameList.Add(gv.mod.moduleAreasObjects[i].Tiles[j].Layer5Filename);
+                                }
+                            }
+
+                        }
+
+                        //prop graphics
+                        foreach (Prop p in gv.mod.moduleAreasObjects[i].Props)
+                        {
+                            //sebastian
+                            //p.relocX
+                            targetCoord.X = p.relocX;
+                            targetCoord.Y = p.relocY;
+                            if (getDistance(partyCoord, targetCoord) <= 13)
+                            {
+                            if (!gv.mod.bmpNearbyNameList.Contains(p.ImageFileName))
+                            {
+                                gv.mod.bmpNearbyNameList.Add(p.ImageFileName);
+                            }
+                        }
+                    }
+                //}
+                    
+
+            }
+        }
+
+
         public void doUpdate()
         {
+            /*
+            if (!gv.mod.isScrollingNow)
+            {
+                writeBmpNearbyNameList();
+                foreach (string name in gv.mod.bmpNearbyNameList)
+                {
+                    if (!gv.mod.loadedTileBitmapsNames.Contains(name))
+                    {
+                        //sebastian3
+                        gv.mod.loadedTileBitmapsNames.Add(name);
+                        gv.mod.loadedTileBitmaps.Add(gv.cc.LoadBitmap(name));
+                        //tile.tileBitmap5 = gv.cc.LoadBitmap(tile.Layer5Filename);
+
+                    }
+                }
+            }
+            */
+
             if (gv.mod.overrideVisibilityRange != -1)
             {
                 gv.mod.currentArea.AreaVisibleDistance = gv.mod.overrideVisibilityRange;
@@ -3852,65 +3941,11 @@ namespace IceBlink2
 
                 if (gv.mod.useAllTileSystem)
                 {
-                    /*
-                    if (gv.mod.loadedTileBitmaps.Count > 2000)
+                    if (gv.mod.loadedTileBitmaps.Count > 850)
                     {
-                        try
-                        {
-                            foreach (Bitmap bm in gv.mod.loadedTileBitmaps)
-                            {
-                                bm.Dispose();
-                            }
-
-                            //these two lists keep an exact order so each bitmap stored in one corrsponds with a name in the other
-                            gv.mod.loadedTileBitmaps.Clear();
-                            gv.mod.loadedTileBitmapsNames.Clear();
-                        }
-                        catch
-                        {
-                            int i = 10;
-                        }
-
-                    }
-                    */
-
-                    //gv.mod.loadedTileBitmaps.Clear();
-                    // restore old
-                    //cull all down if too high value is reached (last resort)
-                    //400
-                    if (gv.mod.loadedTileBitmaps.Count > 2500)
-                    {
-                        try
-                        {
-                            foreach (Bitmap bm in gv.mod.loadedTileBitmaps)
-                            {
-                                bm.Dispose();
-                            }
-
-                            //these two lists keep an exact order so each bitmap stored in one corrsponds with a name in the other
-                            gv.mod.loadedTileBitmaps.Clear();
-                            gv.mod.loadedTileBitmapsNames.Clear();
-                        }
-                        catch
-                        {
-                            int i = 10;
-                        }
-
-                    }
-                    //250
-                    //gut 1000
-                    if (gv.mod.loadedTileBitmaps.Count < 750)
-                    {
-
-                    }
-                    else if (gv.mod.loadedTileBitmaps.Count < 1000)
-                    //if (gv.mod.loadedTileBitmaps.Count > 500)
-                    {
-                        //addLogText("yellow", "Disposing tiles.");
-                        //divided by 10
-                        //gut 10
-                        int cullNumber = ((90 / 15) + 2);
-                        //int cullNumber = ((gv.mod.loadedTileBitmaps.Count / 15) + 2);
+                        int cullNumber = 50;
+                        addLogText("white", gv.mod.loadedTileBitmaps.Count.ToString());
+                        addLogText("white", cullNumber.ToString());
                         try
                         {
                             if (gv.mod.loadedTileBitmaps != null)
@@ -3921,13 +3956,18 @@ namespace IceBlink2
                                     //gv.mod.loadedTileBitmaps[i].Dispose();
                                     //gv.mod.loadedTileBitmaps.RemoveAt(i);
                                     //gv.mod.loadedTileBitmapsNames.RemoveAt(i);
-
-                                    gv.mod.loadedTileBitmaps[i].Dispose();
-                                    gv.mod.loadedTileBitmaps.RemoveAt(i);
-                                    gv.mod.loadedTileBitmapsNames.RemoveAt(i);
+                                    if (!gv.mod.bmpNearbyNameList.Contains(gv.mod.loadedTileBitmapsNames[i]))
+                                    {
+                                        gv.mod.loadedTileBitmaps[i].Dispose();
+                                        gv.mod.loadedTileBitmaps.RemoveAt(i);
+                                        gv.mod.loadedTileBitmapsNames.RemoveAt(i);
+                                    }
+                                    else
+                                    {
+                                        cullNumber++;
+                                    }
 
                                     //addLogText("red", "Removal Counter is:" + i.ToString());
-
                                 }
 
                             }
@@ -3940,112 +3980,327 @@ namespace IceBlink2
                             int i = 10;
                         }
                     }
-                    else if (gv.mod.loadedTileBitmaps.Count < 1500)
-                    //if (gv.mod.loadedTileBitmaps.Count > 500)
-                    {
-                        //addLogText("yellow", "Disposing tiles.");
-                        //divided by 10
-                        //gut 10
-                        int cullNumber = ((150 / 15) + 2);
-                        //int cullNumber = ((gv.mod.loadedTileBitmaps.Count / 15) + 2);
-                        try
+
+                        /*
+                        //*********************************************
+                        if (gv.mod.loadedTileBitmaps.Count < 500)
                         {
-                            if (gv.mod.loadedTileBitmaps != null)
+                            //if (gv.mod.debugMode)
                             {
-                                //remove 12 entries per move, 3 more than usual 9 squares uncovered
-                                for (int i = 0; i < cullNumber; i++)
-                                {
-                                    gv.mod.loadedTileBitmaps[i].Dispose();
-                                    gv.mod.loadedTileBitmaps.RemoveAt(i);
-                                    gv.mod.loadedTileBitmapsNames.RemoveAt(i);
-
-                                    //addLogText("red", "Removal Counter is:" + i.ToString());
-
-                                }
-
+                                addLogText("white", gv.mod.loadedTileBitmaps.Count.ToString());
+                                addLogText("white", "No Culling");
                             }
-
-                            //these two lists keep an exact order so each bitmap stored in one corresponds with a name in the other
                         }
-                        catch
-                        {
-                            //addLogText("red", "caught error");
-                            int i = 10;
-                        }
-                    }
-
-                    else if (gv.mod.loadedTileBitmaps.Count < 2000)
+                        else
                         //if (gv.mod.loadedTileBitmaps.Count > 500)
-                    {
-                        //addLogText("yellow", "Disposing tiles.");
-                        //divided by 10
-                        //gut 10
-                        int cullNumber = ((250 / 15) + 2);
-                        //int cullNumber = ((gv.mod.loadedTileBitmaps.Count / 15) + 2);
-                        try
                         {
-                            if (gv.mod.loadedTileBitmaps != null)
+                            //addLogText("yellow", "Disposing tiles.");
+                            //divided by 10
+                            //gut 10
+                            int cullNumber = (gv.mod.loadedTileBitmaps.Count - 500) / 100 + 2;
+                            if (gv.mod.loadedTileBitmaps.Count > 1000)
                             {
-                                //remove 12 entries per move, 3 more than usual 9 squares uncovered
-                                for (int i = 0; i < cullNumber; i++)
+                                cullNumber += 3;
+                            }
+                            if (gv.mod.loadedTileBitmaps.Count > 1500)
+                            {
+                                cullNumber += 4;
+                            }
+                            if (gv.mod.loadedTileBitmaps.Count > 2000)
+                            {
+                                cullNumber += 5;
+                            }
+                            if (gv.mod.loadedTileBitmaps.Count > 2500)
+                            {
+                                cullNumber += 6;
+                            }
+                            if (gv.mod.loadedTileBitmaps.Count > 3000)
+                            {
+                                cullNumber += 7;
+                            }
+                            if (gv.mod.loadedTileBitmaps.Count > 3500)
+                            {
+                                cullNumber += 8;
+                            }
+                            if (gv.mod.loadedTileBitmaps.Count > 4000)
+                            {
+                                cullNumber += 9;
+                            }
+                            //if (gv.mod.debugMode)
+                            {
+                                addLogText("white", gv.mod.loadedTileBitmaps.Count.ToString());
+                                addLogText("white", cullNumber.ToString());
+                            }
+                            //int cullNumber = ((gv.mod.loadedTileBitmaps.Count / 15) + 2);
+                            try
+                            {
+                                if (gv.mod.loadedTileBitmaps != null)
                                 {
-                                    gv.mod.loadedTileBitmaps[i].Dispose();
-                                    gv.mod.loadedTileBitmaps.RemoveAt(i);
-                                    gv.mod.loadedTileBitmapsNames.RemoveAt(i);
+                                    //remove 12 entries per move, 3 more than usual 9 squares uncovered
+                                    for (int i = 0; i < cullNumber; i++)
+                                    {
+                                        //gv.mod.loadedTileBitmaps[i].Dispose();
+                                        //gv.mod.loadedTileBitmaps.RemoveAt(i);
+                                        //gv.mod.loadedTileBitmapsNames.RemoveAt(i);
+                                        if (!gv.mod.bmpNearbyNameList.Contains(gv.mod.loadedTileBitmapsNames[i]))
+                                        {
+                                            gv.mod.loadedTileBitmaps[i].Dispose();
+                                            gv.mod.loadedTileBitmaps.RemoveAt(i);
+                                            gv.mod.loadedTileBitmapsNames.RemoveAt(i);
+                                        }
+                                        else
+                                        {
+                                            cullNumber++;
+                                        }
 
-                                    //addLogText("red", "Removal Counter is:" + i.ToString());
+                                        //addLogText("red", "Removal Counter is:" + i.ToString());
+
+                                    }
 
                                 }
 
+                                //these two lists keep an exact order so each bitmap stored in one corresponds with a name in the other
+                            }
+                            catch
+                            {
+                                //addLogText("red", "caught error");
+                                int i = 10;
+                            }
+                        }
+                        */
+                        //**************************************************
+                        /* remove end
+                        if (gv.mod.loadedTileBitmaps.Count > 2500)
+                        {
+                            //if (gv.mod.debugMode)
+                            {
+                                addLogText("white", gv.mod.loadedTileBitmaps.Count.ToString());
+                                addLogText("white", "All Culled");
+                            }
+                            try
+                            {
+                                foreach (Bitmap bm in gv.mod.loadedTileBitmaps)
+                                {
+                                    bm.Dispose();
+                                }
+
+                                //these two lists keep an exact order so each bitmap stored in one corrsponds with a name in the other
+                                gv.mod.loadedTileBitmaps.Clear();
+                                gv.mod.loadedTileBitmapsNames.Clear();
+                            }
+                            catch
+                            {
+                                int i = 10;
                             }
 
-                            //these two lists keep an exact order so each bitmap stored in one corresponds with a name in the other
-                        }
-                        catch
-                        {
-                            //addLogText("red", "caught error");
-                            int i = 10;
-                        }
-                    }
 
-                    else if (gv.mod.loadedTileBitmaps.Count < 2500)
-                    //if (gv.mod.loadedTileBitmaps.Count > 500)
-                    {
-                        //addLogText("yellow", "Disposing tiles.");
-                        //divided by 10
-                        //gut 10
-                        int cullNumber = ((400 / 15) + 2);
-                        //int cullNumber = ((gv.mod.loadedTileBitmaps.Count / 15) + 2);
-                        try
+                        }
+                        //250
+                        //gut 1000
+                        if (gv.mod.loadedTileBitmaps.Count < 750)
                         {
-                            if (gv.mod.loadedTileBitmaps != null)
+                            //if (gv.mod.debugMode)
                             {
-                                //remove 12 entries per move, 3 more than usual 9 squares uncovered
-                                for (int i = 0; i < cullNumber; i++)
+                                addLogText("white", gv.mod.loadedTileBitmaps.Count.ToString());
+                                addLogText("white", "No Culling");
+                            }
+                        }
+                        else if (gv.mod.loadedTileBitmaps.Count < 1000)
+                        //if (gv.mod.loadedTileBitmaps.Count > 500)
+                        {
+                            //addLogText("yellow", "Disposing tiles.");
+                            //divided by 10
+                            //gut 10
+                            int cullNumber = ((90 / 15) + 2);
+                            //if (gv.mod.debugMode)
+                            {
+                                addLogText("white", gv.mod.loadedTileBitmaps.Count.ToString());
+                                addLogText("white", cullNumber.ToString());
+                            }
+                            //int cullNumber = ((gv.mod.loadedTileBitmaps.Count / 15) + 2);
+                            try
+                            {
+                                if (gv.mod.loadedTileBitmaps != null)
                                 {
-                                    gv.mod.loadedTileBitmaps[i].Dispose();
-                                    gv.mod.loadedTileBitmaps.RemoveAt(i);
-                                    gv.mod.loadedTileBitmapsNames.RemoveAt(i);
+                                    //remove 12 entries per move, 3 more than usual 9 squares uncovered
+                                    for (int i = 0; i < cullNumber; i++)
+                                    {
+                                        //gv.mod.loadedTileBitmaps[i].Dispose();
+                                        //gv.mod.loadedTileBitmaps.RemoveAt(i);
+                                        //gv.mod.loadedTileBitmapsNames.RemoveAt(i);
+                                        if (!gv.mod.bmpNearbyNameList.Contains(gv.mod.loadedTileBitmapsNames[i]))
+                                        {
+                                            gv.mod.loadedTileBitmaps[i].Dispose();
+                                            gv.mod.loadedTileBitmaps.RemoveAt(i);
+                                            gv.mod.loadedTileBitmapsNames.RemoveAt(i);
+                                        }
+                                        else
+                                        {
+                                            cullNumber++;
+                                        }
 
-                                    //addLogText("red", "Removal Counter is:" + i.ToString());
+                                        //addLogText("red", "Removal Counter is:" + i.ToString());
+
+                                    }
 
                                 }
 
+                                //these two lists keep an exact order so each bitmap stored in one corresponds with a name in the other
                             }
-
-                            //these two lists keep an exact order so each bitmap stored in one corresponds with a name in the other
+                            catch
+                            {
+                                //addLogText("red", "caught error");
+                                int i = 10;
+                            }
                         }
-                        catch
+                        else if (gv.mod.loadedTileBitmaps.Count < 1500)
+                        //if (gv.mod.loadedTileBitmaps.Count > 500)
                         {
-                            //addLogText("red", "caught error");
-                            int i = 10;
-                        }
-                    }
+                            //addLogText("yellow", "Disposing tiles.");
+                            //divided by 10
+                            //gut 10
+                            int cullNumber = ((150 / 15) + 2);
+                            //if (gv.mod.debugMode)
+                            {
+                                addLogText("white", gv.mod.loadedTileBitmaps.Count.ToString());
+                                addLogText("white", cullNumber.ToString());
+                            }
+                            //int cullNumber = ((gv.mod.loadedTileBitmaps.Count / 15) + 2);
+                            try
+                            {
+                                if (gv.mod.loadedTileBitmaps != null)
+                                {
+                                    //remove 12 entries per move, 3 more than usual 9 squares uncovered
+                                    for (int i = 0; i < cullNumber; i++)
+                                    {
+                                        //sebastian
+                                        if (!gv.mod.bmpNearbyNameList.Contains(gv.mod.loadedTileBitmapsNames[i]))
+                                        {
+                                            gv.mod.loadedTileBitmaps[i].Dispose();
+                                            gv.mod.loadedTileBitmaps.RemoveAt(i);
+                                            gv.mod.loadedTileBitmapsNames.RemoveAt(i);
+                                        }
+                                        else
+                                        {
+                                            cullNumber++;
+                                        }
 
-                    //addLogText("red", "number of tiles in cache, after cull:" + gv.mod.loadedTileBitmaps.Count);
-                    //normal cleanup while moving
-                    //restoreold
-                }
+
+
+                                        //addLogText("red", "Removal Counter is:" + i.ToString());
+
+                                    }
+
+                                }
+
+                                //these two lists keep an exact order so each bitmap stored in one corresponds with a name in the other
+                            }
+                            catch
+                            {
+                                //addLogText("red", "caught error");
+                                int i = 10;
+                            }
+                        }
+
+                        else if (gv.mod.loadedTileBitmaps.Count < 2000)
+                            //if (gv.mod.loadedTileBitmaps.Count > 500)
+                        {
+                            //addLogText("yellow", "Disposing tiles.");
+                            //divided by 10
+                            //gut 10
+                            int cullNumber = ((250 / 15) + 2);
+                            //if (gv.mod.debugMode)
+                            {
+                                addLogText("white", gv.mod.loadedTileBitmaps.Count.ToString());
+                                addLogText("white", cullNumber.ToString());
+                            }
+                            //int cullNumber = ((gv.mod.loadedTileBitmaps.Count / 15) + 2);
+                            try
+                            {
+                                if (gv.mod.loadedTileBitmaps != null)
+                                {
+                                    //remove 12 entries per move, 3 more than usual 9 squares uncovered
+                                    for (int i = 0; i < cullNumber; i++)
+                                    {
+                                        if (!gv.mod.bmpNearbyNameList.Contains(gv.mod.loadedTileBitmapsNames[i]))
+                                        {
+                                            gv.mod.loadedTileBitmaps[i].Dispose();
+                                            gv.mod.loadedTileBitmaps.RemoveAt(i);
+                                            gv.mod.loadedTileBitmapsNames.RemoveAt(i);
+                                        }
+                                        else
+                                        {
+                                            cullNumber++;
+                                        }
+
+                                        //addLogText("red", "Removal Counter is:" + i.ToString());
+
+                                    }
+
+                                }
+
+                                //these two lists keep an exact order so each bitmap stored in one corresponds with a name in the other
+                            }
+                            catch
+                            {
+                                //addLogText("red", "caught error");
+                                int i = 10;
+                            }
+                        }
+
+                        else if (gv.mod.loadedTileBitmaps.Count < 2500)
+                        //if (gv.mod.loadedTileBitmaps.Count > 500)
+                        {
+                            //addLogText("yellow", "Disposing tiles.");
+                            //divided by 10
+                            //gut 10
+                            int cullNumber = ((400 / 15) + 2);
+                            //if (gv.mod.debugMode)
+                            {
+                                addLogText("white", gv.mod.loadedTileBitmaps.Count.ToString());
+                                addLogText("white", cullNumber.ToString());
+                            }
+                            //int cullNumber = ((gv.mod.loadedTileBitmaps.Count / 15) + 2);
+                            try
+                            {
+                                if (gv.mod.loadedTileBitmaps != null)
+                                {
+                                    //remove 12 entries per move, 3 more than usual 9 squares uncovered
+                                    for (int i = 0; i < cullNumber; i++)
+                                    {
+                                        if (!gv.mod.bmpNearbyNameList.Contains(gv.mod.loadedTileBitmapsNames[i]))
+                                        {
+                                            gv.mod.loadedTileBitmaps[i].Dispose();
+                                            gv.mod.loadedTileBitmaps.RemoveAt(i);
+                                            gv.mod.loadedTileBitmapsNames.RemoveAt(i);
+                                        }
+                                        else
+                                        {
+                                            cullNumber++;
+                                        }
+
+                                        //addLogText("red", "Removal Counter is:" + i.ToString());
+
+                                    }
+
+                                }
+
+                                //these two lists keep an exact order so each bitmap stored in one corresponds with a name in the other
+                            }
+                            catch
+                            {
+                                //addLogText("red", "caught error");
+                                int i = 10;
+                            }
+                        }
+
+                        //addLogText("red", "number of tiles in cache, after cull:" + gv.mod.loadedTileBitmaps.Count);
+                        //normal cleanup while moving
+                        //restoreold
+
+                    //put end here
+                    */
+                    }
 
                 #endregion
 
@@ -10149,7 +10404,7 @@ namespace IceBlink2
                                         //gv.screenMainMap.addFloatyText(xLocForFloaty, yLocForFloaty, "Just arrived here", "white", 4000);
                                         foreach (Area a in gv.mod.moduleAreasObjects)
                                         {
-                                            if (gv.mod.moduleAreasObjects[relevantAreaIndex].Props.Count > relevantPropIndex)
+                                            if (gv.mod.moduleAreasObjects[relevantAreaIndex].Props.Count > relevantPropIndex && listEndCheckedIndexOfNextWaypoint < gv.mod.moduleAreasObjects[relevantAreaIndex].Props[relevantPropIndex].WayPointList.Count)
                                             {
                                                 if (a.Filename == gv.mod.moduleAreasObjects[relevantAreaIndex].Props[relevantPropIndex].WayPointList[listEndCheckedIndexOfNextWaypoint].areaName)
                                                 {
@@ -13546,6 +13801,187 @@ namespace IceBlink2
                 gv.sf.efPoisoned(src, ef, 4);
             }
         }
+         
+        public Coordinate recalcTileCoord(int areaIndex, int orgX, int orgY)
+        {
+            int index = areaIndex;
+            Coordinate recalculatedTileCoord = new Coordinate();
+         
+            if (gv.mod.moduleAreasObjects[index] == gv.mod.currentArea)
+            {
+                //sebastian
+                //targetCoord.X = j % gv.mod.moduleAreasObjects[i].MapSizeX;
+                //targetCoord.Y = j / gv.mod.moduleAreasObjects[i].MapSizeY;
+                recalculatedTileCoord.X = orgX;
+                recalculatedTileCoord.Y = orgY;
+                return recalculatedTileCoord;
+            }
+
+            recalculatedTileCoord.X = orgX;
+            recalculatedTileCoord.Y = orgY;
+            string NENeighbourFilename = "none";
+            string NWNeighbourFilename = "none";
+            string SENeighbourFilename = "none";
+            string SWNeighbourFilename = "none";
+
+            foreach (Area a in gv.mod.moduleAreasObjects)
+            {
+                //NW1
+                if (a.Filename == gv.mod.currentArea.northernNeighbourArea)
+                {
+                    foreach (Area a2 in gv.mod.moduleAreasObjects)
+                    {
+                        if (a2.Filename == a.westernNeighbourArea)
+                        {
+                            NWNeighbourFilename = a2.Filename;
+                        }
+                    }
+                }
+
+                //NW2
+                if (a.Filename == gv.mod.currentArea.westernNeighbourArea)
+                {
+                    foreach (Area a2 in gv.mod.moduleAreasObjects)
+                    {
+                        if (a2.Filename == a.northernNeighbourArea)
+                        {
+                            NWNeighbourFilename = a2.Filename;
+                        }
+                    }
+                }
+
+                //NE1
+                if (a.Filename == gv.mod.currentArea.northernNeighbourArea)
+                {
+                    foreach (Area a2 in gv.mod.moduleAreasObjects)
+                    {
+                        if (a2.Filename == a.easternNeighbourArea)
+                        {
+                            NENeighbourFilename = a2.Filename;
+                        }
+                    }
+                }
+
+                //NE2
+                if (a.Filename == gv.mod.currentArea.easternNeighbourArea)
+                {
+                    foreach (Area a2 in gv.mod.moduleAreasObjects)
+                    {
+                        if (a2.Filename == a.northernNeighbourArea)
+                        {
+                            NENeighbourFilename = a2.Filename;
+                        }
+                    }
+                }
+
+                //SE1
+                if (a.Filename == gv.mod.currentArea.southernNeighbourArea)
+                {
+                    foreach (Area a2 in gv.mod.moduleAreasObjects)
+                    {
+                        if (a2.Filename == a.easternNeighbourArea)
+                        {
+                            SENeighbourFilename = a2.Filename;
+                        }
+                    }
+                }
+
+                //SE2
+                if (a.Filename == gv.mod.currentArea.easternNeighbourArea)
+                {
+                    foreach (Area a2 in gv.mod.moduleAreasObjects)
+                    {
+                        if (a2.Filename == a.southernNeighbourArea)
+                        {
+                            SENeighbourFilename = a2.Filename;
+                        }
+                    }
+                }
+
+                //SW1
+                if (a.Filename == gv.mod.currentArea.southernNeighbourArea)
+                {
+                    foreach (Area a2 in gv.mod.moduleAreasObjects)
+                    {
+                        if (a2.Filename == a.westernNeighbourArea)
+                        {
+                            SWNeighbourFilename = a2.Filename;
+                        }
+                    }
+                }
+
+                //SW2
+                if (a.Filename == gv.mod.currentArea.westernNeighbourArea)
+                {
+                    foreach (Area a2 in gv.mod.moduleAreasObjects)
+                    {
+                        if (a2.Filename == a.southernNeighbourArea)
+                        {
+                            SWNeighbourFilename = a2.Filename;
+                        }
+                    }
+                }
+            }
+
+            if (gv.mod.moduleAreasObjects[index].Filename == gv.mod.currentArea.northernNeighbourArea)
+            {
+                recalculatedTileCoord.X = orgX;
+                recalculatedTileCoord.Y = orgY - gv.mod.moduleAreasObjects[index].MapSizeY;
+            }
+            else if (gv.mod.moduleAreasObjects[index].Filename == gv.mod.currentArea.southernNeighbourArea)
+            {
+                recalculatedTileCoord.X = orgX;
+                recalculatedTileCoord.Y = orgY + gv.mod.moduleAreasObjects[index].MapSizeY;
+                //recalculatedPropLocationX = p.LocationX;
+                //recalculatedPropLocationY = gv.mod.currentArea.MapSizeY + p.LocationY;
+            }
+            else if (gv.mod.moduleAreasObjects[index].Filename == gv.mod.currentArea.westernNeighbourArea)
+            {
+                recalculatedTileCoord.X = orgX - gv.mod.moduleAreasObjects[index].MapSizeX;
+                recalculatedTileCoord.Y = orgY;
+                //recalculatedPropLocationX = p.LocationX - gv.mod.moduleAreasObjects[index].MapSizeX;
+                //recalculatedPropLocationY = p.LocationY;
+            }
+            else if (gv.mod.moduleAreasObjects[index].Filename == gv.mod.currentArea.easternNeighbourArea)
+            {
+                recalculatedTileCoord.X = orgX + gv.mod.moduleAreasObjects[index].MapSizeX;
+                recalculatedTileCoord.Y = orgY;
+                //recalculatedPropLocationX = gv.mod.currentArea.MapSizeX + p.LocationX;
+                //recalculatedPropLocationY = p.LocationY;
+            }
+            //todo
+            else if (gv.mod.moduleAreasObjects[index].Filename == NWNeighbourFilename)
+            {
+                recalculatedTileCoord.X = orgX - gv.mod.moduleAreasObjects[index].MapSizeX;
+                recalculatedTileCoord.Y = orgY - gv.mod.moduleAreasObjects[index].MapSizeY;
+                //recalculatedPropLocationX = p.LocationX - gv.mod.moduleAreasObjects[index].MapSizeX;
+                //recalculatedPropLocationY = p.LocationY - gv.mod.moduleAreasObjects[index].MapSizeY;
+            }
+            else if (gv.mod.moduleAreasObjects[index].Filename == NENeighbourFilename)
+            {
+                recalculatedTileCoord.X = orgX + gv.mod.moduleAreasObjects[index].MapSizeX;
+                recalculatedTileCoord.Y = orgY - gv.mod.moduleAreasObjects[index].MapSizeY;
+                //recalculatedPropLocationX = gv.mod.currentArea.MapSizeX + p.LocationX;
+                //recalculatedPropLocationY = p.LocationY - gv.mod.moduleAreasObjects[index].MapSizeY;
+            }
+            else if (gv.mod.moduleAreasObjects[index].Filename == SENeighbourFilename)
+            {
+                recalculatedTileCoord.X = orgX + gv.mod.moduleAreasObjects[index].MapSizeX;
+                recalculatedTileCoord.Y = orgY + gv.mod.moduleAreasObjects[index].MapSizeY;
+                //recalculatedPropLocationX = gv.mod.currentArea.MapSizeX + p.LocationX;
+                //recalculatedPropLocationY = gv.mod.currentArea.MapSizeY + p.LocationY;
+            }
+            else if (gv.mod.moduleAreasObjects[index].Filename == SWNeighbourFilename)
+            {
+                recalculatedTileCoord.X = orgX - gv.mod.moduleAreasObjects[index].MapSizeX;
+                recalculatedTileCoord.Y = orgY + gv.mod.moduleAreasObjects[index].MapSizeY;
+                //recalculatedPropLocationX = p.LocationX - gv.mod.moduleAreasObjects[index].MapSizeX;
+                //recalculatedPropLocationY = gv.mod.currentArea.MapSizeY + p.LocationY;
+            }
+            return recalculatedTileCoord;
+            //p.relocX = recalculatedPropLocationX;
+            //p.relocY = recalculatedPropLocationY;
+        }
 
         public void recalcReloc(Prop p)
         {
@@ -13940,7 +14376,7 @@ namespace IceBlink2
                 SECorner = true;
             }
 
-            else if ((gv.mod.PlayerLocationY <= 8) && (gv.mod.PlayerLocationX > 12) && (gv.mod.PlayerLocationX < gv.mod.currentArea.MapSizeX-12))
+            else if ((gv.mod.PlayerLocationY <= 8) && (gv.mod.PlayerLocationX > 12) && (gv.mod.PlayerLocationX < gv.mod.currentArea.MapSizeX - 12))
             {
                 onlyNorth = true;
             }
@@ -13953,6 +14389,294 @@ namespace IceBlink2
                 onlyWest = true;
             }
             else if ((gv.mod.PlayerLocationX > gv.mod.currentArea.MapSizeX - 12) && (gv.mod.PlayerLocationY > 8) && (gv.mod.PlayerLocationY < gv.mod.currentArea.MapSizeY - 8))
+            {
+                onlyEast = true;
+            }
+
+            //add the areas
+            for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
+            {
+                if (gv.mod.moduleAreasObjects[i] == gv.mod.currentArea)
+                {
+                    nearbyAreasIndices.Add(i);
+                }
+
+                if (onlyNorth)
+                {
+                    if (gv.mod.currentArea.northernNeighbourArea == gv.mod.moduleAreasObjects[i].Filename)
+                    {
+                        nearbyAreasIndices.Add(i);
+                    }
+                }
+                else if (onlySouth)
+                {
+                    if (gv.mod.currentArea.southernNeighbourArea == gv.mod.moduleAreasObjects[i].Filename)
+                    {
+                        nearbyAreasIndices.Add(i);
+                    }
+                }
+                else if (onlyEast)
+                {
+                    if (gv.mod.currentArea.easternNeighbourArea == gv.mod.moduleAreasObjects[i].Filename)
+                    {
+                        nearbyAreasIndices.Add(i);
+                    }
+                }
+                else if (onlyWest)
+                {
+                    if (gv.mod.currentArea.westernNeighbourArea == gv.mod.moduleAreasObjects[i].Filename)
+                    {
+                        nearbyAreasIndices.Add(i);
+                    }
+                }
+                else if (NECorner)
+                {
+                    if (gv.mod.currentArea.northernNeighbourArea == gv.mod.moduleAreasObjects[i].Filename)
+                    {
+                        nearbyAreasIndices.Add(i);
+                    }
+                    if (gv.mod.currentArea.easternNeighbourArea == gv.mod.moduleAreasObjects[i].Filename)
+                    {
+                        nearbyAreasIndices.Add(i);
+                    }
+
+                }
+                else if (NWCorner)
+                {
+                    if (gv.mod.currentArea.northernNeighbourArea == gv.mod.moduleAreasObjects[i].Filename)
+                    {
+                        nearbyAreasIndices.Add(i);
+                    }
+                    if (gv.mod.currentArea.westernNeighbourArea == gv.mod.moduleAreasObjects[i].Filename)
+                    {
+                        nearbyAreasIndices.Add(i);
+                    }
+                }
+                else if (SWCorner)
+                {
+                    if (gv.mod.currentArea.southernNeighbourArea == gv.mod.moduleAreasObjects[i].Filename)
+                    {
+                        nearbyAreasIndices.Add(i);
+                    }
+                    if (gv.mod.currentArea.westernNeighbourArea == gv.mod.moduleAreasObjects[i].Filename)
+                    {
+                        nearbyAreasIndices.Add(i);
+                    }
+                }
+                else if (SECorner)
+                {
+                    if (gv.mod.currentArea.southernNeighbourArea == gv.mod.moduleAreasObjects[i].Filename)
+                    {
+                        nearbyAreasIndices.Add(i);
+                    }
+                    if (gv.mod.currentArea.easternNeighbourArea == gv.mod.moduleAreasObjects[i].Filename)
+                    {
+                        nearbyAreasIndices.Add(i);
+                    }
+                }
+
+            }
+
+            if (NECorner)
+            {
+                bool cornerFound = false;
+                foreach (Area a in gv.mod.moduleAreasObjects)
+                {
+                    //bool cornerFound = false;
+                    if (!cornerFound)
+                    {
+                        if (a.Filename == gv.mod.currentArea.easternNeighbourArea)
+                        {
+                            for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
+                            {
+                                if (gv.mod.moduleAreasObjects[i].Filename == a.northernNeighbourArea)
+                                {
+                                    nearbyAreasIndices.Add(i);
+                                    cornerFound = true;
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                    if (!cornerFound)
+                    {
+                        if (a.Filename == gv.mod.currentArea.northernNeighbourArea)
+                        {
+                            for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
+                            {
+                                if (gv.mod.moduleAreasObjects[i].Filename == a.easternNeighbourArea)
+                                {
+                                    nearbyAreasIndices.Add(i);
+                                    cornerFound = true;
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            if (NWCorner)
+            {
+                bool cornerFound = false;
+                foreach (Area a in gv.mod.moduleAreasObjects)
+                {
+                    //bool cornerFound = false;
+                    if (!cornerFound)
+                    {
+                        if (a.Filename == gv.mod.currentArea.westernNeighbourArea)
+                        {
+                            for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
+                            {
+                                if (gv.mod.moduleAreasObjects[i].Filename == a.northernNeighbourArea)
+                                {
+                                    nearbyAreasIndices.Add(i);
+                                    cornerFound = true;
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                    if (!cornerFound)
+                    {
+                        if (a.Filename == gv.mod.currentArea.northernNeighbourArea)
+                        {
+                            for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
+                            {
+                                if (gv.mod.moduleAreasObjects[i].Filename == a.westernNeighbourArea)
+                                {
+                                    nearbyAreasIndices.Add(i);
+                                    cornerFound = true;
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            if (SWCorner)
+            {
+                bool cornerFound = false;
+
+                foreach (Area a in gv.mod.moduleAreasObjects)
+                {
+                    //bool cornerFound = false;
+                    if (!cornerFound)
+                    {
+                        if (a.Filename == gv.mod.currentArea.westernNeighbourArea)
+                        {
+                            for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
+                            {
+                                if (gv.mod.moduleAreasObjects[i].Filename == a.southernNeighbourArea)
+                                {
+                                    nearbyAreasIndices.Add(i);
+                                    cornerFound = true;
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                    if (!cornerFound)
+                    {
+                        if (a.Filename == gv.mod.currentArea.southernNeighbourArea)
+                        {
+                            for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
+                            {
+                                if (gv.mod.moduleAreasObjects[i].Filename == a.westernNeighbourArea)
+                                {
+                                    nearbyAreasIndices.Add(i);
+                                    cornerFound = true;
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            if (SECorner)
+            {
+                bool cornerFound = false;
+                foreach (Area a in gv.mod.moduleAreasObjects)
+                {
+                    //bool cornerFound = false;
+                    if (!cornerFound)
+                    {
+                        if (a.Filename == gv.mod.currentArea.easternNeighbourArea)
+                        {
+                            for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
+                            {
+                                if (gv.mod.moduleAreasObjects[i].Filename == a.southernNeighbourArea)
+                                {
+                                    nearbyAreasIndices.Add(i);
+                                    cornerFound = true;
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                    if (!cornerFound)
+                    {
+                        if (a.Filename == gv.mod.currentArea.southernNeighbourArea)
+                        {
+                            for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
+                            {
+                                if (gv.mod.moduleAreasObjects[i].Filename == a.easternNeighbourArea)
+                                {
+                                    nearbyAreasIndices.Add(i);
+                                    cornerFound = true;
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            return nearbyAreasIndices;
+        }
+
+        public List<int> getNearbyAreasLongRange()
+        {
+            List<int> nearbyAreasIndices = new List<int>();
+            bool onlyNorth = false;
+            bool onlySouth = false;
+            bool onlyEast = false;
+            bool onlyWest = false;
+            bool NWCorner = false;
+            bool NECorner = false;
+            bool SECorner = false;
+            bool SWCorner = false;
+
+            if ((gv.mod.PlayerLocationY <= 14) && (gv.mod.PlayerLocationX <= 14))
+            {
+                NWCorner = true;
+            }
+            else if ((gv.mod.PlayerLocationY <= 14) && (gv.mod.PlayerLocationX >= gv.mod.currentArea.MapSizeX - 14))
+            {
+                NECorner = true;
+            }
+            else if ((gv.mod.PlayerLocationY >= gv.mod.currentArea.MapSizeY - 14) && (gv.mod.PlayerLocationX <= 14))
+            {
+                SWCorner = true;
+            }
+            else if ((gv.mod.PlayerLocationY >= gv.mod.currentArea.MapSizeY - 14) && (gv.mod.PlayerLocationX >= gv.mod.currentArea.MapSizeX - 14))
+            {
+                SECorner = true;
+            }
+
+            else if ((gv.mod.PlayerLocationY <= 14) && (gv.mod.PlayerLocationX > 14) && (gv.mod.PlayerLocationX < gv.mod.currentArea.MapSizeX-14))
+            {
+                onlyNorth = true;
+            }
+            else if ((gv.mod.PlayerLocationY > gv.mod.currentArea.MapSizeY - 14) && (gv.mod.PlayerLocationX > 14) && (gv.mod.PlayerLocationX < gv.mod.currentArea.MapSizeX - 14))
+            {
+                onlySouth = true;
+            }
+            else if ((gv.mod.PlayerLocationX <= 14) && (gv.mod.PlayerLocationY > 14) && (gv.mod.PlayerLocationY < gv.mod.currentArea.MapSizeY - 14))
+            {
+                onlyWest = true;
+            }
+            else if ((gv.mod.PlayerLocationX > gv.mod.currentArea.MapSizeX - 14) && (gv.mod.PlayerLocationY > 14) && (gv.mod.PlayerLocationY < gv.mod.currentArea.MapSizeY - 14))
             {
                 onlyEast = true;
             }
@@ -18393,8 +19117,13 @@ namespace IceBlink2
 
             adjustSpriteMainMapPositionToMakeItMoveIdependentlyFromPlayer();
 
+            if (gv.mod.currentArea.isOverviewMap)
+            {
+                gv.mod.loadedTileBitmapsNames.Clear();
+                gv.mod.loadedTileBitmaps.Clear();
+            }
 
-            if (gv.mod.isBreathingWorld)
+                if (gv.mod.isBreathingWorld)
             {
                 if (gv.mod.currentArea.northernNeighbourArea == areaFilename || gv.mod.currentArea.easternNeighbourArea == areaFilename || gv.mod.currentArea.westernNeighbourArea == areaFilename || gv.mod.currentArea.southernNeighbourArea == areaFilename)
                 {
@@ -18402,6 +19131,8 @@ namespace IceBlink2
                 }
                 else
                 {
+                    gv.mod.loadedTileBitmapsNames.Clear();
+                    gv.mod.loadedTileBitmaps.Clear();
                     doOnEnterAreaUpdate = true;
                     foreach (Prop p in gv.mod.currentArea.Props)
                     {
@@ -18576,6 +19307,8 @@ namespace IceBlink2
 
                 if (gv.mod.currentArea.isOverviewMap)
                 {
+                    gv.mod.loadedTileBitmapsNames.Clear();
+                    gv.mod.loadedTileBitmaps.Clear();
                     foreach (Tile t in gv.mod.currentArea.Tiles)
                     {
                         t.Visible = true;

@@ -179,21 +179,37 @@ namespace IceBlink2
                 {
                     //if ((btn.X > -gv.squareSize && btn.Y > -gv.squareSize) || (btn.X < gv.screenWidth + gv.squareSize && btn.Y < gv.screenHeight + gv.squareSize))
                     //{
+                    if (!gv.mod.currentArea.isOverviewMap)
+                    {
                         btn.Draw(this);
+                    }
+                    else
+                    {
+                        if (btn.tag  == "btnOwnZoneMap" || btn.tag == "btnMotherZoneMap" || btn.tag == "btnGrandMotherZoneMap")
+                        {
+                            btn.Draw(this);
+                        }
+                    }
                     //}
                 }
                 foreach (IB2ToggleButton btn in toggleList)
                 {
                     //if ((btn.X > -gv.squareSize && btn.Y > -gv.squareSize) || (btn.X < gv.screenWidth + gv.squareSize && btn.Y < gv.screenHeight + gv.squareSize))
                     //{
+                    if (!gv.mod.currentArea.isOverviewMap)
+                    {
                         btn.Draw(this);
+                    }
                     //}
                 }
                 foreach (IB2Portrait btn in portraitList)
                 {
                     //if ((btn.X > -gv.squareSize && btn.Y > -gv.squareSize) || (btn.X < gv.screenWidth + gv.squareSize && btn.Y < gv.screenHeight + gv.squareSize))
                     //{
+                    if (!gv.mod.currentArea.isOverviewMap)
+                    {
                         btn.Draw(this);
+                    }
                     //}
                 }
             }

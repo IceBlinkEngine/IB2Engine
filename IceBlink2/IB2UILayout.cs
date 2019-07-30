@@ -65,7 +65,7 @@ namespace IceBlink2
             {
                 gv.mod.skipTextRender = false;
             }
-                if (gv.mod.useMinimalisticUI)
+                if (gv.mod.useMinimalisticUI && !gv.mod.currentArea.isOverviewMap)
                 {
                     foreach (IB2Panel pnl in panelList)
                     {

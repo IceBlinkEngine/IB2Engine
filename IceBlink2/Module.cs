@@ -13,7 +13,8 @@ namespace IceBlink2
 {
     public class Module
     {
-
+        [JsonIgnore]
+        public List<string> bmpNearbyNameList = new List<string>();
 
         public int overrideVisibilityRange = 2;
         public bool skipTextRender = false;

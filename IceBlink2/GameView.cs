@@ -3508,7 +3508,32 @@ namespace IceBlink2
                     mod.scrollModeSpeed = 1.15f;
                     if ((screenType == "combat" || screenType == "main" || screenType == "partyBuild" || screenType == "launcher" || screenType == "title" || screenType == "partyBuild") && (keyData == Keys.Escape))
                     {
-                        this.Close();
+                        if (screenType == "main")
+                        {
+                            if (!mod.currentArea.isOverviewMap)
+                            {
+                                this.Close();
+                            }
+                            else
+                            {
+                                //screenType = "partyBuild";
+                                //tranistion code
+                                //haubrich
+                                sf.TogglePartyToken(mod.oldPartyTokenFilename, mod.oldPartyTokenEnabledState.ToString());
+                                mod.allowImmediateRetransition = true;
+                                cc.doTransitionBasedOnAreaLocation(mod.overviewReturnAreaName, mod.overviewReturnLocationX, mod.overviewReturnLocationY);
+                                mod.currentlyOnOwnZone = false;
+                                mod.currentlyOnMotherZone = false;
+                                mod.currentlyOnGrandMotherZone = false;
+                                mod.overviewReturnAreaName = "none";
+                                mod.overviewReturnLocationX = 0;
+                                mod.overviewReturnLocationY = 0;
+                            }
+                        }
+                        else
+                        {
+                            this.Close();
+                        }
                     }
                     if (screenType == "pcCreation" && keyData == Keys.Escape)
                     {
