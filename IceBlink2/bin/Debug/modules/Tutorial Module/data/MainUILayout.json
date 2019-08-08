@@ -461,7 +461,7 @@
           "tag": "tglGrid",
           "ImgOnFilename": "tgl_grid_on",
           "ImgOffFilename": "tgl_grid_off",
-          "toggleOn": true,
+          "toggleOn": false,
           "X": 20,
           "Y": 50,
           "Width": 50,

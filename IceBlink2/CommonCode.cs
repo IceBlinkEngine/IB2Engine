@@ -763,7 +763,10 @@ namespace IceBlink2
                     m = (ModuleInfo)serializer.Deserialize(file, typeof(ModuleInfo));
                 }
             }
-            catch { }
+            catch
+            {
+                //gv.sf.MessageBox("Karl Error 101End ");
+            }
             return m;
         }
         public void LoadSaveListItems()
@@ -1812,13 +1815,15 @@ namespace IceBlink2
             foreach (Player pc in gv.mod.playerList)
             {
                 try { pc.token = LoadBitmap(pc.tokenFilename); }
-                catch (Exception ex) { gv.errorLog(ex.ToString()); }
+                catch (Exception ex) {
+                    gv.sf.MessageBox("Karl Error 102End");
+                    gv.errorLog(ex.ToString()); }
                 try { pc.portrait = LoadBitmap(pc.portraitFilename); }
-                catch (Exception ex) { gv.errorLog(ex.ToString()); }
+                catch (Exception ex) { gv.sf.MessageBox("Karl Error 103End"); gv.errorLog(ex.ToString()); }
                 try { pc.race = gv.mod.getRace(pc.raceTag).DeepCopy(); }
-                catch (Exception ex) { gv.errorLog(ex.ToString()); }
+                catch (Exception ex) { gv.sf.MessageBox("Karl Error 104End"); gv.errorLog(ex.ToString()); }
                 try { pc.playerClass = gv.mod.getPlayerClass(pc.classTag).DeepCopy(); }
-                catch (Exception ex) { gv.errorLog(ex.ToString()); }
+                catch (Exception ex) { gv.sf.MessageBox("Karl Error 105End"); gv.errorLog(ex.ToString()); }
                 //may not need this(deleted already) as it is not used anywhere, only knownspellstags is used
             }
         }
@@ -1828,13 +1833,13 @@ namespace IceBlink2
             foreach (Player pc in gv.mod.partyRosterList)
             {
                 try { pc.token = LoadBitmap(pc.tokenFilename); }
-                catch (Exception ex) { gv.errorLog(ex.ToString()); }
+                catch (Exception ex) { gv.sf.MessageBox("Karl Error 106End"); gv.errorLog(ex.ToString()); }
                 try { pc.portrait = LoadBitmap(pc.portraitFilename); }
-                catch (Exception ex) { gv.errorLog(ex.ToString()); }
+                catch (Exception ex) { gv.sf.MessageBox("Karl Error 107End"); gv.errorLog(ex.ToString()); }
                 try { pc.race = gv.mod.getRace(pc.raceTag).DeepCopy(); }
-                catch (Exception ex) { gv.errorLog(ex.ToString()); }
+                catch (Exception ex) { gv.sf.MessageBox("Karl Error 108End"); gv.errorLog(ex.ToString()); }
                 try { pc.playerClass = gv.mod.getPlayerClass(pc.classTag).DeepCopy(); }
-                catch (Exception ex) { gv.errorLog(ex.ToString()); }
+                catch (Exception ex) { gv.sf.MessageBox("Karl Error 109End"); gv.errorLog(ex.ToString()); }
                 //may not need this as it is not used anywhere, only knownspellstags is used
             }
         }
@@ -1976,6 +1981,7 @@ namespace IceBlink2
             }
             catch
             {
+                gv.sf.MessageBox("Karl Error 110End");
                 gv.mod.moduleWeathersList = new List<Weather>();
             }
         }
@@ -1992,6 +1998,7 @@ namespace IceBlink2
             }
             catch
             {
+                gv.sf.MessageBox("Karl Error 111End");
                 gv.mod.moduleWeatherEffectsList = new List<WeatherEffect>();
             }
         }
@@ -3075,8 +3082,43 @@ namespace IceBlink2
 
         public void doUpdate()
         {
+
+            //mainUiLayout.panelList;
+            foreach (IB2Panel pnl in gv.screenMainMap.mainUiLayout.panelList)
+            {
+                foreach (IB2ToggleButton tgl in pnl.toggleList)
+                {
+                    if (tgl.tag == "tglSound")
+                    {
+                        //IB2ToggleButton tgl = mainUiLayout.GetToggleByTag(rtn);
+                        //if (tgl == null) { return; }
+                        if (!tgl.toggleOn)
+                        {
+                            //tgl.toggleOn = false;
+                            gv.mod.playMusic = false;
+                            gv.mod.playSoundFx = false;
+                            //TODO gv.screenCombat.tglSoundFx.toggleOn = false;
+                            gv.stopMusic();
+                            gv.stopAmbient();
+                            //gv.cc.addLogText("lime", "Music Off, SoundFX Off");
+                        }
+                        else
+                        {
+                            //tgl.toggleOn = true;
+                            gv.mod.playMusic = true;
+                            gv.mod.playSoundFx = true;
+                            //TODO gv.screenCombat.tglSoundFx.toggleOn = true;
+                            gv.startMusic();
+                            gv.startAmbient();
+                            //gv.cc.addLogText("lime", "Music On, SoundFX On");
+                        }
+                        //music on
+                    }
+                }
+            }
+
             /*
-            if (!gv.mod.isScrollingNow)
+            if (!gv.mod.isScrollingNow && gv.elapsed3 < 20 && gv.mod.calledByRealTimeTimer)
             {
                 writeBmpNearbyNameList();
                 foreach (string name in gv.mod.bmpNearbyNameList)
@@ -3092,6 +3134,7 @@ namespace IceBlink2
                 }
             }
             */
+
 
             if (gv.mod.overrideVisibilityRange != -1)
             {
@@ -3941,14 +3984,33 @@ namespace IceBlink2
 
                 if (gv.mod.useAllTileSystem)
                 {
-                    if (gv.mod.loadedTileBitmaps.Count > 850)
+                    //addLogText("white", gv.mod.loadedTileBitmaps.Count.ToString());
+
+
+                    //if (gv.mod.loadedTileBitmaps.Count > 1500 && gv.mod.calledByRealTimeTimer)
+                    if (gv.mod.loadedTileBitmaps.Count > 650)
                     {
-                        int cullNumber = 50;
-                        addLogText("white", gv.mod.loadedTileBitmaps.Count.ToString());
-                        addLogText("white", cullNumber.ToString());
+                        /*
+                        foreach (Bitmap b in gv.mod.loadedTileBitmaps)
+                        {
+                            b.Dispose();
+                        }
+                        gv.mod.loadedTileBitmaps.Clear();
+                        gv.mod.loadedTileBitmapsNames.Clear();
+                        */
+                        int cullNumber = gv.mod.loadedTileBitmaps.Count - 650;
+                        //addLogText("white", cullNumber.ToString());
                         try
                         {
                             if (gv.mod.loadedTileBitmaps != null)
+
+
+
+
+
+
+
+
                             {
                                 //remove 12 entries per move, 3 more than usual 9 squares uncovered
                                 for (int i = 0; i < cullNumber; i++)
@@ -3956,16 +4018,16 @@ namespace IceBlink2
                                     //gv.mod.loadedTileBitmaps[i].Dispose();
                                     //gv.mod.loadedTileBitmaps.RemoveAt(i);
                                     //gv.mod.loadedTileBitmapsNames.RemoveAt(i);
-                                    if (!gv.mod.bmpNearbyNameList.Contains(gv.mod.loadedTileBitmapsNames[i]))
-                                    {
-                                        gv.mod.loadedTileBitmaps[i].Dispose();
-                                        gv.mod.loadedTileBitmaps.RemoveAt(i);
-                                        gv.mod.loadedTileBitmapsNames.RemoveAt(i);
-                                    }
-                                    else
-                                    {
-                                        cullNumber++;
-                                    }
+                                    //if (!gv.mod.bmpNearbyNameList.Contains(gv.mod.loadedTileBitmapsNames[i]))
+                                    //{
+                                        gv.mod.loadedTileBitmaps[0].Dispose();
+                                        gv.mod.loadedTileBitmaps.RemoveAt(0);
+                                        gv.mod.loadedTileBitmapsNames.RemoveAt(0);
+                                    //}
+                                    //else
+                                    //{
+                                        //cullNumber++;
+                                    //}
 
                                     //addLogText("red", "Removal Counter is:" + i.ToString());
                                 }
@@ -3977,6 +4039,58 @@ namespace IceBlink2
                         catch
                         {
                             //addLogText("red", "caught error");
+                            gv.sf.MessageBox("Karl Error 112End");
+                            int i = 10;
+                        }
+                    
+                }
+
+                        //850
+                        if (gv.mod.loadedTileBitmaps.Count > 3000)
+                    {
+                        /*
+                        foreach (Bitmap b in gv.mod.loadedTileBitmaps)
+                        {
+                            b.Dispose();
+                        }
+                        gv.mod.loadedTileBitmaps.Clear();
+                        gv.mod.loadedTileBitmapsNames.Clear();
+                        */
+                        int cullNumber = gv.mod.loadedTileBitmaps.Count - 500;
+
+                        addLogText("white", cullNumber.ToString());
+                        try
+                        {
+                            if (gv.mod.loadedTileBitmaps != null)
+                            {
+                                //remove 12 entries per move, 3 more than usual 9 squares uncovered
+                                for (int i = 0; i < cullNumber; i++)
+                                {
+                                    //gv.mod.loadedTileBitmaps[i].Dispose();
+                                    //gv.mod.loadedTileBitmaps.RemoveAt(i);
+                                    //gv.mod.loadedTileBitmapsNames.RemoveAt(i);
+                                    //if (!gv.mod.bmpNearbyNameList.Contains(gv.mod.loadedTileBitmapsNames[i]))
+                                    //{
+                                        gv.mod.loadedTileBitmaps[0].Dispose();
+                                        gv.mod.loadedTileBitmaps.RemoveAt(0);
+                                        gv.mod.loadedTileBitmapsNames.RemoveAt(0);
+                                    //}
+                                    //else
+                                    //{
+                                        //cullNumber++;
+                                    //}
+
+                                    //addLogText("red", "Removal Counter is:" + i.ToString());
+                                }
+
+                            }
+
+                            //these two lists keep an exact order so each bitmap stored in one corresponds with a name in the other
+                        }
+                        catch
+                        {
+                            //addLogText("red", "caught error");
+                            gv.sf.MessageBox("Karl Error 113End");
                             int i = 10;
                         }
                     }
@@ -8567,7 +8681,7 @@ namespace IceBlink2
                     gv.mod.currentArea.Tiles[p.LocationY * gv.mod.currentArea.MapSizeX + p.LocationX].lightRadius = 1;
                 }
                 catch
-                { }
+                { gv.sf.MessageBox("Karl Error 114End"); }
             }
             try
             {
@@ -8586,7 +8700,7 @@ namespace IceBlink2
                 gv.mod.currentArea.Tiles[gv.mod.PlayerLocationY * gv.mod.currentArea.MapSizeX + gv.mod.PlayerLocationX].lightRadius = 1;
             }
             catch
-            { }
+            { gv.sf.MessageBox("Karl Error 115End"); }
         }
 
         public void adjustSpriteMainMapPositionToMakeItMoveIdependentlyFromPlayer()
@@ -8942,7 +9056,8 @@ namespace IceBlink2
             //sound channel 2 (weatherSounds2 media player) is for different degreees of wind(cloud) and sandStorm effects
             //sound channel 3 (weatherSounds3 media player) is for the lightning effect 
             //requires a switch on module levelset to true as well as the ingame toggle for music&sound on
-            if ((gv.mod.useWeatherSound) && (gv.mod.playMusic))
+            //fortefake
+            if ((gv.mod.useWeatherSound) && (gv.mod.playSoundFx))
             {
                 //soundName is used to store the relevant name on the different checks for wind, sandStorm, rain and lightning
                 string soundName = "";
@@ -9406,16 +9521,24 @@ namespace IceBlink2
                     //}
                 }
                 */
-
-                if (!gv.mod.playMusic || gv.mod.currentArea.areaWeatherName == "" || gv.mod.currentArea.areaWeatherName == "none")
-                {
-                    gv.weatherSounds1.controls.stop();
-                    gv.weatherSounds2.controls.stop();
-                    gv.weatherSounds3.controls.stop();
-                }
+                //fortefake
+                //moved 6 to one bracket outer
+                //if (!gv.mod.playMusic || gv.mod.currentArea.areaWeatherName == "" || gv.mod.currentArea.areaWeatherName == "none")
+                //{
+                    //gv.weatherSounds1.controls.stop();
+                    //gv.weatherSounds2.controls.stop();
+                    //gv.weatherSounds3.controls.stop();
+                //}
                 #endregion
             }
+            if (!gv.mod.playMusic || gv.mod.currentArea.areaWeatherName == "" || gv.mod.currentArea.areaWeatherName == "none")
+            {
+                gv.weatherSounds1.controls.stop();
+                gv.weatherSounds2.controls.stop();
+                gv.weatherSounds3.controls.stop();
+            }
         }
+
         public void doPropHeartBeat()
         {
             foreach (Prop prp in gv.mod.currentArea.Props)
@@ -12561,6 +12684,13 @@ namespace IceBlink2
             //prp.lastLocationX = prp.LocationX;
             //prp.lastLocationX = prp.LocationX;
             //lets get the area the pathfindign shall be done on
+            if (prp == null)
+            {
+                addLogText("yellow", "Crash in move to target, prp was null, error1001");
+                return;
+            }
+
+
             int propAreaIndex = 0;
             bool breakOuter = false;
             foreach (int i in getNearbyAreas())
@@ -12570,6 +12700,11 @@ namespace IceBlink2
                     if (prp.PropTag == p.PropTag)
                     {
                         propAreaIndex = i;
+                        if (i >= gv.mod.moduleAreasObjects.Count)
+                        {
+                            addLogText("yellow", "Crash in move to target, i exceeds number of areas, error1002");
+                            return;
+                        }
                         breakOuter = true;
                         break;
                     }
@@ -12590,54 +12725,6 @@ namespace IceBlink2
                         gv.sf.ThisProp = prp;
                         gv.cc.calledEncounterFromProp = true;
                         gv.mod.stopMoves = true;
-                        //sportness
-                        if (!gv.sf.ThisProp.HasCollision)
-                        {
-                            gv.screenMainMap.timeStamp2 = DateTime.Now.Ticks;
-                            while (!gv.screenMainMap.moveDelay2())
-                            {
-                                //new System.EventHandler(gv.gameTimer_Tick);
-                                //gv.screenMainMap.Update(gv.screenMainMap.elapsed);
-                                if (!gv.stillProcessingGameLoop)
-                                {
-                                    if (gv.screenType != "main")
-                                    {
-                                        gv.aTimer.Stop();
-                                        gv.a2Timer.Stop();
-                                        gv.mod.scrollModeSpeed = 1.15f;
-                                    }
-                                    gv.stillProcessingGameLoop = true; //starting the game loop so do not allow another tick call to run until finished with this tick call.
-                                    long current = gv.gameTimerStopwatch.ElapsedMilliseconds; //get the current total amount of ms since the game launched
-                                    gv.elapsed = (int)(current - gv.previousTime); //calculate the total ms elapsed since the last time through the game loop
-                                                                             /*
-                                                                             while (elapsed < 16)
-                                                                             {
-                                                                                 current = gameTimerStopwatch.ElapsedMilliseconds;
-                                                                                 elapsed = (int)(current - previousTime);
-                                                                             }
-                                                                             */
-                                                                             //if (elapsed > 50)
-                                                                             //{
-                                                                             //int i = 0;
-                                                                             //}
-                                                                             //mod.scrollingOverhang = mod.scrollingOverhang + 3f*(elapsed/20f);
-                                                                             //if (mod.scrollingOverhang > 0)
-                                                                             //{
-                                                                             //mod.scrollingOverhang = 0;
-                                                                             //}
-                                    gv.Update(gv.elapsed); //runs AI and physics
-                                    gv.Render(gv.elapsed); //draw the screen frame
-                                    if (gv.reportFPScount >= 10)
-                                    {
-                                        gv.reportFPScount = 0;
-                                        gv.fps = 1000 / (current - gv.previousTime);
-                                    }
-                                    gv.reportFPScount++;
-                                    gv.previousTime = current; //remember the current time at the beginning of this tick call for the next time through the game loop to calculate elapsed ti
-                                    gv.stillProcessingGameLoop = false; //finished game loop so okay to let the next tick call enter the game loop      
-                                }
-                            }
-                        }
                         doEncounterBasedOnTag(prp.EncounterWhenOnPartySquare);
                         gv.mod.breakActiveSearch = true;
                         //gv.mod.EncounterOfTurnDone = true;
@@ -12745,7 +12832,7 @@ namespace IceBlink2
                    
 
                     bool returnCauseSkip = false;
-                    if (findNewPath && (gv.mod.findNewPointCounter <= (int)(150f / gv.elapsed3) || prp.skippedPathfinding || prp.isCurrentlyChasing || gv.cc.getDistance(partyCoord, propCoord) <= 8))
+                    if (findNewPath && (gv.mod.findNewPointCounter <= (int)(75f / gv.elapsed3) || prp.skippedPathfinding || prp.isCurrentlyChasing || gv.cc.getDistance(partyCoord, propCoord) <= 8))
                     {
                         newCoor = gv.pfa.findNewPoint(new Coordinate(prp.LocationX, prp.LocationY), new Coordinate(targetX, targetY), prp, propAreaIndex);
                         gv.mod.findNewPointCounter++;
@@ -12760,7 +12847,7 @@ namespace IceBlink2
                         prp.oldPath.RemoveAt(prp.oldPath.Count - 1);
                     }
 
-                    if (gv.mod.findNewPointCounter > (int)(150f/gv.elapsed3)&& !prp.skippedPathfinding && findNewPath && !prp.isCurrentlyChasing && gv.cc.getDistance(partyCoord, propCoord) > 8)
+                    if (gv.mod.findNewPointCounter > (int)(75f/gv.elapsed3)&& !prp.skippedPathfinding && findNewPath && !prp.isCurrentlyChasing && gv.cc.getDistance(partyCoord, propCoord) > 8)
                     {
                         prp.skippedPathfinding = true;
                         prp.isPausing = true;
@@ -12964,54 +13051,6 @@ namespace IceBlink2
                                                 gv.sf.ThisProp = prp;
                                                 gv.cc.calledEncounterFromProp = true;
                                                 gv.mod.stopMoves = true;
-                                                //sportness
-                                                if (!gv.sf.ThisProp.HasCollision)
-                                                {
-                                                    gv.screenMainMap.timeStamp2 = DateTime.Now.Ticks;
-                                                    while (!gv.screenMainMap.moveDelay2())
-                                                    {
-                                                        //new System.EventHandler(gv.gameTimer_Tick);
-                                                        //gv.screenMainMap.Update(gv.screenMainMap.elapsed);
-                                                        if (!gv.stillProcessingGameLoop)
-                                                        {
-                                                            if (gv.screenType != "main")
-                                                            {
-                                                                gv.aTimer.Stop();
-                                                                gv.a2Timer.Stop();
-                                                                gv.mod.scrollModeSpeed = 1.15f;
-                                                            }
-                                                            gv.stillProcessingGameLoop = true; //starting the game loop so do not allow another tick call to run until finished with this tick call.
-                                                            long current = gv.gameTimerStopwatch.ElapsedMilliseconds; //get the current total amount of ms since the game launched
-                                                            gv.elapsed = (int)(current - gv.previousTime); //calculate the total ms elapsed since the last time through the game loop
-                                                                                                           /*
-                                                                                                           while (elapsed < 16)
-                                                                                                           {
-                                                                                                               current = gameTimerStopwatch.ElapsedMilliseconds;
-                                                                                                               elapsed = (int)(current - previousTime);
-                                                                                                           }
-                                                                                                           */
-                                                                                                           //if (elapsed > 50)
-                                                                                                           //{
-                                                                                                           //int i = 0;
-                                                                                                           //}
-                                                                                                           //mod.scrollingOverhang = mod.scrollingOverhang + 3f*(elapsed/20f);
-                                                                                                           //if (mod.scrollingOverhang > 0)
-                                                                                                           //{
-                                                                                                           //mod.scrollingOverhang = 0;
-                                                                                                           //}
-                                                            gv.Update(gv.elapsed); //runs AI and physics
-                                                            gv.Render(gv.elapsed); //draw the screen frame
-                                                            if (gv.reportFPScount >= 10)
-                                                            {
-                                                                gv.reportFPScount = 0;
-                                                                gv.fps = 1000 / (current - gv.previousTime);
-                                                            }
-                                                            gv.reportFPScount++;
-                                                            gv.previousTime = current; //remember the current time at the beginning of this tick call for the next time through the game loop to calculate elapsed ti
-                                                            gv.stillProcessingGameLoop = false; //finished game loop so okay to let the next tick call enter the game loop      
-                                                        }
-                                                    }
-                                                }
                                                 doEncounterBasedOnTag(prp.EncounterWhenOnPartySquare);
                                                 gv.mod.breakActiveSearch = true;
                                                 //gv.mod.EncounterOfTurnDone = true;
@@ -13117,54 +13156,6 @@ namespace IceBlink2
                                     gv.sf.ThisProp = prp;
                                     gv.cc.calledEncounterFromProp = true;
                                     gv.mod.stopMoves = true;
-                                    //sportness
-                                    if (!gv.sf.ThisProp.HasCollision)
-                                    {
-                                        gv.screenMainMap.timeStamp2 = DateTime.Now.Ticks;
-                                        while (!gv.screenMainMap.moveDelay2())
-                                        {
-                                            //new System.EventHandler(gv.gameTimer_Tick);
-                                            //gv.screenMainMap.Update(gv.screenMainMap.elapsed);
-                                            if (!gv.stillProcessingGameLoop)
-                                            {
-                                                if (gv.screenType != "main")
-                                                {
-                                                    gv.aTimer.Stop();
-                                                    gv.a2Timer.Stop();
-                                                    gv.mod.scrollModeSpeed = 1.15f;
-                                                }
-                                                gv.stillProcessingGameLoop = true; //starting the game loop so do not allow another tick call to run until finished with this tick call.
-                                                long current = gv.gameTimerStopwatch.ElapsedMilliseconds; //get the current total amount of ms since the game launched
-                                                gv.elapsed = (int)(current - gv.previousTime); //calculate the total ms elapsed since the last time through the game loop
-                                                                                               /*
-                                                                                               while (elapsed < 16)
-                                                                                               {
-                                                                                                   current = gameTimerStopwatch.ElapsedMilliseconds;
-                                                                                                   elapsed = (int)(current - previousTime);
-                                                                                               }
-                                                                                               */
-                                                                                               //if (elapsed > 50)
-                                                                                               //{
-                                                                                               //int i = 0;
-                                                                                               //}
-                                                                                               //mod.scrollingOverhang = mod.scrollingOverhang + 3f*(elapsed/20f);
-                                                                                               //if (mod.scrollingOverhang > 0)
-                                                                                               //{
-                                                                                               //mod.scrollingOverhang = 0;
-                                                                                               //}
-                                                gv.Update(gv.elapsed); //runs AI and physics
-                                                gv.Render(gv.elapsed); //draw the screen frame
-                                                if (gv.reportFPScount >= 10)
-                                                {
-                                                    gv.reportFPScount = 0;
-                                                    gv.fps = 1000 / (current - gv.previousTime);
-                                                }
-                                                gv.reportFPScount++;
-                                                gv.previousTime = current; //remember the current time at the beginning of this tick call for the next time through the game loop to calculate elapsed ti
-                                                gv.stillProcessingGameLoop = false; //finished game loop so okay to let the next tick call enter the game loop      
-                                            }
-                                        }
-                                    }
                                     doEncounterBasedOnTag(prp.EncounterWhenOnPartySquare);
                                     gv.mod.breakActiveSearch = true;
                                     //gv.mod.EncounterOfTurnDone = true;
@@ -13265,7 +13256,7 @@ namespace IceBlink2
                     }
                     bool returnCauseSkip = false;
                    
-                    if (findNewPath && (gv.mod.findNewPointCounter <= (int)(150f / gv.elapsed3) || prp.skippedPathfinding || prp.isCurrentlyChasing || gv.cc.getDistance(partyCoord, propCoord) <= 8))
+                    if (findNewPath && (gv.mod.findNewPointCounter <= (int)(75f / gv.elapsed3) || prp.skippedPathfinding || prp.isCurrentlyChasing || gv.cc.getDistance(partyCoord, propCoord) <= 8))
                     {
                         newCoor = gv.pfa.findNewPoint(new Coordinate(prp.LocationX, prp.LocationY), new Coordinate(targetX, targetY), prp, propAreaIndex);
                         gv.mod.findNewPointCounter++;
@@ -13280,7 +13271,7 @@ namespace IceBlink2
                         prp.oldPath.RemoveAt(prp.oldPath.Count - 1);
                     }
 
-                    if (gv.mod.findNewPointCounter > (int)(150f / gv.elapsed3) && !prp.skippedPathfinding && findNewPath && !prp.isCurrentlyChasing && gv.cc.getDistance(partyCoord, propCoord) > 8)
+                    if (gv.mod.findNewPointCounter > (int)(75f / gv.elapsed3) && !prp.skippedPathfinding && findNewPath && !prp.isCurrentlyChasing && gv.cc.getDistance(partyCoord, propCoord) > 8)
                     {
                         prp.skippedPathfinding = true;
                         prp.isPausing = true;
@@ -13465,54 +13456,6 @@ namespace IceBlink2
                                                 gv.sf.ThisProp = prp;
                                                 gv.cc.calledEncounterFromProp = true;
                                                 gv.mod.stopMoves = true;
-                                                //sportness
-                                                if (!gv.sf.ThisProp.HasCollision)
-                                                {
-                                                    gv.screenMainMap.timeStamp2 = DateTime.Now.Ticks;
-                                                    while (!gv.screenMainMap.moveDelay2())
-                                                    {
-                                                        //new System.EventHandler(gv.gameTimer_Tick);
-                                                        //gv.screenMainMap.Update(gv.screenMainMap.elapsed);
-                                                        if (!gv.stillProcessingGameLoop)
-                                                        {
-                                                            if (gv.screenType != "main")
-                                                            {
-                                                                gv.aTimer.Stop();
-                                                                gv.a2Timer.Stop();
-                                                                gv.mod.scrollModeSpeed = 1.15f;
-                                                            }
-                                                            gv.stillProcessingGameLoop = true; //starting the game loop so do not allow another tick call to run until finished with this tick call.
-                                                            long current = gv.gameTimerStopwatch.ElapsedMilliseconds; //get the current total amount of ms since the game launched
-                                                            gv.elapsed = (int)(current - gv.previousTime); //calculate the total ms elapsed since the last time through the game loop
-                                                                                                           /*
-                                                                                                           while (elapsed < 16)
-                                                                                                           {
-                                                                                                               current = gameTimerStopwatch.ElapsedMilliseconds;
-                                                                                                               elapsed = (int)(current - previousTime);
-                                                                                                           }
-                                                                                                           */
-                                                                                                           //if (elapsed > 50)
-                                                                                                           //{
-                                                                                                           //int i = 0;
-                                                                                                           //}
-                                                                                                           //mod.scrollingOverhang = mod.scrollingOverhang + 3f*(elapsed/20f);
-                                                                                                           //if (mod.scrollingOverhang > 0)
-                                                                                                           //{
-                                                                                                           //mod.scrollingOverhang = 0;
-                                                                                                           //}
-                                                            gv.Update(gv.elapsed); //runs AI and physics
-                                                            gv.Render(gv.elapsed); //draw the screen frame
-                                                            if (gv.reportFPScount >= 10)
-                                                            {
-                                                                gv.reportFPScount = 0;
-                                                                gv.fps = 1000 / (current - gv.previousTime);
-                                                            }
-                                                            gv.reportFPScount++;
-                                                            gv.previousTime = current; //remember the current time at the beginning of this tick call for the next time through the game loop to calculate elapsed ti
-                                                            gv.stillProcessingGameLoop = false; //finished game loop so okay to let the next tick call enter the game loop      
-                                                        }
-                                                    }
-                                                }
                                                 doEncounterBasedOnTag(prp.EncounterWhenOnPartySquare);
                                                 gv.mod.breakActiveSearch = true;
                                                 //gv.mod.EncounterOfTurnDone = true;
@@ -13556,54 +13499,6 @@ namespace IceBlink2
                                             gv.sf.ThisProp = prp;
                                             gv.cc.calledEncounterFromProp = true;
                                             gv.mod.stopMoves = true;
-                                            //sportness
-                                            if (!gv.sf.ThisProp.HasCollision)
-                                            {
-                                                gv.screenMainMap.timeStamp2 = DateTime.Now.Ticks;
-                                                while (!gv.screenMainMap.moveDelay2())
-                                                {
-                                                    //new System.EventHandler(gv.gameTimer_Tick);
-                                                    //gv.screenMainMap.Update(gv.screenMainMap.elapsed);
-                                                    if (!gv.stillProcessingGameLoop)
-                                                    {
-                                                        if (gv.screenType != "main")
-                                                        {
-                                                            gv.aTimer.Stop();
-                                                            gv.a2Timer.Stop();
-                                                            gv.mod.scrollModeSpeed = 1.15f;
-                                                        }
-                                                        gv.stillProcessingGameLoop = true; //starting the game loop so do not allow another tick call to run until finished with this tick call.
-                                                        long current = gv.gameTimerStopwatch.ElapsedMilliseconds; //get the current total amount of ms since the game launched
-                                                        gv.elapsed = (int)(current - gv.previousTime); //calculate the total ms elapsed since the last time through the game loop
-                                                                                                       /*
-                                                                                                       while (elapsed < 16)
-                                                                                                       {
-                                                                                                           current = gameTimerStopwatch.ElapsedMilliseconds;
-                                                                                                           elapsed = (int)(current - previousTime);
-                                                                                                       }
-                                                                                                       */
-                                                                                                       //if (elapsed > 50)
-                                                                                                       //{
-                                                                                                       //int i = 0;
-                                                                                                       //}
-                                                                                                       //mod.scrollingOverhang = mod.scrollingOverhang + 3f*(elapsed/20f);
-                                                                                                       //if (mod.scrollingOverhang > 0)
-                                                                                                       //{
-                                                                                                       //mod.scrollingOverhang = 0;
-                                                                                                       //}
-                                                        gv.Update(gv.elapsed); //runs AI and physics
-                                                        gv.Render(gv.elapsed); //draw the screen frame
-                                                        if (gv.reportFPScount >= 10)
-                                                        {
-                                                            gv.reportFPScount = 0;
-                                                            gv.fps = 1000 / (current - gv.previousTime);
-                                                        }
-                                                        gv.reportFPScount++;
-                                                        gv.previousTime = current; //remember the current time at the beginning of this tick call for the next time through the game loop to calculate elapsed ti
-                                                        gv.stillProcessingGameLoop = false; //finished game loop so okay to let the next tick call enter the game loop      
-                                                    }
-                                                }
-                                            }
                                             doEncounterBasedOnTag(prp.EncounterWhenOnPartySquare);
                                             gv.mod.breakActiveSearch = true;
                                             //gv.mod.EncounterOfTurnDone = true;
@@ -13669,54 +13564,6 @@ namespace IceBlink2
                                         gv.sf.ThisProp = prp;
                                         gv.cc.calledEncounterFromProp = true;
                                         gv.mod.stopMoves = true;
-                                        //sportness
-                                        if (!gv.sf.ThisProp.HasCollision)
-                                        {
-                                            gv.screenMainMap.timeStamp2 = DateTime.Now.Ticks;
-                                            while (!gv.screenMainMap.moveDelay2())
-                                            {
-                                                //new System.EventHandler(gv.gameTimer_Tick);
-                                                //gv.screenMainMap.Update(gv.screenMainMap.elapsed);
-                                                if (!gv.stillProcessingGameLoop)
-                                                {
-                                                    if (gv.screenType != "main")
-                                                    {
-                                                        gv.aTimer.Stop();
-                                                        gv.a2Timer.Stop();
-                                                        gv.mod.scrollModeSpeed = 1.15f;
-                                                    }
-                                                    gv.stillProcessingGameLoop = true; //starting the game loop so do not allow another tick call to run until finished with this tick call.
-                                                    long current = gv.gameTimerStopwatch.ElapsedMilliseconds; //get the current total amount of ms since the game launched
-                                                    gv.elapsed = (int)(current - gv.previousTime); //calculate the total ms elapsed since the last time through the game loop
-                                                                                                   /*
-                                                                                                   while (elapsed < 16)
-                                                                                                   {
-                                                                                                       current = gameTimerStopwatch.ElapsedMilliseconds;
-                                                                                                       elapsed = (int)(current - previousTime);
-                                                                                                   }
-                                                                                                   */
-                                                                                                   //if (elapsed > 50)
-                                                                                                   //{
-                                                                                                   //int i = 0;
-                                                                                                   //}
-                                                                                                   //mod.scrollingOverhang = mod.scrollingOverhang + 3f*(elapsed/20f);
-                                                                                                   //if (mod.scrollingOverhang > 0)
-                                                                                                   //{
-                                                                                                   //mod.scrollingOverhang = 0;
-                                                                                                   //}
-                                                    gv.Update(gv.elapsed); //runs AI and physics
-                                                    gv.Render(gv.elapsed); //draw the screen frame
-                                                    if (gv.reportFPScount >= 10)
-                                                    {
-                                                        gv.reportFPScount = 0;
-                                                        gv.fps = 1000 / (current - gv.previousTime);
-                                                    }
-                                                    gv.reportFPScount++;
-                                                    gv.previousTime = current; //remember the current time at the beginning of this tick call for the next time through the game loop to calculate elapsed ti
-                                                    gv.stillProcessingGameLoop = false; //finished game loop so okay to let the next tick call enter the game loop      
-                                                }
-                                            }
-                                        }
                                         doEncounterBasedOnTag(prp.EncounterWhenOnPartySquare);
                                         gv.mod.breakActiveSearch = true;
                                     }
@@ -13770,6 +13617,7 @@ namespace IceBlink2
             }
             catch (Exception ex)
             {
+                gv.sf.MessageBox("Karl Error 116End");
                 gv.errorLog(ex.ToString());
             }
         }
@@ -15160,54 +15008,6 @@ namespace IceBlink2
                             if (!gv.mod.EncounterOfTurnDone)
                             {
                                     gv.mod.EncounterOfTurnDone = true;
-                                //sportness
-                                if (!gv.sf.ThisProp.HasCollision)
-                                {
-                                    gv.screenMainMap.timeStamp2 = DateTime.Now.Ticks;
-                                    while (!gv.screenMainMap.moveDelay2())
-                                    {
-                                        //new System.EventHandler(gv.gameTimer_Tick);
-                                        //gv.screenMainMap.Update(gv.screenMainMap.elapsed);
-                                        if (!gv.stillProcessingGameLoop)
-                                        {
-                                            if (gv.screenType != "main")
-                                            {
-                                                gv.aTimer.Stop();
-                                                gv.a2Timer.Stop();
-                                                gv.mod.scrollModeSpeed = 1.15f;
-                                            }
-                                            gv.stillProcessingGameLoop = true; //starting the game loop so do not allow another tick call to run until finished with this tick call.
-                                            long current = gv.gameTimerStopwatch.ElapsedMilliseconds; //get the current total amount of ms since the game launched
-                                            gv.elapsed = (int)(current - gv.previousTime); //calculate the total ms elapsed since the last time through the game loop
-                                                                                           /*
-                                                                                           while (elapsed < 16)
-                                                                                           {
-                                                                                               current = gameTimerStopwatch.ElapsedMilliseconds;
-                                                                                               elapsed = (int)(current - previousTime);
-                                                                                           }
-                                                                                           */
-                                                                                           //if (elapsed > 50)
-                                                                                           //{
-                                                                                           //int i = 0;
-                                                                                           //}
-                                                                                           //mod.scrollingOverhang = mod.scrollingOverhang + 3f*(elapsed/20f);
-                                                                                           //if (mod.scrollingOverhang > 0)
-                                                                                           //{
-                                                                                           //mod.scrollingOverhang = 0;
-                                                                                           //}
-                                            gv.Update(gv.elapsed); //runs AI and physics
-                                            gv.Render(gv.elapsed); //draw the screen frame
-                                            if (gv.reportFPScount >= 10)
-                                            {
-                                                gv.reportFPScount = 0;
-                                                gv.fps = 1000 / (current - gv.previousTime);
-                                            }
-                                            gv.reportFPScount++;
-                                            gv.previousTime = current; //remember the current time at the beginning of this tick call for the next time through the game loop to calculate elapsed ti
-                                            gv.stillProcessingGameLoop = false; //finished game loop so okay to let the next tick call enter the game loop      
-                                        }
-                                    }
-                                }
                                 doEncounterBasedOnTag(gv.mod.currentArea.Props[i].EncounterWhenOnPartySquare);
                                     gv.mod.breakActiveSearch = true;
 
@@ -15588,54 +15388,6 @@ namespace IceBlink2
                                 {
                                     
                                     gv.mod.EncounterOfTurnDone = true;
-                                    //sportness
-                                    if (!gv.sf.ThisProp.HasCollision)
-                                    {
-                                        gv.screenMainMap.timeStamp2 = DateTime.Now.Ticks;
-                                        while (!gv.screenMainMap.moveDelay2())
-                                        {
-                                            //new System.EventHandler(gv.gameTimer_Tick);
-                                            //gv.screenMainMap.Update(gv.screenMainMap.elapsed);
-                                            if (!gv.stillProcessingGameLoop)
-                                            {
-                                                if (gv.screenType != "main")
-                                                {
-                                                    gv.aTimer.Stop();
-                                                    gv.a2Timer.Stop();
-                                                    gv.mod.scrollModeSpeed = 1.15f;
-                                                }
-                                                gv.stillProcessingGameLoop = true; //starting the game loop so do not allow another tick call to run until finished with this tick call.
-                                                long current = gv.gameTimerStopwatch.ElapsedMilliseconds; //get the current total amount of ms since the game launched
-                                                gv.elapsed = (int)(current - gv.previousTime); //calculate the total ms elapsed since the last time through the game loop
-                                                                                               /*
-                                                                                               while (elapsed < 16)
-                                                                                               {
-                                                                                                   current = gameTimerStopwatch.ElapsedMilliseconds;
-                                                                                                   elapsed = (int)(current - previousTime);
-                                                                                               }
-                                                                                               */
-                                                                                               //if (elapsed > 50)
-                                                                                               //{
-                                                                                               //int i = 0;
-                                                                                               //}
-                                                                                               //mod.scrollingOverhang = mod.scrollingOverhang + 3f*(elapsed/20f);
-                                                                                               //if (mod.scrollingOverhang > 0)
-                                                                                               //{
-                                                                                               //mod.scrollingOverhang = 0;
-                                                                                               //}
-                                                gv.Update(gv.elapsed); //runs AI and physics
-                                                gv.Render(gv.elapsed); //draw the screen frame
-                                                if (gv.reportFPScount >= 10)
-                                                {
-                                                    gv.reportFPScount = 0;
-                                                    gv.fps = 1000 / (current - gv.previousTime);
-                                                }
-                                                gv.reportFPScount++;
-                                                gv.previousTime = current; //remember the current time at the beginning of this tick call for the next time through the game loop to calculate elapsed ti
-                                                gv.stillProcessingGameLoop = false; //finished game loop so okay to let the next tick call enter the game loop      
-                                            }
-                                        }
-                                    }
                                     doEncounterBasedOnTag(gv.mod.currentArea.Props[i].EncounterWhenOnPartySquare);
                                     gv.mod.breakActiveSearch = true;
 
@@ -16408,54 +16160,6 @@ namespace IceBlink2
                                                 {
                                                     gv.mod.breakActiveSearch = true;
                                                     gv.mod.EncounterOfTurnDone = true;
-                                                    //sportness
-                                                    if (!gv.sf.ThisProp.HasCollision)
-                                                    {
-                                                        gv.screenMainMap.timeStamp2 = DateTime.Now.Ticks;
-                                                        while (!gv.screenMainMap.moveDelay2())
-                                                        {
-                                                            //new System.EventHandler(gv.gameTimer_Tick);
-                                                            //gv.screenMainMap.Update(gv.screenMainMap.elapsed);
-                                                            if (!gv.stillProcessingGameLoop)
-                                                            {
-                                                                if (gv.screenType != "main")
-                                                                {
-                                                                    gv.aTimer.Stop();
-                                                                    gv.a2Timer.Stop();
-                                                                    gv.mod.scrollModeSpeed = 1.15f;
-                                                                }
-                                                                gv.stillProcessingGameLoop = true; //starting the game loop so do not allow another tick call to run until finished with this tick call.
-                                                                long current = gv.gameTimerStopwatch.ElapsedMilliseconds; //get the current total amount of ms since the game launched
-                                                                gv.elapsed = (int)(current - gv.previousTime); //calculate the total ms elapsed since the last time through the game loop
-                                                                                                               /*
-                                                                                                               while (elapsed < 16)
-                                                                                                               {
-                                                                                                                   current = gameTimerStopwatch.ElapsedMilliseconds;
-                                                                                                                   elapsed = (int)(current - previousTime);
-                                                                                                               }
-                                                                                                               */
-                                                                                                               //if (elapsed > 50)
-                                                                                                               //{
-                                                                                                               //int i = 0;
-                                                                                                               //}
-                                                                                                               //mod.scrollingOverhang = mod.scrollingOverhang + 3f*(elapsed/20f);
-                                                                                                               //if (mod.scrollingOverhang > 0)
-                                                                                                               //{
-                                                                                                               //mod.scrollingOverhang = 0;
-                                                                                                               //}
-                                                                gv.Update(gv.elapsed); //runs AI and physics
-                                                                gv.Render(gv.elapsed); //draw the screen frame
-                                                                if (gv.reportFPScount >= 10)
-                                                                {
-                                                                    gv.reportFPScount = 0;
-                                                                    gv.fps = 1000 / (current - gv.previousTime);
-                                                                }
-                                                                gv.reportFPScount++;
-                                                                gv.previousTime = current; //remember the current time at the beginning of this tick call for the next time through the game loop to calculate elapsed ti
-                                                                gv.stillProcessingGameLoop = false; //finished game loop so okay to let the next tick call enter the game loop      
-                                                            }
-                                                        }
-                                                    }
                                                     doEncounterBasedOnTag(trig.Event2FilenameOrTag);
                                                     //gv.mod.EncounterOfTurnDone = true;
                                                 }
@@ -16585,9 +16289,18 @@ namespace IceBlink2
             gv.mod.blockUpKey = false;
             gv.mod.blockDownKey = false;
 
+
             gv.aTimer.Stop();
             gv.a2Timer.Stop();
             gv.mod.scrollModeSpeed = 1.15f;
+
+            //gv.mod.isScrollingNow = false;
+            //gv.mod.doNotStartScrolling = true;
+            //gv.mod.scrollingDirection = "none";
+            //gv.blockMoveBecausOfCurrentScrolling = true;
+            gv.mod.scrollingTimer = 100;
+            //gv.mod.justLeftCombat = true;
+            gv.screenType = "main";
 
             try
             {
@@ -16598,6 +16311,7 @@ namespace IceBlink2
             }
             catch (Exception ex)
             {
+                gv.sf.MessageBox("Karl Error 117End");
                 gv.errorLog(ex.ToString());
             }
 
@@ -16722,11 +16436,20 @@ namespace IceBlink2
                 gv.mod.blockLeftKey = false;
                 gv.mod.blockUpKey = false;
                 gv.mod.blockDownKey = false;
-                
-                    gv.aTimer.Stop();
-                    gv.a2Timer.Stop();
-                    gv.mod.scrollModeSpeed = 1.15f;
-                
+
+
+                gv.aTimer.Stop();
+                gv.a2Timer.Stop();
+                gv.mod.scrollModeSpeed = 1.15f;
+
+                //gv.mod.isScrollingNow = false;
+                //gv.mod.doNotStartScrolling = true;
+                //gv.mod.scrollingDirection = "none";
+                //gv.blockMoveBecausOfCurrentScrolling = true;
+                gv.mod.scrollingTimer = 100;
+                //gv.mod.justLeftCombat = true;
+                gv.screenType = "main";
+
                 gv.mod.allowImmediateRetransition = true;
                     LoadCurrentConvo(tag);
                     gv.screenType = "convo";
@@ -18477,14 +18200,25 @@ namespace IceBlink2
                         }
                     }
                 }
+
+                /*
                 gv.mod.blockRightKey = false;
                 gv.mod.blockLeftKey = false;
                 gv.mod.blockUpKey = false;
                 gv.mod.blockDownKey = false;
 
+
                 gv.aTimer.Stop();
                 gv.a2Timer.Stop();
                 gv.mod.scrollModeSpeed = 1.15f;
+                gv.mod.isScrollingNow = false;
+                gv.mod.doNotStartScrolling = true;
+                gv.mod.scrollingDirection = "none";
+                //gv.blockMoveBecausOfCurrentScrolling = true;
+                gv.mod.scrollingTimer = 100;
+                //gv.mod.justLeftCombat = true;
+                gv.screenType = "main";
+                */
 
                 gv.mod.currentEncounter = gv.mod.getEncounter(name);
                     if (gv.mod.currentEncounter.encounterCreatureRefsList.Count > 0)
@@ -18518,7 +18252,8 @@ namespace IceBlink2
                 }
                 catch (Exception ex)
                 {
-                    gv.errorLog(ex.ToString());
+                gv.sf.MessageBox("Karl Error 118End");
+                gv.errorLog(ex.ToString());
                 }
             //}
         }
@@ -19317,6 +19052,7 @@ namespace IceBlink2
             }
             catch (Exception ex)
             {
+                gv.sf.MessageBox("Karl Error 119End");
                 gv.errorLog(ex.ToString());
             }
 
@@ -20065,6 +19801,7 @@ namespace IceBlink2
                     bm = new System.Drawing.Bitmap(gv.mainDirectory + "\\default\\NewModule\\graphics\\missingtexture.png");
                     return bm;
                 }
+                gv.sf.MessageBox("Karl Error 120End");
                 gv.errorLog(ex.ToString());
             }
 
@@ -20087,6 +19824,7 @@ namespace IceBlink2
             }
             catch (Exception ex)
             {
+                gv.sf.MessageBox("Karl Error 121End");
                 gv.errorLog(ex.ToString());
                 return null;
             }

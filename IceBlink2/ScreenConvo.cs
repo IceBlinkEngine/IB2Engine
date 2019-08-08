@@ -1042,17 +1042,27 @@ namespace IceBlink2
 	        	    }
 	        	    else
 	        	    {
-                        //prevent any auto scrolling
                         gv.mod.blockRightKey = false;
                         gv.mod.blockLeftKey = false;
                         gv.mod.blockUpKey = false;
                         gv.mod.blockDownKey = false;
 
+
                         gv.aTimer.Stop();
                         gv.a2Timer.Stop();
                         gv.mod.scrollModeSpeed = 1.15f;
+
+                        //gv.mod.isScrollingNow = false;
+                        //gv.mod.doNotStartScrolling = true;
+                        //gv.mod.scrollingDirection = "none";
+                        
+                        //gv.blockMoveBecausOfCurrentScrolling = true;
+                        gv.mod.scrollingTimer = 100;
+                        //gv.mod.justLeftCombat = true;
                         gv.screenType = "main";
-	        		    if (gv.cc.calledConvoFromProp)
+
+
+                        if (gv.cc.calledConvoFromProp)
 	        		    {
                             //gv.mod.isRecursiveDoTriggerCallMovingProp = true;
                             //gv.mod.blockTriggerMovingProp = true;

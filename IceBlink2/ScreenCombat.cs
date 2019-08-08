@@ -8032,15 +8032,28 @@ namespace IceBlink2
                 }
 
                 //prevent any auto scrolling
+                
                 gv.mod.blockRightKey = false;
                 gv.mod.blockLeftKey = false;
                 gv.mod.blockUpKey = false;
                 gv.mod.blockDownKey = false;
+                
 
                 gv.aTimer.Stop();
                 gv.a2Timer.Stop();
                 gv.mod.scrollModeSpeed = 1.15f;
 
+                //gv.mod.isScrollingNow = false;
+                //gv.mod.doNotStartScrolling = true;
+                //gv.mod.scrollingDirection = "none";
+                
+                //gv.blockMoveBecausOfCurrentScrolling = true;
+                gv.mod.scrollingTimer = 100;
+                if (gv.mod.mainMapMovementRelevantKeyPressed)
+                {
+                    gv.mod.justLeftCombat = true;
+                    gv.mod.mainMapMovementRelevantKeyPressed = false;
+                }
                 gv.screenType = "main";
 
                 /*
@@ -14211,6 +14224,7 @@ namespace IceBlink2
             
             if (keyData == Keys.M)
             {
+                gv.mod.mainMapMovementRelevantKeyPressed = false;
                 if (canMove)
                 {
                     if (isPlayerTurn)
@@ -14227,6 +14241,7 @@ namespace IceBlink2
             }
             else if (keyData == Keys.R)
             {
+                gv.mod.mainMapMovementRelevantKeyPressed = false;
                 //scroll log up
                 //do same for combat screen
                 //wheel
@@ -14245,6 +14260,7 @@ namespace IceBlink2
             }
             else if (keyData == Keys.F)
             {
+                gv.mod.mainMapMovementRelevantKeyPressed = false;
                 //scroll log up
                 //do same for combat screen
                 //wheel
@@ -14263,6 +14279,7 @@ namespace IceBlink2
             }
             else if (keyData == Keys.K)
             {
+                gv.mod.mainMapMovementRelevantKeyPressed = false;
                 if (isPlayerTurn)
                 {
                     gv.mod.playerList[currentPlayerIndex].thisCastIsFreeOfCost = false;
@@ -14278,6 +14295,7 @@ namespace IceBlink2
             }
             else if (keyData == Keys.P)
             {
+                gv.mod.mainMapMovementRelevantKeyPressed = false;
                 if ((isPlayerTurn) && (!gv.mod.playerList[currentPlayerIndex].isTemporaryAllyForThisEncounterOnly))
                 {
                     if (currentPlayerIndex > gv.mod.playerList.Count - 1)
@@ -14299,6 +14317,7 @@ namespace IceBlink2
             }
             else if (keyData == Keys.I)
             {
+                gv.mod.mainMapMovementRelevantKeyPressed = false;
                 if ((isPlayerTurn) && (!gv.mod.playerList[currentPlayerIndex].isTemporaryAllyForThisEncounterOnly) && !gv.mod.currentEncounter.noItemUseModifier)
                 {
                     gv.mod.playerList[currentPlayerIndex].thisCastIsFreeOfCost = false;
@@ -14313,6 +14332,7 @@ namespace IceBlink2
             }
             else if (keyData == Keys.Space)
             {
+                gv.mod.mainMapMovementRelevantKeyPressed = false;
                 if (isPlayerTurn)
                 {
                     continueTurn = false;
@@ -14327,6 +14347,7 @@ namespace IceBlink2
             }
             else if (keyData == Keys.O)
             {
+                gv.mod.mainMapMovementRelevantKeyPressed = false;
                 if (isPlayerTurn && !gv.mod.currentEncounter.noSpellCastModifier)
                 {
                     gv.mod.playerList[currentPlayerIndex].hasDelayedAlready = true;
@@ -14353,6 +14374,7 @@ namespace IceBlink2
             }
             else if (keyData == Keys.L)
             {
+                gv.mod.mainMapMovementRelevantKeyPressed = false;
                 if (isPlayerTurn)
                 {
                     int highestMoveOrderFound = 0;
@@ -14423,6 +14445,7 @@ namespace IceBlink2
             }
             else if (keyData == Keys.U)
             {
+                gv.mod.mainMapMovementRelevantKeyPressed = false;
                 if (isPlayerTurn && !gv.mod.currentEncounter.noTraitUseModifier)
                 {
                     gv.mod.playerList[currentPlayerIndex].hasDelayedAlready = true;
@@ -14449,6 +14472,7 @@ namespace IceBlink2
             }
             else if (keyData == Keys.X)
             {
+                gv.mod.mainMapMovementRelevantKeyPressed = false;
                 foreach (IB2Panel pnl in combatUiLayout.panelList)
                 {
                     //hides left
@@ -14509,6 +14533,14 @@ namespace IceBlink2
             #region Move Map
             if (keyData == Keys.Up && !showMoveKeys)
             {
+                if (gv.screenMainMap.showMoveKeys)
+                {
+                    gv.mod.mainMapMovementRelevantKeyPressed = true;
+                }
+                else
+                {
+                    gv.mod.mainMapMovementRelevantKeyPressed = false;
+                }
                 if (gv.mod.useManualCombatCam)
                 {
                     if (UpperLeftSquare.Y > -gv.playerOffsetY)
@@ -14528,6 +14560,14 @@ namespace IceBlink2
             }
             else if (keyData == Keys.Left && !showMoveKeys)
             {
+                if (gv.screenMainMap.showMoveKeys)
+                {
+                    gv.mod.mainMapMovementRelevantKeyPressed = true;
+                }
+                else
+                {
+                    gv.mod.mainMapMovementRelevantKeyPressed = false;
+                }
                 if (gv.mod.useManualCombatCam)
                 {
                     if (UpperLeftSquare.X > -gv.playerOffsetX)
@@ -14547,6 +14587,14 @@ namespace IceBlink2
             }
             else if (keyData == Keys.Down && !showMoveKeys)
             {
+                if (gv.screenMainMap.showMoveKeys)
+                {
+                    gv.mod.mainMapMovementRelevantKeyPressed = true;
+                }
+                else
+                {
+                    gv.mod.mainMapMovementRelevantKeyPressed = false;
+                }
                 if (gv.mod.useManualCombatCam)
                 {
                     if (UpperLeftSquare.Y < gv.mod.currentEncounter.MapSizeY - gv.playerOffsetY - 1)
@@ -14566,6 +14614,14 @@ namespace IceBlink2
             }
             else if (keyData == Keys.Right && !showMoveKeys)
             {
+                if (gv.screenMainMap.showMoveKeys)
+                {
+                    gv.mod.mainMapMovementRelevantKeyPressed = true;
+                }
+                else
+                {
+                    gv.mod.mainMapMovementRelevantKeyPressed = false;
+                }
                 if (gv.mod.useManualCombatCam)
                 {
                     if (UpperLeftSquare.X < gv.mod.currentEncounter.MapSizeX - gv.playerOffsetX - 1)
@@ -14586,6 +14642,14 @@ namespace IceBlink2
 
             if (keyData == Keys.W && showMoveKeys)
             {
+                if (!gv.screenMainMap.showMoveKeys)
+                {
+                    gv.mod.mainMapMovementRelevantKeyPressed = true;
+                }
+                else
+                {
+                    gv.mod.mainMapMovementRelevantKeyPressed = false;
+                }
                 if (gv.mod.useManualCombatCam)
                 {
                     if (UpperLeftSquare.Y > -gv.playerOffsetY)
@@ -14605,6 +14669,14 @@ namespace IceBlink2
             }
             else if (keyData == Keys.A && showMoveKeys)
             {
+                if (!gv.screenMainMap.showMoveKeys)
+                {
+                    gv.mod.mainMapMovementRelevantKeyPressed = true;
+                }
+                else
+                {
+                    gv.mod.mainMapMovementRelevantKeyPressed = false;
+                }
                 if (gv.mod.useManualCombatCam)
                 {
                     if (UpperLeftSquare.X > -gv.playerOffsetX)
@@ -14624,6 +14696,14 @@ namespace IceBlink2
             }
             else if (keyData == Keys.S && showMoveKeys)
             {
+                if (!gv.screenMainMap.showMoveKeys)
+                {
+                    gv.mod.mainMapMovementRelevantKeyPressed = true;
+                }
+                else
+                {
+                    gv.mod.mainMapMovementRelevantKeyPressed = false;
+                }
                 if (gv.mod.useManualCombatCam)
                 {
                     if (UpperLeftSquare.Y < gv.mod.currentEncounter.MapSizeY - gv.playerOffsetY - 1)
@@ -14643,6 +14723,14 @@ namespace IceBlink2
             }
             else if (keyData == Keys.D && showMoveKeys)
             {
+                if (!gv.screenMainMap.showMoveKeys)
+                {
+                    gv.mod.mainMapMovementRelevantKeyPressed = true;
+                }
+                else
+                {
+                    gv.mod.mainMapMovementRelevantKeyPressed = false;
+                }
                 if (gv.mod.useManualCombatCam)
                 {
                     if (UpperLeftSquare.X < gv.mod.currentEncounter.MapSizeX - gv.playerOffsetX - 1)
@@ -14672,6 +14760,36 @@ namespace IceBlink2
                 }
                 else if ( (keyData == Keys.NumPad8) || (keyData == Keys.Up && showMoveKeys) || (keyData == Keys.W && !showMoveKeys) )
                 {
+
+                    if (keyData == Keys.NumPad8)
+                    {
+                        gv.mod.mainMapMovementRelevantKeyPressed = true;
+                    }
+
+                        if (keyData == Keys.Up)
+                    {
+                        if (gv.screenMainMap.showMoveKeys)
+                        {
+                            gv.mod.mainMapMovementRelevantKeyPressed = true;
+                        }
+                        else
+                        {
+                            gv.mod.mainMapMovementRelevantKeyPressed = false;
+                        }
+                    }
+
+                    if (keyData == Keys.W)
+                    {
+                        if (!gv.screenMainMap.showMoveKeys)
+                        {
+                            gv.mod.mainMapMovementRelevantKeyPressed = true;
+                        }
+                        else
+                        {
+                            gv.mod.mainMapMovementRelevantKeyPressed = false;
+                        }
+                    }
+
                     continueTurn = false;
                     MoveUp(pc);
                 }
@@ -14682,6 +14800,34 @@ namespace IceBlink2
                 }
                 else if ((keyData == Keys.NumPad4) || (keyData == Keys.Left && showMoveKeys) || (keyData == Keys.A && !showMoveKeys))
                 {
+                    if (keyData == Keys.NumPad4)
+                    {
+                        gv.mod.mainMapMovementRelevantKeyPressed = true;
+                    }
+
+                    if (keyData == Keys.Left)
+                    {
+                        if (gv.screenMainMap.showMoveKeys)
+                        {
+                            gv.mod.mainMapMovementRelevantKeyPressed = true;
+                        }
+                        else
+                        {
+                            gv.mod.mainMapMovementRelevantKeyPressed = false;
+                        }
+                    }
+
+                    if (keyData == Keys.A)
+                    {
+                        if (!gv.screenMainMap.showMoveKeys)
+                        {
+                            gv.mod.mainMapMovementRelevantKeyPressed = true;
+                        }
+                        else
+                        {
+                            gv.mod.mainMapMovementRelevantKeyPressed = false;
+                        }
+                    }
                     continueTurn = false;
                     MoveLeft(pc);
                 }
@@ -14691,6 +14837,34 @@ namespace IceBlink2
                 }
                 else if ( (keyData == Keys.NumPad6) || (keyData == Keys.Right && showMoveKeys) || (keyData == Keys.D && !showMoveKeys) )
                 {
+                    if (keyData == Keys.NumPad6)
+                    {
+                        gv.mod.mainMapMovementRelevantKeyPressed = true;
+                    }
+
+                    if (keyData == Keys.Right)
+                    {
+                        if (gv.screenMainMap.showMoveKeys)
+                        {
+                            gv.mod.mainMapMovementRelevantKeyPressed = true;
+                        }
+                        else
+                        {
+                            gv.mod.mainMapMovementRelevantKeyPressed = false;
+                        }
+                    }
+
+                    if (keyData == Keys.D)
+                    {
+                        if (!gv.screenMainMap.showMoveKeys)
+                        {
+                            gv.mod.mainMapMovementRelevantKeyPressed = true;
+                        }
+                        else
+                        {
+                            gv.mod.mainMapMovementRelevantKeyPressed = false;
+                        }
+                    }
                     continueTurn = false;
                     MoveRight(pc);
                 }
@@ -14701,6 +14875,34 @@ namespace IceBlink2
                 }
                 else if ( (keyData == Keys.NumPad2) || (keyData == Keys.Down && showMoveKeys) || (keyData == Keys.S && !showMoveKeys) )
                 {
+                    if (keyData == Keys.NumPad2)
+                    {
+                        gv.mod.mainMapMovementRelevantKeyPressed = true;
+                    }
+
+                    if (keyData == Keys.Down)
+                    {
+                        if (gv.screenMainMap.showMoveKeys)
+                        {
+                            gv.mod.mainMapMovementRelevantKeyPressed = true;
+                        }
+                        else
+                        {
+                            gv.mod.mainMapMovementRelevantKeyPressed = false;
+                        }
+                    }
+
+                    if (keyData == Keys.S)
+                    {
+                        if (!gv.screenMainMap.showMoveKeys)
+                        {
+                            gv.mod.mainMapMovementRelevantKeyPressed = true;
+                        }
+                        else
+                        {
+                            gv.mod.mainMapMovementRelevantKeyPressed = false;
+                        }
+                    }
                     continueTurn = false;
                     MoveDown(pc);
                 }
@@ -14742,6 +14944,11 @@ namespace IceBlink2
                 }
                 else if (keyData == Keys.NumPad8)
                 {
+                    if (keyData == Keys.NumPad8)
+                    {
+                        gv.mod.mainMapMovementRelevantKeyPressed = true;
+                    }
+
                     continueTurn = false;
                     MoveTargetHighlight(8);
                 }
@@ -14752,6 +14959,11 @@ namespace IceBlink2
                 }
                 else if (keyData == Keys.NumPad4)
                 {
+                    if (keyData == Keys.NumPad4)
+                    {
+                        gv.mod.mainMapMovementRelevantKeyPressed = true;
+                    }
+
                     continueTurn = false;
                     MoveTargetHighlight(4);
                 }
@@ -14767,6 +14979,12 @@ namespace IceBlink2
                 }
                 else if (keyData == Keys.NumPad2)
                 {
+                    if (keyData == Keys.NumPad2)
+                    {
+                        gv.mod.mainMapMovementRelevantKeyPressed = true;
+                    }
+
+                    
                     continueTurn = false;
                     MoveTargetHighlight(2);
                 }

@@ -413,6 +413,7 @@ namespace IceBlink2
             }
             catch (Exception ex)
             {
+                gv.sf.MessageBox("Karl Error 150End");
                 gv.errorLog(ex.ToString());
             }
         }
@@ -2537,6 +2538,7 @@ namespace IceBlink2
             }
             catch
             {
+                gv.sf.MessageBox("Karl Error 151End");
                 int geek = 1;
             }
         }
@@ -18127,6 +18129,7 @@ namespace IceBlink2
             }
             catch (Exception ex)
             {
+                gv.sf.MessageBox("Karl Error 153End");
                 gv.errorLog(ex.ToString());
             }
         }
@@ -18533,6 +18536,7 @@ namespace IceBlink2
             }
             catch (Exception ex)
             {
+                gv.sf.MessageBox("Karl Error 154End");
                 gv.errorLog(ex.ToString());
             }
         }
@@ -20819,6 +20823,7 @@ namespace IceBlink2
                                                 }
                                                 catch (Exception ex)
                                                 {
+                                                    gv.sf.MessageBox("Karl Error 155End");
                                                     gv.errorLog(ex.ToString());
                                                 }
                                             }
@@ -21195,6 +21200,7 @@ namespace IceBlink2
                                                 }
                                                 catch (Exception ex)
                                                 {
+                                                    gv.sf.MessageBox("Karl Error 156End");
                                                     gv.errorLog(ex.ToString());
                                                 }
                                             }
@@ -21720,7 +21726,8 @@ namespace IceBlink2
                                             }
                                             catch (Exception ex)
                                             {
-                                                gv.errorLog(ex.ToString());
+                                                    gv.sf.MessageBox("Karl Error 157End");
+                                                    gv.errorLog(ex.ToString());
                                             }
                                         }
                                     }
@@ -22082,7 +22089,8 @@ namespace IceBlink2
                                             }
                                             catch (Exception ex)
                                             {
-                                                gv.errorLog(ex.ToString());
+                                                    gv.sf.MessageBox("Karl Error 158End");
+                                                    gv.errorLog(ex.ToString());
                                             }
                                         }
                                     }
@@ -22516,6 +22524,7 @@ namespace IceBlink2
                                                 }
                                                 catch (Exception ex)
                                                 {
+                                                    gv.sf.MessageBox("Karl Error 159End");
                                                     gv.errorLog(ex.ToString());
                                                 }
                                             }
@@ -22878,6 +22887,7 @@ namespace IceBlink2
                                                 }
                                                 catch (Exception ex)
                                                 {
+                                                    gv.sf.MessageBox("Karl Error 160End");
                                                     gv.errorLog(ex.ToString());
                                                 }
                                             }
@@ -23331,6 +23341,7 @@ namespace IceBlink2
                                         }
                                         catch (Exception ex)
                                         {
+                                            gv.sf.MessageBox("Karl Error 162End");
                                             gv.errorLog(ex.ToString());
                                         }
                                     }
@@ -23685,6 +23696,7 @@ namespace IceBlink2
                                         }
                                         catch (Exception ex)
                                         {
+                                            gv.sf.MessageBox("Karl Error 163End");
                                             gv.errorLog(ex.ToString());
                                         }
                                     }

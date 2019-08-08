@@ -202,7 +202,11 @@ namespace IceBlink2
             a2Timer.Enabled = false;
 
             this.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.GameView_MouseWheel);
-            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.GameView_onKeyDown);
+            //if (this.screenType == "main")
+            //{
+                this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.GameView_onKeyDown);
+            //}
+
             this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.GameView_onKeyUp);
             mainDirectory = Directory.GetCurrentDirectory();
 
@@ -1520,7 +1524,7 @@ namespace IceBlink2
                         areaSounds.URL = "";
                     }
                 }
-            }
+            } 
             catch (Exception ex)
             {
                 cc.addLogText("red", "Failed on startAmbient(): " + ex.ToString());
@@ -1686,7 +1690,10 @@ namespace IceBlink2
 	    public void stopAmbient()
 	    {
             areaSounds.controls.pause();
-	    }
+            weatherSounds1.controls.pause();
+            weatherSounds2.controls.pause();
+            weatherSounds3.controls.pause();
+        }
 	    public void stopCombatMusic()
 	    {
             areaMusic.controls.pause();
@@ -2963,343 +2970,369 @@ namespace IceBlink2
 
                 if ((e.KeyCode == Keys.Up && this.screenMainMap.showMoveKeys && !mod.blockUpKey) || (e.KeyCode == Keys.W && !this.screenMainMap.showMoveKeys && !mod.blockUpKey) || ((e.KeyCode == Keys.NumPad8) && !mod.blockUpKey))
                 {
-                    mod.blockUpKey = true;
-                    aTimer.Stop();
-                    if (!moveTimerRuns)
+                    if (!mod.justLeftCombat)
                     {
-
-                        mod.doTriggerInspiteOfScrolling = false;
-                        bool blockMoveBecausOfCurrentScrolling = false;
-
-                        if (mod.useScrollingSystem) 
+                        mod.blockUpKey = true;
+                        aTimer.Stop();
+                        if (!moveTimerRuns)
                         {
-                            if (mod.scrollingTimer != 100 && mod.scrollingTimer != 0)
-                            {
-                                blockMoveBecausOfCurrentScrolling = true;
-                            }
-                        }
 
-                        blockMoveBecausOfCurrentScrolling = false;
+                            mod.doTriggerInspiteOfScrolling = false;
+                            bool blockMoveBecausOfCurrentScrolling = false;
 
-                        if (!blockMoveBecausOfCurrentScrolling)
-                        {
                             if (mod.useScrollingSystem)
                             {
-                                //single press
-                                if (mod.isScrollingNow)
+                                if (mod.scrollingTimer != 100 && mod.scrollingTimer != 0)
                                 {
-                                    mod.isScrollingNow = true;
-                                    //gv.mod.scrollingTimer = 100 + gv.mod.scrollingOverhang2;
-                                    mod.scrollingTimer = 100;
-                                    mod.scrollingDirection = "up";
-                                    mod.doTriggerInspiteOfScrolling = true;
-                                    bool isTransition = cc.goNorth();
-                                    if (!isTransition)
-                                    {
-                                        mod.breakActiveSearch = false;
-                                        //gv.mod.wasJustCalled = false;
-                                        //if (!gv.mod.wasJustCalled)
-                                        //{
-                                        //if (gv.screenType == "main")
-                                        //{
-                                        screenMainMap.moveUp(true);
-                                        //}
-                                        //gv.mod.wasJustCalled = true;
-                                        //}
-                                    }
-                                }
-                                //continued press
-                                //else if (moveDelay2())
-                                else if (mod.scrollingTimer <= mod.lastScrollStep || mod.scrollingTimer >= 100)
-                                {
-                                    //mod.scrollingDirection = "up";
-                                    //mod.isScrollingNow = true;
-                                    
-                                    mod.isScrollingNow = true;
-                                    mod.scrollingTimer = 100 + mod.scrollingOverhang2;
-                                    mod.scrollingOverhang2 = 0;
-                                    mod.scrollingDirection = "up";
-                                    mod.doTriggerInspiteOfScrolling = true;
-                                    bool isTransition = cc.goNorth();
-                                    if (!isTransition)
-                                    {
-                                        mod.breakActiveSearch = false;
-                                        //gv.mod.wasJustCalled = false;
-                                        //if (!gv.mod.wasJustCalled)
-                                        //{
-                                        //if (gv.screenType == "main")
-                                        //{
-                                        screenMainMap.moveUp(true);
-                                        //}
-                                        //gv.mod.wasJustCalled = true;
-                                        //}
-                                    }
-                                    
+                                    blockMoveBecausOfCurrentScrolling = true;
                                 }
                             }
 
+                            blockMoveBecausOfCurrentScrolling = false;
 
+                            if (!blockMoveBecausOfCurrentScrolling)
+                            {
+                                if (mod.useScrollingSystem)
+                                {
+                                    //single press
+                                    if (mod.isScrollingNow)
+                                    {
+                                        mod.isScrollingNow = true;
+                                        //gv.mod.scrollingTimer = 100 + gv.mod.scrollingOverhang2;
+                                        mod.scrollingTimer = 100;
+                                        mod.scrollingDirection = "up";
+                                        mod.doTriggerInspiteOfScrolling = true;
+                                        bool isTransition = cc.goNorth();
+                                        if (!isTransition)
+                                        {
+                                            mod.breakActiveSearch = false;
+                                            //gv.mod.wasJustCalled = false;
+                                            //if (!gv.mod.wasJustCalled)
+                                            //{
+                                            //if (gv.screenType == "main")
+                                            //{
+                                            screenMainMap.moveUp(true);
+                                            //}
+                                            //gv.mod.wasJustCalled = true;
+                                            //}
+                                        }
+                                    }
+                                    //continued press
+                                    //else if (moveDelay2())
+                                    else if (mod.scrollingTimer <= mod.lastScrollStep || mod.scrollingTimer >= 100)
+                                    {
+                                        //mod.scrollingDirection = "up";
+                                        //mod.isScrollingNow = true;
+
+                                        mod.isScrollingNow = true;
+                                        mod.scrollingTimer = 100 + mod.scrollingOverhang2;
+                                        mod.scrollingOverhang2 = 0;
+                                        mod.scrollingDirection = "up";
+                                        mod.doTriggerInspiteOfScrolling = true;
+                                        bool isTransition = cc.goNorth();
+                                        if (!isTransition)
+                                        {
+                                            mod.breakActiveSearch = false;
+                                            //gv.mod.wasJustCalled = false;
+                                            //if (!gv.mod.wasJustCalled)
+                                            //{
+                                            //if (gv.screenType == "main")
+                                            //{
+                                            screenMainMap.moveUp(true);
+                                            //}
+                                            //gv.mod.wasJustCalled = true;
+                                            //}
+                                        }
+
+                                    }
+                                }
+
+
+                            }
                         }
+                        //mod.scrollingDirection = "up";
+                        if (!mod.doNotStartScrolling)
+                        {
+                            aTimer.Start();
+                            mod.scrollModeSpeed = 0.5f;
+                        }
+                        mod.doNotStartScrolling = false;
                     }
-                    //mod.scrollingDirection = "up";
-                    if (!mod.doNotStartScrolling)
+                    else
                     {
-                        aTimer.Start();
-                        mod.scrollModeSpeed = 0.5f;
+                        mod.justLeftCombat = false;
                     }
-                    mod.doNotStartScrolling = false;
                 }
                 else if ((e.KeyCode == Keys.Down && this.screenMainMap.showMoveKeys && !mod.blockDownKey) || (e.KeyCode == Keys.S && !this.screenMainMap.showMoveKeys && !mod.blockDownKey) || ((e.KeyCode == Keys.NumPad2) && !mod.blockDownKey))
                 {
-                    
-                    mod.blockDownKey = true;
-                    aTimer.Stop();
-                    if (!moveTimerRuns)
+                    if (!mod.justLeftCombat)
                     {
-
-                        mod.doTriggerInspiteOfScrolling = false;
-                        bool blockMoveBecausOfCurrentScrolling = false;
-
-                        if (mod.useScrollingSystem)
+                        mod.blockDownKey = true;
+                        aTimer.Stop();
+                        if (!moveTimerRuns)
                         {
-                            if (mod.scrollingTimer != 100 && mod.scrollingTimer != 0)
-                            {
-                                blockMoveBecausOfCurrentScrolling = true;
-                            }
-                        }
 
-                        blockMoveBecausOfCurrentScrolling = false;
+                            mod.doTriggerInspiteOfScrolling = false;
+                            bool blockMoveBecausOfCurrentScrolling = false;
 
-                        if (!blockMoveBecausOfCurrentScrolling)
-                        {
                             if (mod.useScrollingSystem)
                             {
-                                //single press
-                                if (mod.isScrollingNow)
+                                if (mod.scrollingTimer != 100 && mod.scrollingTimer != 0)
                                 {
-                                    mod.isScrollingNow = true;
-                                    //gv.mod.scrollingTimer = 100 + gv.mod.scrollingOverhang2;
-                                    mod.scrollingTimer = 100;
-                                    mod.scrollingDirection = "down";
-                                    mod.doTriggerInspiteOfScrolling = true;
-                                    bool isTransition = cc.goSouth();
-                                    if (!isTransition)
-                                    {
-                                        mod.breakActiveSearch = false;
-                                        //gv.mod.wasJustCalled = false;
-                                        //if (!gv.mod.wasJustCalled)
-                                        //{
-                                        //if (gv.screenType == "main")
-                                        //{
-                                        screenMainMap.moveDown(true);
-                                        //}
-                                        //gv.mod.wasJustCalled = true;
-                                        //}
-                                    }
-                                }
-                                //continued press
-                                //else if (moveDelay2())
-                                else if (mod.scrollingTimer <= mod.lastScrollStep || mod.scrollingTimer >= 100)
-                                {
-                                    mod.isScrollingNow = true;
-                                    mod.scrollingTimer = 100 + mod.scrollingOverhang2;
-                                    mod.scrollingOverhang2 = 0;
-                                    mod.scrollingDirection = "down";
-                                    mod.doTriggerInspiteOfScrolling = true;
-                                    bool isTransition = cc.goSouth();
-                                    if (!isTransition)
-                                    {
-                                        mod.breakActiveSearch = false;
-                                        //gv.mod.wasJustCalled = false;
-                                        //if (!gv.mod.wasJustCalled)
-                                        //{
-                                        //if (gv.screenType == "main")
-                                        //{
-                                        screenMainMap.moveDown(true);
-                                        //}
-                                        //gv.mod.wasJustCalled = true;
-                                        //}
-                                    }
+                                    blockMoveBecausOfCurrentScrolling = true;
                                 }
                             }
 
+                            blockMoveBecausOfCurrentScrolling = false;
 
+                            if (!blockMoveBecausOfCurrentScrolling)
+                            {
+                                if (mod.useScrollingSystem)
+                                {
+                                    //single press
+                                    if (mod.isScrollingNow)
+                                    {
+                                        mod.isScrollingNow = true;
+                                        //gv.mod.scrollingTimer = 100 + gv.mod.scrollingOverhang2;
+                                        mod.scrollingTimer = 100;
+                                        mod.scrollingDirection = "down";
+                                        mod.doTriggerInspiteOfScrolling = true;
+                                        bool isTransition = cc.goSouth();
+                                        if (!isTransition)
+                                        {
+                                            mod.breakActiveSearch = false;
+                                            //gv.mod.wasJustCalled = false;
+                                            //if (!gv.mod.wasJustCalled)
+                                            //{
+                                            //if (gv.screenType == "main")
+                                            //{
+                                            screenMainMap.moveDown(true);
+                                            //}
+                                            //gv.mod.wasJustCalled = true;
+                                            //}
+                                        }
+                                    }
+                                    //continued press
+                                    //else if (moveDelay2())
+                                    else if (mod.scrollingTimer <= mod.lastScrollStep || mod.scrollingTimer >= 100)
+                                    {
+                                        mod.isScrollingNow = true;
+                                        mod.scrollingTimer = 100 + mod.scrollingOverhang2;
+                                        mod.scrollingOverhang2 = 0;
+                                        mod.scrollingDirection = "down";
+                                        mod.doTriggerInspiteOfScrolling = true;
+                                        bool isTransition = cc.goSouth();
+                                        if (!isTransition)
+                                        {
+                                            mod.breakActiveSearch = false;
+                                            //gv.mod.wasJustCalled = false;
+                                            //if (!gv.mod.wasJustCalled)
+                                            //{
+                                            //if (gv.screenType == "main")
+                                            //{
+                                            screenMainMap.moveDown(true);
+                                            //}
+                                            //gv.mod.wasJustCalled = true;
+                                            //}
+                                        }
+                                    }
+                                }
+
+
+                            }
                         }
-                    }
 
-                    if (!mod.doNotStartScrolling)
-                    {
-                        aTimer.Start();
-                        mod.scrollModeSpeed = 0.5f;
+                        if (!mod.doNotStartScrolling)
+                        {
+                            aTimer.Start();
+                            mod.scrollModeSpeed = 0.5f;
+                        }
+                        mod.doNotStartScrolling = false;
                     }
-                    mod.doNotStartScrolling = false;
+                    else
+                    {
+                        mod.justLeftCombat = false;
+                    }
                 }
                 else if ((e.KeyCode == Keys.Right && this.screenMainMap.showMoveKeys && !mod.blockRightKey) || (e.KeyCode == Keys.D && !this.screenMainMap.showMoveKeys && !mod.blockRightKey) || ((e.KeyCode == Keys.NumPad6) && !mod.blockRightKey))
                 {
-                    
-                    mod.blockRightKey = true;
-                    aTimer.Stop();
-                    if (!moveTimerRuns)
+                    if (!mod.justLeftCombat)
                     {
-
-                        mod.doTriggerInspiteOfScrolling = false;
-                        bool blockMoveBecausOfCurrentScrolling = false;
-
-                        if (mod.useScrollingSystem)
+                        mod.blockRightKey = true;
+                        aTimer.Stop();
+                        if (!moveTimerRuns)
                         {
-                            if (mod.scrollingTimer != 100 && mod.scrollingTimer != 0)
-                            {
-                                blockMoveBecausOfCurrentScrolling = true;
-                            }
-                        }
 
-                        blockMoveBecausOfCurrentScrolling = false;
+                            mod.doTriggerInspiteOfScrolling = false;
+                            bool blockMoveBecausOfCurrentScrolling = false;
 
-                        if (!blockMoveBecausOfCurrentScrolling)
-                        {
                             if (mod.useScrollingSystem)
                             {
-                                //single press
-                                if (mod.isScrollingNow)
+                                if (mod.scrollingTimer != 100 && mod.scrollingTimer != 0)
                                 {
-                                    mod.isScrollingNow = true;
-                                    //gv.mod.scrollingTimer = 100 + gv.mod.scrollingOverhang2;
-                                    mod.scrollingTimer = 100;
-                                    mod.scrollingDirection = "right";
-                                    mod.doTriggerInspiteOfScrolling = true;
-                                    bool isTransition = cc.goEast();
-                                    if (!isTransition)
-                                    {
-                                        mod.breakActiveSearch = false;
-                                        //gv.mod.wasJustCalled = false;
-                                        //if (!gv.mod.wasJustCalled)
-                                        //{
-                                        //if (gv.screenType == "main")
-                                        //{
-                                        screenMainMap.moveRight(true);
-                                        //}
-                                        //gv.mod.wasJustCalled = true;
-                                        //}
-                                    }
-                                }
-                                //continued press
-                                //else if (moveDelay2())
-                                else if (mod.scrollingTimer <= mod.lastScrollStep || mod.scrollingTimer >= 100)
-                                {
-                                    mod.isScrollingNow = true;
-                                    mod.scrollingTimer = 100 + mod.scrollingOverhang2;
-                                    mod.scrollingOverhang2 = 0;
-                                    mod.scrollingDirection = "right";
-                                    mod.doTriggerInspiteOfScrolling = true;
-                                    bool isTransition = cc.goEast();
-                                    if (!isTransition)
-                                    {
-                                        mod.breakActiveSearch = false;
-                                        //gv.mod.wasJustCalled = false;
-                                        //if (!gv.mod.wasJustCalled)
-                                        //{
-                                        //if (gv.screenType == "main")
-                                        //{
-                                        screenMainMap.moveRight(true);
-                                        //}
-                                        //gv.mod.wasJustCalled = true;
-                                        //}
-                                    }
+                                    blockMoveBecausOfCurrentScrolling = true;
                                 }
                             }
 
+                            blockMoveBecausOfCurrentScrolling = false;
 
+                            if (!blockMoveBecausOfCurrentScrolling)
+                            {
+                                if (mod.useScrollingSystem)
+                                {
+                                    //single press
+                                    if (mod.isScrollingNow)
+                                    {
+                                        mod.isScrollingNow = true;
+                                        //gv.mod.scrollingTimer = 100 + gv.mod.scrollingOverhang2;
+                                        mod.scrollingTimer = 100;
+                                        mod.scrollingDirection = "right";
+                                        mod.doTriggerInspiteOfScrolling = true;
+                                        bool isTransition = cc.goEast();
+                                        if (!isTransition)
+                                        {
+                                            mod.breakActiveSearch = false;
+                                            //gv.mod.wasJustCalled = false;
+                                            //if (!gv.mod.wasJustCalled)
+                                            //{
+                                            //if (gv.screenType == "main")
+                                            //{
+                                            screenMainMap.moveRight(true);
+                                            //}
+                                            //gv.mod.wasJustCalled = true;
+                                            //}
+                                        }
+                                    }
+                                    //continued press
+                                    //else if (moveDelay2())
+                                    else if (mod.scrollingTimer <= mod.lastScrollStep || mod.scrollingTimer >= 100)
+                                    {
+                                        mod.isScrollingNow = true;
+                                        mod.scrollingTimer = 100 + mod.scrollingOverhang2;
+                                        mod.scrollingOverhang2 = 0;
+                                        mod.scrollingDirection = "right";
+                                        mod.doTriggerInspiteOfScrolling = true;
+                                        bool isTransition = cc.goEast();
+                                        if (!isTransition)
+                                        {
+                                            mod.breakActiveSearch = false;
+                                            //gv.mod.wasJustCalled = false;
+                                            //if (!gv.mod.wasJustCalled)
+                                            //{
+                                            //if (gv.screenType == "main")
+                                            //{
+                                            screenMainMap.moveRight(true);
+                                            //}
+                                            //gv.mod.wasJustCalled = true;
+                                            //}
+                                        }
+                                    }
+                                }
+
+
+                            }
                         }
+                        if (!mod.doNotStartScrolling)
+                        {
+                            aTimer.Start();
+                            mod.scrollModeSpeed = 0.5f;
+                        }
+                        mod.doNotStartScrolling = false;
                     }
-                    if (!mod.doNotStartScrolling)
+                    else
                     {
-                        aTimer.Start();
-                        mod.scrollModeSpeed = 0.5f;
+                        mod.justLeftCombat = false;
                     }
-                    mod.doNotStartScrolling = false;
                 }
                 else if ((e.KeyCode == Keys.Left && this.screenMainMap.showMoveKeys && !mod.blockLeftKey) || (e.KeyCode == Keys.A && !this.screenMainMap.showMoveKeys && !mod.blockLeftKey) || ((e.KeyCode == Keys.NumPad4) && !mod.blockLeftKey))
                 {
-                    mod.blockLeftKey = true;
-                    aTimer.Stop();
-                    if (!moveTimerRuns)
+                    if (!mod.justLeftCombat)
                     {
-
-                        mod.doTriggerInspiteOfScrolling = false;
-                        bool blockMoveBecausOfCurrentScrolling = false;
-
-                        if (mod.useScrollingSystem)
+                        mod.blockLeftKey = true;
+                        aTimer.Stop();
+                        if (!moveTimerRuns)
                         {
-                            if (mod.scrollingTimer != 100 && mod.scrollingTimer != 0)
-                            {
-                                blockMoveBecausOfCurrentScrolling = true;
-                            }
-                        }
 
-                        blockMoveBecausOfCurrentScrolling = false;
+                            mod.doTriggerInspiteOfScrolling = false;
+                            bool blockMoveBecausOfCurrentScrolling = false;
 
-                        if (!blockMoveBecausOfCurrentScrolling)
-                        {
                             if (mod.useScrollingSystem)
                             {
-                                //single press
-                                if (mod.isScrollingNow)
+                                if (mod.scrollingTimer != 100 && mod.scrollingTimer != 0)
                                 {
-                                    mod.isScrollingNow = true;
-                                    //gv.mod.scrollingTimer = 100 + gv.mod.scrollingOverhang2;
-                                    mod.scrollingTimer = 100;
-                                    mod.scrollingDirection = "left";
-                                    mod.doTriggerInspiteOfScrolling = true;
-                                    bool isTransition = cc.goWest();
-                                    if (!isTransition)
-                                    {
-                                        mod.breakActiveSearch = false;
-                                        //gv.mod.wasJustCalled = false;
-                                        //if (!gv.mod.wasJustCalled)
-                                        //{
-                                        //if (gv.screenType == "main")
-                                        //{
-                                        screenMainMap.moveLeft(true);
-                                        //}
-                                        //gv.mod.wasJustCalled = true;
-                                        //}
-                                    }
-                                }
-                                //continued press
-                                //else if (moveDelay2())
-                                else if (mod.scrollingTimer <= mod.lastScrollStep || mod.scrollingTimer >= 100)
-                                {
-                                    mod.isScrollingNow = true;
-                                    mod.scrollingTimer = 100 + mod.scrollingOverhang2;
-                                    mod.scrollingOverhang2 = 0;
-                                    mod.scrollingDirection = "left";
-                                    mod.doTriggerInspiteOfScrolling = true;
-                                    bool isTransition = cc.goWest();
-                                    if (!isTransition)
-                                    {
-                                        mod.breakActiveSearch = false;
-                                        //gv.mod.wasJustCalled = false;
-                                        //if (!gv.mod.wasJustCalled)
-                                        //{
-                                        //if (gv.screenType == "main")
-                                        //{
-                                        screenMainMap.moveLeft(true);
-                                        //}
-                                        //gv.mod.wasJustCalled = true;
-                                        //}
-                                    }
+                                    blockMoveBecausOfCurrentScrolling = true;
                                 }
                             }
 
+                            blockMoveBecausOfCurrentScrolling = false;
 
+                            if (!blockMoveBecausOfCurrentScrolling)
+                            {
+                                if (mod.useScrollingSystem)
+                                {
+                                    //single press
+                                    if (mod.isScrollingNow)
+                                    {
+                                        mod.isScrollingNow = true;
+                                        //gv.mod.scrollingTimer = 100 + gv.mod.scrollingOverhang2;
+                                        mod.scrollingTimer = 100;
+                                        mod.scrollingDirection = "left";
+                                        mod.doTriggerInspiteOfScrolling = true;
+                                        bool isTransition = cc.goWest();
+                                        if (!isTransition)
+                                        {
+                                            mod.breakActiveSearch = false;
+                                            //gv.mod.wasJustCalled = false;
+                                            //if (!gv.mod.wasJustCalled)
+                                            //{
+                                            //if (gv.screenType == "main")
+                                            //{
+                                            screenMainMap.moveLeft(true);
+                                            //}
+                                            //gv.mod.wasJustCalled = true;
+                                            //}
+                                        }
+                                    }
+                                    //continued press
+                                    //else if (moveDelay2())
+                                    else if (mod.scrollingTimer <= mod.lastScrollStep || mod.scrollingTimer >= 100)
+                                    {
+                                        mod.isScrollingNow = true;
+                                        mod.scrollingTimer = 100 + mod.scrollingOverhang2;
+                                        mod.scrollingOverhang2 = 0;
+                                        mod.scrollingDirection = "left";
+                                        mod.doTriggerInspiteOfScrolling = true;
+                                        bool isTransition = cc.goWest();
+                                        if (!isTransition)
+                                        {
+                                            mod.breakActiveSearch = false;
+                                            //gv.mod.wasJustCalled = false;
+                                            //if (!gv.mod.wasJustCalled)
+                                            //{
+                                            //if (gv.screenType == "main")
+                                            //{
+                                            screenMainMap.moveLeft(true);
+                                            //}
+                                            //gv.mod.wasJustCalled = true;
+                                            //}
+                                        }
+                                    }
+                                }
+
+
+                            }
                         }
+                        if (!mod.doNotStartScrolling)
+                        {
+                            aTimer.Start();
+                            mod.scrollModeSpeed = 0.5f;
+                        }
+                        mod.doNotStartScrolling = false;
                     }
-                    if (!mod.doNotStartScrolling)
+                    else
                     {
-                        aTimer.Start();
-                        mod.scrollModeSpeed = 0.5f;
+                        mod.justLeftCombat = false;
                     }
-                    mod.doNotStartScrolling = false;
                 }
             }
         } 
@@ -3977,7 +4010,7 @@ namespace IceBlink2
                 onKeyboardEvent(keyData);
             //}
             //mod.keyIsHeld = true;
-                
+            //keyData = Keys.H;    
             return base.ProcessCmdKey(ref msg, keyData);
         }
 

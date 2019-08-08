@@ -13,6 +13,9 @@ namespace IceBlink2
 {
     public class Module
     {
+        public bool mainMapMovementRelevantKeyPressed = false;
+        public bool justLeftCombat = false;
+
         [JsonIgnore]
         public List<string> bmpNearbyNameList = new List<string>();
 
@@ -441,8 +444,8 @@ namespace IceBlink2
         public int indexOfPCtoLastUseItem = 0;
         public bool com_showGrid = false;
         public bool map_showGrid = false;
-        public bool playMusic = false;
-        public bool playSoundFx = false;
+        public bool playMusic = true;
+        public bool playSoundFx = true;
         public bool playButtonSounds = false;
         public bool playButtonHaptic = false;
         public bool showTutorialParty = true;
