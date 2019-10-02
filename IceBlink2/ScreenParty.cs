@@ -757,7 +757,19 @@ namespace IceBlink2
             gv.cc.DisposeOfBitmap(ref btnRing2.Img2);
             btnRing2.Img2 = gv.cc.LoadBitmap(gv.mod.getItemByResRefForInfo(pc.Ring2Refs.resref).itemImage);
             gv.cc.DisposeOfBitmap(ref btnAmmo.Img2);
-            btnAmmo.Img2 = gv.cc.LoadBitmap(gv.mod.getItemByResRefForInfo(pc.AmmoRefs.resref).itemImage);
+            ItemRefs itr2 = gv.mod.getItemRefsInInventoryByResRef(pc.AmmoRefs.resref);
+
+            if (itr2 != null)
+            {
+                if (itr2.quantity > 0)
+                {
+                    btnAmmo.Img2 = gv.cc.LoadBitmap(gv.mod.getItemByResRefForInfo(pc.AmmoRefs.resref).itemImage);
+                }
+                else
+                {
+                    pc.AmmoRefs.resref = null;
+                }
+            }
 
             //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
             /*

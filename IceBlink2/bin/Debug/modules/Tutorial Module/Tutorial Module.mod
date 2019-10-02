@@ -1,4 +1,6 @@
 {
+  "areaFilename": "none",
+  "currentlySelectedWayPointIndex": 0,
   "formerDirection": "E",
   "masterAreasList": [
     "exampleArea"
@@ -24,13 +26,11 @@
   "moduleAreasList": [
     "exampleArea",
     "exampleArea_0_",
+    "Little Home",
+    "Little Home 2",
     "northernReaches",
-    "Stitchland",
-    "planky",
-    "stony",
-    "Tutorial_01",
-    "Tutorial_02",
     "Outdoor_01",
+    "Outdoor_01_old",
     "Outdoor_02",
     "Outdoor_03",
     "Outdoor_04",
@@ -55,7 +55,12 @@
     "Outdoor_23",
     "Outdoor_24",
     "Outdoor_25",
-    "overViewMapTutorial"
+    "overViewMapTutorial",
+    "planky",
+    "Stitchland",
+    "stony",
+    "Tutorial_01",
+    "Tutorial_02"
   ],
   "moduleConvosList": [
     "addCompanionConvo",
@@ -225,13 +230,13 @@
   "MaxPartySize": 6,
   "moduleDescription": "Short module tutorial on how to make a simple module.",
   "moduleCredits": "<big><b>Unwanted Guests</b></big><BR>\r\n<BR>\r\n-visit the forums for more info:<BR>\r\nwww.iceblinkengine.com/forums",
-  "nextIdNumber": 17050,
+  "nextIdNumber": 17177,
   "realTimeTimerLengthInMilliSeconds": 1500,
   "borderAreaSize": 0,
   "WorldTime": 626572800,
-  "startingArea": "Tutorial_01",
-  "startingPlayerPositionX": 1,
-  "startingPlayerPositionY": 1,
+  "startingArea": "Outdoor_01",
+  "startingPlayerPositionX": 5,
+  "startingPlayerPositionY": 5,
   "partyGold": 100,
   "partyTokenFilename": "prp_party",
   "OnHeartBeatIBScript": "none",

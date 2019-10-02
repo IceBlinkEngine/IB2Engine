@@ -44224,6 +44224,7 @@
       "conversationCannotBeAvoided": true,
       "DoOnceOnly": false,
       "RequiresActiveSearch": false,
+      "BumpTriggerDirection": "none",
       "ConnectedDiscovery": false,
       "TriggerSquaresList": [
         {
@@ -44278,6 +44279,7 @@
       "conversationCannotBeAvoided": true,
       "DoOnceOnly": false,
       "RequiresActiveSearch": false,
+      "BumpTriggerDirection": "none",
       "ConnectedDiscovery": false,
       "TriggerSquaresList": [
         {
@@ -44332,6 +44334,7 @@
       "conversationCannotBeAvoided": true,
       "DoOnceOnly": false,
       "RequiresActiveSearch": false,
+      "BumpTriggerDirection": "none",
       "ConnectedDiscovery": false,
       "TriggerSquaresList": [
         {
@@ -44386,6 +44389,7 @@
       "conversationCannotBeAvoided": true,
       "DoOnceOnly": false,
       "RequiresActiveSearch": false,
+      "BumpTriggerDirection": "none",
       "ConnectedDiscovery": false,
       "TriggerSquaresList": [
         {
@@ -44433,7 +44437,7 @@
   "AreaSounds": "none",
   "AreaSoundsDelay": 0,
   "AreaSoundsDelayRandomAdder": 0,
-  "NextIdNumber": 1268,
+  "NextIdNumber": 1335,
   "OnHeartBeatIBScript": "none",
   "OnHeartBeatIBScriptParms": "",
   "AreaLocalInts": [],

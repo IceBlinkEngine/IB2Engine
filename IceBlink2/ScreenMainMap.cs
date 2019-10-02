@@ -5000,7 +5000,7 @@ namespace IceBlink2
                                             {
 
                                             bool skipDraw2 = false;
-                                            if (!tile.Visible)
+                                            if (!tile.Visible && gv.mod.fogOfWarOpacity > 0.975f)
                                             {
                                                 skipDraw2 = true;
                                             }
@@ -5051,7 +5051,7 @@ namespace IceBlink2
                                             if (x <= LimitMaxX && x >= LimitMinX && y <= LimitMaxY && y >= LimitMinY)
                                             {
                                             bool skipDraw2 = false;
-                                            if (!tile.Visible)
+                                            if (!tile.Visible && gv.mod.fogOfWarOpacity > 0.975f)
                                             {
                                                         skipDraw2 = true;
                                             }
@@ -5313,7 +5313,7 @@ namespace IceBlink2
                                         if (x <= LimitMaxX && x >= LimitMinX && y <= LimitMaxY && y >= LimitMinY)
                                         {
                                             bool skipDraw2 = false;
-                                            if (!tile.Visible)
+                                            if (!tile.Visible && gv.mod.fogOfWarOpacity > 0.975f)
                                             {
                                                 if (tile.tileBitmap1.PixelSize.Height <= gv.squareSize && tile.tileBitmap1.PixelSize.Width <= gv.squareSize)
                                                 {
@@ -5356,7 +5356,7 @@ namespace IceBlink2
                                         if (x <= LimitMaxX && x >= LimitMinX && y <= LimitMaxY && y >= LimitMinY)
                                         {
                                         bool skipDraw2 = false;
-                                        if (!tile.Visible)
+                                        if (!tile.Visible && gv.mod.fogOfWarOpacity > 0.975f)
                                         {
                                             if (gv.mod.loadedTileBitmaps[indexOfLoadedTile].PixelSize.Height <= 100 && gv.mod.loadedTileBitmaps[indexOfLoadedTile].PixelSize.Width <= 100)
                                             {

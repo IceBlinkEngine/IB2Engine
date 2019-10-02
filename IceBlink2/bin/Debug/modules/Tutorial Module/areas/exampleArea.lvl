@@ -45076,6 +45076,7 @@
       "conversationCannotBeAvoided": true,
       "DoOnceOnly": false,
       "RequiresActiveSearch": false,
+      "BumpTriggerDirection": "none",
       "ConnectedDiscovery": false,
       "TriggerSquaresList": [
         {
@@ -45130,6 +45131,7 @@
       "conversationCannotBeAvoided": true,
       "DoOnceOnly": false,
       "RequiresActiveSearch": false,
+      "BumpTriggerDirection": "none",
       "ConnectedDiscovery": false,
       "TriggerSquaresList": [
         {
@@ -45184,6 +45186,7 @@
       "conversationCannotBeAvoided": true,
       "DoOnceOnly": false,
       "RequiresActiveSearch": false,
+      "BumpTriggerDirection": "none",
       "ConnectedDiscovery": false,
       "TriggerSquaresList": [
         {
@@ -45238,6 +45241,7 @@
       "conversationCannotBeAvoided": true,
       "DoOnceOnly": false,
       "RequiresActiveSearch": false,
+      "BumpTriggerDirection": "none",
       "ConnectedDiscovery": false,
       "TriggerSquaresList": [
         {
@@ -45292,6 +45296,7 @@
       "conversationCannotBeAvoided": true,
       "DoOnceOnly": false,
       "RequiresActiveSearch": false,
+      "BumpTriggerDirection": "none",
       "ConnectedDiscovery": false,
       "TriggerSquaresList": [
         {
@@ -45346,6 +45351,7 @@
       "conversationCannotBeAvoided": true,
       "DoOnceOnly": false,
       "RequiresActiveSearch": false,
+      "BumpTriggerDirection": "none",
       "ConnectedDiscovery": false,
       "TriggerSquaresList": [
         {
@@ -45400,6 +45406,7 @@
       "conversationCannotBeAvoided": true,
       "DoOnceOnly": false,
       "RequiresActiveSearch": false,
+      "BumpTriggerDirection": "none",
       "ConnectedDiscovery": false,
       "TriggerSquaresList": [
         {
@@ -45454,6 +45461,7 @@
       "conversationCannotBeAvoided": true,
       "DoOnceOnly": false,
       "RequiresActiveSearch": false,
+      "BumpTriggerDirection": "none",
       "ConnectedDiscovery": false,
       "TriggerSquaresList": [],
       "DoOnceOnlyEvent1": false,
@@ -45503,6 +45511,7 @@
       "conversationCannotBeAvoided": true,
       "DoOnceOnly": false,
       "RequiresActiveSearch": false,
+      "BumpTriggerDirection": "none",
       "ConnectedDiscovery": false,
       "TriggerSquaresList": [
         {
@@ -45557,6 +45566,7 @@
       "conversationCannotBeAvoided": true,
       "DoOnceOnly": false,
       "RequiresActiveSearch": false,
+      "BumpTriggerDirection": "none",
       "ConnectedDiscovery": false,
       "TriggerSquaresList": [
         {
@@ -45611,6 +45621,7 @@
       "conversationCannotBeAvoided": true,
       "DoOnceOnly": false,
       "RequiresActiveSearch": false,
+      "BumpTriggerDirection": "none",
       "ConnectedDiscovery": false,
       "TriggerSquaresList": [],
       "DoOnceOnlyEvent1": false,
@@ -45660,6 +45671,7 @@
       "conversationCannotBeAvoided": true,
       "DoOnceOnly": false,
       "RequiresActiveSearch": true,
+      "BumpTriggerDirection": "none",
       "ConnectedDiscovery": false,
       "TriggerSquaresList": [
         {
@@ -45714,6 +45726,7 @@
       "conversationCannotBeAvoided": true,
       "DoOnceOnly": false,
       "RequiresActiveSearch": false,
+      "BumpTriggerDirection": "none",
       "ConnectedDiscovery": false,
       "TriggerSquaresList": [
         {
@@ -45768,6 +45781,7 @@
       "conversationCannotBeAvoided": true,
       "DoOnceOnly": false,
       "RequiresActiveSearch": false,
+      "BumpTriggerDirection": "none",
       "ConnectedDiscovery": false,
       "TriggerSquaresList": [
         {
@@ -45822,6 +45836,7 @@
       "conversationCannotBeAvoided": true,
       "DoOnceOnly": false,
       "RequiresActiveSearch": false,
+      "BumpTriggerDirection": "none",
       "ConnectedDiscovery": false,
       "TriggerSquaresList": [
         {
@@ -45876,6 +45891,7 @@
       "conversationCannotBeAvoided": true,
       "DoOnceOnly": false,
       "RequiresActiveSearch": false,
+      "BumpTriggerDirection": "none",
       "ConnectedDiscovery": false,
       "TriggerSquaresList": [
         {
@@ -45930,6 +45946,7 @@
       "conversationCannotBeAvoided": true,
       "DoOnceOnly": false,
       "RequiresActiveSearch": false,
+      "BumpTriggerDirection": "none",
       "ConnectedDiscovery": false,
       "TriggerSquaresList": [
         {
@@ -45984,6 +46001,7 @@
       "conversationCannotBeAvoided": true,
       "DoOnceOnly": false,
       "RequiresActiveSearch": false,
+      "BumpTriggerDirection": "none",
       "ConnectedDiscovery": false,
       "TriggerSquaresList": [
         {
@@ -46031,7 +46049,7 @@
   "AreaSounds": "none",
   "AreaSoundsDelay": 0,
   "AreaSoundsDelayRandomAdder": 0,
-  "NextIdNumber": 1379,
+  "NextIdNumber": 1446,
   "OnHeartBeatIBScript": "none",
   "OnHeartBeatIBScriptParms": "",
   "AreaLocalInts": [],

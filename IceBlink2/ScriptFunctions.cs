@@ -8525,6 +8525,11 @@ namespace IceBlink2
                         //p4 is location y
 
                         Prop prp = GetPropByUniqueTag(p1);
+
+                        if (prp.PropTag == "newPropTag_8745_17123")
+                        {
+                            int hg = 0;
+                        }
                         prp.oldPath.Clear();
                         float oldPixPosX = prp.currentPixelPositionX;
                         float oldPixPosY = prp.currentPixelPositionY;
@@ -8686,8 +8691,10 @@ namespace IceBlink2
                                     for (int k2 = gv.mod.moduleAreasObjects[j2].Props.Count -1; k2 > -1; k2--)
                                     {
                                         //prevent removing the prop from the area it was just addded to
-                                        if ((gv.mod.moduleAreasObjects[j2].Props[k2].PropTag.Equals(p1) && (gv.mod.moduleAreasObjects[j2].Filename != p2)) || (oldArea == p2))
+                                        //culprit in brackets, second condition set 
+                                        if (gv.mod.moduleAreasObjects[j2].Props[k2].PropTag.Equals(p1) && (gv.mod.moduleAreasObjects[j2].Filename != p2 || oldArea == p2))
                                         {
+                                            //foundculprit
                                             gv.mod.moduleAreasObjects[j2].Props.RemoveAt(k2);
                                             break;
                                         }

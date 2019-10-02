@@ -95,7 +95,7 @@ namespace IceBlink2
                 {
                     if (p.AmmoRefs.tag == s.tag)
                     {
-                        allowAdding = false;
+                        //allowAdding = false;
                         break;
                     }
                     if (p.BodyRefs.tag == s.tag)
@@ -2374,6 +2374,19 @@ namespace IceBlink2
                         }
                         else if (btnReturn.getImpact(x, y))
                         {
+                            gv.mod.realTimeTimerStopped = true;
+                            gv.mod.blockRightKey = false;
+                            gv.mod.blockLeftKey = false;
+                            gv.mod.blockUpKey = false;
+                            gv.mod.blockDownKey = false;
+                            gv.aTimer.Stop();
+                            gv.a2Timer.Stop();
+                            gv.mod.scrollModeSpeed = 1.15f;
+                            gv.mod.scrollingTimer = 100;
+
+    
+                           
+
                             armorFilterOn = false;
                             generalFilterOn = false;
                             weaponFilterOn =  false;

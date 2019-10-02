@@ -164,6 +164,7 @@ namespace IceBlink2
         public bool hudIsShown = true;
         public float nightTimeDarkness = 0.65f;
         public bool stopMoves = false;
+        public bool gitTest = false;
         //public bool noHaloForParty = false;
         //public bool noHaloAddToParty = false;
         public string drawPartyDirection = "none"; //left, right, up, down

@@ -1463,7 +1463,8 @@ namespace IceBlink2
                         }
                         if (areaMusic.URL != "")
                         {
-                            areaMusic.controls.stop();
+                            //areaMusic.controls.stop();
+                            currentMainMusic = mod.currentArea.AreaMusic;
                             areaMusic.controls.play();
                         }
                     }
@@ -1515,7 +1516,8 @@ namespace IceBlink2
                         }
                         if (areaSounds.URL != "")
                         {
-                            areaSounds.controls.stop();
+                            //areaSounds.controls.stop();
+                            currentAmbientMusic = mod.currentArea.AreaSounds;
                             areaSounds.controls.play();
                         }
                     }
@@ -3536,9 +3538,18 @@ namespace IceBlink2
                     //meins
                 if (keyData == Keys.Return || keyData == Keys.Escape)
                 {
+                    mod.realTimeTimerStopped = true;
+                    mod.blockRightKey = false;
+                    mod.blockLeftKey = false;
+                    mod.blockUpKey = false;
+                    mod.blockDownKey = false;
                     aTimer.Stop();
                     a2Timer.Stop();
                     mod.scrollModeSpeed = 1.15f;
+                    mod.scrollingTimer = 100;
+                    //aTimer.Stop();
+                    //a2Timer.Stop();
+                    //mod.scrollModeSpeed = 1.15f;
                     if ((screenType == "combat" || screenType == "main" || screenType == "partyBuild" || screenType == "launcher" || screenType == "title" || screenType == "partyBuild") && (keyData == Keys.Escape))
                     {
                         if (screenType == "main")

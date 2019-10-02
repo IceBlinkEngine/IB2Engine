@@ -346,7 +346,10 @@ namespace IceBlink2
                 foreach (string s in pc.knownTraitsTags)
                 {
                     Trait tr = gv.mod.getTraitByTag(s);
-                    allTraits += tr.name + ", ";
+                    if (tr != null)
+                    {
+                        allTraits += tr.name + ", ";
+                    }
                 }
                 gv.DrawText(gv.mod.getPlayerClass(pc.classTag).traitLabelPlural + ": " + allTraits, locX, locY += spacing);
 

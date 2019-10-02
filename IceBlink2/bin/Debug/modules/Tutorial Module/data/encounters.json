@@ -8860,6 +8860,7 @@
         "conversationCannotBeAvoided": true,
         "DoOnceOnly": false,
         "RequiresActiveSearch": false,
+        "BumpTriggerDirection": "none",
         "ConnectedDiscovery": false,
         "TriggerSquaresList": [
           {
@@ -8914,6 +8915,7 @@
         "conversationCannotBeAvoided": true,
         "DoOnceOnly": false,
         "RequiresActiveSearch": false,
+        "BumpTriggerDirection": "none",
         "ConnectedDiscovery": false,
         "TriggerSquaresList": [],
         "DoOnceOnlyEvent1": false,
@@ -8963,6 +8965,7 @@
         "conversationCannotBeAvoided": true,
         "DoOnceOnly": false,
         "RequiresActiveSearch": false,
+        "BumpTriggerDirection": "none",
         "ConnectedDiscovery": false,
         "TriggerSquaresList": [
           {

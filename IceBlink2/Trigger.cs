@@ -11,6 +11,8 @@ namespace IceBlink2
     public class Trigger 
     {
 
+        public string bumpTriggerDirection = "none"; //can be fromSouth,fromNorth, fromEast, fromWest, none
+
         public bool connectedDiscovery = false;
         public string triggerImage = "none";
         public bool encounterTriggerOnEveryStep = false;

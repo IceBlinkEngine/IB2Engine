@@ -1063,9 +1063,18 @@ namespace IceBlink2
                             }
                             else
                             {
+                                //gv.aTimer.Stop();
+                                //gv.a2Timer.Stop();
+                                //gv.mod.scrollModeSpeed = 1.15f;
+                                gv.mod.blockRightKey = false;
+                                gv.mod.blockLeftKey = false;
+                                gv.mod.blockUpKey = false;
+                                gv.mod.blockDownKey = false;
                                 gv.aTimer.Stop();
                                 gv.a2Timer.Stop();
                                 gv.mod.scrollModeSpeed = 1.15f;
+                                gv.mod.scrollingTimer = 100;
+
                                 gv.screenType = "main";
                                 doCleanUp();
                             }

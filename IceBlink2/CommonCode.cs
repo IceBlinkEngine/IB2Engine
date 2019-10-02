@@ -5,12 +5,10 @@ using SharpDX.DXGI;
 using System;
 //using System.Diagnostics;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
-using System.Text;
 using System.Windows.Forms;
 //using System.Threading;
 using Bitmap = SharpDX.Direct2D1.Bitmap;
@@ -870,7 +868,7 @@ namespace IceBlink2
                 {
                     if (p.AmmoRefs.tag == s.tag)
                     {
-                        allowAdding = false;
+                        //allowAdding = false;
                         break;
                     }
                     if (p.BodyRefs.tag == s.tag)
@@ -3108,8 +3106,12 @@ namespace IceBlink2
                             gv.mod.playMusic = true;
                             gv.mod.playSoundFx = true;
                             //TODO gv.screenCombat.tglSoundFx.toggleOn = true;
+
+
                             gv.startMusic();
                             gv.startAmbient();
+                            
+                            
                             //gv.cc.addLogText("lime", "Music On, SoundFX On");
                         }
                         //music on
@@ -10122,6 +10124,7 @@ namespace IceBlink2
 
                 foreach (Prop p in gv.mod.moduleAreasObjects[i].Props)
                 {
+
                     recalcReloc(p);
                     if (propIsWithinRelevantDistance(p, i))
                     {
@@ -10153,6 +10156,10 @@ namespace IceBlink2
                 {
                     for (int j = gv.mod.moduleAreasObjects[i].Props.Count - 1; j >= 0; j--)
                     {
+                        if (gv.mod.moduleAreasObjects[i].Props[j].PropTag == "newPropTag_8745_17123" && doOnEnterAreaUpdate)
+                        {
+                            int hg = 0;
+                        }
                         //we have to skip props here who are already on one of the whole (not just 8/13) nearby areas; 
                         //this is to see their normal movement instaed of having them jump between waypoints
                         //note: to experince props coming in form nearby area while party is on current, the prop code for leaving current area must be extened to leaving nearby area towarads current area; also nearby-nearby transiitiosn, all of them smoothly scrolling, gulp
@@ -10509,6 +10516,7 @@ namespace IceBlink2
                                         int xLocForFloaty = gv.mod.moduleAreasObjects[relevantAreaIndex].Props[relevantPropIndex].WayPointList[listEndCheckedIndexOfNextWaypoint].X;
                                         int yLocForFloaty = gv.mod.moduleAreasObjects[relevantAreaIndex].Props[relevantPropIndex].WayPointList[listEndCheckedIndexOfNextWaypoint].Y;
                                         gv.mod.moduleAreasObjects[relevantAreaIndex].Props[relevantPropIndex].lastAreaFilenameOfProp = gv.mod.moduleAreasObjects[relevantAreaIndex].Filename;
+                                        string targetAreaName = gv.mod.moduleAreasObjects[relevantAreaIndex].Props[relevantPropIndex].WayPointList[listEndCheckedIndexOfNextWaypoint].areaName;
                                         gv.sf.osController("osSetPropLocationAnyArea.cs", gv.mod.moduleAreasObjects[relevantAreaIndex].Props[relevantPropIndex].PropTag, gv.mod.moduleAreasObjects[relevantAreaIndex].Props[relevantPropIndex].WayPointList[listEndCheckedIndexOfNextWaypoint].areaName, gv.mod.moduleAreasObjects[relevantAreaIndex].Props[relevantPropIndex].WayPointList[listEndCheckedIndexOfNextWaypoint].X.ToString(), gv.mod.moduleAreasObjects[relevantAreaIndex].Props[relevantPropIndex].WayPointList[listEndCheckedIndexOfNextWaypoint].Y.ToString());
 
                                         //gv.mod.moduleAreasObjects[relevantAreaIndex].Props[relevantPropIndex].WayPointList[listEndCheckedIndexOfNextWaypoint].X
@@ -10527,14 +10535,15 @@ namespace IceBlink2
                                         //gv.screenMainMap.addFloatyText(xLocForFloaty, yLocForFloaty, "Just arrived here", "white", 4000);
                                         foreach (Area a in gv.mod.moduleAreasObjects)
                                         {
-                                            if (gv.mod.moduleAreasObjects[relevantAreaIndex].Props.Count > relevantPropIndex && listEndCheckedIndexOfNextWaypoint < gv.mod.moduleAreasObjects[relevantAreaIndex].Props[relevantPropIndex].WayPointList.Count)
+                                            //if (gv.mod.moduleAreasObjects[relevantAreaIndex].Props.Count > relevantPropIndex && listEndCheckedIndexOfNextWaypoint < gv.mod.moduleAreasObjects[relevantAreaIndex].Props[relevantPropIndex].WayPointList.Count)
+                                            //{
+                                            //if (a.Filename == gv.mod.moduleAreasObjects[relevantAreaIndex].Props[relevantPropIndex].WayPointList[listEndCheckedIndexOfNextWaypoint].areaName)
+                                            if (a.Filename == targetAreaName)
                                             {
-                                                if (a.Filename == gv.mod.moduleAreasObjects[relevantAreaIndex].Props[relevantPropIndex].WayPointList[listEndCheckedIndexOfNextWaypoint].areaName)
-                                                {
                                                     gv.screenMainMap.addFloatyText(a.Props[a.Props.Count - 1], "Just arrived here", "white", 4000);
                                                     break;
                                                 }
-                                            }
+                                            //}
                                         }
                                         //gv.screenMainMap.addFloatyText(gv.mod.moduleAreasObjects[relevantAreaIndex].Props[relevantPropIndex], "Just arrived here", "white", 4000);
                                     }
@@ -11178,8 +11187,15 @@ namespace IceBlink2
                                                         //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXxxx
                                                         if (!oldIsNearby || !NewIsNearby)
                                                         {
-                                                            //gv.screenMainMap.addFloatyText(gv.mod.moduleAreasObjects[h].Props[i].LocationX, gv.mod.moduleAreasObjects[h].Props[i].LocationY, "Heading off towards " + shownAreaName, "white", 4000);
-                                                            gv.screenMainMap.addFloatyText(gv.mod.moduleAreasObjects[h].Props[i], "Heading off towards " + shownAreaName, "white", 4000);
+                                                            if (shownAreaName != "newArea" && shownAreaName != "" && shownAreaName != "none")
+                                                            {
+                                                                gv.screenMainMap.addFloatyText(gv.mod.moduleAreasObjects[h].Props[i].LocationX, gv.mod.moduleAreasObjects[h].Props[i].LocationY, "Heading off towards " + shownAreaName, "white", 4000);
+                                                            }
+                                                            else
+                                                            {
+                                                                gv.screenMainMap.addFloatyText(gv.mod.moduleAreasObjects[h].Props[i].LocationX, gv.mod.moduleAreasObjects[h].Props[i].LocationY, "Heading off", "white", 4000);
+                                                            }
+                                                            //gv.screenMainMap.addFloatyText(gv.mod.moduleAreasObjects[h].Props[i], "Heading off towards " + shownAreaName, "white", 4000);
 
                                                         }
                                                         gv.sf.osController("osSetPropLocationAnyArea.cs", gv.mod.moduleAreasObjects[h].Props[i].PropTag, gv.mod.moduleAreasObjects[h].Props[i].WayPointList[gv.mod.moduleAreasObjects[h].Props[i].WayPointListCurrentIndex].areaName, gv.mod.moduleAreasObjects[h].Props[i].WayPointList[gv.mod.moduleAreasObjects[h].Props[i].WayPointListCurrentIndex].X.ToString(), gv.mod.moduleAreasObjects[h].Props[i].WayPointList[gv.mod.moduleAreasObjects[h].Props[i].WayPointListCurrentIndex].Y.ToString());
@@ -11223,7 +11239,15 @@ namespace IceBlink2
                                                         //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXxxx
                                                         if (!oldIsNearby || !NewIsNearby)
                                                         {
-                                                            gv.screenMainMap.addFloatyText(gv.mod.moduleAreasObjects[h].Props[i], "Heading off towards " + shownAreaName, "white", 4000);
+                                                            if (shownAreaName != "newArea" && shownAreaName != "" && shownAreaName != "none")
+                                                            {
+                                                                gv.screenMainMap.addFloatyText(gv.mod.moduleAreasObjects[h].Props[i].LocationX, gv.mod.moduleAreasObjects[h].Props[i].LocationY, "Heading off towards " + shownAreaName, "white", 4000);
+                                                            }
+                                                            else
+                                                            {
+                                                                gv.screenMainMap.addFloatyText(gv.mod.moduleAreasObjects[h].Props[i].LocationX, gv.mod.moduleAreasObjects[h].Props[i].LocationY, "Heading off", "white", 4000);
+                                                            }
+                                                            //gv.screenMainMap.addFloatyText(gv.mod.moduleAreasObjects[h].Props[i], "Heading off towards " + shownAreaName, "white", 4000);
                                                         }
                                                         //neuefreunde
                                                 gv.sf.osController("osSetPropLocationAnyArea.cs", gv.mod.moduleAreasObjects[h].Props[i].PropTag, gv.mod.moduleAreasObjects[h].Props[i].WayPointList[gv.mod.moduleAreasObjects[h].Props[i].WayPointListCurrentIndex].areaName, gv.mod.moduleAreasObjects[h].Props[i].WayPointList[gv.mod.moduleAreasObjects[h].Props[i].WayPointListCurrentIndex].X.ToString(), gv.mod.moduleAreasObjects[h].Props[i].WayPointList[gv.mod.moduleAreasObjects[h].Props[i].WayPointListCurrentIndex].Y.ToString());
@@ -12248,7 +12272,14 @@ namespace IceBlink2
                                                     }
                                                 }
 
-                                                gv.screenMainMap.addFloatyText(gv.mod.currentArea.Props[i].LocationX, gv.mod.currentArea.Props[i].LocationY, "Heading off towards " + shownAreaName, "white", 4000);
+                                                if (shownAreaName != "newArea" && shownAreaName != "" && shownAreaName != "none")
+                                                {
+                                                    gv.screenMainMap.addFloatyText(gv.mod.currentArea.Props[i].LocationX, gv.mod.currentArea.Props[i].LocationY, "Heading off towards " + shownAreaName, "white", 4000);
+                                                }
+                                                else
+                                                {
+                                                    gv.screenMainMap.addFloatyText(gv.mod.currentArea.Props[i].LocationX, gv.mod.currentArea.Props[i].LocationY, "Heading off", "white", 4000);
+                                                }
                                                 gv.sf.osController("osSetPropLocationAnyArea.cs", gv.mod.currentArea.Props[i].PropTag, gv.mod.currentArea.Props[i].WayPointList[gv.mod.currentArea.Props[i].WayPointListCurrentIndex].areaName, gv.mod.currentArea.Props[i].WayPointList[gv.mod.currentArea.Props[i].WayPointListCurrentIndex].X.ToString(), gv.mod.currentArea.Props[i].WayPointList[gv.mod.currentArea.Props[i].WayPointListCurrentIndex].Y.ToString());
                                                 registerRemoval = true;
                                             }
@@ -12270,9 +12301,18 @@ namespace IceBlink2
                                                         shownAreaName = gv.mod.moduleAreasObjects[a].inGameAreaName;
                                                     }
                                                 }
+                                                if (shownAreaName != "newArea" && shownAreaName != "" && shownAreaName != "none")
+                                                {
+                                                    gv.screenMainMap.addFloatyText(gv.mod.currentArea.Props[i].LocationX, gv.mod.currentArea.Props[i].LocationY, "Heading off towards " + shownAreaName, "white", 4000);
+                                                }
+                                                else
+                                                {
+                                                    gv.screenMainMap.addFloatyText(gv.mod.currentArea.Props[i].LocationX, gv.mod.currentArea.Props[i].LocationY, "Heading off", "white", 4000);
 
-                                                gv.screenMainMap.addFloatyText(gv.mod.currentArea.Props[i].LocationX, gv.mod.currentArea.Props[i].LocationY, "Heading off towards " + shownAreaName, "white", 4000);
+                                                }
+
                                                 gv.sf.osController("osSetPropLocationAnyArea.cs", gv.mod.currentArea.Props[i].PropTag, gv.mod.currentArea.Props[i].WayPointList[gv.mod.currentArea.Props[i].WayPointListCurrentIndex].areaName, gv.mod.currentArea.Props[i].WayPointList[gv.mod.currentArea.Props[i].WayPointListCurrentIndex].X.ToString(), gv.mod.currentArea.Props[i].WayPointList[gv.mod.currentArea.Props[i].WayPointListCurrentIndex].Y.ToString());
+                                               
                                                 registerRemoval = true;
                                             }
                                         }
@@ -15703,7 +15743,19 @@ namespace IceBlink2
         {
             bool allowTrigger = true;
             Trigger trig2 = gv.mod.currentArea.getTriggerByLocation(gv.mod.PlayerLocationX, gv.mod.PlayerLocationY);
-            
+
+            //119end
+            if (trig2 != null)
+            {
+                if (trig2.TriggerSquaresList.Count == 1)
+                {
+                    if (trig2.bumpTriggerDirection != "none")
+                    {
+                        allowTrigger = false;
+                    }
+                }
+            }
+
             /*
             if (trig2 == null)
             {
@@ -16068,58 +16120,142 @@ namespace IceBlink2
 
                                     if ((gv.triggerIndex == 1) && (trig.EnabledEvent1) && (!trig.Event1FilenameOrTag.Equals("none")))
                                     {
-                                        //check to see what type of event
-                                        if (trig.Event1Type.Equals("container"))
+
+                                        bool doTrans = false;
+                                        foreach (Trigger t in gv.mod.currentArea.Triggers)
                                         {
-                                            gv.mod.breakActiveSearch = true;
-                                            doContainerBasedOnTag(trig.Event1FilenameOrTag);
-                                            doBumpTrigger(trig2);
                                         }
-                                        else if (trig.Event1Type.Equals("transition"))
+                                        if (trig.bumpTriggerDirection == "none")
                                         {
-                                            gv.mod.breakActiveSearch = true;
-                                            doTransitionBasedOnAreaLocation(trig.Event1FilenameOrTag, trig.Event1TransPointX, trig.Event1TransPointY);
+                                            doTrans = true;
                                         }
-                                        else if (trig.Event1Type.Equals("conversation"))
+                                        if (trig.bumpTriggerDirection == "fromSouth")
                                         {
-                                            if (trig.conversationCannotBeAvoided == true)
+                                            if (gv.mod.PlayerLocationY > yPosition)
                                             {
-                                                gv.mod.breakActiveSearch = true;
-                                                doConversationBasedOnTag(trig.Event1FilenameOrTag);
-                                            }
-                                            else if (gv.mod.avoidInteraction == false)
-                                            {
-                                                gv.mod.breakActiveSearch = true;
-                                                doConversationBasedOnTag(trig.Event1FilenameOrTag);
+                                                doTrans = true;
                                             }
                                         }
-                                        else if (trig.Event1Type.Equals("encounter"))
+                                        if (trig.bumpTriggerDirection == "fromNorth")
                                         {
-                                            if (!gv.mod.EncounterOfTurnDone)
+                                            if (gv.mod.PlayerLocationY < yPosition)
+                                            {
+                                                doTrans = true;
+                                            }
+                                        }
+
+                                        if (trig.bumpTriggerDirection == "fromEast")
+                                        {
+                                            if (gv.mod.PlayerLocationX > xPosition)
+                                            {
+                                                doTrans = true;
+                                            }
+                                        }
+
+                                        if (trig.bumpTriggerDirection == "fromWest")
+                                        {
+                                            if (gv.mod.PlayerLocationX < xPosition)
+                                            {
+                                                doTrans = true;
+                                            }
+                                        }
+
+                                        if (doTrans)
+                                        {
+                                            //check to see what type of event
+                                            if (trig.Event1Type.Equals("container"))
                                             {
                                                 gv.mod.breakActiveSearch = true;
-                                                gv.mod.EncounterOfTurnDone = true;
-                                                doEncounterBasedOnTag(trig.Event1FilenameOrTag);
-                                                //gv.mod.EncounterOfTurnDone = true;
+                                                doContainerBasedOnTag(trig.Event1FilenameOrTag);
+                                                doBumpTrigger(trig2);
                                             }
-                                            //doEncounterBasedOnTag(trig.Event1FilenameOrTag);
-                                        }
-                                        else if (trig.Event1Type.Equals("script"))
-                                        {
-                                            gv.mod.breakActiveSearch = true;
-                                            doScriptBasedOnFilename(trig.Event1FilenameOrTag, trig.Event1Parm1, trig.Event1Parm2, trig.Event1Parm3, trig.Event1Parm4);
-                                            doBumpTrigger(trig2);
-                                        }
-                                        else if (trig.Event1Type.Equals("ibscript"))
-                                        {
-                                            gv.mod.breakActiveSearch = true;
-                                            doIBScriptBasedOnFilename(trig.Event1FilenameOrTag, trig.Event1Parm1);
-                                            doBumpTrigger(trig2);
-                                        }
-                                        //do that event
-                                        if (trig.DoOnceOnlyEvent1)
-                                        {
-                                            trig.EnabledEvent1 = false;
+                                            else if (trig.Event1Type.Equals("transition"))
+                                            {
+                                                gv.mod.breakActiveSearch = true;
+                                                doTrans = false;
+                                                foreach (Trigger t in gv.mod.currentArea.Triggers)
+                                                { }
+                                                if (trig.bumpTriggerDirection == "none")
+                                                {
+                                                    doTrans = true;
+                                                }
+                                                if (trig.bumpTriggerDirection == "fromSouth")
+                                                {
+                                                    if (gv.mod.PlayerLocationY > yPosition)
+                                                    {
+                                                        doTrans = true;
+                                                    }
+                                                }
+                                                if (trig.bumpTriggerDirection == "fromNorth")
+                                                {
+                                                    if (gv.mod.PlayerLocationY < yPosition)
+                                                    {
+                                                        doTrans = true;
+                                                    }
+                                                }
+
+                                                if (trig.bumpTriggerDirection == "fromEast")
+                                                {
+                                                    if (gv.mod.PlayerLocationX > xPosition)
+                                                    {
+                                                        doTrans = true;
+                                                    }
+                                                }
+
+                                                if (trig.bumpTriggerDirection == "fromWest")
+                                                {
+                                                    if (gv.mod.PlayerLocationX < xPosition)
+                                                    {
+                                                        doTrans = true;
+                                                    }
+                                                }
+
+                                                if (doTrans)
+                                                {
+                                                    doTransitionBasedOnAreaLocation(trig.Event1FilenameOrTag, trig.Event1TransPointX, trig.Event1TransPointY);
+                                                }
+                                            }
+                                            else if (trig.Event1Type.Equals("conversation"))
+                                            {
+                                                if (trig.conversationCannotBeAvoided == true)
+                                                {
+                                                    gv.mod.breakActiveSearch = true;
+                                                    doConversationBasedOnTag(trig.Event1FilenameOrTag);
+                                                }
+                                                else if (gv.mod.avoidInteraction == false)
+                                                {
+                                                    gv.mod.breakActiveSearch = true;
+                                                    doConversationBasedOnTag(trig.Event1FilenameOrTag);
+                                                }
+                                            }
+                                            else if (trig.Event1Type.Equals("encounter"))
+                                            {
+                                                if (!gv.mod.EncounterOfTurnDone)
+                                                {
+                                                    gv.mod.breakActiveSearch = true;
+                                                    gv.mod.EncounterOfTurnDone = true;
+                                                    doEncounterBasedOnTag(trig.Event1FilenameOrTag);
+                                                    //gv.mod.EncounterOfTurnDone = true;
+                                                }
+                                                //doEncounterBasedOnTag(trig.Event1FilenameOrTag);
+                                            }
+                                            else if (trig.Event1Type.Equals("script"))
+                                            {
+                                                gv.mod.breakActiveSearch = true;
+                                                doScriptBasedOnFilename(trig.Event1FilenameOrTag, trig.Event1Parm1, trig.Event1Parm2, trig.Event1Parm3, trig.Event1Parm4);
+                                                doBumpTrigger(trig2);
+                                            }
+                                            else if (trig.Event1Type.Equals("ibscript"))
+                                            {
+                                                gv.mod.breakActiveSearch = true;
+                                                doIBScriptBasedOnFilename(trig.Event1FilenameOrTag, trig.Event1Parm1);
+                                                doBumpTrigger(trig2);
+                                            }
+                                            //do that event
+                                            if (trig.DoOnceOnlyEvent1)
+                                            {
+                                                trig.EnabledEvent1 = false;
+                                            }
                                         }
                                     }
                                     //#endregion
@@ -16129,58 +16265,142 @@ namespace IceBlink2
                                     {
                                         if (!trig.event2RequiresTrueReturnCheck || (trig.event2RequiresTrueReturnCheck && gv.mod.returnCheck))
                                         {
-                                            //check to see what type of event
-                                            if (trig.Event2Type.Equals("container"))
+                                            bool doTrans = false;
+                                            foreach (Trigger t in gv.mod.currentArea.Triggers)
                                             {
-                                                gv.mod.breakActiveSearch = true;
-                                                doContainerBasedOnTag(trig.Event2FilenameOrTag);
-                                                doBumpTrigger(trig2);
                                             }
-                                            else if (trig.Event2Type.Equals("transition"))
+                                            if (trig.bumpTriggerDirection == "none")
                                             {
-                                                gv.mod.breakActiveSearch = true;
-                                                doTransitionBasedOnAreaLocation(trig.Event2FilenameOrTag, trig.Event2TransPointX, trig.Event2TransPointY);
+                                                doTrans = true;
                                             }
-                                            else if (trig.Event2Type.Equals("conversation"))
+                                            if (trig.bumpTriggerDirection == "fromSouth")
                                             {
-                                                if (trig.conversationCannotBeAvoided == true)
+                                                if (gv.mod.PlayerLocationY > yPosition)
                                                 {
-                                                    gv.mod.breakActiveSearch = true;
-                                                    doConversationBasedOnTag(trig.Event2FilenameOrTag);
-                                                }
-                                                else if (gv.mod.avoidInteraction == false)
-                                                {
-                                                    gv.mod.breakActiveSearch = true;
-                                                    doConversationBasedOnTag(trig.Event2FilenameOrTag);
+                                                    doTrans = true;
                                                 }
                                             }
-                                            else if (trig.Event2Type.Equals("encounter"))
+                                            if (trig.bumpTriggerDirection == "fromNorth")
                                             {
-                                                if (!gv.mod.EncounterOfTurnDone)
+                                                if (gv.mod.PlayerLocationY < yPosition)
+                                                {
+                                                    doTrans = true;
+                                                }
+                                            }
+
+                                            if (trig.bumpTriggerDirection == "fromEast")
+                                            {
+                                                if (gv.mod.PlayerLocationX > xPosition)
+                                                {
+                                                    doTrans = true;
+                                                }
+                                            }
+
+                                            if (trig.bumpTriggerDirection == "fromWest")
+                                            {
+                                                if (gv.mod.PlayerLocationX < xPosition)
+                                                {
+                                                    doTrans = true;
+                                                }
+                                            }
+
+                                            if (doTrans)
+                                            {
+                                                //check to see what type of event
+                                                if (trig.Event2Type.Equals("container"))
                                                 {
                                                     gv.mod.breakActiveSearch = true;
-                                                    gv.mod.EncounterOfTurnDone = true;
-                                                    doEncounterBasedOnTag(trig.Event2FilenameOrTag);
-                                                    //gv.mod.EncounterOfTurnDone = true;
+                                                    doContainerBasedOnTag(trig.Event2FilenameOrTag);
+                                                    doBumpTrigger(trig2);
                                                 }
-                                                //doEncounterBasedOnTag(trig.Event2FilenameOrTag);
-                                            }
-                                            else if (trig.Event2Type.Equals("script"))
-                                            {
-                                                gv.mod.breakActiveSearch = true;
-                                                doScriptBasedOnFilename(trig.Event2FilenameOrTag, trig.Event2Parm1, trig.Event2Parm2, trig.Event2Parm3, trig.Event2Parm4);
-                                                doBumpTrigger(trig2);
-                                            }
-                                            else if (trig.Event2Type.Equals("ibscript"))
-                                            {
-                                                gv.mod.breakActiveSearch = true;
-                                                doIBScriptBasedOnFilename(trig.Event2FilenameOrTag, trig.Event2Parm1);
-                                                doBumpTrigger(trig2);
-                                            }
-                                            //do that event
-                                            if (trig.DoOnceOnlyEvent2)
-                                            {
-                                                trig.EnabledEvent2 = false;
+                                                else if (trig.Event2Type.Equals("transition"))
+                                                {
+                                                    gv.mod.breakActiveSearch = true;
+                                                    doTrans = false;
+                                                    foreach (Trigger t in gv.mod.currentArea.Triggers)
+                                                    {
+                                                    }
+                                                    if (trig.bumpTriggerDirection == "none")
+                                                    {
+                                                        doTrans = true;
+                                                    }
+                                                    if (trig.bumpTriggerDirection == "fromSouth")
+                                                    {
+                                                        if (gv.mod.PlayerLocationY > yPosition)
+                                                        {
+                                                            doTrans = true;
+                                                        }
+                                                    }
+                                                    if (trig.bumpTriggerDirection == "fromNorth")
+                                                    {
+                                                        if (gv.mod.PlayerLocationY < yPosition)
+                                                        {
+                                                            doTrans = true;
+                                                        }
+                                                    }
+
+                                                    if (trig.bumpTriggerDirection == "fromEast")
+                                                    {
+                                                        if (gv.mod.PlayerLocationX > xPosition)
+                                                        {
+                                                            doTrans = true;
+                                                        }
+                                                    }
+
+                                                    if (trig.bumpTriggerDirection == "fromWest")
+                                                    {
+                                                        if (gv.mod.PlayerLocationX < xPosition)
+                                                        {
+                                                            doTrans = true;
+                                                        }
+                                                    }
+
+                                                    if (doTrans)
+                                                    {
+                                                        doTransitionBasedOnAreaLocation(trig.Event2FilenameOrTag, trig.Event2TransPointX, trig.Event2TransPointY);
+                                                    }
+                                                }
+                                                else if (trig.Event2Type.Equals("conversation"))
+                                                {
+                                                    if (trig.conversationCannotBeAvoided == true)
+                                                    {
+                                                        gv.mod.breakActiveSearch = true;
+                                                        doConversationBasedOnTag(trig.Event2FilenameOrTag);
+                                                    }
+                                                    else if (gv.mod.avoidInteraction == false)
+                                                    {
+                                                        gv.mod.breakActiveSearch = true;
+                                                        doConversationBasedOnTag(trig.Event2FilenameOrTag);
+                                                    }
+                                                }
+                                                else if (trig.Event2Type.Equals("encounter"))
+                                                {
+                                                    if (!gv.mod.EncounterOfTurnDone)
+                                                    {
+                                                        gv.mod.breakActiveSearch = true;
+                                                        gv.mod.EncounterOfTurnDone = true;
+                                                        doEncounterBasedOnTag(trig.Event2FilenameOrTag);
+                                                        //gv.mod.EncounterOfTurnDone = true;
+                                                    }
+                                                    //doEncounterBasedOnTag(trig.Event2FilenameOrTag);
+                                                }
+                                                else if (trig.Event2Type.Equals("script"))
+                                                {
+                                                    gv.mod.breakActiveSearch = true;
+                                                    doScriptBasedOnFilename(trig.Event2FilenameOrTag, trig.Event2Parm1, trig.Event2Parm2, trig.Event2Parm3, trig.Event2Parm4);
+                                                    doBumpTrigger(trig2);
+                                                }
+                                                else if (trig.Event2Type.Equals("ibscript"))
+                                                {
+                                                    gv.mod.breakActiveSearch = true;
+                                                    doIBScriptBasedOnFilename(trig.Event2FilenameOrTag, trig.Event2Parm1);
+                                                    doBumpTrigger(trig2);
+                                                }
+                                                //do that event
+                                                if (trig.DoOnceOnlyEvent2)
+                                                {
+                                                    trig.EnabledEvent2 = false;
+                                                }
                                             }
                                         }
                                     }
@@ -16191,60 +16411,144 @@ namespace IceBlink2
                                     {
                                         if (!trig.event3RequiresFalseReturnCheck || (trig.event3RequiresFalseReturnCheck && !gv.mod.returnCheck))
                                         {
-                                            //check to see what type of event
-                                            if (trig.Event3Type.Equals("container"))
+                                            bool doTrans = false;
+                                            foreach (Trigger t in gv.mod.currentArea.Triggers)
                                             {
-                                                gv.mod.breakActiveSearch = true;
-                                                doContainerBasedOnTag(trig.Event3FilenameOrTag);
-                                                doBumpTrigger(trig2);
                                             }
-                                            else if (trig.Event3Type.Equals("transition"))
+                                            if (trig.bumpTriggerDirection == "none")
                                             {
-                                                gv.mod.breakActiveSearch = true;
-                                                doTransitionBasedOnAreaLocation(trig.Event3FilenameOrTag, trig.Event3TransPointX, trig.Event3TransPointY);
+                                                doTrans = true;
                                             }
-                                            else if (trig.Event3Type.Equals("conversation"))
+                                            if (trig.bumpTriggerDirection == "fromSouth")
                                             {
-                                                if (trig.conversationCannotBeAvoided == true)
+                                                if (gv.mod.PlayerLocationY > yPosition)
                                                 {
-                                                    gv.mod.breakActiveSearch = true;
-                                                    doConversationBasedOnTag(trig.Event3FilenameOrTag);
-                                                }
-                                                else if (gv.mod.avoidInteraction == false)
-                                                {
-                                                    gv.mod.breakActiveSearch = true;
-                                                    doConversationBasedOnTag(trig.Event3FilenameOrTag);
+                                                    doTrans = true;
                                                 }
                                             }
-                                            else if (trig.Event3Type.Equals("encounter"))
+                                            if (trig.bumpTriggerDirection == "fromNorth")
                                             {
+                                                if (gv.mod.PlayerLocationY < yPosition)
+                                                {
+                                                    doTrans = true;
+                                                }
+                                            }
 
-                                                if (!gv.mod.EncounterOfTurnDone)
+                                            if (trig.bumpTriggerDirection == "fromEast")
+                                            {
+                                                if (gv.mod.PlayerLocationX > xPosition)
+                                                {
+                                                    doTrans = true;
+                                                }
+                                            }
+
+                                            if (trig.bumpTriggerDirection == "fromWest")
+                                            {
+                                                if (gv.mod.PlayerLocationX < xPosition)
+                                                {
+                                                    doTrans = true;
+                                                }
+                                            }
+
+                                            if (doTrans)
+                                            {
+                                                //check to see what type of event
+                                                if (trig.Event3Type.Equals("container"))
                                                 {
                                                     gv.mod.breakActiveSearch = true;
-                                                    gv.mod.EncounterOfTurnDone = true;
-                                                  
-                                                    doEncounterBasedOnTag(trig.Event3FilenameOrTag);
-                                                    //gv.mod.EncounterOfTurnDone = true;
+                                                    doContainerBasedOnTag(trig.Event3FilenameOrTag);
+                                                    doBumpTrigger(trig2);
                                                 }
-                                                //doEncounterBasedOnTag(trig.Event3FilenameOrTag);
-                                            }
-                                            else if (trig.Event3Type.Equals("script"))
-                                            {
-                                                gv.mod.breakActiveSearch = true;
-                                                doScriptBasedOnFilename(trig.Event3FilenameOrTag, trig.Event3Parm1, trig.Event3Parm2, trig.Event3Parm3, trig.Event3Parm4);
-                                                doBumpTrigger(trig2);
-                                            }
-                                            else if (trig.Event3Type.Equals("ibscript"))
-                                            {
-                                                gv.mod.breakActiveSearch = true;
-                                                doIBScriptBasedOnFilename(trig.Event3FilenameOrTag, trig.Event3Parm1);
-                                                doBumpTrigger(trig2);
-                                            }
-                                            //do that event
-                                            if (trig.DoOnceOnlyEvent3)
-                                            {
-                                                trig.EnabledEvent3 = false;
+                                                else if (trig.Event3Type.Equals("transition"))
+                                                {
+                                                    gv.mod.breakActiveSearch = true;
+                                                    doTrans = false;
+                                                    foreach (Trigger t in gv.mod.currentArea.Triggers)
+                                                    {
+                                                    }
+                                                    if (trig.bumpTriggerDirection == "none")
+                                                    {
+                                                        doTrans = true;
+                                                    }
+                                                    if (trig.bumpTriggerDirection == "fromSouth")
+                                                    {
+                                                        if (gv.mod.PlayerLocationY > yPosition)
+                                                        {
+                                                            doTrans = true;
+                                                        }
+                                                    }
+                                                    if (trig.bumpTriggerDirection == "fromNorth")
+                                                    {
+                                                        if (gv.mod.PlayerLocationY < yPosition)
+                                                        {
+                                                            doTrans = true;
+                                                        }
+                                                    }
+
+                                                    if (trig.bumpTriggerDirection == "fromEast")
+                                                    {
+                                                        if (gv.mod.PlayerLocationX > xPosition)
+                                                        {
+                                                            doTrans = true;
+                                                        }
+                                                    }
+
+                                                    if (trig.bumpTriggerDirection == "fromWest")
+                                                    {
+                                                        if (gv.mod.PlayerLocationX < xPosition)
+                                                        {
+                                                            doTrans = true;
+                                                        }
+                                                    }
+
+                                                    if (doTrans)
+                                                    {
+                                                        doTransitionBasedOnAreaLocation(trig.Event3FilenameOrTag, trig.Event3TransPointX, trig.Event3TransPointY);
+                                                    }
+                                                }
+                                                else if (trig.Event3Type.Equals("conversation"))
+                                                {
+                                                    if (trig.conversationCannotBeAvoided == true)
+                                                    {
+                                                        gv.mod.breakActiveSearch = true;
+                                                        doConversationBasedOnTag(trig.Event3FilenameOrTag);
+                                                    }
+                                                    else if (gv.mod.avoidInteraction == false)
+                                                    {
+                                                        gv.mod.breakActiveSearch = true;
+                                                        doConversationBasedOnTag(trig.Event3FilenameOrTag);
+                                                    }
+                                                }
+                                                else if (trig.Event3Type.Equals("encounter"))
+                                                {
+
+                                                    if (!gv.mod.EncounterOfTurnDone)
+                                                    {
+                                                        gv.mod.breakActiveSearch = true;
+                                                        gv.mod.EncounterOfTurnDone = true;
+
+                                                        doEncounterBasedOnTag(trig.Event3FilenameOrTag);
+                                                        //gv.mod.EncounterOfTurnDone = true;
+                                                    }
+                                                    //doEncounterBasedOnTag(trig.Event3FilenameOrTag);
+                                                }
+                                                else if (trig.Event3Type.Equals("script"))
+                                                {
+                                                    gv.mod.breakActiveSearch = true;
+                                                    doScriptBasedOnFilename(trig.Event3FilenameOrTag, trig.Event3Parm1, trig.Event3Parm2, trig.Event3Parm3, trig.Event3Parm4);
+                                                    doBumpTrigger(trig2);
+                                                }
+                                                else if (trig.Event3Type.Equals("ibscript"))
+                                                {
+                                                    gv.mod.breakActiveSearch = true;
+                                                    doIBScriptBasedOnFilename(trig.Event3FilenameOrTag, trig.Event3Parm1);
+                                                    doBumpTrigger(trig2);
+                                                }
+                                                //do that event
+                                                if (trig.DoOnceOnlyEvent3)
+                                                {
+                                                    trig.EnabledEvent3 = false;
+                                                }
                                             }
                                         }
                                     }
@@ -18874,6 +19178,18 @@ namespace IceBlink2
                         p.currentWalkingSpeed = 0;
                         p.showWalkingFrame = false;
                     }
+
+                    /*
+                    gv.mod.doNotStartScrolling = true;
+                    gv.mod.blockRightKey = false;
+                    gv.mod.blockLeftKey = false;
+                    gv.mod.blockUpKey = false;
+                    gv.mod.blockDownKey = false;
+                    gv.aTimer.Stop();
+                    gv.a2Timer.Stop();
+                    gv.mod.scrollModeSpeed = 1.15f;
+                    */
+                    //gv.mod.scrollingTimer = 100;
                 }
             }
             else
@@ -19029,6 +19345,7 @@ namespace IceBlink2
                     else
                     {
                         doPropMovesNearby();
+                        gv.mod.allowImmediateRetransition = true;
                     }
                     doOnEnterAreaUpdate = false;
                     //if (gv.mod.playMusic)

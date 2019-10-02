@@ -731,11 +731,21 @@ namespace IceBlink2
                         }
                         else if (btnExit.getImpact(x, y))
                         {
-                            gv.mod.isScrollingNow = false;
-                            gv.mod.scrollingTimer = 100;
+                            gv.mod.realTimeTimerStopped = true;
+                            gv.mod.blockRightKey = false;
+                            gv.mod.blockLeftKey = false;
+                            gv.mod.blockUpKey = false;
+                            gv.mod.blockDownKey = false;
                             gv.aTimer.Stop();
                             gv.a2Timer.Stop();
                             gv.mod.scrollModeSpeed = 1.15f;
+                            gv.mod.scrollingTimer = 100;
+                            //gv.mod.isScrollingNow = false;
+                            //gv.mod.scrollingTimer = 100;
+                            //gv.aTimer.Stop();
+                            //gv.a2Timer.Stop();
+                            //gv.mod.scrollModeSpeed = 1.15f;
+
                             if (itemSelectorType.Equals("container"))
                             {
                                 gv.screenType = "main";
