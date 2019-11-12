@@ -8,6 +8,7 @@ namespace IceBlink2
     public class FloatyText
     {
         public Coordinate location = new Coordinate();
+        public string areaFilename = "none";
         public string value = "";
         public string color = "red"; //red, yellow, blue, green, white
         public int timer = 0;

@@ -1979,7 +1979,7 @@ namespace IceBlink2
             }
             catch
             {
-                gv.sf.MessageBox("Karl Error 110End");
+                //gv.sf.MessageBox("Karl Error 110End");
                 gv.mod.moduleWeathersList = new List<Weather>();
             }
         }
@@ -1996,7 +1996,7 @@ namespace IceBlink2
             }
             catch
             {
-                gv.sf.MessageBox("Karl Error 111End");
+                //gv.sf.MessageBox("Karl Error 111End");
                 gv.mod.moduleWeatherEffectsList = new List<WeatherEffect>();
             }
         }
@@ -3204,18 +3204,25 @@ namespace IceBlink2
                 //bool showPortrtaitsThisUpdate = false;
                 //if (!blockUpdate)
                 //{
+                if (gv.mod.showPortrtaitsThisUpdate)
+                {
+                    gv.mod.showPortrtaitsThisUpdate = false;
+                }
                 foreach (Player p in gv.mod.playerList)
                 {
-                    if (p.hp != p.hpLastUpdate)
+                    if (gv.mod.hideInterfaceNextMove)
                     {
-                        gv.mod.showPortrtaitsThisUpdate = true;
-                        break;
-                    }
+                        if (p.hp != p.hpLastUpdate)
+                        {
+                            gv.mod.showPortrtaitsThisUpdate = true;
+                            break;
+                        }
 
-                    if (p.sp != p.spLastUpdate)
-                    {
-                        gv.mod.showPortrtaitsThisUpdate = true;
-                        break;
+                        if (p.sp != p.spLastUpdate)
+                        {
+                            gv.mod.showPortrtaitsThisUpdate = true;
+                            break;
+                        }
                     }
                 }
 
@@ -4989,6 +4996,7 @@ namespace IceBlink2
                 }
 
                 //move any props that are active and only if they are not on the party location
+                //anatomy
                 doPropTriggersMovers();
                 if (!gv.mod.isBreathingWorld)
                 {
@@ -5088,6 +5096,7 @@ namespace IceBlink2
                 //}
 
             }
+          
         }
 
         //enter code for stealthing props here; using their isVisible state (might be buggy as sued in otehr contexts a lot)
@@ -5309,6 +5318,16 @@ namespace IceBlink2
                                 propCoord.X = p.LocationX;
                                 propCoord.Y = p.LocationY;
                                 tileAdder = gv.mod.currentArea.Tiles[p.LocationY * gv.mod.currentArea.MapSizeX + p.LocationX].stealthModifier;
+                                foreach (Prop p5 in gv.mod.currentArea.Props)
+                                {
+                                    if (p5.stealthModifier != 0)
+                                    {
+                                        if (p5.LocationX == p.LocationX && p5.LocationY == p.LocationY)
+                                        {
+                                            tileAdder = p5.stealthModifier;
+                                        }
+                                    }
+                                }
                                 if (gv.sf.CheckPropByTagIsInDarknessPerArea(p.PropTag, "night", gv.mod.currentArea.Filename))
                                 {
                                     darkAdder = 4;
@@ -5324,6 +5343,16 @@ namespace IceBlink2
                                 propCoord.X = p.LocationX;
                                 propCoord.Y = p.LocationY - a.MapSizeY;
                                 tileAdder = a.Tiles[p.LocationY * a.MapSizeX + p.LocationX].stealthModifier;
+                                foreach (Prop p5 in a.Props)
+                                {
+                                    if (p5.stealthModifier != 0)
+                                    {
+                                        if (p5.LocationX == p.LocationX && p5.LocationY == p.LocationY)
+                                        {
+                                            tileAdder = p5.stealthModifier;
+                                        }
+                                    }
+                                }
                                 if (gv.sf.CheckPropByTagIsInDarknessPerArea(p.PropTag, "night", a.Filename))
                                 {
                                     darkAdder = 4;
@@ -5339,6 +5368,16 @@ namespace IceBlink2
                                 propCoord.X = gv.mod.currentArea.MapSizeX + p.LocationX;
                                 propCoord.Y = p.LocationY - a.MapSizeY;
                                 tileAdder = a.Tiles[p.LocationY * a.MapSizeX + p.LocationX].stealthModifier;
+                                foreach (Prop p5 in a.Props)
+                                {
+                                    if (p5.stealthModifier != 0)
+                                    {
+                                        if (p5.LocationX == p.LocationX && p5.LocationY == p.LocationY)
+                                        {
+                                            tileAdder = p5.stealthModifier;
+                                        }
+                                    }
+                                }
                                 if (gv.sf.CheckPropByTagIsInDarknessPerArea(p.PropTag, "night", a.Filename))
                                 {
                                     darkAdder = 4;
@@ -5354,6 +5393,16 @@ namespace IceBlink2
                                 propCoord.X = gv.mod.currentArea.MapSizeX + p.LocationX;
                                 propCoord.Y = p.LocationY;
                                 tileAdder = a.Tiles[p.LocationY * a.MapSizeX + p.LocationX].stealthModifier;
+                                foreach (Prop p5 in a.Props)
+                                {
+                                    if (p5.stealthModifier != 0)
+                                    {
+                                        if (p5.LocationX == p.LocationX && p5.LocationY == p.LocationY)
+                                        {
+                                            tileAdder = p5.stealthModifier;
+                                        }
+                                    }
+                                }
                                 if (gv.sf.CheckPropByTagIsInDarknessPerArea(p.PropTag, "night", a.Filename))
                                 {
                                     darkAdder = 4;
@@ -5369,6 +5418,16 @@ namespace IceBlink2
                                 propCoord.X = gv.mod.currentArea.MapSizeX + p.LocationX;
                                 propCoord.Y = gv.mod.currentArea.MapSizeY + p.LocationY;
                                 tileAdder = a.Tiles[p.LocationY * a.MapSizeX + p.LocationX].stealthModifier;
+                                foreach (Prop p5 in a.Props)
+                                {
+                                    if (p5.stealthModifier != 0)
+                                    {
+                                        if (p5.LocationX == p.LocationX && p5.LocationY == p.LocationY)
+                                        {
+                                            tileAdder = p5.stealthModifier;
+                                        }
+                                    }
+                                }
                                 if (gv.sf.CheckPropByTagIsInDarknessPerArea(p.PropTag, "night", a.Filename))
                                 {
                                     darkAdder = 4;
@@ -5384,6 +5443,16 @@ namespace IceBlink2
                                 propCoord.X = p.LocationX;
                                 propCoord.Y = gv.mod.currentArea.MapSizeY + p.LocationY;
                                 tileAdder = a.Tiles[p.LocationY * a.MapSizeX + p.LocationX].stealthModifier;
+                                foreach (Prop p5 in a.Props)
+                                {
+                                    if (p5.stealthModifier != 0)
+                                    {
+                                        if (p5.LocationX == p.LocationX && p5.LocationY == p.LocationY)
+                                        {
+                                            tileAdder = p5.stealthModifier;
+                                        }
+                                    }
+                                }
                                 if (gv.sf.CheckPropByTagIsInDarknessPerArea(p.PropTag, "night", a.Filename))
                                 {
                                     darkAdder = 4;
@@ -5399,6 +5468,16 @@ namespace IceBlink2
                                 propCoord.X = p.LocationX - a.MapSizeX;
                                 propCoord.Y = gv.mod.currentArea.MapSizeY + p.LocationY;
                                 tileAdder = a.Tiles[p.LocationY * a.MapSizeX + p.LocationX].stealthModifier;
+                                foreach (Prop p5 in a.Props)
+                                {
+                                    if (p5.stealthModifier != 0)
+                                    {
+                                        if (p5.LocationX == p.LocationX && p5.LocationY == p.LocationY)
+                                        {
+                                            tileAdder = p5.stealthModifier;
+                                        }
+                                    }
+                                }
                                 if (gv.sf.CheckPropByTagIsInDarknessPerArea(p.PropTag, "night", a.Filename))
                                 {
                                     darkAdder = 4;
@@ -5414,6 +5493,16 @@ namespace IceBlink2
                                 propCoord.X = p.LocationX - a.MapSizeX; ;
                                 propCoord.Y = p.LocationY;
                                 tileAdder = a.Tiles[p.LocationY * a.MapSizeX + p.LocationX].stealthModifier;
+                                foreach (Prop p5 in a.Props)
+                                {
+                                    if (p5.stealthModifier != 0)
+                                    {
+                                        if (p5.LocationX == p.LocationX && p5.LocationY == p.LocationY)
+                                        {
+                                            tileAdder = p5.stealthModifier;
+                                        }
+                                    }
+                                }
                                 if (gv.sf.CheckPropByTagIsInDarknessPerArea(p.PropTag, "night", a.Filename))
                                 {
                                     darkAdder = 4;
@@ -5429,6 +5518,16 @@ namespace IceBlink2
                                 propCoord.X = p.LocationX - a.MapSizeX;
                                 propCoord.Y = p.LocationY - a.MapSizeY; ;
                                 tileAdder = a.Tiles[p.LocationY * a.MapSizeX + p.LocationX].stealthModifier;
+                                foreach (Prop p5 in a.Props)
+                                {
+                                    if (p5.stealthModifier != 0)
+                                    {
+                                        if (p5.LocationX == p.LocationX && p5.LocationY == p.LocationY)
+                                        {
+                                            tileAdder = p5.stealthModifier;
+                                        }
+                                    }
+                                }
                                 if (gv.sf.CheckPropByTagIsInDarknessPerArea(p.PropTag, "night", a.Filename))
                                 {
                                     darkAdder = 4;
@@ -8709,43 +8808,7 @@ namespace IceBlink2
         {
             float horizontalAdjustment = 0;
             float verticalAdjustment = 0;
-            //todo: maybe limit thsi when enar true map border?
-            /*
-            bool tooNear = false;
-            //north
-            if (gv.mod.currentArea.northernNeighbourArea == "none" || gv.mod.currentArea.northernNeighbourArea == "None" || gv.mod.currentArea.northernNeighbourArea == "")
-            {
-                if (gv.mod.PlayerLocationY - gv.playerOffsetY <= 0)
-                {
-                    tooNear = true;
-                }
-            }
-            //west
-            if (gv.mod.currentArea.westernNeighbourArea == "none" || gv.mod.currentArea.westernNeighbourArea == "None" || gv.mod.currentArea.westernNeighbourArea == "")
-            {
-                if (gv.mod.PlayerLocationX - gv.playerOffsetX <= 0)
-                {
-                    tooNear = true;
-                }
-            }
-            //south
-            if (gv.mod.currentArea.southernNeighbourArea == "none" || gv.mod.currentArea.southernNeighbourArea == "None" || gv.mod.currentArea.southernNeighbourArea == "")
-            {
-                if (gv.mod.PlayerLocationY + gv.playerOffsetY >= gv.mod.currentArea.MapSizeY)
-                {
-                    tooNear = true;
-                }
-            }
-
-            //east
-            if (gv.mod.currentArea.easternNeighbourArea == "none" || gv.mod.currentArea.easternNeighbourArea == "None" || gv.mod.currentArea.easternNeighbourArea == "")
-            {
-                if (gv.mod.PlayerLocationX + gv.playerOffsetX >= gv.mod.currentArea.MapSizeX)
-                {
-                    tooNear = true;
-                }
-            }
-            */
+         
 
             if ((gv.mod.PlayerLocationX != gv.mod.PlayerLastLocationX) || (gv.mod.PlayerLocationY != gv.mod.PlayerLastLocationY))
             {
@@ -8774,8 +8837,18 @@ namespace IceBlink2
                 }
             }
 
+            /*
+            foreach 
+                (Sprite spr in gv.screenMainMap.spriteList)
+            {
+                if (spr.movementMethod == "fog")
+                {
 
-            if ((horizontalAdjustment != 0) || (verticalAdjustment != 0))
+                }
+            }
+            */
+
+                if ((horizontalAdjustment != 0) || (verticalAdjustment != 0))
             {
                 foreach (Sprite spr in gv.screenMainMap.spriteList)
                 {
@@ -8785,8 +8858,49 @@ namespace IceBlink2
                     if (gv.mod.PlayerLastLocationX != gv.mod.PlayerLocationX || gv.mod.PlayerLastLocationY != gv.mod.PlayerLocationY)
                     {
 
-                        spr.position.X += horizontalAdjustment;
-                        spr.position.Y += verticalAdjustment;
+                        //scheissbrille4
+                        //if (spr.movementMethod != "fog")
+                        //{
+                            spr.position.X += horizontalAdjustment;
+                            spr.position.Y += verticalAdjustment;
+                        //}
+
+                        
+
+                            /*
+                            //sabrina4
+                            if (mod.useScrollingSystem)
+                            {
+                                if (this.screenType == "main")
+                                {
+                                    if (mod.isScrollingNow && !isParty)
+                                    {
+                                        if (mod.scrollingDirection == "up")
+                                        {
+                                            target.Y = target.Y - (int)(squareSize * (mod.scrollingTimer / 100f));
+                                        }
+
+                                        if (mod.scrollingDirection == "down")
+                                        {
+                                            target.Y = target.Y + (int)(squareSize * (mod.scrollingTimer / 100f));
+                                        }
+
+                                        if (mod.scrollingDirection == "left")
+                                        {
+                                            target.X = target.X - (int)(squareSize * (mod.scrollingTimer / 100f));
+                                        }
+
+                                        if (mod.scrollingDirection == "right")
+                                        {
+                                            target.X = target.X + (int)(squareSize * (mod.scrollingTimer / 100f));
+                                        }
+                                    }
+                                }
+                            }
+                            */
+
+                          
+                        //}
 
                     }
 
@@ -8983,6 +9097,44 @@ namespace IceBlink2
                         spr.position.Y = gv.screenHeight / 2 + gv.mod.pixDistanceToBorderSouth - 1 - diagonalRandomizerVertical;
                     }
                 }
+
+                //sebastianstraße
+                if (movesOnGlobe && (spr.movementMethod.Contains("snow") || spr.movementMethod.Contains("rain")))
+                {
+                    if (isLeavingEast)
+                    {
+                        spr.position.X = -25 - scaledSpriteDimension;
+                    }
+                    if (isLeavingWest)
+                    {
+                        spr.position.X = gv.screenWidth + 25;
+                    }
+                }
+
+                    if (movesOnGlobe && spr.movementMethod.Contains("fog"))
+                    {
+                        if (isLeavingNorth)
+                        {
+                            spr.position.Y = gv.screenHeight + 50;    
+                            //spr.position.Y = -50;
+                        }
+                        if (isLeavingSouth)
+                        {
+                            spr.position.Y = -50 - scaledSpriteDimension;
+                            //spr.position.Y = gv.screenHeight + scaledSpriteDimension + 50;
+                        }
+                        if (isLeavingEast)
+                        {
+                            spr.position.X = -50 - scaledSpriteDimension;
+                        }
+                        if (isLeavingWest)
+                        {
+                            spr.position.X = gv.screenWidth + 50;
+                        }
+                    }
+                
+
+               
 
                 //like fog
                 if (movesAsBumper)
@@ -10704,6 +10856,18 @@ namespace IceBlink2
                                 int tileAdder = 0;
                                 int darkAdder = 0;
                                 tileAdder = gv.mod.moduleAreasObjects[h].Tiles[gv.mod.PlayerLocationY * gv.mod.moduleAreasObjects[h].MapSizeX + gv.mod.PlayerLocationY].stealthModifier;
+                                       
+                                foreach (Prop p5 in gv.mod.currentArea.Props)
+                                {
+                                            if (p5.stealthModifier != 0)
+                                            {
+                                                if (p5.LocationX == gv.mod.PlayerLocationX && p5.LocationY == gv.mod.PlayerLocationY)
+                                                {
+                                                    tileAdder = p5.stealthModifier;
+                                                }
+                                            }
+                                }
+
                                 if (gv.sf.CheckIsInDarkness("party", "night"))
                                 {
                                     darkAdder = 4;
@@ -11189,11 +11353,31 @@ namespace IceBlink2
                                                         {
                                                             if (shownAreaName != "newArea" && shownAreaName != "" && shownAreaName != "none")
                                                             {
-                                                                gv.screenMainMap.addFloatyText(gv.mod.moduleAreasObjects[h].Props[i].LocationX, gv.mod.moduleAreasObjects[h].Props[i].LocationY, "Heading off towards " + shownAreaName, "white", 4000);
+                                                                if (gv.mod.currentArea.Filename == gv.mod.moduleAreasObjects[h].Filename)
+                                                                {
+                                                                    gv.screenMainMap.addFloatyText(gv.mod.moduleAreasObjects[h].Props[i].LocationX, gv.mod.moduleAreasObjects[h].Props[i].LocationY, "Heading off towards " + shownAreaName, "white", 4000);
+                                                                }
+                                                                //gv.screenMainMap.addFloatyText(gv.mod.moduleAreasObjects[h].Props[i], "Just arrived here", "white", 4000);
+                                                                //gv.screenMainMap.addFloatyText(gv.mod.moduleAreasObjects[h].Props[i], "Heading off towards " + shownAreaName, "white", 4000);
+                                                                //pizza
+                                                                /*
+                                                                 foreach (Area a in gv.mod.moduleAreasObjects)
+                                          //if (a.Filename == gv.mod.moduleAreasObjects[relevantAreaIndex].Props[relevantPropIndex].WayPointList[listEndCheckedIndexOfNextWaypoint].areaName)
+                                            if (a.Filename == targetAreaName)
+                                            {
+                                                    gv.screenMainMap.addFloatyText(a.Props[a.Props.Count - 1], "Just arrived here", "white", 4000);
+                                                    break;
+                                                }
+                                        
+                                                                */
                                                             }
                                                             else
                                                             {
-                                                                gv.screenMainMap.addFloatyText(gv.mod.moduleAreasObjects[h].Props[i].LocationX, gv.mod.moduleAreasObjects[h].Props[i].LocationY, "Heading off", "white", 4000);
+                                                                if (gv.mod.currentArea.Filename == gv.mod.moduleAreasObjects[h].Filename)
+                                                                {
+                                                                    gv.screenMainMap.addFloatyText(gv.mod.moduleAreasObjects[h].Props[i].LocationX, gv.mod.moduleAreasObjects[h].Props[i].LocationY, "Heading off", "white", 4000);
+                                                                }
+                                                                //gv.screenMainMap.addFloatyText(gv.mod.moduleAreasObjects[h].Props[i], "Heading off", "white", 4000);
                                                             }
                                                             //gv.screenMainMap.addFloatyText(gv.mod.moduleAreasObjects[h].Props[i], "Heading off towards " + shownAreaName, "white", 4000);
 
@@ -11241,11 +11425,19 @@ namespace IceBlink2
                                                         {
                                                             if (shownAreaName != "newArea" && shownAreaName != "" && shownAreaName != "none")
                                                             {
-                                                                gv.screenMainMap.addFloatyText(gv.mod.moduleAreasObjects[h].Props[i].LocationX, gv.mod.moduleAreasObjects[h].Props[i].LocationY, "Heading off towards " + shownAreaName, "white", 4000);
+                                                                if (gv.mod.currentArea.Filename == gv.mod.moduleAreasObjects[h].Filename)
+                                                                {
+                                                                    gv.screenMainMap.addFloatyText(gv.mod.moduleAreasObjects[h].Props[i].LocationX, gv.mod.moduleAreasObjects[h].Props[i].LocationY, "Heading off towards " + shownAreaName, "white", 4000);
+                                                                }
+                                                                //gv.screenMainMap.addFloatyText(gv.mod.moduleAreasObjects[h].Props[i], "Heading off towards " + shownAreaName, "white", 4000);
                                                             }
                                                             else
                                                             {
-                                                                gv.screenMainMap.addFloatyText(gv.mod.moduleAreasObjects[h].Props[i].LocationX, gv.mod.moduleAreasObjects[h].Props[i].LocationY, "Heading off", "white", 4000);
+                                                                if (gv.mod.currentArea.Filename == gv.mod.moduleAreasObjects[h].Filename)
+                                                                {
+                                                                    gv.screenMainMap.addFloatyText(gv.mod.moduleAreasObjects[h].Props[i].LocationX, gv.mod.moduleAreasObjects[h].Props[i].LocationY, "Heading off", "white", 4000);
+                                                                }
+                                                                //gv.screenMainMap.addFloatyText(gv.mod.moduleAreasObjects[h].Props[i], "Heading off", "white", 4000);
                                                             }
                                                             //gv.screenMainMap.addFloatyText(gv.mod.moduleAreasObjects[h].Props[i], "Heading off towards " + shownAreaName, "white", 4000);
                                                         }
@@ -11800,6 +11992,16 @@ namespace IceBlink2
                                 int tileAdder = 0;
                                 int darkAdder = 0;
                                 tileAdder = gv.mod.currentArea.Tiles[gv.mod.PlayerLocationY * gv.mod.currentArea.MapSizeX + gv.mod.PlayerLocationY].stealthModifier;
+                                foreach (Prop p5 in gv.mod.currentArea.Props)
+                                {
+                                    if (p5.stealthModifier != 0)
+                                    {
+                                        if (p5.LocationX == gv.mod.PlayerLocationX && p5.LocationY == gv.mod.PlayerLocationY)
+                                        {
+                                            tileAdder = p5.stealthModifier;
+                                        }
+                                    }
+                                }
                                 if (gv.sf.CheckIsInDarkness("party", "night"))
                                 {
                                     darkAdder = 4;
@@ -12274,11 +12476,19 @@ namespace IceBlink2
 
                                                 if (shownAreaName != "newArea" && shownAreaName != "" && shownAreaName != "none")
                                                 {
-                                                    gv.screenMainMap.addFloatyText(gv.mod.currentArea.Props[i].LocationX, gv.mod.currentArea.Props[i].LocationY, "Heading off towards " + shownAreaName, "white", 4000);
+                                                    //if (gv.mod.currentArea.Filename == gv.mod.moduleAreasObjects[i].Filename)
+                                                    //{
+                                                        gv.screenMainMap.addFloatyText(gv.mod.currentArea.Props[i].LocationX, gv.mod.currentArea.Props[i].LocationY, "Heading off towards " + shownAreaName, "white", 4000);
+                                                    //}
+                                                    //gv.screenMainMap.addFloatyText(gv.mod.currentArea.Props[i], "Heading off towards " + shownAreaName, "white", 4000);
                                                 }
                                                 else
                                                 {
-                                                    gv.screenMainMap.addFloatyText(gv.mod.currentArea.Props[i].LocationX, gv.mod.currentArea.Props[i].LocationY, "Heading off", "white", 4000);
+                                                    //if (gv.mod.currentArea.Filename == gv.mod.moduleAreasObjects[i].Filename)
+                                                    //{
+                                                        gv.screenMainMap.addFloatyText(gv.mod.currentArea.Props[i].LocationX, gv.mod.currentArea.Props[i].LocationY, "Heading off", "white", 4000);
+                                                    //}
+                                                    //gv.screenMainMap.addFloatyText(gv.mod.currentArea.Props[i], "Heading off", "white", 4000);
                                                 }
                                                 gv.sf.osController("osSetPropLocationAnyArea.cs", gv.mod.currentArea.Props[i].PropTag, gv.mod.currentArea.Props[i].WayPointList[gv.mod.currentArea.Props[i].WayPointListCurrentIndex].areaName, gv.mod.currentArea.Props[i].WayPointList[gv.mod.currentArea.Props[i].WayPointListCurrentIndex].X.ToString(), gv.mod.currentArea.Props[i].WayPointList[gv.mod.currentArea.Props[i].WayPointListCurrentIndex].Y.ToString());
                                                 registerRemoval = true;
@@ -12303,11 +12513,14 @@ namespace IceBlink2
                                                 }
                                                 if (shownAreaName != "newArea" && shownAreaName != "" && shownAreaName != "none")
                                                 {
-                                                    gv.screenMainMap.addFloatyText(gv.mod.currentArea.Props[i].LocationX, gv.mod.currentArea.Props[i].LocationY, "Heading off towards " + shownAreaName, "white", 4000);
+                                                   
+                                                        gv.screenMainMap.addFloatyText(gv.mod.currentArea.Props[i].LocationX, gv.mod.currentArea.Props[i].LocationY, "Heading off towards " + shownAreaName, "white", 4000);
+                                                    //gv.screenMainMap.addFloatyText(gv.mod.currentArea.Props[i], "Heading off towards " + shownAreaName, "white", 4000);
                                                 }
                                                 else
                                                 {
                                                     gv.screenMainMap.addFloatyText(gv.mod.currentArea.Props[i].LocationX, gv.mod.currentArea.Props[i].LocationY, "Heading off", "white", 4000);
+                                                    //gv.screenMainMap.addFloatyText(gv.mod.currentArea.Props[i], "Heading off", "white", 4000);
 
                                                 }
 
@@ -14924,6 +15137,16 @@ namespace IceBlink2
                         int tileAdder = 0;
                         int darkAdder = 0;
                         tileAdder = gv.mod.currentArea.Tiles[gv.mod.PlayerLocationY * gv.mod.currentArea.MapSizeX + gv.mod.PlayerLocationY].stealthModifier;
+                        foreach (Prop p5 in gv.mod.currentArea.Props)
+                        {
+                            if (p5.stealthModifier != 0)
+                            {
+                                if (p5.LocationX == gv.mod.PlayerLocationX && p5.LocationY == gv.mod.PlayerLocationY)
+                                {
+                                    tileAdder = p5.stealthModifier;
+                                }
+                            }
+                        }
                         if (gv.sf.CheckIsInDarkness("party", "night"))
                         {
                             darkAdder = 4;
@@ -15303,6 +15526,16 @@ namespace IceBlink2
                             int tileAdder = 0;
                             int darkAdder = 0;
                             tileAdder = gv.mod.currentArea.Tiles[gv.mod.PlayerLocationY * gv.mod.currentArea.MapSizeX + gv.mod.PlayerLocationY].stealthModifier;
+                            foreach (Prop p5 in gv.mod.currentArea.Props)
+                            {
+                                if (p5.stealthModifier != 0)
+                                {
+                                    if (p5.LocationX == gv.mod.PlayerLocationX && p5.LocationY == gv.mod.PlayerLocationY)
+                                    {
+                                        tileAdder = p5.stealthModifier;
+                                    }
+                                }
+                            }
                             if (gv.sf.CheckIsInDarkness("party", "night"))
                             {
                                 darkAdder = 4;
@@ -15552,7 +15785,7 @@ namespace IceBlink2
                         if (!foundOne)
                         {
                             //chamber
-                            doTrigger();
+                            //doTrigger();
                         }
                     }
                 }
@@ -15741,6 +15974,8 @@ namespace IceBlink2
 
         public void doTrigger()
         {
+           
+            gv.realTimeTimerMilliSecondsEllapsed = 0;
             bool allowTrigger = true;
             Trigger trig2 = gv.mod.currentArea.getTriggerByLocation(gv.mod.PlayerLocationX, gv.mod.PlayerLocationY);
 
@@ -15832,6 +16067,7 @@ namespace IceBlink2
                                         //check to see what type of event
                                         if (trig.Event1Type.Equals("container"))
                                         {
+                                            gv.mod.realTimeTimerStopped = true;
                                             gv.mod.breakActiveSearch = true;
                                             doContainerBasedOnTag(trig.Event1FilenameOrTag);
                                             doTrigger();
@@ -15843,6 +16079,7 @@ namespace IceBlink2
                                         }
                                         else if (trig.Event1Type.Equals("conversation"))
                                         {
+                                            gv.mod.realTimeTimerStopped = true;
                                             if (trig.conversationCannotBeAvoided == true)
                                             {
                                                 gv.mod.breakActiveSearch = true;
@@ -15856,6 +16093,7 @@ namespace IceBlink2
                                         }
                                         else if (trig.Event1Type.Equals("encounter"))
                                         {
+                                            gv.mod.realTimeTimerStopped = true;
                                             if (!gv.mod.EncounterOfTurnDone)
                                             {
                                                 gv.mod.breakActiveSearch = true;
@@ -15867,12 +16105,14 @@ namespace IceBlink2
                                         }
                                         else if (trig.Event1Type.Equals("script"))
                                         {
+                                            gv.mod.realTimeTimerStopped = true;
                                             gv.mod.breakActiveSearch = true;
                                             doScriptBasedOnFilename(trig.Event1FilenameOrTag, trig.Event1Parm1, trig.Event1Parm2, trig.Event1Parm3, trig.Event1Parm4);
                                             doTrigger();
                                         }
                                         else if (trig.Event1Type.Equals("ibscript"))
                                         {
+                                            gv.mod.realTimeTimerStopped = true;
                                             gv.mod.breakActiveSearch = true;
                                             doIBScriptBasedOnFilename(trig.Event1FilenameOrTag, trig.Event1Parm1);
                                             doTrigger();
@@ -15893,17 +16133,20 @@ namespace IceBlink2
                                             //check to see what type of event
                                             if (trig.Event2Type.Equals("container"))
                                             {
+                                                gv.mod.realTimeTimerStopped = true;
                                                 gv.mod.breakActiveSearch = true;
                                                 doContainerBasedOnTag(trig.Event2FilenameOrTag);
                                                 doTrigger();
                                             }
                                             else if (trig.Event2Type.Equals("transition"))
                                             {
+                                                gv.mod.realTimeTimerStopped = true;
                                                 gv.mod.breakActiveSearch = true;
                                                 doTransitionBasedOnAreaLocation(trig.Event2FilenameOrTag, trig.Event2TransPointX, trig.Event2TransPointY);
                                             }
                                             else if (trig.Event2Type.Equals("conversation"))
                                             {
+                                                gv.mod.realTimeTimerStopped = true;
                                                 if (trig.conversationCannotBeAvoided == true)
                                                 {
                                                     gv.mod.breakActiveSearch = true;
@@ -15917,6 +16160,7 @@ namespace IceBlink2
                                             }
                                             else if (trig.Event2Type.Equals("encounter"))
                                             {
+                                                gv.mod.realTimeTimerStopped = true;
                                                 if (!gv.mod.EncounterOfTurnDone)
                                                 {
                                                     gv.mod.breakActiveSearch = true;
@@ -15928,12 +16172,14 @@ namespace IceBlink2
                                             }
                                             else if (trig.Event2Type.Equals("script"))
                                             {
+                                                gv.mod.realTimeTimerStopped = true;
                                                 gv.mod.breakActiveSearch = true;
                                                 doScriptBasedOnFilename(trig.Event2FilenameOrTag, trig.Event2Parm1, trig.Event2Parm2, trig.Event2Parm3, trig.Event2Parm4);
                                                 doTrigger();
                                             }
                                             else if (trig.Event2Type.Equals("ibscript"))
                                             {
+                                                gv.mod.realTimeTimerStopped = true;
                                                 gv.mod.breakActiveSearch = true;
                                                 doIBScriptBasedOnFilename(trig.Event2FilenameOrTag, trig.Event2Parm1);
                                                 doTrigger();
@@ -15955,17 +16201,20 @@ namespace IceBlink2
                                             //check to see what type of event
                                             if (trig.Event3Type.Equals("container"))
                                             {
+                                                gv.mod.realTimeTimerStopped = true;
                                                 gv.mod.breakActiveSearch = true;
                                                 doContainerBasedOnTag(trig.Event3FilenameOrTag);
                                                 doTrigger();
                                             }
                                             else if (trig.Event3Type.Equals("transition"))
                                             {
+                                                gv.mod.realTimeTimerStopped = true;
                                                 gv.mod.breakActiveSearch = true;
                                                 doTransitionBasedOnAreaLocation(trig.Event3FilenameOrTag, trig.Event3TransPointX, trig.Event3TransPointY);
                                             }
                                             else if (trig.Event3Type.Equals("conversation"))
                                             {
+                                                gv.mod.realTimeTimerStopped = true;
                                                 if (trig.conversationCannotBeAvoided == true)
                                                 {
                                                     gv.mod.breakActiveSearch = true;
@@ -15980,6 +16229,7 @@ namespace IceBlink2
                                             else if (trig.Event3Type.Equals("encounter"))
                                             {
 
+                                                gv.mod.realTimeTimerStopped = true;
                                                 if (!gv.mod.EncounterOfTurnDone)
                                                 {
                                                     gv.mod.breakActiveSearch = true;
@@ -15991,12 +16241,14 @@ namespace IceBlink2
                                             }
                                             else if (trig.Event3Type.Equals("script"))
                                             {
+                                                gv.mod.realTimeTimerStopped = true;
                                                 gv.mod.breakActiveSearch = true;
                                                 doScriptBasedOnFilename(trig.Event3FilenameOrTag, trig.Event3Parm1, trig.Event3Parm2, trig.Event3Parm3, trig.Event3Parm4);
                                                 doTrigger();
                                             }
                                             else if (trig.Event3Type.Equals("ibscript"))
                                             {
+                                                gv.mod.realTimeTimerStopped = true;
                                                 gv.mod.breakActiveSearch = true;
                                                 doIBScriptBasedOnFilename(trig.Event3FilenameOrTag, trig.Event3Parm1);
                                                 doTrigger();
@@ -16623,7 +16875,8 @@ namespace IceBlink2
         public void doConversationBasedOnTag(string tag)
         {
 
-            
+            gv.mod.realTimeTimerStopped = true;
+            gv.realTimeTimerMilliSecondsEllapsed = 0;
             bool isFooled = false;
             //enter code for skipping triggers of prop here
             if (calledConvoFromProp)
@@ -16678,6 +16931,16 @@ namespace IceBlink2
                         int tileAdder = 0;
                         int darkAdder = 0;
                         tileAdder = gv.mod.currentArea.Tiles[gv.mod.PlayerLocationY * gv.mod.currentArea.MapSizeX + gv.mod.PlayerLocationY].stealthModifier;
+                        foreach (Prop p5 in gv.mod.currentArea.Props)
+                        {
+                            if (p5.stealthModifier != 0)
+                            {
+                                if (p5.LocationX == gv.mod.PlayerLocationX && p5.LocationY == gv.mod.PlayerLocationY)
+                                {
+                                    tileAdder = p5.stealthModifier;
+                                }
+                            }
+                        }
                         if (gv.sf.CheckIsInDarkness("party", "night"))
                         {
                             darkAdder = 4;
@@ -18446,6 +18709,16 @@ namespace IceBlink2
                     int tileAdder = 0;
                     int darkAdder = 0;
                     tileAdder = gv.mod.currentArea.Tiles[gv.mod.PlayerLocationY * gv.mod.currentArea.MapSizeX + gv.mod.PlayerLocationY].stealthModifier;
+                    foreach (Prop p5 in gv.mod.currentArea.Props)
+                    {
+                        if (p5.stealthModifier != 0)
+                        {
+                            if (p5.LocationX == gv.mod.PlayerLocationX && p5.LocationY == gv.mod.PlayerLocationY)
+                            {
+                                tileAdder = p5.stealthModifier;
+                            }
+                        }
+                    }
                     if (gv.sf.CheckIsInDarkness("party", "night"))
                     {
                         darkAdder = 4;
@@ -18564,10 +18837,62 @@ namespace IceBlink2
 
         public bool goWest()
         {
+            gv.mod.realTimeTimerStopped = false;
             if ((gv.mod.playFootstepSound) && (gv.mod.isScrollingNow || gv.a2Timer.Enabled || gv.aTimer.Enabled))
             {
                 gv.PlaySound("footstep");
             }
+            /*
+            if (!gv.mod.hideInterfaceNextMove && !gv.mod.showPortrtaitsThisUpdate)
+            {
+                foreach (IB2Panel pnl in gv.screenMainMap.mainUiLayout.panelList)
+                {
+                    if (pnl.tag == "portraitPanel")
+                    {
+                        //hides right
+                        if (pnl.hidingXIncrement > 0 && !gv.mod.showPortrtaitsThisUpdate)
+                        {
+                            if (pnl.currentLocX > pnl.shownLocX)
+                            {
+                                //pnl.showing = true;
+                            }
+                            else
+                            {
+                                pnl.hiding = true;
+                            }
+                        }
+                        //hides down
+                        else if (pnl.hidingYIncrement > 0)
+                        {
+                            if (pnl.currentLocY > pnl.shownLocY)
+                            {
+                                if ((pnl.tag.Equals("arrowPanel")) && (!gv.screenMainMap.showArrows)) //don't show arrows
+                                {
+                                    continue;
+                                }
+                                //pnl.showing = true;
+                            }
+                            else
+                            {
+                                pnl.hiding = true;
+                            }
+                        }
+                        //hides up
+                        else if (pnl.hidingYIncrement < 0)
+                        {
+                            if (pnl.currentLocY < pnl.shownLocY)
+                            {
+                                //pnl.showing = true;
+                            }
+                            else
+                            {
+                                pnl.hiding = true;
+                            }
+                        }
+                    }
+                }
+            }
+            */
             if (gv.mod.hideInterfaceNextMove)
             {
                 if (!gv.screenMainMap.hideClock)
@@ -18715,13 +19040,65 @@ namespace IceBlink2
 
         public bool goEast()
         {
+            gv.mod.realTimeTimerStopped = false;
             if ((gv.mod.playFootstepSound) && (gv.mod.isScrollingNow || gv.a2Timer.Enabled || gv.aTimer.Enabled))
             {
                 gv.PlaySound("footstep");
             }
 
             //if (gv.mod.currentArea.Tiles[gv.mod.PlayerLocationY * gv.mod.currentArea.MapSizeX + gv.mod.PlayerLocationX] < gv.mod.currentArea.MapSizeX)
-            if (gv.mod.PlayerLocationX < gv.mod.currentArea.MapSizeX-1)
+            //if (gv.mod.PlayerLocationX < gv.mod.currentArea.MapSizeX-1)
+            /*
+            if (!gv.mod.hideInterfaceNextMove && !gv.mod.showPortrtaitsThisUpdate)
+            {
+                foreach (IB2Panel pnl in gv.screenMainMap.mainUiLayout.panelList)
+                {
+                    if (pnl.tag == "portraitPanel")
+                    {
+                        //hides right
+                        if (pnl.hidingXIncrement > 0 && !gv.mod.showPortrtaitsThisUpdate)
+                        {
+                            if (pnl.currentLocX > pnl.shownLocX)
+                            {
+                                //pnl.showing = true;
+                            }
+                            else
+                            {
+                                pnl.hiding = true;
+                            }
+                        }
+                        //hides down
+                        else if (pnl.hidingYIncrement > 0)
+                        {
+                            if (pnl.currentLocY > pnl.shownLocY)
+                            {
+                                if ((pnl.tag.Equals("arrowPanel")) && (!gv.screenMainMap.showArrows)) //don't show arrows
+                                {
+                                    continue;
+                                }
+                                //pnl.showing = true;
+                            }
+                            else
+                            {
+                                pnl.hiding = true;
+                            }
+                        }
+                        //hides up
+                        else if (pnl.hidingYIncrement < 0)
+                        {
+                            if (pnl.currentLocY < pnl.shownLocY)
+                            {
+                                //pnl.showing = true;
+                            }
+                            else
+                            {
+                                pnl.hiding = true;
+                            }
+                        }
+                    }
+                }
+            }
+    */
             if (gv.mod.hideInterfaceNextMove)
             {
                 if (!gv.screenMainMap.hideClock)
@@ -18867,11 +19244,62 @@ namespace IceBlink2
          
         public bool goNorth()
         {
+            gv.mod.realTimeTimerStopped = false;
             if ((gv.mod.playFootstepSound) && (gv.mod.isScrollingNow || gv.a2Timer.Enabled || gv.aTimer.Enabled))
             {
                 gv.PlaySound("footstep");
             }
-
+            /*
+            if (!gv.mod.hideInterfaceNextMove && !gv.mod.showPortrtaitsThisUpdate)
+            {
+                foreach (IB2Panel pnl in gv.screenMainMap.mainUiLayout.panelList)
+                {
+                    if (pnl.tag == "portraitPanel")
+                    {
+                        //hides right
+                        if (pnl.hidingXIncrement > 0 && !gv.mod.showPortrtaitsThisUpdate)
+                        {
+                            if (pnl.currentLocX > pnl.shownLocX)
+                            {
+                                //pnl.showing = true;
+                            }
+                            else
+                            {
+                                pnl.hiding = true;
+                            }
+                        }
+                        //hides down
+                        else if (pnl.hidingYIncrement > 0)
+                        {
+                            if (pnl.currentLocY > pnl.shownLocY)
+                            {
+                                if ((pnl.tag.Equals("arrowPanel")) && (!gv.screenMainMap.showArrows)) //don't show arrows
+                                {
+                                    continue;
+                                }
+                                //pnl.showing = true;
+                            }
+                            else
+                            {
+                                pnl.hiding = true;
+                            }
+                        }
+                        //hides up
+                        else if (pnl.hidingYIncrement < 0)
+                        {
+                            if (pnl.currentLocY < pnl.shownLocY)
+                            {
+                                //pnl.showing = true;
+                            }
+                            else
+                            {
+                                pnl.hiding = true;
+                            }
+                        }
+                    }
+                }
+            }
+            */
             if (gv.mod.hideInterfaceNextMove)
             {
                 if (!gv.screenMainMap.hideClock)
@@ -19010,10 +19438,62 @@ namespace IceBlink2
 
         public bool goSouth()
         {
+            gv.mod.realTimeTimerStopped = false;
             if ((gv.mod.playFootstepSound) && (gv.mod.isScrollingNow || gv.a2Timer.Enabled || gv.aTimer.Enabled))
             {
                 gv.PlaySound("footstep");
             }
+            /*
+            if (!gv.mod.hideInterfaceNextMove && !gv.mod.showPortrtaitsThisUpdate)
+            {
+                foreach (IB2Panel pnl in gv.screenMainMap.mainUiLayout.panelList)
+                {
+                    if (pnl.tag == "portraitPanel")
+                    {
+                        //hides right
+                        if (pnl.hidingXIncrement > 0 && !gv.mod.showPortrtaitsThisUpdate)
+                        {
+                            if (pnl.currentLocX > pnl.shownLocX)
+                            {
+                                //pnl.showing = true;
+                            }
+                            else
+                            {
+                                pnl.hiding = true;
+                            }
+                        }
+                        //hides down
+                        else if (pnl.hidingYIncrement > 0)
+                        {
+                            if (pnl.currentLocY > pnl.shownLocY)
+                            {
+                                if ((pnl.tag.Equals("arrowPanel")) && (!gv.screenMainMap.showArrows)) //don't show arrows
+                                {
+                                    continue;
+                                }
+                                //pnl.showing = true;
+                            }
+                            else
+                            {
+                                pnl.hiding = true;
+                            }
+                        }
+                        //hides up
+                        else if (pnl.hidingYIncrement < 0)
+                        {
+                            if (pnl.currentLocY < pnl.shownLocY)
+                            {
+                                //pnl.showing = true;
+                            }
+                            else
+                            {
+                                pnl.hiding = true;
+                            }
+                        }
+                    }
+                }
+            }
+            */
             if (gv.mod.hideInterfaceNextMove)
             {
                 if (!gv.screenMainMap.hideClock)
@@ -19540,7 +20020,8 @@ namespace IceBlink2
                     rainChance = gv.sf.RandInt(20) + 15;
                 }
                 //XXXXXXXXXXXXXXXXXXXXXXXXXXX
-                if (gv.mod.isInitialParticleWave)
+                /*
+                if (gv.mod.isInitialParticleWave && !gv.mod.isFoggy)
                 {
                     float storedIncrement = 0;
                     float storedIncrementVert = 0;
@@ -19570,13 +20051,14 @@ namespace IceBlink2
                         }
                     }
                 }
-
+                
                 //XXXXXXXXXXXXXXXXXXXXXXXxxx
 
                 else
+                */
                 {
-                    float storedIncrement = 0;
-                    for (int i = 1; i < 61; i++)
+                    float storedIncrement = -20 * (gv.screenWidth / 60);
+                    for (int i = -20; i < 81; i++)
                     {
                         float increment = gv.screenWidth / 60;
                         storedIncrement += increment;
@@ -19597,19 +20079,20 @@ namespace IceBlink2
                 float snowChance = 0;
                 if (density == "lightSnow")
                 {
-                    snowChance = gv.sf.RandInt(5) + 7;
+                    snowChance = gv.sf.RandInt(5) + 3;
                 }
                 else if (density == "heavySnow")
                 {
-                    snowChance = gv.sf.RandInt(30) + 15;
+                    snowChance = gv.sf.RandInt(11) + 7;
                 }
                 else if (density == "snow")
                 {
-                    snowChance = gv.sf.RandInt(12) + 7;
+                    snowChance = gv.sf.RandInt(8) + 5;
                 }
 
                 //snowshift
-                if (gv.mod.isInitialParticleWave)
+                /*
+                if (gv.mod.isInitialParticleWave && !gv.mod.isFoggy)
                 {
                     float storedIncrement = 0;
                     float storedIncrementVert = 0;
@@ -19640,19 +20123,28 @@ namespace IceBlink2
                     }
                 }
                 else
+                */
                 {
-                    float storedIncrement = 0;
-                    for (int i = 1; i < 66; i++)
+                    //ie just 1
+                    for (int h = 0; h < 1; h++)
                     {
-                        float increment = gv.screenWidth / 60;
-                        storedIncrement += increment;
-                        if (gv.sf.RandInt(100) < snowChance)
+                        float storedIncrement = -90 * (gv.screenWidth / 60);
+                        //float storedIncrement = -90 * (gv.screenWidth / 60);
+                        //1 and 66
+                        for (int i = 0; i < 160; i++)
+                        //for (int i = -91; i < 136; i++)
                         {
-                            int scaleMulti = gv.sf.RandInt(50) + 75;
-                            Sprite spr = new Sprite(gv, "snowFlake", storedIncrement - (gv.squareSize * 0.5f), -(float)(gv.sf.RandInt(10)) - gv.oYshift * 2, 0, (float)(gv.sf.RandInt(80) + 170) / 6000f, 0, 0, 0.325f * scaleMulti / 100f, 0.325f * scaleMulti / 100f, gv.sf.RandInt(10000) + 20000, false, 100, gv.mod.fullScreenEffectOpacityWeather, 0, "snow", false, 0);
-                            //calli
-                            //spr.movesIndependentlyFromPlayerPosition = true;
-                            gv.screenMainMap.spriteList.Add(spr);
+                            float increment = gv.screenWidth / 40;
+                            //float increment = gv.screenWidth / 60;
+                            storedIncrement += increment;
+                            if (gv.sf.RandInt(100) < snowChance)
+                            {
+                                int scaleMulti = gv.sf.RandInt(50) + 75;
+                                Sprite spr = new Sprite(gv, "snowFlake", storedIncrement - (gv.squareSize * 0.5f), -(float)(gv.sf.RandInt(10)) - gv.oYshift * 2 + (h * (gv.screenHeight + gv.squareSize)), 0, (float)(gv.sf.RandInt(80) + 170) / 6000f, 0, 0, 0.325f * scaleMulti / 100f, 0.325f * scaleMulti / 100f, gv.sf.RandInt(10000) + 20000, false, 100, gv.mod.fullScreenEffectOpacityWeather, 0, "snow", false, 0);
+                                //calli
+                                //spr.movesIndependentlyFromPlayerPosition = true;
+                                gv.screenMainMap.spriteList.Add(spr);
+                            }
                         }
                     }
                 }
@@ -19686,8 +20178,11 @@ namespace IceBlink2
                         storedIncrement += increment;
                         if (gv.sf.RandInt(100) < sandstormChance)
                         {
-                            int scaleMulti = gv.sf.RandInt(50) + 75;
-                            float thisParticleSpeed = (75f + gv.sf.RandInt(50)) / 100f;
+                            //without +50
+                            int scaleMulti = gv.sf.RandInt(50) + 75 + 35;
+                            //divided by 100f
+                            float thisParticleSpeed = (75f + gv.sf.RandInt(50)) / 120f;
+                            //(float)(gv.sf.RandInt(80) + 170) / 600f
                             //(float)(gv.sf.RandInt(80) + 170) / 600f
                             Sprite spr = new Sprite(gv, "sandGrain", -(float)(gv.sf.RandInt(10)), storedIncrement - (gv.squareSize / 2), thisParticleSpeed * gv.mod.sandStormDirectionX, thisParticleSpeed * gv.mod.sandStormDirectionY, 0, 0, 0.235f * scaleMulti / 100f, 0.235f * scaleMulti/100f, 4000, false, 100, gv.mod.fullScreenEffectOpacityWeather, 0, "sandstorm", false, 0);
                             gv.screenMainMap.spriteList.Add(spr);
@@ -19702,8 +20197,11 @@ namespace IceBlink2
                         storedIncrement += increment;
                         if (gv.sf.RandInt(100) < sandstormChance)
                         {
-                            int scaleMulti = gv.sf.RandInt(50) + 75;
-                            float thisParticleSpeed = (75f + gv.sf.RandInt(50)) / 100f;
+                            //without +50
+                            int scaleMulti = gv.sf.RandInt(50) + 75 + 35;
+                            //divided by 100f
+                            float thisParticleSpeed = (75f + gv.sf.RandInt(50)) / 120f;
+                            //(float)(gv.sf.RandInt(80) + 170) / 600f
                             //(float)(gv.sf.RandInt(80) + 170) / 600f
                             Sprite spr = new Sprite(gv, "sandGrain", storedIncrement - (gv.squareSize / 2), gv.screenHeight + (float)(gv.sf.RandInt(10)), thisParticleSpeed * gv.mod.sandStormDirectionX, thisParticleSpeed * gv.mod.sandStormDirectionY, 0, 0, 0.235f * scaleMulti / 100f, 0.235f * scaleMulti/100f, 4000, false, 100, gv.mod.fullScreenEffectOpacityWeather, 0, "sandstorm", false, 0);
                             gv.screenMainMap.spriteList.Add(spr);
@@ -19719,8 +20217,11 @@ namespace IceBlink2
                          storedIncrement += increment;
                         if (gv.sf.RandInt(100) < sandstormChance)
                         {
-                            int scaleMulti = gv.sf.RandInt(50) + 75;
-                            float thisParticleSpeed = (75f + gv.sf.RandInt(50)) / 100f;
+                            //without +50
+                            int scaleMulti = gv.sf.RandInt(50) + 75 + 35;
+                            //divided by 100f
+                            float thisParticleSpeed = (75f + gv.sf.RandInt(50)) / 120f;
+                            //(float)(gv.sf.RandInt(80) + 170) / 600f
                             //(float)(gv.sf.RandInt(80) + 170) / 600f
                             Sprite spr = new Sprite(gv, "sandGrain", gv.screenWidth + (float)(gv.sf.RandInt(10)), storedIncrement - (gv.squareSize / 2), thisParticleSpeed * gv.mod.sandStormDirectionX, thisParticleSpeed * gv.mod.sandStormDirectionY, 0, 0, 0.235f * scaleMulti / 100f, 0.235f * scaleMulti/100f, 4000, false, 100, gv.mod.fullScreenEffectOpacityWeather, 0, "sandstorm", false, 0);
                             gv.screenMainMap.spriteList.Add(spr);
@@ -19735,8 +20236,11 @@ namespace IceBlink2
                         storedIncrement += increment;
                         if (gv.sf.RandInt(100) < sandstormChance)
                         {
-                            int scaleMulti = gv.sf.RandInt(50) + 75;
-                            float thisParticleSpeed = (75f + gv.sf.RandInt(50)) / 100f;
+                            //without +50
+                            int scaleMulti = gv.sf.RandInt(50) + 75 + 35;
+                            //divided by 100f
+                            float thisParticleSpeed = (75f + gv.sf.RandInt(50)) / 120f;
+                            //(float)(gv.sf.RandInt(80) + 170) / 600f
                             //(float)(gv.sf.RandInt(80) + 170) / 600f
                             Sprite spr = new Sprite(gv, "sandGrain", storedIncrement - (gv.squareSize / 2), gv.screenHeight + (float)(gv.sf.RandInt(10)), thisParticleSpeed * gv.mod.sandStormDirectionX, thisParticleSpeed * gv.mod.sandStormDirectionY, 0, 0, 0.235f * scaleMulti / 100f, 0.235f * scaleMulti/100f, 4000, false, 100, gv.mod.fullScreenEffectOpacityWeather, 0, "sandstorm", false, 0);
                             gv.screenMainMap.spriteList.Add(spr);
@@ -19753,8 +20257,11 @@ namespace IceBlink2
                         storedIncrement += increment;
                         if (gv.sf.RandInt(100) < sandstormChance)
                         {
-                            int scaleMulti = gv.sf.RandInt(50) + 75;
-                            float thisParticleSpeed = (75f + gv.sf.RandInt(50)) / 100f;
+                            //without +50
+                            int scaleMulti = gv.sf.RandInt(50) + 75 + 35;
+                            //divided by 100f
+                            float thisParticleSpeed = (75f + gv.sf.RandInt(50)) / 120f;
+                            //(float)(gv.sf.RandInt(80) + 170) / 600f
                             //(float)(gv.sf.RandInt(80) + 170) / 600f
                             Sprite spr = new Sprite(gv, "sandGrain", gv.screenWidth + (float)(gv.sf.RandInt(10)), storedIncrement - (gv.squareSize / 2), thisParticleSpeed * gv.mod.sandStormDirectionX, thisParticleSpeed * gv.mod.sandStormDirectionY, 0, 0, 0.235f * scaleMulti / 100f, 0.235f * scaleMulti/100f, 4000, false, 100, gv.mod.fullScreenEffectOpacityWeather, 0, "sandstorm", false, 0);
                             gv.screenMainMap.spriteList.Add(spr);
@@ -19769,8 +20276,11 @@ namespace IceBlink2
                         storedIncrement += increment;
                         if (gv.sf.RandInt(100) < sandstormChance)
                         {
-                            int scaleMulti = gv.sf.RandInt(50) + 75;
-                            float thisParticleSpeed = (75f + gv.sf.RandInt(50)) / 100f;
+                            //without +50
+                            int scaleMulti = gv.sf.RandInt(50) + 75 + 35;
+                            //divided by 100f
+                            float thisParticleSpeed = (75f + gv.sf.RandInt(50)) / 120f;
+                            //(float)(gv.sf.RandInt(80) + 170) / 600f
                             //(float)(gv.sf.RandInt(80) + 170) / 600f
                             Sprite spr = new Sprite(gv, "sandGrain", storedIncrement - (gv.squareSize / 2), -(float)(gv.sf.RandInt(10)), thisParticleSpeed * gv.mod.sandStormDirectionX, thisParticleSpeed * gv.mod.sandStormDirectionY, 0, 0, 0.235f * scaleMulti / 100f, 0.235f * scaleMulti/100f, 4000, false, 100, gv.mod.fullScreenEffectOpacityWeather, 0, "sandstorm", false, 0);
                             gv.screenMainMap.spriteList.Add(spr);
@@ -19786,8 +20296,11 @@ namespace IceBlink2
                         storedIncrement += increment;
                         if (gv.sf.RandInt(100) < sandstormChance)
                         {
-                            int scaleMulti = gv.sf.RandInt(50) + 75;
-                            float thisParticleSpeed = (75f + gv.sf.RandInt(50)) / 100f;
+                            //without +50
+                            int scaleMulti = gv.sf.RandInt(50) + 75 + 35;
+                            //divided by 100f
+                            float thisParticleSpeed = (75f + gv.sf.RandInt(50)) / 120f;
+                            //(float)(gv.sf.RandInt(80) + 170) / 600f
                             //(float)(gv.sf.RandInt(80) + 170) / 600f
                             Sprite spr = new Sprite(gv, "sandGrain", -(float)(gv.sf.RandInt(10)), storedIncrement - (gv.squareSize / 2), thisParticleSpeed * gv.mod.sandStormDirectionX, thisParticleSpeed * gv.mod.sandStormDirectionY, 0, 0, 0.235f * scaleMulti / 100f, 0.235f * scaleMulti/100f, 4000, false, 100, gv.mod.fullScreenEffectOpacityWeather, 0, "sandstorm", false, 0);
                             gv.screenMainMap.spriteList.Add(spr);
@@ -19802,8 +20315,10 @@ namespace IceBlink2
                         storedIncrement += increment;
                         if (gv.sf.RandInt(100) < sandstormChance)
                         {
-                            int scaleMulti = gv.sf.RandInt(50) + 75;
-                            float thisParticleSpeed = (75f + gv.sf.RandInt(50)) / 100f;
+                            //without +50
+                            int scaleMulti = gv.sf.RandInt(50) + 75 + 35;
+                            //divided by 100f
+                            float thisParticleSpeed = (75f + gv.sf.RandInt(50)) / 120f;
                             //(float)(gv.sf.RandInt(80) + 170) / 600f
                             Sprite spr = new Sprite(gv, "sandGrain", storedIncrement - (gv.squareSize / 2), -(float)(gv.sf.RandInt(10)), thisParticleSpeed * gv.mod.sandStormDirectionX, thisParticleSpeed * gv.mod.sandStormDirectionY, 0, 0, 0.235f * scaleMulti / 100f, 0.235f * scaleMulti/100f, 4000, false, 100, gv.mod.fullScreenEffectOpacityWeather, 0, "sandstorm", false, 0);
                             gv.screenMainMap.spriteList.Add(spr);
@@ -19883,12 +20398,16 @@ namespace IceBlink2
                 veloY = veloY * -1;
             }
 
-            Sprite spr = new Sprite(gv, fogType, gv.screenWidth / 2 - gv.screenHeight / 2 + positionModifierX, gv.screenHeight / 2 - gv.screenHeight / 2 + positionModifierY, veloX * speedMultiplier * 0.7f, veloY * speedMultiplier * 0.7f, 0, 0, 14.5f,14.5f, gv.sf.RandInt(80000) + 48000, false, 100, gv.mod.fullScreenEffectOpacityWeather, 0, "fog", false, 0);
+            //scheissbrille4 (move independent was false)
+            //Sprite spr = new Sprite(gv, fogType, gv.screenWidth / 2 - gv.screenHeight / 2 + positionModifierX, gv.screenHeight / 2 - gv.screenHeight / 2 + positionModifierY, veloX * speedMultiplier * 0.7f, veloY * speedMultiplier * 0.7f, 0, 0, 14.5f,14.5f, gv.sf.RandInt(80000) + 48000, false, 100, gv.mod.fullScreenEffectOpacityWeather, 0, "fog", true, 0);
+            Sprite spr = new Sprite(gv, fogType, positionModifierX, positionModifierY, veloX * speedMultiplier * 0.7f, veloY * speedMultiplier * 0.7f, 0, 0, 14.5f, 14.5f, gv.sf.RandInt(80000) + 48000, false, 100, gv.mod.fullScreenEffectOpacityWeather, 0, "fog", true, 0);
+
             gv.screenMainMap.spriteList.Add(spr);
         }
 
         public void createLightning(string lightningType, float posX, float posY, float scaleMod)
         {
+            //scheissbrille2
             Sprite spr = new Sprite(gv, lightningType, posX, posY, 0, 0, 0, 0, 5.0f * scaleMod, 5.0f * scaleMod, 4000, false, 45, 1.0f, 0, "lightning", false, 8);
             gv.screenMainMap.spriteList.Add(spr);
 

@@ -1264,10 +1264,17 @@ namespace IceBlink2
 
                 }
             }
-
+            //scheissbrille4
+            //gv.mod.isFoggy = true;
+            //gv.mod.blockFogCreation = false;
+            if (gv.mod.isFoggy)
+            {
+                gv.mod.isInitialParticleWave = false;
+            }
             if ((gv.mod.isFoggy) && (!gv.mod.blockFogCreation))
             {
 
+                gv.mod.isInitialParticleWave = false;
                 gv.mod.blockFogCreation = true;
                 float speedMultiplier = 0;
                 float positionmodifierX = 0;
@@ -1277,14 +1284,17 @@ namespace IceBlink2
                 int iLimit = 0;
                 if (gv.fogType.Contains("lightFog") || gv.fogType.Contains("LightFog"))
                 {
+                    //6
                     iLimit = 6;
                 }
                 else if (gv.fogType.Contains("heavyFog") || gv.fogType.Contains("HeavyFog"))
                 {
+                    //8
                     iLimit = 8;
                 }
                 else if (gv.fogType.Contains("fog") || gv.fogType.Contains("Fog"))
                 {
+                    //7
                     iLimit = 7;
                 }
 
@@ -1294,23 +1304,23 @@ namespace IceBlink2
                     positionmodifierX = 0;
                     positionmodifierY = 0;
 
-                    if (i == 0)
+                    if (i == 0 || i == 8 || i == 16)
                     {
                         layerType = "fog1";
                         decider = gv.sf.RandInt(20);
                         speedMultiplier = 0.50f + (decider / 100f);
-                        positionmodifierX = (-4) * gv.squareSize;
+                        positionmodifierX = (-4 ) * gv.squareSize;
                     }
 
-                    if (i == 1)
+                    if (i == 1 || i == 9 || i == 17)
                     {
                         layerType = "fog2";
                         decider = gv.sf.RandInt(50);
                         speedMultiplier += 0.04f;
-                        positionmodifierX = (4) * gv.squareSize;
+                        positionmodifierX = (4 * i) * gv.squareSize;
                     }
 
-                    if (i == 2)
+                    if (i == 2 || i == 10 || i == 18)
                     {
                         layerType = "fog3";
                         decider = gv.sf.RandInt(50);
@@ -1319,16 +1329,16 @@ namespace IceBlink2
                         positionmodifierY = (2) * gv.squareSize;
                     }
 
-                    if (i == 3)
+                    if (i == 3 || i == 11 || i == 19)
                     {
                         layerType = "fog4";
                         decider = gv.sf.RandInt(50);
                         speedMultiplier += 0.04f;
-                        positionmodifierX = (-2) * gv.squareSize;
-                        positionmodifierY = (-2) * gv.squareSize;
+                        positionmodifierX = (-2  * gv.squareSize);
+                        positionmodifierY = (-2  * gv.squareSize);
                     }
 
-                    if (i == 4)
+                    if (i == 4 || i == 12 || i == 20)
                     {
                         layerType = "fog5";
                         decider = gv.sf.RandInt(50);
@@ -1337,7 +1347,7 @@ namespace IceBlink2
 
                     }
 
-                    if (i == 5)
+                    if (i == 5 || i == 13 || i == 21)
                     {
                         layerType = "fog6";
                         decider = gv.sf.RandInt(50);
@@ -1345,25 +1355,26 @@ namespace IceBlink2
                         positionmodifierX = 6 * gv.squareSize;
 
                     }
-                    if (i == 6)
+                    if (i == 6 || i == 14 || i == 22)
                     {
                         layerType = "fog7";
                         decider = gv.sf.RandInt(50);
                         speedMultiplier += 0.04f;
-                        positionmodifierX = (-1) * gv.squareSize;
-                        positionmodifierY = (-1) * gv.squareSize;
+                        positionmodifierX = (-1)  * gv.squareSize;
+                        positionmodifierY = (-1)  * gv.squareSize;
 
                     }
 
-                    if (i == 7)
+                    if (i == 7 || i == 15 || i == 23)
                     {
                         layerType = "fog8";
                         decider = gv.sf.RandInt(50);
                         speedMultiplier += 0.04f;
-                        positionmodifierX = (-3) * gv.squareSize;
-                        positionmodifierY = (-3) * gv.squareSize;
+                        positionmodifierX = (-3)  * gv.squareSize;
+                        positionmodifierY = (-3)  * gv.squareSize;
                     }
 
+                    /*
                     if (i == 8)
                     {
                         layerType = "fog1";
@@ -1381,11 +1392,17 @@ namespace IceBlink2
                         positionmodifierX = (-5) * gv.squareSize;
 
                     }
+                    */
 
                     gv.cc.createFog(layerType, speedMultiplier, positionmodifierX - 1.8f * gv.squareSize, positionmodifierY);
                 }
-            }
 
+               
+
+
+            }
+            //scheissbrille
+            //gv.mod.isLightning = true;
             if (gv.mod.isLightning)
             {
                 string lightningType = "";
@@ -39919,11 +39936,17 @@ namespace IceBlink2
                 int txtH = (int)gv.drawFontRegHeight;
                 //int pH = (int)((float)gv.screenHeight / 200.0f);
 
+                //boyscouts
                 foreach (FloatyText ft in floatyTextPool)
                 {
                     if (gv.cc.getDistance(ft.location, new Coordinate(gv.mod.PlayerLastLocationX, gv.mod.PlayerLocationY)) > 5)
                     {
                         continue; //out of range from view so skip drawing floaty message
+                    }
+
+                    if (gv.mod.currentArea.Filename != ft.areaFilename)
+                    {
+                        continue;
                     }
 
                     //location.X should be the the props actual map location in squares (not screen location)
@@ -40023,12 +40046,237 @@ namespace IceBlink2
                         continue; //out of range from view so skip drawing floaty message
                     }
 
-                   
+
 
                     //location.X should be the the props actual map location in squares (not screen location)
-                    int xLoc = (int)(ft.floatyCarrier2.currentPixelPositionX);
-                    int yLoc = (int)(ft.floatyCarrier2.currentPixelPositionY) - (ft.z);
 
+                    int xLoc = 0;
+                    int yLoc = 0;
+                    /*
+                    //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                    bool isStillOnNearbyArea = false;
+                    foreach (Prop p in gv.mod.currentArea.Props)
+                    {
+                        if (p.PropTag == ft.floatyCarrier2.PropTag)
+                        {
+                            isStillOnNearbyArea = true;
+                            break;
+                        }
+                    }
+
+                    foreach (Area a in gv.mod.moduleAreasObjects)
+                    {
+                        if (a.Filename == gv.mod.currentArea.northernNeighbourArea)
+                        {
+                            foreach (Prop p in a.Props)
+                            {
+                                if (p.PropTag == ft.floatyCarrier2.PropTag)
+                                {
+                                    isStillOnNearbyArea = true;
+                                    break;
+                                }
+                            }
+
+                            if (a.easternNeighbourArea != "none")
+                            {
+                                foreach (Area a2 in gv.mod.moduleAreasObjects)
+                                {
+                                    if (a2.Filename == a.easternNeighbourArea)
+                                    {
+                                        foreach (Prop p in a2.Props)
+                                        {
+                                            if (p.PropTag == ft.floatyCarrier2.PropTag)
+                                            {
+                                                isStillOnNearbyArea = true;
+                                                break;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+
+                            if (a.westernNeighbourArea != "none")
+                            {
+                                foreach (Area a2 in gv.mod.moduleAreasObjects)
+                                {
+                                    if (a2.Filename == a.westernNeighbourArea)
+                                    {
+                                        foreach (Prop p in a2.Props)
+                                        {
+                                            if (p.PropTag == ft.floatyCarrier2.PropTag)
+                                            {
+                                                isStillOnNearbyArea = true;
+                                                break;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
+                        if (a.Filename == gv.mod.currentArea.easternNeighbourArea)
+                        {
+                            foreach (Prop p in a.Props)
+                            {
+                                if (p.PropTag == ft.floatyCarrier2.PropTag)
+                                {
+                                    isStillOnNearbyArea = true;
+                                    break;
+                                }
+                            }
+
+                            if (a.northernNeighbourArea != "none")
+                            {
+                                foreach (Area a2 in gv.mod.moduleAreasObjects)
+                                {
+                                    if (a2.Filename == a.northernNeighbourArea)
+                                    {
+                                        foreach (Prop p in a2.Props)
+                                        {
+                                            if (p.PropTag == ft.floatyCarrier2.PropTag)
+                                            {
+                                                isStillOnNearbyArea = true;
+                                                break;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+
+                            if (a.southernNeighbourArea != "none")
+                            {
+                                foreach (Area a2 in gv.mod.moduleAreasObjects)
+                                {
+                                    if (a2.Filename == a.southernNeighbourArea)
+                                    {
+                                        foreach (Prop p in a2.Props)
+                                        {
+                                            if (p.PropTag == ft.floatyCarrier2.PropTag)
+                                            {
+                                                isStillOnNearbyArea = true;
+                                                break;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
+                        //pizza3
+                        if (a.Filename == gv.mod.currentArea.southernNeighbourArea)
+                        {
+                            foreach (Prop p in a.Props)
+                            {
+                                if (p.PropTag == ft.floatyCarrier2.PropTag)
+                                {
+                                    isStillOnNearbyArea = true;
+                                    break;
+                                }
+                            }
+
+                            if (a.easternNeighbourArea != "none")
+                            {
+                                foreach (Area a2 in gv.mod.moduleAreasObjects)
+                                {
+                                    if (a2.Filename == a.easternNeighbourArea)
+                                    {
+                                        foreach (Prop p in a2.Props)
+                                        {
+                                            if (p.PropTag == ft.floatyCarrier2.PropTag)
+                                            {
+                                                isStillOnNearbyArea = true;
+                                                break;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+
+                            if (a.westernNeighbourArea != "none")
+                            {
+                                foreach (Area a2 in gv.mod.moduleAreasObjects)
+                                {
+                                    if (a2.Filename == a.westernNeighbourArea)
+                                    {
+                                        foreach (Prop p in a2.Props)
+                                        {
+                                            if (p.PropTag == ft.floatyCarrier2.PropTag)
+                                            {
+                                                isStillOnNearbyArea = true;
+                                                break;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
+                        if (a.Filename == gv.mod.currentArea.westernNeighbourArea)
+                        {
+                            foreach (Prop p in a.Props)
+                            {
+                                if (p.PropTag == ft.floatyCarrier2.PropTag)
+                                {
+                                    isStillOnNearbyArea = true;
+                                    break;
+                                }
+                            }
+
+                            if (a.northernNeighbourArea != "none")
+                            {
+                                foreach (Area a2 in gv.mod.moduleAreasObjects)
+                                {
+                                    if (a2.Filename == a.northernNeighbourArea)
+                                    {
+                                        foreach (Prop p in a2.Props)
+                                        {
+                                            if (p.PropTag == ft.floatyCarrier2.PropTag)
+                                            {
+                                                isStillOnNearbyArea = true;
+                                                break;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+
+                            if (a.southernNeighbourArea != "none")
+                            {
+                                foreach (Area a2 in gv.mod.moduleAreasObjects)
+                                {
+                                    if (a2.Filename == a.southernNeighbourArea)
+                                    {
+                                        foreach (Prop p in a2.Props)
+                                        {
+                                            if (p.PropTag == ft.floatyCarrier2.PropTag)
+                                            {
+                                                isStillOnNearbyArea = true;
+                                                break;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
+                    }
+                    */
+                    //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                    //foreach ()
+
+                    //if (isStillOnNearbyArea)
+                    //{
+                        xLoc = (int)(ft.floatyCarrier2.currentPixelPositionX);
+                        yLoc = (int)(ft.floatyCarrier2.currentPixelPositionY) - (ft.z);
+                    //}
+                    //else
+                    //{
+                        //xLoc = gv.oXshift + gv.screenMainMap.mapStartLocXinPixels + (SquareThatPixIsOnX - gv.mod.PlayerLocationX + gv.playerOffsetX) * gv.squareSize;
+                        //yLoc = gv.oYshift + (SquareThatPixIsOnY - gv.mod.PlayerLocationY + gv.playerOffsetY) * gv.squareSize - ft.z;
+                        //yLoc -= ft.z;
+                        //int i = 0;
+                    //}
+                    //pizza2
                     if (gv.mod.useScrollingSystem)
                     {
                         if (gv.screenType == "main")
@@ -40621,6 +40869,7 @@ namespace IceBlink2
         public void addFloatyText(int sqrX, int sqrY, String value, String color, int length)
         {
             floatyTextPool.Add(new FloatyText(sqrX, sqrY, value, color, length));
+            floatyTextPool[floatyTextPool.Count - 1].areaFilename = gv.mod.currentArea.Filename;
         }
 
         public void addFloatyText(Prop floatyCarrier, String value, String color, int length)
@@ -41205,6 +41454,16 @@ namespace IceBlink2
                                         propCoord.X = p.LocationX;
                                         propCoord.Y = p.LocationY;
                                         tileAdder = gv.mod.currentArea.Tiles[p.LocationY * gv.mod.currentArea.MapSizeX + p.LocationX].stealthModifier;
+                                        foreach (Prop p5 in gv.mod.currentArea.Props)
+                                        {
+                                            if (p5.stealthModifier != 0)
+                                            {
+                                                if (p5.LocationX == p.LocationX && p5.LocationY == p.LocationY)
+                                                {
+                                                    tileAdder = p5.stealthModifier;
+                                                }
+                                            }
+                                        }
                                         if (gv.sf.CheckPropByTagIsInDarknessPerArea(p.PropTag, "night", gv.mod.currentArea.Filename))
                                         {
                                             darkAdder = 4;
@@ -41246,6 +41505,26 @@ namespace IceBlink2
                                             int tileAdder = 0;
                                             int darkAdder = 0;
                                             tileAdder = gv.mod.currentArea.Tiles[gv.mod.PlayerLocationY * gv.mod.currentArea.MapSizeX + gv.mod.PlayerLocationY].stealthModifier;
+                                            foreach (Prop p5 in gv.mod.currentArea.Props)
+                                            {
+                                                if (p5.stealthModifier != 0)
+                                                {
+                                                    if (p5.LocationX == gv.mod.PlayerLocationX && p5.LocationY == gv.mod.PlayerLocationY)
+                                                    {
+                                                        tileAdder = p5.stealthModifier;
+                                                    }
+                                                }
+                                            }
+                                            foreach (Prop p5 in gv.mod.currentArea.Props)
+                                            {
+                                                if (p5.stealthModifier != 0)
+                                                {
+                                                    if (p5.LocationX == gv.mod.PlayerLocationX && p5.LocationY == gv.mod.PlayerLocationY)
+                                                    {
+                                                        tileAdder = p5.stealthModifier;
+                                                    }
+                                                }
+                                            }
                                             if (gv.sf.CheckIsInDarkness("party", "night"))
                                             {
                                                 darkAdder = 4;
@@ -41281,6 +41560,16 @@ namespace IceBlink2
                                             int tileAdder = 0;
                                             int darkAdder = 0;
                                             tileAdder = gv.mod.currentArea.Tiles[gv.mod.PlayerLocationY * gv.mod.currentArea.MapSizeX + gv.mod.PlayerLocationY].stealthModifier;
+                                            foreach (Prop p5 in gv.mod.currentArea.Props)
+                                            {
+                                                if (p5.stealthModifier != 0)
+                                                {
+                                                    if (p5.LocationX == gv.mod.PlayerLocationX && p5.LocationY == gv.mod.PlayerLocationY)
+                                                    {
+                                                        tileAdder = p5.stealthModifier;
+                                                    }
+                                                }
+                                            }
                                             if (gv.sf.CheckIsInDarkness("party", "night"))
                                             {
                                                 darkAdder = 4;
@@ -41804,6 +42093,16 @@ namespace IceBlink2
                                                 propCoord.X = p.LocationX;
                                                 propCoord.Y = p.LocationY;
                                                 tileAdder = gv.mod.currentArea.Tiles[p.LocationY * gv.mod.currentArea.MapSizeX + p.LocationX].stealthModifier;
+                                                foreach (Prop p5 in gv.mod.currentArea.Props)
+                                                {
+                                                    if (p5.stealthModifier != 0)
+                                                    {
+                                                        if (p5.LocationX == p.LocationX && p5.LocationY == p.LocationY)
+                                                        {
+                                                            tileAdder = p5.stealthModifier;
+                                                        }
+                                                    }
+                                                }
                                                 if (gv.sf.CheckPropByTagIsInDarknessPerArea(p.PropTag, "night", gv.mod.currentArea.Filename))
                                                 {
                                                     darkAdder = 4;
@@ -41845,6 +42144,16 @@ namespace IceBlink2
                                                     int tileAdder = 0;
                                                     int darkAdder = 0;
                                                     tileAdder = gv.mod.currentArea.Tiles[gv.mod.PlayerLocationY * gv.mod.currentArea.MapSizeX + gv.mod.PlayerLocationY].stealthModifier;
+                                                    foreach (Prop p5 in gv.mod.currentArea.Props)
+                                                    {
+                                                        if (p5.stealthModifier != 0)
+                                                        {
+                                                            if (p5.LocationX == gv.mod.PlayerLocationX && p5.LocationY == gv.mod.PlayerLocationY)
+                                                            {
+                                                                tileAdder = p5.stealthModifier;
+                                                            }
+                                                        }
+                                                    }
                                                     if (gv.sf.CheckIsInDarkness("party", "night"))
                                                     {
                                                         darkAdder = 4;
@@ -41880,6 +42189,16 @@ namespace IceBlink2
                                                     int tileAdder = 0;
                                                     int darkAdder = 0;
                                                     tileAdder = gv.mod.currentArea.Tiles[gv.mod.PlayerLocationY * gv.mod.currentArea.MapSizeX + gv.mod.PlayerLocationY].stealthModifier;
+                                                    foreach (Prop p5 in gv.mod.currentArea.Props)
+                                                    {
+                                                        if (p5.stealthModifier != 0)
+                                                        {
+                                                            if (p5.LocationX == gv.mod.PlayerLocationX && p5.LocationY == gv.mod.PlayerLocationY)
+                                                            {
+                                                                tileAdder = p5.stealthModifier;
+                                                            }
+                                                        }
+                                                    }
                                                     if (gv.sf.CheckIsInDarkness("party", "night"))
                                                     {
                                                         darkAdder = 4;
@@ -42258,7 +42577,7 @@ namespace IceBlink2
                             gv.mod.overviewReturnLocationY = gv.mod.PlayerLocationY;
                             gv.mod.oldPartyTokenFilename = gv.mod.partyTokenFilename;
                             gv.mod.oldPartyTokenEnabledState = gv.mod.showPartyToken;
-                            gv.sf.TogglePartyToken("overviewMapSelectionSquare","true");
+                            gv.sf.TogglePartyToken("overviewMapSelectionSquare","true", "0", "0");
                             gv.mod.allowImmediateRetransition = true;
                             Coordinate coord = new Coordinate();
                             coord.X = gv.mod.currentArea.partyPositionMarkerOnOwnZoneMapX;
@@ -42279,7 +42598,7 @@ namespace IceBlink2
                         else if (gv.mod.currentArea.isOverviewMap && gv.mod.currentlyOnOwnZone)
                         {
                             //gv.cc.doUpdate();
-                            gv.sf.TogglePartyToken(gv.mod.oldPartyTokenFilename, gv.mod.oldPartyTokenEnabledState.ToString());
+                            gv.sf.TogglePartyToken(gv.mod.oldPartyTokenFilename, gv.mod.oldPartyTokenEnabledState.ToString(),"-1", "-1");
                             gv.mod.allowImmediateRetransition = true;
                             gv.cc.doTransitionBasedOnAreaLocation(gv.mod.overviewReturnAreaName, gv.mod.overviewReturnLocationX, gv.mod.overviewReturnLocationY);
                             gv.mod.currentlyOnOwnZone = false;
@@ -42332,7 +42651,7 @@ namespace IceBlink2
                             gv.mod.overviewReturnLocationY = gv.mod.PlayerLocationY;
                             gv.mod.oldPartyTokenFilename = gv.mod.partyTokenFilename;
                             gv.mod.oldPartyTokenEnabledState = gv.mod.showPartyToken;
-                            gv.sf.TogglePartyToken("overviewMapSelectionSquare", "true");
+                            gv.sf.TogglePartyToken("overviewMapSelectionSquare", "true", "0", "0");
                             gv.mod.allowImmediateRetransition = true;
                             Coordinate coord = new Coordinate();
                             coord.X = gv.mod.currentArea.partyPositionMarkerOnMotherZoneMapX;
@@ -42351,7 +42670,7 @@ namespace IceBlink2
                         //go back to real current area
                         else if (gv.mod.currentArea.isOverviewMap && gv.mod.currentlyOnMotherZone)
                         {
-                            gv.sf.TogglePartyToken(gv.mod.oldPartyTokenFilename, gv.mod.oldPartyTokenEnabledState.ToString());
+                            gv.sf.TogglePartyToken(gv.mod.oldPartyTokenFilename, gv.mod.oldPartyTokenEnabledState.ToString(),"-1","-1");
                             gv.mod.allowImmediateRetransition = true;
                             gv.cc.doTransitionBasedOnAreaLocation(gv.mod.overviewReturnAreaName, gv.mod.overviewReturnLocationX, gv.mod.overviewReturnLocationY);
                             gv.mod.currentlyOnOwnZone = false;
@@ -42405,7 +42724,7 @@ namespace IceBlink2
                             gv.mod.overviewReturnLocationY = gv.mod.PlayerLocationY;
                             gv.mod.oldPartyTokenFilename = gv.mod.partyTokenFilename;
                             gv.mod.oldPartyTokenEnabledState = gv.mod.showPartyToken;
-                            gv.sf.TogglePartyToken("overviewMapSelectionSquare", "true");
+                            gv.sf.TogglePartyToken("overviewMapSelectionSquare", "true", "0", "0");
                             gv.mod.allowImmediateRetransition = true;
                             Coordinate coord = new Coordinate();
                             coord.X = gv.mod.currentArea.partyPositionMarkerOnGrandMotherZoneMapX;
@@ -42424,7 +42743,7 @@ namespace IceBlink2
                         //go back to real current area
                         else if (gv.mod.currentArea.isOverviewMap && gv.mod.currentlyOnGrandMotherZone)
                         {
-                            gv.sf.TogglePartyToken(gv.mod.oldPartyTokenFilename, gv.mod.oldPartyTokenEnabledState.ToString());
+                            gv.sf.TogglePartyToken(gv.mod.oldPartyTokenFilename, gv.mod.oldPartyTokenEnabledState.ToString(),"-1", "-1");
                             gv.mod.allowImmediateRetransition = true;
                             gv.cc.doTransitionBasedOnAreaLocation(gv.mod.overviewReturnAreaName, gv.mod.overviewReturnLocationX, gv.mod.overviewReturnLocationY);
                             gv.mod.currentlyOnOwnZone = false;

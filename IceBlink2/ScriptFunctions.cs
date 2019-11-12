@@ -5136,7 +5136,7 @@ namespace IceBlink2
 
                         if (lockedDoorKeyOnly)
                         {
-                            bool keyFound = CheckForItem(p1, 1);
+                            bool keyFound = CheckForItem(p1, 1,"none", "none");
                             if (keyFound)
                             {
 
@@ -5203,7 +5203,7 @@ namespace IceBlink2
                         }
                         else if (lockedDoorKeyOrPick)
                         {
-                            bool keyFound = CheckForItem(p1, 1);
+                            bool keyFound = CheckForItem(p1, 1,"none","none");
                             string traitName = "";
 
                             string traitMethod = "leader";
@@ -6036,7 +6036,7 @@ namespace IceBlink2
                     }
                     else if (filename.Equals("gaTogglePartyToken.cs"))
                     {
-                        TogglePartyToken(p1, p2);
+                        TogglePartyToken(p1, p2, p3, p4);
                     }
                     else if (filename.Equals("gaToggleZoneMapButton.cs"))
                     {
@@ -6209,7 +6209,7 @@ namespace IceBlink2
                     else if (filename.Equals("gaCheckForItemToggleLights.cs"))
                     {
                         int parm2 = Convert.ToInt32(p2);
-                        if (CheckForItem(p1, parm2))
+                        if (CheckForItem(p1, parm2,p3,p4))
                         {
                             gv.mod.currentArea.areaDark = false;
                         }
@@ -7789,7 +7789,7 @@ namespace IceBlink2
                     else if (filename.Equals("gcCheckForItem.cs"))
                     {
                         int parm2 = Convert.ToInt32(p2);
-                        gv.mod.returnCheck = CheckForItem(p1, parm2);
+                        gv.mod.returnCheck = CheckForItem(p1, parm2, p3, p4);
                     }
                     else if (filename.Equals("gcCheckPartyDistance.cs"))
                     {
@@ -9028,7 +9028,7 @@ namespace IceBlink2
             if (itemAndSkillRequired || itemOnlyRequired)
             {
                 //katzer
-                hasItem = CheckForItem(ThisProp.requiredItemInInventory, 1);
+                hasItem = CheckForItem(ThisProp.requiredItemInInventory, 1, "none", "none");
             }
 
             if (itemAndSkillRequired)
@@ -13658,7 +13658,7 @@ namespace IceBlink2
             }
         }
 
-        public void TogglePartyToken(string filename, string enabl)
+        public void TogglePartyToken(string filename, string enabl, string absoluteSpeed, string additionalSpeed)
         {
             bool enable = Boolean.Parse(enabl);
             try
@@ -13678,6 +13678,38 @@ namespace IceBlink2
 //TODO                    mod.partyTokenBitmap = gv.cc.flip(mod.partyTokenBitmap);
                 }
                 gv.mod.showPartyToken = enable;
+
+                if (!enable)
+                {
+                    gv.mod.vehicleAdditionalSpeed = 0;
+                    gv.mod.absoluteVehicleSpeed = 0;
+                }
+                else
+                {
+                    if (additionalSpeed != null)
+                    {
+                        if (additionalSpeed != "none" && additionalSpeed != "")
+                        {
+                            if (Convert.ToInt32(additionalSpeed) != -1)
+                            {
+                                gv.mod.vehicleAdditionalSpeed = Convert.ToInt32(additionalSpeed);
+                            }
+                           
+                        }
+                    }
+
+                    if (absoluteSpeed != null)
+                    {
+                        if (absoluteSpeed != "none" && absoluteSpeed != "")
+                        {
+                            if (Convert.ToInt32(absoluteSpeed) != -1)
+                            {
+                                gv.mod.absoluteVehicleSpeed = Convert.ToInt32(absoluteSpeed);
+                            }
+                           
+                        }
+                    }
+                }
             }
             catch (Exception ex)
             {
@@ -14814,7 +14846,7 @@ namespace IceBlink2
         }
         public void DamageWithoutItem(int damage, string itemTag)
         {
-            bool itemfound = CheckForItem(itemTag, 1);
+            bool itemfound = CheckForItem(itemTag, 1,"none","none");
             if (itemfound)
             {
                 //have item so 10% chance to damage
@@ -14853,7 +14885,7 @@ namespace IceBlink2
             }
         }
 
-        public bool CheckForItem(string resref, int quantity)
+        public bool CheckForItem(string resref, int quantity, string mustBeEquipped, string identifierOfRequiredWearer)
         {
             if (resref == "none" || resref == "None" || resref =="")
             {
@@ -14866,18 +14898,70 @@ namespace IceBlink2
                 gv.cc.addLogText("<font color='yellow'>" + "checkForItemResRef: " + resref + " quantity: " + quantity + "</font><BR>");
             }
             int numFound = 0;
-            foreach (Player pc in mod.playerList)
+            bool foundOnCorrectPlayer = false;
+            //foreach (Player pc in mod.playerList)
+            for (int i = 0; i < mod.playerList.Count; i++)
             {
-                if (pc.BodyRefs.resref.Equals(resref)) { numFound++; }
-                if (pc.MainHandRefs.resref.Equals(resref)) { numFound++; }
-                if (pc.RingRefs.resref.Equals(resref)) { numFound++; }
-                if (pc.OffHandRefs.resref.Equals(resref)) { numFound++; }
-                if (pc.HeadRefs.resref.Equals(resref)) { numFound++; }
-                if (pc.GlovesRefs.resref.Equals(resref)) { numFound++; }
-                if (pc.NeckRefs.resref.Equals(resref)) { numFound++; }
-                if (pc.Ring2Refs.resref.Equals(resref)) { numFound++; }
-                if (pc.FeetRefs.resref.Equals(resref)) { numFound++; }
+                int numberBeforeThisPc = numFound;
+                if (mod.playerList[i].BodyRefs.resref.Equals(resref)) { numFound++; }
+                if (mod.playerList[i].MainHandRefs.resref.Equals(resref)) { numFound++; }
+                if (mod.playerList[i].RingRefs.resref.Equals(resref)) { numFound++; }
+                if (mod.playerList[i].OffHandRefs.resref.Equals(resref)) { numFound++; }
+                if (mod.playerList[i].HeadRefs.resref.Equals(resref)) { numFound++; }
+                if (mod.playerList[i].GlovesRefs.resref.Equals(resref)) { numFound++; }
+                if (mod.playerList[i].NeckRefs.resref.Equals(resref)) { numFound++; }
+                if (mod.playerList[i].Ring2Refs.resref.Equals(resref)) { numFound++; }
+                if (mod.playerList[i].FeetRefs.resref.Equals(resref)) { numFound++; }
+
+                if (identifierOfRequiredWearer != "none" && identifierOfRequiredWearer != "None" && identifierOfRequiredWearer != "")
+                {
+
+                    if (numFound > numberBeforeThisPc)
+                    {
+                        if (mod.playerList[i].name == identifierOfRequiredWearer)
+                        {
+                            foundOnCorrectPlayer = true;
+                        }
+
+                        if (identifierOfRequiredWearer == "leader" || identifierOfRequiredWearer == "Leader" || identifierOfRequiredWearer == "-1")
+                        {
+                            if (i == gv.mod.selectedPartyLeader)
+                            {
+                                foundOnCorrectPlayer = true;
+                            }
+                        }
+
+
+                    }
+                }
+                //make i count loop and see for fiurst palyer here additional required of leader
+                ///gv.mod.playerList[gv.mod.selectedPartyLeader].name;
             }
+
+            if (identifierOfRequiredWearer != "none" && identifierOfRequiredWearer != "None" && identifierOfRequiredWearer != "")
+            {
+                if (foundOnCorrectPlayer)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+
+            if (mustBeEquipped == "true" || mustBeEquipped == "True")
+            {
+                if (numFound > 0)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+
             foreach (ItemRefs item in mod.partyInventoryRefsList)
             {
                 if (item.resref.Equals(resref)) { numFound += item.quantity; }

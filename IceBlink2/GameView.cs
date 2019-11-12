@@ -235,6 +235,15 @@ namespace IceBlink2
             //this.Width = 1366;
             //this.Height = 768;
 
+            /*
+            51% - 75%: 50%
+            76% -125% 55%
+            126% - 225%: 60%
+            226% - 425%: 65%
+            426% -826%: 70%
+            >826%: 75%
+            */
+
             screenWidth = this.Width; //getResources().getDisplayMetrics().widthPixels;
             screenHeight = this.Height; //getResources().getDisplayMetrics().heightPixels;
             float sqrW = (float)screenWidth / (squaresInWidth + 2f/10f);
@@ -1863,6 +1872,47 @@ namespace IceBlink2
         {
             if (!stillProcessingGameLoop)
             {
+                //widescreen code
+                //public int playerOffset = 4;
+                //1366x768 = 1,78 = 16:9
+                //1920x1080 = 1,77 = 16:9
+                //43:18, 2,39
+                //21:9, 2,33
+                //16:10, 1,6
+                //elfelf
+                /*
+                float ratio = screenWidth / screenHeight;
+
+                if (ratio > 1.7f && ratio < 1.8f)
+                {
+                    squaresInHeight = 10;
+                    squaresInWidth = 19;
+                    playerOffset = 4;
+                    playerOffsetX = 9;
+                    playerOffsetY = 5;
+                }
+
+                if (ratio > 2.36f && ratio < 2.42f)
+                {
+                    //*1,35f  (2,39 / 1,77)
+                    squaresInHeight = 13;
+                    squaresInWidth = 25;
+                    playerOffset = 5;
+                    playerOffsetX = 12;
+                    playerOffsetY = 6;
+                }
+
+                */
+                //widescreen
+                squaresInHeight = screenHeight/squareSize;
+                squaresInWidth = screenWidth / squareSize;
+                double rawOffsetX = squaresInWidth / 2;
+                double rawOffsetY = squaresInHeight / 2;
+                double rawOffset = squaresInHeight / 2 - 1;
+                playerOffset = (int)Math.Ceiling(rawOffset);
+                playerOffsetX = (int)Math.Ceiling(rawOffsetX);
+                playerOffsetY = (int)Math.Ceiling(rawOffsetY);
+
                 if (this.screenType != "main")
                 {
                     this.aTimer.Stop();
@@ -2390,6 +2440,22 @@ namespace IceBlink2
             SharpDX.RectangleF src = new SharpDX.RectangleF(source.Left, source.Top, source.Width, source.Height);
             DrawD2DBitmap(bitmap, src, tar, angleInRadians, mirror, opacity);
         }
+        public void DrawBitmapParallelToPlayer(SharpDX.Direct2D1.Bitmap bitmap, IbRect source, IbRect target, float angleInRadians, bool mirror, float opacity)
+        {
+            //test
+            //orgi
+            if (bitmap == cc.night_tile_NE || bitmap == cc.night_tile_NW || bitmap == cc.night_tile_SW || bitmap == cc.night_tile_SE || bitmap == cc.tint_night)
+            {
+                //opacity *= 0.6f;
+                opacity *= mod.nightTimeDarknessOpacity;
+
+            }
+            SharpDX.RectangleF tar = new SharpDX.RectangleF(target.Left, target.Top + oYshift, target.Width, target.Height);
+            SharpDX.RectangleF src = new SharpDX.RectangleF(source.Left, source.Top, source.Width, source.Height);
+            //DrawD2DBitmap(bitmap, src, tar, angleInRadians, mirror, opacity);
+            DrawD2DBitmapParallelToPlayer(bitmap, src, tar, angleInRadians, mirror, opacity);
+        }
+
         public void DrawBitmap(SharpDX.Direct2D1.Bitmap bitmap, IbRect source, IbRect target, float angleInRadians, bool mirror, float opacity, bool isParty)
         {
             //test
@@ -2728,6 +2794,12 @@ namespace IceBlink2
             //too high
             DrawD2DBitmap(bitmap, source, target, angleInRadians, mirror, opacity, 0, 0, 0, 0, false, false);
         }
+        public void DrawD2DBitmapParallelToPlayer(SharpDX.Direct2D1.Bitmap bitmap, SharpDX.RectangleF source, SharpDX.RectangleF target, float angleInRadians, bool mirror, float opacity)
+        {
+            //orgi2
+            //too high
+            DrawD2DBitmapParallelToPlayer(bitmap, source, target, angleInRadians, mirror, opacity, 0, 0, 0, 0, false, false);
+        }
         public void DrawD2DBitmap(SharpDX.Direct2D1.Bitmap bitmap, SharpDX.RectangleF source, SharpDX.RectangleF target, float angleInRadians, bool mirror, float opacity, bool isParty)
         {
             //kloni2
@@ -2775,9 +2847,82 @@ namespace IceBlink2
             DrawD2DBitmap(bitmap, source, target, angleInRadians, mirror, opacity, Xshift, Yshift, Xscale, Yscale, false, false);
         }
 
+        public void DrawD2DBitmapParallelToPlayer(SharpDX.Direct2D1.Bitmap bitmap, SharpDX.RectangleF source, SharpDX.RectangleF target, float angleInRadians, bool mirror, float opac, int Xshift, int Yshift, int Xscale, int Yscale, bool NearestNeighbourInterpolation, bool isParty)
+        {
+            //sabrina4
+
+           
+
+            //org 1
+            int mir = 1;
+            if (mirror) { mir = -1; }
+            float xshf = (float)Xshift * 2 * screenDensity;
+            float yshf = (float)Yshift * 2 * screenDensity;
+            float xscl = 1f + (((float)Xscale * 2 * screenDensity) / squareSize);
+            float yscl = 1f + (((float)Yscale * 2 * screenDensity) / squareSize);
+
+            Vector2 center = new Vector2(target.Left + (target.Width / 2), target.Top + (target.Height / 2));
+            //vertauensvoll
+            if ((angleInRadians == 361) && (mirror))
+            {
+                angleInRadians = 90;
+                renderTarget2D.Transform = SharpDX.Matrix.Transformation2D(center, 0, new Vector2(xscl, mir * yscl), center, angleInRadians, new Vector2(xshf, yshf));
+
+            }
+            else if (angleInRadians == 361 && !mirror)
+            {
+                angleInRadians = 270;
+                renderTarget2D.Transform = SharpDX.Matrix.Transformation2D(center, 0, new Vector2(mir * xscl, yscl), center, angleInRadians, new Vector2(xshf, yshf));
+
+            }
+            else if ((angleInRadians == 362) && (mirror))
+            {
+                //90
+                angleInRadians = 180;
+                renderTarget2D.Transform = SharpDX.Matrix.Transformation2D(center, 0, new Vector2(mir * xscl, yscl), center, angleInRadians, new Vector2(xshf, yshf));
+
+            }
+            else if ((angleInRadians == 362) && (!mirror))
+            {
+                angleInRadians = 270;
+                renderTarget2D.Transform = SharpDX.Matrix.Transformation2D(center, 0, new Vector2(mir * xscl, yscl), center, angleInRadians, new Vector2(xshf, yshf));
+
+            }
+            else
+            {
+                renderTarget2D.Transform = SharpDX.Matrix.Transformation2D(center, 0, new Vector2(mir * xscl, yscl), center, angleInRadians, new Vector2(xshf, yshf));
+
+            }
+            //renderTarget2D.Transform = SharpDX.Matrix.Transformation2D(center, 0, new Vector2(mir * xscl, yscl), center, angleInRadians, new Vector2(xshf, yshf));
+            SharpDX.RectangleF trg = new SharpDX.RectangleF(target.Left, target.Top, target.Width, target.Height);
+            SharpDX.RectangleF src = new SharpDX.RectangleF(source.Left, source.Top, source.Width, source.Height);
+
+            /*
+            if (bitmap == cc.offScreen)
+            {
+                if ((target.Left <= (screenWidth / 2 - mod.pixDistanceToBorderWest)) && (target.Left >= (screenWidth / 2 - mod.pixDistanceToBorderWest - squareSize)))
+                {
+                    bitmap = cc.offScreenTrans;
+                }
+            }
+            */
+
+            if (NearestNeighbourInterpolation)
+            {
+                renderTarget2D.DrawBitmap(bitmap, trg, opac, BitmapInterpolationMode.NearestNeighbor, src);
+            }
+            else
+            {
+                renderTarget2D.DrawBitmap(bitmap, trg, opac, BitmapInterpolationMode.Linear, src);
+            }
+            renderTarget2D.Transform = Matrix3x2.Identity;
+            //TBSüd
+        }
+
         public void DrawD2DBitmap(SharpDX.Direct2D1.Bitmap bitmap, SharpDX.RectangleF source, SharpDX.RectangleF target, float angleInRadians, bool mirror, float opac, int Xshift, int Yshift, int Xscale, int Yscale, bool NearestNeighbourInterpolation, bool isParty)
         {
             //sabrina4
+           
             if (mod.useScrollingSystem)
             {
                 if (this.screenType == "main")
@@ -3563,7 +3708,7 @@ namespace IceBlink2
                                 //screenType = "partyBuild";
                                 //tranistion code
                                 //haubrich
-                                sf.TogglePartyToken(mod.oldPartyTokenFilename, mod.oldPartyTokenEnabledState.ToString());
+                                sf.TogglePartyToken(mod.oldPartyTokenFilename, mod.oldPartyTokenEnabledState.ToString(), "-1", "-1");
                                 mod.allowImmediateRetransition = true;
                                 cc.doTransitionBasedOnAreaLocation(mod.overviewReturnAreaName, mod.overviewReturnLocationX, mod.overviewReturnLocationY);
                                 mod.currentlyOnOwnZone = false;

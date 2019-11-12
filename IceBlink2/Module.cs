@@ -13,6 +13,7 @@ namespace IceBlink2
 {
     public class Module
     {
+        public bool playLightningSound = false;
         public bool mainMapMovementRelevantKeyPressed = false;
         public bool justLeftCombat = false;
 

@@ -257,6 +257,8 @@ namespace IceBlink2
         public int spotEnemy = -1;
         public int stealth = -1;
 
+        public int stealthModifier = 0;
+
         public bool alwaysDrawNormalSize = false;
 
         public bool encounterPropTriggerOnEveryStep = false;
@@ -455,6 +457,7 @@ namespace IceBlink2
     	    Prop copy = new Prop();
 
             //TODO
+            copy.stealthModifier = this.stealthModifier;
             copy.skippedPathfinding = skippedPathfinding;
             copy.blockConvoForOneTurn = blockConvoForOneTurn;
             copy.justJumpedBetweenAreas = justJumpedBetweenAreas;
