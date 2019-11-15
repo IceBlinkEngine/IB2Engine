@@ -1656,6 +1656,7 @@ namespace IceBlink2
             if ((animationSeqStack.Count == 0) && (!continueTurn) && !gv.mod.currentEncounter.isOver && !allDone)
             {
                 //zulaufen
+                
                 recalculateCreaturesShownInInitiativeBar();
                 attackAnimationFrameCounter = 0;
                 attackAnimationDelayCounter = 0;
@@ -1681,6 +1682,7 @@ namespace IceBlink2
                                 gv.mod.playerList[i].hp = -20;
                                 //recalculateCreaturesShownInInitiativeBar();
                                 gv.mod.playerList.RemoveAt(i);
+                                
                                 recalculateCreaturesShownInInitiativeBar();
                             }
                             else if (gv.mod.playerList[i].stayDurationInTurns < 10)
@@ -1697,6 +1699,7 @@ namespace IceBlink2
                             {
                                 gv.cc.addLogText("<font color='blue'>" + gv.mod.currentEncounter.encounterCreatureList[i].cr_name + " vanishes." + "</font><BR>");
                                 gv.mod.currentEncounter.encounterCreatureList[i].hp = -20;
+                                
                                 recalculateCreaturesShownInInitiativeBar();
                             int deadIdx = (gv.mod.currentEncounter.encounterCreatureList.Count - 1) - i;
                             if (deadIdx < idx)
@@ -8056,41 +8059,7 @@ namespace IceBlink2
                 }
                 gv.screenType = "main";
 
-                /*
-                // give gold drop
-                if (gv.mod.currentEncounter.goldDrop > 0)
-                {
-                    gv.cc.addLogText("<font color='yellow'>The party finds " + gv.mod.currentEncounter.goldDrop + " " + gv.mod.goldLabelPlural + ".<BR></font>");
-                }
-                */
-                /*
-                gv.mod.partyGold += gv.mod.currentEncounter.goldDrop;
-                // give InventoryList
-                if (gv.mod.currentEncounter.encounterInventoryRefsList.Count > 0)
-                {
-
-                    string s = "<font color='yellow'>" + "The party has found:<BR>";
-                    foreach (ItemRefs itRef in gv.mod.currentEncounter.encounterInventoryRefsList)
-                    {
-                        gv.mod.partyInventoryRefsList.Add(itRef.DeepCopy());
-                        s += itRef.name + "<BR>";
-                        //find this creatureRef in gv.mod creature list
-
-                    }
-                    gv.cc.addLogText(s + "</font>");
-                }
-
-             
-                gv.cc.addLogText("yellow", "Each receives " + giveEachXP + " XP");
-                foreach (Player givePcXp in gv.mod.playerList)
-                {
-                    givePcXp.XP = givePcXp.XP + giveEachXP;
-                }
-                */
-
-
-                //btnSelect.Text = "SELECT";
-                //gv.screenType = "main";
+              
                 if (gv.mod.playMusic)
                 {
                     gv.stopCombatMusic();
@@ -8468,9 +8437,13 @@ namespace IceBlink2
                 bool alreadyTriggered = false;
                 foreach (string s in tagsOfTriggersAndPropTriggersCalledThisTurn)
                 {
-                    if (s == prp.PropTag)
+                    //rdr5
+                    if (prp != null)
                     {
-                        alreadyTriggered = true;
+                        if (s == prp.PropTag)
+                        {
+                            alreadyTriggered = true;
+                        }
                     }
                 }
 
@@ -8584,9 +8557,12 @@ namespace IceBlink2
                 bool alreadyTriggered = false;
                 foreach (string s in tagsOfTriggersAndPropTriggersCalledThisTurn)
                 {
-                    if (s == trig.TriggerTag)
+                    if (trig != null)
                     {
-                        alreadyTriggered = true;
+                        if (s == trig.TriggerTag)
+                        {
+                            alreadyTriggered = true;
+                        }
                     }
                 }
 
@@ -9977,6 +9953,9 @@ namespace IceBlink2
                 }
             }
 
+       
+
+
             //calculate buttons/i needed
             int buttonsNeededOverall = 0;
 
@@ -10358,40 +10337,45 @@ namespace IceBlink2
                 {
                     if (m2 == moveOrderNumberOfCheckedCreatureFromAllCreatures)
                     {
+                        //rdr4: added positive hp requirement
                         if (isCreature)
                         {
-                            IbRect src = new IbRect(0, 0, crt.token.PixelSize.Width, crt.token.PixelSize.Width);
-                            int startBarX = (0 * gv.squareSize) + gv.oXshift + mapStartLocXinPixels + 2 * gv.pS;
-                            int startBarY = 0 * gv.squareSize + 2 * gv.pS;
-                            int targetSizeX = gv.squareSize / 2;
-                            int targetSizeY = gv.squareSize / 2;
-                            int marchingLineHeight = gv.squareSize / 2;
-                            if (crt.token.PixelSize.Width > 100)
+                            //rdr4: added positive hp requirement
+                            if (crt.hp > 0)
                             {
-                                targetSizeX = gv.squareSize;
-                                targetSizeY = gv.squareSize;
-                                marchingLineHeight = 0;
-                            }
-                            IbRect dst = new IbRect(startBarX + creatureSpacesUsed * gv.squareSize / 2, startBarY + marchingLineHeight, targetSizeX, targetSizeY);
-                            if (crt.moveOrder + 1 == currentMoveOrderIndex)
-                            {
-                                gv.DrawBitmap(gv.cc.turn_marker, src, dst, false, false);
-                            }
+                                IbRect src = new IbRect(0, 0, crt.token.PixelSize.Width, crt.token.PixelSize.Width);
+                                int startBarX = (0 * gv.squareSize) + gv.oXshift + mapStartLocXinPixels + 2 * gv.pS;
+                                int startBarY = 0 * gv.squareSize + 2 * gv.pS;
+                                int targetSizeX = gv.squareSize / 2;
+                                int targetSizeY = gv.squareSize / 2;
+                                int marchingLineHeight = gv.squareSize / 2;
+                                if (crt.token.PixelSize.Width > 100)
+                                {
+                                    targetSizeX = gv.squareSize;
+                                    targetSizeY = gv.squareSize;
+                                    marchingLineHeight = 0;
+                                }
+                                IbRect dst = new IbRect(startBarX + creatureSpacesUsed * gv.squareSize / 2, startBarY + marchingLineHeight, targetSizeX, targetSizeY);
+                                if (crt.moveOrder + 1 == currentMoveOrderIndex)
+                                {
+                                    gv.DrawBitmap(gv.cc.turn_marker, src, dst, false, false);
+                                }
 
-                            gv.DrawBitmap(crt.token, src, dst, false, false);
-                            int mo = crt.moveOrder + 1;
-                            if (crt.token.PixelSize.Width <= 100)
-                            {
-                                creatureSpacesUsed++;
-                                drawMiniText(dst.Left, dst.Top + 1 * gv.pS, mo.ToString(), Color.White);
-                                drawMiniText(dst.Left + gv.pS, dst.Top - 5 * gv.pS, crt.hp.ToString(), Color.Red);
-                            }
-                            else
-                            {
-                                creatureSpacesUsed++;
-                                creatureSpacesUsed++;
-                                drawMiniText(dst.Left, dst.Top + gv.squareSize / 2 + 1 * gv.pS, mo.ToString(), Color.White);
-                                drawMiniText(dst.Left + 3 * gv.pS, dst.Top - 3 * gv.pS, crt.hp.ToString(), Color.Red);
+                                gv.DrawBitmap(crt.token, src, dst, false, false);
+                                int mo = crt.moveOrder + 1;
+                                if (crt.token.PixelSize.Width <= 100)
+                                {
+                                    creatureSpacesUsed++;
+                                    drawMiniText(dst.Left, dst.Top + 1 * gv.pS, mo.ToString(), Color.White);
+                                    drawMiniText(dst.Left + gv.pS, dst.Top - 5 * gv.pS, crt.hp.ToString(), Color.Red);
+                                }
+                                else
+                                {
+                                    creatureSpacesUsed++;
+                                    creatureSpacesUsed++;
+                                    drawMiniText(dst.Left, dst.Top + gv.squareSize / 2 + 1 * gv.pS, mo.ToString(), Color.White);
+                                    drawMiniText(dst.Left + 3 * gv.pS, dst.Top - 3 * gv.pS, crt.hp.ToString(), Color.Red);
+                                }
                             }
                         }
                         else
@@ -14221,7 +14205,8 @@ namespace IceBlink2
         #region Keyboard Input
         public void onKeyUp(Keys keyData)
         {
-            
+            //rdr2 added
+            //recalculateCreaturesShownInInitiativeBar();
             if (keyData == Keys.M)
             {
                 gv.mod.mainMapMovementRelevantKeyPressed = false;
@@ -16035,6 +16020,9 @@ namespace IceBlink2
 
                     //NEW SYSTEM
                     combatUiLayout.setHover(x, y);
+
+                    //rdr2 added
+                    //recalculateCreaturesShownInInitiativeBar();
 
                     int gridx = (int)(e.X - gv.oXshift - mapStartLocXinPixels) / gv.squareSize;
                     int gridy = (int)(e.Y - (gv.squareSize / 2)) / gv.squareSize;

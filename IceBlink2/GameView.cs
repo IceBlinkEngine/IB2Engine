@@ -1544,6 +1544,7 @@ namespace IceBlink2
         }
         public void startCombatMusic()
         {
+            //currentMainMusic
             try
             {
                 if ((currentCombatMusic.Equals(mod.currentEncounter.AreaMusic)) && (areaMusic != null))
@@ -1553,7 +1554,8 @@ namespace IceBlink2
                 else
                 {
                     areaMusic.controls.stop();
-                    
+                    //laber
+                    currentMainMusic = mod.currentEncounter.AreaMusic;
                     if (mod.currentEncounter.AreaMusic != "none")
                     {
                         if (File.Exists(mainDirectory + "\\modules\\" + mod.moduleName + "\\music\\" + mod.currentEncounter.AreaMusic + ".mp3"))
@@ -1904,6 +1906,9 @@ namespace IceBlink2
 
                 */
                 //widescreen
+                //screenHeight = 860;
+                //screenWidth = 360;
+
                 squaresInHeight = screenHeight/squareSize;
                 squaresInWidth = screenWidth / squareSize;
                 double rawOffsetX = squaresInWidth / 2;

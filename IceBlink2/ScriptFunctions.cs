@@ -6209,6 +6209,14 @@ namespace IceBlink2
                     else if (filename.Equals("gaCheckForItemToggleLights.cs"))
                     {
                         int parm2 = Convert.ToInt32(p2);
+                        if (p3 == null)
+                        {
+                            p3 = "none";
+                        }
+                        if (p4 == null)
+                        {
+                            p4 = "none";
+                        }
                         if (CheckForItem(p1, parm2,p3,p4))
                         {
                             gv.mod.currentArea.areaDark = false;
@@ -7789,6 +7797,14 @@ namespace IceBlink2
                     else if (filename.Equals("gcCheckForItem.cs"))
                     {
                         int parm2 = Convert.ToInt32(p2);
+                        if (p3 == null)
+                        {
+                            p3 = "none";
+                        }
+                        if (p4 == null)
+                        {
+                            p4 = "none";
+                        }
                         gv.mod.returnCheck = CheckForItem(p1, parm2, p3, p4);
                     }
                     else if (filename.Equals("gcCheckPartyDistance.cs"))

@@ -3414,6 +3414,7 @@ namespace IceBlink2
                         if (tile.isInLongShadeN)
                         {
                             gv.DrawBitmap(gv.cc.longShadow, src, dst, 180, false, 0, 0);
+                            gv.DrawBitmap(gv.cc.longShadow, src, dst, 180, false, 0, 0);
                         }
                         else if (tile.isInShortShadeN)
                         {
@@ -3438,6 +3439,7 @@ namespace IceBlink2
                         if (tile.isInLongShadeE)
                         {
                             gv.DrawBitmap(gv.cc.longShadow, src, dst, 270, false, 0, 0);
+                            gv.DrawBitmap(gv.cc.longShadow, src, dst, 270, false, 0, 0);
                         }
                         else if (tile.isInShortShadeE)
                         {
@@ -3455,12 +3457,14 @@ namespace IceBlink2
                             else
                             {
                                 gv.DrawBitmap(gv.cc.shortShadow, src, dst, 270, false, 0, 0);
+                                gv.DrawBitmap(gv.cc.shortShadow, src, dst, 270, false, 0, 0);
                             }
 
                         }
 
                         if (tile.isInLongShadeS)
                         {
+                            gv.DrawBitmap(gv.cc.longShadow, src, dst, 0, false, 0, 0);
                             gv.DrawBitmap(gv.cc.longShadow, src, dst, 0, false, 0, 0);
                         }
                         else if (tile.isInShortShadeS)
@@ -3484,6 +3488,7 @@ namespace IceBlink2
 
                         if (tile.isInLongShadeW)
                         {
+                            gv.DrawBitmap(gv.cc.longShadow, src, dst, 90, false, 0, 0);
                             gv.DrawBitmap(gv.cc.longShadow, src, dst, 90, false, 0, 0);
                         }
                         else if (tile.isInShortShadeW)
@@ -3521,6 +3526,7 @@ namespace IceBlink2
                                 if ((!tile.inRampShadowNorth5Long) && (!tile.inRampShadowWest2Long))
                                 {
                                     gv.DrawBitmap(gv.cc.longShadowCorner, src, dst, 180, false, 0, 0);
+                                    gv.DrawBitmap(gv.cc.longShadowCorner, src, dst, 180, false, 0, 0);
                                 }
                             }
                             else if ((tile.isInShortShadeNW) && (!tile.inRampShadowNorth5Short) && (!tile.inRampShadowWest2Short) && !tile.inRampShadowNorth6Short && !tile.inRampShadowWest1Short && (!tile.inRampShadowNorth5Long) && (!tile.inRampShadowWest2Long) && !tile.inRampShadowNorth6Long && !tile.inRampShadowWest1Long)
@@ -3541,8 +3547,11 @@ namespace IceBlink2
                             {
                                 if ((!tile.inRampShadowNorth5Long) && (!tile.inRampShadowWest2Long))
                                 {
-                                    //gv.DrawBitmap(gv.cc.longShadowCorner, src, dst, 180, false, 0, 0);
-                                    gv.DrawBitmap(gv.cc.longShadowCornerHalf, src, dst, 180, false, 0, 0);
+                                    //teeladen
+
+                                    gv.DrawBitmap(gv.cc.longShadowCorner, src, dst, 180, false, 0, 0);
+                                    gv.DrawBitmap(gv.cc.longShadowCorner, src, dst, 180, false, 0, 0);
+                                    //gv.DrawBitmap(gv.cc.longShadowCornerHalf, src, dst, 180, false, 0, 0);
                                 }
                             }
                         }
@@ -3561,6 +3570,7 @@ namespace IceBlink2
                             {
                                 if ((!tile.inRampShadowNorth6Long) && (!tile.inRampShadowEast4Long))
                                 {
+                                    gv.DrawBitmap(gv.cc.longShadowCorner, src, dst, 270, false, 0, 0);
                                     gv.DrawBitmap(gv.cc.longShadowCorner, src, dst, 270, false, 0, 0);
                                 }
                             }
@@ -3581,9 +3591,11 @@ namespace IceBlink2
                             {
                                 if ((!tile.inRampShadowNorth6Long) && (!tile.inRampShadowEast4Long))
                                 {
-                                    //gv.DrawBitmap(gv.cc.longShadowCorner, src, dst, 270, false, 0, 0);
+                                    //teeladen
+                                    gv.DrawBitmap(gv.cc.longShadowCorner, src, dst, 270, false, 0, 0);
+                                    gv.DrawBitmap(gv.cc.longShadowCorner, src, dst, 270, false, 0, 0);
                                     //mirror before
-                                    gv.DrawBitmap(gv.cc.longShadowCornerHalf, src, dst, 270, false, 0, 0);
+                                    //gv.DrawBitmap(gv.cc.longShadowCornerHalf, src, dst, 270, false, 0, 0);
                                 }
                             }
                         }
@@ -3602,6 +3614,7 @@ namespace IceBlink2
                             {
                                 if ((!tile.inRampShadowSouth8Long) && (!tile.inRampShadowEast3Long))
                                 {
+                                    gv.DrawBitmap(gv.cc.longShadowCorner, src, dst, 0, false, 0, 0);
                                     gv.DrawBitmap(gv.cc.longShadowCorner, src, dst, 0, false, 0, 0);
                                 }
                             }
@@ -3622,9 +3635,11 @@ namespace IceBlink2
                             {
                                 if ((!tile.inRampShadowSouth8Long) && (!tile.inRampShadowEast3Long))
                                 {
-                                    //gv.DrawBitmap(gv.cc.longShadowCorner, src, dst, 0, false, 0, 0);
+                                    //teeladen
+                                    gv.DrawBitmap(gv.cc.longShadowCorner, src, dst, 0, false, 0, 0);
+                                    gv.DrawBitmap(gv.cc.longShadowCorner, src, dst, 0, false, 0, 0);
                                     //no mirror before
-                                    gv.DrawBitmap(gv.cc.longShadowCornerHalfMirror, src, dst, 0, false, 0, 0);
+                                    //gv.DrawBitmap(gv.cc.longShadowCornerHalfMirror, src, dst, 0, false, 0, 0);
                                 }
                             }
                         }
@@ -3643,6 +3658,7 @@ namespace IceBlink2
                             {
                                 if ((!tile.inRampShadowSouth7Long) && (!tile.inRampShadowWest1Long))
                                 {
+                                    gv.DrawBitmap(gv.cc.longShadowCorner, src, dst, 90, false, 0, 0);
                                     gv.DrawBitmap(gv.cc.longShadowCorner, src, dst, 90, false, 0, 0);
                                 }
                             }
@@ -3663,8 +3679,10 @@ namespace IceBlink2
                             {
                                 if ((!tile.inRampShadowSouth7Long) && (!tile.inRampShadowWest1Long))
                                 {
-                                    //gv.DrawBitmap(gv.cc.longShadowCorner, src, dst, 90, false, 0, 0);
-                                    gv.DrawBitmap(gv.cc.longShadowCornerHalfMirror, src, dst, 90, false, 0, 0);
+                                    //teeladen
+                                    gv.DrawBitmap(gv.cc.longShadowCorner, src, dst, 90, false, 0, 0);
+                                    gv.DrawBitmap(gv.cc.longShadowCorner, src, dst, 90, false, 0, 0);
+                                    //gv.DrawBitmap(gv.cc.longShadowCornerHalfMirror, src, dst, 90, false, 0, 0);
                                 }
                             }
                         }
