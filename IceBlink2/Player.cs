@@ -22,6 +22,12 @@ namespace IceBlink2
 
         public List<int> hasNewChatOption = new List<int>();
 
+        //public string guildIdentifier = "Guild";//e.g. "Guild:"
+        public string guildName = "none";// e.g. "Church: West Corinth Trading Company", "Guild: Stonemasons", "Desperados"
+        //public string guildRankIdentifier = "Rank";//e.g. "Rank:"
+        public string guildRankName = "none";// e.g. "Initiate (Rank 1)", "Mastermason"
+        public int guildRank = 0;
+
         public int hpThisUpdate = 0;
         public int hpLastUpdate = 0;
         public int spThisUpdate = 0;

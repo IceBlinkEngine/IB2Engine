@@ -3414,7 +3414,7 @@ namespace IceBlink2
                         if (tile.isInLongShadeN)
                         {
                             gv.DrawBitmap(gv.cc.longShadow, src, dst, 180, false, 0, 0);
-                            gv.DrawBitmap(gv.cc.longShadow, src, dst, 180, false, 0, 0);
+                            gv.DrawBitmap(gv.cc.longShadow, src, dst, 180, false, 0, 0, 0, 0, 0.75f);
                         }
                         else if (tile.isInShortShadeN)
                         {
@@ -3439,7 +3439,7 @@ namespace IceBlink2
                         if (tile.isInLongShadeE)
                         {
                             gv.DrawBitmap(gv.cc.longShadow, src, dst, 270, false, 0, 0);
-                            gv.DrawBitmap(gv.cc.longShadow, src, dst, 270, false, 0, 0);
+                            gv.DrawBitmap(gv.cc.longShadow, src, dst, 270, false, 0, 0, 0, 0, 0.75f);
                         }
                         else if (tile.isInShortShadeE)
                         {
@@ -3465,7 +3465,7 @@ namespace IceBlink2
                         if (tile.isInLongShadeS)
                         {
                             gv.DrawBitmap(gv.cc.longShadow, src, dst, 0, false, 0, 0);
-                            gv.DrawBitmap(gv.cc.longShadow, src, dst, 0, false, 0, 0);
+                            gv.DrawBitmap(gv.cc.longShadow, src, dst, 0, false, 0, 0, 0, 0, 0.75f);
                         }
                         else if (tile.isInShortShadeS)
                         {
@@ -3489,7 +3489,7 @@ namespace IceBlink2
                         if (tile.isInLongShadeW)
                         {
                             gv.DrawBitmap(gv.cc.longShadow, src, dst, 90, false, 0, 0);
-                            gv.DrawBitmap(gv.cc.longShadow, src, dst, 90, false, 0, 0);
+                            gv.DrawBitmap(gv.cc.longShadow, src, dst, 90, false, 0, 0, 0, 0, 0.75f);
                         }
                         else if (tile.isInShortShadeW)
                         {
@@ -3526,7 +3526,7 @@ namespace IceBlink2
                                 if ((!tile.inRampShadowNorth5Long) && (!tile.inRampShadowWest2Long))
                                 {
                                     gv.DrawBitmap(gv.cc.longShadowCorner, src, dst, 180, false, 0, 0);
-                                    gv.DrawBitmap(gv.cc.longShadowCorner, src, dst, 180, false, 0, 0);
+                                    gv.DrawBitmap(gv.cc.longShadowCorner, src, dst, 180, false, 0, 0, 0, 0, 0.5f);
                                 }
                             }
                             else if ((tile.isInShortShadeNW) && (!tile.inRampShadowNorth5Short) && (!tile.inRampShadowWest2Short) && !tile.inRampShadowNorth6Short && !tile.inRampShadowWest1Short && (!tile.inRampShadowNorth5Long) && (!tile.inRampShadowWest2Long) && !tile.inRampShadowNorth6Long && !tile.inRampShadowWest1Long)
@@ -3550,7 +3550,7 @@ namespace IceBlink2
                                     //teeladen
 
                                     gv.DrawBitmap(gv.cc.longShadowCorner, src, dst, 180, false, 0, 0);
-                                    gv.DrawBitmap(gv.cc.longShadowCorner, src, dst, 180, false, 0, 0);
+                                    gv.DrawBitmap(gv.cc.longShadowCorner, src, dst, 180, false, 0, 0, 0, 0, 0.5f);
                                     //gv.DrawBitmap(gv.cc.longShadowCornerHalf, src, dst, 180, false, 0, 0);
                                 }
                             }
@@ -3571,7 +3571,7 @@ namespace IceBlink2
                                 if ((!tile.inRampShadowNorth6Long) && (!tile.inRampShadowEast4Long))
                                 {
                                     gv.DrawBitmap(gv.cc.longShadowCorner, src, dst, 270, false, 0, 0);
-                                    gv.DrawBitmap(gv.cc.longShadowCorner, src, dst, 270, false, 0, 0);
+                                    gv.DrawBitmap(gv.cc.longShadowCorner, src, dst, 270, false, 0, 0, 0, 0, 0.5f);
                                 }
                             }
                             else if ((tile.isInShortShadeNE) && (!tile.inRampShadowEast4Short) && (!tile.inRampShadowNorth6Short) && !tile.inRampShadowEast3Short && !tile.inRampShadowNorth5Short && (!tile.inRampShadowEast4Long) && (!tile.inRampShadowNorth6Long) && !tile.inRampShadowEast3Long && !tile.inRampShadowNorth5Long)
@@ -3593,7 +3593,7 @@ namespace IceBlink2
                                 {
                                     //teeladen
                                     gv.DrawBitmap(gv.cc.longShadowCorner, src, dst, 270, false, 0, 0);
-                                    gv.DrawBitmap(gv.cc.longShadowCorner, src, dst, 270, false, 0, 0);
+                                    gv.DrawBitmap(gv.cc.longShadowCorner, src, dst, 270, false, 0, 0, 0, 0, 0.5f);
                                     //mirror before
                                     //gv.DrawBitmap(gv.cc.longShadowCornerHalf, src, dst, 270, false, 0, 0);
                                 }
@@ -3615,7 +3615,7 @@ namespace IceBlink2
                                 if ((!tile.inRampShadowSouth8Long) && (!tile.inRampShadowEast3Long))
                                 {
                                     gv.DrawBitmap(gv.cc.longShadowCorner, src, dst, 0, false, 0, 0);
-                                    gv.DrawBitmap(gv.cc.longShadowCorner, src, dst, 0, false, 0, 0);
+                                    gv.DrawBitmap(gv.cc.longShadowCorner, src, dst, 0, false, 0, 0, 0, 0, 0.5f);
                                 }
                             }
                             else if ((tile.isInShortShadeSE) && (!tile.inRampShadowEast3Short) && (!tile.inRampShadowSouth8Short) && !tile.inRampShadowEast4Short && ! tile.inRampShadowSouth7Short && (!tile.inRampShadowEast3Long) && (!tile.inRampShadowSouth8Long) && !tile.inRampShadowEast4Long && !tile.inRampShadowSouth7Long)
@@ -3637,7 +3637,7 @@ namespace IceBlink2
                                 {
                                     //teeladen
                                     gv.DrawBitmap(gv.cc.longShadowCorner, src, dst, 0, false, 0, 0);
-                                    gv.DrawBitmap(gv.cc.longShadowCorner, src, dst, 0, false, 0, 0);
+                                    gv.DrawBitmap(gv.cc.longShadowCorner, src, dst, 0, false, 0, 0, 0,0,0.5f);
                                     //no mirror before
                                     //gv.DrawBitmap(gv.cc.longShadowCornerHalfMirror, src, dst, 0, false, 0, 0);
                                 }
@@ -3659,7 +3659,7 @@ namespace IceBlink2
                                 if ((!tile.inRampShadowSouth7Long) && (!tile.inRampShadowWest1Long))
                                 {
                                     gv.DrawBitmap(gv.cc.longShadowCorner, src, dst, 90, false, 0, 0);
-                                    gv.DrawBitmap(gv.cc.longShadowCorner, src, dst, 90, false, 0, 0);
+                                    gv.DrawBitmap(gv.cc.longShadowCorner, src, dst, 90, false, 0, 0, 0, 0, 0.5f);
                                 }
                             }
                             else if ((tile.isInShortShadeSW) && (!tile.inRampShadowWest1Short) && (!tile.inRampShadowSouth7Short) && !tile.inRampShadowWest2Short && !tile.inRampShadowSouth8Short && (!tile.inRampShadowSouth7Long) && (!tile.inRampShadowWest1Long) && !tile.inRampShadowSouth8Long && !tile.inRampShadowWest2Long)
@@ -3681,7 +3681,7 @@ namespace IceBlink2
                                 {
                                     //teeladen
                                     gv.DrawBitmap(gv.cc.longShadowCorner, src, dst, 90, false, 0, 0);
-                                    gv.DrawBitmap(gv.cc.longShadowCorner, src, dst, 90, false, 0, 0);
+                                    gv.DrawBitmap(gv.cc.longShadowCorner, src, dst, 90, false, 0, 0, 0, 0, 0.5f);
                                     //gv.DrawBitmap(gv.cc.longShadowCornerHalfMirror, src, dst, 90, false, 0, 0);
                                 }
                             }
@@ -32397,7 +32397,7 @@ namespace IceBlink2
                                         dstSkull.Top = dst.Top - 4* (int)(dst.Height / 3); ;
                                         shift = (int)((i2 + 0.5f) * (dst.Width / 3f)); dstSkull.Left += shift;
                                         //großvater
-                                        gv.DrawBitmap(gv.cc.slowSymbol, src, dstSkull);
+                                        //gv.DrawBitmap(gv.cc.slowSymbol, src, dstSkull);
                                         //gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
                                     }
                                     /*

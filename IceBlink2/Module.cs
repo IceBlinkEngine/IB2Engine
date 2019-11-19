@@ -222,6 +222,8 @@ namespace IceBlink2
 
         public bool useAlternativeSpeechBubbleSystem = true;
 
+        //public bool showGuildInfo = true;
+
         public bool realTimeTimerStopped = false;
 
         public int poorVisionModifier = 0;

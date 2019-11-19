@@ -4631,6 +4631,16 @@ namespace IceBlink2
                         //p3 is amount of modification
                         ModifyFactionStrength(p1, prm2, p3);
                     }
+                    else if (filename.Equals("gaSetGuildDataForPC.cs"))
+                    {
+                        //p1 is the "name of pc" OR "leader"/-1 (for leader/speaker) OR "number of pc" in group
+                        //p2 (string)guild name text (guildName), like e.g. "Church: Burning Heart Heralds", "Guild: Stonemasons", "Desperados"
+                        //p3 (string)rank name text (guildRankName), like  e.g. "Initiate (Rank 1)", "Rank: Mastermason"
+                        //p4 (int) change existing rank to this nummber, use ++ or -- for increasing/decreasing
+                        SetGuildDataForPC(p1,p2,p3,p4);
+
+                    }
+                   
                     else if (filename.Equals("gaJumpChasm.cs"))
                     {
 
@@ -7309,6 +7319,16 @@ namespace IceBlink2
                         int parm3 = Convert.ToInt32(p3);
                         gv.mod.returnCheck = CheckGlobalInt(prm1, prm2, parm3);
                     }
+                    else if (filename.Equals("gcCheckGuildRankOfPC.cs"))
+                    {
+
+                        //gcCheckGuildRankOfPC script will be helpful
+                        //p1 is the "name of pc" OR "leader"/"-1" (for speaker/leader) OR "number of pc" in group
+                        //p2 (string)guild name text, use "none" to identify pc without guild; note: use also guild name included prefixes, like "Rank:" if you used such
+                        //p3 comparison operator: =,>,<,! 
+                        //p4(int) required rank
+                        CheckGuildRankOfPC(p1, p2, p3,p4);
+                    }
                     else if (filename.Equals("gcCheckIsInDarkness.cs"))
                     {
                         gv.mod.returnCheck = CheckIsInDarkness(p1, p2);
@@ -8542,10 +8562,7 @@ namespace IceBlink2
 
                         Prop prp = GetPropByUniqueTag(p1);
 
-                        if (prp.PropTag == "newPropTag_8745_17123")
-                        {
-                            int hg = 0;
-                        }
+                  
                         prp.oldPath.Clear();
                         float oldPixPosX = prp.currentPixelPositionX;
                         float oldPixPosY = prp.currentPixelPositionY;
@@ -8624,8 +8641,125 @@ namespace IceBlink2
                             Prop prp2 = prp.DeepCopy();
                             //prp2.lastLocationX = prp.LocationX;
                             //prp2.lastLocationY = prp.LocationY;
-                            prp2.LocationX = Convert.ToInt32(p3);
-                            prp2.LocationY = Convert.ToInt32(p4);
+
+                            //todo: need to check whther the target square is ouccupieb by anothe rmoivign prop; if so search enarby square of same, height, walkbale, with no prop or movwr
+                            bool targetSquareIsFree = true;
+                            
+                            foreach (Area a in gv.mod.moduleAreasObjects)
+                            {
+                                if (a.Filename == p2)
+                                {
+                                    foreach (Prop p in a.Props)
+                                    {
+                                        if (p.isMover && p.isActive)
+                                        {
+                                            if (p.LocationX == Convert.ToInt32(p3) && p.LocationY == Convert.ToInt32(p4))
+                                            {
+                                                targetSquareIsFree = false;                                               
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+
+                            int candidateX = Convert.ToInt32(p3);
+                            int candidateY = Convert.ToInt32(p4);
+
+                            bool breakAll = false;
+
+                            if (!targetSquareIsFree)
+                            {
+                                foreach (Area a in gv.mod.moduleAreasObjects)
+                                {
+                                    if (a.Filename == p2)
+                                    {
+                                        if (breakAll)
+                                        {
+                                            break;
+                                        }
+
+                                        int radius = 1;
+
+                                        for (int h = radius; h < 4; h++)
+                                        {
+                                            if (breakAll)
+                                            {
+                                                break;
+                                            }
+                                            for (int i = candidateX - radius; i <= candidateX + radius; i++)
+                                            {
+                                                if (breakAll)
+                                                {
+                                                    break;
+                                                }
+
+                                                for (int j = candidateY - radius; j <= candidateY + radius; j++)
+                                                {
+                                                    //only on target map
+                                                    if (i >= 0 && i < newAreaSizeX && j >= 0 && j < newAreaSizeY)
+                                                    {
+                                                        bool foundOccupied = false;
+                                                        //not player squre, done
+                                                        //not non-walkable, done
+                                                        //not different height than target square
+                                                        //not occupied by mover or porp with collission, done
+                                                        if (gv.mod.PlayerLocationX == i && gv.mod.PlayerLocationY == j)
+                                                        {
+                                                            foundOccupied = true;
+                                                        }
+
+                                                        if (a.Tiles[j * a.MapSizeX + i].Walkable == false)
+                                                        {
+                                                            foundOccupied = true;
+                                                        }
+                                                         
+                                                        foreach (Prop p in a.Props)
+                                                        {
+                                                            if (p.LocationX == i && p.LocationY == j)
+                                                            {
+                                                                if (p.isMover && p.isActive)
+                                                                {
+                                                                    foundOccupied = true;
+                                                                }
+
+                                                                if (p.HasCollision && p.isActive)
+                                                                {
+                                                                    foundOccupied = true;
+                                                                }
+                                                            }
+                                                        }
+
+                                                        if (a.Tiles[j * a.MapSizeX + i].heightLevel != a.Tiles[candidateY * a.MapSizeX + candidateX].heightLevel)
+                                                        {
+                                                            foundOccupied = true;
+                                                        }
+
+                                                        if (!foundOccupied)
+                                                        {
+                                                            candidateX = i;
+                                                            candidateY = j;
+                                                            breakAll = true;
+                                                            break;
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+
+                            if (breakAll)
+                            {
+                                prp2.LocationX = candidateX;
+                                prp2.LocationY = candidateY;
+                            }
+                            else
+                            {
+                                prp2.LocationX = Convert.ToInt32(p3);
+                                prp2.LocationY = Convert.ToInt32(p4);
+                            }
+                            
                             gv.cc.DisposeOfBitmap(ref prp2.token);
                             prp2.token = gv.cc.LoadBitmap(prp.ImageFileName);
                             if (isBetweenNearbysMover)
@@ -11902,6 +12036,67 @@ namespace IceBlink2
             }
             return false;
         }
+
+        public bool CheckGuildRankOfPC(string pc, string guildIdentifier, string compare, string valueString)
+        {
+            int index = -2;
+            if (pc == "leader" || pc == "Leader" || pc == "-1" || pc == "this" || pc == "This")
+            {
+                index = gv.mod.selectedPartyLeader;
+            }
+
+            for (int i = gv.mod.playerList.Count - 1; i >= 0; i--)
+            {
+                if (gv.mod.playerList[i].name == pc)
+                {
+                    index = i;
+                }
+            }
+
+            if (index == -2)
+            {
+                index = Convert.ToInt32(pc);
+            }
+
+            if (gv.mod.playerList[index].guildName != guildIdentifier)
+            {
+                return false;
+            }
+
+            int value = Convert.ToInt32(valueString);
+
+            if (compare.Equals("="))
+            {
+                if (gv.mod.playerList[index].guildRank == value)
+                {
+                    return true;
+                }
+            }
+            else if (compare.Equals(">"))
+            {
+                if (gv.mod.playerList[index].guildRank > value)
+                {
+                    return true;
+                }
+            }
+            else if (compare.Equals("<"))
+            {
+                if (gv.mod.playerList[index].guildRank < value)
+                {
+                    return true;
+                }
+            }
+            else if (compare.Equals("!"))
+            {
+                if (gv.mod.playerList[index].guildRank != value)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
         public bool CheckLocalInt(string objectTag, string variableName, string compare, int value)
         {
             if (mod.debugMode) //SD_20131102
@@ -12101,6 +12296,44 @@ namespace IceBlink2
                 gv.cc.addLogText("<font color='yellow'>couldn't find the object with the tag (tag: " + objectTag + ") specified (only Creatures or Areas)</font><BR>");
             }
             return false;
+        }
+
+        public void SetGuildDataForPC(string pc, string guildName, string rankName, string rankNumber)
+        {
+           int  index = -2;
+           if (pc == "leader" || pc == "Leader" || pc == "-1" || pc == "this" || pc == "This")
+           {
+                index = gv.mod.selectedPartyLeader;
+           }
+
+            for(int i = gv.mod.playerList.Count - 1; i >= 0; i--)
+            {
+                if (gv.mod.playerList[i].name == pc)
+                {
+                    index = i;
+                }
+            }
+
+            if (index == -2)
+            {
+                index = Convert.ToInt32(pc);
+            }
+
+            gv.mod.playerList[index].guildName = guildName;
+            gv.mod.playerList[index].guildRankName = rankName;
+            if (rankNumber == "++")
+            {
+                gv.mod.playerList[index].guildRank++;
+            }
+            else if (rankNumber == "--")
+            {
+                gv.mod.playerList[index].guildRank--;
+            }
+            else
+            {
+                gv.mod.playerList[index].guildRank = Convert.ToInt32(rankNumber);
+            }
+
         }
 
         public void ModifyFactionStrength(string factionTag, string transformType, string amount)

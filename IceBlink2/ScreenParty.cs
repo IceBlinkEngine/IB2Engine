@@ -618,6 +618,27 @@ namespace IceBlink2
             gv.DrawText("FORT: " + pc.fortitude + ", Acid: " + pc.damageTypeResistanceTotalAcid + "%" + ", Cold: " + pc.damageTypeResistanceTotalCold + "%" + ", Normal: " + pc.damageTypeResistanceTotalNormal + "%", tabX2, locY2 += spacing);
             gv.DrawText("REF:   " + pc.reflex + ", Electricity: " + pc.damageTypeResistanceTotalElectricity + "%" + ", Fire: " + pc.damageTypeResistanceTotalFire + "%", tabX2, locY2 += spacing);
             gv.DrawText("WILL: " + pc.will + ", Magic: " + pc.damageTypeResistanceTotalMagic + "%" + ", Poison: " + pc.damageTypeResistanceTotalPoison + "%", tabX2, locY2 += spacing);
+
+            
+                if (gv.mod.playerList[gv.mod.selectedPartyLeader].guildName != "none")
+                {
+                    gv.DrawText(gv.mod.playerList[gv.mod.selectedPartyLeader].guildName, 3 * gv.squareSize + (pW * 1) + gv.oXshift, locY2 += (spacing * 2));
+                }
+
+                if (gv.mod.playerList[gv.mod.selectedPartyLeader].guildRankName != "none")
+                {
+                    gv.DrawText(gv.mod.playerList[gv.mod.selectedPartyLeader].guildRankName, tabX2, locY2);
+                }
+            
+
+            /*
+             public string guildIdentifier = "none";//e.g. "Guild:"
+        public string guildName = "none";// e.g. "West Corinth Trading Company"
+        public string guildRankIdentifier = "none";//e.g. "Rank:"
+        public string guildRankName = "none";// e.g. "Initiate(Rank 1)"
+        public int guildRank = 0;
+        */
+
             //WIS             
             gv.DrawText("WIS:", locX + pW, locY += (spacing));
             gv.DrawText(pc.baseWis.ToString(), locX + 3 * pW * 2, locY);

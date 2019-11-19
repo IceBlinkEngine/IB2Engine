@@ -10692,7 +10692,7 @@ namespace IceBlink2
                                             //if (a.Filename == gv.mod.moduleAreasObjects[relevantAreaIndex].Props[relevantPropIndex].WayPointList[listEndCheckedIndexOfNextWaypoint].areaName)
                                             if (a.Filename == targetAreaName)
                                             {
-                                                    gv.screenMainMap.addFloatyText(a.Props[a.Props.Count - 1], "Just arrived here", "white", 4000);
+                                                    gv.screenMainMap.addFloatyText(a.Props[a.Props.Count - 1], "Just arrived here", "white", 2000);
                                                     break;
                                                 }
                                             //}
@@ -11355,7 +11355,7 @@ namespace IceBlink2
                                                             {
                                                                 if (gv.mod.currentArea.Filename == gv.mod.moduleAreasObjects[h].Filename)
                                                                 {
-                                                                    gv.screenMainMap.addFloatyText(gv.mod.moduleAreasObjects[h].Props[i].LocationX, gv.mod.moduleAreasObjects[h].Props[i].LocationY, "Heading off towards " + shownAreaName, "white", 4000);
+                                                                    gv.screenMainMap.addFloatyText(gv.mod.moduleAreasObjects[h].Props[i].LocationX, gv.mod.moduleAreasObjects[h].Props[i].LocationY, "Heading off towards " + shownAreaName, "white", 2000);
                                                                 }
                                                                 //gv.screenMainMap.addFloatyText(gv.mod.moduleAreasObjects[h].Props[i], "Just arrived here", "white", 4000);
                                                                 //gv.screenMainMap.addFloatyText(gv.mod.moduleAreasObjects[h].Props[i], "Heading off towards " + shownAreaName, "white", 4000);
@@ -11375,7 +11375,7 @@ namespace IceBlink2
                                                             {
                                                                 if (gv.mod.currentArea.Filename == gv.mod.moduleAreasObjects[h].Filename)
                                                                 {
-                                                                    gv.screenMainMap.addFloatyText(gv.mod.moduleAreasObjects[h].Props[i].LocationX, gv.mod.moduleAreasObjects[h].Props[i].LocationY, "Heading off", "white", 4000);
+                                                                    gv.screenMainMap.addFloatyText(gv.mod.moduleAreasObjects[h].Props[i].LocationX, gv.mod.moduleAreasObjects[h].Props[i].LocationY, "Heading off", "white", 2000);
                                                                 }
                                                                 //gv.screenMainMap.addFloatyText(gv.mod.moduleAreasObjects[h].Props[i], "Heading off", "white", 4000);
                                                             }
@@ -11427,7 +11427,7 @@ namespace IceBlink2
                                                             {
                                                                 if (gv.mod.currentArea.Filename == gv.mod.moduleAreasObjects[h].Filename)
                                                                 {
-                                                                    gv.screenMainMap.addFloatyText(gv.mod.moduleAreasObjects[h].Props[i].LocationX, gv.mod.moduleAreasObjects[h].Props[i].LocationY, "Heading off towards " + shownAreaName, "white", 4000);
+                                                                    gv.screenMainMap.addFloatyText(gv.mod.moduleAreasObjects[h].Props[i].LocationX, gv.mod.moduleAreasObjects[h].Props[i].LocationY, "Heading off towards " + shownAreaName, "white", 2000);
                                                                 }
                                                                 //gv.screenMainMap.addFloatyText(gv.mod.moduleAreasObjects[h].Props[i], "Heading off towards " + shownAreaName, "white", 4000);
                                                             }
@@ -11435,7 +11435,7 @@ namespace IceBlink2
                                                             {
                                                                 if (gv.mod.currentArea.Filename == gv.mod.moduleAreasObjects[h].Filename)
                                                                 {
-                                                                    gv.screenMainMap.addFloatyText(gv.mod.moduleAreasObjects[h].Props[i].LocationX, gv.mod.moduleAreasObjects[h].Props[i].LocationY, "Heading off", "white", 4000);
+                                                                    gv.screenMainMap.addFloatyText(gv.mod.moduleAreasObjects[h].Props[i].LocationX, gv.mod.moduleAreasObjects[h].Props[i].LocationY, "Heading off", "white", 2000);
                                                                 }
                                                                 //gv.screenMainMap.addFloatyText(gv.mod.moduleAreasObjects[h].Props[i], "Heading off", "white", 4000);
                                                             }
@@ -11828,7 +11828,7 @@ namespace IceBlink2
                                         //}
                                         //}
                                         //IBMessageBox.Show(gv, "Prop just appeared");
-                                        gv.screenMainMap.addFloatyText(gv.mod.moduleAreasObjects[relevantAreaIndex].Props[relevantPropIndex], "Just arrived here", "white", 4000);
+                                        gv.screenMainMap.addFloatyText(gv.mod.moduleAreasObjects[relevantAreaIndex].Props[relevantPropIndex], "Just arrived here", "white", 2000);
 
                                     }
                                 }
@@ -12478,7 +12478,7 @@ namespace IceBlink2
                                                 {
                                                     //if (gv.mod.currentArea.Filename == gv.mod.moduleAreasObjects[i].Filename)
                                                     //{
-                                                        gv.screenMainMap.addFloatyText(gv.mod.currentArea.Props[i].LocationX, gv.mod.currentArea.Props[i].LocationY, "Heading off towards " + shownAreaName, "white", 4000);
+                                                        gv.screenMainMap.addFloatyText(gv.mod.currentArea.Props[i].LocationX, gv.mod.currentArea.Props[i].LocationY, "Heading off towards " + shownAreaName, "white", 2000);
                                                     //}
                                                     //gv.screenMainMap.addFloatyText(gv.mod.currentArea.Props[i], "Heading off towards " + shownAreaName, "white", 4000);
                                                 }
@@ -12486,7 +12486,7 @@ namespace IceBlink2
                                                 {
                                                     //if (gv.mod.currentArea.Filename == gv.mod.moduleAreasObjects[i].Filename)
                                                     //{
-                                                        gv.screenMainMap.addFloatyText(gv.mod.currentArea.Props[i].LocationX, gv.mod.currentArea.Props[i].LocationY, "Heading off", "white", 4000);
+                                                        gv.screenMainMap.addFloatyText(gv.mod.currentArea.Props[i].LocationX, gv.mod.currentArea.Props[i].LocationY, "Heading off", "white", 2000);
                                                     //}
                                                     //gv.screenMainMap.addFloatyText(gv.mod.currentArea.Props[i], "Heading off", "white", 4000);
                                                 }
@@ -12514,12 +12514,12 @@ namespace IceBlink2
                                                 if (shownAreaName != "newArea" && shownAreaName != "" && shownAreaName != "none")
                                                 {
                                                    
-                                                        gv.screenMainMap.addFloatyText(gv.mod.currentArea.Props[i].LocationX, gv.mod.currentArea.Props[i].LocationY, "Heading off towards " + shownAreaName, "white", 4000);
+                                                        gv.screenMainMap.addFloatyText(gv.mod.currentArea.Props[i].LocationX, gv.mod.currentArea.Props[i].LocationY, "Heading off towards " + shownAreaName, "white", 2000);
                                                     //gv.screenMainMap.addFloatyText(gv.mod.currentArea.Props[i], "Heading off towards " + shownAreaName, "white", 4000);
                                                 }
                                                 else
                                                 {
-                                                    gv.screenMainMap.addFloatyText(gv.mod.currentArea.Props[i].LocationX, gv.mod.currentArea.Props[i].LocationY, "Heading off", "white", 4000);
+                                                    gv.screenMainMap.addFloatyText(gv.mod.currentArea.Props[i].LocationX, gv.mod.currentArea.Props[i].LocationY, "Heading off", "white", 2000);
                                                     //gv.screenMainMap.addFloatyText(gv.mod.currentArea.Props[i], "Heading off", "white", 4000);
 
                                                 }

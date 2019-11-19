@@ -1,6 +1,6 @@
 {
   "areaFilename": "none",
-  "currentlySelectedWayPointIndex": 0,
+  "currentlySelectedWayPointIndex": 5,
   "formerDirection": "E",
   "masterAreasList": [
     "exampleArea"
@@ -230,7 +230,7 @@
   "MaxPartySize": 6,
   "moduleDescription": "Short module tutorial on how to make a simple module.",
   "moduleCredits": "<big><b>Unwanted Guests</b></big><BR>\r\n<BR>\r\n-visit the forums for more info:<BR>\r\nwww.iceblinkengine.com/forums",
-  "nextIdNumber": 17216,
+  "nextIdNumber": 17218,
   "realTimeTimerLengthInMilliSeconds": 1500,
   "borderAreaSize": 0,
   "WorldTime": 626572800,
