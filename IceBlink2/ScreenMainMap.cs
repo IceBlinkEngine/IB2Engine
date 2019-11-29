@@ -31726,8 +31726,11 @@ namespace IceBlink2
                     {
                         try
                         {
-                            
-                            
+                            //kroko
+                            if (p.PropTag == "newPropTag_8745_17123")
+                            {
+                                int hgh = 0;
+                            }
                             //insert1                        
                             bool tileBitmapIsLoadedAlready = false;
                             int indexOfLoadedTile = -1;

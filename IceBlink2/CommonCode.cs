@@ -11307,6 +11307,85 @@ namespace IceBlink2
                                     departureTimeReached = true;
                                 }
 
+
+                                        //timeUnitsList = gv.mod.currentArea.Props[i].WayPointList[gv.mod.currentArea.Props[i].WayPointListCurrentIndex].departureTime.Split(':').Select(x => x.Trim()).ToList();
+                                        bool imminentLeave = false;
+                                        bool isSmoothTransitionSituation = false;
+                                        if (gv.mod.moduleAreasObjects[h].Props[i].WayPointList.Count > 0)
+                                        {
+                                            //chokepoint, DONE
+                                            //doubel move, fast enough, DONE
+                                            //deetct whether before or after are on different map, DONE 
+                                            //let nearby enter occpied when on border and next wp is on doiffern map; but NEARBY mover sonly, ALMOST, add neighboruing areas requirement
+                                            //do same trick for patroling props/time driven movers who are moved via setlocation, NO, BUGGY
+                                            if (gv.mod.moduleAreasObjects[h].Props[i].LocationX == gv.mod.moduleAreasObjects[h].Props[i].WayPointList[gv.mod.moduleAreasObjects[h].Props[i].WayPointListCurrentIndex].X && gv.mod.moduleAreasObjects[h].Props[i].LocationY == gv.mod.moduleAreasObjects[h].Props[i].WayPointList[gv.mod.moduleAreasObjects[h].Props[i].WayPointListCurrentIndex].Y)
+                                            {
+                                                //add requirement for neighbouring areas, too
+                                                if (gv.mod.moduleAreasObjects[h].Props[i].WayPointList[gv.mod.moduleAreasObjects[h].Props[i].WayPointListCurrentIndex].X == 0 || gv.mod.moduleAreasObjects[h].Props[i].WayPointList[gv.mod.moduleAreasObjects[h].Props[i].WayPointListCurrentIndex].X == gv.mod.moduleAreasObjects[h].MapSizeX - 1)
+                                                {
+                                                    imminentLeave = true;
+                                                }
+
+                                                if (gv.mod.moduleAreasObjects[h].Props[i].WayPointList[gv.mod.moduleAreasObjects[h].Props[i].WayPointListCurrentIndex].Y == 0 || gv.mod.moduleAreasObjects[h].Props[i].WayPointList[gv.mod.moduleAreasObjects[h].Props[i].WayPointListCurrentIndex].Y == gv.mod.moduleAreasObjects[h].MapSizeY - 1)
+                                                {
+                                                    imminentLeave = true;
+                                                }
+                                                
+
+
+                                                //next wp is on differnt map
+                                                //next waypopint higher
+                                                //requires at least two waypoints
+                                              
+                                                if (gv.mod.moduleAreasObjects[h].Props[i].WayPointList.Count > 1)
+                                                {
+                                                    //look at next wp up until last
+                                                    if (gv.mod.moduleAreasObjects[h].Props[i].WayPointListCurrentIndex + 1 < gv.mod.moduleAreasObjects[h].Props[i].WayPointList.Count)
+                                                    {
+                                                        if (gv.mod.moduleAreasObjects[h].Props[i].WayPointList[gv.mod.moduleAreasObjects[h].Props[i].WayPointListCurrentIndex].areaName != gv.mod.moduleAreasObjects[h].Props[i].WayPointList[gv.mod.moduleAreasObjects[h].Props[i].WayPointListCurrentIndex + 1].areaName)
+                                                        {
+                                                            isSmoothTransitionSituation = true;
+                                                        }
+                                                    }
+                                                    //next waypoint at start, ie 0
+                                                    else
+                                                    {
+                                                        if (gv.mod.moduleAreasObjects[h].Props[i].WayPointList[gv.mod.moduleAreasObjects[h].Props[i].WayPointListCurrentIndex].areaName != gv.mod.moduleAreasObjects[h].Props[i].WayPointList[0].areaName)
+                                                        {
+                                                            isSmoothTransitionSituation = true;
+                                                        }
+                                                    }
+
+                                                    //look at last wp up until 0
+                                                    if (gv.mod.moduleAreasObjects[h].Props[i].WayPointListCurrentIndex - 1 >= 0)
+                                                    {
+                                                        if (gv.mod.moduleAreasObjects[h].Props[i].WayPointList[gv.mod.moduleAreasObjects[h].Props[i].WayPointListCurrentIndex].areaName != gv.mod.moduleAreasObjects[h].Props[i].WayPointList[gv.mod.moduleAreasObjects[h].Props[i].WayPointListCurrentIndex - 1].areaName)
+                                                        {
+                                                            isSmoothTransitionSituation = true;
+                                                        }
+                                                    }
+                                                    //last waypoint in list referred
+                                                    else
+                                                    {
+                                                        if (gv.mod.moduleAreasObjects[h].Props[i].WayPointList[gv.mod.moduleAreasObjects[h].Props[i].WayPointListCurrentIndex].areaName != gv.mod.moduleAreasObjects[h].Props[i].WayPointList[gv.mod.moduleAreasObjects[h].Props[i].WayPointList.Count-1].areaName)
+                                                        {
+                                                            isSmoothTransitionSituation = true;
+                                                        }
+                                                    }
+                                                }
+
+                                            }
+                                            
+                                        }
+
+                                        if (imminentLeave && isSmoothTransitionSituation)
+                                        //if (isSmoothTransitionSituation)
+                                        {
+
+                                            departureTimeReached = true;
+                                        }
+
+
                                 if (gv.mod.moduleAreasObjects[h].Props[i].WayPointList.Count > 0)
                                 {
 
@@ -11479,7 +11558,47 @@ namespace IceBlink2
                                             }
                                             if (moveDist > 0)
                                             {
-                                                this.moveToTarget(gv.mod.moduleAreasObjects[h].Props[i].CurrentMoveToTarget.X, gv.mod.moduleAreasObjects[h].Props[i].CurrentMoveToTarget.Y, gv.mod.moduleAreasObjects[h].Props[i], moveDist);
+
+                                                        bool imminentLeave2 = false;
+                                                        //add requirement for neighbouring areas, too
+                                                        if (gv.mod.moduleAreasObjects[h].Props[i].WayPointList.Count > 1)
+                                                        {
+                                                            if (gv.mod.moduleAreasObjects[h].Props[i].WayPointList[gv.mod.moduleAreasObjects[h].Props[i].WayPointListCurrentIndex].X == 0 || gv.mod.moduleAreasObjects[h].Props[i].WayPointList[gv.mod.moduleAreasObjects[h].Props[i].WayPointListCurrentIndex].X == gv.mod.moduleAreasObjects[h].MapSizeX - 1)
+                                                            {
+                                                                imminentLeave2 = true;
+                                                            }
+
+                                                            if (gv.mod.moduleAreasObjects[h].Props[i].WayPointList[gv.mod.moduleAreasObjects[h].Props[i].WayPointListCurrentIndex].Y == 0 || gv.mod.moduleAreasObjects[h].Props[i].WayPointList[gv.mod.moduleAreasObjects[h].Props[i].WayPointListCurrentIndex].Y == gv.mod.moduleAreasObjects[h].MapSizeY - 1)
+                                                            {
+                                                                imminentLeave2 = true;
+                                                            }
+
+                                                            if (imminentLeave2)
+                                                            {
+                                                                //look at next wp up until last
+                                                                if (gv.mod.moduleAreasObjects[h].Props[i].WayPointListCurrentIndex + 1 < gv.mod.moduleAreasObjects[h].Props[i].WayPointList.Count)
+                                                                {
+                                                                    if (gv.mod.moduleAreasObjects[h].Props[i].WayPointList[gv.mod.moduleAreasObjects[h].Props[i].WayPointListCurrentIndex].areaName != gv.mod.moduleAreasObjects[h].Props[i].WayPointList[gv.mod.moduleAreasObjects[h].Props[i].WayPointListCurrentIndex + 1].areaName)
+                                                                    {
+                                                                        gv.mod.moduleAreasObjects[h].Props[i].allowEnteringOccupiedSquare = true;
+                                                                    }
+                                                                }
+                                                                //next waypoint at start, ie 0
+                                                                else
+                                                                {
+                                                                    if (gv.mod.moduleAreasObjects[h].Props[i].WayPointList[gv.mod.moduleAreasObjects[h].Props[i].WayPointListCurrentIndex].areaName != gv.mod.moduleAreasObjects[h].Props[i].WayPointList[0].areaName)
+                                                                    {
+                                                                        gv.mod.moduleAreasObjects[h].Props[i].allowEnteringOccupiedSquare = true;
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
+
+                   
+                                                            //waypoint on border detect code, but only for next waypoint
+                                                            //eventually flag the move thorugh directly on the prop with a new property (allowMovewThrough); settign up grid in pathfinding would read this in
+
+                                                            this.moveToTarget(gv.mod.moduleAreasObjects[h].Props[i].CurrentMoveToTarget.X, gv.mod.moduleAreasObjects[h].Props[i].CurrentMoveToTarget.Y, gv.mod.moduleAreasObjects[h].Props[i], moveDist);
                                             }
                                             if (moveDist > 1)
                                             {
@@ -12383,7 +12502,7 @@ namespace IceBlink2
                                 bool registerRemoval = false;
 
                                 timeUnitsList = gv.mod.currentArea.Props[i].WayPointList[gv.mod.currentArea.Props[i].WayPointListCurrentIndex].departureTime.Split(':').Select(x => x.Trim()).ToList();
-
+                                 
                                 int dayCounter = Convert.ToInt32(timeUnitsList[0]);
                                 int hourCounter = Convert.ToInt32(timeUnitsList[1]);
                                 int minuteCounter = Convert.ToInt32(timeUnitsList[2]);
@@ -12449,6 +12568,7 @@ namespace IceBlink2
                                     departureTimeReached = true;
                                 }
 
+                            
                                 if (gv.mod.currentArea.Props[i].WayPointList.Count > 0)
                                 {
 
@@ -12968,7 +13088,7 @@ namespace IceBlink2
                 }
             }
 
-                    if (prp.LocationX == gv.mod.PlayerLocationX && prp.LocationY == gv.mod.PlayerLocationY && gv.mod.currentArea.Filename == gv.mod.moduleAreasObjects[propAreaIndex].Filename)
+            if (prp.LocationX == gv.mod.PlayerLocationX && prp.LocationY == gv.mod.PlayerLocationY && gv.mod.currentArea.Filename == gv.mod.moduleAreasObjects[propAreaIndex].Filename)
             {
                 if (prp.EncounterWhenOnPartySquare != "" && prp.EncounterWhenOnPartySquare != "none")
                 {
@@ -13133,6 +13253,12 @@ namespace IceBlink2
                             nextStepSquareIsOccupied = true;
                             break;
                         }
+                    }
+
+                    if (prp.allowEnteringOccupiedSquare)
+                    {
+                        nextStepSquareIsOccupied = false;
+                        prp.allowEnteringOccupiedSquare = false;
                     }
 
                     if (nextStepSquareIsOccupied)
@@ -13448,6 +13574,7 @@ namespace IceBlink2
                         int playerPositionYInPix = gv.playerOffsetY * gv.squareSize;
                         //wolfwood
                         //was 5
+                        //widescreenmarker
                         if ((xOffSetInSquares <= 14) && (xOffSetInSquares >= -14) && (yOffSetInSquares <= 8) && (yOffSetInSquares >= -8))
                         {
                             prp.destinationPixelPositionXList.Add(playerPositionXInPix + (xOffSetInSquares * gv.squareSize));

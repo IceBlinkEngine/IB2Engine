@@ -8468,92 +8468,7 @@ namespace IceBlink2
 
                     else if (filename.Equals("osSetPropLocationAnyArea.cs"))
                     {
-                        //todo: root code for having time driven props scroll "between" areas smoothly here? MAyhaps iwth the pixeldisatnces?
-                        /*
-                         //careful, watch for infinite loop, recursive calling here
-                                prp.LocationX = newCoor.X;
-                                prp.LocationY = newCoor.Y;
-
-                                int xOffSetInSquares = 0;
-                                int yOffSetInSquares = 0;
-                                if (gv.mod.PlayerLocationX >= prp.LocationX)
-                                {
-                                    xOffSetInSquares = prp.relocX - gv.mod.PlayerLocationX;
-                                }
-                                else
-                                {
-                                    xOffSetInSquares = prp.relocX - gv.mod.PlayerLocationX;
-                                }
-                                if (gv.mod.PlayerLocationY >= prp.LocationY)
-                                {
-                                    yOffSetInSquares = prp.relocY - gv.mod.PlayerLocationY;
-                                }
-                                else
-                                {
-                                    yOffSetInSquares = prp.relocY - gv.mod.PlayerLocationY;
-                                }
-                                int playerPositionXInPix = gv.oXshift + gv.screenMainMap.mapStartLocXinPixels + (gv.playerOffsetX * gv.squareSize);
-                                int playerPositionYInPix = gv.playerOffsetY * gv.squareSize;
-                                
-                          if ((xOffSetInSquares <= 14) && (xOffSetInSquares >= -14) && (yOffSetInSquares <= 8) && (yOffSetInSquares >= -8))
-                                {
-                                    prp.destinationPixelPositionXList.Add(playerPositionXInPix + (xOffSetInSquares * gv.squareSize));
-                                    prp.destinationPixelPositionYList.Add(playerPositionYInPix + (yOffSetInSquares * gv.squareSize));
-                                }
-                         */
-
-                        //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-                        //clear the lists with pixel destination coordinates of props
-                        /*
-                        a.Props[i].destinationPixelPositionXList.Clear();
-                        a.Props[i].destinationPixelPositionXList = new List<int>();
-                        a.Props[i].destinationPixelPositionYList.Clear();
-                        a.Props[i].destinationPixelPositionYList = new List<int>();
-                        a.Props[i].pixelMoveSpeed = 1;
-
-                        //we need to use modified x and y posiitons
-                        int modX = 0;
-                        int modY = 0;
-
-                        if (a.Filename == gv.mod.currentArea.northernNeighbourArea)
-                        {
-                            modX = a.Props[i].LocationX;
-                            //modY = a.Props[i].LocationY - (gv.mod.currentArea.MapSizeY - gv.mod.PlayerLocationY);
-                            //modY = a.Props[i].LocationY - (gv.mod.currentArea.MapSizeY - gv.mod.PlayerLocationY);
-                            modY = a.Props[i].LocationY - a.MapSizeY;
-                        }
-
-                        if (a.Filename == gv.mod.currentArea.southernNeighbourArea)
-                        {
-                            modX = a.Props[i].LocationX;
-                            modY = a.Props[i].LocationY + a.MapSizeY;
-                        }
-
-                        if (a.Filename == gv.mod.currentArea.westernNeighbourArea)
-                        {
-                            modY = a.Props[i].LocationY;
-                            //modY = a.Props[i].LocationY - (gv.mod.currentArea.MapSizeY - gv.mod.PlayerLocationY);
-                            //modY = a.Props[i].LocationY - (gv.mod.currentArea.MapSizeY - gv.mod.PlayerLocationY);
-                            modX = a.Props[i].LocationX - a.MapSizeX;
-                        }
-
-                        if (a.Filename == gv.mod.currentArea.easternNeighbourArea)
-                        {
-                            modY = a.Props[i].LocationY;
-                            modX = a.Props[i].LocationX + a.MapSizeX;
-                        }
-
-                        //a.Props[i].LocationY
-                        //set the currentPixel position of the props
-                        int xOffSetInSquares = modX - gv.mod.PlayerLocationX;
-                        int yOffSetInSquares = modY - gv.mod.PlayerLocationY;
-                        int playerPositionXInPix = gv.oXshift + gv.screenMainMap.mapStartLocXinPixels + (gv.playerOffsetX * gv.squareSize);
-                        int playerPositionYInPix = gv.playerOffsetY * gv.squareSize;
-
-                        a.Props[i].currentPixelPositionX = playerPositionXInPix + (xOffSetInSquares * gv.squareSize);
-                        a.Props[i].currentPixelPositionY = playerPositionYInPix + (yOffSetInSquares * gv.squareSize);
-                        */
-                        //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                       
 
                         //p1 is prop tag
                         //p2 is filename of target area
@@ -8570,8 +8485,14 @@ namespace IceBlink2
                         string oldArea = "none";
                         int oldAreaSizeX = 0;
                         int oldAreaSizeY = 0;
+
+                        string oldAreaNorthernNeighbour = "none";
+                        string oldAreaEasternNeighbour = "none";
+                        string oldAreaSouthernNeighbour = "none";
+                        string oldAreaWesternNeighbour = "none";
                         int newAreaSizeX = 0;
                         int newAreaSizeY = 0;
+
 
                         foreach (Area a in gv.mod.moduleAreasObjects)
                         {
@@ -8580,6 +8501,10 @@ namespace IceBlink2
                                 oldArea = a.Filename;
                                 oldAreaSizeX = a.MapSizeX;
                                 oldAreaSizeY = a.MapSizeY;
+                                oldAreaNorthernNeighbour = a.northernNeighbourArea;
+                                oldAreaEasternNeighbour = a.easternNeighbourArea;
+                                oldAreaSouthernNeighbour = a.southernNeighbourArea;
+                                oldAreaWesternNeighbour = a.westernNeighbourArea;
                                 break;
                             }
                         }
@@ -8608,12 +8533,12 @@ namespace IceBlink2
                       {
                             if (gv.mod.moduleAreasObjects[i].Filename == oldArea)
                             {
-                                oldIsNearby = true;
+                                 oldIsNearby = true;
                             }
 
                             if (gv.mod.moduleAreasObjects[i].Filename == p2)
                             {
-                                NewIsNearby = true;
+                                 NewIsNearby = true;
                             }
                         }
                        
@@ -8667,6 +8592,10 @@ namespace IceBlink2
 
                             bool breakAll = false;
 
+                            if (isBetweenNearbysMover)
+                            {
+                                targetSquareIsFree = true;
+                            }
                             if (!targetSquareIsFree)
                             {
                                 foreach (Area a in gv.mod.moduleAreasObjects)
@@ -8736,10 +8665,97 @@ namespace IceBlink2
 
                                                         if (!foundOccupied)
                                                         {
-                                                            candidateX = i;
-                                                            candidateY = j;
-                                                            breakAll = true;
-                                                            break;
+                                                            //cognac
+                                                            //if (!isBetweenNearbysMover)
+                                                            //{
+                                                                candidateX = i;
+                                                                candidateY = j;
+                                                                breakAll = true;
+                                                                break;
+                                                            //}
+                                                            //is between nearby mover - only glide along one axis
+                                                            //and only do so if squares on the path are walkable, same height, no collission props
+                                                            /*
+                                                            else
+                                                            {
+                                                                if (i == prp.LocationX || j == prp.LocationY)
+                                                                {
+
+                                                                    int xDistance = j - Convert.ToInt32(p3);
+                                                                    int yDistance = i - Convert.ToInt32(p4);
+
+                                                                    //moving along y axis or standing still
+                                                                    if (i == prp.LocationX)
+                                                                    {
+                                                                        if (yDistance == 0)
+                                                                        {
+                                                                            //to do adding pix pos code here, too
+                                                                            candidateX = i;
+                                                                            candidateY = j;
+                                                                            breakAll = true;
+                                                                            break;
+                                                                        }
+
+                                                                        //moving further south
+                                                                        if (yDistance == 1)
+                                                                        {
+                                                                            //add both (original target and new suqare
+                                                                        }
+
+                                                                        if (yDistance == 2)
+                                                                        {
+                                                                            //check the middle squre (1 y distance, it north of tartget, ie j-1) before acceptign this one
+                                                                            bool foundOccupied2 = false;
+                                                                            //not player squre, done
+                                                                            //not non-walkable, done
+                                                                            //not different height than target square
+                                                                            //not occupied by mover or porp with collission, done
+                                                                            if (gv.mod.PlayerLocationX == i && gv.mod.PlayerLocationY == (j-1))
+                                                                            {
+                                                                                foundOccupied2 = true;
+                                                                            }
+
+                                                                            if (a.Tiles[(j-1) * a.MapSizeX + i].Walkable == false)
+                                                                            {
+                                                                                foundOccupied2 = true;
+                                                                            }
+
+                                                                            foreach (Prop p in a.Props)
+                                                                            {
+                                                                                if (p.LocationX == i && p.LocationY == (j-1))
+                                                                                {
+                                                                                    if (p.isMover && p.isActive)
+                                                                                    {
+                                                                                        foundOccupied2 = true;
+                                                                                    }
+
+                                                                                    if (p.HasCollision && p.isActive)
+                                                                                    {
+                                                                                        foundOccupied2 = true;
+                                                                                    }
+                                                                                }
+                                                                            }
+
+                                                                            if (a.Tiles[(j-1) * a.MapSizeX + i].heightLevel != a.Tiles[candidateY * a.MapSizeX + candidateX].heightLevel)
+                                                                            {
+                                                                                foundOccupied2 = true;
+                                                                            }
+
+                                                                            if (!foundOccupied2)
+                                                                            {
+                                                                                //do the adding and breaking of all three
+                                                                            }
+                                                                            }
+                                                                        //dont forget same for X axis
+                                                                    }
+
+                                                                    //candidateX = i;
+                                                                    //candidateY = j;
+                                                                    //breakAll = true;
+                                                                    //break;
+                                                                }
+                                                            }
+                                                            */
                                                         }
                                                     }
                                                 }
@@ -8749,6 +8765,16 @@ namespace IceBlink2
                                 }
                             }
 
+                            //distance wrong croos map
+                            //current area wrong cross map
+                            //sigh!
+                            //work with adding all interim squares to destination list, so that prop pixel speed is correctly set (based on number of entries in that list)
+
+                            //int xDistance = 0;
+                            //int yDistance = 0;
+
+                            //non-nearby handlign here
+                            //neraby handlign compeltely in brackets above
                             if (breakAll)
                             {
                                 prp2.LocationX = candidateX;
@@ -8762,7 +8788,8 @@ namespace IceBlink2
                             
                             gv.cc.DisposeOfBitmap(ref prp2.token);
                             prp2.token = gv.cc.LoadBitmap(prp.ImageFileName);
-                            if (isBetweenNearbysMover)
+
+                            //if (isBetweenNearbysMover)
                             {
                                 //wolfwood12
                                 //clear current pix destinations / positions
@@ -8781,18 +8808,80 @@ namespace IceBlink2
                                 int modX = prp2.LocationX;
                                 int modY = prp2.LocationY;
 
+                                //get the names of the diagonal neighbours of the party
+                                string NENeighbour = "none";
+                                string SENeighbour = "none";
+                                string SWNeighbour = "none";
+                                string NWNeighbour = "none";
+
+                                foreach (Area a in gv.mod.moduleAreasObjects)
+                                {
+                                    if (a.Filename == gv.mod.currentArea.northernNeighbourArea)
+                                    {
+                                        if (a.easternNeighbourArea != "none")
+                                        {
+                                            NENeighbour = a.easternNeighbourArea;
+                                        }
+                                        if (a.westernNeighbourArea != "none")
+                                        {
+                                            NWNeighbour = a.westernNeighbourArea;
+                                        }
+                                    }
+
+                                    if (a.Filename == gv.mod.currentArea.easternNeighbourArea)
+                                    {
+                                        if (a.northernNeighbourArea != "none")
+                                        {
+                                            NENeighbour = a.northernNeighbourArea;
+                                        }
+                                        if (a.southernNeighbourArea != "none")
+                                        {
+                                            SENeighbour = a.southernNeighbourArea;
+                                        }
+                                    }
+
+
+                                    if (a.Filename == gv.mod.currentArea.southernNeighbourArea)
+                                    {
+                                        if (a.easternNeighbourArea != "none")
+                                        {
+                                            SENeighbour = a.easternNeighbourArea;
+                                        }
+                                        if (a.westernNeighbourArea != "none")
+                                        {
+                                            SWNeighbour = a.westernNeighbourArea;
+                                        }
+                                    }
+
+                                    if (a.Filename == gv.mod.currentArea.westernNeighbourArea)
+                                    {
+                                        if (a.northernNeighbourArea != "none")
+                                        {
+                                            NWNeighbour = a.northernNeighbourArea;
+                                        }
+                                        if (a.southernNeighbourArea != "none")
+                                        {
+                                            SWNeighbour = a.southernNeighbourArea;
+                                        }
+                                    }
+                                }
+
                                 if (p2 == gv.mod.currentArea.northernNeighbourArea)
                                 {
                                     modX = prp2.LocationX;
                                     //modY = a.Props[i].LocationY - (gv.mod.currentArea.MapSizeY - gv.mod.PlayerLocationY);
                                     //modY = a.Props[i].LocationY - (gv.mod.currentArea.MapSizeY - gv.mod.PlayerLocationY);
-                                    modY = prp2.LocationY - newAreaSizeY;
+
+                                    //modY = prp2.LocationY - newAreaSizeY;
+                                     modY = prp2.LocationY - newAreaSizeY;
                                 }
 
                                 if (p2 == gv.mod.currentArea.southernNeighbourArea)
                                 {
                                     modX = prp2.LocationX;
-                                    modY = prp2.LocationY + newAreaSizeY;
+
+                                    //modY = prp2.LocationY + newAreaSizeY;
+                                    modY = gv.mod.currentArea.MapSizeY + prp2.LocationY;
                                 }
 
                                 if (p2 == gv.mod.currentArea.westernNeighbourArea)
@@ -8800,27 +8889,115 @@ namespace IceBlink2
                                     modY = prp2.LocationY;
                                     //modY = a.Props[i].LocationY - (gv.mod.currentArea.MapSizeY - gv.mod.PlayerLocationY);
                                     //modY = a.Props[i].LocationY - (gv.mod.currentArea.MapSizeY - gv.mod.PlayerLocationY);
+
+                                    //modX = prp2.LocationX - newAreaSizeX;
                                     modX = prp2.LocationX - newAreaSizeX;
+                                    //modX = prp2.LocationX - newAreaSizeX;
                                 }
 
                                 if (p2 == gv.mod.currentArea.easternNeighbourArea)
                                 {
                                     modY = prp2.LocationY;
-                                    modX = prp2.LocationX + newAreaSizeX;
+
+                                    //modX = prp2.LocationX + newAreaSizeX;
+                                    modX = gv.mod.currentArea.MapSizeX + prp2.LocationX;
+                                    //modX = oldAreaSizeX + prp2.LocationX;
                                 }
+
+                                if (p2 == NENeighbour)
+                                {
+                                    modY = prp2.LocationY - newAreaSizeY;
+                                    modX = gv.mod.currentArea.MapSizeX + prp2.LocationX;
+                                }
+
+                                if (p2 == SENeighbour)
+                                {
+                                    modY = gv.mod.currentArea.MapSizeY + prp2.LocationY;
+                                    modX = gv.mod.currentArea.MapSizeX + prp2.LocationX;
+                                }
+
+                                if (p2 == SWNeighbour)
+                                {
+                                    modY = gv.mod.currentArea.MapSizeY + prp2.LocationY;
+                                    modX = prp2.LocationX - newAreaSizeX;
+                                }
+
+                                if (p2 == NWNeighbour)
+                                {
+                                    modY = prp2.LocationY - newAreaSizeY;
+                                    modX = prp2.LocationX - newAreaSizeX;
+                                }
+
 
                                 //prp2.destinationPixelPositionXList
                                 //set the current the asigend loxX, locy as destination pix pos
                                 //calcualte it first
 
+                                //jennytrouble
                                 int xOffSetInSquares = modX - gv.mod.PlayerLocationX;
                                 int yOffSetInSquares = modY - gv.mod.PlayerLocationY;
                                 int playerPositionXInPix = gv.oXshift + gv.screenMainMap.mapStartLocXinPixels + (gv.playerOffsetX * gv.squareSize);
                                 int playerPositionYInPix = gv.playerOffsetY * gv.squareSize;
 
-                                prp2.destinationPixelPositionXList.Add(playerPositionXInPix + (xOffSetInSquares * gv.squareSize));
-                                prp2.destinationPixelPositionYList.Add(playerPositionYInPix + (yOffSetInSquares * gv.squareSize));
+                                //if (playerPositionXInPix + (xOffSetInSquares * gv.squareSize) > -3 * gv.squareSize && playerPositionXInPix + (xOffSetInSquares * gv.squareSize) < gv.screenWidth + 3 * gv.squareSize)
+                                //{
+                                    //if (playerPositionYInPix + (yOffSetInSquares * gv.squareSize) > -3 * gv.squareSize && playerPositionYInPix + (yOffSetInSquares * gv.squareSize) < gv.screenHeight + 3 * gv.squareSize)
+                                    //{
+                                        prp2.destinationPixelPositionXList.Add(playerPositionXInPix + (xOffSetInSquares * gv.squareSize));
+                                        prp2.destinationPixelPositionYList.Add(playerPositionYInPix + (yOffSetInSquares * gv.squareSize));
+                                    //}
+                                //}
+                                //if (!isBetweenNearbysMover)
+                                //{
+                                    //prp2.currentPixelPositionX = playerPositionXInPix + (xOffSetInSquares * gv.squareSize);
+                                    //prp2.currentPixelPositionY = playerPositionYInPix + (yOffSetInSquares * gv.squareSize);
 
+                                //}
+                                /*
+                                if (isBetweenNearbysMover)
+                                {
+                                    if (prp2.LocationX > Convert.ToInt32(p3))
+                                    {
+                                        int XSquaresToAdd = prp2.LocationX - Convert.ToInt32(p3);
+                                        for (int i = 1; i <= XSquaresToAdd; i++)
+                                        {
+                                            prp2.destinationPixelPositionXList.Insert(0, playerPositionXInPix + (xOffSetInSquares * gv.squareSize) - (i * gv.squareSize));
+                                            prp2.destinationPixelPositionYList.Insert(0, playerPositionYInPix + (yOffSetInSquares * gv.squareSize));
+                                        }
+                                    }
+
+                                    if (prp2.LocationX < Convert.ToInt32(p3))
+                                    {
+                                        int XSquaresToAdd = Convert.ToInt32(p3) - prp2.LocationX;
+                                        for (int i = 1; i <= XSquaresToAdd; i++)
+                                        {
+                                            prp2.destinationPixelPositionXList.Insert(0, playerPositionXInPix + (xOffSetInSquares * gv.squareSize) + (i * gv.squareSize));
+                                            prp2.destinationPixelPositionYList.Insert(0, playerPositionYInPix + (yOffSetInSquares * gv.squareSize));
+                                        }
+                                    }
+
+                                    if (prp2.LocationY > Convert.ToInt32(p4))
+                                    {
+                                        int YSquaresToAdd = prp2.LocationY - Convert.ToInt32(p4);
+                                        for (int i = 1; i <= YSquaresToAdd; i++)
+                                        {
+                                            prp2.destinationPixelPositionXList.Insert(0, playerPositionXInPix + (xOffSetInSquares * gv.squareSize));
+                                            prp2.destinationPixelPositionYList.Insert(0, playerPositionYInPix + (yOffSetInSquares * gv.squareSize) - (i * gv.squareSize));
+                                        }
+                                    }
+
+                                    if (prp2.LocationY < Convert.ToInt32(p4))
+                                    {
+                                        int YSquaresToAdd = Convert.ToInt32(p4) - prp2.LocationY;
+                                        for (int i = 1; i <= YSquaresToAdd; i++)
+                                        {
+                                            prp2.destinationPixelPositionXList.Insert(0, playerPositionXInPix + (xOffSetInSquares * gv.squareSize));
+                                            prp2.destinationPixelPositionYList.Insert(0, playerPositionYInPix + (yOffSetInSquares * gv.squareSize) + (i * gv.squareSize));
+                                        }
+                                    }
+                                    prp2.pixelMoveSpeed = prp2.destinationPixelPositionXList.Count;
+                                }
+                                */
                             }
                            
                             for (int i2 = 0; i2 < gv.mod.moduleAreasObjects.Count; i2++)
@@ -8829,6 +9006,7 @@ namespace IceBlink2
                                 {
                                     added = 1;
                                     gv.mod.moduleAreasObjects[i2].Props.Add(prp2);
+                                    gv.cc.recalcReloc(prp2);
                                     prp2.justJumpedBetweenAreas = true;
                                     break;
                                 }

@@ -68,6 +68,7 @@ namespace IceBlink2
         //b. upon failure
         //messaging to log and as floaty
 
+        public bool allowEnteringOccupiedSquare = false;
         public bool skippedPathfinding = false;
 
         public bool blockConvoForOneTurn = false;
@@ -457,6 +458,7 @@ namespace IceBlink2
     	    Prop copy = new Prop();
 
             //TODO
+            copy.allowEnteringOccupiedSquare = allowEnteringOccupiedSquare;
             copy.stealthModifier = this.stealthModifier;
             copy.skippedPathfinding = skippedPathfinding;
             copy.blockConvoForOneTurn = blockConvoForOneTurn;
