@@ -19,6 +19,12 @@ namespace IceBlink2
         [JsonIgnore]
         public List<String> tagsOfEffectsToRemoveOnMove = new List<String>();
 
+        public bool showNormalFrame = false;//0
+        public bool showAttackingFrame = false;//1
+        public bool showWalkingFrame = false;//2
+        public bool showIdlingFrame = false;//3
+        public bool showBreathingFrame = false;//4
+
         public string cr_tokenFilename = "blank.png";
 
         public string factionTag = "none";
@@ -131,6 +137,11 @@ namespace IceBlink2
             {
                 copy.tagsOfEffectsToRemoveOnMove.Add(et);
             }
+             copy.showNormalFrame = showNormalFrame;//0
+            copy.showAttackingFrame = showAttackingFrame;//1
+            copy.showWalkingFrame = showWalkingFrame;//2
+            copy.showIdlingFrame = showIdlingFrame;//3
+            copy.showBreathingFrame = showBreathingFrame;//4
             copy.factionTag = this.factionTag;
             copy.percentRequirementOfTargetInjuryForHealSpells = this.percentRequirementOfTargetInjuryForHealSpells;
             copy.percentRequirementOfTargetSPLossForRestoreSPSpells = this.percentRequirementOfTargetInjuryForHealSpells;

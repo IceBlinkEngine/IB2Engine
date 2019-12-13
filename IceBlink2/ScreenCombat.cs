@@ -9350,7 +9350,7 @@ namespace IceBlink2
 
                             //}
                         }
-                    }
+                    }   
                 }
                 if ((gv.mod.useManualCombatCam) && (animationSeqStack.Count == 0))
                 {
@@ -12009,14 +12009,50 @@ namespace IceBlink2
         }
         public void drawMovingCombatCreatures()
         {
-            //foreach (Creature c in gv.mod.currentEncounter.encounterCreatureList)
-            //{
 
-            //}
+            //the creature gilde adders x aor y not equalling zero migth be good indictaors for displaying the walk animation (alternate frames)
+            //crt.glideAdderX and  crt.glideAdderY
+            //crt.inactiveTimer = 0 indicates a wiggling movement going on
 
+            //Creatures
+            //update(int elapsed) handles the animations
 
-            //if ((crt == gv.mod.currentEncounter.encounterCreatureList[creatureIndex])
-            //fats mode not used right now
+            //miantain two frame sprite support through all of this
+
+            //check these conditions in update(int elapsed) of ScreenCombat  
+            //breathing/idle: only animate creatures 1) whose turn it currently NOT is and 2) with hp > 0
+            //walking: only animate cretaures with 1) hp > 0 and 2a) whose crt.glideAdderX/crt.glideAdderY are not 0 or 2b) whose crt.inactiveTimwe equals 0
+            //I think inactiveTimer needs to be longer as otherwise not enough room is left for idle and breathe animations
+            //assign and unassign(!) crt.show... values accordingly (only one can be true anytime, likely no use for the normal and attack one, as there are systems for those already)
+            //might use frameNumber, like main map does, too (a bit redundant)
+            
+            //use drawMovingCombatCreatures crt.show... values in drawMovingCombatCreatures()
+            //crt.show.. values determine which frame/part of the sprite to use as src here
+            //factor in creature size dimensiosn for picking the correct part of the sprite
+            //mainmap is using prp.currentFrameNumber, truned into framePosition, for picking correct part, maybe copy that fro crt and combat
+            
+            //PC
+            //to do: plan
+
+            //MapScrolling
+            //to do: plan
+            
+            //turned inot frameposition
+            //doPropAnimations used to determine the prp.currentFrameNumber there
+            //setting prp.showWalkingFrame(2), prp.showIdlingFrame(3), prp.showBreathingFrame(4)
+            //normal woulsd 0 then and attack 1
+
+            //mirror tehse setting for cretaure, add prp.showAttckFrame(1)
+
+            //all states exclude each other
+            //idle has only a chnce to kick in if no other stae is currently active and should be ended by the others
+
+            //extra considertaion needed because of the differnt creature sizes possible in combat (tall, wide, large)
+            //make sure tw always support the old two-frame-sprites (nomral, attack)
+
+            //will need to do some breathing and idle pc animations, too (walkign will not work like as pc are not gliding in combat)
+
+            //fast mode not used right now
             if ((gv.mod.fastMode) && (!isPlayerTurn))
             {
                 framesInFastForwardCounter++;
@@ -14303,8 +14339,9 @@ namespace IceBlink2
             else if (keyData == Keys.I)
             {
                 gv.mod.mainMapMovementRelevantKeyPressed = false;
-                if ((isPlayerTurn) && (!gv.mod.playerList[currentPlayerIndex].isTemporaryAllyForThisEncounterOnly) && !gv.mod.currentEncounter.noItemUseModifier)
+                if ((isPlayerTurn) && !gv.mod.currentEncounter.noItemUseModifier)
                 {
+                    //(!gv.mod.playerList[currentPlayerIndex].isTemporaryAllyForThisEncounterOnly)
                     gv.mod.playerList[currentPlayerIndex].thisCastIsFreeOfCost = false;
                     gv.mod.playerList[currentPlayerIndex].isPreparingSpell = false;
                     gv.mod.playerList[currentPlayerIndex].doCastActionInXFullTurns = 0;
@@ -14916,7 +14953,16 @@ namespace IceBlink2
                 if (keyData == Keys.NumPad5)
                 {
                     continueTurn = false;
-                    TargetCastPressed(pc);
+                    if (gv.mod.isCastFromUsedItem)
+                    {
+                        gv.mod.isCastFromUsedItem = false;
+                        Item it = gv.mod.getItemByTag(gv.mod.tagOfItemUsedForCast);
+                        TargetCastPressed(pc, it);
+                    }
+                    else
+                    {
+                        TargetCastPressed(pc);
+                    }
                     return;
                 }
             }
@@ -16341,7 +16387,16 @@ namespace IceBlink2
                                 else if (currentCombatMode.Equals("cast"))
                                 {
                                     continueTurn = false;
-                                    TargetCastPressed(pc);
+                                    if (gv.mod.isCastFromUsedItem)
+                                    {
+                                        gv.mod.isCastFromUsedItem = false;
+                                        Item it = gv.mod.getItemByTag(gv.mod.tagOfItemUsedForCast);
+                                        TargetCastPressed(pc, it);
+                                    }
+                                    else
+                                    {
+                                        TargetCastPressed(pc);
+                                    }
                                 }
                             }
                             targetHighlightCenterLocation.Y = gridy;
@@ -19103,7 +19158,16 @@ namespace IceBlink2
                             else if (currentCombatMode.Equals("cast"))
                             {
                                 continueTurn = false;
-                                TargetCastPressed(pc);
+                                if (gv.mod.isCastFromUsedItem)
+                                {
+                                    gv.mod.isCastFromUsedItem = false;
+                                    Item it = gv.mod.getItemByTag(gv.mod.tagOfItemUsedForCast);
+                                    TargetCastPressed(pc, it);
+                                }
+                                else
+                                {
+                                    TargetCastPressed(pc);
+                                }
                             }
                         }
                     }

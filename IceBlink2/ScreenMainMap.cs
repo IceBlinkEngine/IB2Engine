@@ -2197,6 +2197,8 @@ namespace IceBlink2
                             }
                         }
                     }
+                    //p.maxNumberOfFrames 1 or lower
+                    //mover prop animation using the framehseet (ie autoanimation)
                     //5-frames sprite sheet
                     else if (p.isMover && p.token != null)
                     {
@@ -32403,104 +32405,7 @@ namespace IceBlink2
                                         //gv.DrawBitmap(gv.cc.slowSymbol, src, dstSkull);
                                         //gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
                                     }
-                                    /*
-                                        int partyLevelAverage = 0;
-                                        foreach (Player pc in gv.mod.playerList)
-                                        {
-                                            partyLevelAverage += pc.classLevel;
-                                        }
-
-                                        partyLevelAverage = (int)(partyLevelAverage / gv.mod.playerList.Count);
-
-                                        int numberOfSkulls = 0;
-
-                                        if (p.EncounterWhenOnPartySquare != "none" && p.EncounterWhenOnPartySquare != "")
-                                        {
-                                            foreach (Encounter enc in gv.mod.moduleEncountersList)
-                                            {
-                                                if (enc.encounterName == p.EncounterWhenOnPartySquare)
-                                                {
-                                                    if (enc.challengeLevel > (partyLevelAverage + 5))
-                                                    {
-                                                        numberOfSkulls = 3;
-                                                    }
-                                                    else if (enc.challengeLevel > (partyLevelAverage + 3))
-                                                    {
-                                                        numberOfSkulls = 2;
-                                                    }
-                                                    else if (enc.challengeLevel > (partyLevelAverage + 1))
-                                                    {
-                                                        numberOfSkulls = 1;
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    bool drawChallengeHidden = false;
-                                    if (p.EncounterWhenOnPartySquare != "none" && p.EncounterWhenOnPartySquare != "")
-                                    {
-                                        foreach (Encounter enc in gv.mod.moduleEncountersList)
-                                        {
-                                            if (enc.encounterName == p.EncounterWhenOnPartySquare)
-                                            {
-                                                if (enc.challengeHidden)
-                                                {
-                                                    numberOfSkulls = 0;
-                                                    drawChallengeHidden = true;
-                                                }
-                                                break;
-                                            }
-                                        }
-                                    }
-                                    /*
-                                    if (gv.mod.currentArea.Props[i].movementSpeed != -1)
-                                    {
-                                        IbRect dstSkull = new IbRect();
-                                        dstSkull.Height = (int)(dst.Height / 2);
-                                        dstSkull.Width = (int)(dst.Width / 2);
-                                        dstSkull.Left = dst.Left + src.Width / 2;
-                                        dstSkull.Top = dst.Top - (int)(dst.Height / 3) + src.Height / 2;
-                                        int shift = 1 * (int)(dst.Width / 4);
-                                        //shift = 1 * (int)(dst.Width / 4);
-                                        dstSkull.Left += shift;
-                                        gv.DrawText(gv.mod.currentArea.Props[i].movementSpeed.ToString(), dstSkull.Left, dstSkull.Top);
-                                    }
-
-                                    if (drawChallengeHidden && !p.isStealthed && !p.wasKilled)
-                                    {
-                                        int shift = 0;
-                                        //Bitmap interactionStateIndicator = gv.cc.LoadBitmap("challengeHidden");
-                                        src = new IbRect(0, 0, gv.cc.challengeHidden.PixelSize.Width, gv.cc.challengeHidden.PixelSize.Height);
-                                        IbRect dstSkull = new IbRect();
-                                        dstSkull.Height = (int)(dst.Height / 2);
-                                        dstSkull.Width = (int)(dst.Width / 2);
-                                        dstSkull.Left = dst.Left;
-                                        dstSkull.Top = dst.Top - (int)(dst.Height / 3);
-                                        shift = 1 * (int)(dst.Width / 4);
-                                        dstSkull.Left += shift;
-                                        gv.DrawBitmap(gv.cc.challengeHidden, src, dstSkull);
-                                        //gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
-
-                                    }
-                                    if (numberOfSkulls > 0 && !p.isStealthed && !p.wasKilled)
-                                    {
-                                        int shift = 0;
-                                        for (int i2 = 0; i2 < numberOfSkulls; i2++)
-                                        {
-
-                                            //Bitmap interactionStateIndicator = gv.cc.LoadBitmap("challengeSkull");
-                                            src = new IbRect(0, 0, gv.cc.challengeSkull.PixelSize.Width, gv.cc.challengeSkull.PixelSize.Height);
-                                            IbRect dstSkull = new IbRect();
-                                            dstSkull.Height = (int)(dst.Height / 3);
-                                            dstSkull.Width = (int)(dst.Width / 3);
-                                            dstSkull.Left = dst.Left;
-                                            dstSkull.Top = dst.Top - (int)(dst.Height / 3);
-                                            shift = i2 * (int)(dst.Width / 3);
-                                            dstSkull.Left += shift;
-                                            gv.DrawBitmap(gv.cc.challengeSkull, src, dstSkull);
-                                            //gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
-                                        }
-                                    }
-                                    */
+                            
                                 }
 
                         }
@@ -33133,92 +33038,6 @@ namespace IceBlink2
                                     //continue;
                                 }
                             }
-                            /*
-                            int partyLevelAverage = 0;
-                            foreach (Player pc in gv.mod.playerList)
-                            {
-                                partyLevelAverage += pc.classLevel;
-                            }
-                            
-                            partyLevelAverage = (int)(partyLevelAverage / gv.mod.playerList.Count);
-
-                            int numberOfSkulls = 0;
-
-                            if (p.EncounterWhenOnPartySquare != "none" && p.EncounterWhenOnPartySquare != "")
-                            {
-                                foreach (Encounter enc in gv.mod.moduleEncountersList)
-                                {
-                                    if (enc.encounterName == p.EncounterWhenOnPartySquare)
-                                    {
-                                        if (enc.challengeLevel > (partyLevelAverage + 5))
-                                        {
-                                            numberOfSkulls = 3;
-                                        }
-                                        else if (enc.challengeLevel > (partyLevelAverage + 3))
-                                        {
-                                            numberOfSkulls = 2;
-                                        }
-                                        else if (enc.challengeLevel > (partyLevelAverage + 1))
-                                        {
-                                            numberOfSkulls = 1;
-                                        }
-                                    }
-                                }
-                            }
-
-                            bool drawChallengeHidden = false;
-                            if (p.EncounterWhenOnPartySquare != "none" && p.EncounterWhenOnPartySquare != "")
-                            {
-                                foreach (Encounter enc in gv.mod.moduleEncountersList)
-                                {
-                                    if (enc.encounterName == p.EncounterWhenOnPartySquare)
-                                    {
-                                        if (enc.challengeHidden)
-                                        {
-                                            numberOfSkulls = 0;
-                                            drawChallengeHidden = true;
-                                        }
-                                        break;
-                                    }
-                                }
-                            }
-
-                            if (drawChallengeHidden && !p.isStealthed && !p.wasKilled)
-                            {
-                                int shift = 0;
-                                //Bitmap interactionStateIndicator = gv.cc.LoadBitmap("challengeHidden");
-                                src = new IbRect(0, 0, gv.cc.challengeHidden.PixelSize.Width, gv.cc.challengeHidden.PixelSize.Height);
-                                IbRect dstSkull = new IbRect();
-                                dstSkull.Height = (int)(dst.Height / 2);
-                                dstSkull.Width = (int)(dst.Width / 2);
-                                dstSkull.Left = dst.Left;
-                                dstSkull.Top = dst.Top - (int)(dst.Height / 3);
-                                shift = 1 * (int)(dst.Width / 4);
-                                dstSkull.Left += shift;
-                                gv.DrawBitmap(gv.cc.challengeHidden, src, dstSkull);
-                                //gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
-
-                            }
-                            if (numberOfSkulls > 0 && !p.isStealthed && !p.wasKilled)
-                            {
-                                int shift = 0;
-                                for (int i2 = 0; i2 < numberOfSkulls; i2++)
-                                {
-
-                                    //Bitmap interactionStateIndicator = gv.cc.LoadBitmap("challengeSkull");
-                                    src = new IbRect(0, 0, gv.cc.challengeSkull.PixelSize.Width, gv.cc.challengeSkull.PixelSize.Height);
-                                    IbRect dstSkull = new IbRect();
-                                    dstSkull.Height = (int)(dst.Height / 3);
-                                    dstSkull.Width = (int)(dst.Width / 3);
-                                    dstSkull.Left = dst.Left;
-                                    dstSkull.Top = dst.Top - (int)(dst.Height / 3);
-                                    shift = i2 * (int)(dst.Width / 3);
-                                    dstSkull.Left += shift;
-                                    gv.DrawBitmap(gv.cc.challengeSkull, src, dstSkull);
-                                    //gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
-                                }
-                            }
-                            */
                         }
                     }
                 }

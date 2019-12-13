@@ -1819,7 +1819,7 @@
         "allow": true
       },
       {
-        "name": "Summon Ally",
+        "name": "Summon Ally Bear (Pc)",
         "needsSpecificTrainingToLearn": false,
         "tag": "summonAllyTag_11737",
         "atWhatLevelIsAvailable": 1,

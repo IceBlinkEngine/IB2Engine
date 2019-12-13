@@ -1244,5 +1244,46 @@
         "tag": "fx_prone"
       }
     ]
+  },
+  {
+    "traitWorksOnlyWhen": [],
+    "traitWorksNeverWhen": [],
+    "usesTurnToActivate": true,
+    "onlyOncePerTurn": true,
+    "coolDownTime": 0,
+    "isSwiftAction": false,
+    "isUsedForCombatSquareEffect": false,
+    "triggeredEachStepToo": false,
+    "name": "Effect Minor Healing",
+    "tag": "newSpellTag_17265",
+    "spellImage": "sp_minorheal",
+    "description": "The caster heals himself or another party member for 8 hitpoints",
+    "useableInSituation": "Always",
+    "spellToReplaceByTag": "none",
+    "spriteFilename": "fx_heal",
+    "spriteEndingFilename": "fx_heal1x1end",
+    "spellStartSound": "buffer",
+    "spellEndSound": "buffer",
+    "costSP": 7,
+    "costHP": 0,
+    "castTimeInTurns": 0,
+    "canBeInterrupted": true,
+    "triggersAoO": true,
+    "spellTargetType": "Friend",
+    "spellEffectType": "Heal",
+    "aoeShape": "Circle",
+    "aoeRadius": 0,
+    "range": 3,
+    "spellScript": "none",
+    "spellScriptParm1": "none",
+    "spellScriptParm2": "none",
+    "additionalCustomLogTextOnCast": "none",
+    "spellEffectTag": "none",
+    "removeEffectTagList": [],
+    "spellEffectTagList": [
+      {
+        "tag": "newEffectTag_17266"
+      }
+    ]
   }
 ]

@@ -373,5 +373,181 @@
         "quantity": 1
       }
     ]
+  },
+  {
+    "containerTag": "PotionStack",
+    "containerItemRefs": [
+      {
+        "resref": "minorhealpotion",
+        "tag": "minorhealpotion_17237",
+        "name": "Minor Healing Potion",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      },
+      {
+        "resref": "minorhealpotion",
+        "tag": "minorhealpotion_17238",
+        "name": "Minor Healing Potion",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      },
+      {
+        "resref": "minorhealpotion",
+        "tag": "minorhealpotion_17239",
+        "name": "Minor Healing Potion",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      },
+      {
+        "resref": "minorhealpotion",
+        "tag": "minorhealpotion_17240",
+        "name": "Minor Healing Potion",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      },
+      {
+        "resref": "minorhealpotion",
+        "tag": "minorhealpotion_17241",
+        "name": "Minor Healing Potion",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      },
+      {
+        "resref": "minorhealpotion",
+        "tag": "minorhealpotion_17242",
+        "name": "Minor Healing Potion",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      },
+      {
+        "resref": "minorhealpotion",
+        "tag": "minorhealpotion_17243",
+        "name": "Minor Healing Potion",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      },
+      {
+        "resref": "minorhealpotion",
+        "tag": "minorhealpotion_17244",
+        "name": "Minor Healing Potion",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      },
+      {
+        "resref": "minorhealpotion",
+        "tag": "minorhealpotion_17245",
+        "name": "Minor Healing Potion",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      },
+      {
+        "resref": "chainmail",
+        "tag": "chainmail_17281",
+        "name": "Chainmail Armor",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      },
+      {
+        "resref": "effectminorhealpotion",
+        "tag": "newTag_17263_17285",
+        "name": "Effect Minor Healing Potion",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      },
+      {
+        "resref": "effectminorhealpotion",
+        "tag": "newTag_17263_17286",
+        "name": "Effect Minor Healing Potion",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      },
+      {
+        "resref": "effectminorhealpotion",
+        "tag": "newTag_17263_17287",
+        "name": "Effect Minor Healing Potion",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      },
+      {
+        "resref": "effectminorhealpotion",
+        "tag": "newTag_17263_17288",
+        "name": "Effect Minor Healing Potion",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      },
+      {
+        "resref": "effectminorhealpotion",
+        "tag": "newTag_17263_17289",
+        "name": "Effect Minor Healing Potion",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      },
+      {
+        "resref": "effectminorhealpotion",
+        "tag": "newTag_17263_17290",
+        "name": "Effect Minor Healing Potion",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      },
+      {
+        "resref": "effectminorhealpotion",
+        "tag": "newTag_17263_17291",
+        "name": "Effect Minor Healing Potion",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      },
+      {
+        "resref": "effectminorhealpotion",
+        "tag": "newTag_17263_17292",
+        "name": "Effect Minor Healing Potion",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      },
+      {
+        "resref": "effectminorhealpotion",
+        "tag": "newTag_17263_17293",
+        "name": "Effect Minor Healing Potion",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      }
+    ]
   }
 ]
