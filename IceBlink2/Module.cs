@@ -14,6 +14,7 @@ namespace IceBlink2
     public class Module
     {
 
+        
         public bool isCastFromUsedItem = false;
         public string tagOfItemUsedForCast = "none";
 

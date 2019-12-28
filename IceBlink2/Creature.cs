@@ -19,11 +19,21 @@ namespace IceBlink2
         [JsonIgnore]
         public List<String> tagsOfEffectsToRemoveOnMove = new List<String>();
 
+        public float maxTurnTimeCounter = 0;
+
         public bool showNormalFrame = false;//0
         public bool showAttackingFrame = false;//1
         public bool showWalkingFrame = false;//2
         public bool showIdlingFrame = false;//3
         public bool showBreathingFrame = false;//4
+
+
+        public float walkAnimationDelayCounter = 0;
+        public float idleAnimationDelayCounter = 0;
+        public float breathAnimationDelayCounter = 0;
+
+        public float hurdle = 10f;
+        public int currentFrameNumber = 0;
 
         public string cr_tokenFilename = "blank.png";
 
@@ -133,15 +143,26 @@ namespace IceBlink2
 	    public Creature DeepCopy()
 	    {
 		    Creature copy = new Creature();
+
+            copy.maxTurnTimeCounter = maxTurnTimeCounter;
             foreach (String et in this.tagsOfEffectsToRemoveOnMove)
             {
                 copy.tagsOfEffectsToRemoveOnMove.Add(et);
             }
              copy.showNormalFrame = showNormalFrame;//0
             copy.showAttackingFrame = showAttackingFrame;//1
+
             copy.showWalkingFrame = showWalkingFrame;//2
             copy.showIdlingFrame = showIdlingFrame;//3
             copy.showBreathingFrame = showBreathingFrame;//4
+
+            copy.walkAnimationDelayCounter = walkAnimationDelayCounter;
+            copy.idleAnimationDelayCounter = idleAnimationDelayCounter;
+            copy.breathAnimationDelayCounter = breathAnimationDelayCounter;
+
+            copy.hurdle = hurdle;
+            copy.currentFrameNumber = currentFrameNumber;
+
             copy.factionTag = this.factionTag;
             copy.percentRequirementOfTargetInjuryForHealSpells = this.percentRequirementOfTargetInjuryForHealSpells;
             copy.percentRequirementOfTargetSPLossForRestoreSPSpells = this.percentRequirementOfTargetInjuryForHealSpells;
