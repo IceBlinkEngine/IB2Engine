@@ -1757,6 +1757,10 @@ namespace IceBlink2
                 {
                     delay = 1;
                 }
+                if (mod.useCombatSmoothMovement)
+                {
+                    delay = 1;
+                }
                 animationTimer.Interval = delay;
                 //animationTimer.Interval = 1;
                 animationTimer.Start();
@@ -2702,7 +2706,7 @@ namespace IceBlink2
             }
             else if (screenType.Equals("combat"))
             {
-                screenCombat.redrawCombat();
+                screenCombat.redrawCombat(elapsed);
             }
             else if (screenType.Equals("combatCast"))
             {

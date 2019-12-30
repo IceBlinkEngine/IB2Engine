@@ -107,6 +107,11 @@ namespace IceBlink2
         public List<int> moverOrdersOfNormalLivingCreatures = new List<int>();
         public List<int> moverOrdersOfNormalFallenCreatures = new List<int>();
 
+       //public List<int> moverOrdersOfWideLivingCreatures = new List<int>();
+        //public List<int> moverOrdersOfWideFallenCreatures = new List<int>();
+        //public List<int> moverOrdersOfTallLivingCreatures = new List<int>();
+        //public List<int> moverOrdersOfTallFallenCreatures = new List<int>();
+
         //COMBAT STUFF
         public bool adjustCamToRangedCreature = false;
         public bool isPlayerTurn = true;
@@ -1035,6 +1040,11 @@ namespace IceBlink2
 
             foreach (Creature crt in gv.mod.currentEncounter.encounterCreatureList)
             {
+
+                if (gv.mod.useCombatSmoothMovement)
+                {
+                    crt.inactiveTimer = gv.sf.RandInt(200);
+                }
                 int decider = gv.sf.RandInt(2);
                 if (decider == 1)
                 {
@@ -7470,7 +7480,12 @@ namespace IceBlink2
             {
                 animationsOn = true;
             }
-            gv.screenCombat.blockAnimationBridge = false;
+            //if (!gv.mod.useCombatSmoothMovement)
+            ///{
+                gv.screenCombat.blockAnimationBridge = false;
+            //}
+                crt.glideAdderX = 0;
+            crt.glideAdderY = 0;
             //gv.cc.addLogText("<font color='silver'>" + "Right before calling truncontroller" + "</font><BR>");
             turnController();
         }
@@ -8959,8 +8974,13 @@ namespace IceBlink2
                                         //use value form prop.currentWalkingSpeed
                                         //p.currentWalkingSpeed = elapsed / 30f * ((float)gv.squareSize / ((float)gv.mod.realTimeTimerLengthInMilliSeconds * 0.03f)) * (float)p.pixelMoveSpeed * 0.9f * p.propMovingHalfSpeedMulti;
 
-                                        crt.walkAnimationDelayCounter += elapsed / 30f * ((float)gv.squareSize / 50f); 
-                                        if (crt.walkAnimationDelayCounter >= 20f)
+                                        crt.walkAnimationDelayCounter += elapsed / 30f * ((float)gv.squareSize / 50f);
+                                        float walkThreshold = 20f;
+                                        if ((crt.glideAdderX != 0 || crt.glideAdderY != 0))
+                                        {
+                                           walkThreshold = 10f;
+                                        }
+                                        if (crt.walkAnimationDelayCounter >= walkThreshold)
                                         {
                                             //osgosg
                                             if (!crt.showWalkingFrame)
@@ -9001,12 +9021,12 @@ namespace IceBlink2
                                             if (!crt.showIdlingFrame)
                                             {
                                                 crt.showIdlingFrame = true;
-                                                crt.hurdle = 2f + (float)gv.sf.RandInt(300) / 100f;
+                                                crt.hurdle = (2f + (float)gv.sf.RandInt(300) / 100f)/1.5f;
                                             }
                                             else
                                             {
                                                 crt.showIdlingFrame = false;
-                                                crt.hurdle = 25f + (float)gv.sf.RandInt(2250) / 100f;
+                                                crt.hurdle = (25f + (float)gv.sf.RandInt(2250) / 100f);
                                             }
                                             crt.idleAnimationDelayCounter = 0;
                                             //gv.mod.hurdle = 3f + (float)gv.sf.RandInt(700) / 100f;
@@ -9142,7 +9162,7 @@ namespace IceBlink2
                 //
                 //if ((attackAnimationTimeElapsed >= attackAnimationLengthInMilliseconds) && ((attackAnimationFrameCounter >= maxUsableCounterValue) || (isPlayerTurn)))
                 //bewlo was working
-                if ((attackAnimationTimeElapsed >= attackAnimationLengthInMilliseconds) && (attackAnimationFrameCounter >= maxUsableCounterValue))
+                if ((attackAnimationTimeElapsed >= attackAnimationLengthInMilliseconds*1.5f) && (attackAnimationFrameCounter >= maxUsableCounterValue))
                 //if ((attackAnimationTimeElapsed >= 2*attackAnimationLengthInMilliseconds))
 
                 //if ((attackAnimationTimeElapsed >= attackAnimationLengthInMilliseconds))
@@ -9377,7 +9397,7 @@ namespace IceBlink2
                 //hurgh1000
                 //if ((attackAnimationTimeElapsed >= attackAnimationLengthInMilliseconds) && ((attackAnimationFrameCounter >= maxUsableCounterValue) || (isPlayerTurn)))
                 //below worked
-                if ((attackAnimationTimeElapsed >= attackAnimationLengthInMilliseconds))
+                if ((attackAnimationTimeElapsed >= attackAnimationLengthInMilliseconds*1.5f))
                     //if ((attackAnimationTimeElapsed >= 0))
                     //if ((attackAnimationTimeElapsed >= attackAnimationLengthInMilliseconds))
                     {
@@ -9832,7 +9852,7 @@ namespace IceBlink2
         }
 
         #region Combat Draw
-        public void redrawCombat()
+        public void redrawCombat(float elapsed)
         {
             drawCombatMap();
             drawProps();
@@ -9844,7 +9864,7 @@ namespace IceBlink2
             }
             else
             {
-                drawMovingCombatCreatures();
+                drawMovingCombatCreatures(elapsed);
             }
             drawSprites();
             drawHeightShadows();
@@ -10256,26 +10276,27 @@ namespace IceBlink2
                     Player crt = (Player)m.PcOrCreature;
                     if (crt.hp <= 0)
                     {
-                        if (crt.token.PixelSize.Width > 100)
-                        {
-                            moverOrdersOfLargeFallenCreatures.Add(crt.moveOrder);
-                        }
-                        else
-                        {
+                        //if (crt.token.PixelSize.Width > 100)
+                        //{
+                            //moverOrdersOfLargeFallenCreatures.Add(crt.moveOrder);
+                        //}
+                        //else
+                        //{
                             moverOrdersOfNormalFallenCreatures.Add(crt.moveOrder);
-                        }
+                        //}
                     }
                     else
                     {
                         moverOrdersOfAllLivingCreatures.Add(crt.moveOrder);
-                        if (crt.token.PixelSize.Width > 100)
-                        {
-                            moverOrdersOfLargeLivingCreatures.Add(crt.moveOrder);
-                        }
-                        else
-                        {
+                        //if (crt.token.PixelSize.Width > 100)
+                        //if (crt.creatureSize == 4 || crt.creatureSize == 2)
+                        //{
+                            //moverOrdersOfLargeLivingCreatures.Add(crt.moveOrder);
+                        //}
+                        //else
+                        //{
                             moverOrdersOfNormalLivingCreatures.Add(crt.moveOrder);
-                        }
+                        //}
                     }
                 }
                 else
@@ -10283,7 +10304,7 @@ namespace IceBlink2
                     Creature crt = (Creature)m.PcOrCreature;
                     if (crt.hp <= 0)
                     {
-                        if (crt.token.PixelSize.Width > 100)
+                        if (crt.creatureSize == 4 || crt.creatureSize == 2)
                         {
                             moverOrdersOfLargeFallenCreatures.Add(crt.moveOrder);
                         }
@@ -10295,7 +10316,8 @@ namespace IceBlink2
                     else
                     {
                         moverOrdersOfAllLivingCreatures.Add(crt.moveOrder);
-                        if (crt.token.PixelSize.Width > 100)
+                        //if (crt.token.PixelSize.Width > 100)
+                        if (crt.creatureSize == 4 || crt.creatureSize == 2)
                         {
                             moverOrdersOfLargeLivingCreatures.Add(crt.moveOrder);
                         }
@@ -10315,6 +10337,8 @@ namespace IceBlink2
 
             buttonsNeededOverall = (moverOrdersOfLargeLivingCreatures.Count) * 2;
             buttonsNeededOverall += moverOrdersOfNormalLivingCreatures.Count;
+            //buttonsNeededOverall += moverOrdersOfTallLivingCreatures.Count;
+            //buttonsNeededOverall += (moverOrdersOfWideLivingCreatures.Count) * 2;
 
             //determine number of inibars needed
             int numberOfIniBarsNeeded = 1;
@@ -10698,14 +10722,78 @@ namespace IceBlink2
                             if (crt.hp > 0)
                             {
                                 IbRect src = new IbRect(0, 0, crt.token.PixelSize.Width, crt.token.PixelSize.Width);
+                                bool isNormal = false;
+                                bool isWide = false;
+                                bool isTall = false;
+                                bool isLarge = false;
+
+                                //IbRect src = new IbRect(0, 0, ply.token.PixelSize.Width, ply.token.PixelSize.Width);
+                                //2-frame
+                                //normal
+                                if (crt.token.PixelSize.Width == 100 && crt.token.PixelSize.Height == 200)
+                                {
+                                    src = new IbRect(0, 0, 100, 100);
+                                    isNormal = true;
+                                }
+                                //wide
+                                if (crt.token.PixelSize.Width == 200 && crt.token.PixelSize.Height == 200)
+                                {
+                                    src = new IbRect(0, 0, 200, 100);
+                                    isWide = true;
+                                }
+                                //tall
+                                if (crt.token.PixelSize.Width == 100 && crt.token.PixelSize.Height == 400)
+                                {
+                                    src = new IbRect(0, 0, 100, 200);
+                                    isTall = true;
+                                }
+                                //large
+                                if (crt.token.PixelSize.Width == 200 && crt.token.PixelSize.Height == 400)
+                                {
+                                    src = new IbRect(0, 0, 200, 200);
+                                    isLarge = true;
+                                }
+
+                                //5-frame
+                                //normal
+                                if (crt.token.PixelSize.Width == 100 && crt.token.PixelSize.Height == 500)
+                                {
+                                    src = new IbRect(0, 0, 100, 100);
+                                    isNormal = true;
+                                }
+                                //wide
+                                if (crt.token.PixelSize.Width == 200 && crt.token.PixelSize.Height == 500)
+                                {
+                                    src = new IbRect(0, 0, 200, 100);
+                                    isWide = true;
+                                }
+                                //tall
+                                if (crt.token.PixelSize.Width == 100 && crt.token.PixelSize.Height == 1000)
+                                {
+                                    src = new IbRect(0, 0, 100, 200);
+                                    isTall = true;
+                                }
+                                //large
+                                if (crt.token.PixelSize.Width == 200 && crt.token.PixelSize.Height == 1000)
+                                {
+                                    src = new IbRect(0, 0, 200, 200);
+                                    isLarge = true;
+                                }
+
                                 int startBarX = (0 * gv.squareSize) + gv.oXshift + mapStartLocXinPixels + 2 * gv.pS;
                                 int startBarY = 0 * gv.squareSize + 2 * gv.pS;
                                 int targetSizeX = gv.squareSize / 2;
                                 int targetSizeY = gv.squareSize / 2;
                                 int marchingLineHeight = gv.squareSize / 2;
-                                if (crt.token.PixelSize.Width > 100)
+                                if (isLarge || isWide)
                                 {
                                     targetSizeX = gv.squareSize;
+                                    //targetSizeY = gv.squareSize;
+                                    //marchingLineHeight = 0;
+                                }
+                                if (isLarge || isTall)
+                                {
+                                    //targetSizeX = gv.squareSize;
                                     targetSizeY = gv.squareSize;
                                     marchingLineHeight = 0;
                                 }
@@ -10717,35 +10805,102 @@ namespace IceBlink2
 
                                 gv.DrawBitmap(crt.token, src, dst, false, false);
                                 int mo = crt.moveOrder + 1;
-                                if (crt.token.PixelSize.Width <= 100)
+                                targetSizeX = gv.squareSize / 2;
+                                targetSizeY = gv.squareSize / 2;
+                                marchingLineHeight = gv.squareSize / 2;
+                                dst = new IbRect(startBarX + creatureSpacesUsed * gv.squareSize / 2, startBarY + marchingLineHeight, targetSizeX, targetSizeY);
+                                if (isTall || isNormal)
                                 {
                                     creatureSpacesUsed++;
-                                    drawMiniText(dst.Left, dst.Top + 1 * gv.pS, mo.ToString(), Color.White);
-                                    drawMiniText(dst.Left + gv.pS, dst.Top - 5 * gv.pS, crt.hp.ToString(), Color.Red);
+                                    //drawMiniText(dst.Left, dst.Top + 1 * gv.pS, mo.ToString(), Color.White);
+                                    //drawMiniText(dst.Left + gv.pS, dst.Top - 5 * gv.pS, crt.hp.ToString(), Color.Red);
                                 }
                                 else
                                 {
                                     creatureSpacesUsed++;
                                     creatureSpacesUsed++;
-                                    drawMiniText(dst.Left, dst.Top + gv.squareSize / 2 + 1 * gv.pS, mo.ToString(), Color.White);
-                                    drawMiniText(dst.Left + 3 * gv.pS, dst.Top - 3 * gv.pS, crt.hp.ToString(), Color.Red);
+                                    //drawMiniText(dst.Left, dst.Top + gv.squareSize / 2 + 1 * gv.pS, mo.ToString(), Color.White);
+                                    //drawMiniText(dst.Left + 3 * gv.pS, dst.Top - 3 * gv.pS, crt.hp.ToString(), Color.Red);
                                 }
+                                drawMiniText(dst.Left, dst.Top + 1 * gv.pS, mo.ToString(), Color.White);
+                                drawMiniText(dst.Left + gv.pS, dst.Top - 5 * gv.pS, crt.hp.ToString(), Color.Red);
                             }
                         }
                         else
                         {
+                            //determien which kind of token is used to get the correct frame
+                            //only for old two-framers an dfull fledged-five-framers
+
+                            bool isNormal = false;
+                            bool isWide = false;
+                            bool isTall = false;
+                            bool isLarge = false;
+
                             IbRect src = new IbRect(0, 0, ply.token.PixelSize.Width, ply.token.PixelSize.Width);
+                            //2-frame
+                            //normal
+                            if (ply.token.PixelSize.Width == 100 && ply.token.PixelSize.Height == 200)
+                            {
+                                src = new IbRect(0, 0, 100, 100);
+                                isNormal = true;
+                            }
+                            //wide
+                            if (ply.token.PixelSize.Width == 200 && ply.token.PixelSize.Height == 200)
+                            {
+                                src = new IbRect(0, 0, 200, 100);
+                                isWide = true;
+                            }
+                            //tall
+                            if (ply.token.PixelSize.Width == 100 && ply.token.PixelSize.Height == 400)
+                            {
+                                src = new IbRect(0, 0, 100, 200);
+                                isTall = true;
+                            }
+                            //large
+                            if (ply.token.PixelSize.Width == 200 && ply.token.PixelSize.Height == 400)
+                            {
+                                src = new IbRect(0, 0, 200, 200);
+                                isLarge = true;
+                            }
+
+                            //5-frame
+                            //normal
+                            if (ply.token.PixelSize.Width == 100 && ply.token.PixelSize.Height == 500)
+                            {
+                                src = new IbRect(0, 0, 100, 100);
+                                isNormal = true;
+                            }
+                            //wide
+                            if (ply.token.PixelSize.Width == 200 && ply.token.PixelSize.Height == 500)
+                            {
+                                src = new IbRect(0, 0, 200, 100);
+                                isWide = true;
+                            }
+                            //tall
+                            if (ply.token.PixelSize.Width == 100 && ply.token.PixelSize.Height == 1000)
+                            {
+                                src = new IbRect(0, 0, 100, 200);
+                                isTall = true;
+                            }
+                            //large
+                            if (ply.token.PixelSize.Width == 200 && ply.token.PixelSize.Height == 1000)
+                            {
+                                src = new IbRect(0, 0, 200, 200);
+                                isLarge = true;
+                            }
                             int startBarX = (0 * gv.squareSize) + gv.oXshift + mapStartLocXinPixels + 2 * gv.pS;
                             int startBarY = 0 * gv.squareSize + 2 * gv.pS;
                             int targetSizeX = gv.squareSize / 2;
                             int targetSizeY = gv.squareSize / 2;
                             int marchingLineHeight = gv.squareSize / 2;
+                            /*
                             if (ply.token.PixelSize.Width > 100)
                             {
                                 targetSizeX = gv.squareSize;
                                 targetSizeY = gv.squareSize;
                                 marchingLineHeight = 0;
                             }
+                            */
                             IbRect dst = new IbRect(startBarX + creatureSpacesUsed * gv.squareSize / 2, startBarY + marchingLineHeight, targetSizeX, targetSizeY);
                             if (ply.moveOrder + 1 == currentMoveOrderIndex)
                             {
@@ -10754,19 +10909,19 @@ namespace IceBlink2
 
                             gv.DrawBitmap(ply.token, src, dst, false, false);
                             int mo = ply.moveOrder + 1;
-                            if (ply.token.PixelSize.Width <= 100)
-                            {
+                            //if (ply.token.PixelSize.Width <= 100)
+                            //{
                                 creatureSpacesUsed++;
                                 drawMiniText(dst.Left, dst.Top + 1 * gv.pS, mo.ToString(), Color.White);
                                 drawMiniText(dst.Left + gv.pS, dst.Top - 5 * gv.pS, ply.hp.ToString(), Color.Lime);
-                            }
-                            else
-                            {
-                                creatureSpacesUsed++;
-                                creatureSpacesUsed++;
-                                drawMiniText(dst.Left, dst.Top + gv.squareSize / 2 + 1 * gv.pS, mo.ToString(), Color.White);
-                                drawMiniText(dst.Left + 3 * gv.pS, dst.Top - 3 * gv.pS, ply.hp.ToString(), Color.Lime);
-                            }
+                            //}
+                            //else
+                            //{
+                                //creatureSpacesUsed++;
+                                //creatureSpacesUsed++;
+                                //drawMiniText(dst.Left, dst.Top + gv.squareSize / 2 + 1 * gv.pS, mo.ToString(), Color.White);
+                                //drawMiniText(dst.Left + 3 * gv.pS, dst.Top - 3 * gv.pS, ply.hp.ToString(), Color.Lime);
+                            //}
                         }
 
                     }
@@ -12361,7 +12516,7 @@ namespace IceBlink2
                 }
             }
         }
-        public void drawMovingCombatCreatures()
+        public void drawMovingCombatCreatures(float elapsed)
         {
 
             //projectmover
@@ -12436,8 +12591,8 @@ namespace IceBlink2
                 }
             }
 
-            float glideSpeed = 3f * (100f / gv.mod.combatAnimationSpeed) * (1f + gv.mod.currentEncounter.encounterCreatureList.Count * 0.125f);
-
+            //float glideSpeed = 0.4f * 3f * (100f / gv.mod.combatAnimationSpeed) * (1f + gv.mod.currentEncounter.encounterCreatureList.Count * 0.125f);
+            float glideSpeed = 4.75f * (100f / gv.mod.combatAnimationSpeed) * elapsed / 30f;
             foreach (Creature crt in gv.mod.currentEncounter.encounterCreatureList)
             {
                 if ((!IsInVisibleCombatWindow(crt.combatLocX, crt.combatLocY)) || (!gv.mod.useCombatSmoothMovement))
@@ -12603,21 +12758,24 @@ namespace IceBlink2
                 //chnace was 80, try reducing to 30
                 int moveChance = 80;
 
-                decider = gv.sf.RandInt(90);
+                int normalizedDecider = (int)(25f / (elapsed / 30f));
+                decider = gv.sf.RandInt(normalizedDecider);
+                
                 if ((decider == 1) && (crt.inactiveTimer == 0))
                 {
-                    crt.inactiveTimer += gv.sf.RandInt(2);
+                    //crt.inactiveTimer += gv.sf.RandInt(2);
+                    crt.inactiveTimer += elapsed / 30f;
                 }
 
                 if (crt.inactiveTimer != 0)
                 {
-                    crt.inactiveTimer += gv.sf.RandInt(2);
+                    crt.inactiveTimer += elapsed / 30f;
                 }
 
                 //increasing threshold to give room to breathing and idle
                 //projectmover
                 //was 100, trying 700, looks like a good middleground
-                if (crt.inactiveTimer > 700)
+                if (crt.inactiveTimer > 450)
                 {
                     crt.inactiveTimer = 0;
                 }
@@ -13990,6 +14148,8 @@ namespace IceBlink2
                     //narr
                     attackAnimationDelayCounter++;
                     //if (attackAnimationDelayCounter >= (int)(crt.token.PixelSize.Height / 100f - 1))
+                    //slowdown
+                    //if (attackAnimationDelayCounter >= (int)((elapsed / 30f)*20))
                     if (attackAnimationDelayCounter >= 1)
                     {
                         attackAnimationFrameCounter++;
@@ -14820,7 +14980,7 @@ namespace IceBlink2
             }
             if (animationsOn || stepAnimationsOn)
             {
-                if (attackAnimationTimeElapsed >= attackAnimationLengthInMilliseconds)
+                if (attackAnimationTimeElapsed >= attackAnimationLengthInMilliseconds*1.5f)
                 {
                     foreach (AnimationSequence seq in animationSeqStack)
                     {
@@ -14839,9 +14999,9 @@ namespace IceBlink2
                 }
             }
         }
-        #endregion
+#endregion
 
-        #region Keyboard Input
+#region Keyboard Input
         public void onKeyUp(Keys keyData)
         {
             //rdr2 added
@@ -15155,7 +15315,7 @@ namespace IceBlink2
                 }
             }
 
-            #region Move Map
+#region Move Map
             if (keyData == Keys.Up && !showMoveKeys)
             {
                 if (gv.screenMainMap.showMoveKeys)
@@ -15373,8 +15533,8 @@ namespace IceBlink2
                     return;
                 }
             }
-            #endregion
-            #region Move PC gv.mode
+#endregion
+#region Move PC gv.mode
             if (currentCombatMode.Equals("move"))
             {
                 Player pc = gv.mod.playerList[currentPlayerIndex];
@@ -15538,8 +15698,8 @@ namespace IceBlink2
                 }
                 return;
             }
-            #endregion
-            #region Move Targeting gv.mode
+#endregion
+#region Move Targeting gv.mode
             if (currentCombatMode.Equals("attack"))
             {
                 Player pc = gv.mod.playerList[currentPlayerIndex];
@@ -15629,11 +15789,11 @@ namespace IceBlink2
                 }
                 return;
             }
-            #endregion
+#endregion
         }
-        #endregion
+#endregion
 
-        #region Mouse Input
+#region Mouse Input
         /*public void onTouchCombatOld(MouseEventArgs e, MouseEventType.EventType eventType)
         {
             switch (eventType)
@@ -15645,7 +15805,7 @@ namespace IceBlink2
                     int gridx = (int)(e.X - gv.oXshift - mapStartLocXinPixels) / gv.squareSize;
                     int gridy = (int)(e.Y - (gv.squareSize / 2)) / gv.squareSize;
 
-                    #region FloatyText
+#region FloatyText
                     gv.cc.floatyText = "";
                     gv.cc.floatyText2 = "";
                     gv.cc.floatyText3 = "";
@@ -15684,8 +15844,8 @@ namespace IceBlink2
 
                         }
                     }
-                    #endregion
-                    #region Toggles
+#endregion
+#region Toggles
                     if (tglHP.getImpact(x, y))
                     {
                         //if (gv.mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
@@ -15826,7 +15986,7 @@ namespace IceBlink2
                         gv.mod.currentEncounter.encounterCreatureRefsList.Clear();
                         checkEndEncounter();
                     }
-                    #endregion
+#endregion
 
                     if (btnSwitchWeapon.getImpact(x, y))
                     {
@@ -16676,7 +16836,7 @@ namespace IceBlink2
                     int gridx = (int)(e.X - gv.oXshift - mapStartLocXinPixels) / gv.squareSize;
                     int gridy = (int)(e.Y - (gv.squareSize / 2)) / gv.squareSize;
 
-                    #region FloatyText
+#region FloatyText
                     gv.cc.floatyText = "";
                     gv.cc.floatyText2 = "";
                     gv.cc.floatyText3 = "";
@@ -16765,7 +16925,7 @@ namespace IceBlink2
 
                         }
                     }
-                    #endregion
+#endregion
 
                     break;
 
@@ -16779,7 +16939,7 @@ namespace IceBlink2
                     string rtn = combatUiLayout.getImpact(x, y);
                     //gv.cc.addLogText("lime", "mouse down: " + rtn);
 
-                    #region Toggles
+#region Toggles
                     if (rtn.Equals("tglHP"))
                     {
                         IB2ToggleButton tgl = combatUiLayout.GetToggleByTag(rtn);
@@ -16960,9 +17120,9 @@ namespace IceBlink2
                         //gv.mod.currentEncounter.encounterCreatureRefsList.Clear();
                         checkEndEncounter();
                     }
-                    #endregion
+#endregion
 
-                    #region TOUCH ON MAP AREA
+#region TOUCH ON MAP AREA
                     gridx = ((int)(e.X - gv.oXshift - mapStartLocXinPixels) / gv.squareSize) + UpperLeftSquare.X;
                     gridy = ((int)(e.Y - (gv.squareSize / 2)) / gv.squareSize) + UpperLeftSquare.Y;
                     int tappedSqrX = ((int)(e.X - gv.oXshift - mapStartLocXinPixels) / gv.squareSize);
@@ -17006,9 +17166,9 @@ namespace IceBlink2
                             targetHighlightCenterLocation.X = gridx;
                         }
                     }
-                    #endregion
+#endregion
 
-                    #region BUTTONS
+#region BUTTONS
                     if ((rtn.Equals("ctrlUpArrow")) || ((tappedSqrX + UpperLeftSquare.X == pc.combatLocX) && (tappedSqrY + UpperLeftSquare.Y == pc.combatLocY - 1)))
                     {
                         if (isPlayerTurn)
@@ -19794,11 +19954,11 @@ namespace IceBlink2
                         }
                     }
                     break;
-                    #endregion
+#endregion
             }
         }
 
-        #endregion
+#endregion
 
         public void doUpdate(Player pc)
         {

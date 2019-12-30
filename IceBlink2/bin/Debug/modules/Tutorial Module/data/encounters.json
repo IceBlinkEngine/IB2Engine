@@ -8800,74 +8800,26 @@
         "spawnAnotherEveryXRoundsAfterFirstSpawn": 0
       },
       {
-        "creatureResRef": "orc",
-        "creatureTag": "orc_17410",
-        "creatureStartLocationX": 0,
-        "creatureStartLocationY": 6,
+        "creatureResRef": "basiliskref",
+        "creatureTag": "newTag_17303_17427",
+        "creatureStartLocationX": 10,
+        "creatureStartLocationY": 9,
         "spawnAtStartOfRoundX": 1,
         "spawnAnotherEveryXRoundsAfterFirstSpawn": 0
       },
       {
-        "creatureResRef": "orc",
-        "creatureTag": "orc_17411",
-        "creatureStartLocationX": 0,
+        "creatureResRef": "highTrollRef",
+        "creatureTag": "newTag_17305_17428",
+        "creatureStartLocationX": 9,
         "creatureStartLocationY": 11,
         "spawnAtStartOfRoundX": 1,
         "spawnAnotherEveryXRoundsAfterFirstSpawn": 0
       },
       {
         "creatureResRef": "orc",
-        "creatureTag": "orc_17412",
-        "creatureStartLocationX": 5,
-        "creatureStartLocationY": 14,
-        "spawnAtStartOfRoundX": 1,
-        "spawnAnotherEveryXRoundsAfterFirstSpawn": 0
-      },
-      {
-        "creatureResRef": "orc",
-        "creatureTag": "orc_17413",
-        "creatureStartLocationX": 3,
-        "creatureStartLocationY": 15,
-        "spawnAtStartOfRoundX": 1,
-        "spawnAnotherEveryXRoundsAfterFirstSpawn": 0
-      },
-      {
-        "creatureResRef": "orc",
-        "creatureTag": "orc_17414",
-        "creatureStartLocationX": 1,
-        "creatureStartLocationY": 15,
-        "spawnAtStartOfRoundX": 1,
-        "spawnAnotherEveryXRoundsAfterFirstSpawn": 0
-      },
-      {
-        "creatureResRef": "orc",
-        "creatureTag": "orc_17415",
-        "creatureStartLocationX": 1,
-        "creatureStartLocationY": 13,
-        "spawnAtStartOfRoundX": 1,
-        "spawnAnotherEveryXRoundsAfterFirstSpawn": 0
-      },
-      {
-        "creatureResRef": "basiliskref",
-        "creatureTag": "newTag_17303_17416",
-        "creatureStartLocationX": 13,
-        "creatureStartLocationY": 5,
-        "spawnAtStartOfRoundX": 1,
-        "spawnAnotherEveryXRoundsAfterFirstSpawn": 0
-      },
-      {
-        "creatureResRef": "highTrollRef",
-        "creatureTag": "newTag_17305_17417",
-        "creatureStartLocationX": 10,
-        "creatureStartLocationY": 6,
-        "spawnAtStartOfRoundX": 1,
-        "spawnAnotherEveryXRoundsAfterFirstSpawn": 0
-      },
-      {
-        "creatureResRef": "highTrollRef",
-        "creatureTag": "newTag_17305_17418",
-        "creatureStartLocationX": 13,
-        "creatureStartLocationY": 1,
+        "creatureTag": "orc_17429",
+        "creatureStartLocationX": 2,
+        "creatureStartLocationY": 8,
         "spawnAtStartOfRoundX": 1,
         "spawnAnotherEveryXRoundsAfterFirstSpawn": 0
       }
@@ -9015,89 +8967,6 @@
         "Event1Parm1": "none",
         "Event1Parm2": "none",
         "Event1Parm3": "none",
-        "Event1Parm4": "none",
-        "DoOnceOnlyEvent2": false,
-        "Event2RequiresTrueReturnCheck": false,
-        "EnabledEvent2": true,
-        "Event2Type": "none",
-        "Event2FilenameOrTag": "none",
-        "Event2TransPointX": 0,
-        "Event2TransPointY": 0,
-        "Event2Parm1": "none",
-        "Event2Parm2": "none",
-        "Event2Parm3": "none",
-        "Event2Parm4": "none",
-        "DoOnceOnlyEvent3": false,
-        "Event3RequiresFalseReturnCheck": false,
-        "EnabledEvent3": true,
-        "Event3Type": "none",
-        "Event3FilenameOrTag": "none",
-        "Event3TransPointX": 0,
-        "Event3TransPointY": 0,
-        "Event3Parm1": "none",
-        "Event3Parm2": "none",
-        "Event3Parm3": "none",
-        "Event3Parm4": "none"
-      },
-      {
-        "numberOfScriptCallsRemaining": 999,
-        "canBeTriggeredByPc": true,
-        "canBeTriggeredByCreature": true,
-        "isLinkToMaster": false,
-        "tagOfLinkedMaster": "none",
-        "tagOfLink": "none",
-        "transitionToMasterRotationCounter": 1,
-        "encounterTriggerOnEveryStep": true,
-        "TriggerTag": "newTrigger_17353",
-        "Enabled": true,
-        "conversationCannotBeAvoided": true,
-        "DoOnceOnly": false,
-        "RequiresActiveSearch": false,
-        "BumpTriggerDirection": "none",
-        "ConnectedDiscovery": false,
-        "TriggerSquaresList": [
-          {
-            "X": 2,
-            "Y": 9
-          },
-          {
-            "X": 2,
-            "Y": 10
-          },
-          {
-            "X": 2,
-            "Y": 11
-          },
-          {
-            "X": 2,
-            "Y": 12
-          },
-          {
-            "X": 3,
-            "Y": 12
-          },
-          {
-            "X": 3,
-            "Y": 13
-          },
-          {
-            "X": 4,
-            "Y": 13
-          },
-          {
-            "X": 5,
-            "Y": 13
-          }
-        ],
-        "DoOnceOnlyEvent1": false,
-        "EnabledEvent1": true,
-        "Event1Type": "script",
-        "Event1FilenameOrTag": "gaCastSpellEncounterTrigger.cs",
-        "Event1TransPointX": 0,
-        "Event1TransPointY": 0,
-        "Event1Parm1": "flameSquareSpell_14069",
-        "Event1Parm2": "false",
-        "Event1Parm3": "5",
         "Event1Parm4": "none",
         "DoOnceOnlyEvent2": false,
         "Event2RequiresTrueReturnCheck": false,
